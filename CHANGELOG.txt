@@ -1,5 +1,51 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+18.0.0-1:
+
+- Fix use previous node index to determine segment (pan handle issue)
+- Fix When preset is applied don't switch away from the details tab
+- Fix explicitly de-select way (degenerate way avoidance)
+- Fix verify that position in relation is unchanged
+- Fix protect against missing thumb_2048_url field in Mapillary response
+- Fix when matching relations prioritize items that have a type tag
+- Fix handle <error></error> and abort if unknown elements are present when parsing OSM XML
+- Fix use SHA-256 hash to generate unique and length bounded state file names
+- Fix avoid reading tile source list into memory during layer configuration
+- Fix avoid lazy loading presets by explicitly reading them
+- Fix don't redo whole layer config after retrieving (Bing) meta data
+- Fix avoid allocating BoundingBox objects during queries
+- Fix speed up checking if node is in download
+- Fix crash processing manually added keys without values
+- Fix hardwire addr:housenumber and addr:housename as important tags
+- Fix require that a Bing tile layer source entry has an api key placeholder
+- Fix improve detection drag detection when objects are very close
+- Fix use element type specific matching in relation editing mode
+- Fix handle one node ways when calculating the centroid
+- Fix protect against element not being found on restore
+- Add support split window mode for the PropertyEditor
+- Add bridge casing to *_link
+- Add facility for auto-saving editing state
+- Add refactor selection handling (selection stack)
+- Add turn the property editor in to a Fragment
+- Add move updating data from Main to PropertyEditor
+- Add use the floating button to exit rotation mode
+- Add support renaming key values in multi-select
+- Add addr:parenstreet to address tags
+- Add support geometry improvement handles on ways in multi-select
+- Add allow direct dragging of way nodes of a selected way
+- Add support a handle for changing the size of the panes
+- Add migrate to API 31 SplashScreen handling
+- Add bump target and compile SDK versions
+- Add bump min SDK to 16
+- Add Maproulette improvements
+- Add refactor CustomBugs to Todo facility
+- Add migrate to OSMOSE API 0.3 and related clean up
+- Update OpeningHoursFragment
+- Update translations
+- Update geocontext
+- Update imagery from ELI
+- Update preset
+
 17.1.1:
 
 - Fix handle more upload conflicts
