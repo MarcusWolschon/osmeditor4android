@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string name="addr_housenumber">Házszám (addr:housenumber)</string>
+  <string name="addr_conscriptionnumber">Helyrajzi szám (addr:conscriptionnumber)</string>
+  <string name="addr_street">Utca (addr:street)</string>
+  <string name="addr_postcode">Irányítószám (addr:postcode)</string>
+  <string name="addr_city">Település (addr:city)</string>
+  <string name="addr_country">Ország (addr:country)</string>
+  <string name="addr_full">Szöveges cím (addr:full)</string>
+  <string name="addr_place">Hely (addr:place)</string>
+  <string name="addr_block">Háztömb (addr:block)</string>
+  <string name="addr_block_number">Háztömbszám (addr:block_number)</string>
+  <string name="addr_parentstreet">További helymeghatározás (addr:parentstreet)</string>
+  <string name="addr_hamlet">Falucska (addr:hamlet)</string>
+  <string name="addr_suburb">Városrész (addr:suburb)</string>
+  <string name="addr_subdistrict">Aljárás (addr:subdistrict)</string>
+  <string name="addr_district">Járás (addr:district)</string>
+  <string name="addr_province">Tartomány (addr:province)</string>
+  <string name="addr_state">Állam (addr:state)</string>
+  <string name="addr_flats">Lakások (addr:flats)</string>
+  <string name="addr_door">Ajtó (addr:door)</string>
+  <string name="addr_unit">Lépcsőház, egység (addr:unit)</string>
+</resources>

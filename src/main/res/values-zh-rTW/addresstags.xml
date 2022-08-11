@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string name="addr_housenumber">門牌號碼 (addr:housenumber)</string>
+  <string name="addr_conscriptionnumber">兵籍號碼 (addr:conscriptionnumber)</string>
+  <string name="addr_street">道路 (addr:street)</string>
+  <string name="addr_postcode">郵遞區號 (addr:postcode)</string>
+  <string name="addr_city">城市/鎮/村落/... (addr:city)</string>
+  <string name="addr_country">國家 (addr:country)</string>
+  <string name="addr_full">完整地址 (addr:full)</string>
+  <string name="addr_place">地名 (addr:place)</string>
+  <string name="addr_block">街區 (addr:block)</string>
+  <string name="addr_block_number">街區號碼 (addr:block_number)</string>
+  <string name="addr_parentstreet">額外的地方資訊 (addr:parenstreet)</string>
+  <string name="addr_hamlet">聚落 (addr:hamlet)</string>
+  <string name="addr_suburb">效區 (addr:suburb)</string>
+  <string name="addr_subdistrict">次分區 (addr:subdistrict)</string>
+  <string name="addr_district">區 (addr:district)</string>
+  <string name="addr_province">省 (addr:province)</string>
+  <string name="addr_state">大區 (addr:state)</string>
+  <string name="addr_flats">套房 (addr:flats)</string>
+  <string name="addr_door">門號 (addr:door)</string>
+  <string name="addr_unit">戶號 (addr:unit)</string>
+</resources>

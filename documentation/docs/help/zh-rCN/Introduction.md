@@ -1,4 +1,4 @@
-_Before we start: most screens have links in the menu to the on-device help system giving you direct access to information relevant for the current context, you can easily navigate back to this text too. If you have a larger device, for example a tablet, you can open the help system in a separate split window.  All the help texts and more (FAQs, tutorials) can be found on the [Vespucci documentation site](https://vespucci.io/) too._
+前言：大多数画面的菜单都有指向本地帮助系统的链接，可以直接访问与当前操作相关的帮助页面，也可以很简单地从那些帮助页面跳转到这篇前言。 在大屏幕设备上，例如平板电脑，可以分屏打开帮助系统。 所有帮助文本和更多内容（常见问题解答、教程）也可以在 [Vespucci 文档站点](https://vespucci.io/)上找到。
 
 # Vespucci 介绍
 
@@ -23,9 +23,9 @@ Vespucci 是一个完整功能的 OpenStreetMap 编辑器，支持大部分桌�
 * **文件...** - saving and loading OSM data to/from on device files.
 * **注记/错误...** - 下载 OSM 注记(自动和手动) 和 来自质量管理工具的 "Bugs"  (目前使用 OSMOSE) *(需要网络连接)*
 
-The easiest way to download data to the device is to zoom and pan to the location you want to edit and then to select "Download current view". You can zoom by using gestures, the zoom buttons or the volume control buttons on the device.  Vespucci should then download data for the current view. No authentication is required for downloading data to your device.
+下载数据到设备，最简单方法是拉到要编辑的地方，然后选择“下载当前视图”。 缩放的话，可以使用两只手指、缩放按钮或音量键。 Vespucci 会下载当前看到这片区域的数据。 下载数据不需要身份验证。
 
-With the default settings any non-downloaded areas will be dimmed relative to the downloaded ones, this is to avoid inadvertently adding duplicate objects in areas that are not being displayed. The behaviour can be changed in the [Advanced preferences](Advanced%20preferences.md).
+在默认设置下，未下载的区域看起来会比已下载的区域更暗，这是为了避免无意中在未显示的区域中添加重复的物件。 可以在 [高级首选项](Advanced%20preferences.md)中调整是否变暗。
 
 ### 编辑
 
@@ -33,266 +33,266 @@ With the default settings any non-downloaded areas will be dimmed relative to th
 
 #### 锁定、解锁，模式切换
 
-To avoid accidental edits Vespucci starts in "locked" mode, a mode that only allows zooming and moving the map. Tap the ![Locked](../images/locked.png) icon to unlock the screen. 
+为避免手滑，Vespucci 启动的时候是“锁定”模式，该模式仅允许缩放和移动地图。 点击 ![Locked](../images/locked.png) 锁定图标解锁编辑。 
 
-A long press on the lock icon will display a menu currently offering 4 options:
+长按锁定图标会出现一个菜单，有 4 个选项：
 
-* **Normal** - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.
-* **Tag only** - selecting an existing object will start the Property Editor, a long press on the main screen will add objects, but no other geometry operations will work. White lock icon with a "T" is displayed.
-* **Address** - enables Address mode, a slightly simplified mode with specific actions available from the [Simple mode](../en/Simple%20actions.md) "+" button. White lock icon with an "A" is displayed.
-* **Indoor** - enables Indoor mode, see [Indoor mode](#indoor). White lock icon with an "I" is displayed.
-* **C-Mode** - enables C-Mode, only objects that have a warning flag set will be displayed, see [C-Mode](#c-mode). White lock icon with a "C" is displayed.
+* **正常** - 默认编辑模式，可以添加新物件，编辑、移动和删除现有物件。 这个模式会显示一个单纯的白色锁定图标。
+* **仅标签** - 点击现有物件将启动属性编辑器，在地图上长按将添加物件，但不能进行其他几何操作（例如调整建筑形状）。 这个模式会显示一个带有“T”（Tag 标签）的白色锁定图标。
+* **地址** - 启用地址模式，这是一种略微简化的模式，可通过[简单模式](../en/Simple%20actions.md)“+”按钮执行特定操作。这个模式会显示一个带有“A”（Address 地址）的白色锁定图标。
+* **室内** - 启用室内模式，请参阅[室内模式](#indoor)。这个模式会显示一个带有"I"（Indoor 室内）的白色锁定图标。
+* **C-模式** - 启用 C-模式，仅显示设置了警告标志的对象，请参阅[C模式](#c-mode)。这个模式会显示一个带有"C"（Caution 警告）的白色锁定图标。
 
 #### 单击，双击和长按
 
-By default, selectable nodes and ways have an orange area around them indicating roughly where you have to touch to select an object. You have three options:
+默认情况下，可选择的节点和路径周围有一个橙色区域，大致指示出一个范围，点击这个范围都可以选择到这个物件。三个选择：
 
-* Single tap: Selects object. 
-    * An isolated node/way is highlighted immediately. 
-    * However, if you try to select an object and Vespucci determines that the selection could mean multiple objects it will present a selection menu, enabling you to choose the object you wish to select. 
-    * Selected objects are highlighted in yellow. 
-    * For further information see [Node selected](Node%20selected.md), [Way selected](Way%20selected.md) and [Relation selected](Relation%20selected.md).
-* Double tap: Start [Multiselect mode](Multiselect.md)
-* Long press: Creates a "crosshair", enabling you to add nodes, see below and [Creating new objects](Creating%20new%20objects.md). This is only enabled if "Simple mode" is deactivated.
+* 单击：选择物件。
+    * 一个单独的节点或路径会高亮显示。
+    * 但是，如果你尝试选择一个物件，而这个范围里有多个物件，软件会显示一个菜单，你再从菜单里选择那个物件。
+    * 所选物件以黄色高亮显示。
+    * 选了之后，根据你选的东西，请参阅[已选择节点](Node%20selected.md)、[已选择路径](Way%20selected.md)以及[已选择关系](Relation%20selected.md)。
+* 双击：启动[多选模式](Multiselect.md)
+* 长按：创建一个“十字准线”，使您能够添加节点（见下文）和[创建新物件](Creating%20new%20objects.md)。这仅在“简单模式”被禁用时才可以用。
 
-It is a good strategy to zoom in if you attempt to edit a high density area.
+如果你要编辑的地方很密，放大地图来编辑，或者换大屏幕。
 
-Vespucci has a good "undo/redo" system so don't be afraid of experimenting on your device, however please do not upload and save pure test data.
+Vespucci 有撤销和重做的功能（类似电脑上的 Ctrl + Z 和 Ctrl + Y），编辑的时候尽管随便尝试，但不要把你练习的数据 po 上网。
 
-#### Selecting / De-selecting (single tap and "selection menu")
+#### 选择与取消选择（单击与“选择菜单”）
 
-Touch an object to select and highlight it. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else, simply touch the object in question, there is no need to de-select first. A double tap on an object will start [Multiselect mode](Multiselect.md).
+点了一个物件，它高亮显示了，这个时候是“选择”，再点一下物件以外的空白区域，那就是“取消选择”。 如果要多选物件，先点一个物件，然后双击这个物件，就能连续点后面的物件了。双击一个物件将启动[多选模式](Multiselect.md)。
 
-Note that if you try to select an object and Vespucci determines that the selection could mean multiple objects (such as a node on a way or other overlapping objects) it will present a selection menu: Tap the object you wish to select and the object is selected. 
+请注意，如果你尝试选择一个物件，而这个范围里有多个物件（例如路径上的一个节点或其他重叠对象），软件会显示一个菜单，你再从菜单里选择你要的那个物件。 
 
-Selected objects are indicated through a thin yellow border. The yellow border may be hard to spot, depending on map background and zoom factor. Once a selection has been made, you will see a notification confirming the selection.
+你选了一个物件，它周围会有细黄色边框。这个黄色边框不一定看得清，要看你的地图背景和放得够不够大。 选择了之后，会弹出一个通知，你要确认选择。
 
-Once the selection has completed you will see (either as buttons or as menu items) a list of supported operations for the selected object: For further information see [Node selected](Node%20selected.md), [Way selected](Way%20selected.md) and [Relation selected](Relation%20selected.md).
+选完了，会有一个这个物件可以用的操作列表（以按钮或菜单项的形式）：有关详细信息，请参阅[已选择节点](Node%20selected.md)、[已选择路径](Way%20selected.md)以及[已选择关系](Relation%20selected.md)。
 
 #### 选择对象：编辑标签
 
-A second touch on the selected object opens the tag editor and you can edit the tags associated with the object.
+选择了一个物件，再点它一次，会打开标签编辑器，可以编辑与该物件关联的标签。
 
-Note that for overlapping objects (such as a node on a way) the selection menu comes back up for a second time. Selecting the same object brings up the tag editor; selecting another object simply selects the other object.
+请注意，对于重叠的物件（例如路径上的节点），再点它一次，又会出现菜单，这个时候你要再选一次这个物件，才会打开标签编辑器。如果你在第二次出现菜单的时候，选择了另一个对象，那就变成是首次选中另一个对象，不会打开另一个对象的标签编辑器。
 
-#### 选择对象：移动节点或路径
+#### 选择物件：移动节点或路径
 
-Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the [preferences](Preferences.md), you get a large area around the selected node that makes it easier to position the object. 
+如果选择了一个物件，它就可以被移动。 请注意，物件只有在被选择时，才能移动。你不用很精准按住，只需在所选物件附近（以其为中心，一个圆形区域都是拖动区域）拖动屏幕，即可移动物件的位置。在[首选项](Preferences.md)中调大拖动区域，所选节点周围的可拖动区域就会变大，更容易定位物件。 
 
 #### 添加新节点或路径 
 
-On first start the app launches in "Simple mode", this can be changed in the main menu by un-checking the corresponding checkbox.
+首次以“简单模式”启动应用程序时，可以在主菜单取消选中相应的复选框进行更改。
 
 ##### 简单模式
 
-Tapping the large green floating button on the map screen will show a menu. After you've selected one of the items, you will be asked to tap the screen at the location where you want to create the object, pan and zoom continues to work if you need to adjust the map view. 
+按住地图画面上的绿色大浮动按钮，会弹出一个菜单。 选择其中一项后，再点一下地图上对应的位置即可创建物件。在点击之前，不会影响你调整地图视图、平移和缩放地图。 
 
-See [Creating new objects in simple actions mode](Creating%20new%20objects%20in%20simple%20actions%20mode.md) for more information.
+请参阅[在简单模式下创建新物件](Creating%20new%20objects%20in%20simple%20actions%20mode.md)了解更多信息。
 
-##### Advanced (long press) mode
+##### 高级（长按）模式
  
-Long press where you want the node to be or the way to start. You will see a black "crosshair" symbol. 
-* If you want to create a new node (not connected to an object), touch away from existing objects.
-* If you want to extend a way, touch within the "tolerance zone" of the way (or a node on the way). The tolerance zone is indicated by the areas around a node or way.
+长按你希望节点所在的位置或路径开始的位置。 屏幕上会出现一个黑色的“十字准线”符号，十字准线出现之后，手不要放开，可以拖到你要瞄准的地方。这个时候可以松开手。
+* 如果要创建新节点（不连接到物件），长按的时候远离现有物件，在空的地方按。
+* 如果要延长路径，请在路径的“容差区”内（或路径的节点）触摸，这个容差区显示在节点或路径周围。
 
-Once you can see the crosshair symbol, you have these options:
+看到十字准线符号后，有几个选项：
 
-* _Normal press in the same place._
-    * If the crosshair is not near a node, touching the same location again creates a new node. If you are near a way (but not near a node), the new node will be on the way (and connected to the way).
-    * If the crosshair is near a node (i.e. within the tolerance zone of the node), touching the same location just selects the node (and the tag editor opens. No new node is created. The action is the same as the selection above.
-* _Normal touch in another place._ Touching another location (outside of the tolerance zone of the crosshair) adds a way segment from the original position to the current position. If the crosshair was near a way or node, the new segment will be connected to that node or way.
+* _点一下十字准线瞄准的地方（大概就行，会有一个容差区），会有两种情况。_
+    * 1. 如果十字准线不在节点附近，会创建一个新节点。 如果在路径附近（但不在节点附近），则会给这个路径增加一个新节点。
+    * 2. 如果十字准线在节点附近（在节点的容差范围内），会打开这个节点的标签编辑器，不会创建新节点。
+* _点一下十字准线没有瞄准的地方。_ 在十字准线的容差区之外，会添加一条从瞄准的位置到你点的位置的路径。 如果十字准线靠近路径或节点，一个新片段会连接到路径或节点。
 
-Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the final node is located on a way or node, the segment will be connected to the way or node automatically. 
+你可以连续点屏幕，来一直添加路径的节点。添加完了，请双击最后一个节点。如果最后一个节点位于已有的路径或节点上，那就不用双击了，这个片段会自动连接到已有的路径或节点。 
 
-You can also use a menu item: See [Creating new objects](Creating%20new%20objects.md) for more information.
+你也可以使用菜单项目：请参阅[创建新物件](Creating%20new%20objects.md)了解更多信息。
 
 #### 添加区域
 
-OpenStreetMap currently doesn't have an "area" object type unlike other geo-data systems. The online editor "iD" tries to create an area abstraction from the underlying OSM elements which works well in some circumstances, in others not so. Vespucci currently doesn't try to do anything similar, so you need to know a bit about the way areas are represented:
+与其他地理数据系统不同，OpenStreetMap 目前没有“区域”这种物件类型。 网页编辑器“iD”它是从底层 OSM 元素中制造一个抽象的区域，这在某些情况下效果很好，在其他情况下则不然。 Vespucci 不打算这样子搞，所以你需要了解一下区域的表示方式：
 
-* _closed ways (*polygons")_: the simplest and most common area variant, are ways that have a shared first and last node forming a closed "ring" (for example most buildings are of this type). These are very easy to create in Vespucci, simply connect back to the first node when you are finished with drawing the area. Note: the interpretation of the closed way depends on its tagging: for example if a closed way is tagged as a building it will be considered an area, if it is tagged as a roundabout it wont. In some situations in which both interpretations may be valid, an "area" tag can clarify the intended use.
-* _multi-polygons_: some areas have multiple parts, holes and rings that can't be represented with just one way. OSM uses a specific type of relation (our general purpose object that can model relations between elements) to get around this, a multi-polygon. A multi-polygon can have multiple "outer" rings, and multiple "inner" rings. Each ring can either be a closed way as described above, or multiple individual ways that have common end nodes. While large multi-polygons are difficult to handle with any tool, small ones are not difficult to create in Vespucci. 
-* _coastlines_: for very large objects, continents and islands, even the multi-polygon model doesn't work in a satisfactory way. For natural=coastline ways we assume direction dependent semantics: the land is on the left side of the way, the water on the right side. A side effect of this is that, in general, you shouldn't reverse the direction of a way with coastline tagging. More information can be found on the [OSM wiki](http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline).
+* _闭合路径（多边形）_：这是最简单和最常见的区域变体，它是一个路径，但它第一个和最后一个节点是在一起的，形成一个封闭的“环”（大多数建筑物都是这种类型）。这样的闭环很容易在 Vespucci 中创建，画完之后，只需连接回第一个节点。注意：一个封闭路径它具体是什么，看的是它的标签：例如，如果这个闭合路径的标签是建筑物，那它是一个区域；如果它的标签是转圈圈的路口，那就不是区域了。在某些情况下，这两种例子会同时生效，可以用“area”（区域）标签来区分。
+* _多重多边形_：某些区域有多个部分、孔、环，它不是一条路径就能画出来的。OSM 用一种特别类型的关系（多个物件可以将它们关联起来，形成一个组）来解决这个问题，即多重多边形。多重多边形可以有多个“外”环和多个“内”环（想象一个奥运五环形状的建筑物），每个环都是一个单独的闭合路径，也可以是具有公共节点的多个单独的路径（蜘蛛一样）。复杂的多边形搞不定，但这个小小的手机软件还是能应付简单的多边形的。 
+* _海岸线_：对于非常大的物体、大陆和岛屿，即使是多重多边形也很难搞定。对于使用 natural=coastline（自然=海岸线）标签的路径，我们假设它是一条依赖方向的片段，意思就是，陆地在路径的左侧，水面在路径的右侧。如此，一个大岛屿的海岸线就能分成多个不是闭合的路径了，这些非闭合的路径，最终又能头尾相接起来，而稍作修改的时候，只需要处理眼前的一小段路径，不需要整个环形海岸线都下载下来。不过这样会有个问题，绝大多数情况，不要去把作为海岸线的路径反转，不要把陆地和水面换位置。与此有关的更多信息可以在[OpenStreetMap 的官方 wiki](http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline) 上找到。
 
-#### 改善道路的几何形状
+#### 改善路径的几何形状
 
-If you zoom in far enough on a selected way you will see a small "x" in the middle of the way segments that are long enough. Dragging the "x" will create a node in the way at that location. Note: to avoid accidentally creating nodes, the touch tolerance area for this operation is fairly small.
+选择一条路径之后，如果你放大得足够大，可以看到路径中间有个小叉。拖动那个小叉就能在小叉的位置增加一个节点。这样子就能很方便让一条路径的形状变得更加正确。注意了，为避免平时意外创建节点，那个小叉能点到的区域很小，你没那么容易按到。
 
 #### 剪切、复制和粘贴
 
-You can copy or cut selected nodes and ways, and then paste once or multiple times to a new location. Cutting will retain the osm id and version. To paste long press the location you want to paste to (you will see a cross hair marking the location). Then select "Paste" from the menu.
+你可以复制或剪切节点和路径，然后粘贴到不同位置位置。 剪切的操作上传之后会生成 OSM 的帐号以及对应的历史版本（不知道这句理解对不对）。长按屏幕，会出现十字准线，然后在菜单里选择“粘贴”。
 
 #### 高效地添加地址
 
-Vespucci supports functionality that makes surveying addresses more efficient by predicting house numbers (left and right sides of streets separately) and automatically adding _addr:street_ or _addr:place_ tags based on the last used value and proximity. In the best case this allows adding an address without any typing at all.   
+Vespucci 能高效地预测门牌号（街道左右两侧是单独的，不会联合预测），并根据上次使用的值以及它们有多近，自动添加 _addr:street_ 或者 _addr:place_ 的标签，通过这个功能可以提高测量地址的效率。在最好的情况下，不用打字就能添加地址。   
 
-Adding the tags can be triggered by pressing ![Address](../images/address.png): 
+长按![Address](../images/address.png)即可触发添加标签的功能： 
 
-* after a long press (in non-simple mode only): Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add an "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.
-* in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.
-* in the property editor.
+* 长按后（仅限非简单模式）：Vespucci 将在该位置添加一个节点，并对门牌号进行最佳猜测，并添加您最近使用的地址标签。 如果节点位于建筑物轮廓上，它将自动向节点添加“entrance=yes”（入口=是）标签。 标签编辑器会打开，可以进一步更改。
+* 在节点及路径选择模式下：Vespucci 会像上面一样添加地址标签并启动标签编辑器。
+* 在属性编辑器中。
 
-To add individual address nodes directly while in the default "Simple mode" switch to "Address" editing mode (long press on the lock button), "Add address node" will then add an address node at the location and if it is on a building outline add a entrance tag to it as described above.
+直接添加单个地址节点，可以从默认的“简单模式”切换到“地址”编辑模式（长按锁定按钮）。“添加地址节点”将在该位置添加一个地址节点。如上所述，如果它在建筑轮廓上，则会添加入口标签。
 
-House number prediction typically requires at least two house numbers on each side of the road to be entered to work, the more numbers present in the data the better.
+门牌号预测的功能，通常需要在道路的两个单侧各输入至少两个门牌号才能生效，能输入的门牌号越多则越好。这段的意思是，比如一条街，你站在街头（相对街尾），左手门牌 001，右手门牌 002，整条街 100 个门，左手全是单数，右手全是双数。没有要求你准确找到街头街尾的位置，但是你至少找到单数侧任意两个门牌的准确位置以及双数侧任意两个门牌的准确位置（同侧门牌越远越好）。比如说你找到 15 号和 65 号，软件就能自动等距补齐 001 到 015 的门牌号、015 至 065、065 至 099。但因为是等距，肯定是不准确的，如果之后你又能发现 085 的准确位置，那么 085 附近的就能更准确了。这个功能意义在于，你不用重复登记一百次门牌号，你只需要等差数列去登记，让自动补齐的门牌基本对应实际，你就可以收工了。
 
-Consider using this with one of the [Auto-download](#download) modes.  
+用这个功能的时候，你最好打开[自动下载](#download)模式。  
 
 #### 添加转向限制
 
-Vespucci has a fast way to add turn restrictions. if necessary it will split ways automatically and ask you to re-select elements. 
+Vespucci 有一种快速添加转弯限制的方法。如有必要，它会自动拆分路径，并要求你重新选择元素。转弯限制，就是某个路口不允许右转的这种情况。 
 
-* select a way with a highway tag (turn restrictions can only be added to highways, if you need to do this for other ways, please use the generic "create relation" mode)
-* select "Add restriction" from the menu
-* select the "via" node or way (only possible "via" elements will have the touch area shown)
-* select the "to" way (it is possible to double back and set the "to" element to the "from" element, Vespucci will assume that you are adding an no_u_turn restriction)
-* set the restriction type
+* 选择带有“highway”（高速公路）标签的路径（转弯限制只能添加到高速公路，如果你需要为其他路径添加限制，请使用一般的“创建关系”模式）
+* 从菜单中选择“添加限制”
+* 选择“via”（途径）标签节点或路径（只有可能的“via”（途径）元素才会显示触摸区域）
+* 选择“to”（到）标签路径（可能要返回两次，并将“to”（到）元素设置为“from”（从）元素，Vespucci 将假定你正在添加 no_u_turn（不允许调头）限制）
+* 设置限制类型
 
 ### Vespucci "锁定" 模式
 
-When the red lock is displayed all non-editing actions are available. Additionally a long press on or near to an object will display the detail information screen if it is an OSM object.
+当显示红色锁定标志时，不能编辑。 这时长按 OpenStreetMap 物件或周围，将显示其详细信息。
 
 ### 保存您的变更
 
-*(需要网络连接)*
+“（需要网络连接）”
 
-Select the same button or menu item you did for the download and now select "Upload data to OSM server".
+下载数据的时候点了哪些菜单，现在就怎么点，然后选择“将数据上传到 OSM 服务器”。
 
-Vespucci supports OAuth authorization and the classical username and password method. OAuth is preferable since it avoids sending passwords in the clear.
+Vespucci 支持 OAuth 授权和传统的用户名密码方式。建议使用 OAuth，因为传统的方式会明文发送密码。
 
-New Vespucci installs will have OAuth enabled by default. On your first attempt to upload modified data, a page from the OSM website loads. After you have logged on (over an encrypted connection) you will be asked to authorize Vespucci to edit using your account. If you want to or need to authorize the OAuth access to your account before editing there is a corresponding item in the "Tools" menu.
+新安装的 Vespucci 将默认启用 OAuth。 第一次尝试上传修改后的数据时，会加载 OSM 网站的页面。通过加密连接登录后，你将被要求授权 Vespucci 使用您的帐户进行编辑。如果要在编辑之前授权 OAuth 访问您的帐户，“工具”菜单中有相应的项目。
 
-If you want to save your work and do not have Internet access, you can save to a JOSM compatible .osm file and either upload later with Vespucci or with JOSM. 
+如果要保存作业，但这时不能上网，可以保存到 .osm 文件中，这种文件格式与 JOSM 兼容。有网之后，可以使用 Vespucci 或 JOSM 上传。 
 
 #### 上传时解决冲突
 
-Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on [conflict resolution](Conflict%20resolution.md).  
+Vespucci 有一个简单的冲突解决器。 但如果你怀疑你的编辑存在重大问题，请将你的更改导出到 .osc 文件（“传输”菜单里有个“导出”），并在电脑上使用 JOSM 修复，然后上传。 请参阅[冲突解决](Conflict%20resolution.md)的详细帮助。  
 
-## Using GPS and GPX tracks
+## 使用 GPS 与 GPX 轨迹
 
-With standard settings Vespucci will try to enable GPS (and other satellite based navigation systems) and will fallback to determining the position via so called "network location" if this is not possible. This behaviour assumes that you in normal use have your Android device itself configured to only use GPX generated locations (to avoid tracking), that is you have the euphemistically named "Improve Location Accuracy" option turned off. If you want to enable the option but want to avoid Vespucci falling back to "network location", you should turn the corresponding option in the [Advanced preferences](Advanced%20preferences.md) off. 
+在标准设置下，Vespucci 将尝试启用设备上的 GPS（以及其他基于卫星的导航系统）。如果不行，则会用基站位置来定位。 此行为假定您在正常使用中将您的 Android 设备本身配置为仅使用 GPX 生成的位置（以避免跟踪），即您已关闭委婉命名的“提高位置准确性”选项。 如果您想启用该选项但又想避免 Vespucci 回退到“网络位置”，您应该关闭[高级首选项](Advanced%20preferences.md)中的相应选项。（太长不看版：这段可以跳过不看的，第二句开始就谷歌翻译了，我完全没理解什么意思，又想关 GPS 避免政府跟踪，又想软件不要只用模糊定位？咋那么矫情呢？） 
 
-Touching the ![GPS](../images/menu_gps.png) button (on the left hand side of the map display) will center the screen on the current position and as you move the map display will be padded to maintain this.  Moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch GPS button or re-check the equivalent menu option. If the device doesn't have a current location the location marker/arrow will be displayed in black, if a current location is available the marker will be blue.
+点击地图左侧的 GPS ![GPS](../images/menu_gps.png)按钮，地图会缩放到你当前地理位置并居中，你移动的时候，地图会持续跟随你的地理位置。 划动地图或进行编辑操作会退出“跟随 GPS”模式。此时，蓝色 GPS 箭头将从描边箭头变为实心箭头。 要快速返回“跟随”模式，那就再按一次那个按钮，或重新检查相应的菜单选项。如果设备失去定位，则位置标记/箭头将显示为黑色，如果当前位置可用，则标记将显示为蓝色。（太长不看版：跟大多数手机地图一样，点一下定位，地图就能跟着你，动了地图，就不跟了；有定位的时候箭头蓝色，GPS 信号弱的时候箭头黑色）
 
-To record a GPX track and display it on your device select "Start GPX track" item in the ![GPS](../images/menu_gps.png) menu. This will add layer to the display with the current recorded track, you can upload and export the track from the entry in the [layer control](Main%20map%20display.md). Further layers can be added from local GPX files and tracks downloaded from the OSM API.
+要记录 GPX 轨迹，并将其显示在您的设备上，请选择 ![GPS](../images/menu_gps.png) 菜单中的“开始 GPX 轨迹”项。 当前已记录的轨迹会作为一个图层显示出来，你可以从[图层控制]（Main％20map％20display.md）中上传和导出轨迹。 可以将本地 GPX 文件以及从 OSM API 下载的轨迹添加为图层。
 
-Note: by default Vespucci will not record elevation data with your GPX track, this is due to some Android specific issues. To enable elevation recording, either install a gravitational model, or, simpler, go to the [Advanced preferences](Advanced%20preferences.md) and configure NMEA input.
+注意：默认情况下，Vespucci 不会把高程数据记录进 GPX 轨迹，这是由于某些 Android 特定问题造成的。要启用高程记录，请安装重力模型，或者更简单地，转到 [高级首选项](Advanced%20preferences.md) 并配置 NMEA 输入。（感觉像甩锅，隔壁 OpenCamera 都能在录像中持续记录海拔高度，虽然安卓手机的 GPS　海拔高度误差大得几乎不可用就是了）
 
 ## 注记和错误
 
-Vespucci supports downloading, commenting and closing of OSM Notes (formerly OSM Bugs) and the equivalent functionality for "Bugs" produced by the [OSMOSE quality assurance tool](http://osmose.openstreetmap.fr/en/map/). Both have to either be down loaded explicitly or you can use the auto download facility to access the items in your immediate area. Once edited or closed, you can either upload the bug or Note immediately or upload all at once.
+Vespucci 支持下载、评论和关闭 OSM 注释（以前称为 OSM bugs）以及由 [OSMOSE 质量保证工具](http://osmose.openstreetmap.fr/en/map/) 生成的“错误”。这两样都能完整下载，或者你可以使用自动下载工具访问你附近区域中的项目。编辑或关闭后，你可以立即上传错误或注释，也可以一次上传所有内容。
 
-On the map the Notes and bugs are represented by a small bug icon ![Bug](../images/bug_open.png), green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. 
+在地图上，注释和错误由一个小虫图标 ![Bug](../images/bug_open.png) 表示，绿色是已关闭/已解决，蓝色是已由你创建或编辑过，黄色是其仍然处于有效状态并且尚未更改。 
 
-The OSMOSE bug display will provide a link to the affected object in blue, touching the link will select the object, center the screen on it and down load the area beforehand if necessary. 
+OSMOSE 错误将以蓝色链接显示受影响的对象，点击这些链接将选择对象，将画面居中过去。必要时要预先下载附近区域。 
 
 ### 筛选
 
-Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. The filter configuration can be accessed from the task layer entry in the [layer control](#layers):
+除了全局启用注释和错误显示之外，你还可以设置过滤的程度以减少混乱。过滤器配置可以从任务图层的[图层控制](#layers)里面去配置：
 
-* Notes
-* Osmose error
-* Osmose warning
-* Osmose minor issue
-* Maproulette
-* Custom
+* 说明
+* Osmose 错误
+* Osmose 警告
+* Osmose 小问题
+* Maproulette（一个将编辑 OSM 地图作为任务的网站）
+* 自定义
 
 <a id="indoor"></a>
 
 ## 室内模式
 
-Mapping indoors is challenging due to the high number of objects that very often will overlay each other. Vespucci has a dedicated indoor mode that allows you to filter out all objects that are not on the same level and which will automatically add the current level to new objects created there.
+在室内画地图很难，因为经常会有很多物件重叠。Vespucci 有一个专用的室内模式，可以过滤出只在同一级别的物件，并自动把当前楼层添加到新创建的物件属性里。
 
-The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mode switching](#lock) and selecting the corresponding menu entry.
+该模式可以通过长按锁定按钮来启用，参见[锁定、解锁、模式切换](#lock)并选择相应的菜单项。
 
 <a id="c-mode"></a>
 
 ## C 模式
 
-In C-Mode only objects are displayed that have a warning flag set, this makes it easy to spot objects that have specific problems or match configurable checks. If an object is selected and the Property Editor started in C-Mode the best matching preset will automatically be applied.
+在 C 模式下，仅显示设置了警告标志的物件，很容易发现具有特定问题或匹配可配置检查的物件。 如果选择了一个物件，并且在 C 模式下启动了属性编辑器，则将自动应用最佳匹配预设。
 
-The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mode switching](#lock) and selecting the corresponding menu entry.
+该模式可以通过长按锁定按钮来启用，参见[锁定、解锁、模式切换](#lock)并选择相应的菜单项。
 
 ### 设置检查
 
-Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the [preferences](Preferences.md). 
+目前有两个可配置的检查（分别是检查 FIXME 标签，以及测试当前关系上缺少类型标签，不过目前不可配置）都可以通过在 [首选项](Preferences.md) 中选择“验证器设置”来配置。 
 
-The list of entries is split in to two, the top half lists "re-survey" entries, the bottom half "check entries". Entries can be edited by clicking them, the green menu button allows adding of entries.
+条目列表分为两部分，上半部分列出“重新调查”条目，下半部分列出“检查条目”。 条目可以通过单击来编辑，绿色菜单按钮允许添加条目。
 
 #### 重新调查条目
 
 重新调查含有以下属性的条目：
 
-* **Key** - Key of the tag of interest.
-* **Value** - Value the tag of interest should have, if empty the tag value will be ignored.
-* **Age** - how many days after the element was last changed the element should be re-surveyed, if a _check_date_ tag is present that will be the used, otherwise the date the current version was create. Setting the value to zero will lead to the check simply matching against key and value.
-* **Regular expression** - if checked **Value** is assumed to be a JAVA regular expression.
+* **Key（关键字）** - 感兴趣的标签的关键字。
+* **Value（值）** - 感兴趣的标签应该有的值，如果为空，标签值将被忽略。
+* **Age（年龄）** - 元素最后一次更改后过了多少天，如果存在将使用的 _check_date_ 标签，则应重新调查元素，否则创建当前版本的日期。 将值设置为零将导致检查仅匹配关键字和值。
+* **正则表达式** - 如果选中 **Value**　则假定为 JAVA 正则表达式。
 
-**Key** and **Value** are checked against the _existing_ tags of the object in question.
+**Key** 和 **Value** 会根据相关对象的 _existing_ 标签进行检查。
 
-The _Annotations_ group in the standard presets contain an item that will automatically add a _check_date_ tag with the current date.
+标准预设中的 _Annotations_ 组里面包含了一个项目，这个项目可以自动添加带有当前日期的 _check_date_ 的标签。
 
 #### 检查条目
 
-Check entries have the following two properties:
+检查条目具有以下两个属性：
 
-* **Key** - Key that should be present on the object according to the matching preset.
-* **Require optional** - Require the key even if the key is in the optional tags of the matching preset.
+* **关键字** - 根据已匹配上的预设，关键字应该存在于物件上。
+* **必选项** - 即使关键字在已匹配上预设的可选标签中，也需要关键字。
 
-This check works by first determining the matching preset and then checking if **Key** is a "recommended" key for this object according to the preset, **Require optional** will expand the check to tags that are "optional* on the object. Note: currently linked presets are not checked.
+此检查首先确定已匹配上的预设，然后根据预设检查 **关键字** 是否是此物件的“推荐”关键字，**必选项** 将检查扩展到物件的*选项*。注意：当前链接的预设未检查。
 
 ## 筛选
 
 ### 基于标签的过滤器
 
-The filter can be enabled from the main menu, it can then be changed by tapping the filter icon. More documentation can be found here [Tag filter](Tag%20filter.md).
+过滤器可以从主菜单启用，然后点击过滤器图标修改过滤的配置。更多文档可以在这里找到[标签过滤器](Tag%20filter.md)。
 
 ### 基于预设的过滤器
 
-An alternative to the above, objects are filtered either on individual presets or on preset groups. Tapping on the filter icon will display a preset selection dialog similar to that used elsewhere in Vespucci. Individual presets can be selected by a normal click, preset groups by a long click (normal click enters the group). More documentation can be found here [Preset filter](Preset%20filter.md).
+上述的替代方法，是根据单个预设或预设组来过滤物件。点击过滤器图标将显示一个预设选择对话框，类似于 Vespucci 其他地方使用的对话框。单个预设可以通过正常单击选择，预设组要长按才能选择（单击则是进入组）。 更多文档可以在这里找到[预设过滤器](Preset%20filter.md)。
 
 ## 自定义 Vespucci
 
-Many aspects of the app can be customized, if you are looking for something specific and can't find it, [the Vespucci website](https://vespucci.io/) is searchable and contains additional information over what is available on device.
+可以自定义应用程序的许多方面，如果您正在寻找特定的东西但找不到它，可以在[Vespucci 网站](https://vespucci.io/) 搜索，网站上还包含有关设备上可用内容的附加信息。
 
 <a id="layers"></a>
 
 ### 图层设置
 
-Layer settings can be changed via the layer control ("hamburger" menu in the upper right corner), all other setting are reachable via the main menu preferences button. Layers can be enabled, disabled and temporarily hidden.
+图层设置可以通过图层控件（右上角的“汉堡”菜单）进行更改，所有其他设置都可以通过主菜单首选项按钮进行访问。 图层可以启用、禁用和暂时隐藏。
 
 可用的图层类型：
 
-* Data layer - this is the layer OpenStreetMap data is loaded in to. In normal use you do not need to change anything here. Default: on.
-* Background layer - there is a wide range of aerial and satellite background imagery available. The default value for this is the "standard style" map from openstreetmap.org.
-* Overlay layer - these are semi-transparent layers with additional information, for example GPX tracks. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
-* Notes/Bugs display - Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.
-* Photo layer - Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
-* Mapillary layer - Displays Mapillary segments with markers where images exist, clicking on a marker will display the image. Default: off.
-* GeoJSON layer - Displays the contents of a GeoJSON file. Default: off.
-* Grid - Displays a scale along the sides of the map or a grid. Default: on. 
+* 数据层 - 这是加载 OpenStreetMap 数据的图层。在正常使用中，您无需在此处更改任何内容。默认值：开。
+* 背景层 - 有大量可用的航空和卫星背景图像。它的默认值是来自 openstreetmap.org 的“标准样式”地图。
+* 覆盖层 - 这些是带有附加信息的半透明图层，例如 GPX 轨道。添加覆盖层可能会导致旧设备爆内存。默认值：无。
+* 笔记/错误显示 - 打开的笔记和错误将显示为黄色错误图标，关闭的为绿色。默认值：开。
+* 照片层 - 将地理参考照片显示为红色相机图标，如​​果方向信息可用，图标将被旋转。默认值：关闭。
+* Mapillary 层 - 在图像存在的地方显示带有标记的 Mapillary 片段，单击标记将显示图像。默认值：关闭。
+* GeoJSON 层 - 显示 GeoJSON 文件的内容。默认值：关闭。
+* 网格 - 在地图或网格的侧面显示比例尺。默认值：开。 
 
-More information can be found in the section on the [map display](Main%20map%20display.md).
+更多信息可以在[地图显示](Main%20map%20display.md)部分找到。
 
 #### 首选项
 
-* Keep screen on. Default: off.
-* Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-center dragging (selection and other operations still use the normal touch tolerance area). Default: off.
+* 保持屏幕开启。 默认值：关闭。
+* 大一点的节点拖动区域。 在具有触摸输入的设备上移动节点是有问题的，因为您的手指会遮挡显示屏上的当前位置。 开启此项将提供一个大区域，可用于偏心拖动（选择和其他操作仍使用正常的触摸容差区域）。默认值：关闭。
 
-The full description can be found here [Preferences](Preferences.md)
+完整的描述可以在这里找到[首选项](Preferences.md)。
 
 #### 高级首选项
 
-* Node icons. Default: on.
-* Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).
-* Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent. 
+* 节点图标。默认值：开。
+* 始终显示上下文菜单。开启时，每一个选择过程都会显示上下文菜单；关闭时，只有当没有明确的选择可以确定时才会显示菜单。默认值：关闭（以前是打开的）。
+* 启用浅色主题。在现代设备上，默认情况下这是打开的。虽然您可以为较旧的 Android 版本启用它，但样式可能会不一致。 
 
-The full description can be found here [Advanced preferences](Advanced%20preferences.md)
+完整的描述可以在这里找到[高级首选项](Advanced%20preferences.md)。
 
 ## 报告问题
 
-If Vespucci crashes, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: [Vespucci issue tracker](https://github.com/MarcusWolschon/osmeditor4android/issues). The "Provide feedback" function from the main menu will open a new issue and include the relevant app and device information without extra typing.
+如果 Vespucci 出现崩溃，或者它检测到不一致的状态，您将被要求发送崩溃转储文件。如果发生这种情况，请按下面说的来做，每种情况只做一次就行。如果你想为功能请求或类似内容提供进一步的打字说话或开启一个 Github 的 issue，请在此处进行：[Vespucci 问题跟踪器]（https://github.com/MarcusWolschon/osmeditor4android/issues）。主菜单中的“提供反馈”功能将开启一个 Github 的 issue ，并包含相关的应用程序和设备信息，而无需额外输入。
 
-If you want to discuss something related to Vespucci, you can either start a discussion on the [Vespucci Google group](https://groups.google.com/forum/#!forum/osmeditor4android) or on the [OpenStreetMap Android forum](http://forum.openstreetmap.org/viewforum.php?id=56)
+如果您想讨论与 Vespucci 相关的内容，您可以在 [Vespucci Google 群组](https://groups.google.com/forum/#!forum/osmeditor4android) 或 [OpenStreetMap Android 论坛](http://forum.openstreetmap.org/viewforum.php?id=56)上发起讨论。
 
 

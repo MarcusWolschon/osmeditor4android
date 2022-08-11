@@ -70,4 +70,10 @@
         <item>格式错误的 URL</item>
         <item>无效的参数</item>
     </string-array>
- </resources>
+    <!-- automatic name tag capitalization -->
+    <string-array translatable="true" name="name_cap_entries">
+        <item>没有大写字母</item>
+        <item>词语大写</item>
+        <item>句子大写</item>
+    </string-array>
+    </resources>

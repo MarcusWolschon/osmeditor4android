@@ -85,9 +85,11 @@
   <string name="upload_validation_error_empty_comment">Kommentar bör inte vara tom</string>
   <string name="upload_validation_error_empty_source">Källa bör inte vara tom</string>
   <!--Upload GPX-->
+  <string name="upload_gpx_title">Ladda upp GPX-spår</string>
   <string name="upload_gpx_description_label">Beskrivning</string>
   <string name="upload_gpx_tags_label">Etiketter</string>
   <string name="upload_gpx_visibility_label">Synlighet</string>
+  <string name="upload_validation_error_empty_description">Tom beskrivning</string>
   <!--task fragment-->
   <string name="openstreetbug_new_title">Ny anteckning</string>
   <string name="openstreetbug_new_bug">Rapportera problem</string>
@@ -248,6 +250,7 @@
   <string name="layer_style_color">Färg</string>
   <string name="layer_style_label">Etikett</string>
   <string name="layer_style_symbol">Symbol</string>
+  <string name="gpx_automatic">Automatisk</string>
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
   <string name="layer_mapillary">Mapillary</string>
@@ -308,8 +311,6 @@
   <string name="boxpicker_firsttimetitle">Ladda ner OpenStreetMap data</string>
   <!--Clear/Reset GPX Track-->
   <!--Tips-->
-  <string name="tip_pan_and_zoom_auto_download">Panorera och zooma med automatisk nedladdning bör användas med försiktighet eftersom det potentiellt kan belasta båda OpenStreetMaps API och din enhet. 
-Belastningen på API-servrar kan undvikas genom att använda en offline datakälla.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -399,6 +400,7 @@ Belastningen på API-servrar kan undvikas genom att använda en offline datakäl
   <string name="prune">Beskär</string>
   <string name="check">Kontrollera</string>
   <string name="download">Hämta</string>
+  <string name="select">Markera</string>
   <!--Read a file-->
   <string name="read">Läs</string>
   <string name="overwrite">Skriva över</string>
@@ -697,6 +699,7 @@ Belastningen på API-servrar kan undvikas genom att använda en offline datakäl
   <string name="config_maxStrokeWidth_summary">Rita inte en väg tjockare än detta.</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>
   <string name="config_upload_current">%1$d objekt</string>
+  <string name="config_uploadChecker_current">%1$d timmar</string>
   <string name="config_beepVolume_current">%1$d</string>
   <string name="config_mapillary_min_zoom_current">%1$d</string>
   <!--Data and Editing Settings-->
@@ -888,4 +891,7 @@ Belastningen på API-servrar kan undvikas genom att använda en offline datakäl
   <string name="bookmarks_desc">Lägg till kommentarer</string>
   <string name="gotobookmark">Gå</string>
   <!--Element types-->
+  <string name="element_type_way">väg</string>
+  <string name="element_type_area">område</string>
+  <string name="element_type_relation">relation</string>
 </resources>

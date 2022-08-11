@@ -6,14 +6,15 @@
   <string name="mode_indoor">室内</string>
   <string name="mode_correct">C 模式</string>
   <string name="mode_address">地址</string>
+  <string name="mode_voice">语音</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">小心！</string>
-  <string name="transfer_download_current_dialog_message">您作出了修改。您是否想上传而不是丢弃它们？ </string>
+  <string name="transfer_download_current_dialog_message">你作了修改。要不要上传？不要的话就没了。 </string>
   <string name="transfer_download_current_upload">上传</string>
   <string name="transfer_download_current_download">放弃&amp;下载</string>
-  <string name="transfer_download_current_back">返回 (不要做任何事情) </string>
+  <string name="transfer_download_current_back">返回（不会改变任何东西）</string>
   <string name="upload_problem_title">无法上传</string>
-  <string name="upload_problem_message">有部分或全部的数据未被上传，请之后再尝试上传。</string>
+  <string name="upload_problem_message">有数据未上传，请重试。</string>
   <string name="bad_request_message">API 响应错误，请检查你的数据并上报问题：\n\n</string>
   <string name="upload_conflict_title">上传冲突</string>
   <string name="upload_conflict_message_version">%1$s \n拥有的本地版本 %2$d \n和在服务器上的 %3$d</string>
@@ -101,9 +102,11 @@
   <string name="upload_validation_error_empty_comment">注释不应留空</string>
   <string name="upload_validation_error_empty_source">来源不应留空</string>
   <!--Upload GPX-->
+  <string name="upload_gpx_title">上传 GPX 轨迹</string>
   <string name="upload_gpx_description_label">说明</string>
   <string name="upload_gpx_tags_label">标签</string>
   <string name="upload_gpx_visibility_label">能见度</string>
+  <string name="upload_validation_error_empty_description">空白的描述</string>
   <!--task fragment-->
   <string name="openstreetbug_new_title">新注记</string>
   <string name="openstreetbug_new_bug">反馈问题</string>
@@ -112,6 +115,8 @@
   <string name="openstreetbug_edit_title">编辑笔记</string>
   <string name="openstreetbug_comment_label">评论：</string>
   <string name="openstreetbug_commit_ok">任务变动已保存</string>
+  <string name="openstreetbug_commit_fail">无法保存任务变动</string>
+  <string name="openstreetbug_commit_fail_with_message">无法保存任务变动\n%1$s</string>
   <string name="openstreetbug_unknown_task_type">未知任务类型</string>
   <string name="openstreetbug_not_supported">%1$s 不支持。</string>
   <string name="note_description">备注： %1$s - %2$s</string>
@@ -190,6 +195,8 @@
   <string name="edit_properties">编辑标签</string>
   <!--GeoJSON feature display dialog-->
   <string name="feature_information">GeoJSON 特征信息</string>
+  <string name="vt_feature_information">矢量瓦片特征信息</string>
+  <string name="vt_layer">矢量瓦片图层</string>
   <string name="copy_properties">复制属性</string>
   <string name="create_osm_element">创建 OSM 要素</string>
   <!--API/Data layer info dialog-->
@@ -233,6 +240,8 @@
   <string name="odd">奇数</string>
   <string name="other">其它</string>
   <!--Safe split dialog-->
+  <string name="split_safe_title">丢失关系成员</string>
+  <string name="split_safe_message">邻近的关系成员没有下载下来。要维护关系成员的顺序，也许要依赖邻近的关系成员。</string>
   <!---->
   <string name="error">错误</string>
   <string name="warning">警告</string>
@@ -261,7 +270,10 @@
   <string name="check_entries">检查</string>
   <string name="edit_check_title">编辑检查条目</string>
   <string name="add_check_title">添加检查条目</string>
+  <string name="max_age">最大年龄</string>
+  <string name="age">年龄</string>
   <string name="check_opt">必须\n可选</string>
+  <string name="check_optional">必选项</string>
   <string name="add_resurvey_entry">添加重新调查条目</string>
   <string name="add_check_entry">添加检查条目</string>
   <!--Empty relation dialog-->
@@ -303,13 +315,19 @@
   <string name="layer_style_color">颜色</string>
   <string name="layer_style_layer">子图层</string>
   <string name="layer_style_label">标签</string>
+  <string name="layer_style_symbol">样本</string>
   <string name="json_object_not_displayed">JSON 对象（不显示）</string>
   <string name="json_array_not_displayed">JSON 数组（不显示）</string>
+  <string name="gpx_automatic">自动挡</string>
+  <string name="gpx_name">GPX 文件名称</string>
+  <string name="gpx_description">GPX 文件描述</string>
+  <string name="gpx_type">GPX 文件类型</string>
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
   <string name="layer_mapillary">Mapillary</string>
   <string name="layer_grid">网格</string>
   <string name="layer_gpx">GPX</string>
+  <string name="layer_gpx_recording">记录成 GPX 文件格式</string>
   <string name="layer_photos">照片</string>
   <string name="layer_tasks">任务</string>
   <string name="layer_data">OSM 数据</string>
@@ -328,6 +346,18 @@
   <string name="layer_category_osmbasedmap">基于 OSM 的地图</string>
   <string name="layer_category_qa">QA</string>
   <string name="layer_category_other">其它</string>
+  <string name="layer_add_layer_from_mvt_style">从 MVT 样式添加图层</string>
+  <string name="layer_add_custom_imagery">添加自定义影像</string>
+  <string name="layer_edit_custom_imagery_configuration">编辑自定义影像配置</string>
+  <string name="layer_add_gpx">从 GPX 文件添加图层</string>
+  <string name="layer_download_track">下载 GPX 轨迹</string>
+  <string name="layer_available_tracks">可用的 GPX 轨迹</string>
+  <string name="layer_start_playback">开始播放</string>
+  <string name="layer_pause_playback">暂停播放</string>
+  <string name="layer_stop_playback">停止播放</string>
+  <string name="layer_toast_playback_finished">播放完成</string>
+  <string name="layer_toast_playback_paused">播放已暂停</string>
+  <string name="layer_toast_playback_resumed">播放已继续</string>
   <!--Layer info dialog-->
   <string name="layer_info_min_zoom">最小缩放</string>
   <string name="layer_info_max_zoom">最大缩放</string>
@@ -351,6 +381,8 @@
   <string name="api_info_attribution">属性</string>
   <string name="api_info_mapsplit_source">MapSplit 只读来源</string>
   <!--Tag conflict dialog-->
+  <string name="tag_conflict_title">属性已改变</string>
+  <string name="tag_conflict_message">这个操作需要修改涉及的要素的属性。</string>
   <!--Relation selection dialog-->
   <string name="no_suitable_relations_message">下载的数据中没有合适的关系</string>
   <string name="select_route_title">选择路线</string>
@@ -392,6 +424,8 @@
   <string name="tip_gpx_recording">当开始 GPX 轨迹记录时，Vespucci 会在后台收集位置信息来记录 GPX。&lt;p&gt;在这种情况下，彻底关闭应用或关闭 GPX 记录将停止使用位置数据。</string>
   <string name="tip_auto_download">当开始自动下载 OSM 数据或任务时，Vespucci 会在后台收集位置信息以确定当前位置。&lt;p&gt;在这种情况下，彻底关闭应用或关闭自动下载功能将停止使用位置数据。</string>
   <string name="tip_tristate_checkbox">您刚刚点击了一个三态复选框，它们和普通复选框类似，点击可以在两个值之间切换，例如 是/否。&lt;p&gt;不过它们有第三个附加的&lt;b&gt;未设定&lt;/b&gt;状态，由灰色框表示，该复选框将阻止添加相应的标记。长按可将复选框设定为这种状态。</string>
+  <string name="tip_alternative_tagging">你刚刚应用了一个预设方案，这个预设方案链接到备选标签方案。这是另一种对物件写标签的方法，这种方法可能更合适，或者说可能关联起来更简单。这些备选的预设方案将显示在“最近使用的预设方案显示”的前面。</string>
+  <string name="tip_mode_switching">锁定按钮也是模式切换按钮，长按锁定按钮会显示出菜单。&lt;p&gt;你可以在帮助系统中找到有关 Vespucci 的模式的更多信息，帮助系统里还有软件介绍和主地图显示的帮助。</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -402,14 +436,20 @@
   <string name="qa_channel_name">Vespucci QA</string>
   <string name="qa_channel_description">数据问题和任务的 QA 警告频道</string>
   <!--Notifications-->
+  <string name="upload_checker_title">记得上传你的作业</string>
+  <plurals name="upload_checker_message">
+    <item quantity="other">你有 %1$d 条未发布的修改。</item>
+  </plurals>
   <!--Toaster-->
   <string name="toast_permission_denied">没有权限 %1$s</string>
   <string name="toast_unable_to_persist_permissions">无法保留权限</string>
   <string name="toast_name_empty">选择名称</string>
   <string name="toast_url_empty">输入 URL</string>
   <string name="toast_min_zoom">设定比最大缩放等级小的最小缩放等级</string>
+  <string name="toast_tile_layer_exists">瓦片 %1$s 有相同的链接</string>
   <string name="toast_no_changes">您还没有更改什么…</string>
   <string name="toast_jpeg_not_transparent">JPEG 文件不透明，无法叠加</string>
+  <string name="toast_unsupported_projection">不支持 %1$s 投影坐标\n\n只支持 EPSG:3857、EPSG:4326 以及其他类似的坐标。</string>
   <string name="toast_unsaved_changes">先上传您未保存的变更。</string>
   <string name="clear_anyway">仍然清除？</string>
   <string name="toast_upload_success">已上传到 OSM 服务器。</string>
@@ -419,6 +459,9 @@
   <string name="toast_save_failed">无法保存</string>
   <string name="toast_export_failed">无法导出</string>
   <string name="toast_export_success">已导出到 %1$s</string>
+  <plurals name="toast_preset_removed_or_replaced_tags">
+    <item quantity="other">已覆写或移除 %1$d 条标签</item>
+  </plurals>
   <string name="toast_merge_overwrote_tags">注意 - 操作将覆盖标签</string>
   <string name="toast_cant_autoapply_preset">这个预设不能自动应用</string>
   <string name="toast_oneway_reversed">您已反转单行道或有依赖方向的标签的路径。请检查标签并按需修正。</string>
@@ -431,17 +474,23 @@
   <string name="read_mail">读取</string>
   <string name="toast_photo_indexing_started">开始扫描地理参考图片</string>
   <string name="toast_photo_indexing_finished">扫描地理参考图片完成</string>
+  <string name="toast_photo_failed">拍照失败。请检查相机应用程序是否有启用记录地理坐标。</string>
   <string name="toast_download_failed">下载失败，错误代码是%1$d，信息为%2$s</string>
+  <string name="toast_note_reopened">笔记已重新开放</string>
   <!--Validation-->
   <string name="toast_unsurveyed_road">未调查的道路</string>
   <string name="toast_noname">道路缺少名称或编号</string>
   <string name="toast_notype">关系缺少类型</string>
+  <string name="toast_missing_role">关系成员未指定所需的角色值</string>
+  <string name="toast_relation_loop">关系成员的引用形成一个循环</string>
   <string name="toast_untagged_element">未标记的要素</string>
   <string name="toast_unconnected_end_node">节点靠近它可以连接到的要素</string>
   <string name="toast_degenerate_way">退化的路径</string>
+  <string name="toast_wrong_element_type">非标准元件类型：%1$s</string>
   <!---->
   <string name="toast_oauth_retry">在允许 OAuth 访问您的 OSM 帐户后再次尝试上传。</string>
   <string name="toast_oauth">请允许 OAuth 访问您的 OSM 账号。</string>
+  <string name="toast_no_oauth">API“%1$s”的 OAuth 配置用不了，请先设置好登录的帐号和密码。</string>
   <string name="toast_oauth_not_enabled">当前 API 未启用 OAuth。</string>
   <string name="toast_oauth_timeout">握手验证超时，请重试。</string>
   <string name="toast_oauth_communication">握手验证时通信错误，请重试。</string>
@@ -559,6 +608,14 @@
   <string name="toast_error_loading_style">无法加载样式：%1$s</string>
   <string name="toast_only_one_source_supported">每个样式只支持一个源</string>
   <string name="toast_imagery_offset_download_failed">偏移下载失败：%1$s</string>
+  <string name="toast_download_server_version_failed">因为 %1$s，从服务器下载的版本失败了。</string>
+  <string name="toast_error_element_too_large">对属性编辑器，元件太大。</string>
+  <string name="toast_no_intersection_found">未找到交叉点</string>
+  <string name="toast_api_key_missing">因为 %1$s，没有找到 API key。</string>
+  <string name="toast_no_track_points">未找到轨迹点</string>
+  <string name="toast_no_way_points">未找到路径点</string>
+  <string name="toast_url_check">%1$s %2$d（本行548）</string>
+  <string name="toast_url_check_with_msg">%1$s %2$d %3$s（本行549）</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">MapSplit 源必须有最小和最大缩放设置</string>
   <string name="error_pbf_no_version">PBF 文件缺少版本信息</string>
@@ -588,6 +645,11 @@
   <string name="prune">删减</string>
   <string name="check">检查</string>
   <string name="download">下载</string>
+  <string name="abort">放弃</string>
+  <string name="ignore">忽略</string>
+  <string name="select">选择</string>
+  <string name="skip">跳过</string>
+  <string name="deprecated">%1$s （已弃用）</string>
   <!--Read a file-->
   <string name="read">读取</string>
   <string name="overwrite">覆写</string>
@@ -603,7 +665,9 @@
   <string name="exit_text">您确定要退出吗？</string>
   <string name="pause_exit_text">您确定要暂停轨迹记录并退出吗？</string>
   <!--Strings in PorpertyEditor-->
+  <string name="key">关键字</string>
   <string name="Key">键</string>
+  <string name="value">值</string>
   <string name="Value">值</string>
   <string name="multiselect_header_short">值 (%1$d)</string>
   <string name="multiselect_header_long">值 (%1$d 要素)</string>
@@ -752,6 +816,7 @@
   <string name="menu_gps_goto_first_waypoint">前往第一个航点</string>
   <string name="menu_enable_gps_autodownload">根据位置自动下载</string>
   <string name="menu_enable_pan_and_zoom_auto_download">平移和缩放自动下载</string>
+  <string name="menu_transfer">传输...</string>
   <string name="menu_transfer_download_current">下载当前视图</string>
   <string name="menu_transfer_download_replace">清除并下载当前视图</string>
   <string name="menu_transfer_load_current">加载当前视图</string>
@@ -792,7 +857,9 @@
   <string name="menu_straighten">拉直</string>
   <string name="menu_circulize">圆形排列</string>
   <string name="menu_split_polygon">分割成多边形</string>
+  <string name="menu_unjoin_dissimilar">与不同路径分开</string>
   <string name="menu_extract_segment">提取片段</string>
+  <string name="menu_select_way_nodes">选择路径节点</string>
   <string name="menu_newnode_gps">在 GPS 位置新建节点</string>
   <string name="menu_extend_selection">扩展选择</string>
   <string name="menu_information">信息</string>
@@ -809,8 +876,10 @@
   <string name="menu_tools_update_imagery_configuration_eli">从 ELI 更新设定</string>
   <string name="menu_tools_zoom_to_layer_extent">缩放到背景图层范围</string>
   <string name="menu_tools_clear_clipboard">清除剪贴板</string>
+  <string name="menu_tools_calibrate_height">校准气压传感器……</string>
   <string name="menu_tools_install_egm">安装 EGM</string>
   <string name="menu_tools_remove_egm">移除 EGM</string>
+  <string name="menu_tools_load_keys">从文件载入关键字</string>
   <!---->
   <string name="menu_simple_actions">简单模式</string>
   <string name="menu_feedback">提供反馈</string>
@@ -851,7 +920,9 @@
   <string name="menu_tags">属性</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">历史</string>
+  <string name="menu_history_web">历史（跳转网页）</string>
   <string name="menu_merge">加入</string>
+  <string name="menu_add_node_at_intersection">在交叉点添加节点</string>
   <string name="menu_reverse">反转</string>
   <string name="notreversable_description">这条路径不可反转，因为标记了方向相关的属性。反转它会破坏标签。</string>
   <string name="reverse_anyway">仍要反转</string>
@@ -885,6 +956,14 @@
   <string name="actionmode_closed_way_split_1">拆分路径的第1个点</string>
   <string name="actionmode_closed_way_split_2">拆分路径的第2个点</string>
   <string name="actionmode_restriction">添加转向限制</string>
+  <string name="actionmode_restriction_restart_from">重选“from”片段</string>
+  <string name="actionmode_restriction_select_from">选择\"from\"片段</string>
+  <string name="actionmode_restriction_via">添加\"via\"片段/要素</string>
+  <string name="actionmode_restriction_restart_via">重新选择“via”片段</string>
+  <string name="actionmode_restriction_to">添加“to”片段</string>
+  <string name="actionmode_restriction_restart_to">重新选择\"to\"片段</string>
+  <string name="actionmode_restriction_split_from">分割\"from\"片段</string>
+  <string name="actionmode_restriction_split_via">分割\"via\"片段</string>
   <string name="actionmode_extract_segment_select">选择片段</string>
   <string name="actionmode_extract_segment_set_tags">设定标签</string>
   <plurals name="actionmode_object_count">
@@ -905,12 +984,14 @@
   <string name="simple_paste">点击屏幕位置</string>
   <string name="menu_paste_multiple">粘贴多次</string>
   <string name="simple_paste_multiple">点击屏幕位置</string>
+  <string name="menu_snap">断开</string>
   <!--Preferences-->
   <string name="config_backgroundLayer_title">地图背景</string>
   <string name="config_backgroundLayer_summary">基于瓦片的地图背景。</string>
   <string name="config_overlayLayer_title">地图叠加层</string>
   <string name="config_overlayLayer_summary">基于瓦片的地图叠加层。</string>
   <string name="config_customlayers_title">自定义图层</string>
+  <string name="config_customlayers_summary">管理的图层不在默认配置里。</string>
   <string name="config_scale_title">显示比例尺</string>
   <string name="config_scale_summary">在地图上显示的比例尺类型。</string>
   <string name="config_mapProfile_title">数据样式</string>
@@ -933,6 +1014,8 @@
   <string name="config_validatorprefs_summary">配置验证规则。</string>
   <string name="config_connectedNodeTolerance_title">连接节点的容忍值</string>
   <string name="config_connectedNodeTolerance_summary">如果道路末端节点位于另一条道路的此距离（米）内，则应将其连接到该道路</string>
+  <string name="config_enabledValidations_title">启用审核</string>
+  <string name="config_enabledValidations_summary">启用或禁用个人审核</string>
   <!--opening hours templates-->
   <string name="config_opening_hours_title">营业时间模板</string>
   <string name="config_opening_hours_summary">加载、保存和删除营业时间模板</string>
@@ -960,6 +1043,8 @@
   <string name="config_fv5_pro">FV5 pro</string>
   <string name="config_useInternalPhotoViewer_title">使用内置图片浏览器</string>
   <string name="config_useInternalPhotoViewer_summary">使用内置图片浏览器，如果没有勾选则使用外部图片浏览器。</string>
+  <string name="config_indexMediaStore_summary">额外地，使用媒体存储（Android 11 API）来访问照片</string>
+  <string name="config_indexMediaStore_title">使用媒体存储（Android 11 API）</string>
   <string name="config_followGPSbutton_title">跟随位置按钮布局</string>
   <string name="config_followGPSbutton_summary">“跟随位置”按钮的位置</string>
   <string name="config_alwaysDrawBoundingBoxes_title">始终使未下载区域变暗</string>
@@ -991,8 +1076,16 @@
   <string name="config_maxStrokeWidth_title">最大线宽</string>
   <string name="config_maxStrokeWidth_summary">不要把路径绘制得比这更宽</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>
+  <string name="config_uploadOk_title">待上传确定</string>
+  <string name="config_uploadOk_summary">低于下限的待上传的物件会视为没问题。</string>
   <string name="config_upload_current">%1$d 对象</string>
+  <string name="config_uploadWarn_title">待上传警告</string>
+  <string name="config_uploadWarn_summary">低于下限的待上传的物件会有警告状态。</string>
+  <string name="config_uploadChecker_title">提醒上传的间隔</string>
+  <string name="config_uploadChecker_summary">提醒未发布变更的间隔</string>
+  <string name="config_uploadChecker_current">%1$d 小时</string>
   <string name="config_dataWarn_title">数据过多警告</string>
+  <string name="config_dataWarn_summary">警告过多载入数据的限制量（节点的数量）</string>
   <string name="config_useUrlForFeedback_title">禁用反馈页面</string>
   <string name="config_useUrlForFeedback_summary">禁用反馈页面，使用 URL 替代。</string>
   <string name="config_beepVolume_title">蜂鸣声音量</string>
@@ -1001,6 +1094,8 @@
   <string name="config_mapillary_min_zoom_title">Mapillary 的最小缩放等级</string>
   <string name="config_mapillary_min_zoom_summary">显示 Mapillary 数据前所需的最小缩放等级。</string>
   <string name="config_mapillary_min_zoom_current">%1$d</string>
+  <string name="config_nameCap_summary">键入时，自动将标签的名称大写</string>
+  <string name="config_nameCap_title">名称大写</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">数据和编辑设置</string>
   <string name="config_category_editing_summary">自动下载，保存和通知设置。</string>
@@ -1018,6 +1113,8 @@
   <string name="config_autoApplyPreset_summary">当启动属性编辑器时自动应用预设。</string>
   <string name="config_generateAlerts_title">生成通知</string>
   <string name="config_generateAlerts_summary">当数据有问题或有注记时生成通知</string>
+  <string name="config_groupAlertsOnly_title">仅对成组的提醒告警</string>
+  <string name="config_groupAlertsOnly_summary">只为一组通知生成一次警告（声音）</string>
   <string name="config_notificationCacheSize_title">最多显示的通知数量</string>
   <string name="config_notificationCacheSize_summary">每种类型的通知的最大显示数量（最小为1）</string>
   <string name="config_notificationCacheSize_current">%1$d 通知</string>
@@ -1033,11 +1130,14 @@
   <string name="config_orthogonalizeThreshold_current">%1$d°</string>
   <string name="config_autoformatPhoneNumbers_title">自动格式化电话号码</string>
   <string name="config_autoformatPhoneNumbers_summary">启用对电话号码的自动格式化功能</string>
+  <string name="config_maxOffsetDistance_title">存储影像偏移的最大距离</string>
+  <string name="config_maxOffsetDistance_summary">自动应用本地存储的图层偏移的最远距离。</string>
   <string name="config_maxOffsetDistance_current">%1$d 米</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">自动下载设置</string>
   <string name="config_category_auto_download_summary">数据和任务的自动下载设置</string>
   <string name="config_extTriggeredDownloadRadius_title">下载半径</string>
+  <string name="config_extTriggeredDownloadRadius_summary">向外多少半径（米）时触发下载，0 centers only on map 应该是输入 0 的时候会怎么样，下次试试</string>
   <string name="config_downloadRadius_current">%1$d 米</string>
   <string name="config_maxDownloadSpeed_title">最大自动下载速度</string>
   <string name="config_maxDownloadSpeed_summary">速度高于此限制（km/h）将暂停自动下载。</string>
@@ -1054,6 +1154,9 @@
   <string name="config_bugDownloadRadius_summary">任务下载的半径 (m)。</string>
   <string name="config_maxBugDownloadSpeed_title">最大任务自动下载速度</string>
   <string name="config_maxBugDownloadSpeed_summary">高于此限制 (km/h)，注记、错误和任务的自动下载暂停。</string>
+  <string name="config_autoPruneTaskLimit_title">任务自动删减限制</string>
+  <string name="config_autoPruneTaskLimit_summary">内存中节点数量达到设定值时将触发修剪。</string>
+  <string name="config_autoPruneTaskLimit_current">%1$d 条任务</string>
   <!--Location Settings-->
   <string name="config_category_gps">位置设置</string>
   <string name="config_category_gps_summary">GPS/GNSS 参数和其他位置提供者。</string>
@@ -1213,6 +1316,7 @@
   <string name="report_failure">无法发送报告。</string>
   <!--Exceptions messages-->
   <string name="exception_too_many_nodes">该操作会创建含有过多的节点的路径。</string>
+  <string name="exception_too_many_members">这个操作会增加很多成员到关系 %1$s 里面。</string>
   <!--Notifications-->
   <string name="alert_data_issue">检测到 OSM 数据有问题</string>
   <string name="alert_note">检测到附近有 OSM 注记</string>
@@ -1245,11 +1349,17 @@
   <string name="tunnel">隧道</string>
   <string name="culvert">涵洞</string>
   <!--Issues-->
+  <string name="issue_not_reversable">无法回退标签</string>
   <string name="issue_shared_node">与其他路径共享</string>
+  <string name="issue_tags_reversed">标签已回退</string>
+  <string name="issue_role_reversed">角色已回退</string>
   <string name="issue_role_conflict">角色冲突</string>
+  <string name="issue_merged_tags">标签合并</string>
   <string name="issue_same_object">相同的对象</string>
   <string name="issue_merged_metric">长度相关值已合并</string>
   <string name="issue_split_metric">长度相关值已分割</string>
+  <string name="issue_split_route_ordering">路线可能需要手动调整顺序</string>
+  <string name="issue_precondition_relation_member_count">超出关系成员数量</string>
   <!--time and distance-->
   <plurals name="days">
     <item quantity="other">%1$d 天</item>
@@ -1276,6 +1386,12 @@
   <string name="bookmarks_desc">添加评论</string>
   <string name="show_bookmarks">书签…</string>
   <string name="_dots">⋮</string>
+  <string name="gotobookmark">出发</string>
   <string name="bookmarkstitle">书签</string>
   <!--Element types-->
+  <string name="element_type_node">节点</string>
+  <string name="element_type_way">路径</string>
+  <string name="element_type_closedway">闭合路径</string>
+  <string name="element_type_area">区域</string>
+  <string name="element_type_relation">关系</string>
 </resources>

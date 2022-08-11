@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string name="addr_housenumber">Číslo domovní (addr:housenumber)</string>
+  <string name="addr_conscriptionnumber">Číslo popisné (addr:conscriptionnumber)</string>
+  <string name="addr_street">Ulice (addr:street)</string>
+  <string name="addr_postcode">PSČ (addr:postcode)</string>
+  <string name="addr_city">Obec (addr:city)</string>
+  <string name="addr_country">Země (addr:country)</string>
+  <string name="addr_full">Plná verze adresy (addr:full)</string>
+  <string name="addr_place">Vesnice/místní část (addr:place)</string>
+  <string name="addr_block">Blok (addr:block)</string>
+  <string name="addr_block_number">Číslo bloku (addr:block_number)</string>
+  <string name="addr_parentstreet">Dodatečná lokalizace (addr:parenstreet)</string>
+  <string name="addr_hamlet">Vesnička/osada (addr:hamlet)</string>
+  <string name="addr_suburb">Městská část/obvod (addr:suburb)</string>
+  <string name="addr_subdistrict">Distrikt (addr:subdistrict)</string>
+  <string name="addr_district">Správní obvod (addr:district)</string>
+  <string name="addr_province">Provincie (addr:province)</string>
+  <string name="addr_state">Stát (addr:state)</string>
+  <string name="addr_flats">Čísla bytů (addr:flats)</string>
+  <string name="addr_door">Číslo dveří (addr:door)</string>
+  <string name="addr_unit">Část (addr:unit)</string>
+</resources>
