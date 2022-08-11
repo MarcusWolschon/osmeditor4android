@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
-<presets version="4.1.1" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
+<presets version="4.8.0" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
     description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" 
-    object_keys="advertising,attraction,building:part,cemetery,club,disused:amenity,disused:leisure,disused:man_made,golf,hazard,noexit,disused:shop,ford,indoor,playground,police,public_transport,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward">
+    object_keys="advertising,attraction,building:part,cemetery,club,disused:amenity,disused:leisure,disused:man_made,golf,hazard,noexit,disused:shop,ford,indoor,playground,police,public_transport,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,telecom">
 <!--
     Icons have been derived from mainly from
   
@@ -1556,6 +1556,41 @@
         <reference ref="water_access"/>
         <preset_link preset_name="No name"/>
     </chunk>
+    <chunk id="charging_station_base">
+        <link wiki="Tag:amenity=charging_station"/>
+        <space/>
+        <key key="amenity" value="charging_station"/>
+        <reference ref="name_ref_operator"/>
+        <reference ref="oh"/>
+        <reference ref="fee"/>
+        <check key="indoor" text="Located inside a building?" disable_off="true" match="none"/>
+        <reference ref="level"/>       
+        <label text="Types of vehicles which can be charged:"/>
+        <checkgroup text="Types of vehicles which can be charged" columns="4">
+            <check key="bicycle" text="Bicycle" disable_off="true"/>
+            <check key="scooter" text="Scooter" disable_off="true"/>
+            <check key="motorcar" text="Car" disable_off="true"/>
+            <check key="motorcycle" text="Motorcycle" disable_off="true"/>
+            <check key="truck" text="Truck" disable_off="true"/>
+        </checkgroup>
+        <space/>
+        <label text="Authentication:"/>
+        <checkgroup text="Authentication" columns="4">
+            <check key="authentication:none" text="None" disable_off="true"/>
+            <check key="authentication:phone_call" text="Phone call" disable_off="true"/>
+            <check key="authentication:short_message" text="Short message" disable_off="true"/>
+            <check key="authentication:nfc" text="NFC" disable_off="true"/>
+        </checkgroup>
+        <combo key="authentication:membership_card" text="Membership card" values="yes"/>
+        <space/>
+        <optional>
+            <combo key="voltage" text="Voltage" values="230,400"/>
+            <combo key="amperage" text="Amperage" values="16,32"/>
+            <combo key="capacity" text="Capacity" values="1,2,3,4,5,6" value_type="integer"/>
+        </optional>
+        <space/>
+        <preset_link preset_name="Payment Methods"/>
+    </chunk>
     <!-- Groups -->
     <group name="Highways" icon="icons/png/highway_highway_sp.png">
     <group name="Streets" icon="icons/png/highway_highway_sp.png" items_sort="false" >
@@ -2545,14 +2580,14 @@
                 <combo key="direction" text="For direction" values="forward,backward,both" display_values="Forward,Backward,Both"/>
             </optional>
         </item> <!-- Highway Milestone -->
-        <item name="Named Junction" name_context="junction=yes" icon="" type="node,closedway" preset_name_label="true">
+        <item name="Junction" name_context="junction=yes" icon="icons/png/highway_junction.png" type="node,closedway" preset_name_label="true">
             <link wiki="Tag:junction=yes"/>
             <space />
-            <label text="Used in some countries for a named road junction who.s name serves for local orientation."/>
+            <label text="Used for local orientation, or for references."/>
             <space />
-            <key key="junction" value="yes"/>
-            <text key="name" text="Name"/>
-        </item> <!-- Named Junction -->
+            <key key="junction" value="yes" object="true" />
+            <reference ref="optional_name" />
+        </item> <!-- Junction -->
         <separator/>
         <item name="Elevator" icon="icons/png/highway_elevator_18003.png" type="node,way,closedway" preset_name_label="true">
             <link wiki="Tag:highway=elevator"/>
@@ -2636,7 +2671,7 @@
             <link wiki="Tag:barrier=bollard"/>
             <space/>
             <key key="barrier" value="bollard"/>
-            <combo key="bollard" text="Bollard type" values="rising,removable,foldable,fixed" display_values="Rising,Removable,Foldable,Fixed"/>
+            <combo key="bollard" text="Bollard type" values="rising,removable,foldable,fixed,flexible" display_values="Rising,Removable,Foldable,Fixed,Flexible"/>
             <optional>
                 <reference ref="optional_maxwidth"/>
                 <reference ref="material"/>
@@ -3998,34 +4033,16 @@
             </optional>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Fuel -->
-        <item name="Charging Station" icon="icons/png/transport_charging_station.png" type="node" preset_name_label="true">
-            <link wiki="Tag:amenity=charging_station"/>
+        <item name="Charging Station" icon="icons/png/transport_charging_station.png" exclude_regions="true" regions="US,CA" type="node" preset_name_label="true">        
+            <reference ref="charging_station_base"/>
             <space/>
-            <key key="amenity" value="charging_station"/>
-            <reference ref="name_ref_operator"/>
-            <reference ref="oh"/>
-            <reference ref="fee"/>
-            <check key="indoor" text="Located inside a building?" disable_off="true" match="none"/>
-            <reference ref="level"/>
-            <space/>
-            <combo key="voltage" text="Voltage" values="230,400"/>
-            <combo key="amperage" text="Amperage" values="16,32"/>
-            <combo key="capacity" text="Capacity" values="1,2,3,4,5,6" value_type="integer"/>
-            <space/>
-            <label text="Types of vehicles which can be charged:"/>
-            <checkgroup text="Types of vehicles which can be charged" columns="4">
-                <check key="bicycle" text="Bicycle" disable_off="true"/>
-                <check key="scooter" text="Scooter" disable_off="true"/>
-                <check key="motorcar" text="Car" disable_off="true"/>
-                <check key="motorcycle" text="Motorcycle" disable_off="true"/>
-                <check key="truck" text="Truck" disable_off="true"/>
-            </checkgroup>
-            <space/>
-            <label text="Number of Sockets:"/>
-            <combo key="socket:type1" text="SAE J1772 (IEC Type 1)" values="1,2,3,4,5,6"/>
-            <combo key="socket:type1_combo" text="SAE J1772 Combo (DC)" values="1,2,3,4,5,6"/>
-            <combo key="socket:type2" text="IEC Type 2 (Mennekes)" values="1,2,3,4,5,6"/>
-            <combo key="socket:type2_combo" text="IEC Type 2 Combo (DC)" values="1,2,3,4,5,6"/>
+            <label text="Available Sockets/Cables:"/>
+            <combo key="socket:type2" text="Type 2 socket - (Mennekes)" values="1,2,3,4,5,6"/>
+            <text key="socket:type2:output" text="Type 2 socket max. output (kW)" />
+            <combo key="socket:type2_cable" text="Type 2 cable - (Mennekes)" values="1,2,3,4,5,6"/>
+            <text key="socket:type2_cable:output" text="Type 2 cable output (kW)" /> 
+            <combo key="socket:type2_combo" text="CCS - Type 2 - Combo (DC)" values="1,2,3,4,5,6"/>
+            <text key="socket:type2_combo:output" text="CCS - Type 2 output (kW)" /> 
             <combo key="socket:type3" text="Type 3 (SCAME)" values="1,2,3,4,5,6"/>
             <combo key="socket:chademo" text="CHAdeMO" values="1,2,3,4,5,6"/>
             <combo key="socket:tesla_supercharger" text="Tesla Supercharger" values="1,2,3,4,5,6"/>
@@ -4033,19 +4050,20 @@
             <combo key="socket:cee_blue" text="CEE blue" values="1,2,3,4,5,6"/>
             <combo key="socket:cee_red_16a" text="CEE red 16A" values="1,2,3,4,5,6"/>
             <combo key="socket:cee_red_32a" text="CEE red 32A" values="1,2,3,4,5,6"/>
+        </item> <!-- Charging Station -->
+        <item name="Charging Station" icon="icons/png/transport_charging_station.png" regions="US,CA" type="node"  preset_name_label="true">
+            <reference ref="charging_station_base"/>
+            <space/>
+            <label text="Available Sockets/Cables:"/>
+            <combo key="socket:type1" text="Type 1 - SAE J1772 (IEC Type 1)" values="1,2,3,4,5,6"/>
+            <text key="socket:type1:output" text="Type 1 socket output (kW)" />
+            <combo key="socket:type1_combo" text="CCS - Type 1 - SAE J1772 Combo (DC)" values="1,2,3,4,5,6"/>
+            <text key="socket:type1_combo:output" text="CCS - Type 1 output (kW)" />       
+            <combo key="socket:chademo" text="CHAdeMO" values="1,2,3,4,5,6"/>
+            <combo key="socket:tesla_supercharger" text="Tesla Supercharger" values="1,2,3,4,5,6"/>
             <combo key="socket:nema_5_15" text="NEMA 5-15" values="1,2,3,4,5,6"/>
             <combo key="socket:nema_5_20" text="NEMA 5-20" values="1,2,3,4,5,6"/>
-            <space/>
-            <label text="Authentication:"/>
-            <checkgroup text="Authentication" columns="4">
-                <check key="authentication:none" text="None" disable_off="true"/>
-                <check key="authentication:phone_call" text="Phone call" disable_off="true"/>
-                <check key="authentication:short_message" text="Short message" disable_off="true"/>
-                <check key="authentication:nfc" text="NFC" disable_off="true"/>
-            </checkgroup>
-            <combo key="authentication:membership_card" text="Membership card" values="yes"/>
-            <preset_link preset_name="Payment Methods"/>
-        </item> <!-- Charging Station -->
+        </item> <!-- Charging Station US,CA -->
         <item name="Car Wash" icon="icons/png/amenity_car_wash_12018.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:amenity=car_wash"/>
             <space/>
@@ -4211,6 +4229,7 @@
             </combo>
             <reference ref="optional_name"/>
             <text key="capacity" text="Capacity" value_type="integer"/>
+            <text key="capacity:cargo_bike" text="Capacity for cargo bikes" value_type="integer"/>
             <reference ref="parking_access_fee_operator_surface_smoothness"/>
             <check key="covered" text="Covered"/>
             <reference ref="supervised_lit_oh"/>
@@ -5717,7 +5736,7 @@
             <space/>
             <key key="amenity" value="bbq"/>
             <reference ref="optional_name"/>
-            <combo key="fuel" text="Fuel" text_context="grill" values="charcoal,electric,wood" values_context="fuel"/>
+            <multiselect key="fuel" text="Fuel" text_context="grill" values="charcoal;electric;wood" display_values="Charcoal;Electric;Wood" values_context="fuel"/>
             <check key="covered" text="Covered"/>
         </item> <!-- Public Grill -->
         <item name="Firepit" icon="icons/png/tourist_firepit_21134.png" type="node,closedway" preset_name_label="true">
@@ -5867,8 +5886,23 @@
             <key key="amenity" value="theatre"/>
             <optional>
                 <combo key="theatre:genre" text="Theatre type" values_searchable="true">
-                    <list_entry value="drama" display_value="Drama"/>
+                    <list_entry value="ballet" display_value="Ballet theatre"/>
+                    <list_entry value="boulevard" display_value="Boulevard"/>
+                    <list_entry value="cabaret" display_value="Cabaret"/>
+                    <list_entry value="chamber_music" display_value="Chamber music"/>
+                    <list_entry value="circus" display_value="Circus"/>
                     <list_entry value="comedy" display_value="Comedy"/>
+                    <list_entry value="drama" display_value="Drama"/>
+                    <list_entry value="figure" display_value="Figure"/>
+                    <list_entry value="marionette" display_value="Marionette"/>
+                    <list_entry value="musical" display_value="Musical theatre"/>
+                    <list_entry value="opera" display_value="Opera house"/>
+                    <list_entry value="philharmonic" display_value="Ochestral music"/>
+                    <list_entry value="political" display_value="Political"/>
+                    <list_entry value="puppet" display_value="Puppet"/>
+                    <list_entry value="shadow_play" display_value="Shadow play"/>
+                    <list_entry value="stand_up_comedy" display_value="Stand up comedy"/>
+                    <list_entry value="variety" display_value="Variety"/>
                 </combo>
             </optional>
             <reference ref="name_operator"/>
@@ -8295,43 +8329,57 @@
             <link wiki="Tag:indoor=area" />
             <key key="indoor" value="area" />
             <reference ref="level" />
-            <text key="name" text="Name" i18n="true" />
-            <text key="ref" text="Room Number" />
+            <optional>
+                <text key="name" text="Name" i18n="true" />
+                <text key="ref" text="Room Number" />
+            </optional>
         </item>
         <item name="Corridor" icon="icons/png/indoor_corridor.png" type="closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:indoor=corridor" />
             <key key="indoor" value="corridor" />
             <reference ref="level" />
-            <text key="name" text="Name" i18n="true" />
-            <text key="ref" text="Reference Code" />
-            <text key="height" text="Height (Meters)" value_type="integer" />
+            <optional>
+                <text key="name" text="Name" i18n="true" />
+                <text key="ref" text="Reference Code" />
+                <text key="height" text="Height (Meters)" value_type="integer" />
+            </optional>
         </item>
         <item name="Indoor door" icon="icons/png/indoor_doors_13011.png" type="node" preset_name_label="true" >
             <link wiki="Tag:indoor=door" />
             <key key="indoor" value="door" />
             <reference ref="level" />
-            <text key="ref" text="Reference Code" />
+            <optional>
+                <text key="ref" text="Reference Code" />
+            </optional>
             <reference ref="door_type" />
             <reference ref="facility_access" />
-            <text key="width" text="Width (Meters)" />
-            <text key="height" text="Height (Meters)" value_type="integer" />
+            <optional>
+                <text key="width" text="Width (Meters)" />
+                <text key="height" text="Height (Meters)" value_type="integer" />
+            </optional>
         </item>
         <item name="Room" icon="icons/png/indoor_room.png" type="closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:indoor=room" />
             <key key="indoor" value="room" />
             <reference ref="level" />
-            <text key="name" text="Name" i18n="true" />
-            <text key="ref" text="Room Number" />
+            <optional>
+                <text key="name" text="Name" i18n="true" />
+                <text key="ref" text="Room Number" />
+            </optional>
             <combo key="room" text="Type"
                 values="auditorium,shop,conference,technical,waiting,stairs,hall,office,storage,elevator,library,entrance,class,gallery,escalator,restaurant,store,toilet,laboratory"
                 display_values="Auditorium,Shop,Conference,Technical,Waiting,Stairs,Hall,Office,Storage,Elevator,Library,Entrance,Class,Gallery,Escalator,Restaurant,Store,Toilet,Laboratory" />
-            <text key="height" text="Height (Meters)" value_type="integer" />
+            <optional>
+                <text key="height" text="Height (Meters)" value_type="integer" />
+            </optional>
         </item>
         <item name="Indoor wall" icon="icons/png/indoor_wall.png" type="way" preset_name_label="true">
             <link wiki="Tag:indoor=wall" />
             <key key="indoor" value="wall" />
             <reference ref="level" />
-            <text key="height" text="Height (Meters)" value_type="integer" />
+            <optional>
+                <text key="height" text="Height (Meters)" value_type="integer" />
+            </optional>
         </item>
         <item name="Highway corridor" icon="icons/png/indoor_highway_corridor.png" type="way" preset_name_label="true">
             <link wiki="Tag:highway=corridor" />
@@ -10950,7 +10998,7 @@
             <check key="payment:ep_mep" text="Mep (pt)" match="keyvalue" disable_off="true"/>
             <check key="payment:ep_minicash" text="Minicash (lu)" match="keyvalue" disable_off="true"/>
             <check key="payment:ep_minipay" text="Minipay (it)" match="keyvalue" disable_off="true"/>
-            <check key="payment:ep_monedero" text="Mondero (ar)" match="keyvalue" disable_off="true"/>
+            <check key="payment:ep_monedero" text="Mondero (ar)" match="keyvalue" disable_off="true" deprecated="true"/>
             <check key="payment:ep_monedero4b" text="Mondero 4b (es)" match="keyvalue" disable_off="true"/>
             <check key="payment:ep_nobu_emoney" text="NOBU e-money" match="keyvalue" disable_off="true"/>
             <check key="payment:ep_tapcash" text="TapCash" match="keyvalue" disable_off="true"/>
@@ -11826,12 +11874,13 @@
         <item name="Address" icon="icons/png/osm_housenumber_sp.png" type="node,way,closedway,relation,multipolygon" preset_name_label="true" autoapply="false">
             <link wiki="Key:addr"/>
             <space/>
-            <text key="addr:housenumber" text="House number" match="key" auto_increment="-2,-1,+1,+2"/>
-            <text key="addr:street" text="Street name" use_last_as_default="force" match="key" alternative_autocomplete_keys="name"/>
+            <text key="addr:housenumber" text="House number" match="key" auto_increment="-2,-1,+1,+2" />
+            <text key="addr:street" text="Street name" use_last_as_default="force" match="key" alternative_autocomplete_keys="name" />
+            <check key="nohousenumber" text="No house number" disable_off="true"/>
             <optional>
-                <text key="addr:place" text="Place name" use_last_as_default="force" match="key" alternative_autocomplete_keys="name"/>
-                <text key="addr:city" text="City name" use_last_as_default="force" match="key"/>
-                <text key="addr:postcode" text="Post code" use_last_as_default="force" match="key"/>
+                <text key="addr:place" text="Place name" use_last_as_default="force" match="key" alternative_autocomplete_keys="name" />
+                <text key="addr:city" text="City name" use_last_as_default="force" match="key" />
+                <text key="addr:postcode" text="Post code" use_last_as_default="force" match="key" />
                 <combo key="addr:country" text="Country code" values_from="java.util.Locale#getISOCountries" use_last_as_default="force" match="key"/>
             </optional>
             <optional text="Optional values for specific countries">
@@ -11839,6 +11888,8 @@
                 <text key="addr:housename" text="House name" match="key" alternative_autocomplete_keys="name"/>
                 <text key="addr:conscriptionnumber" text="Conscription number" match="key"/>
                 <text key="addr:block" text="Block" match="key"/>
+                <text key="addr:block_number" text="Block number" match="key"/>
+                <text key="addr:parentstreet" text="Additional localisation" match="key"/>
                 <text key="addr:hamlet" text="Hamlet" match="key"/>
                 <text key="addr:suburb" text="Suburb" use_last_as_default="force" match="key"/>
                 <text key="addr:subdistrict" text="Subdistrict" use_last_as_default="force" match="key"/>
@@ -11983,9 +12034,6 @@
         <item name="Multipolygon" icon="icons/png/osm_multipolygon.png" type="relation,multipolygon" preset_name_label="true">
             <link wiki="Relation:multipolygon"/>
             <key key="type" value="multipolygon"/>
-            <optional>
-                <text key="name" text="Name"/>
-            </optional>
             <roles>
                 <role key="outer" text="outer segment" requisite="required" type="way,closedway"/>
                 <role key="inner" text="inner segment" requisite="optional" type="way,closedway"/>
@@ -12392,7 +12440,7 @@
                 </roles>
             </item> <!-- Superroute -->
         </group> <!-- Routes -->
-        <item name="Route Network" icon="icons/png/osm_route_sp.png" type="relation" preset_name_label="true">
+        <item name="Route Network" icon="icons/png/osm_route_sp.png" type="relation" preset_name_label="true" match_expression="-&quot;network:type&quot;=node_network">
             <link wiki="Relation:network" />
             <space/>
             <key key="type" value="network"/>
@@ -12427,7 +12475,23 @@
             <link wiki="Relation:route" />
             <space/>
             <key key="type" value="route"/>
-            <combo key="route" text="Route type" values="bicycle,mtb,foot,hiking,walking,inline_skates,road" display_values="Bicycle,MTB,Foot,Hiking,Walking,Inline skates,Road" match="keyvalue!" values_sort="false"/>
+            <combo key="route" text="Route type" match="keyvalue!" values_sort="false">
+                <list_entry value="bicycle" display_value="Bicycle" />
+                <list_entry value="fitness_trail" display_value="Fitness trail" />
+                <list_entry value="foot" display_value="Foot" />
+                <list_entry value="hiking" display_value="Hiking" />
+                <list_entry value="horse" display_value="Riding" />
+                <list_entry value="inline_skates" display_value="Inline skates" />
+                <list_entry value="mtb" display_value="MTB" />
+                <list_entry value="piste" display_value="Skiing (piste)" />
+                <list_entry value="running" display_value="Running" />
+                <list_entry value="walking" display_value="Walking" />             
+                <!-- Infrastructure -->
+                <list_entry value="detour" display_value="Detour" />
+                <list_entry value="power" display_value="Power" />
+                <list_entry value="railway" display_value="Railway" />
+                <list_entry value="road" display_value="Road" />
+            </combo>
         </item> <!-- Generic route -->
         <separator/>
         <item name="Associated Street" icon="icons/png/osm_housenumber_sp.png" type="relation" preset_name_label="true">
