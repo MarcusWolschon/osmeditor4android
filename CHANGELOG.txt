@@ -1,5 +1,18 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+17.1.6:
+
+- Fix protect against null PresetElementPath
+- Fix use previous node index to determine segment (pan handle issue)
+- Fix protect against destroyed FragmentManager
+- Fix protect against missing thumb_2048_url field in Mapillary response
+- Fix when matching relations prioritize items that have a type tag
+- Fix explicitly de-select way to avoid creating degnerate ways
+- Fix don't change element membership if it is unchanged
+- Add bridge casing to *_link
+- Update preset
+- Update translations
+
 17.1.5:
 
 - Fix property editor crash when manually adding a tag with empty value (regression)
