@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string name="addr_housenumber">رقم المنزل (addr:housenumber)</string>
+  <string name="addr_conscriptionnumber">رقم التجنيد (addr:conscriptionnumber)</string>
+  <string name="addr_street">الشارع (addr:street)</string>
+  <string name="addr_postcode">الرمز البريدي (addr:postcode)</string>
+  <string name="addr_city">المدينة/القرية.. (addr:city)</string>
+  <string name="addr_country">الدولة (addr:country)</string>
+  <string name="addr_full">العنوان الكامل (addr:full)</string>
+  <string name="addr_place">المكان (addr:place)</string>
+  <string name="addr_block">المربع (addr:block)</string>
+  <string name="addr_block_number">رقم المربع (addr:block_number)</string>
+  <string name="addr_parentstreet">الموقع الإضافي (addr:parenstreet)</string>
+  <string name="addr_hamlet">الهجرة (addr:hamlet)</string>
+  <string name="addr_suburb">الضاحية (addr:suburb)</string>
+  <string name="addr_subdistrict">المنطقة الفرعية (addr:subdistrict)</string>
+  <string name="addr_district">القطاع (addr:district)</string>
+  <string name="addr_province">المحافظة (addr:province)</string>
+  <string name="addr_state">الولاية/ المنطقة (addr:state)</string>
+  <string name="addr_flats">الشقة (addr:flats)</string>
+  <string name="addr_door">الباب (addr:door)</string>
+  <string name="addr_unit">الوحدة (addr:unit)</string>
+</resources>
