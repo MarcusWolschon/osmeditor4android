@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets version="4.4.0" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
+<presets version="4.8.0" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
     description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" 
     object_keys="advertising,attraction,building:part,cemetery,club,disused:amenity,disused:leisure,disused:man_made,golf,hazard,noexit,disused:shop,ford,indoor,playground,police,public_transport,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,telecom">
 <!--
@@ -1555,6 +1555,41 @@
         <reference ref="wikipedia_wikidata" />
         <reference ref="water_access"/>
         <preset_link preset_name="No name"/>
+    </chunk>
+    <chunk id="charging_station_base">
+        <link wiki="Tag:amenity=charging_station"/>
+        <space/>
+        <key key="amenity" value="charging_station"/>
+        <reference ref="name_ref_operator"/>
+        <reference ref="oh"/>
+        <reference ref="fee"/>
+        <check key="indoor" text="Located inside a building?" disable_off="true" match="none"/>
+        <reference ref="level"/>       
+        <label text="Types of vehicles which can be charged:"/>
+        <checkgroup text="Types of vehicles which can be charged" columns="4">
+            <check key="bicycle" text="Bicycle" disable_off="true"/>
+            <check key="scooter" text="Scooter" disable_off="true"/>
+            <check key="motorcar" text="Car" disable_off="true"/>
+            <check key="motorcycle" text="Motorcycle" disable_off="true"/>
+            <check key="truck" text="Truck" disable_off="true"/>
+        </checkgroup>
+        <space/>
+        <label text="Authentication:"/>
+        <checkgroup text="Authentication" columns="4">
+            <check key="authentication:none" text="None" disable_off="true"/>
+            <check key="authentication:phone_call" text="Phone call" disable_off="true"/>
+            <check key="authentication:short_message" text="Short message" disable_off="true"/>
+            <check key="authentication:nfc" text="NFC" disable_off="true"/>
+        </checkgroup>
+        <combo key="authentication:membership_card" text="Membership card" values="yes"/>
+        <space/>
+        <optional>
+            <combo key="voltage" text="Voltage" values="230,400"/>
+            <combo key="amperage" text="Amperage" values="16,32"/>
+            <combo key="capacity" text="Capacity" values="1,2,3,4,5,6" value_type="integer"/>
+        </optional>
+        <space/>
+        <preset_link preset_name="Payment Methods"/>
     </chunk>
     <!-- Groups -->
     <group name="Highways" icon="icons/png/highway_highway_sp.png">
@@ -3998,34 +4033,16 @@
             </optional>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Fuel -->
-        <item name="Charging Station" icon="icons/png/transport_charging_station.png" type="node" preset_name_label="true">
-            <link wiki="Tag:amenity=charging_station"/>
+        <item name="Charging Station" icon="icons/png/transport_charging_station.png" exclude_regions="true" regions="US,CA" type="node" preset_name_label="true">        
+            <reference ref="charging_station_base"/>
             <space/>
-            <key key="amenity" value="charging_station"/>
-            <reference ref="name_ref_operator"/>
-            <reference ref="oh"/>
-            <reference ref="fee"/>
-            <check key="indoor" text="Located inside a building?" disable_off="true" match="none"/>
-            <reference ref="level"/>
-            <space/>
-            <combo key="voltage" text="Voltage" values="230,400"/>
-            <combo key="amperage" text="Amperage" values="16,32"/>
-            <combo key="capacity" text="Capacity" values="1,2,3,4,5,6" value_type="integer"/>
-            <space/>
-            <label text="Types of vehicles which can be charged:"/>
-            <checkgroup text="Types of vehicles which can be charged" columns="4">
-                <check key="bicycle" text="Bicycle" disable_off="true"/>
-                <check key="scooter" text="Scooter" disable_off="true"/>
-                <check key="motorcar" text="Car" disable_off="true"/>
-                <check key="motorcycle" text="Motorcycle" disable_off="true"/>
-                <check key="truck" text="Truck" disable_off="true"/>
-            </checkgroup>
-            <space/>
-            <label text="Number of Sockets:"/>
-            <combo key="socket:type1" text="SAE J1772 (IEC Type 1)" values="1,2,3,4,5,6"/>
-            <combo key="socket:type1_combo" text="SAE J1772 Combo (DC)" values="1,2,3,4,5,6"/>
-            <combo key="socket:type2" text="IEC Type 2 (Mennekes)" values="1,2,3,4,5,6"/>
-            <combo key="socket:type2_combo" text="IEC Type 2 Combo (DC)" values="1,2,3,4,5,6"/>
+            <label text="Available Sockets/Cables:"/>
+            <combo key="socket:type2" text="Type 2 socket - (Mennekes)" values="1,2,3,4,5,6"/>
+            <text key="socket:type2:output" text="Type 2 socket max. output (kW)" />
+            <combo key="socket:type2_cable" text="Type 2 cable - (Mennekes)" values="1,2,3,4,5,6"/>
+            <text key="socket:type2_cable:output" text="Type 2 cable output (kW)" /> 
+            <combo key="socket:type2_combo" text="CCS - Type 2 - Combo (DC)" values="1,2,3,4,5,6"/>
+            <text key="socket:type2_combo:output" text="CCS - Type 2 output (kW)" /> 
             <combo key="socket:type3" text="Type 3 (SCAME)" values="1,2,3,4,5,6"/>
             <combo key="socket:chademo" text="CHAdeMO" values="1,2,3,4,5,6"/>
             <combo key="socket:tesla_supercharger" text="Tesla Supercharger" values="1,2,3,4,5,6"/>
@@ -4033,19 +4050,20 @@
             <combo key="socket:cee_blue" text="CEE blue" values="1,2,3,4,5,6"/>
             <combo key="socket:cee_red_16a" text="CEE red 16A" values="1,2,3,4,5,6"/>
             <combo key="socket:cee_red_32a" text="CEE red 32A" values="1,2,3,4,5,6"/>
+        </item> <!-- Charging Station -->
+        <item name="Charging Station" icon="icons/png/transport_charging_station.png" regions="US,CA" type="node"  preset_name_label="true">
+            <reference ref="charging_station_base"/>
+            <space/>
+            <label text="Available Sockets/Cables:"/>
+            <combo key="socket:type1" text="Type 1 - SAE J1772 (IEC Type 1)" values="1,2,3,4,5,6"/>
+            <text key="socket:type1:output" text="Type 1 socket output (kW)" />
+            <combo key="socket:type1_combo" text="CCS - Type 1 - SAE J1772 Combo (DC)" values="1,2,3,4,5,6"/>
+            <text key="socket:type1_combo:output" text="CCS - Type 1 output (kW)" />       
+            <combo key="socket:chademo" text="CHAdeMO" values="1,2,3,4,5,6"/>
+            <combo key="socket:tesla_supercharger" text="Tesla Supercharger" values="1,2,3,4,5,6"/>
             <combo key="socket:nema_5_15" text="NEMA 5-15" values="1,2,3,4,5,6"/>
             <combo key="socket:nema_5_20" text="NEMA 5-20" values="1,2,3,4,5,6"/>
-            <space/>
-            <label text="Authentication:"/>
-            <checkgroup text="Authentication" columns="4">
-                <check key="authentication:none" text="None" disable_off="true"/>
-                <check key="authentication:phone_call" text="Phone call" disable_off="true"/>
-                <check key="authentication:short_message" text="Short message" disable_off="true"/>
-                <check key="authentication:nfc" text="NFC" disable_off="true"/>
-            </checkgroup>
-            <combo key="authentication:membership_card" text="Membership card" values="yes"/>
-            <preset_link preset_name="Payment Methods"/>
-        </item> <!-- Charging Station -->
+        </item> <!-- Charging Station US,CA -->
         <item name="Car Wash" icon="icons/png/amenity_car_wash_12018.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:amenity=car_wash"/>
             <space/>
@@ -5718,7 +5736,7 @@
             <space/>
             <key key="amenity" value="bbq"/>
             <reference ref="optional_name"/>
-            <combo key="fuel" text="Fuel" text_context="grill" values="charcoal,electric,wood" values_context="fuel"/>
+            <multiselect key="fuel" text="Fuel" text_context="grill" values="charcoal;electric;wood" display_values="Charcoal;Electric;Wood" values_context="fuel"/>
             <check key="covered" text="Covered"/>
         </item> <!-- Public Grill -->
         <item name="Firepit" icon="icons/png/tourist_firepit_21134.png" type="node,closedway" preset_name_label="true">
@@ -8311,43 +8329,57 @@
             <link wiki="Tag:indoor=area" />
             <key key="indoor" value="area" />
             <reference ref="level" />
-            <text key="name" text="Name" i18n="true" />
-            <text key="ref" text="Room Number" />
+            <optional>
+                <text key="name" text="Name" i18n="true" />
+                <text key="ref" text="Room Number" />
+            </optional>
         </item>
         <item name="Corridor" icon="icons/png/indoor_corridor.png" type="closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:indoor=corridor" />
             <key key="indoor" value="corridor" />
             <reference ref="level" />
-            <text key="name" text="Name" i18n="true" />
-            <text key="ref" text="Reference Code" />
-            <text key="height" text="Height (Meters)" value_type="integer" />
+            <optional>
+                <text key="name" text="Name" i18n="true" />
+                <text key="ref" text="Reference Code" />
+                <text key="height" text="Height (Meters)" value_type="integer" />
+            </optional>
         </item>
         <item name="Indoor door" icon="icons/png/indoor_doors_13011.png" type="node" preset_name_label="true" >
             <link wiki="Tag:indoor=door" />
             <key key="indoor" value="door" />
             <reference ref="level" />
-            <text key="ref" text="Reference Code" />
+            <optional>
+                <text key="ref" text="Reference Code" />
+            </optional>
             <reference ref="door_type" />
             <reference ref="facility_access" />
-            <text key="width" text="Width (Meters)" />
-            <text key="height" text="Height (Meters)" value_type="integer" />
+            <optional>
+                <text key="width" text="Width (Meters)" />
+                <text key="height" text="Height (Meters)" value_type="integer" />
+            </optional>
         </item>
         <item name="Room" icon="icons/png/indoor_room.png" type="closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:indoor=room" />
             <key key="indoor" value="room" />
             <reference ref="level" />
-            <text key="name" text="Name" i18n="true" />
-            <text key="ref" text="Room Number" />
+            <optional>
+                <text key="name" text="Name" i18n="true" />
+                <text key="ref" text="Room Number" />
+            </optional>
             <combo key="room" text="Type"
                 values="auditorium,shop,conference,technical,waiting,stairs,hall,office,storage,elevator,library,entrance,class,gallery,escalator,restaurant,store,toilet,laboratory"
                 display_values="Auditorium,Shop,Conference,Technical,Waiting,Stairs,Hall,Office,Storage,Elevator,Library,Entrance,Class,Gallery,Escalator,Restaurant,Store,Toilet,Laboratory" />
-            <text key="height" text="Height (Meters)" value_type="integer" />
+            <optional>
+                <text key="height" text="Height (Meters)" value_type="integer" />
+            </optional>
         </item>
         <item name="Indoor wall" icon="icons/png/indoor_wall.png" type="way" preset_name_label="true">
             <link wiki="Tag:indoor=wall" />
             <key key="indoor" value="wall" />
             <reference ref="level" />
-            <text key="height" text="Height (Meters)" value_type="integer" />
+            <optional>
+                <text key="height" text="Height (Meters)" value_type="integer" />
+            </optional>
         </item>
         <item name="Highway corridor" icon="icons/png/indoor_highway_corridor.png" type="way" preset_name_label="true">
             <link wiki="Tag:highway=corridor" />
@@ -12002,9 +12034,6 @@
         <item name="Multipolygon" icon="icons/png/osm_multipolygon.png" type="relation,multipolygon" preset_name_label="true">
             <link wiki="Relation:multipolygon"/>
             <key key="type" value="multipolygon"/>
-            <optional>
-                <text key="name" text="Name"/>
-            </optional>
             <roles>
                 <role key="outer" text="outer segment" requisite="required" type="way,closedway"/>
                 <role key="inner" text="inner segment" requisite="optional" type="way,closedway"/>
