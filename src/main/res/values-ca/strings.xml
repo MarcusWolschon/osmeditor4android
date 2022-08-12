@@ -93,6 +93,7 @@
   <string name="upload_validation_error_empty_comment">El comentari no hauria de ser buit .</string>
   <string name="upload_validation_error_empty_source">La font no hauria de ser buida. </string>
   <!--Upload GPX-->
+  <string name="upload_gpx_title">Puja una traça GPX</string>
   <string name="upload_gpx_description_label">Descripció</string>
   <string name="upload_gpx_tags_label">Etiquetes</string>
   <string name="upload_gpx_visibility_label">Visibilitat</string>
@@ -110,8 +111,6 @@
   <string name="bug_description">%1$s: %2$s - %3$s</string>
   <string name="generic_bug">Error</string>
   <string name="osmose_bug">Osmose</string>
-  <string name="custom_bug">Personalitzat</string>
-  <string name="bug_long_description_2">&lt;br&gt;darrera actualització:&lt;br&gt;%1$s&lt;br&gt;id: %2$d</string>
   <string name="bug_element_1">%1$s (no baixat) # %2$d</string>
   <string name="bug_element_2">%1$s %2$s</string>
   <string name="maproulette_task_title">Tasca de MapRoulette</string>
@@ -121,6 +120,7 @@
   <string name="maproulette_task_apikey_not_set">No s\'ha pogut desar la clau d\'API de MapRoulette</string>
   <string name="maproulette_task_disable">Desactiva</string>
   <string name="maproulette_task_apikey_set"> Clau d\'API de MapRoulette desada</string>
+  <!--Todo dialogs-->
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Atenció!</string>
   <string name="unsaved_data_message">Els canvis no desats es descartaran si procedeixes.</string>
@@ -390,6 +390,7 @@
   <string name="discard">Descarta</string>
   <string name="retry">Torna a intentar-ho</string>
   <string name="download">Baixa</string>
+  <string name="select">Selecció</string>
   <!--Read a file-->
   <string name="read">Llegeix</string>
   <string name="overwrite">Sobreescriu</string>
@@ -518,7 +519,6 @@
   <string name="menu_transfer_autodownload_long">Baixa les tasques automàticament</string>
   <string name="menu_transfer_save_notes_all">Desa totes les notes...</string>
   <string name="menu_transfer_save_notes_new_and_changed">Desa les notes noves i les canviades...</string>
-  <string name="menu_transfer_read_custom_bugs">Carrega tasques personalitzades...</string>
   <string name="menu_save">Desa com a fitxer</string>
   <string name="menu_join">Uneix</string>
   <string name="menu_unjoin">Desconnecta</string>
@@ -629,6 +629,7 @@
   <string name="config_maxStrokeWidth_title">Amplada màxima de la línia</string>
   <string name="config_maxStrokeWidth_current">%1$dpx</string>
   <string name="config_upload_current">%1$d objectes</string>
+  <string name="config_uploadChecker_current">%1$d hores</string>
   <!--Data and Editing Settings-->
   <string name="config_address_tags">Etiquetes d\'adreces</string>
   <string name="config_enableNameSuggestions_title">Activa el suggeriment de noms</string>
@@ -657,6 +658,7 @@
   <string name="config_downLoadThreads_current">%1$d fils</string>
   <string name="config_tileCacheSize_title">Mida de la memòria cau per les tessel·les</string>
   <string name="config_tileCache_current">%1$d MB</string>
+  <!--Auto-save-->
   <!--Miscellaneous-->
   <string name="config_category_misc">Miscel·lània</string>
   <string name="config_showStats_title">Mostra les estadístiques</string>
@@ -807,4 +809,7 @@
   <string name="toast_nohelp">No hi ha cap ajuda.</string>
   <!--Bookmarks-->
   <!--Element types-->
+  <string name="element_type_area">àrea</string>
+  <string name="element_type_relation">relació</string>
+  <!--Element names with id-->
 </resources>

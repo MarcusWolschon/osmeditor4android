@@ -6,6 +6,7 @@
   <string name="mode_indoor">Interni</string>
   <string name="mode_correct">C-Mode</string>
   <string name="mode_address">Indirizzo</string>
+  <string name="mode_voice">Voce</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Attenzione!</string>
   <string name="transfer_download_current_dialog_message">Hai effettuato delle modifiche. Vuoi caricarle invece di annullarle?</string>
@@ -24,13 +25,13 @@
   <string name="use_server_version">Utilizza la versione già presente sul server</string>
   <string name="no_login_data_title">Autenticazione fallita</string>
   <string name="no_login_data_message">Se stai usando OAuth questo è probabilmente un bug; per favore invia un report. Se stai usando nome utente e password (sconsigliato), controlla di averli inseriti correttamente.</string>
-  <string name="no_connection_title">Nessuna connessione col server</string>
+  <string name="no_connection_title">Nessuna connessione al server</string>
   <string name="no_connection_message">Non è stato possibile connettersi al server OSM. Per favore controlla di essere connesso a Internet o riprova più tardi.</string>
   <string name="ssl_handshake_failed">Impossibile collegarsi al server OSM perché la negoziazione HTTPS è fallita. Prova a passare ad una connessione non cifrata nelle preferenze delle API.</string>
   <string name="wrong_login_data_title">Autenticazione fallita</string>
   <string name="wrong_login_data_message">Se utilizzi OAuth, riautenticati e prova di nuovo. Se stai usando nome utente e password (sconsigliato), controlla di averli inseriti correttamente.</string>
-  <string name="wrong_login_data_re_authenticate">Esegui nuovamente autenticazione</string>
-  <string name="forbidden_login_title">Login proibito</string>
+  <string name="wrong_login_data_re_authenticate">Ripeti l\'autenticazione</string>
+  <string name="forbidden_login_title">Accesso vietato</string>
   <string name="not_found_title">Elemento non trovato</string>
   <string name="not_found_message">L’API non ha trovato un elemento o gruppo di modifiche esistenti con l’id specificato.&lt;br&gt;&lt;br&gt;</string>
   <string name="unknown_error_title">Errore sconosciuto</string>
@@ -39,7 +40,7 @@
   <string name="no_data_message">La fonte dei dati configurata non ha copertura qui.</string>
   <string name="required_feature_missing_title">Componente mancante o disabilitato</string>
   <string name="required_feature_missing_message">Questo elemento dipende da un componente di sistema mancante o disabilitato.</string>
-  <string name="go_to_openstreetmap">Vai ad openstreetmap.org</string>
+  <string name="go_to_openstreetmap">Vai su openstreetmap.org</string>
   <string name="data_conflict_title">Conflitto tra versioni</string>
   <string name="data_conflict_message">I dati del download potrebbero essere in conflitto con le tue modifiche. Per favore carica le tue modifiche prima di riprovare.</string>
   <string name="corrupted_data_title">Dati corrotti</string>
@@ -62,7 +63,7 @@
   <string name="applying_osc_failed_title">Applicazione del file OSC fallita</string>
   <string name="applying_osc_failed_message">Molto probabilmente non hai caricato tutti i dati originali che sono richiesti per applicare i cambiamenti.</string>
   <!---->
-  <string name="welcome_title">Benvenuto</string>
+  <string name="welcome_title">Benvenuti</string>
   <string name="welcome_message">Grazie per aver installato Vespucci.\n&lt;br&gt;&lt;br&gt;Per iniziare devi sapere tre cose:\n&lt;ul&gt;&lt;li&gt;premendo l’icona del lucchetto nell’angolo in alto a sinistra passerai dalla modalità bloccata (nessuna modifica ammessa) a quella sbloccata,&lt;/li&gt;&lt;li&gt;per modificare OpenStreetMap devi prima scaricare l’area dove intendi fare le tue modifiche (ingrandisci la mappa prima di farlo),&lt;/li&gt;&lt;li&gt;per aggiungere un nuovo oggetto: premi il grande pulsante verde e seleziona quello che vuoi aggiungere, poi premi nella punto in cui vuoi posizionarlo.&lt;/li&gt;&lt;/ul&gt;\nAdesso sei pronto a partire. Inizia a mappare e a divertirti!</string>
   <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;Il tuo dispositivo ha i “tasti virtuali” che vengono nascosti alla vista. Trascina dal fondo per vederli nuovamente.</string>
   <string name="read_introduction">Leggi l\'introduzione</string>
@@ -91,6 +92,7 @@
   <string name="confirm_upload_title">Carica le modifiche sul server</string>
   <plurals name="confirm_upload_text">
     <item quantity="one">Carica questa modifica?</item>
+    <item quantity="many">Carica queste %1$d modifiche?</item>
     <item quantity="other">Carica queste %1$d modifiche?</item>
   </plurals>
   <string name="confirm_upload_edits_page">Modifiche</string>
@@ -102,9 +104,11 @@
   <string name="upload_validation_error_empty_comment">Il commento non dovrebbe essere vuoto</string>
   <string name="upload_validation_error_empty_source">La fonte dei dati non dovrebbe essere vuota</string>
   <!--Upload GPX-->
+  <string name="upload_gpx_title">Carica la traccia GPX sul server</string>
   <string name="upload_gpx_description_label">Descrizione</string>
   <string name="upload_gpx_tags_label">Etichette</string>
   <string name="upload_gpx_visibility_label">Visibilità</string>
+  <string name="upload_validation_error_empty_description">Descrizione vuota</string>
   <!--task fragment-->
   <string name="openstreetbug_new_title">Nuova nota</string>
   <string name="openstreetbug_new_bug">Segnala problema</string>
@@ -120,9 +124,7 @@
   <string name="bug_description_2">%1$s: %2$s %3$s - %4$s</string>
   <string name="generic_bug">Bug</string>
   <string name="osmose_bug">Osmose</string>
-  <string name="custom_bug">Personalizzato</string>
   <string name="bug_long_description_1">%1$s: %2$s&lt;br&gt;&lt;br&gt;%3$s&lt;br&gt;&lt;br&gt;%4$s&lt;br&gt;</string>
-  <string name="bug_long_description_2">&lt;br&gt;ultima modifica:&lt;br&gt;%1$s&lt;br&gt;id: %2$d</string>
   <string name="bug_element_1">%1$s (non scaricato) #%2$d</string>
   <string name="bug_element_2">%1$s %2$s</string>
   <string name="maproulette_task_title">Compiti MapRoulette</string>
@@ -133,9 +135,10 @@
   <string name="maproulette_task_disable">Disabilita</string>
   <string name="maproulette_task_apikey_set">Chiave API di MapRoulette salvata</string>
   <string name="maproulette_task_no_apikey">Nessuna chiave API di MapRoulette</string>
+  <!--Todo dialogs-->
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Attenzione!</string>
-  <string name="unsaved_data_message">Le tuoi modifiche non salvare verranno eliminate se procedi.</string>
+  <string name="unsaved_data_message">Se procedi, le tue modifiche non salvate verranno scartate.</string>
   <string name="unsaved_data_proceed">Scarta &amp; procedi</string>
   <!--Imagery offset dialog-->
   <string name="imagery_offset_title">Allineamento immagini</string>
@@ -163,7 +166,7 @@
   <string name="search_objects_use_regexps">Usa espressioni regolari</string>
   <string name="search_objects_unsupported">Espressione “%1$s” non supportata</string>
   <!---->
-  <string name="preset_search_hint">Testo di ricerca dei predefiniti</string>
+  <string name="preset_search_hint">Testo di ricerca predefinito</string>
   <string name="preset_autopreset">Predefiniti automatici</string>
   <string name="search">Cerca</string>
   <string name="no_valid_preset">Predefinito non valido!</string>
@@ -296,6 +299,7 @@
   <string name="coverage_left">Sinistra</string>
   <string name="coverage_right">Destra</string>
   <string name="coverage_bottom">In basso</string>
+  <string name="tile_size">Dimensione tassello</string>
   <string name="toast_invalid_box">Riquadro di selezione non valido</string>
   <string name="delete_layer">Eliminare il livello?</string>
   <string name="delete_endpoint">Cancellare endpoint?</string>
@@ -311,11 +315,16 @@
   <string name="layer_style_symbol">Simbolo</string>
   <string name="json_object_not_displayed">Oggetto JSON (non visibile)</string>
   <string name="json_array_not_displayed">Array JSON (non visibile)</string>
+  <string name="gpx_automatic">Automatico</string>
+  <string name="gpx_name">Nome GPX</string>
+  <string name="gpx_description">Descrizione GPX</string>
+  <string name="gpx_type">Tipo GPX</string>
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
   <string name="layer_mapillary">Mapillary</string>
   <string name="layer_grid">Griglia</string>
   <string name="layer_gpx">GPX</string>
+  <string name="layer_gpx_recording">Registrazione GPX</string>
   <string name="layer_photos">Foto</string>
   <string name="layer_tasks">Compiti</string>
   <string name="layer_data">Dati OSM</string>
@@ -334,6 +343,9 @@
   <string name="layer_category_osmbasedmap">Mappa basata su OSM</string>
   <string name="layer_category_qa">Controllo qualità</string>
   <string name="layer_category_other">Altro</string>
+  <string name="layer_add_gpx">Aggiungi livello da file GPX</string>
+  <string name="layer_download_track">Scarica traccia GPX</string>
+  <string name="layer_available_tracks">Tracce GPX disponibili</string>
   <!--Layer info dialog-->
   <string name="layer_info_min_zoom">Zoom minimo</string>
   <string name="layer_info_max_zoom">Zoom massimo</string>
@@ -388,9 +400,6 @@
   <string name="tip_title">Lo sapevi?</string>
   <string name="tip_check_label">Non mostrare più suggerimenti facoltativi</string>
   <string name="tip_undo">Premendo a lungo il tasto annulla vengono mostrati tutti i punti di controllo per annulla e rifai.</string>
-  <string name="tip_imagery_privacy">I livelli di sfondo e sovrimpressi sono forniti da terzi. Utilizzando un livello trasmetti il tuo indirizzo di rete e una indicazione generica dell’area che stai guardando al fornitore.&lt;p&gt;Se tale fornitore ha fornito un’informativa sulla privacy, puoi leggerla nella voce “Info” sulla schermata del livello.</string>
-  <string name="tip_pan_and_zoom_auto_download">Lo scaricamento automatico dopo aver ingrandito e essersi spostati sulla mappa andrebbe usato con cautela poiché potrebbe consumare le risorse sia delle API di OpenStreetMap che del tuo dispositivo.&lt;p&gt;Il carico sui server delle API può essere
-evitato usando una fonte di dati offline.</string>
   <string name="tip_locked_mode">In modalità bloccata non puoi modificare nulla ma tenendo premuto su un oggetto si aprirà una schermata con le sue dettagli.</string>
   <string name="tip_longpress_simple_mode">In modalità semplice tenendo premuto non succederà niente. Disabilita la modalità semplice nel menù principale se vuoi tenere premuto per creare oggetti.</string>
   <string name="tip_gpx_no_elevation">A partire dalla versione 15, le tracce GPX inizialmente non contengono le informazioni di elevazione.&lt;p&gt;Per abilitare la registrazione dell’elevazione installa un modello di geoide con &lt;i&gt;Installa EGM&lt;/i&gt; dal menù Strumenti oppure commuta su input NMEA.</string>
@@ -405,6 +414,7 @@ evitato usando una fonte di dati offline.</string>
   <string name="qa_channel_name">QA Vespucci</string>
   <string name="qa_channel_description">Canale di segnalazione QA per compiti e problemi ai dati</string>
   <!--Notifications-->
+  <string name="upload_checker_title">Ricordati di salvare il tuo lavoro</string>
   <!--Toaster-->
   <string name="toast_permission_denied">Permesso negato %1$s</string>
   <string name="toast_unable_to_persist_permissions">Impossibile rendere persistenti i permessi</string>
@@ -430,12 +440,14 @@ evitato usando una fonte di dati offline.</string>
   <string name="toast_way_nodes_moved">%1$d nodi nel percorso spostato</string>
   <plurals name="toast_unread_mail">
     <item quantity="one">Ha un messaggio OSM non letto</item>
+    <item quantity="many">Hai %1$d messaggi OSM non letti</item>
     <item quantity="other">Hai %1$d messaggi OSM non letti</item>
   </plurals>
   <string name="read_mail">Leggi</string>
   <string name="toast_photo_indexing_started">È iniziata la ricerca per le foto geo-referenziate</string>
   <string name="toast_photo_indexing_finished">È terminata la ricerca delle foto geo-referenziate</string>
   <string name="toast_download_failed">Scaricamento fallito con codice di errore %1$d, messaggio %2$s</string>
+  <string name="toast_note_reopened">Nota riaperta</string>
   <!--Validation-->
   <string name="toast_unsurveyed_road">Strada non verificata</string>
   <string name="toast_noname">Mancano i valori nome e ref per la strada</string>
@@ -459,6 +471,7 @@ evitato usando una fonte di dati offline.</string>
   <string name="toast_file_not_found">%1$s non è stato trovato.</string>
   <plurals name="toast_imported_track_points">
     <item quantity="one">Importato %1$d punti traccia GPX e 1 waypoint.</item>
+    <item quantity="many">Importato %1$d punti traccia GPX e %2$d waypoint.</item>
     <item quantity="other">Importato %1$d punti traccia GPX e %2$d waypoint.</item>
   </plurals>
   <string name="toast_unknown_voice_command">Spiacenti, non è possibile comprendere “%1$s” adesso</string>
@@ -545,6 +558,7 @@ evitato usando una fonte di dati offline.</string>
   <string name="toast_default_channel_needs_to_be_enabled">Il canale di notifica predefinito deve essere abilitato per iniziare a registrare</string>
   <plurals name="added_required_elements">
     <item quantity="one">Aggiunto l\'elemento richiesto</item>
+    <item quantity="many">Aggiunti %1$d elementi richiesti</item>
     <item quantity="other">Aggiunti %1$d elementi richiesti</item>
   </plurals>
   <string name="toast_out_of_memory">MEMORIA ESAURITA!</string>
@@ -585,12 +599,15 @@ evitato usando una fonte di dati offline.</string>
   <string name="keep">Mantieni</string>
   <string name="enable">Abilita</string>
   <string name="disable">Disabilita</string>
-  <string name="clear">Pulisci</string>
+  <string name="clear">Svuota</string>
   <string name="discard">Elimina</string>
   <string name="retry">Riprova</string>
   <string name="prune">Riduci</string>
   <string name="check">Verifica</string>
   <string name="download">Scarica</string>
+  <string name="ignore">Ignora</string>
+  <string name="select">Seleziona</string>
+  <string name="skip">Salta</string>
   <!--Read a file-->
   <string name="read">Leggi</string>
   <string name="overwrite">Sovrascrivi</string>
@@ -777,14 +794,12 @@ evitato usando una fonte di dati offline.</string>
   <string name="menu_transfer_bugs_download_current">Scarica compiti per la vista corrente</string>
   <string name="menu_transfer_bugs_upload">Carica tutto</string>
   <string name="menu_transfer_bugs_upload_long">Carica tutti i compiti</string>
-  <string name="menu_transfer_bugs_clear">Pulisci</string>
+  <string name="menu_transfer_bugs_clear">Svuota</string>
   <string name="menu_transfer_bugs_clear_long">Pulisci compiti</string>
   <string name="menu_transfer_autodownload_long">Scarica automaticamente i compiti</string>
   <string name="menu_transfer_save_notes_all">Salva tutte le note...</string>
   <string name="menu_transfer_save_notes_new_and_changed">Salva note nuove e modificate</string>
   <string name="menu_transfer_read_notes">Carica note…</string>
-  <string name="menu_transfer_read_custom_bugs">Carica compito personalizzato...</string>
-  <string name="menu_transfer_write_custom_bugs">Salva compiti personalizzati aperti...</string>
   <string name="menu_save">Salva come file</string>
   <string name="menu_join">Unisci</string>
   <string name="menu_unjoin">Separa</string>
@@ -859,6 +874,7 @@ evitato usando una fonte di dati offline.</string>
   <string name="menu_tags">Proprietà</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">Cronologia</string>
+  <string name="menu_history_web">Cronologia (web)</string>
   <string name="menu_merge">Unisci</string>
   <string name="menu_reverse">Inverti</string>
   <string name="notreversable_description">Questa linea non è reversibile poiché ha dei tag dipendenti dalla direzione. Ruotandola creerebbe problemi con i tag.</string>
@@ -905,6 +921,7 @@ evitato usando una fonte di dati offline.</string>
   <string name="actionmode_extract_segment_set_tags">Imposta etichette</string>
   <plurals name="actionmode_object_count">
     <item quantity="one">1 oggetto</item>
+    <item quantity="many">%1$d oggetti</item>
     <item quantity="other">%1$d oggetti</item>
   </plurals>
   <string name="actionmode_rotateway">Ruota percorso</string>
@@ -1012,6 +1029,7 @@ evitato usando una fonte di dati offline.</string>
   <string name="config_uploadOk_summary">Limite massimo del numero di oggetti in attesa di essere caricati considerato OK</string>
   <string name="config_upload_current">%1$d oggetti</string>
   <string name="config_uploadWarn_title">Avviso di caricamenti pendenti</string>
+  <string name="config_uploadChecker_current">%1$d ore</string>
   <string name="config_dataWarn_title">Avviso di troppi dati</string>
   <string name="config_useUrlForFeedback_title">Disabilita feedback sull’attività</string>
   <string name="config_useUrlForFeedback_summary">Disabilita il feedback dell’attività e usa un URL al suo posto.</string>
@@ -1128,6 +1146,7 @@ evitato usando una fonte di dati offline.</string>
   <string name="config_preferRemovableStorage_summary">Preferisci una memoria rimovibile per la cache dei tasselli.</string>
   <string name="config_tileCache_current">%1$d MB</string>
   <string name="config_mapillaryCacheSize_title">Dimensione cache di Mapillary</string>
+  <!--Auto-save-->
   <!--Miscellaneous-->
   <string name="config_category_misc">Varie</string>
   <string name="pref_enable_acra">Segnala crash dell\'applicazione</string>
@@ -1280,26 +1299,32 @@ evitato usando una fonte di dati offline.</string>
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">1 giorno</item>
+    <item quantity="many">%1$d giorni</item>
     <item quantity="other">%1$d giorni</item>
   </plurals>
   <plurals name="hours">
     <item quantity="one">1 ora</item>
+    <item quantity="many">%1$d ore</item>
     <item quantity="other">%1$d ore</item>
   </plurals>
   <plurals name="minutes">
     <item quantity="one">1 minuto</item>
+    <item quantity="many">%1$d minuti</item>
     <item quantity="other">%1$d minuti</item>
   </plurals>
   <plurals name="seconds">
     <item quantity="one">1 secondo</item>
+    <item quantity="many">%1$d secondi</item>
     <item quantity="other">%1$d secondi</item>
   </plurals>
   <plurals name="km">
     <item quantity="one">1 km</item>
+    <item quantity="many">%1$d km</item>
     <item quantity="other">%1$d km</item>
   </plurals>
   <plurals name="meters">
     <item quantity="one">1 metro</item>
+    <item quantity="many">%1$d metri</item>
     <item quantity="other">%1$d metri</item>
   </plurals>
   <!--Help system-->
@@ -1312,4 +1337,9 @@ evitato usando una fonte di dati offline.</string>
   <string name="gotobookmark">Vai</string>
   <string name="bookmarkstitle">Segnalibri</string>
   <!--Element types-->
+  <string name="element_type_way">percorso</string>
+  <string name="element_type_closedway">strada chiusa</string>
+  <string name="element_type_area">area</string>
+  <string name="element_type_relation">relazione</string>
+  <!--Element names with id-->
 </resources>

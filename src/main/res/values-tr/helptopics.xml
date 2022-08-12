@@ -28,6 +28,9 @@
     <string name="help_newnoteselection">Yeni Not seçimi</string>
     <string name="help_voice_commands">Sesli komutlar</string>
     <string name="help_add_route_segment">Güzergah bölümü ekle</string>
+    <string name="help_upgrade_170">17.0 Sürüm notları</string>
+    <string name="help_upgrade_161">16.1 Sürüm notları</string>
+    <string name="help_upgrade_160">16.0 Sürüm notları</string>
     <string name="help_upgrade_152">15.2 Sürüm notları</string>
     <string name="help_upgrade_151">15.1 Sürüm notları</string>
     <string name="help_upgrade_150">15.0 Sürüm notları</string>
@@ -72,6 +75,8 @@
         <item>@string/help_newnoteselection</item>
         <item>@string/help_voice_commands</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_171</item>
+        <item>@string/help_upgrade_170</item>
         <item>@string/help_upgrade_161</item>
         <item>@string/help_upgrade_160</item>
         <item>@string/help_upgrade_152</item>
@@ -119,6 +124,8 @@
     	<item>Opening hours</item>
         <item>New Note selected</item>
         <item>Voice commands</item>
+        <item>18.0.0 Release notes</item>
+        <item>17.1.0 Release notes</item>
         <item>17.0.0 Release notes</item>
         <item>16.1.0 Release notes</item>
         <item>16.0.0 Release notes</item>

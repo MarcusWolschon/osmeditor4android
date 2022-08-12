@@ -101,6 +101,7 @@
   <string name="upload_validation_error_empty_comment">注释不应该留空</string>
   <string name="upload_validation_error_empty_source">来源不应留空</string>
   <!--Upload GPX-->
+  <string name="upload_gpx_title">上传 GPX 轨迹</string>
   <string name="upload_gpx_description_label">描述</string>
   <string name="upload_gpx_tags_label">标签</string>
   <string name="upload_gpx_visibility_label">可见性</string>
@@ -119,9 +120,7 @@
   <string name="bug_description_2">%1$s: %2$s %3$s - %4$s</string>
   <string name="generic_bug">Bug</string>
   <string name="osmose_bug">Osmose</string>
-  <string name="custom_bug">自定义</string>
   <string name="bug_long_description_1">%1$s: %2$s&lt;br&gt;&lt;br&gt;%3$s&lt;br&gt;&lt;br&gt;%4$s&lt;br&gt;</string>
-  <string name="bug_long_description_2">&lt;br&gt;最后更新：&lt;br&gt;%1$s&lt;br&gt;id: %2$d</string>
   <string name="bug_element_1">%1$s (未下载) #%2$d</string>
   <string name="bug_element_2">%1$s %2$s</string>
   <string name="maproulette_task_title">MapRoulette 任务</string>
@@ -132,6 +131,7 @@
   <string name="maproulette_task_disable">禁用</string>
   <string name="maproulette_task_apikey_set">MapRoulette API key 已保存</string>
   <string name="maproulette_task_no_apikey">没有 MapRoulette API key</string>
+  <!--Todo dialogs-->
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">注意！</string>
   <string name="unsaved_data_message">您有未保存的变更，如果继续将被丢弃。</string>
@@ -387,16 +387,13 @@
   <string name="tip_title">你知道吗？</string>
   <string name="tip_check_label">不再显示可选提示</string>
   <string name="tip_undo">长按撤销按钮可显示所有撤销和重做检查点。</string>
-  <string name="tip_imagery_privacy">背景和叠加图层由第三方提供。使用图层将把您的网络地址和正在查看的区域的粗略指示发送给提供者。&lt;p&gt;如果提供者有隐私政策信息，可以在图层对话框的“信息”菜单中找到。</string>
   <string name="tip_mapillary_privacy">Mapillary 是由 Facebook 子公司瑞典 Mapillary AB 提供的服务。使用这个服务将把您的网络地址和查看的图像信息传送给公司。</string>
-  <string name="tip_pan_and_zoom_auto_download">平移和缩放自动下载功能应小心使用，因为会对 OpenStreetMap API 和您的设备造成负担。&lt;p&gt; API 服务器的负载可以通过使用离线数据源避免。</string>
   <string name="tip_locked_mode">在锁定模式下无法编辑，但长按对象可以打开详细信息对话框。</string>
   <string name="tip_longpress_simple_mode">在简单模式下长按什么事都不会发生。在菜单中关闭简单模式可以使用长按创建对象。</string>
   <string name="tip_gpx_no_elevation">从版本 15 开始，GPX 轨迹默认不再包含高程信息。&lt;p&gt;要启用高程信息记录，请在菜单中使用 &lt;i&gt;安装 EGM&lt;/i&gt; 安装 Geoid 模型，或切换为 NMEA 输入。</string>
   <string name="tip_tag_conflict">合并和反转 OSM 要素有时候需要改变要素的属性，如果变动时出现错误或冲突，您可以手动检查有问题的对象。</string>
   <string name="tip_gpx_recording">当开始 GPX 轨迹记录时，Vespucci 会在后台收集位置信息来记录 GPX。&lt;p&gt;在这种情况下，彻底关闭应用或关闭 GPX 记录将停止使用位置数据。</string>
   <string name="tip_auto_download">当开始自动下载 OSM 数据或任务时，Vespucci 会在后台收集位置信息以确定当前位置。&lt;p&gt;在这种情况下，彻底关闭应用或关闭自动下载功能将停止使用位置数据。</string>
-  <string name="tip_tristate_checkbox">您刚刚点击了一个三态复选框，它们和普通复选框类似，点击可以在两个值之间切换，例如 是/否。&lt;p&gt;不过它们有第三个附加的&lt;b&gt;未设定&lt;/b&gt;状态，由灰色框表示，该复选框将阻止添加相应的标记。长按可将复选框设定为这种状态。</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -784,8 +781,6 @@
   <string name="menu_transfer_save_notes_all">保存所有注记…</string>
   <string name="menu_transfer_save_notes_new_and_changed">保存新的和变更的注记…</string>
   <string name="menu_transfer_read_notes">加载注记…</string>
-  <string name="menu_transfer_read_custom_bugs">加载自定义任务…</string>
-  <string name="menu_transfer_write_custom_bugs">保存打开的自定义任务…</string>
   <string name="menu_save">保存为文件</string>
   <string name="menu_join">加入</string>
   <string name="menu_unjoin">离开</string>
@@ -1010,6 +1005,7 @@
   <string name="config_maxStrokeWidth_current">%1$d px</string>
   <string name="config_uploadOk_title">待上传确定</string>
   <string name="config_upload_current">%1$d 对象</string>
+  <string name="config_uploadChecker_current">%1$d 小时</string>
   <string name="config_dataWarn_title">数据过多警告</string>
   <string name="config_useUrlForFeedback_title">禁用反馈页面</string>
   <string name="config_useUrlForFeedback_summary">禁用反馈页面，使用 URL 替代。</string>
@@ -1126,6 +1122,7 @@
   <string name="config_tileCache_current">%1$d MB</string>
   <string name="config_mapillaryCacheSize_title">Mapillary 缓存大小</string>
   <string name="config_mapillaryCacheSize_summary">用于缓存 Mapillary 图像的总空间，以 MB 为单位</string>
+  <!--Auto-save-->
   <!--Miscellaneous-->
   <string name="config_category_misc">杂项</string>
   <string name="pref_enable_acra">报告应用崩溃</string>
@@ -1305,4 +1302,5 @@
   <string name="gotobookmark">Go</string>
   <string name="bookmarkstitle">书签</string>
   <!--Element types-->
+  <!--Element names with id-->
 </resources>

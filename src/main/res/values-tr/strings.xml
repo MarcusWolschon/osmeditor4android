@@ -6,6 +6,7 @@
   <string name="mode_indoor">Kapalı Mekan</string>
   <string name="mode_correct">C-Modu</string>
   <string name="mode_address">Adres</string>
+  <string name="mode_voice">Ses</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Dikkat!</string>
   <string name="transfer_download_current_dialog_message">Değişiklikler yaptınız. Onları atmak yerine yüklemek ister misiniz?</string>
@@ -83,6 +84,7 @@
   <string name="progress_building_imagery_database">Görüntü veritabanı oluşturuluyor…</string>
   <string name="progress_query_oam">OAM sorgulanıyor</string>
   <string name="progress_pruning">Budanıyor...</string>
+  <string name="progress_migration">Taşınıyor…</string>
   <!--Confirm upload dialog-->
   <string name="changes_deleted">\"%1$s\" silindi</string>
   <string name="changes_changed">\"%1$s\" değiştirildi</string>
@@ -101,9 +103,11 @@
   <string name="upload_validation_error_empty_comment">Yorum boş olmamalıdır</string>
   <string name="upload_validation_error_empty_source">Kaynak boş olmamalıdır</string>
   <!--Upload GPX-->
+  <string name="upload_gpx_title">GPX izlerini yükle</string>
   <string name="upload_gpx_description_label">Açıklama</string>
   <string name="upload_gpx_tags_label">Yaftalar</string>
   <string name="upload_gpx_visibility_label">Görünürlük</string>
+  <string name="upload_validation_error_empty_description">Boş açıklama</string>
   <!--task fragment-->
   <string name="openstreetbug_new_title">Yeni not</string>
   <string name="openstreetbug_new_bug">Sorun bildir</string>
@@ -119,9 +123,7 @@
   <string name="bug_description_2">%1$s: %2$s %3$s - %4$s</string>
   <string name="generic_bug">Hata</string>
   <string name="osmose_bug">Ozmos</string>
-  <string name="custom_bug">Özel</string>
   <string name="bug_long_description_1">%1$s: %2$s&lt;br&gt;&lt;br&gt;%3$s&lt;br&gt;&lt;br&gt;%4$s&lt;br&gt;</string>
-  <string name="bug_long_description_2">&lt;br&gt;son güncelleme:&lt;br&gt;%1$s&lt;br&gt;id: %2$d</string>
   <string name="bug_element_1">%1$s (indirilemedi) #%2$d</string>
   <string name="bug_element_2">%1$s %2$s</string>
   <string name="maproulette_task_title">MapRoulette Görevi</string>
@@ -132,6 +134,7 @@
   <string name="maproulette_task_disable">Devre dışı</string>
   <string name="maproulette_task_apikey_set">MapRoulette API anahtarı kaydedildi</string>
   <string name="maproulette_task_no_apikey">MapRoulette API anahtarı yok</string>
+  <!--Todo dialogs-->
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Dikkat!</string>
   <string name="unsaved_data_message">Devam ederseniz kaydedilmemiş değişiklikleriniz atılır.</string>
@@ -300,8 +303,10 @@
   <string name="layer_style_stroke_width">Darbe genişliği</string>
   <string name="layer_style_color">Renk</string>
   <string name="layer_style_label">Etiket</string>
+  <string name="layer_style_symbol">Sembol</string>
   <string name="json_object_not_displayed">JSON nesnesi (görüntülenmez)</string>
   <string name="json_array_not_displayed">JSON dizisi (görüntülenmez)</string>
+  <string name="gpx_automatic">Otomatik</string>
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
   <string name="layer_mapillary">Mapillary</string>
@@ -374,8 +379,6 @@
   <string name="tip_title">Biliyor musun?</string>
   <string name="tip_check_label">İsteğe bağlı ipuçlarını gösterme</string>
   <string name="tip_undo">Geri al düğmesine uzun basmak bütün geri al ve ileri al kontrol noktalarını gösterir.</string>
-  <string name="tip_imagery_privacy">Arka plan ve yer paylaşımı katmanları üçüncü taraflarca sağlanır. Bir katman kullanmak, ağ adresinizi ve baktığınız alanın kaba bir göstergesini sağlayıcıya iletir.&lt;p&gt;Sağlayıcı gizlilik politikası bilgilerini sağladıysa, katman iletişim kutusundaki \"Bilgi\" menü öğesi ile görüntüleyebilirsiniz .</string>
-  <string name="tip_pan_and_zoom_auto_download">Kaydırma ve yakınlaştırma otomatik indirmesi, hem OpenStreetMap API\'lerini hem de cihazınızı ciddi şekilde vergilendirme potansiyeline sahip olduğundan dikkatli kullanılmalıdır.&lt;p&gt;API sunucularındaki yük, çevrimdışı bir veri kaynağı kullanılarak önlenebilir.</string>
   <string name="tip_locked_mode">Kilitli modda düzenleme yapamazsınız, ancak bir nesneye uzun basıldığında ayrıntılı bilgiler içeren bir ekran açılır.</string>
   <string name="tip_longpress_simple_mode">Basit modda uzun basış hiçbir şey yapmaz. Nesne oluşturmak için uzun tıklamaları kullanmak istiyorsanız ana menüden basit modu kapatın.</string>
   <string name="tip_gpx_no_elevation">Sürüm 15\'ten itibaren, GPX izleri artık varsayılan olarak yükseklik bilgisi içermiyor.&lt;p&gt;Yükseklik kaydını etkinleştirmek için, Araçlar menüsünden EGM&lt;/i&gt; &lt;i&gt;Yükle ile bir Geoid modeli kurun veya NMEA girişine geçin.</string>
@@ -571,6 +574,7 @@
   <string name="prune">Buda</string>
   <string name="check">Denetle</string>
   <string name="download">İndir</string>
+  <string name="select">Seçiniz</string>
   <!--Read a file-->
   <string name="read">Oku</string>
   <string name="overwrite">Üzerine yaz</string>
@@ -761,8 +765,6 @@
   <string name="menu_transfer_autodownload_long">Görevleri otomatik indir</string>
   <string name="menu_transfer_save_notes_all">Bütün notları kaydet...</string>
   <string name="menu_transfer_save_notes_new_and_changed">Yeni ve değiştirilmiş notları kaydet...</string>
-  <string name="menu_transfer_read_custom_bugs">Özel görevler yükle…</string>
-  <string name="menu_transfer_write_custom_bugs">Açık özel görevleri kaydedin…</string>
   <string name="menu_save">Dosya olarak kaydet</string>
   <string name="menu_join">Katıl</string>
   <string name="menu_unjoin">Ayrıl</string>
@@ -977,6 +979,7 @@
   <string name="config_uploadOk_summary">Bekleyen nesne yüklemelerinin Tamam olarak kabul edileceği sınırın altında</string>
   <string name="config_upload_current">%1$dnesneN</string>
   <string name="config_uploadWarn_title">Yükleme uyarısı bekleniyor</string>
+  <string name="config_uploadChecker_current">%1$d saat</string>
   <string name="config_dataWarn_title">Çok fazla veri uyarısı</string>
   <string name="config_useUrlForFeedback_title">Geri bildirim etkinliğini devre dışı bırakın</string>
   <string name="config_useUrlForFeedback_summary">Geri bildirim etkinliğini devre dışı bırakın ve bunun yerine bir URL kullanın.</string>
@@ -1083,6 +1086,7 @@
   <string name="config_tileCacheSize_summary">Döşeme önbelleği için kullanılan toplam depolama alanı, MB cinsinden.</string>
   <string name="config_tileCache_current">%1$d MB</string>
   <string name="config_mapillaryCacheSize_title">Mapillary önbellek boyutu</string>
+  <!--Auto-save-->
   <!--Miscellaneous-->
   <string name="config_category_misc">Çeşitli</string>
   <string name="pref_enable_acra">Uygulama çökmelerini bildir</string>
@@ -1258,4 +1262,7 @@
   <string name="toast_nohelp">Burada yardım yok</string>
   <!--Bookmarks-->
   <!--Element types-->
+  <string name="element_type_area">alan</string>
+  <string name="element_type_relation">küme</string>
+  <!--Element names with id-->
 </resources>

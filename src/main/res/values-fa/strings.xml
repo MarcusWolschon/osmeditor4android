@@ -103,9 +103,11 @@
   <string name="upload_validation_error_empty_comment">توضیح نباید خالی باشد</string>
   <string name="upload_validation_error_empty_source">منبع نباید خالی باشد</string>
   <!--Upload GPX-->
+  <string name="upload_gpx_title">بارگذاری رد GPX</string>
   <string name="upload_gpx_description_label">توضیحات</string>
   <string name="upload_gpx_tags_label">برچسب‌ها</string>
   <string name="upload_gpx_visibility_label">نمایانی</string>
+  <string name="upload_validation_error_empty_description">توضیحات خالی</string>
   <!--task fragment-->
   <string name="openstreetbug_new_title">یادداشت جدید</string>
   <string name="openstreetbug_new_bug">گزارش مسئله</string>
@@ -123,9 +125,7 @@
   <string name="bug_description_2">%1$s: %2$s %3$s - %4$s</string>
   <string name="generic_bug">باگ</string>
   <string name="osmose_bug">Osmose</string>
-  <string name="custom_bug">سفارشی</string>
   <string name="bug_long_description_1">%1$s: %2$s&lt;br&gt;&lt;br&gt;%3$s&lt;br&gt;&lt;br&gt;%4$s&lt;br&gt;</string>
-  <string name="bug_long_description_2">&lt;br&gt;آخرین به‌روزرسانی:&lt;br&gt;%1$s&lt;br&gt;id: %2$d</string>
   <string name="bug_element_1">%1$s (بارگیری نشده) #%2$d</string>
   <string name="bug_element_2">%1$s %2$s</string>
   <string name="maproulette_task_title">وظیفهٔ مپ‌رولت</string>
@@ -136,6 +136,7 @@
   <string name="maproulette_task_disable">غیرفعال</string>
   <string name="maproulette_task_apikey_set">کلید API مپ‌رولت ذخیره شد</string>
   <string name="maproulette_task_no_apikey">کلید API مپ‌رولت وجود ندارد</string>
+  <!--Todo dialogs-->
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">احتیاط! </string>
   <string name="unsaved_data_message">اگر ادامه دهید تغییرات ذخیره‌نشده‌تان از بین می‌رود.</string>
@@ -317,11 +318,16 @@
   <string name="layer_style_symbol">نماد</string>
   <string name="json_object_not_displayed">شیء JSON (نمایش نیافته)</string>
   <string name="json_array_not_displayed">آرایهٔ JSON (نمایش نیافته)</string>
+  <string name="gpx_automatic">خودکار</string>
+  <string name="gpx_name">نام GPX</string>
+  <string name="gpx_description">توضیحات GPX</string>
+  <string name="gpx_type">نوع GPX</string>
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
   <string name="layer_mapillary">مپیلاری</string>
   <string name="layer_grid">شبکه</string>
   <string name="layer_gpx">GPX</string>
+  <string name="layer_gpx_recording">ضبط GPX</string>
   <string name="layer_photos">عکس‌ها</string>
   <string name="layer_tasks">وظیفه‌ها</string>
   <string name="layer_data">دادهٔ OSM</string>
@@ -343,6 +349,15 @@
   <string name="layer_add_layer_from_mvt_style">لایه ای از سبک MVT اضافه کنید</string>
   <string name="layer_add_custom_imagery">تصاویر سفارشی را اضافه کنید</string>
   <string name="layer_edit_custom_imagery_configuration">ویرایش پیکربندی تصاویر سفارشی</string>
+  <string name="layer_add_gpx">اضافه‌کردن لایه از فایل GPX</string>
+  <string name="layer_download_track">بارگیری رد GPX</string>
+  <string name="layer_available_tracks">ردهای GPX موجود</string>
+  <string name="layer_start_playback">شروع پخش</string>
+  <string name="layer_pause_playback">وقفه پخش</string>
+  <string name="layer_stop_playback">توقف پخش</string>
+  <string name="layer_toast_playback_finished">پخش تمام شد</string>
+  <string name="layer_toast_playback_paused">پخش متوقف شد</string>
+  <string name="layer_toast_playback_resumed">پخش از سر گرفته شد</string>
   <!--Layer info dialog-->
   <string name="layer_info_min_zoom">کمینهٔ زوم</string>
   <string name="layer_info_max_zoom">بیشینهٔ زوم</string>
@@ -399,7 +414,7 @@
   <string name="tip_title">آیا می‌دانستید؟</string>
   <string name="tip_check_label">نکات اختیاری را دیگر نشان نده</string>
   <string name="tip_undo">نگه‌داشتن دکمهٔ واگرد، همهٔ نقاط بازگشت واگرد/ازنو را نمایش می‌دهد.</string>
-  <string name="tip_imagery_privacy">لایه‌های پس‌زمینه و رولایه از منابع ثالث فراهم شده. با استفاده از هر لایه، نشانی شبکهٔ شما و اطلاعات تقریبی از منطقه‌ای که مشاهده می‌کنید برای ارائه‌دهنده ارسال می‌شود.&lt;p&gt;اگر ارائه‌دهنده دربارهٔ سیاست حریم خصوصی‌اش چیزی فراهم کرده باشد، می‌توانید آن را در کادر لایه «اطلاعات» مشاهده کنید.</string>
+  <string name="tip_imagery_privacy">لایه‌های پس‌زمینه و رولایه از منابع ثالث فراهم شده است. با استفاده از هر لایه، نشانی شبکهٔ شما و اطلاعات تقریبی از منطقه‌ای که مشاهده می‌کنید برای ارائه‌دهنده ارسال می‌شود.&lt;p&gt;اگر ارائه‌دهنده دربارهٔ سیاست حریم خصوصی‌اش چیزی فراهم کرده باشد، می‌توانید آن را در کادر لایه «اطلاعات» مشاهده کنید.</string>
   <string name="tip_mapillary_privacy">مپیلاری خدماتی است که توسط مپیلاری AB ، سوئد، زیرمجموعه فیس‌بوک ارائه می شود. استفاده از این سرویس آدرس شبکه شما و اطلاعات مربوط به تصاویری را که مشاهده کرده اید به شرکت منتقل می کند.</string>
   <string name="tip_pan_and_zoom_auto_download">قابلیت «بارگیری خودکار همزمان با جابه‌جایی و زوم» را باید با احتیاط به کار برد زیرا به‌طور بالقوه می‌تواند به API اوپن‌‌استریت‌مپ و نیز به دستگاه شما فشار زیادی وارد کند. &lt;p&gt; می‌توان با استفاده از منبع دادهٔ برون‌خط از واردآمدن فشار بر کارسازهای API پیشگیری کرد.</string>
   <string name="tip_locked_mode">در حالت قفل نمی‌توانید ویرایش کنید، اما با لمس طولانی یک شیء، جزئیاتی از آن نمایش می‌یابد.</string>
@@ -408,7 +423,9 @@
   <string name="tip_tag_conflict">ادغام و معکوس کردن عناصر OSM گاهی اوقات نیاز به تغییر ویژگی‌ها در عناصر دارد، در صورت بروز خطا یا تعارض احتمالی، به شما هشدار داده می‌شود و فرصتی برای بررسی اشیاء مورد نظر به شما پیشنهاد می‌شود.</string>
   <string name="tip_gpx_recording">هنگام شروع ضبط GPX ، وسپوچی داده های موقعیت مکانی را جمع آوری می کند تا ضبط GPX را حتی در زمانی که برنامه قابل مشاهده نیست، فعال کند.</string>
   <string name="tip_auto_download">هنگام بارگیری خودکار داده‌ها یا وظایف OSM ، وسپوچی از داده‌های موقعیت مکانی برای تعیین موقعیت فعلی حتی زمانی که برنامه قابل مشاهده نیست استفاده می‌کند.&lt;p&gt; بستن صریح برنامه یا خاموش کردن بارگیری خودکار استفاده از داده‌های مکان را در چنین شرایطی متوقف می‌کند.</string>
-  <string name="tip_tristate_checkbox">شما فقط یک چک باکس ثانویه را لمس کرده اید، این کادرها مانند چک باکس های معمولی عمل می کنند و بین دو مقدار جابجا می شوند، برای مثال بله/خیر یا درست/غلط. حالت نشان داده شده توسط یک کادر انتخاب خاکستری شده که مانع از اضافه شدن برچسب مربوطه می شود. با فشار طولانی می توانید کادر تأیید را روی این حالت قرار دهید.</string>
+  <string name="tip_tristate_checkbox">شما فقط یک چک‌باکس ثانویه را لمس کرده‌اید، این کادرها مانند چک باکس‌های معمولی عمل می‌کنند و بین دو مقدار جابجا می‌شوند، برای مثال بله/خیر یا درست/غلط. حالت نشان داده شده توسط یک کادر انتخاب خاکستری شده که مانع از اضافه شدن برچسب مربوطه می‌شود. با فشار طولانی می‌توانید کادر تأیید را روی این حالت قرار دهید.</string>
+  <string name="tip_alternative_tagging">شما فقط از پیش‌تنظیمی استفاده کردید که دارای پیوندهایی به برچسب‌گذاری جایگزین است. این مورد روش دیگری برای برچسب‌گذاری این شیء است که ممکن است مناسب‌تر باشد یا ممکن است به سادگی مرتبط باشد. این از پیش‌تنظیم‌های جایگزین در بالای صفحه نمایش از پیش تعیین شده اخیر استفاده شده نشان داده می‌شوند.</string>
+  <string name="tip_mode_switching">دکمه قفل به عنوان تعویض‌کننده حالت دو برابر می‌شود، با فشار طولانی یک منو با گزینه‌های مختلف نشان داده می‌شود.&lt;p&gt;می‌توانید اطلاعات بیشتری در مورد حالت‌های وسپوچی در سیستم راهنما، هم در مقدمه و هم در راهنمای نمایش نقشه اصلی بیابید.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -419,6 +436,11 @@
   <string name="qa_channel_name">Vespucci QA</string>
   <string name="qa_channel_description">کانال هشدار تضمین کیفیت برای وظیفه‌ها و مشکلات داده</string>
   <!--Notifications-->
+  <string name="upload_checker_title">فراموش نکنید که کار خود را بارگذاری کنید</string>
+  <plurals name="upload_checker_message">
+    <item quantity="one">شما یک تغییر منتشر نشده دارید.</item>
+    <item quantity="other">شما %1$d تغییر منتشر نشده دارید.</item>
+  </plurals>
   <!--Toaster-->
   <string name="toast_permission_denied">اجازه داده نشد %1$s</string>
   <string name="toast_unable_to_persist_permissions">نمی‌توان مجوزها را ادامه داد</string>
@@ -428,6 +450,7 @@
   <string name="toast_tile_layer_exists">منبع کاشی %1$s همان آدرس اینترنتی را دارد</string>
   <string name="toast_no_changes">هنوز چیزی را تغییر نداده‌اید‏...</string>
   <string name="toast_jpeg_not_transparent">پرونده‌های JPEG شفاف نیستند و نمی‌شود برای رولایه استفاده شوند.</string>
+  <string name="toast_unsupported_projection">طرح‌بندی پشتیبانی‌نشده %1$s.\n\nفقط EPSG:3857، EPSG:4326 و مترادف‌ها پشتیبانی می‌شوند.</string>
   <string name="toast_unsaved_changes">ابتدا تغییرات ذخیره‌نشدهٔ خود را بارگذاری کنید.</string>
   <string name="clear_anyway">در هر صورت پاک شود؟</string>
   <string name="toast_upload_success">در سرور OSM بارگذاری شد.</string>
@@ -437,6 +460,10 @@
   <string name="toast_save_failed">نمی‌توان ذخیره کرد</string>
   <string name="toast_export_failed">نمی‌توان برون‌برد کرد</string>
   <string name="toast_export_success">به %1$s برون‌برد شد</string>
+  <plurals name="toast_preset_removed_or_replaced_tags">
+    <item quantity="one">1 برچسب را بازنویسی یا حذف کرد</item>
+    <item quantity="other">%1$d برچسب را بازنویسی یا حذف کرد</item>
+  </plurals>
   <string name="toast_merge_overwrote_tags">توجه - این کنش، برچسب(ها) را بَرنویسی کرد</string>
   <string name="toast_cant_autoapply_preset">این پیش‌تنظیم را نمی‌توان به‌طور خودکار به کار برد</string>
   <string name="toast_oneway_reversed">خیابانی یکطرفه یا راهی با برچسب‌های وابسته به جهت را معکوس نمودید. لطفاً برچسب‌ها را بررسی و در صورت نیاز آن‌ها را اصلاح کنید.</string>
@@ -450,7 +477,9 @@
   <string name="read_mail">خواندن</string>
   <string name="toast_photo_indexing_started">پویش عکس‌های زمین‌مرجع آغاز شد</string>
   <string name="toast_photo_indexing_finished">پویش عکس‌های زمین‌مرجع پایان یافت</string>
+  <string name="toast_photo_failed">عملیات عکس گرفتن ناموفق بود. آیا موقعیت جغرافیایی را در برنامه دوربین فعال کرده‌اید؟</string>
   <string name="toast_download_failed">بارگیری با کد خطا %1$d شکست خورد، پیام %2$s</string>
+  <string name="toast_note_reopened">یادداشت بازگشایی شد</string>
   <!--Validation-->
   <string name="toast_unsurveyed_road">جادهٔ نقشه‌برداری‌نشده</string>
   <string name="toast_noname">جاده نام یا ref ندارد</string>
@@ -460,6 +489,7 @@
   <string name="toast_untagged_element">عنصر بدون برچسب</string>
   <string name="toast_unconnected_end_node">گره نزدیک عنصری است که می‌تواند به آن متصل شود</string>
   <string name="toast_degenerate_way">راه مسدود شده</string>
+  <string name="toast_wrong_element_type">نوع عنصر غیراستاندارد: %1$s</string>
   <!---->
   <string name="toast_oauth_retry">پس از اینکه اجازه دادید OAuth به حساب کاربری OSMتان دسترسی داشته باشد دوباره برای بارگذاری تلاش کنید.</string>
   <string name="toast_oauth">لطفاً دسترسی به حساب OSM خود را برای OAuth مجاز کنید.</string>
@@ -587,6 +617,10 @@
   <string name="toast_error_element_too_large">عنصر برای ویرایشگر ویژگی خیلی بزرگ است</string>
   <string name="toast_no_intersection_found">تقاطعی پیدا نشد</string>
   <string name="toast_api_key_missing">هیچ کلید API برای %1$s پیدا نشد</string>
+  <string name="toast_no_track_points">هیچ نقطه مسیری وجود ندارد</string>
+  <string name="toast_no_way_points">هیچ نقطه راهی وجود ندارد</string>
+  <string name="toast_url_check">%1$s %2$d</string>
+  <string name="toast_url_check_with_msg">%1$s %2$d %3$s</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">برای منابع MapSplit باید زوم کمینه و بیشینه تنظیم شده باشد</string>
   <string name="error_pbf_no_version">پروندهٔ PBF اطلاعات نسخه ندارد</string>
@@ -618,6 +652,9 @@
   <string name="download">بارگیری</string>
   <string name="abort">لغو کردن / قطع کردن</string>
   <string name="ignore">رد کردن</string>
+  <string name="select">انتخاب</string>
+  <string name="skip">پرش/گذشتن</string>
+  <string name="deprecated">%1$s (منسوخ شده)</string>
   <!--Read a file-->
   <string name="read">خواندن</string>
   <string name="overwrite">بَرنویسی</string>
@@ -809,8 +846,6 @@
   <string name="menu_transfer_save_notes_all">ذخیره‌سازی همهٔ یادداشت‌ها...</string>
   <string name="menu_transfer_save_notes_new_and_changed">ذخیره‌سازی یادداشت‌های جدید و تغییرکرده...</string>
   <string name="menu_transfer_read_notes">بارگیری یادداشت ها…</string>
-  <string name="menu_transfer_read_custom_bugs">بارکردن وظیفه‌های سفارشی...</string>
-  <string name="menu_transfer_write_custom_bugs">ذخیره‌سازی وظیفه‌های سفارشی باز...</string>
   <string name="menu_save">ذخیره در قالب پرونده</string>
   <string name="menu_join">پیوند</string>
   <string name="menu_unjoin">جداسازی</string>
@@ -827,6 +862,7 @@
   <string name="menu_split_polygon">تقسیم به دو چندضلعی</string>
   <string name="menu_unjoin_dissimilar">جداسازی ناهمسان‌ها</string>
   <string name="menu_extract_segment">استخراج پاره</string>
+  <string name="menu_select_way_nodes">انتخاب گره‌های راه</string>
   <string name="menu_newnode_gps">گره جدید در موقعیت GPS</string>
   <string name="menu_extend_selection">گسترش انتخاب</string>
   <string name="menu_information">اطلاعات</string>
@@ -982,6 +1018,8 @@
   <string name="config_validatorprefs_summary">قواعد اعتبارسنجی را پیکربندی کنید.</string>
   <string name="config_connectedNodeTolerance_title">تاب‌آوری نقطهٔ اتصال</string>
   <string name="config_connectedNodeTolerance_summary">اگر فاصلهٔ گره پایانی معبری تا معبر دیگر کمتر از این مقدار (به متر) باشد، باید به آن متصل شود</string>
+  <string name="config_enabledValidations_title">اعتبارسنجی فعال شد</string>
+  <string name="config_enabledValidations_summary">فعال/غیرفعال کردن اعتبارسنجی فردی</string>
   <!--opening hours templates-->
   <string name="config_opening_hours_title">الگوهای ساعت کاری</string>
   <string name="config_opening_hours_summary">الگوهای ساعت کاری را بار، ذخیره و حذف کنید</string>
@@ -1009,6 +1047,8 @@
   <string name="config_fv5_pro">FV5 pro</string>
   <string name="config_useInternalPhotoViewer_title">استفاده از نمایشگر عکس توکار</string>
   <string name="config_useInternalPhotoViewer_summary">نمایشگر عکس توکار را به کار ببر. اگر خاموش باشد نمایشگر خارجی استفاده می‌شود.</string>
+  <string name="config_indexMediaStore_summary">همچنین از MediaStore برای دسترسی به عکس‌ها استفاده کنید</string>
+  <string name="config_indexMediaStore_title">از MediaStore استفاده کنید</string>
   <string name="config_followGPSbutton_title">چیدمان دکمهٔ «دنبال‌کردن موقعیت»</string>
   <string name="config_followGPSbutton_summary">جایی که دکمهٔ «دنبال‌کردن موقعیت» قرار می‌گیرد.</string>
   <string name="config_alwaysDrawBoundingBoxes_title">همیشه محدوده‌های بارگیری نشده را تاریک کن</string>
@@ -1044,7 +1084,12 @@
   <string name="config_uploadOk_summary">در محدودیت زیر مشخص کنید کدام بارگذاری‌های در انتظار، مناسب دانسته شود</string>
   <string name="config_upload_current">%1$d شیء</string>
   <string name="config_uploadWarn_title">بارگذاری در انتظار - هشدار</string>
+  <string name="config_uploadWarn_summary">در محدودیت زیر مشخص کنید برای کدام بارگذاری‌های در انتظار، هشدار داده شود.</string>
+  <string name="config_uploadChecker_title">فاصله زمانی یادآوری بارگذاری</string>
+  <string name="config_uploadChecker_summary">فاصله زمانی برای یادآوری اگر تغییرات منتشر نشده دارید.</string>
+  <string name="config_uploadChecker_current">%1$d ساعت</string>
   <string name="config_dataWarn_title">هشدار دادهٔ خیلی زیاد</string>
+  <string name="config_dataWarn_summary">محدودیتی (بر حسب تعداد گره) تعیین کنید که از آنجا به بعد دربارهٔ بارگذاری بیش از حد داده هشدار دهیم.</string>
   <string name="config_useUrlForFeedback_title">فعالیت بازخورد را غیرفعال کنید</string>
   <string name="config_useUrlForFeedback_summary">فعالیت بازخورد را غیرفعال کنید و به جای آن از URL استفاده کنید.</string>
   <string name="config_beepVolume_title">حجم صدای بوق</string>
@@ -1053,6 +1098,8 @@
   <string name="config_mapillary_min_zoom_title">حداقل زوم برای مپیلاری</string>
   <string name="config_mapillary_min_zoom_summary">حداقل سطح بزرگنمایی مورد نیاز قبل از نمایش داده‌های مپیلاری.</string>
   <string name="config_mapillary_min_zoom_current">%1$d</string>
+  <string name="config_nameCap_summary">بزرگ‌نویسی خودکار برچسب‌های نام در ورودی</string>
+  <string name="config_nameCap_title">حروف بزرگ نام</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">تنظیمات داده و ویرایش</string>
   <string name="config_category_editing_summary">بارگیری خودکار، ذخیره‌سازی و تنظیمات اعلان.</string>
@@ -1164,6 +1211,7 @@
   <string name="config_tileCache_current">%1$d MB</string>
   <string name="config_mapillaryCacheSize_title">اندازهٔ نهان‌گاه مپیلاری</string>
   <string name="config_mapillaryCacheSize_summary">کل فضای ذخیره که برای ذخیرهٔ تصاویر مپیلاری مصرف شده، به مگابایت.</string>
+  <!--Auto-save-->
   <!--Miscellaneous-->
   <string name="config_category_misc">سایر</string>
   <string name="pref_enable_acra">گزارش فروپاشی‌های برنامه</string>
@@ -1273,6 +1321,7 @@
   <string name="report_failure">فرستادن گزارش ناموفق بود.</string>
   <!--Exceptions messages-->
   <string name="exception_too_many_nodes">این کنش راهی با گره‌های بسیار خواهد ساخت.</string>
+  <string name="exception_too_many_members">این عملیات اعضای زیادی را به رابطه %1$s اضافه می‌کند.</string>
   <!--Notifications-->
   <string name="alert_data_issue">مسئله در دادهٔ OSM یافت شد</string>
   <string name="alert_note">یادداشت OSM در نزدیکی یافت شد</string>
@@ -1315,6 +1364,7 @@
   <string name="issue_merged_metric">مقدار وابسته به طول ادغام شد</string>
   <string name="issue_split_metric">مقدار وابسته به طول تقسیم شد</string>
   <string name="issue_split_route_ordering">مسیر ممکن است به سفارش مجدد دستی نیاز داشته باشد</string>
+  <string name="issue_precondition_relation_member_count">تعداد اعضای رابطه بیش از حد است</string>
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">1 روز</item>
@@ -1350,4 +1400,10 @@
   <string name="gotobookmark">برو</string>
   <string name="bookmarkstitle">نشانک‌ها</string>
   <!--Element types-->
+  <string name="element_type_node">گره</string>
+  <string name="element_type_way">راه</string>
+  <string name="element_type_closedway">مسیر بسته</string>
+  <string name="element_type_area">محدوده</string>
+  <string name="element_type_relation">رابطه</string>
+  <!--Element names with id-->
 </resources>

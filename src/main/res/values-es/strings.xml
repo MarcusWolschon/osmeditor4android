@@ -90,6 +90,7 @@
   <string name="confirm_upload_title">Subir cambios</string>
   <plurals name="confirm_upload_text">
     <item quantity="one">¿Subir este cambio?</item>
+    <item quantity="many">¿Subir estos %1$d cambios?</item>
     <item quantity="other">¿Subir estos %1$d cambios?</item>
   </plurals>
   <string name="confirm_upload_edits_page">Cambios</string>
@@ -101,6 +102,7 @@
   <string name="upload_validation_error_empty_comment">El comentario no debe estar vacío</string>
   <string name="upload_validation_error_empty_source">La fuente no debe estar vacía</string>
   <!--Upload GPX-->
+  <string name="upload_gpx_title">Subir traza GPX</string>
   <string name="upload_gpx_description_label">Descripción</string>
   <string name="upload_gpx_tags_label">Etiquetas</string>
   <string name="upload_gpx_visibility_label">Visibilidad</string>
@@ -119,9 +121,7 @@
   <string name="bug_description_2">%1$s: %2$s %3$s - %4$s</string>
   <string name="generic_bug">Error</string>
   <string name="osmose_bug">Osmose</string>
-  <string name="custom_bug">Personalizado</string>
   <string name="bug_long_description_1">%1$s: %2$s&lt;br&gt;&lt;br&gt;%3$s&lt;br&gt;&lt;br&gt;%4$s&lt;br&gt;</string>
-  <string name="bug_long_description_2">&lt;br&gt;last updated:&lt;br&gt;%1$s&lt;br&gt;id: %2$d</string>
   <string name="bug_element_1">%1$s (no descargado) #%2$d</string>
   <string name="bug_element_2">%1$s %2$s</string>
   <string name="maproulette_task_title">Tarea de MapRoulette</string>
@@ -132,6 +132,7 @@
   <string name="maproulette_task_disable">Deshabilitar</string>
   <string name="maproulette_task_apikey_set">Clave API de MapRoulette guardada</string>
   <string name="maproulette_task_no_apikey">No hay clave API de MapRoulette</string>
+  <!--Todo dialogs-->
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">¡Precaución!</string>
   <string name="unsaved_data_message">Sus cambios no guardados se descartarán si continúa.</string>
@@ -306,6 +307,7 @@
   <string name="layer_style_label">Etiqueta</string>
   <string name="json_object_not_displayed">Objeto JSON (no mostrado)</string>
   <string name="json_array_not_displayed">Tabla JSON (no mostrada)</string>
+  <string name="gpx_automatic">Automático</string>
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
   <string name="layer_mapillary">Mapillary</string>
@@ -378,8 +380,6 @@
   <string name="tip_title">¿Sabías?</string>
   <string name="tip_check_label">Deja de mostrar consejos opcionales</string>
   <string name="tip_undo">Si mantiene presionado el botón Deshacer, se mostrarán todos los puntos de control de deshacer y rehacer.</string>
-  <string name="tip_imagery_privacy">El fondo y las capas superpuestas son proporcionadas por terceros. El uso de una capa transmite su dirección de red y una indicación aproximada del área que está mirando al proveedor.&lt;p&gt;Si el proveedor ha proporcionado información de política de privacidad, puede verla con el elemento de menú \"Información\" en el diálogo de capa .</string>
-  <string name="tip_pan_and_zoom_auto_download">La descarga automática de desplazamiento y acercamiento debe usarse con precaución ya que tiene el potencial de sobrecargar severamente tanto las API de OpenStreetMap como su dispositivo.&amp;Lt;p&amp;gt; Eso se puede evitar usando una fuente de datos fuera de línea.</string>
   <string name="tip_locked_mode">En el modo bloqueado no puede editar, pero al presionar un objeto durante mucho tiempo se abrirá una pantalla con información detallada.</string>
   <string name="tip_longpress_simple_mode">En modo simple, una pulsación larga no hará nada. Desactive el modo simple en el menú principal si desea utilizar clicks largos para crear objetos.</string>
   <string name="tip_gpx_no_elevation">A partir de la versión 15, las trazas GPX ya no contienen información de elevación de forma predeterminada.&lt;p&gt;Para habilitar el registro de elevación, instale un modelo de geoide con &lt;i&gt;Instalar EGM&lt;/i&gt; desde el menú Herramientas, o cambie a la entrada NMEA.</string>
@@ -419,6 +419,7 @@
   <string name="toast_way_nodes_moved">%1$d nodos en vía movida</string>
   <plurals name="toast_unread_mail">
     <item quantity="one">Tiene un mensaje de OSM sin leer</item>
+    <item quantity="many">Tiene %1$d mensajes de OSM sin leer</item>
     <item quantity="other">Tiene %1$d mensajes de OSM sin leer</item>
   </plurals>
   <string name="read_mail">Leer</string>
@@ -448,6 +449,7 @@
   <string name="toast_file_not_found">%1$s no encontrado.</string>
   <plurals name="toast_imported_track_points">
     <item quantity="one">Se importó %1$d puntos de traza GPX y 1 punto de vía.</item>
+    <item quantity="many">Se importó %1$d puntos de traza GPX y %2$d puntos de vía.</item>
     <item quantity="other">Se importó %1$d puntos de traza GPX y %2$d puntos de vía.</item>
   </plurals>
   <string name="toast_unknown_voice_command">Lo siento, \"%1$s\" no se entiende</string>
@@ -533,6 +535,7 @@
   <string name="toast_default_channel_needs_to_be_enabled">El canal de notificación predeterminado debe estar habilitado para comenzar a grabar</string>
   <plurals name="added_required_elements">
     <item quantity="one">Se agregó elemento requerido</item>
+    <item quantity="many">Se agregaron %1$d elementos requeridos</item>
     <item quantity="other">Se agregaron %1$d elementos requeridos</item>
   </plurals>
   <string name="toast_out_of_memory">¡MEMORIA INSUFICIENTE!</string>
@@ -577,6 +580,7 @@
   <string name="prune">Podar</string>
   <string name="check">Comprobar</string>
   <string name="download">Descargar</string>
+  <string name="select">Seleccionar</string>
   <!--Read a file-->
   <string name="read">Leer</string>
   <string name="overwrite">Sobreescribir</string>
@@ -769,8 +773,6 @@
   <string name="menu_transfer_save_notes_all">Guarda todas las notas ...</string>
   <string name="menu_transfer_save_notes_new_and_changed">Guardar notas nuevas y modificadas ...</string>
   <string name="menu_transfer_read_notes">Cargar notas ...</string>
-  <string name="menu_transfer_read_custom_bugs">Cargar tareas personalizadas ...</string>
-  <string name="menu_transfer_write_custom_bugs">Guardar tareas personalizadas abiertas...</string>
   <string name="menu_save">Guardar como archivo</string>
   <string name="menu_join">Unir</string>
   <string name="menu_unjoin">Separar</string>
@@ -891,6 +893,7 @@
   <string name="actionmode_extract_segment_set_tags">Establecer etiquetas</string>
   <plurals name="actionmode_object_count">
     <item quantity="one">1 objeto</item>
+    <item quantity="many">%1$d objetos</item>
     <item quantity="other">%1$d objetos</item>
   </plurals>
   <string name="actionmode_rotateway">Rotar vía</string>
@@ -990,6 +993,7 @@
   <string name="config_uploadOk_summary">Límite por debajo del cual las cargas de objetos pendientes se considerarán correctas</string>
   <string name="config_upload_current">%1$d objetos</string>
   <string name="config_uploadWarn_title">Advertencia de carga pendiente</string>
+  <string name="config_uploadChecker_current">%1$d horas</string>
   <string name="config_dataWarn_title">Advertencia de demasiados datos</string>
   <string name="config_useUrlForFeedback_title">Deshabilitar la actividad de comentarios</string>
   <string name="config_useUrlForFeedback_summary">Deshabilitar la actividad de comentarios y usar una URL en su lugar.</string>
@@ -1102,6 +1106,7 @@
   <string name="config_tileCacheSize_summary">Almacenamiento total utilizado para el almacenamiento en caché de teselas, en MB</string>
   <string name="config_tileCache_current">%1$d MB</string>
   <string name="config_mapillaryCacheSize_title">Tamaño de caché de Mapillary</string>
+  <!--Auto-save-->
   <!--Miscellaneous-->
   <string name="config_category_misc">Misceláneo</string>
   <string name="pref_enable_acra">Informar bloqueos de aplicación</string>
@@ -1254,30 +1259,40 @@
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">1 día</item>
+    <item quantity="many">%1$d días</item>
     <item quantity="other">%1$d días</item>
   </plurals>
   <plurals name="hours">
     <item quantity="one">1 hora</item>
+    <item quantity="many">%1$d horas</item>
     <item quantity="other">%1$d horas</item>
   </plurals>
   <plurals name="minutes">
     <item quantity="one">1 minuto</item>
+    <item quantity="many">%1$d minutos</item>
     <item quantity="other">%1$d minutos</item>
   </plurals>
   <plurals name="seconds">
     <item quantity="one">1 segundo</item>
+    <item quantity="many">%1$d segundos</item>
     <item quantity="other">%1$d segundos</item>
   </plurals>
   <plurals name="km">
     <item quantity="one">1 km</item>
+    <item quantity="many">%1$d km</item>
     <item quantity="other">%1$d km</item>
   </plurals>
   <plurals name="meters">
     <item quantity="one">1 metro</item>
+    <item quantity="many">%1$d metros</item>
     <item quantity="other">%1$d metros</item>
   </plurals>
   <!--Help system-->
   <string name="toast_nohelp">No hay ayuda aquí.</string>
   <!--Bookmarks-->
   <!--Element types-->
+  <string name="element_type_way">vía</string>
+  <string name="element_type_area">área</string>
+  <string name="element_type_relation">relación</string>
+  <!--Element names with id-->
 </resources>

@@ -88,6 +88,7 @@
   <string name="upload_validation_error_empty_comment">Kommentti ei voi olla tyhjä</string>
   <string name="upload_validation_error_empty_source">Lähde ei voi olla tyhjä</string>
   <!--Upload GPX-->
+  <string name="upload_gpx_title">Lähetä GPX-jälki</string>
   <string name="upload_gpx_description_label">Kuvaus</string>
   <string name="upload_gpx_tags_label">Tägit</string>
   <string name="upload_gpx_visibility_label">Näkyvyys</string>
@@ -106,8 +107,6 @@
   <string name="bug_description_2">%1$s: %2$s %3$s - %4$s</string>
   <string name="generic_bug">Virhe</string>
   <string name="osmose_bug">Osmose</string>
-  <string name="custom_bug">Muu</string>
-  <string name="bug_long_description_2">&lt;br&gt;viimeksi päivitetty:&lt;br&gt;%1$s&lt;br&gt;ID: %2$d</string>
   <string name="bug_element_1">%1$s (ei ladattu) #%2$d</string>
   <string name="bug_element_2">%1$s %2$s</string>
   <string name="maproulette_task_title">MapRoulette-tehtävä</string>
@@ -117,6 +116,7 @@
   <string name="maproulette_task_apikey_not_set">MapRouletten API-avainta ei voitu tallentaa</string>
   <string name="maproulette_task_disable">Poista käytöstä</string>
   <string name="maproulette_task_apikey_set">MapRouletten API-avain tallennettu</string>
+  <!--Todo dialogs-->
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Varoitus!</string>
   <string name="unsaved_data_message">Tallentamattomat muokkaukset hylätään jos jatkat.</string>
@@ -255,6 +255,7 @@
   <string name="layer_style_label">Nimike</string>
   <string name="json_object_not_displayed">JSON-kohde (ei näkyvissä)</string>
   <string name="json_array_not_displayed">JSON-kokoelma (ei näkyvissä)</string>
+  <string name="gpx_automatic">Automaattinen</string>
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
   <string name="layer_mapillary">Mapillary</string>
@@ -427,6 +428,7 @@
   <string name="retry">Yritä uudelleen</string>
   <string name="check">Tarkista</string>
   <string name="download">Lataa</string>
+  <string name="select">Yhden kohteen valitseminen</string>
   <!--Read a file-->
   <string name="read">Lue</string>
   <string name="overwrite">Korvaa</string>
@@ -574,8 +576,6 @@
   <string name="menu_transfer_autodownload_long">Lataa tehtävät automaattisesti</string>
   <string name="menu_transfer_save_notes_all">Tallenna kaikki huomiot...</string>
   <string name="menu_transfer_save_notes_new_and_changed">Tallenna uudet ja muuttuneet huomiot...</string>
-  <string name="menu_transfer_read_custom_bugs">Lataa sekatehtävät...</string>
-  <string name="menu_transfer_write_custom_bugs">Tallenna avoimet sekatehtävät...</string>
   <string name="menu_save">Tallennaa tiedostoon</string>
   <string name="menu_join">Yhdistä</string>
   <string name="menu_unjoin">Erota</string>
@@ -753,6 +753,7 @@
   <string name="config_maxStrokeWidth_summary">Älä piirrä tätä paksumpia viivoja</string>
   <string name="config_maxStrokeWidth_current">%1$d pikseliä</string>
   <string name="config_upload_current">%1$d kohdetta</string>
+  <string name="config_uploadChecker_current">%1$d tuntia</string>
   <string name="config_beepVolume_current">%1$d</string>
   <string name="config_mapillary_min_zoom_current">%1$d</string>
   <!--Data and Editing Settings-->
@@ -835,6 +836,7 @@
   <string name="config_tileCacheSize_title">Laattavälimuistin koko</string>
   <string name="config_tileCacheSize_summary">Kuvalaattojen välimuistin koko megatavuissa.</string>
   <string name="config_tileCache_current">%1$d Mt</string>
+  <!--Auto-save-->
   <!--Miscellaneous-->
   <string name="config_category_misc">Sekalaiset</string>
   <string name="pref_enable_acra">Ilmoita sovelluksen kaatumisista</string>
@@ -995,4 +997,7 @@
   <string name="toast_nohelp">Tähän ei ole ohjetta.</string>
   <!--Bookmarks-->
   <!--Element types-->
+  <string name="element_type_area">alue</string>
+  <string name="element_type_relation">relaatio</string>
+  <!--Element names with id-->
 </resources>

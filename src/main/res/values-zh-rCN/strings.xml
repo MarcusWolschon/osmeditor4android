@@ -124,9 +124,7 @@
   <string name="bug_description_2">%1$s: %2$s %3$s - %4$s</string>
   <string name="generic_bug">Bug</string>
   <string name="osmose_bug">Osmose</string>
-  <string name="custom_bug">自定义</string>
   <string name="bug_long_description_1">%1$s: %2$s&lt;br&gt;&lt;br&gt;%3$s&lt;br&gt;&lt;br&gt;%4$s&lt;br&gt;</string>
-  <string name="bug_long_description_2">&lt;br&gt;最后更新：&lt;br&gt;%1$s&lt;br&gt;id: %2$d</string>
   <string name="bug_element_1">%1$s (未下载) #%2$d</string>
   <string name="bug_element_2">%1$s %2$s</string>
   <string name="maproulette_task_title">MapRoulette 任务</string>
@@ -137,6 +135,7 @@
   <string name="maproulette_task_disable">禁用</string>
   <string name="maproulette_task_apikey_set">MapRoulette API key 已保存</string>
   <string name="maproulette_task_no_apikey">没有 MapRoulette API key</string>
+  <!--Todo dialogs-->
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">小心！</string>
   <string name="unsaved_data_message">您有未保存的变更，如果继续将被丢弃。</string>
@@ -841,8 +840,6 @@
   <string name="menu_transfer_save_notes_all">保存所有注记…</string>
   <string name="menu_transfer_save_notes_new_and_changed">保存新的和变更的注记…</string>
   <string name="menu_transfer_read_notes">加载注记…</string>
-  <string name="menu_transfer_read_custom_bugs">加载自定义任务…</string>
-  <string name="menu_transfer_write_custom_bugs">保存打开的自定义任务…</string>
   <string name="menu_save">保存为文件</string>
   <string name="menu_join">加入</string>
   <string name="menu_unjoin">离开</string>
@@ -1207,6 +1204,7 @@
   <string name="config_tileCache_current">%1$d MB</string>
   <string name="config_mapillaryCacheSize_title">Mapillary 缓存大小</string>
   <string name="config_mapillaryCacheSize_summary">用于缓存 Mapillary 图像的总空间，以 MB 为单位</string>
+  <!--Auto-save-->
   <!--Miscellaneous-->
   <string name="config_category_misc">杂项</string>
   <string name="pref_enable_acra">报告应用崩溃</string>
@@ -1394,4 +1392,5 @@
   <string name="element_type_closedway">闭合路径</string>
   <string name="element_type_area">区域</string>
   <string name="element_type_relation">关系</string>
+  <!--Element names with id-->
 </resources>

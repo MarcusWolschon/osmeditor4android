@@ -9,10 +9,10 @@
   <string name="mode_voice">Stimme</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Achtung!</string>
-  <string name="transfer_download_current_dialog_message">Sie haben etwas geändert. Möchten Sie die Änderungen hochladen, anstatt sie zu verwerfen?</string>
+  <string name="transfer_download_current_dialog_message">Sie haben Änderungen vorgenommen. Möchten Sie diese hochladen, anstatt sie zu verwerfen?</string>
   <string name="transfer_download_current_upload">Hochladen</string>
   <string name="transfer_download_current_download">Verwerfen</string>
-  <string name="transfer_download_current_back">Zurück</string>
+  <string name="transfer_download_current_back">Zurück (nichts machen)</string>
   <string name="upload_problem_title">Hochladen fehlgeschlagen</string>
   <string name="upload_problem_message">Ein Teil oder alle Daten wurden nicht hochgeladen. Versuchen Sie es später nochmals.</string>
   <string name="bad_request_message">Die API gab einen Fehler zurück, bitte die Daten sichern und den Fehler melden:\n\n</string>
@@ -103,9 +103,11 @@
   <string name="upload_validation_error_empty_comment">Kommentar sollte nicht leer sein</string>
   <string name="upload_validation_error_empty_source">Quelle sollte nicht leer sein</string>
   <!--Upload GPX-->
+  <string name="upload_gpx_title">GPX-Track hochladen</string>
   <string name="upload_gpx_description_label">Beschreibung</string>
   <string name="upload_gpx_tags_label">Tags</string>
   <string name="upload_gpx_visibility_label">Sichtbarkeit</string>
+  <string name="upload_validation_error_empty_description">Beschreibung leer</string>
   <!--task fragment-->
   <string name="openstreetbug_new_title">Neue Notiz</string>
   <string name="openstreetbug_new_bug">Fehler melden</string>
@@ -123,9 +125,8 @@
   <string name="bug_description_2">%1$s: %2$s %3$s - %4$s</string>
   <string name="generic_bug">Bug</string>
   <string name="osmose_bug">Osmose</string>
-  <string name="custom_bug">Benutzerdefiniert</string>
   <string name="bug_long_description_1">%1$s: %2$s&lt;br&gt;&lt;br&gt;%3$s&lt;br&gt;&lt;br&gt;%4$s&lt;br&gt;</string>
-  <string name="bug_long_description_2">&lt;br&gt;Zuletzt geändert:&lt;br&gt;%1$s&lt;br&gt;id: %2$d</string>
+  <string name="bug_long_description_2">&lt;br&gt;Zuletzt geändert:&lt;br&gt;%1$s&lt;br&gt;id: %2$s</string>
   <string name="bug_element_1">%1$s (nicht heruntergeladen) #%2$d</string>
   <string name="bug_element_2">%1$s %2$s</string>
   <string name="maproulette_task_title">MapRoulette-Aufgabe</string>
@@ -136,6 +137,7 @@
   <string name="maproulette_task_disable">Deaktivieren</string>
   <string name="maproulette_task_apikey_set">MapRoulette-API-Schlüssel gespeichert</string>
   <string name="maproulette_task_no_apikey">Kein MapRoulette-API-Schlüssel</string>
+  <!--Todo dialogs-->
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Vorsicht!</string>
   <string name="unsaved_data_message">Wenn Sie fortfahren, werden Ihre ungespeicherten Änderungen verworfen.</string>
@@ -317,11 +319,16 @@
   <string name="layer_style_symbol">Symbol</string>
   <string name="json_object_not_displayed">JSON-Objekt (nicht angezeigt)</string>
   <string name="json_array_not_displayed">JSON-Array (nicht angezeigt)</string>
+  <string name="gpx_automatic">Automatisch</string>
+  <string name="gpx_name">GPX Name</string>
+  <string name="gpx_description">GPX Beschreibung</string>
+  <string name="gpx_type">GPX Typ</string>
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
   <string name="layer_mapillary">Mapillary</string>
   <string name="layer_grid">Gitternetz</string>
   <string name="layer_gpx">GPX</string>
+  <string name="layer_gpx_recording">GPX Aufnahme</string>
   <string name="layer_photos">Fotos</string>
   <string name="layer_tasks">Aufgaben</string>
   <string name="layer_data">OSM-Daten</string>
@@ -343,6 +350,15 @@
   <string name="layer_add_layer_from_mvt_style">Ebene aus MVT Stil hinzufügen</string>
   <string name="layer_add_custom_imagery">Benutzerdefinierter Hintergrund hinzufügen</string>
   <string name="layer_edit_custom_imagery_configuration">Benutzerdefinierte Hintergrundkonfiguration ändern</string>
+  <string name="layer_add_gpx">Ebene hinzufügen von GPX-Datei</string>
+  <string name="layer_download_track">GPX Track herunterladen</string>
+  <string name="layer_available_tracks">Verfügbare GPX Tracks</string>
+  <string name="layer_start_playback">Wiedergabe starten</string>
+  <string name="layer_pause_playback">Wiedergabe pausieren</string>
+  <string name="layer_stop_playback">Wiedergabe stoppen</string>
+  <string name="layer_toast_playback_finished">Wiedergabe beendet</string>
+  <string name="layer_toast_playback_paused">Wiedergabe pausiert</string>
+  <string name="layer_toast_playback_resumed">Wiedergabe wiederaufgenommen</string>
   <!--Layer info dialog-->
   <string name="layer_info_min_zoom">Minimaler Zoom</string>
   <string name="layer_info_max_zoom">Maximaler Zoom</string>
@@ -399,17 +415,18 @@
   <string name="tip_title">Wussten Sie?</string>
   <string name="tip_check_label">Optionale Tipps nicht mehr anzeigen</string>
   <string name="tip_undo">Ein langer Druck auf den \"Rückgängig\"-Knopf zeigt alle Sicherungspunkte, die rückgängig gemacht und wiederhergestellt werden können.</string>
-  <string name="tip_imagery_privacy">Hintergrund- und Vordergrundlayer werden von Dritten angeboten. Beim Verwenden eines Layers werden Ihre Netzwerkadresse und ein Anhaltspunkt für das betrachtete Gebiet an den Anbieter übertragen.&lt;p&gt;
-Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den Menüpunkt „Info“ in der Anforderung für den Layer eingesehen werden.</string>
+  <string name="tip_imagery_privacy">Hintergrund- und Überlagerungsebenen werden von Drittanbietern bereitgestellt. Bei der Verwendung eines Layers werden Ihre Netzwerkadresse und eine ungefähre Angabe des Bereichs, den Sie betrachten, an den Anbieter übertragen. Wenn der Anbieter Informationen zum Datenschutz bereitgestellt hat, können Sie diese über den Menüpunkt \"Info\" im Ebenendialog anzeigen.</string>
   <string name="tip_mapillary_privacy">Mapillary ist eine Dienst der Mapillary AB, Schweden, eine Tochtergesellschaft von Facebook. Die Benutzung des Dienstes übermittelt deine IP Adresse und Information über die Bilder, die du betrachtest hast an die Firma.</string>
-  <string name="tip_pan_and_zoom_auto_download">Das automatische Laden der aktuellen Ansicht sollte mit Vorsicht verwendet werden, da es das Potential hat, sowohl die OpenStreetMap-API als auch dieses Gerät erheblich zu belasten.&lt;p&gt;Ersteres kann durch die Verwendung einer Offlinedatenquelle vermieden werden.</string>
+  <string name="tip_pan_and_zoom_auto_download">Der automatische Download von Schwenks und Zooms sollte mit Vorsicht verwendet werden, da er sowohl die OpenStreetMap-APIs als auch Ihr Gerät stark belasten kann. Die Belastung der API-Server kann durch die Verwendung einer Offline-Datenquelle vermieden werden.</string>
   <string name="tip_locked_mode">Im gesperrten Zustand kann nicht editiert werden, aber ein langer Klick auf ein Objekt zeigt Detailinformationen an.</string>
   <string name="tip_longpress_simple_mode">Im einfachen Modus hat ein langer Klick keine Funktion. Schalten Sie den einfachen Modus ab, wenn Sie mit langem Klick Objekte erstellen wollen.</string>
   <string name="tip_gpx_no_elevation">Ab Version 15 enthalten GPX-Aufzeichnungen standardmäßig keine Höhendaten mehr.&lt;p&gt;Um Höhendaten hinzufügen entweder im Werkzeugmenü &lt;i&gt;EGM installieren&lt;/i&gt; auswählen, oder als Standortdatenquelle NMEA-Input verwenden.</string>
   <string name="tip_tag_conflict">Das Zusammenführen und Umdrehen von OSM-Objekten führt manchmal dazu, dass Eigenschaften der Objekte geändert werden. Falls das zu einem Fehler oder Konflikt führen könnte wird eine Meldung angezeigt, und die Änderungen können geprüft werden.</string>
   <string name="tip_gpx_recording">Beim Aufzeichnen eine GPX-Spur verwendet Vespucci Standortdaten um die Aufzeichnung zu ermöglichen, auch wenn die App nicht sichtbar ist.&lt;p&gt;Wird die App explizit verlassen, oder die GPX-Aufzeichnung beendet, wird der Standort nicht mehr verwendet.</string>
   <string name="tip_auto_download">Beim automatischen Download von Daten oder Aufgaben um den aktuellen Standort verwendet Vespucci Standortdaten um den aktuellen Standort zu bestimmen, auch wenn die App nicht sichtbar ist.&lt;p&gt;Wird die App explizit verlassen, oder der automatischer Download beendet, wird der Standort nicht mehr verwendet.</string>
-  <string name="tip_tristate_checkbox">Du hast gerade eine Checkbox mit drei Zuständen verwendet. Diese schalten genau so wie normale Checkboxen zwischen zwei Werten hin und her, z.B. yes/no oder true/false.&lt;p&gt;Ein dritter Zustand &lt;b&gt;nicht gesetzt&lt;/b&gt; führt dazu, dass der Tag nicht hinzugefügt wird. Diesen Zustand, bei dem die Checkbox ausgegraut ist, kann mit einem langen Druck gesetzt werden.  </string>
+  <string name="tip_tristate_checkbox">Du hast soeben ein Kontrollkästchen mit drei Zuständen berührt. Diese funktionieren wie normale Kontrollkästchen, indem sie zwischen zwei Werten hin- und herschalten, zum Beispiel ja/nein oder wahr/falsch. Sie können das Kontrollkästchen durch langes Drücken auf diesen Zustand setzen.</string>
+  <string name="tip_alternative_tagging">Alternative Vorgabe mit einem alternativen Tagging ausgewählt. Das heißt, es gibt andere Möglichkeiten, dieses Objekt zu kennzeichnen, die möglicherweise besser geeignet oder einfach verwandt sind. Diese alternativen Voreinstellungen werden oben in der Anzeige der zuletzt verwendeten Voreinstellung angezeigt.</string>
+  <string name="tip_mode_switching">Die Schlosstaste dient gleichzeitig als Modusumschalter, ein langer Druck zeigt ein Menü mit den verschiedenen Optionen an. Weitere Informationen zu Vespuccis Modi finden Sie im Hilfesystem, sowohl in der Einführung als auch in der Hilfe zur Hauptkartenanzeige.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -420,6 +437,11 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="qa_channel_name">Vespucci-QA</string>
   <string name="qa_channel_description">Kanal für Qualitätsalarm bei Datenproblemen und Aufgaben</string>
   <!--Notifications-->
+  <string name="upload_checker_title">Daran denken, die Arbeit hochzuladen</string>
+  <plurals name="upload_checker_message">
+    <item quantity="one">Du hast eine ungesicherte Änderung.</item>
+    <item quantity="other">Du hast %1$d ungesicherte Änderungen.</item>
+  </plurals>
   <!--Toaster-->
   <string name="toast_permission_denied">Zugriff verweigert %1$s</string>
   <string name="toast_unable_to_persist_permissions">Konnte Dateiberechtigungen nicht auf Dauer bekommen</string>
@@ -429,6 +451,7 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="toast_tile_layer_exists">Quelle %1$s hat die gleich URL</string>
   <string name="toast_no_changes">Sie haben noch nichts geändert…</string>
   <string name="toast_jpeg_not_transparent">JPEG-Kacheln sind nicht transparent und können nicht als Overlay verwendet werden</string>
+  <string name="toast_unsupported_projection">Projektion nicht unterstützt  %1$s.\n\nNur EPSG:3857, EPSG:4326 und Synonyme werden unterstützt.</string>
   <string name="toast_unsaved_changes">Sie haben ungespeicherte Änderungen, bitte zuerst hochladen.</string>
   <string name="clear_anyway">Trotzdem löschen?</string>
   <string name="toast_upload_success">Hochladen zum OSM-Server beendet.</string>
@@ -438,6 +461,10 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="toast_save_failed">Speichern fehlgeschlagen</string>
   <string name="toast_export_failed">Export fehlgeschlagen</string>
   <string name="toast_export_success">Exportiert nach %1$s</string>
+  <plurals name="toast_preset_removed_or_replaced_tags">
+    <item quantity="one"> 1 Tag überschrieben oder gelöscht</item>
+    <item quantity="other">%1$d Tags überschrieben oder gelöscht</item>
+  </plurals>
   <string name="toast_merge_overwrote_tags">Achtung: Die Operation hat einen oder mehrere Tags überschrieben</string>
   <string name="toast_cant_autoapply_preset">Die Vorlage kann nicht automatisch angewendet werden</string>
   <string name="toast_oneway_reversed">Die Richtung einer Einbahnstraße oder eines Weges mit richtungsabhängigen Tags wurde geändert. Bitte Tags überprüfen und ggf. korrigieren.</string>
@@ -451,7 +478,9 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="read_mail">Lesen</string>
   <string name="toast_photo_indexing_started">Suche nach georeferenzierten Fotos begonnen</string>
   <string name="toast_photo_indexing_finished">Suche nach georeferenzierten Fotos beendet</string>
+  <string name="toast_photo_failed">Die Aufnahme eines Fotos ist fehlgeschlagen. Ist die Geolokalisierung in der Kamera-App aktiviert?</string>
   <string name="toast_download_failed">Download fehlgeschlagen, zugehöriger Fehlercode: %1$d, Meldung: %2$s</string>
+  <string name="toast_note_reopened">Notiz wieder geöffnet</string>
   <!--Validation-->
   <string name="toast_unsurveyed_road">Straße nicht überprüft</string>
   <string name="toast_noname">Straße fehlt Tag \'name\' oder \'ref\'</string>
@@ -461,6 +490,7 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="toast_untagged_element">Element ohne Attribute</string>
   <string name="toast_unconnected_end_node">Knoten ist in der Nähe eines Elements, mit dem er verbunden werden kann</string>
   <string name="toast_degenerate_way">Weg mit fehlerhafter Geometrie</string>
+  <string name="toast_wrong_element_type">Nicht-Standard Element-Typ: %1$s</string>
   <!---->
   <string name="toast_oauth_retry">Bitte OAuth-Zugang zum OSM-Konto erlauben und dann nochmals versuchen.</string>
   <string name="toast_oauth">Bitte OAuth-Zugang zum OSM-Konto erlauben.</string>
@@ -588,6 +618,10 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="toast_error_element_too_large">Element ist zu gross für den Eigenschaftseditor</string>
   <string name="toast_no_intersection_found">Kein Schnittpunkt gefunden</string>
   <string name="toast_api_key_missing">Kein API-Schlüssel gefunden für %1$s</string>
+  <string name="toast_no_track_points">Keine Trackpunkte</string>
+  <string name="toast_no_way_points">Keine Wegpunkte</string>
+  <string name="toast_url_check">%1$s %2$d</string>
+  <string name="toast_url_check_with_msg">%1$s %2$d %3$s</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">Für MapSplit-Quellen müssen Zoomgrenzen festgelegt sein.</string>
   <string name="error_pbf_no_version">Versionsinformation fehlt in PBF-Datei</string>
@@ -619,6 +653,9 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="download">Herunterladen</string>
   <string name="abort">Abbrechen</string>
   <string name="ignore">Ignorieren</string>
+  <string name="select">Auswählen</string>
+  <string name="skip">Überspringen</string>
+  <string name="deprecated">%1$s (veraltet)</string>
   <!--Read a file-->
   <string name="read">Lesen</string>
   <string name="overwrite">Überschreiben</string>
@@ -810,8 +847,6 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="menu_transfer_save_notes_all">Alle Notizen speichern…</string>
   <string name="menu_transfer_save_notes_new_and_changed">Geänderte und neue Notizen speichern…</string>
   <string name="menu_transfer_read_notes">Notizen laden…</string>
-  <string name="menu_transfer_read_custom_bugs">Benutzerdefinierte Aufgaben laden…</string>
-  <string name="menu_transfer_write_custom_bugs">Benutzerdefinierte Aufgaben speichern…</string>
   <string name="menu_save">Als Datei speichern</string>
   <string name="menu_join">Verbinden</string>
   <string name="menu_unjoin">Trennen</string>
@@ -828,6 +863,7 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="menu_split_polygon">In 2 Polygone aufteilen</string>
   <string name="menu_unjoin_dissimilar">Von unähnlichen Wegen trennen</string>
   <string name="menu_extract_segment">Segment extrahieren</string>
+  <string name="menu_select_way_nodes">Wegpunkte auswählen</string>
   <string name="menu_newnode_gps">Neuer Knoten an GPS-Position</string>
   <string name="menu_extend_selection">Auswahl erweitern</string>
   <string name="menu_information">Info</string>
@@ -983,6 +1019,8 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="config_validatorprefs_summary">Validierungsregeln konfigurieren</string>
   <string name="config_connectedNodeTolerance_title">Toleranz für verbundene Knoten</string>
   <string name="config_connectedNodeTolerance_summary">Wenn ein Endknoten eines Wegs innerhalb dieses Abstands (in Meter) zum Weg liegt, sollte er mit diesem verbunden werden</string>
+  <string name="config_enabledValidations_title">Gültigkeitsprüfung aktiviert</string>
+  <string name="config_enabledValidations_summary">Aktivieren/Deaktivieren individueller Gültigkeitsprüfung</string>
   <!--opening hours templates-->
   <string name="config_opening_hours_title">Öffnungszeitenvorlage</string>
   <string name="config_opening_hours_summary">Laden, Speichern und Löschen von Öffnungszeitenvorlagen</string>
@@ -1010,6 +1048,8 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="config_fv5_pro">FV5 pro</string>
   <string name="config_useInternalPhotoViewer_title">Eingebaute Bildanzeige verwenden</string>
   <string name="config_useInternalPhotoViewer_summary">Die eingebaute Bildanzeige verwenden, ansonsten eine externe App verwenden.</string>
+  <string name="config_indexMediaStore_summary">Zusätzlich den Medienspeicher für Zugriff auf Bilder nutzen</string>
+  <string name="config_indexMediaStore_title">Medienspeicher benutzen</string>
   <string name="config_followGPSbutton_title">Anordnung des \"Position folgen\" Knopfes</string>
   <string name="config_followGPSbutton_summary">Wo der „Position folgen“ Knopf angezeigt wird</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Abdunkeln nicht heruntergeladener Gebiete</string>
@@ -1045,7 +1085,12 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="config_uploadOk_summary">Grenze unter der ausstehende Objekt-Uploads als OK gelten</string>
   <string name="config_upload_current">%1$d Objekte</string>
   <string name="config_uploadWarn_title">Ausstehende Uploads Warnung</string>
+  <string name="config_uploadWarn_summary">Grenze, unterhalb derer ausstehende Objekt-Uploads den Status \"Warnung\" erhalten.</string>
+  <string name="config_uploadChecker_title">Erinnerungsintervall für das Hochladen</string>
+  <string name="config_uploadChecker_summary">Intervall für Erinnerungen bei unveröffentlichten Änderungen.</string>
+  <string name="config_uploadChecker_current">%1$d Stunden</string>
   <string name="config_dataWarn_title">Zu viele Datenwarnung</string>
+  <string name="config_dataWarn_summary">Grenze (in Anzahl der Knoten), ab der eine Warnung über zu viel geladene Daten ausgegeben wird.</string>
   <string name="config_useUrlForFeedback_title">Rückmeldungsaktivität deaktivieren</string>
   <string name="config_useUrlForFeedback_summary">Die Rückmeldungsaktivität deaktivieren und anstatt eine URL verwenden.</string>
   <string name="config_beepVolume_title">Warntonlautstärke</string>
@@ -1054,6 +1099,8 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="config_mapillary_min_zoom_title">Kleinster Zoom für Mapillary</string>
   <string name="config_mapillary_min_zoom_summary">Kleinstes Zoom-Level, auf dem Mapillary-Daten angezeigt werden.</string>
   <string name="config_mapillary_min_zoom_current">%1$d</string>
+  <string name="config_nameCap_summary">Automatische Großschreibung von Tag-Namen bei der Eingabe</string>
+  <string name="config_nameCap_title">Großschreibung des Namens</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Daten- und Bearbeitungseinstellungen</string>
   <string name="config_category_editing_summary">Auto-Download-Einstellungen</string>
@@ -1165,6 +1212,7 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="config_tileCache_current">%1$d MB</string>
   <string name="config_mapillaryCacheSize_title">Mapillary-Cache Größe</string>
   <string name="config_mapillaryCacheSize_summary">Speicher zum Speichern von Mapillary-Bildern in MB</string>
+  <!--Auto-save-->
   <!--Miscellaneous-->
   <string name="config_category_misc">Verschiedenes</string>
   <string name="pref_enable_acra">Programmabstürze melden</string>
@@ -1274,6 +1322,7 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="report_failure">Bericht konnte nicht hochgeladen werden!</string>
   <!--Exceptions messages-->
   <string name="exception_too_many_nodes">Diese Operation würde einen Weg mit zu vielen Knoten erstellen.</string>
+  <string name="exception_too_many_members">Diese Operation würde zu viele Mitglieder zur Beziehung %1$s hinzufügen.</string>
   <!--Notifications-->
   <string name="alert_data_issue">Problem mit den OSM-Daten entdeckt</string>
   <string name="alert_note">OSM-Notiz in der Nähe entdeckt</string>
@@ -1317,6 +1366,7 @@ in %1$d m %2$s</string>
   <string name="issue_merged_metric">Längenabhängiger Wert wurde zusammengeführt</string>
   <string name="issue_split_metric">Längenabhängiger Wert wurde geteilt</string>
   <string name="issue_split_route_ordering">Die Route muss eventuell händisch geordnet werden</string>
+  <string name="issue_precondition_relation_member_count">Anzahl der Mitglieder in der Relation überschritten</string>
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">1 Tag</item>
@@ -1352,4 +1402,10 @@ in %1$d m %2$s</string>
   <string name="gotobookmark">Los</string>
   <string name="bookmarkstitle">Lesezeichen…</string>
   <!--Element types-->
+  <string name="element_type_node">Knoten</string>
+  <string name="element_type_way">Weg</string>
+  <string name="element_type_closedway">Geschlossener Weg</string>
+  <string name="element_type_area">Fläche</string>
+  <string name="element_type_relation">Relation</string>
+  <!--Element names with id-->
 </resources>

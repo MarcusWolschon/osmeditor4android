@@ -105,9 +105,11 @@
   <string name="upload_validation_error_empty_comment">הערה לא יכולה להיות ריקה</string>
   <string name="upload_validation_error_empty_source">המקור לא אמור להיות ריק</string>
   <!--Upload GPX-->
+  <string name="upload_gpx_title">העלאת מסלול GPX</string>
   <string name="upload_gpx_description_label">תיאור</string>
   <string name="upload_gpx_tags_label">תגיות</string>
   <string name="upload_gpx_visibility_label">מצב הצגה</string>
+  <string name="upload_validation_error_empty_description">תיאור ריק</string>
   <!--task fragment-->
   <string name="openstreetbug_new_title">הערה חדשה</string>
   <string name="openstreetbug_new_bug">דיווח על תקלה</string>
@@ -125,9 +127,7 @@
   <string name="bug_description_2">%1$s: %2$s %3$s - %4$s</string>
   <string name="generic_bug">תקלה</string>
   <string name="osmose_bug">Osmose</string>
-  <string name="custom_bug">התאמה אישית</string>
   <string name="bug_long_description_1">%1$s: %2$s&lt;br&gt;&lt;br&gt;%3$s&lt;br&gt;&lt;br&gt;%4$s&lt;br&gt;</string>
-  <string name="bug_long_description_2">&lt;br&gt;עדכון אחרון:&lt;br&gt;%1$s&lt;br&gt;id: %2$d</string>
   <string name="bug_element_1">%1$s (לא התקבל) #%2$d</string>
   <string name="bug_element_2">%1$s %2$s</string>
   <string name="maproulette_task_title">משימה של MapRoulette</string>
@@ -138,6 +138,7 @@
   <string name="maproulette_task_disable">השבתה</string>
   <string name="maproulette_task_apikey_set">מפתח ה־API של MapRoulette נשמר</string>
   <string name="maproulette_task_no_apikey">אין מפתח API של MapRoulette</string>
+  <!--Todo dialogs-->
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">אזהרה!</string>
   <string name="unsaved_data_message">השינויים שלא שמרת יימחקו אלמלא יישמרו.</string>
@@ -316,11 +317,16 @@
   <string name="layer_style_symbol">סמל</string>
   <string name="json_object_not_displayed">פריט JSON (לא מוצג)</string>
   <string name="json_array_not_displayed">מערך JSON (לא מוצג)</string>
+  <string name="gpx_automatic">אוטומטי</string>
+  <string name="gpx_name">שם GPX</string>
+  <string name="gpx_description">תיאור GPX</string>
+  <string name="gpx_type">סוג GPX</string>
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
   <string name="layer_mapillary">Mapillary</string>
   <string name="layer_grid">רשת</string>
   <string name="layer_gpx">GPX</string>
+  <string name="layer_gpx_recording">הקלטת GPX</string>
   <string name="layer_photos">תמונות</string>
   <string name="layer_tasks">משימות</string>
   <string name="layer_data">נתוני OSM</string>
@@ -342,6 +348,15 @@
   <string name="layer_add_layer_from_mvt_style">הוספת שכבה מסגנון MVT</string>
   <string name="layer_add_custom_imagery">הוספת תמונת רקע בהתאמה אישית</string>
   <string name="layer_edit_custom_imagery_configuration">עריכת הגדרות תמונת רקע בהתאמה אישית</string>
+  <string name="layer_add_gpx">הוספת שכבה מקובץ GPX</string>
+  <string name="layer_download_track">הורדת מסלול GPX</string>
+  <string name="layer_available_tracks">מסלולי GPX זמינים</string>
+  <string name="layer_start_playback">התחלת נגינה</string>
+  <string name="layer_pause_playback">השהית נגינה</string>
+  <string name="layer_stop_playback">עצירת נגינה</string>
+  <string name="layer_toast_playback_finished">הנגינה הסתיימה</string>
+  <string name="layer_toast_playback_paused">הנגינה הושהתה</string>
+  <string name="layer_toast_playback_resumed">הנגינה המשיכה</string>
   <!--Layer info dialog-->
   <string name="layer_info_min_zoom">תקריב מזערי</string>
   <string name="layer_info_max_zoom">תקריב מרבי</string>
@@ -397,9 +412,6 @@
   <string name="tip_title">הידעת?</string>
   <string name="tip_check_label">להפסיק להציג עצות כרשות</string>
   <string name="tip_undo">לחיצה ארוכה על כפתור הביטול תציג את נקודות הפעילות לחזרה או להתקדמות אליהן.</string>
-  <string name="tip_imagery_privacy">שכבות על ורקע מסופקות על ידי צד־שלישי. בשימוש בשכבה מעביר את כתובת הרשת שלך לצד ציון מעורפל של האזור הנצפה לספק.&lt;p&gt;אם הספק סיפק פרטי מדיניות פרטיות, ניתן לצפות בהם דרך הפריט „מידע” בתפריט שבתיבת הדו־שיח של השכבה.</string>
-  <string name="tip_pan_and_zoom_auto_download">בהורדה אוטומטית בסריקה ובתקריב יש להשתמש בזהירות כיוון שמצב זה עשוי להעמיס על מנשקי ה־API של OpenStreetMap ועל המכשיר שלך&lt;p&gt;ניתן להקל מהעומס על שרתי ה־API ע״י שימוש
-במקור נתונים בלתי מקוון.</string>
   <string name="tip_locked_mode">במצב נעול לא ניתן לערוך אבל לחיצה ארוכה על פריט תציג עליו יותר מידע.</string>
   <string name="tip_longpress_simple_mode">במצב פשוט לחיצה ארוכה לא תוביל לכלום. ניתן לכבות את המצב הפשוט בתפריט הראשי כדי לאפשר לחיצות ארוכות ליצירת פריטים.</string>
   <!--NumberPicker-->
@@ -412,12 +424,20 @@
   <string name="qa_channel_name">אבטחת איכות של וספוצ׳י</string>
   <string name="qa_channel_description">ערוץ הודעות אבטחת איכות לתקלות נתונים ולמשימות</string>
   <!--Notifications-->
+  <string name="upload_checker_title">נא לזכור להעלות את העבודה שלך</string>
+  <plurals name="upload_checker_message">
+    <item quantity="one">יש שינוי שלא נשמר.</item>
+    <item quantity="two">%1$d שינויים שלך לא נשמרו.</item>
+    <item quantity="many">%1$d שינויים שלך לא נשמרו.</item>
+    <item quantity="other">%1$d שינויים שלך לא נשמרו.</item>
+  </plurals>
   <!--Toaster-->
   <string name="toast_permission_denied">ההרשאה נדחתה %1$s</string>
   <string name="toast_unable_to_persist_permissions">לא ניתן לקבע את ההרשאות</string>
   <string name="toast_name_empty">נא לבחור שם</string>
   <string name="toast_url_empty">נא להקליד כתובת</string>
   <string name="toast_min_zoom">יש להגדיר את רמת התקריב המזערית מתחת למרבית</string>
+  <string name="toast_tile_layer_exists">למקור %1$s יש את אותה הכתובת</string>
   <string name="toast_no_changes">עדיין לא שיניתי כלום…</string>
   <string name="toast_jpeg_not_transparent">קובצי JPEG אינם שקופים ואי אפשר להשתמש בהם כשכבת על</string>
   <string name="toast_unsaved_changes">נא להעלות תחילה את הנתונים שלך שטרם נשמרו.</string>
@@ -598,6 +618,7 @@
   <string name="prune">קיצוץ</string>
   <string name="check">בדיקה</string>
   <string name="download">הורדה</string>
+  <string name="select">בחירה</string>
   <!--Read a file-->
   <string name="read">קריאה</string>
   <string name="overwrite">שכתוב</string>
@@ -788,8 +809,6 @@
   <string name="menu_transfer_save_notes_all">שמירת כל ההערות…</string>
   <string name="menu_transfer_save_notes_new_and_changed">שמירת הערות חדשות וכאלו שנערכו…</string>
   <string name="menu_transfer_read_notes">לטעון הערות…</string>
-  <string name="menu_transfer_read_custom_bugs">טעינת משימות מותאמות אישית…</string>
-  <string name="menu_transfer_write_custom_bugs">שמירת משימות פתוחות מותאמות אישית…</string>
   <string name="menu_save">שמירה כקובץ</string>
   <string name="menu_join">צירוף</string>
   <string name="menu_unjoin">הפרדה</string>
@@ -1015,6 +1034,7 @@
   <string name="config_uploadOk_summary">סף שמתחתיו העלאות הפריטים הממתינות תיחשבנה בסדר</string>
   <string name="config_upload_current">%1$d פריטים</string>
   <string name="config_uploadWarn_title">אזהרת העלאות ממתינות</string>
+  <string name="config_uploadChecker_current">%1$d שעות</string>
   <string name="config_dataWarn_title">יותר מדי אזהרות נתונים</string>
   <string name="config_useUrlForFeedback_title">להשבית פעילות משוב</string>
   <string name="config_useUrlForFeedback_summary">השבתת פעילות המשוב ושימוש בכתובת במקום.</string>
@@ -1127,6 +1147,7 @@
   <string name="config_tileCache_current">%1$d מ״ב</string>
   <string name="config_mapillaryCacheSize_title">גודל המטמון של Mapillary</string>
   <string name="config_mapillaryCacheSize_summary">נפח האחסון הכולל שישמש לאחסון תמונות Mapillary, במ״ב</string>
+  <!--Auto-save-->
   <!--Miscellaneous-->
   <string name="config_category_misc">שונות</string>
   <string name="pref_enable_acra">דיווח על קריסות ביישומון</string>
@@ -1316,4 +1337,7 @@
   <string name="gotobookmark">מעבר</string>
   <string name="bookmarkstitle">סימניות</string>
   <!--Element types-->
+  <string name="element_type_area">שטח</string>
+  <string name="element_type_relation">יחס</string>
+  <!--Element names with id-->
 </resources>

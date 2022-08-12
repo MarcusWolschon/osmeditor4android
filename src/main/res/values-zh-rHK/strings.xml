@@ -92,6 +92,7 @@
   <string name="upload_validation_error_empty_comment">註解不應該留空</string>
   <string name="upload_validation_error_empty_source">來源不應該留空</string>
   <!--Upload GPX-->
+  <string name="upload_gpx_title">上傳 GPS 軌跡</string>
   <string name="upload_gpx_description_label">記述</string>
   <string name="upload_gpx_tags_label">標籤</string>
   <string name="upload_gpx_visibility_label">能見度</string>
@@ -109,8 +110,6 @@
   <string name="bug_description">%1$s:%2$s - %3$s</string>
   <string name="generic_bug">Bug</string>
   <string name="osmose_bug">Osmose</string>
-  <string name="custom_bug"> 客製化</string>
-  <string name="bug_long_description_2">&lt;br&gt;last updated:&lt;br&gt;%1$s&lt;br&gt;id:%2$d</string>
   <string name="bug_element_1">%1$s(未下載) %2$d</string>
   <string name="bug_element_2">%1$s%2$s</string>
   <string name="maproulette_task_title">MapRoulette 任務</string>
@@ -120,6 +119,7 @@
   <string name="maproulette_task_apikey_not_set">無法儲存 MapRoulette API 鑰匙</string>
   <string name="maproulette_task_disable">失效</string>
   <string name="maproulette_task_apikey_set">MapRoulette API key 已經儲存</string>
+  <!--Todo dialogs-->
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">注意！</string>
   <string name="unsaved_data_message">您有未存儲的變更，如果繼續將被丟棄。</string>
@@ -434,6 +434,7 @@
   <string name="discard">放棄</string>
   <string name="retry">重試</string>
   <string name="download">下載</string>
+  <string name="select">選擇</string>
   <!--Read a file-->
   <string name="read">讀取</string>
   <string name="overwrite">覆寫</string>
@@ -583,8 +584,6 @@
   <string name="menu_transfer_autodownload_long">自動下載任務</string>
   <string name="menu_transfer_save_notes_all">儲存所有註解...</string>
   <string name="menu_transfer_save_notes_new_and_changed">儲存新的和變更的註解...</string>
-  <string name="menu_transfer_read_custom_bugs">載入客製任務...</string>
-  <string name="menu_transfer_write_custom_bugs">儲存開啟的客製任務...</string>
   <string name="menu_save">儲存為檔案</string>
   <string name="menu_join">加入</string>
   <string name="menu_unjoin">不加入</string>
@@ -766,6 +765,7 @@
   <string name="config_maxStrokeWidth_summary">不要畫出比這更粗的道路。</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>
   <string name="config_upload_current">%1$d 物件</string>
+  <string name="config_uploadChecker_current">%1$d小時</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">資料和編輯設定</string>
   <string name="config_category_editing_summary">自動下載，儲存和通知設定</string>
@@ -844,6 +844,7 @@
   <string name="config_tileCacheSize_title">圖磚快取大小</string>
   <string name="config_tileCacheSize_summary">用 MB 計算的暫存圖磚所有儲存空間。</string>
   <string name="config_tileCache_current">%1$d MB</string>
+  <!--Auto-save-->
   <!--Miscellaneous-->
   <string name="config_category_misc">雜項</string>
   <string name="pref_enable_acra">回報 app 當機</string>
@@ -1001,4 +1002,7 @@
   <string name="toast_nohelp">這裡沒幫助。</string>
   <!--Bookmarks-->
   <!--Element types-->
+  <string name="element_type_area">範圍</string>
+  <string name="element_type_relation">關係</string>
+  <!--Element names with id-->
 </resources>
