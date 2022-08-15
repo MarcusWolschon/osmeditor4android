@@ -49,7 +49,7 @@ public final class SearchIndexUtils {
      * @param n String to normalize
      * @return normalized String
      */
-    public static String normalize(String n) {
+    public static String normalize(@NonNull String n) {
         String r = n.toLowerCase(Locale.US).trim();
         r = deAccent(r);
 
@@ -92,7 +92,7 @@ public final class SearchIndexUtils {
      * @param str String to work on
      * @return String without accents
      */
-    private static String deAccent(String str) {
+    private static String deAccent(@NonNull String str) {
         String nfdNormalizedString = Normalizer.normalize(str, Normalizer.Form.NFD);
         if (deAccentPattern == null) {
             deAccentPattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
@@ -246,7 +246,7 @@ public final class SearchIndexUtils {
      * @param pi the PresetItem
      * @return the new weight
      */
-    public static int rescale(@NonNull String term, int weight, @NonNull PresetItem pi) {
+    private static int rescale(@NonNull String term, int weight, @NonNull PresetItem pi) {
         int actualWeight = weight;
         String name = SearchIndexUtils.normalize(pi.getName());
         String translatedName = SearchIndexUtils.normalize(pi.getTranslatedName());
@@ -290,7 +290,7 @@ public final class SearchIndexUtils {
      * @return a NameAndTags object for the term
      */
     @Nullable
-    public static NameAndTags searchInNames(Context ctx, String name, int maxDistance) {
+    public static NameAndTags searchInNames(@NonNull Context ctx, @NonNull String name, int maxDistance) {
         MultiHashMap<String, NameAndTags> namesSearchIndex = App.getNameSearchIndex(ctx);
         NameAndTags result = null;
         int lastDistance = Integer.MAX_VALUE;
