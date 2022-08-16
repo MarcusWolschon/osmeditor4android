@@ -8,7 +8,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -32,9 +31,15 @@ import de.blau.android.presets.PresetKeyType;
 import de.blau.android.util.collections.MultiHashMap;
 
 public final class SearchIndexUtils {
+    private static final String DEBUG_TAG = SearchIndexUtils.class.getSimpleName();
 
-    private static final String DEBUG_TAG       = "SearchIndex";
-    private static Pattern      deAccentPattern = null;         // cached regex
+    private static final Pattern DEACCENT_PATTERN = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+
+    private static final int OFFSET_MATCH_SUBSTRING             = 10;
+    private static final int OFFSET_MATCH_START                 = 15;
+    private static final int OFFSET_EXACT_MATCH_WITHOUT_ACCENTS = 20;
+    private static final int OFFSET_EXACT_MATCH_WITH_ACCENTS    = 30;
+    private static final int MAN_MADE_PENALTY                   = 5;
 
     /**
      * Private constructor
@@ -44,24 +49,30 @@ public final class SearchIndexUtils {
     }
 
     /**
-     * normalize a string for the search index, currently only works for latin scripts
+     * normalize a string for the search index, currently only works fully for latin scripts
      * 
      * @param n String to normalize
      * @return normalized String
      */
     public static String normalize(@NonNull String n) {
-        String r = n.toLowerCase(Locale.US).trim();
-        r = deAccent(r);
+        return deAccent(replacePunctuation(n.trim()));
+    }
 
+    /**
+     * Replace any punctuation and similar chars with whitespace
+     * 
+     * @param input the input String
+     * @return a String with punctuation replaced
+     */
+    @NonNull
+    private static String replacePunctuation(@NonNull String input) {
         StringBuilder b = new StringBuilder();
-        for (char c : r.toCharArray()) {
+        for (char c : input.toCharArray()) {
             c = Character.toLowerCase(c);
             if (Character.isLetterOrDigit(c)) {
                 b.append(c);
             } else if (Character.isWhitespace(c)) {
-                if (b.length() > 0 && !Character.isWhitespace(b.charAt(b.length() - 1))) {
-                    b.append(' ');
-                }
+                appendSpace(b);
             } else {
                 switch (c) {
                 case '&':
@@ -72,9 +83,7 @@ public final class SearchIndexUtils {
                 case ':':
                 case '+':
                 case ';':
-                    if (b.length() > 0 && !Character.isWhitespace(b.charAt(b.length() - 1))) {
-                        b.append(' ');
-                    }
+                    appendSpace(b);
                     break;
                 case '\'':
                     break;
@@ -87,6 +96,18 @@ public final class SearchIndexUtils {
     }
 
     /**
+     * Append a space to a StringBuilder if it doesn't already end with one
+     * 
+     * @param b the StringBuilder
+     */
+    private static void appendSpace(@NonNull StringBuilder b) {
+        final int length = b.length();
+        if (length > 0 && !Character.isWhitespace(b.charAt(length - 1))) {
+            b.append(' ');
+        }
+    }
+
+    /**
      * Remove accents from a string
      * 
      * @param str String to work on
@@ -94,10 +115,18 @@ public final class SearchIndexUtils {
      */
     private static String deAccent(@NonNull String str) {
         String nfdNormalizedString = Normalizer.normalize(str, Normalizer.Form.NFD);
-        if (deAccentPattern == null) {
-            deAccentPattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
-        }
-        return deAccentPattern.matcher(nfdNormalizedString).replaceAll("");
+        return removeDiacriticalMarks(nfdNormalizedString);
+    }
+
+    /**
+     * Remove diacritical marks from a NFD normalized input string
+     * 
+     * @param nfdNormalizedString the input string
+     * @return a String with the diacritical marks removed
+     */
+    @NonNull
+    private static String removeDiacriticalMarks(@NonNull String nfdNormalizedString) {
+        return DEACCENT_PATTERN.matcher(nfdNormalizedString).replaceAll("");
     }
 
     /**
@@ -115,10 +144,11 @@ public final class SearchIndexUtils {
     public static List<PresetElement> searchInPresets(@NonNull Context ctx, @NonNull String term, @Nullable ElementType type, int maxDistance, int limit,
             @Nullable List<String> regions) {
         String country = GeoContext.getCountryIsoCode(regions);
-        term = SearchIndexUtils.normalize(term);
+        term = Normalizer.normalize(replacePunctuation(term), Normalizer.Form.NFD); // minimal normalization
+        String normalizedTerm = normalize(term);
         // synonyms first
         Map<IndexSearchResult, IndexSearchResult> rawResult = new HashMap<>();
-        for (IndexSearchResult isr : App.getSynonyms(ctx).search(ctx, term, type, maxDistance)) {
+        for (IndexSearchResult isr : App.getSynonyms(ctx).search(ctx, normalizedTerm, type, maxDistance)) {
             rawResult.put(isr, isr);
         }
 
@@ -128,8 +158,8 @@ public final class SearchIndexUtils {
         presetSeachIndices.add(App.getPresetSearchIndex(ctx));
 
         Set<String> terms = new HashSet<>();
-        terms.add(term);
-        List<String> temp = Arrays.asList(term.split("\\s"));
+        terms.add(normalizedTerm);
+        List<String> temp = Arrays.asList(normalizedTerm.split("\\s"));
         if (temp.size() > 1) {
             terms.addAll(temp);
         }
@@ -139,7 +169,7 @@ public final class SearchIndexUtils {
                 for (String t : terms) {
                     int distance = s.indexOf(t);
                     if (distance == -1) {
-                        distance = OptimalStringAlignment.editDistance(s, term, maxDistance);
+                        distance = OptimalStringAlignment.editDistance(s, normalizedTerm, maxDistance);
                         if (distance == -1) { // way out
                             continue;
                         }
@@ -151,7 +181,7 @@ public final class SearchIndexUtils {
                         int weight = distance * presetItems.size(); // if there are a lot of items for a term, penalize
                         for (PresetItem pi : presetItems) {
                             if ((type == null || pi.appliesTo(type)) && pi.appliesIn(country)) {
-                                IndexSearchResult isr = new IndexSearchResult(rescale(term, weight, pi), pi);
+                                IndexSearchResult isr = new IndexSearchResult(rescale(term, normalizedTerm, weight, pi), pi);
                                 addToResult(rawResult, isr.weight, isr);
                             }
                         }
@@ -167,9 +197,9 @@ public final class SearchIndexUtils {
             Preset[] presets = App.getCurrentPresets(ctx);
             Preset preset = Preset.dummyInstance();
             for (String name : names) {
-                int distance = name.indexOf(term);
+                int distance = name.indexOf(normalizedTerm);
                 if (distance == -1) {
-                    distance = OptimalStringAlignment.editDistance(name, term, maxDistance);
+                    distance = OptimalStringAlignment.editDistance(name, normalizedTerm, maxDistance);
                 } else {
                     distance = 0;
                 }
@@ -193,10 +223,10 @@ public final class SearchIndexUtils {
                                     }
                                 }
                             }
-                            IndexSearchResult isr = new IndexSearchResult(rescale(term, distance, namePi), namePi);
+                            IndexSearchResult isr = new IndexSearchResult(rescale(term, normalizedTerm, distance, namePi), namePi);
                             // penalize results that aren't shops etc
                             if (namePi.hasKey(Tags.KEY_MAN_MADE)) {
-                                isr.weight += 5;
+                                isr.weight += MAN_MADE_PENALTY;
                             }
                             addToResult(rawResult, isr.weight, isr);
                         }
@@ -207,16 +237,13 @@ public final class SearchIndexUtils {
 
         // sort and return results
         List<IndexSearchResult> tempResult = new ArrayList<>(rawResult.values());
-        Collections.sort(tempResult, IndexSearchResult.weightComparator);
+        Collections.sort(tempResult, IndexSearchResult.WEIGHT_COMPARATOR);
         List<PresetElement> result = new ArrayList<>();
-        for (IndexSearchResult isr : tempResult) {
-            result.add(isr.item);
+        final int size = Math.min(tempResult.size(), limit);
+        for (int i = 0; i < size; i++) {
+            result.add(tempResult.get(i).item);
         }
-
-        Log.d(DEBUG_TAG, "found " + result.size() + " results");
-        if (!result.isEmpty()) {
-            return result.subList(0, Math.min(result.size(), limit));
-        }
+        Log.d(DEBUG_TAG, "found " + size + " results");
         return result;
     }
 
@@ -241,24 +268,35 @@ public final class SearchIndexUtils {
     /**
      * Give exact and partial matches best positions
      * 
-     * @param term the search term
+     * As we need to retain accents etc for exact match we split up the individual steps of normalization here
+     * 
+     * @param originalTerm the original search term
+     * @param normalizedTerm the normalized search term
      * @param weight original weight
      * @param pi the PresetItem
+     * 
      * @return the new weight
      */
-    private static int rescale(@NonNull String term, int weight, @NonNull PresetItem pi) {
+    private static int rescale(@NonNull String originalTerm, @NonNull String normalizedTerm, int weight, @NonNull PresetItem pi) {
         int actualWeight = weight;
-        String name = SearchIndexUtils.normalize(pi.getName());
-        String translatedName = SearchIndexUtils.normalize(pi.getTranslatedName());
-        if (name.equals(term) || translatedName.equals(term) || checkPresetValues(term, pi)) {
-            // exact name or value match
-            actualWeight = weight - 20;
-        } else if (term.length() >= 3) {
-            int pos = translatedName.indexOf(term);
-            if (pos == 0) { // starts with the term
-                actualWeight = weight - 15;
-            } else if (pos > 0) {
-                actualWeight = weight - 10;
+        String name = Normalizer.normalize(replacePunctuation(pi.getName()), Normalizer.Form.NFD);
+        String translatedName = Normalizer.normalize(replacePunctuation(pi.getTranslatedName()), Normalizer.Form.NFD);
+        if (name.equals(originalTerm) || translatedName.equals(originalTerm)) {
+            // exact name match with accents
+            actualWeight = -OFFSET_EXACT_MATCH_WITH_ACCENTS;
+        } else {
+            name = removeDiacriticalMarks(name);
+            translatedName = removeDiacriticalMarks(translatedName);
+            if (name.equals(normalizedTerm) || translatedName.equals(normalizedTerm) || checkPresetValues(normalizedTerm, pi)) {
+                // exact name or value match
+                actualWeight = weight - OFFSET_EXACT_MATCH_WITHOUT_ACCENTS;
+            } else if (normalizedTerm.length() >= 3) {
+                int pos = translatedName.indexOf(normalizedTerm);
+                if (pos == 0) { // starts with the term
+                    actualWeight = weight - OFFSET_MATCH_START;
+                } else if (pos > 0) {
+                    actualWeight = weight - OFFSET_MATCH_SUBSTRING;
+                }
             }
         }
         return actualWeight;
@@ -274,7 +312,7 @@ public final class SearchIndexUtils {
     private static boolean checkPresetValues(@NonNull String term, @NonNull PresetItem pi) {
         Collection<PresetFixedField> fixedFields = pi.getFixedTags().values();
         for (PresetFixedField f : fixedFields) {
-            if (SearchIndexUtils.normalize(f.getValue().getValue()).equals(term)) {
+            if (normalize(f.getValue().getValue()).equals(term)) {
                 return true;
             }
         }
@@ -294,7 +332,7 @@ public final class SearchIndexUtils {
         MultiHashMap<String, NameAndTags> namesSearchIndex = App.getNameSearchIndex(ctx);
         NameAndTags result = null;
         int lastDistance = Integer.MAX_VALUE;
-        name = SearchIndexUtils.normalize(name);
+        name = normalize(name);
         for (String key : namesSearchIndex.getKeys()) {
             int distance = OptimalStringAlignment.editDistance(key, name, maxDistance);
             if (distance >= 0 && distance <= maxDistance && distance < lastDistance) {

@@ -41,7 +41,7 @@ public class IndexSearchResult {
         return result;
     }
 
-    public static final Comparator<IndexSearchResult> weightComparator = (isr1, isr2) -> {
+    public static final Comparator<IndexSearchResult> WEIGHT_COMPARATOR = (isr1, isr2) -> {
         if (isr2.weight > isr1.weight) {
             return -1;
         } else if (isr2.weight < isr1.weight) {
