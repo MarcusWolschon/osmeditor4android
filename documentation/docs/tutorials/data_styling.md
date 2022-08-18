@@ -57,7 +57,7 @@ Node styling is limited to the __labelKey__ and __iconPath__ attributes.
 |__&lt;interval&gt;__       |                |         | dash sub-element used to define the length of the dash/no-dash phases
 |                           | length         |         | Length of the dash as a float
 
-Using "preset" as the value for iconPath will match the objects tags with the presets, just as this is done throughout the application, however "building" and "building:part" tags are ignored. If you need to render icons specifically for buildings, reference an icon directly. 
+Using _"preset"_ as the value for iconPath will match the objects tags with the presets, just as this is done throughout the application, however "building", "building:part" and "indoor=room" tags are ignored. If you need to render icons specifically for such objects, reference an icon directly. 
                  
 ### Internal features
 
