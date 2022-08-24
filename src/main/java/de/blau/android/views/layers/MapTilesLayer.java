@@ -106,8 +106,7 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
     private static final MRUList<String>        lastServers     = new MRUList<>(MRU_SIZE);
     private final SavingHelper<MRUList<String>> mruSavingHelper = new SavingHelper<>();
 
-    private int     prevZoomLevel = -1;  // zoom level from previous draw
-    private boolean saved         = true;
+    private int prevZoomLevel = -1; // zoom level from previous draw
 
     private static final long TILE_ERROR_LIMIT = 50;
     private boolean           tileErrorShown   = false;
@@ -301,6 +300,7 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
             Log.w(DEBUG_TAG, "Trying to set null layer");
             return;
         }
+        Log.d(DEBUG_TAG, "setRendererInfo " + tileLayer.getId());
         if (myRendererInfo != tileLayer) {
             try {
                 coverageWarningMessage = myView.getResources().getString(R.string.toast_no_coverage, tileLayer.getName());
@@ -311,7 +311,6 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
             if (myRendererInfo != null) { // 1st invocation this is null
                 mTileProvider.flushQueue(myRendererInfo.getId(), MapAsyncTileProvider.ALLZOOMS);
                 synchronized (getLastServers()) {
-                    saved = false;
                     getLastServers().push(myRendererInfo.getId());
                 }
             }
@@ -893,7 +892,6 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
         Log.d(DEBUG_TAG, "Saving MRU size " + getLastServers().size());
         super.onSaveState(ctx);
         synchronized (getLastServers()) {
-            saved = true;
             mruSavingHelper.save(ctx, getClass().getName() + "lastServers", getLastServers(), true);
         }
     }
@@ -902,14 +900,11 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
     public boolean onRestoreState(@NonNull Context ctx) {
         Log.d(DEBUG_TAG, "Restoring MRU");
         super.onRestoreState(ctx);
-        if (saved) {
-            synchronized (getLastServers()) {
-                MRUList<String> tempLastServers = mruSavingHelper.load(ctx, getClass().getName() + "lastServers", true);
-                Log.d(DEBUG_TAG, "MRU size " + tempLastServers.size());
-                getLastServers().clear();
-                getLastServers().addAll(tempLastServers);
-                getLastServers().ensureCapacity(MRU_SIZE);
-            }
+        synchronized (getLastServers()) {
+            MRUList<String> tempLastServers = mruSavingHelper.load(ctx, getClass().getName() + "lastServers", true);
+            Log.d(DEBUG_TAG, "read MRU size " + tempLastServers.size());
+            getLastServers().ensureCapacity(MRU_SIZE);
+            getLastServers().pushAll(tempLastServers);
         }
         return true;
     }

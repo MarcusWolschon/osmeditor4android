@@ -397,7 +397,7 @@ public class TileLayerSource implements Serializable {
 
     private transient Context        ctx;
     private boolean                  metadataLoaded;
-    private String                   id;
+    private final String             id;
     private String                   name;
     private String                   type;
     private Category                 category;
@@ -591,7 +591,6 @@ public class TileLayerSource implements Serializable {
             @Nullable String[] noTileValues, @Nullable String description, @Nullable String privacyPolicyUrl, boolean async) {
 
         this.ctx = ctx;
-        this.id = id;
         this.name = name;
         this.type = type;
         this.category = category;
@@ -627,12 +626,9 @@ public class TileLayerSource implements Serializable {
             // parse error or other fatal issue
             this.name = "INVALID";
         }
-        if (this.id == null) {
-            // generate id from name
-            this.id = nameToId(this.name);
-        }
-        //
-        this.id = this.id.toUpperCase(Locale.US);
+
+        // generate id from name if necessary
+        this.id = (id != null ? id : nameToId(this.name)).toUpperCase(Locale.US);
 
         if (originalUrl.startsWith(FileUtil.FILE_SCHEME_PREFIX)) { // mbtiles no further processing needed
             readOnly = true;
@@ -718,7 +714,7 @@ public class TileLayerSource implements Serializable {
      * @param name input name String
      * @return a String with an id
      */
-    public static String nameToId(final String name) {
+    public static String nameToId(@NonNull final String name) {
         return name.replaceAll("[\\W\\_]", "").toUpperCase(Locale.US);
     }
 

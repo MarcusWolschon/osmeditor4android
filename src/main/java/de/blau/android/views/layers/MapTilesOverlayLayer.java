@@ -31,7 +31,7 @@ public class MapTilesOverlayLayer<T> extends MapTilesLayer<T> {
             enabled = false;
         } else {
             String id = layer.getId();
-            enabled = !(id == null || TileLayerSource.LAYER_NOOVERLAY.equals(id) || TileLayerSource.LAYER_NONE.equals(id) || "".equals(id));
+            enabled = !(TileLayerSource.LAYER_NOOVERLAY.equals(id) || TileLayerSource.LAYER_NONE.equals(id) || "".equals(id));
         }
         return enabled && super.isReadyToDraw();
     }
