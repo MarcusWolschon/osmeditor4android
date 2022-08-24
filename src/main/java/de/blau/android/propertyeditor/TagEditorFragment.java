@@ -254,8 +254,8 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         boolean applyLastAddressTags = false;
-        String focusOnKey = null;
         boolean displayMRUpresets = false;
+        String focusOnKey = null;
 
         if (savedInstanceState == null) {
             // No previous state to restore - get the state from the intent
@@ -263,8 +263,8 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             osmIds = (long[]) getArguments().getSerializable(IDS_KEY);
             types = (String[]) getArguments().getSerializable(TYPES_KEY);
             applyLastAddressTags = getArguments().getBoolean(APPLY_LAST_ADDRESS_TAGS, false);
-            focusOnKey = (String) getArguments().getSerializable(FOCUS_ON_KEY);
             displayMRUpresets = getArguments().getBoolean(DISPLAY_MRU_PRESETS, false);
+            focusOnKey = (String) getArguments().getSerializable(FOCUS_ON_KEY);
         } else {
             // Restore activity from saved state
             Log.d(DEBUG_TAG, "Restoring from savedInstanceState");
@@ -322,19 +322,6 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         }
 
         loaded = true;
-        TagEditRow row = ensureEmptyRow(editRowLayout);
-
-        if (row != null && getUserVisibleHint()) { // don't request focus if we are not visible
-            Log.d(DEBUG_TAG, "is visible");
-            row.keyEdit.requestFocus();
-            row.keyEdit.dismissDropDown();
-
-            if (focusOnKey != null) {
-                focusOnValue(editRowLayout, focusOnKey);
-            } else {
-                focusOnEmptyValue(editRowLayout); // probably never actually works
-            }
-        }
 
         // Add any extra tags that were supplied
         @SuppressWarnings("unchecked")
@@ -396,12 +383,23 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                             ((StreetPlaceNamesAdapter) nameAdapters.getStreetNameAdapter(null)).getElementSearch(), getKeyValueMap(editRowLayout, false),
                             Address.DEFAULT_HYSTERESIS, true),
                     false);
-            if (getUserVisibleHint()) {
+        }
+        final TagEditRow row = ensureEmptyRow(editRowLayout);
+        if (getUserVisibleHint()) { // don't request focus if we are not visible
+            Log.d(DEBUG_TAG, "is visible setting focus");
+            // all of this is only done on initial creation
+            if (applyLastAddressTags) {
                 if (!focusOnValue(editRowLayout, Tags.KEY_ADDR_HOUSENUMBER)) {
                     focusOnValue(editRowLayout, Tags.KEY_ADDR_STREET);
                 } // this could be a bit more refined
+            } else if (focusOnKey != null) {
+                focusOnValue(editRowLayout, focusOnKey);
+            } else if (savedInstanceState == null) {
+                row.keyEdit.requestFocus();
+                row.keyEdit.dismissDropDown();
             }
         }
+
         Log.d(DEBUG_TAG, "onCreateView returning");
         return rowLayout;
     }
@@ -868,7 +866,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
 
         List<String> result = new ArrayList<>(keys);
 
-        return new ArrayAdapter<>(getActivity(), R.layout.autocomplete_row, result);
+        return new ArrayAdapter<>(requireContext(), R.layout.autocomplete_row, result);
     }
 
     /**
@@ -1548,8 +1546,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      */
     boolean focusOnEmptyValue() {
         Log.d(DEBUG_TAG, "focusOnEmptyValue");
-        LinearLayout rowLayout = (LinearLayout) getOurView();
-        return focusOnEmptyValue(rowLayout);
+        return focusOnEmptyValue((LinearLayout) getOurView());
     }
 
     /**
@@ -1559,16 +1556,14 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      * @return true if successful
      */
     private boolean focusOnEmptyValue(LinearLayout rowLayout) {
-        boolean found = false;
         for (int i = 0; i < rowLayout.getChildCount(); i++) {
             TagEditRow ter = (TagEditRow) rowLayout.getChildAt(i);
             if (ter != null && !"".equals(ter.getKey()) && "".equals(ter.getValue())) {
                 focusRowValue(rowLayout, rowIndex(rowLayout, ter));
-                found = true;
-                break;
+                return true;
             }
         }
-        return found;
+        return false;
     }
 
     /**

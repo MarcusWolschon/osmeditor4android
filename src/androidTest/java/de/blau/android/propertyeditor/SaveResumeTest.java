@@ -1,5 +1,6 @@
 package de.blau.android.propertyeditor;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -14,6 +15,7 @@ import android.app.Activity;
 import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
 import android.content.Context;
+import android.os.RemoteException;
 import android.view.KeyEvent;
 import androidx.lifecycle.Lifecycle.State;
 import androidx.test.core.app.ActivityScenario;
@@ -105,6 +107,21 @@ public class SaveResumeTest {
      */
     @Test
     public void editTag() {
+        editTag(false);
+    }
+
+    /**
+     * Edit a tag in the PropertyEditorActivity - rotate - restart app - check that edit is still there
+     */
+    @Test
+    public void editTagRotate() {
+        editTag(true);
+    }
+
+    /**
+     * @param rotate if true try to rotate the device while paused
+     */
+    private void editTag(boolean rotate) {
         ActivityMonitor monitor = instrumentation.addMonitor(PropertyEditorActivity.class.getName(), null, false);
         Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984);
         assertNotNull(n);
@@ -112,7 +129,8 @@ public class SaveResumeTest {
         PropertyEditorData[] single = new PropertyEditorData[1];
         single[0] = new PropertyEditorData(n, null);
 
-        try (ActivityScenario<PropertyEditorActivity> scenario = ActivityScenario.launch(PropertyEditorActivity.buildIntent(main, single, false, false, null, null))) {
+        try (ActivityScenario<PropertyEditorActivity> scenario = ActivityScenario
+                .launch(PropertyEditorActivity.buildIntent(main, single, false, false, null, null))) {
             Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
             assertTrue(propertyEditor instanceof PropertyEditorActivity);
             TestUtils.clickText(device, true, main.getString(R.string.menu_tags), false, false);
@@ -130,10 +148,23 @@ public class SaveResumeTest {
                 fail(e.getMessage());
             }
 
-            scenario.recreate();
+            if (rotate) {
+                scenario.moveToState(State.CREATED);
+                try {
+                    device.unfreezeRotation();
+                    device.setOrientationRight();
+                    TestUtils.sleep(2000);
+                } catch (RemoteException e) {
+                    fail(e.getMessage());
+                }
+                scenario.moveToState(State.RESUMED);
+                TestUtils.sleep(2000);
+            } else {
+                scenario.recreate();
+            }
 
             // check that we still have the change
-            o = device.wait(Until.findObject(By.clickable(true).textStartsWith(edited)), 500);
+            o = device.wait(Until.findObject(By.clickable(true).textStartsWith(edited)), 1000);
             assertNotNull(o);
         }
     }
