@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -18,6 +19,7 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElementFactory;
 import de.blau.android.util.collections.LongHashSet;
 import de.blau.android.util.collections.LongOsmElementMap;
+import de.blau.android.util.collections.MRUList;
 import de.blau.android.util.collections.MultiHashMap;
 import de.blau.android.util.collections.UnsignedSparseBitSet;
 import de.blau.android.util.rtree.RTree;
@@ -178,5 +180,26 @@ public class CollectionTest {
         // misc
         assertEquals(25035, UnsignedSparseBitSet.inc(25034));
         assertEquals(0x80150A01, UnsignedSparseBitSet.inc(0x80150A00));
+    }
+
+    /**
+     * Test Most-Recently-Used list implementation
+     */
+    @Test
+    public void mruList() {
+        MRUList<String> mru = new MRUList<>(10);
+        mru.push("bottom");
+        mru.push("top");
+        assertEquals(2, mru.size());
+        assertEquals("top", mru.last());
+        mru.push("bottom");
+        assertEquals(2, mru.size());
+        assertEquals("bottom", mru.last());
+
+        mru.pushAll(Arrays.asList("1", "2"));
+        assertEquals(4, mru.size());
+        assertEquals("2", mru.last());
+        mru.push("top");
+        assertEquals(4, mru.size());
     }
 }

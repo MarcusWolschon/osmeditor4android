@@ -3,6 +3,8 @@ package de.blau.android.util.collections;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import androidx.annotation.NonNull;
+
 /**
  * A list that can be used in a stack like fashion for implementing MRU (Most Recently Used) semantics
  * 
@@ -30,7 +32,7 @@ public class MRUList<T> extends ArrayList<T> {
      * 
      * @param collection the Collection to use for construction
      */
-    public MRUList(Collection<T> collection) {
+    public MRUList(@NonNull Collection<T> collection) {
         super(collection);
         this.capacity = collection.size();
     }
@@ -49,6 +51,17 @@ public class MRUList<T> extends ArrayList<T> {
             remove(size() - 1);
         }
         add(0, o);
+    }
+
+    /**
+     * Add all elements in collection to the stack
+     * 
+     * @param collection a Collection of T
+     */
+    public void pushAll(@NonNull Collection<T> collection) {
+        for (T o : collection) {
+            push(o);
+        }
     }
 
     /**
