@@ -1413,6 +1413,7 @@
     <string name="bridge">Bridge</string>
     <string name="tunnel">Tunnel</string>
     <string name="culvert">Culvert</string>
+    <string name="steps">Steps</string>
     <!-- Issues -->
     <string name="issue_not_reversable">Tags not reversable</string>
     <string name="issue_shared_node">Shared with other way</string>

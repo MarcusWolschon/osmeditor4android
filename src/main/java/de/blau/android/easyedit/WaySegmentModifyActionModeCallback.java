@@ -57,7 +57,7 @@ public class WaySegmentModifyActionModeCallback extends NonSimpleActionModeCallb
             menu.add(Menu.NONE, MENUITEM_TUNNEL, Menu.NONE, R.string.tunnel).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_tunnel));
             if (way.hasTagWithValue(Tags.KEY_HIGHWAY, Tags.VALUE_FOOTWAY) || way.hasTagWithValue(Tags.KEY_HIGHWAY, Tags.VALUE_PATH)
                     || way.hasTagWithValue(Tags.KEY_HIGHWAY, Tags.VALUE_CYCLEWAY)) {
-                menu.add(Menu.NONE, MENUITEM_STEPS, Menu.NONE, R.string.tunnel).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_steps));
+                menu.add(Menu.NONE, MENUITEM_STEPS, Menu.NONE, R.string.steps).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_steps));
             }
         }
         if (way.hasTagKey(Tags.KEY_WATERWAY)) {
