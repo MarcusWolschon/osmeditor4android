@@ -60,7 +60,8 @@ import de.blau.android.util.Util;
 public class PresetFragment extends BaseFragment implements PresetUpdate, PresetClickHandler {
     private static final String DEBUG_TAG = PresetFragment.class.getSimpleName();
 
-    static final int MAX_SEARCHRESULTS = 10;
+    static final int         MAX_SEARCHRESULTS = 10;
+    private static final int MAX_DISTANCE      = 2;
 
     private static final String ALTERNATE_ROOT_PATHS = "alternateRootPaths";
 
@@ -123,7 +124,6 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
         Bundle args = new Bundle();
         args.putLong(ELEMENT_ID_KEY, elementId);
         args.putString(ELEMENT_NAME_KEY, elementName);
-
         args.putBoolean(PANE_MODE, paneMode);
         args.putSerializable(ALTERNATE_ROOT_PATHS, alternateRootPath);
 
@@ -142,7 +142,29 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
         editorUpdate = (EditorUpdate) parent;
     }
 
-    Runnable displaySearchResults = () -> getAndShowSearchResults(presetSearch);
+    private class SearchResultsDisplay implements Runnable {
+
+        private ExecutorTask<Void, Void, ArrayList<PresetElement>> searchTask;
+
+        @Override
+        public void run() {
+            searchTask = executeSearchTask(presetSearch);
+            if (searchTask != null) {
+                searchTask.execute();
+            }
+        }
+
+        /**
+         * Cancel execution of the current task
+         */
+        public void cancel() {
+            if (searchTask != null) {
+                searchTask.cancel();
+            }
+        }
+    }
+
+    private SearchResultsDisplay displaySearchResults = new SearchResultsDisplay();
 
     @SuppressLint("InflateParams")
     @Override
@@ -193,7 +215,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
                 String searchString = savedInstanceState.getString(SEARCH_STRING_KEY);
                 if (searchString != null) {
                     presetSearch.setText(searchString);
-                    getAndShowSearchResults(presetSearch); // this should recreate the search results
+                    executeSearchTask(presetSearch);
                 }
             }
 
@@ -201,7 +223,8 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
                 Log.d(DEBUG_TAG, "action id " + actionId + " event " + event);
                 if (actionId == EditorInfo.IME_ACTION_SEARCH
                         || (actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
-                    return getAndShowSearchResults(presetSearch);
+                    executeSearchTask(presetSearch);
+                    return true;
                 }
                 return false;
             });
@@ -242,6 +265,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
                     if (s.length() >= 3) {
+                        displaySearchResults.cancel();
                         presetSearch.removeCallbacks(displaySearchResults);
                         presetSearch.postDelayed(displaySearchResults, 200);
                     }
@@ -256,6 +280,21 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
         }
 
         return presetPaneLayout;
+
+    }
+
+    /**
+     * Execute a preset search
+     * 
+     * @param editText the EditText holding the text to use for the search
+     * @return a reference to the task
+     */
+    private ExecutorTask<Void, Void, ArrayList<PresetElement>> executeSearchTask(@NonNull final EditText editText) {
+        ExecutorTask<Void, Void, ArrayList<PresetElement>> searchTask = getAndShowSearchResults(editText);
+        if (searchTask != null) {
+            searchTask.execute(); // this should recreate the search results
+        }
+        return searchTask;
     }
 
     /**
@@ -296,52 +335,53 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
     /**
      * Query the preset search index and display results in a dialog
      * 
-     * @param presetSearch the EditText used for input
-     * @return false if we didn't search
+     * @param editText the EditText used for input
+     * @return an ExecutorTask or null
      */
-    private boolean getAndShowSearchResults(final View presetSearch) {
+    @Nullable
+    private ExecutorTask<Void, Void, ArrayList<PresetElement>> getAndShowSearchResults(@Nullable final View editText) {
         Activity activity = getActivity();
-        String term = presetSearch instanceof EditText ? ((EditText) presetSearch).getText().toString() : null;
+        String term = editText instanceof EditText ? ((EditText) editText).getText().toString() : null;
         if (activity == null || term == null || "".equals(term.trim())) {
-            return false;
+            return null;
         }
         final FragmentManager fm = getChildFragmentManager();
         Logic logic = App.getLogic();
-        ExecutorTask<Void, Void, ArrayList<PresetElement>> list = new ExecutorTask<Void, Void, ArrayList<PresetElement>>(logic.getExecutorService(),
-                logic.getHandler()) {
+        return new ExecutorTask<Void, Void, ArrayList<PresetElement>>(logic.getExecutorService(), logic.getHandler()) {
 
             @Override
             protected ArrayList<PresetElement> doInBackground(Void param) {
-                return new ArrayList<>(SearchIndexUtils.searchInPresets(activity, term, type, 2, MAX_SEARCHRESULTS, propertyEditorListener.getIsoCodes()));
+                return new ArrayList<>(
+                        SearchIndexUtils.searchInPresets(activity, term, type, MAX_DISTANCE, MAX_SEARCHRESULTS, propertyEditorListener.getIsoCodes()));
             }
 
             @Override
             protected void onPostExecute(ArrayList<PresetElement> result) {
-                if (result.isEmpty()) {
-                    Snack.toastTopInfo(getContext(), R.string.toast_nothing_found);
-                    if (!propertyEditorListener.isConnected()) { // if not online nothing we can do
-                        return;
+                if (!isCancelled() && !fm.isDestroyed()) {
+                    if (result.isEmpty()) {
+                        Snack.toastTopInfo(getContext(), R.string.toast_nothing_found);
+                        if (!propertyEditorListener.isConnected()) { // if not online nothing we can do
+                            return;
+                        }
                     }
-                }
 
-                PresetSearchResultsFragment searchResultDialog = (PresetSearchResultsFragment) fm.findFragmentByTag(FRAGMENT_PRESET_SEARCH_RESULTS_TAG);
-                if (searchResultDialog == null) {
-                    searchResultDialog = PresetSearchResultsFragment.newInstance(term, result);
-                    try {
-                        Log.d(DEBUG_TAG, "Creating new result fragment");
-                        FragmentTransaction ft = fm.beginTransaction();
-                        ft.add(R.id.preset_results, searchResultDialog, FRAGMENT_PRESET_SEARCH_RESULTS_TAG);
-                        ft.commit();
-                    } catch (IllegalStateException isex) {
-                        Log.e(DEBUG_TAG, "show of seach results failed with ", isex);
+                    PresetSearchResultsFragment searchResultDialog = (PresetSearchResultsFragment) fm.findFragmentByTag(FRAGMENT_PRESET_SEARCH_RESULTS_TAG);
+                    if (searchResultDialog == null) {
+                        searchResultDialog = PresetSearchResultsFragment.newInstance(term, result);
+                        try {
+                            Log.d(DEBUG_TAG, "Creating new result fragment");
+                            FragmentTransaction ft = fm.beginTransaction();
+                            ft.add(R.id.preset_results, searchResultDialog, FRAGMENT_PRESET_SEARCH_RESULTS_TAG);
+                            ft.commit();
+                        } catch (IllegalStateException isex) {
+                            Log.e(DEBUG_TAG, "show of seach results failed with ", isex);
+                        }
+                    } else {
+                        searchResultDialog.update(term, result);
                     }
-                } else {
-                    searchResultDialog.update(term, result);
                 }
             }
         };
-        list.execute();
-        return true;
     }
 
     @Override
