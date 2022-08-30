@@ -149,7 +149,15 @@ public class RelationMembershipFragment extends BaseFragment implements Property
         final Context context = getContext();
         int limit = prefs.getServer().getCachedCapabilities().getMaxRelationMembers();
         relationHolderList.add(new RelationHolder(context, null, limit)); // empty list entry
+        final long osmId = propertyEditorListener.getElement().getOsmId();
+        final boolean isRelation = Relation.NAME.equals(elementType);
         for (Relation r : App.getDelegator().getCurrentStorage().getRelations()) {
+            // we don't want to make it too easy to create relation loops and
+            // filter out the current element out if it is a relation and any
+            // relations that contain it
+            if (isRelation && (r.getOsmId() == osmId || r.getMember(Relation.NAME, osmId) != null)) {
+                continue;
+            }
             relationHolderList.add(new RelationHolder(context, r, limit));
         }
         // Adapter containing all Relations
