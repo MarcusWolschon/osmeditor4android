@@ -218,7 +218,7 @@ public class PropertyEditorTest {
 
         assertTrue(TestUtils.clickText(device, true, main.getString(R.string.relations), false, false));
         assertTrue(TestUtils.clickOverflowButton(device));
-        assertTrue(TestUtils.clickText(device, false, "Add to relation", true));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.tag_menu_addtorelation), true));
         assertTrue(TestUtils.clickText(device, false, "test", true));
 
         TestUtils.clickHome(device, true);
@@ -738,6 +738,36 @@ public class PropertyEditorTest {
         assertTrue(r.getMembers().isEmpty());
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.delete), true));
         assertEquals(OsmElement.STATE_DELETED, r.getState());
+    }
+    
+    /**
+     * Select a relation and check that the membership tab doesn't allow adding to itself
+     */
+    @Test
+    public void relationLoopAvoidance() {
+        final CountDownLatch signal = new CountDownLatch(1);
+        mockServer.enqueue("capabilities1");
+        mockServer.enqueue("download1");
+        Logic logic = App.getLogic();
+        logic.downloadBox(main, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D), false, new SignalHandler(signal));
+        try {
+            signal.await(30, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            fail(e.getMessage());
+        }
+        Relation r = (Relation) App.getDelegator().getOsmElement(Relation.NAME, 2807173);
+        assertNotNull(r);
+
+        main.performTagEdit(r, null, false, false);
+        waitForPropertyEditor();
+
+        TestUtils.clickText(device, true, main.getString(R.string.tag_details), false, false);
+        TestUtils.clickText(device, true, main.getString(R.string.members), false, false);
+        assertTrue(TestUtils.clickText(device, true, main.getString(R.string.relations), false, false));
+        assertTrue(TestUtils.clickOverflowButton(device));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.tag_menu_addtorelation), true));
+        assertFalse(TestUtils.findText(device, false, r.getDescription(main)));
+        assertFalse(TestUtils.findText(device, false, r.getParentRelations().get(0).getDescription(main)));
     }
 
     /**
