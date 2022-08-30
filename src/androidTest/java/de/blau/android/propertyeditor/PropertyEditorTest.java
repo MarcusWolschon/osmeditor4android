@@ -31,7 +31,6 @@ import android.graphics.Rect;
 import android.os.RemoteException;
 import android.view.KeyEvent;
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentManager;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -740,7 +739,7 @@ public class PropertyEditorTest {
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.delete), true));
         assertEquals(OsmElement.STATE_DELETED, r.getState());
     }
-    
+
     /**
      * Select a relation and drilldown a specific member
      */
@@ -762,7 +761,7 @@ public class PropertyEditorTest {
         Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 577098580L);
         assertNotNull(n);
         assertTrue(n.hasTagWithValue("shelter", Tags.VALUE_YES));
-        
+
         main.performTagEdit(r, null, false, false);
         waitForPropertyEditor();
 
@@ -775,7 +774,7 @@ public class PropertyEditorTest {
         } catch (UiObjectNotFoundException e) {
             fail(e.getMessage());
         }
-        
+
         assertTrue(TestUtils.findText(device, false, "8590205"));
         try {
             UiObject2 shelter = getField(device, "Shelter", 1);
@@ -785,7 +784,7 @@ public class PropertyEditorTest {
         } catch (UiObjectNotFoundException e) {
             fail();
         }
-        
+
         // exit property editor
         TestUtils.clickHome(device, false);
         TestUtils.clickHome(device, false);
@@ -1599,6 +1598,66 @@ public class PropertyEditorTest {
         assertTrue(n1.hasTag("level", "1234"));
         assertTrue(n2.hasTag("disused:amenity", "fountain"));
         assertTrue(n2.hasTag("level", "1234"));
+    }
+
+    /**
+     * Select two nodes
+     */
+    @Test
+    public void multiSelectClearValue() {
+        final CountDownLatch signal = new CountDownLatch(1);
+        mockServer.enqueue("capabilities1");
+        mockServer.enqueue("download1");
+        Logic logic = App.getLogic();
+        logic.downloadBox(main, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D), false, new SignalHandler(signal));
+        try {
+            signal.await(30, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            fail(e.getMessage());
+        }
+        main.getMap().getDataLayer().setVisible(true);
+        TestUtils.unlock(device);
+        TestUtils.zoomToLevel(device, main, 21);
+
+        Node n1 = (Node) App.getDelegator().getOsmElement(Node.NAME, 3465444349L);
+        assertNotNull(n1);
+        Node n2 = (Node) App.getDelegator().getOsmElement(Node.NAME, 3190098961L);
+        assertNotNull(n1);
+        final CountDownLatch signal2 = new CountDownLatch(1);
+        main.runOnUiThread(() -> {
+            logic.addSelectedNode(n1);
+            logic.addSelectedNode(n2);
+            main.getEasyEditManager().editElements();
+            (new SignalHandler(signal2)).onSuccess();
+        });
+        try {
+            signal2.await(20, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            fail(e.getMessage());
+        }
+
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_multiselect)));
+
+        assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.menu_tags), false, true));
+        PropertyEditorActivity propertyEditor = waitForPropertyEditor();
+
+        assertFalse(TestUtils.findText(device, false, context.getString(R.string.tag_details)));
+
+        UiObject2 access = null;
+        try {
+            access = getField(device, Tags.KEY_ACCESS, 2);
+        } catch (UiObjectNotFoundException e) {
+            fail();
+        }
+        assertNotNull(access);
+        access.setText("");
+
+        TestUtils.clickHome(device, true);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_multiselect)));
+        device.waitForIdle();
+
+        assertFalse(n1.hasTagKey(Tags.KEY_ACCESS));
+        assertFalse(n2.hasTagKey(Tags.KEY_ACCESS));
     }
 
     /**
