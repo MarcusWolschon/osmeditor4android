@@ -1178,7 +1178,26 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             }
         };
         row.keyEdit.addTextChangedListener(textWatcher);
-        row.valueEdit.addTextChangedListener(textWatcher);
+        row.valueEdit.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                textWatcher.beforeTextChanged(s, start, count, after);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                textWatcher.onTextChanged(s, start, before, count);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                textWatcher.afterTextChanged(s);
+                if (row.tagValues.size() > 1 && s.length() == 0) { // multi-select value has been emptied
+                    row.setValues(row.getKey(), Util.wrapInList(""), true);
+                }
+            }
+        });
 
         row.valueEdit.setOnItemClickListener((parent, view, pos, id) -> {
             Log.d("TagEdit", "onItemClicked value");
@@ -1316,6 +1335,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
          * @param same the values are all the same
          * @return the TagEditRow object for convenience
          */
+        @NonNull
         public TagEditRow setValues(String aTagKey, List<String> tagValues, boolean same) {
             keyEdit.setText(aTagKey);
             this.tagValues = tagValues;
