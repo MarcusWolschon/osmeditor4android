@@ -355,17 +355,11 @@ public class RelationMembershipFragment extends BaseFragment implements Property
 
             parentEdit = (Spinner) findViewById(R.id.editParent);
 
-            roleEdit.setOnFocusChangeListener((v, hasFocus) -> {
-                if (hasFocus) {
-                    roleEdit.setAdapter(getMembershipRoleAutocompleteAdapter());
-                    if (roleEdit.getText().length() == 0) {
-                        roleEdit.showDropDown();
-                    }
-                }
-            });
-
             roleEdit.setOnClickListener(v -> {
                 if (v.hasFocus()) {
+                    if (roleEdit.getAdapter() == null) {
+                        roleEdit.setAdapter(getMembershipRoleAutocompleteAdapter());
+                    }
                     ((AutoCompleteTextView) v).showDropDown();
                 }
             });
