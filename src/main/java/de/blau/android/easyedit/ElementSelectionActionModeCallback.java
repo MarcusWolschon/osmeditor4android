@@ -107,7 +107,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
     private static final int MENUITEM_TODO_CLOSE_AND_NEXT = 70;
     private static final int MENUITEM_TASK_CLOSE_ALL      = 71;
 
-    OsmElement element = null;
+    protected final OsmElement element;
 
     boolean deselect = true;
 

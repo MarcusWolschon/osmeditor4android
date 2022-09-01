@@ -1867,15 +1867,13 @@ public class Logic {
      * @param createCheckpoint create an Undo checkpoint
      */
     public synchronized void performEraseNode(@Nullable final FragmentActivity activity, @NonNull final Node node, boolean createCheckpoint) {
-        if (node != null) {
-            if (createCheckpoint) {
-                createCheckpoint(activity, R.string.undo_action_deletenode);
-            }
-            displayAttachedObjectWarning(activity, node); // needs to be done before removal
-            getDelegator().removeNode(node);
-            invalidateMap();
-            outsideOfDownload(activity, node.getLon(), node.getLat());
+        if (createCheckpoint) {
+            createCheckpoint(activity, R.string.undo_action_deletenode);
         }
+        displayAttachedObjectWarning(activity, node); // needs to be done before removal
+        getDelegator().removeNode(node);
+        invalidateMap();
+        outsideOfDownload(activity, node.getLon(), node.getLat());
     }
 
     /**
@@ -1886,16 +1884,14 @@ public class Logic {
      * @param lon longitude (WGS84)
      * @param lat latitude (WGS84)
      */
-    public void performSetPosition(@Nullable final FragmentActivity activity, @NonNull Node node, double lon, double lat) {
-        if (node != null) {
-            createCheckpoint(activity, R.string.undo_action_movenode);
-            int lonE7 = (int) (lon * 1E7d);
-            int latE7 = (int) (lat * 1E7d);
-            getDelegator().moveNode(node, latE7, lonE7);
-            viewBox.moveTo(map, lonE7, latE7);
-            invalidateMap();
-            displayAttachedObjectWarning(activity, node);
-        }
+    public void performSetPosition(@Nullable final FragmentActivity activity, @NonNull final Node node, double lon, double lat) {
+        createCheckpoint(activity, R.string.undo_action_movenode);
+        int lonE7 = (int) (lon * 1E7d);
+        int latE7 = (int) (lat * 1E7d);
+        getDelegator().moveNode(node, latE7, lonE7);
+        viewBox.moveTo(map, lonE7, latE7);
+        invalidateMap();
+        displayAttachedObjectWarning(activity, node);
     }
 
     /**
@@ -1934,14 +1930,12 @@ public class Logic {
      * @param createCheckpoint create an Undo checkpoint
      */
     public synchronized void performEraseRelation(@Nullable final FragmentActivity activity, @NonNull final Relation relation, boolean createCheckpoint) {
-        if (relation != null) {
-            if (createCheckpoint) {
-                createCheckpoint(activity, R.string.undo_action_delete_relation);
-            }
-            displayAttachedObjectWarning(activity, relation); // needs to be done before removal
-            getDelegator().removeRelation(relation);
-            invalidateMap();
+        if (createCheckpoint) {
+            createCheckpoint(activity, R.string.undo_action_delete_relation);
         }
+        displayAttachedObjectWarning(activity, relation); // needs to be done before removal
+        getDelegator().removeRelation(relation);
+        invalidateMap();
     }
 
     /**
