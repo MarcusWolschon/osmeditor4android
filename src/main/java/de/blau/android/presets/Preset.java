@@ -1820,11 +1820,6 @@ public class Preset {
      */
     @Nullable
     public static PresetItem findMatch(@NonNull Preset[] presets, @NonNull Map<String, String> tags) {
-        if (tags == null || presets == null) {
-            Log.e(DEBUG_TAG, "findMatch " + (tags == null ? "tags null" : "presets null"));
-            return null;
-        }
-
         // Build candidate list
         Set<PresetItem> possibleMatches = buildPossibleMatches(new LinkedHashSet<>(), presets, tags, false, null);
 
