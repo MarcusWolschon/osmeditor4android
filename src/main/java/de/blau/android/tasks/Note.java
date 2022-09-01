@@ -317,7 +317,7 @@ public class Note extends LongIdTask implements Serializable, JosmXmlSerializabl
         Date result = null;
         for (NoteComment c : comments) {
             Date t = c.getTimestamp();
-            if (t != null && (result == null || t.after(result))) {
+            if (result == null || t.after(result)) {
                 result = t;
             }
         }
