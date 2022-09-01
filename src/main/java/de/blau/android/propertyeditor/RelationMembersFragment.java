@@ -904,13 +904,11 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
         final PresetItem presetItem = allTags != null && !allTags.isEmpty() ? Preset.findBestMatch(presets, allTags.get(0), null, null) : null;
 
         final MultiHashMap<String, String> originalMembersRoles = new MultiHashMap<>(false);
-        if (r != null) {
-            List<RelationMember> originalMembers = r.getMembers();
-            if (originalMembers != null) {
-                for (RelationMember rm : originalMembers) {
-                    if (!"".equals(rm.getRole())) {
-                        originalMembersRoles.add(rm.getType() + rm.getRef(), rm.getRole());
-                    }
+        List<RelationMember> originalMembers = r.getMembers();
+        if (originalMembers != null) {
+            for (RelationMember rm : originalMembers) {
+                if (!"".equals(rm.getRole())) {
+                    originalMembersRoles.add(rm.getType() + rm.getRef(), rm.getRole());
                 }
             }
         }
