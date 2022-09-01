@@ -47,12 +47,10 @@ public final class ACRAHelper {
      */
     public static void addElementCounts(@NonNull StringBuilder builder, @NonNull String eol) {
         StorageDelegator delegator = App.getDelegator();
-        if (delegator != null) {
-            Storage currentStorage = delegator.getCurrentStorage();
-            builder.append("Relations (current/API): " + currentStorage.getRelations().size() + "/" + delegator.getApiRelationCount() + eol);
-            builder.append("Ways (current/API): " + currentStorage.getWays().size() + "/" + delegator.getApiWayCount() + eol);
-            builder.append("Nodes (current/Waynodes/API): " + currentStorage.getNodes().size() + "/" + currentStorage.getWayNodes().size() + "/"
-                    + delegator.getApiNodeCount() + eol);
-        }
+        Storage currentStorage = delegator.getCurrentStorage();
+        builder.append("Relations (current/API): " + currentStorage.getRelations().size() + "/" + delegator.getApiRelationCount() + eol);
+        builder.append("Ways (current/API): " + currentStorage.getWays().size() + "/" + delegator.getApiWayCount() + eol);
+        builder.append("Nodes (current/Waynodes/API): " + currentStorage.getNodes().size() + "/" + currentStorage.getWayNodes().size() + "/"
+                + delegator.getApiNodeCount() + eol);
     }
 }
