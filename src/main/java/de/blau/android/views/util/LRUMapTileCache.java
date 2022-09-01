@@ -222,7 +222,7 @@ public class LRUMapTileCache<T> {
      * @throws StorageException if we can't expand the cache anymore
      */
     public synchronized T put(@NonNull final String key, @NonNull final T value, boolean recycleable, long owner) throws StorageException {
-        if (maxCacheSize == 0 || value == null) {
+        if (maxCacheSize == 0) {
             return null;
         }
 
