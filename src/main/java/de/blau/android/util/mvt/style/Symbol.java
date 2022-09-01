@@ -509,14 +509,14 @@ public class Symbol extends Layer {
      * @param y screen y coordinate
      * @param feature the Feature we are rendering
      */
-    public void drawIcon(@NonNull Canvas canvas, Sprites sprites, @NonNull Rect screenRect, float x, float y, @NonNull Feature feature) {
+    public void drawIcon(@NonNull Canvas canvas, @Nullable Sprites sprites, @NonNull Rect screenRect, float x, float y, @NonNull Feature feature) {
         if (!screenRect.contains((int) x, (int) y)) {
             return;
         }
         canvas.save();
 
         Bitmap icon = feature.getCachedBitmap();
-        if (icon == null && iconImage.literal != null) {
+        if (icon == null && iconImage.literal != null && sprites != null) {
             icon = retrieveIcon(sprites, deMoustache(iconImage.literal, feature.getAttributes()));
             feature.setCachedBitmap(icon);
         }
@@ -594,10 +594,7 @@ public class Symbol extends Layer {
      */
     @Nullable
     private Bitmap retrieveIcon(@NonNull Sprites sprites, @NonNull String name) {
-        if (sprites != null) {
-            return sprites.get(name);
-        }
-        return null;
+        return sprites.get(name);
     }
 
     /**
