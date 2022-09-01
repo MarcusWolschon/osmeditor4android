@@ -146,8 +146,6 @@ public class TagFilter extends CommonFilter {
         try (TagFilterDatabaseHelper tfDb = new TagFilterDatabaseHelper(context); SQLiteDatabase mDatabase = tfDb.getReadableDatabase()) {
             //
             filter.clear();
-            // filter, include INTEGER DEFAULT 0, type TEXT DEFAULT '*', key TEXT DEFAULT '*', value DEFAULT '*', active
-            // INTEGER ;
             Cursor dbresult = mDatabase.query("filterentries", new String[] { "include", "type", "key", "value", "active" }, "filter = ?",
                     new String[] { DEFAULT_FILTER }, null, null, null);
             dbresult.moveToFirst();

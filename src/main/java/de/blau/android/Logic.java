@@ -3933,7 +3933,6 @@ public class Logic {
             @Override
             protected Integer doInBackground(Void v) {
                 if (App.getTaskStorage().readFromFile(activity)) {
-                    // viewBox.setBorders(getDelegator().getLastBox());
                     return READ_OK;
                 }
                 return READ_FAILED;
@@ -3944,8 +3943,6 @@ public class Logic {
                 Log.d(DEBUG_TAG, "loadTasksFromFile onPostExecute");
                 if (result != READ_FAILED) {
                     Log.d(DEBUG_TAG, "loadTasksfromFile: File read correctly");
-
-                    // FIXME if no bbox exists from data, try to use one from bugs
                     if (postLoad != null) {
                         postLoad.onSuccess();
                     }

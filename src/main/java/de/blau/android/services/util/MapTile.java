@@ -56,7 +56,6 @@ public class MapTile {
 
     @Override
     public String toString() {
-        // Log.d("OpenStreetMapTile","Tile " + rendererID + "/" + zoomLevel + "/" + x + "/" + y);
         return rendererID + "/" + zoomLevel + "/" + x + "/" + y;
     }
 
