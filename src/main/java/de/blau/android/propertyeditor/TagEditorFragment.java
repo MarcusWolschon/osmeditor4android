@@ -838,13 +838,9 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             @NonNull AutoCompleteTextView keyEdit) {
         // Use a set to prevent duplicate keys appearing
         Set<String> keys = new LinkedHashSet<>();
-
-        Preset[] presets = propertyEditorListener.getPresets();
-        if (preset == null && presets != null) {
+        if (preset == null) {
             updateAutocompletePresetItem(rowLayout, null, false);
-        }
-
-        if (preset != null) {
+        } else {
             for (PresetField field : preset.getFields().values()) {
                 if (field instanceof PresetCheckGroupField) {
                     keys.addAll(((PresetCheckGroupField) field).getKeys());
@@ -856,11 +852,9 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
 
         keys.addAll(App.getMruTags().getKeys(elementType));
 
-        if (presets != null) {
-            List<String> allKeys = new ArrayList<>(Preset.getAutocompleteKeys(presets, elementType));
-            Collections.sort(allKeys);
-            keys.addAll(allKeys);
-        }
+        List<String> allKeys = new ArrayList<>(Preset.getAutocompleteKeys(propertyEditorListener.getPresets(), elementType));
+        Collections.sort(allKeys);
+        keys.addAll(allKeys);
 
         keys.removeAll(getUsedKeys(rowLayout, keyEdit));
 
@@ -2428,13 +2422,11 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     @Override
     public void deleteTag(@Nullable final String key) {
         LinearLayout l = (LinearLayout) getOurView();
-        if (l != null) {
-            for (int i = l.getChildCount() - 1; i >= 0; --i) {
-                TagEditRow ter = (TagEditRow) l.getChildAt(i);
-                if (ter.getKey().equals(key)) {
-                    ter.delete();
-                    break;
-                }
+        for (int i = l.getChildCount() - 1; i >= 0; --i) {
+            TagEditRow ter = (TagEditRow) l.getChildAt(i);
+            if (ter.getKey().equals(key)) {
+                ter.delete();
+                break;
             }
         }
     }

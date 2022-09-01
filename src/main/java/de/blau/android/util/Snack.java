@@ -578,9 +578,7 @@ public final class Snack {
      * @param listener called when action is selected
      */
     public static void barWarning(@NonNull Activity activity, @NonNull String msg, int actionRes, View.OnClickListener listener) {
-        if (activity != null) {
-            barWarning(activity.findViewById(android.R.id.content), msg, actionRes, listener);
-        }
+        barWarning(activity.findViewById(android.R.id.content), msg, actionRes, listener);
     }
 
     /**

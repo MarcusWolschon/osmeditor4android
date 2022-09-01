@@ -1867,15 +1867,13 @@ public class Logic {
      * @param createCheckpoint create an Undo checkpoint
      */
     public synchronized void performEraseNode(@Nullable final FragmentActivity activity, @NonNull final Node node, boolean createCheckpoint) {
-        if (node != null) {
-            if (createCheckpoint) {
-                createCheckpoint(activity, R.string.undo_action_deletenode);
-            }
-            displayAttachedObjectWarning(activity, node); // needs to be done before removal
-            getDelegator().removeNode(node);
-            invalidateMap();
-            outsideOfDownload(activity, node.getLon(), node.getLat());
+        if (createCheckpoint) {
+            createCheckpoint(activity, R.string.undo_action_deletenode);
         }
+        displayAttachedObjectWarning(activity, node); // needs to be done before removal
+        getDelegator().removeNode(node);
+        invalidateMap();
+        outsideOfDownload(activity, node.getLon(), node.getLat());
     }
 
     /**
@@ -1886,16 +1884,14 @@ public class Logic {
      * @param lon longitude (WGS84)
      * @param lat latitude (WGS84)
      */
-    public void performSetPosition(@Nullable final FragmentActivity activity, @NonNull Node node, double lon, double lat) {
-        if (node != null) {
-            createCheckpoint(activity, R.string.undo_action_movenode);
-            int lonE7 = (int) (lon * 1E7d);
-            int latE7 = (int) (lat * 1E7d);
-            getDelegator().moveNode(node, latE7, lonE7);
-            viewBox.moveTo(map, lonE7, latE7);
-            invalidateMap();
-            displayAttachedObjectWarning(activity, node);
-        }
+    public void performSetPosition(@Nullable final FragmentActivity activity, @NonNull final Node node, double lon, double lat) {
+        createCheckpoint(activity, R.string.undo_action_movenode);
+        int lonE7 = (int) (lon * 1E7d);
+        int latE7 = (int) (lat * 1E7d);
+        getDelegator().moveNode(node, latE7, lonE7);
+        viewBox.moveTo(map, lonE7, latE7);
+        invalidateMap();
+        displayAttachedObjectWarning(activity, node);
     }
 
     /**
@@ -1934,14 +1930,12 @@ public class Logic {
      * @param createCheckpoint create an Undo checkpoint
      */
     public synchronized void performEraseRelation(@Nullable final FragmentActivity activity, @NonNull final Relation relation, boolean createCheckpoint) {
-        if (relation != null) {
-            if (createCheckpoint) {
-                createCheckpoint(activity, R.string.undo_action_delete_relation);
-            }
-            displayAttachedObjectWarning(activity, relation); // needs to be done before removal
-            getDelegator().removeRelation(relation);
-            invalidateMap();
+        if (createCheckpoint) {
+            createCheckpoint(activity, R.string.undo_action_delete_relation);
         }
+        displayAttachedObjectWarning(activity, relation); // needs to be done before removal
+        getDelegator().removeRelation(relation);
+        invalidateMap();
     }
 
     /**
@@ -3939,7 +3933,6 @@ public class Logic {
             @Override
             protected Integer doInBackground(Void v) {
                 if (App.getTaskStorage().readFromFile(activity)) {
-                    // viewBox.setBorders(getDelegator().getLastBox());
                     return READ_OK;
                 }
                 return READ_FAILED;
@@ -3950,8 +3943,6 @@ public class Logic {
                 Log.d(DEBUG_TAG, "loadTasksFromFile onPostExecute");
                 if (result != READ_FAILED) {
                     Log.d(DEBUG_TAG, "loadTasksfromFile: File read correctly");
-
-                    // FIXME if no bbox exists from data, try to use one from bugs
                     if (postLoad != null) {
                         postLoad.onSuccess();
                     }
@@ -4247,7 +4238,6 @@ public class Logic {
                     case HttpURLConnection.HTTP_UNAVAILABLE:
                         result = ErrorCodes.UPLOAD_PROBLEM;
                         break;
-                    // TODO: implement other state handling
                     default:
                         ACRAHelper.nocrashReport(e, e.getMessage());
                         break;
@@ -4271,13 +4261,11 @@ public class Logic {
                     Snack.barInfo(activity, R.string.toast_upload_success);
                 }
                 activity.getCurrentFocus().invalidate();
-                if (result != 0) {
-                    if (!activity.isFinishing()) {
-                        if (result == ErrorCodes.INVALID_LOGIN) {
-                            InvalidLogin.showDialog(activity);
-                        } else {
-                            ErrorAlert.showDialog(activity, result);
-                        }
+                if (result != 0 && !activity.isFinishing()) {
+                    if (result == ErrorCodes.INVALID_LOGIN) {
+                        InvalidLogin.showDialog(activity);
+                    } else {
+                        ErrorAlert.showDialog(activity, result);
                     }
                 }
             }

@@ -365,7 +365,8 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
      * @param node the Node we want to change the location of
      * @return the OnClickListnener
      */
-    private OnClickListener createSetButtonListener(final EditText lonField, final EditText latField, final Node node) {
+    @NonNull
+    private OnClickListener createSetButtonListener(@NonNull final EditText lonField, @NonNull final EditText latField, @NonNull final Node node) {
         return (dialog, which) -> {
             double lon = Double.parseDouble(lonField.getText().toString());
             double lat = Double.parseDouble(latField.getText().toString());
