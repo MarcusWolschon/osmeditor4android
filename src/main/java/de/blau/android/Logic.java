@@ -4238,7 +4238,6 @@ public class Logic {
                     case HttpURLConnection.HTTP_UNAVAILABLE:
                         result = ErrorCodes.UPLOAD_PROBLEM;
                         break;
-                    // TODO: implement other state handling
                     default:
                         ACRAHelper.nocrashReport(e, e.getMessage());
                         break;
@@ -4262,13 +4261,11 @@ public class Logic {
                     Snack.barInfo(activity, R.string.toast_upload_success);
                 }
                 activity.getCurrentFocus().invalidate();
-                if (result != 0) {
-                    if (!activity.isFinishing()) {
-                        if (result == ErrorCodes.INVALID_LOGIN) {
-                            InvalidLogin.showDialog(activity);
-                        } else {
-                            ErrorAlert.showDialog(activity, result);
-                        }
+                if (result != 0 && !activity.isFinishing()) {
+                    if (result == ErrorCodes.INVALID_LOGIN) {
+                        InvalidLogin.showDialog(activity);
+                    } else {
+                        ErrorAlert.showDialog(activity, result);
                     }
                 }
             }
