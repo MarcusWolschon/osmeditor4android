@@ -173,14 +173,14 @@ public class Layers extends AbstractConfigurationDialog {
 
             item = popup.getMenu().add(R.string.menu_layers_add_backgroundlayer);
             item.setOnMenuItemClickListener(unused -> {
-                buildImagerySelectDialog(null, null, false).show();
+                showImagerySelectDialog(null, null, false);
                 Tip.showDialog(activity, R.string.tip_imagery_privacy_key, R.string.tip_imagery_privacy);
                 return true;
             });
 
             item = popup.getMenu().add(R.string.menu_layers_add_overlaylayer);
             item.setOnMenuItemClickListener(unused -> {
-                buildImagerySelectDialog(null, null, true).show();
+                showImagerySelectDialog(null, null, true);
                 Tip.showDialog(activity, R.string.tip_imagery_privacy_key, R.string.tip_imagery_privacy);
                 return true;
             });
@@ -712,7 +712,7 @@ public class Layers extends AbstractConfigurationDialog {
                 MenuItem item = menu.add(R.string.layer_select_imagery);
                 item.setOnMenuItemClickListener(unused -> {
                     if (layer != null) {
-                        buildImagerySelectDialog((TableRow) button.getTag(), (MapTilesLayer<?>) layer, layer.getType() == LayerType.OVERLAYIMAGERY).show();
+                        showImagerySelectDialog((TableRow) button.getTag(), (MapTilesLayer<?>) layer, layer.getType() == LayerType.OVERLAYIMAGERY);
                         Tip.showDialog(activity, R.string.tip_imagery_privacy_key, R.string.tip_imagery_privacy);
                     }
                     return true;
@@ -983,14 +983,13 @@ public class Layers extends AbstractConfigurationDialog {
     }
 
     /**
-     * Build a dialog that shows a selection of imagery sources that can be used
+     * Show a dialog that shows a selection of imagery sources that can be used
      * 
      * @param row the TableRow we were invoked from, can be null if row doesn't exists
      * @param layer the layer we should change imagery for, can be null if layer doesn't exist yet
      * @param isOverlay true if this is for the overlay layer
-     * @return an AlertDialog that can be shown
      */
-    private AlertDialog buildImagerySelectDialog(@Nullable final TableRow row, @Nullable final MapTilesLayer<?> layer, boolean isOverlay) {
+    private void showImagerySelectDialog(@Nullable final TableRow row, @Nullable final MapTilesLayer<?> layer, boolean isOverlay) {
         final FragmentActivity activity = getActivity();
         final Preferences prefs = App.getLogic().getPrefs();
 
@@ -1078,8 +1077,8 @@ public class Layers extends AbstractConfigurationDialog {
             adapter.setIds(idsForButtons, isOverlay, true);
             adapter.setOnCheckedChangeListener(new LayerOnCheckedChangeListener(activity, dialog, row, layer, idsForButtons));
         });
-
-        return dialog;
+        dialog.show();
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
     }
 
     private class LayerOnCheckedChangeListener implements OnCheckedChangeListener {
