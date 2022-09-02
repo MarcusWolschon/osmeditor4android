@@ -44,10 +44,12 @@ import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.collections.MultiHashMap;
 
 public class AutoPreset {
+
     private static final String DEBUG_TAG = AutoPreset.class.getSimpleName();
 
-    public static final String  ICON = "auto-preset.png";
-    private static final String PNG  = ".png";
+    public static final String  ICON         = "auto-preset.png";
+    private static final String PNG          = ".png";
+    private static final String RAILWAY_ICON = "auto-preset-railway.png";
 
     private static final MultiHashMap<String, StringWithDescription> HARDWIRED_KEYS = new MultiHashMap<>();
     static {
@@ -60,9 +62,9 @@ public class AutoPreset {
 
     private static final String[] ICONS     = { AutoPreset.ICON, "auto-preset-amenity.png", "auto-preset-shop.png", "auto-preset-tourism.png",
             "auto-preset-tourism.png", "auto-preset-man_made.png", "auto-preset-man_made.png", "auto-preset-emergency.png", "auto-preset-craft.png",
-            "auto-preset-office.png", "auto-preset-military.png", "auto-preset-natural.png", "auto-preset-railway.png", "auto-preset-railway.png",
-            "auto-preset-railway.png", "auto-preset-highway.png", "auto-preset-highway.png", "auto-preset-healthcare.png", "auto-preset-landuse.png",
-            "auto-preset-waterway.png", CustomPreset.ICON };
+            "auto-preset-office.png", "auto-preset-military.png", "auto-preset-natural.png", RAILWAY_ICON, RAILWAY_ICON, RAILWAY_ICON,
+            "auto-preset-highway.png", "auto-preset-highway.png", "auto-preset-healthcare.png", "auto-preset-landuse.png", "auto-preset-waterway.png",
+            CustomPreset.ICON };
     private static final String[] ICONSDEST = { AutoPreset.ICON, "amenity.png", "shop.png", "tourism.png", "leisure.png", "man_made.png", "building.png",
             "emergency.png", "craft.png", "office.png", "military.png", "natural.png", "railway.png", "aeroway.png", "aerialway.png", "highway.png",
             "barrier.png", "healthcare.png", "landuse.png", "waterway.png", CustomPreset.ICON };
@@ -150,6 +152,7 @@ public class AutoPreset {
                             // these need to be added at the end or else we will overwrite values we have with better
                             // quality
                             // disabled for now as they seem to create too much noise
+                            //
                             // List<String> keyCombinationsFromTaginfo = TaginfoServer.keyCombinations(context,
                             // resultKey, getAppliesTo(item), 10);
                             // combinationsFromTaginfo.addAll(keyCombinationsFromTaginfo);
@@ -190,6 +193,7 @@ public class AutoPreset {
                                         // while we could add values from taginfo here, unluckily the results don't make
                                         // a lot of sense, using what we already have in the presets is likely the
                                         // better choice
+                                        //
                                         // List<ValueResult> result = TaginfoServer.keyValues(context, key, 20);
                                         // Log.d(DEBUG_TAG, "values for key " + key + " " + result.size());
                                         // item.addTag(false, key, PresetKeyType.COMBO, result.toArray(new
@@ -229,7 +233,7 @@ public class AutoPreset {
             items.add((AutoPresetItem) pe);
         }
         elements.clear();
-        Collections.sort(items);
+        Collections.sort(items, AutoPresetItem.COMPARATOR);
         Log.d(DEBUG_TAG, "found " + items.size() + " results");
         if (!items.isEmpty()) {
             items = items.subList(0, Math.min(items.size(), maxResults));
@@ -249,21 +253,19 @@ public class AutoPreset {
     private String getAppliesTo(@NonNull AutoPresetItem item) {
         String result = null;
         if (item.appliesToNode) {
-            result = "nodes";
+            result = TaginfoServer.NODES;
         }
         if (item.appliesToWay) {
             if (result != null) {
-                result = "ways";
-            } else {
                 return null;
             }
+            result = TaginfoServer.WAYS;
         }
         if (item.appliesToRelation) {
             if (result != null) {
-                result = "relations";
-            } else {
                 return null;
             }
+            result = TaginfoServer.RELATIONS;
         }
         if (item.appliesToArea) {
             return null;

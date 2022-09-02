@@ -254,6 +254,106 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
         }
 
         /**
+         * Parse an ImageryOffset from Json input
+         * 
+         * @param reader the JsonReader
+         * @return an ImageryOffset or null if parsing failed
+         * @throws IOException if reading JSON failed
+         */
+        @Nullable
+        private ImageryOffset readOffset(@NonNull JsonReader reader) throws IOException {
+            String type = null;
+            ImageryOffset result = new ImageryOffset();
+
+            reader.beginObject();
+            while (reader.hasNext()) {
+                String jsonName = reader.nextName();
+                switch (jsonName) {
+                case "type":
+                    type = reader.nextString();
+                    break;
+                case "id":
+                    result.id = reader.nextLong();
+                    break;
+                case "lat":
+                    result.setLat(reader.nextDouble());
+                    break;
+                case "lon":
+                    result.setLon(reader.nextDouble());
+                    break;
+                case "author":
+                    result.author = reader.nextString();
+                    break;
+                case "date":
+                    result.date = reader.nextString();
+                    break;
+                case "imagery":
+                    result.imageryId = reader.nextString();
+                    break;
+                case "imlat":
+                    result.setImageryLat(reader.nextDouble());
+                    break;
+                case "imlon":
+                    result.setImageryLon(reader.nextDouble());
+                    break;
+                case "min-zoom":
+                    result.setMinZoom(reader.nextInt());
+                    break;
+                case "max-zoom":
+                    result.setMaxZoom(reader.nextInt());
+                    break;
+                case "description":
+                    result.description = reader.nextString();
+                    break;
+                case "deprecated":
+                    result.deprecated = readDeprecated(reader);
+                    break;
+                default:
+                    reader.skipValue();
+                    break;
+                }
+            }
+            reader.endObject();
+            if ("offset".equals(type)) {
+                return result;
+            }
+            return null;
+        }
+
+        /**
+         * Parse depreciation information from Json input
+         * 
+         * @param reader the JsonReader
+         * @return an ImagerOffset or null if parsing failed
+         * @throws IOException if reading JSON failed
+         */
+        @NonNull
+        private DeprecationNote readDeprecated(@NonNull JsonReader reader) throws IOException {
+            DeprecationNote result = new DeprecationNote();
+
+            reader.beginObject();
+            while (reader.hasNext()) {
+                String jsonName = reader.nextName();
+                switch (jsonName) {
+                case "author":
+                    result.author = reader.nextString();
+                    break;
+                case "reason":
+                    result.reason = reader.nextString();
+                    break;
+                case "date":
+                    result.date = reader.nextString();
+                    break;
+                default:
+                    reader.skipValue();
+                    break;
+                }
+            }
+            reader.endObject();
+            return result;
+        }
+
+        /**
          * Get the offsets around the specified coordinates
          * 
          * @param lat latitude in WGS84 coordinates
@@ -542,106 +642,6 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
     }
 
     /**
-     * Parse an ImageryOffset from Json input
-     * 
-     * @param reader the JsonReader
-     * @return an ImagerOffset or null if parsing failed
-     * @throws IOException if reading JSON failed
-     */
-    @Nullable
-    private ImageryOffset readOffset(@NonNull JsonReader reader) throws IOException {
-        String type = null;
-        ImageryOffset result = new ImageryOffset();
-
-        reader.beginObject();
-        while (reader.hasNext()) {
-            String jsonName = reader.nextName();
-            switch (jsonName) {
-            case "type":
-                type = reader.nextString();
-                break;
-            case "id":
-                result.id = reader.nextLong();
-                break;
-            case "lat":
-                result.setLat(reader.nextDouble());
-                break;
-            case "lon":
-                result.setLon(reader.nextDouble());
-                break;
-            case "author":
-                result.author = reader.nextString();
-                break;
-            case "date":
-                result.date = reader.nextString();
-                break;
-            case "imagery":
-                result.imageryId = reader.nextString();
-                break;
-            case "imlat":
-                result.setImageryLat(reader.nextDouble());
-                break;
-            case "imlon":
-                result.setImageryLon(reader.nextDouble());
-                break;
-            case "min-zoom":
-                result.setMinZoom(reader.nextInt());
-                break;
-            case "max-zoom":
-                result.setMaxZoom(reader.nextInt());
-                break;
-            case "description":
-                result.description = reader.nextString();
-                break;
-            case "deprecated":
-                result.deprecated = readDeprecated(reader);
-                break;
-            default:
-                reader.skipValue();
-                break;
-            }
-        }
-        reader.endObject();
-        if ("offset".equals(type)) {
-            return result;
-        }
-        return null;
-    }
-
-    /**
-     * Parse depreciation information from Json input
-     * 
-     * @param reader the JsonReader
-     * @return an ImagerOffset or null if parsing failed
-     * @throws IOException if reading JSON failed
-     */
-    @NonNull
-    private DeprecationNote readDeprecated(@NonNull JsonReader reader) throws IOException {
-        DeprecationNote result = new DeprecationNote();
-
-        reader.beginObject();
-        while (reader.hasNext()) {
-            String jsonName = reader.nextName();
-            switch (jsonName) {
-            case "author":
-                result.author = reader.nextString();
-                break;
-            case "reason":
-                result.reason = reader.nextString();
-                break;
-            case "date":
-                result.date = reader.nextString();
-                break;
-            default:
-                reader.skipValue();
-                break;
-            }
-        }
-        reader.endObject();
-        return result;
-    }
-
-    /**
      * Create the imagery offset display/apply dialog
      * 
      * @param index index in to the list of ImageryOffset objects
@@ -650,8 +650,6 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
      */
     @SuppressLint("InflateParams")
     private AppCompatDialog createSaveOffsetDialog(final int index, final List<ImageryOffset> saveOffsetList) {
-        // Create some useful objects
-        // final BoundingBox bbox = map.getViewBox();
         final LayoutInflater inflater = ThemeUtils.getLayoutInflater(main);
         Builder dialog = new AlertDialog.Builder(main);
         dialog.setTitle(R.string.imagery_offset_title);
