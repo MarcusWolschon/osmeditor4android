@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets version="4.8.0" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
+<presets version="4.9.1" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
     description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" 
     object_keys="advertising,attraction,building:part,cemetery,club,disused:amenity,disused:leisure,disused:man_made,golf,hazard,noexit,disused:shop,ford,indoor,playground,police,public_transport,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,telecom">
 <!--
@@ -1159,19 +1159,6 @@
             <list_entry value="incorrect" display_value="Incorrect"/>
         </combo>
     </chunk>
-    <chunk id="cash_withdrawal">
-        <multiselect key="cash_withdrawal" text="Cash withdrawal" length="3" values="yes" match="none" editable="true"/>
-        <optional>
-            <text key="cash_withdrawal:operator" text="Operator" match="none"/>
-            <combo key="cash_withdrawal:type" text="Type" values="checkout,self_checkout" display_values="Checkout,Self checkout" values_searchable="true" match="none"/>        
-            <text key="cash_withdrawal:limit" text="Limit" match="none" value_type="integer" />
-            <text key="cash_withdrawal:currency" text="Currency" match="none" />
-            <check key="cash_withdrawal:purchase_required" text="Purchase required"  match="none"/>
-            <combo key="cash_withdrawal:fee" text="Fee" values="yes,no,purchase_required" display_values="Yes,No,Purchase required" values_searchable="true" match="none"/>        
-            <combo key="cash_withdrawal:purchase_minimum" text="Minimum purchase" values="yes,no,varies" display_values="Yes,No,Varies" values_searchable="true" match="none"/>        
-            <combo key="cash_withdrawal:foreign_cards" text="Foreign cards" values="yes,no,varies" display_values="Yes,No,Varies" values_searchable="true" match="none"/>        
-        </optional>
-    </chunk>
     <chunk id="walking_routes_roles">
         <roles>
             <role key="" text="Route segment" requisite="required" type="way,closedway" member_expression="highway|route=ferry"/>
@@ -1206,8 +1193,7 @@
         <preset_link preset_name="Contact ('contact:*')"/>
         <preset_link preset_name="Address"/>
         <preset_link preset_name="Payment Methods"/>
-        <!-- this isn't a link but probably makes most sense here -->
-        <reference ref="cash_withdrawal"/>
+        <preset_link preset_name="Cash withdrawal"/>
     </chunk>
     <chunk id="additional_access_tags">
         <check key="toll" text="Toll" disable_off="true"/>
@@ -3419,12 +3405,12 @@
             <key key="natural" value="coastline"/>
             <reference ref="optional_name_wikipedia"/>
         </item> <!-- Coastline -->
-        <item name="Riverbank" icon="presets/waterway.png" type="closedway,multipolygon" preset_name_label="true">
+        <item name="Riverbank" icon="presets/waterway.png" type="closedway,multipolygon" preset_name_label="true" deprecated="true">
             <link wiki="Tag:waterway=riverbank"/>
             <space/>
             <key key="waterway" value="riverbank"/>
             <reference ref="optional_name"/>
-            <check key="intermittent" text="Is the water body intermittent (doesn't permanently contain water)?" disable_off="true"/>
+            <check key="intermittent" text="Intermittent (doesn't permanently contain water)" disable_off="true"/>
         </item> <!-- Riverbank -->
         <separator/>
         <item name="Wetland" icon="icons/png/landuse_swamp.png" type="closedway,multipolygon" preset_name_label="true">
@@ -3620,6 +3606,11 @@
             <link wiki="Tag:leisure=slipway"/>
             <key key="leisure" value="slipway"/>
             <reference ref="optional_name"/>
+            <optional>
+                <reference ref="incline" />
+                <reference ref="surface" />
+                <reference ref="fee" />
+            </optional>
         </item> <!-- Slipway -->
         <item name="Boatyard" icon="icons/png/water_boatyard_34003.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:waterway=boatyard"/>
@@ -4268,8 +4259,11 @@
                 <list_entry value="e-bike" display_value="E-Bike" />
             </multiselect>
             <reference ref="optional_name"/>
-            <reference ref="brand"/>
-            <text key="operator" text="Operator"/>
+            <optional>
+                <text key="network" text="Network"/>
+                <reference ref="brand"/>
+                <text key="operator" text="Operator"/>
+            </optional>
             <reference ref="link_contact_address_payment"/>
             <preset_link preset_name="No name"/>
         </item> <!-- Rental -->
@@ -8020,7 +8014,7 @@
                 <list_entry value="bakehouse"          display_value="Bakehouse"/>
                 <list_entry value="barn"               display_value="Barn"/>
                 <list_entry value="basilica"           display_value="Basilica"/>
-                <list_entry value="boathouse"          display_value="Boathose"/>
+                <list_entry value="boathouse"          display_value="Boathouse"/>
                 <list_entry value="bungalow"           display_value="Bungalow"/>
                 <list_entry value="bunker"             display_value="Bunker"/>
                 <list_entry value="cabin"              display_value="Cabin"/>
@@ -8139,7 +8133,7 @@
                 <list_entry value="bakehouse"          display_value="Bakehouse"/>
                 <list_entry value="barn"               display_value="Barn"/>
                 <list_entry value="basilica"           display_value="Basilica"/>
-                <list_entry value="boathouse"          display_value="Boathose"/>
+                <list_entry value="boathouse"          display_value="Boathouse"/>
                 <list_entry value="bungalow"           display_value="Bungalow"/>
                 <list_entry value="bunker"             display_value="Bunker"/>
                 <list_entry value="cabin"              display_value="Cabin"/>
@@ -8885,7 +8879,7 @@
                 <text key="height" text="Height (meters)" length="7" />
             </optional>
         </item> <!-- Surveillance -->
-        <item name="MDF" icon="icons/png/man_made_MDF_22029.png" name_context="man_made" type="node,closedway" preset_name_label="true">
+        <item name="MDF" icon="icons/png/man_made_MDF_22029.png" name_context="man_made" type="node,closedway" preset_name_label="true" deprecated="true">
             <link wiki="Tag:man_made=MDF"/>
             <key key="man_made" value="MDF"/>
             <optional>
@@ -11024,6 +11018,20 @@
             <check key="payment:litecoin" text="Litecoin" match="keyvalue" disable_off="true"/>
         </checkgroup>
     </item> <!-- Payment Methods -->
+    <item name="Cash withdrawal" icon="icons/png/money_cash_withdrawal.png" type="node,way,closedway,multipolygon,relation" preset_name_label="true">
+        <link wiki="Key:cash_withdrawal"/>
+        <multiselect key="cash_withdrawal" text="Cash withdrawal" length="3" values="yes" match="none" editable="true"/>
+        <optional>
+            <text key="cash_withdrawal:operator" text="Operator" match="none"/>
+            <combo key="cash_withdrawal:type" text="Type" values="checkout,self_checkout" display_values="Checkout,Self checkout" values_searchable="true" match="none"/>        
+            <text key="cash_withdrawal:limit" text="Limit" match="none" value_type="integer" />
+            <text key="cash_withdrawal:currency" text="Currency" match="none" />
+            <check key="cash_withdrawal:purchase_required" text="Purchase required"  match="none"/>
+            <combo key="cash_withdrawal:fee" text="Fee" values="yes,no,purchase_required" display_values="Yes,No,Purchase required" values_searchable="true" match="none"/>        
+            <combo key="cash_withdrawal:purchase_minimum" text="Minimum purchase" values="yes,no,varies" display_values="Yes,No,Varies" values_searchable="true" match="none"/>        
+            <combo key="cash_withdrawal:foreign_cards" text="Foreign cards" values="yes,no,varies" display_values="Yes,No,Varies" values_searchable="true" match="none"/>        
+        </optional>
+    </item>
     </group> <!-- Shops -->
     <group name="Money" icon="icons/png/money_bank2.png" items_sort="false" >
     <item name="Bank" icon="icons/png/money_bank2.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -11337,6 +11345,13 @@
                 <combo key="volcano:type" text="Type" values="stratovolcano,shield,scoria"/>
             </optional>
         </item> <!-- Volcano -->
+        <item name="Arête" icon="icons/png/poi_arete_sp.png" type="way" preset_name_label="true">
+            <link wiki="Tag:natural=arete" />
+            <space />
+            <key key="natural" value="arete" />
+            <reference ref="name_wikipedia" />
+            <preset_link preset_name="Ridge" text="Similar but different tags:" alternative="true" />
+        </item> <!-- Arête -->
         <item name="Ridge" icon="icons/png/poi_ridge_sp.png" type="way" preset_name_label="true">
             <link wiki="Tag:natural=ridge"/>
             <space />
@@ -11345,6 +11360,7 @@
             <key key="natural" value="ridge"/>
             <reference ref="name_wikipedia"/>
             <text key="ele" text="Elevation (meters)" length="10"/>
+            <preset_link preset_name="Arête" text="Similar but different tags:" alternative="true" />
         </item> <!-- Ridge -->
         <item name="Valley" icon="icons/png/poi_valley.png" type="way" preset_name_label="true">
             <link wiki="Tag:natural=valley"/>
