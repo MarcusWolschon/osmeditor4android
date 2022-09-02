@@ -1,5 +1,24 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+18.0.0:
+
+- Fix workaround limited width of imagery selection modal in landscape mode (accessibility issue) 
+- Fix modernize URL for OSM standard tiles
+- Fix multiselect dialog row height
+- Fix wrong menu title
+- Fix imagery layer MRU list not being restored
+- Fix remove the onFocusChangedListener on the role AutoCompleteTextView, avoids restore crash
+- Fix only try to set focus on initial fragment creation, avoids restore crash
+- Fix make it more difficult to create relation loops manually
+- Fix make the ExecutorTask for the preset search cancelable
+- Add zap existing values if value is emptied in multi-select mode
+- Add differentiate between exact matches with and without accents in preset search
+- Update translations
+- Update imagery from ELI
+- Update preset
+- Update NSI
+- Update synonyms
+
 18.0.0-1:
 
 - Fix use previous node index to determine segment (pan handle issue)
