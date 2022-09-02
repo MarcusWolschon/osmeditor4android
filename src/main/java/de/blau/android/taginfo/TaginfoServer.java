@@ -34,6 +34,12 @@ public final class TaginfoServer {
     private static final String COUNT_ALL_NAME   = "count_all";
     private static final String COUNT_NAME       = "count";
     private static final String DESCRIPTION_NAME = "description";
+    public static final String  RELATIONS        = "relations";
+    public static final String  WAYS             = "ways";
+    public static final String  NODES            = "nodes";
+
+    private static final String PAGE_1      = "&page=1";
+    private static final String SORT_PARAMS = "&sortname=count_all&sortorder=desc";
 
     /**
      * Private constructor
@@ -376,8 +382,8 @@ public final class TaginfoServer {
     public static List<SearchResult> searchByKeyAndValue(@Nullable final Context context, @NonNull String server, @NonNull String key, @NonNull String value,
             int maxResults) {
         // https://taginfo.openstreetmap.org/api/4/search/by_key_and_value?query=%3Dresidential&page=1&rp=10&sortname=count_all&sortorder=desc
-        String url = server + "api/4/search/by_key_and_value?query=" + key + "%3D" + value + "&page=1" + (maxResults != -1 ? "&rp=" + maxResults : "")
-                + "&sortname=count_all&sortorder=desc";
+        String url = server + "api/4/search/by_key_and_value?query=" + key + "%3D" + value + PAGE_1 + (maxResults != -1 ? "&rp=" + maxResults : "")
+                + SORT_PARAMS;
         return search(context, url);
     }
 
@@ -393,8 +399,7 @@ public final class TaginfoServer {
     @Nullable
     public static List<SearchResult> searchByValue(@Nullable final Context context, @NonNull String server, @NonNull String value, int maxResults) {
         // https://taginfo.openstreetmap.org/api/4/search/by_value?query=residential&page=1&rp=10&sortname=count_all&sortorder=desc
-        String url = server + "api/4/search/by_value?query=" + value + "&page=1" + (maxResults != -1 ? "&rp=" + maxResults : "")
-                + "&sortname=count_all&sortorder=desc";
+        String url = server + "api/4/search/by_value?query=" + value + PAGE_1 + (maxResults != -1 ? "&rp=" + maxResults : "") + SORT_PARAMS;
         return search(context, url);
     }
 
@@ -409,7 +414,7 @@ public final class TaginfoServer {
      */
     @Nullable
     public static List<SearchResult> searchByKeyword(@Nullable final Context context, @NonNull String server, @NonNull String keyword, int maxResults) {
-        String url = server + "api/4/search/by_keyword?query=" + keyword + "&page=1" + (maxResults != -1 ? "&rp=" + maxResults : "");
+        String url = server + "api/4/search/by_keyword?query=" + keyword + PAGE_1 + (maxResults != -1 ? "&rp=" + maxResults : "");
         return search(context, url);
     }
 
@@ -489,7 +494,7 @@ public final class TaginfoServer {
     @SuppressWarnings("unchecked")
     @Nullable
     public static List<ValueResult> keyValues(@Nullable final Context context, @NonNull String server, @NonNull String key, int maxResults) {
-        String url = server + "api/4/key/values?key=" + key + "&page=1" + (maxResults != -1 ? "&rp=" + maxResults : "") + "&sortname=count_all&sortorder=desc";
+        String url = server + "api/4/key/values?key=" + key + PAGE_1 + (maxResults != -1 ? "&rp=" + maxResults : "") + SORT_PARAMS;
         return (List<ValueResult>) querySync(context, url, new ResultReader() {
 
             @Override
@@ -581,7 +586,7 @@ public final class TaginfoServer {
     public static List<String> tagCombinations(@Nullable final Context context, @NonNull String server, @NonNull String key, @Nullable String value,
             @Nullable String filter, int maxResults) {
         String url = server + "api/4/tag/combinations?key=" + key + (value != null ? "&value=" + value : "") + (filter != null ? "&filter=" + filter : "")
-                + "&page=1" + (maxResults != -1 ? "&rp=" + maxResults : "") + "&sortname=together_count&sortorder=desc";
+                + PAGE_1 + (maxResults != -1 ? "&rp=" + maxResults : "") + "&sortname=together_count&sortorder=desc";
         return (List<String>) querySync(context, url, new ResultReader() {
 
             @Override
@@ -646,7 +651,7 @@ public final class TaginfoServer {
     @Nullable
     public static List<String> keyCombinations(@Nullable final Context context, @NonNull String server, @NonNull String key, @Nullable String filter,
             int maxResults) {
-        String url = server + "api/4/key/combinations?key=" + key + (filter != null ? "&filter=" + filter : "") + "&page=1"
+        String url = server + "api/4/key/combinations?key=" + key + (filter != null ? "&filter=" + filter : "") + PAGE_1
                 + (maxResults != -1 ? "&rp=" + maxResults : "") + "&sortname=together_count&sortorder=desc";
         return (List<String>) querySync(context, url, new ResultReader() {
 
@@ -674,7 +679,6 @@ public final class TaginfoServer {
                                     }
                                 }
                                 reader.endObject();
-
                                 result.add(otherKey);
                             } catch (IOException e) {
                                 Log.e(DEBUG_TAG, e.getMessage());

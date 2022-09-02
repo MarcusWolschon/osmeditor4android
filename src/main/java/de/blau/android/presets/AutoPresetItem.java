@@ -1,11 +1,11 @@
 package de.blau.android.presets;
 
+import java.util.Comparator;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-public class AutoPresetItem extends PresetItem implements Comparable<AutoPresetItem> {
-
-    private static final long serialVersionUID = 1L;
+public class AutoPresetItem extends PresetItem {
 
     private final int count; // times used in osm data
 
@@ -25,13 +25,12 @@ public class AutoPresetItem extends PresetItem implements Comparable<AutoPresetI
         this.count = count;
     }
 
-    @Override
-    public int compareTo(@NonNull AutoPresetItem o) {
-        if (count > o.count) {
+    public static final Comparator<AutoPresetItem> COMPARATOR = (AutoPresetItem o1, AutoPresetItem o2) -> {
+        if (o1.count > o2.count) {
             return -1;
-        } else if (count < o.count) {
+        } else if (o1.count < o2.count) {
             return 1;
         }
         return 0;
-    }
+    };
 }
