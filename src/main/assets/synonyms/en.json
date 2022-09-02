@@ -2128,6 +2128,12 @@
 "amenity/vending_machine":[
 "Vending Machine"
 ],
+"amenity/vending_machine/bicycle_tube":[
+"inner tube",
+"bicycle tubes",
+"Bicycle Inner Tube Vending Machine",
+"bike tube"
+],
 "amenity/vending_machine/bottle_return":[
 "bottle return",
 "Bottle Return Machine"
@@ -2234,6 +2240,10 @@
 "parking",
 "ticket",
 "Parking Ticket Vending Machine"
+],
+"amenity/vending_machine/pizza":[
+"pizza",
+"Pizza Vending Machine"
 ],
 "amenity/vending_machine/public_transport_tickets":[
 "bus",
@@ -2472,8 +2482,20 @@
 "barrier":[
 "Barrier"
 ],
+"barrier/ditch":[
+"Trench"
+],
 "barrier/entrance":[
 "Entrance"
+],
+"barrier/handrail":[
+"Handrail"
+],
+"barrier/log":[
+"Fallen Tree"
+],
+"barrier/planter":[
+"Planter (Barrier)"
 ],
 "barrier/block":[
 "Block"
@@ -2492,6 +2514,19 @@
 "customs",
 "port of entry",
 "Border Control"
+],
+"barrier/bump_gate":[
+"drive-through gate",
+"Bump Gate"
+],
+"barrier/bus_trap":[
+"Bus Trap",
+"car trap"
+],
+"barrier/cable_barrier":[
+"guard cable",
+"Cable Barrier",
+"wire rope safety barrier"
 ],
 "barrier/cattle_grid":[
 "stock gate",
@@ -2517,9 +2552,6 @@
 "Cycle Barrier",
 "bike gates"
 ],
-"barrier/ditch":[
-"Trench"
-],
 "barrier/fence":[
 "Fence"
 ],
@@ -2527,6 +2559,11 @@
 "handrail",
 "guard rail",
 "Railing"
+],
+"barrier/full-height_turnstile":[
+"turnstyle",
+"baffle gate",
+"Full-Height Turnstile"
 ],
 "barrier/gate":[
 "Gate"
@@ -2540,6 +2577,11 @@
 "crash barrier",
 "roadside barrier"
 ],
+"barrier/hampshire_gate":[
+"Wire Gate",
+"hampshire gate",
+"new zealand gate"
+],
 "barrier/hedge":[
 "Hedge"
 ],
@@ -2549,6 +2591,18 @@
 "Height Restrictor",
 "height restriction barrier",
 "maximum height measurer"
+],
+"barrier/jersey_barrier":[
+"concrete median",
+"k-rail",
+"new jersey wall",
+"f-shape barrier",
+"constant-slope barrier",
+"median",
+"plastic barrier",
+"concrete barrier",
+"ontario tall wall",
+"Jersey Barrier"
 ],
 "barrier/kerb":[
 "Curb"
@@ -2586,8 +2640,14 @@
 "boom lift",
 "Lift Gate"
 ],
+"barrier/motorcycle_barrier":[
+"Motorcycle Barrier"
+],
 "barrier/retaining_wall":[
 "Retaining Wall"
+],
+"barrier/rope":[
+"Rope Fence"
 ],
 "barrier/sally_port":[
 "castle side gate",
@@ -2631,6 +2691,9 @@
 "acoustical barrier",
 "soundwall"
 ],
+"barrier/wicket_gate":[
+"Wicket Gate"
+],
 "boundary/administrative":[
 "Administrative Boundary"
 ],
@@ -2654,6 +2717,9 @@
 ],
 "building/entrance":[
 "Entrance/Exit"
+],
+"building/manufacture":[
+"Industrial Production Building"
 ],
 "building/train_station":[
 "Train Station Building"
@@ -2747,6 +2813,10 @@
 ],
 "building/garages":[
 "Garages"
+],
+"building/ger":[
+"Yurt",
+"ger"
 ],
 "building/grandstand":[
 "stands",
@@ -2905,6 +2975,23 @@
 ],
 "building/warehouse":[
 "Warehouse"
+],
+"cemetery/grave":[
+"mausoleum",
+"tomb",
+"Grave"
+],
+"cemetery/sector":[
+"burial ground",
+"cemetary",
+"graveyard",
+"churchyard",
+"mausoleum",
+"Cemetery Section",
+"tomb",
+"columbarium",
+"grave yard",
+"cemetery"
 ],
 "club":[
 "social",
@@ -3567,34 +3654,22 @@
 "highway/crossing/marked":[
 "marked crossing",
 "zebra crossing",
-"hump",
 "crosswalk",
-"slow",
-"Marked Crosswalk",
-"speed",
-"flat top"
+"Marked Crosswalk"
 ],
-"highway/crossing/signals":[
+"highway/crossing/traffic_signals":[
 "pedestrian traffic lights",
-"hump",
 "bicycle crossing (lights)",
-"slow",
 "Crossing With Pedestrian Signals",
 "pedestrian traffic signals",
 "pedestrian crossing (lights)",
-"crosswalk (lights)",
-"speed",
-"flat top"
+"crosswalk (lights)"
 ],
 "highway/crossing/unmarked":[
-"hump",
-"slow",
 "unmarked foot path crossing",
 "Unmarked Crossing",
 "unmarked crosswalk",
-"unmarked pedestrian crossing",
-"speed",
-"flat top"
+"unmarked pedestrian crossing"
 ],
 "highway/cycleway":[
 "bicycle path",
@@ -3641,6 +3716,9 @@
 "Unmarked Cycle Crossing",
 "bicycle crossing"
 ],
+"highway/cycleway/moped_link-NL":[
+"Moped Link"
+],
 "highway/elevator_line":[
 "Inclined Elevator",
 "cable railway"
@@ -3648,6 +3726,13 @@
 "highway/elevator":[
 "Elevator",
 "lift"
+],
+"highway/emergency_access_point":[
+"emergency marker",
+"elm",
+"Emergency Access Point",
+"emergency",
+"rescue"
 ],
 "highway/emergency_bay":[
 "highway emergency bay",
@@ -3664,6 +3749,9 @@
 ],
 "highway/footway/crossing":[
 "Pedestrian Crossing"
+],
+"highway/footway/informal":[
+"Informal Foot Path"
 ],
 "highway/footway/zebra":[
 "Marked Crosswalk"
@@ -3693,41 +3781,29 @@
 "highway/footway/marked":[
 "marked crossing",
 "zebra crossing",
-"hump",
 "marked pedestrian crosswalk",
 "crosswalk",
-"slow",
 "Marked Crosswalk",
-"marked foot path crossing",
-"speed",
-"flat top"
+"marked foot path crossing"
 ],
 "highway/footway/sidewalk":[
 "pavement",
 "sidepath",
 "Sidewalk"
 ],
-"highway/footway/signals":[
+"highway/footway/traffic_signals":[
 "pedestrian traffic lights",
-"hump",
 "bicycle crossing (lights)",
-"slow",
 "Crossing With Pedestrian Signals",
 "pedestrian traffic signals",
 "pedestrian crossing (lights)",
-"crosswalk (lights)",
-"speed",
-"flat top"
+"crosswalk (lights)"
 ],
 "highway/footway/unmarked":[
-"hump",
-"slow",
 "unmarked foot path crossing",
 "Unmarked Crossing",
 "unmarked crosswalk",
-"unmarked pedestrian crossing",
-"speed",
-"flat top"
+"unmarked pedestrian crossing"
 ],
 "highway/give_way":[
 "Yield Sign",
@@ -3943,8 +4019,10 @@
 "Parking Aisle"
 ],
 "highway/services":[
+"truck stop",
 "travel plaza",
 "service station",
+"roadhouse",
 "Service Area",
 "services"
 ],
@@ -3955,6 +4033,16 @@
 "speed limit camera",
 "maxspeed camera",
 "speed trap"
+],
+"highway/speed_display":[
+"Radar Speed Sign",
+"speed display board",
+"speed awareness message",
+"driver feedback sign",
+"traffic calming sign",
+"speed radar sign",
+"your speed sign",
+"dynamic speed display"
 ],
 "highway/steps":[
 "Steps",
@@ -4005,27 +4093,32 @@
 "electronic toll"
 ],
 "highway/track":[
-"ranch road",
 "4wd",
-"atv",
 "two track",
 "primitive",
-"double track",
-"agricultural road",
-"Unmaintained Track Road",
-"unmaintained",
 "woods road",
 "rut",
-"4x4",
 "four wheel drive",
+"overgrown",
+"jeep",
+"high-clearance",
+"track",
+"forest road",
+"farm road",
+"Track / Land-Access Road",
+"ranch road",
+"atv",
+"double track",
+"agricultural road",
+"unmaintained",
+"4x4",
 "carriage road",
 "quad",
 "logging road",
-"jeep",
 "offroad",
-"forest road",
+"land access road",
 "fire road",
-"farm road"
+"track road"
 ],
 "highway/traffic_mirror":[
 "roadside",
@@ -4332,9 +4425,12 @@
 "crop"
 ],
 "landuse/farmyard":[
-"grow",
-"plant",
-"crop",
+"feedlot",
+"cattleyard",
+"feeding",
+"livestock",
+"feedyard",
+"barnyard",
 "Farmyard"
 ],
 "landuse/flowerbed":[
@@ -5018,6 +5114,13 @@
 "diamond",
 "baseball"
 ],
+"leisure/pitch/table_soccer":[
+"table football",
+"Foosball Table",
+"table soccer",
+"tecball",
+"kicker"
+],
 "leisure/pitch/table_tennis":[
 "ping pong",
 "Ping Pong Table",
@@ -5238,6 +5341,12 @@
 "Cairn",
 "stone pile",
 "rock pile"
+],
+"man_made/carpet_hanger":[
+"rack",
+"beater",
+"stand",
+"Carpet Hanger"
 ],
 "man_made/chimney":[
 "Chimney"
@@ -5527,6 +5636,9 @@
 "Pipeline Valve",
 "water",
 "sewage"
+],
+"man_made/planter":[
+"Planter"
 ],
 "man_made/pumping_station":[
 "Pumping Station"
@@ -7811,6 +7923,12 @@
 "shorts",
 "slacks"
 ],
+"shop/clothes/suits":[
+"tie",
+"Suits Store",
+"businessman",
+"necktie"
+],
 "shop/clothes/underwear":[
 "lingerie",
 "underclothes",
@@ -7841,6 +7959,11 @@
 "Wedding Clothes Store",
 "bridesmaid",
 "groomsman"
+],
+"shop/clothes/workwear":[
+"safety footwear",
+"Workwear Store",
+"craftsman"
 ],
 "shop/coffee":[
 "Coffee Store"
@@ -8628,11 +8751,13 @@
 ],
 "tourism/alpine_hut":[
 "lodging",
+"refuge hut",
 "climbing hut",
+"refuge",
 "overnight accommodations",
-"Alpine Hut",
 "cabin",
 "lodge",
+"Mountain Lodge",
 "wilderness hut"
 ],
 "tourism/apartment":[
@@ -8866,14 +8991,16 @@
 ],
 "tourism/wilderness_hut":[
 "lodging",
-"bothy",
 "sleeping shelter",
+"biwakschachtel",
+"bivouac",
 "Wilderness Hut",
+"refuge",
 "overnight accommodations",
+"bivouac box",
 "cabin",
 "lodge",
-"alpine hut",
-"backcountry hut"
+"alpine hut"
 ],
 "tourism/zoo":[
 "animal",
@@ -8979,9 +9106,6 @@
 "highway",
 "max speed"
 ],
-"type/multipolygon":[
-"Multipolygon"
-],
 "type/boundary":[
 "Boundary"
 ],
@@ -9003,6 +9127,9 @@
 "speed camera",
 "maxspeed",
 "Speed Limit Enforcement"
+],
+"type/multipolygon":[
+"Multipolygon"
 ],
 "type/public_transport/stop_area_group":[
 "Transit Stop Area Group"
@@ -9096,6 +9223,9 @@
 "type/route/power":[
 "Power Route"
 ],
+"type/route/railway":[
+"Railway Route"
+],
 "type/route/road":[
 "Road Route"
 ],
@@ -9116,9 +9246,6 @@
 ],
 "type/waterway":[
 "Waterway"
-],
-"waterway/riverbank":[
-"Riverbank"
 ],
 "waterway/boatyard":[
 "Boatyard"

@@ -1406,8 +1406,11 @@
 "libri"
 ],
 "amenity/ranger_station":[
+"visitor center",
 "stazione guardia forestale",
-"Guardiaparco"
+"centro visitatori",
+"Guardiaparco",
+"visitor centre"
 ],
 "amenity/recycling":[
 "Riciclaggio"
@@ -2616,8 +2619,8 @@
 ],
 "building/civic":[
 "pubblico",
+"Edificio civico",
 "municipale",
-"Edificio comunale",
 "civico",
 "cittadino"
 ],
@@ -3214,6 +3217,8 @@
 ],
 "craft/window_construction":[
 "vetri",
+"glass",
+"vetraio",
 "Serramentista"
 ],
 "craft/winery":[
@@ -3690,6 +3695,9 @@
 "highway/bus_stop":[
 "Fermata autobus"
 ],
+"highway/construction":[
+"Strada in costruzione"
+],
 "highway/corridor":[
 "corridoio",
 "Corridoio"
@@ -3704,9 +3712,6 @@
 "Strisce pedonali",
 "strisce",
 "zebrato"
-],
-"highway/crossing/signals":[
-"Attraversamento pedonale con semaforo"
 ],
 "highway/crossing/unmarked":[
 "informale",
@@ -3837,9 +3842,6 @@
 "highway/footway/sidewalk":[
 "marciapiedi",
 "Marciapiede"
-],
-"highway/footway/signals":[
-"Attraversamento pedonale semaforico"
 ],
 "highway/footway/unmarked":[
 "pedonale",
@@ -4095,20 +4097,21 @@
 ],
 "highway/toll_gantry":[
 "Strada a pedaggio senza casello",
-"strada con sistema di pedaggio senza barriere"
+"strada con sistema di pedaggio senza barriere",
+"strada senza barriere",
+"strada a pedaggio senza barriere"
 ],
 "highway/track":[
-"4x4",
-"fuoristrada",
-"quattro ruote motrici",
-"strada sterrata",
-"abbandonata",
-"quad",
-"atv",
+"strada ad uso agricolo",
 "strada agricola",
-"jeep",
-"strada forestale",
-"Strada non mantenuta"
+"Strada sterrata o per l'accesso a terreni",
+"strada carrareccia",
+"strada ad uso forestale",
+"carrareccia",
+"track",
+"forestale",
+"agricola",
+"strada forestale"
 ],
 "highway/traffic_mirror":[
 "curvo",
@@ -4359,12 +4362,7 @@
 "Bacino"
 ],
 "landuse/brownfield":[
-"Area dismessa",
-"edifici abbandonati",
-"area abbandonata",
-"area demolita",
-"area industriale dismessa",
-"area da riconvertire"
+"Area dismessa"
 ],
 "landuse/cemetery":[
 "cimitero",
@@ -4385,7 +4383,11 @@
 "centro commerciale"
 ],
 "landuse/construction":[
-"Cantiere"
+"costruzione",
+"Cantiere",
+"scavo",
+"construction",
+"cantiere"
 ],
 "landuse/farm":[
 "Terreno agricolo"
@@ -4419,8 +4421,6 @@
 "Erba"
 ],
 "landuse/greenfield":[
-"area edificabile",
-"lotto edificabile",
 "Terreno edificabile"
 ],
 "landuse/greenhouse_horticulture":[
@@ -4729,7 +4729,6 @@
 "Campo da Golf"
 ],
 "leisure/hackerspace":[
-"makerspace",
 "Spazio hacker"
 ],
 "leisure/ice_rink":[
@@ -7821,13 +7820,6 @@
 "tourism":[
 "Elemento turistico"
 ],
-"tourism/alpine_hut":[
-"rifugio",
-"Rifugio alpino",
-"bivacco",
-"dormitorio",
-"malga"
-],
 "tourism/apartment":[
 "appartamenti",
 "bed & breakfast",
@@ -8401,9 +8393,6 @@
 ],
 "waterway/river":[
 "Fiume"
-],
-"waterway/riverbank":[
-"Argine"
 ],
 "waterway/sanitary_dump_station":[
 "rifiuti",

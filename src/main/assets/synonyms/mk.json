@@ -896,6 +896,15 @@
 "barrier/border_control":[
 "Граничен премин"
 ],
+"barrier/bump_gate":[
+"Порта на поттурнување"
+],
+"barrier/bus_trap":[
+"Автобусопропусник"
+],
+"barrier/cable_barrier":[
+"Сајлена препрека"
+],
 "barrier/cattle_grid":[
 "Решетка за добиток"
 ],
@@ -926,11 +935,17 @@
 "barrier/guard_rail":[
 "Заштитна ограда"
 ],
+"barrier/handrail":[
+"Гелендер"
+],
 "barrier/hedge":[
 "Жива ограда"
 ],
 "barrier/height_restrictor":[
 "Висински ограничувач"
+],
+"barrier/jersey_barrier":[
+"Бетонска препрека"
 ],
 "barrier/kerb":[
 "Рабник"
@@ -953,8 +968,20 @@
 "barrier/lift_gate":[
 "Порта со дигалка"
 ],
+"barrier/log":[
+"Паднато дрво"
+],
+"barrier/motorcycle_barrier":[
+"Пречка за мотоцикли"
+],
+"barrier/planter":[
+"Жардињера (пречка)"
+],
 "barrier/retaining_wall":[
 "Потпорен ѕид"
+],
+"barrier/rope":[
+"Јажена ограда"
 ],
 "barrier/sally_port":[
 "Испадна порта"
@@ -979,6 +1006,9 @@
 ],
 "barrier/wall/noise_barrier":[
 "Букобран"
+],
+"barrier/wicket_gate":[
+"Вратичка во порти"
 ],
 "boundary":[
 "Граница"
@@ -1060,6 +1090,9 @@
 ],
 "building/garages":[
 "Гаражи"
+],
+"building/ger":[
+"Јурта"
 ],
 "building/grandstand":[
 "Трибина"
@@ -1568,7 +1601,7 @@
 "highway/crossing/marked":[
 "Обележан пешачки премин"
 ],
-"highway/crossing/signals":[
+"highway/crossing/traffic_signals":[
 "Премин со пешачки сигнали"
 ],
 "highway/crossing/uncontrolled":[
@@ -1598,11 +1631,17 @@
 "highway/cycleway/crossing/unmarked":[
 "Необележан велосипедски премин"
 ],
+"highway/cycleway/moped_link-NL":[
+"Мопедска патека"
+],
 "highway/elevator":[
 "Лифт"
 ],
 "highway/elevator_line":[
 "Накосен лифт"
+],
+"highway/emergency_access_point":[
+"Точка на итен пристап"
 ],
 "highway/emergency_bay":[
 "Итно запиралиште"
@@ -1619,13 +1658,16 @@
 "highway/footway/crossing":[
 "Пешачки премин"
 ],
+"highway/footway/informal":[
+"Неформална пешачка патека"
+],
 "highway/footway/marked":[
 "Обележан пешачки премин"
 ],
 "highway/footway/sidewalk":[
 "Тротоар"
 ],
-"highway/footway/signals":[
+"highway/footway/traffic_signals":[
 "Премин со пешачки сигнали"
 ],
 "highway/footway/unmarked":[
@@ -1737,6 +1779,9 @@
 "highway/speed_camera":[
 "Брзиномерна камера"
 ],
+"highway/speed_display":[
+"Знак за радарски брзиномер"
+],
 "highway/steps":[
 "Скалила"
 ],
@@ -1759,7 +1804,7 @@
 "Отворена патарина"
 ],
 "highway/track":[
-"Неодржуван неасфалтиран пат"
+"Патека / Земјоделски пат"
 ],
 "highway/traffic_mirror":[
 "Сообраќајно огледало"
@@ -2217,6 +2262,9 @@
 "leisure/pitch/softball":[
 "Терен за софтбол"
 ],
+"leisure/pitch/table_soccer":[
+"Маса за фудбалче"
+],
 "leisure/pitch/table_tennis":[
 "Маса за пингпонг"
 ],
@@ -2318,6 +2366,9 @@
 ],
 "man_made/cairn":[
 "Могила"
+],
+"man_made/carpet_hanger":[
+"Шипка за тепих"
 ],
 "man_made/chimney":[
 "Оџак"
@@ -2432,6 +2483,9 @@
 ],
 "man_made/pipeline/valve":[
 "Цевководен вентил"
+],
+"man_made/planter":[
+"Жардињера"
 ],
 "man_made/pumping_station":[
 "Црпна станица"
@@ -3432,11 +3486,17 @@
 "shop/clothes/second_hand":[
 "Продавница за половна облека"
 ],
+"shop/clothes/suits":[
+"Продавница за одела"
+],
 "shop/clothes/underwear":[
 "Продавница за долна облека"
 ],
 "shop/clothes/wedding":[
 "Продавница за свадбена облека"
+],
+"shop/clothes/workwear":[
+"Продавница за работна облека"
 ],
 "shop/coffee":[
 "Продавница за кафе"
@@ -4107,6 +4167,9 @@
 "type/route/power":[
 "Струјоводен патен правец"
 ],
+"type/route/railway":[
+"Железнички правец"
+],
 "type/route/road":[
 "Патен правец"
 ],
@@ -4169,9 +4232,6 @@
 ],
 "waterway/river":[
 "Река"
-],
-"waterway/riverbank":[
-"Речен брег"
 ],
 "waterway/sanitary_dump_station":[
 "Ифрлање фекалии од пловила"

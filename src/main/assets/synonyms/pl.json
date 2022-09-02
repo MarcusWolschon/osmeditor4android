@@ -463,6 +463,9 @@
 "Centrum społeczności LGBT",
 "gejów"
 ],
+"amenity/community_centre/youth_centre":[
+"Centrum młodzieżowe"
+],
 "amenity/compressed_air":[
 "kompresor",
 "Kompresor"
@@ -536,6 +539,9 @@
 "endokrynolog",
 "dermatolog",
 "hematolog"
+],
+"amenity/doctors/gynaecology":[
+"Ginekolog"
 ],
 "amenity/dojo":[
 "Dojo / szkoła sztuk walki",
@@ -912,6 +918,9 @@
 "park & ride",
 "Parking „Parkuj i Jedź”",
 "p&r"
+],
+"amenity/parking/street-side":[
+"Parking przy ulicy"
 ],
 "amenity/parking/underground":[
 "parking podziemny",
@@ -1509,6 +1518,12 @@
 "na świeżym powietrzu",
 "grecki"
 ],
+"amenity/ticket_validator":[
+"Czytnik biletów"
+],
+"amenity/toilets":[
+"Toalety"
+],
 "amenity/toilets/disposal/flush":[
 "łazienka",
 "toaleta spłukiwana wodą",
@@ -1685,6 +1700,9 @@
 "automat z biletami parkingowymi",
 "parkomat"
 ],
+"amenity/vending_machine/pizza":[
+"Automat do sprzedaży pizzy"
+],
 "amenity/vending_machine/public_transport_tickets":[
 "Automat z biletami komunikacji publicznej",
 "biletomat",
@@ -1757,6 +1775,9 @@
 "powierzchnia",
 "Obszar",
 "obszar"
+],
+"area/footway":[
+"Obszar chodnika"
 ],
 "area/highway":[
 "ulica",
@@ -1932,6 +1953,9 @@
 "granica",
 "bariera"
 ],
+"barrier/cable_barrier":[
+"Ogrodzenie linkowe"
+],
 "barrier/cattle_grid":[
 "Przeszkoda dla zwierząt",
 "przeszkoda dla bydła",
@@ -2040,10 +2064,19 @@
 "szlaban",
 "bariera"
 ],
+"barrier/log":[
+"Powalone drzewo"
+],
+"barrier/motorcycle_barrier":[
+"Bariera motocyklowa"
+],
 "barrier/retaining_wall":[
 "mur oporowy",
 "Mur oporowy",
 "bariera"
+],
+"barrier/rope":[
+"Ogrodzenie linowe"
 ],
 "barrier/sally_port":[
 "przejście przez mur",
@@ -2232,6 +2265,9 @@
 "Garaże",
 "garaże"
 ],
+"building/ger":[
+"Jurta"
+],
 "building/grandstand":[
 "trybuna",
 "trybuny",
@@ -2290,6 +2326,9 @@
 "building/kindergarten":[
 "Budynek przedszkola",
 "budynek przedszkolny"
+],
+"building/manufacture":[
+"Budynek produkcji przemysłowej"
 ],
 "building/mosque":[
 "meczet",
@@ -2376,6 +2415,9 @@
 "chlew",
 "trzoda chlewna"
 ],
+"building/synagogue":[
+"Budynek synagogi"
+],
 "building/temple":[
 "świątynia",
 "kościół",
@@ -2419,6 +2461,9 @@
 ],
 "building_point":[
 "Budynek"
+],
+"cemetery/sector":[
+"Sekcja cmentarza"
 ],
 "club":[
 "klub",
@@ -2904,6 +2949,9 @@
 "Stacja pogotowia ratunkowego",
 "pogotowie ratunkowe"
 ],
+"emergency/assembly_point":[
+"Awaryjny punkt zbiórki"
+],
 "emergency/defibrillator":[
 "defibrylator aed",
 "Defibrylator"
@@ -2997,6 +3045,12 @@
 "głośno",
 "Syrena alarmowa",
 "ostrzeżenie"
+],
+"emergency/water_reservoir":[
+"Awaryjny zbiornik na wodę"
+],
+"emergency/water_reservoir_covered":[
+"Awaryjny zbiornik wodny (podziemny)"
 ],
 "emergency/water_tank":[
 "zbiornik wody dla straży pożarnej",
@@ -3168,6 +3222,9 @@
 "Placówka rehabilitacyjna",
 "rehabilitacja"
 ],
+"healthcare/sample_collection":[
+"Punkt pobierania próbek"
+],
 "healthcare/speech_therapist":[
 "terapia mowy",
 "logopeda",
@@ -3193,6 +3250,9 @@
 "highway/bus_stop":[
 "Przystanek autobusowy"
 ],
+"highway/construction":[
+"Droga w budowie"
+],
 "highway/corridor":[
 "Korytarz (w budynku)",
 "korytarz",
@@ -3207,6 +3267,12 @@
 "pasy",
 "oznaczone przejście dla pieszych",
 "Oznakowane przejście dla pieszych"
+],
+"highway/crossing/traffic_signals":[
+"Przejście z sygnałami dla pieszych"
+],
+"highway/crossing/uncontrolled":[
+"Oznaczone przejście dla pieszych"
 ],
 "highway/crossing/unmarked":[
 "Nieoznakowane przejście",
@@ -3253,6 +3319,9 @@
 "winda pochyła",
 "dźwig pochyły"
 ],
+"highway/emergency_access_point":[
+"Punkt wjazdu dla służb ratowniczych"
+],
 "highway/emergency_bay":[
 "Zatoka awaryjna",
 "zatoczka",
@@ -3285,6 +3354,9 @@
 "highway/footway/crossing":[
 "Przejście dla pieszych"
 ],
+"highway/footway/informal":[
+"Nieformalna ścieżka dla pieszych"
+],
 "highway/footway/marked":[
 "zebra",
 "przejście dla pieszych",
@@ -3295,6 +3367,9 @@
 "highway/footway/sidewalk":[
 "Chodnik przy jezdni",
 "chodnik"
+],
+"highway/footway/traffic_signals":[
+"Przejście z sygnałami dla pieszych"
 ],
 "highway/footway/unmarked":[
 "Nieoznakowane przejście",
@@ -3532,12 +3607,6 @@
 "viatoll",
 "Bramownica poboru opłat",
 "pobór opłat"
-],
-"highway/track":[
-"Droga prowadząca na pola lub do lasu",
-"droga leśna",
-"trakt leśny",
-"droga polna"
 ],
 "highway/traffic_mirror":[
 "lustro przy ulicy",
@@ -3832,6 +3901,9 @@
 "teren budowy",
 "Plac budowy"
 ],
+"landuse/education":[
+"Kampus edukacyjny"
+],
 "landuse/farm":[
 "Użytki rolne lub podwórze gospodarcze"
 ],
@@ -4018,6 +4090,9 @@
 "Teren handlu detalicznego",
 "teren handlu detalicznego",
 "targowisko"
+],
+"landuse/salt_pond":[
+"Staw odparowywania soli"
 ],
 "landuse/vineyard":[
 "winnica",
@@ -4241,6 +4316,9 @@
 "hackerspace",
 "hacklab"
 ],
+"leisure/horse_riding":[
+"Centrum jazdy konnej"
+],
 "leisure/ice_rink":[
 "łyżwy",
 "łyżwiarstwo",
@@ -4314,6 +4392,9 @@
 "nfl",
 "futbol"
 ],
+"leisure/pitch/archery":[
+"Strzelnica łucznicza"
+],
 "leisure/pitch/australian_football":[
 "boisko",
 "australijski",
@@ -4359,10 +4440,19 @@
 "Pole do krykieta",
 "pole do krykieta"
 ],
+"leisure/pitch/equestrian":[
+"Arena jeździecka"
+],
 "leisure/pitch/field_hockey":[
 "Boisko do hokeja na trawie",
 "boisko do hokeja na trawie",
 "hokej na trawie"
+],
+"leisure/pitch/four_square":[
+"Boisko czterech kwadratów"
+],
+"leisure/pitch/futsal":[
+"Boisko do futsalu"
 ],
 "leisure/pitch/horseshoes":[
 "Miejsce do gry w rzut podkową",
@@ -4373,6 +4463,12 @@
 "Boisko do gry w netball",
 "netball"
 ],
+"leisure/pitch/paintball":[
+"Pole do gry w paintballa"
+],
+"leisure/pitch/pickleball":[
+"Boisko do gry w pikle"
+],
 "leisure/pitch/rugby_league":[
 "Boisko rugby league",
 "boisko rugby"
@@ -4380,6 +4476,9 @@
 "leisure/pitch/rugby_union":[
 "Boisko rugby union",
 "boisko rugby"
+],
+"leisure/pitch/shooting":[
+"Strzelnica"
 ],
 "leisure/pitch/shuffleboard":[
 "Boisko do shuffleboard",
@@ -4403,6 +4502,9 @@
 "softball",
 "Boisko do softballu",
 "boisko do softballu"
+],
+"leisure/pitch/table_soccer":[
+"Stół do piłkarzyków"
 ],
 "leisure/pitch/table_tennis":[
 "Stół do tenisa stołowego",
@@ -4463,6 +4565,9 @@
 "wspinaczka",
 "wspinanie"
 ],
+"leisure/sports_centre/shooting":[
+"Obiekt strzelnicy"
+],
 "leisure/sports_centre/swimming":[
 "Pływalnia",
 "basen"
@@ -4500,6 +4605,9 @@
 "welodrom",
 "rower",
 "Tor kolarski"
+],
+"leisure/track/horse_racing":[
+"Konny tor wyścigowy"
 ],
 "leisure/track/running":[
 "bieżnia",
@@ -4570,6 +4678,9 @@
 "Kopiec",
 "kopiec kamieni"
 ],
+"man_made/carpet_hanger":[
+"Trzepak dywanów"
+],
 "man_made/chimney":[
 "kominek",
 "Komin"
@@ -4582,6 +4693,9 @@
 "wyręba",
 "drewno",
 "las"
+],
+"man_made/compass_rose":[
+"Róża wiatrów"
 ],
 "man_made/courtyard":[
 "Dziedziniec"
@@ -4780,6 +4894,9 @@
 "maszt komunikacyjny",
 "maszt tv"
 ],
+"man_made/mast/lighting":[
+"Maszt oświetleniowy"
+],
 "man_made/mineshaft":[
 "szyb",
 "kopalnia",
@@ -4842,6 +4959,9 @@
 "ścieki",
 "Zawór rurociągu",
 "ściek"
+],
+"man_made/planter":[
+"Sadzarka"
 ],
 "man_made/pumping_station":[
 "pompa",
@@ -4974,6 +5094,9 @@
 "man_made/utility_pole":[
 "Słup",
 "słup"
+],
+"man_made/video_wall":[
+"Ekran cyfrowy"
 ],
 "man_made/wastewater_plant":[
 "oczyszczalnia ścieków",
@@ -5321,6 +5444,33 @@
 "trzcinowisko",
 "podmokłe łąki"
 ],
+"natural/wetland/bog":[
+"Torfowisko wysokie"
+],
+"natural/wetland/fen":[
+"Torfowisko niskie"
+],
+"natural/wetland/mangrove":[
+"Namorzyny"
+],
+"natural/wetland/marsh":[
+"Bagno"
+],
+"natural/wetland/reedbed":[
+"Szuwary"
+],
+"natural/wetland/saltmarsh":[
+"Przybrzeżne bagno solne"
+],
+"natural/wetland/string_bog":[
+"Torfowisko aapa"
+],
+"natural/wetland/swamp":[
+"Zadrzewione bagno"
+],
+"natural/wetland/wet_meadow":[
+"Mokra łąka"
+],
 "natural/wood":[
 "bór",
 "knieja",
@@ -5339,6 +5489,9 @@
 "las pierwotny",
 "młodniak",
 "las"
+],
+"network/type/node_network-DE-NL-BE-LU":[
+"Węzeł sieci rekreacyjnej"
 ],
 "noexit/yes":[
 "brak przejazdu",
@@ -5386,6 +5539,9 @@
 "społeczność",
 "biuro organizacji non-profit",
 "Biuro organizacji non profit"
+],
+"office/bail_bond_agent-US-PH":[
+"Poręczyciel majątkowy"
 ],
 "office/charity":[
 "Organizacja charytatywna",
@@ -5637,6 +5793,9 @@
 "Biuro wodociągowe",
 "media"
 ],
+"office/yes":[
+"Biuro (nieokreślony rodzaj)"
+],
 "piste/downhill":[
 "narciarstwo",
 "alpy",
@@ -5847,6 +6006,9 @@
 "Dmuchana trampolina",
 "trampolina"
 ],
+"playground/hopscotch":[
+"Gra w klasy"
+],
 "playground/horizontal_bar":[
 "Drążek",
 "podciąganie",
@@ -5900,6 +6062,9 @@
 "point":[
 "węzeł",
 "Punkt"
+],
+"police/checkpoint":[
+"Punkt kontrolny policji"
 ],
 "polling_station":[
 "głosowanie",
@@ -7034,6 +7199,9 @@
 "lumpeks",
 "Sklep z odzieżą używaną"
 ],
+"shop/clothes/suits":[
+"Sklep z garniturami"
+],
 "shop/clothes/underwear":[
 "Sklep z bielizną",
 "bielizna"
@@ -7045,6 +7213,9 @@
 "salon sukien ślubnych",
 "suknie ślubne",
 "odzież"
+],
+"shop/clothes/workwear":[
+"Sklep z odzieżą roboczą"
 ],
 "shop/coffee":[
 "Sklep z kawą",
@@ -8159,6 +8330,9 @@
 "Sklep z winami",
 "wino"
 ],
+"shop/yes":[
+"Sklep (nieokreślony rodzaj)"
+],
 "telecom":[
 "Obiekt telekomunikacyjny"
 ],
@@ -8179,8 +8353,7 @@
 "Turystyka"
 ],
 "tourism/alpine_hut":[
-"chata alpejska",
-"Chata górska"
+"Domek górski"
 ],
 "tourism/apartment":[
 "apartamenty na wynajem",
@@ -8539,6 +8712,18 @@
 "Zakaz skrętu w prawo",
 "prawoskręt"
 ],
+"type/restriction/no_straight_on":[
+"Zakaz jazdy prosto"
+],
+"type/restriction/only_left_turn":[
+"Nakaz skrętu w lewo"
+],
+"type/restriction/only_right_turn":[
+"Nakaz skrętu w prawo"
+],
+"type/restriction/only_straight_on":[
+"Nakaz jazdy prosto"
+],
 "type/route":[
 "trasa",
 "linia",
@@ -8548,6 +8733,9 @@
 "kolej linowa",
 "trasa kolei linowej",
 "Trasa kolei linowej"
+],
+"type/route/bicycle":[
+"Trasa rowerowa"
 ],
 "type/route/bus":[
 "trasa autobusowa",
@@ -8577,6 +8765,9 @@
 "szlak pieszy",
 "Szlak pieszy",
 "szlak górski"
+],
+"type/route/horse":[
+"Trasa konna"
 ],
 "type/route/light_rail":[
 "kolej miejska",
@@ -8609,6 +8800,9 @@
 "type/route/power":[
 "przebieg linii elektrycznej",
 "Trasa linii elektrycznej"
+],
+"type/route/railway":[
+"Trasa kolejowa"
 ],
 "type/route/road":[
 "Trasa drogowa",
@@ -8739,9 +8933,6 @@
 "rzeczka",
 "rzeka",
 "Rzeka"
-],
-"waterway/riverbank":[
-"Brzeg rzeki"
 ],
 "waterway/sanitary_dump_station":[
 "miejsce opróżniania toalety (dla łodzi)",

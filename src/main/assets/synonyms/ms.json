@@ -237,9 +237,6 @@
 "highway/tertiary":[
 "Jalan Tertiari"
 ],
-"highway/track":[
-"Jalan Rintis Tidak Diselenggara"
-],
 "highway/trunk":[
 "Jalan Batang"
 ],
@@ -529,9 +526,6 @@
 ],
 "waterway/river":[
 "Sungai"
-],
-"waterway/riverbank":[
-"Tebing sungai"
 ],
 "waterway/waterfall":[
 "Air Terjun"

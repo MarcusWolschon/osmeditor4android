@@ -1110,9 +1110,6 @@
 "highway/tertiary_link":[
 "Pristupna cesta lokalne ceste"
 ],
-"highway/track":[
-"Šumski ili poljski put"
-],
 "highway/traffic_mirror":[
 "Prometno ogledalo"
 ],
@@ -2680,12 +2677,6 @@
 "shop/wine":[
 "Prodavaonica vina"
 ],
-"tourism/alpine_hut":[
-"planinarski dom",
-"dom",
-"Planinarski dom",
-"planinarska kuća"
-],
 "tourism/apartment":[
 "Turistički apartman"
 ],
@@ -2990,9 +2981,6 @@
 ],
 "waterway/river":[
 "Rijeka"
-],
-"waterway/riverbank":[
-"Riječna obala"
 ],
 "waterway/sanitary_dump_station":[
 "Stanica za pražnjenje brodskog spremnika fekalija"

@@ -3778,36 +3778,6 @@
 "arco de peaxe",
 "Arco de peaxe"
 ],
-"highway/track":[
-"Pista forestal ou agrícola",
-"vieiro",
-"rural",
-"lugar",
-"sendeiro",
-"vía",
-"forestal",
-"verea",
-"con pegada",
-"jeep",
-"tractor",
-"rúa",
-"pista",
-"senda",
-"dobre tracción",
-"quadratrack",
-"camiño",
-"atv",
-"sen mantemento",
-"cuadrimotor",
-"campo",
-"4x4",
-"carreiro",
-"agrícola",
-"con huella",
-"parroquia",
-"offroad",
-"aldea"
-],
 "highway/traffic_mirror":[
 "espello",
 "espello de tráfico",
@@ -7616,9 +7586,6 @@
 "tourism":[
 "Elemento de turismo"
 ],
-"tourism/alpine_hut":[
-"Refuxio de montaña"
-],
 "tourism/apartment":[
 "Apartamento de hóspedes"
 ],
@@ -8160,9 +8127,6 @@
 "rio",
 "ribeira",
 "agua"
-],
-"waterway/riverbank":[
-"Beira de río"
 ],
 "waterway/sanitary_dump_station":[
 "urinario",

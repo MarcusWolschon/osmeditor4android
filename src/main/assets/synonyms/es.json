@@ -3092,6 +3092,23 @@
 "frontera",
 "vigilancia de fronteras"
 ],
+"barrier/bump_gate":[
+"Puerta de choque",
+"puerta de choque",
+"puerta de paso",
+"puerta de golpe"
+],
+"barrier/bus_trap":[
+"trampa para automóviles",
+"trampa para autos",
+"Trampa de autobús",
+"trampa de autobus"
+],
+"barrier/cable_barrier":[
+"barrera de cable",
+"Barrera de cable",
+"barrera de seguridad de cable metálico"
+],
 "barrier/cattle_grid":[
 "barrera canadiense",
 "rejilla de retención",
@@ -3173,6 +3190,9 @@
 "guardarraíl",
 "barrera de metal"
 ],
+"barrier/handrail":[
+"Pasamanos"
+],
 "barrier/hedge":[
 "cobertura",
 "seto verde",
@@ -3183,6 +3203,14 @@
 "barrier/height_restrictor":[
 "Restrictor de altura",
 "reductor de altura"
+],
+"barrier/jersey_barrier":[
+"muro de jersey",
+"barrera de hormigón",
+"pared de jersey",
+"Barrera Jersey",
+"barrera new jersey",
+"barrera de jersey"
 ],
 "barrier/kerb":[
 "cuneta",
@@ -3264,6 +3292,17 @@
 "salida",
 "pivote"
 ],
+"barrier/log":[
+"Árbol caído"
+],
+"barrier/motorcycle_barrier":[
+"barrera para motos",
+"barrera de motos",
+"Barrera para motos"
+],
+"barrier/planter":[
+"Maceta (Barrera)"
+],
 "barrier/retaining_wall":[
 "contención",
 "retención",
@@ -3272,6 +3311,13 @@
 "prevención",
 "espolón",
 "Muro de contención"
+],
+"barrier/rope":[
+"barrera de cuerda",
+"valla de cuerda",
+"Barrera de soga",
+"barrera de soga",
+"valla de soga"
 ],
 "barrier/sally_port":[
 "puerta esclusa",
@@ -3346,6 +3392,11 @@
 "barrera de sonido",
 "muro de sonido",
 "barrera acústica"
+],
+"barrier/wicket_gate":[
+"portillo peatonal",
+"puerta peatonal",
+"Portillo peatonal"
 ],
 "boundary":[
 "Límite"
@@ -3529,6 +3580,10 @@
 "cocheras",
 "garajes",
 "Garajes"
+],
+"building/ger":[
+"yurta",
+"Yurta"
 ],
 "building/grandstand":[
 "tribuna",
@@ -5080,10 +5135,12 @@
 "cebra",
 "paso de cebra"
 ],
-"highway/crossing/signals":[
+"highway/crossing/traffic_signals":[
 "paso de bicicletas",
+"cruce de peatones",
 "Cruce con señales para peatones",
 "paso de peatones",
+"señal para peatones",
 "semáforo para peatones"
 ],
 "highway/crossing/uncontrolled":[
@@ -5151,6 +5208,14 @@
 "cruce de bicicleta",
 "cruce de ciclovía"
 ],
+"highway/cycleway/moped_link-NL":[
+"Enlace de ciclomotor",
+"motoneta",
+"enlace",
+"ciclomotor",
+"motocicleta",
+"moto"
+],
 "highway/elevator":[
 "elevador",
 "Ascensor",
@@ -5162,6 +5227,12 @@
 "teleférico",
 "funicular aéreo",
 "Ascensor inclinado"
+],
+"highway/emergency_access_point":[
+"Punto de acceso de emergencia",
+"rescate",
+"marcador de emergencia",
+"emergencia"
 ],
 "highway/emergency_bay":[
 "Lugar de parada de emergencia",
@@ -5206,6 +5277,9 @@
 "highway/footway/crossing":[
 "Cruce peatonal"
 ],
+"highway/footway/informal":[
+"Camino peatonal informal"
+],
 "highway/footway/marked":[
 "Cruce peatonal marcado",
 "cruce marcado",
@@ -5221,13 +5295,12 @@
 "banqueta",
 "vereda"
 ],
-"highway/footway/signals":[
+"highway/footway/traffic_signals":[
 "paso de bicicletas",
-"bajar velocidad",
+"cruce de peatones",
 "Cruce con señales para peatones",
 "paso de peatones",
-"lomo de burro",
-"lomada",
+"señal para peatones",
 "semáforo para peatones"
 ],
 "highway/footway/unmarked":[
@@ -5596,6 +5669,16 @@
 "tráfico",
 "fotorradar"
 ],
+"highway/speed_display":[
+"señal de retroalimentación al conductor",
+"señal para calmar el tráfico",
+"Señal de velocidad por radar",
+"tablero de velocidad",
+"señal de velocidad",
+"señal de radar de velocidad",
+"pantalla de velocidad dinámica",
+"mensaje de velocidad"
+],
 "highway/steps":[
 "grada",
 "peldaños",
@@ -5671,37 +5754,40 @@
 "4wd",
 "camino",
 "camino forestal",
-"rutina",
+"Vía agrícola o forestal",
 "rural",
 "vía",
 "camino rural",
-"camino de carro",
-"campo a través",
+"agricola",
+"via",
 "forestal",
 "sin mantenimiento",
-"primitivo",
 "camino de rancho",
 "quadra track",
-"Pista o camino no mantenido",
 "tractor",
 "jeep",
 "cuadrimoto",
 "sendero",
 "tracción en las cuatro ruedas",
+"doble huella",
 "pista",
 "senda",
 "camino de bosque",
+"camino contra incendios",
 "camino de granja",
 "atv",
+"todo terreno",
 "camino de fuego",
 "camino agrícola",
 "campo",
-"dos pista",
 "4x4",
 "huella",
 "todoterreno",
 "quad",
 "agrícola",
+"no mantenido",
+"acceso a terrenos circundantes",
+"pista agrícola",
 "offroad",
 "doble tracción"
 ],
@@ -7016,6 +7102,22 @@
 "diamante",
 "campo"
 ],
+"leisure/pitch/table_soccer":[
+"futbolito",
+"canchitas",
+"futbolín",
+"metegol",
+"fulbatin",
+"futmesa",
+"fulbacho x",
+"tiragol",
+"tacatocó",
+"Mesa de fútbol de mesa",
+"fulbote",
+"fulbito",
+"futillo",
+"taca-taca"
+],
 "leisure/pitch/table_tennis":[
 "Mesa de ping pong",
 "ping pong",
@@ -7289,6 +7391,12 @@
 "hito de piedras apiladas",
 "montículo de piedras apiladas",
 "Mojón de piedras apiladas"
+],
+"man_made/carpet_hanger":[
+"estante para alfombras",
+"Colgador de alfombras",
+"colgador de alfombras",
+"soporte para alfombras"
 ],
 "man_made/chimney":[
 "chimenea",
@@ -7629,6 +7737,11 @@
 "gas natural",
 "aguas residuales",
 "agua"
+],
+"man_made/planter":[
+"maceta",
+"tiesto",
+"Maceta"
 ],
 "man_made/pumping_station":[
 "agua para energía",
@@ -10503,6 +10616,11 @@
 "vestidos",
 "pantalones cortos"
 ],
+"shop/clothes/suits":[
+"corbata",
+"traje",
+"Tienda de trajes"
+],
 "shop/clothes/underwear":[
 "lencería",
 "boutique",
@@ -10527,6 +10645,11 @@
 "esmoquin",
 "novia",
 "Tienda de ropa para bodas"
+],
+"shop/clothes/workwear":[
+"calzado de seguridad",
+"Tienda de ropa de trabajo",
+"artesano"
 ],
 "shop/coffee":[
 "tienda",
@@ -12255,7 +12378,11 @@
 "Control del límite de velocidad"
 ],
 "type/multipolygon":[
-"Multipolígono"
+"múltiple",
+"multi-polígono",
+"polígono",
+"Multipolígono",
+"multipolígono"
 ],
 "type/public_transport/stop_area_group":[
 "transporte público",
@@ -12482,6 +12609,12 @@
 "línea de alta tensión",
 "cable"
 ],
+"type/route/railway":[
+"ferroviaria",
+"ruta",
+"ferrocarril",
+"Ruta del ferrocarril"
+],
 "type/route/road":[
 "camino",
 "ruta",
@@ -12641,9 +12774,6 @@
 "afluente",
 "río",
 "Río"
-],
-"waterway/riverbank":[
-"Ribera de río ancho"
 ],
 "waterway/sanitary_dump_station":[
 "marino",

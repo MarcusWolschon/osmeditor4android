@@ -1417,9 +1417,6 @@
 "Priključek na lokalno cesto",
 "priključek na lokalno cesto"
 ],
-"highway/track":[
-"Nevzdrževani kolovoz"
-],
 "highway/traffic_mirror":[
 "prometno ogledalo",
 "odbojnik",
@@ -2688,12 +2685,6 @@
 "kletarstvo",
 "vinska klet"
 ],
-"tourism/alpine_hut":[
-"dom",
-"Planinska koča",
-"lovska koča",
-"koča"
-],
 "tourism/apartment":[
 "Apartma / Gostišče"
 ],
@@ -2945,9 +2936,6 @@
 "reka",
 "rečica",
 "Reka"
-],
-"waterway/riverbank":[
-"Rečni breg"
 ],
 "waterway/stream":[
 "tok",

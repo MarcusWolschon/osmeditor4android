@@ -729,10 +729,10 @@
 ],
 "building/house":[
 "üksik",
+"Eluhoone",
 "eramu",
 "eraldiseisev",
-"maja",
-"Eramaja"
+"maja"
 ],
 "building/houseboat":[
 "Paatmaja",
@@ -1212,26 +1212,6 @@
 "highway/tertiary_link":[
 "Kohaliku maantee ühendustee"
 ],
-"highway/track":[
-"metsatee",
-"kitsas tee",
-"atv",
-"kinni kasvanud tee",
-"kehv tee",
-"põllutee",
-"traktor",
-"maastikutee",
-"eratee",
-"4x4",
-"tee",
-"põlluvahetee",
-"siht",
-"juurdepääsutee",
-"rada",
-"metsasiht",
-"offroad",
-"Mittehooldatav tee"
-],
 "highway/traffic_mirror":[
 "Liikluspeegel"
 ],
@@ -1272,8 +1252,8 @@
 "kitsas tee",
 "väike tee",
 "klassifitseerimata tee",
-"kohalik tee",
-"Vähetähtis/klassifitseerimata tee"
+"Väike/klassifitseerimata tee",
+"kohalik tee"
 ],
 "historic":[
 "Ajalooline koht"
@@ -2839,9 +2819,6 @@
 "sidesõlm",
 "Sidejaam"
 ],
-"tourism/alpine_hut":[
-"Alpimaja"
-],
 "tourism/apartment":[
 "Külaliskorter"
 ],
@@ -3159,9 +3136,6 @@
 ],
 "waterway/river":[
 "Jõgi"
-],
-"waterway/riverbank":[
-"Jõekallas"
 ],
 "waterway/sanitary_dump_station":[
 "wc tühjendus",

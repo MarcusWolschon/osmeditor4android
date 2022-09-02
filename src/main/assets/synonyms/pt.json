@@ -1999,22 +1999,35 @@
 "tabaco"
 ],
 "amenity/social_centre":[
-"Centro social",
+"veteranos",
 "lions",
 "sociedade",
 "comunitário",
 "clube",
 "comunidade",
 "rotary",
-"fraternidade"
+"fraternidade",
+"Clube social"
 ],
 "amenity/social_facility":[
-"Serviços sociais",
+"abrigo",
+"sem abrigo",
+"hospício",
+"sem-abrigo",
 "casa do povo",
 "social",
 "saúde",
+"cantina",
 "apoio",
-"serviços"
+"serviços",
+"centro social",
+"Serviços sociais",
+"banco alimentar",
+"caritativo",
+"lar de dia",
+"lar",
+"sem fins lucrativos",
+"caridade"
 ],
 "amenity/social_facility/ambulatory_care":[
 "cuidado ambulatório",
@@ -2132,6 +2145,17 @@
 "Máquina de validação de bilhetes",
 "títulos"
 ],
+"amenity/toilets":[
+"banheiros",
+"gabinete sanitário",
+"toilette",
+"lavabo",
+"w.c.",
+"sanitário",
+"instalações sanitárias",
+"Casas de banho",
+"wc"
+],
 "amenity/toilets/disposal/flush":[
 "sanita",
 "retrete",
@@ -2226,6 +2250,25 @@
 "Máquina de venda automática",
 "bebidas",
 "tabaco"
+],
+"amenity/vending_machine/bicycle_tube":[
+"Máquina de venda de câmaras de ar para bicicletas",
+"remendo",
+"venda automática",
+"bicycle",
+"reparação",
+"bicla",
+"reparar",
+"automático",
+"máquina",
+"vender",
+"bike",
+"câmara",
+"ar",
+"tube",
+"bina",
+"dispositivo",
+"bicicleta"
 ],
 "amenity/vending_machine/bottle_return":[
 "garrafas",
@@ -2359,6 +2402,15 @@
 "parquear",
 "máquina"
 ],
+"amenity/vending_machine/pizza":[
+"venda",
+"pizza",
+"piza",
+"dispositivo",
+"automática",
+"Máquina de venda de piza",
+"automático"
+],
 "amenity/vending_machine/public_transport_tickets":[
 "bilhete",
 "Máquina de bilhetes de transporte",
@@ -2464,6 +2516,17 @@
 "Área",
 "espaço",
 "polígono"
+],
+"area/footway":[
+"Caminho pedonal (área)",
+"pavimento",
+"peão",
+"peões",
+"limite do pavimento",
+"área do passeio",
+"área pedonal",
+"forma do passeio",
+"área pedestre"
 ],
 "area/highway":[
 "área da estrada",
@@ -2681,6 +2744,12 @@
 "controlo fronteiriço",
 "alfândega"
 ],
+"barrier/cable_barrier":[
+"Cabos de aço",
+"aço",
+"segurança",
+"ferro"
+],
 "barrier/cattle_grid":[
 "porco",
 "cavalo",
@@ -2750,6 +2819,9 @@
 "mureta",
 "guarda metálica"
 ],
+"barrier/handrail":[
+"Corrimão"
+],
 "barrier/hedge":[
 "cerca-viva",
 "Sebe",
@@ -2817,11 +2889,32 @@
 "barreira",
 "Cancela elevatória"
 ],
+"barrier/log":[
+"Árvore tombada"
+],
+"barrier/motorcycle_barrier":[
+"motas",
+"motorcycle",
+"motos",
+"Barreira para motas",
+"motocicleta"
+],
+"barrier/planter":[
+"Caixa de plantas (barreira)"
+],
 "barrier/retaining_wall":[
 "amparo",
 "Muro de contenção",
 "arrimo",
 "retenção"
+],
+"barrier/rope":[
+"fibras",
+"flexível",
+"cordame",
+"corda",
+"cabo",
+"Corda"
 ],
 "barrier/sally_port":[
 "portão de fortaleza",
@@ -2878,6 +2971,12 @@
 "ruído",
 "barreira de som",
 "Barreira acústica"
+],
+"barrier/wicket_gate":[
+"Portinhola",
+"cancela",
+"porta",
+"madeira"
 ],
 "boundary":[
 "Fronteira"
@@ -3082,6 +3181,13 @@
 "abrigos",
 "condomínio",
 "carros"
+],
+"building/ger":[
+"ger",
+"yurt",
+"tenda",
+"Iurte",
+"iurta"
 ],
 "building/grandstand":[
 "Arquibancada",
@@ -3388,6 +3494,37 @@
 ],
 "building_point":[
 "Edifício"
+],
+"cemetery/grave":[
+"tumba",
+"mausoleum",
+"sepulcro",
+"Sepultura",
+"tomb",
+"mausoléu",
+"defuntos",
+"túmulo",
+"cemitério",
+"mortos",
+"jazigo"
+],
+"cemetery/sector":[
+"cemetary",
+"churchyard",
+"tomb",
+"gavetas",
+"Setor de cemitério",
+"burial ground",
+"graveyard",
+"mausoleum",
+"mausoléu",
+"sepultura",
+"columbarium",
+"grave yard",
+"túmulo",
+"cemetery",
+"sector",
+"jazigo"
 ],
 "club":[
 "grupo",
@@ -3890,6 +4027,42 @@
 "demolished/building":[
 "Edifício demolido recentemente"
 ],
+"disc_golf/basket":[
+"hole",
+"golf",
+"disc pole hole",
+"exercício",
+"Cesto de disc golf",
+"disc golf target",
+"disco",
+"desportivo",
+"desporto",
+"desportista",
+"golfe"
+],
+"disc_golf/hole":[
+"hole",
+"golf",
+"exercício",
+"disco",
+"desportivo",
+"desporto",
+"desportista",
+"golfe",
+"Buraco de disc golf"
+],
+"disc_golf/tee":[
+"golf",
+"tee box",
+"exercício",
+"Área de partida de disc golf",
+"disco",
+"desportivo",
+"desporto",
+"desportista",
+"teeing ground",
+"golfe"
+],
 "disused/amenity":[
 "Serviço desativado"
 ],
@@ -4058,6 +4231,16 @@
 "sirene quartel",
 "aviso",
 "Sirene"
+],
+"emergency/water_reservoir_covered":[
+"reservatório",
+"reservatório de água",
+"cisterna",
+"tanque de água",
+"emergência",
+"reservatório de água de emergência",
+"combate ao fogo",
+"Reservatório de água de emergência (subterrâneo)"
 ],
 "emergency/water_tank":[
 "reservatório",
@@ -4427,16 +4610,17 @@
 "passadeira",
 "travessia"
 ],
-"highway/crossing/signals":[
-"passagem",
+"highway/crossing/traffic_signals":[
+"luminoso",
+"luminosas",
 "Passadeira com semáforos",
+"peão",
 "peões",
 "luzes",
 "pedestre",
-"cruzar",
-"atravessar",
-"travessia",
-"luminosos"
+"crossing",
+"atravessamento",
+"travessia"
 ],
 "highway/crossing/unmarked":[
 "passadeira sem marcas",
@@ -4513,6 +4697,12 @@
 "passadeira",
 "travessia"
 ],
+"highway/cycleway/moped_link-NL":[
+"ciclomotora",
+"Via para ciclomotores",
+"moped",
+"motorizada"
+],
 "highway/elevator":[
 "elevador",
 "Elevador",
@@ -4521,6 +4711,16 @@
 "highway/elevator_line":[
 "elevador",
 "Elevador inclinado"
+],
+"highway/emergency_access_point":[
+"alerta",
+"contacto",
+"Sinal de acesso de emergência",
+"emergência",
+"emergency",
+"contato",
+"resgate",
+"placa"
 ],
 "highway/emergency_bay":[
 "acostamento de parada de emergência",
@@ -4592,18 +4792,17 @@
 "calçada",
 "bermas"
 ],
-"highway/footway/signals":[
-"pedestres",
-"semáforo",
-"passadeiras",
+"highway/footway/traffic_signals":[
+"luminoso",
+"luminosas",
+"Passadeira com semáforos",
 "peão",
-"faixa de segurança",
+"peões",
 "luzes",
-"sinaleira",
-"atravessar",
+"pedestre",
+"crossing",
 "atravessamento",
-"travessia",
-"Passadeira com semáforos para peões"
+"travessia"
 ],
 "highway/footway/unmarked":[
 "passagem",
@@ -4951,6 +5150,20 @@
 "Radar de velocidade",
 "controlo de velocidade"
 ],
+"highway/speed_display":[
+"eletrónico",
+"eletronico",
+"luminoso",
+"radar",
+"trânsito",
+"eletrônico",
+"velocidade",
+"excesso",
+"Sinal de radar de velocidade",
+"sinalização",
+"speed",
+"placa"
+],
 "highway/steps":[
 "Escadas",
 "escadaria",
@@ -5024,13 +5237,21 @@
 "toll"
 ],
 "highway/track":[
+"4wd",
 "terra",
+"quinta",
+"herdade",
+"rural",
+"agricultura",
+"4x4",
 "estradão",
 "macadame",
+"off road",
 "Estrada florestal / agrícola",
-"rural",
 "batida",
-"track"
+"caminho",
+"track",
+"floresta"
 ],
 "highway/traffic_mirror":[
 "mirror",
@@ -6206,6 +6427,17 @@
 "computadores",
 "internet"
 ],
+"leisure/horse_riding":[
+"Centro equestre",
+"equestre",
+"escola",
+"equinos",
+"rancho",
+"equitação",
+"estábulos",
+"cavalos",
+"horseback riding facility"
+],
 "leisure/ice_rink":[
 "gelo",
 "patinador",
@@ -6436,6 +6668,18 @@
 "campo de cricket",
 "campo"
 ],
+"leisure/pitch/equestrian":[
+"equestre",
+"cavalgar",
+"picadeiro",
+"dressage",
+"Arena de equitação",
+"riding arena",
+"equitação",
+"hipismo",
+"pista",
+"cavalos"
+],
 "leisure/pitch/field_hockey":[
 "hóquei sobre a grama",
 "hóquei em campo",
@@ -6577,6 +6821,17 @@
 "desporto",
 "softbol"
 ],
+"leisure/pitch/table_soccer":[
+"matrecos",
+"futebol de mesa",
+"pebolim",
+"pimbolim",
+"foosball",
+"Mesa de matraquilhos",
+"pacal",
+"totó",
+"kicker"
+],
 "leisure/pitch/table_tennis":[
 "pingue pongue",
 "ping pong",
@@ -6595,6 +6850,17 @@
 "Campo de ténis",
 "tennis court",
 "ténis"
+],
+"leisure/pitch/tetherball":[
+"tetherball",
+"exercício",
+"tether tennis",
+"swingbal",
+"desportivo",
+"desporto",
+"desportista",
+"Campo de espirobol",
+"bola"
 ],
 "leisure/pitch/volleyball":[
 "voleibol",
@@ -6795,6 +7061,18 @@
 "velódromo",
 "pista de bicicletas"
 ],
+"leisure/track/horse_racing":[
+"pista de corridas de cavalos",
+"apostas em cavalos",
+"equestre",
+"Pista de corridas de cavalos",
+"corridas de cavalos",
+"pista de cavalos",
+"corrida de cavalos",
+"hipismo",
+"hipódromo",
+"pista para cavalos"
+],
 "leisure/track/running":[
 "pista de atletismo",
 "maratona",
@@ -6937,6 +7215,18 @@
 "mariolas",
 "mariola",
 "moledos"
+],
+"man_made/carpet_hanger":[
+"secar",
+"rack",
+"tecido",
+"carpete",
+"secagem",
+"Estendal de tapetes",
+"stand",
+"lavagem",
+"tapete",
+"pendurar"
 ],
 "man_made/chimney":[
 "Chaminé",
@@ -7349,6 +7639,15 @@
 "canalização",
 "válvula",
 "válvula de pipeline"
+],
+"man_made/planter":[
+"jardim",
+"plantas",
+"flores",
+"caixa",
+"Caixa de plantas",
+"vegetação",
+"bloco"
 ],
 "man_made/pumping_station":[
 "trasfega",
@@ -9025,6 +9324,17 @@
 "playground/cushion":[
 "insuflável",
 "Colchão insuflável"
+],
+"playground/hopscotch":[
+"recreio",
+"brincadeira",
+"Jogo da macaca",
+"brincar",
+"desporto",
+"jogar",
+"jogo",
+"lazer",
+"amarelinha"
 ],
 "playground/horizontal_bar":[
 "barra horizontal",
@@ -10756,6 +11066,17 @@
 "calçado",
 "vestidos"
 ],
+"shop/clothes/suits":[
+"tie",
+"paletó",
+"homem",
+"roupa",
+"Loja de fatos",
+"gravatas",
+"smoking",
+"traje",
+"businessman"
+],
 "shop/clothes/underwear":[
 "boxer",
 "lingerie",
@@ -10784,6 +11105,18 @@
 "Loja de vestuário de casamento",
 "padrinhos",
 "vestidos"
+],
+"shop/clothes/workwear":[
+"operário",
+"laborar",
+"roupas",
+"trabalhar",
+"trabalho",
+"Loja de roupa de trabalho",
+"segurança",
+"traje",
+"resistente",
+"labor"
 ],
 "shop/coffee":[
 "pó",
@@ -12208,10 +12541,14 @@
 "Turismo"
 ],
 "tourism/alpine_hut":[
+"abrigo",
 "cabana de montanha",
 "alpinismo",
 "neve",
-"Albergue alpino"
+"refúgio",
+"montanha",
+"Albergue alpino",
+"montanhismo"
 ],
 "tourism/apartment":[
 "time-share",
@@ -12746,7 +13083,10 @@
 "câmara de velocidade"
 ],
 "type/multipolygon":[
-"Multipolígono"
+"multipolygon",
+"multi-polígono",
+"Multipolígono",
+"multi polígono"
 ],
 "type/public_transport/stop_area_group":[
 "autocarros",
@@ -12912,6 +13252,16 @@
 "percurso trail",
 "rota"
 ],
+"type/route/horse":[
+"mulas",
+"equestre",
+"percurso",
+"Rota de equitação",
+"burros",
+"cavaleiros",
+"riding",
+"cavalos"
+],
 "type/route/light_rail":[
 "metro almada",
 "eléctrico",
@@ -12975,6 +13325,16 @@
 "alta tensão",
 "linhas",
 "transmissão"
+],
+"type/route/railway":[
+"trem",
+"caminho-de-ferro",
+"comboio",
+"caminho de ferro",
+"Rota ferroviária",
+"ferroviário",
+"ferrovia",
+"train"
 ],
 "type/route/road":[
 "percurso rodoviário",
@@ -13202,9 +13562,6 @@
 "Rio",
 "curso de água",
 "ria"
-],
-"waterway/riverbank":[
-"Margem de rio"
 ],
 "waterway/sanitary_dump_station":[
 "resíduos barcos",

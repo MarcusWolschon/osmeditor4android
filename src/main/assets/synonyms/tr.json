@@ -2064,13 +2064,6 @@
 "highway/toll_gantry":[
 "Açık Yol Geçiş Ücreti"
 ],
-"highway/track":[
-"bakımsız patika",
-"bakımsız araç yolu",
-"bakımsız yol",
-"Tarım Yolu",
-"tarım yolu"
-],
 "highway/traffic_mirror":[
 "Trafik Aynası",
 "trafik aynası"
@@ -4439,12 +4432,6 @@
 "tourism":[
 "Turizm Özelliği"
 ],
-"tourism/alpine_hut":[
-"baraka",
-"Dağ Evi",
-"dağ evi",
-"dağ kulübesi"
-],
 "tourism/apartment":[
 "misafir apartmanı",
 "Misafir Apartmanı"
@@ -4815,9 +4802,6 @@
 "irmak",
 "nehir",
 "akarsu"
-],
-"waterway/riverbank":[
-"Akarsu Kenarı"
 ],
 "waterway/sanitary_dump_station":[
 "deniz tuvalet i̇mha i̇stasyonu",

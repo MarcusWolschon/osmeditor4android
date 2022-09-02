@@ -873,13 +873,6 @@
 "gatvė",
 "Tretysis Kelias"
 ],
-"highway/track":[
-"šunkelis",
-"dvigubos vėžės",
-"bekelė",
-"Neprižiūrimas Kelias",
-"miško keliukas"
-],
 "highway/traffic_signals":[
 "Eismo signala",
 "šviesoforas"
@@ -1768,9 +1761,6 @@
 "Vyno parduotuvė",
 "vyninė"
 ],
-"tourism/alpine_hut":[
-"Kalnų namelis"
-],
 "tourism/apartment":[
 "Svečių apartamentai / butas"
 ],
@@ -1929,9 +1919,6 @@
 "waterway/river":[
 "upė",
 "Upė"
-],
-"waterway/riverbank":[
-"Upės kraštas"
 ],
 "waterway/stream":[
 "upeliukas",

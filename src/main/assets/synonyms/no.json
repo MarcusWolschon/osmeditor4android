@@ -1377,14 +1377,6 @@
 "highway/tertiary_link":[
 "Tertiær lenke"
 ],
-"highway/track":[
-"landbruksvei",
-"traktorsti",
-"anleggsvei",
-"traktorvei",
-"Vei for ATV, landbruk-, hogst- eller anleggsmaskin",
-"skogsbilvei"
-],
 "highway/traffic_mirror":[
 "Trafikkspeil"
 ],
@@ -2617,9 +2609,6 @@
 "telecom/data_center":[
 "Datasenter"
 ],
-"tourism/alpine_hut":[
-"Fjellhytte"
-],
 "tourism/aquarium":[
 "Akvarium"
 ],
@@ -2840,9 +2829,6 @@
 ],
 "waterway/river":[
 "Elv"
-],
-"waterway/riverbank":[
-"Elvebredd"
 ],
 "waterway/stream":[
 "Bekk"

@@ -867,6 +867,9 @@
 "amenity/ticket_validator":[
 "مدقق التذاكر"
 ],
+"amenity/toilets":[
+"غرفة استراحة"
+],
 "amenity/toilets/disposal/flush":[
 "مرحاض يتخلص من نفاياته بالماء",
 "مرحاض له نظام شطف",
@@ -894,6 +897,9 @@
 ],
 "amenity/toy_library":[
 "Toy Library"
+],
+"amenity/trolley_bay":[
+"عربة كورال"
 ],
 "amenity/university":[
 "أرض جامعة",
@@ -1128,6 +1134,16 @@
 "معبر حدودي",
 "مركز حدودي"
 ],
+"barrier/bump_gate":[
+"بوابة مركبات تمنع مرور الماشية"
+],
+"barrier/bus_trap":[
+"حاجز حافلات"
+],
+"barrier/cable_barrier":[
+"حاجز الكابلات",
+"حاجز الكابل"
+],
 "barrier/cattle_grid":[
 "شبكة لمنع الماشية",
 "شبكة الماشية",
@@ -1164,6 +1180,9 @@
 "حاجز حديدي مانع للاصطدام",
 "حاجز حديدي للحماية من الاصطدام"
 ],
+"barrier/handrail":[
+"سياج سلم (درابزين)"
+],
 "barrier/hedge":[
 "سياج نباتي",
 "حاجز نباتي"
@@ -1171,6 +1190,9 @@
 "barrier/height_restrictor":[
 "حاجز لتقييد ارتفاع المركبات",
 "حاجز لتقييد الارتفاع"
+],
+"barrier/jersey_barrier":[
+"‫حاجز خرساني - نيوجيرسي"
 ],
 "barrier/kerb":[
 "رصيف اسمنتي صلب",
@@ -1202,11 +1224,25 @@
 "بوابة الرافعة",
 "بوابة عامودية"
 ],
+"barrier/log":[
+"شجرة ساقطة"
+],
+"barrier/motorcycle_barrier":[
+"حاجز منع مرور الدراجات النارية",
+"عائق لمنع مرور الدراجات النارية"
+],
+"barrier/planter":[
+"حاجز أصيصي"
+],
 "barrier/retaining_wall":[
 "جدار استنادي",
 "جدار اسناد لمنع انزلاق التربة",
 "جدار تثبيت للتربة",
 "جدار ساند"
+],
+"barrier/rope":[
+"سياج مصنوع من حبال",
+"سياج حبلي"
 ],
 "barrier/sally_port":[
 "منفذ الهجوم",
@@ -1243,6 +1279,10 @@
 "barrier/wall/noise_barrier":[
 "حاجز صوتي",
 "حاجز ضوضاء"
+],
+"barrier/wicket_gate":[
+"باب فرعي",
+"باب خوخة"
 ],
 "boundary":[
 "حدود"
@@ -1378,6 +1418,10 @@
 "building/garages":[
 "جراجات",
 "جراج; جراج سيارات; موقف; موقف سيارات; ركن; ركنة"
+],
+"building/ger":[
+"خيمة",
+"منزل اليورت"
 ],
 "building/grandstand":[
 "مُدَرج",
@@ -2132,6 +2176,9 @@
 "highway/bus_stop":[
 "مسار وقوف الحافلات"
 ],
+"highway/construction":[
+"الطريق قيد الإنشاء"
+],
 "highway/corridor":[
 "ممر داخلي; رواق",
 "ممر داخل مبنى"
@@ -2145,7 +2192,7 @@
 "معبر مشاة بعلامات مرورية",
 "معبر مشاة بدون إشارة مرور"
 ],
-"highway/crossing/signals":[
+"highway/crossing/traffic_signals":[
 "معبر مشاة بإشارات"
 ],
 "highway/crossing/uncontrolled":[
@@ -2177,6 +2224,10 @@
 "highway/cycleway/crossing/unmarked":[
 "معبر دراجات هوائية بدون علامات مرورية"
 ],
+"highway/cycleway/moped_link-NL":[
+"وصلة لدراجة نارية صغيرة",
+"رابط لدراجة نارية صغيرة"
+],
 "highway/elevator":[
 "لفت",
 "مصعد",
@@ -2189,6 +2240,9 @@
 "مصعد مائل على منحدر",
 "مصعد",
 "مِرْقَاة"
+],
+"highway/emergency_access_point":[
+"نقطة وصول الطوارئ"
 ],
 "highway/emergency_bay":[
 "منطقة توقف لحالات طوارئ الطريق",
@@ -2211,6 +2265,9 @@
 "highway/footway/crossing":[
 "معبر مشاة"
 ],
+"highway/footway/informal":[
+"مسار للمشاة غير رسمي"
+],
 "highway/footway/marked":[
 "معبر مشاة بعلامات مرورية"
 ],
@@ -2219,7 +2276,7 @@
 "رصيف المشاة",
 "رصيف مشاة"
 ],
-"highway/footway/signals":[
+"highway/footway/traffic_signals":[
 "معبر مشاة بإشارات"
 ],
 "highway/footway/unmarked":[
@@ -2386,6 +2443,10 @@
 "highway/speed_camera":[
 "كاميرا مراقبة السرعة"
 ],
+"highway/speed_display":[
+"علامة تظهر سرعتك عبر الرادار",
+"إشارة تظهر سرعتك عبر الرادار"
+],
 "highway/steps":[
 "سلم",
 "درج",
@@ -2418,9 +2479,14 @@
 "بوابة تحصيل الرسوم آلياً"
 ],
 "highway/track":[
-"طريق غير ممهد",
+"طريق وعر",
+"دفع رباعي",
+"درب",
+"دمية",
 "طريق غير معبد/ردمية",
-"غير ممهد"
+"زراعي",
+"غير معبد",
+"طريق زراعي"
 ],
 "highway/traffic_mirror":[
 "مرآة; مرور; مراية",
@@ -2850,6 +2916,9 @@
 "leisure/hackerspace":[
 "معمل هاكر"
 ],
+"leisure/horse_riding":[
+"مركز ركوب الخيل"
+],
 "leisure/ice_rink":[
 "تزلج",
 "حلبة تزلج",
@@ -2930,6 +2999,9 @@
 "leisure/pitch/cricket":[
 "ملعب كريكت"
 ],
+"leisure/pitch/equestrian":[
+"حلبة ركوب الخيل"
+],
 "leisure/pitch/field_hockey":[
 "مساحة ملعب الهوكى"
 ],
@@ -2948,6 +3020,9 @@
 "كرة",
 "شبكة",
 "كرة السلة"
+],
+"leisure/pitch/padel":[
+"ملعب باديل"
 ],
 "leisure/pitch/paintball":[
 "ملعب لعبة بينتبول",
@@ -2982,12 +3057,20 @@
 "leisure/pitch/softball":[
 "ملعب سوفتبول"
 ],
+"leisure/pitch/table_soccer":[
+"طاولة فوسبول",
+"طاولة كرة قدم الطاولة",
+"طاولة فيشة"
+],
 "leisure/pitch/table_tennis":[
 "طاولة كرة المضرب"
 ],
 "leisure/pitch/tennis":[
 "معلب كرة التنس",
 "ملعب تنس"
+],
+"leisure/pitch/tetherball":[
+"ملعب كرة الحبل"
 ],
 "leisure/pitch/volleyball":[
 "ملعب كرة الطائرة",
@@ -3045,6 +3128,9 @@
 "leisure/track/cycling":[
 "مسار دراجات هوائية"
 ],
+"leisure/track/horse_racing":[
+"مضمار سباق الخيل"
+],
 "leisure/track/running":[
 "مسار جري"
 ],
@@ -3100,6 +3186,10 @@
 "رِجْم",
 "رِجْم، رجوم (صخور مركومة)",
 "صخور مركومة"
+],
+"man_made/carpet_hanger":[
+"منشر سجاد",
+"منشر موكيت"
 ],
 "man_made/chimney":[
 "مدخنة"
@@ -3203,6 +3293,9 @@
 "man_made/mast/communication/television":[
 "برج بث التلفاز"
 ],
+"man_made/mast/lighting":[
+"صاري الإضاءة"
+],
 "man_made/mineshaft":[
 "برج منجم",
 "نفق تعدين/منجم"
@@ -3234,6 +3327,12 @@
 ],
 "man_made/pipeline/valve":[
 "صمام خط أنابيب"
+],
+"man_made/planter":[
+"محبق",
+"قصرية",
+"إناء زراعي",
+"أصيص"
 ],
 "man_made/pumping_station":[
 "محطة ضخ"
@@ -3907,6 +4006,9 @@
 "playground/cushion":[
 "وسادة نطاطه"
 ],
+"playground/hopscotch":[
+"الحجلة"
+],
 "playground/horizontal_bar":[
 "لعبة العارضة الأفقية"
 ],
@@ -4481,11 +4583,19 @@
 "shop/clothes/second_hand":[
 "متجر لبيع الملابس المستعملة"
 ],
+"shop/clothes/suits":[
+"متجر بيع بذلات",
+"متجر بيع أطقم"
+],
 "shop/clothes/underwear":[
 "متجر بيع الملابس الداخلية"
 ],
 "shop/clothes/wedding":[
 "محل بيع وتفصيل ملابس الزفاف"
+],
+"shop/clothes/workwear":[
+"متجر بيع ملابس مخصصة للعمل",
+"متجر بيع ملابس أعمال"
 ],
 "shop/coffee":[
 "متجر القهوة"
@@ -5009,7 +5119,8 @@
 "عنصر سياحي"
 ],
 "tourism/alpine_hut":[
-"كوخ بجبال الألب"
+"كوخ جبلي",
+"لودج جبلي"
 ],
 "tourism/apartment":[
 "شقة سياحية"
@@ -5148,7 +5259,8 @@
 "مخفف سرعة"
 ],
 "traffic_calming/bump":[
-"مطب صغير لتخفيف السرعة"
+"مطب صغير لتخفيف السرعة",
+"مطب قصير لتخفيف السرعة"
 ],
 "traffic_calming/chicane":[
 "منعطفات صناعية لتخفيف السرعة"
@@ -5163,6 +5275,7 @@
 "منخفض لتهدئة السرعة ويسمح بعبور المياة"
 ],
 "traffic_calming/hump":[
+"مطب طويل لتخفيف السرعة",
 "مطب لتخفيف السرعة"
 ],
 "traffic_calming/island":[
@@ -5210,7 +5323,8 @@
 "إنفاذ ورصد حدود السرعة"
 ],
 "type/multipolygon":[
-"المضلعات المتعددة"
+"المضلعات المتعددة",
+"متعدد الأضلاع"
 ],
 "type/public_transport/stop_area_group":[
 "مجموعة منطقة مواقف النقل العام"
@@ -5274,6 +5388,9 @@
 "مسار المشاة، طريق للمشي",
 "مسارات المشي الخلوي"
 ],
+"type/route/horse":[
+"مسار ركوب الخيل"
+],
 "type/route/light_rail":[
 "مسار القطار الخفيف",
 "قطار خفيف، ترام"
@@ -5295,6 +5412,10 @@
 "مسار الطاقة",
 "مسار الكهرباء",
 "مسار خط كهربائي"
+],
+"type/route/railway":[
+"مسار السكة الحديدية",
+"مسار سكة القطار"
 ],
 "type/route/road":[
 "مسار طريق",
@@ -5365,9 +5486,6 @@
 "waterway/river":[
 "نهر",
 "نهر / مجرى مائي واسع"
-],
-"waterway/riverbank":[
-"مساحة مجرى النهر أو المجرى المائي الواسع"
 ],
 "waterway/sanitary_dump_station":[
 "للتخلص من مخلفات مرحاض السفن",

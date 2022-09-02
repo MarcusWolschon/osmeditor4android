@@ -1444,6 +1444,9 @@
 "ingresso",
 "Máquina de validação de bilhetes"
 ],
+"amenity/toilets":[
+"Banheiros"
+],
 "amenity/toilets/disposal/flush":[
 "banheiro",
 "Banheiros com descarga"
@@ -3007,17 +3010,6 @@
 "Faixa de pedestres",
 "faixa de pedestres"
 ],
-"highway/crossing/signals":[
-"passagem",
-"cruzamento",
-"luzes",
-"pedestre",
-"cruzar",
-"atravessar",
-"travessia",
-"luminosos",
-"Faixa de pedestres com semáforos"
-],
 "highway/crossing/unmarked":[
 "travessia de pedestres não marcada",
 "Travessia de pedestres não marcada"
@@ -3368,11 +3360,7 @@
 "pedágio sem dinheiro"
 ],
 "highway/track":[
-"estrada de fazenda",
-"Estrada agrícola",
-"estrada em floresta",
-"floresta",
-"fazenda"
+"Trilha / Via de Acesso"
 ],
 "highway/traffic_mirror":[
 "convexo",
@@ -7122,10 +7110,7 @@
 "Elemento turístico"
 ],
 "tourism/alpine_hut":[
-"Abrigo de montanha",
-"abrigo de montanha",
-"refúgio de montanha",
-"cabana alpina"
+"Pousada da Montanha"
 ],
 "tourism/apartment":[
 "apartamento",
@@ -7640,9 +7625,6 @@
 "waterway/river":[
 "rio",
 "Rio"
-],
-"waterway/riverbank":[
-"Orla fluvial"
 ],
 "waterway/sanitary_dump_station":[
 "porto",

@@ -1151,17 +1151,6 @@
 "highway/tertiary_link":[
 "Safnbrautarrein"
 ],
-"highway/track":[
-"4x4",
-"aðkoma slökkviliðs",
-"utanvegaslóð",
-"vegslóði án þjónustu",
-"skógarvegur",
-"fjórhjóladrifs",
-"bændaslóðar",
-"Vegslóði án viðhalds",
-"virkjanavegir"
-],
 "highway/traffic_mirror":[
 "Umferðarspegill"
 ],
@@ -2453,9 +2442,6 @@
 "shop/wine":[
 "Vínbúð"
 ],
-"tourism/alpine_hut":[
-"Fjallakofi"
-],
 "tourism/apartment":[
 "Gestaíbúð"
 ],
@@ -2656,9 +2642,6 @@
 ],
 "waterway/river":[
 "Á"
-],
-"waterway/riverbank":[
-"Árbakki"
 ],
 "waterway/sanitary_dump_station":[
 "Salernishreinsun fyrir báta"

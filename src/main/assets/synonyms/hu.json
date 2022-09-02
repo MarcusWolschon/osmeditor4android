@@ -991,7 +991,10 @@
 "Posta"
 ],
 "amenity/prep_school":[
-"Tesztpálya, tanulópálya"
+"autós iskola",
+"tanulópálya",
+"Tesztpálya, tanulópálya",
+"tesztpálya"
 ],
 "amenity/prison":[
 "börtön",
@@ -1023,6 +1026,7 @@
 "ír söröző"
 ],
 "amenity/pub/lgbtq":[
+"lmbtq+ kocsma",
 "LMBTQ+ kocsma"
 ],
 "amenity/pub/microbrewery":[
@@ -1104,6 +1108,7 @@
 "ételbár"
 ],
 "amenity/restaurant/american":[
+"amerikai étterem",
 "Amerikai étterem"
 ],
 "amenity/restaurant/asian":[
@@ -1115,13 +1120,16 @@
 "Kínai étterem"
 ],
 "amenity/restaurant/french":[
-"Francia étterem"
+"Francia étterem",
+"francia étterem"
 ],
 "amenity/restaurant/german":[
+"német étterem",
 "Német étterem"
 ],
 "amenity/restaurant/greek":[
-"Görög étterem"
+"Görög étterem",
+"görög étterem"
 ],
 "amenity/restaurant/indian":[
 "indiai étterem",
@@ -1416,8 +1424,8 @@
 "amenity/vending_machine/elongated_coin":[
 "pénzlapító gép",
 "emlékérme  automata",
+"Kinyújtott emlékérmét árusító automata",
 "emlékérme présgép",
-"Lapos érme automata",
 "érmelapító",
 "pénzlapító automata",
 "préselt érme"
@@ -1691,6 +1699,9 @@
 "szalagkorlát",
 "védőkorlát",
 "Szalagkorlát"
+],
+"barrier/handrail":[
+"Korlát, kapaszkodó"
 ],
 "barrier/hedge":[
 "fasor",
@@ -2449,6 +2460,9 @@
 "emergency/siren":[
 "Sziréna"
 ],
+"emergency/water_reservoir":[
+"Vészhelyzeti víztározó"
+],
 "emergency/water_reservoir_covered":[
 "Vészhelyzeti víztartály (föld alatti)"
 ],
@@ -2679,9 +2693,6 @@
 "zebra",
 "Jelölt gyalogátkelő"
 ],
-"highway/crossing/signals":[
-"Jelzőlámpás gyalogátkelőhely"
-],
 "highway/crossing/uncontrolled":[
 "Kijelölt gyalogátkelőhely"
 ],
@@ -2744,9 +2755,6 @@
 "járda",
 "gyalogút",
 "gyalogjáró"
-],
-"highway/footway/signals":[
-"Jelzőlámpás gyalogátkelőhely"
 ],
 "highway/footway/unmarked":[
 "Nem jelölt gyalogosátkelő"
@@ -2930,12 +2938,6 @@
 ],
 "highway/toll_gantry":[
 "Automatikus útdíjbeszedő kapu"
-],
-"highway/track":[
-"tanyasi út",
-"Mezőgazdasági/erdészeti út",
-"erdészeti út",
-"mezőgazdasági út"
 ],
 "highway/traffic_mirror":[
 "Közlekedési tükör"
@@ -3402,6 +3404,9 @@
 "leisure/hackerspace":[
 "Hackerspace"
 ],
+"leisure/horse_riding":[
+"Lovasiskola központ"
+],
 "leisure/ice_rink":[
 "Jégpálya",
 "műjégpálya"
@@ -3568,7 +3573,7 @@
 "Sólya"
 ],
 "leisure/slipway_drivable":[
-"sólya (járható)"
+"sólya (autóval járható)"
 ],
 "leisure/sports_centre":[
 "sportkomplexum",
@@ -3615,6 +3620,9 @@
 "leisure/track/cycling":[
 "velodrom",
 "Kerékpár-versenypálya"
+],
+"leisure/track/horse_racing":[
+"Lóversenypálya"
 ],
 "leisure/track/running":[
 "Futópálya"
@@ -3686,7 +3694,7 @@
 "Tarvágás"
 ],
 "man_made/compass_rose":[
-"Tájoló rózsa"
+"Szélrózsa"
 ],
 "man_made/courtyard":[
 "Belső udvar"
@@ -4153,6 +4161,9 @@
 ],
 "natural/wetland/reedbed":[
 "Nádas"
+],
+"natural/wetland/saltmarsh":[
+"Part menti sós mocsár"
 ],
 "natural/wetland/string_bog":[
 "Dagadóláp"
@@ -5897,11 +5908,6 @@
 "tourism":[
 "Turizmus"
 ],
-"tourism/alpine_hut":[
-"Menedékház (személyzettel)",
-"erdészház",
-"turistaház"
-],
 "tourism/apartment":[
 "vendégház",
 "Apartman"
@@ -6172,7 +6178,7 @@
 ],
 "type/restriction/no_straight_on":[
 "kötelező haladási irány",
-"Egyenesen tilos"
+"Egyenesen továbbhaladni tilos"
 ],
 "type/restriction/no_u_turn":[
 "kötelező haladási irány",
@@ -6180,19 +6186,19 @@
 ],
 "type/restriction/only_left_turn":[
 "kötelező haladási irány",
-"Csak balra fordulás"
+"Kötelező haladási irány: balra"
 ],
 "type/restriction/only_right_turn":[
 "kötelező haladási irány",
-"Csak jobbra fordulás"
+"Kötelező haladási irány: jobbra"
 ],
 "type/restriction/only_straight_on":[
 "kötelező haladási irány",
-"Csak egyenesen tovább"
+"Kötelező haladási irány: egyenesen tovább"
 ],
 "type/restriction/only_u_turn":[
 "kötelező haladási irány",
-"Csak visszafordulás"
+"Kötelező haladási irány: megfordulás"
 ],
 "type/route":[
 "Útvonal",
@@ -6203,7 +6209,7 @@
 "Légi útvonal"
 ],
 "type/route/bicycle":[
-"Kerékpárút"
+"Kerékpáros útvonal"
 ],
 "type/route/bus":[
 "buszútvonal",
@@ -6226,6 +6232,9 @@
 "túraút",
 "Turistaút",
 "gyalogtúra"
+],
+"type/route/horse":[
+"Lovastúra-útvonal"
 ],
 "type/route/light_rail":[
 "HÉV-vonal"
@@ -6365,9 +6374,6 @@
 "Folyó",
 "folyam"
 ],
-"waterway/riverbank":[
-"Folyópart"
-],
 "waterway/sanitary_dump_station":[
 "Szaniterürítő hely",
 "szaniter",
@@ -6384,11 +6390,11 @@
 "csermely",
 "víz",
 "időszak",
+"Időszakos patak",
 "árad",
 "patak",
 "folyás",
 "ér",
-"Időszakos vízfolyás",
 "áraszt",
 "folyó",
 "folyam"

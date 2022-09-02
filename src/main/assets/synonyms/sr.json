@@ -2809,9 +2809,6 @@
 "tourism":[
 "Туристичко обележје"
 ],
-"tourism/alpine_hut":[
-"Планинарски дом"
-],
 "tourism/apartment":[
 "Гостински апартман"
 ],
@@ -3047,9 +3044,6 @@
 ],
 "waterway/river":[
 "Река"
-],
-"waterway/riverbank":[
-"Речно корито"
 ],
 "waterway/stream":[
 "Поток"

@@ -2059,10 +2059,6 @@
 "細路駁路",
 "分路連接路"
 ],
-"highway/track":[
-"未舖設路面的路",
-"無保養道路"
-],
 "highway/traffic_mirror":[
 "traffic mirror",
 "廣角鏡",
@@ -3932,11 +3928,6 @@
 "tourism":[
 "觀光特徽"
 ],
-"tourism/alpine_hut":[
-"alpine hut",
-"高山屋仔",
-"高山小屋"
-],
 "tourism/apartment":[
 "民宿公寓",
 "guest apartment / condo",
@@ -4310,9 +4301,6 @@
 "江河",
 "river",
 "江"
-],
-"waterway/riverbank":[
-"河岸"
 ],
 "waterway/sanitary_dump_station":[
 "船隻污物處理",

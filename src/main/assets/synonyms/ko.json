@@ -1801,9 +1801,6 @@
 "highway/tertiary_link":[
 "3차 도로 연결로"
 ],
-"highway/track":[
-"농·임도"
-],
 "highway/traffic_mirror":[
 "차량 거울"
 ],
@@ -4172,9 +4169,6 @@
 "tourism":[
 "관광 지물"
 ],
-"tourism/alpine_hut":[
-"고산장"
-],
 "tourism/apartment":[
 "게스트 아파트 / 콘도"
 ],
@@ -4496,9 +4490,6 @@
 ],
 "waterway/river":[
 "강"
-],
-"waterway/riverbank":[
-"강둑"
 ],
 "waterway/sanitary_dump_station":[
 "해양 화장실 처리장",

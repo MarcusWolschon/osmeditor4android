@@ -5,11 +5,20 @@
 "amenity/bbq":[
 "Barbeque"
 ],
+"amenity/bicycle_parking/building":[
+"Bicycle Parking Building"
+],
+"amenity/childcare":[
+"Childcare"
+],
 "amenity/community_centre":[
 "Community Centre"
 ],
 "amenity/community_centre/lgbtq":[
 "LGBTQ+ Community Centre"
+],
+"amenity/community_centre/youth_centre":[
+"Youth Centre"
 ],
 "amenity/conference_centre":[
 "Convention Centre"
@@ -17,11 +26,23 @@
 "amenity/dive_centre":[
 "Dive Centre"
 ],
+"amenity/fast_food/donut":[
+"Doughnut Fast Food"
+],
 "amenity/fuel":[
 "Service Station"
 ],
+"amenity/parking":[
+"Car Park"
+],
+"amenity/parking/multi-storey":[
+"Multistorey Car Park"
+],
 "amenity/parking/park_ride":[
 "Park & Ride Car Park"
+],
+"amenity/parking_entrance":[
+"Carpark Building Entrance / Exit"
 ],
 "amenity/payment_centre":[
 "Payment Centre"
@@ -35,8 +56,29 @@
 "amenity/social_centre":[
 "Social Centre"
 ],
+"amenity/social_facility/group_home":[
+"Retirement Home"
+],
+"amenity/taxi":[
+"Taxi Rank"
+],
+"amenity/theatre":[
+"Theatre"
+],
+"amenity/toilets":[
+"Toilets"
+],
 "amenity/vending_machine/fuel":[
 "Fuel Pump"
+],
+"amenity/waste_basket":[
+"waste",
+"litter",
+"bin",
+"garbage",
+"rubbish",
+"Rubbish Bin",
+"trash"
 ],
 "barrier/kerb":[
 "Kerb"
@@ -47,13 +89,38 @@
 "barrier/kerb/lowered":[
 "Lowered Kerb"
 ],
+"barrier/kerb/raised":[
+"Raised Kerb"
+],
+"barrier/kerb/rolled":[
+"Rolled Kerb"
+],
+"building/terrace":[
+"row house",
+"brownstone",
+"townhouses",
+"townhouse",
+"row houses",
+"terraced",
+"dwelling",
+"terrace",
+"residence",
+"Terraced Houses",
+"home"
+],
 "healthcare/birthing_center":[
 "Birthing Centre"
 ],
 "healthcare/blood_donation":[
 "Blood Donor Centre"
 ],
+"healthcare/counselling":[
+"Counselling Centre"
+],
 "highway/crossing/marked":[
+"Marked Crossing"
+],
+"highway/crossing/uncontrolled":[
 "Marked Crossing"
 ],
 "highway/crossing/zebra":[
@@ -61,6 +128,18 @@
 ],
 "highway/cycleway/bicycle_foot":[
 "Shared Path"
+],
+"highway/cycleway/crossing/bicycle_foot":[
+"Shared Path Crossing"
+],
+"highway/elevator":[
+"elevator",
+"Lift"
+],
+"highway/elevator_line":[
+"inclined elevator",
+"cable railway",
+"Inclined Lift"
 ],
 "highway/footway/marked":[
 "Marked Crossing"
@@ -77,8 +156,19 @@
 "highway/living_street":[
 "Shared Zone Road"
 ],
-"highway/track":[
-"Track Road"
+"highway/street_lamp":[
+"streetlamp",
+"street lamp",
+"light",
+"lamp",
+"gaslight",
+"Street Light"
+],
+"indoor/elevator":[
+"Indoor Lift Shaft"
+],
+"landuse/harbour":[
+"Harbour"
 ],
 "leisure/adult_gaming_centre":[
 "Adult Gaming Centre"
@@ -86,8 +176,23 @@
 "leisure/fitness_centre":[
 "Gym / Fitness Centre"
 ],
+"leisure/horse_riding":[
+"Horseback Riding Centre"
+],
+"leisure/indoor_play":[
+"Indoor Play Centre"
+],
 "leisure/sports_centre":[
 "Sports Centre / Complex"
+],
+"place/neighbourhood":[
+"Neighbourhood"
+],
+"place/suburb":[
+"Suburb"
+],
+"shop/caravan":[
+"Caravan Dealership"
 ],
 "shop/cheese":[
 "Cheese Shop",
@@ -103,6 +208,9 @@
 ],
 "shop/garden_centre":[
 "Garden Centre"
+],
+"shop/jewelry":[
+"Jewellery Store"
 ],
 "shop/mall":[
 "Shopping Centre"

@@ -579,9 +579,6 @@
 "highway/toll_gantry":[
 "Тол камера"
 ],
-"highway/track":[
-"Земеделски път"
-],
 "highway/traffic_signals":[
 "Светофари"
 ],
@@ -1190,9 +1187,6 @@
 "shop/video":[
 "Видеотека"
 ],
-"tourism/alpine_hut":[
-"Хижа"
-],
 "tourism/aquarium":[
 "Аквариум"
 ],
@@ -1257,7 +1251,7 @@
 "Пътен знак"
 ],
 "traffic_sign/city_limit":[
-"Начало/клай на населеното място"
+"Начало/край на населено място"
 ],
 "traffic_sign/maxspeed":[
 "Знак за ограничение на скоростта"
@@ -1332,9 +1326,6 @@
 ],
 "waterway/river":[
 "Река"
-],
-"waterway/riverbank":[
-"Речен бряг"
 ],
 "waterway/stream":[
 "Поток"

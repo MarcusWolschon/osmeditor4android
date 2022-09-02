@@ -725,9 +725,6 @@
 "jalan penghubung tersier",
 "Jalan Penghubung Tersier"
 ],
-"highway/track":[
-"Jalan Trek Tidak Terpelihara"
-],
 "highway/traffic_signals":[
 "lampu merah",
 "Lampu Lalu lintas"
@@ -1693,9 +1690,6 @@
 "waterway/river":[
 "kali",
 "Sungai"
-],
-"waterway/riverbank":[
-"Tepi Sungai"
 ],
 "waterway/stream":[
 "banjir",

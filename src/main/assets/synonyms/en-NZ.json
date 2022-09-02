@@ -98,6 +98,12 @@
 "amenity/theatre":[
 "Theatre"
 ],
+"amenity/toilets":[
+"Toilets"
+],
+"amenity/toilets/disposal/pitlatrine":[
+"Long-drop Toilet"
+],
 "amenity/vending_machine/fuel":[
 "diesel",
 "petrol",

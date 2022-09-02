@@ -1559,9 +1559,6 @@
 "Enllaç de carretera terciària",
 "enllaç amb terciària"
 ],
-"highway/track":[
-"Pista forestal sense manteniment"
-],
 "highway/traffic_mirror":[
 "Mirall de trànsit"
 ],
@@ -2037,6 +2034,12 @@
 "trencaonades",
 "espatller",
 "escullera"
+],
+"man_made/cairn":[
+"Fita",
+"pila de pedres",
+"pila de rocs",
+"fita"
 ],
 "man_made/chimney":[
 "Xemeneia"
@@ -2848,7 +2851,7 @@
 "Botiga de nàutica"
 ],
 "shop/bookmaker":[
-"Cusidor de llibres"
+"Casa d'apostes"
 ],
 "shop/books":[
 "Llibreria"
@@ -3291,9 +3294,6 @@
 "telecom/data_center":[
 "Centre de dades"
 ],
-"tourism/alpine_hut":[
-"Refugi de muntanya"
-],
 "tourism/apartment":[
 "Habitatge de convidats"
 ],
@@ -3609,9 +3609,6 @@
 "waterway/river":[
 "riu",
 "Riu"
-],
-"waterway/riverbank":[
-"Banc fluvial"
 ],
 "waterway/sanitary_dump_station":[
 "Lavabo per a vaixells"

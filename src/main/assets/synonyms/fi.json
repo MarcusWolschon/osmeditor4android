@@ -2759,17 +2759,6 @@
 "highway/toll_gantry":[
 "Avoin tietulli"
 ],
-"highway/track":[
-"metsäkone",
-"metsä",
-"hiekkatie",
-"ura",
-"ajoväylä",
-"metsätie",
-"pikkutie",
-"metsäkonetie",
-"Maatalous-/metsätie"
-],
 "highway/traffic_mirror":[
 "liikenne",
 "kupera",
@@ -5690,18 +5679,6 @@
 "tourism":[
 "Turistikohde"
 ],
-"tourism/alpine_hut":[
-"vuoristomaja",
-"vuorimökki",
-"vuoristotalo",
-"vuoristomökki",
-"alppimaja",
-"vuorimaja",
-"vuoritalo",
-"Alppimaja",
-"alppimökki",
-"alppitalo"
-],
 "tourism/apartment":[
 "Vierasmajoitus"
 ],
@@ -6110,9 +6087,6 @@
 ],
 "waterway/river":[
 "Joki"
-],
-"waterway/riverbank":[
-"Joentörmä"
 ],
 "waterway/sanitary_dump_station":[
 "lika",

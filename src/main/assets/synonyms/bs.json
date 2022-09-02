@@ -1341,12 +1341,6 @@
 "videoklub",
 "Video klub"
 ],
-"tourism/alpine_hut":[
-"alpska koliba",
-"planinarski dom",
-"Planinski dom",
-"planinarska kuća"
-],
 "tourism/artwork":[
 "umjetnina",
 "Umjetničko djelo",
@@ -1515,9 +1509,6 @@
 "rijeka",
 "riječni tok",
 "Rijeka"
-],
-"waterway/riverbank":[
-"Riječno korito"
 ],
 "waterway/stream":[
 "manji vodotok",

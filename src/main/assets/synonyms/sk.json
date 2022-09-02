@@ -628,9 +628,12 @@
 "hasici",
 "požiarnici",
 "hasičská zbrojnica",
+"Hasičská stanica",
+"poziarna zbrojnica",
+"požiarna zbrojnica",
 "hasicska zbrojnica",
 "poziarnici",
-"Požiarna stanica",
+"hasicska stanica",
 "hasiči"
 ],
 "amenity/food_court":[
@@ -814,6 +817,10 @@
 "park & ride",
 "Odstavné parkovisko",
 "p&r"
+],
+"amenity/parking/street-side":[
+"postranne",
+"Postranné"
 ],
 "amenity/parking/underground":[
 "Podzemné parkovisko"
@@ -1143,7 +1150,12 @@
 "Altán"
 ],
 "amenity/shelter/lean_to":[
-"Hrubý prístrešok s otvorenou stenou"
+"Hrubý prístrešok s otvorenou stenou",
+"prístrešok",
+"utulna",
+"hruby pristresok s otvorenou stenou",
+"útulňa",
+"pristresok"
 ],
 "amenity/shelter/picnic_shelter":[
 "Piknikový prístrešok"
@@ -1247,14 +1259,40 @@
 "amenity/theatre/type/amphi":[
 "Amfiteáter"
 ],
+"amenity/toilets":[
+"záchod",
+"toalety",
+"zachod",
+"latrina",
+"verejne toalety",
+"latrína",
+"wc",
+"Verejné toalety"
+],
 "amenity/toilets/disposal/flush":[
-"Splachovacie záchody"
+"splachovaci zachod",
+"splachovacie záchody",
+"Splachovacie WC",
+"splachovací záchod",
+"splachovacia toaleta",
+"splachovacie zachody",
+"splachovacie toalety"
 ],
 "amenity/toilets/disposal/pitlatrine":[
 "Latrína"
 ],
 "amenity/toilets/portable":[
-"Prenosné WC"
+"prenosna toaleta",
+"prenosné toalety",
+"Prenosné WC",
+"mobilná toaleta",
+"prenosne wc",
+"prenosná toaleta",
+"mobilné wc",
+"mobilné toalety",
+"prenosne toalety",
+"mobilna toaleta",
+"mobilne toalety"
 ],
 "amenity/townhall":[
 "primátor",
@@ -1641,6 +1679,9 @@
 "mur",
 "Oporný múr"
 ],
+"barrier/sally_port":[
+"Výpadová brána"
+],
 "barrier/spikes":[
 "Ostnatý pás"
 ],
@@ -1879,6 +1920,7 @@
 "Hausbót"
 ],
 "building/hut":[
+"chatrc",
 "Chatrč"
 ],
 "building/industrial":[
@@ -2440,7 +2482,7 @@
 "Núdzovy východ"
 ],
 "entrance/emergency_ward_entrance":[
-"Nádzový vstup do budovy"
+"Núdzový vstup do budovy"
 ],
 "entrance/main":[
 "vstup",
@@ -2921,13 +2963,6 @@
 ],
 "highway/toll_gantry":[
 "Mýtny portál"
-],
-"highway/track":[
-"poľná cesta",
-"Neudržiavaná lesná cesta",
-"lesna cesta",
-"lesná cesta",
-"polna cesta"
 ],
 "highway/traffic_mirror":[
 "Dopravné zrkadlo"
@@ -3463,6 +3498,7 @@
 "hyperextenzia"
 ],
 "leisure/fitness_station/parallel_bars":[
+"bradla",
 "Bradlá"
 ],
 "leisure/fitness_station/push-up":[
@@ -4561,7 +4597,11 @@
 "Kancelária súkromného detektíva"
 ],
 "office/religion":[
-"Náboženský úrad"
+"farský úrad",
+"Náboženský úrad",
+"farsky urad",
+"fara",
+"nabozensky urad"
 ],
 "office/research":[
 "vyskum",
@@ -6028,20 +6068,6 @@
 "tourism":[
 "Turistický objeky"
 ],
-"tourism/alpine_hut":[
-"nocľah",
-"búda",
-"horska chata",
-"utulna",
-"horská chata",
-"chata",
-"prenocovanie",
-"Vysokohorská chata",
-"buda",
-"noclah",
-"vysokohorska chata",
-"útulňa"
-],
 "tourism/apartment":[
 "Dovolenkový apartmán"
 ],
@@ -6228,12 +6254,14 @@
 ],
 "tourism/wilderness_hut":[
 "nocľah",
+"Útulňa (s vnútorným ohniskom)",
 "horska chata",
+"chata v divočine",
 "utulna",
 "horská chata",
 "chata",
+"chatav divocine",
 "prenocovanie",
-"Chata v divočine",
 "noclah",
 "útulňa"
 ],
@@ -6344,6 +6372,11 @@
 "trasa",
 "trat"
 ],
+"type/route/bicycle":[
+"cyklotrasa",
+"cyklisticka trasa",
+"Cyklistická trasa"
+],
 "type/route/bus":[
 "Autobusová trasa",
 "linka",
@@ -6389,7 +6422,15 @@
 "Trasa jednokoľajovej železnice"
 ],
 "type/route/mtb":[
-"MTB trasa"
+"enduro",
+"trail",
+"cross-country",
+"trasa pre horské bicykle",
+"trasa pre horske bicykle",
+"freeride",
+"MTB trasa",
+"downhill",
+"all mountain"
 ],
 "type/route/pipeline":[
 "potrubie",
@@ -6505,9 +6546,6 @@
 "riečka",
 "bystrina",
 "potok"
-],
-"waterway/riverbank":[
-"Breh rieky"
 ],
 "waterway/sanitary_dump_station":[
 "vyprazdnovanie lodnych toaliet",

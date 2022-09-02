@@ -3359,14 +3359,6 @@
 "trairejo",
 "stripasejo"
 ],
-"highway/crossing/signals":[
-"trafiklumoj",
-"pasejo",
-"Stratpasejo kun trafiklumoj",
-"piedira transpasejo",
-"transpasejo",
-"trairejo"
-],
 "highway/crossing/uncontrolled":[
 "Stratpasejo zebrostria"
 ],
@@ -3474,16 +3466,6 @@
 "highway/footway/sidewalk":[
 "Trotuaro (ĉestrata)",
 "irejo"
-],
-"highway/footway/signals":[
-"trafiklumoj",
-"pasejo",
-"Stratpasejo kun trafiklumoj",
-"zebrostria pasejo",
-"piedira transpasejo",
-"transpasejo",
-"trairejo",
-"stripasejo"
 ],
 "highway/footway/unmarked":[
 "pasejo",
@@ -3780,13 +3762,6 @@
 "impostejo",
 "Televojpagejo",
 "vojpagejo"
-],
-"highway/track":[
-"malpavima",
-"Vojo kampa",
-"tervojo",
-"kampa vojo",
-"nepavima"
 ],
 "highway/traffic_mirror":[
 "spegulo",
@@ -8176,15 +8151,6 @@
 "tourism":[
 "Turisma objekto"
 ],
-"tourism/alpine_hut":[
-"rifuĝejo",
-"ŝirmejo",
-"Montara rifuĝejo",
-"montara kabano",
-"alpisma kabano",
-"vintrostacio",
-"kabano"
-],
 "tourism/apartment":[
 "pensiono",
 "luigado de ĉambro",
@@ -8823,9 +8789,6 @@
 "akvofluo",
 "torento",
 "Rivero"
-],
-"waterway/riverbank":[
-"Riverbordo"
 ],
 "waterway/sanitary_dump_station":[
 "fekaĵo",

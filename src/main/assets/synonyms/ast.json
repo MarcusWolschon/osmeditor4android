@@ -1071,9 +1071,6 @@
 "salida",
 "autonómica mariella"
 ],
-"highway/track":[
-"Pista ensin mantenimientu"
-],
 "highway/traffic_mirror":[
 "Espeyu pal tráficu"
 ],
@@ -2037,9 +2034,6 @@
 "shop/wine":[
 "Bodega"
 ],
-"tourism/alpine_hut":[
-"Refuxu d'alpinismu"
-],
 "tourism/aquarium":[
 "Acuariu"
 ],
@@ -2230,9 +2224,6 @@
 "regatu",
 "ríu",
 "Ríu"
-],
-"waterway/riverbank":[
-"Ribera"
 ],
 "waterway/sanitary_dump_station":[
 "Vaciáu de sentines",

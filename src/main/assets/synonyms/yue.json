@@ -777,9 +777,6 @@
 "三級道路匝道",
 "細路駁路"
 ],
-"highway/track":[
-"無修道"
-],
 "highway/traffic_signals":[
 "traffic signals",
 "紅綠燈",
@@ -1753,11 +1750,6 @@
 "tourism":[
 "觀光地貌"
 ],
-"tourism/alpine_hut":[
-"alpine hut",
-"高山屋仔",
-"高山小屋"
-],
 "tourism/artwork":[
 "artwork",
 "藝術品"
@@ -1947,9 +1939,6 @@
 "江河",
 "river",
 "江"
-],
-"waterway/riverbank":[
-"江岸"
 ],
 "waterway/stream":[
 "小溪",

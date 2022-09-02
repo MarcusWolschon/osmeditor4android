@@ -1881,6 +1881,24 @@
 "Grenzkontrolle",
 "grenzkontrolle"
 ],
+"barrier/bump_gate":[
+"Anstoßgatter",
+"gatter",
+"anstoßtor",
+"durchfahrgatter"
+],
+"barrier/bus_trap":[
+"passive busschleuse",
+"Busschleuse"
+],
+"barrier/cable_barrier":[
+"Spannseil",
+"spannseilsystem",
+"stahldraht",
+"drahtseil",
+"spannseilrückhaltung",
+"leitplanke"
+],
 "barrier/cattle_grid":[
 "viehrost",
 "Weiderost",
@@ -1928,6 +1946,9 @@
 "Leitplanke",
 "leitplanke"
 ],
+"barrier/handrail":[
+"Handlauf"
+],
 "barrier/hedge":[
 "Hecke",
 "hecke"
@@ -1937,6 +1958,19 @@
 "höhenbegrenzungsschranke",
 "durchfahrtshöhenbegrenzer",
 "bauwerk zur einschränkung der durchfahrtshöhe"
+],
+"barrier/jersey_barrier":[
+"betonschutzwand",
+"jersey-barriere",
+"betonschutzwandsystem",
+"fahrbahntrennung",
+"betonschutzelemente",
+"betongleitwand",
+"rückhaltesystem",
+"schutzwand",
+"Jersey-Barriere",
+"schutzelemente",
+"betonleitwand"
 ],
 "barrier/kerb":[
 "bordstein",
@@ -1974,11 +2008,28 @@
 "schranke",
 "schlagbaum"
 ],
+"barrier/log":[
+"Baumstamm"
+],
+"barrier/motorcycle_barrier":[
+"Motorradbarriere",
+"motorradbarriere"
+],
+"barrier/planter":[
+"Pflanzkübel (Hindernis)"
+],
 "barrier/retaining_wall":[
 "stützmauer",
 "spundwand",
 "Stützmauer",
 "stützwand"
+],
+"barrier/rope":[
+"seil",
+"seilsperre",
+"Seilabsperrung",
+"tau",
+"spannseil"
 ],
 "barrier/sally_port":[
 "Sicherheitsschleuse",
@@ -2015,8 +2066,16 @@
 "mautstelle"
 ],
 "barrier/turnstile":[
+"drehsäule",
+"drehsperre",
+"vereinzelungsanlage",
 "drehkreuz",
-"Drehkreuz"
+"drehkreuzsäule",
+"Drehkreuz (halbe Höhe)",
+"haspel",
+"zutrittskontrolle",
+"drehschleuse",
+"zutrittskontrollsystem"
 ],
 "barrier/wall":[
 "mauer",
@@ -2027,6 +2086,16 @@
 "lärmschutzwand",
 "Lärmschutzwand",
 "schallschutzwand"
+],
+"barrier/wicket_gate":[
+"schlupftür",
+"fußgängerpforte",
+"mannsloch",
+"schlupfloch",
+"schlupfpforte",
+"Schlupfpforte",
+"mannpforte",
+"mannloch"
 ],
 "boundary":[
 "Grenze"
@@ -2168,6 +2237,14 @@
 "mehrfachgaragen",
 "garagenblock",
 "Mehrfach-/Blockgaragen"
+],
+"building/ger":[
+"Jurte",
+"rundzelt",
+"jurte",
+"ger",
+"nomadenzelt",
+"kuppelzelt"
 ],
 "building/grandstand":[
 "haupttribüne",
@@ -2542,7 +2619,6 @@
 "craft/metal_construction":[
 "metallplanung",
 "bauschlosser",
-"metalllverarbeitender betrieb",
 "metallbau",
 "zaun- und geländerbau",
 "Metallbetrieb",
@@ -2550,6 +2626,7 @@
 "schlosserei",
 "konstruktionsmechaniker",
 "metallbauer",
+"metallverarbeitender betrieb",
 "bauschlosserei",
 "metalltechnik",
 "schlosser"
@@ -3122,11 +3199,10 @@
 "markierter / gekennzeichneter Übergang",
 "gekennzeichneter übergang"
 ],
-"highway/crossing/signals":[
-"fahrradüberweg (ampel)",
-"fußgängerüberweg (ampel)",
+"highway/crossing/traffic_signals":[
+"fußgängerübergang",
+"radübergang",
 "fußgängerampel",
-"zebrastreifen (ampel)",
 "Kreuzung mit Fußgängerampel"
 ],
 "highway/crossing/uncontrolled":[
@@ -3168,6 +3244,10 @@
 "nicht gekennzeichneter fahrrad-übergang",
 "Nicht gekennzeichneter Fahrrad-Übergang"
 ],
+"highway/cycleway/moped_link-NL":[
+"mopedstraße",
+"Mopedstraße"
+],
 "highway/elevator":[
 "aufzugsanlage",
 "Aufzug",
@@ -3179,6 +3259,11 @@
 "highway/elevator_line":[
 "standseilbahn",
 "Schrägaufzug"
+],
+"highway/emergency_access_point":[
+"Notfall-Zugangspunkt",
+"rettung",
+"notfall"
 ],
 "highway/emergency_bay":[
 "nothaltebucht",
@@ -3210,6 +3295,9 @@
 "highway/footway/crossing":[
 "Fußgängerüberweg (eigener Weg)"
 ],
+"highway/footway/informal":[
+"Trampelpfad"
+],
 "highway/footway/marked":[
 "markierter fußgängerübergang",
 "zebrastreifen",
@@ -3224,11 +3312,10 @@
 "gehweg",
 "fußweg"
 ],
-"highway/footway/signals":[
-"fahrradüberweg (ampel)",
-"fußgängerüberweg (ampel)",
+"highway/footway/traffic_signals":[
+"fußgängerübergang",
+"radübergang",
 "fußgängerampel",
-"zebrastreifen (ampel)",
 "Kreuzung mit Fußgängerampel"
 ],
 "highway/footway/unmarked":[
@@ -3510,6 +3597,10 @@
 "radarkontrolle",
 "Radarfalle",
 "blitzer"
+],
+"highway/speed_display":[
+"radar-geschwindigkeitsanzeige",
+"Radar-Geschwindigkeitsanzeiger"
 ],
 "highway/steps":[
 "Treppe",
@@ -3861,8 +3952,10 @@
 ],
 "landuse/brownfield":[
 "industriebrache",
+"brache",
 "altlast",
-"Brachfläche (innerstädtisch)"
+"brachfläche",
+"Brachfläche (vormals bebaut)"
 ],
 "landuse/cemetery":[
 "Friedhof",
@@ -4344,6 +4437,7 @@
 "reitsportzentrum",
 "Reitanlage",
 "pferdereitstall",
+"pferdesportzentrum",
 "pferdehof",
 "reitsportanlage",
 "reiten",
@@ -4353,6 +4447,7 @@
 "reitstall",
 "reitzentrum",
 "pferdereiteinrichtung",
+"reithof",
 "ponyhof"
 ],
 "leisure/ice_rink":[
@@ -4590,6 +4685,16 @@
 "Softballfeld",
 "softballfeld"
 ],
+"leisure/pitch/table_soccer":[
+"tischkicker",
+"Kickertisch",
+"tischfussballtisch",
+"kickertisch",
+"tischfussball",
+"tischfußball",
+"tischfußballtisch",
+"kicker"
+],
 "leisure/pitch/table_tennis":[
 "ping-pong-platte",
 "tischtennis-tisch",
@@ -4807,6 +4912,11 @@
 "steinhügel",
 "steinmanderl",
 "steinmandl"
+],
+"man_made/carpet_hanger":[
+"Teppichstange",
+"teppichklopfer",
+"teppichreinigung"
 ],
 "man_made/chimney":[
 "Schornstein",
@@ -5054,6 +5164,13 @@
 "gas",
 "wasser",
 "abwasser"
+],
+"man_made/planter":[
+"Pflanzkübel",
+"blumentopf",
+"pflanzbehälter",
+"pflanztopf",
+"blumenkübel"
 ],
 "man_made/pumping_station":[
 "wasserhebewerk",
@@ -7162,6 +7279,25 @@
 "gebrauchtwaren",
 "secondhand"
 ],
+"shop/clothes/suits":[
+"anzüge",
+"sakko",
+"geschäftsanzug",
+"krawatte",
+"nadelstreifanzug",
+"straßenanzug",
+"Anzugsgeschäft",
+"herrenbekleidung",
+"herrenanzug",
+"frack",
+"herrenklamotten",
+"cutaway",
+"ausgehanzug",
+"anzug",
+"smoking",
+"schleife",
+"nadelstreifenanzug"
+],
 "shop/clothes/underwear":[
 "unterwäsche-geschäft",
 "Unterwäsche-Geschäft"
@@ -7178,6 +7314,24 @@
 "braut",
 "bräutigam",
 "Hochzeitskleidungsgeschäft"
+],
+"shop/clothes/workwear":[
+"dienstbekleidung",
+"schutzkleidung",
+"arbeitskleidung",
+"berufskleidung",
+"sicherheitskleidung",
+"blaumann",
+"Geschäft für Berufskleidung",
+"arbeitsbekleidung",
+"schutzbekleidung",
+"sicherheitsschuhe",
+"dienstkleidung",
+"sicherheitsbekleidung",
+"kluft",
+"montur",
+"berufsbekleidung",
+"overall"
 ],
 "shop/coffee":[
 "kaffeegeschäft",
@@ -8044,12 +8198,12 @@
 "Tourismus..."
 ],
 "tourism/alpine_hut":[
-"Bewirtschaftete Schutzhütte",
-"alpenvereinshütte",
+"unterkunft",
 "schutzhütte",
-"schutzhaus",
 "berghütte",
-"hospiz"
+"wildnis-hütte",
+"Berghütte",
+"alpenhütte"
 ],
 "tourism/apartment":[
 "gästeappartement",
@@ -8382,6 +8536,7 @@
 "Geschwindigkeitskontrolle"
 ],
 "type/multipolygon":[
+"multipolygon",
 "Multipolygon"
 ],
 "type/public_transport/stop_area_group":[
@@ -8528,6 +8683,12 @@
 "Stromnetz",
 "stromleitung"
 ],
+"type/route/railway":[
+"kursbuch",
+"bahnstrecke",
+"Kursbuchstrecke",
+"kbs"
+],
 "type/route/road":[
 "straße",
 "Straßennetz",
@@ -8641,9 +8802,6 @@
 "waterway/river":[
 "Fluss",
 "fluss"
-],
-"waterway/riverbank":[
-"Flussfläche"
 ],
 "waterway/sanitary_dump_station":[
 "Schiffstoilettenentsorgungsanlage",

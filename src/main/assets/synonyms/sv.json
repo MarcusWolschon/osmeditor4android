@@ -3029,6 +3029,36 @@
 "Amfiteater",
 "utescen"
 ],
+"amenity/ticket_validator":[
+"biljettregistrering",
+"Biljettkontrollmaskin",
+"biljettspärr",
+"biljett",
+"biljetstämpling",
+"validator",
+"biljettkontroll",
+"kontroll",
+"biljettvalidator",
+"spärr",
+"biljettkontrollmaskin"
+],
+"amenity/toilets":[
+"latrin",
+"avträde",
+"hemlighus",
+"badrum",
+"toa",
+"Toaletter",
+"utedass",
+"wc",
+"dass",
+"w.c.",
+"klosett",
+"toalett",
+"vattenklosett",
+"bajamaja",
+"mugg"
+],
 "amenity/toilets/disposal/flush":[
 "badrum",
 "Vattentoalett",
@@ -3089,6 +3119,15 @@
 "Leksaksbibliotek",
 "leksak",
 "leksaksbibliotek"
+],
+"amenity/trolley_bay":[
+"kundvagnsgarage",
+"Kundvagnsgarage",
+"kundvagnsförvaring",
+"hus för kundvagnar",
+"kundvagn",
+"kundvagnshus",
+"förvaring av kundvagnar"
 ],
 "amenity/university":[
 "college",
@@ -5777,6 +5816,9 @@
 "highway/bus_stop":[
 "Busshållplats"
 ],
+"highway/construction":[
+"Väg under konstruktion"
+],
 "highway/corridor":[
 "inomhus",
 "inomhuskorridor",
@@ -5800,13 +5842,6 @@
 "övergångsställe",
 "gångvägspassage",
 "markerat övergångsställe"
-],
-"highway/crossing/signals":[
-"trafiksignaler för fotgängare",
-"Korsning med trafikljus för fotgängare",
-"övergångsställe (trafiksignal)",
-"trafikljus för fotgängare",
-"cykelöverfart (trafiksignal)"
 ],
 "highway/crossing/uncontrolled":[
 "Markerat övergångsställe"
@@ -7530,6 +7565,19 @@
 "hackerspace",
 "hacklab"
 ],
+"leisure/horse_riding":[
+"ridskola",
+"rida",
+"ryttare",
+"Ridskola",
+"ridhus",
+"ridklubb",
+"ridning",
+"stall",
+"hästridning",
+"häst",
+"häst*"
+],
 "leisure/ice_rink":[
 "hockey",
 "skridsko",
@@ -7724,6 +7772,23 @@
 "Cricketplan",
 "cricketplan",
 "kricketplan"
+],
+"leisure/pitch/equestrian":[
+"ridskola",
+"rida",
+"trav",
+"ridhus",
+"ridklubb",
+"Ridområde",
+"ridning",
+"stall",
+"dressyr",
+"häst",
+"häst*",
+"galopp",
+"ryttare",
+"hästridning",
+"hästhoppning"
 ],
 "leisure/pitch/field_hockey":[
 "landhockey",
@@ -8020,6 +8085,16 @@
 "cykelbana",
 "Tävlingsbana (Cykel)",
 "cykelstig"
+],
+"leisure/track/horse_racing":[
+"kapplöpning",
+"galopp",
+"kapplöpningsbana",
+"trav",
+"Hästkapplöpningsbana",
+"hästkapplöpningsbana",
+"hästkapplöpning",
+"häst"
 ],
 "leisure/track/running":[
 "kapplöpningsbana",
@@ -9332,6 +9407,132 @@
 "kärr",
 "sumpmark"
 ],
+"natural/wetland/bog":[
+"Mosse",
+"våt",
+"blöt",
+"blötmark",
+"mosse",
+"sankmark",
+"träsk",
+"våtmark",
+"kärr"
+],
+"natural/wetland/fen":[
+"Sankmark",
+"våt",
+"blöt",
+"blötmark",
+"mosse",
+"sankmark",
+"träsk",
+"våtmark",
+"grundvatten",
+"kärr"
+],
+"natural/wetland/mangrove":[
+"våt",
+"Mangrove",
+"blöt",
+"blötmark",
+"mosse",
+"sankmark",
+"träsk",
+"våtmark",
+"mangrove",
+"kärr"
+],
+"natural/wetland/marsh":[
+"våt",
+"blöt",
+"blötmark",
+"mosse",
+"sankmark",
+"träsk",
+"våtmark",
+"Kärr",
+"kärr"
+],
+"natural/wetland/reedbed":[
+"våt",
+"säv",
+"vassbädd",
+"blöt",
+"blötmark",
+"mosse",
+"sankmark",
+"träsk",
+"våtmark",
+"vass",
+"kärr",
+"Vassbädd"
+],
+"natural/wetland/saltmarsh":[
+"våt",
+"sälta",
+"blöt",
+"blötmark",
+"mosse",
+"sankmark",
+"träsk",
+"våtmark",
+"Salt våtmark (Sälta)",
+"salt våtmark",
+"kärr"
+],
+"natural/wetland/string_bog":[
+"strängflarkkärr",
+"våt",
+"blöt",
+"blötmark",
+"mosse",
+"sankmark",
+"träsk",
+"våtmark",
+"Strängflarkkärr (Aapamyr)",
+"kärr",
+"aapamyr"
+],
+"natural/wetland/swamp":[
+"våt",
+"blöt",
+"blötmark",
+"mosse",
+"sankmark",
+"träsk",
+"våtmark",
+"Träsk",
+"kärr"
+],
+"natural/wetland/tidalflat":[
+"våt",
+"ebb",
+"blöt",
+"blötmark",
+"träsk",
+"våtmark",
+"tidvattensslätt",
+"flod",
+"Tidvattenslätt",
+"kärr",
+"tidvatten",
+"mosse",
+"sankmark"
+],
+"natural/wetland/wet_meadow":[
+"Våt äng",
+"våt",
+"blöt äng",
+"blöt",
+"blötmark",
+"mosse",
+"sankmark",
+"träsk",
+"våtmark",
+"våt äng",
+"kärr",
+"äng"
+],
 "natural/wood":[
 "vildmark",
 "naturskog",
@@ -9864,6 +10065,9 @@
 "Vattenleverantör",
 "vattenleverantör",
 "vattenbolag"
+],
+"office/yes":[
+"Kontor (ospecificerad typ)"
 ],
 "piste/downhill":[
 "skidor",
@@ -13287,6 +13491,9 @@
 "vinförsäljning",
 "Vinaffär"
 ],
+"shop/yes":[
+"Affär (ospecificerad typ)"
+],
 "telecom":[
 "Telekomobjekt"
 ],
@@ -14063,6 +14270,22 @@
 "stig",
 "vandringsrutt"
 ],
+"type/route/horse":[
+"rida",
+"ridled",
+"ridturism",
+"ridning",
+"hästled",
+"häst",
+"ridväg",
+"hästsport",
+"hästväg",
+"långfärdsridning",
+"ridrutt",
+"Ridled",
+"ridetapp",
+"hästrutt"
+],
 "type/route/light_rail":[
 "tågrutt",
 "smalspårig järnväg",
@@ -14297,9 +14520,6 @@
 "Flod",
 "flod",
 "älv"
-],
-"waterway/riverbank":[
-"Flodbank"
 ],
 "waterway/sanitary_dump_station":[
 "tömningsplats",

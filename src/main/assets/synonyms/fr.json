@@ -1089,6 +1089,7 @@
 ],
 "amenity/internet_cafe":[
 "café internet",
+"internet café",
 "Cybercafé",
 "cybercafé"
 ],
@@ -1886,6 +1887,14 @@
 "compostage",
 "train"
 ],
+"amenity/toilets":[
+"water closed",
+"toilettes",
+"latrines",
+"Toilettes",
+"w.c.",
+"wc"
+],
 "amenity/toilets/disposal/flush":[
 "chasse d'eau",
 "entraînement par liquide",
@@ -1925,6 +1934,10 @@
 "bibliothèque",
 "Ludothèque",
 "jeux"
+],
+"amenity/trolley_bay":[
+"abri à chariots",
+"Abri à chariots"
 ],
 "amenity/university":[
 "college",
@@ -3184,6 +3197,12 @@
 "parc de stationnement couvert",
 "parcages"
 ],
+"building/ger":[
+"abri",
+"Yourte",
+"yourte",
+"tente"
+],
 "building/grandstand":[
 "gradins",
 "stands",
@@ -3960,13 +3979,15 @@
 "évacuation"
 ],
 "entrance/emergency_ward_entrance":[
+"secours",
 "Entrée des urgences",
-"urgences"
+"urgences",
+"entrée"
 ],
 "entrance/main":[
 "principal",
-"frontal",
 "Entrée principale",
+"principale",
 "accès",
 "porte",
 "entrée"
@@ -4168,6 +4189,10 @@
 "highway/bus_stop":[
 "Arrêt de bus"
 ],
+"highway/construction":[
+"route en travaux",
+"Route en travaux"
+],
 "highway/corridor":[
 "Couloir intérieur",
 "corridor intérieur"
@@ -4180,15 +4205,6 @@
 "passage piéton",
 "marquage",
 "Passage piéton marqué"
-],
-"highway/crossing/signals":[
-"piétons",
-"passage",
-"signalisation lumineuse",
-"traversée",
-"Feux piétons",
-"feux",
-"gestion"
 ],
 "highway/crossing/uncontrolled":[
 "Traversée sans feux"
@@ -4271,6 +4287,9 @@
 "highway/footway/crossing":[
 "Passage piéton"
 ],
+"highway/footway/informal":[
+"Chemin piéton informel"
+],
 "highway/footway/marked":[
 "zebra",
 "passage piéton",
@@ -4280,14 +4299,6 @@
 "highway/footway/sidewalk":[
 "trottoir",
 "Trottoir"
-],
-"highway/footway/signals":[
-"piéton",
-"signalisation",
-"passage",
-"traversée",
-"feux",
-"Passage piéton avec feux tricolores"
 ],
 "highway/footway/unmarked":[
 "Passage piéton non marqué",
@@ -4536,12 +4547,8 @@
 "Péage sans barrière"
 ],
 "highway/track":[
-"chemin agricole",
-"route forestière",
-"chemin non entretenu",
-"Piste agricole ou forestière",
-"piste pare-feu",
-"chemin d'exploitation"
+"voie carrossable",
+"Voie carrossable"
 ],
 "highway/traffic_mirror":[
 "Miroir routier",
@@ -4821,9 +4828,10 @@
 "Bassin"
 ],
 "landuse/brownfield":[
-"Friche industrielle",
 "squat",
-"friche industrielle"
+"friche",
+"abandonné",
+"Terrain en friche"
 ],
 "landuse/cemetery":[
 "cimetière",
@@ -4897,10 +4905,10 @@
 "terrain vierge"
 ],
 "landuse/greenhouse_horticulture":[
-"Serre d'horticulture",
 "horticulture",
 "serre d'horticulture",
-"fleurs"
+"fleurs",
+"Terrain d’agriculture sous serres"
 ],
 "landuse/harbour":[
 "port",
@@ -5209,6 +5217,16 @@
 "Tiers-lieu",
 "hackerspace"
 ],
+"leisure/horse_riding":[
+"manège",
+"cercle hippique",
+"centre équestre",
+"club hippique",
+"centre hippique",
+"poney-club",
+"Centre équestre",
+"centre d'équitation"
+],
 "leisure/ice_rink":[
 "patinoire",
 "Patinoire"
@@ -5318,6 +5336,17 @@
 "Terrain de cricket",
 "terrain de cricket"
 ],
+"leisure/pitch/equestrian":[
+"terrain d'équitation",
+"aire d'équitation",
+"aire de saut d'obstacles",
+"Terrain d'équitation",
+"aire de dressage",
+"cheval",
+"chevaux",
+"entraînement",
+"saut d'obstacles"
+],
 "leisure/pitch/field_hockey":[
 "Terrain de hockey sur gazon"
 ],
@@ -5347,6 +5376,12 @@
 "court de netball",
 "Court de netball",
 "netball"
+],
+"leisure/pitch/padel":[
+"Court de padel",
+"terrain de padel",
+"padel",
+"court de padel"
 ],
 "leisure/pitch/paintball":[
 "airsoft",
@@ -5405,6 +5440,12 @@
 "terrain de softball",
 "Terrain de softball"
 ],
+"leisure/pitch/table_soccer":[
+"football de table",
+"babyfoot",
+"Baby-foot",
+"baby-foot"
+],
 "leisure/pitch/table_tennis":[
 "ping-pong",
 "tennis de table",
@@ -5414,6 +5455,12 @@
 "Court de tennis",
 "court de tennis",
 "terrain de tennis"
+],
+"leisure/pitch/tetherball":[
+"terrain de netball",
+"court de netball",
+"Court de netball",
+"netball"
 ],
 "leisure/pitch/volleyball":[
 "terrain de volleyball",
@@ -5530,6 +5577,16 @@
 "vélodrome",
 "Piste de cyclisme"
 ],
+"leisure/track/horse_racing":[
+"pari sportif",
+"équestre",
+"Piste de courses hippiques",
+"piste de course",
+"course hippique",
+"cheval",
+"chevaux",
+"hippique"
+],
 "leisure/track/running":[
 "course à pied",
 "piste de course à pied",
@@ -5593,6 +5650,12 @@
 "tas de cailloux",
 "Cairn",
 "pile de cailloux"
+],
+"man_made/carpet_hanger":[
+"Cintre à tapis",
+"râtelier à tapis",
+"support de tapis",
+"cintre à tapis"
 ],
 "man_made/chimney":[
 "cheminée",
@@ -5781,6 +5844,10 @@
 "tour",
 "télévision",
 "Mât de télédiffusion"
+],
+"man_made/mast/lighting":[
+"Paratonnerre",
+"mât de paratonnerre"
 ],
 "man_made/mineshaft":[
 "mine",
@@ -6117,9 +6184,11 @@
 "érosion"
 ],
 "natural/cave_entrance":[
+"caverne",
 "abri sous roche",
 "grotte",
-"Entrée de caverne"
+"Entrée de caverne",
+"entrée"
 ],
 "natural/cliff":[
 "Falaise",
@@ -6762,10 +6831,11 @@
 "Lieu-dit non habité"
 ],
 "place/neighbourhood":[
-"Voisinage",
 "environs",
 "voisinage",
-"quartier"
+"cité",
+"quartier",
+"Quartier de voisinage"
 ],
 "place/plot":[
 "terrains",
@@ -6831,6 +6901,10 @@
 "Jeu gonflable",
 "trampoline à air",
 "trampoline"
+],
+"playground/hopscotch":[
+"Marelle",
+"marelle"
 ],
 "playground/horizontal_bar":[
 "Barre fixe pour enfants",
@@ -7907,6 +7981,18 @@
 "vêtements",
 "deuxième main"
 ],
+"shop/clothes/suits":[
+"sur-mesure",
+"vêtement",
+"nœud papillon",
+"homme",
+"cravatte",
+"Magasin de costumes",
+"smoking",
+"noeud papillon",
+"magasin",
+"costume"
+],
 "shop/clothes/underwear":[
 "magasin de sous-vêtements",
 "lingerie",
@@ -7924,6 +8010,16 @@
 "mariee",
 "Magasin de vêtements de mariage",
 "mariée"
+],
+"shop/clothes/workwear":[
+"Magasin de vêtements de travail",
+"vêtement",
+"blouse",
+"uniforme",
+"protection",
+"magasin",
+"sécurité",
+"tablier"
 ],
 "shop/coffee":[
 "Boutique de vente de cafés",
@@ -8127,9 +8223,8 @@
 "carburant"
 ],
 "shop/funeral_directors":[
-"funérarium",
-"maison funéraire",
-"Funérarium"
+"services d’arrangements funéraires",
+"Pompes funèbres"
 ],
 "shop/furniture":[
 "magasin de meubles",
@@ -8531,7 +8626,7 @@
 "papeterie"
 ],
 "shop/storage_rental":[
-"Location de stockage - Ne pas utiliser",
+"Location de stockage",
 "location de stockage - ne pas utiliser"
 ],
 "shop/supermarket":[
@@ -8711,8 +8806,9 @@
 ],
 "tourism/alpine_hut":[
 "cabane",
-"Refuge de montagne",
-"refuge de montagne"
+"abri",
+"refuge",
+"Refuge de montagne"
 ],
 "tourism/apartment":[
 "Location de vacances",
@@ -9046,6 +9142,8 @@
 "vitesse"
 ],
 "type/multipolygon":[
+"surface complexe",
+"multipolygone",
 "Multipolygone"
 ],
 "type/public_transport/stop_area_group":[
@@ -9138,6 +9236,14 @@
 "Itinéraire de randonnée",
 "sentier pédestre"
 ],
+"type/route/horse":[
+"parcours équestre",
+"trajet équestre",
+"piste équestre",
+"Itinéraire équestre",
+"chemin équestre",
+"piste cavalière"
+],
 "type/route/light_rail":[
 "Itinéraire de métro léger",
 "itinéraire de métro léger"
@@ -9175,6 +9281,13 @@
 "Itinéraire électrique",
 "ligne électrique"
 ],
+"type/route/railway":[
+"ligne",
+"ferroviaire",
+"Ligne de chemin de fer",
+"chemin de fer",
+"voies ferrées"
+],
 "type/route/road":[
 "route",
 "rue",
@@ -9187,8 +9300,9 @@
 "Itinéraire de Métro"
 ],
 "type/route/train":[
-"voie ferrée",
-"chemin de fer",
+"service ferroviaire",
+"itinéraire ferroviaire",
+"trajet ferroviaire",
 "Itinéraire ferroviaire"
 ],
 "type/route/tram":[
@@ -9273,9 +9387,6 @@
 "waterway/river":[
 "rivière",
 "Rivière"
-],
-"waterway/riverbank":[
-"Berge"
 ],
 "waterway/sanitary_dump_station":[
 "Station de vidange sanitaire marine",

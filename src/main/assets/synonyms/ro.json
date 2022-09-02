@@ -1179,9 +1179,6 @@
 "shop/wine":[
 "Magazin de Vinuri"
 ],
-"tourism/alpine_hut":[
-"Cabană"
-],
 "tourism/apartment":[
 "Apartament de Închiriat"
 ],
@@ -1310,9 +1307,6 @@
 ],
 "waterway/river":[
 "Râu"
-],
-"waterway/riverbank":[
-"Mal"
 ],
 "waterway/stream":[
 "q",

@@ -293,6 +293,9 @@
 "amenity/post_office":[
 "Post Office"
 ],
+"amenity/prep_school":[
+"Exam Preparation"
+],
 "amenity/prison":[
 "Prison Grounds"
 ],
@@ -311,8 +314,14 @@
 "amenity/recycling_centre":[
 "Recycling Centre"
 ],
+"amenity/recycling_container":[
+"Recycling Bin"
+],
 "amenity/restaurant":[
 "Restaurant"
+],
+"amenity/restaurant/american":[
+"American Restaurant"
 ],
 "amenity/sanitary_dump_station":[
 "RV Toilet Disposal"
@@ -359,11 +368,23 @@
 "amenity/theatre":[
 "Theatre"
 ],
+"amenity/toilets":[
+"Toilets"
+],
+"amenity/toilets/portable":[
+"Portable Toilet"
+],
 "amenity/townhall":[
 "Town Hall"
 ],
+"amenity/trolley_bay":[
+"Trolley Bay"
+],
 "amenity/university":[
 "University Grounds"
+],
+"amenity/vacuum_cleaner":[
+"Car Hoover Service"
 ],
 "amenity/vehicle_inspection":[
 "car inspection",
@@ -391,8 +412,26 @@
 "amenity/vending_machine/elongated_coin":[
 "Elongated Coin Vending Machine"
 ],
+"amenity/vending_machine/excrement_bags":[
+"excrement bags",
+"waste",
+"poo",
+"poop",
+"animal",
+"Poo Bag Dispenser",
+"dog",
+"pet"
+],
 "amenity/vending_machine/feminine_hygiene":[
-"Feminine Hygiene Vending Machine"
+"pad",
+"tampon",
+"woman",
+"personal care",
+"rubber",
+"Feminine Hygiene Vending Machine",
+"menstrual hygiene products",
+"condom",
+"women"
 ],
 "amenity/vending_machine/food":[
 "Food Vending Machine"
@@ -544,6 +583,11 @@
 "building":[
 "Building"
 ],
+"building/apartments":[
+"flats",
+"flat building",
+"Block of Flats"
+],
 "building/barn":[
 "Barn"
 ],
@@ -622,6 +666,9 @@
 "building/industrial":[
 "Industrial Building"
 ],
+"building/kindergarten":[
+"Nursery School Building"
+],
 "building/mosque":[
 "Mosque Building"
 ],
@@ -679,6 +726,13 @@
 "club":[
 "Club"
 ],
+"club/sport":[
+"sports association",
+"sport club",
+"sporting club",
+"athletics club",
+"sports society"
+],
 "craft":[
 "Craft"
 ],
@@ -711,6 +765,9 @@
 ],
 "craft/chimney_sweeper":[
 "Chimney Sweeper"
+],
+"craft/cleaning":[
+"Cleaner"
 ],
 "craft/clockmaker":[
 "Clockmaker"
@@ -940,6 +997,9 @@
 "highway/elevator":[
 "Lift"
 ],
+"highway/elevator_line":[
+"Inclined Lift"
+],
 "highway/footway":[
 "Foot Path"
 ],
@@ -1041,9 +1101,6 @@
 ],
 "highway/tertiary_link":[
 "Tertiary Link"
-],
-"highway/track":[
-"Track"
 ],
 "highway/traffic_mirror":[
 "Traffic Mirror"
@@ -1185,6 +1242,9 @@
 ],
 "landuse/residential":[
 "Residential Area"
+],
+"landuse/residential/apartments":[
+"Flat Complex"
 ],
 "landuse/retail":[
 "Retail Area"
@@ -1745,7 +1805,7 @@
 "Locality"
 ],
 "place/neighbourhood":[
-"Neighborhood"
+"Neighbourhood"
 ],
 "place/plot":[
 "Plot"
@@ -1815,6 +1875,19 @@
 ],
 "power/transformer":[
 "Transformer"
+],
+"public_transport/platform/subway":[
+"tube",
+"subway",
+"public transit",
+"underground",
+"metro",
+"transit",
+"rail",
+"track",
+"platform",
+"public transportation",
+"transportation"
 ],
 "public_transport/station":[
 "Transit Station"
@@ -2268,7 +2341,7 @@
 "Vacant Shop"
 ],
 "shop/vacuum_cleaner":[
-"Vacuum Cleaner Shop"
+"Hoover Shop"
 ],
 "shop/variety_store":[
 "Variety Store"
@@ -2296,9 +2369,6 @@
 ],
 "shop/wine":[
 "Wine Shop"
-],
-"tourism/alpine_hut":[
-"Alpine Hut"
 ],
 "tourism/apartment":[
 "Guest Apartment / Condo"
@@ -2500,9 +2570,6 @@
 ],
 "waterway/river":[
 "River"
-],
-"waterway/riverbank":[
-"Riverbank"
 ],
 "waterway/sanitary_dump_station":[
 "Marine Toilet Disposal"

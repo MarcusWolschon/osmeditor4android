@@ -1,6 +1,6 @@
 {
 "address":[
-"Helbide"
+"Helbidea"
 ],
 "advertising/column":[
 "Publizitaterako zutabea"
@@ -333,10 +333,19 @@
 "Egunkarien makina saltzaile"
 ],
 "amenity/veterinary":[
-"Albaitari"
+"albaitari",
+"Albaitari",
+"maskoten ospitale",
+"maskoten klinika",
+"animali klinika",
+"albaitaritza",
+"albaitari klinika"
 ],
 "area":[
 "Gune"
+],
+"area/footway":[
+"Oinezkoen eremua"
 ],
 "attraction/carousel":[
 "Zaldiko-maldiko"
@@ -365,6 +374,9 @@
 "building/house":[
 "Etxe"
 ],
+"building/residential":[
+"Bizitegi-eraikina"
+],
 "building/roof":[
 "Teilatu"
 ],
@@ -384,7 +396,10 @@
 "Margolari"
 ],
 "craft/photographer":[
-"Argazkilari"
+"Argazkilari",
+"argazkilari",
+"argazki-denda",
+"argazkilaritza-denda"
 ],
 "craft/photographic_laboratory":[
 "Argazki laborategi"
@@ -394,6 +409,36 @@
 ],
 "craft/rigger":[
 "Aparejadore"
+],
+"highway/cycleway/bicycle_foot":[
+"Bizikleta eta oinezko-bidea"
+],
+"highway/cycleway/crossing/bicycle_foot":[
+"Bizikleta eta oinezkoen pasabidea"
+],
+"highway/footway":[
+"Oinezkoen bidea"
+],
+"highway/footway/informal":[
+"Oinezkoen bide informala"
+],
+"highway/residential":[
+"Bizitegi-kalea"
+],
+"highway/service/driveway":[
+"Sarrera-bidea"
+],
+"highway/steps":[
+"Eskailerak"
+],
+"historic/monument":[
+"Monumentua"
+],
+"historic/pillory":[
+"Urkabe historikoa"
+],
+"landuse/residential":[
+"Bizitegi-eremua"
 ],
 "leisure/pitch/table_tennis":[
 "ping-pong mahai"
@@ -448,5 +493,22 @@
 ],
 "natural/spring":[
 "Iturburua"
+],
+"office/architect":[
+"arkitektura bulegoa",
+"arkitekto bulegoa",
+"Arkitektura bulegoa"
+],
+"shop/hairdresser":[
+"Ile-apaintzailea"
+],
+"shop/hairdresser_supply":[
+"Ile-apaindegiko hornidura-denda"
+],
+"shop/photo":[
+"Argazkilaritza denda"
+],
+"shop/vacant":[
+"Denda-lokal hutsa"
 ]
 }
