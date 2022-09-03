@@ -32,13 +32,17 @@ public class ValidatorRulesDatabaseHelper extends SQLiteOpenHelper {
 
             db.execSQL(
                     "CREATE TABLE resurveytags (ruleset INTEGER, key TEXT, value TEXT DEFAULT NULL, is_regexp INTEGER DEFAULT 0, days INTEGER DEFAULT 365, FOREIGN KEY(ruleset) REFERENCES rulesets(id))");
-            ValidatorRulesDatabase.addResurvey(db, ValidatorRulesDatabase.DEFAULT_RULESET, Tags.KEY_SHOP, null, false, 365);
+            ValidatorRulesDatabase.addResurvey(db, ValidatorRulesDatabase.DEFAULT_RULESET, Tags.KEY_SHOP, null, false, ONE_YEAR);
             ValidatorRulesDatabase.addResurvey(db, ValidatorRulesDatabase.DEFAULT_RULESET, Tags.KEY_AMENITY, Tags.VALUE_RESTAURANT, false, ONE_YEAR);
             ValidatorRulesDatabase.addResurvey(db, ValidatorRulesDatabase.DEFAULT_RULESET, Tags.KEY_AMENITY, Tags.VALUE_FAST_FOOD, false, ONE_YEAR);
             ValidatorRulesDatabase.addResurvey(db, ValidatorRulesDatabase.DEFAULT_RULESET, Tags.KEY_AMENITY, Tags.VALUE_CAFE, false, ONE_YEAR);
             ValidatorRulesDatabase.addResurvey(db, ValidatorRulesDatabase.DEFAULT_RULESET, Tags.KEY_AMENITY, Tags.VALUE_PUB, false, ONE_YEAR);
             ValidatorRulesDatabase.addResurvey(db, ValidatorRulesDatabase.DEFAULT_RULESET, Tags.KEY_AMENITY, Tags.VALUE_BAR, false, ONE_YEAR);
             ValidatorRulesDatabase.addResurvey(db, ValidatorRulesDatabase.DEFAULT_RULESET, Tags.KEY_AMENITY, Tags.VALUE_TOILETS, false, ONE_YEAR);
+            ValidatorRulesDatabase.addResurvey(db, ValidatorRulesDatabase.DEFAULT_RULESET, Tags.KEY_LANDUSE, Tags.VALUE_CONSTRUCTION, false, ONE_YEAR);
+            ValidatorRulesDatabase.addResurvey(db, ValidatorRulesDatabase.DEFAULT_RULESET, Tags.KEY_HIGHWAY, Tags.VALUE_CONSTRUCTION, false, ONE_YEAR);
+            ValidatorRulesDatabase.addResurvey(db, ValidatorRulesDatabase.DEFAULT_RULESET, Tags.KEY_RAILWAY, Tags.VALUE_CONSTRUCTION, false, ONE_YEAR);
+            ValidatorRulesDatabase.addResurvey(db, ValidatorRulesDatabase.DEFAULT_RULESET, Tags.KEY_BUILDING, Tags.VALUE_CONSTRUCTION, false, ONE_YEAR);
 
             db.execSQL("CREATE TABLE checktags (ruleset INTEGER, key TEXT, optional INTEGER DEFAULT 0, FOREIGN KEY(ruleset) REFERENCES rulesets(id))");
             ValidatorRulesDatabase.addCheck(db, ValidatorRulesDatabase.DEFAULT_RULESET, Tags.KEY_OPENING_HOURS, false);

@@ -159,11 +159,12 @@ public final class Tags {
     public static final String KEY_WATERWAY         = "waterway";
     public static final String VALUE_RIVERBANK      = "riverbank";
 
-    public static final String KEY_LANDUSE     = "landuse";
-    public static final String KEY_NATURAL     = "natural";
-    public static final String VALUE_CLIFF     = "cliff";
-    public static final String VALUE_COASTLINE = "coastline";
-    public static final String KEY_PLACE       = "place";
+    public static final String KEY_LANDUSE        = "landuse";
+    public static final String VALUE_CONSTRUCTION = "construction";
+    public static final String KEY_NATURAL        = "natural";
+    public static final String VALUE_CLIFF        = "cliff";
+    public static final String VALUE_COASTLINE    = "coastline";
+    public static final String KEY_PLACE          = "place";
 
     public static final String KEY_OPERATOR        = "operator";
     public static final String KEY_BRAND           = "brand";
