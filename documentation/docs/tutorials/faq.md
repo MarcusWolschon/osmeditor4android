@@ -62,7 +62,6 @@ The user interface is currently available in: English, German, Chinese (Taiwan),
 
 We also have partial translations for a number of other languages (please see link to Transifex below for the current status). If the translation for your language is incomplete or missing, please feel free to request the language on Transifex and start translating. Any help in this area would be gratefully received. Please see [Vespucci's Transifex page](https://www.transifex.com/projects/p/vespucci/) to help.
 
-
 #### What is the status of Vespucci development?
 
 We typically provide monthly updates to the released version (bug fixes and updated presets and imagery configurations), minor releases roughly every quarter and major release once to twice a year.
@@ -99,7 +98,7 @@ If you have a third party build of Vespucci installed (for example from F-Droid)
    * sending feedback to us via Github,
    * and numerous background layers, for example Bing aerial imagery
    
-will not be available.
+will not be available. If you obtain your own keys, you can install them via the _Load keys from file..._ mechanism.
 
 #### Removing the Bing imagery layer
 
@@ -130,7 +129,6 @@ Note: OAuth will work for both the OSMF-operated standard API and the developmen
  * Use the pinch-to-zoom multi-touch gesture.
  * Use the on-screen zoom controls.
  * Use the volume buttons of your Android device.
-
 
 #### How can I add a custom (aerial/satellite) imagery layer
 

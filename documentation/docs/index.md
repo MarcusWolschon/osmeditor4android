@@ -14,13 +14,12 @@ Vespucci is the first [OpenStreetMap](//openstreetmap.org) editor for Android, c
 
 Editing is supported by rich, extensible and searchable presets based on the JOSM system, compatible 3rd party presets can be downloaded directly to your device. Fast "on the go" surveying is easy with address prediction and name based point-of-interest creation.
 
-Vespucci has been tested and is known to work on a wide range of devices, from small phones, tablets to more exotic or unusual hardware, for example on an Amazon Fire TV Stick. Vespucci currently works on all Android versions since 4.0 ([access to openstreetmap.org requires at least Android 4.1](tutorials/faq/#cant-re-authenticate-tls-10-11-issues)). It can also be used in a Google-free environment.
+Vespucci has been tested and is known to work on a wide range of devices, from small phones, tablets to more exotic or unusual hardware, for example on an Amazon Fire TV Stick. Vespucci currently works on all Android versions since 4.1. It can be used in a Google-free environment.
 
 #### Obtaining Vespucci:
 
  * From [Google's Play Store](https://play.google.com/store/apps/details?id=de.blau.android) and from [Amazon](http://www.amazon.com/Simon-Poole-vespucci/dp/B00P71C3AW/ref=sr_1_1?s=mobile-apps&ie=UTF8&qid=1447617332&sr=1-1&keywords=vespucci)
  * Release and beta APKs from our [GitHub repository](https://github.com/MarcusWolschon/osmeditor4android/releases)
- * Recently built potentially unstable APKs from [Google Drive](https://drive.google.com/folderview?id=0B9pKLmh8s1h8bFI5bGd4VnhYWkk&usp=sharing)
  * [Source code and repository on GitHub](https://github.com/MarcusWolschon/osmeditor4android)
 
 #### Vespucci on Social Media
