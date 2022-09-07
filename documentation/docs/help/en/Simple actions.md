@@ -4,7 +4,7 @@ Simple action mode replaces the [long click action](../en/Creating%20new%20objec
 
 The mode can be toggled on and off via an item in the main menu. 
 
-Tapping the large green floating button will show a menu. After you've select one of the items, you will be asked to tap the screen at the location where you want  to create the object, pan and zoom continues to work. 
+Tapping the large green floating button with a "+" mark will show a menu. After you've select one of the items, you will be asked to tap the screen at the location where you want  to create the object, pan and zoom continues to work. 
 
 Available actions depend on the current active overall mode:
 
