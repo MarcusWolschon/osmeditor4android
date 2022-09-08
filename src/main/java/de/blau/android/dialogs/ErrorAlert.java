@@ -147,6 +147,8 @@ public class ErrorAlert extends ImmersiveDialogFragment {
             return "applying_osc_failed";
         case ErrorCodes.CORRUPTED_DATA:
             return "alert_corrupt_data";
+        case ErrorCodes.DUPLICATE_TAG_KEY:
+            return "alert_duplicate_tag_key";
         default:
             // nothing
         }
@@ -207,6 +209,8 @@ public class ErrorAlert extends ImmersiveDialogFragment {
             return createNewInstance(R.string.applying_osc_failed_title, R.string.applying_osc_failed_message, msg);
         case ErrorCodes.CORRUPTED_DATA:
             return createNewInstance(R.string.corrupted_data_title, R.string.corrupted_data_message, msg);
+        case ErrorCodes.DUPLICATE_TAG_KEY:
+            return createNewInstance(R.string.duplicate_tag_key_title, R.string.duplicate_tag_key_message, msg);
         default:
             // ignore
         }

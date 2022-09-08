@@ -47,6 +47,7 @@ import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
 import de.blau.android.address.Address;
+import de.blau.android.exception.DuplicateKeyException;
 import de.blau.android.exception.UiStateException;
 import de.blau.android.nsi.Names;
 import de.blau.android.nsi.Names.NameAndTags;
@@ -325,7 +326,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
 
         // Add any extra tags that were supplied
         @SuppressWarnings("unchecked")
-        HashMap<String, String> extraTags = (HashMap<String, String>) getArguments().getSerializable(EXTRA_TAGS_KEY);
+        Map<String, String> extraTags = (HashMap<String, String>) getArguments().getSerializable(EXTRA_TAGS_KEY);
         if (extraTags != null) {
             for (Entry<String, String> e : extraTags.entrySet()) {
                 addTag(editRowLayout, e.getKey(), e.getValue(), true, false);
@@ -2019,14 +2020,18 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 boolean valueBlank = "".equals(value);
                 boolean bothBlank = keyBlank && valueBlank;
                 boolean neitherBlank = !keyBlank && !valueBlank;
-                if (!bothBlank) {
-                    // both blank is never acceptable
-                    if (neitherBlank || allowBlanks || (valueBlank && tagValues != null && !tagValues.isEmpty())) {
+                // both blank is never acceptable
+                if (!bothBlank && (neitherBlank || allowBlanks || (valueBlank && tagValues != null && !tagValues.isEmpty()))) {
+                    List<String> existing = tags.get(key);
+                    boolean existingIsEmpty = existing == null || (existing.size() == 1 && "".equals(existing.get(0)));
+                    if (existingIsEmpty) {
                         if (valueBlank) {
                             tags.put(key, tagValues.size() == 1 ? Util.wrapInList("") : tagValues);
                         } else {
                             tags.put(key, Util.wrapInList(value));
                         }
+                    } else {
+                        Log.e(DEBUG_TAG, "Attempt to overwrite existing non-empty value");
                     }
                 }
             });
@@ -2062,48 +2067,46 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         final LinkedHashMap<String, String> tags = new LinkedHashMap<>();
         if (rowLayout == null && savedTags != null) {
             for (Entry<String, List<String>> entry : savedTags.entrySet()) {
-                String key = entry.getKey().trim();
-                List<String> tagValues = entry.getValue();
-                String value = tagValues != null && !tagValues.isEmpty() ? (tagValues.get(0) != null ? tagValues.get(0) : "") : "";
-                boolean valueBlank = "".equals(value);
-                boolean bothBlank = "".equals(key) && valueBlank;
-                boolean neitherBlank = !"".equals(key) && !valueBlank;
-                if (!bothBlank) {
-                    // both blank is never acceptable
-                    if (neitherBlank || allowBlanks || valueBlank) {
-                        if (valueBlank) {
-                            // FIXME if multi-select
-                            tags.put(key, tagValues == null || tagValues.size() == 1 ? "" : tagValues.get(0));
-                        } else {
-                            tags.put(key, value);
-                        }
-                    }
-                }
+                getSingleTag(entry.getKey().trim(), "", entry.getValue(), tags, allowBlanks);
             }
         }
         if (rowLayout != null) {
             processKeyValues(rowLayout, (keyEdit, valueEdit, tagValues) -> {
                 String key = keyEdit.getText().toString().trim();
                 String value = valueEdit.getText().toString().trim();
-                boolean valueBlank = "".equals(value);
-                boolean bothBlank = "".equals(key) && valueBlank;
-                boolean neitherBlank = !"".equals(key) && !valueBlank;
-                if (!bothBlank) {
-                    // both blank is never acceptable
-                    boolean hasValues = tagValues != null && !tagValues.isEmpty();
-                    if (neitherBlank || allowBlanks || (valueBlank && hasValues)) {
-                        if (valueBlank) {
-                            tags.put(key, "");
-                        } else {
-                            tags.put(key, value);
-                        }
-                    }
-                }
+                getSingleTag(key, value, tagValues, tags, allowBlanks);
             });
         } else {
             Log.e(DEBUG_TAG, "rowLayout null in getKeyValueMapSingle");
         }
         return tags;
+    }
+
+    /**
+     * Add a single tag to tags checking for blanks and existing keys
+     * 
+     * @param key the tag key
+     * @param value the tag value
+     * @param tagValues if multiple values are present this will contain them
+     * @param tags a map containing the values we need
+     * @param allowBlanks allow either a blank key or value
+     */
+    private void getSingleTag(@NonNull String key, @NonNull String value, @Nullable List<String> tagValues, @NonNull final LinkedHashMap<String, String> tags,
+            final boolean allowBlanks) {
+        boolean hasValues = tagValues != null && !tagValues.isEmpty();
+        value = "".equals(value) && hasValues && tagValues.get(0) != null ? tagValues.get(0) : value;
+        boolean valueBlank = "".equals(value);
+        boolean bothBlank = "".equals(key) && valueBlank;
+        boolean neitherBlank = !"".equals(key) && !valueBlank;
+        if (!bothBlank && (neitherBlank || allowBlanks || (valueBlank && hasValues))) {
+            String existing = tags.get(key);
+            boolean existingIsEmpty = existing == null || "".equals(existing);
+            if (existingIsEmpty) {
+                tags.put(key, value);
+            } else {
+                Log.e(DEBUG_TAG, "Attempt to overwrite existing non-empty value");
+            }
+        }
     }
 
     /**
@@ -2277,6 +2280,21 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             Log.d(DEBUG_TAG, "got null view in getView");
             throw new UiStateException("got null view in getView");
         }
+    }
+
+    /**
+     * Check for any issues in the tags, throw an exception if there is
+     */
+    public void validate() {
+        List<String> keys = new ArrayList<>();
+        processKeyValues((LinearLayout) getOurView(), (keyEdit, valueEdit, tagValues) -> {
+            String key = keyEdit.getText().toString().trim();
+            String value = valueEdit.getText().toString().trim();
+            if (keys.contains(key) && !"".equals(value) && tagValues.isEmpty()) {
+                throw new DuplicateKeyException(key);
+            }
+            keys.add(key);
+        });
     }
 
     /**
