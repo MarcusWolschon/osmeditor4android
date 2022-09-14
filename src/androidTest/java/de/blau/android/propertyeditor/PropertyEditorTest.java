@@ -230,6 +230,70 @@ public class PropertyEditorTest {
     }
 
     /**
+     * Check that we moan if a duplicate key is added
+     */
+    @Test
+    public void duplicateKey() {
+        Logic logic = App.getLogic();
+        Map map = main.getMap();
+        logic.setZoom(map, 20);
+
+        logic.setSelectedWay(null);
+        logic.setSelectedNode(null);
+        logic.setSelectedRelation(null);
+        try {
+            logic.performAdd(main, 1000.0f, 0.0f);
+        } catch (OsmIllegalOperationException e1) {
+            fail(e1.getMessage());
+        }
+
+        Node n = logic.getSelectedNode();
+        assertNotNull(n);
+
+        main.performTagEdit(n, null, false, false);
+        waitForPropertyEditor();
+        TestUtils.clickText(device, true, main.getString(R.string.tag_details), false, false);
+        device.wait(Until.findObject(By.clickable(true).res(device.getCurrentPackageName() + ":id/editKey")), 500);
+        UiObject editText = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/editKey"));
+        try {
+            editText.setText("key");
+        } catch (UiObjectNotFoundException e) {
+            fail(e.getMessage());
+        }
+        editText = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/editValue"));
+        try {
+            editText.setText("value");
+        } catch (UiObjectNotFoundException e) {
+            fail(e.getMessage());
+        }
+
+        editText = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/editKey").instance(1));
+        try {
+            editText.setText("key");
+        } catch (UiObjectNotFoundException e) {
+            fail(e.getMessage());
+        }
+        editText = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/editValue").instance(1));
+        try {
+            editText.setText("value2");
+        } catch (UiObjectNotFoundException e) {
+            fail(e.getMessage());
+        }
+
+        TestUtils.clickHome(device, true);
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.duplicate_tag_key_title)));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.okay), true));
+        try {
+            editText.setText("");
+        } catch (UiObjectNotFoundException e) {
+            fail(e.getMessage());
+        }
+        TestUtils.clickHome(device, true);
+        assertTrue(n.hasTag("key", "value"));
+
+    }
+
+    /**
      * Select an untagged node, then - apply restaurant preset - set cuisine and opening_hours
      */
     @Test
@@ -739,7 +803,7 @@ public class PropertyEditorTest {
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.delete), true));
         assertEquals(OsmElement.STATE_DELETED, r.getState());
     }
-    
+
     /**
      * Select a relation and check that the membership tab doesn't allow adding to itself
      */
