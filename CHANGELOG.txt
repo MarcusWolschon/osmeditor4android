@@ -1,5 +1,13 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+18.0.1:
+
+- Fix invalidate menu after closing all tasks
+- Fix improve handling of duplicate keys in the tag editor
+- Fix avoid CME downloading MapRoulette challenges
+- Update translations
+- Update imagery from ELI
+
 18.0.0:
 
 - Fix workaround limited width of imagery selection modal in landscape mode (accessibility issue) 
