@@ -17254,7 +17254,7 @@ msgstr "قطب"
 #: master_preset.xml:1064(combo:text|key:support)
 msgctxt "mounting/support"
 msgid "Support"
-msgstr ""
+msgstr "نگهدارنده"
 
 #: master_preset.xml:1064(combo:display_values|key:support)
 msgctxt "mounting/support"

@@ -133,6 +133,7 @@
   <string name="maproulette_task_apikey_set">MapRoulette API-sleutel opgeslagen</string>
   <string name="maproulette_task_no_apikey">Geen MapRoulette API-sleutel</string>
   <!--Todo dialogs-->
+  <string name="todo_comment_legend">Opmerking</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Let op!</string>
   <string name="unsaved_data_message">Je niet opgeslagen wijzigingen worden verworpen als je verder gaat.</string>
@@ -475,6 +476,7 @@
   <string name="toast_invalid_preseturl">Ongeldige voorkeuze URL</string>
   <string name="toast_invalid_filter_regexp">Ongeldige reguliere expressie in filter met sleutel=\"%1$s\" waarde=\"%2$s\"</string>
   <string name="toast_error_accessing_photo">Geen toegang tot foto %1$s</string>
+  <string name="toast_no_photo_found">Geen foto gevonden</string>
   <string name="toast_security_error_accessing_photo">Niet toegestaan om foto %1$s te laden</string>
   <string name="toast_no_voice_recognition">Spraakherkenning faciliteiten ontbreken</string>
   <string name="toast_no_coverage">%1$s heeft geen dekking hier</string>
@@ -582,6 +584,8 @@
   <string name="download">Download</string>
   <string name="ignore">Negeren</string>
   <string name="select">Selecteren</string>
+  <string name="skip">Overslaan</string>
+  <string name="more_information">Meer informatie</string>
   <!--Read a file-->
   <string name="read">Lezen</string>
   <string name="overwrite">Overschrijven</string>
@@ -847,6 +851,7 @@
   <string name="menu_tags">Eigenschappen</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">Geschiedenis</string>
+  <string name="menu_history_web">Geschiedenis (Web)</string>
   <string name="menu_merge">Voeg samen</string>
   <string name="menu_reverse">Keer om</string>
   <string name="notreversable_description">Deze weg is onomkeerbaar omdat het is getagged met richtingsafhankelijke attributen. Omkeren zou de tagging kapot maken.</string>
@@ -1098,6 +1103,9 @@
   <string name="config_tileCache_current">%1$d MB</string>
   <string name="config_mapillaryCacheSize_title">Mapillary opslaggrootte</string>
   <!--Auto-save-->
+  <string name="config_autosaveSaveChanges_title">Sla aanpassingen op</string>
+  <string name="config_autosaveChanges_current">%1$d</string>
+  <string name="config_autosaveMaxFiles_current">%1$d</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">Overig</string>
   <string name="pref_enable_acra">Rapporteer app crashes</string>
@@ -1235,6 +1243,7 @@
   <string name="bridge">Brug</string>
   <string name="tunnel">Tunnel</string>
   <string name="culvert">Duiker</string>
+  <string name="steps">Trap</string>
   <!--Issues-->
   <string name="issue_not_reversable">Tags zijn niet omkeerbaar</string>
   <string name="issue_shared_node">Gedeeld met andere weg</string>
@@ -1280,8 +1289,13 @@
   <string name="gotobookmark">Gaan</string>
   <string name="bookmarkstitle">Bladwijzers</string>
   <!--Element types-->
+  <string name="element_type_node">knoop</string>
   <string name="element_type_way">weg</string>
+  <string name="element_type_closedway">gesloten weg</string>
   <string name="element_type_area">vlak</string>
   <string name="element_type_relation">relatie</string>
   <!--Element names with id-->
+  <string name="node_id">knoop %1$d</string>
+  <string name="way_id">weg %1$d</string>
+  <string name="relation_id">relatie %1$d</string>
 </resources>
