@@ -417,6 +417,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
             taskStorage.closeTasksForElement(element);
             Snack.toastTopInfo(main, R.string.toast_todo_all_closed);
             main.invalidateMap();
+            manager.invalidate();
             break;
         case R.id.undo_action:
             // should not happen
