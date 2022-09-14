@@ -366,7 +366,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             } else {
                 updateAutocompletePresetItem(editRowLayout, null, false); // here before preset has been applied
                 PresetItem pi = getBestPreset();
-                if (prefs.autoApplyPreset() && pi != null) {
+                if (elements.length == 1 && prefs.autoApplyPreset() && pi != null) {
                     if (pi.autoapply()) {
                         applyPreset(editRowLayout, pi, false, false, true, false);
                     } else {
@@ -2005,13 +2005,10 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      * @return The LinkedHashMap&lt;String,List&lt;String&gt;&gt; of key-value pairs.
      */
     private LinkedHashMap<String, List<String>> getKeyValueMap(LinearLayout rowLayout, final boolean allowBlanks) {
-
         final LinkedHashMap<String, List<String>> tags = new LinkedHashMap<>();
-
         if (rowLayout == null && savedTags != null) {
             return savedTags;
         }
-
         if (rowLayout != null) {
             processKeyValues(rowLayout, (keyEdit, valueEdit, tagValues) -> {
                 String key = keyEdit.getText().toString().trim();
