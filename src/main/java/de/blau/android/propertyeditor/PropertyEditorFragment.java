@@ -37,12 +37,15 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.PagerTabStrip;
 import androidx.viewpager.widget.ViewPager;
 import de.blau.android.App;
+import de.blau.android.ErrorCodes;
 import de.blau.android.Feedback;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.address.Address;
 import de.blau.android.contract.Github;
+import de.blau.android.dialogs.ErrorAlert;
+import de.blau.android.exception.DuplicateKeyException;
 import de.blau.android.exception.IllegalOperationException;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.nsi.Names.TagMap;
@@ -773,6 +776,9 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
     private class PageChangeListener extends ViewPager.SimpleOnPageChangeListener {
         @Override
         public void onPageSelected(int page) {
+            if (page != tagEditorFragmentPosition && !validateTags()) {
+                return;
+            }
             Log.d(DEBUG_TAG, "page " + page + " selected");
             if (formEnabled && page == tagFormFragmentPosition && tagFormFragment != null) {
                 tagFormFragment.update();
@@ -829,9 +835,35 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
     }
 
     /**
+     * Validate tags, taking appropriate action if required
+     * 
+     * @return true if the tags are ok
+     */
+    public boolean validateTags() {
+        if (tagEditorFragment != null) {
+            try {
+                tagEditorFragment.validate();
+            } catch (DuplicateKeyException dkex) {
+                if (mViewPager.getCurrentItem() != tagEditorFragmentPosition) {
+                    mViewPager.setCurrentItem(tagEditorFragmentPosition);
+                }
+                ErrorAlert.showDialog(getActivity(), ErrorCodes.DUPLICATE_TAG_KEY, dkex.getKey());
+                return false;
+            }
+        } else {
+            Log.e(DEBUG_TAG, "validateTags tagEditorFragment is null");
+        }
+        return true;
+    }
+
+    /**
      * Get current values from the fragments and end the activity
      */
     public void updateAndFinish() {
+        if (!validateTags()) {
+            return;
+        }
+
         List<LinkedHashMap<String, String>> currentTags = getUpdatedTags();
 
         // save any address tags for "last address tags"
