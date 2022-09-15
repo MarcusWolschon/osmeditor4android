@@ -11,10 +11,8 @@ import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
@@ -154,9 +152,9 @@ public final class TransferTasks {
             if (mapRouletteResult != null) {
                 result.addAll(mapRouletteResult);
                 Map<Long, MapRouletteChallenge> challenges = bugs.getChallenges();
-                for (Entry<Long, MapRouletteChallenge> entry : new HashSet<>(challenges.entrySet())) {
-                    if (entry.getValue() == null) {
-                        final Long key = entry.getKey();
+                for (Long key : new ArrayList<>(challenges.keySet())) {
+                    MapRouletteChallenge challenge = challenges.get(key);
+                    if (challenge == null) {
                         challenges.put(key, MapRouletteServer.getChallenge(mapRouletteServer, key));
                     }
                 }
