@@ -398,6 +398,7 @@
     <string name="layer_info_privacy_policy">Privacy policy</string>
     <string name="projection">Projection</string>
     <string name="errors">Errors</string>
+    <string name="layer_info_layer_not_available">Layer information not available</string>
     <!--  Mapillary layer -->
     <string name="mapillary_image">mapillary %1$s</string>
     <!-- Photo viewer -->
