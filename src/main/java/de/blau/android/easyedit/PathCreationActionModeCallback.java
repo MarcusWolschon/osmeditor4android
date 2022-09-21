@@ -46,6 +46,7 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
     private static final String EXISTING_NODE_IDS_KEY = "existing node ids";
     private static final String WAY_ID_KEY            = "way id";
     private static final String TITLE_KEY             = "title";
+    private static final String SUBTITLE_KEY          = "subtitle";
     private static final String CHECKPOINT_NAME_KEY   = "checkpoint name";
 
     /** x coordinate of first node */
@@ -68,7 +69,8 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
     /** nodes we added that already existed */
     private List<Node>   existingNodes = new ArrayList<>();
 
-    private String savedTitle = null;
+    private String savedTitle    = null;
+    private String savedSubtitle = null;
 
     /** what the checkpoint is called **/
     private Integer checkpointName;
@@ -109,6 +111,7 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
             appendTargetWay = createdWay;
         }
         savedTitle = state.getString(TITLE_KEY);
+        savedSubtitle = state.getString(SUBTITLE_KEY);
         checkpointName = state.getInteger(CHECKPOINT_NAME_KEY);
     }
 
@@ -147,7 +150,11 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
         if (savedTitle != null) {
             mode.setTitle(savedTitle);
         }
-        mode.setSubtitle(R.string.actionmode_createpath);
+        if (savedSubtitle != null) {
+            mode.setSubtitle(savedSubtitle);
+        } else {
+            mode.setSubtitle(R.string.actionmode_createpath);
+        }
         snap = logic.getPrefs().isWaySnapEnabled();
         logic.setSelectedWay(null);
         logic.setSelectedNode(appendTargetNode);
@@ -185,6 +192,24 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
     }
 
     /**
+     * Change the action mode title, needs to be called before the action mode is started
+     * 
+     * @param titleRes the resource id of the title
+     */
+    public void setTitle(int titleRes) {
+        savedTitle = manager.getMain().getString(titleRes);
+    }
+
+    /**
+     * Change the action mode subtitle, needs to be called before the action mode is started
+     * 
+     * @param subtitleRes the resource id of the subtitle
+     */
+    public void setSubTitle(int subtitleRes) {
+        savedSubtitle = manager.getMain().getString(subtitleRes);
+    }
+
+    /**
      * Add a checkbox to the menu to turn snapping on/off
      * 
      * @param ctx an Android Context
@@ -195,7 +220,7 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
     static void addSnapCheckBox(@NonNull Context ctx, @NonNull Menu menu, boolean snap, @NonNull OnCheckedChangeListener listener) {
         // setting an icon will make sure this gets shown
         MenuItem snapItem = menu.add(Menu.NONE, MENUITEM_SNAP, Menu.NONE, R.string.menu_snap).setIcon(ThemeUtils.getResIdFromAttribute(ctx, R.attr.menu_merge));
-        AppCompatCheckBox check =  (AppCompatCheckBox) LayoutInflater.from(ctx).inflate(R.layout.snap_action_view, null);        
+        AppCompatCheckBox check = (AppCompatCheckBox) LayoutInflater.from(ctx).inflate(R.layout.snap_action_view, null);
         check.setChecked(snap);
         check.setOnCheckedChangeListener(listener);
         snapItem.setActionView(check);
@@ -254,6 +279,7 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
                 existingNodes.add(clicked);
             }
         }
+        mode.setSubtitle(R.string.add_way_node_instruction);
         main.invalidateMap();
     }
 
@@ -351,7 +377,7 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
         }
 
         createdWay = logic.getSelectedWay(); // will be null if way was deleted by undo
-        
+
         main.invalidateMap();
     }
 
@@ -429,6 +455,7 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
             state.putLong(WAY_ID_KEY, createdWay.getOsmId());
         }
         state.putString(TITLE_KEY, mode.getTitle().toString());
+        state.putString(SUBTITLE_KEY, mode.getSubtitle().toString());
         state.putInteger(CHECKPOINT_NAME_KEY, checkpointName);
     }
 

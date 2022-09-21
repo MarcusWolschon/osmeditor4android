@@ -159,7 +159,10 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
                 if (appendableWays.size() > 1) {
                     manager.showContextMenu();
                 } else {
-                    main.startSupportActionMode(new PathCreationActionModeCallback(manager, appendableWays.get(0), (Node) element));
+                    final PathCreationActionModeCallback callback = new PathCreationActionModeCallback(manager, appendableWays.get(0), (Node) element);
+                    callback.setTitle(R.string.menu_append);
+                    callback.setSubTitle(R.string.add_way_node_instruction);
+                    main.startSupportActionMode(callback);
                 }
                 break;
             case MENUITEM_JOIN:

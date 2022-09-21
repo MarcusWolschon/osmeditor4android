@@ -30,7 +30,8 @@ public class WayAppendingActionModeCallback extends NonSimpleActionModeCallback 
     @Override
     public boolean onCreateActionMode(ActionMode mode, Menu menu) {
         helpTopic = R.string.help_appendtoway;
-        mode.setSubtitle(R.string.menu_append);
+        mode.setTitle(R.string.menu_append);
+        mode.setSubtitle(R.string.actionmode_select_node_to_append_to);
         logic.setClickableElements(nodes);
         logic.setReturnRelations(false);
         super.onCreateActionMode(mode, menu);
@@ -41,7 +42,10 @@ public class WayAppendingActionModeCallback extends NonSimpleActionModeCallback 
     public boolean handleElementClick(OsmElement element) { // due to clickableElements, only valid nodes can be
                                                             // clicked
         super.handleElementClick(element);
-        main.startSupportActionMode(new PathCreationActionModeCallback(manager, way, (Node) element));
+        final PathCreationActionModeCallback callback = new PathCreationActionModeCallback(manager, way, (Node) element);
+        callback.setTitle(R.string.menu_append);
+        callback.setSubTitle(R.string.add_way_node_instruction);
+        main.startSupportActionMode(callback);
         return true;
     }
 
