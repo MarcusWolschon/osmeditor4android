@@ -115,6 +115,8 @@
     <string name="upload_gpx_tags_label">Tags</string>
     <string name="upload_gpx_visibility_label">Visibility</string>
     <string name="upload_validation_error_empty_description">Empty description</string>
+    <!--  Background properties -->
+    <string name="background_properties_title">Background properties</string>
     <!-- task fragment -->
     <string name="openstreetbug_new_title">New note</string>
     <string name="openstreetbug_new_bug">Report issue</string>
@@ -364,10 +366,10 @@
     <string name="layer_data">OSM data</string>
     <string name="layer_data_name">%1$s data</string>
     <string name="layer_flush_tile_cache">Flush tile cache</string>
-    <string name="layer_change_style">Change style</string>
-    <string name="layer_load_style">Load style</string>
+    <string name="layer_change_style">Change style…</string>
+    <string name="layer_load_style">Load style…</string>
     <string name="layer_reset_style">Reset style</string>
-    <string name="layer_select_imagery">Select imagery</string>
+    <string name="layer_select_imagery">Select imagery…</string>
     <string name="layer_category_all">All</string>
     <string name="layer_category_photo">Aerial imagery</string>
     <string name="layer_category_elevation">Terrain</string>
@@ -377,11 +379,11 @@
     <string name="layer_category_osmbasedmap">OSM based map</string>
     <string name="layer_category_qa">QA</string>
     <string name="layer_category_other">Other</string>
-    <string name="layer_add_layer_from_mvt_style">Add layer from MVT style</string>
-    <string name="layer_add_custom_imagery">Add custom imagery</string>
-    <string name="layer_edit_custom_imagery_configuration">Edit custom imagery configuration</string>
-    <string name="layer_add_gpx">Add layer from GPX file</string>
-    <string name="layer_download_track">Download GPX track</string>
+    <string name="layer_add_layer_from_mvt_style">Add layer from MVT style…</string>
+    <string name="layer_add_custom_imagery">Add custom imagery…</string>
+    <string name="layer_edit_custom_imagery_configuration">Edit custom imagery configuration…</string>
+    <string name="layer_add_gpx">Add layer from GPX file…</string>
+    <string name="layer_download_track">Download GPX track…</string>
     <string name="layer_available_tracks">Available GPX tracks</string>
     <string name="layer_start_playback">Start playback</string>
     <string name="layer_pause_playback">Pause playback</string>
@@ -852,9 +854,9 @@
     <string name="menu_gps_pause">Pause GPX tracking</string>
     <string name="menu_gps_clear">Clear GPX track and its waypoints</string>
     <string name="menu_gps_track_managment">GPX track management…</string>
-    <string name="menu_gps_upload">Upload GPX track</string>
-    <string name="menu_gps_export">Export GPX track</string>
-    <string name="menu_gps_import">Import GPX track</string>
+    <string name="menu_gps_upload">Upload GPX track…</string>
+    <string name="menu_gps_export">Export GPX track…</string>
+    <string name="menu_gps_import">Import GPX track…</string>
     <string name="menu_gps_goto_start">Go to start of GPX track</string>
     <string name="menu_gps_goto_first_waypoint">Go to first waypoint</string>
     <string name="menu_enable_gps_autodownload">Location based auto download</string>
@@ -905,7 +907,7 @@
     <string name="menu_select_way_nodes">Select way nodes</string>
     <string name="menu_newnode_gps">New node at GPS position</string>
     <string name="menu_extend_selection">Extend selection</string>
-    <string name="menu_information">Info</string>
+    <string name="menu_information">Info…</string>
     <string name="menu_voice_commands">Voice commands</string>
     <string name="menu_upload_element">Upload element</string>
     <string name="menu_upload_elements">Upload elements</string>
@@ -918,7 +920,7 @@
     <string name="menu_tools_imagery">More imagery tools…</string>
     <string name="menu_tools_add_imagery_from_oam">Add imagery from OAM</string>
     <string name="menu_tools_flush_all_tile_caches">Flush all tile caches</string>
-    <string name="menu_tools_background_properties">Background properties</string>
+    <string name="menu_tools_background_properties">Background properties…</string>
     <string name="menu_tools_update_imagery_configuration">Update configuration</string>
     <string name="menu_tools_update_imagery_configuration_eli">Update configuration from ELI</string>
     <string name="menu_tools_zoom_to_layer_extent">Zoom to background layer extent</string>
@@ -946,9 +948,9 @@
     <string name="distance_km">%1$.3f km</string>
     <!--  Menus in layers dialog -->
     <string name="menu_layers">Layers…</string>
-    <string name="menu_layers_load_geojson">Add GeoJSON layer</string>
-    <string name="menu_layers_add_backgroundlayer">Add background imagery layer</string>
-    <string name="menu_layers_add_overlaylayer">Add overlay imagery layer</string>
+    <string name="menu_layers_load_geojson">Add GeoJSON layer…</string>
+    <string name="menu_layers_add_backgroundlayer">Add background imagery layer…</string>
+    <string name="menu_layers_add_overlaylayer">Add overlay imagery layer…</string>
     <string name="menu_layers_add_tasklayer">Enable task layer</string>
     <string name="menu_layers_add_grid">Enable grid</string>
     <string name="menu_layers_add_photolayer">Enable photo layer</string>
