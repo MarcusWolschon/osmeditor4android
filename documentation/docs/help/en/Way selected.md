@@ -120,7 +120,7 @@ Remove the object from the data.
 
 ### ![Extend](../images/extend_selection.png) Extend selection
 
-Start Multi-Select mode with the current selected element.
+Start [Multiselect](Multiselect.md) mode with the current selected element.
 
 ### ![Relation](../images/relation.png) Create relation
 
