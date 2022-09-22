@@ -46,7 +46,8 @@ Merge the selected node with a way (as a new way node) or with an existing node.
 
 ### ![Extract](../images/extract_node.png) Extract node
 
-Extract the selected node from all ways that it is a member of and replace it with a newly created one. The original node retains all tags and relation memberships and remains selected. After extracting, drag the node to its new position.  
+Extract the selected node from all ways that it is a member of and replace it with a newly created one without any tags at all. The original node retains all tags and relation memberships and remains selected. After extracting, drag the original node to its new position.
+The above might seem very confusing but in the end the new mode is in the original place and the original node is in the new place!
 
 ### ![TurnRestriction](../images/no_left_turn_light.png) Add turn restriction 
 
