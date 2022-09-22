@@ -144,7 +144,7 @@ public class AddressTest {
         TestUtils.zoomToLevel(device, main, 21);
         TestUtils.clickSimpleButton(device);
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_add_address_interpolation), true));
-        TestUtils.findText(device, false, main.getString(R.string.simple_add_way));
+        TestUtils.findText(device, false, main.getString(R.string.add_way_start_instruction));
         TestUtils.clickAtCoordinates(device, map, 8.3905743, 47.3903159, true);
         TestUtils.sleep();
         TestUtils.clickAtCoordinates(device, map, 8.3909863, 47.3905409, true);

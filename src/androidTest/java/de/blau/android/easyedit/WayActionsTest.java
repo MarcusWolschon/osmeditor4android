@@ -107,9 +107,9 @@ public class WayActionsTest {
         TestUtils.unlock(device);
         TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_add_way), true, false));
-        assertTrue(TestUtils.findText(device, false, context.getString(R.string.simple_add_way)));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.add_way_start_instruction)));
         TestUtils.clickAtCoordinates(device, map, 8.3886384, 47.3892752, true);
-        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_createpath), 1000));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.add_way_node_instruction), 1000));
 
         TestUtils.clickAtCoordinates(device, map, 8.3887655, 47.3892752, true);
         TestUtils.sleep();
@@ -376,9 +376,9 @@ public class WayActionsTest {
         TestUtils.unlock(device);
         TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_add_way), true, false));
-        assertTrue(TestUtils.findText(device, false, context.getString(R.string.simple_add_way)));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.add_way_start_instruction)));
         TestUtils.clickAtCoordinates(device, map, 8.3886384, 47.3892752, true);
-        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_createpath), 1000));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.add_way_node_instruction), 1000));
 
         TestUtils.clickAtCoordinates(device, map, 8.3887655, 47.3892752, true);
         TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
@@ -396,7 +396,7 @@ public class WayActionsTest {
 
         // append at end
         TestUtils.clickAtCoordinates(device, map, 8.3887655, 47.3892752, true);
-        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_createpath)));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.add_way_node_instruction)));
         TestUtils.clickAtCoordinates(device, map, 8.38877, 47.389202, true);
         TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_form_untagged_element)));
@@ -420,7 +420,7 @@ public class WayActionsTest {
 
         // append at start
         TestUtils.clickAtCoordinates(device, map, 8.3886384, 47.3892752, true);
-        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_createpath)));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.add_way_node_instruction)));
         TestUtils.clickAtCoordinates(device, map, 8.38877, 47.389202, true);
         TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_form_untagged_element)));

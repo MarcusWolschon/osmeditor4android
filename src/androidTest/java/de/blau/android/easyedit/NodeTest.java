@@ -213,7 +213,7 @@ public class NodeTest {
         assertNotNull(node);
         assertEquals(633468436L, node.getOsmId());
         assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.menu_append), false, true));
-        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_createpath)));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.add_way_node_instruction)));
         TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
     }
 

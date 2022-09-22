@@ -106,7 +106,7 @@ public class UrlCheckTest {
         TestUtils.unlock(device);
         TestUtils.clickSimpleButton(device);
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_add_node_tags), true, false));
-        assertTrue(TestUtils.findText(device, false, context.getString(R.string.simple_add_node)));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.add_node_instruction)));
         TestUtils.clickAtCoordinates(device, map, 8.3893454, 47.3901898, true);
 
         ActivityMonitor monitor = instrumentation.addMonitor(PropertyEditorActivity.class.getName(), null, false);

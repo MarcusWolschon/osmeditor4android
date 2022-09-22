@@ -144,7 +144,7 @@ public class LongClickTest {
         TestUtils.longClickAtCoordinates(device, map, 8.3893454, 47.3901898, true);
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.menu_add)));
         TestUtils.clickAtCoordinates(device, map, 8.3895763, 47.3901374, true);
-        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_createpath)));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.add_way_node_instruction)));
         TestUtils.clickAtCoordinates(device, map, 8.3896274, 47.3902424, true);
         TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_form_untagged_element)));

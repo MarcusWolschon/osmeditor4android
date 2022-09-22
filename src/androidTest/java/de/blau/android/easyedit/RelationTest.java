@@ -194,9 +194,9 @@ public class RelationTest {
         //
         TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_add_way), true, false));
-        assertTrue(TestUtils.findText(device, false, context.getString(R.string.simple_add_way)));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.add_way_start_instruction)));
         TestUtils.clickAtCoordinates(device, map, 8.3880883, 47.3885877, true);
-        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_createpath), 1000));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.add_way_node_instruction), 1000));
         TestUtils.clickAtCoordinates(device, map, 8.3881994, 47.3886178, true);
         TestUtils.sleep();
         TestUtils.clickAtCoordinates(device, map, 8.3881408, 47.3886491, true);

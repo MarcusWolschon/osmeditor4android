@@ -207,9 +207,9 @@ public class SaveResumeTest {
         TestUtils.unlock(device);
         TestUtils.clickSimpleButton(device);
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_add_way), true, false));
-        assertTrue(TestUtils.findText(device, false, context.getString(R.string.simple_add_way)));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.add_way_start_instruction)));
         TestUtils.clickAtCoordinates(device, map, 8.3893454, 47.3901898, true);
-        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_createpath), 1000));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.add_way_node_instruction), 1000));
         TestUtils.clickAtCoordinates(device, map, 8.3895763, 47.3901374, true);
         TestUtils.sleep();
         TestUtils.clickAtCoordinates(device, map, 8.3896274, 47.3902424, true);
