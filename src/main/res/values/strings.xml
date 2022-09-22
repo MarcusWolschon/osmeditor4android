@@ -1002,6 +1002,7 @@
     <!-- EasyEdit action mode sub-titles -->
     <string name="actionmode_closed_way_split_1">Split closed way, 1st node</string>
     <string name="actionmode_closed_way_split_2">Split closed way, 2nd node</string>
+    <string name="actionmode_select_node_to_append_to">Select node to append to</string>
     <string name="actionmode_restriction">Add turn restriction</string>
     <string name="actionmode_restriction_restart_from">Re-select \"from\" segment</string>
     <string name="actionmode_restriction_select_from">Select \"from\" segment</string>
@@ -1025,7 +1026,9 @@
     <string name="menu_add_node_address">Add address node</string>
     <string name="menu_add_address_interpolation">Add address interpolation</string>
     <string name="menu_add_way">Add way</string>
-    <string name="simple_add_way">Tap the screen position</string>
+    <string name="add_node_instruction">Tap the position</string>
+    <string name="add_way_start_instruction">Tap the first position to start</string>
+    <string name="add_way_node_instruction">Tap the next node position</string>
     <string name="menu_add_map_note">Add map note</string>
     <string name="simple_add_note">Tap the screen position</string>
     <string name="menu_paste_object">Paste object</string>

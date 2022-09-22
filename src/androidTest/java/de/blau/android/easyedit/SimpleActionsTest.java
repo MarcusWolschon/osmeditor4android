@@ -79,6 +79,7 @@ public class SimpleActionsTest {
         TestUtils.dismissStartUpDialogs(device, main);
         logic = App.getLogic();
         logic.deselectAll();
+        logic.getPrefs().enableWaySnap(true);
         TestUtils.loadTestData(main, "test2.osm");
         App.getTaskStorage().reset();
         TestUtils.stopEasyEdit(main);
@@ -91,6 +92,7 @@ public class SimpleActionsTest {
     public void teardown() {
         TestUtils.stopEasyEdit(main);
         TestUtils.zoomToNullIsland(logic, map);
+        logic.getPrefs().enableWaySnap(true);
         App.getTaskStorage().reset();
     }
 
@@ -142,7 +144,6 @@ public class SimpleActionsTest {
         assertNull(App.getLogic().getSelectedNode());
     }
 
-    
     /**
      * Create a new way from menu and clicks at two more locations and finishing via home button
      */
@@ -154,9 +155,9 @@ public class SimpleActionsTest {
         TestUtils.unlock(device);
         TestUtils.clickSimpleButton(device);
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_add_way), true, false));
-        assertTrue(TestUtils.findText(device, false, context.getString(R.string.simple_add_way)));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.add_way_start_instruction)));
         TestUtils.clickAtCoordinates(device, map, 8.3893454, 47.3901898, true);
-        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_createpath), 1000));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.add_way_node_instruction), 1000));
         TestUtils.clickAtCoordinates(device, map, 8.3895763, 47.3901374, true);
         TestUtils.sleep();
         TestUtils.clickAtCoordinates(device, map, 8.3896274, 47.3902424, true);
@@ -176,7 +177,7 @@ public class SimpleActionsTest {
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
         TestUtils.clickUp(device);
     }
-    
+
     /**
      * Create a new closed way from menu and clicks at two more locations and finishing via home button
      */
@@ -188,9 +189,9 @@ public class SimpleActionsTest {
         TestUtils.unlock(device);
         TestUtils.clickSimpleButton(device);
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_add_way), true, false));
-        assertTrue(TestUtils.findText(device, false, context.getString(R.string.simple_add_way)));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.add_way_start_instruction)));
         TestUtils.clickAtCoordinates(device, map, 8.3893454, 47.3901898, true);
-        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_createpath), 1000));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.add_way_node_instruction), 1000));
         TestUtils.clickAtCoordinates(device, map, 8.3895763, 47.3901374, true);
         TestUtils.sleep();
         TestUtils.clickAtCoordinates(device, map, 8.3896274, 47.3902424, true);
@@ -222,12 +223,12 @@ public class SimpleActionsTest {
         TestUtils.unlock(device);
         TestUtils.clickSimpleButton(device);
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_add_way), true, false));
-        assertTrue(TestUtils.findText(device, false, context.getString(R.string.simple_add_way)));
-        
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.add_way_start_instruction)));
+
         assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.menu_snap), false, false));
-        
+
         TestUtils.clickAtCoordinates(device, map, 8.3893454, 47.3901898, true);
-        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_createpath), 1000));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.add_way_node_instruction), 1000));
         TestUtils.clickAtCoordinates(device, map, 8.3895763, 47.3901374, true);
         TestUtils.sleep();
         TestUtils.clickAtCoordinates(device, map, 8.3896274, 47.3902424, true);
@@ -249,7 +250,6 @@ public class SimpleActionsTest {
         TestUtils.clickUp(device);
     }
 
-    
     /**
      * Create a new way and completely undo it
      */
@@ -257,16 +257,16 @@ public class SimpleActionsTest {
     @Test
     public void newWayUndo() {
         int prevChanges = App.getDelegator().getApiElementCount();
- App.getDelegator().getApiStorage().logStorage();        
+        App.getDelegator().getApiStorage().logStorage();
         map.getDataLayer().setVisible(true);
         TestUtils.zoomToLevel(device, main, 21);
         TestUtils.unlock(device);
         TestUtils.clickSimpleButton(device);
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_add_way), true, false));
-        final String addWayString = context.getString(R.string.simple_add_way);
-        assertTrue(TestUtils.findText(device, false, addWayString));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.add_way_start_instruction)));
+        final String addWayNodeString = context.getString(R.string.add_way_node_instruction);
         TestUtils.clickAtCoordinates(device, map, 8.3893454, 47.3901898, true);
-        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_createpath), 1000));
+        assertTrue(TestUtils.findText(device, false, addWayNodeString, 1000));
         TestUtils.clickAtCoordinates(device, map, 8.3895763, 47.3901374, true);
         TestUtils.sleep();
         TestUtils.clickAtCoordinates(device, map, 8.3896274, 47.3902424, true);
@@ -282,15 +282,15 @@ public class SimpleActionsTest {
         assertTrue(TestUtils.clickMenuButton(device, undoString, false, false));
         TestUtils.sleep();
         assertTrue(TestUtils.clickMenuButton(device, undoString, false, false));
-        TestUtils.textGone(device, addWayString, 500);
+        TestUtils.textGone(device, addWayNodeString, 500);
 
         Way way = App.getLogic().getSelectedWay();
         assertNull(way);
         // nothing to undo
         assertFalse(App.getLogic().getUndo().canUndo());
         // nothing to upload
-        
- App.getDelegator().getApiStorage().logStorage();
+
+        App.getDelegator().getApiStorage().logStorage();
         assertEquals(prevChanges, App.getDelegator().getApiElementCount());
     }
 
@@ -338,8 +338,8 @@ public class SimpleActionsTest {
         // new note mode
         TestUtils.clickAtCoordinates(device, map, 8.3890736, 47.3896628, true);
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_newnoteselect)));
-        TestUtils.drag(device, map,8.3890736, 47.3896628, 8.3893, 47.3899, true, 20);
-        
+        TestUtils.drag(device, map, 8.3890736, 47.3896628, 8.3893, 47.3899, true, 20);
+
         TestUtils.clickAtCoordinates(device, map, 8.3893, 47.3899, true);
         assertTrue(TestUtils.findText(device, false, "test"));
         assertTrue(TestUtils.clickText(device, true, context.getString(R.string.cancel), true, false));

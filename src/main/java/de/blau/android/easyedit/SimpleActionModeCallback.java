@@ -42,7 +42,7 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
         /**
          * Add a node without merging with nearby elements, start the PropertyEditor with the Preset tab
          */
-        NODE_TAGS(R.string.menu_add_node_tags, R.string.simple_add_node, (main, manager, x, y) -> {
+        NODE_TAGS(R.string.menu_add_node_tags, R.string.menu_add_node_tags, R.string.add_node_instruction, (main, manager, x, y) -> {
             Node node = App.getLogic().performAddNode(main, x, y);
             main.startSupportActionMode(new NodeSelectionActionModeCallback(manager, node));
             main.performTagEdit(node, null, false, true);
@@ -55,7 +55,7 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
         /**
          * Add an address node with with nearby elements, start the PropertyEditor with the Preset tab
          */
-        ADDRESS_NODE(R.string.menu_add_node_address, R.string.simple_add_node, (main, manager, x, y) -> {
+        ADDRESS_NODE(R.string.menu_add_node_address, R.string.menu_add_node_address, R.string.simple_add_node, (main, manager, x, y) -> {
             App.getLogic().performAdd(main, x, y);
             Node node = App.getLogic().getSelectedNode();
             main.startSupportActionMode(new NodeSelectionActionModeCallback(manager, node));
@@ -69,7 +69,7 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
         /**
          * Add a way starting the normal path creation mode
          */
-        WAY(R.string.menu_add_way, R.string.simple_add_way,
+        WAY(R.string.menu_add_way, R.string.menu_add_way, R.string.add_way_start_instruction,
                 (main, manager, x, y) -> main.startSupportActionMode(new PathCreationActionModeCallback(manager, x, y))) {
             @Override
             public boolean isEnabled() {
@@ -86,7 +86,7 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
         /**
          * Add a way starting the normal path creation mode
          */
-        INTERPOLATION_WAY(R.string.menu_add_address_interpolation, R.string.simple_add_way,
+        INTERPOLATION_WAY(R.string.menu_add_address_interpolation, R.string.menu_add_address_interpolation, R.string.add_way_start_instruction,
                 (main, manager, x, y) -> main.startSupportActionMode(new AddressInterpolationActionModeCallback(manager, x, y))) {
             @Override
             public boolean isEnabled() {
@@ -96,7 +96,7 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
         /**
          * Add a note
          */
-        NOTE(R.string.menu_add_map_note, R.string.simple_add_note, (main, manager, x, y) -> {
+        NOTE(R.string.menu_add_map_note, R.string.menu_add_map_note, R.string.simple_add_note, (main, manager, x, y) -> {
             manager.finish();
             de.blau.android.layer.tasks.MapOverlay layer = main.getMap().getTaskLayer();
             if (layer == null) { // turn it on, this is supposed to be "simple"
@@ -119,7 +119,7 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
         /**
          * Add a node, merging with nearby elements
          */
-        NODE(R.string.menu_add_node, R.string.simple_add_node, (main, manager, x, y) -> {
+        NODE(R.string.menu_add_node, R.string.menu_add_node, R.string.simple_add_node, (main, manager, x, y) -> {
             App.getLogic().performAdd(main, x, y);
             main.startSupportActionMode(new NodeSelectionActionModeCallback(manager, App.getLogic().getSelectedNode()));
         }) {
@@ -131,7 +131,7 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
         /**
          * Add node from voice input
          */
-        VOICE_NODE(R.string.menu_add_node_tags, R.string.simple_add_node, (main, manager, x, y) -> {
+        VOICE_NODE(R.string.menu_add_node_tags, R.string.menu_add_node_tags, R.string.simple_add_node, (main, manager, x, y) -> {
             Logic logic = App.getLogic();
             Commands.startVoiceRecognition(main, Main.VOICE_RECOGNITION_REQUEST_CODE, logic.xToLonE7(x), logic.yToLatE7(y));
         }) {
@@ -143,7 +143,7 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
         /**
          * Add a note
          */
-        VOICE_NOTE(R.string.menu_add_map_note, R.string.simple_add_note, (main, manager, x, y) -> {
+        VOICE_NOTE(R.string.menu_add_map_note, R.string.menu_add_map_note, R.string.simple_add_note, (main, manager, x, y) -> {
             Logic logic = App.getLogic();
             Commands.startVoiceRecognition(main, Main.VOICE_RECOGNITION_NOTE_REQUEST_CODE, logic.xToLonE7(x), logic.yToLatE7(y));
         }) {
@@ -155,7 +155,7 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
         /**
          * Paste an object from the clipboard
          */
-        PASTE(R.string.menu_paste_object, R.string.simple_paste, SimpleActionModeCallback::paste) {
+        PASTE(R.string.menu_paste_object, R.string.menu_paste_object, R.string.simple_paste, SimpleActionModeCallback::paste) {
             @Override
             public boolean isEnabled() {
                 return !App.getLogic().clipboardIsEmpty();
@@ -164,7 +164,8 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
         /**
          * Paste an object from the clipboard, without exiting the action mode
          */
-        PASTEMULTIPLE(R.string.menu_paste_multiple, R.string.simple_paste_multiple, (main, manager, x, y) -> App.getLogic().pasteFromClipboard(main, x, y)) {
+        PASTEMULTIPLE(R.string.menu_paste_multiple, R.string.menu_paste_multiple, R.string.simple_paste_multiple,
+                (main, manager, x, y) -> App.getLogic().pasteFromClipboard(main, x, y)) {
             @Override
             public boolean isEnabled() {
                 return !App.getLogic().clipboardIsEmpty() && !App.getDelegator().clipboardContentWasCut();
@@ -173,6 +174,7 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
 
         final int                  menuTextId;
         final int                  titleId;
+        final int                  subTitleId;
         final SimpleActionCallback actionCallback;
 
         /**
@@ -180,11 +182,13 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
          * 
          * @param menuTextId resource for the menu text
          * @param titleId resource for the text displayed in the ActionMode
+         * @param subTitleId a sub title, typically used for instructions
          * @param actionCallback callback with actual code for the action
          */
-        SimpleAction(final int menuTextId, final int titleId, @NonNull final SimpleActionCallback actionCallback) {
+        SimpleAction(final int menuTextId, final int titleId, int subTitleId, @NonNull final SimpleActionCallback actionCallback) {
             this.menuTextId = menuTextId;
             this.titleId = titleId;
+            this.subTitleId = subTitleId;
             this.actionCallback = actionCallback;
         }
 
@@ -256,7 +260,11 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
         helpTopic = R.string.help_simple_actions;
         super.onCreateActionMode(mode, menu);
         mode.setTitle(simpleAction.titleId);
-        mode.setSubtitle(null);
+        if (simpleAction.subTitleId != -1) {
+            mode.setSubtitle(simpleAction.subTitleId);
+        } else {
+            mode.setSubtitle(null);
+        }
         return true;
     }
 
