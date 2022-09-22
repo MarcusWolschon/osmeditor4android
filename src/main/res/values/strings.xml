@@ -1001,9 +1001,12 @@
     <string name="actionmode_newnoteselect">New Note selected</string>
     <string name="actionmode_add_segment">Add segment</string>
     <string name="actionmode_reselect_first_segment">Re-select first segment</string>
+    <string name="actionmode_split_way">Split way</string>
+    <string name="actionmode_split_closed_way">Split closed way</string>
     <!-- EasyEdit action mode sub-titles -->
-    <string name="actionmode_closed_way_split_1">Split closed way, 1st node</string>
-    <string name="actionmode_closed_way_split_2">Split closed way, 2nd node</string>
+    <string name="actionmode_closed_way_split_1">Select 1st node</string>
+    <string name="actionmode_closed_way_split_2">Select 2nd node</string>
+    <string name="actionmode_split_way_node_selection">Select node</string>
     <string name="actionmode_select_node_to_append_to">Select node to append to</string>
     <string name="actionmode_restriction">Add turn restriction</string>
     <string name="actionmode_restriction_restart_from">Re-select \"from\" segment</string>

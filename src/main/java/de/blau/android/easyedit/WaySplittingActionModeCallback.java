@@ -46,9 +46,11 @@ public class WaySplittingActionModeCallback extends NonSimpleActionModeCallback 
         helpTopic = R.string.help_waysplitting;
         super.onCreateActionMode(mode, menu);
         if (way.isClosed()) {
+            mode.setTitle(R.string.actionmode_split_closed_way);
             mode.setSubtitle(R.string.actionmode_closed_way_split_1);
         } else {
-            mode.setSubtitle(R.string.menu_split);
+            mode.setTitle(R.string.actionmode_split_way);
+            mode.setSubtitle(R.string.actionmode_split_way_node_selection);
         }
         logic.setClickableElements(new HashSet<>(nodes));
         logic.setReturnRelations(false);
