@@ -79,6 +79,7 @@ public class SimpleActionsTest {
         TestUtils.dismissStartUpDialogs(device, main);
         logic = App.getLogic();
         logic.deselectAll();
+        logic.getPrefs().enableWaySnap(true);
         TestUtils.loadTestData(main, "test2.osm");
         App.getTaskStorage().reset();
         TestUtils.stopEasyEdit(main);
@@ -91,6 +92,7 @@ public class SimpleActionsTest {
     public void teardown() {
         TestUtils.stopEasyEdit(main);
         TestUtils.zoomToNullIsland(logic, map);
+        logic.getPrefs().enableWaySnap(true);
         App.getTaskStorage().reset();
     }
 
