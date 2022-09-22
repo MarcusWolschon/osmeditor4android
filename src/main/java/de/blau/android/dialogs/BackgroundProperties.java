@@ -84,7 +84,7 @@ public class BackgroundProperties extends ImmersiveDialogFragment {
     @Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
         Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(R.string.menu_tools_background_properties);
+        builder.setTitle(R.string.background_properties_title);
         final LayoutInflater inflater = ThemeUtils.getLayoutInflater(getActivity());
         DoNothingListener doNothingListener = new DoNothingListener();
         setDialogLayout(getActivity());
