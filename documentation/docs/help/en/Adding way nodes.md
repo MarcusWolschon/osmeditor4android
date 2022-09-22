@@ -1,6 +1,6 @@
 # Adding way nodes
 
-THis mode can be entered via the simple mode __Add way__ action, via a long click otherwise, and via the __Append__ action in way and node selection modes. 
+This mode can be entered via the simple mode __Add way__ action, via a long click otherwise, and via the __Append__ action in way and node selection modes. 
 
 You can then do one of three things
 
