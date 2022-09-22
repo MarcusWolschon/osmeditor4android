@@ -14,6 +14,12 @@ Tapping the icon once will undo the last operation. A long press will display a 
 
 Starts the property editor on the current selection.
 
+### ![Todos](../images/tag_menu_bug.png) Todos
+
+If the selected element is associated either with a todo or osmose task this menu will be displayed.
+
+Available actions are
+
 #### Close and goto next
 
 Close a todo associated with the element and goto the nearest open todo in the list. If the element is present in multiple todo list a modal will ask which one to choose.
