@@ -44,6 +44,8 @@ Split the selected way. The nodes at the available locations for splitting will 
 
 Join the selected way with one that it shares a node with resulting in a single way. This option will only be available if the ways have compatible tags and relation memberships.
 
+---
+
 ### ![Append](../images/tag_menu_append.png) Append 
 
 Append to the current selected way. Touch areas will be visible around nodes that can be used to extend the way, select "Done" or the same node twice to stop. The "Append" action is only available if the way in question is not closed.
