@@ -805,10 +805,10 @@
     <string name="position_info_title">Current position information</string>
     <string name="position_info_hdop">HDOP</string>
     <string name="position_info_altitude">Altitude</string>
-    <string name="position_info_geoid_height">Height over the geoid</string>
+    <string name="position_info_geoid_height">Height over\nthe geoid</string>
     <string name="position_info_barometric_height">Barometric height</string>
     <string name="position_info_geoid_correction">Geoid correction</string>
-    <string name="position_info_ellipsoid_height">Height over the ellipsoid</string>
+    <string name="position_info_ellipsoid_height">Height over\nthe ellipsoid</string>
     <!-- Strings in DownloadActivity -->
     <string name="download_files_title">Download files</string>
     <string name="allow_all_networks">Allow all networks</string>
