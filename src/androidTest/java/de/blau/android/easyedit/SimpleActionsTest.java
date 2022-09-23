@@ -275,6 +275,9 @@ public class SimpleActionsTest {
         TestUtils.sleep();
         // undo last addition
         final String undoString = context.getString(R.string.undo);
+        assertTrue(TestUtils.clickMenuButton(device, undoString, true, true)); // check for tip
+        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.okay), true));
+        // now really undo
         assertTrue(TestUtils.clickMenuButton(device, undoString, false, false));
         TestUtils.sleep();
         assertTrue(TestUtils.clickMenuButton(device, undoString, false, false));
