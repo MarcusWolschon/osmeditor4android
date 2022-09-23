@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import androidx.annotation.NonNull;
@@ -18,6 +19,7 @@ import de.blau.android.App;
 import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.dialogs.AddressInterpolationDialog;
+import de.blau.android.dialogs.Tip;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
@@ -28,6 +30,7 @@ import de.blau.android.osm.UndoStorage.UndoWay;
 import de.blau.android.osm.Way;
 import de.blau.android.util.SerializableState;
 import de.blau.android.util.Snack;
+import de.blau.android.util.Sound;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
@@ -177,8 +180,16 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
         menu = replaceMenu(menu, mode, this);
         menu.clear();
         menuUtil.reset();
-        menu.add(Menu.NONE, MENUITEM_UNDO, Menu.NONE, R.string.undo).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_undo))
+        MenuItem undo = menu.add(Menu.NONE, MENUITEM_UNDO, Menu.NONE, R.string.undo).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_undo))
                 .setVisible(!addedNodes.isEmpty());
+        View undoView = main.getLayoutInflater().inflate(R.layout.undo_action_view, null);
+        undoView.setOnClickListener((View v) -> handleUndo());
+        undoView.setOnLongClickListener((View v) -> {
+            Sound.beep();
+            Tip.showDialog(main, R.string.tip_no_redo_key, R.string.tip_no_redo);
+            return true;
+        });
+        undo.setActionView(undoView);
         addSnapCheckBox(main, menu, snap, (CompoundButton buttonView, boolean isChecked) -> {
             snap = isChecked;
             logic.getPrefs().enableWaySnap(isChecked);
