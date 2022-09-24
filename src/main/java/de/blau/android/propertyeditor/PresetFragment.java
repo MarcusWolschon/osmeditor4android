@@ -58,10 +58,12 @@ import de.blau.android.util.Sound;
 import de.blau.android.util.Util;
 
 public class PresetFragment extends BaseFragment implements PresetUpdate, PresetClickHandler {
+
     private static final String DEBUG_TAG = PresetFragment.class.getSimpleName();
 
-    static final int         MAX_SEARCHRESULTS = 10;
-    private static final int MAX_DISTANCE      = 2;
+    static final int         MAX_SEARCHRESULTS      = 10;
+    private static final int MAX_DISTANCE           = 2;
+    private static final int MIN_SEARCH_TERM_LENGTH = 3;
 
     private static final String ALTERNATE_ROOT_PATHS = "alternateRootPaths";
 
@@ -246,8 +248,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
                         int iconWidth = icon.getBounds().width();
                         if ((rtlLayout && rawX <= outLocation[0] + iconWidth) || (rawX >= outLocation[0] + presetSearch.getWidth() - iconWidth)) {
                             presetSearch.setText("");
-                            final FragmentManager fm = getChildFragmentManager();
-                            de.blau.android.propertyeditor.Util.removeChildFragment(fm, FRAGMENT_PRESET_SEARCH_RESULTS_TAG);
+                            de.blau.android.propertyeditor.Util.removeChildFragment(getChildFragmentManager(), FRAGMENT_PRESET_SEARCH_RESULTS_TAG);
                             return true;
                         }
                     }
@@ -264,10 +265,12 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
 
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    if (s.length() >= 3) {
-                        displaySearchResults.cancel();
-                        presetSearch.removeCallbacks(displaySearchResults);
+                    displaySearchResults.cancel();
+                    presetSearch.removeCallbacks(displaySearchResults);
+                    if (s.length() >= MIN_SEARCH_TERM_LENGTH) {
                         presetSearch.postDelayed(displaySearchResults, 200);
+                    } else {
+                        de.blau.android.propertyeditor.Util.removeChildFragment(getChildFragmentManager(), FRAGMENT_PRESET_SEARCH_RESULTS_TAG);
                     }
                 }
 
@@ -364,7 +367,6 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
                             return;
                         }
                     }
-
                     PresetSearchResultsFragment searchResultDialog = (PresetSearchResultsFragment) fm.findFragmentByTag(FRAGMENT_PRESET_SEARCH_RESULTS_TAG);
                     if (searchResultDialog == null) {
                         searchResultDialog = PresetSearchResultsFragment.newInstance(term, result);
@@ -372,7 +374,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
                             Log.d(DEBUG_TAG, "Creating new result fragment");
                             FragmentTransaction ft = fm.beginTransaction();
                             ft.add(R.id.preset_results, searchResultDialog, FRAGMENT_PRESET_SEARCH_RESULTS_TAG);
-                            ft.commit();
+                            ft.commitNow();
                         } catch (IllegalStateException isex) {
                             Log.e(DEBUG_TAG, "show of seach results failed with ", isex);
                         }
