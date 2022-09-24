@@ -1121,6 +1121,42 @@ public class PropertyEditorTest {
     }
 
     /**
+     * Search for McDo then delete chars
+     */
+    @Test
+    public void presetSearch2() {
+        final CountDownLatch signal = new CountDownLatch(1);
+        mockServer.enqueue("capabilities1");
+        mockServer.enqueue("download1");
+        Logic logic = App.getLogic();
+        logic.downloadBox(main, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D), false, new SignalHandler(signal));
+        try {
+            signal.await(30, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            fail(e.getMessage());
+        }
+        Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 577098580L);
+        assertNotNull(n);
+        main.performTagEdit(n, null, false, true);
+        waitForPropertyEditor();
+
+        UiSelector uiSelector = new UiSelector().resourceId(device.getCurrentPackageName() + ":id/preset_search_edit");
+        UiObject field = device.findObject(uiSelector);
+        try {
+            field.click();
+        } catch (UiObjectNotFoundException e) {
+            fail(e.getMessage());
+        }
+        instrumentation.sendCharacterSync(KeyEvent.KEYCODE_M);
+        instrumentation.sendCharacterSync(KeyEvent.KEYCODE_C);
+        instrumentation.sendCharacterSync(KeyEvent.KEYCODE_D);
+        assertTrue(TestUtils.findText(device, false, "MCM", 5000));
+        assertTrue(TestUtils.findText(device, false, "McDonald's", 1000));
+        instrumentation.sendCharacterSync(KeyEvent.KEYCODE_DEL);
+        assertTrue(TestUtils.textGone(device, "McDonald's", 5000));
+    }
+
+    /**
      * Navigate to a specific preset item
      */
     @Test
