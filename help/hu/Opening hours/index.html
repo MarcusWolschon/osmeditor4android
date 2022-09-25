@@ -355,16 +355,16 @@
 </div></div>
 <div class="col-md-9" role="main">
 
-<h1 id="openstreetmap-nyitvatartas-szerkeszto">OpenStreetMap nyitvatartás-szerkesztő</h1>
+<h1 id="openstreetmap-nyitvatartas-szerkeszto">OpenStreetMap nyitvatartás-szerkesztő<a class="headerlink" href="#openstreetmap-nyitvatartas-szerkeszto" title="Permanent link">#</a></h1>
 <p>Az OpenStreetMapben a nyitvatartási idők megadása meglehetősen bonyolult, ezért nem könnyű egyszerű és intuitív felhasználói felületet készíteni hozzá.</p>
 <p>Azonban az esetek többségében csak egy kis részét használjuk a definícióknak. A szerkesztő ezt figyelembe véve megpróbálja menükbe rejteni a bonyolultabb funkciókat, és az esetek többségében az előre definiált sablonok testreszabására csökkenteni a mindennapos használatot.</p>
 <p><em>Ez a dokumentáció ideiglenes, és dolgozunk rajta</em></p>
-<h2 id="a-nyitvatartas-szerkeszto-hasznalata">A nyitvatartás-szerkesztő használata</h2>
+<h2 id="a-nyitvatartas-szerkeszto-hasznalata">A nyitvatartás-szerkesztő használata<a class="headerlink" href="#a-nyitvatartas-szerkeszto-hasznalata" title="Permanent link">#</a></h2>
 <p>A szokásos munkamenet szerint a szerkesztett térképelemnek vagy már van egy nyitva tartást tartalmazó címkéje (opening_hours, service_times vagy collection_times), vagy az előbeállításnak a térképelemre történő újraalkalmazásával nyithat egy üres nyitva tartási mezőt. Ha a mezőt kézzel kell hozzáadnia és Vespuccit használ, akkor a kulcsot megadhatja a részletes adatok oldalán, majd visszakapcsolhat az űrlapalapú fülre a szerkesztéshez. Ha úgy véli, hogy a nyitva tartási címkének az előbeállításban is szerepelnie kellene, kérjük, nyisson egy kérdést (issue) a szerkesztőjéhez.</p>
 <p>If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for specific key, for example "opening_hours", "collection_times" and "service_times" or custom values. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tag (for example amenity=restaurant). </p>
 <p>Természetesen a semmiből is elkezdheted összeállítani a nyitva tartást, azonban azt talácsoljuk, hogy kiindulási pontként használd valamelyik sablont.</p>
 <p>Amikor egy meglévő nyitva tartás betöltődik, akkor történik egy automatikus javítási kísérlet, hogy megfeleljen a nyitva tartási idők specifikációjának. Ha ez nem lehetséges, akkor a hiba körülbelüli helye kiemelődik a nyers nyitva tartás kijelzőjén, és megpróbálhatod kézzel kijavítani. Az OpenStreetMap adatbázisában a nyitva tartási értékek mintegy negyede hibás, azonban csak kevesebb mint 10% -uk nem javítható. A specifikációtól való megtűrt eltérések: <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a></p>
-<h3 id="fomenu-gomb">Főmenü gomb</h3>
+<h3 id="fomenu-gomb">Főmenü gomb<a class="headerlink" href="#fomenu-gomb" title="Permanent link">#</a></h3>
 <ul>
 <li><strong>Szabály hozzáadása</strong>: új szabály hozzáadása.</li>
 <li><strong>Szabály hozzáadása szünnapokra</strong>: hozzáad egy szabályt munkaszüneti napokra és egy állapotváltozást.</li>
@@ -375,9 +375,9 @@
 <li><strong>Frissítés</strong>: a nyitvatartási idő értékének újraelemzése.</li>
 <li><strong>Összes törlése</strong>: az összes szabály eltávolítása</li>
 </ul>
-<h3 id="szabalyok">Szabályok</h3>
+<h3 id="szabalyok">Szabályok<a class="headerlink" href="#szabalyok" title="Permanent link">#</a></h3>
 <p>Az alapértelmezett szabályok <em>rendes</em> szabályként jelennek meg. Ez azzal jár, hogy felülírják az adott napra vonatkozó korábbi szabályok értékeit. Ez aggasztó lehet, ha kiterjesztett időket szeretnénk megadni. Ilyenkor tipikusan érdemes átkapcsolni a szabályokat a <em>Szabálytípus mutatása</em> menüpontban _összeadó_ra.</p>
-<h4 id="szabaly-menu">Szabály menü</h4>
+<h4 id="szabaly-menu">Szabály menü<a class="headerlink" href="#szabaly-menu" title="Permanent link">#</a></h4>
 <ul>
 <li><strong>Módosító/megjegyzés hozzáadása</strong>: módosítja a szabály hatását és opcionális megjegyzést ad hozzá.</li>
 <li><strong>Szünnap hozzáadása</strong>: hozzáad egy választót, amellyel munkaszüneti napokat vagy tanítási szünetet választhatunk.</li>
@@ -423,10 +423,10 @@
 <li><strong>Mozgatás lefelé</strong>: eggyel lejjebb tolja a szabályt.</li>
 <li><strong>Törlés</strong>: törli a szabályt.</li>
 </ul>
-<h3 id="idotartamok">Időtartamok</h3>
+<h3 id="idotartamok">Időtartamok<a class="headerlink" href="#idotartamok" title="Permanent link">#</a></h3>
 <p>Szeretnénk a lehető legkönnyebbé tenni az időtartamok szerkesztését. A meglévő értékek betöltésénél ezért megpróbáltuk kiválasztani az optimális időtartamot és a tartománysáv finomságát. Új időtartam megadásánál a tartománysáv reggel 6:00 órakor indul és 15 perces a lépésköze. Ez menüben változtatható.</p>
 <p>Az idősáv használata olykor túl nehézkes. Ha ilyenkor az idősávra (nem a kijelölőkre) kattintunk, akkor megjelenik egy nagy időválasztó. Az időválasztók a következő napra is kiterjednek, így egyszerűen kiterjeszthető az időtartam anélkül, hogy törölni kellene majd újra megadni.</p>
-<h4 id="idotartam-menu">Időtartam menü</h4>
+<h4 id="idotartam-menu">Időtartam menü<a class="headerlink" href="#idotartam-menu" title="Permanent link">#</a></h4>
 <ul>
 <li><strong>Időválasztó megjelenítése</strong>: megjelenít egy nagy időválasztót a kezdő és záró időpontok kijelöléséhez. Nagyon kicsi kijelzőkön ez az idő módosításának előnyben részesített módja.</li>
 <li><strong>Váltás 15 perces lépésközre</strong>: 15 perces finomságúra változtatja a tartománysávot.</li>
@@ -436,7 +436,7 @@
 <li><strong>Intervallum megjelenítése</strong>: megjeleníti az intervallummezőt, ahol percben megadható, hogy milyen időközönként történik valami.</li>
 <li><strong>Törlés</strong>: ennek az időtartamnak a törlése.</li>
 </ul>
-<h3 id="sablonok-kezelese">Sablonok kezelése</h3>
+<h3 id="sablonok-kezelese">Sablonok kezelése<a class="headerlink" href="#sablonok-kezelese" title="Permanent link">#</a></h3>
 <p>A sablonkezelő párbeszédablakkal hozzáadhat, szerkeszthet és törölhet sablonokat.</p>
 <p>Az Android 4.4 és újabb verziókban a következő további funkciók állnak rendelkezésre a menügombon keresztül. </p>
 <ul>
@@ -445,7 +445,7 @@
 <li><strong>Betöltés fájlból (csere)</strong>: egy fájlból betölti a sablonokat, és ezzel lecseréli az adatbázis jelenlegi tartalmát.</li>
 <li><strong>Betöltés fájlból</strong>: egy fájlból betölti a sablonokat miközben a jelenlegi tartalom is megmarad.</li>
 </ul>
-<h4 id="save-and-edit-template-dialogs">Save and edit template dialogs</h4>
+<h4 id="save-and-edit-template-dialogs">Save and edit template dialogs<a class="headerlink" href="#save-and-edit-template-dialogs" title="Permanent link">#</a></h4>
 <p>The dialog allows you to set</p>
 <ul>
 <li><strong>Name</strong> a descriptive name for the template.</li>
@@ -479,16 +479,16 @@
 </div></div>
                     	<div class="col-md-9" role="main">
 
-<h1 id="openstreetmap-nyitvatartas-szerkeszto">OpenStreetMap nyitvatartás-szerkesztő</h1>
+<h1 id="openstreetmap-nyitvatartas-szerkeszto">OpenStreetMap nyitvatartás-szerkesztő<a class="headerlink" href="#openstreetmap-nyitvatartas-szerkeszto" title="Permanent link">#</a></h1>
 <p>Az OpenStreetMapben a nyitvatartási idők megadása meglehetősen bonyolult, ezért nem könnyű egyszerű és intuitív felhasználói felületet készíteni hozzá.</p>
 <p>Azonban az esetek többségében csak egy kis részét használjuk a definícióknak. A szerkesztő ezt figyelembe véve megpróbálja menükbe rejteni a bonyolultabb funkciókat, és az esetek többségében az előre definiált sablonok testreszabására csökkenteni a mindennapos használatot.</p>
 <p><em>Ez a dokumentáció ideiglenes, és dolgozunk rajta</em></p>
-<h2 id="a-nyitvatartas-szerkeszto-hasznalata">A nyitvatartás-szerkesztő használata</h2>
+<h2 id="a-nyitvatartas-szerkeszto-hasznalata">A nyitvatartás-szerkesztő használata<a class="headerlink" href="#a-nyitvatartas-szerkeszto-hasznalata" title="Permanent link">#</a></h2>
 <p>A szokásos munkamenet szerint a szerkesztett térképelemnek vagy már van egy nyitva tartást tartalmazó címkéje (opening_hours, service_times vagy collection_times), vagy az előbeállításnak a térképelemre történő újraalkalmazásával nyithat egy üres nyitva tartási mezőt. Ha a mezőt kézzel kell hozzáadnia és Vespuccit használ, akkor a kulcsot megadhatja a részletes adatok oldalán, majd visszakapcsolhat az űrlapalapú fülre a szerkesztéshez. Ha úgy véli, hogy a nyitva tartási címkének az előbeállításban is szerepelnie kellene, kérjük, nyisson egy kérdést (issue) a szerkesztőjéhez.</p>
 <p>If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for specific key, for example "opening_hours", "collection_times" and "service_times" or custom values. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tag (for example amenity=restaurant). </p>
 <p>Természetesen a semmiből is elkezdheted összeállítani a nyitva tartást, azonban azt talácsoljuk, hogy kiindulási pontként használd valamelyik sablont.</p>
 <p>Amikor egy meglévő nyitva tartás betöltődik, akkor történik egy automatikus javítási kísérlet, hogy megfeleljen a nyitva tartási idők specifikációjának. Ha ez nem lehetséges, akkor a hiba körülbelüli helye kiemelődik a nyers nyitva tartás kijelzőjén, és megpróbálhatod kézzel kijavítani. Az OpenStreetMap adatbázisában a nyitva tartási értékek mintegy negyede hibás, azonban csak kevesebb mint 10% -uk nem javítható. A specifikációtól való megtűrt eltérések: <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a></p>
-<h3 id="fomenu-gomb">Főmenü gomb</h3>
+<h3 id="fomenu-gomb">Főmenü gomb<a class="headerlink" href="#fomenu-gomb" title="Permanent link">#</a></h3>
 <ul>
 <li><strong>Szabály hozzáadása</strong>: új szabály hozzáadása.</li>
 <li><strong>Szabály hozzáadása szünnapokra</strong>: hozzáad egy szabályt munkaszüneti napokra és egy állapotváltozást.</li>
@@ -499,9 +499,9 @@
 <li><strong>Frissítés</strong>: a nyitvatartási idő értékének újraelemzése.</li>
 <li><strong>Összes törlése</strong>: az összes szabály eltávolítása</li>
 </ul>
-<h3 id="szabalyok">Szabályok</h3>
+<h3 id="szabalyok">Szabályok<a class="headerlink" href="#szabalyok" title="Permanent link">#</a></h3>
 <p>Az alapértelmezett szabályok <em>rendes</em> szabályként jelennek meg. Ez azzal jár, hogy felülírják az adott napra vonatkozó korábbi szabályok értékeit. Ez aggasztó lehet, ha kiterjesztett időket szeretnénk megadni. Ilyenkor tipikusan érdemes átkapcsolni a szabályokat a <em>Szabálytípus mutatása</em> menüpontban _összeadó_ra.</p>
-<h4 id="szabaly-menu">Szabály menü</h4>
+<h4 id="szabaly-menu">Szabály menü<a class="headerlink" href="#szabaly-menu" title="Permanent link">#</a></h4>
 <ul>
 <li><strong>Módosító/megjegyzés hozzáadása</strong>: módosítja a szabály hatását és opcionális megjegyzést ad hozzá.</li>
 <li><strong>Szünnap hozzáadása</strong>: hozzáad egy választót, amellyel munkaszüneti napokat vagy tanítási szünetet választhatunk.</li>
@@ -547,10 +547,10 @@
 <li><strong>Mozgatás lefelé</strong>: eggyel lejjebb tolja a szabályt.</li>
 <li><strong>Törlés</strong>: törli a szabályt.</li>
 </ul>
-<h3 id="idotartamok">Időtartamok</h3>
+<h3 id="idotartamok">Időtartamok<a class="headerlink" href="#idotartamok" title="Permanent link">#</a></h3>
 <p>Szeretnénk a lehető legkönnyebbé tenni az időtartamok szerkesztését. A meglévő értékek betöltésénél ezért megpróbáltuk kiválasztani az optimális időtartamot és a tartománysáv finomságát. Új időtartam megadásánál a tartománysáv reggel 6:00 órakor indul és 15 perces a lépésköze. Ez menüben változtatható.</p>
 <p>Az idősáv használata olykor túl nehézkes. Ha ilyenkor az idősávra (nem a kijelölőkre) kattintunk, akkor megjelenik egy nagy időválasztó. Az időválasztók a következő napra is kiterjednek, így egyszerűen kiterjeszthető az időtartam anélkül, hogy törölni kellene majd újra megadni.</p>
-<h4 id="idotartam-menu">Időtartam menü</h4>
+<h4 id="idotartam-menu">Időtartam menü<a class="headerlink" href="#idotartam-menu" title="Permanent link">#</a></h4>
 <ul>
 <li><strong>Időválasztó megjelenítése</strong>: megjelenít egy nagy időválasztót a kezdő és záró időpontok kijelöléséhez. Nagyon kicsi kijelzőkön ez az idő módosításának előnyben részesített módja.</li>
 <li><strong>Váltás 15 perces lépésközre</strong>: 15 perces finomságúra változtatja a tartománysávot.</li>
@@ -560,7 +560,7 @@
 <li><strong>Intervallum megjelenítése</strong>: megjeleníti az intervallummezőt, ahol percben megadható, hogy milyen időközönként történik valami.</li>
 <li><strong>Törlés</strong>: ennek az időtartamnak a törlése.</li>
 </ul>
-<h3 id="sablonok-kezelese">Sablonok kezelése</h3>
+<h3 id="sablonok-kezelese">Sablonok kezelése<a class="headerlink" href="#sablonok-kezelese" title="Permanent link">#</a></h3>
 <p>A sablonkezelő párbeszédablakkal hozzáadhat, szerkeszthet és törölhet sablonokat.</p>
 <p>Az Android 4.4 és újabb verziókban a következő további funkciók állnak rendelkezésre a menügombon keresztül. </p>
 <ul>
@@ -569,7 +569,7 @@
 <li><strong>Betöltés fájlból (csere)</strong>: egy fájlból betölti a sablonokat, és ezzel lecseréli az adatbázis jelenlegi tartalmát.</li>
 <li><strong>Betöltés fájlból</strong>: egy fájlból betölti a sablonokat miközben a jelenlegi tartalom is megmarad.</li>
 </ul>
-<h4 id="save-and-edit-template-dialogs">Save and edit template dialogs</h4>
+<h4 id="save-and-edit-template-dialogs">Save and edit template dialogs<a class="headerlink" href="#save-and-edit-template-dialogs" title="Permanent link">#</a></h4>
 <p>The dialog allows you to set</p>
 <ul>
 <li><strong>Name</strong> a descriptive name for the template.</li>

@@ -361,12 +361,12 @@
 </div></div>
 <div class="col-md-9" role="main">
 
-<h2 id="vespucci-data-styling">Vespucci Data Styling</h2>
+<h2 id="vespucci-data-styling">Vespucci Data Styling<a class="headerlink" href="#vespucci-data-styling" title="Permanent link">#</a></h2>
 <p><em>Documentation for Vespucci 16.0 Style file format version 0.3.1</em></p>
 <p>The data styling configuration is not a work of art, it was created ad hoc (in other words it is an awful hack) to allow slightly more flexible configuration of the rendering.</p>
-<h3 id="using-custom-style-files-in-vespucci">Using custom style files in Vespucci</h3>
+<h3 id="using-custom-style-files-in-vespucci">Using custom style files in Vespucci<a class="headerlink" href="#using-custom-style-files-in-vespucci" title="Permanent link">#</a></h3>
 <p>Files need to need have an unique <em>name</em> attribute and the <em>.xml</em> extension and reside in a <em>styles</em> directory in an app specific files directory (for example <em>Android/data/de.blau.android/files/styles/test.xml</em> ). Currently the legacy storage format and location continues to work: unique <em>name</em> attribute and a filename in the format <em>name</em>-profile.xml and stored in the <em>Vespucci</em> directory, this is the only location that will work for devices with Android version older than 4.4. </p>
-<h3 id="style-elements-and-attributes">Style Elements and Attributes</h3>
+<h3 id="style-elements-and-attributes">Style Elements and Attributes<a class="headerlink" href="#style-elements-and-attributes" title="Permanent link">#</a></h3>
 <p>The styles are for a major part not much more than an external representation of the <a href="https://developer.android.com/reference/android/graphics/Paint">Android Paint</a> objects. In particular color, style, cap, join and strokeWidth attributes map directly to the Paint fields.</p>
 <p>Node styling is limited to the <strong>labelKey</strong> and <strong>iconPath</strong> attributes.</p>
 <table>
@@ -622,7 +622,7 @@
 </tbody>
 </table>
 <p>Using <em>"preset"</em> as the value for iconPath will match the objects tags with the presets, just as this is done throughout the application, however "building", "building:part" and "indoor=room" tags are ignored. If you need to render icons specifically for such objects, reference an icon directly. </p>
-<h3 id="internal-features">Internal features</h3>
+<h3 id="internal-features">Internal features<a class="headerlink" href="#internal-features" title="Permanent link">#</a></h3>
 <p>Styling for internal features is provided by the app, but they can be overridden by setting them in a style file.</p>
 <table>
 <thead>
@@ -830,9 +830,9 @@
 </tr>
 </tbody>
 </table>
-<h3 id="validation-styling">Validation styling</h3>
+<h3 id="validation-styling">Validation styling<a class="headerlink" href="#validation-styling" title="Permanent link">#</a></h3>
 <p>In a limited fashion the default validation styling can be overridden, by adding <strong>feature</strong> elements with <strong>type</strong> set to <strong>validation</strong> and <strong>code</strong> set to the error value that should be styled. Nodes will only use the colour specified.</p>
-<h4 id="error-codes">Error codes</h4>
+<h4 id="error-codes">Error codes<a class="headerlink" href="#error-codes" title="Permanent link">#</a></h4>
 <p>These are individual bits that are combined for the final value:</p>
 <table>
 <thead>
@@ -888,10 +888,10 @@
 </tr>
 </tbody>
 </table>
-<h4 id="example">Example</h4>
+<h4 id="example">Example<a class="headerlink" href="#example" title="Permanent link">#</a></h4>
 <pre><code> &lt;feature type="validation" code="2" updateWidth="true" widthFactor="1.5" color="ffffe000" style="STROKE" cap="BUTT" join="MITER" /&gt;
 </code></pre>
-<h3 id="complete-example">Complete Example</h3>
+<h3 id="complete-example">Complete Example<a class="headerlink" href="#complete-example" title="Permanent link">#</a></h3>
 <pre><code>&lt;?xml version='1.0' encoding='UTF-8' ?&gt;
 &lt;profile name="Color Round Nodes" format="0.3.0"&gt;
     &lt;!-- Assorted config --&gt;
@@ -1221,12 +1221,12 @@
 </div></div>
                     	<div class="col-md-9" role="main">
 
-<h2 id="vespucci-data-styling">Vespucci Data Styling</h2>
+<h2 id="vespucci-data-styling">Vespucci Data Styling<a class="headerlink" href="#vespucci-data-styling" title="Permanent link">#</a></h2>
 <p><em>Documentation for Vespucci 16.0 Style file format version 0.3.1</em></p>
 <p>The data styling configuration is not a work of art, it was created ad hoc (in other words it is an awful hack) to allow slightly more flexible configuration of the rendering.</p>
-<h3 id="using-custom-style-files-in-vespucci">Using custom style files in Vespucci</h3>
+<h3 id="using-custom-style-files-in-vespucci">Using custom style files in Vespucci<a class="headerlink" href="#using-custom-style-files-in-vespucci" title="Permanent link">#</a></h3>
 <p>Files need to need have an unique <em>name</em> attribute and the <em>.xml</em> extension and reside in a <em>styles</em> directory in an app specific files directory (for example <em>Android/data/de.blau.android/files/styles/test.xml</em> ). Currently the legacy storage format and location continues to work: unique <em>name</em> attribute and a filename in the format <em>name</em>-profile.xml and stored in the <em>Vespucci</em> directory, this is the only location that will work for devices with Android version older than 4.4. </p>
-<h3 id="style-elements-and-attributes">Style Elements and Attributes</h3>
+<h3 id="style-elements-and-attributes">Style Elements and Attributes<a class="headerlink" href="#style-elements-and-attributes" title="Permanent link">#</a></h3>
 <p>The styles are for a major part not much more than an external representation of the <a href="https://developer.android.com/reference/android/graphics/Paint">Android Paint</a> objects. In particular color, style, cap, join and strokeWidth attributes map directly to the Paint fields.</p>
 <p>Node styling is limited to the <strong>labelKey</strong> and <strong>iconPath</strong> attributes.</p>
 <table>
@@ -1482,7 +1482,7 @@
 </tbody>
 </table>
 <p>Using <em>"preset"</em> as the value for iconPath will match the objects tags with the presets, just as this is done throughout the application, however "building", "building:part" and "indoor=room" tags are ignored. If you need to render icons specifically for such objects, reference an icon directly. </p>
-<h3 id="internal-features">Internal features</h3>
+<h3 id="internal-features">Internal features<a class="headerlink" href="#internal-features" title="Permanent link">#</a></h3>
 <p>Styling for internal features is provided by the app, but they can be overridden by setting them in a style file.</p>
 <table>
 <thead>
@@ -1690,9 +1690,9 @@
 </tr>
 </tbody>
 </table>
-<h3 id="validation-styling">Validation styling</h3>
+<h3 id="validation-styling">Validation styling<a class="headerlink" href="#validation-styling" title="Permanent link">#</a></h3>
 <p>In a limited fashion the default validation styling can be overridden, by adding <strong>feature</strong> elements with <strong>type</strong> set to <strong>validation</strong> and <strong>code</strong> set to the error value that should be styled. Nodes will only use the colour specified.</p>
-<h4 id="error-codes">Error codes</h4>
+<h4 id="error-codes">Error codes<a class="headerlink" href="#error-codes" title="Permanent link">#</a></h4>
 <p>These are individual bits that are combined for the final value:</p>
 <table>
 <thead>
@@ -1748,10 +1748,10 @@
 </tr>
 </tbody>
 </table>
-<h4 id="example">Example</h4>
+<h4 id="example">Example<a class="headerlink" href="#example" title="Permanent link">#</a></h4>
 <pre><code> &lt;feature type="validation" code="2" updateWidth="true" widthFactor="1.5" color="ffffe000" style="STROKE" cap="BUTT" join="MITER" /&gt;
 </code></pre>
-<h3 id="complete-example">Complete Example</h3>
+<h3 id="complete-example">Complete Example<a class="headerlink" href="#complete-example" title="Permanent link">#</a></h3>
 <pre><code>&lt;?xml version='1.0' encoding='UTF-8' ?&gt;
 &lt;profile name="Color Round Nodes" format="0.3.0"&gt;
     &lt;!-- Assorted config --&gt;

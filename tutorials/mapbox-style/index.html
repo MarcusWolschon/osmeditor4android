@@ -361,17 +361,17 @@
 </div></div>
 <div class="col-md-9" role="main">
 
-<h2 id="vespucci-mapbox-gl-style-support">Vespucci Mapbox-GL Style Support</h2>
+<h2 id="vespucci-mapbox-gl-style-support">Vespucci Mapbox-GL Style Support<a class="headerlink" href="#vespucci-mapbox-gl-style-support" title="Permanent link">#</a></h2>
 <p><em>For the Mapbox documents see <a href="https://docs.mapbox.com/mapbox-gl-js/style-spec/">https://docs.mapbox.com/mapbox-gl-js/style-spec/</a></em></p>
-<h3 id="caveats">Caveats</h3>
+<h3 id="caveats">Caveats<a class="headerlink" href="#caveats" title="Permanent link">#</a></h3>
 <p>While a number of styles and corresponding vector tile schemas have been tested and within the limits described on this page things work, following specific points should be taken in to account:</p>
 <ul>
 <li>the support was mainly intended for relatively light weight QA data overlays, as this is based on Android Canvas rendering and not a purpose specific OpenGL rendering implementation performance will in general be slow. This is further confounded by many sources providing tiles up to a maximum of zoom level 14, these then tend to be very large and often contain far more data than what would be needed for the current view.</li>
 <li>we've implemented some simple label and icon collision detection, however if a collision is detected, we simply doesn't render one of the colliding objects without attempting to relocate the offending symbol (collision avoidance). Further there is currently a hard wired limit of 200 objects that are handled by this, any further ones are not rendered (the choice of limit is not of any particular significance).</li>
 </ul>
-<h3 id="sources">Sources</h3>
+<h3 id="sources">Sources<a class="headerlink" href="#sources" title="Permanent link">#</a></h3>
 <p>Only one vector tile source is currently supported, all other source configuration is ignored.</p>
-<h4 id="source-attributes">Source attributes</h4>
+<h4 id="source-attributes">Source attributes<a class="headerlink" href="#source-attributes" title="Permanent link">#</a></h4>
 <table>
 <thead>
 <tr>
@@ -444,14 +444,14 @@
 </tr>
 </tbody>
 </table>
-<h3 id="layers">Layers</h3>
+<h3 id="layers">Layers<a class="headerlink" href="#layers" title="Permanent link">#</a></h3>
 <p>Supported layers: <em>background</em>, <em>fill</em>, <em>fill-extrusion</em>, <em>line</em>, <em>symbol</em>, <em>circle</em></p>
 <p><em>fill-extrusion</em> layers are treated as flat fill layers</p>
 <p>Unsupported layers: raster, heatmap, hillshade, sky</p>
 <p>Unsupported attributes are ignored.</p>
 <p>Font selection is not supported, we render with a standard Android system font.</p>
 <p>None of the new "expression" functions are currently supported, however "old style" filter expressions are supported and interpolation linear, identity and exponential interpolation for numbers, colors and categories work for lots of the supported attributes.</p>
-<h4 id="style-attributes">Style attributes</h4>
+<h4 id="style-attributes">Style attributes<a class="headerlink" href="#style-attributes" title="Permanent link">#</a></h4>
 <table>
 <thead>
 <tr>
@@ -476,7 +476,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="layer-attributes-for-supported-layers">Layer attributes for supported layers</h3>
+<h3 id="layer-attributes-for-supported-layers">Layer attributes for supported layers<a class="headerlink" href="#layer-attributes-for-supported-layers" title="Permanent link">#</a></h3>
 <p>Value support:</p>
 <ul>
 <li><strong>l</strong> literal</li>
@@ -1219,17 +1219,17 @@
 </div></div>
                     	<div class="col-md-9" role="main">
 
-<h2 id="vespucci-mapbox-gl-style-support">Vespucci Mapbox-GL Style Support</h2>
+<h2 id="vespucci-mapbox-gl-style-support">Vespucci Mapbox-GL Style Support<a class="headerlink" href="#vespucci-mapbox-gl-style-support" title="Permanent link">#</a></h2>
 <p><em>For the Mapbox documents see <a href="https://docs.mapbox.com/mapbox-gl-js/style-spec/">https://docs.mapbox.com/mapbox-gl-js/style-spec/</a></em></p>
-<h3 id="caveats">Caveats</h3>
+<h3 id="caveats">Caveats<a class="headerlink" href="#caveats" title="Permanent link">#</a></h3>
 <p>While a number of styles and corresponding vector tile schemas have been tested and within the limits described on this page things work, following specific points should be taken in to account:</p>
 <ul>
 <li>the support was mainly intended for relatively light weight QA data overlays, as this is based on Android Canvas rendering and not a purpose specific OpenGL rendering implementation performance will in general be slow. This is further confounded by many sources providing tiles up to a maximum of zoom level 14, these then tend to be very large and often contain far more data than what would be needed for the current view.</li>
 <li>we've implemented some simple label and icon collision detection, however if a collision is detected, we simply doesn't render one of the colliding objects without attempting to relocate the offending symbol (collision avoidance). Further there is currently a hard wired limit of 200 objects that are handled by this, any further ones are not rendered (the choice of limit is not of any particular significance).</li>
 </ul>
-<h3 id="sources">Sources</h3>
+<h3 id="sources">Sources<a class="headerlink" href="#sources" title="Permanent link">#</a></h3>
 <p>Only one vector tile source is currently supported, all other source configuration is ignored.</p>
-<h4 id="source-attributes">Source attributes</h4>
+<h4 id="source-attributes">Source attributes<a class="headerlink" href="#source-attributes" title="Permanent link">#</a></h4>
 <table>
 <thead>
 <tr>
@@ -1302,14 +1302,14 @@
 </tr>
 </tbody>
 </table>
-<h3 id="layers">Layers</h3>
+<h3 id="layers">Layers<a class="headerlink" href="#layers" title="Permanent link">#</a></h3>
 <p>Supported layers: <em>background</em>, <em>fill</em>, <em>fill-extrusion</em>, <em>line</em>, <em>symbol</em>, <em>circle</em></p>
 <p><em>fill-extrusion</em> layers are treated as flat fill layers</p>
 <p>Unsupported layers: raster, heatmap, hillshade, sky</p>
 <p>Unsupported attributes are ignored.</p>
 <p>Font selection is not supported, we render with a standard Android system font.</p>
 <p>None of the new "expression" functions are currently supported, however "old style" filter expressions are supported and interpolation linear, identity and exponential interpolation for numbers, colors and categories work for lots of the supported attributes.</p>
-<h4 id="style-attributes">Style attributes</h4>
+<h4 id="style-attributes">Style attributes<a class="headerlink" href="#style-attributes" title="Permanent link">#</a></h4>
 <table>
 <thead>
 <tr>
@@ -1334,7 +1334,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="layer-attributes-for-supported-layers">Layer attributes for supported layers</h3>
+<h3 id="layer-attributes-for-supported-layers">Layer attributes for supported layers<a class="headerlink" href="#layer-attributes-for-supported-layers" title="Permanent link">#</a></h3>
 <p>Value support:</p>
 <ul>
 <li><strong>l</strong> literal</li>

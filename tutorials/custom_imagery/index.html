@@ -373,12 +373,12 @@
 </div></div>
 <div class="col-md-9" role="main">
 
-<h1 id="custom-imagery">Custom imagery</h1>
+<h1 id="custom-imagery">Custom imagery<a class="headerlink" href="#custom-imagery" title="Permanent link">#</a></h1>
 <p><em>by Simon Poole, updated 2021-08-30</em></p>
 <p>For Vespucci 10.1 we've added four long requested features: a simple UI to add custom imagery sources, support for WMS servers that support the same projection as conventional
 OpenStreetMap / google map tiles (EPSG:3857 and EPSG:900913, later Vespucci versions support EPSG:4326 for WMS servers too), support for layers from <a href="https://openaerialmap.org/">OAM</a> and support for imagery layers in <a href="https://github.com/mapbox/mbtiles-spec">MBTiles</a> format.</p>
 <p><strong>NOTE</strong> even though the URLs may look similar to those for a WMS layer, we do not support requesting data from ESRI MapServer with their native protocol.</p>
-<h2 id="adding-a-custom-imagery-source">Adding a custom imagery source</h2>
+<h2 id="adding-a-custom-imagery-source">Adding a custom imagery source<a class="headerlink" href="#adding-a-custom-imagery-source" title="Permanent link">#</a></h2>
 <p><img alt="custom imagery form" src="../images/custom_imagery_empty.png" /> </p>
 <p>To add a custom layer goto the <em>Preferences</em> screen and select <em>Custom imagery</em>, press the <em>+</em> button to add a new layer. In the form you can set</p>
 <ul>
@@ -389,7 +389,7 @@ OpenStreetMap / google map tiles (EPSG:3857 and EPSG:900913, later Vespucci vers
 <li><strong>Zoom</strong> <em>Min</em> and <em>Max</em> zoom levels, these indicates the minimum and maximum zoom levels available and are important for the app to determine over- and under-zoom correctly.</li>
 <li><strong>Tile size</strong> side length in pixels for the tiles, default 256. <em>Available from version 16.0 and later</em></li>
 </ul>
-<h3 id="supported-placeholders">Supported placeholders</h3>
+<h3 id="supported-placeholders">Supported placeholders<a class="headerlink" href="#supported-placeholders" title="Permanent link">#</a></h3>
 <p>Placeholders are replaced when the application retrieves imagery files from the source and are replaced by calculated values. There are some variants even between applications that in principle use the same system, which are noted for completeness sake below.</p>
 <p>The placeholders have the general format of <strong>{</strong> <em>placeholder name</em> <strong>}</strong>.</p>
 <p><strong>{zoom}</strong> the zoom level</p>
@@ -408,18 +408,18 @@ OpenStreetMap / google map tiles (EPSG:3857 and EPSG:900913, later Vespucci vers
 <li>A valid normal (non-Bing) URL for a tile server must contain at least at least <strong>{zoom}</strong>, <strong>{x}</strong> and one of <strong>{y}</strong>, <strong>{-y}</strong> or <strong>{ty}</strong>.</li>
 <li>A valid WMS entry must be a legal URL for a layer containing at least <strong>{width}</strong>, <strong>{height}</strong> and <strong>{bbox}</strong> placeholders. Note: do not add a <strong>{proj}</strong> placeholder when adding such a layer in the "Custom imagery" form in Vespucci (it is supported in the configuration files), simply leave the SRS or CRS attribute in the URL as is with the desired projection value.</li>
 </ul>
-<h3 id="examples">Examples</h3>
+<h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">#</a></h3>
 <p>Tile server example:</p>
 <pre><code>http://tiles.poole.ch/AGIS/OF2011/{zoom}/{x}/{y}.png
 </code></pre>
 <p>WMS server example:</p>
 <pre><code>https://geodienste.sachsen.de/wms_geosn_dop-rgb/guest?FORMAT=image/jpeg&amp;VERSION=1.1.1&amp;SERVICE=WMS&amp;REQUEST=GetMap&amp;LAYERS=sn_dop_020&amp;STYLES=&amp;SRS=EPSG:3857&amp;WIDTH={width}&amp;HEIGHT={height}&amp;BBOX={bbox}
 </code></pre>
-<h2 id="oam">OAM</h2>
+<h2 id="oam">OAM<a class="headerlink" href="#oam" title="Permanent link">#</a></h2>
 <p>You can query the OAM catalog by going to <em>Tools</em> and selecting <em>Add imagery from OAM</em>, this will query the OAM servers for layers in the current view:</p>
 <p><img alt="oam imagery form" src="../images/custom_imagery_oam.png" /> </p>
 <p>Unluckily it doesn't seem to be customary to give the imagery meaningful names on OAM, but as the use case is likely mostly use of layers that you have created yourself, it is likely bearable. After you've selected an entry you will again be shown the custom imagery dialog. Note: we try to determine the maximum zoom level from the nominal resolution of imagery as stored in OAM, however we've seen a couple of wacky values for this (sub-milimeter) and you should check that the value is roughly correct before saving. </p>
-<h2 id="mbtiles">MBTiles</h2>
+<h2 id="mbtiles">MBTiles<a class="headerlink" href="#mbtiles" title="Permanent link">#</a></h2>
 <p>To add a MBTiles layer, down/upload the MBTiles format file to your device, then go to the <em>Custom imagery</em> form as described above. Tap the <em>SD card</em> icon, navigate to the folder where you saved the file and select it. The form should now be filled out with all necessary values.</p>
 <p>Notes:</p>
 <ul>
@@ -463,12 +463,12 @@ OpenStreetMap / google map tiles (EPSG:3857 and EPSG:900913, later Vespucci vers
 </div></div>
                     	<div class="col-md-9" role="main">
 
-<h1 id="custom-imagery">Custom imagery</h1>
+<h1 id="custom-imagery">Custom imagery<a class="headerlink" href="#custom-imagery" title="Permanent link">#</a></h1>
 <p><em>by Simon Poole, updated 2021-08-30</em></p>
 <p>For Vespucci 10.1 we've added four long requested features: a simple UI to add custom imagery sources, support for WMS servers that support the same projection as conventional
 OpenStreetMap / google map tiles (EPSG:3857 and EPSG:900913, later Vespucci versions support EPSG:4326 for WMS servers too), support for layers from <a href="https://openaerialmap.org/">OAM</a> and support for imagery layers in <a href="https://github.com/mapbox/mbtiles-spec">MBTiles</a> format.</p>
 <p><strong>NOTE</strong> even though the URLs may look similar to those for a WMS layer, we do not support requesting data from ESRI MapServer with their native protocol.</p>
-<h2 id="adding-a-custom-imagery-source">Adding a custom imagery source</h2>
+<h2 id="adding-a-custom-imagery-source">Adding a custom imagery source<a class="headerlink" href="#adding-a-custom-imagery-source" title="Permanent link">#</a></h2>
 <p><img alt="custom imagery form" src="../images/custom_imagery_empty.png" /> </p>
 <p>To add a custom layer goto the <em>Preferences</em> screen and select <em>Custom imagery</em>, press the <em>+</em> button to add a new layer. In the form you can set</p>
 <ul>
@@ -479,7 +479,7 @@ OpenStreetMap / google map tiles (EPSG:3857 and EPSG:900913, later Vespucci vers
 <li><strong>Zoom</strong> <em>Min</em> and <em>Max</em> zoom levels, these indicates the minimum and maximum zoom levels available and are important for the app to determine over- and under-zoom correctly.</li>
 <li><strong>Tile size</strong> side length in pixels for the tiles, default 256. <em>Available from version 16.0 and later</em></li>
 </ul>
-<h3 id="supported-placeholders">Supported placeholders</h3>
+<h3 id="supported-placeholders">Supported placeholders<a class="headerlink" href="#supported-placeholders" title="Permanent link">#</a></h3>
 <p>Placeholders are replaced when the application retrieves imagery files from the source and are replaced by calculated values. There are some variants even between applications that in principle use the same system, which are noted for completeness sake below.</p>
 <p>The placeholders have the general format of <strong>{</strong> <em>placeholder name</em> <strong>}</strong>.</p>
 <p><strong>{zoom}</strong> the zoom level</p>
@@ -498,18 +498,18 @@ OpenStreetMap / google map tiles (EPSG:3857 and EPSG:900913, later Vespucci vers
 <li>A valid normal (non-Bing) URL for a tile server must contain at least at least <strong>{zoom}</strong>, <strong>{x}</strong> and one of <strong>{y}</strong>, <strong>{-y}</strong> or <strong>{ty}</strong>.</li>
 <li>A valid WMS entry must be a legal URL for a layer containing at least <strong>{width}</strong>, <strong>{height}</strong> and <strong>{bbox}</strong> placeholders. Note: do not add a <strong>{proj}</strong> placeholder when adding such a layer in the "Custom imagery" form in Vespucci (it is supported in the configuration files), simply leave the SRS or CRS attribute in the URL as is with the desired projection value.</li>
 </ul>
-<h3 id="examples">Examples</h3>
+<h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">#</a></h3>
 <p>Tile server example:</p>
 <pre><code>http://tiles.poole.ch/AGIS/OF2011/{zoom}/{x}/{y}.png
 </code></pre>
 <p>WMS server example:</p>
 <pre><code>https://geodienste.sachsen.de/wms_geosn_dop-rgb/guest?FORMAT=image/jpeg&amp;VERSION=1.1.1&amp;SERVICE=WMS&amp;REQUEST=GetMap&amp;LAYERS=sn_dop_020&amp;STYLES=&amp;SRS=EPSG:3857&amp;WIDTH={width}&amp;HEIGHT={height}&amp;BBOX={bbox}
 </code></pre>
-<h2 id="oam">OAM</h2>
+<h2 id="oam">OAM<a class="headerlink" href="#oam" title="Permanent link">#</a></h2>
 <p>You can query the OAM catalog by going to <em>Tools</em> and selecting <em>Add imagery from OAM</em>, this will query the OAM servers for layers in the current view:</p>
 <p><img alt="oam imagery form" src="../images/custom_imagery_oam.png" /> </p>
 <p>Unluckily it doesn't seem to be customary to give the imagery meaningful names on OAM, but as the use case is likely mostly use of layers that you have created yourself, it is likely bearable. After you've selected an entry you will again be shown the custom imagery dialog. Note: we try to determine the maximum zoom level from the nominal resolution of imagery as stored in OAM, however we've seen a couple of wacky values for this (sub-milimeter) and you should check that the value is roughly correct before saving. </p>
-<h2 id="mbtiles">MBTiles</h2>
+<h2 id="mbtiles">MBTiles<a class="headerlink" href="#mbtiles" title="Permanent link">#</a></h2>
 <p>To add a MBTiles layer, down/upload the MBTiles format file to your device, then go to the <em>Custom imagery</em> form as described above. Tap the <em>SD card</em> icon, navigate to the folder where you saved the file and select it. The form should now be filled out with all necessary values.</p>
 <p>Notes:</p>
 <ul>

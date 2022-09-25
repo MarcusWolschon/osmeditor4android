@@ -355,16 +355,16 @@
 </div></div>
 <div class="col-md-9" role="main">
 
-<h1 id="openstreetmap-openingstijden-bewerker">OpenStreetMap openingstijden bewerker</h1>
+<h1 id="openstreetmap-openingstijden-bewerker">OpenStreetMap openingstijden bewerker<a class="headerlink" href="#openstreetmap-openingstijden-bewerker" title="Permanent link">#</a></h1>
 <p>De OpenStreetMap openingstijden bewerker is redelijk complex en leent zich niet voor een simpele en intuïtieve gebruikersinterface.</p>
 <p>Toch zal je meestal maar een klein deel van de definitie gebruiken. De bewerker helpt hiermee door de obscure onderdelen te verbergen in menus en het gebruik "op de straat" meestal te beperken tot kleine aanpassingen van voorgedefinieerde sjablonen.</p>
 <p><em>Deze documentatie is voorlopig is werk in uitvoering</em></p>
-<h2 id="gebruik-van-de-openingstijdenbewerker">Gebruik van de openingstijdenbewerker</h2>
+<h2 id="gebruik-van-de-openingstijdenbewerker">Gebruik van de openingstijdenbewerker<a class="headerlink" href="#gebruik-van-de-openingstijdenbewerker" title="Permanent link">#</a></h2>
 <p>In een typische workflow zal het object dat wordt bewerkt al een bestaande openingstijden tag (opening_hours, service_times en collection_times) hebben, of je kan opnieuw een voorkeuze toepassen op het object om een leeg openingstijden veld te krijgen. Om handmatig het veld toe te voegen in Vespucci kan je in de detailspagina de sleutel toevoegen en dan terug naar de formuliergebaseerde wijzigingstab om te wijzigen. Als je denkt dat de openingstijden tag deel had moeten zijn van de voorkeuze, dan kan je een probleemmelding openen voor jouw bewerker. </p>
 <p>If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for specific key, for example "opening_hours", "collection_times" and "service_times" or custom values. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tag (for example amenity=restaurant). </p>
 <p>Natuurlijk kan je een openingstijden met de hand maken, maar we raden aan om een van de bestaande sjablonen als een startpunt te gebruiken.</p>
 <p>Als een bestaande openingstijden waarde is geladen, wordt geprobeerd om het automatisch te corrigeren naar de openingstijden specificatie. Als dat niet mogelijk is zal de locatie van de found worden getoond op de plek in de rauwe OT waarde, en kan worden geprobeerd om het handmatig te herstellen. Ongeveer een kwart van de OT waarden in de OpenStreetMap gegevensbank heeft problemen, maar minder dan 10% kan niet automatisch worden gecorrigeerd, zie <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a> voor meer informatie over de afwijkingen in de specificatie die worden getolereerd.</p>
-<h3 id="hoofdmenu-knop">Hoofdmenu knop</h3>
+<h3 id="hoofdmenu-knop">Hoofdmenu knop<a class="headerlink" href="#hoofdmenu-knop" title="Permanent link">#</a></h3>
 <ul>
 <li><strong>Voeg regel toe</strong>: voeg een nieuwe regel toe.</li>
 <li><strong>Voeg regel toe voor vakanties</strong>: voeg een nieuwe regel toe voor vakanties samen met een staatwijziging.</li>
@@ -375,9 +375,9 @@
 <li><strong>Ververs</strong>: lees opnieuw de openingstijden waarde in.</li>
 <li><strong>Verwijder alles</strong>: verwijder alle regels.</li>
 </ul>
-<h3 id="regels">Regels</h3>
+<h3 id="regels">Regels<a class="headerlink" href="#regels" title="Permanent link">#</a></h3>
 <p>Standaard regels worden toegevoegd als <em>normale</em> rules, dat betekent dat ze waarden van voorgaande regels zullen overschrijven voor dezelfde dagen. Dat kan een probleem zijn als je uitgebreide tijden specificeert, over het algemeen wil je dan de regels wisselen via <em>Toon regeltype</em> menu item naar <em>additief</em>.</p>
-<h4 id="regel-menu">Regel menu</h4>
+<h4 id="regel-menu">Regel menu<a class="headerlink" href="#regel-menu" title="Permanent link">#</a></h4>
 <ul>
 <li><strong>Voeg bewerker/commentaar toe</strong>: verander het effect van deze regel en voeg optioneel commentaar toe.</li>
 <li><strong>Voeg vakantie toe</strong>: voeg een selector toe voor feestdagen of schoolvakanties.</li>
@@ -424,10 +424,10 @@
 <li><strong>Beweeg naar beneden</strong>: beweeg deze regel een positie naar beneden.</li>
 <li><strong>Verwijder</strong>: verwijder deze regel.</li>
 </ul>
-<h3 id="tijdsbereiken">Tijdsbereiken</h3>
+<h3 id="tijdsbereiken">Tijdsbereiken<a class="headerlink" href="#tijdsbereiken" title="Permanent link">#</a></h3>
 <p>Om het wijzigen van tijdbereiken zo gemakkelijk mogelijk te maken, proberen we een optimaal tijdsbereik en granulariteit te selecteren voor de balken wanneer bestaande waarden worden geladen. Voor nieuwe tijdsbereiken beginnen de balken om 6:00 (AM) en hebben ze staggen van 15 minuten, dit kan via het menu worden aangepast.</p>
 <p>Klikken (niet op de bolletjes) op de tijdsbalk opent een groter tijdskeuzescherm, want de balken direct gebruiken is te moeilijk. De tijdkeuze gaat door tot de volgende dag, dus het is een gemakkelijke manier om een tijd te verlengen zonder het bereik te hoeven verwijderen en opnieuw toe te voegen. </p>
-<h4 id="tijdsbereik-menu">Tijdsbereik menu</h4>
+<h4 id="tijdsbereik-menu">Tijdsbereik menu<a class="headerlink" href="#tijdsbereik-menu" title="Permanent link">#</a></h4>
 <ul>
 <li><strong>Toon tijdskeuze</strong>: toont een groot scherm om start- en einttijd te kiezen, op kleine schermen is dit de voorkeursmanier om tijden te wijzigen.</li>
 <li><strong>Wissel naar stappen van 15 minuten</strong>: gebruik een granulariteit van 15 minuten voor de balk.</li>
@@ -437,7 +437,7 @@
 <li><strong>Toon interval</strong>: toont het interval veld om een interval in minuten op te geven.</li>
 <li><strong>Verwijder</strong>: verwijder dit tijdsbereik.</li>
 </ul>
-<h3 id="beheer-sjablonen">Beheer sjablonen</h3>
+<h3 id="beheer-sjablonen">Beheer sjablonen<a class="headerlink" href="#beheer-sjablonen" title="Permanent link">#</a></h3>
 <p>The template management dialog allows you to add, edit and delete templates.</p>
 <p>In Android 4.4 and later the following additional functionality is available from the menu button. </p>
 <ul>
@@ -446,7 +446,7 @@
 <li><strong>Load from file (replace)</strong>: load templates from a file replacing the current contents of the database.</li>
 <li><strong>Load from file</strong>: load templates from a file retaining the current contents.</li>
 </ul>
-<h4 id="save-and-edit-template-dialogs">Save and edit template dialogs</h4>
+<h4 id="save-and-edit-template-dialogs">Save and edit template dialogs<a class="headerlink" href="#save-and-edit-template-dialogs" title="Permanent link">#</a></h4>
 <p>The dialog allows you to set</p>
 <ul>
 <li><strong>Name</strong> a descriptive name for the template.</li>
@@ -480,16 +480,16 @@
 </div></div>
                     	<div class="col-md-9" role="main">
 
-<h1 id="openstreetmap-openingstijden-bewerker">OpenStreetMap openingstijden bewerker</h1>
+<h1 id="openstreetmap-openingstijden-bewerker">OpenStreetMap openingstijden bewerker<a class="headerlink" href="#openstreetmap-openingstijden-bewerker" title="Permanent link">#</a></h1>
 <p>De OpenStreetMap openingstijden bewerker is redelijk complex en leent zich niet voor een simpele en intuïtieve gebruikersinterface.</p>
 <p>Toch zal je meestal maar een klein deel van de definitie gebruiken. De bewerker helpt hiermee door de obscure onderdelen te verbergen in menus en het gebruik "op de straat" meestal te beperken tot kleine aanpassingen van voorgedefinieerde sjablonen.</p>
 <p><em>Deze documentatie is voorlopig is werk in uitvoering</em></p>
-<h2 id="gebruik-van-de-openingstijdenbewerker">Gebruik van de openingstijdenbewerker</h2>
+<h2 id="gebruik-van-de-openingstijdenbewerker">Gebruik van de openingstijdenbewerker<a class="headerlink" href="#gebruik-van-de-openingstijdenbewerker" title="Permanent link">#</a></h2>
 <p>In een typische workflow zal het object dat wordt bewerkt al een bestaande openingstijden tag (opening_hours, service_times en collection_times) hebben, of je kan opnieuw een voorkeuze toepassen op het object om een leeg openingstijden veld te krijgen. Om handmatig het veld toe te voegen in Vespucci kan je in de detailspagina de sleutel toevoegen en dan terug naar de formuliergebaseerde wijzigingstab om te wijzigen. Als je denkt dat de openingstijden tag deel had moeten zijn van de voorkeuze, dan kan je een probleemmelding openen voor jouw bewerker. </p>
 <p>If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for specific key, for example "opening_hours", "collection_times" and "service_times" or custom values. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tag (for example amenity=restaurant). </p>
 <p>Natuurlijk kan je een openingstijden met de hand maken, maar we raden aan om een van de bestaande sjablonen als een startpunt te gebruiken.</p>
 <p>Als een bestaande openingstijden waarde is geladen, wordt geprobeerd om het automatisch te corrigeren naar de openingstijden specificatie. Als dat niet mogelijk is zal de locatie van de found worden getoond op de plek in de rauwe OT waarde, en kan worden geprobeerd om het handmatig te herstellen. Ongeveer een kwart van de OT waarden in de OpenStreetMap gegevensbank heeft problemen, maar minder dan 10% kan niet automatisch worden gecorrigeerd, zie <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a> voor meer informatie over de afwijkingen in de specificatie die worden getolereerd.</p>
-<h3 id="hoofdmenu-knop">Hoofdmenu knop</h3>
+<h3 id="hoofdmenu-knop">Hoofdmenu knop<a class="headerlink" href="#hoofdmenu-knop" title="Permanent link">#</a></h3>
 <ul>
 <li><strong>Voeg regel toe</strong>: voeg een nieuwe regel toe.</li>
 <li><strong>Voeg regel toe voor vakanties</strong>: voeg een nieuwe regel toe voor vakanties samen met een staatwijziging.</li>
@@ -500,9 +500,9 @@
 <li><strong>Ververs</strong>: lees opnieuw de openingstijden waarde in.</li>
 <li><strong>Verwijder alles</strong>: verwijder alle regels.</li>
 </ul>
-<h3 id="regels">Regels</h3>
+<h3 id="regels">Regels<a class="headerlink" href="#regels" title="Permanent link">#</a></h3>
 <p>Standaard regels worden toegevoegd als <em>normale</em> rules, dat betekent dat ze waarden van voorgaande regels zullen overschrijven voor dezelfde dagen. Dat kan een probleem zijn als je uitgebreide tijden specificeert, over het algemeen wil je dan de regels wisselen via <em>Toon regeltype</em> menu item naar <em>additief</em>.</p>
-<h4 id="regel-menu">Regel menu</h4>
+<h4 id="regel-menu">Regel menu<a class="headerlink" href="#regel-menu" title="Permanent link">#</a></h4>
 <ul>
 <li><strong>Voeg bewerker/commentaar toe</strong>: verander het effect van deze regel en voeg optioneel commentaar toe.</li>
 <li><strong>Voeg vakantie toe</strong>: voeg een selector toe voor feestdagen of schoolvakanties.</li>
@@ -549,10 +549,10 @@
 <li><strong>Beweeg naar beneden</strong>: beweeg deze regel een positie naar beneden.</li>
 <li><strong>Verwijder</strong>: verwijder deze regel.</li>
 </ul>
-<h3 id="tijdsbereiken">Tijdsbereiken</h3>
+<h3 id="tijdsbereiken">Tijdsbereiken<a class="headerlink" href="#tijdsbereiken" title="Permanent link">#</a></h3>
 <p>Om het wijzigen van tijdbereiken zo gemakkelijk mogelijk te maken, proberen we een optimaal tijdsbereik en granulariteit te selecteren voor de balken wanneer bestaande waarden worden geladen. Voor nieuwe tijdsbereiken beginnen de balken om 6:00 (AM) en hebben ze staggen van 15 minuten, dit kan via het menu worden aangepast.</p>
 <p>Klikken (niet op de bolletjes) op de tijdsbalk opent een groter tijdskeuzescherm, want de balken direct gebruiken is te moeilijk. De tijdkeuze gaat door tot de volgende dag, dus het is een gemakkelijke manier om een tijd te verlengen zonder het bereik te hoeven verwijderen en opnieuw toe te voegen. </p>
-<h4 id="tijdsbereik-menu">Tijdsbereik menu</h4>
+<h4 id="tijdsbereik-menu">Tijdsbereik menu<a class="headerlink" href="#tijdsbereik-menu" title="Permanent link">#</a></h4>
 <ul>
 <li><strong>Toon tijdskeuze</strong>: toont een groot scherm om start- en einttijd te kiezen, op kleine schermen is dit de voorkeursmanier om tijden te wijzigen.</li>
 <li><strong>Wissel naar stappen van 15 minuten</strong>: gebruik een granulariteit van 15 minuten voor de balk.</li>
@@ -562,7 +562,7 @@
 <li><strong>Toon interval</strong>: toont het interval veld om een interval in minuten op te geven.</li>
 <li><strong>Verwijder</strong>: verwijder dit tijdsbereik.</li>
 </ul>
-<h3 id="beheer-sjablonen">Beheer sjablonen</h3>
+<h3 id="beheer-sjablonen">Beheer sjablonen<a class="headerlink" href="#beheer-sjablonen" title="Permanent link">#</a></h3>
 <p>The template management dialog allows you to add, edit and delete templates.</p>
 <p>In Android 4.4 and later the following additional functionality is available from the menu button. </p>
 <ul>
@@ -571,7 +571,7 @@
 <li><strong>Load from file (replace)</strong>: load templates from a file replacing the current contents of the database.</li>
 <li><strong>Load from file</strong>: load templates from a file retaining the current contents.</li>
 </ul>
-<h4 id="save-and-edit-template-dialogs">Save and edit template dialogs</h4>
+<h4 id="save-and-edit-template-dialogs">Save and edit template dialogs<a class="headerlink" href="#save-and-edit-template-dialogs" title="Permanent link">#</a></h4>
 <p>The dialog allows you to set</p>
 <ul>
 <li><strong>Name</strong> a descriptive name for the template.</li>

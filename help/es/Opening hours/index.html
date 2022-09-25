@@ -355,16 +355,16 @@
 </div></div>
 <div class="col-md-9" role="main">
 
-<h1 id="editor-de-horarios-de-apertura-de-openstreetmap">Editor de horarios de apertura de OpenStreetMap</h1>
+<h1 id="editor-de-horarios-de-apertura-de-openstreetmap">Editor de horarios de apertura de OpenStreetMap<a class="headerlink" href="#editor-de-horarios-de-apertura-de-openstreetmap" title="Permanent link">#</a></h1>
 <p>La especificación de horarios de apertura en OpenStreetMap es bastante compleja y no permite una interfaz de usuario simple e intuitiva.</p>
 <p>Sin embargo, en la mayoría de ocasiones basta con usar una pequeña parte de la especificación. El editor tiene esto en cuenta y trata de ocultar las características menos intuitivas en menús, reduciendo la mayor parte del tiempo su uso a realizar pequeños cambios en plantillas predefinidas.</p>
 <p><em>Esta documentación es preliminar y está en progreso</em></p>
-<h2 id="uso-del-editor-de-horarios-de-apertura">Uso del editor de horarios de apertura</h2>
+<h2 id="uso-del-editor-de-horarios-de-apertura">Uso del editor de horarios de apertura<a class="headerlink" href="#uso-del-editor-de-horarios-de-apertura" title="Permanent link">#</a></h2>
 <p>En un flujo de trabajo típico, el objeto que está editando ya tendrá una etiqueta de horas de apertura (opening_hours, service_times y collection_times) o puede volver a aplicar el ajuste preestablecido para el objeto para obtener un campo de horario de apertura vacío. Si necesita agregar el campo manualmente y está utilizando Vespucci, puede ingresar la clave en la página de detalles y luego volver a la pestaña basada en el formulario para editar. Si cree que la etiqueta de las horas de apertura debería haber sido parte del ajuste preestablecido, abra una publicación para su editor.</p>
 <p>If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for specific key, for example "opening_hours", "collection_times" and "service_times" or custom values. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tag (for example amenity=restaurant). </p>
 <p>Naturalmente, puedes crear un valor de horarios de apertura desde cero, pero recomendamos usar una de las plantillas existentes para empezar.</p>
 <p>Si se carga un valor existente, se intentará autocorregir para ajustarlo a las especificaciones de horarios de apertura. Si no es posible, la ubicación aproximada del error se marcará el la pantalla del valor en texto plano de los horarios de apertura, y podrás intentar corregirlo manualmente. Aproximadamente, una cuarta parte de los valores de horarios de apertura en la base de datos de OpenStreetMap tienen problemas, pero menos del 10% no son corregibles; ver <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a> para más información sobre qué desviaciones sobre las especificaciones son toleradas.</p>
-<h3 id="boton-del-menu-principal">Botón del menú principal</h3>
+<h3 id="boton-del-menu-principal">Botón del menú principal<a class="headerlink" href="#boton-del-menu-principal" title="Permanent link">#</a></h3>
 <ul>
 <li><strong>Añadir regla</strong>: añadir una nueva regla.</li>
 <li><strong>Añadir regla para vacaciones</strong>: añada una nueva regla para unas vacaciones junto con un cambio de estado.</li>
@@ -375,9 +375,9 @@
 <li><strong>Refrescar</strong>: volver a analizar el valor de la hora de apertura.</li>
 <li><strong>Eliminar todo</strong>: remover todas las reglas.</li>
 </ul>
-<h3 id="reglas">Reglas</h3>
+<h3 id="reglas">Reglas<a class="headerlink" href="#reglas" title="Permanent link">#</a></h3>
 <p>Se añaden reglas predeterminadas como_reglas_ normales, esto implica que anularán los valores de las reglas anteriores para los mismos días. Esto puede ser una preocupación al especificar tiempos extendidos, por lo general, querrá cambiar las reglas a través de la entrada del menú <em>Mostrar tipo de regla</em> a <em>aditivo</em>.</p>
-<h4 id="menu-regla">Menú Regla</h4>
+<h4 id="menu-regla">Menú Regla<a class="headerlink" href="#menu-regla" title="Permanent link">#</a></h4>
 <ul>
 <li><strong>Añadir modificador/comentario</strong>: cambia el efecto de esta regla y añade un comentario opcional.</li>
 <li><strong>Añadir vacaciones</strong>: añadir un selector para vacaciones públicas o escolares.</li>
@@ -423,10 +423,10 @@
 <li><strong>Bajar</strong>: bajar esta regla una posición.</li>
 <li><strong>Eliminar</strong>: eliminar esta regla.</li>
 </ul>
-<h3 id="lapsos-de-tiempo">Lapsos de tiempo</h3>
+<h3 id="lapsos-de-tiempo">Lapsos de tiempo<a class="headerlink" href="#lapsos-de-tiempo" title="Permanent link">#</a></h3>
 <p>Para que el tiempo de edición sea lo más fácil posible, tratamos de elegir un rango de tiempo y una granularidad óptimos para las barras de rango al cargar valores existentes. Para nuevos tiempos, las barras comienzan a las 6:00 (am) y tienen incrementos de 15 minutos, esto se puede cambiar a través del menú.</p>
 <p>Clicking (not on the pins) the time bar will open the large time picker, when using the bars directly is too difficult. The time pickers extend in to the next day, so they are a simple way to extend a time range without having to delete and re-add the the range.</p>
-<h4 id="menu-de-lapso-de-tiempo">Menú de lapso de tiempo</h4>
+<h4 id="menu-de-lapso-de-tiempo">Menú de lapso de tiempo<a class="headerlink" href="#menu-de-lapso-de-tiempo" title="Permanent link">#</a></h4>
 <ul>
 <li><strong>Mostrar el selector de tiempo</strong>: mostrar un selector de tiempo para seleccionar la hora de inicio y finalización, en pantallas muy pequeñas esta es la forma preferida de cambiar los horarios.</li>
 <li><strong>Cambiar a marcas de 15 minutos</strong>: use una granularidad de 15 minutos para la barra de rango.</li>
@@ -436,7 +436,7 @@
 <li><strong>Mostrar intervalo</strong>: mostrar el campo de intervalo para especificar un intervalo en minutos.</li>
 <li><strong>Eliminar</strong>: eliminar este lapso de tiempo.</li>
 </ul>
-<h3 id="administrar-plantillas">Administrar plantillas</h3>
+<h3 id="administrar-plantillas">Administrar plantillas<a class="headerlink" href="#administrar-plantillas" title="Permanent link">#</a></h3>
 <p>The template management dialog allows you to add, edit and delete templates.</p>
 <p>In Android 4.4 and later the following additional functionality is available from the menu button. </p>
 <ul>
@@ -445,7 +445,7 @@
 <li><strong>Load from file (replace)</strong>: load templates from a file replacing the current contents of the database.</li>
 <li><strong>Load from file</strong>: load templates from a file retaining the current contents.</li>
 </ul>
-<h4 id="save-and-edit-template-dialogs">Save and edit template dialogs</h4>
+<h4 id="save-and-edit-template-dialogs">Save and edit template dialogs<a class="headerlink" href="#save-and-edit-template-dialogs" title="Permanent link">#</a></h4>
 <p>The dialog allows you to set</p>
 <ul>
 <li><strong>Name</strong> a descriptive name for the template.</li>
@@ -479,16 +479,16 @@
 </div></div>
                     	<div class="col-md-9" role="main">
 
-<h1 id="editor-de-horarios-de-apertura-de-openstreetmap">Editor de horarios de apertura de OpenStreetMap</h1>
+<h1 id="editor-de-horarios-de-apertura-de-openstreetmap">Editor de horarios de apertura de OpenStreetMap<a class="headerlink" href="#editor-de-horarios-de-apertura-de-openstreetmap" title="Permanent link">#</a></h1>
 <p>La especificación de horarios de apertura en OpenStreetMap es bastante compleja y no permite una interfaz de usuario simple e intuitiva.</p>
 <p>Sin embargo, en la mayoría de ocasiones basta con usar una pequeña parte de la especificación. El editor tiene esto en cuenta y trata de ocultar las características menos intuitivas en menús, reduciendo la mayor parte del tiempo su uso a realizar pequeños cambios en plantillas predefinidas.</p>
 <p><em>Esta documentación es preliminar y está en progreso</em></p>
-<h2 id="uso-del-editor-de-horarios-de-apertura">Uso del editor de horarios de apertura</h2>
+<h2 id="uso-del-editor-de-horarios-de-apertura">Uso del editor de horarios de apertura<a class="headerlink" href="#uso-del-editor-de-horarios-de-apertura" title="Permanent link">#</a></h2>
 <p>En un flujo de trabajo típico, el objeto que está editando ya tendrá una etiqueta de horas de apertura (opening_hours, service_times y collection_times) o puede volver a aplicar el ajuste preestablecido para el objeto para obtener un campo de horario de apertura vacío. Si necesita agregar el campo manualmente y está utilizando Vespucci, puede ingresar la clave en la página de detalles y luego volver a la pestaña basada en el formulario para editar. Si cree que la etiqueta de las horas de apertura debería haber sido parte del ajuste preestablecido, abra una publicación para su editor.</p>
 <p>If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for specific key, for example "opening_hours", "collection_times" and "service_times" or custom values. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tag (for example amenity=restaurant). </p>
 <p>Naturalmente, puedes crear un valor de horarios de apertura desde cero, pero recomendamos usar una de las plantillas existentes para empezar.</p>
 <p>Si se carga un valor existente, se intentará autocorregir para ajustarlo a las especificaciones de horarios de apertura. Si no es posible, la ubicación aproximada del error se marcará el la pantalla del valor en texto plano de los horarios de apertura, y podrás intentar corregirlo manualmente. Aproximadamente, una cuarta parte de los valores de horarios de apertura en la base de datos de OpenStreetMap tienen problemas, pero menos del 10% no son corregibles; ver <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a> para más información sobre qué desviaciones sobre las especificaciones son toleradas.</p>
-<h3 id="boton-del-menu-principal">Botón del menú principal</h3>
+<h3 id="boton-del-menu-principal">Botón del menú principal<a class="headerlink" href="#boton-del-menu-principal" title="Permanent link">#</a></h3>
 <ul>
 <li><strong>Añadir regla</strong>: añadir una nueva regla.</li>
 <li><strong>Añadir regla para vacaciones</strong>: añada una nueva regla para unas vacaciones junto con un cambio de estado.</li>
@@ -499,9 +499,9 @@
 <li><strong>Refrescar</strong>: volver a analizar el valor de la hora de apertura.</li>
 <li><strong>Eliminar todo</strong>: remover todas las reglas.</li>
 </ul>
-<h3 id="reglas">Reglas</h3>
+<h3 id="reglas">Reglas<a class="headerlink" href="#reglas" title="Permanent link">#</a></h3>
 <p>Se añaden reglas predeterminadas como_reglas_ normales, esto implica que anularán los valores de las reglas anteriores para los mismos días. Esto puede ser una preocupación al especificar tiempos extendidos, por lo general, querrá cambiar las reglas a través de la entrada del menú <em>Mostrar tipo de regla</em> a <em>aditivo</em>.</p>
-<h4 id="menu-regla">Menú Regla</h4>
+<h4 id="menu-regla">Menú Regla<a class="headerlink" href="#menu-regla" title="Permanent link">#</a></h4>
 <ul>
 <li><strong>Añadir modificador/comentario</strong>: cambia el efecto de esta regla y añade un comentario opcional.</li>
 <li><strong>Añadir vacaciones</strong>: añadir un selector para vacaciones públicas o escolares.</li>
@@ -547,10 +547,10 @@
 <li><strong>Bajar</strong>: bajar esta regla una posición.</li>
 <li><strong>Eliminar</strong>: eliminar esta regla.</li>
 </ul>
-<h3 id="lapsos-de-tiempo">Lapsos de tiempo</h3>
+<h3 id="lapsos-de-tiempo">Lapsos de tiempo<a class="headerlink" href="#lapsos-de-tiempo" title="Permanent link">#</a></h3>
 <p>Para que el tiempo de edición sea lo más fácil posible, tratamos de elegir un rango de tiempo y una granularidad óptimos para las barras de rango al cargar valores existentes. Para nuevos tiempos, las barras comienzan a las 6:00 (am) y tienen incrementos de 15 minutos, esto se puede cambiar a través del menú.</p>
 <p>Clicking (not on the pins) the time bar will open the large time picker, when using the bars directly is too difficult. The time pickers extend in to the next day, so they are a simple way to extend a time range without having to delete and re-add the the range.</p>
-<h4 id="menu-de-lapso-de-tiempo">Menú de lapso de tiempo</h4>
+<h4 id="menu-de-lapso-de-tiempo">Menú de lapso de tiempo<a class="headerlink" href="#menu-de-lapso-de-tiempo" title="Permanent link">#</a></h4>
 <ul>
 <li><strong>Mostrar el selector de tiempo</strong>: mostrar un selector de tiempo para seleccionar la hora de inicio y finalización, en pantallas muy pequeñas esta es la forma preferida de cambiar los horarios.</li>
 <li><strong>Cambiar a marcas de 15 minutos</strong>: use una granularidad de 15 minutos para la barra de rango.</li>
@@ -560,7 +560,7 @@
 <li><strong>Mostrar intervalo</strong>: mostrar el campo de intervalo para especificar un intervalo en minutos.</li>
 <li><strong>Eliminar</strong>: eliminar este lapso de tiempo.</li>
 </ul>
-<h3 id="administrar-plantillas">Administrar plantillas</h3>
+<h3 id="administrar-plantillas">Administrar plantillas<a class="headerlink" href="#administrar-plantillas" title="Permanent link">#</a></h3>
 <p>The template management dialog allows you to add, edit and delete templates.</p>
 <p>In Android 4.4 and later the following additional functionality is available from the menu button. </p>
 <ul>
@@ -569,7 +569,7 @@
 <li><strong>Load from file (replace)</strong>: load templates from a file replacing the current contents of the database.</li>
 <li><strong>Load from file</strong>: load templates from a file retaining the current contents.</li>
 </ul>
-<h4 id="save-and-edit-template-dialogs">Save and edit template dialogs</h4>
+<h4 id="save-and-edit-template-dialogs">Save and edit template dialogs<a class="headerlink" href="#save-and-edit-template-dialogs" title="Permanent link">#</a></h4>
 <p>The dialog allows you to set</p>
 <ul>
 <li><strong>Name</strong> a descriptive name for the template.</li>
