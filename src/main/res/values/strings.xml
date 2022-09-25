@@ -616,7 +616,7 @@
     <string name="toast_error_reading">Error reading %1$s</string>
     <string name="toast_read_successfully">File read successfully</string>
     <string name="toast_error_writing">Error writing %1$s</string>
-    <string name="toast_successfully_written">File successfully written</string>
+    <string name="toast_successfully_written">%1$s successfully written</string>
     <string name="toast_http_data_error_for">HTTP data error for %1$s</string>
     <string name="toast_error_insufficient_space_for">Not enough space on device for %1$s</string>
     <string name="toast_error_too_many_redirects_for">Too many redirects for %1$s</string>
