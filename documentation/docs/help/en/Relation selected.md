@@ -14,7 +14,7 @@ Tapping the icon once will undo the last operation. A long press will display a 
 
 Starts the tag editor on the current selection.
 
-### ![Todos](../images/tag_menu_bugs.png) Todos
+### ![Todos](../images/tag_menu_bug.png) Todos
 
 If the selected element is associated either with a todo or osmose task this menu will be displayed.
 
