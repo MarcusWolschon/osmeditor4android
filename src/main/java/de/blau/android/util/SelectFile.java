@@ -161,14 +161,7 @@ public final class SelectFile {
                     saveCallback.save(uri);
                 }
             }
-        } else if (code == READ_FILE) {
-            synchronized (readCallbackLock) {
-                if (readCallback != null) {
-                    Log.d(DEBUG_TAG, "reading " + uri);
-                    readCallback.read(uri);
-                }
-            }
-        } else if (code == READ_FILE_OLD) {
+        } else if (code == READ_FILE || code == READ_FILE_OLD) {
             synchronized (readCallbackLock) {
                 if (readCallback != null) {
                     Log.d(DEBUG_TAG, "reading " + uri);

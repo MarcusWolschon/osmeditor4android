@@ -22,7 +22,7 @@ public class PostFileWriteCallback implements PostAsyncActionHandler {
 
     @Override
     public void onSuccess() {
-        Snack.toastTopInfo(context, R.string.toast_successfully_written);
+        Snack.toastTopInfo(context, context.getString(R.string.toast_successfully_written, fileName));
     }
 
     @Override

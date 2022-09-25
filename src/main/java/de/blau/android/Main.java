@@ -2245,7 +2245,7 @@ public class Main extends FullScreenAppCompatActivity
 
                 @Override
                 public boolean save(Uri fileUri) {
-                    App.getLogic().writeOsmFile(Main.this, fileUri, new PostFileWriteCallback(Main.this, fileUri.toString()));
+                    App.getLogic().writeOsmFile(Main.this, fileUri, new PostFileWriteCallback(Main.this, fileUri.getPath()));
                     SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
                     return true;
                 }
