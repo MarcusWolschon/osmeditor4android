@@ -325,7 +325,7 @@
 
         <div class="container">
             <div class="row">
-                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+<!--                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
     <div class="navbar-header">
         <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
             <span class="fa fa-angle-down"></span>
@@ -343,7 +343,39 @@
         </ul>
     </div>
 </div></div>
-                    <div class="col-md-9" role="main">
+<div class="col-md-9" role="main">
+
+<h1 id="voice-commands">Voice commands</h1>
+<p>Vespucci has rudimentary and highly experimental support for adding objects via voice commands. To be used the support needs to be enabled in the advanced preferences "Experimental" section.</p>
+<ul>
+<li>in "New" mode (long press), plus tapping the microphone icon: a name (example "McDonalds") or a preset name, either in English (or in German), (example: "Butcher" or "Fleischer" or "Fleischer Schmidt") or a number ("twentytwo") will create a node of the corresponding kind or an address. Essentially it uses the same search as the normal preset search and will use the first result found. </li>
+<li>in locked mode tap the main screen , available commands are<ul>
+<li>"map" or in German "hier" followed by a term as above, a node with the corresponding terms will be created at the current GPS position (which is less useful than you think)</li>
+<li>"note" or in German "notiz" followed by text will create a note at the current GPS position with the text as content </li>
+</ul>
+</li>
+</ul>
+<p>Note: the facility uses googles voice recognition framework which requires a working network connection</p></div> -->
+		    
+                    	<div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#voice-commands" class="nav-link">Voice commands</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    	<div class="col-md-9" role="main">
 
 <h1 id="voice-commands">Voice commands</h1>
 <p>Vespucci has rudimentary and highly experimental support for adding objects via voice commands. To be used the support needs to be enabled in the advanced preferences "Experimental" section.</p>
@@ -356,12 +388,14 @@
 </li>
 </ul>
 <p>Note: the facility uses googles voice recognition framework which requires a working network connection</p></div>
+                    
             </div>
         </div>
 
         <footer class="col-md-12">
             <hr>
-            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+	    <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
+	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 18.0.0 </p>
         </footer>
         <script>
             var base_url = "../../..",

@@ -325,7 +325,7 @@
 
         <div class="container">
             <div class="row">
-                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+<!--                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
     <div class="navbar-header">
         <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
             <span class="fa fa-angle-down"></span>
@@ -357,7 +357,73 @@
         </ul>
     </div>
 </div></div>
-                    <div class="col-md-9" role="main">
+<div class="col-md-9" role="main">
+
+<h1 id="vespucci-161-highlights">Vespucci 16.1 Highlights</h1>
+<p>2021-10-15</p>
+<h3 id="android-11-compatibility">Android 11 compatibility</h3>
+<p>As previously announced, 16.1 targets Android 11 so that we can continue to distribute the app on googles play store. </p>
+<p>If you have migrated your user generated files to the <em>Download/Vespucci</em> directory, the app should continue to work as expected. If you de-install and then re-install the app it is however possible that you the app will loose access to files in the <em>autopreset</em> sub-directory. If this happens you should rename that directory and a fresh one will be automatically created. </p>
+<h3 id="preference-to-select-camera-app">Preference to select camera app</h3>
+<p>Android 11 no longer provides a built in way to select a camera app, nor does it allow an app to determine which camera apps are installed on the device. To work around this we now have a hardwired list of camera apps that can be selected from, currently that includes Open Camera, FV5 lite and FV5 pro. If you want your favourite app included please open an issue and we will include it in the next maintenance release.</p>
+<p>While this is naturally not a good state of affairs it does have the advantage that on devices with earlier Android version you can select a camera app to use with Vespucci that is different from you normal default choice. </p>
+<h3 id="preference-to-disable-user-interface-translation">Preference to disable user interface translation</h3>
+<p>There is now a setting in the advanced preferences to disable translating the user interface.</p>
+<p>Google does not provide an API to facilitate this so you should be aware that this functionality is based on a number of workarounds and can cease to work at any time. </p>
+<h2 id="miscellaneous">Miscellaneous</h2>
+<ul>
+<li>test orchestrator has been migrated from Spoon to Marathon</li>
+<li>various small issues when undoing steps when creating a way or appending to one have been fixed</li>
+<li>tip shown on first use of a tri-state checkbox</li>
+<li>use http instead of https for default imagery offset server</li>
+<li>persist error toasts as notification per default</li>
+<li>disable fullscreen mode for all Xiaomi devices</li>
+<li>opening hour time range ending values that are in the next day are now exempt from strict parsing</li>
+<li>improved version conflict handling on upload</li>
+</ul>
+<h1 id="upgrading-from-previous-versions">Upgrading from previous versions</h1>
+<ul>
+<li>As a safety measure, you should always upload any changes before updating.</li>
+</ul>
+<h1 id="known-problems">Known problems</h1>
+<ul>
+<li>The documentation is out of date.</li>
+<li>For other known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
+</ul></div> -->
+		    
+                    	<div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#vespucci-161-highlights" class="nav-link">Vespucci 16.1 Highlights</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#miscellaneous" class="nav-link">Miscellaneous</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#upgrading-from-previous-versions" class="nav-link">Upgrading from previous versions</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#known-problems" class="nav-link">Known problems</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    	<div class="col-md-9" role="main">
 
 <h1 id="vespucci-161-highlights">Vespucci 16.1 Highlights</h1>
 <p>2021-10-15</p>
@@ -390,12 +456,14 @@
 <li>The documentation is out of date.</li>
 <li>For other known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
 </ul></div>
+                    
             </div>
         </div>
 
         <footer class="col-md-12">
             <hr>
-            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+	    <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
+	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 18.0.0 </p>
         </footer>
         <script>
             var base_url = "../../..",

@@ -325,7 +325,7 @@
 
         <div class="container">
             <div class="row">
-                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+<!--                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
     <div class="navbar-header">
         <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
             <span class="fa fa-angle-down"></span>
@@ -347,7 +347,287 @@
         </ul>
     </div>
 </div></div>
-                    <div class="col-md-9" role="main">
+<div class="col-md-9" role="main">
+
+<h1 id="object-search">Object search</h1>
+<p>Vespucci supports a large subset of JOSM search expressions, these can be used for locating and selecting specific objects in the in memory data, and for matching elements against roles in preset member_expression attributes.</p>
+<p>As there is essentially no documentation available from JOSM there is no guarantee that the behaviour is the same in all cases, known and deliberate differences are noted below. A reformatted and expanded version of what is available from JOSM is available here <a href="https://github.com/simonpoole/JosmFilterDoc/blob/master/filter.md">JOSM filter documentation</a>.</p>
+<h2 id="supported-expressions">Supported expressions</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Syntax</th>
+<th>Vespucci specific notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>✅</td>
+<td>Baker Street</td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>"Baker Street"</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><em>key</em><strong>:</strong><em>valuefragment</em></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>-</strong><em>key</em><strong>:</strong><em>valuefragment</em></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><em>key</em></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><em>key</em><strong>=</strong><em>value</em></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><em>key</em><strong>=*</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><em>key</em><strong>=</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td>__<em>=__</em>value*</td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><em>key</em><strong>&gt;</strong><em>reference</em></td>
+<td>Compares the value associated with key to reference, if possible if will convert to numeric values first</td>
+</tr>
+<tr>
+<td>✅</td>
+<td><em>key</em><strong>&lt;</strong><em>reference</em></td>
+<td>dito</td>
+</tr>
+<tr>
+<td>✅</td>
+<td><em>expr</em> <em>expr</em></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><em>expr</em> <strong>&#124;</strong> <em>expr</em></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><em>expr</em> <strong>OR</strong> <em>expr</em></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>-</strong><em>expr</em></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>(</strong><em>expr</em><strong>)</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>type:node</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>type:way</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>type:relation</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>closed</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>untagged</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>preset:"__preset item path</strong>"__</td>
+<td>Vespucci uses "&#124;" as preset path segment separator and only fixed tags are considered for matching</td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>preset:"__preset group path/*</strong>"__</td>
+<td>The asterix is ignored, the relevant criteria is if the path references a preset group</td>
+</tr>
+<tr>
+<td></td>
+<td><strong>user:</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>id:</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>version:</strong></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><strong>changeset:</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>timestamp:</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>nodes:</strong><em>range</em></td>
+<td>All nodes are counted, for closed ways that implies that start and end node are counted separately</td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>ways:</strong><em>range</em></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>tags:</strong><em>range</em></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>role:</strong><em>role</em></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>areasize:</strong><em>range</em></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>waylength:</strong><em>range</em></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>modified</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>new</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>selected</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>incomplete</strong></td>
+<td>Only used for relations</td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>deleted</strong></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><strong>child</strong> <em>expr</em></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><strong>parent</strong> <em>expr</em></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>hasRole:</strong><em>role</em></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><strong>nth:</strong><em>number</em></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><strong>nth%:</strong><em>number</em></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>inview</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>allinview</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>indownloadedarea</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>allindownloadedarea</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table></div> -->
+		    
+                    	<div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#object-search" class="nav-link">Object search</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#supported-expressions" class="nav-link">Supported expressions</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    	<div class="col-md-9" role="main">
 
 <h1 id="object-search">Object search</h1>
 <p>Vespucci supports a large subset of JOSM search expressions, these can be used for locating and selecting specific objects in the in memory data, and for matching elements against roles in preset member_expression attributes.</p>
@@ -604,12 +884,14 @@
 </tr>
 </tbody>
 </table></div>
+                    
             </div>
         </div>
 
         <footer class="col-md-12">
             <hr>
-            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+	    <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
+	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 18.0.0 </p>
         </footer>
         <script>
             var base_url = "../..",

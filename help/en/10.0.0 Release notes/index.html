@@ -325,7 +325,7 @@
 
         <div class="container">
             <div class="row">
-                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+<!--                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
     <div class="navbar-header">
         <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
             <span class="fa fa-angle-down"></span>
@@ -377,7 +377,157 @@
         </ul>
     </div>
 </div></div>
-                    <div class="col-md-9" role="main">
+<div class="col-md-9" role="main">
+
+<h1 id="vespucci-100-x-highlights">Vespucci 10.0 "X" Highlights</h1>
+<p>2017-12-19</p>
+<h2 id="version-number-change">Version number change</h2>
+<p>Even though Vespucci has been around  for over 8 years, we used version numbers below 1 in a rather nerdy understatement fashion. The problem with this is that these days nobody understands if you are not at at least at version 3 after a couple of months and people may actually think something is wrong, so we've decided to do a Mozilla and jump to version 10. </p>
+<p>While semantic versioning doesn't really make a lot of sense for applications that don't expose an API, we will be sticking with a <em>major</em> . <em>minor</em> . <em>patch</em> system for the internal numbering for now.</p>
+<h2 id="configurable-validator">Configurable validator</h2>
+<p>The internal validator has been re-factored, among many other changes there is now a check for missing keys and the check for re-surveying, introduced in 0.9.9, is now fully configurable.</p>
+<p>The missing tag check works on the combination of the keys that should be checked and the preset for element.</p>
+<p>Example: the default configuration checks that a "name" tag is present on a object if the matching preset contains a "name" field in the non-optional tags, optionally the check can be extended to "optional" tags.</p>
+<h2 id="c-mode">C-Mode</h2>
+<p>In C-Mode only objects that have warnings are displayed, making it simple to find objects with missing tags and other potential problems. Starting the property editor for an object in C-Mode will automatically apply the best match presets.</p>
+<p>Cycling through modes by long pressing on the lock button has become impractical with the increasing number of modes and has now been replaced with a menu.</p>
+<h2 id="support-for-synonyms-in-the-preset-search">Support for synonyms in the preset search</h2>
+<p>The preset search will now use the same list of synonyms that the iD editor does additionally to the internal preset search index. The new functionality is independent of preset translations and uses the same fuzzy matching as the index search. Additional synonyms should be added on transifex to the <a href="https://www.transifex.com/openstreetmap/id-editor/presets/">iD translations</a>.</p>
+<p>Notes:</p>
+<ul>
+<li>the search will currently only find presets that are present both in iD and Vespucci, we may consider added Vespucci specific lists at a later time.</li>
+<li>synonyms for military terms have been removed for safety reasons.</li>
+</ul>
+<h2 id="support-for-custom-tasks">Support for custom tasks</h2>
+<p>You can now load (and save) tasks in a simplified Osmose JSON format. The format is not particularly forgiving and must follow the following example:</p>
+<pre><code>{
+    "description": [
+        "lat",
+        "lon",
+        "error_id",
+        "elems",
+        "subtitle",
+        "title",
+        "level",
+        "update"
+    ],
+    "errors": [
+        [
+            "47.3050383",
+            "8.3702817",
+            "11187837418",
+            "way396965872",
+            "This is a silly error of type 1",
+            "Silly Errors",
+            "2",
+            "2017-03-26 20:30:16+02:00"
+        ],
+        [
+            "47.2930434",
+            "8.3615897",
+            "11187837446",
+            "way397334779",
+            "This is a silly error of type 2",
+            "Silly Errors",
+            "2",
+            "2017-03-26 20:30:16+02:00"
+        ]
+    ]
+}
+</code></pre>
+<p>The value for "error_id" should be unique in the file. Note the custom tasks can't be uploaded, however you can save the open tasks to a file for later reuse.</p>
+<h2 id="miscellaneous">Miscellaneous</h2>
+<ul>
+<li>The icon for splitting a selected way is now a pair of scissors.</li>
+<li>Improved label rendering.</li>
+<li>If a PresetFilter is filtering just on one preset item, apply that automatically when creating new elements.</li>
+<li>Support i18n attribute in presets to indicate that a text field can have i18n suffixes</li>
+<li>Improved tile download behavior when zooming or switching layers.</li>
+<li>Support for object_keys and value_type attributes in presets (current value_type opening_hours, conditional, and website are supported).</li>
+<li>Support for using patterns for way rendering, added styling for natural=cliff, natural=coastline and man_made=embankment.</li>
+<li>Improved conditional restriction editor with opening_hours editor support.</li>
+</ul>
+<p>The full change log is available <a href="https://github.com/MarcusWolschon/osmeditor4android/commits/master">here</a></p>
+<h1 id="upgrading-from-previous-versions">Upgrading from previous versions</h1>
+<ul>
+<li>The saved editing state file format has changed, please complete any edits before upgrading.</li>
+<li>
+<p>The preference values for numerical "Advanced preferences" have been reset to their defaults. Please review the settings for:</p>
+</li>
+<li>
+<p>Maximum number of inline values displayed</p>
+</li>
+<li>Autolock delay</li>
+<li>Notification cache size</li>
+<li>Maximum alert distance</li>
+<li>Download radius</li>
+<li>Maximum download speed</li>
+<li>Notes/bug download radius</li>
+<li>Maximum notes/bug download speed</li>
+<li>Minimum distance between GPS measurements</li>
+<li>GPS measurement interval</li>
+<li>Maximum number of tile download threads</li>
+<li>Tile cache size</li>
+<li>Maximum stroke width</li>
+</ul>
+<h1 id="known-problems">Known problems</h1>
+<ul>
+<li>For known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
+</ul></div> -->
+		    
+                    	<div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#vespucci-100-x-highlights" class="nav-link">Vespucci 10.0 "X" Highlights</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#version-number-change" class="nav-link">Version number change</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#configurable-validator" class="nav-link">Configurable validator</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#c-mode" class="nav-link">C-Mode</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#support-for-synonyms-in-the-preset-search" class="nav-link">Support for synonyms in the preset search</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#support-for-custom-tasks" class="nav-link">Support for custom tasks</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#miscellaneous" class="nav-link">Miscellaneous</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#upgrading-from-previous-versions" class="nav-link">Upgrading from previous versions</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#known-problems" class="nav-link">Known problems</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    	<div class="col-md-9" role="main">
 
 <h1 id="vespucci-100-x-highlights">Vespucci 10.0 "X" Highlights</h1>
 <p>2017-12-19</p>
@@ -474,12 +624,14 @@
 <ul>
 <li>For known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
 </ul></div>
+                    
             </div>
         </div>
 
         <footer class="col-md-12">
             <hr>
-            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+	    <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
+	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 18.0.0 </p>
         </footer>
         <script>
             var base_url = "../../..",

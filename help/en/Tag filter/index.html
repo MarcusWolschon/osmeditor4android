@@ -325,7 +325,7 @@
 
         <div class="container">
             <div class="row">
-                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+<!--                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
     <div class="navbar-header">
         <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
             <span class="fa fa-angle-down"></span>
@@ -351,7 +351,48 @@
         </ul>
     </div>
 </div></div>
-                    <div class="col-md-9" role="main">
+<div class="col-md-9" role="main">
+
+<h1 id="tag-filter">Tag filter</h1>
+<p>Vespucci provides a simple mechanism to filter displayed and editable objects based on selecting keys and values with regular expressions. Elements that are not selectable and visible will be drawn with light grey lines. All edits and additions to the filter entries are immediately stored on your device.</p>
+<p>The preset filter is enabled by selecting the corresponding menu entry in the menu on the main map display.</p>
+<h2 id="actions">Actions</h2>
+<h3 id="add">+ Add</h3>
+<p>Add a new filter entry.</p>
+<h3 id="help"><img alt="Help" src="../../images/menu_help.png" /> Help</h3>
+<p>Start the Vespucci Help browser</p>
+<h2 id="filter-entries">Filter entries</h2>
+<p>Default, no entries state, is to not include any objects. Each entry can be enabled/disabled with the checkbox and are applied in the top-down order as they are displayed. Selecting the "+" node will include objects that match, "-" will exclude objects. OSM object type can be either <em>All</em>, <em>Nodes</em>, <em>Ways</em>. <em>Ways+</em> (automatically include way nodes of matched ways), <em>Relations</em> and <em>Relations+</em> (automatically include way nodes of matched ways). Included ways and relations will include their member objects.</p>
+<p>Regular expressions can be entered in the Key and Value text fields, an empty field will match all strings. Combination of tags is currently not supported.</p>
+<p>Clicking the trash can icon will delete the entry.</p></div> -->
+		    
+                    	<div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#tag-filter" class="nav-link">Tag filter</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#actions" class="nav-link">Actions</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#filter-entries" class="nav-link">Filter entries</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    	<div class="col-md-9" role="main">
 
 <h1 id="tag-filter">Tag filter</h1>
 <p>Vespucci provides a simple mechanism to filter displayed and editable objects based on selecting keys and values with regular expressions. Elements that are not selectable and visible will be drawn with light grey lines. All edits and additions to the filter entries are immediately stored on your device.</p>
@@ -365,12 +406,14 @@
 <p>Default, no entries state, is to not include any objects. Each entry can be enabled/disabled with the checkbox and are applied in the top-down order as they are displayed. Selecting the "+" node will include objects that match, "-" will exclude objects. OSM object type can be either <em>All</em>, <em>Nodes</em>, <em>Ways</em>. <em>Ways+</em> (automatically include way nodes of matched ways), <em>Relations</em> and <em>Relations+</em> (automatically include way nodes of matched ways). Included ways and relations will include their member objects.</p>
 <p>Regular expressions can be entered in the Key and Value text fields, an empty field will match all strings. Combination of tags is currently not supported.</p>
 <p>Clicking the trash can icon will delete the entry.</p></div>
+                    
             </div>
         </div>
 
         <footer class="col-md-12">
             <hr>
-            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+	    <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
+	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 18.0.0 </p>
         </footer>
         <script>
             var base_url = "../../..",

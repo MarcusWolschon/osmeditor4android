@@ -325,7 +325,7 @@
 
         <div class="container">
             <div class="row">
-                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+<!--                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
     <div class="navbar-header">
         <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
             <span class="fa fa-angle-down"></span>
@@ -357,7 +357,93 @@
         </ul>
     </div>
 </div></div>
-                    <div class="col-md-9" role="main">
+<div class="col-md-9" role="main">
+
+<h1 id="vespucci-130-highlights">Vespucci 13.0 Highlights</h1>
+<p>2019-04-04</p>
+<h3 id="support-for-multi-polygon-improved-area-and-turn-restriction-rendering-and-improved-styling-configuration">Support for multi-polygon, improved area and turn restriction rendering and improved styling configuration</h3>
+<p>Vespucci will now render multipolygons, the standard style for this and some common area types is to have a thick border on the inside of the polygons similar to other editors. In principle it is possible to use a fill style, however particularly large multipolygons will typically have some non-downloaded members which will lead to rendering artifacts.</p>
+<p>Turn-restrictions will be indicated with an icon near the via node or way.</p>
+<p>The style configuration has been substantially revamped to allow cascading styles (and by that requiring less typing) and matching on arbitrary tags or tag combinations, further some previously hard wired constants are now exposed for configuration, for example the maximum zoom level at which icons are still displayed.</p>
+<p>Further improvements:</p>
+<ul>
+<li>Improve riverbank rendering by making "oneway" arrows configurable.</li>
+<li>Add casing support for ways.</li>
+</ul>
+<p>As previously the style format remains undocumented outside of the source code and the <a href="https://raw.githubusercontent.com/MarcusWolschon/osmeditor4android/master/src/main/assets/Color-round-profile.xml">configuration files themselves</a></p>
+<h3 id="support-applying-osmchange-format-files">Support applying osmChange format files</h3>
+<p>osmChange format files can now be applied to loaded data. This makes the functionality to save such files much more useful, for example potential problems can be inspected and fixed in the saved files and then re-applied without having to use JOSM.</p>
+<h3 id="add-support-for-mapsplit-tiled-osm-data">Add support for MapSplit tiled OSM data</h3>
+<p>MapSplit sources contain original OSM data in PBF format tiles. These files can be configured as read-only data sources and be used for editing on the go when there is no expectation of network coverage or there is only slow Internet connectivity available. While it was previously possible to simply load larger areas directly in to memory, this has a large impact on performance that is avoided by being able to load data for smaller areas on demand.</p>
+<p>MapSplit sources can be configured in the via the "Configuration" menu item for the data layer in the layer control, edit or add an entry, and click the folder icon on the "Read.only API URL". </p>
+<p>Notes:</p>
+<ul>
+<li>edits naturally still need to be either uploaded or saved locally for later upload</li>
+<li>currently there is no online service for obtaining data in this format, so you will need to extract and convert data for the areas that you are interested in yourself: <a href="https://github.com/simonpoole/mapsplit/">MapSplit repository</a>. </li>
+<li>currently the sources are completely static on device, so your edits will not be reflected, there is some work under way to changes this.</li>
+<li>offline background imagery can be used in Vespucci in MBTiles format.</li>
+</ul>
+<h3 id="support-reading-pbf-format-osm-data-files">Support reading PBF format OSM data files</h3>
+<p>Vespucci can now read OSM data from files in PBF format, the most popular binary format for OSM data. </p>
+<h2 id="miscellaneous">Miscellaneous</h2>
+<ul>
+<li>Add preference for map screen orientation.</li>
+<li>Support filtering name suggestions by country/region.</li>
+<li>Support draft comment and source tags and add review_requested.</li>
+<li>Improve pinch/spread zoom behaviour.</li>
+<li>Avoid floating point binary representation issues on input and output.</li>
+<li>Add confirmation modal before deleting stored GPX data.</li>
+<li>Validate and highlight unconnected highway end nodes that probably should be connected (required distance can be configured in the validation preferences).</li>
+<li>Validate and highlight untagged ways that are not a relation member and relations.</li>
+<li>Item lists for API, Preset and Geocoder configuration now have a menu button that can be used instead of a long press, further API entries can now be copied.</li>
+<li>"Go to element" button in the element info dialog when started from the upload dialog.</li>
+<li>Support for reading presets from on-device files.</li>
+<li>MapRoulette tasks are now disabled by default on new installs to stop users without MapRoulette accounts from fixing them "by accident" and then not knowing what to do.</li>
+</ul>
+<h1 id="upgrading-from-previous-versions">Upgrading from previous versions</h1>
+<ul>
+<li>As the saved state file format changed for version 13.0, please complete any edits before upgrading if your current version is older.</li>
+<li>As the format of the style configuration has changed you will need to adapt any custom styles you have produced.</li>
+</ul>
+<h1 id="known-problems">Known problems</h1>
+<ul>
+<li>the documentation is out of date.</li>
+<li>For known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
+</ul></div> -->
+		    
+                    	<div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#vespucci-130-highlights" class="nav-link">Vespucci 13.0 Highlights</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#miscellaneous" class="nav-link">Miscellaneous</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#upgrading-from-previous-versions" class="nav-link">Upgrading from previous versions</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#known-problems" class="nav-link">Known problems</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    	<div class="col-md-9" role="main">
 
 <h1 id="vespucci-130-highlights">Vespucci 13.0 Highlights</h1>
 <p>2019-04-04</p>
@@ -410,12 +496,14 @@
 <li>the documentation is out of date.</li>
 <li>For known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
 </ul></div>
+                    
             </div>
         </div>
 
         <footer class="col-md-12">
             <hr>
-            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+	    <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
+	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 18.0.0 </p>
         </footer>
         <script>
             var base_url = "../../..",
