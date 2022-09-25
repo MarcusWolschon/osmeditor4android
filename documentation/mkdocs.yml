@@ -7,6 +7,9 @@ theme:
   favicon: favicon.ico
 markdown_extensions:
     - pymdownx.tilde
+    - toc:
+        permalink: "#"
+        toc_depth: 4
 extra:
   version: 18.0.0
   project: Vespucci
