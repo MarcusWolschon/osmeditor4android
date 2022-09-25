@@ -9,452 +9,308 @@
         
         <link rel="shortcut icon" href="../../../img/favicon.ico">
         <title>Editor de horário de abertura do OpenStreetMap - Vespucci</title>
-        <link href="../../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/docco.min.css">
-        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/docco.min.css">
 
         <script src="../../../js/jquery-1.10.2.min.js" defer></script>
-        <script src="../../../js/bootstrap-3.0.3.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script src="../../../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
         <script>hljs.initHighlightingOnLoad();</script> 
     </head>
 
     <body>
-
-        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-
-                <!-- Collapsed navigation -->
-                <div class="navbar-header">
-                    <!-- Expander button -->
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-
-<!--
-                    <a class="navbar-brand" href="../../..">Vespucci</a> -->
-                </div>
+                <a class="navbar-brand" href="../../..">Vespucci</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
                 <!-- Expanded navigation -->
-                <div class="navbar-collapse collapse">
+                <div id="navbar-collapse" class="navbar-collapse collapse">
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
-                                <li >
+                            <li class="navitem">
+                                <a href="../../.." class="nav-link">Vespucci</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
                                     
-                                        <a href="../../.."><img src="/vespucci_logo_small.png"></a>
-                                </li>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
-                                    <ul class="dropdown-menu">
-                                        
 <li>
     <a href="../../en/Introduction/" class="dropdown-item">Introduction</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../../tutorials/features/" class="dropdown-item">Features</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../en/18.0.0%20Release%20notes/" class="dropdown-item">18.0.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../en/17.1.0%20Release%20notes/" class="dropdown-item">17.1.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../en/17.0.0%20Release%20notes/" class="dropdown-item">17.0.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../en/16.1.0%20Release%20notes/" class="dropdown-item">16.1.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../en/16.0.0%20Release%20notes/" class="dropdown-item">16.0.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../en/15.2.0%20Release%20notes/" class="dropdown-item">15.2.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../en/15.1.0%20Release%20notes/" class="dropdown-item">15.1.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../en/15.0.0%20Release%20notes/" class="dropdown-item">15.0.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../en/14.1.0%20Release%20notes/" class="dropdown-item">14.1.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../en/14.0.0%20Release%20notes/" class="dropdown-item">14.0.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../en/13.1.0%20Release%20notes/" class="dropdown-item">13.1.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../en/13.0.0%20Release%20notes/" class="dropdown-item">13.0.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../en/12.1.0%20Release%20notes/" class="dropdown-item">12.1.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../en/12.0.0%20Release%20notes/" class="dropdown-item">12.0.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../en/11.2.0%20Release%20notes/" class="dropdown-item">11.2.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../en/11.1.0%20Release%20notes/" class="dropdown-item">11.1.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../en/11.0.0%20Release%20notes/" class="dropdown-item">11.0.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../en/10.2.0%20Release%20notes/" class="dropdown-item">10.2.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../en/10.1.0%20Release%20notes/" class="dropdown-item">10.1.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../en/10.0.0%20Release%20notes/" class="dropdown-item">10.0.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../en/0.9.9%20Release%20notes/" class="dropdown-item">0.9.9 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../en/0.9.8%20Release%20notes/" class="dropdown-item">0.9.8 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../en/0.9.7%20Release%20notes/" class="dropdown-item">0.9.7 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../en/0.9.6%20Release%20notes/" class="dropdown-item">0.9.6 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../../tutorials/old_release_notes/" class="dropdown-item">Previous release notes</a>
 </li>
-                                    </ul>
-                                </li>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Editing <b class="caret"></b></a>
-                                    <ul class="dropdown-menu">
-                                        
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Editing <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
 <li>
     <a href="../../en/Main%20map%20display/" class="dropdown-item">Main map display</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../en/Simple%20actions/" class="dropdown-item">Simple actions</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../en/Creating%20new%20objects/" class="dropdown-item">Creating new objects</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../en/Node%20selected/" class="dropdown-item">Node selected</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../en/Way%20selected/" class="dropdown-item">Way selected</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../en/Relation%20selected/" class="dropdown-item">Relation selected</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../en/New%20Note%20selected/" class="dropdown-item">New note selected</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../en/Property%20editor/" class="dropdown-item">Property editor</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../en/Multiselect/" class="dropdown-item">Multiselect</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../en/Conflict%20resolution/" class="dropdown-item">Conflict resolution</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../en/Presets/" class="dropdown-item">Presets</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../en/Aligning%20background%20imagery/" class="dropdown-item">Aligning background imagery</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../en/Keyboard/" class="dropdown-item">Keyboard and mouse</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../en/GPS%20sources/" class="dropdown-item">GPS sources</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../en/Tag%20filter/" class="dropdown-item">Tag based filter</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../en/Preset%20filter/" class="dropdown-item">Preset based filter</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../en/Opening%20hours/" class="dropdown-item">Opening hours</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../en/Preferences/" class="dropdown-item">Preferences</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../en/Advanced%20preferences/" class="dropdown-item">Advanced preferences</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../en/Voice%20commands/" class="dropdown-item">Voice commands</a>
 </li>
-                                    </ul>
-                                </li>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tutorials and Posts <b class="caret"></b></a>
-                                    <ul class="dropdown-menu">
-                                        
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Tutorials and Posts <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
 <li>
     <a href="../../../tutorials/network_location/" class="dropdown-item">"network" Location Provider Support</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../../tutorials/custom_imagery/" class="dropdown-item">Custom imagery</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../../tutorials/custom_imagery_mbtiles/" class="dropdown-item">Generating MBTiles files with custom imagery</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../../tutorials/name_suggestions/" class="dropdown-item">Using name suggestions</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../../tutorials/reporting_issues/" class="dropdown-item">Reporting Vespucci issues</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../../tutorials/tag_only/" class="dropdown-item">Tag-only editing</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../../tutorials/presets/" class="dropdown-item">Vespucci presets</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../../tutorials/data_styling/" class="dropdown-item">Vespucci data styling</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../../tutorials/vespucci_intents/" class="dropdown-item">Controlling Vespucci from other apps</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../../tutorials/object_search/" class="dropdown-item">Object search</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../../tutorials/offline/" class="dropdown-item">Going completely offline with Vespucci</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../../tutorials/mapbox-style/" class="dropdown-item">Mapbox-GL Style Support</a>
 </li>
-                                    </ul>
-                                </li>
-                                <li >
-                                    
-                                        <a href="../../../tutorials/screenshots/">Videos & Screenshots</a>
-                                </li>
-                                <li >
-                                    
-                                        <a href="../../../tutorials/faq/">FAQ</a>
-                                </li>
-                                <li >
-                                    
-                                        <a href="../../en/Privacy/">Privacy</a>
-                                </li>
+                                </ul>
+                            </li>
+                            <li class="navitem">
+                                <a href="../../../tutorials/screenshots/" class="nav-link">Videos & Screenshots</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../../../tutorials/faq/" class="nav-link">FAQ</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../../en/Privacy/" class="nav-link">Privacy</a>
+                            </li>
                         </ul>
 
-                    <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
-<!--- Remove Prev - Next
-i-->
                     </ul>
                 </div>
             </div>
         </div>
 
         <div class="container">
-<!--                <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
-            <span class="fa fa-angle-down"></span>
-        </button>
-    </div>
-
-    
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
-        <ul class="nav flex-column">
-            
-            <li class="nav-item" data-level="1"><a href="#editor-de-horario-de-abertura-do-openstreetmap" class="nav-link">Editor de horário de abertura do OpenStreetMap</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#usar-o-editor-de-horario-de-abertura" class="nav-link">Usar o editor de horário de abertura</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
-        </ul>
-    </div>
-</div></div>
-                <div class="col-md-9" role="main">
-
-<h1 id="editor-de-horario-de-abertura-do-openstreetmap">Editor de horário de abertura do OpenStreetMap</h1>
-<p>A especificação dos horários de aberturas no OpenStreetMap é bastante complexa e não permite uma utilização simples e intuitiva.</p>
-<p>No entanto, na maioria das vezes só se usa uma pequena parte da especificação. O editor tem isto em conta e tenta simplificar não mostrando outras opções avançadas nos menus, assim como mostrar pequenos modelos de preenchimento úteis em levantamentos no terreno.</p>
-<p><em>Esta documentação é temporária e encontra-se em desenvolvimento</em></p>
-<h2 id="usar-o-editor-de-horario-de-abertura">Usar o editor de horário de abertura</h2>
-<p>Num processo normal, o objeto que está a editar irá ter uma etiqueta de horário de abertura (opening_hours, service_times e collection_times) ou então poderá tornar a aplicar o modelo de etiquetas ao objeto para obter um campo de horário de abertura limpo. Se necessitar de adicionar o campo manualmente e estiver a usar o Vespucci, pode introduzir a chave na página de detalhes e então mudar para a aba baseada em formulário para editá-la. Se acreditar que a etiqueta de horário de abertura devia fazer parte do modelo de etiquetas, por favor abra um relatório para o seu editor.</p>
-<p>If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for specific key, for example "opening_hours", "collection_times" and "service_times" or custom values. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tag (for example amenity=restaurant). </p>
-<p>Claro que pode construir um valor de abertura a partir do nada, mas recomendamos usar um dos modelos existentes como ponto de partida.</p>
-<p>Se for carregado um valor de horário de abertura existente, é feita uma tentativa para corrigir automaticamente para estar conforme a especificação do horário de abertura. Se isso não for possível, a localização onde o erro se encontra é destacada e poderá corrigir manualmente. Certa de um quarto de todos os valores de horários de abertura no OpenStreetMap têm problemas, mas menos de 10% não podem ser corrigidos. Veja <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a> para mais informação sobre que desvios da especificação são tolerados.</p>
-<h3 id="botao-do-menu-principal">Botão do menu principal</h3>
-<ul>
-<li><strong>Adicionar regra</strong>: adiciona uma nova regra.</li>
-<li><strong>Adicionar regra para feriado</strong>: adiciona uma nova regra para feriado junto com um alteração de estado.</li>
-<li><strong>Adicionar regra para 24/7</strong>: adiciona uma regra para um elemento que está sempre aberto, a especificação de horário de abertura não suporta mais nenhum sub valor para 24/7, no entanto permite-se adicionar seletores de alto nível (por exemplo, intervalos de tempo).</li>
-<li><strong>Carregar modelo</strong>: carrega um modelo existente.</li>
-<li><strong>Gravar no modelo</strong>: grava os valores do horário de abertura atual num modelo para futura reutilização.</li>
-<li><strong>Gerir modelos</strong>: editar, por exemplo alterar o nome e eliminar os modelos existentes.</li>
-<li><strong>Atualizar</strong>: torna a processar os valores das horas.</li>
-<li><strong>Eliminar tudo</strong>: elimina todas as regras.</li>
-</ul>
-<h3 id="regras">Regras</h3>
-<p>As regras padrão são adicionadas como regras <em>normais</em>, isto implica que elas irão gravar por cima que quaisquer valores existentes para os mesmo dias. Isto pode ser um problema ao especificar horas expandidas, normalmente irá querer mudar as regras através do menu <em>Mostrar tipo de regra</em> para <em>aditivo</em>.</p>
-<h4 id="menu-de-regras">Menu de regras</h4>
-<ul>
-<li><strong>Adicionar estado/comentário</strong>: altera o efeito desta regra e permite adicionar um comentário opcional.</li>
-<li><strong>Adicionar feriado</strong>: adiciona um seletor para feriados civis ou escolares.</li>
-<li><strong>Adicionar segmento de tempo...</strong><ul>
-<li><strong>Hora - hora</strong>: uma hora inicial e final no mesmo dia.</li>
-<li><strong>Hora - tempo alargado</strong>: uma hora inicial e uma final no dia seguinte (por exemplo 26:00 corresponde às 02:00 do dia seguinte)</li>
-<li><strong>Hora variável - hora</strong>: de uma hora inicial variável (amanhecer, anoitecer, nascer do sol e pôr do sol) até uma hora de fecho no mesmo dia.</li>
-<li><strong>Hora variável - tempo alargado</strong>: de uma hora inicial variável até uma hora de fecho no dia seguinte.</li>
-<li><strong>Hora - hora variável</strong>: de uma hora de início até uma hora de fim.</li>
-<li><strong>Hora variável - hora variável</strong>: de uma hora de início variável até uma hora de fim variável.</li>
-<li><strong>Hora</strong>: um ponto no tempo.</li>
-<li><strong>Hora-fecho após últ.cliente</strong>: começa numa hora inicial.</li>
-<li><strong>Hora variável</strong>: na hora variável</li>
-<li><strong>Hora variável-fecho após últ.cliente</strong>: começa numa hora inicial variável.</li>
-</ul>
-</li>
-<li><strong>Adicionar intervalo de dia da semana</strong>: adiciona um seletor baseado no dia da semana.</li>
-<li><strong>Adicionar intervalo de datas...</strong><ul>
-<li><strong>Data - data</strong>: de uma data inicial (ano, mês, dia) até uma data de fim.</li>
-<li><strong>Data variável - data</strong>: de uma data inicial variável (atualmente a especificação apenas define a <em>páscoa</em>) até uma data de fim.</li>
-<li><strong>Data - data variável</strong>: de uma data inicial até uma data variável.</li>
-<li><strong>Data variável - data variável</strong>: de uma data inicial variável até uma data de fim variável.</li>
-<li><strong>Ocorrência no mês - ocorrência no mês</strong>: de uma ocorrência no mês do dia da semana até ao mesmo.</li>
-<li><strong>Ocorrência num mês - data</strong>: de uma ocorrência no mês do dia da semana até a uma data de fim.</li>
-<li><strong>Data - ocorrência num mês</strong>: de uma data de início até uma ocorrência no mês do dia da semana.</li>
-<li><strong>Ocorrência no mês - data variável</strong>: de uma ocorrência no dia da semana num mês até uma data de fim variável.</li>
-<li><strong>Data variável - ocorrência no mês</strong>: de uma data inicial variável até uma ocorrência no dia da semana num mês.</li>
-<li><strong>Data - fecho após últ.cliente</strong>: começa numa data inicial.</li>
-<li><strong>Data variável - fecho após últ.cliente</strong>: começa numa data inicial variável.</li>
-<li><strong>Ocorrência no mês - fecho após últ.cliente</strong>: começa num dia da semana num mês inicial.</li>
-<li><strong>Com deslocamentos...</strong>: como as mesmas entradas de cima mas com deslocamentos especificados (isto raramente é usado)</li>
-</ul>
-</li>
-<li><strong>Add year range...</strong>    <ul>
-<li><strong>Adicionar intervalo de anos</strong>: adiciona um seletor baseado em anos.</li>
-<li><strong>Add starting year</strong>: add an open ended year range.</li>
-</ul>
-</li>
-<li><strong>Adicionar intervalo de semanas</strong>: adiciona um seletor baseado no número da semana</li>
-<li><strong>Duplicar</strong>: cria uma cópia da regra atual e insere-a após a posição atual.</li>
-<li><strong>Mostrar tipo de regra</strong>: mostra e permite mudar o tipo de regra <em>normal</em>, <em>aditivo</em> e <em>alternativo (ou)</em> (não disponível na primeira regra).</li>
-<li><strong>Mover para cima</strong>: move uma posição para cima a regra atual (não disponível na primeira regra).</li>
-<li><strong>Mover para baixo</strong>: move uma posição para baixo a regra atual</li>
-<li><strong>Eliminar</strong>: elimina a regra atual.</li>
-</ul>
-<h3 id="segmentos-de-tempo">Segmentos de tempo</h3>
-<p>Para tornar a edição de segmentos de tempo o mais fácil possível, tentamos escolher o melhor intervalo de tempo e granularidade para as barras de intervalo ao carregar valores existentes. Para novos segmentos de tempo novos, as barras começam às 6:00 e têm incrementos de  minutos. Isto pode ser alterado no menu.</p>
-<p>Clicking (not on the pins) the time bar will open the large time picker, when using the bars directly is too difficult. The time pickers extend in to the next day, so they are a simple way to extend a time range without having to delete and re-add the the range.</p>
-<h4 id="menu-de-segmento-de-tempo">Menu de segmento de tempo</h4>
-<ul>
-<li><strong>Display time picker</strong>: show a large time picker for selecting start and end time, on very small displays this is the preferred way of changing times.</li>
-<li><strong>Mudar para intervalos de 15 minutos</strong>: usa intervalos de 15 minutos na barra de intervalo.</li>
-<li><strong>Mudar para intervalos de 5 minutos</strong>: usa intervalos de 5 minutos na barra de intervalo.</li>
-<li><strong>Mudar para intervalos de 1 minuto</strong>: usa intervalos de 1 minuto na barra de intervalo, pode ser difícil de usar esta opção num ecrã pequeno.</li>
-<li><strong>Começar à meia-noite</strong>: a barra de intervalo começa à meia-noite.</li>
-<li><strong>Mostrar intervalo</strong>: mostra o campo de intervalo para especificar um intervalo em minutos.</li>
-<li><strong>Eliminar</strong>: eliminar este segmento de tempo.</li>
-</ul>
-<h3 id="gerir-modelos">Gerir modelos</h3>
-<p>The template management dialog allows you to add, edit and delete templates.</p>
-<p>In Android 4.4 and later the following additional functionality is available from the menu button. </p>
-<ul>
-<li><strong>Show all</strong>: display all templates in the database.</li>
-<li><strong>Save to file</strong>: write the contents of the template database to a file.</li>
-<li><strong>Load from file (replace)</strong>: load templates from a file replacing the current contents of the database.</li>
-<li><strong>Load from file</strong>: load templates from a file retaining the current contents.</li>
-</ul>
-<h4 id="save-and-edit-template-dialogs">Save and edit template dialogs</h4>
-<p>The dialog allows you to set</p>
-<ul>
-<li><strong>Name</strong> a descriptive name for the template.</li>
-<li><strong>Default</strong> if checked this will be consider as a default template (typically further constrained by the other fields).</li>
-<li><strong>Key</strong> the key this template is relevant for, if set to <em>Custom key</em> you can add a non-standard value in the field below. The key values support SQL wild cards, that is <em>%</em> matches zero or more characters, <em>_</em> matches a single character. Both wild card characters can be escaped with <em>\</em> for literal matches.</li>
-<li><strong>Region</strong> the region the template is applicable to.</li>
-<li><strong>Object</strong> an application specific string to use for matching.</li>
-</ul></div> -->
-                
+            <div class="row">
                     <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
     <div class="navbar-header">
         <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
@@ -578,13 +434,12 @@ i-->
 <li><strong>Region</strong> the region the template is applicable to.</li>
 <li><strong>Object</strong> an application specific string to use for matching.</li>
 </ul></div>
-                
+            </div>
         </div>
 
         <footer class="col-md-12">
             <hr>
-<!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 18.0.0 </p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
         <script>
             var base_url = "../../..",

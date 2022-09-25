@@ -9,1198 +9,318 @@
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
         <title>Vespucci data styling - Vespucci</title>
-        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/docco.min.css">
-        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/docco.min.css">
 
         <script src="../../js/jquery-1.10.2.min.js" defer></script>
-        <script src="../../js/bootstrap-3.0.3.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script src="../../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
         <script>hljs.initHighlightingOnLoad();</script> 
     </head>
 
     <body>
-
-        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-
-                <!-- Collapsed navigation -->
-                <div class="navbar-header">
-                    <!-- Expander button -->
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-
-<!--
-                    <a class="navbar-brand" href="../..">Vespucci</a> -->
-                </div>
+                <a class="navbar-brand" href="../..">Vespucci</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
                 <!-- Expanded navigation -->
-                <div class="navbar-collapse collapse">
+                <div id="navbar-collapse" class="navbar-collapse collapse">
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
-                                <li >
+                            <li class="navitem">
+                                <a href="../.." class="nav-link">Vespucci</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
                                     
-                                        <a href="../.."><img src="/vespucci_logo_small.png"></a>
-                                </li>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
-                                    <ul class="dropdown-menu">
-                                        
 <li>
     <a href="../../help/en/Introduction/" class="dropdown-item">Introduction</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../features/" class="dropdown-item">Features</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/18.0.0%20Release%20notes/" class="dropdown-item">18.0.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/17.1.0%20Release%20notes/" class="dropdown-item">17.1.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/17.0.0%20Release%20notes/" class="dropdown-item">17.0.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/16.1.0%20Release%20notes/" class="dropdown-item">16.1.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/16.0.0%20Release%20notes/" class="dropdown-item">16.0.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/15.2.0%20Release%20notes/" class="dropdown-item">15.2.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/15.1.0%20Release%20notes/" class="dropdown-item">15.1.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/15.0.0%20Release%20notes/" class="dropdown-item">15.0.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/14.1.0%20Release%20notes/" class="dropdown-item">14.1.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/14.0.0%20Release%20notes/" class="dropdown-item">14.0.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/13.1.0%20Release%20notes/" class="dropdown-item">13.1.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/13.0.0%20Release%20notes/" class="dropdown-item">13.0.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/12.1.0%20Release%20notes/" class="dropdown-item">12.1.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/12.0.0%20Release%20notes/" class="dropdown-item">12.0.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/11.2.0%20Release%20notes/" class="dropdown-item">11.2.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/11.1.0%20Release%20notes/" class="dropdown-item">11.1.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/11.0.0%20Release%20notes/" class="dropdown-item">11.0.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/10.2.0%20Release%20notes/" class="dropdown-item">10.2.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/10.1.0%20Release%20notes/" class="dropdown-item">10.1.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/10.0.0%20Release%20notes/" class="dropdown-item">10.0.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/0.9.9%20Release%20notes/" class="dropdown-item">0.9.9 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/0.9.8%20Release%20notes/" class="dropdown-item">0.9.8 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/0.9.7%20Release%20notes/" class="dropdown-item">0.9.7 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/0.9.6%20Release%20notes/" class="dropdown-item">0.9.6 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../old_release_notes/" class="dropdown-item">Previous release notes</a>
 </li>
-                                    </ul>
-                                </li>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Editing <b class="caret"></b></a>
-                                    <ul class="dropdown-menu">
-                                        
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Editing <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
 <li>
     <a href="../../help/en/Main%20map%20display/" class="dropdown-item">Main map display</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/Simple%20actions/" class="dropdown-item">Simple actions</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/Creating%20new%20objects/" class="dropdown-item">Creating new objects</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/Node%20selected/" class="dropdown-item">Node selected</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/Way%20selected/" class="dropdown-item">Way selected</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/Relation%20selected/" class="dropdown-item">Relation selected</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/New%20Note%20selected/" class="dropdown-item">New note selected</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/Property%20editor/" class="dropdown-item">Property editor</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/Multiselect/" class="dropdown-item">Multiselect</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/Conflict%20resolution/" class="dropdown-item">Conflict resolution</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/Presets/" class="dropdown-item">Presets</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/Aligning%20background%20imagery/" class="dropdown-item">Aligning background imagery</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/Keyboard/" class="dropdown-item">Keyboard and mouse</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/GPS%20sources/" class="dropdown-item">GPS sources</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/Tag%20filter/" class="dropdown-item">Tag based filter</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/Preset%20filter/" class="dropdown-item">Preset based filter</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/Opening%20hours/" class="dropdown-item">Opening hours</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/Preferences/" class="dropdown-item">Preferences</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/Advanced%20preferences/" class="dropdown-item">Advanced preferences</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/Voice%20commands/" class="dropdown-item">Voice commands</a>
 </li>
-                                    </ul>
-                                </li>
-                                <li class="dropdown active">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tutorials and Posts <b class="caret"></b></a>
-                                    <ul class="dropdown-menu">
-                                        
+                                </ul>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Tutorials and Posts <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
 <li>
     <a href="../network_location/" class="dropdown-item">"network" Location Provider Support</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../custom_imagery/" class="dropdown-item">Custom imagery</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../custom_imagery_mbtiles/" class="dropdown-item">Generating MBTiles files with custom imagery</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../name_suggestions/" class="dropdown-item">Using name suggestions</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../reporting_issues/" class="dropdown-item">Reporting Vespucci issues</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../tag_only/" class="dropdown-item">Tag-only editing</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../presets/" class="dropdown-item">Vespucci presets</a>
 </li>
-                                        
+                                    
 <li>
     <a href="./" class="dropdown-item active">Vespucci data styling</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../vespucci_intents/" class="dropdown-item">Controlling Vespucci from other apps</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../object_search/" class="dropdown-item">Object search</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../offline/" class="dropdown-item">Going completely offline with Vespucci</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../mapbox-style/" class="dropdown-item">Mapbox-GL Style Support</a>
 </li>
-                                    </ul>
-                                </li>
-                                <li >
-                                    
-                                        <a href="../screenshots/">Videos & Screenshots</a>
-                                </li>
-                                <li >
-                                    
-                                        <a href="../faq/">FAQ</a>
-                                </li>
-                                <li >
-                                    
-                                        <a href="../../help/en/Privacy/">Privacy</a>
-                                </li>
+                                </ul>
+                            </li>
+                            <li class="navitem">
+                                <a href="../screenshots/" class="nav-link">Videos & Screenshots</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../faq/" class="nav-link">FAQ</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../../help/en/Privacy/" class="nav-link">Privacy</a>
+                            </li>
                         </ul>
 
-                    <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
-<!--- Remove Prev - Next
-                            <li >
-                                <a rel="next" href="../presets/">
+                            <li class="nav-item">
+                                <a rel="prev" href="../presets/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
-                            <li >
-                                <a rel="prev" href="../vespucci_intents/">
+                            <li class="nav-item">
+                                <a rel="next" href="../vespucci_intents/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
-i-->
                     </ul>
                 </div>
             </div>
         </div>
 
         <div class="container">
-<!--                <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
-            <span class="fa fa-angle-down"></span>
-        </button>
-    </div>
-
-    
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
-        <ul class="nav flex-column">
-            
-            <li class="nav-item" data-level="2"><a href="#vespucci-data-styling" class="nav-link">Vespucci Data Styling</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-        </ul>
-    </div>
-</div></div>
-                <div class="col-md-9" role="main">
-
-<h2 id="vespucci-data-styling">Vespucci Data Styling</h2>
-<p><em>Documentation for Vespucci 16.0 Style file format version 0.3.1</em></p>
-<p>The data styling configuration is not a work of art, it was created ad hoc (in other words it is an awful hack) to allow slightly more flexible configuration of the rendering.</p>
-<h3 id="using-custom-style-files-in-vespucci">Using custom style files in Vespucci</h3>
-<p>Files need to need have an unique <em>name</em> attribute and the <em>.xml</em> extension and reside in a <em>styles</em> directory in an app specific files directory (for example <em>Android/data/de.blau.android/files/styles/test.xml</em> ). Currently the legacy storage format and location continues to work: unique <em>name</em> attribute and a filename in the format <em>name</em>-profile.xml and stored in the <em>Vespucci</em> directory, this is the only location that will work for devices with Android version older than 4.4. </p>
-<h3 id="style-elements-and-attributes">Style Elements and Attributes</h3>
-<p>The styles are for a major part not much more than an external representation of the <a href="https://developer.android.com/reference/android/graphics/Paint">Android Paint</a> objects. In particular color, style, cap, join and strokeWidth attributes map directly to the Paint fields.</p>
-<p>Node styling is limited to the <strong>labelKey</strong> and <strong>iconPath</strong> attributes.</p>
-<table>
-<thead>
-<tr>
-<th>Element</th>
-<th>Attributes</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>&lt;profile&gt;</strong></td>
-<td></td>
-<td></td>
-<td>Top level enclosing element</td>
-</tr>
-<tr>
-<td></td>
-<td>name</td>
-<td></td>
-<td>Style name</td>
-</tr>
-<tr>
-<td></td>
-<td>format</td>
-<td></td>
-<td>Format version, currently 0.3.0</td>
-</tr>
-<tr>
-<td><strong>&lt;!--&nbsp;comment&nbsp;--&gt;</strong></td>
-<td></td>
-<td></td>
-<td>A comment</td>
-</tr>
-<tr>
-<td><strong>&lt;config&gt;</strong></td>
-<td></td>
-<td></td>
-<td>Configuration element</td>
-</tr>
-<tr>
-<td></td>
-<td>type</td>
-<td></td>
-<td>One of "large_drag_area", "marker_scale", "min_handle_len", "icon_zoom_limit"</td>
-</tr>
-<tr>
-<td></td>
-<td>touchRadius</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>scale</td>
-<td></td>
-<td>Used with marker_scale, increase/decrease size of various markers</td>
-</tr>
-<tr>
-<td></td>
-<td>length</td>
-<td></td>
-<td>User with min_handle_len, defines the minimum length a way segment must have on screen so that the geometry improvement handles are shown</td>
-</tr>
-<tr>
-<td></td>
-<td>zoom</td>
-<td>15</td>
-<td>Used with icon_zoom_limit, minimum zoom level at which POI icons are still displayed</td>
-</tr>
-<tr>
-<td></td>
-<td>labelZoomLimit</td>
-<td>20</td>
-<td>Used with icon_zoom_limit, the minimum zoom level for displaying labels with icons</td>
-</tr>
-<tr>
-<td><strong>&lt;feature&gt;</strong></td>
-<td></td>
-<td></td>
-<td>Feature elements can be nested and each feature can contain one or more other feature elements. Nested elements inherit attributes from their parents.</td>
-</tr>
-<tr>
-<td></td>
-<td>type</td>
-<td></td>
-<td>"way", "node" or "relation" to match the corresponding OSM elements, or a name</td>
-</tr>
-<tr>
-<td></td>
-<td>tags</td>
-<td></td>
-<td>Tags to use for matching, ignored for named styles, in the format <em>key</em>=<em>value</em> or <em>key</em>=<em>*</em> for any value. Multiple tags can be added using <strong>&vert;</strong> as a separator.</td>
-</tr>
-<tr>
-<td></td>
-<td>closed</td>
-<td></td>
-<td>If not present will match all ways, if present will match closed ways if true, or if false open ways, ignored for relations</td>
-</tr>
-<tr>
-<td></td>
-<td>area</td>
-<td></td>
-<td>Use area semantics for rendering if true</td>
-</tr>
-<tr>
-<td></td>
-<td>dontrender</td>
-<td></td>
-<td>Don't render the matching element</td>
-</tr>
-<tr>
-<td></td>
-<td>updateWidth</td>
-<td></td>
-<td>Dynamically update the way width on zoom changes if true</td>
-</tr>
-<tr>
-<td></td>
-<td>widthFactor</td>
-<td></td>
-<td>Determine a way width relative to the extent of the current map shown, ignored if updateWidth is false</td>
-</tr>
-<tr>
-<td></td>
-<td>color</td>
-<td></td>
-<td>A 32bit hex value representing alpha and rgb</td>
-</tr>
-<tr>
-<td></td>
-<td>style</td>
-<td></td>
-<td>One of "FILL", "FILL_AND_STROKE", "STROKE"</td>
-</tr>
-<tr>
-<td></td>
-<td>cap</td>
-<td></td>
-<td>One of "BUTT", "ROUND", "SQUARE"</td>
-</tr>
-<tr>
-<td></td>
-<td>join</td>
-<td></td>
-<td>One of "BEVEL", "MITER", "ROUND"</td>
-</tr>
-<tr>
-<td></td>
-<td>strokeWidth</td>
-<td></td>
-<td>A float value for the width of the lines, 0 draws a one pixel width line, ignored if updateWidth is true</td>
-</tr>
-<tr>
-<td></td>
-<td>offset</td>
-<td></td>
-<td>Offset in units of the current stroke width</td>
-</tr>
-<tr>
-<td></td>
-<td>typefacestyle</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>textsize</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>shadow</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>pathPattern</td>
-<td></td>
-<td>Reference to a pattern to apply along the path, one of "triangle_left", "triangle_right", "border_left", "border_right"</td>
-</tr>
-<tr>
-<td></td>
-<td>minVisibleZoom</td>
-<td></td>
-<td>Minimum zoom that has to be reached before the element is rendered</td>
-</tr>
-<tr>
-<td></td>
-<td>casingStyle</td>
-<td></td>
-<td>Reference to a style to use for casing</td>
-</tr>
-<tr>
-<td></td>
-<td>arrowStyle</td>
-<td></td>
-<td>Reference to a style to use for way arrows</td>
-</tr>
-<tr>
-<td></td>
-<td>oneway</td>
-<td></td>
-<td>Set this on the referenced arrowStyle if it should have oneway semantics</td>
-</tr>
-<tr>
-<td></td>
-<td>labelKey</td>
-<td></td>
-<td>Tag key to use as label if present, magic value "preset" will use the preset name.</td>
-</tr>
-<tr>
-<td></td>
-<td>labelZoomLimit</td>
-<td></td>
-<td>List for displaying labels on ways, if not set no label will be displayed</td>
-</tr>
-<tr>
-<td></td>
-<td>iconPath</td>
-<td></td>
-<td>Path, relative to the directory in which the style file resides, to a PNG format icon, magic value "preset" (see below) will use the preset icon.</td>
-</tr>
-<tr>
-<td><strong>&lt;dash&gt;</strong></td>
-<td></td>
-<td></td>
-<td>feature sub-element used to define a dash pattern</td>
-</tr>
-<tr>
-<td></td>
-<td>phase</td>
-<td></td>
-<td>Phase of the dash</td>
-</tr>
-<tr>
-<td><strong>&lt;interval&gt;</strong></td>
-<td></td>
-<td></td>
-<td>dash sub-element used to define the length of the dash/no-dash phases</td>
-</tr>
-<tr>
-<td></td>
-<td>length</td>
-<td></td>
-<td>Length of the dash as a float</td>
-</tr>
-</tbody>
-</table>
-<p>Using <em>"preset"</em> as the value for iconPath will match the objects tags with the presets, just as this is done throughout the application, however "building", "building:part" and "indoor=room" tags are ignored. If you need to render icons specifically for such objects, reference an icon directly. </p>
-<h3 id="internal-features">Internal features</h3>
-<p>Styling for internal features is provided by the app, but they can be overridden by setting them in a style file.</p>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>gps_track</td>
-<td>Default style for GPX tracks</td>
-</tr>
-<tr>
-<td>infotext</td>
-<td></td>
-</tr>
-<tr>
-<td>attribution_text</td>
-<td>Text style for attribution notices on the map</td>
-</tr>
-<tr>
-<td>viewbox</td>
-<td></td>
-</tr>
-<tr>
-<td>way_tolerance</td>
-<td></td>
-</tr>
-<tr>
-<td>way_tolerance_2</td>
-<td></td>
-</tr>
-<tr>
-<td>way</td>
-<td>Default way style</td>
-</tr>
-<tr>
-<td>selected_way</td>
-<td>Selected way style</td>
-</tr>
-<tr>
-<td>selected_relation_way</td>
-<td>Style for relation member ways when the relation is selected</td>
-</tr>
-<tr>
-<td>problem_way</td>
-<td>Style for a way with an issue</td>
-</tr>
-<tr>
-<td>hidden_way</td>
-<td>Style for faint way rendering (used when filters are active)</td>
-</tr>
-<tr>
-<td>node_tolerance</td>
-<td></td>
-</tr>
-<tr>
-<td>node_tolerance_2</td>
-<td></td>
-</tr>
-<tr>
-<td>node_untagged</td>
-<td></td>
-</tr>
-<tr>
-<td>node_thin</td>
-<td></td>
-</tr>
-<tr>
-<td>node_tagged</td>
-<td></td>
-</tr>
-<tr>
-<td>node_drag_radius</td>
-<td>Style for the large drag radius</td>
-</tr>
-<tr>
-<td>problem_node</td>
-<td>Style for a node with an issue</td>
-</tr>
-<tr>
-<td>problem_node_thin</td>
-<td></td>
-</tr>
-<tr>
-<td>problem_node_tagged</td>
-<td></td>
-</tr>
-<tr>
-<td>selected_node</td>
-<td></td>
-</tr>
-<tr>
-<td>selected_node_thin</td>
-<td></td>
-</tr>
-<tr>
-<td>selected_node_tagged</td>
-<td></td>
-</tr>
-<tr>
-<td>selected_relation_node</td>
-<td></td>
-</tr>
-<tr>
-<td>selected_relation_node_thin</td>
-<td></td>
-</tr>
-<tr>
-<td>selected_relation_node_tagged</td>
-<td></td>
-</tr>
-<tr>
-<td>hidden_node</td>
-<td></td>
-</tr>
-<tr>
-<td>way_direction</td>
-<td></td>
-</tr>
-<tr>
-<td>large_drag_area</td>
-<td></td>
-</tr>
-<tr>
-<td>marker_scale</td>
-<td></td>
-</tr>
-<tr>
-<td>gps_pos</td>
-<td>Styling for the location indicator when not in follow mode</td>
-</tr>
-<tr>
-<td>gps_pos_follow</td>
-<td>Styling for the location indicator when in follow mode</td>
-</tr>
-<tr>
-<td>gps_pos_stale</td>
-<td>Styling for the location indicator when not in follow mode and the location is stale</td>
-</tr>
-<tr>
-<td>gps_pos_follow_stale</td>
-<td>Styling for the location indicator when in follow mode and the location is stale</td>
-</tr>
-<tr>
-<td>gps_accuracy</td>
-<td></td>
-</tr>
-<tr>
-<td>open_note</td>
-<td></td>
-</tr>
-<tr>
-<td>closed_note</td>
-<td></td>
-</tr>
-<tr>
-<td>crosshairs</td>
-<td></td>
-</tr>
-<tr>
-<td>crosshairs_halo</td>
-<td></td>
-</tr>
-<tr>
-<td>handle</td>
-<td></td>
-</tr>
-<tr>
-<td>labeltext</td>
-<td></td>
-</tr>
-<tr>
-<td>labeltext_normal</td>
-<td></td>
-</tr>
-<tr>
-<td>labeltext_small</td>
-<td></td>
-</tr>
-<tr>
-<td>labeltext_normal_selected</td>
-<td></td>
-</tr>
-<tr>
-<td>labeltext_small_selected</td>
-<td></td>
-</tr>
-<tr>
-<td>labeltext_normal_problem</td>
-<td></td>
-</tr>
-<tr>
-<td>labeltext_small_problem</td>
-<td></td>
-</tr>
-<tr>
-<td>labeltext_background</td>
-<td></td>
-</tr>
-<tr>
-<td>geojson_default</td>
-<td>Default style for the geojson layer</td>
-</tr>
-</tbody>
-</table>
-<h3 id="validation-styling">Validation styling</h3>
-<p>In a limited fashion the default validation styling can be overridden, by adding <strong>feature</strong> elements with <strong>type</strong> set to <strong>validation</strong> and <strong>code</strong> set to the error value that should be styled. Nodes will only use the colour specified.</p>
-<h4 id="error-codes">Error codes</h4>
-<p>These are individual bits that are combined for the final value:</p>
-<table>
-<thead>
-<tr>
-<th>Validation check</th>
-<th>Error value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>AGE</td>
-<td>0x00000002</td>
-</tr>
-<tr>
-<td>FIXME</td>
-<td>0x00000004</td>
-</tr>
-<tr>
-<td>MISSING_TAG</td>
-<td>0x00000008</td>
-</tr>
-<tr>
-<td>HIGHWAY_NAME</td>
-<td>0x00000010</td>
-</tr>
-<tr>
-<td>HIGHWAY_ROAD</td>
-<td>0x00000020</td>
-</tr>
-<tr>
-<td>NO_TYPE</td>
-<td>0x00000040</td>
-</tr>
-<tr>
-<td>IMPERIAL_UNITS</td>
-<td>0x00000080</td>
-</tr>
-<tr>
-<td>INVALID_OBJECT</td>
-<td>0x00000100</td>
-</tr>
-<tr>
-<td>UNTAGGED</td>
-<td>0x00000200</td>
-</tr>
-<tr>
-<td>UNCONNECTED_END_NODE</td>
-<td>0x00000400</td>
-</tr>
-<tr>
-<td>DEGENERATE_WAY</td>
-<td>0x00000800</td>
-</tr>
-</tbody>
-</table>
-<h4 id="example">Example</h4>
-<pre><code> &lt;feature type="validation" code="2" updateWidth="true" widthFactor="1.5" color="ffffe000" style="STROKE" cap="BUTT" join="MITER" /&gt;
-</code></pre>
-<h3 id="complete-example">Complete Example</h3>
-<pre><code>&lt;?xml version='1.0' encoding='UTF-8' ?&gt;
-&lt;profile name="Color Round Nodes" format="0.3.0"&gt;
-    &lt;!-- Assorted config --&gt;
-    &lt;config type="min_handle_length" length="200.0" /&gt;
-    &lt;config type="icon_zoom_limit" zoom="15" /&gt;
-    &lt;!-- Vespucci internal styles --&gt;
-    &lt;feature type="gps_accuracy" updateWidth="false" widthFactor="2.0" color="280000ff" style="FILL_AND_STROKE" cap="ROUND" join="ROUND" strokeWidth="0.0" /&gt;
-    &lt;feature type="problem_node_thin" updateWidth="false" widthFactor="1.0" color="ffff00ff" style="STROKE" cap="BUTT" join="MITER" strokeWidth="1.0" typefacestyle="0" textsize="12.0" /&gt;
-    &lt;feature type="problem_way" updateWidth="true" widthFactor="1.5" color="ffff00ff" style="STROKE" cap="BUTT" join="MITER" /&gt;
-    &lt;feature type="way_direction" updateWidth="true" widthFactor="0.8" color="ffb9121b" style="STROKE" cap="SQUARE" join="MITER" /&gt;
-    &lt;feature type="handle" updateWidth="true" widthFactor="0.8" color="ffb9121b" style="STROKE" cap="SQUARE" join="MITER" /&gt;
-    &lt;feature type="selected_way" updateWidth="true" widthFactor="2.0" color="fffcfa74" style="STROKE" cap="ROUND" join="ROUND" /&gt;
-    &lt;feature type="way_tolerance" updateWidth="false" widthFactor="1.0" color="28bd8d46" style="STROKE" cap="BUTT" join="MITER" strokeWidth="40.0" /&gt;
-    &lt;feature type="way_tolerance_2" updateWidth="false" widthFactor="1.0" color="7fbd8d46" style="STROKE" cap="BUTT" join="MITER" strokeWidth="40.0" /&gt;
-    &lt;feature type="gps_track" updateWidth="false" widthFactor="1.0" color="ff0000ff" style="STROKE" cap="ROUND" join="ROUND" strokeWidth="2.0" /&gt;
-    &lt;feature type="node_tolerance" updateWidth="false" widthFactor="1.0" color="28bd8d46" style="FILL" cap="BUTT" join="MITER" strokeWidth="40.0" /&gt;
-    &lt;feature type="node_tolerance_2" updateWidth="false" widthFactor="1.0" color="7fbd8d46" style="FILL" cap="BUTT" join="MITER" strokeWidth="40.0" /&gt;
-    &lt;feature type="infotext" updateWidth="false" widthFactor="1.0" color="ff000000" style="FILL" cap="BUTT" join="MITER" strokeWidth="0.0" typefacestyle="0" textsize="12.0" /&gt;
-    &lt;feature type="viewbox" updateWidth="false" widthFactor="1.0" color="7d0f0f0f" style="FILL" cap="BUTT" join="MITER" strokeWidth="0.0" /&gt;
-    &lt;feature type="gps_pos" updateWidth="false" widthFactor="2.0" color="ff0000ff" style="FILL" cap="ROUND" join="ROUND" strokeWidth="2.0" /&gt;
-    &lt;feature type="gps_pos_follow" updateWidth="false" widthFactor="2.0" color="ff0000ff" style="STROKE" cap="ROUND" join="ROUND" strokeWidth="2.0"/&gt;
-    &lt;feature type="dontrender_way" dontrender="true" updateWidth="true" widthFactor="1.0" color="00ffffff" style="STROKE" cap="ROUND" join="ROUND" /&gt;
-    &lt;!-- OSM node based features currently internal features --&gt;
-    &lt;feature type="node_untagged" updateWidth="true" widthFactor="1.0" color="ffb9121b" style="FILL" cap="ROUND" join="MITER" /&gt;
-    &lt;feature type="node_tagged" updateWidth="true" widthFactor="1.5" color="ffb9121b" style="FILL" cap="ROUND" join="MITER" /&gt;
-    &lt;feature type="node_thin" updateWidth="false" widthFactor="1.0" color="ffb9121b" style="STROKE" cap="BUTT" join="MITER" strokeWidth="1.0" typefacestyle="0" textsize="12.0" /&gt;
-    &lt;feature type="selected_node" updateWidth="true" widthFactor="1.5" color="fff6e497" style="FILL" cap="ROUND" join="MITER" /&gt;
-    &lt;feature type="selected_node_tagged" updateWidth="true" widthFactor="2.0" color="fff6e497" style="FILL" cap="ROUND" join="MITER" /&gt;
-    &lt;feature type="selected_node_thin" updateWidth="false" widthFactor="1.0" color="fff6e497" style="STROKE" cap="BUTT" join="MITER" strokeWidth="1.0" typefacestyle="0" textsize="12.0" /&gt;
-    &lt;feature type="problem_node" updateWidth="true" widthFactor="2.0" color="ffff00ff" style="STROKE" cap="ROUND" join="MITER" /&gt;
-    &lt;feature type="problem_node_tagged" updateWidth="true" widthFactor="1.5" color="ffff00ff" style="FILL" cap="BUTT" join="MITER" /&gt;
-
-    &lt;!-- Arrow styles --&gt;
-    &lt;feature type="oneway_direction" updateWidth="true" widthFactor="0.5" color="ffb9121b" style="STROKE" cap="SQUARE" join="MITER" oneway="true" /&gt;
-    &lt;feature type="waterway_direction" updateWidth="true" widthFactor="0.5" color="ff0000bb" style="STROKE" cap="SQUARE" join="MITER" /&gt;
-
-    &lt;!-- OSM node based features --&gt;
-    &lt;feature type="node" /&gt;
-    &lt;feature type="node" tags="name" labelKey="name" /&gt;
-    &lt;feature type="node" tags="entrance|addr:housenumber" labelKey="addr:housenumber" /&gt;
-
-    &lt;!-- OSM way based features --&gt;
-    &lt;feature type="way" updateWidth="true" widthFactor="1.0" color="80000000" style="STROKE" cap="BUTT" join="MITER" /&gt;
-    &lt;feature type="way" tags="boundary" updateWidth="true" widthFactor="0.6" color="ff000000" style="STROKE" cap="BUTT" join="MITER"&gt;
-        &lt;dash phase="1.0"&gt;
-            &lt;interval length="6.0" /&gt;
-            &lt;interval length="2.0" /&gt;
-        &lt;/dash&gt;
-    &lt;/feature&gt;
-    &lt;feature type="way" tags="route" updateWidth="true" widthFactor="0.6" color="880000AA" style="STROKE" cap="BUTT" join="MITER"&gt;
-        &lt;dash phase="1.0"&gt;
-            &lt;interval length="3.0" /&gt;
-            &lt;interval length="3.0" /&gt;
-        &lt;/dash&gt;
-    &lt;/feature&gt;
-    &lt;feature type="way" tags="landuse" area="true" updateWidth="true" widthFactor="2.0" color="8871BE80" style="STROKE" cap="BUTT" join="MITER" pathPattern="border_right"&gt;
-        &lt;feature type="way" tags="landuse=construction" color="88996633" style="FILL_AND_STROKE" pathPattern="" /&gt;
-        &lt;feature type="way" tags="landuse=residential" minVisibleZoom="10" color="88888888" /&gt;
-        &lt;feature type="way" tags="landuse=quarry" color="88d8a2a2" /&gt;
-        &lt;feature type="way" tags="landuse=military" color="88af2626" /&gt;
-        &lt;feature type="way" tags="landuse=forest" minVisibleZoom="10" color="8800BE00" /&gt;
-        &lt;feature type="way" tags="landuse=industrial" minVisibleZoom="10" color="88A3709A" /&gt;
-        &lt;feature type="way" tags="landuse=commercial" minVisibleZoom="10" color="88A3709A" /&gt;
-        &lt;feature type="way" tags="landuse=railway" minVisibleZoom="10" color="88A3709A" /&gt;
-    &lt;/feature&gt;
-
-    &lt;feature type="way" tags="leisure=pitch" updateWidth="true" widthFactor="1.0" color="8839AC39" style="FILL_AND_STROKE" cap="BUTT" join="MITER" /&gt;
-    &lt;feature type="way" tags="leisure=swimming_pool" updateWidth="true" widthFactor="1.0" color="880000ff" style="FILL_AND_STROKE" cap="BUTT" join="MITER" /&gt;
-    &lt;feature type="way" tags="natural" updateWidth="true" widthFactor="0.5" color="ff71BE80" style="STROKE" cap="BUTT" join="MITER"&gt; 
-        &lt;feature type="way" tags="natural" closed="true" area="true" pathPattern="border_right" &gt;
-            &lt;feature type="way" tags="natural=water" widthFactor="1.0" minVisibleZoom="10" color="ff0000ff" /&gt;
-        &lt;/feature&gt;
-        &lt;feature type="way" tags="natural=water" widthFactor="1.0" minVisibleZoom="10" color="ff0000ff" /&gt;
-        &lt;feature type="way" tags="natural=cliff" widthFactor="2.0" color="ff555555" pathPattern="triangle_right" /&gt;
-        &lt;feature type="way" tags="natural=coastline" widthFactor="2.0" minVisibleZoom="10" color="ff71BE80" pathPattern="triangle_left" /&gt;
-        &lt;feature type="way" tags="natural=tree_row" widthFactor="2.0" color="ff4b7a54" cap="ROUND" /&gt;
-    &lt;/feature&gt;
-    &lt;feature type="way" tags="waterway" updateWidth="true" widthFactor="1.0" color="ff0000ff" style="STROKE" cap="BUTT" join="MITER" arrowStyle="waterway_direction" &gt;
-        &lt;feature type="way" tags="waterway=riverbank" updateWidth="true" widthFactor="1.0" color="ff0000ff" style="STROKE" cap="BUTT" join="MITER" arrowStyle="" /&gt;
-        &lt;feature type="way" tags="waterway=weir" widthFactor="2.0" color="ff0000ff" pathPattern="triangle_right" /&gt;
-    &lt;/feature&gt;
-    &lt;feature type="way" tags="man_made" color="ff585c63" style="STROKE" cap="BUTT" join="MITER" &gt;
-        &lt;feature type="way" tags="man_made=embankment" color="ff996633" pathPattern="triangle_right" /&gt;
-    &lt;/feature&gt;
-    &lt;feature type="way" tags="building" updateWidth="true" widthFactor="1.0" color="ffcc9999" style="STROKE" cap="BUTT" join="MITER" /&gt;
-    &lt;feature type="way" tags="building:part" updateWidth="true" widthFactor="0.8" color="ffcc9999" style="STROKE" cap="BUTT" join="MITER" &gt;
-        &lt;dash phase="1.0"&gt;
-            &lt;interval length="2.0" /&gt;
-            &lt;interval length="2.0" /&gt;
-        &lt;/dash&gt;
-    &lt;/feature&gt;
-    &lt;feature type="motorway_casing" updateWidth="true" widthFactor="2.4" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER" /&gt;
-    &lt;feature type="motorway_bridge_casing" updateWidth="true" widthFactor="2.4" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER"&gt;
-        &lt;dash phase="1.0"&gt;
-            &lt;interval length="2.0" /&gt;
-            &lt;interval length="2.0" /&gt;
-        &lt;/dash&gt;
-    &lt;/feature&gt;
-    &lt;feature type="primary_casing" updateWidth="true" widthFactor="1.8" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER" /&gt;
-    &lt;feature type="primary_bridge_casing" updateWidth="true" widthFactor="1.8" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER"&gt;
-        &lt;dash phase="1.0"&gt;
-            &lt;interval length="2.0" /&gt;
-            &lt;interval length="2.0" /&gt;
-        &lt;/dash&gt;
-    &lt;/feature&gt;
-    &lt;feature type="secondary_casing" updateWidth="true" widthFactor="1.5" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER" /&gt;
-    &lt;feature type="secondary_bridge_casing" updateWidth="true" widthFactor="1.5" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER"&gt;
-        &lt;dash phase="1.0"&gt;
-            &lt;interval length="2.0" /&gt;
-            &lt;interval length="2.0" /&gt;
-        &lt;/dash&gt;
-    &lt;/feature&gt;
-    &lt;feature type="teritary_casing" updateWidth="true" widthFactor="1.3" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER" /&gt;
-    &lt;feature type="tertiary_bridge_casing" updateWidth="true" widthFactor="1.3" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER"&gt;
-        &lt;dash phase="1.0"&gt;
-            &lt;interval length="2.0" /&gt;
-            &lt;interval length="2.0" /&gt;
-        &lt;/dash&gt;
-    &lt;/feature&gt;
-    &lt;feature type="unclassified_casing" updateWidth="true" widthFactor="1.2" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER" /&gt;
-    &lt;feature type="unclassified_bridge_casing" updateWidth="true" widthFactor="1.2" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER"&gt;
-        &lt;dash phase="1.0"&gt;
-            &lt;interval length="2.0" /&gt;
-            &lt;interval length="2.0" /&gt;
-        &lt;/dash&gt;
-    &lt;/feature&gt;
-    &lt;feature type="residential_casing" updateWidth="true" widthFactor="1.1" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER" /&gt;
-    &lt;feature type="residential_bridge_casing" updateWidth="true" widthFactor="1.1" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER"&gt;
-        &lt;dash phase="1.0"&gt;
-            &lt;interval length="2.0" /&gt;
-            &lt;interval length="2.0" /&gt;
-        &lt;/dash&gt;
-    &lt;/feature&gt;
-    &lt;feature type="way" tags="highway" updateWidth="true" widthFactor="1.0" color="88888888" style="STROKE" cap="BUTT" join="MITER" arrowStyle="oneway_direction"&gt;
-        &lt;feature type="way" tags="highway=construction" widthFactor="1.0" color="88888888" /&gt;
-        &lt;feature type="way" tags="highway=proposed" widthFactor="1.0" color="88888888" /&gt;
-        &lt;feature type="way" tags="highway=pedestrian" widthFactor="0.8" color="ff888888" /&gt;
-        &lt;feature type="way" tags="highway=path" widthFactor="0.6" color="ffc69c49" /&gt;
-        &lt;feature type="way" tags="highway=cycleway" widthFactor="0.6" color="fff48f42" /&gt;
-        &lt;feature type="way" tags="highway=footway" widthFactor="0.6" color="ffff4500" /&gt;
-        &lt;feature type="way" tags="highway=steps"  widthFactor="0.6" color="ffff4500" &gt;
-            &lt;dash phase="1.0"&gt;
-               &lt;interval length="1.0" /&gt;
-               &lt;interval length="1.0" /&gt;
-            &lt;/dash&gt;
-        &lt;/feature&gt;
-        &lt;feature type="way" tags="highway=track" widthFactor="1.0" color="ffc69c49" /&gt;
-        &lt;feature type="way" tags="highway=motorway" widthFactor="2.0" minVisibleZoom="10" color="ff809BC0" casingStyle="motorway_casing" &gt;
-            &lt;feature type="way" tags="bridge=yes" casingStyle="motorway_bridge_casing" /&gt;
-            &lt;feature type="way" tags="tunnel=yes" casingStyle=""&gt;
-                &lt;dash phase="1.0"&gt;
-                    &lt;interval length="1.0" /&gt;
-                    &lt;interval length="1.0" /&gt;
-                &lt;/dash&gt;
-            &lt;/feature&gt;
-        &lt;/feature&gt;
-        &lt;feature type="way" tags="highway=motorway_link" widthFactor="2.0" minVisibleZoom="10" color="ff809BC0" &gt;
-            &lt;feature type="way" tags="tunnel=yes" casingStyle=""&gt;
-                &lt;dash phase="1.0"&gt;
-                    &lt;interval length="1.0" /&gt;
-                    &lt;interval length="1.0" /&gt;
-                &lt;/dash&gt;
-            &lt;/feature&gt;
-        &lt;/feature&gt;
-        &lt;feature type="way" tags="highway=trunk" widthFactor="1.5" minVisibleZoom="10" color="ff7FC97F" casingStyle="trunk_casing" &gt;
-            &lt;feature type="way" tags="bridge=yes" casingStyle="trunk_bridge_casing" /&gt;
-            &lt;feature type="way" tags="tunnel=yes" casingStyle=""&gt;
-                &lt;dash phase="1.0"&gt;
-                    &lt;interval length="1.0" /&gt;
-                    &lt;interval length="1.0" /&gt;
-                &lt;/dash&gt;
-            &lt;/feature&gt;
-        &lt;/feature&gt;
-        &lt;feature type="way" tags="highway=trunk_link" widthFactor="1.5" minVisibleZoom="10" color="ff7FC97F" &gt;
-            &lt;feature type="way" tags="tunnel=yes" casingStyle=""&gt;
-                &lt;dash phase="1.0"&gt;
-                    &lt;interval length="1.0" /&gt;
-                    &lt;interval length="1.0" /&gt;
-                &lt;/dash&gt;
-            &lt;/feature&gt;
-        &lt;/feature&gt;
-        &lt;feature type="way" tags="highway=primary" widthFactor="1.5" color="ffE46D71" casingStyle="primary_casing" &gt;
-            &lt;feature type="way" tags="bridge=yes" casingStyle="primary_bridge_casing" /&gt;
-            &lt;feature type="way" tags="tunnel=yes" casingStyle=""&gt;
-                &lt;dash phase="1.0"&gt;
-                    &lt;interval length="1.0" /&gt;
-                    &lt;interval length="1.0" /&gt;
-                &lt;/dash&gt;
-            &lt;/feature&gt;
-        &lt;/feature&gt;
-        &lt;feature type="way" tags="highway=primary_link" widthFactor="1.5" color="ffE46D71" &gt;
-            &lt;feature type="way" tags="tunnel=yes" casingStyle=""&gt;
-                &lt;dash phase="1.0"&gt;
-                    &lt;interval length="1.0" /&gt;
-                    &lt;interval length="1.0" /&gt;
-                &lt;/dash&gt;
-            &lt;/feature&gt;
-        &lt;/feature&gt;
-        &lt;feature type="way" tags="highway=secondary" widthFactor="1.2" color="ffFDBF6F" casingStyle="secondary_casing" &gt;
-            &lt;feature type="way" tags="bridge=yes" casingStyle="secondary_bridge_casing" /&gt;
-            &lt;feature type="way" tags="tunnel=yes" casingStyle=""&gt;
-                &lt;dash phase="1.0"&gt;
-                    &lt;interval length="1.0" /&gt;
-                    &lt;interval length="1.0" /&gt;
-                &lt;/dash&gt;
-            &lt;/feature&gt;
-        &lt;/feature&gt;
-        &lt;feature type="way" tags="highway=secondary_link" widthFactor="1.2" color="ffFDBF6F" &gt;
-            &lt;feature type="way" tags="tunnel=yes" casingStyle=""&gt;
-                &lt;dash phase="1.0"&gt;
-                    &lt;interval length="1.0" /&gt;
-                    &lt;interval length="1.0" /&gt;
-                &lt;/dash&gt;
-            &lt;/feature&gt;
-        &lt;/feature&gt;
-        &lt;feature type="way" tags="highway=tertiary" widthFactor="1.0" color="ffFCFA74" casingStyle="tertiary_casing" &gt;
-            &lt;feature type="way" tags="bridge=yes" casingStyle="tertiary_bridge_casing" /&gt;
-            &lt;feature type="way" tags="tunnel=yes" casingStyle=""&gt;
-                &lt;dash phase="1.0"&gt;
-                    &lt;interval length="1.0" /&gt;
-                    &lt;interval length="1.0" /&gt;
-                &lt;/dash&gt;
-            &lt;/feature&gt;
-        &lt;/feature&gt;
-        &lt;feature type="way" tags="highway=tertiary_link" widthFactor="1.0" color="ffFCFA74" &gt;
-            &lt;feature type="way" tags="tunnel=yes" casingStyle=""&gt;
-                &lt;dash phase="1.0"&gt;
-                    &lt;interval length="1.0" /&gt;
-                    &lt;interval length="1.0" /&gt;
-                &lt;/dash&gt;
-            &lt;/feature&gt;
-        &lt;/feature&gt;
-        &lt;feature type="way" tags="highway=unclassified" widthFactor="1.0" color="ffCCCCCC" casingStyle="unclassified_casing" &gt;
-            &lt;feature type="way" tags="bridge=yes" casingStyle="unclassifies_bridge_casing" /&gt;
-            &lt;feature type="way" tags="tunnel=yes" casingStyle=""&gt;
-                &lt;dash phase="1.0"&gt;
-                    &lt;interval length="1.0" /&gt;
-                    &lt;interval length="1.0" /&gt;
-                &lt;/dash&gt;
-            &lt;/feature&gt;
-        &lt;/feature&gt;
-        &lt;feature type="way" tags="highway=residential" widthFactor="0.9" color="ffCCCCCC" casingStyle="residential_casing" &gt;
-            &lt;feature type="way" tags="bridge=yes" casingStyle="residential_bridge_casing" /&gt;
-        &lt;/feature&gt;
-        &lt;feature type="way" tags="highway=living_street" widthFactor="0.9" color="ffff4500" /&gt;
-        &lt;feature type="way" tags="highway=service" widthFactor="0.7" color="ffCCCCCC" /&gt;
-    &lt;/feature&gt;
-    &lt;feature type="way" tags="power" updateWidth="true" widthFactor="0.6" color="ffaa0000" style="STROKE" cap="BUTT" join="MITER"&gt;
-        &lt;dash phase="1.0"&gt;
-            &lt;interval length="2.0" /&gt;
-            &lt;interval length="2.0" /&gt;
-        &lt;/dash&gt;
-    &lt;/feature&gt;
-    &lt;feature type="way" tags="railway" updateWidth="true" widthFactor="0.7" color="ff999999" style="STROKE" cap="BUTT" join="MITER"&gt;
-        &lt;dash phase="1.0"&gt;
-            &lt;interval length="4.0" /&gt;
-            &lt;interval length="4.0" /&gt;
-        &lt;/dash&gt;
-    &lt;/feature&gt;
-    &lt;feature type="way" tags="addr:interpolation" updateWidth="true" widthFactor="0.6" color="ff000000" style="STROKE" cap="BUTT" join="MITER"&gt;
-        &lt;dash phase="1.0"&gt;
-            &lt;interval length="2.0" /&gt;
-            &lt;interval length="2.0" /&gt;
-        &lt;/dash&gt;
-    &lt;/feature&gt;
-    &lt;feature type="way" tags="amenity" updateWidth="true" widthFactor="0.8" color="ffCCCC00" style="STROKE" cap="BUTT" join="MITER"&gt;
-        &lt;dash phase="1.0"&gt;
-            &lt;interval length="2.0" /&gt;
-            &lt;interval length="2.0" /&gt;
-        &lt;/dash&gt;
-        &lt;feature type="way" tags="amenity=parking" color="ff99CCFF"  /&gt;
-        &lt;feature type="way" tags="amenity=bicycle_parking"  color="ff99CCFF" /&gt;
-        &lt;feature type="way" tags="amenity=motorcycle_parking" color="ff99CCFF" /&gt;
-    &lt;/feature&gt;
-
-    &lt;feature type="way" tags="leisure=playground" area="true" updateWidth="true" widthFactor="0.8" color="88f4a460" style="STROKE" cap="BUTT" join="MITER" pathPattern="border_right" /&gt;
-
-    &lt;!-- Indoor features --&gt;
-    &lt;feature type="way" tags="indoor" updateWidth="true" widthFactor="0.7" color="99f4a442" style="STROKE" cap="BUTT" join="MITER" &gt;
-        &lt;feature type="way" tags="indoor=level" updateWidth="true" widthFactor="0.7" color="99f2c791" style="STROKE" cap="BUTT" join="MITER" /&gt;
-        &lt;feature type="way" tags="indoor=room" updateWidth="true" widthFactor="0.7" color="99f2c791" style="FILL_AND_STROKE" cap="BUTT" join="MITER" /&gt;
-        &lt;feature type="way" tags="indoor=corridor" updateWidth="true" widthFactor="0.7" color="99f2c791" style="FILL_AND_STROKE" cap="BUTT" join="MITER" /&gt;
-    &lt;/feature&gt;
-
-    &lt;!-- relations (only multipolygons currently --&gt;
-    &lt;feature type="relation" updateWidth="true" widthFactor="1.0" color="ff222222" style="STROKE" cap="BUTT" join="MITER" /&gt;
-    &lt;feature type="relation" tags="type=multipolygon" updateWidth="true" widthFactor="0.8" color="88222222" style="STROKE" cap="BUTT" join="MITER" pathPattern="border_right"&gt;
-        &lt;feature type="relation" tags="building" widthFactor="1.0" color="ffcc9999"/&gt;
-        &lt;feature type="relation" tags="leisure=playground" widthFactor="0.8" color="88f4a460" style="FILL_AND_STROKE" /&gt;
-        &lt;feature type="relation" tags="natural" color="ff71BE80" &gt;
-            &lt;feature type="relation" tags="natural=water" widthFactor="1.0" minVisibleZoom="10" color="ff0000ff" /&gt;
-            &lt;feature type="relation" tags="natural=cliff" widthFactor="2.0" color="ff555555" pathPattern="triangle_right" /&gt;
-            &lt;feature type="relation" tags="natural=coastline" widthFactor="2.0" minVisibleZoom="10" color="ff71BE80" pathPattern="triangle_left" /&gt;
-            &lt;feature type="relation" tags="natural=tree_row" widthFactor="2.0" color="ff4b7a54" cap="ROUND" /&gt;
-        &lt;/feature&gt;
-        &lt;feature type="relation" tags="landuse" updateWidth="true" widthFactor="2.0" color="8871BE80" style="STROKE" cap="BUTT" join="BEVEL" pathPattern="border_right" &gt;
-            &lt;feature type="relation" tags="landuse=construction" color="88996633" /&gt;
-            &lt;feature type="relation" tags="landuse=residential" minVisibleZoom="10" color="88888888" /&gt;
-            &lt;feature type="relation" tags="landuse=quarry" color="88d8a2a2" /&gt;
-            &lt;feature type="relation" tags="landuse=military" color="88af2626" /&gt;
-            &lt;feature type="relation" tags="landuse=forest" minVisibleZoom="10" color="8800BE00" /&gt;
-            &lt;feature type="relation" tags="landuse=industrial" minVisibleZoom="10" color="88A3709A" /&gt;
-            &lt;feature type="relation" tags="landuse=commercial" minVisibleZoom="10" color="88A3709A" /&gt;
-            &lt;feature type="relation" tags="landuse=railway" minVisibleZoom="10" color="88A3709A" /&gt;
-        &lt;/feature&gt;
-    &lt;/feature&gt;
-&lt;/profile&gt;
-</code></pre></div> -->
-                
+            <div class="row">
                     <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
     <div class="navbar-header">
         <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
@@ -2060,13 +1180,12 @@ i-->
     &lt;/feature&gt;
 &lt;/profile&gt;
 </code></pre></div>
-                
+            </div>
         </div>
 
         <footer class="col-md-12">
             <hr>
-<!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 18.0.0 </p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
         <script>
             var base_url = "../..",

@@ -9,1196 +9,318 @@
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
         <title>Mapbox-GL Style Support - Vespucci</title>
-        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/docco.min.css">
-        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/docco.min.css">
 
         <script src="../../js/jquery-1.10.2.min.js" defer></script>
-        <script src="../../js/bootstrap-3.0.3.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script src="../../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
         <script>hljs.initHighlightingOnLoad();</script> 
     </head>
 
     <body>
-
-        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-
-                <!-- Collapsed navigation -->
-                <div class="navbar-header">
-                    <!-- Expander button -->
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-
-<!--
-                    <a class="navbar-brand" href="../..">Vespucci</a> -->
-                </div>
+                <a class="navbar-brand" href="../..">Vespucci</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
                 <!-- Expanded navigation -->
-                <div class="navbar-collapse collapse">
+                <div id="navbar-collapse" class="navbar-collapse collapse">
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
-                                <li >
+                            <li class="navitem">
+                                <a href="../.." class="nav-link">Vespucci</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
                                     
-                                        <a href="../.."><img src="/vespucci_logo_small.png"></a>
-                                </li>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
-                                    <ul class="dropdown-menu">
-                                        
 <li>
     <a href="../../help/en/Introduction/" class="dropdown-item">Introduction</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../features/" class="dropdown-item">Features</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/18.0.0%20Release%20notes/" class="dropdown-item">18.0.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/17.1.0%20Release%20notes/" class="dropdown-item">17.1.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/17.0.0%20Release%20notes/" class="dropdown-item">17.0.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/16.1.0%20Release%20notes/" class="dropdown-item">16.1.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/16.0.0%20Release%20notes/" class="dropdown-item">16.0.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/15.2.0%20Release%20notes/" class="dropdown-item">15.2.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/15.1.0%20Release%20notes/" class="dropdown-item">15.1.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/15.0.0%20Release%20notes/" class="dropdown-item">15.0.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/14.1.0%20Release%20notes/" class="dropdown-item">14.1.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/14.0.0%20Release%20notes/" class="dropdown-item">14.0.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/13.1.0%20Release%20notes/" class="dropdown-item">13.1.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/13.0.0%20Release%20notes/" class="dropdown-item">13.0.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/12.1.0%20Release%20notes/" class="dropdown-item">12.1.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/12.0.0%20Release%20notes/" class="dropdown-item">12.0.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/11.2.0%20Release%20notes/" class="dropdown-item">11.2.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/11.1.0%20Release%20notes/" class="dropdown-item">11.1.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/11.0.0%20Release%20notes/" class="dropdown-item">11.0.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/10.2.0%20Release%20notes/" class="dropdown-item">10.2.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/10.1.0%20Release%20notes/" class="dropdown-item">10.1.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/10.0.0%20Release%20notes/" class="dropdown-item">10.0.0 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/0.9.9%20Release%20notes/" class="dropdown-item">0.9.9 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/0.9.8%20Release%20notes/" class="dropdown-item">0.9.8 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/0.9.7%20Release%20notes/" class="dropdown-item">0.9.7 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/0.9.6%20Release%20notes/" class="dropdown-item">0.9.6 Release notes</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../old_release_notes/" class="dropdown-item">Previous release notes</a>
 </li>
-                                    </ul>
-                                </li>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Editing <b class="caret"></b></a>
-                                    <ul class="dropdown-menu">
-                                        
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Editing <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
 <li>
     <a href="../../help/en/Main%20map%20display/" class="dropdown-item">Main map display</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/Simple%20actions/" class="dropdown-item">Simple actions</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/Creating%20new%20objects/" class="dropdown-item">Creating new objects</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/Node%20selected/" class="dropdown-item">Node selected</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/Way%20selected/" class="dropdown-item">Way selected</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/Relation%20selected/" class="dropdown-item">Relation selected</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/New%20Note%20selected/" class="dropdown-item">New note selected</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/Property%20editor/" class="dropdown-item">Property editor</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/Multiselect/" class="dropdown-item">Multiselect</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/Conflict%20resolution/" class="dropdown-item">Conflict resolution</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/Presets/" class="dropdown-item">Presets</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/Aligning%20background%20imagery/" class="dropdown-item">Aligning background imagery</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/Keyboard/" class="dropdown-item">Keyboard and mouse</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/GPS%20sources/" class="dropdown-item">GPS sources</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/Tag%20filter/" class="dropdown-item">Tag based filter</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/Preset%20filter/" class="dropdown-item">Preset based filter</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/Opening%20hours/" class="dropdown-item">Opening hours</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/Preferences/" class="dropdown-item">Preferences</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/Advanced%20preferences/" class="dropdown-item">Advanced preferences</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../../help/en/Voice%20commands/" class="dropdown-item">Voice commands</a>
 </li>
-                                    </ul>
-                                </li>
-                                <li class="dropdown active">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tutorials and Posts <b class="caret"></b></a>
-                                    <ul class="dropdown-menu">
-                                        
+                                </ul>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Tutorials and Posts <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
 <li>
     <a href="../network_location/" class="dropdown-item">"network" Location Provider Support</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../custom_imagery/" class="dropdown-item">Custom imagery</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../custom_imagery_mbtiles/" class="dropdown-item">Generating MBTiles files with custom imagery</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../name_suggestions/" class="dropdown-item">Using name suggestions</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../reporting_issues/" class="dropdown-item">Reporting Vespucci issues</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../tag_only/" class="dropdown-item">Tag-only editing</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../presets/" class="dropdown-item">Vespucci presets</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../data_styling/" class="dropdown-item">Vespucci data styling</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../vespucci_intents/" class="dropdown-item">Controlling Vespucci from other apps</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../object_search/" class="dropdown-item">Object search</a>
 </li>
-                                        
+                                    
 <li>
     <a href="../offline/" class="dropdown-item">Going completely offline with Vespucci</a>
 </li>
-                                        
+                                    
 <li>
     <a href="./" class="dropdown-item active">Mapbox-GL Style Support</a>
 </li>
-                                    </ul>
-                                </li>
-                                <li >
-                                    
-                                        <a href="../screenshots/">Videos & Screenshots</a>
-                                </li>
-                                <li >
-                                    
-                                        <a href="../faq/">FAQ</a>
-                                </li>
-                                <li >
-                                    
-                                        <a href="../../help/en/Privacy/">Privacy</a>
-                                </li>
+                                </ul>
+                            </li>
+                            <li class="navitem">
+                                <a href="../screenshots/" class="nav-link">Videos & Screenshots</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../faq/" class="nav-link">FAQ</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../../help/en/Privacy/" class="nav-link">Privacy</a>
+                            </li>
                         </ul>
 
-                    <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
-<!--- Remove Prev - Next
-                            <li >
-                                <a rel="next" href="../offline/">
+                            <li class="nav-item">
+                                <a rel="prev" href="../offline/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
-                            <li >
-                                <a rel="prev" href="../screenshots/">
+                            <li class="nav-item">
+                                <a rel="next" href="../screenshots/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
-i-->
                     </ul>
                 </div>
             </div>
         </div>
 
         <div class="container">
-<!--                <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
-            <span class="fa fa-angle-down"></span>
-        </button>
-    </div>
-
-    
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
-        <ul class="nav flex-column">
-            
-            <li class="nav-item" data-level="2"><a href="#vespucci-mapbox-gl-style-support" class="nav-link">Vespucci Mapbox-GL Style Support</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-        </ul>
-    </div>
-</div></div>
-                <div class="col-md-9" role="main">
-
-<h2 id="vespucci-mapbox-gl-style-support">Vespucci Mapbox-GL Style Support</h2>
-<p><em>For the Mapbox documents see <a href="https://docs.mapbox.com/mapbox-gl-js/style-spec/">https://docs.mapbox.com/mapbox-gl-js/style-spec/</a></em></p>
-<h3 id="caveats">Caveats</h3>
-<p>While a number of styles and corresponding vector tile schemas have been tested and within the limits described on this page things work, following specific points should be taken in to account:</p>
-<ul>
-<li>the support was mainly intended for relatively light weight QA data overlays, as this is based on Android Canvas rendering and not a purpose specific OpenGL rendering implementation performance will in general be slow. This is further confounded by many sources providing tiles up to a maximum of zoom level 14, these then tend to be very large and often contain far more data than what would be needed for the current view.</li>
-<li>we've implemented some simple label and icon collision detection, however if a collision is detected, we simply doesn't render one of the colliding objects without attempting to relocate the offending symbol (collision avoidance). Further there is currently a hard wired limit of 200 objects that are handled by this, any further ones are not rendered (the choice of limit is not of any particular significance).</li>
-</ul>
-<h3 id="sources">Sources</h3>
-<p>Only one vector tile source is currently supported, all other source configuration is ignored.</p>
-<h4 id="source-attributes">Source attributes</h4>
-<table>
-<thead>
-<tr>
-<th>Key</th>
-<th>Value</th>
-<th>Support</th>
-<th>Notes</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>type</strong></td>
-<td><strong>vector</strong></td>
-<td>yes</td>
-<td>source objects of other types are ignored</td>
-</tr>
-<tr>
-<td><strong>tiles</strong></td>
-<td></td>
-<td>yes</td>
-<td>only the first entry is used, if the element is missing the source will be ignored</td>
-</tr>
-<tr>
-<td><strong>minzoom</strong></td>
-<td></td>
-<td>yes</td>
-<td>default: 0</td>
-</tr>
-<tr>
-<td><strong>maxzoom</strong></td>
-<td></td>
-<td>yes</td>
-<td>default: 22</td>
-</tr>
-<tr>
-<td><strong>attribution</strong></td>
-<td></td>
-<td>yes</td>
-<td>default: nothing</td>
-</tr>
-<tr>
-<td><strong>bounds</strong></td>
-<td></td>
-<td>yes</td>
-<td>default: web mercator extent</td>
-</tr>
-<tr>
-<td><strong>url</strong></td>
-<td></td>
-<td>no</td>
-<td>there is currently no TileJSON support</td>
-</tr>
-<tr>
-<td><strong>promoteId</strong></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>scheme</strong></td>
-<td></td>
-<td>no</td>
-<td>always xyz</td>
-</tr>
-<tr>
-<td><strong>volatile</strong></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<h3 id="layers">Layers</h3>
-<p>Supported layers: <em>background</em>, <em>fill</em>, <em>fill-extrusion</em>, <em>line</em>, <em>symbol</em>, <em>circle</em></p>
-<p><em>fill-extrusion</em> layers are treated as flat fill layers</p>
-<p>Unsupported layers: raster, heatmap, hillshade, sky</p>
-<p>Unsupported attributes are ignored.</p>
-<p>Font selection is not supported, we render with a standard Android system font.</p>
-<p>None of the new "expression" functions are currently supported, however "old style" filter expressions are supported and interpolation linear, identity and exponential interpolation for numbers, colors and categories work for lots of the supported attributes.</p>
-<h4 id="style-attributes">Style attributes</h4>
-<table>
-<thead>
-<tr>
-<th>Key</th>
-<th>Value</th>
-<th>Support</th>
-<th>Notes</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>version</strong></td>
-<td></td>
-<td>yes</td>
-<td>ignored</td>
-</tr>
-<tr>
-<td><strong>sprite</strong></td>
-<td></td>
-<td>yes</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<h3 id="layer-attributes-for-supported-layers">Layer attributes for supported layers</h3>
-<p>Value support:</p>
-<ul>
-<li><strong>l</strong> literal</li>
-<li><strong>z</strong> "legacy" zoom based interpolation function</li>
-<li><strong>m</strong> moustache replacement</li>
-<li><strong>f</strong> "legacy" filter expressions</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>Key</th>
-<th>Values</th>
-<th>Support</th>
-<th>Notes</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><em>All layers</em></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><strong>minzoom</strong></td>
-<td>l</td>
-<td>yes</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>maxzoom</strong></td>
-<td>l</td>
-<td>yes</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>ref</strong></td>
-<td>l</td>
-<td>yes</td>
-<td>missing from mapbox documentation</td>
-</tr>
-<tr>
-<td><strong>visibility</strong></td>
-<td>l</td>
-<td>yes</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>interactive</strong></td>
-<td>l</td>
-<td>yes</td>
-<td>missing from mapbox documentation</td>
-</tr>
-<tr>
-<td><em>background</em></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><strong>background-color</strong></td>
-<td>l z</td>
-<td>yes</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>backgroud-opacity</strong></td>
-<td>l z</td>
-<td>yes</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>background-pattern</strong></td>
-<td>l z</td>
-<td>yes</td>
-<td></td>
-</tr>
-<tr>
-<td><em>Vector/geometry tile layers</em></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><strong>filter</strong></td>
-<td>f</td>
-<td>yes</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>source-layer</strong></td>
-<td>l</td>
-<td>yes</td>
-<td></td>
-</tr>
-<tr>
-<td><em>fill</em></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><strong>fill-antialias</strong></td>
-<td>l</td>
-<td>yes</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>fill-color</strong></td>
-<td>l z</td>
-<td>yes</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>fill_opacity</strong></td>
-<td>l z</td>
-<td>yes</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>fill-outline-color</strong></td>
-<td>l z</td>
-<td>yes</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>fill-pattern</strong></td>
-<td>l z</td>
-<td>yes</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>fill-sort-key</strong></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>fill-translate</strong></td>
-<td>l z</td>
-<td>yes</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>fill-translate-anchor</strong></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td><em>fill-extrusion</em></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><strong>fill-extrusion-base</strong></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>fill-extrusion-color</strong></td>
-<td>l z</td>
-<td>yes</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>fill-extrusion-height</strong></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>fill-extrusion-opacity</strong></td>
-<td>l z</td>
-<td>yes</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>fill-extrusion-pattern</strong></td>
-<td>l z</td>
-<td>yes</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>fill-extrusion-translate</strong></td>
-<td>l z</td>
-<td>yes</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>fill-extrusion-translate-anchor</strong></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>fill-extrusion-vertical-gradient</strong></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td><em>line</em></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><strong>line-blur</strong></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>line-cap</strong></td>
-<td>l z</td>
-<td>yes</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>line_color</strong></td>
-<td>l z</td>
-<td>yes</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>line-dasharray</strong></td>
-<td>l</td>
-<td>yes</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>line-gap-width</strong></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>line-gradient</strong></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>line-join</strong></td>
-<td>l z</td>
-<td>yes</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>line-miter-limit</strong></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>line-offset</strong></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>line-opacity</strong></td>
-<td>l z</td>
-<td>yes</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>line-pattern</strong></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>line-round-limit</strong></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>line-sort-key</strong></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>line-translate</strong></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>line-translate-anchor</strong></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>line-width</strong></td>
-<td>l z</td>
-<td>yes</td>
-<td></td>
-</tr>
-<tr>
-<td><em>symbol</em></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><strong>icon-allow-overlap</strong></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>icon-anchor</strong></td>
-<td>l z</td>
-<td>yes</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>icon-color</strong></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>icon-halo-blur</strong></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>icon-halo-color</strong></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>icon-halo-width</strong></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>icon-ignore-placement</strong></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>icon-image</strong></td>
-<td>l m z</td>
-<td>yes</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>icon-keep-upright</strong></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>icon-offset</strong></td>
-<td>l z</td>
-<td>yes</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>icon-opacity</strong></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>icon-optional</strong></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>icon-padding</strong></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>icon-pitch-alignment</strong></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>icon-rotate</strong></td>
-<td>l z</td>
-<td>yes</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>icon-rotation-alignment</strong></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>icon-size</strong></td>
-<td>l z</td>
-<td>yes</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>icon-text-fit</strong></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>icon-text-fit-padding</strong></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>icon-translate</strong></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td>__icon-translate-anchor</td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>symbol-avoid-edges</strong></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>symbol-placement</strong></td>
-<td>l z</td>
-<td>yes</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>symbol-sort-key</strong></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>symbol-spacing</strong></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>symbol-z-order</strong></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>text-allow-overlap</strong></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>text-anchor</strong></td>
-<td>l z</td>
-<td>yes</td>
-<td>just "top" and "bottom" supported</td>
-</tr>
-<tr>
-<td><strong>text-color</strong></td>
-<td>l z</td>
-<td>yes</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>text-field</strong></td>
-<td>l m</td>
-<td>yes</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>text-font</strong></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>text-halo-blur</strong></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>text-halo-color</strong></td>
-<td>l z</td>
-<td>yes</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>text-halo-width</strong></td>
-<td>l z</td>
-<td>yes</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>text-ignore-placement</strong></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>text-justify</strong></td>
-<td>l z</td>
-<td>yes</td>
-<td>"auto" not supported</td>
-</tr>
-<tr>
-<td><strong>text-keep-upright</strong></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>text-letter-spacing</strong></td>
-<td>l z</td>
-<td>yes</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>text-line-height</strong></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>text-max-angle</strong></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>text-max-width</strong></td>
-<td>l z</td>
-<td>yes</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>text-offset</strong></td>
-<td>l z</td>
-<td>yes</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>text-opacity</strong></td>
-<td>l z</td>
-<td>yes</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>text-optional</strong></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>text-padding</strong></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>text-pitch-alignment</strong></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>text-radial-offset</strong></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>text-rotate</strong></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>text-rotation-alignment</strong></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>text-size</strong></td>
-<td>l z</td>
-<td>yes</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>text-transform</strong></td>
-<td>l z</td>
-<td>yes</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>text-translate</strong></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>text-translate-anchor</strong></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>text-variable-anchor</strong></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>text-writing-mode</strong></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td><em>circle</em></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><em>circle-blur</em></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td><em>circle-color</em></td>
-<td>l z</td>
-<td>yes</td>
-<td></td>
-</tr>
-<tr>
-<td><em>circle-opacity</em></td>
-<td>l z</td>
-<td>yes</td>
-<td></td>
-</tr>
-<tr>
-<td><em>circle-pitch-alignment</em></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td><em>circle-pitch-scale</em></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td><em>circle-radius</em></td>
-<td>l z</td>
-<td>yes</td>
-<td></td>
-</tr>
-<tr>
-<td><em>circle-sort-key</em></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td><em>circle-stroke-color</em></td>
-<td>l z</td>
-<td>yes</td>
-<td></td>
-</tr>
-<tr>
-<td><em>circle-stroke-opacity</em></td>
-<td>l z</td>
-<td>yes</td>
-<td></td>
-</tr>
-<tr>
-<td><em>circle-stroke-width</em></td>
-<td>l z</td>
-<td>yes</td>
-<td></td>
-</tr>
-<tr>
-<td><em>circle-translate</em></td>
-<td>l z</td>
-<td>yes</td>
-<td></td>
-</tr>
-<tr>
-<td><em>circle-translate-anchor</em></td>
-<td></td>
-<td>no</td>
-<td></td>
-</tr>
-</tbody>
-</table></div> -->
-                
+            <div class="row">
                     <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
     <div class="navbar-header">
         <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
@@ -2056,13 +1178,12 @@ i-->
 </tr>
 </tbody>
 </table></div>
-                
+            </div>
         </div>
 
         <footer class="col-md-12">
             <hr>
-<!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 18.0.0 </p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
         <script>
             var base_url = "../..",
