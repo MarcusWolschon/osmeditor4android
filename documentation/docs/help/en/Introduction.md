@@ -87,7 +87,7 @@ On first start the app launches in "Simple mode", this can be changed in the mai
 
 Tapping the large green floating button on the map screen will show a menu. After you've selected one of the items, you will be asked to tap the screen at the location where you want to create the object, pan and zoom continues to work if you need to adjust the map view. 
 
-See [Creating new objects in simple actions mode](Creating%20new%20objects%20in%20simple%20actions%20mode.md) for more information.
+See [Creating new objects in simple actions mode](Simple%20actions.md) for more information.
 
 ##### Advanced (long press) mode
  
