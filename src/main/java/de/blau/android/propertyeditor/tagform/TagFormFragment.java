@@ -108,6 +108,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     private boolean focusOnAddress = false;
     private boolean displayMRUpresets;
     private String  focusTag       = null;
+    private boolean firstUpdate    = true;
 
     int maxInlineValues = 3;
 
@@ -624,19 +625,22 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                     tagListener.getBestPreset());
         }
 
-        // some final UI stuff
-        if (focusOnAddress) {
-            focusOnAddress = false; // only do it once
-            if (!focusOnTag(Tags.KEY_ADDR_HOUSENUMBER) && !focusOnTag(Tags.KEY_ADDR_STREET)) {
+        // some final UI stuff only once
+        if (firstUpdate) {
+            if (focusOnAddress) {
+                focusOnAddress = false; // only do it once
+                if (!focusOnTag(Tags.KEY_ADDR_HOUSENUMBER) && !focusOnTag(Tags.KEY_ADDR_STREET)) {
+                    focusOnEmpty();
+                }
+            } else if (focusTag != null) {
+                if (!focusOnTag(focusTag)) {
+                    focusOnEmpty();
+                }
+                focusTag = null;
+            } else {
                 focusOnEmpty();
             }
-        } else if (focusTag != null) {
-            if (!focusOnTag(focusTag)) {
-                focusOnEmpty();
-            }
-            focusTag = null;
-        } else {
-            focusOnEmpty();
+            firstUpdate = false;
         }
     }
 
