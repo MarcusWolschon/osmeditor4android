@@ -1507,7 +1507,8 @@ public class PropertyEditorTest {
         waitForPropertyEditor();
         instrumentation.removeMonitor(monitor);
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.tag_details), false));
-        TestUtils.scrollTo("Bergdietikon", false);
+        
+        TestUtils.scrollTo(Tags.KEY_NAME, false);
         BySelector bySelector = By.textStartsWith("Bergdietikon");
         UiObject2 valueField = device.wait(Until.findObject(bySelector), 500);
         UiObject2 linearLayout = valueField.getParent();
