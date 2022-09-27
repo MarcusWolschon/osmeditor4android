@@ -3166,6 +3166,7 @@ public class Main extends FullScreenAppCompatActivity
     private void performTagEdit(@NonNull final OsmElement selectedElement, @Nullable String focusOn, boolean applyLastAddressTags,
             @Nullable ArrayList<PresetElementPath> presetPathList, @Nullable HashMap<String, String> tags, boolean showPresets) {
         descheduleAutoLock();
+        unlock();
         final Logic logic = App.getLogic();
         logic.deselectAll();
         if (selectedElement instanceof Node) {
@@ -3175,7 +3176,6 @@ public class Main extends FullScreenAppCompatActivity
         } else if (selectedElement instanceof Relation) {
             logic.setSelectedRelation((Relation) selectedElement);
         }
-
         if (selectedElement != null) { // NOSONAR
             StorageDelegator storageDelegator = App.getDelegator();
             if (storageDelegator.getOsmElement(selectedElement.getName(), selectedElement.getOsmId()) != null) {
