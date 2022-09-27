@@ -226,7 +226,7 @@ public class MapOverlay extends StyleableLayer implements DiscardInterface, Conf
         double log10 = Math.log10(widthInMeters);
         double tickDistance = Math.pow(10, Math.floor(log10) - 1);
         if (widthInMeters / tickDistance <= 20) { // heuristic to make the visual effect a bit nicer
-            tickDistance = tickDistance / 10;
+            tickDistance = tickDistance / 2;
         }
         float tickDistanceH = Math.round(tickDistance / metersPerPixel);
         int largeTickSpacing = 10;
