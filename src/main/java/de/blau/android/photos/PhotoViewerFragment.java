@@ -435,7 +435,8 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
         super.onSaveInstanceState(outState);
         Log.d(DEBUG_TAG, "onSaveInstanceState");
         outState.putStringArrayList(PHOTO_LIST_KEY, (ArrayList<String>) photoList);
-        outState.putInt(START_POS_KEY, viewPager.getCurrentItem());
+        // there seems to be a situation in which this is called before viewPager is created
+        outState.putInt(START_POS_KEY, viewPager != null ? viewPager.getCurrentItem() : 0);
         if (!photoLoader.equals(defaultLoader)) {
             outState.putSerializable(PhotoViewerFragment.PHOTO_LOADER_KEY, photoLoader);
         }
