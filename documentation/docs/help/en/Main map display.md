@@ -128,7 +128,15 @@ The "on-map" GPS button duplicates the function of the "Follow GPS position" men
  * **Bookmarks...** - show current viewbox bookmarks
  * **Go to the nearest todo...** - go to the nearest open todo. If you are following the GPS position or it is in the current view this is relative to that position, otherwise it is relative to the center of the current view. If there are more than one active todo list you will be prompted to select one.
  * **Go to current location** - go to and zoom in to the current position. If location updates are not turned on, this will try to get a location without enabling continuous updates.
- * **Go to coordinates...** - go to and zoom in to coordinates or an open location code
+ * **Go to coordinates...** - go to and zoom in to coordinates (latitude longitude) or an open location code
+    Supported formats are the following, with dots or optionally a comma as the decimal marker, variations on the units also accepted e.g. °, d, º, g, o.   
+     * `43.63871944444445`
+     * `N43°38'19.39"`
+     * `43°38'19.39"N`
+     * `43°38.3232'N`
+     * `43d 38m 19.39s N`
+     * `43 38 19.39`
+     * `433819N`
  * **Start GPX track** - start recording a GPX track and display a corresponding layer.
  * **Pause GPX track** - pause recording the current GPX track
  * **Clear GPX track** - clear the current GPX track

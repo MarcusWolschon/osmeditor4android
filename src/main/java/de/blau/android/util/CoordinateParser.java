@@ -18,31 +18,16 @@ import androidx.annotation.Nullable;
  * front and behind the coordinate value - parse degree + minute values correctly - JavaDoc and other cleanup
  */
 public final class CoordinateParser {
-    private static final String DMS = "\\s*(\\d{1,3})\\s*(?:°|d|º| |g|o)"                                                                                // The
-                                                                                                                                                         // degrees
-            + "\\s*([0-6]?\\d)\\s*(?:'|m| |´|’|′)"                                                                                                       // The
-                                                                                                                                                         // minutes
-            + "\\s*(?:"                                                                                                                                  // Non-capturing
-                                                                                                                                                         // group
-            + "([0-6]?\\d(?:[,.]\\d+)?)"                                                                                                                 // Seconds
-                                                                                                                                                         // and
-                                                                                                                                                         // optional
-                                                                                                                                                         // decimal
+    private static final String DMS = "\\s*(\\d{1,3})\\s*(?:°|d|º| |g|o)"                     // The degrees
+            + "\\s*([0-6]?\\d)\\s*(?:'|m| |´|’|′)"                                            // The minutes
+            + "\\s*(?:"                                                                       // Non-capturing group
+            + "([0-6]?\\d(?:[,.]\\d+)?)"                                                      // Seconds and optional decimal
             + "\\s*(?:\"|''|s|´´|″)?" + ")?\\s*";
-    private static final String DM  = "\\s*(\\d{1,3})\\s*(?:°|d|º| |g|o)"                                                                                // The
-                                                                                                                                                         // degrees
-            + "\\s*(?:"                                                                                                                                  // Non-capturing
-                                                                                                                                                         // group
-            + "([0-6]?\\d(?:[,.]\\d+)?)"                                                                                                                 // Minutes
-                                                                                                                                                         // and
-                                                                                                                                                         // optional
-                                                                                                                                                         // decimal
+    private static final String DM = "\\s*(\\d{1,3})\\s*(?:°|d|º| |g|o)"                      // The degrees
+            + "\\s*(?:"                                                                       // Non-capturing group
+            + "([0-6]?\\d(?:[,.]\\d+)?)"                                                      // Minutes and optional decimal
             + "\\s*(?:'|m| |´|’|′)?" + ")?\\s*";
-    private static final String D   = "\\s*(\\d{1,3}(?:[,.]\\d+)?)\\s*(?:°|d|º| |g|o|)\\s*";                                                             // The
-                                                                                                                                                         // degrees
-                                                                                                                                                         // and
-                                                                                                                                                         // optional
-                                                                                                                                                         // decimal
+    private static final String D  = "\\s*(\\d{1,3}(?:[,.]\\d+)?)\\s*(?:°|d|º| |g|o|)\\s*";   // The degrees and optional decimal
 
     private static final String NSEOW      = "([NSEOW])";
     private static final String SEPARATORS = "[ ,;/]?";

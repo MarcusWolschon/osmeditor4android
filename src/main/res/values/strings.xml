@@ -814,7 +814,7 @@
     <string name="allow_all_networks">Allow all networks</string>
     <!--  Strings in Go to coordinates -->
     <string name="go_to_coordinates_title">Go to coordinates</string>
-    <string name="go_to_coordinates_hint">Enter coordinates or an OLC</string>
+    <string name="go_to_coordinates_hint">Enter coordinates (lat lon) or an OLC</string>
     <string name="unparseable_coordinates">Unparseable coordinates</string>
     <string name="network_required">Network is required for location lookup</string>
     <string name="no_nominatim_server">No configured Nominatim server found</string>
