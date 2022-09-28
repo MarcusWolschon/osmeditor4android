@@ -2361,7 +2361,10 @@ public class Main extends FullScreenAppCompatActivity
             }
             return true;
         case R.id.menu_tools_apply_local_offset:
-            ImageryOffsetUtils.applyImageryOffsets(this, logic.getPrefs(), map.getBackgroundLayer().getTileLayerConfiguration(), null);
+            MapTilesLayer<?> backgroundLayer = map.getBackgroundLayer();
+            if (backgroundLayer != null) {
+                ImageryOffsetUtils.applyImageryOffsets(this, logic.getPrefs(), backgroundLayer.getTileLayerConfiguration(), null);
+            }
             return true;
         case R.id.menu_tools_update_imagery_configuration:
         case R.id.menu_tools_update_imagery_configuration_eli:
