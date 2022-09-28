@@ -143,8 +143,9 @@ public class PropertyEditorActivity extends LocaleAwareCompatActivity implements
         Log.d(DEBUG_TAG, "Adding from intent");
 
         PropertyEditorData[] loadData = PropertyEditorData.deserializeArray(intent.getSerializableExtra(PropertyEditorFragment.TAGEDIT_DATA));
-        boolean applyLastAddressTags = (Boolean) intent.getSerializableExtra(PropertyEditorFragment.TAGEDIT_LAST_ADDRESS_TAGS);
-        boolean showPresets = (Boolean) intent.getSerializableExtra(PropertyEditorFragment.TAGEDIT_SHOW_PRESETS);
+        boolean applyLastAddressTags = getPrimitiveBoolean((Boolean) intent.getSerializableExtra(PropertyEditorFragment.TAGEDIT_LAST_ADDRESS_TAGS));
+        boolean showPresets = getPrimitiveBoolean((Boolean) intent.getSerializableExtra(PropertyEditorFragment.TAGEDIT_SHOW_PRESETS));
+
         HashMap<String, String> extraTags = (HashMap<String, String>) intent.getSerializableExtra(PropertyEditorFragment.TAGEDIT_EXTRA_TAGS);
         ArrayList<PresetElementPath> presetsToApply = (ArrayList<PresetElementPath>) intent.getSerializableExtra(PropertyEditorFragment.TAGEDIT_PRESETSTOAPPLY);
         Boolean usePaneLayout = (Boolean) intent.getSerializableExtra(PropertyEditorFragment.PANELAYOUT);
@@ -165,6 +166,16 @@ public class PropertyEditorActivity extends LocaleAwareCompatActivity implements
         }
 
         addFragment(getSupportFragmentManager(), android.R.id.content, loadData, applyLastAddressTags, showPresets, extraTags, presetsToApply, usePaneLayout);
+    }
+
+    /**
+     * Get a boolean value from a potentially null Boolean object
+     * 
+     * @param value the Boolean
+     * @return true or false
+     */
+    private boolean getPrimitiveBoolean(@Nullable Boolean value) {
+        return value != null && value;
     }
 
     /**
