@@ -326,17 +326,15 @@ public class MapTileProviderDataBase {
                             }
                         }
                     }
+                } catch (SQLiteException | java.lang.IllegalStateException e) {
+                    Log.e(MapTileFilesystemProvider.DEBUG_TAG, "Exception in deleteOldest " + e);
+                } catch (NullPointerException e) {
+                    // just log ... likely these are really spurious
+                    Log.e(MapTileFilesystemProvider.DEBUG_TAG, "NPE in deleteOldest " + e);
+                } catch (EmptyCacheException e) {
+                    Log.e(MapTileFilesystemProvider.DEBUG_TAG, "Exception in deleteOldest cache empty " + e);
                 } catch (Exception e) {
-                    if (e instanceof NullPointerException) {
-                        // just log ... likely these are really spurious
-                        Log.e(MapTileFilesystemProvider.DEBUG_TAG, "NPE in deleteOldest " + e);
-                    } else if (e instanceof SQLiteFullException || e instanceof SQLiteDiskIOException || e instanceof java.lang.IllegalStateException) {
-                        Log.e(MapTileFilesystemProvider.DEBUG_TAG, "Exception in deleteOldest " + e);
-                    } else if (e instanceof EmptyCacheException) {
-                        Log.e(MapTileFilesystemProvider.DEBUG_TAG, "Exception in deleteOldest cache empty " + e);
-                    } else {
-                        ACRAHelper.nocrashReport(e, e.getMessage());
-                    }
+                    ACRAHelper.nocrashReport(e, e.getMessage());
                 }
             } finally {
                 c.close();
