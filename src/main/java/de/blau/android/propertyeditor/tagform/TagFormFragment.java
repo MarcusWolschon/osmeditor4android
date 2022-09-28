@@ -594,7 +594,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         Map<String, String> nonEditable;
         if (mainPreset != null) {
             nonEditable = addTagsToViews(editableView, mainPreset, allTags);
-            for (PresetItem preset : tagListener.getSecondaryPresets()) {
+            for (PresetItem preset : new ArrayList<>(tagListener.getSecondaryPresets())) {
                 final EditableLayout editableView1 = (EditableLayout) inflater.inflate(R.layout.tag_form_editable, ll, false);
                 editableView1.setSaveEnabled(false);
                 editableView1.setTitle(preset, false);
