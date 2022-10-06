@@ -67,6 +67,8 @@
         <feature type="node" tags="height" iconPath="icons/tree_height.png" />
         <feature type="node" tags="diameter_crown" iconPath="icons/tree_crown_diameter.png" />
     </feature>
+    <feature type="node" tags="man_made=pump" iconPath="icons/man_made_pipeline.png" />
+    
     
     <!-- OSM way based features -->
     <feature type="way" updateWidth="true" widthFactor="1.0" color="80000000" style="STROKE" cap="BUTT" join="MITER" />

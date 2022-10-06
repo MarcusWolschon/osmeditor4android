@@ -929,6 +929,7 @@
     <string name="menu_tools_calibrate_height">Calibrate pressure sensor…</string>
     <string name="menu_tools_install_egm">Install EGM</string>
     <string name="menu_tools_remove_egm">Remove EGM</string>
+    <string name="menu_tools_import_data_style">Import data style…</string>
     <string name="menu_tools_load_keys">Load keys from file…</string>
     <!--  -->
     <string name="menu_simple_actions">Simple mode</string>  
