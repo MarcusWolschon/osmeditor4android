@@ -761,7 +761,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
     }
 
     /**
-     * Create a dialog allowing a relation to be selected
+     * Create a dialog allowing a preset to be selected
      * 
      * @param context an Android Context
      * @param onPresetSelectedListener called when a preset has been selected
@@ -801,10 +801,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
 
         final ArrayAdapter<String> adapter = new ArrayAdapter<>(context, R.layout.search_results_item, itemNames);
 
-        builder.setAdapter(adapter, (dialog, which) -> {
-            String key = adapter.getItem(which);
-            onPresetSelectedListener.selected(items.get(key));
-        });
+        builder.setAdapter(adapter, (dialog, which) -> onPresetSelectedListener.selected(items.get(adapter.getItem(which))));
 
         return builder.create();
     }
