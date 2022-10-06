@@ -3,11 +3,13 @@ package de.blau.android;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Queue;
 import java.util.concurrent.TimeUnit;
 
@@ -2426,6 +2428,32 @@ public class Main extends FullScreenAppCompatActivity
                         keyDatabase.keysFromStream(Main.this.getContentResolver().openInputStream(fileUri));
                         SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
                     } catch (FileNotFoundException fex) {
+                        fileNotFound(fileUri);
+                    }
+                    return true;
+                }
+            });
+            return true;
+        case R.id.menu_tools_import_data_style:
+            descheduleAutoLock();
+            SelectFile.read(this, R.string.config_osmPreferredDir_key, new ReadFile() {
+                private static final long serialVersionUID = 1L;
+
+                @Override
+                public boolean read(Uri fileUri) {
+                    try (InputStream in = Main.this.getContentResolver().openInputStream(fileUri)) {
+                        File destDir = FileUtil.getApplicationDirectory(Main.this, Paths.DIRECTORY_PATH_STYLES);
+                        String filename = ContentResolverUtil.getDisplaynameColumn(Main.this, fileUri);
+                        File dest = new File(destDir, filename);
+                        FileUtil.copy(in, dest);
+                        if (filename.toLowerCase(Locale.US).endsWith("." + FileExtensions.ZIP)) {
+                            FileUtil.unpackZip(destDir.getAbsolutePath() + Paths.DELIMITER, filename);
+                            dest.delete(); // NOSONAR delete the zip file
+                        }
+                        DataStyle.reset();
+                        DataStyle.getStylesFromFiles(Main.this);
+                        SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
+                    } catch (IOException fex) {
                         fileNotFound(fileUri);
                     }
                     return true;

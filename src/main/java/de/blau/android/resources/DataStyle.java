@@ -1823,18 +1823,23 @@ public final class DataStyle extends DefaultHandler {
                     return name.endsWith(FILE_PATH_STYLE_SUFFIX);
                 }
             }
-            File[] list = indir.listFiles(new StyleFilter());
-            readStylesFromFileList(ctx, list);
+            readStylesFromFileList(ctx, indir.listFiles(new StyleFilter()));
         } catch (Exception ex) {
             Log.e(DEBUG_TAG, "Unable to read style files " + ex.getMessage());
         }
-        // from styles directory
+        // from public styles directory
         try {
             File indir = new File(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_STYLES);
-            File[] list = indir.listFiles(new XmlFileFilter());
-            readStylesFromFileList(ctx, list);
+            readStylesFromFileList(ctx, indir.listFiles(new XmlFileFilter()));
         } catch (Exception ex) {
-            Log.e(DEBUG_TAG, "Unable to read style files " + ex.getMessage());
+            Log.e(DEBUG_TAG, "Unable to read style files from public style dir " + ex.getMessage());
+        }
+        // from private styles directory
+        try {
+            File indir = FileUtil.getApplicationDirectory(ctx, Paths.DIRECTORY_PATH_STYLES);
+            readStylesFromFileList(ctx, indir.listFiles(new XmlFileFilter()));
+        } catch (Exception ex) {
+            Log.e(DEBUG_TAG, "Unable to read style files from private styles dir " + ex.getMessage());
         }
     }
 

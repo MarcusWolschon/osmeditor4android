@@ -88,6 +88,27 @@ public final class FileUtil {
     }
 
     /**
+     * Get a File for directoryName in the Android/data hierarchy, if it doesn't exist create it
+     * 
+     * @param ctx an Android Context
+     * @param directoryName the new sub-directory
+     * @return a File object for the sub-directory
+     * @throws IOException if we can't create the directory
+     */
+    public static @NonNull File getApplicationDirectory(@NonNull Context ctx, @NonNull String directoryName) throws IOException {
+        if (directoryName.length() == 0) {
+            throw new IllegalArgumentException("Directory path is empty.");
+        }
+        File outDir = new File(ctx.getExternalFilesDir(null), directoryName);
+        // noinspection ResultOfMethodCallIgnored
+        outDir.mkdir(); // ensure directory exists
+        if (!outDir.isDirectory()) {
+            throw new IOException("Unable to create directory: " + outDir.getPath());
+        }
+        return outDir;
+    }
+
+    /**
      * Open a local file for writing generating any necessary directories
      * 
      * @param context Android Context
@@ -296,7 +317,7 @@ public final class FileUtil {
      * @param zipname the zip file
      * @return true if successful
      */
-    public static boolean unpackZip(String dir, String zipname) {
+    public static boolean unpackZip(@NonNull String dir, @NonNull String zipname) {
         try (InputStream is = new FileInputStream(dir + zipname); ZipInputStream zis = new ZipInputStream(new BufferedInputStream(is))) {
             String filename;
             ZipEntry ze;
