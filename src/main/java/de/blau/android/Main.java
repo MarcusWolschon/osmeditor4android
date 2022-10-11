@@ -4547,47 +4547,28 @@ public class Main extends FullScreenAppCompatActivity
      */
     @NonNull
     public String descriptionForContextMenu(@NonNull OsmElement e) {
-        StringBuilder description = new StringBuilder(e.getDescription(this));
-        List<Relation> relations = e.getParentRelations();
-        boolean hasRelations = relations != null && !relations.isEmpty();
+        StringBuilder parentList = new StringBuilder();
         if (e instanceof Node) {
             List<Way> ways = App.getLogic().getWaysForNode((Node) e);
-            boolean hasWays = !ways.isEmpty();
-            if (hasRelations) {
-                description.append(" (");
-                for (Relation r : relations) {
-                    description.append(r.getDescription(this));
-                    if (!lastMember(relations, r) || hasWays) {
-                        description.append(", ");
-                    }
-                }
-                if (!hasWays) {
-                    description.append(")");
+            for (Way w : ways) {
+                parentList.append(w.getDescription(this));
+                if (!lastMember(ways, w)) {
+                    parentList.append(", ");
                 }
             }
-            if (hasWays) {
-                if (!hasRelations) {
-                    description.append(" (");
-                }
-                for (Way w : ways) {
-                    description.append(w.getDescription(this));
-                    if (!lastMember(ways, w)) {
-                        description.append(", ");
-                    }
-                }
-                description.append(")");
-            }
-        } else if (hasRelations) {
-            description.append(" (");
-            for (Relation r : relations) {
-                description.append(r.getDescription(this));
-                if (!lastMember(relations, r)) {
-                    description.append(", ");
-                }
-            }
-            description.append(")");
         }
-        return description.toString();
+        if (e.hasParentRelations()) {
+            List<Relation> relations = e.getParentRelations();
+            for (Relation r : relations) {
+                parentList.append(r.getDescription(this));
+                if (!lastMember(relations, r)) {
+                    parentList.append(", ");
+                }
+            }
+        }
+        String description = e.getDescription(this);
+        return parentList.length() == 0 ? getString(R.string.element_for_menu, description)
+                : getString(R.string.element_for_menu_with_parents, description, parentList.toString());
     }
 
     /**
