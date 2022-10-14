@@ -1,5 +1,18 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+18.0.3:
+
+- Fix add an "Import data style" function (fixes Android 12 access issue for style files)
+- Fix protect against CME in tagFormFragment
+- Fix handle null Boolean values properly when starting PropertyEditorActivity
+- Fix protect against null background layer
+- Fix protect against viewPager being null
+- Fix just log all SQLiteExceptions instead of sending crash dumps
+- Fix always unlock before starting the property editor
+- Update translations
+- Update imagery from ELI
+- Update presets
+
 18.0.2:
 
 - Fix wrong MR challenges being displayed
