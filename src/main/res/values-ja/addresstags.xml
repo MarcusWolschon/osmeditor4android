@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string name="addr_housenumber">住居番号 / 号 / 支号 / 枝番号 (addr:housenumber)</string>
+  <string name="addr_conscriptionnumber">Conscription number (addr:conscriptionnumber)</string>
+  <string name="addr_street">通り名 (addr:street)</string>
+  <string name="addr_postcode">郵便番号 (addr:postcode)</string>
+  <string name="addr_city">市/区/町/村 (addr:city)</string>
+  <string name="addr_country">国コード (addr:country)</string>
+  <string name="addr_full">住所全文 (addr:full)</string>
+  <string name="addr_place">領域名 (addr:place)</string>
+  <string name="addr_block">街区名 (addr:block)</string>
+  <string name="addr_block_number">街区符号 / 番 / 番地 / 地番 (addr:block_number)</string>
+  <string name="addr_parentstreet">追加住所 (addr:parenstreet)</string>
+  <string name="addr_hamlet">集落 / 通称地名 (addr:hamlet)</string>
+  <string name="addr_suburb">政令指定都市の区  (addr:suburb)</string>
+  <string name="addr_subdistrict">分区 (addr:subdistrict)</string>
+  <string name="addr_district">地区 (addr:district)</string>
+  <string name="addr_province">都道府県 (addr:province)</string>
+  <string name="addr_state">州 (addr:state)</string>
+  <string name="addr_flats">複合住宅 / 施設の名称 (addr:flats)</string>
+  <string name="addr_door">複合住宅 / 施設の部屋番号 (addr:door)</string>
+  <string name="addr_unit">複合住宅 / 施設の構成要素 (addr:unit)</string>
+</resources>
