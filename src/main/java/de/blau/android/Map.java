@@ -217,6 +217,12 @@ public class Map extends View implements IMapView {
                 MapViewLayer layer = null;
                 final String contentId = config.getContentId();
                 final LayerType type = config.getType();
+                // GPX and GEOJSON layers require a non-null content id
+                if (contentId == null && (type == LayerType.GPX || type == LayerType.GEOJSON)) {
+                    db.deleteLayer(type);
+                    Log.w(DEBUG_TAG, "Removed " + type + " layer with null content id");
+                    continue;
+                }
                 List<MapViewLayer> existingLayers = getLayers(type, contentId);
                 if (existingLayers.isEmpty()) {
                     try {
@@ -256,44 +262,40 @@ public class Map extends View implements IMapView {
                             layer = new de.blau.android.layer.data.MapOverlay(this);
                             break;
                         case GPX:
-                            if (contentId != null) {
-                                layer = new de.blau.android.layer.gpx.MapOverlay(this, contentId);
-                                if (ctx.getString(R.string.layer_gpx_recording).equals(contentId)) {
-                                    if (getTracker() != null) {
-                                        ((de.blau.android.layer.gpx.MapOverlay) layer).setTrack(getTracker().getTrack());
-                                        ((de.blau.android.layer.gpx.MapOverlay) layer).setName(contentId);
-                                    } else {
-                                        // we don't want to display the recording layer if the service isn't running
-                                        // for consistency reasons this implies that we need to delete the layer
-                                        db.deleteLayer(LayerType.GPX, contentId);
-                                        continue;
-                                    }
-                                } else if (!((de.blau.android.layer.gpx.MapOverlay) layer).fromFile(ctx, Uri.parse(contentId), true, null)) {
+                            layer = new de.blau.android.layer.gpx.MapOverlay(this, contentId); // NOSONAR
+                            if (ctx.getString(R.string.layer_gpx_recording).equals(contentId)) {
+                                if (getTracker() != null) {
+                                    ((de.blau.android.layer.gpx.MapOverlay) layer).setTrack(getTracker().getTrack());
+                                    ((de.blau.android.layer.gpx.MapOverlay) layer).setName(contentId);
+                                } else {
+                                    // we don't want to display the recording layer if the service isn't running
+                                    // for consistency reasons this implies that we need to delete the layer
                                     db.deleteLayer(LayerType.GPX, contentId);
-                                    Log.w(DEBUG_TAG, "Deleted GPX layer for " + contentId);
-                                    continue; // skip
+                                    continue;
                                 }
+                            } else if (!((de.blau.android.layer.gpx.MapOverlay) layer).fromFile(ctx, Uri.parse(contentId), true, null)) {
+                                db.deleteLayer(LayerType.GPX, contentId);
+                                Log.w(DEBUG_TAG, "Deleted GPX layer for " + contentId);
+                                continue; // skip
                             }
                             break;
                         case TASKS:
                             layer = new de.blau.android.layer.tasks.MapOverlay(this);
                             break;
                         case GEOJSON:
-                            if (contentId != null) {
-                                layer = new de.blau.android.layer.geojson.MapOverlay(this);
-                                try {
-                                    if (!((de.blau.android.layer.geojson.MapOverlay) layer).loadGeoJsonFile(ctx, Uri.parse(contentId), true)) {
-                                        // other error, has already been toasted
-                                        db.deleteLayer(LayerType.GEOJSON, contentId);
-                                        continue;
-                                    }
-                                } catch (IOException e) {
-                                    if (context instanceof Main) {
-                                        Snack.toastTopError(context, context.getString(R.string.toast_error_reading, contentId));
-                                    }
+                            layer = new de.blau.android.layer.geojson.MapOverlay(this);
+                            try {
+                                if (!((de.blau.android.layer.geojson.MapOverlay) layer).loadGeoJsonFile(ctx, Uri.parse(contentId), true)) {
+                                    // other error, has already been toasted
                                     db.deleteLayer(LayerType.GEOJSON, contentId);
-                                    continue; // skip
+                                    continue;
                                 }
+                            } catch (IOException e) {
+                                if (context instanceof Main) {
+                                    Snack.toastTopError(context, context.getString(R.string.toast_error_reading, contentId));
+                                }
+                                db.deleteLayer(LayerType.GEOJSON, contentId);
+                                continue; // skip
                             }
                             break;
                         case MAPILLARY:
