@@ -17,7 +17,7 @@ import de.blau.android.App;
 import de.blau.android.ErrorCodes;
 import de.blau.android.Logic;
 import de.blau.android.R;
-import de.blau.android.dialogs.ConfirmUpload;
+import de.blau.android.dialogs.ReviewAndUpload;
 import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Server;
@@ -77,8 +77,8 @@ public class UploadListener implements DialogInterface.OnShowListener, View.OnCl
     @Override
     public void onClick(View view) {
         validateFields();
-        if (tagsShown || ConfirmUpload.getPage(caller) == ConfirmUpload.TAGS_PAGE) {
-            ConfirmUpload.dismissDialog(caller);
+        if (tagsShown || ReviewAndUpload.getPage(caller) == ReviewAndUpload.TAGS_PAGE) {
+            ReviewAndUpload.dismissDialog(caller);
             Map<String, String> extraTags = new HashMap<>();
             if (requestReview.isChecked()) {
                 extraTags.put(Tags.KEY_REVIEW_REQUESTED, Tags.VALUE_YES);
@@ -103,7 +103,7 @@ public class UploadListener implements DialogInterface.OnShowListener, View.OnCl
                 ErrorAlert.showDialog(caller, ErrorCodes.NO_LOGIN_DATA);
             }
         } else {
-            ConfirmUpload.showPage(caller, ConfirmUpload.TAGS_PAGE);
+            ReviewAndUpload.showPage(caller, ReviewAndUpload.TAGS_PAGE);
             tagsShown = true;
         }
     }
