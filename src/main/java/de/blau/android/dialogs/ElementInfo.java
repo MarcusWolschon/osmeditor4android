@@ -209,7 +209,7 @@ public class ElementInfo extends InfoDialogFragment {
             final ViewBox box = tempBox != null ? new ViewBox(tempBox) : null;
             if (getArguments().getBoolean(SHOW_JUMP_TO_KEY)) {
                 builder.setNeutralButton(R.string.goto_element, (dialog, which) -> {
-                    de.blau.android.dialogs.Util.dismissDialog(activity, ConfirmUpload.TAG);
+                    de.blau.android.dialogs.Util.dismissDialog(activity, ReviewAndUpload.TAG);
                     if (box != null) {
                         double[] center = box.getCenter();
                         ((Main) activity).zoomToAndEdit((int) (center[0] * 1E7D), (int) (center[1] * 1E7D), element);

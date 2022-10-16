@@ -81,6 +81,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
+import androidx.core.view.MenuCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
@@ -97,7 +98,6 @@ import de.blau.android.contract.Schemes;
 import de.blau.android.contract.Ui;
 import de.blau.android.contract.Urls;
 import de.blau.android.dialogs.BarometerCalibration;
-import de.blau.android.dialogs.ConfirmUpload;
 import de.blau.android.dialogs.DownloadCurrentWithChanges;
 import de.blau.android.dialogs.ElementInfo;
 import de.blau.android.dialogs.GnssPositionInfo;
@@ -105,6 +105,8 @@ import de.blau.android.dialogs.Layers;
 import de.blau.android.dialogs.NewVersion;
 import de.blau.android.dialogs.Newbie;
 import de.blau.android.dialogs.Progress;
+import de.blau.android.dialogs.Review;
+import de.blau.android.dialogs.ReviewAndUpload;
 import de.blau.android.dialogs.SearchForm;
 import de.blau.android.dialogs.Tip;
 import de.blau.android.dialogs.TooMuchData;
@@ -1727,6 +1729,7 @@ public class Main extends FullScreenAppCompatActivity
         // determine how man icons have room
         MenuUtil menuUtil = new MenuUtil(this);
         Menu menu = m;
+        MenuCompat.setGroupDividerEnabled(menu, true);
         if (getBottomBar() != null) {
             menu = getBottomBar().getMenu();
             Log.d(DEBUG_TAG, "inflated main menu on to bottom toolbar");
@@ -1798,7 +1801,9 @@ public class Main extends FullScreenAppCompatActivity
         }
         // note: isDirty is not a good indicator of if if there is really
         // something to upload
-        menu.findItem(R.id.menu_transfer_upload).setEnabled(networkConnected && !delegator.getApiStorage().isEmpty());
+        final boolean hasChanges = !delegator.getApiStorage().isEmpty();
+        menu.findItem(R.id.menu_transfer_upload).setEnabled(networkConnected && hasChanges);
+        menu.findItem(R.id.menu_transfer_review).setEnabled(hasChanges);
         menu.findItem(R.id.menu_transfer_update).setEnabled(networkConnected && !hasMapSplitSource);
 
         menu.findItem(R.id.menu_transfer_bugs_download_current).setEnabled(networkConnected);
@@ -2148,6 +2153,9 @@ public class Main extends FullScreenAppCompatActivity
             return true;
         case R.id.menu_transfer_upload:
             confirmUpload(null);
+            return true;
+        case R.id.menu_transfer_review:
+            Review.showDialog(this);
             return true;
         case R.id.menu_transfer_update:
             logic.redownload(this, false, null);
@@ -3004,8 +3012,8 @@ public class Main extends FullScreenAppCompatActivity
     public void confirmUpload(@Nullable List<OsmElement> elements) {
         final Server server = prefs.getServer();
         if (App.getLogic().hasChanges()) {
-            if (Server.checkOsmAuthentication(this, server, () -> ConfirmUpload.showDialog(Main.this, elements))) {
-                ConfirmUpload.showDialog(this, elements);
+            if (Server.checkOsmAuthentication(this, server, () -> ReviewAndUpload.showDialog(Main.this, elements))) {
+                ReviewAndUpload.showDialog(this, elements);
             }
         } else {
             Snack.barInfo(this, R.string.toast_no_changes);

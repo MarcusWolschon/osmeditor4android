@@ -66,9 +66,9 @@ import de.blau.android.views.ExtendedViewPager;
  * 
  *
  */
-public class ConfirmUpload extends ImmersiveDialogFragment {
+public class ReviewAndUpload extends ImmersiveDialogFragment {
 
-    private static final String DEBUG_TAG = ConfirmUpload.class.getSimpleName();
+    private static final String DEBUG_TAG = ReviewAndUpload.class.getSimpleName();
 
     public static final String  TAG          = "fragment_confirm_upload";
     private static final String ELEMENTS_KEY = "elements";
@@ -81,11 +81,9 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
     private AutoCompleteTextView comment;
     private AutoCompleteTextView source;
 
-    private Resources resources;
-
     private List<OsmElement> elements = null;
 
-    private Comparator<ChangedElement> comparator = (ce0, ce1) -> {
+    static final Comparator<ChangedElement> DEFAULT_COMPARATOR = (ce0, ce1) -> {
         OsmElement element0 = ce0.element;
         OsmElement element1 = ce1.element;
         int problems0 = element0.getCachedProblems();
@@ -143,7 +141,7 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
         dismissDialog(activity);
 
         FragmentManager fm = activity.getSupportFragmentManager();
-        ConfirmUpload confirmUploadDialogFragment = newInstance(elements);
+        ReviewAndUpload confirmUploadDialogFragment = newInstance(elements);
         try {
             confirmUploadDialogFragment.show(fm, TAG);
         } catch (IllegalStateException isex) {
@@ -168,8 +166,8 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
      * @return a new ConfirmUpload instance
      */
     @NonNull
-    private static ConfirmUpload newInstance(@Nullable List<OsmElement> elements) {
-        ConfirmUpload f = new ConfirmUpload();
+    private static ReviewAndUpload newInstance(@Nullable List<OsmElement> elements) {
+        ReviewAndUpload f = new ReviewAndUpload();
         Bundle args = new Bundle();
         if (elements != null) {
             args.putSerializable(ELEMENTS_KEY, new ArrayList<>(elements));
@@ -192,7 +190,6 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
         }
 
         FragmentActivity activity = getActivity();
-        resources = getResources();
         // inflater needs to be got from a themed view or else all our custom stuff will not style correctly
         final LayoutInflater inflater = ThemeUtils.getLayoutInflater(activity);
 
@@ -229,25 +226,8 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
         TextView changesHeading = (TextView) layout.findViewById(R.id.review_heading);
         int changeCount = elements == null ? App.getDelegator().getApiElementCount() : elements.size();
         changesHeading.setText(getResources().getQuantityString(R.plurals.confirm_upload_text, changeCount, changeCount));
-        ListView changesView = (ListView) layout.findViewById(R.id.upload_changes);
 
-        ExtendedValidator validator = new ExtendedValidator(getContext(), App.getDefaultValidator(getContext()));
-        final ChangedElement[] changes = getPendingChanges(elements == null ? App.getLogic().getPendingChangedElements() : elements);
-        revalidate(activity, validator, changes);
-        Arrays.sort(changes, comparator);
-
-        changesView.setAdapter(new ValidatorArrayAdapter(activity, R.layout.changes_list_item, changes, validator));
-        changesView.setOnItemClickListener((parent, view, position, id) -> {
-            ChangedElement clicked = changes[position];
-            OsmElement element = clicked.element;
-            byte elemenState = element.getState();
-            boolean deleted = elemenState == OsmElement.STATE_DELETED;
-            if (elemenState == OsmElement.STATE_MODIFIED || deleted) {
-                ElementInfo.showDialog(getActivity(), 0, element, !deleted);
-            } else {
-                ElementInfo.showDialog(getActivity(), element, !deleted);
-            }
-        });
+        addChangesToView(activity, (ListView) layout.findViewById(R.id.upload_changes), elements, DEFAULT_COMPARATOR);
 
         // Comment and upload page
         Preferences prefs = App.getPreferences(activity);
@@ -307,20 +287,49 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
     }
 
     /**
+     * Add changes to a ListView
+     * 
+     * @param activity the current Activity
+     * @param changesView the ListView used to hold the changes views
+     * @param elements a List of OsmElement or null
+     * @param comparator a Comparator for sorting the changes
+     */
+    static void addChangesToView(@NonNull final FragmentActivity activity, @NonNull final ListView changesView, @Nullable List<OsmElement> elements,
+            @NonNull Comparator<ChangedElement> comparator) {
+        ExtendedValidator validator = new ExtendedValidator(activity, App.getDefaultValidator(activity));
+        final ChangedElement[] changes = getPendingChanges(activity.getResources(), elements == null ? App.getLogic().getPendingChangedElements() : elements);
+        revalidate(activity, validator, changes);
+        Arrays.sort(changes, comparator);
+
+        changesView.setAdapter(new ValidatorArrayAdapter(activity, R.layout.changes_list_item, changes, validator));
+        changesView.setOnItemClickListener((parent, view, position, id) -> {
+            ChangedElement clicked = changes[position];
+            OsmElement element = clicked.element;
+            byte elemenState = element.getState();
+            boolean deleted = elemenState == OsmElement.STATE_DELETED;
+            if (elemenState == OsmElement.STATE_MODIFIED || deleted) {
+                ElementInfo.showDialog(activity, 0, element, !deleted);
+            } else {
+                ElementInfo.showDialog(activity, element, !deleted);
+            }
+        });
+    }
+
+    /**
      * Rerun validation on the changes
      * 
-     * @param activity the calling activity
+     * @param context an Android Context
      * @param validator the Validator to use
      * @param changes the list of changes
      */
-    private void revalidate(@NonNull FragmentActivity activity, @NonNull Validator validator, @NonNull final ChangedElement[] changes) {
+    private static void revalidate(@NonNull Context context, @NonNull Validator validator, @NonNull final ChangedElement[] changes) {
         for (ChangedElement ce : changes) {
             OsmElement element = ce.element;
             element.resetHasProblem();
-            element.hasProblem(activity, validator);
+            element.hasProblem(context, validator);
         }
-        if (activity instanceof Main) {
-            ((Main) activity).invalidateMap();
+        if (context instanceof Main) {
+            ((Main) context).invalidateMap();
         }
     }
 
@@ -358,7 +367,7 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
         FragmentManager fm = activity.getSupportFragmentManager();
         Fragment fragment = fm.findFragmentByTag(TAG);
         if (fragment != null) {
-            ((ConfirmUpload) fragment).pager.setCurrentItem(item);
+            ((ReviewAndUpload) fragment).pager.setCurrentItem(item);
         }
     }
 
@@ -372,26 +381,29 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
         FragmentManager fm = activity.getSupportFragmentManager();
         Fragment fragment = fm.findFragmentByTag(TAG);
         if (fragment != null) {
-            return ((ConfirmUpload) fragment).pager.getCurrentItem();
+            return ((ReviewAndUpload) fragment).pager.getCurrentItem();
         }
         return NO_PAGE;
     }
 
-    private class ChangedElement {
+    static class ChangedElement {
         final OsmElement element;
+        final String     description;
 
         /**
          * Construct a new instance
          * 
+         * @param resources the current Resources
          * @param element the OsmElement to wrap
          */
-        ChangedElement(@NonNull OsmElement element) {
+        ChangedElement(@NonNull Resources resources, @NonNull OsmElement element) {
             this.element = element;
+            description = element.getStateDescription(resources);
         }
 
         @Override
         public String toString() {
-            return element.getStateDescription(resources);
+            return description;
         }
     }
 
@@ -401,14 +413,15 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
      * This will sort the result in a reasonable way: tagged elements first then untagged, newly created before modified
      * and then deleted, then the convention node, way and relation ordering.
      * 
+     * @param resources the current Resources
      * @param changedElements the (unsorted) list of changed elements
      * @return a List of all pending pending elements to upload
      */
     @NonNull
-    private ChangedElement[] getPendingChanges(@NonNull List<OsmElement> changedElements) {
+    private static ChangedElement[] getPendingChanges(@NonNull Resources resources, @NonNull List<OsmElement> changedElements) {
         List<ChangedElement> result = new ArrayList<>();
         for (OsmElement e : changedElements) {
-            result.add(new ChangedElement(e));
+            result.add(new ChangedElement(resources, e));
         }
         return result.toArray(new ChangedElement[result.size()]);
     }
@@ -424,25 +437,22 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
             if (button != null) {
                 button.setFocusableInTouchMode(false);
             }
-            if (keyEvent.getAction() == KeyEvent.ACTION_UP || keyEvent.getAction() == KeyEvent.ACTION_MULTIPLE) {
-                if (view instanceof EditText) {
-                    if (keyCode == KeyEvent.KEYCODE_ENTER) {
-                        View nextView = view.focusSearch(View.FOCUS_DOWN);
-                        if (nextView != null && nextView.isFocusable()) {
-                            nextView.requestFocus();
-                            return true;
-                        } else {
-                            if (view instanceof AutoCompleteTextView) {
-                                ((AutoCompleteTextView) view).dismissDropDown();
-                                if (button != null) {
-                                    button.setFocusableInTouchMode(true);
-                                    button.requestFocus();
-                                }
-                            }
-                            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            if ((keyEvent.getAction() == KeyEvent.ACTION_UP || keyEvent.getAction() == KeyEvent.ACTION_MULTIPLE) && view instanceof EditText
+                    && keyCode == KeyEvent.KEYCODE_ENTER) {
+                View nextView = view.focusSearch(View.FOCUS_DOWN);
+                if (nextView != null && nextView.isFocusable()) {
+                    nextView.requestFocus();
+                    return true;
+                } else {
+                    if (view instanceof AutoCompleteTextView) {
+                        ((AutoCompleteTextView) view).dismissDropDown();
+                        if (button != null) {
+                            button.setFocusableInTouchMode(true);
+                            button.requestFocus();
                         }
                     }
+                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 }
             }
             return false;
@@ -455,7 +465,7 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
      * @author Simon Poole
      *
      */
-    private class ValidatorArrayAdapter extends ArrayAdapter<ChangedElement> {
+    private static class ValidatorArrayAdapter extends ArrayAdapter<ChangedElement> {
         final ChangedElement[] elements;
         final Validator        validator;
         final ColorStateList   colorStateList;

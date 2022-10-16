@@ -137,7 +137,7 @@ public class UploadConflict extends ImmersiveDialogFragment {
                     // we are trying to delete something that already is
                     builder.setMessage(res.getString(R.string.upload_conflict_message_already_deleted, elementLocal.getDescription(true)));
                     App.getDelegator().removeFromUpload(elementLocal, OsmElement.STATE_DELETED);
-                    builder.setPositiveButton(R.string.retry, (dialog, which) -> ConfirmUpload.showDialog(getActivity(), null));
+                    builder.setPositiveButton(R.string.retry, (dialog, which) -> ReviewAndUpload.showDialog(getActivity(), null));
                     return builder.create();
                 } else { // can this happen? don't think so
                     builder.setMessage(res.getString(R.string.upload_conflict_message_deleted, elementLocal.getDescription(true), localVersion));
@@ -147,7 +147,7 @@ public class UploadConflict extends ImmersiveDialogFragment {
             if (!useServerOnly) {
                 builder.setPositiveButton(R.string.use_local_version, (dialog, which) -> {
                     logic.fixElementWithConflict(getActivity(), newVersion, elementLocal, elementOnServer);
-                    ConfirmUpload.showDialog(getActivity(), null);
+                    ReviewAndUpload.showDialog(getActivity(), null);
                 });
             }
             final FragmentActivity activity = getActivity();
@@ -159,7 +159,7 @@ public class UploadConflict extends ImmersiveDialogFragment {
                             ((Main) activity).invalidateMap();
                         }
                         if (App.getDelegator().hasChanges()) {
-                            ConfirmUpload.showDialog(activity, null);
+                            ReviewAndUpload.showDialog(activity, null);
                         }
                     }
 

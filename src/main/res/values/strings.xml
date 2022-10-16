@@ -109,6 +109,8 @@
     <string name="upload_request_review_label">Request review:</string>
     <string name="upload_validation_error_empty_comment">Comment should not be empty</string>
     <string name="upload_validation_error_empty_source">Source should not be empty</string>
+    <!-- Review changes dialog -->
+    <string name="review_changes_title">Review changes</string>
     <!-- Upload GPX -->
     <string name="upload_gpx_title">Upload GPX track</string>
     <string name="upload_gpx_description_label">Description</string>
@@ -867,7 +869,8 @@
     <string name="menu_transfer_download_replace">Clear and download current view</string>
     <string name="menu_transfer_load_current">Load current view</string>
     <string name="menu_transfer_load_replace">Clear and load current view</string>
-    <string name="menu_transfer_upload">Upload data to OSM server</string>
+    <string name="menu_transfer_upload">Upload data to OSM server…</string>
+    <string name="menu_transfer_review">Review changes…</string>
     <string name="menu_transfer_update">Update data</string>
     <string name="menu_transfer_close_changeset">Close current changeset</string>
     <string name="menu_transfer_file">File…</string>
