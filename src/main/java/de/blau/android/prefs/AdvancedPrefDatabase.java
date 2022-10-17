@@ -1216,6 +1216,21 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
     }
 
     /**
+     * Delete a layer entry with NULL content_id
+     * 
+     * @param type the layer type
+     */
+    public synchronized void deleteLayer(@NonNull LayerType type) {
+        if (LayerType.OSMDATA.equals(type)) {
+            throw new IllegalOperationException("Cannot delete osm data layer");
+        }
+        try (SQLiteDatabase db = getWritableDatabase()) {
+            db.delete(LAYERS_TABLE, "content_id is NULL AND type = ?", new String[] { type.name() });
+            renumber(db);
+        }
+    }
+
+    /**
      * Renumber layer position are deletions
      * 
      * @param db a writable DB
