@@ -1,5 +1,7 @@
 package de.blau.android.dialogs;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,11 +20,11 @@ import de.blau.android.util.ThemeUtils;
  * Display a dialog asking for confirmation before starting an activity that might result in data loss.
  *
  */
-public class DataLossActivity extends ImmersiveDialogFragment {
+public class DataLoss extends ImmersiveDialogFragment {
 
-    private static final String DEBUG_TAG = DataLossActivity.class.getSimpleName();
+    private static final String DEBUG_TAG = DataLoss.class.getSimpleName();
 
-    private static final String TAG             = "fragment_dataloss_activity";
+    private static final String TAG             = "fragment_dataloss";
     private static final String INTENT_KEY      = "intent";
     private static final String REQUESTCODE_KEY = "requestcode";
 
@@ -41,7 +43,7 @@ public class DataLossActivity extends ImmersiveDialogFragment {
         dismissDialog(activity);
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
-            DataLossActivity dataLossActivityFragment = newInstance(intent, requestCode);
+            DataLoss dataLossActivityFragment = newInstance(intent, requestCode);
             dataLossActivityFragment.show(fm, TAG);
         } catch (IllegalStateException isex) {
             Log.e(DEBUG_TAG, "showDialog", isex);
@@ -65,8 +67,8 @@ public class DataLossActivity extends ImmersiveDialogFragment {
      * @return a new DataLossActivity dialog instance
      */
     @NonNull
-    private static DataLossActivity newInstance(@NonNull final Intent intent, final int requestCode) {
-        DataLossActivity f = new DataLossActivity();
+    private static DataLoss newInstance(@NonNull final Intent intent, final int requestCode) {
+        DataLoss f = new DataLoss();
 
         Bundle args = new Bundle();
         args.putParcelable(INTENT_KEY, intent);
@@ -94,11 +96,22 @@ public class DataLossActivity extends ImmersiveDialogFragment {
     @NonNull
     @Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
-        Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setIcon(ThemeUtils.getResIdFromAttribute(getActivity(), R.attr.alert_dialog));
+        return createDialog(getActivity(), (dialog, which) -> getActivity().startActivityForResult(intent, requestCode));
+    }
+
+    /**
+     * Build the actual dialog
+     * 
+     * @param context an Android Context
+     * @param listener the listener called when proceeding
+     * @return the dialog
+     */
+    public static AppCompatDialog createDialog(@NonNull Context context, @NonNull DialogInterface.OnClickListener listener) {
+        Builder builder = new AlertDialog.Builder(context);
+        builder.setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.alert_dialog));
         builder.setTitle(R.string.unsaved_data_title);
         builder.setMessage(R.string.unsaved_data_message);
-        builder.setPositiveButton(R.string.unsaved_data_proceed, (dialog, which) -> getActivity().startActivityForResult(intent, requestCode));
+        builder.setPositiveButton(R.string.unsaved_data_proceed, listener);
         builder.setNegativeButton(R.string.cancel, null);
         return builder.create();
     }

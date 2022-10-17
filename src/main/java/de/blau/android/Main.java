@@ -73,7 +73,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.view.ActionMode;
 import androidx.appcompat.widget.ActionMenuView;
 import androidx.appcompat.widget.PopupMenu;
@@ -98,6 +97,7 @@ import de.blau.android.contract.Schemes;
 import de.blau.android.contract.Ui;
 import de.blau.android.contract.Urls;
 import de.blau.android.dialogs.BarometerCalibration;
+import de.blau.android.dialogs.DataLoss;
 import de.blau.android.dialogs.DownloadCurrentWithChanges;
 import de.blau.android.dialogs.ElementInfo;
 import de.blau.android.dialogs.GnssPositionInfo;
@@ -2236,14 +2236,7 @@ public class Main extends FullScreenAppCompatActivity
                 }
             };
             if (logic != null && logic.hasChanges()) {
-                Builder builder = new AlertDialog.Builder(this);
-                builder.setIcon(ThemeUtils.getResIdFromAttribute(this, R.attr.alert_dialog));
-                builder.setTitle(R.string.unsaved_data_title);
-                builder.setMessage(R.string.unsaved_data_message);
-                builder.setPositiveButton(R.string.unsaved_data_proceed,
-                        (dialog, which) -> SelectFile.read(Main.this, R.string.config_osmPreferredDir_key, readFile));
-                builder.setNegativeButton(R.string.cancel, null);
-                builder.show();
+                DataLoss.createDialog(this, (dialog, which) -> SelectFile.read(Main.this, R.string.config_osmPreferredDir_key, readFile)).show();
             } else {
                 SelectFile.read(this, R.string.config_osmPreferredDir_key, readFile);
             }
