@@ -149,10 +149,11 @@ Select either the transfer icon ![Transfer](../images/menu_transfer.png) or the 
  * **Review changes...** - review current changes
  * **Download current view** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
  * **Clear and download current view** - clear any data in memory and then download the area visible on the screen *(requires network connectivity)*
- * **Update data** - re-download data for all areas and update what is in memory *(requires network connectivity)*
  * **Close current changeset** - manually close the current changeset *(only available if a changeset is open)*
  * **Location based auto download** - download an area around the current location automatically *(requires network connectivity)* *(requires GPS)*
  * **Pan and zoom auto download** - download the area shown in the current screen automatically *(requires network connectivity)*
+ * **Update data** - re-download data for all areas and update what is in memory *(requires network connectivity)*
+ * **Clear data** - remove any OSM data in memory
  * **File...** - saving and loading OSM data to/from on device files.
     * **Export changes to OSC file** - write a ".osc" format file containing the current edits
     * **Apply changes from OSC file** - read a ".osc" format file and apply its contents
@@ -161,10 +162,10 @@ Select either the transfer icon ![Transfer](../images/menu_transfer.png) or the 
     * **Read from PBF file...** - read OSM data from a PBF format file
     * **Download data for offline use...** - download and install a mapsplit format data extract *(requires network connectivity)*
  * **Tasks...** - down- and uploading tasks (Notes, OSMOSE bugs, Maproulette and custom tasks)
-    * **Download tasks for current view** - download Notes/Bugs for the area visible on the screen
     * **Upload all** - upload all new or modified tasks
-    * **Clear** - remove all tasks from storage
+    * **Download tasks for current view** - download Notes/Bugs for the area visible on the screen
     * **Auto download** - download tasks around the current geographic location automatically *(requires network connectivity)* *(requires GPS)*
+    * **Clear** - remove all tasks from storage
     * **File...** - save Notes/Bugs data to on device storage
         * **Save all notes...** - write a ".osn" format file containing all downloaded notes (this is the format supported by JOSM)
         * **Save new and changed notes...** - write a ".osn" format file containing all new and changed notes

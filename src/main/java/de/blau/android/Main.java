@@ -1804,7 +1804,9 @@ public class Main extends FullScreenAppCompatActivity
         final boolean hasChanges = !delegator.getApiStorage().isEmpty();
         menu.findItem(R.id.menu_transfer_upload).setEnabled(networkConnected && hasChanges);
         menu.findItem(R.id.menu_transfer_review).setEnabled(hasChanges);
-        menu.findItem(R.id.menu_transfer_update).setEnabled(networkConnected && !hasMapSplitSource);
+        final boolean hasData = !delegator.getCurrentStorage().isEmpty();
+        menu.findItem(R.id.menu_transfer_update).setEnabled(networkConnected && !hasMapSplitSource && hasData);
+        menu.findItem(R.id.menu_transfer_data_clear).setEnabled(hasData);
 
         menu.findItem(R.id.menu_transfer_bugs_download_current).setEnabled(networkConnected);
         menu.findItem(R.id.menu_transfer_bugs_upload).setEnabled(networkConnected && App.getTaskStorage().hasChanges());
@@ -1826,9 +1828,9 @@ public class Main extends FullScreenAppCompatActivity
             Log.d(DEBUG_TAG, "had to resync tagfilter pref");
         }
 
-        menu.findItem(R.id.menu_enable_tagfilter).setEnabled(logic.getMode().supportsFilters())
-                .setChecked(prefs.getEnableTagFilter() && logic.getFilter() instanceof TagFilter);
-        menu.findItem(R.id.menu_enable_presetfilter).setEnabled(logic.getMode().supportsFilters())
+        final boolean supportsFilters = logic.getMode().supportsFilters();
+        menu.findItem(R.id.menu_enable_tagfilter).setEnabled(supportsFilters).setChecked(prefs.getEnableTagFilter() && logic.getFilter() instanceof TagFilter);
+        menu.findItem(R.id.menu_enable_presetfilter).setEnabled(supportsFilters)
                 .setChecked(prefs.getEnablePresetFilter() && logic.getFilter() instanceof PresetFilter);
 
         menu.findItem(R.id.menu_simple_actions).setChecked(prefs.areSimpleActionsEnabled());
@@ -2159,6 +2161,17 @@ public class Main extends FullScreenAppCompatActivity
             return true;
         case R.id.menu_transfer_update:
             logic.redownload(this, false, null);
+            return true;
+        case R.id.menu_transfer_data_clear:
+            Runnable reset = () -> {
+                delegator.reset(true);
+                map.invalidate();
+            };
+            if (logic != null && logic.hasChanges()) {
+                DataLoss.createDialog(this, (dialog, which) -> reset.run()).show();
+            } else {
+                reset.run();
+            }
             return true;
         case R.id.menu_transfer_close_changeset:
             if (server.hasOpenChangeset()) {
