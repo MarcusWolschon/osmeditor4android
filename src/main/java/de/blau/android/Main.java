@@ -73,7 +73,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.view.ActionMode;
 import androidx.appcompat.widget.ActionMenuView;
 import androidx.appcompat.widget.PopupMenu;
@@ -98,6 +97,7 @@ import de.blau.android.contract.Schemes;
 import de.blau.android.contract.Ui;
 import de.blau.android.contract.Urls;
 import de.blau.android.dialogs.BarometerCalibration;
+import de.blau.android.dialogs.DataLoss;
 import de.blau.android.dialogs.DownloadCurrentWithChanges;
 import de.blau.android.dialogs.ElementInfo;
 import de.blau.android.dialogs.GnssPositionInfo;
@@ -1804,7 +1804,9 @@ public class Main extends FullScreenAppCompatActivity
         final boolean hasChanges = !delegator.getApiStorage().isEmpty();
         menu.findItem(R.id.menu_transfer_upload).setEnabled(networkConnected && hasChanges);
         menu.findItem(R.id.menu_transfer_review).setEnabled(hasChanges);
-        menu.findItem(R.id.menu_transfer_update).setEnabled(networkConnected && !hasMapSplitSource);
+        final boolean hasData = !delegator.getCurrentStorage().isEmpty();
+        menu.findItem(R.id.menu_transfer_update).setEnabled(networkConnected && !hasMapSplitSource && hasData);
+        menu.findItem(R.id.menu_transfer_data_clear).setEnabled(hasData);
 
         menu.findItem(R.id.menu_transfer_bugs_download_current).setEnabled(networkConnected);
         menu.findItem(R.id.menu_transfer_bugs_upload).setEnabled(networkConnected && App.getTaskStorage().hasChanges());
@@ -1826,9 +1828,9 @@ public class Main extends FullScreenAppCompatActivity
             Log.d(DEBUG_TAG, "had to resync tagfilter pref");
         }
 
-        menu.findItem(R.id.menu_enable_tagfilter).setEnabled(logic.getMode().supportsFilters())
-                .setChecked(prefs.getEnableTagFilter() && logic.getFilter() instanceof TagFilter);
-        menu.findItem(R.id.menu_enable_presetfilter).setEnabled(logic.getMode().supportsFilters())
+        final boolean supportsFilters = logic.getMode().supportsFilters();
+        menu.findItem(R.id.menu_enable_tagfilter).setEnabled(supportsFilters).setChecked(prefs.getEnableTagFilter() && logic.getFilter() instanceof TagFilter);
+        menu.findItem(R.id.menu_enable_presetfilter).setEnabled(supportsFilters)
                 .setChecked(prefs.getEnablePresetFilter() && logic.getFilter() instanceof PresetFilter);
 
         menu.findItem(R.id.menu_simple_actions).setChecked(prefs.areSimpleActionsEnabled());
@@ -2160,6 +2162,17 @@ public class Main extends FullScreenAppCompatActivity
         case R.id.menu_transfer_update:
             logic.redownload(this, false, null);
             return true;
+        case R.id.menu_transfer_data_clear:
+            Runnable reset = () -> {
+                delegator.reset(true);
+                map.invalidate();
+            };
+            if (logic != null && logic.hasChanges()) {
+                DataLoss.createDialog(this, (dialog, which) -> reset.run()).show();
+            } else {
+                reset.run();
+            }
+            return true;
         case R.id.menu_transfer_close_changeset:
             if (server.hasOpenChangeset()) {
                 // fail silently if it doesn't work, next upload will open a new
@@ -2236,14 +2249,7 @@ public class Main extends FullScreenAppCompatActivity
                 }
             };
             if (logic != null && logic.hasChanges()) {
-                Builder builder = new AlertDialog.Builder(this);
-                builder.setIcon(ThemeUtils.getResIdFromAttribute(this, R.attr.alert_dialog));
-                builder.setTitle(R.string.unsaved_data_title);
-                builder.setMessage(R.string.unsaved_data_message);
-                builder.setPositiveButton(R.string.unsaved_data_proceed,
-                        (dialog, which) -> SelectFile.read(Main.this, R.string.config_osmPreferredDir_key, readFile));
-                builder.setNegativeButton(R.string.cancel, null);
-                builder.show();
+                DataLoss.createDialog(this, (dialog, which) -> SelectFile.read(Main.this, R.string.config_osmPreferredDir_key, readFile)).show();
             } else {
                 SelectFile.read(this, R.string.config_osmPreferredDir_key, readFile);
             }

@@ -11,9 +11,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import de.blau.android.Main;
 import de.blau.android.R;
-import de.blau.android.listener.ConfirmUploadListener;
 import de.blau.android.listener.DoNothingListener;
-import de.blau.android.listener.DownloadCurrentListener;
 import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.ThemeUtils;
 
@@ -81,10 +79,10 @@ public class DownloadCurrentWithChanges extends ImmersiveDialogFragment {
         builder.setTitle(R.string.transfer_download_current_dialog_title);
         builder.setMessage(R.string.transfer_download_current_dialog_message);
         DoNothingListener doNothingListener = new DoNothingListener();
-        builder.setPositiveButton(R.string.transfer_download_current_upload, new ConfirmUploadListener((Main) getActivity()));
+        final Main main = ((Main) getActivity());
+        builder.setPositiveButton(R.string.transfer_download_current_upload, (dialog, which) -> main.confirmUpload(null));
         builder.setNeutralButton(R.string.transfer_download_current_back, doNothingListener);
-        builder.setNegativeButton(R.string.transfer_download_current_download, new DownloadCurrentListener((Main) getActivity()));
-
+        builder.setNegativeButton(R.string.transfer_download_current_download, (dialog, which) -> main.performCurrentViewHttpLoad(false));
         return builder.create();
     }
 }

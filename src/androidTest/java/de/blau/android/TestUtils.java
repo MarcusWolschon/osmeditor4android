@@ -44,7 +44,7 @@ import androidx.test.uiautomator.Until;
 import de.blau.android.filter.Filter;
 import de.blau.android.gpx.TrackPoint;
 import de.blau.android.imageryoffset.Offset;
-import de.blau.android.osm.ApiTest;
+import de.blau.android.osm.TransferMenuTest;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerSource;
 import de.blau.android.util.ExecutorTask;
@@ -1451,7 +1451,7 @@ public final class TestUtils {
         InputStream is = loader.getResourceAsStream(fileName);
         App.getLogic().readOsmFile(activity, is, false, new SignalHandler(signal1));
         try {
-            signal1.await(ApiTest.TIMEOUT, TimeUnit.SECONDS);
+            signal1.await(TransferMenuTest.TIMEOUT, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             Assert.fail(e.getMessage());
         }

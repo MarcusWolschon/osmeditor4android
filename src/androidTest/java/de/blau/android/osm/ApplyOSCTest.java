@@ -75,7 +75,7 @@ public class ApplyOSCTest {
         InputStream is = loader.getResourceAsStream(OscTestCommon.OSM_FILE);
         logic.readOsmFile(main, is, false, new SignalHandler(signal1));
         try {
-            signal1.await(ApiTest.TIMEOUT, TimeUnit.SECONDS); // NOSONAR
+            signal1.await(TransferMenuTest.TIMEOUT, TimeUnit.SECONDS); // NOSONAR
         } catch (InterruptedException e) { // NOSONAR
             Assert.fail(e.getMessage());
         }

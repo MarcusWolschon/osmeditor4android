@@ -77,7 +77,7 @@ public class ReadSaveDataTest {
         Assert.assertNotNull(is);
         logic.readOsmFile(main, is, false, new SignalHandler(signal1));
         try {
-            signal1.await(ApiTest.TIMEOUT, TimeUnit.SECONDS); // NOSONAR
+            signal1.await(TransferMenuTest.TIMEOUT, TimeUnit.SECONDS); // NOSONAR
         } catch (InterruptedException e) { // NOSONAR
             Assert.fail(e.getMessage());
         }
@@ -92,7 +92,7 @@ public class ReadSaveDataTest {
         try {
             logic.writeOsmFile(main, output.getAbsolutePath(), new SignalHandler(signal2));
             try {
-                signal2.await(ApiTest.TIMEOUT, TimeUnit.SECONDS); // NOSONAR
+                signal2.await(TransferMenuTest.TIMEOUT, TimeUnit.SECONDS); // NOSONAR
             } catch (InterruptedException e) { // NOSONAR
                 Assert.fail(e.getMessage());
             }
@@ -141,7 +141,7 @@ public class ReadSaveDataTest {
         final CountDownLatch signal1 = new CountDownLatch(1);
         logic.writeOsmFile(main, TEST_MODIFY_OSM, new SignalHandler(signal1));
         try {
-            signal1.await(ApiTest.TIMEOUT, TimeUnit.SECONDS); // NOSONAR
+            signal1.await(TransferMenuTest.TIMEOUT, TimeUnit.SECONDS); // NOSONAR
         } catch (InterruptedException e) { // NOSONAR
             Assert.fail(e.getMessage());
         }
@@ -152,7 +152,7 @@ public class ReadSaveDataTest {
             Assert.assertNotNull(is);
             logic.readOsmFile(main, is, false, new SignalHandler(signal1));
             try { // NOSONAR
-                signal1.await(ApiTest.TIMEOUT, TimeUnit.SECONDS); // NOSONAR
+                signal1.await(TransferMenuTest.TIMEOUT, TimeUnit.SECONDS); // NOSONAR
             } catch (InterruptedException e) { // NOSONAR
                 Assert.fail(e.getMessage());
             }
@@ -205,7 +205,7 @@ public class ReadSaveDataTest {
         Assert.assertNotNull(is);
         logic.readOsmFile(main, is, false, new SignalHandler(signal1));
         try {
-            signal1.await(ApiTest.TIMEOUT, TimeUnit.SECONDS); // NOSONAR
+            signal1.await(TransferMenuTest.TIMEOUT, TimeUnit.SECONDS); // NOSONAR
         } catch (InterruptedException e) { // NOSONAR
             Assert.fail(e.getMessage());
         }

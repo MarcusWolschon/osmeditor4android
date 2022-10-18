@@ -872,6 +872,7 @@
     <string name="menu_transfer_upload">Upload data to OSM server…</string>
     <string name="menu_transfer_review">Review changes…</string>
     <string name="menu_transfer_update">Update data</string>
+    <string name="menu_transfer_data_clear">Clear data</string>
     <string name="menu_transfer_close_changeset">Close current changeset</string>
     <string name="menu_transfer_file">File…</string>
     <string name="menu_transfer_export">Export changes to OSC file</string>

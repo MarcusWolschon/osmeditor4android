@@ -29,7 +29,7 @@ import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
-import de.blau.android.dialogs.DataLossActivity;
+import de.blau.android.dialogs.DataLoss;
 import de.blau.android.util.DatabaseUtil;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.ReadFile;
@@ -63,7 +63,7 @@ public class APIEditorActivity extends URLListEditActivity {
         Intent intent = new Intent(activity, APIEditorActivity.class);
         final Logic logic = App.getLogic();
         if (logic != null && logic.hasChanges()) {
-            DataLossActivity.showDialog(activity, intent, -1);
+            DataLoss.showDialog(activity, intent, -1);
         } else {
             activity.startActivity(intent);
         }

@@ -40,7 +40,7 @@ import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.SignalHandler;
 import de.blau.android.TestUtils;
-import de.blau.android.osm.ApiTest;
+import de.blau.android.osm.TransferMenuTest;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Server;
 import de.blau.android.prefs.AdvancedPrefDatabase;
@@ -105,7 +105,7 @@ public class ReadSaveTasksTest {
         assertNotNull(is);
         TransferTasks.readTodos(main, is, false, new SignalHandler(signal1));
         try {
-            signal1.await(ApiTest.TIMEOUT, TimeUnit.SECONDS);
+            signal1.await(TransferMenuTest.TIMEOUT, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             fail(e.getMessage());
         }
@@ -171,7 +171,7 @@ public class ReadSaveTasksTest {
             fail(e.getMessage());
         }
         try {
-            signal.await(ApiTest.TIMEOUT, TimeUnit.SECONDS);
+            signal.await(TransferMenuTest.TIMEOUT, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             fail(e.getMessage());
         }
