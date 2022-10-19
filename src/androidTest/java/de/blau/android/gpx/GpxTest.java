@@ -236,6 +236,76 @@ public class GpxTest {
     }
 
     /**
+     * Start recording, pause resume, clear
+     */
+    // @SdkSuppress(minSdkVersion = 26)
+    @Test
+    public void recordPauseAndResume() {
+        TestUtils.setupMockLocation(main, Criteria.ACCURACY_FINE);
+        // wait for the trackerservice to start
+        // unluckily there doesn't seem to be any elegant way to do this
+        int retries = 0;
+        synchronized (device) {
+            while (main.getTracker() == null && retries < 60) {
+                try {
+                    device.wait(1000);
+                } catch (InterruptedException e) {
+                    // Ignore
+                }
+                retries++;
+                if (retries >= 60) {
+                    fail("Tracker service didn't start");
+                }
+            }
+        }
+        // set min distance to 1m
+        prefs.setGpsDistance(0);
+
+        TestUtils.zoomToLevel(device, main, 19);
+        TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/follow", false);
+
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        InputStream is = loader.getResourceAsStream("short.gpx");
+        Track track = new Track(main, false);
+        track.importFromGPX(is);
+
+        // set a different current location so that the first point always gets recorded
+        int trackSize = track.getTrackPoints().size();
+        TrackPoint startPoint = track.getTrackPoints().get(trackSize / 2);
+        Location loc = new Location(LocationManager.GPS_PROVIDER);
+        loc.setLatitude(startPoint.getLatitude());
+        loc.setLongitude(startPoint.getLongitude());
+        main.getTracker().updateLocation(loc);
+        TestUtils.sleep();
+        main.invalidateOptionsMenu();
+
+        clickGpsButton(device);
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_start), false, false));
+        clickAwayTip(device, main);
+
+        final CountDownLatch signal = new CountDownLatch(1);
+        main.getTracker().getTrack().reset(); // clear out anything saved
+        TestUtils.injectLocation(main, track.getTrackPoints(), Criteria.ACCURACY_FINE, 1000, new SignalHandler(signal));
+        try {
+            signal.await(TIMEOUT, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            Assert.fail(e.getMessage());
+        }
+        clickGpsButton(device);
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_pause), true, false));
+
+        clickGpsButton(device);
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_resume), true, false));
+
+        clickGpsButton(device);
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_clear), true, false));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.clear_anyway), true, false));
+
+        clickGpsButton(device);
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.menu_gps_start)));
+    }
+
+    /**
      * Import a track file with waypoints and create an OSM object from one of them
      */
     // @SdkSuppress(minSdkVersion = 26)
@@ -377,7 +447,7 @@ public class GpxTest {
             fail(e.getMessage());
         }
     }
-    
+
     /**
      * Test goto current location
      * 
@@ -397,8 +467,8 @@ public class GpxTest {
         assertNull(main.getMap().getLocation());
         TestUtils.sleep();
         double[] center = main.getMap().getViewBox().getCenter();
-        assertEquals(1.0,center[0],0.0001);
-        assertEquals(1.0,center[1],0.0001);
+        assertEquals(1.0, center[0], 0.0001);
+        assertEquals(1.0, center[1], 0.0001);
     }
 
     /**
