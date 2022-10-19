@@ -1763,7 +1763,10 @@ public class Main extends FullScreenAppCompatActivity
         menu.findItem(R.id.menu_gps_follow).setEnabled(locationProviderEnabled).setChecked(followGPS);
         menu.findItem(R.id.menu_gps_goto).setEnabled(locationProviderEnabled);
         final boolean haveTracker = getTracker() != null;
-        menu.findItem(R.id.menu_gps_start).setEnabled(haveTracker && !getTracker().isTracking() && gpsProviderEnabled);
+        MenuItem startGPX = menu.findItem(R.id.menu_gps_start).setEnabled(haveTracker && !getTracker().isTracking() && gpsProviderEnabled);
+        if (haveTracker) {
+            startGPX.setTitle(getString(getTracker().hasTrackPoints() ? R.string.menu_gps_resume : R.string.menu_gps_start));
+        }
         menu.findItem(R.id.menu_gps_pause).setEnabled(haveTracker && getTracker().isTracking() && gpsProviderEnabled);
         menu.findItem(R.id.menu_enable_gps_autodownload).setEnabled(haveTracker && locationProviderEnabled && (networkConnected || hasMapSplitSource))
                 .setChecked(prefs.getAutoDownload());
@@ -2104,17 +2107,19 @@ public class Main extends FullScreenAppCompatActivity
             return true;
         case R.id.menu_gps_clear:
             if (haveTracker) {
+                Runnable stopAndClearTracking = () -> {
+                    if (getTracker() != null) {
+                        getTracker().stopTracking(true);
+                    }
+                    map.invalidate();
+                    invalidateOptionsMenu();
+                };
                 if (!getTracker().isEmpty()) {
                     new AlertDialog.Builder(this).setTitle(R.string.menu_gps_clear).setMessage(R.string.clear_track_description)
-                            .setPositiveButton(R.string.clear_anyway, (dialog, which) -> {
-                                if (getTracker() != null) {
-                                    getTracker().stopTracking(true);
-                                }
-                                map.invalidate();
-                            }).setNeutralButton(R.string.cancel, null).show();
+                            .setPositiveButton(R.string.clear_anyway, (dialog, which) -> stopAndClearTracking.run()).setNeutralButton(R.string.cancel, null)
+                            .show();
                 } else {
-                    getTracker().stopTracking(true);
-                    map.invalidate();
+                    stopAndClearTracking.run();
                 }
             }
             return true;

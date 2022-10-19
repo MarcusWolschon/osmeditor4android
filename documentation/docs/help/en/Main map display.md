@@ -138,6 +138,7 @@ The "on-map" GPS button duplicates the function of the "Follow GPS position" men
      * `43 38 19.39`
      * `433819N`
  * **Start GPX track** - start recording a GPX track and display a corresponding layer.
+ * **Resume GPX track** - continue recording a GPX track.
  * **Pause GPX track** - pause recording the current GPX track
  * **Clear GPX track** - clear the current GPX track
 
