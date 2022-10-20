@@ -400,10 +400,15 @@ public class TaskStorage implements Serializable, DataStorage {
         List<Bug> result = new ArrayList<>();
         final long osmId = element.getOsmId();
         final String elementType = element.getName();
-        for (Task t : getTasks(element.getBounds())) {
-            if ((t instanceof Bug) && !t.isClosed() && ((Bug) t).hasElement(elementType, osmId)) {
-                result.add((Bug) t);
+        final BoundingBox bounds = element.getBounds();
+        if (bounds != null) {
+            for (Task t : getTasks(bounds)) {
+                if ((t instanceof Bug) && !t.isClosed() && ((Bug) t).hasElement(elementType, osmId)) {
+                    result.add((Bug) t);
+                }
             }
+        } else {
+            Log.w(DEBUG_TAG, element.getDescription() + " has null bounding box");
         }
         return result;
     }

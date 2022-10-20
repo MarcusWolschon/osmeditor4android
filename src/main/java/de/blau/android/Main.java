@@ -2586,6 +2586,10 @@ public class Main extends FullScreenAppCompatActivity
      * @param lat the relevant WGS84 latitude
      */
     private void showNearestTodo(@NonNull List<Todo> todos, double lon, double lat) {
+        if (todos.isEmpty()) {
+            Snack.toastTopError(this, R.string.toast_no_todos_in_list, false);
+            return;
+        }
         Task.sortByDistance(todos, lon, lat);
         Todo nearest = todos.get(0);
         map.getViewBox().moveTo(map, nearest.getLon(), nearest.getLat());
