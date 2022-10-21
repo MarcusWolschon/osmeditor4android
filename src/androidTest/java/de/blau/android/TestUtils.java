@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Pattern;
 
 import org.junit.Assert;
 
@@ -1510,7 +1511,7 @@ public final class TestUtils {
                 found = device.wait(Until.hasObject(By.textContains(message)), 5000);
             }
         }
-        UiObject2 clearAll = device.findObject(By.text("CLEAR ALL"));
+        UiObject2 clearAll = device.findObject(By.text(Pattern.compile("CLEAR ALL", Pattern.CASE_INSENSITIVE)));
         if (clearAll != null) {
             clearAll.click();
         } else {
