@@ -34,9 +34,9 @@ Vespucci currently supports multiple tiled background imagery layers, multiple t
 
 The layer dialog supports the following actions on the layer entries: 
 
-* Hide/Show button turns drawing of the layer off/on. Hiding a layer doesn't free any resources associated with the layer.
-* Zoom to extent. Zooms and pans the screen so that the whole extent of the layer is displayed, if the extent cannot be determined this will zoom out to the full web-mercator coverage. Note: on the data layer this may not be particularly useful if you have downloaded areas that are far apart.
-* Menu button.
+* 👁 Hide/Show button turns drawing of the layer off/on. Hiding a layer doesn't free any resources associated with the layer.
+* ⬚ Zoom to extent. Zooms and pans the screen so that the whole extent of the layer is displayed, if the extent cannot be determined this will zoom out to the full web-mercator coverage. Note: on the data layer this may not be particularly useful if you have downloaded areas that are far apart.
+* ⋮ Menu button.
     * Tile based layers: 
         * __Select imagery__ Show a imagery selection dialog, if multiple layers have been used, a most-recently-used list will be displayed above this menu entry, allowing quick layer switching. 
         * __Flush tile cache__ Flush the on device cache for this layer.
