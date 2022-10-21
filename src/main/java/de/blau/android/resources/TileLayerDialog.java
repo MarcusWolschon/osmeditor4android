@@ -1,5 +1,7 @@
 package de.blau.android.resources;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -7,6 +9,7 @@ import android.content.DialogInterface;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.net.Uri;
+import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,8 +24,11 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.FragmentActivity;
 import ch.poole.android.numberpicker.library.NumberPicker;
 import de.blau.android.App;
+import de.blau.android.Logic;
 import de.blau.android.R;
 import de.blau.android.contract.FileExtensions;
+import de.blau.android.contract.Paths;
+import de.blau.android.dialogs.Progress;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
@@ -31,7 +37,9 @@ import de.blau.android.resources.TileLayerSource.Provider;
 import de.blau.android.resources.TileLayerSource.Provider.CoverageArea;
 import de.blau.android.resources.TileLayerSource.TileType;
 import de.blau.android.services.util.MBTileProviderDataBase;
+import de.blau.android.util.ContentResolverUtil;
 import de.blau.android.util.DatabaseUtil;
+import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.ReadFile;
@@ -170,15 +178,14 @@ public class TileLayerDialog {
             fileButton.setOnClickListener(v -> SelectFile.read(activity, R.string.config_mbtilesPreferredDir_key, new ReadFile() {
                 private static final long serialVersionUID = 1L;
 
-                @Override
-                public boolean read(Uri fileUri) {
+                /**
+                 * Configure the entry from the contents of the MBTiles file
+                 * 
+                 * @param fileUri the file Uri for the file
+                 * @return true if successful
+                 */
+                private boolean configureFromMbtiles(@NonNull Uri fileUri) {
                     try {
-                        // rewrite content: Uris
-                        fileUri = FileUtil.contentUriToFileUri(activity, fileUri);
-                        if (fileUri == null) {
-                            Snack.toastTopError(activity, R.string.not_found_title);
-                            return false;
-                        }
                         if (!DatabaseUtil.isValidSQLite(fileUri.getPath())) {
                             throw new SQLiteException("Not a SQLite database file");
                         }
@@ -223,6 +230,64 @@ public class TileLayerDialog {
                         Snack.toastTopError(activity, R.string.toast_not_mbtiles);
                         return false;
                     }
+                }
+
+                @Override
+                public boolean read(final Uri contentUri) {
+                    // on Android API 29 and up we need to copy the file
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                        // copy file
+                        String fileName = ContentResolverUtil.getDisplaynameColumn(activity, contentUri);
+                        try {
+                            final File destination = new File(FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_IMPORTS),
+                                    fileName);
+                            if (destination.exists()) {
+                                Snack.toastTopError(activity, R.string.toast_import_destination_exists);
+                                return false;
+                            }
+
+                            Logic logic = App.getLogic();
+                            new ExecutorTask<Void, Void, Boolean>(logic.getExecutorService(), logic.getHandler()) {
+
+                                @Override
+                                protected void onPreExecute() {
+                                    Progress.showDialog(activity, Progress.PROGRESS_IMPORTING_FILE);
+                                }
+
+                                @Override
+                                protected Boolean doInBackground(Void param) {
+                                    try {
+                                        FileUtil.copy(activity.getContentResolver().openInputStream(contentUri), destination);
+                                        return true;
+                                    } catch (IOException ioex) {
+                                        Log.e(DEBUG_TAG, "Unable to copy file " + contentUri + " " + ioex.getMessage());
+                                    }
+                                    return false;
+                                }
+
+                                @Override
+                                protected void onPostExecute(Boolean result) {
+                                    Progress.dismissDialog(activity, Progress.PROGRESS_IMPORTING_FILE);
+                                    if (result != null && result && !isCancelled()) {
+                                        configureFromMbtiles(Uri.parse(FileUtil.FILE_SCHEME_PREFIX + destination.getAbsolutePath()));
+                                    }
+                                }
+                            }.execute();
+                        } catch (IOException ex) {
+                            return false;
+                        }
+                        return true;
+
+                    } else {
+                        // rewrite content: Uris
+                        final Uri fileUri = FileUtil.contentUriToFileUri(activity, contentUri);
+                        if (fileUri == null) {
+                            Snack.toastTopError(activity, R.string.not_found_title);
+                            return false;
+                        }
+                        return configureFromMbtiles(fileUri);
+                    }
+
                 }
             }));
 

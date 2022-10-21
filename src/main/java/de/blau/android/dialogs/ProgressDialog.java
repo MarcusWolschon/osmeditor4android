@@ -91,6 +91,10 @@ public final class ProgressDialog {
             titleId = R.string.progress_general_title;
             messageId = R.string.progress_loading_preset_message;
             break;
+        case Progress.PROGRESS_IMPORTING_FILE:
+            titleId = R.string.progress_general_title;
+            messageId = R.string.progress_importing_file_message;
+            break;
         default:
             return null;
         }
