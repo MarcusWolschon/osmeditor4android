@@ -86,6 +86,7 @@
     <string name="progress_uploading_message">Uploading…</string>
     <string name="progress_preset_message">Downloading preset…</string>
     <string name="progress_loading_preset_message">Loading preset…</string>
+    <string name="progress_importing_file_message">Importing file…</string>
     <string name="progress_running_message">Running…</string>
     <string name="progress_oauth">Loading your account on openstreetmap.org for OAuth authorisation…</string>
     <string name="progress_building_imagery_database">Building imagery database…</string>
@@ -656,6 +657,7 @@
     <string name="toast_url_check">%1$s %2$d</string>
     <string name="toast_url_check_with_msg">%1$s %2$d %3$s</string>
     <string name="toast_unexpected_element">Unexpected element clicked:\n%1$s</string>
+    <string name="toast_import_destination_exists">Import destination already exists</string>
     <!-- Error messages -->
     <string name="error_mapsplit_missing_zoom">MapSplit sources must have min and max zoom set</string>
     <string name="error_pbf_no_version">Version information missing in PBF file</string>
