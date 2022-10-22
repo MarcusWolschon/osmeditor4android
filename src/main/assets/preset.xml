@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets version="4.10.0" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
+<presets version="4.11.0" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
     description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" 
     object_keys="advertising,attraction,building:part,cemetery,club,disused:amenity,disused:leisure,disused:man_made,golf,hazard,noexit,disused:shop,ford,indoor,playground,police,public_transport,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,telecom">
 <!--
@@ -3946,9 +3946,9 @@
             <text key="maxheight" text="Max. height (meters)"/>
             <space/>
             <text key="capacity" text="Capacity (overall)" value_type="integer"/>
-            <combo key="capacity:disabled" text="Spaces for Disabled" values="yes,no,1,2,3"/>
-            <combo key="capacity:women" text="Spaces for Women" values="yes,no,1,2,3"/>
-            <combo key="capacity:parent" text="Spaces for Parents" values="yes,no,1,2,3"/>
+            <combo key="capacity:disabled" text="Spaces for Disabled" values="yes,no,0,1,2,3"/>
+            <combo key="capacity:women" text="Spaces for Women" values="yes,no,0,1,2,3"/>
+            <combo key="capacity:parent" text="Spaces for Parents" values="yes,no,0,1,2,3"/>
             <label text="See the Wiki for other capacity:[types]=*."/>
             <space/>
             <reference ref="maxstay"/>
@@ -3971,11 +3971,23 @@
             <link wiki="Tag:amenity=parking_entrance"/>
             <space/>
             <key key="amenity" value="parking_entrance"/>
-            <reference ref="parking_name_type_ref"/>
+            <optional>
+                <text key="name" text="Name"/>
+                <text key="ref" text="Reference number"/>
+                <reference ref="layer" />
+                <reference ref="level" />
+            </optional>
+            <combo key="parking" text="Type" values_context="parking">
+                <list_entry value="multi-storey" display_value="Multi-storey" />
+                <list_entry value="rooftop" display_value="Rooftop" />
+                <list_entry value="surface" display_value="Surface" />
+                <list_entry value="underground" display_value="Underground" />
+            </combo>
             <text key="maxheight" text="Max. height (meters)"/>
             <reference ref="parking_access_fee_operator_surface_smoothness"/>
             <reference ref="supervised_lit_oh"/>
             <check key="covered" text="Covered (with roof)"/>
+            <preset_link preset_name="No name"/>
         </item> <!-- Parking Entrance -->
         <separator/>
         <item name="Fuel" icon="icons/png/transport_fuel.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -6156,7 +6168,7 @@
             <key key="amenity" value="conference_centre"/>
             <reference ref="name_operator_oh_wheelchair_toilets"/>
             <reference ref="link_contact_address"/>
-        </item> <!-- Community Centre -->
+        </item> <!-- Conference Centre -->
         <item name="Embassy" icon="icons/png/poi_embassy.png" type="node,closedway,multipolygon" deprecated="true" preset_name_label="true">
             <link wiki="Tag:amenity=embassy"/>
             <space/>
@@ -10265,13 +10277,6 @@
             <reference ref="name_oh_wheelchair_level"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Bed -->
-        <item name="Carpet" icon="icons/png/shopping_carpet_29165.png" type="node,closedway,multipolygon" preset_name_label="true">
-            <link wiki="Tag:shop=carpet"/>
-            <space/>
-            <key key="shop" value="carpet"/>
-            <reference ref="name_oh_wheelchair_level"/>
-            <reference ref="link_contact_address_payment"/>
-        </item> <!-- Carpet -->
         <item name="Bathroom" icon="icons/png/shopping_bathroom_furnishing_29162.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:shop=bathroom_furnishing"/>
             <space/>
@@ -10321,6 +10326,13 @@
             <reference ref="name_operator_oh_wheelchair_level"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Candles -->
+        <item name="Carpet" icon="icons/png/shopping_carpet_29165.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:shop=carpet"/>
+            <space/>
+            <key key="shop" value="carpet"/>
+            <reference ref="name_oh_wheelchair_level"/>
+            <reference ref="link_contact_address_payment"/>
+        </item> <!-- Carpet -->
         <item name="Tiles" icon="icons/png/shopping_tiler_16086.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:shop=tiles"/>
             <space/>
@@ -10328,6 +10340,13 @@
             <reference ref="name_operator_oh_wheelchair_level"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Tiles -->
+        <item name="Flooring" icon="icons/png/shopping_carpet_layer_16020.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:shop=flooring"/>
+            <space/>
+            <key key="shop" value="flooring"/>
+            <reference ref="name_oh_wheelchair_level"/>
+            <reference ref="link_contact_address_payment"/>
+        </item> <!-- Flooring -->
         <item name="Pottery" icon="icons/png/shopping_pottery_16064.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:shop=pottery"/>
             <space/>
