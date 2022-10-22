@@ -14,6 +14,7 @@ public final class Paths {
     public static final String DIRECTORY_PATH_EXTERNAL_SD_CARD   = "/external_sd";   // NOSONAR
     public static final String DIRECTORY_PATH_PICTURES           = "Pictures";
     public static final String DIRECTORY_PATH_SCRIPTS            = "Scripts";
+    public static final String DIRECTORY_PATH_IMPORTS            = "imports";
     public static final String DIRECTORY_PATH_STYLES             = "styles";
     public static final String DIRECTORY_PATH_STORAGE            = "/storage";       // NOSONAR
     public static final String DIRECTORY_PATH_VESPUCCI           = "Vespucci";
