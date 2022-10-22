@@ -16,11 +16,11 @@ public class WayPoint extends TrackPoint {
      */
     private static final long serialVersionUID = 1L;
 
-    static final String TYPE_ELEMENT        = "type";
-    static final String DESCRIPTION_ELEMENT = "description";
-    static final String NAME_ELEMENT        = "name";
-    static final String WPT_ELEMENT         = "wpt";
-    static final String SYM_ELEMENT         = "sym";
+    static final String TYPE_ELEMENT = "type";
+    static final String DESC_ELEMENT = "desc";
+    static final String NAME_ELEMENT = "name";
+    static final String WPT_ELEMENT  = "wpt";
+    static final String SYM_ELEMENT  = "sym";
 
     private String name;
     private String description;
@@ -61,7 +61,7 @@ public class WayPoint extends TrackPoint {
             serializer.startTag(null, NAME_ELEMENT).text(name).endTag(null, NAME_ELEMENT);
         }
         if (description != null) {
-            serializer.startTag(null, DESCRIPTION_ELEMENT).text(description).endTag(null, DESCRIPTION_ELEMENT);
+            serializer.startTag(null, DESC_ELEMENT).text(description).endTag(null, DESC_ELEMENT);
         }
         if (type != null) {
             serializer.startTag(null, TYPE_ELEMENT).text(type).endTag(null, TYPE_ELEMENT);
