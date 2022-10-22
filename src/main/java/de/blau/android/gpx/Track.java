@@ -576,7 +576,7 @@ public class Track extends DefaultHandler implements GpxTimeFormater, Exportable
             case WayPoint.NAME_ELEMENT:
                 state = State.NAME;
                 break;
-            case WayPoint.DESCRIPTION_ELEMENT:
+            case WayPoint.DESC_ELEMENT:
                 state = State.DESC;
                 break;
             case WayPoint.TYPE_ELEMENT:
@@ -663,7 +663,7 @@ public class Track extends DefaultHandler implements GpxTimeFormater, Exportable
         case TrackPoint.TIME_ELEMENT:
         case TrackPoint.ELE_ELEMENT:
         case WayPoint.NAME_ELEMENT:
-        case WayPoint.DESCRIPTION_ELEMENT:
+        case WayPoint.DESC_ELEMENT:
         case WayPoint.TYPE_ELEMENT:
         case WayPoint.SYM_ELEMENT:
             state = State.NONE;
