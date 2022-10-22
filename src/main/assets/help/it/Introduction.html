@@ -103,7 +103,7 @@
 </ul>
 <p>To add individual address nodes directly while in the default &quot;Simple mode&quot; switch to &quot;Address&quot; editing mode (long press on the lock button), &quot;Add address node&quot; will then add an address node at the location and if it is on a building outline add a entrance tag to it as described above.</p>
 <p>La predizione dei numeri civici per funzionare richiede di solito che siano già stati inseriti due numeri civici per ogni lato della strada, più sono i civici inseriti meglio esso funzionerà.</p>
-<p>Consider using this with one of the <a href="#download">Auto-download</a> modes.</p>
+<p>Considerare l'uso di questa modalità con una delle modalità <a href="#download">Auto-download</a>.</p>
 <h4>Aggiungere divieti di accesso</h4>
 <p>Vespucci consente di aggiungere velocemente le restrizioni di svolta. Se necessario, divide automaticamente le linee e chiede di selezionare nuovamente gli elementi oggetto della restrizione</p>
 <ul>
@@ -123,10 +123,10 @@
 <p>Se vuoi salvare il tuo lavoro quando non hai accesso a Internet, puoi salvarlo su un file .osm compatibile con JOSM e in seguito caricarlo con Vespucci o con JOSM.</p>
 <h4>Risolvere in conflitti durante il caricamento</h4>
 <p>Vespucci dispone di un semplice risolutore di conflitti. Tuttavia se pensi che nelle tue modifiche vi siano dei gravi errori, esporta le tue modifiche su un file .osc (la voce “Esporta” nel menù “Trasferisci”), risolvi i problemi e poi carica i dati sul server con JOSM. Consulta la guida dettagliata sulla <a href="Conflict%20resolution.md">risoluzione dei conflitti</a>.</p>
-<h2>Using GPS and GPX tracks</h2>
+<h2>Uso di tracce GPS e GPX</h2>
 <p>With standard settings Vespucci will try to enable GPS (and other satellite based navigation systems) and will fallback to determining the position via so called &quot;network location&quot; if this is not possible. This behaviour assumes that you in normal use have your Android device itself configured to only use GPX generated locations (to avoid tracking), that is you have the euphemistically named &quot;Improve Location Accuracy&quot; option turned off. If you want to enable the option but want to avoid Vespucci falling back to &quot;network location&quot;, you should turn the corresponding option in the <a href="Advanced%20preferences.md">Advanced preferences</a> off.</p>
 <p>Touching the <img src="../images/menu_gps.png" alt="GPS" /> button (on the left hand side of the map display) will center the screen on the current position and as you move the map display will be padded to maintain this.  Moving the screen manually or editing will cause the &quot;follow GPS&quot; mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the &quot;follow&quot; mode, simply touch GPS button or re-check the equivalent menu option. If the device doesn't have a current location the location marker/arrow will be displayed in black, if a current location is available the marker will be blue.</p>
-<p>To record a GPX track and display it on your device select &quot;Start GPX track&quot; item in the <img src="../images/menu_gps.png" alt="GPS" /> menu. This will add layer to the display with the current recorded track, you can upload and export the track from the entry in the <a href="Main%20map%20display.md">layer control</a>. Further layers can be added from local GPX files and tracks downloaded from the OSM API.</p>
+<p>Per registrare una traccia GPX e visualizzarla sul dispositivo, selezionare la voce &quot;Avvia traccia GPX&quot; nel menu <img src="../images/menu_gps.png" alt="GPS" />. Questo aggiungerà uno strato alla visualizzazione con la traccia correntemente registrata; è possibile caricare ed esportare la traccia dalla voce nel <a href="Main%20map%20display.md">controllo livelli</a>. Altri strati possono essere aggiunti da un documento GPX locale e da tracce scaricate dall'API OSM.</p>
 <p>Note: by default Vespucci will not record elevation data with your GPX track, this is due to some Android specific issues. To enable elevation recording, either install a gravitational model, or, simpler, go to the <a href="Advanced%20preferences.md">Advanced preferences</a> and configure NMEA input.</p>
 <h2>Note e bug</h2>
 <p>Vespucci supporta lo scaricamento, l’aggiunta di commenti e la chiusura delle note OSM (precedentemente conosciute come OSM bugs) e la funzionalità equivalente dei “Bug” prodotti dallo <a href="http://osmose.openstreetmap.fr/it/map/">strumento di controllo della qualità OSMOSE</a>. Entrambi vanno esplicitamente scaricati oppure è possibile attivare la funzione di scaricamento automatico per accedere agli elementi nelle immediate vicinanze. Ogni nota/bug può essere caricata sul server subito dopo essere stata modificata o chiusa oppure alla fine.</p>
@@ -176,22 +176,26 @@
 <h3>Filtro dei preset</h3>
 <p>An alternative to the above, objects are filtered either on individual presets or on preset groups. Tapping on the filter icon will display a preset selection dialog similar to that used elsewhere in Vespucci. Individual presets can be selected by a normal click, preset groups by a long click (normal click enters the group). More documentation can be found here <a href="Preset%20filter.md">Preset filter</a>.</p>
 <h2>Personalizzare di Vespucci</h2>
-<p>Many aspects of the app can be customized, if you are looking for something specific and can't find it, <a href="https://vespucci.io/">the Vespucci website</a> is searchable and contains additional information over what is available on device.</p>
+<p>Molti aspetti dell'app possono essere personalizzati; se si cerca qualcosa di specifico e non lo si trova, <a href="https://vespucci.io/">il sito web di Vespucci</a> è ricercabile e contiene informazioni aggiuntive rispetto a quelle disponibili sul dispositivo.</p>
 <p><a id="layers"></a></p>
 <h3>Impostazioni dei livelli</h3>
-<p>Layer settings can be changed via the layer control (&quot;hamburger&quot; menu in the upper right corner), all other setting are reachable via the main menu preferences button. Layers can be enabled, disabled and temporarily hidden.</p>
-<p>Available layer types:</p>
+<p>Le impostazioni degli strati possono essere modificate tramite il controllo degli strati (menu &quot;hamburger&quot; in alto a destra), mentre tutte le altre impostazioni sono raggiungibili tramite il pulsante preferenze del menu principale. Gli strati possono essere attivati, disattivati e temporaneamente nascosti.</p>
+<p>Tipi di strati disponibili:</p>
 <ul>
-<li>Data layer - this is the layer OpenStreetMap data is loaded in to. In normal use you do not need to change anything here. Default: on.</li>
-<li>Background layer - there is a wide range of aerial and satellite background imagery available. The default value for this is the &quot;standard style&quot; map from openstreetmap.org.</li>
-<li>Overlay layer - these are semi-transparent layers with additional information, for example GPX tracks. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.</li>
-<li>Notes/Bugs display - Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.</li>
-<li>Photo layer - Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.</li>
-<li>Mapillary layer - Displays Mapillary segments with markers where images exist, clicking on a marker will display the image. Default: off.</li>
-<li>GeoJSON layer - Displays the contents of a GeoJSON file. Default: off.</li>
-<li>Grid - Displays a scale along the sides of the map or a grid. Default: on.</li>
+<li>
+<p>Strato dati: è lo strato in cui vengono caricati i dati di OpenStreetMap. Nell'uso normale non è necessario modificare nulla. Predefinito: attivo.</p>
+</li>
+<li>
+<p>Strato di sfondo - è disponibile un'ampia gamma di immagini aeree e satellitari di sfondo. Il valore predefinito è la mappa &quot;stile standard&quot; di openstreetmap.org.</p>
+</li>
+<li>Strato di sovrapposizione: si tratta di strati semitrasparenti con informazioni aggiuntive, ad esempio tracce GPX. L'aggiunta di uno strato sovrapposto può causare problemi con i dispositivi più vecchi e con memoria limitata. Predefinito: spento.</li>
+<li>Visualizzazione di note e bug - Le note e i bug aperti vengono visualizzati con un'icona gialla, quelli chiusi con un'icona verde. Predefinito: attivo.</li>
+<li>Strato foto - Visualizza le foto geo-referenziate come icone rosse della fotocamera; se sono disponibili informazioni sulla direzione, l'icona sarà ruotata. Predefinito: spento.</li>
+<li>Strato Mapillary - Visualizza i segmenti Mapillary con i marcatori dove sono presenti le immagini; premendo su un marcatore si visualizza l'immagine. Predefinito: spento.</li>
+<li>Strato GeoJSON - Visualizza il contenuto di un file GeoJSON. Predefinito: spento.</li>
+<li>Griglia - Visualizza una scala lungo i lati della mappa o una griglia. Predefinito: attivo.</li>
 </ul>
-<p>More information can be found in the section on the <a href="Main%20map%20display.md">map display</a>.</p>
+<p>Ulteriori informazioni sono disponibili nella sezione sulla <a href="Main%20map%20display.md">map display</a>.</p>
 <h4>Preferenze</h4>
 <ul>
 <li>Keep screen on. Default: off.</li>
@@ -207,7 +211,7 @@
 <p>La descrizione completa può essere trovata qua <a href="Advanced%20preferences.md">Preferenze avanzate</a></p>
 <h2>Segnalare un problema</h2>
 <p>If Vespucci crashes, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">Vespucci issue tracker</a>. The &quot;Provide feedback&quot; function from the main menu will open a new issue and include the relevant app and device information without extra typing.</p>
-<p>If you want to discuss something related to Vespucci, you can either start a discussion on the <a href="https://groups.google.com/forum/#!forum/osmeditor4android">Vespucci Google group</a> or on the <a href="http://forum.openstreetmap.org/viewforum.php?id=56">OpenStreetMap Android forum</a></p>
+<p>Se volete discutere riguardo a Vespucci, potete avviare una discussione sul <a href="https://groups.google.com/forum/#!forum/osmeditor4android">gruppo Google Vespucci</a> o sul <a href="http://forum.openstreetmap.org/viewforum.php?id=56">forum OpenStreetMap Android</a>.</p>
 
 </body>
 </html>

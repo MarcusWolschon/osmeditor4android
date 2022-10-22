@@ -28,6 +28,9 @@
     <string name="help_newnoteselection">Seleziona nuova nota</string>
     <string name="help_voice_commands">Comandi vocali</string>
     <string name="help_add_route_segment">Aggiungi segmento di ‘route’</string>
+    <string name="help_upgrade">Note di rilascio 18.0</string>
+    <string name="help_upgrade_171">Note di rilascio 17.1</string>
+    <string name="help_upgrade_170">Note di rilascio 17.0</string>
     <string name="help_upgrade_161">Note di rilascio 16.1</string>
     <string name="help_upgrade_160">Note di rilascio 16.0</string>
     <string name="help_upgrade_152">Note di rilascio 15.2</string>
@@ -74,6 +77,8 @@
         <item>@string/help_newnoteselection</item>
         <item>@string/help_voice_commands</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_171</item>
+        <item>@string/help_upgrade_170</item>
         <item>@string/help_upgrade_161</item>
         <item>@string/help_upgrade_160</item>
         <item>@string/help_upgrade_152</item>
@@ -121,6 +126,8 @@
     	<item>Opening hours</item>
         <item>New Note selected</item>
         <item>Voice commands</item>
+        <item>18.0.0 Release notes</item>
+        <item>17.1.0 Release notes</item>
         <item>17.0.0 Release notes</item>
         <item>16.1.0 Release notes</item>
         <item>16.0.0 Release notes</item>

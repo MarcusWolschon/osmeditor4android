@@ -121,6 +121,7 @@
   <string name="maproulette_task_disable">Desactiva</string>
   <string name="maproulette_task_apikey_set"> Clau d\'API de MapRoulette desada</string>
   <!--Todo dialogs-->
+  <string name="todo_comment_legend">Comentari</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Atenció!</string>
   <string name="unsaved_data_message">Els canvis no desats es descartaran si procedeixes.</string>
@@ -217,6 +218,7 @@
   <string name="validator_title">Tauler de regles del validador%1$s</string>
   <string name="edit_resurvey_title">Editar entrada del resondeig</string>
   <string name="add_resurvey_title">Afegir entrada del resondeig</string>
+  <string name="check_entries">Xec</string>
   <string name="edit_check_title">Edita l\'entrada de control</string>
   <string name="add_check_title">Afegeix una entrada de control</string>
   <string name="max_age">Edat màx.</string>
@@ -389,6 +391,7 @@
   <string name="clear">Neteja</string>
   <string name="discard">Descarta</string>
   <string name="retry">Torna a intentar-ho</string>
+  <string name="check">Xec</string>
   <string name="download">Baixa</string>
   <string name="select">Selecció</string>
   <!--Read a file-->
@@ -659,6 +662,7 @@
   <string name="config_tileCacheSize_title">Mida de la memòria cau per les tessel·les</string>
   <string name="config_tileCache_current">%1$d MB</string>
   <!--Auto-save-->
+  <string name="config_autosaveSaveChanges_title">Salveu el canvis</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">Miscel·lània</string>
   <string name="config_showStats_title">Mostra les estadístiques</string>
@@ -779,6 +783,7 @@
   <!--Things-->
   <string name="bridge">Pont</string>
   <string name="tunnel">Túnel</string>
+  <string name="steps">Escales</string>
   <!--Issues-->
   <!--time and distance-->
   <plurals name="days">

@@ -138,6 +138,7 @@
   <string name="maproulette_task_apikey_set">Ключ MapRoulette API збережено</string>
   <string name="maproulette_task_no_apikey">Це не ключ MapRoulette API</string>
   <!--Todo dialogs-->
+  <string name="todo_comment_legend">Коментар</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Увага!</string>
   <string name="unsaved_data_message">Ваші незбережені зміни будуть втрачені якщо Ви продовжите.</string>
@@ -343,7 +344,7 @@
   <string name="layer_category_historicmap">Старі мапи</string>
   <string name="layer_category_osmbasedmap">Мапи з даних OSM</string>
   <string name="layer_category_qa">QA</string>
-  <string name="layer_category_other">Іншt</string>
+  <string name="layer_category_other">Інша</string>
   <string name="layer_add_layer_from_mvt_style">Додайте шар типу MVT</string>
   <string name="layer_add_custom_imagery">Додайте власні зображення</string>
   <string name="layer_edit_custom_imagery_configuration">Параметри шару</string>
@@ -643,6 +644,7 @@
   <string name="tag_restriction_add_expression">Додати вираз</string>
   <string name="tag_restriction_add_opening_hours">Додати час роботи</string>
   <string name="tag_restriction_value_hint">Умовні обмеження</string>
+  <string name="default_checkgroup_hint">Додаткові атрибути</string>
   <string name="tag_form_unknown_element">Невідомий елемент (заготовки відсутні)</string>
   <!--Custom preset creation-->
   <!--Strings in Box/LocationPicker-->
@@ -683,7 +685,7 @@
   <string name="menu_erase">Вилучити точку</string>
   <string name="menu_set_position">Положення</string>
   <string name="menu_split">Розділити</string>
-  <string name="menu_extract">виокремити точку</string>
+  <string name="menu_extract">Відокремити точку</string>
   <string name="menu_append">Додати</string>
   <string name="menu_relation">Створити зв\'язок</string>
   <string name="menu_edit_relation">Редагувати зв\'язок</string>
@@ -714,6 +716,7 @@
   <string name="menu_transfer">Передача…</string>
   <string name="menu_transfer_download_current">Завантажити дані для поточного місця</string>
   <string name="menu_transfer_download_replace">Очистити та завантажити поточне місце</string>
+  <string name="menu_transfer_load_replace">Очистити та завантажити поточний вигляд</string>
   <string name="menu_transfer_upload">Надіслати дані на сервер OSM</string>
   <string name="menu_transfer_update">Оновити дані</string>
   <string name="menu_transfer_close_changeset">Закрити поточний набір змін</string>
@@ -747,6 +750,8 @@
   <string name="menu_straighten">Випрямити</string>
   <string name="menu_circulize">Вирівняти по колу</string>
   <string name="menu_split_polygon">Розділити на полігони</string>
+  <string name="menu_unjoin_dissimilar">Від’єднати несхожі</string>
+  <string name="menu_extract_segment">Витягти сегмент</string>
   <string name="menu_select_way_nodes">Вибрати точки лінії</string>
   <string name="menu_newnode_gps">Нова точка у позиції GPS.</string>
   <string name="menu_extend_selection">Розширити виділення</string>
@@ -759,8 +764,10 @@
   <string name="menu_tools_background_properties">Властивості фону</string>
   <string name="menu_tools_update_imagery_configuration">Оновити конфігурацію</string>
   <string name="menu_tools_zoom_to_layer_extent">Збільшити масштаб фонового шару</string>
+  <string name="menu_tools_clear_clipboard">Очистити буфер обміну</string>
   <!---->
   <string name="menu_simple_actions">Простий режим</string>
+  <string name="menu_feedback">Забезпечити зворотній звязок</string>
   <string name="menu_privacy">Конфіденційність</string>
   <!--Background alignment-->
   <string name="menu_tools_background_align">Положення фону</string>
@@ -800,6 +807,8 @@
   <string name="deletenode">Вилучити точку</string>
   <!--EasyEdit context menus-->
   <string name="split_all_ways">... всі лінії</string>
+  <string name="delete_note_description">Видалення нотатки не можна скасувати!</string>
+  <string name="delete_note">Видалити замітку</string>
   <!--EasyEdit action mode titles-->
   <string name="actionmode_wayselect">Обрана лінія</string>
   <string name="actionmode_nodeselect">Обрана точка</string>
@@ -832,6 +841,8 @@
   <string name="config_enableKeepScreenOn_summary">Не вимикати екран для збереження енергії.</string>
   <string name="config_largeDragArea_title">Велика ділянка навколо точок</string>
   <string name="config_largeDragArea_summary">Задіяти велику ділянку для переміщення точок.</string>
+  <string name="config_wayNodeDragging_title">Переміщення точок лінії</string>
+  <string name="config_wayNodeDragging_summary">Дозволити переміщати окремі точки обраної лінії</string>
   <string name="config_advancedprefs">Розширені параметри</string>
   <string name="config_moreprefs">Додаткові налаштування…</string>
   <string name="config_presetbutton_title">Заготовки</string>
@@ -846,6 +857,7 @@
   <!--Advanced preferences-->
   <!--User Interface Settings-->
   <string name="config_category_view">Налаштування інтерфейсу користувача</string>
+  <string name="config_category_view_summary">Параметри конфігурації компонування та відображення.</string>
   <string name="config_iconbutton_title">Показувати значки точок</string>
   <string name="config_iconbutton_summary">Показувати найбільш відповідні значки на точках.</string>
   <string name="config_showWayIcons_title">Показувати значки цікавих точок на будівлях</string>
@@ -878,9 +890,12 @@
   <string name="config_enableAntiAliasing_summary">Згладжує лінії.</string>
   <string name="config_maxStrokeWidth_title">Макс. ширина лінії</string>
   <string name="config_maxStrokeWidth_summary">Не малювати лінію товстіше, ніж ця.</string>
+  <string name="config_uploadChecker_title">Інтервал нагадування про надсилання</string>
+  <string name="config_uploadChecker_summary">Інтервал для нагадувань, якщо у вас є неопубліковані зміни.</string>
   <string name="config_uploadChecker_current">%1$d годин</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Налаштування даних та редагування</string>
+  <string name="config_category_editing_summary">Налаштування автозавантаження, збереження та сповіщень.</string>
   <string name="config_forceContextMenu_title">Завжди використовувати контекстне меню</string>
   <string name="config_forceContextMenu_summary">Завжди показувати контекстне меню, якщо вибір неоднозначний.</string>
   <string name="config_address_tags">Теґи адреси</string>
@@ -889,6 +904,7 @@
   <string name="config_enableNameSuggestions_summary">Включити пропозицію для теґа назви</string>
   <string name="config_generateAlerts_title">Створювати повідомлення</string>
   <string name="config_generateAlerts_summary">Повідомляти про проблемні дані чи нотатки</string>
+  <string name="config_groupAlertsOnly_title">Лише групові сповіщення</string>
   <string name="config_notificationCacheSize_title">Макс.  кількість відображених сповіщень</string>
   <string name="config_notificationCacheSize_summary">Максимальна кількість відображених сповіщень за типом (мін. 1).</string>
   <string name="config_notificationCacheSize_current">%1$d Сповіщення</string>
@@ -902,6 +918,7 @@
   <string name="config_extTriggeredDownloadRadius_summary">Радіус (м)  для розширення ділянки завантаження, 0 - центр мапи.</string>
   <string name="config_maxDownloadSpeed_title">Максимальна швидкість авто-завантаження</string>
   <string name="config_maxDownloadSpeed_summary">Обмеження (в км/г) після якого автозавантаження призупиняється</string>
+  <string name="config_panAndZoomLimit_summary">Мінімальний рівень масштабування для панорамування та автозавантаження.</string>
   <string name="config_bugFilter_title">Фільтр завдань</string>
   <string name="config_bugFilter_summary">Оберіть які елементи показувати на шарі нотаток/помилок</string>
   <string name="config_bugDownloadRadius_title">Радіус завантаження завдання</string>
@@ -910,6 +927,7 @@
   <string name="config_maxBugDownloadSpeed_summary">Обмеження (в км/г) після якого автозавантаження нотаток/помилок призупиняеться</string>
   <!--Location Settings-->
   <string name="config_category_gps">Налаштування розташування</string>
+  <string name="config_category_gps_summary">Параметри GPS/GNSS та інші постачальники даних про місцезнаходження.</string>
   <string name="config_gps_source_title">Джерело GPS</string>
   <string name="config_gps_source_summary">Джерело оновлення позиції GPS</string>
   <string name="config_gps_source_tcp_title">NMEA джерело мережі</string>
@@ -923,6 +941,7 @@
   <string name="config_gps_network_title">Повернення до мережевого розташування</string>
   <!--Server Settings-->
   <string name="config_category_server">Налаштування сервера</string>
+  <string name="config_category_server_summary">OSM API та налаштування інших серверів.</string>
   <string name="config_apibutton_title">URL для API OpenStreetMap</string>
   <string name="config_apibutton_summary">Тут можна встановити нестандартну URL-адресу API.  Зазвичай не слід змінювати!</string>
   <string name="config_loginbutton_title">Обліковий запис</string>
@@ -940,6 +959,7 @@
   <string name="config_tileCacheSize_summary">Загальний розмір кешу в МБ</string>
   <string name="config_mapillaryCacheSize_summary">Загальний обсяг кешу зображень Mapillary, в МБ</string>
   <!--Auto-save-->
+  <string name="config_autosaveSaveChanges_title">Зберегти зміни</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">Додатково</string>
   <string name="pref_enable_acra">Повідомлення про збій програми</string>
@@ -1028,6 +1048,7 @@
   <string name="undo_action_circulize">Вирівняти по колу</string>
   <string name="undo_action_fix_conflict">Розвʼязання конфліктів</string>
   <string name="undo_action_extract_node">Від\'єднати точку</string>
+  <string name="undo_action_extract_segment">Витягти сегмент</string>
   <!--ACRA-->
   <string name="crash_dialog_text">Веспуччі несподівано перервав роботу або зіткнувся з серйозною проблемою під час останнього запуску.\n\nБудь ласка, допоможіть нам виправити це, надіславши дані про помилку, все що вам потрібно зробити, це натиснути „Гаразд“.\n</string>
   <string name="crash_dialog_comment_prompt">Додайте будь-яку додаткову інформацію, яка, на вашу думку, може допомогти, і (необов’язково) своє ім’я користувача OSM, якщо хочете отримати відгук.\n\nДякуємо.</string>
@@ -1057,7 +1078,9 @@
   <!--Things-->
   <string name="bridge">Контур мосту</string>
   <string name="tunnel">Тунель</string>
+  <string name="steps">Сходи</string>
   <!--Issues-->
+  <string name="issue_shared_node">Поділитись іншим способом</string>
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">1 день</item>
