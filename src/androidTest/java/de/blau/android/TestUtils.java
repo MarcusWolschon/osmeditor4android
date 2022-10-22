@@ -1514,7 +1514,7 @@ public final class TestUtils {
         if (clearAll != null) {
             clearAll.click();
         } else {
-            device.click(device.getDisplayWidth() / 2, device.getDisplayHeight() / 2);
+            device.click(device.getDisplayWidth() / 2, (int) (device.getDisplayHeight() * 0.75));
         }
         return found;
     }
