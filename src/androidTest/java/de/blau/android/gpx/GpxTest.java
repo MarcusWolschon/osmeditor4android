@@ -276,7 +276,7 @@ public class GpxTest {
             TestUtils.unlock(device);
 
             TestUtils.clickAtCoordinates(device, map, foundWp.getLon(), foundWp.getLat(), true);
-
+            assertTrue(TestUtils.findText(device, false, "Kirche", 1000, true));
             assertTrue(TestUtils.clickText(device, true, "Create osm object from", true, false));
             assertTrue(TestUtils.findText(device, false, "Church"));
         } catch (Exception ex) {
