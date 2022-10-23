@@ -47,6 +47,7 @@ import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.contract.FileExtensions;
 import de.blau.android.contract.Paths;
+import de.blau.android.contract.Schemes;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.Tags;
@@ -1319,6 +1320,7 @@ public class Preset {
      * @param presetDir a File object pointing to the directory containing this preset
      * @return a List of http and https URLs as string, or null if there is an error during parsing
      */
+    @Nullable
     public static List<String> parseForURLs(@NonNull File presetDir) {
         final List<String> urls = new ArrayList<>();
         String presetFilename = getPresetFileName(presetDir);
@@ -1337,7 +1339,7 @@ public class Preset {
                 public void startElement(String uri, String localName, String name, Attributes attr) throws SAXException {
                     if (GROUP.equals(name) || ITEM.equals(name)) {
                         String url = attr.getValue(ICON);
-                        if (url != null && (url.startsWith("http://") || url.startsWith("https://"))) {
+                        if (isUrl(url)) {
                             urls.add(url);
                         }
                     }
@@ -2191,6 +2193,16 @@ public class Preset {
             return false;
         }
         return true;
+    }
+
+    /**
+     * Check for an url
+     * 
+     * @param url the url
+     * @return true if the check passes
+     */
+    public static boolean isUrl(@Nullable String url) {
+        return url != null && (url.startsWith(Schemes.HTTP + "://") || url.startsWith(Schemes.HTTPS + "://"));
     }
 
     /**
