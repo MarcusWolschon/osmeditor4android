@@ -137,6 +137,7 @@ public class PresetEditorTest {
         presets = App.getCurrentPresets(main);
         match = Preset.findBestMatch(presets, tags, null, null);
         assertEquals("Military landuse", match.getName());
+        assertTrue(match.getIconpath().endsWith("military_military.png"));
 
         // move display content and check that version is displayed
         monitor = instrumentation.addMonitor(PresetEditorActivity.class.getName(), null, false);

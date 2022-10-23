@@ -27,7 +27,11 @@ import org.robolectric.shadows.ShadowContentResolver;
 import org.xml.sax.SAXException;
 
 import android.content.ContentResolver;
+import android.content.Context;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import androidx.annotation.NonNull;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
 import de.blau.android.App;
@@ -112,37 +116,37 @@ public class PresetTest {
     }
 
     /**
-    * Test that we match a multipolygon properly
-    */
-   @Test
-   public void matching3() {
-       //
-       Map<String, String> tags = new HashMap<>();
-       tags.put(Tags.KEY_TYPE, Tags.VALUE_MULTIPOLYGON);
-       tags.put(Tags.KEY_PLACE, "farm");
-       PresetItem match = Preset.findBestMatch(presets, tags,  null, ElementType.RELATION, false, null);
-       assertEquals("Multipolygon", match.getName());
-       match = Preset.findBestMatch(presets, tags,  null, null, false, null);
-       assertEquals("Farm", match.getName());
-   }
-   
-   /**
-    * Test that ignoring tags for matching works
-    */
-   @Test
-   public void matching4() {
-       Map<String, String> tags = new HashMap<>();
-       tags.put(Tags.KEY_INDOOR, Tags.VALUE_ROOM); 
-       tags.put(Tags.VALUE_ROOM, Tags.KEY_SHOP); 
-       tags.put(Tags.KEY_SHOP, "supermarket"); 
-       PresetItem match = Preset.findBestMatch(presets, tags, null, null);
-       assertNotNull(match);
-       assertTrue(match.hasKeyValue(Tags.KEY_INDOOR, Tags.VALUE_ROOM));
-       match = Preset.findBestMatch(presets, tags, null, Tags.IGNORE_FOR_MAP_ICONS);
-       assertNotNull(match);
-       assertTrue(match.hasKeyValue(Tags.KEY_SHOP, "supermarket"));     
-   }
-    
+     * Test that we match a multipolygon properly
+     */
+    @Test
+    public void matching3() {
+        //
+        Map<String, String> tags = new HashMap<>();
+        tags.put(Tags.KEY_TYPE, Tags.VALUE_MULTIPOLYGON);
+        tags.put(Tags.KEY_PLACE, "farm");
+        PresetItem match = Preset.findBestMatch(presets, tags, null, ElementType.RELATION, false, null);
+        assertEquals("Multipolygon", match.getName());
+        match = Preset.findBestMatch(presets, tags, null, null, false, null);
+        assertEquals("Farm", match.getName());
+    }
+
+    /**
+     * Test that ignoring tags for matching works
+     */
+    @Test
+    public void matching4() {
+        Map<String, String> tags = new HashMap<>();
+        tags.put(Tags.KEY_INDOOR, Tags.VALUE_ROOM);
+        tags.put(Tags.VALUE_ROOM, Tags.KEY_SHOP);
+        tags.put(Tags.KEY_SHOP, "supermarket");
+        PresetItem match = Preset.findBestMatch(presets, tags, null, null);
+        assertNotNull(match);
+        assertTrue(match.hasKeyValue(Tags.KEY_INDOOR, Tags.VALUE_ROOM));
+        match = Preset.findBestMatch(presets, tags, null, Tags.IGNORE_FOR_MAP_ICONS);
+        assertNotNull(match);
+        assertTrue(match.hasKeyValue(Tags.KEY_SHOP, "supermarket"));
+    }
+
     /**
      * Remove an item
      */
@@ -157,6 +161,56 @@ public class PresetTest {
         presets[0].deleteItem(item);
         assertNull(presets[0].getItemByName("Traffic Sign Backward", null));
         assertNull(Preset.findBestMatch(presets, tags, null, null));
+    }
+
+    /**
+     * Load a preset with an SVG icon
+     */
+    @Test
+    public void svgIcons() {
+        final Context context = ApplicationProvider.getApplicationContext();
+        try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(context)) {
+            File preset = JavaResources.copyFileFromResources(context, "svg-test.zip", null, "/");
+            String presetId = java.util.UUID.randomUUID().toString();
+            db.addPreset(presetId, "Test preset", "", true);
+            File presetDir = db.getPresetDirectory(presetId);
+            presetDir.mkdir();
+            Uri inputUri = Uri.parse(preset.toURI().toString());
+            ContentResolver contentResolver = ApplicationProvider.getApplicationContext().getContentResolver();
+            ShadowContentResolver shadowContentResolver = shadowOf(contentResolver);
+            shadowContentResolver.registerInputStream(inputUri, new FileInputStream(preset));
+            PresetLoader.load(context, inputUri, presetDir, "svg-test.zip");
+            App.resetPresets();
+        } catch (Exception ex) {
+            fail(ex.getMessage());
+        }
+        //
+        presets = App.getCurrentPresets(context);
+        Preset p = getPresetWithDescription(presets, "Testing preset");
+        assertNotNull(p);
+        PresetItem item = p.getItemByName("Test Item", null);
+        assertNotNull(item);
+        System.out.println(item.getIconpath());
+        BitmapDrawable icon = item.getMapIcon(context);
+        assertNotNull(icon);
+        assertEquals(1345600, icon.getBitmap().getByteCount());
+    }
+
+    /**
+     * Find a preset with a specific description
+     * 
+     * @param presets array of Preset
+     * @param description the description
+     * @return the Preset
+     */
+    private Preset getPresetWithDescription(@NonNull Preset[] presets, @NonNull String description) {
+        for (Preset preset : presets) {
+            if (description.equals(preset.getShortDescription())) {
+                return preset;
+            }
+        }
+        fail("Preset with " + description + " not found");
+        return null;
     }
 
     /**
