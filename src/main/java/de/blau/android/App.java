@@ -33,6 +33,7 @@ import android.os.Bundle;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.multidex.MultiDex;
 import androidx.preference.PreferenceManager;
 import de.blau.android.contract.Paths;
 import de.blau.android.filter.PresetFilter;
@@ -178,6 +179,12 @@ public class App extends LocaleAwareApplication implements android.app.Applicati
 
     private ScheduledThreadPoolExecutor autosaveExecutor = new ScheduledThreadPoolExecutor(1);
     private ScheduledFuture<?>          autosaveFuture   = null;
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
 
     @Override
     public void onCreate() {

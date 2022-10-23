@@ -254,6 +254,7 @@ android {
     productFlavors {
         current {
             dimension "api"
+            multiDexEnabled true
             minSdkVersion 16
             targetSdkVersion 31
             applicationIdSuffix ""
@@ -515,6 +516,7 @@ dependencies {
     implementation "androidx.work:work-runtime:$work_version"
     implementation "androidx.window:window:1.0.0"
     implementation 'androidx.core:core-splashscreen:1.0.0-beta02'
+    implementation "androidx.multidex:multidex:2.0.1"
     
     //
     implementation 'com.heinrichreimersoftware:android-issue-reporter:1.4'
@@ -543,6 +545,7 @@ dependencies {
     implementation "ch.poole.osm:JosmFilterParser:0.6.1"
     implementation 'ch.poole.android:sprites:0.0.4'
     implementation 'ch.poole.android:indeterminate-checkbox:1.1.0@aar'
+    implementation 'ch.poole.misc:bentley-ottmann:0.1.1'
     implementation 'de.westnordost:countryboundaries:1.5'
     implementation 'de.ruedigermoeller:fst:2.57'
     implementation 'org.openstreetmap.osmosis:osmosis-osm-binary:0.48.3'
@@ -552,7 +555,6 @@ dependencies {
     implementation 'io.noties.markwon:core:4.6.2'
     implementation 'com.zeugmasolutions.localehelper:locale-helper-android:1.1.4'
     implementation 'com.github.zedlabs:ElementHistoryDialog:1.0.3'
-    implementation 'ch.poole.misc:bentley-ottmann:0.1.1'
     
     // for temp stuff during dev
     // implementation(name:'alibrary', ext:'jar')
