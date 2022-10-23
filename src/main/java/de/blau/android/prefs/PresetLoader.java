@@ -12,13 +12,11 @@ import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import de.blau.android.App;
 import de.blau.android.contract.FileExtensions;
 import de.blau.android.contract.MimeTypes;
 import de.blau.android.contract.Paths;
 import de.blau.android.osm.Server;
-import de.blau.android.presets.PresetIconManager;
 import de.blau.android.services.util.StreamUtils;
 import de.blau.android.util.FileUtil;
 import okhttp3.Call;
@@ -48,15 +46,10 @@ public final class PresetLoader {
      * 
      * @param url the url to download from
      * @param presetDir the directory to save the preset to
-     * @param filename A filename where to save the file. If null, the URL will be hashed using the PresetIconManager
-     *            hash function and the file will be saved to hashvalue.png (where "hashvalue" will be replaced with the
-     *            URL hash).
+     * @param filename A filename where to save the file.
      * @return code indicating result
      */
-    public static int download(@NonNull String url, @NonNull File presetDir, @Nullable String filename) {
-        if (filename == null) {
-            filename = PresetIconManager.hash(url) + ".png";
-        }
+    public static int download(@NonNull String url, @NonNull File presetDir, @NonNull String filename) {
         Log.d(DEBUG_TAG, "Downloading " + url + " to " + presetDir + "/" + filename);
         Request request = new Request.Builder().url(url).build();
         OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(Server.TIMEOUT, TimeUnit.MILLISECONDS)

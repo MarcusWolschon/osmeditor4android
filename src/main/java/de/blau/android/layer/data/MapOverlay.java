@@ -1167,8 +1167,8 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
         if (iconPath != null && !usePresetIcon) {
             iconDrawable = customIconCache.get(iconPath);
             if (iconDrawable == null && !customIconCache.containsKey(iconPath)) {
-                try (FileInputStream pngStream = new FileInputStream(iconPath)) {
-                    iconDrawable = PresetIconManager.bitmapDrawableFromStream(context, ICON_SIZE_DP, pngStream);
+                try (FileInputStream stream = new FileInputStream(iconPath)) {
+                    iconDrawable = PresetIconManager.bitmapDrawableFromStream(context, ICON_SIZE_DP, stream, PresetIconManager.isSvg(iconPath));
                     customIconCache.put(iconPath, iconDrawable);
                 } catch (IOException e) {
                     Log.e(DEBUG_TAG, "Icon " + iconPath + " not found");

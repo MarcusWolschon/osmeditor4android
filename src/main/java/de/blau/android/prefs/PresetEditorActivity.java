@@ -37,6 +37,7 @@ import de.blau.android.dialogs.Progress;
 import de.blau.android.exception.OperationFailedException;
 import de.blau.android.prefs.AdvancedPrefDatabase.PresetInfo;
 import de.blau.android.presets.Preset;
+import de.blau.android.presets.PresetIconManager;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.ReadFile;
 import de.blau.android.util.SelectFile;
@@ -281,9 +282,7 @@ public class PresetEditorActivity extends URLListEditActivity {
 
                 if (loadResult == PresetLoader.DOWNLOADED_PRESET_ERROR) {
                     return RESULT_TOTAL_FAILURE;
-                } else if (loadResult == PresetLoader.DOWNLOADED_PRESET_ZIP) {
-                    return RESULT_TOTAL_SUCCESS;
-                } // fall through to further processing
+                }
 
                 List<String> urls = Preset.parseForURLs(presetDir);
                 if (urls == null) {
@@ -296,7 +295,7 @@ public class PresetEditorActivity extends URLListEditActivity {
                     if (canceled) {
                         return RESULT_DOWNLOAD_CANCELED;
                     }
-                    allImagesSuccessful &= (PresetLoader.download(url, presetDir, null) == PresetLoader.DOWNLOADED_PRESET_XML);
+                    allImagesSuccessful &= (PresetLoader.download(url, presetDir, PresetIconManager.hashPath(url)) == PresetLoader.DOWNLOADED_PRESET_XML);
                 }
                 return allImagesSuccessful ? RESULT_TOTAL_SUCCESS : RESULT_IMAGE_FAILURE;
             }
