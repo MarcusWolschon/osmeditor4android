@@ -19,7 +19,6 @@ import org.junit.runner.RunWith;
 import android.content.Context;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Environment;
 import androidx.preference.PreferenceManager;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -82,12 +81,10 @@ public class PhotosTest {
             photo2 = JavaResources.copyFileFromResources(main, PHOTO_FILE2, null, Paths.DIRECTORY_PATH_PICTURES);
             photo3 = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath(), PHOTO_FILE3);
             JavaResources.copyFileFromResources(PHOTO_FILE3, null, photo3);
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-                final CountDownLatch signal = new CountDownLatch(1);
-                MediaScannerConnection.scanFile(context, new String[] { photo3.getAbsolutePath() }, new String[] { MimeTypes.JPEG },
-                        (String path, Uri uri) -> signal.countDown());
-                SignalUtils.signalAwait(signal, 10);
-            }
+            final CountDownLatch signal = new CountDownLatch(1);
+            MediaScannerConnection.scanFile(context, new String[] { photo3.getAbsolutePath() }, new String[] { MimeTypes.JPEG },
+                    (String path, Uri uri) -> signal.countDown());
+            SignalUtils.signalAwait(signal, 10);
         } catch (IOException e) {
             fail(e.getMessage());
         }
@@ -133,6 +130,8 @@ public class PhotosTest {
     @Test
     public void indexWithMediaStore() {
         PreferenceManager.getDefaultSharedPreferences(main).edit().putBoolean(main.getString(R.string.config_indexMediaStore_key), true).commit();
+        prefs = new Preferences(context);
+        App.getLogic().setPrefs(prefs);
         addLayerAndIndex();
         try (PhotoIndex index = new PhotoIndex(main)) {
             RTree<Photo> tree = new RTree<>(2, 5);

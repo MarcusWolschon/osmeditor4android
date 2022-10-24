@@ -1458,6 +1458,7 @@ public class Main extends FullScreenAppCompatActivity
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS) {
             for (int i = 0; i < permissions.length; i++) {
+                Log.d(DEBUG_TAG, permissions[i] + " status " + grantResults[i]);
                 if (permissions[i].equals(Manifest.permission.ACCESS_FINE_LOCATION) && grantResults[i] == PackageManager.PERMISSION_GRANTED) {
                     // permission was granted :)
                     bindService(new Intent(this, TrackerService.class), this, BIND_AUTO_CREATE);
