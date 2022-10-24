@@ -141,8 +141,10 @@ public class PhotoIndex extends SQLiteOpenHelper {
         Logic logic = App.getLogic();
         Preferences prefs = logic != null ? logic.getPrefs() : null;
         if (prefs != null) {
-            if (prefs.scanMediaStore() && (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q
-                    || ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_MEDIA_LOCATION) == PackageManager.PERMISSION_GRANTED)) {
+            final boolean accessMediaLocation = ContextCompat.checkSelfPermission(context,
+                    Manifest.permission.ACCESS_MEDIA_LOCATION) == PackageManager.PERMISSION_GRANTED;
+            Log.d(DEBUG_TAG, "ACCESS_MEDIA_LOCATION permission " + accessMediaLocation);
+            if (prefs.scanMediaStore() && (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q || accessMediaLocation)) {
                 indexMediaStore();
             } else {
                 // delete scanned photos from index
