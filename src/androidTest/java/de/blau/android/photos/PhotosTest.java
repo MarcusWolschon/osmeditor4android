@@ -133,6 +133,8 @@ public class PhotosTest {
     @Test
     public void indexWithMediaStore() {
         PreferenceManager.getDefaultSharedPreferences(main).edit().putBoolean(main.getString(R.string.config_indexMediaStore_key), true).commit();
+        prefs = new Preferences(context);
+        App.getLogic().setPrefs(prefs);
         addLayerAndIndex();
         try (PhotoIndex index = new PhotoIndex(main)) {
             RTree<Photo> tree = new RTree<>(2, 5);
@@ -146,6 +148,8 @@ public class PhotosTest {
                 }
             }
             fail(PHOTO_FILE3 + " not found");
+        } finally {
+            PreferenceManager.getDefaultSharedPreferences(main).edit().putBoolean(main.getString(R.string.config_indexMediaStore_key), false).commit();
         }
     }
 
