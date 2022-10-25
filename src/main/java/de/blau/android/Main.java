@@ -876,10 +876,10 @@ public class Main extends FullScreenAppCompatActivity
      * 
      * @param whenDone run this when finished, use this if you need permissions before an operation is executed
      */
-    private void checkPermissions(Runnable whenDone) {
+    private void checkPermissions(@NonNull Runnable whenDone) {
         final List<String> permissionsList = new ArrayList<>();
         synchronized (locationPermissionLock) {
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if (Util.permissionGranted(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
                 locationPermissionGranted = false;
                 if (askedForLocationPermission) {
                     // Should we show an explanation?
@@ -897,7 +897,8 @@ public class Main extends FullScreenAppCompatActivity
             }
         }
         synchronized (storagePermissionLock) {
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            if (Util.permissionGranted(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    || (prefs.scanMediaStore() && Util.permissionGranted(this, Manifest.permission.ACCESS_MEDIA_LOCATION))) {
                 storagePermissionGranted = false;
                 // Should we show an explanation?
                 if (askedForStoragePermission) {
