@@ -12,7 +12,6 @@ import org.acra.ACRA;
 import android.Manifest;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
@@ -26,7 +25,6 @@ import android.provider.MediaStore.MediaColumns;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.contract.MimeTypes;
@@ -36,6 +34,7 @@ import de.blau.android.prefs.Preferences;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.ContentResolverUtil;
 import de.blau.android.util.SavingHelper;
+import de.blau.android.util.Util;
 import de.blau.android.util.rtree.RTree;
 
 /**
@@ -141,8 +140,7 @@ public class PhotoIndex extends SQLiteOpenHelper {
         Logic logic = App.getLogic();
         Preferences prefs = logic != null ? logic.getPrefs() : null;
         if (prefs != null) {
-            final boolean accessMediaLocation = ContextCompat.checkSelfPermission(context,
-                    Manifest.permission.ACCESS_MEDIA_LOCATION) == PackageManager.PERMISSION_GRANTED;
+            final boolean accessMediaLocation = Util.permissionGranted(context, Manifest.permission.ACCESS_MEDIA_LOCATION);
             Log.d(DEBUG_TAG, "ACCESS_MEDIA_LOCATION permission " + accessMediaLocation);
             if (prefs.scanMediaStore() && (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q || accessMediaLocation)) {
                 indexMediaStore();

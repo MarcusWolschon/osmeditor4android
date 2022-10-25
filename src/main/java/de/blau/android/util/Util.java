@@ -41,6 +41,7 @@ import android.view.View;
 import android.widget.ScrollView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.core.text.HtmlCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.widget.NestedScrollView;
@@ -783,5 +784,16 @@ public final class Util {
         }
         implementsInterface(parent, interfaces);
         return parent; // NOSONAR null will cause a ClassCastException to be thrown
+    }
+
+    /**
+     * Check if a permission is granted
+     * 
+     * @param ctx an Android Context
+     * @param permission the permission to check
+     * @return true if the permission has been granted
+     */
+    public static boolean permissionGranted(@NonNull Context ctx, @NonNull String permission) {
+        return ContextCompat.checkSelfPermission(ctx, permission) != PackageManager.PERMISSION_GRANTED;
     }
 }
