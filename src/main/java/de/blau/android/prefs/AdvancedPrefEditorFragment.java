@@ -81,6 +81,7 @@ public class AdvancedPrefEditorFragment extends ExtendedPreferenceFragment {
         setRestartRequiredMessage(R.string.config_autosaveInterval_key);
         setRestartRequiredMessage(R.string.config_autosaveChanges_key);
         setRestartRequiredMessage(R.string.config_autosaveMaxFiles_key);
+        setRestartRequiredMessage(R.string.config_indexMediaStore_key);
         setTitle();
     }
 
