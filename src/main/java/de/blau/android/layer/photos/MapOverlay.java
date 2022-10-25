@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.res.Resources;
 import android.database.ContentObserver;
@@ -42,6 +43,7 @@ import de.blau.android.util.ContentResolverUtil;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Snack;
+import de.blau.android.util.Util;
 import de.blau.android.views.IMapView;
 
 /**
@@ -118,6 +120,10 @@ public class MapOverlay extends MapViewLayer implements DiscardInterface, Clicka
                 publishProgress(1);
                 indexing = false;
                 indexed = true;
+                if (map.getPrefs().scanMediaStore()) {
+                    observer = new PhotoObserver(new Handler(Looper.getMainLooper()));
+                    map.getContext().getContentResolver().registerContentObserver(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, true, observer);
+                }
             }
             return null;
         }
@@ -134,7 +140,11 @@ public class MapOverlay extends MapViewLayer implements DiscardInterface, Clicka
         @Override
         protected void onPostExecute(Void param) {
             if (handler != null) {
-                handler.onSuccess();
+                if (indexed) {
+                    handler.onSuccess();
+                } else {
+                    handler.onError(null);
+                }
             }
         }
     }
@@ -167,17 +177,8 @@ public class MapOverlay extends MapViewLayer implements DiscardInterface, Clicka
     @Override
     protected void onDraw(Canvas c, IMapView osmv) {
         if (isVisible) {
-            if (!indexed && !indexing && !indexer.isExecuting()) {
-                indexer.execute((PostAsyncActionHandler) () -> {
-                    if (indexed) {
-                        map.invalidate();
-                        if (map.getPrefs().scanMediaStore()) {
-                            observer = new PhotoObserver(new Handler(Looper.getMainLooper()));
-                            map.getContext().getContentResolver().registerContentObserver(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, true, observer);
-                        }
-                    }
-                });
-
+            if (needsIndexing() && !Util.permissionGranted(map.getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                indexer.execute(map::invalidate);
                 return;
             }
 
@@ -209,18 +210,18 @@ public class MapOverlay extends MapViewLayer implements DiscardInterface, Clicka
      * @param w map width
      * @param h map height
      * @param p the Photo
-     * @param i the icon Drawable
+     * @param icon the icon Drawable
      */
-    public void drawIcon(Canvas c, ViewBox bb, int w, int h, Photo p, Drawable i) {
+    public void drawIcon(@NonNull Canvas c, @NonNull ViewBox bb, int w, int h, @NonNull Photo p, @NonNull Drawable icon) {
         int x = (int) GeoMath.lonE7ToX(w, bb, p.getLon());
         int y = (int) GeoMath.latE7ToY(h, w, bb, p.getLat());
-        i.setBounds(new Rect(x - w2, y - h2, x + w2, y + h2));
+        icon.setBounds(new Rect(x - w2, y - h2, x + w2, y + h2));
         if (p.hasDirection()) {
             c.rotate(p.getDirection(), x, y);
-            i.draw(c);
+            icon.draw(c);
             c.rotate(-p.getDirection(), x, y);
         } else {
-            i.draw(c);
+            icon.draw(c);
         }
     }
 
@@ -268,7 +269,8 @@ public class MapOverlay extends MapViewLayer implements DiscardInterface, Clicka
                 if (prefs.useInternalPhotoViewer()) {
                     ArrayList<String> uris = new ArrayList<>();
                     int position = 0;
-                    for (int i = 0; i < photos.size(); i++) {
+                    final int size = photos.size();
+                    for (int i = 0; i < size; i++) {
                         Photo p = photos.get(i);
                         Uri uri = p.getRefUri(context);
                         if (uri != null) {
@@ -286,7 +288,7 @@ public class MapOverlay extends MapViewLayer implements DiscardInterface, Clicka
                         PhotoViewerActivity.start(activity, uris, position);
                     }
                 } else {
-                    Util.startExternalPhotoViewer(context, photoUri);
+                    de.blau.android.layer.photos.Util.startExternalPhotoViewer(context, photoUri);
                 }
                 selected = photo;
                 invalidate();
@@ -337,9 +339,18 @@ public class MapOverlay extends MapViewLayer implements DiscardInterface, Clicka
      * @param handler handler to run after the index has been created
      */
     public void createIndex(@Nullable PostAsyncActionHandler handler) {
-        if (!indexed && !indexing && !indexer.isExecuting()) {
+        if (needsIndexing()) {
             indexer.execute(handler);
         }
+    }
+
+    /**
+     * Check if we need to run the indexer
+     * 
+     * @return true if we need to index
+     */
+    private boolean needsIndexing() {
+        return !indexed && !indexing && !indexer.isExecuting();
     }
 
     @Override
