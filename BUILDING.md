@@ -91,3 +91,4 @@ Notes:
 * the CameraTest assumes that the emulator has a working camera app of some kind installed.
 * some tests assume that a file keys.txt holding imagery API keys is present (otherwise the layers in question are not added), this should be located in ../private_assets/keys2.txt relative to the repo directory. A fake such file is provided in the unit test assets.
 * Android 9 / API 28 emulators seem to be very fickle wrt long click timeouts. The build script tries to address this by setting a different value for such devices in setLongClickTimeout, however this may need some tuning on test devices with high load. The typical symptom of this issue is the selectNode and dragNode tests failing.
+* if chrome is installed on a device used for testing googles ToS need to be accepted or else some tests will fail, you can disable chrome (which should lead to the pre-installed test browser being used) on emulators by running ``disableChrome``.

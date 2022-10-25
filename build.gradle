@@ -404,6 +404,24 @@ task removeVespucciDirectory() {
 removeVespucciDirectory.group = 'verification'
 removeVespucciDirectory.description = 'remove /sdcard/Download/Vespucci'
 
+// if a target device for testing has chrome installed we need to disable it or else we would have
+// to accept googles ToS to enable certain tests to work. We currently only do this on emulators.
+task disableChrome() {
+    doLast {
+        AndroidDebugBridge.initIfNeeded(false)
+        def bridge = AndroidDebugBridge.createBridge(android.adbExecutable.path, false)
+        bridge.devices.each {
+            if (it.isEmulator()) {
+                project.logger.lifecycle('Disable chrome on ' + it.getSerialNumber())
+                CollectingOutputReceiver receiver = new CollectingOutputReceiver()
+                it.executeShellCommand("pm disable-user --user 0 com.android.chrome", receiver)
+            }
+        }
+    }
+}
+disableChrome.group = 'verification'
+disableChrome.description = 'disable Chrome'
+
 task killEmulators() {
     doLast {
         AndroidDebugBridge.initIfNeeded(false)
