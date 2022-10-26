@@ -137,6 +137,7 @@ The "on-map" GPS button duplicates the function of the "Follow GPS position" men
      * `43d 38m 19.39s N`
      * `43 38 19.39`
      * `433819N`
+ * **Go to last edit** - Pan and zoom to the bounding box of the top most undo checkpoint.
  * **Start GPX track** - start recording a GPX track and display a corresponding layer.
  * **Resume GPX track** - continue recording a GPX track.
  * **Pause GPX track** - pause recording the current GPX track
