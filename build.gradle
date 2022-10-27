@@ -572,7 +572,7 @@ dependencies {
     implementation 'io.michaelrocks:libphonenumber-android:8.12.39'
     implementation 'io.noties.markwon:core:4.6.2'
     implementation 'com.zeugmasolutions.localehelper:locale-helper-android:1.1.4'
-    implementation 'com.github.zedlabs:ElementHistoryDialog:1.0.3'
+    implementation 'com.github.zedlabs:ElementHistoryDialog:1.0.5'
     implementation 'com.caverock:androidsvg-aar:1.4'
     
     // for temp stuff during dev
