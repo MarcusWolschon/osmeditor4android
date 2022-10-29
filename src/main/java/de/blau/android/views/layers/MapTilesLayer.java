@@ -820,11 +820,20 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
                     handler.postDelayed(invalidator, 100); // wait 1/10th of a second
                 }
                 viewInvalidates++;
-            } else if (msg.what == MapTile.MAPTILE_FAIL_ID && msg.arg1 != MapAsyncTileProvider.RETRY) {
-                MapTilesLayer.this.incErrorCount();
-            } else {
-                Log.e(DEBUG_TAG_1, "Unknown message " + msg);
+                return;
+            } else if (msg.what == MapTile.MAPTILE_FAIL_ID) {
+                switch (msg.arg1) {
+                case MapAsyncTileProvider.RETRY:
+                case MapAsyncTileProvider.IOERR:
+                    MapTilesLayer.this.incErrorCount();
+                    return;
+                case MapAsyncTileProvider.NONETWORK:
+                case MapAsyncTileProvider.DOESNOTEXIST:
+                    return; // ignore
+                default: // fall though to log
+                }
             }
+            Log.e(DEBUG_TAG_1, "Unknown message " + msg);
         }
     }
 
