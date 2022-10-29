@@ -177,7 +177,7 @@ public class MapOverlay extends MapViewLayer implements DiscardInterface, Clicka
     @Override
     protected void onDraw(Canvas c, IMapView osmv) {
         if (isVisible) {
-            if (needsIndexing() && !Util.permissionGranted(map.getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            if (needsIndexing() && Util.permissionGranted(map.getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                 indexer.execute(map::invalidate);
                 return;
             }

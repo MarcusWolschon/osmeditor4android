@@ -794,6 +794,6 @@ public final class Util {
      * @return true if the permission has been granted
      */
     public static boolean permissionGranted(@NonNull Context ctx, @NonNull String permission) {
-        return ContextCompat.checkSelfPermission(ctx, permission) != PackageManager.PERMISSION_GRANTED;
+        return ContextCompat.checkSelfPermission(ctx, permission) == PackageManager.PERMISSION_GRANTED;
     }
 }
