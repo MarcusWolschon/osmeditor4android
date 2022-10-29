@@ -150,7 +150,7 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
 
         @Override
         public void load(SubsamplingScaleImageView view, String uri) {
-            view.setOrientation(SubsamplingScaleImageView.ORIENTATION_90);
+            view.setOrientation(SubsamplingScaleImageView.ORIENTATION_USE_EXIF);
             view.setImage(ImageSource.uri(uri));
         }
 
