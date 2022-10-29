@@ -726,7 +726,7 @@ public class Layers extends AbstractConfigurationDialog {
                             TileLayerDialog.showLayerDialog(activity, rowid, null, () -> {
                                 // the original DB is closed here
                                 try (TileLayerDatabase tlDb2 = new TileLayerDatabase(activity); SQLiteDatabase db2 = tlDb2.getReadableDatabase()) {
-                                    TileLayerSource.getListsLocked(activity, db2, false); // recreate in memory lists
+                                    TileLayerSource.getListsLocked(activity, db2, true); // recreate in memory lists
                                     layer.invalidate();
                                 }
                             });

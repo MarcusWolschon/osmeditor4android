@@ -107,6 +107,7 @@ public class Splash extends AppCompatActivity {
                         if (newInstall || newConfig) {
                             TileLayerSource.createOrUpdateFromAssetsSource(Splash.this, db.getWritableDatabase(), newConfig, true);
                         }
+                        TileLayerSource.getListsLocked(Splash.this, db.getReadableDatabase(), true);
                     }
                 }
                 if (newInstall || newConfig) {
