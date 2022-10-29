@@ -1489,11 +1489,11 @@ public class TileLayerSource implements Serializable {
      * @param category category of layer that should be returned or null for all
      * @return available tile layer IDs.
      */
-    private static String[] getIds(@NonNull Map<String, TileLayerSource> serverList, @Nullable BoundingBox box, boolean filtered, @Nullable TileType tileType,
+    private static String[] getIds(@Nullable Map<String, TileLayerSource> serverList, @Nullable BoundingBox box, boolean filtered, @Nullable TileType tileType,
             @Nullable Category category) {
         List<String> ids = new ArrayList<>();
         synchronized (serverListLock) {
-            if (backgroundServerList != null) {
+            if (serverList != null) {
                 List<TileLayerSource> list = getServersFilteredSorted(filtered, serverList, category, tileType, box);
                 for (TileLayerSource t : list) {
                     ids.add(t.id);
