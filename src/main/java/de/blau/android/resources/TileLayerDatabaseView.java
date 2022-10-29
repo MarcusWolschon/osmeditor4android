@@ -185,7 +185,8 @@ public class TileLayerDatabaseView {
                 }
             }
             layer.getTileProvider().update();
-            checkMru(layer, TileLayerSource.getIds(null, false, null, null));
+            checkMru(layer, layer.getType() == LayerType.OVERLAYIMAGERY ? TileLayerSource.getOverlayIds(null, false, null, null)
+                    : TileLayerSource.getIds(null, false, null, null));
         }
     }
 
