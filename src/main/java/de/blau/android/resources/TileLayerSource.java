@@ -396,7 +396,7 @@ public class TileLayerSource implements Serializable {
     // ===========================================================
 
     private transient Context        ctx;
-    private boolean                  metadataLoaded;
+    private boolean                  metadataLoaded   = true;
     private final String             id;
     private String                   name;
     private String                   type;
@@ -620,8 +620,6 @@ public class TileLayerSource implements Serializable {
             getProviders().add(provider);
         }
 
-        metadataLoaded = true;
-
         if (name == null) {
             // parse error or other fatal issue
             this.name = "INVALID";
@@ -813,6 +811,16 @@ public class TileLayerSource implements Serializable {
         try (TileLayerDatabase db = new TileLayerDatabase(ctx)) {
             TileLayerSource layer = TileLayerDatabase.getLayer(ctx, db.getReadableDatabase(), id);
             if (layer != null && layer.replaceApiKey(ctx, false)) {
+                synchronized (serverListLock) {
+                    if (!hasLists) {
+                        getLists(ctx, db, false);
+                    }
+                    if (layer.isOverlay()) {
+                        overlayServerList.put(layer.getId(), layer);
+                    } else {
+                        backgroundServerList.put(layer.getId(), layer);
+                    }
+                }
                 return layer;
             }
         }

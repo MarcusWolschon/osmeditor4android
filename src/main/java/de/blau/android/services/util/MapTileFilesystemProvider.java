@@ -397,8 +397,6 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
             Log.d(DEBUG_TAG, "Setting cache size to " + tileCacheSize + " on " + mountPoint.getPath());
             try {
                 result = new MapTileFilesystemProvider(ctx, mountPoint, tileCacheSize * 1024 * 1024); // FSCache
-                // try to get BING layer early so the meta-data is already loaded
-                TileLayerSource.get(ctx, TileLayerSource.LAYER_BING, false);
             } catch (SQLiteException slex) {
                 Log.d(DEBUG_TAG, "Opening DB hit " + slex);
                 Snack.toastTopError(ctx, ctx.getString(R.string.toast_tile_database_issue, slex.getMessage()));
