@@ -49,9 +49,12 @@ public class ImageryLayerInfo extends LayerInfo {
         tp.setMargins(10, 2, 10, 2);
         tableLayout.setColumnShrinkable(1, false);
         tableLayout.setColumnStretchable(2, true);
-        if (layer == null || !layer.isMetadataLoaded()) {
-            Log.e(DEBUG_TAG, "layer null or meta data not loaded");
+        if (layer == null) {
+            Log.e(DEBUG_TAG, "layer null");
             tableLayout.addView(TableLayoutUtils.createFullRowTitle(activity, activity.getString(R.string.layer_info_layer_not_available), tp));
+        } else if (!layer.isMetadataLoaded()) {
+            Log.e(DEBUG_TAG, "meta data not loaded");
+            tableLayout.addView(TableLayoutUtils.createFullRowTitle(activity, activity.getString(R.string.layer_info_no_meta_data), tp));
         } else {
             tableLayout.addView(TableLayoutUtils.createFullRowTitle(activity, layer.getName(), tp));
             tableLayout.addView(TableLayoutUtils.divider(activity));

@@ -396,7 +396,7 @@ public class TileLayerSource implements Serializable {
     // ===========================================================
 
     private transient Context        ctx;
-    private boolean                  metadataLoaded;
+    private boolean                  metadataLoaded   = true;
     private final String             id;
     private String                   name;
     private String                   type;
@@ -620,8 +620,6 @@ public class TileLayerSource implements Serializable {
             getProviders().add(provider);
         }
 
-        metadataLoaded = true;
-
         if (name == null) {
             // parse error or other fatal issue
             this.name = "INVALID";
@@ -813,6 +811,16 @@ public class TileLayerSource implements Serializable {
         try (TileLayerDatabase db = new TileLayerDatabase(ctx)) {
             TileLayerSource layer = TileLayerDatabase.getLayer(ctx, db.getReadableDatabase(), id);
             if (layer != null && layer.replaceApiKey(ctx, false)) {
+                synchronized (serverListLock) {
+                    if (!hasLists) {
+                        getLists(ctx, db, false);
+                    }
+                    if (layer.isOverlay()) {
+                        overlayServerList.put(layer.getId(), layer);
+                    } else {
+                        backgroundServerList.put(layer.getId(), layer);
+                    }
+                }
                 return layer;
             }
         }
@@ -1481,11 +1489,11 @@ public class TileLayerSource implements Serializable {
      * @param category category of layer that should be returned or null for all
      * @return available tile layer IDs.
      */
-    private static String[] getIds(@NonNull Map<String, TileLayerSource> serverList, @Nullable BoundingBox box, boolean filtered, @Nullable TileType tileType,
+    private static String[] getIds(@Nullable Map<String, TileLayerSource> serverList, @Nullable BoundingBox box, boolean filtered, @Nullable TileType tileType,
             @Nullable Category category) {
         List<String> ids = new ArrayList<>();
         synchronized (serverListLock) {
-            if (backgroundServerList != null) {
+            if (serverList != null) {
                 List<TileLayerSource> list = getServersFilteredSorted(filtered, serverList, category, tileType, box);
                 for (TileLayerSource t : list) {
                     ids.add(t.id);
