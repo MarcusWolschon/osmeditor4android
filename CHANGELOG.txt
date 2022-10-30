@@ -1,11 +1,21 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+18.0.5:
+
+- Fix various Bing imagery source improvements
+- Fix use exif orientation when displaying photos
+- Fix improve handling of media store indexing 
+- Fix wrong GPX description element name
+- Uodate ElemenHistoryDialog (fixes white text on white background)
+- Update translations
+- Update imagery from ELI
+
 18.0.4:
 
 - Fix "import", aka make a copy, of MBT files on API 29 and higher (Android 12 access issue)
 - Fix protect against empty todo list
 - Fix protect against null bounding box
-- Update to AGP 4.2 (fixes F-Droid build problem)
+- Update to AGP 4.2 (fixes F-Droids build problem)
 - Update translations
 - Update presets
 - Update imagery from ELI
