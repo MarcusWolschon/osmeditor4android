@@ -489,6 +489,7 @@
     <string name="toast_url_empty">Enter a URL</string>
     <string name="toast_min_zoom">Set minimum zoom lower than maximum</string>
     <string name="toast_tile_layer_exists">Tile source %1$s has the same url</string>
+    <string name="toast_styleable_layer_exists">Layer for %1$s exists</string>
     <string name="toast_no_changes">You have not changed anything yet…</string>
     <string name="toast_jpeg_not_transparent">JPEG files are not transparent and can\'t be used as an overlay</string>
     <string name="toast_unsupported_projection">Unsupported projection  %1$s.\n\nOnly EPSG:3857, EPSG:4326 and synonyms are supported.</string>
