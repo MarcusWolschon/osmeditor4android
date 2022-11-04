@@ -420,14 +420,16 @@ public class Layers extends AbstractConfigurationDialog {
             de.blau.android.layer.Util.addLayer(activity, type, uriString);
             map.setUpLayers(activity);
             layer = (de.blau.android.layer.StyleableLayer) map.getLayer(type, uriString);
-        }
-        if (layer != null) { // if null setUpLayers will have toasted
-            layer.resetStyling();
-            LayerStyle.showDialog(activity, layer.getIndex());
-            SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
-            layer.invalidate();
-            tl.removeAllViews();
-            addRows(activity);
+            if (layer != null) { // if null setUpLayers will have toasted
+                layer.resetStyling();
+                LayerStyle.showDialog(activity, layer.getIndex());
+                SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
+                layer.invalidate();
+                tl.removeAllViews();
+                addRows(activity);
+            }
+        } else {
+            Snack.toastTopWarning(activity, activity.getString(R.string.toast_styleable_layer_exists, fileUri.getLastPathSegment()));
         }
     }
 
@@ -756,7 +758,21 @@ public class Layers extends AbstractConfigurationDialog {
                     }
                     return true;
                 });
-                item.setEnabled(((StyleableInterface) layer).stylingEnabled());
+                final boolean stylingEnabled = ((StyleableInterface) layer).stylingEnabled();
+                item.setEnabled(stylingEnabled);
+                item = menu.add(R.string.layer_reset_style);
+                item.setOnMenuItemClickListener(unused -> {
+                    if (layer != null) {
+                        ((StyleableInterface) layer).resetStyling();
+                        if (layer instanceof de.blau.android.layer.mvt.MapOverlay) {
+                            // tiles need to be re-decoded for auto styling to work
+                            ((de.blau.android.layer.mvt.MapOverlay) layer).flushTileCache(activity, false);
+                        }
+                        layer.invalidate();
+                    }
+                    return true;
+                });
+                item.setEnabled(stylingEnabled);
             }
 
             if (layer instanceof de.blau.android.layer.mvt.MapOverlay) {
@@ -768,17 +784,6 @@ public class Layers extends AbstractConfigurationDialog {
                         } catch (IOException e) {
                             Snack.toastTopInfo(activity, getString(R.string.toast_error_loading_style, e.getLocalizedMessage()));
                         }
-                    }
-                    return true;
-                });
-
-                item = menu.add(R.string.layer_reset_style);
-                item.setOnMenuItemClickListener(unused -> {
-                    if (layer != null) {
-                        ((de.blau.android.layer.mvt.MapOverlay) layer).resetStyling();
-                        // tiles need to be re-decoded for auto styling to work
-                        ((de.blau.android.layer.mvt.MapOverlay) layer).flushTileCache(activity, false);
-                        layer.invalidate();
                     }
                     return true;
                 });
