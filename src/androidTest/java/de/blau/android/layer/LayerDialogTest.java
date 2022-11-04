@@ -105,7 +105,7 @@ public class LayerDialogTest {
      * @param prefs a Preference object
      */
     private void resetTaskFilter(@NonNull Preferences prefs) {
-        prefs.setTaskFilter(new HashSet<String>(Arrays.asList(main.getResources().getStringArray(R.array.bug_filter_defaults))));
+        prefs.setTaskFilter(new HashSet<>(Arrays.asList(main.getResources().getStringArray(R.array.bug_filter_defaults))));
     }
 
     /**
@@ -307,6 +307,10 @@ public class LayerDialogTest {
         assertTrue(TestUtils.findText(device, false, "MultiLineString"));
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.done), true, false));
         TestUtils.sleep();
+        menuButton.clickAndWait(Until.newWindow(), 1000);
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.layer_reset_style), true, false));
+        TestUtils.sleep();
+        assertEquals("", layer.getLabel());
         menuButton.clickAndWait(Until.newWindow(), 1000);
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.discard), true, false));
         assertNull(map.getGeojsonLayer());
