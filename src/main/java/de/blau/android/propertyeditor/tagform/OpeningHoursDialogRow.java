@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -164,11 +164,11 @@ public class OpeningHoursDialogRow extends MultiselectDialogRow {
         if (value != null && !"".equals(value)) {
             if (!strictSucceeded && lenientSucceeded) {
                 rowLayout.post(() -> Snack.barWarning(rowLayout, caller.getString(R.string.toast_openinghours_autocorrected, row.keyView.getText().toString()),
-                        Snackbar.LENGTH_LONG));
+                        BaseTransientBottomBar.LENGTH_LONG));
             } else if (!strictSucceeded && adapter == null) {
                 // only warn if the value should be an OH string
                 rowLayout.post(() -> Snack.barWarning(rowLayout, caller.getString(R.string.toast_openinghours_invalid, row.keyView.getText().toString()),
-                        Snackbar.LENGTH_LONG));
+                        BaseTransientBottomBar.LENGTH_LONG));
             }
         }
 

@@ -306,16 +306,15 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
+            View itemView = mLayoutInflater.inflate(R.layout.photo_viewer_item, container, false);
+            SubsamplingScaleImageView view = itemView.findViewById(R.id.photoView);
             try {
-                View itemView = mLayoutInflater.inflate(R.layout.photo_viewer_item, container, false);
-                SubsamplingScaleImageView view = itemView.findViewById(R.id.photoView);
                 loader.load(view, photoList.get(position));
-                container.addView(itemView);
-                return itemView;
             } catch (IndexOutOfBoundsException e) {
                 Log.e(DEBUG_TAG, e.getMessage());
-                return null;
             }
+            container.addView(itemView);
+            return itemView;
         }
 
         @Override
