@@ -134,8 +134,7 @@ public class WrapperTest {
         Way way = (Way) delegator.getOsmElement(Way.NAME, 75786133L);
         assertNotNull(way);
         wrapper.setElement(way);
-        assertNull(wrapper.getState());
-
+        assertEquals(ElementState.State.UNCHANGED, wrapper.getState());
         Map<String, String> tags = new HashMap<>();
         tags.put("something", "new");
         delegator.setTags(way, tags);

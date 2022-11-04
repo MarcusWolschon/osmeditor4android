@@ -113,7 +113,7 @@ public class Wrapper implements Meta {
         case OsmElement.STATE_DELETED:
             return State.DELETED;
         default:
-            return null;
+            return State.UNCHANGED;
         }
     }
 
