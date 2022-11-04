@@ -2,7 +2,7 @@ package de.blau.android.propertyeditor.tagform;
 
 import java.util.List;
 
-import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -476,7 +476,7 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow, TagChange
             }
             if (phoneNumberReformatted > 0) {
                 caller.updateSingleValue(key, row.getValue());
-                row.post(() -> Snack.barWarning(row, R.string.toast_phone_number_reformatted, Snackbar.LENGTH_LONG));
+                row.post(() -> Snack.barWarning(row, R.string.toast_phone_number_reformatted, BaseTransientBottomBar.LENGTH_LONG));
             }
         }
         int currentCount = splitValues.size();

@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.Random;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
 
 import android.app.Activity;
 import android.content.Context;
@@ -207,7 +208,7 @@ public final class Snack {
             return;
         }
         try {
-            barError(v, Snackbar.make(v, res, Snackbar.LENGTH_LONG));
+            barError(v, Snackbar.make(v, res, BaseTransientBottomBar.LENGTH_LONG));
         } catch (IllegalArgumentException e) {
             Log.e(DEBUG_TAG, LOG_BAR_ERROR + e.getMessage());
         }
@@ -237,7 +238,7 @@ public final class Snack {
             return;
         }
         try {
-            barError(v, Snackbar.make(v, msg, Snackbar.LENGTH_LONG));
+            barError(v, Snackbar.make(v, msg, BaseTransientBottomBar.LENGTH_LONG));
         } catch (IllegalArgumentException e) {
             Log.e(DEBUG_TAG, LOG_BAR_ERROR + e.getMessage());
         }
@@ -287,7 +288,7 @@ public final class Snack {
             return;
         }
         try {
-            Snackbar snackbar = Snackbar.make(v, msgRes, Snackbar.LENGTH_LONG);
+            Snackbar snackbar = Snackbar.make(v, msgRes, BaseTransientBottomBar.LENGTH_LONG);
             snackbar.setDuration(SHOW_DURATION_ACTION);
             snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_error, R.color.material_red));
             snackbar.setActionTextColor(ContextCompat.getColor(v.getContext(), R.color.ccc_white));
@@ -318,7 +319,7 @@ public final class Snack {
      * @param res resource id of the message to display
      */
     public static void barInfo(View v, int res) {
-        barInfo(v, res, Snackbar.LENGTH_LONG);
+        barInfo(v, res, BaseTransientBottomBar.LENGTH_LONG);
     }
 
     /**
@@ -328,7 +329,7 @@ public final class Snack {
      * @param res resource id of the message to display
      */
     public static void barInfoShort(View v, int res) {
-        barInfo(v, res, Snackbar.LENGTH_SHORT);
+        barInfo(v, res, BaseTransientBottomBar.LENGTH_SHORT);
     }
 
     /**
@@ -339,7 +340,7 @@ public final class Snack {
      */
     public static void barInfoShort(Activity activity, int res) {
         if (activity != null) {
-            barInfo(activity.findViewById(android.R.id.content), res, Snackbar.LENGTH_SHORT);
+            barInfo(activity.findViewById(android.R.id.content), res, BaseTransientBottomBar.LENGTH_SHORT);
         }
     }
 
@@ -398,7 +399,7 @@ public final class Snack {
      */
     public static void barInfoShort(Activity activity, String msg) {
         if (activity != null) {
-            barInfo(activity.findViewById(android.R.id.content), msg, Snackbar.LENGTH_SHORT);
+            barInfo(activity.findViewById(android.R.id.content), msg, BaseTransientBottomBar.LENGTH_SHORT);
         }
     }
 
@@ -433,7 +434,7 @@ public final class Snack {
             return;
         }
         try {
-            barInfo(v, Snackbar.make(v, msg, Snackbar.LENGTH_LONG));
+            barInfo(v, Snackbar.make(v, msg, BaseTransientBottomBar.LENGTH_LONG));
         } catch (IllegalArgumentException e) {
             Log.e(DEBUG_TAG, LOG_BAR_INFO + e.getMessage());
         }
@@ -467,7 +468,7 @@ public final class Snack {
             return;
         }
         try {
-            Snackbar snackbar = Snackbar.make(v, msg, Snackbar.LENGTH_LONG);
+            Snackbar snackbar = Snackbar.make(v, msg, BaseTransientBottomBar.LENGTH_LONG);
             snackbar.setDuration(SHOW_DURATION_ACTION);
             snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_info, R.color.material_teal));
             snackbar.setActionTextColor(ContextCompat.getColor(v.getContext(), R.color.ccc_white));
@@ -487,7 +488,7 @@ public final class Snack {
      */
     public static void barWarning(Activity activity, int res) {
         if (activity != null) {
-            barWarning(activity.findViewById(android.R.id.content), res, Snackbar.LENGTH_LONG);
+            barWarning(activity.findViewById(android.R.id.content), res, BaseTransientBottomBar.LENGTH_LONG);
         }
     }
 
@@ -499,7 +500,7 @@ public final class Snack {
      */
     public static void barWarningShort(Activity activity, int res) {
         if (activity != null) {
-            barWarning(activity.findViewById(android.R.id.content), res, Snackbar.LENGTH_SHORT);
+            barWarning(activity.findViewById(android.R.id.content), res, BaseTransientBottomBar.LENGTH_SHORT);
         }
     }
 
@@ -530,7 +531,7 @@ public final class Snack {
      */
     public static void barWarning(Activity activity, @NonNull String msg) {
         if (activity != null) {
-            barWarning(activity.findViewById(android.R.id.content), msg, Snackbar.LENGTH_LONG);
+            barWarning(activity.findViewById(android.R.id.content), msg, BaseTransientBottomBar.LENGTH_LONG);
         }
     }
 
@@ -595,7 +596,7 @@ public final class Snack {
             return;
         }
         try {
-            Snackbar snackbar = Snackbar.make(v, msg, Snackbar.LENGTH_LONG);
+            Snackbar snackbar = Snackbar.make(v, msg, BaseTransientBottomBar.LENGTH_LONG);
             snackbar.setDuration(SHOW_DURATION_ACTION);
             snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_warning, R.color.material_yellow));
             snackbar.setActionTextColor(ContextCompat.getColor(v.getContext(), R.color.ccc_white));
