@@ -228,25 +228,20 @@ public class Map extends View implements IMapView {
                     try {
                         switch (type) { // NOSONAR
                         case IMAGERY:
-                            TileLayerSource backgroundSource = TileLayerSource.get(ctx, contentId, false);
-                            if (backgroundSource != null) {
-                                if (backgroundSource.getTileType() == TileType.MVT) {
-                                    layer = new de.blau.android.layer.mvt.MapOverlay(this, new VectorTileRenderer(), false);
-                                    ((MapTilesOverlayLayer<?>) layer).setRendererInfo(backgroundSource);
-                                } else {
-                                    layer = new MapTilesLayer<Bitmap>(this, backgroundSource, null, new MapTilesLayer.BitmapTileRenderer());
-                                }
-                            }
-                            break;
                         case OVERLAYIMAGERY:
-                            TileLayerSource overlaySource = TileLayerSource.get(ctx, contentId, false);
-                            if (overlaySource != null) {
-                                if (overlaySource.getTileType() == TileType.MVT) {
-                                    layer = new de.blau.android.layer.mvt.MapOverlay(this, new VectorTileRenderer(), true);
+                            TileLayerSource source = TileLayerSource.get(ctx, contentId, false);
+                            if (source != null) {
+                                boolean isOverlay = type == LayerType.OVERLAYIMAGERY;
+                                if (source.getTileType() == TileType.MVT) {
+                                    layer = new de.blau.android.layer.mvt.MapOverlay(this, new VectorTileRenderer(), isOverlay);
                                 } else {
-                                    layer = new MapTilesOverlayLayer<Bitmap>(this, new MapTilesLayer.BitmapTileRenderer());
+                                    layer = isOverlay ? new MapTilesOverlayLayer<Bitmap>(this, new MapTilesLayer.BitmapTileRenderer())
+                                            : new MapTilesLayer<Bitmap>(this, source, null, new MapTilesLayer.BitmapTileRenderer());
                                 }
-                                ((MapTilesOverlayLayer<?>) layer).setRendererInfo(overlaySource);
+                                ((MapTilesOverlayLayer<?>) layer).setRendererInfo(source);
+                            } else {
+                                db.deleteLayer(type, contentId);
+                                continue;
                             }
                             break;
                         case MVT:
@@ -270,11 +265,11 @@ public class Map extends View implements IMapView {
                                 } else {
                                     // we don't want to display the recording layer if the service isn't running
                                     // for consistency reasons this implies that we need to delete the layer
-                                    db.deleteLayer(LayerType.GPX, contentId);
+                                    db.deleteLayer(type, contentId);
                                     continue;
                                 }
                             } else if (!((de.blau.android.layer.gpx.MapOverlay) layer).fromFile(ctx, Uri.parse(contentId), true, null)) {
-                                db.deleteLayer(LayerType.GPX, contentId);
+                                db.deleteLayer(type, contentId);
                                 Log.w(DEBUG_TAG, "Deleted GPX layer for " + contentId);
                                 continue; // skip
                             }
@@ -287,14 +282,14 @@ public class Map extends View implements IMapView {
                             try {
                                 if (!((de.blau.android.layer.geojson.MapOverlay) layer).loadGeoJsonFile(ctx, Uri.parse(contentId), true)) {
                                     // other error, has already been toasted
-                                    db.deleteLayer(LayerType.GEOJSON, contentId);
+                                    db.deleteLayer(type, contentId);
                                     continue;
                                 }
                             } catch (IOException e) {
                                 if (context instanceof Main) {
                                     Snack.toastTopError(context, context.getString(R.string.toast_error_reading, contentId));
                                 }
-                                db.deleteLayer(LayerType.GEOJSON, contentId);
+                                db.deleteLayer(type, contentId);
                                 continue; // skip
                             }
                             break;
