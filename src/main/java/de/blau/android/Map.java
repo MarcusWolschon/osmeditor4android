@@ -226,6 +226,7 @@ public class Map extends View implements IMapView {
                 List<MapViewLayer> existingLayers = getLayers(type, contentId);
                 if (existingLayers.isEmpty()) {
                     try {
+                        boolean deleteLayer = false;
                         switch (type) { // NOSONAR
                         case IMAGERY:
                         case OVERLAYIMAGERY:
@@ -240,8 +241,7 @@ public class Map extends View implements IMapView {
                                 }
                                 ((MapTilesOverlayLayer<?>) layer).setRendererInfo(source);
                             } else {
-                                db.deleteLayer(type, contentId);
-                                continue;
+                                deleteLayer = true;
                             }
                             break;
                         case MVT:
@@ -265,13 +265,10 @@ public class Map extends View implements IMapView {
                                 } else {
                                     // we don't want to display the recording layer if the service isn't running
                                     // for consistency reasons this implies that we need to delete the layer
-                                    db.deleteLayer(type, contentId);
-                                    continue;
+                                    deleteLayer = true;
                                 }
-                            } else if (!((de.blau.android.layer.gpx.MapOverlay) layer).fromFile(ctx, Uri.parse(contentId), true, null)) {
-                                db.deleteLayer(type, contentId);
-                                Log.w(DEBUG_TAG, "Deleted GPX layer for " + contentId);
-                                continue; // skip
+                            } else {
+                                deleteLayer = !((de.blau.android.layer.gpx.MapOverlay) layer).fromFile(ctx, Uri.parse(contentId), true, null);
                             }
                             break;
                         case TASKS:
@@ -280,22 +277,22 @@ public class Map extends View implements IMapView {
                         case GEOJSON:
                             layer = new de.blau.android.layer.geojson.MapOverlay(this);
                             try {
-                                if (!((de.blau.android.layer.geojson.MapOverlay) layer).loadGeoJsonFile(ctx, Uri.parse(contentId), true)) {
-                                    // other error, has already been toasted
-                                    db.deleteLayer(type, contentId);
-                                    continue;
-                                }
+                                deleteLayer = !((de.blau.android.layer.geojson.MapOverlay) layer).loadGeoJsonFile(ctx, Uri.parse(contentId), true);
                             } catch (IOException e) {
                                 if (context instanceof Main) {
                                     Snack.toastTopError(context, context.getString(R.string.toast_error_reading, contentId));
                                 }
-                                db.deleteLayer(type, contentId);
-                                continue; // skip
+                                deleteLayer = true;
                             }
                             break;
                         case MAPILLARY:
                             layer = new de.blau.android.layer.mapillary.MapOverlay(this);
                             break;
+                        }
+                        if (deleteLayer) {
+                            Log.w(DEBUG_TAG, "Deleting " + type + " layer for " + contentId);
+                            db.deleteLayer(type, contentId);
+                            layer = null;
                         }
                     } catch (SecurityException ex) {
                         Log.e(DEBUG_TAG, "SecurityException creating layer, content " + contentId + " " + ex.getMessage());
