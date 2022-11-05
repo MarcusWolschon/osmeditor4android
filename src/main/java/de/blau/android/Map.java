@@ -239,7 +239,7 @@ public class Map extends View implements IMapView {
                                     layer = isOverlay ? new MapTilesOverlayLayer<Bitmap>(this, new MapTilesLayer.BitmapTileRenderer())
                                             : new MapTilesLayer<Bitmap>(this, source, null, new MapTilesLayer.BitmapTileRenderer());
                                 }
-                                ((MapTilesOverlayLayer<?>) layer).setRendererInfo(source);
+                                ((MapTilesLayer<?>) layer).setRendererInfo(source);
                             } else {
                                 deleteLayer = true;
                             }
