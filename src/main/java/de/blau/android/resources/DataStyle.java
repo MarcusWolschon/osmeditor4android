@@ -780,16 +780,16 @@ public final class DataStyle extends DefaultHandler {
      * @param ctx Android Context
      * @param is the InputStream
      * @param iconDirPath dir to use for icons
+     * @throws ParserConfigurationException other parser issues
+     * @throws IOException if reading the file fails
+     * @throws SAXException if parsing encounters an issue
      */
-    private DataStyle(@NonNull Context ctx, @NonNull InputStream is, @Nullable String iconDirPath) {
+    private DataStyle(@NonNull Context ctx, @NonNull InputStream is, @Nullable String iconDirPath)
+            throws SAXException, IOException, ParserConfigurationException {
         this.ctx = ctx;
         this.iconDirPath = iconDirPath;
         init(); // defaults for internal styles
-        try {
-            read(is);
-        } catch (Exception e) { // never crash
-            Log.e(DEBUG_TAG, "Reading style configuration failed " + e.getMessage());
-        }
+        read(is);
     }
 
     /**
@@ -1469,7 +1469,6 @@ public final class DataStyle extends DefaultHandler {
                         return; // everything OK
                     }
                 }
-                Snack.toastTopError(ctx, ctx.getString(R.string.toast_invalid_style_file, getName()));
                 Log.e(DEBUG_TAG, "format attribute missing or wrong for " + getName());
                 throw new SAXException("format attribute missing or wrong for " + getName());
             } else if (element.equals(CONFIG_ELEMENT)) {
@@ -1807,11 +1806,14 @@ public final class DataStyle extends DefaultHandler {
                         try (InputStream is = assetManager.open(Paths.DIRECTORY_PATH_STYLES + Paths.DELIMITER + fn)) {
                             DataStyle p = new DataStyle(ctx, is, null);
                             availableStyles.put(p.getName(), p);
+                        } catch (Exception ex) {
+                            // this shouldn't happen with styles included with the APK, so no need to toast
+                            Log.e(DEBUG_TAG, "Reading " + fn + " failed");
                         }
                     }
                 }
             }
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             Log.i(DEBUG_TAG, ex.toString());
         }
         // old style named files
@@ -1861,7 +1863,8 @@ public final class DataStyle extends DefaultHandler {
                 // overwrites profile with same name
                 availableStyles.put(p.getName(), p);
             } catch (Exception ex) { // never crash
-                Log.i(DEBUG_TAG, ex.toString());
+                Log.e(DEBUG_TAG, ex.toString());
+                Snack.toastTopError(ctx, ctx.getString(R.string.toast_invalid_style_file, f.getName(), ex.getMessage()));
             }
         }
     }
