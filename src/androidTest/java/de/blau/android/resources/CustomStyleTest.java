@@ -99,4 +99,29 @@ public class CustomStyleTest {
             fail(iex.getMessage());
         }
     }
+
+    /**
+     * Import invalid empty style
+     */
+    @Test
+    public void importEmpty() {
+        try {
+            File styleFile = JavaResources.copyFileFromResources(main, "empty.xml", null, "/");
+            try {
+                TestUtils.zoomToLevel(device, main, 18);
+                if (!TestUtils.clickMenuButton(device, main.getString(R.string.menu_tools), false, true)) {
+                    TestUtils.clickOverflowButton(device);
+                    TestUtils.clickText(device, false, main.getString(R.string.menu_tools), true, false);
+                }
+                TestUtils.scrollTo(main.getString(R.string.menu_tools_import_data_style), false);
+                TestUtils.clickText(device, false, main.getString(R.string.menu_tools_import_data_style), true, false);
+                TestUtils.selectFile(device, main, null, "empty.xml", true);
+                assertTrue(TestUtils.findNotification(device, "Error"));
+            } finally {
+                styleFile.delete();
+            }
+        } catch (IOException iex) {
+            fail(iex.getMessage());
+        }
+    }
 }
