@@ -207,7 +207,7 @@ sonarqube {
     properties {
         property "sonar.java.source","1.8"
         property "sonar.sourceEncoding","UTF-8"
-        property "sonar.java.binaries", "build/intermediates/app_classes/currentDebug/classes.jar"
+        property "sonar.java.binaries", "build/intermediates/compile_app_classes_jar/currentDebug/classes.jar"
         property "sonar.coverage.jacoco.xmlReportPaths","build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml"
     }
 }
@@ -646,7 +646,7 @@ task jacocoTestReport(type:JacocoReport, dependsOn: "testCurrentDebugUnitTest") 
     sourceDirectories.from = files(coverageSourceDirs)
     executionData.from     = fileTree(
             dir     : "$buildDir",
-            include : ['jacoco/testCurrentDebugUnitTest.exec', 'outputs/code-coverage/connected/flavors/CURRENT/*coverage.ec', 'reports/marathon/currentDebugAndroidTest/device-files/*/coverage/*.ec'])
+            include : ['outputs/unit_test_code_coverage/currentDebugUnitTest/testCurrentDebugUnitTest.exec', 'outputs/code-coverage/connected/flavors/CURRENT/*coverage.ec', 'reports/marathon/currentDebugAndroidTest/device-files/*/coverage/*.ec'])
     reports {
         xml.enabled = true
         html.enabled = true
