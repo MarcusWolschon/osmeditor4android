@@ -230,7 +230,7 @@ public class RouteSegmentActionModeCallback extends BuilderActionModeCallback {
                 Way tempCurrentSegment = currentSegment;
                 try {
                     // split from at node
-                    List<Result> result = logic.performSplit(main, currentSegment, commonNode);
+                    List<Result> result = logic.performSplit(main, currentSegment, commonNode, true);
                     Way newCurrentSegment = newWayFromSplitResult(result);
                     saveSplitResult(currentSegment, result);
                     if (size > 1) { // not the first segment
@@ -277,7 +277,7 @@ public class RouteSegmentActionModeCallback extends BuilderActionModeCallback {
     private void splitNext(@NonNull Way nextSegment, @NonNull Node commonNode, @NonNull final Way currentSegment, @Nullable final Way newCurrentSegment) {
         splitSafe(Util.wrapInList(nextSegment), () -> {
             try {
-                List<Result> result = logic.performSplit(main, nextSegment, commonNode);
+                List<Result> result = logic.performSplit(main, nextSegment, commonNode, true);
                 Way newNextSegment = newWayFromSplitResult(result);
                 saveSplitResult(nextSegment, result);
                 nextStep(currentSegment, nextSegment, newCurrentSegment, newNextSegment);

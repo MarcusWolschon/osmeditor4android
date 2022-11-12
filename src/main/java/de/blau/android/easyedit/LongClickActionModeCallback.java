@@ -150,7 +150,7 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
                 splitSafe(ways, () -> {
                     for (Way way : ways) {
                         if (way.hasNode(splitPosition)) {
-                            List<Result> result = logic.performSplit(main, way, logic.getSelectedNode());
+                            List<Result> result = logic.performSplit(main, way, logic.getSelectedNode(), true);
                             checkSplitResult(way, result);
                         }
                     }
@@ -203,7 +203,7 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
                     if (node != null) {
                         splitSafe(ways, () -> {
                             try {
-                                List<Result> result = logic.performSplit(main, way, node);
+                                List<Result> result = logic.performSplit(main, way, node, true);
                                 checkSplitResult(way, result);
                             } catch (OsmIllegalOperationException | StorageException ex) {
                                 // toast has already been displayed

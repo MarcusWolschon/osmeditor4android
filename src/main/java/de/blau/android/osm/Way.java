@@ -90,7 +90,7 @@ public class Way extends OsmElement implements BoundedObject, StyleableFeature {
      * @return list of nodes allowing {@link Iterator#remove()}.
      */
     @NonNull
-    Iterator<Node> getRemovableNodes() {
+    Iterator<Node> getNodeIterator() {
         return nodes.iterator();
     }
 

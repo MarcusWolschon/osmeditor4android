@@ -99,7 +99,7 @@ public class ViaElementActionModeCallback extends NonSimpleActionModeCallback {
                 splitSafe(Util.wrapInList(viaWay), () -> {
                     try {
                         // split via way and use appropriate segment
-                        List<Result> result = logic.performSplit(main, viaWay, viaNode);
+                        List<Result> result = logic.performSplit(main, viaWay, viaNode, true);
                         Way newViaWay = newWayFromSplitResult(result);
                         if (newViaWay != null) {
                             checkSplitResult(viaWay, result);
@@ -140,7 +140,7 @@ public class ViaElementActionModeCallback extends NonSimpleActionModeCallback {
         } else if (!toWay.isEndNode(viaNode) && !toWay.isClosed()) { // now check if we need to split the toWay
             splitSafe(Util.wrapInList(toWay), () -> {
                 try {
-                    List<Result> result = logic.performSplit(main, toWay, viaNode);
+                    List<Result> result = logic.performSplit(main, toWay, viaNode, true);
                     Way newToWay = newWayFromSplitResult(result);
                     saveSplitResult(toWay, result);
                     Snack.barInfo(main, R.string.toast_split_to);

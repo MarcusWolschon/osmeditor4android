@@ -263,7 +263,7 @@ public class StorageDelegatorTest {
         Node n = w.getNodes().get(2);
         Node first = w.getFirstNode();
         Node last = w.getLastNode();
-        List<Result> splitResult = d.splitAtNode(w, n);
+        List<Result> splitResult = d.splitAtNode(w, n, true);
         assertNotNull(splitResult);
         assertFalse(splitResult.isEmpty());
         Way newWay = (Way) splitResult.get(0).getElement();
@@ -275,7 +275,7 @@ public class StorageDelegatorTest {
         assertFalse(result.get(0).hasIssue());
         assertEquals(4, w.getNodes().size());
         assertNull(d.getOsmElement(Way.NAME, newWay.getOsmId()));
-        splitResult = d.splitAtNode(w, n);
+        splitResult = d.splitAtNode(w, n, true);
         assertNotNull(splitResult);
         assertFalse(splitResult.isEmpty());
         newWay = (Way) splitResult.get(0).getElement();
@@ -286,7 +286,7 @@ public class StorageDelegatorTest {
         assertEquals(4, newWay.getNodes().size());
         assertNull(d.getOsmElement(Way.NAME, w.getOsmId()));
         //
-        splitResult = d.splitAtNode(newWay, n);
+        splitResult = d.splitAtNode(newWay, n, true);
         assertNotNull(splitResult);
         assertFalse(splitResult.isEmpty());
         w = (Way) splitResult.get(0).getElement();
@@ -299,7 +299,7 @@ public class StorageDelegatorTest {
         assertEquals(last, w.getFirstNode());
         assertEquals(first, w.getLastNode());
         //
-        splitResult = d.splitAtNode(w, n);
+        splitResult = d.splitAtNode(w, n, true);
         assertNotNull(splitResult);
         assertFalse(splitResult.isEmpty());
         newWay = (Way) splitResult.get(0).getElement();
@@ -313,7 +313,7 @@ public class StorageDelegatorTest {
         assertEquals(last, w.getLastNode());
 
         // conflicting tags should allow merge but create non null result
-        splitResult = d.splitAtNode(w, n);
+        splitResult = d.splitAtNode(w, n, true);
         assertNotNull(splitResult);
         assertFalse(splitResult.isEmpty());
         newWay = (Way) splitResult.get(0).getElement();
@@ -330,7 +330,7 @@ public class StorageDelegatorTest {
         w.setTags(tags);
 
         // metric tags should allow merge but create non null result
-        splitResult = d.splitAtNode(w, n);
+        splitResult = d.splitAtNode(w, n, true);
         assertNotNull(splitResult);
         assertFalse(splitResult.isEmpty());
         newWay = (Way) splitResult.get(0).getElement();
@@ -351,7 +351,7 @@ public class StorageDelegatorTest {
 
         // metric tags should allow merge but create non null result
         // just one way with tag
-        splitResult = d.splitAtNode(w, n);
+        splitResult = d.splitAtNode(w, n, true);
         assertNotNull(splitResult);
         assertFalse(splitResult.isEmpty());
         newWay = (Way) splitResult.get(0).getElement();
@@ -371,7 +371,7 @@ public class StorageDelegatorTest {
 
         // metric tags should allow merge but create non null result
         // invalid tag value
-        splitResult = d.splitAtNode(w, n);
+        splitResult = d.splitAtNode(w, n, true);
         assertNotNull(splitResult);
         assertFalse(splitResult.isEmpty());
         newWay = (Way) splitResult.get(0).getElement();
@@ -389,7 +389,7 @@ public class StorageDelegatorTest {
         w.setTags(tags);
 
         // duration tags should allow merge but create non null result
-        splitResult = d.splitAtNode(w, n);
+        splitResult = d.splitAtNode(w, n, true);
         assertNotNull(splitResult);
         assertFalse(splitResult.isEmpty());
         newWay = (Way) splitResult.get(0).getElement();
@@ -409,7 +409,7 @@ public class StorageDelegatorTest {
         w.setTags(tags);
 
         // conflicting roles should allow merge but create non null result
-        splitResult = d.splitAtNode(w, n);
+        splitResult = d.splitAtNode(w, n, true);
         assertNotNull(splitResult);
         assertFalse(splitResult.isEmpty());
         newWay = (Way) splitResult.get(0).getElement();
@@ -424,7 +424,7 @@ public class StorageDelegatorTest {
         assertTrue(result.get(1).getIssues().contains(MergeIssue.ROLECONFLICT));
 
         // way with pos id should remain
-        splitResult = d.splitAtNode(w, n);
+        splitResult = d.splitAtNode(w, n, true);
         assertNotNull(splitResult);
         assertFalse(splitResult.isEmpty());
         newWay = (Way) splitResult.get(0).getElement();
@@ -438,7 +438,7 @@ public class StorageDelegatorTest {
         assertNotNull(d.getOsmElement(Way.NAME, 1234L));
 
         // unjoin ways
-        splitResult = d.splitAtNode(newWay, n);
+        splitResult = d.splitAtNode(newWay, n, true);
         assertNotNull(splitResult);
         assertFalse(splitResult.isEmpty());
         w = (Way) splitResult.get(0).getElement();
@@ -498,7 +498,7 @@ public class StorageDelegatorTest {
         // create two ways with common node
         Way w = DelegatorUtil.addWayToStorage(d, false);
         Node n = w.getNodes().get(2);
-        List<Result> splitResult = d.splitAtNode(w, n);
+        List<Result> splitResult = d.splitAtNode(w, n, true);
         assertNotNull(splitResult);
         assertFalse(splitResult.isEmpty());
         Way newWay = (Way) splitResult.get(0).getElement();
@@ -658,7 +658,7 @@ public class StorageDelegatorTest {
         Way temp = (Way) d.getOsmElement(Way.NAME, w.getOsmId());
         assertNotNull(temp);
         Node n = w.getNodes().get(2);
-        d.splitAtNode(w, n);
+        d.splitAtNode(w, n, true);
         assertEquals(2, d.getCurrentStorage().getWays(n).size());
         Node newNode = d.replaceNode(n);
         assertEquals(2, d.getCurrentStorage().getWays(newNode).size());
@@ -675,7 +675,7 @@ public class StorageDelegatorTest {
         Way temp = (Way) d.getOsmElement(Way.NAME, w.getOsmId());
         assertNotNull(temp);
         Node n = w.getNodes().get(2);
-        List<Result> splitResult = d.splitAtNode(w, n);
+        List<Result> splitResult = d.splitAtNode(w, n, true);
         assertNotNull(splitResult);
         assertFalse(splitResult.isEmpty());
         Way newWay = (Way) splitResult.get(0).getElement();
@@ -886,7 +886,7 @@ public class StorageDelegatorTest {
         Way temp = (Way) d.getOsmElement(Way.NAME, w.getOsmId());
         assertNotNull(temp);
         Node n = w.getNodes().get(2);
-        List<Result> splitResult = d.splitAtNode(w, n);
+        List<Result> splitResult = d.splitAtNode(w, n, true);
         assertNotNull(splitResult);
         assertFalse(splitResult.isEmpty());
         Way newWay = (Way) splitResult.get(0).getElement();
@@ -911,7 +911,7 @@ public class StorageDelegatorTest {
         w.setTags(tags);
 
         // split
-        List<Result> splitResult = d.splitAtNode(w, n);
+        List<Result> splitResult = d.splitAtNode(w, n, true);
         assertNotNull(splitResult);
         assertFalse(splitResult.isEmpty());
         Result first = splitResult.get(0);
@@ -999,7 +999,7 @@ public class StorageDelegatorTest {
         routeTag.put(Tags.KEY_TYPE, Tags.VALUE_ROUTE);
         r.setTags(routeTag);
 
-        List<Result> splitResult = d.splitAtNode(w, n);
+        List<Result> splitResult = d.splitAtNode(w, n, true);
         assertNotNull(splitResult);
         assertEquals(2, splitResult.size());
         Result relationResult = splitResult.get(1);
@@ -1027,7 +1027,7 @@ public class StorageDelegatorTest {
         routeTag.put(Tags.KEY_TYPE, Tags.VALUE_ROUTE);
         r.setTags(routeTag);
 
-        List<Result> splitResult = d.splitAtNode(w, n);
+        List<Result> splitResult = d.splitAtNode(w, n, true);
         assertNotNull(splitResult);
         assertEquals(1, splitResult.size());
     }
@@ -1048,16 +1048,16 @@ public class StorageDelegatorTest {
         routeTag.put(Tags.KEY_TYPE, Tags.VALUE_ROUTE);
         r.setTags(routeTag);
 
-        List<Result> splitResult = d.splitAtNode(w, n);
+        List<Result> splitResult = d.splitAtNode(w, n, true);
         assertNotNull(splitResult);
         assertEquals(1, splitResult.size());
 
         // split again, this should not cause an error as we can determine where to put the split off part
         Way newWay = (Way) splitResult.get(0).getElement();
         if (newWay.nodeCount() > w.nodeCount()) {
-            splitResult = d.splitAtNode(newWay, newWay.getNodes().get(1));
+            splitResult = d.splitAtNode(newWay, newWay.getNodes().get(1), true);
         } else {
-            splitResult = d.splitAtNode(w, w.getNodes().get(1));
+            splitResult = d.splitAtNode(w, w.getNodes().get(1), true);
         }
         assertNotNull(splitResult);
         assertEquals(1, splitResult.size());
@@ -1087,7 +1087,7 @@ public class StorageDelegatorTest {
             r.setTags(routeTag);
 
             try {
-                List<Result> splitResult = d.splitAtNode(w, n);
+                List<Result> splitResult = d.splitAtNode(w, n, true);
                 fail("should have errored");
             } catch (OsmIllegalOperationException ex) {
                 // expected
@@ -1111,7 +1111,7 @@ public class StorageDelegatorTest {
 
         Relation r = w.getParentRelations().get(0);
 
-        List<Result> splitResult = d.splitAtNode(w, n);
+        List<Result> splitResult = d.splitAtNode(w, n, true);
         assertNotNull(splitResult);
         assertEquals(1, splitResult.size());
         Way newWay = (Way) splitResult.get(0).getElement();
@@ -1126,7 +1126,7 @@ public class StorageDelegatorTest {
         r.addMember(new RelationMember(Tags.ROLE_VIA, n));
 
         // split from
-        splitResult = d.splitAtNode(w, w.getNodes().get(1));
+        splitResult = d.splitAtNode(w, w.getNodes().get(1), true);
         assertNotNull(splitResult);
         assertEquals(1, splitResult.size());
 

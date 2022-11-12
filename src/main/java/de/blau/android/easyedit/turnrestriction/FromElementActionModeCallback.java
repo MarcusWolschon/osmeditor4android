@@ -118,13 +118,13 @@ public class FromElementActionModeCallback extends NonSimpleActionModeCallback {
                     Way newFromWay = null;
                     if (fromNeedsSplit) {
                         // split from at node
-                        List<Result> result = logic.performSplit(main, fromWay, splitNode);
+                        List<Result> result = logic.performSplit(main, fromWay, splitNode, true);
                         newFromWay = newWayFromSplitResult(result);
                         saveSplitResult(fromWay, result);
                     }
                     Way newViaWay = null;
                     if (viaNeedsSplit) {
-                        List<Result> result = logic.performSplit(main, splitViaWay, splitNode);
+                        List<Result> result = logic.performSplit(main, splitViaWay, splitNode, true);
                         newViaWay = newWayFromSplitResult(result);
                         saveSplitResult(splitViaWay, result);
                     }

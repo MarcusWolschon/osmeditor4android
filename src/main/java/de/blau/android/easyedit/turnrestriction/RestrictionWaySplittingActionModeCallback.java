@@ -78,7 +78,7 @@ public class RestrictionWaySplittingActionModeCallback extends NonSimpleActionMo
         } else {
             splitSafe(Util.wrapInList(way), () -> {
                 try {
-                    List<Result> result = logic.performSplit(main, way, (Node) element);
+                    List<Result> result = logic.performSplit(main, way, (Node) element, true);
                     Way newWay = newWayFromSplitResult(result);
                     if (newWay != null) {
                         saveSplitResult(way, result);

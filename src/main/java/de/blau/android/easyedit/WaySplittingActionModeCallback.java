@@ -71,7 +71,7 @@ public class WaySplittingActionModeCallback extends NonSimpleActionModeCallback 
         } else {
             splitSafe(Util.wrapInList(way), () -> {
                 try {
-                    List<Result> result = logic.performSplit(main, way, (Node) element);
+                    List<Result> result = logic.performSplit(main, way, (Node) element, true);
                     checkSplitResult(way, result);
                 } catch (OsmIllegalOperationException | StorageException ex) {
                     // toast has already been displayed
