@@ -8,6 +8,13 @@ This is the first [OpenStreetMap][openstreetmap] editor for
 
 ![Amerigo Vespucci](http://vespucci.io/180px-Amerigo_Vespucci.jpg "Amerigo Vespucci")
 
+## Installing
+
+[GooglePlay](https://play.google.com/store/apps/details?id=de.blau.android)
+
+[GitHubReleasesLatest](https://github.com/MarcusWolschon/osmeditor4android/releases/latest)
+
+[FDroid](https://www.f-droid.org/en/packages/de.blau.android/)
 
 ## Contributing
 
