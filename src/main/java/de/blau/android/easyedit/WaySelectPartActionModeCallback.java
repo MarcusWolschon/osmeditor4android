@@ -41,8 +41,8 @@ public class WaySelectPartActionModeCallback extends NonSimpleActionModeCallback
         helpTopic = R.string.help_waysplitting;
         mode.setTitle(R.string.actionmode_split_way);
         mode.setSubtitle(R.string.actionmode_split_way_select_part);
-        logic.setClickableElements(new HashSet<>(Arrays.asList(way, node)));
         logic.setReturnRelations(false);
+        logic.setClickableElements(new HashSet<>(Arrays.asList(way, node)));
         super.onCreateActionMode(mode, menu);
         return true;
     }
@@ -56,7 +56,6 @@ public class WaySelectPartActionModeCallback extends NonSimpleActionModeCallback
 
     @Override
     public boolean handleElementClick(OsmElement element) {
-        super.handleElementClick(element);
         // race conditions with touch events seem to make the impossible possible
         if (!(element instanceof Way) || x == -Float.MAX_VALUE || y == -Float.MAX_VALUE) {
             return false;

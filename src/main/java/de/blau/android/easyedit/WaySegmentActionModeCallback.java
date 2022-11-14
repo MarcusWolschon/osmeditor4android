@@ -54,38 +54,6 @@ public class WaySegmentActionModeCallback extends NonSimpleActionModeCallback {
         return false;
     }
 
-    @Override
-    public boolean handleElementClick(OsmElement element) { // due to clickableElements, only valid ways can be
-                                                            // clicked
-        super.handleElementClick(element);
-        // race conditions with touch events seem to make the impossible possible
-        if (!(element instanceof Way) || x == -Float.MAX_VALUE || y == -Float.MAX_VALUE) {
-            return false;
-        }
-        List<Node> wayNodes = way.getNodes();
-        Node[] segmentNodes = findSegmentFromCoordinates(wayNodes, x, y);
-        if (segmentNodes.length == 2) {
-            final Node n1 = segmentNodes[0];
-            final Node n2 = segmentNodes[1];
-            splitSafe(Util.wrapInList(way), () -> {
-                try {
-                    List<Result> result = logic.performExtractSegment(main, way, n1, n2);
-                    checkSplitResult(way, result);
-                    Way segment = newWayFromSplitResult(result);
-                    if (segment.hasTagKey(Tags.KEY_HIGHWAY) || segment.hasTagKey(Tags.KEY_WATERWAY)) {
-                        main.startSupportActionMode(new WaySegmentModifyActionModeCallback(manager, segment));
-                    } else {
-                        main.startSupportActionMode(new WaySelectionActionModeCallback(manager, segment));
-                    }
-                } catch (OsmIllegalOperationException | StorageException ex) {
-                    // toast has already been displayed
-                    manager.finish();
-                }
-            });
-        }
-        return true;
-    }
-
     /**
      * Find a way "segment" from screen coordinates
      * 
@@ -122,6 +90,37 @@ public class WaySegmentActionModeCallback extends NonSimpleActionModeCallback {
             node1Y = node2Y;
         }
         return new Node[] {};
+    }
+
+    @Override
+    public boolean handleElementClick(OsmElement element) { // due to clickableElements, only valid ways can be
+                                                            // clicked
+        // race conditions with touch events seem to make the impossible possible
+        if (!(element instanceof Way) || x == -Float.MAX_VALUE || y == -Float.MAX_VALUE) {
+            return false;
+        }
+        List<Node> wayNodes = way.getNodes();
+        Node[] segmentNodes = findSegmentFromCoordinates(wayNodes, x, y);
+        if (segmentNodes.length == 2) {
+            final Node n1 = segmentNodes[0];
+            final Node n2 = segmentNodes[1];
+            splitSafe(Util.wrapInList(way), () -> {
+                try {
+                    List<Result> result = logic.performExtractSegment(main, way, n1, n2);
+                    checkSplitResult(way, result);
+                    Way segment = newWayFromSplitResult(result);
+                    if (segment.hasTagKey(Tags.KEY_HIGHWAY) || segment.hasTagKey(Tags.KEY_WATERWAY)) {
+                        main.startSupportActionMode(new WaySegmentModifyActionModeCallback(manager, segment));
+                    } else {
+                        main.startSupportActionMode(new WaySelectionActionModeCallback(manager, segment));
+                    }
+                } catch (OsmIllegalOperationException | StorageException ex) {
+                    // toast has already been displayed
+                    manager.finish();
+                }
+            });
+        }
+        return true;
     }
 
     @Override
