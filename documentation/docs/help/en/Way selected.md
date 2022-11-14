@@ -44,7 +44,7 @@ Reverse the direction of the way. If the way has direction dependent tags it wil
 
 ### ![Split](../images/ic_content_cut_light_36px.png) Split
 
-Split the selected way. The nodes at the available locations for splitting will have a visible touch area. The "Split" action is only available if the way has more than two nodes. If the way is closed you will need to select two nodes.
+Split the selected way. The nodes at the available locations for splitting will have a visible touch area. The "Split" action is only available if the way has more than two nodes. If the way is closed you will need to select two nodes. For non-closed ways a long touch on the node to use for splitting will allow you to select which part of the original way will be used for the new way.
 
 ### ![Merge](../images/tag_menu_merge.png) Merge
 

@@ -396,6 +396,25 @@ public class EasyEditManager {
      * This gets called when the map is long-clciked in easy-edit mode
      * 
      * @param v the View that was long clicked
+     * @param e an OsmElement
+     * @return true if we handled the click
+     */
+    public boolean handleLongClick(@Nullable View v, @NonNull OsmElement e) {
+        synchronized (actionModeCallbackLock) {
+            if (currentActionModeCallback != null && currentActionModeCallback.handleElementLongClick(e)) {
+                if (v != null) {
+                    v.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
+                }
+                return true;
+            }
+            return false;
+        }
+    }
+
+    /**
+     * This gets called when the map is long-clciked in easy-edit mode
+     * 
+     * @param v the View that was long clicked
      * @param x screen X coordinate
      * @param y screen Y coordinate
      * @return true if we handled the click
@@ -405,7 +424,7 @@ public class EasyEditManager {
             if ((currentActionModeCallback instanceof PathCreationActionModeCallback)) {
                 // we don't do long clicks in the above modes
                 Log.d("EasyEditManager", "handleLongClick ignoring long click");
-                return false; // this probably should really return true aka click handled
+                return false;
             }
         }
         v.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);

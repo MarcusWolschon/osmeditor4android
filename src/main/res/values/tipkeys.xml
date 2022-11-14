@@ -18,4 +18,6 @@
     <string name="tip_mode_switching_key">modeSwitching</string>
     <string name="tip_empty_gpx_download_key">emptyGpxDownload</string>
     <string name="tip_no_redo_key">noRedo</string>
+    <string name="tip_way_splitting_key">waySplitting</string>
+    <string name="tip_closed_way_splitting_key">closedWaySplitting</string>
 </resources>
