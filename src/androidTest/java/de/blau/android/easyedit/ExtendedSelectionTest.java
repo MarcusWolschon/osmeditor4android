@@ -132,6 +132,7 @@ public class ExtendedSelectionTest {
         assertNotNull(way);
         assertEquals(104148456L, way.getOsmId());
         assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.menu_split), false, true));
+        TestUtils.clickText(device, false, context.getString(R.string.okay), true, false); // TIP
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.menu_split)));
         TestUtils.clickAtCoordinates(device, map, 8.3899934, 47.3898778, true);
         TestUtils.textGone(device, context.getString(R.string.menu_split), 1);
