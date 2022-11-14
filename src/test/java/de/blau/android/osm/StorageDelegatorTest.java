@@ -896,6 +896,25 @@ public class StorageDelegatorTest {
     }
 
     /**
+     * Split way at node, use earlier nodes in the way for the new way
+     */
+    @Test
+    public void splitReverse() {
+        StorageDelegator d = new StorageDelegator();
+        Way w = DelegatorUtil.addWayToStorage(d, false);
+        Way temp = (Way) d.getOsmElement(Way.NAME, w.getOsmId());
+        assertNotNull(temp);
+        Node n = w.getNodes().get(2);
+        List<Result> splitResult = d.splitAtNode(w, n, false);
+        assertNotNull(splitResult);
+        assertFalse(splitResult.isEmpty());
+        Way newWay = (Way) splitResult.get(0).getElement();
+        assertEquals(n, w.getFirstNode());
+        assertEquals(n, newWay.getLastNode());
+        assertEquals(3, newWay.nodeCount());
+    }
+    
+    /**
      * Split / merge way with metric tag
      */
     @Test
