@@ -470,6 +470,7 @@ public class WayActionsTest {
             assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
 
             assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.menu_split), false, true));
+            TestUtils.clickText(device, false, context.getString(R.string.okay), true, false); // TIP
 
             assertTrue(TestUtils.findText(device, false, context.getString(R.string.menu_split)));
 

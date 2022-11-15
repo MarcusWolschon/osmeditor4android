@@ -6,6 +6,8 @@ import java.util.List;
 import android.view.Menu;
 import androidx.annotation.NonNull;
 import androidx.appcompat.view.ActionMode;
+import de.blau.android.App;
+import de.blau.android.Logic;
 import de.blau.android.R;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.exception.StorageException;
@@ -24,7 +26,7 @@ public class WaySegmentActionModeCallback extends NonSimpleActionModeCallback {
     private float     y = -Float.MAX_VALUE;
 
     /**
-     * Construct a new WayMergingActionModeCallback from an existing Way and potentially mergable Ways
+     * Construct a new WaySegmentActionModeCallback from an existing Way
      * 
      * @param manager the current EasyEditManager instance
      * @param way the existing Way
@@ -52,22 +54,25 @@ public class WaySegmentActionModeCallback extends NonSimpleActionModeCallback {
         return false;
     }
 
-    @Override
-    public boolean handleElementClick(OsmElement element) { // due to clickableElements, only valid ways can be
-                                                            // clicked
-        super.handleElementClick(element);
-        // race conditions with touch events seem to make the impossible possible
-        // TODO fix properly
-        if (!(element instanceof Way) || x == -Float.MAX_VALUE || y == -Float.MAX_VALUE) {
-            return false;
-        }
-        List<Node> wayNodes = way.getNodes();
+    /**
+     * Find a way "segment" from screen coordinates
+     * 
+     * Note this returns the first segment with the coordinates inside the tolerance values
+     * 
+     * @param wayNodes a list of way Nodes
+     * @param x screen x coordinate
+     * @param y screen y coordinate
+     * @return an array holding start and end Node of the segment or null
+     */
+    @NonNull
+    static Node[] findSegmentFromCoordinates(@NonNull final List<Node> wayNodes, final float x, final float y) {
+        Logic logic = App.getLogic();
+        Node node1 = null;
+        Node node2 = null;
 
         float node1X = Float.MAX_VALUE;
         float node1Y = Float.MAX_VALUE;
-        Node node1 = null;
-        Node node2 = null;
-        double distance = -1D;
+
         // Iterate over all WayNodes, but not the last one.
         for (int k = 0, wayNodesSize = wayNodes.size(); k < wayNodesSize - 1; ++k) {
             node1 = wayNodes.get(k);
@@ -78,18 +83,27 @@ public class WaySegmentActionModeCallback extends NonSimpleActionModeCallback {
             }
             float node2X = logic.lonE7ToX(node2.getLon());
             float node2Y = logic.latE7ToY(node2.getLat());
-
-            distance = Geometry.isPositionOnLine(x, y, node1X, node1Y, node2X, node2Y);
-            if (distance >= 0) {
-                break;
+            if (Geometry.isPositionOnLine(x, y, node1X, node1Y, node2X, node2Y) >= 0) {
+                return new Node[] { node1, node2 };
             }
             node1X = node2X;
             node1Y = node2Y;
         }
+        return new Node[] {};
+    }
 
-        if (distance >= 0 && node1 != null) {
-            final Node n1 = node1;
-            final Node n2 = node2;
+    @Override
+    public boolean handleElementClick(OsmElement element) { // due to clickableElements, only valid ways can be
+                                                            // clicked
+        // race conditions with touch events seem to make the impossible possible
+        if (!(element instanceof Way) || x == -Float.MAX_VALUE || y == -Float.MAX_VALUE) {
+            return false;
+        }
+        List<Node> wayNodes = way.getNodes();
+        Node[] segmentNodes = findSegmentFromCoordinates(wayNodes, x, y);
+        if (segmentNodes.length == 2) {
+            final Node n1 = segmentNodes[0];
+            final Node n2 = segmentNodes[1];
             splitSafe(Util.wrapInList(way), () -> {
                 try {
                     List<Result> result = logic.performExtractSegment(main, way, n1, n2);

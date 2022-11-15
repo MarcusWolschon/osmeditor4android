@@ -187,7 +187,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             return false;
         }
     }
-    
+
     /**
      * Insert a new element in to storage
      * 
@@ -1051,7 +1051,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         dirty = true;
         List<Way> ways = currentStorage.getWays(node);
         for (Way way : ways) {
-            splitAtNode(way, node);
+            splitAtNode(way, node, true);
         }
     }
 
@@ -1087,7 +1087,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         List<Node> nodesForOldWay2 = new LinkedList<>();
         boolean found1 = false;
         boolean found2 = false;
-        for (Iterator<Node> it = way.getRemovableNodes(); it.hasNext();) {
+        for (Iterator<Node> it = way.getNodeIterator(); it.hasNext();) {
             Node wayNode = it.next();
             if (!found1 && wayNode.getOsmId() == node1.getOsmId()) {
                 found1 = true;
@@ -1162,10 +1162,11 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * 
      * @param way way to split
      * @param node node to split at
+     * @param fromEnd use nodes after node for the new way
      * @return the new Way in the first Result
      */
     @NonNull
-    public List<Result> splitAtNode(@NonNull final Way way, @NonNull final Node node) {
+    public List<Result> splitAtNode(@NonNull final Way way, @NonNull final Node node, boolean fromEnd) {
         Log.d(DEBUG_TAG, "splitAtNode way " + way.getOsmId() + " node " + node.getOsmId());
         Result result = new Result();
         // undo - old way is saved here, new way is saved at insert
@@ -1199,20 +1200,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
 
         // we assume this node is only contained in the way once.
         // else the user needs to split the remaining way again.
-        List<Node> nodesForNewWay = new LinkedList<>();
-        boolean found = false;
-        boolean first = true; // node to split at can't be the first one
-        for (Iterator<Node> it = way.getRemovableNodes(); it.hasNext();) {
-            Node wayNode = it.next();
-            if (!found && wayNode.getOsmId() == node.getOsmId() && !first) {
-                found = true;
-                nodesForNewWay.add(wayNode);
-            } else if (found) {
-                nodesForNewWay.add(wayNode);
-                it.remove();
-            }
-            first = false;
-        }
+        List<Node> nodesForNewWay = splitOffNodes(way, node, fromEnd);
         if (nodesForNewWay.size() <= 1) {
             String msg = "splitAtNode can't split, new way would have " + nodesForNewWay.size() + " node(s)";
             Log.d(DEBUG_TAG, msg);
@@ -1249,6 +1237,32 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             Log.e(DEBUG_TAG, "splitAtNode got " + e.getMessage());
             throw e;
         }
+    }
+
+    /**
+     * Get nodes for the split of way keeping the initial ones
+     * 
+     * @param way the Way
+     * @param node the Node to split at
+     * @param fromEnd get Nodes from end of way
+     * @return a List of Nodes for the new Way
+     */
+    private List<Node> splitOffNodes(@NonNull final Way way, @NonNull final Node node, boolean fromEnd) {
+        List<Node> nodesForNewWay = new LinkedList<>();
+        boolean found = false;
+        boolean first = true; // node to split at can't be the first one
+        for (Iterator<Node> it = way.getNodeIterator(); it.hasNext();) {
+            Node wayNode = it.next();
+            if (wayNode.getOsmId() == node.getOsmId() && !first) {
+                found = true;
+                nodesForNewWay.add(wayNode);
+            } else if (found == fromEnd) {
+                nodesForNewWay.add(wayNode);
+                it.remove();
+            }
+            first = false;
+        }
+        return nodesForNewWay;
     }
 
     /**

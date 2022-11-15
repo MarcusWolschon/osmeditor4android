@@ -186,6 +186,7 @@ public class RelationTest {
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
         assertTrue(TestUtils.clickMenuButton(device, "Split", false, true));
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_closed_way_split_1)));
+        TestUtils.clickText(device, false, context.getString(R.string.okay), true, false); // TIP
         TestUtils.clickAtCoordinates(device, map, 8.3881251, 47.3885077, true);
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_closed_way_split_2)));
         TestUtils.clickAtCoordinates(device, map, 8.3881577, 47.3886924, true);

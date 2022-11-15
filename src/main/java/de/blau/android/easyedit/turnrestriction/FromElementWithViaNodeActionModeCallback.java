@@ -78,7 +78,7 @@ public class FromElementWithViaNodeActionModeCallback extends NonSimpleActionMod
             splitSafe(Util.wrapInList(fromWay), () -> {
                 try {
                     // split from at node
-                    List<Result> result = logic.performSplit(main, fromWay, viaNode);
+                    List<Result> result = logic.performSplit(main, fromWay, viaNode, true);
                     Way newFromWay = newWayFromSplitResult(result);
                     saveSplitResult(fromWay, result);
                     nextStep(fromWay, newFromWay);

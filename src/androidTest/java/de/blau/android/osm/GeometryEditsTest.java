@@ -89,7 +89,7 @@ public class GeometryEditsTest {
             final Node n3 = nList1.get(2);
 
             // split at n2
-            logic.performSplit(main, n2);
+            logic.performSplit(main, w1, n2, true);
 
             List<Way> wList1 = logic.getWaysForNode(n3);
             assertEquals(1, wList1.size());
@@ -110,7 +110,7 @@ public class GeometryEditsTest {
             assertEquals(3, r1.getMemberElements().size());
 
             // split way 2
-            logic.performSplit(main, n3);
+            logic.performSplit(main, w2, n3, true);
 
             List<Way> wList2 = logic.getWaysForNode(n3);
             // this assumes wList2 contains the way in chronological order
@@ -144,7 +144,7 @@ public class GeometryEditsTest {
             assertEquals(2, r3.getMemberElements().size());
 
             // resplit at n3
-            logic.performSplit(main, n3);
+            logic.performSplit(main, w2, n3, true);
 
             wList2 = logic.getWaysForNode(n3);
             // this assumes wList2 contains the way in chronological order
@@ -186,7 +186,7 @@ public class GeometryEditsTest {
             final Node n3 = nList1.get(2);
 
             // split at n2
-            logic.performSplit(main, n2);
+            logic.performSplit(main, w1, n2, true);
 
             List<Way> wList1 = logic.getWaysForNode(n3);
             assertEquals(1, wList1.size());
@@ -202,7 +202,7 @@ public class GeometryEditsTest {
             vias.get(0).setRole(Tags.ROLE_INTERSECTION);
 
             // split way 2
-            logic.performSplit(main, n3);
+            logic.performSplit(main, w2, n3, true);
 
             List<Way> wList2 = logic.getWaysForNode(n3);
             // this assumes wList2 contains the way in chronological order
@@ -262,7 +262,7 @@ public class GeometryEditsTest {
             assertEquals(2, r.getMemberElements().size());
 
             // split at n2
-            logic.performSplit(main, n2);
+            logic.performSplit(main, w1, n2, true);
 
             // get the the resulting ways
             List<Way> ways = logic.getWaysForNode(n4);
@@ -281,7 +281,7 @@ public class GeometryEditsTest {
             assertEquals(4, r.getMemberElements().size());
 
             // split at n3
-            logic.performSplit(main, n3);
+            logic.performSplit(main, w2, n3, true);
 
             // r should have 6 members now
             assertEquals(6, r.getMemberElements().size());

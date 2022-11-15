@@ -133,7 +133,7 @@ public class WayTest {
         StorageDelegator d = new StorageDelegator();
         Way w = addWayToStorage(d, false);
         Node n = w.getNodes().get(2);
-        List<Result> splitResult = d.splitAtNode(w, n);
+        List<Result> splitResult = d.splitAtNode(w, n, true);
         assertNotNull(splitResult);
         assertFalse(splitResult.isEmpty());
         Way w2 = (Way) splitResult.get(0).getElement();

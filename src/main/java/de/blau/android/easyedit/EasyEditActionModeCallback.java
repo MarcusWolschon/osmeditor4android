@@ -154,6 +154,18 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
     }
 
     /**
+     * This method gets called when an OsmElement long click has to be handled. The ActionModeCallback can then either return
+     * true to indicate that the click was handled (or should be ignored), or return false to indicate default handling
+     * should apply.
+     * 
+     * @param element the OsmElement that was long clicked
+     * @return true if the click has been handled, false if default handling should apply
+     */
+    public boolean handleElementLongClick(@NonNull OsmElement element) {
+        return false;
+    }
+
+    /**
      * Check if the mode only supports selection of OSM elements
      * 
      * @return true is only OSM elements can be selected

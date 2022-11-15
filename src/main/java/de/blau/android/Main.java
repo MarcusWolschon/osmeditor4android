@@ -3443,6 +3443,7 @@ public class Main extends FullScreenAppCompatActivity
         private List<ClickedObject<?>> clickedObjects = new ArrayList<>();
 
         private boolean doubleTap = false;
+        private boolean longClick = false;
 
         @Override
         public boolean onTouch(final View v, final MotionEvent m) {
@@ -3515,12 +3516,12 @@ public class Main extends FullScreenAppCompatActivity
         @Override
         public boolean onLongClick(final View v, final float x, final float y) {
             final Logic logic = App.getLogic();
+            boolean dataIsVisible = map.getDataLayer() != null && map.getDataLayer().isVisible();
+            clickedNodesAndWays = dataIsVisible ? App.getLogic().getClickedNodesAndWays(x, y) : new ArrayList<>();
+            int elementCount = clickedNodesAndWays.size();
             if (logic.isLocked()) {
                 // display context menu
                 getClickedObjects(x, y);
-                boolean dataIsVisible = map.getDataLayer() != null && map.getDataLayer().isVisible();
-                clickedNodesAndWays = dataIsVisible ? App.getLogic().getClickedNodesAndWays(x, y) : new ArrayList<>();
-                int elementCount = clickedNodesAndWays.size();
                 int clickedObjectsCount = clickedObjects.size();
                 int itemCount = elementCount + clickedObjectsCount;
                 if (itemCount == 1) {
@@ -3534,20 +3535,27 @@ public class Main extends FullScreenAppCompatActivity
                 }
                 return true;
             }
-            if (!prefs.areSimpleActionsEnabled()) {
-                if (logic.isInEditZoomRange()) {
+            if (logic.isInEditZoomRange()) {
+                if (prefs.areSimpleActionsEnabled()) {
+                    if (elementCount == 1 && getEasyEditManager().handleLongClick(v, clickedNodesAndWays.get(0))) {
+                        return true;
+                    }
+                    if (elementCount > 1) {
+                        longClick = true; // another ugly flag
+                        v.showContextMenu();
+                        return true;
+                    }
+                } else if (getEasyEditManager().handleLongClick(v, x, y)) {
                     // editing with the screen moving under you is a pain
                     setFollowGPS(false);
-                    return getEasyEditManager().handleLongClick(v, x, y);
-                } else {
-                    Snack.barWarningShort(Main.this, R.string.toast_not_in_edit_range);
+                    return true;
                 }
-            } else {
                 Tip.showDialog(Main.this, R.string.tip_longpress_simple_mode_key, R.string.tip_longpress_simple_mode);
                 Sound.beep();
+            } else {
+                Snack.barWarningShort(Main.this, R.string.toast_not_in_edit_range);
             }
-
-            return true; // long click handled
+            return false;
         }
 
         /**
@@ -3798,6 +3806,9 @@ public class Main extends FullScreenAppCompatActivity
                         if (doubleTap) {
                             doubleTap = false;
                             getEasyEditManager().startExtendedSelection(element);
+                        } else if (longClick) {
+                            longClick = false;
+                            getEasyEditManager().handleLongClick(null, element);
                         } else {
                             getEasyEditManager().editElement(element);
                         }
