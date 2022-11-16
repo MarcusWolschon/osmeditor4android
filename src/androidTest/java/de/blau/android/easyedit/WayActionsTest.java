@@ -151,6 +151,7 @@ public class WayActionsTest {
         TestUtils.unlock(device);
         TestUtils.zoomToLevel(device, main, 21);
         TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
+        TestUtils.clickText(device, true, context.getString(R.string.okay), true, false); // Tip
         assertTrue(TestUtils.clickText(device, false, "Path", false, false));
         Way way = App.getLogic().getSelectedWay();
         List<Node> origWayNodes = new ArrayList<>(way.getNodes());
@@ -195,6 +196,7 @@ public class WayActionsTest {
         TestUtils.unlock(device);
         TestUtils.zoomToLevel(device, main, 21);
         TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
+        TestUtils.clickText(device, true, context.getString(R.string.okay), true, false); // Tip
         assertTrue(TestUtils.clickText(device, false, "Path", false, false));
         Way way = App.getLogic().getSelectedWay();
         assertNotNull(way);
@@ -245,6 +247,7 @@ public class WayActionsTest {
         TestUtils.unlock(device);
         TestUtils.zoomToLevel(device, main, 21);
         TestUtils.clickAtCoordinates(device, map, 8.3884403, 47.3884988, true);
+        TestUtils.clickText(device, true, context.getString(R.string.okay), true, false); // Tip
         assertTrue(TestUtils.clickText(device, false, "Bergstrasse", true, false));
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
         Way way = App.getLogic().getSelectedWay();
@@ -307,6 +310,7 @@ public class WayActionsTest {
         TestUtils.unlock(device);
         TestUtils.zoomToLevel(device, main, 21);
         TestUtils.clickAtCoordinates(device, map, 8.3884403, 47.3884988, true);
+        TestUtils.clickText(device, true, context.getString(R.string.okay), true, false); // Tip
         assertTrue(TestUtils.clickText(device, false, "Bergstrasse", false, false));
         Way way = App.getLogic().getSelectedWay();
         assertNotNull(way);
@@ -457,6 +461,7 @@ public class WayActionsTest {
             TestUtils.unlock(device);
             TestUtils.zoomToLevel(device, main, 21);
             TestUtils.clickAtCoordinates(device, map, 8.3884403, 47.3884988, true);
+            TestUtils.clickText(device, true, context.getString(R.string.okay), true, false); // Tip
             assertTrue(TestUtils.clickText(device, false, "Bergstrasse", false, false));
             Way way = App.getLogic().getSelectedWay();
             assertNotNull(way);

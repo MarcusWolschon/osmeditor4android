@@ -88,6 +88,7 @@ public class ExtendedSelectionTest {
         TestUtils.unlock(device);
         TestUtils.sleep(2000);
         TestUtils.clickAtCoordinates(device, map, 8.38782, 47.390339, true);
+        TestUtils.clickText(device, true, context.getString(R.string.okay), true, false); // Tip
         TestUtils.findText(device, false, "Toilets", 10000);
         assertTrue(TestUtils.clickText(device, false, "Toilets", false, false));
         Node node = App.getLogic().getSelectedNode();
@@ -126,6 +127,7 @@ public class ExtendedSelectionTest {
         TestUtils.unlock(device);
         TestUtils.zoomToLevel(device, main, 21);
         TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
+        TestUtils.clickText(device, true, context.getString(R.string.okay), true, false); // Tip
         assertTrue(TestUtils.clickText(device, false, "Path", false, false));
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
         Way way = App.getLogic().getSelectedWay();

@@ -548,6 +548,7 @@ public class PropertyEditorTest {
         TestUtils.unlock(device);
         TestUtils.zoomToLevel(device, main, 22);
         TestUtils.clickAtCoordinates(device, main.getMap(), 8.3848461, 47.3899166, true);
+        TestUtils.clickText(device, true, context.getString(R.string.okay), true, false); // Tip
         assertTrue(TestUtils.clickText(device, false, "Kindhauserstrasse", false, false));
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
         Way w = App.getLogic().getSelectedWay();
@@ -684,6 +685,7 @@ public class PropertyEditorTest {
         TestUtils.unlock(device);
         TestUtils.zoomToLevel(device, main, 22);
         TestUtils.clickAtCoordinates(device, main.getMap(), 8.3848461, 47.3899166, true);
+        TestUtils.clickText(device, true, context.getString(R.string.okay), true, false); // Tip
         assertTrue(TestUtils.clickText(device, false, "Kindhauserstrasse", false, false));
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
         Way w = App.getLogic().getSelectedWay();

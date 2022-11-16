@@ -98,6 +98,7 @@ public class RelationTest {
         TestUtils.unlock(device);
         TestUtils.zoomToLevel(device, main, 21);
         TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
+        TestUtils.clickAwayTip(device, context);
         assertTrue(TestUtils.clickText(device, false, "Hiking", false, false));
         List<Relation> rels = App.getLogic().getSelectedRelations();
         assertNotNull(rels);
@@ -114,7 +115,7 @@ public class RelationTest {
         assertEquals(OsmElement.STATE_DELETED, relation.getState());
         assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.undo), false, false));
         assertEquals(OsmElement.STATE_UNCHANGED, relation.getState());
-        TestUtils.clickText(device, true, context.getString(R.string.okay), true, false); // for the tip alert
+        TestUtils.clickAwayTip(device, context);
         assertNotNull(relation.getMember(Way.NAME, 104148456L));
         List<RelationMember> members = relation.getMembers();
         assertEquals(origMembers.size(), members.size());
@@ -133,6 +134,7 @@ public class RelationTest {
         TestUtils.unlock(device);
         TestUtils.zoomToLevel(device, main, 21);
         TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
+        TestUtils.clickAwayTip(device, context);
         assertTrue(TestUtils.findText(device, false, "Path", 2000));
         assertTrue(TestUtils.clickText(device, false, "Path", false, false));
         Way way = App.getLogic().getSelectedWay();
@@ -185,8 +187,8 @@ public class RelationTest {
         TestUtils.clickAtCoordinates(device, map, 8.3882060, 47.3885768, true);
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
         assertTrue(TestUtils.clickMenuButton(device, "Split", false, true));
+        TestUtils.clickAwayTip(device, context);
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_closed_way_split_1)));
-        TestUtils.clickText(device, false, context.getString(R.string.okay), true, false); // TIP
         TestUtils.clickAtCoordinates(device, map, 8.3881251, 47.3885077, true);
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_closed_way_split_2)));
         TestUtils.clickAtCoordinates(device, map, 8.3881577, 47.3886924, true);

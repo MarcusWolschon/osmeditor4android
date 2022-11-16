@@ -79,6 +79,7 @@ public class UndoRedoTest {
     @Test
     public void dialog() {
         TestUtils.clickAtCoordinates(device, map, 8.38782, 47.390339, true);
+        TestUtils.clickText(device, true, context.getString(R.string.okay), true, false); // Tip
         TestUtils.clickText(device, false, "Toilets", false, false);
         TestUtils.sleep();
         Node node = App.getLogic().getSelectedNode();

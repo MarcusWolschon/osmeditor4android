@@ -344,6 +344,7 @@ public class SimpleActionsTest {
         TestUtils.drag(device, map, 8.3890736, 47.3896628, 8.3893, 47.3899, true, 20);
 
         TestUtils.clickAtCoordinates(device, map, 8.3893, 47.3899, true);
+        TestUtils.clickText(device, true, context.getString(R.string.okay), true, false); // Tip
         assertTrue(TestUtils.findText(device, false, "test"));
         assertTrue(TestUtils.clickText(device, true, context.getString(R.string.cancel), true, false));
     }

@@ -89,6 +89,7 @@ public class NodeTest {
     @Test
     public void selectNode() {
         TestUtils.clickAtCoordinates(device, map, 8.38782, 47.390339, true);
+        TestUtils.clickAwayTip(device, context); 
         assertTrue(TestUtils.clickText(device, false, "Toilets", true, false, 5000));
         Node node = App.getLogic().getSelectedNode();
         assertNotNull(node);
@@ -118,6 +119,7 @@ public class NodeTest {
     @Test
     public void dragNode() {
         TestUtils.clickAtCoordinates(device, map, 8.38782, 47.390339, true);
+        TestUtils.clickAwayTip(device, context); 
         assertTrue(TestUtils.clickText(device, false, "Toilets", true, false, 5000));
         Node node = App.getLogic().getSelectedNode();
         assertNotNull(node);
@@ -160,6 +162,7 @@ public class NodeTest {
         assertEquals(OsmElement.STATE_UNCHANGED, unjoinedWay.getState());
 
         TestUtils.clickAtCoordinates(device, map, 8.3874964, 47.3884769, false);
+        TestUtils.clickAwayTip(device, context); 
         assertTrue(TestUtils.clickText(device, false, "node", false, false)); // the first node in the list
         assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.menu_merge), false, true));
 
@@ -187,6 +190,7 @@ public class NodeTest {
         assertEquals(apiNodeCount + 3, delegator.getApiNodeCount());
 
         TestUtils.clickAtCoordinates(device, map, 8.3866386, 47.3904394, false);
+        TestUtils.clickAwayTip(device, context); 
         assertTrue(TestUtils.clickText(device, false, "node", false, false)); // the first node in the list
         assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.menu_merge), false, true));
 

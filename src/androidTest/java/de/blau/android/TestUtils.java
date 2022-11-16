@@ -1502,31 +1502,45 @@ public final class TestUtils {
      * @return true if found
      */
     public static boolean findNotification(@NonNull UiDevice device, @NonNull String app, @NonNull String message) {
-        device.openNotification();
-        boolean found = device.wait(Until.hasObject(By.textContains(message)), 5000);
-        if (!found) {
-            UiObject2 notification = device.findObject(By.textContains(app));
-            if (notification != null) {
-                notification.click();
-                found = device.wait(Until.hasObject(By.textContains(message)), 5000);
+        if (device.openNotification()) {
+            boolean found = device.wait(Until.hasObject(By.textContains(message)), 5000);
+            if (!found) {
+                UiObject2 notification = device.findObject(By.textContains(app));
+                if (notification != null) {
+                    notification.click();
+                    found = device.wait(Until.hasObject(By.textContains(message)), 5000);
+                }
             }
+            UiObject2 clearAll = device.findObject(By.text(Pattern.compile("CLEAR ALL", Pattern.CASE_INSENSITIVE)));
+            if (clearAll != null) {
+                clearAll.click();
+            } else {
+                device.pressBack();
+            }
+            return found;
         }
-        UiObject2 clearAll = device.findObject(By.text(Pattern.compile("CLEAR ALL", Pattern.CASE_INSENSITIVE)));
-        if (clearAll != null) {
-            clearAll.click();
-        } else {
-            device.click(device.getDisplayWidth() / 2, (int) (device.getDisplayHeight() * 0.75));
-        }
-        return found;
+        return false;
     }
 
     /**
      * Disable a tip
      * 
-     * @param ctx an Android COntext
+     * @param ctx an Android Context
      * @param res the tip key
      */
     public static void disableTip(@NonNull Context ctx, int res) {
         PreferenceManager.getDefaultSharedPreferences(ctx).edit().putBoolean(ctx.getString(res), false).commit();
+    }
+
+    /**
+     * Click away a tip dialod
+     * 
+     * @param device the current UiDevice
+     * @param ctx an Android Context
+     */
+    public static void clickAwayTip(@NonNull UiDevice device, @NonNull Context ctx) {
+        if (TestUtils.findText(device, false, ctx.getString(R.string.tip_title))) {
+            TestUtils.clickText(device, false, ctx.getString(R.string.okay), true, false); // TIP
+        }
     }
 }

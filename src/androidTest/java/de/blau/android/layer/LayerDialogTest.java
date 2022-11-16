@@ -148,6 +148,7 @@ public class LayerDialogTest {
         assertFalse(map.getDataLayer().isVisible());
         TestUtils.unlock(device);
         TestUtils.clickAtCoordinates(device, map, 8.38782, 47.390339, false);
+        TestUtils.clickText(device, true, main.getString(R.string.okay), true, false); // Tip
         assertFalse(TestUtils.clickText(device, false, "Toilets", false, false)); // nothing should happen
         visibleButton = TestUtils.getLayerButton(device, dataLayerName, VISIBLE_BUTTON);
         visibleButton.click();
