@@ -30,6 +30,8 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentActivity;
+import de.blau.android.dialogs.Tip;
 import de.blau.android.exception.OsmException;
 import de.blau.android.imageryoffset.ImageryOffsetUtils;
 import de.blau.android.imageryoffset.Offset;
@@ -1297,5 +1299,13 @@ public class Map extends View implements IMapView {
     @Nullable
     public TrackerService getTracker() {
         return this.tracker;
+    }
+    
+    @Override
+    public boolean showContextMenu() {
+        if (context instanceof FragmentActivity) {
+            Tip.showDialog((FragmentActivity) context, R.string.tip_disambiguation_menu_key, R.string.tip_disambiguation_menu);
+        }
+        return super.showContextMenu();
     }
 }

@@ -149,6 +149,7 @@ public class KeyboardTest {
         TestUtils.unlock(device);
 
         TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
+        TestUtils.clickText(device, true, context.getString(R.string.okay), true, false); // Tip
         Assert.assertTrue(TestUtils.clickText(device, false, "Path", false, false));
         Way way = App.getLogic().getSelectedWay();
         Assert.assertNotNull(way);
