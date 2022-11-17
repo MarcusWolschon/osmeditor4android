@@ -42,7 +42,7 @@ public class TextRow extends LinearLayout implements KeyValueRow {
 
     protected static final String DEBUG_TAG = TextRow.class.getSimpleName();
 
-    private static final int INPUTTYPE_CAPS_MASK = InputType.TYPE_TEXT_FLAG_CAP_SENTENCES | InputType.TYPE_TEXT_FLAG_CAP_WORDS;
+    public static final int INPUTTYPE_CAPS_MASK = InputType.TYPE_TEXT_FLAG_CAP_SENTENCES | InputType.TYPE_TEXT_FLAG_CAP_WORDS;
 
     private TextView                   keyView;
     private CustomAutoCompleteTextView valueView;
