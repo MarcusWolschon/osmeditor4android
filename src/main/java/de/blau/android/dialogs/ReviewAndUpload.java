@@ -13,6 +13,7 @@ import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -50,11 +51,14 @@ import de.blau.android.osm.Relation;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.propertyeditor.tagform.TextRow;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.FilterlessArrayAdapter;
 import de.blau.android.util.ImmersiveDialogFragment;
+import de.blau.android.util.LocaleUtils;
 import de.blau.android.util.OnPageSelectedListener;
 import de.blau.android.util.ThemeUtils;
+import de.blau.android.util.Util;
 import de.blau.android.validation.ExtendedValidator;
 import de.blau.android.validation.FormValidation;
 import de.blau.android.validation.NotEmptyValidator;
@@ -156,7 +160,7 @@ public class ReviewAndUpload extends ImmersiveDialogFragment {
      * @param activity the calling FragmentActivity
      */
     public static void dismissDialog(@NonNull FragmentActivity activity) {
-        Util.dismissDialog(activity, TAG);
+        de.blau.android.dialogs.Util.dismissDialog(activity, TAG);
     }
 
     /**
@@ -256,6 +260,7 @@ public class ReviewAndUpload extends ImmersiveDialogFragment {
         comment.setOnClickListener(autocompleteOnClick);
         comment.setThreshold(1);
         comment.setOnKeyListener(new MyKeyListener());
+        setAutoCaps(comment);
         ImageButton clearComment = (ImageButton) layout.findViewById(R.id.upload_comment_clear);
         clearComment.setOnClickListener(v -> comment.setText(""));
 
@@ -268,6 +273,7 @@ public class ReviewAndUpload extends ImmersiveDialogFragment {
         source.setOnClickListener(autocompleteOnClick);
         source.setThreshold(1);
         source.setOnKeyListener(new MyKeyListener());
+        setAutoCaps(source);
         ImageButton clearSource = (ImageButton) layout.findViewById(R.id.upload_source_clear);
         clearSource.setOnClickListener(v -> source.setText(""));
 
@@ -284,6 +290,18 @@ public class ReviewAndUpload extends ImmersiveDialogFragment {
                 new UploadListener(activity, comment, source, openChangeset ? closeOpenChangeset : null, closeChangeset, requestReview, validators, elements));
 
         return dialog;
+    }
+
+    /**
+     * Set sentence capitalization if we are using Latin script
+     * 
+     * @param textView the TextView to modify
+     */
+    private void setAutoCaps(@NonNull final TextView textView) {
+        if (LocaleUtils.usesLatinScript(Util.getPrimaryLocale(getResources()))) {
+            textView.setInputType(
+                    (textView.getInputType() & ~TextRow.INPUTTYPE_CAPS_MASK) | InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
+        }
     }
 
     /**
