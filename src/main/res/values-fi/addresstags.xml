@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string name="addr_housenumber">Talonumero (addr:housenumber)</string>
+  <string name="addr_conscriptionnumber">Asevelvollisuusnumero (addr:conscriptionnumber)</string>
+  <string name="addr_street">Katu (addr:street)</string>
+  <string name="addr_postcode">Postinumero (addr:postcode)</string>
+  <string name="addr_city">Kaupunki/Kunta/.. (addr:city)</string>
+  <string name="addr_country">Maa (addr:country)</string>
+  <string name="addr_full">Koko osoite (addr:full)</string>
+  <string name="addr_place">Paikka (addr:place)</string>
+  <string name="addr_block">Kortteli (addr:block)</string>
+  <string name="addr_block_number">Korttelinumero (addr:block_number)</string>
+  <string name="addr_parentstreet">Sijainnin tarkennus (addr:parenstreet)</string>
+  <string name="addr_hamlet">Kylä (addr:hamlet)</string>
+  <string name="addr_suburb">Lähiö (addr:suburb)</string>
+  <string name="addr_subdistrict">Alihallintoalue (addr:subdistrict)</string>
+  <string name="addr_district">Hallintoalue (addr:district)</string>
+  <string name="addr_province">Maakunta (addr:province)</string>
+  <string name="addr_state">Valtio (addr:state)</string>
+  <string name="addr_flats">Asunnot (addr:flats)</string>
+  <string name="addr_door">Ovi (addr:door)</string>
+  <string name="addr_unit">Porras/Yksikkö (addr:unit)</string>
+</resources>
