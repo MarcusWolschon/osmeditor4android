@@ -14,7 +14,7 @@ To add a custom layer goto the _Preferences_ screen and select _Custom imagery_,
 
 * a __Name__ this is what is displayed in the _Layer control_ background or overlay selection form. This field is _required_.
 * an __URL__ the URL for the source with place holders in the same format as the [JOSM imagery sources](https://josm.openstreetmap.de/wiki/Maps) that Vespucci, JOSM and Go Map!! use as source for standard imagery. This field is _required_.
-* the__Overlay__ flag, indicating that the layer is not a background, but partially transparent images for displaying over a background layer.
+* the __Overlay__ flag, indicating that the layer is not a background, but partially transparent images for displaying over a background layer.
 * __Coverage__ left, bottom, right and top coordinates of a coverage bounding box in WGS84 coordinates, if the values are empty it is assumed that the layer covers the whole visible web-mercator area, that is -180°, -85°, 180°, 85°.
 * __Zoom__ _Min_ and _Max_ zoom levels, these indicates the minimum and maximum zoom levels available and are important for the app to determine over- and under-zoom correctly.
 * __Tile size__ side length in pixels for the tiles, default 256. _Available from version 16.0 and later_
