@@ -1,84 +1,87 @@
 [main]
 host = https://www.transifex.com
 
-[vespucci.main]
-file_filter = src/main/res/values-<lang>/strings.xml
-lang_map = cs: cs-rCZ, zh_TW: zh-rTW, zh_HK: zh-rHK, pt_BR: pt-rBR, zh_CN: zh-rCN, sv_SE: sv-rSE, id: in, he: iw, ca_ES: ca-rES, pa_PK: pa-rPK 
-source_file = src/main/res/values/strings.xml
-source_lang = en
-minimum_perc = 50
-
-[vespucci.string-arraysxml]
-file_filter = src/main/res/values-<lang>/string-arrays.xml
-lang_map = cs: cs-rCZ, zh_TW: zh-rTW, zh_HK: zh-rHK, pt_BR: pt-rBR, zh_CN: zh-rCN, sv_SE: sv-rSE, id: in, he: iw, ca_ES: ca-rES, pa_PK: pa-rPK 
-source_file = src/main/res/values/string-arrays.xml
-source_lang = en
-minimum_perc = 100
-
-[vespucci.addresstagsxml]
-file_filter = src/main/res/values-<lang>/addresstags.xml
-lang_map = cs: cs-rCZ, zh_TW: zh-rTW, zh_HK: zh-rHK, pt_BR: pt-rBR, zh_CN: zh-rCN, sv_SE: sv-rSE, id: in, he: iw, ca_ES: ca-rES, pa_PK: pa-rPK
-source_file = src/main/res/values/addresstags.xml
-source_lang = en
-minimum_perc = 100
-
-[vespucci.bugfilterxml]
-file_filter = src/main/res/values-<lang>/bugfilter.xml
-lang_map = cs: cs-rCZ, zh_TW: zh-rTW, zh_HK: zh-rHK, pt_BR: pt-rBR, zh_CN: zh-rCN, sv_SE: sv-rSE, id: in, he: iw, ca_ES: ca-rES, pa_PK: pa-rPK
-source_file = src/main/res/values/bugfilter.xml
-source_lang = en
-minimum_perc = 100
-
-[vespucci.scalexml]
-file_filter = src/main/res/values-<lang>/scale.xml
-lang_map = cs: cs-rCZ, zh_TW: zh-rTW, zh_HK: zh-rHK, pt_BR: pt-rBR, zh_CN: zh-rCN, sv_SE: sv-rSE, id: in, he: iw, ca_ES: ca-rES, pa_PK: pa-rPK
-source_file = src/main/res/values/scale.xml
-source_lang = en
-minimum_perc = 100
-
-[vespucci.voicexml]
-file_filter = src/main/res/values-<lang>/voice.xml
-lang_map = cs: cs-rCZ, zh_TW: zh-rTW, zh_HK: zh-rHK, pt_BR: pt-rBR, zh_CN: zh-rCN, sv_SE: sv-rSE, id: in, he: iw, ca_ES: ca-rES, pa_PK: pa-rPK
-source_file = src/main/res/values/voice.xml
-source_lang = en
-minimum_perc = 100
-
-[vespucci.helptopicsxml]
-file_filter = src/main/res/values-<lang>/helptopics.xml
-lang_map = cs: cs-rCZ, zh_TW: zh-rTW, zh_HK: zh-rHK, pt_BR: pt-rBR, zh_CN: zh-rCN, sv_SE: sv-rSE, id: in, he: iw, ca_ES: ca-rES, pa_PK: pa-rPK
-source_file = src/main/res/values/helptopics.xml
-source_lang = en
-minimum_perc = 10
-
-[vespucci.introductionmd]
-file_filter = documentation/docs/help/<lang>/Introduction.md
-lang_map = cs: cs-rCZ, zh_TW: zh-rTW, zh_HK: zh-rHK, pt_BR: pt-rBR, zh_CN: zh-rCN, sv_SE: sv-rSE, id: in, he: iw, ca_ES: ca-rES, pa_PK: pa-rPK 
-source_file = documentation/docs/help/en/Introduction.md
-source_lang = en
-minimum_perc = 10
-
-[vespucci.blurbtxt]
-file_filter = build/tmp/playstore/<lang>/blurb.txt
-source_file = documentation/docs/playstore/en/blurb.txt
-source_lang = en
-minimum_perc = 100
-
-[vespucci.titletxt]
-file_filter = build/tmp/playstore/<lang>/title.txt
-source_file = documentation/docs/playstore/en/title.txt
-source_lang = en
-minimum_perc = 100
-
-[presets.presetpot]
-type = PO
-file_filter = src/main/assets/preset_<lang>.po
-lang_map = cs: cs-rCZ, zh_TW: zh-rTW,  zh_HK: zh-rHK, pt_BR: pt-rBR, zh_CN: zh-rCN, sv_SE: sv-rSE, id: in, he: iw, ca_ES: ca-rES
-source_lang = en
+[o:openstreetmap:p:presets:r:presetpot]
+file_filter  = src/main/assets/preset_<lang>.po
+source_file  = src/main/assets/preset_en.po
+source_lang  = en
+type         = PO
 minimum_perc = 5
+lang_map     = he: iw, ca_ES: ca-rES, cs: cs-rCZ, zh_TW: zh-rTW, zh_CN: zh-rCN, id: in, zh_HK: zh-rHK, pt_BR: pt-rBR, sv_SE: sv-rSE
 
-[vespucci.datastylepot]
-type = PO
-file_filter = src/main/assets/i18n/datastyle_<lang>.po
-lang_map = cs: cs-rCZ, zh_TW: zh-rTW,  zh_HK: zh-rHK, pt_BR: pt-rBR, zh_CN: zh-rCN, sv_SE: sv-rSE, id: in, he: iw, ca_ES: ca-rES
-source_lang = en
+[o:openstreetmap:p:vespucci:r:addresstagsxml]
+file_filter  = src/main/res/values-<lang>/addresstags.xml
+source_file  = src/main/res/values/addresstags.xml
+source_lang  = en
 minimum_perc = 100
+lang_map     = cs: cs-rCZ, pt_BR: pt-rBR, sv_SE: sv-rSE, pa_PK: pa-rPK, zh_TW: zh-rTW, zh_HK: zh-rHK, zh_CN: zh-rCN, id: in, he: iw, ca_ES: ca-rES
+
+[o:openstreetmap:p:vespucci:r:blurbtxt]
+file_filter  = build/tmp/playstore/<lang>/blurb.txt
+source_file  = documentation/docs/playstore/en/blurb.txt
+source_lang  = en
+minimum_perc = 100
+
+[o:openstreetmap:p:vespucci:r:bugfilterxml]
+file_filter  = src/main/res/values-<lang>/bugfilter.xml
+source_file  = src/main/res/values/bugfilter.xml
+source_lang  = en
+minimum_perc = 100
+lang_map     = zh_HK: zh-rHK, zh_CN: zh-rCN, sv_SE: sv-rSE, pa_PK: pa-rPK, zh_TW: zh-rTW, pt_BR: pt-rBR, id: in, he: iw, ca_ES: ca-rES, cs: cs-rCZ
+
+[o:openstreetmap:p:vespucci:r:datastylepot]
+file_filter  = src/main/assets/i18n/datastyle_<lang>.po
+source_file  = src/main/assets/i18n/datastyle_en.po
+source_lang  = en
+type         = PO
+minimum_perc = 100
+lang_map     = he: iw, ca_ES: ca-rES, cs: cs-rCZ, zh_HK: zh-rHK, pt_BR: pt-rBR, id: in, zh_TW: zh-rTW, zh_CN: zh-rCN, sv_SE: sv-rSE
+
+[o:openstreetmap:p:vespucci:r:helptopicsxml]
+file_filter  = src/main/res/values-<lang>/helptopics.xml
+source_file  = src/main/res/values/helptopics.xml
+source_lang  = en
+minimum_perc = 10
+lang_map     = cs: cs-rCZ, zh_TW: zh-rTW, zh_HK: zh-rHK, pt_BR: pt-rBR, sv_SE: sv-rSE, id: in, pa_PK: pa-rPK, zh_CN: zh-rCN, he: iw, ca_ES: ca-rES
+
+[o:openstreetmap:p:vespucci:r:introductionmd]
+file_filter  = documentation/docs/help/<lang>/Introduction.md
+source_file  = documentation/docs/help/en/Introduction.md
+source_lang  = en
+minimum_perc = 10
+lang_map     = cs: cs-rCZ, zh_TW: zh-rTW, pt_BR: pt-rBR, zh_CN: zh-rCN, he: iw, pa_PK: pa-rPK, zh_HK: zh-rHK, sv_SE: sv-rSE, id: in, ca_ES: ca-rES
+
+[o:openstreetmap:p:vespucci:r:main]
+file_filter  = src/main/res/values-<lang>/strings.xml
+source_file  = src/main/res/values/strings.xml
+source_lang  = en
+minimum_perc = 50
+lang_map     = pt_BR: pt-rBR, he: iw, pa_PK: pa-rPK, zh_TW: zh-rTW, zh_HK: zh-rHK, zh_CN: zh-rCN, sv_SE: sv-rSE, id: in, ca_ES: ca-rES, cs: cs-rCZ
+
+[o:openstreetmap:p:vespucci:r:scalexml]
+file_filter  = src/main/res/values-<lang>/scale.xml
+source_file  = src/main/res/values/scale.xml
+source_lang  = en
+minimum_perc = 100
+lang_map     = pa_PK: pa-rPK, zh_HK: zh-rHK, zh_CN: zh-rCN, sv_SE: sv-rSE, id: in, he: iw, ca_ES: ca-rES, cs: cs-rCZ, zh_TW: zh-rTW, pt_BR: pt-rBR
+
+[o:openstreetmap:p:vespucci:r:string-arraysxml]
+file_filter  = src/main/res/values-<lang>/string-arrays.xml
+source_file  = src/main/res/values/string-arrays.xml
+source_lang  = en
+minimum_perc = 100
+lang_map     = he: iw, pa_PK: pa-rPK, zh_HK: zh-rHK, zh_CN: zh-rCN, id: in, sv_SE: sv-rSE, ca_ES: ca-rES, cs: cs-rCZ, zh_TW: zh-rTW, pt_BR: pt-rBR
+
+[o:openstreetmap:p:vespucci:r:titletxt]
+file_filter  = build/tmp/playstore/<lang>/title.txt
+source_file  = documentation/docs/playstore/en/title.txt
+source_lang  = en
+minimum_perc = 100
+
+[o:openstreetmap:p:vespucci:r:voicexml]
+file_filter  = src/main/res/values-<lang>/voice.xml
+source_file  = src/main/res/values/voice.xml
+source_lang  = en
+minimum_perc = 100
+lang_map     = sv_SE: sv-rSE, id: in, he: iw, zh_TW: zh-rTW, pt_BR: pt-rBR, zh_CN: zh-rCN, pa_PK: pa-rPK, cs: cs-rCZ, zh_HK: zh-rHK, ca_ES: ca-rES
+
