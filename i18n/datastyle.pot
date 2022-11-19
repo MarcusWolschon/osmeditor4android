@@ -11,7 +11,7 @@ msgstr ""
 
 
 #:
-msgid "Default"
+msgid "Built-in (minimal)"
 msgstr ""
 
 #:

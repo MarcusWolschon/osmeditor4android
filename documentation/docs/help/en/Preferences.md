@@ -4,7 +4,7 @@ The settings for Vespucci are split over two screens: standard and advanced pref
 
 ## Data style
 
-The style that is used to render OpenStreetmap data. Additional styles can be added by including corresponding files in the Vespucci directory.
+The style that is used to render OpenStreetmap data. Additional styles can be added by including corresponding files in the Vespucci directory. Documentation on the style file format can be found online here [Vespucci Data Styling](http://vespucci.io/tutorials/data_styling/).
 
 ## Custom layers
 
