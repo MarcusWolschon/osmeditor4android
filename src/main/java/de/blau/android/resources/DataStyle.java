@@ -752,7 +752,7 @@ public final class DataStyle extends DefaultHandler {
      */
     public static final Path WAY_DIRECTION_PATH = new Path();
 
-    private static final String BUILTIN_STYLE_NAME = "Default";
+    private static final String BUILTIN_STYLE_NAME = "Built-in (minimal)";
 
     private float nodeToleranceValue;
     private float wayToleranceValue;
