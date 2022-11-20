@@ -16,7 +16,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -26,7 +25,6 @@ import androidx.appcompat.widget.ActionMenuView.OnMenuItemClickListener;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
-import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import de.blau.android.R;
 import de.blau.android.listener.DoNothingListener;
@@ -40,7 +38,7 @@ import de.blau.android.listener.DoNothingListener;
  * @author simon
  *
  */
-public class SelectByImageFragment extends ImmersiveDialogFragment implements OnMenuItemClickListener {
+public class SelectByImageFragment extends SizedDynamicImmersiveDialogFragment implements OnMenuItemClickListener {
     private static final String DEBUG_TAG = SelectByImageFragment.class.getName();
 
     public static final String TAG = "fragment_combo_image_viewer";
@@ -163,7 +161,7 @@ public class SelectByImageFragment extends ImmersiveDialogFragment implements On
 
         View layout = themedInflater.inflate(R.layout.photo_viewer, null);
 
-        ImagePagerAdapter imagePagerAdapter = new ImagePagerAdapter(activity, imageLoader);
+        SelectImagePagerAdapter imagePagerAdapter = new SelectImagePagerAdapter(activity, imageLoader, imageList);
 
         viewPager = (ViewPager) layout.findViewById(R.id.pager);
         viewPager.setAdapter(imagePagerAdapter);
@@ -196,32 +194,17 @@ public class SelectByImageFragment extends ImmersiveDialogFragment implements On
         return layout;
     }
 
-    class ImagePagerAdapter extends PagerAdapter {
-
-        final Context     mContext;
-        LayoutInflater    mLayoutInflater;
-        final ImageLoader loader;
+    private class SelectImagePagerAdapter extends ImagePagerAdapter {
 
         /**
          * Construct a new adapter
          * 
          * @param context an Android Context
          * @param loader the PhotoLoader to use
+         * @param images list of images
          */
-        public ImagePagerAdapter(@NonNull Context context, @NonNull ImageLoader loader) {
-            mContext = context;
-            this.loader = loader;
-            mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        }
-
-        @Override
-        public int getCount() {
-            return imageList.size();
-        }
-
-        @Override
-        public boolean isViewFromObject(View view, Object object) {
-            return view == ((LinearLayout) object);
+        public SelectImagePagerAdapter(@NonNull Context context, @NonNull ImageLoader loader, @NonNull List<String> images) {
+            super(context, loader, images);
         }
 
         @Override
@@ -236,32 +219,16 @@ public class SelectByImageFragment extends ImmersiveDialogFragment implements On
                 if (dialog != null) {
                     dialog.dismiss();
                 }
-            }
-
-            );
-            loader.load(view, imageList.get(position));
+            });
+            loader.load(view, images.get(position));
             container.addView(itemView);
             return itemView;
-        }
-
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-            container.removeView((LinearLayout) object);
-        }
-
-        @Override
-        public int getItemPosition(Object item) {
-            return POSITION_NONE; // hack so that everything gets updated on notifyDataSetChanged
         }
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        Dialog dialog = getDialog();
-        if (dialog != null) {
-            dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        }
         imageLoader.setParentFragment(getParentFragment());
     }
 
