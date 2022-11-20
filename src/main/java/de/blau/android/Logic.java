@@ -3522,9 +3522,8 @@ public class Logic {
                         Exception ce = e.getException();
                         if ((ce instanceof StorageException) && ((StorageException) ce).getCode() == StorageException.OOM) {
                             return new AsyncResult(ErrorCodes.OUT_OF_MEMORY, ce.getMessage());
-                        } else {
-                            return new AsyncResult(ErrorCodes.INVALID_DATA_READ, e.getMessage());
                         }
+                        return new AsyncResult(ErrorCodes.INVALID_DATA_READ, e.getMessage());
                     } catch (ParserConfigurationException e) {
                         // crash and burn
                         Log.e(DEBUG_TAG, "Problem parsing", e);
