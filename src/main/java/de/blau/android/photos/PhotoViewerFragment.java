@@ -19,7 +19,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -28,7 +27,6 @@ import androidx.appcompat.widget.ActionMenuView;
 import androidx.appcompat.widget.ActionMenuView.OnMenuItemClickListener;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
-import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import de.blau.android.App;
 import de.blau.android.Main;
@@ -37,8 +35,9 @@ import de.blau.android.R;
 import de.blau.android.contract.Ui;
 import de.blau.android.listener.DoNothingListener;
 import de.blau.android.util.ImageLoader;
-import de.blau.android.util.ImmersiveDialogFragment;
+import de.blau.android.util.ImagePagerAdapter;
 import de.blau.android.util.OnPageSelectedListener;
+import de.blau.android.util.SizedDynamicImmersiveDialogFragment;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 
@@ -48,7 +47,7 @@ import de.blau.android.util.ThemeUtils;
  * @author simon
  *
  */
-public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMenuItemClickListener {
+public class PhotoViewerFragment extends SizedDynamicImmersiveDialogFragment implements OnMenuItemClickListener {
     private static final String DEBUG_TAG = PhotoViewerFragment.class.getName();
 
     public static final String TAG = "fragment_photo_viewer";
@@ -223,7 +222,7 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
             Snack.toastTopError(activity, R.string.toast_no_photo_found);
             return layout;
         }
-        photoPagerAdapter = new PhotoPagerAdapter(activity, photoLoader);
+        photoPagerAdapter = new PhotoPagerAdapter(activity, photoLoader, photoList);
 
         viewPager = (ViewPager) layout.findViewById(R.id.pager);
         viewPager.setAdapter(photoPagerAdapter);
@@ -276,32 +275,17 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
         itemBackward.setIcon(backwardEnabled ? R.drawable.ic_arrow_back_white_36dp : R.drawable.ic_arrow_back_dimmed_36dp);
     }
 
-    class PhotoPagerAdapter extends PagerAdapter {
-
-        final Context     mContext;
-        LayoutInflater    mLayoutInflater;
-        final ImageLoader loader;
+    private class PhotoPagerAdapter extends ImagePagerAdapter {
 
         /**
          * Construct a new adapter
          * 
          * @param context an Android Context
          * @param loader the PhotoLoader to use
+         * @param images list of images
          */
-        public PhotoPagerAdapter(@NonNull Context context, @NonNull ImageLoader loader) {
-            mContext = context;
-            this.loader = loader;
-            mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        }
-
-        @Override
-        public int getCount() {
-            return photoList.size();
-        }
-
-        @Override
-        public boolean isViewFromObject(View view, Object object) {
-            return view == ((LinearLayout) object);
+        public PhotoPagerAdapter(@NonNull Context context, @NonNull ImageLoader loader, @NonNull List<String> images) {
+            super(context, loader, images);
         }
 
         @Override
@@ -309,31 +293,12 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
             View itemView = mLayoutInflater.inflate(R.layout.photo_viewer_item, container, false);
             SubsamplingScaleImageView view = itemView.findViewById(R.id.photoView);
             try {
-                loader.load(view, photoList.get(position));
+                loader.load(view, images.get(position));
             } catch (IndexOutOfBoundsException e) {
                 Log.e(DEBUG_TAG, e.getMessage());
             }
             container.addView(itemView);
             return itemView;
-        }
-
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-            container.removeView((LinearLayout) object);
-        }
-
-        @Override
-        public int getItemPosition(Object item) {
-            return POSITION_NONE; // hack so that everything gets updated on notifyDataSetChanged
-        }
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        Dialog dialog = getDialog();
-        if (dialog != null) {
-            dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         }
     }
 
