@@ -311,7 +311,7 @@ public final class FileUtil {
     /**
      * Unpack a zipped file
      * 
-     * Code from http://stackoverflow.com/questions/3382996/how-to-unzip-files-programmatically-in-android
+     * Based on code from http://stackoverflow.com/questions/3382996/how-to-unzip-files-programmatically-in-android
      * 
      * @param dir preset directory
      * @param zipname the zip file
@@ -319,33 +319,29 @@ public final class FileUtil {
      */
     public static boolean unpackZip(@NonNull String dir, @NonNull String zipname) {
         try (InputStream is = new FileInputStream(dir + zipname); ZipInputStream zis = new ZipInputStream(new BufferedInputStream(is))) {
-            String filename;
             ZipEntry ze;
             byte[] buffer = new byte[1024];
             int count;
+            final String canonicalBasePath = new File(dir).getCanonicalPath();
             while ((ze = zis.getNextEntry()) != null) {
                 // zapis do souboru
-                filename = ze.getName();
+                String filename = ze.getName();
                 Log.d(DEBUG_TAG, "Unzip " + filename);
                 // Need to create directories if not exists, or
                 // it will generate an Exception...
                 if (!"".equals(filename)) {
-                    if (filename.indexOf(PATH_DELIMITER_CHAR) > 0 && !filename.endsWith(Paths.DELIMITER)) { // NOSONAR
-                        int slash = filename.lastIndexOf(PATH_DELIMITER_CHAR);
-                        String path = filename.substring(0, slash);
-                        File fmd = new File(dir + path);
-                        if (!fmd.exists()) {
-                            fmd.mkdirs();
-                        }
-                    } else if (ze.isDirectory()) {
-                        File fmd = new File(dir + filename);
-                        // noinspection ResultOfMethodCallIgnored
-                        if (!fmd.exists()) {
-                            fmd.mkdirs();
-                        }
-                        continue;
+                    if (ze.isDirectory()) {
+                        createDirs(dir, canonicalBasePath, filename);
+                        continue; // just create dir
+                    } else if (filename.indexOf(PATH_DELIMITER_CHAR) > 0 && !filename.endsWith(Paths.DELIMITER)) { // NOSONAR
+                        // directories in the file name that need to be created
+                        createDirs(dir, canonicalBasePath, filename.substring(0, filename.lastIndexOf(PATH_DELIMITER_CHAR)));
                     }
-                    try (FileOutputStream fout = new FileOutputStream(dir + filename)) {
+                    File output = new File(dir + filename);
+                    if (!output.getCanonicalPath().startsWith(canonicalBasePath)) {
+                        throw new IOException("Archive contains file that escapes target directory " + dir + " " + output.getCanonicalPath());
+                    }
+                    try (FileOutputStream fout = new FileOutputStream(output)) {
                         // cteni zipu a zapis
                         while ((count = zis.read(buffer)) != -1) {
                             fout.write(buffer, 0, count);
@@ -360,5 +356,24 @@ public final class FileUtil {
         }
 
         return true;
+    }
+
+    /**
+     * Create directories in a base directory
+     * 
+     * @param base base directory
+     * @param canonicalBasePath the canonical version of above used for checking
+     * @param dirPath path for the new directories
+     * @throws IOException if dirPath escapes the base directory
+     */
+    private static void createDirs(@NonNull String base, @NonNull String canonicalBasePath, @NonNull String dirPath) throws IOException {
+        File fmd = new File(base + dirPath);
+        if (!fmd.getCanonicalPath().startsWith(canonicalBasePath)) {
+            throw new IOException("Archive creates directory that escapes target " + base + " " + fmd.getCanonicalPath());
+        }
+        // noinspection ResultOfMethodCallIgnored
+        if (!fmd.exists()) {
+            fmd.mkdirs();
+        }
     }
 }
