@@ -83,6 +83,20 @@ public final class SearchIndexUtils {
                 case ':':
                 case '+':
                 case ';':
+                case ',':
+                case '\u00A0':
+                case '\u200A':
+                case '\u2009':
+                case '\u2008':
+                case '\u2002':
+                case '\u2007':
+                case '\u3000':
+                case '\u2003':
+                case '\u2006':
+                case '\u2005':
+                case '\u2004':
+                case '\u2013':
+                case '\u2014':
                     appendSpace(b);
                     break;
                 case '\'':
