@@ -354,7 +354,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
     @Nullable
     public static TileLayerSource getLayerWithUrl(@NonNull Context context, @NonNull SQLiteDatabase db, @NonNull String url) {
         TileLayerSource layer = null;
-        try (Cursor layerCursor = db.query(LAYERS_TABLE, null, TILE_URL_FIELD + "='" + url + "'", null, null, null, null)) {
+        try (Cursor layerCursor = db.query(LAYERS_TABLE, null, TILE_URL_FIELD + "=?", new String[] { url }, null, null, null)) {
             if (layerCursor.getCount() >= 1) {
                 boolean haveEntry = layerCursor.moveToFirst();
                 if (haveEntry) {

@@ -136,8 +136,8 @@ public class KeyDatabaseHelper extends SQLiteOpenHelper {
      */
     @Nullable
     public static String getKey(@NonNull SQLiteDatabase db, @NonNull String name, @NonNull EntryType type) {
-        try (Cursor dbresult = db.query(KEYS_TABLE, new String[] { KEY_FIELD },
-                NAME_FIELD + "='" + name + "'" + AND + TYPE_FIELD + "='" + type.toString() + "'", null, null, null, null)) {
+        try (Cursor dbresult = db.query(KEYS_TABLE, new String[] { KEY_FIELD }, NAME_FIELD + "=?  AND " + TYPE_FIELD + "=?",
+                new String[] { name, type.toString() }, null, null, null)) {
             if (dbresult.getCount() >= 1) {
                 boolean haveEntry = dbresult.moveToFirst();
                 if (haveEntry) {
