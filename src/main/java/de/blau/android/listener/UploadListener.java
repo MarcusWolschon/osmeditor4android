@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import android.content.DialogInterface;
+import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -32,6 +33,8 @@ import de.blau.android.validation.FormValidation;
  */
 public class UploadListener implements DialogInterface.OnShowListener, View.OnClickListener {
 
+    private static final long DEBOUNCE_TIME = 1000;
+
     private final FragmentActivity     caller;
     private final EditText             commentField;
     private final EditText             sourceField;
@@ -40,6 +43,7 @@ public class UploadListener implements DialogInterface.OnShowListener, View.OnCl
     private final CheckBox             requestReview;
     private final List<FormValidation> validations;
     private final List<OsmElement>     elements;
+    private Long                       lastClickTime = null;
 
     private boolean tagsShown = false;
 
@@ -76,35 +80,46 @@ public class UploadListener implements DialogInterface.OnShowListener, View.OnCl
 
     @Override
     public void onClick(View view) {
+        if (lastClickTime != null && (SystemClock.elapsedRealtime() - lastClickTime < DEBOUNCE_TIME)) {
+            return;
+        }
         validateFields();
         if (tagsShown || ReviewAndUpload.getPage(caller) == ReviewAndUpload.TAGS_PAGE) {
             ReviewAndUpload.dismissDialog(caller);
-            Map<String, String> extraTags = new HashMap<>();
-            if (requestReview.isChecked()) {
-                extraTags.put(Tags.KEY_REVIEW_REQUESTED, Tags.VALUE_YES);
-            }
-            final Logic logic = App.getLogic();
-            final Server server = logic.getPrefs().getServer();
-            if (server.isLoginSet()) {
-                boolean hasDataChanges = logic.hasChanges();
-                boolean hasBugChanges = !App.getTaskStorage().isEmpty() && App.getTaskStorage().hasChanges();
-                if (hasDataChanges || hasBugChanges) {
-                    if (hasDataChanges) {
-                        logic.upload(caller, getString(commentField), getString(sourceField), closeOpenChangeset != null && closeOpenChangeset.isChecked(),
-                                closeChangeset.isChecked(), extraTags, elements, () -> logic.checkForMail(caller, server));
-                    }
-                    if (hasBugChanges) {
-                        TransferTasks.upload(caller, server, null);
-                    }
-                } else {
-                    Snack.barInfo(caller, R.string.toast_no_changes);
-                }
-            } else {
-                ErrorAlert.showDialog(caller, ErrorCodes.NO_LOGIN_DATA);
-            }
+            upload();
         } else {
             ReviewAndUpload.showPage(caller, ReviewAndUpload.TAGS_PAGE);
             tagsShown = true;
+        }
+        lastClickTime = SystemClock.elapsedRealtime();
+    }
+
+    /**
+     * Actually upload
+     */
+    private void upload() {
+        Map<String, String> extraTags = new HashMap<>();
+        if (requestReview.isChecked()) {
+            extraTags.put(Tags.KEY_REVIEW_REQUESTED, Tags.VALUE_YES);
+        }
+        final Logic logic = App.getLogic();
+        final Server server = logic.getPrefs().getServer();
+        if (server.isLoginSet()) {
+            boolean hasDataChanges = logic.hasChanges();
+            boolean hasBugChanges = !App.getTaskStorage().isEmpty() && App.getTaskStorage().hasChanges();
+            if (hasDataChanges || hasBugChanges) {
+                if (hasDataChanges) {
+                    logic.upload(caller, getString(commentField), getString(sourceField), closeOpenChangeset != null && closeOpenChangeset.isChecked(),
+                            closeChangeset.isChecked(), extraTags, elements, () -> logic.checkForMail(caller, server));
+                }
+                if (hasBugChanges) {
+                    TransferTasks.upload(caller, server, null);
+                }
+            } else {
+                Snack.barInfo(caller, R.string.toast_no_changes);
+            }
+        } else {
+            ErrorAlert.showDialog(caller, ErrorCodes.NO_LOGIN_DATA);
         }
     }
 
