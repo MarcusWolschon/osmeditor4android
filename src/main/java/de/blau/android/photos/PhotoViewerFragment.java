@@ -265,7 +265,7 @@ public class PhotoViewerFragment extends SizedDynamicImmersiveDialogFragment imp
     void prepareMenu() {
         final int size = photoList.size();
         boolean multiple = size > 1;
-        int pos = viewPager.getCurrentItem();
+        int pos = getCurrentPosition();
         final boolean forwardEnabled = multiple && (wrap || pos < size - 1);
         itemForward.setEnabled(forwardEnabled);
         // for whatever reason drawables with state lists don't seem to work in menus
@@ -306,8 +306,7 @@ public class PhotoViewerFragment extends SizedDynamicImmersiveDialogFragment imp
     public boolean onMenuItemClick(MenuItem item) {
         int size = photoList.size();
         FragmentActivity caller = getActivity();
-
-        int pos = viewPager.getCurrentItem();
+        int pos = getCurrentPosition();
         if (photoList != null && !photoList.isEmpty() && pos < size) {
             try {
                 switch (item.getItemId()) {
@@ -336,7 +335,10 @@ public class PhotoViewerFragment extends SizedDynamicImmersiveDialogFragment imp
                     // TODO This is not generic and only works for the photo layer
                     new AlertDialog.Builder(getContext()).setTitle(R.string.photo_viewer_delete_title)
                             .setPositiveButton(R.string.photo_viewer_delete_button, (dialog, which) -> {
-                                int position = viewPager.getCurrentItem();
+                                if (viewPager == null) {
+                                    return;
+                                }
+                                int position = getCurrentPosition();
                                 if (position >= 0 && position < photoList.size()) { // avoid crashes from bouncing
                                     Uri photoUri = Uri.parse(photoList.get(position));
                                     try {
@@ -413,7 +415,7 @@ public class PhotoViewerFragment extends SizedDynamicImmersiveDialogFragment imp
      * @return the current position
      */
     int getCurrentPosition() {
-        return viewPager.getCurrentItem();
+        return viewPager != null ? viewPager.getCurrentItem() : 0;
     }
 
     /**
@@ -422,7 +424,9 @@ public class PhotoViewerFragment extends SizedDynamicImmersiveDialogFragment imp
      * @param pos the new position
      */
     void setCurrentPosition(int pos) {
-        viewPager.setCurrentItem(pos);
+        if (viewPager != null) {
+            viewPager.setCurrentItem(pos);
+        }
     }
 
     /**
