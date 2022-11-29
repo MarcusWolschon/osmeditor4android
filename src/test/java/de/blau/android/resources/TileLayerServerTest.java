@@ -58,7 +58,7 @@ public class TileLayerServerTest {
 
         ctx = ApplicationProvider.getApplicationContext();
         try (KeyDatabaseHelper keyDatabase = new KeyDatabaseHelper(ctx); InputStream is = loader.getResourceAsStream(Files.FILE_NAME_KEYS_V2)) {
-            keyDatabase.keysFromStream(is);
+            keyDatabase.keysFromStream(null, is);
         } catch (IOException e) {
             fail(e.getMessage());
         }

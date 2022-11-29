@@ -30,7 +30,7 @@ public class KeyDatabaseTest {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         try (KeyDatabaseHelper keyDatabase = new KeyDatabaseHelper(ApplicationProvider.getApplicationContext());
                 InputStream is = loader.getResourceAsStream(Files.FILE_NAME_KEYS_V2)) {
-            keyDatabase.keysFromStream(is);
+            keyDatabase.keysFromStream(null, is);
             OAuthConfiguration configuration = KeyDatabaseHelper.getOAuthConfiguration(keyDatabase.getReadableDatabase(), "OpenStreetMap");
             assertEquals("1212121212", configuration.getKey());
             assertEquals("2121212121", configuration.getSecret());
