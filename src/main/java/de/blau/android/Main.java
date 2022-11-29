@@ -2446,7 +2446,7 @@ public class Main extends FullScreenAppCompatActivity
                 @Override
                 public boolean read(Uri fileUri) {
                     try (KeyDatabaseHelper keyDatabase = new KeyDatabaseHelper(Main.this)) {
-                        keyDatabase.keysFromStream(Main.this.getContentResolver().openInputStream(fileUri));
+                        keyDatabase.keysFromStream(Main.this, Main.this.getContentResolver().openInputStream(fileUri));
                         SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
                     } catch (FileNotFoundException fex) {
                         fileNotFound(fileUri);

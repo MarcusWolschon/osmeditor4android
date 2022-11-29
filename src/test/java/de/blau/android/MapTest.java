@@ -39,7 +39,7 @@ public class MapTest {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         try (KeyDatabaseHelper keyDatabase = new KeyDatabaseHelper(ApplicationProvider.getApplicationContext());
                 InputStream is = loader.getResourceAsStream(Files.FILE_NAME_KEYS_V2)) {
-            keyDatabase.keysFromStream(is);
+            keyDatabase.keysFromStream(null, is);
         } catch (IOException e) {
             fail(e.getMessage());
         }

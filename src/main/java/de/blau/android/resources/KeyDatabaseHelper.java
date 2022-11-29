@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.contract.Files;
 import de.blau.android.net.OAuthHelper.OAuthConfiguration;
+import de.blau.android.util.Snack;
 
 /**
  * Database helper for managing private keys
@@ -181,12 +182,15 @@ public class KeyDatabaseHelper extends SQLiteOpenHelper {
      * Read keys from an InputStream in the format
      * name&lt;tab&gt;type&lt;tab&gt;key&lt;tab&gt;overwrite&lt;tab&gt;add1&lt;tab&gt;add2
      * 
+     * @param context Android content if not null error messages will be toasted
      * @param is the InputStream
      */
-    public void keysFromStream(@NonNull InputStream is) {
+    public void keysFromStream(@Nullable Context context, @NonNull InputStream is) {
+        int lineNumber = 0;
         try (BufferedReader br = new BufferedReader(new InputStreamReader(is)); SQLiteDatabase db = getWritableDatabase()) {
             String line = null;
             while ((line = br.readLine()) != null) {
+                lineNumber++;
                 if (line.startsWith("#")) {
                     continue; // skip comments
                 }
@@ -198,22 +202,36 @@ public class KeyDatabaseHelper extends SQLiteOpenHelper {
                 if (k.length < FIELD_COUNT) {
                     Log.e(DEBUG_TAG, "short key DB entry " + line);
                 } else {
-                    boolean overwrite = TRUE.equalsIgnoreCase(k[3]);
-                    EntryType type = EntryType.valueOf(k[1].toUpperCase(Locale.US));
-                    if (type == EntryType.IMAGERY) { // backwards compatibility
-                        k[0] = k[0].toUpperCase(Locale.US);
-                    }
-                    if (k.length == FIELD_COUNT) {
-                        replaceOrDeleteKey(db, k[0], type, k[2], false, overwrite, null, null);
-                    } else if (k.length == FIELD_COUNT + 2) {
-                        replaceOrDeleteKey(db, k[0], type, k[2], false, overwrite, k[4], k[5]);
-                    } else {
-                        Log.e(DEBUG_TAG, "invalid entry " + line);
-                    }
+                    processLine(db, k);
                 }
             }
-        } catch (IOException | ArrayIndexOutOfBoundsException e) {
-            Log.e(DEBUG_TAG, "exception reading stream  " + e.getMessage());
+        } catch (IOException | ArrayIndexOutOfBoundsException | IllegalArgumentException e) {
+            final String msg = "Exception reading keys file  " + e.getMessage() + " on line " + lineNumber;
+            Log.e(DEBUG_TAG, msg);
+            if (context != null) {
+                Snack.toastTopError(context, msg);
+            }
+        }
+    }
+
+    /**
+     * Process the values from one line
+     * 
+     * @param db the target database
+     * @param k an array of strings to use
+     */
+    private void processLine(@NonNull SQLiteDatabase db, @NonNull String[] k) {
+        boolean overwrite = TRUE.equalsIgnoreCase(k[3]);
+        EntryType type = EntryType.valueOf(k[1].toUpperCase(Locale.US));
+        if (type == EntryType.IMAGERY) { // backwards compatibility
+            k[0] = k[0].toUpperCase(Locale.US);
+        }
+        if (k.length == FIELD_COUNT) {
+            replaceOrDeleteKey(db, k[0], type, k[2], false, overwrite, null, null);
+        } else if (k.length == FIELD_COUNT + 2) {
+            replaceOrDeleteKey(db, k[0], type, k[2], false, overwrite, k[4], k[5]);
+        } else {
+            throw new IllegalArgumentException("invalid entry");
         }
     }
 
@@ -228,8 +246,8 @@ public class KeyDatabaseHelper extends SQLiteOpenHelper {
         AssetManager assetManager = ctx.getAssets();
         try (KeyDatabaseHelper keys = new KeyDatabaseHelper(ctx)) {
             // these will be overwritten if Files.FILE_NAME_KEYS_V2 exists
-            keys.keysFromStream(assetManager.open(Files.FILE_NAME_KEYS_V2_DEFAULT));
-            keys.keysFromStream(assetManager.open(Files.FILE_NAME_KEYS_V2));
+            keys.keysFromStream(null, assetManager.open(Files.FILE_NAME_KEYS_V2_DEFAULT));
+            keys.keysFromStream(null, assetManager.open(Files.FILE_NAME_KEYS_V2));
         } catch (IOException e) {
             Log.e(DEBUG_TAG, "Error reading keys file " + e.getMessage());
         }
