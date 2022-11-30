@@ -870,7 +870,7 @@ public class Main extends FullScreenAppCompatActivity
         // determine if we have a camera
         PackageManager pm = getPackageManager();
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        return pm.hasSystemFeature(PackageManager.FEATURE_CAMERA) && cameraIntent.resolveActivity(getPackageManager()) != null;
+        return pm.hasSystemFeature(PackageManager.FEATURE_CAMERA) && cameraIntent.resolveActivity(pm) != null;
     }
 
     /**
@@ -2913,7 +2913,7 @@ public class Main extends FullScreenAppCompatActivity
      */
     @Override
     protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
-        Log.d(DEBUG_TAG, "onActivityResult");
+        Log.d(DEBUG_TAG, "onActivityResult code " + requestCode + " result " + resultCode + " data " + data);
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             if (imageFile != null) {
@@ -2932,8 +2932,7 @@ public class Main extends FullScreenAppCompatActivity
         } else if (data != null) {
             if (requestCode == REQUEST_EDIT_TAG && resultCode == RESULT_OK) {
                 handlePropertyEditorResult();
-            } else if ((requestCode == SelectFile.READ_FILE || requestCode == SelectFile.READ_FILE_OLD || requestCode == SelectFile.SAVE_FILE)
-                    && resultCode == RESULT_OK) {
+            } else if ((requestCode == SelectFile.READ_FILE || requestCode == SelectFile.SAVE_FILE) && resultCode == RESULT_OK) {
                 SelectFile.handleResult(requestCode, data);
             } else {
                 ActivityResultHandler.Listener listener = activityResultListeners.get(requestCode);
