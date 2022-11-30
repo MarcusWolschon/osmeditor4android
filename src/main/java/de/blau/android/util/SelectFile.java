@@ -3,21 +3,37 @@ package de.blau.android.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import com.nononsenseapps.filepicker.AbstractFilePickerActivity;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.contract.Schemes;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.presets.PresetElement;
 
 /**
  * Helper class that tries to provide some minimal file selector functionality for all supported Android versions
@@ -29,9 +45,8 @@ public final class SelectFile {
 
     private static final String DEBUG_TAG = SelectFile.class.getName();
 
-    public static final int SAVE_FILE     = 7113;
-    public static final int READ_FILE     = 9340;
-    public static final int READ_FILE_OLD = 9341;
+    public static final int SAVE_FILE = 7113;
+    public static final int READ_FILE = 9340;
 
     private static SaveFile     saveCallback;
     private static final Object saveCallbackLock = new Object();
@@ -60,33 +75,11 @@ public final class SelectFile {
             SelectFile.activity = activity;
         }
         String path = App.getPreferences(activity).getString(directoryPrefKey);
-        Intent i;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            i = new Intent(Intent.ACTION_CREATE_DOCUMENT);
-            i.setType("*/*");
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && path != null) {
-                i.putExtra(DocumentsContract.EXTRA_INITIAL_URI, Uri.parse(path));
-            }
+            startFileSelector(activity, Intent.ACTION_CREATE_DOCUMENT, SAVE_FILE, path);
         } else {
-            i = new Intent(activity, ThemedFilePickerActivity.class);
-            i.putExtra(AbstractFilePickerActivity.EXTRA_ALLOW_MULTIPLE, false);
-            i.putExtra(AbstractFilePickerActivity.EXTRA_ALLOW_CREATE_DIR, true);
-            i.putExtra(AbstractFilePickerActivity.EXTRA_ALLOW_EXISTING_FILE, true);
-            i.putExtra(AbstractFilePickerActivity.EXTRA_MODE, AbstractFilePickerActivity.MODE_NEW_FILE);
-
-            if (path != null) {
-                i.putExtra(AbstractFilePickerActivity.EXTRA_START_PATH, path);
-            } else {
-                try {
-                    i.putExtra(AbstractFilePickerActivity.EXTRA_START_PATH, FileUtil.getPublicDirectory().getPath());
-                } catch (IOException e) {
-                    // if for whatever reason the above doesn't work we use the standard directory
-                    Log.d(DEBUG_TAG, "falling back to standard dir instead");
-                    i.putExtra(AbstractFilePickerActivity.EXTRA_START_PATH, Environment.getExternalStorageDirectory().getPath());
-                }
-            }
+            startFilePickerActivity(activity, SAVE_FILE, path);
         }
-        activity.startActivityForResult(i, SAVE_FILE);
     }
 
     /**
@@ -101,33 +94,119 @@ public final class SelectFile {
             SelectFile.activity = activity;
         }
         String path = App.getPreferences(activity).getString(directoryPrefKey);
-        Intent i;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            i = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-            i.setType("*/*");
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && path != null) {
-                i.putExtra(DocumentsContract.EXTRA_INITIAL_URI, Uri.parse(path));
-            }
+            startFileSelector(activity, Intent.ACTION_OPEN_DOCUMENT, READ_FILE, path);
         } else {
-            i = new Intent(activity, ThemedFilePickerActivity.class);
+            startFilePickerActivity(activity, READ_FILE, path);
+        }
+    }
 
-            i.putExtra(AbstractFilePickerActivity.EXTRA_ALLOW_MULTIPLE, false);
+    /**
+     * Start a file picker for pre-KITKAT Androids
+     * 
+     * @param activity the calling Activity
+     * @param requestCode the request code
+     * @param path a directory path to try to start with
+     */
+    private static void startFilePickerActivity(@NonNull Activity activity, int requestCode, @Nullable String path) {
+        Intent i = new Intent(activity, ThemedFilePickerActivity.class);
+        i.putExtra(AbstractFilePickerActivity.EXTRA_ALLOW_MULTIPLE, false);
+        if (requestCode == READ_FILE) {
             i.putExtra(AbstractFilePickerActivity.EXTRA_SINGLE_CLICK, true);
-            i.putExtra(AbstractFilePickerActivity.EXTRA_MODE, AbstractFilePickerActivity.MODE_FILE);
-
-            if (path != null) {
-                i.putExtra(AbstractFilePickerActivity.EXTRA_START_PATH, path);
-            } else {
-                try {
-                    i.putExtra(AbstractFilePickerActivity.EXTRA_START_PATH, FileUtil.getPublicDirectory().getPath());
-                } catch (IOException e) {
-                    // if for whatever reason the above doesn't work we use the standard directory
-                    Log.d(DEBUG_TAG, "falling back to standard dir instead");
-                    i.putExtra(AbstractFilePickerActivity.EXTRA_START_PATH, Environment.getExternalStorageDirectory().getPath());
-                }
+        }
+        if (requestCode == SAVE_FILE) {
+            i.putExtra(AbstractFilePickerActivity.EXTRA_ALLOW_CREATE_DIR, true);
+            i.putExtra(AbstractFilePickerActivity.EXTRA_ALLOW_EXISTING_FILE, true);
+        }
+        i.putExtra(AbstractFilePickerActivity.EXTRA_MODE, AbstractFilePickerActivity.MODE_FILE);
+        if (path != null) {
+            i.putExtra(AbstractFilePickerActivity.EXTRA_START_PATH, path);
+        } else {
+            try {
+                i.putExtra(AbstractFilePickerActivity.EXTRA_START_PATH, FileUtil.getPublicDirectory().getPath());
+            } catch (IOException e) {
+                // if for whatever reason the above doesn't work we use the standard directory
+                Log.d(DEBUG_TAG, "falling back to standard dir instead");
+                i.putExtra(AbstractFilePickerActivity.EXTRA_START_PATH, Environment.getExternalStorageDirectory().getPath());
             }
         }
-        activity.startActivityForResult(i, READ_FILE);
+        activity.startActivityForResult(i, requestCode);
+    }
+
+    /**
+     * Start the system file selector or other installed app with the same functionality
+     * 
+     * @param activity the calling Activity
+     * @param intentAction the intent action we want to use
+     * @param intentRequestCode the request code
+     * @param path a directory path to try to start with
+     */
+    private static void startFileSelector(@NonNull Activity activity, @NonNull String intentAction, int intentRequestCode, @Nullable String path) {
+        Intent i = new Intent(intentAction);
+        i.setType("*/*");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && path != null) {
+            i.putExtra(DocumentsContract.EXTRA_INITIAL_URI, Uri.parse(path));
+        }
+        final PackageManager pm = activity.getPackageManager();
+        List<ResolveInfo> activities = pm.queryIntentActivities(i, 0);
+        if (activities.size() > 1) { // multiple activities support the required action
+            selectFileSelectorActivity(activity, pm, activities, i, intentRequestCode);
+            return;
+        }
+        activity.startActivityForResult(i, intentRequestCode);
+    }
+
+    /**
+     * Select which Activity to use for file selection
+     * 
+     * @param activity current Activity
+     * @param pm a PackageManager
+     * @param resolvedActivities a list of ResolvInfo
+     * @param intent the Intent
+     * @param code the request code to use
+     */
+    private static void selectFileSelectorActivity(@NonNull final Activity activity, @NonNull PackageManager pm,
+            @NonNull final List<ResolveInfo> resolvedActivities, @NonNull final Intent intent, int code) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity).setTitle(R.string.select_file_picker_title);
+        builder.setAdapter(new ResolveInfoAdapter(activity, pm, resolvedActivities), (DialogInterface dialog, int which) -> {
+            intent.setPackage(resolvedActivities.get(which).activityInfo.packageName);
+            activity.startActivityForResult(intent, code);
+        });
+        builder.setNeutralButton(R.string.cancel, null);
+        builder.show();
+    }
+
+    private static class ResolveInfoAdapter extends ArrayAdapter<ResolveInfo> {
+        private final PackageManager pm;
+        private final int            side;
+
+        /**
+         * Get an adapter
+         * 
+         * @param context an Android Context
+         * @param pm a PackageManager
+         * @param items a List of ReolveInfo
+         */
+        public ResolveInfoAdapter(@NonNull Context context, @NonNull PackageManager pm, @NonNull List<ResolveInfo> items) {
+            super(context, R.layout.resolveinfo_list_item, items);
+            this.pm = pm;
+            side = Density.dpToPx(context, PresetElement.ICON_SIZE_DP);
+        }
+
+        @NonNull
+        @Override
+        public View getView(int position, View convertView, @NonNull ViewGroup parent) {
+            LinearLayout ll = (LinearLayout) (!(convertView instanceof LinearLayout) ? View.inflate(getContext(), R.layout.resolveinfo_list_item, null)
+                    : convertView);
+            TextView name = ll.findViewById(R.id.app_name);
+            final ResolveInfo item = getItem(position);
+            name.setText(item.loadLabel(pm));
+            Drawable icon = item.loadIcon(pm);
+            icon.setBounds(0, 0, side, side);
+            ImageView appIcon = ll.findViewById(R.id.app_icon);
+            appIcon.setImageDrawable(icon);
+            return ll;
+        }
     }
 
     /**
@@ -161,7 +240,7 @@ public final class SelectFile {
                     saveCallback.save(uri);
                 }
             }
-        } else if (code == READ_FILE || code == READ_FILE_OLD) {
+        } else if (code == READ_FILE) {
             synchronized (readCallbackLock) {
                 if (readCallback != null) {
                     Log.d(DEBUG_TAG, "reading " + uri);
@@ -172,7 +251,7 @@ public final class SelectFile {
     }
 
     /**
-     * Save the director path to shared preferences
+     * Save the directory path to shared preferences
      * 
      * @param prefs the Preferences instance
      * @param directoryPrefKey the key
