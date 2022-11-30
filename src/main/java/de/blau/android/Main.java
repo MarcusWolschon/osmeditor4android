@@ -2913,7 +2913,7 @@ public class Main extends FullScreenAppCompatActivity
      */
     @Override
     protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
-        Log.d(DEBUG_TAG, "onActivityResult");
+        Log.d(DEBUG_TAG, "onActivityResult code " + requestCode + " result " + resultCode + " data " + data);
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             if (imageFile != null) {
