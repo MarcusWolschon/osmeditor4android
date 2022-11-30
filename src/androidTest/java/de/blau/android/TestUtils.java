@@ -1,6 +1,7 @@
 package de.blau.android;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.ByteArrayOutputStream;
@@ -1151,6 +1152,11 @@ public final class TestUtils {
      */
     public static void selectFile(@NonNull UiDevice device, @NonNull Context context, @Nullable String directory, @NonNull String fileName,
             boolean useVespucciDir, boolean create) {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) {
+            // we should see the file picker selector here
+            assertTrue(findText(device, false, context.getString(R.string.select_file_picker_title)));
+            assertTrue(clickText(device, false, "Files", true));
+        }
         // if the fileName we are looking for is on screen click and be done with it
         if (!create && TestUtils.findText(device, false, fileName) && TestUtils.clickText(device, false, fileName, true, true)) {
             return;

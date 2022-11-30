@@ -371,6 +371,26 @@ task deinstallDummyCameraApp() {
     }
 }
 
+task installDummyFilePickerApp() {
+    doLast {
+        AndroidDebugBridge.initIfNeeded(false)
+        def bridge = AndroidDebugBridge.createBridge(android.adbExecutable.path, false)
+        bridge.devices.each {
+            it.installPackage(projectDir.getPath() + '/src/androidTest/resources/DummyFilePickerApp.apk', true)
+        }
+    }
+}
+
+task deinstallDummyFilePickerApp() {
+    doLast {
+        AndroidDebugBridge.initIfNeeded(false)
+        def bridge = AndroidDebugBridge.createBridge(android.adbExecutable.path, false)
+        bridge.devices.each {
+            it.uninstallPackage('ch.poole.android.dummyfilepickerapp')
+        }
+    }
+}
+
 task setLongClickTimeout() {
     doLast {
         AndroidDebugBridge.initIfNeeded(false)
@@ -454,9 +474,11 @@ afterEvaluate{
         }
         
         marathonCurrentDebugAndroidTest.dependsOn installDummyCameraApp
+        marathonCurrentDebugAndroidTest.dependsOn installDummyFilePickerApp
         marathonCurrentDebugAndroidTest.dependsOn setLongClickTimeout
         marathonCurrentDebugAndroidTest.dependsOn removeVespucciDirectory
         uninstallAll.dependsOn deinstallDummyCameraApp
+        uninstallAll.dependsOn deinstallDummyFilePickerApp
     }
 
     // these tasks needs to be created after the uninstall tasks
