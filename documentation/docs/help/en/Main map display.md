@@ -120,7 +120,7 @@ directory, however this depends on the specific camera app.
 
 ### ![Location](../images/menu_gps.png) Location
 
-The "on-map" GPS button duplicates the function of the "Follow GPS position" menu entry. When this is activated the GPS arrow will be displayed as an outline. Note that the _Show location_ function will enable location updates from the system, just as the recording and similar options.
+The "on-map" GPS button duplicates the function of the "Follow location" menu entry. When this is activated the GPS arrow will be displayed as an outline. Note that the _Show location_ function will enable location updates from the system, just as the recording and similar options.
 To reposition or remove the "on-map" GPS button use the "Follow position button layout" Preference.
 
 
