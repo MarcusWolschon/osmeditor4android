@@ -28,9 +28,9 @@ Select the camera app to use. If your, installed, camera app is not listed, plea
 
 Additionally use Androids MediaStore for accessing photos. This will add all photographs in JPEG format found via the MediaStore that contain coordinates in their EXIF data to the phto layer. Default: _off_.
 
-### Follow position button layout
+### Follow location button layout
 
-Change the side of the display the "follow GPS" button is located on. Default: _lefthand side_.
+Change the side of the display the "Follow location" button is positioned on or remove it completely. Default: _lefthand side_.
 
 ### Always dim non-downloaded areas
 
