@@ -230,12 +230,7 @@ public class Style implements Serializable {
     public void loadStyle(@NonNull Context ctx, @NonNull InputStream is) {
         List<Layer> tempList = new ArrayList<>();
         try (BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName(OsmXml.UTF_8)))) {
-            StringBuilder sb = new StringBuilder();
-            int cp;
-            while ((cp = rd.read()) != -1) {
-                sb.append((char) cp);
-            }
-            JsonElement root = JsonParser.parseString(sb.toString());
+            JsonElement root = JsonParser.parseReader(rd);
             if (root.isJsonObject()) {
                 JsonObject rootObject = (JsonObject) root;
                 JsonElement temp = rootObject.get(STYLE_VERSION);
