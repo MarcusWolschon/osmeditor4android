@@ -1,10 +1,13 @@
 package de.blau.android.layer.mapillary;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +28,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import androidx.exifinterface.media.ExifInterface;
 import de.blau.android.App;
@@ -33,6 +37,7 @@ import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.contract.FileExtensions;
 import de.blau.android.contract.Schemes;
+import de.blau.android.osm.OsmXml;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.ImageLoader;
@@ -82,7 +87,7 @@ class MapillaryLoader extends ImageLoader {
     @Override
     public void load(SubsamplingScaleImageView view, String key) {
         File imageFile = new File(cacheDir, key + JPG);
-        if (!imageFile.exists()) { // download
+        if (!imageFile.exists() || imageFile.length() == 0) { // download
             if (mThreadPool == null) {
                 mThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(IMAGERY_LOAD_THREADS);
             }
@@ -92,54 +97,19 @@ class MapillaryLoader extends ImageLoader {
                     try {
                         String urlString = String.format(imageUrl, key);
                         URL url = new URL(urlString);
-                        Log.d(DEBUG_TAG, "query: " + url.toString());
-
                         Request request = new Request.Builder().url(url).build();
                         OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(20000, TimeUnit.MILLISECONDS)
                                 .readTimeout(20000, TimeUnit.MILLISECONDS).build();
                         Call mapillaryCall = client.newCall(request);
                         Response mapillaryCallResponse = mapillaryCall.execute();
                         if (mapillaryCallResponse.isSuccessful()) {
-                            ResponseBody responseBody = mapillaryCallResponse.body();
-                            try (InputStream inputStream = responseBody.byteStream()) {
+                            try (ResponseBody responseBody = mapillaryCallResponse.body(); InputStream inputStream = responseBody.byteStream()) {
                                 if (inputStream != null) {
-                                    StringBuilder sb = new StringBuilder();
-                                    int cp;
-                                    while ((cp = inputStream.read()) != -1) {
-                                        sb.append((char) cp);
-                                    }
-                                    JsonElement root = JsonParser.parseString(sb.toString());
+                                    JsonElement root = JsonParser
+                                            .parseReader(new BufferedReader(new InputStreamReader(inputStream, Charset.forName(OsmXml.UTF_8))));
                                     if (root.isJsonObject() && ((JsonObject) root).has(THUMB_2048_URL_FIELD)) {
-                                        String url2048 = ((JsonObject) root).get(THUMB_2048_URL_FIELD).getAsString();
-                                        request = new Request.Builder().url(url2048).build();
-                                        mapillaryCall = client.newCall(request);
-                                        mapillaryCallResponse = mapillaryCall.execute();
-                                        if (mapillaryCallResponse.isSuccessful()) {
-                                            responseBody = mapillaryCallResponse.body();
-                                            try (InputStream inputStream2048 = responseBody.byteStream()) {
-                                                if (inputStream2048 != null) {
-                                                    try (FileOutputStream fileOutput = new FileOutputStream(imageFile)) {
-                                                        byte[] buffer = new byte[1024];
-                                                        int bufferLength = 0;
-                                                        while ((bufferLength = inputStream2048.read(buffer)) > 0) {
-                                                            fileOutput.write(buffer, 0, bufferLength);
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                            JsonElement point = ((JsonObject) root).get(COMPUTED_GEOMETRY_FIELD);
-                                            if (point instanceof JsonObject) {
-                                                JsonElement coords = ((JsonObject) point).get(COORDINATES_FIELD);
-                                                if (coords instanceof JsonArray && ((JsonArray) coords).size() == 2) {
-                                                    ExifInterface exif = new ExifInterface(imageFile);
-                                                    double lat = ((JsonArray) coords).get(1).getAsDouble();
-                                                    double lon = ((JsonArray) coords).get(0).getAsDouble();
-                                                    exif.setLatLong(lat, lon);
-                                                    exif.saveAttributes();
-                                                    coordinates.put(key, new double[] { lat, lon });
-                                                }
-                                            }
-                                        }
+                                        loadImage(key, imageFile, client, ((JsonObject) root).get(COMPUTED_GEOMETRY_FIELD),
+                                                ((JsonObject) root).get(THUMB_2048_URL_FIELD).getAsString());
                                     } else {
                                         throw new IOException("Unexpected / missing response");
                                     }
@@ -153,16 +123,8 @@ class MapillaryLoader extends ImageLoader {
                         Log.e(DEBUG_TAG, e.getMessage());
                         return;
                     }
-
                     setImage(view, imageFile);
-                    Logic logic = App.getLogic();
-                    new ExecutorTask<Void, Void, Void>(logic.getExecutorService(), logic.getHandler()) {
-                        @Override
-                        protected Void doInBackground(Void arg) {
-                            FileUtil.pruneCache(cacheDir, cacheSize);
-                            return null;
-                        }
-                    }.execute();
+                    pruneCache();
                 });
             } catch (RejectedExecutionException rjee) {
                 Log.e(DEBUG_TAG, "Execution rejected " + rjee.getMessage());
@@ -177,6 +139,60 @@ class MapillaryLoader extends ImageLoader {
                 }
             }
             setImage(view, imageFile);
+        }
+    }
+
+    /**
+     * Prune the image cache
+     */
+    private void pruneCache() {
+        Logic logic = App.getLogic();
+        new ExecutorTask<Void, Void, Void>(logic.getExecutorService(), logic.getHandler()) {
+            @Override
+            protected Void doInBackground(Void arg) {
+                FileUtil.pruneCache(cacheDir, cacheSize);
+                return null;
+            }
+        }.execute();
+    }
+
+    /**
+     * Download the image
+     * 
+     * @param key image key
+     * @param imageFile target file to save the image in
+     * @param client OkHttp client
+     * @param point JsonElement holding coordinates for the image
+     * @param url image url
+     * @throws IOException if download or writing has issues
+     */
+    private void loadImage(@NonNull String key, @NonNull File imageFile, @NonNull OkHttpClient client, @Nullable JsonElement point, @NonNull String url)
+            throws IOException {
+        Request request = new Request.Builder().url(url).build();
+        Response response = client.newCall(request).execute();
+        if (response.isSuccessful()) {
+            try (ResponseBody responseBody = response.body(); InputStream inputStream = responseBody.byteStream()) {
+                if (inputStream != null) {
+                    try (FileOutputStream fileOutput = new FileOutputStream(imageFile)) {
+                        byte[] buffer = new byte[1024];
+                        int bufferLength = 0;
+                        while ((bufferLength = inputStream.read(buffer)) > 0) {
+                            fileOutput.write(buffer, 0, bufferLength);
+                        }
+                    }
+                    if (point instanceof JsonObject && imageFile.length() > 0) {
+                        JsonElement coords = ((JsonObject) point).get(COORDINATES_FIELD);
+                        if (coords instanceof JsonArray && ((JsonArray) coords).size() == 2) {
+                            ExifInterface exif = new ExifInterface(imageFile);
+                            double lat = ((JsonArray) coords).get(1).getAsDouble();
+                            double lon = ((JsonArray) coords).get(0).getAsDouble();
+                            exif.setLatLong(lat, lon);
+                            exif.saveAttributes();
+                            coordinates.put(key, new double[] { lat, lon });
+                        }
+                    }
+                }
+            }
         }
     }
 
