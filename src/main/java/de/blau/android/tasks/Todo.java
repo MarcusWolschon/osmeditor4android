@@ -43,6 +43,7 @@ public final class Todo extends Bug implements Serializable {
     private static final String   TODO_ID        = "id";
     private static final String   TODO_LON       = "lon";
     private static final String   TODO_LAT       = "lat";
+    private static final String   TODO_COMMENT   = "comment";
     private static final String   TODO_LIST_NAME = "name";
     public static final String    DEFAULT_LIST   = "default";
 
@@ -87,6 +88,9 @@ public final class Todo extends Bug implements Serializable {
                                 break;
                             case TODO_STATE:
                                 todo.setState(State.valueOf(reader.nextString()));
+                                break;
+                            case TODO_COMMENT:
+                                todo.setTitle(reader.nextString());
                                 break;
                             case OSM_IDS:
                                 parseIds(reader, todo);
@@ -240,6 +244,11 @@ public final class Todo extends Bug implements Serializable {
         writer.value(id);
         writer.name(TODO_STATE);
         writer.value(getState().toString());
+        final String title = getTitle();
+        if (title != null) {
+            writer.name(TODO_COMMENT);
+            writer.value(title);
+        }
         writer.name(OSM_IDS);
         writer.beginObject();
         writeIdArray(writer, nodes, NODES_ARRAY);
