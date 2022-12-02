@@ -34,6 +34,9 @@
 "aerialway/gondola":[
 "Gondolheis"
 ],
+"aerialway/goods":[
+"Gods Luftvei"
+],
 "aerialway/j-bar":[
 "J-Bar Heis"
 ],
@@ -99,6 +102,9 @@
 ],
 "amenity/bar":[
 "Bar"
+],
+"amenity/bar/lgbtq":[
+"LGBTQ+ Bar"
 ],
 "amenity/bbq":[
 "Grill"
@@ -174,6 +180,9 @@
 ],
 "amenity/community_centre":[
 "Samfunnshus"
+],
+"amenity/community_centre/lgbtq":[
+"LGBTQ+ samfunnssenter"
 ],
 "amenity/compressed_air":[
 "Komprimert Luft"
@@ -252,6 +261,9 @@
 ],
 "amenity/fuel":[
 "Bensinstasjon"
+],
+"amenity/gambling":[
+"Spillehall"
 ],
 "amenity/give_box":[
 "Byttebod"
@@ -399,6 +411,9 @@
 ],
 "amenity/pub/irish":[
 "Irsk pub"
+],
+"amenity/pub/lgbtq":[
+"LGBTQ+ Pub"
 ],
 "amenity/pub/microbrewery":[
 "Bryggeripub"
@@ -745,6 +760,9 @@
 "barrier/retaining_wall":[
 "Støttemur"
 ],
+"barrier/rope":[
+"Taugjerde"
+],
 "barrier/sally_port":[
 "Sortiport"
 ],
@@ -957,9 +975,6 @@
 ],
 "craft/bookbinder":[
 "Bokbinderi"
-],
-"craft/brewery":[
-"Bryggeri"
 ],
 "craft/carpenter":[
 "Snekker"
@@ -1267,17 +1282,8 @@
 "highway/footway/conveying":[
 "Rullende fortau"
 ],
-"highway/footway/marked":[
-"Fotgjengerovergang"
-],
 "highway/footway/sidewalk":[
 "Fortau"
-],
-"highway/footway/unmarked":[
-"Tilrettelagt kryssing"
-],
-"highway/footway/zebra":[
-"Fotgjengerovergang"
 ],
 "highway/give_way":[
 "Vikepliktskilt"
@@ -1668,6 +1674,9 @@
 "leisure/playground":[
 "Lekeplass"
 ],
+"leisure/playground/indoor":[
+"Innendørs Lekeplass"
+],
 "leisure/sauna":[
 "Badstu"
 ],
@@ -1682,6 +1691,9 @@
 ],
 "leisure/sports_centre/swimming":[
 "Svømmehall / badeland"
+],
+"leisure/sports_hall":[
+"Gymsal"
 ],
 "leisure/stadium":[
 "Stadion"
@@ -1713,11 +1725,17 @@
 "man_made/breakwater":[
 "Molo"
 ],
+"man_made/bridge":[
+"Bruområde"
+],
 "man_made/chimney":[
 "Pipe"
 ],
 "man_made/clearcut":[
 "Nedhugget Skog"
+],
+"man_made/courtyard":[
+"Gårdsplass"
 ],
 "man_made/crane":[
 "Kran"
@@ -1736,6 +1754,9 @@
 ],
 "man_made/lighthouse":[
 "Fyrtårn"
+],
+"man_made/manhole":[
+"Mannhull"
 ],
 "man_made/mast":[
 "Mast"
@@ -1770,9 +1791,6 @@
 "man_made/pipeline":[
 "Rørledning"
 ],
-"man_made/pipeline/valve":[
-"Rørledningsventil"
-],
 "man_made/pumping_station":[
 "Pumpestasjon"
 ],
@@ -1805,6 +1823,9 @@
 ],
 "man_made/tower/communication":[
 "Kommunikasjonstårn"
+],
+"man_made/tower/cooling":[
+"Kjøletårn"
 ],
 "man_made/tower/minaret":[
 "Minaret"
@@ -1893,6 +1914,9 @@
 "natural/scrub":[
 "Krattskog"
 ],
+"natural/shrub":[
+"Krattskog"
+],
 "natural/spring":[
 "Vannkilde"
 ],
@@ -1935,6 +1959,9 @@
 "natural/wetland":[
 "Myr"
 ],
+"natural/wetland/tidalflat":[
+"Flatt Tidalvann"
+],
 "natural/wood":[
 "Naturlig Skog"
 ],
@@ -1958,6 +1985,15 @@
 ],
 "office/charity":[
 "Veldedighetskontor"
+],
+"office/coworking":[
+"Medarbeiderområde"
+],
+"office/diplomatic":[
+"Diplomatkontor"
+],
+"office/diplomatic/consulate":[
+"Konsulat"
 ],
 "office/diplomatic/embassy":[
 "Ambassade"
@@ -1985,6 +2021,9 @@
 ],
 "office/lawyer":[
 "Advokatkontor"
+],
+"office/moving_company":[
+"Flytttefirmakontor"
 ],
 "office/newspaper":[
 "Avisredaksjon"
@@ -2018,6 +2057,9 @@
 ],
 "office/travel_agent":[
 "Reisebyrå"
+],
+"office/yes":[
+"Office (Unspecified Type)"
 ],
 "piste/downhill":[
 "Utforløype"
@@ -2079,11 +2121,35 @@
 "place/village":[
 "Tettsted"
 ],
+"playground/basketswing":[
+"Kurvhuske"
+],
+"playground/bridge":[
+"Lekebru"
+],
+"playground/climbingwall":[
+"Leke Klatrevegg"
+],
+"playground/playhouse":[
+"Lekehus"
+],
+"playground/sandpit":[
+"Sandkasse"
+],
 "playground/seesaw":[
 "Vippehuske"
 ],
+"playground/sledding":[
+"Akebakke"
+],
 "playground/slide":[
 "Sklie"
+],
+"playground/springy":[
+"Gyngehest (med fjær)"
+],
+"playground/structure":[
+"Lekestativ"
 ],
 "playground/swing":[
 "Huske"
@@ -2120,6 +2186,9 @@
 "strøm",
 "linje"
 ],
+"power/plant/source/nuclear":[
+"Atomkraftverk"
+],
 "power/pole":[
 "Høyspentmast"
 ],
@@ -2152,6 +2221,9 @@
 ],
 "public_transport/platform/trolleybus_point":[
 "Holdeplass for trolleybuss"
+],
+"public_transport/station_light_rail":[
+"Light Rail Station"
 ],
 "public_transport/station_subway":[
 "T-banestasjon"
@@ -2219,9 +2291,6 @@
 "shop/alcohol":[
 "Vinutsalg"
 ],
-"shop/antiques":[
-"Antikvariat / antikvitetshandel"
-],
 "shop/appliance":[
 "Hvitevarebutikk"
 ],
@@ -2260,9 +2329,6 @@
 ],
 "shop/bookmaker":[
 "Bookmaker"
-],
-"shop/books":[
-"Bokhandel"
 ],
 "shop/boutique":[
 "Klesbutikk"
@@ -2324,9 +2390,6 @@
 "shop/cosmetics":[
 "Parfymeri"
 ],
-"shop/country_store":[
-"Landhandel"
-],
 "shop/craft":[
 "Kunst & Håndverksbutikk"
 ],
@@ -2335,9 +2398,6 @@
 ],
 "shop/dairy":[
 "Ferskvarebutikk"
-],
-"shop/deli":[
-"Delikatessebutikk"
 ],
 "shop/department_store":[
 "Supermarked"
@@ -2411,9 +2471,6 @@
 "shop/hardware":[
 "Jernvarehandel"
 ],
-"shop/health_food":[
-"Helsekostbutikk"
-],
 "shop/hearing_aids":[
 "Høreapparatutsalg"
 ],
@@ -2483,9 +2540,6 @@
 "shop/musical_instrument":[
 "Musikkinstrumentbutikk"
 ],
-"shop/newsagent":[
-"Aviskiosk"
-],
 "shop/optician":[
 "Optiker"
 ],
@@ -2500,9 +2554,6 @@
 ],
 "shop/pastry":[
 "Bakeri"
-],
-"shop/pawnbroker":[
-"Pantelåner"
 ],
 "shop/perfumery":[
 "Parfymeri"
@@ -2527,9 +2578,6 @@
 ],
 "shop/seafood":[
 "Sjømatbutikk"
-],
-"shop/second_hand":[
-"Gjenbruksbutikk"
 ],
 "shop/sewing":[
 "Sybutikk"
@@ -2830,8 +2878,20 @@
 "waterway/river":[
 "Elv"
 ],
+"waterway/sanitary_dump_station":[
+"Marine Toalettavhending"
+],
 "waterway/stream":[
 "Bekk"
+],
+"waterway/stream_intermittent":[
+"Periodisk Bekk"
+],
+"waterway/tidal_channel":[
+"Tidevannskanal"
+],
+"waterway/water_point":[
+"Marint Drikkevann"
 ],
 "waterway/waterfall":[
 "Foss"

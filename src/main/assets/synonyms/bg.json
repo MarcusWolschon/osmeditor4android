@@ -68,6 +68,19 @@
 "amenity/drinking_water":[
 "Чешма"
 ],
+"amenity/driver_training":[
+"Учебен полигон",
+"полигон за начинаещи шофьори",
+"мото полигон"
+],
+"amenity/driving_school":[
+"категория b",
+"авто курсове",
+"шофьорска книжка",
+"мото курсове",
+"Автошкола",
+"шофьорско училище"
+],
 "amenity/embassy":[
 "Посолство"
 ],
@@ -149,14 +162,78 @@
 "amenity/pub":[
 "Пъб"
 ],
+"amenity/refugee_site":[
+"Бежански лагер"
+],
 "amenity/restaurant":[
 "Ресторант"
+],
+"amenity/restaurant/american":[
+"Американски ресторант"
+],
+"amenity/restaurant/asian":[
+"Азиатски ресторант"
+],
+"amenity/restaurant/chinese":[
+"Китайски ресторант"
+],
+"amenity/restaurant/french":[
+"Френски ресторант"
+],
+"amenity/restaurant/german":[
+"германски ресторант",
+"Немски ресторант"
+],
+"amenity/restaurant/greek":[
+"Гръцки ресторант"
+],
+"amenity/restaurant/indian":[
+"Индийски ресторант"
+],
+"amenity/restaurant/italian":[
+"Италиански ресторант"
+],
+"amenity/restaurant/japanese":[
+"Японски ресторант"
+],
+"amenity/restaurant/mexican":[
+"Мексикански ресторант"
+],
+"amenity/restaurant/steakhouse":[
+"Стекхаус"
+],
+"amenity/restaurant/sushi":[
+"Суши ресторант"
+],
+"amenity/restaurant/thai":[
+"Тайландски ресторант"
+],
+"amenity/restaurant/turkish":[
+"Турски ресторант"
+],
+"amenity/restaurant/vietnamese":[
+"Виетнамски ресторант"
 ],
 "amenity/school":[
 "Училище"
 ],
+"amenity/shelter/gazebo":[
+"Беседка"
+],
+"amenity/social_facility/ambulatory_care":[
+"Амбулаторна грижа"
+],
 "amenity/social_facility/food_bank":[
 "Хранителна банка"
+],
+"amenity/social_facility/group_home":[
+"Групов дом за възрастни хора"
+],
+"amenity/social_facility/homeless_shelter":[
+"Дом за бездомни"
+],
+"amenity/social_facility/nursing_home":[
+"Старчески дом"
 ],
 "amenity/taxi":[
 "Такси стоянка"
@@ -166,6 +243,9 @@
 ],
 "amenity/theatre":[
 "Театър"
+],
+"amenity/theatre/type/amphi":[
+"Амфитеатър"
 ],
 "amenity/townhall":[
 "Кметство"
@@ -342,9 +422,6 @@
 "craft/blacksmith":[
 "Ковачница"
 ],
-"craft/brewery":[
-"Пивоварна"
-],
 "craft/carpenter":[
 "Дърводелец"
 ],
@@ -476,14 +553,19 @@
 "Пешеходна пътека"
 ],
 "highway/crossing/marked":[
-"Пешеходна пътека \"Зебра\"",
-"маркирана пешеходна пътека"
+"Пешеходна пътека Зебра"
 ],
 "highway/crossing/unmarked":[
 "Немаркирана пешеходна пътека"
 ],
 "highway/cycleway":[
 "Велоалея"
+],
+"highway/cycleway/crossing/marked":[
+"Маркирана велосипедна пътека"
+],
+"highway/cycleway/crossing/unmarked":[
+"Немаркирана велосипедна пътека"
 ],
 "highway/elevator":[
 "Асансьор"
@@ -497,9 +579,6 @@
 ],
 "highway/footway/crossing":[
 "Пешеходна пътека"
-],
-"highway/footway/marked":[
-"Пешеходна пътека \"Зебра\""
 ],
 "highway/living_street":[
 "Улица в жилищна зона"
@@ -717,11 +796,31 @@
 "leisure/golf_course":[
 "Голф игрище"
 ],
+"leisure/ice_rink":[
+"кърлинг",
+"Ледена пързалка",
+"кънки",
+"хокей"
+],
 "leisure/marina":[
 "Яхт клуб"
 ],
+"leisure/miniature_golf":[
+"Миниатюрен голф",
+"мини голф"
+],
+"leisure/nature_reserve":[
+"Природен резерват"
+],
 "leisure/park":[
 "Парк"
+],
+"leisure/picnic_table":[
+"Пикник маса"
+],
+"leisure/picnic_table/chess":[
+"Шахматна маса",
+"маса за шах"
 ],
 "leisure/pitch":[
 "Спортно игрище"
@@ -729,14 +828,42 @@
 "leisure/pitch/american_football":[
 "Игрище за американски футбол"
 ],
+"leisure/pitch/archery":[
+"Стрелбище"
+],
+"leisure/pitch/australian_football":[
+"Игрище за австралийски футбол"
+],
+"leisure/pitch/badminton":[
+"Игрище за бадминтон"
+],
+"leisure/pitch/baseball":[
+"бейзбол",
+"Бейзболно игрище"
+],
 "leisure/pitch/basketball":[
 "Баскетболно игрище"
+],
+"leisure/pitch/beachvolleyball":[
+"Игрище за плажен волейбол"
+],
+"leisure/pitch/cricket":[
+"поле за крикет",
+"Игрище за крикет"
+],
+"leisure/pitch/futsal":[
+"Игрище за футзал"
 ],
 "leisure/pitch/skateboard":[
 "Скейт парк"
 ],
 "leisure/pitch/soccer":[
 "Футболно игрище"
+],
+"leisure/pitch/table_tennis":[
+"тенис на маса",
+"пинг понг",
+"Тенис маса"
 ],
 "leisure/pitch/tennis":[
 "Тенис корт"
@@ -787,6 +914,9 @@
 "man_made/pipeline":[
 "Тръбопровод"
 ],
+"man_made/pumping_station":[
+"Помпена станция"
+],
 "man_made/survey_point":[
 "Геодезическа точка"
 ],
@@ -794,13 +924,18 @@
 "Кула"
 ],
 "man_made/wastewater_plant":[
-"Пречиствателна станция"
+"псов",
+"Пречиствателна станция за отпадни води"
 ],
 "man_made/water_tower":[
 "Водна кула"
 ],
 "man_made/water_works":[
-"Помпена станция"
+"пспв",
+"Пречиствателна станция за питейна вода"
+],
+"man_made/windmill":[
+"Вятърна мелница"
 ],
 "natural/bay":[
 "Залив"
@@ -936,6 +1071,14 @@
 "point":[
 "Точка"
 ],
+"power/generator/method/photovoltaic":[
+"фотоволтаичен панел",
+"Соларен панел",
+"слънчев панел"
+],
+"power/generator/method/photovoltaic/location/roof":[
+"Слънчеви панели на покрив"
+],
 "power/generator/source/hydro":[
 "Водна турбина"
 ],
@@ -954,11 +1097,10 @@
 "power/plant/source/nuclear":[
 "АЕЦ"
 ],
-"power/plant/source/solar":[
-"Фото-волтаична станция"
-],
 "power/plant/source/wind":[
-"ВяЕЦ"
+"вятърна ферма",
+"ВяЕЦ",
+"вятърна електроцентрала"
 ],
 "power/pole":[
 "Електрически стълб"
@@ -1033,9 +1175,6 @@
 "shop/bicycle":[
 "Магазин за велосипеди"
 ],
-"shop/books":[
-"Книжарница"
-],
 "shop/boutique":[
 "Бутик"
 ],
@@ -1050,6 +1189,9 @@
 ],
 "shop/car_repair":[
 "Сервиз автомобили"
+],
+"shop/carpet":[
+"Магазин за килими"
 ],
 "shop/chemist":[
 "Дрогерия"
@@ -1072,9 +1214,6 @@
 ],
 "shop/convenience":[
 "Магазин за хранителни стоки"
-],
-"shop/deli":[
-"Магазин за деликатеси"
 ],
 "shop/department_store":[
 "Универсален магазин"
@@ -1142,9 +1281,6 @@
 "shop/optician":[
 "Оптика"
 ],
-"shop/pawnbroker":[
-"Заложна къща"
-],
 "shop/perfumery":[
 "Парфюмерия"
 ],
@@ -1181,11 +1317,12 @@
 "shop/vacant":[
 "Свободна търговска площ"
 ],
-"shop/variety_store":[
-"Смесен магазин"
-],
 "shop/video":[
 "Видеотека"
+],
+"shop/window_blind":[
+"Магазин за щори",
+"ролетни щори"
 ],
 "tourism/aquarium":[
 "Аквариум"

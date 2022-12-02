@@ -21,6 +21,9 @@
 "publicitat",
 "cartell"
 ],
+"aerialway":[
+"Transport per cable"
+],
 "aerialway/cable_car":[
 "telefèric",
 "Telefèric"
@@ -36,6 +39,9 @@
 "remunta pendents",
 "telesquí",
 "esquí"
+],
+"aerialway/gondola":[
+"Telecabina"
 ],
 "aerialway/goods":[
 "càrrega",
@@ -59,13 +65,23 @@
 "aerialway/rope_tow":[
 "Corda remuntadora"
 ],
+"aerialway/t-bar":[
+"Elevador de barra en T"
+],
+"aeroway":[
+"Infraestructura aeroportuària"
+],
 "aeroway/aerodrome":[
 "aeròdrom",
 "aeroport",
 "Aeroport"
 ],
+"aeroway/apron":[
+"Àrea d'aparcament"
+],
 "aeroway/gate":[
-"Porta d'aeroport"
+"Porta d'aeroport",
+"porta d'embarcament"
 ],
 "aeroway/hangar":[
 "dipòsit",
@@ -89,14 +105,17 @@
 "carrer de taxi",
 "carril de rodatge",
 "carrer de rodament",
+"Carrer de rodada",
 "plataforma de rodada",
 "carrer de rodatge",
 "carril de rodada",
-"pista de taxi",
-"Plataforma de rodada"
+"pista de taxi"
 ],
 "aeroway/terminal":[
-"Terminal d'aeroport"
+"terminal d'aeroport",
+"Terminal d'aeroport",
+"terminal aeroportuària",
+"terminal d'aeròdrom"
 ],
 "aeroway/windsock":[
 "Mànega de vent"
@@ -148,6 +167,9 @@
 "Bar LGBTQ+"
 ],
 "amenity/bbq":[
+"barbacoa",
+"torradora",
+"torrador",
 "Barbacoa/graella"
 ],
 "amenity/bench":[
@@ -184,15 +206,27 @@
 "Estació d'autobusos"
 ],
 "amenity/cafe":[
+"te",
 "bar",
 "cafeteria",
+"bistro",
 "cafè",
-"Cafè"
+"Cafeteria"
+],
+"amenity/cafe/bubble_tea":[
+"te",
+"tapioca",
+"Te amb perles",
+"llet",
+"perles"
 ],
 "amenity/car_rental":[
 "servei de lloguer de turismes",
 "Lloguer de cotxes",
 "lloguer de cotxes"
+],
+"amenity/car_sharing":[
+"Estació de cotxes compartits"
 ],
 "amenity/car_wash":[
 "tren de rentat de cotxes",
@@ -204,9 +238,16 @@
 "Casino"
 ],
 "amenity/charging_station":[
-"Estació de càrrega"
+"ev",
+"mobilitat elèctrica",
+"supercarregador",
+"Estació de càrrega",
+"vehicle elèctric"
 ],
 "amenity/childcare":[
+"orfanat",
+"centre de dia",
+"guarderia",
 "Llar d'Infants"
 ],
 "amenity/cinema":[
@@ -217,19 +258,39 @@
 "Cinema"
 ],
 "amenity/clinic":[
-"Clínica"
+"Clínica",
+"medicina",
+"mèdic",
+"ambulatori",
+"urgències",
+"centre de salut"
 ],
 "amenity/clinic/abortion":[
-"Clínica d'avortament"
+"interrupció",
+"Clínica d'avortament",
+"salut de la dona"
 ],
 "amenity/clinic/fertility":[
-"Clínica de fertilitat"
+"fertitlitat",
+"ovulació",
+"ou",
+"reproducció",
+"reproductiva",
+"Clínica de fertilitat",
+"clínica",
+"esperma"
 ],
 "amenity/clock":[
-"Rellotge"
+"Rellotge",
+"temps"
+],
+"amenity/clock/sundial":[
+"Rellotge solar"
 ],
 "amenity/college":[
-"Escola professional"
+"Escola professional",
+"universitat",
+"estudis de grau"
 ],
 "amenity/community_centre":[
 "Centre Comunitari"
@@ -238,7 +299,10 @@
 "Centre comunitari LGBTQ+"
 ],
 "amenity/compressed_air":[
-"Aire comprimit"
+"unflador de rodes",
+"Aire comprimit",
+"compressor d'aire",
+"aire comprimit"
 ],
 "amenity/conference_centre":[
 "Centre de convencions"
@@ -261,7 +325,16 @@
 "Centre de submarinisme"
 ],
 "amenity/doctors":[
+"doctor",
+"doctora",
+"metge",
+"metgessa",
+"fisio",
+"consultori",
 "Doctor"
+],
+"amenity/doctors/gynaecology":[
+"Ginecòleg"
 ],
 "amenity/dojo":[
 "Dojo / Acadèmia d'arts marcials"
@@ -285,12 +358,36 @@
 "amenity/embassy":[
 "Ambaixada"
 ],
+"amenity/exhibition_centre":[
+"Centre d'Exposicions"
+],
 "amenity/fast_food":[
 "menjar ràpid",
 "local de menjar ràpid",
 "Local de menjar ràpid",
 "restaurant de menjar ràpid",
 "servei de menjar ràpid"
+],
+"amenity/fast_food/cafeteria":[
+"refector",
+"Cantina",
+"cantina",
+"menjador escolar"
+],
+"amenity/fast_food/hot_dog":[
+"Frankfurt com a menjar ràpid"
+],
+"amenity/fast_food/kebab":[
+"Kebab com a menjar ràpid"
+],
+"amenity/fast_food/mexican":[
+"Menjar mexicà com a menjar ràpid"
+],
+"amenity/fast_food/pizza":[
+"Pizza com a menjar ràpid"
+],
+"amenity/fast_food/sandwich":[
+"Sandwich com a menjar ràpid"
 ],
 "amenity/ferry_terminal":[
 "Terminal de ferris"
@@ -316,6 +413,9 @@
 "gasolinera",
 "estació de servei",
 "Benzinera"
+],
+"amenity/gambling":[
+"Sala de Jocs"
 ],
 "amenity/grave_yard":[
 "cementiri",
@@ -349,9 +449,17 @@
 ],
 "amenity/internet_cafe":[
 "cifercafè",
-"Cifercafè",
 "xatfeteria",
-"cafè d'internet"
+"cibercafè",
+"Cibercafè",
+"cafè d'internet",
+"cafè"
+],
+"amenity/kindergarten":[
+"preescolar",
+"Centre preescolar",
+"guarderia",
+"jardí d'infància"
 ],
 "amenity/language_school":[
 "acadèmia de llengües",
@@ -363,12 +471,18 @@
 "Safareig",
 "llavador"
 ],
+"amenity/letter_box":[
+"Bústia"
+],
 "amenity/library":[
 "Biblioteca",
 "llibreria",
 "edifici públic per als llibres",
 "biblioteca",
 "espai d'emmagatzematge de llibres"
+],
+"amenity/lounger":[
+"Gandula"
 ],
 "amenity/marketplace":[
 "Mercat",
@@ -379,8 +493,16 @@
 "amenity/monastery":[
 "Terrenys d'un monestir"
 ],
+"amenity/mortuary":[
+"Morgue"
+],
 "amenity/motorcycle_parking":[
-"Aparcament per a motocicletes"
+"estacionament de motos",
+"aparcament de motos",
+"parking de motocicletes",
+"estacionament per a motocicletes",
+"Aparcament per a motocicletes",
+"parking de motos"
 ],
 "amenity/motorcycle_rental":[
 "Lloguer de motocicletes"
@@ -389,7 +511,11 @@
 "Escola de música"
 ],
 "amenity/nightclub":[
-"Club nocturn"
+"club de ball",
+"dicoteca",
+"Club nocturn",
+"oci nocturn",
+"club nocturn"
 ],
 "amenity/nightclub/lgbtq":[
 "Club nocturn LGBTQ+"
@@ -397,11 +523,51 @@
 "amenity/nursing_home":[
 "Llar d'avis"
 ],
+"amenity/parcel_locker":[
+"paquets",
+"parcel locker",
+"parcel",
+"bústia",
+"comerç",
+"comerç en línia",
+"casiller",
+"Armari intel·ligent",
+"comerç online",
+"locker",
+"bústia intel·ligent"
+],
+"amenity/parking":[
+"puesto de parking",
+"Aparcament",
+"lloc d'aparcament",
+"puesto d'estacionament",
+"lloc de parking",
+"puesto d'aparcament",
+"lloc d'estacionament"
+],
+"amenity/parking/multi-storey":[
+"Aparcament multinivell"
+],
 "amenity/parking/underground":[
 "Aparcament subterrani"
 ],
+"amenity/parking_entrance":[
+"ixida d'aparcament",
+"eixida de parquing",
+"entrada de parking",
+"Entrada / Eixida d'un aparcament",
+"entrada de parquing",
+"eixida d'aparcament",
+"ixida de parking",
+"eixida de parking",
+"entrada d'aparcament",
+"ixida de parquing"
+],
 "amenity/parking_space":[
 "Espai d'aparcament"
+],
+"amenity/parking_space/disabled":[
+"Espai d'aparcament accesible"
 ],
 "amenity/pharmacy":[
 "dispensari farmacèutic",
@@ -424,16 +590,48 @@
 "església budista"
 ],
 "amenity/place_of_worship/christian":[
-"Capella cristiana"
+"abadia",
+"casa de déu",
+"parròquia",
+"santuari",
+"església baptista",
+"capella",
+"catedral",
+"monestir",
+"església",
+"Capella cristiana",
+"casa d'oració",
+"lloc de pregària",
+"oratori",
+"casa de lloança",
+"missió",
+"cristià",
+"sacellum",
+"basílica"
+],
+"amenity/place_of_worship/christian/jehovahs_witness":[
+"Sales del Regne dels testimonis de Jehovà"
+],
+"amenity/place_of_worship/christian/la_luz_del_mundo":[
+"Templo La Luz del Mundo"
 ],
 "amenity/place_of_worship/hindu":[
 "Temple Hindú"
 ],
 "amenity/place_of_worship/jewish":[
-"Sinagoga jueva"
+"Sinagoga jueva",
+"sinagoga",
+"jueu",
+"església jueva",
+"culte jueu",
+"temple jueu"
 ],
 "amenity/place_of_worship/muslim":[
-"Mesquita musulmana"
+"mesquita",
+"Mesquita musulmana",
+"musulmà",
+"espai musulmà",
+"temple musulmà"
 ],
 "amenity/place_of_worship/shinto":[
 "Santuari sintoísta"
@@ -454,8 +652,17 @@
 "dependències policials",
 "comissaria de policia"
 ],
+"amenity/polling_station":[
+"Col·legi Electoral Permanent"
+],
 "amenity/post_box":[
-"Bústia"
+"carta",
+"bústia",
+"enviament",
+"correus",
+"Bústia",
+"servei de correus",
+"bústia pública"
 ],
 "amenity/post_office":[
 "oficina de correus",
@@ -465,8 +672,11 @@
 "carters",
 "Oficina de correus"
 ],
+"amenity/prep_school":[
+"Classes de preparació / Classes de repàs"
+],
 "amenity/prison":[
-"Terrenys de presó"
+"Terrenys d'una presó"
 ],
 "amenity/pub":[
 "bar",
@@ -475,6 +685,9 @@
 "granja",
 "bareto",
 "pub"
+],
+"amenity/pub/irish":[
+"Pub Irlandés"
 ],
 "amenity/public_bath":[
 "bany",
@@ -491,6 +704,18 @@
 ],
 "amenity/recycling":[
 "Reciclatge"
+],
+"amenity/recycling/container/green_waste":[
+"biodegradable",
+"Contenidor de residus verds",
+"orgànic",
+"descomposable",
+"restes de menjar",
+"compost",
+"biologic",
+"basura",
+"residus de jardí",
+"contenidor de basura"
 ],
 "amenity/recycling_centre":[
 "Centre de Reciclatge"
@@ -587,6 +812,12 @@
 "amenity/shelter":[
 "Refugi"
 ],
+"amenity/shelter/gazebo":[
+"Gazebo"
+],
+"amenity/shelter/lean_to":[
+"Alpendre"
+],
 "amenity/shower":[
 "Dutxa"
 ],
@@ -597,10 +828,17 @@
 "Centre social"
 ],
 "amenity/social_facility":[
-"Centre social"
+"sense ànim de lucre",
+"serveis socials",
+"servicis socials",
+"Centre social",
+"comunitat"
 ],
 "amenity/social_facility/food_bank":[
-"Banc d'aliments"
+"menjador social",
+"economat",
+"Banc d'aliments",
+"banc d'aliments"
 ],
 "amenity/social_facility/group_home":[
 "Residència d'avis",
@@ -608,7 +846,11 @@
 "geriàtric"
 ],
 "amenity/social_facility/homeless_shelter":[
-"Refugi per a indigents"
+"vagabund",
+"sense sostre",
+"sense casa",
+"Refugi per a indigents",
+"indigent"
 ],
 "amenity/social_facility/nursing_home":[
 "Llar d'avis"
@@ -618,6 +860,12 @@
 ],
 "amenity/studio/audio":[
 "Estudi de gravació"
+],
+"amenity/studio/television":[
+"Estudis de Televisió"
+],
+"amenity/studio/video":[
+"Estudis Cinematogràfics"
 ],
 "amenity/taxi":[
 "Parada de Taxi",
@@ -643,6 +891,13 @@
 "amenity/theatre/type/amphi":[
 "Amfiteatre"
 ],
+"amenity/toilets":[
+"lavabo",
+"lavabos",
+"lavabos públics",
+"serveis",
+"w.c"
+],
 "amenity/toilets/portable":[
 "Lavabo portàtil"
 ],
@@ -658,7 +913,14 @@
 "Ajuntament"
 ],
 "amenity/university":[
-"Campus universitari"
+"llicenciatura",
+"universitat",
+"Campus universitari",
+"càtedra",
+"campus universitàri",
+"grau",
+"facultat",
+"seminari"
 ],
 "amenity/vehicle_inspection":[
 "Inspecció de vehicles",
@@ -686,6 +948,9 @@
 "amenity/vending_machine/drinks":[
 "Expenedora de begudes"
 ],
+"amenity/vending_machine/excrement_bags":[
+"Dispensador de bosses per a excrements"
+],
 "amenity/vending_machine/feminine_hygiene":[
 "Expenedora d'articles d'higiene femenina"
 ],
@@ -699,7 +964,7 @@
 "Màquina expenedora de diaris"
 ],
 "amenity/vending_machine/parking_tickets":[
-"Màquina de cobrament de tiquet d'aparcament"
+"Màquina de cobrament del tiquet d'aparcament"
 ],
 "amenity/vending_machine/public_transport_tickets":[
 "Màquina de venda de títols de transport públic"
@@ -711,6 +976,10 @@
 "Màquina de vènding de comestibles"
 ],
 "amenity/veterinary":[
+"hospital veterinari",
+"cura d'animals",
+"veterinari",
+"clínica per a animals",
 "Veterinari"
 ],
 "amenity/waste/dog_excrement":[
@@ -878,7 +1147,11 @@
 ],
 "barrier/wall/noise_barrier":[
 "Barrera acústica",
-"barrera de soroll"
+"barrera de soroll",
+"barrera acústica"
+],
+"barrier/yes":[
+"Barrera (Tipus sense especificar)"
 ],
 "boundary":[
 "Límit"
@@ -901,6 +1174,11 @@
 "oficines"
 ],
 "building/apartments":[
+"bloc",
+"pisos",
+"edifici d'apartaments",
+"bloc de pisos",
+"apartaments",
 "Edifici d'apartaments"
 ],
 "building/barn":[
@@ -913,7 +1191,8 @@
 "Búnquer"
 ],
 "building/cabin":[
-"Cabana"
+"Cabana",
+"cabina"
 ],
 "building/cathedral":[
 "Edifici Catedralici"
@@ -935,13 +1214,22 @@
 "Edifici comercial"
 ],
 "building/construction":[
+"edifici en construcció",
+"edifici baix construcció",
 "Edifici en construcció"
 ],
 "building/detached":[
+"unifamiliar",
+"casa",
+"llar",
+"allotjament",
+"familiar",
+"residència",
 "Casa a quatre vents"
 ],
 "building/dormitory":[
-"Edifici d'habitacions"
+"Edifici d'habitacions",
+"dormitori"
 ],
 "building/entrance":[
 "Entrada/Sortida"
@@ -987,6 +1275,9 @@
 "Edifici industrial",
 "edifici industrial"
 ],
+"building/kindergarten":[
+"Edifici de preescolar"
+],
 "building/mosque":[
 "Edifici d'una mesquita"
 ],
@@ -994,16 +1285,23 @@
 "Edifici d'oficines"
 ],
 "building/public":[
-"Edifici públic"
+"Edifici públic",
+"edifici públic"
 ],
 "building/residential":[
 "Edifici residencial",
 "edifici residencial"
 ],
 "building/retail":[
+"botiga",
+"edifici comercial",
+"comerç",
+"tenda",
 "Edifici de grans magatzems"
 ],
 "building/roof":[
+"terrat",
+"teulada",
 "Teulada"
 ],
 "building/ruins":[
@@ -1051,13 +1349,24 @@
 "Edifici d'un estadi"
 ],
 "building/static_caravan":[
-"Caravana fixa"
+"caravana estàtica",
+"trailer casa",
+"Caravana fixa",
+"casa prefabricada",
+"cosa mòbil",
+"caravana residencial"
 ],
 "building/temple":[
 "Edifici d'un temple"
 ],
 "building/terrace":[
-"Cases unifamiliars"
+"adossats",
+"llar",
+"en filera",
+"allotjament",
+"familiar",
+"Cases unifamiliars",
+"residència"
 ],
 "building/train_station":[
 "Edifici d'estació de tren"
@@ -1070,7 +1379,11 @@
 "Edifici universitari"
 ],
 "building/warehouse":[
-"Magatzem"
+"magatzem",
+"dipòsit",
+"depòsit",
+"Magatzem",
+"bodega"
 ],
 "building_part":[
 "Part de l'edifici"
@@ -1101,9 +1414,6 @@
 ],
 "craft/bookbinder":[
 "Enquadernador"
-],
-"craft/brewery":[
-"Cerveseria"
 ],
 "craft/carpenter":[
 "fusteria",
@@ -1149,44 +1459,82 @@
 "craft/glaziery":[
 "Vidrieria"
 ],
+"craft/hvac":[
+"calefacció",
+"Empresa d'instal·lacions climàtiques",
+"aire condicionat",
+"ventilació",
+"estufa"
+],
 "craft/insulator":[
-"Aïllador"
+"isolador",
+"Aïllador",
+"aïllant"
 ],
 "craft/key_cutter":[
-"Fabricant de claus"
+"Fabricant de claus",
+"duplicació de claus",
+"copia de claus"
 ],
 "craft/locksmith":[
 "Copisteria de claus"
 ],
+"craft/metal_construction":[
+"Treballador del metall"
+],
 "craft/painter":[
+"pintor",
 "Pintor"
 ],
 "craft/photographer":[
+"fotògraf",
 "Fotògraf"
 ],
 "craft/photographic_laboratory":[
+"pel·lícula",
 "Laboratori fotogràfic"
 ],
 "craft/plasterer":[
-"Guixaire"
+"algeps",
+"Guixaire",
+"guix",
+"algep"
 ],
 "craft/plumber":[
-"Llauner"
+"conducte",
+"Llauner",
+"canonada",
+"canal",
+"col·lector",
+"canó"
+],
+"craft/pottery":[
+"Terrissaire",
+"ceràmica",
+"forn",
+"olla",
+"gerro"
 ],
 "craft/rigger":[
-"Armador d'embarcacions"
+"Armador d'embarcacions",
+"aparellador"
 ],
 "craft/roofer":[
+"teulador",
 "Constructor de teulades"
 ],
 "craft/saddler":[
 "Cuirasser"
 ],
 "craft/sailmaker":[
-"Fabricant de veles"
+"fabricant de veles",
+"veler",
+"Fabricant de veles",
+"velera"
 ],
 "craft/sawmill":[
-"Serradora"
+"Serradora",
+"talador"
 ],
 "craft/scaffolder":[
 "Muntador de bastides"
@@ -1224,6 +1572,9 @@
 "demolished/building":[
 "Edifici recentment demolit"
 ],
+"disused/railway":[
+"Element ferroviari en desús"
+],
 "embankment":[
 "Terraplè"
 ],
@@ -1233,6 +1584,9 @@
 "emergency/ambulance_station":[
 "estació d'ambulàncies",
 "Parada d'ambulàncies"
+],
+"emergency/assembly_point":[
+"Punt de trobada d'emergència"
 ],
 "emergency/defibrillator":[
 "Desfibril·lador"
@@ -1245,6 +1599,9 @@
 ],
 "emergency/fire_extinguisher":[
 "Extintor"
+],
+"emergency/fire_hose":[
+"Manguera d'incendis"
 ],
 "emergency/fire_hydrant":[
 "presa d'aigua per a bombers",
@@ -1261,8 +1618,14 @@
 "emergency/landing_site":[
 "Lloc d'aterratge d'emergències"
 ],
+"emergency/life_ring":[
+"Salvavides"
+],
 "emergency/lifeboat_station":[
 "Estació de bots salvavides"
+],
+"emergency/lifeguard":[
+"Socorrista"
 ],
 "emergency/mountain_rescue":[
 "Rescat de muntanya"
@@ -1295,25 +1658,31 @@
 "Accés per a emergències permès"
 ],
 "entrance":[
-"Entrada / Sortida"
+"entrada",
+"ixida",
+"Entrada / Sortida",
+"eixida",
+"porta"
 ],
 "entrance/emergency":[
 "Sortida d'emergència"
 ],
 "entrance/emergency_ward_entrance":[
-"Entrada de l'habitació d'emergència"
+"Entrada a la sala d'urgències"
 ],
 "entrance/main":[
 "Entrada principal"
 ],
 "ford":[
+"gual",
 "Ford"
 ],
 "ford_line":[
 "Gual"
 ],
 "golf/bunker":[
-"Bunker"
+"Bunker",
+"perill"
 ],
 "golf/fairway":[
 "Fairway"
@@ -1369,6 +1738,12 @@
 "healthcare/speech_therapist":[
 "Logopeda"
 ],
+"healthcare/yes":[
+"Instal·lació sanitària (Tipus sense especificar)"
+],
+"highway":[
+"Via"
+],
 "highway/bridleway":[
 "camí eqüestre",
 "cavall",
@@ -1383,6 +1758,15 @@
 ],
 "highway/corridor":[
 "Corredor interior"
+],
+"highway/crossing":[
+"Pas de vianants"
+],
+"highway/crossing/traffic_signals":[
+"Creument controlat per semàfors"
+],
+"highway/crossing/unmarked":[
+"Creuament sense senyalització horitzontal"
 ],
 "highway/cycleway":[
 "via verda",
@@ -1435,7 +1819,9 @@
 "Autopista"
 ],
 "highway/motorway_junction":[
-"Intersecció d'autopista / Sortida"
+"ixida",
+"Intersecció d'autopista / Sortida",
+"eixida"
 ],
 "highway/motorway_link":[
 "entrada",
@@ -1482,7 +1868,9 @@
 "Carrer"
 ],
 "highway/rest_area":[
-"Àrea de descans"
+"Àrea de descans",
+"parada",
+"banquina"
 ],
 "highway/road":[
 "via desconeguda",
@@ -1533,7 +1921,14 @@
 "carrer de parking"
 ],
 "highway/services":[
-"Àrea de servei"
+"Àrea de servei",
+"parada de camions",
+"estació de servei",
+"estació de servici",
+"parada de camioners",
+"àrea de servei",
+"motel",
+"àrea de servici"
 ],
 "highway/steps":[
 "Escales",
@@ -1559,12 +1954,15 @@
 "Enllaç de carretera terciària",
 "enllaç amb terciària"
 ],
+"highway/track":[
+"Pista forestal / Via d'accés"
+],
 "highway/traffic_mirror":[
 "Mirall de trànsit"
 ],
 "highway/traffic_signals":[
+"Semàfor",
 "senyals de trànsit",
-"Semàfors",
 "senyals de tràfic"
 ],
 "highway/trunk":[
@@ -1582,7 +1980,10 @@
 "Cul de sac"
 ],
 "highway/unclassified":[
-"Carretera menor / sense classificació"
+"carrer",
+"Carretera menor / sense classificació",
+"carretera",
+"via"
 ],
 "historic":[
 "lloc històric",
@@ -1667,13 +2068,21 @@
 "Objecte d'ús del sòl"
 ],
 "landuse/allotments":[
-"Horts"
+"Horts",
+"horts urbans",
+"horts",
+"horts comunitaris"
 ],
 "landuse/aquaculture":[
 "Aqüicultura"
 ],
 "landuse/basin":[
 "Bassa"
+],
+"landuse/brownfield":[
+"industrial",
+"desenvolupament",
+"Sòl urbanitzable ja urbanitzat"
 ],
 "landuse/cemetery":[
 "cementiri",
@@ -1684,10 +2093,18 @@
 "Terrenys d'església"
 ],
 "landuse/commercial":[
-"Zona Comercial"
+"Zona Comercial",
+"grans magatzems",
+"oficines"
 ],
 "landuse/construction":[
-"Àrea en construcció"
+"Àrea en construcció",
+"construcció",
+"infraestructura",
+"lloc de construcció",
+"desenvolupament",
+"demolició",
+"àrea de construcció"
 ],
 "landuse/farm":[
 "Zona Agrícola"
@@ -1731,10 +2148,16 @@
 "landuse/forest":[
 "Bosc gestionat"
 ],
+"landuse/garages":[
+"Terreny per a garatges"
+],
 "landuse/grass":[
 "Herba",
 "herba",
 "gespa"
+],
+"landuse/greenfield":[
+"Sòl urbanitzable sense urbanitzar"
 ],
 "landuse/greenhouse_horticulture":[
 "Horticultura d'hivernacles"
@@ -1752,7 +2175,8 @@
 "Escorxador"
 ],
 "landuse/landfill":[
-"Abocador"
+"Abocador",
+"abocador"
 ],
 "landuse/meadow":[
 "prat",
@@ -1767,7 +2191,12 @@
 "hort"
 ],
 "landuse/plant_nursery":[
-"Planter"
+"viver",
+"Planter",
+"viver de plantes",
+"planter",
+"jardí",
+"flors"
 ],
 "landuse/pond":[
 "Estany"
@@ -1777,7 +2206,15 @@
 "pedrera"
 ],
 "landuse/railway":[
-"Corredor ferroviari"
+"passadis",
+"zona",
+"tren",
+"Terreny ferroviari",
+"corredor",
+"àrea",
+"ferrocarril",
+"ferroviari",
+"pasillo"
 ],
 "landuse/recreation_ground":[
 "Terrenys per al Lleure"
@@ -1789,13 +2226,20 @@
 "Pantà"
 ],
 "landuse/residential":[
-"Zona Residencial"
+"vivenda",
+"Zona Residencial",
+"allotjament",
+"residència"
 ],
 "landuse/residential/apartments":[
 "Complex d'apartaments"
 ],
 "landuse/retail":[
+"àrea comercial",
 "Zona de Comerç minorista"
+],
+"landuse/salt_pond":[
+"Salina"
 ],
 "landuse/vineyard":[
 "vinya",
@@ -1807,11 +2251,33 @@
 "landuse/winter_sports":[
 "Zona d'esports d'hivern"
 ],
+"leisure":[
+"Esbarjo"
+],
 "leisure/adult_gaming_centre":[
 "Centre d'oci adult"
 ],
+"leisure/amusement_arcade":[
+"Saló recreatiu"
+],
+"leisure/beach_resort":[
+"Balneari de platja",
+"estiu",
+"platja",
+"resort",
+"balneari",
+"mar"
+],
 "leisure/bird_hide":[
 "Observatori d'ocells"
+],
+"leisure/bleachers":[
+"seients",
+"Graderia",
+"estadi",
+"grades",
+"bancs",
+"esport"
 ],
 "leisure/bowling_alley":[
 "Bolera"
@@ -1830,6 +2296,15 @@
 "parc per gossos",
 "Parc Caní",
 "pipi-can"
+],
+"leisure/firepit":[
+"lloc de foc",
+"anell de foc",
+"forat de foc",
+"foguera",
+"foc",
+"llar de foc",
+"cercle de foc"
 ],
 "leisure/fitness_centre":[
 "Gimnàs / Centre de Fitness"
@@ -1893,8 +2368,23 @@
 "camp de golf",
 "Camp de golf"
 ],
+"leisure/horse_riding":[
+"Centre d'Equitació",
+"parc de cavalls",
+"equestre",
+"instal·lació equestre",
+"granja de cavalls",
+"rancho",
+"ranx"
+],
 "leisure/ice_rink":[
-"Pista de gel"
+"hoquei",
+"esports d'hivern",
+"Pista de gel",
+"patinatge",
+"jocs de d'hivern",
+"pista de gel",
+"curling"
 ],
 "leisure/marina":[
 "port esportiu",
@@ -1919,6 +2409,8 @@
 "gespa"
 ],
 "leisure/picnic_table":[
+"banc per a picnic",
+"banc",
 "Taula de picnic"
 ],
 "leisure/picnic_table/chess":[
@@ -2010,6 +2502,9 @@
 "Piscina",
 "piscina"
 ],
+"leisure/trampoline_park":[
+"Parc de Trampolins"
+],
 "leisure/water_park":[
 "Parc Aquàtic"
 ],
@@ -2035,6 +2530,9 @@
 "espatller",
 "escullera"
 ],
+"man_made/bridge":[
+"Àrea del pont"
+],
 "man_made/cairn":[
 "Fita",
 "pila de pedres",
@@ -2058,7 +2556,8 @@
 "Terraplè"
 ],
 "man_made/flagpole":[
-"Màstil"
+"Màstil",
+"màstil"
 ],
 "man_made/gasometer":[
 "Gasòmetre"
@@ -2165,7 +2664,12 @@
 "Pou"
 ],
 "man_made/water_works":[
-"Planta potabilitzadora"
+"estació depuradora d'aigües residual",
+"depuradora",
+"aigües residuals",
+"Planta potabilitzadora",
+"epsar",
+"edar"
 ],
 "man_made/watermill":[
 "Molí d'aigua"
@@ -2179,6 +2683,12 @@
 "man_made/works":[
 "Fàbrica",
 "factoria"
+],
+"man_made/yes":[
+"Element fet per l'home (Tipus sense especificar)"
+],
+"natural":[
+"Natural"
 ],
 "natural/bare_rock":[
 "Roca pelada"
@@ -2319,6 +2829,10 @@
 "Aiguamolls"
 ],
 "natural/wood":[
+"forestal",
+"bosc no gestionat",
+"bosc natural",
+"arbres",
 "Bosc natural"
 ],
 "noexit/yes":[
@@ -2342,10 +2856,20 @@
 "Agència de publicitat"
 ],
 "office/architect":[
-"Oficina d'arquitectura"
+"oficna d'arquitectura",
+"paisatge",
+"arquitectura",
+"arquitecte",
+"Despatx d'arquitectura",
+"disseny"
 ],
 "office/association":[
-"Oficina d'organització no governamental"
+"Oficina d'una rganització no governamental",
+"associació",
+"organització",
+"societat",
+"ong",
+"sense ànim de lucre"
 ],
 "office/company":[
 "Oficina corporativa"
@@ -2368,11 +2892,21 @@
 "office/employment_agency":[
 "Oficina de treball"
 ],
+"office/energy_supplier":[
+"distribuïdora elèctrica",
+"distribuïdora de gas",
+"Oficina d'una Distribuïdora Energètica",
+"gas",
+"electricitat",
+"companyia elèctrica"
+],
 "office/estate_agent":[
-"Oficina d'agència immobiliària"
+"Agència immobiliària",
+"propietat",
+"immobiliària"
 ],
 "office/financial":[
-"Oficina financera"
+"Oficina d'una financera"
 ],
 "office/financial_advisor":[
 "Assessoria financera"
@@ -2387,17 +2921,36 @@
 "office/government":[
 "Oficina governamental"
 ],
+"office/government/prosecutor":[
+"fiscal del districte",
+"fiscal",
+"Oficina del Fiscal",
+"fiscal general",
+"fiscal de l'estat"
+],
 "office/government/register_office":[
-"Registre civil"
+"defunció",
+"Registre civil",
+"certificat",
+"funcionari",
+"naiximent",
+"naixement"
 ],
 "office/guide":[
 "Oficina de guies turístics"
 ],
 "office/insurance":[
-"Oficina de companyia asseguradora"
+"Oficina d'una Companyia Asseguradora",
+"gestió de riscos",
+"asseguradora privada"
 ],
 "office/it":[
-"Oficina de tecnologies de la informació"
+"tecnologia",
+"Oficina de tecnologies de la informació",
+"software",
+"solucions informàtiques",
+"informació",
+"ordinardors"
 ],
 "office/lawyer":[
 "Bufet d'advocats"
@@ -2405,8 +2958,16 @@
 "office/lawyer/notary":[
 "Notaria"
 ],
+"office/newspaper":[
+"Oficines d'un Diari",
+"sala de premsa",
+"redacció"
+],
 "office/ngo":[
-"Oficina d'ONG"
+"organització",
+"ong",
+"Oficina d'ONG",
+"organització no governamental"
 ],
 "office/notary":[
 "Notaria"
@@ -2415,7 +2976,11 @@
 "Metge"
 ],
 "office/political_party":[
-"Oficina d'un partit polític"
+"activista",
+"elecció",
+"Oficina d'un partit polític",
+"canditat",
+"parit polític"
 ],
 "office/private_investigator":[
 "Oficina d'investigador privat"
@@ -2433,13 +2998,23 @@
 "Oficina de seguretat"
 ],
 "office/telecommunication":[
-"Oficina de telecomunicacions"
+"comunicació",
+"proveïdor d'internet",
+"telèfon",
+"Oficina de telecomunicacions",
+"veu",
+"isp",
+"xarxa"
 ],
 "office/therapist":[
+"teràpia",
 "Oficina de terapeuta"
 ],
 "office/travel_agent":[
 "Agència de viatges"
+],
+"office/yes":[
+"Oficina (Tipus sense especificar)"
 ],
 "piste/ice_skate":[
 "Camí per patinatge sobre gel"
@@ -2501,7 +3076,10 @@
 "Indret"
 ],
 "place/neighbourhood":[
-"Barri"
+"Barri",
+"veïnat",
+"veiïnada",
+"veïnatge"
 ],
 "place/plot":[
 "Parcel·la"
@@ -2527,9 +3105,21 @@
 "playground/swing":[
 "Gronxador"
 ],
+"playground/tetherball":[
+"Tetherball"
+],
+"playground/trampoline":[
+"Trampolí"
+],
+"playground/tunnel_tube":[
+"Tunel d'esbarjo"
+],
 "point":[
 "Punt",
 "punt"
+],
+"police/checkpoint":[
+"Control Policial"
 ],
 "polling_station":[
 "Col·legi electoral temporal"
@@ -2549,32 +3139,77 @@
 "power/generator/method/photovoltaic":[
 "Placa solar"
 ],
+"power/generator/method/photovoltaic/location/roof":[
+"fotovoltàica",
+"panells solars",
+"producció solar domèstica",
+"plaques solars al sostre",
+"Panells Solars al sostre"
+],
 "power/generator/source/hydro":[
 "Turbina d'aigua"
 ],
 "power/generator/source/nuclear":[
-"Reactor nuclear"
+"generadord",
+"atòmic",
+"fisió",
+"reactor",
+"Reactor nuclear",
+"nuclear",
+"ascó"
 ],
 "power/generator/source/wind":[
-"Aerogenerador"
+"vent",
+"turbina",
+"Aerogenerador",
+"generador eòlic",
+"generador",
+"molí de vent"
 ],
 "power/line":[
+"alta tenisió",
+"línia d'alta tensió",
+"lat",
 "Línia elèctrica"
 ],
 "power/minor_line":[
 "Línia elèctrica de baixa tensió"
 ],
 "power/plant":[
-"Terrenys d'una central elèctrica"
+"estació",
+"carbó",
+"energia",
+"gas",
+"Terrenys d'una central elèctrica",
+"generador",
+"gas natural",
+"hidro",
+"atòmica",
+"nuclear"
 ],
 "power/plant/source/coal":[
-"Central elèctrica de carbó"
+"estació elèctrica",
+"Central elèctrica de carbó",
+"generador elèctric",
+"carbó",
+"central de carbó",
+"combustible fòssil",
+"combustió"
 ],
 "power/plant/source/gas":[
-"Central elèctrica de gas"
+"estació elèctrica",
+"combustió fòssil",
+"carbó",
+"Central elèctrica de gas",
+"gas natural",
+"central de gas",
+"combustió"
 ],
 "power/plant/source/hydro":[
 "Central hidroelèctrica"
+],
+"power/plant/source/method/photovoltaic":[
+"Granja solar"
 ],
 "power/plant/source/nuclear":[
 "Central nuclear"
@@ -2583,15 +3218,28 @@
 "Central elèctrica de petroli"
 ],
 "power/plant/source/solar":[
-"Central elèctrica solar"
+"planta fotovoltaica",
+"Planta Fotovoltaica",
+"energia solar",
+"panells solars"
 ],
 "power/plant/source/waste":[
-"Central elèctrica d'incineració de residus"
+"rebuig",
+"incineradora",
+"incineradora de rebuig",
+"incineradora de basura",
+"gasificadora",
+"resta",
+"Central elèctrica d'incineració de residus",
+"combustió",
+"planta d'incineració",
+"incineradora de fem"
 ],
 "power/plant/source/wind":[
 "Parc eòlic"
 ],
 "power/pole":[
+"pal elèctric",
 "Piló de línia elèctrica"
 ],
 "power/substation":[
@@ -2611,6 +3259,14 @@
 "power/transformer":[
 "transformador",
 "Transformador"
+],
+"public_transport/platform":[
+"parada de transport públic",
+"parada de bus",
+"parada de trànsit",
+"Parada de transport públic",
+"transport",
+"andana"
 ],
 "public_transport/platform/bus":[
 "Andana d'autobús"
@@ -2652,7 +3308,7 @@
 "Parada / andana de tren"
 ],
 "public_transport/platform/tram":[
-"Andana de tren"
+"Andana de tranvia"
 ],
 "public_transport/platform/tram_point":[
 "Parada / andana de tramvia"
@@ -2690,6 +3346,9 @@
 "public_transport/station_train":[
 "Estació de ferrocarril"
 ],
+"public_transport/station_train_halt":[
+"Estació de Tren (s'ha de demanar la parada)"
+],
 "public_transport/station_tram":[
 "Estació de tramvia"
 ],
@@ -2700,6 +3359,8 @@
 "Àrea de parada de transport públic"
 ],
 "public_transport/stop_position":[
+"servei públic",
+"transport públic",
 "Lloc de parada de transport públic"
 ],
 "public_transport/stop_position_aerialway":[
@@ -2717,6 +3378,9 @@
 "public_transport/stop_position_monorail":[
 "Lloc de parada de monoraïl"
 ],
+"public_transport/stop_position_subway":[
+"Parada de metro"
+],
 "public_transport/stop_position_train":[
 "Lloc de parada de tren"
 ],
@@ -2726,7 +3390,12 @@
 "public_transport/stop_position_trolleybus":[
 "Lloc de parada de troleibús"
 ],
+"railway":[
+"Element ferroviari"
+],
 "railway/abandoned":[
+"via ferroviaria abandonada",
+"via de ferrocarril abandonada",
 "Via fèrria abandonada"
 ],
 "railway/construction":[
@@ -2741,8 +3410,18 @@
 "railway/funicular":[
 "Pista de funicular"
 ],
+"railway/halt":[
+"Parada de Ferrocarril (Parada / Sol·licitud)"
+],
 "railway/level_crossing":[
-"Pas a nivell"
+"tren",
+"cotxe",
+"Pas a nivell",
+"barreres",
+"pas de ferrocarril",
+"guardaagulles",
+"pas a nivell",
+"semàfors"
 ],
 "railway/light_rail":[
 "Via de tren lleuger"
@@ -2753,8 +3432,14 @@
 "railway/monorail/hanging":[
 "Via de monoraïl penjant"
 ],
+"railway/narrow_gauge":[
+"Traçat de via estreta"
+],
 "railway/platform":[
 "Andana de tren"
+],
+"railway/rail":[
+"Via de tren"
 ],
 "railway/railway_crossing":[
 "cruïlla ferroviària"
@@ -2764,6 +3449,9 @@
 ],
 "railway/station":[
 "Estació de ferrocarril"
+],
+"railway/subway":[
+"Via de metro"
 ],
 "railway/subway_entrance":[
 "boca de metro",
@@ -2775,6 +3463,11 @@
 ],
 "railway/train_wash":[
 "Rentat de trens"
+],
+"railway/tram":[
+"tranvia",
+"Tramvia",
+"tram"
 ],
 "relation":[
 "Relació",
@@ -2809,9 +3502,20 @@
 "Botiga d'antiguitats"
 ],
 "shop/art":[
+"art",
+"exhibició",
+"galeria d'art",
+"exhibit",
+"galeria",
 "Botiga d'art"
 ],
 "shop/baby_goods":[
+"nadó",
+"botiga per a bebès",
+"bebé",
+"bebè",
+"tenda per a bebès",
+"tenda per a nadons",
 "Botiga per a nadons"
 ],
 "shop/bag":[
@@ -2828,7 +3532,7 @@
 "Botiga de mobles de bany"
 ],
 "shop/beauty":[
-"Botiga de cosmètics"
+"Saló de bellesa"
 ],
 "shop/beauty/nails":[
 "Saló de manicures"
@@ -2851,7 +3555,12 @@
 "Botiga de nàutica"
 ],
 "shop/bookmaker":[
-"Casa d'apostes"
+"jocs d'atzar",
+"apostes",
+"joc d'atzar",
+"Casa d'apostes",
+"escurabujaques",
+"apostar"
 ],
 "shop/books":[
 "Llibreria"
@@ -2901,6 +3610,9 @@
 ],
 "shop/clothes/underwear":[
 "Botiga de llenceria"
+],
+"shop/clothes/workwear":[
+"Botiga de roba de feina"
 ],
 "shop/coffee":[
 "Botiga de cafè"
@@ -2954,9 +3666,6 @@
 "shop/dairy":[
 "Botiga de productes làctics"
 ],
-"shop/deli":[
-"Botiga de comestibles"
-],
 "shop/department_store":[
 "Grans magatzems"
 ],
@@ -2977,6 +3686,15 @@
 "shop/e-cigarette":[
 "Botiga de cigars electrònics"
 ],
+"shop/electrical":[
+"il·luminació",
+"potència",
+"ventilador",
+"electricitat",
+"Tenda d'equipament elèctric",
+"cable",
+"elèctric"
+],
 "shop/electronics":[
 "botiga d'electrònica",
 "botiga de components electrònics",
@@ -2989,7 +3707,10 @@
 "Botiga d'articles eròtics"
 ],
 "shop/erotic/lgbtq":[
-"Botiga d'articles eròtics LGBTQ+"
+"pornografia",
+"Botiga d'articles eròtics LGBTQ+",
+"sexe",
+"porn"
 ],
 "shop/fabric":[
 "botiga de robes",
@@ -3026,7 +3747,9 @@
 "Botiga de menjars congelats"
 ],
 "shop/funeral_directors":[
-"Tanatori"
+"mortuori",
+"Tanatori",
+"funerària"
 ],
 "shop/furniture":[
 "moblista",
@@ -3127,7 +3850,7 @@
 "Botiga d'instruments musicals"
 ],
 "shop/newsagent":[
-"Botiga de diaris i revistes"
+"Quiosc de premsa"
 ],
 "shop/nutrition_supplements":[
 "Botiga de suplements nutricionals"
@@ -3143,9 +3866,6 @@
 ],
 "shop/pastry":[
 "Pastisseria"
-],
-"shop/pawnbroker":[
-"Botiga d'empenyoraments"
 ],
 "shop/perfumery":[
 "botiga de colònies",
@@ -3177,10 +3897,13 @@
 "Botiga de submarinisme"
 ],
 "shop/seafood":[
-"Marisqueria"
+"Marisqueria",
+"pòsit",
+"marisqueria",
+"llotja"
 ],
 "shop/second_hand":[
-"Consigna"
+"Botiga de segona mà"
 ],
 "shop/sewing":[
 "Merceria"
@@ -3260,8 +3983,7 @@
 "Botiga d'aspiradors"
 ],
 "shop/variety_store":[
-"Botiga de tot a 100",
-"basar"
+"Botiga de tot a 100"
 ],
 "shop/video":[
 "videoclub",
@@ -3291,8 +4013,20 @@
 "celler",
 "Botiga de vins"
 ],
+"shop/yes":[
+"Botiga (Tipus sense espesificar)"
+],
 "telecom/data_center":[
 "Centre de dades"
+],
+"telecom/exchange":[
+"Central telefònica"
+],
+"tourism":[
+"Turisme"
+],
+"tourism/alpine_hut":[
+"Refugi de muntanya"
 ],
 "tourism/apartment":[
 "Habitatge de convidats"
@@ -3338,6 +4072,9 @@
 ],
 "tourism/caravan_site":[
 "Càmping per a caravanes"
+],
+"tourism/chalet":[
+"Bungalow / Cabanya"
 ],
 "tourism/gallery":[
 "Galeria d'art"
@@ -3413,7 +4150,12 @@
 "zoològic"
 ],
 "traffic_calming":[
-"Mesures de reducció de velocitat"
+"Mesures de reducció de velocitat",
+"baiben",
+"pacificador del trànsit",
+"reductor de velocitat",
+"baden",
+"bulto"
 ],
 "traffic_calming/bump":[
 "cavalló",
@@ -3460,6 +4202,20 @@
 "rugoses",
 "banda"
 ],
+"traffic_calming/table":[
+"elevat",
+"vianant",
+"peató",
+"pas",
+"pas de vianants elevat",
+"esquena d'ase",
+"peatons",
+"ressalt",
+"Pas de vianants elevat"
+],
+"traffic_calming/yes":[
+"Reductor de Velocitat (Tipus sense especificar)"
+],
 "traffic_sign":[
 "Senyal de trànsit"
 ],
@@ -3498,12 +4254,35 @@
 "prohibit girar a la dreta",
 "Prohibició del gir a la dreta"
 ],
+"type/restriction/no_u_turn":[
+"canvi de sentit",
+"Prohibit fer un canvi de sentit",
+"gir en u"
+],
+"type/restriction/only_left_turn":[
+"només es pot girar a l'esquerra",
+"sols a l'esquerra",
+"gri a l'esquerra obligatori",
+"Només Gir a l'Esquerra"
+],
+"type/restriction/only_right_turn":[
+"Obligació de girar a la dreta"
+],
+"type/restriction/only_straight_on":[
+"Obligació de continuar recte"
+],
+"type/restriction/only_u_turn":[
+"Només Gir en U"
+],
 "type/route":[
 "ruta",
 "Ruta"
 ],
 "type/route/aerialway":[
 "Ruta aèria"
+],
+"type/route/bicycle":[
+"Ruta ciclista"
 ],
 "type/route/bus":[
 "línia de bus",
@@ -3522,6 +4301,12 @@
 "type/route/hiking":[
 "Ruta senderista"
 ],
+"type/route/horse":[
+"cavall",
+"ruta",
+"ruta de marxa a cavall",
+"Ruta equestre"
+],
 "type/route/light_rail":[
 "Ruta de tren lleuger"
 ],
@@ -3534,44 +4319,110 @@
 "type/route/pipeline":[
 "Traçat d'una canonada"
 ],
+"type/route/piste":[
+"ruta d'ski",
+"Pista/ruta d'esquí",
+"pistes d'ski"
+],
 "type/route/power":[
+"energia",
+"electricitat",
 "Traçat d'una línia elèctrica"
 ],
+"type/route/railway":[
+"ruta de ferrocarril",
+"Ruta de ferrocarril",
+"ruta ferrea",
+"ruta ferroviaria"
+],
 "type/route/road":[
+"ruta",
+"carrer",
+"carretera",
 "Ruta de carretera"
 ],
 "type/route/subway":[
+"subterrani",
+"ruta",
+"metro",
 "Ruta de metro"
 ],
 "type/route/train":[
+"tren",
+"ruta",
+"ferrocarril",
 "Ruta ferroviària"
 ],
 "type/route/tram":[
-"Ruta de tramvia"
+"Ruta de tramvia",
+"tranvia",
+"ruta",
+"tram"
 ],
 "type/route/trolleybus":[
-"Ruta de troleibús"
+"bus",
+"Ruta de troleibús",
+"ruta",
+"trolebús",
+"troleibús"
 ],
 "type/route_master":[
-"Patró de la Ruta"
+"ruta mestra",
+"Patró de la Ruta",
+"ruta principal",
+"ruta mare",
+"ruta pare"
 ],
 "type/site":[
-"Lloc"
+"emplaçament",
+"Lloc",
+"zona",
+"lloc",
+"terreny",
+"pusto",
+"instal·lació",
+"àrea",
+"espai"
 ],
 "type/waterway":[
-"Curs d'aigua"
+"marina",
+"fluvial",
+"navegable",
+"via fluvial",
+"marítim",
+"cauce",
+"pluvial",
+"aquàtica",
+"aquàtic",
+"Curs d'aigua",
+"via pluvial"
 ],
 "waterway":[
 "Tipus de curs d'aigua"
 ],
 "waterway/boatyard":[
-"Dic sec"
+"dipòsit",
+"hangar",
+"magatzem",
+"grada",
+"nau",
+"Dic sec",
+"doc",
+"mestrança",
+"local"
 ],
 "waterway/canal":[
 "sèquia",
 "Canal",
 "séquia",
 "canal"
+],
+"waterway/canal/lock":[
+"esclusa",
+"resclosa",
+"canal",
+"Canal de resclosa",
+"esclosa"
 ],
 "waterway/dam":[
 "embassament",
@@ -3593,7 +4444,12 @@
 "rierol"
 ],
 "waterway/dock":[
-"Moll humit / Moll sec"
+"Moll humit / Moll sec",
+"marina",
+"veler",
+"bot",
+"marina seca",
+"vaixell"
 ],
 "waterway/drain":[
 "Torrent",
@@ -3601,17 +4457,64 @@
 "rambla"
 ],
 "waterway/fish_pass":[
+"escala de peixos",
+"escala d'anguiles",
+"migració de peixos",
+"escalons de peixos",
+"camí de peixos",
+"pas d'anguiles",
+"sifó de peixos",
+"pas de peixos",
 "Pas per peixos"
 ],
 "waterway/fuel":[
-"Benzinera per a embarcacions"
+"diesel",
+"Benzinera per a embarcacions",
+"petroli",
+"bot",
+"gas",
+"gasoil",
+"vaixell",
+"benzinera marítima"
+],
+"waterway/lock_gate":[
+"esclusa",
+"reclosa",
+"resclosa",
+"canal",
+"esclosa"
+],
+"waterway/milestone":[
+"mojón",
+"Fita de curs d'aigua",
+"hito",
+"marcador",
+"fita"
 ],
 "waterway/river":[
-"riu",
+"priel",
+"estuari",
+"uadi",
+"torrent",
+"riera",
+"rambla",
+"xaragall",
+"afluent",
+"rierol",
+"curs d'aigua",
 "Riu"
 ],
 "waterway/sanitary_dump_station":[
-"Lavabo per a vaixells"
+"aseo",
+"aseo químic",
+"Abacodor d'aigües negres per a embarcacions",
+"bot",
+"servei",
+"estació de descarrega",
+"servici",
+"sanitari",
+"vaixell",
+"barc"
 ],
 "waterway/stream":[
 "sequió",
@@ -3631,10 +4534,27 @@
 "rierol"
 ],
 "waterway/stream_intermittent":[
-"Rierol intermitent"
+"branca",
+"arroyo",
+"Rierol intermitent",
+"bifurcació",
+"inundació",
+"curs d'aigua"
+],
+"waterway/tidal_channel":[
+"priel",
+"marina",
+"canal de marea",
+"marea",
+"marítim",
+"Canal de Marea",
+"canal"
 ],
 "waterway/water_point":[
-"Aigua marina potable"
+"Aigua Potable per a Vaixells",
+"punt d'aigua",
+"font d'aigua",
+"aixeta d'aigua"
 ],
 "waterway/waterfall":[
 "salt d'aigua",
@@ -3644,6 +4564,11 @@
 "saltant"
 ],
 "waterway/weir":[
-"Assut"
+"aigua",
+"Assut",
+"pressa",
+"pressa petita",
+"assut",
+"pressa menuda"
 ]
 }

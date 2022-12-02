@@ -857,9 +857,6 @@
 "craft/bookbinder":[
 "Raamatuköitja"
 ],
-"craft/brewery":[
-"Pruulikoda"
-],
 "craft/carpenter":[
 "puusepp",
 "puussepp",
@@ -1066,11 +1063,7 @@
 "Lõikumine (jalg- ja) jalgrattateega"
 ],
 "highway/cycleway/crossing/marked":[
-"jalgratta",
-"ülekäik",
-"Märgistatud lõikumine (jalg- ja) jalgrattateega",
-"ratta",
-"ülekäigu"
+"Märgistatud lõikumine (jalg- ja) jalgrattateega"
 ],
 "highway/cycleway/crossing/unmarked":[
 "jalgratta",
@@ -1211,6 +1204,9 @@
 ],
 "highway/tertiary_link":[
 "Kohaliku maantee ühendustee"
+],
+"highway/track":[
+"Mittehooldatav tee"
 ],
 "highway/traffic_mirror":[
 "Liikluspeegel"
@@ -2124,11 +2120,6 @@
 "aatom",
 "Tuumaelektrijaam"
 ],
-"power/plant/source/solar":[
-"Päikeseelektrijaam",
-"päikese",
-"elektri"
-],
 "power/plant/source/wind":[
 "Tuulepark"
 ],
@@ -2216,10 +2207,6 @@
 "shop/alcohol":[
 "Alkoholipood"
 ],
-"shop/antiques":[
-"antiigi kauplus",
-"Antikvariaat"
-],
 "shop/art":[
 "Kunstitarvete kauplus"
 ],
@@ -2271,9 +2258,6 @@
 "köitmiskoda",
 "Trükkal",
 "köitja"
-],
-"shop/books":[
-"Raamatupood"
 ],
 "shop/boutique":[
 "Butiik"
@@ -2375,12 +2359,6 @@
 "Piimapood",
 "meierei kauplus",
 "piimatoodete kauplus"
-],
-"shop/deli":[
-"deli",
-"Delikatessikauplus",
-"delikaadid",
-"hõrgutised"
 ],
 "shop/department_store":[
 "pood",
@@ -2506,16 +2484,6 @@
 "Rauakauplus",
 "kinnitusvahendid"
 ],
-"shop/health_food":[
-"terviklikud",
-"mahe",
-"vitamiinid",
-"toidulisandid",
-"täistera",
-"tervis",
-"vegan",
-"Tervisliku toidu kauplus"
-],
 "shop/hearing_aids":[
 "Kuulmisabipood"
 ],
@@ -2612,10 +2580,6 @@
 "Muusikainstrumentide kauplus",
 "pillid"
 ],
-"shop/newsagent":[
-"ajalehemüüja",
-"Ajakirjapood"
-],
 "shop/nutrition_supplements":[
 "Toidulisandite kauplus"
 ],
@@ -2642,10 +2606,6 @@
 "koogid",
 "tordid",
 "Kondiiter"
-],
-"shop/pawnbroker":[
-"lombard",
-"Pandimaja"
 ],
 "shop/perfumery":[
 "Parfüümikauplus",
@@ -2692,10 +2652,6 @@
 "shop/seafood":[
 "Kalapood",
 "mereannid"
-],
-"shop/second_hand":[
-"Komisjonikauplus",
-"kasutatud"
 ],
 "shop/shoes":[
 "Kingapood"
@@ -2768,10 +2724,6 @@
 ],
 "shop/vacuum_cleaner":[
 "Tolmuimeja kauplus"
-],
-"shop/variety_store":[
-"Kodukauba pood",
-"majapidamiskaup"
 ],
 "shop/video":[
 "videolaenutus",

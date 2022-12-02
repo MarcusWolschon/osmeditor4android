@@ -751,9 +751,6 @@
 "craft/bookbinder":[
 "Bookbinder"
 ],
-"craft/brewery":[
-"Brewery"
-],
 "craft/carpenter":[
 "Carpenter"
 ],
@@ -1003,14 +1000,8 @@
 "highway/footway":[
 "Foot Path"
 ],
-"highway/footway/marked":[
-"Marked Crossing"
-],
 "highway/footway/sidewalk":[
 "Pavement"
-],
-"highway/footway/zebra":[
-"Marked Crossing"
 ],
 "highway/give_way":[
 "Give Way Sign"
@@ -1431,6 +1422,9 @@
 ],
 "leisure/sports_centre":[
 "Sports Centre / Complex"
+],
+"leisure/sports_centre/horse_racing":[
+"Horse Racecourse"
 ],
 "leisure/sports_centre/swimming":[
 "Swimming Pool Facility"
@@ -2006,9 +2000,6 @@
 "beer",
 "wine"
 ],
-"shop/antiques":[
-"Antiques Shop"
-],
 "shop/appliance":[
 "Appliance Shop"
 ],
@@ -2047,9 +2038,6 @@
 ],
 "shop/bookmaker":[
 "Bookmaker"
-],
-"shop/books":[
-"Book Shop"
 ],
 "shop/boutique":[
 "Boutique"
@@ -2114,9 +2102,6 @@
 "shop/dairy":[
 "Dairy Shop"
 ],
-"shop/deli":[
-"Deli"
-],
 "shop/department_store":[
 "Department Store"
 ],
@@ -2174,9 +2159,6 @@
 ],
 "shop/hardware":[
 "Hardware Shop"
-],
-"shop/health_food":[
-"Health Food Shop"
 ],
 "shop/hearing_aids":[
 "Hearing Aids Shop"
@@ -2241,9 +2223,6 @@
 "shop/musical_instrument":[
 "Musical Instrument Shop"
 ],
-"shop/newsagent":[
-"Newspaper/Magazine Shop"
-],
 "shop/nutrition_supplements":[
 "Nutrition Supplements Shop"
 ],
@@ -2258,9 +2237,6 @@
 ],
 "shop/pastry":[
 "Pastry Shop"
-],
-"shop/pawnbroker":[
-"Pawn Shop"
 ],
 "shop/perfumery":[
 "Perfume Shop"
@@ -2288,9 +2264,6 @@
 ],
 "shop/seafood":[
 "Seafood Shop"
-],
-"shop/second_hand":[
-"Second Hand Shop"
 ],
 "shop/shoes":[
 "Shoe Shop"
@@ -2342,9 +2315,6 @@
 ],
 "shop/vacuum_cleaner":[
 "Hoover Shop"
-],
-"shop/variety_store":[
-"Variety Store"
 ],
 "shop/video":[
 "Video/DVD Shop"

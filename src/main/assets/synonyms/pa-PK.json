@@ -1,0 +1,366 @@
+{
+"address":[
+"پتہ"
+],
+"aeroway/runway":[
+"ہوائی اڈے دی رن‌وے"
+],
+"aeroway/taxiway":[
+"ٹیکسی‌وے"
+],
+"aeroway/terminal":[
+"ہوائی ٹرمینل"
+],
+"amenity/atm":[
+"نقدی آلہ (اے ٹی ایم)"
+],
+"amenity/bank":[
+"بینک"
+],
+"amenity/bar":[
+"پب (بار، شراب والی)"
+],
+"amenity/bench":[
+"بنچ"
+],
+"amenity/bicycle_parking":[
+"سائیکل پارکنگ"
+],
+"amenity/bus_station":[
+"بس سٹیشن"
+],
+"amenity/cafe":[
+"کافی ہٹی"
+],
+"amenity/fast_food":[
+"کھاݨیاں والے"
+],
+"amenity/fast_food/donut":[
+"ڈونٹ والا"
+],
+"amenity/language_school":[
+"بولی دا سکول"
+],
+"amenity/library":[
+"لائیبریری"
+],
+"amenity/parking":[
+"پارکنگ والی تھاں"
+],
+"amenity/place_of_worship/buddhist":[
+"بودھی مندر"
+],
+"amenity/place_of_worship/muslim":[
+"مسجد"
+],
+"amenity/shelter":[
+"پناہ گاہ"
+],
+"amenity/studio/radio":[
+"ریڈیو سٹیشن"
+],
+"amenity/taxi":[
+"ٹیکسی سٹینڈ"
+],
+"amenity/telephone":[
+"فون"
+],
+"area":[
+"کھیتر"
+],
+"barrier/yes":[
+"ہاں"
+],
+"boundary":[
+"حد"
+],
+"building":[
+"عمارت"
+],
+"building/civic":[
+"سرکاری عمارت"
+],
+"building/college":[
+"کالج"
+],
+"building/garage":[
+"گارج"
+],
+"building/garages":[
+"گارج دا سموہ"
+],
+"building/house":[
+"گھر"
+],
+"building_part":[
+"عمارت دا بھاگ"
+],
+"building_point":[
+"عمارت"
+],
+"emergency/destination":[
+"ایمیرجنسی منزل"
+],
+"ford":[
+"گاہݨ"
+],
+"ford_line":[
+"گاہݨ"
+],
+"highway/bus_stop":[
+"بس سٹاپ"
+],
+"highway/cycleway":[
+"سائیکل‌وے"
+],
+"highway/footway/sidewalk":[
+"فُٹ پاتھ"
+],
+"highway/motorway":[
+"موٹروے"
+],
+"highway/motorway_link":[
+"موٹروے دی لنک روڈ"
+],
+"highway/primary_link":[
+"مکھ سڑک دی لنک روڈ"
+],
+"highway/service":[
+"سیوا سڑک"
+],
+"highway/service/alley":[
+"گلی"
+],
+"highway/service/driveway":[
+"درائیو وے"
+],
+"highway/service/parking_aisle":[
+"پارکنگ‌وے"
+],
+"highway/trunk_link":[
+"ٹرنک دی لنک روڈ"
+],
+"landuse/grass":[
+"گھاہ"
+],
+"line":[
+"لائین"
+],
+"natural/sand":[
+"ریت"
+],
+"place":[
+"تھاں"
+],
+"place/city":[
+"شہر"
+],
+"place/island":[
+"ٹاپو"
+],
+"place/square":[
+"چوک"
+],
+"place/town":[
+"نگر"
+],
+"place/village":[
+"پنڈ"
+],
+"playground":[
+"کھیڈ دے میدان لئی رچھ کان"
+],
+"point":[
+"پوئینٹ"
+],
+"public_transport/platform/bus_point":[
+"بس سٹاپ"
+],
+"public_transport/platform/train":[
+"ریل پلیٹ‌فارم"
+],
+"public_transport/station_bus":[
+"بس سٹیشن"
+],
+"public_transport/station_ferry":[
+"فیری روٹ"
+],
+"public_transport/station_train":[
+"ریلوے سٹیشن"
+],
+"public_transport/stop_position":[
+"سٹاپ دی ستھتی"
+],
+"railway":[
+"ریلوے دا نشان"
+],
+"railway/crossing":[
+"ریلوے کراسنگ"
+],
+"railway/level_crossing":[
+"ریلوے کراسنگ (سڑک تے)"
+],
+"railway/platform":[
+"ریل پلیٹ‌فارم"
+],
+"railway/rail":[
+"ریلوے ٹریک"
+],
+"railway/station":[
+"ریلوے سٹیشن"
+],
+"railway/subway":[
+"سب‌وے ٹریک"
+],
+"relation":[
+"سمبندھ"
+],
+"route/ferry":[
+"فیری روٹ"
+],
+"shop":[
+"دکان"
+],
+"shop/books":[
+"کتابگار"
+],
+"shop/clothes":[
+"کپڑے دی دکان"
+],
+"shop/computer":[
+"کمپوٹر دی دکان"
+],
+"shop/confectionery":[
+"مٹائی والی"
+],
+"shop/houseware":[
+"گھریلو دکان"
+],
+"shop/newsagent":[
+"خبردار"
+],
+"shop/party":[
+"پارٹی دی دکان"
+],
+"shop/photo":[
+"تصویراں دی دکان"
+],
+"shop/religion":[
+"دھرمک دکان"
+],
+"shop/spices":[
+"مرچی دی دکان"
+],
+"shop/sports":[
+"کھیڈاں"
+],
+"shop/tea":[
+"چاہ والا"
+],
+"shop/ticket":[
+"ٹِکِٹ والا"
+],
+"shop/tyres":[
+"ٹائیر دی دکان"
+],
+"shop/watches":[
+"گھڑیاں"
+],
+"shop/water":[
+"پاݨی دی دکان"
+],
+"telecom":[
+"ٹیلیکام"
+],
+"telecom/data_center":[
+"ڈیٹے دا کیندر"
+],
+"tourism/artwork/graffiti":[
+"گرفیٹی"
+],
+"tourism/gallery":[
+"گیلری"
+],
+"tourism/hostel":[
+"ہوسٹل"
+],
+"tourism/hotel":[
+"ہوٹل"
+],
+"tourism/information":[
+"جاݨکاری"
+],
+"tourism/information/board":[
+"جاݨکاری دا بورڈ"
+],
+"tourism/information/map":[
+"نقشہ"
+],
+"tourism/picnic_site":[
+"پکنک دا تھاں"
+],
+"traffic_calming/island":[
+"ٹریفک ٹاپو"
+],
+"traffic_calming/yes":[
+"ہاں"
+],
+"traffic_sign":[
+"ٹریفک سائین"
+],
+"traffic_sign/city_limit":[
+"شہر دی حد"
+],
+"traffic_sign/maxspeed":[
+"حد رفتار"
+],
+"type/boundary":[
+"حد"
+],
+"type/enforcement/maxspeed":[
+"حد رفتار"
+],
+"type/route":[
+"روٹ"
+],
+"type/route/bicycle":[
+"سائیکل روٹ"
+],
+"type/route/bus":[
+"بس روٹ"
+],
+"type/route/ferry":[
+"فیری روٹ"
+],
+"type/route/foot":[
+"پیریں روٹ"
+],
+"type/route/light_rail":[
+"ہلکی ریلوے روٹ"
+],
+"type/route/pipeline":[
+"پائیپ‌لائین روٹ"
+],
+"type/route/railway":[
+"ریلوے روٹ"
+],
+"type/route/road":[
+"روڈ روٹ"
+],
+"type/route/subway":[
+"سب‌وے روٹ"
+],
+"type/route/train":[
+"ریلوے روٹ"
+],
+"type/route/tram":[
+"ٹریم روٹ"
+],
+"type/route_master":[
+"روٹ گروپ"
+],
+"waterway/canal":[
+"برانچ",
+"نہر"
+]
+}

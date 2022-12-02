@@ -781,9 +781,6 @@
 "craft/bookbinder":[
 "Bókbindari"
 ],
-"craft/brewery":[
-"Bruggari"
-],
 "craft/carpenter":[
 "Trésmiður"
 ],
@@ -1036,17 +1033,8 @@
 "highway/footway":[
 "Göngustígur"
 ],
-"highway/footway/marked":[
-"Merkt gangbraut"
-],
 "highway/footway/sidewalk":[
 "Gangstétt"
-],
-"highway/footway/unmarked":[
-"Ómerkt gangbraut"
-],
-"highway/footway/zebra":[
-"Merkt gangbraut"
 ],
 "highway/give_way":[
 "Biðskyldumerki"
@@ -2075,9 +2063,6 @@
 "shop/alcohol":[
 "Vínbúð"
 ],
-"shop/antiques":[
-"Antíkverslun"
-],
 "shop/appliance":[
 "Raftækjaverslun"
 ],
@@ -2116,9 +2101,6 @@
 ],
 "shop/bookmaker":[
 "Veðmangari"
-],
-"shop/books":[
-"Bókabúð"
 ],
 "shop/boutique":[
 "Búð"
@@ -2180,9 +2162,6 @@
 "shop/dairy":[
 "Mjólkurbúð"
 ],
-"shop/deli":[
-"Deli"
-],
 "shop/department_store":[
 "Stórverslun"
 ],
@@ -2239,9 +2218,6 @@
 ],
 "shop/hardware":[
 "Byggingavöruverslun"
-],
-"shop/health_food":[
-"Verslun með heilsuvörur"
 ],
 "shop/hearing_aids":[
 "Heyrnartækjaverslun"
@@ -2309,9 +2285,6 @@
 "shop/musical_instrument":[
 "Hljóðfæraverslun"
 ],
-"shop/newsagent":[
-"Dagblaða/tímaritasala"
-],
 "shop/nutrition_supplements":[
 "Verslun með fæðubótarefni"
 ],
@@ -2326,9 +2299,6 @@
 ],
 "shop/pastry":[
 "Kökubúð"
-],
-"shop/pawnbroker":[
-"Veðlánari"
 ],
 "shop/perfumery":[
 "Ilmvatnsbúð"
@@ -2357,9 +2327,6 @@
 "shop/seafood":[
 "Fiskverslun",
 "verslun með sjávarfang"
-],
-"shop/second_hand":[
-"Notað og nýtt"
 ],
 "shop/sewing":[
 "Saumavöruverslun"
@@ -2414,9 +2381,6 @@
 ],
 "shop/vacuum_cleaner":[
 "Verslun með ryksugur"
-],
-"shop/variety_store":[
-"Allrahandaverslun"
 ],
 "shop/video":[
 "Myndbandaverslun"

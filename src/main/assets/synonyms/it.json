@@ -637,6 +637,10 @@
 "Medico di base",
 "ambulatorio"
 ],
+"amenity/doctors/gynaecology":[
+"ginecologa",
+"Ginecologo"
+],
 "amenity/dojo":[
 "karate",
 "Dojo/Accademia di arti marziali",
@@ -713,6 +717,9 @@
 "cibo",
 "hamburger",
 "colazione"
+],
+"amenity/fast_food/cafeteria":[
+"Caffetteria"
 ],
 "amenity/fast_food/chicken":[
 "bocconcini",
@@ -937,10 +944,10 @@
 "amenity/internet_cafe":[
 "cybercafe",
 "te",
+"Internet Café",
 "bar",
 "caffè",
 "internet point",
-"Internet Cafe",
 "internet",
 "point"
 ],
@@ -1076,27 +1083,47 @@
 "amenity/nursing_home":[
 "Residenza Sanitaria Assistenziale (RSA)"
 ],
+"amenity/parcel_locker":[
+"paccomat",
+"Punto di ritiro self-service",
+"locker"
+],
 "amenity/parking":[
 "camion",
+"auto",
+"Parcheggio",
+"parcheggio",
 "autorimessa",
 "camper",
-"parcheggio auto",
 "veicoli",
 "tir",
-"roulotte",
-"Area di parcheggio"
+"roulotte"
 ],
 "amenity/parking/multi-storey":[
+"più piani",
 "auto",
+"piano",
 "rampa parcheggio",
 "parcheggio coperto",
+"Parcheggio multipiano",
 "garage",
 "edificio parcheggio",
-"Parcheggio su più piani",
-"parcheggio interno"
+"parcheggio interno",
+"parcheggio su più piani"
 ],
 "amenity/parking/park_ride":[
 "Area del parcheggio di interscambio"
+],
+"amenity/parking/street-side":[
+"parcheggio",
+"Parcheggio lato strada",
+"bordo strada",
+"parcheggio a bordo strada",
+"parcheggio a lato strada",
+"spiazzo",
+"parcheggio bordo strada",
+"lato strada",
+"slargo"
 ],
 "amenity/parking/underground":[
 "automobile",
@@ -1120,11 +1147,13 @@
 ],
 "amenity/parking_space":[
 "posto auto",
-"Stallo"
+"stallo",
+"Stallo di parcheggio"
 ],
 "amenity/parking_space/disabled":[
 "disabili",
-"Spazio di Parcheggio per Disabili",
+"stallo",
+"Stallo di parcheggio per disabili",
 "sedia a rotelle",
 "parcheggio disabili"
 ],
@@ -1311,11 +1340,11 @@
 ],
 "amenity/post_office":[
 "spedizione",
+"Ufficio postale",
 "ufficio postale",
 "pacco",
 "poste",
-"lettere",
-"Ufficio Postale"
+"lettere"
 ],
 "amenity/prep_school":[
 "college",
@@ -1669,7 +1698,7 @@
 ],
 "amenity/sanitary_dump_station":[
 "rifiuti",
-"toilet",
+"toilette",
 "camper",
 "escrementi",
 "smaltimento",
@@ -1712,7 +1741,7 @@
 "palco"
 ],
 "amenity/shelter/lean_to":[
-"Tettoia"
+"Bivacco aperto"
 ],
 "amenity/shelter/picnic_shelter":[
 "Picnic riparato"
@@ -1835,6 +1864,18 @@
 "amenity/theatre/type/amphi":[
 "Anfiteatro"
 ],
+"amenity/toilets":[
+"gabinetto",
+"bagni",
+"vespasiano",
+"Servizi igienici",
+"bagni pubblici",
+"toilette",
+"bagno pubblico",
+"bagno",
+"wc",
+"cesso"
+],
 "amenity/toilets/disposal/flush":[
 "gabinetto",
 "vespasiano",
@@ -1848,9 +1889,9 @@
 ],
 "amenity/toilets/disposal/pitlatrine":[
 "gabinetto",
-"toilet",
 "Latrina a fossa",
 "tazza",
+"toilette",
 "latrina",
 "caduta",
 "fossa",
@@ -2067,12 +2108,13 @@
 "Distributore automatico di quotidiani"
 ],
 "amenity/vending_machine/parking_tickets":[
-"Distributore automatico di ticket per parcheggio",
 "parchimetro",
 "parcheggio",
 "macchinetta",
 "ticket",
+"parcometro",
 "biglietto",
+"Parcometro",
 "biglietti parcheggio",
 "distributore automatico"
 ],
@@ -2426,6 +2468,15 @@
 "barrier/height_restrictor":[
 "Limitatore di altezza"
 ],
+"barrier/jersey_barrier":[
+"Barriera Jersey",
+"barriera",
+"jersey",
+"new jersey",
+"blocco",
+"cemento",
+"blocchi"
+],
 "barrier/kerb":[
 "marciapiede",
 "Cordolo",
@@ -2634,8 +2685,9 @@
 "superiore"
 ],
 "building/commercial":[
-"edificio commerciale",
-"Edificio commerciale"
+"servizi",
+"Edificio commerciale",
+"uffici"
 ],
 "building/construction":[
 "in costruzione",
@@ -2784,7 +2836,7 @@
 "Moschea (edificio)"
 ],
 "building/office":[
-"Edificio per Uffici"
+"Edificio per uffici"
 ],
 "building/pavilion":[
 "Edificio primario servizi di campi sportivi",
@@ -2909,7 +2961,9 @@
 ],
 "building/terrace":[
 "fila di case",
+"schiera",
 "villette",
+"casa a schiera",
 "Villette a schiera"
 ],
 "building/train_station":[
@@ -2998,11 +3052,6 @@
 "Legatoria",
 "riparazione",
 "libri"
-],
-"craft/brewery":[
-"birrificio",
-"birra",
-"Birrificio"
 ],
 "craft/carpenter":[
 "Carpentiere",
@@ -3218,7 +3267,10 @@
 "craft/window_construction":[
 "vetri",
 "glass",
+"porte",
 "vetraio",
+"serramentista",
+"finestre",
 "Serramentista"
 ],
 "craft/winery":[
@@ -3255,6 +3307,20 @@
 "emergency/ambulance_station":[
 "Stazione ambulanze",
 "stazione ambulanze"
+],
+"emergency/assembly_point":[
+"area",
+"riparo",
+"sicura",
+"punto",
+"luogo",
+"ritrovo",
+"protezione",
+"attesa",
+"incontro",
+"popolazione",
+"civile",
+"Punto di raccolta"
 ],
 "emergency/defibrillator":[
 "aed",
@@ -3706,12 +3772,18 @@
 "Attraversamento"
 ],
 "highway/crossing/marked":[
-"zebra",
+"Strisce pedonali"
+],
+"highway/crossing/traffic_signals":[
 "pedonale",
+"marciapiede",
+"bici",
+"strisce pedonali",
+"Attraversamento pedonale semaforizzato",
 "attraversamento",
-"Strisce pedonali",
-"strisce",
-"zebrato"
+"ciclabile",
+"piedi",
+"semaforo"
 ],
 "highway/crossing/unmarked":[
 "informale",
@@ -3755,13 +3827,7 @@
 "attraversamento bici e pedoni"
 ],
 "highway/cycleway/crossing/marked":[
-"bicicletta",
-"bici",
-"attraversamento",
-"attraversamento ciclabile",
-"strisce",
-"Strisce per biciclette",
-"incrocio"
+"Strisce per biciclette"
 ],
 "highway/cycleway/crossing/unmarked":[
 "bicicletta",
@@ -3784,6 +3850,9 @@
 "highway/elevator_line":[
 "ascensore su guide inclinate",
 "Ascensore inclinato"
+],
+"highway/emergency_access_point":[
+"Punto di accesso di emergenza"
 ],
 "highway/emergency_bay":[
 "area",
@@ -3829,32 +3898,9 @@
 "highway/footway/crossing":[
 "Attraversamento pedonale"
 ],
-"highway/footway/marked":[
-"zebra",
-"pedonale",
-"attraversamento pedonale",
-"pedoni",
-"Strisce pedonali",
-"strisce",
-"segnalato",
-"incrocio"
-],
 "highway/footway/sidewalk":[
 "marciapiedi",
 "Marciapiede"
-],
-"highway/footway/unmarked":[
-"pedonale",
-"pericoloso",
-"Attraversamento pedonale non segnalato",
-"sentiero",
-"non sengnalato",
-"attraversamento",
-"percorso",
-"incrocio"
-],
-"highway/footway/zebra":[
-"Strisce pedonali"
 ],
 "highway/give_way":[
 "cartello",
@@ -3897,14 +3943,6 @@
 "uscita autostradale"
 ],
 "highway/motorway_link":[
-"Svincolo autostradale",
-"svincolo",
-"autostrada",
-"ingresso",
-"rampa",
-"uscita"
-],
-"highway/motorway_link-US-CA":[
 "Svincolo autostradale",
 "svincolo",
 "autostrada",
@@ -3956,13 +3994,6 @@
 "autostrada"
 ],
 "highway/primary_link":[
-"Svincolo primario",
-"svincolo",
-"ingresso",
-"rampa",
-"uscita"
-],
-"highway/primary_link-US-CA":[
 "Svincolo primario",
 "svincolo",
 "ingresso",
@@ -4102,9 +4133,10 @@
 "strada a pedaggio senza barriere"
 ],
 "highway/track":[
+"strada di campagna",
 "strada ad uso agricolo",
 "strada agricola",
-"Strada sterrata o per l'accesso a terreni",
+"Strada agricola o forestale",
 "strada carrareccia",
 "strada ad uso forestale",
 "carrareccia",
@@ -4389,6 +4421,13 @@
 "construction",
 "cantiere"
 ],
+"landuse/education":[
+"campus educativo",
+"educazione",
+"Polo educativo",
+"campus scolastico",
+"scuola"
+],
 "landuse/farm":[
 "Terreno agricolo"
 ],
@@ -4417,8 +4456,9 @@
 "landuse/grass":[
 "erba",
 "prato",
+"Prato",
 "area verde",
-"Erba"
+"verde"
 ],
 "landuse/greenfield":[
 "Terreno edificabile"
@@ -4531,6 +4571,9 @@
 "landuse/retail":[
 "Area di vendita al dettaglio",
 "commerciale"
+],
+"landuse/salt_pond":[
+"Stagno di evaporazione del sale"
 ],
 "landuse/vineyard":[
 "Vigneto",
@@ -4731,6 +4774,9 @@
 "leisure/hackerspace":[
 "Spazio hacker"
 ],
+"leisure/horse_riding":[
+"Centro equestre"
+],
 "leisure/ice_rink":[
 "campo da hockey su ghiaccio",
 "Pista di Ghiaccio",
@@ -4804,6 +4850,9 @@
 "Campo da Football Americano",
 "campo football americano"
 ],
+"leisure/pitch/archery":[
+"Campo di tiro con l'arco"
+],
 "leisure/pitch/australian_football":[
 "calcio",
 "afl",
@@ -4856,6 +4905,12 @@
 "terreno",
 "campo",
 "Campo di netball"
+],
+"leisure/pitch/padel":[
+"Campo da paddle"
+],
+"leisure/pitch/paintball":[
+"Campo di paintball"
 ],
 "leisure/pitch/rugby_league":[
 "campo regolamentare lega rugbistica",
@@ -5006,9 +5061,6 @@
 "line":[
 "Linea",
 "linea"
-],
-"man_made":[
-"Elemento creato dall'uomo"
 ],
 "man_made/adit":[
 "adito",
@@ -5336,9 +5388,6 @@
 "acqua",
 "Tubatura sotterranea"
 ],
-"man_made/pipeline/valve":[
-"Valvola di conduttura"
-],
 "man_made/pumping_station":[
 "pompa",
 "pompaggio",
@@ -5413,8 +5462,9 @@
 "Torre per telecomunicazioni"
 ],
 "man_made/tower/cooling":[
-"Torre di Raffreddamento",
-"torre di raffreddamento"
+"produzione energia",
+"Torre di raffreddamento",
+"raffreddamento"
 ],
 "man_made/tower/defensive":[
 "Torre fortificata"
@@ -5438,7 +5488,7 @@
 "Area del tunnel"
 ],
 "man_made/utility_pole":[
-"Palo di Servizi Pubblici"
+"Palo per utenze pubbliche"
 ],
 "man_made/wastewater_plant":[
 "depuratore",
@@ -5863,8 +5913,8 @@
 ],
 "office/coworking":[
 "coworking",
-"Ufficio in Coworking",
 "collaborazione",
+"Ufficio in coworking",
 "open",
 "space"
 ],
@@ -6054,7 +6104,7 @@
 ],
 "office/security":[
 "ufficio di guardie giurate private",
-"Ufficio della Vigilanza"
+"Ufficio della vigilanza"
 ],
 "office/surveyor":[
 "Ufficio di supervisione"
@@ -6385,9 +6435,6 @@
 ],
 "power/plant/source/oil":[
 "Centrale ad olio combustibile"
-],
-"power/plant/source/solar":[
-"Impianto solare"
 ],
 "power/plant/source/waste":[
 "Impianto di generazione da incenerimento dei rifiuti"
@@ -6835,11 +6882,6 @@
 "shop/anime":[
 "Negozio di Anime / Manga"
 ],
-"shop/antiques":[
-"Antiquario",
-"antichità",
-"mobili antichi"
-],
 "shop/appliance":[
 "condizionatori",
 "frigo",
@@ -6942,10 +6984,6 @@
 "puntate",
 "Agenzia di scommesse",
 "scommesse"
-],
-"shop/books":[
-"negozio di libri",
-"Libreria"
 ],
 "shop/boutique":[
 "Boutique"
@@ -7080,9 +7118,6 @@
 "cosmetica",
 "profumeria"
 ],
-"shop/country_store":[
-"Negozio locale di articoli vari"
-],
 "shop/craft":[
 "Negozio di arti e mestieri"
 ],
@@ -7098,10 +7133,6 @@
 "formaggio",
 "cacio",
 "latte"
-],
-"shop/deli":[
-"Gastronomia",
-"cibi e bevande pregiate"
 ],
 "shop/department_store":[
 "grande magazzino",
@@ -7300,14 +7331,6 @@
 "negozio di ferramenta",
 "Ferramenta"
 ],
-"shop/health_food":[
-"prodotti per la salute",
-"benessere",
-"prodotti genuini",
-"negozio di prodotti per la salute",
-"negozio di prodotti biologici",
-"Prodotti per il benessere"
-],
 "shop/hearing_aids":[
 "negozio di apparecchi acustici",
 "apparecchi acustici",
@@ -7480,7 +7503,9 @@
 ],
 "shop/newsagent":[
 "Edicola",
-"edicola"
+"giornalaio",
+"edicola",
+"quotidiano"
 ],
 "shop/nutrition_supplements":[
 "Negozio di integratori alimentari",
@@ -7513,11 +7538,6 @@
 "paste",
 "torte",
 "Pasticceria"
-],
-"shop/pawnbroker":[
-"monte dei pegni",
-"banco dei pegni",
-"Banco dei pegni"
 ],
 "shop/perfumery":[
 "profumo",
@@ -7604,14 +7624,6 @@
 "Pescheria",
 "ittica",
 "pesce fresco"
-],
-"shop/second_hand":[
-"rivendita",
-"risparmio",
-"mercatino",
-"Negozio di articoli usati",
-"usato",
-"seconda mano"
 ],
 "shop/sewing":[
 "prodotti per cucito",
@@ -7726,11 +7738,6 @@
 "aspirapolveri",
 "Negozio di aspirapolveri",
 "aspirapolvere"
-],
-"shop/variety_store":[
-"Negozio a prezzo fisso",
-"articoli a basso costo",
-"tutto a"
 ],
 "shop/video":[
 "Videoteca",
@@ -8049,7 +8056,14 @@
 "Dissuasore di velocità"
 ],
 "traffic_calming/bump":[
-"Dosso artificiale"
+"collinetta",
+"dosso",
+"lento",
+"velocità",
+"Dosso artificiale",
+"antivelocità",
+"anti-velocità",
+"rallentare"
 ],
 "traffic_calming/chicane":[
 "disassamento",
@@ -8071,7 +8085,7 @@
 "Buca"
 ],
 "traffic_calming/hump":[
-"Speed Hump (Inghilterra)"
+"Dosso lungo (Inghilterra)"
 ],
 "traffic_calming/island":[
 "pedonale",
@@ -8082,7 +8096,10 @@
 "Rallentatore acustico"
 ],
 "traffic_calming/table":[
-"Dosso lungo"
+"dosso tavola",
+"dosso piatto",
+"Dosso tavola",
+"attraversamento pedonale rialzato"
 ],
 "traffic_sign":[
 "cartello",
@@ -8320,7 +8337,7 @@
 ],
 "waterway/canal":[
 "canale",
-"Canale (navigabile)"
+"Canale"
 ],
 "waterway/canal/lock":[
 "canale",
@@ -8396,7 +8413,7 @@
 ],
 "waterway/sanitary_dump_station":[
 "rifiuti",
-"toilet",
+"toilette",
 "camper",
 "escrementi",
 "smaltimento",

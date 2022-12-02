@@ -366,9 +366,6 @@
 "craft/bookbinder":[
 "Knjigovezac"
 ],
-"craft/brewery":[
-"Pivara"
-],
 "craft/carpenter":[
 "Stolar"
 ],
@@ -1179,11 +1176,6 @@
 "dragstor",
 "Bakalnica"
 ],
-"shop/deli":[
-"Delikatese",
-"delikatese",
-"prodavnica delikatesa"
-],
 "shop/department_store":[
 "robna kuća",
 "Robna kuća",
@@ -1330,11 +1322,6 @@
 ],
 "shop/vacant":[
 "Prodavnica za iznajmljivanje"
-],
-"shop/variety_store":[
-"prodavnica mješovite robe",
-"Prodavnica mješovite robe",
-"radnja za prodaju mješovite robe"
 ],
 "shop/video":[
 "videoteka",

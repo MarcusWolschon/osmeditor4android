@@ -744,12 +744,6 @@
 "Laivu būvētājs",
 "piķotājs"
 ],
-"craft/brewery":[
-"alus",
-"sidrs",
-"alkohols",
-"Darītava"
-],
 "craft/carpenter":[
 "Galdnieks"
 ],
@@ -1354,9 +1348,6 @@
 "shop/alcohol":[
 "Alkoholisko dzērienu veikals"
 ],
-"shop/antiques":[
-"Antikvariāts"
-],
 "shop/art":[
 "Mākslas veikals"
 ],
@@ -1390,9 +1381,6 @@
 "velosipēdu",
 "remonta",
 "remonts"
-],
-"shop/books":[
-"Grāmatu veikals"
 ],
 "shop/boutique":[
 "Veikals"
@@ -1459,9 +1447,6 @@
 ],
 "shop/dairy":[
 "Piena veikals"
-],
-"shop/deli":[
-"Delikateses"
 ],
 "shop/department_store":[
 "Lielveikals"
@@ -1558,17 +1543,11 @@
 "shop/musical_instrument":[
 "Mūzikas instrumentu veikals"
 ],
-"shop/newsagent":[
-"Avīžu / Žurnālu veikals"
-],
 "shop/optician":[
 "Optometrists"
 ],
 "shop/paint":[
 "Krāsu veikals"
-],
-"shop/pawnbroker":[
-"Lombards"
 ],
 "shop/pet":[
 "Dzīvnieku veikals"

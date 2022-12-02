@@ -39,10 +39,13 @@
 "Leisure Feature"
 ],
 "man_made":[
-"Man Made Feature"
+"Man-Made Feature"
 ],
 "natural":[
 "Natural Feature"
+],
+"pipeline":[
+"Pipeline Feature"
 ],
 "place":[
 "Place"
@@ -390,6 +393,7 @@
 ],
 "amenity/bicycle_parking":[
 "cycle parking",
+"bike parking",
 "Bicycle Parking",
 "cycling",
 "bike"
@@ -627,7 +631,8 @@
 "Dive Center"
 ],
 "amenity/doctors":[
-"medic*",
+"medical doctor",
+"medic",
 "physician",
 "Doctor"
 ],
@@ -662,6 +667,10 @@
 "Drinking Water",
 "water fountain",
 "water tap"
+],
+"amenity/driver_training":[
+"driving school",
+"Driver Training Grounds"
 ],
 "amenity/driving_school":[
 "Driving School"
@@ -711,6 +720,13 @@
 "drive-in",
 "grill",
 "table"
+],
+"amenity/fast_food/cafeteria":[
+"lunchroom",
+"canteen",
+"dining hall",
+"refectory",
+"Cafeteria"
 ],
 "amenity/fast_food/chicken":[
 "lunch",
@@ -827,18 +843,21 @@
 "Pizza Fast Food"
 ],
 "amenity/fast_food/sandwich":[
+"deli sandwich",
 "lunch",
+"dining",
+"Sandwich Fast Food",
+"dinner",
+"café",
+"deli",
 "cafe",
 "dine",
-"dining",
+"meat",
 "eat",
-"Sandwich Fast Food",
 "breakfast",
-"dinner",
 "drive-in",
 "grill",
-"table",
-"café"
+"table"
 ],
 "amenity/fire_station":[
 "Fire Station",
@@ -926,11 +945,16 @@
 ],
 "amenity/hunting_stand":[
 "gun",
-"shoot*",
 "game",
+"Hunting Stand",
+"hide",
+"raised blind",
 "watch",
 "lookout",
-"Hunting Stand",
+"shoot",
+"raised hide",
+"stand",
+"stance",
 "wild",
 "rifle"
 ],
@@ -1094,8 +1118,10 @@
 "amenity/nightclub":[
 "dance club",
 "dancing",
-"disco*",
+"club",
+"disco",
 "night club",
+"discotheque",
 "Nightclub"
 ],
 "amenity/nightclub/lgbtq":[
@@ -1108,11 +1134,13 @@
 ],
 "amenity/parcel_locker":[
 "parcel",
+"package",
 "mail",
 "dropoff",
 "packstation",
 "pickup",
 "automated postal box",
+"package locker",
 "locker",
 "Parcel Locker"
 ],
@@ -1208,12 +1236,14 @@
 "Payment Terminal"
 ],
 "amenity/pharmacy":[
+"dispensary",
 "prescription",
 "Pharmacy Counter",
 "apothecary",
 "drugstore",
 "drug store",
-"med*"
+"medicine",
+"chemist"
 ],
 "amenity/photo_booth":[
 "photobooth",
@@ -1584,6 +1614,20 @@
 "canteen",
 "eat",
 "breakfast",
+"drive-in",
+"grill",
+"table"
+],
+"amenity/restaurant/barbeque":[
+"bbq",
+"bar",
+"lunch",
+"dine",
+"Barbeque Restaurant",
+"dining",
+"canteen",
+"eat",
+"dinner",
 "drive-in",
 "grill",
 "table"
@@ -2497,6 +2541,9 @@
 "barrier/planter":[
 "Planter (Barrier)"
 ],
+"barrier/yes":[
+"Barrier (Unspecified Type)"
+],
 "barrier/block":[
 "Block"
 ],
@@ -2721,8 +2768,14 @@
 "building/manufacture":[
 "Industrial Production Building"
 ],
+"building/outbuilding":[
+"Outbuilding"
+],
 "building/train_station":[
 "Train Station Building"
+],
+"building/allotment_house":[
+"Allotment House"
 ],
 "building/apartments":[
 "Apartment Building"
@@ -2807,6 +2860,9 @@
 ],
 "building/farm":[
 "Farm House"
+],
+"building/fire_station":[
+"Fire Station Building"
 ],
 "building/garage":[
 "Garage"
@@ -3045,9 +3101,9 @@
 ],
 "craft/brewery":[
 "alcohol",
-"Brewery",
 "booze",
 "beverage",
+"Craft Brewery",
 "bier",
 "beer",
 "cider"
@@ -3128,9 +3184,9 @@
 ],
 "craft/hvac":[
 "HVAC Workplace",
-"heat*",
 "air conditioning",
-"vent*"
+"ventilation",
+"heating"
 ],
 "craft/insulator":[
 "Insulator"
@@ -3316,8 +3372,6 @@
 "First Aid Kit",
 "medkit",
 "first aid",
-"medic*",
-"med",
 "bandage"
 ],
 "emergency/landing_site":[
@@ -3452,7 +3506,6 @@
 "Rough"
 ],
 "golf/tee":[
-"teeing ground",
 "Tee Box"
 ],
 "golf/water_hazard":[
@@ -3468,6 +3521,9 @@
 "sick",
 "surgery",
 "Healthcare Facility"
+],
+"healthcare/yes":[
+"Healthcare Facility (Unspecified Type)"
 ],
 "healthcare/alternative":[
 "reiki",
@@ -3627,6 +3683,10 @@
 "Bus Guideway",
 "busway"
 ],
+"highway/busway":[
+"brt",
+"Busway"
+],
 "highway/construction":[
 "Road Under Construction",
 "closed road",
@@ -3645,16 +3705,10 @@
 "indoor",
 "gallery"
 ],
-"highway/crossing/uncontrolled":[
+"highway/crossing/marked":[
 "Marked Crosswalk"
 ],
 "highway/crossing/zebra":[
-"Marked Crosswalk"
-],
-"highway/crossing/marked":[
-"marked crossing",
-"zebra crossing",
-"crosswalk",
 "Marked Crosswalk"
 ],
 "highway/crossing/traffic_signals":[
@@ -3664,6 +3718,9 @@
 "pedestrian traffic signals",
 "pedestrian crossing (lights)",
 "crosswalk (lights)"
+],
+"highway/crossing/uncontrolled":[
+"Marked Crosswalk"
 ],
 "highway/crossing/unmarked":[
 "unmarked foot path crossing",
@@ -3693,6 +3750,9 @@
 "green way",
 "rail trail"
 ],
+"highway/cycleway/crossing/marked":[
+"Marked Cycle Crossing"
+],
 "highway/cycleway/crossing/bicycle_foot":[
 "bike and pedestrian crossing",
 "cyclist",
@@ -3701,7 +3761,14 @@
 "cycling",
 "cycleway"
 ],
-"highway/cycleway/crossing/marked":[
+"highway/cycleway/crossing/traffic_signals":[
+"cycle path crossing",
+"Cycle Crossing With Traffic Signals",
+"bike crossing",
+"cycleway crossing",
+"bicycle crossing"
+],
+"highway/cycleway/crossing/uncontrolled":[
 "cycle crosswalk",
 "cycle path crossing",
 "Marked Cycle Crossing",
@@ -3738,6 +3805,13 @@
 "highway emergency bay",
 "Emergency Stopping Place"
 ],
+"highway/escape":[
+"runaway truck lane",
+"escape lane",
+"emergency escape ramp",
+"Runaway Truck Ramp",
+"truck arrester bed"
+],
 "highway/footway":[
 "Foot Path",
 "trail",
@@ -3752,9 +3826,6 @@
 ],
 "highway/footway/informal":[
 "Informal Foot Path"
-],
-"highway/footway/zebra":[
-"Marked Crosswalk"
 ],
 "highway/footway/access_aisle":[
 "wheelchair aisle",
@@ -3778,20 +3849,13 @@
 "travolator",
 "Moving Walkway"
 ],
-"highway/footway/marked":[
-"marked crossing",
-"zebra crossing",
-"marked pedestrian crosswalk",
-"crosswalk",
-"Marked Crosswalk",
-"marked foot path crossing"
+"highway/footway/crossing/marked":[
+"Marked Crossing"
 ],
-"highway/footway/sidewalk":[
-"pavement",
-"sidepath",
-"Sidewalk"
+"highway/footway/crossing/zebra":[
+"Marked Crossing"
 ],
-"highway/footway/traffic_signals":[
+"highway/footway/crossing/traffic_signals":[
 "pedestrian traffic lights",
 "bicycle crossing (lights)",
 "Crossing With Pedestrian Signals",
@@ -3799,11 +3863,28 @@
 "pedestrian crossing (lights)",
 "crosswalk (lights)"
 ],
-"highway/footway/unmarked":[
+"highway/footway/crossing/uncontrolled":[
+"zebra crossing",
+"marked pedestrian crosswalk",
+"crosswalk",
+"Marked Crossing",
+"marked foot path crossing",
+"marked crosswalk"
+],
+"highway/footway/crossing/unmarked":[
 "unmarked foot path crossing",
 "Unmarked Crossing",
 "unmarked crosswalk",
 "unmarked pedestrian crossing"
+],
+"highway/footway/sidewalk":[
+"pavement",
+"sidepath",
+"Sidewalk"
+],
+"highway/footway/traffic_island":[
+"crossing island",
+"Refuge Island"
 ],
 "highway/give_way":[
 "Yield Sign",
@@ -3830,15 +3911,6 @@
 "highway/motorway_junction":[
 "exit",
 "Motorway Junction / Exit"
-],
-"highway/motorway_link-US-CA":[
-"exit",
-"on ramp",
-"road",
-"street",
-"ramp",
-"off ramp",
-"Motorway Link"
 ],
 "highway/motorway_link":[
 "exit",
@@ -3916,14 +3988,6 @@
 "centre",
 "walkway"
 ],
-"highway/primary_link-US-CA":[
-"on ramp",
-"road",
-"street",
-"off ramp",
-"ramp",
-"Primary Link"
-],
 "highway/primary_link":[
 "on ramp",
 "road",
@@ -3939,13 +4003,12 @@
 ],
 "highway/raceway":[
 "formula one",
+"raceway",
 "nascar",
-"auto*",
 "Motorsport Racetrack",
 "motocross",
 "kart",
-"track",
-"race*"
+"track"
 ],
 "highway/raceway/karting":[
 "go carts",
@@ -3997,6 +4060,9 @@
 "Secondary Road",
 "road",
 "street"
+],
+"highway/service_area":[
+"Paved Service Area"
 ],
 "highway/service":[
 "Service Road",
@@ -4096,29 +4162,34 @@
 "4wd",
 "two track",
 "primitive",
+"vehicular trail",
 "woods road",
 "rut",
 "four wheel drive",
 "overgrown",
+"forestry road",
 "jeep",
 "high-clearance",
-"track",
+"mining road",
 "forest road",
+"dirt road",
 "farm road",
 "Track / Land-Access Road",
 "ranch road",
 "atv",
+"off-road",
 "double track",
 "agricultural road",
 "unmaintained",
+"two-track",
+"haul road",
 "4x4",
 "carriage road",
 "quad",
 "logging road",
+"haulage road",
 "offroad",
-"land access road",
-"fire road",
-"track road"
+"fire road"
 ],
 "highway/traffic_mirror":[
 "roadside",
@@ -4148,14 +4219,6 @@
 "trail endpoint",
 "mountaineering",
 "trail start"
-],
-"highway/trunk_link-US-CA":[
-"Trunk Link",
-"on ramp",
-"road",
-"street",
-"off ramp",
-"ramp"
 ],
 "highway/trunk_link":[
 "Trunk Link",
@@ -4970,6 +5033,11 @@
 "American Football Field",
 "football"
 ],
+"leisure/pitch/american_handball":[
+"handball",
+"wallball",
+"American Handball Court"
+],
 "leisure/pitch/archery":[
 "crossbow",
 "bow and arrow",
@@ -5050,10 +5118,21 @@
 "Four Square Court",
 "4 square"
 ],
+"leisure/pitch/funnel_ball":[
+"Funnel Ball Court"
+],
 "leisure/pitch/futsal":[
 "minifootball",
 "Futsal Court",
 "five-a-side soccer"
+],
+"leisure/pitch/gaga":[
+"Gaga Pit",
+"gaga ball"
+],
+"leisure/pitch/handball":[
+"handball",
+"Team Handball Court"
 ],
 "leisure/pitch/horseshoes":[
 "horse shoes",
@@ -5194,6 +5273,17 @@
 "abseiling",
 "rock gym"
 ],
+"leisure/sports_centre/horse_racing":[
+"equestrian race course",
+"horse race",
+"horse racing",
+"racecourse",
+"Horse Race Course",
+"horse race betting",
+"gallop",
+"race course",
+"horseracing"
+],
 "leisure/sports_centre/shooting":[
 "gun range",
 "Shooting Range Facility",
@@ -5233,11 +5323,11 @@
 ],
 "leisure/track":[
 "horse",
+"raceway",
 "greyhound",
 "track",
 "cycle",
 "dog",
-"race*",
 "Racetrack (Non-Motorsport)"
 ],
 "leisure/track/cycling":[
@@ -5294,6 +5384,9 @@
 "man_made/courtyard":[
 "Courtyard"
 ],
+"man_made/yes":[
+"Man-Made Feature (Unspecified Type)"
+],
 "man_made/adit":[
 "Adit",
 "cave",
@@ -5328,7 +5421,9 @@
 "Breakwater"
 ],
 "man_made/bridge":[
-"Bridge Area"
+"viaduct",
+"Bridge Area",
+"bridge outline"
 ],
 "man_made/bunker_silo":[
 "Bunker Silo",
@@ -5372,6 +5467,15 @@
 "man_made/crane":[
 "Crane"
 ],
+"man_made/crane/gantry_crane":[
+"Gantry Crane",
+"bridge crane",
+"overhead crane"
+],
+"man_made/crane/portal_crane":[
+"Portal Crane",
+"level-luffing crane"
+],
 "man_made/cross":[
 "Cross"
 ],
@@ -5399,6 +5503,16 @@
 ],
 "man_made/flagpole":[
 "Flagpole"
+],
+"man_made/gantry":[
+"highway gantry",
+"Gantry",
+"road sign holder",
+"sign structure",
+"sign holder",
+"mast arm",
+"road sign structure",
+"sign assembly"
 ],
 "man_made/gasometer":[
 "Gasometer",
@@ -5600,6 +5714,7 @@
 "Pier",
 "promenade",
 "berth",
+"quay",
 "wharf",
 "jetty",
 "dock"
@@ -5626,14 +5741,6 @@
 "Underground Pipeline",
 "oil",
 "sewer",
-"water",
-"sewage"
-],
-"man_made/pipeline/valve":[
-"natural gas",
-"oil",
-"sewer",
-"Pipeline Valve",
 "water",
 "sewage"
 ],
@@ -5714,6 +5821,12 @@
 "trigonometrical station",
 "geodetic point"
 ],
+"man_made/tailings_pond":[
+"separation",
+"Tailings Pond",
+"mining",
+"slurry"
+],
 "man_made/torii":[
 "japanese gate",
 "Torii",
@@ -5755,6 +5868,10 @@
 "Fortified Tower",
 "defensive tower"
 ],
+"man_made/tower/diving":[
+"diving tower",
+"Diving Platform"
+],
 "man_made/tower/minaret":[
 "mosque",
 "islam",
@@ -5794,12 +5911,12 @@
 "led wall"
 ],
 "man_made/wastewater_plant":[
-"sewage*",
 "wastewater treatment plant",
 "reclamation plant",
 "water treatment plant",
 "wwtp",
 "Wastewater Plant",
+"sewage",
 "wastewater treatment works"
 ],
 "man_made/water_tap":[
@@ -5854,6 +5971,14 @@
 "brewery",
 "processing",
 "Factory"
+],
+"man_made/works/brewery":[
+"alcohol",
+"booze",
+"Industrial Brewery",
+"bier",
+"beer",
+"cider"
 ],
 "marker":[
 "identifier",
@@ -6011,9 +6136,11 @@
 "stone"
 ],
 "natural/saddle":[
+"col",
 "top",
 "pass",
-"mountain pass",
+"gap",
+"notch",
 "Saddle"
 ],
 "natural/sand":[
@@ -6055,9 +6182,20 @@
 "Unattached Stone / Boulder",
 "stone"
 ],
+"natural/strait":[
+"Strait",
+"passage",
+"pass",
+"channel"
+],
 "natural/tree_row":[
 "Tree Row",
 "tree line"
+],
+"natural/tree_stump":[
+"cut tree",
+"Tree Stump",
+"removed tree"
 ],
 "natural/tree":[
 "bole",
@@ -6108,6 +6246,15 @@
 ],
 "natural/water/moat":[
 "Moat"
+],
+"natural/water/oxbow":[
+"resaca",
+"Oxbow Lake",
+"cut off",
+"oxbow",
+"meander",
+"anabranch",
+"billabong"
 ],
 "natural/water/pond":[
 "millpond",
@@ -6492,6 +6639,10 @@
 "pi",
 "private detective"
 ],
+"office/property_management":[
+"property rental",
+"Property Management / Leasing Office"
+],
 "office/quango":[
 "Quasi-NGO Office",
 "quasi-autonomous",
@@ -6549,10 +6700,25 @@
 "Therapist Office",
 "therapy"
 ],
+"office/union":[
+"Labor Union Office",
+"trade union"
+],
 "office/water_utility":[
 "Water Utility Office",
 "utility",
 "water board"
+],
+"pipeline/substation":[
+"Pipeline Substation"
+],
+"pipeline/valve":[
+"natural gas",
+"oil",
+"sewer",
+"Pipeline Valve",
+"water",
+"sewage"
 ],
 "piste/downhill":[
 "piste",
@@ -6721,6 +6887,12 @@
 "place/village":[
 "Village"
 ],
+"playground/activitypanel":[
+"Play Activity Panel"
+],
+"playground/aerialrotator":[
+"Hanging Spinner"
+],
 "playground/balancebeam":[
 "Play Balance Beam"
 ],
@@ -6730,13 +6902,22 @@
 "playground/basketswing":[
 "Basket Swing"
 ],
+"playground/bridge":[
+"Play Bridge"
+],
 "playground/climbingframe":[
 "monkey bars",
 "Play Climbing Frame",
 "jungle gym"
 ],
+"playground/climbingwall":[
+"Play Climbing Wall"
+],
 "playground/cushion":[
 "Bouncy Cushion"
+],
+"playground/funnel_ball":[
+"Funnel Ball Funnel"
 ],
 "playground/hopscotch":[
 "Hopscotch"
@@ -6746,6 +6927,9 @@
 "pull-up bar",
 "chin-up bar",
 "Play Horizontal Bar"
+],
+"playground/map":[
+"Painted Playground Map"
 ],
 "playground/playhouse":[
 "children's house",
@@ -6765,8 +6949,14 @@
 "playground/seesaw":[
 "Seesaw"
 ],
+"playground/sledding":[
+"Play Sledding Hill"
+],
 "playground/slide":[
 "Slide"
+],
+"playground/splash_pad":[
+"Play Splash Pad"
 ],
 "playground/springy":[
 "spring horse",
@@ -6781,6 +6971,21 @@
 ],
 "playground/swing":[
 "Swing"
+],
+"playground/teenshelter":[
+"Teen Shelter"
+],
+"playground/tetherball":[
+"Tetherball Pole"
+],
+"playground/trampoline":[
+"Trampoline"
+],
+"playground/tunnel_tube":[
+"Play Tunnel"
+],
+"playground/water":[
+"Play Water Pump/Screw"
 ],
 "playground/zipwire":[
 "zipwire",
@@ -6819,6 +7024,13 @@
 ],
 "power/cable/underground":[
 "Underground Power Cable"
+],
+"power/catenary_mast":[
+"overhead wire",
+"Catenary Pole",
+"catenary mast",
+"overhead line",
+"catenary pylon"
 ],
 "power/generator":[
 "turbine",
@@ -6880,11 +7092,11 @@
 "Minor Power Line"
 ],
 "power/plant":[
-"generat*",
 "hydro",
 "gas",
 "station",
 "coal",
+"generator",
 "power",
 "nuclear",
 "Power Station Grounds"
@@ -6914,6 +7126,13 @@
 "run-of-the-river",
 "Hydroelectric Power Station"
 ],
+"power/plant/source/method/photovoltaic":[
+"photovoltaic power station",
+"utility-scale solar",
+"Solar Farm",
+"solar panels",
+"solar park"
+],
 "power/plant/source/nuclear":[
 "power station",
 "atomic",
@@ -6930,11 +7149,7 @@
 "Oil-Fired Power Plant"
 ],
 "power/plant/source/solar":[
-"photovoltaic power station",
-"utility-scale solar",
-"Solar Farm",
-"solar panels",
-"solar park"
+"Solar Power Plant"
 ],
 "power/plant/source/waste":[
 "waste",
@@ -6957,6 +7172,12 @@
 ],
 "power/pole":[
 "Power Pole"
+],
+"power/portal":[
+"Anchor Portal",
+"anchor gantry",
+"gantry tower",
+"h-frame tower"
 ],
 "power/substation":[
 "Substation"
@@ -7703,7 +7924,7 @@
 "dakimakura"
 ],
 "shop/antiques":[
-"Antiques Shop"
+"Antique Shop"
 ],
 "shop/appliance":[
 "washing machine",
@@ -7722,9 +7943,9 @@
 "grill"
 ],
 "shop/art":[
-"exhibit*",
+"exhibition",
+"art",
 "Art Store",
-"art*",
 "gallery"
 ],
 "shop/baby_goods":[
@@ -7759,7 +7980,11 @@
 "Tanning Salon"
 ],
 "shop/bed":[
-"Bedding/Mattress Store"
+"bed",
+"mattress",
+"Bedding/Mattress Store",
+"pillow",
+"duvet"
 ],
 "shop/beverages":[
 "Beverage Store",
@@ -7788,12 +8013,10 @@
 "Bookmaker",
 "gamble",
 "gambling",
-"betting",
-"turf accountant",
-"bookie"
+"betting"
 ],
 "shop/books":[
-"Book Store"
+"Bookstore"
 ],
 "shop/brewing_supplies":[
 "brew shop",
@@ -7833,12 +8056,11 @@
 "automotive"
 ],
 "shop/car_repair":[
-"automobile",
 "automechanic",
 "service",
 "garage",
+"mechanic",
 "oil change",
-"auto mechanic",
 "automotive",
 "inspection",
 "Car Repair Shop"
@@ -7876,6 +8098,7 @@
 "Cheese Store"
 ],
 "shop/chemist":[
+"dispensary",
 "gift",
 "hair",
 "beauty",
@@ -7883,8 +8106,9 @@
 "pharmacy",
 "apothecary",
 "drug store",
+"medicine",
 "Drugstore",
-"med*",
+"chemist",
 "tooth"
 ],
 "shop/chocolate":[
@@ -7905,6 +8129,7 @@
 "dresses",
 "underwear",
 "shorts",
+"outfits",
 "fashion",
 "slacks"
 ],
@@ -7945,6 +8170,7 @@
 "stockings",
 "brassieres",
 "Underwear Store",
+"dessous",
 "fashion"
 ],
 "shop/clothes/wedding":[
@@ -7956,6 +8182,7 @@
 "tuxedo",
 "bridal",
 "boutique",
+"marriage outfits",
 "Wedding Clothes Store",
 "bridesmaid",
 "groomsman"
@@ -7992,10 +8219,15 @@
 ],
 "shop/confectionery":[
 "Candy Store",
-"sweet"
+"fudge",
+"lollipop",
+"sweet",
+"sugar"
 ],
 "shop/convenience":[
-"Convenience Store"
+"Convenience Store",
+"mini-market",
+"mini-mart"
 ],
 "shop/copyshop":[
 "print",
@@ -8008,19 +8240,28 @@
 "Cosmetics Store"
 ],
 "shop/country_store":[
-"Country Store"
+"Rural Supplies Store"
 ],
 "shop/craft":[
+"art",
+"canvas",
 "Arts & Crafts Store",
-"art*",
-"paint*",
+"paint",
+"draw",
+"pencil",
+"handicraft",
+"crafts",
+"paper",
+"crafting",
+"wood",
 "frame",
 "hobby"
 ],
 "shop/curtain":[
 "Curtain Store",
-"drape*",
-"window"
+"window",
+"drapery",
+"drape"
 ],
 "shop/dairy":[
 "egg",
@@ -8029,10 +8270,8 @@
 "cheese"
 ],
 "shop/deli":[
-"lunch",
-"meat",
-"sandwich",
-"Deli"
+"deli",
+"Delicatessen"
 ],
 "shop/department_store":[
 "Department Store"
@@ -8148,10 +8387,10 @@
 "flower"
 ],
 "shop/frame":[
-"photo*",
+"art",
+"photograph",
 "Framing Shop",
-"art*",
-"paint*",
+"painting",
 "frame"
 ],
 "shop/frozen_food":[
@@ -8161,6 +8400,7 @@
 "Fuel Shop"
 ],
 "shop/funeral_directors":[
+"mortuary",
 "Funeral Home",
 "memorial home",
 "undertaker"
@@ -8173,16 +8413,22 @@
 ],
 "shop/games":[
 "game shop",
+"larp",
 "strategy game",
 "board game",
 "card game",
+"miniature wargame",
 "dice game",
-"miniatures wargame",
+"wargame",
+"role-playing",
 "live action role-playing game",
 "Tabletop Game Store"
 ],
 "shop/garden_centre":[
+"retail plant nursery",
+"nursery",
 "tree",
+"plant nursery",
 "landscape",
 "Garden Center",
 "mulch",
@@ -8199,11 +8445,12 @@
 ],
 "shop/general":[
 "General Store",
+"small-town store",
 "village shop"
 ],
 "shop/gift":[
 "Gift Shop",
-"souvenir"
+"tourist trap"
 ],
 "shop/greengrocer":[
 "fruit",
@@ -8213,13 +8460,15 @@
 ],
 "shop/hairdresser_supply":[
 "shampoo",
+"shaver",
 "Hairdresser Supply Store",
+"razor",
 "conditioner",
 "barber"
 ],
 "shop/hairdresser":[
-"Hairdresser",
-"barber"
+"beard",
+"Hairdresser"
 ],
 "shop/hardware":[
 "home improvement",
@@ -8231,17 +8480,29 @@
 "hardware"
 ],
 "shop/health_food":[
+"raw food",
 "vitamins",
+"unprocessed",
 "vegetarian",
+"nutritional",
 "vegan",
-"Health Food Shop",
-"wholefood"
+"groceries",
+"wholefood",
+"organic",
+"Health Food Store"
 ],
 "shop/hearing_aids":[
 "Hearing Aids Store"
 ],
 "shop/herbalist":[
-"Herbalist"
+"Herbalist",
+"ayurvedic",
+"paraherbal",
+"plant medicine",
+"traditional medicine",
+"ayurveda",
+"medicinal plants",
+"phytomedicine"
 ],
 "shop/hifi":[
 "hi-fi",
@@ -8273,7 +8534,6 @@
 "shop/houseware":[
 "kitchenware",
 "Houseware Store",
-"household",
 "home"
 ],
 "shop/hunting":[
@@ -8304,7 +8564,15 @@
 "earrings"
 ],
 "shop/kiosk":[
-"Kiosk"
+"newspaper",
+"beverages",
+"cigarettes",
+"newsagent",
+"sweets",
+"Kiosk",
+"snacks",
+"mall kiosk",
+"newsstand"
 ],
 "shop/kitchen":[
 "countertops",
@@ -8316,12 +8584,7 @@
 "Laundry"
 ],
 "shop/laundry/self_service":[
-"laundromat",
-"launderette",
-"coin wash",
-"coin laundry",
-"Self-Service Laundry",
-"washateria"
+"Self-Service Laundry"
 ],
 "shop/leather":[
 "Leather Store"
@@ -8375,10 +8638,13 @@
 "model building",
 "scale models",
 "model store",
+"rail transport modelling",
 "Model Shop",
-"hobby"
+"hobby",
+"model railroading"
 ],
 "shop/money_lender":[
+"payday loan",
 "Money Lender"
 ],
 "shop/motorcycle_repair":[
@@ -8405,15 +8671,27 @@
 "cd store"
 ],
 "shop/musical_instrument":[
+"keyboard",
+"accordion",
+"violin",
 "Musical Instrument Store",
-"guitar"
+"drum",
+"saxophone",
+"brass instruments",
+"cello",
+"guitar",
+"flute",
+"piano",
+"trumpet",
+"clarinet"
 ],
 "shop/newsagent":[
-"Newspaper/Magazine Shop"
+"Newsstand"
 ],
 "shop/nutrition_supplements":[
 "Nutrition Supplements Store",
 "supplement",
+"protein",
 "health",
 "vitamin"
 ],
@@ -8454,7 +8732,7 @@
 "cake shop"
 ],
 "shop/pawnbroker":[
-"Pawn Shop"
+"Pawnshop"
 ],
 "shop/perfumery":[
 "fragrance",
@@ -8538,16 +8816,13 @@
 "Scuba Diving Shop"
 ],
 "shop/seafood":[
-"fishmonger",
 "Seafood Shop"
 ],
 "shop/second_hand":[
-"Consignment/Thrift Store",
+"second-hand",
 "resale",
-"thrift",
 "used",
-"second hand",
-"secondhand"
+"Thrift Store"
 ],
 "shop/sewing":[
 "Sewing Supply Shop",
@@ -8663,7 +8938,8 @@
 ],
 "shop/toys":[
 "Toy Store",
-"games"
+"games",
+"teddy"
 ],
 "shop/trade":[
 "Trade Shop"
@@ -8691,7 +8967,9 @@
 "Vacuum Cleaner Store"
 ],
 "shop/variety_store":[
-"Variety Store"
+"five and ten",
+"Discount Store",
+"five and dime"
 ],
 "shop/video_games":[
 "Video Game Store"
@@ -8875,12 +9153,12 @@
 "lodge"
 ],
 "tourism/gallery":[
-"sculpt*",
-"exhibit*",
-"photo*",
+"exhibition",
+"art",
+"painting",
 "Art Gallery",
-"art*",
-"paint*"
+"photogaph",
+"sculpture"
 ],
 "tourism/guest_house":[
 "lodging",
@@ -8955,15 +9233,23 @@
 "Motel"
 ],
 "tourism/museum":[
-"sculpt*",
-"exhibit*",
-"institution",
-"photo*",
+"exhibition",
+"art",
+"nature",
 "hall",
-"Museum",
-"art*",
+"sculpture",
 "foundation",
-"paint*",
+"history",
+"technology",
+"archaeological",
+"cultural",
+"institution",
+"photograph",
+"painting",
+"excavation",
+"science",
+"Museum",
+"archeological",
 "gallery"
 ],
 "tourism/museum/history":[
@@ -9029,6 +9315,9 @@
 "bump",
 "speed"
 ],
+"traffic_calming/yes":[
+"Traffic Calming (Unspecified Type)"
+],
 "traffic_calming/bump":[
 "hump",
 "slow",
@@ -9069,6 +9358,16 @@
 "circle",
 "roundabout",
 "Traffic Island"
+],
+"traffic_calming/mini_bumps":[
+"circular bumps",
+"small bumps",
+"slow",
+"Mini Speed Bumps",
+"bumps",
+"speed",
+"circular speed bumps",
+"small speed bumps"
 ],
 "traffic_calming/rumble_strip":[
 "audible lines",

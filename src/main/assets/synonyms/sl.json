@@ -410,7 +410,7 @@
 "Dom za bolniško nego"
 ],
 "amenity/parking":[
-"Parkirno mesto"
+"Parkirišče"
 ],
 "amenity/parking/multi-storey":[
 "Parkirna hiša",
@@ -964,12 +964,6 @@
 "knjigovezništvo",
 "knjigoveštvo",
 "knjigovez"
-],
-"craft/brewery":[
-"pivovarstvo",
-"hmeljarstvo",
-"Pivovarna",
-"pivovar"
 ],
 "craft/carpenter":[
 "tesar",
@@ -2245,11 +2239,6 @@
 "Trgovina z alkoholnimi pijačami",
 "alkoholne pijače"
 ],
-"shop/antiques":[
-"starinarnica",
-"antikvariat",
-"Starinarnica"
-],
 "shop/appliance":[
 "kamere",
 "telefoni",
@@ -2286,8 +2275,11 @@
 ],
 "shop/bakery":[
 "pekarija",
+"hrana",
 "pek",
-"Pekarna"
+"Pekarna",
+"kruh",
+"pecivo"
 ],
 "shop/bathroom_furnishing":[
 "Trgovina s kopalniško opremo"
@@ -2319,12 +2311,6 @@
 "shop/bookmaker":[
 "Stavnica",
 "pobiralec stav"
-],
-"shop/books":[
-"Knjigarna",
-"trgovina s knjigami",
-"založba",
-"knjigarna"
 ],
 "shop/boutique":[
 "Butik"
@@ -2372,7 +2358,7 @@
 "modna trgovina"
 ],
 "shop/chocolate":[
-"Trgovina s čokolado"
+"Čokoladnica"
 ],
 "shop/clothes":[
 "tekstilna",
@@ -2408,11 +2394,6 @@
 ],
 "shop/dairy":[
 "Mlekarna"
-],
-"shop/deli":[
-"Delikatesa",
-"delikatesna trgovina",
-"špecerija"
 ],
 "shop/department_store":[
 "Veleblagovnica",
@@ -2542,9 +2523,6 @@
 "shop/musical_instrument":[
 "Trgovina z glasbenimi inštrumenti"
 ],
-"shop/newsagent":[
-"Trgovina s časopisi/revijami"
-],
 "shop/nutrition_supplements":[
 "Trgovina s prehrambenimi dodatki"
 ],
@@ -2561,9 +2539,6 @@
 ],
 "shop/pastry":[
 "Slaščičarna"
-],
-"shop/pawnbroker":[
-"Zastavljalnica"
 ],
 "shop/perfumery":[
 "Parfumerija"
@@ -2658,10 +2633,6 @@
 ],
 "shop/vacuum_cleaner":[
 "Trgovina s sesalci"
-],
-"shop/variety_store":[
-"vse za _ _ _ €",
-"Trgovina z mešanim blagom"
 ],
 "shop/video":[
 "Videoteka",

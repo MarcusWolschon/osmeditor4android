@@ -797,9 +797,6 @@
 "craft/bookbinder":[
 "Knjigovezac"
 ],
-"craft/brewery":[
-"Pivara"
-],
 "craft/carpenter":[
 "Stolar"
 ],
@@ -999,17 +996,8 @@
 "highway/footway":[
 "Pješačka staza"
 ],
-"highway/footway/marked":[
-"Označeni pješački prijelaz"
-],
 "highway/footway/sidewalk":[
 "Nogostup"
-],
-"highway/footway/unmarked":[
-"Neoznačeni pješački prijelaz"
-],
-"highway/footway/zebra":[
-"Označeni pješački prijelaz"
 ],
 "highway/living_street":[
 "Područje smirenog prometa"
@@ -1521,9 +1509,6 @@
 ],
 "man_made/pipeline/underground":[
 "Podzemni cjevovod"
-],
-"man_made/pipeline/valve":[
-"Ventil cjevovoda"
 ],
 "man_made/pumping_station":[
 "Crpna stanica"
@@ -2151,9 +2136,6 @@
 "prodavaonica alkoholnih pića",
 "Prodavaonica alkoholnih pića"
 ],
-"shop/antiques":[
-"Antikvarijat"
-],
 "shop/art":[
 "Trgovina umjetninama"
 ],
@@ -2214,9 +2196,6 @@
 ],
 "shop/bookmaker":[
 "Kladioničar"
-],
-"shop/books":[
-"Knjižara"
 ],
 "shop/boutique":[
 "Butik"
@@ -2294,11 +2273,6 @@
 ],
 "shop/dairy":[
 "Prodavaonica mliječnih proizvoda"
-],
-"shop/deli":[
-"Prodavaonica delikatesa",
-"trgovina delikatesama",
-"delikatesni dućan"
 ],
 "shop/department_store":[
 "robna kuća",
@@ -2467,9 +2441,6 @@
 "bubnjevi",
 "muzička trgovina"
 ],
-"shop/newsagent":[
-"Trgovina za novine i magazine"
-],
 "shop/optician":[
 "optičar",
 "Optičar"
@@ -2495,9 +2466,6 @@
 "slastice",
 "dućan s kolačima",
 "torte"
-],
-"shop/pawnbroker":[
-"Zalagaonica"
 ],
 "shop/perfumery":[
 "Parfimerija"
@@ -2632,14 +2600,6 @@
 ],
 "shop/vacuum_cleaner":[
 "Trgovina za usisavače"
-],
-"shop/variety_store":[
-"trgovina",
-"prodavaonica",
-"dućan",
-"prodavaonica mješovite robe",
-"svaštara",
-"Prodavaonica mješovite robe"
 ],
 "shop/video":[
 "video-kazeta",

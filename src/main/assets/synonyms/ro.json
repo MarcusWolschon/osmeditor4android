@@ -350,9 +350,6 @@
 "club":[
 "Club"
 ],
-"craft/brewery":[
-"Berărie"
-],
 "craft/electrician":[
 "Electrician"
 ],
@@ -906,9 +903,6 @@
 "g",
 "Magazin de Băuturi Alcoolice"
 ],
-"shop/antiques":[
-"Anticariat"
-],
 "shop/appliance":[
 "Magazin de Electrocasnice"
 ],
@@ -947,9 +941,6 @@
 ],
 "shop/bookmaker":[
 "Atelier de Cărți"
-],
-"shop/books":[
-"Magazin de Cărți"
 ],
 "shop/boutique":[
 "Boutique"
@@ -1086,9 +1077,6 @@
 "shop/musical_instrument":[
 "Magazin de Instrumente Muzicale"
 ],
-"shop/newsagent":[
-"Magazin de Ziare"
-],
 "shop/nutrition_supplements":[
 "Magazin de Suplimente Nutritive"
 ],
@@ -1121,9 +1109,6 @@
 ],
 "shop/seafood":[
 "Magazin de Fructe de Mare"
-],
-"shop/second_hand":[
-"Magazin de Depozite"
 ],
 "shop/shoes":[
 "Magazin de Ghete"
@@ -1160,9 +1145,6 @@
 ],
 "shop/vacuum_cleaner":[
 "Magazin de Aspiratoare"
-],
-"shop/variety_store":[
-"Magazin de Varietăți"
 ],
 "shop/video":[
 "Magazin Video"

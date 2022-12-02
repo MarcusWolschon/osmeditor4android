@@ -1,4 +1,7 @@
 {
+"aerialway/zip_line":[
+"Flying Fox"
+],
 "amenity/arts_centre":[
 "Arts Centre"
 ],
@@ -7,6 +10,9 @@
 ],
 "amenity/bicycle_parking/building":[
 "Bicycle Parking Building"
+],
+"amenity/cafe/bubble_tea":[
+"Bubble Tea Shop"
 ],
 "amenity/childcare":[
 "Childcare"
@@ -68,6 +74,9 @@
 "amenity/toilets":[
 "Toilets"
 ],
+"amenity/trolley_bay":[
+"Trolley Bay"
+],
 "amenity/vending_machine/fuel":[
 "Fuel Pump"
 ],
@@ -79,6 +88,9 @@
 "rubbish",
 "Rubbish Bin",
 "trash"
+],
+"amenity/weighbridge":[
+"Weighbridge"
 ],
 "barrier/kerb":[
 "Kerb"
@@ -141,14 +153,14 @@
 "cable railway",
 "Inclined Lift"
 ],
-"highway/footway/marked":[
-"Marked Crossing"
+"highway/footway":[
+"Walkway"
+],
+"highway/footway/informal":[
+"Informal Walkway"
 ],
 "highway/footway/sidewalk":[
 "Footpath (sidewalk)"
-],
-"highway/footway/zebra":[
-"Marked Zebra Crossing"
 ],
 "highway/give_way":[
 "Give Way Sign"
@@ -164,6 +176,9 @@
 "gaslight",
 "Street Light"
 ],
+"highway/traffic_signals":[
+"Traffic Lights"
+],
 "indoor/elevator":[
 "Indoor Lift Shaft"
 ],
@@ -175,6 +190,9 @@
 ],
 "leisure/fitness_centre":[
 "Gym / Fitness Centre"
+],
+"leisure/fitness_station":[
+"Outdoor Exercise Equipment"
 ],
 "leisure/horse_riding":[
 "Horseback Riding Centre"
@@ -190,6 +208,12 @@
 ],
 "place/suburb":[
 "Suburb"
+],
+"playground/slide":[
+"Slide"
+],
+"playground/zipwire":[
+"Playground Flying Fox"
 ],
 "shop/caravan":[
 "Caravan Dealership"
@@ -214,6 +238,9 @@
 ],
 "shop/mall":[
 "Shopping Centre"
+],
+"shop/newsagent":[
+"Newsagency"
 ],
 "shop/tyres":[
 "Tyre Shop"

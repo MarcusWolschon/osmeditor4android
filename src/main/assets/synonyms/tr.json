@@ -1414,11 +1414,6 @@
 "ciltçi",
 "Ciltçi"
 ],
-"craft/brewery":[
-"bira fabrikası",
-"Bira İşletmesi",
-"bira i̇şletmesi"
-],
 "craft/carpenter":[
 "dülger",
 "marangoz",
@@ -1890,17 +1885,8 @@
 "highway/footway/crossing":[
 "Yaya Geçidi"
 ],
-"highway/footway/marked":[
-"İşaretli Yaya Geçidi"
-],
 "highway/footway/sidewalk":[
 "Kaldırım"
-],
-"highway/footway/unmarked":[
-"İşaretsiz Yaya Geçidi"
-],
-"highway/footway/zebra":[
-"İşaretli Yaya Geçidi"
 ],
 "highway/give_way":[
 "yol ver i̇şareti",
@@ -2645,9 +2631,6 @@
 "çizgi",
 "Çizgi"
 ],
-"man_made":[
-"İnsan Yapımı Özellik"
-],
 "man_made/adit":[
 "Tünel Girişi",
 "tünel girişi",
@@ -2789,9 +2772,6 @@
 ],
 "man_made/pipeline/underground":[
 "Yeraltı Boru Hattı"
-],
-"man_made/pipeline/valve":[
-"Boru Hattı Vanası"
 ],
 "man_made/pumping_station":[
 "pompa i̇stasyonu",
@@ -3474,9 +3454,6 @@
 "power/plant/source/oil":[
 "Petrol Yakıtlı Enerji Santrali"
 ],
-"power/plant/source/solar":[
-"Güneş Paneli Çiftliği"
-],
 "power/plant/source/wind":[
 "Rüzgar Enerjisi Çiftliği"
 ],
@@ -3796,10 +3773,6 @@
 "shop/anime":[
 "Anime / Manga Dükkanı"
 ],
-"shop/antiques":[
-"antika dükkanı",
-"Antika Dükkanı"
-],
 "shop/appliance":[
 "beyaz eşya mağazası",
 "Beyaz Eşya Mağazası"
@@ -3854,10 +3827,6 @@
 "shop/bookmaker":[
 "Bahis Merkezi",
 "bahis merkezi"
-],
-"shop/books":[
-"kitapçı",
-"Kitapçı"
 ],
 "shop/boutique":[
 "Butik Mağaza"
@@ -3962,9 +3931,6 @@
 "kozmetik mağazası",
 "Kozmetik Mağazası"
 ],
-"shop/country_store":[
-"Köy Mağazası"
-],
 "shop/craft":[
 "El Sanatları Mağazası"
 ],
@@ -3975,10 +3941,6 @@
 "shop/dairy":[
 "Süt Mağazası",
 "süt mağazası"
-],
-"shop/deli":[
-"şarküteri",
-"Şarküteri"
 ],
 "shop/department_store":[
 "mağaza",
@@ -4092,9 +4054,6 @@
 "donanım mağazası",
 "Donanım Mağazası"
 ],
-"shop/health_food":[
-"Sağlıklı Yiyecek Mağazası"
-],
 "shop/hearing_aids":[
 "i̇şitme cihazı mağazası",
 "İşitme Cihazı Mağazası"
@@ -4197,10 +4156,6 @@
 "müzik aletleri mağazası",
 "Müzik Aletleri Mağazası"
 ],
-"shop/newsagent":[
-"Gazete Bayii",
-"gazete bayii"
-],
 "shop/nutrition_supplements":[
 "enerji takviye ürünleri mağazası",
 "gıda takviye ürünleri mağazası",
@@ -4228,10 +4183,6 @@
 "shop/pastry":[
 "Pastane",
 "pastane"
-],
-"shop/pawnbroker":[
-"i̇kinciel alım satım mağazası",
-"İkinciel Alım Satım Mağazası"
 ],
 "shop/perfumery":[
 "parfüm mağazası",
@@ -4283,10 +4234,6 @@
 "shop/seafood":[
 "Deniz Ürünleri Mağazası",
 "deniz ürünleri mağazası"
-],
-"shop/second_hand":[
-"bit pazarı",
-"Bit Pazarı"
 ],
 "shop/sewing":[
 "Dikiş Malzemeleri Dükkanı"
@@ -4377,10 +4324,6 @@
 "shop/vacuum_cleaner":[
 "elektrikli süpürge mağazası",
 "Elektrikli Süpürge Mağazası"
-],
-"shop/variety_store":[
-"Herşey 1 TL Mağazası",
-"herşey 1 tl mağazası"
 ],
 "shop/video":[
 "Film - Video Mağazası",

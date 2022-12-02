@@ -2650,10 +2650,6 @@
 "Librobindejo",
 "librobindisto"
 ],
-"craft/brewery":[
-"biero",
-"Bierfarejo"
-],
 "craft/carpenter":[
 "cxarpentisto",
 "meblisto",
@@ -3351,13 +3347,7 @@
 "Stratpasejo"
 ],
 "highway/crossing/marked":[
-"Stratpasejo zebrostria",
-"zebro",
-"pasejo",
-"piedira transirejo",
-"irejo",
-"trairejo",
-"stripasejo"
+"Stratpasejo zebrostria"
 ],
 "highway/crossing/uncontrolled":[
 "Stratpasejo zebrostria"
@@ -3396,11 +3386,7 @@
 "biciklvojo"
 ],
 "highway/cycleway/crossing/marked":[
-"zebro",
-"pasejo",
-"biciklovojo",
-"Stratpasejo bicikla (markita)",
-"biciklvojo"
+"Stratpasejo bicikla (markita)"
 ],
 "highway/cycleway/crossing/unmarked":[
 "pasejo",
@@ -3456,27 +3442,9 @@
 "highway/footway/crossing":[
 "Stratpasejo"
 ],
-"highway/footway/marked":[
-"Stratpasejo zebrostria",
-"zebro",
-"pasejo",
-"irejo",
-"trairejo"
-],
 "highway/footway/sidewalk":[
 "Trotuaro (ĉestrata)",
 "irejo"
-],
-"highway/footway/unmarked":[
-"pasejo",
-"Stratpasejo",
-"piedira transirejo",
-"transpasejo",
-"irejo",
-"trairejo"
-],
-"highway/footway/zebra":[
-"Stratpasejo zebrostria"
 ],
 "highway/give_way":[
 "cedi traveturon",
@@ -3516,13 +3484,6 @@
 "aŭtovojo"
 ],
 "highway/motorway_link":[
-"Aŭtovoja ligilo",
-"aŭtoŝoseo",
-"enveturejo",
-"elveturejo",
-"nodo"
-],
-"highway/motorway_link-US-CA":[
 "Aŭtovoja ligilo",
 "aŭtoŝoseo",
 "enveturejo",
@@ -3587,13 +3548,6 @@
 "unuaranga"
 ],
 "highway/primary_link":[
-"vojkruciĝo",
-"Unua-rang-voja ligilo",
-"enveturejo",
-"nodo",
-"elveturejo"
-],
-"highway/primary_link-US-CA":[
 "vojkruciĝo",
 "Unua-rang-voja ligilo",
 "enveturejo",
@@ -3789,13 +3743,6 @@
 "aŭtovojo"
 ],
 "highway/trunk_link":[
-"vojkruciĝo",
-"Ekspres-voja ligilo",
-"enveturejo",
-"nodo",
-"elveturejo"
-],
-"highway/trunk_link-US-CA":[
 "vojkruciĝo",
 "Ekspres-voja ligilo",
 "enveturejo",
@@ -4814,9 +4761,6 @@
 "linio",
 "Linio"
 ],
-"man_made":[
-"Artefarita objekto"
-],
 "man_made/adit":[
 "minejkoridoro",
 "Mineja koridoro",
@@ -5117,10 +5061,6 @@
 "tubaro",
 "naftodukto",
 "akvodukto"
-],
-"man_made/pipeline/valve":[
-"Valvo de konduktubo",
-"klapo"
 ],
 "man_made/pumping_station":[
 "ĉerpstacio",
@@ -6347,16 +6287,6 @@
 "centralo",
 "elektrejo"
 ],
-"power/plant/source/solar":[
-"sunĉelo",
-"Sunenergia elektrocentralo",
-"sunpanelo",
-"centralo",
-"elektrejo",
-"suncentralo",
-"sunkolektroro",
-"fotovoltaiko"
-],
 "power/plant/source/waste":[
 "Rub-bruliganta elektrocentralo",
 "rubbruligejo",
@@ -6925,12 +6855,6 @@
 "Anime-/manga-vendejo",
 "animeo"
 ],
-"shop/antiques":[
-"antikvaĵejo",
-"antikvajxejo",
-"Antikvaĵa vendejo",
-"antikvajhejo"
-],
 "shop/appliance":[
 "frostujoj",
 "lavmaŝinoj",
@@ -7026,11 +6950,6 @@
 "vetperisto",
 "bukmekro",
 "Vetperistejo"
-],
-"shop/books":[
-"Libra vendejo",
-"librejo",
-"librovendejo"
 ],
 "shop/boutique":[
 "Mod-butiko (altprezaj vestaĵoj)"
@@ -7252,16 +7171,6 @@
 "kosmetikajxoj",
 "kosmetikaĵoj"
 ],
-"shop/country_store":[
-"ĝenerala vendejo",
-"gxenerala vendejo",
-"ghenerala vendejo",
-"vilagxa vendejo",
-"vilagha vendejo",
-"Ĝenerala vendejo en vilaĝo",
-"butiko oportuna",
-"vilaĝa vendejo"
-],
 "shop/craft":[
 "artisto",
 "Vendejo de materialoj por metio",
@@ -7283,14 +7192,6 @@
 "fromaĝoj",
 "laktajhoj",
 "laktajxoj"
-],
-"shop/deli":[
-"bongustaĵoj",
-"delikataĵoj",
-"frandaĵoj",
-"Delikataĵa vendejo",
-"delikatajhoj",
-"delikatajxoj"
 ],
 "shop/department_store":[
 "Ĉiovendejo",
@@ -7512,13 +7413,6 @@
 "iloj",
 "ilovendejo"
 ],
-"shop/health_food":[
-"Sanig-manĝaĵa vendejo",
-"saniga manĝaĵo",
-"ekologia manĝaĵo",
-"vegetarisma manĝaĵo",
-"sana manĝaĵo"
-],
 "shop/hearing_aids":[
 "aŭdiloj",
 "orelhelpiloj",
@@ -7722,12 +7616,6 @@
 "instrumentoj",
 "muzikinstrumentoj"
 ],
-"shop/newsagent":[
-"gazetejo",
-"gazetvendejo",
-"magazinoj",
-"Gazeta vendejo"
-],
 "shop/nutrition_supplements":[
 "Diet-suplementa vendejo",
 "suplementoj",
@@ -7776,14 +7664,6 @@
 "sukeraĵejo",
 "Kukejo",
 "bakejo"
-],
-"shop/pawnbroker":[
-"lombardo",
-"brokantejo",
-"Mon-pruntejo (kontraŭ garantiaĵo)",
-"pruntejo",
-"lombardejo",
-"monprunto"
 ],
 "shop/perfumery":[
 "parfumoj",
@@ -7885,13 +7765,6 @@
 "marfruktoj",
 "fisxoj",
 "fiŝvendejo"
-],
-"shop/second_hand":[
-"malnovaĵoj",
-"lambardejo",
-"eluzitaĵoj",
-"uzitaĵoj",
-"Brokantejo"
 ],
 "shop/sewing":[
 "pingloj",
@@ -8057,14 +7930,6 @@
 "polvosuĉiloj",
 "polvosucxiloj",
 "senpolvigiloj"
-],
-"shop/variety_store":[
-"ĉio po unu",
-"eŭrovendejo",
-"ĉiopounuspesmilo",
-"euroshop",
-"diversaĵoj",
-"Ĉio-po-unu-spesmilo vendejo"
 ],
 "shop/video":[
 "dvd",

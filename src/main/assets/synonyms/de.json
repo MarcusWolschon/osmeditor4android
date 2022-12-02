@@ -581,6 +581,10 @@
 "trinkwasserbrunnen",
 "trinkbrunnen"
 ],
+"amenity/driver_training":[
+"Fahrschulgeländd",
+"fahrschulgelände"
+],
 "amenity/driving_school":[
 "fahrschule",
 "Fahrschule"
@@ -609,6 +613,18 @@
 "hamburgerstand",
 "burgerstand",
 "burger fast food"
+],
+"amenity/fast_food/cafeteria":[
+"selbstbedienungsgaststätte",
+"kantine",
+"selbstbedienungsrestaurant",
+"cafete",
+"speisesaal",
+"mensa",
+"essenssaal",
+"essensraum",
+"Cafeteria",
+"speiseraum"
 ],
 "amenity/fast_food/chicken":[
 "hühner fast food",
@@ -1286,6 +1302,19 @@
 "asiatisches restaurant",
 "Asiatisches Restaurant"
 ],
+"amenity/restaurant/barbeque":[
+"bbq",
+"smoker",
+"vom grill",
+"grillerei",
+"barbeque",
+"brisket",
+"Grillrestaurant",
+"fleisch",
+"grill",
+"rippchen",
+"rips"
+],
 "amenity/restaurant/chinese":[
 "Chinesisches Restaurant",
 "chinesisches restaurant"
@@ -1597,6 +1626,18 @@
 "Verkaufsautomat",
 "automat"
 ],
+"amenity/vending_machine/bicycle_tube":[
+"reifen",
+"schlauchautomat",
+"schläuche",
+"fahrradschlauch",
+"plattfuß",
+"pneu",
+"fahrradschläuche",
+"schlauch",
+"fahrradreifen",
+"Fahrradschlauchautomat"
+],
 "amenity/vending_machine/bottle_return":[
 "pfandautomat",
 "pfandflaschenrückgabeautomat",
@@ -1675,6 +1716,10 @@
 "amenity/vending_machine/parking_tickets":[
 "Parkscheinautomat",
 "parkscheinautomat"
+],
+"amenity/vending_machine/pizza":[
+"pizza",
+"Pizzaautomat"
 ],
 "amenity/vending_machine/public_transport_tickets":[
 "Fahrkartenautomat",
@@ -1934,6 +1979,18 @@
 "geländer",
 "Geländer"
 ],
+"barrier/full-height_turnstile":[
+"drehsäule",
+"drehsperre",
+"Drehkreuz in voller Höhe",
+"vereinzelungsanlage",
+"drehkreuz",
+"drehkreuzsäule",
+"haspel",
+"zutrittskontrolle",
+"drehschleuse",
+"zutrittskontrollsystem"
+],
 "barrier/gate":[
 "tor",
 "Tor",
@@ -1945,6 +2002,12 @@
 "schutzplanke",
 "Leitplanke",
 "leitplanke"
+],
+"barrier/hampshire_gate":[
+"netztor",
+"zaundraht",
+"drahtzaun",
+"Tor aus gespanntem Drahtzaun"
 ],
 "barrier/handrail":[
 "Handlauf"
@@ -2097,6 +2160,9 @@
 "mannpforte",
 "mannloch"
 ],
+"barrier/yes":[
+"Barriere (Unbestimmter Typ)"
+],
 "boundary":[
 "Grenze"
 ],
@@ -2115,6 +2181,17 @@
 "building":[
 "Gebäude",
 "gebäude"
+],
+"building/allotment_house":[
+"kleingartenhaus",
+"schrebergartenhaus",
+"gartenhaus",
+"datsche",
+"kleingartenlaube",
+"laube",
+"gartenlaube",
+"Kleingartenhaus",
+"schrebergartenlaube"
 ],
 "building/apartments":[
 "geschosswohnungsbau",
@@ -2227,6 +2304,10 @@
 "landwirtschaftliches gebäude",
 "bauernhofgebäude"
 ],
+"building/fire_station":[
+"feuerwehrgebäude",
+"Feuerwehrgebäude"
+],
 "building/garage":[
 "einzelgarage",
 "garage",
@@ -2296,6 +2377,9 @@
 "vorschule",
 "Kindergartengebäude"
 ],
+"building/manufacture":[
+"Industrielles Produktionsgebäude"
+],
 "building/mosque":[
 "moschee",
 "moscheegebäude",
@@ -2306,6 +2390,9 @@
 "Bürogebäude",
 "verwaltung",
 "bürokomplex"
+],
+"building/outbuilding":[
+"Nebengebäude"
 ],
 "building/pavilion":[
 "Nebengebäude (Pavillon)",
@@ -2420,6 +2507,25 @@
 "building_point":[
 "Gebäude"
 ],
+"cemetery/grave":[
+"mausoleum",
+"urnengrab",
+"grabstätte",
+"grabstein",
+"Grab"
+],
+"cemetery/sector":[
+"friedwald",
+"mausoleum",
+"gräber",
+"columbarium",
+"gräberfeld",
+"friedhof",
+"beerdigung",
+"Friedhofsabschnitt",
+"grab",
+"kirchhof"
+],
 "club":[
 "Verein",
 "verein",
@@ -2478,10 +2584,13 @@
 "buchbinder"
 ],
 "craft/brewery":[
+"brauen",
 "brauerei",
-"bierbrauerei",
-"bierhersteller",
-"Brauerei"
+"brauereibetrieb",
+"Handwerksbrauerei",
+"bier",
+"bierbrauen",
+"braustätte"
 ],
 "craft/carpenter":[
 "tischler",
@@ -3065,8 +3174,25 @@
 "gesundheitseinrichtung"
 ],
 "healthcare/alternative":[
-"alternativmedizin",
-"Alternativmedizin"
+"reiki",
+"homöopathie",
+"naturheilkunde",
+"aromatherapie",
+"pflanzenheilkunde",
+"physiatrie",
+"unani",
+"ayurveda",
+"Alternativmedizin",
+"kräutermedizin",
+"hypnose",
+"wasserheilkunde",
+"hydrotherapie",
+"osteopathie",
+"spagyrika",
+"akupunktur",
+"heilkunde",
+"anthroposophisch",
+"tcm"
 ],
 "healthcare/alternative/chiropractic":[
 "manualtherapeut",
@@ -3160,6 +3286,9 @@
 "logopäde",
 "sprachtherapeutin"
 ],
+"healthcare/yes":[
+"Gesundheitseinrichtung (unbestimmter Typ)"
+],
 "highway":[
 "Straßen/Wege..."
 ],
@@ -3179,6 +3308,14 @@
 "highway/bus_stop":[
 "Bushaltestelle (Wartebereich)"
 ],
+"highway/busway":[
+"brt",
+"Busstraße",
+"bus rapid transit",
+"busweg",
+"busschnellweg",
+"busstraße"
+],
 "highway/construction":[
 "bauarbeiten",
 "straßensperrung",
@@ -3188,16 +3325,20 @@
 "Straße in Bau"
 ],
 "highway/corridor":[
-"Gang/Korridor im Innenraum",
-"innengang"
+"galerie",
+"gang",
+"korridor",
+"flur",
+"passage",
+"Gang im Innenraum",
+"innengang",
+"durchgang"
 ],
 "highway/crossing":[
 "Übergang"
 ],
 "highway/crossing/marked":[
-"zebrastreifen",
-"markierter / gekennzeichneter Übergang",
-"gekennzeichneter übergang"
+"markierter / gekennzeichneter Übergang"
 ],
 "highway/crossing/traffic_signals":[
 "fußgängerübergang",
@@ -3206,7 +3347,15 @@
 "Kreuzung mit Fußgängerampel"
 ],
 "highway/crossing/uncontrolled":[
-"markierter / gekennzeichneter Übergang"
+"markierung",
+"querung",
+"markierter übergang",
+"fußgängerüberweg",
+"überweg",
+"zebrastreifen",
+"markierter / gekennzeichneter Übergang",
+"gekennzeichneter übergang",
+"übergang"
 ],
 "highway/crossing/unmarked":[
 "Nicht gekennzeichneter Übergang",
@@ -3237,7 +3386,26 @@
 "Rad- und Fußübergang"
 ],
 "highway/cycleway/crossing/marked":[
-"Gekennzeichneter Fahrrad-Übergang",
+"Gekennzeichneter Fahrrad-Übergang"
+],
+"highway/cycleway/crossing/traffic_signals":[
+"ampel",
+"ampelgeregelt",
+"radstreifen",
+"fahrradquerung",
+"fahrradweg",
+"radweg",
+"radquerung",
+"radüberweg",
+"fahrradüberweg",
+"lichtzeichen",
+"radfahrerquerung",
+"radfahrerüberweg",
+"fahrradstreifen",
+"Radweg-Querung mit Ampel"
+],
+"highway/cycleway/crossing/uncontrolled":[
+"Radweg-Querung mit Straßenmarkierung",
 "gekennzeichneter fahrrad-übergang"
 ],
 "highway/cycleway/crossing/unmarked":[
@@ -3270,6 +3438,12 @@
 "Nothaltebucht",
 "notrufnische"
 ],
+"highway/escape":[
+"botfallspur",
+"rettungsgasse",
+"Notfallspur",
+"notausstiegsrampe"
+],
 "highway/footway":[
 "Fußweg",
 "fußgängerweg",
@@ -3295,37 +3469,50 @@
 "highway/footway/crossing":[
 "Fußgängerüberweg (eigener Weg)"
 ],
+"highway/footway/crossing/marked":[
+"Gehweg-Querung mit Straßenmarkierung"
+],
+"highway/footway/crossing/traffic_signals":[
+"Gehweg-Querung mit Ampel",
+"fußgängergang",
+"fahrradüberweg (ampel)",
+"fußgängerüberweg (ampel)",
+"fußgängerampel",
+"zebrastreifen (ampel)"
+],
+"highway/footway/crossing/uncontrolled":[
+"Gehweg-Querung mit Straßenmarkierung",
+"fußgängerüberweg",
+"markierter fußgängerüberweg",
+"markierter zebrastreifen",
+"zebrastreifen"
+],
+"highway/footway/crossing/unmarked":[
+"nicht gekennzeichneter übergang",
+"nicht markierte kreuzung",
+"Querung ohne Markierungen",
+"nicht gekennzeichnete kreuzung"
+],
+"highway/footway/crossing/zebra":[
+"Gehweg-Querung mit Zebrastreifen"
+],
 "highway/footway/informal":[
 "Trampelpfad"
-],
-"highway/footway/marked":[
-"markierter fußgängerübergang",
-"zebrastreifen",
-"markierter / gekennzeichneter Übergang"
 ],
 "highway/footway/sidewalk":[
 "bürgersteig",
 "trottoir",
 "gangsteig",
 "gehsteig",
-"Bürgersteig/Gehsteig/Trottoir",
+"Bürgersteig",
 "gehweg",
 "fußweg"
 ],
-"highway/footway/traffic_signals":[
-"fußgängerübergang",
-"radübergang",
-"fußgängerampel",
-"Kreuzung mit Fußgängerampel"
-],
-"highway/footway/unmarked":[
-"Nicht gekennzeichneter Übergang",
-"unbezeichneter übergang",
-"unmarkierter übergang",
-"ungekennzeichneter übergang"
-],
-"highway/footway/zebra":[
-"markierter / gekennzeichneter Übergang"
+"highway/footway/traffic_island":[
+"mittelinsel",
+"Verkehrsinsel",
+"fahrbahnteiler",
+"insel"
 ],
 "highway/give_way":[
 "vorfahrt gewähren-zeichen",
@@ -3370,14 +3557,6 @@
 "auffahrt",
 "abfahrt",
 "Autobahnauffahrt, Autobahnabfahrt"
-],
-"highway/motorway_link-US-CA":[
-"autobahnanschlussstelle",
-"autobahnausfahrt",
-"autobahnauffahrt",
-"anschlussstelle",
-"Autobahnanschluss",
-"autobahnabfahrt"
 ],
 "highway/passing_place":[
 "haltebucht",
@@ -3461,11 +3640,6 @@
 "bundesstraßenabfahrt",
 "bundesstraßenanschluss",
 "auffahrt"
-],
-"highway/primary_link-US-CA":[
-"Primäre Verbindungsstraße",
-"autobahnauffahrt",
-"autobahnabfahrt"
 ],
 "highway/raceway":[
 "Motorsport-Rennbahn",
@@ -3553,8 +3727,13 @@
 "Zufahrtsweg"
 ],
 "highway/service/alley":[
+"nebenstraße",
 "gasse",
-"Gasse",
+"nebengasse",
+"schmale gasse",
+"enge gasse",
+"Seitengasse",
+"enge straße",
 "schmale straße"
 ],
 "highway/service/drive-through":[
@@ -3583,6 +3762,9 @@
 "Parkplatzweg",
 "parkplatzfahrgasse",
 "fahrweg auf parkplatzflächen"
+],
+"highway/service_area":[
+"Befestigte Betriebsfläche"
 ],
 "highway/services":[
 "autobahnraststätte",
@@ -3701,17 +3883,6 @@
 "schnellstraßenanschluss",
 "schnellstraßenanschlussstelle",
 "schnellverkehrsstraßenanschlussstelle"
-],
-"highway/trunk_link-US-CA":[
-"schnellstraßenauffahrt",
-"schnellstraßenabfahrt",
-"auffahrt",
-"autostraßenanschlussstelle",
-"abfahrt",
-"schnellstraßenanschluss",
-"schnellstraßenanschlussstelle",
-"schnellverkehrsstraßenanschlussstelle",
-"Schnellstraßenanschluß"
 ],
 "highway/turning_circle":[
 "wendeplatz",
@@ -3875,14 +4046,16 @@
 "Korridor im Gebäude"
 ],
 "indoor/door":[
+"Innentür",
 "innentür",
 "tür im gebäude",
-"Tür im Gebäude"
+"innenliegende tür"
 ],
 "indoor/elevator":[
-"Aufzugschacht für Innenlift",
+"schacht",
 "lift",
-"aufzug"
+"aufzug",
+"Innenliegender Aufzugschacht"
 ],
 "indoor/room":[
 "raum",
@@ -3891,17 +4064,20 @@
 ],
 "indoor/stairs":[
 "innentreppe",
+"Innenliegendes Treppenhaus",
+"treppenaufgang",
 "treppe",
 "stiege",
 "treppenhaus",
 "stufen",
-"stiegenhaus",
-"Innenstiege"
+"stiegenhaus"
 ],
 "indoor/wall":[
-"Wand im Gebäude",
+"Innenwand",
+"innenliegende wand",
 "wand im gebäude",
-"innenwand"
+"innenwand",
+"trennwand"
 ],
 "internet_access/wlan":[
 "wifi-hotspot",
@@ -4443,6 +4619,7 @@
 "reiten",
 "reitsport",
 "reitanlage",
+"reitpark",
 "pferdesport",
 "reitstall",
 "reitzentrum",
@@ -4461,9 +4638,9 @@
 "eislaufbahn"
 ],
 "leisure/indoor_play":[
+"Innenliegender Spielbereich",
 "indoor-spielbereich",
-"Indoor-Spielbereich",
-"bällbad",
+"bällebad",
 "kinderspielplatz"
 ],
 "leisure/marina":[
@@ -4523,6 +4700,10 @@
 "footballfeld",
 "american-football-platz",
 "American-Football-Feld"
+],
+"leisure/pitch/american_handball":[
+"handball",
+"Amerikanischer Handballplatz"
 ],
 "leisure/pitch/archery":[
 "pfeil und bogen",
@@ -4602,6 +4783,14 @@
 "four square-feld",
 "four square-platz"
 ],
+"leisure/pitch/funnel_ball":[
+"funnel",
+"korb",
+"trichterball",
+"Funnelballfeld",
+"trichter",
+"korbball"
+],
 "leisure/pitch/futsal":[
 "hallenfußball",
 "Futsalplatz",
@@ -4609,6 +4798,17 @@
 "futsal-spielfeld",
 "futsal",
 "kleinfeldfußball"
+],
+"leisure/pitch/gaga":[
+"gaga-ball",
+"gaga",
+"gagaball",
+"Gagaballfeld"
+],
+"leisure/pitch/handball":[
+"mannschaftshandballplatz",
+"handballplatz",
+"Handballplatz"
 ],
 "leisure/pitch/horseshoes":[
 "Hufeisenwurfplatz",
@@ -4721,7 +4921,7 @@
 ],
 "leisure/playground/indoor":[
 "spielgrube",
-"Indoor-Spielplatz",
+"Innenliegender Spielplatz",
 "indoor-spielplatz",
 "bällebad"
 ],
@@ -4758,6 +4958,19 @@
 "leisure/sports_centre/climbing":[
 "Kletterhalle",
 "kletterhalle"
+],
+"leisure/sports_centre/horse_racing":[
+"pferderennen",
+"galopp",
+"Pferderennbahn",
+"rennwiese",
+"turf",
+"rennbahn",
+"trab",
+"galopprennen",
+"trabrennen",
+"reit",
+"reiten"
 ],
 "leisure/sports_centre/shooting":[
 "schützenhaus",
@@ -4945,6 +5158,14 @@
 "kran",
 "Kran"
 ],
+"man_made/crane/gantry_crane":[
+"brückenkran",
+"Bckenkran"
+],
+"man_made/crane/portal_crane":[
+"portalkran",
+"Portalkran"
+],
 "man_made/cross":[
 "gipfelkreuz",
 "kreuz",
@@ -4979,6 +5200,10 @@
 "flaggenmast",
 "Fahnenmast",
 "fahne"
+],
+"man_made/gantry":[
+"Portal",
+"portal"
 ],
 "man_made/gasometer":[
 "Gasometer",
@@ -5157,14 +5382,6 @@
 "Unterirdische Pipeline",
 "unterirdische pipeline"
 ],
-"man_made/pipeline/valve":[
-"Pipeline-Ventil",
-"abwasserkanal",
-"öl",
-"gas",
-"wasser",
-"abwasser"
-],
 "man_made/planter":[
 "Pflanzkübel",
 "blumentopf",
@@ -5232,6 +5449,16 @@
 "Vermessungspunkt",
 "trigonometrischer punkt"
 ],
+"man_made/tailings_pond":[
+"stauteich",
+"Absetzbecken",
+"schlamm",
+"schlämme",
+"rotschlamm",
+"absetzteich",
+"staubecken",
+"deponie"
+],
 "man_made/torii":[
 "Torii",
 "shinto schrein",
@@ -5263,6 +5490,24 @@
 "wehrturm",
 "wachturm",
 "Wachturm"
+],
+"man_made/tower/diving":[
+"synchronspringen",
+"ein-meter-brett",
+"Sprungturm",
+"siebeneinhalber",
+"dreier",
+"kunstspringen",
+"siebeneinhalb-meter-turm",
+"zehn-meter-turm",
+"zehner",
+"wasserspringen",
+"turmspringen",
+"drei-meter-brett",
+"einer",
+"sprunganlage",
+"fünfer",
+"fünf-meter-turm"
 ],
 "man_made/tower/minaret":[
 "Minarett",
@@ -5356,6 +5601,18 @@
 "Fabrik",
 "fabrik",
 "industrielle produktionsstätte"
+],
+"man_made/works/brewery":[
+"Großbrauerei",
+"brauen",
+"brauerei",
+"brauereibetrieb",
+"bier",
+"bierbrauen",
+"braustätte"
+],
+"man_made/yes":[
+"Künstliche Anlage (unspezifischer Typ)"
 ],
 "marker":[
 "stange",
@@ -5560,6 +5817,11 @@
 "Gesteinsblock",
 "felsbrocken"
 ],
+"natural/strait":[
+"kanal",
+"Meerenge",
+"passage"
+],
 "natural/tree":[
 "Baum",
 "baum"
@@ -5567,6 +5829,20 @@
 "natural/tree_row":[
 "Baumreihe",
 "baumreihe"
+],
+"natural/tree_stump":[
+"stubben",
+"erdstammblock",
+"stumpen",
+"Baumstumpf",
+"knorz",
+"strunk",
+"stockholz",
+"stuken",
+"stumpf",
+"gefällt",
+"stucken",
+"wurzelstock"
 ],
 "natural/valley":[
 "tal",
@@ -5617,6 +5893,16 @@
 "Burggraben",
 "schlossgraben",
 "burggraben"
+],
+"natural/water/oxbow":[
+"Altgewässer",
+"uraltwasser",
+"toter arm",
+"plesiopotamon",
+"altarm",
+"altwasser",
+"mäander",
+"paläopotamon"
 ],
 "natural/water/pond":[
 "Teich",
@@ -5886,14 +6172,15 @@
 "Finanzvermittlung"
 ],
 "office/financial_advisor":[
-"finanzmanagement",
 "finanzplanung",
+"rentenberatung",
+"fonds",
 "anlageberatung",
 "geldanlage",
 "Finanzberatung",
-"vermögensverwaltung",
+"aktien",
 "schuldnerberatung",
-"finanzberater"
+"versicherungsberatung"
 ],
 "office/forestry":[
 "forstamt",
@@ -5998,6 +6285,16 @@
 "privatdedektiv",
 "Privatdetektiv"
 ],
+"office/property_management":[
+"hausverwaltung",
+"mietverwaltung",
+"Hausverwaltung",
+"wohnungsverwaltung",
+"immobilienverwaltung",
+"hausverwalter",
+"mietverwalter",
+"wohnungsverwalter"
+],
 "office/quango":[
 "Mittlerorganisation",
 "mittlerorganisation",
@@ -6052,6 +6349,12 @@
 "office/travel_agent":[
 "Reisebüro"
 ],
+"office/union":[
+"arbeitnehmervertretung",
+"gewerkschaft",
+"arbeitnehmerverband",
+"Gewerkschaftsbüro"
+],
 "office/water_utility":[
 "wasserversorgungsunternehmen",
 "büro der wasserwerke",
@@ -6060,6 +6363,17 @@
 ],
 "office/yes":[
 "Büro (nicht spezifizierter Typ)"
+],
+"pipeline":[
+"Pipeline-Inhalt"
+],
+"pipeline/substation":[
+"unterstation",
+"Unterstation"
+],
+"pipeline/valve":[
+"Durchlussregelung",
+"durchflussregelung"
 ],
 "piste/downhill":[
 "piste",
@@ -6250,6 +6564,16 @@
 "playground":[
 "Spielgeräte des Spielplatz"
 ],
+"playground/activitypanel":[
+"spielewand",
+"kletterwand",
+"Spielwand",
+"aktivitätswand"
+],
+"playground/aerialrotator":[
+"Hängekarussell",
+"karussell"
+],
 "playground/balancebeam":[
 "Balanzierbalken",
 "schwebebalken"
@@ -6263,15 +6587,33 @@
 "Korbschaukel",
 "korbschaukel"
 ],
+"playground/bridge":[
+"Spielbrücke",
+"spielplatzbrücke",
+"kinderbrücke",
+"hängebrücke"
+],
 "playground/climbingframe":[
 "Klettergerüst",
 "raumnetz",
 "klettergerüst",
 "seilspinne"
 ],
+"playground/climbingwall":[
+"kletterspiel",
+"kletterspielwand",
+"klettern",
+"Kletterwand"
+],
 "playground/cushion":[
 "hüpfkissen",
 "Hüpfkissen"
+],
+"playground/funnel_ball":[
+"funnelball",
+"korb",
+"Funnelball-Trichter",
+"trichter"
 ],
 "playground/hopscotch":[
 "hüpfekästchen",
@@ -6305,6 +6647,12 @@
 "klimmzugstange",
 "Klimmzugstange"
 ],
+"playground/map":[
+"Landkarte als Spielplatzmarkierung",
+"spielplatzmarkierung",
+"landkarte",
+"weltkarte"
+],
 "playground/playhouse":[
 "spielhaus",
 "Spielhaus",
@@ -6324,9 +6672,21 @@
 "Wippe",
 "wippe"
 ],
+"playground/sledding":[
+"Schlittenhügel",
+"rodelberg"
+],
 "playground/slide":[
 "Rutsche",
 "rutsche"
+],
+"playground/splash_pad":[
+"wasserspiel",
+"wasserspiele",
+"plansche",
+"wasserfeld",
+"planschbecken",
+"Wasserspielbecken"
 ],
 "playground/springy":[
 "Schaukelpferd",
@@ -6340,6 +6700,39 @@
 "playground/swing":[
 "schaukel",
 "Schaukel"
+],
+"playground/teenshelter":[
+"Unterstand für Kinder",
+"überdachung",
+"unterstand",
+"hütte",
+"kinderhütte"
+],
+"playground/tetherball":[
+"tetherball",
+"Tetherball-Stange"
+],
+"playground/trampoline":[
+"trampolinnetz",
+"Trampolin"
+],
+"playground/tunnel_tube":[
+"kriechröhre",
+"spielröhre",
+"kriechtunnel",
+"tunnelröhre",
+"Spieltunnel"
+],
+"playground/water":[
+"wasserpumpe",
+"matschen",
+"wasserspiel",
+"wasserspielanlage",
+"wasserspielgerät",
+"matschanlage",
+"pumpe",
+"Wasserspielgerät",
+"wasserbahn"
 ],
 "playground/zipwire":[
 "flying fox",
@@ -6380,6 +6773,12 @@
 "vergrabenes stromkabel",
 "stromkabel unter der erde",
 "Unterirdische Stromleitung, Erdkabel"
+],
+"power/catenary_mast":[
+"Oberleitungsmast",
+"fahrleitungsmast",
+"fahrleitung",
+"oberleitung"
 ],
 "power/generator":[
 "stromgenerator",
@@ -6492,6 +6891,22 @@
 "wasserturbine",
 "pumpspeicher"
 ],
+"power/plant/source/method/photovoltaic":[
+"solarpaneel",
+"pv",
+"solarstromanlage",
+"solarpark",
+"solargenerator",
+"sonnenenergie",
+"solaranlage",
+"photovoltaikanlage",
+"Photovoltaikanlage",
+"solarmodul",
+"pva",
+"freiflächensolaranlagen",
+"pv-anlage",
+"photovoltaik-freiflächenanlage"
+],
 "power/plant/source/nuclear":[
 "nuklear",
 "Atomkraftwerk",
@@ -6518,17 +6933,16 @@
 "kraftwerk"
 ],
 "power/plant/source/solar":[
-"sonne",
-"fotovoltaik",
-"photovoltaikanlage",
-"pv",
-"solarpanel",
+"solarthermie",
+"solaranlage",
+"solarpaneel",
+"solarstromanlage",
+"solarmodul",
 "solarpark",
-"solar",
-"kraftwerk",
-"pv-anlage",
-"photovoltaik",
-"Solarpark"
+"Solaranlage",
+"freiflächensolaranlagen",
+"solargenerator",
+"sonnenenergie"
 ],
 "power/plant/source/waste":[
 "müllverbrennung",
@@ -6568,6 +6982,10 @@
 "strommast",
 "stromleitungsmast",
 "Strommast"
+],
+"power/portal":[
+"ankerportal",
+"Ankerportal"
 ],
 "power/substation":[
 "umspannwerk",
@@ -7149,9 +7567,10 @@
 "Wettbüro"
 ],
 "shop/books":[
-"buchhandlung",
+"bücher",
 "buchhändler",
-"Buchladen"
+"buchladen",
+"Buchhandlung"
 ],
 "shop/boutique":[
 "Boutique"
@@ -7387,8 +7806,7 @@
 ],
 "shop/country_store":[
 "dorfladen",
-"Ländlicher Laden",
-"ländlicher laden"
+"Dorfladen"
 ],
 "shop/craft":[
 "modellbau",
@@ -7600,7 +8018,9 @@
 ],
 "shop/health_food":[
 "Reformhaus",
-"reformhaus"
+"reformhaus",
+"gesundheit",
+"naturkost"
 ],
 "shop/hearing_aids":[
 "Hörgerätegeschäft",
@@ -7849,7 +8269,8 @@
 "pfandhaus",
 "leihhaus",
 "pfandleihhaus",
-"goldankauf"
+"goldankauf",
+"pfandleiher"
 ],
 "shop/perfumery":[
 "parfümgeschäft",
@@ -8476,6 +8897,16 @@
 "verkehrsinsel",
 "fahrbahnteiler"
 ],
+"traffic_calming/mini_bumps":[
+"kreisförmige unebenheiten",
+"langsam",
+"kleine unebenheiten",
+"kreisförmige geschwindigkeitsbegrenzungen",
+"geschwindigkeit",
+"Kleine Bodenwelle",
+"kleine geschwindigkeitsbegrenzungen",
+"unebenheiten"
+],
 "traffic_calming/rumble_strip":[
 "rüttelstreifen",
 "rumpelstreifen",
@@ -8486,6 +8917,9 @@
 "Bodenwelle",
 "bodenwelle",
 "verkehrsberuhigungs-bodenwelle"
+],
+"traffic_calming/yes":[
+"Verkehrsberuhigung (unbestimmter Typ)"
 ],
 "traffic_sign":[
 "verkehrszeichen",

@@ -1,0 +1,50 @@
+{
+"amenity/arts_centre":[
+"Arts Centre"
+],
+"amenity/community_centre":[
+"Community Centre"
+],
+"amenity/community_centre/lgbtq":[
+"LGBTQ+ Community Centre"
+],
+"amenity/community_centre/youth_centre":[
+"Youth Centre"
+],
+"amenity/conference_centre":[
+"Convention Centre"
+],
+"amenity/dive_centre":[
+"Dive Centre"
+],
+"amenity/exhibition_centre":[
+"Exposition Centre"
+],
+"amenity/parking":[
+"Parking Lot"
+],
+"amenity/payment_centre":[
+"Payment Centre"
+],
+"amenity/telephone":[
+"Telephone"
+],
+"amenity/toilets":[
+"Washroom"
+],
+"building/grandstand":[
+"Grandstand"
+],
+"highway/footway/informal":[
+"Informal Foot Path"
+],
+"highway/tertiary_link":[
+"Tertiary Link"
+],
+"leisure/bleachers":[
+"Bleachers"
+],
+"place/neighbourhood":[
+"Neighbourhood"
+]
+}

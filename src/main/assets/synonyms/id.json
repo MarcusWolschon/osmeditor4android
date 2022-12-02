@@ -509,9 +509,6 @@
 "Tukang Jilid",
 "binder buku"
 ],
-"craft/brewery":[
-"Perusahaan Bir"
-],
 "craft/carpenter":[
 "Tukang Kayu"
 ],
@@ -958,9 +955,6 @@
 "Garis",
 "garis"
 ],
-"man_made":[
-"Fitur Buatan Manusia"
-],
 "man_made/breakwater":[
 "tembok laut",
 "pemecah ombak",
@@ -1222,9 +1216,6 @@
 "shop/alcohol":[
 "Toko Minuman"
 ],
-"shop/antiques":[
-"Toko Barang Antik"
-],
 "shop/baby_goods":[
 "Toko Perlengkapan Bayi"
 ],
@@ -1259,9 +1250,6 @@
 "taruhan",
 "tukang taruh",
 "Juru Taruh"
-],
-"shop/books":[
-"Toko Buku"
 ],
 "shop/boutique":[
 "Butik"
@@ -1314,9 +1302,6 @@
 ],
 "shop/dairy":[
 "Toko Susu"
-],
-"shop/deli":[
-"Delikatesen"
 ],
 "shop/department_store":[
 "Pasar Swalayan"
@@ -1440,9 +1425,6 @@
 "shop/musical_instrument":[
 "Toko Alat Musik"
 ],
-"shop/newsagent":[
-"Toko Majalah/Koran"
-],
 "shop/optician":[
 "mata",
 "Optik"
@@ -1452,9 +1434,6 @@
 ],
 "shop/paint":[
 "Toko Cat"
-],
-"shop/pawnbroker":[
-"Pegadaian"
 ],
 "shop/pet":[
 "Toko Peliharaan"
@@ -1476,10 +1455,6 @@
 ],
 "shop/seafood":[
 "Toko HIdangan Laut"
-],
-"shop/second_hand":[
-"konsinyasi/toko barang bekas",
-"Jual Titip/Pasar Loak"
 ],
 "shop/shoes":[
 "Toko Sepatu"
@@ -1524,9 +1499,6 @@
 ],
 "shop/vacuum_cleaner":[
 "Toko Pengisap Debu"
-],
-"shop/variety_store":[
-"Toserba"
 ],
 "shop/video":[
 "cd",

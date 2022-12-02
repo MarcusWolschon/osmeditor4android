@@ -529,11 +529,20 @@
 "natural/peak":[
 "மலை உச்சி"
 ],
+"natural/sand":[
+"மண்"
+],
+"natural/spring":[
+"ஊற்று"
+],
 "natural/tree":[
 "மரம்"
 ],
 "natural/tree_row":[
 "மரம் வரிசை"
+],
+"natural/valley":[
+"பள்ளத்தாக்கு"
 ],
 "natural/volcano":[
 "எரிமலை"
@@ -682,9 +691,6 @@
 "shop/alcohol":[
 "மதுபானக் கடை"
 ],
-"shop/antiques":[
-"பழம்பொருள் அங்காடி"
-],
 "shop/art":[
 "கலை அங்காடி"
 ],
@@ -696,9 +702,6 @@
 ],
 "shop/bicycle":[
 "மிதிவண்டிக் கடை"
-],
-"shop/books":[
-"புத்தகக் கடை"
 ],
 "shop/butcher":[
 "இறைச்சிக் கடை"

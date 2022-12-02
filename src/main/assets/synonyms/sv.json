@@ -4789,13 +4789,6 @@
 "bokreparatör",
 "bok"
 ],
-"craft/brewery":[
-"ölframställning",
-"öl",
-"Bryggeri",
-"öltillverkning",
-"bryggeri"
-],
 "craft/carpenter":[
 "timmerman",
 "byggnadssnickare",
@@ -5833,15 +5826,7 @@
 "Korsning"
 ],
 "highway/crossing/marked":[
-"övergångsställe för gående",
-"vägövergång",
-"vägpassage",
-"gångpassage",
-"Markerad gångpassage",
-"markerad gångpassage",
-"övergångsställe",
-"gångvägspassage",
-"markerat övergångsställe"
+"Markerad gångpassage"
 ],
 "highway/crossing/uncontrolled":[
 "Markerat övergångsställe"
@@ -5908,11 +5893,7 @@
 "gc-passage"
 ],
 "highway/cycleway/crossing/marked":[
-"Markerad cykelkorsning",
-"cykelöverfart",
-"cykelpassage",
-"cykelkorsning",
-"markerad cykelkorsning"
+"Markerad cykelkorsning"
 ],
 "highway/cycleway/crossing/unmarked":[
 "cykelöverfart",
@@ -5986,37 +5967,11 @@
 "highway/footway/crossing":[
 "Gångpassage"
 ],
-"highway/footway/marked":[
-"övergångsställe för gående",
-"Markerat övergångsställe",
-"vägövergång",
-"vägpassage",
-"gångpassage",
-"markerad gångpassage",
-"övergångsställe",
-"gångvägspassage",
-"markerat övergångsställe"
-],
 "highway/footway/sidewalk":[
 "gångbana",
 "Trottoar",
 "gångväg",
 "trottoar"
-],
-"highway/footway/unmarked":[
-"övergångsställe för gående",
-"vägövergång",
-"Omarkerad övergång",
-"vägpassage",
-"gångpassage",
-"omarkerad gångpassage",
-"övergångsställe",
-"gångvägspassage",
-"omarkerat övergångsställe",
-"omarkerad övergång"
-],
-"highway/footway/zebra":[
-"Markerat övergångsställe"
 ],
 "highway/give_way":[
 "utfartsregeln",
@@ -6070,14 +6025,6 @@
 "anslutning",
 "påfart",
 "Anslutning, motorväg"
-],
-"highway/motorway_link-US-CA":[
-"trafikplats",
-"motorvägsanslutning",
-"Motorväganslutning",
-"avfart",
-"anslutning",
-"påfart"
 ],
 "highway/passing_place":[
 "mötesplats",
@@ -6152,16 +6099,6 @@
 "huvudväg"
 ],
 "highway/primary_link":[
-"Anslutning, primär väg",
-"primärväg",
-"avfart",
-"riksväg",
-"primär väg",
-"anslutning",
-"påfart",
-"huvudväg"
-],
-"highway/primary_link-US-CA":[
 "Anslutning, primär väg",
 "primärväg",
 "avfart",
@@ -6434,15 +6371,6 @@
 "huvudväg"
 ],
 "highway/trunk_link":[
-"Anslutning, stamväg",
-"avfart",
-"ramp",
-"anslutning",
-"europaväg",
-"påfart",
-"huvudväg"
-],
-"highway/trunk_link-US-CA":[
 "Anslutning, stamväg",
 "avfart",
 "ramp",
@@ -8645,20 +8573,6 @@
 "vatten",
 "vattenrör"
 ],
-"man_made/pipeline/valve":[
-"olja",
-"pipelineventil",
-"kran till pipeline",
-"kran",
-"ventil",
-"kran till rör",
-"gas",
-"Kran till pipeline",
-"pipelinekran",
-"naturgas",
-"vatten",
-"avlopp"
-],
 "man_made/pumping_station":[
 "vattenpump",
 "avloppspump",
@@ -10663,16 +10577,6 @@
 "fossil",
 "Oljeeldat kraftverk"
 ],
-"power/plant/source/solar":[
-"ljuskraft",
-"solpark",
-"Solfarm",
-"solkraft",
-"solkraftverk",
-"ljuskraftverk",
-"solpanel",
-"solfarm"
-],
 "power/plant/source/waste":[
 "avfallsförbränningsanläggning",
 "avfall",
@@ -12120,11 +12024,6 @@
 "kosmetika",
 "kosmetikaffär"
 ],
-"shop/country_store":[
-"lanthandel",
-"Lanthandel",
-"landet"
-],
 "shop/craft":[
 "konstverk",
 "hantverk",
@@ -12537,21 +12436,6 @@
 "järnbeslag",
 "köksutrustning",
 "skruv"
-],
-"shop/health_food":[
-"Hälsokostbutik",
-"kosttillskott",
-"naturligt",
-"organisk",
-"vegan",
-"mjölkersättning",
-"hälsomat",
-"organist",
-"vitaminer",
-"hälsokost",
-"köttersättning",
-"vegetarian",
-"hälsokostbutik"
 ],
 "shop/hearing_aids":[
 "hörselskada",

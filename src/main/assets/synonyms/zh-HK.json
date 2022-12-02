@@ -1514,12 +1514,6 @@
 "釘裝",
 "書籍釘裝"
 ],
-"craft/brewery":[
-"啤酒釀制",
-"啤酒釀造",
-"釀酒廠",
-"啤酒釀製"
-],
 "craft/carpenter":[
 "木工",
 "木匠"
@@ -3310,10 +3304,6 @@
 "shop/anime":[
 "動畫／漫畫店"
 ],
-"shop/antiques":[
-"古董店",
-"古玩店"
-],
 "shop/appliance":[
 "appliance store",
 "家電店",
@@ -3403,10 +3393,6 @@
 "shop/bookmaker":[
 "收受賭注者",
 "投注站"
-],
-"shop/books":[
-"書店",
-"書局"
 ],
 "shop/boutique":[
 "時裝店"
@@ -3502,12 +3488,6 @@
 "乳製品店",
 "乳品店",
 "奶製品店"
-],
-"shop/deli":[
-"deli",
-"食肆",
-"美食店",
-"熟食店"
 ],
 "shop/department_store":[
 "百貨公司",
@@ -3622,9 +3602,6 @@
 "五金店",
 "hardware store"
 ],
-"shop/health_food":[
-"健康食品店"
-],
 "shop/hearing_aids":[
 "助聽器店",
 "耳聾機",
@@ -3716,11 +3693,6 @@
 "樂器店",
 "樂器行"
 ],
-"shop/newsagent":[
-"報紙/雜誌店",
-"報刊檔",
-"報刊商店"
-],
 "shop/nutrition_supplements":[
 "營養補充品店"
 ],
@@ -3742,12 +3714,6 @@
 "榚點店",
 "西餅店",
 "pastry shop"
-],
-"shop/pawnbroker":[
-"當押",
-"押",
-"大押",
-"當舖"
 ],
 "shop/perfumery":[
 "香水店",
@@ -3801,11 +3767,6 @@
 "shop/seafood":[
 "海產店",
 "海鮮店"
-],
-"shop/second_hand":[
-"寄賣/二手店",
-"二手店",
-"格仔店"
 ],
 "shop/shoes":[
 "shoe store",
@@ -3873,12 +3834,6 @@
 "shop/vacuum_cleaner":[
 "吸塵器店",
 "吸塵機店"
-],
-"shop/variety_store":[
-"variety store",
-"十蚊店",
-"雜貨店",
-"雜貨舖"
 ],
 "shop/video":[
 "影視店",

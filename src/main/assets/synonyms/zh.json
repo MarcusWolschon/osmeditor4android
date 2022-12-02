@@ -518,9 +518,6 @@
 "shop/convenience":[
 "便利店"
 ],
-"shop/deli":[
-"熟食店"
-],
 "shop/department_store":[
 "百货店"
 ],
@@ -598,9 +595,6 @@
 ],
 "shop/vacant":[
 "空置铺位"
-],
-"shop/variety_store":[
-"杂货店"
 ],
 "shop/video":[
 "影像店"

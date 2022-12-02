@@ -630,9 +630,6 @@
 "pavement",
 "行人路"
 ],
-"highway/footway/unmarked":[
-"過路無劃綫"
-],
 "highway/living_street":[
 "living street",
 "生活街道",
@@ -1012,9 +1009,6 @@
 "line",
 "線",
 "綫"
-],
-"man_made":[
-"人工地貌"
 ],
 "man_made/adit":[
 "adit",
@@ -1551,14 +1545,6 @@
 "便利店",
 "convenience store"
 ],
-"shop/deli":[
-"deli",
-"delicatessen",
-"美食舖",
-"美食店",
-"熟食店",
-"熟食舖"
-],
 "shop/department_store":[
 "百貨公司",
 "百貨店",
@@ -1661,9 +1647,6 @@
 "music store",
 "音樂店"
 ],
-"shop/newsagent":[
-"報刊舖"
-],
 "shop/optician":[
 "眼鏡店",
 "眼鏡行",
@@ -1731,11 +1714,6 @@
 ],
 "shop/vacant":[
 "吉舖"
-],
-"shop/variety_store":[
-"variety store",
-"雜貨店",
-"雜貨舖"
 ],
 "shop/video":[
 "影視店",

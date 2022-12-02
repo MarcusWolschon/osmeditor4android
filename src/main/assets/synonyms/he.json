@@ -1076,6 +1076,9 @@
 "מסעדה סינית",
 "מסעדה יפנית"
 ],
+"amenity/restaurant/barbeque":[
+"מסעדת על האש"
+],
 "amenity/restaurant/chinese":[
 "מוקפץ",
 "מסעדה סינית",
@@ -1307,6 +1310,9 @@
 "אמפיתיאטרון",
 "אמפי"
 ],
+"amenity/toilets":[
+"שירותים"
+],
 "amenity/toilets/disposal/flush":[
 "שירותים",
 "מים",
@@ -1470,6 +1476,9 @@
 "אוטומט מכירת כרטיסי חניה",
 "מכונת כרטיסי חניה"
 ],
+"amenity/vending_machine/pizza":[
+"מכונה להכנת פיצות"
+],
 "amenity/vending_machine/public_transport_tickets":[
 "אוטומט מכירת כרטיסי רכבת",
 "מכונת כרטיסי רכבת"
@@ -1622,6 +1631,9 @@
 "משטרת הגבולות",
 "משמר הגבול"
 ],
+"barrier/bump_gate":[
+"שער פגוש"
+],
 "barrier/cattle_grid":[
 "מעבר בקר",
 "מעבר פרות"
@@ -1662,6 +1674,9 @@
 "barrier/guard_rail":[
 "מעקה",
 "מעקה בטיחות"
+],
+"barrier/hampshire_gate":[
+"שער רשת"
 ],
 "barrier/hedge":[
 "גדר חיה"
@@ -1707,6 +1722,12 @@
 "שער זרוע",
 "שער מתרומם"
 ],
+"barrier/log":[
+"עץ שנפל"
+],
+"barrier/motorcycle_barrier":[
+"מחסום אופנועים"
+],
 "barrier/retaining_wall":[
 "קיר תמך",
 "קיר תמיכה",
@@ -1751,6 +1772,9 @@
 "קיר מבודד רעש",
 "קיר אקוסטי",
 "חומה מונעת רעש"
+],
+"barrier/wicket_gate":[
+"פשפש"
 ],
 "boundary":[
 "גבול"
@@ -2040,9 +2064,6 @@
 "craft/bookbinder":[
 "כורכת ספרים",
 "כורך ספרים"
-],
-"craft/brewery":[
-"מבשלת בירה"
 ],
 "craft/carpenter":[
 "נגר",
@@ -2552,9 +2573,10 @@
 "מעבר"
 ],
 "highway/crossing/marked":[
-"מעבר חציה",
-"מעבר חצייה מסומן",
-"מעבר חצייה"
+"מעבר חצייה מסומן"
+],
+"highway/crossing/traffic_signals":[
+"מעבר עם סימנים להולכי רגל"
 ],
 "highway/crossing/unmarked":[
 "מעבר חצייה בלתי מסומן",
@@ -2590,10 +2612,7 @@
 "רכיבת אופניים"
 ],
 "highway/cycleway/crossing/marked":[
-"מעבר לאופנועים",
-"מעבר לאופניים",
-"מעבר דו־גלגליים מסומן",
-"מעבר לקורקינט"
+"מעבר דו־גלגליים מסומן"
 ],
 "highway/cycleway/crossing/unmarked":[
 "מעבר דו־גלגליים בלתי מסומן",
@@ -2611,6 +2630,9 @@
 "רכבל",
 "רכבת הר",
 "מעלית במורד"
+],
+"highway/emergency_access_point":[
+"נקודת גישה בחירום"
 ],
 "highway/emergency_bay":[
 "מקום לעצירת חירום",
@@ -2636,22 +2658,9 @@
 "highway/footway/crossing":[
 "מעבר הולכי רגל"
 ],
-"highway/footway/marked":[
-"מעבר חציה מסומן",
-"מעבר חצייה מסומן",
-"מעבר חצייה"
-],
 "highway/footway/sidewalk":[
 "מדרכה",
 "שולי הכביש"
-],
-"highway/footway/unmarked":[
-"מעבר חצייה בלתי מסומן",
-"מעבר חציה לא מסומן",
-"מעבר חצייה לא מסומן"
-],
-"highway/footway/zebra":[
-"מעבר חצייה מסומן"
 ],
 "highway/give_way":[
 "תן זכות קדימה",
@@ -3320,6 +3329,9 @@
 "מתחם היי טק משותף",
 "משרד היי טק משותף"
 ],
+"leisure/horse_riding":[
+"מרכז לרכיבה על סוסים"
+],
 "leisure/ice_rink":[
 "החלקה על הקרח",
 "החלקרח"
@@ -3566,9 +3578,6 @@
 "line":[
 "קו"
 ],
-"man_made":[
-"תכונה מעשה ידי אדם"
-],
 "man_made/adit":[
 "פתח גישה"
 ],
@@ -3778,10 +3787,8 @@
 "man_made/pipeline/underground":[
 "צנרת תת־קרקעית"
 ],
-"man_made/pipeline/valve":[
-"שסתום צינור",
-"ברז",
-"ברז צינור"
+"man_made/planter":[
+"אדניות בטון"
 ],
 "man_made/pumping_station":[
 "תחנת שאיבה"
@@ -4652,10 +4659,6 @@
 "חשמל",
 "דלקים מוצקים"
 ],
-"power/plant/source/solar":[
-"תחנת כוח סולרי",
-"חווה סולרית"
-],
 "power/plant/source/waste":[
 "מפעל להפקת אנרגיה מפסולת",
 "אשפה",
@@ -5073,9 +5076,6 @@
 "קוואי",
 "קוספליי"
 ],
-"shop/antiques":[
-"חנות עתיקות"
-],
 "shop/appliance":[
 "חנות כלים חשמלים"
 ],
@@ -5125,9 +5125,6 @@
 "shop/bookmaker":[
 "כורכת ספרים",
 "כורך ספרים"
-],
-"shop/books":[
-"חנות ספרים"
 ],
 "shop/boutique":[
 "בוטיק"
@@ -5247,16 +5244,6 @@
 "shop/cosmetics":[
 "חנות קוסמטיקה"
 ],
-"shop/country_store":[
-"חוץ",
-"חנות למטיילים",
-"ריקושט",
-"מחנאות",
-"שקי שינה",
-"ציוד טיולים",
-"אוהלים",
-"למטייל"
-],
 "shop/craft":[
 "חנות דברי אומנות",
 "חנות חפצי אומנות"
@@ -5267,9 +5254,6 @@
 "shop/dairy":[
 "חנות דברי חלב",
 "חנות מוצרי חלב"
-],
-"shop/deli":[
-"מעדניה"
 ],
 "shop/department_store":[
 "חנות כלבו"
@@ -5452,9 +5436,6 @@
 "חנות אספקה טכנית",
 "חנות כלי חומרה"
 ],
-"shop/health_food":[
-"חנות מאכלי בריאות"
-],
 "shop/hearing_aids":[
 "חנות מכשירי שמיעה"
 ],
@@ -5609,9 +5590,6 @@
 "shop/musical_instrument":[
 "חנות כלי נגינה"
 ],
-"shop/newsagent":[
-"חנות עיתונים"
-],
 "shop/nutrition_supplements":[
 "חנות ויטמינים"
 ],
@@ -5643,9 +5621,6 @@
 "shop/pastry":[
 "בית מאפה",
 "חנות מאפים"
-],
-"shop/pawnbroker":[
-"חנות יד שניה"
 ],
 "shop/perfumery":[
 "חנות בשמים"
@@ -5714,9 +5689,6 @@
 ],
 "shop/seafood":[
 "חנות למאכלי ים"
-],
-"shop/second_hand":[
-"חנות יד שניה"
 ],
 "shop/sewing":[
 "חנות תפירה",
@@ -5846,10 +5818,6 @@
 "shop/vacuum_cleaner":[
 "חנות שואבי אבק"
 ],
-"shop/variety_store":[
-"חנות מגוון מוצרים",
-"חנות מגון מוצרים"
-],
 "shop/video":[
 "חנות סרטים"
 ],
@@ -5925,6 +5893,9 @@
 ],
 "tourism":[
 "תכונת תיירות"
+],
+"tourism/alpine_hut":[
+"בקתה אלפינית"
 ],
 "tourism/apartment":[
 "דירה לאורחים",
@@ -6241,6 +6212,9 @@
 "type/restriction/no_right_turn":[
 "אין פנייה ימינה"
 ],
+"type/restriction/no_straight_on":[
+"אין אפשרות להמשיך ישר"
+],
 "type/restriction/no_u_turn":[
 "אין פניית פרסה",
 "אסור לפנות לכיוון הנגדי",
@@ -6296,6 +6270,9 @@
 ],
 "type/route/hiking":[
 "דרך טיול"
+],
+"type/route/horse":[
+"מסלול רכיבה על סוסים"
 ],
 "type/route/light_rail":[
 "נתיב רכבת קלה"

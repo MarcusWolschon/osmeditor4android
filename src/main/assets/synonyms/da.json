@@ -398,17 +398,12 @@
 "Ambassade"
 ],
 "amenity/events_venue":[
-"arrangement",
-"hal",
-"spillested",
-"kultur",
-"festival",
-"musik",
-"fejring",
-"arena",
-"Begivenhedsarena",
-"koncert",
-"fest"
+"gildesal",
+"Selskabslokale",
+"aula",
+"balsal",
+"riddersal",
+"festsal"
 ],
 "amenity/fast_food":[
 "grillbar",
@@ -719,6 +714,9 @@
 "Irsk pub",
 "pub"
 ],
+"amenity/pub/microbrewery":[
+"Bryggeripub"
+],
 "amenity/public_bath":[
 "Offentligt bad",
 "offentligt bad"
@@ -787,6 +785,9 @@
 ],
 "amenity/restaurant/mexican":[
 "Mexikansk restaurant"
+],
+"amenity/restaurant/noodle":[
+"Nudelrestaurant"
 ],
 "amenity/restaurant/pizza":[
 "Pizza restaurant"
@@ -966,6 +967,10 @@
 "amenity/university":[
 "universitetsområde",
 "Universitetsområde"
+],
+"amenity/vehicle_inspection":[
+"bilsyn",
+"Bilinspektion"
 ],
 "amenity/vending_machine":[
 "Salgsautomat",
@@ -1286,6 +1291,9 @@
 "barrier/wall":[
 "Mur"
 ],
+"barrier/yes":[
+"Barriere (uspecificeret type)"
+],
 "boundary":[
 "Afgrænsning"
 ],
@@ -1592,11 +1600,6 @@
 "bogbinder",
 "Bogbinder"
 ],
-"craft/brewery":[
-"Bryggeri",
-"minibryggeri",
-"bryggeri"
-],
 "craft/carpenter":[
 "Tømrer",
 "tømrer"
@@ -1693,6 +1696,9 @@
 "isolatør",
 "Isolationsfirma"
 ],
+"craft/joiner":[
+"Snedker"
+],
 "craft/key_cutter":[
 "Hælebar",
 "hælebar"
@@ -1748,9 +1754,9 @@
 "sejlmager"
 ],
 "craft/sawmill":[
+"Savværk",
 "savmølle",
-"savværk",
-"Savmølle"
+"savværk"
 ],
 "craft/scaffolder":[
 "Stilladsfirma",
@@ -2036,6 +2042,12 @@
 "depression",
 "terapi"
 ],
+"healthcare/rehabilitation":[
+"Rehabiliteringsfacilitet"
+],
+"healthcare/yes":[
+"Sundhedsfacilitet (uspecificeret type)"
+],
 "highway/bridleway":[
 "ridesti",
 "Ridesti",
@@ -2096,14 +2108,6 @@
 "cyklist"
 ],
 "highway/cycleway/crossing/marked":[
-"markeret",
-"striber",
-"passage",
-"overgang",
-"cykel",
-"felt",
-"cyklist",
-"markering",
 "Markeret cykelfelt"
 ],
 "highway/cycleway/crossing/unmarked":[
@@ -2135,24 +2139,10 @@
 "highway/footway/crossing":[
 "Fodgængerfelt"
 ],
-"highway/footway/marked":[
-"Markeret fodgængerfelt"
-],
 "highway/footway/sidewalk":[
 "fodgænger",
 "flise",
 "Fortov"
-],
-"highway/footway/unmarked":[
-"umarkeret",
-"fortov",
-"Umarkeret fodgængerfelt",
-"fodgænger",
-"overgang",
-"felt"
-],
-"highway/footway/zebra":[
-"Markeret fodgængerfelt"
 ],
 "highway/give_way":[
 "advarselsskilt",
@@ -2938,9 +2928,6 @@
 "Linje",
 "linje"
 ],
-"man_made":[
-"Menneskeskabt objekt"
-],
 "man_made/adit":[
 "Mineindgang",
 "mineindgang"
@@ -3103,6 +3090,9 @@
 "fjernsyn",
 "kommunikation"
 ],
+"man_made/mast/lighting":[
+"Lysmast"
+],
 "man_made/observatory":[
 "astrofysik",
 "meteorologi",
@@ -3260,6 +3250,9 @@
 "Fabrik",
 "fremstillingsvirksomhed",
 "fabrik"
+],
+"man_made/yes":[
+"Menneskeskabt element (uspecificeret type)"
 ],
 "natural/bare_rock":[
 "Klippe",
@@ -3682,6 +3675,9 @@
 "forskning",
 "Forskning"
 ],
+"office/surveyor":[
+"Undersøgelse eller kontor"
+],
 "office/tax_advisor":[
 "stat",
 "rådgivning",
@@ -3709,6 +3705,9 @@
 "forsyning",
 "vand",
 "Vandforsyningskontor"
+],
+"office/yes":[
+"Kontor (uspecificeret type)"
 ],
 "piste/downhill":[
 "ski",
@@ -3857,19 +3856,6 @@
 "fission",
 "Atomkraftværk",
 "atom"
-],
-"power/plant/source/solar":[
-"sol",
-"fotovoltaik",
-"Solkraftværk",
-"kraftværk",
-"el",
-"solkraft",
-"solpanel",
-"elektricitet",
-"solcelle",
-"panel",
-"strøm"
 ],
 "power/plant/source/wind":[
 "Vindmøllepark"
@@ -4050,9 +4036,7 @@
 "vinforhandler"
 ],
 "shop/antiques":[
-"antikvitetsforretning",
-"Antikvitetsforretning",
-"antikvitetsbutik"
+"Antikvitetsforretning"
 ],
 "shop/appliance":[
 "Hvidevareforretning",
@@ -4132,8 +4116,10 @@
 "bookmaker"
 ],
 "shop/books":[
-"boghandler",
-"Boghandler"
+"bogudsalg",
+"antikvariat",
+"boglade",
+"Boghandel"
 ],
 "shop/boutique":[
 "Boutique"
@@ -4305,11 +4291,6 @@
 "mejeri",
 "ostemejeri",
 "ismejeri"
-],
-"shop/deli":[
-"deli",
-"delikatesse",
-"Deli"
 ],
 "shop/department_store":[
 "Stormagasin",
@@ -4496,6 +4477,11 @@
 "læderbutik",
 "skinbutik"
 ],
+"shop/lighting":[
+"lysbutik",
+"lampeforretning",
+"Lampebutik"
+],
 "shop/locksmith":[
 "låsesmed",
 "Låsesmed"
@@ -4550,10 +4536,6 @@
 "musikinstrumentbutik",
 "musikinstrumentforretning"
 ],
-"shop/newsagent":[
-"avis/bladforhandler",
-"Avis/Bladforhandler"
-],
 "shop/nutrition_supplements":[
 "helsekostforretning",
 "helsekostbutik",
@@ -4581,10 +4563,6 @@
 "shop/pastry":[
 "konditori",
 "Konditori"
-],
-"shop/pawnbroker":[
-"panteudlåner",
-"Panteudlåner"
 ],
 "shop/perfumery":[
 "parfumeforretning",
@@ -4638,9 +4616,8 @@
 "fiskehandler"
 ],
 "shop/second_hand":[
-"velgørenhedsforretning",
-"velgørenhedsbutik",
-"genbrugsbutik",
+"genbrugsforretning",
+"secondhandbutik",
 "Genbrugsbutik"
 ],
 "shop/sewing":[
@@ -4652,6 +4629,10 @@
 "symaskine",
 "kreativ",
 "Syforretning"
+],
+"shop/shoe_repair":[
+"hælebar",
+"Skomager"
 ],
 "shop/shoes":[
 "skoforretning",
@@ -4752,10 +4733,6 @@
 "Støvsugerforhandler",
 "støvsugerforhandler"
 ],
-"shop/variety_store":[
-"spøg og skæmtbutik",
-"Spøg og skæmtbutik"
-],
 "shop/video":[
 "videoforretning",
 "videobutik",
@@ -4794,6 +4771,9 @@
 "vinforretning",
 "Vinforretning",
 "vinhandler"
+],
+"shop/yes":[
+"Butik (uspecificeret type)"
 ],
 "tourism":[
 "Turismeegenskab"
@@ -4968,6 +4948,9 @@
 ],
 "traffic_calming/table":[
 "Hastighedsbump"
+],
+"traffic_calming/yes":[
+"Trafikdæmpning (uspecificeret type)"
 ],
 "traffic_sign/maxspeed":[
 "fart",

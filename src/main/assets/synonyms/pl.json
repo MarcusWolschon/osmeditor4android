@@ -1522,7 +1522,12 @@
 "Czytnik biletów"
 ],
 "amenity/toilets":[
-"Toalety"
+"łazienka",
+"toalety",
+"ubikacja",
+"toaleta",
+"Toalety",
+"wc"
 ],
 "amenity/toilets/disposal/flush":[
 "łazienka",
@@ -1599,6 +1604,9 @@
 "mlekomat",
 "Automat sprzedający",
 "automat do sprzedaży"
+],
+"amenity/vending_machine/bicycle_tube":[
+"Automat sprzedający dętki rowerowe"
 ],
 "amenity/vending_machine/bottle_return":[
 "automat na butelki",
@@ -1953,6 +1961,12 @@
 "granica",
 "bariera"
 ],
+"barrier/bump_gate":[
+"Brama kontaktowa"
+],
+"barrier/bus_trap":[
+"Pułapka autobusowa"
+],
 "barrier/cable_barrier":[
 "Ogrodzenie linkowe"
 ],
@@ -2013,6 +2027,9 @@
 "barierka",
 "bariera ochronna",
 "bariera armco"
+],
+"barrier/handrail":[
+"Poręcz"
 ],
 "barrier/hedge":[
 "krzewy",
@@ -2148,6 +2165,12 @@
 "dom",
 "Budynek (ogólny)",
 "budynek"
+],
+"building/allotment_house":[
+"Domek działkowy",
+"dom na działce",
+"dom na ogródku działkowym",
+"dom działkowy"
 ],
 "building/apartments":[
 "blok",
@@ -2462,6 +2485,9 @@
 "building_point":[
 "Budynek"
 ],
+"cemetery/grave":[
+"Grób"
+],
 "cemetery/sector":[
 "Sekcja cmentarza"
 ],
@@ -2537,8 +2563,7 @@
 "rzemieślnicy",
 "Browar",
 "piwo",
-"rzemieślnik",
-"browar"
+"rzemieślnik"
 ],
 "craft/carpenter":[
 "rzemiosło",
@@ -3251,7 +3276,16 @@
 "Przystanek autobusowy"
 ],
 "highway/construction":[
-"Droga w budowie"
+"droga w przebudowie",
+"remont",
+"budowa",
+"ścieżka w budowie",
+"droga zamknięta",
+"Droga w budowie",
+"droga w budowie",
+"ścieżka w przebudowie",
+"zamknięta droga",
+"roboty drogowe"
 ],
 "highway/corridor":[
 "Korytarz (w budynku)",
@@ -3262,10 +3296,6 @@
 "Przejście"
 ],
 "highway/crossing/marked":[
-"zebra",
-"przejście dla pieszych",
-"pasy",
-"oznaczone przejście dla pieszych",
 "Oznakowane przejście dla pieszych"
 ],
 "highway/crossing/traffic_signals":[
@@ -3299,9 +3329,7 @@
 "przejazd pieszo-rowerowy"
 ],
 "highway/cycleway/crossing/marked":[
-"przejście rowerowe",
-"Oznakowany przejazd rowerowy",
-"przejazd rowerowy"
+"Oznakowany przejazd rowerowy"
 ],
 "highway/cycleway/crossing/unmarked":[
 "Nieoznakowany przejazd rowerowy",
@@ -3357,26 +3385,9 @@
 "highway/footway/informal":[
 "Nieformalna ścieżka dla pieszych"
 ],
-"highway/footway/marked":[
-"zebra",
-"przejście dla pieszych",
-"pasy",
-"oznaczone przejście dla pieszych",
-"Oznakowane przejście dla pieszych"
-],
 "highway/footway/sidewalk":[
 "Chodnik przy jezdni",
 "chodnik"
-],
-"highway/footway/traffic_signals":[
-"Przejście z sygnałami dla pieszych"
-],
-"highway/footway/unmarked":[
-"Nieoznakowane przejście",
-"nieoznaczone przejście dla pieszych"
-],
-"highway/footway/zebra":[
-"Oznakowane przejście dla pieszych"
 ],
 "highway/give_way":[
 "Ustąp pierwszeństwa przejazdu",
@@ -3607,6 +3618,12 @@
 "viatoll",
 "Bramownica poboru opłat",
 "pobór opłat"
+],
+"highway/track":[
+"Droga prowadząca na pola lub do lasu",
+"droga leśna",
+"trakt leśny",
+"droga polna"
 ],
 "highway/traffic_mirror":[
 "lustro przy ulicy",
@@ -3859,6 +3876,7 @@
 "ogród działkowy",
 "Ogródki działkowe",
 "działki",
+"rod",
 "ogródki działkowe"
 ],
 "landuse/aquaculture":[
@@ -4952,14 +4970,6 @@
 "ropa",
 "podziemny"
 ],
-"man_made/pipeline/valve":[
-"woda",
-"gaz ziemny",
-"olej",
-"ścieki",
-"Zawór rurociągu",
-"ściek"
-],
 "man_made/planter":[
 "Sadzarka"
 ],
@@ -5393,6 +5403,11 @@
 "Fosa",
 "fosa"
 ],
+"natural/water/oxbow":[
+"jezioro przyrzeczne",
+"Starorzecze",
+"paleomeander"
+],
 "natural/water/pond":[
 "Staw",
 "staw",
@@ -5732,6 +5747,13 @@
 "office/private_investigator":[
 "prywatny detektyw",
 "Prywatny detektyw"
+],
+"office/property_management":[
+"spółdzielnia mieszkaniowa",
+"wspólnota mieszkaniowa",
+"wypożyczenia",
+"mieszkania",
+"Zarządca nieruchomości / Biuro leasingowe"
 ],
 "office/quango":[
 "Biuro organizacji prawie pozarządowej",
@@ -6185,11 +6207,6 @@
 "power/plant/source/oil":[
 "elektrownia zasilana ropą",
 "Elektrownia zasilana ropą"
-],
-"power/plant/source/solar":[
-"farma fotowoltaiczna",
-"elektrownia słoneczna",
-"Elektrownia słoneczna"
 ],
 "power/plant/source/waste":[
 "elektrownia",
@@ -7032,10 +7049,8 @@
 ],
 "shop/books":[
 "antykwariat",
-"księgarnia",
 "Księgarnia",
-"komiksy",
-"książki"
+"komiksy"
 ],
 "shop/boutique":[
 "Butik"
@@ -7282,8 +7297,8 @@
 "Sklep z kosmetykami"
 ],
 "shop/country_store":[
-"country store",
-"Country Store"
+"Sklep z artykułami wiejskimi",
+"sklep wiejski"
 ],
 "shop/craft":[
 "sztalugi",
@@ -7320,6 +7335,7 @@
 "rarytasy",
 "wyroby delikatesowe",
 "specjały",
+"delikatesy",
 "wykwintne artykuły spożywcze",
 "Ekskluzywne delikatesy"
 ],
@@ -7617,9 +7633,16 @@
 ],
 "shop/health_food":[
 "zdrowa żywność",
+"witaminy",
+"spożywcze",
+"żywność nieprzetworzona",
 "żywność regionalna",
 "żywność ekologiczna",
+"wegańskie",
+"odżywcze",
+"żywność surowa",
 "Sklep ze zdrową żywnością",
+"wegetariańskie",
 "produkty regionalne"
 ],
 "shop/hearing_aids":[
@@ -7887,13 +7910,9 @@
 "prasa",
 "Sklep z prasą",
 "salonik prasowy",
-"kolporter",
 "gazety",
 "lotto",
-"kiosk",
-"ruch",
-"czasopisma",
-"inmedio"
+"czasopisma"
 ],
 "shop/nutrition_supplements":[
 "odżywki dla sportowców",
@@ -7958,7 +7977,6 @@
 "precle"
 ],
 "shop/pawnbroker":[
-"lombard",
 "Lombard"
 ],
 "shop/perfumery":[
@@ -8256,9 +8274,10 @@
 "Sklep z odkurzaczami"
 ],
 "shop/variety_store":[
+"Sklep dyskontowy",
 "różności",
 "sklep z różnościami",
-"Sklep z różnościami",
+"dyskont",
 "pamiątki",
 "bibeloty",
 "prezenty",
@@ -8715,6 +8734,9 @@
 "type/restriction/no_straight_on":[
 "Zakaz jazdy prosto"
 ],
+"type/restriction/no_u_turn":[
+"Zakaz zawracania"
+],
 "type/restriction/only_left_turn":[
 "Nakaz skrętu w lewo"
 ],
@@ -8723,6 +8745,10 @@
 ],
 "type/restriction/only_straight_on":[
 "Nakaz jazdy prosto"
+],
+"type/restriction/only_u_turn":[
+"nakaz zawracania",
+"Tylko zawracanie"
 ],
 "type/route":[
 "trasa",
@@ -8735,6 +8761,7 @@
 "Trasa kolei linowej"
 ],
 "type/route/bicycle":[
+"szlak rowerowy",
 "Trasa rowerowa"
 ],
 "type/route/bus":[

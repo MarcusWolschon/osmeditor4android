@@ -1104,12 +1104,21 @@
 "Reciclagem"
 ],
 "amenity/recycling/container/electrical_items":[
-"recipiente de lixo eletrônico",
-"Recipiente de lixo eletrônico"
+"computador",
+"tablet",
+"telefone",
+"eletrônico",
+"lixo eletrônico",
+"Contêiner de lixo eletrônico",
+"computadores"
 ],
 "amenity/recycling/container/green_waste":[
-"Recipiente de resíduos verdes",
-"recipiente de resíduos verdes"
+"biológico",
+"Contêiner de lixo verde",
+"orgânico",
+"comida",
+"biodegradável",
+"compostagem"
 ],
 "amenity/recycling_centre":[
 "lata",
@@ -1124,13 +1133,13 @@
 "vidro"
 ],
 "amenity/recycling_container":[
-"Container para reciclagem",
 "resíduos",
 "dejetos",
 "material reciclável",
 "reciclagem",
 "lixo",
 "lixeira",
+"Contêiner para reciclagem",
 "lata de lixo",
 "lata de reciclagem"
 ],
@@ -1560,11 +1569,11 @@
 "amenity/vending_machine/fuel":[
 "diesel",
 "combustível",
-"Bomba de gasolina",
 "bomba de gasolina",
 "bomba de diesel",
 "gasolina",
-"bomba de combustível",
+"Bomba de combustível",
+"bomba de etanol",
 "propano",
 "biodiesel"
 ],
@@ -2390,11 +2399,6 @@
 "Encadernador",
 "encadernador"
 ],
-"craft/brewery":[
-"mestre cervejeiro",
-"cervejas",
-"Cervejaria"
-],
 "craft/carpenter":[
 "marcenaria",
 "carpinteiro",
@@ -3007,8 +3011,13 @@
 "Travessia"
 ],
 "highway/crossing/marked":[
-"Faixa de pedestres",
-"faixa de pedestres"
+"Faixa de pedestres"
+],
+"highway/crossing/traffic_signals":[
+"Travessia com sinal para pedestres",
+"travessia de bicicletas com sinal",
+"travessia de pedestres com sinal",
+"sinal de travessia de pedestres"
 ],
 "highway/crossing/unmarked":[
 "travessia de pedestres não marcada",
@@ -3037,7 +3046,6 @@
 "Travessia de pedestres com ciclovia"
 ],
 "highway/cycleway/crossing/marked":[
-"travessia de bicicleta marcada",
 "Travessia de bicicleta marcada"
 ],
 "highway/cycleway/crossing/unmarked":[
@@ -3083,21 +3091,10 @@
 "highway/footway/crossing":[
 "Travessia de pedestres"
 ],
-"highway/footway/marked":[
-"Faixa de pedestres",
-"faixa de pedestres"
-],
 "highway/footway/sidewalk":[
 "passeio",
 "Calçada",
 "calçada"
-],
-"highway/footway/unmarked":[
-"travessia de pedestres não marcada",
-"Travessia de pedestres não marcada"
-],
-"highway/footway/zebra":[
-"Faixa de pedestres"
 ],
 "highway/give_way":[
 "dê a preferência",
@@ -3160,15 +3157,6 @@
 "acesso à autoestrada",
 "saída"
 ],
-"highway/motorway_link-US-CA":[
-"ligação de via expressa",
-"acesso",
-"Ligação de autoestrada",
-"acesso à via expressa",
-"saída de autoestrada",
-"acesso à autoestrada",
-"saída"
-],
 "highway/passing_place":[
 "lugar de ultrapassagem",
 "Lugar de passagem"
@@ -3214,12 +3202,6 @@
 "Ligação Primária",
 "acesso a via primária",
 "acesso primário"
-],
-"highway/primary_link-US-CA":[
-"Ligação Primária",
-"acesso a via primária",
-"acesso primário",
-"ligação de via primária"
 ],
 "highway/raceway":[
 "Pista de automobilismo",
@@ -3391,11 +3373,6 @@
 "highway/trunk_link":[
 "acesso a via troncal",
 "Ligação Troncal",
-"acesso troncal"
-],
-"highway/trunk_link-US-CA":[
-"acesso a via troncal",
-"Ligação de Via Troncal",
 "acesso troncal"
 ],
 "highway/turning_circle":[
@@ -3938,7 +3915,7 @@
 "cão"
 ],
 "leisure/escape_game":[
-"Sala de fuga",
+"Escape game",
 "escape room",
 "sala de escape",
 "sala de fuga"
@@ -4393,9 +4370,6 @@
 "linha",
 "Linha"
 ],
-"man_made":[
-"Elemento de construção humana"
-],
 "man_made/adit":[
 "passagem",
 "acesso",
@@ -4600,10 +4574,6 @@
 "man_made/pipeline/underground":[
 "oleoduto subterrâneo",
 "Oleoduto subterrâneo"
-],
-"man_made/pipeline/valve":[
-"válvula de oleoduto",
-"Válvula de Oleoduto"
 ],
 "man_made/pumping_station":[
 "Estação de Bombeamento",
@@ -4820,8 +4790,8 @@
 "mar"
 ],
 "natural/cape":[
-"Capa",
-"capa"
+"Cabo",
+"cabo"
 ],
 "natural/cave_entrance":[
 "abertura de gruta",
@@ -5065,6 +5035,30 @@
 "paul",
 "pântano",
 "sapal"
+],
+"natural/wetland/marsh":[
+"charco",
+"área úmida",
+"Brejo",
+"alagadiço"
+],
+"natural/wetland/reedbed":[
+"brejo",
+"tabua",
+"bunho",
+"morrão-dos-fogueteiros",
+"Taboa",
+"canavial",
+"tabua-larga"
+],
+"natural/wetland/swamp":[
+"brejo",
+"Pântano",
+"charneca",
+"tremedal",
+"mangue",
+"manguezal",
+"alagadiço"
 ],
 "natural/wood":[
 "selva",
@@ -5333,8 +5327,8 @@
 "pesquisa",
 "pesquisador",
 "pesquisas",
-"Escritório de Pesquisa",
-"escritório"
+"escritório",
+"Escritório de pesquisa"
 ],
 "office/security":[
 "escritório de segurança",
@@ -5345,7 +5339,7 @@
 "estatística",
 "ibge",
 "agrimensura",
-"Escritório de Pesquisas ou Inspeções",
+"Escritório de pesquisas ou inspeções",
 "análise de riscos"
 ],
 "office/tax_advisor":[
@@ -5677,10 +5671,6 @@
 "power/plant/source/oil":[
 "usina elétrica a petróleo",
 "Usina elétrica a petróleo"
-],
-"power/plant/source/solar":[
-"Central fotovoltaica",
-"central fotovoltaica"
 ],
 "power/plant/source/waste":[
 "usina de incineração de resíduos",
@@ -6046,10 +6036,10 @@
 ],
 "railway/signal":[
 "trânsito",
-"Semáforo de Ferrovia",
 "sinal luminoso",
 "sinaleira de ferrovia",
 "sinal de ferrovia",
+"Semáforo ferroviário",
 "ferrovia",
 "farol"
 ],
@@ -6153,10 +6143,6 @@
 "loja de anime / manga",
 "Loja de Anime / Manga"
 ],
-"shop/antiques":[
-"antiquário",
-"Loja de Antiguidades"
-],
 "shop/appliance":[
 "Loja de Eletrodomésticos"
 ],
@@ -6237,13 +6223,6 @@
 "shop/bookmaker":[
 "casa de apostas",
 "Casa de Apostas"
-],
-"shop/books":[
-"Livraria",
-"livros",
-"sebo",
-"livraria",
-"loja de livros"
 ],
 "shop/boutique":[
 "Loja de Alta Costura"
@@ -6424,10 +6403,6 @@
 "perfumaria",
 "beleza"
 ],
-"shop/country_store":[
-"Loja Country",
-"loja country"
-],
 "shop/craft":[
 "Loja de artesanato",
 "loja de artesanato"
@@ -6441,10 +6416,6 @@
 "Loja de Laticínios",
 "leiteria",
 "laticínios"
-],
-"shop/deli":[
-"delicatessen",
-"Delicatessen"
 ],
 "shop/department_store":[
 "loja de departamento",
@@ -6610,13 +6581,6 @@
 "loja de tintas",
 "Loja de Material de Construção"
 ],
-"shop/health_food":[
-"comida saudável",
-"natureba",
-"Loja de Alimentos Saudáveis",
-"alimentação saudável",
-"loja de produtos naturais"
-],
 "shop/hearing_aids":[
 "farmácia",
 "Loja de Aparelhos Auditivos"
@@ -6769,12 +6733,6 @@
 "loja de artigos musicais",
 "instrumentos musicais"
 ],
-"shop/newsagent":[
-"banca de jornal",
-"jornaleiro",
-"Banca de Revistas",
-"loja de revistas"
-],
 "shop/nutrition_supplements":[
 "Loja de Suplementos Nutricionais",
 "loja de suplementos"
@@ -6820,11 +6778,6 @@
 "doces",
 "doceria",
 "bolos"
-],
-"shop/pawnbroker":[
-"loja",
-"Loja de Penhoras",
-"casa de penhores"
 ],
 "shop/perfumery":[
 "cosméticos",
@@ -6903,13 +6856,6 @@
 "peixeiro",
 "petisqueira",
 "peixes"
-],
-"shop/second_hand":[
-"roupas",
-"brechó",
-"loja de roupas",
-"Brechó",
-"artigos usados"
 ],
 "shop/sewing":[
 "armarinho",
@@ -7031,10 +6977,6 @@
 "shop/vacuum_cleaner":[
 "loja de aspiradores",
 "Loja de Aspiradores de Pó"
-],
-"shop/variety_store":[
-"Loja de Variedades",
-"loja de variedades"
 ],
 "shop/video":[
 "loja de vídeos",

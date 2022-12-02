@@ -311,13 +311,17 @@
 "행사장"
 ],
 "amenity/exhibition_centre":[
-"전시회장"
+"전시회장",
+"박람회장"
 ],
 "amenity/fast_food":[
 "패스트푸드"
 ],
 "amenity/fast_food/burger":[
 "햄버거 패스트푸드"
+],
+"amenity/fast_food/cafeteria":[
+"카페테리아"
 ],
 "amenity/fast_food/chicken":[
 "치킨 패스트푸드"
@@ -448,6 +452,7 @@
 "음악 학교"
 ],
 "amenity/nightclub":[
+"나이트",
 "나이트 클럽",
 "나이트클럽"
 ],
@@ -479,6 +484,7 @@
 "장애인 전용 주차 구역"
 ],
 "amenity/pharmacy":[
+"약국 카운터",
 "약국"
 ],
 "amenity/photo_booth":[
@@ -496,6 +502,7 @@
 "기독교 교회"
 ],
 "amenity/place_of_worship/christian/jehovahs_witness":[
+"여호와",
 "여호와의 증인 왕국회관"
 ],
 "amenity/place_of_worship/christian/la_luz_del_mundo":[
@@ -509,10 +516,12 @@
 "만디르"
 ],
 "amenity/place_of_worship/jewish":[
-"유대교 시너고그"
+"유대교 시너고그",
+"유대 시나고규"
 ],
 "amenity/place_of_worship/muslim":[
-"이슬람교 모스크"
+"이슬람교 모스크",
+"모스크"
 ],
 "amenity/place_of_worship/shinto":[
 "신사"
@@ -550,8 +559,10 @@
 "우체국"
 ],
 "amenity/prep_school":[
+"보습학원",
 "국어",
 "논술",
+"교습소",
 "수학",
 "영어",
 "학원"
@@ -589,7 +600,8 @@
 "재활용 용기"
 ],
 "amenity/refugee_site":[
-"난민촌"
+"난민촌",
+"난민 캠프"
 ],
 "amenity/research_institute":[
 "연구 기관 부지"
@@ -693,7 +705,8 @@
 "달개"
 ],
 "amenity/shower":[
-"샤워실"
+"샤워실",
+"샤워장"
 ],
 "amenity/smoking_area":[
 "흡연 구역"
@@ -703,7 +716,8 @@
 "사회시설"
 ],
 "amenity/social_facility/food_bank":[
-"푸드 뱅크"
+"푸드 뱅크",
+"푸드뱅크"
 ],
 "amenity/social_facility/group_home":[
 "경로당",
@@ -722,13 +736,15 @@
 "스튜디오"
 ],
 "amenity/studio/audio":[
-"녹음실"
+"녹음실",
+"녹음 스튜디오"
 ],
 "amenity/studio/radio":[
 "라디오 방송국"
 ],
 "amenity/studio/television":[
-"텔레비전 방송국"
+"텔레비전 방송국",
+"tv 방송국"
 ],
 "amenity/studio/video":[
 "영화 촬영실"
@@ -751,6 +767,9 @@
 "amenity/theatre/type/amphi":[
 "원형극장"
 ],
+"amenity/toilets":[
+"화장실"
+],
 "amenity/toilets/disposal/flush":[
 "수세식 화장실"
 ],
@@ -762,6 +781,7 @@
 ],
 "amenity/townhall":[
 "동사무소",
+"행정복지센터",
 "주민센터",
 "마을 회관",
 "마을회관"
@@ -827,6 +847,7 @@
 "신문 자동판매기"
 ],
 "amenity/vending_machine/parking_tickets":[
+"주차발권기",
 "주차권 발권기"
 ],
 "amenity/vending_machine/public_transport_tickets":[
@@ -973,6 +994,7 @@
 "가드레일"
 ],
 "barrier/hedge":[
+"산울",
 "산 울타리",
 "산울타리"
 ],
@@ -980,7 +1002,8 @@
 "높이 제한기"
 ],
 "barrier/kerb":[
-"연석"
+"연석",
+"갓돌"
 ],
 "barrier/kerb/flush":[
 "턱 없는 연석"
@@ -1099,6 +1122,9 @@
 "building/farm_auxiliary":[
 "농장 건물"
 ],
+"building/fire_station":[
+"소방서 건물"
+],
 "building/garage":[
 "차고"
 ],
@@ -1124,6 +1150,10 @@
 "building/house":[
 "집",
 "주택"
+],
+"building/houseboat":[
+"선상 가옥",
+"집배"
 ],
 "building/hut":[
 "오두막"
@@ -1154,12 +1184,14 @@
 "지붕"
 ],
 "building/ruins":[
-"건물 폐허"
+"건물 폐허",
+"폐가"
 ],
 "building/school":[
 "학교 건물",
 "초등학교",
 "중학교",
+"유치원",
 "고등학교"
 ],
 "building/semidetached_house":[
@@ -1215,6 +1247,12 @@
 "building_point":[
 "건물"
 ],
+"cemetery/grave":[
+"산소",
+"무덤",
+"묘",
+"묘지"
+],
 "club":[
 "클럽"
 ],
@@ -1238,11 +1276,6 @@
 "craft/bookbinder":[
 "바인더",
 "제본공"
-],
-"craft/brewery":[
-"맥주 양조장",
-"양조공",
-"양조장"
 ],
 "craft/carpenter":[
 "목수"
@@ -1300,6 +1333,7 @@
 "절연체"
 ],
 "craft/joiner":[
+"소목장",
 "소목장이"
 ],
 "craft/key_cutter":[
@@ -1309,19 +1343,25 @@
 "craft/locksmith":[
 "열쇠 제조공"
 ],
+"craft/metal_construction":[
+"금속공",
+"금속 세공인"
+],
 "craft/painter":[
 "화가"
 ],
 "craft/photographer":[
 "사진작가",
-"사진가"
+"사진가",
+"사진사"
 ],
 "craft/photographic_laboratory":[
 "현상소"
 ],
 "craft/plasterer":[
 "미장공",
-"도벽사"
+"도벽사",
+"미장이"
 ],
 "craft/plumber":[
 "배관공"
@@ -1374,7 +1414,8 @@
 "양철공"
 ],
 "craft/upholsterer":[
-"실내 장식업"
+"실내 장식업",
+"인테리어"
 ],
 "craft/watchmaker":[
 "시계 제조공"
@@ -1629,12 +1670,24 @@
 "highway/bus_stop":[
 "버스 정류소"
 ],
+"highway/construction":[
+"공사 중인 도로"
+],
 "highway/corridor":[
 "복도",
 "실내 복도"
 ],
+"highway/crossing":[
+"횡단보도"
+],
 "highway/crossing/marked":[
 "횡단보도"
+],
+"highway/crossing/traffic_signals":[
+"보행자 신호등이 있는 횡단보도"
+],
+"highway/crossing/uncontrolled":[
+"표시가 있는 횡단보도"
 ],
 "highway/crossing/unmarked":[
 "표시되지 않은 횡단보도"
@@ -1656,6 +1709,7 @@
 "엘리베이터"
 ],
 "highway/elevator_line":[
+"경사형 승강기",
 "경사형 엘리베이터"
 ],
 "highway/footway":[
@@ -1664,19 +1718,13 @@
 "highway/footway/conveying":[
 "무빙워크"
 ],
-"highway/footway/marked":[
+"highway/footway/crossing":[
 "횡단보도"
 ],
 "highway/footway/sidewalk":[
 "인도",
 "보도",
 "보행로"
-],
-"highway/footway/unmarked":[
-"표시되지 않은 횡단보도"
-],
-"highway/footway/zebra":[
-"횡단보도"
 ],
 "highway/give_way":[
 "양보 표지",
@@ -1702,7 +1750,8 @@
 "고속도로 연결로"
 ],
 "highway/passing_place":[
-"통행을 위한 여분 공간"
+"통행을 위한 여분 공간",
+"대피소"
 ],
 "highway/path":[
 "경로"
@@ -1711,10 +1760,13 @@
 "보드워크"
 ],
 "highway/pedestrian_area":[
+"보행구역",
+"보행지역",
 "보행자 지역"
 ],
 "highway/pedestrian_line":[
-"보행자 거리"
+"보행자 거리",
+"보행로"
 ],
 "highway/primary":[
 "1차 도로"
@@ -1753,7 +1805,7 @@
 "2차 도로 연결로"
 ],
 "highway/service":[
-"접근 도로"
+"서비스 도로"
 ],
 "highway/service/alley":[
 "골목"
@@ -1800,6 +1852,9 @@
 ],
 "highway/tertiary_link":[
 "3차 도로 연결로"
+],
+"highway/track":[
+"트랙 / 육로 접근 도로"
 ],
 "highway/traffic_mirror":[
 "차량 거울"
@@ -2337,7 +2392,7 @@
 "선"
 ],
 "man_made":[
-"인공 지물"
+"사람이 만든 기능"
 ],
 "man_made/adit":[
 "수평갱",
@@ -2477,9 +2532,6 @@
 ],
 "man_made/pipeline/underground":[
 "지하 파이프라인"
-],
-"man_made/pipeline/valve":[
-"파이프라인 밸브"
 ],
 "man_made/pumping_station":[
 "펌프장"
@@ -2684,6 +2736,9 @@
 ],
 "natural/water":[
 "물"
+],
+"natural/water/basin":[
+"웅덩이"
 ],
 "natural/water/canal":[
 "운하 구역"
@@ -3003,6 +3058,12 @@
 "playground/swing":[
 "그네"
 ],
+"playground/teenshelter":[
+"청소년 보호 시설"
+],
+"playground/trampoline":[
+"트램펄린"
+],
 "playground/zipwire":[
 "놀이용 집라인"
 ],
@@ -3072,9 +3133,6 @@
 "power/plant/source/oil":[
 "석유 발전소"
 ],
-"power/plant/source/solar":[
-"태양 발전소"
-],
 "power/plant/source/waste":[
 "쓰레기 소각 발전소"
 ],
@@ -3112,6 +3170,9 @@
 "정류장",
 "버스 정류소",
 "정거장"
+],
+"public_transport/platform/bus_tram_point":[
+"노면전차, 버스 정류장"
 ],
 "public_transport/platform/ferry":[
 "페리 승강장"
@@ -3379,6 +3440,9 @@
 "railway/platform":[
 "기차 승강장"
 ],
+"railway/preserved":[
+"역사적 철도선"
+],
 "railway/rail":[
 "철로"
 ],
@@ -3408,7 +3472,11 @@
 "기차 차량 세척"
 ],
 "railway/tram":[
-"노면전차 궤도"
+"노면전차 궤도",
+"트램 길"
+],
+"railway/tram_crossing":[
+"전차 건널목"
 ],
 "railway/tram_level_crossing":[
 "전차-도로 건널목"
@@ -3474,8 +3542,7 @@
 "애니메이션/만화 가게"
 ],
 "shop/antiques":[
-"골동품 가게",
-"골동품 상점"
+"골동품 가게"
 ],
 "shop/appliance":[
 "세탁기",
@@ -3547,8 +3614,7 @@
 "마권업자"
 ],
 "shop/books":[
-"서점",
-"책방"
+"서점"
 ],
 "shop/boutique":[
 "부티크"
@@ -3671,12 +3737,6 @@
 "유제품 가게",
 "계란",
 "치즈"
-],
-"shop/deli":[
-"델리",
-"점심",
-"고기",
-"샌드위치"
 ],
 "shop/department_store":[
 "백화점"
@@ -3814,8 +3874,7 @@
 "철물점"
 ],
 "shop/health_food":[
-"건강식품 상점",
-"건강식품 가게"
+"건강식품 판매점"
 ],
 "shop/hearing_aids":[
 "보청기 상점",
@@ -3920,10 +3979,6 @@
 "악기 가게",
 "악기 상점"
 ],
-"shop/newsagent":[
-"신문/잡지 상점",
-"신문/잡지 가게"
-],
 "shop/nutrition_supplements":[
 "영양 보조 식품 가게",
 "영양 보조 식품 상점"
@@ -3955,9 +4010,6 @@
 "shop/pastry":[
 "과자 상점",
 "과자 가게"
-],
-"shop/pawnbroker":[
-"전당포"
 ],
 "shop/perfumery":[
 "향수 상점",
@@ -4018,9 +4070,6 @@
 "shop/seafood":[
 "해산물 상점",
 "해산물 가게"
-],
-"shop/second_hand":[
-"위탁/중고품 할인 매장"
 ],
 "shop/sewing":[
 "바느질 용품 상점",
@@ -4120,7 +4169,7 @@
 "진공청소기 상점"
 ],
 "shop/variety_store":[
-"잡화점"
+"할인 판매점"
 ],
 "shop/video":[
 "dvd",
@@ -4168,6 +4217,9 @@
 ],
 "tourism":[
 "관광 지물"
+],
+"tourism/alpine_hut":[
+"산악 루지"
 ],
 "tourism/apartment":[
 "게스트 아파트 / 콘도"
@@ -4277,6 +4329,9 @@
 "놀이동산",
 "테마파크",
 "놀이공원"
+],
+"tourism/trail_riding_station":[
+"트레일 경주 스테이션"
 ],
 "tourism/viewpoint":[
 "경승지"
@@ -4403,6 +4458,9 @@
 "type/route/hiking":[
 "하이킹 노선"
 ],
+"type/route/horse":[
+"승마 노선"
+],
 "type/route/light_rail":[
 "경전철 노선"
 ],
@@ -4422,6 +4480,9 @@
 ],
 "type/route/power":[
 "전력 노선"
+],
+"type/route/railway":[
+"철도 노선"
 ],
 "type/route/road":[
 "도로 노선",

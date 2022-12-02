@@ -717,11 +717,6 @@
 "encuadernación",
 "Encuadernador"
 ],
-"craft/brewery":[
-"fabrica de cerveza",
-"embotelladora de cerveza",
-"Cervecería"
-],
 "craft/carpenter":[
 "carpinteru",
 "Carpintería",
@@ -1689,9 +1684,6 @@
 "bodega",
 "Llicorería"
 ],
-"shop/antiques":[
-"Anticuariu"
-],
 "shop/art":[
 "marchante d'arte",
 "Galería d'arte"
@@ -1710,9 +1702,6 @@
 ],
 "shop/bookmaker":[
 "Encuadernador"
-],
-"shop/books":[
-"Llibrería"
 ],
 "shop/boutique":[
 "Boutique"
@@ -1767,9 +1756,6 @@
 ],
 "shop/dairy":[
 "Llechería"
-],
-"shop/deli":[
-"Gourmet"
 ],
 "shop/department_store":[
 "Grandes almacenes"
@@ -1889,10 +1875,6 @@
 "luthier",
 "Instrumentos musicales"
 ],
-"shop/newsagent":[
-"puestu de periódicos",
-"Prensa y revistes"
-],
 "shop/nutrition_supplements":[
 "Tienda de suplementos nutritivos"
 ],
@@ -1911,10 +1893,6 @@
 ],
 "shop/pastry":[
 "Pastelería"
-],
-"shop/pawnbroker":[
-"monte de piedá",
-"Casa d'empeños"
 ],
 "shop/perfumery":[
 "Perfumería"
@@ -1944,9 +1922,6 @@
 "shop/seafood":[
 "pescadería",
 "Mariscos"
-],
-"shop/second_hand":[
-"Reventa d'empeños"
 ],
 "shop/shoes":[
 "Zapatería"
@@ -2009,9 +1984,6 @@
 ],
 "shop/vacuum_cleaner":[
 "Tienda d'aspiradores"
-],
-"shop/variety_store":[
-"Bazar"
 ],
 "shop/video":[
 "Tienda de videos"

@@ -810,6 +810,9 @@
 "amenity/nursing_home":[
 "Hoitokoti"
 ],
+"amenity/parcel_locker":[
+"Pakettiautomaatti"
+],
 "amenity/parking":[
 "parkkihalli",
 "parkkipaikka",
@@ -933,6 +936,7 @@
 "Synagoga"
 ],
 "amenity/place_of_worship/muslim":[
+"moskeija",
 "Moskeija"
 ],
 "amenity/place_of_worship/shinto":[
@@ -988,7 +992,9 @@
 "vaali"
 ],
 "amenity/post_box":[
-"Postilaatikko"
+"postilaatikko",
+"Postilaatikko",
+"kirjelaatikko"
 ],
 "amenity/post_depot":[
 "Postinlajittelukeskus"
@@ -1319,6 +1325,9 @@
 "ulkoilmateatteri",
 "ulko"
 ],
+"amenity/toilets":[
+"Vessa"
+],
 "amenity/toilets/disposal/flush":[
 "Vesivessa"
 ],
@@ -1512,6 +1521,9 @@
 "area":[
 "Alue"
 ],
+"area/footway":[
+"Jalankulkualue"
+],
 "area/highway":[
 "Tien alue"
 ],
@@ -1670,6 +1682,9 @@
 "barrier/fence/railing":[
 "Kaide"
 ],
+"barrier/full-height_turnstile":[
+"Pyöröportti"
+],
 "barrier/gate":[
 "ovi",
 "Portti",
@@ -1677,6 +1692,9 @@
 ],
 "barrier/guard_rail":[
 "Keskikaide"
+],
+"barrier/handrail":[
+"Käsikaide"
 ],
 "barrier/hedge":[
 "Pensasaita"
@@ -1707,6 +1725,9 @@
 "ylösnouseva",
 "nouseva",
 "nosto"
+],
+"barrier/log":[
+"Kaatunut puu"
 ],
 "barrier/retaining_wall":[
 "Tukimuuri"
@@ -1831,6 +1852,9 @@
 "joukkotalli",
 "ryhmäautotalli"
 ],
+"building/ger":[
+"Jurtta"
+],
 "building/grandstand":[
 "Suuri katsomokatos"
 ],
@@ -1885,6 +1909,9 @@
 "building/kindergarten":[
 "Esikoulurakennus"
 ],
+"building/manufacture":[
+"Teollinen tuotantolaitos"
+],
 "building/mosque":[
 "muslimi",
 "Moskeijarakennus",
@@ -1892,6 +1919,9 @@
 ],
 "building/office":[
 "Toimistorakennus"
+],
+"building/outbuilding":[
+"Ulkorakennus"
 ],
 "building/pavilion":[
 "Urheilurakennus"
@@ -1949,6 +1979,9 @@
 "building/sty":[
 "Sikala"
 ],
+"building/synagogue":[
+"Synagogarakennus"
+],
 "building/temple":[
 "Temppelirakennus"
 ],
@@ -1976,6 +2009,12 @@
 ],
 "building_point":[
 "Rakennus"
+],
+"cemetery/grave":[
+"Hauta"
+],
+"cemetery/sector":[
+"Hautausmaan osa"
 ],
 "club":[
 "Klubi"
@@ -2011,15 +2050,6 @@
 ],
 "craft/bookbinder":[
 "Kirjasitomo"
-],
-"craft/brewery":[
-"viini",
-"alko",
-"Olutpanimo",
-"alkoholi",
-"panimo",
-"olut",
-"viina"
 ],
 "craft/carpenter":[
 "Puuseppä"
@@ -2248,6 +2278,9 @@
 "Ambulanssiasema",
 "ambulanssihalli",
 "ambulanssitalli"
+],
+"emergency/assembly_point":[
+"Kokoontumispiste"
 ],
 "emergency/defibrillator":[
 "elvyttäminen",
@@ -2490,6 +2523,9 @@
 "highway/bus_stop":[
 "Linja-autopysäkki"
 ],
+"highway/construction":[
+"Keskeneräinen tie"
+],
 "highway/corridor":[
 "käytävä",
 "katos",
@@ -2503,6 +2539,12 @@
 "Suojatie"
 ],
 "highway/crossing/marked":[
+"Merkitty suojatie"
+],
+"highway/crossing/traffic_signals":[
+"Valo-ohjattu suojatie"
+],
+"highway/crossing/uncontrolled":[
 "Merkitty suojatie"
 ],
 "highway/crossing/unmarked":[
@@ -2543,12 +2585,13 @@
 "Pyörätien jatke ja suojatie"
 ],
 "highway/cycleway/crossing/marked":[
-"suojatie",
-"pyörätie",
 "Merkitty pyörätien jatke"
 ],
 "highway/cycleway/crossing/unmarked":[
 "Merkitsemätön pyörätien jatke"
+],
+"highway/cycleway/moped_link-NL":[
+"Moporamppi"
 ],
 "highway/elevator":[
 "Hissi"
@@ -2576,17 +2619,11 @@
 "highway/footway/crossing":[
 "Suojatie"
 ],
-"highway/footway/marked":[
-"Merkitty suojatie"
+"highway/footway/informal":[
+"Epävirallinen kävelypolku"
 ],
 "highway/footway/sidewalk":[
 "Jalkakäytävä"
-],
-"highway/footway/unmarked":[
-"Merkitsemätön suojatie"
-],
-"highway/footway/zebra":[
-"Merkitty suojatie"
 ],
 "highway/give_way":[
 "Väistämisvelvollisuus",
@@ -2758,6 +2795,9 @@
 ],
 "highway/toll_gantry":[
 "Avoin tietulli"
+],
+"highway/track":[
+"Maatalous-/metsätie"
 ],
 "highway/traffic_mirror":[
 "liikenne",
@@ -2974,6 +3014,9 @@
 "landuse/construction":[
 "Työmaa-alue"
 ],
+"landuse/education":[
+"Kampusalue"
+],
 "landuse/farm":[
 "Maatila"
 ],
@@ -3005,7 +3048,7 @@
 "ruoho"
 ],
 "landuse/greenfield":[
-"Tyhjä tontti"
+"Rakentamaton tontti"
 ],
 "landuse/greenhouse_horticulture":[
 "Kasvihuonealue"
@@ -3341,6 +3384,9 @@
 "leisure/pitch/field_hockey":[
 "Maahockeykenttä"
 ],
+"leisure/pitch/futsal":[
+"Futsalkenttä"
+],
 "leisure/pitch/horseshoes":[
 "Hevosenkenkien heittokenttä"
 ],
@@ -3352,6 +3398,9 @@
 ],
 "leisure/pitch/rugby_union":[
 "Rubgy Union -kenttä"
+],
+"leisure/pitch/shooting":[
+"Ampumarata"
 ],
 "leisure/pitch/skateboard":[
 "Rullalautailupuisto",
@@ -3403,6 +3452,9 @@
 "lapsipuisto",
 "Leikkipuisto",
 "leikkiä"
+],
+"leisure/playground/indoor":[
+"Sisäleikkitila"
 ],
 "leisure/resort":[
 "lomailu",
@@ -3480,6 +3532,9 @@
 "leisure/track/cycling":[
 "Pyöräilyrata"
 ],
+"leisure/track/horse_racing":[
+"Ravirata"
+],
 "leisure/track/running":[
 "Kuntorata"
 ],
@@ -3517,6 +3572,9 @@
 ],
 "man_made/cairn":[
 "Kiviröykkiö"
+],
+"man_made/carpet_hanger":[
+"Mattoteline"
 ],
 "man_made/chimney":[
 "Savupiippu"
@@ -3612,9 +3670,6 @@
 "man_made/pipeline/underground":[
 "Maanalainen putki"
 ],
-"man_made/pipeline/valve":[
-"Putkilinjan venttiili"
-],
 "man_made/pumping_station":[
 "Pumppaamo"
 ],
@@ -3674,6 +3729,9 @@
 ],
 "man_made/tower/observation":[
 "Näkötorni"
+],
+"man_made/tower/pagoda":[
+"Pagoda"
 ],
 "man_made/tunnel":[
 "Tunnelialue"
@@ -4301,8 +4359,14 @@
 "playground/swing":[
 "Keinu"
 ],
+"playground/trampoline":[
+"Trampoliini"
+],
 "point":[
 "Paikkapiste"
+],
+"police/checkpoint":[
+"Poliisin tarkastuspiste"
 ],
 "polling_station":[
 "äänestys",
@@ -4400,12 +4464,6 @@
 ],
 "power/plant/source/oil":[
 "Öljyvoimala"
-],
-"power/plant/source/solar":[
-"aurinkopuisto",
-"Aurinkovoimala",
-"voimalaitos",
-"aurinkopaneeli"
 ],
 "power/plant/source/waste":[
 "Jätevoimalaitos"
@@ -4767,7 +4825,7 @@
 "Anime-/mangaliike"
 ],
 "shop/antiques":[
-"Antiikkiliike"
+"Antikvariaatti"
 ],
 "shop/appliance":[
 "jääkaappi",
@@ -5052,9 +5110,6 @@
 "juusto",
 "jäätelö"
 ],
-"shop/deli":[
-"Deli"
-],
 "shop/department_store":[
 "Tavaratalo"
 ],
@@ -5237,9 +5292,6 @@
 "shop/hardware":[
 "Rautakauppa"
 ],
-"shop/health_food":[
-"Terveysravinnemyymälä"
-],
 "shop/hearing_aids":[
 "vammaisuus",
 "huono kuulo",
@@ -5364,9 +5416,6 @@
 "Instrumenttimyymälä",
 "soittaminen"
 ],
-"shop/newsagent":[
-"Lehtikoju"
-],
 "shop/nutrition_supplements":[
 "Lisäravinnemyymälä"
 ],
@@ -5401,9 +5450,6 @@
 ],
 "shop/pastry":[
 "Leipomokonditoria"
-],
-"shop/pawnbroker":[
-"Panttilainaamo"
 ],
 "shop/perfumery":[
 "Hajusteliike",
@@ -5477,21 +5523,6 @@
 ],
 "shop/seafood":[
 "Meriruokakauppa"
-],
-"shop/second_hand":[
-"myymälä",
-"liike",
-"kauppa",
-"tavara",
-"vertaiskauppa",
-"käytettyä",
-"second hand",
-"käytetyn",
-"osto- ja myyntiliike",
-"kirpputori",
-"Käytetyn tavaran kauppa",
-"käytetty",
-"jälleenmyynti"
 ],
 "shop/sewing":[
 "Ompelutarvikeliike"
@@ -5581,20 +5612,6 @@
 "imurointi",
 "Pölynimuriliike"
 ],
-"shop/variety_store":[
-"Halpahalli",
-"säästö",
-"halpa",
-"myymälä",
-"tokmanni",
-"liike",
-"kauppa",
-"halpamyymälä",
-"hintamyymälä",
-"säästömyymälä",
-"putiikki",
-"halpatalo"
-],
 "shop/video":[
 "Videovuokraamo"
 ],
@@ -5678,6 +5695,9 @@
 ],
 "tourism":[
 "Turistikohde"
+],
+"tourism/alpine_hut":[
+"Vuoristomaja"
 ],
 "tourism/apartment":[
 "Vierasmajoitus"
@@ -5783,6 +5803,9 @@
 "luonto",
 "kuulutukset",
 "nimikilpi"
+],
+"tourism/information/board/welcome_sign":[
+"Tervetuloa-kyltti"
 ],
 "tourism/information/guidepost":[
 "Tienviitta"
@@ -5946,6 +5969,24 @@
 "type/restriction/no_right_turn":[
 "Ei saa kääntyä oikealle"
 ],
+"type/restriction/no_straight_on":[
+"Suoraan ajo kielletty"
+],
+"type/restriction/no_u_turn":[
+"U-käännös kielletty"
+],
+"type/restriction/only_left_turn":[
+"Pakollinen kääntyminen vasemmalle"
+],
+"type/restriction/only_right_turn":[
+"Pakollinen kääntyminen oikealle"
+],
+"type/restriction/only_straight_on":[
+"Pakollinen ajosuunta suoraan"
+],
+"type/restriction/only_u_turn":[
+"Pakollinen u-käännös"
+],
 "type/route":[
 "matkareitti",
 "rengasreitti",
@@ -5957,6 +5998,12 @@
 "Reitti",
 "navigointi",
 "reititys"
+],
+"type/route/aerialway":[
+"Ilmareitti"
+],
+"type/route/bicycle":[
+"Pyöräilyreitti"
 ],
 "type/route/bus":[
 "bussireitti",
@@ -5990,6 +6037,9 @@
 "type/route/monorail":[
 "Kohoratareitti"
 ],
+"type/route/mtb":[
+"Maastopyöräilyreitti"
+],
 "type/route/pipeline":[
 "Putkilinja"
 ],
@@ -6004,6 +6054,9 @@
 ],
 "type/route/power":[
 "Voimalinja"
+],
+"type/route/railway":[
+"Junareitti"
 ],
 "type/route/road":[
 "Tiereitti"

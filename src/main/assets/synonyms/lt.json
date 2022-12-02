@@ -617,10 +617,6 @@
 "knygryšys",
 "Knygrišys"
 ],
-"craft/brewery":[
-"Alaus darykla",
-"aludarė"
-],
 "craft/carpenter":[
 "stalius",
 "Dailidė"
@@ -1436,10 +1432,6 @@
 "alkoholio parduotuvė",
 "Alkoholinių gėrimų parduotuvė"
 ],
-"shop/antiques":[
-"Atikvarų parduotuvė",
-"antikvariatas"
-],
 "shop/art":[
 "Meno parduotuvė"
 ],
@@ -1470,11 +1462,6 @@
 ],
 "shop/bookmaker":[
 "Knygrišys"
-],
-"shop/books":[
-"knygynas",
-"Knygynas",
-"knygų parduotuvė"
 ],
 "shop/boutique":[
 "Parduotuvė"
@@ -1540,9 +1527,6 @@
 ],
 "shop/dairy":[
 "Pieno produktų parduotuvė"
-],
-"shop/deli":[
-"Gastronomas"
 ],
 "shop/department_store":[
 "Universalinė parduotuvė"
@@ -1659,9 +1643,6 @@
 "shop/musical_instrument":[
 "Muzikos instrumentų parduotuvė"
 ],
-"shop/newsagent":[
-"Laikraščių/žurnalų parduotuvė"
-],
 "shop/optician":[
 "Optika"
 ],
@@ -1673,9 +1654,6 @@
 ],
 "shop/pastry":[
 "Kepykla"
-],
-"shop/pawnbroker":[
-"Lombardas"
 ],
 "shop/perfumery":[
 "Parfumerijos parduotuvė"

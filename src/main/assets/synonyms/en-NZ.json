@@ -8,6 +8,24 @@
 "barbecue",
 "grill"
 ],
+"amenity/cafe":[
+"tea",
+"cafe",
+"coffee",
+"bistro",
+"Café"
+],
+"amenity/cafe/bubble_tea":[
+"boba",
+"tapioca",
+"cafe",
+"taiwanese tea drink",
+"pearl tea",
+"bubble milk tea",
+"Bubble Tea Café",
+"pearl milk tea",
+"boba drink"
+],
 "amenity/community_centre":[
 "Community Centre"
 ],
@@ -29,6 +47,17 @@
 "amenity/fuel":[
 "gas station",
 "Petrol Station"
+],
+"amenity/internet_cafe":[
+"cybercafe",
+"Internet Café",
+"cafe",
+"coffee",
+"taxiphone",
+"teleboutique",
+"lanhouse",
+"net",
+"internet cafe"
 ],
 "amenity/parking":[
 "car lot",
@@ -104,6 +133,9 @@
 "amenity/toilets/disposal/pitlatrine":[
 "Long-drop Toilet"
 ],
+"amenity/trolley_bay":[
+"Shopping Trolley Bay"
+],
 "amenity/vending_machine/fuel":[
 "diesel",
 "petrol",
@@ -140,6 +172,11 @@
 "barrier/kerb":[
 "Kerb"
 ],
+"building/pavilion":[
+"sports",
+"Sports Pavilion",
+"pavilion"
+],
 "building/terrace":[
 "row house",
 "brownstone",
@@ -153,11 +190,22 @@
 "Terraced Houses",
 "home"
 ],
+"emergency/fire_hose":[
+"fhr",
+"dry riser",
+"stand pipe",
+"fire hose reel",
+"standpipe",
+"riser"
+],
 "healthcare/birthing_center":[
 "Birthing Centre"
 ],
 "healthcare/blood_donation":[
 "Blood Donation Centre"
+],
+"highway/footway/conveying":[
+"Travelator"
 ],
 "highway/give_way":[
 "Give Way Sign",
@@ -202,6 +250,9 @@
 "leisure/sports_hall":[
 "Sports Hall"
 ],
+"man_made":[
+"Human-Made Feature"
+],
 "man_made/groyne":[
 "groin",
 "Groyne"
@@ -209,12 +260,37 @@
 "man_made/survey_point":[
 "Survey Marker"
 ],
+"man_made/yes":[
+"Human-Made Feature (Unspecified Type)"
+],
 "natural/cape":[
 "point"
 ],
 "natural/wetland/mangrove":[
 "Mangroves",
 "mangrove"
+],
+"office/employment_agency":[
+"vocation",
+"careers",
+"career",
+"vocational",
+"occupation",
+"job"
+],
+"office/it":[
+"tech",
+"computer",
+"software",
+"information technology",
+"information",
+"technology",
+"it",
+"ict",
+"IT/Software Company"
+],
+"office/lawyer":[
+"Lawyer"
 ],
 "place/suburb":[
 "Suburb"
@@ -234,6 +310,9 @@
 "shop/chemist":[
 "Chemist"
 ],
+"shop/coffee":[
+"Coffee Ingredients Store"
+],
 "shop/convenience":[
 "superette",
 "convenience shop",
@@ -248,9 +327,6 @@
 ],
 "shop/garden_centre":[
 "Garden Centre"
-],
-"shop/second_hand":[
-"Second Hand Shop"
 ],
 "shop/tyres":[
 "Tyre Store"

@@ -723,6 +723,9 @@
 "amenity/restaurant/asian":[
 "مطعم آسيوي"
 ],
+"amenity/restaurant/barbeque":[
+"مطعم باربيكيو"
+],
 "amenity/restaurant/chinese":[
 "مطعم صيني"
 ],
@@ -918,6 +921,9 @@
 "ماكينة البيع الذاتي",
 "آلة بيع،ماكينة بيع آلي"
 ],
+"amenity/vending_machine/bicycle_tube":[
+"آلة بيع الأنبوب الداخلي للدراجة"
+],
 "amenity/vending_machine/bottle_return":[
 "آلة تدوير قوارير",
 "آلة تدوير قوارير علب",
@@ -988,6 +994,10 @@
 "amenity/vending_machine/parking_tickets":[
 "ماكينة تذاكر",
 "ماكينة بيع تذاكر وقوف"
+],
+"amenity/vending_machine/pizza":[
+"آلة بيع البيتزا",
+"آلة بيع البيتزا الذاتية"
 ],
 "amenity/vending_machine/public_transport_tickets":[
 "آلة بيع تذاكر مواصلات عامة"
@@ -1173,12 +1183,18 @@
 "barrier/fence/railing":[
 "حديدي"
 ],
+"barrier/full-height_turnstile":[
+"باب دوار كامل الارتفاع"
+],
 "barrier/gate":[
 "بوابة"
 ],
 "barrier/guard_rail":[
 "حاجز حديدي مانع للاصطدام",
 "حاجز حديدي للحماية من الاصطدام"
+],
+"barrier/hampshire_gate":[
+"بوابة الأسلاك"
 ],
 "barrier/handrail":[
 "سياج سلم (درابزين)"
@@ -1284,6 +1300,9 @@
 "باب فرعي",
 "باب خوخة"
 ],
+"barrier/yes":[
+"حاجز (من نوع غير محدد)"
+],
 "boundary":[
 "حدود"
 ],
@@ -1305,6 +1324,9 @@
 "مبنى",
 "بناية",
 "بناء"
+],
+"building/allotment_house":[
+"الحدائق/المزارع المحصصة"
 ],
 "building/apartments":[
 "مبنى شقق",
@@ -1479,6 +1501,9 @@
 "مبنى الحضانة",
 "مبنى حضانة / روض"
 ],
+"building/manufacture":[
+"مبنى إنتاج صناعي"
+],
 "building/mosque":[
 "مبنى مسجد",
 "مبنى المسجد",
@@ -1490,6 +1515,9 @@
 "مبنى مكاتب",
 "مبنى إداري",
 "مبنى مكاتب إدارية"
+],
+"building/outbuilding":[
+"ملحق"
 ],
 "building/pavilion":[
 "مبنى أدوات رياضة",
@@ -1605,6 +1633,12 @@
 "building_point":[
 "مبنى"
 ],
+"cemetery/grave":[
+"قبر"
+],
+"cemetery/sector":[
+"قسم المقبرة"
+],
 "club":[
 "نادي"
 ],
@@ -1639,10 +1673,6 @@
 "craft/bookbinder":[
 "تغليف وتجليد الكتب",
 "مجلد الكتب"
-],
-"craft/brewery":[
-"بيرة; جعة",
-"مصنع بيرة"
 ],
 "craft/carpenter":[
 "نجار"
@@ -2158,6 +2188,9 @@
 "علاج صعوبات التواصل",
 "صعوبات التواصل"
 ],
+"healthcare/yes":[
+"منشأة صحية (نوع غير محدد)"
+],
 "highway":[
 "عناصر الطرق"
 ],
@@ -2187,10 +2220,7 @@
 "معبر/خط مشاة"
 ],
 "highway/crossing/marked":[
-"معبر مشاة غير متحكم به",
-"معبر مشاة",
-"معبر مشاة بعلامات مرورية",
-"معبر مشاة بدون إشارة مرور"
+"معبر مشاة بعلامات مرورية"
 ],
 "highway/crossing/traffic_signals":[
 "معبر مشاة بإشارات"
@@ -2268,22 +2298,10 @@
 "highway/footway/informal":[
 "مسار للمشاة غير رسمي"
 ],
-"highway/footway/marked":[
-"معبر مشاة بعلامات مرورية"
-],
 "highway/footway/sidewalk":[
 "رصيف جانب الطريق للمشاة",
 "رصيف المشاة",
 "رصيف مشاة"
-],
-"highway/footway/traffic_signals":[
-"معبر مشاة بإشارات"
-],
-"highway/footway/unmarked":[
-"معبر مشاة بدون علامات أو إشارة مرورية"
-],
-"highway/footway/zebra":[
-"معبر مشاة بعلامات مرورية"
 ],
 "highway/give_way":[
 "علامة \"أعط الأفضلية\"",
@@ -2317,12 +2335,6 @@
 "مفرق طريق سريع"
 ],
 "highway/motorway_link":[
-"طرق مرتبطة بالطريق السريع",
-"وصلة لطريق سريع",
-"وصلة طريق سريع",
-"رابط لطريق سريع"
-],
-"highway/motorway_link-US-CA":[
 "طرق مرتبطة بالطريق السريع",
 "وصلة لطريق سريع",
 "وصلة طريق سريع",
@@ -2366,10 +2378,6 @@
 "وصلة طريق أولي",
 "رابط لطريق أولي",
 "وصلة لطريق أولي"
-],
-"highway/primary_link-US-CA":[
-"وصلة طريق أولي",
-"رابط لطريق أولي"
 ],
 "highway/raceway":[
 "مضمار سباق السيارات"
@@ -2507,10 +2515,6 @@
 "شارع أساسي"
 ],
 "highway/trunk_link":[
-"رابط لشارع رئيسي",
-"وصلة لطريق رئيسي"
-],
-"highway/trunk_link-US-CA":[
 "رابط لشارع رئيسي",
 "وصلة لطريق رئيسي"
 ],
@@ -3008,8 +3012,14 @@
 "leisure/pitch/four_square":[
 "ساحة أربعة مربعات"
 ],
+"leisure/pitch/funnel_ball":[
+"قمع الكرة المحكمة"
+],
 "leisure/pitch/futsal":[
 "كرة الصالات"
+],
+"leisure/pitch/gaga":[
+"غاغا بيت"
 ],
 "leisure/pitch/horseshoes":[
 "حفرة حدوة الحصان"
@@ -3100,6 +3110,9 @@
 ],
 "leisure/sports_centre/climbing":[
 "مركز رياضة التسلق"
+],
+"leisure/sports_centre/horse_racing":[
+"مضمار سباق الخيل"
 ],
 "leisure/sports_centre/shooting":[
 "مرفق ميدان الرماية"
@@ -3325,9 +3338,6 @@
 "man_made/pipeline/underground":[
 "خط أنابيب تحت الأرض"
 ],
-"man_made/pipeline/valve":[
-"صمام خط أنابيب"
-],
 "man_made/planter":[
 "محبق",
 "قصرية",
@@ -3434,6 +3444,9 @@
 ],
 "man_made/works":[
 "مصنع"
+],
+"man_made/yes":[
+"عنصر من صنع الإنسان (نوع غير محدد)"
 ],
 "marker":[
 "لافتات",
@@ -3991,6 +4004,12 @@
 "playground":[
 "أجهزة وتركيبات الملعب"
 ],
+"playground/activitypanel":[
+"تشغيل لوحة النشاط"
+],
+"playground/aerialrotator":[
+"معلقة سبينر"
+],
 "playground/balancebeam":[
 "لعبة التوازن على الجذع"
 ],
@@ -4000,17 +4019,29 @@
 "playground/basketswing":[
 "السلة المتأرجحة"
 ],
+"playground/bridge":[
+"لعبة الجسر"
+],
 "playground/climbingframe":[
 "لعب تسلق الإطار"
 ],
+"playground/climbingwall":[
+"لعب جدار التسلق"
+],
 "playground/cushion":[
 "وسادة نطاطه"
+],
+"playground/funnel_ball":[
+"لعبة قِمع الكرة"
 ],
 "playground/hopscotch":[
 "الحجلة"
 ],
 "playground/horizontal_bar":[
 "لعبة العارضة الأفقية"
+],
+"playground/map":[
+"خريطة ملعب مرسومة"
 ],
 "playground/playhouse":[
 "بيت اللعب"
@@ -4025,8 +4056,14 @@
 "أرجوحة",
 "مرجيحة"
 ],
+"playground/sledding":[
+"لعبة الانزلاق من التل"
+],
 "playground/slide":[
 "زحليقة"
+],
+"playground/splash_pad":[
+"لعبة بركة الرذاذ"
 ],
 "playground/springy":[
 "نطاطه على سبرينق"
@@ -4038,6 +4075,21 @@
 "مراجيح",
 "أرجوحة",
 "مرجيحة"
+],
+"playground/teenshelter":[
+"مأوى المراهقين"
+],
+"playground/tetherball":[
+"ملعب كرة الحبل"
+],
+"playground/trampoline":[
+"النُطيطة (الترامبولين)"
+],
+"playground/tunnel_tube":[
+"لعبة النفق"
+],
+"playground/water":[
+"لعبة تشغيل المضخة"
 ],
 "playground/zipwire":[
 "الانزلاق على حبل"
@@ -4130,9 +4182,6 @@
 ],
 "power/plant/source/oil":[
 "محطة كهرباء تعمل بالنفط"
-],
-"power/plant/source/solar":[
-"مزرعة للطاقة الشمسية"
 ],
 "power/plant/source/waste":[
 "مولد طاقة يعمل عن طريق حرق النفايات"
@@ -4456,9 +4505,6 @@
 "shop/anime":[
 "متجر أنيمي / مانغا"
 ],
-"shop/antiques":[
-"متجر تحف وأنتيكات"
-],
 "shop/appliance":[
 "متجر ثلاجات",
 "ثلاجات",
@@ -4510,10 +4556,6 @@
 ],
 "shop/bookmaker":[
 "مكتب رهانات"
-],
-"shop/books":[
-"مكتبة - متجر كتب",
-"مكتبة، كتب"
 ],
 "shop/boutique":[
 "بوتيك"
@@ -4629,9 +4671,6 @@
 "shop/cosmetics":[
 "متجر مستحضرات التجميل"
 ],
-"shop/country_store":[
-"متجر بلدي عام"
-],
 "shop/craft":[
 "متجر الفنون والحرف"
 ],
@@ -4642,10 +4681,6 @@
 "shop/dairy":[
 "متجر الألبان، الألبان",
 "متجر الألبان"
-],
-"shop/deli":[
-"محل أطعمة لذيذة",
-"ديلي"
 ],
 "shop/department_store":[
 "محل متعدد الأقسام"
@@ -4764,9 +4799,6 @@
 "لوازم حديقة",
 "مواد بناء"
 ],
-"shop/health_food":[
-"متجر أغذية صحية"
-],
 "shop/hearing_aids":[
 "متجر سماعات الأذن الطبية",
 "سماعات الأذن الطبية; معينات سمعية; أجهزة تقوية السمع; مساعدات السمع"
@@ -4871,10 +4903,6 @@
 "متجر آلات موسيقية",
 "محل بيع الآلات الموسيقية"
 ],
-"shop/newsagent":[
-"محل بيع الجرائد",
-"جرائد"
-],
 "shop/nutrition_supplements":[
 "متجر المكملات الغذائية، مكملات غذائية",
 "متجر المكملات الغذائية"
@@ -4901,9 +4929,6 @@
 "shop/pastry":[
 "متجر الحلويات",
 "متجر حلويات"
-],
-"shop/pawnbroker":[
-"متجر رهن"
 ],
 "shop/perfumery":[
 "عطور",
@@ -4956,9 +4981,6 @@
 "سمك",
 "مسمكة",
 "متجر مأكولات بحرية"
-],
-"shop/second_hand":[
-"محل لبيع البضائع المستعملة"
 ],
 "shop/sewing":[
 "خياطة",
@@ -5059,14 +5081,6 @@
 "shop/vacuum_cleaner":[
 "متجر المكنسات الكهربائية; مكنسات كهربائية",
 "متجر المكنسات الكهربائية"
-],
-"shop/variety_store":[
-"محل كل شيء",
-"أبو ريالين",
-"أبو خمسة",
-"أبو درهمين",
-"منوعات وكماليات رخيصة",
-"محل بالجملة"
 ],
 "shop/video":[
 "محل بيع وتأجير الأفلام"
@@ -5281,11 +5295,17 @@
 "traffic_calming/island":[
 "جزيرة فاصلة بين مسارين طريق"
 ],
+"traffic_calming/mini_bumps":[
+"مطبات تخفيف سرعة صغيرة"
+],
 "traffic_calming/rumble_strip":[
 "مطبات قصيرة ومنخفضة متتالية على شكل شريط"
 ],
 "traffic_calming/table":[
 "مطب مرتفع وطويل لتخفيف السرعة بشكل جبري"
+],
+"traffic_calming/yes":[
+"مخفف لحركة المرور (من نوع غير محدد)"
 ],
 "traffic_sign":[
 "إشارة مرورية",

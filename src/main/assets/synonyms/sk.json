@@ -303,11 +303,11 @@
 "bicykel"
 ],
 "amenity/biergarten":[
-"bar",
+"Pivná záhrada",
+"záhradná piváreň",
+"pivna zahrada",
 "pivo",
-"terasa",
-"alkohol",
-"Letná záhrada",
+"zahradna pivaren",
 "beergarden"
 ],
 "amenity/binoculars":[
@@ -583,7 +583,7 @@
 ],
 "amenity/fast_food":[
 "fast food",
-"rýchle občerstvenie",
+"bufet",
 "Rýchle občerstvenie",
 "rychle obcerstvenie",
 "fastfood"
@@ -803,6 +803,19 @@
 "amenity/nursing_home":[
 "Ošetrovateľské centum"
 ],
+"amenity/parcel_locker":[
+"balikobox",
+"balíkomat",
+"alzabox",
+"z-box",
+"Schránka na balíky",
+"schranka na baliky",
+"schránka pre balíky",
+"schranka pre baliky",
+"parcelbox",
+"balikomat",
+"balíkobox"
+],
 "amenity/parking":[
 "Parkovisko"
 ],
@@ -820,7 +833,9 @@
 ],
 "amenity/parking/street-side":[
 "postranne",
-"Postranné"
+"Parkovisko pri ceste",
+"pri ceste",
+"postranné"
 ],
 "amenity/parking/underground":[
 "Podzemné parkovisko"
@@ -1571,6 +1586,14 @@
 "barrier/border_control":[
 "Hraničná kontrola"
 ],
+"barrier/cable_barrier":[
+"drotena bariera",
+"kablova bariera",
+"lanova bariera",
+"drôtená bariéra",
+"Káblová bariéra",
+"lanová bariéra"
+],
 "barrier/cattle_grid":[
 "mreza",
 "kravy",
@@ -1642,6 +1665,17 @@
 ],
 "barrier/height_restrictor":[
 "Obmedzovač výšky"
+],
+"barrier/jersey_barrier":[
+"bariéra",
+"plastová bariéra",
+"prefabrikovana bariera",
+"Bariéra (prefabrikovaná)",
+"prefabrikovaná bariéra",
+"betonova bariera",
+"betónová bariéra",
+"bariera",
+"plastova bariera"
 ],
 "barrier/kerb":[
 "Obrubník"
@@ -1799,7 +1833,8 @@
 "zrub"
 ],
 "building/carport":[
-"Otvorený prístrešok pre autá"
+"pristresok pre auto",
+"Prístrešok pre auto"
 ],
 "building/cathedral":[
 "katedrála",
@@ -2090,12 +2125,6 @@
 "Knihviazačstvo",
 "viazacstvo",
 "knihviazac"
-],
-"craft/brewery":[
-"pivaren",
-"pivo",
-"Pivovar",
-"piváreň"
 ],
 "craft/carpenter":[
 "tesár",
@@ -2690,10 +2719,10 @@
 "horská cesta",
 "horska cesta",
 "cesticka",
+"Oddelený chodník",
 "cesta pre peších",
 "cesta pre pesich",
 "turistický chodník",
-"Chodník",
 "chodnik",
 "cesta",
 "chodnicek",
@@ -2709,17 +2738,8 @@
 "highway/footway/crossing":[
 "Priechod pre chodcov"
 ],
-"highway/footway/marked":[
-"Značený priechod pre chodcov"
-],
 "highway/footway/sidewalk":[
-"Chodník"
-],
-"highway/footway/unmarked":[
-"Neznačený priechod pre chodcov"
-],
-"highway/footway/zebra":[
-"Značený priechod pre chodcov"
+"Chodník pri ceste"
 ],
 "highway/give_way":[
 "Značka daj prednosť",
@@ -2964,6 +2984,15 @@
 "highway/toll_gantry":[
 "Mýtny portál"
 ],
+"highway/track":[
+"neudržiavaná poľná cesta",
+"neudržiavaná lesná cesta",
+"poľná cesta",
+"Neudržiavaná lesná/poľná cesta",
+"lesna cesta",
+"lesná cesta",
+"polna cesta"
+],
 "highway/traffic_mirror":[
 "Dopravné zrkadlo"
 ],
@@ -3131,10 +3160,12 @@
 "historic/wayside_shrine":[
 "svatyna",
 "svätyňa",
+"mala kaplnka",
 "pricestny svatostanok",
 "svätostánok",
 "Prícestný svätostánok",
-"svatostanok"
+"svatostanok",
+"kaplnka"
 ],
 "historic/wreck":[
 "Vrak lode"
@@ -3814,7 +3845,7 @@
 "ciara"
 ],
 "man_made":[
-"Objekt vyrobený človekom"
+"Objekt vytvorený človekom"
 ],
 "man_made/adit":[
 "štóla",
@@ -3850,6 +3881,11 @@
 ],
 "man_made/cairn":[
 "Kamenný mužík"
+],
+"man_made/carpet_hanger":[
+"Stojan na koberce",
+"prašák",
+"prasak"
 ],
 "man_made/chimney":[
 "Komín"
@@ -4027,9 +4063,6 @@
 "man_made/pipeline/underground":[
 "Podzemné potrubie"
 ],
-"man_made/pipeline/valve":[
-"Ventil potrubia"
-],
 "man_made/pumping_station":[
 "precerpavacia stanica",
 "Prečerpávacia stanica"
@@ -4068,7 +4101,7 @@
 "Rozvodná skriňa"
 ],
 "man_made/surveillance":[
-"Monitoring"
+"Monitorovacia kamera"
 ],
 "man_made/surveillance/camera":[
 "Monitorovacia kamera"
@@ -4135,6 +4168,7 @@
 "man_made/wastewater_plant":[
 "cisticka odpadovych vod",
 "cisticka",
+"čov",
 "čistička",
 "Čistička odpadových vôd"
 ],
@@ -4338,6 +4372,9 @@
 ],
 "natural/stone":[
 "Samostatný kameň / balvan"
+],
+"natural/strait":[
+"Prieliv"
 ],
 "natural/tree":[
 "ihličnatý strom",
@@ -4670,8 +4707,7 @@
 ],
 "place/isolated_dwelling":[
 "Samota",
-"chata",
-"drevenica",
+"osamotený dom",
 "osamoteny dom"
 ],
 "place/locality":[
@@ -4778,6 +4814,9 @@
 "polling_station":[
 "Dočasná volebná miestnosť"
 ],
+"power":[
+"Elektrické zariadenie"
+],
 "power/cable":[
 "Kábel"
 ],
@@ -4843,9 +4882,6 @@
 ],
 "power/plant/source/oil":[
 "Tepelná elektráreň (ropná)"
-],
-"power/plant/source/solar":[
-"Solárna elektráreň"
 ],
 "power/plant/source/waste":[
 "Spaľovňa odpadu"
@@ -4972,6 +5008,12 @@
 "railway/construction":[
 "Železničná trať vo výstavbe"
 ],
+"railway/crossing":[
+"Železničné priecestie pre peších"
+],
+"railway/derail":[
+"Výkoľajka"
+],
 "railway/disused":[
 "mimo prevadzky",
 "zeleznica mimo prevadzky",
@@ -4980,11 +5022,17 @@
 "railway/funicular":[
 "Pozemná lanová dráha"
 ],
+"railway/halt":[
+"Vlaková zastávka (na znamenie)"
+],
 "railway/level_crossing":[
 "Železničné priecestie"
 ],
 "railway/light_rail":[
 "Trať ľahkého metra"
+],
+"railway/milestone":[
+"Železničný kilometrovník"
 ],
 "railway/miniature":[
 "Miniatúrna železničná trať"
@@ -5013,6 +5061,9 @@
 "railway/railway_crossing":[
 "Železničné priecestie"
 ],
+"railway/signal":[
+"Návestidlo"
+],
 "railway/station":[
 "Vlaková stanica"
 ],
@@ -5025,6 +5076,9 @@
 "metro",
 "stanica metra",
 "podchod"
+],
+"railway/switch":[
+"Výhybka"
 ],
 "railway/train_wash":[
 "Vlaková umyváreň"
@@ -5084,14 +5138,6 @@
 ],
 "shop/anime":[
 "Obchod s anime/manga predmetmi"
-],
-"shop/antiques":[
-"Obchod so starožitnosťami",
-"obchod so starozitnostami",
-"starozitnosti",
-"starý nábytok",
-"stary nabytok",
-"starožitnosti"
 ],
 "shop/appliance":[
 "Obchod s domácimi spotrebičmi"
@@ -5194,11 +5240,7 @@
 "Stávková kancelária"
 ],
 "shop/books":[
-"knihy",
-"kniha",
-"obchod s knihami",
-"Kníhkupectvo",
-"knihkupectvo"
+"Kníhkupectvo"
 ],
 "shop/boutique":[
 "Butik"
@@ -5356,9 +5398,6 @@
 "kozmetika",
 "drogeria"
 ],
-"shop/country_store":[
-"Vidiecky obchod (UK)"
-],
 "shop/craft":[
 "obchod s umeleckymi a remeselnymi potrebami",
 "Obchod s umeleckými a remeselnými potrebami",
@@ -5388,8 +5427,7 @@
 "syr"
 ],
 "shop/deli":[
-"deli",
-"Delikatesy"
+"Sladkosti"
 ],
 "shop/department_store":[
 "nakupne centrum",
@@ -5541,9 +5579,6 @@
 "naradie",
 "predajna nárradia",
 "náradie"
-],
-"shop/health_food":[
-"Obchod so zdravými potravinami"
 ],
 "shop/hearing_aids":[
 "obchod s nacuvacimi pristrojmi",
@@ -5718,11 +5753,7 @@
 "hudobné nástroje"
 ],
 "shop/newsagent":[
-"Obchod s novinami/časopismi",
-"noviny",
-"casopisy",
-"časopisy",
-"obchod s novinami/casopismi"
+"Obchod s novinami/časopismi"
 ],
 "shop/nutrition_supplements":[
 "Obchod s výživovými doplnkami"
@@ -5754,8 +5785,7 @@
 "Cukráreň"
 ],
 "shop/pawnbroker":[
-"Záložňa",
-"zalozna"
+"Záložňa"
 ],
 "shop/perfumery":[
 "Parfuméria"
@@ -5849,10 +5879,6 @@
 "treska",
 "plody mora",
 "ryby"
-],
-"shop/second_hand":[
-"z druhej ruky",
-"Second hand"
 ],
 "shop/sewing":[
 "Galantéria"
@@ -5994,10 +6020,7 @@
 "vysavač"
 ],
 "shop/variety_store":[
-"Obchod so zmiešaným tovarom",
-"obchod so zmiesanym tovarom",
-"rozlicny tovar",
-"rozličný tovar"
+"Obchod so zmiešaným tovarom"
 ],
 "shop/video":[
 "vhs",
@@ -6067,6 +6090,12 @@
 ],
 "tourism":[
 "Turistický objeky"
+],
+"tourism/alpine_hut":[
+"horska chata",
+"horská chata",
+"Vysokohorská chata",
+"vysokohorska chata"
 ],
 "tourism/apartment":[
 "Dovolenkový apartmán"
@@ -6365,6 +6394,21 @@
 "zakaz odbocenia vpravo",
 "Zákaz odbočenia vpravo"
 ],
+"type/restriction/no_straight_on":[
+"Prikázaný smer jazdy vpravo a vľavo"
+],
+"type/restriction/no_u_turn":[
+"Zákaz otáčania"
+],
+"type/restriction/only_left_turn":[
+"Prikázaný smer jazdy vľavo"
+],
+"type/restriction/only_right_turn":[
+"Prikázaný smer jazdy vpravo"
+],
+"type/restriction/only_straight_on":[
+"Prikázaný smer jazdy priamo"
+],
 "type/route":[
 "linka",
 "trať",
@@ -6414,6 +6458,9 @@
 "túra",
 "turistika",
 "Turistická trasa"
+],
+"type/route/horse":[
+"Jazdecká trasa"
 ],
 "type/route/light_rail":[
 "Trasa ľahkého metra"
@@ -6481,6 +6528,9 @@
 "nadradená trasa",
 "nadradena trasa",
 "hlavna trasa"
+],
+"type/site":[
+"Miesto"
 ],
 "type/waterway":[
 "Vodný tok"

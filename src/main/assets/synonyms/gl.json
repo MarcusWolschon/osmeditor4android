@@ -2661,12 +2661,6 @@
 "Encadernador",
 "encadernador"
 ],
-"craft/brewery":[
-"cervexaría",
-"cervexeiro",
-"cervexa",
-"Cervexeiro"
-],
 "craft/carpenter":[
 "carpinteiro",
 "Carpinteiro",
@@ -3330,12 +3324,7 @@
 "Paso de peóns"
 ],
 "highway/crossing/marked":[
-"paso de peóns",
-"cruzamento de peóns",
-"Paso de peóns marcado",
-"cruzamento marcado",
-"cebra",
-"paso de cebra"
+"Paso de peóns marcado"
 ],
 "highway/crossing/unmarked":[
 "peonil",
@@ -3379,13 +3368,7 @@
 "ciclismo"
 ],
 "highway/cycleway/crossing/marked":[
-"cruzamento de senda ciclista",
-"paso de bicicleta",
-"cruzamento de bicicleta",
-"cruzamento de ciclovía",
-"cruzamento de bici",
-"Paso de bicicletas marcado",
-"cruzamento de carril bici"
+"Paso de bicicletas marcado"
 ],
 "highway/cycleway/crossing/unmarked":[
 "cruzamento de senda ciclista",
@@ -3449,27 +3432,11 @@
 "highway/footway/crossing":[
 "Paso de peóns"
 ],
-"highway/footway/marked":[
-"paso de peóns",
-"cruzamento de peóns",
-"Paso de peóns marcado",
-"cruzamento marcado",
-"cebra",
-"paso de cebra"
-],
 "highway/footway/sidewalk":[
 "Beirarrúa",
 "paseo",
 "berma",
 "calzada"
-],
-"highway/footway/unmarked":[
-"Paso peonil sen marcar",
-"cruzamento sen marcar",
-"paso de peóns sen marcar"
-],
-"highway/footway/zebra":[
-"Paso de peóns marcado"
 ],
 "highway/give_way":[
 "Ceda o paso"
@@ -4731,9 +4698,6 @@
 "line":[
 "Liña"
 ],
-"man_made":[
-"Elemento feito polo home"
-],
 "man_made/adit":[
 "entrada",
 "minaría",
@@ -5040,16 +5004,6 @@
 "oleoduto",
 "gasoduto",
 "tubaxe"
-],
-"man_made/pipeline/valve":[
-"auga",
-"pluviais",
-"augas residuais",
-"Válvula de tubaxe",
-"alcantarillado",
-"petróleo",
-"gas natural",
-"oleoduto"
 ],
 "man_made/pumping_station":[
 "Estación de bombeo",
@@ -6185,9 +6139,6 @@
 "power/plant/source/nuclear":[
 "Planta de enerxía nuclear"
 ],
-"power/plant/source/solar":[
-"Planta de enerxía solar"
-],
 "power/plant/source/wind":[
 "Planta de enerxía eólica"
 ],
@@ -6767,9 +6718,6 @@
 "shop/anime":[
 "Tenda de anime / manga"
 ],
-"shop/antiques":[
-"Tenda de antigüidades"
-],
 "shop/appliance":[
 "Tenda de electrodomésticos"
 ],
@@ -6827,11 +6775,6 @@
 "codere",
 "Corredor de apostas",
 "apostas"
-],
-"shop/books":[
-"Libraría",
-"venda de libros",
-"libraría"
 ],
 "shop/boutique":[
 "Boutique"
@@ -6961,9 +6904,6 @@
 "shop/cosmetics":[
 "Tenda de cosméticos"
 ],
-"shop/country_store":[
-"Tenda do agro ou campo"
-],
 "shop/craft":[
 "Tenda de artes e oficios"
 ],
@@ -6980,9 +6920,6 @@
 "central leiteira",
 "queixaría",
 "lácteos"
-],
-"shop/deli":[
-"Delicatessen"
 ],
 "shop/department_store":[
 "Grandes almacéns"
@@ -7120,9 +7057,6 @@
 "shop/hardware":[
 "Ferraxaría"
 ],
-"shop/health_food":[
-"Tenda de produtos saudábeis"
-],
 "shop/hearing_aids":[
 "Tenda de audífonos"
 ],
@@ -7250,9 +7184,6 @@
 "shop/musical_instrument":[
 "Tenda de instrumentos musicais"
 ],
-"shop/newsagent":[
-"Tenda de xornais/revistas"
-],
 "shop/nutrition_supplements":[
 "Tenda de suplementos nutricionais"
 ],
@@ -7307,9 +7238,6 @@
 "Confeitaría ou pastelaría",
 "pastelaría",
 "tartas"
-],
-"shop/pawnbroker":[
-"Casa de empeños"
 ],
 "shop/perfumery":[
 "Perfumaría"
@@ -7376,9 +7304,6 @@
 "peixeiro",
 "peixaría",
 "peixe"
-],
-"shop/second_hand":[
-"Tenda de segunda man"
 ],
 "shop/sewing":[
 "corte",
@@ -7522,13 +7447,6 @@
 ],
 "shop/vacuum_cleaner":[
 "Tenda de aspiradoras"
-],
-"shop/variety_store":[
-"todo a 100",
-"Tenda de variedades ou bazar",
-"variedades",
-"todo a cen",
-"bazar"
 ],
 "shop/video":[
 "Videoclube"

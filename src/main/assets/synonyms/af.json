@@ -577,9 +577,6 @@
 "craft/blacksmith":[
 "Smid"
 ],
-"craft/brewery":[
-"Brouery"
-],
 "craft/carpenter":[
 "Skrynwerker"
 ],
@@ -749,9 +746,6 @@
 ],
 "highway/footway":[
 "Voetpad"
-],
-"highway/footway/unmarked":[
-"Nie gemerk kruis"
 ],
 "highway/give_way":[
 "Toegeeteken"
@@ -1125,9 +1119,6 @@
 "line":[
 "lyn",
 "Lyn"
-],
-"man_made":[
-"Mensgemaak"
 ],
 "man_made/breakwater":[
 "golfbreker",
@@ -1681,10 +1672,6 @@
 "shop/alcohol":[
 "Drankwinkel"
 ],
-"shop/antiques":[
-"oudhede",
-"Antiekwinkel"
-],
 "shop/appliance":[
 "Toestelwinkel"
 ],
@@ -1708,9 +1695,6 @@
 ],
 "shop/bookmaker":[
 "Beroepswedder"
-],
-"shop/books":[
-"Boekwinkel"
 ],
 "shop/boutique":[
 "Boetiek"
@@ -1759,9 +1743,6 @@
 ],
 "shop/cosmetics":[
 "Kosmetiekwinkel"
-],
-"shop/deli":[
-"Deli"
 ],
 "shop/department_store":[
 "Afdelingswinkel"
@@ -1814,9 +1795,6 @@
 ],
 "shop/hardware":[
 "Hardewarewinkel"
-],
-"shop/health_food":[
-"Gesondheidswinkel"
 ],
 "shop/hearing_aids":[
 "Gehoortoestellewinkel"
@@ -1901,9 +1879,6 @@
 ],
 "shop/vacant":[
 "Leë winkel"
-],
-"shop/variety_store":[
-"Algemene handelaar"
 ],
 "shop/video":[
 "Videowinkel"

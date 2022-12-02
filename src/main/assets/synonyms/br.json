@@ -1,0 +1,2190 @@
+{
+"address":[
+"Chomlec'h"
+],
+"aerialway/cable_car":[
+"Fungarr"
+],
+"aerialway/drag_lift":[
+"ski",
+"funsacherez",
+"fungador",
+"skiañ",
+"Fungador"
+],
+"aeroway/aerodrome":[
+"Aerborzh",
+"aerborzh"
+],
+"aeroway/apron":[
+"Tarmak"
+],
+"aeroway/helipad":[
+"Biñsporzh",
+"biñsporzh"
+],
+"aeroway/runway":[
+"Pradva"
+],
+"amenity/animal_shelter":[
+"Bod-loened",
+"advabañ",
+"loen moumoun",
+"perc'hennañ",
+"bod-loened",
+"kgl",
+"adopsion",
+"kevredad gwarez al loened",
+"bod",
+"advugelañ",
+"loen-ti",
+"moumoun",
+"loen"
+],
+"amenity/atm":[
+"Bilhedaouer"
+],
+"amenity/bank":[
+"ti-bank",
+"arc'hanti",
+"Ti-bank"
+],
+"amenity/bar":[
+"Tavarn"
+],
+"amenity/bar/lgbtq":[
+"Tavarn LGDTQ+"
+],
+"amenity/bench":[
+"Bank"
+],
+"amenity/bicycle_parking":[
+"Parklec'h marc'hoù-houarn"
+],
+"amenity/bicycle_parking/building":[
+"parklec'h",
+"marc'h-houarn",
+"karrdi",
+"Karrdi marc'hoù-houarn"
+],
+"amenity/bicycle_parking/lockers":[
+"kadranas",
+"marc'h-houarn",
+"pluenn",
+"Kadranasoù marc'hoù-houarn",
+"krabotinell"
+],
+"amenity/bicycle_parking/shed":[
+"marc'h-houarn",
+"Goudor marc'hoù-houarn",
+"loch",
+"goudor"
+],
+"amenity/bicycle_rental":[
+"Marc'hoù-houarn da feurmiñ"
+],
+"amenity/bus_station":[
+"Arsav-dibenn bus"
+],
+"amenity/cafe":[
+"ti-evañ",
+"ti-kafe",
+"kafedi",
+"Ti-kafe"
+],
+"amenity/cafe/bubble_tea":[
+"Tavarn bubble-tea"
+],
+"amenity/cafe/coffee_shop":[
+"Ti-kafe"
+],
+"amenity/car_pooling":[
+"Leur-genweturañ"
+],
+"amenity/casino":[
+"Kazino"
+],
+"amenity/cinema":[
+"fiñvskeudenndi",
+"sinema",
+"Sinema",
+"fiñvskeudennva"
+],
+"amenity/clinic/abortion":[
+"Klinikenn diforc'hidigezh"
+],
+"amenity/clock":[
+"Eurier",
+"amzer",
+"dihuner",
+"eurier",
+"horolaj",
+"montr",
+"pandulenn"
+],
+"amenity/college":[
+"deskadurezh uhel",
+"skol deskadurezh uhel",
+"skol-veur",
+"Tachenn skol deskadurezh uhel"
+],
+"amenity/community_centre":[
+"Sal liezimplij"
+],
+"amenity/courthouse":[
+"Ti-barn"
+],
+"amenity/coworking_space":[
+"Lec'h kenlabourat"
+],
+"amenity/crematorium":[
+"Forn an ankoù"
+],
+"amenity/doctors":[
+"Doktor"
+],
+"amenity/dojo":[
+"Dojo"
+],
+"amenity/dressing_room":[
+"Gwiskva"
+],
+"amenity/drinking_water":[
+"dour mat da evañ",
+"Dour Mat da Evañ"
+],
+"amenity/driver_training":[
+"Tachenn skol-vleinañ"
+],
+"amenity/driving_school":[
+"Skol-vleinañ"
+],
+"amenity/embassy":[
+"Kannati"
+],
+"amenity/fast_food":[
+"Fast Food"
+],
+"amenity/fast_food/fish_and_chips":[
+"Fish & Chips"
+],
+"amenity/fast_food/kebab":[
+"Ti-kebab"
+],
+"amenity/fast_food/mexican":[
+"Fast-food mec'hikan"
+],
+"amenity/fast_food/pizza":[
+"Ti-pizza"
+],
+"amenity/fire_station":[
+"tan",
+"pomper",
+"kazarn pomperien",
+"kazarn ar bomperien",
+"saper-pomperez",
+"saper-pomper youlat",
+"kreizenn sikour",
+"plac'h an tan",
+"mallusted",
+"Kazarn Pomperien",
+"kts",
+"tangwall",
+"gwarez a-enep an tanioù-gwall",
+"saper-pomper",
+"pomperezed",
+"pomperez",
+"kreizenn tanioù-gwall ha sikourioù",
+"spy",
+"pomperien",
+"paotr an tan"
+],
+"amenity/fountain":[
+"Feunteun"
+],
+"amenity/fuel":[
+"Porzh Servij"
+],
+"amenity/grave_yard":[
+"Bered"
+],
+"amenity/hospital":[
+"Tachenn ospital"
+],
+"amenity/internet_cafe":[
+"tavarn",
+"stlenneg",
+"sibertavarn",
+"ti-debriñ",
+"Siber-tavarn"
+],
+"amenity/kindergarten":[
+"Tachenn skol-vamm"
+],
+"amenity/language_school":[
+"Skol yezhoù"
+],
+"amenity/lavoir":[
+"Poull-kannañ"
+],
+"amenity/library":[
+"Levraoueg"
+],
+"amenity/marketplace":[
+"Marc'had"
+],
+"amenity/monastery":[
+"Tachenn abati"
+],
+"amenity/music_school":[
+"Skol sonerezh"
+],
+"amenity/nightclub":[
+"Toull-noz",
+"toull-noz",
+"toull"
+],
+"amenity/nightclub/lgbtq":[
+"Toull-noz LGDTQ+"
+],
+"amenity/nursing_home":[
+"Ti-diskuizh"
+],
+"amenity/parking":[
+"Parklec'h"
+],
+"amenity/parking/park_ride":[
+"Parklec'h-eskemm"
+],
+"amenity/parking/underground":[
+"Parklec'h dindandouar"
+],
+"amenity/parking_space":[
+"parklec'h",
+"parkañ",
+"gwetur",
+"plasenn parkañ",
+"plasenn",
+"karr-tan",
+"Plasenn parkañ",
+"karbed"
+],
+"amenity/photo_booth":[
+"Fotomaton"
+],
+"amenity/place_of_worship":[
+"lec'h azeuliñ",
+"lec'h sakr",
+"Lec'h Azeuliñ"
+],
+"amenity/place_of_worship/buddhist":[
+"templ boudaat",
+"Templ Boudaat"
+],
+"amenity/place_of_worship/christian":[
+"iliz kristen",
+"Iliz Kristen"
+],
+"amenity/place_of_worship/christian/la_luz_del_mundo":[
+"Templ La Luz del Mundo"
+],
+"amenity/place_of_worship/hindu":[
+"Templ hindou",
+"kshetram",
+"aoter",
+"mandir",
+"lec'h santel",
+"alayam",
+"templ",
+"kovil",
+"devasthana"
+],
+"amenity/place_of_worship/jewish":[
+"Sinagogenn",
+"sinagogenn"
+],
+"amenity/place_of_worship/muslim":[
+"Moskeenn",
+"moskeenn"
+],
+"amenity/place_of_worship/shinto":[
+"Aoter chinto"
+],
+"amenity/place_of_worship/sikh":[
+"Templ sikh"
+],
+"amenity/place_of_worship/taoist":[
+"Templ daoat"
+],
+"amenity/planetarium":[
+"Planetariom"
+],
+"amenity/police":[
+"ti-polis",
+"staelva-polis",
+"Ti-polis",
+"post-polis"
+],
+"amenity/polling_station":[
+"Burev-votiñ pad"
+],
+"amenity/post_box":[
+"Boest-lizhiri (kas)"
+],
+"amenity/post_office":[
+"Ti-post"
+],
+"amenity/prison":[
+"Tachenn doull-bac'h"
+],
+"amenity/pub":[
+"Pub"
+],
+"amenity/pub/lgbtq":[
+"Pub LGDTQ+"
+],
+"amenity/public_bath":[
+"Kibelldi foran"
+],
+"amenity/recycling":[
+"Lec'h adaozañ"
+],
+"amenity/recycling/container/electrical_items":[
+"Kontener lastez aveadurioù tredan hag elektronek"
+],
+"amenity/recycling/container/green_waste":[
+"Kontener glasach"
+],
+"amenity/recycling_centre":[
+"Kreizenn adaozañ"
+],
+"amenity/recycling_container":[
+"Kontener adaozañ"
+],
+"amenity/refugee_site":[
+"Kamp repuidi",
+"kamp repuidi"
+],
+"amenity/restaurant":[
+"Preti",
+"preti",
+"ti-debriñ"
+],
+"amenity/restaurant/american":[
+"Ti-debriñ amerikan"
+],
+"amenity/restaurant/asian":[
+"Preti aziat"
+],
+"amenity/restaurant/barbeque":[
+"Ti-debriñ regezer"
+],
+"amenity/restaurant/chinese":[
+"Preti sinat"
+],
+"amenity/restaurant/french":[
+"galleg",
+"Preti gall",
+"frañs",
+"preti",
+"ti-debriñ",
+"gall",
+"ostaleri",
+"bro-c'hall"
+],
+"amenity/restaurant/german":[
+"Preti alaman"
+],
+"amenity/restaurant/greek":[
+"Ti-debriñ gresat"
+],
+"amenity/restaurant/indian":[
+"Preti indian"
+],
+"amenity/restaurant/italian":[
+"Preti italian"
+],
+"amenity/restaurant/japanese":[
+"Preti japanat"
+],
+"amenity/restaurant/mexican":[
+"Preti mec'hikan"
+],
+"amenity/restaurant/pizza":[
+"Ti-pizza"
+],
+"amenity/restaurant/seafood":[
+"Preti boued-mor"
+],
+"amenity/restaurant/sushi":[
+"Preti sushi"
+],
+"amenity/restaurant/thai":[
+"Preti thai"
+],
+"amenity/restaurant/turkish":[
+"Preti turkat"
+],
+"amenity/restaurant/vietnamese":[
+"Preti vietnamat"
+],
+"amenity/school":[
+"Tachenn skol"
+],
+"amenity/shelter":[
+"Goudor"
+],
+"amenity/shower":[
+"Strinkerezh"
+],
+"amenity/smoking_area":[
+"butun",
+"takad",
+"butunerien",
+"takad butunerien",
+"Takad Butunerien"
+],
+"amenity/social_centre":[
+"Kreizenn sokial"
+],
+"amenity/social_facility/nursing_home":[
+"Ti-diskuizh"
+],
+"amenity/studio/radio":[
+"Chadenn radio"
+],
+"amenity/telephone":[
+"Pellgomzer"
+],
+"amenity/theatre":[
+"c'hoariva",
+"teatr",
+"C'hoariva"
+],
+"amenity/theatre/type/amphi":[
+"Selaouva"
+],
+"amenity/toilets":[
+"Privezioù"
+],
+"amenity/townhall":[
+"maerdi",
+"ti-kêr",
+"Ti-kêr"
+],
+"amenity/townhall/city":[
+"Ti-kêr"
+],
+"amenity/university":[
+"Tachenn skol-veur"
+],
+"amenity/vending_machine":[
+"dasparzher",
+"emgefre",
+"emgefreek",
+"ingaler",
+"Dasparzher emgefre"
+],
+"amenity/vending_machine/bicycle_tube":[
+"Dasparzher bouzellennoù-rod"
+],
+"amenity/vending_machine/coffee":[
+"Greg emgefreek"
+],
+"amenity/vending_machine/feminine_hygiene":[
+"Ingaler produioù evit an amzerioù"
+],
+"amenity/vending_machine/food":[
+"Dasparzher boued"
+],
+"amenity/vending_machine/ice_cream":[
+"Dasparzher dienn-skorn"
+],
+"amenity/vending_machine/newspapers":[
+"dasparzher",
+"ingaler",
+"kazetenn",
+"Dasparzher kazetennoù"
+],
+"amenity/vending_machine/parking_tickets":[
+"Ingaler tikedennoù parkañ"
+],
+"amenity/vending_machine/pizza":[
+"Dasparzher pizzaoù"
+],
+"amenity/waste_basket":[
+"Poubellenn-straed"
+],
+"area":[
+"Takad"
+],
+"area/highway":[
+"Takad hent"
+],
+"attraction/amusement_ride":[
+"Manej"
+],
+"attraction/bumper_car":[
+"Kirri tos-tos"
+],
+"attraction/carousel":[
+"Kezeg-koad"
+],
+"attraction/maze":[
+"Milendall"
+],
+"attraction/train":[
+"Tren bihan touristel",
+"tren bihan touristel"
+],
+"attraction/water_slide":[
+"Ruz-dour"
+],
+"barrier/border_control":[
+"Post-harzoù"
+],
+"barrier/chain":[
+"Chadenn"
+],
+"barrier/ditch":[
+"foz",
+"fozell",
+"klaz",
+"Klaz"
+],
+"barrier/entrance":[
+"Mont-tre"
+],
+"barrier/fence":[
+"Kloued",
+"peulgae",
+"kloued",
+"kael"
+],
+"barrier/gate":[
+"porrastell",
+"dor-dall",
+"Porrastell",
+"porched"
+],
+"barrier/guard_rail":[
+"aspled",
+"Aspled",
+"garid",
+"ramparzh"
+],
+"barrier/handrail":[
+"Ramparzh"
+],
+"barrier/hedge":[
+"Garzh",
+"garzh"
+],
+"barrier/log":[
+"Gwezenn kouezet"
+],
+"barrier/wall":[
+"Moger"
+],
+"barrier/yes":[
+"Harz (n'eo ket spisaet)"
+],
+"boundary":[
+"Harzoù"
+],
+"boundary/administrative":[
+"Harzoù melestradurel"
+],
+"building":[
+"Savadur"
+],
+"building/apartments":[
+"Kendi"
+],
+"building/bunker":[
+"Bunker"
+],
+"building/cabin":[
+"lochenn",
+"kabanenn",
+"log",
+"logell",
+"logenn",
+"lojell",
+"loch",
+"Lochell"
+],
+"building/cathedral":[
+"Iliz-veur",
+"iliz-veur"
+],
+"building/chapel":[
+"ti-pediñ",
+"Chapel",
+"chapel"
+],
+"building/church":[
+"iliz",
+"Iliz"
+],
+"building/college":[
+"Savadur deskadurezh-uhel"
+],
+"building/commercial":[
+"Savadur koñvers"
+],
+"building/construction":[
+"Savadur war ober"
+],
+"building/dormitory":[
+"hunva",
+"Kousklec'h",
+"kousklec'h",
+"kouskva"
+],
+"building/entrance":[
+"Mont-tre / Mont-maez"
+],
+"building/farm":[
+"Ti-feurm",
+"ti-feurm",
+"atant"
+],
+"building/farm_auxiliary":[
+"Savadur atant"
+],
+"building/fire_station":[
+"Kreizenn-sikour"
+],
+"building/garage":[
+"karrdi",
+"Karrdi"
+],
+"building/garages":[
+"Karrdioù"
+],
+"building/greenhouse":[
+"Ti-gwer",
+"ti-gwer"
+],
+"building/hospital":[
+"klañvdi",
+"Ospital",
+"ospital"
+],
+"building/hotel":[
+"Leti"
+],
+"building/house":[
+"Ti"
+],
+"building/hut":[
+"Log"
+],
+"building/industrial":[
+"Savadur greantel"
+],
+"building/kindergarten":[
+"Savadur skol-vamm"
+],
+"building/mosque":[
+"Moskeenn",
+"moskeenn"
+],
+"building/office":[
+"Burevioù"
+],
+"building/outbuilding":[
+"Pourpez"
+],
+"building/public":[
+"Savadur foran"
+],
+"building/residential":[
+"Savadur annez"
+],
+"building/retail":[
+"Savadur kenwerzhel"
+],
+"building/roof":[
+"Toenn"
+],
+"building/ruins":[
+"Dismantroù ur savadur"
+],
+"building/school":[
+"Savadur skol"
+],
+"building/shed":[
+"Loch"
+],
+"building/stadium":[
+"Stad"
+],
+"building/synagogue":[
+"Sinagogenn"
+],
+"building/temple":[
+"Templ"
+],
+"building/train_station":[
+"Ti-gar"
+],
+"building/university":[
+"Savadur skol-veur"
+],
+"building_part":[
+"Rann ur savadur"
+],
+"building_point":[
+"Savadur"
+],
+"cemetery/grave":[
+"bez",
+"Bez"
+],
+"club":[
+"Klub"
+],
+"club/sport":[
+"Klub sport"
+],
+"craft/blacksmith":[
+"Govel",
+"govel"
+],
+"craft/chimney_sweeper":[
+"Skarzher"
+],
+"craft/clockmaker":[
+"moñcher",
+"horolajerezh",
+"dihuner",
+"Horolajerezh",
+"stal",
+"eurier",
+"horolaj",
+"montr",
+"pandulenn"
+],
+"craft/distillery":[
+"Strilherezh"
+],
+"craft/electrician":[
+"Tredaner"
+],
+"craft/gardener":[
+"Liorzhour"
+],
+"craft/joiner":[
+"Kalvez"
+],
+"craft/locksmith":[
+"Alc'hwezerezh"
+],
+"craft/painter":[
+"Livour"
+],
+"craft/sculptor":[
+"Kizeller",
+"maengizeller",
+"skulter",
+"skultour",
+"kizeller",
+"kizellour"
+],
+"embankment":[
+"Savenn-douar"
+],
+"emergency/assembly_point":[
+"lec'h emzastum difrae",
+"Lec'h emzastum difrae"
+],
+"emergency/defibrillator":[
+"Difibrilator"
+],
+"emergency/fire_extinguisher":[
+"Mouger-tan",
+"mouger-tan"
+],
+"emergency/fire_hose":[
+"oaled",
+"siminal",
+"stal oaledoù",
+"Korzenn eneptan"
+],
+"emergency/fire_hydrant":[
+"Genoù tan-gwall",
+"genoù tan-gwall"
+],
+"emergency/phone":[
+"Pellgomz difrae"
+],
+"emergency/siren":[
+"C'hwitellerez"
+],
+"entrance":[
+"Mont-tre / Mont-maez"
+],
+"entrance/emergency":[
+"Ermaez difrae"
+],
+"entrance/main":[
+"Moned pennañ"
+],
+"ford":[
+"Roudouz"
+],
+"ford_line":[
+"Roudouz"
+],
+"golf/bunker":[
+"Foz (golf)"
+],
+"golf/fairway":[
+"kanol-vor",
+"naoz",
+"Kanol-vor"
+],
+"golf/green":[
+"Glazenn bleustriñ"
+],
+"golf/hole":[
+"Toull"
+],
+"golf/tee":[
+"Torgenn deroù"
+],
+"healthcare":[
+"Pennospital"
+],
+"healthcare/alternative":[
+"Mezegiezh dazeilat"
+],
+"healthcare/alternative/chiropractic":[
+"Kiropraktour"
+],
+"healthcare/dentist/orthodontics":[
+"Kabined ortodontiezh"
+],
+"healthcare/laboratory":[
+"Arnodva dielfennadurioù mezegel"
+],
+"healthcare/physiotherapist":[
+"Fizikyac'haour"
+],
+"healthcare/psychotherapist":[
+"Bredyac'haour"
+],
+"healthcare/speech_therapist":[
+"Mezeg-al-lavar"
+],
+"healthcare/yes":[
+"Pennospital (n'eo ket spisaet)"
+],
+"highway":[
+"Elfenn ar Gourhent"
+],
+"highway/bus_stop":[
+"Arsav Bus"
+],
+"highway/busway":[
+"bus",
+"hent",
+"forzh",
+"karr-boutin",
+"treuzdougen",
+"treuzdougen foran",
+"busway",
+"Forzh bus"
+],
+"highway/cycleway":[
+"Hent marc'hoù-houarn"
+],
+"highway/elevator":[
+"Pignerez"
+],
+"highway/footway/crossing":[
+"Treuzenn kerzhourien"
+],
+"highway/footway/sidewalk":[
+"Riblenn-straed"
+],
+"highway/give_way":[
+"Panell \"lezit da dremen\""
+],
+"highway/living_street":[
+"Straed vev"
+],
+"highway/mini_roundabout":[
+"Kroashent-tro bihan",
+"kroashent-tro bihan",
+"kroashent-troig"
+],
+"highway/path":[
+"Gwenodenn"
+],
+"highway/pedestrian_area":[
+"Takad kerzhet"
+],
+"highway/pedestrian_line":[
+"Straed kerzhet"
+],
+"highway/primary":[
+"Hent pennañ"
+],
+"highway/residential":[
+"Hent annez"
+],
+"highway/road":[
+"Hent Dianav"
+],
+"highway/road/bridge":[
+"Pont bleinet dianav"
+],
+"highway/secondary":[
+"Hent eilrenk"
+],
+"highway/service":[
+"Hent moned"
+],
+"highway/service/alley":[
+"Alez"
+],
+"highway/service/drive-through":[
+"Servij \"drive\""
+],
+"highway/service/driveway":[
+"Alez"
+],
+"highway/service/emergency_access":[
+"Moned trummadoù"
+],
+"highway/service/parking_aisle":[
+"Plas-parkañ"
+],
+"highway/service_area":[
+"Leur-servij teret"
+],
+"highway/services":[
+"Takad servij"
+],
+"highway/speed_camera":[
+"radar",
+"bevenn-tizh",
+"Radar"
+],
+"highway/steps":[
+"diri",
+"Diri"
+],
+"highway/steps/conveying":[
+"eskalator",
+"diri-ruilh",
+"Diri-ruilh"
+],
+"highway/stop":[
+"Panell stop"
+],
+"highway/street_lamp":[
+"Post-lamp"
+],
+"highway/tertiary":[
+"Hent trederenk"
+],
+"highway/traffic_signals":[
+"Gouleier triliv"
+],
+"highway/unclassified":[
+"Hent eilrenk/direnk"
+],
+"historic":[
+"Lec'h Istorel"
+],
+"historic/archaeological_site":[
+"Lec'hienn arkeologel"
+],
+"historic/building":[
+"Savadur istorel"
+],
+"historic/castle":[
+"Kastell"
+],
+"historic/castle/fortress":[
+"Kreñvlec'h istorel"
+],
+"historic/castle/palace":[
+"Palez"
+],
+"historic/castle/stately":[
+"Kastell"
+],
+"historic/manor":[
+"Maner"
+],
+"historic/memorial":[
+"Kounlec'h"
+],
+"historic/monument":[
+"Monumant"
+],
+"historic/pillory":[
+"Post-ar-vezh istorel"
+],
+"historic/ruins":[
+"Dismantroù"
+],
+"historic/tomb":[
+"maen-koun",
+"bez",
+"Bez"
+],
+"historic/wayside_cross":[
+"Kalvar"
+],
+"historic/wreck":[
+"Peñse"
+],
+"indoor/room":[
+"Kambr"
+],
+"landuse":[
+"Elfenn implij an douar"
+],
+"landuse/aquaculture":[
+"Dourc'hounezerezh"
+],
+"landuse/basin":[
+"Diazad"
+],
+"landuse/cemetery":[
+"Bered"
+],
+"landuse/commercial":[
+"Takad koñvers"
+],
+"landuse/construction":[
+"Takad Sevel"
+],
+"landuse/farmland":[
+"Takad labour-douar"
+],
+"landuse/grass":[
+"Leton"
+],
+"landuse/harbour":[
+"havr",
+"Havr",
+"bag",
+"porzh"
+],
+"landuse/industrial":[
+"Takad greantel"
+],
+"landuse/industrial/slaughterhouse":[
+"lazhti",
+"lazhdi",
+"abatouer",
+"boserezh",
+"Lazhti"
+],
+"landuse/meadow":[
+"Pradenn"
+],
+"landuse/pond":[
+"Poull"
+],
+"landuse/quarry":[
+"Mengleuz"
+],
+"landuse/religious":[
+"Takad relijiel"
+],
+"landuse/reservoir":[
+"Mirlec'h"
+],
+"landuse/residential":[
+"Takad Annez"
+],
+"landuse/salt_pond":[
+"Palud"
+],
+"landuse/vineyard":[
+"Gwinieg"
+],
+"leisure":[
+"Elfenn an Dudi"
+],
+"leisure/common":[
+"Tachenn foran"
+],
+"leisure/dancing_school":[
+"Skol-dañs"
+],
+"leisure/escape_game":[
+"Escape Room"
+],
+"leisure/fitness_station/parallel_bars":[
+"Divvarrenn genstur"
+],
+"leisure/garden":[
+"Liorzh"
+],
+"leisure/garden/botanical":[
+"liorzh-plant",
+"Liorzh-plant",
+"liorzh louzawouriezh"
+],
+"leisure/golf_course":[
+"Tachenn golf"
+],
+"leisure/horse_riding":[
+"kezeg",
+"kazeg",
+"marc'hegezh",
+"kraou-kezeg",
+"Kreizenn varc'hegezh",
+"kraou",
+"marc'h",
+"marchosi",
+"kreizenn varc'hegezh"
+],
+"leisure/miniature_golf":[
+"Minigolf"
+],
+"leisure/nature_reserve":[
+"Gwarezva natur"
+],
+"leisure/park":[
+"liorzh",
+"park",
+"Park"
+],
+"leisure/picnic_table":[
+"Taol biknik"
+],
+"leisure/picnic_table/chess":[
+"Taol wezboell"
+],
+"leisure/pitch/american_football":[
+"Tachenn football amerikan"
+],
+"leisure/pitch/american_handball":[
+"handball amerikan",
+"tachenn handball amerikan",
+"Tachenn handball amerikan"
+],
+"leisure/pitch/baseball":[
+"Tachenn baseball"
+],
+"leisure/pitch/basketball":[
+"Tachenn vasket"
+],
+"leisure/pitch/beachvolleyball":[
+"traezhenn",
+"Tachenn traezhenn-volley-ball",
+"volley-ball",
+"volley",
+"volleyball"
+],
+"leisure/pitch/cricket":[
+"Tachenn griked",
+"kriked",
+"tachenn griked",
+"sport",
+"tachenn"
+],
+"leisure/pitch/paintball":[
+"Tachenn paintball"
+],
+"leisure/pitch/shooting":[
+"Stand tennañ"
+],
+"leisure/pitch/skateboard":[
+"Skatepark"
+],
+"leisure/pitch/soccer":[
+"Tachenn vell-droad"
+],
+"leisure/pitch/table_tennis":[
+"ping pong",
+"tennis-daol",
+"taol dennis-daol",
+"taol",
+"Taol dennis-taol"
+],
+"leisure/pitch/tennis":[
+"Tachenn dennis"
+],
+"leisure/playground":[
+"Porzh-c'hoari"
+],
+"leisure/sauna":[
+"Sauna"
+],
+"leisure/sports_centre":[
+"Kreizenn-sport"
+],
+"leisure/stadium":[
+"Stad"
+],
+"leisure/swimming_pool":[
+"Poull-neuial"
+],
+"leisure/track/horse_racing":[
+"Marc'hva"
+],
+"line":[
+"Linenn"
+],
+"man_made":[
+"Elfenn Artifisiel"
+],
+"man_made/beehive":[
+"Ruskenn"
+],
+"man_made/bridge":[
+"Gorread pont"
+],
+"man_made/chimney":[
+"Siminal"
+],
+"man_made/crane":[
+"Gavr"
+],
+"man_made/cross":[
+"Kroaz"
+],
+"man_made/embankment":[
+"Savenn-douar"
+],
+"man_made/flagpole":[
+"Gwern banniel"
+],
+"man_made/lighthouse":[
+"Tour-tan"
+],
+"man_made/manhole":[
+"Genoù kan-skarzh"
+],
+"man_made/mast":[
+"Peul"
+],
+"man_made/mast/communication":[
+"Peul pellgehentiñ"
+],
+"man_made/mast/communication/radio":[
+"gwern",
+"skingas",
+"peul",
+"pellgehentiñ",
+"kehentiñ",
+"Peul skingas radio",
+"skingomz",
+"radio"
+],
+"man_made/mast/communication/television":[
+"gwern",
+"skingas",
+"Peul skingas skinwel",
+"peul",
+"pellgehentiñ",
+"kehentiñ",
+"tele",
+"skinwel",
+"radio"
+],
+"man_made/observatory":[
+"Arsellva"
+],
+"man_made/pipeline":[
+"Gazsan / eoulsan"
+],
+"man_made/pipeline/underground":[
+"Eoulsan dindandouar"
+],
+"man_made/silo":[
+"Silo"
+],
+"man_made/surveillance/camera":[
+"Kamera-evezhiañ"
+],
+"man_made/tower":[
+"Tour"
+],
+"man_made/tower/bell_tower":[
+"Kloc'hdi"
+],
+"man_made/tower/minaret":[
+"Minared"
+],
+"man_made/tunnel":[
+"Takad riboul"
+],
+"man_made/wastewater_plant":[
+"Purlec'h"
+],
+"man_made/water_tower":[
+"Kastell-dour"
+],
+"man_made/watermill":[
+"Milin-dour"
+],
+"man_made/windmill":[
+"Milin"
+],
+"man_made/works":[
+"Labouradeg",
+"greanti",
+"uzin",
+"labouradeg"
+],
+"man_made/works/brewery":[
+"Breserezh greantel"
+],
+"man_made/yes":[
+"Elfenn denel (n'eo ket spisaet)"
+],
+"natural":[
+"Elfenn naturel"
+],
+"natural/bay":[
+"Bae"
+],
+"natural/beach":[
+"Traezhenn"
+],
+"natural/cave_entrance":[
+"Moned kav"
+],
+"natural/cliff":[
+"Tornaod"
+],
+"natural/coastline":[
+"aod",
+"Aod"
+],
+"natural/glacier":[
+"Skorneg"
+],
+"natural/grassland":[
+"Prad naturel"
+],
+"natural/heath":[
+"Lann"
+],
+"natural/mud":[
+"Fank"
+],
+"natural/reef":[
+"Karreg"
+],
+"natural/sand":[
+"Traezh"
+],
+"natural/scrub":[
+"bod",
+"Brouskoad",
+"strouezh",
+"brouskoad",
+"krin"
+],
+"natural/strait":[
+"Strizh-mor"
+],
+"natural/tree":[
+"Gwezenn"
+],
+"natural/tree_stump":[
+"Souchenn"
+],
+"natural/valley":[
+"Traoñienn"
+],
+"natural/volcano":[
+"Menez-tan"
+],
+"natural/water":[
+"Dour"
+],
+"natural/water/basin":[
+"Diazad"
+],
+"natural/water/canal":[
+"Takad kanol"
+],
+"natural/water/lake":[
+"lenn",
+"Lenn"
+],
+"natural/water/pond":[
+"Stank"
+],
+"natural/water/reservoir":[
+"Mirlec'h"
+],
+"natural/water/river":[
+"Takad stêr"
+],
+"natural/water/stream":[
+"Takad gwazh"
+],
+"natural/water/wastewater":[
+"Poull dourioù lous"
+],
+"natural/wetland/wet_meadow":[
+"Pradenn c'hleb"
+],
+"natural/wood":[
+"Koad naturel"
+],
+"noexit/yes":[
+"Hep ermaez"
+],
+"office":[
+"Burev"
+],
+"office/association":[
+"Burev aozadur e-maez-gouarnamant"
+],
+"office/coworking":[
+"Lec'h kenlabourat"
+],
+"office/diplomatic/consulate":[
+"kannadouriezh",
+"Koñsuldi",
+"koñsuliezh",
+"kannadour",
+"paseporzh",
+"diplomatiezh",
+"viza",
+"koñsuldi",
+"koñsul"
+],
+"office/diplomatic/embassy":[
+"ambasader",
+"kannadouriezh",
+"kannati",
+"kannadi",
+"kannadour",
+"kannad",
+"kannder",
+"paseporzh",
+"diplomatiezh",
+"Kannati",
+"viza"
+],
+"office/estate_agent":[
+"Ajañs-tiez"
+],
+"office/financial_advisor":[
+"Kuzulier-arc'hant"
+],
+"office/government":[
+"Melestradurezh publik"
+],
+"office/government/tax":[
+"Ti an tailhoù"
+],
+"office/insurance":[
+"Ajañs asurañs"
+],
+"office/lawyer/notary":[
+"Noter"
+],
+"office/moving_company":[
+"Embregerezh dilojadeg"
+],
+"office/newspaper":[
+"Kazetenn"
+],
+"office/ngo":[
+"Burev AMG"
+],
+"office/notary":[
+"Noter"
+],
+"office/physician":[
+"Medisin"
+],
+"office/political_party":[
+"Burev strollad politikel"
+],
+"office/quango":[
+"Burev hanter-AMG"
+],
+"office/tax_advisor":[
+"Burev kuzulier-arc'hant"
+],
+"office/travel_agent":[
+"Ajañs-veaj"
+],
+"office/union":[
+"burev sindikad",
+"Burev sindikad",
+"sindikad"
+],
+"office/yes":[
+"Burev (n'eo ket spisaet)"
+],
+"pipeline":[
+"Elfenn eoulsan"
+],
+"pipeline/valve":[
+"Begel eoulsan"
+],
+"place":[
+"Lec'h"
+],
+"place/city":[
+"Kêr Vras"
+],
+"place/farm":[
+"Atant"
+],
+"place/hamlet":[
+"Pennkêr"
+],
+"place/island":[
+"enez",
+"enezenn",
+"Enez"
+],
+"place/isolated_dwelling":[
+"Annez distro"
+],
+"place/square":[
+"Skwar",
+"plasenn",
+"skwar"
+],
+"place/town":[
+"Kêr"
+],
+"place/village":[
+"Kêriadenn"
+],
+"playground/slide":[
+"Ruz-revr"
+],
+"playground/swing":[
+"Brañsigell"
+],
+"playground/teenshelter":[
+"Repu evit krennarded"
+],
+"playground/trampoline":[
+"Trampolin"
+],
+"point":[
+"Poent"
+],
+"polling_station":[
+"Burev-votiñ berrbad"
+],
+"power":[
+"Elfenn Dredanel"
+],
+"power/catenary_mast":[
+"Post katener",
+"katener",
+"aerfun",
+"post katener"
+],
+"power/generator/method/photovoltaic":[
+"heoldredan",
+"panell-heol",
+"Panell-heol",
+"fotovoltaek"
+],
+"power/generator/method/photovoltaic/location/roof":[
+"Panell-heol an doen"
+],
+"power/generator/source/hydro":[
+"Rod-avel"
+],
+"power/generator/source/nuclear":[
+"Reaktor nukleel"
+],
+"power/generator/source/wind":[
+"Rod-avel"
+],
+"power/plant":[
+"Tachenn greizenn dredan"
+],
+"power/plant/source/coal":[
+"Kreizenn dermek dre c'hlaou"
+],
+"power/plant/source/gas":[
+"Kreizenn dermek dre c'haz"
+],
+"power/plant/source/hydro":[
+"Kreizenn dre zour"
+],
+"power/plant/source/nuclear":[
+"Kreizenn nukleel"
+],
+"power/plant/source/oil":[
+"Kreizenn dermek dre eoul-douar"
+],
+"power/plant/source/solar":[
+"Kreizenn heoldredan",
+"kreizenn heoldredan"
+],
+"power/plant/source/waste":[
+"Pulluc'hva al lastez"
+],
+"public_transport/platform/bus":[
+"Kae bus"
+],
+"public_transport/platform/bus_point":[
+"Arsav Bus"
+],
+"public_transport/platform/bus_tram_point":[
+"arsav tramgarr & bus",
+"Arsav Tramgarr & Bus"
+],
+"public_transport/platform/ferry":[
+"Kae ferryoù"
+],
+"public_transport/platform/ferry_point":[
+"Arsav / kae ferry"
+],
+"public_transport/platform/light_rail":[
+"Kae metro skañv"
+],
+"public_transport/platform/light_rail_point":[
+"Arsav / kae metro skañv"
+],
+"public_transport/platform/monorail":[
+"Kae unroudenn"
+],
+"public_transport/platform/monorail_point":[
+"Arsav / kae unroudenn"
+],
+"public_transport/platform/subway":[
+"Kae metro"
+],
+"public_transport/platform/subway_point":[
+"Arsav / kae metro"
+],
+"public_transport/platform/train":[
+"Kae tren"
+],
+"public_transport/platform/train_point":[
+"Arsav / kae tren"
+],
+"public_transport/platform/tram":[
+"Kae tramgarr"
+],
+"public_transport/platform/tram_point":[
+"Arsav / kae tramgarr"
+],
+"public_transport/platform/trolleybus":[
+"Kae trolleybus"
+],
+"public_transport/platform/trolleybus_point":[
+"Arsav trolleybus"
+],
+"public_transport/station_bus":[
+"Arsav-dibenn bus"
+],
+"public_transport/station_ferry":[
+"Arsav-dibenn ferry"
+],
+"public_transport/station_light_rail":[
+"Arsav metro skañv"
+],
+"public_transport/station_monorail":[
+"Arsav unroudenn"
+],
+"public_transport/station_subway":[
+"Arsav metro"
+],
+"public_transport/station_train":[
+"Ti-gar"
+],
+"public_transport/station_train_halt":[
+"Ti-gar (arsav diwar c'houlenn)"
+],
+"public_transport/station_tram":[
+"Arsav tramgarr"
+],
+"public_transport/station_trolleybus":[
+"Arsav-dibenn trolleybus"
+],
+"public_transport/stop_position_bus":[
+"Lec'h ma'z ehan ar bus"
+],
+"public_transport/stop_position_ferry":[
+"Lec'h ma'z arsav ar ferryoù"
+],
+"public_transport/stop_position_light_rail":[
+"Lec'h ma'z ehan ar metro skañv"
+],
+"public_transport/stop_position_monorail":[
+"Lec'h ma'z ehan an unroudenn"
+],
+"public_transport/stop_position_subway":[
+"Lec'h ma harz ar metro"
+],
+"public_transport/stop_position_train":[
+"Lec'h ma'z ehan an tren"
+],
+"public_transport/stop_position_tram":[
+"Lec'h ma ehan an tramgarr"
+],
+"public_transport/stop_position_trolleybus":[
+"Lec'h ma'z ehan an trolleybus"
+],
+"railway":[
+"Elfenn an Hent-houarn"
+],
+"railway/abandoned":[
+"Hent-houarn dilezet",
+"hent-houarn dilezet"
+],
+"railway/crossing":[
+"Kroashent-houarn"
+],
+"railway/disused":[
+"Hent-houarn dilezet"
+],
+"railway/halt":[
+"Ti-gar (arsav diwar c'houlenn)"
+],
+"railway/light_rail":[
+"Forzh metro skañv"
+],
+"railway/monorail":[
+"Forzh unroudenn"
+],
+"railway/rail":[
+"Hent-houarn"
+],
+"railway/rail/highspeed":[
+"tren",
+"ttb",
+"Forzh tren tizh bras",
+"tren tizh bras",
+"hent-houarn"
+],
+"railway/station":[
+"Porzh-houarn"
+],
+"railway/subway":[
+"Forzh metro"
+],
+"railway/subway_entrance":[
+"Moned metro"
+],
+"railway/tram":[
+"Forzh tramgarr"
+],
+"relation":[
+"Darempred"
+],
+"route/ferry":[
+"Hentad ferry"
+],
+"shop":[
+"Stal"
+],
+"shop/anime":[
+"Stal mangaoù ha anime"
+],
+"shop/antiques":[
+"hendraour",
+"Hendraour"
+],
+"shop/bakery":[
+"Pastezerezh"
+],
+"shop/bicycle":[
+"Stal Marc'h-houarn"
+],
+"shop/boat":[
+"Stal vigi"
+],
+"shop/books":[
+"Levrdi"
+],
+"shop/butcher":[
+"Kigerezh"
+],
+"shop/cannabis":[
+"Stal ganabiz"
+],
+"shop/cheese":[
+"Formajerezh",
+"formajerezh"
+],
+"shop/clothes":[
+"Stal Dilhad"
+],
+"shop/clothes/underwear":[
+"Stad dindan-dilhad"
+],
+"shop/coffee":[
+"Stal gafe"
+],
+"shop/computer":[
+"Stal Urzhiater"
+],
+"shop/confectionery":[
+"Stal Vadigoù"
+],
+"shop/e-cigarette":[
+"e-sigaretenn",
+"butun",
+"butuniñ",
+"sigaretenn elektronek",
+"burezh",
+"sigaretenn",
+"Stal sigaretennoù elektronek",
+"vape",
+"stal",
+"burezhat",
+"aezhenn"
+],
+"shop/erotic/lgbtq":[
+"Sex-shop LGDTQ+"
+],
+"shop/fireplace":[
+"Stal oaledoù"
+],
+"shop/fishing":[
+"Stal pesketa"
+],
+"shop/florist":[
+"Stal Vleunioù"
+],
+"shop/furniture":[
+"Stal Arrebeuri"
+],
+"shop/hairdresser":[
+"Perukenner"
+],
+"shop/hunting":[
+"Stal jiboez"
+],
+"shop/jewelry":[
+"Stal-vravrigoù"
+],
+"shop/kiosk":[
+"Kiosk"
+],
+"shop/locksmith":[
+"Alc'hwezerezh"
+],
+"shop/mall":[
+"Kreizenn Genwerzh"
+],
+"shop/music":[
+"Stal-sonerezh"
+],
+"shop/optician":[
+"Ti al Lunedour"
+],
+"shop/paint":[
+"Stal livadur"
+],
+"shop/pastry":[
+"Pastezerezh",
+"stal-bastezer",
+"pastezer",
+"pastezour",
+"gwastell",
+"gwasteller",
+"pastezerezh",
+"kwign"
+],
+"shop/perfumery":[
+"c'hwezh-vat",
+"Porfumerezh",
+"porfum",
+"frond",
+"porfumerezh"
+],
+"shop/photo":[
+"Stal luc'hskeudennerezh"
+],
+"shop/pyrotechnics":[
+"stal tanioù-arvest",
+"Stal tanioù-arvest",
+"tan-arvest"
+],
+"shop/seafood":[
+"Stal boued-mor"
+],
+"shop/supermarket":[
+"gourmarc'had",
+"Gourmarc'had"
+],
+"shop/supermarket/organic":[
+"Gourmarc'had biologel"
+],
+"shop/tailor":[
+"Kemener"
+],
+"shop/tea":[
+"Stal te"
+],
+"shop/toys":[
+"Stal c'hoarielloù"
+],
+"shop/trade":[
+"groser",
+"marc'hadour",
+"koñvers",
+"Braswerzher",
+"braswerzher",
+"marc'hadour dre-vras",
+"stal",
+"gwerzher"
+],
+"shop/travel_agency":[
+"Ajañs-veaj"
+],
+"shop/vacuum_cleaner":[
+"stal sunerezioù",
+"stal sunerezioù-poultr",
+"Stal sunerezioù"
+],
+"shop/video_games":[
+"stal c'hoarioù-video",
+"Stal c'hoarioù-video"
+],
+"shop/watches":[
+"horolajerezh",
+"Horolajerezh"
+],
+"shop/water":[
+"Stal dour mat da evañ"
+],
+"shop/wigs":[
+"stal perukennoù",
+"Stal perukennoù"
+],
+"shop/wine":[
+"kav-gwin",
+"stal gwin",
+"Kav-gwin"
+],
+"shop/yes":[
+"Stal (n'eo ket spisaet)"
+],
+"telecom/data_center":[
+"Bank titouroù"
+],
+"tourism":[
+"Elfenn Douristel"
+],
+"tourism/alpine_hut":[
+"Bod"
+],
+"tourism/aquarium":[
+"akwariom",
+"doureg",
+"Akwariom"
+],
+"tourism/artwork":[
+"Oberenn arz",
+"oberenn arzel",
+"oberenn arz"
+],
+"tourism/artwork/bust":[
+"Korf-bras"
+],
+"tourism/artwork/graffiti":[
+"skrivachoù",
+"Grafiti",
+"grafiti"
+],
+"tourism/artwork/sculpture":[
+"skultadur",
+"kizelladur",
+"Kizelladur"
+],
+"tourism/artwork/statue":[
+"Delwenn",
+"delwenn"
+],
+"tourism/camp_site":[
+"takad kampiñ",
+"lec'h kampiñ",
+"Takad kampiñ"
+],
+"tourism/camp_site/backcountry":[
+"Tachenn-gampiñ gouez"
+],
+"tourism/caravan_site":[
+"Leur kirri-kampiñ"
+],
+"tourism/gallery":[
+"Diskouezva arz"
+],
+"tourism/hostel":[
+"Herberc'h",
+"herberc'h",
+"herberc'h yaouankiz",
+"hundi",
+"ostaleri"
+],
+"tourism/hotel":[
+"otel",
+"Leti",
+"ostaleri",
+"leti"
+],
+"tourism/information":[
+"Titouroù",
+"titouroù"
+],
+"tourism/information/board":[
+"Panell titouroù"
+],
+"tourism/information/board/welcome_sign":[
+"panell degemer",
+"Panell degemer"
+],
+"tourism/information/map":[
+"kartenn",
+"Kartenn"
+],
+"tourism/motel":[
+"Motel",
+"motel"
+],
+"tourism/museum":[
+"Mirdi",
+"mirdi"
+],
+"tourism/museum/history":[
+"Mirdi istor",
+"mirdi istor"
+],
+"tourism/picnic_site":[
+"lec'h piknikañ",
+"Lec'h piknikañ"
+],
+"tourism/viewpoint":[
+"Gwelva"
+],
+"tourism/zoo":[
+"liorzh-loened",
+"gouezvilva",
+"zoo",
+"Zoo"
+],
+"tourism/zoo/safari":[
+"safari",
+"Safari"
+],
+"traffic_calming/bump":[
+"Kein gwiz",
+"kein gwiz"
+],
+"traffic_calming/hump":[
+"Kein gwiz",
+"kein gwiz"
+],
+"traffic_calming/mini_bumps":[
+"Gorrekaerioù bihan"
+],
+"traffic_sign":[
+"Panell-henchañ"
+],
+"traffic_sign/maxspeed":[
+"Panell bevenn tizh"
+],
+"type/boundary":[
+"Harzoù"
+],
+"type/boundary/administrative":[
+"Harzoù melestradurel"
+],
+"type/multipolygon":[
+"Lieskorn"
+],
+"type/restriction/no_left_turn":[
+"Arabat treiñ a-gleiz"
+],
+"type/restriction/no_u_turn":[
+"Hanter-dro ebet"
+],
+"type/restriction/only_u_turn":[
+"Hanter-dro nemetken"
+],
+"type/route":[
+"Hentad"
+],
+"type/route/bicycle":[
+"Hentad marc'h-houarn"
+],
+"type/route/bus":[
+"Hentad bus"
+],
+"type/route/ferry":[
+"Hentad ferry"
+],
+"type/route/hiking":[
+"Hentad tro-vale"
+],
+"type/route/horse":[
+"Hentad marc'hegezh"
+],
+"type/route/light_rail":[
+"Hentad metro skañv"
+],
+"type/route/monorail":[
+"Hentad unroudenn"
+],
+"type/route/mtb":[
+"Hentad MTB"
+],
+"type/route/pipeline":[
+"Hentad eoulsan"
+],
+"type/route/piste":[
+"Hentad ski"
+],
+"type/route/railway":[
+"Hentad hent-houarn"
+],
+"type/route/subway":[
+"Hentad metro"
+],
+"type/route/train":[
+"Hentad tren"
+],
+"type/route/tram":[
+"Hentad tramgarr"
+],
+"type/route/trolleybus":[
+"linenn trolleybus",
+"Hentad trolleybus",
+"hentad trolleybus"
+],
+"type/waterway":[
+"Dourredenn"
+],
+"waterway":[
+"Elfenn dourel"
+],
+"waterway/canal":[
+"Kanol"
+],
+"waterway/dam":[
+"Stankell"
+],
+"waterway/river":[
+"Stêr"
+],
+"waterway/stream":[
+"Gwazh"
+],
+"waterway/waterfall":[
+"Lamm-dour"
+]
+}
