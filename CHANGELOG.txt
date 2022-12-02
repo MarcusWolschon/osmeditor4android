@@ -1,5 +1,51 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+18.1.0-1:
+
+- Fix debounce the upload button in the review/upload dialog
+- Fix don't allow file paths that escape the base directory when unzipping
+- Fix rename the built-in style
+- Fix if a stylable layer already exists toast and don't reset styling
+- Fix display specific message when imagery layer meta data is missing
+- Fix actually load imagery list while displaying splash screen
+- Fix superfluous fetches of Bing metadata if layer is visible on start
+- Fix use exif orientation when displaying photos
+- Fix delay indexing until WRITE_EXTERNAL_STORAGE has been granted
+- Fix wrong description element name when parsing GPX files
+- Fix "import", aka make a copy, of MBT files on API 29 and higher
+- Fix switch text to "Resume GPX track" if a track has already been started
+- Fix remove GPX and GeoJSON layers with null content id (keeps layer list consistent)
+- Fix add an "Import data style" function (Android 12 issue)
+- Fix fine tune tick spacing for metric scale on grid layer
+- Fix always unlock before starting the property editor
+- Fix only call focusOnEmpty the 1st time we are building the form
+- Fix display file name in toast after writing files
+- Fix documentation improvements
+- Fix remove search results when search term is too short
+- Fix beep and tip on long press of undo in path creation mode
+- Fix better titles when splitting ways
+- Fix better subtitles in the path creation mode
+- Fix indicate that the layer or layer meta data isn't available
+- Fix invalidate menu after closing all tasks
+- Fix only auto apply preset if one element is selected
+- Fix improve handling of duplicate keys in the tag editor
+- Fix avoid CME downloading MapRoulette challenges
+- Add if more than one app supports ACTION_OPEN_DOCUMENT/_CREATE_DOCUMENT show chooser and don't rely on Android
+- Add if latin script is being use sentence caps for comment and source field
+- Add support for selecting which part is used for new way when splittin
+- Add enable resetting style for all styleable layers
+- Add support for SVG icons in presets
+- Add "Clear OSM data" function
+- Add cut down version of upload dialog for edit review only
+- Add *=construction tags as default tags to re-survey
+- Add support for zipped (with icons) custom data styles
+- Update imagery from ELI
+- Update translations
+- Update NSI
+- Update presets
+- Update synonyms
+- Update ElementHistoryDialog
+
 18.0.1:
 
 - Fix invalidate menu after closing all tasks
