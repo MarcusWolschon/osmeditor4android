@@ -2637,7 +2637,7 @@ msgstr ""
 #: master_preset.xml:809(combo:display_values|key:religion)
 #: master_preset.xml:818(combo:display_values|key:religion)
 msgid "Christian"
-msgstr ""
+msgstr "Kristinusko"
 
 #: master_preset.xml:6148(item:name|group:Place_of_Worship|preset:Church)
 #: master_preset.xml:6154(combo:display_values|group:Place_of_Worship|preset:Church|key:building)
@@ -5646,7 +5646,7 @@ msgstr ""
 #: master_preset.xml:809(combo:display_values|key:religion)
 #: master_preset.xml:818(combo:display_values|key:religion)
 msgid "Hindu"
-msgstr ""
+msgstr "Hindu"
 
 #: master_preset.xml:6195(item:name|group:Place_of_Worship|preset:Hindu_Temple)
 msgid "Hindu Temple"
@@ -6197,7 +6197,7 @@ msgstr ""
 #: master_preset.xml:809(combo:display_values|key:religion)
 #: master_preset.xml:818(combo:display_values|key:religion)
 msgid "Jewish"
-msgstr ""
+msgstr "Juutalainen"
 
 #: master_preset.xml:12915(item:name|group:Crafts|preset:Joiner)
 msgid "Joiner"
@@ -7818,7 +7818,7 @@ msgstr "Musikaaliteatteri"
 #: master_preset.xml:809(combo:display_values|key:religion)
 #: master_preset.xml:818(combo:display_values|key:religion)
 msgid "Muslim"
-msgstr ""
+msgstr "Muslimi"
 
 #: master_preset.xml:11828(combo:display_values|group:Land_use|preset:Aquaculture|key:aquaculture)
 msgid "Mussels"

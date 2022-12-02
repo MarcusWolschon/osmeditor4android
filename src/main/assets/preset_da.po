@@ -293,11 +293,11 @@ msgstr "En plade med information."
 
 #: master_preset.xml:3488(label:text|group:Water|preset:Other_waterbodies)
 msgid "A body of water, such as a lake or pond."
-msgstr ""
+msgstr "Et vandområde, f.eks. en sø eller en dam."
 
 #: master_preset.xml:11428(label:text|group:Places|preset:Farm)
 msgid "A farm within a bigger settlement"
-msgstr ""
+msgstr "En gård inden for en større bebyggelse"
 
 #: master_preset.xml:1501(check:text|key:kids_area:fee)
 msgid "A fee must be paid"
@@ -309,7 +309,7 @@ msgstr ""
 
 #: master_preset.xml:1497(check:text|key:kids_area)
 msgid "A kids area is available"
-msgstr ""
+msgstr "Der er et børneområde"
 
 #: master_preset.xml:11602(label:text|group:Nature|preset:Tree_Row)
 msgid "A line of trees."
@@ -499,7 +499,7 @@ msgstr ""
 
 #: master_preset.xml:11030(list_entry:short_description|preset:Vending_Machine|value:admission_tickets)
 msgid "Admission tickets"
-msgstr ""
+msgstr "Adgangsbilletter"
 
 #: master_preset.xml:5898(item:name|preset:Adult_gaming_centre)
 msgid "Adult gaming centre"
@@ -523,7 +523,7 @@ msgstr ""
 
 #: master_preset.xml:1202(text:text|key:maxspeed:advisory)
 msgid "Advisory max. speed (km/h)"
-msgstr ""
+msgstr "Anbefalet maks. hastighed (km/t)"
 
 #: master_preset.xml:1530(check:text|key:aerialway)
 #: master_preset.xml:3944(group:name|group:Aerialway)
@@ -837,7 +837,7 @@ msgstr "Antenne"
 
 #: master_preset.xml:10415(item:name|group:Home_furnishing_and_decoration|preset:Antiques)
 msgid "Antiques"
-msgstr ""
+msgstr "Antikviteter"
 
 #: master_preset.xml:8216(item:name|group:Buildings|preset:Apartments)
 msgid "Apartments"
@@ -1736,11 +1736,11 @@ msgstr ""
 
 #: master_preset.xml:10495(item:name|group:Printed_Material|preset:Book_Store)
 msgid "Book Store"
-msgstr ""
+msgstr "Boghandel"
 
 #: master_preset.xml:12790(item:name|group:Crafts|preset:Bookbinder)
 msgid "Bookbinder"
-msgstr ""
+msgstr "bogbinder"
 
 #: master_preset.xml:10925(item:name|group:Other|preset:Bookmaker)
 msgid "Bookmaker"
@@ -2383,7 +2383,7 @@ msgstr ""
 
 #: master_preset.xml:11091(check:text|preset:Payment_Methods|key:payment:cash)
 msgid "Cash"
-msgstr ""
+msgstr "Kontant"
 
 #: master_preset.xml:11092(checkgroup:text|preset:Payment_Methods)
 msgid "Cash type"
@@ -2784,7 +2784,7 @@ msgstr ""
 #: master_preset.xml:1483(combo:display_values|key:resource)
 #: master_preset.xml:9092(list_entry:display_value|group:Power_Plant|preset:Power_Plant|value:coal)
 msgid "Coal"
-msgstr ""
+msgstr "Kul"
 
 #: master_preset.xml:9264(item:name|group:Power_Generator|preset:Coal_Power_Generator)
 msgid "Coal Power Generator"
@@ -2809,7 +2809,7 @@ msgstr ""
 #: master_preset.xml:10038(item:name|group:Food|preset:Coffee)
 #: master_preset.xml:11041(list_entry:short_description|preset:Vending_Machine|value:coffee)
 msgid "Coffee"
-msgstr ""
+msgstr "Kaffe"
 
 #: master_preset.xml:1452(check:text|key:recycling:coffee_capsules)
 msgid "Coffee capsules"
@@ -2823,7 +2823,7 @@ msgstr ""
 #: master_preset.xml:2864(check:text|group:Barriers|preset:Toll_Booth|key:payment:coins)
 #: master_preset.xml:7104(check:text|group:Facilities|preset:Telephone|key:payment:coins)
 msgid "Coins"
-msgstr ""
+msgstr "Mønter"
 
 #: master_preset.xml:9323(list_entry:display_value|group:Power_Generator|preset:Nuclear_Reactor|value:cold-fusion)
 msgid "Cold fusion"
@@ -4304,7 +4304,7 @@ msgstr "En blanding af hårde og bløde materialer"
 
 #: master_preset.xml:7117(item:name|group:Facilities|preset:Events_venue)
 msgid "Events venue"
-msgstr ""
+msgstr "Selskabslokale"
 
 #: master_preset.xml:799(list_entry:display_value|value:evergreen)
 msgid "Evergreen"
@@ -6203,7 +6203,7 @@ msgstr ""
 
 #: master_preset.xml:12915(item:name|group:Crafts|preset:Joiner)
 msgid "Joiner"
-msgstr ""
+msgstr "Snedker"
 
 #: master_preset.xml:7500(list_entry:short_description|group:Sport_Facilities|preset:Dojo|value:judo)
 msgid "Judo"
@@ -7039,15 +7039,15 @@ msgstr ""
 
 #: master_preset.xml:10566(item:name|group:For_the_body|preset:Massage)
 msgid "Massage"
-msgstr ""
+msgstr "Massage"
 
 #: master_preset.xml:6570(list_entry:short_description|group:Health|preset:Physiotherapist|value:massage_therapy)
 msgid "Massage therapy"
-msgstr ""
+msgstr "Massageterapi"
 
 #: master_preset.xml:10570(multiselect:text|group:For_the_body|preset:Massage|key:massage)
 msgid "Massage type"
-msgstr ""
+msgstr "Type af massage"
 
 #: master_preset.xml:8532(item:name|group:Man_Made|preset:Mast)
 msgid "Mast"
@@ -8388,7 +8388,7 @@ msgstr "Ingen"
 
 #: master_preset.xml:557(multiselect:display_values|key:cuisine)
 msgid "Noodle"
-msgstr ""
+msgstr "Nudel"
 
 #: master_preset.xml:12498(combo:display_values|group:Routes|preset:Ski_Route|key:piste:type)
 msgid "Nordic"
@@ -8660,7 +8660,7 @@ msgstr ""
 #: master_preset.xml:9085(list_entry:display_value|group:Power_Plant|preset:Power_Plant|value:oil)
 #: master_preset.xml:942(combo:display_values|key:utility)
 msgid "Oil"
-msgstr ""
+msgstr "Olie"
 
 #: master_preset.xml:9282(item:name|group:Power_Generator|preset:Oil_Power_Generator)
 msgid "Oil Power Generator"
@@ -10656,7 +10656,7 @@ msgstr ""
 
 #: master_preset.xml:6586(list_entry:short_description|group:Health|preset:Other_healthcare_facilities|value:rehabilitation)
 msgid "Rehabilitation"
-msgstr ""
+msgstr "Rehabilitering"
 
 #: master_preset.xml:2754(combo:display_values|group:Barriers|preset:Block|key:material)
 msgid "Reinforced concrete"
@@ -10802,7 +10802,7 @@ msgstr ""
 
 #: master_preset.xml:8587(combo:display_values|group:Man_Made|preset:Works|key:product)
 msgid "Rice"
-msgstr ""
+msgstr "Ris"
 
 #: master_preset.xml:5543(item:name|group:Leisure|preset:Rides)
 msgid "Rides"
@@ -11993,7 +11993,7 @@ msgstr ""
 #: master_preset.xml:5513(text:text|group:Leisure|preset:Animals|key:species)
 #: master_preset.xml:792(text:text|key:species)
 msgid "Species"
-msgstr ""
+msgstr "Art"
 
 #: master_preset.xml:6601(list_entry:short_description|group:Health|preset:Other_healthcare_professionals|value:speech_therapist)
 msgid "Speech therapist"
@@ -12704,7 +12704,7 @@ msgstr ""
 
 #: master_preset.xml:10031(item:name|group:Food|preset:Tea)
 msgid "Tea"
-msgstr ""
+msgstr "Te"
 
 #: master_preset.xml:11793(combo:display_values|group:Land_use|preset:Orchard|key:trees)
 msgid "Tea plants"
@@ -13010,7 +13010,7 @@ msgstr ""
 
 #: master_preset.xml:10579(item:name|group:For_the_body|preset:Tobacco)
 msgid "Tobacco"
-msgstr ""
+msgstr "Tobak"
 
 #: master_preset.xml:8494(combo:display_values|group:Indoor_elements|preset:Room|key:room)
 msgid "Toilet"
@@ -13817,7 +13817,7 @@ msgstr "Vegetarisk"
 
 #: master_preset.xml:4266(item:name|group:Car|preset:Vehicle_Inspection)
 msgid "Vehicle Inspection"
-msgstr ""
+msgstr "Bilinspektion"
 
 #: master_preset.xml:11655(combo:display_values|group:Nature|preset:Grassland|key:grassland)
 msgid "Veld"
@@ -14350,7 +14350,7 @@ msgstr ""
 
 #: master_preset.xml:9100(list_entry:display_value|group:Power_Plant|preset:Power_Plant|value:wind)
 msgid "Wind"
-msgstr ""
+msgstr "Vind"
 
 #: master_preset.xml:9222(item:name|group:Power_Plant|preset:Wind_Power_Plant)
 msgid "Wind Power Plant"
@@ -15243,7 +15243,7 @@ msgstr "Asfalt"
 #: master_preset.xml:33(combo:display_values|key:cycleway:surface)
 msgctxt "surface"
 msgid "Cobblestone"
-msgstr ""
+msgstr "Pigsten"
 
 #: master_preset.xml:158(combo:display_values|key:sidewalk:surface)
 #: master_preset.xml:2256(combo:display_values|preset:Sidewalk_right-hand_side|key:sidewalk:right:surface)
@@ -15460,7 +15460,7 @@ msgstr "Overflade"
 #: master_preset.xml:33(combo:display_values|key:cycleway:surface)
 msgctxt "surface"
 msgid "Unhewn cobblestone"
-msgstr ""
+msgstr "Pigsten"
 
 #: master_preset.xml:158(combo:display_values|key:sidewalk:surface)
 #: master_preset.xml:2256(combo:display_values|preset:Sidewalk_right-hand_side|key:sidewalk:right:surface)
@@ -17598,12 +17598,12 @@ msgstr "Taktil belægning"
 #: master_preset.xml:1241(list_entry:short_description|value:abortion)
 msgctxt "healthcare"
 msgid "Abortion"
-msgstr ""
+msgstr "Abort"
 
 #: master_preset.xml:6619(list_entry:short_description|group:Health|preset:Alternative_medicine|value:acupuncture)
 msgctxt "healthcare"
 msgid "Acupuncture"
-msgstr ""
+msgstr "Akupunktur"
 
 #: master_preset.xml:1243(list_entry:short_description|value:allergology)
 msgctxt "healthcare"
@@ -17633,7 +17633,7 @@ msgstr ""
 #: master_preset.xml:6610(combo:display_values|group:Health|preset:Laboratory|key:healthcare:speciality)
 msgctxt "healthcare"
 msgid "Biology"
-msgstr ""
+msgstr "Biologi"
 
 #: master_preset.xml:6610(combo:display_values|group:Health|preset:Laboratory|key:healthcare:speciality)
 msgctxt "healthcare"
@@ -18766,7 +18766,7 @@ msgstr ""
 #: master_preset.xml:1407(combo:display_values|key:animated)
 msgctxt "advertising"
 msgid "Wind"
-msgstr ""
+msgstr "Vind"
 
 #: master_preset.xml:1407(combo:display_values|key:animated)
 msgctxt "advertising"
@@ -20564,7 +20564,7 @@ msgstr ""
 #: master_preset.xml:6271(combo:display_values|group:Public_Building|preset:Community_Centre|key:community_centre)
 msgctxt "community_centre"
 msgid "Events venue"
-msgstr ""
+msgstr "Selskabslokale"
 
 #: master_preset.xml:6275(multiselect:display_values|group:Public_Building|preset:Community_Centre|key:community_centre:for)
 msgctxt "community_centre"
@@ -21250,7 +21250,7 @@ msgstr ""
 #: master_preset.xml:8676(combo:display_values|group:Man_Made|preset:Storage_Tank|key:content)
 msgctxt "content"
 msgid "Oil"
-msgstr ""
+msgstr "Olie"
 
 #: master_preset.xml:8676(combo:display_values|group:Man_Made|preset:Storage_Tank|key:content)
 msgctxt "content"
@@ -21773,7 +21773,7 @@ msgstr "Udendørs"
 #: master_preset.xml:10200(item:name|group:Clothes|preset:Shoe_repair)
 msgctxt "shop"
 msgid "Shoe repair"
-msgstr ""
+msgstr "Skoreparation"
 
 #: master_preset.xml:10189(item:name|group:Clothes|preset:Shoes)
 msgctxt "shop"
@@ -21899,7 +21899,7 @@ msgstr "Type"
 #: master_preset.xml:11771(combo:display_values|group:Land_use|preset:Farmland|key:crop)
 msgctxt "crop"
 msgid "Barley"
-msgstr ""
+msgstr "Byg"
 
 #: master_preset.xml:11771(combo:display_values|group:Land_use|preset:Farmland|key:crop)
 msgctxt "crop"
@@ -21909,7 +21909,7 @@ msgstr ""
 #: master_preset.xml:11771(combo:display_values|group:Land_use|preset:Farmland|key:crop)
 msgctxt "crop"
 msgid "Corn"
-msgstr ""
+msgstr "Korn"
 
 #: master_preset.xml:11771(combo:text|group:Land_use|preset:Farmland|key:crop)
 msgctxt "crop"
@@ -21929,12 +21929,12 @@ msgstr ""
 #: master_preset.xml:11771(combo:display_values|group:Land_use|preset:Farmland|key:crop)
 msgctxt "crop"
 msgid "Rapeseed"
-msgstr ""
+msgstr "Raps"
 
 #: master_preset.xml:11771(combo:display_values|group:Land_use|preset:Farmland|key:crop)
 msgctxt "crop"
 msgid "Rice"
-msgstr ""
+msgstr "Ris"
 
 #: master_preset.xml:11771(combo:display_values|group:Land_use|preset:Farmland|key:crop)
 msgctxt "crop"
@@ -21944,17 +21944,17 @@ msgstr ""
 #: master_preset.xml:11771(combo:display_values|group:Land_use|preset:Farmland|key:crop)
 msgctxt "crop"
 msgid "Sugarcane"
-msgstr ""
+msgstr "Sukkerrør"
 
 #: master_preset.xml:11771(combo:display_values|group:Land_use|preset:Farmland|key:crop)
 msgctxt "crop"
 msgid "Tea"
-msgstr ""
+msgstr "Te"
 
 #: master_preset.xml:11771(combo:display_values|group:Land_use|preset:Farmland|key:crop)
 msgctxt "crop"
 msgid "Wheat"
-msgstr ""
+msgstr "Hvede"
 
 #: master_preset.xml:11850(combo:display_values|group:Land_use|preset:Garden|key:garden:type)
 msgctxt "garden"
@@ -22239,7 +22239,7 @@ msgstr ""
 #: master_preset.xml:11950(combo:display_values|group:Land_use|preset:Industrial_area|key:industrial)
 msgctxt "industrial"
 msgid "Oil"
-msgstr ""
+msgstr "Olie"
 
 #: master_preset.xml:11950(combo:display_values|group:Land_use|preset:Industrial_area|key:industrial)
 msgctxt "industrial"

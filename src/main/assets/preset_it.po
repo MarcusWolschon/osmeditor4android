@@ -5227,7 +5227,7 @@ msgstr ""
 
 #: master_preset.xml:11148(check:text|preset:Payment_Methods|key:payment:google_pay)
 msgid "Google Pay"
-msgstr ""
+msgstr "Google Pay"
 
 #: master_preset.xml:5453(list_entry:display_value|group:Leisure|preset:Animals|value:goose)
 msgid "Goose"
@@ -12180,7 +12180,7 @@ msgstr "Steak house"
 
 #: master_preset.xml:1040(combo:display_values|key:substance)
 msgid "Steam"
-msgstr ""
+msgstr "Vapore"
 
 #: master_preset.xml:9237(combo:display_values|group:Power_Generator|preset:Biofuel_Power_Generator|key:generator:type)
 #: master_preset.xml:9246(combo:display_values|group:Power_Generator|preset:Biogas_Power_Generator|key:generator:type)
@@ -15651,7 +15651,7 @@ msgstr "Semafori"
 #: master_preset.xml:225(list_entry:short_description|value:unmarked)
 msgctxt "pedestrian"
 msgid "Unmarked"
-msgstr ""
+msgstr "Nessuna indicazione"
 
 #: master_preset.xml:3909(combo:display_values|group:Railway|preset:Railway_Switch|key:railway:switch)
 msgctxt "railway"

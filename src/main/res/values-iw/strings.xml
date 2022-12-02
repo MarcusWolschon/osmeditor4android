@@ -104,12 +104,15 @@
   <string name="upload_request_review_label">בקשת סקירה:</string>
   <string name="upload_validation_error_empty_comment">הערה לא יכולה להיות ריקה</string>
   <string name="upload_validation_error_empty_source">המקור לא אמור להיות ריק</string>
+  <!--Review changes dialog-->
   <!--Upload GPX-->
   <string name="upload_gpx_title">העלאת מסלול GPX</string>
   <string name="upload_gpx_description_label">תיאור</string>
   <string name="upload_gpx_tags_label">תגיות</string>
   <string name="upload_gpx_visibility_label">מצב הצגה</string>
   <string name="upload_validation_error_empty_description">תיאור ריק</string>
+  <!--Background properties-->
+  <string name="background_properties_title">מאפייני רקע</string>
   <!--task fragment-->
   <string name="openstreetbug_new_title">הערה חדשה</string>
   <string name="openstreetbug_new_bug">דיווח על תקלה</string>
@@ -139,6 +142,7 @@
   <string name="maproulette_task_apikey_set">מפתח ה־API של MapRoulette נשמר</string>
   <string name="maproulette_task_no_apikey">אין מפתח API של MapRoulette</string>
   <!--Todo dialogs-->
+  <string name="todo_comment_legend">תגובה</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">אזהרה!</string>
   <string name="unsaved_data_message">השינויים שלא שמרת יימחקו אלמלא יישמרו.</string>
@@ -332,10 +336,7 @@
   <string name="layer_data">נתוני OSM</string>
   <string name="layer_data_name">נתוני %1$s</string>
   <string name="layer_flush_tile_cache">פינוי מטמון האריחים</string>
-  <string name="layer_change_style">שינוי סגנון</string>
-  <string name="layer_load_style">טעינת סגנון</string>
   <string name="layer_reset_style">איפוס סגנון</string>
-  <string name="layer_select_imagery">בחירת תמונת רקע</string>
   <string name="layer_category_all">הכול</string>
   <string name="layer_category_photo">צילום אווירי</string>
   <string name="layer_category_elevation">תוואי שטח</string>
@@ -345,11 +346,6 @@
   <string name="layer_category_osmbasedmap">מפה מבוססת OSM</string>
   <string name="layer_category_qa">אבטחת איכות</string>
   <string name="layer_category_other">אחר</string>
-  <string name="layer_add_layer_from_mvt_style">הוספת שכבה מסגנון MVT</string>
-  <string name="layer_add_custom_imagery">הוספת תמונת רקע בהתאמה אישית</string>
-  <string name="layer_edit_custom_imagery_configuration">עריכת הגדרות תמונת רקע בהתאמה אישית</string>
-  <string name="layer_add_gpx">הוספת שכבה מקובץ GPX</string>
-  <string name="layer_download_track">הורדת מסלול GPX</string>
   <string name="layer_available_tracks">מסלולי GPX זמינים</string>
   <string name="layer_start_playback">התחלת נגינה</string>
   <string name="layer_pause_playback">השהית נגינה</string>
@@ -548,7 +544,6 @@
   <string name="toast_task_layer_disabled">שכבת המשימות הושבתה</string>
   <string name="toast_unable_to_create_task_layer">לא ניתן ליצור שכבת משימות</string>
   <string name="toast_merged">ממוזג</string>
-  <string name="toast_invalid_style_file">תבנית קובץ הסגנון של %1$s שגוי</string>
   <string name="toast_no_geometry">לא נמצאה גאומטריה עבור הרכיב</string>
   <string name="toast_added_api_entry_for">נוספה רשומת API עבור %1$s</string>
   <string name="toast_updated">%1$s עודכן</string>
@@ -559,7 +554,6 @@
   <string name="toast_error_reading">שגיאה בקריאה של %1$s</string>
   <string name="toast_read_successfully">הקובץ נקרא בהצלחה</string>
   <string name="toast_error_writing">שגיאה בכתיבת %1$s</string>
-  <string name="toast_successfully_written">הקובץ נכתב בהצלחה</string>
   <string name="toast_http_data_error_for">שגיאת נתוני HTTP עבור %1$s</string>
   <string name="toast_error_insufficient_space_for">אין מספיק מקום על המכשיר עבור %1$s</string>
   <string name="toast_error_too_many_redirects_for">יותר מדי הפניות עבור %1$s</string>
@@ -729,16 +723,13 @@
   <string name="position_info_title">פירוט על המיקום הנוכחי</string>
   <string name="position_info_hdop">HDOP</string>
   <string name="position_info_altitude">גובה</string>
-  <string name="position_info_geoid_height">גובה מעל הגאואיד</string>
   <string name="position_info_barometric_height">גובה מבחינת לחצי אוויר</string>
   <string name="position_info_geoid_correction">תיקון גאואיד</string>
-  <string name="position_info_ellipsoid_height">גובה מעל לאליפסואיד</string>
   <!--Strings in DownloadActivity-->
   <string name="download_files_title">הורדת קבצים</string>
   <string name="allow_all_networks">לאפשר את כל הרשתות</string>
   <!--Strings in Go to coordinates-->
   <string name="go_to_coordinates_title">מעבר לנקודות ציון</string>
-  <string name="go_to_coordinates_hint">נא להקליד נקודות ציון או OLC</string>
   <string name="unparseable_coordinates">נקודות ציון ללא אפשרות פענוח</string>
   <string name="network_required">נדרשת רשת לאיתור מיקום</string>
   <string name="no_nominatim_server">לא נמצאה הגדרה לשרת Nominatim</string>
@@ -777,9 +768,6 @@
   <string name="menu_gps_pause">השהיית מעקב GPX</string>
   <string name="menu_gps_clear">מחיקת מסלול GPX ואת נקודות הדרך שלו</string>
   <string name="menu_gps_track_managment">ניהול מסלול GPX…</string>
-  <string name="menu_gps_upload">העלאת מסלול GPX</string>
-  <string name="menu_gps_export">יצוא מסלול GPX</string>
-  <string name="menu_gps_import">יבוא מסלול GPX</string>
   <string name="menu_gps_goto_start">מעבר לתחילת מסלול ה־GPX</string>
   <string name="menu_gps_goto_first_waypoint">קפיצה לנקודת הדרך הראשונה</string>
   <string name="menu_enable_gps_autodownload">הורדה אוטומטית על בסיס מיקום</string>
@@ -789,7 +777,6 @@
   <string name="menu_transfer_download_replace">פינוי והורדת התצוגה הנוכחית</string>
   <string name="menu_transfer_load_current">טעינת התצוגה הנוכחית</string>
   <string name="menu_transfer_load_replace">פינוי וטעינת התצוגה הנוכחית</string>
-  <string name="menu_transfer_upload">העלאת נתונים לשרת OSM</string>
   <string name="menu_transfer_update">עדכון נתונים</string>
   <string name="menu_transfer_close_changeset">סגירת ערכת השינויים הנוכחית</string>
   <string name="menu_transfer_file">קובץ…</string>
@@ -826,7 +813,6 @@
   <string name="menu_extract_segment">חילוץ מקטע</string>
   <string name="menu_newnode_gps">מפרק חדש במיקום ה־GPS</string>
   <string name="menu_extend_selection">הרחבת הבחירה</string>
-  <string name="menu_information">מידע</string>
   <string name="menu_voice_commands">פקודות קוליות</string>
   <string name="menu_upload_element">העלאת רכיב</string>
   <string name="menu_upload_elements">העלאת רכיבים</string>
@@ -835,7 +821,6 @@
   <string name="menu_tools_imagery">כלי תמונות רקע נוספים…</string>
   <string name="menu_tools_add_imagery_from_oam">הוספת תמונות רקע מ־OAM</string>
   <string name="menu_tools_flush_all_tile_caches">פינוי כל מטמוני האריחים</string>
-  <string name="menu_tools_background_properties">מאפייני רקע</string>
   <string name="menu_tools_update_imagery_configuration">עדכון הגדרות</string>
   <string name="menu_tools_update_imagery_configuration_eli">עדכון הגדרות מ־ELI</string>
   <string name="menu_tools_zoom_to_layer_extent">לשנות את רמת התקריב עד להיקף שכבת הרקע</string>
@@ -862,9 +847,6 @@
   <string name="distance_km">%1$.3f ק״מ</string>
   <!--Menus in layers dialog-->
   <string name="menu_layers">שכבות…</string>
-  <string name="menu_layers_load_geojson">הפעלת שכבת GeoJSON</string>
-  <string name="menu_layers_add_backgroundlayer">הוספת שכבת תמונת רקע</string>
-  <string name="menu_layers_add_overlaylayer">הוספת שכבת צילום מעל</string>
   <string name="menu_layers_add_tasklayer">הפעלת שכבת משימות</string>
   <string name="menu_layers_add_grid">הפעלת רשת</string>
   <string name="menu_layers_add_photolayer">הפעלת שכבת תמונות</string>
@@ -911,8 +893,6 @@
   <string name="actionmode_add_segment">הוספת מקטע</string>
   <string name="actionmode_reselect_first_segment">לבחור מחדש את המקטע הראשון</string>
   <!--EasyEdit action mode sub-titles-->
-  <string name="actionmode_closed_way_split_1">פיצול דרך סגורה, מפרק ראשון</string>
-  <string name="actionmode_closed_way_split_2">פיצול דרך סגורה, מפרק שני</string>
   <string name="actionmode_restriction">הוספת מגבלת פנייה</string>
   <string name="actionmode_restriction_restart_from">בחירת מקטע „מוצא” מחדש</string>
   <string name="actionmode_restriction_select_from">בחירת מקטע „מוצא”</string>
@@ -938,7 +918,6 @@
   <string name="menu_add_node_address">הוספת מפרק כתובת</string>
   <string name="menu_add_address_interpolation">הוספת שיטת חלוקת כתובות</string>
   <string name="menu_add_way">הוספת דרך</string>
-  <string name="simple_add_way">יש לגעת במיקום במסך</string>
   <string name="menu_add_map_note">הוספת הערה למפה</string>
   <string name="simple_add_note">יש לגעת במיקום במסך</string>
   <string name="menu_paste_object">הדבקת פריט</string>
@@ -999,8 +978,6 @@
   <string name="config_open_camera">פתיחת מצלמה</string>
   <string name="config_useInternalPhotoViewer_title">להשתמש במציג התמונות המובנה</string>
   <string name="config_useInternalPhotoViewer_summary">להשתמש במציג התמונות המובנה, אם לא סומן ייעשה שימוש במציג תמונות חיצוני.</string>
-  <string name="config_followGPSbutton_title">פריסת כפתור מעקב מיקום</string>
-  <string name="config_followGPSbutton_summary">היכן ימוקם הכפתור „מעקב מיקום”</string>
   <string name="config_alwaysDrawBoundingBoxes_title">תמיד להחשיך אזורים שלא התקבלו</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">עמעום של אזורים שלא התקבלו במצב נעול.</string>
   <string name="config_fullscreenMode_title">מצב מסך מלא</string>
@@ -1148,6 +1125,9 @@
   <string name="config_mapillaryCacheSize_title">גודל המטמון של Mapillary</string>
   <string name="config_mapillaryCacheSize_summary">נפח האחסון הכולל שישמש לאחסון תמונות Mapillary, במ״ב</string>
   <!--Auto-save-->
+  <string name="config_autosaveSaveChanges_title">שמירת השינויים</string>
+  <string name="config_autosaveChanges_current">%1$d</string>
+  <string name="config_autosaveMaxFiles_current">%1$d</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">שונות</string>
   <string name="pref_enable_acra">דיווח על קריסות ביישומון</string>
@@ -1286,6 +1266,7 @@
   <string name="bridge">גשר</string>
   <string name="tunnel">מנהרה</string>
   <string name="culvert">מעבר מים</string>
+  <string name="steps">מדרגות</string>
   <!--Issues-->
   <string name="issue_not_reversable">התגיות אינן הפיכות</string>
   <string name="issue_tags_reversed">תגיות התהפכו</string>

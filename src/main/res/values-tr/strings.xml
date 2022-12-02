@@ -102,12 +102,15 @@
   <string name="upload_request_review_label">Gözden geçirme talep et:</string>
   <string name="upload_validation_error_empty_comment">Yorum boş olmamalıdır</string>
   <string name="upload_validation_error_empty_source">Kaynak boş olmamalıdır</string>
+  <!--Review changes dialog-->
   <!--Upload GPX-->
   <string name="upload_gpx_title">GPX izlerini yükle</string>
   <string name="upload_gpx_description_label">Açıklama</string>
   <string name="upload_gpx_tags_label">Yaftalar</string>
   <string name="upload_gpx_visibility_label">Görünürlük</string>
   <string name="upload_validation_error_empty_description">Boş açıklama</string>
+  <!--Background properties-->
+  <string name="background_properties_title">Arka plan özellkleri</string>
   <!--task fragment-->
   <string name="openstreetbug_new_title">Yeni not</string>
   <string name="openstreetbug_new_bug">Sorun bildir</string>
@@ -135,6 +138,7 @@
   <string name="maproulette_task_apikey_set">MapRoulette API anahtarı kaydedildi</string>
   <string name="maproulette_task_no_apikey">MapRoulette API anahtarı yok</string>
   <!--Todo dialogs-->
+  <string name="todo_comment_legend">Yorum</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Dikkat!</string>
   <string name="unsaved_data_message">Devam ederseniz kaydedilmemiş değişiklikleriniz atılır.</string>
@@ -317,8 +321,6 @@
   <string name="layer_data">OSM verisi</string>
   <string name="layer_data_name">%1$s veri</string>
   <string name="layer_flush_tile_cache">Karo ön belleğini temizle</string>
-  <string name="layer_change_style">Stili değiştir</string>
-  <string name="layer_select_imagery">Görüntü seç</string>
   <string name="layer_category_all">Hepsi</string>
   <string name="layer_category_photo">Havadan görüntüler</string>
   <string name="layer_category_historicphoto">Güncel olmayan havadan görüntüler</string>
@@ -507,7 +509,6 @@
   <string name="toast_task_layer_disabled">Görev katmanı devre dışı bırakıldı</string>
   <string name="toast_unable_to_create_task_layer">Görev katmanı oluşturulamıyor</string>
   <string name="toast_merged">Birleştirilmiş</string>
-  <string name="toast_invalid_style_file">%1$s için geçersiz stil dosyası biçimi</string>
   <string name="toast_no_geometry">Öğe için geometri bulunamadı</string>
   <string name="toast_added_api_entry_for">%1$s için API girişi eklendi</string>
   <string name="toast_updated">%1$s güncellendi</string>
@@ -685,16 +686,13 @@
   <string name="position_info_title">Mevcut konum bilgisi</string>
   <string name="position_info_hdop">Hassas Yatay Seyreltme</string>
   <string name="position_info_altitude">İrtifa</string>
-  <string name="position_info_geoid_height">Geoide göre yükseklik</string>
   <string name="position_info_barometric_height">Barometrik yükseklik</string>
   <string name="position_info_geoid_correction">Geoid düzeltme</string>
-  <string name="position_info_ellipsoid_height">Elipsoid üzerinde yükseklik</string>
   <!--Strings in DownloadActivity-->
   <string name="download_files_title">Dosyaları indir</string>
   <string name="allow_all_networks">Tüm ağlara izin ver</string>
   <!--Strings in Go to coordinates-->
   <string name="go_to_coordinates_title">Koordinatlara git</string>
-  <string name="go_to_coordinates_hint">Koordinatları veya bir Artı Kodu girin</string>
   <string name="unparseable_coordinates">Karşılaştırılamaz koordinatlar</string>
   <string name="network_required">Konum araması için ağ gereklidir</string>
   <string name="no_nominatim_server">Yapılandırılmış Nominatim sunucusu bulunamadı</string>
@@ -734,9 +732,6 @@
   <string name="menu_gps_pause">GPX izlemesini duraklat</string>
   <string name="menu_gps_clear">GPX izini ve yol noktalarını temizleyin</string>
   <string name="menu_gps_track_managment">GPX izleme yönetimi…</string>
-  <string name="menu_gps_upload">GPX izlerini yükle</string>
-  <string name="menu_gps_export">GPX izlerini dışa aktar</string>
-  <string name="menu_gps_import">GPX izlerini içe aktar</string>
   <string name="menu_gps_goto_start">GPX izlerinin başlangıcına git</string>
   <string name="menu_gps_goto_first_waypoint">İlk yol işaretine git</string>
   <string name="menu_enable_gps_autodownload">Konum tabanlı otomatik indirme</string>
@@ -746,7 +741,6 @@
   <string name="menu_transfer_download_replace">Mevcut görünümü temizle ve indir</string>
   <string name="menu_transfer_load_current">Geçerli görünümü yükle</string>
   <string name="menu_transfer_load_replace">Mevcut görünümü temizle ve yükle</string>
-  <string name="menu_transfer_upload">Verileri OSM sunucusuna yükle</string>
   <string name="menu_transfer_update">Veriyi güncelle</string>
   <string name="menu_transfer_close_changeset">Mevcut değişiklik kümesini kapat</string>
   <string name="menu_transfer_file">Dosya...</string>
@@ -783,7 +777,6 @@
   <string name="menu_extract_segment">Extract segment</string>
   <string name="menu_newnode_gps">GPS konumunda yeni düğüm</string>
   <string name="menu_extend_selection">Seçimi uzat</string>
-  <string name="menu_information">Bilgi</string>
   <string name="menu_voice_commands">Sesli komutlar</string>
   <string name="menu_upload_element">Öğe yükle</string>
   <string name="menu_upload_elements">Öğeleri yükle</string>
@@ -792,7 +785,6 @@
   <string name="menu_tools_imagery">Daha fazla görüntü aracı…</string>
   <string name="menu_tools_add_imagery_from_oam">OAM\'den görüntü ekle</string>
   <string name="menu_tools_flush_all_tile_caches">Tüm döşeme önbelleklerini temizle</string>
-  <string name="menu_tools_background_properties">Arka plan özellkleri</string>
   <string name="menu_tools_update_imagery_configuration">Konfigürasyonu güncelle</string>
   <string name="menu_tools_update_imagery_configuration_eli">ELI\'den yapılandırmayı güncelle</string>
   <string name="menu_tools_zoom_to_layer_extent">Arka plan katman ölçüsüne yakınlaştır</string>
@@ -818,9 +810,6 @@
   <string name="distance_km">%1$.3f km</string>
   <!--Menus in layers dialog-->
   <string name="menu_layers">Katmanlar...</string>
-  <string name="menu_layers_load_geojson">GeoJSON katmanı ekle</string>
-  <string name="menu_layers_add_backgroundlayer">Arka plan görüntü katmanı ekleyin</string>
-  <string name="menu_layers_add_overlaylayer">Kaplama görüntü katmanı ekle</string>
   <string name="menu_layers_add_tasklayer">Görev katmanını etkinleştir</string>
   <string name="menu_layers_add_grid">Izgarayı etkinleştir</string>
   <string name="menu_layers_add_photolayer">Fotoğraf katmanını etkinleştir</string>
@@ -867,8 +856,6 @@
   <string name="actionmode_add_segment">Segment ekle</string>
   <string name="actionmode_reselect_first_segment">İlk segmenti tekrar seç</string>
   <!--EasyEdit action mode sub-titles-->
-  <string name="actionmode_closed_way_split_1">1.düğüm, bölünmüş kapalı yol</string>
-  <string name="actionmode_closed_way_split_2">2. düğüm, Bölünmüş kapalı yol</string>
   <string name="actionmode_restriction">Dönüş kısıtlaması ekleyin</string>
   <string name="actionmode_restriction_restart_from">Segmentler \"den\" tekrar seç</string>
   <string name="actionmode_restriction_select_from">Segmentler \"den\" seç</string>
@@ -890,7 +877,6 @@
   <string name="simple_add_node">Ekran konumuna dokunun</string>
   <string name="menu_add_node_tags">Etiketlenmiş düğüm ekle</string>
   <string name="menu_add_way">Yol ekle</string>
-  <string name="simple_add_way">Ekran konumuna dokunun</string>
   <string name="menu_add_map_note">Harita notu ekle</string>
   <string name="simple_add_note">Ekran konumuna dokunun</string>
   <string name="menu_paste_object">Nesneyi yapıştır</string>
@@ -946,8 +932,6 @@
   <string name="config_showCameraAction_summary">Eylem çubuğunda kamera simgesini göster.</string>
   <string name="config_useInternalPhotoViewer_title">Dahili fotoğraf görüntüleyicisini kullan</string>
   <string name="config_useInternalPhotoViewer_summary">Dahili fotoğraf görünümünü kullanın, kontrol edilmezse harici bir görüntüleyici kullanılacaktır.</string>
-  <string name="config_followGPSbutton_title">Konum düğmesi düzenini takip edin</string>
-  <string name="config_followGPSbutton_summary">\"Konumu takip et\" düğmesinin konumlandırılacağı yer.</string>
   <string name="config_alwaysDrawBoundingBoxes_title">İndirilmemiş alanları her zaman karartın</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">İndirilmemiş alanları kilitli modda karartır.</string>
   <string name="config_fullscreenMode_title">Tam ekran kipi</string>
@@ -1087,6 +1071,9 @@
   <string name="config_tileCache_current">%1$d MB</string>
   <string name="config_mapillaryCacheSize_title">Mapillary önbellek boyutu</string>
   <!--Auto-save-->
+  <string name="config_autosaveSaveChanges_title">Değişiklikleri kaydet</string>
+  <string name="config_autosaveChanges_current">%1$d</string>
+  <string name="config_autosaveMaxFiles_current">%1$d</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">Çeşitli</string>
   <string name="pref_enable_acra">Uygulama çökmelerini bildir</string>
@@ -1223,6 +1210,7 @@
   <string name="bridge">Köprü</string>
   <string name="tunnel">Tünel</string>
   <string name="culvert">Su yolu</string>
+  <string name="steps">Merdiven</string>
   <!--Issues-->
   <string name="issue_not_reversable">Etiketler tersine çevrilemez.</string>
   <string name="issue_shared_node">Diğer yollar ile paylaşılan</string>

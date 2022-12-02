@@ -87,11 +87,14 @@
   <string name="upload_close_changeset_label">Sulje muutossetti:</string>
   <string name="upload_validation_error_empty_comment">Kommentti ei voi olla tyhjä</string>
   <string name="upload_validation_error_empty_source">Lähde ei voi olla tyhjä</string>
+  <!--Review changes dialog-->
   <!--Upload GPX-->
   <string name="upload_gpx_title">Lähetä GPX-jälki</string>
   <string name="upload_gpx_description_label">Kuvaus</string>
   <string name="upload_gpx_tags_label">Tägit</string>
   <string name="upload_gpx_visibility_label">Näkyvyys</string>
+  <!--Background properties-->
+  <string name="background_properties_title">Taustan ominaisuudet</string>
   <!--task fragment-->
   <string name="openstreetbug_new_title">Uusi huomio</string>
   <string name="openstreetbug_new_bug">Raportoi ongelmasta</string>
@@ -117,6 +120,7 @@
   <string name="maproulette_task_disable">Poista käytöstä</string>
   <string name="maproulette_task_apikey_set">MapRouletten API-avain tallennettu</string>
   <!--Todo dialogs-->
+  <string name="todo_comment_legend">Kommentti</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Varoitus!</string>
   <string name="unsaved_data_message">Tallentamattomat muokkaukset hylätään jos jatkat.</string>
@@ -265,8 +269,6 @@
   <string name="layer_tasks">Tehtävät</string>
   <string name="layer_data">OSM-data</string>
   <string name="layer_flush_tile_cache">Tyhjennä laattamuisti</string>
-  <string name="layer_change_style">Vaihda tyyliä</string>
-  <string name="layer_select_imagery">Valitse kuvasto</string>
   <string name="layer_category_all">Kaikki</string>
   <string name="layer_category_map">Kartta</string>
   <string name="layer_category_other">Muu</string>
@@ -554,14 +556,10 @@
   <string name="menu_gps_pause">Pysäytä GPX-jälki</string>
   <string name="menu_gps_clear">Nollaa GPX-jälki ja sen välietapit</string>
   <string name="menu_gps_track_managment">GPX-älkien hallinta...</string>
-  <string name="menu_gps_upload">Lähetä GPX-jälki</string>
-  <string name="menu_gps_export">Vie GPX-jälki</string>
-  <string name="menu_gps_import">Tuo GPX-jälki</string>
   <string name="menu_gps_goto_start">Siirry GPX-jäljen alkuun</string>
   <string name="menu_gps_goto_first_waypoint">Siirry 1. välietappiin</string>
   <string name="menu_transfer">Siirrä...</string>
   <string name="menu_transfer_download_current">Lataa nykyinen näkymä</string>
-  <string name="menu_transfer_upload">Lähetä data OSM-palvelimelle</string>
   <string name="menu_transfer_close_changeset">Sulje nykyinen muutossetti</string>
   <string name="menu_transfer_file">Tiedosto...</string>
   <string name="menu_transfer_export">Vie muutokset OSC-tiedostoon</string>
@@ -592,13 +590,11 @@
   <string name="menu_split_polygon">Jaa monikulmioiksi</string>
   <string name="menu_newnode_gps">Uusi piste GPS-sijaintiin</string>
   <string name="menu_extend_selection">Lisää valintaan</string>
-  <string name="menu_information">Tietoa</string>
   <string name="menu_voice_commands">Äänikomennot</string>
   <string name="menu_set_name">Aseta nimi</string>
   <string name="menu_tools">Työkalut...</string>
   <string name="menu_tools_add_imagery_from_oam">Lisää kuvasto OAM:stä</string>
   <string name="menu_tools_flush_all_tile_caches">Tyhjennä kaikki laattamuistit</string>
-  <string name="menu_tools_background_properties">Taustan ominaisuudet</string>
   <string name="menu_tools_zoom_to_layer_extent">Näytä taustatason koko alue</string>
   <string name="menu_tools_clear_clipboard">Tyhjennä leikepöytä</string>
   <!---->
@@ -619,8 +615,6 @@
   <string name="distance_km">%1$.3f km</string>
   <!--Menus in layers dialog-->
   <string name="menu_layers">Tasot...</string>
-  <string name="menu_layers_add_backgroundlayer">Lisää taustan kuvataso</string>
-  <string name="menu_layers_add_overlaylayer">Lisää edustan kuvataso</string>
   <string name="menu_layers_add_photolayer">Näytä valokuvataso</string>
   <string name="menu_layers_configure">Asetukset...</string>
   <!---->
@@ -655,8 +649,6 @@
   <string name="actionmode_multiselect">Monivalinta</string>
   <string name="actionmode_newnoteselect">Uusi huomio valittu</string>
   <!--EasyEdit action mode sub-titles-->
-  <string name="actionmode_closed_way_split_1">Jaa suljettu viiva, 1. piste</string>
-  <string name="actionmode_closed_way_split_2">Jaa suljettu viiva, 2. piste</string>
   <string name="actionmode_restriction">Lisää kääntymisrajoitus</string>
   <string name="actionmode_restriction_restart_from">Valitse \"from\"-viiva uudestaan</string>
   <string name="actionmode_restriction_via">Lisää \"via\"-viiva</string>
@@ -677,7 +669,6 @@
   <string name="simple_add_node">Napauta paikkaa näytöltä</string>
   <string name="menu_add_node_tags">Lisää tägitetty piste</string>
   <string name="menu_add_way">Lisää viiva</string>
-  <string name="simple_add_way">Napauta paikkaa näytöltä</string>
   <string name="menu_add_map_note">Lisää karttahuomio</string>
   <string name="simple_add_note">Napauta paikkaa näytöltä</string>
   <string name="menu_paste_object">Liitä elementti</string>
@@ -727,8 +718,6 @@
   <string name="config_tagFormEnabled_summary">Näytä tägilomake muokkausnäkymässä.</string>
   <string name="config_showCameraAction_title">Näytä kameratoiminto</string>
   <string name="config_showCameraAction_summary">Näytä kamerakuvake toimintopalkissa.</string>
-  <string name="config_followGPSbutton_title">Seuraa sijaintia -napin paikka</string>
-  <string name="config_followGPSbutton_summary">Missä \"Seuraa sijaintia\" -nappi näytetään.</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Himmennä aina lataamattomat alueet</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">Himmennä lataamattomat alueet lukkotilassa.</string>
   <string name="config_fullscreenMode_title">Kokoruututila</string>
@@ -837,6 +826,9 @@
   <string name="config_tileCacheSize_summary">Kuvalaattojen välimuistin koko megatavuissa.</string>
   <string name="config_tileCache_current">%1$d Mt</string>
   <!--Auto-save-->
+  <string name="config_autosaveSaveChanges_title">Tallenna muutokset</string>
+  <string name="config_autosaveChanges_current">%1$d</string>
+  <string name="config_autosaveMaxFiles_current">%1$d</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">Sekalaiset</string>
   <string name="pref_enable_acra">Ilmoita sovelluksen kaatumisista</string>
@@ -967,6 +959,7 @@
   <!--Things-->
   <string name="bridge">Silta</string>
   <string name="tunnel">Tunneli</string>
+  <string name="steps">Portaat</string>
   <!--Issues-->
   <!--time and distance-->
   <plurals name="days">

@@ -92,11 +92,14 @@
   <string name="upload_request_review_label">Sol·licitud de revisió: </string>
   <string name="upload_validation_error_empty_comment">El comentari no hauria de ser buit .</string>
   <string name="upload_validation_error_empty_source">La font no hauria de ser buida. </string>
+  <!--Review changes dialog-->
   <!--Upload GPX-->
   <string name="upload_gpx_title">Puja una traça GPX</string>
   <string name="upload_gpx_description_label">Descripció</string>
   <string name="upload_gpx_tags_label">Etiquetes</string>
   <string name="upload_gpx_visibility_label">Visibilitat</string>
+  <!--Background properties-->
+  <string name="background_properties_title">Propietats del fons</string>
   <!--task fragment-->
   <string name="openstreetbug_new_title">Nota nova</string>
   <string name="openstreetbug_new_bug">Informar d\'un problema</string>
@@ -121,6 +124,7 @@
   <string name="maproulette_task_disable">Desactiva</string>
   <string name="maproulette_task_apikey_set"> Clau d\'API de MapRoulette desada</string>
   <!--Todo dialogs-->
+  <string name="todo_comment_legend">Comentari</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Atenció!</string>
   <string name="unsaved_data_message">Els canvis no desats es descartaran si procedeixes.</string>
@@ -217,6 +221,7 @@
   <string name="validator_title">Tauler de regles del validador%1$s</string>
   <string name="edit_resurvey_title">Editar entrada del resondeig</string>
   <string name="add_resurvey_title">Afegir entrada del resondeig</string>
+  <string name="check_entries">Xec</string>
   <string name="edit_check_title">Edita l\'entrada de control</string>
   <string name="add_check_title">Afegeix una entrada de control</string>
   <string name="max_age">Edat màx.</string>
@@ -268,8 +273,6 @@
   <string name="layer_data">Dades OSM</string>
   <string name="layer_data_name">dades %1$s</string>
   <string name="layer_flush_tile_cache">Alliberar la memòria cau de tessel·les</string>
-  <string name="layer_change_style">Canvia l\'estil</string>
-  <string name="layer_select_imagery">Seleccioneu la imatgeria</string>
   <string name="layer_category_all">Tot</string>
   <string name="layer_category_map">Mapa</string>
   <string name="layer_category_other">Altre</string>
@@ -389,6 +392,7 @@
   <string name="clear">Neteja</string>
   <string name="discard">Descarta</string>
   <string name="retry">Torna a intentar-ho</string>
+  <string name="check">Xec</string>
   <string name="download">Baixa</string>
   <string name="select">Selecció</string>
   <!--Read a file-->
@@ -499,12 +503,8 @@
   <string name="menu_gps">GPS/GNSS…</string>
   <string name="menu_gps_show">Mostra la ubicació</string>
   <string name="menu_gps_goto">Vés a la ubicació actual</string>
-  <string name="menu_gps_upload">Puja una traça GPX</string>
-  <string name="menu_gps_export">Exporta la traça GPX</string>
-  <string name="menu_gps_import">Importa la traça GPX</string>
   <string name="menu_transfer">Transfereix...</string>
   <string name="menu_transfer_download_current">Baixa la visualització actual</string>
-  <string name="menu_transfer_upload">Puja les dades al servidor OSM</string>
   <string name="menu_transfer_close_changeset">Tanca el conjunt de canvis actual</string>
   <string name="menu_transfer_file">Fitxer...</string>
   <string name="menu_transfer_export">Exporta els canvis a un fitxer OSC</string>
@@ -534,12 +534,10 @@
   <string name="menu_split_polygon">Divideix en polígons</string>
   <string name="menu_newnode_gps">Node nou a la posició GPS</string>
   <string name="menu_extend_selection">Amplia la selecció</string>
-  <string name="menu_information">Informació</string>
   <string name="menu_voice_commands">Ordres de veu</string>
   <string name="menu_set_name">Estableix un nom</string>
   <string name="menu_tools">Eines...</string>
   <string name="menu_tools_add_imagery_from_oam">Afegeix imatgeria des de OAM</string>
-  <string name="menu_tools_background_properties">Propietats del fons</string>
   <string name="menu_tools_clear_clipboard">Neteja el porta-retalls</string>
   <!---->
   <string name="menu_simple_actions">Mode simple</string>
@@ -659,6 +657,7 @@
   <string name="config_tileCacheSize_title">Mida de la memòria cau per les tessel·les</string>
   <string name="config_tileCache_current">%1$d MB</string>
   <!--Auto-save-->
+  <string name="config_autosaveSaveChanges_title">Salveu el canvis</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">Miscel·lània</string>
   <string name="config_showStats_title">Mostra les estadístiques</string>
@@ -779,6 +778,8 @@
   <!--Things-->
   <string name="bridge">Pont</string>
   <string name="tunnel">Túnel</string>
+  <string name="culvert">Marc</string>
+  <string name="steps">Escales</string>
   <!--Issues-->
   <!--time and distance-->
   <plurals name="days">

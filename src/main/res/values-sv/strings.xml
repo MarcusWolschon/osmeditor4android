@@ -84,12 +84,15 @@
   <string name="upload_request_review_label">Begär granskning:</string>
   <string name="upload_validation_error_empty_comment">Kommentar bör inte vara tom</string>
   <string name="upload_validation_error_empty_source">Källa bör inte vara tom</string>
+  <!--Review changes dialog-->
   <!--Upload GPX-->
   <string name="upload_gpx_title">Ladda upp GPX-spår</string>
   <string name="upload_gpx_description_label">Beskrivning</string>
   <string name="upload_gpx_tags_label">Etiketter</string>
   <string name="upload_gpx_visibility_label">Synlighet</string>
   <string name="upload_validation_error_empty_description">Tom beskrivning</string>
+  <!--Background properties-->
+  <string name="background_properties_title">Bakgrundsinställningar</string>
   <!--task fragment-->
   <string name="openstreetbug_new_title">Ny anteckning</string>
   <string name="openstreetbug_new_bug">Rapportera problem</string>
@@ -110,6 +113,7 @@
   <string name="maproulette_task_explanations">Förklaringar</string>
   <string name="maproulette_task_disable">Inaktivera</string>
   <!--Todo dialogs-->
+  <string name="todo_comment_legend">Kommentar</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Försiktigt!</string>
   <string name="unsaved_data_message">Dina osparade ändringar kommer att kasseras om du fortsätter.</string>
@@ -259,10 +263,7 @@
   <string name="layer_tasks">Uppgifter</string>
   <string name="layer_data">OSM data</string>
   <string name="layer_data_name">%1$s data</string>
-  <string name="layer_change_style">Ändra stil</string>
-  <string name="layer_load_style">Läs in stil</string>
   <string name="layer_reset_style">Återställ stil</string>
-  <string name="layer_select_imagery">Välj bildkälla</string>
   <string name="layer_category_all">Alla</string>
   <string name="layer_category_photo">Flygfoto</string>
   <string name="layer_category_historicphoto">Gammal flygfoto</string>
@@ -528,15 +529,11 @@
   <string name="menu_gps_start">Starta GPX-spår</string>
   <string name="menu_gps_pause">Pausa GPX-spårning</string>
   <string name="menu_gps_clear">Rensa GPX-spår och dess vägpunkter</string>
-  <string name="menu_gps_upload">Ladda upp GPX-spår</string>
-  <string name="menu_gps_export">Exportera GPX-spår</string>
-  <string name="menu_gps_import">Importera GPX-spår</string>
   <string name="menu_enable_gps_autodownload">Platsbaserad automatisk nedladdning</string>
   <string name="menu_enable_pan_and_zoom_auto_download">Panorera och zooma med automatisk nedladdning</string>
   <string name="menu_transfer">Överför...</string>
   <string name="menu_transfer_download_current">Hämta nuvarande vy</string>
   <string name="menu_transfer_download_replace">Rensa och ladda ner nuvarande vy</string>
-  <string name="menu_transfer_upload">Ladda upp data till OSM-servern</string>
   <string name="menu_transfer_update">Uppdatera data</string>
   <string name="menu_transfer_close_changeset">Stäng nuvarande ändringsuppsättning</string>
   <string name="menu_transfer_file">Fil…</string>
@@ -571,13 +568,11 @@
   <string name="menu_extract_segment">Extrahera segment</string>
   <string name="menu_newnode_gps">Ny nod vid GPS-position</string>
   <string name="menu_extend_selection">Utöka markering</string>
-  <string name="menu_information">Info</string>
   <string name="menu_voice_commands">Röstkommandon</string>
   <string name="menu_set_name">Sätt namn</string>
   <string name="menu_tools">Verktyg...</string>
   <string name="menu_tools_imagery">Fler bildverktyg...</string>
   <string name="menu_tools_add_imagery_from_oam">Lägg till bildlager från OAM</string>
-  <string name="menu_tools_background_properties">Bakgrundsinställningar</string>
   <string name="menu_tools_clear_clipboard">Rensa urklipp</string>
   <!---->
   <string name="menu_simple_actions">Enkelt läge</string>
@@ -596,8 +591,6 @@
   <string name="distance_km">%1$.3f km</string>
   <!--Menus in layers dialog-->
   <string name="menu_layers">Lager...</string>
-  <string name="menu_layers_load_geojson">Lägg till GeoJSON-lager</string>
-  <string name="menu_layers_add_backgroundlayer">Lägg till bildlager som bakgrund</string>
   <string name="menu_layers_configure">Konfigurera…</string>
   <!---->
   <string name="menu_tools_background_contrast">Kontrast</string>
@@ -645,7 +638,6 @@
   <string name="menu_add_node_address">Lägg till adressnod</string>
   <string name="menu_add_address_interpolation">Lägg till adressinterpolering</string>
   <string name="menu_add_way">Lägg till väg</string>
-  <string name="simple_add_way">Tryck på skärmens position</string>
   <string name="menu_add_map_note">Lägg till kartanteckning</string>
   <string name="simple_add_note">Tryck på skärmens position</string>
   <string name="menu_paste_object">Klistra in föremål</string>
@@ -748,6 +740,9 @@
   <string name="config_tileCacheSize_title">Tile cache storlek</string>
   <string name="config_tileCache_current">%1$d MB</string>
   <!--Auto-save-->
+  <string name="config_autosaveSaveChanges_title">Spara ändringar</string>
+  <string name="config_autosaveChanges_current">%1$d</string>
+  <string name="config_autosaveMaxFiles_current">%1$d</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">Diverse</string>
   <string name="pref_acra_enabled">Kraschrapportering påslagen</string>
@@ -852,6 +847,7 @@
   <string name="bridge">Brygga</string>
   <string name="tunnel">Tunnel</string>
   <string name="culvert">Kulvert</string>
+  <string name="steps">Trapport</string>
   <!--Issues-->
   <string name="issue_tags_reversed">Taggar omvända</string>
   <string name="issue_role_reversed">Roll omvänd</string>

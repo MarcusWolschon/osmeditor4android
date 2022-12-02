@@ -133,7 +133,7 @@
 <h3><img src="../images/camera.png" alt="Camera" /> Camera</h3>
 <p>Start a camera app, add the resulting photograph to the photo layer is enabled. The photograph itself should be stored in the Vespucci/Pictures directory, however this depends on the specific camera app.</p>
 <h3><img src="../images/menu_gps.png" alt="Location" /> Location</h3>
-<p>The &quot;on-map&quot; GPS button duplicates the function of the &quot;Follow GPS position&quot; menu entry. When this is activated the GPS arrow will be displayed as an outline. Note that the <em>Show location</em> function will enable location updates from the system, just as the recording and similar options.</p>
+<p>The &quot;on-map&quot; GPS button duplicates the function of the &quot;Follow location&quot; menu entry. When this is activated the GPS arrow will be displayed as an outline. Note that the <em>Show location</em> function will enable location updates from the system, just as the recording and similar options. To reposition or remove the &quot;on-map&quot; GPS button use the &quot;Follow position button layout&quot; Preference.</p>
 <ul>
 <li><strong>Show location</strong> - show arrow symbol at current position</li>
 <li><strong>Follow location</strong> - pan and center screen to follow the current position, will enable <em>Show location</em> too.</li>
@@ -152,20 +152,24 @@
 <li><code>433819N</code></li>
 </ul>
 </li>
+<li><strong>Go to last edit</strong> - Pan and zoom to the bounding box of the top most undo checkpoint.</li>
 <li><strong>Start GPX track</strong> - start recording a GPX track and display a corresponding layer.</li>
+<li><strong>Resume GPX track</strong> - continue recording a GPX track.</li>
 <li><strong>Pause GPX track</strong> - pause recording the current GPX track</li>
 <li><strong>Clear GPX track</strong> - clear the current GPX track</li>
 </ul>
 <h3><img src="../images/menu_transfer.png" alt="Transfer" /> Transfer</h3>
 <p>Select either the transfer icon <img src="../images/menu_transfer.png" alt="Transfer" /> or the &quot;Transfer&quot; menu item. This will display seven or eight options:</p>
 <ul>
+<li><strong>Upload data to OSM server...</strong> - review and upload changes to OpenStreetMap, the entry is disabled if you haven't changed anything yet, or there is no network available <em>(requires authentication)</em> <em>(requires network connectivity)</em></li>
+<li><strong>Review changes...</strong> - review current changes</li>
 <li><strong>Download current view</strong> - download the area visible on the screen and merge it with existing data <em>(requires network connectivity)</em></li>
 <li><strong>Clear and download current view</strong> - clear any data in memory and then download the area visible on the screen <em>(requires network connectivity)</em></li>
-<li><strong>Upload data to OSM server</strong> - upload edits to OpenStreetMap, the entry is disabled if you haven't changed anything yet, or there is no network available <em>(requires authentication)</em> <em>(requires network connectivity)</em></li>
-<li><strong>Update data</strong> - re-download data for all areas and update what is in memory <em>(requires network connectivity)</em></li>
 <li><strong>Close current changeset</strong> - manually close the current changeset <em>(only available if a changeset is open)</em></li>
 <li><strong>Location based auto download</strong> - download an area around the current location automatically <em>(requires network connectivity)</em> <em>(requires GPS)</em></li>
 <li><strong>Pan and zoom auto download</strong> - download the area shown in the current screen automatically <em>(requires network connectivity)</em></li>
+<li><strong>Update data</strong> - re-download data for all areas and update what is in memory <em>(requires network connectivity)</em></li>
+<li><strong>Clear data</strong> - remove any OSM data in memory</li>
 <li><strong>File...</strong> - saving and loading OSM data to/from on device files.
 <ul>
 <li><strong>Export changes to OSC file</strong> - write a &quot;.osc&quot; format file containing the current edits</li>
@@ -178,10 +182,10 @@
 </li>
 <li><strong>Tasks...</strong> - down- and uploading tasks (Notes, OSMOSE bugs, Maproulette and custom tasks)
 <ul>
-<li><strong>Download tasks for current view</strong> - download Notes/Bugs for the area visible on the screen</li>
 <li><strong>Upload all</strong> - upload all new or modified tasks</li>
-<li><strong>Clear</strong> - remove all tasks from storage</li>
+<li><strong>Download tasks for current view</strong> - download Notes/Bugs for the area visible on the screen</li>
 <li><strong>Auto download</strong> - download tasks around the current geographic location automatically <em>(requires network connectivity)</em> <em>(requires GPS)</em></li>
+<li><strong>Clear</strong> - remove all tasks from storage</li>
 <li><strong>File...</strong> - save Notes/Bugs data to on device storage
 <ul>
 <li><strong>Save all notes...</strong> - write a &quot;.osn&quot; format file containing all downloaded notes (this is the format supported by JOSM)</li>
@@ -214,6 +218,7 @@
 <li><strong>Calibrate pressure sensor...</strong> - calibrate the conversion from barometric pressure to elevation.</li>
 <li><strong>Install EGM</strong> - install a gravitational model of the earth, required for getting height data from the devices GPS. Alternatively you can switch to NMEA input in the &quot;Advanced preferences&quot;.</li>
 <li><strong>Remove EGM</strong> - remove the EGM.</li>
+<li><strong>Import data style...</strong> - import an additional data style from an XML file or from a ZIP archive containing an XML file and icons. This overwrites existing style files with the same name.</li>
 <li><strong>Load keys from file...</strong> - load additional keys, for example API keys for background imagery, or other OAuth keys from a file.</li>
 <li><strong>JS Console</strong> - start the JavaScript console for scripting the application. Note that this needs to be anabled in the &quot;Advaced preferences&quot;:</li>
 </ul>

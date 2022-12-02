@@ -91,11 +91,14 @@
   <string name="upload_request_review_label">請求審核：</string>
   <string name="upload_validation_error_empty_comment">註解不應該留空</string>
   <string name="upload_validation_error_empty_source">來源不應該留空</string>
+  <!--Review changes dialog-->
   <!--Upload GPX-->
   <string name="upload_gpx_title">上傳 GPS 軌跡</string>
   <string name="upload_gpx_description_label">記述</string>
   <string name="upload_gpx_tags_label">標籤</string>
   <string name="upload_gpx_visibility_label">能見度</string>
+  <!--Background properties-->
+  <string name="background_properties_title">背景屬性</string>
   <!--task fragment-->
   <string name="openstreetbug_new_title">新的註記</string>
   <string name="openstreetbug_new_bug">回報問題</string>
@@ -120,6 +123,7 @@
   <string name="maproulette_task_disable">失效</string>
   <string name="maproulette_task_apikey_set">MapRoulette API key 已經儲存</string>
   <!--Todo dialogs-->
+  <string name="todo_comment_legend">留言</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">注意！</string>
   <string name="unsaved_data_message">您有未存儲的變更，如果繼續將被丟棄。</string>
@@ -262,8 +266,6 @@
   <string name="layer_data">OSM 資料</string>
   <string name="layer_data_name">%1$s資料</string>
   <string name="layer_flush_tile_cache">清理圖磚暫存檔</string>
-  <string name="layer_change_style">改變樣式</string>
-  <string name="layer_select_imagery">選擇影像</string>
   <string name="layer_category_all">所有</string>
   <string name="layer_category_map">地圖</string>
   <string name="layer_category_other">其他</string>
@@ -406,7 +408,6 @@
   <string name="toast_task_layer_disabled">任務圖層已經取消</string>
   <string name="toast_unable_to_create_task_layer">無法新建任務圖層</string>
   <string name="toast_merged">已合併</string>
-  <string name="toast_invalid_style_file">%1$s 有無效的樣式檔案格式</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">MapSplit 資源必須設定最小和最大</string>
   <string name="error_pbf_no_version">PBF 檔案缺少版本資訊</string>
@@ -559,15 +560,11 @@
   <string name="menu_gps_pause">暫停 GPS 軌跡記錄</string>
   <string name="menu_gps_clear">清除 GPS 軌跡和航點</string>
   <string name="menu_gps_track_managment">GPX 軌跡管理...</string>
-  <string name="menu_gps_upload">上傳 GPS 軌跡</string>
-  <string name="menu_gps_export">匯出 GPS 軌跡</string>
-  <string name="menu_gps_import">匯入 GPS 軌跡</string>
   <string name="menu_gps_goto_start">前往 GPS 軌跡的起始處</string>
   <string name="menu_gps_goto_first_waypoint">到第一個航點</string>
   <string name="menu_transfer">傳輸…</string>
   <string name="menu_transfer_download_current">下載目前的檢視</string>
   <string name="menu_transfer_load_current">載入目前檢視</string>
-  <string name="menu_transfer_upload">上傳資料到 OSM 的伺服器</string>
   <string name="menu_transfer_close_changeset">關閉目前的變更組合</string>
   <string name="menu_transfer_file">檔案...</string>
   <string name="menu_transfer_export">匯出變更到 OSC 檔案</string>
@@ -600,13 +597,11 @@
   <string name="menu_split_polygon">分割成多邊形</string>
   <string name="menu_newnode_gps">在 GPS 位置新增節點</string>
   <string name="menu_extend_selection">擴大選擇</string>
-  <string name="menu_information">資訊</string>
   <string name="menu_voice_commands">聲音指令</string>
   <string name="menu_set_name">設定名稱</string>
   <string name="menu_tools">工具...</string>
   <string name="menu_tools_add_imagery_from_oam">從 OAM 增加影像</string>
   <string name="menu_tools_flush_all_tile_caches">更新所有圖磚暫存檔</string>
-  <string name="menu_tools_background_properties">背景屬性</string>
   <string name="menu_tools_zoom_to_layer_extent">縮放到背景圖層範圍</string>
   <string name="menu_tools_clear_clipboard">清除剪貼簿</string>
   <!---->
@@ -628,8 +623,6 @@
   <string name="distance_km">%1$.3f 公里</string>
   <!--Menus in layers dialog-->
   <string name="menu_layers">圖層...</string>
-  <string name="menu_layers_add_backgroundlayer">增加背景影像圖層</string>
-  <string name="menu_layers_add_overlaylayer">增加重疊影像圖層</string>
   <string name="menu_layers_add_photolayer">啟用圖片圖層</string>
   <string name="menu_layers_configure">設定...</string>
   <!---->
@@ -664,8 +657,6 @@
   <string name="actionmode_multiselect">多重選擇</string>
   <string name="actionmode_newnoteselect">選擇新的備註</string>
   <!--EasyEdit action mode sub-titles-->
-  <string name="actionmode_closed_way_split_1">第 1 節點拆分封閉路徑</string>
-  <string name="actionmode_closed_way_split_2">第 2 節點拆分封閉路徑</string>
   <string name="actionmode_restriction">增加轉彎限制</string>
   <string name="actionmode_restriction_restart_from">重新選擇\"從\"片段</string>
   <string name="actionmode_restriction_via">增加\"經過\"片段</string>
@@ -683,7 +674,6 @@
   <string name="simple_add_node">點螢幕位置</string>
   <string name="menu_add_node_tags">增加有加標籤的節點</string>
   <string name="menu_add_way">增加路徑</string>
-  <string name="simple_add_way">點螢幕位置</string>
   <string name="menu_add_map_note">增加地圖註解</string>
   <string name="simple_add_note">點螢幕位置</string>
   <string name="menu_paste_object">貼上物件</string>
@@ -735,8 +725,6 @@
   <string name="config_tagFormEnabled_summary">顯示標籤表格以便編輯。</string>
   <string name="config_showCameraAction_title">顯示相機的動作</string>
   <string name="config_showCameraAction_summary">在動作列上顯示相機圖示。</string>
-  <string name="config_followGPSbutton_title">跟隨位置按鈕設計樣式</string>
-  <string name="config_followGPSbutton_summary">\"跟隨位置\"按鈕出現位置。</string>
   <string name="config_alwaysDrawBoundingBoxes_title">總是模糊無法下載的區域</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">鎖定模式下模糊無法下載的區域。</string>
   <string name="config_fullscreenMode_title">全螢幕模式</string>
@@ -845,6 +833,7 @@
   <string name="config_tileCacheSize_summary">用 MB 計算的暫存圖磚所有儲存空間。</string>
   <string name="config_tileCache_current">%1$d MB</string>
   <!--Auto-save-->
+  <string name="config_autosaveSaveChanges_title">儲存變更</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">雜項</string>
   <string name="pref_enable_acra">回報 app 當機</string>
@@ -978,6 +967,7 @@
   <!--Things-->
   <string name="bridge">橋樑</string>
   <string name="tunnel">隧道</string>
+  <string name="steps">樓梯</string>
   <!--Issues-->
   <!--time and distance-->
   <plurals name="days">

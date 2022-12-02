@@ -21,6 +21,8 @@
   <string name="upload_conflict_message_deleted">%1$s \nhat lokale Version %2$d \nund ist auf dem Server gelöscht</string>
   <string name="upload_conflict_message_referential">%1$s \nwurde lokal gelöscht \naber hat noch aktive Bezüge auf dem Server</string>
   <string name="upload_conflict_message_already_deleted">%1$s \n ist auf dem Server schon gelöscht</string>
+  <string name="upload_conflict_message_missing_references">%1$s \nlokale Version verweist auf Objekte, \ndie nicht auf Server vorhanden sind</string>
+  <string name="upload_conflict_message_unknown">%1$s \nverursacht unbekannten Konflikt beim Hochladen \n%2$s</string>
   <string name="use_local_version">Lokale Version verwenden</string>
   <string name="use_server_version">Version auf dem Server verwenden</string>
   <string name="no_login_data_title">Authentifizierung fehlgeschlagen</string>
@@ -62,6 +64,9 @@
   <string name="file_write_failed_message">Die gewünschte Datei konnte nicht geschrieben werden.</string>
   <string name="applying_osc_failed_title">OSC-Datei konnte nicht verarbeitet werden</string>
   <string name="applying_osc_failed_message">Wahrscheinlich waren die ursprünglichen Daten, die benötigt werden um die Änderungen durchzuführen, nicht geladen.</string>
+  <string name="duplicate_tag_key_title">Doppelte Schlüssel</string>
+  <string name="duplicate_tag_key_message">Der folgende Schlüssel wurde mehrmals verwendet, der Fehler muss behoben werden bevor fortgefahren werden kann:</string>
+  <string name="select_file_picker_title">Dateiauswahl-App auswählen</string>
   <!---->
   <string name="welcome_title">Willkommen</string>
   <string name="welcome_message">Danke, dass Sie Vespucci installiert haben.\n&lt;br&gt;&lt;br&gt;Um anzufangen, müssen Sie 3 Sachen wissen:\n&lt;ul&gt;&lt;li&gt;durch Antippen des Schlosses in der oberen linken Ecke schalten Sie zwischen dem gesperrten (keine Bearbeitung) und dem entsperrten Status um,&lt;/li&gt;&lt;li&gt;um OpenStreetMap zu editieren, müssen Sie zuerst das Gebiet, das Sie bearbeiten wollen, herunterladen (es empfiehlt sich zuerst hineinzuzoomen),&lt;/li&gt;&lt;li&gt;um ein neues Objekt zu erstellen, müssen Sie den großen grünen Knopf antippen, auswählen, was Sie hinzufügen wollen, und dann die entsprechende Bildschirmposition berühren.&lt;/li&gt;&lt;/ul&gt;\nViel Spaß beim Kartieren!</string>
@@ -79,6 +84,8 @@
   <string name="progress_saving_message">Speichern…</string>
   <string name="progress_uploading_message">Hochladen…</string>
   <string name="progress_preset_message">Vorlage herunterladen…</string>
+  <string name="progress_loading_preset_message">Vorgabe laden...</string>
+  <string name="progress_importing_file_message">Datei wird importiert…</string>
   <string name="progress_running_message">Wird ausgeführt…</string>
   <string name="progress_oauth">Lade Konto auf openstreetmap.org für OAuth-Autorisierung…</string>
   <string name="progress_building_imagery_database">Hintergrundbilderdatenbank wird erstellt…</string>
@@ -102,12 +109,16 @@
   <string name="upload_request_review_label">Anfrage prüfen:</string>
   <string name="upload_validation_error_empty_comment">Kommentar sollte nicht leer sein</string>
   <string name="upload_validation_error_empty_source">Quelle sollte nicht leer sein</string>
+  <!--Review changes dialog-->
+  <string name="review_changes_title">Änderungen überprüfen</string>
   <!--Upload GPX-->
   <string name="upload_gpx_title">GPX-Track hochladen</string>
   <string name="upload_gpx_description_label">Beschreibung</string>
   <string name="upload_gpx_tags_label">Tags</string>
   <string name="upload_gpx_visibility_label">Sichtbarkeit</string>
   <string name="upload_validation_error_empty_description">Beschreibung leer</string>
+  <!--Background properties-->
+  <string name="background_properties_title">Hintergrundeigenschaften</string>
   <!--task fragment-->
   <string name="openstreetbug_new_title">Neue Notiz</string>
   <string name="openstreetbug_new_bug">Fehler melden</string>
@@ -125,6 +136,12 @@
   <string name="bug_description_2">%1$s: %2$s %3$s - %4$s</string>
   <string name="generic_bug">Bug</string>
   <string name="osmose_bug">Osmose</string>
+  <string name="todo_title">Aufgabe</string>
+  <string name="todo_description">Aufgabe %1$s</string>
+  <string name="todo_list">Liste %1$s</string>
+  <string name="todo_list_and_comment">Liste %1$s&lt;br&gt;&lt;br&gt;%2$s</string>
+  <string name="todo">Aufgabe</string>
+  <string name="select_todo_list">Aufgabenliste auswählen</string>
   <string name="bug_long_description_1">%1$s: %2$s&lt;br&gt;&lt;br&gt;%3$s&lt;br&gt;&lt;br&gt;%4$s&lt;br&gt;</string>
   <string name="bug_long_description_2">&lt;br&gt;Zuletzt geändert:&lt;br&gt;%1$s&lt;br&gt;id: %2$s</string>
   <string name="bug_element_1">%1$s (nicht heruntergeladen) #%2$d</string>
@@ -132,12 +149,29 @@
   <string name="maproulette_task_title">MapRoulette-Aufgabe</string>
   <string name="maproulette_task_coords">Lat %1$4g, Lon %2$4g</string>
   <string name="maproulette_task_explanations">Erklärungen</string>
+  <string name="maproulette_task_instructions">Anleitung</string>
   <string name="maproulette_task_set_apikey">MapRoulette-API-Schlüssel festlegen</string>
   <string name="maproulette_task_apikey_not_set">MapRoulette-API-Schlüssel konnte nicht gespeichert werden</string>
   <string name="maproulette_task_disable">Deaktivieren</string>
   <string name="maproulette_task_apikey_set">MapRoulette-API-Schlüssel gespeichert</string>
   <string name="maproulette_task_no_apikey">Kein MapRoulette-API-Schlüssel</string>
+  <string name="maproulette_description">Maproulette: %1$s</string>
   <!--Todo dialogs-->
+  <plurals name="add_todo_title">
+    <item quantity="one">Element zur Aufgabenliste hinzufügen</item>
+    <item quantity="other">Elemente zur Aufgabenliste hinzufügen</item>
+  </plurals>
+  <string name="all_todos_done_title">Alle Aufgaben in Liste erledigt</string>
+  <string name="all_todos_done_message">Alle Aufgaben in Liste \"%1$s\" erledigt.</string>
+  <string name="all_todos_in_current_done_message">Alle Aufgaben in aktueller Liste erledigt</string>
+  <string name="todo_list_legend">Aufgabenliste</string>
+  <string name="todo_list_hint">Klicken für Vorschläge</string>
+  <string name="todo_comment_legend">Kommentar</string>
+  <string name="todo_comment_hint">Optionaler Kommentar</string>
+  <string name="toast_todo_all_closed">Alle Aufgaben für das Element abgeschlossen</string>
+  <string name="toast_todo_already_in_list">Element ist bereits in Aufgabenliste</string>
+  <string name="toast_no_open_todos">Keine offenen Aufgaben</string>
+  <string name="toast_no_todos_in_list">Keine todos in der ausgewählten Liste</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Vorsicht!</string>
   <string name="unsaved_data_message">Wenn Sie fortfahren, werden Ihre ungespeicherten Änderungen verworfen.</string>
@@ -194,6 +228,7 @@
   <string name="current">Aktuell</string>
   <string name="goto_element">Zu Element wechseln</string>
   <string name="edit_properties">Tags bearbeiten</string>
+  <string name="toast_element_not_found_on_restore">Element bei Wiederherstellung nicht gefunden</string>
   <!--GeoJSON feature display dialog-->
   <string name="feature_information">GeoJSON-Feature-Information</string>
   <string name="vt_feature_information">Infos zur Vektorkachelfunktion</string>
@@ -334,10 +369,10 @@
   <string name="layer_data">OSM-Daten</string>
   <string name="layer_data_name">%1$s Daten</string>
   <string name="layer_flush_tile_cache">Tile-Cache bereinigen</string>
-  <string name="layer_change_style">Stil ändern</string>
-  <string name="layer_load_style">Stil laden</string>
+  <string name="layer_change_style">Stil ändern…</string>
+  <string name="layer_load_style">Stil laden…</string>
   <string name="layer_reset_style">Stil zurücksetzen</string>
-  <string name="layer_select_imagery">Bildmaterial auswählen</string>
+  <string name="layer_select_imagery">Bildmaterial auswählen…</string>
   <string name="layer_category_all">Alle</string>
   <string name="layer_category_photo">Luftbild</string>
   <string name="layer_category_elevation">Terrain</string>
@@ -347,11 +382,11 @@
   <string name="layer_category_osmbasedmap">OSM-basierte Karte</string>
   <string name="layer_category_qa">Qualitätskontrolle</string>
   <string name="layer_category_other">Andere</string>
-  <string name="layer_add_layer_from_mvt_style">Ebene aus MVT Stil hinzufügen</string>
-  <string name="layer_add_custom_imagery">Benutzerdefinierter Hintergrund hinzufügen</string>
-  <string name="layer_edit_custom_imagery_configuration">Benutzerdefinierte Hintergrundkonfiguration ändern</string>
-  <string name="layer_add_gpx">Ebene hinzufügen von GPX-Datei</string>
-  <string name="layer_download_track">GPX Track herunterladen</string>
+  <string name="layer_add_layer_from_mvt_style">Ebene aus MVT Stil hinzufügen…</string>
+  <string name="layer_add_custom_imagery">Benutzerdefinierter Hintergrund hinzufügen…</string>
+  <string name="layer_edit_custom_imagery_configuration">Benutzerdefinierte Hintergrundkonfiguration ändern…</string>
+  <string name="layer_add_gpx">Ebene von GPX-Datei hinzufügen…</string>
+  <string name="layer_download_track">GPX Track herunterladen…</string>
   <string name="layer_available_tracks">Verfügbare GPX Tracks</string>
   <string name="layer_start_playback">Wiedergabe starten</string>
   <string name="layer_pause_playback">Wiedergabe pausieren</string>
@@ -368,6 +403,8 @@
   <string name="layer_info_privacy_policy">Datenschutz</string>
   <string name="projection">Projektion</string>
   <string name="errors">Fehler</string>
+  <string name="layer_info_layer_not_available">Keine Ebeneninformation verfügbar</string>
+  <string name="layer_info_no_meta_data">Metadaten nicht geladen</string>
   <!--Mapillary layer-->
   <string name="mapillary_image">mapillary %1$s</string>
   <!--Photo viewer-->
@@ -427,6 +464,11 @@
   <string name="tip_tristate_checkbox">Du hast soeben ein Kontrollkästchen mit drei Zuständen berührt. Diese funktionieren wie normale Kontrollkästchen, indem sie zwischen zwei Werten hin- und herschalten, zum Beispiel ja/nein oder wahr/falsch. Sie können das Kontrollkästchen durch langes Drücken auf diesen Zustand setzen.</string>
   <string name="tip_alternative_tagging">Alternative Vorgabe mit einem alternativen Tagging ausgewählt. Das heißt, es gibt andere Möglichkeiten, dieses Objekt zu kennzeichnen, die möglicherweise besser geeignet oder einfach verwandt sind. Diese alternativen Voreinstellungen werden oben in der Anzeige der zuletzt verwendeten Voreinstellung angezeigt.</string>
   <string name="tip_mode_switching">Die Schlosstaste dient gleichzeitig als Modusumschalter, ein langer Druck zeigt ein Menü mit den verschiedenen Optionen an. Weitere Informationen zu Vespuccis Modi finden Sie im Hilfesystem, sowohl in der Einführung als auch in der Hilfe zur Hauptkartenanzeige.</string>
+  <string name="tip_empty_gpx_download">Aufgrund einer Besonderheit in der OSM-API muss der Startpunkt des GPX-Tracks sichtbar sein, damit er zum Herunterladen gefunden werden kann.</string>
+  <string name="tip_no_redo">Dieser Modus unterstützt aktuell kein redo</string>
+  <string name="tip_way_splitting">Tippe einer der hervorgehobenen Knoten an um die Position zu bestimmen an der geteilt wird. Ein langer Druck erlaubt in einem weiteren Schritt auszuwählen welcher Teil für den neuen Weg verwendet wird.</string>
+  <string name="tip_closed_way_splitting">Ein geschlossener Weg muss an zwei Stellen getrennt werden. Tippe einer der hervorgehobenen Knoten an um die erste Stelle zu bestimmen, im nächsten Schritt wird die zweite Stelle ausgewählt.</string>
+  <string name="tip_disambiguation_menu">Sind mehrere OSM Element oder andere Objekte sehr nahe zusammen sind, oder Elemente Mitglieder von Relationen sind, wird das Auswahlmenu angezeigt.&lt;p&gt;Ist ein Element bereits ausgewählt so wird es hervorgehoben.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -449,6 +491,7 @@
   <string name="toast_url_empty">URL darf nicht leer sein</string>
   <string name="toast_min_zoom">Minimaler Zoom muss kleiner sein als der maximale Zoom</string>
   <string name="toast_tile_layer_exists">Quelle %1$s hat die gleich URL</string>
+  <string name="toast_styleable_layer_exists">Ebene für %1$s existiert schon</string>
   <string name="toast_no_changes">Sie haben noch nichts geändert…</string>
   <string name="toast_jpeg_not_transparent">JPEG-Kacheln sind nicht transparent und können nicht als Overlay verwendet werden</string>
   <string name="toast_unsupported_projection">Projektion nicht unterstützt  %1$s.\n\nNur EPSG:3857, EPSG:4326 und Synonyme werden unterstützt.</string>
@@ -533,6 +576,7 @@
   <string name="toast_missing_preset_file">Vorlagendatei für „%1$s“ fehlt</string>
   <string name="toast_invalid_filter_regexp">Ungültiger Auswahlausdruck im Filter mit Schlüssel „%1$s“ und Wert „%2$s“</string>
   <string name="toast_error_accessing_photo">Foto %1$s nicht abrufbar</string>
+  <string name="toast_no_photo_found">Kein Foto gefunden</string>
   <string name="toast_security_error_accessing_photo">Zugriff auf Foto %1$s nicht gestattet</string>
   <string name="toast_no_voice_recognition">Keine Spracherkennung vorhanden</string>
   <string name="toast_no_coverage">%1$s hat hier keine Abdeckung</string>
@@ -569,7 +613,7 @@
   <string name="toast_task_layer_disabled">Aufgabenebene abgeschaltet</string>
   <string name="toast_unable_to_create_task_layer">Aufgabenebene konnte nicht erstellt werden</string>
   <string name="toast_merged">Zusammengeführt</string>
-  <string name="toast_invalid_style_file">Ungültiges Style-file Format für %1$s</string>
+  <string name="toast_invalid_style_file">Ungültiger Datenstil%1$s\n%2$s</string>
   <string name="toast_no_geometry">Keine Geometrie für dieses Element bestimmbar</string>
   <string name="toast_added_api_entry_for">API-Eintrag hinzugefügt für %1$s</string>
   <string name="toast_updated">Aktualisiert %1$s</string>
@@ -580,7 +624,7 @@
   <string name="toast_error_reading">Fehler beim Lesen von %1$s</string>
   <string name="toast_read_successfully">Datei erfolgreich gelesen</string>
   <string name="toast_error_writing">Schreibfehler %1$s</string>
-  <string name="toast_successfully_written">Datei erfolgreich geschrieben</string>
+  <string name="toast_successfully_written">Datei %1$s erfolgreich geschrieben</string>
   <string name="toast_http_data_error_for">HTTP-Datenfehler für %1$s</string>
   <string name="toast_error_insufficient_space_for">Nicht genug Speicher auf Gerät für %1$s</string>
   <string name="toast_error_too_many_redirects_for">Zu viele Weiterleitungen für %1$s</string>
@@ -622,6 +666,8 @@
   <string name="toast_no_way_points">Keine Wegpunkte</string>
   <string name="toast_url_check">%1$s %2$d</string>
   <string name="toast_url_check_with_msg">%1$s %2$d %3$s</string>
+  <string name="toast_unexpected_element">Unerwartetes Element angeklickt:\n%1$s</string>
+  <string name="toast_import_destination_exists">Datei ist bereits importiert</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">Für MapSplit-Quellen müssen Zoomgrenzen festgelegt sein.</string>
   <string name="error_pbf_no_version">Versionsinformation fehlt in PBF-Datei</string>
@@ -656,6 +702,8 @@
   <string name="select">Auswählen</string>
   <string name="skip">Überspringen</string>
   <string name="deprecated">%1$s (veraltet)</string>
+  <string name="more_information">Weitere Informationen</string>
+  <string name="osm_tags">OSM Tags</string>
   <!--Read a file-->
   <string name="read">Lesen</string>
   <string name="overwrite">Überschreiben</string>
@@ -766,16 +814,16 @@
   <string name="position_info_title">Aktuelle Ortsinformation</string>
   <string name="position_info_hdop">HDOP</string>
   <string name="position_info_altitude">Höhe</string>
-  <string name="position_info_geoid_height">Höhe über dem Geoid</string>
+  <string name="position_info_geoid_height">Höhe über\ndem Geoid</string>
   <string name="position_info_barometric_height">Barometrische Höhe</string>
   <string name="position_info_geoid_correction">Geoid-Korrektur</string>
-  <string name="position_info_ellipsoid_height">Höhe über dem Ellipsoid</string>
+  <string name="position_info_ellipsoid_height">Höhe über\ndem Ellipsoid</string>
   <!--Strings in DownloadActivity-->
   <string name="download_files_title">Dateien herunterladen</string>
   <string name="allow_all_networks">Alle Netzwerke erlauben</string>
   <!--Strings in Go to coordinates-->
   <string name="go_to_coordinates_title">Zu Koordinaten wechseln</string>
-  <string name="go_to_coordinates_hint">Koordinaten oder ein OLC eingeben</string>
+  <string name="go_to_coordinates_hint">Koordinaten (lat lon) oder ein OLC eingeben</string>
   <string name="unparseable_coordinates">Koordinaten nicht interpretierbar</string>
   <string name="network_required">Zur Positionsbestimmung ist eine Netzwerkverbindung erforderlich</string>
   <string name="no_nominatim_server">Nominatim-Server ist nicht konfiguriert</string>
@@ -809,15 +857,17 @@
   <string name="menu_gps_follow">Standort folgen</string>
   <string name="menu_gps_goto">Zum aktuellen Standort gehen</string>
   <string name="menu_gps_goto_coordinates">Zu Koordinaten gehen…</string>
+  <string name="menu_gps_goto_nearest_todo">Zur nächsten Aufgabe gehen...</string>
   <string name="menu_gps_goto_last_edit">Zur letzten Änderung gehen</string>
   <string name="menu_gps_position_info">Aktuelle Ortsinfo</string>
   <string name="menu_gps_start">GPX-Track starten</string>
+  <string name="menu_gps_resume">GPX-Track weiterführen</string>
   <string name="menu_gps_pause">GPX-Track pausieren</string>
   <string name="menu_gps_clear">GPX-Track und dessen Wegpunkte löschen</string>
   <string name="menu_gps_track_managment">GPX-Trackverwaltung…</string>
-  <string name="menu_gps_upload">GPX-Track hochladen</string>
-  <string name="menu_gps_export">GPX-Track exportieren</string>
-  <string name="menu_gps_import">GPX-Track importieren</string>
+  <string name="menu_gps_upload">GPX-Track hochladen…</string>
+  <string name="menu_gps_export">GPX-Track exportieren…</string>
+  <string name="menu_gps_import">GPX-Track importieren…</string>
   <string name="menu_gps_goto_start">Zum Anfang des GPX-Tracks gehen</string>
   <string name="menu_gps_goto_first_waypoint">Zum ersten Wegpunkt gehen</string>
   <string name="menu_enable_gps_autodownload">Auto-Download nach Standort</string>
@@ -827,8 +877,10 @@
   <string name="menu_transfer_download_replace">Löschen und aktuelle Ansicht herunterladen</string>
   <string name="menu_transfer_load_current">Aktuelle Ansicht laden</string>
   <string name="menu_transfer_load_replace">Löschen und aktuelle Ansicht laden</string>
-  <string name="menu_transfer_upload">Daten zum OSM-Server hochladen</string>
+  <string name="menu_transfer_upload">Daten zum OSM-Server hochladen…</string>
+  <string name="menu_transfer_review">Änderungen überprüfen…</string>
   <string name="menu_transfer_update">Daten aktualisieren</string>
+  <string name="menu_transfer_data_clear">Daten löschen</string>
   <string name="menu_transfer_close_changeset">Aktuelles Changeset schließen</string>
   <string name="menu_transfer_file">Datei…</string>
   <string name="menu_transfer_export">Änderungen in eine OSC-Datei exportieren</string>
@@ -847,6 +899,8 @@
   <string name="menu_transfer_save_notes_all">Alle Notizen speichern…</string>
   <string name="menu_transfer_save_notes_new_and_changed">Geänderte und neue Notizen speichern…</string>
   <string name="menu_transfer_read_notes">Notizen laden…</string>
+  <string name="menu_transfer_read_todos">Aufgaben laden...</string>
+  <string name="menu_transfer_write_todos">Aufgaben speichern...</string>
   <string name="menu_save">Als Datei speichern</string>
   <string name="menu_join">Verbinden</string>
   <string name="menu_unjoin">Trennen</string>
@@ -866,16 +920,20 @@
   <string name="menu_select_way_nodes">Wegpunkte auswählen</string>
   <string name="menu_newnode_gps">Neuer Knoten an GPS-Position</string>
   <string name="menu_extend_selection">Auswahl erweitern</string>
-  <string name="menu_information">Info</string>
+  <string name="menu_information">Info…</string>
   <string name="menu_voice_commands">Sprachbefehle</string>
   <string name="menu_upload_element">Element hochladen</string>
   <string name="menu_upload_elements">Elemente hochladen</string>
+  <string name="menu_todo">Aufgabe...</string>
+  <string name="menu_todo_close_and_next">Schließen und zum nächsten gehen</string>
+  <string name="menu_todo_close_all_tasks">Alle Aufgaben schließen</string>
+  <string name="menu_add_to_todo">Zur Aufgabenliste hinzufügen...</string>
   <string name="menu_set_name">Namen festlegen</string>
   <string name="menu_tools">Werkzeuge…</string>
   <string name="menu_tools_imagery">Mehr Hintergrundtools…</string>
   <string name="menu_tools_add_imagery_from_oam">Hintergrund von OAM hinzufügen</string>
   <string name="menu_tools_flush_all_tile_caches">Alle Tile-Caches leeren</string>
-  <string name="menu_tools_background_properties">Hintergrundeigenschaften</string>
+  <string name="menu_tools_background_properties">Hintergrundeigenschaften…</string>
   <string name="menu_tools_update_imagery_configuration">Konfiguration aktualisieren</string>
   <string name="menu_tools_update_imagery_configuration_eli">Konfiguration von ELI aktualisieren</string>
   <string name="menu_tools_zoom_to_layer_extent">Auf Abdeckung des Hintergrunds zoomen</string>
@@ -883,6 +941,7 @@
   <string name="menu_tools_calibrate_height">Barometer kalibrieren…</string>
   <string name="menu_tools_install_egm">EGM installieren</string>
   <string name="menu_tools_remove_egm">EGM entfernen</string>
+  <string name="menu_tools_import_data_style">Datenstil importieren…</string>
   <string name="menu_tools_load_keys">Schlüssel aus Datei laden…</string>
   <!---->
   <string name="menu_simple_actions">Einfacher Modus</string>
@@ -903,9 +962,9 @@
   <string name="distance_km">%1$.3f km</string>
   <!--Menus in layers dialog-->
   <string name="menu_layers">Ebenen…</string>
-  <string name="menu_layers_load_geojson">GeoJSON Ebene hinzufügen</string>
-  <string name="menu_layers_add_backgroundlayer">Hintergrundebene hinzufügen</string>
-  <string name="menu_layers_add_overlaylayer">Overlay-Ebene hinzufügen</string>
+  <string name="menu_layers_load_geojson">GeoJSON Ebene hinzufügen…</string>
+  <string name="menu_layers_add_backgroundlayer">Hintergrundebene hinzufügen…</string>
+  <string name="menu_layers_add_overlaylayer">Overlay-Ebene hinzufügen…</string>
   <string name="menu_layers_add_tasklayer">Aufgaben-Ebene anzeigen</string>
   <string name="menu_layers_add_grid">Gitter/Skala anzeigen</string>
   <string name="menu_layers_add_photolayer">Foto-Ebene anzeigen</string>
@@ -956,9 +1015,14 @@
   <string name="actionmode_newnoteselect">Neue Notiz ausgewählt</string>
   <string name="actionmode_add_segment">Routenteil hinzufügen</string>
   <string name="actionmode_reselect_first_segment">Erstes Routensegment nochmals auswählen</string>
+  <string name="actionmode_split_way">Weg teilen</string>
+  <string name="actionmode_split_closed_way">Geschlossenen Weg teilen</string>
   <!--EasyEdit action mode sub-titles-->
-  <string name="actionmode_closed_way_split_1">Geschlossenen Weg aufspalten, 1. Knoten</string>
-  <string name="actionmode_closed_way_split_2">Geschlossenen Weg aufspalten, 2. Knoten</string>
+  <string name="actionmode_closed_way_split_1">1. Wegpunkt auswählen</string>
+  <string name="actionmode_closed_way_split_2">2. Wegpunkt auswählen</string>
+  <string name="actionmode_split_way_node_selection">Knoten auswählen</string>
+  <string name="actionmode_split_way_select_part">Teil für den neuen Weg auswählen</string>
+  <string name="actionmode_select_node_to_append_to">Knoten auswählen an dem angeschlossen wird</string>
   <string name="actionmode_restriction">Abbiegebeschränkung hinzufügen</string>
   <string name="actionmode_restriction_restart_from">„from“-Segment nochmals auswählen</string>
   <string name="actionmode_restriction_select_from">Auswahl „von“-Segment</string>
@@ -982,7 +1046,6 @@
   <string name="menu_add_node_address">Adresspunkt hinzufügen</string>
   <string name="menu_add_address_interpolation">Adressinterpolation hinzufügen</string>
   <string name="menu_add_way">Weg hinzufügen</string>
-  <string name="simple_add_way">Bildschirmposition antippen</string>
   <string name="menu_add_map_note">Notiz hinzufügen</string>
   <string name="simple_add_note">Bildschirmposition antippen</string>
   <string name="menu_paste_object">Objekt einfügen</string>
@@ -1009,6 +1072,8 @@
   <string name="config_enableKeepScreenOn_summary">Den Bildschirm nicht abschalten, um Energie zu sparen</string>
   <string name="config_largeDragArea_title">Große Knoten-Verschiebefläche</string>
   <string name="config_largeDragArea_summary">Rund um Knoten größere Fläche zum Fassen und Verschieben bereitstellen</string>
+  <string name="config_wayNodeDragging_title">Ziehen von Wegknoten aktivieren</string>
+  <string name="config_wayNodeDragging_summary">Ermöglicht das Bewegen von einzelnen Knoten eines ausgewählten Weges.</string>
   <string name="config_advancedprefs">Erweiterte Einstellungen</string>
   <string name="config_moreprefs">Weitere Einstellungen…</string>
   <string name="config_presetbutton_title">Vorlagen</string>
@@ -1213,6 +1278,20 @@
   <string name="config_mapillaryCacheSize_title">Mapillary-Cache Größe</string>
   <string name="config_mapillaryCacheSize_summary">Speicher zum Speichern von Mapillary-Bildern in MB</string>
   <!--Auto-save-->
+  <string name="config_category_autosave">Automatisches Speichern konfigurieren</string>
+  <string name="config_category_autosave_summary">Einstellungen für das automatische Speichern von Bearbeitungen.</string>
+  <string name="config_autosaveSaveState_title">Status speichern</string>
+  <string name="config_autosaveSaveState_summary">Den vollständigen Status einschließlich unveränderter Daten speichern.</string>
+  <string name="config_autosaveSaveChanges_title">Speichern der Änderungen</string>
+  <string name="config_autosaveSaveChanges_summary">Bearbeitungen als OSC Datei speichern.</string>
+  <string name="config_autosaveInterval_title">Mindestabstand</string>
+  <string name="config_autosaveInterval_summary">Mindestabstand in Minuten zwischen den Speicherungen.</string>
+  <string name="config_autosaveInterval_current">%1$d min</string>
+  <string name="config_autosaveChanges_title">Mindestanzahl von Änderungen</string>
+  <string name="config_autosaveChanges_summary">Mindestanzahl von Änderungen, die zum Speichern erforderlich sind.</string>
+  <string name="config_autosaveChanges_current">%1$d</string>
+  <string name="config_autosaveMaxFiles_title">Maximale Anzahl von OSC-Dateien, die gespeichert werden sollen</string>
+  <string name="config_autosaveMaxFiles_current">%1$d</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">Verschiedenes</string>
   <string name="pref_enable_acra">Programmabstürze melden</string>
@@ -1226,6 +1305,8 @@
   <string name="config_js_console_summary">Den „live“-Modus der JS-Konsole freischalten</string>
   <string name="config_voiceCommandsEnabled_title">Sprachbefehle unterstützen</string>
   <string name="config_voiceCommandsEnabled_summary">Unterstützung von Sprachbefehlen aktivieren</string>
+  <string name="config_splitWindowForPropertyEditor_summary">Anzeige des Eigenschaftseditors in einem separaten Fenster aktivieren, falls verfügbar.</string>
+  <string name="config_splitWindowForPropertyEditor_title">Eigenschaftseditor im geteilten Fenster aktivieren</string>
   <!---->
   <string name="manage_apis">APIs verwalten</string>
   <string name="config_api_url_title">API-URL</string>
@@ -1355,6 +1436,7 @@ in %1$d m %2$s</string>
   <string name="bridge">Brücke</string>
   <string name="tunnel">Tunnel</string>
   <string name="culvert">Durchlass</string>
+  <string name="steps">Stufen</string>
   <!--Issues-->
   <string name="issue_not_reversable">Eigenschaft konnte nicht gedreht werden</string>
   <string name="issue_shared_node">Wird mit anderem Weg geteilt</string>
@@ -1408,4 +1490,7 @@ in %1$d m %2$s</string>
   <string name="element_type_area">Fläche</string>
   <string name="element_type_relation">Relation</string>
   <!--Element names with id-->
+  <string name="node_id">Knoten %1$d</string>
+  <string name="way_id">Weg %1$d</string>
+  <string name="relation_id">Relation %1$d</string>
 </resources>

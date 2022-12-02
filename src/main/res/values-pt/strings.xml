@@ -93,11 +93,14 @@
   <string name="upload_request_review_label">Pedir para reverem:</string>
   <string name="upload_validation_error_empty_comment">O comentário não deve estar em branco</string>
   <string name="upload_validation_error_empty_source">A fonte não deve estar em branco</string>
+  <!--Review changes dialog-->
   <!--Upload GPX-->
   <string name="upload_gpx_title">Enviar trilho GPX</string>
   <string name="upload_gpx_description_label">Descrição</string>
   <string name="upload_gpx_tags_label">Etiquetas</string>
   <string name="upload_gpx_visibility_label">Visibilidade</string>
+  <!--Background properties-->
+  <string name="background_properties_title">Propriedades do fundo</string>
   <!--task fragment-->
   <string name="openstreetbug_new_title">Nova nota</string>
   <string name="openstreetbug_new_bug">Reportar problema</string>
@@ -123,6 +126,7 @@
   <string name="maproulette_task_apikey_set">Chave da API do MapRoulette gravada</string>
   <string name="maproulette_task_no_apikey">Nenhuma chave da API do MapRoulette</string>
   <!--Todo dialogs-->
+  <string name="todo_comment_legend">Comentar</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Atenção!</string>
   <string name="unsaved_data_message">Se continuar perderá as suas alterações por gravar.</string>
@@ -280,8 +284,6 @@
   <string name="layer_data">Dados OSM</string>
   <string name="layer_data_name">%1$s dados</string>
   <string name="layer_flush_tile_cache">Limpar cache de mosaicos</string>
-  <string name="layer_change_style">Altera estilo</string>
-  <string name="layer_select_imagery">Selecionar imagens aéreas</string>
   <string name="layer_category_all">Tudo</string>
   <string name="layer_category_map">Mapa</string>
   <string name="layer_category_other">Outro</string>
@@ -436,7 +438,6 @@
   <string name="toast_task_layer_disabled">Camada de tarefas desativada</string>
   <string name="toast_unable_to_create_task_layer">Não foi possível criar a camada de tarefas</string>
   <string name="toast_merged">Unido</string>
-  <string name="toast_invalid_style_file">Formato de ficheiro de estilo inválido em %1$s</string>
   <string name="toast_no_geometry">Sem geometria para o elemento encontrado</string>
   <string name="toast_added_api_entry_for">Entrada de API adicionada de %1$s</string>
   <string name="toast_updated">%1$s atualizado</string>
@@ -582,7 +583,6 @@ há %3$s %4$s</string>
   <string name="allow_all_networks">Permitir todas as redes</string>
   <!--Strings in Go to coordinates-->
   <string name="go_to_coordinates_title">Ir para as coordenadas</string>
-  <string name="go_to_coordinates_hint">Introduza as coordenadas ou um OLC</string>
   <string name="unparseable_coordinates">Coordenadas não processáveis</string>
   <string name="network_required">É necessária a rede para a procura de um local</string>
   <string name="no_nominatim_server">Não foi encontrado um servidor Nominatim configurado</string>
@@ -616,15 +616,12 @@ há %3$s %4$s</string>
   <string name="menu_gps_pause">Pausar localização GPX</string>
   <string name="menu_gps_clear">Limpar trilhos GPX e os seus marcadores</string>
   <string name="menu_gps_track_managment">Gestão do trilho GPX…</string>
-  <string name="menu_gps_upload">Enviar trilho GPX</string>
-  <string name="menu_gps_export">Exportar trilho GPX</string>
-  <string name="menu_gps_import">Importar trilho GPX</string>
   <string name="menu_gps_goto_start">Ir para o início do trilho GPX</string>
   <string name="menu_gps_goto_first_waypoint">Ir para o primeiro marcador</string>
   <string name="menu_transfer">Transferir…</string>
   <string name="menu_transfer_download_current">Descarregar a vista atual</string>
   <string name="menu_transfer_load_current">Carregar vista atual</string>
-  <string name="menu_transfer_upload">Enviar dados para o OSM</string>
+  <string name="menu_transfer_data_clear">Limpar dados</string>
   <string name="menu_transfer_close_changeset">Fechar o conjunto de alterações atual</string>
   <string name="menu_transfer_file">Ficheiro…</string>
   <string name="menu_transfer_export">Exportar alterações para ficheiro OSC</string>
@@ -658,13 +655,11 @@ há %3$s %4$s</string>
   <string name="menu_split_polygon">Dividir em 2 polígonos</string>
   <string name="menu_newnode_gps">Novo nó na posição GPS</string>
   <string name="menu_extend_selection">Selecionar mais</string>
-  <string name="menu_information">Informações do elemento</string>
   <string name="menu_voice_commands">Comandos de voz</string>
   <string name="menu_set_name">Definir nome</string>
   <string name="menu_tools">Ferramentas…</string>
   <string name="menu_tools_add_imagery_from_oam">Adicionar imagem de OAM</string>
   <string name="menu_tools_flush_all_tile_caches">Limpar toda a cache de mosaicos</string>
-  <string name="menu_tools_background_properties">Propriedades do fundo</string>
   <string name="menu_tools_zoom_to_layer_extent">Enquadrar camada de fundo</string>
   <string name="menu_tools_clear_clipboard">Limpar área de transferência</string>
   <!---->
@@ -686,8 +681,6 @@ há %3$s %4$s</string>
   <string name="distance_km">%1$.3f km</string>
   <!--Menus in layers dialog-->
   <string name="menu_layers">Camadas…</string>
-  <string name="menu_layers_add_backgroundlayer">Adicionar camada de fundo de imagens aéreas</string>
-  <string name="menu_layers_add_overlaylayer">Adicionar camada de imagens aéreas por cima</string>
   <string name="menu_layers_add_photolayer">Ativar camada de fotos</string>
   <string name="menu_layers_configure">Configurar…</string>
   <!---->
@@ -722,8 +715,6 @@ há %3$s %4$s</string>
   <string name="actionmode_multiselect">Seleção múltipla</string>
   <string name="actionmode_newnoteselect">Nova Nota selecionada</string>
   <!--EasyEdit action mode sub-titles-->
-  <string name="actionmode_closed_way_split_1">Dividir linha fechada: 1º nó</string>
-  <string name="actionmode_closed_way_split_2">Dividir linha fechada, 2º nó</string>
   <string name="actionmode_restriction">Adicionar restrição de viragem</string>
   <string name="actionmode_restriction_restart_from">Selecionar novamente o segmento \"from\" (de)</string>
   <string name="actionmode_restriction_select_from">Selecionar segmento \"from\" (de)</string>
@@ -744,7 +735,6 @@ há %3$s %4$s</string>
   <string name="simple_add_node">Toque na posição do ecrã</string>
   <string name="menu_add_node_tags">Adicionar nó com etiquetas</string>
   <string name="menu_add_way">Adicionar linha</string>
-  <string name="simple_add_way">Toque na posição do ecrã</string>
   <string name="menu_add_map_note">Adicionar nota do mapa</string>
   <string name="simple_add_note">Toque na posição do ecrã</string>
   <string name="menu_paste_object">Colar objeto</string>
@@ -799,8 +789,6 @@ há %3$s %4$s</string>
   <string name="config_tagFormEnabled_summary">Mostrar formulário de etiquetas tipo tabela para editar.</string>
   <string name="config_showCameraAction_title">Mostrar ação da câmara</string>
   <string name="config_showCameraAction_summary">Mostrar ícone da câmara na barra de ações.</string>
-  <string name="config_followGPSbutton_title">Disposição do botão de seguir posição</string>
-  <string name="config_followGPSbutton_summary">Onde o botão \"seguir posição\" será posicionado.</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Escurecer p/descarregar</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">Escurece áreas não descarregadas no modo bloqueado.</string>
   <string name="config_fullscreenMode_title">Modo ecrã total</string>
@@ -909,6 +897,7 @@ há %3$s %4$s</string>
   <string name="config_tileCacheSize_summary">Armazenamento total utilizado para os mosaicos, em MB.</string>
   <string name="config_tileCache_current">%1$d MB</string>
   <!--Auto-save-->
+  <string name="config_autosaveSaveChanges_title">Guardar alterações</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">Outras configurações</string>
   <string name="pref_enable_acra">Reportar bloqueios da app</string>
@@ -1043,6 +1032,7 @@ há %3$s %4$s</string>
   <string name="bridge">Ponte</string>
   <string name="tunnel">Túnel</string>
   <string name="culvert">Tubo de drenagem</string>
+  <string name="steps">Escadas</string>
   <!--Issues-->
   <!--time and distance-->
   <plurals name="days">

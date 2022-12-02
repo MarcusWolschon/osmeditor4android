@@ -2623,7 +2623,7 @@ msgstr "Chinês"
 
 #: master_preset.xml:6569(list_entry:short_description|group:Health|preset:Physiotherapist|value:chiropractic)
 msgid "Chiropractic"
-msgstr ""
+msgstr "Quiropraxia"
 
 #: master_preset.xml:10024(item:name|group:Food|preset:Chocolate)
 msgid "Chocolate"
@@ -5032,7 +5032,7 @@ msgstr ""
 
 #: master_preset.xml:9087(list_entry:display_value|group:Power_Plant|preset:Power_Plant|value:gasoline)
 msgid "Gasoline"
-msgstr ""
+msgstr "Gasolina"
 
 #: master_preset.xml:9300(item:name|group:Power_Generator|preset:Gasoline_Power_Generator)
 msgid "Gasoline Power Generator"
@@ -14352,7 +14352,7 @@ msgstr ""
 
 #: master_preset.xml:9100(list_entry:display_value|group:Power_Plant|preset:Power_Plant|value:wind)
 msgid "Wind"
-msgstr ""
+msgstr "Vento"
 
 #: master_preset.xml:9222(item:name|group:Power_Plant|preset:Wind_Power_Plant)
 msgid "Wind Power Plant"
@@ -15647,7 +15647,7 @@ msgstr ""
 #: master_preset.xml:225(list_entry:short_description|value:unmarked)
 msgctxt "pedestrian"
 msgid "Unmarked"
-msgstr ""
+msgstr "Sem sinalização"
 
 #: master_preset.xml:3909(combo:display_values|group:Railway|preset:Railway_Switch|key:railway:switch)
 msgctxt "railway"
@@ -17600,7 +17600,7 @@ msgstr "Piso táctil"
 #: master_preset.xml:1241(list_entry:short_description|value:abortion)
 msgctxt "healthcare"
 msgid "Abortion"
-msgstr ""
+msgstr "Aborto"
 
 #: master_preset.xml:6619(list_entry:short_description|group:Health|preset:Alternative_medicine|value:acupuncture)
 msgctxt "healthcare"
@@ -17635,7 +17635,7 @@ msgstr "Ayurveda"
 #: master_preset.xml:6610(combo:display_values|group:Health|preset:Laboratory|key:healthcare:speciality)
 msgctxt "healthcare"
 msgid "Biology"
-msgstr ""
+msgstr "Biologia"
 
 #: master_preset.xml:6610(combo:display_values|group:Health|preset:Laboratory|key:healthcare:speciality)
 msgctxt "healthcare"
@@ -17645,7 +17645,7 @@ msgstr ""
 #: master_preset.xml:1244(list_entry:short_description|value:cardiology)
 msgctxt "healthcare"
 msgid "Cardiology"
-msgstr ""
+msgstr "Cardiologia"
 
 #: master_preset.xml:1245(list_entry:short_description|value:child_psychiatry)
 msgctxt "healthcare"
@@ -17656,7 +17656,7 @@ msgstr ""
 #: master_preset.xml:6624(list_entry:short_description|group:Health|preset:Alternative_medicine|value:chiropractic)
 msgctxt "healthcare"
 msgid "Chiropractic"
-msgstr ""
+msgstr "Quiropraxia"
 
 #: master_preset.xml:6610(combo:display_values|group:Health|preset:Laboratory|key:healthcare:speciality)
 msgctxt "healthcare"
@@ -18768,7 +18768,7 @@ msgstr ""
 #: master_preset.xml:1407(combo:display_values|key:animated)
 msgctxt "advertising"
 msgid "Wind"
-msgstr ""
+msgstr "Vento"
 
 #: master_preset.xml:1407(combo:display_values|key:animated)
 msgctxt "advertising"
@@ -21614,7 +21614,7 @@ msgstr "Fusão"
 #: master_preset.xml:9355(combo:display_values|group:Power_Generator|preset:Waste_Power_Generator|key:generator:method)
 msgctxt "generator method"
 msgid "Gasification"
-msgstr ""
+msgstr "Gasificação"
 
 #: master_preset.xml:9177(combo:text|group:Power_Plant|preset:Waste_Power_Plant|key:plant:method)
 #: master_preset.xml:9200(combo:text|group:Power_Plant|preset:Tidal_Power_Plant|key:plant:method)
@@ -21626,7 +21626,7 @@ msgstr "Método"
 #: master_preset.xml:9341(combo:display_values|group:Power_Generator|preset:Solar_Power_Generator|key:generator:method)
 msgctxt "generator method"
 msgid "Photovoltaic"
-msgstr ""
+msgstr "Fotovoltaico"
 
 #: master_preset.xml:9355(combo:display_values|group:Power_Generator|preset:Waste_Power_Generator|key:generator:method)
 msgctxt "generator method"

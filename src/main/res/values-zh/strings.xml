@@ -100,11 +100,14 @@
   <string name="upload_request_review_label">请求复核：</string>
   <string name="upload_validation_error_empty_comment">注释不应该留空</string>
   <string name="upload_validation_error_empty_source">来源不应留空</string>
+  <!--Review changes dialog-->
   <!--Upload GPX-->
   <string name="upload_gpx_title">上传 GPX 轨迹</string>
   <string name="upload_gpx_description_label">描述</string>
   <string name="upload_gpx_tags_label">标签</string>
   <string name="upload_gpx_visibility_label">可见性</string>
+  <!--Background properties-->
+  <string name="background_properties_title">背景属性</string>
   <!--task fragment-->
   <string name="openstreetbug_new_title">新的标注</string>
   <string name="openstreetbug_new_bug">反馈问题</string>
@@ -319,10 +322,7 @@
   <string name="layer_data">OSM 数据</string>
   <string name="layer_data_name">%1$s 数据</string>
   <string name="layer_flush_tile_cache">刷新瓦片缓存</string>
-  <string name="layer_change_style">更改样式</string>
-  <string name="layer_load_style">加载样式</string>
   <string name="layer_reset_style">重置样式</string>
-  <string name="layer_select_imagery">选择影像</string>
   <string name="layer_category_all">全部</string>
   <string name="layer_category_photo">航空影像</string>
   <string name="layer_category_elevation">地形</string>
@@ -332,7 +332,6 @@
   <string name="layer_category_osmbasedmap">基于 OSM 的地图</string>
   <string name="layer_category_qa">QA</string>
   <string name="layer_category_other">其他</string>
-  <string name="layer_add_layer_from_mvt_style">从 MVT 样式添加图层</string>
   <!--Layer info dialog-->
   <string name="layer_info_min_zoom">最小缩放</string>
   <string name="layer_info_max_zoom">最大缩放</string>
@@ -517,7 +516,6 @@
   <string name="toast_task_layer_disabled">任务图层已停用</string>
   <string name="toast_unable_to_create_task_layer">无法创建任务图层</string>
   <string name="toast_merged">已合并</string>
-  <string name="toast_invalid_style_file">无效的样式文件格式 %1$s</string>
   <string name="toast_no_geometry">未找到要素的几何形状</string>
   <string name="toast_added_api_entry_for">添加 API 条目 %1$s</string>
   <string name="toast_updated">已更新 %1$s</string>
@@ -528,7 +526,6 @@
   <string name="toast_error_reading">%1$s 读取错误</string>
   <string name="toast_read_successfully">文件读取成功</string>
   <string name="toast_error_writing">%1$s 写入错误</string>
-  <string name="toast_successfully_written">文件成功写入</string>
   <string name="toast_http_data_error_for">%1$s HTTP 数据错误</string>
   <string name="toast_error_insufficient_space_for">设备没有足够空间 %1$s</string>
   <string name="toast_error_too_many_redirects_for"> %1$s 重定向过多</string>
@@ -700,16 +697,13 @@
   <string name="position_info_title">当前位置信息</string>
   <string name="position_info_hdop">HDOP</string>
   <string name="position_info_altitude">海拔</string>
-  <string name="position_info_geoid_height">大地水准面上的高度</string>
   <string name="position_info_barometric_height">气压高度</string>
   <string name="position_info_geoid_correction">大地水准面改正</string>
-  <string name="position_info_ellipsoid_height">椭球面上的高度</string>
   <!--Strings in DownloadActivity-->
   <string name="download_files_title">下载文件</string>
   <string name="allow_all_networks">允许所有网络</string>
   <!--Strings in Go to coordinates-->
   <string name="go_to_coordinates_title">前往坐标</string>
-  <string name="go_to_coordinates_hint">输入坐标或 OLC</string>
   <string name="unparseable_coordinates">无法解析的坐标</string>
   <string name="network_required">查找位置需要网络</string>
   <string name="no_nominatim_server">未找到设定的 Nominatim 服务器</string>
@@ -749,9 +743,6 @@
   <string name="menu_gps_pause">暂停 GPX 轨迹记录</string>
   <string name="menu_gps_clear">清除 GPX 轨迹和航点</string>
   <string name="menu_gps_track_managment">GPX 轨迹管理…</string>
-  <string name="menu_gps_upload">上传 GPX 轨迹</string>
-  <string name="menu_gps_export">导出 GPX 轨迹</string>
-  <string name="menu_gps_import">导入 GPX 轨迹</string>
   <string name="menu_gps_goto_start">前往 GPX 轨迹的起始点</string>
   <string name="menu_gps_goto_first_waypoint">前往第一个航点</string>
   <string name="menu_enable_gps_autodownload">根据位置自动下载</string>
@@ -761,7 +752,6 @@
   <string name="menu_transfer_download_replace">清除并下载当前视图</string>
   <string name="menu_transfer_load_current">加载当前视图</string>
   <string name="menu_transfer_load_replace">清除并加载当前视图</string>
-  <string name="menu_transfer_upload">上传数据到OSM服务器</string>
   <string name="menu_transfer_update">更新数据</string>
   <string name="menu_transfer_close_changeset">关闭当前的变更集</string>
   <string name="menu_transfer_file">文件…</string>
@@ -799,7 +789,6 @@
   <string name="menu_extract_segment">提取片段</string>
   <string name="menu_newnode_gps">在 GPS 位置新建节点</string>
   <string name="menu_extend_selection">扩展选择</string>
-  <string name="menu_information">信息</string>
   <string name="menu_voice_commands">语音指令</string>
   <string name="menu_upload_element">上传要素</string>
   <string name="menu_upload_elements">上传要素</string>
@@ -808,7 +797,6 @@
   <string name="menu_tools_imagery">更多影像工具…</string>
   <string name="menu_tools_add_imagery_from_oam">从 OAM 添加影像</string>
   <string name="menu_tools_flush_all_tile_caches">刷新所有瓦片缓存</string>
-  <string name="menu_tools_background_properties">背景属性</string>
   <string name="menu_tools_update_imagery_configuration">更新设定</string>
   <string name="menu_tools_update_imagery_configuration_eli">从 ELI 更新设定</string>
   <string name="menu_tools_zoom_to_layer_extent">缩放到背景图层范围</string>
@@ -834,9 +822,6 @@
   <string name="distance_km">%1$.3f 千米</string>
   <!--Menus in layers dialog-->
   <string name="menu_layers">图层…</string>
-  <string name="menu_layers_load_geojson">添加 GeoJSON 图层</string>
-  <string name="menu_layers_add_backgroundlayer">添加背景影像图层</string>
-  <string name="menu_layers_add_overlaylayer">添加叠加影像图层</string>
   <string name="menu_layers_add_tasklayer">启用任务图层</string>
   <string name="menu_layers_add_grid">启用网格</string>
   <string name="menu_layers_add_photolayer">启用照片图层</string>
@@ -886,8 +871,6 @@
   <string name="actionmode_add_segment">添加片段</string>
   <string name="actionmode_reselect_first_segment">重新选择第一个片段</string>
   <!--EasyEdit action mode sub-titles-->
-  <string name="actionmode_closed_way_split_1">拆分封闭路径的第1个点</string>
-  <string name="actionmode_closed_way_split_2">拆分封闭路径的第2个点</string>
   <string name="actionmode_restriction">添加转向限制</string>
   <string name="actionmode_restriction_restart_from">重新选择\"from\"片段</string>
   <string name="actionmode_restriction_select_from">选择\"from\"片段</string>
@@ -910,7 +893,6 @@
   <string name="menu_add_node_address">添加地址节点</string>
   <string name="menu_add_address_interpolation">添加地址插值</string>
   <string name="menu_add_way">添加路径</string>
-  <string name="simple_add_way">点击屏幕位置</string>
   <string name="menu_add_map_note">添加地图注记</string>
   <string name="simple_add_note">点击屏幕位置</string>
   <string name="menu_paste_object">粘贴对象</string>
@@ -972,8 +954,6 @@
   <string name="config_fv5_pro">FV5 pro</string>
   <string name="config_useInternalPhotoViewer_title">使用内置图片浏览器</string>
   <string name="config_useInternalPhotoViewer_summary">使用内置图片浏览器，如果没有勾选则使用外部图片浏览器。</string>
-  <string name="config_followGPSbutton_title">跟随位置按钮布局</string>
-  <string name="config_followGPSbutton_summary">“跟随位置”按钮的位置</string>
   <string name="config_alwaysDrawBoundingBoxes_title">始终使未下载区域变暗</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">在锁定模式下使未下载区域变暗。</string>
   <string name="config_fullscreenMode_title">全屏模式</string>
@@ -1123,6 +1103,8 @@
   <string name="config_mapillaryCacheSize_title">Mapillary 缓存大小</string>
   <string name="config_mapillaryCacheSize_summary">用于缓存 Mapillary 图像的总空间，以 MB 为单位</string>
   <!--Auto-save-->
+  <string name="config_autosaveChanges_current">%1$d</string>
+  <string name="config_autosaveMaxFiles_current">%1$d</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">杂项</string>
   <string name="pref_enable_acra">报告应用崩溃</string>
@@ -1263,6 +1245,7 @@
   <string name="bridge">桥</string>
   <string name="tunnel">隧道</string>
   <string name="culvert">涵洞</string>
+  <string name="steps">楼梯</string>
   <!--Issues-->
   <string name="issue_not_reversable">无法反转的标签</string>
   <string name="issue_shared_node">与其他路径共享</string>

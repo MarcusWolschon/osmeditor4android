@@ -95,11 +95,14 @@
   <string name="upload_request_review_label">Pedir para revisión:</string>
   <string name="upload_validation_error_empty_comment">O comentario non debe ficar baleiro</string>
   <string name="upload_validation_error_empty_source">A fonte non debe ficar baleira</string>
+  <!--Review changes dialog-->
   <!--Upload GPX-->
   <string name="upload_gpx_title">Subir pista GPX</string>
   <string name="upload_gpx_description_label">Descrición</string>
   <string name="upload_gpx_tags_label">Etiquetas</string>
   <string name="upload_gpx_visibility_label">Visibilidade</string>
+  <!--Background properties-->
+  <string name="background_properties_title">Propiedades do escritorio</string>
   <!--task fragment-->
   <string name="openstreetbug_new_title">Nova nota</string>
   <string name="openstreetbug_new_bug">Informar dun problema</string>
@@ -127,6 +130,7 @@
   <string name="maproulette_task_apikey_set">Chave da API do MapRoulette gardada</string>
   <string name="maproulette_task_no_apikey">Sen chave da API do MapRoulette</string>
   <!--Todo dialogs-->
+  <string name="todo_comment_legend">Comentar</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Coidado!</string>
   <string name="unsaved_data_message">As túas modificacións non gardadas serán desbotadas se continúas.</string>
@@ -282,8 +286,6 @@
   <string name="layer_data">Datos OSM</string>
   <string name="layer_data_name">%1$s datos</string>
   <string name="layer_flush_tile_cache">Limpa-la caché das teselas</string>
-  <string name="layer_change_style">Mudar estilo</string>
-  <string name="layer_select_imagery">Escoller imaxes</string>
   <string name="layer_category_all">Todo</string>
   <string name="layer_category_photo">Imaxes aéreas</string>
   <string name="layer_category_historicphoto">Imaxes aéreas desactualizadas</string>
@@ -603,9 +605,6 @@
   <string name="menu_gps_pause">Deter pista GPX</string>
   <string name="menu_gps_clear">Limpar pistas e puntos de pasaxe GPX</string>
   <string name="menu_gps_track_managment">Xestión da pista GPX…</string>
-  <string name="menu_gps_upload">Subir pista GPX</string>
-  <string name="menu_gps_export">Exportar pista GPX</string>
-  <string name="menu_gps_import">Importar pista GPX</string>
   <string name="menu_enable_gps_autodownload">Descarga automática baseada na localización</string>
   <string name="menu_enable_pan_and_zoom_auto_download">Descarga automática co movemento</string>
   <string name="menu_transfer">Transferir...</string>
@@ -613,7 +612,6 @@
   <string name="menu_transfer_download_replace">Limpar e baixar a vista actual</string>
   <string name="menu_transfer_load_current">Cargar vista actual</string>
   <string name="menu_transfer_load_replace">Limpar e cargar a vista actual</string>
-  <string name="menu_transfer_upload">Subir datos ó servidor OSM</string>
   <string name="menu_transfer_close_changeset">Pechar o conxunto de modificacións actual</string>
   <string name="menu_transfer_file">Ficheiro…</string>
   <string name="menu_transfer_export">Exportar modificacións a un fichero OSC</string>
@@ -642,13 +640,11 @@
   <string name="menu_circulize">Organizar nun círculo</string>
   <string name="menu_split_polygon">Dividir en polígonos</string>
   <string name="menu_extend_selection">Extender selección</string>
-  <string name="menu_information">Info</string>
   <string name="menu_voice_commands">Ordes de voz</string>
   <string name="menu_set_name">Estabelecer nome</string>
   <string name="menu_tools">Ferramentas...</string>
   <string name="menu_tools_add_imagery_from_oam">Engadir imaxes dende o OAM</string>
   <string name="menu_tools_flush_all_tile_caches">Limpar tódalas cachés das teselas</string>
-  <string name="menu_tools_background_properties">Propiedades do escritorio</string>
   <string name="menu_tools_clear_clipboard">Limpar portapapeis</string>
   <!---->
   <string name="menu_simple_actions">Modo sinxelo</string>
@@ -707,8 +703,6 @@
   <string name="actionmode_multiselect">Multiselección</string>
   <string name="actionmode_newnoteselect">Nova nota seleccionada</string>
   <!--EasyEdit action mode sub-titles-->
-  <string name="actionmode_closed_way_split_1">Dividir vía pechada, 1º nó</string>
-  <string name="actionmode_closed_way_split_2">Dividir vía pechada, 2º nó</string>
   <string name="actionmode_restriction">Engadir restricción de xiro</string>
   <string name="actionmode_restriction_restart_from">Re-seleccionar o segmento \"dende\"</string>
   <string name="actionmode_restriction_select_from">Dividir \"até\" o segmento</string>
@@ -728,7 +722,6 @@
   <string name="simple_add_node">Preme na posición da pantalla</string>
   <string name="menu_add_node_tags">Engadir nó con etiquetas</string>
   <string name="menu_add_way">Engadir vía</string>
-  <string name="simple_add_way">Preme na posición da pantalla</string>
   <string name="menu_add_map_note">Engadir unha nota ó mapa</string>
   <string name="simple_add_note">Preme na posición da pantalla</string>
   <string name="menu_paste_object">Pegar obxecto</string>
@@ -828,6 +821,7 @@
   <string name="config_tileCacheSize_title">Tamaño da caché de teselas</string>
   <string name="config_tileCache_current">%1$d MB</string>
   <!--Auto-save-->
+  <string name="config_autosaveSaveChanges_title">Gardar as modificacións</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">Miscelánea</string>
   <string name="config_showStats_title">Amosar estatísticas</string>
@@ -930,6 +924,7 @@
   <string name="bridge">Ponte</string>
   <string name="tunnel">Túnel</string>
   <string name="culvert">Alcantarilla</string>
+  <string name="steps">Escaleiras</string>
   <!--Issues-->
   <!--time and distance-->
   <plurals name="days">

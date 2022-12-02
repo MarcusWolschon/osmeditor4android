@@ -28,6 +28,9 @@
     <string name="help_newnoteselection">Nieuwe notitieselectie</string>
     <string name="help_voice_commands">Spraakcommando\'s</string>
     <string name="help_add_route_segment">Voeg routesegment toe</string>
+    <string name="help_upgrade_180">18.0 Versieopmerkingen</string>
+    <string name="help_upgrade_171">17.1 Versieopmerkingen</string>
+    <string name="help_upgrade_170">17.0 Versieopmerkingen</string>
     <string name="help_upgrade_161">16.1 Versieopmerkingen</string>
     <string name="help_upgrade_160">16.0 Versieopmerkingen</string>
     <string name="help_upgrade_152">15.2 Versieopmerkingen</string>
@@ -37,16 +40,16 @@
     <string name="help_upgrade_140">14.0 Versieopmerkingen</string>
     <string name="help_upgrade_131">13.1 Versieopmerkingen</string>
     <string name="help_upgrade_130">13.0 Versieopmerkingen</string>
-    <string name="help_upgrade_121">12.1 Versie opmerkingen</string>
+    <string name="help_upgrade_121">12.1 Versieopmerkingen</string>
     <string name="help_upgrade_120">12.0 Versieopmerkingen</string>
-    <string name="help_upgrade_112">11.2 Versie opmerkingen</string>
+    <string name="help_upgrade_112">11.2 Versieopmerkingen</string>
     <string name="help_upgrade_111">11.1 Versieopmerkingen</string>
     <string name="help_upgrade_110">11.0 Versieopmerkingen</string>
     <string name="help_upgrade_102">10.2 Versieopmerkingen</string>
     <string name="help_upgrade_101">10.1 Versieopmerkingen</string>
     <string name="help_upgrade_100">10.0 Versieopmerkingen</string>
     <string name="help_upgrade_099">0.9.9 Versieopmerkingen</string>
-    <string name="help_upgrade_098">0.9.8 Versie opmerkingen</string>
+    <string name="help_upgrade_098">0.9.8 Versieopmerkingen</string>
     <string name="help_upgrade_097">0.9.7 Versieopmerkingen</string>
     <string name="help_upgrade_096">0.9.6 Versieopmerkingen</string>
     <string name="help_privacy">Privacy</string>
@@ -74,6 +77,9 @@
         <item>@string/help_newnoteselection</item>
         <item>@string/help_voice_commands</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_180</item>
+        <item>@string/help_upgrade_171</item>
+        <item>@string/help_upgrade_170</item>
         <item>@string/help_upgrade_161</item>
         <item>@string/help_upgrade_160</item>
         <item>@string/help_upgrade_152</item>
@@ -121,6 +127,9 @@
     	<item>Opening hours</item>
         <item>New Note selected</item>
         <item>Voice commands</item>
+        <item>18.1.0 Release notes</item>
+        <item>18.0.0 Release notes</item>
+        <item>17.1.0 Release notes</item>
         <item>17.0.0 Release notes</item>
         <item>16.1.0 Release notes</item>
         <item>16.0.0 Release notes</item>

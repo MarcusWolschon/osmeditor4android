@@ -100,11 +100,14 @@
   <string name="upload_request_review_label">Demande de revue :</string>
   <string name="upload_validation_error_empty_comment">Un commentaire ne doit pas être vide</string>
   <string name="upload_validation_error_empty_source">La source ne doit pas être vide</string>
+  <!--Review changes dialog-->
   <!--Upload GPX-->
   <string name="upload_gpx_title">Envoyer la trace GPX</string>
   <string name="upload_gpx_description_label">Description</string>
   <string name="upload_gpx_tags_label">Attributs</string>
   <string name="upload_gpx_visibility_label">Visibilité</string>
+  <!--Background properties-->
+  <string name="background_properties_title">Propriétés du fond de carte</string>
   <!--task fragment-->
   <string name="openstreetbug_new_title">Nouvelle note</string>
   <string name="openstreetbug_new_bug">Signaler un problème</string>
@@ -133,6 +136,7 @@
   <string name="maproulette_task_apikey_set">Clef d\'API MapRoulette sauvegardée</string>
   <string name="maproulette_task_no_apikey">Pas de clé d\'API MapRoulette</string>
   <!--Todo dialogs-->
+  <string name="todo_comment_legend">Commentaire</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Attention !</string>
   <string name="unsaved_data_message">Vos modifications non enregistrées seront abandonnées si vous continuez.</string>
@@ -305,8 +309,6 @@
   <string name="layer_data">Données OSM</string>
   <string name="layer_data_name">données %1$s</string>
   <string name="layer_flush_tile_cache">Vider le cache des tuiles</string>
-  <string name="layer_change_style">Modifier le style</string>
-  <string name="layer_select_imagery">Choisir une imagerie</string>
   <string name="layer_category_all">Tous</string>
   <string name="layer_category_photo">Images aériennes</string>
   <string name="layer_category_historicphoto">Images aériennes obsolète</string>
@@ -489,7 +491,6 @@
   <string name="toast_task_layer_disabled">Couche de tâches désactivée</string>
   <string name="toast_unable_to_create_task_layer">Impossible de créer un couche de tâches</string>
   <string name="toast_merged">Fusionné</string>
-  <string name="toast_invalid_style_file">Format de fichier de style invalide pour %1$s</string>
   <string name="toast_no_geometry">Aucune géométrie trouvée pour cet élément</string>
   <string name="toast_added_api_entry_for">Entrée de l\'API pour %1$s ajoutée</string>
   <string name="toast_updated">%1$s mis à jour</string>
@@ -650,16 +651,13 @@
   <string name="position_info_title">Informations de position actuelle</string>
   <string name="position_info_hdop">HDOP</string>
   <string name="position_info_altitude">Altitude</string>
-  <string name="position_info_geoid_height">Altitude orthométrique</string>
   <string name="position_info_barometric_height">Hauteur barométrique</string>
   <string name="position_info_geoid_correction">Correction du géoïde</string>
-  <string name="position_info_ellipsoid_height">Hauteur ellipsoïdale</string>
   <!--Strings in DownloadActivity-->
   <string name="download_files_title">Télécharger des fichiers</string>
   <string name="allow_all_networks">Permettre tous les réseaux</string>
   <!--Strings in Go to coordinates-->
   <string name="go_to_coordinates_title">Aller aux coordonnées</string>
-  <string name="go_to_coordinates_hint">Saisissez des coordonnées ou un OLC</string>
   <string name="unparseable_coordinates">Coordonnées impossibles à analyser</string>
   <string name="network_required">Le réseau est nécessaire pour rechercher un emplacement</string>
   <string name="no_nominatim_server">Impossible de trouver un serveur Nominatim configuré</string>
@@ -697,9 +695,6 @@
   <string name="menu_gps_pause">Mettre en pause la trace GPX</string>
   <string name="menu_gps_clear">Effacer la trace GPX et ses points</string>
   <string name="menu_gps_track_managment">Gestion des traces…</string>
-  <string name="menu_gps_upload">Envoyer la trace GPX</string>
-  <string name="menu_gps_export">Enregistrer la trace GPX</string>
-  <string name="menu_gps_import">Importer la trace GPX</string>
   <string name="menu_gps_goto_start">Aller au début de la trace</string>
   <string name="menu_gps_goto_first_waypoint">Aller au premier point du chemin</string>
   <string name="menu_enable_gps_autodownload">Téléchargement auto (localisation GPS)</string>
@@ -709,7 +704,6 @@
   <string name="menu_transfer_download_replace">Nettoyer et télécharger la vue actuelle</string>
   <string name="menu_transfer_load_current">Charger la vue actuelle</string>
   <string name="menu_transfer_load_replace">Nettoyer et charger la vue actuelle</string>
-  <string name="menu_transfer_upload">Envoyer les données au serveur OSM</string>
   <string name="menu_transfer_update">Mettre à jour les données</string>
   <string name="menu_transfer_close_changeset">Fermer le groupe de modifications actuel</string>
   <string name="menu_transfer_file">Fichier…</string>
@@ -746,7 +740,6 @@
   <string name="menu_extract_segment">Extraire le segment</string>
   <string name="menu_newnode_gps">Créer un nœud à la position GPS</string>
   <string name="menu_extend_selection">Étendre la sélection</string>
-  <string name="menu_information">Info</string>
   <string name="menu_voice_commands">Commandes vocales</string>
   <string name="menu_upload_element">Envoyer l\'élément</string>
   <string name="menu_upload_elements">Envoyer les éléments</string>
@@ -755,7 +748,6 @@
   <string name="menu_tools_imagery">Plus d\'outils d\'imagerie...</string>
   <string name="menu_tools_add_imagery_from_oam">Ajouter une imagerie depuis OAM</string>
   <string name="menu_tools_flush_all_tile_caches">Vider tous les caches de tuiles</string>
-  <string name="menu_tools_background_properties">Propriétés du fond de carte</string>
   <string name="menu_tools_update_imagery_configuration">Mettre à jour la configuration</string>
   <string name="menu_tools_update_imagery_configuration_eli">Mettre à jour la configuration depuis ELI</string>
   <string name="menu_tools_zoom_to_layer_extent">Zoomer sur l\'étendu de la couche de fond de carte</string>
@@ -781,9 +773,6 @@
   <string name="distance_km">%1$.3f km</string>
   <!--Menus in layers dialog-->
   <string name="menu_layers">Couches…</string>
-  <string name="menu_layers_load_geojson">Ajouter une couche GeoJSON</string>
-  <string name="menu_layers_add_backgroundlayer">Ajouter un fond de carte</string>
-  <string name="menu_layers_add_overlaylayer">Ajouter une surcouche de carte</string>
   <string name="menu_layers_add_tasklayer">Activer la couche des tâches</string>
   <string name="menu_layers_add_grid">Activer la grille</string>
   <string name="menu_layers_add_photolayer">Activer la couche photos</string>
@@ -829,8 +818,6 @@
   <string name="actionmode_multiselect">Sélection multiple</string>
   <string name="actionmode_newnoteselect">Nouvelle note sélectionnée</string>
   <!--EasyEdit action mode sub-titles-->
-  <string name="actionmode_closed_way_split_1">Découpage d\'un chemin fermé, 1er nœud</string>
-  <string name="actionmode_closed_way_split_2">Découpage d\'un chemin fermé, 2e nœud</string>
   <string name="actionmode_restriction">Ajouter une interdiction de tourner</string>
   <string name="actionmode_restriction_restart_from">Re-sélectionner le segment « from »</string>
   <string name="actionmode_restriction_select_from">Sélectionnez le segment « depuis »</string>
@@ -853,7 +840,6 @@
   <string name="simple_add_node">Appuyez sur l\'écran à la position souhaitée</string>
   <string name="menu_add_node_tags">Ajouter un nœud avec des attributs</string>
   <string name="menu_add_way">Ajouter un chemin</string>
-  <string name="simple_add_way">Appuyez sur l\'écran à la position souhaitée</string>
   <string name="menu_add_map_note">Ajouter une note de carte</string>
   <string name="simple_add_note">Appuyez sur l\'écran à la position souhaitée</string>
   <string name="menu_paste_object">Coller l\'objet</string>
@@ -910,8 +896,6 @@
   <string name="config_showCameraAction_summary">Voir l\'icône caméra sur la barre d\'action</string>
   <string name="config_useInternalPhotoViewer_title">Utiliser la visionneuse d\'images intégrée</string>
   <string name="config_useInternalPhotoViewer_summary">Utiliser la visionneuse d\'images intégrées, sinon Vespucci utilisera une visionneuse externe.</string>
-  <string name="config_followGPSbutton_title">Disposition du bouton de recentrage GPS</string>
-  <string name="config_followGPSbutton_summary">Où le bouton « recentrer sur ma position » devrait-il être placé ?</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Toujours assombrir les zones non téléchargées</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">Si cette option est cochée, les zones non téléchargées seront assombries en mode verrouillé.</string>
   <string name="config_fullscreenMode_title">Mode plein écran</string>
@@ -1049,6 +1033,9 @@
   <string name="config_tileCache_current">%1$d Mo</string>
   <string name="config_mapillaryCacheSize_title">Taille du cache Mapillary</string>
   <!--Auto-save-->
+  <string name="config_autosaveSaveChanges_title">Enregistrer les modifications</string>
+  <string name="config_autosaveChanges_current">%1$d</string>
+  <string name="config_autosaveMaxFiles_current">%1$d</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">Divers</string>
   <string name="pref_enable_acra">Signaler les plantages de l\'application</string>
@@ -1186,6 +1173,7 @@
   <string name="bridge">Pont</string>
   <string name="tunnel">Tunnel</string>
   <string name="culvert">Buse</string>
+  <string name="steps">Escaliers</string>
   <!--Issues-->
   <string name="issue_tags_reversed">Tags inversés</string>
   <string name="issue_merged_tags">Tags fusionnés</string>

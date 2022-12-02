@@ -60,7 +60,7 @@
   <string name="invalid_data_read_message">Raadpleeg alsjeblieft de documentatie over ondersteunde bestandsformaten en vereiste gegevensvelden.</string>
   <string name="file_write_failed_title">Kon niet naar bestand schrijven</string>
   <string name="file_write_failed_message">Vespucci kon het bestand niet aanpassen of opslaan.</string>
-  <string name="applying_osc_failed_title">Het toepassen van het OSC bestand is niet gelukt</string>
+  <string name="applying_osc_failed_title">Het toepassen van het OSC bestand is mislukt</string>
   <string name="applying_osc_failed_message">Je hebt waarschijnlijk niet alle originele gegevens ingeladen die nodig is om de wijzigingen toe te passen.</string>
   <!---->
   <string name="welcome_title">Welkom</string>
@@ -101,11 +101,14 @@
   <string name="upload_request_review_label">Verzoek controle:</string>
   <string name="upload_validation_error_empty_comment">Opmerking zou niet leeg moeten zijn</string>
   <string name="upload_validation_error_empty_source">Bron zou niet leeg moeten zijn</string>
+  <!--Review changes dialog-->
   <!--Upload GPX-->
   <string name="upload_gpx_title">Upload GPX-route</string>
   <string name="upload_gpx_description_label">Beschrijving</string>
   <string name="upload_gpx_tags_label">Tags</string>
   <string name="upload_gpx_visibility_label">Zichtbaarheid</string>
+  <!--Background properties-->
+  <string name="background_properties_title">Achtergrondeigenschappen</string>
   <!--task fragment-->
   <string name="openstreetbug_new_title">Nieuwe opmerking</string>
   <string name="openstreetbug_new_bug">Meld probleem</string>
@@ -114,6 +117,7 @@
   <string name="openstreetbug_edit_title">Bewerk opmerking</string>
   <string name="openstreetbug_comment_label">Opemerking:</string>
   <string name="openstreetbug_commit_ok">Taakwijzigingen opgeslagen</string>
+  <string name="openstreetbug_commit_fail">Kon taakwijzigingen niet opslaan</string>
   <string name="openstreetbug_unknown_task_type">Onbekend taaktype</string>
   <string name="openstreetbug_not_supported">%1$s is niet ondersteund.</string>
   <string name="note_description">Notitie: %1$s - %2$s</string>
@@ -127,6 +131,7 @@
   <string name="maproulette_task_title">MapRoulette Taak</string>
   <string name="maproulette_task_coords">Lat %1$4g, Lon %2$4g</string>
   <string name="maproulette_task_explanations">Uitleg</string>
+  <string name="maproulette_task_instructions">Instructies</string>
   <string name="maproulette_task_set_apikey">Stel MapRoulette API-sleutel in</string>
   <string name="maproulette_task_apikey_not_set">Kon MapRoulette API sleutel niet opslaan</string>
   <string name="maproulette_task_disable">Uitschakelen</string>
@@ -309,22 +314,24 @@
   <string name="json_object_not_displayed">JSON object (niet weergegeven)</string>
   <string name="json_array_not_displayed">JSON lijst (niet weergegeven)</string>
   <string name="gpx_automatic">Automatisch</string>
+  <string name="gpx_name">GPX-naam</string>
+  <string name="gpx_description">GPX-beschrijving</string>
+  <string name="gpx_type">GPX-type</string>
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
   <string name="layer_mapillary">Mapillary</string>
   <string name="layer_grid">Raster</string>
   <string name="layer_gpx">GPX</string>
+  <string name="layer_gpx_recording">GPX-opname</string>
   <string name="layer_photos">Foto\'s</string>
   <string name="layer_tasks">Taken</string>
   <string name="layer_data">OSM-gegevens</string>
   <string name="layer_data_name">%1$s-gegevens</string>
   <string name="layer_flush_tile_cache">Leeg tijdelijke tegelopslag</string>
-  <string name="layer_change_style">Verander stijl</string>
-  <string name="layer_load_style">Laad stijl</string>
   <string name="layer_reset_style">Reset stijl</string>
-  <string name="layer_select_imagery">Selecteer luchtfotografie</string>
   <string name="layer_category_all">Alle</string>
   <string name="layer_category_photo">Luchtfoto\'s</string>
+  <string name="layer_category_elevation">Terrein</string>
   <string name="layer_category_historicphoto">Verouderde luchtfoto\'s</string>
   <string name="layer_category_map">Kaart</string>
   <string name="layer_category_historicmap">Verouderde kaart</string>
@@ -428,7 +435,7 @@
   <string name="read_mail">Lezen</string>
   <string name="toast_photo_indexing_started">Scan gestart voor geo-gerefereerde foto\'s</string>
   <string name="toast_photo_indexing_finished">Scan voltoold voor geo-gerefereerde foto\'s</string>
-  <string name="toast_download_failed">Download gefaalt met foutcode %1$d, bericht %2$s</string>
+  <string name="toast_download_failed">Downloaden is mislukt met foutcode %1$d, bericht %2$s</string>
   <!--Validation-->
   <string name="toast_unsurveyed_road">Ongeclassifiseerde weg</string>
   <string name="toast_noname">Straat heeft geen naam of referentie</string>
@@ -512,7 +519,6 @@
   <string name="toast_task_layer_disabled">Taaklaag uitgeschakeld</string>
   <string name="toast_unable_to_create_task_layer">Taaklaag aanmaken mislukt</string>
   <string name="toast_merged">Samengevoegd</string>
-  <string name="toast_invalid_style_file">Ongeldig stijlbestandsformaat voor %1$s</string>
   <string name="toast_no_geometry">Geen geometrie voor element gevonden</string>
   <string name="toast_added_api_entry_for">API item toegevoegd voor %1$s</string>
   <string name="toast_updated">%1$s geüpdated</string>
@@ -523,7 +529,6 @@
   <string name="toast_error_reading">Fout tijdens het lezen van %1$s</string>
   <string name="toast_read_successfully">Bestand succesvol gelezen</string>
   <string name="toast_error_writing">Fout tijdens het schrijven van %1$s</string>
-  <string name="toast_successfully_written">Bestand succesvol geschreven</string>
   <string name="toast_http_data_error_for">HTTP gegevensfout voor %1$s</string>
   <string name="toast_error_insufficient_space_for">Niet genoeg ruimte op apparaat voor %1$s</string>
   <string name="toast_error_too_many_redirects_for">Te veel doorverwijzingen voor %1$s</string>
@@ -696,16 +701,13 @@
   <string name="position_info_title">Huidige positieinformatie</string>
   <string name="position_info_hdop">HDOP</string>
   <string name="position_info_altitude">Hoogte</string>
-  <string name="position_info_geoid_height">Hoogte boven de geoïde</string>
   <string name="position_info_barometric_height">Barometrische hoogte</string>
   <string name="position_info_geoid_correction">Geoïde correctie</string>
-  <string name="position_info_ellipsoid_height">Hoogte boven de ellipsoïde</string>
   <!--Strings in DownloadActivity-->
   <string name="download_files_title">Download bestanden</string>
   <string name="allow_all_networks">Sta alle netwerken toe</string>
   <!--Strings in Go to coordinates-->
   <string name="go_to_coordinates_title">Ga naar coördinaten</string>
-  <string name="go_to_coordinates_hint">Voer coordinaten of een OLC in</string>
   <string name="unparseable_coordinates">Onontleedbare coördinaten</string>
   <string name="network_required">Netwerk is vereist voor locatiebepaling</string>
   <string name="no_nominatim_server">Er is een geconfigureerde Nominatim server gevonden</string>
@@ -745,9 +747,6 @@
   <string name="menu_gps_pause">Pauzeer GPX route</string>
   <string name="menu_gps_clear">Verwijder GPX routepunten en bijbehorende richtingspunten</string>
   <string name="menu_gps_track_managment">GPX routebeheer</string>
-  <string name="menu_gps_upload">Upload GPX-route</string>
-  <string name="menu_gps_export">Exporteer GPX route</string>
-  <string name="menu_gps_import">Importeer GPX route</string>
   <string name="menu_gps_goto_start">Ga naar start van GPX route</string>
   <string name="menu_gps_goto_first_waypoint">Ga naar eerste richtingspunt</string>
   <string name="menu_enable_gps_autodownload">Locatiegebaseerde auto-download</string>
@@ -757,7 +756,6 @@
   <string name="menu_transfer_download_replace">Wis en download huidig gebied</string>
   <string name="menu_transfer_load_current">Laad huidige gebied</string>
   <string name="menu_transfer_load_replace">Wis en laad huidig gebied</string>
-  <string name="menu_transfer_upload">Upload gegevens naar OSM server</string>
   <string name="menu_transfer_update">Update gegevens</string>
   <string name="menu_transfer_close_changeset">Sluit huidige wijzigingenset</string>
   <string name="menu_transfer_file">Bestand...</string>
@@ -795,7 +793,6 @@
   <string name="menu_extract_segment">Extraheer segment</string>
   <string name="menu_newnode_gps">Nieuwe knoop op GPS positie</string>
   <string name="menu_extend_selection">Breid selectie uit</string>
-  <string name="menu_information">Info</string>
   <string name="menu_voice_commands">Spraakcommando\'s</string>
   <string name="menu_upload_element">Upload element</string>
   <string name="menu_upload_elements">Upload elementen</string>
@@ -804,7 +801,6 @@
   <string name="menu_tools_imagery">Meer luchtfotografie gereedschappen...</string>
   <string name="menu_tools_add_imagery_from_oam">Voeg luchtfotografie toe van OAM</string>
   <string name="menu_tools_flush_all_tile_caches">Leeg alle tegelopslag</string>
-  <string name="menu_tools_background_properties">Achtergrondeigenschappen</string>
   <string name="menu_tools_update_imagery_configuration">Update configuratie</string>
   <string name="menu_tools_update_imagery_configuration_eli">Update configuratie van ELI</string>
   <string name="menu_tools_zoom_to_layer_extent">Zoom naar achtergrondlaag bereik</string>
@@ -818,7 +814,7 @@
   <string name="menu_privacy">Privacy</string>
   <!--Background alignment-->
   <string name="menu_tools_background_align">Lijk achtergrondafbeeldingen uit</string>
-  <string name="menu_tools_background_align_reset">Reset</string>
+  <string name="menu_tools_background_align_reset">Resetten</string>
   <string name="menu_tools_background_align_zero">Nul</string>
   <string name="menu_tools_background_align_retrieve_from_db">Uit gegevensbank</string>
   <string name="menu_tools_background_align_retrieve_from_device">Van apparaat</string>
@@ -830,9 +826,6 @@
   <string name="distance_km">%1$.3f km</string>
   <!--Menus in layers dialog-->
   <string name="menu_layers">Lagen...</string>
-  <string name="menu_layers_load_geojson">Voeg GeoJSON laag toe</string>
-  <string name="menu_layers_add_backgroundlayer">Voeg achtergrond-luchtfotolaag toe</string>
-  <string name="menu_layers_add_overlaylayer">Voeg over-luchtfotolaag toe</string>
   <string name="menu_layers_add_tasklayer">Zet taaklaag aan</string>
   <string name="menu_layers_add_grid">Zet raster aan</string>
   <string name="menu_layers_add_photolayer">Zet fotolaag aan</string>
@@ -881,8 +874,6 @@
   <string name="actionmode_add_segment">Voeg segment toe</string>
   <string name="actionmode_reselect_first_segment">Herselecteer eerste segment</string>
   <!--EasyEdit action mode sub-titles-->
-  <string name="actionmode_closed_way_split_1">Splits gesloten weg, 1e knoop</string>
-  <string name="actionmode_closed_way_split_2">Splits gesloten weg, 2e knoop</string>
   <string name="actionmode_restriction">Voeg afslagbeperking toe</string>
   <string name="actionmode_restriction_restart_from">Selecteer \"van\" segment opnieuw</string>
   <string name="actionmode_restriction_select_from">Selecteer \"van\" segment</string>
@@ -904,7 +895,6 @@
   <string name="simple_add_node">Tik op de schermpositie</string>
   <string name="menu_add_node_tags">Voeg getagte knoop toe</string>
   <string name="menu_add_way">Voeg weg toe</string>
-  <string name="simple_add_way">Tik op de schermpositie</string>
   <string name="menu_add_map_note">Voeg kaartnotitie toe</string>
   <string name="simple_add_note">Tik op de schermpositie</string>
   <string name="menu_paste_object">Plak object</string>
@@ -960,8 +950,6 @@
   <string name="config_showCameraAction_summary">Toon camera icoon in de actiebalk.</string>
   <string name="config_useInternalPhotoViewer_title">Gebruik ingebouwde fotoweergave</string>
   <string name="config_useInternalPhotoViewer_summary">Gebruik de ingebouwde fotoweergave. Wanneer niet aangevinkt zal een externe weergave worden gebruikt.</string>
-  <string name="config_followGPSbutton_title">Layout van volg positie knop</string>
-  <string name="config_followGPSbutton_summary">De locatie van de \"volg positie\" knop.</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Toon altijd niet-gedownloade gebieden donker</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">Toont niet gedownloade gebieden donker in vergrendelde modus.</string>
   <string name="config_fullscreenMode_title">Volledig scherm-modus</string>
@@ -1104,6 +1092,8 @@
   <string name="config_mapillaryCacheSize_title">Mapillary opslaggrootte</string>
   <!--Auto-save-->
   <string name="config_autosaveSaveChanges_title">Sla aanpassingen op</string>
+  <string name="config_autosaveInterval_title">Minimum interval</string>
+  <string name="config_autosaveInterval_current">%1$d min</string>
   <string name="config_autosaveChanges_current">%1$d</string>
   <string name="config_autosaveMaxFiles_current">%1$d</string>
   <!--Miscellaneous-->
@@ -1172,7 +1162,7 @@
   <string name="tracking_active_title">Vespucci achtergrondservice</string>
   <string name="tracking_active_title_short">Achtergrondservice actief</string>
   <string name="tracking_active_text">GPS route wordt opgenomen, of auto-downloaden staat aan</string>
-  <string name="gps_failure">GPS inschakelen mislukt</string>
+  <string name="gps_failure">GPS inschakelen is mislukt</string>
   <!--element description-->
   <string name="address_housenumber">Adres %1$s</string>
   <string name="address_housenumber_street">Adres %1$s %2$s</string>

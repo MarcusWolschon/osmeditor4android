@@ -101,11 +101,14 @@
   <string name="upload_request_review_label">Solicitar revisión:</string>
   <string name="upload_validation_error_empty_comment">El comentario no debe estar vacío</string>
   <string name="upload_validation_error_empty_source">La fuente no debe estar vacía</string>
+  <!--Review changes dialog-->
   <!--Upload GPX-->
   <string name="upload_gpx_title">Subir traza GPX</string>
   <string name="upload_gpx_description_label">Descripción</string>
   <string name="upload_gpx_tags_label">Etiquetas</string>
   <string name="upload_gpx_visibility_label">Visibilidad</string>
+  <!--Background properties-->
+  <string name="background_properties_title">Propiedades del fondo</string>
   <!--task fragment-->
   <string name="openstreetbug_new_title">Nueva nota</string>
   <string name="openstreetbug_new_bug">Reportar problema</string>
@@ -133,6 +136,7 @@
   <string name="maproulette_task_apikey_set">Clave API de MapRoulette guardada</string>
   <string name="maproulette_task_no_apikey">No hay clave API de MapRoulette</string>
   <!--Todo dialogs-->
+  <string name="todo_comment_legend">Comentario</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">¡Precaución!</string>
   <string name="unsaved_data_message">Sus cambios no guardados se descartarán si continúa.</string>
@@ -318,8 +322,6 @@
   <string name="layer_data">Datos OSM</string>
   <string name="layer_data_name">Datos %1$s</string>
   <string name="layer_flush_tile_cache">Limpiar la caché de teselas</string>
-  <string name="layer_change_style">Cambiar estilo</string>
-  <string name="layer_select_imagery">Seleccionar imágenes</string>
   <string name="layer_category_all">Todo</string>
   <string name="layer_category_photo">Imágenes aéreas</string>
   <string name="layer_category_historicphoto">Imágenes aéreas obsoletas</string>
@@ -509,7 +511,6 @@
   <string name="toast_task_layer_disabled">Capa de tareas deshabilitada</string>
   <string name="toast_unable_to_create_task_layer">No se puede crear la capa de tareas</string>
   <string name="toast_merged">Combinado</string>
-  <string name="toast_invalid_style_file">Formato de archivo de estilo no válido para %1$s</string>
   <string name="toast_no_geometry">No se encontró geometría para el elemento</string>
   <string name="toast_added_api_entry_for">Entrada de API agregada para %1$s</string>
   <string name="toast_updated">%1$s actualizado</string>
@@ -520,7 +521,6 @@
   <string name="toast_error_reading">Error leyendo %1$s</string>
   <string name="toast_read_successfully">Archivo leído correctamente</string>
   <string name="toast_error_writing">Error al escribir %1$s</string>
-  <string name="toast_successfully_written">Archivo escrito correctamente</string>
   <string name="toast_http_data_error_for">Error de datos HTTP para %1$s</string>
   <string name="toast_error_insufficient_space_for">No hay suficiente espacio en el dispositivo para %1$s</string>
   <string name="toast_error_too_many_redirects_for">Demasiados redireccionamientos para %1$s</string>
@@ -692,16 +692,13 @@
   <string name="position_info_title">información de la posición actual.</string>
   <string name="position_info_hdop">HDOP</string>
   <string name="position_info_altitude">Altitud</string>
-  <string name="position_info_geoid_height">Altura sobre el geoide</string>
   <string name="position_info_barometric_height">altura barométrica</string>
   <string name="position_info_geoid_correction">Corrección de geoide</string>
-  <string name="position_info_ellipsoid_height">Altura sobre el elipsoide</string>
   <!--Strings in DownloadActivity-->
   <string name="download_files_title">Descargar archivos</string>
   <string name="allow_all_networks">Permitir todas las redes</string>
   <!--Strings in Go to coordinates-->
   <string name="go_to_coordinates_title">Ir a coordenadas</string>
-  <string name="go_to_coordinates_hint">Ingrese coordenadas o un OLC</string>
   <string name="unparseable_coordinates">Coordenadas no analizables</string>
   <string name="network_required">Se requiere red para ubicación buscar</string>
   <string name="no_nominatim_server">No se ha encontrado un servidor Nominatim configurado</string>
@@ -741,9 +738,6 @@
   <string name="menu_gps_pause">Pausar el trazado de GPX</string>
   <string name="menu_gps_clear">Limpiar la traza GPX y sus puntos de referencia</string>
   <string name="menu_gps_track_managment">Gestión de trazas GPX ...</string>
-  <string name="menu_gps_upload">Subir traza GPX</string>
-  <string name="menu_gps_export">Exportar traza GPX</string>
-  <string name="menu_gps_import">Importar traza GPX</string>
   <string name="menu_gps_goto_start">Ir al inicio de la traza GPX</string>
   <string name="menu_gps_goto_first_waypoint">Ir al primer punto de referencia</string>
   <string name="menu_enable_gps_autodownload">Descarga automática basada en la ubicación</string>
@@ -753,7 +747,6 @@
   <string name="menu_transfer_download_replace">Borrar y descargar la vista actual</string>
   <string name="menu_transfer_load_current">Cargar vista actual</string>
   <string name="menu_transfer_load_replace">Borrar y cargar vista actual</string>
-  <string name="menu_transfer_upload">Subir datos al servidor OSM</string>
   <string name="menu_transfer_update">Actualizar datos</string>
   <string name="menu_transfer_close_changeset">Cerrar el conjunto de cambios actual</string>
   <string name="menu_transfer_file">Archivo...</string>
@@ -791,7 +784,6 @@
   <string name="menu_extract_segment">Extraer segmento</string>
   <string name="menu_newnode_gps">Nuevo nodo en posición GPS</string>
   <string name="menu_extend_selection">Ampliar selección</string>
-  <string name="menu_information">Información</string>
   <string name="menu_voice_commands">Comandos de voz</string>
   <string name="menu_upload_element">Actualizar elemento</string>
   <string name="menu_upload_elements">Actualizar elementos</string>
@@ -800,7 +792,6 @@
   <string name="menu_tools_imagery">Más herramientas de imágenes…</string>
   <string name="menu_tools_add_imagery_from_oam">Añadir imágenes desde OAM</string>
   <string name="menu_tools_flush_all_tile_caches">Limpiar todas las cachés de teselas</string>
-  <string name="menu_tools_background_properties">Propiedades del fondo</string>
   <string name="menu_tools_update_imagery_configuration"> Actualizar configuración</string>
   <string name="menu_tools_update_imagery_configuration_eli">Actualizar configuración desde ELI</string>
   <string name="menu_tools_zoom_to_layer_extent">Acercar a la extensión de la capa de fondo</string>
@@ -826,9 +817,6 @@
   <string name="distance_km">%1$.3f km</string>
   <!--Menus in layers dialog-->
   <string name="menu_layers">Capas...</string>
-  <string name="menu_layers_load_geojson">Añadir capa GeoJSON</string>
-  <string name="menu_layers_add_backgroundlayer">Agregar capa de imágenes de fondo</string>
-  <string name="menu_layers_add_overlaylayer">Agregar capa de imágenes superpuestas</string>
   <string name="menu_layers_add_tasklayer">Habilitar capa de tareas</string>
   <string name="menu_layers_add_grid">Habilitar cuadrícula</string>
   <string name="menu_layers_add_photolayer">Habilitar capa de foto</string>
@@ -878,8 +866,6 @@
   <string name="actionmode_add_segment">Añadir segmento</string>
   <string name="actionmode_reselect_first_segment">Volver a seleccionar el primer segmento</string>
   <!--EasyEdit action mode sub-titles-->
-  <string name="actionmode_closed_way_split_1">Dividir ruta cerrada, 1er nodo</string>
-  <string name="actionmode_closed_way_split_2">Dividir ruta cerrada, 2º nodo</string>
   <string name="actionmode_restriction">Añadir restricción de giro</string>
   <string name="actionmode_restriction_restart_from">Volver a seleccionar el segmento «desde»</string>
   <string name="actionmode_restriction_select_from">Seleccione el segmento \"desde\"</string>
@@ -904,7 +890,6 @@
   <string name="menu_add_node_address">Agregar nodo de dirección</string>
   <string name="menu_add_address_interpolation">Agregar interpolación de direcciones</string>
   <string name="menu_add_way">Añadir vía</string>
-  <string name="simple_add_way">Pulse en la posición de la pantalla</string>
   <string name="menu_add_map_note">Añadir nota al mapa</string>
   <string name="simple_add_note">Pulse en la posición de la pantalla</string>
   <string name="menu_paste_object">Pegar objeto</string>
@@ -960,8 +945,6 @@
   <string name="config_showCameraAction_summary">Mostrar icono de cámara en barra de acciones.</string>
   <string name="config_useInternalPhotoViewer_title">Utilice el visor de fotos incorporado</string>
   <string name="config_useInternalPhotoViewer_summary">Use la vista de foto incorporada, si no está marcada se usará un visor externo.</string>
-  <string name="config_followGPSbutton_title">Diseño del botón de Seguir posición</string>
-  <string name="config_followGPSbutton_summary">Donde se colocará el botón \"Seguir posición\".</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Siempre oscurecer áreas no descargadas</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">Atenúa las áreas no descargadas en modo bloqueado.</string>
   <string name="config_fullscreenMode_title">Modo de pantalla completa</string>
@@ -1107,6 +1090,9 @@
   <string name="config_tileCache_current">%1$d MB</string>
   <string name="config_mapillaryCacheSize_title">Tamaño de caché de Mapillary</string>
   <!--Auto-save-->
+  <string name="config_autosaveSaveChanges_title">Guarda cambios</string>
+  <string name="config_autosaveChanges_current">%1$d</string>
+  <string name="config_autosaveMaxFiles_current">%1$d</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">Misceláneo</string>
   <string name="pref_enable_acra">Informar bloqueos de aplicación</string>
@@ -1246,6 +1232,7 @@
   <string name="bridge">Puente</string>
   <string name="tunnel">Túnel</string>
   <string name="culvert">Alcantarilla</string>
+  <string name="steps">Escalera</string>
   <!--Issues-->
   <string name="issue_not_reversable">Etiquetas no reversibles</string>
   <string name="issue_shared_node">Compartido con otra vía</string>

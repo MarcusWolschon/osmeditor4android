@@ -21,6 +21,8 @@
   <string name="upload_conflict_message_deleted">%1$s \n持有的本机版本 %2$d \n且在服务器上已被删除</string>
   <string name="upload_conflict_message_referential">%1$s \n本地的已被删除 \n但在服务器上仍能找到</string>
   <string name="upload_conflict_message_already_deleted">%1$s \n 已经在服务器删除了</string>
+  <string name="upload_conflict_message_missing_references">%1$s \n 个本地版本引用了 \n 个服务器上不存在的对象</string>
+  <string name="upload_conflict_message_unknown">%1$s \n 导致了未知的上传冲突 \n%2$s</string>
   <string name="use_local_version">使用本地版本</string>
   <string name="use_server_version">使用服务器上的版本</string>
   <string name="no_login_data_title">验证失败</string>
@@ -79,6 +81,7 @@
   <string name="progress_saving_message">正在保存…</string>
   <string name="progress_uploading_message">正在上传…</string>
   <string name="progress_preset_message">正在下载预设…</string>
+  <string name="progress_loading_preset_message">正在加载预设…</string>
   <string name="progress_running_message">正在运行…</string>
   <string name="progress_oauth">加载您的 openstreetmap.org 账号用于 OAuth 验证…</string>
   <string name="progress_building_imagery_database">建立影像数据库…</string>
@@ -101,12 +104,15 @@
   <string name="upload_request_review_label">请求复核：</string>
   <string name="upload_validation_error_empty_comment">注释不应留空</string>
   <string name="upload_validation_error_empty_source">来源不应留空</string>
+  <!--Review changes dialog-->
   <!--Upload GPX-->
   <string name="upload_gpx_title">上传 GPX 轨迹</string>
   <string name="upload_gpx_description_label">说明</string>
   <string name="upload_gpx_tags_label">标签</string>
   <string name="upload_gpx_visibility_label">能见度</string>
   <string name="upload_validation_error_empty_description">空白的描述</string>
+  <!--Background properties-->
+  <string name="background_properties_title">背景属性</string>
   <!--task fragment-->
   <string name="openstreetbug_new_title">新注记</string>
   <string name="openstreetbug_new_bug">反馈问题</string>
@@ -124,18 +130,40 @@
   <string name="bug_description_2">%1$s: %2$s %3$s - %4$s</string>
   <string name="generic_bug">Bug</string>
   <string name="osmose_bug">Osmose</string>
+  <string name="todo_title">待办事项</string>
+  <string name="todo_description">待办事项 %1$s</string>
+  <string name="todo_list">列表 %1$s</string>
+  <string name="todo_list_and_comment">列表 %1$s&lt;br&gt;&lt;br&gt;%2$s</string>
+  <string name="todo">待办事项</string>
+  <string name="select_todo_list">选择待办事项列表</string>
   <string name="bug_long_description_1">%1$s: %2$s&lt;br&gt;&lt;br&gt;%3$s&lt;br&gt;&lt;br&gt;%4$s&lt;br&gt;</string>
+  <string name="bug_long_description_2">&lt;br&gt;最后一次更新于:&lt;br&gt;%1$s&lt;br&gt;id: %2$s</string>
   <string name="bug_element_1">%1$s (未下载) #%2$d</string>
   <string name="bug_element_2">%1$s %2$s</string>
   <string name="maproulette_task_title">MapRoulette 任务</string>
   <string name="maproulette_task_coords">纬度 %1$4g, 经度 %2$4g</string>
   <string name="maproulette_task_explanations">解释</string>
+  <string name="maproulette_task_instructions">说明</string>
   <string name="maproulette_task_set_apikey">设置 MapRoulette API key</string>
   <string name="maproulette_task_apikey_not_set">无法保存 MapRoulette API key</string>
   <string name="maproulette_task_disable">禁用</string>
   <string name="maproulette_task_apikey_set">MapRoulette API key 已保存</string>
   <string name="maproulette_task_no_apikey">没有 MapRoulette API key</string>
+  <string name="maproulette_description">Maproulette（OSM 小程序平台）: %1$s</string>
   <!--Todo dialogs-->
+  <plurals name="add_todo_title">
+    <item quantity="other">将元素添加到待办事项列表</item>
+  </plurals>
+  <string name="all_todos_done_title">已搞定待办事项列表</string>
+  <string name="all_todos_done_message">已搞定待办事项列表“%1$s”。</string>
+  <string name="all_todos_in_current_done_message">已搞定当前待办事项列表</string>
+  <string name="todo_list_legend">待办事项列表</string>
+  <string name="todo_list_hint">点击获取建议</string>
+  <string name="todo_comment_legend">评论</string>
+  <string name="todo_comment_hint">可选注释</string>
+  <string name="toast_todo_all_closed">元素的所有任务已关闭</string>
+  <string name="toast_todo_already_in_list">元素已在此待办事项列表</string>
+  <string name="toast_no_open_todos">没有开启的待办事项</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">小心！</string>
   <string name="unsaved_data_message">您有未保存的变更，如果继续将被丢弃。</string>
@@ -192,6 +220,7 @@
   <string name="current">当前</string>
   <string name="goto_element">前往要素</string>
   <string name="edit_properties">编辑标签</string>
+  <string name="toast_element_not_found_on_restore">恢复时找不到元素</string>
   <!--GeoJSON feature display dialog-->
   <string name="feature_information">GeoJSON 特征信息</string>
   <string name="vt_feature_information">矢量瓦片特征信息</string>
@@ -332,10 +361,7 @@
   <string name="layer_data">OSM 数据</string>
   <string name="layer_data_name">%1$s 数据</string>
   <string name="layer_flush_tile_cache">刷新瓦片缓存</string>
-  <string name="layer_change_style">更改样式</string>
-  <string name="layer_load_style">加载样式</string>
   <string name="layer_reset_style">重置样式</string>
-  <string name="layer_select_imagery">选择影像</string>
   <string name="layer_category_all">全部</string>
   <string name="layer_category_photo">航空影像</string>
   <string name="layer_category_elevation">地形</string>
@@ -345,11 +371,6 @@
   <string name="layer_category_osmbasedmap">基于 OSM 的地图</string>
   <string name="layer_category_qa">QA</string>
   <string name="layer_category_other">其它</string>
-  <string name="layer_add_layer_from_mvt_style">从 MVT 样式添加图层</string>
-  <string name="layer_add_custom_imagery">添加自定义影像</string>
-  <string name="layer_edit_custom_imagery_configuration">编辑自定义影像配置</string>
-  <string name="layer_add_gpx">从 GPX 文件添加图层</string>
-  <string name="layer_download_track">下载 GPX 轨迹</string>
   <string name="layer_available_tracks">可用的 GPX 轨迹</string>
   <string name="layer_start_playback">开始播放</string>
   <string name="layer_pause_playback">暂停播放</string>
@@ -425,6 +446,7 @@
   <string name="tip_tristate_checkbox">您刚刚点击了一个三态复选框，它们和普通复选框类似，点击可以在两个值之间切换，例如 是/否。&lt;p&gt;不过它们有第三个附加的&lt;b&gt;未设定&lt;/b&gt;状态，由灰色框表示，该复选框将阻止添加相应的标记。长按可将复选框设定为这种状态。</string>
   <string name="tip_alternative_tagging">你刚刚应用了一个预设方案，这个预设方案链接到备选标签方案。这是另一种对物件写标签的方法，这种方法可能更合适，或者说可能关联起来更简单。这些备选的预设方案将显示在“最近使用的预设方案显示”的前面。</string>
   <string name="tip_mode_switching">锁定按钮也是模式切换按钮，长按锁定按钮会显示出菜单。&lt;p&gt;你可以在帮助系统中找到有关 Vespucci 的模式的更多信息，帮助系统里还有软件介绍和主地图显示的帮助。</string>
+  <string name="tip_empty_gpx_download">由于 OSM  API 的一个屎山，需要在视图里看到 GPX 轨迹的起点，才能下载。</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -527,6 +549,7 @@
   <string name="toast_missing_preset_file">缺少预设文件 \"%1$s\"</string>
   <string name="toast_invalid_filter_regexp">无效的正则表达式， key=\"%1$s\" value=\"%2$s\"</string>
   <string name="toast_error_accessing_photo">无法读取照片 %1$s</string>
+  <string name="toast_no_photo_found">找不到照片</string>
   <string name="toast_security_error_accessing_photo">不允许读取照片 %1$s</string>
   <string name="toast_no_voice_recognition">缺少语音识别设备</string>
   <string name="toast_no_coverage">%1$s 在这里无覆盖</string>
@@ -563,7 +586,6 @@
   <string name="toast_task_layer_disabled">任务图层已停用</string>
   <string name="toast_unable_to_create_task_layer">无法创建任务图层</string>
   <string name="toast_merged">已合并</string>
-  <string name="toast_invalid_style_file">无效的样式文件格式 %1$s</string>
   <string name="toast_no_geometry">未找到要素的几何形状</string>
   <string name="toast_added_api_entry_for">添加 API 条目 %1$s</string>
   <string name="toast_updated">已更新 %1$s</string>
@@ -574,7 +596,6 @@
   <string name="toast_error_reading">%1$s 读取错误</string>
   <string name="toast_read_successfully">文件读取成功</string>
   <string name="toast_error_writing">%1$s 写入错误</string>
-  <string name="toast_successfully_written">文件成功写入</string>
   <string name="toast_http_data_error_for">%1$s HTTP 数据错误</string>
   <string name="toast_error_insufficient_space_for">设备没有足够空间 %1$s</string>
   <string name="toast_error_too_many_redirects_for"> %1$s 重定向过多</string>
@@ -615,6 +636,7 @@
   <string name="toast_no_way_points">未找到路径点</string>
   <string name="toast_url_check">%1$s %2$d（本行548）</string>
   <string name="toast_url_check_with_msg">%1$s %2$d %3$s（本行549）</string>
+  <string name="toast_unexpected_element">点击了异常的元素：\n%1$s</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">MapSplit 源必须有最小和最大缩放设置</string>
   <string name="error_pbf_no_version">PBF 文件缺少版本信息</string>
@@ -649,6 +671,8 @@
   <string name="select">选择</string>
   <string name="skip">跳过</string>
   <string name="deprecated">%1$s （已弃用）</string>
+  <string name="more_information">更多信息</string>
+  <string name="osm_tags">OSM 标签</string>
   <!--Read a file-->
   <string name="read">读取</string>
   <string name="overwrite">覆写</string>
@@ -759,16 +783,13 @@
   <string name="position_info_title">当前位置信息</string>
   <string name="position_info_hdop">HDOP</string>
   <string name="position_info_altitude">海拔</string>
-  <string name="position_info_geoid_height">大地水准面上的高度</string>
   <string name="position_info_barometric_height">气压高度</string>
   <string name="position_info_geoid_correction">大地水准面改正</string>
-  <string name="position_info_ellipsoid_height">椭球面上的高度</string>
   <!--Strings in DownloadActivity-->
   <string name="download_files_title">下载文件</string>
   <string name="allow_all_networks">允许所有网络</string>
   <!--Strings in Go to coordinates-->
   <string name="go_to_coordinates_title">前往坐标</string>
-  <string name="go_to_coordinates_hint">输入坐标或 OLC</string>
   <string name="unparseable_coordinates">无法解析的坐标</string>
   <string name="network_required">查找位置需要网络</string>
   <string name="no_nominatim_server">未找到设定的 Nominatim 服务器</string>
@@ -802,15 +823,13 @@
   <string name="menu_gps_follow">跟随位置</string>
   <string name="menu_gps_goto">前往当前位置</string>
   <string name="menu_gps_goto_coordinates">前往坐标…</string>
+  <string name="menu_gps_goto_nearest_todo">前往最近的待办事项…</string>
   <string name="menu_gps_goto_last_edit">前往最后一次编辑</string>
   <string name="menu_gps_position_info">当前位置信息</string>
   <string name="menu_gps_start">开始 GPX 轨迹记录</string>
   <string name="menu_gps_pause">暂停 GPX 轨迹记录</string>
   <string name="menu_gps_clear">清除 GPX 轨迹和航点</string>
   <string name="menu_gps_track_managment">GPX 轨迹管理…</string>
-  <string name="menu_gps_upload">上传 GPX 轨迹</string>
-  <string name="menu_gps_export">导出 GPX 轨迹</string>
-  <string name="menu_gps_import">导入 GPX 轨迹</string>
   <string name="menu_gps_goto_start">前往 GPX 轨迹的起始点</string>
   <string name="menu_gps_goto_first_waypoint">前往第一个航点</string>
   <string name="menu_enable_gps_autodownload">根据位置自动下载</string>
@@ -820,8 +839,8 @@
   <string name="menu_transfer_download_replace">清除并下载当前视图</string>
   <string name="menu_transfer_load_current">加载当前视图</string>
   <string name="menu_transfer_load_replace">清除并加载当前视图</string>
-  <string name="menu_transfer_upload">上传数据到 OSM 服务器</string>
   <string name="menu_transfer_update">更新数据</string>
+  <string name="menu_transfer_data_clear">清空数据</string>
   <string name="menu_transfer_close_changeset">关闭当前变更集</string>
   <string name="menu_transfer_file">文件…</string>
   <string name="menu_transfer_export">导出变更到 OSC 文件</string>
@@ -840,6 +859,8 @@
   <string name="menu_transfer_save_notes_all">保存所有注记…</string>
   <string name="menu_transfer_save_notes_new_and_changed">保存新的和变更的注记…</string>
   <string name="menu_transfer_read_notes">加载注记…</string>
+  <string name="menu_transfer_read_todos">载入待办事项……</string>
+  <string name="menu_transfer_write_todos">保存待办事项……</string>
   <string name="menu_save">保存为文件</string>
   <string name="menu_join">加入</string>
   <string name="menu_unjoin">离开</string>
@@ -859,16 +880,18 @@
   <string name="menu_select_way_nodes">选择路径节点</string>
   <string name="menu_newnode_gps">在 GPS 位置新建节点</string>
   <string name="menu_extend_selection">扩展选择</string>
-  <string name="menu_information">信息</string>
   <string name="menu_voice_commands">语音指令</string>
   <string name="menu_upload_element">上传要素</string>
   <string name="menu_upload_elements">上传要素</string>
+  <string name="menu_todo">待办事项……</string>
+  <string name="menu_todo_close_and_next">关闭然后去到下一个</string>
+  <string name="menu_todo_close_all_tasks">关闭全部任务</string>
+  <string name="menu_add_to_todo">添加到待办事项列表</string>
   <string name="menu_set_name">设置名称</string>
   <string name="menu_tools">工具…</string>
   <string name="menu_tools_imagery">更多影像工具…</string>
   <string name="menu_tools_add_imagery_from_oam">从 OAM 添加影像</string>
   <string name="menu_tools_flush_all_tile_caches">刷新所有瓦片缓存</string>
-  <string name="menu_tools_background_properties">背景属性</string>
   <string name="menu_tools_update_imagery_configuration">更新设定</string>
   <string name="menu_tools_update_imagery_configuration_eli">从 ELI 更新设定</string>
   <string name="menu_tools_zoom_to_layer_extent">缩放到背景图层范围</string>
@@ -896,9 +919,6 @@
   <string name="distance_km">%1$.3f 千米</string>
   <!--Menus in layers dialog-->
   <string name="menu_layers">图层…</string>
-  <string name="menu_layers_load_geojson">添加 GeoJSON 图层</string>
-  <string name="menu_layers_add_backgroundlayer">添加背景影像图层</string>
-  <string name="menu_layers_add_overlaylayer">添加叠加影像图层</string>
   <string name="menu_layers_add_tasklayer">启用任务图层</string>
   <string name="menu_layers_add_grid">启用网格</string>
   <string name="menu_layers_add_photolayer">启用照片图层</string>
@@ -950,8 +970,6 @@
   <string name="actionmode_add_segment">添加片段</string>
   <string name="actionmode_reselect_first_segment">重新选择第一个片段</string>
   <!--EasyEdit action mode sub-titles-->
-  <string name="actionmode_closed_way_split_1">拆分路径的第1个点</string>
-  <string name="actionmode_closed_way_split_2">拆分路径的第2个点</string>
   <string name="actionmode_restriction">添加转向限制</string>
   <string name="actionmode_restriction_restart_from">重选“from”片段</string>
   <string name="actionmode_restriction_select_from">选择\"from\"片段</string>
@@ -974,7 +992,6 @@
   <string name="menu_add_node_address">添加地址节点</string>
   <string name="menu_add_address_interpolation">添加地址插值</string>
   <string name="menu_add_way">添加路径</string>
-  <string name="simple_add_way">点击屏幕位置点击</string>
   <string name="menu_add_map_note">添加地图注记</string>
   <string name="simple_add_note">点击屏幕位置</string>
   <string name="menu_paste_object">粘贴对象</string>
@@ -1001,6 +1018,8 @@
   <string name="config_enableKeepScreenOn_summary">不要为了省电而关闭屏幕。</string>
   <string name="config_largeDragArea_title">大的节点拖动区域</string>
   <string name="config_largeDragArea_summary">为拖动节点提供较大的区域。</string>
+  <string name="config_wayNodeDragging_title">启用拖动路径节点</string>
+  <string name="config_wayNodeDragging_summary">允许拖动一条已选择的路径上的单独的路径节点。</string>
   <string name="config_advancedprefs">高级首选项</string>
   <string name="config_moreprefs">更多设置…</string>
   <string name="config_presetbutton_title">预设</string>
@@ -1042,8 +1061,6 @@
   <string name="config_useInternalPhotoViewer_summary">使用内置图片浏览器，如果没有勾选则使用外部图片浏览器。</string>
   <string name="config_indexMediaStore_summary">额外地，使用媒体存储（Android 11 API）来访问照片</string>
   <string name="config_indexMediaStore_title">使用媒体存储（Android 11 API）</string>
-  <string name="config_followGPSbutton_title">跟随位置按钮布局</string>
-  <string name="config_followGPSbutton_summary">“跟随位置”按钮的位置</string>
   <string name="config_alwaysDrawBoundingBoxes_title">始终使未下载区域变暗</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">在锁定模式下使未下载区域变暗。</string>
   <string name="config_fullscreenMode_title">全屏模式</string>
@@ -1205,6 +1222,20 @@
   <string name="config_mapillaryCacheSize_title">Mapillary 缓存大小</string>
   <string name="config_mapillaryCacheSize_summary">用于缓存 Mapillary 图像的总空间，以 MB 为单位</string>
   <!--Auto-save-->
+  <string name="config_category_autosave">自动保存配置</string>
+  <string name="config_category_autosave_summary">编辑了设置就会自动保存。</string>
+  <string name="config_autosaveSaveState_title">保存状态</string>
+  <string name="config_autosaveSaveState_summary">保存完整的状态，包括未更改的数据。</string>
+  <string name="config_autosaveSaveChanges_title">保存更改</string>
+  <string name="config_autosaveSaveChanges_summary">保存更改到 OSC 文件。</string>
+  <string name="config_autosaveInterval_title">最小间隔</string>
+  <string name="config_autosaveInterval_summary">两次保存的最小间隔分钟数。</string>
+  <string name="config_autosaveInterval_current">%1$d 分钟</string>
+  <string name="config_autosaveChanges_title">最小更改次数</string>
+  <string name="config_autosaveChanges_summary">最少更改多少次才保存。</string>
+  <string name="config_autosaveChanges_current">%1$d</string>
+  <string name="config_autosaveMaxFiles_title">要保留几个 OSC 文件？</string>
+  <string name="config_autosaveMaxFiles_current">%1$d</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">杂项</string>
   <string name="pref_enable_acra">报告应用崩溃</string>
@@ -1218,6 +1249,8 @@
   <string name="config_js_console_summary">在 \"live\" 模式中启用 JS 控制台。</string>
   <string name="config_voiceCommandsEnabled_title">启用语音控制</string>
   <string name="config_voiceCommandsEnabled_summary">启用语音控制支持，</string>
+  <string name="config_splitWindowForPropertyEditor_summary">如果可用，在单独的窗口中启用属性编辑器界面。</string>
+  <string name="config_splitWindowForPropertyEditor_title">允许属性编辑器在分屏中显示</string>
   <!---->
   <string name="manage_apis">管理 API</string>
   <string name="config_api_url_title">API URL</string>
@@ -1346,6 +1379,7 @@
   <string name="bridge">桥梁</string>
   <string name="tunnel">隧道</string>
   <string name="culvert">涵洞</string>
+  <string name="steps">阶梯</string>
   <!--Issues-->
   <string name="issue_not_reversable">无法回退标签</string>
   <string name="issue_shared_node">与其他路径共享</string>
@@ -1393,4 +1427,7 @@
   <string name="element_type_area">区域</string>
   <string name="element_type_relation">关系</string>
   <!--Element names with id-->
+  <string name="node_id">节点 %1$d</string>
+  <string name="way_id">路径 %1$d</string>
+  <string name="relation_id">关系 %1$d</string>
 </resources>

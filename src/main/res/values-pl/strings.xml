@@ -104,12 +104,15 @@
   <string name="upload_request_review_label">Poproś o przejrzenie:</string>
   <string name="upload_validation_error_empty_comment">Komentarz nie może być pusty</string>
   <string name="upload_validation_error_empty_source">Żródło nie powinno być puste</string>
+  <!--Review changes dialog-->
   <!--Upload GPX-->
   <string name="upload_gpx_title">Wyślij ślad GPX</string>
   <string name="upload_gpx_description_label">Opis</string>
   <string name="upload_gpx_tags_label">Znaczniki</string>
   <string name="upload_gpx_visibility_label">Widoczność</string>
   <string name="upload_validation_error_empty_description">Pusty opis</string>
+  <!--Background properties-->
+  <string name="background_properties_title">Właściwości podkładu</string>
   <!--task fragment-->
   <string name="openstreetbug_new_title">Nowa uwaga</string>
   <string name="openstreetbug_new_bug">Zgłoś problem</string>
@@ -138,6 +141,7 @@
   <string name="maproulette_task_apikey_set">Klucz API MapRoulette został zapisany</string>
   <string name="maproulette_task_no_apikey">Brak klucza API MapRoulette</string>
   <!--Todo dialogs-->
+  <string name="todo_comment_legend">Komentarz</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Uwaga!</string>
   <string name="unsaved_data_message">Twoje niezapisane zmiany zostaną odrzucone, jeśli będziesz kontynuować.</string>
@@ -321,8 +325,6 @@
   <string name="layer_data">Dane OSM</string>
   <string name="layer_data_name">Dane %1$s</string>
   <string name="layer_flush_tile_cache">Wyczyść cache kafelków</string>
-  <string name="layer_change_style">Zmień styl</string>
-  <string name="layer_select_imagery">Wybierz podkład</string>
   <string name="layer_category_all">Wszystkie</string>
   <string name="layer_category_photo">Zdjęcia lotnicze</string>
   <string name="layer_category_historicphoto">Nieaktualne zdjęcia lotnicze</string>
@@ -507,7 +509,6 @@
   <string name="toast_task_layer_disabled">Wyłączono warstwę zadań</string>
   <string name="toast_unable_to_create_task_layer">Nie można utworzyć warstwy zadań</string>
   <string name="toast_merged">Połączono</string>
-  <string name="toast_invalid_style_file">Niepoprawny format pliku stylu %1$s</string>
   <string name="toast_no_geometry">Nie odnaleziono geometrii elementu</string>
   <string name="toast_added_api_entry_for">Dodano wpis API %1$s</string>
   <string name="toast_updated">Zaktualizowano %1$s</string>
@@ -517,7 +518,6 @@
   <string name="toast_file_error_for">Błąd pliku %1$s</string>
   <string name="toast_error_reading">Błąd czytania %1$s</string>
   <string name="toast_error_writing">Błąd zapisu %1$s</string>
-  <string name="toast_successfully_written">Plik zapisany poprawnie</string>
   <string name="toast_http_data_error_for">Błąd danych HTTP %1$s</string>
   <string name="toast_error_insufficient_space_for">Za mało miejsca w urządzeniu %1$s</string>
   <string name="toast_error_too_many_redirects_for">Zbyt wiele przekierowań %1$s</string>
@@ -674,14 +674,12 @@
   <string name="position_info_title">Informacje o bieżącej pozycji</string>
   <string name="position_info_hdop">HDOP</string>
   <string name="position_info_altitude">Wysokość</string>
-  <string name="position_info_geoid_height">Wysokość ponad geoidą</string>
   <string name="position_info_barometric_height">Wysokość barometryczna</string>
   <!--Strings in DownloadActivity-->
   <string name="download_files_title">Pobierz pliki</string>
   <string name="allow_all_networks">Pozwól na wszystkie sieci</string>
   <!--Strings in Go to coordinates-->
   <string name="go_to_coordinates_title">Idź do współrzędnych</string>
-  <string name="go_to_coordinates_hint">Wprowadź współrzędne lub OLC</string>
   <string name="unparseable_coordinates">Nieobsługiwane współrzędne</string>
   <string name="network_required">Do wyszukiwania lokalizacji wymagane jest połączenie z siecią</string>
   <string name="no_nominatim_server">Nie znaleziono skonfigurowanego serwera Nominatim</string>
@@ -721,9 +719,6 @@
   <string name="menu_gps_pause">Wstrzymaj rejestrowanie śladu GPX</string>
   <string name="menu_gps_clear">Wyczyść ślad i punkty GPX</string>
   <string name="menu_gps_track_managment">Zarządzaj śladami GPX...</string>
-  <string name="menu_gps_upload">Wyślij ślad GPX</string>
-  <string name="menu_gps_export">Wyeksportuj ślad GPX</string>
-  <string name="menu_gps_import">Importuj ślad GPX</string>
   <string name="menu_gps_goto_start">Przejdź do początku śladu GPX</string>
   <string name="menu_gps_goto_first_waypoint">Przejdź do pierwszego punktu</string>
   <string name="menu_enable_gps_autodownload">Autopobieranie – śledź lokalizację</string>
@@ -733,7 +728,6 @@
   <string name="menu_transfer_download_replace">Wyczyść i pobierz bieżący widok</string>
   <string name="menu_transfer_load_current">Wczytaj bieżący widok</string>
   <string name="menu_transfer_load_replace">Wyczyść i wczytaj bieżący widok</string>
-  <string name="menu_transfer_upload">Wyślij zmiany</string>
   <string name="menu_transfer_update">Uaktualnij dane</string>
   <string name="menu_transfer_close_changeset">Zamknij zestaw zmian</string>
   <string name="menu_transfer_file">Plik…</string>
@@ -770,7 +764,6 @@
   <string name="menu_extract_segment">Izoluj segment</string>
   <string name="menu_newnode_gps">Nowy węzeł na pozycji z GPS</string>
   <string name="menu_extend_selection">Dodaj do zaznaczenia</string>
-  <string name="menu_information">Info</string>
   <string name="menu_voice_commands">Polecenia głosowe</string>
   <string name="menu_upload_element">Wyślij element</string>
   <string name="menu_upload_elements">Wyślij elementy</string>
@@ -778,7 +771,6 @@
   <string name="menu_tools">Narzędzia...</string>
   <string name="menu_tools_add_imagery_from_oam">Dodaj warstwy z OAM</string>
   <string name="menu_tools_flush_all_tile_caches">Wyczyść cache kafelków</string>
-  <string name="menu_tools_background_properties">Właściwości podkładu</string>
   <string name="menu_tools_update_imagery_configuration">Aktualizuj konfigurację</string>
   <string name="menu_tools_zoom_to_layer_extent">Pokaż cały obszar objęty warstwą wyświetlaną w tle</string>
   <string name="menu_tools_clear_clipboard">Wyczyść schowek</string>
@@ -803,9 +795,6 @@
   <string name="distance_km">%1$.3f km</string>
   <!--Menus in layers dialog-->
   <string name="menu_layers">Warstwy...</string>
-  <string name="menu_layers_load_geojson">Dodaj warstwę GeoJSON</string>
-  <string name="menu_layers_add_backgroundlayer">Dodaj warstwę podkładu tła</string>
-  <string name="menu_layers_add_overlaylayer">Dodaj nakładkę warstwy podkładu</string>
   <string name="menu_layers_add_tasklayer">Włącz warstwę zadań</string>
   <string name="menu_layers_add_grid">Włącz siatkę</string>
   <string name="menu_layers_add_photolayer">Włącz warstwę zdjęć</string>
@@ -851,8 +840,6 @@
   <string name="actionmode_add_segment">Dodaj odcinek</string>
   <string name="actionmode_reselect_first_segment">Zaznacz ponownie pierwszy odcinek</string>
   <!--EasyEdit action mode sub-titles-->
-  <string name="actionmode_closed_way_split_1">Podziel zamkniętą linię, pierwszy węzeł </string>
-  <string name="actionmode_closed_way_split_2">Podziel zamkniętą linię, drugi węzeł </string>
   <string name="actionmode_restriction">Dodaj nakaz/zakaz skrętu</string>
   <string name="actionmode_restriction_restart_from">Ponownie wybierz segment \"from\"</string>
   <string name="actionmode_restriction_select_from">Wybierz segment \"z\"</string>
@@ -876,7 +863,6 @@
   <string name="simple_add_node">Dotknij pozycję na ekranie</string>
   <string name="menu_add_node_tags">Dodaj węzeł ze znacznikiem</string>
   <string name="menu_add_way">Dodaj linię</string>
-  <string name="simple_add_way">Dotknij pozycję na ekranie</string>
   <string name="menu_add_map_note">Dodaj uwagę do mapy</string>
   <string name="simple_add_note">Dotknij pozycję na ekranie</string>
   <string name="menu_paste_object">Wklej obiekt</string>
@@ -931,8 +917,6 @@
   <string name="config_showCameraAction_title">Aparat</string>
   <string name="config_showCameraAction_summary">Pokaż ikonę aparatu na pasku czynności.</string>
   <string name="config_useInternalPhotoViewer_title">Użyj wbudowanej przeglądarki zdjęć</string>
-  <string name="config_followGPSbutton_title">Układ przycisku śledzenia położenia</string>
-  <string name="config_followGPSbutton_summary">Miejsce ulokowania przycisku „Śledź położenie”</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Przyciemnianie niepobranych obszarów</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">Przyciemnia niepobrane obszary po zablokowaniu modyfikowania.</string>
   <string name="config_fullscreenMode_title">Tryb pełnoekranowy</string>
@@ -1059,6 +1043,9 @@
   <string name="config_tileCache_current">%1$d MB</string>
   <string name="config_mapillaryCacheSize_title">Rozmiar cache Mapillary</string>
   <!--Auto-save-->
+  <string name="config_autosaveSaveChanges_title">Zapisz zmiany</string>
+  <string name="config_autosaveChanges_current">%1$d</string>
+  <string name="config_autosaveMaxFiles_current">%1$d</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">Inne</string>
   <string name="pref_enable_acra">Zgłaszanie awarii aplikacji</string>
@@ -1195,6 +1182,7 @@
   <string name="bridge">Most</string>
   <string name="tunnel">Tunel</string>
   <string name="culvert">Przepust</string>
+  <string name="steps">Schody</string>
   <!--Issues-->
   <string name="issue_role_conflict">Konflikt ról</string>
   <string name="issue_merged_tags">Znaczniki scalone</string>
