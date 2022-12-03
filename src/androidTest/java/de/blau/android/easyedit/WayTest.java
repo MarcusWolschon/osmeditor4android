@@ -168,9 +168,10 @@ public class WayTest {
         assertEquals(104148456L, way.getOsmId());
         Node splitNode = (Node) App.getDelegator().getOsmElement(Node.NAME, 1201766241L);
         assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.menu_split), false, false));
-        TestUtils.clickText(device, false, context.getString(R.string.okay), true, false); // TIP
+        TestUtils.clickAwayTip(device, context);
         assertTrue(TestUtils.findText(device, false, main.getString(R.string.menu_split), 1000));
         TestUtils.clickAtCoordinates(device, map, splitNode.getLon(), splitNode.getLat());
+        TestUtils.sleep(2000);
         assertTrue(TestUtils.textGone(device, context.getString(R.string.actionmode_wayselect), 5000));
         TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
         assertTrue(TestUtils.clickText(device, false, "Path", false, false));
@@ -206,11 +207,12 @@ public class WayTest {
         assertEquals(104148456L, way.getOsmId());
         Node splitNode = (Node) App.getDelegator().getOsmElement(Node.NAME, 1201766241L);
         assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.menu_split), false, false));
-        TestUtils.clickText(device, false, context.getString(R.string.okay), true, false); // TIP
+        TestUtils.clickAwayTip(device, context);
         assertTrue(TestUtils.findText(device, false, main.getString(R.string.menu_split), 1000));
         TestUtils.longClickAtCoordinates(device, map, splitNode.getLon(), splitNode.getLat(), true);
         assertTrue(TestUtils.findText(device, false, main.getString(R.string.actionmode_split_way_select_part), 1000));
         TestUtils.clickAtCoordinates(device, map, 8.3889859, 47.3889246, true);
+        TestUtils.sleep(2000);
         assertTrue(TestUtils.textGone(device, context.getString(R.string.actionmode_wayselect), 5000));
         TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
         assertTrue(TestUtils.clickText(device, false, "Path", false, false));
