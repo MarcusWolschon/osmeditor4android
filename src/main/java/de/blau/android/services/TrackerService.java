@@ -6,9 +6,6 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.adobe.internal.xmp.impl.Utils;
-
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.PendingIntent;
@@ -58,7 +55,6 @@ import de.blau.android.tasks.TransferTasks;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Notifications;
 import de.blau.android.util.Snack;
-import de.blau.android.util.Util;
 import de.blau.android.util.egm96.EGM96;
 import de.blau.android.validation.Validator;
 
