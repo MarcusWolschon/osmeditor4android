@@ -238,7 +238,7 @@
             android:launchMode="singleTask"
             android:taskAffinity=".PhotoViewerActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" 
-            android:exported="false" >
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
@@ -249,7 +249,7 @@
             android:launchMode="singleTask"
             android:taskAffinity=".MapillaryViewerActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" 
-            android:exported="false" >
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
