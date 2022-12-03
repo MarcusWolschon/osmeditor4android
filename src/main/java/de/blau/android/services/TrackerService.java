@@ -1,10 +1,15 @@
 package de.blau.android.services;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.adobe.internal.xmp.impl.Utils;
+
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -53,6 +58,7 @@ import de.blau.android.tasks.TransferTasks;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Notifications;
 import de.blau.android.util.Snack;
+import de.blau.android.util.Util;
 import de.blau.android.util.egm96.EGM96;
 import de.blau.android.validation.Validator;
 
@@ -676,6 +682,7 @@ public class TrackerService extends Service {
      * If required, initialize the Location sources and start updating, also check for source configuration changes
      */
     @SuppressWarnings("deprecation")
+    @SuppressLint("MissingPermission")
     @TargetApi(24)
     private void init() {
         prefs = new Preferences(this);
@@ -753,19 +760,15 @@ public class TrackerService extends Service {
             Log.d(DEBUG_TAG, "Disabling GPS updates");
             try {
                 locationManager.removeUpdates(gpsListener);
-            } catch (SecurityException sex) {
-                // can be safely ignored
-            }
-            if (useOldNmea) {
-                if (removeNmeaListener != null) {
-                    try {
+                if (useOldNmea) {
+                    if (removeNmeaListener != null) {
                         removeNmeaListener.invoke(locationManager, oldNmeaListener);
-                    } catch (Exception e) { // NOSONAR
-                        // IGNORE
                     }
+                } else {
+                    locationManager.removeNmeaListener(newNmeaListener);
                 }
-            } else {
-                locationManager.removeNmeaListener(newNmeaListener);
+            } catch (SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+                // can be safely ignored
             }
             gpsEnabled = false;
         }

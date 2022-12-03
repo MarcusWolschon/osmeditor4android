@@ -21,8 +21,6 @@ public class ImageryListAdapter extends RecyclerView.Adapter<ImageryListAdapter.
     private android.widget.RadioGroup.OnCheckedChangeListener groupChangeListener = null;
     private OnInfoClickListener                               infoClickListener   = null;
 
-    private int selected = -1;
-
     public static class ImageryViewHolder extends RecyclerView.ViewHolder {
         AppCompatRadioButton button;
         ImageButton          infoButton;
@@ -57,11 +55,10 @@ public class ImageryListAdapter extends RecyclerView.Adapter<ImageryListAdapter.
     }
 
     final OnCheckedChangeListener onCheckedChangeListener = (buttonView, isChecked) -> {
-        Integer position = (Integer) buttonView.getTag();
-        if (position != null) {
-            ImageryListAdapter.this.notifyItemChanged(selected);
+        ImageryViewHolder holder = (ImageryViewHolder) buttonView.getTag();
+        if (holder != null) {
+            int position = holder.getAdapterPosition();
             currentId = ids[position];
-            selected = position;
             groupChangeListener.onCheckedChanged(null, position);
         }
     };
@@ -96,14 +93,9 @@ public class ImageryListAdapter extends RecyclerView.Adapter<ImageryListAdapter.
     @Override
     public void onBindViewHolder(ImageryViewHolder holder, int position) {
         holder.button.setText(names[position]);
-        holder.button.setTag(position);
+        holder.button.setTag(holder);
         holder.button.setOnCheckedChangeListener(null);
-        if (ids[position].equals(currentId)) {
-            holder.button.setChecked(true);
-            selected = position;
-        } else {
-            holder.button.setChecked(false);
-        }
+        holder.button.setChecked(ids[position].equals(currentId));
         holder.button.setOnCheckedChangeListener(onCheckedChangeListener);
         holder.infoButton.setOnClickListener(view -> {
             if (infoClickListener != null) {

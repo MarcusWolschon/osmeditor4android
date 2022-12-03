@@ -76,7 +76,7 @@
   <string name="generic_bug">Σφάλμα</string>
   <string name="osmose_bug">Osmose</string>
   <string name="custom_bug">Προσαρμοσμένο</string>
-  <string name="bug_long_description_2">&lt;br&gt;last updated:&lt;br&gt;%1$s&lt;br&gt;id: %2$d</string>
+  <string name="bug_long_description_2">&lt;br&gt;last updated:&lt;br&gt;%1$s&lt;br&gt;id: %2$s</string>
   <string name="bug_element_1">%1$s(δεν κατέβηκε) #%2$d</string>
   <string name="bug_element_2">%1$s %2$s</string>
   <string name="maproulette_task_explanations">Επεξηγήσεις</string>
