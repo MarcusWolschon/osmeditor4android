@@ -20,8 +20,6 @@ public class RelationListAdapter extends RecyclerView.Adapter<RelationListAdapte
     private final LayoutParams                                buttonLayoutParams;
     private android.widget.RadioGroup.OnCheckedChangeListener groupChangeListener = null;
 
-    private int selected = -1;
-
     public static class RadioButtonViewHolder extends RecyclerView.ViewHolder {
         AppCompatRadioButton button;
 
@@ -54,11 +52,10 @@ public class RelationListAdapter extends RecyclerView.Adapter<RelationListAdapte
     }
 
     final OnCheckedChangeListener onCheckedChangeListener = (buttonView, isChecked) -> {
-        Integer position = (Integer) buttonView.getTag();
-        if (position != null) {
-            RelationListAdapter.this.notifyItemChanged(selected);
+        RadioButtonViewHolder holder = (RadioButtonViewHolder) buttonView.getTag();
+        if (holder != null) {
+            int position = holder.getAdapterPosition();
             currentId = ids.get(position);
-            selected = position;
             groupChangeListener.onCheckedChanged(null, position);
         }
     };
@@ -73,14 +70,9 @@ public class RelationListAdapter extends RecyclerView.Adapter<RelationListAdapte
     @Override
     public void onBindViewHolder(RadioButtonViewHolder holder, int position) {
         holder.button.setText(descriptions[position]);
-        holder.button.setTag(position);
+        holder.button.setTag(holder);
         holder.button.setOnCheckedChangeListener(null);
-        if (ids.get(position) == currentId) {
-            holder.button.setChecked(true);
-            selected = position;
-        } else {
-            holder.button.setChecked(false);
-        }
+        holder.button.setChecked(ids.get(position) == currentId);
         holder.button.setOnCheckedChangeListener(onCheckedChangeListener);
     }
 
