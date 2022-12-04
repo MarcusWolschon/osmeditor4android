@@ -330,6 +330,8 @@ public class Logic {
     private ExecutorService executorService;
     private Handler         uiHandler;
 
+    private boolean editingStateRead = false; // set to true after we have read the editing state
+
     /**
      * Initiate all needed values. Starts Tracker and delegate the first values for the map.
      * 
@@ -3793,9 +3795,13 @@ public class Logic {
      * @param main the current Main instance
      */
     synchronized void saveEditingState(@NonNull Main main) {
-        EditState editState = new EditState(main, this, main.getImageFileName(), viewBox, main.getFollowGPS(), prefs.getServer().getOpenChangeset());
-        new SavingHelper<EditState>().save(main, EDITSTATE_FILENAME, editState, false, true);
-        main.getEasyEditManager().saveState();
+        if (editingStateRead) {
+            EditState editState = new EditState(main, this, main.getImageFileName(), viewBox, main.getFollowGPS(), prefs.getServer().getOpenChangeset());
+            new SavingHelper<EditState>().save(main, EDITSTATE_FILENAME, editState, false, true);
+            main.getEasyEditManager().saveState();
+        } else {
+            Log.w(DEBUG_TAG, "EditingState not loaded skipping save");
+        }
     }
 
     /**
@@ -3813,6 +3819,7 @@ public class Logic {
                 editState.setViewBox(this, main.getMap());
             }
         }
+        editingStateRead = true;
     }
 
     /**
@@ -3884,7 +3891,9 @@ public class Logic {
                         }
                         DataStyle.updateStrokes(STROKE_FACTOR / viewBox.getWidth()); // safety measure if not done in
                                                                                      // loadEiditngState
-                        loadEditingState((Main) activity, true);
+                        synchronized (Logic.this) {
+                            loadEditingState((Main) activity, true);
+                        }
                     } else {
                         Log.e(DEBUG_TAG, "loadFromFile map is null");
                     }
