@@ -3810,7 +3810,7 @@ public class Logic {
      * @param main instance of main to setup
      * @param setViewBox set the view box if true
      */
-    synchronized void loadEditingState(@NonNull Main main, boolean setViewBox) {
+    void loadEditingState(@NonNull Main main, boolean setViewBox) {
         EditState editState = new SavingHelper<EditState>().load(main, EDITSTATE_FILENAME, false, false, true);
         if (editState != null) { //
             editState.setMiscState(main, this);
@@ -3891,7 +3891,9 @@ public class Logic {
                         }
                         DataStyle.updateStrokes(STROKE_FACTOR / viewBox.getWidth()); // safety measure if not done in
                                                                                      // loadEiditngState
-                        loadEditingState((Main) activity, true);
+                        synchronized (Logic.this) {
+                            loadEditingState((Main) activity, true);
+                        }
                     } else {
                         Log.e(DEBUG_TAG, "loadFromFile map is null");
                     }
