@@ -4906,7 +4906,7 @@ msgstr "Tipos de combustível:"
 
 #: master_preset.xml:3090(item:name|group:Barriers|preset:Full-Height_Turnstile)
 msgid "Full-Height Turnstile"
-msgstr ""
+msgstr "Torniquete de altura"
 
 #: master_preset.xml:8723(combo:text|group:Man_Made|preset:Mineshaft|key:mineshaft_type)
 msgid "Function"
@@ -6498,7 +6498,7 @@ msgstr "Latina"
 #: master_preset.xml:9559(combo:display_values|preset:Power_Portal|key:structure)
 #: master_preset.xml:9571(combo:display_values|preset:Power_Tower|key:structure)
 msgid "Lattice"
-msgstr ""
+msgstr "Treliça"
 
 #: master_preset.xml:1338(multiselect:display_values|key:language)
 msgid "Latvian"
@@ -9586,7 +9586,7 @@ msgstr "Sinalizador de pipeline"
 
 #: master_preset.xml:8779(item:name|group:Man_Made|preset:Pipeline_Substation)
 msgid "Pipeline Substation"
-msgstr ""
+msgstr "Subestação de conduta"
 
 #: master_preset.xml:8797(item:name|group:Man_Made|preset:Pipeline_Valve)
 msgid "Pipeline Valve"
@@ -11936,7 +11936,7 @@ msgstr "Central elétrica solar"
 #: master_preset.xml:9559(combo:display_values|preset:Power_Portal|key:structure)
 #: master_preset.xml:9571(combo:display_values|preset:Power_Tower|key:structure)
 msgid "Solid"
-msgstr ""
+msgstr "Sólido"
 
 #: master_preset.xml:1338(multiselect:display_values|key:language)
 msgid "Somali"
@@ -19479,7 +19479,7 @@ msgstr ""
 #: master_preset.xml:8785(combo:display_values|group:Man_Made|preset:Pipeline_Substation|key:substation)
 msgctxt "pipeline"
 msgid "Compression"
-msgstr ""
+msgstr "Compressão"
 
 #: master_preset.xml:8785(combo:display_values|group:Man_Made|preset:Pipeline_Substation|key:substation)
 msgctxt "pipeline"

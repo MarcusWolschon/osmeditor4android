@@ -84,7 +84,7 @@
   <string name="progress_saving_message">Speichern…</string>
   <string name="progress_uploading_message">Hochladen…</string>
   <string name="progress_preset_message">Vorlage herunterladen…</string>
-  <string name="progress_loading_preset_message">Vorgabe laden...</string>
+  <string name="progress_loading_preset_message">Vorlage laden...</string>
   <string name="progress_importing_file_message">Datei wird importiert…</string>
   <string name="progress_running_message">Wird ausgeführt…</string>
   <string name="progress_oauth">Lade Konto auf openstreetmap.org für OAuth-Autorisierung…</string>

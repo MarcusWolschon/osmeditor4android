@@ -37,11 +37,11 @@ A véletlen szerkesztések elkerülése miatt a Vespucci „zárolt” módban i
 
 A zárolás ikonra hosszan nyomva egy menü jelenik meg, amely jelenleg 4 lehetőséget kínál:
 
-* **Normál** - az alapértelmezett szerkesztési mód, új elemek adhatóak hozzá, a létezők szerkeszhetőek, mozgathatóak és törölhetőek. Egy egyszerű fehér lakatikon lesz megjelenítve.
-* **Cím** - lehetővé tezi a cím módot, amely az [egyszerű mód](../en/Simple%20actions.md) „+” gombjával elérhető kicsit egyszerűsített mód néhány specifikus funkcióval. Egy „A” betűvel ellátott fehér lakatikon jelzi.
-* **Csak címkézés** - egy létező objektum kiválasztása a Tulajdonságszerkesztőt jeleníti meg, a hosszú nyomás a főképernyőn objektumokat ad hozzá, de más geometriai műveletek nem működnek. Egy fehér lakatikon fog megjelenni, egy „T” betűvel.
-* **Beltéri** - engedélyezi a beltéri módot, lásd [Beltéri mód](#indoor). Egy fehér lakatikon lesz megjelenítve, egy „I” betűvel.
-* **C-mód** - engedélyezi a C-módot, csak a figyelmeztetés jelzővel megjelölt elemek lesznek megjelenítve, lásd [C-mód](#c-mode). Egy fehér lakatikon lesz megjelenítve, egy „C” betűvel.
+* **Normál** - az alapértelmezett szerkesztési mód, új elemek hozhatók létre, a létezők szerkeszthetők, mozgathatók és törölhetők. Egy egyszerű fehér lakatikon látszik.
+* **Csak címkézés** - egy létező objektum kijelölése megjeleníti a Tulajdonságszerkesztőt, a hosszú nyomás a főképernyőn létrehoz egy objektumot, más geometriai műveletek viszont nem működnek. Egy fehér lakatikon fog látszik, egy „T” betűvel.
+* **Cím** - lehetővé teszi a cím módot, amely az [egyszerű mód](../en/Simple%20actions.md) „+” gombjával elérhető kicsit egyszerűsített mód néhány specifikus funkcióval. Egy „A” betűvel ellátott fehér lakatikon jelzi.
+* **Beltéri** - engedélyezi a beltéri módot, lásd [Beltéri mód](#indoor). Egy fehér lakatikon jelenik meg egy „I” betűvel.
+* **C-mód** - engedélyezi a C-módot, csak a figyelmeztetés jelzővel megjelölt elemek lesznek megjelenítve, lásd [C-mód](#c-mode). Egy fehér lakatikon jeöli egy „C” betűvel.
 
 #### Egyszeres koppintás, dupla koppintás, hosszú nyomás
 
@@ -53,7 +53,7 @@ Alapból a kiválasztható pontok és vonalak körül egy narancssárga terület
  * A kiválasztott objektumok sárgával lesznek kiemelve. 
  * Tovább információkért lásd [Kiválasztott pont](Node%20selected.md), [Kiválasztott út](Way%20selected.md) and [Kiválasztott kapcsolat](Relation%20selected.md).
 * Dupla koppintás: [Többszörös kiválasztási mód](Multiselect.md) indítása
-* Hosszú nyomás: Létrehoz egy „célkeresztet”, amellyel új jegyzetetek hozhat létre, lásd lent és itt: [Új objektumok létrehozása](Creating%20new%20objects.md). Ez csak akkor engedélyezett, ha az „Egyszerű mód” ki van kapcsolva.
+* Hosszú nyomás: Létrehoz egy „célkeresztet”, amellyel új jegyzetet hozhat létre, lásd lent és itt: [Új objektumok létrehozása](Creating%20new%20objects.md). Ez csak akkor engedélyezett, ha az „Egyszerű mód” ki van kapcsolva.
 
 Jó stratégia ha belenagyít, ha nagy sűrűségű területet akar szerkeszteni.
 
@@ -79,7 +79,7 @@ Ne feledje, hogy az átfedő objektumok esetén (mint a vonalon lévő pontok) a
 
 Amint kiválasztott egy objektumot, az mozgatható lesz. Ne feledje, hogy csak a kijelölt objektumok mozgathatóak. Egyszerűen húzza (a tolerancia zónán belül) a kiválasztott objektumot a mozgatáshoz. Ha nagy húzási területet választ ki a [beállításokban](Preferences.md), akkor nagy területet kap a kiválasztott pont körül, így könnyebben pozicionálhatja az objektumot. 
 
-#### Új pont vagy vonal hozzáadása 
+#### Új pont vagy vonal létrehozása 
 
 Az alkalmazás első indításakor „Egyszerű módban” indul, ez módosítható a főmenüben, a megfelelő jelölőmező kikapcsolásával.
 
@@ -100,19 +100,19 @@ Ha látja a célkereszt szimbólumot, akkor ezek a lehetőségei:
 * _Normális nyomás ugyanott._
 * Ha a célkereszt nincs egy pont közelében, akkor ugyanott újból megérintve új pont jön létre. Ha egy vonal közelében van (de nem egy pont közelében), akkor az új pont a vonalon lesz (és csatlakozni fog hozzá).
 * Ha a célkereszt egy pont közelében van (azaz a pont toleranciazónáján belül), ugyanott újból megérintve kijelöljük a pontot (és megnyílik a címkeszerkesztő). Nem jön létre új pont. A művelet megegyezik a fenti kijelöléssel.
-* _ Normál érintés egy másik helyen._ Egy másik hely megérintése (a célkereszt toleranciazónáján kívül) hozzáad egy vonalszakaszt az eredeti pozíciótól az aktuális pozícióig. Ha a célkereszt egy vonal vagy pont közelében volt, akkor az új szakasz kapcsolódik ahhoz a ponthoz vagy vonalhoz.
+* _ Normál érintés egy másik helyen._ Egy másik hely megérintése (a célkereszt toleranciazónáján kívül) létrehoz egy vonalszakaszt az eredeti pozíciótól az aktuális pozícióig. Ha a célkereszt egy vonal vagy pont közelében volt, akkor az új szakasz kapcsolódik ahhoz a ponthoz vagy vonalhoz.
 
 Egyszerűen érintse meg a képernyőt ott, ahol a vonalhoz további pontokat szeretne hozzáadni. A befejezéshez érintse meg kétszer az utolsó pontot. Ha az utolsó pont egy vonalon vagy ponton található, akkor a szakasz automatikusan kapcsolódik ehhez a vonalhoz vagy ponthoz. 
 
 Használhatja a menüelemet is: További információkért lásd: [Új objektumok létrehozása](Creating%20new%20objects.md).
 
-#### Terület hozzáadása
+#### Terület létrehozása
 
 Más geoadat rendszerekkel ellentétben, az OpenStreetMap jelenleg nem rendelkezik „terület” objektumtípussal. Az „iD” online szerkesztő megpróbál egy terület absztrakciót biztosítani az alacsonyabb szintű OSM elemekből, amely egyes esetekben jól működik, máskor nem. A Vespucci jelenleg meg sem próbál hasonlót, így valamennyit tudnia kell a területek ábrázolásáról:
 
-* _closed ways (*polygons")_: the simplest and most common area variant, are ways that have a shared first and last node forming a closed "ring" (for example most buildings are of this type). These are very easy to create in Vespucci, simply connect back to the first node when you are finished with drawing the area. Note: the interpretation of the closed way depends on its tagging: for example if a closed way is tagged as a building it will be considered an area, if it is tagged as a roundabout it wont. In some situations in which both interpretations may be valid, an "area" tag can clarify the intended use.
-* _multi-polygons_: some areas have multiple parts, holes and rings that can't be represented with just one way. OSM uses a specific type of relation (our general purpose object that can model relations between elements) to get around this, a multi-polygon. A multi-polygon can have multiple "outer" rings, and multiple "inner" rings. Each ring can either be a closed way as described above, or multiple individual ways that have common end nodes. While large multi-polygons are difficult to handle with any tool, small ones are not difficult to create in Vespucci. 
-* _coastlines_: for very large objects, continents and islands, even the multi-polygon model doesn't work in a satisfactory way. For natural=coastline ways we assume direction dependent semantics: the land is on the left side of the way, the water on the right side. A side effect of this is that, in general, you shouldn't reverse the direction of a way with coastline tagging. More information can be found on the [OSM wiki](http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline).
+* _zárt vonal (sokszög)_: a legegyszerűbb és leggyakoribb területváltozat, olyan vonalak, amelyeknek közös első és utolsó csomópontja egy zárt „gyűrűt” alkot (például a legtöbb épület ilyen típusú). Ezeket nagyon könnyű létrehozni a Vespucciban: a terület megrajzolásának végén az utolsó pontot egyszerűen kössük vissza az első ponthoz. Megjegyzés: a zárt vonal értelmezése a címkézésétől függ: ha például egy zárt vonal épületként van címkézve, akkor területnek fog minősülni, ha viszont körforgalomként van címkézve, akkor nem. Bizonyos helyzetekben, amikor mindkét értelmezés érvényes lehet, a „terület” (area) címke tisztázhatja a rendeltetést.
+* _multipoligon_: egyes területek több részből, lyukakból és gyűrűkből állnak, amelyek nem ábrázolhatók egyetlen vonallal. Erre az OSM egy speciális kapcsolattípust használ, a multipoligont. (Ez egy általános célú objektum, amely az elemei közötti kapcsolatokat is képes modellezni.) Egy multipoligon egy vagy több „külső” és nulla, egy vagy több „belső” gyűrűből állhat. Egy gyűrű lehet egy zárt vonal, ahogyan azt fentebb leírtuk, vagy több egyedi vonal, amelyek közös végpontjaikkal kapcsolódnak egymáshoz. A nagy multi-poligonokat minden eszközzel nehéz kezelni, a kisebbeket viszont nem nehéz létrehozni a Vespucciban. 
+* _partvonal_: a nagyon nagy objektumok, kontinensek és szigetek esetében még a multipoligonos modell sem működik kielégítően. A natural=coastline címkéjű vonalaknál irányfüggő szemantikát feltételezünk: a szárazföld a vonal bal oldalán van, a víz pedig a jobb oldalán. Ennek mellékhatása, hogy általában a partvonalként címkézett vonalak irányát általában nem szabad megfordítani. További információ az [OSM wiki](http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline) oldalon található.
 
 #### Vonalgeometria javítása
 
@@ -124,19 +124,19 @@ Másolhatja és kivághatja a kiválasztott pontokat és vonalakat, aztán egysz
 
 #### Címek hatékony hozzáadása
 
-Vespucci supports functionality that makes surveying addresses more efficient by predicting house numbers (left and right sides of streets separately) and automatically adding _addr:street_ or _addr:place_ tags based on the last used value and proximity. In the best case this allows adding an address without any typing at all.   
+A Vespucci támogat olyan funkciókat, amelyekkel hatékonyabban lehet a terepen címeket felmérni. Ez a házszámok előrejelzését (az utcák bal és jobb oldalán külön-külön) és – az utoljára használt érték és a közelség alapján – az _addr:street_ vagy _addr:place_ címkék automatikus hozzáadását jelenti. A legjobb esetben ezzel mindenféle gépelés nélkül is megadható egy cím.   
 
-Adding the tags can be triggered by pressing ![Address](../images/address.png): 
+A címkék hozzáadása a [Address](../images/address.png) ikonra koppintva indítható el: 
 
-* after a long press (in non-simple mode only): Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add an "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.
-* in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.
-* in the property editor.
+* hosszú megnyomás után (csak nem egyszerű módban): A Vespucci létrehoz egy pontot az adott helyen, és a lehető legjobban kitalálja a házszámot az utóbbi időben használt címcímkék segítségével. Ha a pont egy épület körvonalán van, akkor automatikusan egy „entrance=yes” (bejárat) címkét hozzáad is a ponthoz. Megnyílik a címkeszerkesztő az adott objektumhoz, és így el lehet végezni a további szükséges módosításokat.
+* a kijelölt pont/vonal módokban: A Vespucci a fentiek szerint adja hozzá a címcímkéket, és elindítja a címke szerkesztőt.
+* a tulajdonságszerkesztőben.
 
-To add individual address nodes directly while in the default "Simple mode" switch to "Address" editing mode (long press on the lock button), "Add address node" will then add an address node at the location and if it is on a building outline add a entrance tag to it as described above.
+Az alapértelmezett „Egyszerű módban” egyedi címpont közvetlen létrehozásához válts a „Cím” szerkesztési módra (hosszan nyomd meg a lakatot), és ekkor a „Címpont hozzáadása” létrehoz egy címcsomópontot a helyen. Ha az egy épület körvonalán van, akkor a fentiek szerint egy egy bejárat címkét is létrehoz.
 
 A házszámok becslésének működéséhez jellemzően legalább két házszám szükséges az út két oldalán, minél több szám szerepel az adatokban, annál jobb.
 
-Consider using this with one of the [Auto-download](#download) modes.  
+Fontolja meg ennek használatát az [automatikus letöltési](#donwload) módok használatánál.  
 
 #### Kanyarodási korlátozások hozzáadása
 
@@ -168,15 +168,15 @@ Ha menteni akarja a munkáját, és nincs internetkapcsolata, akkor elmentheti e
 
 A Vespucci rendelkezik egy egyszerű ütközésfeloldóval. Viszont ha azt gondolja, hogy komoly problémák vannak a szerkesztéseivel, akkor exportálja a módosításokat egy .osc fájlba („Exportálás” menüelem az „Átküldés” menüben), majd javítsa ki és töltse fel a JOSM-mel. Lásd a részletes súgót az [ütközésfeloldásról](Conflict%20resolution.md).  
 
-## Using GPS and GPX tracks
+## GPS és GPX nyomvonalak használata
 
-With standard settings Vespucci will try to enable GPS (and other satellite based navigation systems) and will fallback to determining the position via so called "network location" if this is not possible. This behaviour assumes that you in normal use have your Android device itself configured to only use GPX generated locations (to avoid tracking), that is you have the euphemistically named "Improve Location Accuracy" option turned off. If you want to enable the option but want to avoid Vespucci falling back to "network location", you should turn the corresponding option in the [Advanced preferences](Advanced%20preferences.md) off. 
+A normál beállításokkal a Vespucci megpróbálja engedélyezni a GPS-t (és más műholdas navigációs rendszereket), és ha ez nem lehetséges, akkor a pozíciót az úgynevezett „hálózati helymeghatározás” segítségével határozza meg. Ez a viselkedés feltételezi, hogy normál használat esetén maga az Android készülék úgy van beállítva, hogy csak a GPX által generált helyeket használja (a nyomon követés elkerülése érdekében), azaz az eufemisztikusan „Helymeghatározási pontosság javítása” névre hallgató opció ki van kapcsolva. Ha engedélyezni szeretné az opciót, de el akarja kerülni, hogy a Vespucci visszaessen a „hálózati helymeghatározásra”, akkor kapcsolja ki a [Speciális beállítások](Advanced%20preferences.md) megfelelő opcióját. 
 
-Touching the ![GPS](../images/menu_gps.png) button (on the left hand side of the map display) will center the screen on the current position and as you move the map display will be padded to maintain this.  Moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch GPS button or re-check the equivalent menu option. If the device doesn't have a current location the location marker/arrow will be displayed in black, if a current location is available the marker will be blue.
+A térképkijelző bal oldalán a ![GPS](../images/menu_gps.png) gomb megérintésével a képernyőn az aktuális pozíció kerül középre, és a térkép követni fogja az Ön mozgását. A képernyő kézi mozgatásával vagy szerkesztésével a „GPS követése” mód kikapcsol, és a kék GPS nyíl körvonalról kitöltött nyílra változik. A „követés” üzemmód gyors visszaállításához egyszerűen érintse meg a GPS gombot, vagy jelölje be újra a megfelelő menüpontot. Ha a készülék nem rendelkezik aktuális helymeghatározással, akkor a jelöl/nyíl fekete színnel jelenik meg, ha van aktuális helymeghatározás, akkor a jelölő/nyíl kék színű lesz.
 
-To record a GPX track and display it on your device select "Start GPX track" item in the ![GPS](../images/menu_gps.png) menu. This will add layer to the display with the current recorded track, you can upload and export the track from the entry in the [layer control](Main%20map%20display.md). Further layers can be added from local GPX files and tracks downloaded from the OSM API.
+GPX-nyomvonal rögzítéséhez és a készüléken való megjelenítéséhez válassza a ![GPS](../images/menu_gps.png) menü „GPX-nyomvonal indítása” pontját. Ezáltal réteg kerül a kijelzőre az aktuálisan felvett nyomvonallal. A [rétegek](Main%20map%20display.md) pontból feltölthet és exportálhat nyomvonalakat. További rétegek adhatók hozzá helyi GPX fájlokból és az OSM API-val letöltött nyomvonalakból.
 
-Note: by default Vespucci will not record elevation data with your GPX track, this is due to some Android specific issues. To enable elevation recording, either install a gravitational model, or, simpler, go to the [Advanced preferences](Advanced%20preferences.md) and configure NMEA input.
+Megjegyzés: alapértelmezés szerint a Vespucci nem rögzít magassági adatokat a GPX nyomvonallal együtt, ez néhány Android-specifikus probléma miatt van. A magassági adatok rögzítésének engedélyezéséhez telepítsen egy gravitációs modellt, vagy egyszerűbben, menjen a [Speciális beállítások](Advanced%20preferences.md) menüpontba, és konfigurálja az NMEA bemenetet.
 
 ## Jegyzetek és hibák
 
@@ -236,8 +236,8 @@ A standard előbeállításokban a _Magyarázó jegyzetek_ csoport tartalmaz egy
 
 Az elemek ellenőrzése a következő két tulajdonsággal rendelkezik:
 
-* **Key** - Key that should be present on the object according to the matching preset.
-* **Require optional** - Require the key even if the key is in the optional tags of the matching preset.
+* **Kulcs** – Az a kulcs, amelynek a megfelelő előbeállítás szerint jelen kell lennie az objektumon.
+* **Nem kötelező megkövetelése** - A kulcs megkövetelése akkor is, ha a kulcs a megfelelő előbeállítás nem kötelező címkéi között szerepel.
 
 Ez az ellenőrzés úgy működik, hogy először meghatározza az illeszkedő előbeállítást, majd ellenőrzi, hogy a **Kulcs** egy „ajánlott” kulcs-e ennél az objektumnál, az előbeállítás szerint, a **Nem kötelező elemek megkövetelése** kiterjeszti az ellenőrzést azokra a címkékre is, melyek „nem kötelezőek” az objektumon. Megjegyzés: jelenleg a hivatkozott előbeállítások nem kerülnek ellenőrzésre.
 

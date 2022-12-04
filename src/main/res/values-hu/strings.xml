@@ -21,6 +21,8 @@
   <string name="upload_conflict_message_deleted">%1$s \nhelyi verziója %2$d \na kiszolgálón pedig törölve lett</string>
   <string name="upload_conflict_message_referential">%1$s \nhelyben törölve lett \nde van rá hivatkozás a kiszolgálón</string>
   <string name="upload_conflict_message_already_deleted">%1$s \nmár törölve lett a kiszolgálón</string>
+  <string name="upload_conflict_message_missing_references">%1$s \nobjektumok helyi verzióhivatkozásai \namelyek már nem léteznek a kiszolgálón</string>
+  <string name="upload_conflict_message_unknown">%1$s \nismeretlen feltöltési ütközést okozott \n%2$s</string>
   <string name="use_local_version">Helyi verzió használata</string>
   <string name="use_server_version">Kiszolgálón lévő verzió használata</string>
   <string name="no_login_data_title">Nem sikerült hitelesíteni</string>
@@ -62,6 +64,9 @@
   <string name="file_write_failed_message">A Vespucci nem tudta módosítani vagy menteni a fájlt.</string>
   <string name="applying_osc_failed_title">Az OSC-fájl alkalmazása sikertelen</string>
   <string name="applying_osc_failed_message">Valószínűleg nem töltötte be az összes eredeti adatot, amely a módosítások végrehajtásához szükséges.</string>
+  <string name="duplicate_tag_key_title">Duplikált kulcsok</string>
+  <string name="duplicate_tag_key_message">A következő kulcsot többször adta hozzá, ezt meg kell oldania, mielőtt továbbléphetne:</string>
+  <string name="select_file_picker_title">Fájlkereső kiválasztása</string>
   <!---->
   <string name="welcome_title">Üdvözöljük</string>
   <string name="welcome_message">Köszönjük hogy telepítette a Vespuccit.\n&lt;br&gt;&lt;br&gt;Az elinduláshoz három dolgot kell tudni:\n&lt;ul&gt;&lt;li&gt;a bal felső sarokban lévő zár ikon vált a zárolt (nincs szerkesztés) és feloldott mód között,&lt;/li&gt;&lt;li&gt;az OpenStreetMap szerkesztéséhez először le kell töltenie a terület adatait, ahol változtatni akar (először nagyítson bele),&lt;/li&gt;&lt;li&gt;új objektum hozzáadásához: koppintson a nagy zöld gombra, és válassza ki hogy mit akar hozzáadni, majd koppintson a helyre, ahová tenni szeretné.&lt;/li&gt;&lt;/ul&gt;\nMost már indulásra kész. Kezdjen térképezni, és érezze jól magát!</string>
@@ -79,6 +84,7 @@
   <string name="progress_saving_message">Mentés…</string>
   <string name="progress_uploading_message">Feltöltés…</string>
   <string name="progress_preset_message">Előbeállítás letöltése…</string>
+  <string name="progress_loading_preset_message">Előbeállítás betöltése…</string>
   <string name="progress_importing_file_message">Fájl importálása...</string>
   <string name="progress_running_message">Futtatás…</string>
   <string name="progress_oauth">Az openstreetmap.org fiókjának betöltése az OAuth engedélyezéshez…</string>
@@ -131,9 +137,13 @@
   <string name="generic_bug">Hiba</string>
   <string name="osmose_bug">Osmose</string>
   <string name="todo_title">Teendők</string>
+  <string name="todo_description">Teendő: %1$s</string>
+  <string name="todo_list">Lista: %1$s</string>
+  <string name="todo_list_and_comment">Lista: %1$s&lt;br&gt;&lt;br&gt;%2$s</string>
   <string name="todo">Teendők</string>
   <string name="select_todo_list">Válassza ki a teendők listáját</string>
   <string name="bug_long_description_1">%1$s: %2$s&lt;br&gt;&lt;br&gt;%3$s&lt;br&gt;&lt;br&gt;%4$s&lt;br&gt;</string>
+  <string name="bug_long_description_2">&lt;br&gt;utolsó frissítés:&lt;br&gt;%1$s&lt;br&gt;azonosító (id): %2$s</string>
   <string name="bug_element_1">%1$s (nincs letöltve) #%2$d</string>
   <string name="bug_element_2">%1$s %2$s</string>
   <string name="maproulette_task_title">MapRoulette feladat</string>
@@ -145,14 +155,23 @@
   <string name="maproulette_task_disable">Letiltás</string>
   <string name="maproulette_task_apikey_set">MapRoulette API kulcs mentve</string>
   <string name="maproulette_task_no_apikey">Nincs MapRoulette API kulcs</string>
+  <string name="maproulette_description">Maproulette: %1$s</string>
   <!--Todo dialogs-->
   <plurals name="add_todo_title">
     <item quantity="one">Elemek hozzáadása a teendők listájához</item>
     <item quantity="other">Elemek hozzáadása a teendők listájához</item>
   </plurals>
   <string name="all_todos_done_title">A listán szereplő összes tennivaló elvégezve</string>
+  <string name="all_todos_done_message">%1$s lista összes teendője elvégezve.</string>
+  <string name="all_todos_in_current_done_message">A jelenlegi lista összes teendője el van végezve</string>
+  <string name="todo_list_legend">Teendők listája</string>
+  <string name="todo_list_hint">Javaslatokért kattintson</string>
   <string name="todo_comment_legend">Hozzászólás</string>
+  <string name="todo_comment_hint">Nem kötelező hozzászólás</string>
+  <string name="toast_todo_all_closed">Az elemhez tartozó összes feladat le van zárva</string>
+  <string name="toast_todo_already_in_list">Ez az elem már szerepel a teendők listáján</string>
   <string name="toast_no_open_todos">Nincs nyitott teendő</string>
+  <string name="toast_no_todos_in_list">A kijelölt listán nincs teendő</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Vigyázat!</string>
   <string name="unsaved_data_message">A mentetlen változtatásai elvesznek, ha folytatja.</string>
@@ -209,6 +228,7 @@
   <string name="current">Jelenlegi</string>
   <string name="goto_element">Ugrás az elemhez</string>
   <string name="edit_properties">Címkék szerkesztése</string>
+  <string name="toast_element_not_found_on_restore">Nem sikerült megtalálni az elemet visszaállításkor</string>
   <!--GeoJSON feature display dialog-->
   <string name="feature_information">GeoJSON tulajdonságinformációk</string>
   <string name="vt_feature_information">Vektorcsempe tulajdonságinformációik</string>
@@ -363,6 +383,7 @@ elemek megkövetelése</string>
   <string name="layer_category_osmbasedmap">OSM-alapú térkép</string>
   <string name="layer_category_qa">Minőségbiztosítás</string>
   <string name="layer_category_other">Egyéb</string>
+  <string name="layer_add_layer_from_mvt_style">Réteg hozzáadása az MVT stílusból…</string>
   <string name="layer_add_custom_imagery">Egyéni légi felvétel hozzáadása...</string>
   <string name="layer_edit_custom_imagery_configuration">Egyéni légifelvétel-beállítások szerkesztése...</string>
   <string name="layer_add_gpx">Réteg hozzáadása GPX-fájlból...</string>
@@ -383,6 +404,8 @@ elemek megkövetelése</string>
   <string name="layer_info_privacy_policy">Adatvédelmi irányelvek</string>
   <string name="projection">Térképvetület</string>
   <string name="errors">Hibák</string>
+  <string name="layer_info_layer_not_available">Nem áll rendelkezésre információ a rétegről</string>
+  <string name="layer_info_no_meta_data">A metaadatok nincsenek betöltve</string>
   <!--Mapillary layer-->
   <string name="mapillary_image">mapillary %1$s</string>
   <!--Photo viewer-->
@@ -442,6 +465,11 @@ elemek megkövetelése</string>
   <string name="tip_tristate_checkbox">Ön épp most érintett meg egy háromállapotú jelölőnégyzetet. Ez ugyanúgy működik, mint egy rendes jelölőnégyzet, amellyel két érték, például igen/nem vagy igaz/hamis között válthatunk.&lt;p&gt;Azonban van egy további harmadik &lt;b&gt;nincs megadva&lt;/b&gt; állapota is, amelyet a jelölőnégyzet szürke színe jelez: ilyenkor semmilyen címke nem fog megjelenni. A jelölőnégyzet hosszú nyomással állítható be ebbe az állapotba.</string>
   <string name="tip_alternative_tagging">Éppen most alkalmazott egy olyan előbeállítást, amely alternatív címkézésre mutató linkeket tartalmaz. Ez azt jelenti, hogy ezt az objektumot más módon is megjelölheti, ami megfelelőbb lehet, vagy egyszerűen csak kapcsolódik hozzá. Ezek az alternatív előbeállítások a legutóbb használt előbeállítások kijelzőjének tetején jelennek meg.</string>
   <string name="tip_mode_switching">A lakat gomb egyben üzemmódváltó is, hosszan megnyomva megjelenik egy menü a különböző lehetőségekkel.&lt;p&gt;A Vespucci üzemmódjairól további információkat talál a súgórendszerben: a bevezetőben és a fő térképkijelző súgójában egyaránt.</string>
+  <string name="tip_empty_gpx_download">Az OSM API egy furcsasága miatt a GPX-nyomvonal kezdőpontjának láthatónak kell lennie ahhoz, hogy a letöltéshez meg lehessen találni.</string>
+  <string name="tip_no_redo">Ez a mód jelenleg nem támogatja pontok újbóli hozzáadását.</string>
+  <string name="tip_way_splitting">Érintsen meg egy kiemelt pontot az elvágás helyének meghatározásához. Hosszú érintéssel kijelölheti, hogy egy következő lépésben melyik részt használja az új vonalhoz.</string>
+  <string name="tip_closed_way_splitting">Zárt vonalat két helyen kell elvágni. Érintsen meg egy kiemelt pontot az első elvágási pozíció meghatározásához, a következő lépésben pedig az alkalmazás fel fogja kérni, hogy jelölje ki a második pozíciót.</string>
+  <string name="tip_disambiguation_menu">Ha több OSM-elem vagy más objektum nagyon közel van egymáshoz, vagy ha az elemek kapcsolatok tagjai, akkor megjelenik az egyértelműsítő menü. Ezután kiválaszthatja az adott elemet a listából.&lt;p&gt;Ha egy elem már ki van jelölve, akkor az ki lesz emelve.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">–</string>
@@ -464,6 +492,7 @@ elemek megkövetelése</string>
   <string name="toast_url_empty">Adjon meg egy URL-t</string>
   <string name="toast_min_zoom">Alacsonyabbra állítja a legkisebb nagyítási szintet, mint a maximum</string>
   <string name="toast_tile_layer_exists">%1$s csempeforrás URL-je ugyanez</string>
+  <string name="toast_styleable_layer_exists">%1$s: a réteg létezik</string>
   <string name="toast_no_changes">Még nem módosított semmit…</string>
   <string name="toast_jpeg_not_transparent">A JPEG-fájlok nem átlátszók, ezért nem használhatók fedőrétegként</string>
   <string name="toast_unsupported_projection">Nem támogatott vetület-koordinátarendszer: %1$s.\n\nCsak az EPSG:3857, EPSG:4326 és ezek szinonimái támogatottak.</string>
@@ -585,6 +614,7 @@ elemek megkövetelése</string>
   <string name="toast_task_layer_disabled">Feladatréteg letiltva</string>
   <string name="toast_unable_to_create_task_layer">Nem hozható létre a feladatréteg</string>
   <string name="toast_merged">Egyesítve</string>
+  <string name="toast_invalid_style_file">Érvénytelen %1$s stílusfájl\n%2$s</string>
   <string name="toast_no_geometry">Nem található geometria az elemhez</string>
   <string name="toast_added_api_entry_for">API kulcs bejegyzés hozzáadása ehhez: %1$s</string>
   <string name="toast_updated">Frissítve: %1$s</string>
@@ -595,6 +625,7 @@ elemek megkövetelése</string>
   <string name="toast_error_reading">Olvasási hiba itt: %1$s</string>
   <string name="toast_read_successfully">Fájl sikeresen beolvasva</string>
   <string name="toast_error_writing">Írási hiba itt: %1$s</string>
+  <string name="toast_successfully_written">%1$s sikeresen írva</string>
   <string name="toast_http_data_error_for">HTTP adathiba ennél: %1$s</string>
   <string name="toast_error_insufficient_space_for">Nincs elég hely az eszközön a következőhöz: %1$s</string>
   <string name="toast_error_too_many_redirects_for">Túl sok átirányítás ennél: %1$s</string>
@@ -636,6 +667,9 @@ elemek megkövetelése</string>
   <string name="toast_no_way_points">Nincs vonalpont</string>
   <string name="toast_url_check">%1$s %2$d</string>
   <string name="toast_url_check_with_msg">%1$s %2$d %3$s</string>
+  <string name="toast_unexpected_element">Váratlan elemre kattintott:\n%1$s</string>
+  <string name="toast_import_destination_exists">Az importálás célhelye már létezik</string>
+  <string name="toast_part_selection_not_supported">Zárt vonalaknál nem támogatott a vonalszakasz kijelölése</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">A MapSplit forrásoknál meg kell adni a legkisebb és legnagyobb nagyítást</string>
   <string name="error_pbf_no_version">A verzióinformációk hiányoznak a PBF-fájlban</string>
@@ -782,8 +816,10 @@ elemek megkövetelése</string>
   <string name="position_info_title">Jelenlegi pozícióadatok</string>
   <string name="position_info_hdop">HDOP (horizontal dilution of precision, vízszintes pontosság)</string>
   <string name="position_info_altitude">Magasság</string>
+  <string name="position_info_geoid_height">Magasság a\ngeoid fölött</string>
   <string name="position_info_barometric_height">Barometrikus magasság</string>
   <string name="position_info_geoid_correction">Geoid-korrekció</string>
+  <string name="position_info_ellipsoid_height">Magasság az\nellipszoid fölött</string>
   <!--Strings in DownloadActivity-->
   <string name="download_files_title">Fájlok letöltése</string>
   <string name="allow_all_networks">Minden hálózat engedélyezése</string>
@@ -823,6 +859,7 @@ elemek megkövetelése</string>
   <string name="menu_gps_follow">Pozíció követése</string>
   <string name="menu_gps_goto">Ugrás a jelenlegi pozícióhoz</string>
   <string name="menu_gps_goto_coordinates">Ugrás koordinátákra…</string>
+  <string name="menu_gps_goto_nearest_todo">Ugrás a legközelebbi teendőre…</string>
   <string name="menu_gps_goto_last_edit">Ugrás az utolsó szerkesztésre</string>
   <string name="menu_gps_position_info">Jelenlegi pozícióadatok</string>
   <string name="menu_gps_start">GPX nyomvonal indítása</string>
@@ -864,6 +901,8 @@ elemek megkövetelése</string>
   <string name="menu_transfer_save_notes_all">Összes jegyzet mentése…</string>
   <string name="menu_transfer_save_notes_new_and_changed">Új és módosított jegyzetek mentése…</string>
   <string name="menu_transfer_read_notes">Jegyzetek betöltése…</string>
+  <string name="menu_transfer_read_todos">Teendők betöltése…</string>
+  <string name="menu_transfer_write_todos">Teendők mentése…</string>
   <string name="menu_save">Mentés fájlként</string>
   <string name="menu_join">Összekapcsolás</string>
   <string name="menu_unjoin">Szétválasztás</string>
@@ -887,6 +926,10 @@ elemek megkövetelése</string>
   <string name="menu_voice_commands">Hangutasítások</string>
   <string name="menu_upload_element">Elem feltöltése</string>
   <string name="menu_upload_elements">Elemek feltöltése</string>
+  <string name="menu_todo">Teendő…</string>
+  <string name="menu_todo_close_and_next">Bezárás és ugrás a következőre</string>
+  <string name="menu_todo_close_all_tasks">Minden feladat bezárása</string>
+  <string name="menu_add_to_todo">Hozzáadás a teendők listájához…</string>
   <string name="menu_set_name">Név beállítása</string>
   <string name="menu_tools">Eszközök…</string>
   <string name="menu_tools_imagery">További légifelvétel-eszközök…</string>
@@ -900,6 +943,7 @@ elemek megkövetelése</string>
   <string name="menu_tools_calibrate_height">Nyomásérzékelő kalibrálása</string>
   <string name="menu_tools_install_egm">EGM (Earth Gravitational Model) telepítése</string>
   <string name="menu_tools_remove_egm">EGM eltávolítása</string>
+  <string name="menu_tools_import_data_style">Adatstílus importálása…</string>
   <string name="menu_tools_load_keys">Kulcsok betöltése fájlból…</string>
   <!---->
   <string name="menu_simple_actions">Egyszerű mód</string>
@@ -920,6 +964,9 @@ elemek megkövetelése</string>
   <string name="distance_km">%1$.3f km</string>
   <!--Menus in layers dialog-->
   <string name="menu_layers">Rétegek…</string>
+  <string name="menu_layers_load_geojson">GeoJSON-réteg hozzáadása…</string>
+  <string name="menu_layers_add_backgroundlayer">Légifelvétel-réteg hozzáadása háttérként…</string>
+  <string name="menu_layers_add_overlaylayer">Légifelvétel-réteg hozzáadása fedőrétegként…</string>
   <string name="menu_layers_add_tasklayer">Feladatréteg engedélyezése</string>
   <string name="menu_layers_add_grid">Rács engedélyezése</string>
   <string name="menu_layers_add_photolayer">Fényképréteg engedélyezése</string>
@@ -970,7 +1017,14 @@ elemek megkövetelése</string>
   <string name="actionmode_newnoteselect">Új jegyzet kijelölve</string>
   <string name="actionmode_add_segment">Szakasz hozzáadása</string>
   <string name="actionmode_reselect_first_segment">Első szakasz ismételt kijelölése</string>
+  <string name="actionmode_split_way">Vonal elvágása</string>
+  <string name="actionmode_split_closed_way">Zárt vonal elvágása</string>
   <!--EasyEdit action mode sub-titles-->
+  <string name="actionmode_closed_way_split_1">Első pont kijelölése</string>
+  <string name="actionmode_closed_way_split_2">Második pont kijelölése</string>
+  <string name="actionmode_split_way_node_selection">Pont kijelölése</string>
+  <string name="actionmode_split_way_select_part">Rész kijelölése új vonalhoz</string>
+  <string name="actionmode_select_node_to_append_to">Pont kijelölése, amelyhez csatolni kívánja</string>
   <string name="actionmode_restriction">Behajtási korlátozás hozzáadása</string>
   <string name="actionmode_restriction_restart_from">„from” szakasz ismételt kijelölése</string>
   <string name="actionmode_restriction_select_from">„from” szakasz kijelölése</string>
@@ -994,6 +1048,9 @@ elemek megkövetelése</string>
   <string name="menu_add_node_address">Címpont hozzáadása</string>
   <string name="menu_add_address_interpolation">Címek interpolálása</string>
   <string name="menu_add_way">Vonal hozzáadása</string>
+  <string name="add_node_instruction">Koppintson a pozícióra</string>
+  <string name="add_way_start_instruction">Kezdéshez koppintson az első pozícióra</string>
+  <string name="add_way_node_instruction">Koppintson a következő pont pozíciójára</string>
   <string name="menu_add_map_note">Térképjegyzet hozzáadása</string>
   <string name="simple_add_note">Koppintson a pozíció megadásához</string>
   <string name="menu_paste_object">Objektum beillesztése</string>
@@ -1020,6 +1077,8 @@ elemek megkövetelése</string>
   <string name="config_enableKeepScreenOn_summary">A képernyő kikapcsolásának megakadályozása.</string>
   <string name="config_largeDragArea_title">Nagy pontmozgatási terület</string>
   <string name="config_largeDragArea_summary">Nagy terület biztosítása a pontok mozgatásához.</string>
+  <string name="config_wayNodeDragging_title">Vonalpont elhúzásának engedélyezése</string>
+  <string name="config_wayNodeDragging_summary">Engedélyezi egy kijelölt vonal egyes pontjainak elhúzását</string>
   <string name="config_advancedprefs">Speciális beállítások</string>
   <string name="config_moreprefs">További beállítások…</string>
   <string name="config_presetbutton_title">Előbeállítások</string>
@@ -1061,6 +1120,8 @@ elemek megkövetelése</string>
   <string name="config_useInternalPhotoViewer_summary">Beépített fényképnéző használata, de ha nincs kijelölve, akkor más nézőprogram lesz használva.</string>
   <string name="config_indexMediaStore_summary">Fényképek eléréséhez használja a médiatárat is</string>
   <string name="config_indexMediaStore_title">Médiatár használata</string>
+  <string name="config_followGPSbutton_title">Hely követése gomb elrendezése</string>
+  <string name="config_followGPSbutton_summary">Hol legyen a képernyőn a „Hely követése” gomb?</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Mindig sötétítse el a nem letöltött területeket</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">Zárolt módban elsötétíti a nem letöltött területeket.</string>
   <string name="config_fullscreenMode_title">Teljes képernyős mód</string>
@@ -1222,8 +1283,19 @@ elemek megkövetelése</string>
   <string name="config_mapillaryCacheSize_title">Mapillary gyorsítótár mérete</string>
   <string name="config_mapillaryCacheSize_summary">A Mapillary-képek gyorsítótárazásához használt teljes tárhely (Megabyte)</string>
   <!--Auto-save-->
+  <string name="config_category_autosave">Automatikus mentés beállításai</string>
+  <string name="config_category_autosave_summary">A szerkesztések automatikus mentésének beállításai</string>
+  <string name="config_autosaveSaveState_title">Mentés állapota</string>
+  <string name="config_autosaveSaveState_summary">A teljes állapot, többek között a nem módosított adatok mentése</string>
   <string name="config_autosaveSaveChanges_title">Módosítások mentése</string>
+  <string name="config_autosaveSaveChanges_summary">Módosítások mentése OSC fájlba.</string>
+  <string name="config_autosaveInterval_title">Legkisebb intervallum</string>
+  <string name="config_autosaveInterval_summary">A mentések legkisebb gyakorisága (perc)</string>
+  <string name="config_autosaveInterval_current">%1$d perc</string>
+  <string name="config_autosaveChanges_title">Módosítások legkisebb száma</string>
+  <string name="config_autosaveChanges_summary">A mentéshez szükséges legkevesebb módosítás.</string>
   <string name="config_autosaveChanges_current">%1$d</string>
+  <string name="config_autosaveMaxFiles_title">A megőrizendő OSC-fájlok legnagyobb száma</string>
   <string name="config_autosaveMaxFiles_current">%1$d</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">Egyebek</string>
@@ -1238,6 +1310,8 @@ elemek megkövetelése</string>
   <string name="config_js_console_summary">Elérhetővé teszi a JS konzolt „éles” módban.</string>
   <string name="config_voiceCommandsEnabled_title">Hangutasítások engedélyezése</string>
   <string name="config_voiceCommandsEnabled_summary">Hangutasítás-támogatás engedélyezése.</string>
+  <string name="config_splitWindowForPropertyEditor_summary">A tulajdonságszerkesztő különálló ablakban történő megjelenésének engedélyezése, ha lehetséges.</string>
+  <string name="config_splitWindowForPropertyEditor_title">Különálló tulajdonságszerkesztő-ablak engedélyezése</string>
   <!---->
   <string name="manage_apis">API-k kezelése</string>
   <string name="config_api_url_title">API URL</string>
@@ -1420,4 +1494,7 @@ elemek megkövetelése</string>
   <string name="element_type_area">terület</string>
   <string name="element_type_relation">kapcsolat</string>
   <!--Element names with id-->
+  <string name="node_id">%1$d pont</string>
+  <string name="way_id">%1$d vonal</string>
+  <string name="relation_id">%1$d kapcsolat</string>
 </resources>
