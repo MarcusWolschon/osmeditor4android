@@ -62,6 +62,7 @@
   <string name="file_write_failed_message">Vespucci non è riuscito a salvare il file</string>
   <string name="applying_osc_failed_title">Applicazione del file OSC fallita</string>
   <string name="applying_osc_failed_message">Molto probabilmente non hai caricato tutti i dati originali che sono richiesti per applicare i cambiamenti.</string>
+  <string name="duplicate_tag_key_title">Chiavi duplicate</string>
   <!---->
   <string name="welcome_title">Benvenuti</string>
   <string name="welcome_message">Grazie per aver installato Vespucci.\n&lt;br&gt;&lt;br&gt;Per iniziare devi sapere tre cose:\n&lt;ul&gt;&lt;li&gt;premendo l’icona del lucchetto nell’angolo in alto a sinistra passerai dalla modalità bloccata (nessuna modifica ammessa) a quella sbloccata,&lt;/li&gt;&lt;li&gt;per modificare OpenStreetMap devi prima scaricare l’area dove intendi fare le tue modifiche (ingrandisci la mappa prima di farlo),&lt;/li&gt;&lt;li&gt;per aggiungere un nuovo oggetto: premi il grande pulsante verde e seleziona quello che vuoi aggiungere, poi premi nella punto in cui vuoi posizionarlo.&lt;/li&gt;&lt;/ul&gt;\nAdesso sei pronto a partire. Inizia a mappare e a divertirti!</string>
@@ -105,6 +106,7 @@
   <string name="upload_validation_error_empty_comment">Il commento non dovrebbe essere vuoto</string>
   <string name="upload_validation_error_empty_source">La fonte dei dati non dovrebbe essere vuota</string>
   <!--Review changes dialog-->
+  <string name="review_changes_title">Controlla le modifiche</string>
   <!--Upload GPX-->
   <string name="upload_gpx_title">Carica la traccia GPX sul server</string>
   <string name="upload_gpx_description_label">Descrizione</string>

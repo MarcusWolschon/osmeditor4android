@@ -72,8 +72,8 @@
     </string-array>
     <!-- automatic name tag capitalization -->
     <string-array translatable="true" name="name_cap_entries">
-        <item>Keine Grossschreibung</item>
-        <item>Grossschreibung aller Wörter</item>
-        <item>Grossschreibung vom Satzanfang</item>
+        <item>Keine Großschreibung</item>
+        <item>Großschreibung aller Wörter</item>
+        <item>Großschreibung am Satzanfang</item>
     </string-array>
     </resources>

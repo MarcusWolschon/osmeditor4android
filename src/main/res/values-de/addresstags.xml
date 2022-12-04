@@ -2,7 +2,7 @@
 <resources>
   <string name="addr_housenumber">Hausnummer (addr:housenumber)</string>
   <string name="addr_conscriptionnumber">Konskriptionsnummer (addr:conscriptionnumber)</string>
-  <string name="addr_street">Strasse (addr:street)</string>
+  <string name="addr_street">Straße (addr:street)</string>
   <string name="addr_postcode">Postleitzahl (addr:postcode)</string>
   <string name="addr_city">Stadt .. (addr:city)</string>
   <string name="addr_country">Land (addr:country)</string>
@@ -18,6 +18,6 @@
   <string name="addr_province">Provinz (addr:province)</string>
   <string name="addr_state">Bundesland (addr:state)</string>
   <string name="addr_flats">Wohnung (addr:flats)</string>
-  <string name="addr_door">Türe (addr:door)</string>
+  <string name="addr_door">Tür (addr:door)</string>
   <string name="addr_unit">Wohneinheit (addr:unit)</string>
 </resources>

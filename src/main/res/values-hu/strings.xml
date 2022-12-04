@@ -79,6 +79,7 @@
   <string name="progress_saving_message">Mentés…</string>
   <string name="progress_uploading_message">Feltöltés…</string>
   <string name="progress_preset_message">Előbeállítás letöltése…</string>
+  <string name="progress_importing_file_message">Fájl importálása...</string>
   <string name="progress_running_message">Futtatás…</string>
   <string name="progress_oauth">Az openstreetmap.org fiókjának betöltése az OAuth engedélyezéshez…</string>
   <string name="progress_building_imagery_database">Légifelvétel-adatbázis felépítése…</string>
@@ -103,6 +104,7 @@
   <string name="upload_validation_error_empty_comment">A hozzászólás nem lehet üres</string>
   <string name="upload_validation_error_empty_source">A forrás nem lehet üres</string>
   <!--Review changes dialog-->
+  <string name="review_changes_title">Változások áttekintése</string>
   <!--Upload GPX-->
   <string name="upload_gpx_title">GPX nyomvonal feltöltése</string>
   <string name="upload_gpx_description_label">Leírás</string>
@@ -128,19 +130,29 @@
   <string name="bug_description_2">%1$s: %2$s %3$s - %4$s</string>
   <string name="generic_bug">Hiba</string>
   <string name="osmose_bug">Osmose</string>
+  <string name="todo_title">Teendők</string>
+  <string name="todo">Teendők</string>
+  <string name="select_todo_list">Válassza ki a teendők listáját</string>
   <string name="bug_long_description_1">%1$s: %2$s&lt;br&gt;&lt;br&gt;%3$s&lt;br&gt;&lt;br&gt;%4$s&lt;br&gt;</string>
   <string name="bug_element_1">%1$s (nincs letöltve) #%2$d</string>
   <string name="bug_element_2">%1$s %2$s</string>
   <string name="maproulette_task_title">MapRoulette feladat</string>
   <string name="maproulette_task_coords">Lat %1$4g, Lon %2$4g</string>
   <string name="maproulette_task_explanations">Magyarázatok</string>
+  <string name="maproulette_task_instructions">Útmutató</string>
   <string name="maproulette_task_set_apikey">MapRoulette API kulcs megadása</string>
   <string name="maproulette_task_apikey_not_set">A MapRoulette API kulcs nem menthető</string>
   <string name="maproulette_task_disable">Letiltás</string>
   <string name="maproulette_task_apikey_set">MapRoulette API kulcs mentve</string>
   <string name="maproulette_task_no_apikey">Nincs MapRoulette API kulcs</string>
   <!--Todo dialogs-->
+  <plurals name="add_todo_title">
+    <item quantity="one">Elemek hozzáadása a teendők listájához</item>
+    <item quantity="other">Elemek hozzáadása a teendők listájához</item>
+  </plurals>
+  <string name="all_todos_done_title">A listán szereplő összes tennivaló elvégezve</string>
   <string name="todo_comment_legend">Hozzászólás</string>
+  <string name="toast_no_open_todos">Nincs nyitott teendő</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Vigyázat!</string>
   <string name="unsaved_data_message">A mentetlen változtatásai elvesznek, ha folytatja.</string>
@@ -338,7 +350,10 @@ elemek megkövetelése</string>
   <string name="layer_data">OSM adatok</string>
   <string name="layer_data_name">%1$s adatok</string>
   <string name="layer_flush_tile_cache">Csempegyorsítótár ürítése</string>
+  <string name="layer_change_style">Stílus módosítása...</string>
+  <string name="layer_load_style">Stílus betöltése...</string>
   <string name="layer_reset_style">Stílus visszaállítása</string>
+  <string name="layer_select_imagery">Légifelvétel kijelölése...</string>
   <string name="layer_category_all">Összes</string>
   <string name="layer_category_photo">Légifelvétel</string>
   <string name="layer_category_elevation">Domborzat</string>
@@ -348,6 +363,10 @@ elemek megkövetelése</string>
   <string name="layer_category_osmbasedmap">OSM-alapú térkép</string>
   <string name="layer_category_qa">Minőségbiztosítás</string>
   <string name="layer_category_other">Egyéb</string>
+  <string name="layer_add_custom_imagery">Egyéni légi felvétel hozzáadása...</string>
+  <string name="layer_edit_custom_imagery_configuration">Egyéni légifelvétel-beállítások szerkesztése...</string>
+  <string name="layer_add_gpx">Réteg hozzáadása GPX-fájlból...</string>
+  <string name="layer_download_track">GPX-nyomvonal letöltése...</string>
   <string name="layer_available_tracks">Rendelkezésre álló GPX-nyomvonalak</string>
   <string name="layer_start_playback">Lejátszás indítása</string>
   <string name="layer_pause_playback">Lejátszás szüneteltetése</string>
@@ -529,6 +548,7 @@ elemek megkövetelése</string>
   <string name="toast_missing_preset_file">Hiányzó címkesablonfájl ehhez: „%1$s”</string>
   <string name="toast_invalid_filter_regexp">Érvénytelen reguláris kifejezés ezekkel: kulcs=\"%1$s\" érték=\"%2$s\"</string>
   <string name="toast_error_accessing_photo">A(z) %1$s fénykép nem érhető el</string>
+  <string name="toast_no_photo_found">Nem található fénykép</string>
   <string name="toast_security_error_accessing_photo">Nincs engedély a fénykép megnézéséhez: %1$s</string>
   <string name="toast_no_voice_recognition">A hangfelismerő szolgáltatás hiányzik</string>
   <string name="toast_no_coverage">Nincs lefedettség ehhez: %1$s</string>
@@ -650,6 +670,8 @@ elemek megkövetelése</string>
   <string name="select">Kijelölés</string>
   <string name="skip">Kihagyás</string>
   <string name="deprecated">%1$s (elavult)</string>
+  <string name="more_information">Kiegészítő információk</string>
+  <string name="osm_tags">OSM címkék</string>
   <!--Read a file-->
   <string name="read">Olvasás</string>
   <string name="overwrite">Felülírás</string>
@@ -767,6 +789,7 @@ elemek megkövetelése</string>
   <string name="allow_all_networks">Minden hálózat engedélyezése</string>
   <!--Strings in Go to coordinates-->
   <string name="go_to_coordinates_title">Ugrás koordinátákra</string>
+  <string name="go_to_coordinates_hint">Adja meg a koordinátákat (lat lon) vagy egy OLC-t</string>
   <string name="unparseable_coordinates">Nem értelmezhető koordináták</string>
   <string name="network_required">Hálózat szükséges a helyzetmeghatározásához</string>
   <string name="no_nominatim_server">Nem található beállított Nominatim kiszolgáló</string>
@@ -803,9 +826,13 @@ elemek megkövetelése</string>
   <string name="menu_gps_goto_last_edit">Ugrás az utolsó szerkesztésre</string>
   <string name="menu_gps_position_info">Jelenlegi pozícióadatok</string>
   <string name="menu_gps_start">GPX nyomvonal indítása</string>
+  <string name="menu_gps_resume">GPX nyomvonal folytatása</string>
   <string name="menu_gps_pause">GPX nyomvonal szüneteltetése</string>
   <string name="menu_gps_clear">GPX nyomvonal és útpontok törlése</string>
   <string name="menu_gps_track_managment">GPX nyomvonal kezelése…</string>
+  <string name="menu_gps_upload">GPX nyomvonal feltöltése...</string>
+  <string name="menu_gps_export">GPX nyomvonal exportálása...</string>
+  <string name="menu_gps_import">GPX nyomvonal importálása...</string>
   <string name="menu_gps_goto_start">Ugrás a GPX nyomvonal elejére</string>
   <string name="menu_gps_goto_first_waypoint">Ugrás az első útpontra</string>
   <string name="menu_enable_gps_autodownload">Helyalapú automatikus letöltés</string>
@@ -815,6 +842,8 @@ elemek megkövetelése</string>
   <string name="menu_transfer_download_replace">Törlés és jelenlegi nézet letöltése</string>
   <string name="menu_transfer_load_current">Jelenlegi nézet betöltése</string>
   <string name="menu_transfer_load_replace">Törlés és jelenlegi nézet betöltése</string>
+  <string name="menu_transfer_upload">Adatok feltöltése az OSM kiszolgálóra...</string>
+  <string name="menu_transfer_review">Változások áttekintése...</string>
   <string name="menu_transfer_update">Adatok frissítése</string>
   <string name="menu_transfer_data_clear">Adatok törlése</string>
   <string name="menu_transfer_close_changeset">Jelenlegi módosításcsomag lezárása</string>
@@ -854,6 +883,7 @@ elemek megkövetelése</string>
   <string name="menu_select_way_nodes">Vonalpontok kijelölése</string>
   <string name="menu_newnode_gps">Új pont a GPS pozíciónál</string>
   <string name="menu_extend_selection">Kijelölés bővítése</string>
+  <string name="menu_information">Infó...</string>
   <string name="menu_voice_commands">Hangutasítások</string>
   <string name="menu_upload_element">Elem feltöltése</string>
   <string name="menu_upload_elements">Elemek feltöltése</string>
@@ -862,6 +892,7 @@ elemek megkövetelése</string>
   <string name="menu_tools_imagery">További légifelvétel-eszközök…</string>
   <string name="menu_tools_add_imagery_from_oam">Légifelvétel hozzáadása az OpenAerialMapről (OAM)</string>
   <string name="menu_tools_flush_all_tile_caches">Összes csempe-gyorsítótár ürítése</string>
+  <string name="menu_tools_background_properties">Háttér tulajdonságok...</string>
   <string name="menu_tools_update_imagery_configuration">Beállítások frissítése</string>
   <string name="menu_tools_update_imagery_configuration_eli">Beállítások frissítése az ELI-ből (Editor Layer Index)</string>
   <string name="menu_tools_zoom_to_layer_extent">Nagyítás a háttérréteg teljes kiterjedésére</string>

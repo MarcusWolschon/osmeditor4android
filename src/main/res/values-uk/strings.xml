@@ -335,7 +335,9 @@
   <string name="layer_data">Дані OSM</string>
   <string name="layer_data_name">%1$s дані</string>
   <string name="layer_flush_tile_cache">Скинути кеш тайлів</string>
+  <string name="layer_change_style">Змінити стиль…</string>
   <string name="layer_reset_style">Перевстановити стиль</string>
+  <string name="layer_select_imagery">Обрати фон...</string>
   <string name="layer_category_all">Всі</string>
   <string name="layer_category_photo">Аерофото</string>
   <string name="layer_category_elevation">Рельєф</string>
@@ -360,6 +362,7 @@
   <string name="mapillary_image">mapillary %1$s</string>
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Вилучити фото</string>
+  <string name="photo_viewer_delete_button">Видалити остаточно</string>
   <string name="photo_viewer_goto">Перейти до фото</string>
   <string name="photo_viewer_label">Дивитись фото</string>
   <string name="mapillary_viewer_label">Mapillary Viewer</string>
@@ -548,6 +551,8 @@
   <string name="toast_error_too_unhandled_http_code_for">Необроблений код HTTP для %1$s</string>
   <string name="toast_unknown_error_for">Невідома помилка для %1$s</string>
   <string name="toast_download_started">Завантаження %1$s розпочато</string>
+  <string name="toast_phone_number_reformatted">Номер телефону переформатовано</string>
+  <string name="toast_members_not_downloaded">Деякі учасники зв\'язку не завантажені</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">Джерела MapSplit повинні мати встановлені мінімальне та максимальне масштабування</string>
   <string name="error_pbf_no_version">У файлі PBF відсутня інформація про версію</string>
@@ -638,6 +643,7 @@
   <string name="menu_deselect_all">Скинути виділення</string>
   <string name="menu_preset_help">Довідка заготовки</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
+  <string name="tag_menu_i18n">Додати мовні теги</string>
   <string name="tag_restriction_header">Значення</string>
   <string name="tag_restriction_when">коли</string>
   <string name="tag_restriction_and">та</string>
@@ -649,6 +655,7 @@
   <string name="default_checkgroup_hint">Додаткові атрибути</string>
   <string name="tag_form_unknown_element">Невідомий елемент (заготовки відсутні)</string>
   <!--Custom preset creation-->
+  <string name="tag_menu_create_preset">Створити власний пресет</string>
   <!--Strings in Box/LocationPicker-->
   <string name="location_choose_radius">Виберіть радіус: </string>
   <string name="location_default_radius">300 м.</string>
@@ -717,6 +724,9 @@
   <string name="menu_gps_pause">Призупинити запис GPX-треку</string>
   <string name="menu_gps_clear">Вилучити GPS-трек</string>
   <string name="menu_gps_track_managment">Керування треками…</string>
+  <string name="menu_gps_upload">Надіслати трек GPX...</string>
+  <string name="menu_gps_export">Експортувати трек GPX...</string>
+  <string name="menu_gps_import">Імпортувати GPX-трек...</string>
   <string name="menu_gps_goto_start">Перейти на початок треку</string>
   <string name="menu_gps_goto_first_waypoint">Перейти до першої маршрутної точки</string>
   <string name="menu_enable_gps_autodownload">Автозавантаження на основі розташування</string>
@@ -726,6 +736,7 @@
   <string name="menu_transfer_download_replace">Очистити та завантажити поточне місце</string>
   <string name="menu_transfer_load_current">Завантажити поточний вигляд</string>
   <string name="menu_transfer_load_replace">Очистити та завантажити поточний вигляд</string>
+  <string name="menu_transfer_upload">Надіслати дані на сервер OSM...</string>
   <string name="menu_transfer_update">Оновити дані</string>
   <string name="menu_transfer_close_changeset">Закрити поточний набір змін</string>
   <string name="menu_transfer_file">Файл…</string>
@@ -763,12 +774,14 @@
   <string name="menu_select_way_nodes">Вибрати точки лінії</string>
   <string name="menu_newnode_gps">Нова точка у позиції GPS.</string>
   <string name="menu_extend_selection">Розширити виділення</string>
+  <string name="menu_information">Інформація...</string>
   <string name="menu_voice_commands">Голосові команди</string>
   <string name="menu_set_name">Назва</string>
   <string name="menu_tools">Інструменти…</string>
   <string name="menu_tools_imagery">Інші інструменти зображень...</string>
   <string name="menu_tools_add_imagery_from_oam">Додати зображення з OAM</string>
   <string name="menu_tools_flush_all_tile_caches">Очистити усі кеші тайлів</string>
+  <string name="menu_tools_background_properties">Властивості фону...</string>
   <string name="menu_tools_update_imagery_configuration">Оновити конфігурацію</string>
   <string name="menu_tools_zoom_to_layer_extent">Збільшити масштаб фонового шару</string>
   <string name="menu_tools_clear_clipboard">Очистити буфер обміну</string>
@@ -787,6 +800,9 @@
   <string name="menu_tools_background_align_apply2all">Застосувати (усі масштаби)</string>
   <!--Menus in layers dialog-->
   <string name="menu_layers">Шари…</string>
+  <string name="menu_layers_load_geojson">Додати шар GeoJSON...</string>
+  <string name="menu_layers_add_backgroundlayer">Додати фоновий шар...</string>
+  <string name="menu_layers_add_overlaylayer">Додати шар накладення...</string>
   <string name="menu_layers_add_tasklayer">Увімкнути шар завдань</string>
   <string name="menu_layers_add_grid">Увімкнути сітку</string>
   <string name="menu_layers_add_photolayer">Увімкнути шар з фото</string>
@@ -817,6 +833,7 @@
   <string name="deletenode_relation_description">Ви намагаєтесь вилучити точку, що входить до складу одного чи більше зв’язків. Її вилучення, можливо, призведе до його(їх) спотворення.</string>
   <string name="deletenode">Вилучити точку</string>
   <!--EasyEdit context menus-->
+  <string name="split_context_title">Розділити...</string>
   <string name="split_all_ways">... всі лінії</string>
   <string name="merge_context_title">Об’єднати з…</string>
   <string name="merge_with_all_ways">… усіма довколишніми лініями</string>
@@ -852,6 +869,7 @@
   <string name="config_overlayLayer_title">Додаткові шари</string>
   <string name="config_overlayLayer_summary">Додатковий тайловий шар мапи.</string>
   <string name="config_customlayers_title">Користувацькі шари</string>
+  <string name="config_customlayers_summary">Керувати шарами не в конфігурації за замовчуванням.</string>
   <string name="config_scale_title">Показувати масштаб</string>
   <string name="config_scale_summary">Тип масштабу.</string>
   <string name="config_mapProfile_title">Стиль даних</string>
@@ -897,6 +915,7 @@
   <string name="config_useInternalPhotoViewer_summary">Використовуйте вбудований перегляд фотографій, якщо не позначено, використовуватиметься зовнішній переглядач.</string>
   <string name="config_indexMediaStore_summary">Додатково використовувати MediaStore для доступу до фотографій</string>
   <string name="config_indexMediaStore_title">Використовувати MediaStore</string>
+  <string name="config_followGPSbutton_summary">Де буде розташована кнопка «Відстежити позицію».</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Завжди затінювати незавантажені області</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">У заблокованому режимі затемнює незавантажені області.</string>
   <string name="config_fullscreenMode_title">Повноекранний режим</string>
@@ -934,6 +953,9 @@
   <string name="config_address_tags_summary">Теґи, що використовуються для пропонування адрес</string>
   <string name="config_enableNameSuggestions_title">Дозволити пропозиції назв</string>
   <string name="config_enableNameSuggestions_summary">Включити пропозицію для теґа назви</string>
+  <string name="config_enableNameSuggestionsPresets_title">Увімкнути пресети пропозицій імен</string>
+  <string name="config_enableNameSuggestionsPresets_summary">Автоматично додавати пресет, коли обрано пропозицію імені.</string>
+  <string name="config_autoApplyPreset_title">Увімкнути автоматичне застосування пресету</string>
   <string name="config_autoApplyPreset_summary">Автоматично застосовувати заготовку під час запуску редактора властивостей.</string>
   <string name="config_generateAlerts_title">Створювати повідомлення</string>
   <string name="config_generateAlerts_summary">Повідомляти про проблемні дані чи нотатки</string>
@@ -945,15 +967,21 @@
   <string name="config_maxAlertDistance_summary">Максимальна відстань до проблеми або нотатки від поточного місця для створення повідомлення</string>
   <string name="config_closeChangesetOnSave_title">Закривати набори змін</string>
   <string name="config_closeChangesetOnSave_summary">Типово закривати набори змін під час збереження</string>
+  <string name="config_enableAutoPresets_title">Увімкнути автоматичне створення пресетів</string>
   <string name="config_enableAutoPresets_summary">Дозволити створення заготовок з taginfo.</string>
   <string name="config_orthogonalizeThreshold_summary">Поріг у °, за яким кути ігноруються</string>
+  <string name="config_autoformatPhoneNumbers_title">Автоматичне форматування телефонних номерів</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Налаштування автозавантаження</string>
+  <string name="config_category_auto_download_summary">Налаштування автоматичного завантаження даних і завдань</string>
   <string name="config_extTriggeredDownloadRadius_title">Радіус завантаження</string>
   <string name="config_extTriggeredDownloadRadius_summary">Радіус (м)  для розширення ділянки завантаження, 0 - центр мапи.</string>
   <string name="config_maxDownloadSpeed_title">Максимальна швидкість авто-завантаження</string>
   <string name="config_maxDownloadSpeed_summary">Обмеження (в км/г) після якого автозавантаження призупиняється</string>
+  <string name="config_autoPruneNodeLimit_title">Ліміт автоматичного скорочення</string>
+  <string name="config_autoPruneNodeLimit_summary">Кількість Точок у пам’яті, досягнення якої ініціює видалення.</string>
   <string name="config_autoPruneNodeLimit_current">%1$d Точки</string>
+  <string name="config_panAndZoomLimit_title">Обмеження масштабу</string>
   <string name="config_panAndZoomLimit_summary">Мінімальний рівень масштабування для панорамування та автозавантаження.</string>
   <string name="config_bugFilter_title">Фільтр завдань</string>
   <string name="config_bugFilter_summary">Оберіть які елементи показувати на шарі нотаток/помилок</string>
@@ -1007,6 +1035,7 @@
   <string name="config_showStats_title">Показати статистику</string>
   <string name="config_showStats_summary">Відображати статистику даних і FPS в нижньому лівому куті.</string>
   <!--Experimental-->
+  <string name="config_category_experimental">Експериментальний</string>
   <string name="config_js_console_title">Відкрити JS консоль</string>
   <string name="config_voiceCommandsEnabled_title">Задіяти голосові команди</string>
   <string name="config_voiceCommandsEnabled_summary">Задіяти підтримку голосових команд</string>

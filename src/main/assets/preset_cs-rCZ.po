@@ -6785,12 +6785,12 @@ msgstr "Lokace"
 
 #: master_preset.xml:6667(text:text|group:Emergency|preset:Automated_Defibrillator|key:defibrillator:location)
 msgid "Location description"
-msgstr ""
+msgstr "Popis umístění"
 
 #: master_preset.xml:952(check:text|key:location:transition)
 #: master_preset.xml:9583(check:text|preset:Power_Tower|key:location:transition)
 msgid "Location transition"
-msgstr ""
+msgstr "Přechod umístění"
 
 #: master_preset.xml:3302(check:text|group:Water|preset:River|key:lock)
 #: master_preset.xml:3339(check:text|group:Water|preset:Canal|key:lock)
@@ -6809,19 +6809,19 @@ msgstr "Uzamykatelné"
 #: master_preset.xml:10824(item:name|group:Other|preset:Locksmith)
 #: master_preset.xml:12936(item:name|group:Crafts|preset:Locksmith)
 msgid "Locksmith"
-msgstr ""
+msgstr "Zámečník"
 
 #: master_preset.xml:1334(combo:display_values|key:playground:theme)
 msgid "Locomotive"
-msgstr ""
+msgstr "Lokomitiva"
 
 #: master_preset.xml:2963(item:name|group:Barriers|preset:Log)
 msgid "Log"
-msgstr ""
+msgstr "Kláda"
 
 #: master_preset.xml:13490(item:name|group:Offices|preset:Logistics)
 msgid "Logistics"
-msgstr ""
+msgstr "Logistika"
 
 #: master_preset.xml:10937(item:name|group:Other|preset:Lottery)
 #: master_preset.xml:5944(multiselect:display_values|preset:Gambling|key:gambling)
@@ -6838,34 +6838,34 @@ msgstr "Hodinový hotel"
 
 #: master_preset.xml:1314(list_entry:short_description|value:2)
 msgid "Lower secondary (2)"
-msgstr ""
+msgstr "Nižší sekundární (2)"
 
 #: master_preset.xml:1317(list_entry:short_description|value:5)
 msgid "Lower tertiary education (5)"
-msgstr ""
+msgstr "Nižší terciální vzdělávání (5)"
 
 #: master_preset.xml:1108(list_entry:display_value|value:lowered)
 #: master_preset.xml:1116(list_entry:display_value|value:lowered)
 #: master_preset.xml:1124(list_entry:display_value|value:lowered)
 msgid "Lowered"
-msgstr ""
+msgstr "Snížený"
 
 #: master_preset.xml:2425(combo:text|group:Ways|preset:Steps|key:ramp:luggage)
 msgid "Luggage ramp"
-msgstr ""
+msgstr "Rampa na zavazadla"
 
 #: master_preset.xml:1405(check:text|key:luminous)
 msgid "Luminous"
-msgstr ""
+msgstr "Světelný"
 
 #: master_preset.xml:812(combo:display_values|key:denomination)
 #: master_preset.xml:833(combo:display_values|key:denomination)
 msgid "Lutheran"
-msgstr ""
+msgstr "Luterán"
 
 #: master_preset.xml:5465(list_entry:display_value|group:Leisure|preset:Animals|value:lynx)
 msgid "Lynx"
-msgstr ""
+msgstr "Rys"
 
 #: master_preset.xml:11133(check:text|preset:Payment_Methods|key:payment:ep_megacash)
 msgid "MEGACASH"

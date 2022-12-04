@@ -244,7 +244,7 @@
   <string name="attribution">Quellenhinweis</string>
   <!--Too much data dialog-->
   <string name="too_much_data_title">Zu viele Daten!</string>
-  <string name="too_much_data_message"> Es sind %1$d Nodes geladen, mehr als die konfigurierte Maximalwert. Dies macht die App langsam und führt möglicherweise zu Problemen beim Sichern des aktuellen Zustandes.</string>
+  <string name="too_much_data_message">Es sind %1$d Knoten geladen, was den eingestellten Höchstwert übersteigt. Dies macht die App langsam und führt möglicherweise zu Problemen beim Sichern des aktuellen Zustandes.</string>
   <string name="upload_data_now">Änderungen hochladen</string>
   <string name="prune_data_now">Daten zurückschneiden</string>
   <!--Delete custom preset dialog-->
@@ -386,7 +386,7 @@
   <string name="layer_add_custom_imagery">Benutzerdefinierter Hintergrund hinzufügen…</string>
   <string name="layer_edit_custom_imagery_configuration">Benutzerdefinierte Hintergrundkonfiguration ändern…</string>
   <string name="layer_add_gpx">Ebene von GPX-Datei hinzufügen…</string>
-  <string name="layer_download_track">GPX Track herunterladen…</string>
+  <string name="layer_download_track">GPX-Track herunterladen…</string>
   <string name="layer_available_tracks">Verfügbare GPX Tracks</string>
   <string name="layer_start_playback">Wiedergabe starten</string>
   <string name="layer_pause_playback">Wiedergabe pausieren</string>
@@ -465,10 +465,10 @@
   <string name="tip_alternative_tagging">Alternative Vorgabe mit einem alternativen Tagging ausgewählt. Das heißt, es gibt andere Möglichkeiten, dieses Objekt zu kennzeichnen, die möglicherweise besser geeignet oder einfach verwandt sind. Diese alternativen Voreinstellungen werden oben in der Anzeige der zuletzt verwendeten Voreinstellung angezeigt.</string>
   <string name="tip_mode_switching">Die Schlosstaste dient gleichzeitig als Modusumschalter, ein langer Druck zeigt ein Menü mit den verschiedenen Optionen an. Weitere Informationen zu Vespuccis Modi finden Sie im Hilfesystem, sowohl in der Einführung als auch in der Hilfe zur Hauptkartenanzeige.</string>
   <string name="tip_empty_gpx_download">Aufgrund einer Besonderheit in der OSM-API muss der Startpunkt des GPX-Tracks sichtbar sein, damit er zum Herunterladen gefunden werden kann.</string>
-  <string name="tip_no_redo">Dieser Modus unterstützt aktuell kein redo</string>
-  <string name="tip_way_splitting">Tippe einer der hervorgehobenen Knoten an um die Position zu bestimmen an der geteilt wird. Ein langer Druck erlaubt in einem weiteren Schritt auszuwählen welcher Teil für den neuen Weg verwendet wird.</string>
-  <string name="tip_closed_way_splitting">Ein geschlossener Weg muss an zwei Stellen getrennt werden. Tippe einer der hervorgehobenen Knoten an um die erste Stelle zu bestimmen, im nächsten Schritt wird die zweite Stelle ausgewählt.</string>
-  <string name="tip_disambiguation_menu">Sind mehrere OSM Element oder andere Objekte sehr nahe zusammen sind, oder Elemente Mitglieder von Relationen sind, wird das Auswahlmenu angezeigt.&lt;p&gt;Ist ein Element bereits ausgewählt so wird es hervorgehoben.</string>
+  <string name="tip_no_redo">In diesem Modus können momentan keine Knoten-Neuaufnahmen rückgängig gemacht werden</string>
+  <string name="tip_way_splitting">Berühren Sie einen der hervorgehobenen Knoten, um die Position zu bestimmen, an der geteilt wird. Ein langer Druck erlaubt in einem weiteren Schritt auszuwählen, welcher Teil für den neuen Weg verwendet wird.</string>
+  <string name="tip_closed_way_splitting">Ein geschlossener Weg muss an zwei Stellen getrennt werden. Berühren Sie einen der hervorgehobenen Knoten, um die 1. Stelle zu bestimmen, im nächsten Schritt wird die 2. Stelle ausgewählt.</string>
+  <string name="tip_disambiguation_menu">Wenn mehrere OSM-Elemente oder andere Objekte sehr nahe zusammen oder Elemente Mitglieder von Relationen sind, wird das Auswahlmenu angezeigt.&lt;p&gt;Ist ein Element bereits ausgewählt, so wird es hervorgehoben.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -668,6 +668,7 @@
   <string name="toast_url_check_with_msg">%1$s %2$d %3$s</string>
   <string name="toast_unexpected_element">Unerwartetes Element angeklickt:\n%1$s</string>
   <string name="toast_import_destination_exists">Datei ist bereits importiert</string>
+  <string name="toast_part_selection_not_supported">Wegteil-Auswahl wird für geschlossene Wege nicht unterstützt</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">Für MapSplit-Quellen müssen Zoomgrenzen festgelegt sein.</string>
   <string name="error_pbf_no_version">Versionsinformation fehlt in PBF-Datei</string>
@@ -962,7 +963,7 @@
   <string name="distance_km">%1$.3f km</string>
   <!--Menus in layers dialog-->
   <string name="menu_layers">Ebenen…</string>
-  <string name="menu_layers_load_geojson">GeoJSON Ebene hinzufügen…</string>
+  <string name="menu_layers_load_geojson">GeoJSON-Ebene hinzufügen…</string>
   <string name="menu_layers_add_backgroundlayer">Hintergrundebene hinzufügen…</string>
   <string name="menu_layers_add_overlaylayer">Overlay-Ebene hinzufügen…</string>
   <string name="menu_layers_add_tasklayer">Aufgaben-Ebene anzeigen</string>
@@ -1018,11 +1019,11 @@
   <string name="actionmode_split_way">Weg teilen</string>
   <string name="actionmode_split_closed_way">Geschlossenen Weg teilen</string>
   <!--EasyEdit action mode sub-titles-->
-  <string name="actionmode_closed_way_split_1">1. Wegpunkt auswählen</string>
-  <string name="actionmode_closed_way_split_2">2. Wegpunkt auswählen</string>
+  <string name="actionmode_closed_way_split_1">1. Knoten auswählen</string>
+  <string name="actionmode_closed_way_split_2">2. Knoten auswählen</string>
   <string name="actionmode_split_way_node_selection">Knoten auswählen</string>
   <string name="actionmode_split_way_select_part">Teil für den neuen Weg auswählen</string>
-  <string name="actionmode_select_node_to_append_to">Knoten auswählen an dem angeschlossen wird</string>
+  <string name="actionmode_select_node_to_append_to">Knoten auswählen, an dem angeschlossen wird</string>
   <string name="actionmode_restriction">Abbiegebeschränkung hinzufügen</string>
   <string name="actionmode_restriction_restart_from">„from“-Segment nochmals auswählen</string>
   <string name="actionmode_restriction_select_from">Auswahl „von“-Segment</string>
@@ -1043,9 +1044,12 @@
   <string name="menu_add_node">Knoten hinzufügen</string>
   <string name="simple_add_node">Bildschirmposition antippen</string>
   <string name="menu_add_node_tags">Knoten mit Eigenschaften hinzufügen</string>
-  <string name="menu_add_node_address">Adresspunkt hinzufügen</string>
+  <string name="menu_add_node_address">Adressknoten hinzufügen</string>
   <string name="menu_add_address_interpolation">Adressinterpolation hinzufügen</string>
   <string name="menu_add_way">Weg hinzufügen</string>
+  <string name="add_node_instruction">Position antippen</string>
+  <string name="add_way_start_instruction">Zum Starten erste Position antippen</string>
+  <string name="add_way_node_instruction">Position des nächsten Knotens antippen</string>
   <string name="menu_add_map_note">Notiz hinzufügen</string>
   <string name="simple_add_note">Bildschirmposition antippen</string>
   <string name="menu_paste_object">Objekt einfügen</string>
@@ -1115,8 +1119,8 @@
   <string name="config_useInternalPhotoViewer_summary">Die eingebaute Bildanzeige verwenden, ansonsten eine externe App verwenden.</string>
   <string name="config_indexMediaStore_summary">Zusätzlich den Medienspeicher für Zugriff auf Bilder nutzen</string>
   <string name="config_indexMediaStore_title">Medienspeicher benutzen</string>
-  <string name="config_followGPSbutton_title">Anordnung des \"Position folgen\" Knopfes</string>
-  <string name="config_followGPSbutton_summary">Wo der „Position folgen“ Knopf angezeigt wird</string>
+  <string name="config_followGPSbutton_title">Anordnung des Knopfes „Position folgen“</string>
+  <string name="config_followGPSbutton_summary">Wo der „Position folgen“-Knopf angezeigt wird</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Abdunkeln nicht heruntergeladener Gebiete</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">Nicht heruntergeladene Gebiete sind immer abgedunkelt</string>
   <string name="config_fullscreenMode_title">Vollbild-Modus</string>
