@@ -113,7 +113,7 @@ public class TodoTest {
             fail(e.getMessage());
         }
         // assertTrue(TestUtils.clickText(device, false, context.getString(R.string.add), false, false));
-        assertTrue(TestUtils.clickResource(device, false, "android:id/button1", false));
+        assertTrue(TestUtils.clickResource(device, false, "android:id/button1", true));
         List<Todo> todos = App.getTaskStorage().getTodosForElement(node);
         assertEquals(1, todos.size());
         TestUtils.clickAtCoordinates(device, map, 8.38782, 47.390339, true);
