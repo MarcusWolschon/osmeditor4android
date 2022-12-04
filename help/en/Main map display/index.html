@@ -486,7 +486,8 @@ or as decribed above..</p>
 <p>Start a camera app, add the resulting photograph to the photo layer is enabled. The photograph itself should be stored in the Vespucci/Pictures 
 directory, however this depends on the specific camera app.</p>
 <h3 id="location"><img alt="Location" src="../../images/menu_gps.png" /> Location<a class="headerlink" href="#location" title="Permanent link">#</a></h3>
-<p>The "on-map" GPS button duplicates the function of the "Follow GPS position" menu entry. When this is activated the GPS arrow will be displayed as an outline. Note that the <em>Show location</em> function will enable location updates from the system, just as the recording and similar options.</p>
+<p>The "on-map" GPS button duplicates the function of the "Follow location" menu entry. When this is activated the GPS arrow will be displayed as an outline. Note that the <em>Show location</em> function will enable location updates from the system, just as the recording and similar options.
+To reposition or remove the "on-map" GPS button use the "Follow position button layout" Preference.</p>
 <ul>
 <li><strong>Show location</strong> - show arrow symbol at current position</li>
 <li><strong>Follow location</strong> - pan and center screen to follow the current position, will enable <em>Show location</em> too.</li>
@@ -494,21 +495,35 @@ directory, however this depends on the specific camera app.</p>
 <li><strong>Bookmarks...</strong> - show current viewbox bookmarks</li>
 <li><strong>Go to the nearest todo...</strong> - go to the nearest open todo. If you are following the GPS position or it is in the current view this is relative to that position, otherwise it is relative to the center of the current view. If there are more than one active todo list you will be prompted to select one.</li>
 <li><strong>Go to current location</strong> - go to and zoom in to the current position. If location updates are not turned on, this will try to get a location without enabling continuous updates.</li>
-<li><strong>Go to coordinates...</strong> - go to and zoom in to coordinates or an open location code</li>
+<li><strong>Go to coordinates...</strong> - go to and zoom in to coordinates (latitude longitude) or an open location code
+    Supported formats are the following, with dots or optionally a comma as the decimal marker, variations on the units also accepted e.g. °, d, º, g, o.   <ul>
+<li><code>43.63871944444445</code></li>
+<li><code>N43°38'19.39"</code></li>
+<li><code>43°38'19.39"N</code></li>
+<li><code>43°38.3232'N</code></li>
+<li><code>43d 38m 19.39s N</code></li>
+<li><code>43 38 19.39</code></li>
+<li><code>433819N</code></li>
+</ul>
+</li>
+<li><strong>Go to last edit</strong> - Pan and zoom to the bounding box of the top most undo checkpoint.</li>
 <li><strong>Start GPX track</strong> - start recording a GPX track and display a corresponding layer.</li>
+<li><strong>Resume GPX track</strong> - continue recording a GPX track.</li>
 <li><strong>Pause GPX track</strong> - pause recording the current GPX track</li>
 <li><strong>Clear GPX track</strong> - clear the current GPX track</li>
 </ul>
 <h3 id="transfer"><img alt="Transfer" src="../../images/menu_transfer.png" /> Transfer<a class="headerlink" href="#transfer" title="Permanent link">#</a></h3>
 <p>Select either the transfer icon <img alt="Transfer" src="../../images/menu_transfer.png" /> or the "Transfer" menu item. This will display seven or eight options:</p>
 <ul>
+<li><strong>Upload data to OSM server...</strong> - review and upload changes to OpenStreetMap, the entry is disabled if you haven't changed anything yet, or there is no network available <em>(requires authentication)</em> <em>(requires network connectivity)</em></li>
+<li><strong>Review changes...</strong> - review current changes</li>
 <li><strong>Download current view</strong> - download the area visible on the screen and merge it with existing data <em>(requires network connectivity)</em></li>
 <li><strong>Clear and download current view</strong> - clear any data in memory and then download the area visible on the screen <em>(requires network connectivity)</em></li>
-<li><strong>Upload data to OSM server</strong> - upload edits to OpenStreetMap, the entry is disabled if you haven't changed anything yet, or there is no network available <em>(requires authentication)</em> <em>(requires network connectivity)</em></li>
-<li><strong>Update data</strong> - re-download data for all areas and update what is in memory <em>(requires network connectivity)</em></li>
 <li><strong>Close current changeset</strong> - manually close the current changeset <em>(only available if a changeset is open)</em></li>
 <li><strong>Location based auto download</strong> - download an area around the current location automatically <em>(requires network connectivity)</em> <em>(requires GPS)</em></li>
 <li><strong>Pan and zoom auto download</strong> - download the area shown in the current screen automatically <em>(requires network connectivity)</em></li>
+<li><strong>Update data</strong> - re-download data for all areas and update what is in memory <em>(requires network connectivity)</em></li>
+<li><strong>Clear data</strong> - remove any OSM data in memory</li>
 <li><strong>File...</strong> - saving and loading OSM data to/from on device files.<ul>
 <li><strong>Export changes to OSC file</strong> - write a ".osc" format file containing the current edits</li>
 <li><strong>Apply changes from OSC file</strong> - read a ".osc" format file and apply its contents</li>
@@ -519,10 +534,10 @@ directory, however this depends on the specific camera app.</p>
 </ul>
 </li>
 <li><strong>Tasks...</strong> - down- and uploading tasks (Notes, OSMOSE bugs, Maproulette and custom tasks)<ul>
-<li><strong>Download tasks for current view</strong> - download Notes/Bugs for the area visible on the screen</li>
 <li><strong>Upload all</strong> - upload all new or modified tasks</li>
-<li><strong>Clear</strong> - remove all tasks from storage</li>
+<li><strong>Download tasks for current view</strong> - download Notes/Bugs for the area visible on the screen</li>
 <li><strong>Auto download</strong> - download tasks around the current geographic location automatically <em>(requires network connectivity)</em> <em>(requires GPS)</em></li>
+<li><strong>Clear</strong> - remove all tasks from storage</li>
 <li><strong>File...</strong> - save Notes/Bugs data to on device storage<ul>
 <li><strong>Save all notes...</strong> - write a ".osn" format file containing all downloaded notes (this is the format supported by JOSM)</li>
 <li><strong>Save new and changed notes...</strong> - write a ".osn" format file containing all new and changed notes</li>
@@ -553,6 +568,7 @@ directory, however this depends on the specific camera app.</p>
 <li><strong>Calibrate pressure sensor...</strong> - calibrate the conversion from barometric pressure to elevation.</li>
 <li><strong>Install EGM</strong> - install a gravitational model of the earth, required for getting height data from the devices GPS. Alternatively you can switch to NMEA input in the "Advanced preferences".</li>
 <li><strong>Remove EGM</strong> - remove the EGM.</li>
+<li><strong>Import data style...</strong> - import an additional data style from an XML file or from a ZIP archive containing an XML file and icons. This overwrites existing style files with the same name.</li>
 <li><strong>Load keys from file...</strong> - load additional keys, for example API keys for background imagery, or other OAuth keys from a file.</li>
 <li><strong>JS Console</strong> - start the JavaScript console for scripting the application. Note that this needs to be anabled in the "Advaced preferences":</li>
 </ul>
@@ -718,7 +734,8 @@ or as decribed above..</p>
 <p>Start a camera app, add the resulting photograph to the photo layer is enabled. The photograph itself should be stored in the Vespucci/Pictures 
 directory, however this depends on the specific camera app.</p>
 <h3 id="location"><img alt="Location" src="../../images/menu_gps.png" /> Location<a class="headerlink" href="#location" title="Permanent link">#</a></h3>
-<p>The "on-map" GPS button duplicates the function of the "Follow GPS position" menu entry. When this is activated the GPS arrow will be displayed as an outline. Note that the <em>Show location</em> function will enable location updates from the system, just as the recording and similar options.</p>
+<p>The "on-map" GPS button duplicates the function of the "Follow location" menu entry. When this is activated the GPS arrow will be displayed as an outline. Note that the <em>Show location</em> function will enable location updates from the system, just as the recording and similar options.
+To reposition or remove the "on-map" GPS button use the "Follow position button layout" Preference.</p>
 <ul>
 <li><strong>Show location</strong> - show arrow symbol at current position</li>
 <li><strong>Follow location</strong> - pan and center screen to follow the current position, will enable <em>Show location</em> too.</li>
@@ -726,21 +743,35 @@ directory, however this depends on the specific camera app.</p>
 <li><strong>Bookmarks...</strong> - show current viewbox bookmarks</li>
 <li><strong>Go to the nearest todo...</strong> - go to the nearest open todo. If you are following the GPS position or it is in the current view this is relative to that position, otherwise it is relative to the center of the current view. If there are more than one active todo list you will be prompted to select one.</li>
 <li><strong>Go to current location</strong> - go to and zoom in to the current position. If location updates are not turned on, this will try to get a location without enabling continuous updates.</li>
-<li><strong>Go to coordinates...</strong> - go to and zoom in to coordinates or an open location code</li>
+<li><strong>Go to coordinates...</strong> - go to and zoom in to coordinates (latitude longitude) or an open location code
+    Supported formats are the following, with dots or optionally a comma as the decimal marker, variations on the units also accepted e.g. °, d, º, g, o.   <ul>
+<li><code>43.63871944444445</code></li>
+<li><code>N43°38'19.39"</code></li>
+<li><code>43°38'19.39"N</code></li>
+<li><code>43°38.3232'N</code></li>
+<li><code>43d 38m 19.39s N</code></li>
+<li><code>43 38 19.39</code></li>
+<li><code>433819N</code></li>
+</ul>
+</li>
+<li><strong>Go to last edit</strong> - Pan and zoom to the bounding box of the top most undo checkpoint.</li>
 <li><strong>Start GPX track</strong> - start recording a GPX track and display a corresponding layer.</li>
+<li><strong>Resume GPX track</strong> - continue recording a GPX track.</li>
 <li><strong>Pause GPX track</strong> - pause recording the current GPX track</li>
 <li><strong>Clear GPX track</strong> - clear the current GPX track</li>
 </ul>
 <h3 id="transfer"><img alt="Transfer" src="../../images/menu_transfer.png" /> Transfer<a class="headerlink" href="#transfer" title="Permanent link">#</a></h3>
 <p>Select either the transfer icon <img alt="Transfer" src="../../images/menu_transfer.png" /> or the "Transfer" menu item. This will display seven or eight options:</p>
 <ul>
+<li><strong>Upload data to OSM server...</strong> - review and upload changes to OpenStreetMap, the entry is disabled if you haven't changed anything yet, or there is no network available <em>(requires authentication)</em> <em>(requires network connectivity)</em></li>
+<li><strong>Review changes...</strong> - review current changes</li>
 <li><strong>Download current view</strong> - download the area visible on the screen and merge it with existing data <em>(requires network connectivity)</em></li>
 <li><strong>Clear and download current view</strong> - clear any data in memory and then download the area visible on the screen <em>(requires network connectivity)</em></li>
-<li><strong>Upload data to OSM server</strong> - upload edits to OpenStreetMap, the entry is disabled if you haven't changed anything yet, or there is no network available <em>(requires authentication)</em> <em>(requires network connectivity)</em></li>
-<li><strong>Update data</strong> - re-download data for all areas and update what is in memory <em>(requires network connectivity)</em></li>
 <li><strong>Close current changeset</strong> - manually close the current changeset <em>(only available if a changeset is open)</em></li>
 <li><strong>Location based auto download</strong> - download an area around the current location automatically <em>(requires network connectivity)</em> <em>(requires GPS)</em></li>
 <li><strong>Pan and zoom auto download</strong> - download the area shown in the current screen automatically <em>(requires network connectivity)</em></li>
+<li><strong>Update data</strong> - re-download data for all areas and update what is in memory <em>(requires network connectivity)</em></li>
+<li><strong>Clear data</strong> - remove any OSM data in memory</li>
 <li><strong>File...</strong> - saving and loading OSM data to/from on device files.<ul>
 <li><strong>Export changes to OSC file</strong> - write a ".osc" format file containing the current edits</li>
 <li><strong>Apply changes from OSC file</strong> - read a ".osc" format file and apply its contents</li>
@@ -751,10 +782,10 @@ directory, however this depends on the specific camera app.</p>
 </ul>
 </li>
 <li><strong>Tasks...</strong> - down- and uploading tasks (Notes, OSMOSE bugs, Maproulette and custom tasks)<ul>
-<li><strong>Download tasks for current view</strong> - download Notes/Bugs for the area visible on the screen</li>
 <li><strong>Upload all</strong> - upload all new or modified tasks</li>
-<li><strong>Clear</strong> - remove all tasks from storage</li>
+<li><strong>Download tasks for current view</strong> - download Notes/Bugs for the area visible on the screen</li>
 <li><strong>Auto download</strong> - download tasks around the current geographic location automatically <em>(requires network connectivity)</em> <em>(requires GPS)</em></li>
+<li><strong>Clear</strong> - remove all tasks from storage</li>
 <li><strong>File...</strong> - save Notes/Bugs data to on device storage<ul>
 <li><strong>Save all notes...</strong> - write a ".osn" format file containing all downloaded notes (this is the format supported by JOSM)</li>
 <li><strong>Save new and changed notes...</strong> - write a ".osn" format file containing all new and changed notes</li>
@@ -785,6 +816,7 @@ directory, however this depends on the specific camera app.</p>
 <li><strong>Calibrate pressure sensor...</strong> - calibrate the conversion from barometric pressure to elevation.</li>
 <li><strong>Install EGM</strong> - install a gravitational model of the earth, required for getting height data from the devices GPS. Alternatively you can switch to NMEA input in the "Advanced preferences".</li>
 <li><strong>Remove EGM</strong> - remove the EGM.</li>
+<li><strong>Import data style...</strong> - import an additional data style from an XML file or from a ZIP archive containing an XML file and icons. This overwrites existing style files with the same name.</li>
 <li><strong>Load keys from file...</strong> - load additional keys, for example API keys for background imagery, or other OAuth keys from a file.</li>
 <li><strong>JS Console</strong> - start the JavaScript console for scripting the application. Note that this needs to be anabled in the "Advaced preferences":</li>
 </ul>
