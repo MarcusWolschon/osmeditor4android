@@ -6,13 +6,10 @@ import java.util.Map;
 import java.util.Set;
 
 import android.util.Log;
-import android.view.Menu;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.view.ActionMode;
-import de.blau.android.R;
+import de.blau.android.easyedit.AbstractClosedWaySplittingActionModeCallback;
 import de.blau.android.easyedit.EasyEditManager;
-import de.blau.android.easyedit.NonSimpleActionModeCallback;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.exception.StorageException;
 import de.blau.android.osm.Node;
@@ -26,12 +23,11 @@ import de.blau.android.osm.Way;
  * @author simon
  *
  */
-public class RestrictionClosedWaySplittingActionModeCallback extends NonSimpleActionModeCallback {
-    private static final String   DEBUG_TAG = "ClosedWaySplit...";
-    private final Way             way;
-    private final Node            node;
-    private final Way             fromWay;
-    private final Set<OsmElement> nodes     = new HashSet<>();    // nodes that we can use for splitting
+public class RestrictionClosedWaySplittingActionModeCallback extends AbstractClosedWaySplittingActionModeCallback {
+    private static final String DEBUG_TAG = "RestrictionClosedWaySplit...";
+    private final Way           way;
+    private final Node          node;
+    private final Way           fromWay;
 
     /**
      * Construct a new callback for splitting a closed way/polygon as part of a turn restriction
@@ -54,16 +50,6 @@ public class RestrictionClosedWaySplittingActionModeCallback extends NonSimpleAc
         if (results != null) {
             savedResults = results;
         }
-    }
-
-    @Override
-    public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-        helpTopic = R.string.help_closedwaysplitting;
-        super.onCreateActionMode(mode, menu);
-        mode.setSubtitle(R.string.actionmode_closed_way_split_2);
-        logic.setClickableElements(nodes);
-        logic.setReturnRelations(false);
-        return true;
     }
 
     @Override
@@ -95,13 +81,5 @@ public class RestrictionClosedWaySplittingActionModeCallback extends NonSimpleAc
         manager.finish();
         Log.d(DEBUG_TAG, "split failed at element " + (element != null ? element : "null"));
         return true;
-    }
-
-    @Override
-    public void onDestroyActionMode(ActionMode mode) {
-        mode.setSubtitle("");
-        logic.setClickableElements(null);
-        logic.setReturnRelations(true);
-        super.onDestroyActionMode(mode);
     }
 }
