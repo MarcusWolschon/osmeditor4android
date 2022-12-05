@@ -34,6 +34,8 @@ public final class TaginfoServer {
     private static final String COUNT_ALL_NAME   = "count_all";
     private static final String COUNT_NAME       = "count";
     private static final String DESCRIPTION_NAME = "description";
+    private static final String OTHER_KEY        = "other_key";
+    private static final String OTHER_VALUE      = "other_value";
     public static final String  RELATIONS        = "relations";
     public static final String  WAYS             = "ways";
     public static final String  NODES            = "nodes";
@@ -117,6 +119,15 @@ public final class TaginfoServer {
     }
 
     public static class WikiPageResult {
+        private static final String TAGS_COMBINATON_FIELD = "tags_combination";
+        private static final String ON_RELATION_FIELD     = "on_relation";
+        private static final String ON_AREA_FIELD         = "on_area";
+        private static final String ON_WAY_FIELD          = "on_way";
+        private static final String ON_NODE_FIELD         = "on_node";
+        private static final String TITLE_FIELD           = "title";
+        private static final String LANG_FIELD            = "lang";
+        private static final String EN                    = "en";
+
         private boolean      onNode        = false;
         private boolean      onWay         = false;
         private boolean      onArea        = false;
@@ -157,28 +168,28 @@ public final class TaginfoServer {
                         while (reader.hasNext()) {
                             jsonName = reader.nextName();
                             switch (jsonName) {
-                            case "lang":
+                            case LANG_FIELD:
                                 tempLang = reader.nextString();
                                 break;
-                            case "title":
+                            case TITLE_FIELD:
                                 tempTitle = reader.nextString();
                                 break;
                             case DESCRIPTION_NAME:
                                 tempDescription = reader.nextString();
                                 break;
-                            case "on_node":
+                            case ON_NODE_FIELD:
                                 tempOnNode = reader.nextBoolean();
                                 break;
-                            case "on_way":
+                            case ON_WAY_FIELD:
                                 tempOnWay = reader.nextBoolean();
                                 break;
-                            case "on_area":
+                            case ON_AREA_FIELD:
                                 tempOnArea = reader.nextBoolean();
                                 break;
-                            case "on_relation":
+                            case ON_RELATION_FIELD:
                                 tempOnRelation = reader.nextBoolean();
                                 break;
-                            case "tags_combination":
+                            case TAGS_COMBINATON_FIELD:
                                 reader.beginArray();
                                 while (reader.hasNext()) {
                                     tempCombinations.add(reader.nextString());
@@ -191,7 +202,7 @@ public final class TaginfoServer {
                             }
                         }
                         reader.endObject();
-                        if ("en".equals(tempLang)) {
+                        if (EN.equals(tempLang)) {
                             onNode = tempOnNode;
                             onWay = tempOnWay;
                             onArea = tempOnArea;
@@ -382,9 +393,18 @@ public final class TaginfoServer {
     public static List<SearchResult> searchByKeyAndValue(@Nullable final Context context, @NonNull String server, @NonNull String key, @NonNull String value,
             int maxResults) {
         // https://taginfo.openstreetmap.org/api/4/search/by_key_and_value?query=%3Dresidential&page=1&rp=10&sortname=count_all&sortorder=desc
-        String url = server + "api/4/search/by_key_and_value?query=" + key + "%3D" + value + PAGE_1 + (maxResults != -1 ? "&rp=" + maxResults : "")
-                + SORT_PARAMS;
+        String url = server + "api/4/search/by_key_and_value?query=" + key + "%3D" + value + maxResultParameters(maxResults) + SORT_PARAMS;
         return search(context, url);
+    }
+
+    /**
+     * Get a String with the correct number of pages
+     * 
+     * @param maxResults the max number of results we want
+     * @return a String with the parameters
+     */
+    private static String maxResultParameters(int maxResults) {
+        return PAGE_1 + (maxResults != -1 ? "&rp=" + maxResults : "");
     }
 
     /**
@@ -399,7 +419,7 @@ public final class TaginfoServer {
     @Nullable
     public static List<SearchResult> searchByValue(@Nullable final Context context, @NonNull String server, @NonNull String value, int maxResults) {
         // https://taginfo.openstreetmap.org/api/4/search/by_value?query=residential&page=1&rp=10&sortname=count_all&sortorder=desc
-        String url = server + "api/4/search/by_value?query=" + value + PAGE_1 + (maxResults != -1 ? "&rp=" + maxResults : "") + SORT_PARAMS;
+        String url = server + "api/4/search/by_value?query=" + value + maxResultParameters(maxResults) + SORT_PARAMS;
         return search(context, url);
     }
 
@@ -414,7 +434,7 @@ public final class TaginfoServer {
      */
     @Nullable
     public static List<SearchResult> searchByKeyword(@Nullable final Context context, @NonNull String server, @NonNull String keyword, int maxResults) {
-        String url = server + "api/4/search/by_keyword?query=" + keyword + PAGE_1 + (maxResults != -1 ? "&rp=" + maxResults : "");
+        String url = server + "api/4/search/by_keyword?query=" + keyword + maxResultParameters(maxResults);
         return search(context, url);
     }
 
@@ -494,7 +514,7 @@ public final class TaginfoServer {
     @SuppressWarnings("unchecked")
     @Nullable
     public static List<ValueResult> keyValues(@Nullable final Context context, @NonNull String server, @NonNull String key, int maxResults) {
-        String url = server + "api/4/key/values?key=" + key + PAGE_1 + (maxResults != -1 ? "&rp=" + maxResults : "") + SORT_PARAMS;
+        String url = server + "api/4/key/values?key=" + key + maxResultParameters(maxResults) + SORT_PARAMS;
         return (List<ValueResult>) querySync(context, url, new ResultReader() {
 
             @Override
@@ -542,7 +562,6 @@ public final class TaginfoServer {
 
             @Override
             Object read(JsonReader reader) throws IOException {
-
                 SearchResult result = null;
                 reader.beginObject();
                 while (reader.hasNext()) {
@@ -586,55 +605,8 @@ public final class TaginfoServer {
     public static List<String> tagCombinations(@Nullable final Context context, @NonNull String server, @NonNull String key, @Nullable String value,
             @Nullable String filter, int maxResults) {
         String url = server + "api/4/tag/combinations?key=" + key + (value != null ? "&value=" + value : "") + (filter != null ? "&filter=" + filter : "")
-                + PAGE_1 + (maxResults != -1 ? "&rp=" + maxResults : "") + "&sortname=together_count&sortorder=desc";
-        return (List<String>) querySync(context, url, new ResultReader() {
-
-            @Override
-            Object read(JsonReader reader) throws IOException {
-
-                List<String> result = new ArrayList<>();
-                reader.beginObject();
-                while (reader.hasNext()) {
-                    if (DATA_NAME.equals(reader.nextName())) {
-                        reader.beginArray();
-                        while (reader.hasNext()) {
-                            try {
-                                String otherKey = null;
-                                String otherValue = null;
-                                reader.beginObject();
-                                while (reader.hasNext()) {
-                                    String jsonName = reader.nextName();
-                                    switch (jsonName) {
-                                    case "other_key":
-                                        otherKey = reader.nextString();
-                                        break;
-                                    case "other_value":
-                                        otherValue = reader.nextString();
-                                        break;
-                                    default:
-                                        reader.skipValue();
-                                        break;
-                                    }
-                                }
-                                reader.endObject();
-                                if (otherValue == null) {
-                                    result.add(otherKey);
-                                } else {
-                                    result.add(otherKey + "=" + otherValue);
-                                }
-                            } catch (IOException e) {
-                                Log.e(DEBUG_TAG, e.getMessage());
-                            }
-                        }
-                        reader.endArray();
-                    } else {
-                        reader.skipValue();
-                    }
-                }
-                reader.endObject();
-                return result;
-            }
-        }, null);
+                + maxResultParameters(maxResults) + "&sortname=together_count&sortorder=desc";
+        return (List<String>) querySync(context, url, keyValueReader, null);
     }
 
     /**
@@ -651,49 +623,58 @@ public final class TaginfoServer {
     @Nullable
     public static List<String> keyCombinations(@Nullable final Context context, @NonNull String server, @NonNull String key, @Nullable String filter,
             int maxResults) {
-        String url = server + "api/4/key/combinations?key=" + key + (filter != null ? "&filter=" + filter : "") + PAGE_1
-                + (maxResults != -1 ? "&rp=" + maxResults : "") + "&sortname=together_count&sortorder=desc";
-        return (List<String>) querySync(context, url, new ResultReader() {
-
-            @Override
-            Object read(JsonReader reader) throws IOException {
-
-                List<String> result = new ArrayList<>();
-                reader.beginObject();
-                while (reader.hasNext()) {
-                    if (DATA_NAME.equals(reader.nextName())) {
-                        reader.beginArray();
-                        while (reader.hasNext()) {
-                            try {
-                                String otherKey = null;
-                                reader.beginObject();
-                                while (reader.hasNext()) {
-                                    String jsonName = reader.nextName();
-                                    switch (jsonName) {
-                                    case "other_key":
-                                        otherKey = reader.nextString();
-                                        break;
-                                    default:
-                                        reader.skipValue();
-                                        break;
-                                    }
-                                }
-                                reader.endObject();
-                                result.add(otherKey);
-                            } catch (IOException e) {
-                                Log.e(DEBUG_TAG, e.getMessage());
-                            }
-                        }
-                        reader.endArray();
-                    } else {
-                        reader.skipValue();
-                    }
-                }
-                reader.endObject();
-                return result;
-            }
-        }, null);
+        String url = server + "api/4/key/combinations?key=" + key + (filter != null ? "&filter=" + filter : "") + maxResultParameters(maxResults)
+                + "&sortname=together_count&sortorder=desc";
+        return (List<String>) querySync(context, url, keyValueReader, null);
     }
+
+    private static final ResultReader keyValueReader = new ResultReader() {
+
+        @Override
+        Object read(JsonReader reader) throws IOException {
+            List<String> result = new ArrayList<>();
+            reader.beginObject();
+            while (reader.hasNext()) {
+                if (DATA_NAME.equals(reader.nextName())) {
+                    reader.beginArray();
+                    while (reader.hasNext()) {
+                        try {
+                            String otherKey = null;
+                            String otherValue = null;
+                            reader.beginObject();
+                            while (reader.hasNext()) {
+                                String jsonName = reader.nextName();
+                                switch (jsonName) {
+                                case OTHER_KEY:
+                                    otherKey = reader.nextString();
+                                    break;
+                                case OTHER_VALUE:
+                                    otherValue = reader.nextString();
+                                    break;
+                                default:
+                                    reader.skipValue();
+                                    break;
+                                }
+                            }
+                            reader.endObject();
+                            if (otherValue == null) {
+                                result.add(otherKey);
+                            } else {
+                                result.add(otherKey + "=" + otherValue);
+                            }
+                        } catch (IOException e) {
+                            Log.e(DEBUG_TAG, e.getMessage());
+                        }
+                    }
+                    reader.endArray();
+                } else {
+                    reader.skipValue();
+                }
+            }
+            reader.endObject();
+            return result;
+        }
+    };
 
     /**
      * Query a taginfo server
