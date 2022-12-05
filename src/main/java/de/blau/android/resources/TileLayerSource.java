@@ -439,6 +439,7 @@ public class TileLayerSource implements Serializable {
     private static Map<String, TileLayerSource> overlayServerList    = null;
     private static Object                       serverListLock       = new Object();
     private static List<String>                 imageryBlacklist     = null;
+    private static boolean                      fullyPopulated       = false;
 
     private static Map<String, Drawable> logoCache = new HashMap<>();
     private static final Drawable        NOLOGO    = new ColorDrawable();
@@ -981,6 +982,7 @@ public class TileLayerSource implements Serializable {
         if (populate) {
             overlayServerList = TileLayerDatabase.getAllLayers(ctx, db, true);
             backgroundServerList = TileLayerDatabase.getAllLayers(ctx, db, false);
+            fullyPopulated = true;
         } else {
             overlayServerList = new HashMap<>();
             backgroundServerList = new HashMap<>();
@@ -1477,6 +1479,15 @@ public class TileLayerSource implements Serializable {
     @NonNull
     public static String[] getIds(@Nullable BoundingBox box, boolean filtered, @Nullable Category category, @Nullable TileType tileType) {
         return getIds(backgroundServerList, box, filtered, tileType, category);
+    }
+
+    /**
+     * Check if the imagery lists are complete
+     * 
+     * @return true if the lists have been completely filled
+     */
+    public static boolean isFullyPopulated() {
+        return fullyPopulated;
     }
 
     /**

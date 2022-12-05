@@ -714,6 +714,10 @@ public class Layers extends AbstractConfigurationDialog {
                 MenuItem item = menu.add(R.string.layer_select_imagery);
                 item.setOnMenuItemClickListener(unused -> {
                     if (layer != null) {
+                        if (!TileLayerSource.isFullyPopulated()) {
+                            // FIXME this is borderline too slow to run on the main thread, maybe run in a thread while the dialog is starting up
+                            populateImageryLists(activity);
+                        }
                         showImagerySelectDialog((TableRow) button.getTag(), (MapTilesLayer<?>) layer, layer.getType() == LayerType.OVERLAYIMAGERY);
                         Tip.showDialog(activity, R.string.tip_imagery_privacy_key, R.string.tip_imagery_privacy);
                     }
@@ -726,11 +730,8 @@ public class Layers extends AbstractConfigurationDialog {
                         try (TileLayerDatabase tlDb = new TileLayerDatabase(activity); SQLiteDatabase db = tlDb.getReadableDatabase()) {
                             long rowid = TileLayerDatabase.getLayerRowId(db, currentServerId);
                             TileLayerDialog.showLayerDialog(activity, rowid, null, () -> {
-                                // the original DB is closed here
-                                try (TileLayerDatabase tlDb2 = new TileLayerDatabase(activity); SQLiteDatabase db2 = tlDb2.getReadableDatabase()) {
-                                    TileLayerSource.getListsLocked(activity, db2, true); // recreate in memory lists
-                                    layer.invalidate();
-                                }
+                                populateImageryLists(activity);
+                                layer.invalidate();
                             });
                         } catch (IllegalArgumentException iaex) {
                             Snack.toastTopError(activity, iaex.getMessage());
@@ -984,6 +985,17 @@ public class Layers extends AbstractConfigurationDialog {
             });
             item.setEnabled(layer.getIndex() > 0);
             popup.show();
+        }
+
+        /**
+         * Fill/Re-Fill the in memory imagery lists
+         * 
+         * @param context an Android context
+         */
+        private void populateImageryLists(@NonNull final Context context) {
+            try (TileLayerDatabase tlDb = new TileLayerDatabase(context); SQLiteDatabase db2 = tlDb.getReadableDatabase()) {
+                TileLayerSource.getListsLocked(context, db2, true); // recreate in memory lists
+            }
         }
     }
 
