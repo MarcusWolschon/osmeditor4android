@@ -57,7 +57,9 @@ public class NmeaTcpClient implements Runnable {
     }
 
     /**
-     * Extract the host and port from the config string FIXME support IPv6
+     * Extract the host and port from the config string
+     * 
+     * FIXME support IPv6
      * 
      * @param handler for sending messages to caller
      * @param hostAndPort host:port to connect to
@@ -90,7 +92,7 @@ public class NmeaTcpClient implements Runnable {
         boolean useOldListener = newListener == null;
         OutputStreamWriter osw = null;
         BufferedReader input = null;
-        try {
+        try { // NOSONAR Android Socket doesn't implement AutoClose
             Log.d(DEBUG_TAG, "Connecting to " + host + ":" + port + " ...");
             socket = new Socket(host, port);
             osw = new OutputStreamWriter(socket.getOutputStream());
@@ -102,7 +104,8 @@ public class NmeaTcpClient implements Runnable {
                 throw new IOException("unexpected EOF");
             }
             connectionMessage(handler, host + ":" + port);
-            // gpsd message is json {"class":"VERSION","release":"3.17","rev":"3.17","proto_major":3,"proto_minor":12}
+            // gpsd message is json
+            // NOSONAR {"class":"VERSION","release":"3.17","rev":"3.17","proto_major":3,"proto_minor":12}
             if (firstLine.contains("\"VERSION\"")) { // HACKALERT assume this is not NMEA and try to switch gpsd to NMEA
                                                      // output
                 Log.d(DEBUG_TAG, "gpsd detected, trying to switch to NMEA output");
