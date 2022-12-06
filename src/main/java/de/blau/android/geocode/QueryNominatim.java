@@ -16,8 +16,6 @@ import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
 import de.blau.android.geocode.Search.SearchResult;
 import de.blau.android.osm.ViewBox;
-import de.blau.android.util.SavingHelper;
-import okhttp3.Call;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
@@ -55,37 +53,30 @@ public class QueryNominatim extends Query {
         Uri uriBuilder = builder.appendQueryParameter("format", "jsonv2").build();
 
         String urlString = uriBuilder.toString();
-        Log.d("Search", "urlString: " + urlString);
-        InputStream inputStream = null;
-        JsonReader reader = null;
-        ResponseBody responseBody = null;
+        Log.d(DEBUG_TAG, "urlString: " + urlString);
         try {
             Request request = new Request.Builder().url(urlString).build();
-            Call searchCall = App.getHttpClient().newCall(request);
-            Response searchCallResponse = searchCall.execute();
+            Response searchCallResponse = App.getHttpClient().newCall(request).execute();
             if (searchCallResponse.isSuccessful()) {
-                responseBody = searchCallResponse.body();
-                inputStream = responseBody.byteStream();
-            }
-
-            if (inputStream != null) {
-                reader = new JsonReader(new InputStreamReader(inputStream));
-                reader.beginArray();
-                while (reader.hasNext()) {
-                    SearchResult searchResult = readNominatimResult(reader);
-                    if (searchResult != null) {
-                        result.add(searchResult);
-                        Log.d("Search", "received: " + searchResult.toString());
+                try (ResponseBody responseBody = searchCallResponse.body(); InputStream inputStream = responseBody.byteStream()) {
+                    if (inputStream != null) {
+                        try (JsonReader reader = new JsonReader(new InputStreamReader(inputStream))) {
+                            reader.beginArray();
+                            while (reader.hasNext()) {
+                                SearchResult searchResult = readNominatimResult(reader);
+                                if (searchResult != null) {
+                                    result.add(searchResult);
+                                    Log.d(DEBUG_TAG, "received: " + searchResult.toString());
+                                }
+                            }
+                            reader.endArray();
+                        }
                     }
                 }
-                reader.endArray();
             }
         } catch (IOException e) {
             Log.e(DEBUG_TAG, "QueryNominatim got " + e.getMessage());
             connectionError(e.getMessage());
-        } finally {
-            SavingHelper.close(responseBody);
-            SavingHelper.close(reader);
         }
         return result;
     }

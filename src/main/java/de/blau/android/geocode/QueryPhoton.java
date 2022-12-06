@@ -12,7 +12,6 @@ import java.util.Map;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.stream.JsonReader;
 import com.mapbox.geojson.Feature;
 import com.mapbox.geojson.FeatureCollection;
 import com.mapbox.geojson.Geometry;
@@ -29,15 +28,13 @@ import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetItem;
-import de.blau.android.util.SavingHelper;
-import okhttp3.Call;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 class QueryPhoton extends Query {
 
-    private static final String DEBUG_TAG = "QueryPhoton";
+    private static final String DEBUG_TAG = QueryPhoton.class.getSimpleName();
 
     /**
      * Query a Photon geocoder
@@ -62,44 +59,34 @@ class QueryPhoton extends Query {
         }
         builder.appendQueryParameter("limit", Integer.toString(10));
         Uri uriBuilder = builder.build();
-
         String urlString = uriBuilder.toString();
-        Log.d("Search", "urlString: " + urlString);
-        InputStream inputStream = null;
-        JsonReader reader = null;
-        ResponseBody responseBody = null;
+        Log.d(DEBUG_TAG, "urlString: " + urlString);
         try {
             Request request = new Request.Builder().url(urlString).build();
-            Call searchCall = App.getHttpClient().newCall(request);
-            Response searchCallResponse = searchCall.execute();
+            Response searchCallResponse = App.getHttpClient().newCall(request).execute();
             if (searchCallResponse.isSuccessful()) {
-                responseBody = searchCallResponse.body();
-                inputStream = responseBody.byteStream();
-            }
-
-            if (inputStream != null) {
-                BufferedReader rd = new BufferedReader(new InputStreamReader(inputStream, Charset.forName(OsmXml.UTF_8)));
-                StringBuilder sb = new StringBuilder();
-                int cp;
-                while ((cp = rd.read()) != -1) {
-                    sb.append((char) cp);
-                }
-                FeatureCollection fc = FeatureCollection.fromJson(sb.toString());
-                for (Feature f : fc.features()) {
-                    SearchResult searchResult = readPhotonResult(f);
-                    if (searchResult != null) {
-                        result.add(searchResult);
-                        Log.d("Search", "received: " + searchResult.toString());
+                try (ResponseBody responseBody = searchCallResponse.body(); InputStream inputStream = responseBody.byteStream()) {
+                    if (inputStream != null) {
+                        BufferedReader rd = new BufferedReader(new InputStreamReader(inputStream, Charset.forName(OsmXml.UTF_8)));
+                        StringBuilder sb = new StringBuilder();
+                        int cp;
+                        while ((cp = rd.read()) != -1) {
+                            sb.append((char) cp);
+                        }
+                        FeatureCollection fc = FeatureCollection.fromJson(sb.toString());
+                        for (Feature f : fc.features()) {
+                            SearchResult searchResult = readPhotonResult(f);
+                            if (searchResult != null) {
+                                result.add(searchResult);
+                                Log.d(DEBUG_TAG, "received: " + searchResult.toString());
+                            }
+                        }
                     }
                 }
             }
         } catch (IOException e) {
             Log.e(DEBUG_TAG, "QueryPhoton got " + e.getMessage());
             connectionError(e.getMessage());
-        } finally {
-            SavingHelper.close(inputStream);
-            SavingHelper.close(responseBody);
-            SavingHelper.close(reader);
         }
         return result;
     }
