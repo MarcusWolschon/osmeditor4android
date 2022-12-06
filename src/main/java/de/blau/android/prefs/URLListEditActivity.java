@@ -30,6 +30,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.ActionMenuView.OnMenuItemClickListener;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.BlendModeColorFilterCompat;
@@ -118,6 +119,30 @@ public abstract class URLListEditActivity extends ListActivity
 
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
+    }
+
+    /**
+     * Common dialog setup code
+     * 
+     * @param builder the dialog builder
+     * @param view the view used by the dialog
+     */
+    protected void setViewAndButtons(@NonNull final AlertDialog.Builder builder, @NonNull final View view) {
+        builder.setView(view);
+        builder.setPositiveButton(R.string.okay, (dialog, which) -> {
+            // Do nothing here because we override this button later to change the close behaviour.
+            // However, we still need this because on older versions of Android unless we
+            // pass a handler the button doesn't get instantiated
+        });
+        builder.setNegativeButton(R.string.cancel, (dialog, which) -> {
+            // leave empty
+        });
+        builder.setOnCancelListener(dialog -> {
+            if (isAddingViaIntent()) {
+                setResult(RESULT_CANCELED);
+                finish();
+            }
+        });
     }
 
     @Override
@@ -299,7 +324,7 @@ public abstract class URLListEditActivity extends ListActivity
      * 
      * @param item the new item
      */
-    void finishEditItem(ListEditItem item) {
+    void finishEditItem(@NonNull ListEditItem item) {
         onItemEdited(item);
         items.clear();
         onLoadList(items);
@@ -353,7 +378,7 @@ public abstract class URLListEditActivity extends ListActivity
      * 
      * @param item the new state of the item
      */
-    protected abstract void onItemEdited(ListEditItem item);
+    protected abstract void onItemEdited(@NonNull ListEditItem item);
 
     /**
      * Called when an item is deleted. Override to handle this event.

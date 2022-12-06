@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map.Entry;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -142,9 +143,13 @@ public class GeocoderEditorActivity extends URLListEditActivity {
             }
         }
 
-        builder.setView(mainView);
+        setViewAndButtons(builder, mainView);
 
-        builder.setPositiveButton(R.string.okay, (dialog, whichButton) -> {
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+
+        // overriding the handlers
+        dialog.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(v -> {
             String name = editName.getText().toString();
             String value = ((GeocoderType) geocoderType.getSelectedItem()).name();
             String value2 = url.getText().toString();
@@ -160,17 +165,9 @@ public class GeocoderEditorActivity extends URLListEditActivity {
                 item.value2 = !"".equals(value2) ? value2 : null;
                 finishEditItem(item);
             }
+            dialog.dismiss();
         });
-
-        builder.setNegativeButton(R.string.cancel, (dialog, whichButton) -> dialog.cancel());
-
-        builder.setOnCancelListener(dialog -> {
-            if (isAddingViaIntent()) {
-                setResult(RESULT_CANCELED);
-                finish();
-            }
-        });
-
-        builder.show();
+        
+        dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setOnClickListener(v -> dialog.dismiss());
     }
 }

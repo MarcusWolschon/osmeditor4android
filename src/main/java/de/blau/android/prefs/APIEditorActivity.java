@@ -211,21 +211,7 @@ public class APIEditorActivity extends URLListEditActivity {
             editValue3.setEnabled(false);
         }
 
-        builder.setView(mainView);
-        builder.setPositiveButton(R.string.okay, (dialog, which) -> {
-            // Do nothing here because we override this button later to change the close behaviour.
-            // However, we still need this because on older versions of Android unless we
-            // pass a handler the button doesn't get instantiated
-        });
-        builder.setNegativeButton(R.string.cancel, (dialog, which) -> {
-            // leave empty
-        });
-        builder.setOnCancelListener(dialog -> {
-            if (isAddingViaIntent()) {
-                setResult(RESULT_CANCELED);
-                finish();
-            }
-        });
+        setViewAndButtons(builder, mainView);
 
         fileButton.setOnClickListener(view -> SelectFile.read(APIEditorActivity.this, R.string.config_msfPreferredDir_key, new ReadFile() {
             private static final long serialVersionUID = 1L;
@@ -252,7 +238,6 @@ public class APIEditorActivity extends URLListEditActivity {
         }));
 
         final AlertDialog dialog = builder.create();
-        dialog.setView(mainView);
         dialog.show();
 
         // overriding the handlers
