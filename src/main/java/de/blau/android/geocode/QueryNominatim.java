@@ -22,7 +22,11 @@ import okhttp3.ResponseBody;
 
 public class QueryNominatim extends Query {
 
-    private static final String DEBUG_TAG = null;
+    private static final String DEBUG_TAG = QueryNominatim.class.getSimpleName();
+
+    private static final String DISPLAY_NAME_FIELD = "display_name";
+    private static final String LON_FIELD          = "lon";
+    private static final String LAT_FIELD          = "lat";
 
     final boolean limitToBoundingBox;
 
@@ -95,13 +99,13 @@ public class QueryNominatim extends Query {
             while (reader.hasNext()) {
                 String jsonName = reader.nextName();
                 switch (jsonName) {
-                case "lat":
+                case LAT_FIELD:
                     result.setLat(reader.nextDouble());
                     break;
-                case "lon":
+                case LON_FIELD:
                     result.setLon(reader.nextDouble());
                     break;
-                case "display_name":
+                case DISPLAY_NAME_FIELD:
                     result.displayName = reader.nextString();
                     break;
                 default:
