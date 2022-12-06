@@ -170,16 +170,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
         }
         if (oldVersion <= 9 && newVersion >= 10) {
             db.execSQL("ALTER TABLE presets ADD COLUMN position INTEGER DEFAULT 0");
-            Cursor dbresult = db.query(PRESETS_TABLE, new String[] { ID_COL }, null, null, null, null, null);
-            dbresult.moveToFirst();
-            int count = dbresult.getCount();
-            for (int i = 0; i < count; i++) {
-                ContentValues values = new ContentValues();
-                values.put(POSITION_COL, i);
-                db.update(PRESETS_TABLE, values, WHERE_ID, new String[] { dbresult.getString(0) });
-                dbresult.moveToNext();
-            }
-            dbresult.close();
+            renumberPresets(db);
         }
         if (oldVersion <= 10 && newVersion >= 11) {
             db.execSQL("ALTER TABLE presets ADD COLUMN usetranslations INTEGER DEFAULT 1");
@@ -804,6 +795,20 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         db.delete(PRESETS_TABLE, WHERE_ID, new String[] { id });
         // need to renumber after deleting
+        renumberPresets(db);
+        db.close();
+        removePresetDirectory(id);
+        if (id.equals(getCurrentAPI().preset)) {
+            App.resetPresets();
+        }
+    }
+
+    /**
+     * Renumber the preset table
+     * 
+     * @param db the database
+     */
+    private void renumberPresets(@NonNull SQLiteDatabase db) {
         Cursor dbresult = db.query(PRESETS_TABLE, new String[] { ID_COL }, null, null, null, null, POSITION_COL);
         dbresult.moveToFirst();
         int count = dbresult.getCount();
@@ -814,11 +819,6 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
             dbresult.moveToNext();
         }
         dbresult.close();
-        db.close();
-        removePresetDirectory(id);
-        if (id.equals(getCurrentAPI().preset)) {
-            App.resetPresets();
-        }
     }
 
     /**
