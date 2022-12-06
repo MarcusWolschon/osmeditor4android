@@ -1,8 +1,6 @@
 package de.blau.android;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -78,9 +76,6 @@ public class Map extends View implements IMapView {
 
     public static final int ICON_SIZE_DP = 20;
 
-    /** Use reflection to access Canvas method only available in API11. */
-    private static final Method mIsHardwareAccelerated;
-
     /**
      * zoom level from which on we display icons and house numbers
      */
@@ -153,16 +148,6 @@ public class Map extends View implements IMapView {
     private boolean showCrosshairs = false;
     private int     crosshairsLat  = 0;
     private int     crosshairsLon  = 0;
-
-    static {
-        Method m;
-        try {
-            m = Canvas.class.getMethod("isHardwareAccelerated", (Class[]) null);
-        } catch (NoSuchMethodException e) {
-            m = null;
-        }
-        mIsHardwareAccelerated = m;
-    }
 
     private Context context;
 
@@ -702,36 +687,8 @@ public class Map extends View implements IMapView {
      * @param c Canvas to check
      * @return true if the canvas supports proper clipping with Op.DIFFERENCE
      */
-    private boolean hasFullClippingSupport(Canvas c) {
-        if (mIsHardwareAccelerated != null) {
-            try {
-                return !(Boolean) mIsHardwareAccelerated.invoke(c, (Object[]) null);
-            } catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
-                // ignore
-            }
-        }
-        // Older versions do not use hardware acceleration
-        return true;
-    }
-
-    /**
-     * Check if the canvas is hardware accelerated
-     * 
-     * Works on pre-API 11 devices too
-     * 
-     * @param c the Canvas
-     * @return true is accelerated
-     */
-    public static boolean myIsHardwareAccelerated(@NonNull Canvas c) {
-        if (mIsHardwareAccelerated != null) {
-            try {
-                return (Boolean) mIsHardwareAccelerated.invoke(c, (Object[]) null);
-            } catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
-                // ignore
-            }
-        }
-        // Older versions do not use hardware acceleration
-        return false;
+    private static boolean hasFullClippingSupport(@NonNull Canvas c) {
+        return !c.isHardwareAccelerated();
     }
 
     /**
@@ -782,28 +739,24 @@ public class Map extends View implements IMapView {
         float y = GeoMath.latE7ToY(getHeight(), getWidth(), viewBox, (int) (displayLocation.getLatitude() * 1E7));
 
         float o = -1f;
-        if (displayLocation.hasBearing() && displayLocation.hasSpeed() && displayLocation.getSpeed() > 1.4f) {
+        if (displayLocation.hasBearing() && displayLocation.getSpeed() > 1.4f) {
             // 1.4m/s ~= 5km/h ~= walking pace
             // faster than walking pace - use the GPS bearing
             o = displayLocation.getBearing();
-        } else {
+        } else if (orientation >= 0) {
             // slower than walking pace - use the compass orientation (if available)
-            if (orientation >= 0) {
-                o = orientation;
-            }
+            o = orientation;
         }
-        Paint paint = null;
-        long ageNanos = Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1
+        Paint paint = gpsPosFollowPaint;
+        boolean stale = (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1
                 ? SystemClock.elapsedRealtimeNanos() - displayLocation.getElapsedRealtimeNanos()
-                : 0;
+                : 0) > timeToStale;
         if (isFollowingGPS) {
-            if (ageNanos > timeToStale) {
+            if (stale) {
                 paint = gpsPosFollowPaintStale;
-            } else {
-                paint = gpsPosFollowPaint;
             }
         } else {
-            if (ageNanos > timeToStale) {
+            if (stale) {
                 paint = gpsPosPaintStale;
             } else {
                 paint = gpsPosPaint;
@@ -822,11 +775,9 @@ public class Map extends View implements IMapView {
             canvas.restore();
         }
         if (displayLocation.hasAccuracy()) {
-            // FIXME this assumes square pixels
-            float accuracyInPixels = (float) (GeoMath.convertMetersToGeoDistance(displayLocation.getAccuracy())
-                    * ((double) getWidth() / (viewBox.getWidth() / 1E7D)));
-            RectF accuracyRect = new RectF(x - accuracyInPixels, y + accuracyInPixels, x + accuracyInPixels, y - accuracyInPixels);
-            canvas.drawOval(accuracyRect, gpsAccuracyPaint);
+            // note this assumes square pixels
+            float accuracyInPixels = (float) (GeoMath.convertMetersToGeoDistance(displayLocation.getAccuracy()) * (getWidth() / (viewBox.getWidth() / 1E7D)));
+            canvas.drawCircle(x, y, accuracyInPixels, gpsAccuracyPaint);
         }
     }
 
@@ -859,7 +810,7 @@ public class Map extends View implements IMapView {
             text = "fps: " + (int) (fps);
         }
         canvas.drawText(text, 5, getHeight() - textSize * pos++, infotextPaint);
-        text = "hardware acceleration: " + (myIsHardwareAccelerated(canvas) ? "on" : "off");
+        text = "hardware acceleration: " + (canvas.isHardwareAccelerated() ? "on" : "off");
         canvas.drawText(text, 5, getHeight() - textSize * pos++, infotextPaint);
         text = "zoom level: " + zoomLevel;
         canvas.drawText(text, 5, getHeight() - textSize * pos, infotextPaint);
@@ -895,8 +846,8 @@ public class Map extends View implements IMapView {
             Bitmap b = null;
             // Clipping with Op.DIFFERENCE is not supported when a device uses hardware acceleration
             // drawing to a bitmap however will currently not be accelerated
-            final boolean fullClipping = !hasFullClippingSupport(canvas);
-            if (fullClipping) {
+            final boolean noFullClipping = !hasFullClippingSupport(canvas);
+            if (noFullClipping) {
                 b = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
                 c = new Canvas(b);
             } else {
@@ -922,7 +873,7 @@ public class Map extends View implements IMapView {
             c.clipPath(path, Region.Op.DIFFERENCE);
             c.drawRect(screen, boxPaint);
 
-            if (fullClipping) {
+            if (noFullClipping) {
                 canvas.drawBitmap(b, 0, 0, null); // NOSONAR
             } else {
                 c.restore();
@@ -949,7 +900,7 @@ public class Map extends View implements IMapView {
     /**
      * Converts a geographical way/path/track to a list of screen-coordinate points for drawing.
      *
-     * Only segments that are inside the ViewBox are included.
+     * Only segments that are inside or overlap the ViewBox are included.
      *
      * @param points list to (re-)use for projected points in the format expected by
      *            {@link Canvas#drawLines(float[], Paint)}
@@ -979,7 +930,7 @@ public class Map extends View implements IMapView {
             GeoPoint nextNode = nodes.get(nodesOffset);
             int nextNodeLat = nextNode.getLat();
             int nextNodeLon = nextNode.getLon();
-            float x = -Float.MAX_VALUE;
+            float x;
             float y = -Float.MAX_VALUE;
             for (int i = nodesOffset; i < nodesSize; i++) {
                 GeoPoint node = nextNode;
@@ -1300,7 +1251,7 @@ public class Map extends View implements IMapView {
     public TrackerService getTracker() {
         return this.tracker;
     }
-    
+
     @Override
     public boolean showContextMenu() {
         if (context instanceof FragmentActivity) {

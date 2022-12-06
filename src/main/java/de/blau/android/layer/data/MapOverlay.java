@@ -542,7 +542,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
         }
 
         // Paint nodes
-        boolean hwAccelarationWorkaround = Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT && Map.myIsHardwareAccelerated(canvas);
+        boolean hwAccelarationWorkaround = Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT && canvas.isHardwareAccelerated();
 
         int coordSize = 0;
         float r = wayTolerancePaint.getStrokeWidth() / 2;
