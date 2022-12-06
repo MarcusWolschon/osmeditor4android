@@ -12,7 +12,6 @@ import java.util.Map;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.stream.JsonReader;
 import com.mapbox.geojson.Feature;
 import com.mapbox.geojson.FeatureCollection;
 import com.mapbox.geojson.Geometry;
@@ -29,15 +28,22 @@ import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetItem;
-import de.blau.android.util.SavingHelper;
-import okhttp3.Call;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 class QueryPhoton extends Query {
+    private static final String DEBUG_TAG = QueryPhoton.class.getSimpleName();
 
-    private static final String DEBUG_TAG = "QueryPhoton";
+    private static final String COUNTRY_FIELD      = "country";
+    private static final String STATE_FIELD        = "state";
+    private static final String CITY_FIELD         = "city";
+    private static final String POSTCODE_FIELD     = "postcode";
+    private static final String HOUSE_NUMBER_FIELD = "housenumber";
+    private static final String STREET_FIELD       = "street";
+    private static final String OSM_VALUE_FIELD    = "osm_value";
+    private static final String OSM_KEY_FIELD      = "osm_key";
+    private static final String NAME_FIELD         = "name";
 
     /**
      * Query a Photon geocoder
@@ -62,44 +68,34 @@ class QueryPhoton extends Query {
         }
         builder.appendQueryParameter("limit", Integer.toString(10));
         Uri uriBuilder = builder.build();
-
         String urlString = uriBuilder.toString();
-        Log.d("Search", "urlString: " + urlString);
-        InputStream inputStream = null;
-        JsonReader reader = null;
-        ResponseBody responseBody = null;
+        Log.d(DEBUG_TAG, "urlString: " + urlString);
         try {
             Request request = new Request.Builder().url(urlString).build();
-            Call searchCall = App.getHttpClient().newCall(request);
-            Response searchCallResponse = searchCall.execute();
+            Response searchCallResponse = App.getHttpClient().newCall(request).execute();
             if (searchCallResponse.isSuccessful()) {
-                responseBody = searchCallResponse.body();
-                inputStream = responseBody.byteStream();
-            }
-
-            if (inputStream != null) {
-                BufferedReader rd = new BufferedReader(new InputStreamReader(inputStream, Charset.forName(OsmXml.UTF_8)));
-                StringBuilder sb = new StringBuilder();
-                int cp;
-                while ((cp = rd.read()) != -1) {
-                    sb.append((char) cp);
-                }
-                FeatureCollection fc = FeatureCollection.fromJson(sb.toString());
-                for (Feature f : fc.features()) {
-                    SearchResult searchResult = readPhotonResult(f);
-                    if (searchResult != null) {
-                        result.add(searchResult);
-                        Log.d("Search", "received: " + searchResult.toString());
+                try (ResponseBody responseBody = searchCallResponse.body(); InputStream inputStream = responseBody.byteStream()) {
+                    if (inputStream != null) {
+                        BufferedReader rd = new BufferedReader(new InputStreamReader(inputStream, Charset.forName(OsmXml.UTF_8)));
+                        StringBuilder sb = new StringBuilder();
+                        int cp;
+                        while ((cp = rd.read()) != -1) {
+                            sb.append((char) cp);
+                        }
+                        FeatureCollection fc = FeatureCollection.fromJson(sb.toString());
+                        for (Feature f : fc.features()) {
+                            SearchResult searchResult = readPhotonResult(f);
+                            if (searchResult != null) {
+                                result.add(searchResult);
+                                Log.d(DEBUG_TAG, "received: " + searchResult.toString());
+                            }
+                        }
                     }
                 }
             }
         } catch (IOException e) {
             Log.e(DEBUG_TAG, "QueryPhoton got " + e.getMessage());
             connectionError(e.getMessage());
-        } finally {
-            SavingHelper.close(inputStream);
-            SavingHelper.close(responseBody);
-            SavingHelper.close(reader);
         }
         return result;
     }
@@ -121,13 +117,10 @@ class QueryPhoton extends Query {
                 result.setLon(p.longitude());
                 StringBuilder sb = new StringBuilder();
                 if (properties != null) {
-                    JsonElement name = properties.get("name");
-                    if (name != null) {
-                        sb.append(name.getAsString());
-                    }
+                    appendString(properties, NAME_FIELD, sb);
                     sb.append("<small>");
-                    JsonElement osmKey = properties.get("osm_key");
-                    JsonElement osmValue = properties.get("osm_value");
+                    JsonElement osmKey = properties.get(OSM_KEY_FIELD);
+                    JsonElement osmValue = properties.get(OSM_VALUE_FIELD);
                     if (osmKey != null && osmValue != null) {
                         String key = osmKey.getAsString();
                         String value = osmValue.getAsString();
@@ -140,47 +133,7 @@ class QueryPhoton extends Query {
                             sb.append("<br>[" + key + "=" + value + "]<br>");
                         }
                     }
-                    StringBuilder sb2 = new StringBuilder();
-                    JsonElement street = properties.get("street");
-                    if (street != null) {
-                        sb2.append(street.getAsString());
-                        JsonElement housenumber = properties.get("housenumber");
-                        if (housenumber != null) {
-                            sb2.append(" " + housenumber.getAsString());
-                        }
-                    }
-                    JsonElement postcode = properties.get("postcode");
-                    if (postcode != null) {
-                        if (sb2.length() > 0) {
-                            sb2.append(", ");
-                        }
-                        sb2.append(postcode.getAsString());
-                    }
-                    JsonElement city = properties.get("city");
-                    if (city != null) {
-                        if (sb2.length() > 0) {
-                            sb2.append(", ");
-                        }
-                        sb2.append(city.getAsString());
-                    }
-                    JsonElement state = properties.get("state");
-                    if (state != null) {
-                        if (sb2.length() > 0) {
-                            sb2.append(", ");
-                        }
-                        sb2.append(state.getAsString());
-                    }
-                    JsonElement country = properties.get("country");
-                    if (country != null) {
-                        if (sb2.length() > 0) {
-                            sb2.append(", ");
-                        }
-                        sb2.append(country.getAsString());
-                    }
-                    if (sb2.length() > 0) {
-                        sb.append("\n");
-                        sb.append(sb2);
-                    }
+                    appendAddress(properties, sb);
                     sb.append("</small>");
                 }
                 result.displayName = sb.toString();
@@ -190,5 +143,48 @@ class QueryPhoton extends Query {
             Log.e(DEBUG_TAG, "readPhotonResult got " + e.getMessage());
         }
         return null;
+    }
+
+    /**
+     * Append the address from the query result to a StringBuilder
+     * 
+     * @param jsonObject the JsonObject holding the fields
+     * @param sb the StringBuilder
+     */
+    private void appendAddress(@NonNull JsonObject jsonObject, @NonNull StringBuilder sb) {
+        StringBuilder sb2 = new StringBuilder();
+        JsonElement street = jsonObject.get(STREET_FIELD);
+        if (street != null) {
+            sb2.append(street.getAsString());
+            JsonElement housenumber = jsonObject.get(HOUSE_NUMBER_FIELD);
+            if (housenumber != null) {
+                sb2.append(" " + housenumber.getAsString());
+            }
+        }
+        appendString(jsonObject, POSTCODE_FIELD, sb2);
+        appendString(jsonObject, CITY_FIELD, sb2);
+        appendString(jsonObject, STATE_FIELD, sb2);
+        appendString(jsonObject, COUNTRY_FIELD, sb2);
+        if (sb2.length() > 0) {
+            sb.append("\n");
+            sb.append(sb2);
+        }
+    }
+
+    /**
+     * Append a JsonElement to a StringBuilder
+     * 
+     * @param jsonObject the JsonObject holding the fields
+     * @param fieldName the name of the field
+     * @param sb the StringBuilder
+     */
+    private void appendString(@NonNull JsonObject jsonObject, @NonNull String fieldName, @NonNull StringBuilder sb) {
+        JsonElement stringField = jsonObject.get(fieldName);
+        if (stringField != null) {
+            if (sb.length() > 0) {
+                sb.append(", ");
+            }
+            sb.append(stringField.getAsString());
+        }
     }
 }

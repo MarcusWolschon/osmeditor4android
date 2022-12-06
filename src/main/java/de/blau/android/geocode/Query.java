@@ -18,13 +18,13 @@ import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.Snack;
 
 class Query extends ExecutorTask<String, Void, List<SearchResult>> {
-    private static final String DEBUG_TAG = "Search.Query";
+    private static final String DEBUG_TAG = Query.class.getSimpleName();
 
-    AlertDialog progress = null;
+    protected AlertDialog progress = null;
 
-    final ViewBox          bbox;
-    final String           url;
-    final FragmentActivity activity;
+    protected final ViewBox          bbox;
+    protected final String           url;
+    protected final FragmentActivity activity;
 
     /**
      * Query a geocoder
