@@ -24,7 +24,7 @@ import de.blau.android.osm.Way;
  *
  */
 public class RestrictionClosedWaySplittingActionModeCallback extends AbstractClosedWaySplittingActionModeCallback {
-    private static final String DEBUG_TAG = "RestrictionClosedWaySplit...";
+    private static final String DEBUG_TAG = "RestrictionClosedWay...";
     private final Way           way;
     private final Node          node;
     private final Way           fromWay;
