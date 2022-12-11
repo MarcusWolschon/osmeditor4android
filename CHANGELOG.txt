@@ -1,5 +1,12 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+18.1.0-2:
+
+- Fix disable resource optimization (google play issue)
+- Fix assure that imagery list is read before displaying selection modal
+- Update imagery from ELI
+- Update translations
+
 18.1.0-1:
 
 - Fix debounce the upload button in the review/upload dialog
