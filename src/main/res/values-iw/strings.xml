@@ -62,6 +62,8 @@
   <string name="file_write_failed_message">לווספוצ׳י אין אפשרות לשנות או לשמור את הקובץ.</string>
   <string name="applying_osc_failed_title">החלת קובץ ה־OSC נכשלה</string>
   <string name="applying_osc_failed_message">כנראה שלא טענת את הנתונים המקוריים שנדרשים לטובת החלת השינויים.</string>
+  <string name="duplicate_tag_key_title">מפתחות כפולים</string>
+  <string name="duplicate_tag_key_message">הוספת את המפתח הבא יותר מפעם אחת, יש לפתור את הסוגיה הזאת לפני שניתן יהיה להמשיך:</string>
   <!---->
   <string name="welcome_title">ברוך בואך</string>
   <string name="welcome_message">תודה לך על התקנת וספוצ׳י.\n&lt;br&gt;&lt;br&gt;כדי להתחיל עליך לדעת שלושה דברים:\n&lt;ul&gt;&lt;li&gt;נגיעה בסמל המנעול בפינה השמאלית העליונה תחליף בין מצב נעול (אין עריכה) לפתוח,&lt;/li&gt;&lt;li&gt;כדי לערוך את OpenStreetMap עליך להוריד תחילה את הנתונים עבור האזור שבו ברצונך לערוך שינויים (יש להתקרב לפני ניסיון ביצוע שינויים),&lt;/li&gt;&lt;li&gt;כדי להוסיף פריט חדש: יש לגעת בכפתור הירוק הגדול, לאחר מכן לגעת במיקום בו ברצונך למקם אותו.&lt;/li&gt;&lt;/ul&gt;\nההכנות הסתיימו. אפשר להתחיל למפות וליהנות!</string>
@@ -79,6 +81,7 @@
   <string name="progress_saving_message">מתבצעת שמירה…</string>
   <string name="progress_uploading_message">מתבצעת העלאה…</string>
   <string name="progress_preset_message">הערכה מתקבלת…</string>
+  <string name="progress_importing_file_message">קובץ מיובא…</string>
   <string name="progress_running_message">מתבצעת הרצה…</string>
   <string name="progress_oauth">החשבון שלך ב־openstreetmap.org נטען לטובת אימות עם OAuth…</string>
   <string name="progress_building_imagery_database">מסד נתוני תמונות הרקע נבנה כעת…</string>
@@ -105,6 +108,7 @@
   <string name="upload_validation_error_empty_comment">הערה לא יכולה להיות ריקה</string>
   <string name="upload_validation_error_empty_source">המקור לא אמור להיות ריק</string>
   <!--Review changes dialog-->
+  <string name="review_changes_title">סקירת השינויים</string>
   <!--Upload GPX-->
   <string name="upload_gpx_title">העלאת מסלול GPX</string>
   <string name="upload_gpx_description_label">תיאור</string>
@@ -130,12 +134,19 @@
   <string name="bug_description_2">%1$s: %2$s %3$s - %4$s</string>
   <string name="generic_bug">תקלה</string>
   <string name="osmose_bug">Osmose</string>
+  <string name="todo_title">מטלה</string>
+  <string name="todo_description">מטלה %1$s</string>
+  <string name="todo_list">רשימה %1$s</string>
+  <string name="todo_list_and_comment">רשימה %1$s&lt;br&gt;&lt;br&gt;%2$s</string>
+  <string name="todo">מטלה</string>
+  <string name="select_todo_list">בחירת רשימת מטלות</string>
   <string name="bug_long_description_1">%1$s: %2$s&lt;br&gt;&lt;br&gt;%3$s&lt;br&gt;&lt;br&gt;%4$s&lt;br&gt;</string>
   <string name="bug_element_1">%1$s (לא התקבל) #%2$d</string>
   <string name="bug_element_2">%1$s %2$s</string>
   <string name="maproulette_task_title">משימה של MapRoulette</string>
   <string name="maproulette_task_coords">רוחב %1$4g, אורך %2$4g</string>
   <string name="maproulette_task_explanations">הסברים</string>
+  <string name="maproulette_task_instructions">הנחיות</string>
   <string name="maproulette_task_set_apikey">הגדרת מפתח API של MapRoulette</string>
   <string name="maproulette_task_apikey_not_set">לא ניתן לשמור את מפתח ה־API של MapRoulette</string>
   <string name="maproulette_task_disable">השבתה</string>
@@ -228,11 +239,12 @@
   <string name="duplicate_relation_member_message">רכיב זה כבר חלק מהיחס.</string>
   <string name="duplicate_relation_member_remove_button">הסרת חבר</string>
   <!--Move multi-polygon outer element tags to relation-->
-  <string name="move_outer_tags_title">העברת תגיות מטבעות חיצוניות למרובי מצולעים</string>
+  <string name="move_outer_tags_title">העברת תגיות מטבעות חיצוניות לרבי מצולעים</string>
   <string name="move">העברה</string>
   <string name="leave_as_is">להשאיר כמו שזה</string>
   <!--Remove duplicate tags from multi-polygon outer element-->
   <string name="remove_duplicate_outer_tags_title">הסרת תגיות כפולות על עיגולים חיצוניים</string>
+  <string name="remove_duplicate_outer_tags_message">הסרת תגיות מטבעות חיצוניות שמוגדרות על רב המצולעים</string>
   <string name="remove">הסרה</string>
   <!--Abort action mode dialog-->
   <string name="abort_action_title">ביטול פעולה</string>
@@ -336,7 +348,10 @@
   <string name="layer_data">נתוני OSM</string>
   <string name="layer_data_name">נתוני %1$s</string>
   <string name="layer_flush_tile_cache">פינוי מטמון האריחים</string>
+  <string name="layer_change_style">החלפת סגנון…</string>
+  <string name="layer_load_style">טעינת סגנון…</string>
   <string name="layer_reset_style">איפוס סגנון</string>
+  <string name="layer_select_imagery">בחירת תמונת רקע…</string>
   <string name="layer_category_all">הכול</string>
   <string name="layer_category_photo">צילום אווירי</string>
   <string name="layer_category_elevation">תוואי שטח</string>
@@ -346,6 +361,8 @@
   <string name="layer_category_osmbasedmap">מפה מבוססת OSM</string>
   <string name="layer_category_qa">אבטחת איכות</string>
   <string name="layer_category_other">אחר</string>
+  <string name="layer_add_gpx">הוספת שכבה מקובץ GPX…</string>
+  <string name="layer_download_track">הורדת מסלול GPX…</string>
   <string name="layer_available_tracks">מסלולי GPX זמינים</string>
   <string name="layer_start_playback">התחלת נגינה</string>
   <string name="layer_pause_playback">השהית נגינה</string>
@@ -362,6 +379,8 @@
   <string name="layer_info_privacy_policy">מדיניות פרטיות</string>
   <string name="projection">היטל</string>
   <string name="errors">שגיאות</string>
+  <string name="layer_info_layer_not_available">פרטי השכבה לא זמינים</string>
+  <string name="layer_info_no_meta_data">נתוני על לא נטענו</string>
   <!--Mapillary layer-->
   <string name="mapillary_image">mapillary %1$s</string>
   <!--Photo viewer-->
@@ -434,8 +453,10 @@
   <string name="toast_url_empty">נא להקליד כתובת</string>
   <string name="toast_min_zoom">יש להגדיר את רמת התקריב המזערית מתחת למרבית</string>
   <string name="toast_tile_layer_exists">למקור %1$s יש את אותה הכתובת</string>
+  <string name="toast_styleable_layer_exists">קיימת שכבה עבור %1$s</string>
   <string name="toast_no_changes">עדיין לא שיניתי כלום…</string>
   <string name="toast_jpeg_not_transparent">קובצי JPEG אינם שקופים ואי אפשר להשתמש בהם כשכבת על</string>
+  <string name="toast_unsupported_projection">ההיטל  %1$s לא נתמך.\n\nיש תמיכה רק ב־ EPSG:3857,‏ EPSG:4326 ודומיהם.</string>
   <string name="toast_unsaved_changes">נא להעלות תחילה את הנתונים שלך שטרם נשמרו.</string>
   <string name="clear_anyway">לנקות בכל זאת?</string>
   <string name="toast_upload_success">הועלה לשרת OSM.</string>
@@ -509,6 +530,7 @@
   <string name="toast_invalid_preseturl">כתובת שגויה לערכה מוגדרת</string>
   <string name="toast_invalid_filter_regexp">ביטוי רגולרי שגוי במסנן עם מפתח=„%1$s” ערך=„%2$s”</string>
   <string name="toast_error_accessing_photo">לא ניתן לגשת לתמונה %1$s</string>
+  <string name="toast_no_photo_found">לא נמצאה תמונה</string>
   <string name="toast_security_error_accessing_photo">אין הרשאה לגשת לתמונה %1$s</string>
   <string name="toast_no_voice_recognition">אמצעי זיהוי קולי חסר</string>
   <string name="toast_no_coverage">ל־%1$s אין כאן כיסוי</string>
@@ -544,6 +566,7 @@
   <string name="toast_task_layer_disabled">שכבת המשימות הושבתה</string>
   <string name="toast_unable_to_create_task_layer">לא ניתן ליצור שכבת משימות</string>
   <string name="toast_merged">ממוזג</string>
+  <string name="toast_invalid_style_file">קובץ הסגנון %1$s שגוי\n%2$s</string>
   <string name="toast_no_geometry">לא נמצאה גאומטריה עבור הרכיב</string>
   <string name="toast_added_api_entry_for">נוספה רשומת API עבור %1$s</string>
   <string name="toast_updated">%1$s עודכן</string>
@@ -554,6 +577,7 @@
   <string name="toast_error_reading">שגיאה בקריאה של %1$s</string>
   <string name="toast_read_successfully">הקובץ נקרא בהצלחה</string>
   <string name="toast_error_writing">שגיאה בכתיבת %1$s</string>
+  <string name="toast_successfully_written">%1$s נכתב בהצלחה</string>
   <string name="toast_http_data_error_for">שגיאת נתוני HTTP עבור %1$s</string>
   <string name="toast_error_insufficient_space_for">אין מספיק מקום על המכשיר עבור %1$s</string>
   <string name="toast_error_too_many_redirects_for">יותר מדי הפניות עבור %1$s</string>
@@ -581,6 +605,8 @@
   <string name="toast_split_next_segment">פיצול המקטע הבא</string>
   <string name="toast_nothing_changed">שום דבר לא השתנה</string>
   <string name="toast_preset_failed">יצירת הערכה %1$s נכשלה\nשגיאה %2$s</string>
+  <string name="toast_outer_rings_differing_tags">לטבעות חיצוניות יש תגיות שונות</string>
+  <string name="toast_multipolygon_has_incomplete_rings">לרב מצולעים יש טבעות חלקיות</string>
   <string name="toast_error_saving_bookmark">לא ניתן לשמור סימניה</string>
   <string name="toast_error_loading_style">לא ניתן לטעון סגנון: %1$s</string>
   <!--Error messages-->

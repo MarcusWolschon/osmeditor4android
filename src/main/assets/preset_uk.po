@@ -6495,7 +6495,7 @@ msgstr ""
 #: master_preset.xml:9559(combo:display_values|preset:Power_Portal|key:structure)
 #: master_preset.xml:9571(combo:display_values|preset:Power_Tower|key:structure)
 msgid "Lattice"
-msgstr ""
+msgstr "Рушітка"
 
 #: master_preset.xml:1338(multiselect:display_values|key:language)
 msgid "Latvian"
@@ -11933,7 +11933,7 @@ msgstr "Сонячна теплова електростанція"
 #: master_preset.xml:9559(combo:display_values|preset:Power_Portal|key:structure)
 #: master_preset.xml:9571(combo:display_values|preset:Power_Tower|key:structure)
 msgid "Solid"
-msgstr ""
+msgstr "Суцільна"
 
 #: master_preset.xml:1338(multiselect:display_values|key:language)
 msgid "Somali"
@@ -13340,7 +13340,7 @@ msgstr ""
 #: master_preset.xml:9559(combo:display_values|preset:Power_Portal|key:structure)
 #: master_preset.xml:9571(combo:display_values|preset:Power_Tower|key:structure)
 msgid "Tubular"
-msgstr ""
+msgstr "Трубчаста"
 
 #: master_preset.xml:9818(combo:display_values|group:Historic_Places_&_Objects|preset:Archaeological_Site|key:site_type)
 #: master_preset.xml:9832(combo:display_values|group:Historic_Places_&_Objects|preset:Tomb|key:tomb)

@@ -625,7 +625,7 @@ msgstr "Alkohol"
 
 #: master_preset.xml:11145(check:text|preset:Payment_Methods|key:payment:alipay)
 msgid "Alipay"
-msgstr ""
+msgstr "Alipay"
 
 #: master_preset.xml:12063(combo:display_values|group:Addresses_and_Contact|preset:Address_Interpolation|key:addr:interpolation)
 #: master_preset.xml:2504(combo:display_values|group:Waypoints|preset:Stop|key:stop)
@@ -2625,7 +2625,7 @@ msgstr "Kinesiska"
 
 #: master_preset.xml:6569(list_entry:short_description|group:Health|preset:Physiotherapist|value:chiropractic)
 msgid "Chiropractic"
-msgstr ""
+msgstr "Kiropraktik"
 
 #: master_preset.xml:10024(item:name|group:Food|preset:Chocolate)
 msgid "Chocolate"
@@ -3336,7 +3336,7 @@ msgstr "Tjeckiska"
 
 #: master_preset.xml:4143(check:text|group:Car|preset:Fuel|key:payment:dkv)
 msgid "DKV"
-msgstr ""
+msgstr "DKV"
 
 #: master_preset.xml:8587(combo:display_values|group:Man_Made|preset:Works|key:product)
 #: master_preset.xml:9982(item:name|group:Food|preset:Dairy)
@@ -3657,7 +3657,7 @@ msgstr ""
 
 #: master_preset.xml:11115(check:text|preset:Payment_Methods|key:payment:diners_club)
 msgid "Diners Club"
-msgstr ""
+msgstr "Diners Club"
 
 #: master_preset.xml:3693(check:text|group:Shipping|preset:Boat_rental|key:dinghy_rental)
 msgid "Dinghies"
@@ -5156,7 +5156,7 @@ msgstr "Giraff"
 
 #: master_preset.xml:11101(check:text|preset:Payment_Methods|key:payment:girocard)
 msgid "Girocard"
-msgstr ""
+msgstr "Girocard"
 
 #: master_preset.xml:2507(item:name|group:Waypoints|preset:Give_Way)
 msgid "Give Way"
@@ -6154,7 +6154,7 @@ msgstr "J-krokslift"
 
 #: master_preset.xml:11117(check:text|preset:Payment_Methods|key:payment:jcb)
 msgid "JCB"
-msgstr ""
+msgstr "JCB"
 
 #: master_preset.xml:5458(list_entry:display_value|group:Leisure|preset:Animals|value:jaguar)
 msgid "Jaguar"
@@ -8951,7 +8951,7 @@ msgstr "Föräldralös"
 
 #: master_preset.xml:6520(list_entry:display_value|group:Health|preset:Dentist|value:orthodontics)
 msgid "Orthodontics"
-msgstr ""
+msgstr "Ortodonti (tandjustering)"
 
 #: master_preset.xml:6529(item:name|group:Health|preset:Orthodontist)
 msgid "Orthodontist"
@@ -8977,7 +8977,7 @@ msgstr ""
 
 #: master_preset.xml:6572(list_entry:short_description|group:Health|preset:Physiotherapist|value:osteopathy)
 msgid "Osteopathy"
-msgstr ""
+msgstr "Osteopati"
 
 #: master_preset.xml:5472(list_entry:display_value|group:Leisure|preset:Animals|value:ostrich)
 msgid "Ostrich"
@@ -11592,7 +11592,7 @@ msgstr "Shia"
 
 #: master_preset.xml:10572(list_entry:short_description|group:For_the_body|preset:Massage|value:shiatsu)
 msgid "Shiatsu"
-msgstr ""
+msgstr "Shiatsu"
 
 #: master_preset.xml:9754(list_entry:display_value|group:Historic_Places_&_Objects|preset:Historic_object|value:shieling)
 msgid "Shieling"
@@ -12236,7 +12236,7 @@ msgstr ""
 
 #: master_preset.xml:6523(list_entry:display_value|group:Health|preset:Dentist|value:stomatology)
 msgid "Stomatology"
-msgstr ""
+msgstr "Stomatologi (Sjukhustandläkare)"
 
 #: master_preset.xml:11746(item:name|group:Nature|preset:Stone)
 #: master_preset.xml:1265(combo:display_values|key:roof:material)
@@ -12783,7 +12783,7 @@ msgstr "Tennis"
 #: master_preset.xml:818(combo:display_values|key:religion)
 #: master_preset.xml:827(combo:display_values|key:religion)
 msgid "Tenrikyo"
-msgstr ""
+msgstr "Tenrikyo"
 
 #: master_preset.xml:4996(check:text|group:Accommodation|preset:Caravan_Site/RV_Park|key:tents)
 #: master_preset.xml:5011(check:text|group:Accommodation|preset:Campsite|key:tents)
@@ -13596,7 +13596,7 @@ msgstr ""
 
 #: master_preset.xml:4145(check:text|group:Car|preset:Fuel|key:payment:uta)
 msgid "UTA"
-msgstr ""
+msgstr "UTA"
 
 #: master_preset.xml:1338(multiselect:display_values|key:language)
 msgid "Ukrainian"
@@ -13761,7 +13761,7 @@ msgstr "Uzbekiska"
 
 #: master_preset.xml:11106(check:text|preset:Payment_Methods|key:payment:v_pay)
 msgid "V Pay"
-msgstr ""
+msgstr "V Pay"
 
 #: master_preset.xml:13562(item:name|group:Offices|preset:Vacant)
 msgid "Vacant"
@@ -13896,7 +13896,7 @@ msgstr "Visa Debit"
 
 #: master_preset.xml:11108(check:text|preset:Payment_Methods|key:payment:visa_electron)
 msgid "Visa Electron"
-msgstr ""
+msgstr "Visa Electron"
 
 #: master_preset.xml:7145(combo:text|group:Facilities|preset:Clock|key:visibility)
 msgid "Visibility/readability"
@@ -15489,7 +15489,7 @@ msgstr "Trä"
 #: master_preset.xml:25(combo:display_values|key:surface)
 msgctxt "surface"
 msgid "Woodchips"
-msgstr ""
+msgstr "Träflis"
 
 #: master_preset.xml:77(combo:display_values|key:leisure)
 msgctxt "riding"
@@ -15649,7 +15649,7 @@ msgstr "Trafiksignal"
 #: master_preset.xml:225(list_entry:short_description|value:unmarked)
 msgctxt "pedestrian"
 msgid "Unmarked"
-msgstr ""
+msgstr "Omarkerad"
 
 #: master_preset.xml:3909(combo:display_values|group:Railway|preset:Railway_Switch|key:railway:switch)
 msgctxt "railway"
@@ -15867,7 +15867,7 @@ msgstr ""
 #: master_preset.xml:8420(combo:display_values|preset:Entrance|key:entrance)
 msgctxt "entrance"
 msgid "Staircase"
-msgstr ""
+msgstr "Trappa"
 
 #: master_preset.xml:288(combo:display_values|key:door)
 msgctxt "entrance"
@@ -17602,7 +17602,7 @@ msgstr "Taktil beläggning"
 #: master_preset.xml:1241(list_entry:short_description|value:abortion)
 msgctxt "healthcare"
 msgid "Abortion"
-msgstr ""
+msgstr "Abort"
 
 #: master_preset.xml:6619(list_entry:short_description|group:Health|preset:Alternative_medicine|value:acupuncture)
 msgctxt "healthcare"
@@ -17632,7 +17632,7 @@ msgstr "Aromaterapi"
 #: master_preset.xml:6623(list_entry:short_description|group:Health|preset:Alternative_medicine|value:ayurveda)
 msgctxt "healthcare"
 msgid "Ayurveda"
-msgstr ""
+msgstr "Ayurveda"
 
 #: master_preset.xml:6610(combo:display_values|group:Health|preset:Laboratory|key:healthcare:speciality)
 msgctxt "healthcare"
@@ -17647,7 +17647,7 @@ msgstr ""
 #: master_preset.xml:1244(list_entry:short_description|value:cardiology)
 msgctxt "healthcare"
 msgid "Cardiology"
-msgstr ""
+msgstr "Kardiologi"
 
 #: master_preset.xml:1245(list_entry:short_description|value:child_psychiatry)
 msgctxt "healthcare"
@@ -17658,7 +17658,7 @@ msgstr ""
 #: master_preset.xml:6624(list_entry:short_description|group:Health|preset:Alternative_medicine|value:chiropractic)
 msgctxt "healthcare"
 msgid "Chiropractic"
-msgstr ""
+msgstr "Kiropraktik"
 
 #: master_preset.xml:6610(combo:display_values|group:Health|preset:Laboratory|key:healthcare:speciality)
 msgctxt "healthcare"
@@ -17668,12 +17668,12 @@ msgstr ""
 #: master_preset.xml:1247(list_entry:short_description|value:dermatology)
 msgctxt "healthcare"
 msgid "Dermatology"
-msgstr ""
+msgstr "Dermatologi"
 
 #: master_preset.xml:1242(list_entry:short_description|value:fertility)
 msgctxt "healthcare"
 msgid "Fertility"
-msgstr ""
+msgstr "Fertilitet"
 
 #: master_preset.xml:1240(list_entry:short_description|value:general)
 msgctxt "healthcare"
@@ -17688,7 +17688,7 @@ msgstr ""
 #: master_preset.xml:6625(list_entry:short_description|group:Health|preset:Alternative_medicine|value:herbalism)
 msgctxt "healthcare"
 msgid "Herbalism"
-msgstr ""
+msgstr "Örtmedicin"
 
 #: master_preset.xml:6626(list_entry:short_description|group:Health|preset:Alternative_medicine|value:homeopathy)
 msgctxt "healthcare"
@@ -17698,7 +17698,7 @@ msgstr "Homeopati"
 #: master_preset.xml:6627(list_entry:short_description|group:Health|preset:Alternative_medicine|value:hydrotherapy)
 msgctxt "healthcare"
 msgid "Hydrotherapy"
-msgstr ""
+msgstr "Hydroterapi"
 
 #: master_preset.xml:6628(list_entry:short_description|group:Health|preset:Alternative_medicine|value:hypnosis)
 msgctxt "healthcare"
@@ -17713,17 +17713,17 @@ msgstr "intern"
 #: master_preset.xml:6629(list_entry:short_description|group:Health|preset:Alternative_medicine|value:naturopathy)
 msgctxt "healthcare"
 msgid "Naturopathy"
-msgstr ""
+msgstr "Naturmedicin"
 
 #: master_preset.xml:1250(list_entry:short_description|value:neurology)
 msgctxt "healthcare"
 msgid "Neurology"
-msgstr ""
+msgstr "Neurologi"
 
 #: master_preset.xml:1251(list_entry:short_description|value:ophthalmology)
 msgctxt "healthcare"
 msgid "Ophthalmology"
-msgstr ""
+msgstr "Oftalmologi (öggon)"
 
 #: master_preset.xml:1252(list_entry:short_description|value:orthopaedics)
 msgctxt "healthcare"
@@ -17733,7 +17733,7 @@ msgstr ""
 #: master_preset.xml:6630(list_entry:short_description|group:Health|preset:Alternative_medicine|value:osteopathy)
 msgctxt "healthcare"
 msgid "Osteopathy"
-msgstr ""
+msgstr "Osteopati"
 
 #: master_preset.xml:1253(list_entry:short_description|value:otolaryngology)
 msgctxt "healthcare"
@@ -17753,32 +17753,32 @@ msgstr ""
 #: master_preset.xml:1254(list_entry:short_description|value:podiatry)
 msgctxt "healthcare"
 msgid "Podiatry"
-msgstr ""
+msgstr "Podiatri"
 
 #: master_preset.xml:1257(list_entry:short_description|value:psychiatry)
 msgctxt "healthcare"
 msgid "Psychiatry"
-msgstr ""
+msgstr "Psykiatri"
 
 #: master_preset.xml:1258(list_entry:short_description|value:radiology)
 msgctxt "healthcare"
 msgid "Radiology"
-msgstr ""
+msgstr "Radiologi (röntgen)"
 
 #: master_preset.xml:6631(list_entry:short_description|group:Health|preset:Alternative_medicine|value:reflexology)
 msgctxt "healthcare"
 msgid "Reflexology"
-msgstr ""
+msgstr "Zonterapi"
 
 #: master_preset.xml:6632(list_entry:short_description|group:Health|preset:Alternative_medicine|value:reiki)
 msgctxt "healthcare"
 msgid "Reiki"
-msgstr ""
+msgstr "Reiki"
 
 #: master_preset.xml:6633(list_entry:short_description|group:Health|preset:Alternative_medicine|value:shiatsu)
 msgctxt "healthcare"
 msgid "Shiatsu"
-msgstr ""
+msgstr "Shiatsu"
 
 #: master_preset.xml:1239(multiselect:text|key:healthcare:speciality)
 #: master_preset.xml:6516(combo:text|group:Health|preset:Dentist|key:healthcare:speciality)
@@ -17796,7 +17796,7 @@ msgstr ""
 #: master_preset.xml:6635(list_entry:short_description|group:Health|preset:Alternative_medicine|value:tuina)
 msgctxt "healthcare"
 msgid "Tuī ná"
-msgstr ""
+msgstr "Tuī ná"
 
 #: master_preset.xml:6636(list_entry:short_description|group:Health|preset:Alternative_medicine|value:unani)
 msgctxt "healthcare"
@@ -17806,7 +17806,7 @@ msgstr ""
 #: master_preset.xml:1259(list_entry:short_description|value:urology)
 msgctxt "healthcare"
 msgid "Urology"
-msgstr ""
+msgstr "Urologi"
 
 #: master_preset.xml:1284(combo:display_values|key:building:use)
 msgctxt "building"
@@ -21903,7 +21903,7 @@ msgstr "Typ"
 #: master_preset.xml:11771(combo:display_values|group:Land_use|preset:Farmland|key:crop)
 msgctxt "crop"
 msgid "Barley"
-msgstr ""
+msgstr "Korn"
 
 #: master_preset.xml:11771(combo:display_values|group:Land_use|preset:Farmland|key:crop)
 msgctxt "crop"
@@ -21933,7 +21933,7 @@ msgstr ""
 #: master_preset.xml:11771(combo:display_values|group:Land_use|preset:Farmland|key:crop)
 msgctxt "crop"
 msgid "Rapeseed"
-msgstr ""
+msgstr "Raps"
 
 #: master_preset.xml:11771(combo:display_values|group:Land_use|preset:Farmland|key:crop)
 msgctxt "crop"

@@ -64,6 +64,9 @@
   <string name="file_write_failed_message">‏وسپوچی نمی‌تواند پرونده را تغییر دهد یا ذخیره کند.</string>
   <string name="applying_osc_failed_title">به‌کارگیری پروندهٔ OSC ناموفق بود</string>
   <string name="applying_osc_failed_message">به احتمال زیاد شما تمام داده‌های اصلی مورد نیاز برای اعمال تغییرات را بارگذاری نکرده‌اید.</string>
+  <string name="duplicate_tag_key_title">کلیدهای تکراری</string>
+  <string name="duplicate_tag_key_message">شما کلید زیر را بیش از یک بار اضافه و استفاده کرده‌اید، قبل از اینکه بتوانید ادامه دهید باید حل شود:</string>
+  <string name="select_file_picker_title">انتخابگر فایل را انتخاب کنید</string>
   <!---->
   <string name="welcome_title">خوش آمدید</string>
   <string name="welcome_message">از شما برای نصب وسپوچی متشکریم. \n&amp;lt;br&amp;gt;&amp;lt;br&amp;gt; برای شروع باید سه چیز را بدانید:\n&amp;lt;ul&amp;gt;&amp;lt;li&amp;gt; با زدن روی نماد قفل در گوشهٔ بالا چپ بین حالت‌های قفل (ویرایش غیرفعال) و قفل‌نشده جابه‌جا می‌شوید,&amp;lt;/li&amp;gt;&amp;lt;li&amp;gt; برای ویرایش اوپن‌استریت‌مپ لازم است ابتدا دادهٔ محدودهٔ موردنظر خود را بارگیری کنید (قبل از بارگیری زوم کنید),&amp;lt;/li&amp;gt;&amp;lt;li&amp;gtبرای افزودن یک چیز جدید: روی دکمهٔ بزرگ سبزرنگ ضربه بزنید و آنچه را می‌خواهید اضافه کنید انتخاب نمایید، سپس روی موقعیتی که می‌خواهید قرارش دهید ضربه بزنید. نقشه‌کشی را شروع کرده و از آن لذت ببرید!</string>
@@ -82,6 +85,7 @@
   <string name="progress_uploading_message">در حال بارگذاری…</string>
   <string name="progress_preset_message">در حال بارگیری پیش‌تنظیم…</string>
   <string name="progress_loading_preset_message">در حال بارگیری از پیش‌تنظیم‌شده...</string>
+  <string name="progress_importing_file_message">در حال وارد کردن فایل…</string>
   <string name="progress_running_message">در حال اجرا…</string>
   <string name="progress_oauth">در حال باز کردن حساب شما در openstreetmap.org برای احراز هویت OAuth…</string>
   <string name="progress_building_imagery_database">در حال ایجاد پایگاه دادهٔ تصاویر…</string>
@@ -106,6 +110,7 @@
   <string name="upload_validation_error_empty_comment">توضیح نباید خالی باشد</string>
   <string name="upload_validation_error_empty_source">منبع نباید خالی باشد</string>
   <!--Review changes dialog-->
+  <string name="review_changes_title">بررسی تغییرات</string>
   <!--Upload GPX-->
   <string name="upload_gpx_title">بارگذاری رد GPX</string>
   <string name="upload_gpx_description_label">توضیحات</string>
@@ -166,6 +171,7 @@
   <string name="toast_todo_all_closed">همه وظایف برای عنصر بسته شده است</string>
   <string name="toast_todo_already_in_list">عنصر در حال حاضر در این فهرست کارها قرار دارد</string>
   <string name="toast_no_open_todos">بدون کار ناتمام</string>
+  <string name="toast_no_todos_in_list">هیچ کاری برای انجام شدن در لیست انتخاب شده وجود ندارد</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">احتیاط! </string>
   <string name="unsaved_data_message">اگر ادامه دهید تغییرات ذخیره‌نشده‌تان از بین می‌رود.</string>
@@ -363,7 +369,10 @@
   <string name="layer_data">دادهٔ OSM</string>
   <string name="layer_data_name">دادهٔ %1$s</string>
   <string name="layer_flush_tile_cache">پاک‌سازی نهان‌گاه کاشی</string>
+  <string name="layer_change_style">تغییر سبک…</string>
+  <string name="layer_load_style">سبک بارگذاری…</string>
   <string name="layer_reset_style">بازنشانی سبک</string>
+  <string name="layer_select_imagery">انتخاب تصاویر…</string>
   <string name="layer_category_all">همه</string>
   <string name="layer_category_photo">تصویر هوایی</string>
   <string name="layer_category_elevation">زمین</string>
@@ -373,6 +382,11 @@
   <string name="layer_category_osmbasedmap">نقشهٔ OSM-پایه</string>
   <string name="layer_category_qa">تضمین کیفیت</string>
   <string name="layer_category_other">سایر</string>
+  <string name="layer_add_layer_from_mvt_style">افزودن لایه از سبک MVT…</string>
+  <string name="layer_add_custom_imagery">افزودن تصاویر سفارشی…</string>
+  <string name="layer_edit_custom_imagery_configuration">ویرایش پیکربندی تصاویر سفارشی…</string>
+  <string name="layer_add_gpx">افزودن لایه از فایل GPX…</string>
+  <string name="layer_download_track">بارگیری رد GPX...</string>
   <string name="layer_available_tracks">ردهای GPX موجود</string>
   <string name="layer_start_playback">شروع پخش</string>
   <string name="layer_pause_playback">وقفه پخش</string>
@@ -389,6 +403,8 @@
   <string name="layer_info_privacy_policy">سیاست حریم خصوصی</string>
   <string name="projection">پروژه</string>
   <string name="errors">خطاها</string>
+  <string name="layer_info_layer_not_available">اطلاعات لایه در دسترس نیست</string>
+  <string name="layer_info_no_meta_data">داده‌های متا بارگیری نشده است</string>
   <!--Mapillary layer-->
   <string name="mapillary_image">مپیلاری %1$s</string>
   <!--Photo viewer-->
@@ -449,6 +465,10 @@
   <string name="tip_alternative_tagging">شما فقط از پیش‌تنظیمی استفاده کردید که دارای پیوندهایی به برچسب‌گذاری جایگزین است. این مورد روش دیگری برای برچسب‌گذاری این شیء است که ممکن است مناسب‌تر باشد یا ممکن است به سادگی مرتبط باشد. این از پیش‌تنظیم‌های جایگزین در بالای صفحه نمایش از پیش تعیین شده اخیر استفاده شده نشان داده می‌شوند.</string>
   <string name="tip_mode_switching">دکمه قفل به عنوان تعویض‌کننده حالت دو برابر می‌شود، با فشار طولانی یک منو با گزینه‌های مختلف نشان داده می‌شود.&lt;p&gt;می‌توانید اطلاعات بیشتری در مورد حالت‌های وسپوچی در سیستم راهنما، هم در مقدمه و هم در راهنمای نمایش نقشه اصلی بیابید.</string>
   <string name="tip_empty_gpx_download">به دلیل یک ابهام در OSM API، نقطه شروع مسیر GPX باید در نظر گرفته شود تا برای دانلود پیدا شود.</string>
+  <string name="tip_no_redo">این حالت در حال حاضر از انجام مجدد افزودن گره‌ها پشتیبانی نمی‌کند.</string>
+  <string name="tip_way_splitting">یک گره برجسته شده را برای تعیین موقعیت تقسیم لمس کنید. یک لمس طولانی به شما این امکان را می‌دهد که در مرحله بعدی انتخاب کنید کدام قسمت برای روش جدید استفاده می‌شود.</string>
+  <string name="tip_closed_way_splitting">یک راه بسته باید به دو مکان تقسیم شود. برای تعیین موقعیت تقسیم 1، یک گره برجسته را لمس کنید، مرحله بعدی از شما می‌خواهد که موقعیت 2 را انتخاب کنید.</string>
+  <string name="tip_disambiguation_menu">هنگامی که چندین عنصر OSM یا سایر اشیاء بسیار نزدیک به هم باشند یا عناصر عضو روابط باشند، منوی ابهام‌زدایی نمایش داده می‌شود. سپس می توانید عنصر خاصی را از لیست انتخاب کنید.&lt;p&gt;اگر عنصری در حال حاضر انتخاب شده باشد، برجسته می‌شود.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -471,6 +491,7 @@
   <string name="toast_url_empty">یک URL وارد کنید</string>
   <string name="toast_min_zoom">زوم کمینه را کمتر از بیشینه تنظیم کنید</string>
   <string name="toast_tile_layer_exists">منبع کاشی %1$s همان آدرس اینترنتی را دارد</string>
+  <string name="toast_styleable_layer_exists">لایه برای %1$s وجود دارد</string>
   <string name="toast_no_changes">هنوز چیزی را تغییر نداده‌اید‏...</string>
   <string name="toast_jpeg_not_transparent">پرونده‌های JPEG شفاف نیستند و نمی‌شود برای رولایه استفاده شوند.</string>
   <string name="toast_unsupported_projection">طرح‌بندی پشتیبانی‌نشده %1$s.\n\nفقط EPSG:3857، EPSG:4326 و مترادف‌ها پشتیبانی می‌شوند.</string>
@@ -592,6 +613,7 @@
   <string name="toast_task_layer_disabled">لایهٔ وظیفه غیرفعال شد</string>
   <string name="toast_unable_to_create_task_layer">ایجاد لایهٔ وظیفه ناموفق بود</string>
   <string name="toast_merged">ادغام شد</string>
+  <string name="toast_invalid_style_file">فایل سبک %1$s\n%2$sنامعتبر است</string>
   <string name="toast_no_geometry">هندسه‌ای برای عنصر یافت نشد</string>
   <string name="toast_added_api_entry_for">مدخل API برای %1$s افزوده شد</string>
   <string name="toast_updated">‏%1$s به‌روز شد</string>
@@ -602,6 +624,7 @@
   <string name="toast_error_reading">خطا هنگام خوانش %1$s</string>
   <string name="toast_read_successfully">پرونده با موفقیت خوانده شد</string>
   <string name="toast_error_writing">خطا در نوشتن %1$s</string>
+  <string name="toast_successfully_written">%1$s با موفقیت نوشته شد</string>
   <string name="toast_http_data_error_for">خطای دادهٔ HTTP برای %1$s</string>
   <string name="toast_error_insufficient_space_for">برای %1$s فضای دستگاه کافی نیست</string>
   <string name="toast_error_too_many_redirects_for">تغییرمسیرهای خیلی زیاد برای %1$s</string>
@@ -644,6 +667,8 @@
   <string name="toast_url_check">%1$s %2$d</string>
   <string name="toast_url_check_with_msg">%1$s %2$d %3$s</string>
   <string name="toast_unexpected_element">عنصر غیرمنتظره کلیک شد: \n%1$s</string>
+  <string name="toast_import_destination_exists">مقصد واردات از قبل وجود دارد</string>
+  <string name="toast_part_selection_not_supported">انتخاب قسمت راه برای راه‌های بسته پشتیبانی نمی‌شود</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">برای منابع MapSplit باید زوم کمینه و بیشینه تنظیم شده باشد</string>
   <string name="error_pbf_no_version">پروندهٔ PBF اطلاعات نسخه ندارد</string>
@@ -790,13 +815,16 @@
   <string name="position_info_title">اطلاعات موقعیت کنونی</string>
   <string name="position_info_hdop">HDOP</string>
   <string name="position_info_altitude">ارتفاع</string>
+  <string name="position_info_geoid_height">ارتفاع بیش از\nthe geoid</string>
   <string name="position_info_barometric_height">ارتفاع فشارسنجشی</string>
   <string name="position_info_geoid_correction">تصحیح ژئوئید</string>
+  <string name="position_info_ellipsoid_height">ارتفاع بیش از\nthe ellipsoid</string>
   <!--Strings in DownloadActivity-->
   <string name="download_files_title">بارگیری پرونده‌ها</string>
   <string name="allow_all_networks">اجازه به همهٔ شبکه‌ها</string>
   <!--Strings in Go to coordinates-->
   <string name="go_to_coordinates_title">برو به مختصات</string>
+  <string name="go_to_coordinates_hint">مختصات (lat lon) یا OLC را وارد کنید</string>
   <string name="unparseable_coordinates">مختصات ناخوانا</string>
   <string name="network_required">برای جستجوی مکان به شبکه نیاز است</string>
   <string name="no_nominatim_server">کارساز پیکربندی‌شده‌ای برای Nominatim یافت نشد</string>
@@ -834,9 +862,13 @@
   <string name="menu_gps_goto_last_edit">برو به آخرین ویرایش</string>
   <string name="menu_gps_position_info">اطلاعات موقعیت کنونی</string>
   <string name="menu_gps_start">آغاز رد GPX</string>
+  <string name="menu_gps_resume">ادامه مسیر GPX</string>
   <string name="menu_gps_pause">نگه‌داشتن رد GPX</string>
   <string name="menu_gps_clear">پاک‌سازی رد GPX و راه‌نشان‌های آن</string>
   <string name="menu_gps_track_managment">مدیریت رد GPX...</string>
+  <string name="menu_gps_upload">بارگذاری رد GPX...</string>
+  <string name="menu_gps_export">برون‌برد رد GPX...</string>
+  <string name="menu_gps_import">درون‌برد رد GPX...</string>
   <string name="menu_gps_goto_start">برو به ابتدای رد GPX</string>
   <string name="menu_gps_goto_first_waypoint">برو به اولین راه‌نشان</string>
   <string name="menu_enable_gps_autodownload">بارگیری خودکار مکان‌محور</string>
@@ -846,7 +878,10 @@
   <string name="menu_transfer_download_replace">پاک‌سازی و بارگیری نمای کنونی</string>
   <string name="menu_transfer_load_current">بارکردن نمای کنونی</string>
   <string name="menu_transfer_load_replace">پاک‌سازی و بارکردن نمای کنونی</string>
+  <string name="menu_transfer_upload">بارگذاری داده‌ها در سرور OSM...</string>
+  <string name="menu_transfer_review">بررسی تغییرات...</string>
   <string name="menu_transfer_update">به‌روزرسانی داده</string>
+  <string name="menu_transfer_data_clear">پاک کردن داده‌ها</string>
   <string name="menu_transfer_close_changeset">بستن بستهٔ تغییر جاری</string>
   <string name="menu_transfer_file">پرونده...</string>
   <string name="menu_transfer_export">برون‌برد تغییرات به پروندهٔ OSC</string>
@@ -886,6 +921,7 @@
   <string name="menu_select_way_nodes">انتخاب گره‌های راه</string>
   <string name="menu_newnode_gps">گره جدید در موقعیت GPS</string>
   <string name="menu_extend_selection">گسترش انتخاب</string>
+  <string name="menu_information">اطلاعات...</string>
   <string name="menu_voice_commands">فرمان‌های صوتی</string>
   <string name="menu_upload_element">بارگذاری عنصر</string>
   <string name="menu_upload_elements">بارگذاری عنصرها</string>
@@ -898,6 +934,7 @@
   <string name="menu_tools_imagery">دیگر ابزارهای تصویر...</string>
   <string name="menu_tools_add_imagery_from_oam">افزودن تصویر از OAM</string>
   <string name="menu_tools_flush_all_tile_caches">پاک‌سازی همهٔ نهان‌گاه‌های کاشی</string>
+  <string name="menu_tools_background_properties">خصوصیات پس‌زمینه...</string>
   <string name="menu_tools_update_imagery_configuration">به‌روزرسانی پیکربندی</string>
   <string name="menu_tools_update_imagery_configuration_eli">به‌روزرسانی پیکربندی از ELI</string>
   <string name="menu_tools_zoom_to_layer_extent">زوم به گسترهٔ لایهٔ پس‌زمینه</string>
@@ -905,6 +942,7 @@
   <string name="menu_tools_calibrate_height">کالیبره‌کردن حسگر فشار…</string>
   <string name="menu_tools_install_egm">نصب EGM</string>
   <string name="menu_tools_remove_egm">حذف EGM</string>
+  <string name="menu_tools_import_data_style">وارد کردن سبک داده…</string>
   <string name="menu_tools_load_keys">بارگیری کلیدها از پرونده…</string>
   <!---->
   <string name="menu_simple_actions">حالت ساده</string>
@@ -925,6 +963,9 @@
   <string name="distance_km">%1$.3f کیلومتر</string>
   <!--Menus in layers dialog-->
   <string name="menu_layers">لایه‌ها...</string>
+  <string name="menu_layers_load_geojson">افزودن لایهٔ GeoJSON...</string>
+  <string name="menu_layers_add_backgroundlayer">افزودن لایهٔ تصویر پس‌زمینه...</string>
+  <string name="menu_layers_add_overlaylayer">افزودن لایهٔ تصویر رو...</string>
   <string name="menu_layers_add_tasklayer">فعال‌سازی لایهٔ وظیفه</string>
   <string name="menu_layers_add_grid">فعال‌سازی شبکه</string>
   <string name="menu_layers_add_photolayer">فعال‌سازی لایهٔ عکس</string>
@@ -975,7 +1016,14 @@
   <string name="actionmode_newnoteselect">یادداشت جدید انتخاب شد</string>
   <string name="actionmode_add_segment">افزودن بخش</string>
   <string name="actionmode_reselect_first_segment">بخش اول را دوباره انتخاب کنید</string>
+  <string name="actionmode_split_way">تقسیم راه</string>
+  <string name="actionmode_split_closed_way">تقسیم راه بسته</string>
   <!--EasyEdit action mode sub-titles-->
+  <string name="actionmode_closed_way_split_1">گره 1 را انتخاب کنید</string>
+  <string name="actionmode_closed_way_split_2">گره 2 را انتخاب کنید</string>
+  <string name="actionmode_split_way_node_selection">گره را انتخاب کنید</string>
+  <string name="actionmode_split_way_select_part">قسمتی را برای راه جدید انتخاب کنید</string>
+  <string name="actionmode_select_node_to_append_to">گره را برای الحاق انتخاب کنید</string>
   <string name="actionmode_restriction">افزودن محدودیت گردش</string>
   <string name="actionmode_restriction_restart_from">پارهٔ from را دوباره انتخاب کنید</string>
   <string name="actionmode_restriction_select_from">پارهٔ from را انتخاب کنید</string>
@@ -999,6 +1047,9 @@
   <string name="menu_add_node_address">اضافه کردن گره نشانی</string>
   <string name="menu_add_address_interpolation">افزودن درون یابی نشانی</string>
   <string name="menu_add_way">افزودن راه</string>
+  <string name="add_node_instruction">روی موقعیت ضربه بزنید</string>
+  <string name="add_way_start_instruction">برای شروع روی موقعیت اول ضربه بزنید</string>
+  <string name="add_way_node_instruction">روی موقعیت گره بعدی ضربه بزنید</string>
   <string name="menu_add_map_note">افزودن یادداشت نقشه</string>
   <string name="simple_add_note">موقعیت موردنظر از صفحه را لمس کنید</string>
   <string name="menu_paste_object">درج شیء</string>
@@ -1068,6 +1119,8 @@
   <string name="config_useInternalPhotoViewer_summary">نمایشگر عکس توکار را به کار ببر. اگر خاموش باشد نمایشگر خارجی استفاده می‌شود.</string>
   <string name="config_indexMediaStore_summary">همچنین از MediaStore برای دسترسی به عکس‌ها استفاده کنید</string>
   <string name="config_indexMediaStore_title">از MediaStore استفاده کنید</string>
+  <string name="config_followGPSbutton_title">طرح‌بندی دکمه موقعیت مکانی را دنبال کنید</string>
+  <string name="config_followGPSbutton_summary">جایی که دکمه «دنبال کردن مکان» در آن قرار می‌گیرد.</string>
   <string name="config_alwaysDrawBoundingBoxes_title">همیشه محدوده‌های بارگیری نشده را تاریک کن</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">در حالت قفل، محدوده‌های بارگیری نشده را تاریک می‌کند.</string>
   <string name="config_fullscreenMode_title">حالت تمام‌صفحه</string>

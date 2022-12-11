@@ -1958,7 +1958,7 @@ msgstr ""
 #: master_preset.xml:9722(list_entry:display_value|group:Historic_Places_&_Objects|preset:Historic_object|value:building)
 #: master_preset.xml:9800(item:name|group:Historic_Places_&_Objects|preset:Building)
 msgid "Building"
-msgstr ""
+msgstr "建筑"
 
 #: master_preset.xml:12188(list_entry:display_value|group:Relations|preset:Relations|value:building)
 msgid "Building (3D)"
@@ -2805,7 +2805,7 @@ msgstr ""
 #: master_preset.xml:10038(item:name|group:Food|preset:Coffee)
 #: master_preset.xml:11041(list_entry:short_description|preset:Vending_Machine|value:coffee)
 msgid "Coffee"
-msgstr ""
+msgstr "咖啡"
 
 #: master_preset.xml:1452(check:text|key:recycling:coffee_capsules)
 msgid "Coffee capsules"
@@ -4657,7 +4657,7 @@ msgstr "花坛"
 
 #: master_preset.xml:11053(list_entry:short_description|preset:Vending_Machine|value:flowers)
 msgid "Flowers"
-msgstr ""
+msgstr "花卉"
 
 #: master_preset.xml:1110(list_entry:display_value|value:flush)
 #: master_preset.xml:1118(list_entry:display_value|value:flush)
@@ -9855,7 +9855,7 @@ msgstr ""
 #: master_preset.xml:11422(text:text|group:Places|preset:City_block|key:population)
 #: master_preset.xml:775(text:text|key:population)
 msgid "Population"
-msgstr ""
+msgstr "人口数"
 
 #: master_preset.xml:5486(list_entry:display_value|group:Leisure|preset:Animals|value:porcupine)
 msgid "Porcupine"
@@ -10798,7 +10798,7 @@ msgstr ""
 
 #: master_preset.xml:8587(combo:display_values|group:Man_Made|preset:Works|key:product)
 msgid "Rice"
-msgstr ""
+msgstr "稻"
 
 #: master_preset.xml:5543(item:name|group:Leisure|preset:Rides)
 msgid "Rides"
@@ -12700,7 +12700,7 @@ msgstr "物种分类单元"
 
 #: master_preset.xml:10031(item:name|group:Food|preset:Tea)
 msgid "Tea"
-msgstr ""
+msgstr "茶"
 
 #: master_preset.xml:11793(combo:display_values|group:Land_use|preset:Orchard|key:trees)
 msgid "Tea plants"
@@ -13006,7 +13006,7 @@ msgstr ""
 
 #: master_preset.xml:10579(item:name|group:For_the_body|preset:Tobacco)
 msgid "Tobacco"
-msgstr ""
+msgstr "烟草"
 
 #: master_preset.xml:8494(combo:display_values|group:Indoor_elements|preset:Room|key:room)
 msgid "Toilet"
@@ -17858,7 +17858,7 @@ msgstr ""
 #: master_preset.xml:9878(combo:text|group:Historic_Places_&_Objects|preset:Wayside_Shrine|key:building)
 msgctxt "building"
 msgid "Building"
-msgstr ""
+msgstr "建筑"
 
 #: master_preset.xml:1285(combo:text|key:building:colour)
 msgctxt "building"
@@ -19759,7 +19759,7 @@ msgstr ""
 #: master_preset.xml:4333(list_entry:display_value|group:Bicycle|preset:Parking|value:building)
 msgctxt "bicycle"
 msgid "Building"
-msgstr ""
+msgstr "建筑"
 
 #: master_preset.xml:4334(list_entry:display_value|group:Bicycle|preset:Parking|value:floor)
 msgctxt "bicycle"
@@ -21905,7 +21905,7 @@ msgstr ""
 #: master_preset.xml:11771(combo:display_values|group:Land_use|preset:Farmland|key:crop)
 msgctxt "crop"
 msgid "Corn"
-msgstr ""
+msgstr "玉米"
 
 #: master_preset.xml:11771(combo:text|group:Land_use|preset:Farmland|key:crop)
 msgctxt "crop"
@@ -21925,12 +21925,12 @@ msgstr ""
 #: master_preset.xml:11771(combo:display_values|group:Land_use|preset:Farmland|key:crop)
 msgctxt "crop"
 msgid "Rapeseed"
-msgstr ""
+msgstr "油菜"
 
 #: master_preset.xml:11771(combo:display_values|group:Land_use|preset:Farmland|key:crop)
 msgctxt "crop"
 msgid "Rice"
-msgstr ""
+msgstr "稻"
 
 #: master_preset.xml:11771(combo:display_values|group:Land_use|preset:Farmland|key:crop)
 msgctxt "crop"
@@ -21940,17 +21940,17 @@ msgstr ""
 #: master_preset.xml:11771(combo:display_values|group:Land_use|preset:Farmland|key:crop)
 msgctxt "crop"
 msgid "Sugarcane"
-msgstr ""
+msgstr "甘蔗"
 
 #: master_preset.xml:11771(combo:display_values|group:Land_use|preset:Farmland|key:crop)
 msgctxt "crop"
 msgid "Tea"
-msgstr ""
+msgstr "茶"
 
 #: master_preset.xml:11771(combo:display_values|group:Land_use|preset:Farmland|key:crop)
 msgctxt "crop"
 msgid "Wheat"
-msgstr ""
+msgstr "小麦"
 
 #: master_preset.xml:11850(combo:display_values|group:Land_use|preset:Garden|key:garden:type)
 msgctxt "garden"

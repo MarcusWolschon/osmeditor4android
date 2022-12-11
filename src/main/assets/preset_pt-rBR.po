@@ -8949,7 +8949,7 @@ msgstr ""
 
 #: master_preset.xml:6520(list_entry:display_value|group:Health|preset:Dentist|value:orthodontics)
 msgid "Orthodontics"
-msgstr ""
+msgstr "Ortodontia"
 
 #: master_preset.xml:6529(item:name|group:Health|preset:Orthodontist)
 msgid "Orthodontist"
@@ -8975,7 +8975,7 @@ msgstr ""
 
 #: master_preset.xml:6572(list_entry:short_description|group:Health|preset:Physiotherapist|value:osteopathy)
 msgid "Osteopathy"
-msgstr ""
+msgstr "Osteopatia"
 
 #: master_preset.xml:5472(list_entry:display_value|group:Leisure|preset:Animals|value:ostrich)
 msgid "Ostrich"
@@ -17666,12 +17666,12 @@ msgstr ""
 #: master_preset.xml:1247(list_entry:short_description|value:dermatology)
 msgctxt "healthcare"
 msgid "Dermatology"
-msgstr ""
+msgstr "Dermatologia"
 
 #: master_preset.xml:1242(list_entry:short_description|value:fertility)
 msgctxt "healthcare"
 msgid "Fertility"
-msgstr ""
+msgstr "Fertilidade"
 
 #: master_preset.xml:1240(list_entry:short_description|value:general)
 msgctxt "healthcare"
@@ -17691,7 +17691,7 @@ msgstr ""
 #: master_preset.xml:6626(list_entry:short_description|group:Health|preset:Alternative_medicine|value:homeopathy)
 msgctxt "healthcare"
 msgid "Homeopathy"
-msgstr ""
+msgstr "Homeopatia"
 
 #: master_preset.xml:6627(list_entry:short_description|group:Health|preset:Alternative_medicine|value:hydrotherapy)
 msgctxt "healthcare"
@@ -17716,12 +17716,12 @@ msgstr ""
 #: master_preset.xml:1250(list_entry:short_description|value:neurology)
 msgctxt "healthcare"
 msgid "Neurology"
-msgstr ""
+msgstr "Neurologia"
 
 #: master_preset.xml:1251(list_entry:short_description|value:ophthalmology)
 msgctxt "healthcare"
 msgid "Ophthalmology"
-msgstr ""
+msgstr "Oftalmologia"
 
 #: master_preset.xml:1252(list_entry:short_description|value:orthopaedics)
 msgctxt "healthcare"
@@ -17731,7 +17731,7 @@ msgstr ""
 #: master_preset.xml:6630(list_entry:short_description|group:Health|preset:Alternative_medicine|value:osteopathy)
 msgctxt "healthcare"
 msgid "Osteopathy"
-msgstr ""
+msgstr "Osteopatia"
 
 #: master_preset.xml:1253(list_entry:short_description|value:otolaryngology)
 msgctxt "healthcare"
@@ -18089,7 +18089,7 @@ msgstr ""
 #: master_preset.xml:8282(list_entry:display_value|group:Buildings|preset:Building_construction|value:garage)
 msgctxt "building"
 msgid "Garage"
-msgstr ""
+msgstr "Garagem privada"
 
 #: master_preset.xml:8165(list_entry:display_value|group:Buildings|preset:Building|value:garages)
 #: master_preset.xml:8250(combo:display_values|group:Buildings|preset:Building_part|key:building:part)
