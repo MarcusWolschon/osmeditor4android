@@ -312,15 +312,13 @@ public final class TableLayoutUtils {
         if (cellText != null) {
             cell.setText(cellText);
             cell.setMinEms(FIRST_CELL_WIDTH);
-            Linkify.addLinks(cell, Linkify.WEB_URLS);
+            boolean hasLink = Linkify.addLinks(cell, Linkify.WEB_URLS);
             cell.setMovementMethod(LinkMovementMethod.getInstance());
+            cell.setTextIsSelectable(!isUrl && !hasLink);
 
             ViewCompat.setPaddingRelative(cell, 10, 0, 0, 0);
-
             cell.setEllipsize(TruncateAt.MARQUEE);
-            if (!isUrl) {
-                cell.setTextIsSelectable(true);
-            }
+
             if (tp != null) {
                 cell.setLayoutParams(tp);
             }
