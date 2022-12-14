@@ -78,6 +78,7 @@ public class ElementInfo extends InfoDialogFragment {
     private static final String SHOW_JUMP_TO_KEY      = "showJumpTo";
     private static final String ELEMENT_ID_KEY        = "elementId";
     private static final String ELEMENT_TYPE_KEY      = "elementType";
+    private static final String PARENT_TAG_KEY        = "parent_tag";
 
     private static final String TAG = "fragment_element_info";
 
@@ -89,6 +90,7 @@ public class ElementInfo extends InfoDialogFragment {
     private OsmElement  element;
     private UndoElement ue;
     private int         ueIndex = -1;
+    private String      parentTag;
 
     /**
      * Show an info dialog for the supplied OsmElement
@@ -97,7 +99,7 @@ public class ElementInfo extends InfoDialogFragment {
      * @param e the OsmElement
      */
     public static void showDialog(@NonNull FragmentActivity activity, @NonNull OsmElement e) {
-        showDialog(activity, -1, e, false);
+        showDialog(activity, -1, e, false, null);
     }
 
     /**
@@ -108,7 +110,19 @@ public class ElementInfo extends InfoDialogFragment {
      * @param showJumpTo display button to jump to object
      */
     public static void showDialog(@NonNull FragmentActivity activity, @NonNull OsmElement e, boolean showJumpTo) {
-        showDialog(activity, -1, e, showJumpTo);
+        showDialog(activity, -1, e, showJumpTo, null);
+    }
+
+    /**
+     * Show an info dialog for the supplied OsmElement
+     * 
+     * @param activity the calling Activity
+     * @param e the OsmElement
+     * @param showJumpTo display button to jump to object
+     * @param parentTag tag of any parent dialog
+     */
+    public static void showDialog(@NonNull FragmentActivity activity, @NonNull OsmElement e, boolean showJumpTo, @Nullable String parentTag) {
+        showDialog(activity, -1, e, showJumpTo, parentTag);
     }
 
     /**
@@ -120,10 +134,23 @@ public class ElementInfo extends InfoDialogFragment {
      * @param showJumpTo display button to jump to object
      */
     public static void showDialog(@NonNull FragmentActivity activity, int ueIndex, @NonNull OsmElement e, boolean showJumpTo) {
+        showDialog(activity, ueIndex, e, showJumpTo, null);
+    }
+
+    /**
+     * Show an info dialog for the supplied OsmElement
+     * 
+     * @param activity the calling Activity
+     * @param ueIndex index of an UndoElement to compare with (0 is the original element)
+     * @param e the OsmElement
+     * @param showJumpTo display button to jump to object
+     * @param parentTag tag of any parent dialog
+     */
+    public static void showDialog(@NonNull FragmentActivity activity, int ueIndex, @NonNull OsmElement e, boolean showJumpTo, @Nullable String parentTag) {
         dismissDialog(activity);
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
-            ElementInfo elementInfoFragment = newInstance(ueIndex, e, showJumpTo);
+            ElementInfo elementInfoFragment = newInstance(ueIndex, e, showJumpTo, parentTag);
             elementInfoFragment.show(fm, TAG);
         } catch (IllegalStateException isex) {
             Log.e(DEBUG_TAG, "showDialog", isex);
@@ -144,16 +171,20 @@ public class ElementInfo extends InfoDialogFragment {
      * 
      * @param ueIndex index of an UndoElement to compare with
      * @param e OSMElement to display the info on
-     * @return an instance of ElementInfo
      * @param showJumpTo display button to jump to object
+     * @param parentTag tag of any parent dialog
+     * @return an instance of ElementInfo
      */
-    private static ElementInfo newInstance(int ueIndex, @NonNull OsmElement e, boolean showJumpTo) {
+    private static ElementInfo newInstance(int ueIndex, @NonNull OsmElement e, boolean showJumpTo, @Nullable String parentTag) {
         ElementInfo f = new ElementInfo();
 
         Bundle args = new Bundle();
-        args.putSerializable(UNDOELEMENT_INDEX_KEY, ueIndex);
+        args.putInt(UNDOELEMENT_INDEX_KEY, ueIndex);
         args.putSerializable(ELEMENT_KEY, e);
-        args.putSerializable(SHOW_JUMP_TO_KEY, showJumpTo);
+        args.putBoolean(SHOW_JUMP_TO_KEY, showJumpTo);
+        if (parentTag != null) {
+            args.putString(PARENT_TAG_KEY, parentTag);
+        }
 
         f.setArguments(args);
         f.setShowsDialog(true);
@@ -172,10 +203,12 @@ public class ElementInfo extends InfoDialogFragment {
             // this will only work if the saved data is already loaded
             element = App.getDelegator().getOsmElement(savedInstanceState.getString(ELEMENT_TYPE_KEY), savedInstanceState.getLong(ELEMENT_ID_KEY));
             ueIndex = savedInstanceState.getInt(UNDOELEMENT_INDEX_KEY, -1);
+            parentTag = savedInstanceState.getString(PARENT_TAG_KEY);
         } else {
             // always do this first
             element = (OsmElement) getArguments().getSerializable(ELEMENT_KEY);
             ueIndex = getArguments().getInt(UNDOELEMENT_INDEX_KEY, -1);
+            parentTag = getArguments().getString(PARENT_TAG_KEY);
             /*
              * Saving the arguments (done by the FragmentManager) can exceed the 1MB transaction size limit and cause a
              * android.os.TransactionTooLargeException
@@ -209,7 +242,9 @@ public class ElementInfo extends InfoDialogFragment {
             final ViewBox box = tempBox != null ? new ViewBox(tempBox) : null;
             if (getArguments().getBoolean(SHOW_JUMP_TO_KEY)) {
                 builder.setNeutralButton(R.string.goto_element, (dialog, which) -> {
-                    de.blau.android.dialogs.Util.dismissDialog(activity, ReviewAndUpload.TAG);
+                    if (parentTag != null) {
+                        de.blau.android.dialogs.Util.dismissDialog(activity, parentTag);
+                    }
                     if (box != null) {
                         double[] center = box.getCenter();
                         ((Main) activity).zoomToAndEdit((int) (center[0] * 1E7D), (int) (center[1] * 1E7D), element);
@@ -716,6 +751,7 @@ public class ElementInfo extends InfoDialogFragment {
         outState.putString(ELEMENT_TYPE_KEY, element.getName());
         outState.putLong(ELEMENT_ID_KEY, element.getOsmId());
         outState.putInt(UNDOELEMENT_INDEX_KEY, ueIndex);
+        outState.putString(PARENT_TAG_KEY, parentTag);
     }
 
     /**

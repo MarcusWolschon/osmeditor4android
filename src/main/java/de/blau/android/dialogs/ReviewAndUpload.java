@@ -231,7 +231,7 @@ public class ReviewAndUpload extends ImmersiveDialogFragment {
         int changeCount = elements == null ? App.getDelegator().getApiElementCount() : elements.size();
         changesHeading.setText(getResources().getQuantityString(R.plurals.confirm_upload_text, changeCount, changeCount));
 
-        addChangesToView(activity, (ListView) layout.findViewById(R.id.upload_changes), elements, DEFAULT_COMPARATOR);
+        addChangesToView(activity, (ListView) layout.findViewById(R.id.upload_changes), elements, DEFAULT_COMPARATOR, ReviewAndUpload.TAG);
 
         // Comment and upload page
         Preferences prefs = App.getPreferences(activity);
@@ -311,9 +311,10 @@ public class ReviewAndUpload extends ImmersiveDialogFragment {
      * @param changesView the ListView used to hold the changes views
      * @param elements a List of OsmElement or null
      * @param comparator a Comparator for sorting the changes
+     * @param parentTag tag of parent dialog
      */
     static void addChangesToView(@NonNull final FragmentActivity activity, @NonNull final ListView changesView, @Nullable List<OsmElement> elements,
-            @NonNull Comparator<ChangedElement> comparator) {
+            @NonNull Comparator<ChangedElement> comparator, @Nullable String parentTag) {
         ExtendedValidator validator = new ExtendedValidator(activity, App.getDefaultValidator(activity));
         final ChangedElement[] changes = getPendingChanges(activity.getResources(), elements == null ? App.getLogic().getPendingChangedElements() : elements);
         revalidate(activity, validator, changes);
@@ -326,9 +327,9 @@ public class ReviewAndUpload extends ImmersiveDialogFragment {
             byte elemenState = element.getState();
             boolean deleted = elemenState == OsmElement.STATE_DELETED;
             if (elemenState == OsmElement.STATE_MODIFIED || deleted) {
-                ElementInfo.showDialog(activity, 0, element, !deleted);
+                ElementInfo.showDialog(activity, 0, element, !deleted, parentTag);
             } else {
-                ElementInfo.showDialog(activity, element, !deleted);
+                ElementInfo.showDialog(activity, element, !deleted, parentTag);
             }
         });
     }
