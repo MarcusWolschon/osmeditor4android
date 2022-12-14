@@ -78,7 +78,7 @@ public class Review extends ImmersiveDialogFragment {
         final View layout = inflater.inflate(R.layout.review, null);
         builder.setView(layout);
 
-        ReviewAndUpload.addChangesToView(activity, (ListView) layout.findViewById(R.id.upload_changes), null, ReviewAndUpload.DEFAULT_COMPARATOR);
+        ReviewAndUpload.addChangesToView(activity, (ListView) layout.findViewById(R.id.upload_changes), null, ReviewAndUpload.DEFAULT_COMPARATOR, Review.TAG);
 
         builder.setNegativeButton(R.string.Done, null);
 
