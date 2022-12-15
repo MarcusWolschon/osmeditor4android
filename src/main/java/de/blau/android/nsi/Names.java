@@ -35,10 +35,10 @@ import de.blau.android.util.collections.MultiHashMap;
  *
  */
 public class Names {
+    private static final String DEBUG_TAG = Names.class.getSimpleName();
+
     private static final String WERID_WHOLE_WORLD_NSI_VALUE = "001";
-
-    private static final String DEBUG_TAG = "Names";
-
+    
     private static final String TAGS_FIELD         = "tags";
     private static final String EXCLUDE_FIELD      = "exclude";
     private static final String INCLUDE_FIELD      = "include";
