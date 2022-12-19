@@ -228,16 +228,11 @@ public class PhotoViewerFragment extends SizedDynamicImmersiveDialogFragment imp
         viewPager.setAdapter(photoPagerAdapter);
         viewPager.setOffscreenPageLimit(2);
         viewPager.setCurrentItem(startPos);
-        viewPager.addOnPageChangeListener(new OnPageSelectedListener() {
-
-            @Override
-            public void onPageSelected(int page) {
-                if (photoLoader != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && activity.isInMultiWindowMode()) {
-                    // doing this in single window mode is very annoying so we don't
-                    photoLoader.showOnMap(getContext(), page);
-                }
+        viewPager.addOnPageChangeListener((OnPageSelectedListener) page -> {
+            if (photoLoader != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && activity.isInMultiWindowMode()) {
+                // doing this in single window mode is very annoying so we don't
+                photoLoader.showOnMap(requireContext(), page);
             }
-
         });
 
         menuView = (ActionMenuView) layout.findViewById(R.id.photoMenuView);

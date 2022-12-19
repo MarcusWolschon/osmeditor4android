@@ -167,16 +167,11 @@ public class SelectByImageFragment extends SizedDynamicImmersiveDialogFragment i
         viewPager.setAdapter(imagePagerAdapter);
         viewPager.setOffscreenPageLimit(2);
         viewPager.setCurrentItem(startPos);
-        viewPager.addOnPageChangeListener(new OnPageSelectedListener() {
-
-            @Override
-            public void onPageSelected(int page) {
-                if (imageLoader != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && activity.isInMultiWindowMode()) {
-                    // doing this in single window mode is very annoying so we don't
-                    imageLoader.showOnMap(getContext(), page);
-                }
+        viewPager.addOnPageChangeListener((OnPageSelectedListener) page -> {
+            if (imageLoader != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && activity.isInMultiWindowMode()) {
+                // doing this in single window mode is very annoying so we don't
+                imageLoader.showOnMap(requireContext(), page);
             }
-
         });
 
         ActionMenuView menuView = (ActionMenuView) layout.findViewById(R.id.photoMenuView);
