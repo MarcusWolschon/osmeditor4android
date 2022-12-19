@@ -57,7 +57,7 @@ Apply the best matching preset to the existing tags.
 
 Will locate the best matching preset to the existing tags and apply the preset adding further suggested / optional fields.
 
-### ![Paste](../images/tag_menu_repeat.png) Paste
+### ![Paste](../images/ic_menu_paste_holo_light.png) Paste
 
 Paste and merge the tags from the internal clipboard. 
 
