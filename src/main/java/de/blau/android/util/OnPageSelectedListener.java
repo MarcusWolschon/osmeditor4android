@@ -1,5 +1,6 @@
 package de.blau.android.util;
 
+import androidx.annotation.Px;
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener;
 
 /**
@@ -8,15 +9,14 @@ import androidx.viewpager.widget.ViewPager.OnPageChangeListener;
  * @author simon
  *
  */
-public abstract class OnPageSelectedListener implements OnPageChangeListener {
-    
+public interface OnPageSelectedListener extends OnPageChangeListener {
     @Override
-    public void onPageScrollStateChanged(int arg0) {
+    default void onPageScrollStateChanged(int state) {
         // UNUSED
     }
 
     @Override
-    public void onPageScrolled(int arg0, float arg1, int arg2) {
+    default void onPageScrolled(int position, float positionOffset, @Px int positionOffsetPixels) {
         // UNUSED
     }
 }

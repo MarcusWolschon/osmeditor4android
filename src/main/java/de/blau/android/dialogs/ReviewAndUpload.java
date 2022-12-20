@@ -208,20 +208,16 @@ public class ReviewAndUpload extends ImmersiveDialogFragment {
 
         pager.setAdapter(new ViewPagerAdapter(activity, layout, new int[] { R.id.review_page, R.id.tags_page },
                 new int[] { R.string.confirm_upload_edits_page, R.string.menu_tags }));
-        pager.addOnPageChangeListener(new OnPageSelectedListener() {
-
-            @Override
-            public void onPageSelected(int arg0) {
-                AlertDialog dialog = ((AlertDialog) getDialog());
-                if (dialog != null) {
-                    Button button = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
-                    if (button != null) {
-                        button.clearFocus();
-                    }
+        pager.addOnPageChangeListener((OnPageSelectedListener) position -> {
+            AlertDialog dialog = ((AlertDialog) getDialog());
+            if (dialog != null) {
+                Button button = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
+                if (button != null) {
+                    button.clearFocus();
                 }
-                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(layout.getWindowToken(), 0);
             }
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(layout.getWindowToken(), 0);
         });
 
         builder.setView(layout);
