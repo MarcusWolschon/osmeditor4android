@@ -86,6 +86,7 @@ public class Preferences {
     private final boolean     lightThemeEnabled;
     private final boolean     overrideCountryAddressTags;
     private final Set<String> addressTags;
+    private final int         neighbourDistance;
     private final boolean     voiceCommandsEnabled;
     private final boolean     leaveGpsDisabled;
     private final boolean     allowFallbackToNetworkLocation;
@@ -223,6 +224,8 @@ public class Preferences {
 
         addressTags = prefs.getStringSet(r.getString(R.string.config_addressTags_key),
                 new HashSet<>(Arrays.asList(r.getStringArray(R.array.address_tags_defaults))));
+
+        neighbourDistance = getIntPref(R.string.config_neighbourDistance_key, 50);
 
         voiceCommandsEnabled = prefs.getBoolean(r.getString(R.string.config_voiceCommandsEnabled_key), false);
 
@@ -917,6 +920,15 @@ public class Preferences {
      */
     public Set<String> addressTags() {
         return addressTags;
+    }
+
+    /**
+     * Get the distance in meters up to which two addresses are considered neighbours
+     * 
+     * @return a distance in meters
+     */
+    public int getNeighbourDistance() {
+        return neighbourDistance;
     }
 
     /**
