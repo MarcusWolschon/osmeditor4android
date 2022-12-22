@@ -1182,6 +1182,9 @@
     <string name="config_overrideRegionAddressTags_summary">Use our address tag configuration over any region specific values</string>             
     <string name="config_address_tags">Address tags</string>
     <string name="config_address_tags_summary">Tags used for address prediction.</string>
+    <string name="config_neighbourDistance_title">Distance between neighbour addresses</string>
+    <string name="config_neighbourDistance_summary">The distance up to which two addresses are considered to be potential neighbours</string>
+    <string name="config_neighbourDistance_current">%1$d meter(s)</string>
     <string name="config_enableNameSuggestions_title">Enable name suggestions</string>
     <string name="config_enableNameSuggestions_summary">Turn on suggestions for the name tag.</string>
     <string name="config_enableNameSuggestionsPresets_title">Enable name suggestion presets</string>

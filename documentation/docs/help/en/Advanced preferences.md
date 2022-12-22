@@ -142,6 +142,10 @@ When using address prediction only add the tags configured here.
 
 Automatically apply the best matching preset when the property editor is invoked. This will add keys for all non-optional tags. Default: _on_.
 
+### Distance between neighbour addresses
+
+The distance in meters up to which two addresses are considered to be potential neighbours, this is useful for fine tuning how the increment used for predicting addresses is calculated. Default: _50 meters_.
+
 ### Enable name suggestions
 
 Support special handling of name tags with canonical name suggestions. Default: _on_.

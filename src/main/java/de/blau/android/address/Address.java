@@ -386,8 +386,8 @@ public final class Address implements Serializable {
                 if (isEmpty(houseNumberValue) && street != null) {
                     try {
                         long streetId = hasPlace ? 0L : es.getStreetId(street);
-                        SortedMap<Integer, Address> list = getHouseNumbers(street, streetId, side, lastAddresses);
-                        if (list.size() == 0) { // try to seed lastAddresses from OSM data
+                        SortedMap<Integer, Address> houseNumbers = getHouseNumbers(street, streetId, side, lastAddresses);
+                        if (houseNumbers.size() == 0) { // try to seed lastAddresses from OSM data
                             Log.d(DEBUG_TAG, "Seeding from street " + street);
                             // nodes
                             for (Node n : storageDelegator.getCurrentStorage().getNodes()) {
@@ -398,10 +398,9 @@ public final class Address implements Serializable {
                                 seedAddressList(context, street, w, lastAddresses);
                             }
                             // and try again
-                            list = getHouseNumbers(street, streetId, side, lastAddresses);
-
+                            houseNumbers = getHouseNumbers(street, streetId, side, lastAddresses);
                         }
-                        newAddress.tags = predictNumber(newAddress, tags, street, streetId, side, list, false, null);
+                        newAddress.tags = predictNumber(context, newAddress, tags, street, streetId, side, houseNumbers, null);
                     } catch (OsmException e) {
                         Log.d(DEBUG_TAG, "predictAddressTags got " + e.getMessage());
                     }
@@ -521,11 +520,11 @@ public final class Address implements Serializable {
      */
     public static Set<String> getAddressKeys(@NonNull Context context, double lon, double lat) {
         getGeoContext(context);
+        Preferences prefs = App.getPreferences(context);
         Properties prop = null;
         if (geoContext != null) {
             prop = geoContext.getProperties(geoContext.getIsoCodes(lon, lat));
         }
-        Preferences prefs = App.getPreferences(context);
         return prop == null || prop.getAddressKeys() == null || prefs.overrideCountryAddressTags() ? prefs.addressTags()
                 : new HashSet<>(Arrays.asList(prop.getAddressKeys()));
     }
@@ -587,28 +586,28 @@ public final class Address implements Serializable {
      * TODO the above assumes that the road is not doubling back or similar, aka that the addresses are more or less in
      * a straight line, use the length along the way defined by the addresses instead
      * 
+     * @param context an Android Context
      * @param newAddress the address object for the new address
      * @param originalTags tags for this object
      * @param street the street name
      * @param currentStreetId id of the current street
      * @param side side which we are on
-     * @param list list of existing addresses on this side
-     * @param oppositeSide try to predict a number for the other side of the street
-     * @param otherSideList numbers found on the other side only used if otherSide is true
+     * @param houseNumbers a Map of existing addresses on this side
+     * @param otherSideList optional list of numbers found on the other side
      * @return the tags for the object
      */
     @NonNull
-    private static Map<String, String> predictNumber(@NonNull Address newAddress, @NonNull Map<String, String> originalTags, @NonNull String street,
-            long currentStreetId, @NonNull Side side, @NonNull SortedMap<Integer, Address> list, boolean oppositeSide,
+    private static Map<String, String> predictNumber(@NonNull Context context, @NonNull Address newAddress, @NonNull Map<String, String> originalTags,
+            @NonNull String street, long currentStreetId, @NonNull Side side, @NonNull SortedMap<Integer, Address> houseNumbers,
             @Nullable SortedMap<Integer, Address> otherSideList) {
         Map<String, String> newTags = new LinkedHashMap<>(originalTags);
-        if (list.size() >= 2) {
+        if (houseNumbers.size() >= 2) {
             try {
-                List<Integer> numbers = new ArrayList<>(list.keySet());
-                int inc = calcIncrement(numbers);
+                List<Integer> numbers = new ArrayList<>(houseNumbers.keySet());
+                int inc = calcIncrement(context, numbers, houseNumbers);
 
-                int firstNumber = list.firstKey();
-                int lastNumber = list.lastKey();
+                int firstNumber = houseNumbers.firstKey();
+                int lastNumber = houseNumbers.lastKey();
 
                 //
                 // find the most appropriate next address
@@ -622,7 +621,7 @@ public final class Address implements Serializable {
                 for (int i = 0; i < numbers.size(); i++) {
                     // determine the nearest existing address
                     int number = numbers.get(i);
-                    Address a = list.get(number);
+                    Address a = houseNumbers.get(number);
                     double newDistance = GeoMath.haversineDistance(newAddress.lon, newAddress.lat, a.lon, a.lat);
                     if (newDistance <= distance) {
                         // if distance is the same replace with values for the
@@ -639,8 +638,7 @@ public final class Address implements Serializable {
                     }
                 }
                 //
-                double distanceTotal = GeoMath.haversineDistance(list.get(firstNumber).lon, list.get(firstNumber).lat, list.get(lastNumber).lon,
-                        list.get(lastNumber).lat);
+                double distanceTotal = addressDistance(houseNumbers, firstNumber, lastNumber);
                 if (nearest == firstNumber) {
                     if (distanceLast > distanceTotal) {
                         inc = -inc;
@@ -650,16 +648,15 @@ public final class Address implements Serializable {
                         inc = -inc;
                     }
                 } else {
-                    double distanceNearestFirst = GeoMath.haversineDistance(list.get(firstNumber).lon, list.get(firstNumber).lat, list.get(nearest).lon,
-                            list.get(nearest).lat);
+                    double distanceNearestFirst = addressDistance(houseNumbers, firstNumber, nearest);
                     if (distanceFirst < distanceNearestFirst) {
                         inc = -inc;
                     } // else already correct
                 }
                 // first apply tags from nearest address if they don't already exist
-                copyTags(list.get(nearest), newTags);
+                copyTags(houseNumbers.get(nearest), newTags);
 
-                if (oppositeSide) { // try to predict address on the other road side
+                if (otherSideList != null) { // try to predict address on the other road side
                     Log.d(DEBUG_TAG, "Predicting for other side inc=" + inc + " nearest " + nearest);
                     if (Math.abs(inc) > 1) {
                         int newNumber = Math.max(1, otherSideList.size() == 0 ? nearest + (inc / Math.abs(inc)) : otherSideList.firstKey() + inc);
@@ -690,21 +687,21 @@ public final class Address implements Serializable {
                 Log.d(DEBUG_TAG, "exception " + nfe);
                 newTags.put(Tags.KEY_ADDR_HOUSENUMBER, "");
             }
-        } else if (list.size() == 1) {
+        } else if (houseNumbers.size() == 1) {
             Log.d(DEBUG_TAG, "only one number on this side");
             // can't do prediction with only one value
             // apply tags from sole existing address if they don't already exist
             SortedMap<Integer, Address> otherList = getHouseNumbers(street, currentStreetId, Side.opposite(side), lastAddresses);
             if (otherList.size() >= 2) {
-                newTags = predictNumber(newAddress, originalTags, street, currentStreetId, side, otherList, true, list);
+                newTags = predictNumber(context, newAddress, originalTags, street, currentStreetId, side, otherList, houseNumbers);
             } else {
-                copyTags(list.get(list.firstKey()), newTags);
+                copyTags(houseNumbers.get(houseNumbers.firstKey()), newTags);
             }
-        } else if (list.size() == 0) {
+        } else if (houseNumbers.size() == 0) {
             Log.d(DEBUG_TAG, "no numbers on this side");
             SortedMap<Integer, Address> otherList = getHouseNumbers(street, currentStreetId, Side.opposite(side), lastAddresses);
             if (otherList.size() >= 2) {
-                newTags = predictNumber(newAddress, originalTags, street, currentStreetId, side, otherList, true, list);
+                newTags = predictNumber(context, newAddress, originalTags, street, currentStreetId, side, otherList, houseNumbers);
             } else if (otherList.size() == 1) {
                 copyTags(otherList.get(otherList.firstKey()), newTags);
             } else {
@@ -715,23 +712,45 @@ public final class Address implements Serializable {
     }
 
     /**
-     * Calculate a likely increment from a list of ints
+     * Get the haversine distance between two addresses
      * 
-     * This only supports 1 and 2 as results
-     * 
-     * @param numbers a sorted List of Integers
-     * @return 1 or 2
+     * @param map Map of addresses indexed by house number
+     * @param n1 first house number
+     * @param n2 2nd house number
+     * @return distance between n1 and n2
      */
-    private static int calcIncrement(List<Integer> numbers) {
+    private static double addressDistance(SortedMap<Integer, Address> map, int n1, int n2) {
+        return GeoMath.haversineDistance(map.get(n1).lon, map.get(n1).lat, map.get(n2).lon, map.get(n2).lat);
+    }
+
+    /**
+     * Calculate a likely increment between addresses
+     * 
+     * @param context an Anroid Context
+     * @param numbers a sorted List of house numbers
+     * @param map a map of addresses indexed by the house number
+     * @return an estimated increment of one number to the next
+     */
+    private static int calcIncrement(@NonNull Context context, @NonNull List<Integer> numbers, @NonNull SortedMap<Integer, Address> map) {
         //
         // determine increment
         //
         int inc = 1;
+        int neighbourDistance = App.getPreferences(context).getNeighbourDistance();
         float incTotal = 0;
         float incCount = 0;
-        for (int i = 0; i < numbers.size() - 1; i++) {
-            int diff = numbers.get(i + 1) - numbers.get(i);
-            if (diff > 0 && diff <= 2) {
+        final int size = numbers.size();
+        for (int i = 0; i < size - 1; i++) {
+            final Integer n1 = numbers.get(i + 1);
+            final Integer n2 = numbers.get(i);
+            int diff = n1 - n2;
+            if (diff > 0) {
+                if (diff > 2) {
+                    double dist = addressDistance(map, n1, n2);
+                    if (dist > neighbourDistance) { // unlikely to be a neighbour
+                        continue;
+                    }
+                }
                 incTotal = incTotal + diff;
                 incCount++;
             }
@@ -787,7 +806,7 @@ public final class Address implements Serializable {
      * Return a sorted map of house numbers and the associated address objects from a List of Addresses
      * 
      * The original addr:housenumber tag is split on ",", ";" and "-". Currently it will use addresses associated with
-     * directly neighboring way segments, and correctly adjust how it considers the side the address is on.
+     * directly neighboring way segments, and correctly adjust what it considers the side the address is on.
      * 
      * @param street the street name
      * @param side side of the street that should be considered

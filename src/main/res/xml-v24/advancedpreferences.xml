@@ -244,6 +244,18 @@
             android:key="@string/config_autoApplyPreset_key"
             android:summary="@string/config_autoApplyPreset_summary"
             android:title="@string/config_autoApplyPreset_title" />
+        <ch.poole.android.numberpickerpreference.NumberPickerPreference
+            android:defaultValue="50"
+            android:dialogTitle="@string/config_neighbourDistance_title"
+            android:key="@string/config_neighbourDistance_key"
+            android:numeric="integer"
+            android:summary="@string/config_neighbourDistance_summary"
+            android:title="@string/config_neighbourDistance_title"
+            app:spt_maxValue="100"
+            app:spt_minValue="0"
+            app:spt_increment="5"
+            app:spt_currentValueText="@string/config_neighbourDistance_current"
+            app:spt_setWrapSelectorWheel="false" />
         <androidx.preference.CheckBoxPreference
             android:defaultValue="true"
             android:key="@string/config_enableNameSuggestions_key"
