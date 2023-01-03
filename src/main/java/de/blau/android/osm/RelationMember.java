@@ -112,7 +112,7 @@ public class RelationMember implements Serializable {
      * 
      * @param e the OsmElement
      */
-    public synchronized void setElement(final OsmElement e) {
+    public synchronized void setElement(@Nullable final OsmElement e) {
         element = e;
     }
 

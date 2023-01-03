@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Set;
 
 import android.util.Log;
 import androidx.annotation.NonNull;
@@ -52,14 +50,11 @@ public class PropertyEditorData implements Serializable {
         originalTags = tags;
         MultiHashMap<Long, RelationMemberPosition> tempParents = new MultiHashMap<>(false, true);
         if (selectedElement.getParentRelations() != null) {
-            Set<Relation> uniqueRelations = new HashSet<>(selectedElement.getParentRelations());
-            for (Relation r : uniqueRelations) {
-                List<RelationMember> allMembers = r.getAllMembers(selectedElement);
-                for (RelationMember rm : allMembers) {
-                    if (rm != null) {
-                        // we don't need to actually reference the member
-                        RelationMemberPosition rmp = new RelationMemberPosition(new RelationMember(rm.getType(), rm.getRef(), rm.getRole()), r.getPosition(rm));
-                        tempParents.add(r.getOsmId(), rmp);
+            for (Relation r : new HashSet<>(selectedElement.getParentRelations())) {
+                for (RelationMemberPosition rmp : r.getAllMembersWithPosition(selectedElement)) {
+                    if (rmp != null) {
+                        // we don't need to actually reference the member element, so we create a new RelationMember
+                        tempParents.add(r.getOsmId(), RelationMemberPosition.copyWithoutElement(rmp));
                     } else {
                         Log.e(DEBUG_TAG, "inconsistency in relation membership");
                         ACRAHelper.nocrashReport(null, "inconsistency in relation membership");

@@ -86,7 +86,7 @@ public class RelationMembershipFragment extends BaseFragment implements Property
      * @return a new RelationMembershipFragment instance
      */
     @NonNull
-    public static RelationMembershipFragment newInstance(MultiHashMap<Long, RelationMemberPosition> parents, String type) {
+    public static RelationMembershipFragment newInstance(@Nullable MultiHashMap<Long, RelationMemberPosition> parents, @NonNull String type) {
         RelationMembershipFragment f = new RelationMembershipFragment();
 
         Bundle args = new Bundle();
@@ -137,7 +137,7 @@ public class RelationMembershipFragment extends BaseFragment implements Property
             parents = (MultiHashMap<Long, RelationMemberPosition>) getArguments().getSerializable(PARENTS_KEY);
             elementType = getArguments().getString(ELEMENT_TYPE_KEY);
         }
-
+        
         Preferences prefs = App.getLogic().getPrefs();
         Server server = prefs.getServer();
         maxStringLength = server.getCachedCapabilities().getMaxStringLength();
