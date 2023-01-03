@@ -71,6 +71,17 @@ public class RelationMemberPosition implements Serializable {
         this.position = postiion;
     }
 
+    /**
+     * Copy the provided ReplationMemberPosition but with keeping the OSMElement reference
+     * 
+     * @param rmp the RelationMemberPosition to copy
+     * @return a copy
+     */
+    public static RelationMemberPosition copyWithoutElement(@NonNull RelationMemberPosition rmp) {
+        RelationMember rm = rmp.getRelationMember();
+        return new RelationMemberPosition(new RelationMember(rm.getType(), rm.getRef(), rm.getRole()), rmp.getPosition());
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
