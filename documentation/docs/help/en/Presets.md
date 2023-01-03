@@ -2,7 +2,7 @@
 
 Vespucci supports JOSM compatible presets and the default preset is derived from the original JOSM one and kept in sync as far as possible. Just as with JOSM you can add further presets or use a different one than the default. 
 
-The default preset is maintained at [https://github.com/simonpoole/beautified-JOSM-preset](https://github.com/simonpoole/beautified-JOSM-preset). You can install an additional, updated version by selecting [current Vespucci preset](vespucci://preset/?preseturl=https://github.com/simonpoole/beautified-JOSM-preset/raw/master/gen/vespucci_zip.zip) *(this link will only work on your device)* after the download you will have to explicitly enable it and disable the built-in version.
+The default preset is maintained at [https://github.com/simonpoole/beautified-JOSM-preset](https://github.com/simonpoole/beautified-JOSM-preset). You can install an additional, updated version by selecting <a href="vespucci://preset/?preseturl=https://github.com/simonpoole/beautified-JOSM-preset/releases/latest/download/vespucci_v4_zip.zip&presetname=Updated default preset">current Vespucci preset</a> *(this link will only work on your device)* after the download you will have to explicitly enable it and disable the built-in version.
 
 ## ![Preset](../images/tag_menu_preset.png) Preset pane
 
