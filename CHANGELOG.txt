@@ -1,5 +1,17 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+18.1.0:
+
+- Fix catch if we can't read GPX when delivered via intent
+- Fix synchronize access to the task storage for queries
+- Fix update 1st default preset link in docs
+- Fix ensure display of multiple memberships in the same relation
+- Fix don't make table cell selectable if Linkify created a link in info dialogs
+- Fix pass tag of parent dialog as parameter to the ElementInfo dialog so that we can dismiss it on go to element
+- Add allow increments larger than 2 when predicting addresses
+- Update translations
+- Update imagery from ELI
+
 18.1.0-2:
 
 - Fix disable resource optimization (google play issue)
