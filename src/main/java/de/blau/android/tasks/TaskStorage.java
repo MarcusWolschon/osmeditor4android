@@ -133,7 +133,9 @@ public class TaskStorage implements Serializable, DataStorage {
      */
     public boolean contains(@NonNull Task t) {
         Collection<Task> queryResult = new ArrayList<>();
-        tasks.query(queryResult, t.getLon(), t.getLat());
+        synchronized (this) {
+            tasks.query(queryResult, t.getLon(), t.getLat());
+        }
         Log.d(DEBUG_TAG, "candidates for contain " + queryResult.size());
         for (Task t2 : queryResult) {
             if (t.equals(t2)) {
@@ -152,7 +154,9 @@ public class TaskStorage implements Serializable, DataStorage {
     @Nullable
     public Task get(@NonNull Task t) {
         Collection<Task> queryResult = new ArrayList<>();
-        tasks.query(queryResult, t.getLon(), t.getLat());
+        synchronized (this) {
+            tasks.query(queryResult, t.getLon(), t.getLat());
+        }
         Log.d(DEBUG_TAG, "candidates for get " + queryResult.size());
         for (Task t2 : queryResult) {
             if (t.equals(t2)) {
@@ -170,7 +174,9 @@ public class TaskStorage implements Serializable, DataStorage {
     @NonNull
     public List<Task> getTasks() {
         List<Task> queryResult = new ArrayList<>();
-        tasks.query(queryResult);
+        synchronized (this) {
+            tasks.query(queryResult);
+        }
         Log.d(DEBUG_TAG, "getTasks result count (no BB) " + queryResult.size());
         return queryResult;
     }
@@ -184,7 +190,9 @@ public class TaskStorage implements Serializable, DataStorage {
     @NonNull
     public List<Task> getTasks(@NonNull BoundingBox box) {
         List<Task> queryResult = new ArrayList<>();
-        tasks.query(queryResult, box.getBounds());
+        synchronized (this) {
+            tasks.query(queryResult, box.getBounds());
+        }
         Log.d(DEBUG_TAG, "getTasks result count " + queryResult.size());
         return queryResult;
     }
@@ -199,7 +207,9 @@ public class TaskStorage implements Serializable, DataStorage {
     @NonNull
     public List<Task> getTasks(@NonNull BoundingBox box, @NonNull List<Task> queryResult) {
         queryResult.clear();
-        tasks.query(queryResult, box.getBounds());
+        synchronized (this) {
+            tasks.query(queryResult, box.getBounds());
+        }
         return queryResult;
     }
 
