@@ -1251,6 +1251,10 @@ public class Main extends FullScreenAppCompatActivity
             de.blau.android.layer.Util.addLayer(this, LayerType.GPX, uri.toString());
             map.setUpLayers(this);
             gpxLayer = (de.blau.android.layer.gpx.MapOverlay) map.getLayer(LayerType.GPX, uri.toString());
+            if (gpxLayer == null) { // still null 
+                Snack.toastTopError(this, getString(R.string.toast_error_reading, uri.toString()));
+                return;
+            }
         }
         TrackPoint tp = gpxLayer.getTrack().getFirstTrackPoint();
         if (tp != null) {
