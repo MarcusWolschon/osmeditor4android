@@ -469,6 +469,7 @@ elemek megkövetelése</string>
   <string name="tip_no_redo">Ez a mód jelenleg nem támogatja pontok újbóli hozzáadását.</string>
   <string name="tip_way_splitting">Érintsen meg egy kiemelt pontot az elvágás helyének meghatározásához. Hosszú érintéssel kijelölheti, hogy egy következő lépésben melyik részt használja az új vonalhoz.</string>
   <string name="tip_closed_way_splitting">Zárt vonalat két helyen kell elvágni. Érintsen meg egy kiemelt pontot az első elvágási pozíció meghatározásához, a következő lépésben pedig az alkalmazás fel fogja kérni, hogy jelölje ki a második pozíciót.</string>
+  <string name="tip_disambiguation_menu">Ha több OSM-elem vagy más objektum nagyon közel van egymáshoz, vagy ha az elemek kapcsolatok tagjai, akkor megjelenik az egyértelműsítő menü. Ezután kiválaszthatja az adott elemet a listából.&lt;p&gt;Ha egy elem már ki van jelölve, akkor az ki lesz emelve.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">–</string>

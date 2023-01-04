@@ -106,6 +106,7 @@
   <string name="upload_validation_error_empty_comment">Комментарий не должен быть пустым</string>
   <string name="upload_validation_error_empty_source">Источник не должен быть пустым</string>
   <!--Review changes dialog-->
+  <string name="review_changes_title">Посмотреть изменения</string>
   <!--Upload GPX-->
   <string name="upload_gpx_title">Передать GPS-трек</string>
   <string name="upload_gpx_description_label">Описание</string>
@@ -777,6 +778,7 @@
   <string name="menu_transfer_download_replace">Очистить и загрузить текущее место</string>
   <string name="menu_transfer_load_current">Загрузить текущее место</string>
   <string name="menu_transfer_load_replace">Очистить и загрузить текущее место</string>
+  <string name="menu_transfer_review">Посмотреть изменения...</string>
   <string name="menu_transfer_update">Обновить данные</string>
   <string name="menu_transfer_close_changeset">Закрыть текущий пакет правок</string>
   <string name="menu_transfer_file">Файл...</string>

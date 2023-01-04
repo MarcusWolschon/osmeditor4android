@@ -934,7 +934,7 @@ msgstr ""
 #: master_preset.xml:5289(combo:display_values|group:Tourism|preset:Information_Board|key:board_type)
 #: master_preset.xml:5990(multiselect:display_values|group:Culture|preset:Museum|key:museum)
 msgid "Art"
-msgstr ""
+msgstr "アート"
 
 #: master_preset.xml:5997(item:name|group:Culture|preset:Art_gallery)
 msgid "Art gallery"
@@ -1008,7 +1008,7 @@ msgstr ""
 
 #: master_preset.xml:5289(combo:display_values|group:Tourism|preset:Information_Board|key:board_type)
 msgid "Astronomy"
-msgstr ""
+msgstr "天文学"
 
 #: master_preset.xml:5229(item:name|group:Tourism|preset:Attraction)
 msgid "Attraction"
@@ -1400,7 +1400,7 @@ msgstr "牛丼"
 
 #: master_preset.xml:12769(item:name|group:Crafts|preset:Beekeeper)
 msgid "Beekeeper"
-msgstr ""
+msgstr "養蜂所"
 
 #: master_preset.xml:11127(check:text|preset:Payment_Methods|key:payment:ep_beep)
 msgid "Beep"
@@ -1619,7 +1619,7 @@ msgstr "黒"
 
 #: master_preset.xml:12776(item:name|group:Crafts|preset:Blacksmith)
 msgid "Blacksmith"
-msgstr ""
+msgstr "鍛冶屋"
 
 #: master_preset.xml:7244(item:name|group:Facilities|preset:Bleachers)
 msgid "Bleachers"
@@ -1737,7 +1737,7 @@ msgstr "本屋"
 
 #: master_preset.xml:12790(item:name|group:Crafts|preset:Bookbinder)
 msgid "Bookbinder"
-msgstr ""
+msgstr "製本所"
 
 #: master_preset.xml:10925(item:name|group:Other|preset:Bookmaker)
 msgid "Bookmaker"
@@ -1867,7 +1867,7 @@ msgstr ""
 
 #: master_preset.xml:12797(item:name|group:Crafts|preset:Brewery)
 msgid "Brewery"
-msgstr ""
+msgstr "醸造所"
 
 #: master_preset.xml:2931(list_entry:display_value|group:Barriers|preset:Wall|value:brick)
 msgid "Brick"
@@ -1949,7 +1949,7 @@ msgstr "車止め（鉄道）"
 
 #: master_preset.xml:12804(item:name|group:Crafts|preset:Builder)
 msgid "Builder"
-msgstr ""
+msgstr "建設業者"
 
 #: master_preset.xml:12217(item:name|group:Relations|preset:Building)
 #: master_preset.xml:4583(check:text|group:Public_Transport|preset:Station|key:building)
@@ -2426,7 +2426,7 @@ msgstr ""
 
 #: master_preset.xml:12832(item:name|group:Crafts|preset:Caterer)
 msgid "Caterer"
-msgstr ""
+msgstr "仕出し料理店"
 
 #: master_preset.xml:6154(combo:display_values|group:Place_of_Worship|preset:Church|key:building)
 msgid "Cathedral"
@@ -2757,7 +2757,7 @@ msgstr ""
 
 #: master_preset.xml:12846(item:name|group:Crafts|preset:Clockmaker)
 msgid "Clockmaker"
-msgstr ""
+msgstr "時計製造所"
 
 #: master_preset.xml:10152(group:name|group:Clothes)
 #: master_preset.xml:10153(item:name|group:Clothes|preset:Clothes)
@@ -3883,7 +3883,7 @@ msgstr ""
 
 #: master_preset.xml:13202(item:name|group:Crafts|preset:Dressmaker)
 msgid "Dressmaker"
-msgstr ""
+msgstr "衣服製造所"
 
 #: master_preset.xml:2467(check:text|group:Waypoints|preset:Rest_Area|key:drinking_water)
 #: master_preset.xml:3370(check:text|group:Water|preset:Spring|key:drinking_water)
@@ -4046,7 +4046,7 @@ msgstr ""
 
 #: master_preset.xml:12860(item:name|group:Crafts|preset:Electrician)
 msgid "Electrician"
-msgstr ""
+msgstr "電気工事店"
 
 #: master_preset.xml:11124(check:text|preset:Payment_Methods|key:payment:electronic_purses)
 msgid "Electronic purses"
@@ -5111,7 +5111,7 @@ msgstr ""
 
 #: master_preset.xml:5289(combo:display_values|group:Tourism|preset:Information_Board|key:board_type)
 msgid "Geology"
-msgstr ""
+msgstr "地質学"
 
 #: master_preset.xml:1338(multiselect:display_values|key:language)
 #: master_preset.xml:557(multiselect:display_values|key:cuisine)
@@ -5176,7 +5176,7 @@ msgstr ""
 
 #: master_preset.xml:12881(item:name|group:Crafts|preset:Glaziery)
 msgid "Glaziery"
-msgstr ""
+msgstr "ガラス細工師"
 
 #: master_preset.xml:1071(combo:display_values|key:aerodrome:type)
 msgid "Gliding"
@@ -5446,7 +5446,7 @@ msgstr ""
 
 #: master_preset.xml:12888(item:name|group:Crafts|preset:Handicraft)
 msgid "Handicraft"
-msgstr ""
+msgstr "手工芸品店"
 
 #: master_preset.xml:2427(checkgroup:text|group:Ways|preset:Steps)
 #: master_preset.xml:2428(check:text|group:Ways|preset:Steps|key:handrail)
@@ -6059,7 +6059,7 @@ msgstr ""
 
 #: master_preset.xml:9636(item:name|preset:Insulator)
 msgid "Insulator"
-msgstr ""
+msgstr "断熱材"
 
 #: master_preset.xml:13298(item:name|group:Offices|preset:Insurance)
 msgid "Insurance"
@@ -6171,7 +6171,7 @@ msgstr ""
 
 #: master_preset.xml:2958(item:name|group:Barriers|preset:Jersey_Barrier)
 msgid "Jersey Barrier"
-msgstr ""
+msgstr "ジャージーバリア"
 
 #: master_preset.xml:2936(list_entry:display_value|group:Barriers|preset:Wall|value:jersey_barrier)
 msgid "Jersey barrier"
@@ -6187,7 +6187,7 @@ msgstr ""
 
 #: master_preset.xml:13209(item:name|group:Crafts|preset:Jeweller)
 msgid "Jeweller"
-msgstr ""
+msgstr "宝石加工"
 
 #: master_preset.xml:10637(item:name|group:For_the_body|preset:Jewellery)
 msgid "Jewellery"
@@ -8104,7 +8104,7 @@ msgstr "自然"
 #: master_preset.xml:5289(combo:display_values|group:Tourism|preset:Information_Board|key:board_type)
 #: master_preset.xml:5990(multiselect:display_values|group:Culture|preset:Museum|key:museum)
 msgid "Nature"
-msgstr ""
+msgstr "自然"
 
 #: master_preset.xml:11657(item:name|group:Nature|preset:Nature_Reserve)
 msgid "Nature Reserve"
@@ -9129,11 +9129,11 @@ msgstr ""
 
 #: master_preset.xml:12964(item:name|group:Crafts|preset:Painter)
 msgid "Painter"
-msgstr ""
+msgstr "塗装業"
 
 #: master_preset.xml:6129(combo:display_values|group:Culture|preset:Artwork|key:artwork_type)
 msgid "Painting"
-msgstr ""
+msgstr "ペイント"
 
 #: master_preset.xml:9767(combo:display_values|group:Historic_Places_&_Objects|preset:Castle|key:castle_type)
 msgid "Palace"
@@ -9694,7 +9694,7 @@ msgstr ""
 #: master_preset.xml:1265(combo:display_values|key:roof:material)
 #: master_preset.xml:5289(combo:display_values|group:Tourism|preset:Information_Board|key:board_type)
 msgid "Plants"
-msgstr ""
+msgstr "植物"
 
 #: master_preset.xml:798(list_entry:short_description|value:deciduous)
 msgid "Plants that are leafless for a certain period during the year."
@@ -9718,7 +9718,7 @@ msgstr ""
 
 #: master_preset.xml:12985(item:name|group:Crafts|preset:Plasterer)
 msgid "Plasterer"
-msgstr ""
+msgstr "左官"
 
 #: master_preset.xml:1462(check:text|key:recycling:plastic)
 #: master_preset.xml:1475(list_entry:short_description|value:plastic)
@@ -9759,7 +9759,7 @@ msgstr ""
 
 #: master_preset.xml:12992(item:name|group:Crafts|preset:Plumber)
 msgid "Plumber"
-msgstr ""
+msgstr "配管工"
 
 #: master_preset.xml:10767(combo:display_values|group:Other|preset:Trade_supplies|key:trade)
 msgid "Plumbing"
@@ -10826,7 +10826,7 @@ msgstr ""
 
 #: master_preset.xml:13006(item:name|group:Crafts|preset:Rigger)
 msgid "Rigger"
-msgstr ""
+msgstr "艤装者"
 
 #: master_preset.xml:192(combo:display_values|key:shoulder)
 #: master_preset.xml:2008(list_entry:short_description|group:Lane_attributes|preset:Single_direction_roads|value:right)
@@ -10964,7 +10964,7 @@ msgstr ""
 
 #: master_preset.xml:13013(item:name|group:Crafts|preset:Roofer)
 msgid "Roofer"
-msgstr ""
+msgstr "屋根ふき職人"
 
 #: master_preset.xml:8484(item:name|group:Indoor_elements|preset:Room)
 msgid "Room"
@@ -11140,7 +11140,7 @@ msgstr ""
 
 #: master_preset.xml:13020(item:name|group:Crafts|preset:Saddler)
 msgid "Saddler"
-msgstr ""
+msgstr "馬具製造人"
 
 #: master_preset.xml:5407(combo:display_values|group:Leisure|preset:Zoo|key:zoo)
 msgid "Safari park"
@@ -11160,7 +11160,7 @@ msgstr ""
 
 #: master_preset.xml:13027(item:name|group:Crafts|preset:Sailmaker)
 msgid "Sailmaker"
-msgstr ""
+msgstr "製帆職人"
 
 #: master_preset.xml:329(list_entry:short_description|value:sales_area)
 msgid "Sales area"
@@ -11251,7 +11251,7 @@ msgstr ""
 
 #: master_preset.xml:13034(item:name|group:Crafts|preset:Sawmill)
 msgid "Sawmill"
-msgstr ""
+msgstr "製材"
 
 #: master_preset.xml:7736(combo:text|group:Sport|preset:Climbing_route|key:climbing:grade:saxon)
 msgid "Saxon grading"
@@ -11619,7 +11619,7 @@ msgstr "（日本の）城"
 
 #: master_preset.xml:13181(item:name|group:Crafts|preset:Shoemaker)
 msgid "Shoemaker"
-msgstr ""
+msgstr "製靴"
 
 #: master_preset.xml:1466(check:text|key:recycling:shoes)
 msgid "Shoes"
@@ -12242,7 +12242,7 @@ msgstr ""
 
 #: master_preset.xml:13069(item:name|group:Crafts|preset:Stonemason)
 msgid "Stonemason"
-msgstr ""
+msgstr "石工"
 
 #: master_preset.xml:2501(item:name|group:Waypoints|preset:Stop)
 msgid "Stop"
@@ -12607,7 +12607,7 @@ msgstr ""
 #: master_preset.xml:10240(item:name|group:Clothes|preset:Tailor)
 #: master_preset.xml:13090(item:name|group:Crafts|preset:Tailor)
 msgid "Tailor"
-msgstr ""
+msgstr "仕立屋"
 
 #: master_preset.xml:1338(multiselect:display_values|key:language)
 msgid "Tajik"
@@ -12942,7 +12942,7 @@ msgstr "トラ"
 
 #: master_preset.xml:13097(item:name|group:Crafts|preset:Tiler)
 msgid "Tiler"
-msgstr ""
+msgstr "タイル職人"
 
 #: master_preset.xml:10457(item:name|group:Home_furnishing_and_decoration|preset:Tiles)
 #: master_preset.xml:10767(combo:display_values|group:Other|preset:Trade_supplies|key:trade)
@@ -12991,7 +12991,7 @@ msgstr ""
 
 #: master_preset.xml:13104(item:name|group:Crafts|preset:Tinsmith)
 msgid "Tinsmith"
-msgstr ""
+msgstr "すず細工職人"
 
 #: master_preset.xml:4222(item:name|group:Car|preset:Tires)
 msgid "Tires"
@@ -13681,7 +13681,7 @@ msgstr ""
 
 #: master_preset.xml:13118(item:name|group:Crafts|preset:Upholsterer)
 msgid "Upholsterer"
-msgstr ""
+msgstr "椅子張り職人"
 
 #: master_preset.xml:1315(list_entry:short_description|value:3)
 msgid "Upper secondary (3)"
@@ -14028,7 +14028,7 @@ msgstr ""
 
 #: master_preset.xml:13125(item:name|group:Crafts|preset:Watchmaker)
 msgid "Watchmaker"
-msgstr ""
+msgstr "時計製造業"
 
 #: master_preset.xml:8521(combo:display_values|group:Man_Made|preset:Tower|key:tower:type)
 msgid "Watchtower"
@@ -14339,7 +14339,7 @@ msgstr "避難小屋"
 #: master_preset.xml:7348(multiselect:display_values|group:Facilities|preset:Animal_shelter|key:animal_shelter)
 #: master_preset.xml:7366(multiselect:display_values|group:Facilities|preset:Animal_boarding|key:animal_boarding)
 msgid "Wildlife"
-msgstr ""
+msgstr "野生動物"
 
 #: master_preset.xml:5407(combo:display_values|group:Leisure|preset:Zoo|key:zoo)
 msgid "Wildlife park"
@@ -14387,7 +14387,7 @@ msgstr "ワイン"
 
 #: master_preset.xml:13188(item:name|group:Crafts|preset:Winery)
 msgid "Winery"
-msgstr ""
+msgstr "ワイナリー"
 
 #: master_preset.xml:557(multiselect:display_values|key:cuisine)
 msgid "Wings"
@@ -19887,12 +19887,12 @@ msgstr ""
 #: master_preset.xml:6974(list_entry:display_value|group:Clubs|preset:Club|value:art)
 msgctxt "leisure"
 msgid "Art"
-msgstr ""
+msgstr "アート"
 
 #: master_preset.xml:6975(list_entry:display_value|group:Clubs|preset:Club|value:astronomy)
 msgctxt "leisure"
 msgid "Astronomy"
-msgstr ""
+msgstr "天文学"
 
 #: master_preset.xml:5546(combo:text|group:Leisure|preset:Rides|key:attraction)
 msgctxt "leisure"
@@ -20166,7 +20166,7 @@ msgstr ""
 #: master_preset.xml:6999(list_entry:display_value|group:Clubs|preset:Club|value:nature)
 msgctxt "leisure"
 msgid "Nature"
-msgstr ""
+msgstr "自然"
 
 #: master_preset.xml:7000(list_entry:display_value|group:Clubs|preset:Club|value:nudism)
 msgctxt "leisure"

@@ -1,6 +1,6 @@
 # 
 # Translators:
-# Antonin Curtit, 2020
+# Antonin Del Fabbro, 2020
 # Jérôme C, 2018-2019
 # Julien Lepiller <transifex@lepiller.eu>, 2018-2019
 # Lucas Lechat <lucaslechat@outlook.com>, 2022
@@ -5120,7 +5120,7 @@ msgstr "Géographie"
 
 #: master_preset.xml:5289(combo:display_values|group:Tourism|preset:Information_Board|key:board_type)
 msgid "Geology"
-msgstr ""
+msgstr "Géologie"
 
 #: master_preset.xml:1338(multiselect:display_values|key:language)
 #: master_preset.xml:557(multiselect:display_values|key:cuisine)
@@ -6501,7 +6501,7 @@ msgstr "Latin"
 #: master_preset.xml:9559(combo:display_values|preset:Power_Portal|key:structure)
 #: master_preset.xml:9571(combo:display_values|preset:Power_Tower|key:structure)
 msgid "Lattice"
-msgstr ""
+msgstr "Treillis"
 
 #: master_preset.xml:1338(multiselect:display_values|key:language)
 msgid "Latvian"
@@ -9589,7 +9589,7 @@ msgstr "Marqueur de pipeline"
 
 #: master_preset.xml:8779(item:name|group:Man_Made|preset:Pipeline_Substation)
 msgid "Pipeline Substation"
-msgstr ""
+msgstr "Sous-station pour canalisations"
 
 #: master_preset.xml:8797(item:name|group:Man_Made|preset:Pipeline_Valve)
 msgid "Pipeline Valve"
@@ -13346,7 +13346,7 @@ msgstr "Tsonga"
 #: master_preset.xml:9559(combo:display_values|preset:Power_Portal|key:structure)
 #: master_preset.xml:9571(combo:display_values|preset:Power_Tower|key:structure)
 msgid "Tubular"
-msgstr ""
+msgstr "Tubulaire"
 
 #: master_preset.xml:9818(combo:display_values|group:Historic_Places_&_Objects|preset:Archaeological_Site|key:site_type)
 #: master_preset.xml:9832(combo:display_values|group:Historic_Places_&_Objects|preset:Tomb|key:tomb)
@@ -19482,7 +19482,7 @@ msgstr ""
 #: master_preset.xml:8785(combo:display_values|group:Man_Made|preset:Pipeline_Substation|key:substation)
 msgctxt "pipeline"
 msgid "Compression"
-msgstr ""
+msgstr "Compression"
 
 #: master_preset.xml:8785(combo:display_values|group:Man_Made|preset:Pipeline_Substation|key:substation)
 msgctxt "pipeline"

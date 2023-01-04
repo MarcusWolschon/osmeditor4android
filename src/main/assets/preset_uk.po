@@ -937,7 +937,7 @@ msgstr ""
 #: master_preset.xml:5289(combo:display_values|group:Tourism|preset:Information_Board|key:board_type)
 #: master_preset.xml:5990(multiselect:display_values|group:Culture|preset:Museum|key:museum)
 msgid "Art"
-msgstr ""
+msgstr "Опис витвору мистецтва"
 
 #: master_preset.xml:5997(item:name|group:Culture|preset:Art_gallery)
 msgid "Art gallery"
@@ -1011,7 +1011,7 @@ msgstr ""
 
 #: master_preset.xml:5289(combo:display_values|group:Tourism|preset:Information_Board|key:board_type)
 msgid "Astronomy"
-msgstr ""
+msgstr "Астрономічні дані"
 
 #: master_preset.xml:5229(item:name|group:Tourism|preset:Attraction)
 msgid "Attraction"
@@ -1403,7 +1403,7 @@ msgstr ""
 
 #: master_preset.xml:12769(item:name|group:Crafts|preset:Beekeeper)
 msgid "Beekeeper"
-msgstr ""
+msgstr "Пасіка"
 
 #: master_preset.xml:11127(check:text|preset:Payment_Methods|key:payment:ep_beep)
 msgid "Beep"
@@ -1622,7 +1622,7 @@ msgstr ""
 
 #: master_preset.xml:12776(item:name|group:Crafts|preset:Blacksmith)
 msgid "Blacksmith"
-msgstr ""
+msgstr "Коваль"
 
 #: master_preset.xml:7244(item:name|group:Facilities|preset:Bleachers)
 msgid "Bleachers"
@@ -1740,7 +1740,7 @@ msgstr ""
 
 #: master_preset.xml:12790(item:name|group:Crafts|preset:Bookbinder)
 msgid "Bookbinder"
-msgstr ""
+msgstr "Палітурник"
 
 #: master_preset.xml:10925(item:name|group:Other|preset:Bookmaker)
 msgid "Bookmaker"
@@ -1870,7 +1870,7 @@ msgstr "Хвилеріз"
 
 #: master_preset.xml:12797(item:name|group:Crafts|preset:Brewery)
 msgid "Brewery"
-msgstr ""
+msgstr "Пивовар"
 
 #: master_preset.xml:2931(list_entry:display_value|group:Barriers|preset:Wall|value:brick)
 msgid "Brick"
@@ -1952,7 +1952,7 @@ msgstr "Буферний упор"
 
 #: master_preset.xml:12804(item:name|group:Crafts|preset:Builder)
 msgid "Builder"
-msgstr ""
+msgstr "Будівельник"
 
 #: master_preset.xml:12217(item:name|group:Relations|preset:Building)
 #: master_preset.xml:4583(check:text|group:Public_Transport|preset:Station|key:building)
@@ -2363,7 +2363,7 @@ msgstr ""
 
 #: master_preset.xml:12818(item:name|group:Crafts|preset:Carpenter)
 msgid "Carpenter"
-msgstr ""
+msgstr "Тесляр"
 
 #: master_preset.xml:10450(item:name|group:Home_furnishing_and_decoration|preset:Carpet)
 msgid "Carpet"
@@ -2429,7 +2429,7 @@ msgstr ""
 
 #: master_preset.xml:12832(item:name|group:Crafts|preset:Caterer)
 msgid "Caterer"
-msgstr ""
+msgstr "Організація банкетів"
 
 #: master_preset.xml:6154(combo:display_values|group:Place_of_Worship|preset:Church|key:building)
 msgid "Cathedral"
@@ -2451,7 +2451,7 @@ msgstr ""
 
 #: master_preset.xml:11535(item:name|group:Geography|preset:Cave_Entrance)
 msgid "Cave Entrance"
-msgstr ""
+msgstr "Вхід до печери"
 
 #: master_preset.xml:11903(item:name|group:Land_use|preset:Cemetery)
 msgid "Cemetery"
@@ -2521,7 +2521,7 @@ msgstr ""
 #: master_preset.xml:4150(item:name|group:Car|preset:Charging_Station)
 #: master_preset.xml:4168(item:name|group:Car|preset:Charging_Station)
 msgid "Charging Station"
-msgstr ""
+msgstr "Зарядна станція"
 
 #: master_preset.xml:10839(item:name|group:Other|preset:Charity)
 #: master_preset.xml:13340(item:name|group:Offices|preset:Charity)
@@ -2760,7 +2760,7 @@ msgstr ""
 
 #: master_preset.xml:12846(item:name|group:Crafts|preset:Clockmaker)
 msgid "Clockmaker"
-msgstr ""
+msgstr "Годинникар"
 
 #: master_preset.xml:10152(group:name|group:Clothes)
 #: master_preset.xml:10153(item:name|group:Clothes|preset:Clothes)
@@ -2859,7 +2859,7 @@ msgstr ""
 
 #: master_preset.xml:2378(item:name|group:Ways|preset:Combined_Foot-_and_Cycleway)
 msgid "Combined Foot- and Cycleway"
-msgstr ""
+msgstr "Комбінована пішохідна та вело-доріжка"
 
 #: master_preset.xml:9279(combo:display_values|group:Power_Generator|preset:Gas_Power_Generator|key:generator:type)
 msgid "Combined cycle"
@@ -3400,11 +3400,11 @@ msgstr ""
 
 #: master_preset.xml:2349(item:name|group:Ways|preset:Dedicated_Cycleway)
 msgid "Dedicated Cycleway"
-msgstr ""
+msgstr "Спеціальна велосипедна доріжка"
 
 #: master_preset.xml:2392(item:name|group:Ways|preset:Dedicated_Footway)
 msgid "Dedicated Footway"
-msgstr ""
+msgstr "Виділена пішохідна доріжка"
 
 #: master_preset.xml:336(list_entry:short_description|value:designated)
 #: master_preset.xml:348(list_entry:short_description|value:designated)
@@ -3886,7 +3886,7 @@ msgstr ""
 
 #: master_preset.xml:13202(item:name|group:Crafts|preset:Dressmaker)
 msgid "Dressmaker"
-msgstr ""
+msgstr "Кравець"
 
 #: master_preset.xml:2467(check:text|group:Waypoints|preset:Rest_Area|key:drinking_water)
 #: master_preset.xml:3370(check:text|group:Water|preset:Spring|key:drinking_water)
@@ -4049,7 +4049,7 @@ msgstr ""
 
 #: master_preset.xml:12860(item:name|group:Crafts|preset:Electrician)
 msgid "Electrician"
-msgstr ""
+msgstr "Електрик"
 
 #: master_preset.xml:11124(check:text|preset:Payment_Methods|key:payment:electronic_purses)
 msgid "Electronic purses"
@@ -4153,7 +4153,7 @@ msgstr ""
 
 #: master_preset.xml:6650(item:name|group:Emergency|preset:Emergency_ward_entrance)
 msgid "Emergency ward entrance"
-msgstr ""
+msgstr "Вхід в приймальне відділення"
 
 #: master_preset.xml:13273(item:name|group:Offices|preset:Employment_agency)
 msgid "Employment agency"
@@ -4209,7 +4209,7 @@ msgstr ""
 #: master_preset.xml:8430(item:name|preset:Entrance)
 #: master_preset.xml:8494(combo:display_values|group:Indoor_elements|preset:Room|key:room)
 msgid "Entrance"
-msgstr ""
+msgstr "Вхід"
 
 #: master_preset.xml:2990(item:name|group:Barriers|preset:Entrance_(Barrier_Opening))
 msgid "Entrance (Barrier Opening)"
@@ -4881,7 +4881,7 @@ msgstr ""
 #: master_preset.xml:11055(list_entry:short_description|preset:Vending_Machine|value:fuel)
 #: master_preset.xml:4104(item:name|group:Car|preset:Fuel)
 msgid "Fuel"
-msgstr ""
+msgstr "Паливо"
 
 #: master_preset.xml:4142(checkgroup:text|group:Car|preset:Fuel)
 msgid "Fuel cards"
@@ -5000,7 +5000,7 @@ msgstr ""
 
 #: master_preset.xml:13160(item:name|group:Crafts|preset:Gardener)
 msgid "Gardener"
-msgstr ""
+msgstr "Садівник"
 
 #: master_preset.xml:1040(combo:display_values|key:substance)
 #: master_preset.xml:10803(item:name|group:Other|preset:Gas)
@@ -5114,7 +5114,7 @@ msgstr ""
 
 #: master_preset.xml:5289(combo:display_values|group:Tourism|preset:Information_Board|key:board_type)
 msgid "Geology"
-msgstr ""
+msgstr "Геологічні дані"
 
 #: master_preset.xml:1338(multiselect:display_values|key:language)
 #: master_preset.xml:557(multiselect:display_values|key:cuisine)
@@ -5156,7 +5156,7 @@ msgstr "Girocard"
 
 #: master_preset.xml:2507(item:name|group:Waypoints|preset:Give_Way)
 msgid "Give Way"
-msgstr ""
+msgstr "Поступися дорогою"
 
 #: master_preset.xml:11468(item:name|group:Geography|preset:Glacier)
 msgid "Glacier"
@@ -5179,7 +5179,7 @@ msgstr ""
 
 #: master_preset.xml:12881(item:name|group:Crafts|preset:Glaziery)
 msgid "Glaziery"
-msgstr ""
+msgstr "Скляр"
 
 #: master_preset.xml:1071(combo:display_values|key:aerodrome:type)
 msgid "Gliding"
@@ -5449,7 +5449,7 @@ msgstr ""
 
 #: master_preset.xml:12888(item:name|group:Crafts|preset:Handicraft)
 msgid "Handicraft"
-msgstr ""
+msgstr "Ручна робота"
 
 #: master_preset.xml:2427(checkgroup:text|group:Ways|preset:Steps)
 #: master_preset.xml:2428(check:text|group:Ways|preset:Steps|key:handrail)
@@ -5624,7 +5624,7 @@ msgstr ""
 
 #: master_preset.xml:1587(group:name|group:Highways)
 msgid "Highways"
-msgstr ""
+msgstr "Шляхи"
 
 #: master_preset.xml:12640(list_entry:display_value|preset:Generic_route|value:hiking)
 #: master_preset.xml:5271(check:text|group:Tourism|preset:Map|key:hiking)
@@ -6062,7 +6062,7 @@ msgstr ""
 
 #: master_preset.xml:9636(item:name|preset:Insulator)
 msgid "Insulator"
-msgstr ""
+msgstr "Утеплювач"
 
 #: master_preset.xml:13298(item:name|group:Offices|preset:Insurance)
 msgid "Insurance"
@@ -6190,7 +6190,7 @@ msgstr ""
 
 #: master_preset.xml:13209(item:name|group:Crafts|preset:Jeweller)
 msgid "Jeweller"
-msgstr ""
+msgstr "Ювелір"
 
 #: master_preset.xml:10637(item:name|group:For_the_body|preset:Jewellery)
 msgid "Jewellery"
@@ -6806,7 +6806,7 @@ msgstr "Зачиняється"
 #: master_preset.xml:10824(item:name|group:Other|preset:Locksmith)
 #: master_preset.xml:12936(item:name|group:Crafts|preset:Locksmith)
 msgid "Locksmith"
-msgstr ""
+msgstr "Слюсар"
 
 #: master_preset.xml:1334(combo:display_values|key:playground:theme)
 msgid "Locomotive"
@@ -8107,7 +8107,7 @@ msgstr "Природа"
 #: master_preset.xml:5289(combo:display_values|group:Tourism|preset:Information_Board|key:board_type)
 #: master_preset.xml:5990(multiselect:display_values|group:Culture|preset:Museum|key:museum)
 msgid "Nature"
-msgstr ""
+msgstr "Інформація про природу"
 
 #: master_preset.xml:11657(item:name|group:Nature|preset:Nature_Reserve)
 msgid "Nature Reserve"
@@ -8180,7 +8180,7 @@ msgstr ""
 
 #: master_preset.xml:5913(item:name|preset:Night_Club)
 msgid "Night Club"
-msgstr ""
+msgstr "Нічний клуб"
 
 #: master_preset.xml:7646(item:name|group:Sport|preset:Nine-pin_Bowling)
 msgid "Nine-pin Bowling"
@@ -9132,11 +9132,11 @@ msgstr ""
 
 #: master_preset.xml:12964(item:name|group:Crafts|preset:Painter)
 msgid "Painter"
-msgstr ""
+msgstr "Маляр"
 
 #: master_preset.xml:6129(combo:display_values|group:Culture|preset:Artwork|key:artwork_type)
 msgid "Painting"
-msgstr ""
+msgstr "Картина"
 
 #: master_preset.xml:9767(combo:display_values|group:Historic_Places_&_Objects|preset:Castle|key:castle_type)
 msgid "Palace"
@@ -9210,7 +9210,7 @@ msgstr ""
 #: master_preset.xml:4050(item:name|group:Car|preset:Parking)
 #: master_preset.xml:9000(combo:display_values|group:Man_Made|preset:Surveillance|key:surveillance:zone)
 msgid "Parking"
-msgstr ""
+msgstr "Паркінг"
 
 #: master_preset.xml:1883(item:name|group:Streets|preset:Parking_Aisle)
 msgid "Parking Aisle"
@@ -9218,11 +9218,11 @@ msgstr "Проїзд по стоянці"
 
 #: master_preset.xml:4081(item:name|group:Car|preset:Parking_Entrance/Exit)
 msgid "Parking Entrance/Exit"
-msgstr ""
+msgstr "Вхід/виїзд з паркінгу"
 
 #: master_preset.xml:4069(item:name|group:Car|preset:Parking_Space)
 msgid "Parking Space"
-msgstr ""
+msgstr "Паркувальне місце"
 
 #: master_preset.xml:2183(combo:text|preset:Lane_parking_both_sides|key:parking:condition:both:conditional)
 msgid "Parking condition both sides @"
@@ -9258,7 +9258,7 @@ msgstr "Часткова достпуність"
 #: master_preset.xml:4234(multiselect:display_values|group:Car|preset:Caravan_Dealer|key:service)
 #: master_preset.xml:4314(multiselect:display_values|group:Motorcycle|preset:Motorcycle_repair|key:service)
 msgid "Parts"
-msgstr ""
+msgstr "Запчастини"
 
 #: master_preset.xml:10911(item:name|group:Other|preset:Party_supplies)
 msgid "Party supplies"
@@ -9352,7 +9352,7 @@ msgstr ""
 
 #: master_preset.xml:1842(item:name|group:Streets|preset:Pedestrian)
 msgid "Pedestrian"
-msgstr ""
+msgstr "Пішохідний шлях"
 
 #: master_preset.xml:2524(item:name|group:Waypoints|preset:Pedestrian_Crossing)
 msgid "Pedestrian Crossing"
@@ -9512,7 +9512,7 @@ msgstr ""
 
 #: master_preset.xml:13167(item:name|group:Crafts|preset:Photographer)
 msgid "Photographer"
-msgstr ""
+msgstr "Фотограф"
 
 #: master_preset.xml:12978(item:name|group:Crafts|preset:Photographic_laboratory)
 msgid "Photographic laboratory"
@@ -9697,7 +9697,7 @@ msgstr ""
 #: master_preset.xml:1265(combo:display_values|key:roof:material)
 #: master_preset.xml:5289(combo:display_values|group:Tourism|preset:Information_Board|key:board_type)
 msgid "Plants"
-msgstr ""
+msgstr "Рослини"
 
 #: master_preset.xml:798(list_entry:short_description|value:deciduous)
 msgid "Plants that are leafless for a certain period during the year."
@@ -9721,7 +9721,7 @@ msgstr ""
 
 #: master_preset.xml:12985(item:name|group:Crafts|preset:Plasterer)
 msgid "Plasterer"
-msgstr ""
+msgstr "Штукатур"
 
 #: master_preset.xml:1462(check:text|key:recycling:plastic)
 #: master_preset.xml:1475(list_entry:short_description|value:plastic)
@@ -9741,7 +9741,7 @@ msgstr "Пластикове пакування"
 #: master_preset.xml:4526(role:text|group:Public_Transport|preset:Stop_Area|key:platform)
 #: master_preset.xml:4566(item:name|group:Public_Transport|preset:Platform)
 msgid "Platform"
-msgstr ""
+msgstr "Платформа"
 
 #: master_preset.xml:3988(combo:display_values|group:Aerialway|preset:Drag_Lift|key:aerialway)
 msgid "Platter"
@@ -9762,7 +9762,7 @@ msgstr ""
 
 #: master_preset.xml:12992(item:name|group:Crafts|preset:Plumber)
 msgid "Plumber"
-msgstr ""
+msgstr "Водопровідник"
 
 #: master_preset.xml:10767(combo:display_values|group:Other|preset:Trade_supplies|key:trade)
 msgid "Plumbing"
@@ -10187,7 +10187,7 @@ msgstr ""
 
 #: master_preset.xml:4615(group:name|group:Public_Transport_(Legacy))
 msgid "Public Transport (Legacy)"
-msgstr ""
+msgstr "Громадський транспорт (Legacy)"
 
 #: master_preset.xml:4474(item:name|group:Public_Transport|preset:Public_Transport_Route_(Aerialway))
 msgid "Public Transport Route (Aerialway)"
@@ -10228,7 +10228,7 @@ msgstr ""
 
 #: master_preset.xml:4616(item:name|group:Public_Transport_(Legacy)|preset:Public_transport_route_(Legacy))
 msgid "Public transport route (Legacy)"
-msgstr ""
+msgstr "Маршрут громадського транспорту (Legacy)"
 
 #: master_preset.xml:4661(item:name|group:Public_Transport_(Legacy)|preset:Public_transport_route_(Legacy)_(Aerialway))
 msgid "Public transport route (Legacy) (Aerialway)"
@@ -10363,7 +10363,7 @@ msgstr "Залізниця"
 
 #: master_preset.xml:4692(item:name|group:Public_Transport_(Legacy)|preset:Railway_Halt)
 msgid "Railway Halt"
-msgstr ""
+msgstr "Залізнична зупинка"
 
 #: master_preset.xml:11958(item:name|group:Land_use|preset:Railway_Land)
 msgid "Railway Land"
@@ -10371,7 +10371,7 @@ msgstr ""
 
 #: master_preset.xml:4706(item:name|group:Public_Transport_(Legacy)|preset:Railway_Platform)
 msgid "Railway Platform"
-msgstr ""
+msgstr "Залізнична платформа"
 
 #: master_preset.xml:12560(item:name|group:Routes|preset:Railway_Route)
 msgid "Railway Route"
@@ -10699,14 +10699,14 @@ msgstr ""
 #: master_preset.xml:4317(item:name|group:Motorcycle|preset:Rental)
 #: master_preset.xml:4369(item:name|group:Bicycle|preset:Rental)
 msgid "Rental"
-msgstr ""
+msgstr "Оренда"
 
 #: master_preset.xml:4205(item:name|group:Car|preset:Repair)
 #: master_preset.xml:4212(multiselect:display_values|group:Car|preset:Repair|key:service)
 #: master_preset.xml:4234(multiselect:display_values|group:Car|preset:Caravan_Dealer|key:service)
 #: master_preset.xml:4314(multiselect:display_values|group:Motorcycle|preset:Motorcycle_repair|key:service)
 msgid "Repair"
-msgstr ""
+msgstr "Ремонт"
 
 #: master_preset.xml:1415(check:text|key:scuba_diving:repair)
 msgid "Repairs"
@@ -10829,7 +10829,7 @@ msgstr ""
 
 #: master_preset.xml:13006(item:name|group:Crafts|preset:Rigger)
 msgid "Rigger"
-msgstr ""
+msgstr "Такелажник"
 
 #: master_preset.xml:192(combo:display_values|key:shoulder)
 #: master_preset.xml:2008(list_entry:short_description|group:Lane_attributes|preset:Single_direction_roads|value:right)
@@ -10967,7 +10967,7 @@ msgstr "Тип даху"
 
 #: master_preset.xml:13013(item:name|group:Crafts|preset:Roofer)
 msgid "Roofer"
-msgstr ""
+msgstr "Покрівельник"
 
 #: master_preset.xml:8484(item:name|group:Indoor_elements|preset:Room)
 msgid "Room"
@@ -11143,7 +11143,7 @@ msgstr ""
 
 #: master_preset.xml:13020(item:name|group:Crafts|preset:Saddler)
 msgid "Saddler"
-msgstr ""
+msgstr "Сідельний майстер"
 
 #: master_preset.xml:5407(combo:display_values|group:Leisure|preset:Zoo|key:zoo)
 msgid "Safari park"
@@ -11163,7 +11163,7 @@ msgstr ""
 
 #: master_preset.xml:13027(item:name|group:Crafts|preset:Sailmaker)
 msgid "Sailmaker"
-msgstr ""
+msgstr "Вітрильний майстер"
 
 #: master_preset.xml:329(list_entry:short_description|value:sales_area)
 msgid "Sales area"
@@ -11254,7 +11254,7 @@ msgstr ""
 
 #: master_preset.xml:13034(item:name|group:Crafts|preset:Sawmill)
 msgid "Sawmill"
-msgstr ""
+msgstr "Лісопилка"
 
 #: master_preset.xml:7736(combo:text|group:Sport|preset:Climbing_route|key:climbing:grade:saxon)
 msgid "Saxon grading"
@@ -11423,7 +11423,7 @@ msgstr ""
 
 #: master_preset.xml:2363(item:name|group:Ways|preset:Segregated_Foot-_and_Cycleway)
 msgid "Segregated Foot- and Cycleway"
-msgstr ""
+msgstr "Окремі пішохідна та вело-доріжка"
 
 #: master_preset.xml:8972(check:text|group:Man_Made|preset:Monitoring_Station|key:monitoring:seismic_activity)
 msgid "Seismic Activity"
@@ -11546,7 +11546,7 @@ msgstr ""
 
 #: master_preset.xml:4256(item:name|group:Car|preset:Sharing)
 msgid "Sharing"
-msgstr ""
+msgstr "Обмін"
 
 #: master_preset.xml:5493(list_entry:display_value|group:Leisure|preset:Animals|value:shark)
 msgid "Shark"
@@ -11622,7 +11622,7 @@ msgstr "Японський замок"
 
 #: master_preset.xml:13181(item:name|group:Crafts|preset:Shoemaker)
 msgid "Shoemaker"
-msgstr ""
+msgstr "Чоботар"
 
 #: master_preset.xml:1466(check:text|key:recycling:shoes)
 msgid "Shoes"
@@ -12245,7 +12245,7 @@ msgstr ""
 
 #: master_preset.xml:13069(item:name|group:Crafts|preset:Stonemason)
 msgid "Stonemason"
-msgstr ""
+msgstr "Каменяр"
 
 #: master_preset.xml:2501(item:name|group:Waypoints|preset:Stop)
 msgid "Stop"
@@ -12253,12 +12253,12 @@ msgstr ""
 
 #: master_preset.xml:4511(item:name|group:Public_Transport|preset:Stop_Area)
 msgid "Stop Area"
-msgstr ""
+msgstr "Зона зупинки"
 
 #: master_preset.xml:4525(role:text|group:Public_Transport|preset:Stop_Area|key:stop)
 #: master_preset.xml:4532(item:name|group:Public_Transport|preset:Stop_Position)
 msgid "Stop Position"
-msgstr ""
+msgstr "Місце зупинки"
 
 #: master_preset.xml:2630(item:name|preset:Stop_sign)
 msgid "Stop sign"
@@ -12414,7 +12414,7 @@ msgstr "Метрополітен"
 #: master_preset.xml:4527(role:text|group:Public_Transport|preset:Stop_Area|key:)
 #: master_preset.xml:4593(item:name|group:Public_Transport|preset:Subway_Entrance)
 msgid "Subway Entrance"
-msgstr ""
+msgstr "Вхід в метро"
 
 #: master_preset.xml:6775(item:name|group:Emergency|preset:Suction_point)
 msgid "Suction point"
@@ -12610,7 +12610,7 @@ msgstr ""
 #: master_preset.xml:10240(item:name|group:Clothes|preset:Tailor)
 #: master_preset.xml:13090(item:name|group:Crafts|preset:Tailor)
 msgid "Tailor"
-msgstr ""
+msgstr "Кравець"
 
 #: master_preset.xml:1338(multiselect:display_values|key:language)
 msgid "Tajik"
@@ -12829,7 +12829,7 @@ msgstr ""
 
 #: master_preset.xml:11538(label:text|group:Geography|preset:Cave_Entrance)
 msgid "The entrance to a cave."
-msgstr ""
+msgstr "Вхід до печери."
 
 #: master_preset.xml:3055(label:text|group:Barriers|preset:Kissing_Gate)
 msgid "The tag `foot=yes` is implied and does not need to be set."
@@ -12907,7 +12907,7 @@ msgstr ""
 
 #: master_preset.xml:4603(item:name|group:Public_Transport|preset:Ticket_Machine)
 msgid "Ticket Machine"
-msgstr ""
+msgstr "Квитковий автомат"
 
 #: master_preset.xml:11068(list_entry:short_description|preset:Vending_Machine|value:public_transport_tickets)
 msgid "Tickets (public transport)"
@@ -12945,7 +12945,7 @@ msgstr ""
 
 #: master_preset.xml:13097(item:name|group:Crafts|preset:Tiler)
 msgid "Tiler"
-msgstr ""
+msgstr "Плиточник"
 
 #: master_preset.xml:10457(item:name|group:Home_furnishing_and_decoration|preset:Tiles)
 #: master_preset.xml:10767(combo:display_values|group:Other|preset:Trade_supplies|key:trade)
@@ -12994,11 +12994,11 @@ msgstr ""
 
 #: master_preset.xml:13104(item:name|group:Crafts|preset:Tinsmith)
 msgid "Tinsmith"
-msgstr ""
+msgstr "Лудильник"
 
 #: master_preset.xml:4222(item:name|group:Car|preset:Tires)
 msgid "Tires"
-msgstr ""
+msgstr "Шини"
 
 #: master_preset.xml:11275(text:text|group:Boundaries|preset:Protected_Area|key:protection_title)
 msgid "Title or type of protection"
@@ -13153,7 +13153,7 @@ msgstr ""
 #: master_preset.xml:2539(group:name|group:Traffic_Calming)
 #: master_preset.xml:2540(item:name|group:Traffic_Calming|preset:Traffic_Calming)
 msgid "Traffic Calming"
-msgstr ""
+msgstr "Заспокоєння руху"
 
 #: master_preset.xml:2717(item:name|preset:Traffic_Hazard)
 msgid "Traffic Hazard"
@@ -13173,7 +13173,7 @@ msgstr ""
 
 #: master_preset.xml:2475(item:name|group:Waypoints|preset:Traffic_Signal)
 msgid "Traffic Signal"
-msgstr ""
+msgstr "Світлофор"
 
 #: master_preset.xml:8948(combo:display_values|group:Man_Made|preset:Street_cabinet|key:street_cabinet)
 msgid "Traffic control"
@@ -13232,7 +13232,7 @@ msgstr "Трамвай"
 
 #: master_preset.xml:4699(item:name|group:Public_Transport_(Legacy)|preset:Tram_Stop)
 msgid "Tram Stop"
-msgstr ""
+msgstr "Трамвайна зупинка"
 
 #: master_preset.xml:2480(combo:display_values|group:Waypoints|preset:Traffic_Signal|key:traffic_signals)
 msgid "Tram priority"
@@ -13397,7 +13397,7 @@ msgstr ""
 
 #: master_preset.xml:2605(item:name|preset:Turning_Circle)
 msgid "Turning Circle"
-msgstr ""
+msgstr "Поворотне коло"
 
 #: master_preset.xml:2609(item:name|preset:Turning_Loop)
 msgid "Turning Loop"
@@ -13684,7 +13684,7 @@ msgstr "Вгору"
 
 #: master_preset.xml:13118(item:name|group:Crafts|preset:Upholsterer)
 msgid "Upholsterer"
-msgstr ""
+msgstr "Меблівник"
 
 #: master_preset.xml:1315(list_entry:short_description|value:3)
 msgid "Upper secondary (3)"
@@ -14031,7 +14031,7 @@ msgstr ""
 
 #: master_preset.xml:13125(item:name|group:Crafts|preset:Watchmaker)
 msgid "Watchmaker"
-msgstr ""
+msgstr "Годинникар"
 
 #: master_preset.xml:8521(combo:display_values|group:Man_Made|preset:Tower|key:tower:type)
 msgid "Watchtower"
@@ -14342,7 +14342,7 @@ msgstr "Лісова хатинка"
 #: master_preset.xml:7348(multiselect:display_values|group:Facilities|preset:Animal_shelter|key:animal_shelter)
 #: master_preset.xml:7366(multiselect:display_values|group:Facilities|preset:Animal_boarding|key:animal_boarding)
 msgid "Wildlife"
-msgstr ""
+msgstr "Інформація про дику природу"
 
 #: master_preset.xml:5407(combo:display_values|group:Leisure|preset:Zoo|key:zoo)
 msgid "Wildlife park"
@@ -14390,7 +14390,7 @@ msgstr ""
 
 #: master_preset.xml:13188(item:name|group:Crafts|preset:Winery)
 msgid "Winery"
-msgstr ""
+msgstr "Виноробня"
 
 #: master_preset.xml:557(multiselect:display_values|key:cuisine)
 msgid "Wings"
@@ -14587,7 +14587,7 @@ msgstr ""
 
 #: master_preset.xml:5401(item:name|group:Leisure|preset:Zoo)
 msgid "Zoo"
-msgstr ""
+msgstr "Зоопарк"
 
 #: master_preset.xml:809(combo:display_values|key:religion)
 #: master_preset.xml:818(combo:display_values|key:religion)
@@ -14697,7 +14697,7 @@ msgstr ""
 
 #: master_preset.xml:12239(role:text|group:Relations|preset:Site|key:entrance)
 msgid "entrances to the site, on the perimeter"
-msgstr ""
+msgstr "входи на ділянку, по периметру"
 
 #: master_preset.xml:12488(role:text|group:Routes|preset:Piste_Route|key:start)
 #: master_preset.xml:12509(role:text|group:Routes|preset:Ski_Route|key:start)
@@ -15792,7 +15792,7 @@ msgstr ""
 #: master_preset.xml:8420(combo:text|preset:Entrance|key:entrance)
 msgctxt "entrance"
 msgid "Entrance"
-msgstr ""
+msgstr "Вхід"
 
 #: master_preset.xml:8420(combo:display_values|preset:Entrance|key:entrance)
 msgctxt "entrance"
@@ -16400,7 +16400,7 @@ msgstr ""
 #: master_preset.xml:3269(combo:display_values|group:Access_Restrictions|preset:Other_mode_restrictions|key:bicycle)
 msgctxt "access"
 msgid "Use sidepath"
-msgstr ""
+msgstr "Використовуйте бічний шлях"
 
 #: master_preset.xml:1806(combo:text|group:Streets|preset:Bicycle_Road|key:motor_vehicle)
 msgctxt "access"
@@ -18223,12 +18223,12 @@ msgstr ""
 #: master_preset.xml:1279(combo:text|key:building:levels)
 msgctxt "building"
 msgid "Levels above ground"
-msgstr ""
+msgstr "Поверхи над землею"
 
 #: master_preset.xml:1280(combo:text|key:building:levels:underground)
 msgctxt "building"
 msgid "Levels below ground"
-msgstr ""
+msgstr "Поверхи над землею"
 
 #: master_preset.xml:1274(combo:display_values|key:building:frame:material)
 #: master_preset.xml:1275(combo:display_values|key:building:wall:material)
@@ -18338,7 +18338,7 @@ msgstr ""
 #: master_preset.xml:8302(list_entry:display_value|group:Buildings|preset:Building_construction|value:parking)
 msgctxt "building"
 msgid "Parking"
-msgstr ""
+msgstr "Паркінг"
 
 #: master_preset.xml:8185(list_entry:display_value|group:Buildings|preset:Building|value:pavilion)
 #: master_preset.xml:8303(list_entry:display_value|group:Buildings|preset:Building_construction|value:pavilion)
@@ -18469,7 +18469,7 @@ msgstr ""
 #: master_preset.xml:8311(list_entry:display_value|group:Buildings|preset:Building_construction|value:service)
 msgctxt "building"
 msgid "Service"
-msgstr "Службовий вхід"
+msgstr "Службове"
 
 #: master_preset.xml:8194(list_entry:display_value|group:Buildings|preset:Building|value:shed)
 #: master_preset.xml:8250(combo:display_values|group:Buildings|preset:Building_part|key:building:part)
@@ -18492,7 +18492,7 @@ msgstr ""
 #: master_preset.xml:8252(combo:text|group:Buildings|preset:Building_part|key:building:min_level)
 msgctxt "building"
 msgid "Skipped Levels"
-msgstr ""
+msgstr "Пропущені рівні"
 
 #: master_preset.xml:1284(combo:display_values|key:building:use)
 msgctxt "building"
@@ -18828,12 +18828,12 @@ msgstr ""
 #: master_preset.xml:1940(list_entry:display_value|group:Streets|preset:Construction|value:cycleway)
 msgctxt "Highway"
 msgid "Dedicated Cycleway"
-msgstr ""
+msgstr "Спеціальна велосипедна доріжка"
 
 #: master_preset.xml:1941(list_entry:display_value|group:Streets|preset:Construction|value:footway)
 msgctxt "Highway"
 msgid "Dedicated Footway"
-msgstr ""
+msgstr "Виділена пішохідна доріжка"
 
 #: master_preset.xml:1868(list_entry:short_description|group:Streets|preset:Service|value:drive-through)
 msgctxt "Highway"
@@ -18858,7 +18858,7 @@ msgstr ""
 #: master_preset.xml:3288(combo:display_values|preset:Street_area|key:area:highway)
 msgctxt "Highway"
 msgid "Footway"
-msgstr ""
+msgstr "Пішохідна доріжка"
 
 #: master_preset.xml:1804(combo:text|group:Streets|preset:Bicycle_Road|key:highway)
 #: master_preset.xml:1918(combo:text|group:Streets|preset:Construction|key:construction)
@@ -18989,7 +18989,7 @@ msgstr ""
 #: master_preset.xml:3288(combo:display_values|preset:Street_area|key:area:highway)
 msgctxt "Highway"
 msgid "Service"
-msgstr "Службовий вхід"
+msgstr "Службовий проїзд"
 
 #: master_preset.xml:1863(combo:text|group:Streets|preset:Service|key:service)
 msgctxt "Highway"
@@ -19680,7 +19680,7 @@ msgstr "Автоматизовано"
 #: master_preset.xml:4314(multiselect:text|group:Motorcycle|preset:Motorcycle_repair|key:service)
 msgctxt "shop=car_repair"
 msgid "Service"
-msgstr "Службовий вхід"
+msgstr "Послуги"
 
 #: master_preset.xml:4276(item:name|group:Motorcycle|preset:Parking)
 msgctxt "motorcycle"
@@ -19719,17 +19719,17 @@ msgstr ""
 #: master_preset.xml:4301(combo:text|group:Motorcycle|preset:Motorcycle_Dealer|key:parts)
 msgctxt "services"
 msgid "Parts"
-msgstr ""
+msgstr "Запчастини"
 
 #: master_preset.xml:4298(combo:text|group:Motorcycle|preset:Motorcycle_Dealer|key:rental)
 msgctxt "services"
 msgid "Rental"
-msgstr ""
+msgstr "Оренда"
 
 #: master_preset.xml:4299(combo:text|group:Motorcycle|preset:Motorcycle_Dealer|key:repair)
 msgctxt "services"
 msgid "Repair"
-msgstr ""
+msgstr "Ремонт"
 
 #: master_preset.xml:4297(combo:text|group:Motorcycle|preset:Motorcycle_Dealer|key:sale)
 msgctxt "services"
@@ -19890,12 +19890,12 @@ msgstr ""
 #: master_preset.xml:6974(list_entry:display_value|group:Clubs|preset:Club|value:art)
 msgctxt "leisure"
 msgid "Art"
-msgstr ""
+msgstr "Опис витвору мистецтва"
 
 #: master_preset.xml:6975(list_entry:display_value|group:Clubs|preset:Club|value:astronomy)
 msgctxt "leisure"
 msgid "Astronomy"
-msgstr ""
+msgstr "Астрономічні дані"
 
 #: master_preset.xml:5546(combo:text|group:Leisure|preset:Rides|key:attraction)
 msgctxt "leisure"
@@ -20169,7 +20169,7 @@ msgstr ""
 #: master_preset.xml:6999(list_entry:display_value|group:Clubs|preset:Club|value:nature)
 msgctxt "leisure"
 msgid "Nature"
-msgstr ""
+msgstr "Інформація про природу"
 
 #: master_preset.xml:7000(list_entry:display_value|group:Clubs|preset:Club|value:nudism)
 msgctxt "leisure"
@@ -20459,7 +20459,7 @@ msgstr ""
 #: master_preset.xml:5861(multiselect:text|preset:Public_Grill|key:fuel)
 msgctxt "grill"
 msgid "Fuel"
-msgstr ""
+msgstr "Паливо"
 
 #: master_preset.xml:5861(multiselect:display_values|preset:Public_Grill|key:fuel)
 msgctxt "fuel"

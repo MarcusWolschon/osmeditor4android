@@ -2456,7 +2456,7 @@ msgstr ""
 
 #: master_preset.xml:11535(item:name|group:Geography|preset:Cave_Entrance)
 msgid "Cave Entrance"
-msgstr ""
+msgstr "Вход в пещеру"
 
 #: master_preset.xml:11903(item:name|group:Land_use|preset:Cemetery)
 msgid "Cemetery"
@@ -4158,7 +4158,7 @@ msgstr ""
 
 #: master_preset.xml:6650(item:name|group:Emergency|preset:Emergency_ward_entrance)
 msgid "Emergency ward entrance"
-msgstr ""
+msgstr "Вход в отделение неотложной помощи"
 
 #: master_preset.xml:13273(item:name|group:Offices|preset:Employment_agency)
 msgid "Employment agency"
@@ -9223,7 +9223,7 @@ msgstr "Между рядами парковки"
 
 #: master_preset.xml:4081(item:name|group:Car|preset:Parking_Entrance/Exit)
 msgid "Parking Entrance/Exit"
-msgstr ""
+msgstr "Въезд/выезд на парковку"
 
 #: master_preset.xml:4069(item:name|group:Car|preset:Parking_Space)
 msgid "Parking Space"
@@ -18228,12 +18228,12 @@ msgstr ""
 #: master_preset.xml:1279(combo:text|key:building:levels)
 msgctxt "building"
 msgid "Levels above ground"
-msgstr ""
+msgstr "Этажи над землей"
 
 #: master_preset.xml:1280(combo:text|key:building:levels:underground)
 msgctxt "building"
 msgid "Levels below ground"
-msgstr ""
+msgstr "Этажи над землей"
 
 #: master_preset.xml:1274(combo:display_values|key:building:frame:material)
 #: master_preset.xml:1275(combo:display_values|key:building:wall:material)
@@ -18497,7 +18497,7 @@ msgstr ""
 #: master_preset.xml:8252(combo:text|group:Buildings|preset:Building_part|key:building:min_level)
 msgctxt "building"
 msgid "Skipped Levels"
-msgstr ""
+msgstr "Пропущенные этажи"
 
 #: master_preset.xml:1284(combo:display_values|key:building:use)
 msgctxt "building"
@@ -18670,7 +18670,7 @@ msgstr "Да"
 #: master_preset.xml:1264(combo:text|key:roof:levels)
 msgctxt "roof_levels"
 msgid "Levels (roof)"
-msgstr ""
+msgstr "Этажи (крыша)"
 
 #: master_preset.xml:1308(combo:text|key:operator:type)
 msgctxt "operator"
@@ -19685,7 +19685,7 @@ msgstr "Автоматизированная"
 #: master_preset.xml:4314(multiselect:text|group:Motorcycle|preset:Motorcycle_repair|key:service)
 msgctxt "shop=car_repair"
 msgid "Service"
-msgstr "Служебный"
+msgstr "Услуги"
 
 #: master_preset.xml:4276(item:name|group:Motorcycle|preset:Parking)
 msgctxt "motorcycle"

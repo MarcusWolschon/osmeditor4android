@@ -590,7 +590,7 @@ msgstr "Qualitat de l'aire"
 
 #: master_preset.xml:9744(list_entry:display_value|group:Historic_Places_&_Objects|preset:Historic_object|value:aircraft)
 msgid "Aircraft"
-msgstr ""
+msgstr "Aeronau"
 
 #: master_preset.xml:1071(combo:display_values|key:aerodrome:type)
 msgid "Airfield"
@@ -1404,7 +1404,7 @@ msgstr ""
 
 #: master_preset.xml:12769(item:name|group:Crafts|preset:Beekeeper)
 msgid "Beekeeper"
-msgstr ""
+msgstr "Apicultor"
 
 #: master_preset.xml:11127(check:text|preset:Payment_Methods|key:payment:ep_beep)
 msgid "Beep"
@@ -1741,7 +1741,7 @@ msgstr ""
 
 #: master_preset.xml:12790(item:name|group:Crafts|preset:Bookbinder)
 msgid "Bookbinder"
-msgstr ""
+msgstr "Enquadernador"
 
 #: master_preset.xml:10925(item:name|group:Other|preset:Bookmaker)
 msgid "Bookmaker"
@@ -1928,7 +1928,7 @@ msgstr "Sòl urbanitzable ja urbanitzat"
 
 #: master_preset.xml:5122(item:name|group:Food+Drinks|preset:Bubble_Tea_Cafe)
 msgid "Bubble Tea Cafe"
-msgstr ""
+msgstr "Te amb perles"
 
 #: master_preset.xml:1490(combo:display_values|key:fountain)
 msgid "Bubbler"
@@ -1971,7 +1971,7 @@ msgstr ""
 
 #: master_preset.xml:3127(item:name|group:Passageways|preset:Building_Passage)
 msgid "Building Passage"
-msgstr ""
+msgstr "Passatge per un edifici"
 
 #: master_preset.xml:8255(item:name|group:Buildings|preset:Building_construction)
 msgid "Building construction"
@@ -2191,7 +2191,7 @@ msgstr ""
 
 #: master_preset.xml:5104(item:name|group:Food+Drinks|preset:Cafe)
 msgid "Cafe"
-msgstr ""
+msgstr "Cafeteria"
 
 #: master_preset.xml:8763(item:name|group:Man_Made|preset:Cairn)
 msgid "Cairn"
@@ -2364,7 +2364,7 @@ msgstr ""
 
 #: master_preset.xml:12818(item:name|group:Crafts|preset:Carpenter)
 msgid "Carpenter"
-msgstr ""
+msgstr "Fuster"
 
 #: master_preset.xml:10450(item:name|group:Home_furnishing_and_decoration|preset:Carpet)
 msgid "Carpet"
@@ -2430,7 +2430,7 @@ msgstr ""
 
 #: master_preset.xml:12832(item:name|group:Crafts|preset:Caterer)
 msgid "Caterer"
-msgstr ""
+msgstr "Servei de càtering"
 
 #: master_preset.xml:6154(combo:display_values|group:Place_of_Worship|preset:Church|key:building)
 msgid "Cathedral"
@@ -2761,7 +2761,7 @@ msgstr "Rellotge"
 
 #: master_preset.xml:12846(item:name|group:Crafts|preset:Clockmaker)
 msgid "Clockmaker"
-msgstr ""
+msgstr "Rellotger"
 
 #: master_preset.xml:10152(group:name|group:Clothes)
 #: master_preset.xml:10153(item:name|group:Clothes|preset:Clothes)
@@ -3262,7 +3262,7 @@ msgstr ""
 #: master_preset.xml:1019(combo:display_values|key:tunnel)
 #: master_preset.xml:3414(item:name|group:Water|preset:Culvert)
 msgid "Culvert"
-msgstr ""
+msgstr "Marc"
 
 #: master_preset.xml:7816(item:name|group:Sport|preset:Curling)
 msgid "Curling"
@@ -3887,7 +3887,7 @@ msgstr ""
 
 #: master_preset.xml:13202(item:name|group:Crafts|preset:Dressmaker)
 msgid "Dressmaker"
-msgstr ""
+msgstr "Sastreria"
 
 #: master_preset.xml:2467(check:text|group:Waypoints|preset:Rest_Area|key:drinking_water)
 #: master_preset.xml:3370(check:text|group:Water|preset:Spring|key:drinking_water)
@@ -4050,7 +4050,7 @@ msgstr ""
 
 #: master_preset.xml:12860(item:name|group:Crafts|preset:Electrician)
 msgid "Electrician"
-msgstr ""
+msgstr "Electricista"
 
 #: master_preset.xml:11124(check:text|preset:Payment_Methods|key:payment:electronic_purses)
 msgid "Electronic purses"
@@ -4636,7 +4636,7 @@ msgstr ""
 
 #: master_preset.xml:12867(item:name|group:Crafts|preset:Floorer)
 msgid "Floorer"
-msgstr ""
+msgstr "Instal·lador de sòls"
 
 #: master_preset.xml:10464(item:name|group:Home_furnishing_and_decoration|preset:Flooring)
 msgid "Flooring"
@@ -5001,7 +5001,7 @@ msgstr ""
 
 #: master_preset.xml:13160(item:name|group:Crafts|preset:Gardener)
 msgid "Gardener"
-msgstr ""
+msgstr "Jardiner"
 
 #: master_preset.xml:1040(combo:display_values|key:substance)
 #: master_preset.xml:10803(item:name|group:Other|preset:Gas)
@@ -5180,7 +5180,7 @@ msgstr ""
 
 #: master_preset.xml:12881(item:name|group:Crafts|preset:Glaziery)
 msgid "Glaziery"
-msgstr ""
+msgstr "Vidrieria"
 
 #: master_preset.xml:1071(combo:display_values|key:aerodrome:type)
 msgid "Gliding"
@@ -5450,7 +5450,7 @@ msgstr ""
 
 #: master_preset.xml:12888(item:name|group:Crafts|preset:Handicraft)
 msgid "Handicraft"
-msgstr ""
+msgstr "Botiga d'artesà"
 
 #: master_preset.xml:2427(checkgroup:text|group:Ways|preset:Steps)
 #: master_preset.xml:2428(check:text|group:Ways|preset:Steps|key:handrail)
@@ -6063,7 +6063,7 @@ msgstr ""
 
 #: master_preset.xml:9636(item:name|preset:Insulator)
 msgid "Insulator"
-msgstr ""
+msgstr "Aïllador"
 
 #: master_preset.xml:13298(item:name|group:Offices|preset:Insurance)
 msgid "Insurance"
@@ -6102,7 +6102,7 @@ msgstr "Accés a internet"
 
 #: master_preset.xml:7126(item:name|group:Facilities|preset:Internet_Cafe)
 msgid "Internet Cafe"
-msgstr ""
+msgstr "Cibercafè"
 
 #: master_preset.xml:585(combo:text|key:internet_access)
 msgid "Internet access"
@@ -6191,7 +6191,7 @@ msgstr ""
 
 #: master_preset.xml:13209(item:name|group:Crafts|preset:Jeweller)
 msgid "Jeweller"
-msgstr ""
+msgstr "Joier"
 
 #: master_preset.xml:10637(item:name|group:For_the_body|preset:Jewellery)
 msgid "Jewellery"
@@ -6204,7 +6204,7 @@ msgstr "Judaisme"
 
 #: master_preset.xml:12915(item:name|group:Crafts|preset:Joiner)
 msgid "Joiner"
-msgstr ""
+msgstr "Ebenista"
 
 #: master_preset.xml:7500(list_entry:short_description|group:Sport_Facilities|preset:Dojo|value:judo)
 msgid "Judo"
@@ -6496,7 +6496,7 @@ msgstr ""
 #: master_preset.xml:9559(combo:display_values|preset:Power_Portal|key:structure)
 #: master_preset.xml:9571(combo:display_values|preset:Power_Tower|key:structure)
 msgid "Lattice"
-msgstr ""
+msgstr "Gelosia"
 
 #: master_preset.xml:1338(multiselect:display_values|key:language)
 msgid "Latvian"
@@ -6807,7 +6807,7 @@ msgstr "Bloquejable"
 #: master_preset.xml:10824(item:name|group:Other|preset:Locksmith)
 #: master_preset.xml:12936(item:name|group:Crafts|preset:Locksmith)
 msgid "Locksmith"
-msgstr ""
+msgstr "Copisteria de claus"
 
 #: master_preset.xml:1334(combo:display_values|key:playground:theme)
 msgid "Locomotive"
@@ -7032,7 +7032,7 @@ msgstr ""
 
 #: master_preset.xml:3538(list_entry:short_description|group:Water|preset:Wetland|value:marsh)
 msgid "Marsh"
-msgstr ""
+msgstr "Aiguamoll"
 
 #: master_preset.xml:12943(item:name|group:Crafts|preset:Mason)
 msgid "Mason"
@@ -9133,7 +9133,7 @@ msgstr ""
 
 #: master_preset.xml:12964(item:name|group:Crafts|preset:Painter)
 msgid "Painter"
-msgstr ""
+msgstr "Pintor"
 
 #: master_preset.xml:6129(combo:display_values|group:Culture|preset:Artwork|key:artwork_type)
 msgid "Painting"
@@ -9722,7 +9722,7 @@ msgstr ""
 
 #: master_preset.xml:12985(item:name|group:Crafts|preset:Plasterer)
 msgid "Plasterer"
-msgstr ""
+msgstr "Enguixador"
 
 #: master_preset.xml:1462(check:text|key:recycling:plastic)
 #: master_preset.xml:1475(list_entry:short_description|value:plastic)
@@ -9763,7 +9763,7 @@ msgstr "Pruneres"
 
 #: master_preset.xml:12992(item:name|group:Crafts|preset:Plumber)
 msgid "Plumber"
-msgstr ""
+msgstr "Lampista"
 
 #: master_preset.xml:10767(combo:display_values|group:Other|preset:Trade_supplies|key:trade)
 msgid "Plumbing"
@@ -10830,7 +10830,7 @@ msgstr ""
 
 #: master_preset.xml:13006(item:name|group:Crafts|preset:Rigger)
 msgid "Rigger"
-msgstr ""
+msgstr "Armador d'embarcacions"
 
 #: master_preset.xml:192(combo:display_values|key:shoulder)
 #: master_preset.xml:2008(list_entry:short_description|group:Lane_attributes|preset:Single_direction_roads|value:right)
@@ -10860,7 +10860,7 @@ msgstr ""
 #: master_preset.xml:3492(list_entry:display_value|group:Water|preset:Other_waterbodies|value:river)
 #: master_preset.xml:6730(list_entry:display_value|group:Emergency|preset:Fire_Hydrant|value:river)
 msgid "River"
-msgstr ""
+msgstr "Riu"
 
 #: master_preset.xml:3519(item:name|group:Water|preset:Riverbank)
 msgid "Riverbank"
@@ -10968,7 +10968,7 @@ msgstr "Tipus de teulada"
 
 #: master_preset.xml:13013(item:name|group:Crafts|preset:Roofer)
 msgid "Roofer"
-msgstr ""
+msgstr "Constructor de teulades"
 
 #: master_preset.xml:8484(item:name|group:Indoor_elements|preset:Room)
 msgid "Room"
@@ -11144,7 +11144,7 @@ msgstr "Collada"
 
 #: master_preset.xml:13020(item:name|group:Crafts|preset:Saddler)
 msgid "Saddler"
-msgstr ""
+msgstr "Cuirasser"
 
 #: master_preset.xml:5407(combo:display_values|group:Leisure|preset:Zoo|key:zoo)
 msgid "Safari park"
@@ -11164,7 +11164,7 @@ msgstr ""
 
 #: master_preset.xml:13027(item:name|group:Crafts|preset:Sailmaker)
 msgid "Sailmaker"
-msgstr ""
+msgstr "Fabricant de veles"
 
 #: master_preset.xml:329(list_entry:short_description|value:sales_area)
 msgid "Sales area"
@@ -11275,7 +11275,7 @@ msgstr ""
 
 #: master_preset.xml:13041(item:name|group:Crafts|preset:Scaffolder)
 msgid "Scaffolder"
-msgstr ""
+msgstr "Muntador de bastides"
 
 #: master_preset.xml:5267(combo:display_values|group:Tourism|preset:Map|key:map_type)
 msgid "Scheme"
@@ -11934,7 +11934,7 @@ msgstr "Planta Fotovoltaica"
 #: master_preset.xml:9559(combo:display_values|preset:Power_Portal|key:structure)
 #: master_preset.xml:9571(combo:display_values|preset:Power_Tower|key:structure)
 msgid "Solid"
-msgstr ""
+msgstr "Sólida"
 
 #: master_preset.xml:1338(multiselect:display_values|key:language)
 msgid "Somali"
@@ -12246,7 +12246,7 @@ msgstr "Pedra"
 
 #: master_preset.xml:13069(item:name|group:Crafts|preset:Stonemason)
 msgid "Stonemason"
-msgstr ""
+msgstr "Manobra"
 
 #: master_preset.xml:2501(item:name|group:Waypoints|preset:Stop)
 msgid "Stop"
@@ -12611,7 +12611,7 @@ msgstr ""
 #: master_preset.xml:10240(item:name|group:Clothes|preset:Tailor)
 #: master_preset.xml:13090(item:name|group:Crafts|preset:Tailor)
 msgid "Tailor"
-msgstr ""
+msgstr "Sastreria"
 
 #: master_preset.xml:1338(multiselect:display_values|key:language)
 msgid "Tajik"
@@ -12697,7 +12697,7 @@ msgstr ""
 
 #: master_preset.xml:4766(item:name|group:Airport|preset:Taxiway)
 msgid "Taxiway"
-msgstr ""
+msgstr "Carrer de rodada"
 
 #: master_preset.xml:793(text:text|key:taxon)
 msgid "Taxon"
@@ -12946,7 +12946,7 @@ msgstr ""
 
 #: master_preset.xml:13097(item:name|group:Crafts|preset:Tiler)
 msgid "Tiler"
-msgstr ""
+msgstr "Enrajolador"
 
 #: master_preset.xml:10457(item:name|group:Home_furnishing_and_decoration|preset:Tiles)
 #: master_preset.xml:10767(combo:display_values|group:Other|preset:Trade_supplies|key:trade)
@@ -12995,7 +12995,7 @@ msgstr ""
 
 #: master_preset.xml:13104(item:name|group:Crafts|preset:Tinsmith)
 msgid "Tinsmith"
-msgstr ""
+msgstr "Llauner"
 
 #: master_preset.xml:4222(item:name|group:Car|preset:Tires)
 msgid "Tires"
@@ -13341,7 +13341,7 @@ msgstr ""
 #: master_preset.xml:9559(combo:display_values|preset:Power_Portal|key:structure)
 #: master_preset.xml:9571(combo:display_values|preset:Power_Tower|key:structure)
 msgid "Tubular"
-msgstr ""
+msgstr "Tubular"
 
 #: master_preset.xml:9818(combo:display_values|group:Historic_Places_&_Objects|preset:Archaeological_Site|key:site_type)
 #: master_preset.xml:9832(combo:display_values|group:Historic_Places_&_Objects|preset:Tomb|key:tomb)
@@ -13685,7 +13685,7 @@ msgstr "Amunt"
 
 #: master_preset.xml:13118(item:name|group:Crafts|preset:Upholsterer)
 msgid "Upholsterer"
-msgstr ""
+msgstr "Creador de mobles"
 
 #: master_preset.xml:1315(list_entry:short_description|value:3)
 msgid "Upper secondary (3)"
@@ -14032,7 +14032,7 @@ msgstr ""
 
 #: master_preset.xml:13125(item:name|group:Crafts|preset:Watchmaker)
 msgid "Watchmaker"
-msgstr ""
+msgstr "Fabricant de rellotges"
 
 #: master_preset.xml:8521(combo:display_values|group:Man_Made|preset:Tower|key:tower:type)
 msgid "Watchtower"
@@ -15431,7 +15431,7 @@ msgstr ""
 #: master_preset.xml:33(combo:display_values|key:cycleway:surface)
 msgctxt "surface"
 msgid "Sett"
-msgstr ""
+msgstr "Llambordes no ajustades"
 
 #: master_preset.xml:158(combo:text|key:sidewalk:surface)
 msgctxt "surface"
@@ -19407,7 +19407,7 @@ msgstr "Tipus"
 #: master_preset.xml:3337(combo:display_values|group:Water|preset:Canal|key:usage)
 msgctxt "usage"
 msgid "Headrace"
-msgstr ""
+msgstr "Canal d'alimentació"
 
 #: master_preset.xml:3337(combo:display_values|group:Water|preset:Canal|key:usage)
 msgctxt "usage"
@@ -19417,12 +19417,12 @@ msgstr "Irrigació"
 #: master_preset.xml:3337(combo:display_values|group:Water|preset:Canal|key:usage)
 msgctxt "usage"
 msgid "Spillway"
-msgstr ""
+msgstr "Sobreexidor"
 
 #: master_preset.xml:3337(combo:display_values|group:Water|preset:Canal|key:usage)
 msgctxt "usage"
 msgid "Tailrace"
-msgstr ""
+msgstr "Canal de descàrrega"
 
 #: master_preset.xml:3337(combo:display_values|group:Water|preset:Canal|key:usage)
 msgctxt "usage"

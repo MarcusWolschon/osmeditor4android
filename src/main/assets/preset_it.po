@@ -18583,7 +18583,7 @@ msgstr "Tempio"
 #: master_preset.xml:8322(list_entry:display_value|group:Buildings|preset:Building_construction|value:terrace)
 msgctxt "building"
 msgid "Terrace"
-msgstr "Terrazza"
+msgstr "Villetta a schiera"
 
 #: master_preset.xml:1274(combo:display_values|key:building:frame:material)
 #: master_preset.xml:1275(combo:display_values|key:building:wall:material)

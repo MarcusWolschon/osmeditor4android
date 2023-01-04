@@ -1013,7 +1013,7 @@ msgstr ""
 
 #: master_preset.xml:5289(combo:display_values|group:Tourism|preset:Information_Board|key:board_type)
 msgid "Astronomy"
-msgstr ""
+msgstr "Astronomia"
 
 #: master_preset.xml:5229(item:name|group:Tourism|preset:Attraction)
 msgid "Attraction"
@@ -1405,7 +1405,7 @@ msgstr ""
 
 #: master_preset.xml:12769(item:name|group:Crafts|preset:Beekeeper)
 msgid "Beekeeper"
-msgstr ""
+msgstr "Apicultura"
 
 #: master_preset.xml:11127(check:text|preset:Payment_Methods|key:payment:ep_beep)
 msgid "Beep"
@@ -1694,7 +1694,7 @@ msgstr ""
 
 #: master_preset.xml:3535(list_entry:short_description|group:Water|preset:Wetland|value:bog)
 msgid "Bog"
-msgstr ""
+msgstr "Turfeira\nPaul"
 
 #: master_preset.xml:9316(list_entry:display_value|group:Power_Generator|preset:Nuclear_Reactor|value:BWR-1)
 msgid "Boiling Water Reactor 1 (BWR-1)"
@@ -1972,7 +1972,7 @@ msgstr ""
 
 #: master_preset.xml:3127(item:name|group:Passageways|preset:Building_Passage)
 msgid "Building Passage"
-msgstr ""
+msgstr "Passagem por edifício"
 
 #: master_preset.xml:8255(item:name|group:Buildings|preset:Building_construction)
 msgid "Building construction"
@@ -2431,7 +2431,7 @@ msgstr ""
 
 #: master_preset.xml:12832(item:name|group:Crafts|preset:Caterer)
 msgid "Caterer"
-msgstr ""
+msgstr "Fornecedor de buffet"
 
 #: master_preset.xml:6154(combo:display_values|group:Place_of_Worship|preset:Church|key:building)
 msgid "Cathedral"
@@ -2995,7 +2995,7 @@ msgstr ""
 #: master_preset.xml:818(combo:display_values|key:religion)
 #: master_preset.xml:827(combo:display_values|key:religion)
 msgid "Confucian"
-msgstr ""
+msgstr "Confucionista"
 
 #: master_preset.xml:9689(item:name|group:Telecom|preset:Connection_Point)
 msgid "Connection Point"
@@ -3888,7 +3888,7 @@ msgstr ""
 
 #: master_preset.xml:13202(item:name|group:Crafts|preset:Dressmaker)
 msgid "Dressmaker"
-msgstr ""
+msgstr "Costureiro"
 
 #: master_preset.xml:2467(check:text|group:Waypoints|preset:Rest_Area|key:drinking_water)
 #: master_preset.xml:3370(check:text|group:Water|preset:Spring|key:drinking_water)
@@ -4425,7 +4425,7 @@ msgstr ""
 
 #: master_preset.xml:3536(list_entry:short_description|group:Water|preset:Wetland|value:fen)
 msgid "Fen"
-msgstr ""
+msgstr "Charco"
 
 #: master_preset.xml:2900(item:name|group:Barriers|preset:Fence)
 #: master_preset.xml:5707(combo:display_values|group:Leisure|preset:Dog_Park|key:barrier)
@@ -4905,7 +4905,7 @@ msgstr "Tipos de combustíveis:"
 
 #: master_preset.xml:3090(item:name|group:Barriers|preset:Full-Height_Turnstile)
 msgid "Full-Height Turnstile"
-msgstr ""
+msgstr "Catraca de Corpo Inteiro"
 
 #: master_preset.xml:8723(combo:text|group:Man_Made|preset:Mineshaft|key:mineshaft_type)
 msgid "Function"
@@ -5116,7 +5116,7 @@ msgstr "Geografia"
 
 #: master_preset.xml:5289(combo:display_values|group:Tourism|preset:Information_Board|key:board_type)
 msgid "Geology"
-msgstr ""
+msgstr "Geologia"
 
 #: master_preset.xml:1338(multiselect:display_values|key:language)
 #: master_preset.xml:557(multiselect:display_values|key:cuisine)
@@ -5181,7 +5181,7 @@ msgstr ""
 
 #: master_preset.xml:12881(item:name|group:Crafts|preset:Glaziery)
 msgid "Glaziery"
-msgstr ""
+msgstr "Vidraçaria"
 
 #: master_preset.xml:1071(combo:display_values|key:aerodrome:type)
 msgid "Gliding"
@@ -5451,14 +5451,14 @@ msgstr ""
 
 #: master_preset.xml:12888(item:name|group:Crafts|preset:Handicraft)
 msgid "Handicraft"
-msgstr ""
+msgstr "Artesanato"
 
 #: master_preset.xml:2427(checkgroup:text|group:Ways|preset:Steps)
 #: master_preset.xml:2428(check:text|group:Ways|preset:Steps|key:handrail)
 #: master_preset.xml:2692(check:text|preset:Elevator|key:handrail)
 #: master_preset.xml:2913(item:name|group:Barriers|preset:Handrail)
 msgid "Handrail"
-msgstr ""
+msgstr "Corrimão"
 
 #: master_preset.xml:4813(item:name|group:Airport|preset:Hangar)
 msgid "Hangar"
@@ -5650,7 +5650,7 @@ msgstr ""
 #: master_preset.xml:809(combo:display_values|key:religion)
 #: master_preset.xml:818(combo:display_values|key:religion)
 msgid "Hindu"
-msgstr ""
+msgstr "Hinduísta"
 
 #: master_preset.xml:6195(item:name|group:Place_of_Worship|preset:Hindu_Temple)
 msgid "Hindu Temple"
@@ -6162,7 +6162,7 @@ msgstr ""
 #: master_preset.xml:818(combo:display_values|key:religion)
 #: master_preset.xml:827(combo:display_values|key:religion)
 msgid "Jain"
-msgstr ""
+msgstr "Jainista"
 
 #: master_preset.xml:1338(multiselect:display_values|key:language)
 #: master_preset.xml:557(multiselect:display_values|key:cuisine)
@@ -6176,7 +6176,7 @@ msgstr "Testemunhas de Jeová"
 
 #: master_preset.xml:2958(item:name|group:Barriers|preset:Jersey_Barrier)
 msgid "Jersey Barrier"
-msgstr ""
+msgstr "Muro Jersey"
 
 #: master_preset.xml:2936(list_entry:display_value|group:Barriers|preset:Wall|value:jersey_barrier)
 msgid "Jersey barrier"
@@ -6201,7 +6201,7 @@ msgstr ""
 #: master_preset.xml:809(combo:display_values|key:religion)
 #: master_preset.xml:818(combo:display_values|key:religion)
 msgid "Jewish"
-msgstr ""
+msgstr "Judaica"
 
 #: master_preset.xml:12915(item:name|group:Crafts|preset:Joiner)
 msgid "Joiner"
@@ -6497,7 +6497,7 @@ msgstr ""
 #: master_preset.xml:9559(combo:display_values|preset:Power_Portal|key:structure)
 #: master_preset.xml:9571(combo:display_values|preset:Power_Tower|key:structure)
 msgid "Lattice"
-msgstr ""
+msgstr "Treliça"
 
 #: master_preset.xml:1338(multiselect:display_values|key:language)
 msgid "Latvian"
@@ -6960,7 +6960,7 @@ msgstr ""
 
 #: master_preset.xml:3537(list_entry:short_description|group:Water|preset:Wetland|value:mangrove)
 msgid "Mangrove"
-msgstr ""
+msgstr "Manguezal"
 
 #: master_preset.xml:8824(item:name|group:Man_Made|preset:Manhole)
 msgid "Manhole"
@@ -7326,7 +7326,7 @@ msgstr ""
 #: master_preset.xml:1265(combo:display_values|key:roof:material)
 #: master_preset.xml:3435(combo:display_values|group:Water|preset:Penstock|key:material)
 msgid "Metal"
-msgstr ""
+msgstr "Metal"
 
 #: master_preset.xml:6105(combo:display_values|group:Culture|preset:Public_bookcase|key:public_bookcase:type)
 msgid "Metal cabinet"
@@ -7822,7 +7822,7 @@ msgstr ""
 #: master_preset.xml:809(combo:display_values|key:religion)
 #: master_preset.xml:818(combo:display_values|key:religion)
 msgid "Muslim"
-msgstr ""
+msgstr "Muçulmana"
 
 #: master_preset.xml:11828(combo:display_values|group:Land_use|preset:Aquaculture|key:aquaculture)
 msgid "Mussels"
@@ -8109,7 +8109,7 @@ msgstr "Natural"
 #: master_preset.xml:5289(combo:display_values|group:Tourism|preset:Information_Board|key:board_type)
 #: master_preset.xml:5990(multiselect:display_values|group:Culture|preset:Museum|key:museum)
 msgid "Nature"
-msgstr ""
+msgstr "Natural"
 
 #: master_preset.xml:11657(item:name|group:Nature|preset:Nature_Reserve)
 msgid "Nature Reserve"
@@ -9138,7 +9138,7 @@ msgstr "Pintor"
 
 #: master_preset.xml:6129(combo:display_values|group:Culture|preset:Artwork|key:artwork_type)
 msgid "Painting"
-msgstr ""
+msgstr "Pintura"
 
 #: master_preset.xml:9767(combo:display_values|group:Historic_Places_&_Objects|preset:Castle|key:castle_type)
 msgid "Palace"
@@ -9585,7 +9585,7 @@ msgstr ""
 
 #: master_preset.xml:8779(item:name|group:Man_Made|preset:Pipeline_Substation)
 msgid "Pipeline Substation"
-msgstr ""
+msgstr "Estação de dutovia"
 
 #: master_preset.xml:8797(item:name|group:Man_Made|preset:Pipeline_Valve)
 msgid "Pipeline Valve"
@@ -9699,7 +9699,7 @@ msgstr ""
 #: master_preset.xml:1265(combo:display_values|key:roof:material)
 #: master_preset.xml:5289(combo:display_values|group:Tourism|preset:Information_Board|key:board_type)
 msgid "Plants"
-msgstr ""
+msgstr "Plantas"
 
 #: master_preset.xml:798(list_entry:short_description|value:deciduous)
 msgid "Plants that are leafless for a certain period during the year."
@@ -10377,7 +10377,7 @@ msgstr ""
 
 #: master_preset.xml:12560(item:name|group:Routes|preset:Railway_Route)
 msgid "Railway Route"
-msgstr ""
+msgstr "Rota ferroviária"
 
 #: master_preset.xml:3917(item:name|group:Railway|preset:Railway_Signal)
 msgid "Railway Signal"
@@ -11145,7 +11145,7 @@ msgstr "Passo de montanha"
 
 #: master_preset.xml:13020(item:name|group:Crafts|preset:Saddler)
 msgid "Saddler"
-msgstr ""
+msgstr "Selaria "
 
 #: master_preset.xml:5407(combo:display_values|group:Leisure|preset:Zoo|key:zoo)
 msgid "Safari park"
@@ -11256,7 +11256,7 @@ msgstr ""
 
 #: master_preset.xml:13034(item:name|group:Crafts|preset:Sawmill)
 msgid "Sawmill"
-msgstr ""
+msgstr "Serraria"
 
 #: master_preset.xml:7736(combo:text|group:Sport|preset:Climbing_route|key:climbing:grade:saxon)
 msgid "Saxon grading"
@@ -11590,7 +11590,7 @@ msgstr ""
 
 #: master_preset.xml:10572(list_entry:short_description|group:For_the_body|preset:Massage|value:shiatsu)
 msgid "Shiatsu"
-msgstr ""
+msgstr "Shiatsu"
 
 #: master_preset.xml:9754(list_entry:display_value|group:Historic_Places_&_Objects|preset:Historic_object|value:shieling)
 msgid "Shieling"
@@ -11603,7 +11603,7 @@ msgstr "Telha"
 #: master_preset.xml:809(combo:display_values|key:religion)
 #: master_preset.xml:818(combo:display_values|key:religion)
 msgid "Shinto"
-msgstr ""
+msgstr "Xintoísta"
 
 #: master_preset.xml:6206(item:name|group:Place_of_Worship|preset:Shinto_Shrine)
 msgid "Shinto Shrine"
@@ -11624,7 +11624,7 @@ msgstr "Shiro"
 
 #: master_preset.xml:13181(item:name|group:Crafts|preset:Shoemaker)
 msgid "Shoemaker"
-msgstr ""
+msgstr "Sapateiro"
 
 #: master_preset.xml:1466(check:text|key:recycling:shoes)
 msgid "Shoes"
@@ -11734,7 +11734,7 @@ msgstr ""
 #: master_preset.xml:818(combo:display_values|key:religion)
 #: master_preset.xml:827(combo:display_values|key:religion)
 msgid "Sikh"
-msgstr ""
+msgstr "Siquismo"
 
 #: master_preset.xml:8660(item:name|group:Man_Made|preset:Silo)
 msgid "Silo"
@@ -11929,13 +11929,13 @@ msgstr "Gerador solar"
 
 #: master_preset.xml:9214(item:name|group:Power_Plant|preset:Solar_Power_Plant)
 msgid "Solar Power Plant"
-msgstr ""
+msgstr "Usina de energia solar"
 
 #: master_preset.xml:1368(combo:display_values|key:climbing:quality)
 #: master_preset.xml:9559(combo:display_values|preset:Power_Portal|key:structure)
 #: master_preset.xml:9571(combo:display_values|preset:Power_Tower|key:structure)
 msgid "Solid"
-msgstr ""
+msgstr "Sólido"
 
 #: master_preset.xml:1338(multiselect:display_values|key:language)
 msgid "Somali"
@@ -11995,7 +11995,7 @@ msgstr ""
 #: master_preset.xml:5513(text:text|group:Leisure|preset:Animals|key:species)
 #: master_preset.xml:792(text:text|key:species)
 msgid "Species"
-msgstr ""
+msgstr "Espécie"
 
 #: master_preset.xml:6601(list_entry:short_description|group:Health|preset:Other_healthcare_professionals|value:speech_therapist)
 msgid "Speech therapist"
@@ -12030,7 +12030,7 @@ msgstr "Espírita"
 #: master_preset.xml:818(combo:display_values|key:religion)
 #: master_preset.xml:827(combo:display_values|key:religion)
 msgid "Spiritualist"
-msgstr ""
+msgstr "Espiritualista"
 
 #: master_preset.xml:1490(combo:display_values|key:fountain)
 msgid "Splash pad"
@@ -12176,7 +12176,7 @@ msgstr "Churrascaria"
 
 #: master_preset.xml:1040(combo:display_values|key:substance)
 msgid "Steam"
-msgstr ""
+msgstr "Vapor"
 
 #: master_preset.xml:9237(combo:display_values|group:Power_Generator|preset:Biofuel_Power_Generator|key:generator:type)
 #: master_preset.xml:9246(combo:display_values|group:Power_Generator|preset:Biogas_Power_Generator|key:generator:type)
@@ -12234,7 +12234,7 @@ msgstr "Travessia em cerca/muro"
 
 #: master_preset.xml:6523(list_entry:display_value|group:Health|preset:Dentist|value:stomatology)
 msgid "Stomatology"
-msgstr ""
+msgstr "Estomatologia"
 
 #: master_preset.xml:11746(item:name|group:Nature|preset:Stone)
 #: master_preset.xml:1265(combo:display_values|key:roof:material)
@@ -12297,7 +12297,7 @@ msgstr ""
 
 #: master_preset.xml:3591(item:name|group:Water|preset:Strait)
 msgid "Strait"
-msgstr ""
+msgstr "Estreito"
 
 #: master_preset.xml:12699(combo:display_values|preset:Waterway|key:waterway)
 #: master_preset.xml:3307(item:name|group:Water|preset:Stream)
@@ -12383,7 +12383,7 @@ msgstr ""
 
 #: master_preset.xml:6131(text:text|group:Culture|preset:Artwork|key:artwork_subject)
 msgid "Subject"
-msgstr ""
+msgstr "Tema"
 
 #: master_preset.xml:13268(combo:display_values|group:Offices|preset:Liaison|key:liaison)
 msgid "Subnational"
@@ -12612,7 +12612,7 @@ msgstr ""
 #: master_preset.xml:10240(item:name|group:Clothes|preset:Tailor)
 #: master_preset.xml:13090(item:name|group:Crafts|preset:Tailor)
 msgid "Tailor"
-msgstr ""
+msgstr "Alfaiate"
 
 #: master_preset.xml:1338(multiselect:display_values|key:language)
 msgid "Tajik"
@@ -12650,7 +12650,7 @@ msgstr ""
 #: master_preset.xml:818(combo:display_values|key:religion)
 #: master_preset.xml:827(combo:display_values|key:religion)
 msgid "Taoist"
-msgstr ""
+msgstr "Taoísta"
 
 #: master_preset.xml:11140(check:text|preset:Payment_Methods|key:payment:ep_tapcash)
 msgid "TapCash"
@@ -12702,7 +12702,7 @@ msgstr "Pista de Taxiamento"
 
 #: master_preset.xml:793(text:text|key:taxon)
 msgid "Taxon"
-msgstr ""
+msgstr "Táxon"
 
 #: master_preset.xml:10031(item:name|group:Food|preset:Tea)
 msgid "Tea"
@@ -12781,7 +12781,7 @@ msgstr ""
 #: master_preset.xml:818(combo:display_values|key:religion)
 #: master_preset.xml:827(combo:display_values|key:religion)
 msgid "Tenrikyo"
-msgstr ""
+msgstr "Tenrikyo"
 
 #: master_preset.xml:4996(check:text|group:Accommodation|preset:Caravan_Site/RV_Park|key:tents)
 #: master_preset.xml:5011(check:text|group:Accommodation|preset:Campsite|key:tents)
@@ -12947,7 +12947,7 @@ msgstr ""
 
 #: master_preset.xml:13097(item:name|group:Crafts|preset:Tiler)
 msgid "Tiler"
-msgstr ""
+msgstr "Azulejista"
 
 #: master_preset.xml:10457(item:name|group:Home_furnishing_and_decoration|preset:Tiles)
 #: master_preset.xml:10767(combo:display_values|group:Other|preset:Trade_supplies|key:trade)
@@ -13342,7 +13342,7 @@ msgstr ""
 #: master_preset.xml:9559(combo:display_values|preset:Power_Portal|key:structure)
 #: master_preset.xml:9571(combo:display_values|preset:Power_Tower|key:structure)
 msgid "Tubular"
-msgstr ""
+msgstr "Tubular"
 
 #: master_preset.xml:9818(combo:display_values|group:Historic_Places_&_Objects|preset:Archaeological_Site|key:site_type)
 #: master_preset.xml:9832(combo:display_values|group:Historic_Places_&_Objects|preset:Tomb|key:tomb)
@@ -13686,7 +13686,7 @@ msgstr ""
 
 #: master_preset.xml:13118(item:name|group:Crafts|preset:Upholsterer)
 msgid "Upholsterer"
-msgstr ""
+msgstr "Estofador"
 
 #: master_preset.xml:1315(list_entry:short_description|value:3)
 msgid "Upper secondary (3)"
@@ -13848,7 +13848,7 @@ msgstr ""
 
 #: master_preset.xml:2483(check:text|group:Waypoints|preset:Traffic_Signal|key:traffic_signals:vibration)
 msgid "Vibration"
-msgstr ""
+msgstr "Vibração"
 
 #: master_preset.xml:1093(list_entry:display_value|value:victim)
 msgid "Victims"
@@ -14033,7 +14033,7 @@ msgstr ""
 
 #: master_preset.xml:13125(item:name|group:Crafts|preset:Watchmaker)
 msgid "Watchmaker"
-msgstr ""
+msgstr "Relojoeiro (relógio de pulso)"
 
 #: master_preset.xml:8521(combo:display_values|group:Man_Made|preset:Tower|key:tower:type)
 msgid "Watchtower"
@@ -14344,7 +14344,7 @@ msgstr "Abrigo Isolado"
 #: master_preset.xml:7348(multiselect:display_values|group:Facilities|preset:Animal_shelter|key:animal_shelter)
 #: master_preset.xml:7366(multiselect:display_values|group:Facilities|preset:Animal_boarding|key:animal_boarding)
 msgid "Wildlife"
-msgstr ""
+msgstr "Fauna"
 
 #: master_preset.xml:5407(combo:display_values|group:Leisure|preset:Zoo|key:zoo)
 msgid "Wildlife park"
@@ -15149,7 +15149,7 @@ msgstr "Material"
 #: master_preset.xml:9572(combo:display_values|preset:Power_Tower|key:material)
 msgctxt "material"
 msgid "Metal"
-msgstr ""
+msgstr "Metal"
 
 #: master_preset.xml:18(combo:display_values|key:material)
 #: master_preset.xml:21(combo:display_values|key:material)
@@ -15355,7 +15355,7 @@ msgstr "Solo"
 #: master_preset.xml:33(combo:display_values|key:cycleway:surface)
 msgctxt "surface"
 msgid "Metal"
-msgstr ""
+msgstr "Metal"
 
 #: master_preset.xml:158(combo:display_values|key:sidewalk:surface)
 #: master_preset.xml:2256(combo:display_values|preset:Sidewalk_right-hand_side|key:sidewalk:right:surface)
@@ -15432,7 +15432,7 @@ msgstr ""
 #: master_preset.xml:33(combo:display_values|key:cycleway:surface)
 msgctxt "surface"
 msgid "Sett"
-msgstr ""
+msgstr "Paralelepípedo"
 
 #: master_preset.xml:158(combo:text|key:sidewalk:surface)
 msgctxt "surface"
@@ -15487,7 +15487,7 @@ msgstr "Floresta"
 #: master_preset.xml:25(combo:display_values|key:surface)
 msgctxt "surface"
 msgid "Woodchips"
-msgstr ""
+msgstr "Serradura"
 
 #: master_preset.xml:77(combo:display_values|key:leisure)
 msgctxt "riding"
@@ -17686,7 +17686,7 @@ msgstr ""
 #: master_preset.xml:6625(list_entry:short_description|group:Health|preset:Alternative_medicine|value:herbalism)
 msgctxt "healthcare"
 msgid "Herbalism"
-msgstr ""
+msgstr "Herbalismo"
 
 #: master_preset.xml:6626(list_entry:short_description|group:Health|preset:Alternative_medicine|value:homeopathy)
 msgctxt "healthcare"
@@ -17696,12 +17696,12 @@ msgstr "Homeopatia"
 #: master_preset.xml:6627(list_entry:short_description|group:Health|preset:Alternative_medicine|value:hydrotherapy)
 msgctxt "healthcare"
 msgid "Hydrotherapy"
-msgstr ""
+msgstr "Hidroterapia"
 
 #: master_preset.xml:6628(list_entry:short_description|group:Health|preset:Alternative_medicine|value:hypnosis)
 msgctxt "healthcare"
 msgid "Hypnosis"
-msgstr ""
+msgstr "Hipnose"
 
 #: master_preset.xml:1249(list_entry:short_description|value:internal)
 msgctxt "healthcare"
@@ -17711,7 +17711,7 @@ msgstr "Interno"
 #: master_preset.xml:6629(list_entry:short_description|group:Health|preset:Alternative_medicine|value:naturopathy)
 msgctxt "healthcare"
 msgid "Naturopathy"
-msgstr ""
+msgstr "Naturopatia"
 
 #: master_preset.xml:1250(list_entry:short_description|value:neurology)
 msgctxt "healthcare"
@@ -17751,32 +17751,32 @@ msgstr ""
 #: master_preset.xml:1254(list_entry:short_description|value:podiatry)
 msgctxt "healthcare"
 msgid "Podiatry"
-msgstr ""
+msgstr "Podologia"
 
 #: master_preset.xml:1257(list_entry:short_description|value:psychiatry)
 msgctxt "healthcare"
 msgid "Psychiatry"
-msgstr ""
+msgstr "Psiquiatria"
 
 #: master_preset.xml:1258(list_entry:short_description|value:radiology)
 msgctxt "healthcare"
 msgid "Radiology"
-msgstr ""
+msgstr "Radiologia"
 
 #: master_preset.xml:6631(list_entry:short_description|group:Health|preset:Alternative_medicine|value:reflexology)
 msgctxt "healthcare"
 msgid "Reflexology"
-msgstr ""
+msgstr "Reflexologia"
 
 #: master_preset.xml:6632(list_entry:short_description|group:Health|preset:Alternative_medicine|value:reiki)
 msgctxt "healthcare"
 msgid "Reiki"
-msgstr ""
+msgstr "Reiki"
 
 #: master_preset.xml:6633(list_entry:short_description|group:Health|preset:Alternative_medicine|value:shiatsu)
 msgctxt "healthcare"
 msgid "Shiatsu"
-msgstr ""
+msgstr "Shiatsu"
 
 #: master_preset.xml:1239(multiselect:text|key:healthcare:speciality)
 #: master_preset.xml:6516(combo:text|group:Health|preset:Dentist|key:healthcare:speciality)
@@ -17794,7 +17794,7 @@ msgstr ""
 #: master_preset.xml:6635(list_entry:short_description|group:Health|preset:Alternative_medicine|value:tuina)
 msgctxt "healthcare"
 msgid "Tuī ná"
-msgstr ""
+msgstr "Tuiná"
 
 #: master_preset.xml:6636(list_entry:short_description|group:Health|preset:Alternative_medicine|value:unani)
 msgctxt "healthcare"
@@ -17804,7 +17804,7 @@ msgstr ""
 #: master_preset.xml:1259(list_entry:short_description|value:urology)
 msgctxt "healthcare"
 msgid "Urology"
-msgstr ""
+msgstr "Urologia"
 
 #: master_preset.xml:1284(combo:display_values|key:building:use)
 msgctxt "building"
@@ -18280,7 +18280,7 @@ msgstr ""
 #: master_preset.xml:1286(combo:display_values|key:building:material)
 msgctxt "building"
 msgid "Metal"
-msgstr ""
+msgstr "Metal"
 
 #: master_preset.xml:1274(combo:display_values|key:building:frame:material)
 #: master_preset.xml:1275(combo:display_values|key:building:wall:material)
@@ -19478,7 +19478,7 @@ msgstr ""
 #: master_preset.xml:8785(combo:display_values|group:Man_Made|preset:Pipeline_Substation|key:substation)
 msgctxt "pipeline"
 msgid "Compression"
-msgstr ""
+msgstr "Compressão"
 
 #: master_preset.xml:8785(combo:display_values|group:Man_Made|preset:Pipeline_Substation|key:substation)
 msgctxt "pipeline"
@@ -19588,7 +19588,7 @@ msgstr ""
 #: master_preset.xml:8785(combo:display_values|group:Man_Made|preset:Pipeline_Substation|key:substation)
 msgctxt "pipeline"
 msgid "Valve"
-msgstr ""
+msgstr "Válvula"
 
 #: master_preset.xml:8785(combo:display_values|group:Man_Made|preset:Pipeline_Substation|key:substation)
 msgctxt "pipeline"
@@ -19897,7 +19897,7 @@ msgstr "Arte"
 #: master_preset.xml:6975(list_entry:display_value|group:Clubs|preset:Club|value:astronomy)
 msgctxt "leisure"
 msgid "Astronomy"
-msgstr ""
+msgstr "Astronomia"
 
 #: master_preset.xml:5546(combo:text|group:Leisure|preset:Rides|key:attraction)
 msgctxt "leisure"
@@ -20119,7 +20119,7 @@ msgstr "Histórico"
 #: master_preset.xml:5792(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:hopscotch)
 msgctxt "leisure"
 msgid "Hopscotch"
-msgstr ""
+msgstr "Amarelinha (parquinho)"
 
 #: master_preset.xml:5749(check:text|group:Leisure|preset:Playground|key:playground:horizontal_bar)
 #: master_preset.xml:5793(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:horizontal_bar)
@@ -20171,7 +20171,7 @@ msgstr "Música"
 #: master_preset.xml:6999(list_entry:display_value|group:Clubs|preset:Club|value:nature)
 msgctxt "leisure"
 msgid "Nature"
-msgstr ""
+msgstr "Natural"
 
 #: master_preset.xml:7000(list_entry:display_value|group:Clubs|preset:Club|value:nudism)
 msgctxt "leisure"

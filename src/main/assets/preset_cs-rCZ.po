@@ -3858,7 +3858,7 @@ msgstr "Dvojitá"
 
 #: master_preset.xml:2543(combo:display_values|group:Traffic_Calming|preset:Traffic_Calming|key:traffic_calming)
 msgid "Double dip"
-msgstr "Dvojitý dip"
+msgstr "Dvojitá prohlubeň"
 
 #: master_preset.xml:15(combo:display_values|key:incline)
 msgid "Down"
@@ -9139,7 +9139,7 @@ msgstr "Malíř"
 
 #: master_preset.xml:6129(combo:display_values|group:Culture|preset:Artwork|key:artwork_type)
 msgid "Painting"
-msgstr ""
+msgstr "Malba"
 
 #: master_preset.xml:9767(combo:display_values|group:Historic_Places_&_Objects|preset:Castle|key:castle_type)
 msgid "Palace"
@@ -9700,7 +9700,7 @@ msgstr ""
 #: master_preset.xml:1265(combo:display_values|key:roof:material)
 #: master_preset.xml:5289(combo:display_values|group:Tourism|preset:Information_Board|key:board_type)
 msgid "Plants"
-msgstr ""
+msgstr "Rostliny"
 
 #: master_preset.xml:798(list_entry:short_description|value:deciduous)
 msgid "Plants that are leafless for a certain period during the year."
@@ -9724,7 +9724,7 @@ msgstr ""
 
 #: master_preset.xml:12985(item:name|group:Crafts|preset:Plasterer)
 msgid "Plasterer"
-msgstr ""
+msgstr "Štukatér"
 
 #: master_preset.xml:1462(check:text|key:recycling:plastic)
 #: master_preset.xml:1475(list_entry:short_description|value:plastic)
@@ -9765,7 +9765,7 @@ msgstr ""
 
 #: master_preset.xml:12992(item:name|group:Crafts|preset:Plumber)
 msgid "Plumber"
-msgstr ""
+msgstr "Instalatér"
 
 #: master_preset.xml:10767(combo:display_values|group:Other|preset:Trade_supplies|key:trade)
 msgid "Plumbing"
@@ -10832,7 +10832,7 @@ msgstr ""
 
 #: master_preset.xml:13006(item:name|group:Crafts|preset:Rigger)
 msgid "Rigger"
-msgstr ""
+msgstr "Výroba takeláže"
 
 #: master_preset.xml:192(combo:display_values|key:shoulder)
 #: master_preset.xml:2008(list_entry:short_description|group:Lane_attributes|preset:Single_direction_roads|value:right)
@@ -11146,7 +11146,7 @@ msgstr "Sedlo"
 
 #: master_preset.xml:13020(item:name|group:Crafts|preset:Saddler)
 msgid "Saddler"
-msgstr ""
+msgstr "Sedlář"
 
 #: master_preset.xml:5407(combo:display_values|group:Leisure|preset:Zoo|key:zoo)
 msgid "Safari park"
@@ -11166,7 +11166,7 @@ msgstr ""
 
 #: master_preset.xml:13027(item:name|group:Crafts|preset:Sailmaker)
 msgid "Sailmaker"
-msgstr ""
+msgstr "Výroba plachet"
 
 #: master_preset.xml:329(list_entry:short_description|value:sales_area)
 msgid "Sales area"
@@ -11257,7 +11257,7 @@ msgstr ""
 
 #: master_preset.xml:13034(item:name|group:Crafts|preset:Sawmill)
 msgid "Sawmill"
-msgstr ""
+msgstr "Pila"
 
 #: master_preset.xml:7736(combo:text|group:Sport|preset:Climbing_route|key:climbing:grade:saxon)
 msgid "Saxon grading"
@@ -11277,7 +11277,7 @@ msgstr ""
 
 #: master_preset.xml:13041(item:name|group:Crafts|preset:Scaffolder)
 msgid "Scaffolder"
-msgstr ""
+msgstr "Lešenář"
 
 #: master_preset.xml:5267(combo:display_values|group:Tourism|preset:Map|key:map_type)
 msgid "Scheme"
@@ -11625,7 +11625,7 @@ msgstr "Shiro"
 
 #: master_preset.xml:13181(item:name|group:Crafts|preset:Shoemaker)
 msgid "Shoemaker"
-msgstr ""
+msgstr "Švec"
 
 #: master_preset.xml:1466(check:text|key:recycling:shoes)
 msgid "Shoes"
@@ -12248,7 +12248,7 @@ msgstr "Kámen"
 
 #: master_preset.xml:13069(item:name|group:Crafts|preset:Stonemason)
 msgid "Stonemason"
-msgstr ""
+msgstr "Kameník"
 
 #: master_preset.xml:2501(item:name|group:Waypoints|preset:Stop)
 msgid "Stop"
@@ -12613,7 +12613,7 @@ msgstr ""
 #: master_preset.xml:10240(item:name|group:Clothes|preset:Tailor)
 #: master_preset.xml:13090(item:name|group:Crafts|preset:Tailor)
 msgid "Tailor"
-msgstr ""
+msgstr "Krejčovství"
 
 #: master_preset.xml:1338(multiselect:display_values|key:language)
 msgid "Tajik"
@@ -12948,7 +12948,7 @@ msgstr "Tygr"
 
 #: master_preset.xml:13097(item:name|group:Crafts|preset:Tiler)
 msgid "Tiler"
-msgstr ""
+msgstr "Obkladač"
 
 #: master_preset.xml:10457(item:name|group:Home_furnishing_and_decoration|preset:Tiles)
 #: master_preset.xml:10767(combo:display_values|group:Other|preset:Trade_supplies|key:trade)
@@ -12997,7 +12997,7 @@ msgstr "Cín"
 
 #: master_preset.xml:13104(item:name|group:Crafts|preset:Tinsmith)
 msgid "Tinsmith"
-msgstr ""
+msgstr "Klempíř"
 
 #: master_preset.xml:4222(item:name|group:Car|preset:Tires)
 msgid "Tires"
@@ -13687,7 +13687,7 @@ msgstr "Výš"
 
 #: master_preset.xml:13118(item:name|group:Crafts|preset:Upholsterer)
 msgid "Upholsterer"
-msgstr ""
+msgstr "Čalouník"
 
 #: master_preset.xml:1315(list_entry:short_description|value:3)
 msgid "Upper secondary (3)"
@@ -14034,7 +14034,7 @@ msgstr ""
 
 #: master_preset.xml:13125(item:name|group:Crafts|preset:Watchmaker)
 msgid "Watchmaker"
-msgstr ""
+msgstr "Hodinář"
 
 #: master_preset.xml:8521(combo:display_values|group:Man_Made|preset:Tower|key:tower:type)
 msgid "Watchtower"
@@ -14345,7 +14345,7 @@ msgstr "Chata v divočině"
 #: master_preset.xml:7348(multiselect:display_values|group:Facilities|preset:Animal_shelter|key:animal_shelter)
 #: master_preset.xml:7366(multiselect:display_values|group:Facilities|preset:Animal_boarding|key:animal_boarding)
 msgid "Wildlife"
-msgstr ""
+msgstr "Divoká zvířata"
 
 #: master_preset.xml:5407(combo:display_values|group:Leisure|preset:Zoo|key:zoo)
 msgid "Wildlife park"
@@ -14393,7 +14393,7 @@ msgstr "Víno"
 
 #: master_preset.xml:13188(item:name|group:Crafts|preset:Winery)
 msgid "Winery"
-msgstr ""
+msgstr "Vinař"
 
 #: master_preset.xml:557(multiselect:display_values|key:cuisine)
 msgid "Wings"

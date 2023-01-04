@@ -104,6 +104,7 @@
   <string name="upload_validation_error_empty_comment">Коментар не має бути порожнім</string>
   <string name="upload_validation_error_empty_source">Джерело не має бути порожнім</string>
   <!--Review changes dialog-->
+  <string name="review_changes_title">Переглянути зміни</string>
   <!--Upload GPX-->
   <string name="upload_gpx_title">Надіслати трек GPX</string>
   <string name="upload_gpx_description_label">Опис</string>
@@ -455,6 +456,7 @@
   <string name="toast_unsurveyed_road">Неперевірені дороги</string>
   <string name="toast_noname">Дорозі бракує назви або номера</string>
   <string name="toast_notype">Зв\'язок без типу</string>
+  <string name="toast_untagged_element">Елемент без тегів</string>
   <string name="toast_unconnected_end_node">Точка поруч з елементом до якого вона може бути приєднана.</string>
   <string name="toast_degenerate_way">Вироджена лінія</string>
   <!---->
@@ -553,6 +555,15 @@
   <string name="toast_download_started">Завантаження %1$s розпочато</string>
   <string name="toast_phone_number_reformatted">Номер телефону переформатовано</string>
   <string name="toast_members_not_downloaded">Деякі учасники зв\'язку не завантажені</string>
+  <string name="toast_restart_required">Вам потрібно перезапустити Vespucci, щоб зміни вступили в силу</string>
+  <string name="toast_unable_to_open_offline_data">Неможливо відкрити офлайн-дані %1$s %2$s</string>
+  <plurals name="added_required_elements">
+    <item quantity="one">Додано необхідний елемент</item>
+    <item quantity="few">Додано %1$d необхідних елементи</item>
+    <item quantity="many">Додано %1$d необхідних елементів</item>
+    <item quantity="other">Додано %1$d необхідних елементів</item>
+  </plurals>
+  <string name="toast_error_downloading_mapillary_image">Помилка завантаження зображення mapillary %1$s</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">Джерела MapSplit повинні мати встановлені мінімальне та максимальне масштабування</string>
   <string name="error_pbf_no_version">У файлі PBF відсутня інформація про версію</string>
@@ -654,8 +665,10 @@
   <string name="tag_restriction_value_hint">Умовні обмеження</string>
   <string name="default_checkgroup_hint">Додаткові атрибути</string>
   <string name="tag_form_unknown_element">Невідомий елемент (заготовки відсутні)</string>
+  <string name="tag_form_untagged_element">Елемент без тегів</string>
   <!--Custom preset creation-->
   <string name="tag_menu_create_preset">Створити власний пресет</string>
+  <string name="create_preset_title">Користувальницьке ім\'я пресету</string>
   <!--Strings in Box/LocationPicker-->
   <string name="location_choose_radius">Виберіть радіус: </string>
   <string name="location_default_radius">300 м.</string>
@@ -677,6 +690,7 @@
   <string name="location_nan_title">Помилкове введення!</string>
   <string name="location_nan_message">Будь ласка, додавайте координати у десятковому форматі (напр., „52.333572“, „8.741185“). Широта у межах -85.0 та +85.0, а довгота у межах -175.0 та +175.0.</string>
   <!--Strings in barometer calibration-->
+  <string name="barometer_calibration_calibrate">Відкалібрувати</string>
   <!--Strings in postition info-->
   <string name="position_info_title">Дані про поточну позицію</string>
   <string name="position_info_altitude">Висота над рівнем моря</string>
@@ -737,6 +751,7 @@
   <string name="menu_transfer_load_current">Завантажити поточний вигляд</string>
   <string name="menu_transfer_load_replace">Очистити та завантажити поточний вигляд</string>
   <string name="menu_transfer_upload">Надіслати дані на сервер OSM...</string>
+  <string name="menu_transfer_review">Переглянути зміни...</string>
   <string name="menu_transfer_update">Оновити дані</string>
   <string name="menu_transfer_close_changeset">Закрити поточний набір змін</string>
   <string name="menu_transfer_file">Файл…</string>
@@ -776,6 +791,7 @@
   <string name="menu_extend_selection">Розширити виділення</string>
   <string name="menu_information">Інформація...</string>
   <string name="menu_voice_commands">Голосові команди</string>
+  <string name="menu_upload_element">Надіслати елемент</string>
   <string name="menu_set_name">Назва</string>
   <string name="menu_tools">Інструменти…</string>
   <string name="menu_tools_imagery">Інші інструменти зображень...</string>
@@ -785,12 +801,13 @@
   <string name="menu_tools_update_imagery_configuration">Оновити конфігурацію</string>
   <string name="menu_tools_zoom_to_layer_extent">Збільшити масштаб фонового шару</string>
   <string name="menu_tools_clear_clipboard">Очистити буфер обміну</string>
+  <string name="menu_tools_calibrate_height">Відкалібрувати датчик тиску…</string>
   <!---->
   <string name="menu_simple_actions">Простий режим</string>
   <string name="menu_feedback">Забезпечити зворотній звязок</string>
   <string name="menu_privacy">Конфіденційність</string>
   <!--Background alignment-->
-  <string name="menu_tools_background_align">Положення фону</string>
+  <string name="menu_tools_background_align">Вирівняти фон</string>
   <string name="menu_tools_background_align_reset">Скинути</string>
   <string name="menu_tools_background_align_zero">Нуль</string>
   <string name="menu_tools_background_align_retrieve_from_db">З бази даних</string>
@@ -848,6 +865,8 @@
   <string name="actionmode_multiselect">Мультивиділення</string>
   <string name="actionmode_newnoteselect">Вибрано нову примітку</string>
   <!--EasyEdit action mode sub-titles-->
+  <string name="actionmode_closed_way_split_1">Виберіть 1-у точку</string>
+  <string name="actionmode_closed_way_split_2">Виберіть 2-у точку</string>
   <string name="actionmode_restriction">Додати обмеження повороту</string>
   <string name="actionmode_restriction_restart_from">Повторно виберіть сегмент «з»</string>
   <string name="actionmode_restriction_select_from">Вибрати сегмент «від»</string>
@@ -856,6 +875,13 @@
   <string name="actionmode_restriction_to">Додати сегмент \"до\"</string>
   <string name="actionmode_restriction_restart_to">Знову вибрати сегмент «до»</string>
   <string name="actionmode_restriction_split_from">Розділити сегмент «від»</string>
+  <string name="actionmode_extract_segment_set_tags">Встановити теги</string>
+  <plurals name="actionmode_object_count">
+    <item quantity="one">1 об\'єкт</item>
+    <item quantity="few">%1$d об\'єкти</item>
+    <item quantity="many">%1$d об\'єктів</item>
+    <item quantity="other">%1$d об\'єктів</item>
+  </plurals>
   <!--Simple Action Mode-->
   <string name="menu_add_node">Додати точку</string>
   <string name="menu_add_node_tags">Додати точку з теґами</string>
@@ -941,6 +967,8 @@
   <string name="config_enableHwAcceleration_summary">Дозволяє використовувати апаратне прискорення, якщо і де підтримується, наразі це налаштування ні на що не впливає.</string>
   <string name="config_maxStrokeWidth_title">Макс. ширина лінії</string>
   <string name="config_maxStrokeWidth_summary">Не малювати лінію товстіше, ніж ця.</string>
+  <string name="config_upload_current">%1$d об\'єктів</string>
+  <string name="config_uploadWarn_summary">Обмеження, нижче якого незавершені відправлення об’єктів матимуть статус попередження.</string>
   <string name="config_uploadChecker_title">Інтервал нагадування про надсилання</string>
   <string name="config_uploadChecker_summary">Інтервал для нагадувань, якщо у вас є неопубліковані зміни.</string>
   <string name="config_uploadChecker_current">%1$d годин</string>
@@ -971,6 +999,7 @@
   <string name="config_enableAutoPresets_summary">Дозволити створення заготовок з taginfo.</string>
   <string name="config_orthogonalizeThreshold_summary">Поріг у °, за яким кути ігноруються</string>
   <string name="config_autoformatPhoneNumbers_title">Автоматичне форматування телефонних номерів</string>
+  <string name="config_autoformatPhoneNumbers_summary">Увімкнути автоматичне форматування телефонних номерів</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Налаштування автозавантаження</string>
   <string name="config_category_auto_download_summary">Налаштування автоматичного завантаження даних і завдань</string>
@@ -1004,6 +1033,7 @@
   <string name="config_leaveGpsDisabled_summary">Не пропонувати включати GPS, коли він відключений</string>
   <string name="config_gps_network_title">Повернення до мережевого розташування</string>
   <string name="config_gps_network_summary">Якщо позиціонування GPS/GNSS відсутнє або ввімкнено, зверніться до постачальника мережі.</string>
+  <string name="config_gnssTimeToStale_summary">Час (у секундах), за який місцеположення має вважатися застарілим.</string>
   <!--Server Settings-->
   <string name="config_category_server">Налаштування сервера</string>
   <string name="config_category_server_summary">OSM API та налаштування інших серверів.</string>
