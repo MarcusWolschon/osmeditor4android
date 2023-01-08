@@ -110,7 +110,7 @@ Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/
 |                   | values_from                   | supported | extension: if the target method supports a String argument the current key will be passed
 |                   | rows                          | ignored   |
 |                   | value_count_key               | extension | reference to a tag that will hold the number of values this multiselect should contain
-|__&lt;list_entry&gt;__       |                     | supported |
+|__&lt;list_entry&gt;__       |                     | partial   | JOSM allows non-nested list_entry elements in chunks, this is currently not supported
 |                   | value                         | supported | required
 |                   | display_value                 | supported |
 |                   | short_description             | supported |
@@ -189,4 +189,4 @@ For Vespucci I've chosen a different approach based on [GNU gettext](https://www
 * _min_match_ modifies Vespuccis matching algorithm to use the specified number of fixed tag matches instead of expecting all to match.
 * _value_count_key_ reference to a tag that will hold the number of values this multiselect should contain. Example for the destination:lanes tag this would be value_count_key="lanes".
 * _alternative_ indicates that the preset_link points to an alternative tagging of the object.
-* _image_ optional reference to a large image in an _list_entry_. 
+* _image_ optional reference to a large image in an _list_entry_. See [Bicycle parking preset](https://github.com/simonpoole/bicycle-parking-preset) for an example of using this tag.
