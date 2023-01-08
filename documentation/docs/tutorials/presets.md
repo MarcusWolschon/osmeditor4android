@@ -1,15 +1,15 @@
-## Vespucci Preset System
+# Vespucci Preset System
 _Documentation for Vespucci 18.1_
 
 As explained in the [help documentation](../help/en/Presets.md) Vespucci uses JOSM compatible presets, currently any preset used in JOSM should simply work with Vespucci, however there can be differences. Particularly with the new preset driven tagging interface presets have become even more important and if you are writing presets yourself and want them to work well in Vespucci please keep on reading.
 
-### Preset-Driven Tag-Editing in Vespucci
+## Preset-Driven Tag-Editing in Vespucci
 
 ![ ](images/form_editor_small.png)
 
 For the preset based editing to work Vespucci has to match the existing tags, including incomplete, key-only ones with the available presets. This is done in an iterative fashion: the best matching preset is found (weighting presets with fixed key-value tuples higher than such with variable values), then all tags that can be found in linked presets are added (no separate header displayed) and this process is repeated until their are either no tags left or no preset match can be found.
 
-### Supported JOSM Preset Elements and Attributes
+## Supported JOSM Preset Elements and Attributes
 
 Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/wiki/TaggingPresets) that works, this may, and likely is, different from the actual implementation. Language specific attributes are ignored (see [Translation](#Translation)). "supported" doesn't necessarily imply the same behaviour as JOSM, simply that Vespucci will do something useful with the value. Icons currently must be in PNG format.
 
@@ -158,13 +158,13 @@ Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/
 
 
 
-### Translation <a name="Translation"></a>
+## Translation <a name="Translation"></a>
 
 While the preset specification includes language specific text by prefixing the keys with the two letter ISO code, for example _de.text_, in practical terms this doesn't really work. Particularly if lots of languages are in use, the preset file itself would explode in size, become essentially illegible and force the application to parse many 100's if not 1000's of attributes for languages it is not interested in.
 
 For Vespucci I've chosen a different approach based on [GNU gettext](https://www.gnu.org/software/gettext/manual/gettext.html) format files, the simple [Preset2Pot](https://github.com/simonpoole/preset-utils) utility will generate a .pot file from a preset which you can use with one of the translation services to produce GNU gettext compatible translations of all the strings in the preset (excluding the actual key and value strings).
 
-### Extensions
+## Extensions
 
 * _deprecated_ only use this preset for matching, do not offer it for new use and do not find it when searched, it will work analogous for deprecated tags and values.
 * _javascript_ execute the script if the value of this tag is empty, the script has access to and can modify the current tags and use the specified default value if any.
