@@ -1,5 +1,5 @@
 ## Vespucci Preset System
-_Documentation for Vespucci 17.1_
+_Documentation for Vespucci 18.1_
 
 As explained in the [help documentation](../help/en/Presets.md) Vespucci uses JOSM compatible presets, currently any preset used in JOSM should simply work with Vespucci, however there can be differences. Particularly with the new preset driven tagging interface presets have become even more important and if you are writing presets yourself and want them to work well in Vespucci please keep on reading.
 
@@ -116,6 +116,7 @@ Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/
 |                   | short_description             | supported |
 |                   | icon                          | supported |
 |                   | icon_size                     | ignored   |
+|                   | image                         | extension |
 |__&lt;checkgroup&gt;__       |                     | supported |
 |                   | columns                       | ignored   |
 |                   | text                          | extension |
@@ -161,7 +162,7 @@ Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/
 
 While the preset specification includes language specific text by prefixing the keys with the two letter ISO code, for example _de.text_, in practical terms this doesn't really work. Particularly if lots of languages are in use, the preset file itself would explode in size, become essentially illegible and force the application to parse many 100's if not 1000's of attributes for languages it is not interested in.
 
-For Vespucci I've chosen a different approach based on [GNU gettext](https://www.gnu.org/software/gettext/manual/gettext.html) format files, the simple [Preset2Pot](https://github.com/simonpoole/beautified-JOSM-preset/tree/master/src/ch/poole/presetutils) utility will generate a .pot file from a preset which you can use with one of the translation services to produce GNU gettext compatible translations of all the strings in the preset (excluding the actual key and value strings).
+For Vespucci I've chosen a different approach based on [GNU gettext](https://www.gnu.org/software/gettext/manual/gettext.html) format files, the simple [Preset2Pot](https://github.com/simonpoole/preset-utils) utility will generate a .pot file from a preset which you can use with one of the translation services to produce GNU gettext compatible translations of all the strings in the preset (excluding the actual key and value strings).
 
 ### Extensions
 
@@ -188,3 +189,4 @@ For Vespucci I've chosen a different approach based on [GNU gettext](https://www
 * _min_match_ modifies Vespuccis matching algorithm to use the specified number of fixed tag matches instead of expecting all to match.
 * _value_count_key_ reference to a tag that will hold the number of values this multiselect should contain. Example for the destination:lanes tag this would be value_count_key="lanes".
 * _alternative_ indicates that the preset_link points to an alternative tagging of the object.
+* _image_ optional reference to a large image in an _list_entry_. 
