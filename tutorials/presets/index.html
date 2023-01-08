@@ -366,7 +366,7 @@
 <div class="col-md-9" role="main">
 
 <h2 id="vespucci-preset-system">Vespucci Preset System<a class="headerlink" href="#vespucci-preset-system" title="Permanent link">#</a></h2>
-<p><em>Documentation for Vespucci 17.1</em></p>
+<p><em>Documentation for Vespucci 18.1</em></p>
 <p>As explained in the <a href="../../help/en/Presets/">help documentation</a> Vespucci uses JOSM compatible presets, currently any preset used in JOSM should simply work with Vespucci, however there can be differences. Particularly with the new preset driven tagging interface presets have become even more important and if you are writing presets yourself and want them to work well in Vespucci please keep on reading.</p>
 <h3 id="preset-driven-tag-editing-in-vespucci">Preset-Driven Tag-Editing in Vespucci<a class="headerlink" href="#preset-driven-tag-editing-in-vespucci" title="Permanent link">#</a></h3>
 <p><img alt=" " src="../images/form_editor_small.png" /></p>
@@ -984,6 +984,12 @@
 <td></td>
 </tr>
 <tr>
+<td></td>
+<td>image</td>
+<td>extension</td>
+<td></td>
+</tr>
+<tr>
 <td><strong>&lt;checkgroup&gt;</strong></td>
 <td></td>
 <td>supported</td>
@@ -1215,7 +1221,7 @@
 </table>
 <h3 id="translation">Translation <a name="Translation"></a><a class="headerlink" href="#translation" title="Permanent link">#</a></h3>
 <p>While the preset specification includes language specific text by prefixing the keys with the two letter ISO code, for example <em>de.text</em>, in practical terms this doesn't really work. Particularly if lots of languages are in use, the preset file itself would explode in size, become essentially illegible and force the application to parse many 100's if not 1000's of attributes for languages it is not interested in.</p>
-<p>For Vespucci I've chosen a different approach based on <a href="https://www.gnu.org/software/gettext/manual/gettext.html">GNU gettext</a> format files, the simple <a href="https://github.com/simonpoole/beautified-JOSM-preset/tree/master/src/ch/poole/presetutils">Preset2Pot</a> utility will generate a .pot file from a preset which you can use with one of the translation services to produce GNU gettext compatible translations of all the strings in the preset (excluding the actual key and value strings).</p>
+<p>For Vespucci I've chosen a different approach based on <a href="https://www.gnu.org/software/gettext/manual/gettext.html">GNU gettext</a> format files, the simple <a href="https://github.com/simonpoole/preset-utils">Preset2Pot</a> utility will generate a .pot file from a preset which you can use with one of the translation services to produce GNU gettext compatible translations of all the strings in the preset (excluding the actual key and value strings).</p>
 <h3 id="extensions">Extensions<a class="headerlink" href="#extensions" title="Permanent link">#</a></h3>
 <ul>
 <li><em>deprecated</em> only use this preset for matching, do not offer it for new use and do not find it when searched, it will work analogous for deprecated tags and values.</li>
@@ -1245,6 +1251,7 @@
 <li><em>min_match</em> modifies Vespuccis matching algorithm to use the specified number of fixed tag matches instead of expecting all to match.</li>
 <li><em>value_count_key</em> reference to a tag that will hold the number of values this multiselect should contain. Example for the destination:lanes tag this would be value_count_key="lanes".</li>
 <li><em>alternative</em> indicates that the preset_link points to an alternative tagging of the object.</li>
+<li><em>image</em> optional reference to a large image in an <em>list_entry</em>. </li>
 </ul></div> -->
 		    
                     	<div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
@@ -1268,7 +1275,7 @@
                     	<div class="col-md-9" role="main">
 
 <h2 id="vespucci-preset-system">Vespucci Preset System<a class="headerlink" href="#vespucci-preset-system" title="Permanent link">#</a></h2>
-<p><em>Documentation for Vespucci 17.1</em></p>
+<p><em>Documentation for Vespucci 18.1</em></p>
 <p>As explained in the <a href="../../help/en/Presets/">help documentation</a> Vespucci uses JOSM compatible presets, currently any preset used in JOSM should simply work with Vespucci, however there can be differences. Particularly with the new preset driven tagging interface presets have become even more important and if you are writing presets yourself and want them to work well in Vespucci please keep on reading.</p>
 <h3 id="preset-driven-tag-editing-in-vespucci">Preset-Driven Tag-Editing in Vespucci<a class="headerlink" href="#preset-driven-tag-editing-in-vespucci" title="Permanent link">#</a></h3>
 <p><img alt=" " src="../images/form_editor_small.png" /></p>
@@ -1886,6 +1893,12 @@
 <td></td>
 </tr>
 <tr>
+<td></td>
+<td>image</td>
+<td>extension</td>
+<td></td>
+</tr>
+<tr>
 <td><strong>&lt;checkgroup&gt;</strong></td>
 <td></td>
 <td>supported</td>
@@ -2117,7 +2130,7 @@
 </table>
 <h3 id="translation">Translation <a name="Translation"></a><a class="headerlink" href="#translation" title="Permanent link">#</a></h3>
 <p>While the preset specification includes language specific text by prefixing the keys with the two letter ISO code, for example <em>de.text</em>, in practical terms this doesn't really work. Particularly if lots of languages are in use, the preset file itself would explode in size, become essentially illegible and force the application to parse many 100's if not 1000's of attributes for languages it is not interested in.</p>
-<p>For Vespucci I've chosen a different approach based on <a href="https://www.gnu.org/software/gettext/manual/gettext.html">GNU gettext</a> format files, the simple <a href="https://github.com/simonpoole/beautified-JOSM-preset/tree/master/src/ch/poole/presetutils">Preset2Pot</a> utility will generate a .pot file from a preset which you can use with one of the translation services to produce GNU gettext compatible translations of all the strings in the preset (excluding the actual key and value strings).</p>
+<p>For Vespucci I've chosen a different approach based on <a href="https://www.gnu.org/software/gettext/manual/gettext.html">GNU gettext</a> format files, the simple <a href="https://github.com/simonpoole/preset-utils">Preset2Pot</a> utility will generate a .pot file from a preset which you can use with one of the translation services to produce GNU gettext compatible translations of all the strings in the preset (excluding the actual key and value strings).</p>
 <h3 id="extensions">Extensions<a class="headerlink" href="#extensions" title="Permanent link">#</a></h3>
 <ul>
 <li><em>deprecated</em> only use this preset for matching, do not offer it for new use and do not find it when searched, it will work analogous for deprecated tags and values.</li>
@@ -2147,6 +2160,7 @@
 <li><em>min_match</em> modifies Vespuccis matching algorithm to use the specified number of fixed tag matches instead of expecting all to match.</li>
 <li><em>value_count_key</em> reference to a tag that will hold the number of values this multiselect should contain. Example for the destination:lanes tag this would be value_count_key="lanes".</li>
 <li><em>alternative</em> indicates that the preset_link points to an alternative tagging of the object.</li>
+<li><em>image</em> optional reference to a large image in an <em>list_entry</em>. </li>
 </ul></div>
                     
             </div>
