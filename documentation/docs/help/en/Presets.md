@@ -25,7 +25,7 @@ To manage the presets go to the "Preferences" screen, selecting "Presets" will g
 
 ## Useful presets for download
 
-Most current JOSM presets can be found in [JOSM preset list](http://josm.openstreetmap.de/wiki/Presets#JOSMAvailablepresets) the preset download urls are modified for direct download (the links automatically configure a new preset entry and will only work on your device with Vespucci installed)
+Most current JOSM presets can be found in [JOSM preset list](http://josm.openstreetmap.de/wiki/Presets#JOSMAvailablepresets). If you are viewing this on your mobile device with Vespucci the preset download urls are modified for direct download and install.
 
 Some further potentially useful presets:
 
@@ -39,6 +39,6 @@ Some further potentially useful presets:
  * <a href="vespucci:/preset?preseturl=https://github.com/simonpoole/preset-scripting-examples/raw/gh-pages/gen/script_examples.zip&presetname=javascript in Vespucci presets examples">Scripting examples (check date, disused life cycle tag)</a>
  * <a href="vespucci://preset/?preseturl=https://github.com/simonpoole/bicycle-parking-preset/releases/latest/download/bicycle_parking.zip&presetname=Bicycle parking">Bicycle parking with large images</a>
 
-&ast; if you want to replace the default presets with the downloaded version you will need to disable it in the preferences after installing the replacement.
+&ast; if you want to replace the default preset with the downloaded version you will need to disable it in the preferences after installing the replacement.
 
 
