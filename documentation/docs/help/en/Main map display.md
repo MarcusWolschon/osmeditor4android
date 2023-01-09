@@ -115,8 +115,8 @@ Tapping the icon once will undo the last operation. A long press will display a 
 
 ### ![Camera](../images/camera.png) Camera
 
-Start a camera app, add the resulting photograph to the photo layer is enabled. The photograph itself should be stored in the Vespucci/Pictures 
-directory, however this depends on the specific camera app.
+Start a camera app, and add the resulting photograph to the photo layer if it is enabled. The photograph itself should be stored in the Vespucci/Pictures 
+directory, however this depends on the specific camera app. Note that because of restrictions in recent versions of Android you will need to configure the target app in the preferences if you are not happy with the standard app on your device. See [16.1 release notes](16.1.0 Release notes.md).
 
 ### ![Location](../images/menu_gps.png) Location
 
