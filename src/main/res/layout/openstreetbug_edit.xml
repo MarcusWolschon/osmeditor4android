@@ -63,7 +63,6 @@
             android:layout_below="@id/openstreetbug_comment_label"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:textIsSelectable="true"
             android:inputType="textMultiLine" />
     </RelativeLayout>
 </ScrollView>
