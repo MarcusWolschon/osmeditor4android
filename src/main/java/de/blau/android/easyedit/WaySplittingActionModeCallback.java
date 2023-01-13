@@ -96,6 +96,11 @@ public class WaySplittingActionModeCallback extends NonSimpleActionModeCallback 
         }
         return true;
     }
+    
+    @Override
+    public boolean usesLongClick() {
+        return true;
+    }
 
     @Override
     public void onDestroyActionMode(ActionMode mode) {
