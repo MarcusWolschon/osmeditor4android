@@ -393,7 +393,18 @@ public class EasyEditManager {
     }
 
     /**
-     * This gets called when the map is long-clciked in easy-edit mode
+     * Indicate if the current mode uses long click internally, that is not for new nodes and ways
+     * 
+     * @return true if the current mode uses long click
+     */
+    public boolean usesLongClick() {
+        synchronized (actionModeCallbackLock) {
+            return currentActionModeCallback != null && currentActionModeCallback.usesLongClick();
+        }
+    }
+
+    /**
+     * This gets called when the map is long-clicked in easy-edit mode and a element is the target
      * 
      * @param v the View that was long clicked
      * @param e an OsmElement
@@ -412,7 +423,7 @@ public class EasyEditManager {
     }
 
     /**
-     * This gets called when the map is long-clciked in easy-edit mode
+     * This gets called when the map is long-clicked in easy-edit mode
      * 
      * @param v the View that was long clicked
      * @param x screen X coordinate
