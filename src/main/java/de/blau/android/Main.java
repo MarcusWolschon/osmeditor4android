@@ -3539,7 +3539,7 @@ public class Main extends FullScreenAppCompatActivity
                 return true;
             }
             if (logic.isInEditZoomRange()) {
-                if (prefs.areSimpleActionsEnabled()) {
+                if (prefs.areSimpleActionsEnabled() || getEasyEditManager().usesLongClick()) {
                     if (elementCount == 1 && getEasyEditManager().handleLongClick(v, clickedNodesAndWays.get(0))) {
                         return true;
                     }
