@@ -54,7 +54,6 @@ import de.blau.android.resources.TileLayerSource.TileType;
 import de.blau.android.services.TrackerService;
 import de.blau.android.util.Density;
 import de.blau.android.util.GeoMath;
-import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.collections.FloatPrimitiveList;
 import de.blau.android.util.mvt.VectorTileRenderer;
@@ -271,18 +270,10 @@ public class Map extends View implements IMapView {
                             break;
                         case GEOJSON:
                             layer = new de.blau.android.layer.geojson.MapOverlay(this);
-                            try {
-                                if (!((de.blau.android.layer.geojson.MapOverlay) layer).loadGeoJsonFile(ctx, Uri.parse(contentId), true)) {
-                                    // other error, has already been toasted
-                                    db.deleteLayer(LayerType.GEOJSON, contentId);
-                                    continue;
-                                }
-                            } catch (IOException e) {
-                                if (context instanceof Main) {
-                                    Snack.toastTopError(context, context.getString(R.string.toast_error_reading, contentId));
-                                }
+                            if (!((de.blau.android.layer.geojson.MapOverlay) layer).loadGeoJsonFile(ctx, Uri.parse(contentId), true)) {
+                                // other error, has already been toasted
                                 db.deleteLayer(LayerType.GEOJSON, contentId);
-                                continue; // skip
+                                continue;
                             }
                             break;
                         case MAPILLARY:
