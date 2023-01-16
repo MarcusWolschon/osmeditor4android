@@ -12,6 +12,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -39,6 +42,8 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
+import de.blau.android.App;
+import de.blau.android.Logic;
 import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.contract.FileExtensions;
@@ -53,11 +58,13 @@ import de.blau.android.layer.LayerType;
 import de.blau.android.layer.StyleableLayer;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.OsmXml;
+import de.blau.android.osm.Server;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.DataStyle.FeatureStyle;
 import de.blau.android.resources.symbols.TriangleDown;
 import de.blau.android.util.ContentResolverUtil;
+import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.GeoJSONConstants;
 import de.blau.android.util.GeoJson;
 import de.blau.android.util.GeoMath;
@@ -397,27 +404,40 @@ public class MapOverlay extends StyleableLayer
      * @param uri an URI for the file
      * @param fromState reading from saved state
      * @return true if successful
-     * @throws IOException if reading the uri goes wrong
      */
-    public boolean loadGeoJsonFile(@NonNull Context ctx, @NonNull Uri uri, boolean fromState) throws IOException {
-        try (InputStream is = ctx.getContentResolver().openInputStream(uri)) {
-            readingLock.lock();
-            name = ContentResolverUtil.getDisplaynameColumn(ctx, uri);
-            if (name == null) {
-                name = uri.getLastPathSegment();
-            }
-            setFileName(uri.getEncodedPath());
-            this.uri = uri.toString();
-            return loadGeoJsonFile(ctx, is, fromState);
-        } catch (SecurityException sex) {
-            Log.e(DEBUG_TAG, sex.getMessage());
-            // note need a context here that is on the ui thread
-            Snack.toastTopError(map.getContext(), ctx.getString(R.string.toast_permission_denied, uri.toString()));
+    public boolean loadGeoJsonFile(@NonNull Context ctx, @NonNull Uri uri, boolean fromState) {
+        try {
+            Logic logic = App.getLogic();
+            return new ExecutorTask<Void, Void, Boolean>(logic.getExecutorService(), logic.getHandler()) {
+                @Override
+                protected Boolean doInBackground(Void arg) {
+                    try (InputStream is = ctx.getContentResolver().openInputStream(uri)) {
+                        readingLock.lock();
+                        name = ContentResolverUtil.getDisplaynameColumn(ctx, uri);
+                        if (name == null) {
+                            name = uri.getLastPathSegment();
+                        }
+                        setFileName(uri.getEncodedPath());
+                        MapOverlay.this.uri = uri.toString();
+                        return loadGeoJsonFile(ctx, is, fromState);
+                    } catch (SecurityException sex) {
+                        Log.e(DEBUG_TAG, sex.getMessage());
+                        // note need a context here that is on the ui thread
+                        Snack.toastTopError(map.getContext(), ctx.getString(R.string.toast_permission_denied, uri.toString()));
+                        return false;
+                    } catch (IOException iex) {
+                        Snack.toastTopError(ctx, ctx.getString(R.string.toast_error_reading, uri.toString()));
+                        return false;
+                    } finally {
+                        if (readingLock.isLocked()) {
+                            readingLock.unlock();
+                        }
+                    }
+                }
+            }.execute().get(Server.TIMEOUT, TimeUnit.SECONDS); // result is not going to be null
+        } catch (InterruptedException | ExecutionException | TimeoutException e) { // NOSONAR
+            Log.e(DEBUG_TAG, e.getMessage());
             return false;
-        } finally {
-            if (readingLock.isLocked()) {
-                readingLock.unlock();
-            }
         }
     }
 

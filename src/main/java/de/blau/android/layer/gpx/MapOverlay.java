@@ -13,6 +13,8 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.RejectedExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -44,6 +46,7 @@ import de.blau.android.layer.LabelMinZoomInterface;
 import de.blau.android.layer.LayerType;
 import de.blau.android.layer.StyleableLayer;
 import de.blau.android.osm.BoundingBox;
+import de.blau.android.osm.Server;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.DataStyle.FeatureStyle;
@@ -481,8 +484,8 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
                         Log.e(DEBUG_TAG, "onPostExecute", e);
                     }
                 }
-            }.execute().get() == OK; // result is not going to be null
-        } catch (InterruptedException | ExecutionException e) { // NOSONAR
+            }.execute().get(Server.TIMEOUT, TimeUnit.SECONDS) == OK; // result is not going to be null
+        } catch (InterruptedException | ExecutionException | TimeoutException e) { // NOSONAR
             Log.e(DEBUG_TAG, e.getMessage());
             return false;
         }
