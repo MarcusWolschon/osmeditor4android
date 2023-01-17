@@ -1086,7 +1086,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                     originalKey = row.getKey();
                     row.keyEdit.setAdapter(getKeyAutocompleteAdapter(preset, rowLayout, row.keyEdit));
                     if (row.getKey().length() == 0) {
-                        row.keyEdit.showDropDown();
+                        row.keyEdit.post(() -> row.keyEdit.showDropDown());
                     }
                 } else {
                     String newKey = row.getKey();
@@ -1122,7 +1122,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                     }
                     InputTypeUtil.setInputTypeFromValueType(row.valueEdit, valueType);
                     if (row.valueEdit.getText().length() == 0) {
-                        row.valueEdit.showDropDown();
+                        row.valueEdit.post(() -> row.valueEdit.showDropDown());
                     }
                 } else {
                     // our preset may have changed re-calc
