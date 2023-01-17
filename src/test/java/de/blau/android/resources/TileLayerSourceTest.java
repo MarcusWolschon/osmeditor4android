@@ -173,4 +173,35 @@ public class TileLayerSourceTest {
                 url);
         assertEquals(TileLayerSource.EPSG_4326, thurgau.getProj());
     }
+
+    /**
+     * Test that setting min and max zoom works correctly if offsets have been set
+     */
+    @Test
+    public void changeZoomLevels() {
+        try {
+            TileLayerDatabase.addSource(db.getWritableDatabase(), TileLayerDatabase.SOURCE_ELI);
+            TileLayerSource.parseImageryFile(ApplicationProvider.getApplicationContext(), db.getWritableDatabase(), TileLayerDatabase.SOURCE_ELI,
+                    getClass().getResourceAsStream("/imagery_test.geojson"), true);
+            TileLayerSource.getListsLocked(ApplicationProvider.getApplicationContext(), db.getReadableDatabase(), true);
+            String[] ids = TileLayerSource.getIds(null, false, null, null);
+            assertEquals(5, ids.length);
+            TileLayerSource a = TileLayerSource.get(ApplicationProvider.getApplicationContext(), "A", false);
+            assertNotNull(a);
+            a.setOffset(0, 19, 0.1D, 0.1D);
+            assertEquals(20, a.getOffsets().length);
+            a.setMinZoom(1);
+            assertEquals(19, a.getOffsets().length);
+            a.setMinZoom(0);
+            assertEquals(20, a.getOffsets().length);
+            assertNull(a.getOffset(0));
+            a.setMaxZoom(18);
+            assertEquals(19, a.getOffsets().length);
+            a.setMaxZoom(19);
+            assertEquals(20, a.getOffsets().length);
+            assertNull(a.getOffset(19));
+        } catch (IOException e) {
+            fail(e.getMessage());
+        }
+    }
 }

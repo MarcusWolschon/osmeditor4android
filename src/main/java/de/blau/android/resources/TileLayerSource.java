@@ -2273,15 +2273,25 @@ public class TileLayerSource implements Serializable {
     /**
      * @return the zoomLevelMin
      */
-    public int getMinZoom() {
+    public synchronized int getMinZoom() {
         return zoomLevelMin;
     }
 
     /**
-     * @param zoomLevelMin the zoomLevelMin to set
+     * Set the minimum zoom
+     * 
+     * If the offsets array already has been allocated this will expand/shrink it if necessary
+     * 
+     * @param newZoomLevelMin the zoomLevelMin to set
      */
-    public void setMinZoom(int zoomLevelMin) {
-        this.zoomLevelMin = zoomLevelMin;
+    public synchronized void setMinZoom(int newZoomLevelMin) {
+        if (offsets != null && zoomLevelMin != newZoomLevelMin) {
+            Offset[] tempOffsets = new Offset[zoomLevelMax - newZoomLevelMin + 1];
+            int destOffset = Math.max(0, zoomLevelMin - newZoomLevelMin);
+            System.arraycopy(offsets, Math.max(0, newZoomLevelMin - zoomLevelMin), tempOffsets, destOffset, tempOffsets.length - destOffset);
+            offsets = tempOffsets;
+        }
+        zoomLevelMin = newZoomLevelMin;
     }
 
     /**
@@ -2296,18 +2306,17 @@ public class TileLayerSource implements Serializable {
     /**
      * Set the maximum zoom
      * 
-     * If the offsets array already has been allocated this will expand it if necessary (currently only possible for
-     * bing)
+     * If the offsets array already has been allocated this will expand/shrink it if necessary
      * 
-     * @param zoomLevelMax the zoomLevelMax to set
+     * @param newZoomLevelMax the zoomLevelMax to set
      */
-    public synchronized void setMaxZoom(int zoomLevelMax) {
-        if (offsets != null && offsets.length < zoomLevelMax) {
-            Offset[] tempOffsets = new Offset[zoomLevelMax - this.zoomLevelMin + 1];
-            System.arraycopy(offsets, 0, tempOffsets, 0, offsets.length);
+    public synchronized void setMaxZoom(int newZoomLevelMax) {
+        if (offsets != null && zoomLevelMax != newZoomLevelMax) {
+            Offset[] tempOffsets = new Offset[newZoomLevelMax - zoomLevelMin + 1];
+            System.arraycopy(offsets, 0, tempOffsets, 0, Math.min(offsets.length, tempOffsets.length));
             offsets = tempOffsets;
         }
-        this.zoomLevelMax = zoomLevelMax;
+        zoomLevelMax = newZoomLevelMax;
     }
 
     /**
