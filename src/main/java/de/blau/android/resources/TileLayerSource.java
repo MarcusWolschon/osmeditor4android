@@ -115,10 +115,13 @@ public class TileLayerSource implements Serializable {
     public static final String TYPE_WMS_ENDPOINT = "wms_endpoint";
     static final String        TYPE_BING         = "bing";
     static final String        TYPE_SCANEX       = "scanex";
-    public static final String LAYER_MAPNIK      = "MAPNIK";
-    public static final String LAYER_NONE        = "NONE";
-    public static final String LAYER_NOOVERLAY   = "NOOVERLAY";
-    public static final String LAYER_BING        = "BING";
+
+    private static final String SCANEX_HOST = "irs.gis-lab.info";
+
+    public static final String LAYER_MAPNIK    = "MAPNIK";
+    public static final String LAYER_NONE      = "NONE";
+    public static final String LAYER_NOOVERLAY = "NOOVERLAY";
+    public static final String LAYER_BING      = "BING";
 
     private static final String SWITCH_START = "{switch:";
 
@@ -702,7 +705,7 @@ public class TileLayerSource implements Serializable {
                 }
             }
         } else if (TYPE_SCANEX.equals(type)) { // hopelessly hardwired
-            setTileUrl("http://irs.gis-lab.info/?layers=" + tileUrl.toLowerCase(Locale.US) + "&request=GetTile&z={zoom}&x={x}&y={y}");
+            setTileUrl("http://" + SCANEX_HOST + "/?layers=" + tileUrl.toLowerCase(Locale.US) + "&request=GetTile&z={zoom}&x={x}&y={y}");
             setImageExtension(FileExtensions.JPG);
         }
     }
@@ -1626,18 +1629,11 @@ public class TileLayerSource implements Serializable {
      * @return the string with the parameter replaced
      */
     private static String replaceParameter(@NonNull final String s, @NonNull final String param, @NonNull final String value) {
-        String result = s;
-        // replace "${param}"
-        // not used in imagery index result = result.replaceFirst("\\$\\{" + param + "\\}", value);
-        // replace "$param"
-        // not used in imagery index result = result.replaceFirst("\\$" + param, value);
-        // replace "{param}"
-        result = result.replaceFirst("\\{" + param + "\\}", value);
-        return result;
+        return s.replaceFirst("\\{" + param + "\\}", value);
     }
 
     /**
-     * Replace some specific parameters that we use. Currently just culture
+     * Replace some specific parameters that we use. Currently just 'culture'
      * 
      * @param s the input string
      * @return the string with replaced parameters
@@ -1874,7 +1870,7 @@ public class TileLayerSource implements Serializable {
             return TYPE_BING;
         }
 
-        if (url.contains("irs.gis-lab.info")) {
+        if (url.contains(SCANEX_HOST)) {
             return "scanex_irs";
         }
 
@@ -2273,15 +2269,25 @@ public class TileLayerSource implements Serializable {
     /**
      * @return the zoomLevelMin
      */
-    public int getMinZoom() {
+    public synchronized int getMinZoom() {
         return zoomLevelMin;
     }
 
     /**
-     * @param zoomLevelMin the zoomLevelMin to set
+     * Set the minimum zoom
+     * 
+     * If the offsets array already has been allocated this will expand/shrink it if necessary
+     * 
+     * @param newZoomLevelMin the zoomLevelMin to set
      */
-    public void setMinZoom(int zoomLevelMin) {
-        this.zoomLevelMin = zoomLevelMin;
+    public synchronized void setMinZoom(int newZoomLevelMin) {
+        if (offsets != null && zoomLevelMin != newZoomLevelMin) {
+            Offset[] tempOffsets = new Offset[zoomLevelMax - newZoomLevelMin + 1];
+            int destOffset = Math.max(0, zoomLevelMin - newZoomLevelMin);
+            System.arraycopy(offsets, Math.max(0, newZoomLevelMin - zoomLevelMin), tempOffsets, destOffset, tempOffsets.length - destOffset);
+            offsets = tempOffsets;
+        }
+        zoomLevelMin = newZoomLevelMin;
     }
 
     /**
@@ -2296,18 +2302,17 @@ public class TileLayerSource implements Serializable {
     /**
      * Set the maximum zoom
      * 
-     * If the offsets array already has been allocated this will expand it if necessary (currently only possible for
-     * bing)
+     * If the offsets array already has been allocated this will expand/shrink it if necessary
      * 
-     * @param zoomLevelMax the zoomLevelMax to set
+     * @param newZoomLevelMax the zoomLevelMax to set
      */
-    public synchronized void setMaxZoom(int zoomLevelMax) {
-        if (offsets != null && offsets.length < zoomLevelMax) {
-            Offset[] tempOffsets = new Offset[zoomLevelMax - this.zoomLevelMin + 1];
-            System.arraycopy(offsets, 0, tempOffsets, 0, offsets.length);
+    public synchronized void setMaxZoom(int newZoomLevelMax) {
+        if (offsets != null && zoomLevelMax != newZoomLevelMax) {
+            Offset[] tempOffsets = new Offset[newZoomLevelMax - zoomLevelMin + 1];
+            System.arraycopy(offsets, 0, tempOffsets, 0, Math.min(offsets.length, tempOffsets.length));
             offsets = tempOffsets;
         }
-        this.zoomLevelMax = zoomLevelMax;
+        zoomLevelMax = newZoomLevelMax;
     }
 
     /**
