@@ -115,10 +115,13 @@ public class TileLayerSource implements Serializable {
     public static final String TYPE_WMS_ENDPOINT = "wms_endpoint";
     static final String        TYPE_BING         = "bing";
     static final String        TYPE_SCANEX       = "scanex";
-    public static final String LAYER_MAPNIK      = "MAPNIK";
-    public static final String LAYER_NONE        = "NONE";
-    public static final String LAYER_NOOVERLAY   = "NOOVERLAY";
-    public static final String LAYER_BING        = "BING";
+
+    private static final String SCANEX_HOST = "irs.gis-lab.info";
+
+    public static final String LAYER_MAPNIK    = "MAPNIK";
+    public static final String LAYER_NONE      = "NONE";
+    public static final String LAYER_NOOVERLAY = "NOOVERLAY";
+    public static final String LAYER_BING      = "BING";
 
     private static final String SWITCH_START = "{switch:";
 
@@ -702,7 +705,7 @@ public class TileLayerSource implements Serializable {
                 }
             }
         } else if (TYPE_SCANEX.equals(type)) { // hopelessly hardwired
-            setTileUrl("http://irs.gis-lab.info/?layers=" + tileUrl.toLowerCase(Locale.US) + "&request=GetTile&z={zoom}&x={x}&y={y}");
+            setTileUrl("http://" + SCANEX_HOST + "/?layers=" + tileUrl.toLowerCase(Locale.US) + "&request=GetTile&z={zoom}&x={x}&y={y}");
             setImageExtension(FileExtensions.JPG);
         }
     }
@@ -1626,18 +1629,11 @@ public class TileLayerSource implements Serializable {
      * @return the string with the parameter replaced
      */
     private static String replaceParameter(@NonNull final String s, @NonNull final String param, @NonNull final String value) {
-        String result = s;
-        // replace "${param}"
-        // not used in imagery index result = result.replaceFirst("\\$\\{" + param + "\\}", value);
-        // replace "$param"
-        // not used in imagery index result = result.replaceFirst("\\$" + param, value);
-        // replace "{param}"
-        result = result.replaceFirst("\\{" + param + "\\}", value);
-        return result;
+        return s.replaceFirst("\\{" + param + "\\}", value);
     }
 
     /**
-     * Replace some specific parameters that we use. Currently just culture
+     * Replace some specific parameters that we use. Currently just 'culture'
      * 
      * @param s the input string
      * @return the string with replaced parameters
@@ -1874,7 +1870,7 @@ public class TileLayerSource implements Serializable {
             return TYPE_BING;
         }
 
-        if (url.contains("irs.gis-lab.info")) {
+        if (url.contains(SCANEX_HOST)) {
             return "scanex_irs";
         }
 
