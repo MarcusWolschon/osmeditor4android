@@ -535,7 +535,8 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
                 } else if (bitmapRenderer) {
                     tile.reinit();
                     // Still no tile available - try smaller scale tiles
-                    drawTile(c, osmv, 0, zoomLevel + 2, zoomLevel, x & mapTileMask, y & mapTileMask, squareTiles, lonOffset, latOffset);
+                    drawTile(c, osmv, Math.min(zoomLevel + 2, myRendererInfo.getMaxZoomLevel()), zoomLevel, x & mapTileMask, y & mapTileMask, squareTiles,
+                            lonOffset, latOffset);
                 }
                 xPos += destIncX;
             }
@@ -639,7 +640,7 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
         tapArea.left = 0;
         tapArea.right = 0;
         tapArea.top = viewPort.bottom - bottomOffset;
-        tapArea.bottom = viewPort.bottom - bottomOffset;
+        tapArea.bottom = tapArea.top;
     }
 
     /**
@@ -647,7 +648,6 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
      * 
      * @param c Canvas to draw on.
      * @param osmv Map view area.
-     * @param minz Minimum zoom level.
      * @param maxz Maximum zoom level to attempt - don't take too long searching.
      * @param z Zoom level to draw.
      * @param x Tile X to draw.
@@ -657,7 +657,7 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
      * @param latOffset imagery latitude offset correction in WGS84
      * @return true if the space could be filled with tiles
      */
-    private boolean drawTile(@NonNull Canvas c, @NonNull IMapView osmv, int minz, int maxz, int z, int x, int y, boolean squareTiles, double lonOffset,
+    private boolean drawTile(@NonNull Canvas c, @NonNull IMapView osmv, int maxz, int z, int x, int y, boolean squareTiles, double lonOffset,
             double latOffset) {
         final MapTile tile = new MapTile(myRendererInfo.getId(), z, x, y);
         T bitmap = mTileProvider.getMapTileFromCache(tile);
@@ -667,20 +667,19 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
                     mPaint);
             return true;
         } else {
-            if (z < maxz && z < myRendererInfo.getMaxZoomLevel()) {
+            if (z < maxz) {
                 // try smaller scale tiles
                 x <<= 1;
                 y <<= 1;
                 ++z;
-                boolean result = drawTile(c, osmv, z, maxz, z, x, y, squareTiles, lonOffset, latOffset);
-                result = drawTile(c, osmv, z, maxz, z, x + 1, y, squareTiles, lonOffset, latOffset) && result;
-                result = drawTile(c, osmv, z, maxz, z, x, y + 1, squareTiles, lonOffset, latOffset) && result;
-                result = drawTile(c, osmv, z, maxz, z, x + 1, y + 1, squareTiles, lonOffset, latOffset) && result;
+                boolean result = drawTile(c, osmv, maxz, z, x, y, squareTiles, lonOffset, latOffset);
+                result = drawTile(c, osmv, maxz, z, x + 1, y, squareTiles, lonOffset, latOffset) && result;
+                result = drawTile(c, osmv, maxz, z, x, y + 1, squareTiles, lonOffset, latOffset) && result;
+                result = drawTile(c, osmv, maxz, z, x + 1, y + 1, squareTiles, lonOffset, latOffset) && result;
                 return result;
-            } else {
-                // final fail
-                return false;
             }
+            // final fail
+            return false;
         }
     }
 
