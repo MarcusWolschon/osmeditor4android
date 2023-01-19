@@ -558,9 +558,228 @@
 "doktorin",
 "ärztin"
 ],
+"amenity/doctors/allergology":[
+"allergie",
+"asthma",
+"Allergologe"
+],
+"amenity/doctors/cardiology":[
+"herzspezialist",
+"Kardiologe"
+],
+"amenity/doctors/dermatology":[
+"dermatologe",
+"Hautarzt"
+],
+"amenity/doctors/gastroenterology":[
+"verdauung",
+"dickdarm",
+"Gastroenterologe",
+"verdauungssystem",
+"magen-darm-trakt",
+"gallenstein",
+"ösophagus",
+"magen",
+"speiseröhre",
+"gastroenterologie",
+"darm",
+"leber",
+"dünndarm"
+],
+"amenity/doctors/general":[
+"Hausarzt",
+"allgemeinmediziner"
+],
 "amenity/doctors/gynaecology":[
 "gynäkologe",
 "Gynäkologe"
+],
+"amenity/doctors/haematology":[
+"blut",
+"blutgerinnung",
+"thrombophilie",
+"anämie",
+"knochenmark",
+"bluterkrankheit",
+"lymphknoten",
+"hämophilie",
+"blutkrebs",
+"blutstillung",
+"Hämatologe",
+"lymphom",
+"blutarmut",
+"hämatologie",
+"leukämie",
+"hämostaseologie"
+],
+"amenity/doctors/internal":[
+"internistischer allgemeinmediziner",
+"innere medizin",
+"internist",
+"Internist",
+"arzt"
+],
+"amenity/doctors/nephrology":[
+"niere",
+"nierenkrankheit",
+"nephrologie",
+"nierenerkrankung",
+"nierenmedizin",
+"nieren",
+"Nephrologe"
+],
+"amenity/doctors/neurology":[
+"gehirn",
+"neurologie",
+"nervensystem",
+"nerven",
+"Neurologe"
+],
+"amenity/doctors/neurosurgery":[
+"gehirn",
+"neurologische chirurgie",
+"nervensystem",
+"Neurochirurgie"
+],
+"amenity/doctors/oncology":[
+"onkologie",
+"krebs",
+"tumor",
+"Onkologe",
+"chemotherapie"
+],
+"amenity/doctors/ophthalmology":[
+"okular",
+"augen",
+"Augenarzt",
+"ophthalmologie",
+"brille",
+"auge",
+"augenheilkunde"
+],
+"amenity/doctors/orthopaedics":[
+"skelett",
+"orthopädie",
+"Orthopäde",
+"wirbelsäule"
+],
+"amenity/doctors/otolaryngology":[
+"rachen",
+"speiseröhre",
+"luftwege",
+"kehlkopf",
+"hno",
+"oto-rhino-laryngologie",
+"orl",
+"hals-nasen-ohren-heilkunde",
+"Hals-Nasen-Ohren-Arzt",
+"mundhöhle",
+"ohren"
+],
+"amenity/doctors/paediatrics":[
+"kinder",
+"kinderheilkunde",
+"kinder- und jugendmedizin",
+"jugendliche",
+"kleinkinder",
+"pädiatrie",
+"jugendmedizin",
+"pädiatrik",
+"Kinderarzt"
+],
+"amenity/doctors/pathology":[
+"autopsie",
+"Pathologe",
+"pathologie",
+"anatomische pathologie"
+],
+"amenity/doctors/plastic_surgery":[
+"plastische chirurgie",
+"Plastischer Chirurg",
+"kraniofaziale chirurgie",
+"ästhetische chirurgie",
+"kosmetische chirurgie",
+"rekonstruktive chirurgie"
+],
+"amenity/doctors/podiatry":[
+"fußchirurg",
+"Podiater"
+],
+"amenity/doctors/proctology":[
+"Proktologe",
+"analkanal",
+"mastdarm",
+"darmspezialist",
+"proktologie",
+"enddarm",
+"kolorektale chirurgie"
+],
+"amenity/doctors/pulmonology":[
+"lungenentzündung",
+"pulmologie",
+"Lungenfacharzt",
+"pulmonologie",
+"asthma",
+"lunge",
+"pneumologie",
+"atemwegsmedizin",
+"lungenheilkunde",
+"atemwege",
+"bronchialheilkunde",
+"pneumonologie",
+"respirologie",
+"brustmedizin"
+],
+"amenity/doctors/radiology":[
+"computertomographie",
+"ct",
+"magnetresonanztomographie",
+"ultraschall",
+"radiologie",
+"Radiologe",
+"ultrasonographie",
+"sonographie",
+"mrt"
+],
+"amenity/doctors/rheumatology":[
+"oteoporose",
+"rheuma",
+"Rheumatologe",
+"rheumatologie",
+"lupus"
+],
+"amenity/doctors/surgery":[
+"allgemeinchirurgie",
+"Allgemeinchirurg",
+"operativen behandlung",
+"chirurgie"
+],
+"amenity/doctors/trauma":[
+"verletzungschirurgie",
+"notfallchirurgie",
+"traumachirurgie",
+"traumatologie",
+"unfallmedizin",
+"unfallheilkunde",
+"unfallchirurgie",
+"wiederherstellungschirurgie",
+"Unfallchirurg"
+],
+"amenity/doctors/urology":[
+"hodensack",
+"niere",
+"nebennieren",
+"harnleiter",
+"harnwege",
+"nebenhoden",
+"hoden",
+"harnröhre",
+"urologie",
+"penis",
+"Urologe",
+"fortpflanzung",
+"blase",
+"prostata"
 ],
 "amenity/dojo":[
 "kampfsportstudio",
@@ -1391,9 +1610,11 @@
 "schule",
 "mittelschule",
 "schulhof",
+"gemeinschaftsschule",
 "realschule",
 "förderschule",
-"Schule, Schulgelände"
+"Schule, Schulgelände",
+"gesamtschule"
 ],
 "amenity/shelter":[
 "wetterpilz",
@@ -2425,6 +2646,7 @@
 "building/school":[
 "schulgebäude",
 "schulhaus",
+"schule",
 "Schulgebäude"
 ],
 "building/semidetached_house":[
@@ -2561,7 +2783,7 @@
 ],
 "craft/beekeeper":[
 "bienenzüchter",
-"Imker/in",
+"Imkerei",
 "imker"
 ],
 "craft/blacksmith":[
@@ -2573,15 +2795,16 @@
 "kunstschmied"
 ],
 "craft/boatbuilder":[
+"Bootsbauer",
 "bootfachwart",
-"Bootsbauer/in",
 "schiffsbauer",
 "bootsbauer",
 "bootbauer"
 ],
 "craft/bookbinder":[
-"Buchbinder/in",
-"buchbinder"
+"buchbinder",
+"buchbinderin",
+"Buchbinder"
 ],
 "craft/brewery":[
 "brauen",
@@ -2602,10 +2825,10 @@
 "Zimmerer"
 ],
 "craft/carpet_layer":[
-"Teppichleger/in",
 "teppichleger",
 "teppichbodenleger",
-"teppichverleger"
+"teppichverleger",
+"Teppichleger"
 ],
 "craft/caterer":[
 "gastronom",
@@ -2614,15 +2837,15 @@
 "speiselieferant",
 "partyservice",
 "catering",
-"Partyservice",
 "brötchenservice",
+"Catering",
 "lebensmittellieferant"
 ],
 "craft/chimney_sweeper":[
 "kaminkehrer",
-"Kaminkehrer/in",
 "rauchfangkehrer",
 "kaminfeger",
+"Schornsteinfeger",
 "schornsteinfeger"
 ],
 "craft/cleaning":[
@@ -2631,11 +2854,12 @@
 "reinigungsdienst"
 ],
 "craft/clockmaker":[
-"Uhrmacher/in (Standuhr)",
+"Uhrmacher (Standuhr)",
 "uhrmacher (standuhr)"
 ],
 "craft/confectionery":[
 "konditor",
+"zuckerbäcker",
 "confiserie",
 "süßwarengeschäft",
 "konditorei",
@@ -2660,22 +2884,29 @@
 "elektroinstallateur",
 "elektriker",
 "elektromonteur",
-"Elektriker/in"
+"Elektriker"
 ],
 "craft/electronics_repair":[
 "elektronik-reparatur-geschäft",
-"Elektronik-Reparatur-Geschäft"
+"Elektronik-Reparaturdienst"
 ],
 "craft/floorer":[
 "bodenleger",
-"Bodenleger/in"
+"bodenbelag",
+"fußbodenbelag",
+"Bodenleger",
+"fußbodenleger"
 ],
 "craft/gardener":[
+"galabau",
+"Landschaftsgärtner",
 "landschaftspflege",
 "gärtner",
+"landschaftsbau",
 "gartenpflege",
-"Gärtner/in",
-"landschaftsgärtner"
+"gartenbauer",
+"landschaftsgärtner",
+"garten und landschaftsbau"
 ],
 "craft/glaziery":[
 "glasschleiferei",
@@ -2683,54 +2914,66 @@
 "Glaserei",
 "fensterglaserei",
 "autoglaserei",
+"gläserei",
+"kirchenglas",
 "glaserei"
 ],
 "craft/handicraft":[
 "kunsthandwerk",
+"kunstgewerbe",
 "Kunsthandwerk"
 ],
 "craft/hvac":[
 "hvac",
+"anlagentechnik",
 "kältetechnik",
+"hls",
+"hks",
+"gebäudetechnik",
 "Heizungs-, Lüftungs- und Klimatechnik",
 "heizungstechnik",
+"haustechnik",
+"hkls",
 "lüftungstechnik",
 "klimatechnik",
 "techniker für heizungs- lüftungs- und klimatechnik"
 ],
 "craft/insulator":[
-"Dämmstoff",
+"Dämmstoffarbeiten",
 "dämmstoff",
+"eps",
+"xps",
 "isolierstoff",
-"isolierung"
+"isolierung",
+"dämmung"
 ],
 "craft/joiner":[
 "tischler",
 "schreinerei",
 "tischlerei",
-"tischlierbetrieb",
+"möbelbauer",
 "schreiner",
+"tischlerbetrieb",
 "Tischlerei",
 "möbelbau"
 ],
 "craft/key_cutter":[
 "sicherheitstechniker",
-"Schlüsselschneider/in",
 "schlüsselschneider",
+"Schlüsselschneider",
 "schlüsselservice",
 "schlüsselgeschäft",
 "schlüsselmacher",
 "schlüsseldienst"
 ],
 "craft/locksmith":[
-"Schlosser/in"
+"Schlüsselmacher"
 ],
 "craft/metal_construction":[
 "metallplanung",
 "bauschlosser",
 "metallbau",
 "zaun- und geländerbau",
-"Metallbetrieb",
 "stahlbauer",
 "schlosserei",
 "konstruktionsmechaniker",
@@ -2738,7 +2981,8 @@
 "metallverarbeitender betrieb",
 "bauschlosserei",
 "metalltechnik",
-"schlosser"
+"schlosser",
+"Metallbaubetrieb"
 ],
 "craft/painter":[
 "malerbetrieb",
@@ -2750,18 +2994,22 @@
 "Malerbetrieb"
 ],
 "craft/parquet_layer":[
-"Parkettleger/in",
+"holzparkett",
+"Parkettleger",
 "parkettleger",
-"parkettverleger"
+"parkettverleger",
+"holzdielen"
 ],
 "craft/photographer":[
+"Fotograf",
+"lichtbildner",
 "photograph",
 "fotoatelier",
-"Fotograf/in",
 "fotostudio",
 "fotograf"
 ],
 "craft/photographic_laboratory":[
+"dunkelkammer",
 "Fotolabor",
 "fotografisches labor",
 "fotolabor"
@@ -2770,9 +3018,10 @@
 "stukkateur",
 "stuckateur",
 "verputzer",
-"Stuckateur/in",
+"Stuckateur",
 "gipser",
-"kaschierer"
+"kaschierer",
+"putzer"
 ],
 "craft/plumber":[
 "heizungs- und sanitärbetrieb",
@@ -2789,6 +3038,9 @@
 "haus- und sanitärtechnik"
 ],
 "craft/pottery":[
+"brennofen",
+"porzellan",
+"ton",
 "Töpferei",
 "töpfer",
 "topf",
@@ -2797,9 +3049,9 @@
 ],
 "craft/rigger":[
 "takler",
-"Rigger",
 "höhenarbeiter",
-"rigger"
+"rigger",
+"Takler"
 ],
 "craft/roofer":[
 "dachdecker",
@@ -2808,43 +3060,51 @@
 ],
 "craft/saddler":[
 "sattler",
-"Sattler/in"
+"Sattlerei"
 ],
 "craft/sailmaker":[
-"Segelmacher/in",
+"Segelmacher",
 "segelmacher"
 ],
 "craft/sawmill":[
+"schneidmühle",
+"bordmühle",
+"säge",
 "sägemühle",
 "sägewerk",
+"brettmühle",
+"brettsäge",
 "Sägewerk",
 "sägerei"
 ],
 "craft/scaffolder":[
+"Gerüstbaubetrieb",
+"gerüstbau",
 "gerüstbauer",
-"gerüster",
-"Gerüstbau"
+"gerüster"
 ],
 "craft/sculptor":[
 "bildhauer",
-"Bildhauer/in"
+"Bildhauer"
 ],
 "craft/shoemaker":[
+"Schuster",
 "schuster",
 "schuhmacher",
-"Schuster/in",
+"schusterei",
 "schuh-service"
 ],
 "craft/signmaker":[
-"Schilderhersteller/in",
 "schildermacher",
 "reklame",
 "werbetechniker",
 "beschriftung",
 "schilderhersteller",
-"bedruckung"
+"bedruckung",
+"Schilder- und Lichtreklamehersteller"
 ],
 "craft/stonemason":[
+"steinbildhauer",
 "Steinmetz",
 "steinmetz"
 ],
@@ -2852,27 +3112,30 @@
 "Herrenschneiderei"
 ],
 "craft/tiler":[
+"Fliesenleger",
 "plattenleger",
 "fliesenleger",
 "dachdecker",
-"Fliesenleger/in"
+"mosaikleger"
 ],
 "craft/tinsmith":[
 "spengler",
 "klempnerei",
 "blechschmied",
-"Klempnerei",
 "bauklempnerei",
 "klempner",
 "spängler",
 "bauklempner",
 "blechner",
+"Spengler/Klempner",
 "flaschner"
 ],
 "craft/upholsterer":[
 "möbeltapezierer",
+"raumausstatter",
+"stuhlmacher",
 "polsterer",
-"Polsterer"
+"Raumausstatter"
 ],
 "craft/watchmaker":[
 "uhrmacher (armbanduhr)",
@@ -2888,6 +3151,7 @@
 "Weingut",
 "winzer",
 "weingut",
+"winzerbetrieb",
 "weinkellerei",
 "kellerei",
 "weinbauer"
@@ -3405,8 +3669,8 @@
 "Radweg-Querung mit Ampel"
 ],
 "highway/cycleway/crossing/uncontrolled":[
-"Radweg-Querung mit Straßenmarkierung",
-"gekennzeichneter fahrrad-übergang"
+"gekennzeichneter fahrrad-übergang",
+"Radweg-Querung mit Fahrbahnmarkierung"
 ],
 "highway/cycleway/crossing/unmarked":[
 "nicht gekennzeichneter fahrrad-übergang",
@@ -3470,7 +3734,7 @@
 "Fußgängerüberweg (eigener Weg)"
 ],
 "highway/footway/crossing/marked":[
-"Gehweg-Querung mit Straßenmarkierung"
+"Gehweg-Querung mit Fahrbahnmarkierung"
 ],
 "highway/footway/crossing/traffic_signals":[
 "Gehweg-Querung mit Ampel",
@@ -3481,7 +3745,7 @@
 "zebrastreifen (ampel)"
 ],
 "highway/footway/crossing/uncontrolled":[
-"Gehweg-Querung mit Straßenmarkierung",
+"Gehweg-Querung mit Fahrbahnmarkierung",
 "fußgängerüberweg",
 "markierter fußgängerüberweg",
 "markierter zebrastreifen",
@@ -4345,6 +4609,10 @@
 "wohnsiedlung",
 "Wohnblockanlage"
 ],
+"landuse/residential/trailer_park":[
+"Wohnwagenpark",
+"wohnwagenpark"
+],
 "landuse/retail":[
 "geschäfte",
 "einzelhandelsgebiet",
@@ -4596,6 +4864,10 @@
 "Gemeinschaftsgarten",
 "kooperativer garten",
 "gemeinschaftsgarten"
+],
+"leisure/garden/residential":[
+"Hausgarten",
+"privatgarten"
 ],
 "leisure/golf_course":[
 "Golfplatz",
@@ -5159,12 +5431,12 @@
 "Kran"
 ],
 "man_made/crane/gantry_crane":[
-"brückenkran",
-"Bckenkran"
+"Brückenkran",
+"brückenkran"
 ],
 "man_made/crane/portal_crane":[
-"portalkran",
-"Portalkran"
+"Portalkran",
+"portalwippdrehkran"
 ],
 "man_made/cross":[
 "gipfelkreuz",
@@ -5202,8 +5474,12 @@
 "fahne"
 ],
 "man_made/gantry":[
-"Portal",
-"portal"
+"Schilderbrücke",
+"wechselverkehrszeichen",
+"kragarm",
+"wegweiserbrücke",
+"portal",
+"vzb"
 ],
 "man_made/gasometer":[
 "Gasometer",
@@ -6220,6 +6496,11 @@
 "Finanzamt",
 "finanzamt"
 ],
+"office/graphic_design":[
+"Grafikdesign",
+"grafikdesign",
+"komunikationsdesign"
+],
 "office/guide":[
 "fremdenführer",
 "Fremdenführer"
@@ -6984,8 +7265,9 @@
 "Strommast"
 ],
 "power/portal":[
-"ankerportal",
-"Ankerportal"
+"portalmast",
+"verteilportal",
+"Abspannportal"
 ],
 "power/substation":[
 "umspannwerk",
@@ -8134,6 +8416,7 @@
 ],
 "shop/locksmith":[
 "Schlüsseldienst",
+"schlüsselmacher",
 "schlosser",
 "schlüsseldienst"
 ],
@@ -8439,6 +8722,7 @@
 "shop/tailor":[
 "herrenschneider",
 "änderungsservice",
+"anzugsschneider",
 "änderungsschneiderei",
 "Schneider",
 "schneider"
@@ -8933,6 +9217,10 @@
 "traffic_sign/maxspeed":[
 "höchstgeschwindigkeits-schild",
 "Höchstgeschwindigkeits-Schild"
+],
+"traffic_sign/variable_message":[
+"wechselverkehrszeichen",
+"Wechselverkehrszeichen"
 ],
 "type/boundary":[
 "Grenze",

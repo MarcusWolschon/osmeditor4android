@@ -638,6 +638,51 @@
 "zdravotník*",
 "Lékař"
 ],
+"amenity/doctors/allergology":[
+"alergie",
+"Alergolog",
+"astma"
+],
+"amenity/doctors/cardiology":[
+"koronární tepna",
+"kardiochirurg",
+"Kardiolog",
+"kardiologie",
+"kardiovaskulární systém",
+"srdce"
+],
+"amenity/doctors/dermatology":[
+"vlasy",
+"kožní",
+"dermatologie",
+"nehty",
+"Dermatolog"
+],
+"amenity/doctors/gastroenterology":[
+"Gastroenterolog",
+"žaludek",
+"střeva",
+"gastrointestinální trakt",
+"zažívání",
+"jícen",
+"hltan",
+"játra",
+"tenké střevo",
+"gastroenterologie",
+"trávicí soustava",
+"tlusté střevo",
+"hrtan",
+"vnitřnosti",
+"žlučový kámen",
+"potravní trubice"
+],
+"amenity/doctors/general":[
+"rodinný doktor",
+"doktor",
+"rodinný praktický lékař",
+"Praktický lékař",
+"rodinný lékař"
+],
 "amenity/doctors/gynaecology":[
 "gynekologie",
 "Gynekolog",
@@ -649,6 +694,24 @@
 "reprodukční",
 "lékař pro dámy",
 "gynekologista"
+],
+"amenity/doctors/haematology":[
+"kostní dřeň",
+"Hematolog",
+"anémie",
+"lymfom",
+"leukémie",
+"krev",
+"hematologie"
+],
+"amenity/doctors/internal":[
+"interní praktický lékař",
+"Internista",
+"interna",
+"lékař"
+],
+"amenity/doctors/nephrology":[
+"Nefrolog"
 ],
 "amenity/dojo":[
 "Škola bojových umění",
@@ -1139,7 +1202,7 @@
 "Noční klub LGBTQ+"
 ],
 "amenity/nursing_home":[
-"Domov pro seniory/pečovatelský ústav"
+"Domov pro seniory"
 ],
 "amenity/parcel_locker":[
 "vyzvednutí",
@@ -3444,7 +3507,7 @@
 "kominictví"
 ],
 "craft/cleaning":[
-"úklidová služba"
+"Úklidová služba"
 ],
 "craft/clockmaker":[
 "hodiny",
@@ -3585,7 +3648,7 @@
 "Malíř"
 ],
 "craft/parquet_layer":[
-"pokladači parket"
+"Pokladač parket"
 ],
 "craft/photographer":[
 "Fotograf",
@@ -3615,7 +3678,7 @@
 "vodoinstalatér"
 ],
 "craft/pottery":[
-"hrnčířství",
+"Hrnčířství",
 "váza",
 "hrnec",
 "keramika",
@@ -3673,13 +3736,13 @@
 ],
 "craft/signmaker":[
 "výroba reklamních poutačů",
+"Výrobce cedulí",
 "výroba světelných nápisů",
 "cedule",
 "reklamní poutač",
 "označení obchodu",
 "výroba vývěsných štítů",
 "dílna",
-"výrobce cedulí",
 "nápisy",
 "vývěsný štít"
 ],
@@ -4917,12 +4980,12 @@
 "královská rezidence"
 ],
 "historic/castle/stately":[
+"Zámek",
 "zámek",
 "panstvo",
 "historický venkovský dům",
 "reprezentant",
-"šlechta",
-"Hrad"
+"šlechta"
 ],
 "historic/city_gate":[
 "městské hradby",
@@ -5019,7 +5082,7 @@
 ],
 "indoor/area":[
 "vnitřní prostor",
-"vnitřní plocha"
+"Vnitřní plocha"
 ],
 "indoor/corridor":[
 "průchod",
@@ -5032,7 +5095,7 @@
 "Chodba"
 ],
 "indoor/door":[
-"vnitřní dveře",
+"Vnitřní dveře",
 "dveře",
 "přístup do místnosti",
 "zárubeň",
@@ -5112,10 +5175,10 @@
 "Umělá vodní plocha"
 ],
 "landuse/brownfield":[
+"Brownfield",
 "hodně",
 "vývoj",
-"průmysl",
-"Deprimující zóna"
+"průmysl"
 ],
 "landuse/cemetery":[
 "hřbitov",
@@ -5350,6 +5413,12 @@
 "bydlení",
 "Oblast s bytovými budovami",
 "byt"
+],
+"landuse/residential/trailer_park":[
+"park pro karavany",
+"park pro přívěsy",
+"komunity vyrobených domů",
+"Parkoviště pro obytné vozy"
 ],
 "landuse/retail":[
 "obchod",
@@ -6216,6 +6285,8 @@
 "násep"
 ],
 "man_made/bridge":[
+"obrys mostu",
+"viadukt",
 "Plocha mostu"
 ],
 "man_made/bunker_silo":[
@@ -7450,6 +7521,14 @@
 "finance",
 "Finanční úřad"
 ],
+"office/graphic_design":[
+"technologie",
+"Kancelář grafického designu",
+"umění",
+"design",
+"ilustrovat",
+"vizuální"
+],
 "office/guide":[
 "potápěčský průvodce",
 "turistický průvodce",
@@ -7936,7 +8015,10 @@
 "Skluzavka"
 ],
 "playground/splash_pad":[
-"Stříkací bazének"
+"voda",
+"Stříkací bazének",
+"podložka",
+"stříkání"
 ],
 "playground/springy":[
 "houpačka na pružině",
@@ -9978,9 +10060,9 @@
 "lampy"
 ],
 "shop/locksmith":[
+"Zámečník",
 "klíč",
 "zámek",
-"Zámečnictví",
 "zámečnictví",
 "zámečník"
 ],
@@ -11078,6 +11160,11 @@
 "dopravní značka omezení rychlosti",
 "maximální povolená rychlost"
 ],
+"traffic_sign/variable_message":[
+"měnící se nápis",
+"značka dynamické zprávy",
+"Proměnlivé dopravní značení"
+],
 "type/boundary":[
 "hraniční",
 "Hranice",
@@ -11094,7 +11181,7 @@
 "hranice oblasti"
 ],
 "type/connectivity":[
-"propojení jízdních pruhů"
+"Propojení jízdních pruhů"
 ],
 "type/destination_sign":[
 "označení exitu",
@@ -11115,8 +11202,8 @@
 "type/enforcement/maxspeed":[
 "radar",
 "maximální rychlost",
-"rychlostní kamera",
-"rychlostní radar"
+"Rychlostní radar",
+"rychlostní kamera"
 ],
 "type/multipolygon":[
 "Multipolygon"

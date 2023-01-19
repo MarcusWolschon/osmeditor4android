@@ -260,9 +260,9 @@
 "biludlejning"
 ],
 "amenity/car_sharing":[
+"lånebil",
 "delebil",
 "samkørsel",
-"mødested",
 "Delebilsstation"
 ],
 "amenity/car_wash":[
@@ -278,6 +278,7 @@
 ],
 "amenity/charging_station":[
 "opladerstation",
+"ladestation",
 "Opladerstation",
 "elbilopladerstation"
 ],
@@ -343,6 +344,9 @@
 "luftpumpe",
 "Luftpumpe"
 ],
+"amenity/conference_centre":[
+"Kongrescenter"
+],
 "amenity/courthouse":[
 "domstolsbygning",
 "retsbygning",
@@ -388,6 +392,9 @@
 "drikke",
 "vandhane",
 "drik"
+],
+"amenity/driver_training":[
+"Køreteknisk anlæg"
 ],
 "amenity/driving_school":[
 "køreskole",
@@ -565,6 +572,9 @@
 ],
 "amenity/nursing_home":[
 "Plejehjem"
+],
+"amenity/parcel_locker":[
+"Pakkeboks"
 ],
 "amenity/parking":[
 "parkeringsplads",
@@ -894,6 +904,11 @@
 "sociale faciliteter",
 "Sociale faciliteter"
 ],
+"amenity/social_facility/ambulatory_care":[
+"Ambulatorium",
+"ambulatorie",
+"daghospital"
+],
 "amenity/social_facility/food_bank":[
 "Fødevarebank",
 "folkekøkken",
@@ -942,6 +957,11 @@
 "Teater",
 "teater"
 ],
+"amenity/theatre/type/amphi":[
+"friluftsscene",
+"skueplads",
+"Amfiteater"
+],
 "amenity/toilets":[
 "latrin",
 "lokum",
@@ -964,6 +984,13 @@
 "Rådhus",
 "rådhus"
 ],
+"amenity/trolley_bay":[
+"Bås til indkøbsvogne",
+"kundevognshus",
+"indkøbsvognsterminal",
+"kundevognsterminaler",
+"indkøbsvognsbås"
+],
 "amenity/university":[
 "universitetsområde",
 "Universitetsområde"
@@ -977,6 +1004,9 @@
 "slikautomat",
 "automat",
 "salgsautomat"
+],
+"amenity/vending_machine/bicycle_tube":[
+"Automat til salg af cykelslanger"
 ],
 "amenity/vending_machine/bottle_return":[
 "pant",
@@ -1020,6 +1050,9 @@
 "Salgsautomat, elektronik",
 "elektronik",
 "automat"
+],
+"amenity/vending_machine/excrement_bags":[
+"Hundeposeholder"
 ],
 "amenity/vending_machine/feminine_hygiene":[
 "bind",
@@ -1127,6 +1160,11 @@
 "Forlystelse",
 "karrusel"
 ],
+"attraction/animal":[
+"dyrepark",
+"dyreindhegning",
+"Dyreanlæg"
+],
 "attraction/big_wheel":[
 "ferris",
 "Pariserhjul"
@@ -1173,6 +1211,11 @@
 "barrier/bollard":[
 "pullert",
 "Pullert"
+],
+"barrier/bollard_line":[
+"borne",
+"stele",
+"Pullertrække"
 ],
 "barrier/border_control":[
 "landegrænsekontrol",
@@ -1272,6 +1315,10 @@
 "Støttemur",
 "støttemur"
 ],
+"barrier/rope":[
+"tovhegn",
+"Rebhegn"
+],
 "barrier/stile":[
 "stente",
 "Stente"
@@ -1300,6 +1347,9 @@
 "boundary/administrative":[
 "Administrativ grænse",
 "administrativ grænse"
+],
+"bridge/support/pier":[
+"Bropille"
 ],
 "building":[
 "Bygning",
@@ -1600,6 +1650,9 @@
 "bogbinder",
 "Bogbinder"
 ],
+"craft/brewery":[
+"Mikrobryggeri"
+],
 "craft/carpenter":[
 "Tømrer",
 "tømrer"
@@ -1815,6 +1868,9 @@
 "demolished/building":[
 "Nyligt nedrevet bygning"
 ],
+"disc_golf/basket":[
+"Diskgolf-kurv"
+],
 "disused/amenity":[
 "Nedlagt facilitet"
 ],
@@ -1940,6 +1996,9 @@
 "golf/bunker":[
 "sandbunker",
 "Sandbunker"
+],
+"golf/clubhouse":[
+"Golfklubhus"
 ],
 "golf/fairway":[
 "fairway",
@@ -2383,6 +2442,9 @@
 "Vejsidehelligdom",
 "vejsidehelligdom"
 ],
+"historic/wreck":[
+"Skibsvrag"
+],
 "indoor":[
 "Indendørsegenskaber"
 ],
@@ -2500,6 +2562,9 @@
 "industriområde",
 "Industriområde"
 ],
+"landuse/industrial/scrap_yard":[
+"Skrotplads"
+],
 "landuse/industrial/slaughterhouse":[
 "Slagteri"
 ],
@@ -2524,6 +2589,9 @@
 "blomst",
 "træ",
 "havecenter"
+],
+"landuse/pond":[
+"Dam"
 ],
 "landuse/quarry":[
 "minedriftsområde",
@@ -2636,6 +2704,9 @@
 "leisure/dancing_school":[
 "Danseskole"
 ],
+"leisure/disc_golf_course":[
+"Discgolfbane"
+],
 "leisure/dog_park":[
 "hundepark",
 "Hundepark"
@@ -2645,6 +2716,9 @@
 "Bålsted",
 "bål",
 "lejrbål"
+],
+"leisure/fishing":[
+"Fiskeplads"
 ],
 "leisure/fitness_centre":[
 "fitnesscenter",
@@ -2693,6 +2767,9 @@
 ],
 "leisure/hackerspace":[
 "Hackerspace"
+],
+"leisure/horse_riding":[
+"Ridecenter"
 ],
 "leisure/ice_rink":[
 "Skøjtebane",
@@ -2796,6 +2873,9 @@
 "cricketbane",
 "Cricketbane"
 ],
+"leisure/pitch/futsal":[
+"Futsal-bane"
+],
 "leisure/pitch/rugby_league":[
 "rugby station",
 "Rugby station"
@@ -2858,6 +2938,13 @@
 "leisure/sports_centre":[
 "sportcenter / kompleks",
 "Sportcenter / Kompleks"
+],
+"leisure/sports_centre/climbing":[
+"klatrehal",
+"Klatrecenter"
+],
+"leisure/sports_centre/horse_racing":[
+"Hestevæddeløbsbane"
 ],
 "leisure/sports_centre/swimming":[
 "Swimmingpool",
@@ -2983,6 +3070,9 @@
 "kran",
 "Kran",
 "løft"
+],
+"man_made/cross":[
+"Kors"
 ],
 "man_made/cutline":[
 "Skærelinje",
@@ -3117,6 +3207,9 @@
 "pumpestation",
 "Pumpestation"
 ],
+"man_made/reservoir_covered":[
+"Overdækket reservoir"
+],
 "man_made/silo":[
 "silotank",
 "silo",
@@ -3190,6 +3283,9 @@
 "slot",
 "Befæstningstårn",
 "forsvar"
+],
+"man_made/tower/diving":[
+"Udspringsplatform"
 ],
 "man_made/tower/observation":[
 "overvåg",
@@ -3785,6 +3881,9 @@
 "Landsby",
 "landsby"
 ],
+"playground/climbingwall":[
+"Klatrevæg til leg"
+],
 "playground/cushion":[
 "Hoppepude"
 ],
@@ -3794,6 +3893,9 @@
 "point":[
 "punkt",
 "Punkt"
+],
+"power/catenary_mast":[
+"Køreledningsmast"
 ],
 "power/generator":[
 "kraftværk",
@@ -3876,6 +3978,9 @@
 "Transformer",
 "transformer"
 ],
+"public_transport/platform/aerialway":[
+"Svævebaneplatform"
+],
 "public_transport/platform/bus_point":[
 "Busstop"
 ],
@@ -3902,6 +4007,9 @@
 "public_transport/platform/ferry_point":[
 "Færgestoppested"
 ],
+"public_transport/station_aerialway":[
+"Svævebanestation"
+],
 "public_transport/station_ferry":[
 "båd",
 "offentlig",
@@ -3918,6 +4026,9 @@
 "stoppested",
 "station",
 "Stoppestedsområde"
+],
+"public_transport/stop_position_aerialway":[
+"Svævebanestop"
 ],
 "public_transport/stop_position_bus":[
 "Busstoppested"
@@ -4009,6 +4120,15 @@
 "færgerute",
 "Færgerute"
 ],
+"seamark/buoy_lateral":[
+"Kanalbøje"
+],
+"seamark/buoy_lateral/green":[
+"Grøn bøje"
+],
+"seamark/buoy_lateral/red":[
+"Rød bøje"
+],
 "seamark/mooring":[
 "båd",
 "bøje",
@@ -4099,7 +4219,7 @@
 "shop/bicycle":[
 "cykelsmed",
 "cykelforretning",
-"Cykelbutik",
+"Cykelhandler",
 "cykelbutik"
 ],
 "shop/boat":[
@@ -4292,6 +4412,9 @@
 "ostemejeri",
 "ismejeri"
 ],
+"shop/deli":[
+"Delikatesse"
+],
 "shop/department_store":[
 "Stormagasin",
 "stormagasin"
@@ -4344,6 +4467,11 @@
 ],
 "shop/fashion":[
 "Modebutik"
+],
+"shop/fishing":[
+"fiskeforretning",
+"Fiskebutik",
+"lystfiskerbutik"
 ],
 "shop/florist":[
 "blomsterbutik",
@@ -4733,6 +4861,9 @@
 "Støvsugerforhandler",
 "støvsugerforhandler"
 ],
+"shop/variety_store":[
+"Discountbutik"
+],
 "shop/video":[
 "videoforretning",
 "videobutik",
@@ -4749,6 +4880,9 @@
 "Urbutik",
 "urbutik",
 "urmager"
+],
+"shop/water":[
+"Drikkevandsbutik"
 ],
 "shop/water_sports":[
 "Svømmesport/Svømmeudstyrsbutik",
@@ -4778,6 +4912,9 @@
 "tourism":[
 "Turismeegenskab"
 ],
+"tourism/alpine_hut":[
+"Bjerghytte"
+],
 "tourism/apartment":[
 "Gæstelejlighed/Ejerlejlighed",
 "gæstelejlighed/ejerlejlighed"
@@ -4796,6 +4933,9 @@
 "hoved",
 "Buste",
 "skulptur"
+],
+"tourism/artwork/installation":[
+"Kunstinstallation"
 ],
 "tourism/artwork/mural":[
 "freske",
@@ -4951,6 +5091,10 @@
 ],
 "traffic_calming/yes":[
 "Trafikdæmpning (uspecificeret type)"
+],
+"traffic_sign/city_limit":[
+"byskilt",
+"Bygrænseskilt"
 ],
 "traffic_sign/maxspeed":[
 "fart",

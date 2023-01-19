@@ -45,6 +45,7 @@
 "Exhibition Centre"
 ],
 "amenity/fuel":[
+"service station",
 "gas station",
 "Petrol Station"
 ],
@@ -336,6 +337,10 @@
 ],
 "tourism/caravan_site":[
 "Caravan Site"
+],
+"tourism/chalet":[
+"crib",
+"bach"
 ],
 "tourism/information/office":[
 "Visitor Centre"

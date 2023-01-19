@@ -1997,6 +1997,9 @@
 "csűr",
 "Mezőgazdasági melléképület"
 ],
+"building/fire_station":[
+"Tűzoltólaktanya"
+],
 "building/garage":[
 "garázs",
 "autótároló",
@@ -2081,7 +2084,7 @@
 "Melléképület"
 ],
 "building/pavilion":[
-"Pavilonépület"
+"Pavilon"
 ],
 "building/public":[
 "nyilvános épület",
@@ -2244,6 +2247,9 @@
 "craft/bookbinder":[
 "Könyvkötészet",
 "könyvkötő"
+],
+"craft/brewery":[
+"Kisüzemi sörfőzde"
 ],
 "craft/carpenter":[
 "épületasztalos",
@@ -2563,6 +2569,7 @@
 "Vészhelyzeti használat: magántulajdon"
 ],
 "emergency/siren":[
+"riasztó",
 "Sziréna"
 ],
 "emergency/water_reservoir":[
@@ -2870,6 +2877,9 @@
 "járda",
 "gyalogút",
 "gyalogjáró"
+],
+"highway/footway/traffic_island":[
+"Középsziget"
 ],
 "highway/give_way":[
 "elsőbbségadás",
@@ -3682,6 +3692,9 @@
 "futsal",
 "nagypályás teremfoci"
 ],
+"leisure/pitch/handball":[
+"Kézilabdapálya"
+],
 "leisure/pitch/horseshoes":[
 "Patkóhajító gödör"
 ],
@@ -3901,6 +3914,12 @@
 "teher",
 "daru"
 ],
+"man_made/crane/gantry_crane":[
+"Bakdaru"
+],
+"man_made/crane/portal_crane":[
+"Portáldaru"
+],
 "man_made/cross":[
 "Kereszt"
 ],
@@ -3982,7 +4001,7 @@
 "Tévé adótorony"
 ],
 "man_made/mast/lighting":[
-"Villámhárító"
+"Reflektoroszlop"
 ],
 "man_made/mineshaft":[
 "akna",
@@ -4633,6 +4652,9 @@
 "office/travel_agent":[
 "Utazási iroda"
 ],
+"office/union":[
+"Szakszervezeti iroda"
+],
 "office/water_utility":[
 "Vízműiroda"
 ],
@@ -4885,19 +4907,25 @@
 "Szénerőmű"
 ],
 "power/plant/source/gas":[
-"Gázerőmű területe"
+"Gázerőmű"
 ],
 "power/plant/source/hydro":[
 "Vízerőmű"
+],
+"power/plant/source/method/photovoltaic":[
+"Napelempark (fotoelektromos)"
 ],
 "power/plant/source/nuclear":[
 "Atomerőmű"
 ],
 "power/plant/source/oil":[
-"Kőolajtüzelésű erőmű területe"
+"Kőolaj-tüzelésű erőmű"
+],
+"power/plant/source/solar":[
+"Naperőmű (termikus)"
 ],
 "power/plant/source/waste":[
-"Hulladékégető erőmű területe"
+"Hulladékégető erőmű"
 ],
 "power/plant/source/wind":[
 "Szélerőmű"
@@ -5094,7 +5122,7 @@
 "gyalogos átjáró"
 ],
 "railway/derail":[
-"Kisiklasztó saru"
+"Siklasztó saru"
 ],
 "railway/disused":[
 "Használaton kívüli vasútvonal",

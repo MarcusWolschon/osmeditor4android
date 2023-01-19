@@ -260,8 +260,83 @@
 "amenity/doctors":[
 "Лекар"
 ],
+"amenity/doctors/allergology":[
+"Алерголог"
+],
+"amenity/doctors/cardiology":[
+"Кардиолог"
+],
+"amenity/doctors/dermatology":[
+"Дерматолог"
+],
+"amenity/doctors/gastroenterology":[
+"Гастроентеролог"
+],
+"amenity/doctors/general":[
+"Општ лекар"
+],
 "amenity/doctors/gynaecology":[
 "Гинеколог"
+],
+"amenity/doctors/haematology":[
+"Хематолог"
+],
+"amenity/doctors/internal":[
+"Интернист"
+],
+"amenity/doctors/nephrology":[
+"Нефролог"
+],
+"amenity/doctors/neurology":[
+"Невролог"
+],
+"amenity/doctors/neurosurgery":[
+"Неврохирург"
+],
+"amenity/doctors/oncology":[
+"Онколог"
+],
+"amenity/doctors/ophthalmology":[
+"Офталмолог"
+],
+"amenity/doctors/orthopaedics":[
+"Ортопед"
+],
+"amenity/doctors/otolaryngology":[
+"Оториноларинголог"
+],
+"amenity/doctors/paediatrics":[
+"Педијатар"
+],
+"amenity/doctors/pathology":[
+"Патолог"
+],
+"amenity/doctors/plastic_surgery":[
+"Пластичен хирург"
+],
+"amenity/doctors/podiatry":[
+"Подијатар"
+],
+"amenity/doctors/proctology":[
+"Проктолог"
+],
+"amenity/doctors/pulmonology":[
+"Пулмонолог"
+],
+"amenity/doctors/radiology":[
+"Радиолог"
+],
+"amenity/doctors/rheumatology":[
+"Ревматолог"
+],
+"amenity/doctors/surgery":[
+"Општ хирург"
+],
+"amenity/doctors/trauma":[
+"Ургентен хирург"
+],
+"amenity/doctors/urology":[
+"Уролог"
 ],
 "amenity/dojo":[
 "Училиште за боречки вештини"
@@ -1356,7 +1431,7 @@
 "Грнчар"
 ],
 "craft/rigger":[
-"Подигач"
+"Такелажер"
 ],
 "craft/roofer":[
 "Покривар"
@@ -2091,6 +2166,9 @@
 "landuse/residential/apartments":[
 "Станбен комплекс"
 ],
+"landuse/residential/trailer_park":[
+"Парк за подвижни домови"
+],
 "landuse/retail":[
 "Продажно подрачје"
 ],
@@ -2201,6 +2279,9 @@
 ],
 "leisure/garden/community":[
 "Заедничка градина"
+],
+"leisure/garden/residential":[
+"Домашна градина"
 ],
 "leisure/golf_course":[
 "Терен за голф"
@@ -2936,6 +3017,9 @@
 ],
 "office/government/tax":[
 "Служба за даноци и приходи"
+],
+"office/graphic_design":[
+"Графичко ателје"
 ],
 "office/guide":[
 "Туристички водич"
@@ -4210,7 +4294,7 @@
 "Притеснувач"
 ],
 "traffic_calming/cushion":[
-"Улична перница"
+"Брзиноублажувач"
 ],
 "traffic_calming/dip":[
 "Улична бразда"
@@ -4241,6 +4325,9 @@
 ],
 "traffic_sign/maxspeed":[
 "Знак за дозволена брзина"
+],
+"traffic_sign/variable_message":[
+"Знак со променливи известувања"
 ],
 "type/boundary":[
 "Граница"

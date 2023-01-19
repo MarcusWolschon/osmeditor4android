@@ -886,6 +886,14 @@
 "burguer",
 "hamburger"
 ],
+"amenity/fast_food/cafeteria":[
+"refeitório",
+"Cantina",
+"rancho",
+"canteen",
+"cafeteria",
+"refectory"
+],
 "amenity/fast_food/chicken":[
 "frango",
 "fast food",
@@ -4320,6 +4328,16 @@
 "aviso",
 "Sirene"
 ],
+"emergency/water_reservoir":[
+"florestais",
+"Reservatório de água de emergência",
+"fogos",
+"bombeiros",
+"reserva",
+"florestal",
+"incêndios",
+"bacia"
+],
 "emergency/water_reservoir_covered":[
 "reservatório",
 "reservatório de água",
@@ -4639,6 +4657,9 @@
 "audiologia",
 "Terapeuta da fala",
 "fonoaudiologia"
+],
+"healthcare/yes":[
+"Não especificado"
 ],
 "highway":[
 "Estrada"
@@ -6213,10 +6234,12 @@
 "leisure/dog_park":[
 "cachorrinhos",
 "canídeos",
-"Parque para cães",
 "cachorródromo",
+"Parque canino",
 "cachorros",
-"dog park"
+"dog park",
+"cão",
+"cães"
 ],
 "leisure/escape_game":[
 "Sala de fuga",
@@ -7037,6 +7060,18 @@
 "rapel",
 "Local de escalada"
 ],
+"leisure/sports_centre/horse_racing":[
+"cavalo",
+"corridas",
+"equestre",
+"racing",
+"race",
+"equino",
+"hipismo",
+"Hipódromo",
+"cavalos",
+"apostas"
+],
 "leisure/sports_centre/shooting":[
 "armas",
 "tiro",
@@ -7355,6 +7390,14 @@
 "crane",
 "grua",
 "Pórtico rolante",
+"gantry"
+],
+"man_made/crane/portal_crane":[
+"pórtico",
+"guindaste",
+"crane",
+"grua",
+"Grua de ponte rolante",
 "gantry"
 ],
 "man_made/cross":[
@@ -8956,6 +8999,14 @@
 "direção das finanças",
 "secção"
 ],
+"office/graphic_design":[
+"visual",
+"gabinete de design gráfico",
+"designer",
+"Empresa de design gráfico",
+"ilustração",
+"designer gráfico"
+],
 "office/guide":[
 "trekking",
 "mergulho",
@@ -9191,6 +9242,36 @@
 ],
 "office/yes":[
 "Escritório"
+],
+"pipeline":[
+"Elemento de conduta"
+],
+"pipeline/substation":[
+"cano",
+"tubagem",
+"condução",
+"Subestação de conduta",
+"oleoduto",
+"gasoduto",
+"canalização",
+"conduto"
+],
+"pipeline/valve":[
+"tubagem",
+"Válvula de conduta",
+"canalização",
+"esgotos",
+"residuais",
+"cano",
+"resíduos",
+"óleo",
+"água",
+"condução",
+"petróleo",
+"gás",
+"oleoduto",
+"gasoduto",
+"conduto"
 ],
 "piste/downhill":[
 "ski",
@@ -9951,6 +10032,17 @@
 "eléctrica",
 "poste de distribuição de eletricidade",
 "power pole"
+],
+"power/portal":[
+"corrente",
+"voltagem",
+"Pórtico",
+"eletricidade",
+"anchor gantry",
+"gantry",
+"estação",
+"elétrico",
+"elétrica"
 ],
 "power/substation":[
 "posto",
@@ -11464,8 +11556,10 @@
 "cosméticos",
 "Loja de cosmética",
 "belesa",
+"maquilhagem",
 "cosmética",
 "produtos de beleza",
+"maquiagem",
 "cosmetics",
 "beleza"
 ],
@@ -11652,15 +11746,23 @@
 "Loja de acessórios de moda"
 ],
 "shop/fireplace":[
+"aquecer",
+"heat",
 "fogo",
-"calor",
-"fogões",
-"fogão",
+"fogoes",
+"heater",
 "lareira",
 "salamandra",
+"fireplace",
+"lenha",
+"calor",
+"stove",
+"fogões",
+"fogão",
+"heating",
+"fogao",
 "aquecimento",
-"Loja de lareiras",
-"lenha"
+"Loja de lareiras"
 ],
 "shop/fishing":[
 "anzol",
@@ -13325,6 +13427,24 @@
 "estrada",
 "velocidade máxima",
 "limite de velocidade"
+],
+"traffic_sign/variable_message":[
+"rodovia",
+"acidentes",
+"rodoviário",
+"alternado",
+"tempo",
+"painel de leds",
+"informação",
+"Painel de mensagem variável",
+"painel digital",
+"painel de avisos",
+"painel eletrónico",
+"estrada",
+"informações",
+"leds",
+"alternável",
+"aviso"
 ],
 "type/boundary":[
 "divisão",

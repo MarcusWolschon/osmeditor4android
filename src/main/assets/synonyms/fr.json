@@ -2620,6 +2620,9 @@
 "barrier/bus_trap":[
 "Entrée de voie de bus (Allemagne)"
 ],
+"barrier/cable_barrier":[
+"Barrière câblée"
+],
 "barrier/cattle_grid":[
 "piétons",
 "grille à bétail",
@@ -2873,6 +2876,9 @@
 ],
 "barrier/motorcycle_barrier":[
 "Barrière pour motos"
+],
+"barrier/planter":[
+"Barrière champêtre"
 ],
 "barrier/retaining_wall":[
 "faisse",
@@ -4140,7 +4146,7 @@
 ],
 "golf/fairway":[
 "chenal",
-"Chenal"
+"Fairway"
 ],
 "golf/green":[
 "green",
@@ -4325,12 +4331,12 @@
 "Passage piéton marqué"
 ],
 "highway/crossing/traffic_signals":[
+"Passage piéton avec feux de signalisation",
 "passage piéton avec feux",
-"Passage piéton avec Feux piétons",
 "feux piétons"
 ],
 "highway/crossing/uncontrolled":[
-"Traversée sans feux"
+"Traversée non protégée"
 ],
 "highway/crossing/unmarked":[
 "Passage piéton non marqué",
@@ -4360,6 +4366,12 @@
 "passage cycliste"
 ],
 "highway/cycleway/crossing/marked":[
+"Passage cycliste marqué"
+],
+"highway/cycleway/crossing/traffic_signals":[
+"Passage cycliste avec feux de signalisation"
+],
+"highway/cycleway/crossing/uncontrolled":[
 "Passage cycliste marqué"
 ],
 "highway/cycleway/crossing/unmarked":[
@@ -4428,6 +4440,7 @@
 "Passage piéton avec feu de signalisation"
 ],
 "highway/footway/crossing/uncontrolled":[
+"passage piéton marqué",
 "Passage piéton marqué"
 ],
 "highway/footway/crossing/unmarked":[
@@ -4596,7 +4609,8 @@
 "entrée"
 ],
 "highway/service":[
-"Route d'accès",
+"route d'accès",
+"Voie de service",
 "route de service"
 ],
 "highway/service/alley":[
@@ -5109,6 +5123,9 @@
 "immeuble",
 "appartements"
 ],
+"landuse/residential/trailer_park":[
+"Parc de maisons mobiles"
+],
 "landuse/retail":[
 "zone de magasins",
 "Zone commerciale"
@@ -5486,6 +5503,9 @@
 "Terrain de four square",
 "terrain"
 ],
+"leisure/pitch/funnel_ball":[
+"Terrain pour jeu de Funnel"
+],
 "leisure/pitch/futsal":[
 "salle",
 "Terrain de football en salle",
@@ -5497,6 +5517,9 @@
 ],
 "leisure/pitch/gaga":[
 "Terrain de Gaga"
+],
+"leisure/pitch/handball":[
+"Terrain de handball"
 ],
 "leisure/pitch/horseshoes":[
 "fer à cheval",
@@ -5823,6 +5846,12 @@
 "Grue",
 "grue"
 ],
+"man_made/crane/gantry_crane":[
+"Portique de manutention"
+],
+"man_made/crane/portal_crane":[
+"Grue"
+],
 "man_made/cross":[
 "croix",
 "Croix",
@@ -5854,6 +5883,9 @@
 "mât de drapeau",
 "hampe",
 "drapeau"
+],
+"man_made/gantry":[
+"Portique"
 ],
 "man_made/gasometer":[
 "gazomètre",
@@ -6788,6 +6820,9 @@
 "Centre des impôts",
 "bureau des impôts"
 ],
+"office/graphic_design":[
+"Designer"
+],
 "office/guide":[
 "Bureau des guides",
 "bureau des guides"
@@ -6903,6 +6938,12 @@
 ],
 "office/yes":[
 "Bureau (non précisé)"
+],
+"pipeline/substation":[
+"Sous-station pour canalisations"
+],
+"pipeline/valve":[
+"Valve pour canalisations"
 ],
 "piste/downhill":[
 "Piste de ski alpin",
@@ -7042,6 +7083,9 @@
 "playground":[
 "Jeux"
 ],
+"playground/aerialrotator":[
+"Aéro-rotateur"
+],
 "playground/balancebeam":[
 "poutre",
 "Poutre d'équilibre (jeu pour enfants)",
@@ -7092,6 +7136,9 @@
 "Jeu gonflable",
 "trampoline à air",
 "trampoline"
+],
+"playground/funnel_ball":[
+"Cheminée pour jeu de Funnel"
 ],
 "playground/hopscotch":[
 "Marelle",
@@ -7188,6 +7235,9 @@
 "Tunnel",
 "tunnel",
 "jeux"
+],
+"playground/water":[
+"Jeux d'eau"
 ],
 "playground/zipwire":[
 "Tyrolienne",
@@ -7344,6 +7394,9 @@
 "poteau électrique",
 "pylone électrique",
 "Poteau électrique"
+],
+"power/portal":[
+"Portail d'ancrage"
 ],
 "power/substation":[
 "Sous-station",
@@ -8214,8 +8267,9 @@
 "Magasin d'organisme caritatif"
 ],
 "shop/cheese":[
+"Fromagerie",
 "vente de fromages",
-"Fromager"
+"fromager"
 ],
 "shop/chemist":[
 "droguerie",
@@ -8327,6 +8381,13 @@
 "parfumerie",
 "Magasin de cosmétiques",
 "vente de cosmétiques"
+],
+"shop/country_store":[
+"épicerie de campagne",
+"quincaillerie de campagne",
+"épicerie rurale",
+"quincaillerie rurale",
+"Quincaillerie"
 ],
 "shop/craft":[
 "art",
@@ -9389,6 +9450,9 @@
 "vitesse max",
 "Panneau de limitation de vitesse",
 "vitesse limite"
+],
+"traffic_sign/variable_message":[
+"Panneau numérique"
 ],
 "type/boundary":[
 "Frontière",

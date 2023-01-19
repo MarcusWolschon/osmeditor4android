@@ -636,6 +636,51 @@
 "physician",
 "Doctor"
 ],
+"amenity/doctors/allergology":[
+"Allergologist",
+"allergy",
+"asthma"
+],
+"amenity/doctors/cardiology":[
+"Cardiologist",
+"cardiac surgeon",
+"cardiovascular system",
+"coronary artery",
+"cardiology",
+"heart"
+],
+"amenity/doctors/dermatology":[
+"hair",
+"dermatology",
+"Dermatologist",
+"nails",
+"skin"
+],
+"amenity/doctors/gastroenterology":[
+"digestive system",
+"gastrointestinal tract",
+"liver",
+"food pipe",
+"stomach",
+"gastroenterology",
+"bowels",
+"oesophagus",
+"digestion",
+"Gastroenterologist",
+"gallstone",
+"small intestine",
+"gullet",
+"large intestine",
+"intestines",
+"esophagus"
+],
+"amenity/doctors/general":[
+"family practitioner",
+"family physician",
+"gp",
+"family doctor",
+"Primary Care Physician"
+],
 "amenity/doctors/gynaecology":[
 "gynecology",
 "Gynecologist",
@@ -647,6 +692,169 @@
 "woman's doctor",
 "ovulation",
 "reproductive"
+],
+"amenity/doctors/haematology":[
+"leukemia",
+"lymphoma",
+"haematology",
+"Hematologist",
+"blood",
+"anemia",
+"bone marrow"
+],
+"amenity/doctors/internal":[
+"internal general practitioner",
+"Internist",
+"internal medicine",
+"physician"
+],
+"amenity/doctors/nephrology":[
+"nephrology",
+"renal",
+"kidney",
+"kidney medicine",
+"Nephrologist",
+"kidneys"
+],
+"amenity/doctors/neurology":[
+"nerves",
+"Neurologist",
+"nervous system",
+"brain",
+"neurosurgery",
+"neurology"
+],
+"amenity/doctors/neurosurgery":[
+"Neurosurgeon",
+"neurological surgery",
+"brain"
+],
+"amenity/doctors/oncology":[
+"Oncologist",
+"tumor",
+"cancer",
+"chemotherapy",
+"oncology"
+],
+"amenity/doctors/ophthalmology":[
+"eye",
+"glasses",
+"Ophthalmologist",
+"ophthalmology",
+"eyes",
+"ocular"
+],
+"amenity/doctors/orthopaedics":[
+"Orthopedic Surgeon",
+"orthopedic surgery"
+],
+"amenity/doctors/otolaryngology":[
+"nose",
+"orl–h&n",
+"throat",
+"ear",
+"head and neck surgery",
+"orl",
+"ent",
+"ohns",
+"skull",
+"Otolaryngologist",
+"otorhinolaryngology"
+],
+"amenity/doctors/paediatrics":[
+"paediatrics",
+"infants",
+"Pediatrician",
+"adolescents",
+"children"
+],
+"amenity/doctors/pathology":[
+"pathology",
+"Pathologist",
+"anatomic pathology",
+"anatomical pathology",
+"autopsy"
+],
+"amenity/doctors/plastic_surgery":[
+"cosmetic surgery",
+"aesthetic surgery",
+"craniofacial surgery",
+"Plastic Surgeon",
+"plastic surgery",
+"reconstructive surgery"
+],
+"amenity/doctors/podiatry":[
+"feet",
+"legs",
+"ankle",
+"foot",
+"Podiatrist",
+"leg",
+"podiatry"
+],
+"amenity/doctors/proctology":[
+"proctology",
+"assman",
+"colorectal surgery",
+"Colorectal Surgeon"
+],
+"amenity/doctors/pulmonology":[
+"lung",
+"pneumonology",
+"respirology",
+"pneumonia",
+"respiratory tract",
+"respiratory medicine",
+"asthma",
+"pulmonology",
+"Pulmonologist",
+"pneumology",
+"chest medicine"
+],
+"amenity/doctors/radiology":[
+"computed tomography",
+"ct",
+"magnetic resonance imaging",
+"mri",
+"ultrasonography",
+"radiology",
+"Radiologist",
+"medical ultrasonography",
+"medical ultrasound",
+"sonography"
+],
+"amenity/doctors/rheumatology":[
+"oteoporosis",
+"Rheumatologist",
+"rheumatology",
+"rheuma",
+"lupus"
+],
+"amenity/doctors/surgery":[
+"General Surgeon",
+"surgery"
+],
+"amenity/doctors/trauma":[
+"Trauma Surgeon",
+"trauma surgery",
+"surgery"
+],
+"amenity/doctors/urology":[
+"testicles",
+"epididymis",
+"scrotum",
+"testis",
+"urethra",
+"adrenal glands",
+"reproductive",
+"kidney",
+"Urologist",
+"bladder",
+"urology",
+"penis",
+"prostate",
+"urinary",
+"ureters"
 ],
 "amenity/dojo":[
 "Dojo / Martial Arts Academy",
@@ -2002,6 +2210,7 @@
 "senior",
 "care home",
 "living",
+"elderly",
 "old",
 "assisted living",
 "Elderly Group Home"
@@ -2330,6 +2539,7 @@
 ],
 "amenity/waste_disposal":[
 "litter",
+"waste disposal",
 "Garbage Dumpster",
 "garbage",
 "rubbish",
@@ -4649,6 +4859,12 @@
 "residence",
 "Apartment Complex"
 ],
+"landuse/residential/trailer_park":[
+"Mobile Home Park",
+"caravan park",
+"trailer park",
+"manufactured home community"
+],
 "landuse/retail":[
 "Retail Area"
 ],
@@ -4919,6 +5135,14 @@
 "co-op garden",
 "collective garden",
 "communal garden"
+],
+"leisure/garden/residential":[
+"front garden",
+"back garden",
+"domestic garden",
+"Residential Garden",
+"front yard",
+"backyard"
 ],
 "leisure/golf_course":[
 "Golf Course",
@@ -6568,6 +6792,14 @@
 "Tax and Revenue Office",
 "fiscal authorities"
 ],
+"office/graphic_design":[
+"Graphic Design Office",
+"art",
+"illustrate",
+"design",
+"visual",
+"technology"
+],
 "office/guide":[
 "tour guide",
 "mountain guide",
@@ -6939,7 +7171,8 @@
 ],
 "playground/roundabout":[
 "Play Roundabout",
-"merry-go-round"
+"merry-go-round",
+"carousel"
 ],
 "playground/sandpit":[
 "Play Sandbox",
@@ -6956,7 +7189,10 @@
 "Slide"
 ],
 "playground/splash_pad":[
-"Play Splash Pad"
+"Play Splash Pad",
+"pad",
+"spray",
+"water"
 ],
 "playground/springy":[
 "spring horse",
@@ -7977,7 +8213,9 @@
 "manicure"
 ],
 "shop/beauty/tanning":[
-"Tanning Salon"
+"solarium",
+"Tanning Salon",
+"sunbed"
 ],
 "shop/bed":[
 "bed",
@@ -8056,12 +8294,14 @@
 "automotive"
 ],
 "shop/car_repair":[
+"panel beater",
 "automechanic",
 "service",
 "garage",
 "mechanic",
 "oil change",
 "automotive",
+"panelbeater",
 "inspection",
 "Car Repair Shop"
 ],
@@ -8833,12 +9073,15 @@
 "cobbler"
 ],
 "shop/shoes":[
+"footwear",
 "cleats",
 "oxfords",
 "sneakers",
+"slippers",
 "clogs",
 "heels",
 "boots",
+"sandals",
 "Shoe Store",
 "loafers"
 ],
@@ -9356,6 +9599,7 @@
 "traffic_calming/island":[
 "slow",
 "circle",
+"traffic calming",
 "roundabout",
 "Traffic Island"
 ],
@@ -9404,6 +9648,11 @@
 "Speed Limit Sign",
 "highway",
 "max speed"
+],
+"traffic_sign/variable_message":[
+"Variable Message Sign",
+"dynamic message sign",
+"vms"
 ],
 "type/boundary":[
 "Boundary"

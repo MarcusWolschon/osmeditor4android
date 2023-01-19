@@ -1785,7 +1785,11 @@
 "obszar"
 ],
 "area/footway":[
-"Obszar chodnika"
+"area:highway",
+"krawędzie chodnika",
+"Obszar chodnika",
+"obszar ścieżki dla pieszych",
+"kształt chodnika"
 ],
 "area/highway":[
 "ulica",
@@ -3299,14 +3303,15 @@
 "Oznakowane przejście dla pieszych"
 ],
 "highway/crossing/traffic_signals":[
+"przejście z sygnalizacją dla pieszych",
 "Przejście z sygnałami dla pieszych"
 ],
 "highway/crossing/uncontrolled":[
 "Oznaczone przejście dla pieszych"
 ],
 "highway/crossing/unmarked":[
-"Nieoznakowane przejście",
-"nieoznaczone przejście dla pieszych"
+"nieoznakowane przejście dla pieszych",
+"Nieoznaczone przejście"
 ],
 "highway/crossing/zebra":[
 "Oznakowane przejście dla pieszych"
@@ -3331,10 +3336,16 @@
 "highway/cycleway/crossing/marked":[
 "Oznakowany przejazd rowerowy"
 ],
+"highway/cycleway/crossing/traffic_signals":[
+"Przejazd rowerowy z sygnalizacją świetlną"
+],
+"highway/cycleway/crossing/uncontrolled":[
+"Oznaczony przejazd rowerowy"
+],
 "highway/cycleway/crossing/unmarked":[
-"Nieoznakowany przejazd rowerowy",
-"przejście rowerowe",
-"przejazd rowerowy"
+"Nieoznaczony przejazd rowerowy",
+"nieoznakowany przejazd rowerowy",
+"przejście rowerowe"
 ],
 "highway/elevator":[
 "dźwig",
@@ -3360,10 +3371,10 @@
 "bulwar",
 "ścieżka",
 "deptak",
-"Chodnik/ścieżka dla pieszych",
 "spacer",
 "chodnik",
 "szosa",
+"Ścieżka dla pieszych",
 "pobocze"
 ],
 "highway/footway/access_aisle":[
@@ -3382,12 +3393,29 @@
 "highway/footway/crossing":[
 "Przejście dla pieszych"
 ],
+"highway/footway/crossing/marked":[
+"Oznakowane przejście"
+],
+"highway/footway/crossing/traffic_signals":[
+"Przejście z sygnałami dla pieszych"
+],
+"highway/footway/crossing/uncontrolled":[
+"Oznaczone przejście"
+],
+"highway/footway/crossing/unmarked":[
+"nieoznaczone przejście dla pieszych",
+"Nieoznaczone przejście"
+],
+"highway/footway/crossing/zebra":[
+"Przejście zebra"
+],
 "highway/footway/informal":[
 "Nieformalna ścieżka dla pieszych"
 ],
 "highway/footway/sidewalk":[
-"Chodnik przy jezdni",
-"chodnik"
+"Chodnik",
+"chodnik przy jezdni",
+"chodnik wzdłuż drogi"
 ],
 "highway/give_way":[
 "Ustąp pierwszeństwa przejazdu",

@@ -793,6 +793,9 @@
 "kizeller",
 "kizellour"
 ],
+"demolished/building":[
+"Savadur distrujet nevez zo"
+],
 "embankment":[
 "Savenn-douar"
 ],
@@ -898,14 +901,23 @@
 "busway",
 "Forzh bus"
 ],
+"highway/crossing/unmarked":[
+"Treuzenn n'eo ket merket"
+],
 "highway/cycleway":[
 "Hent marc'hoù-houarn"
+],
+"highway/cycleway/crossing/unmarked":[
+"Treuzenn marc'h-houarn n'eo ket merket"
 ],
 "highway/elevator":[
 "Pignerez"
 ],
 "highway/footway/crossing":[
 "Treuzenn kerzhourien"
+],
+"highway/footway/crossing/unmarked":[
+"Treuzenn n'eo ket merket"
 ],
 "highway/footway/sidewalk":[
 "Riblenn-straed"
@@ -1057,6 +1069,9 @@
 "landuse/basin":[
 "Diazad"
 ],
+"landuse/brownfield":[
+"Tachenn fraost"
+],
 "landuse/cemetery":[
 "Bered"
 ],
@@ -1065,6 +1080,9 @@
 ],
 "landuse/construction":[
 "Takad Sevel"
+],
+"landuse/farm":[
+"Takad labour-douar"
 ],
 "landuse/farmland":[
 "Takad labour-douar"
@@ -1087,6 +1105,9 @@
 "abatouer",
 "boserezh",
 "Lazhti"
+],
+"landuse/landfill":[
+"Diskarg"
 ],
 "landuse/meadow":[
 "Pradenn"
@@ -1315,6 +1336,9 @@
 "man_made/tower/bell_tower":[
 "Kloc'hdi"
 ],
+"man_made/tower/diving":[
+"Splujell"
+],
 "man_made/tower/minaret":[
 "Minared"
 ],
@@ -1431,6 +1455,9 @@
 ],
 "natural/water/wastewater":[
 "Poull dourioù lous"
+],
+"natural/wetland":[
+"Takad gleb"
 ],
 "natural/wetland/wet_meadow":[
 "Pradenn c'hleb"
@@ -1634,6 +1661,9 @@
 "power/plant/source/waste":[
 "Pulluc'hva al lastez"
 ],
+"public_transport/platform":[
+"Kae treuzdougen foran"
+],
 "public_transport/platform/bus":[
 "Kae bus"
 ],
@@ -1758,6 +1788,9 @@
 ],
 "railway/monorail":[
 "Forzh unroudenn"
+],
+"railway/platform":[
+"Kae ti-gar"
 ],
 "railway/rail":[
 "Hent-houarn"
@@ -2112,6 +2145,9 @@
 ],
 "type/restriction/no_u_turn":[
 "Hanter-dro ebet"
+],
+"type/restriction/only_left_turn":[
+"Ret eo treiñ a-gleiz"
 ],
 "type/restriction/only_u_turn":[
 "Hanter-dro nemetken"

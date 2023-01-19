@@ -349,7 +349,7 @@
 ],
 "amenity/arts_centre":[
 "centro de bellas artes",
-"Centro de Arte",
+"Centro de arte",
 "centro de arte"
 ],
 "amenity/atm":[
@@ -3338,12 +3338,16 @@
 "borde"
 ],
 "barrier/kissing_gate":[
+"porton",
 "puerta",
 "animales",
-"Puerta de ganado",
+"pasamano",
 "seguridad",
 "ganado",
-"control"
+"Pasamano / Tranquera",
+"control",
+"portón",
+"tranquera"
 ],
 "barrier/lift_gate":[
 "puerta",
@@ -3386,10 +3390,10 @@
 ],
 "barrier/sally_port":[
 "puerta esclusa",
-"Poterna de acceso",
 "poterna",
 "puerta lateral del castillo",
-"puerta de seguridad"
+"puerta de seguridad",
+"Poterna"
 ],
 "barrier/spikes":[
 "tira de pinchos",
@@ -3842,8 +3846,11 @@
 "Caravana estática",
 "autocaravana",
 "casa rodante",
+"caravanas estáticas",
 "caravana",
-"roulotte"
+"roulotte",
+"house trailers",
+"mobile homes"
 ],
 "building/sty":[
 "corral de cerdos",
@@ -4223,8 +4230,12 @@
 "arte"
 ],
 "craft/parquet_layer":[
-"Colocador de parqué",
+"Parquetero",
 "parque",
+"parquetero",
+"parquetista",
+"colocador de parqué",
+"instalador de parqué",
 "parqué",
 "parquet"
 ],
@@ -5034,18 +5045,19 @@
 ],
 "healthcare/birthing_center":[
 "alumbramiento",
+"Centro de maternidad",
 "bebé",
 "parto",
-"centro de nacimiento",
 "clínica de maternidad",
 "centro de alumbramiento",
 "centro de partos",
 "hospital maternal",
 "centro de natalidad",
 "embarazo",
-"nacimiento",
 "trabajo de parto",
-"Centro de natalidad",
+"centro de maternidad",
+"nacimientos",
+"centro de nacimientos",
 "maternal"
 ],
 "healthcare/blood_donation":[
@@ -5322,8 +5334,8 @@
 ],
 "highway/cycleway/crossing/traffic_signals":[
 "cruce de carril bici",
+"Cruce de ciclovía con señales de tránsito",
 "cruce de bicicletas",
-"Cruce de ciclovía con señales de tráfico",
 "cruce de bicisenda",
 "cruce de ciclovía"
 ],
@@ -5476,13 +5488,17 @@
 ],
 "highway/living_street":[
 "zona residencial",
+"calle",
+"peatonal",
+"urbanización",
+"zona 30",
+"calle de convivencia",
 "calle residencial",
 "Calle semipeatonal o residencial",
 "semipeatonal",
+"máxima 20",
 "vía compartida",
-"calle",
-"urbanización",
-"zona 30",
+"convivencia",
 "residencial"
 ],
 "highway/milestone":[
@@ -5942,6 +5958,7 @@
 "highway/traffic_signals":[
 "semáforo",
 "luces de señalización",
+"señal de tránsito",
 "luces de tráfico",
 "Semáforos",
 "tránsito",
@@ -5993,10 +6010,12 @@
 ],
 "highway/unclassified":[
 "camino",
+"carretera menor",
 "menor",
 "no clasificada",
-"Camino menor",
+"carretera sin clasificar",
 "sendero",
+"Carretera menor",
 "carretera",
 "vía",
 "sin clasificación"
@@ -6533,6 +6552,12 @@
 "residencia",
 "departamentos",
 "apartamentos"
+],
+"landuse/residential/trailer_park":[
+"parque de trailers",
+"comunidad de casas prefabricadas",
+"parque de caravanas",
+"Parque de caravanas"
 ],
 "landuse/retail":[
 "minorista",
@@ -8985,6 +9010,15 @@
 "arba",
 "recaudación",
 "ingresos tributarios"
+],
+"office/graphic_design":[
+"Oficina de diseño gráfico",
+"ilustración",
+"diseño",
+"visual",
+"tecnología",
+"ilustrar",
+"arte"
 ],
 "office/guide":[
 "Oficina de turismo",
@@ -12245,19 +12279,22 @@
 "figura"
 ],
 "tourism/artwork/graffiti":[
-"ilustraciones de la clle",
-"obra de graffiti",
+"arte callejero",
+"arte urbano",
 "pintada",
+"Grafiti",
+"ilustraciones de la calle",
+"ilustraciones de graffiti",
 "graffiti",
-"obra de guerrilla",
-"Pintada",
+"ilustraciones de guerrilla",
 "grafiti"
 ],
 "tourism/artwork/installation":[
-"Instalación de arte",
 "arte de intervención",
 "arte interactivo",
-"arte moderno"
+"instalación artística",
+"arte moderno",
+"Instalación artística"
 ],
 "tourism/artwork/mural":[
 "fresco",
@@ -12572,13 +12609,22 @@
 "conducción"
 ],
 "tourism/zoo/wildlife":[
-"animales indígenas",
-"Parque de vida silvestre"
+"parque de la vida silvestre",
+"Parque de vida silvestre",
+"vida silvestre",
+"fauna silvestre",
+"reserva natural",
+"vida salvaje",
+"animales autóctonos",
+"santuario de fauna silvestre"
 ],
 "traffic_calming":[
+"apaciguador de tránsito",
+"moderador de tránsito",
 "joroba",
 "calmado de tráfico",
 "chichón",
+"calmado de tránsito",
 "moderador de tráfico",
 "apaciguador de tráfico",
 "reductor de velocidad",
@@ -12606,7 +12652,6 @@
 "​ policía acostado",
 "resalte",
 "resalto",
-"Reductor de velocidad corto",
 "guardia tumbado",
 "lomo de burro",
 "lomba",
@@ -12616,6 +12661,7 @@
 "reductor de velocidad",
 "guardia muerto​",
 "tumulo",
+"Reductor de velocidad",
 "banda de frenado",
 "lombada"
 ],
@@ -12632,6 +12678,7 @@
 "traffic_calming/choker":[
 "estrechamiento",
 "frenar",
+"chicana",
 "reductor de velocidad",
 "tránsito",
 "estrangulamiento",
@@ -12694,13 +12741,13 @@
 "lomo de toro",
 "lomada",
 "calmado de tráfico",
+"Reductor de velocidad ancho",
 "túmulo",
 "rompe-velocidades",
 "​ policía acostado",
 "resalte",
 "resalto",
 "guardia tumbado",
-"Reductor de velocidad largo",
 "lomo de burro",
 "lomba",
 "muerto",
@@ -12791,12 +12838,13 @@
 "tope",
 "policía muerto",
 "lomo de toro",
+"trapezoidal",
 "lomada",
 "calmado de tráfico",
 "túmulo",
+"Reductor de velocidad trapezoidal",
 "rompe-velocidades",
 "​ policía acostado",
-"Reductor de velocidad con paso peatonal",
 "resalte",
 "resalto",
 "guardia tumbado",
@@ -12840,6 +12888,11 @@
 "señalización",
 "Señal de límite de velocidad",
 "velocidad máxima"
+],
+"traffic_sign/variable_message":[
+"Señal de mensaje variable",
+"vms",
+"señal de mensaje dinámico"
 ],
 "type/boundary":[
 "linde",
