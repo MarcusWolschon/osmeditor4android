@@ -1,5 +1,18 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+18.1.1:
+
+- Fix correctly handle expanding/shrinking the offset array
+- Fix post displaying dropdowns
+- Fix run loading GeoJson files in an ExecutorTask (crash when loading file from Nextcloud)
+- Fix support selection of segment for the new way when splitting in all modes
+- Fix making an EditText text selectable makes it uneditable in Android 7.1 and breaks editing Notes
+- Update preset
+- Update imagery from ELI
+- Update translations
+- Update NSI
+- Update synonyms
+
 18.1.0:
 
 - Fix catch if we can't read GPX when delivered via intent
