@@ -769,6 +769,7 @@
   <string name="menu_gps_pause">Приостановить запись GPX-трека</string>
   <string name="menu_gps_clear">Очистить GPX-трек и его путевые точки</string>
   <string name="menu_gps_track_managment">Управление GPX-треками...</string>
+  <string name="menu_gps_upload">Передать GPS-трек...</string>
   <string name="menu_gps_goto_start">Перейти к началу GPX-трека</string>
   <string name="menu_gps_goto_first_waypoint">Перейти к первой путевой точке</string>
   <string name="menu_enable_gps_autodownload">Автозагрузка на основе местоположения</string>
@@ -778,8 +779,10 @@
   <string name="menu_transfer_download_replace">Очистить и загрузить текущее место</string>
   <string name="menu_transfer_load_current">Загрузить текущее место</string>
   <string name="menu_transfer_load_replace">Очистить и загрузить текущее место</string>
+  <string name="menu_transfer_upload">Передать данные на сервер OSM...</string>
   <string name="menu_transfer_review">Посмотреть изменения...</string>
   <string name="menu_transfer_update">Обновить данные</string>
+  <string name="menu_transfer_data_clear">Очистить данные</string>
   <string name="menu_transfer_close_changeset">Закрыть текущий пакет правок</string>
   <string name="menu_transfer_file">Файл...</string>
   <string name="menu_transfer_export">Экспорт изменений в файл OSC</string>

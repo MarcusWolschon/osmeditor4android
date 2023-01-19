@@ -528,6 +528,7 @@
   <string name="toast_using_network_location">Використовується мережеве положення</string>
   <string name="toast_using_gps_location">Використовується GPS/GNSS положення</string>
   <string name="toast_using_gps_disabled_tracking_stopped">Позиціонування GPS/GNSS вимкнено, спробуйте припинити відстеження.</string>
+  <string name="toast_remote_nmea_connection">Віддалене NMEA з\'єднання з/до %1$s</string>
   <string name="toast_remote_nmea_connection_closed">Віддалене з\'єднання NMEA закрито</string>
   <string name="toast_tags_copied">Теґи скопійовано до буфера обміну</string>
   <string name="toast_tags_cut">Теґи вирізані до буфера обміну</string>
@@ -694,6 +695,8 @@
   <!--Strings in postition info-->
   <string name="position_info_title">Дані про поточну позицію</string>
   <string name="position_info_altitude">Висота над рівнем моря</string>
+  <string name="position_info_barometric_height">Барометрична висота</string>
+  <string name="position_info_ellipsoid_height">Висота над еліпсоїдом</string>
   <!--Strings in DownloadActivity-->
   <string name="download_files_title">Завантажити файли</string>
   <string name="allow_all_networks">Дозволити всі мережі</string>
@@ -753,6 +756,7 @@
   <string name="menu_transfer_upload">Надіслати дані на сервер OSM...</string>
   <string name="menu_transfer_review">Переглянути зміни...</string>
   <string name="menu_transfer_update">Оновити дані</string>
+  <string name="menu_transfer_data_clear">Очистити дані</string>
   <string name="menu_transfer_close_changeset">Закрити поточний набір змін</string>
   <string name="menu_transfer_file">Файл…</string>
   <string name="menu_transfer_export">Експортувати зміни в OSC-файл</string>
@@ -823,6 +827,7 @@
   <string name="menu_layers_add_tasklayer">Увімкнути шар завдань</string>
   <string name="menu_layers_add_grid">Увімкнути сітку</string>
   <string name="menu_layers_add_photolayer">Увімкнути шар з фото</string>
+  <string name="menu_layers_enable_mapillary_layer">Увімкнути шар Mapillary</string>
   <string name="menu_layers_configure">Налаштувати…</string>
   <!---->
   <string name="menu_tools_apply_local_offset">Застосувати збережене зміщення</string>
@@ -938,6 +943,7 @@
   <string name="config_tagFormEnabled_summary">Відобразити шаблон тегу для редагування.</string>
   <string name="config_showCameraAction_title">Показати камеру</string>
   <string name="config_showCameraAction_summary">Показати камеру на панелі</string>
+  <string name="config_useInternalPhotoViewer_title">Використовуйте вбудований переглядач фотографій</string>
   <string name="config_useInternalPhotoViewer_summary">Використовуйте вбудований перегляд фотографій, якщо не позначено, використовуватиметься зовнішній переглядач.</string>
   <string name="config_indexMediaStore_summary">Додатково використовувати MediaStore для доступу до фотографій</string>
   <string name="config_indexMediaStore_title">Використовувати MediaStore</string>
@@ -972,6 +978,8 @@
   <string name="config_uploadChecker_title">Інтервал нагадування про надсилання</string>
   <string name="config_uploadChecker_summary">Інтервал для нагадувань, якщо у вас є неопубліковані зміни.</string>
   <string name="config_uploadChecker_current">%1$d годин</string>
+  <string name="config_dataWarn_title">Попередження про забагато даних</string>
+  <string name="config_dataWarn_summary">Ліміт (за кількістю точок), при якому ми починаємо попереджати про занадто велике завантаження даних.</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Налаштування даних та редагування</string>
   <string name="config_category_editing_summary">Налаштування автозавантаження, збереження та сповіщень.</string>
@@ -997,6 +1005,7 @@
   <string name="config_closeChangesetOnSave_summary">Типово закривати набори змін під час збереження</string>
   <string name="config_enableAutoPresets_title">Увімкнути автоматичне створення пресетів</string>
   <string name="config_enableAutoPresets_summary">Дозволити створення заготовок з taginfo.</string>
+  <string name="config_orthogonalizeThreshold_title">Поріг квадратури</string>
   <string name="config_orthogonalizeThreshold_summary">Поріг у °, за яким кути ігноруються</string>
   <string name="config_autoformatPhoneNumbers_title">Автоматичне форматування телефонних номерів</string>
   <string name="config_autoformatPhoneNumbers_summary">Увімкнути автоматичне форматування телефонних номерів</string>
@@ -1034,6 +1043,7 @@
   <string name="config_gps_network_title">Повернення до мережевого розташування</string>
   <string name="config_gps_network_summary">Якщо позиціонування GPS/GNSS відсутнє або ввімкнено, зверніться до постачальника мережі.</string>
   <string name="config_gnssTimeToStale_summary">Час (у секундах), за який місцеположення має вважатися застарілим.</string>
+  <string name="config_useBarometricHeight_summary">Використовувати значення висоти в треку з датчика тиску повітря, якщо є в наявності</string>
   <!--Server Settings-->
   <string name="config_category_server">Налаштування сервера</string>
   <string name="config_category_server_summary">OSM API та налаштування інших серверів.</string>
