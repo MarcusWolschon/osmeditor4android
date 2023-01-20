@@ -67,11 +67,6 @@ public class PresetItem extends PresetElement {
     private List<PresetItemLink> alternativePresetItems = null;
 
     /**
-     * true if a chunk
-     */
-    private boolean chunk = false;
-
-    /**
      * If true the item is suitable to be autoapplied
      */
     private boolean autoapply = true;
@@ -802,22 +797,6 @@ public class PresetItem extends PresetElement {
     }
 
     /**
-     * Indicate that this PresetITem is a chunk
-     */
-    void setChunk() {
-        chunk = true;
-    }
-
-    /**
-     * Check if this PresetItem is a chunk
-     * 
-     * @return true if this PresetItem is a chunk
-     */
-    boolean isChunk() {
-        return chunk;
-    }
-
-    /**
      * Determine if this preset can be autoapplied or not
      * 
      * @return true if this preset can be autoapplied
@@ -1294,7 +1273,18 @@ public class PresetItem extends PresetElement {
 
     @Override
     public void toXml(XmlSerializer s) throws IllegalArgumentException, IllegalStateException, IOException {
-        s.startTag("", chunk ? Preset.CHUNK : Preset.ITEM);
+        s.startTag("", Preset.ITEM);
+        itemToXml(s);
+        s.endTag("", Preset.ITEM);
+    }
+
+    /**
+     * Write the contents of the item to XML, this is used in chunks too
+     * 
+     * @param s a XmlSerializer instance
+     * @throws IOException if serializing goes wrong
+     */
+    protected void itemToXml(@NonNull XmlSerializer s) throws IOException {
         s.attribute("", Preset.NAME, name);
         String iconPath = getIconpath();
         if (iconPath != null) {
@@ -1358,7 +1348,6 @@ public class PresetItem extends PresetElement {
                 s.endTag("", Preset.PRESET_LINK);
             }
         }
-        s.endTag("", chunk ? Preset.CHUNK : Preset.ITEM);
     }
 
     /**

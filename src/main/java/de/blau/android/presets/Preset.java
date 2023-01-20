@@ -700,6 +700,10 @@ public class Preset {
         iconManager = mgr;
     }
 
+    private enum PARSE_STATE {
+        TOP, ITEM, CHUNK
+    };
+
     /**
      * Parses the XML during import
      * 
@@ -713,6 +717,7 @@ public class Preset {
         SAXParser saxParser = factory.newSAXParser();
 
         saxParser.parse(input, new DefaultHandler() {
+            private PARSE_STATE                 state             = PARSE_STATE.TOP;
             /** stack of group-subgroup-subsubgroup... where we currently are */
             private Deque<PresetGroup>          groupstack        = new ArrayDeque<>();
             /** item currently being processed */
@@ -720,7 +725,7 @@ public class Preset {
             /** true if we are currently processing the optional section of an item */
             private boolean                     inOptionalSection = false;
             /** hold reference to chunks */
-            private Map<String, PresetItem>     chunks            = new HashMap<>();
+            private Map<String, PresetChunk>    chunks            = new HashMap<>();
             /** store current combo or multiselect key */
             private String                      listKey           = null;
             private List<StringWithDescription> listValues        = null;
@@ -740,6 +745,40 @@ public class Preset {
              */
             @Override
             public void startElement(String uri, String localName, String name, Attributes attr) throws SAXException {
+                switch (state) {
+                case TOP:
+                    parseTop(name, attr);
+                    break;
+                case ITEM:
+                    parseItem(name, attr);
+                    break;
+                case CHUNK:
+                    PresetChunk chunk = ((PresetChunk) currentItem);
+                    if (LIST_ENTRY.equals(name) && chunk.getFields().isEmpty()) {
+                        if (chunk.listValues == null) {
+                            chunk.listValues = new ArrayList<>();
+                        }
+                        addListEntry(chunk.listValues, attr);
+                    } else {
+                        if (chunk.listValues == null) {
+                            parseItem(name, attr);
+                        } else {
+                            Log.w(DEBUG_TAG, "chunk can only contain a sequence LIST_ENTRY or normal ITEM elements: " + name);
+                            throw new SAXException("chunk can only contain a sequence LIST_ENTRY or normal ITEM elements: " + name);
+                        }
+                    }
+                    break;
+                }
+            }
+
+            /**
+             * Parse everything that isn't in an ITEM or CHUNK
+             * 
+             * @param name tag name
+             * @param attr attributes
+             * @throws SAXException if there is a parsing error
+             */
+            private void parseTop(String name, Attributes attr) throws SAXException {
                 switch (name) {
                 case PRESETS:
                     String objectKeysTemp = attr.getValue(OBJECT_KEYS);
@@ -807,6 +846,7 @@ public class Preset {
                         }
                     }
                     checkGroupCounter = 0;
+                    state = PARSE_STATE.ITEM;
                     break;
                 case CHUNK:
                     if (currentItem != null) {
@@ -820,20 +860,16 @@ public class Preset {
                     if (type == null) {
                         type = attr.getValue(GTYPE); // note gtype seems to be undocumented
                     }
-                    currentItem = new PresetItem(Preset.this, null, attr.getValue(ID), attr.getValue(ICON), type);
-                    currentItem.setChunk();
+                    currentItem = new PresetChunk(Preset.this, null, attr.getValue(ID), attr.getValue(ICON), type);
                     checkGroupCounter = 0;
+                    state = PARSE_STATE.CHUNK;
                     break;
                 case SEPARATOR:
                     new PresetSeparator(Preset.this, groupstack.peek());
                     break;
                 default:
-                    if (currentItem != null) { // the following only make sense if we actually found an item
-                        parseItem(name, attr);
-                    } else {
-                        Log.d(DEBUG_TAG, name + " must be in a preset item");
-                        throw new SAXException(name + " must be in a preset item");
-                    }
+                    Log.w(DEBUG_TAG, name + " unexpected");
+                    throw new SAXException(name + " unexpected");
                 }
             }
 
@@ -1089,58 +1125,47 @@ public class Preset {
                     currentItem.addRole(role);
                     break;
                 case REFERENCE:
-                    PresetItem chunk = chunks.get(attr.getValue(REF)); // note this assumes that there are no
-                                                                       // forward references
+                    PresetChunk chunk = chunks.get(attr.getValue(REF)); // note this assumes that there are no
+                                                                        // forward references
                     if (chunk != null) {
-                        if (inOptionalSection) {
-                            // fixed tags don't make sense in an optional section, and doesn't seem to happen in
-                            // practice
-                            if (chunk.getFixedTagCount() > 0) {
-                                Log.e(DEBUG_TAG, "Chunk " + chunk.name + " has fixed tags but is used in an optional section");
-                            }
-                            for (PresetField f : chunk.getFields().values()) {
-                                key = f.getKey();
-                                // don't overwrite exiting fields
-                                if (!currentItem.hasKey(key)) {
-                                    PresetField copy = f.copy();
-                                    copy.setOptional(true);
-                                    currentItem.addField(copy);
-                                } else {
-                                    Log.w(DEBUG_TAG, "PresetItem " + currentItem.getName() + " chunk " + attr.getValue(REF) + " field " + key
-                                            + " overwrites existing field");
-                                }
+                        if (chunk.listValues != null) {
+                            if (listValues != null) {
+                                listValues.addAll(chunk.listValues);
+                            } else {
+                                Log.d(DEBUG_TAG, "chunk with LIST_ENTRY sequence referenced outside of COMBO/MULTISELECT");
+                                throw new SAXException("chunk with LIST_ENTRY sequence referenced outside of COMBO/MULTISELECT");
                             }
                         } else {
-                            currentItem.addAllFixedFields(chunk.getFixedTags());
-                            currentItem.addAllFields(chunk.getFields());
+                            if (inOptionalSection) {
+                                // fixed tags don't make sense in an optional section, and doesn't seem to happen in
+                                // practice
+                                if (chunk.getFixedTagCount() > 0) {
+                                    Log.e(DEBUG_TAG, "Chunk " + chunk.name + " has fixed tags but is used in an optional section");
+                                }
+                                for (PresetField f : chunk.getFields().values()) {
+                                    key = f.getKey();
+                                    // don't overwrite exiting fields
+                                    if (!currentItem.hasKey(key)) {
+                                        PresetField copy = f.copy();
+                                        copy.setOptional(true);
+                                        currentItem.addField(copy);
+                                    } else {
+                                        Log.w(DEBUG_TAG, "PresetItem " + currentItem.getName() + " chunk " + attr.getValue(REF) + " field " + key
+                                                + " overwrites existing field");
+                                    }
+                                }
+                            } else {
+                                currentItem.addAllFixedFields(chunk.getFixedTags());
+                                currentItem.addAllFields(chunk.getFields());
+                            }
+                            currentItem.addAllRoles(chunk.getRoles());
+                            currentItem.addAllLinkedPresetItems(chunk.getLinkedPresetItems());
+                            currentItem.addAllAlternativePresetItems(chunk.getAlternativePresetItems());
                         }
-                        currentItem.addAllRoles(chunk.getRoles());
-                        currentItem.addAllLinkedPresetItems(chunk.getLinkedPresetItems());
-                        currentItem.addAllAlternativePresetItems(chunk.getAlternativePresetItems());
                     }
                     break;
                 case LIST_ENTRY:
-                    if (listValues != null) {
-                        String v = attr.getValue(VALUE);
-                        if (v != null) {
-                            String displayValue = attr.getValue(DISPLAY_VALUE);
-                            String listShortDescription = attr.getValue(SHORT_DESCRIPTION);
-                            String listDescription = displayValue != null ? displayValue : listShortDescription;
-                            String iconPath = attr.getValue(ICON);
-                            String imagePath = attr.getValue(IMAGE);
-                            if (imagePath != null) {
-                                imagePath = isDefault ? imagePath : directory.toString() + Paths.DELIMITER + imagePath;
-                                imageCount++;
-                            }
-                            ExtendedStringWithDescription swd = iconPath == null && imagePath == null ? new ExtendedStringWithDescription(v, listDescription)
-                                    : new StringWithDescriptionAndIcon(v, listDescription, iconPath, imagePath);
-                            swd.setDeprecated(TRUE.equals(attr.getValue(DEPRECATED)));
-                            if (displayValue != null) { // short description is potentially unused
-                                swd.setLongDescription(listShortDescription);
-                            }
-                            listValues.add(swd);
-                        }
-                    }
+                    addListEntry(listValues, attr);
                     break;
                 case PRESET_LINK:
                     String presetName = attr.getValue(PRESET_NAME);
@@ -1156,11 +1181,41 @@ public class Preset {
                 case SPACE:
                     break;
                 default:
-                    Log.e(DEBUG_TAG, "Unknown start tag in preset item " + name);
+                    Log.w(DEBUG_TAG, "Unknown start tag in preset item " + name);
                 }
                 // always zap label after next element
                 if (!LABEL.equals(name)) {
                     currentLabel = null;
+                }
+            }
+
+            /**
+             * Add a LIST_ENTRY element
+             * 
+             * @param list the target list to add it to
+             * @param attr the XML attributes
+             */
+            private void addListEntry(@Nullable List<StringWithDescription> list, @NonNull Attributes attr) {
+                if (list != null) {
+                    String v = attr.getValue(VALUE);
+                    if (v != null) {
+                        String displayValue = attr.getValue(DISPLAY_VALUE);
+                        String listShortDescription = attr.getValue(SHORT_DESCRIPTION);
+                        String listDescription = displayValue != null ? displayValue : listShortDescription;
+                        String iconPath = attr.getValue(ICON);
+                        String imagePath = attr.getValue(IMAGE);
+                        if (imagePath != null) {
+                            imagePath = isDefault ? imagePath : directory.toString() + Paths.DELIMITER + imagePath;
+                            imageCount++;
+                        }
+                        ExtendedStringWithDescription swd = iconPath == null && imagePath == null ? new ExtendedStringWithDescription(v, listDescription)
+                                : new StringWithDescriptionAndIcon(v, listDescription, iconPath, imagePath);
+                        swd.setDeprecated(TRUE.equals(attr.getValue(DEPRECATED)));
+                        if (displayValue != null) { // short description is potentially unused
+                            swd.setLongDescription(listShortDescription);
+                        }
+                        list.add(swd);
+                    }
                 }
             }
 
@@ -1225,12 +1280,14 @@ public class Preset {
                     currentItem = null;
                     listKey = null;
                     listValues = null;
+                    state = PARSE_STATE.TOP;
                     break;
                 case CHUNK:
-                    chunks.put(currentItem.getName(), currentItem);
+                    chunks.put(currentItem.getName(), (PresetChunk) currentItem);
                     currentItem = null;
                     listKey = null;
                     listValues = null;
+                    state = PARSE_STATE.TOP;
                     break;
                 case COMBO_FIELD:
                 case MULTISELECT_FIELD:
@@ -1254,7 +1311,7 @@ public class Preset {
                     break;
                 default:
                     if (currentItem == null) {
-                        Log.e(DEBUG_TAG, "Unknown end tag " + name);
+                        Log.w(DEBUG_TAG, "Unknown end tag " + name);
                     }
                 }
             }
@@ -1712,7 +1769,7 @@ public class Preset {
     private String toJSON() {
         final StringBuilder result = new StringBuilder();
         processElements(rootGroup, (PresetElement element) -> {
-            if (element instanceof PresetItem && !((PresetItem) element).isChunk()) {
+            if (element instanceof PresetItem) {
                 if (result.length() != 0) {
                     result.append(",\n");
                 }
