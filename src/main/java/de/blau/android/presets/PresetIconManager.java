@@ -130,7 +130,7 @@ public class PresetIconManager {
     @NonNull
     private InputStream openStreamForIcon(@NonNull String url) throws IOException {
         if (basePath != null && externalAssetPackage == null) {
-            if (Preset.isUrl(url)) {
+            if (PresetParser.isUrl(url)) {
                 return new FileInputStream(basePath + "/" + hashPath(url));
             } else if ((isPng(url) || isSvg(url)) && !url.contains("..")) {
                 return new FileInputStream(basePath + "/" + url);

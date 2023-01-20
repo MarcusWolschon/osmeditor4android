@@ -38,6 +38,7 @@ import de.blau.android.exception.OperationFailedException;
 import de.blau.android.prefs.AdvancedPrefDatabase.PresetInfo;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetIconManager;
+import de.blau.android.presets.PresetParser;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.ReadFile;
 import de.blau.android.util.SelectFile;
@@ -284,7 +285,7 @@ public class PresetEditorActivity extends URLListEditActivity {
                     return RESULT_TOTAL_FAILURE;
                 }
 
-                List<String> urls = Preset.parseForURLs(presetDir);
+                List<String> urls = PresetParser.parseForURLs(presetDir);
                 if (urls == null) {
                     Log.e(DEBUG_TAG, "Could not parse preset for URLs");
                     return RESULT_PRESET_NOT_PARSABLE;

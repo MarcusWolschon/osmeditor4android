@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
  * Represents a separator in a preset group
  */
 public class PresetSeparator extends PresetElement {
-    
+
     /**
      * Construct a new separator
      * 
@@ -38,7 +38,7 @@ public class PresetSeparator extends PresetElement {
 
     @Override
     public void toXml(XmlSerializer s) throws IllegalArgumentException, IllegalStateException, IOException {
-        s.startTag("", Preset.SEPARATOR);
-        s.endTag("", Preset.SEPARATOR);
+        s.startTag("", PresetParser.SEPARATOR);
+        s.endTag("", PresetParser.SEPARATOR);
     }
 }

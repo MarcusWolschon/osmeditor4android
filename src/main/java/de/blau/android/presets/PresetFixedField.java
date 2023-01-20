@@ -80,18 +80,18 @@ public class PresetFixedField extends PresetField {
 
     @Override
     public void toXml(XmlSerializer s) throws IllegalArgumentException, IllegalStateException, IOException {
-        s.startTag("", Preset.KEY_ATTR);
-        s.attribute("", Preset.KEY_ATTR, key);
+        s.startTag("", PresetParser.KEY_ATTR);
+        s.attribute("", PresetParser.KEY_ATTR, key);
         StringWithDescription v = getValue();
-        s.attribute("", Preset.VALUE, v.getValue());
+        s.attribute("", PresetParser.VALUE, v.getValue());
         String description = v.getDescription();
         if (description != null && !"".equals(description)) {
-            s.attribute("", Preset.TEXT, description);
+            s.attribute("", PresetParser.TEXT, description);
         }
         if (isObject != null) {
-            s.attribute("", Preset.OBJECT, Boolean.toString(isObject));
+            s.attribute("", PresetParser.OBJECT, Boolean.toString(isObject));
         }
-        s.endTag("", Preset.KEY_ATTR);
+        s.endTag("", PresetParser.KEY_ATTR);
     }
 
     @Override

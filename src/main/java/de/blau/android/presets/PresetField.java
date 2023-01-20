@@ -343,16 +343,16 @@ public abstract class PresetField {
      */
     protected void standardFieldsToXml(@NonNull XmlSerializer s) throws IOException {
         if (hint != null && !"".equals(hint)) {
-            s.attribute("", Preset.TEXT, hint);
+            s.attribute("", PresetParser.TEXT, hint);
         }
         if (defaultValue != null && !"".equals(defaultValue)) {
-            s.attribute("", Preset.DEFAULT, defaultValue);
+            s.attribute("", PresetParser.DEFAULT, defaultValue);
         }
         if (matchType != null) {
-            s.attribute("", Preset.MATCH, matchType.toString());
+            s.attribute("", PresetParser.MATCH, matchType.toString());
         }
         if (valueType != null) {
-            s.attribute("", Preset.VALUE_TYPE, valueType.toString());
+            s.attribute("", PresetParser.VALUE_TYPE, valueType.toString());
         }
     }
 

@@ -94,17 +94,17 @@ public class PresetCheckField extends PresetField {
 
     @Override
     public void toXml(XmlSerializer s) throws IllegalArgumentException, IllegalStateException, IOException {
-        s.startTag("", Preset.CHECK_FIELD);
-        s.attribute("", Preset.KEY_ATTR, key);
+        s.startTag("", PresetParser.CHECK_FIELD);
+        s.attribute("", PresetParser.KEY_ATTR, key);
         standardFieldsToXml(s);
-        s.attribute("", Preset.DISABLE_OFF, Boolean.toString(offValue == null || "".equals(offValue.getValue())));
-        if (offValue != null && !Preset.NO.equals(offValue.getValue())) {
-            s.attribute("", Preset.VALUE_OFF, offValue.getValue());
+        s.attribute("", PresetParser.DISABLE_OFF, Boolean.toString(offValue == null || "".equals(offValue.getValue())));
+        if (offValue != null && !PresetParser.NO.equals(offValue.getValue())) {
+            s.attribute("", PresetParser.VALUE_OFF, offValue.getValue());
         }
-        if (onValue != null && !Preset.YES.equals(onValue.getValue())) {
-            s.attribute("", Preset.VALUE_ON, onValue.getValue());
+        if (onValue != null && !PresetParser.YES.equals(onValue.getValue())) {
+            s.attribute("", PresetParser.VALUE_ON, onValue.getValue());
         }
-        s.endTag("", Preset.CHECK_FIELD);
+        s.endTag("", PresetParser.CHECK_FIELD);
     }
 
     @Override

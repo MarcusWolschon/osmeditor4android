@@ -37,7 +37,7 @@ public class StringWithDescriptionAndIcon extends ExtendedStringWithDescription 
      * @param iconPath the path of the associated icon
      * @param imagePath the path of a larger image
      */
-    public StringWithDescriptionAndIcon(@NonNull final String value, @Nullable final String description, @NonNull final String iconPath,
+    public StringWithDescriptionAndIcon(@NonNull final String value, @Nullable final String description, @Nullable final String iconPath,
             @Nullable final String imagePath) {
         super(value, description);
         this.iconPath = iconPath;

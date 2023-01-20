@@ -207,15 +207,15 @@ public class PresetGroup extends PresetElement {
 
     @Override
     public void toXml(XmlSerializer s) throws IllegalArgumentException, IllegalStateException, IOException {
-        s.startTag("", Preset.GROUP);
-        s.attribute("", Preset.NAME, getName());
+        s.startTag("", PresetParser.GROUP);
+        s.attribute("", PresetParser.NAME, getName());
         String iconPath = getIconpath();
         if (iconPath != null) {
-            s.attribute("", Preset.ICON, getIconpath());
+            s.attribute("", PresetParser.ICON, getIconpath());
         }
         for (PresetElement e : elements) {
             e.toXml(s);
         }
-        s.endTag("", Preset.GROUP);
+        s.endTag("", PresetParser.GROUP);
     }
 }
