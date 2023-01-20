@@ -1,5 +1,5 @@
 # Vespucci Preset System
-_Documentation for Vespucci 18.1_
+_Documentation for Vespucci 19.0_
 
 As explained in the [help documentation](../help/en/Presets.md) Vespucci uses JOSM compatible presets, currently any preset used in JOSM should simply work with Vespucci, however there can be differences. Particularly with the new preset driven tagging interface presets have become even more important and if you are writing presets yourself and want them to work well in Vespucci please keep on reading.
 
@@ -11,7 +11,7 @@ For the preset based editing to work Vespucci has to match the existing tags, in
 
 ## Supported JOSM Preset Elements and Attributes
 
-Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/wiki/TaggingPresets) that works, this may, and likely is, different from the actual implementation. Language specific attributes are ignored (see [Translation](#Translation)). "supported" doesn't necessarily imply the same behaviour as JOSM, simply that Vespucci will do something useful with the value. Icons currently must be in PNG format.
+Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/wiki/TaggingPresets) that works, this may, and likely is, different from the actual implementation. Language specific attributes are ignored (see [Translation](#Translation)). "supported" doesn't necessarily imply the same behaviour as JOSM, simply that Vespucci will do something useful with the value. Icons currently can be in PNG or SVG format.
 
 
 |Element            | Attributes                     | Support   | Notes
@@ -46,7 +46,7 @@ Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/
 |                   | exclude_regions               | extension | if true, invert the meaning of regions
 |                   | autoapply                     | extension | if true (default), allow auto-applying of the item
 |                   | min_match                     | extension | an integer indicating the minimum number of fixed tags that need to match (default is all fixed tags)
-|__&lt;chunk&gt;__  |                               | supported |
+|__&lt;chunk&gt;__  |                               | supported | chunks can either contain complete fields just as items can, or a sequence of list_entry elements
 |                   | id                            | supported | required
 |__&lt;reference&gt;__ |                            | supported |
 |                   | ref                           | supported | required
@@ -70,7 +70,7 @@ Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/
 |                   | javascript                    | extension | if value is not set, execute the JS script
 |                   | i18n                          | extension | if set to true this tag has i18n variants
 |                   | value_type                    | extension | indicate the kind of value this tag should have
-|__&lt;combo&gt;__  |                               | supported |
+|__&lt;combo&gt;__  |                               | supported | combo elements can contain a sequence of list_entry elements, or references to chunks that contain the same
 |                   | key                           | supported | required
 |                   | text                          | supported |
 |                   | text_context                  | supported |
@@ -89,7 +89,7 @@ Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/
 |                   | length                        | ignored   |
 |                   | values_no_i18n                | ignored   |
 |                   | values_from                   | supported | extension: if the target method supports a String argument the current key will be passed
-|__&lt;multiselect&gt;__ |                          | supported |
+|__&lt;multiselect&gt;__ |                          | supported | multiselect elements can contain a sequence of list_entry elements, or references to chunks that contain the same
 |                   | key                           | supported | required
 |                   | text                          | supported |
 |                   | text_context                  | supported |
@@ -110,7 +110,7 @@ Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/
 |                   | values_from                   | supported | extension: if the target method supports a String argument the current key will be passed
 |                   | rows                          | ignored   |
 |                   | value_count_key               | extension | reference to a tag that will hold the number of values this multiselect should contain
-|__&lt;list_entry&gt;__       |                     | partial   | JOSM allows non-nested list_entry elements in chunks, this is currently not supported
+|__&lt;list_entry&gt;__       |                     | supported |
 |                   | value                         | supported | required
 |                   | display_value                 | supported |
 |                   | short_description             | supported |
