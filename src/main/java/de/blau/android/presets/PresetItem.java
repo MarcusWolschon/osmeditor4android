@@ -109,13 +109,13 @@ public class PresetItem extends PresetElement {
                 case Way.NAME:
                     setAppliesToWay();
                     break;
-                case Preset.CLOSEDWAY:
+                case PresetParser.CLOSEDWAY:
                     setAppliesToClosedway();
                     break;
-                case Preset.MULTIPOLYGON:
+                case PresetParser.MULTIPOLYGON:
                     setAppliesToArea();
                     break;
-                case Preset.AREA:
+                case PresetParser.AREA:
                     setAppliesToArea(); //
                     break;
                 case Relation.NAME:
@@ -1273,9 +1273,9 @@ public class PresetItem extends PresetElement {
 
     @Override
     public void toXml(XmlSerializer s) throws IllegalArgumentException, IllegalStateException, IOException {
-        s.startTag("", Preset.ITEM);
+        s.startTag("", PresetParser.ITEM);
         itemToXml(s);
-        s.endTag("", Preset.ITEM);
+        s.endTag("", PresetParser.ITEM);
     }
 
     /**
@@ -1285,10 +1285,10 @@ public class PresetItem extends PresetElement {
      * @throws IOException if serializing goes wrong
      */
     protected void itemToXml(@NonNull XmlSerializer s) throws IOException {
-        s.attribute("", Preset.NAME, name);
+        s.attribute("", PresetParser.NAME, name);
         String iconPath = getIconpath();
         if (iconPath != null) {
-            s.attribute("", Preset.ICON, getIconpath());
+            s.attribute("", PresetParser.ICON, getIconpath());
         }
         StringBuilder builder = new StringBuilder();
         if (appliesTo(ElementType.NODE)) {
@@ -1304,7 +1304,7 @@ public class PresetItem extends PresetElement {
             if (builder.length() != 0) {
                 builder.append(',');
             }
-            builder.append(Preset.CLOSEDWAY);
+            builder.append(PresetParser.CLOSEDWAY);
         }
         if (appliesTo(ElementType.RELATION)) {
             if (builder.length() != 0) {
@@ -1316,20 +1316,20 @@ public class PresetItem extends PresetElement {
             if (builder.length() != 0) {
                 builder.append(',');
             }
-            builder.append(Preset.MULTIPOLYGON);
+            builder.append(PresetParser.MULTIPOLYGON);
         }
-        s.attribute("", Preset.TYPE, builder.toString());
+        s.attribute("", PresetParser.TYPE, builder.toString());
         String mapFeatures = getMapFeatures();
         if (mapFeatures != null) {
-            s.startTag("", Preset.LINK);
+            s.startTag("", PresetParser.LINK);
             if (mapFeatures.startsWith(Urls.DEFAULT_OSM_WIKI) || !mapFeatures.startsWith(Schemes.HTTP)) {
                 // wiki might or might not be present
                 mapFeatures = mapFeatures.replace(Urls.DEFAULT_OSM_WIKI, "").replace("wiki/", "");
-                s.attribute("", Preset.WIKI, mapFeatures);
+                s.attribute("", PresetParser.WIKI, mapFeatures);
             } else {
-                s.attribute("", Preset.HREF, mapFeatures);
+                s.attribute("", PresetParser.HREF, mapFeatures);
             }
-            s.endTag("", Preset.LINK);
+            s.endTag("", PresetParser.LINK);
         }
         for (PresetFixedField field : fixedTags.values()) {
             field.toXml(s);
@@ -1337,15 +1337,15 @@ public class PresetItem extends PresetElement {
         fieldsToXml(s, fields);
         if (linkedPresetItems != null) {
             for (PresetItemLink linkedPreset : linkedPresetItems) {
-                s.startTag("", Preset.PRESET_LINK);
-                s.attribute("", Preset.PRESET_NAME, linkedPreset.getPresetName());
+                s.startTag("", PresetParser.PRESET_LINK);
+                s.attribute("", PresetParser.PRESET_NAME, linkedPreset.getPresetName());
                 if (linkedPreset.getText() != null) {
-                    s.attribute("", Preset.TEXT, linkedPreset.getText());
+                    s.attribute("", PresetParser.TEXT, linkedPreset.getText());
                 }
                 if (linkedPreset.getTextContext() != null) {
-                    s.attribute("", Preset.TEXT_CONTEXT, linkedPreset.getTextContext());
+                    s.attribute("", PresetParser.TEXT_CONTEXT, linkedPreset.getTextContext());
                 }
-                s.endTag("", Preset.PRESET_LINK);
+                s.endTag("", PresetParser.PRESET_LINK);
             }
         }
     }
@@ -1365,17 +1365,17 @@ public class PresetItem extends PresetElement {
                 continue;
             }
             if (!inOptional && field.isOptional()) {
-                s.startTag("", Preset.OPTIONAL);
+                s.startTag("", PresetParser.OPTIONAL);
                 inOptional = true;
             }
             if (inOptional && !field.isOptional()) {
-                s.endTag("", Preset.OPTIONAL);
+                s.endTag("", PresetParser.OPTIONAL);
                 inOptional = false;
             }
             field.toXml(s);
         }
         if (inOptional) {
-            s.endTag("", Preset.OPTIONAL);
+            s.endTag("", PresetParser.OPTIONAL);
         }
     }
 }

@@ -26,10 +26,17 @@ public class PresetChunk extends PresetItem {
         super(preset, parent, name, iconpath, types);
     }
 
+    /**
+     * This is typically never used as chunks will be expanded
+     */
     @Override
     public void toXml(XmlSerializer s) throws IllegalArgumentException, IllegalStateException, IOException {
-        s.startTag("", Preset.CHUNK);
-        itemToXml(s);
-        s.endTag("", Preset.CHUNK);
+        s.startTag("", PresetParser.CHUNK);
+        if (listValues != null) {
+            PresetComboField.valuesToXml(s, listValues.toArray(new StringWithDescription[listValues.size()]));
+        } else {
+            itemToXml(s);
+        }
+        s.endTag("", PresetParser.CHUNK);
     }
 }

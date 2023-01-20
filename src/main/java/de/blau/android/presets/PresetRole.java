@@ -76,11 +76,11 @@ public class PresetRole implements Comparable<PresetRole> {
                 case Relation.NAME:
                     appliesToRelation = true;
                     break;
-                case Preset.CLOSEDWAY:
+                case PresetParser.CLOSEDWAY:
                     appliesToClosedWay = true;
                     break;
-                case Preset.MULTIPOLYGON:
-                case Preset.AREA:
+                case PresetParser.MULTIPOLYGON:
+                case PresetParser.AREA:
                     appliesToArea = true;
                     break;
                 default:
@@ -280,7 +280,7 @@ public class PresetRole implements Comparable<PresetRole> {
      * @param regexpString "true" if the role is an regexp
      */
     public void setRegexp(@Nullable String regexpString) {
-        regexp = regexpString != null && Preset.TRUE.equals(regexpString);
+        regexp = regexpString != null && PresetParser.TRUE.equals(regexpString);
     }
 
     /**

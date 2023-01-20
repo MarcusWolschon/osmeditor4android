@@ -322,23 +322,34 @@ public class PresetComboField extends PresetField implements PresetFieldJavaScri
 
     @Override
     public void toXml(XmlSerializer s) throws IllegalArgumentException, IllegalStateException, IOException {
-        s.startTag("", isMultiSelect() ? Preset.MULTISELECT_FIELD : Preset.COMBO_FIELD);
-        s.attribute("", Preset.KEY_ATTR, key);
+        s.startTag("", isMultiSelect() ? PresetParser.MULTISELECT_FIELD : PresetParser.COMBO_FIELD);
+        s.attribute("", PresetParser.KEY_ATTR, key);
         standardFieldsToXml(s);
         if (delimiter != null) {
-            s.attribute("", Preset.DELIMITER, delimiter);
+            s.attribute("", PresetParser.DELIMITER, delimiter);
         }
-        s.attribute("", Preset.EDITABLE, Boolean.toString(editable));
-        s.attribute("", Preset.VALUES_SORT, Boolean.toString(sort));
-        for (StringWithDescription v : getValues()) {
-            s.startTag("", Preset.LIST_ENTRY);
-            s.attribute("", Preset.VALUE, v.getValue());
+        s.attribute("", PresetParser.EDITABLE, Boolean.toString(editable));
+        s.attribute("", PresetParser.VALUES_SORT, Boolean.toString(sort));
+        valuesToXml(s, getValues());
+        s.endTag("", isMultiSelect() ? PresetParser.MULTISELECT_FIELD : PresetParser.COMBO_FIELD);
+    }
+
+    /**
+     * Serialize the values to XML
+     * 
+     * @param s a XmlSerializer instance
+     * @param values the value array
+     * @throws IOException if we can't write to the serializer
+     */
+    static void valuesToXml(@NonNull XmlSerializer s, @NonNull StringWithDescription[] values) throws IOException {
+        for (StringWithDescription v : values) {
+            s.startTag("", PresetParser.LIST_ENTRY);
+            s.attribute("", PresetParser.VALUE, v.getValue());
             String description = v.getDescription();
             if (description != null && !"".equals(description)) {
-                s.attribute("", Preset.SHORT_DESCRIPTION, v.getDescription());
+                s.attribute("", PresetParser.SHORT_DESCRIPTION, v.getDescription());
             }
-            s.endTag("", Preset.LIST_ENTRY);
+            s.endTag("", PresetParser.LIST_ENTRY);
         }
-        s.endTag("", isMultiSelect() ? Preset.MULTISELECT_FIELD : Preset.COMBO_FIELD);
     }
 }

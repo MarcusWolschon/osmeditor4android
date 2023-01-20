@@ -71,10 +71,10 @@ public class PresetTextField extends PresetField implements PresetFieldJavaScrip
 
     @Override
     public void toXml(XmlSerializer s) throws IllegalArgumentException, IllegalStateException, IOException {
-        s.startTag("", Preset.TEXT);
-        s.attribute("", Preset.KEY_ATTR, key);
+        s.startTag("", PresetParser.TEXT);
+        s.attribute("", PresetParser.KEY_ATTR, key);
         standardFieldsToXml(s);
-        s.endTag("", Preset.TEXT);
+        s.endTag("", PresetParser.TEXT);
     }
 
     @Override

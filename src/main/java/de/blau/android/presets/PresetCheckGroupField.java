@@ -91,13 +91,13 @@ public class PresetCheckGroupField extends PresetField {
 
     @Override
     public void toXml(XmlSerializer s) throws IllegalArgumentException, IllegalStateException, IOException {
-        s.startTag("", Preset.CHECKGROUP);
-        s.attribute("", Preset.KEY_ATTR, key);
+        s.startTag("", PresetParser.CHECKGROUP);
+        s.attribute("", PresetParser.KEY_ATTR, key);
         standardFieldsToXml(s);
         for (PresetCheckField check : getCheckFields()) {
             check.toXml(s);
         }
-        s.endTag("", Preset.CHECKGROUP);
+        s.endTag("", PresetParser.CHECKGROUP);
     }
 
     /**
