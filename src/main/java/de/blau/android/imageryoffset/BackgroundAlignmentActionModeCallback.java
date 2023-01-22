@@ -137,6 +137,9 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
                 cabBottomBar.getMenu().clear();
             }
         }
+        if (prefs.areSimpleActionsEnabled()) {
+            main.disableSimpleActionsButton();
+        }
         return true;
     }
 
@@ -228,6 +231,9 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
         logic.setMode(main, oldMode);
         main.showLock();
         main.showLayersControl();
+        if (prefs.areSimpleActionsEnabled()) {
+            main.enableSimpleActionsButton();
+        }
     }
 
     /**
