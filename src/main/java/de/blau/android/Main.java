@@ -2176,6 +2176,7 @@ public class Main extends FullScreenAppCompatActivity
         case R.id.menu_transfer_data_clear:
             Runnable reset = () -> {
                 delegator.reset(true);
+                invalidateOptionsMenu();
                 map.invalidate();
             };
             if (logic != null && logic.hasChanges()) {
