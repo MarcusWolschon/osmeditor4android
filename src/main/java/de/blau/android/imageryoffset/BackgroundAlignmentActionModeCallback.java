@@ -87,7 +87,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
     private final Preferences prefs;
     private final Uri         offsetServerUri;
 
-    private Offset[] oldOffsets;
+    private final Offset[] oldOffsets;
 
     private TileLayerSource osmts;
     private final Map       map;
@@ -112,10 +112,29 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
             throw new IllegalStateException("MapTilesLayer is null");
         }
         osmts = layer.getTileLayerConfiguration();
-        oldOffsets = osmts.getOffsets().clone();
+        Offset[] offsets = osmts.getOffsets();
+        oldOffsets = copy(offsets);
         prefs = App.getPreferences(main);
         String offsetServer = prefs.getOffsetServer();
         offsetServerUri = Uri.parse(offsetServer);
+    }
+
+    /**
+     * Deep copy an Offset array
+     * 
+     * @param offsets the offsets to copy
+     * @return a deep copy of the Offset array
+     */
+    @NonNull
+    private Offset[] copy(@NonNull Offset[] offsets) {
+        final int length = offsets.length;
+        Offset[] copy = new Offset[length];
+        for (int i = 0; i < length; i++) {
+            if (offsets[i] != null) {
+                copy[i] = new Offset(offsets[i]);
+            }
+        }
+        return copy;
     }
 
     @Override
@@ -163,8 +182,6 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
         menu.add(Menu.NONE, MENUITEM_SAVE2DB, Menu.NONE, R.string.menu_tools_background_align_save_db).setEnabled(main.isConnectedOrConnecting());
         // menu.add(Menu.NONE, MENUITEM_SAVELOCAL, Menu.NONE, R.string.menu_tools_background_align_save_device);
         menu.add(Menu.NONE, MENUITEM_HELP, Menu.NONE, R.string.menu_help);
-        // Toolbar toolbar = (Toolbar) Application.mainActivity.findViewById(R.id.mainToolbar);
-        // toolbar.setVisibility(View.GONE);;
         return true;
     }
 
@@ -176,7 +193,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
             map.invalidate();
             break;
         case MENUITEM_RESET:
-            osmts.setOffsets(oldOffsets.clone());
+            osmts.setOffsets(copy(oldOffsets));
             map.invalidate();
             break;
         case MENUITEM_APPLY2ALL:
