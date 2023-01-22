@@ -2,6 +2,8 @@ package de.blau.android.imageryoffset;
 
 import java.io.Serializable;
 
+import androidx.annotation.NonNull;
+
 /**
  * Imagery offset for direct use when rendering
  * 
@@ -13,6 +15,23 @@ public class Offset implements Serializable { // offsets in WGS84 needed to alig
 
     private double deltaLon = 0;
     private double deltaLat = 0;
+
+    /**
+     * Default constructor
+     */
+    public Offset() {
+        // do nothing
+    }
+
+    /**
+     * Copy constructor
+     * 
+     * @param toCopy Offset to copy
+     */
+    public Offset(@NonNull Offset toCopy) {
+        deltaLon = toCopy.deltaLon;
+        deltaLat = toCopy.deltaLat;
+    }
 
     /**
      * @return deltaLon
