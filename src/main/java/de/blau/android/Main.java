@@ -1251,7 +1251,7 @@ public class Main extends FullScreenAppCompatActivity
             de.blau.android.layer.Util.addLayer(this, LayerType.GPX, uri.toString());
             map.setUpLayers(this);
             gpxLayer = (de.blau.android.layer.gpx.MapOverlay) map.getLayer(LayerType.GPX, uri.toString());
-            if (gpxLayer == null) { // still null 
+            if (gpxLayer == null) { // still null
                 Snack.toastTopError(this, getString(R.string.toast_error_reading, uri.toString()));
                 return;
             }
@@ -4085,9 +4085,14 @@ public class Main extends FullScreenAppCompatActivity
     public void onServiceConnected(ComponentName name, IBinder service) {
         Log.i(DEBUG_TAG, "Service " + name.getClassName() + " connected");
         if (TrackerService.class.getCanonicalName().equals(name.getClassName())) {
-            Log.i(DEBUG_TAG, "Tracker service connected");
             setTracker((((TrackerBinder) service).getService()));
             map.setTracker(getTracker());
+            de.blau.android.layer.gpx.MapOverlay layer = (de.blau.android.layer.gpx.MapOverlay) map.getLayer(LayerType.GPX,
+                    getString(R.string.layer_gpx_recording));
+            if (layer != null) {
+                Log.i(DEBUG_TAG, "Setting track in GPX layer");
+                layer.setTrack(getTracker().getTrack());
+            }
             getTracker().setListener(this);
             getTracker().setListenerNeedsGPS(wantLocationUpdates);
             startStopAutoDownload();
