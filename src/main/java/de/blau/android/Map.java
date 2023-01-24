@@ -250,14 +250,11 @@ public class Map extends View implements IMapView {
                         case GPX:
                             layer = new de.blau.android.layer.gpx.MapOverlay(this, contentId); // NOSONAR
                             if (ctx.getString(R.string.layer_gpx_recording).equals(contentId)) {
+                                ((de.blau.android.layer.gpx.MapOverlay) layer).setName(contentId);
                                 if (getTracker() != null) {
+                                    // if the tracker isn't running we can't do this, but the tracker will when
+                                    // connected
                                     ((de.blau.android.layer.gpx.MapOverlay) layer).setTrack(getTracker().getTrack());
-                                    ((de.blau.android.layer.gpx.MapOverlay) layer).setName(contentId);
-                                } else {
-                                    // we don't want to display the recording layer if the service isn't running
-                                    // for consistency reasons this implies that we need to delete the layer
-                                    db.deleteLayer(LayerType.GPX, contentId);
-                                    continue;
                                 }
                             } else if (!((de.blau.android.layer.gpx.MapOverlay) layer).fromFile(ctx, Uri.parse(contentId), true, null)) {
                                 db.deleteLayer(LayerType.GPX, contentId);
