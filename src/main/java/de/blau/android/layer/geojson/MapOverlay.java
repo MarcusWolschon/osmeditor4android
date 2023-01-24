@@ -426,7 +426,7 @@ public class MapOverlay extends StyleableLayer
                         Snack.toastTopError(map.getContext(), ctx.getString(R.string.toast_permission_denied, uri.toString()));
                         return false;
                     } catch (IOException iex) {
-                        Snack.toastTopError(ctx, ctx.getString(R.string.toast_error_reading, uri.toString()));
+                        Snack.toastTopError(map.getContext(), ctx.getString(R.string.toast_error_reading, uri.toString()));
                         return false;
                     } finally {
                         if (readingLock.isLocked()) {

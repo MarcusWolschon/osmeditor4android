@@ -32,10 +32,8 @@ import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.Map;
-import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
 import de.blau.android.contract.FileExtensions;
-import de.blau.android.dialogs.Progress;
 import de.blau.android.dialogs.ViewWayPoint;
 import de.blau.android.gpx.Track;
 import de.blau.android.gpx.TrackPoint;
@@ -214,7 +212,6 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
      */
     private void drawWayPoints(@NonNull Canvas canvas) {
         if (symbolPath != null) {
-            List<WayPoint> wayPoints = track.getWayPoints();
             final ViewBox viewBox = map.getViewBox();
             final int width = map.getWidth();
             final int height = map.getHeight();
@@ -223,7 +220,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
             final boolean drawLabel = zoomLevel >= labelMinZoom && labelIndex >= 0;
             final float topOffset = yOffset + fm.bottom;
             final float textSize = fontPaint.getTextSize();
-            for (WayPoint wp : wayPoints) {
+            for (WayPoint wp : track.getWayPoints()) {
                 int lon = wp.getLon();
                 int lat = wp.getLat();
                 if (viewBox.contains(lon, lat)) {
@@ -412,14 +409,10 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
      * 
      * @param ctx current context this was called from
      * @param uri Uri for the file to read
-     * @param quiet if true no toasts etc will be displayed
-     * @param handler handler to use after the file has been loaded if not null
      * @return true if the file was loaded successfully
      */
-    public boolean fromFile(@NonNull final Context ctx, @NonNull final Uri uri, boolean quiet, @Nullable PostAsyncActionHandler handler) {
+    public boolean fromFile(@NonNull final Context ctx, @NonNull final Uri uri) {
         Log.d(DEBUG_TAG, "Loading track from " + uri);
-        FragmentActivity activity = ctx instanceof FragmentActivity ? (FragmentActivity) ctx : null;
-        final boolean interactive = !quiet && activity != null;
         if (track == null) {
             track = new Track(ctx, false);
         }
@@ -430,58 +423,26 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
         setStateFileName(uri.getEncodedPath());
         Logic logic = App.getLogic();
 
-        final int FILENOTFOUND = -1;
+        final int ERROR = -1;
         final int OK = 0;
 
         try {
             return new ExecutorTask<Void, Void, Integer>(logic.getExecutorService(), logic.getHandler()) {
 
                 @Override
-                protected void onPreExecute() {
-                    if (interactive) {
-                        Progress.showDialog(activity, Progress.PROGRESS_LOADING);
-                    }
-                }
-
-                @Override
                 protected Integer doInBackground(Void arg) {
+                    final String uriString = uri.toString();
                     try (InputStream is = ctx.getContentResolver().openInputStream(uri); BufferedInputStream in = new BufferedInputStream(is)) {
                         track.importFromGPX(in);
                         return OK;
-                    } catch (Exception e) { // NOSONAR
-                        Log.e(DEBUG_TAG, "Error reading file: ", e);
-                        return FILENOTFOUND;
-                    }
-                }
-
-                @Override
-                protected void onPostExecute(Integer result) {
-                    try {
-                        if (result == OK) {
-                            if (handler != null) {
-                                handler.onSuccess();
-                            }
-                        } else {
-                            if (handler != null) {
-                                handler.onError(null);
-                            }
-                        }
-                        if (interactive) {
-                            Progress.dismissDialog(activity, Progress.PROGRESS_LOADING);
-                            if (result == OK) {
-                                int trackPointCount = track.getTrackPoints().size();
-                                int wayPointCount = track.getWayPoints().size();
-                                String message = activity.getResources().getQuantityString(R.plurals.toast_imported_track_points, wayPointCount,
-                                        trackPointCount, wayPointCount);
-                                Snack.barInfo(activity, message);
-                            } else {
-                                Snack.barError(activity, R.string.toast_file_not_found);
-                            }
-                            activity.invalidateOptionsMenu();
-                        }
-                    } catch (IllegalStateException e) {
-                        // Avoid crash if activity is paused
-                        Log.e(DEBUG_TAG, "onPostExecute", e);
+                    } catch (SecurityException sex) {
+                        Log.e(DEBUG_TAG, sex.getMessage());
+                        // note need a context here that is on the ui thread
+                        Snack.toastTopError(map.getContext(), ctx.getString(R.string.toast_permission_denied, uriString));
+                        return ERROR;
+                    } catch (IOException iex) {
+                        Snack.toastTopError(map.getContext(), ctx.getString(R.string.toast_error_reading, uriString));
+                        return ERROR;
                     }
                 }
             }.execute().get(Server.TIMEOUT, TimeUnit.SECONDS) == OK; // result is not going to be null
