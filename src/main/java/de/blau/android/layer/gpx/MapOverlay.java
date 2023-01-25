@@ -23,6 +23,7 @@ import android.graphics.Paint.FontMetrics;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.os.Bundle;
 import android.text.SpannableString;
 import android.util.Log;
 import androidx.annotation.NonNull;
@@ -34,6 +35,7 @@ import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.contract.FileExtensions;
+import de.blau.android.dialogs.LayerInfo;
 import de.blau.android.dialogs.ViewWayPoint;
 import de.blau.android.gpx.Track;
 import de.blau.android.gpx.TrackPoint;
@@ -41,6 +43,7 @@ import de.blau.android.gpx.WayPoint;
 import de.blau.android.layer.ClickableInterface;
 import de.blau.android.layer.ExtentInterface;
 import de.blau.android.layer.LabelMinZoomInterface;
+import de.blau.android.layer.LayerInfoInterface;
 import de.blau.android.layer.LayerType;
 import de.blau.android.layer.StyleableLayer;
 import de.blau.android.osm.BoundingBox;
@@ -62,7 +65,8 @@ import de.blau.android.util.Util;
 import de.blau.android.util.collections.FloatPrimitiveList;
 import de.blau.android.views.IMapView;
 
-public class MapOverlay extends StyleableLayer implements Serializable, ExtentInterface, ClickableInterface<WayPoint>, LabelMinZoomInterface {
+public class MapOverlay extends StyleableLayer
+        implements Serializable, ExtentInterface, ClickableInterface<WayPoint>, LayerInfoInterface, LabelMinZoomInterface {
 
     private static final long serialVersionUID = 5L; // note that this can't actually be serialized as the transient
                                                      // wields need to be set in readObject
@@ -659,5 +663,15 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
         if (playbackTask != null) {
             playbackTask.cancel();
         }
+    }
+
+    @Override
+    public void showInfo(FragmentActivity activity) {
+        LayerInfo f = new GpxLayerInfo();
+        f.setShowsDialog(true);
+        Bundle args = new Bundle();
+        args.putSerializable(GpxLayerInfo.LAYER_ID_KEY, contentId);
+        f.setArguments(args);
+        LayerInfo.showDialog(activity, f);
     }
 }
