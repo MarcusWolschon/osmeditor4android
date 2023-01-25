@@ -54,6 +54,8 @@ The layer dialog supports the following actions on the layer entries:
     * GPX layers:
       Starting recording by the "Start GPX track" item in the GPS menu will add a layer for the recording. Layers for GPX files and downloaded tracks from the OSM API can be added via the __+__ button, see below.  
         * __Change style__ Show the layer styling dialog.
+        * __Reset style__ Reset the style to the default.
+        * __Info__ Display some information on the contents.
         * __Go to start of GPX track__ Center the display on the start of the track. *(not available on the recording layer)*
         * __Go to first waypoint__ Center the display on the first waypoint. *(not available on the recording layer)*
         * __Upload GPX track__ Upload the track to the OSM API.
