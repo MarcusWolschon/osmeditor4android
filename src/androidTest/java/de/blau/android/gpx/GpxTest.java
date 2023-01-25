@@ -427,7 +427,6 @@ public class GpxTest {
                 assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/add", true));
                 assertTrue(TestUtils.clickText(device, false, main.getString(R.string.layer_add_gpx), true, false));
                 TestUtils.selectFile(device, main, null, fileName, true);
-                TestUtils.textGone(device, "Imported", 10000);
                 assertTrue(TestUtils.clickText(device, false, main.getString(R.string.okay), true, false));
                 assertTrue(TestUtils.clickText(device, false, main.getString(R.string.Done), true, false));
                 UiObject2 extentButton = TestUtils.getLayerButton(device, fileName, LayerDialogTest.EXTENT_BUTTON);
@@ -440,6 +439,36 @@ public class GpxTest {
                 TestUtils.findText(device, false, main.getString(R.string.layer_toast_playback_finished), 20000);
                 assertEquals(8.374995, main.getMap().getViewBox().getCenter()[0], 0.0001);
                 assertEquals(47.4117952, main.getMap().getViewBox().getCenter()[1], 0.0001);
+            } finally {
+                TestUtils.deleteFile(main, fileName);
+            }
+        } catch (IOException e) {
+            fail(e.getMessage());
+        }
+    }
+
+    /**
+     * SHow the info modal for a track
+     */
+    @Test
+    public void gpxShowInfo() {
+        assertNotNull(main);
+        try {
+            final String fileName = "short.gpx";
+            File gpxFile = JavaResources.copyFileFromResources(main, fileName, null, "/");
+            try {
+                assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/layers", true));
+                assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/add", true));
+                assertTrue(TestUtils.clickText(device, false, main.getString(R.string.layer_add_gpx), true, false));
+                TestUtils.selectFile(device, main, null, fileName, true);
+                assertTrue(TestUtils.clickText(device, false, main.getString(R.string.okay), true, false));
+                assertTrue(TestUtils.clickText(device, false, main.getString(R.string.Done), true, false));
+                UiObject2 overflowButton = TestUtils.getLayerButton(device, fileName, LayerDialogTest.MENU_BUTTON);
+                overflowButton.click();
+                assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_information), true, false));
+                assertTrue(TestUtils.findText(device, false, fileName, 5000));
+                assertTrue(TestUtils.findText(device, false, "14"));
+                assertTrue(TestUtils.clickText(device, false, main.getString(R.string.done), true, false));
             } finally {
                 TestUtils.deleteFile(main, fileName);
             }

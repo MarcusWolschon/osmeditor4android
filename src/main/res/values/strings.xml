@@ -244,6 +244,9 @@
     <string name="ways">Ways</string>
     <!-- Tile layer info dialog -->
     <string name="attribution">Attribution</string>
+    <!-- GPX info dialog -->
+    <string name="track_points">Track points</string>
+    <string name="way_points">Way points</string>
     <!-- Too much data dialog -->
     <string name="too_much_data_title">Too much data loaded!</string>
     <string name="too_much_data_message">You have %1$d Nodes loaded and have exceeded the configured limit. This will lead to slowdown, and if you add more data, to potential issues saving state.</string>
@@ -551,10 +554,6 @@
     <string name="toast_missing_filemanager">Please install a file manager.</string>
     <string name="toast_outside_of_download">Download more data to edit this area.</string>
     <string name="toast_file_not_found">%1$s not found.</string>
-    <plurals name="toast_imported_track_points">
-        <item quantity="one">Imported %1$d GPX track points and 1 way point.</item>
-        <item quantity="other">Imported %1$d GPX track points and %2$d way points.</item>
-    </plurals>
     <string name="toast_unknown_voice_command">Sorry, currently \"%1$s\" is not understood</string>
     <string name="toast_inconsistent_state">Inconsistent state detected, please send in the error report.</string>
     <string name="toast_camera_error">Could not start camera app: %1$s</string>

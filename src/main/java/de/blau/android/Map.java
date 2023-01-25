@@ -256,7 +256,7 @@ public class Map extends View implements IMapView {
                                     // connected
                                     ((de.blau.android.layer.gpx.MapOverlay) layer).setTrack(getTracker().getTrack());
                                 }
-                            } else if (!((de.blau.android.layer.gpx.MapOverlay) layer).fromFile(ctx, Uri.parse(contentId), true, null)) {
+                            } else if (!((de.blau.android.layer.gpx.MapOverlay) layer).fromFile(ctx, Uri.parse(contentId))) {
                                 db.deleteLayer(LayerType.GPX, contentId);
                                 Log.w(DEBUG_TAG, "Deleted GPX layer for " + contentId);
                                 continue; // skip
