@@ -19,7 +19,6 @@ import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetItem;
-import de.blau.android.resources.DataStyle.FeatureStyle;
 import de.blau.android.util.rtree.BoundedObject;
 import de.blau.android.validation.Validator;
 
@@ -29,15 +28,13 @@ import de.blau.android.validation.Validator;
  * @author simon
  *
  */
-public class Relation extends OsmElement implements BoundedObject, StyleableFeature {
+public class Relation extends StyledOsmElement implements BoundedObject {
     /**
      * 
      */
     private static final long serialVersionUID = 1104911642016294268L;
 
     final List<RelationMember> members;
-
-    private transient FeatureStyle style = null; // FeatureProfile is currently not serializable
 
     public static final String NAME = "relation";
 
@@ -218,28 +215,6 @@ public class Relation extends OsmElement implements BoundedObject, StyleableFeat
     @Override
     public String getName() {
         return NAME;
-    }
-
-    @Override
-    void updateState(final byte newState) {
-        style = null; // force recalc of style
-        super.updateState(newState);
-    }
-
-    @Override
-    void setState(final byte newState) {
-        style = null; // force recalc of style
-        super.setState(newState);
-    }
-
-    @Override
-    public FeatureStyle getStyle() {
-        return style;
-    }
-
-    @Override
-    public void setStyle(@Nullable FeatureStyle fp) {
-        style = fp;
     }
 
     @Override

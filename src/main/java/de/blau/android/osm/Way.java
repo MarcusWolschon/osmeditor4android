@@ -12,12 +12,11 @@ import org.xmlpull.v1.XmlSerializer;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import de.blau.android.resources.DataStyle.FeatureStyle;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.rtree.BoundedObject;
 import de.blau.android.validation.Validator;
 
-public class Way extends OsmElement implements BoundedObject, StyleableFeature {
+public class Way extends StyledOsmElement implements BoundedObject {
 
     private static final String DEBUG_TAG = "Way";
 
@@ -42,8 +41,6 @@ public class Way extends OsmElement implements BoundedObject, StyleableFeature {
 
     public static final int MINIMUM_NODES_IN_WAY        = 2;
     public static final int MINIMUM_NODES_IN_CLOSED_WAY = 3;
-
-    private transient FeatureStyle style = null; // FeatureProfile is currently not serializable
 
     /**
      * Construct a new Way
@@ -265,7 +262,7 @@ public class Way extends OsmElement implements BoundedObject, StyleableFeature {
     /**
      * Inserts a Node after a specified one
      * 
-     * Note: assumes the Way isn't empty 
+     * Note: assumes the Way isn't empty
      * 
      * @param beforeIndex the index of the Node before the one to insert
      * @param newNode the Node to insert
@@ -463,28 +460,6 @@ public class Way extends OsmElement implements BoundedObject, StyleableFeature {
             }
         }
         return type;
-    }
-
-    @Override
-    void updateState(final byte newState) {
-        style = null; // force recalc of style
-        super.updateState(newState);
-    }
-
-    @Override
-    void setState(final byte newState) {
-        style = null; // force recalc of style
-        super.setState(newState);
-    }
-
-    @Override
-    public FeatureStyle getStyle() {
-        return style;
-    }
-
-    @Override
-    public void setStyle(@Nullable FeatureStyle fp) {
-        style = fp;
     }
 
     /**
