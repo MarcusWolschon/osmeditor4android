@@ -131,6 +131,8 @@ Tapping the icon once will undo the last operation. A long press will display a 
 
 Start a camera app, and add the resulting photograph to the photo layer if it is enabled. The photograph itself should be stored in the Vespucci/Pictures 
 directory, however this depends on the specific camera app. Note that because of restrictions in recent versions of Android you will need to configure the target app in the preferences if you are not happy with the standard app on your device. See [16.1 release notes](16.1.0 Release notes.md).
+Photographs may also be "shared" from other apps into Vespucci.
+Note the purpose of using the camera and photo layers in Vespucci is just for the user's personal reference, not for uploading pictures to Openstreetmap, etc.
 
 ### ![Location](../images/menu_gps.png) Location
 
