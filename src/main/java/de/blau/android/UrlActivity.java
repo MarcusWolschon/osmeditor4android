@@ -1,28 +1,16 @@
 package de.blau.android;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
-import android.util.Log;
 import androidx.annotation.NonNull;
 
 /**
- * Start vespucci with an intent
+ * Start with an Url
  */
-public abstract class UrlActivity extends Activity {
-
-    private static final String DEBUG_TAG = "UrlActivity";
+public abstract class UrlActivity extends IntentDataActivity {
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        Uri data = getIntent().getData();
-        if (data == null) {
-            Log.d(DEBUG_TAG, "Called with null data, aborting");
-            finish();
-            return;
-        }
-        Log.d(DEBUG_TAG, data.toString());
+    protected void process(@NonNull Uri data) {
         Intent intent = new Intent(this, Main.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         if (setIntentExtras(intent, data)) {
