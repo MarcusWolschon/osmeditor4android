@@ -1,29 +1,18 @@
 package de.blau.android;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
-import android.util.Log;
+import androidx.annotation.NonNull;
 import de.blau.android.contract.Urls;
 import de.blau.android.util.GeoUrlData;
 
 /**
  * Take a geo intent and open the location on OSM
  */
-public class ShareOnOpenStreetMap extends Activity {
-
-    private static final String DEBUG_TAG = "ShareOnOpenStreetMap";
+public class ShareOnOpenStreetMap extends IntentDataActivity {
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        Uri data = getIntent().getData();
-        if (data == null) {
-            Log.d(DEBUG_TAG, "Called with null data, aborting");
-            finish();
-            return;
-        }
-        Log.d(DEBUG_TAG, data.toString());
+    protected void process(@NonNull Uri data) {
         GeoUrlData geoUrlData = GeoUrlData.parse(data.getSchemeSpecificPart());
         if (geoUrlData != null) {
             double lat = geoUrlData.getLat();
