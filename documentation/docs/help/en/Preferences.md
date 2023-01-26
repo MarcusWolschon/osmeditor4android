@@ -24,6 +24,9 @@ WMS server specific place holders
 - {height} image height.
 - {bbox} WMS bounding box.
 
+If there is no bounding box information, one can add the four sides in degrees in the boxes on the dialog.
+Else the bounding box will be assumed worldwide.  
+
 ## Keep screen on
 
 Disable the Android automatic screen lock.
