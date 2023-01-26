@@ -715,7 +715,8 @@ public class Layers extends AbstractConfigurationDialog {
                 item.setOnMenuItemClickListener(unused -> {
                     if (layer != null) {
                         if (!TileLayerSource.isFullyPopulated()) {
-                            // FIXME this is borderline too slow to run on the main thread, maybe run in a thread while the dialog is starting up
+                            // FIXME this is borderline too slow to run on the main thread, maybe run in a thread while
+                            // the dialog is starting up
                             populateImageryLists(activity);
                         }
                         showImagerySelectDialog((TableRow) button.getTag(), (MapTilesLayer<?>) layer, layer.getType() == LayerType.OVERLAYIMAGERY);
@@ -731,7 +732,8 @@ public class Layers extends AbstractConfigurationDialog {
                             long rowid = TileLayerDatabase.getLayerRowId(db, currentServerId);
                             TileLayerDialog.showLayerDialog(activity, rowid, null, () -> {
                                 populateImageryLists(activity);
-                                layer.invalidate();
+                                map.setUpLayers(activity);
+                                updateDialogAndPrefs(activity, App.getLogic().getPrefs(), map);
                             });
                         } catch (IllegalArgumentException iaex) {
                             Snack.toastTopError(activity, iaex.getMessage());
