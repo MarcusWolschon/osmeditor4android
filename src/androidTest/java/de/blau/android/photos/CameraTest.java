@@ -114,7 +114,6 @@ public class CameraTest {
         }
         TestUtils.clickResource(device, false, "com.android.camera2:id/shutter_button", true);
         TestUtils.clickResource(device, false, "com.android.camera2:id/done_button", true);
-
         // should have a photo more now
         assertEquals(origCount + 1, photoCount());
     }

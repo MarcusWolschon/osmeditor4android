@@ -2708,6 +2708,37 @@ public class Main extends FullScreenAppCompatActivity
     }
 
     /**
+     * If an image has successfully been captured by a camera app, index the file, otherwise delete
+     * 
+     * @param resultCode the result code from the intent
+     */
+    private void indexImage(final int resultCode) {
+        if (imageFile != null) {
+            try {
+                if (resultCode == RESULT_OK || imageFile.length() > 0L) {
+                    try (PhotoIndex pi = new PhotoIndex(this)) {
+                        if (pi.addPhoto(imageFile) == null) {
+                            Log.e(DEBUG_TAG, "No image available");
+                            Snack.toastTopError(this, R.string.toast_photo_failed);
+                        }
+                    }
+                    if (map.getPhotoLayer() != null) {
+                        map.invalidate();
+                    }
+                } else if (resultCode == RESULT_CANCELED) {
+                    Log.e(DEBUG_TAG, "image capture canceled, deleting image");
+                    imageFile.delete(); // NOSONAR
+                }
+            } catch (SecurityException e) {
+                Log.e(DEBUG_TAG, "access denied for delete to " + imageFile.getAbsolutePath());
+            }
+            imageFile = null; // reset
+        } else {
+            Log.e(DEBUG_TAG, "unexpected state imageFile == null");
+        }
+    }
+
+    /**
      * Toggle position based data auto-download
      */
     private void startStopAutoDownload() {
@@ -2920,20 +2951,8 @@ public class Main extends FullScreenAppCompatActivity
     protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
         Log.d(DEBUG_TAG, "onActivityResult code " + requestCode + " result " + resultCode + " data " + data);
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            if (imageFile != null) {
-                try (PhotoIndex pi = new PhotoIndex(this)) {
-                    if (pi.addPhoto(imageFile) == null) {
-                        Log.e(DEBUG_TAG, "No image available");
-                        Snack.toastTopError(this, R.string.toast_photo_failed);
-                    }
-                }
-                if (map.getPhotoLayer() != null) {
-                    map.invalidate();
-                }
-            } else {
-                Log.e(DEBUG_TAG, "imageFile == null");
-            }
+        if (requestCode == REQUEST_IMAGE_CAPTURE) {
+            indexImage(resultCode);
         } else if (data != null) {
             if (requestCode == REQUEST_EDIT_TAG && resultCode == RESULT_OK) {
                 handlePropertyEditorResult();
@@ -2993,10 +3012,7 @@ public class Main extends FullScreenAppCompatActivity
      */
     @Nullable
     public String getImageFileName() {
-        if (imageFile != null) {
-            return imageFile.getAbsolutePath();
-        }
-        return null;
+        return imageFile != null ? imageFile.getAbsolutePath() : null;
     }
 
     @Override
