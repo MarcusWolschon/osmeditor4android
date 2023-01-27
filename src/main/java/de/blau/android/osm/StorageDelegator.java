@@ -1719,22 +1719,12 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 relationResult.addIssue(ReverseIssue.ROLEREVERSED);
                 result.add(relationResult);
                 r.updateState(OsmElement.STATE_MODIFIED);
-                try {
-                    apiStorage.insertElementSafe(r);
-                } catch (StorageException e) {
-                    // TODO handle OOM
-                    Log.e(DEBUG_TAG, "reverseWay got " + e.getMessage());
-                }
+                apiStorage.insertElementSafe(r);
             }
         }
         way.updateState(OsmElement.STATE_MODIFIED);
-        try {
-            apiStorage.insertElementSafe(way);
-            onElementChanged(null, way);
-        } catch (StorageException e) {
-            // TODO handle OOM
-            Log.e(DEBUG_TAG, "reverseWay got " + e.getMessage());
-        }
+        apiStorage.insertElementSafe(way);
+        onElementChanged(null, way);
         return result;
     }
 
@@ -1761,12 +1751,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 result.add(nodeResult);
                 Reverse.reverseDirectionDependentTags(n, nodeDirTags, true);
                 n.updateState(OsmElement.STATE_MODIFIED);
-                try {
-                    apiStorage.insertElementSafe(n);
-                } catch (StorageException e) {
-                    // TODO handle OOM
-                    Log.e(DEBUG_TAG, "reverseWayNodeTags got " + e.getMessage());
-                }
+                apiStorage.insertElementSafe(n);
             }
         }
         return result;
@@ -1811,42 +1796,37 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         // undo - node is not changed, affected way(s) are stored below
         dirty = true;
         int deleted = 0;
-        try {
-            List<Way> ways = currentStorage.getWays(node);
-            ArrayList<OsmElement> changedElements = new ArrayList<>();
-            for (Way way : ways) {
-                undo.save(way);
-                if (way.isClosed() && way.isEndNode(node) && way.getNodes().size() > 1) { // note protection against
-                                                                                          // degenerate closed ways
-                    way.removeNode(node);
-                    if (way.getNodes().size() > 1 && !way.isClosed()) {
-                        way.addNode(way.getFirstNode()); // re-close the way, except if it is already closed, which
-                                                         // means it is degenerate
-                    } else {
-                        Log.e(DEBUG_TAG, "Way " + way.getOsmId() + " way already closed!");
-                    }
+        List<Way> ways = currentStorage.getWays(node);
+        List<OsmElement> changedElements = new ArrayList<>();
+        for (Way way : ways) {
+            undo.save(way);
+            if (way.isClosed() && way.isEndNode(node) && way.getNodes().size() > 1) { // note protection against
+                                                                                      // degenerate closed ways
+                way.removeNode(node);
+                if (way.getNodes().size() > 1 && !way.isClosed()) {
+                    way.addNode(way.getFirstNode()); // re-close the way, except if it is already closed, which
+                                                     // means it is degenerate
                 } else {
-                    way.removeNode(node);
+                    Log.e(DEBUG_TAG, "Way " + way.getOsmId() + " way already closed!");
                 }
-                // remove way when less than two waynodes exist
-                // or only the same node twice
-                // NOTE this will not remove ways with three and more times the same node
-                int size = way.getNodes().size();
-                if (size < Way.MINIMUM_NODES_IN_WAY || (way.isClosed() && size < Way.MINIMUM_NODES_IN_CLOSED_WAY)) {
-                    Log.w(DEBUG_TAG, "removeWayNode removing degenerate way " + way.getOsmId());
-                    removeWay(way);
-                } else {
-                    way.updateState(OsmElement.STATE_MODIFIED);
-                    apiStorage.insertElementSafe(way);
-                    changedElements.add(way);
-                }
-                deleted++;
+            } else {
+                way.removeNode(node);
             }
-            onElementChanged(null, changedElements);
-        } catch (StorageException e) {
-            // TODO handle OOM
-            Log.e(DEBUG_TAG, "removeWayNode got " + e.getMessage());
+            // remove way when less than two waynodes exist
+            // or only the same node twice
+            // NOTE this will not remove ways with three and more times the same node
+            int size = way.getNodes().size();
+            if (size < Way.MINIMUM_NODES_IN_WAY || (way.isClosed() && size < Way.MINIMUM_NODES_IN_CLOSED_WAY)) {
+                Log.w(DEBUG_TAG, "removeWayNode removing degenerate way " + way.getOsmId());
+                removeWay(way);
+            } else {
+                way.updateState(OsmElement.STATE_MODIFIED);
+                apiStorage.insertElementSafe(way);
+                changedElements.add(way);
+            }
+            deleted++;
         }
+        onElementChanged(null, changedElements);
         return deleted;
     }
 
@@ -1931,28 +1911,23 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @param element to remove from any relations it is a member of
      */
     private void removeElementFromRelations(@NonNull final OsmElement element) {
-        try {
-            if (element.hasParentRelations()) {
-                List<Relation> relations = new ArrayList<>(element.getParentRelations()); // need copy!
-                List<OsmElement> changedElements = new ArrayList<>();
-                for (Relation r : relations) {
-                    Log.i(DEBUG_TAG, "removing " + element.getName() + " #" + element.getOsmId() + " from relation #" + r.getOsmId());
-                    dirty = true;
-                    undo.save(r);
-                    r.removeMember(r.getMember(element));
-                    r.updateState(OsmElement.STATE_MODIFIED);
-                    apiStorage.insertElementSafe(r);
-                    changedElements.add(r);
-                    undo.save(element);
-                    element.removeParentRelation(r);
-                    Log.i(DEBUG_TAG, "... done");
-                }
-                onElementChanged(null, changedElements);
-                onParentRelationChanged(element);
+        if (element.hasParentRelations()) {
+            List<Relation> relations = new ArrayList<>(element.getParentRelations()); // need copy!
+            List<OsmElement> changedElements = new ArrayList<>();
+            for (Relation r : relations) {
+                Log.i(DEBUG_TAG, "removing " + element.getName() + " #" + element.getOsmId() + " from relation #" + r.getOsmId());
+                dirty = true;
+                undo.save(r);
+                r.removeMember(r.getMember(element));
+                r.updateState(OsmElement.STATE_MODIFIED);
+                apiStorage.insertElementSafe(r);
+                changedElements.add(r);
+                undo.save(element);
+                element.removeParentRelation(r);
+                Log.i(DEBUG_TAG, "... done");
             }
-        } catch (StorageException e) {
-            // TODO handle OOM
-            Log.e(DEBUG_TAG, "removeElementFromRelations got " + e.getMessage());
+            onElementChanged(null, changedElements);
+            onParentRelationChanged(element);
         }
     }
 
@@ -2002,19 +1977,14 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         Log.i(DEBUG_TAG, "removing " + element.getName() + " #" + element.getOsmId() + " from relation #" + r.getOsmId());
         dirty = true;
         undo.save(r);
-        try {
-            r.removeMember(r.getMember(element));
-            r.updateState(OsmElement.STATE_MODIFIED);
-            apiStorage.insertElementSafe(r);
-            undo.save(element);
-            element.removeParentRelation(r);
-            onElementChanged(null, r);
-            onParentRelationChanged(element);
-            Log.i(DEBUG_TAG, "... done");
-        } catch (StorageException e) {
-            // TODO handle OOM
-            Log.e(DEBUG_TAG, "removeElementFromRelation got " + e.getMessage());
-        }
+        r.removeMember(r.getMember(element));
+        r.updateState(OsmElement.STATE_MODIFIED);
+        apiStorage.insertElementSafe(r);
+        undo.save(element);
+        element.removeParentRelation(r);
+        onElementChanged(null, r);
+        onParentRelationChanged(element);
+        Log.i(DEBUG_TAG, "... done");
     }
 
     /**
