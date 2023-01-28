@@ -2269,7 +2269,7 @@ public class TileLayerSource implements Serializable {
     /**
      * @return the zoomLevelMin
      */
-    public synchronized int getMinZoom() {
+    public int getMinZoom() {
         return zoomLevelMin;
     }
 
@@ -2280,12 +2280,14 @@ public class TileLayerSource implements Serializable {
      * 
      * @param newZoomLevelMin the zoomLevelMin to set
      */
-    public synchronized void setMinZoom(int newZoomLevelMin) {
-        if (offsets != null && zoomLevelMin != newZoomLevelMin) {
-            Offset[] tempOffsets = new Offset[zoomLevelMax - newZoomLevelMin + 1];
-            int destOffset = Math.max(0, zoomLevelMin - newZoomLevelMin);
-            System.arraycopy(offsets, Math.max(0, newZoomLevelMin - zoomLevelMin), tempOffsets, destOffset, tempOffsets.length - destOffset);
-            offsets = tempOffsets;
+    public void setMinZoom(int newZoomLevelMin) {
+        synchronized (this) {
+            if (offsets != null && zoomLevelMin != newZoomLevelMin) {
+                Offset[] tempOffsets = new Offset[zoomLevelMax - newZoomLevelMin + 1];
+                int destOffset = Math.max(0, zoomLevelMin - newZoomLevelMin);
+                System.arraycopy(offsets, Math.max(0, newZoomLevelMin - zoomLevelMin), tempOffsets, destOffset, tempOffsets.length - destOffset);
+                offsets = tempOffsets;
+            }
         }
         zoomLevelMin = newZoomLevelMin;
     }
@@ -2295,7 +2297,7 @@ public class TileLayerSource implements Serializable {
      * 
      * @return the maximum zoom Level
      */
-    public synchronized int getMaxZoom() {
+    public int getMaxZoom() {
         return zoomLevelMax;
     }
 
@@ -2306,11 +2308,13 @@ public class TileLayerSource implements Serializable {
      * 
      * @param newZoomLevelMax the zoomLevelMax to set
      */
-    public synchronized void setMaxZoom(int newZoomLevelMax) {
-        if (offsets != null && zoomLevelMax != newZoomLevelMax) {
-            Offset[] tempOffsets = new Offset[newZoomLevelMax - zoomLevelMin + 1];
-            System.arraycopy(offsets, 0, tempOffsets, 0, Math.min(offsets.length, tempOffsets.length));
-            offsets = tempOffsets;
+    public void setMaxZoom(int newZoomLevelMax) {
+        synchronized (this) {
+            if (offsets != null && zoomLevelMax != newZoomLevelMax) {
+                Offset[] tempOffsets = new Offset[newZoomLevelMax - zoomLevelMin + 1];
+                System.arraycopy(offsets, 0, tempOffsets, 0, Math.min(offsets.length, tempOffsets.length));
+                offsets = tempOffsets;
+            }
         }
         zoomLevelMax = newZoomLevelMax;
     }
