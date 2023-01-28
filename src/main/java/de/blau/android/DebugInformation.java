@@ -25,6 +25,7 @@ import de.blau.android.osm.StorageDelegator;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerSource;
+import de.blau.android.services.util.MapTileFilesystemProvider;
 import de.blau.android.tasks.TaskStorage;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.DateFormatter;
@@ -103,7 +104,7 @@ public class DebugInformation extends LocaleAwareCompatActivity {
                     if (ov instanceof MapTilesLayer || ov instanceof MapTilesOverlayLayer) {
                         TileLayerSource tileLayerConfiguration = ((MapTilesLayer<?>) ov).getTileLayerConfiguration();
                         if (tileLayerConfiguration != null) {
-                            builder.append("Tile Cache " + tileLayerConfiguration.getId() + " usage "
+                            builder.append("In memory Tile Cache " + tileLayerConfiguration.getId() + " usage "
                                     + ((MapTilesLayer<?>) ov).getTileProvider().getCacheUsageInfo() + eol);
                         }
                     }
@@ -114,19 +115,25 @@ public class DebugInformation extends LocaleAwareCompatActivity {
         } else {
             builder.append("Logic not available, this is a seriously curious state, please report a bug!" + eol);
         }
+        MapTileFilesystemProvider fsProvider = App.getMapTileFilesystemProvider(this);
+        if (fsProvider != null) {
+            builder.append("Current used file system net tile cache size: " + fsProvider.getCurrentCacheByteSize() + "B" + eol);
+        } else {
+            builder.append("No file system tile cache!" + eol);
+        }
         File stateFile = new File(getFilesDir(), StorageDelegator.FILENAME);
         if (stateFile.exists()) {
             builder.append("State file size " + stateFile.length() + " last changed "
                     + DateFormatter.getFormattedString(DATE_TIME_PATTERN, new Date(stateFile.lastModified())) + eol);
         } else {
-            builder.append("No state file found\n");
+            builder.append("No state file found" + eol);
         }
         File bugStateFile = new File(getFilesDir(), TaskStorage.FILENAME);
         if (bugStateFile.exists()) {
             builder.append("Bug state file size " + bugStateFile.length() + " last changed "
                     + DateFormatter.getFormattedString(DATE_TIME_PATTERN, new Date(bugStateFile.lastModified())) + eol);
         } else {
-            builder.append("No bug state file found\n");
+            builder.append("No bug state file found" + eol);
         }
 
         ACRAHelper.addElementCounts(builder, eol);
