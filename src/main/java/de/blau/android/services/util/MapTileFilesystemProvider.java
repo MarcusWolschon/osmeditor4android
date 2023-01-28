@@ -78,13 +78,17 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
         mCtx = ctx;
         mMaxFSCacheByteSize = aMaxFSCacheByteSize;
         mDatabase = new MapTileProviderDataBase(new CustomDatabaseContext(ctx, mountPoint.getAbsolutePath()));
-        mCurrentCacheByteSize = mDatabase.getCurrentFSCacheByteSize();
 
         int maxThreads = App.getPreferences(ctx).getMaxTileDownloadThreads();
         mThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(maxThreads);
 
         mTileDownloader = new MapTileDownloader(ctx, this);
-        Log.d(DEBUG_TAG, "Currently used cache-size is: " + mCurrentCacheByteSize + " of " + mMaxFSCacheByteSize + " Bytes");
+
+        mThreadPool.execute(() -> {
+            // mCurrentCacheByteSize will be zero till this is set which is harmless
+            mCurrentCacheByteSize = mDatabase.getCurrentFSCacheByteSize();
+            Log.d(DEBUG_TAG, "Currently used cache-size is: " + mCurrentCacheByteSize + " of " + mMaxFSCacheByteSize + " Bytes");
+        });
     }
 
     // ===========================================================
