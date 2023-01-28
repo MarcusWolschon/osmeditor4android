@@ -5380,6 +5380,10 @@ public class Logic {
      */
     @Nullable
     int[] calcCentroid(@NonNull List<OsmElement> elements) {
+        if (elements.isEmpty()) {
+            Log.e(DEBUG_TAG, "empty element list for for centroid");
+            return null;
+        }
         long latE7 = 0;
         long lonE7 = 0;
         for (OsmElement e : elements) {
@@ -5400,7 +5404,8 @@ public class Logic {
                 return null;
             }
         }
-        return new int[] { (int) (latE7 / elements.size()), (int) (lonE7 / elements.size()) };
+        final int size = elements.size();
+        return new int[] { (int) (latE7 / size), (int) (lonE7 / size) };
     }
 
     /**
