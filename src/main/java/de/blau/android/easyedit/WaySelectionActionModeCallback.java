@@ -17,6 +17,8 @@ import de.blau.android.R;
 import de.blau.android.dialogs.TagConflictDialog;
 import de.blau.android.easyedit.route.RouteSegmentActionModeCallback;
 import de.blau.android.easyedit.turnrestriction.FromElementActionModeCallback;
+import de.blau.android.exception.OsmIllegalOperationException;
+import de.blau.android.exception.StorageException;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
@@ -198,88 +200,96 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
      * @param way the Way
      */
     private void reverseWay(@NonNull final Way way) {
-        List<Result> result = logic.performReverse(main, way);
-        if (!result.isEmpty()) {
-            TagConflictDialog.showDialog(main, result);
+        try {
+            List<Result> result = logic.performReverse(main, way);
+            if (!result.isEmpty()) {
+                TagConflictDialog.showDialog(main, result);
+            }
+        } catch (OsmIllegalOperationException | StorageException ex) {
+            // toast has already been displayed
         }
     }
 
     @Override
     public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
         if (!super.onActionItemClicked(mode, item)) {
-            Way way = (Way) element;
-            switch (item.getItemId()) {
-            case MENUITEM_SPLIT:
-                main.startSupportActionMode(new WaySplittingActionModeCallback(manager, way, false));
-                break;
-            case MENUITEM_MERGE:
-                main.startSupportActionMode(new WayMergingActionModeCallback(manager, way, cachedMergeableWays));
-                break;
-            case MENUITEM_REVERSE:
-                if (way.notReversable()) {
-                    new AlertDialog.Builder(main).setTitle(R.string.menu_reverse).setMessage(R.string.notreversable_description)
-                            .setPositiveButton(R.string.reverse_anyway, (dialog, which) -> reverseWay(way)).show();
-                } else {
-                    reverseWay(way);
-                }
-                manager.invalidate();
-                findConnectedWays(way);
-                break;
-            case MENUITEM_APPEND:
-                main.startSupportActionMode(new WayAppendingActionModeCallback(manager, way, cachedAppendableNodes));
-                break;
-            case MENUITEM_RESTRICTION:
-                main.startSupportActionMode(new FromElementActionModeCallback(manager, way, cachedViaElements));
-                break;
-            case MENUITEM_ROUTE:
-                main.startSupportActionMode(new RouteSegmentActionModeCallback(manager, way, findViaElements(way, false)));
-                break;
-            case MENUITEM_ADD_TO_ROUTE:
-                buildRelationSelectDialog(main, r -> {
-                    Relation route = (Relation) App.getDelegator().getOsmElement(Relation.NAME, r);
-                    if (route != null) {
-                        main.startSupportActionMode(new RouteSegmentActionModeCallback(manager, way, route, findViaElements(way, false), null));
+            try {
+                Way way = (Way) element;
+                switch (item.getItemId()) {
+                case MENUITEM_SPLIT:
+                    main.startSupportActionMode(new WaySplittingActionModeCallback(manager, way, false));
+                    break;
+                case MENUITEM_MERGE:
+                    main.startSupportActionMode(new WayMergingActionModeCallback(manager, way, cachedMergeableWays));
+                    break;
+                case MENUITEM_REVERSE:
+                    if (way.notReversable()) {
+                        new AlertDialog.Builder(main).setTitle(R.string.menu_reverse).setMessage(R.string.notreversable_description)
+                                .setPositiveButton(R.string.reverse_anyway, (dialog, which) -> reverseWay(way)).show();
+                    } else {
+                        reverseWay(way);
                     }
-                }, -1, R.string.select_route_title, Tags.KEY_TYPE, Tags.VALUE_ROUTE).show();
-                break;
-            case MENUITEM_ROTATE:
-                deselect = false;
-                main.startSupportActionMode(new WayRotationActionModeCallback(manager, way));
-                break;
-            case MENUITEM_ORTHOGONALIZE:
-                logic.performOrthogonalize(main, way);
-                manager.invalidate();
-                break;
-            case MENUITEM_CIRCULIZE:
-                logic.performCirculize(main, way);
-                manager.invalidate();
-                break;
-            case MENUITEM_SPLIT_POLYGON:
-                main.startSupportActionMode(new WaySplittingActionModeCallback(manager, way, true));
-                break;
-            case MENUITEM_ADDRESS:
-                main.performTagEdit(element, null, true, false);
-                break;
-            case MENUITEM_REMOVE_NODE:
-                main.startSupportActionMode(new RemoveNodeFromWayActionModeCallback(manager, way));
-                break;
-            case MENUITEM_UNJOIN:
-            case MENUITEM_UNJOIN_DISSIMILAR:
-                logic.performUnjoinWay(main, way, MENUITEM_UNJOIN_DISSIMILAR == item.getItemId());
-                break;
-            case MENUITEM_SHARE_POSITION:
-                Util.sharePosition(main, Geometry.centroidLonLat(way), main.getMap().getZoomLevel());
-                break;
-            case MENUITEM_EXTRACT_SEGMENT:
-                main.startSupportActionMode(new WaySegmentActionModeCallback(manager, way));
-                break;
-            case MENUITEM_SELECT_WAY_NODES:
-                logic.deselectAll();
-                deselect = false;
-                main.startSupportActionMode(new ExtendSelectionActionModeCallback(manager, new ArrayList<>(new HashSet<>(way.getNodes()))));
-                break;
-            default:
-                return false;
+                    manager.invalidate();
+                    findConnectedWays(way);
+                    break;
+                case MENUITEM_APPEND:
+                    main.startSupportActionMode(new WayAppendingActionModeCallback(manager, way, cachedAppendableNodes));
+                    break;
+                case MENUITEM_RESTRICTION:
+                    main.startSupportActionMode(new FromElementActionModeCallback(manager, way, cachedViaElements));
+                    break;
+                case MENUITEM_ROUTE:
+                    main.startSupportActionMode(new RouteSegmentActionModeCallback(manager, way, findViaElements(way, false)));
+                    break;
+                case MENUITEM_ADD_TO_ROUTE:
+                    buildRelationSelectDialog(main, r -> {
+                        Relation route = (Relation) App.getDelegator().getOsmElement(Relation.NAME, r);
+                        if (route != null) {
+                            main.startSupportActionMode(new RouteSegmentActionModeCallback(manager, way, route, findViaElements(way, false), null));
+                        }
+                    }, -1, R.string.select_route_title, Tags.KEY_TYPE, Tags.VALUE_ROUTE).show();
+                    break;
+                case MENUITEM_ROTATE:
+                    deselect = false;
+                    main.startSupportActionMode(new WayRotationActionModeCallback(manager, way));
+                    break;
+                case MENUITEM_ORTHOGONALIZE:
+                    logic.performOrthogonalize(main, way);
+                    manager.invalidate();
+                    break;
+                case MENUITEM_CIRCULIZE:
+                    logic.performCirculize(main, way);
+                    manager.invalidate();
+                    break;
+                case MENUITEM_SPLIT_POLYGON:
+                    main.startSupportActionMode(new WaySplittingActionModeCallback(manager, way, true));
+                    break;
+                case MENUITEM_ADDRESS:
+                    main.performTagEdit(element, null, true, false);
+                    break;
+                case MENUITEM_REMOVE_NODE:
+                    main.startSupportActionMode(new RemoveNodeFromWayActionModeCallback(manager, way));
+                    break;
+                case MENUITEM_UNJOIN:
+                case MENUITEM_UNJOIN_DISSIMILAR:
+                    logic.performUnjoinWay(main, way, MENUITEM_UNJOIN_DISSIMILAR == item.getItemId());
+                    break;
+                case MENUITEM_SHARE_POSITION:
+                    Util.sharePosition(main, Geometry.centroidLonLat(way), main.getMap().getZoomLevel());
+                    break;
+                case MENUITEM_EXTRACT_SEGMENT:
+                    main.startSupportActionMode(new WaySegmentActionModeCallback(manager, way));
+                    break;
+                case MENUITEM_SELECT_WAY_NODES:
+                    logic.deselectAll();
+                    deselect = false;
+                    main.startSupportActionMode(new ExtendSelectionActionModeCallback(manager, new ArrayList<>(new HashSet<>(way.getNodes()))));
+                    break;
+                default:
+                    return false;
+                }
+            } catch (OsmIllegalOperationException | StorageException ex) {
+                // logic will have already toasted
             }
         }
         return true;

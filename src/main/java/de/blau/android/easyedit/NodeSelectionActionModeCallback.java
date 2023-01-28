@@ -26,6 +26,7 @@ import de.blau.android.R;
 import de.blau.android.dialogs.TagConflictDialog;
 import de.blau.android.easyedit.turnrestriction.FromElementWithViaNodeActionModeCallback;
 import de.blau.android.exception.OsmIllegalOperationException;
+import de.blau.android.exception.StorageException;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
@@ -153,46 +154,50 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
     @Override
     public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
         if (!super.onActionItemClicked(mode, item)) {
-            action = item.getItemId();
-            switch (action) {
-            case MENUITEM_APPEND:
-                if (appendableWays.size() > 1) {
-                    manager.showContextMenu();
-                } else {
-                    final PathCreationActionModeCallback callback = new PathCreationActionModeCallback(manager, appendableWays.get(0), (Node) element);
-                    callback.setTitle(R.string.menu_append);
-                    callback.setSubTitle(R.string.add_way_node_instruction);
-                    main.startSupportActionMode(callback);
+            try {
+                action = item.getItemId();
+                switch (action) {
+                case MENUITEM_APPEND:
+                    if (appendableWays.size() > 1) {
+                        manager.showContextMenu();
+                    } else {
+                        final PathCreationActionModeCallback callback = new PathCreationActionModeCallback(manager, appendableWays.get(0), (Node) element);
+                        callback.setTitle(R.string.menu_append);
+                        callback.setSubTitle(R.string.add_way_node_instruction);
+                        main.startSupportActionMode(callback);
+                    }
+                    break;
+                case MENUITEM_JOIN:
+                    mergeNode(joinableElements.size());
+                    break;
+                case MENUITEM_UNJOIN:
+                    logic.performUnjoinWays(main, (Node) element);
+                    mode.finish();
+                    break;
+                case MENUITEM_EXTRACT:
+                    logic.performExtract(main, (Node) element);
+                    manager.invalidate();
+                    break;
+                case MENUITEM_RESTRICTION:
+                    main.startSupportActionMode(new FromElementWithViaNodeActionModeCallback(manager, new HashSet<>(highways), (Node) element, null));
+                    break;
+                case MENUITEM_SET_POSITION:
+                    setPosition();
+                    break;
+                case MENUITEM_ADDRESS:
+                    main.performTagEdit(element, null, true, false);
+                    break;
+                case MENUITEM_SHARE_POSITION:
+                    double[] lonLat = new double[2];
+                    lonLat[0] = ((Node) element).getLon() / 1E7;
+                    lonLat[1] = ((Node) element).getLat() / 1E7;
+                    Util.sharePosition(main, lonLat, main.getMap().getZoomLevel());
+                    break;
+                default:
+                    return false;
                 }
-                break;
-            case MENUITEM_JOIN:
-                mergeNode(joinableElements.size());
-                break;
-            case MENUITEM_UNJOIN:
-                logic.performUnjoinWays(main, (Node) element);
-                mode.finish();
-                break;
-            case MENUITEM_EXTRACT:
-                logic.performExtract(main, (Node) element);
-                manager.invalidate();
-                break;
-            case MENUITEM_RESTRICTION:
-                main.startSupportActionMode(new FromElementWithViaNodeActionModeCallback(manager, new HashSet<>(highways), (Node) element, null));
-                break;
-            case MENUITEM_SET_POSITION:
-                setPosition();
-                break;
-            case MENUITEM_ADDRESS:
-                main.performTagEdit(element, null, true, false);
-                break;
-            case MENUITEM_SHARE_POSITION:
-                double[] lonLat = new double[2];
-                lonLat[0] = ((Node) element).getLon() / 1E7;
-                lonLat[1] = ((Node) element).getLat() / 1E7;
-                Util.sharePosition(main, lonLat, main.getMap().getZoomLevel());
-                break;
-            default:
-                return false;
+            } catch (OsmIllegalOperationException | StorageException ex) {
+                // logic will have already toasted
             }
         }
         return true;

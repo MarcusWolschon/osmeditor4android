@@ -2323,11 +2323,16 @@ public class Logic {
     @Nullable
     public synchronized Node performExtract(@Nullable FragmentActivity activity, final Node node) {
         if (node != null) {
-            createCheckpoint(activity, R.string.undo_action_extract_node);
-            displayAttachedObjectWarning(activity, node); // this needs to be done -before- we replace the node
-            Node newNode = getDelegator().replaceNode(node);
-            invalidateMap();
-            return newNode;
+            try {
+                createCheckpoint(activity, R.string.undo_action_extract_node);
+                displayAttachedObjectWarning(activity, node); // this needs to be done -before- we replace the node
+                Node newNode = getDelegator().replaceNode(node);
+                invalidateMap();
+                return newNode;
+            } catch (OsmIllegalOperationException | StorageException ex) {
+                handleDelegatorException(activity, ex);
+                throw ex; // rethrow
+            }
         }
         return null;
     }
@@ -2536,10 +2541,15 @@ public class Logic {
      * @param ignoreSimilar don't unjoin from ways with the same primary key if true, but replace the node in them too
      */
     public synchronized void performUnjoinWay(@Nullable FragmentActivity activity, @NonNull Way way, boolean ignoreSimilar) {
-        createCheckpoint(activity, R.string.undo_action_unjoin_ways);
-        displayAttachedObjectWarning(activity, way); // needs to be done before unjoin
-        getDelegator().unjoinWay(activity, way, ignoreSimilar);
-        invalidateMap();
+        try {
+            createCheckpoint(activity, R.string.undo_action_unjoin_ways);
+            displayAttachedObjectWarning(activity, way); // needs to be done before unjoin
+            getDelegator().unjoinWay(activity, way, ignoreSimilar);
+            invalidateMap();
+        } catch (OsmIllegalOperationException | StorageException ex) {
+            handleDelegatorException(activity, ex);
+            throw ex; // rethrow
+        }
     }
 
     /**
@@ -2553,11 +2563,16 @@ public class Logic {
      * @return true if reverseWay returned true, implying that tags had to be reversed
      */
     @NonNull
-    public synchronized List<Result> performReverse(@Nullable Activity activity, @NonNull Way way) {
-        createCheckpoint(activity, R.string.undo_action_reverse_way);
-        List<Result> result = getDelegator().reverseWay(way);
-        invalidateMap();
-        return result;
+    public synchronized List<Result> performReverse(@Nullable FragmentActivity activity, @NonNull Way way) {
+        try {
+            createCheckpoint(activity, R.string.undo_action_reverse_way);
+            List<Result> result = getDelegator().reverseWay(way);
+            invalidateMap();
+            return result;
+        } catch (OsmIllegalOperationException | StorageException ex) {
+            handleDelegatorException(activity, ex);
+            throw ex; // rethrow
+        }
     }
 
     /**
