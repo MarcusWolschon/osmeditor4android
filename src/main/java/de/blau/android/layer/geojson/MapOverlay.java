@@ -157,12 +157,12 @@ public class MapOverlay extends StyleableLayer
         }
     }
 
-    private RTree<BoundedFeature>        data;
-    private final transient Path         path   = new Path();
-    private transient FloatPrimitiveList points = new FloatPrimitiveList();
-
+    private RTree<BoundedFeature>                data;
+    private final transient Path                 path        = new Path();
+    private transient FloatPrimitiveList         points      = new FloatPrimitiveList();
+    private transient Collection<BoundedFeature> queryForDisplayResult = new ArrayList<>();
     /** Map this is an overlay of. */
-    private final transient Map map;
+    private final transient Map                  map;
 
     /**
      * Styling parameters
@@ -215,10 +215,10 @@ public class MapOverlay extends StyleableLayer
         labelBackground = DataStyle.getInternal(DataStyle.LABELTEXT_BACKGROUND).getPaint();
         labelStrokeWidth = labelPaint.getStrokeWidth();
 
-        Collection<BoundedFeature> queryResult = new ArrayList<>();
-        data.query(queryResult, bb);
-        Log.d(DEBUG_TAG, "features result count " + queryResult.size());
-        for (BoundedFeature bf : queryResult) {
+        queryForDisplayResult.clear();
+        data.query(queryForDisplayResult, bb);
+        Log.d(DEBUG_TAG, "features result count " + queryForDisplayResult.size());
+        for (BoundedFeature bf : queryForDisplayResult) {
             drawGeometry(canvas, bb, width, height, zoomLevel, bf.getFeature());
         }
     }
