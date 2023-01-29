@@ -34,16 +34,34 @@ public class StorageTest {
     }
 
     /**
-     * Ways for node
+     * Ways for node, ways without bounding box
      */
     @Test
-    public void waysForNode() {
+    public void waysForNode1() {
         Node node = (Node) storage.getOsmElement(Node.NAME, 300852915L);
         assertNotNull(node);
         long start = System.currentTimeMillis();
         List<Way> ways = storage.getWays(node);
         long execution = System.currentTimeMillis() - start;
-        Log.d(DEBUG_TAG, "getWays(Node) took " + execution + " ms");
+        Log.d(DEBUG_TAG, "getWays(Node) 1 took " + execution + " ms");
+        assertEquals(2, ways.size());
+    }
+    
+    /**
+     * Ways for node, way with bounding box
+     */
+    @Test
+    public void waysForNode2() {
+        Node node = (Node) storage.getOsmElement(Node.NAME, 300852915L);
+        assertNotNull(node);
+        BoundingBox box = new BoundingBox();
+        for (Way w:storage.getWays()) {
+            w.getBounds(box);
+        }
+        long start = System.currentTimeMillis();
+        List<Way> ways = storage.getWays(node);
+        long execution = System.currentTimeMillis() - start;
+        Log.d(DEBUG_TAG, "getWays(Node) 2 took " + execution + " ms");
         assertEquals(2, ways.size());
     }
 
