@@ -2925,11 +2925,8 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                                 }
                             }
                         } else {
-                            // this shouldn't be able to happen
-                            String debugString = "mergeData null existing node " + n.getOsmId() + " containsKey is " + nodeIndex.containsKey(n.getOsmId())
-                                    + " apiNode is " + apiNode;
-                            Log.e(DEBUG_TAG, debugString);
-                            ACRAHelper.nocrashReport(null, debugString);
+                            logAndSendReport("mergeData null existing node " + n.getOsmId() + " containsKey is " + nodeIndex.containsKey(n.getOsmId())
+                                    + " apiNode is " + apiNode);
                             return false;
                         }
                     }
@@ -2964,11 +2961,8 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                                 }
                             }
                         } else {
-                            // this shouldn't be able to happen
-                            String debugString = "mergeData null existing way " + w.getOsmId() + " containsKey is " + wayIndex.containsKey(w.getOsmId())
-                                    + " apiWay is " + apiWay;
-                            Log.e(DEBUG_TAG, debugString);
-                            ACRAHelper.nocrashReport(null, debugString);
+                            logAndSendReport("mergeData null existing way " + w.getOsmId() + " containsKey is " + wayIndex.containsKey(w.getOsmId())
+                                    + " apiWay is " + apiWay);
                             return false;
                         }
                     }
@@ -3006,10 +3000,8 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                                 temp.insertNodeUnsafe(apiNode);
                                 nodes.set(i, apiNode);
                             } else {
-                                String debugString = "mergeData null way node for way " + w.getOsmId() + " v" + w.getOsmVersion() + " node " + wayNodeId
-                                        + (apiNode != null ? " state in api " + apiNode.getState() : "");
-                                Log.e(DEBUG_TAG, debugString);
-                                ACRAHelper.nocrashReport(null, debugString);
+                                logAndSendReport("mergeData null way node for way " + w.getOsmId() + " v" + w.getOsmVersion() + " node " + wayNodeId
+                                        + (apiNode != null ? " state in api " + apiNode.getState() : ""));
                                 return false;
                             }
                         }
@@ -3046,11 +3038,8 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                                 }
                             }
                         } else {
-                            // this shouldn't be able to happen
-                            String debugString = "mergeData null existing relation " + r.getOsmId() + " containsKey is "
-                                    + relationIndex.containsKey(r.getOsmId()) + " apiRelation is " + apiRelation;
-                            Log.e(DEBUG_TAG, debugString);
-                            ACRAHelper.nocrashReport(null, debugString);
+                            logAndSendReport("mergeData null existing relation " + r.getOsmId() + " containsKey is " + relationIndex.containsKey(r.getOsmId())
+                                    + " apiRelation is " + apiRelation);
                             return false;
                         }
                     }
@@ -3084,6 +3073,16 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         }
 
         return true; // Success
+    }
+
+    /**
+     * Log an error and trigger sending a crash report
+     * 
+     * @param debugString string to log
+     */
+    private void logAndSendReport(@NonNull String debugString) {
+        Log.e(DEBUG_TAG, debugString);
+        ACRAHelper.nocrashReport(null, debugString);
     }
 
     /**
@@ -3528,10 +3527,8 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                         }
                     } else {
                         // this shouldn't be able to happen
-                        String debugString = "applyOsc null existing way " + w.getOsmId() + " containsKey is " + wayIndex.containsKey(w.getOsmId())
-                                + " apiWay is " + apiWay;
-                        Log.e(DEBUG_TAG, debugString);
-                        ACRAHelper.nocrashReport(null, debugString);
+                        logAndSendReport("applyOsc null existing way " + w.getOsmId() + " containsKey is " + wayIndex.containsKey(w.getOsmId()) + " apiWay is "
+                                + apiWay);
                         return false;
                     }
                 }
@@ -3636,9 +3633,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     private boolean memberIsDeleted(@NonNull Relation r, @NonNull RelationMember rm) {
         OsmElement apiElement = apiStorage.getOsmElement(rm.getType(), rm.getRef());
         if (apiElement != null && apiElement.getState() == OsmElement.STATE_DELETED) {
-            String debugString = "mergeData/applyOsc deleted " + rm.getType() + " in downloaded relation " + r.getOsmId();
-            Log.e(DEBUG_TAG, debugString);
-            ACRAHelper.nocrashReport(null, debugString);
+            logAndSendReport("mergeData/applyOsc deleted " + rm.getType() + " in downloaded relation " + r.getOsmId());
             fixupBacklinks(); // nexessary as we've removed the original ones from the elements
             return true; // can't resolve conflicts, upload first
         }
