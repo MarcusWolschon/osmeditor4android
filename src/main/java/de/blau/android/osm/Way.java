@@ -151,10 +151,17 @@ public class Way extends StyledOsmElement implements BoundedObject {
     /**
      * Returns true if "node" is a way node of this way
      * 
+     * Will check against the bounding box if it has been set
+     * 
      * @param node the Node to check for
      * @return true if the Node is a member of the Way
      */
     public boolean hasNode(final Node node) {
+        if (left != Integer.MIN_VALUE) {
+            int lonE7 = node.getLon();
+            int latE7 = node.getLat();
+            return left <= lonE7 && lonE7 <= right && bottom <= latE7 && latE7 <= top && nodes.contains(node);
+        }
         return nodes.contains(node);
     }
 
