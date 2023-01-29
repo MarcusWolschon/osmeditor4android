@@ -462,13 +462,17 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
         int screenWidth = map.getWidth();
         int screenHeight = map.getHeight();
         ViewBox viewBox = map.getViewBox();
-
-        paintRelations.clear();
-
-        // first find all nodes that we need to display
+        
+        // first find all nodes and ways that we need to display
         nodesResult.clear();
-        final Storage currentStorage = delegator.getCurrentStorage();
-        List<Node> paintNodes = currentStorage.getNodes(viewBox, nodesResult);
+        waysResult.clear();
+        List<Node> paintNodes;
+        List<Way> ways;
+        synchronized (delegator) {
+            final Storage currentStorage = delegator.getCurrentStorage();
+            paintNodes = currentStorage.getNodes(viewBox, nodesResult);
+            ways = currentStorage.getWays(viewBox, waysResult);
+        }
 
         // the following should guarantee that if the selected node is off screen but the handle not, the handle gets
         // drawn, this isn't perfect because touch areas of other nodes just outside the screen still won't get drawn
@@ -490,8 +494,6 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
                 && !tmpLocked && (showTolerance || tmpDrawingEditMode.elementsSelectable());
 
         // Paint all ways
-        waysResult.clear();
-        List<Way> ways = currentStorage.getWays(viewBox, waysResult);
 
         List<Way> waysToDraw = ways;
         if (filterMode) {
@@ -520,6 +522,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
         }
 
         // get relations for all nodes and ways
+        paintRelations.clear();
         for (Node n : paintNodes) {
             addRelations(filterMode, n.getParentRelations(), paintRelations);
         }
