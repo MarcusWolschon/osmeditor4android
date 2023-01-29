@@ -148,15 +148,7 @@ public class Storage implements Serializable {
      */
     @NonNull
     public List<Node> getNodes(@NonNull BoundingBox box, @NonNull List<Node> result) {
-        List<Node> list = nodes.values();
-        int listSize = list.size();
-        for (int i = 0; i < listSize; i++) {
-            Node n = list.get(i);
-            if (box.isIn(n.getLon(), n.getLat())) {
-                result.add(n);
-            }
-        }
-        return result;
+        return nodes.values(result, (Node n) -> box.isIn(n.getLon(), n.getLat()));
     }
 
     /**
@@ -202,16 +194,10 @@ public class Storage implements Serializable {
     @NonNull
     public List<Way> getWays(@NonNull BoundingBox box, @NonNull List<Way> result) {
         BoundingBox newBox = new BoundingBox(); // avoid creating new instances
-        List<Way> list = ways.values();
-        int listSize = list.size();
-        for (int i = 0; i < listSize; i++) {
-            Way w = list.get(i);
+        return ways.values(result, (Way w) -> {
             BoundingBox wayBox = w.getBounds(newBox);
-            if (wayBox.intersects(box)) {
-                result.add(w);
-            }
-        }
-        return result;
+            return wayBox.intersects(box);
+        });
     }
 
     /**
@@ -481,12 +467,7 @@ public class Storage implements Serializable {
     @NonNull
     public List<Way> getWays(@NonNull final Node node) {
         List<Way> mWays = new ArrayList<>();
-        for (Way way : ways) {
-            if (way.hasNode(node)) {
-                mWays.add(way);
-            }
-        }
-        return mWays;
+        return ways.values(mWays, (Way w) -> w.hasNode(node));
     }
 
     /**

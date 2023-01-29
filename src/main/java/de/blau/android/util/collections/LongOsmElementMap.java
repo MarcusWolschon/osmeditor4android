@@ -40,10 +40,20 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
     /**
      * 
      */
-    private static final long serialVersionUID = 2L; // NOTE if you change the
+    private static final long serialVersionUID = 3L; // NOTE if you change the
                                                      // hashing algorithm you
                                                      // need to increment
                                                      // this
+
+    public interface SelectElement<W extends OsmElement> {
+        /**
+         * Select an element
+         * 
+         * @param element an OsmELement of type W
+         * @return true if the element should be selected
+         */
+        boolean select(@NonNull W element);
+    }
 
     private static final OsmElement FREE_KEY           = null;
     private final OsmElement        removedKey;                // Note see constructor for important note
@@ -51,16 +61,16 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
     private static final int        DEFAULT_CAPACITY   = 16;
 
     /** Keys and values */
-    private OsmElement[] m_data;
+    private OsmElement[] data;
 
     /** Fill factor, must be between (0 and 1) */
-    private final float m_fillFactor;
+    private final float fillFactor;
     /** We will resize a map once it reaches this size */
-    private int         m_threshold;
+    private int         threshold;
     /** Current map size */
-    private int         m_size;
+    private int         size;
     /** Mask to calculate the original position */
-    private long        m_mask;
+    private long        mask;
 
     /**
      * Create a new map with default values for capacity and fill factor
@@ -92,12 +102,12 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
             throw new IllegalArgumentException("Size must be positive!");
         }
         final int capacity = Tools.arraySize(size, fillFactor);
-        m_mask = capacity - 1L;
-        m_fillFactor = fillFactor;
+        this.mask = capacity - 1L;
+        this.fillFactor = fillFactor;
 
-        m_data = new OsmElement[capacity];
+        data = new OsmElement[capacity];
 
-        m_threshold = (int) (capacity * fillFactor);
+        this.threshold = (int) (capacity * fillFactor);
 
         // NOTE can't be static as it has to be serialized and de-serialized
         removedKey = OsmElementFactory.createNode(Long.MIN_VALUE, 1, -1, OsmElement.STATE_CREATED, 0, 0);
@@ -109,12 +119,12 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
      * @param map the map to copy
      */
     public LongOsmElementMap(@NonNull LongOsmElementMap<? extends V> map) {
-        m_mask = map.m_mask;
-        m_fillFactor = map.m_fillFactor;
-        m_threshold = map.m_threshold;
-        m_size = map.m_size;
+        mask = map.mask;
+        fillFactor = map.fillFactor;
+        threshold = map.threshold;
+        size = map.size;
         removedKey = map.removedKey;
-        m_data = Arrays.copyOf(map.m_data, map.m_data.length);
+        data = Arrays.copyOf(map.data, map.data.length);
     }
 
     /**
@@ -126,9 +136,9 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
     @SuppressWarnings("unchecked")
     @Nullable
     public V get(final long key) {
-        int ptr = (int) (Tools.phiMix(key) & m_mask);
+        int ptr = (int) (Tools.phiMix(key) & mask);
 
-        OsmElement e = m_data[ptr];
+        OsmElement e = data[ptr];
         if (e == FREE_KEY) {
             return null;
         }
@@ -136,8 +146,8 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
             return (V) e;
         }
         while (true) {
-            ptr = (int) ((ptr + 1) & m_mask); // that's next index
-            e = m_data[ptr];
+            ptr = (int) ((ptr + 1) & mask); // that's next index
+            e = data[ptr];
             if (e == FREE_KEY) {
                 return null;
             }
@@ -157,20 +167,20 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
     @SuppressWarnings("unchecked")
     @Nullable
     public V put(final long key, @Nullable final V value) {
-        int ptr = (int) (Tools.phiMix(key) & m_mask);
+        int ptr = (int) (Tools.phiMix(key) & mask);
 
-        OsmElement e = m_data[ptr];
+        OsmElement e = data[ptr];
 
         if (e == FREE_KEY) { // end of chain already
-            m_data[ptr] = value;
-            if (m_size >= m_threshold) {
-                rehash(m_data.length * 2); // size is set inside
+            data[ptr] = value;
+            if (size >= threshold) {
+                rehash(data.length * 2); // size is set inside
             } else {
-                ++m_size;
+                ++size;
             }
             return null;
         } else if (e.getOsmId() == key) { // we check FREE and REMOVED prior to this call
-            m_data[ptr] = value;
+            data[ptr] = value;
             return (V) e;
         }
 
@@ -180,21 +190,21 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
         }
 
         while (true) {
-            ptr = (int) ((ptr + 1) & m_mask); // the next index calculation
-            e = m_data[ptr];
+            ptr = (int) ((ptr + 1) & mask); // the next index calculation
+            e = data[ptr];
             if (e == FREE_KEY) {
                 if (firstRemoved != -1) {
                     ptr = firstRemoved;
                 }
-                m_data[ptr] = value;
-                if (m_size >= m_threshold) {
-                    rehash(m_data.length * 2); // size is set inside
+                data[ptr] = value;
+                if (size >= threshold) {
+                    rehash(data.length * 2); // size is set inside
                 } else {
-                    ++m_size;
+                    ++size;
                 }
                 return null;
             } else if (e.getOsmId() == key) {
-                m_data[ptr] = value;
+                data[ptr] = value;
                 return (V) e;
             } else if (e == removedKey) {
                 if (firstRemoved == -1) {
@@ -210,7 +220,7 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
      * @param map the Map to add
      */
     public void putAll(@NonNull LongOsmElementMap<V> map) {
-        ensureCapacity(m_data.length + map.size());
+        ensureCapacity(data.length + map.size());
         for (V e : map) { // trivial implementation for now
             put(e.getOsmId(), e);
         }
@@ -222,7 +232,7 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
      * @param c the Collection to add
      */
     public void putAll(@NonNull Collection<V> c) {
-        ensureCapacity(m_data.length + c.size());
+        ensureCapacity(data.length + c.size());
         for (V e : c) { // trivial implementation for now
             put(e.getOsmId(), e);
         }
@@ -236,30 +246,30 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
      */
     @Nullable
     public OsmElement remove(final long key) {
-        int ptr = (int) (Tools.phiMix(key) & m_mask);
-        OsmElement e = m_data[ptr];
+        int ptr = (int) (Tools.phiMix(key) & mask);
+        OsmElement e = data[ptr];
         if (e == FREE_KEY) {
             return null; // end of chain already
         } else if (e.getOsmId() == key) { // we check FREE and REMOVED prior to this call
-            --m_size;
-            if (m_data[(int) ((ptr + 1) & m_mask)] == FREE_KEY) { // this shortens the chain
-                m_data[ptr] = FREE_KEY;
+            --size;
+            if (data[(int) ((ptr + 1) & mask)] == FREE_KEY) { // this shortens the chain
+                data[ptr] = FREE_KEY;
             } else {
-                m_data[ptr] = removedKey;
+                data[ptr] = removedKey;
             }
             return e;
         }
         while (true) {
-            ptr = (int) ((ptr + 1) & m_mask); // that's next index calculation
-            e = m_data[ptr];
+            ptr = (int) ((ptr + 1) & mask); // that's next index calculation
+            e = data[ptr];
             if (e == FREE_KEY) {
                 return null;
             } else if (e.getOsmId() == key) {
-                --m_size;
-                if (m_data[(int) ((ptr + 1) & m_mask)] == FREE_KEY) { // this shortens the chain
-                    m_data[ptr] = FREE_KEY;
+                --size;
+                if (data[(int) ((ptr + 1) & mask)] == FREE_KEY) { // this shortens the chain
+                    data[ptr] = FREE_KEY;
                 } else {
-                    m_data[ptr] = removedKey;
+                    data[ptr] = removedKey;
                 }
                 return e;
             }
@@ -273,8 +283,8 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
      * @return true if an entry for key could be found
      */
     public boolean containsKey(long key) {
-        int ptr = (int) (Tools.phiMix(key) & m_mask);
-        OsmElement e = m_data[ptr];
+        int ptr = (int) (Tools.phiMix(key) & mask);
+        OsmElement e = data[ptr];
         if (e == FREE_KEY) {
             return false;
         }
@@ -282,8 +292,8 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
             return true;
         }
         while (true) {
-            ptr = (int) ((ptr + 1) & m_mask); // the next index
-            e = m_data[ptr];
+            ptr = (int) ((ptr + 1) & mask); // the next index
+            e = data[ptr];
             if (e == FREE_KEY) {
                 return false;
             }
@@ -302,12 +312,37 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
     @NonNull
     public List<V> values() {
         int found = 0;
-        List<V> result = new ArrayList<>(m_size);
-        for (OsmElement v : m_data) {
+        List<V> result = new ArrayList<>(size);
+        for (OsmElement v : data) {
             if (v != FREE_KEY && v != removedKey) {
                 result.add((V) v);
                 found++;
-                if (found >= m_size) { // found all
+                if (found >= size) { // found all
+                    break;
+                }
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Return specific values
+     * 
+     * @param result pre-allocated List
+     * @param s function for selecting the element
+     * @return a List of the values
+     */
+    @SuppressWarnings("unchecked")
+    @NonNull
+    public List<V> values(@NonNull List<V> result, @NonNull SelectElement<V> s) {
+        int found = 0;
+        for (OsmElement v : data) {
+            if (v != FREE_KEY && v != removedKey) {
+                if (s.select((V) v)) {
+                    result.add((V) v);
+                }
+                found++;
+                if (found >= size) { // found all
                     break;
                 }
             }
@@ -321,7 +356,7 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
      * @return the number of elements in the map
      */
     public int size() {
-        return m_size;
+        return size;
     }
 
     /**
@@ -330,7 +365,7 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
      * @return true if the map is empty
      */
     public boolean isEmpty() {
-        return m_size == 0;
+        return size == 0;
     }
 
     /**
@@ -339,8 +374,8 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
      * @param minimumCapacity the capacity to ensure
      */
     private void ensureCapacity(int minimumCapacity) {
-        int newCapacity = Tools.arraySize(minimumCapacity, m_fillFactor);
-        if (newCapacity > m_data.length) {
+        int newCapacity = Tools.arraySize(minimumCapacity, fillFactor);
+        if (newCapacity > data.length) {
             rehash(newCapacity);
         }
     }
@@ -353,15 +388,15 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
     @SuppressWarnings("unchecked")
     private void rehash(final int newCapacity) {
         synchronized (this) {
-            m_threshold = (int) (newCapacity * m_fillFactor);
-            m_mask = newCapacity - 1L;
+            threshold = (int) (newCapacity * fillFactor);
+            mask = newCapacity - 1L;
 
-            final int oldCapacity = m_data.length;
-            final OsmElement[] oldData = m_data;
+            final int oldCapacity = data.length;
+            final OsmElement[] oldData = data;
 
-            m_data = new OsmElement[newCapacity];
+            data = new OsmElement[newCapacity];
 
-            m_size = 0;
+            size = 0;
 
             for (int i = 0; i < oldCapacity; i++) {
                 final OsmElement e = oldData[i];
@@ -378,11 +413,11 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
     @SuppressWarnings("unchecked")
     public void rehash() {
         synchronized (this) {
-            final OsmElement[] oldData = m_data;
-            m_data = new OsmElement[m_data.length];
-            m_size = 0;
+            final OsmElement[] oldData = data;
+            data = new OsmElement[data.length];
+            size = 0;
 
-            for (int i = 0; i < m_data.length; i++) {
+            for (int i = 0; i < data.length; i++) {
                 final OsmElement e = oldData[i];
                 if (e != FREE_KEY && e != removedKey) {
                     put(e.getOsmId(), (V) e);
@@ -401,19 +436,19 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
     }
 
     class SafeIterator implements Iterator<V> {
-        int          index       = 0;
-        int          found       = 0;
-        int          m_size_temp = 0;
-        OsmElement[] m_data_temp = null;
-        OsmElement   cachedNext  = null;
+        int          index      = 0;
+        int          found      = 0;
+        int          sizeTemp   = 0;
+        OsmElement[] dataTemp   = null;
+        OsmElement   cachedNext = null;
 
         /**
          * Construct a new iterator
          */
         SafeIterator() {
             synchronized (LongOsmElementMap.this) {
-                m_size_temp = m_size;
-                m_data_temp = m_data;
+                sizeTemp = size;
+                dataTemp = data;
             }
         }
 
@@ -421,10 +456,10 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
         public boolean hasNext() {
             cachedNext = null;
             while (true) {
-                if (found >= m_size_temp || index >= m_data_temp.length) { // already returned all elements
+                if (found >= sizeTemp || index >= dataTemp.length) { // already returned all elements
                     return false;
                 } else {
-                    OsmElement e = m_data_temp[index];
+                    OsmElement e = dataTemp[index];
                     if (e != FREE_KEY && e != removedKey) {
                         found++;
                         cachedNext = e;
@@ -444,10 +479,10 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
                 return (V) cachedNext;
             }
             while (true) {
-                if (index >= m_data_temp.length) { // already returned all elements
+                if (index >= dataTemp.length) { // already returned all elements
                     throw new NoSuchElementException();
                 } else {
-                    OsmElement e = m_data_temp[index];
+                    OsmElement e = dataTemp[index];
                     if (e != FREE_KEY && e != removedKey) {
                         index++;
                         return (V) e;
@@ -476,8 +511,8 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
         for (V v : values()) {
             int len = 0;
             long key = v.getOsmId();
-            int ptr = (int) (Tools.phiMix(key) & m_mask);
-            OsmElement e = m_data[ptr];
+            int ptr = (int) (Tools.phiMix(key) & mask);
+            OsmElement e = data[ptr];
             if (e.getOsmId() == key) { // note this assumes REMOVED_KEY doesn't match
                 if (result.containsKey(len)) {
                     result.put(len, result.get(len) + 1);
@@ -488,8 +523,8 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
             }
             while (true) {
                 len++;
-                ptr = (int) ((ptr + 1) & m_mask); // the next index
-                e = m_data[ptr];
+                ptr = (int) ((ptr + 1) & mask); // the next index
+                e = data[ptr];
                 if (e.getOsmId() == key) {
                     if (result.containsKey(len)) {
                         result.put(len, result.get(len) + 1);

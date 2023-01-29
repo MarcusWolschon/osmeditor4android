@@ -62,6 +62,7 @@ import de.blau.android.osm.PostMergeHandler;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.Server;
+import de.blau.android.osm.Storage;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.ViewBox;
@@ -464,7 +465,8 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
 
         // first find all nodes that we need to display
         nodesResult.clear();
-        List<Node> paintNodes = delegator.getCurrentStorage().getNodes(viewBox, nodesResult);
+        final Storage currentStorage = delegator.getCurrentStorage();
+        List<Node> paintNodes = currentStorage.getNodes(viewBox, nodesResult);
 
         // the following should guarantee that if the selected node is off screen but the handle not, the handle gets
         // drawn, this isn't perfect because touch areas of other nodes just outside the screen still won't get drawn
@@ -487,7 +489,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
 
         // Paint all ways
         waysResult.clear();
-        List<Way> ways = delegator.getCurrentStorage().getWays(viewBox, waysResult);
+        List<Way> ways = currentStorage.getWays(viewBox, waysResult);
 
         List<Way> waysToDraw = ways;
         if (filterMode) {
