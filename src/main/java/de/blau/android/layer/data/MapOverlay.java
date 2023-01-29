@@ -462,7 +462,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
         int screenWidth = map.getWidth();
         int screenHeight = map.getHeight();
         ViewBox viewBox = map.getViewBox();
-        
+
         // first find all nodes and ways that we need to display
         nodesResult.clear();
         waysResult.clear();
@@ -604,11 +604,9 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
      * @return true if the coordinates are in one of the downloaded areas
      */
     private boolean isInDownload(int lonE7, int latE7) {
-        if (downloadedBoxes != null) {
-            for (BoundingBox bb : downloadedBoxes) {
-                if (bb.isIn(lonE7, latE7)) {
-                    return true;
-                }
+        for (BoundingBox bb : downloadedBoxes) {
+            if (bb.isIn(lonE7, latE7)) {
+                return true;
             }
         }
         return false;
