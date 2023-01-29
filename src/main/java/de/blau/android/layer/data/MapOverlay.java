@@ -279,11 +279,11 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
 
     private float[][] coord = null;
 
-    private FloatPrimitiveList points          = new FloatPrimitiveList(); // allocate these just once
-    private float[]            offsettedCasing = new float[100];
-    private List<Node>         nodesResult     = new ArrayList<>(1000);
-    private List<Way>          waysResult      = new ArrayList<>(1000);
-    private List<BoundingBox>  downloadedBoxes = new ArrayList<>();
+    private final FloatPrimitiveList points          = new FloatPrimitiveList(); // allocate these just once
+    private float[]                  offsettedCasing = new float[100];
+    private final List<Node>         nodesResult     = new ArrayList<>(1000);
+    private final List<Way>          waysResult      = new ArrayList<>(1000);
+    private final List<BoundingBox>  downloadedBoxes = new ArrayList<>();
 
     /**
      * Stuff for multipolygon support Instantiate these objects just once
@@ -457,6 +457,8 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
      */
     private void paintOsmData(@NonNull final Canvas canvas) {
 
+        boolean hwAccelarationWorkaround = Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT && canvas.isHardwareAccelerated();
+
         int screenWidth = map.getWidth();
         int screenHeight = map.getHeight();
         ViewBox viewBox = map.getViewBox();
@@ -544,8 +546,6 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
         }
 
         // Paint nodes
-        boolean hwAccelarationWorkaround = Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT && canvas.isHardwareAccelerated();
-
         int coordSize = 0;
         float r = wayTolerancePaint.getStrokeWidth() / 2;
         float r2 = r * r;
@@ -643,7 +643,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
             try {
                 layer1 = Integer.parseInt(layer1Str);
             } catch (NumberFormatException e) {
-                // FIXME should validate here
+                // ignore
             }
         }
         String layer2Str = w2.getTagWithKey(Tags.KEY_LAYER);
@@ -651,7 +651,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
             try {
                 layer2 = Integer.parseInt(layer2Str);
             } catch (NumberFormatException e) {
-                // FIXME should validate here
+                // ignore
             }
         }
         int result = layer2 == layer1 ? 0 : layer2 > layer1 ? -1 : +1;
@@ -681,9 +681,9 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
             return;
         }
 
-        // remove any non-Way non-downloaded members
         waysOnly.clear();
 
+        // remove any non-Way non-downloaded members
         for (RelationMember m : rel.getMembers()) {
             if (m.downloaded() && Way.NAME.equals(m.getType())) {
                 waysOnly.add(m);
@@ -1362,7 +1362,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
             if (casingStyle != null) {
                 if (casingStyle.getOffset() != 0f) {
                     if (offsettedCasing.length < pointsSize) {
-                        offsettedCasing = new float[pointsSize];
+                        offsettedCasing = new float[pointsSize * 2];
                     }
                     Geometry.offset(linePoints, offsettedCasing, pointsSize, closed, -casingStyle.getOffset());
                     setupPath(offsettedCasing, pointsSize, casingPath);
@@ -1382,31 +1382,31 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
                     return;
                 }
                 // calc centroid
-                double A = 0;
-                double Y = 0;
-                double X = 0;
+                double area = 0;
+                double y = 0;
+                double x = 0;
                 double x1 = linePoints[0];
                 double y1 = linePoints[1];
                 for (int i = 0; i < vs; i = i + 2) {
                     double x2 = linePoints[(i + 2) % vs];
                     double y2 = linePoints[(i + 3) % vs];
                     double d = x1 * y2 - x2 * y1;
-                    A = A + d;
-                    X = X + (x1 + x2) * d;
-                    Y = Y + (y1 + y2) * d;
+                    area = area + d;
+                    x = x + (x1 + x2) * d;
+                    y = y + (y1 + y2) * d;
                     x1 = x2;
                     y1 = y2;
                 }
-                if (Util.notZero(A)) {
-                    Y = Y / (3 * A); // NOSONAR nonZero tests for zero
-                    X = X / (3 * A); // NOSONAR nonZero tests for zero
+                if (Util.notZero(area)) {
+                    y = y / (3 * area); // NOSONAR nonZero tests for zero
+                    x = x / (3 * area); // NOSONAR nonZero tests for zero
                     boolean iconDrawn = false;
                     if (tmpPresets != null) {
-                        iconDrawn = paintNodeIcon(way, canvas, (float) X, (float) Y, isSelected ? nodeFeatureStyleTaggedSelected : null);
+                        iconDrawn = paintNodeIcon(way, canvas, (float) x, (float) y, isSelected ? nodeFeatureStyleTaggedSelected : null);
                         if (!iconDrawn) {
                             String houseNumber = way.getTagWithKey(Tags.KEY_ADDR_HOUSENUMBER);
                             if (houseNumber != null && !"".equals(houseNumber)) { // draw house-numbers
-                                paintHouseNumber((float) X, (float) Y, canvas, isSelected ? nodeFeatureStyleThinSelected : nodeFeatureStyleThin,
+                                paintHouseNumber((float) x, (float) y, canvas, isSelected ? nodeFeatureStyleThinSelected : nodeFeatureStyleThin,
                                         labelFontStyleSmall, houseNumber);
                                 return;
                             }
@@ -1414,7 +1414,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
                     }
                     if (zoomLevel >= showIconLabelZoomLimit && style.getLabelKey() != null) {
                         Paint p = nodeFeatureStyleTaggedSelected.getPaint();
-                        paintLabel((float) X, (float) Y, canvas, labelFontStyle, way, iconDrawn ? p.getStrokeWidth() : 0, iconDrawn);
+                        paintLabel((float) x, (float) y, canvas, labelFontStyle, way, iconDrawn ? p.getStrokeWidth() : 0, iconDrawn);
                     }
                 }
             }
@@ -1496,7 +1496,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
         int pointsSize = points.size();
 
         // draw the way itself
-        // this doesn't work properly with HW acceleration: canvas.drawLines(linePoints, fp.getPaint());
+        // this doesn't work properly with HW acceleration: canvas.drawLines(linePoints, fp.getPaint()); NOSONAR
         if (pointsSize > 2) {
             path.reset();
             path.moveTo(linePoints[0], linePoints[1]);
@@ -1519,11 +1519,11 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
             float lastY = 0;
             for (long l : handles.values()) {
                 // draw handle
-                float X = Float.intBitsToFloat((int) (l >>> 32));
-                float Y = Float.intBitsToFloat((int) (l));
-                canvas.translate(X - lastX, Y - lastY);
-                lastX = X;
-                lastY = Y;
+                float x = Float.intBitsToFloat((int) (l >>> 32));
+                float y = Float.intBitsToFloat((int) (l));
+                canvas.translate(x - lastX, y - lastY);
+                lastX = x;
+                lastY = y;
                 canvas.drawPath(DataStyle.getCurrent().getXPath(), handlePaint);
             }
             canvas.restore();
