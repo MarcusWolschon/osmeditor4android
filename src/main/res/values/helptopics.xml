@@ -24,6 +24,7 @@
     <string name="help_propertyeditor">Property editor</string>
     <string name="help_preferences">Preferences</string>
     <string name="help_advanced_preferences">Advanced preferences</string>
+    <string name="help_custom_imagery">Custom imagery</string>
     <string name="help_presets">Presets</string>
     <string name="help_conflictresolution">Conflict resolution</string>
     <string name="help_gpssources">GPS sources</string>
@@ -73,6 +74,7 @@
         <item>@string/help_pathcreation</item>
         <item>@string/help_preferences</item>
         <item>@string/help_advanced_preferences</item>
+        <item>@string/help_custom_imagery</item>
     	<item>@string/help_presets</item>	
     	<item>@string/help_aligningbackgroundiamgery</item>
     	<item>@string/help_conflictresolution</item>
@@ -83,6 +85,7 @@
     	<item>@string/help_opening_hours</item>
         <item>@string/help_newnoteselection</item>
         <item>@string/help_voice_commands</item>
+        <item>@string/help_add_route_segment</item>
     	<item>@string/help_upgrade</item>
         <item>@string/help_upgrade_180</item>
         <item>@string/help_upgrade_171</item>
@@ -124,6 +127,7 @@
         <item>Adding way nodes</item>
         <item>Preferences</item>
         <item>Advanced preferences</item>
+        <item>Custom imagery</item>
     	<item>Presets</item>	
     	<item>Aligning background imagery</item>
     	<item>Conflict resolution</item>
@@ -134,6 +138,7 @@
     	<item>Opening hours</item>
         <item>New Note selected</item>
         <item>Voice commands</item>
+        <item>Add route segment</item>
         <item>18.1.0 Release notes</item>
         <item>18.0.0 Release notes</item>
         <item>17.1.0 Release notes</item>
