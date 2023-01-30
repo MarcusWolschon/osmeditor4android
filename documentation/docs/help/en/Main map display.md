@@ -131,7 +131,7 @@ To reposition or remove the "on-map" GPS button use the "Follow position button 
  * **Add bookmark...** - set a bookmark for the current viewbox
  * **Bookmarks...** - show current viewbox bookmarks
  * **Go to the nearest todo...** - go to the nearest open todo. If you are following the GPS position or it is in the current view this is relative to that position, otherwise it is relative to the center of the current view. If there are more than one active todo list you will be prompted to select one.
- * **Go to current location** - go to and zoom in to the current position. If location updates are not turned on, this will try to get a location without enabling continuous updates. Latitude, longitude, and height over the ellipsoid are shown, and there are menu choices to save a new node there containing the height over the ellipsoid. There is also a choice to share the position.
+ * **Go to current location** - go to and zoom in to the current position. If location updates are not turned on, this will try to get a location without enabling continuous updates. Latitude, longitude, and height over the ellipsoid are shown, and you can create a new node at the coordinates including the height over the ellipsoid. You can also choose to share the position.
  * **Go to coordinates...** - go to and zoom in to coordinates (latitude longitude) or an open location code
     Supported formats are the following, with dots or optionally a comma as the decimal marker, variations on the units also accepted e.g. °, d, º, g, o.   
      * `43.63871944444445`
