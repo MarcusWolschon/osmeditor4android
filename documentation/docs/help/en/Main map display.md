@@ -80,8 +80,8 @@ The layer dialog supports the following actions on the layer entries:
     * __Add GeoJSON layer__ Loads a GeoJSON layer from a file in to a new GeoJSON layer.
     * __Add background imagery layer__ Adds a tile based imagery layer from the internal configuration, which can be from ELI or JOSM, or a custom imagery layer.
     * __Add overlay imagery layer__ As above but assumes that the layer is partially transparent.
-    * __Add layer from GPX file__ Adds a layer from a GPS file on device.
-    * __Download GPS track__ Download a GPX file from the OSM API for the user and create a layer from it. Note that only GPX tracks with their starting point in the area currently displayed will be available for selection, this is a limitation of the current OSM API.
+    * __Add layer from GPX file__ Adds a layer from a GPX file on device.
+    * __Download GPX track__ Download a GPX file from the OSM API for the user and create a layer from it. Note that only GPX tracks with their starting point in the area currently displayed will be available for selection, this is a limitation of the current OSM API.
     * __Add custom imagery__ Adds a custom imagery configuration, this can then be used just 
       as any tile based imagery source, the entries can be managed in the [preferences](Preferences.md).
     * __Add layer from MVT style__ Load a Mapbox-GL style file that has a "sources" section and create a layer. 
