@@ -5,8 +5,7 @@ icon: "/vespucci_logo_small.png"
 
 # Welcome to Vespucci 
 
-[<img src="badge_f-droid.png" style="margin-top:30px;" height="150" width="502" alt="F-Droid">](https://f-droid.org/en/packages/de.blau.android/)
-[<img src="badge_google-play.png" style="margin-top:30px;margin-left:20px;" height="150" width="504" alt="Google Play">](https://play.google.com/store/apps/details?id=de.blau.android)
+[<img src="badge_google-play.png" style="margin-top:30px;" height="150" width="504" alt="Google Play">](https://play.google.com/store/apps/details?id=de.blau.android)
 [<img src="badge_amazon-appstore.png" style="margin-top:30px;margin-left:20px;" height="150" width="512" alt="Amazon AppStore">](https://www.amazon.com/Simon-Poole-vespucci/dp/B00P71C3AW)
 
 <img src="180px-Amerigo_Vespucci.jpg" style="padding-left:20px;float:right">
@@ -18,7 +17,7 @@ Vespucci has been tested and is known to work on a wide range of devices, from s
 
 #### Obtaining Vespucci
 
- * From [F-Droid](https://f-droid.org/app/de.blau.android), [Google's Play](https://play.google.com/store/apps/details?id=de.blau.android) and [Amazon](https://www.amazon.com/Simon-Poole-vespucci/dp/B00P71C3AW)
+ * From [Google's Play](https://play.google.com/store/apps/details?id=de.blau.android) and [Amazon](https://www.amazon.com/Simon-Poole-vespucci/dp/B00P71C3AW)
  * Release and beta APKs from our [GitHub repository](https://github.com/MarcusWolschon/osmeditor4android/releases)
  * Source code and repository [on GitHub](https://github.com/MarcusWolschon/osmeditor4android)
 
