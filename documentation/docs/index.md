@@ -44,7 +44,7 @@ The Vespucci team doesn't have a formal road map, however you can see what we ha
 
 If you have suggestions for enhancements or are experiencing a problem, please open an [issue on GitHub](https://github.com/MarcusWolschon/osmeditor4android/issues). Please check [known issues](https://github.com/MarcusWolschon/osmeditor4android/issues?q=is%3Aopen+is%3Aissue+label%3A%22Known+issue%22) for the current release first.
 
-If you're interested in this project, you're welcome to help improving it. We need UI designers, translators, and of course Java programmers.
+If you're interested in this project, you're welcome to help improving it. We need [UI designers](https://github.com/MarcusWolschon/osmeditor4android/labels/UI), [translators](https://github.com/MarcusWolschon/osmeditor4android/blob/master/TRANSLATIONS.md), and of course Java programmers.
 
 #### Legal 
 
