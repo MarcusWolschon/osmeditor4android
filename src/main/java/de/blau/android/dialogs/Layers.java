@@ -864,8 +864,8 @@ public class Layers extends AbstractConfigurationDialog {
                 });
             }
             if (layer instanceof de.blau.android.layer.gpx.MapOverlay) {
-                boolean recordingLayer = !activity.getString(R.string.layer_gpx_recording).equals(layer.getContentId());
-                if (recordingLayer) {
+                boolean recordingLayer = activity.getString(R.string.layer_gpx_recording).equals(layer.getContentId());
+                if (!recordingLayer) {
                     MenuItem item = menu.add(R.string.menu_gps_goto_start);
                     item.setOnMenuItemClickListener(unused -> {
                         if (layer != null && activity instanceof Main) {
@@ -931,10 +931,11 @@ public class Layers extends AbstractConfigurationDialog {
                 if (activity instanceof Main) {
                     item.setEnabled(((Main) activity).isStoragePermissionGranted());
                 }
-                if (recordingLayer) {
+                if (!recordingLayer) {
                     item = menu.add(R.string.layer_start_playback);
                     item.setOnMenuItemClickListener(unused -> {
-                        if (layer != null) {
+                        if (layer != null && (activity instanceof Main)) {
+                            ((Main) activity).setFollowGPS(true);
                             ((de.blau.android.layer.gpx.MapOverlay) layer).startPlayback();
                         }
                         return true;
