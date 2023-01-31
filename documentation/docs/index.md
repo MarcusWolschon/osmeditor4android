@@ -16,7 +16,7 @@ Editing is supported by rich, extensible and searchable presets based on the JOS
 
 Vespucci has been tested and is known to work on a wide range of devices, from small phones, tablets to more exotic or unusual hardware, for example on an Amazon Fire TV Stick. Vespucci currently works on all Android versions since 4.1. It can be used in a Google-free environment.
 
-#### Obtaining Vespucci:
+#### Obtaining Vespucci
 
  * From [Google's Play Store](https://play.google.com/store/apps/details?id=de.blau.android) and from [Amazon](http://www.amazon.com/Simon-Poole-vespucci/dp/B00P71C3AW/ref=sr_1_1?s=mobile-apps&ie=UTF8&qid=1447617332&sr=1-1&keywords=vespucci)
  * Release and beta APKs from our [GitHub repository](https://github.com/MarcusWolschon/osmeditor4android/releases)
@@ -24,10 +24,10 @@ Vespucci has been tested and is known to work on a wide range of devices, from s
 
 #### Vespucci on Social Media
 
- * [Follow us on Twitter](https://twitter.com/vespucci_editor) or [on Mastadon](https://en.osm.town/@vespucci_editor)
- * [Vespucci on OpenHub](https://www.openhub.net/p/osmeditor4android)
+ * Follow us [on Twitter](https://twitter.com/vespucci_editor) or [on Mastodon](https://en.osm.town/@vespucci_editor)
+ * Vespucci [on OpenHub](https://www.openhub.net/p/osmeditor4android)
  
-#### Support Vespuccis Development
+#### Support Vespucci's Development
 
 Besides the large amount of time spent on Vespucci and related projects, there are numerous direct costs, for example for server rental, development infrastructure and the like. You can support this with donations via <script src="https://liberapay.com/SimonPoole/widgets/button.js"></script>
 <noscript><a href="https://liberapay.com/SimonPoole/donate"><img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg"></a></noscript>   
