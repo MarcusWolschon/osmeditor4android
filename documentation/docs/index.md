@@ -3,31 +3,30 @@ notoc: true
 icon: "/vespucci_logo_small.png"
 ---
 
-<img src="180px-Amerigo_Vespucci.jpg" style="padding-top:30px;padding-left:20px;float:right">
-[<img src="badge-amazon-appstore.png" style="padding-top:30px;padding-left:20px;float:right">](http://www.amazon.com/Simon-Poole-vespucci/dp/B00P71C3AW)
-[<img src="badge-google-play.png" style="padding-top:30px;padding-left:20px;float:right">](https://play.google.com/store/apps/details?id=de.blau.android)
-
 # Welcome to Vespucci 
 
-<br></br>
+[<img src="badge_google-play.png" style="margin-top:30px;" height="150" width="504" alt="Google Play">](https://play.google.com/store/apps/details?id=de.blau.android)
+[<img src="badge_amazon-appstore.png" style="margin-top:30px;margin-left:20px;" height="150" width="512" alt="Amazon AppStore">](https://www.amazon.com/Simon-Poole-vespucci/dp/B00P71C3AW)
+
+<img src="180px-Amerigo_Vespucci.jpg" style="padding-left:20px;float:right">
 Vespucci is the first [OpenStreetMap](//openstreetmap.org) editor for Android, continuously improved and developed since 2009. It supports the full OpenStreetMap data model including lots of less known quirks and can be used, if necessary, completely offline. 
 
 Editing is supported by rich, extensible and searchable presets based on the JOSM system, compatible 3rd party presets can be downloaded directly to your device. Fast "on the go" surveying is easy with address prediction and name based point-of-interest creation.
 
 Vespucci has been tested and is known to work on a wide range of devices, from small phones, tablets to more exotic or unusual hardware, for example on an Amazon Fire TV Stick. Vespucci currently works on all Android versions since 4.1. It can be used in a Google-free environment.
 
-#### Obtaining Vespucci:
+#### Obtaining Vespucci
 
- * From [Google's Play Store](https://play.google.com/store/apps/details?id=de.blau.android) and from [Amazon](http://www.amazon.com/Simon-Poole-vespucci/dp/B00P71C3AW/ref=sr_1_1?s=mobile-apps&ie=UTF8&qid=1447617332&sr=1-1&keywords=vespucci)
+ * From [Google's Play](https://play.google.com/store/apps/details?id=de.blau.android) and [Amazon](https://www.amazon.com/Simon-Poole-vespucci/dp/B00P71C3AW)
  * Release and beta APKs from our [GitHub repository](https://github.com/MarcusWolschon/osmeditor4android/releases)
- * [Source code and repository on GitHub](https://github.com/MarcusWolschon/osmeditor4android)
+ * Source code and repository [on GitHub](https://github.com/MarcusWolschon/osmeditor4android)
 
 #### Vespucci on Social Media
 
- * [Follow us on Twitter](https://twitter.com/vespucci_editor) or [on Mastadon](https://en.osm.town/@vespucci_editor)
- * [Vespucci on OpenHub](https://www.openhub.net/p/osmeditor4android)
+ * Follow us [on Twitter](https://twitter.com/vespucci_editor) or [on Mastodon](https://en.osm.town/@vespucci_editor)
+ * Vespucci [on OpenHub](https://www.openhub.net/p/osmeditor4android)
  
-#### Support Vespuccis Development
+#### Support Vespucci's Development
 
 Besides the large amount of time spent on Vespucci and related projects, there are numerous direct costs, for example for server rental, development infrastructure and the like. You can support this with donations via <script src="https://liberapay.com/SimonPoole/widgets/button.js"></script>
 <noscript><a href="https://liberapay.com/SimonPoole/donate"><img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg"></a></noscript>   
@@ -44,7 +43,7 @@ The Vespucci team doesn't have a formal road map, however you can see what we ha
 
 If you have suggestions for enhancements or are experiencing a problem, please open an [issue on GitHub](https://github.com/MarcusWolschon/osmeditor4android/issues). Please check [known issues](https://github.com/MarcusWolschon/osmeditor4android/issues?q=is%3Aopen+is%3Aissue+label%3A%22Known+issue%22) for the current release first.
 
-If you're interested in this project, you're welcome to help improving it. We need UI designers, translators, and of course Java programmers.
+If you're interested in this project, you're welcome to help improving it. We need [UI designers](https://github.com/MarcusWolschon/osmeditor4android/labels/UI), [translators](https://github.com/MarcusWolschon/osmeditor4android/blob/master/TRANSLATIONS.md), and of course Java programmers.
 
 #### Legal 
 
