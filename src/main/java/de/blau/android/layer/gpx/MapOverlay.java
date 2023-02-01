@@ -578,8 +578,9 @@ public class MapOverlay extends StyleableLayer
                     tracker.setGpsLocation(loc);
                     sleep();
                 }
+            } else {
+                Log.e(DEBUG_TAG, "Null track");
             }
-
             return null;
         }
 

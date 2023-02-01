@@ -198,7 +198,6 @@ public class GpxTest {
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.layer_add_gpx), true, false));
         TestUtils.selectFile(device, main, null, filename, true);
 
-        TestUtils.textGone(device, "Imported", 10000);
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.okay), true, false));
         recordedTrack = null;
         for (MapViewLayer l : main.getMap().getLayers()) {
@@ -214,7 +213,6 @@ public class GpxTest {
         } catch (IOException e) {
             fail(e.getMessage());
         }
-
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.Done), true, false));
         // goto start while we are here
         menuButton = TestUtils.getLayerButton(device, filename, LayerDialogTest.MENU_BUTTON);
