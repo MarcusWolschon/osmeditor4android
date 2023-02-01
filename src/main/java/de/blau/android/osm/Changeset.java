@@ -25,15 +25,18 @@ import de.blau.android.util.LocaleUtils;
  *
  */
 public class Changeset {
-    private static final String DEBUG_TAG = "Changeset";
+    private static final String DEBUG_TAG = Changeset.class.getSimpleName();
 
-    private static final String TRUE      = "true";
-    private static final String OPEN_ATTR = "open";
+    private static final String TRUE               = "true";
+    private static final String ID_ATTR            = "id";
+    private static final String OPEN_ATTR          = "open";
+    private static final String CHANGES_COUNT_ATTR = "changes_count";
 
-    long                          osmId = -1;
-    boolean                       open  = false;
-    String                        generator;
-    final TreeMap<String, String> tags;
+    private long                          osmId = -1;
+    private boolean                       open  = false;
+    private String                        generator;
+    private int                           changes;
+    private final TreeMap<String, String> tags;
 
     /**
      * Default constructor
@@ -57,10 +60,10 @@ public class Changeset {
             @Nullable Map<String, String> extraTags) {
         this();
         this.generator = generator;
-        tags.put(Tags.KEY_CREATED_BY, generator);
+        getTags().put(Tags.KEY_CREATED_BY, generator);
         putTag(Tags.KEY_COMMENT, comment);
         putTag(Tags.KEY_SOURCE, source);
-        tags.put(Tags.KEY_LOCALE, LocaleUtils.toBcp47Language(Locale.getDefault()));
+        getTags().put(Tags.KEY_LOCALE, LocaleUtils.toBcp47Language(Locale.getDefault()));
         putTag(Tags.KEY_IMAGERY_USED, imagery);
         if (extraTags != null) {
             for (Entry<String, String> t : extraTags.entrySet()) {
@@ -77,8 +80,45 @@ public class Changeset {
      */
     private void putTag(@Nullable final String key, @Nullable final String value) {
         if (key != null && !"".equals(key) && value != null && !"".equals(value)) {
-            tags.put(key, value);
+            getTags().put(key, value);
         }
+    }
+
+    /**
+     * Get the changeset id
+     * 
+     * @return the osmId
+     */
+    long getOsmId() {
+        return osmId;
+    }
+
+    /**
+     * Check if this changeset is open
+     * 
+     * @return true is open
+     */
+    boolean isOpen() {
+        return open;
+    }
+
+    /**
+     * Retrieve the number of changes in this changeset
+     * 
+     * @return the number of changes
+     */
+    int getChanges() {
+        return changes;
+    }
+
+    /**
+     * Get the changeset tags
+     * 
+     * @return the tags
+     */
+    @NonNull
+    TreeMap<String, String> getTags() {
+        return tags;
     }
 
     /**
@@ -92,11 +132,9 @@ public class Changeset {
      */
     @NonNull
     static Changeset parse(@NonNull XmlPullParser parser, @NonNull InputStream is) throws XmlPullParserException, IOException {
-
         parser.setInput(is, null);
         int eventType;
         Changeset result = new Changeset();
-
         while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
             String tagName = parser.getName();
             if (eventType == XmlPullParser.START_TAG) {
@@ -104,7 +142,9 @@ public class Changeset {
                 case OsmXml.CHANGESET:
                     result.open = TRUE.equals(parser.getAttributeValue(null, OPEN_ATTR));
                     try {
-                        result.osmId = Long.parseLong(parser.getAttributeValue(null, "id"));
+                        result.osmId = Long.parseLong(parser.getAttributeValue(null, ID_ATTR));
+                        String changesStr = parser.getAttributeValue(null, CHANGES_COUNT_ATTR);
+                        result.changes = Integer.parseInt(changesStr);
                     } catch (NumberFormatException nex) {
                         throw new XmlPullParserException(nex.getMessage());
                     }
@@ -112,12 +152,12 @@ public class Changeset {
                 case OsmElement.TAG:
                     String k = parser.getAttributeValue(null, OsmElement.TAG_KEY_ATTR);
                     String v = parser.getAttributeValue(null, OsmElement.TAG_VALUE_ATTR);
-                    result.tags.put(k, v);
+                    result.getTags().put(k, v);
                     break;
                 default:
                     // nothing
                 }
-                Log.d(DEBUG_TAG, "#" + result.osmId + " is " + (result.open ? "open" : "closed"));
+                Log.d(DEBUG_TAG, "#" + result.osmId + " is " + (result.isOpen() ? "open" : "closed"));
             }
         }
         return result;
@@ -134,7 +174,7 @@ public class Changeset {
             public void toXml(XmlSerializer serializer, Long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
                 Server.startXml(serializer, generator);
                 serializer.startTag("", OsmXml.CHANGESET);
-                for (Entry<String, String> t : tags.entrySet()) {
+                for (Entry<String, String> t : getTags().entrySet()) {
                     addTag(serializer, t.getKey(), t.getValue());
                 }
                 serializer.endTag("", OsmXml.CHANGESET);
