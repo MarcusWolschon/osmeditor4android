@@ -23,6 +23,7 @@ public class Capabilities {
     private static final String DEBUG_TAG = Capabilities.class.getSimpleName();
 
     public enum Status {
+        // TODO add unknown status for when we haven't determined the status yet
         ONLINE, READONLY, OFFLINE
     }
 
@@ -71,6 +72,7 @@ public class Capabilities {
      * @param s status string
      * @return the Status
      */
+    @NonNull
     public static Status stringToStatus(String s) {
         if (s == null) {
             return Status.OFFLINE;
@@ -90,6 +92,7 @@ public class Capabilities {
      * 
      * @return a List of regexp Strings
      */
+    @NonNull
     private static List<String> defaultBlacklist() {
         List<String> blacklist = new ArrayList<>();
         blacklist.add(".*\\.google(apis)?\\..*/(vt|kh)[\\?/].*([xyz]=.*){3}.*");
@@ -103,14 +106,11 @@ public class Capabilities {
      * 
      * @return a Capabilities object
      */
+    @NonNull
     public static Capabilities getDefault() {
         Capabilities d = new Capabilities();
         d.imageryBlacklist.addAll(defaultBlacklist());
-        // this is wishful thinking
-        // TODO add unknown status
-        d.setDbStatus(Status.ONLINE);
-        d.setApiStatus(Status.ONLINE);
-        d.setGpxStatus(Status.ONLINE);
+        d.setStatus(Status.ONLINE);
         return d;
     }
 
@@ -119,14 +119,11 @@ public class Capabilities {
      * 
      * @return a Capabilities object
      */
+    @NonNull
     public static Capabilities getReadOnlyDefault() {
         Capabilities d = new Capabilities();
         d.imageryBlacklist.addAll(defaultBlacklist());
-        // this is wishful thinking
-        // TODO add unknown status
-        d.setDbStatus(Status.READONLY);
-        d.setApiStatus(Status.READONLY);
-        d.setGpxStatus(Status.READONLY);
+        d.setStatus(Status.READONLY);
         return d;
     }
 
@@ -135,6 +132,7 @@ public class Capabilities {
      * 
      * @return a List of regexp Strings
      */
+    @NonNull
     public List<String> getImageryBlacklist() {
         return imageryBlacklist;
     }
@@ -144,13 +142,14 @@ public class Capabilities {
      * 
      * @param imageryBlacklist a List of regexp Strings
      */
-    public void setImageryBlacklist(List<String> imageryBlacklist) {
+    public void setImageryBlacklist(@NonNull List<String> imageryBlacklist) {
         this.imageryBlacklist = imageryBlacklist;
     }
 
     /**
      * @return the minVersion
      */
+    @NonNull
     public String getMinVersion() {
         return minVersion;
     }
@@ -158,13 +157,14 @@ public class Capabilities {
     /**
      * @param minVersion the minVersion to set
      */
-    public void setMinVersion(String minVersion) {
+    public void setMinVersion(@NonNull String minVersion) {
         this.minVersion = minVersion;
     }
 
     /**
      * @return the maxVersion
      */
+    @NonNull
     public String getMaxVersion() {
         return maxVersion;
     }
@@ -172,7 +172,7 @@ public class Capabilities {
     /**
      * @param maxVersion the maxVersion to set
      */
-    public void setMaxVersion(String maxVersion) {
+    public void setMaxVersion(@NonNull String maxVersion) {
         this.maxVersion = maxVersion;
     }
 
@@ -305,8 +305,11 @@ public class Capabilities {
     }
 
     /**
+     * Get the DB status
+     * 
      * @return the dbStatus
      */
+    @NonNull
     public Status getDbStatus() {
         return dbStatus;
     }
@@ -314,13 +317,16 @@ public class Capabilities {
     /**
      * @param dbStatus the dbStatus to set
      */
-    public void setDbStatus(Status dbStatus) {
+    public void setDbStatus(@NonNull Status dbStatus) {
         this.dbStatus = dbStatus;
     }
 
     /**
+     * Get the API status
+     * 
      * @return the apiStatus
      */
+    @NonNull
     public Status getApiStatus() {
         return apiStatus;
     }
@@ -328,13 +334,16 @@ public class Capabilities {
     /**
      * @param apiStatus the apiStatus to set
      */
-    public void setApiStatus(Status apiStatus) {
+    public void setApiStatus(@NonNull Status apiStatus) {
         this.apiStatus = apiStatus;
     }
 
     /**
+     * Get the GPX API status
+     * 
      * @return the gpxStatus
      */
+    @NonNull
     public Status getGpxStatus() {
         return gpxStatus;
     }
@@ -342,8 +351,19 @@ public class Capabilities {
     /**
      * @param gpxStatus the gpxStatus to set
      */
-    public void setGpxStatus(Status gpxStatus) {
+    public void setGpxStatus(@NonNull Status gpxStatus) {
         this.gpxStatus = gpxStatus;
+    }
+
+    /**
+     * Set all server status values to the same
+     * 
+     * @param status the status to set
+     */
+    private void setStatus(@NonNull Status status) {
+        this.dbStatus = status;
+        this.apiStatus = status;
+        this.gpxStatus = status;
     }
 
     /**

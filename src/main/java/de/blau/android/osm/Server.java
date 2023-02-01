@@ -876,7 +876,7 @@ public class Server {
 
         if (changesetId != -1) { // potentially still open, check if really the case
             Changeset cs = getChangeset(changesetId);
-            if (cs != null && cs.open) {
+            if (cs != null && cs.isOpen()) {
                 if (closeOpenChangeset) {
                     try {
                         closeChangeset();

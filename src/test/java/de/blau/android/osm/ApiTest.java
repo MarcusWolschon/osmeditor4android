@@ -437,9 +437,10 @@ public class ApiTest {
         final Server s = new Server(ApplicationProvider.getApplicationContext(), prefDB.getCurrentAPI(), GENERATOR_NAME);
         Changeset cs = s.getChangeset(1234567);
         assertNotNull(cs);
-        assertEquals(120631739L, cs.osmId);
-        assertNotNull(cs.tags);
-        assertEquals("swisstopo SWISSIMAGE;Mapillary Images;KartaView Images", cs.tags.get("imagery_used"));
+        assertEquals(120631739L, cs.getOsmId());
+        assertEquals(21, cs.getChanges());
+        assertNotNull(cs.getTags());
+        assertEquals("swisstopo SWISSIMAGE;Mapillary Images;KartaView Images", cs.getTags().get("imagery_used"));
     }
 
     /**
@@ -452,9 +453,9 @@ public class ApiTest {
         try {
             Changeset cs = s.updateChangeset(1234567, "ignored", "ignored", "ignored", null);
             assertNotNull(cs);
-            assertEquals(120631739L, cs.osmId);
-            assertNotNull(cs.tags);
-            assertEquals("swisstopo SWISSIMAGE;Mapillary Images;KartaView Images", cs.tags.get("imagery_used"));
+            assertEquals(120631739L, cs.getOsmId());
+            assertNotNull(cs.getTags());
+            assertEquals("swisstopo SWISSIMAGE;Mapillary Images;KartaView Images", cs.getTags().get("imagery_used"));
         } catch (IOException e) {
             fail(e.getMessage());
         }
