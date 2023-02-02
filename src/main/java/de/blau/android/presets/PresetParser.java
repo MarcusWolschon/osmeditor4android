@@ -476,8 +476,6 @@ public class PresetParser {
                         break;
                     }
 
-                    ((PresetComboField) field).setValuesContext(attr.getValue(VALUES_CONTEXT));
-
                     defaultValue = attr.getValue(DEFAULT);
                     if (defaultValue != null) {
                         field.setDefaultValue(defaultValue);
@@ -489,6 +487,12 @@ public class PresetParser {
                     textContext = attr.getValue(TEXT_CONTEXT);
                     if (textContext != null) {
                         field.setTextContext(textContext);
+                    }
+
+                    String valuesContext = attr.getValue(VALUES_CONTEXT);
+                    ((PresetComboField) field).setValuesContext(valuesContext);
+                    if (textContext == null && valuesContext != null) {
+                        field.setTextContext(valuesContext);
                     }
 
                     String sort = attr.getValue(VALUES_SORT);

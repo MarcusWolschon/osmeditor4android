@@ -82,6 +82,8 @@ public class PresetComboField extends PresetField implements PresetFieldJavaScri
         this.setEditable(field.isEditable());
         this.setSortValues(field.getSortValues());
         this.setValuesSearchable(field.getValuesSearchable());
+        this.valueCountKey = field.valueCountKey;
+        this.valuesContext = field.valuesContext;
     }
 
     /**
@@ -89,7 +91,7 @@ public class PresetComboField extends PresetField implements PresetFieldJavaScri
      * 
      * @param field PresetComboField to copy
      */
-    public PresetComboField(PresetComboField field) {
+    public PresetComboField(@NonNull PresetComboField field) {
         super(field);
         this.values = field.values;
         this.multiSelect = field.multiSelect;
@@ -97,6 +99,8 @@ public class PresetComboField extends PresetField implements PresetFieldJavaScri
         this.setEditable(field.isEditable());
         this.setSortValues(field.getSortValues());
         this.setValuesSearchable(field.getValuesSearchable());
+        this.valueCountKey = field.valueCountKey;
+        this.valuesContext = field.valuesContext;
         this.useImages = field.useImages;
     }
 
