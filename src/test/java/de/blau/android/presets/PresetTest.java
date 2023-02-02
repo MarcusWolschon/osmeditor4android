@@ -400,4 +400,17 @@ public class PresetTest {
         assertFalse(path.hasKey("mtb:scale", false));
         assertTrue(path.hasKey("mtb:scale", true));
     }
+    
+    /**
+     * Check that translation contextes are maintained for combos in chunks
+     */
+    @Test
+    public void chunkTranslationContext() {
+        PresetItem p = presets[0].getItemByName("Primary", null);
+        assertNotNull(p);
+        PresetField field = p.getField("bus_bay");
+        assertNotNull(field);
+        assertEquals("bus_bay", field.getTextContext());
+        assertEquals("bus_bay", ((PresetComboField)field).getValuesContext());
+    }
 }
