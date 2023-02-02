@@ -75,7 +75,7 @@ public abstract class PresetField {
      * 
      * @param field PresetField to copy
      */
-    protected PresetField(PresetField field) {
+    protected PresetField(@NonNull PresetField field) {
         this.key = field.key;
         this.hint = field.hint;
         this.defaultValue = field.defaultValue;
