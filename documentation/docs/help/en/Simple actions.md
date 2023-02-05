@@ -51,7 +51,7 @@ If an OSM object has been copied or cut to the clipboard paste it at the tapped 
 
 ### Paste multiple times
 
-If an OSM object has been copied or cut to the clipboard paste it at the tapped position and remain in the same mode allowing to be pasted repeatedly. The mode can then be exited by pressing the back button or the back arrow in the title bar.. This menu item will only be shown if there is something in the clipboard.
+If an OSM object has been copied (not cut) to the clipboard paste it at the tapped position and remain in the same mode allowing to be pasted repeatedly. The mode can then be exited by pressing the back button or the back arrow in the title bar.. This menu item will only be shown if there is something in the clipboard. (Cut items can only be pasted once, as they contain the orignial OSM ids and version.)
 
 ## In Address mode
 
