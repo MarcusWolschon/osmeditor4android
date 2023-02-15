@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +24,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -39,7 +40,6 @@ import de.blau.android.contract.FileExtensions;
 import de.blau.android.contract.MimeTypes;
 import de.blau.android.contract.Schemes;
 import de.blau.android.dialogs.ImageInfo;
-import de.blau.android.osm.OsmXml;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.ImageLoader;
@@ -88,6 +88,7 @@ class MapillaryLoader extends ImageLoader {
         this.ids = ids;
     }
 
+    @SuppressLint("NewApi") // StandardCharsets is desugared for APIs < 19.
     @Override
     public void load(SubsamplingScaleImageView view, String key) {
         File imageFile = new File(cacheDir, key + JPG);
@@ -125,7 +126,7 @@ class MapillaryLoader extends ImageLoader {
                         if (inputStream == null) {
                             throw new IOException("No InputStream");
                         }
-                        JsonElement root = JsonParser.parseReader(new BufferedReader(new InputStreamReader(inputStream, Charset.forName(OsmXml.UTF_8))));
+                        JsonElement root = JsonParser.parseReader(new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8)));
                         if (!root.isJsonObject() || !((JsonObject) root).has(THUMB_2048_URL_FIELD)) {
                             throw new IOException("Unexpected / missing response");
                         }
