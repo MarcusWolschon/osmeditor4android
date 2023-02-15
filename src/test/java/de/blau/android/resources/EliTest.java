@@ -5,19 +5,19 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.Charset;
+import androidx.annotation.NonNull;
+import androidx.test.filters.LargeTest;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 
-import androidx.annotation.NonNull;
-import androidx.test.filters.LargeTest;
-import de.blau.android.osm.OsmXml;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+
 import de.blau.android.resources.eli.EliFeatureCollection;
 import de.blau.android.util.Version;
 
@@ -60,7 +60,7 @@ public class EliTest {
     String stringFromResource(@NonNull String path) {
         StringBuilder sb = new StringBuilder();
         try (InputStream is = getClass().getResourceAsStream(path)) {
-            BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName(OsmXml.UTF_8)));
+            BufferedReader rd = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
             int cp;
             while ((cp = rd.read()) != -1) {
                 sb.append((char) cp);
