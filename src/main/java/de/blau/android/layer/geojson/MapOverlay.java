@@ -1,20 +1,19 @@
 package de.blau.android.layer.geojson;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Serializable;
-import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Paint.FontMetrics;
+import android.graphics.Path;
+import android.net.Uri;
+import android.os.Bundle;
+import android.text.SpannableString;
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentActivity;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -30,18 +29,22 @@ import com.mapbox.geojson.Polygon;
 import com.mapbox.turf.TurfException;
 import com.mapbox.turf.TurfJoins;
 
-import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.Paint.FontMetrics;
-import android.graphics.Path;
-import android.net.Uri;
-import android.os.Bundle;
-import android.text.SpannableString;
-import android.util.Log;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentActivity;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Map;
@@ -57,7 +60,6 @@ import de.blau.android.layer.LayerInfoInterface;
 import de.blau.android.layer.LayerType;
 import de.blau.android.layer.StyleableLayer;
 import de.blau.android.osm.BoundingBox;
-import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.resources.DataStyle;
@@ -461,11 +463,12 @@ public class MapOverlay extends StyleableLayer
      * @return true if successful
      * @throws IOException if reading the InputStream fails
      */
+    @SuppressLint("NewApi") // StandardCharsets is desugared for APIs < 19.
     public boolean loadGeoJsonFile(@NonNull Context ctx, @NonNull InputStream is, boolean fromState) throws IOException {
         boolean successful = false;
         // don't draw while we are loading
         setVisible(false);
-        BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName(OsmXml.UTF_8)));
+        BufferedReader rd = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
         StringBuilder sb = new StringBuilder();
         int cp;
         try {
