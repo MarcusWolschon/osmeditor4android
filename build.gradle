@@ -13,8 +13,8 @@ buildscript {
                 strictly '28.1-jre'
             }
         }
-        
-        classpath 'com.android.tools.build:gradle:7.2.2'
+
+        classpath 'com.android.tools.build:gradle:7.4.1'
         classpath 'ch.poole.gradle:markdown-gradle-plugin:0.2.4'
         classpath 'org.jacoco:org.jacoco.core:0.8.7'
         classpath "ch.poole:preset-utils:0.26.0"
@@ -217,7 +217,8 @@ ext {
 }
     
 android {
-    
+    namespace 'de.blau.android'
+
     defaultConfig {
         versionCode project.getVersionCode()
         versionName "${project.getVersionName()}"
@@ -262,6 +263,8 @@ android {
     }
 
     compileOptions {
+        coreLibraryDesugaringEnabled true
+
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
@@ -289,13 +292,13 @@ android {
         jumboMode = true
         javaMaxHeapSize "4g"
     }
-    
-    lintOptions {
+
+    lint {
         abortOnError true
-        baseline file("lint-baseline.xml")
+        baseline file('lint-baseline.xml')
         checkReleaseBuilds false
     }
-    
+
     sourceSets {
         String commonTestJava = 'src/testCommon/java'
         String commonTestResources = 'src/testCommon/resources'
@@ -540,6 +543,8 @@ ext {
 }
 
 dependencies {
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs_nio:2.0.2'
+
     implementation "ch.acra:acra-http:$acraVersion"
     implementation "ch.acra:acra-dialog:$acraVersion"
     // android support and other libraries
