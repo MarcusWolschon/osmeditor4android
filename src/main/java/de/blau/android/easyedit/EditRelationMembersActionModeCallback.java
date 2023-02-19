@@ -489,8 +489,9 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
                         List<RelationMember> multipolygonMembers = RelationUtils.setMultipolygonRoles(main, newMembers, true);
                         newMembers.clear();
                         newMembers.addAll(multipolygonMembers);
-                        if (outersHaveSameTags(newMembers)) {
-                            moveOuterTags();
+                        Map<String, String> tags = outersHaveSameTags(newMembers);
+                        if (tags != null) {
+                            moveOuterTags(tags);
                             return;
                         } else {
                             Snack.toastTopWarning(main, R.string.toast_outer_rings_differing_tags);
@@ -535,19 +536,24 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
     /**
      * Move tags from the outer members to the multi-polygon relation, asking for confirmation first
      */
-    private void moveOuterTags() {
+    private void moveOuterTags(@NonNull Map<String, String> tags) {
         // create relation first, roles have been set now
         relation = logic.createRelationFromMembers(main, null, newMembers);
-        AlertDialog alertDialog = new AlertDialog.Builder(main).setTitle(R.string.move_outer_tags_title).setMessage(R.string.move_outer_tags_message)
-                .setPositiveButton(R.string.move, (dialog, which) -> {
-                    logic.getUndo().createCheckpoint(main.getString(R.string.undo_action_move_tags));
-                    RelationUtils.moveOuterTags(App.getDelegator(), relation);
-                }).setNeutralButton(R.string.leave_as_is, null).create();
-        alertDialog.setOnDismissListener(dialog -> {
+        final Runnable finishMode = () -> {
             main.performTagEdit(relation, presetPath, null, false);
             main.startSupportActionMode(new RelationSelectionActionModeCallback(manager, relation));
-        });
-        alertDialog.show();
+        };
+        if (!tags.isEmpty()) {
+            AlertDialog alertDialog = new AlertDialog.Builder(main).setTitle(R.string.move_outer_tags_title).setMessage(R.string.move_outer_tags_message)
+                    .setPositiveButton(R.string.move, (dialog, which) -> {
+                        logic.getUndo().createCheckpoint(main.getString(R.string.undo_action_move_tags));
+                        RelationUtils.moveOuterTags(App.getDelegator(), relation);
+                    }).setNeutralButton(R.string.leave_as_is, null).create();
+            alertDialog.setOnDismissListener(dialog -> finishMode.run());
+            alertDialog.show();
+        } else {
+            finishMode.run();
+        }
     }
 
     /**
@@ -584,20 +590,21 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
      * Check if all outer members of a multi-polygon have the same tags
      * 
      * @param members a List of the members
-     * @return true if all outer members have the same tags
+     * @return a map with tags if all outer members have the same tags
      */
-    private boolean outersHaveSameTags(@NonNull List<RelationMember> members) {
+    @Nullable
+    private Map<String, String> outersHaveSameTags(@NonNull List<RelationMember> members) {
         Map<String, String> tags = null;
         for (RelationMember member : members) {
             if (Tags.ROLE_OUTER.equals(member.getRole())) {
                 if (tags == null) {
                     tags = member.downloaded() ? member.getElement().getTags() : null;
                 } else if (member.downloaded() && !tags.equals(member.getElement().getTags())) {
-                    return false;
+                    return null;
                 }
             }
         }
-        return tags != null;
+        return tags;
     }
 
     /**
