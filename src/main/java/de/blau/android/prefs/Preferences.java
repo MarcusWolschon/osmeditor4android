@@ -42,7 +42,7 @@ public class Preferences {
     private final boolean     largeDragArea;
     private final boolean     tagFormEnabled;
     private String            scaleLayer;
-    private final String      mapProfile;
+    private String            mapProfile;
     private final String      followGPSbutton;
     private String            fullscreenMode;
     private final String      mapOrientation;
@@ -179,19 +179,7 @@ public class Preferences {
         closeChangesetOnSave = prefs.getBoolean(r.getString(R.string.config_closeChangesetOnSave_key), true);
         splitActionBarEnabled = prefs.getBoolean(r.getString(R.string.config_splitActionBarEnabled_key), true);
         scaleLayer = prefs.getString(r.getString(R.string.config_scale_key), "SCALE_METRIC");
-        String tempMapProfile = prefs.getString(r.getString(R.string.config_mapProfile_key), null);
-        // check if we actually still have the profile
-        if (DataStyle.getStyle(tempMapProfile) == null) {
-            if (DataStyle.getStyle(DEFAULT_MAP_PROFILE) == null) {
-                Log.w(DEBUG_TAG, "Using builtin default profile instead of " + tempMapProfile + " and " + DEFAULT_MAP_PROFILE);
-                mapProfile = DataStyle.getBuiltinStyleName(); // built-in fall back
-            } else {
-                Log.w(DEBUG_TAG, "Using default profile");
-                mapProfile = DEFAULT_MAP_PROFILE;
-            }
-        } else {
-            mapProfile = tempMapProfile;
-        }
+        mapProfile = prefs.getString(r.getString(R.string.config_mapProfile_key), null);
         gpsSource = prefs.getString(r.getString(R.string.config_gps_source_key), "internal");
         gpsTcpSource = prefs.getString(r.getString(R.string.config_gps_source_tcp_key), "127.0.0.1:1958");
         gpsDistance = getIntPref(R.string.config_gps_distance_key, 2);
@@ -455,11 +443,26 @@ public class Preferences {
     /**
      * Get the current data rendering style
      * 
-     * @return the name of the current data renderign style
+     * @return the name of the current data rendering style
      */
     @NonNull
-    public String getMapProfile() {
+    public String getDataStyle() {
+        // check if we actually still have the profile
+        if (DataStyle.getStyle(mapProfile) == null) {
+            Log.w(DEBUG_TAG, "Style " + mapProfile + " missing, replacing by default");
+            setDataStyle(DataStyle.getStyle(DEFAULT_MAP_PROFILE) == null ? DataStyle.getBuiltinStyleName() : DEFAULT_MAP_PROFILE);
+        }
         return mapProfile;
+    }
+
+    /**
+     * Set the current data rendering style
+     * 
+     * @param dataStyle the name of the current data rendering style
+     */
+    public void setDataStyle(@NonNull String dataStyle) {
+        mapProfile = dataStyle;
+        prefs.edit().putString(r.getString(R.string.config_mapProfile_key), dataStyle).commit();
     }
 
     /**
