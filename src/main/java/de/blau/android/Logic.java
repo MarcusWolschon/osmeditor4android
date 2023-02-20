@@ -354,7 +354,7 @@ public class Logic {
      */
     public void setPrefs(@NonNull final Preferences prefs) {
         this.prefs = prefs;
-        DataStyle.switchTo(prefs.getMapProfile());
+        DataStyle.switchTo(prefs.getDataStyle());
     }
 
     /**
@@ -362,7 +362,7 @@ public class Logic {
      * clears the way cache.
      */
     public void updateStyle() {
-        DataStyle.switchTo(prefs.getMapProfile());
+        DataStyle.switchTo(prefs.getDataStyle());
         DataStyle.updateStrokes(strokeWidth(viewBox.getWidth()));
         DataStyle.setAntiAliasing(prefs.isAntiAliasingEnabled());
         // zap the cached style for all ways
