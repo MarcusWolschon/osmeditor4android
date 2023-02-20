@@ -24,10 +24,12 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -61,7 +63,7 @@ import de.blau.android.util.Util;
  * @author Simon Poole
  *
  */
-public class HelpViewer extends LocaleAwareCompatActivity {
+public class HelpViewer extends LocaleAwareCompatActivity implements OnKeyListener {
     private static final String DEBUG_TAG = HelpViewer.class.getName();
 
     private static final String HTML_SUFFIX = "." + FileExtensions.HTML;
@@ -168,6 +170,7 @@ public class HelpViewer extends LocaleAwareCompatActivity {
         helpSettings.setBuiltInZoomControls(true);
         helpSettings.setDisplayZoomControls(false); // don't display +-
         helpView.setWebViewClient(new HelpViewWebViewClient());
+        helpView.setOnKeyListener(this);
         fl.addView(helpView);
 
         // set up the drawer
@@ -290,6 +293,34 @@ public class HelpViewer extends LocaleAwareCompatActivity {
             }
         }
         return helpFile;
+    }
+
+    @Override
+    public boolean onKey(View v, int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (helpView != null && !helpView.canGoBack()) {
+                onBackPressed();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * potentially do some special stuff for exiting
+     */
+    @Override
+    public void onBackPressed() {
+        Log.d(DEBUG_TAG, "onBackPressed()");
+        synchronized (helpView) {
+            if (helpView != null && helpView.canGoBack()) {
+                // we are displaying the oAuthWebView and somebody might want to
+                // navigate back
+                helpView.goBack();
+                return;
+            }
+        }
+        super.onBackPressed();
     }
 
     @Override
