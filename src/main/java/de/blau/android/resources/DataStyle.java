@@ -1367,7 +1367,7 @@ public final class DataStyle extends DefaultHandler {
         String[] keys = (new TreeMap<>(availableStyles)).keySet().toArray(new String[0]); // sort the list
         int j = 1;
         for (int i = 0; i < res.length; i++) {
-            if (!keys[i].equals(BUILTIN_STYLE_NAME)) {
+            if (!BUILTIN_STYLE_NAME.equals(keys[i])) {
                 res[j] = keys[i];
                 j++;
             }

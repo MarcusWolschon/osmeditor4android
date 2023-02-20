@@ -71,7 +71,7 @@ public class PrefEditorFragment extends ExtendedPreferenceFragment {
                 return true;
             };
             mapProfilePref.setOnPreferenceChangeListener(p);
-            p.onPreferenceChange(mapProfilePref, prefs.getMapProfile());
+            p.onPreferenceChange(mapProfilePref, prefs.getDataStyle());
         }
 
         Preference customLayersPref = getPreferenceScreen().findPreference(r.getString(R.string.config_customlayers_key));
