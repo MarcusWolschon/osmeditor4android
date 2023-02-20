@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
@@ -44,7 +45,7 @@ import de.blau.android.prefs.Preferences;
  * @author simon
  *
  */
-public class DownloadActivity extends FullScreenAppCompatActivity {
+public class DownloadActivity extends FullScreenAppCompatActivity implements OnKeyListener {
 
     private static final String DEBUG_TAG = DownloadActivity.class.getSimpleName();
 
@@ -240,20 +241,21 @@ public class DownloadActivity extends FullScreenAppCompatActivity {
             downloadWebView.getLayoutParams().height = android.view.ViewGroup.LayoutParams.MATCH_PARENT;
             downloadWebView.getLayoutParams().width = android.view.ViewGroup.LayoutParams.MATCH_PARENT;
             downloadWebView.requestFocus(View.FOCUS_DOWN);
-            downloadWebView.setOnKeyListener((v, keyCode, event) -> {
-                if (keyCode == KeyEvent.KEYCODE_BACK) {
-                    if (downloadWebView != null && downloadWebView.canGoBack()) {
-                        downloadWebView.goBack();
-                    } else {
-                        finishSelection();
-                    }
-                    return true;
-                }
-                return false;
-            });
+            downloadWebView.setOnKeyListener(this);
             downloadWebView.setWebViewClient(new DownloadWebViewClient());
             downloadWebView.loadUrl(url);
         }
+    }
+
+    @Override
+    public boolean onKey(View v, int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (downloadWebView != null && !downloadWebView.canGoBack()) {
+                finishSelection();
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

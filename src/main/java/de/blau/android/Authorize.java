@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
@@ -39,7 +40,7 @@ import oauth.signpost.exception.OAuthException;
  * @author simon
  *
  */
-public class Authorize extends FullScreenAppCompatActivity {
+public class Authorize extends FullScreenAppCompatActivity implements OnKeyListener {
 
     private static final String DEBUG_TAG = "Authorize";
 
@@ -182,20 +183,21 @@ public class Authorize extends FullScreenAppCompatActivity {
             oAuthWebView.getLayoutParams().height = android.view.ViewGroup.LayoutParams.MATCH_PARENT;
             oAuthWebView.getLayoutParams().width = android.view.ViewGroup.LayoutParams.MATCH_PARENT;
             oAuthWebView.requestFocus(View.FOCUS_DOWN);
-            oAuthWebView.setOnKeyListener((v, keyCode, event) -> {
-                if (keyCode == KeyEvent.KEYCODE_BACK) {
-                    if (oAuthWebView != null && oAuthWebView.canGoBack()) {
-                        oAuthWebView.goBack();
-                    } else {
-                        finishOAuth();
-                    }
-                    return true;
-                }
-                return false;
-            });
+            oAuthWebView.setOnKeyListener(this);
             oAuthWebView.setWebViewClient(new OAuthWebViewClient());
             oAuthWebView.loadUrl(authUrl);
         }
+    }
+
+    @Override
+    public boolean onKey(View v, int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (oAuthWebView != null && !oAuthWebView.canGoBack()) {
+                finishOAuth();
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
