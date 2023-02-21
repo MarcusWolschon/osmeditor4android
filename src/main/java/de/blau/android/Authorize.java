@@ -9,10 +9,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
-import android.view.View;
-import android.view.View.OnKeyListener;
-import android.view.ViewGroup;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import androidx.annotation.NonNull;
@@ -20,18 +16,15 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 import de.blau.android.contract.MimeTypes;
 import de.blau.android.contract.Schemes;
-import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.exception.OsmException;
 import de.blau.android.net.OAuthHelper;
 import de.blau.android.osm.Server;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.ActivityResultHandler;
-import de.blau.android.util.FullScreenAppCompatActivity;
 import de.blau.android.util.Snack;
 import de.blau.android.util.UpdatedWebViewClient;
-import de.blau.android.util.Util;
+import de.blau.android.util.WebViewActivity;
 import oauth.signpost.exception.OAuthException;
 
 /**
@@ -40,19 +33,13 @@ import oauth.signpost.exception.OAuthException;
  * @author simon
  *
  */
-public class Authorize extends FullScreenAppCompatActivity implements OnKeyListener {
+public class Authorize extends WebViewActivity {
 
-    private static final String DEBUG_TAG = "Authorize";
+    private static final String DEBUG_TAG = Authorize.class.getSimpleName();
 
     public static final String ACTION_FINISH_OAUTH = "de.blau.android.FINISH_OAUTH";
 
     public static final int REQUEST_CODE = Authorize.class.hashCode() & 0x0000FFFF;
-
-    /**
-     * webview for logging in and authorizing OAuth
-     */
-    private WebView oAuthWebView;
-    private Object  oAuthWebViewLock = new Object();
 
     /**
      * Start a Authorize activity
@@ -62,8 +49,7 @@ public class Authorize extends FullScreenAppCompatActivity implements OnKeyListe
      */
     public static void startForResult(@NonNull FragmentActivity activity, @Nullable ActivityResultHandler.Listener listener) {
         Log.d(DEBUG_TAG, "startForResult");
-        if (!Util.supportsWebView(activity)) {
-            ErrorAlert.showDialog(activity, ErrorCodes.REQUIRED_FEATURE_MISSING, "WebView");
+        if (!hasWebView(activity)) {
             return;
         }
         Log.d(DEBUG_TAG, "request code " + REQUEST_CODE);
@@ -120,10 +106,10 @@ public class Authorize extends FullScreenAppCompatActivity implements OnKeyListe
         @Override
         public void onPageFinished(WebView view, String url) {
             synchronized (progressLock) {
-                synchronized (oAuthWebViewLock) {
-                    if (progressShown && oAuthWebView != null) {
-                        oAuthWebView.removeCallbacks(dismiss);
-                        oAuthWebView.postDelayed(dismiss, 500);
+                synchronized (webViewLock) {
+                    if (progressShown && webView != null) {
+                        webView.removeCallbacks(dismiss);
+                        webView.postDelayed(dismiss, 500);
                     }
                 }
             }
@@ -131,7 +117,7 @@ public class Authorize extends FullScreenAppCompatActivity implements OnKeyListe
 
         @Override
         public void receivedError(WebView view, int errorCode, String description, String failingUrl) {
-            finishOAuth();
+            exit();
             Snack.toastTopError(view.getContext(), description);
         }
     }
@@ -173,31 +159,13 @@ public class Authorize extends FullScreenAppCompatActivity implements OnKeyListe
             return;
         }
         Log.d(DEBUG_TAG, "authURl " + authUrl);
-        synchronized (oAuthWebViewLock) {
-            oAuthWebView = new WebView(this);
-            // setting our own user agent seems to make google happy
-            oAuthWebView.getSettings().setUserAgentString(App.getUserAgent());
-            setContentView(oAuthWebView);
-            oAuthWebView.getSettings().setJavaScriptEnabled(true);
-            oAuthWebView.getSettings().setAllowContentAccess(true);
-            oAuthWebView.getLayoutParams().height = android.view.ViewGroup.LayoutParams.MATCH_PARENT;
-            oAuthWebView.getLayoutParams().width = android.view.ViewGroup.LayoutParams.MATCH_PARENT;
-            oAuthWebView.requestFocus(View.FOCUS_DOWN);
-            oAuthWebView.setOnKeyListener(this);
-            oAuthWebView.setWebViewClient(new OAuthWebViewClient());
-            oAuthWebView.loadUrl(authUrl);
+        synchronized (webViewLock) {
+            webView = new WebView(this);
+            setContentView(webView);
+            webView.getSettings().setJavaScriptEnabled(true);
+            webView.setWebViewClient(new OAuthWebViewClient());
+            loadUrlOrRestore(savedInstanceState, authUrl);
         }
-    }
-
-    @Override
-    public boolean onKey(View v, int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (oAuthWebView != null && !oAuthWebView.canGoBack()) {
-                finishOAuth();
-                return true;
-            }
-        }
-        return false;
     }
 
     @Override
@@ -205,52 +173,7 @@ public class Authorize extends FullScreenAppCompatActivity implements OnKeyListe
         super.onNewIntent(intent);
         if (ACTION_FINISH_OAUTH.equals(intent.getAction())) {
             Log.d(DEBUG_TAG, "onNewIntent calling finishOAuth");
-            finishOAuth();
+            exit();
         }
-    }
-
-    /**
-     * Remove the OAuth webview
-     */
-    public void finishOAuth() {
-        Log.d(DEBUG_TAG, "finishOAuth");
-        synchronized (oAuthWebViewLock) {
-            if (oAuthWebView != null) {
-                ViewGroup contentView = (ViewGroup) findViewById(android.R.id.content);
-                contentView.removeView(oAuthWebView);
-                try {
-                    // the below loadUrl, even though the "official" way to do
-                    // it, seems to be prone to crash on some devices.
-                    oAuthWebView.loadUrl("about:blank"); // workaround clearView
-                                                         // issues
-                    oAuthWebView.setVisibility(View.GONE);
-                    oAuthWebView.removeAllViews();
-                    oAuthWebView.destroy();
-                    oAuthWebView = null;
-                    Intent intent = new Intent();
-                    setResult(RESULT_OK, intent);
-                    finish();
-                } catch (Exception ex) {
-                    ACRAHelper.nocrashReport(ex, ex.getMessage());
-                }
-            }
-        }
-    }
-
-    /**
-     * potentially do some special stuff for exiting
-     */
-    @Override
-    public void onBackPressed() {
-        Log.d(DEBUG_TAG, "onBackPressed()");
-        synchronized (oAuthWebViewLock) {
-            if (oAuthWebView != null && oAuthWebView.canGoBack()) {
-                // we are displaying the oAuthWebView and somebody might want to
-                // navigate back
-                oAuthWebView.goBack();
-                return;
-            }
-        }
-        super.onBackPressed();
     }
 }
