@@ -13,23 +13,17 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.widget.CheckBox;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.FragmentActivity;
-import de.blau.android.App;
-import de.blau.android.ErrorCodes;
 import de.blau.android.R;
 import de.blau.android.contract.FileExtensions;
 import de.blau.android.contract.MimeTypes;
 import de.blau.android.contract.Paths;
-import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.prefs.API;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
@@ -44,14 +38,11 @@ import de.blau.android.prefs.Preferences;
  * @author simon
  *
  */
-public class DownloadActivity extends FullScreenAppCompatActivity {
+public class DownloadActivity extends WebViewActivity {
 
     private static final String DEBUG_TAG = DownloadActivity.class.getSimpleName();
 
     static final String DOWNLOAD_SITE_KEY = "downloadSite";
-
-    private WebView downloadWebView;
-    private Object  downloadWebViewLock = new Object();
 
     private DownloadManager mgr          = null;
     private long            lastDownload = -1L;
@@ -66,8 +57,7 @@ public class DownloadActivity extends FullScreenAppCompatActivity {
      */
     public static void start(@NonNull FragmentActivity activity, @NonNull String downloadSite) {
         Log.d(DEBUG_TAG, "start");
-        if (!Util.supportsWebView(activity)) {
-            ErrorAlert.showDialog(activity, ErrorCodes.REQUIRED_FEATURE_MISSING, "WebView");
+        if (!hasWebView(activity)) {
             return;
         }
         Intent intent = new Intent(activity, DownloadActivity.class);
@@ -104,7 +94,7 @@ public class DownloadActivity extends FullScreenAppCompatActivity {
                     request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI);
                 }
                 lastDownload = mgr.enqueue(request);
-                downloadWebView.postDelayed(() -> checkStatus(mgr, lastDownload, filename), 5000);
+                webView.postDelayed(() -> checkStatus(mgr, lastDownload, filename), 5000);
 
                 Log.i(DEBUG_TAG, "Download id: " + lastDownload);
                 return true;
@@ -122,7 +112,7 @@ public class DownloadActivity extends FullScreenAppCompatActivity {
 
         @Override
         public void receivedError(WebView view, int errorCode, String description, String failingUrl) {
-            finishSelection();
+            exit();
             Snack.toastTopError(view.getContext(), description);
         }
 
@@ -212,17 +202,10 @@ public class DownloadActivity extends FullScreenAppCompatActivity {
 
         if (savedInstanceState == null) {
             url = getIntent().getStringExtra(DOWNLOAD_SITE_KEY);
-        } else {
-            url = savedInstanceState.getString(DOWNLOAD_SITE_KEY);
-        }
-        if (url == null) {
-            Log.e(DEBUG_TAG, "No download site found");
-            finish();
-            return;
         }
 
         setContentView(R.layout.download);
-        downloadWebView = (WebView) findViewById(R.id.downloadSiteWebView);
+        webView = (WebView) findViewById(R.id.downloadSiteWebView);
 
         CheckBox networks = (CheckBox) findViewById(R.id.allowAllNetworks);
         networks.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -234,71 +217,10 @@ public class DownloadActivity extends FullScreenAppCompatActivity {
         mgr = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
         registerReceiver(onNotificationClick, new IntentFilter(DownloadManager.ACTION_NOTIFICATION_CLICKED));
 
-        synchronized (downloadWebViewLock) {
-            downloadWebView.getSettings().setUserAgentString(App.getUserAgent());
-            downloadWebView.getSettings().setAllowContentAccess(true);
-            downloadWebView.getLayoutParams().height = android.view.ViewGroup.LayoutParams.MATCH_PARENT;
-            downloadWebView.getLayoutParams().width = android.view.ViewGroup.LayoutParams.MATCH_PARENT;
-            downloadWebView.requestFocus(View.FOCUS_DOWN);
-            downloadWebView.setOnKeyListener((v, keyCode, event) -> {
-                if (keyCode == KeyEvent.KEYCODE_BACK) {
-                    if (downloadWebView != null && downloadWebView.canGoBack()) {
-                        downloadWebView.goBack();
-                    } else {
-                        finishSelection();
-                    }
-                    return true;
-                }
-                return false;
-            });
-            downloadWebView.setWebViewClient(new DownloadWebViewClient());
-            downloadWebView.loadUrl(url);
+        synchronized (webViewLock) {
+            webView.setWebViewClient(new DownloadWebViewClient());
+            loadUrlOrRestore(savedInstanceState, url);
         }
-    }
-
-    /**
-     * Remove the webview
-     */
-    public void finishSelection() {
-        Log.d(DEBUG_TAG, "finish download selection");
-        synchronized (downloadWebViewLock) {
-            if (downloadWebView != null) {
-                ViewGroup contentView = (ViewGroup) findViewById(android.R.id.content);
-                contentView.removeView(downloadWebView);
-                try {
-                    // the below loadUrl, even though the "official" way to do
-                    // it, seems to be prone to crash on some devices.
-                    downloadWebView.loadUrl("about:blank"); // workaround clearView
-                    // issues
-                    downloadWebView.setVisibility(View.GONE);
-                    downloadWebView.removeAllViews();
-                    downloadWebView.destroy();
-                    downloadWebView = null;
-                    Intent intent = new Intent();
-                    setResult(RESULT_OK, intent);
-                    finish();
-                } catch (Exception ex) {
-                    ACRAHelper.nocrashReport(ex, ex.getMessage());
-                }
-            }
-        }
-    }
-
-    /**
-     * potentially do some special stuff for exiting
-     */
-    @Override
-    public void onBackPressed() {
-        Log.d(DEBUG_TAG, "onBackPressed()");
-        synchronized (downloadWebViewLock) {
-            if (downloadWebView != null && downloadWebView.canGoBack()) {
-                // we are displaying a WebView and somebody might want to
-                // navigate back
-                downloadWebView.goBack();
-                return;
-            }
-        }
-        super.onBackPressed();
     }
 
     @Override
@@ -308,13 +230,6 @@ public class DownloadActivity extends FullScreenAppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    protected void onSaveInstanceState(final Bundle outState) {
-        Log.d(DEBUG_TAG, "onSaveInstanceState");
-        super.onSaveInstanceState(outState);
-        outState.putString(DOWNLOAD_SITE_KEY, url);
     }
 
     @Override

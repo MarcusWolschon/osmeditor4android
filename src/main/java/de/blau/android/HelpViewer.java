@@ -12,8 +12,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map.Entry;
 
-import com.zeugmasolutions.localehelper.LocaleAwareCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -47,13 +45,13 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
 import de.blau.android.contract.FileExtensions;
 import de.blau.android.contract.Schemes;
-import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.osm.OsmXml;
 import de.blau.android.prefs.VespucciURLActivity;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.UpdatedWebViewClient;
 import de.blau.android.util.Util;
+import de.blau.android.util.WebViewActivity;
 
 /**
  * Minimal system for viewing help files Currently only html format is supported directly
@@ -61,7 +59,7 @@ import de.blau.android.util.Util;
  * @author Simon Poole
  *
  */
-public class HelpViewer extends LocaleAwareCompatActivity {
+public class HelpViewer extends WebViewActivity {
     private static final String DEBUG_TAG = HelpViewer.class.getName();
 
     private static final String HTML_SUFFIX = "." + FileExtensions.HTML;
@@ -87,7 +85,6 @@ public class HelpViewer extends LocaleAwareCompatActivity {
     }
 
     private static final String       TOPIC   = "topic";
-    private WebView                   helpView;
     private HashMap<String, HelpItem> tocList = new HashMap<>();
 
     private ActionBarDrawerToggle mDrawerToggle;
@@ -112,8 +109,7 @@ public class HelpViewer extends LocaleAwareCompatActivity {
      * @param topic string resource id of the help topic
      */
     public static void start(@NonNull FragmentActivity activity, @StringRes int topic) {
-        if (!Util.supportsWebView(activity)) {
-            ErrorAlert.showDialog(activity, ErrorCodes.REQUIRED_FEATURE_MISSING, "WebView");
+        if (!hasWebView(activity)) {
             return;
         }
         Intent intent = new Intent(activity, HelpViewer.class);
@@ -127,13 +123,13 @@ public class HelpViewer extends LocaleAwareCompatActivity {
         if (App.getPreferences(this).lightThemeEnabled()) {
             setTheme(R.style.Theme_customHelpViewer_Light);
         }
-        unselectedItemBackground = ThemeUtils.getStyleAttribColorValue(this, R.attr.unselected_item_background, R.color.light_grey);
-        selectedItemBackground = ThemeUtils.getStyleAttribColorValue(this, R.attr.selected_item_background, R.color.dark_grey);
+        super.onCreate(savedInstanceState);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             Configuration config = getResources().getConfiguration();
             rtl = config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
         }
-        super.onCreate(savedInstanceState);
+        unselectedItemBackground = ThemeUtils.getStyleAttribColorValue(this, R.attr.unselected_item_background, R.color.light_grey);
+        selectedItemBackground = ThemeUtils.getStyleAttribColorValue(this, R.attr.selected_item_background, R.color.dark_grey);
         int topicId = R.string.help_introduction;
         Serializable s = getIntent().getSerializableExtra(TOPIC);
         if (s != null) {
@@ -161,14 +157,14 @@ public class HelpViewer extends LocaleAwareCompatActivity {
 
         // add our content
         FrameLayout fl = (FrameLayout) findViewById(R.id.content_frame);
-        helpView = new WebView(this);
-        WebSettings helpSettings = helpView.getSettings();
+        webView = new WebView(this);
+        WebSettings helpSettings = webView.getSettings();
         helpSettings.setDefaultFontSize(12);
         helpSettings.setSupportZoom(true);
         helpSettings.setBuiltInZoomControls(true);
         helpSettings.setDisplayZoomControls(false); // don't display +-
-        helpView.setWebViewClient(new HelpViewWebViewClient());
-        fl.addView(helpView);
+        webView.setWebViewClient(new HelpViewWebViewClient());
+        fl.addView(webView);
 
         // set up the drawer
         mDrawerLayout = (DrawerLayout) findViewById(R.id.help_drawer_layout);
@@ -242,12 +238,7 @@ public class HelpViewer extends LocaleAwareCompatActivity {
             mDrawerList.setAdapter(tocAdapter);
             mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
             mDrawerList.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
-
-            if (savedInstanceState != null) {
-                helpView.restoreState(savedInstanceState);
-            } else {
-                helpView.loadUrl("file:///android_asset/" + helpFile);
-            }
+            loadUrlOrRestore(savedInstanceState, "file:///android_asset/" + helpFile);
         } catch (IOException e) {
             Log.d(DEBUG_TAG, "Caught exception " + e);
         }
@@ -293,6 +284,11 @@ public class HelpViewer extends LocaleAwareCompatActivity {
     }
 
     @Override
+    protected void exit() {
+        finish();
+    }
+
+    @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         Serializable s = intent.getSerializableExtra(TOPIC);
@@ -306,7 +302,7 @@ public class HelpViewer extends LocaleAwareCompatActivity {
         } else {
             Log.d(DEBUG_TAG, "Falling back to default topic");
         }
-        helpView.loadUrl("file:///android_asset/" + getHelpFile(getString(topicId), defaultList, enList, toc));
+        webView.loadUrl("file:///android_asset/" + getHelpFile(getString(topicId), defaultList, enList, toc));
         tocAdapter.notifyDataSetChanged();
     }
 
@@ -351,7 +347,7 @@ public class HelpViewer extends LocaleAwareCompatActivity {
     public boolean onPrepareOptionsMenu(final Menu menu) {
         MenuItem item = menu.findItem(R.id.help_menu_forward);
         if (item != null) {
-            boolean canGoForward = helpView.canGoForward();
+            boolean canGoForward = webView.canGoForward();
             item.setEnabled(canGoForward);
             item.setIcon(ThemeUtils.getResIdFromAttribute(this, rtl ? R.attr.menu_back : R.attr.menu_forward));
             if (!canGoForward) {
@@ -369,8 +365,8 @@ public class HelpViewer extends LocaleAwareCompatActivity {
         Log.d(DEBUG_TAG, "onOptionsItemSelected");
         switch (item.getItemId()) {
         case R.id.help_menu_back:
-            if (helpView.canGoBack()) {
-                helpView.goBack();
+            if (webView.canGoBack()) {
+                webView.goBack();
                 invalidateOptionsMenu();
             } else {
                 onBackPressed(); // return to caller
@@ -378,8 +374,8 @@ public class HelpViewer extends LocaleAwareCompatActivity {
             return true;
 
         case R.id.help_menu_forward:
-            if (helpView.canGoForward()) {
-                helpView.goForward();
+            if (webView.canGoForward()) {
+                webView.goForward();
                 invalidateOptionsMenu();
             }
             return true;
@@ -402,17 +398,11 @@ public class HelpViewer extends LocaleAwareCompatActivity {
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        helpView.saveState(outState);
-    }
-
     private class DrawerItemClickListener implements AdapterView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             HelpItem helpItem = tocAdapter.getItem(position);
-            helpView.loadUrl("file:///android_asset/help/" + helpItem.language + "/" + helpItem.fileName + HTML_SUFFIX);
+            webView.loadUrl("file:///android_asset/help/" + helpItem.language + "/" + helpItem.fileName + HTML_SUFFIX);
             mDrawerLayout.closeDrawer(mDrawerList);
             mDrawerList.setSelected(false);
             setTitle(helpItem.topic);
