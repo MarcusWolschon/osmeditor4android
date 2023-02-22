@@ -76,7 +76,6 @@ public class MapOverlay extends StyleableLayer implements DiscardInterface, Conf
      */
     public MapOverlay(final Map map) {
         this.map = map;
-        paint = new SerializableTextPaint(DataStyle.getInternal(DataStyle.CROSSHAIRS).getPaint());
         resetStyling();
         setPrefs(map.getPrefs());
     }
@@ -331,7 +330,9 @@ public class MapOverlay extends StyleableLayer implements DiscardInterface, Conf
 
     @Override
     public void resetStyling() {
+        Log.d(DEBUG_TAG, "resetStyling");
         main = map.getContext() instanceof Main ? (Main) map.getContext() : null;
+        paint = new SerializableTextPaint(DataStyle.getInternal(DataStyle.CROSSHAIRS).getPaint());
         labelH = new SerializableTextPaint(DataStyle.getInternal(DataStyle.LABELTEXT).getPaint());
         labelV = new SerializableTextPaint(labelH);
         labelV.setTextAlign(Paint.Align.RIGHT);
