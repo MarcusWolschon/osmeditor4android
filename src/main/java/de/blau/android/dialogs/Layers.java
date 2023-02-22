@@ -71,6 +71,7 @@ import de.blau.android.layer.LayerType;
 import de.blau.android.layer.MapViewLayer;
 import de.blau.android.layer.PruneableInterface;
 import de.blau.android.layer.StyleableInterface;
+import de.blau.android.layer.StyleableLayer;
 import de.blau.android.layer.mvt.MapOverlay;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.GpxFile;
@@ -767,6 +768,9 @@ public class Layers extends AbstractConfigurationDialog {
                 item.setOnMenuItemClickListener(unused -> {
                     if (layer != null) {
                         ((StyleableInterface) layer).resetStyling();
+                        if (layer instanceof StyleableLayer) {
+                            ((StyleableLayer) layer).dirty();
+                        }
                         if (layer instanceof de.blau.android.layer.mvt.MapOverlay) {
                             // tiles need to be re-decoded for auto styling to work
                             ((de.blau.android.layer.mvt.MapOverlay) layer).flushTileCache(activity, false);
