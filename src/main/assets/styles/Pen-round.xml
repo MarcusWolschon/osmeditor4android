@@ -369,6 +369,11 @@
         <feature type="way" tags="highway=living_street" widthFactor="0.9" color="ffff4500" />
         <feature type="way" tags="highway=service" widthFactor="0.7" color="ffCCCCCC" />
     </feature>
+    <feature type="way" tags="barrier" updateWidth="true" widthFactor="1.0" color="ffe36b40" style="STROKE" cap="BUTT" join="MITER" pathPattern="square_both"> 
+        <feature type="way" tags="barrier=city_wall|two_sided=yes" widthFactor="2.0" color="ffCCCCCC" pathPattern="square_both" />
+        <feature type="way" tags="barrier=city_wall" widthFactor="2.0" color="ffCCCCCC" pathPattern="square_right" />        
+        <feature type="way" tags="barrier=retaining_wall" widthFactor="2.0" color="ffCCCCCC" pathPattern="triangle_right" />
+    </feature>
     <feature type="way" tags="power" updateWidth="true" widthFactor="0.6" color="ffaa0000" style="STROKE" cap="BUTT" join="MITER">
     	<dash phase="1.0">
     		<interval length="2.0" />
