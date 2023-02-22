@@ -170,7 +170,7 @@ public abstract class StyleableLayer extends MapViewLayer implements StyleableIn
     /**
      * Mark the layer as dirty/unsaved
      */
-    protected void dirty() {
+    public void dirty() {
         saved = false;
     }
 }
