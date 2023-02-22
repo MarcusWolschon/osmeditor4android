@@ -72,6 +72,69 @@ class TriangleRight extends PathPattern {
     }
 }
 
+class SquareLeft extends PathPattern {
+    static final String NAME = "square_left";
+
+    Path path = new Path();
+
+    @Override
+    public Path draw(float size) {
+        path.rewind();
+        float half = size / 2;
+        float line = size / 8;
+        path.moveTo(0, 0);
+        path.lineTo(0, -half);
+        path.lineTo(-half, -half);
+        path.lineTo(-half, line);
+        path.lineTo(half, line);
+        path.lineTo(half, 0);
+        path.lineTo(0, 0);
+        return path;
+    }
+}
+
+class SquareRight extends PathPattern {
+    static final String NAME = "square_right";
+
+    Path path = new Path();
+
+    @Override
+    public Path draw(float size) {
+        path.rewind();
+        float half = size / 2;
+        float line = size / 8;
+        path.moveTo(0, 0);
+        path.lineTo(0, half);
+        path.lineTo(-half, half);
+        path.lineTo(-half, -line);
+        path.lineTo(half, -line);
+        path.lineTo(half, 0);
+        path.lineTo(0, 0);
+        return path;
+    }
+}
+
+class SquareBoth extends PathPattern {
+    static final String NAME = "square_both";
+
+    Path path = new Path();
+
+    @Override
+    public Path draw(float size) {
+        path.rewind();
+        float half = size / 2;
+        path.moveTo(0, 0);
+        path.moveTo(-half, 0);
+        path.lineTo(-half, half);
+        path.lineTo(0, half);
+        path.lineTo(0, -half);
+        path.lineTo(half, -half);
+        path.lineTo(half, 0);
+        path.lineTo(0, 0);
+        return path;
+    }
+}
+
 class Border extends PathPattern {
 
     Path  path = new Path();
@@ -140,6 +203,9 @@ final class PathPatterns {
     static {
         patterns.put(TriangleLeft.NAME, new TriangleLeft());
         patterns.put(TriangleRight.NAME, new TriangleRight());
+        patterns.put(SquareLeft.NAME, new SquareLeft());
+        patterns.put(SquareRight.NAME, new SquareRight());
+        patterns.put(SquareBoth.NAME, new SquareBoth());
         patterns.put(BorderLeft.NAME, new BorderLeft());
         patterns.put(BorderRight.NAME, new BorderRight());
     }
