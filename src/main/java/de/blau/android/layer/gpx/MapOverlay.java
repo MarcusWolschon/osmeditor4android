@@ -375,6 +375,8 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
     public void resetStyling() {
         paint = new SerializableTextPaint(DataStyle.getInternal(DataStyle.GPS_TRACK).getPaint());
         wayPointPaint = new SerializableTextPaint(DataStyle.getInternal(DataStyle.GPS_POS_FOLLOW).getPaint());
+        // currently styling always sets the waypoint stroke width to the same as the track
+        wayPointPaint.setStrokeWidth(paint.getStrokeWidth());
         labelKey = "";
         labelMinZoom = Map.SHOW_LABEL_LIMIT;
         iconRadius = map.getIconRadius();
