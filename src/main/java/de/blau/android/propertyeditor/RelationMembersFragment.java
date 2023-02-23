@@ -416,7 +416,7 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
                                         if (notused == null && (nextWay.hasNode(first) || nextWay.hasNode(last))) {
                                             result = Connected.DOWN;
                                             currentRow.down = nextWay.hasNode(first) ? first : last;
-                                        } else if (nextWay.hasNode(notused)) {
+                                        } else if (notused != null && nextWay.hasNode(notused)) {
                                             result = Connected.BOTH;
                                             currentRow.down = notused;
                                         }
@@ -427,7 +427,7 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
                                                 && (nextLast.equals(first) || nextFirst.equals(first) || nextLast.equals(last) || nextFirst.equals(last))) {
                                             result = Connected.DOWN;
                                             currentRow.down = nextLast.equals(first) || nextFirst.equals(first) ? first : last;
-                                        } else if (nextLast.equals(notused) || nextFirst.equals(notused)) {
+                                        } else if (notused != null && (nextLast.equals(notused) || nextFirst.equals(notused))) {
                                             result = Connected.BOTH;
                                             currentRow.down = notused;
                                         }
@@ -438,7 +438,7 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
                                     if (notused == null && (firstNodeMatches || nextNode.equals(last))) {
                                         result = Connected.DOWN;
                                         currentRow.down = firstNodeMatches ? first : last;
-                                    } else if (nextNode.equals(notused)) {
+                                    } else if (notused != null && nextNode.equals(notused)) {
                                         result = Connected.BOTH;
                                         currentRow.down = notused;
                                     }
