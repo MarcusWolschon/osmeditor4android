@@ -246,6 +246,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
     private FeatureStyle wayFeatureStyleHidden;
     private FeatureStyle wayFeatureStyleRelation;
     private Paint        handlePaint;
+    private FeatureStyle dontRenderWay;
 
     /** Cached label FeatureStyles */
     private FeatureStyle labelTextStyleNormal;
@@ -708,8 +709,8 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
             }
             if (currentWay != null) {
                 // a bit of a hack stop this way from being rendered as a way if it doesn't have any tags
-                if (!currentWay.hasTags() && !"".equals(ringRole)) {
-                    currentWay.setStyle(DataStyle.getInternal(DataStyle.DONTRENDER_WAY));
+                if (currentWay.getStyle() == null && !currentWay.hasTags() && !"".equals(ringRole)) {
+                    currentWay.setStyle(dontRenderWay);
                 }
                 areaNodes.clear();
                 areaNodes.addAll(currentWay.getNodes());
@@ -1677,6 +1678,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
         wayFeatureStyleHidden = DataStyle.getInternal(DataStyle.HIDDEN_WAY);
         wayFeatureStyleRelation = DataStyle.getInternal(DataStyle.SELECTED_RELATION_WAY);
         handlePaint = DataStyle.getInternal(DataStyle.HANDLE).getPaint();
+        dontRenderWay = DataStyle.getInternal(DataStyle.DONTRENDER_WAY);
 
         showIconsLimit = DataStyle.getCurrent().getIconZoomLimit();
         showIconLabelZoomLimit = DataStyle.getCurrent().getIconLabelZoomLimit();
