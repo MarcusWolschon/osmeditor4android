@@ -61,6 +61,7 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.PostMergeHandler;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
+import de.blau.android.osm.RelationUtils;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.Storage;
 import de.blau.android.osm.StorageDelegator;
@@ -81,7 +82,9 @@ import de.blau.android.util.Geometry;
 import de.blau.android.util.Snack;
 import de.blau.android.util.Util;
 import de.blau.android.util.collections.FloatPrimitiveList;
+import de.blau.android.util.collections.LinkedList;
 import de.blau.android.util.collections.LongHashSet;
+import de.blau.android.util.collections.LowAllocArrayList;
 import de.blau.android.validation.Validator;
 import de.blau.android.views.IMapView;
 
@@ -107,6 +110,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
     private static final long AUTOPRUNE_MIN_INTERVAL       = 10000; // milli-seconds between autoprunes
     public static final int   DEFAULT_AUTOPRUNE_NODE_LIMIT = 5000;
     public static final int   PAN_AND_ZOOM_LIMIT           = 17;
+    private static final int  MP_SIZE_LIMIT                = 1000;  // max size of MP to render as MP
 
     /** half the width/height of a node icon in px */
     private final int iconRadius;
@@ -280,22 +284,25 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
 
     private float[][] coord = null;
 
-    private final FloatPrimitiveList points          = new FloatPrimitiveList(); // allocate these just once
+    private final FloatPrimitiveList points          = new FloatPrimitiveList();     // allocate these just once
     private float[]                  offsettedCasing = new float[100];
-    private final List<Node>         nodesResult     = new ArrayList<>(1000);
-    private final List<Way>          waysResult      = new ArrayList<>(1000);
-    private final List<BoundingBox>  downloadedBoxes = new ArrayList<>();
+    private final List<Node>         nodesResult     = new LowAllocArrayList<>(1000);
+    private final List<Way>          waysResult      = new LowAllocArrayList<>(1000);
+    private final List<BoundingBox>  downloadedBoxes = new LowAllocArrayList<>();
 
     /**
      * Stuff for multipolygon support Instantiate these objects just once
      */
-    private final List<RelationMember>   waysOnly       = new ArrayList<>();
-    private final List<List<Node>>       outerRings     = new ArrayList<>();
-    private final List<List<Node>>       innerRings     = new ArrayList<>();
-    private final List<List<Node>>       unknownRings   = new ArrayList<>();
-    private final SimplePool<List<Node>> ringPool       = new SimplePool<>(10);
-    private final List<Node>             areaNodes      = new ArrayList<>();   // reversing winding and assembling MPs
-    private final Set<Relation>          paintRelations = new HashSet<>();
+    private final List<RelationMember>       waysOnly             = new LowAllocArrayList<>(100);
+    private final LinkedList<RelationMember> tenpMultiPolygonSort = new LinkedList<>();
+    private final List<List<Node>>           outerRings           = new LowAllocArrayList<>();
+    private final List<List<Node>>           innerRings           = new LowAllocArrayList<>();
+    private final List<List<Node>>           unknownRings         = new LowAllocArrayList<>();
+    private final SimplePool<List<Node>>     ringPool             = new SimplePool<>(100);
+    private final List<Node>                 areaNodes            = new LowAllocArrayList<>();   // reversing winding
+                                                                                                 // and
+    // assembling
+    private final Set<Relation> paintRelations = new HashSet<>();
 
     /**
      * Runnable for downloading data
@@ -684,6 +691,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
         }
 
         waysOnly.clear();
+        tenpMultiPolygonSort.clear();
 
         // remove any non-Way non-downloaded members
         for (RelationMember m : rel.getMembers()) {
@@ -691,7 +699,10 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
                 waysOnly.add(m);
             }
         }
-        List<RelationMember> members = Util.sortRelationMembers(waysOnly);
+        if (waysOnly.size() > MP_SIZE_LIMIT) { // protect against very large MPs
+            return;
+        }
+        List<RelationMember> members = RelationUtils.sortRelationMembers(waysOnly, tenpMultiPolygonSort, RelationUtils::haveEndConnection);
         outerRings.clear();
         innerRings.clear();
         unknownRings.clear();
@@ -708,7 +719,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
                 ringRole = currentRole;
             }
             if (currentWay != null) {
-                // a bit of a hack stop this way from being rendered as a way if it doesn't have any tags
+                // a bit of a hack to stop this way from being rendered as a way if it doesn't have any tags
                 if (currentWay.getStyle() == null && !currentWay.hasTags() && !"".equals(ringRole)) {
                     currentWay.setStyle(dontRenderWay);
                 }
@@ -745,6 +756,8 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
         }
         if (!ring.isEmpty()) {
             addRing(ringRole, ring);
+        } else {
+            ringPool.release(ring);
         }
 
         Paint paint = style.getPaint();
@@ -784,7 +797,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
     private List<Node> getNewRing() {
         List<Node> ring = ringPool.acquire();
         if (ring == null) {
-            ring = new ArrayList<>();
+            ring = new LowAllocArrayList<>();
         } else {
             ring.clear();
         }

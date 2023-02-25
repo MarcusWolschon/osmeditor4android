@@ -31,8 +31,8 @@ public class RelationMemberAdapter extends RecyclerView.Adapter<RelationMemberAd
 
     private int selected = -1;
 
-    private OnCheckedChangeListener listener;
-    private RelationMembersFragment owner;
+    private OnCheckedChangeListener       listener;
+    private final RelationMembersFragment owner;
 
     public static class MemberRowViewHolder extends RecyclerView.ViewHolder {
         RelationMemberRow row;

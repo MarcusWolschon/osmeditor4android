@@ -18,7 +18,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.R;
 import de.blau.android.util.Snack;
-import de.blau.android.util.Util;
+import de.blau.android.util.collections.LinkedList;
+import de.blau.android.util.collections.LinkedList.Member;
 
 public final class RelationUtils {
     private static final String DEBUG_TAG = RelationUtils.class.getSimpleName();
@@ -43,7 +44,7 @@ public final class RelationUtils {
      * @return a List of RelationMembers with inner / outer role set as far as could be determined
      */
     public static List<RelationMember> setMultipolygonRoles(@Nullable Context context, @NonNull List<RelationMember> origMembers, boolean force) {
-        List<RelationMember> sortedMembers = Util.sortRelationMembers(origMembers);
+        List<RelationMember> sortedMembers = sortRelationMembers(new ArrayList<>(origMembers));
         List<RelationMember> other = new ArrayList<>();
         List<List<RelationMember>> rings = new ArrayList<>();
         List<List<RelationMember>> partialRings = new ArrayList<>();
@@ -346,4 +347,162 @@ public final class RelationUtils {
             result.add(member.getRef());
         }
     }
+
+    /**
+     * Sort a list of RelationMemberDescription in the order they are connected
+     * 
+     * @param list List of relation members
+     * @return fully or partially sorted List of RelationMembers, if partially sorted the unsorted elements will come
+     *         first
+     * @param <T> Class that extends RelationMember
+     */
+    @NonNull
+    public static <T extends RelationMember> List<T> sortRelationMembers(@NonNull List<T> unconnected) {
+        return sortRelationMembers(unconnected, new LinkedList<>(), RelationUtils::haveEndConnection);
+    }
+
+    public interface WaysConnected {
+        /**
+         * Determine if two ways are connected in some form
+         * 
+         * @param way1 first Way
+         * @param way2 second Way
+         * @return true if the ways are connected
+         */
+        public boolean connected(@Nullable Way way1, @Nullable Way way2);
+    }
+
+    /**
+     * Sort a list of relation members in the order they are connected
+     * 
+     * Note: there is likely a far better algorithm than this, ignores way direction.
+     * 
+     * @param list List of relation members
+     * @param temp List of relation members used for processing in the method
+     * @return fully or partially sorted List of RelationMembers, if partially sorted the unsorted elements will come
+     *         first
+     * @param <T> Class that extents RelationMember
+     */
+    @NonNull
+    public static <T extends RelationMember> List<T> sortRelationMembers(@NonNull List<T> unconnected, @NonNull LinkedList<T> temp, @NonNull WaysConnected c) {
+        int nextWay = 0;
+        int restart = 0;
+        final int size = unconnected.size();
+        while (true) {
+            nextWay = nextWay(nextWay, unconnected);
+            if (nextWay >= size) {
+                break;
+            }
+            T currentRmd = unconnected.get(nextWay);
+            unconnected.set(nextWay, null);
+            Member<T> start = temp.addMember(currentRmd);
+            Member<T> end = start;
+            for (int i = nextWay; i < size;) {
+                T rmd = unconnected.get(i);
+                if (rmd == null || !rmd.downloaded() || !Way.NAME.equals(rmd.getType())) {
+                    i++; // NOSONAR
+                    continue;
+                }
+
+                Way startWay = (Way) start.getElement().getElement();
+                Way endWay = (Way) end.getElement().getElement();
+                Way currentWay = (Way) rmd.getElement();
+
+                if (c.connected(endWay, currentWay)) {
+                    end = temp.addAfter(end, rmd);
+                    unconnected.set(i, null);
+                    i = restart; // NOSONAR
+                } else if (c.connected(startWay, currentWay)) {
+                    start = temp.addBefore(start, rmd);
+                    unconnected.set(i, null);
+                    i = restart; // NOSONAR
+                } else {
+                    if (restart == 0) {
+                        restart = i;
+                    }
+                    i++; // NOSONAR
+                }
+            }
+        }
+
+        unconnected.removeAll(Collections.singleton(null));
+        unconnected.addAll(temp); // return with unsorted elements at top
+        return unconnected;
+    }
+
+    /**
+     * Test if two ways have a common Node
+     * 
+     * Note should be moved to the Way class
+     * 
+     * @param way1 first Way
+     * @param way2 second Way
+     * @return true if the have a common Node
+     */
+    public static boolean haveEndConnection(@Nullable Way way1, @Nullable Way way2) {
+        if (way1 != null && way2 != null) {
+            final List<Node> way1Nodes = way1.getNodes();
+            final List<Node> way2Nodes = way2.getNodes();
+            final Node start1 = way1Nodes.get(0);
+            final Node end1 = way1Nodes.get(way1Nodes.size() - 1);
+            final Node start2 = way2Nodes.get(0);
+            final Node end2 = way2Nodes.get(way2Nodes.size() - 1);
+            if (start2.equals(end1) || start2.equals(start1) || end2.equals(start1) || end2.equals(end1)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Test if two ways have a common Node
+     * 
+     * Note should be moved to the Way class
+     * 
+     * @param way1 first Way
+     * @param way2 second Way
+     * @return true if the have a common Node
+     */
+    public static boolean haveCommonNode(@Nullable Way way1, @Nullable Way way2) {
+        if (way1 != null && way2 != null) {
+            final List<Node> way1Nodes = way1.getNodes();
+            final int size1 = way1Nodes.size();
+            final List<Node> way2Nodes = way2.getNodes();
+            final int size2 = way2Nodes.size();
+            // optimization: check start and end first, this should make partially sorted list reasonably fast
+            if (way2Nodes.contains(way1Nodes.get(0)) || way2Nodes.contains(way1Nodes.get(size1 - 1)) || way1Nodes.contains(way2Nodes.get(0))
+                    || way1Nodes.contains(way2Nodes.get(size2 - 1))) {
+                return true;
+            }
+            // nope have to iterate
+            List<Node> slice = way2Nodes.subList(1, size2 - 1);
+            for (int i = 1; i < size1 - 2; i++) {
+                if (slice.contains(way1Nodes.get(i))) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Return the next Way index in a list of RelationMemberDescriptions
+     * 
+     * @param start starting index
+     * @param unconnected List of T
+     * @param <T> Class that extents RelationMember
+     * @return the index of the next Way, or that value of start
+     */
+    private static <T extends RelationMember> int nextWay(int start, @NonNull List<T> unconnected) {
+        // find first way
+        int firstWay = start;
+        for (; firstWay < unconnected.size(); firstWay++) {
+            T rm = unconnected.get(firstWay);
+            if (rm != null && rm.downloaded() && Way.NAME.equals(rm.getType())) {
+                break;
+            }
+        }
+        return firstWay;
+    }
+
 }

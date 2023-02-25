@@ -5,7 +5,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -14,6 +16,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.test.filters.LargeTest;
 import de.blau.android.App;
@@ -81,6 +84,25 @@ public class RelationUtilTest {
     }
 
     /**
+     * Sort a large relation
+     * 
+     * The relation was pre-sorted (and fixed) in JOSM, so this test doesn't really show much more than that it doesn't
+     * crash and is stable (aka doesn't change sorted data)
+     */
+    @Test
+    public void sortTest() {
+        StorageDelegator d = UnitTestUtils.loadTestData(getClass(), "500_member_relation_sorted.osm");
+        Relation large = (Relation) d.getOsmElement(Relation.NAME, 49094);
+        assertNotNull(large);
+        List<RelationMember> members = new ArrayList<>(large.getMembers());
+        long start = System.currentTimeMillis();
+        List<RelationMember> presorted = RelationUtils.sortRelationMembers(members);
+        Log.d("sortTest", "Sorting time " + (System.currentTimeMillis() - start));
+        assertEquals(large.getMembers().size(), presorted.size());
+        assertEquals(large.getMembers(), presorted);
+    }
+
+    /**
      * Add tag to element
      * 
      * @param d current StorageDelegator
@@ -114,6 +136,7 @@ public class RelationUtilTest {
      * @return the StorageDelegator
      * 
      */
+    @SuppressWarnings("rawtypes")
     @NonNull
     public static StorageDelegator loadTestData(@NonNull Class c) {
         return UnitTestUtils.loadTestData(c, "rings.osm");
