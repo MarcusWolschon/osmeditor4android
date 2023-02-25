@@ -70,4 +70,10 @@
         <item>Неверный URL</item>
         <item>Некорректный аргумент</item>
     </string-array>
- </resources>
+    <!-- automatic name tag capitalization -->
+    <string-array translatable="true" name="name_cap_entries">
+        <item>Без заглавных букв</item>
+        <item>Слово с заглавной буквы</item>
+        <item>Предложение с заглавной буквы</item>
+    </string-array>
+    </resources>
