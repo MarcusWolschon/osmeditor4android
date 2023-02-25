@@ -2,6 +2,7 @@ package de.blau.android.propertyeditor;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import android.content.Context;
@@ -23,11 +24,14 @@ import de.blau.android.dialogs.Progress;
 import de.blau.android.easyedit.EasyEditActionModeCallback;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.Relation;
+import de.blau.android.osm.RelationUtils;
+import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.propertyeditor.RelationMembersFragment.MemberEntry;
 import de.blau.android.util.NetworkStatus;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
+import de.blau.android.util.collections.LinkedList;
 
 public class RelationMemberSelectedActionModeCallback implements Callback {
     private static final String DEBUG_TAG = "RelationM...Callback";
@@ -200,7 +204,14 @@ public class RelationMemberSelectedActionModeCallback implements Callback {
             ((RelationMembersFragment) caller).scrollToRow(selectedPos.get(selectedPos.size() - 1));
             return true;
         case MENU_ITEM_SORT:
-            List<MemberEntry> temp = de.blau.android.util.Util.sortRelationMembers(selected);
+            List<LinkedHashMap<String, String>> tags = ((RelationMembersFragment) caller).propertyEditorListener.getUpdatedTags();
+            boolean lineLike = false; // this needs a better name
+            if (tags != null && tags.size() == 1) {
+                String type = tags.get(0).get(Tags.KEY_TYPE);
+                lineLike = Tags.VALUE_MULTIPOLYGON.equals(type) || Tags.VALUE_BOUNDARY.equals(type) || Tags.VALUE_ROUTE.equals(type);
+            }
+            List<MemberEntry> temp = RelationUtils.sortRelationMembers(selected, new LinkedList<>(),
+                    lineLike ? RelationUtils::haveEndConnection : RelationUtils::haveCommonNode);
             int top = members.indexOf(temp.get(0));
             for (MemberEntry entry : temp) {
                 if (members.contains(entry)) {

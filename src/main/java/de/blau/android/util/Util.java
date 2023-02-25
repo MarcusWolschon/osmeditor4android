@@ -58,7 +58,6 @@ import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
-import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.ViewBox;
@@ -156,110 +155,6 @@ public final class Util {
                 return result;
             }
         }
-    }
-
-    /**
-     * Sort a list of RelationMemberDescription in the order they are connected
-     * 
-     * Note: there is likely a far better algorithm than this, ignores way direction.
-     * 
-     * @param list List of relation members
-     * @return fully or partially sorted List of RelationMembers, if partially sorted the unsorted elements will come
-     *         first
-     * @param <T> Class that extents RelationMember
-     */
-    @NonNull
-    public static <T extends RelationMember> List<T> sortRelationMembers(@NonNull List<T> list) {
-        List<T> result = new ArrayList<>();
-        List<T> unconnected = new ArrayList<>(list);
-        int nextWay = 0;
-        while (true) {
-            nextWay = nextWay(nextWay, unconnected);
-            if (nextWay >= unconnected.size()) {
-                break;
-            }
-            T currentRmd = unconnected.get(nextWay);
-            unconnected.remove(currentRmd);
-            result.add(currentRmd);
-            int start = result.size() - 1;
-
-            for (int i = nextWay; i < unconnected.size();) {
-                T rmd = unconnected.get(i);
-                if (!rmd.downloaded() || !Way.NAME.equals(rmd.getType())) {
-                    i++;
-                    continue;
-                }
-
-                Way startWay = (Way) result.get(start).getElement();
-                Way endWay = (Way) result.get(result.size() - 1).getElement();
-
-                Way currentWay = (Way) rmd.getElement();
-
-                // the following works for all situation including closed ways but will be a bit slow
-                if (haveCommonNode(endWay, currentWay)) {
-                    result.add(rmd);
-                    unconnected.remove(rmd);
-                } else if (haveCommonNode(startWay, currentWay)) {
-                    result.add(start, rmd);
-                    unconnected.remove(rmd);
-                } else {
-                    i++;
-                }
-            }
-        }
-        unconnected.addAll(result); // return with unsorted elements at top
-        return unconnected;
-    }
-
-    /**
-     * Test if two ways have a common Node
-     * 
-     * Note should be moved to the Way class
-     * 
-     * @param way1 first Way
-     * @param way2 second Way
-     * @return true if the have a common Node
-     */
-    private static boolean haveCommonNode(@Nullable Way way1, @Nullable Way way2) {
-        if (way1 != null && way2 != null) {
-            List<Node> way1Nodes = way1.getNodes();
-            int size1 = way1Nodes.size();
-            List<Node> way2Nodes = way2.getNodes();
-            int size2 = way2Nodes.size();
-            // optimization: check start and end first, this should make partially sorted list reasonably fast
-            if (way2Nodes.contains(way1Nodes.get(0)) || way2Nodes.contains(way1Nodes.get(size1 - 1)) || way1Nodes.contains(way2Nodes.get(0))
-                    || way1Nodes.contains(way2Nodes.get(size2 - 1))) {
-                return true;
-            }
-            // nope have to iterate
-            List<Node> slice = way2Nodes.subList(1, size2 - 1);
-            for (int i = 1; i < size1 - 2; i++) {
-                if (slice.contains(way1Nodes.get(i))) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Return the next Way index in a list of RelationMemberDescriptions
-     * 
-     * @param start starting index
-     * @param unconnected List of T
-     * @param <T> Class that extents RelationMember
-     * @return the index of the next Way, or that value of start
-     */
-    private static <T extends RelationMember> int nextWay(int start, @NonNull List<T> unconnected) {
-        // find first way
-        int firstWay = start;
-        for (; firstWay < unconnected.size(); firstWay++) {
-            T rm = unconnected.get(firstWay);
-            if (rm.downloaded() && Way.NAME.equals(rm.getType())) {
-                break;
-            }
-        }
-        return firstWay;
     }
 
     /**
