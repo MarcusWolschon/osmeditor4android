@@ -1512,6 +1512,8 @@ public class Preset {
             outputStream.println("\"doc_url\":\"http://vespucci.io/\",");
             outputStream.println(
                     "\"icon_url\":\"https://raw.githubusercontent.com/MarcusWolschon/osmeditor4android/master/src/main/res/drawable/vespucci_logo.png\",");
+            outputStream.println("\"contact_name\":\"Simon Poole\",");
+            outputStream.println("\"contact_email\":\"info@vespucci.io\",");
             outputStream.println("\"keywords\":[");
             outputStream.println("\"editor\"");
             outputStream.println("]},");
