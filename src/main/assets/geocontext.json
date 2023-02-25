@@ -37,6 +37,27 @@
     "bw": {
         "left-hand-traffic": true
     },
+    "ca": {
+        "speed-limits": [
+            40,
+            50,
+            60,
+            80,
+            90,
+            100
+        ],
+        "languages": [
+            "en",
+            "fr"
+        ],
+        "address-keys": [
+            "addr:housenumber",
+            "addr:street",
+            "addr:postcode",
+            "addr:city",
+            "addr:province"
+        ]
+    },
     "ch": {
         "speed-limits": [
             30,
@@ -93,8 +114,11 @@
     },
     "fr": {
         "speed-limits": [
+            30,
             50,
+            70,
             80,
+            110,
             130
         ]
     },
@@ -102,7 +126,10 @@
         "distance": "imperial",
         "left-hand-traffic": true,
         "speed-limits": [
+            20,
             30,
+            40,
+            50,
             60,
             70
         ],
