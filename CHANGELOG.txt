@@ -1,5 +1,30 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+18.1.2:
+
+- Fix relation sorting issues and improve performance
+- Fix NPE when manually re-ordering ring members
+- Fix saving layer style after reset and some minor inconsistencies
+- Fix improve navigation with back key in WebViews
+- Fix reset data style to default if prev. selected style doesn't exist
+- Fix don't ask to move tags to multi-polygon if none are present
+- Fix if text_context is not set for combo use values_context if set
+- Fix copy constructor didn't copy translation context fields
+- Fix determine current tile cache size in thread (not on main thread)
+- Fix don't synchronize getMin/MaxZoom
+- Fix protect against no elements being provided for centroid calculation
+- Fix don't delete GPX recording layer automatically on setup
+- Fix invalidate menu after clearing data
+- Fix make a deep copy instead of cloning imagery offset array
+- Fix disable / enable simple mode button in imagery alignment mode
+- Remove Maxar Standard imagery configuration
+- Add the current on disk tile cache size to debug page
+- Update translations
+- Update preset
+- Update imagery from ELI
+- Update geocontext
+- Update NSI
+
 18.1.1:
 
 - Fix correctly handle expanding/shrinking the offset array
