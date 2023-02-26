@@ -362,14 +362,15 @@
             
             <li class="nav-item" data-level="1"><a href="#presets" class="nav-link">Presets</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#preset-pane" class="nav-link">Preset pane</a>
+            <li class="nav-item" data-level="2"><a href="#property-editor-preset-tab" class="nav-link">Property editor preset tab</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#managing-presets" class="nav-link">Managing presets</a>
-              <ul class="nav flex-column">
               </ul>
             </li>
+            
+            <li class="nav-item" data-level="1"><a href="#managing-presets" class="nav-link">Managing presets</a>
+              <ul class="nav flex-column">
             <li class="nav-item" data-level="2"><a href="#useful-presets-for-download" class="nav-link">Useful presets for download</a>
               <ul class="nav flex-column">
               </ul>
@@ -384,18 +385,19 @@
 <h1 id="presets">Presets<a class="headerlink" href="#presets" title="Permanent link">#</a></h1>
 <p>Vespucci supports JOSM compatible presets and the default preset is derived from the original JOSM one and kept in sync as far as possible. Just as with JOSM you can add further presets or use a different one than the default. </p>
 <p>The default preset is maintained at <a href="https://github.com/simonpoole/beautified-JOSM-preset">https://github.com/simonpoole/beautified-JOSM-preset</a>. You can install an additional, updated version by selecting <a href="vespucci://preset/?preseturl=https://github.com/simonpoole/beautified-JOSM-preset/releases/latest/download/vespucci_v4_zip.zip&presetname=Updated default preset">current Vespucci preset</a> <em>(this link will only work on your device)</em> after the download you will have to explicitly enable it and disable the built-in version.</p>
-<h2 id="preset-pane"><img alt="Preset" src="../../images/tag_menu_preset.png" /> Preset pane<a class="headerlink" href="#preset-pane" title="Permanent link">#</a></h2>
-<p>Opens a screen which allows you to navigate through the currently active presets and select one to be applied to the current object. A shortcut button will be added to the Property Editor screen below the tags. The recently used preset screen can be completely emptied with the corresponding menu item, individual presets can be removed by a long press.</p>
+<h2 id="property-editor-preset-tab"><img alt="Preset" src="../../images/tag_menu_preset.png" /> Property editor preset tab<a class="headerlink" href="#property-editor-preset-tab" title="Permanent link">#</a></h2>
+<p>The <em>Presets</em> tab (on tablets a continuously displayed pane) in the <a href="../Property%20editor/">Property editor</a> displays a screen which allows you to navigate through the currently active presets and select one to be applied to the current object. A shortcut button will be added to the <em>Properties</em> tab below the tags. The recently used preset display can be completely emptied with the corresponding menu item, individual presets can be removed by a long press.</p>
 <p>The light grey buttons in the preset dialog indicate groups of presets, dark grey are presets. Navigating back to the previous screen is accomplished with the ''Up'' button, the ''Top'' button will navigate back to the initial view.</p>
-<h2 id="managing-presets">Managing presets<a class="headerlink" href="#managing-presets" title="Permanent link">#</a></h2>
-<p>To manage the presets go to the "Preferences" screen, selecting "Presets" will give you a list of the currently available presets. Clicking in the check box will enable/disable the corresponding entry, a long press on the entry (except for the default "OpenStreetMap") will give you a choice of:</p>
+<h1 id="managing-presets">Managing presets<a class="headerlink" href="#managing-presets" title="Permanent link">#</a></h1>
+<p>To manage the presets go to the "Preferences" screen, selecting "Presets" will give you a list of the currently available presets. Clicking in the check box will enable/disable the corresponding entry, a long press on the entry or a press on the menu icon will give you a choice of:</p>
 <ul>
-<li><strong>Edit</strong> - change the name or/and URL of the preset</li>
+<li><strong>Edit</strong> - change the name or/and URL of the preset, enable/disable translations.</li>
 <li><strong>Delete</strong> - remove this entry</li>
 <li><strong>Update</strong> - re-download the preset <em>(requires network connectivity)</em></li>
 <li><strong>Move up</strong> - move the entry up. Presets are evaluated top to bottom in this list, identically named items in earlier entries with override the later ones.</li>
 <li><strong>Move down</strong> - move the entry down.</li>
 </ul>
+<p>Note that the "Built-in preset" cannot be deleted, but it can be disabled.</p>
 <p><strong>Add preset</strong> will add a new preset, you will need to supply an URL for the file containing the preset and a name or select a preset file (click the SD-card icon)  that is available on your device. Vespucci will download the preset and any icons referenced by URL in the file, presets contained in a ZIP-archive are supported too. <em>(requires network connectivity for downloading)</em></p>
 <h2 id="useful-presets-for-download">Useful presets for download<a class="headerlink" href="#useful-presets-for-download" title="Permanent link">#</a></h2>
 <p>Most current JOSM presets can be found in <a href="http://josm.openstreetmap.de/wiki/Presets#JOSMAvailablepresets">JOSM preset list</a>. If you are viewing this on your mobile device with Vespucci the preset download urls are modified for direct download and install.</p>
@@ -426,14 +428,15 @@
             
             <li class="nav-item" data-level="1"><a href="#presets" class="nav-link">Presets</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#preset-pane" class="nav-link">Preset pane</a>
+            <li class="nav-item" data-level="2"><a href="#property-editor-preset-tab" class="nav-link">Property editor preset tab</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#managing-presets" class="nav-link">Managing presets</a>
-              <ul class="nav flex-column">
               </ul>
             </li>
+            
+            <li class="nav-item" data-level="1"><a href="#managing-presets" class="nav-link">Managing presets</a>
+              <ul class="nav flex-column">
             <li class="nav-item" data-level="2"><a href="#useful-presets-for-download" class="nav-link">Useful presets for download</a>
               <ul class="nav flex-column">
               </ul>
@@ -448,18 +451,19 @@
 <h1 id="presets">Presets<a class="headerlink" href="#presets" title="Permanent link">#</a></h1>
 <p>Vespucci supports JOSM compatible presets and the default preset is derived from the original JOSM one and kept in sync as far as possible. Just as with JOSM you can add further presets or use a different one than the default. </p>
 <p>The default preset is maintained at <a href="https://github.com/simonpoole/beautified-JOSM-preset">https://github.com/simonpoole/beautified-JOSM-preset</a>. You can install an additional, updated version by selecting <a href="vespucci://preset/?preseturl=https://github.com/simonpoole/beautified-JOSM-preset/releases/latest/download/vespucci_v4_zip.zip&presetname=Updated default preset">current Vespucci preset</a> <em>(this link will only work on your device)</em> after the download you will have to explicitly enable it and disable the built-in version.</p>
-<h2 id="preset-pane"><img alt="Preset" src="../../images/tag_menu_preset.png" /> Preset pane<a class="headerlink" href="#preset-pane" title="Permanent link">#</a></h2>
-<p>Opens a screen which allows you to navigate through the currently active presets and select one to be applied to the current object. A shortcut button will be added to the Property Editor screen below the tags. The recently used preset screen can be completely emptied with the corresponding menu item, individual presets can be removed by a long press.</p>
+<h2 id="property-editor-preset-tab"><img alt="Preset" src="../../images/tag_menu_preset.png" /> Property editor preset tab<a class="headerlink" href="#property-editor-preset-tab" title="Permanent link">#</a></h2>
+<p>The <em>Presets</em> tab (on tablets a continuously displayed pane) in the <a href="../Property%20editor/">Property editor</a> displays a screen which allows you to navigate through the currently active presets and select one to be applied to the current object. A shortcut button will be added to the <em>Properties</em> tab below the tags. The recently used preset display can be completely emptied with the corresponding menu item, individual presets can be removed by a long press.</p>
 <p>The light grey buttons in the preset dialog indicate groups of presets, dark grey are presets. Navigating back to the previous screen is accomplished with the ''Up'' button, the ''Top'' button will navigate back to the initial view.</p>
-<h2 id="managing-presets">Managing presets<a class="headerlink" href="#managing-presets" title="Permanent link">#</a></h2>
-<p>To manage the presets go to the "Preferences" screen, selecting "Presets" will give you a list of the currently available presets. Clicking in the check box will enable/disable the corresponding entry, a long press on the entry (except for the default "OpenStreetMap") will give you a choice of:</p>
+<h1 id="managing-presets">Managing presets<a class="headerlink" href="#managing-presets" title="Permanent link">#</a></h1>
+<p>To manage the presets go to the "Preferences" screen, selecting "Presets" will give you a list of the currently available presets. Clicking in the check box will enable/disable the corresponding entry, a long press on the entry or a press on the menu icon will give you a choice of:</p>
 <ul>
-<li><strong>Edit</strong> - change the name or/and URL of the preset</li>
+<li><strong>Edit</strong> - change the name or/and URL of the preset, enable/disable translations.</li>
 <li><strong>Delete</strong> - remove this entry</li>
 <li><strong>Update</strong> - re-download the preset <em>(requires network connectivity)</em></li>
 <li><strong>Move up</strong> - move the entry up. Presets are evaluated top to bottom in this list, identically named items in earlier entries with override the later ones.</li>
 <li><strong>Move down</strong> - move the entry down.</li>
 </ul>
+<p>Note that the "Built-in preset" cannot be deleted, but it can be disabled.</p>
 <p><strong>Add preset</strong> will add a new preset, you will need to supply an URL for the file containing the preset and a name or select a preset file (click the SD-card icon)  that is available on your device. Vespucci will download the preset and any icons referenced by URL in the file, presets contained in a ZIP-archive are supported too. <em>(requires network connectivity for downloading)</em></p>
 <h2 id="useful-presets-for-download">Useful presets for download<a class="headerlink" href="#useful-presets-for-download" title="Permanent link">#</a></h2>
 <p>Most current JOSM presets can be found in <a href="http://josm.openstreetmap.de/wiki/Presets#JOSMAvailablepresets">JOSM preset list</a>. If you are viewing this on your mobile device with Vespucci the preset download urls are modified for direct download and install.</p>
