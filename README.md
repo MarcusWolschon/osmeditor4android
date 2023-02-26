@@ -40,11 +40,13 @@ See the [build documentation](BUILDING.md) for more information.
     * Highlight ways/nodes with TODOs or FIXMEs
     * Highlight very old objects that are likely to be out dated
     * Add, comment and close OSM Notes
+    * OSMOSE and Maproulette support
     * Use a variety of background tile layers as reference
     * Show the user's GPS track with accuracy
     * Upload to OSM and local saving of GPS tracks
     * Display the raw data
     * Display geo-referenced photographs and Mapillary images
+    * GeoJSON layers with support for importing objects
     * ... and lots more ...
     
 Detailed documentation can be found on the [Vespucci Website](https://vespucci.io/)
@@ -72,6 +74,7 @@ Vespucci utilizes a number of independent, separately maintained, projects. The 
 * [Beautified JOSM Preset](https://github.com/simonpoole/beautified-JOSM-preset) independently maintained presets in JOSM format (can be utilized in JOSM too)
 * [OpeningHoursFragment](https://github.com/simonpoole/OpeningHoursFragment) opening hours user interface
 * [Name Suggestion Index](https://github.com/osmlab/name-suggestion-index) name/brand-related tag suggestions database
+* [iD tagging schema](https://github.com/openstreetmap/id-tagging-schema) for synonyms used for searching presets
 
 ## License and trademarks
 
