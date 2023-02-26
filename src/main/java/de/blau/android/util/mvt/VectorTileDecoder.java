@@ -13,7 +13,6 @@
 package de.blau.android.util.mvt;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -37,6 +36,7 @@ import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.util.Log;
 import androidx.annotation.NonNull;
+import de.blau.android.util.collections.LowAllocArrayList;
 import vector_tile.VectorTile;
 import vector_tile.VectorTile.Tile.GeomType;
 import vector_tile.VectorTile.Tile.Layer;
@@ -140,7 +140,7 @@ public class VectorTileDecoder {
         int x = 0;
         int y = 0;
 
-        List<List<Point>> coordsList = new ArrayList<>();
+        List<List<Point>> coordsList = new LowAllocArrayList<>();
         List<Point> coords = null;
 
         int geometryCount = commands.size();
@@ -158,7 +158,7 @@ public class VectorTileDecoder {
             if (length > 0) {
 
                 if (command == Command.MoveTo) {
-                    coords = new ArrayList<>();
+                    coords = new LowAllocArrayList<>();
                     coordsList.add(coords);
                 }
 
@@ -190,7 +190,7 @@ public class VectorTileDecoder {
 
         switch (geomType) {
         case LINESTRING:
-            List<LineString> lineStrings = new ArrayList<>();
+            List<LineString> lineStrings = new LowAllocArrayList<>();
             for (List<Point> cs : coordsList) {
                 if (cs.size() <= 1) {
                     continue;
@@ -204,7 +204,7 @@ public class VectorTileDecoder {
             }
             break;
         case POINT:
-            List<Point> allCoords = new ArrayList<>();
+            List<Point> allCoords = new LowAllocArrayList<>();
             for (List<Point> cs : coordsList) {
                 allCoords.addAll(cs);
             }
@@ -215,8 +215,8 @@ public class VectorTileDecoder {
             }
             break;
         case POLYGON:
-            List<List<LineString>> polygonRings = new ArrayList<>();
-            List<LineString> ringsForCurrentPolygon = new ArrayList<>();
+            List<List<LineString>> polygonRings = new LowAllocArrayList<>();
+            List<LineString> ringsForCurrentPolygon = new LowAllocArrayList<>();
             for (List<Point> cs : coordsList) {
                 // skip exterior with too few coordinates
                 if (ringsForCurrentPolygon.isEmpty() && cs.size() < 4) {
@@ -229,12 +229,12 @@ public class VectorTileDecoder {
                 LineString ring = LineString.fromLngLats(cs); // is this closed or not?
 
                 if (winding(ring.coordinates()) == COUNTERCLOCKWISE) {
-                    ringsForCurrentPolygon = new ArrayList<>();
+                    ringsForCurrentPolygon = new LowAllocArrayList<>();
                     polygonRings.add(ringsForCurrentPolygon);
                 }
                 ringsForCurrentPolygon.add(ring);
             }
-            List<Polygon> polygons = new ArrayList<>();
+            List<Polygon> polygons = new LowAllocArrayList<>();
             for (List<LineString> rings : polygonRings) {
                 LineString shell = rings.get(0);
                 List<LineString> holes = rings.subList(1, rings.size());
@@ -255,7 +255,7 @@ public class VectorTileDecoder {
 
         if (geometry == null) {
             Log.e(DEBUG_TAG, "Empty geometry for " + geomType);
-            geometry = GeometryCollection.fromGeometries(new ArrayList<>());
+            geometry = GeometryCollection.fromGeometries(new LowAllocArrayList<>());
         }
 
         return geometry;
@@ -328,7 +328,7 @@ public class VectorTileDecoder {
          */
         @NonNull
         public List<Feature> asList() {
-            List<Feature> features = new ArrayList<>();
+            List<Feature> features = new LowAllocArrayList<>();
             for (Feature feature : this) {
                 features.add(feature);
             }
@@ -346,7 +346,7 @@ public class VectorTileDecoder {
             for (Feature feature : this) {
                 List<Feature> list = features.get(feature.layerName);
                 if (list == null) {
-                    list = new ArrayList<>();
+                    list = new LowAllocArrayList<>();
                     features.put(feature.layerName, list);
                 }
                 list.add(feature);
@@ -381,8 +381,8 @@ public class VectorTileDecoder {
         private double  scale;
         private boolean autoScale;
 
-        private final List<String> keys   = new ArrayList<>();
-        private final List<Object> values = new ArrayList<>();
+        private final List<String> keys   = new LowAllocArrayList<>();
+        private final List<Object> values = new LowAllocArrayList<>();
 
         private Feature next;
 

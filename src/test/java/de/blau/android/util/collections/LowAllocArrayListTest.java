@@ -50,4 +50,18 @@ public class LowAllocArrayListTest {
         LowAllocArrayList<String> last = new LowAllocArrayList<>(Arrays.asList());
         assertFalse(first.addAll(last));
     }
+    
+    @Test 
+    public void constructor() {
+        final int count = 10000;
+        LowAllocArrayList<String>[] array = new LowAllocArrayList[count]; 
+        long start = System.currentTimeMillis();
+        for (int i=0;i < count;i++) {
+            array[i] =  new LowAllocArrayList<>();
+        }
+        System.out.println("Done in " + (System.currentTimeMillis() - start));
+        for (int i=0;i < count;i++) {
+            array[i].add(Integer.toString(i));
+        }
+    }
 }

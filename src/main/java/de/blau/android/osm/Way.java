@@ -1,7 +1,6 @@
 package de.blau.android.osm;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -13,6 +12,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.collections.LowAllocArrayList;
 import de.blau.android.util.rtree.BoundedObject;
 import de.blau.android.validation.Validator;
 
@@ -23,7 +23,7 @@ public class Way extends StyledOsmElement implements BoundedObject {
     /**
      * 
      */
-    private static final long serialVersionUID = 1104911642016294269L;
+    private static final long serialVersionUID = 1104911642016294270L;
 
     private final List<Node> nodes;
 
@@ -52,7 +52,7 @@ public class Way extends StyledOsmElement implements BoundedObject {
      */
     Way(final long osmId, final long osmVersion, final long timestamp, final byte status) {
         super(osmId, osmVersion, timestamp, status);
-        nodes = new ArrayList<>();
+        nodes = new LowAllocArrayList<>();
     }
 
     /**

@@ -23,7 +23,9 @@ public class DecodeTest {
     @Test
     public void decodeOpenInfraMapTest() {
         try {
+            long start = System.currentTimeMillis();
             VectorTileDecoder.FeatureIterable decodedTile = new VectorTileDecoder().decode(readTile("/openinframap_tile.pbf"));
+            System.out.println("Decoding " + (System.currentTimeMillis() - start));     
             List<VectorTileDecoder.Feature> list = decodedTile.asList();
             assertEquals(101, list.size());
             Map<String, Integer> counts = new HashMap<>();
@@ -50,7 +52,9 @@ public class DecodeTest {
     @Test
     public void decodeTilemakerTest() {
         try {
+            long start = System.currentTimeMillis();
             VectorTileDecoder.FeatureIterable decodedTile = new VectorTileDecoder().decode(readTile("/tilemaker_tile.pbf"));
+            System.out.println("Decoding " + (System.currentTimeMillis() - start));
             List<VectorTileDecoder.Feature> list = decodedTile.asList();
             assertEquals(314, list.size());
             Map<String, Integer> counts = new HashMap<>();

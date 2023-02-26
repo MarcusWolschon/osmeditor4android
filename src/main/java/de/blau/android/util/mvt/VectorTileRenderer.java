@@ -22,6 +22,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.util.GeoJSONConstants;
+import de.blau.android.util.collections.LowAllocArrayList;
 import de.blau.android.util.mvt.style.Background;
 import de.blau.android.util.mvt.style.Fill;
 import de.blau.android.util.mvt.style.Layer;
@@ -129,8 +130,8 @@ public class VectorTileRenderer implements MapTilesLayer.TileRenderer<Map<String
         return null;
     }
 
-    List<Layer>                     layerToRender    = new ArrayList<>();
-    List<VectorTileDecoder.Feature> featuresToRender = new ArrayList<>();
+    List<Layer>                     layerToRender    = new LowAllocArrayList<>();
+    List<VectorTileDecoder.Feature> featuresToRender = new LowAllocArrayList<>();
 
     @Override
     public void preRender(@NonNull Canvas c, int z) {

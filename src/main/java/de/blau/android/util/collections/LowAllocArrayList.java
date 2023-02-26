@@ -71,11 +71,10 @@ public class LowAllocArrayList<V> extends ArrayList<V> {
             try { // NOSONAR
                 dataField = getField("array");
             } catch (NoSuchFieldException e) {
-                Log.w(DEBUG_TAG, "not using 'array'");
                 try { // NOSONAR
                     dataField = getField("elementData");
                 } catch (NoSuchFieldException e2) {
-                    Log.e(DEBUG_TAG, "not using 'elementData'");
+                    // OK
                 }
             }
         } catch (IllegalArgumentException | SecurityException e) {

@@ -1,4 +1,4 @@
-package de.blau.android.util;
+package de.blau.android.util.collections;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -12,18 +12,17 @@ import java.util.List;
 import java.util.Set;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
 
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElementFactory;
-import de.blau.android.util.collections.LongHashSet;
-import de.blau.android.util.collections.LongOsmElementMap;
-import de.blau.android.util.collections.MRUList;
-import de.blau.android.util.collections.MultiHashMap;
-import de.blau.android.util.collections.UnsignedSparseBitSet;
+import de.blau.android.util.GeoMath;
 import de.blau.android.util.rtree.RTree;
 
+@RunWith(RobolectricTestRunner.class)
 public class CollectionTest {
 
     /**

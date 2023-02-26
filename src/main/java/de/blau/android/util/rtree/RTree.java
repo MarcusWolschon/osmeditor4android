@@ -26,11 +26,11 @@ public class RTree<T extends BoundedObject> implements Serializable {
     private QuadraticNodeSplitter splitter;
 
     private class Node<T extends BoundedObject> implements BoundedObject, Serializable {
-        private static final long  serialVersionUID = 1L;
+        private static final long  serialVersionUID = 2L;
         private Node<T>            parent;
         private BoundingBox        box;
-        private ArrayList<Node<T>> children;
-        private ArrayList<T>       data;
+        private List<Node<T>> children;
+        private List<T>       data;
 
         /**
          * Construct a new tree Node

@@ -43,6 +43,7 @@ import de.blau.android.osm.Server;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.symbols.TriangleDown;
 import de.blau.android.util.ExecutorTask;
+import de.blau.android.util.collections.LowAllocArrayList;
 import de.blau.android.util.collections.MultiHashMap;
 import de.blau.android.util.mvt.style.Source.SourceType;
 
@@ -144,7 +145,7 @@ public class Style implements Serializable {
 
     private int                               version;
     private final MultiHashMap<String, Layer> layerMap   = new MultiHashMap<>();
-    private final List<Layer>                 layers     = new ArrayList<>();
+    private final List<Layer>                 layers     = new LowAllocArrayList<>();
     private boolean                           autoStyles = true;
     private Sprites                           sprites;
     private Map<String, Source>               sources    = new HashMap<>();

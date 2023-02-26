@@ -19,6 +19,7 @@ import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetItem;
+import de.blau.android.util.collections.LowAllocArrayList;
 import de.blau.android.util.rtree.BoundedObject;
 import de.blau.android.validation.Validator;
 
@@ -32,7 +33,7 @@ public class Relation extends StyledOsmElement implements BoundedObject {
     /**
      * 
      */
-    private static final long serialVersionUID = 1104911642016294268L;
+    private static final long serialVersionUID = 1104911642016294269L;
 
     final List<RelationMember> members;
 
@@ -55,7 +56,7 @@ public class Relation extends StyledOsmElement implements BoundedObject {
      */
     Relation(final long osmId, final long osmVersion, final long timestamp, final byte status) {
         super(osmId, osmVersion, timestamp, status);
-        members = new ArrayList<>();
+        members = new LowAllocArrayList<>();
     }
 
     /**
@@ -448,7 +449,7 @@ public class Relation extends StyledOsmElement implements BoundedObject {
      * @return List of OsmElement
      */
     public List<OsmElement> getMemberElements() {
-        List<OsmElement> result = new ArrayList<>();
+        List<OsmElement> result = new LowAllocArrayList<>();
         for (RelationMember rm : getMembers()) {
             if (rm.getElement() != null) {
                 result.add(rm.getElement());

@@ -22,6 +22,7 @@ import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.IssueAlert;
+import de.blau.android.util.collections.LowAllocArrayList;
 import de.blau.android.validation.Validator;
 
 public abstract class OsmElement implements Serializable, XmlSerializable, JosmXmlSerializable {
@@ -61,7 +62,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 
     byte state;
 
-    private ArrayList<Relation> parentRelations;
+    private List<Relation> parentRelations;
 
     // seconds since EPOCH, negative == not set, using an int here limits dates up to 2073
     private int timestamp = -1;
@@ -413,7 +414,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
      */
     public void addParentRelation(@NonNull Relation relation) {
         if (parentRelations == null) {
-            parentRelations = new ArrayList<>();
+            parentRelations = new LowAllocArrayList<>();
         }
         parentRelations.add(relation);
     }
@@ -453,7 +454,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
      */
     public void addParentRelations(@NonNull List<Relation> relations) {
         if (parentRelations == null) {
-            parentRelations = new ArrayList<>();
+            parentRelations = new LowAllocArrayList<>();
         }
         // dedup
         for (Relation r : relations) {
