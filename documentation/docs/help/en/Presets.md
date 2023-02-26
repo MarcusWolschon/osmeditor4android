@@ -4,22 +4,24 @@ Vespucci supports JOSM compatible presets and the default preset is derived from
 
 The default preset is maintained at [https://github.com/simonpoole/beautified-JOSM-preset](https://github.com/simonpoole/beautified-JOSM-preset). You can install an additional, updated version by selecting <a href="vespucci://preset/?preseturl=https://github.com/simonpoole/beautified-JOSM-preset/releases/latest/download/vespucci_v4_zip.zip&presetname=Updated default preset">current Vespucci preset</a> *(this link will only work on your device)* after the download you will have to explicitly enable it and disable the built-in version.
 
-## ![Preset](../images/tag_menu_preset.png) Preset pane
+## ![Preset](../images/tag_menu_preset.png) Property editor preset tab
 
-Opens a screen which allows you to navigate through the currently active presets and select one to be applied to the current object. A shortcut button will be added to the Property Editor screen below the tags. The recently used preset screen can be completely emptied with the corresponding menu item, individual presets can be removed by a long press.
+The _Presets_ tab (on tablets a continuously displayed pane) in the [Property editor](Property editor.md) displays a screen which allows you to navigate through the currently active presets and select one to be applied to the current object. A shortcut button will be added to the _Properties_ tab below the tags. The recently used preset display can be completely emptied with the corresponding menu item, individual presets can be removed by a long press.
 
 The light grey buttons in the preset dialog indicate groups of presets, dark grey are presets. Navigating back to the previous screen is accomplished with the ''Up'' button, the ''Top'' button will navigate back to the initial view.
 
-## Managing presets
+# Managing presets
 
-To manage the presets go to the "Preferences" screen, selecting "Presets" will give you a list of the currently available presets. Clicking in the check box will enable/disable the corresponding entry, a long press on the entry (except for the default "OpenStreetMap") will give you a choice of:
+To manage the presets go to the "Preferences" screen, selecting "Presets" will give you a list of the currently available presets. Clicking in the check box will enable/disable the corresponding entry, a long press on the entry or a press on the menu icon will give you a choice of:
 
 
-* **Edit** - change the name or/and URL of the preset
+* **Edit** - change the name or/and URL of the preset, enable/disable translations.
 * **Delete** - remove this entry
 * **Update** - re-download the preset *(requires network connectivity)*
 * **Move up** - move the entry up. Presets are evaluated top to bottom in this list, identically named items in earlier entries with override the later ones.
 * **Move down** - move the entry down.
+
+Note that the "Built-in preset" cannot be deleted, but it can be disabled.
 
 **Add preset** will add a new preset, you will need to supply an URL for the file containing the preset and a name or select a preset file (click the SD-card icon)  that is available on your device. Vespucci will download the preset and any icons referenced by URL in the file, presets contained in a ZIP-archive are supported too. *(requires network connectivity for downloading)*
 
