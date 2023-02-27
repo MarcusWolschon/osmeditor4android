@@ -56,12 +56,7 @@ public class PresetItemLink implements Serializable {
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((presetName == null) ? 0 : presetName.hashCode());
-        result = prime * result + ((text == null) ? 0 : text.hashCode());
-        result = prime * result + ((textContext == null) ? 0 : textContext.hashCode());
-        return result;
+        return Objects.hash(presetName, text, textContext);
     }
 
     @Override

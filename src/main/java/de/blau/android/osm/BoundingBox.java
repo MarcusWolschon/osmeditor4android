@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 import org.xmlpull.v1.XmlSerializer;
 
@@ -760,12 +761,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
      */
     @Override
     public int hashCode() {
-        int result = 17;
-        result = 37 * result + left;
-        result = 37 * result + bottom;
-        result = 37 * result + right;
-        result = 37 * result + top;
-        return result;
+        return Objects.hash(left, bottom, right, top);
     }
 
     /*

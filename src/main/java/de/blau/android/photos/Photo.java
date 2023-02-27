@@ -271,12 +271,7 @@ public class Photo implements BoundedObject {
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + lat;
-        result = prime * result + lon;
-        result = prime * result + ((ref == null) ? 0 : ref.hashCode());
-        return result;
+        return Objects.hash(lat, lon, ref);
     }
 
     @Override

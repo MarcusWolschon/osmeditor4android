@@ -1,6 +1,7 @@
 package de.blau.android.osm;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -84,11 +85,7 @@ public class RelationMemberPosition implements Serializable {
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((member == null) ? 0 : member.hashCode());
-        result = prime * result + position;
-        return result;
+        return Objects.hash(member, position);
     }
 
     @Override

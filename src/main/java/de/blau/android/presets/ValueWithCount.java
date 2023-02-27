@@ -2,6 +2,9 @@ package de.blau.android.presets;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import java.util.Objects;
+
 import de.blau.android.util.Value;
 
 public class ValueWithCount implements Comparable<ValueWithCount>, Value {
@@ -123,11 +126,6 @@ public class ValueWithCount implements Comparable<ValueWithCount>, Value {
 
     @Override
     public int hashCode() {
-        int result = 17;
-        result = 37 * result + (value == null ? 0 : value.hashCode());
-        result = 37 * result + (description == null ? 0 : description.hashCode());
-        result = 37 * result + count;
-        result = 37 * result + (descriptionOnly ? 1231 : 1237);
-        return result;
+        return Objects.hash(value, description, count, descriptionOnly);
     }
 }

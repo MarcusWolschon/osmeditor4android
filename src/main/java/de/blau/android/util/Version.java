@@ -1,6 +1,7 @@
 package de.blau.android.util;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import android.content.Context;
 import android.util.Log;
@@ -161,13 +162,7 @@ public class Version implements Serializable {
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + beta;
-        result = prime * result + major;
-        result = prime * result + minor;
-        result = prime * result + patch;
-        return result;
+        return Objects.hash(beta, major, minor, patch);
     }
 
     @Override

@@ -2,6 +2,7 @@ package de.blau.android.util.collections;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
 
@@ -86,10 +87,7 @@ public class MRUList<T> extends ArrayList<T> {
      */
     @Override
     public int hashCode() {
-        final int prime = 37;
-        int result = super.hashCode();
-        result = prime * result + capacity;
-        return result;
+        return Objects.hash(super.hashCode(), capacity);
     }
 
     /*

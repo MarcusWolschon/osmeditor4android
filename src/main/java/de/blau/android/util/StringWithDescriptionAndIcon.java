@@ -114,11 +114,7 @@ public class StringWithDescriptionAndIcon extends ExtendedStringWithDescription 
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = super.hashCode();
-        result = prime * result + ((iconPath == null) ? 0 : iconPath.hashCode());
-        result = prime * result + ((imagePath == null) ? 0 : imagePath.hashCode());
-        return result;
+        return Objects.hash(super.hashCode(), iconPath, imagePath);
     }
 
     @Override

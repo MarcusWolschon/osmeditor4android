@@ -118,10 +118,7 @@ public class StringWithDescription implements Comparable<StringWithDescription>,
 
     @Override
     public int hashCode() {
-        int result = 1;
-        result = 37 * result + (value == null ? 0 : value.hashCode());
-        result = 37 * result + (description == null ? 0 : description.hashCode());
-        return result;
+        return Objects.hash(value, description);
     }
 
     /**

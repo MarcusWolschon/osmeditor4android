@@ -1,5 +1,7 @@
 package de.blau.android.tasks;
 
+import java.util.Objects;
+
 public abstract class LongIdTask extends Task {
 
     private static final long serialVersionUID = 1L;
@@ -18,9 +20,6 @@ public abstract class LongIdTask extends Task {
 
     @Override
     public int hashCode() { // NOSONAR
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + (int) (id ^ (id >>> 32));
-        return result;
+        return Objects.hash(id);
     }
 }

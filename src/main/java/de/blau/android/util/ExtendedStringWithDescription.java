@@ -98,11 +98,7 @@ public class ExtendedStringWithDescription extends StringWithDescription impleme
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = super.hashCode();
-        result = prime * result + (deprecated ? 1231 : 1237);
-        result = prime * result + ((longDescription == null) ? 0 : longDescription.hashCode());
-        return result;
+        return Objects.hash(super.hashCode(), deprecated, longDescription);
     }
 
     @Override

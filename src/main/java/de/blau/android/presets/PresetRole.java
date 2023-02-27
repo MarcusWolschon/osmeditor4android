@@ -305,10 +305,7 @@ public class PresetRole implements Comparable<PresetRole> {
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((role == null) ? 0 : role.hashCode());
-        return result;
+        return Objects.hash(role);
     }
 
     @Override

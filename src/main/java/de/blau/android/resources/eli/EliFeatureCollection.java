@@ -190,13 +190,7 @@ public final class EliFeatureCollection implements GeoJson {
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((bbox == null) ? 0 : bbox.hashCode());
-        result = prime * result + ((features == null) ? 0 : features.hashCode());
-        result = prime * result + ((meta == null) ? 0 : meta.hashCode());
-        result = prime * result + ((type == null) ? 0 : type.hashCode());
-        return result;
+        return Objects.hash(bbox, features, meta, type);
     }
 
     @Override

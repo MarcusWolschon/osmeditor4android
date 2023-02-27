@@ -133,12 +133,7 @@ public class RelationMember implements Serializable {
     
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + (int) (ref ^ (ref >>> 32));
-        result = prime * result + ((role == null) ? 0 : role.hashCode());
-        result = prime * result + ((type == null) ? 0 : type.hashCode());
-        return result;
+        return Objects.hash(ref, role, type);
     }
 
     @Override
