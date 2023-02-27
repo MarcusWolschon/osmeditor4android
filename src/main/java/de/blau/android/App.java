@@ -187,10 +187,15 @@ public class App extends Application implements android.app.Application.Activity
     private ScheduledThreadPoolExecutor autosaveExecutor = new ScheduledThreadPoolExecutor(1);
     private ScheduledFuture<?>          autosaveFuture   = null;
 
+    private static FSTConfiguration singletonConf;
+
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         MultiDex.install(this);
+
+        singletonConf = FSTConfiguration.createAndroidDefaultConfiguration();
+        singletonConf.registerSerializer(TreeMap.class, new FSTMapSerializer(), true);
     }
 
     @Override
@@ -762,11 +767,6 @@ public class App extends Application implements android.app.Application.Activity
      */
     public static String getUserAgent() {
         return userAgent;
-    }
-
-    private static FSTConfiguration singletonConf = FSTConfiguration.createAndroidDefaultConfiguration();
-    static {
-        singletonConf.registerSerializer(TreeMap.class, new FSTMapSerializer(), true);
     }
 
     /**
