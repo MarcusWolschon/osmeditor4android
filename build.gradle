@@ -242,6 +242,11 @@ android {
             // proguardFiles getDefaultProguardFile('proguard-android.txt'),'proguard-rules.pro'
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),'proguard-rules.pro'
         }
+        fakeRelease {
+            minifyEnabled true      
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),'proguard-rules.pro'
+            signingConfig signingConfigs.debug
+        }
     }
 
     // this, unluckily, cannot be set per flavour
