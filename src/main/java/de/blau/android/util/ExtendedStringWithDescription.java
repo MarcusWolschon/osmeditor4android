@@ -1,6 +1,7 @@
 package de.blau.android.util;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -116,16 +117,6 @@ public class ExtendedStringWithDescription extends StringWithDescription impleme
             return false;
         }
         ExtendedStringWithDescription other = (ExtendedStringWithDescription) obj;
-        if (deprecated != other.deprecated) {
-            return false;
-        }
-        if (longDescription == null) {
-            if (other.longDescription != null) {
-                return false;
-            }
-        } else if (!longDescription.equals(other.longDescription)) {
-            return false;
-        }
-        return true;
+        return deprecated == other.deprecated && Objects.equals(longDescription, other.longDescription);
     }
 }

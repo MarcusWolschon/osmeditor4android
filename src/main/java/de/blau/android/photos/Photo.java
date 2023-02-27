@@ -2,6 +2,7 @@ package de.blau.android.photos;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 
 import android.content.Context;
 import android.net.Uri;
@@ -287,19 +288,6 @@ public class Photo implements BoundedObject {
             return false;
         }
         Photo other = (Photo) obj;
-        if (lat != other.lat) {
-            return false;
-        }
-        if (lon != other.lon) {
-            return false;
-        }
-        if (ref == null) {
-            if (other.ref != null) {
-                return false;
-            }
-        } else if (!ref.equals(other.ref)) {
-            return false;
-        }
-        return true;
+        return lat == other.lat && lon == other.lon && Objects.equals(ref, other.ref);
     }
 }

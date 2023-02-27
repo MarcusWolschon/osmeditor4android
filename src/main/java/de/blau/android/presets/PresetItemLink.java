@@ -1,6 +1,7 @@
 package de.blau.android.presets;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -72,27 +73,7 @@ public class PresetItemLink implements Serializable {
             return false;
         }
         PresetItemLink other = (PresetItemLink) obj;
-        if (presetName == null) {
-            if (other.presetName != null) {
-                return false;
-            }
-        } else if (!presetName.equals(other.presetName)) {
-            return false;
-        }
-        if (text == null) {
-            if (other.text != null) {
-                return false;
-            }
-        } else if (!text.equals(other.text)) {
-            return false;
-        }
-        if (textContext == null) {
-            if (other.textContext != null) {
-                return false;
-            }
-        } else if (!textContext.equals(other.textContext)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(presetName, other.presetName) && Objects.equals(text, other.text)
+                && Objects.equals(textContext, other.textContext);
     }
 }

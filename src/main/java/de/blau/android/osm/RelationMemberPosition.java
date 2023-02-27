@@ -100,13 +100,6 @@ public class RelationMemberPosition implements Serializable {
             return false;
         }
         RelationMemberPosition other = (RelationMemberPosition) obj;
-        if (member == null) {
-            if (other.member != null) {
-                return false;
-            }
-        } else if (!member.equals(other.member)) {
-            return false;
-        }
-        return position == other.position;
+        return member.equals(other.member) && position == other.position;
     }
 }

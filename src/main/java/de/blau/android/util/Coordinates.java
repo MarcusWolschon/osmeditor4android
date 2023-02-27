@@ -198,21 +198,11 @@ public class Coordinates implements IPoint {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        Coordinates other = (Coordinates) obj;
-        if (Double.doubleToLongBits(x) != Double.doubleToLongBits(other.x)) {
-            return false;
-        }
-        return Double.doubleToLongBits(y) == Double.doubleToLongBits(other.y);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Coordinates)) return false;
+        Coordinates that = (Coordinates) o;
+        return Double.compare(that.x, x) == 0 && Double.compare(that.y, y) == 0;
     }
 
     @Override

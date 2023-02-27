@@ -1,6 +1,7 @@
 package de.blau.android.presets;
 
 import java.util.Locale;
+import java.util.Objects;
 
 import android.util.Log;
 import androidx.annotation.NonNull;
@@ -315,20 +316,10 @@ public class PresetRole implements Comparable<PresetRole> {
         if (this == obj) {
             return true;
         }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
+        if (!(obj instanceof PresetRole)) {
             return false;
         }
         PresetRole other = (PresetRole) obj;
-        if (role == null) {
-            if (other.role != null) {
-                return false;
-            }
-        } else if (!role.equals(other.role)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(role, other.role);
     }
 }

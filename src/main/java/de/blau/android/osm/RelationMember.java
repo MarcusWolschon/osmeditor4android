@@ -1,6 +1,7 @@
 package de.blau.android.osm;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -149,23 +150,6 @@ public class RelationMember implements Serializable {
             return false;
         }
         RelationMember other = (RelationMember) obj;
-        if (ref != other.ref) {
-            return false;
-        }
-        if (role == null) {
-            if (other.role != null) {
-                return false;
-            }
-        } else if (!role.equals(other.role)) {
-            return false;
-        }
-        if (type == null) {
-            if (other.type != null) {
-                return false;
-            }
-        } else if (!type.equals(other.type)) {
-            return false;
-        }
-        return true;
+        return ref == other.ref && Objects.equals(role, other.role) && Objects.equals(type, other.type);
     }
 }
