@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -194,10 +195,7 @@ public class Names {
 
         @Override
         public int hashCode() {
-            int result = 17;
-            result = 37 * result + (name == null ? 0 : name.hashCode());
-            result = 37 * result + (tags == null ? 0 : tags.hashCode());
-            return result;
+            return Objects.hash(name, tags);
         }
     }
 

@@ -1,6 +1,7 @@
 package de.blau.android.util;
 
 import java.util.Comparator;
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import de.blau.android.presets.PresetItem;
@@ -39,9 +40,7 @@ public class IndexSearchResult {
 
     @Override
     public int hashCode() {
-        int result = 17;
-        result = 37 * result + (item == null ? 0 : item.hashCode());
-        return result;
+        return Objects.hash(item);
     }
 
     public static final Comparator<IndexSearchResult> WEIGHT_COMPARATOR = (isr1, isr2) -> {

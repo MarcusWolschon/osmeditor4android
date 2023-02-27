@@ -34,11 +34,7 @@ class Meta implements Serializable {
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((formatVersion == null) ? 0 : formatVersion.hashCode());
-        result = prime * result + ((generated == null) ? 0 : generated.hashCode());
-        return result;
+        return Objects.hash(formatVersion, generated);
     }
 
     @Override

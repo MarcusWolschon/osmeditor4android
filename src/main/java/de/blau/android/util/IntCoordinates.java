@@ -1,5 +1,7 @@
 package de.blau.android.util;
 
+import java.util.Objects;
+
 /**
  * Wrapper for a WGS84*1E7 coordinate tupel
  * 
@@ -24,10 +26,7 @@ public class IntCoordinates {
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + lat;
-        return prime * result + lon;
+        return Objects.hash(lat, lon);
     }
 
     @Override

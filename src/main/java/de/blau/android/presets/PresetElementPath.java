@@ -3,6 +3,7 @@ package de.blau.android.presets;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
 
@@ -65,10 +66,7 @@ public class PresetElementPath implements Serializable {
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((path == null) ? 0 : path.hashCode());
-        return result;
+        return Objects.hash(path);
     }
 
     @Override
