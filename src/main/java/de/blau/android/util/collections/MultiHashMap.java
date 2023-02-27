@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -247,13 +248,6 @@ public class MultiHashMap<K, V> implements Serializable {
 
         @SuppressWarnings("rawtypes")
         MultiHashMap other = (MultiHashMap) obj;
-        if (map == null) {
-            if (other.map != null) {
-                return false;
-            }
-        } else if (!map.equals(other.map)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(map, other.map);
     }
 }

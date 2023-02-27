@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import com.google.gson.stream.JsonReader;
 
@@ -210,13 +211,6 @@ public final class OsmoseBug extends Bug implements Serializable {
             return false;
         }
         OsmoseBug other = (OsmoseBug) obj;
-        if (id == null) {
-            if (other.id != null) {
-                return false;
-            }
-        } else if (!id.equals(other.id)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(id, other.id);
     }
 }

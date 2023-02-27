@@ -28,10 +28,13 @@ public class IndexSearchResult {
 
     @Override
     public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
         if (!(obj instanceof IndexSearchResult)) {
             return false;
         }
-        return (item == null && ((IndexSearchResult) obj).item == null) || (item != null && item.equals(((IndexSearchResult) obj).item));
+        return item.equals(((IndexSearchResult) obj).item);
     }
 
     @Override

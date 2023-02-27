@@ -6,6 +6,9 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import java.util.Objects;
+
 import de.blau.android.presets.PresetElement;
 import de.blau.android.presets.PresetItem;
 
@@ -130,21 +133,6 @@ public class StringWithDescriptionAndIcon extends ExtendedStringWithDescription 
             return false;
         }
         StringWithDescriptionAndIcon other = (StringWithDescriptionAndIcon) obj;
-        if (iconPath == null) {
-            if (other.iconPath != null) {
-                return false;
-            }
-        } else if (!iconPath.equals(other.iconPath)) {
-            return false;
-        }
-        if (imagePath == null) {
-            if (other.imagePath != null) {
-                return false;
-            }
-        } else if (!imagePath.equals(other.imagePath)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(iconPath, other.iconPath) && Objects.equals(imagePath, other.imagePath);
     }
-
 }

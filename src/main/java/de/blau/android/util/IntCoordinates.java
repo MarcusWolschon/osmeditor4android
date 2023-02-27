@@ -39,9 +39,6 @@ public class IntCoordinates {
             return false;
         }
         IntCoordinates other = (IntCoordinates) obj;
-        if (lat != other.lat) {
-            return false;
-        }
-        return lon == other.lon;
+        return lat == other.lat && lon == other.lon;
     }
 }

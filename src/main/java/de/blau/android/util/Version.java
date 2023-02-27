@@ -179,15 +179,6 @@ public class Version implements Serializable {
             return false;
         }
         Version other = (Version) obj;
-        if (beta != other.beta) {
-            return false;
-        }
-        if (major != other.major) {
-            return false;
-        }
-        if (minor != other.minor) {
-            return false;
-        }
-        return patch == other.patch;
+        return beta == other.beta && major == other.major && minor == other.minor && patch == other.patch;
     }
 }

@@ -182,10 +182,14 @@ public class Names {
 
         @Override
         public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
             if (!(obj instanceof NameAndTags)) {
                 return false;
             }
-            return name.equals(((NameAndTags) obj).name) && tags.equals(((NameAndTags) obj).tags);
+            final NameAndTags other = (NameAndTags) obj;
+            return name.equals(other.name) && tags.equals(other.tags);
         }
 
         @Override

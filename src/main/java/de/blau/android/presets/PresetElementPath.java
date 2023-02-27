@@ -80,13 +80,6 @@ public class PresetElementPath implements Serializable {
             return false;
         }
         PresetElementPath other = (PresetElementPath) obj;
-        if (path == null) {
-            if (other.path != null) {
-                return false;
-            }
-        } else if (!path.equals(other.path)) {
-            return false;
-        }
-        return true;
+        return path.equals(other.path);
     }
 }

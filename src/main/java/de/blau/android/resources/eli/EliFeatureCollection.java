@@ -22,6 +22,7 @@ package de.blau.android.resources.eli;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -207,35 +208,8 @@ public final class EliFeatureCollection implements GeoJson {
             return false;
         }
         EliFeatureCollection other = (EliFeatureCollection) obj;
-        if (bbox == null) {
-            if (other.bbox != null) {
-                return false;
-            }
-        } else if (!bbox.equals(other.bbox)) {
-            return false;
-        }
-        if (features == null) {
-            if (other.features != null) {
-                return false;
-            }
-        } else if (!features.equals(other.features)) {
-            return false;
-        }
-        if (meta == null) {
-            if (other.meta != null) {
-                return false;
-            }
-        } else if (!meta.equals(other.meta)) {
-            return false;
-        }
-        if (type == null) {
-            if (other.type != null) {
-                return false;
-            }
-        } else if (!type.equals(other.type)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(bbox, other.bbox) && Objects.equals(features, other.features)
+                && Objects.equals(meta, other.meta) && type.equals(other.type);
     }
 
     /**

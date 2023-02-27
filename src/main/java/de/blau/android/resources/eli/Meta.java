@@ -2,6 +2,7 @@ package de.blau.android.resources.eli;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.Objects;
 
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
@@ -49,21 +50,7 @@ class Meta implements Serializable {
             return false;
         }
         Meta other = (Meta) obj;
-        if (formatVersion == null) {
-            if (other.formatVersion != null) {
-                return false;
-            }
-        } else if (!formatVersion.equals(other.formatVersion)) {
-            return false;
-        }
-        if (generated == null) {
-            if (other.generated != null) {
-                return false;
-            }
-        } else if (!generated.equals(other.generated)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(formatVersion, other.formatVersion) && Objects.equals(generated, other.generated);
     }
 
     /**

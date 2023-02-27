@@ -3,6 +3,7 @@ package de.blau.android.util;
 import java.io.Serializable;
 import java.text.Collator;
 import java.util.Comparator;
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -105,9 +106,14 @@ public class StringWithDescription implements Comparable<StringWithDescription>,
 
     @Override
     public boolean equals(Object o) {
-        return o != null && (o instanceof StringWithDescription && this == (StringWithDescription) o
-                || (this.value.equals(((StringWithDescription) o).value) && (this.description == null && ((StringWithDescription) o).description == null
-                        || (this.description != null && this.description.equals(((StringWithDescription) o).description)))));
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof StringWithDescription)) {
+            return false;
+        }
+        final StringWithDescription other = (StringWithDescription) o;
+        return value.equals(other.value) && Objects.equals(description, other.description);
     }
 
     @Override

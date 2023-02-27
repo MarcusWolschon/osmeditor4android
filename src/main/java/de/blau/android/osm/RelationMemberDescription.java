@@ -1,6 +1,7 @@
 package de.blau.android.osm;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -114,9 +115,12 @@ public class RelationMemberDescription extends RelationMember {
         if (this == o) {
             return true;
         }
-        return o instanceof RelationMemberDescription && ref == ((RelationMemberDescription) o).ref && type.equals(((RelationMemberDescription) o).type)
-                && ((role == null && ((RelationMemberDescription) o).role == null) || (role != null && role.equals(((RelationMemberDescription) o).role)))
-                && position == ((RelationMemberDescription) o).position;
+        if (!(o instanceof RelationMemberDescription)) {
+            return false;
+        }
+        final RelationMemberDescription other = (RelationMemberDescription) o;
+        return ref == other.ref && type.equals(other.type) && Objects.equals(role, other.role)
+                && position == other.position;
     }
 
     @Override
