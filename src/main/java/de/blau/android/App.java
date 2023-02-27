@@ -29,6 +29,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import androidx.annotation.NonNull;
@@ -189,7 +190,9 @@ public class App extends LocaleAwareApplication implements android.app.Applicati
     @Override
     public void onCreate() {
         // The following line triggers the initialization of ACRA
-        ACRA.init(this);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            ACRA.init(this);
+        }
         super.onCreate();
         registerActivityLifecycleCallbacks(this);
         String appName = getString(R.string.app_name);
