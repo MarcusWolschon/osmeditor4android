@@ -1,15 +1,5 @@
 package de.blau.android.util;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.res.AssetManager;
-import android.util.Log;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
-import com.google.gson.stream.JsonReader;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -20,6 +10,14 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import com.google.gson.stream.JsonReader;
+
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.res.AssetManager;
+import android.util.Log;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import de.blau.android.contract.Files;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
@@ -149,7 +147,7 @@ public class GeoContext {
         Log.d(DEBUG_TAG, "Initalizing");
         AssetManager assetManager = context.getAssets();
         countryBoundaries = getCountryBoundariesFromAssets(assetManager, Files.FILE_NAME_BOUNDARIES);
-        properties = getPropertiesMap(assetManager, Files.FILE_NAME_GEOCONTEXT);
+        properties = getPropertiesMap(assetManager);
     }
 
     /**
@@ -171,17 +169,15 @@ public class GeoContext {
 
     /**
      * Read a GeoJson file from assets
-     * 
+     *
      * @param assetManager an AssetManager
-     * @param fileName the name of the file
      * @return a GeoJson FeatureCollection
      */
     @SuppressLint("NewApi") // StandardCharsets is desugared for APIs < 19.
     @NonNull
-    private Map<String, Properties> getPropertiesMap(@NonNull AssetManager assetManager, @NonNull String fileName) {
+    private Map<String, Properties> getPropertiesMap(@NonNull AssetManager assetManager) {
         Map<String, Properties> result = new HashMap<>();
-        try (InputStream is = assetManager.open(fileName);
-             JsonReader reader = new JsonReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
+        try (InputStream is = assetManager.open(Files.FILE_NAME_GEOCONTEXT); JsonReader reader = new JsonReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
             reader.beginObject();
             while (reader.hasNext()) {
                 String territory = reader.nextName();
@@ -238,7 +234,7 @@ public class GeoContext {
             reader.endObject();
             Log.d(DEBUG_TAG, "Found " + result.size() + " entries.");
         } catch (IOException | NumberFormatException e) {
-            Log.d(DEBUG_TAG, "Reading " + fileName + " " + e.getMessage());
+            Log.d(DEBUG_TAG, "Reading " + Files.FILE_NAME_GEOCONTEXT + " " + e.getMessage());
         }
         return result;
     }

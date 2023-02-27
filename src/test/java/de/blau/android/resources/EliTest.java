@@ -5,19 +5,19 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
-import androidx.annotation.NonNull;
-import androidx.test.filters.LargeTest;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
+
+import androidx.annotation.NonNull;
+import androidx.test.filters.LargeTest;
+import de.blau.android.osm.OsmXml;
 import de.blau.android.resources.eli.EliFeatureCollection;
 import de.blau.android.util.Version;
 

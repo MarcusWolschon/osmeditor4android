@@ -5,19 +5,19 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import androidx.annotation.NonNull;
-
-import com.mapbox.geojson.Feature;
-import com.mapbox.geojson.Geometry;
-
-import org.junit.Test;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+
+import org.junit.Test;
+
+import com.mapbox.geojson.Feature;
+import com.mapbox.geojson.Geometry;
+
+import androidx.annotation.NonNull;
 
 public class GeoJsonTest {
 
