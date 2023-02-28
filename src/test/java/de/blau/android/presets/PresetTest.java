@@ -29,7 +29,6 @@ import org.xml.sax.SAXException;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import androidx.annotation.NonNull;
 import androidx.test.core.app.ApplicationProvider;
@@ -168,30 +167,15 @@ public class PresetTest {
      */
     @Test
     public void svgIcons() {
-        final Context context = ApplicationProvider.getApplicationContext();
-        try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(context)) {
-            File preset = JavaResources.copyFileFromResources(context, "svg-test.zip", null, "/");
-            String presetId = java.util.UUID.randomUUID().toString();
-            db.addPreset(presetId, "Test preset", "", true);
-            File presetDir = db.getPresetDirectory(presetId);
-            presetDir.mkdir();
-            Uri inputUri = Uri.parse(preset.toURI().toString());
-            ContentResolver contentResolver = ApplicationProvider.getApplicationContext().getContentResolver();
-            ShadowContentResolver shadowContentResolver = shadowOf(contentResolver);
-            shadowContentResolver.registerInputStream(inputUri, new FileInputStream(preset));
-            PresetLoader.load(context, inputUri, presetDir, "svg-test.zip");
-            App.resetPresets();
-        } catch (Exception ex) {
-            fail(ex.getMessage());
-        }
         //
-        presets = App.getCurrentPresets(context);
+        presets = getTestPreset("svg-test.zip");
         Preset p = getPresetWithDescription(presets, "Testing preset");
         assertNotNull(p);
         PresetItem item = p.getItemByName("Test Item", null);
         assertNotNull(item);
+        assertNotNull(item.getIconpath());
         System.out.println(item.getIconpath());
-        BitmapDrawable icon = item.getMapIcon(context);
+        BitmapDrawable icon = item.getMapIcon(ApplicationProvider.getApplicationContext());
         assertNotNull(icon);
         assertEquals(1345600, icon.getBitmap().getByteCount());
     }
@@ -218,23 +202,7 @@ public class PresetTest {
      */
     @Test
     public void objectMatching() {
-        try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(ApplicationProvider.getApplicationContext())) {
-            File preset = JavaResources.copyFileFromResources(ApplicationProvider.getApplicationContext(), "test-preset.xml", null, "/");
-            String presetId = java.util.UUID.randomUUID().toString();
-            db.addPreset(presetId, "Test preset", "", true);
-            File presetDir = db.getPresetDirectory(presetId);
-            presetDir.mkdir();
-            Uri inputUri = Uri.parse(preset.toURI().toString());
-            ContentResolver contentResolver = ApplicationProvider.getApplicationContext().getContentResolver();
-            ShadowContentResolver shadowContentResolver = shadowOf(contentResolver);
-            shadowContentResolver.registerInputStream(inputUri, new FileInputStream(preset));
-            PresetLoader.load(ApplicationProvider.getApplicationContext(), inputUri, presetDir, "test-preset.xml");
-            App.resetPresets();
-        } catch (Exception ex) {
-            fail(ex.getMessage());
-        }
-        //
-        presets = App.getCurrentPresets(ApplicationProvider.getApplicationContext());
+        presets = getTestPreset("test-preset.xml");
         Map<String, String> tags = new HashMap<>();
         tags.put("imaginary", "tag");
         PresetItem test = Preset.findBestMatch(presets, tags, null, null);
@@ -258,6 +226,32 @@ public class PresetTest {
         tags.put("highway", "tag2");
         test = Preset.findBestMatch(presets, tags, null, null);
         assertNull(test);
+    }
+
+    /**
+     * Add a test preset to current presets and return them
+     * 
+     * @param presetName file name of the test preset
+     * @return
+     */
+    private Preset[] getTestPreset(@NonNull String presetName) {
+        final Context applicationContext = ApplicationProvider.getApplicationContext();
+        try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(applicationContext)) {
+            File preset = JavaResources.copyFileFromResources(applicationContext, presetName, null, "/");
+            String presetId = java.util.UUID.randomUUID().toString();
+            db.addPreset(presetId, "Test preset", "", true);
+            File presetDir = db.getPresetDirectory(presetId);
+            presetDir.mkdir();
+            Uri inputUri = Uri.parse(preset.toURI().toString());
+            ContentResolver contentResolver = ApplicationProvider.getApplicationContext().getContentResolver();
+            ShadowContentResolver shadowContentResolver = shadowOf(contentResolver);
+            shadowContentResolver.registerInputStream(inputUri, new FileInputStream(preset));
+            PresetLoader.load(applicationContext, inputUri, presetDir, presetName);
+            return db.getCurrentPresetObject();
+        } catch (Exception ex) {
+            fail(ex.getMessage());
+        }
+        return null;
     }
 
     /**
@@ -344,23 +338,7 @@ public class PresetTest {
      */
     @Test
     public void sameName() {
-        try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(ApplicationProvider.getApplicationContext())) {
-            File preset = JavaResources.copyFileFromResources(ApplicationProvider.getApplicationContext(), "test-preset.xml", null, "/");
-            String presetId = java.util.UUID.randomUUID().toString();
-            db.addPreset(presetId, "Test preset", "", true);
-            File presetDir = db.getPresetDirectory(presetId);
-            presetDir.mkdir();
-            Uri inputUri = Uri.parse(preset.toURI().toString());
-            ContentResolver contentResolver = ApplicationProvider.getApplicationContext().getContentResolver();
-            ShadowContentResolver shadowContentResolver = shadowOf(contentResolver);
-            shadowContentResolver.registerInputStream(inputUri, new FileInputStream(preset));
-            PresetLoader.load(ApplicationProvider.getApplicationContext(), inputUri, presetDir, "test-preset.xml");
-            App.resetPresets();
-        } catch (Exception ex) {
-            fail(ex.getMessage());
-        }
-        //
-        presets = App.getCurrentPresets(ApplicationProvider.getApplicationContext());
+        presets = getTestPreset("test-preset.xml");
         Preset testPreset = null;
         for (Preset p : presets) {
             if ("Testing preset".equals(p.getShortDescription())) {
@@ -399,5 +377,18 @@ public class PresetTest {
         // mtb:scale is directly in an optional section
         assertFalse(path.hasKey("mtb:scale", false));
         assertTrue(path.hasKey("mtb:scale", true));
+    }
+
+    /**
+     * Check that translation contextes are maintained for combos in chunks
+     */
+    @Test
+    public void chunkTranslationContext() {
+        PresetItem p = presets[0].getItemByName("Primary", null);
+        assertNotNull(p);
+        PresetField field = p.getField("bus_bay");
+        assertNotNull(field);
+        assertEquals("bus_bay", field.getTextContext());
+        assertEquals("bus_bay", ((PresetComboField) field).getValuesContext());
     }
 }
