@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 public enum ValueType {
-    OPENING_HOURS, OPENING_HOURS_MIXED, CONDITIONAL, INTEGER, WEBSITE, PHONE, WIKIPEDIA, WIKIDATA;
+    OPENING_HOURS, OPENING_HOURS_MIXED, CONDITIONAL, DIMENSION_HORIZONTAL, DIMENSION_VERTICAL, INTEGER, WEBSITE, PHONE, WIKIPEDIA, WIKIDATA;
 
     /**
      * Get a ValueType corresponding to the input String
@@ -25,6 +25,12 @@ public enum ValueType {
             break;
         case "conditional":
             type = CONDITIONAL;
+            break;
+        case "dimension_horizontal":
+            type = DIMENSION_HORIZONTAL;
+            break;
+        case "dimension_vertical":
+            type = DIMENSION_VERTICAL;
             break;
         case "integer":
             type = INTEGER;
