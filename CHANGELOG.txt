@@ -1,5 +1,8 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+18.1.3:
+- Fix error in app manifest
+
 18.1.2:
 
 - Fix relation sorting issues and improve performance
