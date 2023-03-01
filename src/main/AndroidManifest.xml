@@ -280,7 +280,7 @@
             android:theme="@style/Theme.IssueReporter" />
         <activity
             android:name=".util.DownloadActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale" />
+            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
             android:launchMode="singleTask"
             android:theme="@style/Theme.AppCompat" />
 
