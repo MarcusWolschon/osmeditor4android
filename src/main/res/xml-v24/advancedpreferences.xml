@@ -333,6 +333,11 @@
             app:spt_increment="10"
             app:spt_currentValueText="@string/config_maxOffsetDistance_current"
             app:spt_setWrapSelectorWheel="false" />
+        <androidx.preference.CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/config_useImperialUnits_key"
+            android:summary="@string/config_useImperialUnits_summary"
+            android:title="@string/config_useImperialUnits_title" />
     </androidx.preference.PreferenceScreen>
     <androidx.preference.PreferenceScreen
         android:key="config_category_auto_download"

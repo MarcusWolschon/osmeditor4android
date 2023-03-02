@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:numberpicker="http://schemas.android.com/apk/res-auto">
+    xmlns:numberpicker="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -49,7 +50,7 @@
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
                     android:background="@android:color/transparent"
-                    android:tint="?attr/colorAccent"
+                    app:tint="?attr/colorAccent"
                     android:src="@drawable/ic_sd_storage_black_36dp" />
             </LinearLayout>
             <TextView
