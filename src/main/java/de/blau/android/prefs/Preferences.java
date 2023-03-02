@@ -115,6 +115,7 @@ public class Preferences {
     private final int         autoNameCap;
     private final boolean     wayNodeDragging;
     private final boolean     splitWindowForPropertyEditor;
+    private final boolean     useImperialUnits;
 
     private static final String DEFAULT_MAP_PROFILE = "Color Round Nodes";
 
@@ -282,6 +283,8 @@ public class Preferences {
         wayNodeDragging = prefs.getBoolean(r.getString(R.string.config_wayNodeDragging_key), false);
 
         splitWindowForPropertyEditor = prefs.getBoolean(r.getString(R.string.config_splitWindowForPropertyEditor_key), false);
+
+        useImperialUnits = prefs.getBoolean(r.getString(R.string.config_useImperialUnits_key), false);
     }
 
     /**
@@ -1552,6 +1555,15 @@ public class Preferences {
      */
     public boolean useSplitWindowForPropertyEditor() {
         return splitWindowForPropertyEditor;
+    }
+
+    /**
+     * Check if we should use imperial units when measuring in countries that use them or stay with metrix
+     * 
+     * @return true if we really should use imperial units
+     */
+    public boolean useImperialUnits() {
+        return useImperialUnits;
     }
 
     /**

@@ -93,6 +93,7 @@
     <string name="config_indexMediaStore_key">indexMediaStore</string>
     <string name="config_wayNodeDragging_key">wayNodeDragging</string>
     <string name="config_splitWindowForPropertyEditor_key">splitWindowForPropertyEditor</string>
+    <string name="config_useImperialUnits_key">useImperialUnits</string>
     <!-- Preference keys used in the pref editor(s) int prefs -->
     <string name="config_maxInlineValues_key">maxInlineValuesInt</string>
     <string name="config_autoLockDelay_key">autoLockDelayInt</string>

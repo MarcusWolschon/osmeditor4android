@@ -453,6 +453,8 @@
     <string name="boxpicker_firsttimetitle">Download OpenStreetMap data</string>
     <!--  Clear/Reset GPX Track -->
     <string name="clear_track_description">Stop tracking and delete any stored trackpoints. This cannot be undone.</string>
+    <!-- Measurement dialog -->
+    <string name="measure">Measure</string>
     <!--  Tips -->
     <string name="tip_title">Did you know?</string>
     <string name="tip_check_label">Stop showing optional tips</string>
@@ -1212,6 +1214,9 @@
     <string name="config_maxOffsetDistance_title">Max distance for stored imagery offsets</string>
     <string name="config_maxOffsetDistance_summary">The farthest distance a locally stored layer offset will be automatically be applied.</string>
     <string name="config_maxOffsetDistance_current">%1$d meter(s)</string>
+    <string name="config_useImperialUnits_title">Use imperial units for measuring</string>
+    <string name="config_useImperialUnits_summary">Use imperial units when measuring in countries that customarily use them.</string>
+            
     <!-- Auto-download settings -->
     <string name="config_category_auto_download">Auto-download settings</string>
     <string name="config_category_auto_download_summary">Settings for data and task auto downloading</string>

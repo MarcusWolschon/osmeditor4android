@@ -31,6 +31,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -43,6 +44,9 @@ import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
 import de.blau.android.address.Address;
+import de.blau.android.measure.Length;
+import de.blau.android.measure.Measure;
+import de.blau.android.measure.Params;
 import de.blau.android.nsi.Names;
 import de.blau.android.nsi.Names.NameAndTags;
 import de.blau.android.osm.OsmElement;
@@ -149,6 +153,22 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 
         return f;
     }
+
+    // this needs to be setup before onCreate
+    private final ActivityResultLauncher<Params> measureLauncher = registerForActivityResult(Measure.getContract(), (Length length) -> {
+        if (length != null) { // silently ignore for now
+            final String key = length.getKey();
+            View row = getRow(key);
+            if (row instanceof TextRow) {
+                Util.scrollToRow(getView(), row, true, true);
+                final String lengthString = length.toString();
+                TextRow.setOrReplaceText(((TextRow) row).getValueView(), lengthString);
+                updateSingleValue(key, lengthString);
+            } else {
+                Log.e(DEBUG_TAG, "onActivityResult row for " + key + " not found");
+            }
+        }
+    });
 
     @Override
     public void onAttachToContext(Context context) {
@@ -379,6 +399,16 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         }
         Log.d(DEBUG_TAG, adapter == null ? "adapter is null" : "adapter has " + adapter.getCount() + " elements");
         return adapter;
+    }
+
+    /**
+     * Get an ActivityResultLauncher for an external measuring app
+     * 
+     * @return the appropriate ActivityResultLauncher
+     */
+    @NonNull
+    ActivityResultLauncher<Params> getMeasureLauncher() {
+        return measureLauncher;
     }
 
     @Override
@@ -1034,7 +1064,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
      * @param key the key value we want to focus on
      * @return true if the key was found
      */
-    public boolean focusOnTag(String key) {
+    public boolean focusOnTag(@NonNull String key) {
         boolean found = false;
         View sv = getView();
         LinearLayout ll = (LinearLayout) sv.findViewById(R.id.form_container_layout);

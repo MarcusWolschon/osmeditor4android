@@ -186,6 +186,10 @@ This allows to control if phone numbers should be auto-formatted. Default: _on_.
   
 The farthest distance a locally stored layer offset will be automatically be applied. Default: _100 meters_.
 
+### Use imperial units for measuring
+
+Use imperial units when measuring in countries that customarily use them. Default: _off_.
+
 ## Auto-download Settings
 
 ### Download radius

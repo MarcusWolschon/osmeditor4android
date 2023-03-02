@@ -291,7 +291,7 @@ public abstract class PresetField {
     /**
      * @param type the ValueType to set
      */
-    void setValueType(@Nullable ValueType type) {
+    public void setValueType(@Nullable ValueType type) {
         this.valueType = type;
     }
 

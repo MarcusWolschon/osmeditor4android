@@ -4,17 +4,26 @@ import java.util.List;
 import java.util.Map;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.text.InputType;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog.Builder;
 import de.blau.android.App;
 import de.blau.android.R;
+import de.blau.android.measure.Measure;
+import de.blau.android.measure.Params;
+import de.blau.android.measure.streetmeasure.MeasureContract.LengthUnit;
 import de.blau.android.nsi.Names;
 import de.blau.android.nsi.Names.NameAndTags;
 import de.blau.android.osm.Tags;
@@ -28,6 +37,7 @@ import de.blau.android.propertyeditor.SanitizeTextWatcher;
 import de.blau.android.propertyeditor.TagEditorFragment;
 import de.blau.android.propertyeditor.tagform.TagFormFragment.EditableLayout;
 import de.blau.android.util.LocaleUtils;
+import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 import de.blau.android.util.Value;
 import de.blau.android.views.CustomAutoCompleteTextView;
@@ -167,8 +177,9 @@ public class TextRow extends LinearLayout implements KeyValueRow {
         final String defaultValue = field.getDefaultValue();
         row.valueType = preset != null ? preset.getValueType(key) : null;
         final boolean isName = Tags.isLikeAName(key);
-        final boolean isMPHSpeed = !isName && Tags.isSpeedKey(key)
-                && App.getGeoContext(rowLayout.getContext()).imperial(caller.propertyEditorListener.getElement());
+        final Context context = rowLayout.getContext();
+        final boolean imperial = App.getGeoContext(context).imperial(caller.propertyEditorListener.getElement());
+        final boolean isMPHSpeed = !isName && Tags.isSpeedKey(key) && imperial;
         final TextView ourKeyView = row.getKeyView();
         ourKeyView.setText(hint != null ? hint : key);
         ourKeyView.setTag(key);
@@ -191,6 +202,7 @@ public class TextRow extends LinearLayout implements KeyValueRow {
             ourValueView.setTokenizer(new CustomAutoCompleteTextView.SingleCharTokenizer(preset.getDelimiter(key)));
         }
         setHint(field, ourValueView);
+        final ValueType valueType = row.getValueType();
         ourValueView.setOnFocusChangeListener((v, hasFocus) -> {
             Log.d(DEBUG_TAG, "onFocusChange");
             String rowValue = row.getValue();
@@ -200,21 +212,28 @@ public class TextRow extends LinearLayout implements KeyValueRow {
                     ((EditableLayout) rowLayout).putTag(key, rowValue);
                 }
             } else if (hasFocus) {
-                ArrayAdapter<?> adapter = caller.getValueAutocompleteAdapter(key, values, preset, null, allTags, true, false, -1);
-                if (adapter != null && !adapter.isEmpty()) {
-                    ourValueView.setAdapter(adapter);
-                }
-                final ValueType valueType = row.getValueType();
-                if (isMPHSpeed) {
-                    TagEditorFragment.initMPHSpeed(rowLayout.getContext(), ourValueView, caller.propertyEditorListener);
-                } else if (valueType == null) {
-                    InputTypeUtil.enableTextSuggestions(ourValueView);
-                }
-                if (isName && LocaleUtils.usesLatinScript(Util.getPrimaryLocale(caller.getResources()))) {
-                    ourValueView.setInputType(
-                            (ourValueView.getInputType() & ~INPUTTYPE_CAPS_MASK) | InputType.TYPE_CLASS_TEXT | App.getLogic().getPrefs().getAutoNameCap());
+                if ((valueType == ValueType.DIMENSION_HORIZONTAL || valueType == ValueType.DIMENSION_VERTICAL) && Measure.isAvailable(context)) {
+                    final View finalView = v;
+                    finalView.setEnabled(false); // debounce
+                    final AlertDialog dialog = buildMeasureDialog(caller, hint != null ? hint : key, key, row, valueType, imperial);
+                    dialog.setOnDismissListener(d -> finalView.setEnabled(true));
+                    dialog.show();
                 } else {
-                    InputTypeUtil.setInputTypeFromValueType(ourValueView, valueType);
+                    ArrayAdapter<?> adapter = caller.getValueAutocompleteAdapter(key, values, preset, null, allTags, true, false, -1);
+                    if (adapter != null && !adapter.isEmpty()) {
+                        ourValueView.setAdapter(adapter);
+                    }
+                    if (isMPHSpeed) {
+                        TagEditorFragment.initMPHSpeed(context, ourValueView, caller.propertyEditorListener);
+                    } else if (valueType == null) {
+                        InputTypeUtil.enableTextSuggestions(ourValueView);
+                    }
+                    if (isName && LocaleUtils.usesLatinScript(Util.getPrimaryLocale(caller.getResources()))) {
+                        ourValueView.setInputType(
+                                (ourValueView.getInputType() & ~INPUTTYPE_CAPS_MASK) | InputType.TYPE_CLASS_TEXT | App.getLogic().getPrefs().getAutoNameCap());
+                    } else {
+                        InputTypeUtil.setInputTypeFromValueType(ourValueView, valueType);
+                    }
                 }
             }
         });
@@ -264,5 +283,53 @@ public class TextRow extends LinearLayout implements KeyValueRow {
         } else {
             valueView.setHint(R.string.tag_autocomplete_value_hint);
         }
+    }
+
+    /**
+     * Build a dialog for adding/editing a value or measuring it with an external app
+     * 
+     * @param caller the calling TagFormFragment instance
+     * @param hint a description to display
+     * @param key the key
+     * @param row the row we are started from
+     * @param valueType the field ValueType
+     * @param imperial true if the element is in freedom unit space
+     * 
+     * @return an AlertDialog
+     */
+    private static AlertDialog buildMeasureDialog(@NonNull final TagFormFragment caller, @NonNull String hint, @NonNull String key, @NonNull final TextRow row,
+            @NonNull final ValueType valueType, boolean imperial) {
+        String value = row.getValue();
+        Builder builder = new AlertDialog.Builder(caller.getActivity());
+        builder.setTitle(hint);
+        final LayoutInflater themedInflater = ThemeUtils.getLayoutInflater(caller.getActivity());
+
+        final View layout = themedInflater.inflate(R.layout.text_line, null);
+        final EditText input = layout.findViewById(R.id.text_line_edit);
+        input.setText(value);
+        builder.setView(layout);
+
+        builder.setNegativeButton(R.string.save, (dialog, which) -> {
+            String ourValue = input.getText().toString();
+            caller.updateSingleValue((String) layout.getTag(), ourValue);
+            setOrReplaceText(row.getValueView(), ourValue);
+        });
+        builder.setPositiveButton(R.string.measure, null);
+        builder.setNeutralButton(R.string.cancel, null);
+
+        final AlertDialog dialog = builder.create();
+        layout.setTag(key);
+
+        dialog.setOnShowListener(d -> {
+            Button positive = ((AlertDialog) d).getButton(DialogInterface.BUTTON_POSITIVE);
+            positive.setOnClickListener(view -> {
+                caller.getMeasureLauncher()
+                        .launch(new Params(key,
+                                imperial && App.getPreferences(caller.getContext()).useImperialUnits() ? LengthUnit.FOOT_AND_INCH : LengthUnit.METER, 5, null,
+                                valueType == ValueType.DIMENSION_VERTICAL, null));
+                dialog.dismiss();
+            });
+        });
+        return dialog;
     }
 }
