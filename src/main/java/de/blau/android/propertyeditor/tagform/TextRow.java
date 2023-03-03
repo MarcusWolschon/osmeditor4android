@@ -11,8 +11,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -212,17 +212,15 @@ public class TextRow extends LinearLayout implements KeyValueRow {
                     ((EditableLayout) rowLayout).putTag(key, rowValue);
                 }
             } else if (hasFocus) {
+                ArrayAdapter<?> adapter = caller.getValueAutocompleteAdapter(key, values, preset, null, allTags, true, false, -1);
                 if ((valueType == ValueType.DIMENSION_HORIZONTAL || valueType == ValueType.DIMENSION_VERTICAL) && Measure.isAvailable(context)) {
                     final View finalView = v;
                     finalView.setEnabled(false); // debounce
-                    final AlertDialog dialog = buildMeasureDialog(caller, hint != null ? hint : key, key, row, valueType, imperial);
+                    final AlertDialog dialog = buildMeasureDialog(caller, hint != null ? hint : key, key, adapter, row, valueType, imperial);
                     dialog.setOnDismissListener(d -> finalView.setEnabled(true));
                     dialog.show();
                 } else {
-                    ArrayAdapter<?> adapter = caller.getValueAutocompleteAdapter(key, values, preset, null, allTags, true, false, -1);
-                    if (adapter != null && !adapter.isEmpty()) {
-                        ourValueView.setAdapter(adapter);
-                    }
+                    setAdapter(ourValueView, adapter);
                     if (isMPHSpeed) {
                         TagEditorFragment.initMPHSpeed(context, ourValueView, caller.propertyEditorListener);
                     } else if (valueType == null) {
@@ -291,22 +289,35 @@ public class TextRow extends LinearLayout implements KeyValueRow {
      * @param caller the calling TagFormFragment instance
      * @param hint a description to display
      * @param key the key
+     * @param adapter an optional ArrayAdapter
      * @param row the row we are started from
      * @param valueType the field ValueType
      * @param imperial true if the element is in freedom unit space
      * 
      * @return an AlertDialog
      */
-    private static AlertDialog buildMeasureDialog(@NonNull final TagFormFragment caller, @NonNull String hint, @NonNull String key, @NonNull final TextRow row,
-            @NonNull final ValueType valueType, boolean imperial) {
+    private static AlertDialog buildMeasureDialog(@NonNull final TagFormFragment caller, @NonNull String hint, @NonNull String key,
+            @Nullable ArrayAdapter<?> adapter, @NonNull final TextRow row, @NonNull final ValueType valueType, boolean imperial) {
         String value = row.getValue();
         Builder builder = new AlertDialog.Builder(caller.getActivity());
         builder.setTitle(hint);
         final LayoutInflater themedInflater = ThemeUtils.getLayoutInflater(caller.getActivity());
 
         final View layout = themedInflater.inflate(R.layout.text_line, null);
-        final EditText input = layout.findViewById(R.id.text_line_edit);
+        final AutoCompleteTextView input = layout.findViewById(R.id.text_line_edit);
         input.setText(value);
+        setAdapter(input, adapter);
+        input.setThreshold(0);
+        input.setOnFocusChangeListener((View v, boolean hasFocus) -> {
+            final AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) v;
+            if (autoCompleteTextView.getAdapter() != null) {
+                if (hasFocus) {
+                    autoCompleteTextView.showDropDown();
+                } else {
+                    autoCompleteTextView.dismissDropDown();
+                }
+            }
+        });
         builder.setView(layout);
 
         builder.setNegativeButton(R.string.save, (dialog, which) -> {
@@ -331,5 +342,17 @@ public class TextRow extends LinearLayout implements KeyValueRow {
             });
         });
         return dialog;
+    }
+
+    /**
+     * Set an ArrayAdapter on an AutoCompleteTextView, checking that it isn't empty
+     * 
+     * @param textView the AutoCompleteTextView
+     * @param adapter the ArrayAdapter
+     */
+    protected static void setAdapter(@NonNull final AutoCompleteTextView textView, @Nullable ArrayAdapter<?> adapter) {
+        if (adapter != null && !adapter.isEmpty()) {
+            textView.setAdapter(adapter);
+        }
     }
 }
