@@ -93,9 +93,7 @@ public class SimpleTextRow extends TextRow {
                     ((EditableLayout) rowLayout).putTag(key, rowValue);
                 }
             } else if (hasFocus) {
-                if (adapter != null && !adapter.isEmpty()) {
-                    ourValueView.setAdapter(adapter);
-                }
+                setAdapter(ourValueView, adapter);
                 if (row.getValueType() == null) {
                     InputTypeUtil.enableTextSuggestions(ourValueView);
                 }
