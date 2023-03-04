@@ -403,7 +403,8 @@ public class PresetParser {
                     text = attr.getValue(TEXT);
                     if (text != null) {
                         checkGroup.setHint(text);
-                    } else if (currentLabel != null) {
+                        removeDuplicatedLabel(text);
+                    } else if (currentLabel != null && !supportLabels) {
                         checkGroup.setHint(currentLabel);
                     }
                     checkGroup.setOptional(inOptionalSection);
@@ -491,6 +492,7 @@ public class PresetParser {
                     text = attr.getValue(TEXT);
                     if (text != null) {
                         field.setHint(text);
+                        removeDuplicatedLabel(text);
                     }
                     textContext = attr.getValue(TEXT_CONTEXT);
                     if (textContext != null) {
@@ -614,6 +616,19 @@ public class PresetParser {
                 // always zap label after next element
                 if (!LABEL.equals(name)) {
                     currentLabel = null;
+                }
+            }
+
+            /**
+             * If a checkgroup or combo/multselect has the same text value as a preceding label, remove the label
+             * 
+             * Often the label ends with a double colon, so we check for that too
+             * 
+             * @param text the text to check
+             */
+            private void removeDuplicatedLabel(@Nullable String text) {
+                if (currentLabel != null && (currentLabel.equals(text) || currentLabel.equals(text + ":"))) {
+                    currentItem.removeLastLabel();
                 }
             }
 

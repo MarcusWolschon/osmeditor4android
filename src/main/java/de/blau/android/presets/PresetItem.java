@@ -455,6 +455,23 @@ public class PresetItem extends PresetElement {
     }
 
     /**
+     * If the last Field is a PresetLabelField remove it
+     * 
+     * This is a bit ugly, but is not used often
+     */
+    void removeLastLabel() {
+        Entry<String, PresetField> last = null;
+        for (Entry<String, PresetField> entry : fields.entrySet()) {
+            if (entry.getValue() instanceof PresetLabelField) {
+                last = entry;
+            }
+        }
+        if (last != null) {
+            fields.remove(last.getKey());
+        }
+    }
+
+    /**
      * Add a PresetRole to this PresetItem
      * 
      * @param role the role to add
