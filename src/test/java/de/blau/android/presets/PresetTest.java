@@ -14,8 +14,11 @@ import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -390,5 +393,63 @@ public class PresetTest {
         assertNotNull(field);
         assertEquals("bus_bay", field.getTextContext());
         assertEquals("bus_bay", ((PresetComboField) field).getValuesContext());
+    }
+
+    /**
+     * Check that keys with language variants are grouped together
+     */
+    @Test
+    public void i18nGrouping() {
+        //
+        Map<String, String> tags = new HashMap<>();
+        tags.put("amenity", "restaurant");
+        PresetItem restaurant = Preset.findBestMatch(presets, tags, null, null);
+        assertEquals("Restaurant", restaurant.getName());
+        LinkedHashMap<PresetField, String> map = new LinkedHashMap<>();
+        for (PresetField field : restaurant.getFields().values()) {
+            if ((field instanceof PresetTextField) && Tags.KEY_NAME.equals(((PresetTextField) field).getKey())) {
+                map.put(field, "English");
+            } else {
+                map.put(field, "");
+            }
+        }
+        map.put(new PresetTextField("name:de"), "Deutsch");
+        int size = map.size();
+        Util.groupI18nKeys(Tags.I18N_NAME_KEYS, map);
+        Iterator<Entry<PresetField, String>> it = map.entrySet().iterator();
+        boolean found = false;
+        while (it.hasNext()) {
+            Entry<PresetField, String> entry = it.next();
+            PresetField field = entry.getKey();
+            if ((field instanceof PresetTextField) && Tags.KEY_NAME.equals(((PresetTextField) field).getKey())) {
+                if ("English".equals(entry.getValue())) {
+                    found = true;
+                    assertTrue("Deutsch".equals(it.next().getValue()));
+                    break;
+                }
+            }
+        }
+        assertTrue(found);
+        assertEquals(size, map.size());
+    }
+
+    /**
+     * Test that label fields are added
+     */
+    @Test
+    public void labels() {
+        //
+        Map<String, String> tags = new HashMap<>();
+        tags.put("amenity", "charging_station");
+        PresetItem charger = Preset.findBestMatch(presets, tags, null, null);
+        assertEquals("Charging Station", charger.getName());
+        boolean found = false;
+        for (PresetField field : charger.getFields().values()) {
+            if (field instanceof PresetLabelField && "Available Sockets/Cables:".equals(((PresetLabelField) field).getLabel())) {
+                found = true;
+                break;
+            }
+        }
+        assertTrue(found);
     }
 }
