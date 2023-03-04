@@ -11,7 +11,7 @@ import ch.poole.poparser.Po;
 import de.blau.android.osm.Tags;
 import de.blau.android.util.StringWithDescription;
 
-public class PresetFixedField extends PresetField {
+public class PresetFixedField extends PresetTagField {
     private final StringWithDescription value;
     private Boolean                     isObject;
 
@@ -66,7 +66,7 @@ public class PresetFixedField extends PresetField {
     }
 
     @Override
-    public PresetField copy() {
+    public PresetTagField copy() {
         return new PresetFixedField(this);
     }
 

@@ -9,7 +9,7 @@ import androidx.annotation.Nullable;
 import ch.poole.poparser.Po;
 import de.blau.android.util.StringWithDescription;
 
-public class PresetCheckField extends PresetField {
+public class PresetCheckField extends PresetTagField {
     /**
      * on value
      */
@@ -77,7 +77,7 @@ public class PresetCheckField extends PresetField {
     }
 
     @Override
-    public PresetField copy() {
+    public PresetTagField copy() {
         return new PresetCheckField(this);
     }
 

@@ -13,7 +13,7 @@ import de.blau.android.dialogs.TextLineDialog;
 import de.blau.android.osm.Tags;
 import de.blau.android.presets.AutoPreset;
 import de.blau.android.presets.Preset;
-import de.blau.android.presets.PresetField;
+import de.blau.android.presets.PresetTagField;
 import de.blau.android.presets.PresetFixedField;
 import de.blau.android.presets.PresetGroup;
 import de.blau.android.presets.PresetIconManager;
@@ -86,7 +86,7 @@ public final class CustomPreset {
                                 customItem.addField(new PresetTextField(key));
                             }
                         } else {
-                            PresetField field = item.getField(key).copy();
+                            PresetTagField field = item.getField(key).copy();
                             if (notEmpty && !Tags.isLikeAName(key)) {
                                 field.setDefaultValue(value);
                             }

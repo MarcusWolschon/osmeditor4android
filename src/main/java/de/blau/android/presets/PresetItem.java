@@ -82,6 +82,11 @@ public class PresetItem extends PresetElement {
     private int recommendedKeyCount = -1;
 
     /**
+     * Count of labels for naming
+     */
+    private int labelCounter = 0;
+
+    /**
      * Construct a new PresetItem
      * 
      * @param preset the Preset this belongs to
@@ -171,7 +176,7 @@ public class PresetItem extends PresetElement {
             String valueContext = fixedField.getValueContext();
             addValueAndDescriptionToSearchIndex(value, v.getDescription(), valueContext);
             // support subtypes
-            PresetField subTypeField = fields.get(value);
+            PresetTagField subTypeField = getTagField(value);
             if (subTypeField instanceof PresetComboField) {
                 PresetComboField presetComboField = (PresetComboField) subTypeField;
                 StringWithDescription[] subtypes = presetComboField.getValues();
@@ -186,42 +191,73 @@ public class PresetItem extends PresetElement {
         }
         for (Entry<String, PresetField> entry : fields.entrySet()) {
             PresetField field = entry.getValue();
-            if (field.getValueType() == ValueType.INTEGER) {
-                continue;
-            }
-            String textContext = field.getTextContext();
-            if (!(field instanceof PresetCheckGroupField)) {
-                preset.addToSearchIndex(field.getKey(), textContext, this);
-                String hint = field.getHint();
-                if (hint != null) {
-                    preset.addToSearchIndex(hint, textContext, this);
+            if (field instanceof PresetTagField) {
+                PresetTagField tagField = (PresetTagField) field;
+                if (tagField.getValueType() == ValueType.INTEGER) {
+                    continue;
                 }
-                if (field instanceof PresetComboField) {
-                    PresetComboField presetComboField = (PresetComboField) field;
-                    if (presetComboField.getValuesSearchable() && presetComboField.getValues() != null) {
-                        String valuesContext = presetComboField.getValuesContext();
-                        for (StringWithDescription value : presetComboField.getValues()) {
-                            addValueAndDescriptionToSearchIndex(value.getValue(), value.getDescription(), valuesContext);
-                        }
-                    }
-                }
-            } else {
-                for (PresetCheckField check : ((PresetCheckGroupField) field).getCheckFields()) {
-                    preset.addToSearchIndex(check.getKey(), textContext, this);
-                    String hint = field.getHint();
+                String textContext = tagField.getTextContext();
+                if (!(tagField instanceof PresetCheckGroupField)) {
+                    preset.addToSearchIndex(tagField.getKey(), textContext, this);
+                    String hint = tagField.getHint();
                     if (hint != null) {
                         preset.addToSearchIndex(hint, textContext, this);
                     }
-                    StringWithDescription value = check.getOnValue();
-                    String valueContext = check.getValueContext();
-                    addValueAndDescriptionToSearchIndex(value.getValue(), value.getDescription(), valueContext);
-                    value = check.getOffValue();
-                    if (value != null && !"".equals(value.getValue())) {
+                    if (tagField instanceof PresetComboField) {
+                        PresetComboField presetComboField = (PresetComboField) tagField;
+                        if (presetComboField.getValuesSearchable() && presetComboField.getValues() != null) {
+                            String valuesContext = presetComboField.getValuesContext();
+                            for (StringWithDescription value : presetComboField.getValues()) {
+                                addValueAndDescriptionToSearchIndex(value.getValue(), value.getDescription(), valuesContext);
+                            }
+                        }
+                    }
+                } else {
+                    for (PresetCheckField check : ((PresetCheckGroupField) tagField).getCheckFields()) {
+                        preset.addToSearchIndex(check.getKey(), textContext, this);
+                        String hint = tagField.getHint();
+                        if (hint != null) {
+                            preset.addToSearchIndex(hint, textContext, this);
+                        }
+                        StringWithDescription value = check.getOnValue();
+                        String valueContext = check.getValueContext();
                         addValueAndDescriptionToSearchIndex(value.getValue(), value.getDescription(), valueContext);
+                        value = check.getOffValue();
+                        if (value != null && !"".equals(value.getValue())) {
+                            addValueAndDescriptionToSearchIndex(value.getValue(), value.getDescription(), valueContext);
+                        }
                     }
                 }
             }
         }
+    }
+
+    /**
+     * Get A PresetTagField for a key
+     * 
+     * @param key the key
+     * @return a PresetTagField of null if not found
+     */
+    @Nullable
+    private PresetTagField getTagField(@NonNull String key) {
+        PresetField field = fields.get(key);
+        return field instanceof PresetTagField ? (PresetTagField) field : null;
+    }
+
+    /**
+     * Get a List of all PresetTagFields
+     * 
+     * @return a List of all PresetTagFields
+     */
+    @NonNull
+    public List<PresetTagField> getTagFields() {
+        List<PresetTagField> result = new ArrayList<>();
+        for (PresetField field : fields.values()) {
+            if (field instanceof PresetTagField) {
+                result.add((PresetTagField) field);
+            }
+        }
+        return result;
     }
 
     /**
@@ -247,7 +283,7 @@ public class PresetItem extends PresetElement {
      * @return the allocated PresetField
      */
     @NonNull
-    public PresetField addTag(final String key, final PresetKeyType type, @Nullable String value, @Nullable String text, @Nullable String textContext) {
+    public PresetTagField addTag(final String key, final PresetKeyType type, @Nullable String value, @Nullable String text, @Nullable String textContext) {
         if (key == null) {
             throw new NullPointerException("null key not supported");
         }
@@ -275,7 +311,7 @@ public class PresetItem extends PresetElement {
      * @return the allocated PresetField
      */
     @NonNull
-    public PresetField addTag(boolean optional, @NonNull String key, PresetKeyType type, String value, MatchType matchType) {
+    public PresetTagField addTag(boolean optional, @NonNull String key, PresetKeyType type, String value, MatchType matchType) {
         return addTag(optional, key, type, value, null, null, Preset.COMBO_DELIMITER, matchType);
     }
 
@@ -293,7 +329,7 @@ public class PresetItem extends PresetElement {
      * @return the allocated PresetField
      */
     @NonNull
-    public PresetField addTag(boolean optional, @NonNull String key, PresetKeyType type, @Nullable String value, @Nullable String displayValue,
+    public PresetTagField addTag(boolean optional, @NonNull String key, PresetKeyType type, @Nullable String value, @Nullable String displayValue,
             @Nullable String shortDescriptions, final String delimiter, MatchType matchType) {
         String[] valueArray = (value == null) ? new String[0] : value.split(Pattern.quote(delimiter));
         String[] displayValueArray = (displayValue == null) ? new String[0] : displayValue.split(Pattern.quote(delimiter));
@@ -325,7 +361,7 @@ public class PresetItem extends PresetElement {
      * @return the allocated PresetField
      */
     @NonNull
-    public PresetField addTag(boolean optional, @NonNull String key, PresetKeyType type, Collection<StringWithDescription> valueCollection,
+    public PresetTagField addTag(boolean optional, @NonNull String key, PresetKeyType type, Collection<StringWithDescription> valueCollection,
             final String delimiter, MatchType matchType) {
         return addTag(optional, key, type, valueCollection.toArray(new StringWithDescription[valueCollection.size()]), delimiter, matchType);
     }
@@ -342,9 +378,9 @@ public class PresetItem extends PresetElement {
      * @return the allocated PresetField
      */
     @NonNull
-    public PresetField addTag(boolean optional, @NonNull String key, PresetKeyType type, StringWithDescription[] valueArray, final String delimiter,
+    public PresetTagField addTag(boolean optional, @NonNull String key, PresetKeyType type, StringWithDescription[] valueArray, final String delimiter,
             MatchType matchType) { // NOSONAR
-        PresetField field = null;
+        PresetTagField field = null;
         switch (type) {
         case COMBO:
         case MULTISELECT:
@@ -373,9 +409,15 @@ public class PresetItem extends PresetElement {
      * @param field the PresetField
      */
     public void addField(@NonNull PresetField field) {
-        fields.put(field.key, field);
-        if (field instanceof PresetFixedField) {
-            fixedTags.put(field.key, (PresetFixedField) field);
+        if (field instanceof PresetTagField) {
+            fields.put(((PresetTagField) field).key, field);
+            if (field instanceof PresetFixedField) {
+                fixedTags.put(((PresetTagField) field).key, (PresetFixedField) field);
+            }
+            return;
+        }
+        if (field instanceof PresetLabelField) {
+            fields.put(name + PresetParser.LABEL + Integer.toString(labelCounter++), field);
         }
     }
 
@@ -404,8 +446,8 @@ public class PresetItem extends PresetElement {
      * @return a PresetField or null if none found
      */
     @Nullable
-    public PresetField getField(@NonNull String key) {
-        PresetField field = fields.get(key);
+    public PresetTagField getField(@NonNull String key) {
+        PresetTagField field = getTagField(key);
         if (field == null) {
             return getCheckFieldFromGroup(key);
         }
@@ -516,7 +558,7 @@ public class PresetItem extends PresetElement {
      * @param hint hint value
      */
     public void setHint(@NonNull String key, @Nullable String hint) {
-        PresetField field = fields.get(key);
+        PresetTagField field = getTagField(key);
         if (field != null) {
             field.setHint(hint);
         }
@@ -530,7 +572,7 @@ public class PresetItem extends PresetElement {
      */
     @Nullable
     public String getHint(@NonNull String key) {
-        PresetField field = getField(key);
+        PresetTagField field = getField(key);
         if (field != null) {
             return field.getHint();
         }
@@ -545,7 +587,7 @@ public class PresetItem extends PresetElement {
      */
     @Nullable
     public String getDefault(@NonNull String key) {
-        PresetField field = getField(key);
+        PresetTagField field = getField(key);
         return field != null ? field.getDefaultValue() : null;
     }
 
@@ -557,7 +599,7 @@ public class PresetItem extends PresetElement {
      */
     @NonNull
     public char getDelimiter(@NonNull String key) {
-        PresetField field = fields.get(key);
+        PresetTagField field = getTagField(key);
         if (field instanceof PresetComboField) {
             return ((PresetComboField) field).getDelimiter();
         } else {
@@ -575,7 +617,7 @@ public class PresetItem extends PresetElement {
      */
     @Nullable
     public MatchType getMatchType(@NonNull String key) {
-        PresetField field = fields.get(key);
+        PresetTagField field = getTagField(key);
         if (field == null) {
             field = getCheckFieldFromGroup(key);
         }
@@ -589,8 +631,8 @@ public class PresetItem extends PresetElement {
      * @return a PresetCheckField or null if not found
      */
     @Nullable
-    private PresetField getCheckFieldFromGroup(@NonNull String key) {
-        for (PresetField f : fields.values()) {
+    private PresetTagField getCheckFieldFromGroup(@NonNull String key) {
+        for (PresetTagField f : getTagFields()) {
             if (f instanceof PresetCheckGroupField) {
                 PresetCheckField check = ((PresetCheckGroupField) f).getCheckField(key);
                 if (check != null) {
@@ -609,7 +651,7 @@ public class PresetItem extends PresetElement {
      */
     @Nullable
     public PresetCheckGroupField getCheckGroupField(@NonNull String key) {
-        for (PresetField f : fields.values()) {
+        for (PresetTagField f : getTagFields()) {
             if (f instanceof PresetCheckGroupField && ((PresetCheckGroupField) f).getCheckField(key) != null) {
                 return (PresetCheckGroupField) f;
             }
@@ -625,7 +667,7 @@ public class PresetItem extends PresetElement {
      */
     @Nullable
     public ValueType getValueType(@NonNull String key) {
-        PresetField field = fields.get(key);
+        PresetTagField field = getTagField(key);
         if (field != null) {
             return field.getValueType();
         }
@@ -773,7 +815,7 @@ public class PresetItem extends PresetElement {
      * @return true if the values should be alphabetically sorted
      */
     public boolean sortValues(@NonNull String key) {
-        PresetField field = fields.get(key);
+        PresetTagField field = getTagField(key);
         if (field instanceof PresetComboField) {
             return ((PresetComboField) field).getSortValues();
         }
@@ -788,7 +830,7 @@ public class PresetItem extends PresetElement {
     @NonNull
     public Set<String> getI18nKeys() {
         Set<String> result = new HashSet<>();
-        for (PresetField field : fields.values()) {
+        for (PresetTagField field : getTagFields()) {
             if (field instanceof PresetTextField && ((PresetTextField) field).isI18n()) {
                 result.add(((PresetTextField) field).key);
             }
@@ -867,7 +909,7 @@ public class PresetItem extends PresetElement {
      * @return true if the key is optional
      */
     public boolean isOptionalTag(String key) {
-        PresetField field = fields.get(key);
+        PresetTagField field = getTagField(key);
         return field != null && field.isOptional();
     }
 
@@ -882,7 +924,7 @@ public class PresetItem extends PresetElement {
             return recommendedKeyCount;
         }
         int count = 0;
-        for (PresetField field : fields.values()) {
+        for (PresetTagField field : getTagFields()) {
             if (!field.isOptional() && !(field instanceof PresetFixedField)) {
                 count++;
             }
@@ -908,7 +950,7 @@ public class PresetItem extends PresetElement {
      */
     @NonNull
     public Collection<StringWithDescription> getAutocompleteValues(@NonNull String key) {
-        PresetField field = fields.get(key);
+        PresetTagField field = getTagField(key);
         if (field == null) {
             field = getCheckFieldFromGroup(key);
         }
@@ -922,7 +964,7 @@ public class PresetItem extends PresetElement {
      * @return Collection of StringWithDescription objects
      */
     @NonNull
-    public Collection<StringWithDescription> getAutocompleteValues(@Nullable PresetField field) {
+    public Collection<StringWithDescription> getAutocompleteValues(@Nullable PresetTagField field) {
         Collection<StringWithDescription> result = new LinkedHashSet<>();
         if (field instanceof PresetComboField) {
             result.addAll(Arrays.asList(((PresetComboField) field).getValues()));
@@ -978,7 +1020,7 @@ public class PresetItem extends PresetElement {
      */
     @Nullable
     public PresetKeyType getKeyType(@NonNull String key) {
-        PresetField field = fields.get(key);
+        PresetTagField field = getTagField(key);
         if (field == null) {
             field = getCheckFieldFromGroup(key);
         }
@@ -1035,8 +1077,8 @@ public class PresetItem extends PresetElement {
     int matchesRecommended(@NonNull Map<String, String> tagMap) {
         int matches = 0;
 
-        List<PresetField> allFields = new ArrayList<>();
-        for (PresetField field : fields.values()) {
+        List<PresetTagField> allFields = new ArrayList<>();
+        for (PresetTagField field : getTagFields()) {
             if (field instanceof PresetCheckGroupField) {
                 allFields.addAll(((PresetCheckGroupField) field).getCheckFields());
             } else {
@@ -1044,7 +1086,7 @@ public class PresetItem extends PresetElement {
             }
         }
 
-        for (PresetField field : allFields) { // for each own tag
+        for (PresetTagField field : allFields) { // for each own tag
             String key = field.getKey();
             if (field.isOptional() || field instanceof PresetFixedField) {
                 continue;
@@ -1121,7 +1163,7 @@ public class PresetItem extends PresetElement {
      * @return true if the key is present in any category (fixed, recommended, and optional if checkOptional is true)
      */
     public boolean hasKey(@NonNull String key, boolean checkOptional) {
-        PresetField field = fields.get(key);
+        PresetTagField field = getTagField(key);
         return field != null && (!field.isOptional() || (checkOptional && field.isOptional()));
     }
 
@@ -1135,7 +1177,7 @@ public class PresetItem extends PresetElement {
      * @return true if the key- value combination is present in any category (fixed, recommended, and optional)
      */
     public boolean hasKeyValue(@NonNull String key, @Nullable String value) {
-        return Preset.hasKeyValue(fields.get(key), value);
+        return Preset.hasKeyValue(getTagField(key), value);
     }
 
     @Override
@@ -1247,7 +1289,7 @@ public class PresetItem extends PresetElement {
      */
     public void groupI18nKeys(List<String> i18nKeys) {
         LinkedHashMap<String, PresetField> temp = new LinkedHashMap<>();
-        ArrayList<String> keys = new ArrayList<>(fields.keySet());
+        List<String> keys = new ArrayList<>(fields.keySet());
         while (!keys.isEmpty()) {
             String key = keys.get(0);
             keys.remove(0);
@@ -1355,7 +1397,7 @@ public class PresetItem extends PresetElement {
      * 
      * @param fields a map containing the fields
      * @param s the serializer
-     * @throws IOException
+     * @throws IOException if serializing fails
      */
     private void fieldsToXml(@NonNull XmlSerializer s, @NonNull Map<String, PresetField> fields) throws IOException {
         boolean inOptional = false;
@@ -1364,13 +1406,15 @@ public class PresetItem extends PresetElement {
             if (field instanceof PresetFixedField) {
                 continue;
             }
-            if (!inOptional && field.isOptional()) {
-                s.startTag("", PresetParser.OPTIONAL);
-                inOptional = true;
-            }
-            if (inOptional && !field.isOptional()) {
-                s.endTag("", PresetParser.OPTIONAL);
-                inOptional = false;
+            if (field instanceof PresetTagField) {
+                if (!inOptional && ((PresetTagField) field).isOptional()) {
+                    s.startTag("", PresetParser.OPTIONAL);
+                    inOptional = true;
+                }
+                if (inOptional && !((PresetTagField) field).isOptional()) {
+                    s.endTag("", PresetParser.OPTIONAL);
+                    inOptional = false;
+                }
             }
             field.toXml(s);
         }

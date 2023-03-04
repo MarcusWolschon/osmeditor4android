@@ -77,6 +77,7 @@ public class PresetParser {
     static final String         KEY_ATTR              = "key";
     static final String         OPTIONAL              = "optional";
     static final String         SEPARATOR             = "separator";
+    static final String         ITEM_SEPARATOR        = "item_separator";
     private static final String ID                    = "id";
     private static final String DEPRECATED            = "deprecated";
     static final String         TRUE                  = "true";
@@ -95,7 +96,7 @@ public class PresetParser {
     static final String         AREA                  = "area";
     static final String         MULTIPOLYGON          = "multipolygon";
     static final String         CLOSEDWAY             = "closedway";
-    private static final String LABEL                 = "label";
+    static final String         LABEL                 = "label";
     private static final String ITEMS_SORT            = "items_sort";
     private static final String SPACE                 = "space";
     private static final String LENGTH                = "length";
@@ -123,11 +124,13 @@ public class PresetParser {
      * 
      * @param preset the preset
      * @param input the input stream from which to read XML data
+     * @param supportLabels support labels in presets if true, otherwise ignore them
      * @throws ParserConfigurationException
      * @throws SAXException on parsing issues
      * @throws IOException when reading the presets fails
      */
-    static void parseXML(@NonNull Preset preset, @NonNull InputStream input) throws ParserConfigurationException, SAXException, IOException {
+    static void parseXML(@NonNull Preset preset, @NonNull InputStream input, boolean supportLabels)
+            throws ParserConfigurationException, SAXException, IOException {
         SAXParserFactory factory = SAXParserFactory.newInstance(); // NOSONAR
         SAXParser saxParser = factory.newSAXParser();
 
@@ -302,7 +305,7 @@ public class PresetParser {
                     String match = attr.getValue(MATCH);
                     String textContext = attr.getValue(TEXT_CONTEXT);
                     String isObjectString = attr.getValue(OBJECT);
-                    PresetField field = null;
+                    PresetTagField field = null;
                     if (!inOptionalSection) {
                         if (NONE.equals(match)) {// don't include in fixed tags if not used for matching
                             field = currentItem.addTag(false, key, PresetKeyType.TEXT, attr.getValue(VALUE), MatchType.fromString(match));
@@ -389,6 +392,11 @@ public class PresetParser {
                     break;
                 case LABEL:
                     currentLabel = attr.getValue(TEXT);
+                    if (supportLabels) {
+                        PresetLabelField labelField = new PresetLabelField(currentLabel, attr.getValue(TEXT_CONTEXT));
+                        currentItem.addField(labelField);
+                        labelField.setOptional(inOptionalSection);
+                    }
                     break;
                 case CHECKGROUP:
                     checkGroup = new PresetCheckGroupField(currentItem.getName() + PresetCheckGroupField.class.getSimpleName() + checkGroupCounter);
@@ -559,15 +567,19 @@ public class PresetParser {
                                     Log.e(DEBUG_TAG, "Chunk " + chunk.name + " has fixed tags but is used in an optional section");
                                 }
                                 for (PresetField f : chunk.getFields().values()) {
-                                    key = f.getKey();
-                                    // don't overwrite exiting fields
-                                    if (!currentItem.hasKey(key)) {
-                                        PresetField copy = f.copy();
-                                        copy.setOptional(true);
-                                        currentItem.addField(copy);
+                                    if (f instanceof PresetTagField) {
+                                        key = ((PresetTagField) f).getKey();
+                                        // don't overwrite exiting fields
+                                        if (!currentItem.hasKey(key)) {
+                                            PresetTagField copy = ((PresetTagField) f).copy();
+                                            copy.setOptional(true);
+                                            currentItem.addField(copy);
+                                        } else {
+                                            Log.w(DEBUG_TAG, "PresetItem " + currentItem.getName() + " chunk " + attr.getValue(REF) + " field " + key
+                                                    + " overwrites existing field");
+                                        }
                                     } else {
-                                        Log.w(DEBUG_TAG, "PresetItem " + currentItem.getName() + " chunk " + attr.getValue(REF) + " field " + key
-                                                + " overwrites existing field");
+                                        currentItem.addField(f);
                                     }
                                 }
                             } else {

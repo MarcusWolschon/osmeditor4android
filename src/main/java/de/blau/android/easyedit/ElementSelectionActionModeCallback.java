@@ -51,7 +51,7 @@ import de.blau.android.osm.Way;
 import de.blau.android.prefs.PrefEditor;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
-import de.blau.android.presets.PresetField;
+import de.blau.android.presets.PresetTagField;
 import de.blau.android.presets.PresetFixedField;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.search.Search;
@@ -784,7 +784,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
             if (preset != null) {
                 for (PresetItem item : preset.getItemsForType(type).values()) {
                     if (filterKey != null) {
-                        PresetField field = item.getField(filterKey);
+                        PresetTagField field = item.getField(filterKey);
                         if (field != null && (filterValue == null
                                 || (field instanceof PresetFixedField && filterValue.equals(((PresetFixedField) field).getValue().getValue())))) {
                             items.put(item.getTranslatedName(), item);

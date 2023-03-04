@@ -24,6 +24,11 @@
             android:title="@string/config_tagFormEnabled_title" />
         <androidx.preference.CheckBoxPreference
             android:defaultValue="true"
+            android:key="@string/config_supportPresetLabels_key"
+            android:summary="@string/configsupportPresetLabels_summary"
+            android:title="@string/config_supportPresetLabels_title" />
+        <androidx.preference.CheckBoxPreference
+            android:defaultValue="true"
             android:key="@string/config_showCameraAction_key"
             android:summary="@string/config_showCameraAction_summary"
             android:title="@string/config_showCameraAction_title" />

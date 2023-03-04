@@ -38,7 +38,7 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.presets.Preset;
-import de.blau.android.presets.PresetField;
+import de.blau.android.presets.PresetTagField;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.presets.PresetTextField;
 import de.blau.android.propertyeditor.tagform.TextRow;
@@ -213,7 +213,7 @@ public class AddressInterpolationDialog extends ImmersiveDialogFragment {
                 } else if (Tags.KEY_ADDR_PLACE.equals(key)) {
                     adapter = placeNameAutocompleteAdapter;
                 }
-                PresetField presetField = presetItem != null ? presetItem.getField(key) : (PresetField) new PresetTextField(key);
+                PresetTagField presetField = presetItem != null ? presetItem.getField(key) : (PresetTagField) new PresetTextField(key);
                 tagLayout.addView(SimpleTextRow.getRow(context, inflater, tagLayout, presetItem, presetField, entry.getValue(), adapter));
             }
         }

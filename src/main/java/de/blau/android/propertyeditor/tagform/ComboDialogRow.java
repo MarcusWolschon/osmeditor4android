@@ -22,7 +22,7 @@ import androidx.appcompat.widget.AppCompatRadioButton;
 import de.blau.android.R;
 import de.blau.android.contract.Ui;
 import de.blau.android.presets.PresetComboField;
-import de.blau.android.presets.PresetField;
+import de.blau.android.presets.PresetTagField;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.propertyeditor.tagform.TagFormFragment.Ruler;
 import de.blau.android.util.SelectByImageFragment;
@@ -133,7 +133,7 @@ public class ComboDialogRow extends DialogRow {
             row.setOnClickListener(v -> {
                 v.setEnabled(false); // debounce
                 v.postDelayed(() -> v.setEnabled(true), DEBOUNCE_DELAY);
-                PresetField field = preset.getField(key);
+                PresetTagField field = preset.getField(key);
                 if (field instanceof PresetComboField && ((PresetComboField) field).useImages()) {
                     buildImageComboDialog(caller, key, adapter, row);
                 } else {

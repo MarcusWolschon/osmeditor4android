@@ -9,7 +9,7 @@ import androidx.annotation.Nullable;
 import ch.poole.poparser.Po;
 import de.blau.android.util.StringWithDescription;
 
-public class PresetComboField extends PresetField implements PresetFieldJavaScript {
+public class PresetComboField extends PresetTagField implements PresetFieldJavaScript {
 
     private StringWithDescription[] values;
 
@@ -142,7 +142,7 @@ public class PresetComboField extends PresetField implements PresetFieldJavaScri
     }
 
     @Override
-    public PresetField copy() {
+    public PresetTagField copy() {
         return new PresetComboField(this);
     }
 
