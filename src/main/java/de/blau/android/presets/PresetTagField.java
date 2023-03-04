@@ -239,6 +239,8 @@ public abstract class PresetTagField extends PresetField {
     }
 
     /**
+     * Set the fields ValueType from a string
+     * 
      * @param type the ValueType as string to set
      */
     void setValueType(@Nullable String type) {
@@ -250,15 +252,17 @@ public abstract class PresetTagField extends PresetField {
     }
 
     /**
+     * Set the fields ValueType
+     * 
      * @param type the ValueType to set
      */
-    void setValueType(@Nullable ValueType type) {
+    public void setValueType(@Nullable ValueType type) {
         this.valueType = type;
     }
 
     /**
      * 
-     * /** Method that creates a copy of the element
+     * Method that creates a copy of the element
      * 
      * @return a PresetField instance
      */

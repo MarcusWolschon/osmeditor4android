@@ -1,15 +1,11 @@
 package de.blau.android.measure.streetmeasure;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -41,16 +37,12 @@ import de.blau.android.R;
 import de.blau.android.SignalHandler;
 import de.blau.android.TestUtils;
 import de.blau.android.osm.BoundingBox;
-import de.blau.android.osm.OsmElement.ElementType;
-import de.blau.android.osm.Relation;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.presets.MRUTags;
 import de.blau.android.presets.Preset;
-import de.blau.android.presets.PresetElementPath;
-import de.blau.android.presets.PresetField;
 import de.blau.android.presets.PresetItem;
+import de.blau.android.presets.PresetTagField;
 import de.blau.android.presets.ValueType;
 import de.blau.android.propertyeditor.PropertyEditorActivity;
 import de.blau.android.propertyeditor.PropertyEditorTest;
@@ -183,7 +175,7 @@ public class MeasureTest {
         // make sure width has the right ValueType
         PresetItem tertiary = Preset.findBestMatch(App.getCurrentPresets(main), w.getTags(), null, null);
         assertNotNull(tertiary);
-        PresetField widthField = tertiary.getField("width");
+        PresetTagField widthField = tertiary.getField("width");
         assertNotNull(widthField);
         widthField.setValueType(ValueType.DIMENSION_HORIZONTAL);
 
