@@ -6,7 +6,7 @@ import org.xmlpull.v1.XmlSerializer;
 
 import androidx.annotation.NonNull;
 
-public class PresetTextField extends PresetField implements PresetFieldJavaScript {
+public class PresetTextField extends PresetTagField implements PresetFieldJavaScript {
     /**
      * Script for pre-filling text fields
      */
@@ -65,7 +65,7 @@ public class PresetTextField extends PresetField implements PresetFieldJavaScrip
     }
 
     @Override
-    public PresetField copy() {
+    public PresetTagField copy() {
         return new PresetTextField(this);
     }
 

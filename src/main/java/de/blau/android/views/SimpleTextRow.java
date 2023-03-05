@@ -12,7 +12,7 @@ import androidx.annotation.Nullable;
 import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.osm.Server;
-import de.blau.android.presets.PresetField;
+import de.blau.android.presets.PresetTagField;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.presets.PresetTextField;
 import de.blau.android.propertyeditor.InputTypeUtil;
@@ -63,7 +63,7 @@ public class SimpleTextRow extends TextRow {
      * @return a TagTextRow instance
      */
     public static TextRow getRow(@NonNull final Context context, @NonNull final LayoutInflater inflater, @NonNull final LinearLayout rowLayout,
-            @Nullable final PresetItem preset, @NonNull final PresetField field, @Nullable final String value, @Nullable final ArrayAdapter<?> adapter) {
+            @Nullable final PresetItem preset, @NonNull final PresetTagField field, @Nullable final String value, @Nullable final ArrayAdapter<?> adapter) {
         final TextRow row = (TextRow) inflater.inflate(R.layout.simple_text_row, rowLayout, false);
         final String key = field.getKey();
         final String hint = preset != null ? field.getHint() : null;

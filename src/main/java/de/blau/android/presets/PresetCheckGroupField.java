@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import ch.poole.poparser.Po;
 
-public class PresetCheckGroupField extends PresetField {
+public class PresetCheckGroupField extends PresetTagField {
 
     private Map<String, PresetCheckField> checks = new LinkedHashMap<>();
 
@@ -77,7 +77,7 @@ public class PresetCheckGroupField extends PresetField {
     }
 
     @Override
-    public PresetField copy() {
+    public PresetTagField copy() {
         return new PresetCheckGroupField(this);
     }
 

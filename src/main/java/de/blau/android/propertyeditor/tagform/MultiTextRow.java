@@ -30,7 +30,7 @@ import de.blau.android.R;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetComboField;
-import de.blau.android.presets.PresetField;
+import de.blau.android.presets.PresetTagField;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.presets.ValueType;
 import de.blau.android.propertyeditor.InputTypeUtil;
@@ -402,7 +402,7 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow, TagChange
         row.prefs = caller.prefs;
         row.values = values;
         row.caller = caller;
-        PresetField field = preset.getField(key);
+        PresetTagField field = preset.getField(key);
         if (field instanceof PresetComboField) {
             row.delimiter = preset.getDelimiter(key);
         }

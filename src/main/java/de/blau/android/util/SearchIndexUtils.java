@@ -25,6 +25,7 @@ import de.blau.android.osm.Tags;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetElement;
 import de.blau.android.presets.PresetField;
+import de.blau.android.presets.PresetTagField;
 import de.blau.android.presets.PresetFixedField;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.presets.PresetKeyType;
@@ -231,9 +232,12 @@ public final class SearchIndexUtils {
                             if (pi != null) {
                                 Map<String, PresetField> fields = pi.getFields();
                                 for (Entry<String, PresetField> entry : fields.entrySet()) {
-                                    String key = entry.getKey();
-                                    if (!tags.containsKey(key)) {
-                                        namePi.addField(entry.getValue());
+                                    final PresetField value = entry.getValue();
+                                    if (value instanceof PresetTagField) {
+                                        String key = entry.getKey();
+                                        if (!tags.containsKey(key)) {
+                                            namePi.addField(value);
+                                        }
                                     }
                                 }
                             }

@@ -1396,4 +1396,13 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
         // This is only used internally by the TagFormFragment
         throw new IllegalOperationException("updateEditorFromText can only be called internally");
     }
+
+    @Override
+    public void displayOptional(@NonNull PresetItem presetItem, boolean optional) {
+        if (tagFormFragment != null) {
+            tagFormFragment.displayOptional(presetItem, optional);
+        } else {
+            Log.e(DEBUG_TAG, "tagFormFragment is null");
+        }
+    }
 }

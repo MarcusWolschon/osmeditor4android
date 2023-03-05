@@ -16,6 +16,10 @@ Show icons on buildings if the tags on the building can be matched with a preset
 
 Enable the form based tag editor. Default: _on_.
 
+### Display labels from presets
+
+Display labels from presets in the tag form editor. Default: _on_.
+
 ### Show camera action
 
 Show a camera button on the main display (if a camera app is present). Default: _on_.

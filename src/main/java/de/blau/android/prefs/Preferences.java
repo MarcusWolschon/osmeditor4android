@@ -116,6 +116,7 @@ public class Preferences {
     private final boolean     wayNodeDragging;
     private final boolean     splitWindowForPropertyEditor;
     private final boolean     useImperialUnits;
+    private final boolean     supportPresetLabels;
 
     private static final String DEFAULT_MAP_PROFILE = "Color Round Nodes";
 
@@ -171,6 +172,7 @@ public class Preferences {
         isToleranceVisible = prefs.getBoolean(r.getString(R.string.config_showTolerance_key), true);
         isAntiAliasingEnabled = prefs.getBoolean(r.getString(R.string.config_enableAntiAliasing_key), true);
         tagFormEnabled = prefs.getBoolean(r.getString(R.string.config_tagFormEnabled_key), true);
+        supportPresetLabels = prefs.getBoolean(r.getString(R.string.config_supportPresetLabels_key), true);
         isKeepScreenOnEnabled = prefs.getBoolean(r.getString(R.string.config_enableKeepScreenOn_key), false);
         useBackForUndo = prefs.getBoolean(r.getString(R.string.config_use_back_for_undo_key), false);
         largeDragArea = prefs.getBoolean(r.getString(R.string.config_largeDragArea_key), false);
@@ -1564,6 +1566,15 @@ public class Preferences {
      */
     public boolean useImperialUnits() {
         return useImperialUnits;
+    }
+
+    /**
+     * Check if we should display labels in the form editor or not
+     * 
+     * @return true if we should display labels
+     */
+    public boolean supportPresetLabels() {
+        return supportPresetLabels;
     }
 
     /**

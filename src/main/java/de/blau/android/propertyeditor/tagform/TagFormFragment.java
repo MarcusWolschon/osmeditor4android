@@ -1,6 +1,7 @@
 package de.blau.android.propertyeditor.tagform;
 
 import java.io.ByteArrayInputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -60,10 +61,15 @@ import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetCheckField;
 import de.blau.android.presets.PresetCheckGroupField;
 import de.blau.android.presets.PresetComboField;
+import de.blau.android.presets.PresetElement;
+import de.blau.android.presets.PresetElementPath;
 import de.blau.android.presets.PresetField;
 import de.blau.android.presets.PresetFixedField;
+import de.blau.android.presets.PresetGroup;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.presets.PresetKeyType;
+import de.blau.android.presets.PresetLabelField;
+import de.blau.android.presets.PresetTagField;
 import de.blau.android.presets.PresetTextField;
 import de.blau.android.presets.ValueType;
 import de.blau.android.propertyeditor.EditorUpdate;
@@ -84,16 +90,14 @@ import de.blau.android.util.Util;
 import de.blau.android.views.CustomAutoCompleteTextView;
 
 public class TagFormFragment extends BaseFragment implements FormUpdate {
-
     private static final String DEBUG_TAG = TagFormFragment.class.getSimpleName();
 
     private static final String FRAGMENT_CONDITIONAL_RESTRICTION_TAG = "fragment_conditional_restriction";
 
-    private static final String FOCUS_TAG = "focusTag";
-
-    private static final String FOCUS_ON_ADDRESS = "focusOnAddress";
-
-    private static final String DISPLAY_MRU_PRESETS = "displayMRUpresets";
+    private static final String FOCUS_TAG              = "focusTag";
+    private static final String FOCUS_ON_ADDRESS       = "focusOnAddress";
+    private static final String DISPLAY_MRU_PRESETS    = "displayMRUpresets";
+    private static final String SAVED_DISPLAY_OPTIONAL = "SAVED_DISPLAY_OPTIONAL";
 
     private LayoutInflater inflater = null;
 
@@ -118,6 +122,8 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 
     int maxStringLength; // maximum key, value and role length
 
+    private Map<PresetItem, Boolean> displayOptional = new HashMap<>();
+
     final class Ruler extends StringWithDescription {
         private static final long serialVersionUID = 1L;
 
@@ -140,7 +146,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
      * @return a TagFormFragment instance
      */
     @NonNull
-    public static TagFormFragment newInstance(boolean displayMRUpresets, boolean focusOnAddress, String focusTag) {
+    public static TagFormFragment newInstance(boolean displayMRUpresets, boolean focusOnAddress, @Nullable String focusTag) {
         TagFormFragment f = new TagFormFragment();
 
         Bundle args = new Bundle();
@@ -190,23 +196,34 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         comparator = new StringWithDescription.LocaleComparator();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        if (savedInstanceState == null) {
-            // No previous state to restore - get the state from the intent
-            Log.d(DEBUG_TAG, "Initializing from original arguments");
-        } else {
-            // Restore activity from saved state
-            Log.d(DEBUG_TAG, "Restoring from savedInstanceState");
-        }
 
         this.inflater = inflater;
         ScrollView rowLayout = (ScrollView) inflater.inflate(R.layout.tag_form_view, container, false);
 
-        displayMRUpresets = getArguments().getBoolean(DISPLAY_MRU_PRESETS, false);
-        focusOnAddress = getArguments().getBoolean(FOCUS_ON_ADDRESS, false);
-        focusTag = getArguments().getString(FOCUS_TAG);
+        if (savedInstanceState == null) {
+            // No previous state to restore - get the state from the intent
+            Log.d(DEBUG_TAG, "Initializing from original arguments");
+            displayMRUpresets = getArguments().getBoolean(DISPLAY_MRU_PRESETS, false);
+            focusOnAddress = getArguments().getBoolean(FOCUS_ON_ADDRESS, false);
+            focusTag = getArguments().getString(FOCUS_TAG);
+        } else {
+            // Restore activity from saved state
+            Log.d(DEBUG_TAG, "Restoring from savedInstanceState");
+            displayMRUpresets = savedInstanceState.getBoolean(DISPLAY_MRU_PRESETS);
+            Object temp = savedInstanceState.getSerializable(SAVED_DISPLAY_OPTIONAL);
+            if (temp instanceof Map<?, ?>) {
+                final PresetGroup rootGroup = App.getCurrentRootPreset(getContext()).getRootGroup();
+                for (Entry<PresetElementPath, Boolean> entry : ((Map<PresetElementPath, Boolean>) temp).entrySet()) {
+                    PresetElement item = Preset.getElementByPath(rootGroup, entry.getKey());
+                    if (item instanceof PresetItem) {
+                        displayOptional.put((PresetItem) item, entry.getValue());
+                    }
+                }
+            }
+        }
 
         if (getUserVisibleHint()) { // don't request focus if we are not visible
             Log.d(DEBUG_TAG, "is visible");
@@ -227,7 +244,6 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             de.blau.android.propertyeditor.Util.addMRUPresetsFragment(getChildFragmentManager(), R.id.mru_layout,
                     propertyEditorListener.getElement().getOsmId(), propertyEditorListener.getElement().getName());
         }
-
         Log.d(DEBUG_TAG, "onCreateView returning");
         return rowLayout;
     }
@@ -236,6 +252,13 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         Log.d(DEBUG_TAG, "onSaveInstanceState");
+        outState.putBoolean(DISPLAY_MRU_PRESETS, displayMRUpresets);
+        Map<PresetElementPath, Boolean> temp = new HashMap<>();
+        final PresetGroup rootGroup = App.getCurrentRootPreset(getContext()).getRootGroup();
+        for (Entry<PresetItem, Boolean> entry : displayOptional.entrySet()) {
+            temp.put(entry.getKey().getPath(rootGroup), entry.getValue());
+        }
+        outState.putSerializable(SAVED_DISPLAY_OPTIONAL, (Serializable) temp);
         Log.w(DEBUG_TAG, "onSaveInstanceState bundle size " + Util.getBundleSize(outState));
     }
 
@@ -259,8 +282,8 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
      * @return an ArrayAdapter for key, or null if something went wrong
      */
     @Nullable
-    ArrayAdapter<?> getValueAutocompleteAdapter(@Nullable String key, @Nullable List<String> values, @Nullable PresetItem preset, @Nullable PresetField field,
-            @NonNull Map<String, String> allTags) {
+    ArrayAdapter<?> getValueAutocompleteAdapter(@Nullable String key, @Nullable List<String> values, @Nullable PresetItem preset,
+            @Nullable PresetTagField field, @NonNull Map<String, String> allTags) {
         return getValueAutocompleteAdapter(key, values, preset, field, allTags, false, true, maxInlineValues);
     }
 
@@ -280,8 +303,8 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
      * @return an ArrayAdapter for key, or null if something went wrong
      */
     @Nullable
-    ArrayAdapter<?> getValueAutocompleteAdapter(@Nullable String key, @Nullable List<String> values, @Nullable PresetItem preset, @Nullable PresetField field,
-            @NonNull Map<String, String> allTags, boolean addRuler, boolean dedup, int addMruSize) {
+    ArrayAdapter<?> getValueAutocompleteAdapter(@Nullable String key, @Nullable List<String> values, @Nullable PresetItem preset,
+            @Nullable PresetTagField field, @NonNull Map<String, String> allTags, boolean addRuler, boolean dedup, int addMruSize) {
         ArrayAdapter<?> adapter = null;
 
         if (key != null && key.length() > 0) {
@@ -451,7 +474,9 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         case R.id.tag_menu_apply_preset_with_optional:
             PresetItem pi = tagListener.getBestPreset();
             if (pi != null) {
-                presetSelectedListener.onPresetSelected(pi, item.getItemId() == R.id.tag_menu_apply_preset_with_optional, false);
+                boolean withOptional = item.getItemId() == R.id.tag_menu_apply_preset_with_optional;
+                displayOptional.put(pi, withOptional);
+                presetSelectedListener.onPresetSelected(pi, withOptional, false);
             }
             return true;
         case R.id.tag_menu_revert:
@@ -558,6 +583,11 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             }
         }
         return true;
+    }
+
+    @Override
+    public void displayOptional(PresetItem presetItem, boolean optional) {
+        displayOptional.put(presetItem, optional);
     }
 
     /**
@@ -684,6 +714,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
      * @return a Map containing the tags that coudn't be found in the PresetITem or linked PresetItems
      */
     private Map<String, String> addTagsToViews(@NonNull EditableLayout editableView, @Nullable PresetItem preset, @NonNull Map<String, String> tags) {
+        Boolean optional = displayOptional.get(preset);
         LinkedHashMap<PresetField, String> editable = new LinkedHashMap<>();
         LinkedHashMap<PresetField, String> linkedTags = new LinkedHashMap<>();
         Map<String, PresetItem> keyToLinkedPreset = new HashMap<>();
@@ -694,34 +725,39 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             // iterate over preset entries so that we maintain ordering
             for (Entry<String, PresetField> entry : preset.getFields().entrySet()) {
                 PresetField field = entry.getValue();
-                String key = field.getKey();
-                String value = tagList.get(key);
-                if (value != null) {
-                    if (field instanceof PresetFixedField) {
-                        if (value.equals(((PresetFixedField) field).getValue().getValue())) {
-                            tagList.remove(key);
-                            editableView.putTag(key, value);
-                        } // else leave this fixed key for further processing
-                    } else if (field.getKey().equals(key)) {
-                        editable.put(field, value);
-                        tagList.remove(key);
-                        editableView.putTag(key, value);
-                    }
-                } else if (field instanceof PresetCheckGroupField) {
-                    Map<String, String> keyValues = new HashMap<>();
-                    for (PresetCheckField check : ((PresetCheckGroupField) field).getCheckFields()) {
-                        key = check.getKey();
-                        value = tagList.get(key);
-                        if (value != null) {
-                            keyValues.put(key, value);
+                if (field instanceof PresetTagField) {
+                    PresetTagField tagField = (PresetTagField) field;
+                    String key = tagField.getKey();
+                    String value = tagList.get(key);
+                    if (value != null) {
+                        if (tagField instanceof PresetFixedField) {
+                            if (value.equals(((PresetFixedField) tagField).getValue().getValue())) {
+                                tagList.remove(key);
+                                editableView.putTag(key, value);
+                            } // else leave this fixed key for further processing
+                        } else if (tagField.getKey().equals(key)) {
+                            editable.put(tagField, value);
                             tagList.remove(key);
                             editableView.putTag(key, value);
                         }
+                    } else if (tagField instanceof PresetCheckGroupField) {
+                        Map<String, String> keyValues = new HashMap<>();
+                        for (PresetCheckField check : ((PresetCheckGroupField) tagField).getCheckFields()) {
+                            key = check.getKey();
+                            value = tagList.get(key);
+                            if (value != null) {
+                                keyValues.put(key, value);
+                                tagList.remove(key);
+                                editableView.putTag(key, value);
+                            }
+                        }
+                        if (!keyValues.isEmpty()) {
+                            editable.put(tagField, "");
+                            checkGroupKeyValues.put(tagField.getKey(), keyValues);
+                        }
                     }
-                    if (!keyValues.isEmpty()) {
-                        editable.put(field, "");
-                        checkGroupKeyValues.put(field.getKey(), keyValues);
-                    }
+                } else if ((field instanceof PresetLabelField) && (!field.isOptional() || (optional != null && optional))) {
+                    editable.put(field, "");
                 }
             }
             // process any remaining tags
@@ -740,7 +776,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                         if (l.getFixedTagCount() > 0) {
                             continue; // Presets with fixed tags should always get their own entry
                         }
-                        PresetField field = l.getField(key);
+                        PresetTagField field = l.getField(key);
                         if (field != null) {
                             if (field instanceof PresetCheckGroupField) {
                                 Map<String, String> keyValues = new HashMap<>();
@@ -782,7 +818,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         } else {
             Log.e(DEBUG_TAG, "addTagsToViews called with null preset");
         }
-        if (groupingRequired) {
+        if (groupingRequired) { // this is only true if preset isn't null
             List<String> i18nKeys = getI18nKeys(preset);
             preset.groupI18nKeys(i18nKeys);
             de.blau.android.presets.Util.groupI18nKeys(i18nKeys, editable);
@@ -790,25 +826,37 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         }
         de.blau.android.presets.Util.groupAddrKeys(linkedTags);
         for (Entry<PresetField, String> entry : editable.entrySet()) {
-            PresetField field = entry.getKey();
-            if (field instanceof PresetCheckGroupField) {
-                CheckGroupDialogRow.getRow(this, inflater, editableView, (PresetCheckGroupField) field, checkGroupKeyValues.get(field.getKey()), preset, tags);
-            } else {
-                addRow(editableView, field, entry.getValue(), preset, tags);
-            }
+            addFieldToView(editableView, preset, tags, checkGroupKeyValues, entry);
         }
         for (Entry<PresetField, String> entry : linkedTags.entrySet()) {
-            PresetItem linkedItem = keyToLinkedPreset.get(entry.getKey().getKey());
-            PresetField field = entry.getKey();
-            if (field instanceof PresetCheckGroupField) {
-                CheckGroupDialogRow.getRow(this, inflater, editableView, (PresetCheckGroupField) field, checkGroupKeyValues.get(field.getKey()), linkedItem,
-                        tags);
-            } else {
-                addRow(editableView, field, entry.getValue(), linkedItem, tags);
-            }
+            final PresetField field = entry.getKey();
+            PresetItem linkedItem = field instanceof PresetTagField ? keyToLinkedPreset.get(((PresetTagField) field).getKey()) : null;
+            addFieldToView(editableView, linkedItem, tags, checkGroupKeyValues, entry);
         }
 
         return tagList;
+    }
+
+    /**
+     * Add Fields to a view
+     * 
+     * @param editableView the target view
+     * @param preset the PresetItem the Field belongs to
+     * @param tags the Tags for the Object
+     * @param checkGroupKeyValues a map of keys for a CheckGroup
+     * @param entry the Entry containing the FIeld
+     */
+    private void addFieldToView(@NonNull EditableLayout editableView, PresetItem preset, @NonNull Map<String, String> tags,
+            @NonNull Map<String, Map<String, String>> checkGroupKeyValues, @NonNull Entry<PresetField, String> entry) {
+        PresetField field = entry.getKey();
+        if (field instanceof PresetCheckGroupField) {
+            CheckGroupDialogRow.getRow(this, inflater, editableView, (PresetCheckGroupField) field,
+                    checkGroupKeyValues.get(((PresetCheckGroupField) field).getKey()), preset, tags);
+        } else if (field instanceof PresetTagField) {
+            addRow(editableView, (PresetTagField) field, entry.getValue(), preset, tags);
+        } else if (field instanceof PresetLabelField) {
+            editableView.addView(LabelRow.getRow(inflater, editableView, (PresetLabelField) field));
+        }
     }
 
     /**
@@ -869,8 +917,8 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
      * @param preset the Preset we believe the key belongs to
      * @param allTags the other tags for this object
      */
-    void addRow(@Nullable final LinearLayout rowLayout, @NonNull final PresetField field, final String value, @Nullable PresetItem preset,
-            Map<String, String> allTags) {
+    void addRow(@Nullable final LinearLayout rowLayout, @NonNull final PresetTagField field, final String value, @Nullable PresetItem preset,
+            @NonNull Map<String, String> allTags) {
         final String key = field.getKey();
         if (rowLayout != null) {
             if (preset != null) {
@@ -1254,10 +1302,12 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         public void setListeners(@NonNull final EditorUpdate editorListener, @NonNull final FormUpdate formListener) {
             Log.d(DEBUG_TAG, "setting listeners");
             applyPresetButton.setOnClickListener(v -> {
+                formListener.displayOptional(preset, false);
                 editorListener.applyPreset(preset, false);
                 formListener.tagsUpdated();
             });
             applyPresetWithOptionalButton.setOnClickListener(v -> {
+                formListener.displayOptional(preset, true);
                 editorListener.applyPreset(preset, true);
                 formListener.tagsUpdated();
             });

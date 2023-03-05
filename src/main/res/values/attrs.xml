@@ -128,6 +128,7 @@
 		<attr name="NotDownloadedMember" format="reference" />
 		<attr name="EditText" format="reference" />
 		<attr name="StaticText" format="reference" />
+        <attr name="PresetLabelText" format="reference" />
 		<attr name="SplitterBGH" format="reference" />
 		<attr name="SplitterBGV" format="reference" />
         <attr name="SplitterHandleV" format="reference" />
