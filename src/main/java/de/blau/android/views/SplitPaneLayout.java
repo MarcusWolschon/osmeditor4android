@@ -303,9 +303,9 @@ public class SplitPaneLayout extends ViewGroup {
                 if (isDragging) {
                     isDragging = false;
                     if (mOrientation == ORIENTATION_HORIZONTAL) {
-                        mSplitterPosition = x;
+                        mSplitterPosition = Math.max(0, Math.min(getWidth(), x));
                     } else if (mOrientation == ORIENTATION_VERTICAL) {
-                        mSplitterPosition = y;
+                        mSplitterPosition = Math.max(0, Math.min(getHeight(), y));
                     }
                     mSplitterPositionPercent = -1;
                     remeasure();
