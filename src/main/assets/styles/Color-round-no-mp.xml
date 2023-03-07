@@ -48,7 +48,10 @@
     <!--  UNTAGGED             = 0x00000200 -->
     <!--  UNCONNECTED_END_NODE = 0x00000400 -->
     <!--  DEGENERATE_WAY       = 0x00000800 -->
-    <feature type="validation" code="2" updateWidth="true" widthFactor="1.5" color="ffffe000" style="STROKE" cap="BUTT" join="MITER" labelKey="name" />
+    <feature type="validation" code="2" updateWidth="true" widthFactor="1.5" color="ffffe000" style="STROKE" cap="BUTT" join="MITER" labelKey="name" textColor="ff000000"/>
+    <feature type="validation" code="4" updateWidth="true" widthFactor="1.5" color="ffff00ff" style="STROKE" cap="BUTT" join="MITER" labelKey="name" textColor="ffffffff"/>
+    <feature type="validation" code="8" updateWidth="true" widthFactor="1.5" color="ffff00ff" style="STROKE" cap="BUTT" join="MITER" labelKey="name" textColor="ffffffff"/> 
+    <feature type="validation" code="10" updateWidth="true" widthFactor="1.5" color="ffff00ff" style="STROKE" cap="BUTT" join="MITER" labelKey="name" textColor="ffffffff"/>   
     
     <!-- Arrow styles -->
     <feature type="oneway_direction" updateWidth="true" widthFactor="0.5" color="ffb9121b" style="STROKE" cap="SQUARE" join="MITER" oneway="true" />
