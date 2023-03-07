@@ -4,6 +4,6 @@
     android:shape="rectangle">
     <solid android:color="@color/splitter_dragging" />
     <size
-        android:height="32dip"
+        android:height="64dip"
         android:width="24dip" />
 </shape>
