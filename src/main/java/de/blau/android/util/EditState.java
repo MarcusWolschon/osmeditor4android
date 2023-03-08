@@ -29,7 +29,7 @@ import de.blau.android.resources.DataStyle;
  *
  */
 public class EditState implements Serializable {
-    private static final long         serialVersionUID = 28L;
+    private static final long         serialVersionUID = 29L;
     private final boolean             savedLocked;
     private final Mode                savedMode;
     private final List<Selection.Ids> savedSelection;
@@ -46,7 +46,7 @@ public class EditState implements Serializable {
     private final long                savedChangesetId;
     private final List<String>        savedLastObjectSearches;
     private final String              savedEasyEditActionModeCallback;
-    private final int                 savedNearbyPoiSplitterPos;
+    private final float               savedNearbyPoiSplitterPos;
 
     /**
      * Construct a new EditState instance

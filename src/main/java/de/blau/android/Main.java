@@ -4342,8 +4342,8 @@ public class Main extends FullScreenAppCompatActivity
      * 
      * @return the current position
      */
-    public int getSplitterPosition() {
-        return ((SplitPaneLayout) findViewById(R.id.pane_layout)).getSplitterPosition();
+    public float getSplitterPosition() {
+        return ((SplitPaneLayout) findViewById(R.id.pane_layout)).getSplitterPositionPercent();
     }
 
     /**
@@ -4351,8 +4351,8 @@ public class Main extends FullScreenAppCompatActivity
      * 
      * @param the new position
      */
-    public void setSplitterPosition(int pos) {
-        ((SplitPaneLayout) findViewById(R.id.pane_layout)).setSplitterPosition(pos);
+    public void setSplitterPosition(float pos) {
+        ((SplitPaneLayout) findViewById(R.id.pane_layout)).setSplitterPositionPercent(pos);
     }
 
     /**
