@@ -29,7 +29,7 @@ import de.blau.android.resources.DataStyle;
  *
  */
 public class EditState implements Serializable {
-    private static final long         serialVersionUID = 27L;
+    private static final long         serialVersionUID = 28L;
     private final boolean             savedLocked;
     private final Mode                savedMode;
     private final List<Selection.Ids> savedSelection;
@@ -46,6 +46,7 @@ public class EditState implements Serializable {
     private final long                savedChangesetId;
     private final List<String>        savedLastObjectSearches;
     private final String              savedEasyEditActionModeCallback;
+    private final int                 savedNearbyPoiSplitterPos;
 
     /**
      * Construct a new EditState instance
@@ -77,6 +78,7 @@ public class EditState implements Serializable {
         savedChangesetId = changesetId;
         savedLastObjectSearches = logic.getLastObjectSearches();
         savedEasyEditActionModeCallback = main.getEasyEditManager().getActionModeCallbackName();
+        savedNearbyPoiSplitterPos = main.getSplitterPosition();
     }
 
     /**
@@ -129,6 +131,7 @@ public class EditState implements Serializable {
      */
     public void setMiscState(@NonNull Main main, @NonNull Logic logic) {
         main.setImageFileName(savedImageFileName);
+        main.setSplitterPosition(savedNearbyPoiSplitterPos);
         logic.setLastComments(savedLastComments);
         logic.setDraftComment(savedCommentDraft);
         logic.setLastSources(savedLastSources);

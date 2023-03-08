@@ -140,6 +140,8 @@ public abstract class PresetElement {
     /**
      * Return the icon for the preset or a place holder
      * 
+     * The icon is cached in the preset
+     * 
      * @param context an Android Context
      * @return a Drawable with the icon or a place holder for it
      */
@@ -149,6 +151,18 @@ public abstract class PresetElement {
             icon = getIcon(context, iconpath, (int) (ICON_SIZE_DP * App.getConfiguration().fontScale));
         }
         return icon;
+    }
+
+    /**
+     * Return the icon for the preset or a place holder in a specific size
+     * 
+     * @param context an Android Context
+     * @param size in DIP
+     * @return a Drawable with the icon or a place holder for it
+     */
+    @NonNull
+    public Drawable getIcon(@NonNull Context context, int size) {
+        return getIcon(context, iconpath, (int) (size * App.getConfiguration().fontScale));
     }
 
     /**

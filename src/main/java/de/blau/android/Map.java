@@ -42,6 +42,7 @@ import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.GeoPoint;
 import de.blau.android.osm.GeoPoint.InterruptibleGeoPoint;
 import de.blau.android.osm.Node;
+import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
@@ -245,7 +246,7 @@ public class Map extends View implements IMapView {
                             layer = new de.blau.android.layer.grid.MapOverlay(this);
                             break;
                         case OSMDATA:
-                            layer = new de.blau.android.layer.data.MapOverlay(this);
+                            layer = new de.blau.android.layer.data.MapOverlay<OsmElement>(this);
                             break;
                         case GPX:
                             layer = new de.blau.android.layer.gpx.MapOverlay(this, contentId); // NOSONAR
@@ -509,9 +510,10 @@ public class Map extends View implements IMapView {
      * 
      * @return the current data layer or null if none is configured
      */
+    @SuppressWarnings("unchecked")
     @Nullable
-    public de.blau.android.layer.data.MapOverlay getDataLayer() {
-        return (de.blau.android.layer.data.MapOverlay) getLayer(LayerType.OSMDATA);
+    public de.blau.android.layer.data.MapOverlay<OsmElement> getDataLayer() {
+        return (de.blau.android.layer.data.MapOverlay<OsmElement>) getLayer(LayerType.OSMDATA);
     }
 
     /**
@@ -980,7 +982,7 @@ public class Map extends View implements IMapView {
      * @param aSelectedNodes the currently selected nodes to edit.
      */
     void setSelectedNodes(@Nullable final List<Node> aSelectedNodes) {
-        de.blau.android.layer.data.MapOverlay dataLayer = getDataLayer();
+        de.blau.android.layer.data.MapOverlay<OsmElement> dataLayer = getDataLayer();
         if (dataLayer != null) {
             dataLayer.setSelectedNodes(aSelectedNodes);
         }
@@ -991,7 +993,7 @@ public class Map extends View implements IMapView {
      * @param aSelectedWays the currently selected ways to edit.
      */
     void setSelectedWays(@Nullable final List<Way> aSelectedWays) {
-        de.blau.android.layer.data.MapOverlay dataLayer = getDataLayer();
+        de.blau.android.layer.data.MapOverlay<OsmElement> dataLayer = getDataLayer();
         if (dataLayer != null) {
             dataLayer.setSelectedWays(aSelectedWays);
         }

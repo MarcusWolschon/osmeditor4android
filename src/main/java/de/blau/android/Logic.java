@@ -2869,7 +2869,7 @@ public class Logic {
                 if (mainMap != null) {
                     DataStyle.updateStrokes(strokeWidth(viewBox.getWidth()));
                     // this is always a manual download so make the layer visible
-                    de.blau.android.layer.data.MapOverlay dataLayer = mainMap.getDataLayer();
+                    de.blau.android.layer.data.MapOverlay<OsmElement> dataLayer = mainMap.getDataLayer();
                     if (dataLayer != null) {
                         dataLayer.setVisible(true);
                     }
