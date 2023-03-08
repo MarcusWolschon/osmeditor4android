@@ -3271,6 +3271,7 @@ public class Main extends FullScreenAppCompatActivity
      */
     public void performTagEdit(final List<OsmElement> selection, boolean applyLastAddressTags, boolean showPresets) {
         descheduleAutoLock();
+        unlock();
         ArrayList<PropertyEditorData> multiple = new ArrayList<>();
         StorageDelegator storageDelegator = App.getDelegator();
         for (OsmElement e : selection) {
