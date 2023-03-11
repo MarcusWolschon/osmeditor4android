@@ -376,7 +376,7 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
             logic.setSelectedNode(null);
             // delete undo checkpoint
             if (checkpointName != null) {
-                logic.removeCheckpoint(main, checkpointName, true);
+                logic.rollback();
             } else {
                 Log.e(DEBUG_TAG, "checkpointName is null");
             }
