@@ -22,6 +22,7 @@ import android.app.Activity;
 import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
 import android.content.Context;
+import androidx.annotation.NonNull;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -436,6 +437,39 @@ public class WayActionsTest {
 
         device.waitForIdle(1000);
         TestUtils.clickUp(device);
+    }
+
+    /**
+     * Append to an existing way and then undo
+     */
+    // @SdkSuppress(minSdkVersion = 26)
+    @Test
+    public void appendUndo() {
+        map.getDataLayer().setVisible(true);
+        TestUtils.zoomToLevel(device, main, 21);
+        TestUtils.unlock(device);
+
+        TestUtils.clickAtCoordinates(device, map, 8.3881245, 47.3901113, true);
+
+        // start append
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
+        Way way = App.getLogic().getSelectedWay();
+        assertEquals(8, way.nodeCount());
+        assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.menu_append), false, true));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.menu_append)));
+        TestUtils.clickAtCoordinates(device, map, 8.3881607, 47.3901758, true);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.add_way_node_instruction)));
+        TestUtils.clickAtCoordinates(device, map, 8.3882792, 47.3901457, true);
+        TestUtils.sleep();
+        assertNotNull(App.getDelegator().getApiStorage().getWay(way.getOsmId()));
+
+        // undo should terminate
+        assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.undo), false, false));
+        TestUtils.clickText(device, false, context.getString(R.string.okay), true); // in case we get a tip
+
+        TestUtils.textGone(device, context.getString(R.string.menu_append), 5000);
+        assertEquals(8, way.nodeCount());
+        assertNull(App.getDelegator().getApiStorage().getWay(way.getOsmId()));
     }
 
     /**
