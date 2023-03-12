@@ -11,8 +11,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.RectF;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import de.blau.android.R;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.GeoPoint;
 import de.blau.android.resources.DataStyle;
@@ -28,21 +26,16 @@ public abstract class Task implements Serializable, BoundedObject, GeoPoint {
     /**
      * 
      */
-    private static final long serialVersionUID = 7L;
+    private static final long serialVersionUID = 8L;
 
     private static final int ICON_SELECTED_BORDER = 2;
-    private int              iconSelectedBorder;
 
-    class BitmapWithOffset {
+    static class BitmapWithOffset {
         Bitmap icon = null;
         float  w2   = 0f;
         float  h2   = 0f;
+        int    iconSelectedBorder;
     }
-
-    protected static BitmapWithOffset cachedIconClosed;
-    protected static BitmapWithOffset cachedIconChangedClosed;
-    protected static BitmapWithOffset cachedIconOpen;
-    protected static BitmapWithOffset cachedIconChanged;
 
     /** Latitude *1E7. */
     int lat;
@@ -225,28 +218,39 @@ public abstract class Task implements Serializable, BoundedObject, GeoPoint {
      * Icon drawing related stuff
      */
     /**
-     * Draw an icon at the specified location on the canvas
+     * Get the actual icon for the resource
      * 
      * @param context Android Context
+     * @param icon the icon resource
+     * @return the Bitmap
+     */
+    @NonNull
+    static BitmapWithOffset getIcon(@NonNull Context context, int icon) {
+        BitmapWithOffset bitmap = new BitmapWithOffset();
+        bitmap.icon = BitmapFactory.decodeResource(context.getResources(), icon);
+        bitmap.w2 = bitmap.icon.getWidth() / 2f;
+        bitmap.h2 = bitmap.icon.getHeight() / 2f;
+        bitmap.iconSelectedBorder = Density.dpToPx(context, ICON_SELECTED_BORDER);
+        return bitmap;
+    }
+
+    /**
+     * Draw an icon at the specified location on the canvas
+     * 
      * @param cache the cache for the icon
      * @param c the Canvas we are drawing on
-     * @param icon the resource id for the icon
      * @param x x position on the canvas
      * @param y y position on the canvas
      * @param selected true if selected and highlighting should be applied
+     * @return the Bitmap for caching
      */
-    void drawIcon(@NonNull Context context, @Nullable BitmapWithOffset cache, @NonNull Canvas c, int icon, float x, float y, boolean selected) {
-        if (cache == null) {
-            cache = new BitmapWithOffset();
-            cache.icon = BitmapFactory.decodeResource(context.getResources(), icon);
-            cache.w2 = cache.icon.getWidth() / 2f;
-            cache.h2 = cache.icon.getHeight() / 2f;
-            iconSelectedBorder = Density.dpToPx(context, ICON_SELECTED_BORDER);
-        }
+    @NonNull
+    static void drawIcon(@NonNull BitmapWithOffset cache, @NonNull Canvas c, float x, float y, boolean selected) {
         if (selected) {
+            int iconSelectedBorder = cache.iconSelectedBorder;
             RectF r = new RectF(x - cache.w2 - iconSelectedBorder, y - cache.h2 - iconSelectedBorder, x + cache.w2 + iconSelectedBorder,
                     y + cache.h2 + iconSelectedBorder);
-            c.drawRoundRect(r, iconSelectedBorder, iconSelectedBorder, DataStyle.getInternal(DataStyle.SELECTED_NODE).getPaint());
+            c.drawRoundRect(r, cache.iconSelectedBorder, cache.iconSelectedBorder, DataStyle.getInternal(DataStyle.SELECTED_NODE).getPaint());
         }
         c.drawBitmap(cache.icon, x - cache.w2, y - cache.h2, null);
     }
@@ -254,54 +258,42 @@ public abstract class Task implements Serializable, BoundedObject, GeoPoint {
     /**
      * Draw an icon for the open state
      * 
-     * @param context Android Context
      * @param c the Canvas we are drawing on
      * @param x x position on the canvas
      * @param y y position on the canvas
      * @param selected true if selected
      */
-    public void drawBitmapOpen(Context context, Canvas c, float x, float y, boolean selected) {
-        drawIcon(context, cachedIconOpen, c, R.drawable.bug_open, x, y, selected);
-    }
+    public abstract void drawBitmapOpen(@NonNull Canvas c, float x, float y, boolean selected);
 
     /**
      * Draw an icon for when the Task has been changed and not uploaded
      * 
-     * @param context Android Context
      * @param c the Canvas we are drawing on
      * @param x x position on the canvas
      * @param y y position on the canvas
      * @param selected true if selected
      */
-    public void drawBitmapChanged(Context context, Canvas c, float x, float y, boolean selected) {
-        drawIcon(context, cachedIconChanged, c, R.drawable.bug_changed, x, y, selected);
-    }
+    public abstract void drawBitmapChanged(@NonNull Canvas c, float x, float y, boolean selected);
 
     /**
      * Draw an icon for when the Task has been closed but not uploaded
      * 
-     * @param context Android Context
      * @param c the Canvas we are drawing on
      * @param x x position on the canvas
      * @param y y position on the canvas
      * @param selected true if selected
      */
-    public void drawBitmapChangedClosed(Context context, Canvas c, float x, float y, boolean selected) {
-        drawIcon(context, cachedIconChangedClosed, c, R.drawable.bug_changed_closed, x, y, selected);
-    }
+    public abstract void drawBitmapChangedClosed(@NonNull Canvas c, float x, float y, boolean selected);
 
     /**
      * Draw an icon for when the Task has been closed
      * 
-     * @param context Android Context
      * @param c the Canvas we are drawing on
      * @param x x position on the canvas
      * @param y y position on the canvas
      * @param selected true if selected
      */
-    public void drawBitmapClosed(Context context, Canvas c, float x, float y, boolean selected) {
-        drawIcon(context, cachedIconClosed, c, R.drawable.bug_closed, x, y, selected);
-    }
+    public abstract void drawBitmapClosed(@NonNull Canvas c, float x, float y, boolean selected);
 
     /**
      * Sort a list of Tasks by their distance to the supplied coordinates, nearest first
