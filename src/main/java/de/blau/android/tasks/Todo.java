@@ -33,7 +33,7 @@ import de.blau.android.util.collections.LongPrimitiveList;
  * @author Simon Poole
  */
 public final class Todo extends Bug implements Serializable {
-    private static final long serialVersionUID = 3L;
+    private static final long serialVersionUID = 4L;
 
     private static final String DEBUG_TAG = Todo.class.getSimpleName();
 
@@ -49,6 +49,21 @@ public final class Todo extends Bug implements Serializable {
     public static final String    DEFAULT_LIST   = "default";
 
     private String list = DEFAULT_LIST;
+
+    private static BitmapWithOffset cachedIconTodoClosed;
+    private static BitmapWithOffset cachedIconTodoChangedClosed;
+    private static BitmapWithOffset cachedIconTodoOpen;
+    private static BitmapWithOffset cachedIconTogoChanged;
+
+    /**
+     * Setup the icon caches
+     */
+    public static void setupIconCache(Context context) {
+        cachedIconTodoOpen = getIcon(context, R.drawable.todo_open);
+        cachedIconTogoChanged = getIcon(context, R.drawable.todo_open);
+        cachedIconTodoChangedClosed = getIcon(context, R.drawable.todo_closed);
+        cachedIconTodoClosed = getIcon(context, R.drawable.todo_closed);
+    }
 
     /**
      * Parse an InputStream containing todos in JSON format
@@ -299,23 +314,23 @@ public final class Todo extends Bug implements Serializable {
     }
 
     @Override
-    public void drawBitmapOpen(Context context, Canvas c, float x, float y, boolean selected) {
-        drawIcon(context, cachedIconOpen, c, R.drawable.todo_open, x, y, selected);
+    public void drawBitmapOpen(Canvas c, float x, float y, boolean selected) {
+        drawIcon(cachedIconTodoOpen, c, x, y, selected);
     }
 
     @Override
-    public void drawBitmapChanged(Context context, Canvas c, float x, float y, boolean selected) {
-        drawIcon(context, cachedIconChanged, c, R.drawable.todo_open, x, y, selected);
+    public void drawBitmapChanged(Canvas c, float x, float y, boolean selected) {
+        drawIcon(cachedIconTogoChanged, c, x, y, selected);
     }
 
     @Override
-    public void drawBitmapChangedClosed(Context context, Canvas c, float x, float y, boolean selected) {
-        drawIcon(context, cachedIconChangedClosed, c, R.drawable.todo_closed, x, y, selected);
+    public void drawBitmapChangedClosed(Canvas c, float x, float y, boolean selected) {
+        drawIcon(cachedIconTodoChangedClosed, c, x, y, selected);
     }
 
     @Override
-    public void drawBitmapClosed(Context context, Canvas c, float x, float y, boolean selected) {
-        drawIcon(context, cachedIconClosed, c, R.drawable.todo_closed, x, y, selected);
+    public void drawBitmapClosed(Canvas c, float x, float y, boolean selected) {
+        drawIcon(cachedIconTodoClosed, c, x, y, selected);
     }
 
     @Override

@@ -12,6 +12,7 @@ import java.util.Objects;
 import com.google.gson.stream.JsonReader;
 
 import android.content.Context;
+import android.graphics.Canvas;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import de.blau.android.R;
@@ -24,7 +25,7 @@ import de.blau.android.util.DateFormatter;
  */
 public final class OsmoseBug extends Bug implements Serializable {
 
-    private static final long serialVersionUID = 4L;
+    private static final long serialVersionUID = 5L;
 
     private static final String DEBUG_TAG = OsmoseBug.class.getSimpleName();
 
@@ -46,6 +47,21 @@ public final class OsmoseBug extends Bug implements Serializable {
 
     private String item;
     private int    bugclass; // class
+
+    protected static BitmapWithOffset cachedIconBugClosed;
+    protected static BitmapWithOffset cachedIconChangedBugClosed;
+    protected static BitmapWithOffset cachedIconBugOpen;
+    protected static BitmapWithOffset cachedIconBugChanged;
+
+    /**
+     * Setup the icon caches
+     */
+    public static void setupIconCache(Context context) {
+        cachedIconBugOpen = getIcon(context, R.drawable.bug_open);
+        cachedIconBugChanged = getIcon(context, R.drawable.bug_changed);
+        cachedIconChangedBugClosed = getIcon(context, R.drawable.bug_changed_closed);
+        cachedIconBugClosed = getIcon(context, R.drawable.bug_closed);
+    }
 
     /**
      * Parse an InputStream containing Osmose task data
@@ -200,6 +216,26 @@ public final class OsmoseBug extends Bug implements Serializable {
      */
     public int getOsmoseClass() {
         return bugclass;
+    }
+
+    @Override
+    public void drawBitmapOpen(Canvas c, float x, float y, boolean selected) {
+        drawIcon(cachedIconBugOpen, c, x, y, selected);
+    }
+
+    @Override
+    public void drawBitmapChanged(Canvas c, float x, float y, boolean selected) {
+        drawIcon(cachedIconBugChanged, c, x, y, selected);
+    }
+
+    @Override
+    public void drawBitmapChangedClosed(Canvas c, float x, float y, boolean selected) {
+        drawIcon(cachedIconChangedBugClosed, c, x, y, selected);
+    }
+
+    @Override
+    public void drawBitmapClosed(Canvas c, float x, float y, boolean selected) {
+        drawIcon(cachedIconBugClosed, c, x, y, selected);
     }
 
     @Override

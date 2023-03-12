@@ -113,6 +113,11 @@ public class MapOverlay extends MapViewLayer
         Preferences prefs = map.getPrefs();
         setPrefs(prefs);
         download = new TaskDownloader(prefs.getServer());
+        // the following sets up the static icon caches
+        Note.setupIconCache(context);
+        OsmoseBug.setupIconCache(context);
+        MapRouletteTask.setupIconCache(context);
+        Todo.setupIconCache(context);
     }
 
     @Override
@@ -202,13 +207,13 @@ public class MapOverlay extends MapViewLayer
                 }
                 final boolean closed = t.isClosed();
                 if (closed && t.hasBeenChanged()) {
-                    t.drawBitmapChangedClosed(context, c, x, y, isSelected);
+                    t.drawBitmapChangedClosed(c, x, y, isSelected);
                 } else if (closed) {
-                    t.drawBitmapClosed(context, c, x, y, isSelected);
+                    t.drawBitmapClosed(c, x, y, isSelected);
                 } else if (t.isNew() || t.hasBeenChanged()) {
-                    t.drawBitmapChanged(context, c, x, y, isSelected);
+                    t.drawBitmapChanged(c, x, y, isSelected);
                 } else {
-                    t.drawBitmapOpen(context, c, x, y, isSelected);
+                    t.drawBitmapOpen(c, x, y, isSelected);
                 }
             }
 

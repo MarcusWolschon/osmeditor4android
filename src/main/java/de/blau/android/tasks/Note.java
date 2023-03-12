@@ -56,10 +56,10 @@ public class Note extends LongIdTask implements Serializable, JosmXmlSerializabl
     private static final String NO_NAME        = "No Name";
     private static final String NO_TEXT        = "No Text";
 
-    protected static BitmapWithOffset cachedIconClosed;
-    protected static BitmapWithOffset cachedIconChangedClosed;
-    protected static BitmapWithOffset cachedIconOpen;
-    protected static BitmapWithOffset cachedIconChanged;
+    protected static BitmapWithOffset cachedIconNoteClosed;
+    protected static BitmapWithOffset cachedIconNoteChangedClosed;
+    protected static BitmapWithOffset cachedIconNoteOpen;
+    protected static BitmapWithOffset cachedIconNoteChanged;
 
     /**
      * Date pattern used to parse the 'date' attribute of a 'note' from XML.
@@ -99,6 +99,16 @@ public class Note extends LongIdTask implements Serializable, JosmXmlSerializabl
      */
     public Note(XmlPullParser parser) throws XmlPullParserException, IOException, NumberFormatException {
         parseNotes(parser, null);
+    }
+
+    /**
+     * Setup the icon caches
+     */
+    public static void setupIconCache(Context context) {
+        cachedIconNoteOpen = getIcon(context, R.drawable.note_open);
+        cachedIconNoteChanged = getIcon(context, R.drawable.note_changed);
+        cachedIconNoteChangedClosed = getIcon(context, R.drawable.note_changed_closed);
+        cachedIconNoteClosed = getIcon(context, R.drawable.note_closed);
     }
 
     /**
@@ -429,23 +439,23 @@ public class Note extends LongIdTask implements Serializable, JosmXmlSerializabl
     }
 
     @Override
-    public void drawBitmapOpen(Context context, Canvas c, float x, float y, boolean selected) {
-        drawIcon(context, cachedIconOpen, c, R.drawable.note_open, x, y, selected);
+    public void drawBitmapOpen(Canvas c, float x, float y, boolean selected) {
+        drawIcon(cachedIconNoteOpen, c, x, y, selected);
     }
 
     @Override
-    public void drawBitmapChanged(Context context, Canvas c, float x, float y, boolean selected) {
-        drawIcon(context, cachedIconChanged, c, R.drawable.note_changed, x, y, selected);
+    public void drawBitmapChanged(Canvas c, float x, float y, boolean selected) {
+        drawIcon(cachedIconNoteChanged, c, x, y, selected);
     }
 
     @Override
-    public void drawBitmapChangedClosed(Context context, Canvas c, float x, float y, boolean selected) {
-        drawIcon(context, cachedIconChangedClosed, c, R.drawable.note_changed_closed, x, y, selected);
+    public void drawBitmapChangedClosed(Canvas c, float x, float y, boolean selected) {
+        drawIcon(cachedIconNoteChangedClosed, c, x, y, selected);
     }
 
     @Override
-    public void drawBitmapClosed(Context context, Canvas c, float x, float y, boolean selected) {
-        drawIcon(context, cachedIconClosed, c, R.drawable.note_closed, x, y, selected);
+    public void drawBitmapClosed(Canvas c, float x, float y, boolean selected) {
+        drawIcon(cachedIconNoteClosed, c, x, y, selected);
     }
 
     @Override

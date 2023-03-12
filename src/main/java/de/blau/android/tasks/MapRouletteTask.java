@@ -44,15 +44,25 @@ public class MapRouletteTask extends LongIdTask {
     private static final String GEOMETRIES  = "geometries";
     private static final String MR_BLURB    = "blurb";
 
-    protected static BitmapWithOffset cachedIconClosed;
-    protected static BitmapWithOffset cachedIconChangedClosed;
-    protected static BitmapWithOffset cachedIconOpen;
-    protected static BitmapWithOffset cachedIconChanged;
+    protected static BitmapWithOffset cachedIconRouletteClosed;
+    protected static BitmapWithOffset cachedIconChangedRouletteClosed;
+    protected static BitmapWithOffset cachedIconRouletteOpen;
+    protected static BitmapWithOffset cachedIconRouletteChanged;
 
     private long              parentId   = -1;
     private String            parentName = null;
     private String            blurb      = null;
     private FeatureCollection features   = null;
+
+    /**
+     * Setup the icon caches
+     */
+    public static void setupIconCache(Context context) {
+        cachedIconRouletteOpen = getIcon(context, R.drawable.roulette_open);
+        cachedIconRouletteChanged = getIcon(context, R.drawable.roulette_changed);
+        cachedIconChangedRouletteClosed = getIcon(context, R.drawable.roulette_closed_changed);
+        cachedIconRouletteClosed = getIcon(context, R.drawable.roulette_closed);
+    }
 
     @Override
     public String getDescription() {
@@ -177,23 +187,23 @@ public class MapRouletteTask extends LongIdTask {
     }
 
     @Override
-    public void drawBitmapOpen(Context context, Canvas c, float x, float y, boolean selected) {
-        drawIcon(context, cachedIconOpen, c, R.drawable.roulette_open, x, y, selected);
+    public void drawBitmapOpen(Canvas c, float x, float y, boolean selected) {
+        drawIcon(cachedIconRouletteOpen, c, x, y, selected);
     }
 
     @Override
-    public void drawBitmapChanged(Context context, Canvas c, float x, float y, boolean selected) {
-        drawIcon(context, cachedIconChanged, c, R.drawable.roulette_changed, x, y, selected);
+    public void drawBitmapChanged(Canvas c, float x, float y, boolean selected) {
+        drawIcon(cachedIconRouletteChanged, c, x, y, selected);
     }
 
     @Override
-    public void drawBitmapChangedClosed(Context context, Canvas c, float x, float y, boolean selected) {
-        drawIcon(context, cachedIconChangedClosed, c, R.drawable.roulette_closed_changed, x, y, selected);
+    public void drawBitmapChangedClosed(Canvas c, float x, float y, boolean selected) {
+        drawIcon(cachedIconChangedRouletteClosed, c, x, y, selected);
     }
 
     @Override
-    public void drawBitmapClosed(Context context, Canvas c, float x, float y, boolean selected) {
-        drawIcon(context, cachedIconClosed, c, R.drawable.roulette_closed, x, y, selected);
+    public void drawBitmapClosed(Canvas c, float x, float y, boolean selected) {
+        drawIcon(cachedIconRouletteClosed, c, x, y, selected);
     }
 
     @Override
