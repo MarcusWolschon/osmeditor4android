@@ -430,22 +430,22 @@ public class Note extends LongIdTask implements Serializable, JosmXmlSerializabl
 
     @Override
     public void drawBitmapOpen(Context context, Canvas c, float x, float y, boolean selected) {
-        drawIcon(context, cachedIconOpen, c, R.drawable.note_open, x, y, selected);
+        cachedIconOpen = drawIcon(context, cachedIconOpen, c, R.drawable.note_open, x, y, selected);
     }
 
     @Override
     public void drawBitmapChanged(Context context, Canvas c, float x, float y, boolean selected) {
-        drawIcon(context, cachedIconChanged, c, R.drawable.note_changed, x, y, selected);
+        cachedIconChanged = drawIcon(context, cachedIconChanged, c, R.drawable.note_changed, x, y, selected);
     }
 
     @Override
     public void drawBitmapChangedClosed(Context context, Canvas c, float x, float y, boolean selected) {
-        drawIcon(context, cachedIconChangedClosed, c, R.drawable.note_changed_closed, x, y, selected);
+        cachedIconChangedClosed = drawIcon(context, cachedIconChangedClosed, c, R.drawable.note_changed_closed, x, y, selected);
     }
 
     @Override
     public void drawBitmapClosed(Context context, Canvas c, float x, float y, boolean selected) {
-        drawIcon(context, cachedIconClosed, c, R.drawable.note_closed, x, y, selected);
+        cachedIconClosed = drawIcon(context, cachedIconClosed, c, R.drawable.note_closed, x, y, selected);
     }
 
     @Override

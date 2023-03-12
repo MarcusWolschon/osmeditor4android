@@ -178,22 +178,22 @@ public class MapRouletteTask extends LongIdTask {
 
     @Override
     public void drawBitmapOpen(Context context, Canvas c, float x, float y, boolean selected) {
-        drawIcon(context, cachedIconOpen, c, R.drawable.roulette_open, x, y, selected);
+        cachedIconOpen = drawIcon(context, cachedIconOpen, c, R.drawable.roulette_open, x, y, selected);
     }
 
     @Override
     public void drawBitmapChanged(Context context, Canvas c, float x, float y, boolean selected) {
-        drawIcon(context, cachedIconChanged, c, R.drawable.roulette_changed, x, y, selected);
+        cachedIconChanged = drawIcon(context, cachedIconChanged, c, R.drawable.roulette_changed, x, y, selected);
     }
 
     @Override
     public void drawBitmapChangedClosed(Context context, Canvas c, float x, float y, boolean selected) {
-        drawIcon(context, cachedIconChangedClosed, c, R.drawable.roulette_closed_changed, x, y, selected);
+        cachedIconChangedClosed = drawIcon(context, cachedIconChangedClosed, c, R.drawable.roulette_closed_changed, x, y, selected);
     }
 
     @Override
     public void drawBitmapClosed(Context context, Canvas c, float x, float y, boolean selected) {
-        drawIcon(context, cachedIconClosed, c, R.drawable.roulette_closed, x, y, selected);
+        cachedIconClosed = drawIcon(context, cachedIconClosed, c, R.drawable.roulette_closed, x, y, selected);
     }
 
     @Override

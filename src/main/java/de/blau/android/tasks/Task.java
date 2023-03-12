@@ -235,7 +235,8 @@ public abstract class Task implements Serializable, BoundedObject, GeoPoint {
      * @param y y position on the canvas
      * @param selected true if selected and highlighting should be applied
      */
-    void drawIcon(@NonNull Context context, @Nullable BitmapWithOffset cache, @NonNull Canvas c, int icon, float x, float y, boolean selected) {
+    @NonNull
+    BitmapWithOffset drawIcon(@NonNull Context context, @Nullable BitmapWithOffset cache, @NonNull Canvas c, int icon, float x, float y, boolean selected) {
         if (cache == null) {
             cache = new BitmapWithOffset();
             cache.icon = BitmapFactory.decodeResource(context.getResources(), icon);
@@ -249,6 +250,7 @@ public abstract class Task implements Serializable, BoundedObject, GeoPoint {
             c.drawRoundRect(r, iconSelectedBorder, iconSelectedBorder, DataStyle.getInternal(DataStyle.SELECTED_NODE).getPaint());
         }
         c.drawBitmap(cache.icon, x - cache.w2, y - cache.h2, null);
+        return cache;
     }
 
     /**
@@ -261,7 +263,7 @@ public abstract class Task implements Serializable, BoundedObject, GeoPoint {
      * @param selected true if selected
      */
     public void drawBitmapOpen(Context context, Canvas c, float x, float y, boolean selected) {
-        drawIcon(context, cachedIconOpen, c, R.drawable.bug_open, x, y, selected);
+        cachedIconOpen = drawIcon(context, cachedIconOpen, c, R.drawable.bug_open, x, y, selected);
     }
 
     /**
@@ -274,7 +276,7 @@ public abstract class Task implements Serializable, BoundedObject, GeoPoint {
      * @param selected true if selected
      */
     public void drawBitmapChanged(Context context, Canvas c, float x, float y, boolean selected) {
-        drawIcon(context, cachedIconChanged, c, R.drawable.bug_changed, x, y, selected);
+        cachedIconChanged = drawIcon(context, cachedIconChanged, c, R.drawable.bug_changed, x, y, selected);
     }
 
     /**
@@ -287,7 +289,7 @@ public abstract class Task implements Serializable, BoundedObject, GeoPoint {
      * @param selected true if selected
      */
     public void drawBitmapChangedClosed(Context context, Canvas c, float x, float y, boolean selected) {
-        drawIcon(context, cachedIconChangedClosed, c, R.drawable.bug_changed_closed, x, y, selected);
+        cachedIconChangedClosed = drawIcon(context, cachedIconChangedClosed, c, R.drawable.bug_changed_closed, x, y, selected);
     }
 
     /**
@@ -300,7 +302,7 @@ public abstract class Task implements Serializable, BoundedObject, GeoPoint {
      * @param selected true if selected
      */
     public void drawBitmapClosed(Context context, Canvas c, float x, float y, boolean selected) {
-        drawIcon(context, cachedIconClosed, c, R.drawable.bug_closed, x, y, selected);
+        cachedIconClosed = drawIcon(context, cachedIconClosed, c, R.drawable.bug_closed, x, y, selected);
     }
 
     /**
