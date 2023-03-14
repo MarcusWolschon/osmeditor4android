@@ -558,14 +558,34 @@ public final class TestUtils {
      */
     public static void unlock(@NonNull UiDevice device) {
         if (App.getLogic().isLocked()) {
-            UiObject lock = device.findObject(new UiSelector().resourceId(device.getCurrentPackageName() + ":id/floatingLock"));
-            try {
-                lock.click();
-                device.waitForWindowUpdate(null, 1000);
-                clickText(device, false, "OK", false);
-            } catch (UiObjectNotFoundException e) {
-                Assert.fail(e.getMessage());
-            }
+            clickOnLock(device);
+        }
+    }
+
+    /**
+     * Click on the lock button
+     * 
+     * @param device the UiDevice
+     */
+    private static void clickOnLock(@NonNull UiDevice device) {
+        UiObject lock = device.findObject(new UiSelector().resourceId(device.getCurrentPackageName() + ":id/floatingLock"));
+        try {
+            lock.click();
+            device.waitForWindowUpdate(null, 1000);
+            clickText(device, false, "OK", false);
+        } catch (UiObjectNotFoundException e) {
+            Assert.fail(e.getMessage());
+        }
+    }
+
+    /**
+     * Unlock the screen if locked
+     * 
+     * @param device the UiDevice
+     */
+    public static void lock(@NonNull UiDevice device) {
+        if (!App.getLogic().isLocked()) {
+            clickOnLock(device);
         }
     }
 
