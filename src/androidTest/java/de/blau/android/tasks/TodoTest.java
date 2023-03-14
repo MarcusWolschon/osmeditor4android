@@ -62,6 +62,7 @@ public class TodoTest {
         filter.add(Todo.FILTER_KEY);
         prefs.setTaskFilter(filter);
         LayerUtils.removeImageryLayers(context);
+        LayerUtils.addTaskLayer(main);
         map = main.getMap();
         map.setPrefs(main, prefs);
         TestUtils.grantPermissons(device);
