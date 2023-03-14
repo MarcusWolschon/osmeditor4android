@@ -2047,13 +2047,15 @@ public class Main extends FullScreenAppCompatActivity
             toggleFollowGPS();
             return true;
         case R.id.menu_gps_add_bookmark:
+            // the soft keyboard will potentially change the current view box
+            final ViewBox bookmarkViewBox = new ViewBox(map.getViewBox());
             BookmarkHandler.get(this, new BookmarkHandler.HandleResult() {
                 @Override
                 public void onSuccess(String message, FragmentActivity activity) {
                     if (message.trim().isEmpty()) {
                         return;
                     }
-                    new BookmarkIO().writer(getApplicationContext(), message, map.getViewBox());
+                    new BookmarkIO().writer(getApplicationContext(), message, bookmarkViewBox);
                 }
 
                 @Override
