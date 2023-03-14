@@ -160,7 +160,6 @@ public class SplitPaneLayout extends ViewGroup {
                 mSplitterPosition = Integer.MIN_VALUE;
                 mSplitterPositionPercent = 0.5f;
             }
-
             value = a.peekValue(R.styleable.SplitPaneLayout_splitterBackground);
             if (value != null) {
                 if (value.type == TypedValue.TYPE_REFERENCE || value.type == TypedValue.TYPE_STRING) {
@@ -211,35 +210,37 @@ public class SplitPaneLayout extends ViewGroup {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         int widthSize = MeasureSpec.getSize(widthMeasureSpec);
+        int widthMode = MeasureSpec.getMode(widthMeasureSpec);
         int heightSize = MeasureSpec.getSize(heightMeasureSpec);
+        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
 
         check();
-
         if (widthSize > 0 && heightSize > 0) {
+            final int halfOfSplitter = mSplitterSize / 2;
             if (mOrientation == ORIENTATION_HORIZONTAL) {
                 if (mSplitterPosition == Integer.MIN_VALUE && mSplitterPositionPercent < 0) {
                     mSplitterPosition = widthSize / 2;
-                } else if (mSplitterPosition == Integer.MIN_VALUE && mSplitterPositionPercent >= 0) {
+                } else if (mSplitterPositionPercent >= 0) {
                     mSplitterPosition = (int) (widthSize * mSplitterPositionPercent);
                 } else if (mSplitterPosition != Integer.MIN_VALUE && mSplitterPositionPercent < 0) {
-                    mSplitterPositionPercent = (float) mSplitterPosition / (float) widthSize;
+                    calcPercent(mSplitterPosition, widthSize);
                 }
-                getChildAt(0).measure(MeasureSpec.makeMeasureSpec(mSplitterPosition - (mSplitterSize / 2), MeasureSpec.EXACTLY),
-                        MeasureSpec.makeMeasureSpec(heightSize, MeasureSpec.EXACTLY));
-                getChildAt(1).measure(MeasureSpec.makeMeasureSpec(widthSize - (mSplitterSize / 2) - mSplitterPosition, MeasureSpec.EXACTLY),
-                        MeasureSpec.makeMeasureSpec(heightSize, MeasureSpec.EXACTLY));
+                getChildAt(0).measure(MeasureSpec.makeMeasureSpec(mSplitterPosition - halfOfSplitter, widthMode),
+                        MeasureSpec.makeMeasureSpec(heightSize, heightMode));
+                getChildAt(1).measure(MeasureSpec.makeMeasureSpec(widthSize - halfOfSplitter - mSplitterPosition, widthMode),
+                        MeasureSpec.makeMeasureSpec(heightSize, heightMode));
             } else if (mOrientation == ORIENTATION_VERTICAL) {
                 if (mSplitterPosition == Integer.MIN_VALUE && mSplitterPositionPercent < 0) {
                     mSplitterPosition = heightSize / 2;
-                } else if (mSplitterPosition == Integer.MIN_VALUE && mSplitterPositionPercent >= 0) {
+                } else if (mSplitterPositionPercent >= 0) {
                     mSplitterPosition = (int) (heightSize * mSplitterPositionPercent);
                 } else if (mSplitterPosition != Integer.MIN_VALUE && mSplitterPositionPercent < 0) {
-                    mSplitterPositionPercent = (float) mSplitterPosition / (float) heightSize;
+                    calcPercent(mSplitterPosition, heightSize);
                 }
-                getChildAt(0).measure(MeasureSpec.makeMeasureSpec(widthSize, MeasureSpec.EXACTLY),
-                        MeasureSpec.makeMeasureSpec(mSplitterPosition - (mSplitterSize / 2), MeasureSpec.EXACTLY));
-                getChildAt(1).measure(MeasureSpec.makeMeasureSpec(widthSize, MeasureSpec.EXACTLY),
-                        MeasureSpec.makeMeasureSpec(heightSize - (mSplitterSize / 2) - mSplitterPosition, MeasureSpec.EXACTLY));
+                getChildAt(0).measure(MeasureSpec.makeMeasureSpec(widthSize, widthMode),
+                        MeasureSpec.makeMeasureSpec(mSplitterPosition - halfOfSplitter, heightMode));
+                getChildAt(1).measure(MeasureSpec.makeMeasureSpec(widthSize, widthMode),
+                        MeasureSpec.makeMeasureSpec(heightSize - halfOfSplitter - mSplitterPosition, heightMode));
             }
         }
     }
@@ -248,14 +249,15 @@ public class SplitPaneLayout extends ViewGroup {
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         int w = r - l;
         int h = b - t;
+        final int halfOfSplitter = mSplitterSize / 2;
         if (mOrientation == ORIENTATION_HORIZONTAL) {
-            getChildAt(0).layout(0, 0, mSplitterPosition - (mSplitterSize / 2), h);
-            mSplitterRect.set(mSplitterPosition - (mSplitterSize / 2), 0, mSplitterPosition + (mSplitterSize / 2), h);
-            getChildAt(1).layout(mSplitterPosition + (mSplitterSize / 2), 0, r, h);
+            getChildAt(0).layout(0, 0, mSplitterPosition - halfOfSplitter, h);
+            mSplitterRect.set(mSplitterPosition - halfOfSplitter, 0, mSplitterPosition + halfOfSplitter, h);
+            getChildAt(1).layout(mSplitterPosition + halfOfSplitter, 0, r, h);
         } else if (mOrientation == ORIENTATION_VERTICAL) {
-            getChildAt(0).layout(0, 0, w, mSplitterPosition - (mSplitterSize / 2));
-            mSplitterRect.set(0, mSplitterPosition - (mSplitterSize / 2), w, mSplitterPosition + (mSplitterSize / 2));
-            getChildAt(1).layout(0, mSplitterPosition + (mSplitterSize / 2), w, h);
+            getChildAt(0).layout(0, 0, w, mSplitterPosition - halfOfSplitter);
+            mSplitterRect.set(0, mSplitterPosition - halfOfSplitter, w, mSplitterPosition + halfOfSplitter);
+            getChildAt(1).layout(0, mSplitterPosition + halfOfSplitter, w, h);
         }
         int cX = mSplitterRect.centerX();
         int cY = mSplitterRect.centerY();
@@ -302,12 +304,12 @@ public class SplitPaneLayout extends ViewGroup {
             case MotionEvent.ACTION_UP:
                 if (isDragging) {
                     isDragging = false;
+                    // note that the relative pos has to be set here
                     if (mOrientation == ORIENTATION_HORIZONTAL) {
-                        mSplitterPosition = x;
+                        calcPercent(x, getWidth());
                     } else if (mOrientation == ORIENTATION_VERTICAL) {
-                        mSplitterPosition = y;
+                        calcPercent(y, getHeight());
                     }
-                    mSplitterPositionPercent = -1;
                     remeasure();
                     requestLayout();
                 }
@@ -318,6 +320,17 @@ public class SplitPaneLayout extends ViewGroup {
             return true;
         }
         return false;
+    }
+
+    /**
+     * Calculate the relative position
+     * 
+     * @param absPos the position in pixels
+     * @param max the max value it can have
+     */
+    private void calcPercent(int absPos, int max) {
+        mSplitterPosition = Math.min(absPos, max);
+        mSplitterPositionPercent = (float) mSplitterPosition / (float) max;
     }
 
     @Override
@@ -522,7 +535,7 @@ public class SplitPaneLayout extends ViewGroup {
      *
      * @param position the desired position of the splitter
      */
-    private void setSplitterPositionPercent(float position) {
+    public void setSplitterPositionPercent(float position) {
         if (position < 0) {
             position = 0;
         }

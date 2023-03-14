@@ -7,6 +7,7 @@ import static de.blau.android.util.Winding.winding;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -55,6 +56,7 @@ import de.blau.android.layer.LayerInfoInterface;
 import de.blau.android.layer.LayerType;
 import de.blau.android.layer.MapViewLayer;
 import de.blau.android.layer.PruneableInterface;
+import de.blau.android.layer.UpdateInterface;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
@@ -96,7 +98,8 @@ import de.blau.android.views.IMapView;
  * @author Simon Poole
  */
 
-public class MapOverlay extends MapViewLayer implements ExtentInterface, ConfigureInterface, LayerInfoInterface, PruneableInterface {
+public class MapOverlay<O extends OsmElement> extends MapViewLayer
+        implements ExtentInterface, ConfigureInterface, LayerInfoInterface, PruneableInterface, UpdateInterface<O> {
 
     private static final String DEBUG_TAG = MapOverlay.class.getName();
 
@@ -304,6 +307,8 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
     // assembling
     private final Set<Relation> paintRelations = new HashSet<>();
 
+    private OnUpdateListener<O> onUpdateListener;
+
     /**
      * Runnable for downloading data
      */
@@ -463,6 +468,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
      * 
      * @param canvas Canvas, where the data shall be painted on.
      */
+    @SuppressWarnings("unchecked")
     private void paintOsmData(@NonNull final Canvas canvas) {
 
         boolean hwAccelarationWorkaround = Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT && canvas.isHardwareAccelerated();
@@ -602,6 +608,10 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
             }
         }
         paintHandles(canvas);
+
+        if (onUpdateListener != null) {
+            onUpdateListener.onUpdate((Collection<O>) paintNodes, (Collection<O>) waysToDraw, (Collection<O>) paintRelations);
+        }
     }
 
     /**
@@ -1141,7 +1151,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
     /**
      * Dummy bitmap for the cache
      */
-    private static final Bitmap NOICON = Bitmap.createBitmap(2, 2, Config.ARGB_8888);
+    public static final Bitmap NOICON = Bitmap.createBitmap(2, 2, Config.ARGB_8888);
 
     /**
      * Get icon for the element
@@ -1152,7 +1162,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
      * @return icon or null if none is found
      */
     @Nullable
-    private Bitmap getIcon(@NonNull OsmElement element) {
+    public Bitmap getIcon(@NonNull OsmElement element) {
         boolean isWay = element instanceof Way;
         WeakHashMap<java.util.Map<String, String>, Bitmap> tempCache = isWay ? areaIconCache : iconCache;
         Bitmap icon = element.getFromCache(tempCache); // may be null!
@@ -1758,5 +1768,10 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
     @Override
     public LayerType getType() {
         return LayerType.OSMDATA;
+    }
+
+    @Override
+    public void setOnUpdateListener(OnUpdateListener<O> listener) {
+        onUpdateListener = listener;
     }
 }

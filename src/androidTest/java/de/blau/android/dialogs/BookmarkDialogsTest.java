@@ -1,9 +1,11 @@
 package de.blau.android.dialogs;
 
-
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -33,13 +35,13 @@ import de.blau.android.osm.ViewBox;
 @RunWith(AndroidJUnit4.class)
 public class BookmarkDialogsTest {
 
-    Instrumentation instrumentation = null;
+    Instrumentation             instrumentation   = null;
     ArrayList<BookmarksStorage> bookmarksStorages = null;
-    ViewBox viewBoxtest = null;
-    ActivityMonitor monitor = null;
-    UiDevice device = null;
-    Main main = null;
-    Map map = null;
+    ViewBox                     viewBoxtest       = null;
+    ActivityMonitor             monitor           = null;
+    UiDevice                    device            = null;
+    Main                        main              = null;
+    Map                         map               = null;
 
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class, false, false);
@@ -65,11 +67,11 @@ public class BookmarkDialogsTest {
         TestUtils.sleep();
         bookmarksStorages = new ArrayList<>();
         try {
-            //India
+            // India
             bookmarksStorages.add(new BookmarksStorage("TestLocation0", new ViewBox(68.1766451354, 7.96553477623, 97.4025614766, 35.4940095078)));
-            //Netherlands
+            // Netherlands
             bookmarksStorages.add(new BookmarksStorage("TestLocation1", new ViewBox(3.31497114423, 50.803721015, 7.09205325687, 53.5104033474)));
-            //Serbia
+            // Serbia
             bookmarksStorages.add(new BookmarksStorage("TestLocation2", new ViewBox(18.82982, 42.2452243971, 22.9860185076, 46.1717298447)));
         } catch (OsmException osmex) {
             osmex.printStackTrace();
@@ -81,12 +83,12 @@ public class BookmarkDialogsTest {
      */
     @Test
     public void addRemoveTest() {
-        //Add Dialog
+        // Add Dialog
         for (int i = 0; i < 3; i++) {
             map.getViewBox().fitToBoundingBox(map, bookmarksStorages.get(i).getViewBox());
             map.invalidate();
-            Assert.assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/menu_gps", true));
-            Assert.assertTrue(TestUtils.clickText(device, false, main.getString(R.string.add_bookmark), true, false));
+            assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/menu_gps", true));
+            assertTrue(TestUtils.clickText(device, false, main.getString(R.string.add_bookmark), true, false));
             UiObject comments = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/text_line_edit"));
             try {
                 comments.click();
@@ -96,15 +98,18 @@ public class BookmarkDialogsTest {
             }
             TestUtils.clickButton(device, "android:id/button1", true);
         }
-        //Show Dialog
+
+        List<BookmarksStorage> rereadStorages = new BookmarkIO().readList(main);
+        // Show Dialog
         for (int i = 0; i < 3; i++) {
             TestUtils.clickMenuButton(device, main.getString(R.string.menu_gps), false, true);
             TestUtils.clickText(device, false, main.getString(R.string.show_bookmarks), true, false);
-            TestUtils.clickResource(device, true, (device.getCurrentPackageName() + ":id/adapterlayout"), true);
-            viewBoxtest = map.getViewBox();
-            // dividing by 100 to accomodate slight change in map.getviewbox()
-            Assert.assertEquals((bookmarksStorages.get(i).getViewBox().getLeft()) / 100, viewBoxtest.getLeft() / 100);
-            Assert.assertEquals((bookmarksStorages.get(i).getViewBox().getRight()) / 100, viewBoxtest.getRight() / 100);
+            assertTrue(TestUtils.clickText(device, false, "TestLocation" + i, true, false));
+            TestUtils.sleep(5000);
+            ViewBox bookMarkBox = rereadStorages.get(i).getViewBox();
+            ViewBox viewBoxtest = map.getViewBox();
+            assertEquals(bookMarkBox.getLeft() / 1E7D, viewBoxtest.getLeft() / 1E7D, 0.01);
+            assertEquals(bookMarkBox.getRight() / 1E7D, viewBoxtest.getRight() / 1E7D, 0.01);
             TestUtils.clickMenuButton(device, main.getString(R.string.menu_gps), false, true);
             TestUtils.clickText(device, false, main.getString(R.string.show_bookmarks), true, false);
             TestUtils.clickText(device, false, "⋮", true, false);

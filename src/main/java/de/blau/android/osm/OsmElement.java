@@ -28,7 +28,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
     /**
      * 
      */
-    private static final long serialVersionUID = 7711945069147743673L;
+    private static final long serialVersionUID = 7711945069147743674L;
 
     public static final long NEW_OSM_ID = -1;
 
@@ -252,11 +252,13 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
     }
 
     /**
+     * Check if we have a tag with a specific key-value combination
+     * 
      * @param key the key to search for (case sensitive)
      * @param value the value to search for (case sensitive)
      * @return true if the element has a tag with this key and value.
      */
-    public boolean hasTag(final String key, final String value) {
+    public boolean hasTag(@NonNull final String key, @Nullable final String value) {
         if (tags == null) {
             return false;
         }
@@ -265,12 +267,16 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
     }
 
     /**
+     * Check if we have a tag with a specific key-value combination
+     * 
+     * Note TreeMap doesn't implement Map
+     * 
      * @param tags tags to use instead of the standard ones
      * @param key the key to search for (case sensitive)
      * @param value the value to search for (case sensitive)
      * @return true if the element has a tag with this key and value.
      */
-    static boolean hasTag(final Map<String, String> tags, final String key, final String value) {
+    static boolean hasTag(@Nullable final Map<String, String> tags, @NonNull final String key, @Nullable final String value) {
         if (tags == null) {
             return false;
         }
@@ -293,23 +299,42 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
     }
 
     /**
+     * Get the value of a tag with key
+     * 
      * @param key the key to search for (case sensitive)
      * @return the value of this key.
      */
     @Nullable
     public String getTagWithKey(@NonNull final String key) {
-        if (tags == null) {
-            return null;
-        }
-        return tags.get(key);
+        return tags != null ? tags.get(key) : null;
     }
 
     /**
+     * Check if the tags contain an entry for key
+     * 
      * @param key the key to search for (case sensitive)
      * @return true if the element has a tag with this key.
      */
     public boolean hasTagKey(@NonNull final String key) {
-        return getTagWithKey(key) != null;
+        return tags != null && tags.containsKey(key);
+    }
+
+    /**
+     * Check if the tags contain any of the keys
+     * 
+     * @param keys the keys to search for (case sensitive)
+     * @return true if the element has a tag with one of the keys.
+     */
+    public boolean hasTagKey(@NonNull final String... keys) {
+        if (tags == null) {
+            return false;
+        }
+        for (String key : keys) {
+            if (tags.containsKey(key)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -753,7 +778,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
      * 
      * Note this is only useful for sorting given that the result is returned in WGS84 °*1E7 or so
      * 
-     * @param location a coordinate tupel in WGS84*1E7 degrees
+     * @param location a coordinate tupel - lat / lon - in WGS84*1E7 degrees
      * @return the planar geom distance in degrees
      */
     public abstract double getMinDistance(final int[] location);

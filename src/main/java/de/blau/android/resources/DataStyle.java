@@ -168,6 +168,7 @@ public final class DataStyle extends DefaultHandler {
     private static final String ICON_PATH_ATTR        = "iconPath";
     private static final String PRESET                = "preset";
     private static final String OFFSET_ATTR           = "offset";
+    private static final String TEXT_COLOR_ATTR       = "textColor";
 
     private static final int DEFAULT_MIN_VISIBLE_ZOOM = 15;
 
@@ -191,6 +192,7 @@ public final class DataStyle extends DefaultHandler {
         private String            labelKey       = null;
         private String            iconPath       = null;
         private int               labelZoomLimit = Integer.MAX_VALUE;
+        private int               textColor;
 
         List<FeatureStyle> cascadedStyles = null;
 
@@ -224,6 +226,7 @@ public final class DataStyle extends DefaultHandler {
             } else {
                 paint = new Paint();
             }
+            textColor = paint.getColor();
             widthFactor = 1.0f;
         }
 
@@ -267,6 +270,7 @@ public final class DataStyle extends DefaultHandler {
             setLabelZoomLimit(fp.getLabelZoomLimit());
             iconPath = fp.iconPath;
             cascadedStyles = null;
+            textColor = fp.textColor;
         }
 
         /**
@@ -633,6 +637,24 @@ public final class DataStyle extends DefaultHandler {
         @Nullable
         public String getIconPath() {
             return iconPath;
+        }
+
+        /**
+         * Set a color for text only
+         * 
+         * @param textColor the color
+         */
+        public void setTextColor(int textColor) {
+            this.textColor = textColor;
+        }
+
+        /**
+         * Get a color for text only
+         * 
+         * @return the color
+         */
+        public int getTextColor() {
+            return textColor;
         }
 
         /**
@@ -1637,6 +1659,11 @@ public final class DataStyle extends DefaultHandler {
                 String codeString = atts.getValue(CODE_ATTR);
                 if (codeString != null) {
                     validationCode = Integer.parseInt(codeString);
+                }
+
+                String textColorString = atts.getValue(TEXT_COLOR_ATTR);
+                if (textColorString != null) {
+                    tempFeatureStyle.setTextColor((int) Long.parseLong(textColorString, 16));
                 }
             } else if (element.equals(DASH_ELEMENT)) {
                 tempPhase = Float.parseFloat(atts.getValue(PHASE_ATTR));

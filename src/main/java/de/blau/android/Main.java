@@ -66,6 +66,7 @@ import android.view.View.OnKeyListener;
 import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
+import android.view.ViewStub;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
@@ -82,6 +83,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.core.view.MenuCompat;
 import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 import de.blau.android.Logic.CursorPaddirection;
@@ -188,6 +190,7 @@ import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.UploadChecker;
 import de.blau.android.util.Util;
 import de.blau.android.util.Version;
+import de.blau.android.views.SplitPaneLayout;
 import de.blau.android.views.ZoomControls;
 import de.blau.android.views.layers.MapTilesLayer;
 
@@ -469,6 +472,8 @@ public class Main extends FullScreenAppCompatActivity
 
     private Bundle shortcutExtras;
 
+    private RecyclerView nearByPois;
+
     private static final float LARGE_FAB_ELEVATION = 16; // used for re-enabling elevation on the FABs
 
     /**
@@ -581,6 +586,14 @@ public class Main extends FullScreenAppCompatActivity
                                             // setContentView
 
         setContentView(ml);
+
+        View pane2 = findViewById(R.id.pane2);
+        if (pane2 instanceof ViewStub) { // only need to inflate once
+            ViewStub stub = (ViewStub) pane2;
+            stub.setLayoutResource(R.layout.nearest_pois);
+            stub.setInflatedId(R.id.pane2);
+            nearByPois = (RecyclerView) stub.inflate();
+        }
 
         // Find the toolbar view inside the activity layout
         Toolbar toolbar = (Toolbar) findViewById(R.id.mainToolbar);
@@ -727,6 +740,7 @@ public class Main extends FullScreenAppCompatActivity
 
         haveCamera = checkForCamera();
 
+        @SuppressWarnings("unchecked")
         PostAsyncActionHandler postLoadData = () -> {
             updateActionbarEditMode();
             Mode mode = logic.getMode();
@@ -757,6 +771,11 @@ public class Main extends FullScreenAppCompatActivity
                     scheduleAutoLock();
                 });
                 logic.getFilter().showControls();
+            }
+
+            de.blau.android.layer.data.MapOverlay<OsmElement> dataLayer = map.getDataLayer();
+            if (dataLayer != null) {
+                dataLayer.setOnUpdateListener(new NearbyPoiUpdateListener<>(Main.this, map, nearByPois));
             }
         };
         PostAsyncActionHandler postLoadTasks = () -> {
@@ -2028,13 +2047,15 @@ public class Main extends FullScreenAppCompatActivity
             toggleFollowGPS();
             return true;
         case R.id.menu_gps_add_bookmark:
+            // the soft keyboard will potentially change the current view box
+            final ViewBox bookmarkViewBox = new ViewBox(map.getViewBox());
             BookmarkHandler.get(this, new BookmarkHandler.HandleResult() {
                 @Override
                 public void onSuccess(String message, FragmentActivity activity) {
                     if (message.trim().isEmpty()) {
                         return;
                     }
-                    new BookmarkIO().writer(getApplicationContext(), message, map.getViewBox());
+                    new BookmarkIO().writer(getApplicationContext(), message, bookmarkViewBox);
                 }
 
                 @Override
@@ -3271,6 +3292,7 @@ public class Main extends FullScreenAppCompatActivity
      */
     public void performTagEdit(final List<OsmElement> selection, boolean applyLastAddressTags, boolean showPresets) {
         descheduleAutoLock();
+        unlock();
         ArrayList<PropertyEditorData> multiple = new ArrayList<>();
         StorageDelegator storageDelegator = App.getDelegator();
         for (OsmElement e : selection) {
@@ -4315,6 +4337,24 @@ public class Main extends FullScreenAppCompatActivity
     // currently this is only called by the task UI
     public void update() {
         map.invalidate();
+    }
+
+    /**
+     * Get the current position of the splitter in pixels
+     * 
+     * @return the current position
+     */
+    public float getSplitterPosition() {
+        return ((SplitPaneLayout) findViewById(R.id.pane_layout)).getSplitterPositionPercent();
+    }
+
+    /**
+     * Set the position of the splitter in pixels
+     * 
+     * @param the new position
+     */
+    public void setSplitterPosition(float pos) {
+        ((SplitPaneLayout) findViewById(R.id.pane_layout)).setSplitterPositionPercent(pos);
     }
 
     /**

@@ -452,7 +452,7 @@ public final class Util {
         if (logic != null) {
             de.blau.android.Map map = logic.getMap();
             if (map != null) {
-                de.blau.android.layer.data.MapOverlay dataLayer = map.getDataLayer();
+                de.blau.android.layer.data.MapOverlay<OsmElement> dataLayer = map.getDataLayer();
                 if (dataLayer != null) {
                     dataLayer.clearIconCaches();
                     dataLayer.invalidate();

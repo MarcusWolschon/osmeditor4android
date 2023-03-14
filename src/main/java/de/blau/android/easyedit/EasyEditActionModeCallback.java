@@ -89,6 +89,7 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
         Log.d(DEBUG_TAG, "onCreateActionMode");
         manager.setCallBack(mode, this);
         this.mode = mode;
+        main.unlock();
         main.hideLock();
         main.hideLayersControl();
 

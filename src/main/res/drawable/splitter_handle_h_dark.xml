@@ -6,7 +6,7 @@
                 android:width="2dip"
                 android:color="@color/material_deep_teal_200" />
             <size
-                android:width="32dip"
+                android:width="64dip"
                 android:height="24dip" />
             <padding android:bottom="22dip" />
         </shape>
@@ -17,7 +17,7 @@
                 android:width="2dip"
                 android:color="@color/material_deep_teal_200" />
             <size
-                android:width="32dip"
+                android:width="64dip"
                 android:height="24dip" />
             <padding android:top="22dip" />
         </shape>
