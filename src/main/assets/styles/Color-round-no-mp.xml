@@ -96,6 +96,7 @@
     <feature type="way" tags="natural" updateWidth="true" widthFactor="0.5" color="ff71BE80" style="STROKE" cap="BUTT" join="MITER"> 
         <feature type="way" tags="natural" closed="true" area="true" offset="0.50" >
             <feature type="way" tags="natural=water" widthFactor="1.0" minVisibleZoom="10" color="ff0000ff" />
+            <feature type="way" tags="natural=glacier" widthFactor="1.0" minVisibleZoom="10" color="ff368BC1" />
         </feature>
         <feature type="way" tags="natural=water" widthFactor="1.0" minVisibleZoom="10" color="ff0000ff" />
         <feature type="way" tags="natural=cliff" widthFactor="2.0" color="ff555555" pathPattern="triangle_right" />
