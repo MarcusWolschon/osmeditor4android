@@ -941,6 +941,7 @@ public class Layers extends AbstractConfigurationDialog {
                         if (layer != null && (activity instanceof Main)) {
                             ((Main) activity).setFollowGPS(true);
                             ((de.blau.android.layer.gpx.MapOverlay) layer).startPlayback();
+                            dismissDialog();
                         }
                         return true;
                     });
@@ -950,6 +951,7 @@ public class Layers extends AbstractConfigurationDialog {
                     item.setOnMenuItemClickListener(unused -> {
                         if (layer != null) {
                             ((de.blau.android.layer.gpx.MapOverlay) layer).pausePlayback();
+                            dismissDialog();
                         }
                         return true;
                     });
@@ -959,6 +961,7 @@ public class Layers extends AbstractConfigurationDialog {
                     item.setOnMenuItemClickListener(unused -> {
                         if (layer != null) {
                             ((de.blau.android.layer.gpx.MapOverlay) layer).stopPlayback();
+                            dismissDialog();
                         }
                         return true;
                     });

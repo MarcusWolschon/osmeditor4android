@@ -433,7 +433,6 @@ public class GpxTest {
                 UiObject2 menuButton = TestUtils.getLayerButton(device, fileName, LayerDialogTest.MENU_BUTTON);
                 menuButton.click();
                 assertTrue(TestUtils.clickText(device, false, main.getString(R.string.layer_start_playback), true, false));
-                assertTrue(TestUtils.clickText(device, false, main.getString(R.string.Done), true, false));
                 TestUtils.findText(device, false, main.getString(R.string.layer_toast_playback_finished), 20000);
                 assertEquals(8.374995, main.getMap().getViewBox().getCenter()[0], 0.0001);
                 assertEquals(47.4117952, main.getMap().getViewBox().getCenter()[1], 0.0001);
