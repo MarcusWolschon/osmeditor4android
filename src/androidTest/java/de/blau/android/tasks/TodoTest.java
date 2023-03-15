@@ -117,7 +117,9 @@ public class TodoTest {
         assertTrue(TestUtils.clickResource(device, false, "android:id/button1", true));
         List<Todo> todos = App.getTaskStorage().getTodosForElement(node);
         assertEquals(1, todos.size());
+        TestUtils.sleep();
         TestUtils.clickAtCoordinates(device, map, 8.38782, 47.390339, true);
+        TestUtils.sleep();
         assertTrue(TestUtils.clickText(device, false, "Todo", true, false, 5000));
         TestUtils.sleep();
         assertTrue(TestUtils.clickResource(device, false, "android:id/button1", false));

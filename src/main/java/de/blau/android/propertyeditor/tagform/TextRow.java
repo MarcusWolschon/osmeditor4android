@@ -213,7 +213,7 @@ public class TextRow extends LinearLayout implements KeyValueRow {
                 }
             } else if (hasFocus) {
                 ArrayAdapter<?> adapter = caller.getValueAutocompleteAdapter(key, values, preset, null, allTags, true, false, -1);
-                if ((valueType == ValueType.DIMENSION_HORIZONTAL || valueType == ValueType.DIMENSION_VERTICAL) && Measure.isAvailable(context)) {
+                if (showMeasureDialog(context, row)) {
                     final View finalView = v;
                     finalView.setEnabled(false); // debounce
                     final AlertDialog dialog = buildMeasureDialog(caller, hint != null ? hint : key, key, adapter, row, valueType, imperial);
@@ -253,6 +253,27 @@ public class TextRow extends LinearLayout implements KeyValueRow {
         });
         ourValueView.addTextChangedListener(new SanitizeTextWatcher(caller.getActivity(), caller.maxStringLength));
         return row;
+    }
+
+    /**
+     * Check if we should show the measuring modal
+     * 
+     * @param context an Android Context
+     * @param row a textRow instance
+     * @return true if we should show the modal
+     */
+    private static boolean showMeasureDialog(@NonNull final Context context, @NonNull TextRow row) {
+        return (row.valueType == ValueType.DIMENSION_HORIZONTAL || row.valueType == ValueType.DIMENSION_VERTICAL) && Measure.isAvailable(context);
+    }
+
+    /**
+     * Check if this row is suitable for initial focus, aka doesn't pop up anything
+     * 
+     * @param context an Android Context
+     * @return true if we can safely focus on this
+     */
+    public boolean initialFoxus(@NonNull final Context context) {
+        return "".equals(getValue()) && (valueType == null || !showMeasureDialog(context, this));
     }
 
     /**
