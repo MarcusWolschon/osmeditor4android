@@ -1151,15 +1151,15 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
      */
     private boolean focusOnEmpty() {
         boolean found = false;
-        View sv = getView();
-        LinearLayout ll = (LinearLayout) sv.findViewById(R.id.form_container_layout);
+        LinearLayout ll = (LinearLayout) getView().findViewById(R.id.form_container_layout);
         if (ll != null) {
             int pos = 0;
             while (ll.getChildAt(pos) instanceof EditableLayout && pos < ll.getChildCount() && !found) {
                 EditableLayout ll2 = (EditableLayout) ll.getChildAt(pos);
                 for (int i = 0; i < ll2.getChildCount(); i++) {
                     View v = ll2.getChildAt(i);
-                    if (v instanceof TextRow && "".equals(((TextRow) v).getValue())) {
+                    // we currently only focus on TextRows without a special ValueType
+                    if (v instanceof TextRow && ((TextRow) v).initialFoxus(getContext())) {
                         ((TextRow) v).getValueView().requestFocus();
                         found = true;
                         break;
