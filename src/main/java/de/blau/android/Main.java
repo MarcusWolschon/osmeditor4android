@@ -3866,39 +3866,32 @@ public class Main extends FullScreenAppCompatActivity
         public boolean onDoubleTap(View v, float x, float y) {
             final Logic logic = App.getLogic();
             if (!logic.isLocked()) {
-                boolean inEasyEditMode = logic.getMode().elementsGeomEditiable();
-                boolean dataIsVisible = map.getDataLayer() != null && map.getDataLayer().isVisible();
-                clickedNodesAndWays = dataIsVisible ? App.getLogic().getClickedNodesAndWays(x, y) : new ArrayList<>();
-                switch (clickedNodesAndWays.size()) {
-                case 0:
-                    // no elements were touched
-                    if (inEasyEditMode) {
+                if (logic.getMode().elementsGeomEditiable()) {
+                    boolean dataIsVisible = map.getDataLayer() != null && map.getDataLayer().isVisible();
+                    clickedNodesAndWays = dataIsVisible ? App.getLogic().getClickedNodesAndWays(x, y) : new ArrayList<>();
+                    final int clickedCount = clickedNodesAndWays.size();
+                    if (clickedCount == 0) {
+                        // no elements were touched
                         // short cut to finishing multi-select
                         getEasyEditManager().nothingTouched(true);
-                    }
-                    break;
-                case 1:
-                    if (inEasyEditMode) {
-                        getEasyEditManager().startExtendedSelection(clickedNodesAndWays.get(0));
-                    }
-                    break;
-                default:
-                    // multiple possible elements touched - show menu
-                    if (inEasyEditMode) {
-                        if (menuRequired()) {
-                            Log.d(DEBUG_TAG, "onDoubleTap displaying menu");
-                            doubleTap = true; // ugly flag
-                            v.showContextMenu();
+                    } else {
+                        if (!getEasyEditManager().inMultiSelectMode()) {
+                            if (clickedCount > 1 && menuRequired()) {
+                                // multiple possible elements touched - show menu
+                                Log.d(DEBUG_TAG, "onDoubleTap displaying menu");
+                                doubleTap = true; // ugly flag
+                                v.showContextMenu();
+                            } else {
+                                // menuRequired tells us it's ok to just take the first one
+                                getEasyEditManager().startExtendedSelection(clickedNodesAndWays.get(0));
+                            }
                         } else {
-                            // menuRequired tells us it's ok to just take the
-                            // first one
-                            getEasyEditManager().startExtendedSelection(clickedNodesAndWays.get(0));
+                            Snack.toastTopInfo(Main.this, R.string.toast_already_in_multiselect);
                         }
                     }
-                    break;
                 }
             } else {
-                Snack.barInfoShort(Main.this, R.string.toast_unlock_to_edit);
+                Snack.toastTopInfo(Main.this, R.string.toast_unlock_to_edit);
             }
             return true;
         }

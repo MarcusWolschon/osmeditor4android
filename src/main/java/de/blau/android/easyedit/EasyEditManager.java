@@ -135,6 +135,17 @@ public class EasyEditManager {
     }
 
     /**
+     * Check if we are in multi-select mode
+     * 
+     * @return true if we are in the multi-select mode
+     */
+    public boolean inMultiSelectMode() {
+        synchronized (actionModeCallbackLock) {
+            return currentActionModeCallback instanceof ExtendSelectionActionModeCallback;
+        }
+    }
+
+    /**
      * Check if we are in a mode that supports dragging
      * 
      * @return true if we are in a supported ActionMode
@@ -217,7 +228,7 @@ public class EasyEditManager {
      */
     public void nothingTouched(boolean doubleTap) {
         // User clicked an empty area. If something is selected, deselect it.
-        if (!doubleTap && currentActionModeCallback instanceof ExtendSelectionActionModeCallback) {
+        if (!doubleTap && inMultiSelectMode()) {
             Snack.toastTopInfo(getMain(), getMain().getString(R.string.toast_exit_multiselect));
             return; // don't deselect all just because we didn't hit anything
         }
