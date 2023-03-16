@@ -5,6 +5,9 @@ buildscript {
     repositories {
         mavenCentral()
         google()
+        maven {
+            url = uri("https://plugins.gradle.org/m2/")
+        }
         mavenLocal()
     }
     dependencies {
@@ -21,7 +24,7 @@ buildscript {
         classpath 'com.github.ksoichiro:gradle-eclipse-aar-plugin:0.3.1'
         classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:3.0.1'
         classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.18'
-        classpath 'com.malinskiy.marathon:marathon-gradle-plugin:0.6.5'
+        classpath 'com.malinskiy.marathon:marathon-gradle-plugin:0.8.0'
     }
 }
 
@@ -31,6 +34,15 @@ plugins {
     id "com.github.ben-manes.versions" version "0.39.0"
 }
 import de.undercouch.gradle.tasks.download.Download
+
+// Project level build file starts here
+apply plugin: 'eclipse'
+apply plugin: 'com.android.application'
+apply plugin: 'ch.poole.gradle.markdown'
+apply plugin: 'jacoco'
+apply plugin: 'com.getkeepsafe.dexcount'
+apply plugin: 'com.google.protobuf'
+apply plugin: 'com.malinskiy.marathon'
 
 allprojects {
     repositories {
@@ -42,15 +54,6 @@ allprojects {
         jcenter()
     }
 }
-
-// Project level build file starts here
-apply plugin: 'eclipse'
-apply plugin: 'com.android.application'
-apply plugin: 'ch.poole.gradle.markdown'
-apply plugin: 'jacoco'
-apply plugin: 'com.getkeepsafe.dexcount'
-apply plugin: 'com.google.protobuf'
-apply plugin: 'marathon'
 
 markdownToHtml {
     sourceDir =  new File(projectDir.getPath() + '/documentation/docs/help')
@@ -690,7 +693,6 @@ marathon {
 //    applicationPmClear = true
     codeCoverageEnabled = true
 //    autoGrantPermission = true
-    vendor = com.malinskiy.marathon.android.VendorType.ADAM
     debug = true
     retryStrategy {
         fixedQuota {
