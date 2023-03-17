@@ -20,7 +20,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -39,6 +38,7 @@ import de.blau.android.resources.WmsCapabilities.Layer;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.Snack;
 import de.blau.android.util.Util;
+import de.blau.android.util.WidestItemArrayAdapter;
 
 /**
  * WMS endpoint management UI
@@ -153,7 +153,7 @@ public class WmsEndpointDatabaseView {
                             for (Layer layer : result.layers) {
                                 layers.add(layer.title);
                             }
-                            ArrayAdapter<String> adapter = new ArrayAdapter<>(activity, R.layout.layer_list_item, R.id.name, layers);
+                            WidestItemArrayAdapter<String> adapter = new WidestItemArrayAdapter<>(activity, R.layout.layer_list_item, R.id.name, layers);
                             layerList.setAdapter(adapter);
                             layerList.setOnItemClickListener((parent, view, position, id) -> {
                                 LayerEntry entry = new LayerEntry();

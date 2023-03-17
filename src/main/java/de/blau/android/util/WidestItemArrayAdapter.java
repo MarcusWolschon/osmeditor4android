@@ -31,7 +31,19 @@ public class WidestItemArrayAdapter<T> extends ArrayAdapter<T> {
      * @param objects the List of objects
      */
     public WidestItemArrayAdapter(@NonNull Context context, int resource, @NonNull List<T> objects) {
-        super(context, resource, objects);
+        this(context, resource, 0, objects);
+    }
+
+    /**
+     * Construct a new adapter
+     * 
+     * @param context Android Context
+     * @param resource resource id of the item layout
+     * @param textView resource id of the TextView
+     * @param objects the List of objects
+     */
+    public WidestItemArrayAdapter(@NonNull Context context, int resource, int textView, @NonNull List<T> objects) {
+        super(context, resource, textView, objects);
         View view = null;
         FrameLayout fakeParent = new FrameLayout(context);
         int maxWidth = 0;
