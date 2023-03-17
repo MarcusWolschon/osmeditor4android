@@ -12,9 +12,9 @@ import android.content.Context;
 import android.text.Spanned;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,6 +28,7 @@ import de.blau.android.prefs.AdvancedPrefDatabase.Geocoder;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
+import de.blau.android.util.WidestItemArrayAdapter;
 
 /**
  * Search with nominatim, photon and maybe others
@@ -157,14 +158,15 @@ public class Search {
         Builder builder = new AlertDialog.Builder(activity);
         builder.setTitle(R.string.search_results_title);
         final LayoutInflater inflater = ThemeUtils.getLayoutInflater(activity);
-        ListView lv = (ListView) inflater.inflate(R.layout.search_results, null);
-        builder.setView(lv);
-
+        View layout = inflater.inflate(R.layout.search_results, null);
+        builder.setView(layout);
+        ListView lv = layout.findViewById(R.id.search_results);
         List<Spanned> ar = new ArrayList<>();
         for (SearchResult sr : searchResults) {
             ar.add(Util.fromHtml(sr.displayName));
         }
-        lv.setAdapter(new ArrayAdapter<>(activity, itemLayout, ar));
+        final WidestItemArrayAdapter<Spanned> adapter = new WidestItemArrayAdapter<>(activity, itemLayout, ar);
+        lv.setAdapter(adapter);
         lv.setSelection(0);
         builder.setNegativeButton(R.string.cancel, null);
         final AppCompatDialog resultsDialog = builder.create();
