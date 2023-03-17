@@ -42,6 +42,8 @@ public class BaseValidator implements Validator {
 
     public static final int MAX_CONNECTION_TOLERANCE = 10; // maximum tolerance value for non-connected end nodes
 
+    private static final String[] END_NODE_VALIDATION_KEYS = new String[] { Tags.KEY_HIGHWAY, Tags.KEY_WATERWAY };
+
     private Preset[]   presets;
     private GeoContext geoContext;
 
@@ -302,30 +304,6 @@ public class BaseValidator implements Validator {
      */
     int validateHighway(@NonNull Way w, @NonNull String highway) {
         int result = Validator.NOT_VALIDATED;
-        Logic logic = App.getLogic();
-        int layer = getLayer(w);
-        de.blau.android.Map map = logic.getMap();
-
-        if (unconnectedEndNodeValidation && map != null) {
-            // we try to cache these (tolerance) fairly expensive to calculate values at least as long as the ViewBox
-            // hasn't changed
-            if (!map.getViewBox().equals(cachedViewBox)) {
-                double centerLat = map.getViewBox().getCenterLat();
-                double widthInMeters = GeoMath.haversineDistance(map.getViewBox().getLeft() / 1E7D, centerLat, map.getViewBox().getRight() / 1E7D, centerLat);
-                tolerance = (float) (map.getPrefs().getConnectedNodeTolerance() / widthInMeters * map.getWidth());
-                if (cachedViewBox == null) {
-                    cachedViewBox = new ViewBox(map.getViewBox());
-                } else {
-                    cachedViewBox.set(map.getViewBox());
-                }
-            }
-            try {
-                checkNearbyWays(Tags.KEY_HIGHWAY, w, logic, layer, w.getFirstNode());
-                checkNearbyWays(Tags.KEY_HIGHWAY, w, logic, layer, w.getLastNode());
-            } catch (Exception ex) {
-                // ignored
-            }
-        }
 
         if (highwayRoadValidation && Tags.VALUE_ROAD.equalsIgnoreCase(highway)) {
             // unsurveyed road
@@ -344,6 +322,39 @@ public class BaseValidator implements Validator {
             }
         }
         return result;
+    }
+
+    /**
+     * Check the end nodes of the way for potential mergers
+     * 
+     * @param w the way we are checkint
+     * @param key the key of target ways
+     */
+    private void validateEndNodes(@NonNull Way w, @NonNull String key) {
+        Logic logic = App.getLogic();
+        int layer = getLayer(w);
+        de.blau.android.Map map = logic.getMap();
+
+        if (unconnectedEndNodeValidation && map != null) {
+            // we try to cache these (tolerance) fairly expensive to calculate values at least as long as the ViewBox
+            // hasn't changed
+            if (!map.getViewBox().equals(cachedViewBox)) {
+                double centerLat = map.getViewBox().getCenterLat();
+                double widthInMeters = GeoMath.haversineDistance(map.getViewBox().getLeft() / 1E7D, centerLat, map.getViewBox().getRight() / 1E7D, centerLat);
+                tolerance = (float) (map.getPrefs().getConnectedNodeTolerance() / widthInMeters * map.getWidth());
+                if (cachedViewBox == null) {
+                    cachedViewBox = new ViewBox(map.getViewBox());
+                } else {
+                    cachedViewBox.set(map.getViewBox());
+                }
+            }
+            try {
+                checkNearbyWays(key, w, logic, layer, w.getFirstNode());
+                checkNearbyWays(key, w, logic, layer, w.getLastNode());
+            } catch (Exception ex) {
+                // ignored
+            }
+        }
     }
 
     /**
@@ -643,6 +654,14 @@ public class BaseValidator implements Validator {
             String highway = way.getTagWithKey(Tags.KEY_HIGHWAY);
             if (highway != null) {
                 status |= validateHighway(way, highway);
+            }
+            if (!way.isClosed()) {
+                for (String key : END_NODE_VALIDATION_KEYS) {
+                    if (way.hasTagKey(key)) {
+                        validateEndNodes(way, key);
+                        break;
+                    }
+                }
             }
         }
         if (status == Validator.NOT_VALIDATED) {
