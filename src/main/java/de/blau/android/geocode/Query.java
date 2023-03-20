@@ -56,7 +56,9 @@ class Query extends ExecutorTask<String, Void, List<SearchResult>> {
     @Override
     protected void onPostExecute(List<SearchResult> res) {
         try {
-            progress.dismiss();
+            if (progress != null) {
+                progress.dismiss();
+            }
         } catch (Exception ex) {
             Log.e(DEBUG_TAG, "dismiss dialog failed with " + ex);
         }

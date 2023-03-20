@@ -49,6 +49,7 @@ import de.blau.android.R;
 import de.blau.android.address.Address;
 import de.blau.android.exception.DuplicateKeyException;
 import de.blau.android.exception.UiStateException;
+import de.blau.android.javascript.ConsoleDialog;
 import de.blau.android.nsi.Names;
 import de.blau.android.nsi.Names.NameAndTags;
 import de.blau.android.osm.OsmElement;
@@ -67,13 +68,13 @@ import de.blau.android.presets.PresetComboField;
 import de.blau.android.presets.PresetElement;
 import de.blau.android.presets.PresetElementPath;
 import de.blau.android.presets.PresetField;
-import de.blau.android.presets.PresetTagField;
 import de.blau.android.presets.PresetFieldJavaScript;
 import de.blau.android.presets.PresetFixedField;
 import de.blau.android.presets.PresetGroup;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.presets.PresetItemLink;
 import de.blau.android.presets.PresetKeyType;
+import de.blau.android.presets.PresetTagField;
 import de.blau.android.presets.UseLastAsDefaultType;
 import de.blau.android.presets.ValueType;
 import de.blau.android.presets.ValueWithCount;
@@ -1979,9 +1980,8 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             Address.resetLastAddresses(getActivity());
             return true;
         case R.id.tag_menu_js_console:
-            de.blau.android.javascript.Utils.jsConsoleDialog(getActivity(), R.string.js_console_msg_debug,
-                    input -> de.blau.android.javascript.Utils.evalString(getActivity(), "JS Preset Test", input, buildEdits(), getKeyValueMap(true), "test",
-                            tags2Preset, App.getCurrentPresets(getActivity())));
+            ConsoleDialog.show(getActivity(), R.string.tag_menu_js_console, input -> de.blau.android.javascript.Utils.evalString(getActivity(),
+                    "JS Preset Test", input, buildEdits(), getKeyValueMap(true), "test", tags2Preset, App.getCurrentPresets(getActivity())));
             return true;
         case R.id.tag_menu_select_all:
             selectAllRows();

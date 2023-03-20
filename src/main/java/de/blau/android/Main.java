@@ -128,6 +128,7 @@ import de.blau.android.geocode.Search.SearchResult;
 import de.blau.android.gpx.TrackPoint;
 import de.blau.android.imageryoffset.BackgroundAlignmentActionModeCallback;
 import de.blau.android.imageryoffset.ImageryOffsetUtils;
+import de.blau.android.javascript.ConsoleDialog;
 import de.blau.android.layer.ClickableInterface;
 import de.blau.android.layer.DownloadInterface;
 import de.blau.android.layer.LayerType;
@@ -139,6 +140,7 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Server;
+import de.blau.android.osm.Storage;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.UndoStorage;
 import de.blau.android.osm.ViewBox;
@@ -2185,6 +2187,14 @@ public class Main extends FullScreenAppCompatActivity
         case R.id.menu_transfer_download_replace:
             onMenuDownloadCurrent(false);
             return true;
+        case R.id.menu_transfer_query_overpass:
+            descheduleAutoLock();
+            if (logic != null && logic.hasChanges()) {
+                DataLoss.createDialog(this, (dialog, which) -> showOverpassConsole(this)).show();
+            } else {
+                showOverpassConsole(this);
+            }
+            break;
         case R.id.menu_transfer_upload:
             confirmUpload(null);
             return true;
@@ -2558,6 +2568,24 @@ public class Main extends FullScreenAppCompatActivity
     }
 
     /**
+     * Show a console for writing and executing Overpass queries
+     */
+    private void showOverpassConsole(@NonNull final FragmentActivity activity) {
+        ConsoleDialog.show(activity, R.string.overpass_console, input -> {
+            AsyncResult result = de.blau.android.overpass.Server.query(activity, de.blau.android.overpass.Server.replacePlaceholders(activity, input));
+            if (ErrorCodes.OK == result.getCode()) {
+                Main.this.invalidateMap();
+                Storage storage = App.getDelegator().getCurrentStorage();
+                return activity.getString(R.string.overpass_result, storage.getNodeCount(), storage.getWayCount(), storage.getRelationCount());
+            } else if (ErrorCodes.NOT_FOUND == result.getCode()) {
+                return activity.getString(R.string.toast_nothing_found);
+            } else {
+                return result.getMessage();
+            }
+        });
+    }
+
+    /**
      * Write the contents of a todo list to a file // NOSONAR
      * 
      * @param listName the todo list name or null for all // NOSONAR
@@ -2703,7 +2731,7 @@ public class Main extends FullScreenAppCompatActivity
      */
     public static void showJsConsole(@NonNull final Main main) {
         main.descheduleAutoLock();
-        de.blau.android.javascript.Utils.jsConsoleDialog(main, R.string.js_console_msg_live, input -> {
+        ConsoleDialog.show(main, R.string.tag_menu_js_console, input -> {
             String result = de.blau.android.javascript.Utils.evalString(main, "JS Console", input, App.getLogic());
             main.runOnUiThread(() -> {
                 main.getMap().invalidate();

@@ -49,6 +49,7 @@ public class Search {
         private double lat;
         private double lon;
         String         displayName;
+        private long   osmId = -1L;
 
         @Override
         public String toString() {
@@ -81,6 +82,24 @@ public class Search {
          */
         public void setLon(double lon) {
             this.lon = lon;
+        }
+
+        /**
+         * Set the OSM ID for the result object
+         * 
+         * @param id the OSM id
+         */
+        public void setOsmId(long id) {
+            osmId = id;
+        }
+
+        /**
+         * Get the OSM id of the object, -1 if not set
+         * 
+         * @return
+         */
+        public long getOsmId() {
+            return osmId;
         }
     }
 
@@ -135,7 +154,8 @@ public class Search {
             } else {
                 Snack.toastTopWarning(activity, R.string.toast_nothing_found);
             }
-        } catch (InterruptedException | ExecutionException e) { // NOSONAR cancel does interrupt the thread in question
+        } catch (InterruptedException | ExecutionException e) { // NOSONAR cancel does interrupt the thread in
+                                                                // question
             Log.e(DEBUG_TAG, "find got exception " + e.getMessage());
             querier.cancel();
             Snack.toastTopError(activity, R.string.no_connection_title);
