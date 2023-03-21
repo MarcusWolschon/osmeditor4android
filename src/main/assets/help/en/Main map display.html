@@ -105,8 +105,8 @@
 <li><strong>Add GeoJSON layer</strong> Loads a GeoJSON layer from a file in to a new GeoJSON layer.</li>
 <li><strong>Add background imagery layer</strong> Adds a tile based imagery layer from the internal configuration, which can be from ELI or JOSM, or a custom imagery layer.</li>
 <li><strong>Add overlay imagery layer</strong> As above but assumes that the layer is partially transparent.</li>
-<li><strong>Add layer from GPX file</strong> Adds a layer from a GPS file on device.</li>
-<li><strong>Download GPS track</strong> Download a GPX file from the OSM API for the user and create a layer from it. Note that only GPX tracks with their starting point in the area currently displayed will be available for selection, this is a limitation of the current OSM API.</li>
+<li><strong>Add layer from GPX file</strong> Adds a layer from a GPX file on device.</li>
+<li><strong>Download GPX track</strong> Download a GPX file from the OSM API for the user and create a layer from it. Note that only GPX tracks with their starting point in the area currently displayed will be available for selection, this is a limitation of the current OSM API.</li>
 <li><strong>Add custom imagery</strong> Adds a custom imagery configuration, this can then be used just as any tile based imagery source, the entries can be managed in the <a href="Preferences.md">preferences</a>.</li>
 <li><strong>Add layer from MVT style</strong> Load a Mapbox-GL style file that has a &quot;sources&quot; section and create a layer.</li>
 <li><strong>Add imagery from OAM</strong> Add a layer from the OpenAerialMap catalogue. <em>(requires network connectivity)</em></li>
@@ -142,7 +142,7 @@
 <li><strong>Add bookmark...</strong> - set a bookmark for the current viewbox</li>
 <li><strong>Bookmarks...</strong> - show current viewbox bookmarks</li>
 <li><strong>Go to the nearest todo...</strong> - go to the nearest open todo. If you are following the GPS position or it is in the current view this is relative to that position, otherwise it is relative to the center of the current view. If there are more than one active todo list you will be prompted to select one.</li>
-<li><strong>Go to current location</strong> - go to and zoom in to the current position. If location updates are not turned on, this will try to get a location without enabling continuous updates.</li>
+<li><strong>Go to current location</strong> - go to and zoom in to the current position. If location updates are not turned on, this will try to get a location without enabling continuous updates. Latitude, longitude, and height over the ellipsoid are shown, and you can create a new node at the coordinates including the height over the ellipsoid. You can also choose to share the position.</li>
 <li><strong>Go to coordinates...</strong> - go to and zoom in to coordinates (latitude longitude) or an open location code Supported formats are the following, with dots or optionally a comma as the decimal marker, variations on the units also accepted e.g. °, d, º, g, o.
 <ul>
 <li><code>43.63871944444445</code></li>
