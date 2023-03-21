@@ -35,7 +35,7 @@ Some further potentially useful presets:
  * <a href="vespucci://preset/?preseturl=http://josm.openstreetmap.de/josmfile%3fpage=Presets/LaneAttributes%26zip=1&presetname=Lane tagging">Presets for lane tagging</a>
  * <a href="vespucci://preset/?preseturl=https://github.com/kendzi/Simple3dBuildingsPreset/releases/download/0.9_2018-05-08/s3db-preset.zip&presetname=Simple 3D building properties">Presets for Simple 3D building properties</a>
  * <a href="vespucci://preset/?preseturl=http://josm.openstreetmap.de/josmfile%3Fpage=Presets/Simple_Indoor_Tagging%26zip=1&presetname=Simple Indoor Tagging">Presets for Simple Indoor Tagging</a>
- * <a href="vespucci://preset/?preseturl=https://github.com/simonpoole/military-preset/raw/gh-pages/gen/military.zip&presetname=Military objects">Presets for military objects</a>
+ * <a href="vespucci://preset/?preseturl=https://github.com/simonpoole/military-preset/releases/latest/download/military.zip&presetname=Military objects">Presets for military objects</a>
  * <a href="vespucci://preset/?preseturl=https://github.com/simonpoole/US-MUTCD-preset/raw/gh-pages/gen/MUTCD.zip&presetname=MUTCD Access Preset">Presets for US MUTCD access signs</a>
  * <a href="vespucci://preset/?preseturl=https://github.com/simonpoole/xmas-preset/raw/gh-pages/gen/xmas.zip&presetname=Xmas Preset">Presets for xmas schema tagging</a>
  * <a href="vespucci:/preset?preseturl=https://github.com/simonpoole/preset-scripting-examples/raw/gh-pages/gen/script_examples.zip&presetname=javascript in Vespucci presets examples">Scripting examples (check date, disused life cycle tag)</a>
