@@ -1,5 +1,16 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+18.1.4:
+
+- Fix for broken task icon caching
+- Fix don't allow dragging the splitter outside of the views area
+- Add render natural=glacier
+- Update military preset link
+- Update marathon
+- Update preset
+- Update imagery from ELI
+- Update translations
+
 18.1.3:
 - Fix error in app manifest
 
