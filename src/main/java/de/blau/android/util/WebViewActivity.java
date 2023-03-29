@@ -99,7 +99,9 @@ public abstract class WebViewActivity extends FullScreenAppCompatActivity implem
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        webView.saveState(outState);
+        if (webView != null) {
+            webView.saveState(outState);
+        }
     }
 
     /**
