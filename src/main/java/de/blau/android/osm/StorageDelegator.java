@@ -199,8 +199,8 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         dirty = true;
         undo.save(elem);
         try {
-            currentStorage.insertElementSafe(elem);
             apiStorage.insertElementSafe(elem);
+            currentStorage.insertElementSafe(elem);
             onElementChanged((OsmElement) null, elem);
         } catch (StorageException e) {
             // TODO handle OOM
@@ -217,8 +217,8 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         dirty = true;
         undo.save(elem);
         try {
-            currentStorage.insertElementUnsafe(elem);
             apiStorage.insertElementUnsafe(elem);
+            currentStorage.insertElementUnsafe(elem);
             onElementChanged((OsmElement) null, elem);
         } catch (StorageException e) {
             // TODO handle OOM
@@ -3305,36 +3305,38 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 keepRelations.putAll(ids.getRelations());
             }
         }
-
-        for (Way w : currentStorage.getWays()) {
-            final long wayId = w.getOsmId();
-            if (apiStorage.getWay(wayId) == null && !box.intersects(w.getBounds()) && !keepWays.contains(wayId) && !hasModifiedNodes(w)) {
-                currentStorage.removeWay(w);
-                removeReferenceFromParents(logic, w);
-            } else { // keeping so we need to keep the nodes
-                for (Node n : w.getNodes()) {
-                    keepNodes.put(n.getOsmId());
+        synchronized (this) {
+            for (Way w : currentStorage.getWays()) {
+                final long wayId = w.getOsmId();
+                if (apiStorage.getWay(wayId) == null && !box.intersects(w.getBounds()) && !keepWays.contains(wayId) && !hasModifiedNodes(w)) {
+                    currentStorage.removeWay(w);
+                    removeReferenceFromParents(logic, w);
+                } else { // keeping so we need to keep the nodes
+                    for (Node n : w.getNodes()) {
+                        keepNodes.put(n.getOsmId());
+                    }
                 }
             }
-        }
-        for (Node n : currentStorage.getNodes()) {
-            long nodeId = n.getOsmId();
-            if (apiStorage.getNode(nodeId) == null && !box.contains(n.getLon(), n.getLat()) && !keepNodes.contains(nodeId)) {
-                currentStorage.removeNode(n);
-                removeReferenceFromParents(logic, n);
+            for (Node n : currentStorage.getNodes()) {
+                long nodeId = n.getOsmId();
+                if (apiStorage.getNode(nodeId) == null && !box.contains(n.getLon(), n.getLat()) && !keepNodes.contains(nodeId)) {
+                    currentStorage.removeNode(n);
+                    removeReferenceFromParents(logic, n);
+                }
             }
-        }
-        for (Relation r : currentStorage.getRelations()) {
-            long relationId = r.getOsmId();
-            if (apiStorage.getRelation(relationId) == null && !keepRelations.contains(relationId) && !r.hasDownloadedMembers()) {
-                // Note: this will not remove already processed relations that had this as a member however further
-                // prune passes will eventually delete them, which is good enough and so we don't rerun this explicitly
-                // here
-                currentStorage.removeRelation(r);
-                removeReferenceFromParents(logic, r);
+            for (Relation r : currentStorage.getRelations()) {
+                long relationId = r.getOsmId();
+                if (apiStorage.getRelation(relationId) == null && !keepRelations.contains(relationId) && !r.hasDownloadedMembers()) {
+                    // Note: this will not remove already processed relations that had this as a member however further
+                    // prune passes will eventually delete them, which is good enough and so we don't rerun this
+                    // explicitly
+                    // here
+                    currentStorage.removeRelation(r);
+                    removeReferenceFromParents(logic, r);
+                }
             }
+            BoundingBox.prune(this, box);
         }
-        BoundingBox.prune(this, box);
         dirty();
     }
 
