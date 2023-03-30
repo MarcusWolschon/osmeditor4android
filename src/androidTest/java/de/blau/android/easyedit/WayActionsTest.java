@@ -41,6 +41,7 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Tags;
+import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
@@ -565,5 +566,39 @@ public class WayActionsTest {
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
         assertEquals(n0.getLon(), 83865662, 1000);
         assertEquals(n0.getLat(), 473896285, 1000);
+    }
+
+    /**
+     * Go to the start or end of a way
+     */
+    @Test
+    public void startEndWay() {
+        map.getDataLayer().setVisible(true);
+        TestUtils.unlock(device);
+        TestUtils.zoomToLevel(device, main, 21);
+        TestUtils.clickAtCoordinates(device, map, 8.3884403, 47.3884988, true);
+        TestUtils.clickText(device, true, context.getString(R.string.okay), true, false); // Tip
+        assertTrue(TestUtils.clickText(device, false, "Bergstrasse", false, false));
+        Way way = App.getLogic().getSelectedWay();
+        assertNotNull(way);
+        assertEquals(119104094L, way.getOsmId());
+        //
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
+        assertTrue(TestUtils.clickOverflowButton(device));
+        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_start_end_way), true, false));
+        if (TestUtils.clickText(device, false, context.getString(R.string.start), false, false));
+        {
+            ViewBox vb = ((Main) main).getMap().getViewBox();
+            assertEquals(47.3879811D, vb.getCenterLat(), 0.001D);
+            assertEquals(8.3881322D, ((vb.getRight() - vb.getLeft()) / 2 + vb.getLeft()) / 1E7D, 0.001D);
+        }
+        assertTrue(TestUtils.clickOverflowButton(device));
+        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_start_end_way), true, false));
+        if(TestUtils.clickText(device, false, context.getString(R.string.end), false, false));
+        {
+            ViewBox vb = ((Main) main).getMap().getViewBox();
+            assertEquals(47.3910674D, vb.getCenterLat(), 0.001D);
+            assertEquals(8.3895455D, ((vb.getRight() - vb.getLeft()) / 2 + vb.getLeft()) / 1E7D, 0.001D);
+        }
     }
 }

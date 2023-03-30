@@ -48,6 +48,7 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
     private static final int    MENUITEM_REMOVE_NODE       = LAST_REGULAR_MENUITEM + 15;
     private static final int    MENUITEM_EXTRACT_SEGMENT   = LAST_REGULAR_MENUITEM + 16;
     private static final int    MENUITEM_SELECT_WAY_NODES  = LAST_REGULAR_MENUITEM + 17;
+    private static final int    MENUITEM_START_END_OF_WAY  = LAST_REGULAR_MENUITEM + 18;
 
     private Set<OsmElement> cachedMergeableWays;
     private Set<OsmElement> cachedAppendableNodes;
@@ -137,6 +138,7 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
 
         menu.add(Menu.NONE, MENUITEM_SELECT_WAY_NODES, Menu.NONE, R.string.menu_select_way_nodes);
 
+        menu.add(Menu.NONE, MENUITEM_START_END_OF_WAY, Menu.NONE, R.string.menu_start_end_way);
         return true;
     }
 
@@ -284,6 +286,18 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
                     logic.deselectAll();
                     deselect = false;
                     main.startSupportActionMode(new ExtendSelectionActionModeCallback(manager, new ArrayList<>(new HashSet<>(way.getNodes()))));
+                    break;
+                case MENUITEM_START_END_OF_WAY:
+                    new AlertDialog.Builder(main).setMessage(R.string.start_end_way_description)
+                            .setPositiveButton(R.string.end, (dialog, which) -> {
+                                main.zoomTo(way.getLastNode());
+                                main.invalidateMap();
+                            })
+                            .setNegativeButton(R.string.start, (dialog, which) -> {
+                                main.zoomTo(way.getFirstNode());
+                                main.invalidateMap();
+                            })
+                            .show();
                     break;
                 default:
                     return false;
