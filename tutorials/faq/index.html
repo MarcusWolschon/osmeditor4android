@@ -541,10 +541,13 @@ There are plenty of descriptions available (e.g. <a href="http://openhandsetmaga
 <p>Vespucci stores downloaded background and overlay tiles in a database that it tries to create on removable storage if present, this to preserve space on your device at the expense of access potentially being a bit slower.</p>
 <p>If the app can't write to the database it will show a message and will not display any background layer. </p>
 <p>To recover from the directory containing the tile database not being writable you do not need to re-install Vespucci, simply clearing the apps data in your application manager is enough. If 
-the problem is related to access to a removable storages, disabling the "Prefer removable storage" in the "Advanced preferences" "Layer download and storage" section may help.</p>
+the problem is related to access to a removable storages, disabling the "Prefer removable storage" in the <a href="../../help/en/Advanced%20preferences/">Advanced preferences</a> "Layer download and storage" section may help.</p>
 <h3 id="other-tile-database-related-issues">Other tile database related issues<a class="headerlink" href="#other-tile-database-related-issues" title="Permanent link">#</a></h3>
 <p>While rare, now and then the database holding the background tiles can become corrupted, for example by a sudden power loss. </p>
 <p>To resolve you can clear all the data for the app (upload any pending changes before that), or you can try to simply remove the database file,. The location is typically (on removable storage or on the internal "sdcard") in <code>Android/data/de.blau.android/files/databases/</code> remove <code>osmaptilefscache_db.db</code> and the accompanying journal file too.</p>
+<h3 id="background-imagery-cache">Background imagery cache<a class="headerlink" href="#background-imagery-cache" title="Permanent link">#</a></h3>
+<p>Background imagery tiles are cached on device in a fixed sized (configurable in the <a href="../../help/en/Advanced%20preferences/">Advanced preferences</a> cache for all sources, they remain there until they are either explicitly flushed or they are removed when the cache is full. </p>
+<p>Cached tiles are available offline with the exception of "Bing" imagery. Due to the way the "Bing" API works cached tiles currently can't be accessed without a network connection.</p>
 <h3 id="cant-save-maproulette-api-key">Can't save MapRoulette API Key<a class="headerlink" href="#cant-save-maproulette-api-key" title="Permanent link">#</a></h3>
 <p>If you have an existing Vespucci installation you may have to re-authorize the application by going to "Tools" - "Authorize OAuth" menu. This is due to a change in the OSM API that occured after the release of the support for MapRoulette. </p>
 <h3 id="navigation-gestures-on-android-9-and-later">Navigation gestures on Android 9 and later<a class="headerlink" href="#navigation-gestures-on-android-9-and-later" title="Permanent link">#</a></h3>
@@ -775,10 +778,13 @@ There are plenty of descriptions available (e.g. <a href="http://openhandsetmaga
 <p>Vespucci stores downloaded background and overlay tiles in a database that it tries to create on removable storage if present, this to preserve space on your device at the expense of access potentially being a bit slower.</p>
 <p>If the app can't write to the database it will show a message and will not display any background layer. </p>
 <p>To recover from the directory containing the tile database not being writable you do not need to re-install Vespucci, simply clearing the apps data in your application manager is enough. If 
-the problem is related to access to a removable storages, disabling the "Prefer removable storage" in the "Advanced preferences" "Layer download and storage" section may help.</p>
+the problem is related to access to a removable storages, disabling the "Prefer removable storage" in the <a href="../../help/en/Advanced%20preferences/">Advanced preferences</a> "Layer download and storage" section may help.</p>
 <h3 id="other-tile-database-related-issues">Other tile database related issues<a class="headerlink" href="#other-tile-database-related-issues" title="Permanent link">#</a></h3>
 <p>While rare, now and then the database holding the background tiles can become corrupted, for example by a sudden power loss. </p>
 <p>To resolve you can clear all the data for the app (upload any pending changes before that), or you can try to simply remove the database file,. The location is typically (on removable storage or on the internal "sdcard") in <code>Android/data/de.blau.android/files/databases/</code> remove <code>osmaptilefscache_db.db</code> and the accompanying journal file too.</p>
+<h3 id="background-imagery-cache">Background imagery cache<a class="headerlink" href="#background-imagery-cache" title="Permanent link">#</a></h3>
+<p>Background imagery tiles are cached on device in a fixed sized (configurable in the <a href="../../help/en/Advanced%20preferences/">Advanced preferences</a> cache for all sources, they remain there until they are either explicitly flushed or they are removed when the cache is full. </p>
+<p>Cached tiles are available offline with the exception of "Bing" imagery. Due to the way the "Bing" API works cached tiles currently can't be accessed without a network connection.</p>
 <h3 id="cant-save-maproulette-api-key">Can't save MapRoulette API Key<a class="headerlink" href="#cant-save-maproulette-api-key" title="Permanent link">#</a></h3>
 <p>If you have an existing Vespucci installation you may have to re-authorize the application by going to "Tools" - "Authorize OAuth" menu. This is due to a change in the OSM API that occured after the release of the support for MapRoulette. </p>
 <h3 id="navigation-gestures-on-android-9-and-later">Navigation gestures on Android 9 and later<a class="headerlink" href="#navigation-gestures-on-android-9-and-later" title="Permanent link">#</a></h3>
