@@ -225,13 +225,19 @@ Vespucci stores downloaded background and overlay tiles in a database that it tr
 If the app can't write to the database it will show a message and will not display any background layer. 
 
 To recover from the directory containing the tile database not being writable you do not need to re-install Vespucci, simply clearing the apps data in your application manager is enough. If 
-the problem is related to access to a removable storages, disabling the "Prefer removable storage" in the "Advanced preferences" "Layer download and storage" section may help.
+the problem is related to access to a removable storages, disabling the "Prefer removable storage" in the [Advanced preferences](../help/en/Advanced%20preferences.md) "Layer download and storage" section may help.
 
 ### Other tile database related issues
 
 While rare, now and then the database holding the background tiles can become corrupted, for example by a sudden power loss. 
 
 To resolve you can clear all the data for the app (upload any pending changes before that), or you can try to simply remove the database file,. The location is typically (on removable storage or on the internal "sdcard") in `Android/data/de.blau.android/files/databases/` remove `osmaptilefscache_db.db` and the accompanying journal file too.
+
+### Background imagery cache
+
+Background imagery tiles are cached on device in a fixed sized (configurable in the [Advanced preferences](../help/en/Advanced%20preferences.md) cache for all sources, they remain there until they are either explicitly flushed or they are removed when the cache is full. 
+
+Cached tiles are available offline with the exception of "Bing" imagery. Due to the way the "Bing" API works cached tiles currently can't be accessed without a network connection.
 
 ### Can't save MapRoulette API Key
 

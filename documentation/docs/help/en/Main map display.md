@@ -58,7 +58,7 @@ The layer dialog supports the following actions on the layer entries:
         * __Info__ Display some information on the contents.
         * __Go to start of GPX track__ Center the display on the start of the track. *(not available on the recording layer)*
         * __Go to first waypoint__ Center the display on the first waypoint. *(not available on the recording layer)*
-        * __Upload GPX track__ Upload the track to the OSM API.
+        * __Upload GPX track__ Upload the track to the OSM API. Note: the OSM API only accepts tracks with valid time stamps for each track point, if they are missing a time stamp corresponding to the UNIX epoch date will be added.
         * __Export GPX track__ Export the track to a local file.
         * __Start playback__ Playback the current file, this behaves similar to recording tracks, the display will be centered on the current track point, then the following on and so on. *(not available on the recording layer)*
         * __Pause playback__ Temporarily pause the playback. *(not available on the recording layer)*
