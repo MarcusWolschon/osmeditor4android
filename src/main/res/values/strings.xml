@@ -846,6 +846,7 @@
     <string name="menu_set_position">Position</string>
     <string name="menu_split">Split</string>
     <string name="menu_remove_node_from_way">Remove node from way</string>
+    <string name="menu_start_end_way">Start/End of Way</string>
     <string name="menu_extract">Extract node</string>
     <string name="menu_append">Append</string>
     <string name="menu_create_route">Create route</string>
@@ -988,6 +989,7 @@
     <!-- element action mode menu -->
     <string name="menu_tags">Properties</string>
     <!-- Text should be as short as possible -->
+    <string name="start_end_way_description">Go to the Start or the End of the Way</string>
     <string name="menu_history">History</string>
     <string name="menu_history_web">History (Web)</string>
     <string name="menu_merge">Join</string>
