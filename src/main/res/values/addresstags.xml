@@ -10,7 +10,7 @@
     <string name="addr_place">Place (addr:place)</string>
     <string name="addr_block">Block (addr:block)</string>
     <string name="addr_block_number">Block number (addr:block_number)</string>
-    <string name="addr_parentstreet">Additional localisation (addr:parenstreet)</string>
+    <string name="addr_parentstreet">Additional localisation (addr:parentstreet)</string>
     <string name="addr_hamlet">Hamlet (addr:hamlet)</string>
     <string name="addr_suburb">Suburb (addr:suburb)</string>
     <string name="addr_subdistrict">Subdistrict (addr:subdistrict)</string>
