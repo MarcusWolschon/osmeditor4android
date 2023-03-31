@@ -308,14 +308,13 @@ public class ViewBox extends BoundingBox {
      * @param lonCenter the absolute longitude for the center (deg*1E7)
      * @param latCenter the absolute latitude for the center (deg*1E7)
      */
-    public void moveTo(Map map, final int lonCenter, final int latCenter) {
+    public void moveTo(@Nullable Map map, final int lonCenter, final int latCenter) {
         // new middle in mercator
         double mLatCenter = GeoMath.latE7ToMercator(latCenter);
         double mTop = GeoMath.latE7ToMercator(getTop());
         int newBottom = GeoMath.mercatorToLatE7(mLatCenter - (mTop - bottomMercator) / 2);
-
         try {
-            translate(map, (lonCenter - getLeft() - (int) (getWidth() / 2L)), newBottom - getBottom());
+            translate(map, (long) lonCenter - (long) getLeft() - (getWidth() / 2L), (long) newBottom - (long) getBottom());
         } catch (OsmException e) {
             Log.d(DEBUG_TAG, "moveTo got exception " + e.getMessage());
         }
@@ -331,30 +330,49 @@ public class ViewBox extends BoundingBox {
      * @param dLat the relative latitude change.
      * @throws OsmException if resulting ViewBox doesn't have valid corners
      */
-    public synchronized void translate(@Nullable Map map, int dLon, int dLat) throws OsmException {
+    public synchronized void translate(@Nullable Map map, long dLon, long dLat) throws OsmException {
         int right = getRight();
         int left = getLeft();
         int top = getTop();
         int bottom = getBottom();
-        if ((long) right + (long) dLon > GeoMath.MAX_LON_E7) {
-            dLon = GeoMath.MAX_LON_E7 - right;
-        } else if ((long) left + (long) dLon < -GeoMath.MAX_LON_E7) {
-            dLon = -GeoMath.MAX_LON_E7 - left;
+        if (dLon > 0) {
+            if (right + dLon > GeoMath.MAX_LON_E7 && left + dLon < GeoMath.MAX_LON_E7) {
+                dLon = GeoMath.MAX_LON_E7 - (long) right;
+            }
+        } else if (left + dLon < -GeoMath.MAX_LON_E7 && right + dLon > -GeoMath.MAX_LON_E7) {
+            dLon = -GeoMath.MAX_LON_E7 - (long) left;
         }
-        if (top + dLat > GeoMath.MAX_COMPAT_LAT_E7) {
-            dLat = GeoMath.MAX_COMPAT_LAT_E7 - top;
+        if (dLat > 0) {
+            if (top + dLat > GeoMath.MAX_COMPAT_LAT_E7) {
+                dLat = GeoMath.MAX_COMPAT_LAT_E7 - (long) top;
+            }
         } else if (bottom + dLat < -GeoMath.MAX_COMPAT_LAT_E7) {
-            dLat = -GeoMath.MAX_COMPAT_LAT_E7 - bottom;
+            dLat = -GeoMath.MAX_COMPAT_LAT_E7 - (long) bottom;
         }
-        setLeft(left + dLon);
-        setRight(right + dLon);
-        setTop(top + dLat);
-        setBottom(bottom + dLat);
+        setLeft(normalizeLon(left + dLon));
+        setRight(normalizeLon(right + dLon));
+        setTop((int) (top + dLat));
+        setBottom((int) (bottom + dLat));
         calcBottomMercator();
         if (map != null) {
             setRatio(map, ratio, true); // TODO slightly expensive likely to be better to do everything in mercator
         }
         validate();
+    }
+
+    /**
+     * Normalize longitude to always be between -180° and +180°
+     * 
+     * @param coord the longitude coordinate
+     * @return the normalized longitude
+     */
+    private int normalizeLon(long coord) {
+        if (coord < -GeoMath.MAX_LON_E7) {
+            coord = coord + 2L * GeoMath.MAX_LON_E7;
+        } else if (coord > GeoMath.MAX_LON_E7) {
+            coord = coord - 2L * GeoMath.MAX_LON_E7;
+        }
+        return (int) coord;
     }
 
     /**
