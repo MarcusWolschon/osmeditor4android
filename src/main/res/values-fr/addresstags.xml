@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string name="addr_housenumber">Numéro de l\'entrée (addr:housenumber)</string>
+  <string name="addr_conscriptionnumber">Numéro du secteur, uniquement pour Autiche, Hongrie, Tchéquie, Slovaquie (addr:conscriptionnumber)</string>
+  <string name="addr_street">Rue (addr:street)</string>
+  <string name="addr_postcode">Code postal (addr:postcode)</string>
+  <string name="addr_city">Ville/Village/Hameau... (addr:city)</string>
+  <string name="addr_country">Pays (addr:country)</string>
+  <string name="addr_full">Adresse complète (addr:full)</string>
+  <string name="addr_place">Lieu, uniquement s\'il n\'y a pas de rue (addr:place)</string>
+  <string name="addr_block">Quartier (addr:block)</string>
+  <string name="addr_block_number">Numéro du quartier (addr:block_number)</string>
+  <string name="addr_parentstreet">Rue parente, uniquement au Royaume-Uni (addr:parentstreet)</string>
+  <string name="addr_hamlet">Hameau (addr:hamlet)</string>
+  <string name="addr_suburb">Banlieue (addr:suburb)</string>
+  <string name="addr_subdistrict">Sous-district (addr:subdistrict)</string>
+  <string name="addr_district">District (addr:district)</string>
+  <string name="addr_province">Province (addr:province)</string>
+  <string name="addr_state">État (addr:state)</string>
+  <string name="addr_flats">Appartement (addr:flats)</string>
+  <string name="addr_door">Porte (addr:door)</string>
+  <string name="addr_unit">Unité (addr:unit)</string>
+</resources>
