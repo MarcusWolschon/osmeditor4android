@@ -102,6 +102,7 @@ public class PresetRole implements Comparable<PresetRole> {
         this.appliesToNode = field.appliesToNode;
         this.appliesToRelation = field.appliesToRelation;
         this.appliesToClosedWay = field.appliesToClosedWay;
+        this.appliesToArea = field.appliesToArea;
     }
 
     /**
