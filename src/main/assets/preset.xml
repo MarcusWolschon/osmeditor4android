@@ -11177,7 +11177,7 @@
         <preset_link preset_name="Payment Methods"/>
         <reference ref="optional_level"/>
     </item> <!-- Vending Machine -->
-        <item name="Parcel Locker" icon="icons/png/shopping_vending_machine.png" type="node,closedway" preset_name_label="true">
+    <item name="Parcel Locker" icon="icons/png/shopping_vending_machine.png" type="node,closedway" preset_name_label="true">
             <link wiki="Tag:amenity=parcel_locker"/>
             <space/>
             <key key="amenity" value="parcel_locker"/>
@@ -11187,8 +11187,8 @@
             <reference ref="colours"/>
             <combo key="collection_times" text="Collection times" delimiter="|" values="Mo-Sa 09:00|Mo-Fr 17:30; Sa 12:00|Mo-Fr 15:00,19:00; Sa 15:10; Su 10:30" values_no_i18n="true" match="none" editable="true"/>
             <reference ref="essential_wheelchair"/>
-        </item> <!-- Parcel Locker -->
-        <item name="Payment Methods" icon="icons/png/money_payment_methods.png" type="node,way,closedway,multipolygon,relation" preset_name_label="true">
+     </item> <!-- Parcel Locker -->
+     <item name="Payment Methods" icon="icons/png/money_payment_methods.png" type="node,way,closedway,multipolygon,relation" preset_name_label="true">
         <link wiki="Key:payment"/>
         <space/>
         <check key="payment:cash" text="Cash" match="keyvalue"/>
