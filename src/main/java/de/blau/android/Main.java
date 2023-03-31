@@ -3604,7 +3604,7 @@ public class Main extends FullScreenAppCompatActivity
                 int newfocusLon = GeoMath.xToLonE7(map.getWidth(), viewBox, focusX);
                 int newfocusLat = GeoMath.yToLatE7(map.getHeight(), map.getWidth(), viewBox, focusY);
                 try {
-                    viewBox.translate(map, focusLon - newfocusLon, focusLat - newfocusLat);
+                    viewBox.translate(map, (long) focusLon - (long) newfocusLon, (long) focusLat - (long) newfocusLat);
                 } catch (OsmException e) {
                     // ignored
                 }

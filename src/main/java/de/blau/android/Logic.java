@@ -521,13 +521,13 @@ public class Logic {
                 viewBox.translate(map, (int) -translation, 0);
                 break;
             case DIRECTION_DOWN:
-                viewBox.translate(map, 0, -(GeoMath.latE7ToMercatorE7(viewBox.getTop()) - (int) (viewBox.getBottomMercator() * 1E7D)));
+                viewBox.translate(map, 0, -(GeoMath.latE7ToMercatorE7(viewBox.getTop()) - (long) (viewBox.getBottomMercator() * 1E7D)));
                 break;
             case DIRECTION_RIGHT:
                 viewBox.translate(map, (int) translation, 0);
                 break;
             case DIRECTION_UP:
-                viewBox.translate(map, 0, GeoMath.latE7ToMercatorE7(viewBox.getTop()) - (int) (viewBox.getBottomMercator() * 1E7D));
+                viewBox.translate(map, 0, GeoMath.latE7ToMercatorE7(viewBox.getTop()) - (long) (viewBox.getBottomMercator() * 1E7D));
                 break;
             }
         } catch (OsmException e) {
