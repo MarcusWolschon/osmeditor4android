@@ -72,6 +72,13 @@ source_lang  = en
 minimum_perc = 100
 lang_map     = he: iw, pa_PK: pa-rPK, zh_HK: zh-rHK, zh_CN: zh-rCN, id: in, sv_SE: sv-rSE, ca_ES: ca-rES, cs: cs-rCZ, zh_TW: zh-rTW, pt_BR: pt-rBR
 
+[o:openstreetmap:p:vespucci:r:validationsxml]
+file_filter  = src/main/res/values-<lang>/validations.xml
+source_file  = src/main/res/values/validations.xml
+source_lang  = en
+minimum_perc = 90
+lang_map     = he: iw, pa_PK: pa-rPK, zh_HK: zh-rHK, zh_CN: zh-rCN, id: in, sv_SE: sv-rSE, ca_ES: ca-rES, cs: cs-rCZ, zh_TW: zh-rTW, pt_BR: pt-rBR
+
 [o:openstreetmap:p:vespucci:r:titletxt]
 file_filter  = build/tmp/playstore/<lang>/title.txt
 source_file  = documentation/docs/playstore/en/title.txt
