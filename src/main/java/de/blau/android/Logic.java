@@ -199,6 +199,11 @@ public class Logic {
     private static final int MAX_ELEMENTS_PER_REQUEST = 200; // same value as JOSM
 
     /**
+     * maximum depth that we recursively select relations
+     */
+    private static final int MAX_RELATION_SELECTION_DEPTH = 5;
+
+    /**
      * Stores the {@link Preferences} as soon as they are available.
      */
     private Preferences prefs;
@@ -228,10 +233,11 @@ public class Logic {
     private List<Relation> selectedRelationRelations = null;
 
     private static final int MRULIST_SIZE = 10;
+
     /**
      * last changeset comment
      */
-    private MRUList<String>  lastComments = new MRUList<>(MRULIST_SIZE);
+    private MRUList<String> lastComments = new MRUList<>(MRULIST_SIZE);
 
     private String draftComment = null;
 
@@ -4494,6 +4500,7 @@ public class Logic {
         if (selectionStack.getFirst().remove(relation)) {
             setSelectedRelationNodes(null); // de-select all
             setSelectedRelationWays(null);
+            setSelectedRelationRelations(null);
             if (selectionStack.getFirst().relationCount() > 0) {
                 for (Relation r : getSelectedRelations()) { // re-select
                     setSelectedRelationMembers(r);
@@ -5072,18 +5079,36 @@ public class Logic {
      * 
      * @param r the Relation holding the members
      */
-    public synchronized void setSelectedRelationMembers(@Nullable Relation r) {
+    public void setSelectedRelationMembers(@Nullable Relation r) {
+        setSelectedRelationMembers(r, 0);
+    }
+
+    /**
+     * Set relation members to be highlighted
+     * 
+     * @param r the Relation holding the members
+     * @param depth current recursion depth
+     */
+    private synchronized void setSelectedRelationMembers(@Nullable Relation r, int depth) {
         if (r != null) {
             for (RelationMember rm : r.getMembers()) {
                 OsmElement e = rm.getElement();
                 if (e != null) {
-                    if (e.getName().equals(Way.NAME)) {
+                    switch (e.getName()) {
+                    case Way.NAME:
                         addSelectedRelationWay((Way) e);
-                    } else if (e.getName().equals(Node.NAME)) {
+                        break;
+                    case Node.NAME:
                         addSelectedRelationNode((Node) e);
-                    } else if (e.getName().equals(Relation.NAME) && (selectedRelationRelations == null || !selectedRelationRelations.contains(e))) {
-                        // break recursion if already selected
-                        addSelectedRelationRelation((Relation) e);
+                        break;
+                    case Relation.NAME:
+                        // break recursion if already selected or max depth exceeded
+                        if ((selectedRelationRelations == null || !selectedRelationRelations.contains(e)) && depth <= MAX_RELATION_SELECTION_DEPTH) {
+                            addSelectedRelationRelation((Relation) e, depth);
+                        }
+                        break;
+                    default:
+                        Log.e(DEBUG_TAG, "Unknown relation member " + e.getName());
                     }
                 }
             }
@@ -5153,11 +5178,22 @@ public class Logic {
      * 
      * @param relation the Relation to add
      */
-    public synchronized void addSelectedRelationRelation(@NonNull Relation relation) {
+    public void addSelectedRelationRelation(@NonNull Relation relation) {
+        addSelectedRelationRelation(relation, 0);
+    }
+
+    /**
+     * Add a Relation to the List of selected Relations
+     * 
+     * @param relation the Relation to add
+     * @param depth current recursion depth
+     */
+    private synchronized void addSelectedRelationRelation(@NonNull Relation relation, int depth) {
         if (selectedRelationRelations == null) {
             selectedRelationRelations = new LinkedList<>();
         }
         selectedRelationRelations.add(relation);
+        setSelectedRelationMembers(relation, depth);
     }
 
     /**
@@ -5193,6 +5229,9 @@ public class Logic {
             if (selectedRelationWays != null) {
                 selectedRelationWays.clear();
             }
+            if (selectedRelationRelations != null) {
+                selectedRelationRelations.clear();
+            }
             for (Relation r : selected) {
                 setSelectedRelationMembers(r);
             }
@@ -5210,6 +5249,7 @@ public class Logic {
         setSelectedRelation(null);
         setSelectedRelationNodes(null);
         setSelectedRelationWays(null);
+        setSelectedRelationRelations(null);
     }
 
     /**
