@@ -791,6 +791,13 @@ public class Logic {
             // add any relations that the elements are members of
             result.addAll(getParentRelations(result));
         }
+        if (clickableElements != null) {
+            for (OsmElement e : new ArrayList<OsmElement>(result)) {
+                if (!clickableElements.contains(e)) {
+                    result.remove(e);
+                }
+            }
+        }
         return result;
     }
 
@@ -839,7 +846,7 @@ public class Logic {
         java.util.Map<Way, Double> result = new HashMap<>();
         boolean showWayIcons = prefs.getShowWayIcons();
 
-        List<Way> ways = getCLickableWays();
+        List<Way> ways = getClickableWays();
 
         for (Way way : ways) {
             if (way.isClosed() && !includeClosed) {
@@ -902,19 +909,8 @@ public class Logic {
      * @return a List of Ways
      */
     @NonNull
-    List<Way> getCLickableWays() {
-        List<Way> ways;
-        if (clickableElements != null) {
-            ways = new ArrayList<>();
-            for (OsmElement e : clickableElements) {
-                if (e instanceof Way) {
-                    ways.add((Way) e);
-                }
-            }
-        } else {
-            ways = filter != null ? filter.getVisibleWays() : getWays(map.getViewBox());
-        }
-        return ways;
+    List<Way> getClickableWays() {
+        return filter != null ? filter.getVisibleWays() : getWays(map.getViewBox());
     }
 
     /**
@@ -1080,23 +1076,14 @@ public class Logic {
     @NonNull
     List<Node> getClickableNodes() {
         List<Node> nodes;
-        if (clickableElements != null) {
-            nodes = new ArrayList<>();
-            for (OsmElement e : clickableElements) {
-                if (e instanceof Node) {
-                    nodes.add((Node) e);
-                }
+        if (filter != null) {
+            nodes = filter.getVisibleNodes();
+            if (getSelectedNodes() != null) { // selected Nodes are always visible if a filter is
+                // applied
+                nodes.addAll(getSelectedNodes());
             }
         } else {
-            if (filter != null) {
-                nodes = filter.getVisibleNodes();
-                if (getSelectedNodes() != null) { // selected Nodes are always visible if a filter is
-                    // applied
-                    nodes.addAll(getSelectedNodes());
-                }
-            } else {
-                nodes = getDelegator().getCurrentStorage().getNodes(map.getViewBox());
-            }
+            nodes = getDelegator().getCurrentStorage().getNodes(map.getViewBox());
         }
         return nodes;
     }
@@ -1200,8 +1187,8 @@ public class Logic {
     }
 
     /**
-     * Returns a Set of all the clickable OSM elements in storage (does not restrict to the current screen). Before
-     * returning the list is "pruned" to remove any elements on the exclude list.
+     * Returns a Set of all the clickable OSM elements in storage. Before returning the list is "pruned" to remove any
+     * elements on the exclude list.
      * 
      * @param viewBox the BoundingBox currently displayed
      * @param excludes The list of OSM elements to exclude from the results.
@@ -1210,8 +1197,12 @@ public class Logic {
     @NonNull
     public Set<OsmElement> findClickableElements(@NonNull BoundingBox viewBox, @NonNull List<OsmElement> excludes) {
         Set<OsmElement> result = new HashSet<>();
-        result.addAll(getDelegator().getCurrentStorage().getNodes(viewBox));
-        result.addAll(getDelegator().getCurrentStorage().getWays(viewBox));
+        final Storage currentStorage = getDelegator().getCurrentStorage();
+        result.addAll(currentStorage.getNodes(viewBox));
+        result.addAll(currentStorage.getWays(viewBox));
+        if (returnRelations) {
+            result.addAll(currentStorage.getRelations());
+        }
         for (OsmElement e : excludes) {
             result.remove(e);
         }
