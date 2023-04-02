@@ -137,7 +137,7 @@ public class RelationMembershipFragment extends BaseFragment implements Property
             parents = (MultiHashMap<Long, RelationMemberPosition>) getArguments().getSerializable(PARENTS_KEY);
             elementType = getArguments().getString(ELEMENT_TYPE_KEY);
         }
-        
+
         Preferences prefs = App.getLogic().getPrefs();
         Server server = prefs.getServer();
         maxStringLength = server.getCachedCapabilities().getMaxStringLength();
@@ -153,9 +153,8 @@ public class RelationMembershipFragment extends BaseFragment implements Property
         final boolean isRelation = Relation.NAME.equals(elementType);
         for (Relation r : App.getDelegator().getCurrentStorage().getRelations()) {
             // we don't want to make it too easy to create relation loops and
-            // filter out the current element out if it is a relation and any
-            // relations that contain it
-            if (isRelation && (r.getOsmId() == osmId || r.getMember(Relation.NAME, osmId) != null)) {
+            // filter out the current element out if it is a relation
+            if (isRelation && r.getOsmId() == osmId) {
                 continue;
             }
             relationHolderList.add(new RelationHolder(context, r, limit));
