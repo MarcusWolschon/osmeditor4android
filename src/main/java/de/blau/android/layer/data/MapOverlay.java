@@ -793,8 +793,10 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
             }
             ringPool.release(r);
         }
-
         path.setFillType(Path.FillType.EVEN_ODD);
+        if (tmpClickableElements != null && tmpClickableElements.contains(rel)) {
+            canvas.drawPath(path, wayTolerancePaint2);
+        }
         canvas.drawPath(path, paint);
     }
 

@@ -325,6 +325,7 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
         if (relation != null) {
             List<Way> relationWays = logic.getSelectedRelationWays();
             List<Node> relationNodes = logic.getSelectedRelationNodes();
+            List<Relation> relationRelations = logic.getSelectedRelationRelations();
             // new members might be downloaded
             for (RelationMember rm : relation.getMembers()) {
                 if (rm.downloaded()) {
@@ -340,6 +341,10 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
                         }
                         break;
                     case Relation.NAME:
+                        if (relationRelations != null && !relationRelations.contains(rm.getElement())) {
+                            logic.addSelectedRelationRelation((Relation) rm.getElement());
+                        }
+                        break;
                     default:
                         // do nothing
                     }
@@ -384,7 +389,9 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
         super.handleElementClick(element);
         List<Way> relationWays = logic.getSelectedRelationWays();
         List<Node> relationNodes = logic.getSelectedRelationNodes();
-        if ((relationWays != null && relationWays.contains(element)) || (relationNodes != null && relationNodes.contains(element))) {
+        List<Relation> relationRelations = logic.getSelectedRelationRelations();
+        if ((relationWays != null && relationWays.contains(element)) || (relationNodes != null && relationNodes.contains(element))
+                || (relationRelations != null && relationRelations.contains(element))) {
             new AlertDialog.Builder(main).setTitle(R.string.duplicate_relation_member_title).setMessage(R.string.duplicate_relation_member_message)
                     .setPositiveButton(R.string.duplicate_route_segment_button, (dialog, which) -> addElement(element))
                     .setNegativeButton(R.string.duplicate_relation_member_remove_button, (dialog, which) -> removeElement(element))
@@ -410,7 +417,7 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
 
         if (roles != null) {
             for (PresetRole role : roles) {
-                if (role.appliesTo(ElementType.RELATION)) {
+                if (role.appliesTo(ElementType.RELATION) || role.appliesTo(ElementType.AREA)) {
                     logic.setReturnRelations(true);
                     break;
                 }
@@ -419,12 +426,13 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
             final Storage currentStorage = App.getDelegator().getCurrentStorage();
             elements.addAll(currentStorage.getNodes(viewBox));
             elements.addAll(currentStorage.getWays(viewBox));
+            elements.addAll(currentStorage.getRelations());
             Set<OsmElement> clickable = new HashSet<>();
             Wrapper wrapper = new Wrapper(main);
             Map<String, Condition> conditionCache = new HashMap<>();
             for (OsmElement e : elements) {
                 for (PresetRole role : roles) {
-                    if (role.appliesTo(e.getName())) {
+                    if (role.appliesTo(e.getType())) {
                         String memberExpression = role.getMemberExpression();
                         if (memberExpression != null) {
                             memberExpression = memberExpression.trim();
@@ -459,7 +467,7 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
             }
             logic.setClickableElements(clickable);
         } else {
-            ArrayList<OsmElement> excludes = new ArrayList<>();
+            List<OsmElement> excludes = new ArrayList<>();
             for (RelationMember member : newMembers) {
                 excludes.add(member.getElement());
             }
