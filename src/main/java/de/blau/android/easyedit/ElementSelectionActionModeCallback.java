@@ -16,15 +16,16 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -51,9 +52,9 @@ import de.blau.android.osm.Way;
 import de.blau.android.prefs.PrefEditor;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
-import de.blau.android.presets.PresetTagField;
 import de.blau.android.presets.PresetFixedField;
 import de.blau.android.presets.PresetItem;
+import de.blau.android.presets.PresetTagField;
 import de.blau.android.search.Search;
 import de.blau.android.services.TrackerService;
 import de.blau.android.tasks.Bug;
@@ -66,6 +67,7 @@ import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 import de.blau.android.util.Value;
+import de.blau.android.util.WidestItemArrayAdapter;
 import de.blau.android.views.CustomAutoCompleteTextView;
 import me.zed.elementhistorydialog.ElementHistoryDialog;
 
@@ -699,9 +701,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
             int titleId, @Nullable String filterKey, @Nullable String filterValue) {
         Builder builder = new AlertDialog.Builder(context);
 
-        final LayoutInflater themedInflater = ThemeUtils.getLayoutInflater(context);
-
-        final View layout = themedInflater.inflate(R.layout.relation_selection_dialog, null);
+        final View layout = ThemeUtils.getLayoutInflater(context).inflate(R.layout.relation_selection_dialog, null);
 
         builder.setView(layout);
         builder.setTitle(titleId);
@@ -778,6 +778,9 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
 
         builder.setTitle(titleId);
         builder.setNegativeButton(R.string.cancel, null);
+        final View layout = ThemeUtils.getLayoutInflater(context).inflate(R.layout.preset_selection_dialog, null);
+
+        builder.setView(layout);
 
         final Map<String, PresetItem> items = new HashMap<>();
         for (Preset preset : App.getCurrentPresets(context)) {
@@ -798,14 +801,19 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
         List<String> itemNames = new ArrayList<>(items.keySet());
         Collections.sort(itemNames);
         itemNames.add(context.getString(R.string.select_relation_type_other));
+        final WidestItemArrayAdapter<String> adapter = new WidestItemArrayAdapter<>(context, R.layout.search_results_item, itemNames);
 
-        final ArrayAdapter<String> adapter = new ArrayAdapter<>(context, R.layout.search_results_item, itemNames);
+        ListView presetList = (ListView) layout.findViewById(R.id.presetList);
 
-        builder.setAdapter(adapter, (dialog, which) -> {
-            String key = adapter.getItem(which);
+        presetList.setAdapter(adapter);
+        final AlertDialog dialog = builder.create();
+
+        final Handler handler = new Handler(Looper.getMainLooper());
+        presetList.setOnItemClickListener((AdapterView<?> parent, View view, int position, long id) -> {
+            String key = adapter.getItem(position);
             onPresetSelectedListener.selected(items.get(key));
+            handler.postDelayed(dialog::dismiss, 100);
         });
-
-        return builder.create();
+        return dialog;
     }
 }
