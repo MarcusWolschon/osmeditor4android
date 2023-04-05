@@ -737,13 +737,12 @@ marathon {
     }
     // uncomment for running specific tests
 //    filteringConfiguration {
-//        allowlist = [
-//            new com.malinskiy.marathon.execution.filter.FullyQualifiedTestnameFilter(null,
+//        allowlist {
+//            fullyQualifiedTestnameFilter =
 //               [
-//                    'de.blau.android.easyedit.NodeTest#selectNode'
-//               ], 
-//               null)
-//        ]
+//                    'de.blau.android.easyedit.RelationTest#createAndAddToMultiPolygon'
+//               ] 
+//        }
 //    }
     // analytics and sorting configuration requires a DB to be installed
 //    analytics {
