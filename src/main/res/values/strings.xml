@@ -1145,7 +1145,7 @@
     <string name="config_disableTranslations_summary">Use English for the user interface</string>
     <string name="config_maxInlineValues_title">Max. number of inline values</string>
     <string name="config_maxInlineValues_summary">Maximum number of inline values displayed in tag form.</string>
-    <string name="config_maxInlineValues_current">%1$d Values</string>
+    <string name="config_maxInlineValues_current">%1$d values</string>
     <string name="config_autoLockDelay_title">Time to wait before auto-locking</string>
     <string name="config_autoLockDelay_summary">Amount of seconds to wait before auto-locking, 0 turns it off.</string>
     <string name="config_autoLockDelay_current">%1$d s</string>    
