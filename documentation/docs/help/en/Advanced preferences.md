@@ -92,13 +92,13 @@ Use anto-aliasing when rendering OSM data. Default: _on_.
 
 Maximum width lines will increase to when zooming in. Default: _16 pixels_.
 
-### Pending upload OK
+### Pending upload OK limit
 
-Limit below which pending object uploads will be considered OK. Default: _50 objects_.
+If the number of pending object uploads is below this limit the situation is considered unproblematic. Default: _50 objects_.
 
-### Pending upload warning
+### Pending upload warning limit
 
-Limit below which pending object uploads will have warning status. Default: _200 objects_.
+If the number of pending object uploads is below this limit it will have warning status. A pending upload count above this will have danger status. Default: _200 objects_.
 
 ### Disable feedback activity
 

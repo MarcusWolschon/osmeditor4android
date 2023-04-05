@@ -1156,11 +1156,11 @@
     <string name="config_maxStrokeWidth_title">Max line width</string>
     <string name="config_maxStrokeWidth_summary">Do not draw a way thicker than this.</string>
     <string name="config_maxStrokeWidth_current">%1$d px</string>
-    <string name="config_uploadOk_title">Pending upload OK</string>
-    <string name="config_uploadOk_summary">Limit below which pending object uploads will be considered OK</string>
+    <string name="config_uploadOk_title">Pending upload OK limit</string>
+    <string name="config_uploadOk_summary">If the number of pending object uploads is below this limit the situation is considered unproblematic.</string>
     <string name="config_upload_current">%1$d objects</string>
-    <string name="config_uploadWarn_title">Pending upload warning</string>
-    <string name="config_uploadWarn_summary">Limit below which pending object uploads will have warning status.</string>
+    <string name="config_uploadWarn_title">Pending upload warning limit</string>
+    <string name="config_uploadWarn_summary">If the number of pending object uploads is below this limit it will have warning status. A pending upload count above this will have danger status.</string>
     <string name="config_uploadChecker_title">Upload reminder interval</string>
     <string name="config_uploadChecker_summary">Interval for reminders if you have unpublished changes.</string>
     <string name="config_uploadChecker_current">%1$d hours</string>
