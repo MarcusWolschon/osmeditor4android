@@ -1494,7 +1494,7 @@
     <string name="toast_nohelp">No help here.</string>
     <!-- Bookmarks -->
     <string name="add_bookmark">Add bookmark…</string>
-    <string name="bookmarks_desc">Add comments</string>
+    <string name="bookmarks_desc">Description</string>
     <string name="show_bookmarks">Bookmarks…</string>
     <string name="_dots">⋮</string>
     <string name="gotobookmark">Go</string>
