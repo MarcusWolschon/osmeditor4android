@@ -22,8 +22,8 @@ import de.blau.android.util.Util;
 
 public class TagSelectedActionModeCallback extends SelectedRowsActionModeCallback {
 
-    // pm: protected static final int MENU_ITEM_DELETE = 1;
-    // pm: protected static final int MENU_ITEM_HELP = 15;
+    // pm: protected static final int MENU_ITEM_DELETE = 1; NOSONAR
+    // pm: protected static final int MENU_ITEM_HELP = 15; NOSONAR
     private static final int MENU_ITEM_COPY          = 2;
     private static final int MENU_ITEM_CUT           = 3;
     private static final int MENU_ITEM_CREATE_PRESET = 19;
@@ -84,16 +84,10 @@ public class TagSelectedActionModeCallback extends SelectedRowsActionModeCallbac
      * @param tags Map containing the copied tags
      * @param row the current row
      */
-    private void addKeyValue(Map<String, String> tags, final TagEditRow row) {
+    private void addKeyValue(@NonNull Map<String, String> tags, @NonNull final TagEditRow row) {
         String key = row.getKey().trim();
-        String value = row.getValue().trim();
-        boolean bothBlank = "".equals(key) && "".equals(value);
-        boolean neitherBlank = !"".equals(key) && !"".equals(value);
-        if (!bothBlank) {
-            // both blank is never acceptable
-            if (neitherBlank) {
-                tags.put(key, value);
-            }
+        if (!"".equals(key)) {
+            tags.put(key, row.getValue().trim());
         }
     }
 
