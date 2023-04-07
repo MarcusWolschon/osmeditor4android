@@ -3,6 +3,7 @@ package de.blau.android.dialogs;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -213,6 +214,16 @@ public class Tip extends ImmersiveDialogFragment {
             View checkContainer = layout.findViewById(R.id.tip_check_container);
             checkContainer.setVisibility(View.GONE);
         }
+    }
+
+    /**
+     * Reset the status of a specific tip
+     * 
+     * @param cxt
+     * @param tipId
+     */
+    public static void resetTip(@NonNull Context cxt, int tipId) {
+        PreferenceManager.getDefaultSharedPreferences(cxt).edit().putBoolean(cxt.getString(tipId), true).commit();
     }
 
     @Override

@@ -38,6 +38,7 @@ import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.TestUtils;
+import de.blau.android.dialogs.Tip;
 import de.blau.android.layer.LayerType;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.Way;
@@ -347,5 +348,20 @@ public class SimpleActionsTest {
         TestUtils.clickText(device, true, context.getString(R.string.okay), true, false); // Tip
         assertTrue(TestUtils.findText(device, false, "test"));
         assertTrue(TestUtils.clickText(device, true, context.getString(R.string.cancel), true, false));
+    }
+    
+    /**
+     * long press and check that we get the tip
+     */
+    // @SdkSuppress(minSdkVersion = 26)
+    @Test
+    public void longClickTip() {
+        Tip.resetTip(main, R.string.tip_longpress_simple_mode_key);
+        map.getDataLayer().setVisible(true);
+        TestUtils.zoomToLevel(device, main, 21);
+        TestUtils.unlock(device);
+        TestUtils.longClickAtCoordinates(device, map, 8.3890736, 47.3896628, true);
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.tip_title)));
+        TestUtils.clickAwayTip(device, main);
     }
 }
