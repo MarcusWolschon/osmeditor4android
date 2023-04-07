@@ -3540,15 +3540,17 @@ public class Main extends FullScreenAppCompatActivity
                 return true;
             }
             if (logic.isInEditZoomRange()) {
-                if (prefs.areSimpleActionsEnabled() || getEasyEditManager().usesLongClick()) {
-                    if (elementCount == 1 && getEasyEditManager().handleLongClick(v, clickedNodesAndWays.get(0))) {
-                        return true;
-                    }
-                    if (elementCount > 1) {
-                        longClick = true; // another ugly flag
-                        v.showContextMenu();
-                        return true;
-                    }
+                if (prefs.areSimpleActionsEnabled()) {
+                    if (getEasyEditManager().usesLongClick()) {
+                        if (elementCount == 1 && getEasyEditManager().handleLongClick(v, clickedNodesAndWays.get(0))) {
+                            return true;
+                        }
+                        if (elementCount > 1) {
+                            longClick = true; // another ugly flag
+                            v.showContextMenu();
+                            return true;
+                        }
+                    } // fall through to beep
                 } else if (getEasyEditManager().handleLongClick(v, x, y)) {
                     // editing with the screen moving under you is a pain
                     setFollowGPS(false);
@@ -4031,6 +4033,7 @@ public class Main extends FullScreenAppCompatActivity
             }
             return false;
         }
+
     }
 
     /**
