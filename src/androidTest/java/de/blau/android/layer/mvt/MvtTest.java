@@ -199,4 +199,31 @@ public class MvtTest {
             fail(e.getMessage());
         }
     }
+    
+    /**
+     * Load a mvt file instead of a style file
+     */
+    @Test
+    public void notAStyleTest() {
+        try {
+            File silly = JavaResources.copyFileFromResources(main, "ersatz_background.mbt", null, "mbtiles");
+            try {
+                Preferences prefs = new Preferences(main);
+                LayerUtils.removeImageryLayers(main);
+                main.getMap().setPrefs(main, prefs);
+                assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/layers", true));
+                assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/add", true));
+                TestUtils.scrollTo(main.getString(R.string.layer_add_layer_from_mvt_style), false);
+                assertTrue(TestUtils.clickText(device, false, main.getString(R.string.layer_add_layer_from_mvt_style), false));
+                TestUtils.selectFile(device, main, "mbtiles", "ersatz_background.mbt", true);
+                assertTrue(TestUtils.findNotification(device, main.getString(R.string.toast_style_file_too_large)));        
+            } finally {
+                if (silly != null) {
+                    silly.delete();
+                }
+            }
+        } catch (IOException e) {
+            fail(e.getMessage());
+        }
+    }
 }

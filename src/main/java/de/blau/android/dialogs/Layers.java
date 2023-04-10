@@ -89,6 +89,7 @@ import de.blau.android.resources.TileLayerSource;
 import de.blau.android.resources.TileLayerSource.Category;
 import de.blau.android.resources.TileLayerSource.TileType;
 import de.blau.android.resources.WmsEndpointDatabaseView;
+import de.blau.android.util.ContentResolverUtil;
 import de.blau.android.util.Density;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.FileUtil;
@@ -112,7 +113,8 @@ import de.blau.android.views.layers.MapTilesLayer;
 public class Layers extends AbstractConfigurationDialog {
     private static final String DEBUG_TAG = Layers.class.getName();
 
-    private static final int VERTICAL_OFFSET = 64;
+    private static final int  VERTICAL_OFFSET     = 64;
+    private static final long MAX_STYLE_FILE_SIZE = 10000000L;
 
     private static final String TAG = "fragment_layers";
 
@@ -121,7 +123,7 @@ public class Layers extends AbstractConfigurationDialog {
     private int zoomToExtentId;
     private int menuId;
 
-    TableLayout tl;
+    private TableLayout tl;
 
     /**
      * Show dialog that allows to configure the layers
@@ -444,13 +446,17 @@ public class Layers extends AbstractConfigurationDialog {
      * @param map current Map
      */
     private void addMVTLayerFromStyle(@NonNull final FragmentActivity activity, @NonNull final Preferences prefs, @NonNull final Map map) {
-        SelectFile.read(getActivity(), R.string.config_osmPreferredDir_key, new ReadFile() {
+        SelectFile.read(activity, R.string.config_osmPreferredDir_key, new ReadFile() {
             private static final long serialVersionUID = 1L;
 
             @Override
             public boolean read(Uri fileUri) {
                 Style style = new Style();
                 try {
+                    if (ContentResolverUtil.getSizeColumn(activity, fileUri) > MAX_STYLE_FILE_SIZE) {
+                        Snack.toastTopError(activity, R.string.toast_style_file_too_large);
+                        return false;
+                    }
                     style.loadStyle(activity, activity.getContentResolver().openInputStream(fileUri));
                     if (style.getSources().size() != 1) {
                         Snack.toastTopError(activity, R.string.toast_only_one_source_supported);
