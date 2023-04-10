@@ -131,16 +131,7 @@ public final class ContentResolverUtil {
      */
     @Nullable
     public static String getDataColumn(@NonNull Context context, @NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
-        final String[] projection = { MediaStore.MediaColumns.DATA }; // NOSONAR
-        try (Cursor cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs, null)) {
-            if (cursor != null && cursor.moveToFirst()) {
-                final int column_index = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA); // NOSONAR
-                return cursor.getString(column_index);
-            }
-        } catch (Exception ex) {
-            Log.e(DEBUG_TAG, ex.getMessage());
-        }
-        return null;
+        return getColumn(context, MediaStore.MediaColumns.DATA, uri); // NOSONAR
     }
 
     /**
@@ -153,10 +144,41 @@ public final class ContentResolverUtil {
      */
     @Nullable
     public static String getDisplaynameColumn(@NonNull Context context, @NonNull Uri uri) {
-        final String[] projection = { MediaStore.MediaColumns.DISPLAY_NAME };
+        return getColumn(context, MediaStore.MediaColumns.DISPLAY_NAME, uri);
+    }
+
+    /**
+     * Get the value of the size column for this Uri. This is useful for MediaStore Uris, and other file-based
+     * ContentProviders.
+     *
+     * @param context The context.
+     * @param uri The Uri to query.
+     * @return The value of the size column or -1 if not available.
+     */
+    public static long getSizeColumn(@NonNull Context context, @NonNull Uri uri) {
+        long size = -1L;
+        try {
+            size = Long.parseLong(getColumn(context, MediaStore.MediaColumns.SIZE, uri));
+        } catch (NumberFormatException nfex) {
+            Log.w(DEBUG_TAG, "getSizeColumn " + nfex.getMessage() + " for " + uri);
+        }
+        return size;
+    }
+
+    /**
+     * Get the value of a column for this Uri. This is useful for MediaStore Uris, and other file-based
+     * ContentProviders.
+     *
+     * @param context The context.
+     * @param uri The Uri to query.
+     * @return The value of the column or null
+     */
+    @Nullable
+    private static String getColumn(@NonNull Context context, @NonNull String columnName, @NonNull Uri uri) {
+        final String[] projection = { columnName };
         try (Cursor cursor = context.getContentResolver().query(uri, projection, null, null, null)) {
             if (cursor != null && cursor.moveToFirst()) {
-                final int column_index = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DISPLAY_NAME);
+                final int column_index = cursor.getColumnIndexOrThrow(columnName);
                 return cursor.getString(column_index);
             }
         } catch (Exception ex) {
@@ -190,7 +212,8 @@ public final class ContentResolverUtil {
      * @return true if things seemed to work
      */
     public static boolean persistPermissions(@NonNull Context context, int intentFlags, @NonNull Uri uri) {
-        if ((intentFlags & Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION) != 0) { // this will never be the case pre-API 19
+        if ((intentFlags & Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION) != 0) { // this will never be the case pre-API
+                                                                                 // 19
             Log.d(DEBUG_TAG, "Persisting permissions for " + uri);
             try {
                 context.getContentResolver().takePersistableUriPermission(uri,

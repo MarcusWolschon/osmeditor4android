@@ -661,6 +661,7 @@
     <string name="toast_error_saving_bookmark">Unable to save bookmark</string>
     <string name="toast_error_loading_style">Unable to load style: %1$s</string>
     <string name="toast_only_one_source_supported">Only one source per style supported</string>
+    <string name="toast_style_file_too_large">The style file provided is too large and likely not a Mapbox-GL style.</string>
     <string name="toast_imagery_offset_download_failed">Offset download failed: %1$s</string>
     <string name="toast_download_server_version_failed">Download of server version failed for %1$s</string>
     <string name="toast_error_element_too_large">Element is too large for the property editor</string>
