@@ -235,19 +235,8 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
             }
             return true;
         case MENUITEM_PASTE:
-            List<OsmElement> elements = App.getLogic().pasteFromClipboard(main, x, y);
             logic.hideCrosshairs();
-            if (elements != null && !elements.isEmpty()) {
-                if (elements.size() > 1) {
-                    manager.finish();
-                    App.getLogic().setSelection(elements);
-                    manager.editElements();
-                } else {
-                    manager.editElement(elements.get(0));
-                }
-            } else {
-                manager.finish();
-            }
+            SimpleActionModeCallback.paste(main, manager, x, y);
             return true;
         case MENUITEM_NEWNODE_GPS:
             logic.hideCrosshairs();
@@ -280,9 +269,8 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
     @Override
     public boolean processShortcut(Character c) {
         if (c == Util.getShortCut(main, R.string.shortcut_paste)) {
-            logic.pasteFromClipboard(main, startX, startY);
             logic.hideCrosshairs();
-            manager.finish();
+            SimpleActionModeCallback.paste(main, manager, startX, startY);
             return true;
         }
         return false;

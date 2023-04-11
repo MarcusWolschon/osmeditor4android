@@ -142,7 +142,7 @@ public class ClipboardStorage implements Serializable {
     public boolean contentsWasCut() {
         return mode == Mode.CUT;
     }
-    
+
     /**
      * Check if we have a specific element
      * 
@@ -151,5 +151,24 @@ public class ClipboardStorage implements Serializable {
      */
     boolean contains(@NonNull OsmElement e) {
         return storage.contains(e);
+    }
+
+    /**
+     * Check that after an undo or similar event the contents can still be pasted
+     * 
+     * @param delegator the current StorageDelegator
+     * @return true if everything is consistent
+     */
+    public boolean check(@NonNull StorageDelegator delegator) {
+        if (contentsWasCut()) {
+            final Storage currentStorage = delegator.getCurrentStorage();
+            final Storage apiStorage = delegator.getApiStorage();
+            for (OsmElement e : storage.getElements()) {
+                if (currentStorage.contains(e) || !apiStorage.contains(e)) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }

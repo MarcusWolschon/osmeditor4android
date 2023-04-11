@@ -103,6 +103,26 @@ public class StorageDelegatorTest {
     }
 
     /**
+     * Test cut and then undo
+     */
+    @Test
+    public void cutUndo() {
+        StorageDelegator d = App.getDelegator();
+        Logic logic = App.newLogic();
+        logic.setMap(new de.blau.android.Map(ApplicationProvider.getApplicationContext()), true);
+        Way w = DelegatorUtil.addWayToStorage(d, true);
+        Way temp = (Way) d.getOsmElement(Way.NAME, w.getOsmId());
+        assertNotNull(temp);
+        logic.cutToClipboard(null, Util.wrapInList(w));
+        assertNull((Way) d.getOsmElement(Way.NAME, w.getOsmId()));
+        assertFalse(d.clipboardIsEmpty());
+        assertTrue(d.clipboardContentWasCut());
+        // undo should empty clipboard
+        logic.undo();
+        assertTrue(d.clipboardIsEmpty());
+    }
+
+    /**
      * Load some data modify a way and a node, then prune
      */
     @Test
@@ -913,7 +933,7 @@ public class StorageDelegatorTest {
         assertEquals(n, newWay.getLastNode());
         assertEquals(3, newWay.nodeCount());
     }
-    
+
     /**
      * Split / merge way with metric tag
      */

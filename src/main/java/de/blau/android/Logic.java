@@ -451,9 +451,20 @@ public class Logic {
      */
     @Nullable
     public String undo() {
-        String name = getDelegator().getUndo().undo();
-        getDelegator().dirty();
+        final StorageDelegator delegator = getDelegator();
+        String name = delegator.getUndo().undo();
+        checkClipboard(delegator);
+        delegator.dirty();
         return name;
+    }
+
+    /**
+     * Check the clipboard for consistency post undo
+     */
+    private void checkClipboard(@NonNull StorageDelegator delegator) {
+        if (!delegator.clipboardIsEmpty()) {
+            delegator.checkClipboard();
+        }
     }
 
     /**
@@ -464,8 +475,10 @@ public class Logic {
      */
     @Nullable
     public String undo(int checkpoint) {
-        String name = getDelegator().getUndo().undo(checkpoint);
-        getDelegator().dirty();
+        final StorageDelegator delegator = getDelegator();
+        String name = delegator.getUndo().undo(checkpoint);
+        checkClipboard(delegator);
+        delegator.dirty();
         return name;
     }
 
