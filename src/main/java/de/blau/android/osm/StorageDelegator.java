@@ -2499,6 +2499,21 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     }
 
     /**
+     * Check if the clipboard is consistent
+     * 
+     * If this is not true the clipboard will be emptied
+     * 
+     * @return true if the clipboard is ok
+     */
+    public boolean checkClipboard() {
+        if (!clipboard.check(this)) {
+            clearClipboard();
+            return false;
+        }
+        return true;
+    }
+
+    /**
      * Clear the clipboard and set the dirty flag
      */
     public void clearClipboard() {
