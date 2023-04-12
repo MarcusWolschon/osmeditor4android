@@ -341,6 +341,10 @@ Minimum number of changes required for a save to occur. Default: _1_.
 
 The maximum number of OSC files the app will retain, when this limit is reached the oldest files will be deleted. Default: _5_.
 
+### Minimum GPX saving interval
+
+Minimum interval in minutes between saves of GPX recordings. Default: _5 minutes_.
+
 ## Miscellaneous
 
 ### Report app crashes

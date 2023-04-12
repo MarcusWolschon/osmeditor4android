@@ -155,4 +155,5 @@
     <string name="config_autosaveInterval_key">autosaveInterval</string>
     <string name="config_autosaveChanges_key">autosaveChanges</string>
     <string name="config_autosaveMaxFiles_key">autosaveMaxFiles</string>
+    <string name="config_gpxAutosaveInterval_key">gpxAutosaveInterval</string>
 </resources>

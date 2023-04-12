@@ -5,6 +5,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -38,6 +41,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
+import androidx.preference.PreferenceManager;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
@@ -80,10 +84,8 @@ public class TrackerService extends Service {
 
     private LocationManager locationManager = null;
 
-    private boolean tracking = false;
-
-    private boolean downloading = false;
-
+    private boolean tracking        = false;
+    private boolean downloading     = false;
     private boolean downloadingBugs = false;
 
     private Track track;
@@ -122,7 +124,8 @@ public class TrackerService extends Service {
 
     private Validator validator;
 
-    Handler handler = new Handler(Looper.getMainLooper());
+    private ScheduledThreadPoolExecutor autosaveExecutor = new ScheduledThreadPoolExecutor(1);
+    private ScheduledFuture<?>          autosaveFuture   = null;
 
     /**
      * For no apparent sane reason google has deprecated the NmeaListener interface
@@ -344,11 +347,25 @@ public class TrackerService extends Service {
      * See {@link #startTracking()} for the public method to call when tracking should be started.
      */
     private void startTrackingInternal() {
-        Log.d(DEBUG_TAG, "Start tracking");
+        Log.i(DEBUG_TAG, "Start tracking");
         if (startInternal()) {
             tracking = true;
             track.markNewSegment();
+            startAutosave();
         }
+    }
+
+    /**
+     * Start auto save for edits
+     */
+    private void startAutosave() {
+        Log.i(DEBUG_TAG, "Starting autosave");
+        final int interval = PreferenceManager.getDefaultSharedPreferences(this).getInt(getString(R.string.config_gpxAutosaveInterval_key), 5);
+        autosaveFuture = autosaveExecutor.scheduleAtFixedRate(() -> {
+            if (tracking) {
+                track.save();
+            }
+        }, interval, interval, TimeUnit.MINUTES);
     }
 
     /**
@@ -356,7 +373,7 @@ public class TrackerService extends Service {
      * See {@link #startTracking()} for the public method to call when tracking should be started.
      */
     private void startAutoDownloadInternal() {
-        Log.d(DEBUG_TAG, "Start auto download");
+        Log.i(DEBUG_TAG, "Start auto download");
         if (startInternal()) {
             downloading = true;
         }
@@ -367,7 +384,7 @@ public class TrackerService extends Service {
      * See {@link #startTracking()} for the public method to call when tracking should be started.
      */
     private void startBugAutoDownloadInternal() {
-        Log.d(DEBUG_TAG, "Start bug auto download");
+        Log.i(DEBUG_TAG, "Start bug auto download");
         if (startInternal()) {
             downloadingBugs = true;
         }
@@ -421,6 +438,10 @@ public class TrackerService extends Service {
      */
     public void stopTracking(boolean deleteTrack) {
         Log.d(DEBUG_TAG, "Stop tracking");
+        if (autosaveFuture != null) {
+            Log.i(DEBUG_TAG, "Cancelling autosave");
+            autosaveFuture.cancel(false);
+        }
         if (!tracking) {
             if (deleteTrack) {
                 track.reset();
