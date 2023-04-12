@@ -102,6 +102,10 @@ Extracts a single node to node way segment from the selected way, after clicking
 
 Selects all nodes in the way, de-selects the way and starts [Multiselect](Multiselect.md) mode.
 
+### Start/End of Way
+
+Go to the end or start of the selected way.
+
 ### ![Copy](../images/ic_menu_copy_holo_light.png) Copy
 
 Copy the way to the internal copy and paste buffer.
