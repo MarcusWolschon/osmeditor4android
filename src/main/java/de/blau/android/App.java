@@ -767,33 +767,40 @@ public class App extends LocaleAwareApplication implements android.app.Applicati
             return;
         }
         if (activity instanceof Main) {
-            Log.i(DEBUG_TAG, "Starting autosave");
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-            final boolean saveState = prefs.getBoolean(getString(R.string.config_autosaveSaveState_key), true);
-            final boolean saveChanges = prefs.getBoolean(getString(R.string.config_autosaveSaveChanges_key), true);
-            final int interval = prefs.getInt(getString(R.string.config_autosaveInterval_key), 5);
-            final int changes = prefs.getInt(getString(R.string.config_autosaveChanges_key), 1);
-            final int maxFiles = prefs.getInt(getString(R.string.config_autosaveMaxFiles_key), 5);
-            autosaveFuture = autosaveExecutor.scheduleAtFixedRate(() -> {
-                if (delegator.isDirty() && delegator.getApiElementCount() >= changes) {
-                    if (logic != null && saveState) {
-                        logic.save(this);
-                    }
-                    if (saveChanges) {
-                        try {
-                            final File autosaveDir = FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_AUTOSAVE);
-                            File outfile = new File(autosaveDir, SavingHelper.getExportFilename(delegator));
-                            try (FileOutputStream fout = new FileOutputStream(outfile); OutputStream outputStream = new BufferedOutputStream(fout)) {
-                                delegator.export(outputStream);
-                            }
-                            FileUtil.pruneFiles(autosaveDir, maxFiles);
-                        } catch (Exception e) {
-                            Log.e(DEBUG_TAG, "Autosave failed" + e.getMessage());
+            startAutosave();
+        }
+    }
+
+    /**
+     * Start auto save for edits
+     */
+    private void startAutosave() {
+        Log.i(DEBUG_TAG, "Starting autosave");
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        final boolean saveState = prefs.getBoolean(getString(R.string.config_autosaveSaveState_key), true);
+        final boolean saveChanges = prefs.getBoolean(getString(R.string.config_autosaveSaveChanges_key), true);
+        final int interval = prefs.getInt(getString(R.string.config_autosaveInterval_key), 5);
+        final int changes = prefs.getInt(getString(R.string.config_autosaveChanges_key), 1);
+        final int maxFiles = prefs.getInt(getString(R.string.config_autosaveMaxFiles_key), 5);
+        autosaveFuture = autosaveExecutor.scheduleAtFixedRate(() -> {
+            if (delegator.isDirty() && delegator.getApiElementCount() >= changes) {
+                if (logic != null && saveState) {
+                    logic.save(this);
+                }
+                if (saveChanges) {
+                    try {
+                        final File autosaveDir = FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_AUTOSAVE);
+                        File outfile = new File(autosaveDir, SavingHelper.getExportFilename(delegator));
+                        try (FileOutputStream fout = new FileOutputStream(outfile); OutputStream outputStream = new BufferedOutputStream(fout)) {
+                            delegator.export(outputStream);
                         }
+                        FileUtil.pruneFiles(autosaveDir, maxFiles);
+                    } catch (Exception e) {
+                        Log.e(DEBUG_TAG, "Autosave failed" + e.getMessage());
                     }
                 }
-            }, interval, interval, TimeUnit.MINUTES);
-        }
+            }
+        }, interval, interval, TimeUnit.MINUTES);
     }
 
     @Override

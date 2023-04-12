@@ -1310,6 +1310,8 @@
     <string name="config_autosaveChanges_current">%1$d</string>
     <string name="config_autosaveMaxFiles_title">Maximum number of OSC files to retain</string>
     <string name="config_autosaveMaxFiles_current">%1$d</string>
+    <string name="config_gpxAutosaveInterval_title">Minimum GPX saving interval</string>
+    <string name="config_gpxAutosaveInterval_summary">Minimum interval in minutes between saves of GPX recordings.</string>
     <!-- Miscellaneous -->
     <string name="config_category_misc">Miscellaneous</string>
     <string name="pref_enable_acra">Report app crashes</string>

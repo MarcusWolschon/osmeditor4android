@@ -232,6 +232,7 @@ public class Track extends DefaultHandler implements GpxTimeFormater, Exportable
             }
             savedTrackPoints++;
         }
+        Log.i(DEBUG_TAG, "track saved " + savedTrackPoints + " points");
     }
 
     /**
