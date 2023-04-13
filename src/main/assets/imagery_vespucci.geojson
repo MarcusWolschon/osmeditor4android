@@ -144,6 +144,34 @@
                 "url": "https://tiles.mapillary.com/maps/vtp/mly1_computed_public/2/{z}/{x}/{y}?access_token={apikey}"
             },
             "type": "Feature"
+        },
+        {
+            "geometry": null,
+            "properties": {
+                "attribution": {
+                    "required": true,
+                    "text": "Terms & Feedback",
+                    "url": "https://wiki.openstreetmap.org/wiki/Esri"
+                },
+                "default": true,
+                "permission_osm": "explicit",
+                "description": "Esri World Imagery",
+                "i18n": true,
+                "icon": "https://osmlab.github.io/editor-layer-index/sources/world/EsriImageryClarity.png",
+                "id": "EsriWorldImagery",
+                "max_zoom": 22,
+                "no_tile_header": {
+                  "Etag": [
+                        "\"vvvvvvvvvvvvf\""
+                    ]
+                },
+                "name": "Esri World Imagery",
+                "type": "tms",
+                "category": "photo",
+                "privacy_policy_url": "https://www.esri.com/en-us/privacy/privacy-statements/privacy-statement",
+                "url": "https://{switch:services,server}.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{zoom}/{y}/{x}"
+            },
+            "type": "Feature"
         }
     ],
     "type": "FeatureCollection"
