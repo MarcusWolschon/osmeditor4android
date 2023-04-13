@@ -859,6 +859,7 @@ há %3$s %4$s</string>
   <string name="config_forceContextMenu_summary">Mostrar sempre o menu contextual se uma seleção for ambígua.</string>
   <string name="config_address_tags">Etiquetas de endereço</string>
   <string name="config_address_tags_summary">Etiquetas para previsão de endereço.</string>
+  <string name="config_neighbourDistance_current">%1$d metro(s)</string>
   <string name="config_enableNameSuggestions_title">Sugerir nomes</string>
   <string name="config_enableNameSuggestions_summary">Ativa a apresentação de sugestões para a etiqueta de nome.</string>
   <string name="config_enableNameSuggestionsPresets_title">Sugerir etiquetas</string>

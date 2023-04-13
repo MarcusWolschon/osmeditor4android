@@ -1119,6 +1119,7 @@
   <string name="config_overrideRegionAddressTags_summary">使用我们的地址标签设置取代特定区域的值</string>
   <string name="config_address_tags">地址标签</string>
   <string name="config_address_tags_summary">用于地址预测的标签。</string>
+  <string name="config_neighbourDistance_current">%1$d 米</string>
   <string name="config_enableNameSuggestions_title">启用建议名称</string>
   <string name="config_enableNameSuggestions_summary">为名称标签启用建议。</string>
   <string name="config_enableNameSuggestionsPresets_title">启用名称建议预设</string>

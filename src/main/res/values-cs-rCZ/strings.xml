@@ -543,7 +543,7 @@
   <string name="toast_untagged_element">Neoznačený prvek</string>
   <string name="toast_unconnected_end_node">Uzel je poblíž prvku, ke kterému by se mohl připojit</string>
   <string name="toast_degenerate_way">Degenerovaná cesta</string>
-  <string name="toast_wrong_element_type">Nestandartní typ prvku: %1$s</string>
+  <string name="toast_wrong_element_type">Nestandardní typ prvku: %1$s</string>
   <!---->
   <string name="toast_oauth_retry">Nahrávání zkuste zopakovat poté, co povolíte OAuth přístup k vašemu OSM účtu.</string>
   <string name="toast_oauth">Povolte prosím OAuth přístup k vašemu OSM účtu.</string>
@@ -1195,6 +1195,7 @@
   <string name="config_overrideRegionAddressTags_summary">Použijte naši konfiguraci značky adresy pro hodnoty specifické pro jakoukoli oblast</string>
   <string name="config_address_tags">Tagy pro adresu</string>
   <string name="config_address_tags_summary">Tagy používané k předvyplnění adresy.</string>
+  <string name="config_neighbourDistance_current">%1$d m</string>
   <string name="config_enableNameSuggestions_title">Povolit návrhy názvu</string>
   <string name="config_enableNameSuggestions_summary">Zapnout návrhy pro tag s názvem.</string>
   <string name="config_enableNameSuggestionsPresets_title">Povolit předvolby z návrhu názvu</string>

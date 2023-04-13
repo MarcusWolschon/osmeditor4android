@@ -993,6 +993,7 @@
   <string name="config_overrideRegionAddressTags_summary">Utilice nuestra configuración de etiquetas de dirección en cualquier valor específico de la región</string>
   <string name="config_address_tags">Etiquetas de dirección</string>
   <string name="config_address_tags_summary">Etiquetas utilizadas para la predicción de direcciones.</string>
+  <string name="config_neighbourDistance_current">%1$d metro(s)</string>
   <string name="config_enableNameSuggestions_title">Activar sugerencias de nombres</string>
   <string name="config_enableNameSuggestions_summary">Activa las sugerencias para la etiqueta de nombre.</string>
   <string name="config_enableNameSuggestionsPresets_title">Habilitar predefinidos de sugerencia de nombre</string>

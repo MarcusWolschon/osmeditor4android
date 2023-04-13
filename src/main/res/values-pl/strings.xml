@@ -958,6 +958,7 @@
   <string name="config_forceContextMenu_summary">Zawsze wyświetlaj menu podręczne, jeśli zaznaczenie jest niejednoznaczne.</string>
   <string name="config_address_tags">Znaczniki adresu</string>
   <string name="config_address_tags_summary">Znaczniki używane do określania adresu.</string>
+  <string name="config_neighbourDistance_current">%1$d metr(ów)</string>
   <string name="config_enableNameSuggestions_title">Sugerowanie nazw</string>
   <string name="config_enableNameSuggestions_summary">Wyświetl sugestie nazwy znacznika.</string>
   <string name="config_enableNameSuggestionsPresets_title">Włącz szablony sugerowanych nazw</string>

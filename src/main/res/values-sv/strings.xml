@@ -6,6 +6,7 @@
   <string name="mode_indoor">Inomhus</string>
   <string name="mode_correct">C-läge</string>
   <string name="mode_address">Adress</string>
+  <string name="mode_voice">Röst</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Försiktig!</string>
   <string name="transfer_download_current_dialog_message">Du har gjort ändringar. Vill du ladda upp istället för att kassera dem?</string>
@@ -64,6 +65,7 @@
   <string name="progress_saving_message">Sparar...</string>
   <string name="progress_uploading_message">Laddar upp...</string>
   <string name="progress_preset_message">Hämta förinställning...</string>
+  <string name="progress_importing_file_message">Importerar fil...</string>
   <string name="progress_running_message">Körs...</string>
   <string name="progress_building_imagery_database">Bygger bild-databas...</string>
   <string name="progress_migration">Migrerar...</string>
@@ -85,6 +87,7 @@
   <string name="upload_validation_error_empty_comment">Kommentar bör inte vara tom</string>
   <string name="upload_validation_error_empty_source">Källa bör inte vara tom</string>
   <!--Review changes dialog-->
+  <string name="review_changes_title">Granska ändringar</string>
   <!--Upload GPX-->
   <string name="upload_gpx_title">Ladda upp GPX-spår</string>
   <string name="upload_gpx_description_label">Beskrivning</string>
@@ -106,6 +109,12 @@
   <string name="bug_description">%1$s: %2$s - %3$s</string>
   <string name="generic_bug">Fel</string>
   <string name="osmose_bug">Osmose</string>
+  <string name="todo_title">Att göra</string>
+  <string name="todo_description">Att göra %1$s</string>
+  <string name="todo_list">Lista %1$s</string>
+  <string name="todo_list_and_comment">Lista %1$s&lt;br&gt;&lt;br&gt;%2$s</string>
+  <string name="todo">Att göra</string>
+  <string name="select_todo_list">Välj attgöra-lista</string>
   <string name="bug_element_1">%1$s (inte hämtad) #%2$d</string>
   <string name="bug_element_2">%1$s %2$s</string>
   <string name="maproulette_task_title">MapRoulette-uppgift</string>
@@ -113,6 +122,7 @@
   <string name="maproulette_task_explanations">Förklaringar</string>
   <string name="maproulette_task_disable">Inaktivera</string>
   <!--Todo dialogs-->
+  <string name="todo_list_legend">Attgöra-lista</string>
   <string name="todo_comment_legend">Kommentar</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Försiktigt!</string>
@@ -698,6 +708,7 @@
   <string name="config_forceContextMenu_title">Använd alltid kontextmeny</string>
   <string name="config_forceContextMenu_summary">Visa alltid kontextmenyn om ett val är tvetydigt.</string>
   <string name="config_address_tags">Adresstaggar</string>
+  <string name="config_neighbourDistance_current">%1$d meter</string>
   <string name="config_enableNameSuggestions_title">Aktivera namnförslag</string>
   <string name="config_enableNameSuggestions_summary">Slå på förslag till namntaggen.</string>
   <string name="config_generateAlerts_title">Generera aviseringar</string>

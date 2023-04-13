@@ -1088,7 +1088,7 @@
   <string name="config_validatorprefs_summary">Validierungsregeln konfigurieren</string>
   <string name="config_connectedNodeTolerance_title">Toleranz für verbundene Knoten</string>
   <string name="config_connectedNodeTolerance_summary">Wenn ein Endknoten eines Wegs innerhalb dieses Abstands (in Meter) zum Weg liegt, sollte er mit diesem verbunden werden</string>
-  <string name="config_enabledValidations_title">Gültigkeitsprüfung aktiviert</string>
+  <string name="config_enabledValidations_title">Aktivierte Prüfungen</string>
   <string name="config_enabledValidations_summary">Aktivieren/Deaktivieren individueller Gültigkeitsprüfung</string>
   <!--opening hours templates-->
   <string name="config_opening_hours_title">Öffnungszeitenvorlage</string>
@@ -1179,6 +1179,9 @@
   <string name="config_overrideRegionAddressTags_summary">Diese Voreinstellungen für Adresseigenschaften anstatt regionsspezifische Werte verwenden</string>
   <string name="config_address_tags">Adressattribute</string>
   <string name="config_address_tags_summary">Für die Adressvorhersage verwendete Attribute</string>
+  <string name="config_neighbourDistance_title">Distanz zwischen benachbarten Adressen</string>
+  <string name="config_neighbourDistance_summary">Die Distanz bis zu der zwei Adressen angenommen wird, dass sie benachbart sind.</string>
+  <string name="config_neighbourDistance_current">%1$d Meter</string>
   <string name="config_enableNameSuggestions_title">Namensvorschläge</string>
   <string name="config_enableNameSuggestions_summary">Vorschläge für Namen einschalten</string>
   <string name="config_enableNameSuggestionsPresets_title">Vorlagen aus Namensvorschlägen</string>

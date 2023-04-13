@@ -6,7 +6,7 @@
   <string name="addr_postcode">Postleitzahl (addr:postcode)</string>
   <string name="addr_city">Stadt .. (addr:city)</string>
   <string name="addr_country">Land (addr:country)</string>
-  <string name="addr_full">Volle Adresse (addr:full)</string>
+  <string name="addr_full">Komplette Adresse (addr:full)</string>
   <string name="addr_place">Ort (addr:place)</string>
   <string name="addr_block">Block (addr:block)</string>
   <string name="addr_block_number">Blocknummer (addr:block_number)</string>

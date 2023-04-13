@@ -1179,6 +1179,9 @@
   <string name="config_overrideRegionAddressTags_summary">از پیکربندی برچسب نشانی ما در مقادیر خاص منطقه استفاده کنید</string>
   <string name="config_address_tags">برچسب‌های نشانی</string>
   <string name="config_address_tags_summary">برچسب‌هایی که برای پیش‌بینی نشانی به کار می‌روند.</string>
+  <string name="config_neighbourDistance_title">فاصله بین آدرس‌های همسایه</string>
+  <string name="config_neighbourDistance_summary">فاصله‌ای که دو آدرس به عنوان همسایه‌های بالقوه در نظر گرفته می‌شوند</string>
+  <string name="config_neighbourDistance_current">%1$d متر</string>
   <string name="config_enableNameSuggestions_title">فعال‌سازی پیشنهادهای نام</string>
   <string name="config_enableNameSuggestions_summary">پیشنهادهای برچسب نام را فعال کنید.</string>
   <string name="config_enableNameSuggestionsPresets_title">فعال‌سازی پیش‌تنظیم‌های پیشنهاد نام</string>

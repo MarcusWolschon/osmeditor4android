@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="validations_entries">
+        <item>Objektum kora</item>
+        <item>FIXME címkék</item>
+        <item>Hiányzó címkék</item>
+        <item>highway=road típusú út</item>
+        <item>Hiányzó kapcsolattípus</item>
+        <item>Hiányzó angolszász mértékegységek</item>
+        <item>Érvénytelen objektum</item>
+        <item>Címkézetlen objektum</item>
+        <item>Nem kapcsolódó végpont</item>
+        <item>Egy pontból álló vonal</item>
+        <item>Üres kapcsolat</item>
+        <item>Kapcsolattag hiányzó szerepe</item>
+        <item>Hurokként egymásra hivatkozó kapcsolatok</item>
+        <item>Nem szabványos elemtípus</item>
+    </string-array>
+    </resources>

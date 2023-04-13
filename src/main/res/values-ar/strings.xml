@@ -64,6 +64,9 @@
   <string name="file_write_failed_message">لم يتمكن فيسبوتشي من تغيير الملف أو حفظه.</string>
   <string name="applying_osc_failed_title">فشل تطبيق ملف OSC</string>
   <string name="applying_osc_failed_message">على الأرجح لم تقم بتحميل كافة البيانات الأصلية المطلوبة لتطبيق التغييرات.</string>
+  <string name="duplicate_tag_key_title">مفاتيح متكررة</string>
+  <string name="duplicate_tag_key_message">لقد قمت بإضافة المفتاح التالي أكثر من مرة، ولابد لك من حل هذه المشكلة قبل أن تتمكن من المتابعة:</string>
+  <string name="select_file_picker_title">تحديد مستعرض الملفات</string>
   <!---->
   <string name="welcome_title">مرحبا بك</string>
   <string name="welcome_message">شكرا لك لتركيب فيسبوتشي.\n&lt;br&gt;&lt;br&gt;للبدء تحتاج إلى معرفة ثلاثة أشياء:\n&lt;ul&gt;&lt;li&gt;عند النقر على رمز القفل في الزاوية اليسرى العليا سيتم التبديل بين الوضعين (وضع التصفح) و وضع التحرير,&lt;/li&gt;&lt;li&gt;لتعديل خريطة الشارع المفتوح تحتاج في البداية إلى تحميل البيانات للمنطقة التي تريد تغيير شيء فيها أولا (التكبير للمنطقة التي ترغب بتعديلها),&lt;/li&gt;&lt;li&gt;لإضافة عنصر جديد: اضغط على الزر الأخضر الكبير وحدد ما تريد إضافته، ثم اضغط على الموضع الذي تريد أن يكون مكان العنصر موجود فيه.&lt;/li&gt;&lt;/ul&gt;\nأنت على استعداد للذهاب الآن للبدء في رسم الخرائط والمتعة!</string>
@@ -82,6 +85,7 @@
   <string name="progress_uploading_message">جارٍ الرفع...</string>
   <string name="progress_preset_message">يتم الآن تنزيل القالب...</string>
   <string name="progress_loading_preset_message">جارٍ تحميل قوالب الوسوم...</string>
+  <string name="progress_importing_file_message">جارٍ استيراد الملف ...</string>
   <string name="progress_running_message">تشغيل...</string>
   <string name="progress_oauth">تحميل حسابك على openstreetmap.org للحصول على تفويض OAuth...</string>
   <string name="progress_building_imagery_database">إنشاء قاعدة بيانات الصور...</string>
@@ -110,6 +114,7 @@
   <string name="upload_validation_error_empty_comment">يجب ألا يكون التعليق فارغًا</string>
   <string name="upload_validation_error_empty_source">يجب ألا يكون المصدر فارغًا</string>
   <!--Review changes dialog-->
+  <string name="review_changes_title">مراجعة التغييرات</string>
   <!--Upload GPX-->
   <string name="upload_gpx_title">رفع مسار GPX</string>
   <string name="upload_gpx_description_label">وصف</string>
@@ -174,6 +179,7 @@
   <string name="toast_todo_all_closed">تم إغلاق جميع المهام للعنصر</string>
   <string name="toast_todo_already_in_list">العنصر موجود بالفعل في قائمة المهام هذه</string>
   <string name="toast_no_open_todos">لا يوجد مهام لإنجازها</string>
+  <string name="toast_no_todos_in_list">لا توجد مهام في القائمة المحددة</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">انتبه!</string>
   <string name="unsaved_data_message">إذا قمت بالمتابعة سيتم تجاهل التغييرات التي لم يتم حفظها.</string>
@@ -371,7 +377,10 @@
   <string name="layer_data">بيانات خرائط الشارع المفتوحة</string>
   <string name="layer_data_name">%1$s بيانات</string>
   <string name="layer_flush_tile_cache">مسح ذاكرة التخزين المؤقت للخرائط المصورة</string>
+  <string name="layer_change_style">تغيير النمط ...</string>
+  <string name="layer_load_style">تشغيل النمط ...</string>
   <string name="layer_reset_style">إعادة ضبط النمط</string>
+  <string name="layer_select_imagery">تحديد الخريطة المصورة ...</string>
   <string name="layer_category_all">الكل</string>
   <string name="layer_category_photo">الصور الجوية</string>
   <string name="layer_category_elevation">أرضية</string>
@@ -381,6 +390,11 @@
   <string name="layer_category_osmbasedmap">خريطة قائمة على OSM</string>
   <string name="layer_category_qa">ضمان الجودة</string>
   <string name="layer_category_other">آخر</string>
+  <string name="layer_add_layer_from_mvt_style">إضافة طبقة من نمط MVT ...</string>
+  <string name="layer_add_custom_imagery">إضافة خرائط مصورة أخرى ...</string>
+  <string name="layer_edit_custom_imagery_configuration">ضبط الخرائط المصورة الأخرى ...</string>
+  <string name="layer_add_gpx">إضافة طبقة من ملف GPX ...</string>
+  <string name="layer_download_track">تنزيل مسار GPX ...</string>
   <string name="layer_available_tracks">مسارات GPX المتاحة</string>
   <string name="layer_start_playback">ابدأ التشغيل</string>
   <string name="layer_pause_playback">وقف مؤقت للتشغيل</string>
@@ -397,6 +411,8 @@
   <string name="layer_info_privacy_policy">سياسة الخصوصية</string>
   <string name="projection">إسقاط الخريطة</string>
   <string name="errors">الأخطاء</string>
+  <string name="layer_info_layer_not_available">معلومات الطبقة غير متوفرة</string>
+  <string name="layer_info_no_meta_data">لم يتم تحميل البيانات الوصفية</string>
   <!--Mapillary layer-->
   <string name="mapillary_image">%1$s مابلاري </string>
   <!--Photo viewer-->
@@ -457,6 +473,10 @@
   <string name="tip_alternative_tagging">لقد قمت للتو بتطبيق إعداد مسبق (قالب) يحتوي على روابط لوضع وسوم بديلة. هذه طرق أخرى لتمييز هذا الكائن والتي قد تكون أكثر ملاءمة أو قد تكون مرتبطة ببساطة. ستظهر هذه القوالب البديلة في الجزء العلوي من أحدث عرض تم استخدامه مسبقًا.</string>
   <string name="tip_mode_switching">يتضاعف زر القفل كمبدل للوضع ، وعند الضغط عليه لفترة طويلة ستظهر قائمة بها خيارات مختلفة.&lt;p&gt;كما يمكنك العثور على مزيد من المعلومات حول أوضاع فسبوتشي في نظام المساعدة ، سواء في المقدمة أو في المساعدة لعرض الخريطة الرئيسية.</string>
   <string name="tip_empty_gpx_download">نظرًا لوجود خلل في OSM API، يجب أن تكون نقطة البداية لمسار GPX في الاعتبار حتى يمكن العثور عليها للتنزيل.</string>
+  <string name="tip_no_redo">هذا الوضع لا يدعم إعادة إضافات العقدة، في الوقت الحالي.</string>
+  <string name="tip_way_splitting">المس عقدة مظللة لتحديد موضع الانقسام، كما ستتيح لك اللمسة الطويلة تحديد الجزء المستخدم للطريق الجديد في خطوة أخرى.</string>
+  <string name="tip_closed_way_splitting">يجب تقسيم الطريق المغلق إلى مكانين. المس العقدة المظللة لتحديد موضع الانقسام الأول، وفي الخطوة التالية سيطلب منك تحديد موضع الانقسام الثاني.</string>
+  <string name="tip_disambiguation_menu">عندما تتواجد عدة عناصر أو كائنات أخرى قريبة جدًا من بعضها أو عندما تكون العناصر أعضاء في علاقة ما، سيعرض لك التطبيق قائمة توضيحية، يمكنك بعد ذلك تحديد العنصر الذي تقصده من القائمة.&lt;p&gt;وعندما يكون العنصر محدداً، فسيتم تمييزه عن بقية العناصر.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -483,6 +503,7 @@
   <string name="toast_url_empty">أدخل عنوان URL</string>
   <string name="toast_min_zoom">تعيين الحد الأدنى للتكبير أقل من الحد الأقصى</string>
   <string name="toast_tile_layer_exists">مصدر الصور المتجانبة %1$s له نفس عنوان الرابط</string>
+  <string name="toast_styleable_layer_exists">توجد طبقة لـ%1$s</string>
   <string name="toast_no_changes">لم تقم بتغير أي شيء حتى الآن...</string>
   <string name="toast_jpeg_not_transparent">ملفات JPEG ليست شفافة ولا يمكن استخدامها كطبقة</string>
   <string name="toast_unsupported_projection">إسقاط غير مدعوم  %1$s.\n\nالإسقاطات EPSG:3857, EPSG:4326 وغيرها من المرادفات هي المدعومة.</string>
@@ -616,6 +637,7 @@
   <string name="toast_task_layer_disabled">تم تعطيل طبقة المهمة</string>
   <string name="toast_unable_to_create_task_layer">تعذر إنشاء طبقة المهمة</string>
   <string name="toast_merged">مندمجة</string>
+  <string name="toast_invalid_style_file">ملف النمط غير صالح %1$s\n%2$s</string>
   <string name="toast_no_geometry">لم يتم العثور على هندسة للعنصر</string>
   <string name="toast_added_api_entry_for">تمت إضافة إدخال API لـ%1$s</string>
   <string name="toast_updated">تم تحديث %1$s</string>
@@ -626,6 +648,7 @@
   <string name="toast_error_reading">قراءة خاطئة لـ%1$s</string>
   <string name="toast_read_successfully">تمت قراءة الملف بنجاح</string>
   <string name="toast_error_writing">خطأ في الكتابة %1$s</string>
+  <string name="toast_successfully_written">تم كتابة %1$s بنجاح</string>
   <string name="toast_http_data_error_for">خطأ بيانات HTTP لـ%1$s</string>
   <string name="toast_error_insufficient_space_for">لا توجد مساحة كافية على الجهاز لـ%1$s</string>
   <string name="toast_error_too_many_redirects_for">عمليات إعادة توجيه كثيرة جدًا لـ%1$s</string>
@@ -672,6 +695,8 @@
   <string name="toast_url_check">%1$s %2$d</string>
   <string name="toast_url_check_with_msg">%1$s %2$d %3$s</string>
   <string name="toast_unexpected_element">تم النقر على عنصر غير متوقع:\n%1$s</string>
+  <string name="toast_import_destination_exists">وجهة الاستيراد موجودة بالفعل</string>
+  <string name="toast_part_selection_not_supported">اختيار جزء الطريق غير مدعوم للطرق المغلقة</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">مصادر MapSplit تتطلب تحديد الحد الأدنى والحد الأقصى للتكبير</string>
   <string name="error_pbf_no_version">معلومات الإصدار مفقودة في ملف PBF</string>
@@ -818,13 +843,16 @@
   <string name="position_info_title">معلومات الموقع الحالي</string>
   <string name="position_info_hdop">HDOP</string>
   <string name="position_info_altitude">ارتفاع</string>
+  <string name="position_info_geoid_height">الارتفاع فوق\n الجيود</string>
   <string name="position_info_barometric_height">ارتفاع بارومتري</string>
   <string name="position_info_geoid_correction">تصحيح الجيودي</string>
+  <string name="position_info_ellipsoid_height">الارتفاع فوق\nالشكل البيضاوي</string>
   <!--Strings in DownloadActivity-->
   <string name="download_files_title">تحميل ملفات</string>
   <string name="allow_all_networks">السماح لجميع الشبكات</string>
   <!--Strings in Go to coordinates-->
   <string name="go_to_coordinates_title">انتقل إلى الإحداثيات</string>
+  <string name="go_to_coordinates_hint">إحداثيات (خط الطول/العرض) أو OLC</string>
   <string name="unparseable_coordinates">إحداثيات غير قابل للتحليل</string>
   <string name="network_required">لابد من توفر اتصال للبحث عن الموقع</string>
   <string name="no_nominatim_server">لم يتم العثور على خادم Nominatim بشكل مهيأ</string>
@@ -862,9 +890,13 @@
   <string name="menu_gps_goto_last_edit">انتقل إلى التعديل الأخير</string>
   <string name="menu_gps_position_info">معلومات الموقع الحالي</string>
   <string name="menu_gps_start">ابدأ مسار GPX</string>
+  <string name="menu_gps_resume">استئناف مسار GPX</string>
   <string name="menu_gps_pause">إيقاف تتبع GPX</string>
   <string name="menu_gps_clear">مسح مسار GPX ونقاط الطريق الخاصة به</string>
   <string name="menu_gps_track_managment">إدارة مسار GPX...</string>
+  <string name="menu_gps_upload">رفع مسار GPX ...</string>
+  <string name="menu_gps_export">تصدير مسار GPX ...</string>
+  <string name="menu_gps_import">استيراد مسار GPX ...</string>
   <string name="menu_gps_goto_start">انتقل إلى بداية مسار GPX</string>
   <string name="menu_gps_goto_first_waypoint">انتقل إلى نقطة المسار الأولى</string>
   <string name="menu_enable_gps_autodownload">تنزيل تلقائي بناء على موقعك الحالي</string>
@@ -874,6 +906,8 @@
   <string name="menu_transfer_download_replace">مسح وتنزيل العرض الحالي</string>
   <string name="menu_transfer_load_current">تحميل العرض الحالي</string>
   <string name="menu_transfer_load_replace">مسح وتحميل العرض الحالي</string>
+  <string name="menu_transfer_upload">رفع البيانات إلى خادم OSM ...</string>
+  <string name="menu_transfer_review">مراجعة التغييرات ...</string>
   <string name="menu_transfer_update">تحديث البيانات</string>
   <string name="menu_transfer_data_clear">إمسح البيانات</string>
   <string name="menu_transfer_close_changeset">إغلاق مجموعة التغييرات الحالية</string>
@@ -915,6 +949,7 @@
   <string name="menu_select_way_nodes">حدد عقد الطريق</string>
   <string name="menu_newnode_gps">عقدة جديدة في موقع GPS</string>
   <string name="menu_extend_selection">توسيع التحديد</string>
+  <string name="menu_information">معلومات…</string>
   <string name="menu_voice_commands">الاوامر صوتية</string>
   <string name="menu_upload_element">رفع العنصر</string>
   <string name="menu_upload_elements">رفع العناصر</string>
@@ -927,6 +962,7 @@
   <string name="menu_tools_imagery">المزيد من أدوات الصور...</string>
   <string name="menu_tools_add_imagery_from_oam">أضف صورًا من خريطة الشارع المفتوحة</string>
   <string name="menu_tools_flush_all_tile_caches">مسح جميع محفوظات ذاكرة صور الخرائط</string>
+  <string name="menu_tools_background_properties">خصائص الخلفية ...</string>
   <string name="menu_tools_update_imagery_configuration">تحديث التكوينات</string>
   <string name="menu_tools_update_imagery_configuration_eli">تحديث التكوينات من ELI</string>
   <string name="menu_tools_zoom_to_layer_extent">تكبير لمدى طبقة الخلفية</string>
@@ -934,6 +970,7 @@
   <string name="menu_tools_calibrate_height">معايرة مستشعر الضغط ...</string>
   <string name="menu_tools_install_egm">قم بتثبيت EGM</string>
   <string name="menu_tools_remove_egm">إزالة EGM</string>
+  <string name="menu_tools_import_data_style">استيراد نمط البيانات ...</string>
   <string name="menu_tools_load_keys">تحميل مفاتيح من ملف ...</string>
   <!---->
   <string name="menu_simple_actions">الوضع البسيط</string>
@@ -954,6 +991,9 @@
   <string name="distance_km">%1$.3f كم</string>
   <!--Menus in layers dialog-->
   <string name="menu_layers">طبقات...</string>
+  <string name="menu_layers_load_geojson">إضافة طبقة GeoJSON ...</string>
+  <string name="menu_layers_add_backgroundlayer">إضافة طبقة مصورة كخلفية ...</string>
+  <string name="menu_layers_add_overlaylayer">إضافة طبقة مصورة متراكبة ...</string>
   <string name="menu_layers_add_tasklayer">تمكين طبقة المهام</string>
   <string name="menu_layers_add_grid">تمكين المسطرة</string>
   <string name="menu_layers_add_photolayer">تفعيل طبقة الصورة</string>
@@ -1004,7 +1044,14 @@
   <string name="actionmode_newnoteselect">تم تحديد ملاحظة جديدة</string>
   <string name="actionmode_add_segment">أضف جزء</string>
   <string name="actionmode_reselect_first_segment">أعد تحديد الجزء الأول</string>
+  <string name="actionmode_split_way">تقسيم الطريق</string>
+  <string name="actionmode_split_closed_way">تقسيم طريق مغلق</string>
   <!--EasyEdit action mode sub-titles-->
+  <string name="actionmode_closed_way_split_1">تحديد العقدة الأولى</string>
+  <string name="actionmode_closed_way_split_2">تحديد العقدة الثانية</string>
+  <string name="actionmode_split_way_node_selection">تحديد العقدة</string>
+  <string name="actionmode_split_way_select_part">حدد جزء للطريق الجديد</string>
+  <string name="actionmode_select_node_to_append_to">حدد عقدة للإلحاق بها</string>
   <string name="actionmode_restriction">أضف قيود الانعطاف</string>
   <string name="actionmode_restriction_restart_from">إعادة تحديد \"من\" الجزء</string>
   <string name="actionmode_restriction_select_from">حدد \"من\" الجزء</string>
@@ -1032,6 +1079,9 @@
   <string name="menu_add_node_address">أضف عقدة العنوان</string>
   <string name="menu_add_address_interpolation">إضافة عنوان الاستيفاء</string>
   <string name="menu_add_way">أضف الطريق</string>
+  <string name="add_node_instruction">اضغط على المكان</string>
+  <string name="add_way_start_instruction">اضغط على المركز الأول للبدء</string>
+  <string name="add_way_node_instruction">اضغط على موضع العقدة التالي</string>
   <string name="menu_add_map_note">أضف ملاحظة على الخريطة</string>
   <string name="simple_add_note">اضغط على موضع الشاشة</string>
   <string name="menu_paste_object">لصق العنصر</string>
@@ -1101,6 +1151,8 @@
   <string name="config_useInternalPhotoViewer_summary">استخدم عارض الصورة المدمج، إذا لم يتم تحديده فسيتم استخدام عارض خارجي.</string>
   <string name="config_indexMediaStore_summary">بالإضافة إلى استخدام متجر الوسائط للوصول إلى الصور</string>
   <string name="config_indexMediaStore_title">استخدم متجر الوسائط</string>
+  <string name="config_followGPSbutton_title">تخطيط زر متتبع الموقع</string>
+  <string name="config_followGPSbutton_summary">حيث سيتم وضع زر \"تتبع الموقع\".</string>
   <string name="config_alwaysDrawBoundingBoxes_title">قم دائمًا بتعتيم المناطق التي لم يتم تنزيلها</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">جعل المناطق التي لم يتم تنزيلها خافته في وضع القفل.</string>
   <string name="config_fullscreenMode_title">وضع ملء الشاشة</string>
@@ -1159,6 +1211,7 @@
   <string name="config_overrideRegionAddressTags_summary">استخدم تكوين وسم العنوان الخاص بنا فوق أي قيم محددة للمنطقة</string>
   <string name="config_address_tags">وسوم العنوان</string>
   <string name="config_address_tags_summary">الوسوم المستخدمة للتنبؤ بالعنوان.</string>
+  <string name="config_neighbourDistance_current">%1$d متر (أمتار)</string>
   <string name="config_enableNameSuggestions_title">تفعيل اقتراحات الأسماء</string>
   <string name="config_enableNameSuggestions_summary">تشغيل الاقتراحات لوسم الاسم.</string>
   <string name="config_enableNameSuggestionsPresets_title">تفعيل اقتراح الاسم من خلال القوالب</string>

@@ -1,4 +1,4 @@
-_Before we start: most screens have links in the menu to the on-device help system giving you direct access to information relevant for the current context, you can easily navigate back to this text too. If you have a larger device, for example a tablet, you can open the help system in a separate split window.  All the help texts and more (FAQs, tutorials) can be found on the [Vespucci documentation site](https://vespucci.io/) too._
+_Voordat we beginnen: de meeste schermen hebben links in het menu naar het hulp-systeem van het apparaat, wat directe toegang geeft tot relevante informatie in de huidige context. Je kunt de hulptekst gemakkelijk terugvinden. Grotere apparaten, zoals een tablet, kunnen het hulp-systeem openen in een los paneel. Alle hulp text en meer (FAQs, lessen) kunnen ook op de [Vespucci documentatiepagina](https://vespucci.io/) worden gevonden._
 
 # Vespucci Introductie
 
@@ -37,11 +37,11 @@ Om onbedoelde veranderingen te voorkomen, start Vespucci in "vergendelde" modus,
 
 Door lang te klikken op het vergrendel-icoon, zal een menu met 4 opties worden getoond:
 
-* **Normal** - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.
-* **Tag only** - selecting an existing object will start the Property Editor, a long press on the main screen will add objects, but no other geometry operations will work. White lock icon with a "T" is displayed.
-* **Address** - enables Address mode, a slightly simplified mode with specific actions available from the [Simple mode](../en/Simple%20actions.md) "+" button. White lock icon with an "A" is displayed.
-* **Indoor** - enables Indoor mode, see [Indoor mode](#indoor). White lock icon with an "I" is displayed.
-* **C-Mode** - enables C-Mode, only objects that have a warning flag set will be displayed, see [C-Mode](#c-mode). White lock icon with a "C" is displayed.
+* **Normaal** - de standaard wijzigmodus, nieuwe objecten kunnen worden toegevoegd, bestaande objecten kunnen worden gewijzigd, verplaatst en verwijderd. Simpel wit slot icoon wordt weergegeven.
+* **Alleen tag** - het selecteren van een object laat de Eigenschappen Bewerker zien, een lange klik op het hoofdscherm voegt objecten toe maar andere geometische opties zijn uitgeschakeld. Een wit slot icoon met een "T" wordt weergegeven.
+* **Adres** - schakelt Adres-modus in, een licht versimpelde versie met specifieke acties vanuit de [Simpele modus](../en/Simple%20actions.md) "+" knop. Wit slot icoon met een "A" wordt weergegeven.
+* **Binnen** - zet de Binnenmodus aan, zie [Binnemmodus](#indoor). Wit slot icoon met een "I" wordt weergegeven.
+* **C-Modus** - zet de C-Modus aan, alleen objecten met een waarschuwing worden weergegeven, zie [C-Modus](#c-mode). Wit slot icoon met een "C" wordt weergegeven.
 
 #### Enkele tik, dubbele tik en lange tik
 
@@ -77,7 +77,7 @@ Voor overlappende objecten (zoals een knoop op een weg) wordt het selectiemenu e
 
 #### Geselecteerde objecten: Knoop of weg verplaatsen
 
-Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the [preferences](Preferences.md), you get a large area around the selected node that makes it easier to position the object. 
+Als je een object hebt geselecteerd, dan kan het worden verplaatst. Objecten kunnen alleen worden verplaatst als ze zijn geselecteerd. Sleep dichtbij (dus binnen de tolerantie zone van) het geselecteerde object om het te verplaatsen. Als je een grote sleepoppervlakte selecteert in de [instellingen]](Preferences.md), dan krijg je een grote oppervlakte rond de geselecteerde knoop waarmee het gemakkelijker geplaatst kan worden. 
 
 #### Een nieuwe Knoop/Punt of Weg toevoegen 
 
@@ -110,9 +110,9 @@ Je kan ook een menu item gebruiken: Zie [Nieuwe objecten maken](Creating%20new%2
 
 OpenStreetMap heeft op het moment geen "oppervlakte" object type zoals andere geo-data systemen. De online bewerker "iD" probeert een abstractie te maken van de onderliggende OSM elementen waarmee wordt gewerkt. Dat werkt goed in sommige omstandigheden en minder goed in andere. Vespucci probeert dat niet, dus je zult iets moeten weten over hoe weg-oppervlaktes worden voorgesteld:
 
-* _closed ways (*polygons")_: the simplest and most common area variant, are ways that have a shared first and last node forming a closed "ring" (for example most buildings are of this type). These are very easy to create in Vespucci, simply connect back to the first node when you are finished with drawing the area. Note: the interpretation of the closed way depends on its tagging: for example if a closed way is tagged as a building it will be considered an area, if it is tagged as a roundabout it wont. In some situations in which both interpretations may be valid, an "area" tag can clarify the intended use.
-* _multi-polygons_: some areas have multiple parts, holes and rings that can't be represented with just one way. OSM uses a specific type of relation (our general purpose object that can model relations between elements) to get around this, a multi-polygon. A multi-polygon can have multiple "outer" rings, and multiple "inner" rings. Each ring can either be a closed way as described above, or multiple individual ways that have common end nodes. While large multi-polygons are difficult to handle with any tool, small ones are not difficult to create in Vespucci. 
-* _coastlines_: for very large objects, continents and islands, even the multi-polygon model doesn't work in a satisfactory way. For natural=coastline ways we assume direction dependent semantics: the land is on the left side of the way, the water on the right side. A side effect of this is that, in general, you shouldn't reverse the direction of a way with coastline tagging. More information can be found on the [OSM wiki](http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline).
+* _gesloten wegen (*polygonen")_: de simpelste en meest voorkomende oppervlaktevariant zijn wegen die een gedeelde begin- en eindknoop hebben zodat ze een gesloten "ring" vormen (bijvoorbeeld de meeste gebouwen zijn van dit type). Deze zijn gemakkelijk om te maken in Vespucci: verbind de laatste knoop met de eerste knoop als je klaar bent met het tekenen van een oppervlakte. De interpretatie van een gesloten weg hangt af van de tags: bijvoorbeeld als een gesloten weg als een gebouw is getagd zal het worden beschouwd als een oppervlakte, maar als het een rotonde is niet. In sommige situaties zijn beide interpretaties geldig, en kan een "area" tag worden gebruikt om het bedoelde gebruik aan te  geven.
+* _multi-ploygonen_: sommige oppervlaktes hebben meerdere onderdelen, gaten en ringen die niet door een enkele weg worden gerepresenteerd. OSM gebruikt een specifiek type relatie (ons algemene object dat relaties dussen elementen kan modelleren) om hier omheen te werken, een multi-polygoon. Een multi-polygoon kan meerdere "buitenringen" en meerdere "binnenringen" hebben. Elke ring kan een gesloten weg zijn zoals hierboven is beschreven, of meerdere losse wegen met gedeelde eindknopen. Hoewel grote multi-polygonen moeilijk te bewerken zijn in elke tool, zijn kleine goed te maken in in Vespucci. 
+* _kustlijnen_: voor hele grote objecten, zoals continenten of eilanden, werkt het multi-polygon model niet meer. Voor natural=coastline wegen wordt een richtingsafhankelijke semantiek aangenomen: het land ligt aan de linkerkant en het water ligt aan de rechterkant. Een bij-effect van dit model is dat je in het algemeen de richting van een kustlijn weg niet moet omkeren. Zie voor meer informatie de [OSM wiki](http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline).
 
 #### Verbeteren van Weg Geometrie
 
@@ -124,19 +124,19 @@ Je kan geselecteerde knopen of wegen kopiëren of knippen, en ze daarna eens of 
 
 #### Efficiënt Adressen Toevoegen
 
-Vespucci supports functionality that makes surveying addresses more efficient by predicting house numbers (left and right sides of streets separately) and automatically adding _addr:street_ or _addr:place_ tags based on the last used value and proximity. In the best case this allows adding an address without any typing at all.   
+Vespucci ondersteunt functionaliteit om het vastleggen van adressen efficiënter te maken, door huisnummers te voorspellen (linker- en rechterkant van de straat los van elkaar) en automatisch _addr:street_ of _addr:place_ tags toe te voegen op basis van de laatst gebruikte waarden en nabijheid. In het beste geval kunnen adressen worden toegevoegd zonder te typen.   
 
-Adding the tags can be triggered by pressing ![Address](../images/address.png): 
+De tags toevoegen kan worden gedaan door te tikken op ![Adres](../images/address.png): 
 
-* after a long press (in non-simple mode only): Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add an "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.
-* in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.
-* in the property editor.
+* na een lange klik (alleen niet-simpele modus): Vespucci zal een knoop toevegen op de locatie en een schatting maken van het huisnummer en adres tags toevoegen aan de hand van de laatstgebruikte tags. Als de knoop op de buitenkant van een gebouw ligt zal automatisch een "entrance=yes" tag aan de knoop worden toegekend. De tag bewerker zal worden geopend voor het object zodat je verdere wijzigingen kan maken.
+* in de knoop/weg geselecteerde modi: Vespucci zal adres tags toevoegen zoals hierboven beschreven en de tag bewerker tonen.
+* in de tag bewerker.
 
-To add individual address nodes directly while in the default "Simple mode" switch to "Address" editing mode (long press on the lock button), "Add address node" will then add an address node at the location and if it is on a building outline add a entrance tag to it as described above.
+Om losse adres-knopen direct in te voeren tijdens het gebruik van de "Simpele modus", wissel naar "Adres modus" (lange tik op het slot-icoon). De "Voeg adres-knoop toe" voegt dan een adres-knoop toe op de locatie. Als de knoop binnen een gebrouw ligt, kan een ingangs-tag worden toegekend zoals hierboven beschreven.
 
 Huisnummervoorspelling heeft normaal gesproken ten minste twee huisnummers aan beide kanten van de weg nodig om goed te werken. Hoe meer huisnummers zijn ingevoerd, hoe beter.
 
-Consider using this with one of the [Auto-download](#download) modes.  
+Er wordt geadviseerd om dit samen met een van de [Auto-download](#download) modi te gebruiken.  
 
 #### Toevoegen van Afslagbeperkingen
 
@@ -168,15 +168,15 @@ Om je werk op te slaan zonder internettoegang, kan je naar een JOSM compatible .
 
 Vespucci heeft een simpele conflict-oplosser. Bij een vermoeden van grote problemen men je bewerkingen, exporteer je wijzigingen naar een .osc file ("Exporteren" menu item in het "Overbrengen" menu) en repareer en upload ze met JOSM. Zie de gedetaileerde hulp bij [conflicten oplossen](Conflict%20resolution.md).  
 
-## Using GPS and GPX tracks
+## Het gebruik van GPS en GPX routes
 
-With standard settings Vespucci will try to enable GPS (and other satellite based navigation systems) and will fallback to determining the position via so called "network location" if this is not possible. This behaviour assumes that you in normal use have your Android device itself configured to only use GPX generated locations (to avoid tracking), that is you have the euphemistically named "Improve Location Accuracy" option turned off. If you want to enable the option but want to avoid Vespucci falling back to "network location", you should turn the corresponding option in the [Advanced preferences](Advanced%20preferences.md) off. 
+Met standaard instellingen zal Vespucci GPS (en andere satellietgebaseerde navigatiesystemen) proberen in te schakelen, en terugvallen op het bepalen van de locatie via "netwerk locatie". Dit gedrag neemt aan dat tijdens normaal gebruik het Android apparaat is geconfigureerd om alleen GPX gegenereerde locaties te gebruiken (om tracking te voorkomen), en dus dat de "Verbeterde Locatiebepaling" optie is uitgeschakeld. Als je deze optie wilt inschakelen, maar niet wilt dat Vespucci terugvalt op "netwerk locatie", kan je de optie uitzetten in de [Geavanceerde instellingen](Advanced%20preferences.md). 
 
-Touching the ![GPS](../images/menu_gps.png) button (on the left hand side of the map display) will center the screen on the current position and as you move the map display will be padded to maintain this.  Moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch GPS button or re-check the equivalent menu option. If the device doesn't have a current location the location marker/arrow will be displayed in black, if a current location is available the marker will be blue.
+Het aantikken van de ![GPS](../images/menu_gps.png) knop (aan de linkerkant van de kaart) zal het scherm centreren op de huidige locatie. Bij beweging zal de kaartweergave worden verplaatst om gecentreerd te blijven. Handmatig slepen van de kaart of wijzigingen maken zorgt ervoor dat de "volg GPS"-modus wordt uitgeschakeld en de blauwe GPS-pijl van een omlijning naar een gevulde pijl verandert. Om de "volg"-modus weer aan te zetten kan op de GPS-knop worden getikt, of de relevante menu optie worden aangevinkt. Als het apparaat geen huidige locatie beschikbaar heeft, zal de pijl in het zwart worden weergegeven. Als er een huidige locatie beschikbaar is zal de pijl blauw worden.
 
-To record a GPX track and display it on your device select "Start GPX track" item in the ![GPS](../images/menu_gps.png) menu. This will add layer to the display with the current recorded track, you can upload and export the track from the entry in the [layer control](Main%20map%20display.md). Further layers can be added from local GPX files and tracks downloaded from the OSM API.
+Om een GPX-route op te nemen en hem op het apparaat weer te geven, selecteer "Start GPX-route" in het ![GPS](../images/menu_gps.png) menu. Dit voegt een laag toe aan de weergave met de huidige opgenomen route. De route kan worden geüpload en geëxporteerd via de menu optie in [lagen configuratie](Main%20map%20display.md). Andere lagen kunnen worden toegevoegd van lokale GPX-bestanden of gedownload van de OSM API.
 
-Note: by default Vespucci will not record elevation data with your GPX track, this is due to some Android specific issues. To enable elevation recording, either install a gravitational model, or, simpler, go to the [Advanced preferences](Advanced%20preferences.md) and configure NMEA input.
+Let op: standaard zal Vecpucci geen hoogtegegevens opnemen in de GPX-route, wegens Android-specifieke problemen. Om hoogtegegevens toch op te nemen kan een zwaartekrachtmodel worden geïnstalleerd, of simpeler: ga naar de [Geavanceerde instellingen](Advanced%20preferences.md) en configureer NMEA invoer.
 
 ## Notities and Bugs
 
@@ -188,14 +188,14 @@ De OSMOSE Bug weergave laat een blauwe link zien naar het beïnvloede object. Kl
 
 ### Filteren
 
-Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. The filter configuration can be accessed from the task layer entry in the [layer control](#layers):
+Behalve het globaal activeren van de weergave van Notities en Bugs, kan je een grove weergavefilter instellen om rommel te voorkomen. De filterconfiguratie kan worden gevonden van de takenlaag [laag configuratie](#layers):
 
-* Notes
-* Osmose error
-* Osmose warning
-* Osmose minor issue
+* Notities
+* Osmose fout
+* Osmose waarschuwing
+* Osmose klein probleem
 * Maproulette
-* Custom
+* Anders
 
 <a id="indoor"></a>
 
@@ -215,7 +215,7 @@ De modus kan worden aangezet door lang te klikken op de slot knop, zie [Vergende
 
 ### Configureren van controles
 
-Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the [preferences](Preferences.md). 
+Op het moment zijn er twee configureerbare controles (een controle voor FIXME en een controle voor missende type tags op relaties die niet configureerbaar zijn). Beide kunnen worden geconfigureerd door "Validator instellingen" te selecteren in de [instellingen](Preferences.md). 
 
 De lijst is in tweën gesplitst. De bovenste helft toont "opniew bekijken" items en de onderkant toont "check" items. Items kunnen worden gewijzigd door erop te klikken. Met de groene menu knop kunnen nieuwe items worden toegevoegd.
 
@@ -236,8 +236,8 @@ De _Annotaties_ groep in de standaard voorkeuzes bevatten een item dat automatis
 
 Check items hebben de volgende eigenschappen:
 
-* **Key** - Key that should be present on the object according to the matching preset.
-* **Require optional** - Require the key even if the key is in the optional tags of the matching preset.
+* **Waarde** - Waarde die aanwezig moet zijn op het object volgens de gekoppelde voorkeuze.
+* **Vereis optioneel** - Vereis dat de sleutel aanwezig is in de optionele tags van de voorkeuze.
 
 Deze check werkt door eerst de voorkeuze te achterhalen en dan te checken of **Sleutel** is een "aanbevolen" sleutel voor dit object volgens de voorkeuze, **Vereis optioneel** zal de check uitbreiden naar tags die "optioneel" zijn op het object. Let op: gekoppelde voorkeuzes worden niet gecheckt.
 
@@ -263,16 +263,16 @@ Lagen instellingen kunnen worden aangepast via de lagen instellingen knop ("hamb
 
 Beschikbare laagtypes:
 
-* Data layer - this is the layer OpenStreetMap data is loaded in to. In normal use you do not need to change anything here. Default: on.
-* Background layer - there is a wide range of aerial and satellite background imagery available. The default value for this is the "standard style" map from openstreetmap.org.
-* Overlay layer - these are semi-transparent layers with additional information, for example GPX tracks. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
-* Notes/Bugs display - Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.
-* Photo layer - Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
-* Mapillary layer - Displays Mapillary segments with markers where images exist, clicking on a marker will display the image. Default: off.
-* GeoJSON layer - Displays the contents of a GeoJSON file. Default: off.
-* Grid - Displays a scale along the sides of the map or a grid. Default: on. 
+* Gegevenslaag - dit is de laag waarin OpenStreetMap gegevens worden geladen. Met normaal gebruik hoef je hier niets in te wijzigen. Standaard: aan.
+* Achtergrondlaag - er is een breed scala aan lucht- en sattelietfotografie beschikbaar. De standaardwaarde is de "standaard stijl" kaart van openstreetmap.org.
+* Overlaag - dit zijn half-doorzichtige lagen met extra informatie, zoals GPX tracks. Het toevoegen van een over laag kan problemen veroorzaken met oudere apparaten met beperkt geheugen. Standaard: geen.
+* Notities/Bugs weergave - Open Notities en Bugs worden weergegeven als geel insect icoon, gesloten net zo in groen. Standaard: aan.
+* Fotolaag. Toont locatiegebonden foto's als rode camera-iconen. Als richtingsinformatie beschikbaar is zal het icoon worden gedraaid Standaard: uit.
+* Mapillary laag - Toont Mapillary segmenten met markeringen waar afbeeldingen bestaan. Klikken op een markering toont de afbeelding. Standaard: uit.
+* GeoJSON laag - Displays the contents of a GeoJSON file. Default: off.
+* Raster - Toont een schaal langs de kanten van de kaart of een raster. Standaard: aan. 
 
-More information can be found in the section on the [map display](Main%20map%20display.md).
+Meer informatie kan worden gevonden op de [kaartweergave](Main%20map%20display.md).
 
 #### Instellingen
 

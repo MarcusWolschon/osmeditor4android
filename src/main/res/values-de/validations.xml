@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="validations_entries">
+        <item>Objektalter</item>
+        <item>FIXME Tags</item>
+        <item>Fehlende Tags</item>
+        <item>Highway mit \"road\" Wert</item>
+        <item>Kein Relationstyp</item>
+        <item>Fehlende imperiale Einheiten</item>
+        <item>Ungültiges Objekt</item>
+        <item>Objekt ohne Tags</item>
+        <item>Endknoten nicht verbunden</item>
+        <item>Weg mit fehlerhafter Geometrie</item>
+        <item>Leere Relation</item>
+        <item>Fehlende Rolle für ein Relationsmitglied</item>
+        <item>Relationsschleife</item>
+        <item>Ungewöhnlicher Elementtyp</item>
+    </string-array>
+    </resources>

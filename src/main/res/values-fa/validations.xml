@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="validations_entries">
+        <item>سن شیء</item>
+        <item>برچسب‌های FIXME</item>
+        <item>برچسب‌های گمشده</item>
+        <item>جاده بزرگراه</item>
+        <item>بدون نوع رابطه</item>
+        <item>واحدهای اندازه‌گیری بریتانیایی</item>
+        <item>شیء معتبر نیست</item>
+        <item>شیء بدون برچسب</item>
+        <item>گره انتهایی متصل نشده</item>
+        <item>راه مسدود شده</item>
+        <item>رابطهٔ تهی</item>
+        <item>نقش عضو رابطه گمشده</item>
+        <item>حلقه رابطه</item>
+        <item>نوع عنصر غیراستاندارد</item>
+    </string-array>
+    </resources>

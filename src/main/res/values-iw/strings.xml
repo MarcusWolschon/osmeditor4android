@@ -64,6 +64,7 @@
   <string name="applying_osc_failed_message">כנראה שלא טענת את הנתונים המקוריים שנדרשים לטובת החלת השינויים.</string>
   <string name="duplicate_tag_key_title">מפתחות כפולים</string>
   <string name="duplicate_tag_key_message">הוספת את המפתח הבא יותר מפעם אחת, יש לפתור את הסוגיה הזאת לפני שניתן יהיה להמשיך:</string>
+  <string name="select_file_picker_title">בחירת בורר קבצים</string>
   <!---->
   <string name="welcome_title">ברוך בואך</string>
   <string name="welcome_message">תודה לך על התקנת וספוצ׳י.\n&lt;br&gt;&lt;br&gt;כדי להתחיל עליך לדעת שלושה דברים:\n&lt;ul&gt;&lt;li&gt;נגיעה בסמל המנעול בפינה השמאלית העליונה תחליף בין מצב נעול (אין עריכה) לפתוח,&lt;/li&gt;&lt;li&gt;כדי לערוך את OpenStreetMap עליך להוריד תחילה את הנתונים עבור האזור שבו ברצונך לערוך שינויים (יש להתקרב לפני ניסיון ביצוע שינויים),&lt;/li&gt;&lt;li&gt;כדי להוסיף פריט חדש: יש לגעת בכפתור הירוק הגדול, לאחר מכן לגעת במיקום בו ברצונך למקם אותו.&lt;/li&gt;&lt;/ul&gt;\nההכנות הסתיימו. אפשר להתחיל למפות וליהנות!</string>
@@ -81,6 +82,7 @@
   <string name="progress_saving_message">מתבצעת שמירה…</string>
   <string name="progress_uploading_message">מתבצעת העלאה…</string>
   <string name="progress_preset_message">הערכה מתקבלת…</string>
+  <string name="progress_loading_preset_message">הערכה נטענת…</string>
   <string name="progress_importing_file_message">קובץ מיובא…</string>
   <string name="progress_running_message">מתבצעת הרצה…</string>
   <string name="progress_oauth">החשבון שלך ב־openstreetmap.org נטען לטובת אימות עם OAuth…</string>
@@ -153,6 +155,7 @@
   <string name="maproulette_task_apikey_set">מפתח ה־API של MapRoulette נשמר</string>
   <string name="maproulette_task_no_apikey">אין מפתח API של MapRoulette</string>
   <!--Todo dialogs-->
+  <string name="todo_list_legend">רשימת משימות</string>
   <string name="todo_comment_legend">תגובה</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">אזהרה!</string>
@@ -1055,6 +1058,7 @@
   <string name="config_overrideRegionAddressTags_title">דריסת תגית הכתובת כבררת מחדל</string>
   <string name="config_address_tags">תגיות כתובת</string>
   <string name="config_address_tags_summary">תגים בהם נעשה שימוש לחיזוי כתובות.</string>
+  <string name="config_neighbourDistance_current">%1$d מטר/ים</string>
   <string name="config_enableNameSuggestions_title">הפעלת הצעות שמות</string>
   <string name="config_enableNameSuggestions_summary">הפעלת הצעות לתגית שם.</string>
   <string name="config_enableNameSuggestionsPresets_title">הפעלת ערכת הצעות שמות</string>

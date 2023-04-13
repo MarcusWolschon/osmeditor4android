@@ -21,6 +21,8 @@
   <string name="upload_conflict_message_deleted">%1$s \nheeft lokale versie %2$d \nen is verwijderd op de server</string>
   <string name="upload_conflict_message_referential">%1$s \nwas lokaal verwijderd maar heeft nog verwijzingen op de server</string>
   <string name="upload_conflict_message_already_deleted">%1$s \nwas al verwijderd op de server</string>
+  <string name="upload_conflict_message_missing_references">%1$s \nlokale versie referenties \ndie niet aanwezig zijn op de server</string>
+  <string name="upload_conflict_message_unknown">%1$s \nheeft een onbekend uploadconflict veroorzaakt \n%2$s</string>
   <string name="use_local_version">Gebruik lokale versie</string>
   <string name="use_server_version">Gebruik versie op server</string>
   <string name="no_login_data_title">Kon niet authenticeren</string>
@@ -62,6 +64,9 @@
   <string name="file_write_failed_message">Vespucci kon het bestand niet aanpassen of opslaan.</string>
   <string name="applying_osc_failed_title">Het toepassen van het OSC bestand is mislukt</string>
   <string name="applying_osc_failed_message">Je hebt waarschijnlijk niet alle originele gegevens ingeladen die nodig is om de wijzigingen toe te passen.</string>
+  <string name="duplicate_tag_key_title">Dubbele tags</string>
+  <string name="duplicate_tag_key_message">Je hebt de volgende sleutel dubbel toegevoegd, dat moet worden opgelost voordat je verder kunt:</string>
+  <string name="select_file_picker_title">Selecteer bestandskeuze</string>
   <!---->
   <string name="welcome_title">Welkom</string>
   <string name="welcome_message">Bedankt voor het installeren van Vespucci.\n&lt;br&gt;&lt;br&gt;Om te beginnen moet je drie dingen weten:\n&lt;ul&gt;&lt;li&gt;tikken op het slot-icoon in de hoek linksboven schakelt tussen vergrendelde (geen bewerken) en ontgrendelde modus,&lt;/li&gt;&lt;li&gt;om OpenStreetMap te bewerken, moet je eerst gegevens downloaden voor het gebied waar je iets wilt wijzigen (zoom eerst in alvorens dat te proberen),&lt;/li&gt;&lt;li&gt;om nieuwe objecten toe te voegen: tik op de grote groene knop, en selecteer wat je wilt toevoegen, tik dan op de plek waar je het wilt toevoegen.&lt;/li&gt;&lt;/ul&gt;\nJe Je bent nu klaar om te beginnen. Begin met kaarten maken en veel plezier!</string>
@@ -79,11 +84,14 @@
   <string name="progress_saving_message">Opslaan…</string>
   <string name="progress_uploading_message">Uploaden…</string>
   <string name="progress_preset_message">Voorkeuzen downloaden…</string>
+  <string name="progress_loading_preset_message">Voorkeuzen laden...</string>
+  <string name="progress_importing_file_message">Bestand importeren...</string>
   <string name="progress_running_message">Uitvoeren…</string>
   <string name="progress_oauth">Laden van account op openstreetmap.org voor OAuth authorisatie...</string>
   <string name="progress_building_imagery_database">Opbouwen van afbeeldingengegevensbank…</string>
   <string name="progress_query_oam">OAM opvragen…</string>
   <string name="progress_pruning">Opschonen...</string>
+  <string name="progress_migration">Migreren...</string>
   <!--Confirm upload dialog-->
   <string name="changes_deleted">\"%1$s\" verwijderd</string>
   <string name="changes_changed">\"%1$s\" gewijzigd</string>
@@ -102,11 +110,13 @@
   <string name="upload_validation_error_empty_comment">Opmerking zou niet leeg moeten zijn</string>
   <string name="upload_validation_error_empty_source">Bron zou niet leeg moeten zijn</string>
   <!--Review changes dialog-->
+  <string name="review_changes_title">Controleer aanpassingen</string>
   <!--Upload GPX-->
   <string name="upload_gpx_title">Upload GPX-route</string>
   <string name="upload_gpx_description_label">Beschrijving</string>
   <string name="upload_gpx_tags_label">Tags</string>
   <string name="upload_gpx_visibility_label">Zichtbaarheid</string>
+  <string name="upload_validation_error_empty_description">Lege beschrijving</string>
   <!--Background properties-->
   <string name="background_properties_title">Achtergrondeigenschappen</string>
   <!--task fragment-->
@@ -118,6 +128,7 @@
   <string name="openstreetbug_comment_label">Opemerking:</string>
   <string name="openstreetbug_commit_ok">Taakwijzigingen opgeslagen</string>
   <string name="openstreetbug_commit_fail">Kon taakwijzigingen niet opslaan</string>
+  <string name="openstreetbug_commit_fail_with_message">Kon taakwijzigingen niet opslaan\n%1$s</string>
   <string name="openstreetbug_unknown_task_type">Onbekend taaktype</string>
   <string name="openstreetbug_not_supported">%1$s is niet ondersteund.</string>
   <string name="note_description">Notitie: %1$s - %2$s</string>
@@ -125,7 +136,14 @@
   <string name="bug_description_2">%1$s: %2$s %3$s - %4$s</string>
   <string name="generic_bug">Bug</string>
   <string name="osmose_bug">Osmose</string>
+  <string name="todo_title">Taak</string>
+  <string name="todo_description">Taak %1$s</string>
+  <string name="todo_list">Lijst %1$s</string>
+  <string name="todo_list_and_comment">Lijst %1$s&lt;br&gt;&lt;br&gt;%2$s</string>
+  <string name="todo">Taken</string>
+  <string name="select_todo_list">Selecteer takenlijst</string>
   <string name="bug_long_description_1">%1$s: %2$s&lt;br&gt;&lt;br&gt;%3$s&lt;br&gt;&lt;br&gt;%4$s&lt;br&gt;</string>
+  <string name="bug_long_description_2">&lt;br&gt;laatst gewijzigd:&lt;br&gt;%1$s&lt;br&gt;id: %2$s</string>
   <string name="bug_element_1">%1$s (niet gedownload) #%2$d</string>
   <string name="bug_element_2">%1$s %2$s</string>
   <string name="maproulette_task_title">MapRoulette Taak</string>
@@ -137,8 +155,23 @@
   <string name="maproulette_task_disable">Uitschakelen</string>
   <string name="maproulette_task_apikey_set">MapRoulette API-sleutel opgeslagen</string>
   <string name="maproulette_task_no_apikey">Geen MapRoulette API-sleutel</string>
+  <string name="maproulette_description">Maproulette: %1$s</string>
   <!--Todo dialogs-->
+  <plurals name="add_todo_title">
+    <item quantity="one">Voeg element toe aan te doen lijst</item>
+    <item quantity="other">Voeg elementen toe aan takenlijst</item>
+  </plurals>
+  <string name="all_todos_done_title">Alle taken in de lijst voltooid</string>
+  <string name="all_todos_done_message">Alle taken in lijst \"%1$s\" voltooid.</string>
+  <string name="all_todos_in_current_done_message">Alle taken in huidige lijst voltooid</string>
+  <string name="todo_list_legend">Takenlijst</string>
+  <string name="todo_list_hint">Klik voor suggesties</string>
   <string name="todo_comment_legend">Opmerking</string>
+  <string name="todo_comment_hint">Optioneel commentaar</string>
+  <string name="toast_todo_all_closed">Alle taken voor dit element gesloten</string>
+  <string name="toast_todo_already_in_list">Element is al in deze takenlijst</string>
+  <string name="toast_no_open_todos">Geen open taken</string>
+  <string name="toast_no_todos_in_list">Geen taken in de geselecteerde lijst</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Let op!</string>
   <string name="unsaved_data_message">Je niet opgeslagen wijzigingen worden verworpen als je verder gaat.</string>
@@ -195,8 +228,11 @@
   <string name="current">Huidige</string>
   <string name="goto_element">Ga naar element</string>
   <string name="edit_properties">Wijzig tags</string>
+  <string name="toast_element_not_found_on_restore">Kon geen element vinden tijdens herstellen</string>
   <!--GeoJSON feature display dialog-->
   <string name="feature_information">GeoJSON kenmerken informatie</string>
+  <string name="vt_feature_information">Vectortegels kenmerken informatie</string>
+  <string name="vt_layer">Vectortegellaag</string>
   <string name="copy_properties">Kopieer eigenschappen</string>
   <string name="create_osm_element">OSM-element aanmaken</string>
   <!--API/Data layer info dialog-->
@@ -223,6 +259,7 @@
   <string name="duplicate_relation_member_remove_button">Verwijder lid</string>
   <!--Move multi-polygon outer element tags to relation-->
   <string name="move_outer_tags_title">Verplaats tags van buitenste ringen naar multipolygoon</string>
+  <string name="move_outer_tags_message">Element definiërende tags mogen alleen op het multipolygoon aanwezig zijn. Deze actie verplaatst de gemeenschappelijke tags van de buitenringen naar het multipolygoon.</string>
   <string name="move">Verplaats</string>
   <string name="leave_as_is">Laat zoals het is</string>
   <!--Remove duplicate tags from multi-polygon outer element-->
@@ -239,6 +276,8 @@
   <string name="odd">Oneven</string>
   <string name="other">Overig</string>
   <!--Safe split dialog-->
+  <string name="split_safe_title">Missende relatieonderdelen</string>
+  <string name="split_safe_message">Naastliggende weg-relatieonderdelen zijn niet gedownload. De volgorde van relatieonderdelen kan hiervan afhankelijk zijn.</string>
   <!---->
   <string name="error">Fout</string>
   <string name="warning">Waarschuwing</string>
@@ -299,6 +338,7 @@
   <string name="coverage_left">Links</string>
   <string name="coverage_right">Rechts</string>
   <string name="coverage_bottom">Onderkant</string>
+  <string name="tile_size">Tegelgrootte</string>
   <string name="toast_invalid_box">Ongeldig of incompleet bereik</string>
   <string name="delete_layer">Verwijder laag?</string>
   <string name="delete_endpoint">Verwijder eindpunt?</string>
@@ -309,6 +349,7 @@
   <string name="layer_style_title">Laagstijl</string>
   <string name="layer_style_stroke_width">Pendikte</string>
   <string name="layer_style_color">Kleur</string>
+  <string name="layer_style_layer">Onderlaag</string>
   <string name="layer_style_label">Label</string>
   <string name="layer_style_symbol">Symbool</string>
   <string name="json_object_not_displayed">JSON object (niet weergegeven)</string>
@@ -328,7 +369,10 @@
   <string name="layer_data">OSM-gegevens</string>
   <string name="layer_data_name">%1$s-gegevens</string>
   <string name="layer_flush_tile_cache">Leeg tijdelijke tegelopslag</string>
+  <string name="layer_change_style">Verander stijl...</string>
+  <string name="layer_load_style">Laat stijl...</string>
   <string name="layer_reset_style">Reset stijl</string>
+  <string name="layer_select_imagery">Selecteer luchtfotografie...</string>
   <string name="layer_category_all">Alle</string>
   <string name="layer_category_photo">Luchtfoto\'s</string>
   <string name="layer_category_elevation">Terrein</string>
@@ -338,6 +382,18 @@
   <string name="layer_category_osmbasedmap">OSM-gebaseerde kaart</string>
   <string name="layer_category_qa">QA</string>
   <string name="layer_category_other">Overig</string>
+  <string name="layer_add_layer_from_mvt_style">Voeg laag van MVT stijl toe...</string>
+  <string name="layer_add_custom_imagery">Voeg aangepaste foto\'s toe...</string>
+  <string name="layer_edit_custom_imagery_configuration">Wijzig aangepaste luchtfotografieconfiguratie...</string>
+  <string name="layer_add_gpx">Voeg laag toe van GPX-bestand...</string>
+  <string name="layer_download_track">Download GPX-route</string>
+  <string name="layer_available_tracks">Beschikbare GPX-routes</string>
+  <string name="layer_start_playback">Begin afspelen</string>
+  <string name="layer_pause_playback">Pauzeer afspelen</string>
+  <string name="layer_stop_playback">Stop afspelen</string>
+  <string name="layer_toast_playback_finished">Afspelen voltooid</string>
+  <string name="layer_toast_playback_paused">Afspelen gepauzeerd</string>
+  <string name="layer_toast_playback_resumed">Afspelen hervat</string>
   <!--Layer info dialog-->
   <string name="layer_info_min_zoom">Min zoom</string>
   <string name="layer_info_max_zoom">Max zoom</string>
@@ -347,10 +403,13 @@
   <string name="layer_info_privacy_policy">Privacybeleid</string>
   <string name="projection">Projectie</string>
   <string name="errors">Fouten</string>
+  <string name="layer_info_layer_not_available">Laaginformatie niet beschikbaar</string>
+  <string name="layer_info_no_meta_data">Metagegevens niet geladen</string>
   <!--Mapillary layer-->
   <string name="mapillary_image">mapillary %1$s</string>
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Verwijder foto</string>
+  <string name="photo_viewer_delete_button">Permanent verwijderen</string>
   <string name="photo_viewer_goto">Ga naar foto</string>
   <string name="photo_viewer_label">Fotoweergave</string>
   <string name="mapillary_viewer_label">Mapillary Weergave</string>
@@ -360,6 +419,8 @@
   <string name="api_info_attribution">Attributie</string>
   <string name="api_info_mapsplit_source">MapSplit alleen-lezen bron</string>
   <!--Tag conflict dialog-->
+  <string name="tag_conflict_title">Eigenschappen gewijzigd</string>
+  <string name="tag_conflict_message">De operatie vereist het wijzigen van eigenschappen van de betrokken elementen.</string>
   <!--Relation selection dialog-->
   <string name="no_suitable_relations_message">Geen bruikbare relaties in gedownloade gegevens</string>
   <string name="select_route_title">Selecteer route</string>
@@ -391,10 +452,23 @@
   <string name="tip_title">Wist je dat?</string>
   <string name="tip_check_label">Stop met tonen van optionele tips </string>
   <string name="tip_undo">Lang klikken op de ongedaan maken knop toont alle \"ongedaan maken\" en \"opnieuw\" controlepunten.</string>
+  <string name="tip_imagery_privacy">Achtergrond- en overlagen worden door verstrekt door derde partijen. Het gebruik van een laag verzendt je netwerkadres en een grove indicatie van de getoonde locatie naar de verstrekker..&lt;p&gt;Als de verstrekker een privacybeleid aanbiedt, kan dat worden ingezien met het \"Info\" menu item in het lagen scherm.</string>
+  <string name="tip_mapillary_privacy">Mapillary is een service aangeboden door Mapillary AB, Zweden, een dochreonderneming van Facebook. Het gebruik van de service stuurt je netwerkadres en informatie over de bekeken afbeeldingen naar het bedrijf.</string>
+  <string name="tip_pan_and_zoom_auto_download">Slepen en zoom automatisch downloaden moeten met beleid worden gebruikt omdat het de potentie heeft om de OpenStreetMap APIs en jouw apparaat een hoge last te bezorgen.&lt;p&gt;De last op de API servers kan worden voorkomen door een offline gegevensbron te gebruiken.</string>
   <string name="tip_locked_mode">In vergrendelde modus kan je niets wijzigen, maar een lange klik op een object zal een scherm openen met gedetaileerde informatie.</string>
   <string name="tip_longpress_simple_mode">In de simpele modus doet een lange klik niets. Zet de simpele modus uit in het hoofdmenu als je lange kliks wilt gebruiken om objecten aan te maken.</string>
   <string name="tip_gpx_no_elevation">Beginnend met versie 15, zullen GPX tracks niet langer hoogteinformatie bevatten.&lt;p&gt;Om hoogteinformatie op te nemen kan een Geoid model worden geïnstalleerd met &lt;i&gt;Installeer EGM&lt;/i&gt; in het Hulpmiddelen menu, of wissel naar NMEA invoer.</string>
   <string name="tip_tag_conflict">Het samenvoegen of omkeren van OSM elementen vereist soms het wijzigen van attributen op de elementen. Als er mogelijk een fout of conflict kan ontstaan zal je op de hoogte worden gesteld en de mogelijkheid krijgen om te objecten in kwestie na te kijken.</string>
+  <string name="tip_gpx_recording">Wanneer je GPX opnames begint, zal Vespucci locatiegegevens verzamelen om GPX opnames mogelijk te maken zelfs als de app niet zichtbaar is.&lt;p&gt;Sluit te app expliciet of zet GPX opnames uit om het gebruik van locatiegegevens te stoppen in zulke situaties.</string>
+  <string name="tip_auto_download">Als je begint met auto-downloaden van OSM gegevens of taken, zal Vespucci locatiegegevens gebruiken om de huidige positie te bepalen, zelfs als de app niet zichtbaar is.&lt;p&gt;Sluit de app expliciet of zet automatisch downloaden uit om het gebruik van locatiegegevens te stoppen in zulke situaties.</string>
+  <string name="tip_tristate_checkbox">Je hebt zoluist een drievoudig selectievakje aangetikt. Deze werken net als normale selectievakjes met twee waardes, bijvoorbeeld ja/nee of waar/onwaar.&lt;p&gt;Er is echter een derde &lt;b&gt;ongedefinieerde&lt;/b&gt; staat, aangegeven met een grijze achtergrond, welke de aangegeven tag niet zal toevoegen. Je kan het selectievakje naar deze staat zetten met een lange tik.</string>
+  <string name="tip_alternative_tagging">Je hebt zojuist een voorkeuze toegepast naar alternatieve tags. Er zijn andere manieren om dit element te taggen die toepasselijker zijn of gerelateerd zijn. Deze alternatieve voorkeuzen worden getoond bovenaan de lijst met meest gebruikte voorkeuzen.</string>
+  <string name="tip_mode_switching">De slot-knop is tegelijk een modus-wisselaar. Een lange tik toont een menu met opties.&lt;p&gt;Je kunt meer informatie vinden over de modi in Vespucci in het helpsysteem: in de introductie en in de hulp over de mapweergave.</string>
+  <string name="tip_empty_gpx_download">Wegens een eigenaardigheid in de OSM API, moet het startpunt van de GPX-route binnen het beeld liggen om gevonden of gedownload te kunnen worden.</string>
+  <string name="tip_no_redo">Deze modus heeft nog een ondersteuning voor het opnieuw uitvoeren van knooptoevoegingen.</string>
+  <string name="tip_way_splitting">Tik een gemarkeerde knoop aan, om de positie te bepalen voor het splitsen. Een lange tik laat je het deel van de weg selecteren dat zal worden gebruikt voor de volgende stap.</string>
+  <string name="tip_closed_way_splitting">Een gesloten weg moet op twee plaatsen worden gesplitst. Tik een gemarkeerde knoop aan om de 1ste positie te bepalen om te splitsen. De volgende stap laat je de 2e positie bepalen.</string>
+  <string name="tip_disambiguation_menu">Wanneer meerdere OSM elementen of andere objecten erg dicht bij elkaar liggen of elementen zijn onderdelen van relaties, zal het ondescheidingsmenu worden getoond. Je kunt dan het specifieke element uit de lijst selecteren.&lt;p&gt;Als een element al geselecteerd is, wordt het gemarkeerd.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -405,14 +479,22 @@
   <string name="qa_channel_name">Vespucci QA</string>
   <string name="qa_channel_description">QA notoficatiekanaal voor en gegevensproblemen en taken</string>
   <!--Notifications-->
+  <string name="upload_checker_title">Vergeet niet je werk te uploaden</string>
+  <plurals name="upload_checker_message">
+    <item quantity="one">Er is een ongepubliceerde wijziging.</item>
+    <item quantity="other">Er zijn %1$d ongepubliceerde wijzigingen.</item>
+  </plurals>
   <!--Toaster-->
   <string name="toast_permission_denied">Toestemming geweigerd %1$s</string>
   <string name="toast_unable_to_persist_permissions">Kan permissies niet opslaan</string>
   <string name="toast_name_empty">Kies een naam</string>
   <string name="toast_url_empty">Voer een URL in</string>
   <string name="toast_min_zoom">Zet het minimale zoomniveau lager dan het maximum</string>
+  <string name="toast_tile_layer_exists">Tegelbron %1$s heeft dezelfde URL</string>
+  <string name="toast_styleable_layer_exists">Laag voor %1$s bestaat al</string>
   <string name="toast_no_changes">Je hebt nog niks veranderd…</string>
   <string name="toast_jpeg_not_transparent">JPEG bestanden zijn niet transparant en kunnen niet als overlaag worden gebruikt</string>
+  <string name="toast_unsupported_projection">Projectie %1$s wordt niet ondersteund.\n\nAlleen EPSG:3857, EPSG:4326 en synoniemen worden ondersteund.</string>
   <string name="toast_unsaved_changes">Upload je niet opgeslagen wijzigingen eerst.</string>
   <string name="clear_anyway">Desondanks wissen?</string>
   <string name="toast_upload_success">Geüpload naar OSM server.</string>
@@ -422,6 +504,10 @@
   <string name="toast_save_failed">Kon niet opslaan</string>
   <string name="toast_export_failed">Kon niet exporteren</string>
   <string name="toast_export_success">Geëxporteerd naar %1$s</string>
+  <plurals name="toast_preset_removed_or_replaced_tags">
+    <item quantity="one">1 tag overschreven of verwijderd</item>
+    <item quantity="other">%1$d tags overschreven of verwijderd</item>
+  </plurals>
   <string name="toast_merge_overwrote_tags">Notitie - actie overschreef tag(s)</string>
   <string name="toast_cant_autoapply_preset">Deze voorkeuze kan niet automatisch worden toegepast</string>
   <string name="toast_oneway_reversed">Je hebt een eenrichtingsweg of een weg met richtingsafhankelijke tags omgekeerd. Check de tags en corrigeer ze waar nodig.</string>
@@ -435,17 +521,23 @@
   <string name="read_mail">Lezen</string>
   <string name="toast_photo_indexing_started">Scan gestart voor geo-gerefereerde foto\'s</string>
   <string name="toast_photo_indexing_finished">Scan voltoold voor geo-gerefereerde foto\'s</string>
+  <string name="toast_photo_failed">Foto nemen is mislukt. Zijn locatiegegevens ingeschakeld in de foto-app?</string>
   <string name="toast_download_failed">Downloaden is mislukt met foutcode %1$d, bericht %2$s</string>
+  <string name="toast_note_reopened">Notitie heropend</string>
   <!--Validation-->
   <string name="toast_unsurveyed_road">Ongeclassifiseerde weg</string>
   <string name="toast_noname">Straat heeft geen naam of referentie</string>
   <string name="toast_notype">Relatie mist type</string>
+  <string name="toast_missing_role">Relatieonderdeel zonder vereiste rol</string>
+  <string name="toast_relation_loop">Relatieonderdeel referenties maken een lus</string>
   <string name="toast_untagged_element">Element zonder tags</string>
   <string name="toast_unconnected_end_node">Knoop ligt dicht bij een element waarmee het verbonden zou kunnen zijn</string>
   <string name="toast_degenerate_way">Onvolwaardige weg</string>
+  <string name="toast_wrong_element_type">Non-standaard elementtype: %1$s</string>
   <!---->
   <string name="toast_oauth_retry">Probeer nogmaals te uploaden na OAuth toegang tot je OSM accout te hebben gegeven.</string>
   <string name="toast_oauth">Geef OAuth toegang tot je OSM account.</string>
+  <string name="toast_no_oauth">Er is geen OAuth configuratie beschikbaar voor API \"%1$s\". Stel gebruikersnaam en wachtwoord in.</string>
   <string name="toast_oauth_not_enabled">OAuth is niet geactiveerd voor de huidige API.</string>
   <string name="toast_oauth_timeout">Time-out tijdens authenticatie communicatie, probeer nogmaals.</string>
   <string name="toast_oauth_communication">Communicatiefout tijdens authenticatie, probeer nogmaals.</string>
@@ -481,6 +573,7 @@
   <string name="toast_invalid_readonlyurl">Ingeldige Alleen-Leze API URL</string>
   <string name="toast_invalid_notesurl">Ongeldige notities API URL</string>
   <string name="toast_invalid_preseturl">Ongeldige voorkeuze URL</string>
+  <string name="toast_missing_preset_file">Missend voorkeuzebestand voor \"%1$s\"</string>
   <string name="toast_invalid_filter_regexp">Ongeldige reguliere expressie in filter met sleutel=\"%1$s\" waarde=\"%2$s\"</string>
   <string name="toast_error_accessing_photo">Geen toegang tot foto %1$s</string>
   <string name="toast_no_photo_found">Geen foto gevonden</string>
@@ -509,6 +602,7 @@
   <string name="toast_not_mbtiles">Geen MBTiles formaat bestand</string>
   <string name="toast_using_network_location">Gebruikt netwerklocatie</string>
   <string name="toast_using_gps_location">Gebruikt GPS/GNSS locatie</string>
+  <string name="toast_using_gps_disabled_tracking_stopped">GPS/GNSS positionering is uitgezet, overweeg het volgen te stoppen.</string>
   <string name="toast_remote_nmea_connection">NMEA connectie van buiten van/naar %1$s</string>
   <string name="toast_remote_nmea_connection_closed">NMEA connectie van buiten gesloten</string>
   <string name="toast_tags_copied">Tags gekopieerd naar klembord</string>
@@ -519,6 +613,7 @@
   <string name="toast_task_layer_disabled">Taaklaag uitgeschakeld</string>
   <string name="toast_unable_to_create_task_layer">Taaklaag aanmaken mislukt</string>
   <string name="toast_merged">Samengevoegd</string>
+  <string name="toast_invalid_style_file">Ongeldige stijlbestand %1$s\n%2$s</string>
   <string name="toast_no_geometry">Geen geometrie voor element gevonden</string>
   <string name="toast_added_api_entry_for">API item toegevoegd voor %1$s</string>
   <string name="toast_updated">%1$s geüpdated</string>
@@ -529,6 +624,7 @@
   <string name="toast_error_reading">Fout tijdens het lezen van %1$s</string>
   <string name="toast_read_successfully">Bestand succesvol gelezen</string>
   <string name="toast_error_writing">Fout tijdens het schrijven van %1$s</string>
+  <string name="toast_successfully_written">%1$s succesvol geschreven</string>
   <string name="toast_http_data_error_for">HTTP gegevensfout voor %1$s</string>
   <string name="toast_error_insufficient_space_for">Niet genoeg ruimte op apparaat voor %1$s</string>
   <string name="toast_error_too_many_redirects_for">Te veel doorverwijzingen voor %1$s</string>
@@ -558,6 +654,21 @@
   <string name="toast_outer_rings_differing_tags">Buitenringen hebben verschillende tags</string>
   <string name="toast_multipolygon_has_incomplete_rings">Multipolygoon heeft incomplete ringen</string>
   <string name="toast_multipolygon_inconsistent_roles">Multipolygoon heeft inconsistente waardes van rollen voor een ring</string>
+  <string name="toast_error_saving_bookmark">Kon bladwijzer niet opslaan</string>
+  <string name="toast_error_loading_style">Kon stijl niet laden: %1$s</string>
+  <string name="toast_only_one_source_supported">Per stijl wordt maar één bron ondersteund</string>
+  <string name="toast_imagery_offset_download_failed">Verplaatsing download mislukt: %1$s</string>
+  <string name="toast_download_server_version_failed">Download van server versie gefaald voor %1$s</string>
+  <string name="toast_error_element_too_large">Element is te groot voor de eigenschappenbewerker</string>
+  <string name="toast_no_intersection_found">Geen doorsnede gevonden</string>
+  <string name="toast_api_key_missing">Geen API sleutel gevonden voor %1$s</string>
+  <string name="toast_no_track_points">Geen trackpunten</string>
+  <string name="toast_no_way_points">Geen wegpunten</string>
+  <string name="toast_url_check">%1$s %2$d</string>
+  <string name="toast_url_check_with_msg">%1$s %2$d %3$s</string>
+  <string name="toast_unexpected_element">Onbekend element aangeklikt:\n%1$s</string>
+  <string name="toast_import_destination_exists">Import doel bestaat al</string>
+  <string name="toast_part_selection_not_supported">Selecteren van wegonderdelen niet ondersteund voor gesloten wegen.</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">MapSplit bronnen moeten minimum en maximum zoom hebben gezet</string>
   <string name="error_pbf_no_version">Versie-informatie ontbreekt in PBF bestand</string>
@@ -587,10 +698,13 @@
   <string name="prune">Opschonen</string>
   <string name="check">Controleren</string>
   <string name="download">Download</string>
+  <string name="abort">Afbreken</string>
   <string name="ignore">Negeren</string>
   <string name="select">Selecteren</string>
   <string name="skip">Overslaan</string>
+  <string name="deprecated">%1$s (verouderd)</string>
   <string name="more_information">Meer informatie</string>
+  <string name="osm_tags">OSM Tags</string>
   <!--Read a file-->
   <string name="read">Lezen</string>
   <string name="overwrite">Overschrijven</string>
@@ -701,13 +815,16 @@
   <string name="position_info_title">Huidige positieinformatie</string>
   <string name="position_info_hdop">HDOP</string>
   <string name="position_info_altitude">Hoogte</string>
+  <string name="position_info_geoid_height">Hoogte boven\nde geoïde</string>
   <string name="position_info_barometric_height">Barometrische hoogte</string>
   <string name="position_info_geoid_correction">Geoïde correctie</string>
+  <string name="position_info_ellipsoid_height">Hoogte boven\nde ellipsoïde</string>
   <!--Strings in DownloadActivity-->
   <string name="download_files_title">Download bestanden</string>
   <string name="allow_all_networks">Sta alle netwerken toe</string>
   <!--Strings in Go to coordinates-->
   <string name="go_to_coordinates_title">Ga naar coördinaten</string>
+  <string name="go_to_coordinates_hint">Voer coördinaten (lat lon) of een OLC in</string>
   <string name="unparseable_coordinates">Onontleedbare coördinaten</string>
   <string name="network_required">Netwerk is vereist voor locatiebepaling</string>
   <string name="no_nominatim_server">Er is een geconfigureerde Nominatim server gevonden</string>
@@ -741,12 +858,17 @@
   <string name="menu_gps_follow">Volg locatie</string>
   <string name="menu_gps_goto">Ga naar huidige locatie</string>
   <string name="menu_gps_goto_coordinates">Ga naar coördinaten</string>
+  <string name="menu_gps_goto_nearest_todo">Ga naar dichtstbijzijnde taak</string>
   <string name="menu_gps_goto_last_edit">Ga naar laatste wijziging</string>
   <string name="menu_gps_position_info">Huidige positieinformatie</string>
-  <string name="menu_gps_start">Start GPXroute</string>
+  <string name="menu_gps_start">Start GPX-route</string>
+  <string name="menu_gps_resume">Hervat GPX-route</string>
   <string name="menu_gps_pause">Pauzeer GPX route</string>
   <string name="menu_gps_clear">Verwijder GPX routepunten en bijbehorende richtingspunten</string>
   <string name="menu_gps_track_managment">GPX routebeheer</string>
+  <string name="menu_gps_upload">Upload GPX-route...</string>
+  <string name="menu_gps_export">Exporteer GPX-route...</string>
+  <string name="menu_gps_import">Importeer GPX-route...</string>
   <string name="menu_gps_goto_start">Ga naar start van GPX route</string>
   <string name="menu_gps_goto_first_waypoint">Ga naar eerste richtingspunt</string>
   <string name="menu_enable_gps_autodownload">Locatiegebaseerde auto-download</string>
@@ -756,7 +878,10 @@
   <string name="menu_transfer_download_replace">Wis en download huidig gebied</string>
   <string name="menu_transfer_load_current">Laad huidige gebied</string>
   <string name="menu_transfer_load_replace">Wis en laad huidig gebied</string>
+  <string name="menu_transfer_upload">Upload gegevens naar OSM server...</string>
+  <string name="menu_transfer_review">Controleer aanpassingen...</string>
   <string name="menu_transfer_update">Update gegevens</string>
+  <string name="menu_transfer_data_clear">Wis gegevens</string>
   <string name="menu_transfer_close_changeset">Sluit huidige wijzigingenset</string>
   <string name="menu_transfer_file">Bestand...</string>
   <string name="menu_transfer_export">Exporteer wijzigingen naar OSC bestand</string>
@@ -775,6 +900,8 @@
   <string name="menu_transfer_save_notes_all">Sla alle notities op...</string>
   <string name="menu_transfer_save_notes_new_and_changed">Sla nieuwe en gewijzigde notities...</string>
   <string name="menu_transfer_read_notes">Opmerkingen laden...</string>
+  <string name="menu_transfer_read_todos">Laad taken...</string>
+  <string name="menu_transfer_write_todos">Sla taken op...</string>
   <string name="menu_save">Sla op als bestand</string>
   <string name="menu_join">Samenvoegen</string>
   <string name="menu_unjoin">Koppel los</string>
@@ -791,22 +918,32 @@
   <string name="menu_split_polygon">Splits naar polygonen</string>
   <string name="menu_unjoin_dissimilar">Koppel onsoortgelijk los</string>
   <string name="menu_extract_segment">Extraheer segment</string>
+  <string name="menu_select_way_nodes">Select wegknopen</string>
   <string name="menu_newnode_gps">Nieuwe knoop op GPS positie</string>
   <string name="menu_extend_selection">Breid selectie uit</string>
+  <string name="menu_information">Informatie...</string>
   <string name="menu_voice_commands">Spraakcommando\'s</string>
   <string name="menu_upload_element">Upload element</string>
   <string name="menu_upload_elements">Upload elementen</string>
+  <string name="menu_todo">Taak...</string>
+  <string name="menu_todo_close_and_next">Sluit en ga naar volgende</string>
+  <string name="menu_todo_close_all_tasks">Sluit alle taken</string>
+  <string name="menu_add_to_todo">Voeg toe aan takenlijst...</string>
   <string name="menu_set_name">Stel naam in</string>
   <string name="menu_tools">Gereedschappen...</string>
   <string name="menu_tools_imagery">Meer luchtfotografie gereedschappen...</string>
   <string name="menu_tools_add_imagery_from_oam">Voeg luchtfotografie toe van OAM</string>
   <string name="menu_tools_flush_all_tile_caches">Leeg alle tegelopslag</string>
+  <string name="menu_tools_background_properties">Achtergrondeigenschappen...</string>
   <string name="menu_tools_update_imagery_configuration">Update configuratie</string>
   <string name="menu_tools_update_imagery_configuration_eli">Update configuratie van ELI</string>
   <string name="menu_tools_zoom_to_layer_extent">Zoom naar achtergrondlaag bereik</string>
   <string name="menu_tools_clear_clipboard">Leeg klembord</string>
+  <string name="menu_tools_calibrate_height">Kalibreer druksensor...</string>
   <string name="menu_tools_install_egm">Installeer EGM</string>
   <string name="menu_tools_remove_egm">Verwijder EGM</string>
+  <string name="menu_tools_import_data_style">Importeer gegevensstijl...</string>
+  <string name="menu_tools_load_keys">Laad sleutels van bestand...</string>
   <!---->
   <string name="menu_simple_actions">Simpele modus</string>
   <string name="menu_feedback">Geef feedback</string>
@@ -826,6 +963,9 @@
   <string name="distance_km">%1$.3f km</string>
   <!--Menus in layers dialog-->
   <string name="menu_layers">Lagen...</string>
+  <string name="menu_layers_load_geojson">Voeg GeoJSON laag toe...</string>
+  <string name="menu_layers_add_backgroundlayer">Voeg achtergrond-luchtfotolaag toe...</string>
+  <string name="menu_layers_add_overlaylayer">Voeg over-luchtfotolaag toe...</string>
   <string name="menu_layers_add_tasklayer">Zet taaklaag aan</string>
   <string name="menu_layers_add_grid">Zet raster aan</string>
   <string name="menu_layers_add_photolayer">Zet fotolaag aan</string>
@@ -846,11 +986,14 @@
   <string name="menu_history">Geschiedenis</string>
   <string name="menu_history_web">Geschiedenis (Web)</string>
   <string name="menu_merge">Voeg samen</string>
+  <string name="menu_add_node_at_intersection">Voeg knoop toe op kruising</string>
   <string name="menu_reverse">Keer om</string>
   <string name="notreversable_description">Deze weg is onomkeerbaar omdat het is getagged met richtingsafhankelijke attributen. Omkeren zou de tagging kapot maken.</string>
   <string name="reverse_anyway">Keer toch om</string>
   <string name="deleteway_description">Je staat op het punt om een weg te verwijderen.\n\nJe kunt alle kopen houden, of die verwijderen die tagloos zijn en tot de weg behoren.</string>
   <string name="deleteway_relation_description">Je staat op het punt een weg te verwijderen die lid is van een of meer relaties. Het verwijderen van de weg kan deze relaties ongeldig maken.</string>
+  <string name="deleteway_nodesnotdownloaded_description">Deze weg bevat knopen buiten het gedownloade gebied en kan niet worden verwijderd zonder een inconsistente staat te veroorzaken.\n\nDownload het gebied eromheen en probeer het nog een keer.</string>
+  <string name="deleteways_nodesnotdownloaded_description">De selectie bevat wegen buiten het gedownloade gebied en kan niet worden verwijderd zonder een inconsistente staat te veroorzaken.\n\nDownload het gebied eromheen en probeer het nog een keer.</string>
   <string name="deleteway_wayonly">Verwijder alleen de weg</string>
   <string name="deleteway_wayandnodes">Verwijder weg</string>
   <string name="deletenode_relation_description">Je staat op het punt een knoop te verwijderen die lid is van een of meer relaties. Het verwijderen van de knoop kan deze relaties ongeldig maken.</string>
@@ -873,7 +1016,14 @@
   <string name="actionmode_newnoteselect">Nieuwe Notitie geselecteerd</string>
   <string name="actionmode_add_segment">Voeg segment toe</string>
   <string name="actionmode_reselect_first_segment">Herselecteer eerste segment</string>
+  <string name="actionmode_split_way">Splits weg</string>
+  <string name="actionmode_split_closed_way">Splits gesloten weg</string>
   <!--EasyEdit action mode sub-titles-->
+  <string name="actionmode_closed_way_split_1">Selecteer 1ste knoop</string>
+  <string name="actionmode_closed_way_split_2">Selecteer 2e knoop</string>
+  <string name="actionmode_split_way_node_selection">Selecteer knoop</string>
+  <string name="actionmode_split_way_select_part">Selecteer deel voor nieuwe weg</string>
+  <string name="actionmode_select_node_to_append_to">Selecteer knoop om aan toe te voegen</string>
   <string name="actionmode_restriction">Voeg afslagbeperking toe</string>
   <string name="actionmode_restriction_restart_from">Selecteer \"van\" segment opnieuw</string>
   <string name="actionmode_restriction_select_from">Selecteer \"van\" segment</string>
@@ -894,19 +1044,26 @@
   <string name="menu_add_node">Voeg knoop toe</string>
   <string name="simple_add_node">Tik op de schermpositie</string>
   <string name="menu_add_node_tags">Voeg getagte knoop toe</string>
+  <string name="menu_add_node_address">Voeg adresknoop doe</string>
+  <string name="menu_add_address_interpolation">Voeg adres-interpolatie toe</string>
   <string name="menu_add_way">Voeg weg toe</string>
+  <string name="add_node_instruction">Tik op de positie</string>
+  <string name="add_way_start_instruction">Tik op de eerste positie om te beginnen</string>
+  <string name="add_way_node_instruction">Tik op de positie van de volgende knoop</string>
   <string name="menu_add_map_note">Voeg kaartnotitie toe</string>
   <string name="simple_add_note">Tik op de schermpositie</string>
   <string name="menu_paste_object">Plak object</string>
   <string name="simple_paste">Tik op de schermpositie</string>
   <string name="menu_paste_multiple">Plak meerdere keren</string>
   <string name="simple_paste_multiple">Tik op de schermpositie</string>
+  <string name="menu_snap">Uitlijnen</string>
   <!--Preferences-->
   <string name="config_backgroundLayer_title">Kaartachtergrond</string>
   <string name="config_backgroundLayer_summary">De tegelgebaseerde kaartachtergrond.</string>
   <string name="config_overlayLayer_title">Kaarttransparant</string>
   <string name="config_overlayLayer_summary">De tegelgebaseerde kaartransparant.</string>
   <string name="config_customlayers_title">Aangepaste lagen</string>
+  <string name="config_customlayers_summary">Beheer lagen die niet in de standaardconfiguratie aanwezig zijn.</string>
   <string name="config_scale_title">Schaal beeld</string>
   <string name="config_scale_summary">Schaaltype dat op kaart wordt weergegeven</string>
   <string name="config_mapProfile_title">Gegevensstijl</string>
@@ -919,6 +1076,8 @@
   <string name="config_enableKeepScreenOn_summary">Voorkom dat scherm wordt uitgezet om stroom te besparen.</string>
   <string name="config_largeDragArea_title">Groot knoop sleepgebied </string>
   <string name="config_largeDragArea_summary">Biedt een grote oppervlakte voor het slepen van knopen.</string>
+  <string name="config_wayNodeDragging_title">Schakel het slepen van weg-knopen in</string>
+  <string name="config_wayNodeDragging_summary">Schakelt het slepen van losse knopen van een geselecteerde weg in.</string>
   <string name="config_advancedprefs">Geavanceerde voorkeuren</string>
   <string name="config_moreprefs">Meer instellingen…</string>
   <string name="config_presetbutton_title">Voorkeuzen</string>
@@ -929,6 +1088,8 @@
   <string name="config_validatorprefs_summary">Configureer de validatieregels.</string>
   <string name="config_connectedNodeTolerance_title">Verbonden kopen tolerantie</string>
   <string name="config_connectedNodeTolerance_summary">Als een highway eindknoop binnen deze tolerantie (in meters) is van een highway waarmee het verbonden moet worden</string>
+  <string name="config_enabledValidations_title">Ingeschakelde validaties</string>
+  <string name="config_enabledValidations_summary">Schakel losse validaties in of uit</string>
   <!--opening hours templates-->
   <string name="config_opening_hours_title">Openingstijdenslablonen</string>
   <string name="config_opening_hours_summary">Openingstijdenslablonen laden, opslaan en verwijderen</string>
@@ -948,8 +1109,18 @@
   <string name="config_tagFormEnabled_summary">Weergave van tags bij wijzigen.</string>
   <string name="config_showCameraAction_title">Weergeef camera-actie</string>
   <string name="config_showCameraAction_summary">Toon camera icoon in de actiebalk.</string>
+  <string name="config_selectCameraApp_title">Foto app</string>
+  <string name="config_selectCameraApp_summary">Selecteer foto app om te gebruiken.</string>
+  <string name="config_system_camera">Standaard van systeem</string>
+  <string name="config_open_camera">Open Foto</string>
+  <string name="config_fv5_lite">FV5 lite</string>
+  <string name="config_fv5_pro">FV5 pro</string>
   <string name="config_useInternalPhotoViewer_title">Gebruik ingebouwde fotoweergave</string>
   <string name="config_useInternalPhotoViewer_summary">Gebruik de ingebouwde fotoweergave. Wanneer niet aangevinkt zal een externe weergave worden gebruikt.</string>
+  <string name="config_indexMediaStore_summary">Gebruik aanvullend de MediaStore om foto\'s op te vragen</string>
+  <string name="config_indexMediaStore_title">Gebruik de MediaStore</string>
+  <string name="config_followGPSbutton_title">Layout van volg locatie knop</string>
+  <string name="config_followGPSbutton_summary">Waar de \"volg locatie\" knop wordt neergezet.</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Toon altijd niet-gedownloade gebieden donker</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">Toont niet gedownloade gebieden donker in vergrendelde modus.</string>
   <string name="config_fullscreenMode_title">Volledig scherm-modus</string>
@@ -965,6 +1136,7 @@
   <string name="config_splitActionBarEnabled_title">Zet gesplitste actiebalk aan</string>
   <string name="config_splitActionBarEnabled_summary">Sta een gespleten actiebalk toe, het gebruik is apparaat specifiek. Vereist herstarten van Vespucci, en Android 4.0 of later.</string>
   <string name="config_disableTranslations_title">Vertalingen uitzetten</string>
+  <string name="config_disableTranslations_summary">Gebruik Engels voor de gebruikersinterface </string>
   <string name="config_maxInlineValues_title">Max. aantal waarden op een regel</string>
   <string name="config_maxInlineValues_summary">Maximaal aantal waarden dat op een regel in een tag formulier wordt getoond.</string>
   <string name="config_maxInlineValues_current">%1$d Waarden</string>
@@ -982,21 +1154,32 @@
   <string name="config_uploadOk_summary">Limiet waaronder openstaande objecten uploads OK worden verondersteld</string>
   <string name="config_upload_current">%1$d objecten</string>
   <string name="config_uploadWarn_title">Openstaande upload waarschuwing</string>
+  <string name="config_uploadWarn_summary">Limiet waaronder openstaande objecten uploads een waarschuwingsstatus zullen hebben.</string>
+  <string name="config_uploadChecker_title">Uploadherinnering interval</string>
+  <string name="config_uploadChecker_summary">Interval voor herinneringen als er ongepubliceerde wijzigingen zijn.</string>
   <string name="config_uploadChecker_current">%1$d uur</string>
   <string name="config_dataWarn_title">Te veel gegevens waarschuwing</string>
+  <string name="config_dataWarn_summary">Limiet (in het aantal Knopen) waarna we beginnen met waarschuwen dat er te veel gegevens worden geladen.</string>
   <string name="config_useUrlForFeedback_title">Zet feedback activiteit uit</string>
   <string name="config_useUrlForFeedback_summary">Zet feedback activiteit uit en gebruik in plaats daarvan een URL.</string>
   <string name="config_beepVolume_title">Signaal volume</string>
   <string name="config_beepVolume_summary">Volume instelling voor geluidssignaal.</string>
   <string name="config_beepVolume_current">%1$d</string>
+  <string name="config_mapillary_min_zoom_title">Minimale zoom voor Mapillary</string>
+  <string name="config_mapillary_min_zoom_summary">Minimale zoomniveau voordat Mapillary gegevens worden weergegeven.</string>
   <string name="config_mapillary_min_zoom_current">%1$d</string>
+  <string name="config_nameCap_summary">Automatische kapitalisatie van naam-tags bij invoer.</string>
+  <string name="config_nameCap_title">Naam kapitalisatie</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Gegevens en wijzigen instellingen</string>
   <string name="config_category_editing_summary">Auto-download, opslaan en notificatieinstellingen</string>
   <string name="config_forceContextMenu_title">Gebruik altijd context menu</string>
   <string name="config_forceContextMenu_summary">Toon altijd het contextuele menu als een selectie ambigu is.</string>
+  <string name="config_overrideRegionAddressTags_title">Overschrijf adres-tag standaard </string>
+  <string name="config_overrideRegionAddressTags_summary">Gebruik onze adres-tag configuratie boven regio-specifieke waarden.</string>
   <string name="config_address_tags">Adrestags</string>
   <string name="config_address_tags_summary">Tags die worden gebruikt voor adresvoorspelling.</string>
+  <string name="config_neighbourDistance_current">%1$d meter</string>
   <string name="config_enableNameSuggestions_title">Activeer naamsuggesties</string>
   <string name="config_enableNameSuggestions_summary">Zet suggesties aan voor de naam van een tag.</string>
   <string name="config_enableNameSuggestionsPresets_title">Activeer naamsuggestie voorkeuzes</string>
@@ -1022,6 +1205,8 @@
   <string name="config_orthogonalizeThreshold_current">%1$d°</string>
   <string name="config_autoformatPhoneNumbers_title">Autoformatteer telefoonnummers</string>
   <string name="config_autoformatPhoneNumbers_summary">Activeer automatisch formatteren van telefoonnummers</string>
+  <string name="config_maxOffsetDistance_title">Max afstand voor opgeslagen luchtfoto verplaatstingen.</string>
+  <string name="config_maxOffsetDistance_summary">De grootste afstand van een lokaal opgeslagen laagverplaasting die automatisch wordt toegepast.</string>
   <string name="config_maxOffsetDistance_current">%1$d meter</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Auto-download instellingen</string>
@@ -1044,6 +1229,8 @@
   <string name="config_bugDownloadRadius_summary">Straal (m) van taakdownloads.</string>
   <string name="config_maxBugDownloadSpeed_title">Maximum taak auto-download snelheid</string>
   <string name="config_maxBugDownloadSpeed_summary">Limiet (in km/h) waarboven notities, bugs en taken auto-download wordt gepauzeerd.</string>
+  <string name="config_autoPruneTaskLimit_title">Taak auto-opschoon limiet</string>
+  <string name="config_autoPruneTaskLimit_summary">Aantal taken in geheugen dat bereikt moet worden om een opruiming te veroorzaken.</string>
   <string name="config_autoPruneTaskLimit_current">%1$d taken</string>
   <!--Location Settings-->
   <string name="config_category_gps">Locatie-instellingen</string>
@@ -1080,6 +1267,8 @@
   <string name="config_osmoseServer_summary">URL voor de OSMOSE server.</string>
   <string name="config_geocoderbutton_title">Configureer geocoders</string>
   <string name="config_geocoderbutton_summary">Geocoders toevoegen, wijzigen en verwijderen voor zoekfunctionaliteit.</string>
+  <string name="config_taginfoServer_title">Taginfo server</string>
+  <string name="config_taginfoServer_summary">Taginfo server voor voorkeuze generatie</string>
   <!--Layer download and storage-->
   <string name="config_category_layers">Lagen downloaden en opslag</string>
   <string name="config_category_layers_summary">Tegelgebaseerde luchtfotografie achtergronden download en opslag.</string>
@@ -1088,13 +1277,25 @@
   <string name="config_downLoadThreads_current">%1$d Threads</string>
   <string name="config_tileCacheSize_title">Tegelopslag grootte</string>
   <string name="config_tileCacheSize_summary">Totale grootte van opslag dat wordt gebruikt voor het tijdelijk opslaan van tegels, in MB.</string>
+  <string name="config_preferRemovableStorage_title">Geef de voorkeur aan verwijderbare opslag</string>
+  <string name="config_preferRemovableStorage_summary">Geef de voorkeur aan verwijderbare opslag voor de tijdelijke tegelopslag.</string>
   <string name="config_tileCache_current">%1$d MB</string>
   <string name="config_mapillaryCacheSize_title">Mapillary opslaggrootte</string>
+  <string name="config_mapillaryCacheSize_summary">Totale grootte van opslag dat wordt gebruikt voor het tijdelijk opslaan van Mapillary afbeeldingen, in MB.</string>
   <!--Auto-save-->
+  <string name="config_category_autosave">Sla configuratie automatisch op</string>
+  <string name="config_category_autosave_summary">Instellingen voor automatisch opslaan van wijzigingen.</string>
+  <string name="config_autosaveSaveState_title">Sla status op</string>
+  <string name="config_autosaveSaveState_summary">Sla de complete status op, inclusief onveranderde gegevens.</string>
   <string name="config_autosaveSaveChanges_title">Sla aanpassingen op</string>
+  <string name="config_autosaveSaveChanges_summary">Sla wijzigingen op als OSC-bestand.</string>
   <string name="config_autosaveInterval_title">Minimum interval</string>
+  <string name="config_autosaveInterval_summary">Minimale periode in minuten tussen opslaan.</string>
   <string name="config_autosaveInterval_current">%1$d min</string>
+  <string name="config_autosaveChanges_title">Minimaal aantal wijzigingen</string>
+  <string name="config_autosaveChanges_summary">Minimaal aantal wijzigingen vereist voor opslaan.</string>
   <string name="config_autosaveChanges_current">%1$d</string>
+  <string name="config_autosaveMaxFiles_title">Minimaal aantal OSC-bestanden onthouden</string>
   <string name="config_autosaveMaxFiles_current">%1$d</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">Overig</string>
@@ -1109,6 +1310,8 @@
   <string name="config_js_console_summary">Maak de JS console beschikbaar in \"live\" modus.</string>
   <string name="config_voiceCommandsEnabled_title">Activeer spraakcommando\'s</string>
   <string name="config_voiceCommandsEnabled_summary">Activeer spraakcommando-ondersteuning</string>
+  <string name="config_splitWindowForPropertyEditor_summary">Schakel gedeelde eigenschappeneditor in voor een los scherm, als beschikbaar.</string>
+  <string name="config_splitWindowForPropertyEditor_title">Schakel gedeelde eigenschappeneditor in</string>
   <!---->
   <string name="manage_apis">Beheer APIs</string>
   <string name="config_api_url_title">API URL</string>
@@ -1162,6 +1365,7 @@
   <string name="tracking_active_title">Vespucci achtergrondservice</string>
   <string name="tracking_active_title_short">Achtergrondservice actief</string>
   <string name="tracking_active_text">GPS route wordt opgenomen, of auto-downloaden staat aan</string>
+  <string name="tracking_long_text">Vespucci is een GPX route aan het opnemen of auto-downloading staat aan. Om helemaal af te sluiten, druk op de knop hieronder of op de \"terug\" knop in de app.</string>
   <string name="gps_failure">GPS inschakelen is mislukt</string>
   <!--element description-->
   <string name="address_housenumber">Adres %1$s</string>
@@ -1182,9 +1386,11 @@
   <string name="undo_action_set_tags">Taggen</string>
   <string name="undo_action_join">Samenvoeging</string>
   <string name="undo_action_unjoin_ways">Weg splitsen</string>
+  <string name="undo_action_merge_polygons">Polygonen samenvoegen</string>
   <string name="undo_action_create_relation">Relatie aanmaken</string>
   <string name="undo_action_delete_relation">Relatie verwijderen</string>
   <string name="undo_action_update_relations">Relatie wijzingen</string>
+  <string name="undo_action_move_tags">Verplaats tags naar Relatie</string>
   <string name="undo_action_cut">Knippen</string>
   <string name="undo_action_paste">Plakken</string>
   <string name="undo_action_rotateway">Weg roteren</string>
@@ -1202,6 +1408,7 @@
   <string name="report_failure">Kon rapport niet versturen.</string>
   <!--Exceptions messages-->
   <string name="exception_too_many_nodes">Deze actie zou een weg met te veel knopen aanmaken.</string>
+  <string name="exception_too_many_members">Deze operatie zou te veel onderdelen aan relatie %1$s toevoegen.</string>
   <!--Notifications-->
   <string name="alert_data_issue">OSM-gegevensprobleem ontdekt</string>
   <string name="alert_note">Dichtbijgelegen OSM-notitie ontdekt.</string>
@@ -1244,6 +1451,8 @@
   <string name="issue_same_object">Identiek object</string>
   <string name="issue_merged_metric">Lengte afhankelijke waarde was samengevoegd</string>
   <string name="issue_split_metric">Lengte afhankelijke waarde was gesplitst</string>
+  <string name="issue_split_route_ordering">Route heeft mogelijk handmatige herordening nodig</string>
+  <string name="issue_precondition_relation_member_count">Relatieonderdelen aantal overschreden</string>
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">1 dag</item>

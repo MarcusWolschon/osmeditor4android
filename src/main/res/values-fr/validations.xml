@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="validations_entries">
+        <item>Éléments anciens</item>
+        <item>Attributs fixme</item>
+        <item>Attributs manquants</item>
+        <item>Type de routes indéfini</item>
+        <item>Relation sans attribut type</item>
+        <item>Unité impériale manquante</item>
+        <item>Élément invalide</item>
+        <item>Èléments sans attribut</item>
+        <item>Nœud d\'un chemin proche mais non connecté à un autre chemin</item>
+        <item>Chemin avec un seul nœud</item>
+        <item>Relation sans membre</item>
+        <item>Rôle d\'un membre d\'une relation manquant</item>
+        <item>Relations membres l\'une de l\'autre (boucle)</item>
+        <item>Éléments non conformes à l\'attribut</item>
+    </string-array>
+    </resources>

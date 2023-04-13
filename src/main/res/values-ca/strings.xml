@@ -630,6 +630,7 @@
   <string name="config_uploadChecker_current">%1$d hores</string>
   <!--Data and Editing Settings-->
   <string name="config_address_tags">Etiquetes d\'adreces</string>
+  <string name="config_neighbourDistance_current">%1$d metres</string>
   <string name="config_enableNameSuggestions_title">Activa el suggeriment de noms</string>
   <string name="config_enableNameSuggestions_summary">Activa els suggeriments per a l\'etiqueta de nom.</string>
   <string name="config_generateAlerts_title">Genera notificacions</string>

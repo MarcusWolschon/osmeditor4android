@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="validations_entries">
+        <item>物件年齡</item>
+        <item>修正我標籤</item>
+        <item>缺少標籤</item>
+        <item>公路道路</item>
+        <item>沒有設定類別的關聯</item>
+        <item>缺少英制單位</item>
+        <item>無效的物件</item>
+        <item>未設定標籤的物件</item>
+        <item>未連結的端點節點</item>
+        <item>退化的路徑</item>
+        <item>空白關聯</item>
+        <item>遺失關聯成員角色</item>
+        <item>關聯環型</item>
+        <item>非標準元素類型</item>
+    </string-array>
+    </resources>

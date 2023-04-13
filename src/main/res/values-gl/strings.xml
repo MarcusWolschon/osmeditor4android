@@ -785,6 +785,7 @@
   <!--Data and Editing Settings-->
   <string name="config_category_editing_summary">Axustes da autobaixada, gardado e notificacións</string>
   <string name="config_address_tags">Engadir etiquetas</string>
+  <string name="config_neighbourDistance_current">%1$d metro(s)</string>
   <string name="config_enableNameSuggestions_title">Activar suxestións de nomes</string>
   <string name="config_generateAlerts_title">Xerar notificacións</string>
   <string name="config_generateAlerts_summary">Xerar notificacións para datos con problemas ou con notas</string>

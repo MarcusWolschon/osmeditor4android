@@ -752,6 +752,7 @@
   <string name="config_forceContextMenu_summary">Näytä kohdevalikko aina, kun valinta ei ole yksiselitteinen.</string>
   <string name="config_address_tags">Osoitetägit</string>
   <string name="config_address_tags_summary">Osoitteen ennustuksessa käytettävät tägit</string>
+  <string name="config_neighbourDistance_current">%1$d metri(ä)</string>
   <string name="config_enableNameSuggestions_title">Käytä nimiehdotuksia</string>
   <string name="config_enableNameSuggestions_summary">Ota käyttöön nimitägien ehdotukset.</string>
   <string name="config_enableNameSuggestionsPresets_title">Käytä esivalintaa nimiehdotuksille</string>

@@ -1180,6 +1180,7 @@ elemek megkövetelése</string>
   <string name="config_overrideRegionAddressTags_summary">A régióspecifikus értékek helyett használja a címcímke-konfigurációnkat </string>
   <string name="config_address_tags">Címcímkék</string>
   <string name="config_address_tags_summary">A címelőrejelzéshez használt címkék.</string>
+  <string name="config_neighbourDistance_current">%1$d méter</string>
   <string name="config_enableNameSuggestions_title">Névjavaslatok engedélyezése</string>
   <string name="config_enableNameSuggestions_summary">A név címke javaslatainak bekapcsolása.</string>
   <string name="config_enableNameSuggestionsPresets_title">Névjavaslatot tevő előbeállítások engedélyezése</string>

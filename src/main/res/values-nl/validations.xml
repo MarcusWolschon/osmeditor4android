@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="validations_entries">
+        <item>Object leeftijd</item>
+        <item>FIXME tags</item>
+        <item>Ontbrekende tags</item>
+        <item>Snelweg</item>
+        <item>Geen relatietype</item>
+        <item>Imperiale eenheden ontbreken</item>
+        <item>Ongeldig object</item>
+        <item>Element zonder tags</item>
+        <item>Onsamenhangende eindknoop</item>
+        <item>Onvolwaardige weg</item>
+        <item>Lege relatie</item>
+        <item>Relatieonderdeel heeft geen rol</item>
+        <item>Circulaire relatie</item>
+        <item>Non-standaard elementtype</item>
+    </string-array>
+    </resources>
