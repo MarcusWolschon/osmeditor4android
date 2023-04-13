@@ -2,6 +2,7 @@
 
 18.1.5:
 
+- Fix use new github token for builds
 - Fix temporary entry for ESRI imagery with new Etag value
 - Fix check clipboard consistency after undo
 - Fix regression that caused beep & tip on long click not to work
