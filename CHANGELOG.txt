@@ -1,5 +1,21 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+18.1.5:
+
+- Fix temporary entry for ESRI imagery with new Etag value
+- Fix check clipboard consistency after undo
+- Fix regression that caused beep & tip on long click not to work
+- Fix too aggressive relation filtering
+- Fix highlight elements from member relations of selected relations
+- Fix preset role copy constructor
+- Fix add validation.xml to transifex
+- Fix integer overflow when translating between locations > 200° apart
+- Fix only attempt to save state if webView isn't null
+- Fix update ElementHistoryDialog to avoid crash
+- Update imagery from ELI
+- Update preset
+- Update translations
+
 18.1.4:
 
 - Fix for broken task icon caching
@@ -12,6 +28,7 @@
 - Update translations
 
 18.1.3:
+
 - Fix error in app manifest
 
 18.1.2:
