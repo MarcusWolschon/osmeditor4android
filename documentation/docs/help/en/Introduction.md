@@ -18,6 +18,7 @@ Select either the transfer icon ![Transfer](../images/menu_transfer.png) or the 
 * **Review changes...** - review current changes
 * **Download current view** - download the area visible on the screen and merge it with existing data *(requires network connectivity or offline data source)*
 * **Clear and download current view** - clear any data in memory, including pending changes, and then download the area visible on the screen *(requires network connectivity)*
+* **Query Overpass...** - run a query against a Overpass API server *(requires network connectivity)*
 * **Location based auto download** - download an area around the current geographic location automatically *(requires network connectivity or offline data)* *(requires GPS)*
 * **Pan and zoom auto download** - download data for the currently displayed map area automatically *(requires network connectivity or offline data)* *(requires GPS)*
 * **Update data** - re-download data for all areas and update what is in memory *(requires network connectivity)*
