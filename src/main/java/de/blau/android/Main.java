@@ -99,6 +99,7 @@ import de.blau.android.contract.Schemes;
 import de.blau.android.contract.Ui;
 import de.blau.android.contract.Urls;
 import de.blau.android.dialogs.BarometerCalibration;
+import de.blau.android.dialogs.ConsoleDialog;
 import de.blau.android.dialogs.DataLoss;
 import de.blau.android.dialogs.DownloadCurrentWithChanges;
 import de.blau.android.dialogs.ElementInfo;
@@ -128,7 +129,6 @@ import de.blau.android.geocode.Search.SearchResult;
 import de.blau.android.gpx.TrackPoint;
 import de.blau.android.imageryoffset.BackgroundAlignmentActionModeCallback;
 import de.blau.android.imageryoffset.ImageryOffsetUtils;
-import de.blau.android.javascript.ConsoleDialog;
 import de.blau.android.layer.ClickableInterface;
 import de.blau.android.layer.DownloadInterface;
 import de.blau.android.layer.LayerType;
@@ -2189,11 +2189,7 @@ public class Main extends FullScreenAppCompatActivity
             return true;
         case R.id.menu_transfer_query_overpass:
             descheduleAutoLock();
-            if (logic != null && logic.hasChanges()) {
-                DataLoss.createDialog(this, (dialog, which) -> showOverpassConsole(this)).show();
-            } else {
-                showOverpassConsole(this);
-            }
+            showOverpassConsole(this, null);
             break;
         case R.id.menu_transfer_upload:
             confirmUpload(null);
@@ -2569,19 +2565,45 @@ public class Main extends FullScreenAppCompatActivity
 
     /**
      * Show a console for writing and executing Overpass queries
+     * 
+     * @param activity the calling FragmentActivity
+     * @param text initial overpass query
      */
-    private void showOverpassConsole(@NonNull final FragmentActivity activity) {
-        ConsoleDialog.show(activity, R.string.overpass_console, input -> {
-            AsyncResult result = de.blau.android.overpass.Server.query(activity, de.blau.android.overpass.Server.replacePlaceholders(activity, input));
+    public static void showOverpassConsole(@NonNull final FragmentActivity activity, @Nullable String text) {
+        ConsoleDialog.showDialog(activity, R.string.overpass_console, R.string.merge_result, -1, text, (input, merge, flag2) -> {
+            Logic logic = App.getLogic();
+            if (!merge && logic != null && logic.hasChanges()) {
+                return Util.withHtmlColor(activity, R.attr.errorTextColor, activity.getString(R.string.overpass_query_would_overwrite));
+            }
+            AsyncResult result = de.blau.android.overpass.Server.query(activity, de.blau.android.overpass.Server.replacePlaceholders(activity, input), merge);
             if (ErrorCodes.OK == result.getCode()) {
-                Main.this.invalidateMap();
+                if (activity instanceof Main) {
+                    ((Main) activity).invalidateMap();
+                }
                 Storage storage = App.getDelegator().getCurrentStorage();
                 return activity.getString(R.string.overpass_result, storage.getNodeCount(), storage.getWayCount(), storage.getRelationCount());
             } else if (ErrorCodes.NOT_FOUND == result.getCode()) {
                 return activity.getString(R.string.toast_nothing_found);
             } else {
-                return result.getMessage();
+                return Util.withHtmlColor(activity, R.attr.errorTextColor, result.getMessage());
             }
+        });
+    }
+
+    /**
+     * Show the JS console
+     * 
+     * @param main the current instance of Main
+     */
+    public static void showJsConsole(@NonNull final Main main) {
+        main.descheduleAutoLock();
+        ConsoleDialog.showDialog(main, R.string.tag_menu_js_console, -1, -1, null, (input, flag1, flag2) -> {
+            String result = de.blau.android.javascript.Utils.evalString(main, "JS Console", input, App.getLogic());
+            main.runOnUiThread(() -> {
+                main.getMap().invalidate();
+                main.scheduleAutoLock();
+            });
+            return result;
         });
     }
 
@@ -2722,23 +2744,6 @@ public class Main extends FullScreenAppCompatActivity
         logic.setZoom(getMap(), Ui.ZOOM_FOR_ZOOMTO);
         map.getViewBox().moveTo(getMap(), trackPoint.getLon(), trackPoint.getLat());
         map.invalidate();
-    }
-
-    /**
-     * Show the JS console
-     * 
-     * @param main the current instance of Main
-     */
-    public static void showJsConsole(@NonNull final Main main) {
-        main.descheduleAutoLock();
-        ConsoleDialog.show(main, R.string.tag_menu_js_console, input -> {
-            String result = de.blau.android.javascript.Utils.evalString(main, "JS Console", input, App.getLogic());
-            main.runOnUiThread(() -> {
-                main.getMap().invalidate();
-                main.scheduleAutoLock();
-            });
-            return result;
-        });
     }
 
     /**

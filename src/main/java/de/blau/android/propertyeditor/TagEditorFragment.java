@@ -47,9 +47,9 @@ import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
 import de.blau.android.address.Address;
+import de.blau.android.dialogs.ConsoleDialog;
 import de.blau.android.exception.DuplicateKeyException;
 import de.blau.android.exception.UiStateException;
-import de.blau.android.javascript.ConsoleDialog;
 import de.blau.android.nsi.Names;
 import de.blau.android.nsi.Names.NameAndTags;
 import de.blau.android.osm.OsmElement;
@@ -1980,8 +1980,9 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             Address.resetLastAddresses(getActivity());
             return true;
         case R.id.tag_menu_js_console:
-            ConsoleDialog.show(getActivity(), R.string.tag_menu_js_console, input -> de.blau.android.javascript.Utils.evalString(getActivity(),
-                    "JS Preset Test", input, buildEdits(), getKeyValueMap(true), "test", tags2Preset, App.getCurrentPresets(getActivity())));
+            ConsoleDialog.showDialog(getActivity(), R.string.tag_menu_js_console, -1, -1, null,
+                    (input, flag1, flag2) -> de.blau.android.javascript.Utils.evalString(getActivity(), "JS Preset Test", input, buildEdits(),
+                            getKeyValueMap(true), "test", tags2Preset, App.getCurrentPresets(getActivity())));
             return true;
         case R.id.tag_menu_select_all:
             selectAllRows();

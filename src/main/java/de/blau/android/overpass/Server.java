@@ -17,10 +17,13 @@ import androidx.annotation.NonNull;
 import de.blau.android.App;
 import de.blau.android.AsyncResult;
 import de.blau.android.ErrorCodes;
+import de.blau.android.R;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmServerException;
 import de.blau.android.geocode.QueryNominatim;
 import de.blau.android.geocode.Search.SearchResult;
+import de.blau.android.osm.BoundingBox;
+import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmParser;
 import de.blau.android.osm.Storage;
 import de.blau.android.osm.StorageDelegator;
@@ -65,6 +68,7 @@ public final class Server {
      * @param context an Android context
      * @param query the original query
      * @return the query with the place holders replaced or removed
+     * @throws OsmException
      */
     @NonNull
     public static String replacePlaceholders(@NonNull Context context, @NonNull String query) {
@@ -189,27 +193,34 @@ public final class Server {
      * 
      * @param context an Android Context
      * @param query the query
+     * @param merge merge the received data instead of replacing existing data
      * @param handler a listener to call when we are done
      */
     @NonNull
-    public static AsyncResult query(@NonNull final Context context, @NonNull String query) {
+    public static AsyncResult query(@NonNull final Context context, @NonNull String query, boolean merge) {
         final String url = App.getPreferences(context).getOverpassServer();
         Log.d(DEBUG_TAG, "querying " + url + " for " + query);
         try {
             Storage storage = execQuery(url, query);
             if (!storage.isEmpty()) {
                 final StorageDelegator delegator = App.getDelegator();
-                delegator.reset(false);
-                delegator.setCurrentStorage(storage); // this sets dirty flag
-                try {
-                    delegator.setOriginalBox(storage.calcBoundingBoxFromData());
-                } catch (OsmException e) {
-                    // this could only happen for an empty result
+                final BoundingBox box = storage.calcBoundingBoxFromData();
+                if (merge) {
+                    if (!delegator.mergeData(storage, (OsmElement e) -> e.hasProblem(context, App.getDefaultValidator(context)))) {
+                        return new AsyncResult(ErrorCodes.DATA_CONFLICT, context.getString(R.string.data_conflict_message));
+                    }
+                    delegator.mergeBoundingBox(box);
+                } else {
+                    delegator.reset(false);
+                    delegator.setCurrentStorage(storage); // this sets dirty flag
+                    delegator.setOriginalBox(box);
                 }
                 return new AsyncResult(ErrorCodes.OK);
             }
         } catch (OsmServerException e) {
             return new AsyncResult(ErrorCodes.UNKNOWN_ERROR, e.getMessage());
+        } catch (OsmException e) {
+            return new AsyncResult(ErrorCodes.NOT_FOUND, e.getMessage());
         } catch (SAXException e) {
             return new AsyncResult(ErrorCodes.INVALID_DATA_RECEIVED, e.getMessage());
         } catch (IOException e) {

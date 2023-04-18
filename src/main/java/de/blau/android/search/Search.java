@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.FragmentActivity;
 import ch.poole.osm.josmfilterparser.Condition;
 import ch.poole.osm.josmfilterparser.JosmFilterParser;
+import ch.poole.osm.josmfilterparser.Overpass;
 import ch.poole.osm.josmfilterparser.ParseException;
 import de.blau.android.App;
 import de.blau.android.Logic;
@@ -71,21 +72,14 @@ public final class Search {
                             try {
                                 JosmFilterParser parser = new JosmFilterParser(new ByteArrayInputStream(text.getBytes()));
                                 condition = parser.condition(useRegexp);
-                            } catch (ParseException pex) {
-                                return pex.getMessage();
-                            } catch (Error err) { // NOSONAR
-                                return err.getMessage();
-                            }
-
-                            Wrapper wrapper = new Wrapper(activity);
-
-                            try {
-                                result = wrapper.getMatchingElementsInternal(condition);
+                                result = new Wrapper(activity).getMatchingElementsInternal(condition);
+                                if (result.isEmpty()) {
+                                    return activity.getString(R.string.toast_nothing_found);
+                                }
                             } catch (Exception e) {
                                 return e.getMessage();
-                            }
-                            if (result.isEmpty()) {
-                                return activity.getString(R.string.toast_nothing_found);
+                            } catch (Error err) { // NOSONAR
+                                return err.getMessage();
                             }
                             return null;
                         }
@@ -104,8 +98,23 @@ public final class Search {
                             }
                         }
                     }.execute();
+                }, activity.getString(R.string.search_objects_query_overpass), (input, useRegexp) -> {
+                    try {
+                        final String text = input.getText().toString();
+                        JosmFilterParser parser = new JosmFilterParser(new ByteArrayInputStream(text.getBytes()));
+                        StringBuilder result = new StringBuilder();
+                        result.append("[out:xml][timeout:90];\n");
+                        result.append(Overpass.transform(parser.condition(useRegexp)));
+                        result.append("\n(._;>;);\nout meta;");
+                        Main.showOverpassConsole(activity, result.toString());
+                        logic.pushObjectSearch(text);
+                        dismiss();
+                    } catch (UnsupportedOperationException | ParseException pex) {
+                        Snack.toastTopWarning(activity, pex.getMessage());
+                    } catch (Error err) { // NOSONAR
+                        Snack.toastTopWarning(activity, err.getMessage());
+                    }
                 }, false);
-
         dialog.show();
     }
 
