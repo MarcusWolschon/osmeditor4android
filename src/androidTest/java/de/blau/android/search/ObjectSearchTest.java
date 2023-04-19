@@ -1,10 +1,15 @@
 package de.blau.android.search;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -33,19 +38,21 @@ import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.util.FileUtil;
+import okhttp3.HttpUrl;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 public class ObjectSearchTest {
 
-    public static final int TIMEOUT    = 90;
-    MockWebServerPlus       mockServer = null;
-    Context                 context    = null;
-    AdvancedPrefDatabase    prefDB     = null;
-    Main                    main       = null;
-    UiDevice                device     = null;
-    Map                     map        = null;
-    Logic                   logic      = null;
+    public static final int TIMEOUT = 90;
+    Context                 context = null;
+    AdvancedPrefDatabase    prefDB  = null;
+    Main                    main    = null;
+    UiDevice                device  = null;
+    Map                     map     = null;
+    Logic                   logic   = null;
+    Preferences             prefs   = null;
 
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
@@ -58,7 +65,7 @@ public class ObjectSearchTest {
         device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         main = mActivityRule.getActivity();
-        Preferences prefs = new Preferences(context);
+        prefs = new Preferences(context);
         LayerUtils.removeImageryLayers(context);
         main.getMap().setPrefs(main, prefs);
 
@@ -66,6 +73,8 @@ public class ObjectSearchTest {
         TestUtils.dismissStartUpDialogs(device, main);
         logic = App.getLogic();
         logic.deselectAll();
+        logic.setPrefs(prefs);
+        logic.getMap().setPrefs(main, prefs);
         TestUtils.loadTestData(main, "test2.osm");
         TestUtils.stopEasyEdit(main);
         map = logic.getMap();
@@ -99,14 +108,14 @@ public class ObjectSearchTest {
             searchEditText.click();
             searchEditText.setText("\"addr:street\"=Kirchstrasse \"addr:housenumber\"=4");
         } catch (UiObjectNotFoundException e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
         TestUtils.clickButton(device, "android:id/button1", true);
         TestUtils.findText(device, false, main.getString(R.string.actionmode_wayselect), 5000);
         List<OsmElement> selected = logic.getSelectedElements();
-        Assert.assertEquals(1, selected.size());
-        Assert.assertTrue(selected.get(0) instanceof Way);
-        Assert.assertEquals(210558045L, selected.get(0).getOsmId());
+        assertEquals(1, selected.size());
+        assertTrue(selected.get(0) instanceof Way);
+        assertEquals(210558045L, selected.get(0).getOsmId());
     }
 
     /**
@@ -120,21 +129,21 @@ public class ObjectSearchTest {
         try {
             checkbox.click();
         } catch (UiObjectNotFoundException e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
         UiObject searchEditText = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/text_line_edit"));
         try {
             searchEditText.click();
             searchEditText.setText("\"addr:str.et\"=Kirchstra.*se \"addr:hous.*umber\"=4");
         } catch (UiObjectNotFoundException e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
         TestUtils.clickButton(device, "android:id/button1", true);
         TestUtils.findText(device, false, main.getString(R.string.actionmode_wayselect), 5000);
         List<OsmElement> selected = logic.getSelectedElements();
-        Assert.assertEquals(1, selected.size());
-        Assert.assertTrue(selected.get(0) instanceof Way);
-        Assert.assertEquals(210558045L, selected.get(0).getOsmId());
+        assertEquals(1, selected.size());
+        assertTrue(selected.get(0) instanceof Way);
+        assertEquals(210558045L, selected.get(0).getOsmId());
     }
 
     /**
@@ -149,15 +158,15 @@ public class ObjectSearchTest {
             searchEditText.click();
             searchEditText.setText("\"addr:housenumber\"=4");
         } catch (UiObjectNotFoundException e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
         TestUtils.clickButton(device, "android:id/button1", true);
         TestUtils.findText(device, false, main.getString(R.string.actionmode_multiselect), 5000);
         List<OsmElement> selected = logic.getSelectedElements();
-        Assert.assertEquals(4, selected.size());
+        assertEquals(4, selected.size());
         for (OsmElement e : selected) {
-            Assert.assertTrue(e instanceof Way);
-            Assert.assertTrue(e.hasTag(Tags.KEY_BUILDING, "residential"));
+            assertTrue(e instanceof Way);
+            assertTrue(e.hasTag(Tags.KEY_BUILDING, "residential"));
         }
     }
 
@@ -173,15 +182,66 @@ public class ObjectSearchTest {
             searchEditText.click();
             searchEditText.setText("preset:\"Highways|Streets|Residential\"");
         } catch (UiObjectNotFoundException e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
         TestUtils.clickButton(device, "android:id/button1", true);
         TestUtils.findText(device, false, main.getString(R.string.actionmode_multiselect), 5000);
         List<OsmElement> selected = logic.getSelectedElements();
-        Assert.assertEquals(9, selected.size());
+        assertEquals(9, selected.size());
         for (OsmElement e : selected) {
-            Assert.assertTrue(e instanceof Way);
-            Assert.assertTrue(e.hasTag(Tags.KEY_HIGHWAY, "residential"));
+            assertTrue(e instanceof Way);
+            assertTrue(e.hasTag(Tags.KEY_HIGHWAY, "residential"));
+        }
+    }
+
+    /**
+     * Example with overpass
+     */
+    @Test
+    public void overpass() {
+        final String fileName = "query.overpass";
+        MockWebServerPlus mockServer = new MockWebServerPlus();
+        try {
+            HttpUrl mockBaseUrl = mockServer.server().url("/");
+            System.out.println("mock overpass api url " + mockBaseUrl.toString()); // NOSONAR
+            prefs.setOverpassServer(mockBaseUrl.toString());
+            mockServer.enqueue("overpass");
+
+            TestUtils.clickOverflowButton(device);
+            TestUtils.clickText(device, false, main.getString(R.string.search_objects_title), true, false);
+            UiObject searchEditText = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/text_line_edit"));
+            try {
+                searchEditText.click();
+                searchEditText.setText("highway=residential inview");
+            } catch (UiObjectNotFoundException e) {
+                fail(e.getMessage());
+            }
+            TestUtils.clickButton(device, "android:id/button2", true);
+            assertTrue(TestUtils.findText(device, false, main.getString(R.string.overpass_console), 5000));
+            TestUtils.clickButton(device, "android:id/button1", true);
+            assertTrue(TestUtils.clickText(device, false, main.getString(R.string.save), true));
+            TestUtils.selectFile(device, main, null, fileName, true, true);
+            TestUtils.clickButton(device, "android:id/button1", true);
+            assertTrue(TestUtils.clickText(device, false, main.getString(R.string.load), true));
+            TestUtils.selectFile(device, main, null, fileName, true);
+            TestUtils.clickButton(device, "android:id/button2", false);
+            assertTrue(TestUtils.findText(device, false, main.getString(R.string.overpass_query_would_overwrite), 5000));
+            assertTrue(TestUtils.clickText(device, false, main.getString(R.string.merge_result), false));
+            TestUtils.clickButton(device, "android:id/button2", false);
+            assertTrue(TestUtils.findText(device, false, "Downloaded 1039 node(s)", 5000));
+            TestUtils.sleep(20000);
+        } finally {
+            try {
+                mockServer.server().close();
+            } catch (IOException e) {
+                // Ignore
+            }
+            try {
+                File savedFile = new File(FileUtil.getPublicDirectory(), fileName);
+                savedFile.delete();
+            } catch (IOException e) {
+                fail(e.getMessage());
+            }
         }
     }
 }
