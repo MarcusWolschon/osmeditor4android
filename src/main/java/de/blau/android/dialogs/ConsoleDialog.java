@@ -170,7 +170,7 @@ public class ConsoleDialog extends DialogFragment {
                     @Override
                     protected String doInBackground(String text) {
                         try {
-                            return callback.eval(text, checkbox1.isChecked(), checkbox2.isChecked());
+                            return callback.eval(getActivity(), text, checkbox1.isChecked(), checkbox2.isChecked());
                         } catch (Exception ex) {
                             Log.e(DEBUG_TAG, "dialog failed with " + ex);
                             return ex.getMessage();

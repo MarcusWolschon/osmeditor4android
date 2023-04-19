@@ -2570,22 +2570,22 @@ public class Main extends FullScreenAppCompatActivity
      * @param text initial overpass query
      */
     public static void showOverpassConsole(@NonNull final FragmentActivity activity, @Nullable String text) {
-        ConsoleDialog.showDialog(activity, R.string.overpass_console, R.string.merge_result, -1, text, (input, merge, flag2) -> {
+        ConsoleDialog.showDialog(activity, R.string.overpass_console, R.string.merge_result, -1, text, (context, input, merge, flag2) -> {
             Logic logic = App.getLogic();
             if (!merge && logic != null && logic.hasChanges()) {
-                return Util.withHtmlColor(activity, R.attr.errorTextColor, activity.getString(R.string.overpass_query_would_overwrite));
+                return Util.withHtmlColor(context, R.attr.errorTextColor, context.getString(R.string.overpass_query_would_overwrite));
             }
-            AsyncResult result = de.blau.android.overpass.Server.query(activity, de.blau.android.overpass.Server.replacePlaceholders(activity, input), merge);
+            AsyncResult result = de.blau.android.overpass.Server.query(context, de.blau.android.overpass.Server.replacePlaceholders(context, input), merge);
             if (ErrorCodes.OK == result.getCode()) {
-                if (activity instanceof Main) {
-                    ((Main) activity).invalidateMap();
+                if (context instanceof Main) {
+                    ((Main) context).invalidateMap();
                 }
                 Storage storage = App.getDelegator().getCurrentStorage();
-                return activity.getString(R.string.overpass_result, storage.getNodeCount(), storage.getWayCount(), storage.getRelationCount());
+                return context.getString(R.string.overpass_result, storage.getNodeCount(), storage.getWayCount(), storage.getRelationCount());
             } else if (ErrorCodes.NOT_FOUND == result.getCode()) {
-                return activity.getString(R.string.toast_nothing_found);
+                return context.getString(R.string.toast_nothing_found);
             } else {
-                return Util.withHtmlColor(activity, R.attr.errorTextColor, result.getMessage());
+                return Util.withHtmlColor(context, R.attr.errorTextColor, result.getMessage());
             }
         });
     }
@@ -2597,12 +2597,14 @@ public class Main extends FullScreenAppCompatActivity
      */
     public static void showJsConsole(@NonNull final Main main) {
         main.descheduleAutoLock();
-        ConsoleDialog.showDialog(main, R.string.tag_menu_js_console, -1, -1, null, (input, flag1, flag2) -> {
-            String result = de.blau.android.javascript.Utils.evalString(main, "JS Console", input, App.getLogic());
-            main.runOnUiThread(() -> {
-                main.getMap().invalidate();
-                main.scheduleAutoLock();
-            });
+        ConsoleDialog.showDialog(main, R.string.tag_menu_js_console, -1, -1, null, (context, input, flag1, flag2) -> {
+            String result = de.blau.android.javascript.Utils.evalString(context, "JS Console", input, App.getLogic());
+            if (context instanceof Main) {
+                ((Main) context).runOnUiThread(() -> {
+                    ((Main) context).getMap().invalidate();
+                    ((Main) context).scheduleAutoLock();
+                });
+            }
             return result;
         });
     }

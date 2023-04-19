@@ -1981,8 +1981,8 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             return true;
         case R.id.tag_menu_js_console:
             ConsoleDialog.showDialog(getActivity(), R.string.tag_menu_js_console, -1, -1, null,
-                    (input, flag1, flag2) -> de.blau.android.javascript.Utils.evalString(getActivity(), "JS Preset Test", input, buildEdits(),
-                            getKeyValueMap(true), "test", tags2Preset, App.getCurrentPresets(getActivity())));
+                    (context, input, flag1, flag2) -> de.blau.android.javascript.Utils.evalString(context, "JS Preset Test", input, buildEdits(),
+                            getKeyValueMap(true), "test", tags2Preset, App.getCurrentPresets(context)));
             return true;
         case R.id.tag_menu_select_all:
             selectAllRows();
