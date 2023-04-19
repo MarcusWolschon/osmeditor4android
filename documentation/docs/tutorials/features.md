@@ -118,5 +118,10 @@ This list is likely not really complete, but gives some idea of the supported fu
 |                           | OLC support                                              |
 |                           | Validate URLs from property editor                       |
 |                           | Search for objects in loaded data (JOSM syntax)          |
+|                           | Query the Overpass API                                   |
+|                           | Generate Overpass queries from JOSM search language      |
 |                           | Barometer support                                        |
 |                           | On-device help                                           |
+|                           | Automatically save edits and GPX tracks at set intervals |
+|                           | Display of nearby POIs                                   |
+|                           | Support for external measuring apps                      |

@@ -15,15 +15,12 @@ import com.google.openlocationcode.OpenLocationCode.CodeArea;
 import android.content.Context;
 import android.util.Log;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialog;
 import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.dialogs.TextLineDialog;
 import de.blau.android.geocode.Search.SearchResult;
 import de.blau.android.osm.ViewBox;
-import de.blau.android.prefs.AdvancedPrefDatabase;
-import de.blau.android.prefs.AdvancedPrefDatabase.Geocoder;
 import de.blau.android.util.CoordinateParser;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.LatLon;
@@ -160,7 +157,7 @@ public class CoordinatesOrOLC {
     private static OpenLocationCode recoverLocation(@NonNull final Context context, @NonNull final HandleResult handler, @NonNull OpenLocationCode olc,
             @NonNull final String loc) {
         if (new NetworkStatus(context).isConnected()) {
-            String url = getNominatimUrl(context);
+            String url = QueryNominatim.getNominatimUrl(context);
             if (url != null) {
                 QueryNominatim querier = new QueryNominatim(null, url, null, false);
                 querier.execute(loc);
@@ -184,26 +181,5 @@ public class CoordinatesOrOLC {
             handler.onError(context.getString(R.string.network_required));
         }
         return olc;
-    }
-
-    /**
-     * Get a URL for a Nominatim server
-     * 
-     * @param context an Android Context
-     * @return the url or null
-     */
-    @Nullable
-    private static String getNominatimUrl(@NonNull final Context context) {
-        try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(context)) {
-            final Geocoder[] geocoders = db.getActiveGeocoders();
-            String url = null;
-            for (Geocoder g : geocoders) {
-                if (g.type == AdvancedPrefDatabase.GeocoderType.NOMINATIM) {
-                    url = g.url;
-                    break;
-                }
-            }
-            return url;
-        }
     }
 }

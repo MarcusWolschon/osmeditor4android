@@ -531,6 +531,12 @@
             android:summary="@string/config_taginfoServer_summary"
             android:dialogMessage="@string/config_taginfoServer_summary"
             android:title="@string/config_taginfoServer_title" />
+        <androidx.preference.EditTextPreference
+            android:defaultValue="https://overpass-api.de/api/interpreter"
+            android:key="@string/config_overpassServer_key"
+            android:summary="@string/config_overpassServer_summary"
+            android:dialogMessage="@string/config_overpassServer_summary"
+            android:title="@string/config_overpassServer_title" />
     </androidx.preference.PreferenceScreen>
     <androidx.preference.PreferenceScreen
         android:key="config_category_layers"

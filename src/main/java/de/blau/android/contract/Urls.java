@@ -19,15 +19,13 @@ public final class Urls {
     public static final String DEFAULT_SANDBOX_API       = "https://master.apis.dev.openstreetmap.org/api/0.6/";
     public static final String DEFAULT_SANDBOX_API_NAME  = "OpenStreetMap sandbox";
 
-    public static final String DEFAULT_NOMINATIM_SERVER = "https://nominatim.openstreetmap.org/";
-    public static final String DEFAULT_PHOTON_SERVER    = "https://photon.komoot.io/";
-
+    public static final String DEFAULT_NOMINATIM_SERVER   = "https://nominatim.openstreetmap.org/";
+    public static final String DEFAULT_PHOTON_SERVER      = "https://photon.komoot.io/";
     public static final String DEFAULT_OSMOSE_SERVER      = "https://osmose.openstreetmap.fr/";
     public static final String DEFAULT_MAPROULETTE_SERVER = "https://maproulette.org/";
-
-    public static final String DEFAULT_OFFSET_SERVER = "http://offsets.textual.ru/";
-
-    public static final String DEFAULT_TAGINFO_SERVER = "https://taginfo.openstreetmap.org/";
+    public static final String DEFAULT_OFFSET_SERVER      = "http://offsets.textual.ru/";
+    public static final String DEFAULT_TAGINFO_SERVER     = "https://taginfo.openstreetmap.org/";
+    public static final String DEFAULT_OVERPASS_SERVER    = "https://overpass-api.de/api/interpreter";
 
     // these are only configurable for testing
     public static final String DEFAULT_MAPILLARY_IMAGES_V4        = "https://graph.mapillary.com/%s?access_token=%s&fields=thumb_2048_url,computed_geometry";

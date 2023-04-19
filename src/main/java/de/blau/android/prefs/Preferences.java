@@ -73,6 +73,7 @@ public class Preferences {
     private final String      osmoseServer;
     private final String      mapRouletteServer;
     private String            taginfoServer;
+    private String            overpassServer;
     private String            mapillarySequencesUrlV4;
     private String            mapillaryImagesUrlV4;
     private final int         mapillaryMinZoom;
@@ -195,6 +196,7 @@ public class Preferences {
         osmoseServer = prefs.getString(r.getString(R.string.config_osmoseServer_key), Urls.DEFAULT_OSMOSE_SERVER);
         mapRouletteServer = prefs.getString(r.getString(R.string.config_maprouletteServer_key), Urls.DEFAULT_MAPROULETTE_SERVER);
         taginfoServer = prefs.getString(r.getString(R.string.config_taginfoServer_key), Urls.DEFAULT_TAGINFO_SERVER);
+        overpassServer = prefs.getString(r.getString(R.string.config_overpassServer_key), Urls.DEFAULT_OVERPASS_SERVER);
         mapillarySequencesUrlV4 = prefs.getString(r.getString(R.string.config_mapillarySequencesUrlV4_key), Urls.DEFAULT_MAPILLARY_SEQUENCES_URL_V4);
         mapillaryImagesUrlV4 = prefs.getString(r.getString(R.string.config_mapillaryImagesUrlV4_key), Urls.DEFAULT_MAPILLARY_IMAGES_V4);
         mapillaryMinZoom = getIntPref(R.string.config_mapillary_min_zoom_key, de.blau.android.layer.mapillary.MapOverlay.MAPILLARY_DEFAULT_MIN_ZOOM);
@@ -799,6 +801,25 @@ public class Preferences {
     public void setTaginfoServer(@NonNull String url) {
         this.taginfoServer = url;
         prefs.edit().putString(r.getString(R.string.config_taginfoServer_key), url).commit();
+    }
+
+    /**
+     * Get the configured overpass server
+     * 
+     * @return base url for the server
+     */
+    public String getOverpassServer() {
+        return overpassServer;
+    }
+
+    /**
+     * Set the configured overpass server
+     * 
+     * @param url base url for the server
+     */
+    public void setOverpassServer(@NonNull String url) {
+        this.overpassServer = url;
+        prefs.edit().putString(r.getString(R.string.config_overpassServer_key), url).commit();
     }
 
     /**

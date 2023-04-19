@@ -32,7 +32,7 @@ public class TextLineDialog {
      * @return an AlertDialog instance
      */
     public static AlertDialog get(@NonNull Context ctx, int titleId, int hintId, @NonNull TextLineInterface listener, boolean dismiss) {
-        return get(ctx, titleId, hintId, -1, (List<String>) null, null, listener, dismiss);
+        return get(ctx, titleId, hintId, -1, (List<String>) null, null, listener, null, null, dismiss);
     }
 
     /**
@@ -46,7 +46,7 @@ public class TextLineDialog {
      * @return an AlertDialog instance
      */
     public static AlertDialog get(@NonNull Context ctx, int titleId, int hintId, @Nullable String text, @NonNull TextLineInterface listener) {
-        return get(ctx, titleId, hintId, -1, text != null ? Util.wrapInList(text) : null, null, listener, true);
+        return get(ctx, titleId, hintId, -1, text != null ? Util.wrapInList(text) : null, null, listener, null, null, true);
     }
 
     /**
@@ -57,13 +57,16 @@ public class TextLineDialog {
      * @param hintId string resource for an hint of -1 if none
      * @param checkTextId string resource for an optional checkbox, if -1 no checkbox is shown
      * @param prevText a List of previous input to display
-     * @param buttonText positive button text or null
-     * @param listener a TextLineInterface listener provided by the caller
+     * @param posButtonText positive button text or null
+     * @param posListener a TextLineInterface listener provided by the caller used by the pos. button
+     * @param negButtonText negative button text or null
+     * @param negListener a TextLineInterface listener provided by the caller used by the neg. button
      * @param dismiss dismiss dialog when the positive button is clicked when true
      * @return an AlertDialog instance
      */
-    public static AlertDialog get(@NonNull Context ctx, int titleId, int hintId, int checkTextId, @Nullable List<String> prevText, @Nullable String buttonText,
-            @NonNull TextLineInterface listener, boolean dismiss) {
+    public static AlertDialog get(@NonNull Context ctx, int titleId, int hintId, int checkTextId, @Nullable List<String> prevText,
+            @Nullable String posButtonText, @NonNull TextLineInterface posListener, @Nullable String negButtonText, @Nullable TextLineInterface negListener,
+            boolean dismiss) {
 
         // inflater needs to be got from a themed view or else all our custom stuff will not style correctly
         final LayoutInflater inflater = ThemeUtils.getLayoutInflater(ctx);
@@ -98,10 +101,14 @@ public class TextLineDialog {
         }
         builder.setView(layout);
         builder.setNeutralButton(R.string.cancel, null);
-        if (buttonText == null) {
+        if (posButtonText == null) {
             builder.setPositiveButton(R.string.okay, null);
         } else {
-            builder.setPositiveButton(buttonText, null);
+            builder.setPositiveButton(posButtonText, null);
+        }
+
+        if (negButtonText != null) {
+            builder.setNegativeButton(negButtonText, null);
         }
 
         final AlertDialog dialog = builder.create();
@@ -111,10 +118,18 @@ public class TextLineDialog {
                 if (dismiss) {
                     d.dismiss();
                 }
-                listener.processLine(input, checkbox.isChecked());
+                posListener.processLine(input, checkbox.isChecked());
             });
+            if (negButtonText != null) {
+                Button negative = ((AlertDialog) d).getButton(DialogInterface.BUTTON_NEGATIVE);
+                negative.setOnClickListener(view -> {
+                    if (dismiss) {
+                        d.dismiss();
+                    }
+                    negListener.processLine(input, checkbox.isChecked());
+                });
+            }
         });
-
         return dialog;
     }
 

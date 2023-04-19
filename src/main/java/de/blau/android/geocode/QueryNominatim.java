@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.google.gson.stream.JsonReader;
 
+import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
 import androidx.annotation.NonNull;
@@ -16,6 +17,8 @@ import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
 import de.blau.android.geocode.Search.SearchResult;
 import de.blau.android.osm.ViewBox;
+import de.blau.android.prefs.AdvancedPrefDatabase;
+import de.blau.android.prefs.AdvancedPrefDatabase.Geocoder;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
@@ -27,6 +30,7 @@ public class QueryNominatim extends Query {
     private static final String DISPLAY_NAME_FIELD = "display_name";
     private static final String LON_FIELD          = "lon";
     private static final String LAT_FIELD          = "lat";
+    private static final String OSM_ID_FIELD       = "osm_id";
 
     final boolean limitToBoundingBox;
 
@@ -108,6 +112,9 @@ public class QueryNominatim extends Query {
                 case DISPLAY_NAME_FIELD:
                     result.displayName = reader.nextString();
                     break;
+                case OSM_ID_FIELD:
+                    result.setOsmId(reader.nextLong());
+                    break;
                 default:
                     reader.skipValue();
                     break;
@@ -119,5 +126,26 @@ public class QueryNominatim extends Query {
             Log.e(DEBUG_TAG, "readNominatimResult got " + e.getMessage());
         }
         return null;
+    }
+    
+    /**
+     * Get a URL for a Nominatim server
+     * 
+     * @param context an Android Context
+     * @return the url or null
+     */
+    @Nullable
+    public static String getNominatimUrl(@NonNull final Context context) {
+        try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(context)) {
+            final Geocoder[] geocoders = db.getActiveGeocoders();
+            String url = null;
+            for (Geocoder g : geocoders) {
+                if (g.type == AdvancedPrefDatabase.GeocoderType.NOMINATIM) {
+                    url = g.url;
+                    break;
+                }
+            }
+            return url;
+        }
     }
 }

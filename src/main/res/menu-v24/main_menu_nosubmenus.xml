@@ -80,7 +80,12 @@
             <item
                 android:id="@+id/menu_transfer_download_replace"
                 android:title="@string/menu_transfer_download_replace" />
-            <group android:checkableBehavior="single" android:id="@+id/group1">
+            <item
+                android:id="@+id/menu_transfer_query_overpass"
+                android:title="@string/menu_transfer_query_overpass" />
+            <group
+                android:checkableBehavior="single"
+                android:id="@+id/group1">
                 <item
                     android:id="@+id/menu_enable_gps_autodownload"
                     android:checkable="true"
@@ -125,7 +130,7 @@
         android:title="@string/menu_transfer_bugs"
         app:showAsAction="ifRoom">
         <menu>
-             <item
+            <item
                 android:id="@+id/menu_transfer_bugs_upload"
                 android:title="@string/menu_transfer_bugs_upload" />
             <item

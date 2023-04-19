@@ -203,6 +203,7 @@
     <string name="search_objects_hint">Enter a JOSM filter/search expression</string>
     <string name="search_objects_use_regexps">Use regular expressions</string>
     <string name="search_objects_unsupported">Unsupported expression \"%1$s\"</string>
+    <string name="search_objects_query_overpass">Query overpass</string>
     <!--  -->
     <string name="preset_search_hint">Preset search string</string>
     <string name="preset_autopreset">Auto-preset</string>
@@ -283,6 +284,19 @@
     <!-- Safe split dialog -->
     <string name="split_safe_title">Missing relation members</string>
     <string name="split_safe_message">Neigbour relation member ways are not downloaded. Maintaining relation members ordering may depend on these.</string>
+    <!-- JS console dialog  -->
+    <string name="evaluate">Evaluate</string>
+    <string name="js_console_msg_live">Live mode!</string>
+    <string name="js_console_msg_debug">Debug mode!</string>
+    <string name="console_input_hint">Enter code here</string>
+    <string name="console_output_hint">Output will appear here</string>
+    <!--  Overpass console -->
+    <string name="run">Run</string>
+    <string name="overpass_result">Downloaded %1$d node(s), %2$d way(s) and %3$d relation(s).</string>
+    <string name="overpass_console">Overpass console</string>
+    <string name="select_result">Select result</string>
+    <string name="merge_result">Merge result</string>
+    <string name="overpass_query_would_overwrite">Result would overwrite changes! Query aborted.</string>
     <!--  -->
     <string name="error">Error</string>
     <string name="warning">Warning</string>
@@ -297,12 +311,6 @@
     <string name="attached_object_warning_stop">OK, ignore</string>
     <!-- debug dialog -->
     <string name="send_debug_information">Send debug info</string>
-    <!-- JS console dialog  -->
-    <string name="evaluate">Evaluate</string>
-    <string name="js_console_msg_live">Live mode!</string>
-    <string name="js_console_msg_debug">Debug mode!</string>
-    <string name="js_console_input_hint">Enter JavaScript here</string>
-    <string name="js_console_output_hint">Output will appear here</string>
     <!-- Validator dialogs  -->
     <string name="validator_title">Validator ruleset %1$s</string>
     <string name="resurvey_entries">Re-survey</string>
@@ -712,6 +720,7 @@
     <string name="osm_tags">OSM Tags</string>
     <!-- Read a file -->
     <string name="read">Read</string>
+    <string name="load">Load</string>
     <string name="overwrite">Overwrite</string>
     <string name="share">Share</string>
     <string name="share_position">Share position</string>
@@ -884,6 +893,7 @@
     <string name="menu_transfer_download_replace">Clear and download current view</string>
     <string name="menu_transfer_load_current">Load current view</string>
     <string name="menu_transfer_load_replace">Clear and load current view</string>
+    <string name="menu_transfer_query_overpass">Query Overpass…</string>
     <string name="menu_transfer_upload">Upload data to OSM server…</string>
     <string name="menu_transfer_review">Review changes…</string>
     <string name="menu_transfer_update">Update data</string>
@@ -1284,6 +1294,9 @@
     <string name="config_geocoderbutton_summary">Add, edit, delete geocoders for the search functionality.</string>
     <string name="config_taginfoServer_title">Taginfo server</string>
     <string name="config_taginfoServer_summary">Taginfo server to use for preset generation</string>
+    <string name="config_overpassServer_title">Overpass server</string>
+    <string name="config_overpassServer_summary">Overpass server used for queries</string>
+            
     <!-- Layer download and storage -->
     <string name="config_category_layers">Layer download and storage</string>
     <string name="config_category_layers_summary">Tile-based background imagery download and storage.</string>

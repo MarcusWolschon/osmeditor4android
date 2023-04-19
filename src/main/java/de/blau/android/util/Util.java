@@ -396,6 +396,19 @@ public final class Util {
     }
 
     /**
+     * Wrap string in a HTML font element with a themed color
+     * 
+     * @param context an Android COntext
+     * @param attrColorRes the attr color resource
+     * @param input the input string
+     * @return the wrapped string
+     */
+    public static String withHtmlColor(@NonNull Context context, int attrColorRes, @NonNull String input) {
+        int labelColor = ThemeUtils.getStyleAttribColorValue(context, attrColorRes, R.color.material_red);
+        return String.format("<font color=\"#%s\">%s</font>", String.format("%X", labelColor).substring(2), input);
+    }
+
+    /**
      * Convert a Drawable to a Bitmap See
      * https://stackoverflow.com/questions/3035692/how-to-convert-a-drawable-to-a-bitmap/9390776
      * 

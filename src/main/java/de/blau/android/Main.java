@@ -99,6 +99,7 @@ import de.blau.android.contract.Schemes;
 import de.blau.android.contract.Ui;
 import de.blau.android.contract.Urls;
 import de.blau.android.dialogs.BarometerCalibration;
+import de.blau.android.dialogs.ConsoleDialog;
 import de.blau.android.dialogs.DataLoss;
 import de.blau.android.dialogs.DownloadCurrentWithChanges;
 import de.blau.android.dialogs.ElementInfo;
@@ -139,6 +140,7 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Server;
+import de.blau.android.osm.Storage;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.UndoStorage;
 import de.blau.android.osm.ViewBox;
@@ -2185,6 +2187,10 @@ public class Main extends FullScreenAppCompatActivity
         case R.id.menu_transfer_download_replace:
             onMenuDownloadCurrent(false);
             return true;
+        case R.id.menu_transfer_query_overpass:
+            descheduleAutoLock();
+            showOverpassConsole(this, null);
+            break;
         case R.id.menu_transfer_upload:
             confirmUpload(null);
             return true;
@@ -2558,6 +2564,52 @@ public class Main extends FullScreenAppCompatActivity
     }
 
     /**
+     * Show a console for writing and executing Overpass queries
+     * 
+     * @param activity the calling FragmentActivity
+     * @param text initial overpass query
+     */
+    public static void showOverpassConsole(@NonNull final FragmentActivity activity, @Nullable String text) {
+        ConsoleDialog.showDialog(activity, R.string.overpass_console, R.string.merge_result, -1, text, (context, input, merge, flag2) -> {
+            Logic logic = App.getLogic();
+            if (!merge && logic != null && logic.hasChanges()) {
+                return Util.withHtmlColor(context, R.attr.errorTextColor, context.getString(R.string.overpass_query_would_overwrite));
+            }
+            AsyncResult result = de.blau.android.overpass.Server.query(context, de.blau.android.overpass.Server.replacePlaceholders(context, input), merge);
+            if (ErrorCodes.OK == result.getCode()) {
+                if (context instanceof Main) {
+                    ((Main) context).invalidateMap();
+                }
+                Storage storage = App.getDelegator().getCurrentStorage();
+                return context.getString(R.string.overpass_result, storage.getNodeCount(), storage.getWayCount(), storage.getRelationCount());
+            } else if (ErrorCodes.NOT_FOUND == result.getCode()) {
+                return context.getString(R.string.toast_nothing_found);
+            } else {
+                return Util.withHtmlColor(context, R.attr.errorTextColor, result.getMessage());
+            }
+        });
+    }
+
+    /**
+     * Show the JS console
+     * 
+     * @param main the current instance of Main
+     */
+    public static void showJsConsole(@NonNull final Main main) {
+        main.descheduleAutoLock();
+        ConsoleDialog.showDialog(main, R.string.tag_menu_js_console, -1, -1, null, (context, input, flag1, flag2) -> {
+            String result = de.blau.android.javascript.Utils.evalString(context, "JS Console", input, App.getLogic());
+            if (context instanceof Main) {
+                ((Main) context).runOnUiThread(() -> {
+                    ((Main) context).getMap().invalidate();
+                    ((Main) context).scheduleAutoLock();
+                });
+            }
+            return result;
+        });
+    }
+
+    /**
      * Write the contents of a todo list to a file // NOSONAR
      * 
      * @param listName the todo list name or null for all // NOSONAR
@@ -2694,23 +2746,6 @@ public class Main extends FullScreenAppCompatActivity
         logic.setZoom(getMap(), Ui.ZOOM_FOR_ZOOMTO);
         map.getViewBox().moveTo(getMap(), trackPoint.getLon(), trackPoint.getLat());
         map.invalidate();
-    }
-
-    /**
-     * Show the JS console
-     * 
-     * @param main the current instance of Main
-     */
-    public static void showJsConsole(@NonNull final Main main) {
-        main.descheduleAutoLock();
-        de.blau.android.javascript.Utils.jsConsoleDialog(main, R.string.js_console_msg_live, input -> {
-            String result = de.blau.android.javascript.Utils.evalString(main, "JS Console", input, App.getLogic());
-            main.runOnUiThread(() -> {
-                main.getMap().invalidate();
-                main.scheduleAutoLock();
-            });
-            return result;
-        });
     }
 
     /**
