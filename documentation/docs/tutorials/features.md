@@ -64,7 +64,7 @@ This list is likely not really complete, but gives some idea of the supported fu
 |                           | JavaScript scripting support                             |
 |                           | Create custom presets on the fly                         |
 |__Backgrounds and Layers__ |                                                          |
-|                           | Supports the JOSM Imagery Sources                        |
+|                           | Supports the JOSM and Editor Layer Index Imagery Sources |
 |                           | On device tile caching                                   | 
 |                           | Custom background and overlays                           |
 |                           | OpenAerialMap support                                    |
