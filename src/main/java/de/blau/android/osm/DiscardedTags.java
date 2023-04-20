@@ -3,6 +3,7 @@ package de.blau.android.osm;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.SortedMap;
@@ -10,6 +11,7 @@ import java.util.TreeMap;
 
 import com.google.gson.stream.JsonReader;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.util.Log;
@@ -34,10 +36,11 @@ public class DiscardedTags {
      * 
      * @param context Android Context
      */
+    @SuppressLint("NewApi") // StandardCharsets is desugared for APIs < 19.
     public DiscardedTags(@NonNull Context context) {
         Log.d(DEBUG_TAG, "Parsing configuration file");
         AssetManager assetManager = context.getAssets();
-        try (InputStream is = assetManager.open(ASSET_FILE); JsonReader reader = new JsonReader(new InputStreamReader(is, OsmXml.UTF_8));) {
+        try (InputStream is = assetManager.open(ASSET_FILE); JsonReader reader = new JsonReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
             try {
                 reader.beginObject();
                 while (reader.hasNext()) {

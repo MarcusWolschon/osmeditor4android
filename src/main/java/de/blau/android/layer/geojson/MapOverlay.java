@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Serializable;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -30,6 +30,7 @@ import com.mapbox.geojson.Polygon;
 import com.mapbox.turf.TurfException;
 import com.mapbox.turf.TurfJoins;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -461,11 +462,12 @@ public class MapOverlay extends StyleableLayer
      * @return true if successful
      * @throws IOException if reading the InputStream fails
      */
+    @SuppressLint("NewApi") // StandardCharsets is desugared for APIs < 19.
     public boolean loadGeoJsonFile(@NonNull Context ctx, @NonNull InputStream is, boolean fromState) throws IOException {
         boolean successful = false;
         // don't draw while we are loading
         setVisible(false);
-        BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName(OsmXml.UTF_8)));
+        BufferedReader rd = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
         StringBuilder sb = new StringBuilder();
         int cp;
         try {

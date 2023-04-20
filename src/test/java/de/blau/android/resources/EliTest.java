@@ -9,7 +9,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -60,7 +60,7 @@ public class EliTest {
     String stringFromResource(@NonNull String path) {
         StringBuilder sb = new StringBuilder();
         try (InputStream is = getClass().getResourceAsStream(path)) {
-            BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName(OsmXml.UTF_8)));
+            BufferedReader rd = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
             int cp;
             while ((cp = rd.read()) != -1) {
                 sb.append((char) cp);

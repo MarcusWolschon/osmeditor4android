@@ -9,7 +9,7 @@ import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -32,6 +32,7 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 import com.mapbox.geojson.Feature;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
@@ -54,7 +55,6 @@ import de.blau.android.contract.MimeTypes;
 import de.blau.android.contract.Urls;
 import de.blau.android.imageryoffset.Offset;
 import de.blau.android.osm.BoundingBox;
-import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.resources.KeyDatabaseHelper.EntryType;
@@ -743,9 +743,10 @@ public class TileLayerSource implements Serializable {
      * @param async obtain meta data async (bing only)
      * @throws IOException if there was an IO error
      */
+    @SuppressLint("NewApi") // StandardCharsets is desugared for APIs < 19.
     public static void parseImageryFile(@NonNull Context ctx, @NonNull SQLiteDatabase writeableDb, @NonNull String source, @NonNull InputStream is,
             final boolean async) throws IOException {
-        BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName(OsmXml.UTF_8)));
+        BufferedReader rd = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
         StringBuilder sb = new StringBuilder();
         int cp;
         while ((cp = rd.read()) != -1) {

@@ -1,9 +1,11 @@
 package de.blau.android;
 
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 import com.zeugmasolutions.localehelper.LocaleAwareCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,7 +15,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
-import de.blau.android.osm.OsmXml;
 import de.blau.android.util.Util;
 
 /**
@@ -84,9 +85,11 @@ public class LicenseViewer extends LocaleAwareCompatActivity {
      * @param filename the name of the file
      * @param builder the StringBuilder
      */
+    @SuppressLint("NewApi") // StandardCharsets is desugared for APIs < 19.
     private void load(@NonNull String filename, @NonNull StringBuilder builder) {
-        builder.append("== " + filename + " ==\n");
-        try (InputStreamReader reader = new InputStreamReader(getAssets().open(filename), OsmXml.UTF_8)) {
+        builder.append("== ").append(filename).append(" ==\n");
+        try (InputStreamReader reader = new InputStreamReader(getAssets().open(filename),
+                StandardCharsets.UTF_8)) {
             int read = 0;
             do {
                 char[] buf = new char[4096];
@@ -96,7 +99,7 @@ public class LicenseViewer extends LocaleAwareCompatActivity {
                 }
             } while (read > 0);
         } catch (Exception e) {
-            builder.append("Error while loading file: " + e.getMessage());
+            builder.append("Error while loading file: ").append(e.getMessage());
         }
         builder.append("\n\n\n\n");
     }

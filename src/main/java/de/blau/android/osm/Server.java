@@ -11,7 +11,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -27,6 +27,7 @@ import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 import org.xmlpull.v1.XmlSerializer;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.database.sqlite.SQLiteException;
@@ -761,8 +762,9 @@ public class Server {
      * @param changeSetId changeset id to use
      * @throws OsmIOException thrown if a write or other error occurs
      */
+    @SuppressLint("NewApi") // StandardCharsets is desugared for APIs < 19.
     private void sendPayload(@NonNull final OutputStream outputStream, @NonNull final XmlSerializable xmlSerializable, long changeSetId) throws OsmIOException {
-        try (OutputStreamWriter out = new OutputStreamWriter(outputStream, Charset.defaultCharset())) {
+        try (OutputStreamWriter out = new OutputStreamWriter(outputStream, StandardCharsets.UTF_8)) {
             XmlSerializer xmlSerializer = getXmlSerializer();
             xmlSerializer.setOutput(out);
             xmlSerializable.toXml(xmlSerializer, changeSetId);
