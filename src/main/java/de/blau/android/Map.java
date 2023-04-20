@@ -258,9 +258,7 @@ public class Map extends View implements IMapView {
                                     ((de.blau.android.layer.gpx.MapOverlay) layer).setTrack(getTracker().getTrack());
                                 }
                             } else if (!((de.blau.android.layer.gpx.MapOverlay) layer).fromFile(ctx, Uri.parse(contentId))) {
-                                db.deleteLayer(LayerType.GPX, contentId);
-                                Log.w(DEBUG_TAG, "Deleted GPX layer for " + contentId);
-                                continue; // skip
+                                layer = null; // this will delete the layer
                             }
                             break;
                         case TASKS:
@@ -270,8 +268,7 @@ public class Map extends View implements IMapView {
                             layer = new de.blau.android.layer.geojson.MapOverlay(this);
                             if (!((de.blau.android.layer.geojson.MapOverlay) layer).loadGeoJsonFile(ctx, Uri.parse(contentId), true)) {
                                 // other error, has already been toasted
-                                db.deleteLayer(LayerType.GEOJSON, contentId);
-                                continue;
+                                layer = null; // this will delete the layer
                             }
                             break;
                         case MAPILLARY:
@@ -291,6 +288,10 @@ public class Map extends View implements IMapView {
                     if (LayerType.IMAGERY.equals(type) || LayerType.OVERLAYIMAGERY.equals(type)) {
                         ImageryOffsetUtils.applyImageryOffsets(ctx, prefs, ((MapTilesLayer<Bitmap>) layer).getTileLayerConfiguration(), getViewBox());
                     }
+                } else {
+                    // remove layers from DB for which the content is missing
+                    db.deleteLayer(type, contentId);
+                    Log.w(DEBUG_TAG, "Deleted " + type + " layer for " + contentId);
                 }
             }
         }
@@ -408,6 +409,29 @@ public class Map extends View implements IMapView {
             }
         }
         return null;
+    }
+
+    /**
+     * Check if layer is visible
+     * 
+     * @param layer the layer to check
+     * @return true if the layer is visible
+     */
+    public boolean isVisible(@NonNull MapViewLayer layer) {
+        List<MapViewLayer> layers = new ArrayList<>();
+        synchronized (mLayers) {
+            layers.addAll(mLayers);
+        }
+        Collections.reverse(layers);
+        for (MapViewLayer l : layers) {
+            if (layer.equals(l)) {
+                return layer.isVisible();
+            } else if (l.getType() == LayerType.IMAGERY && l.isVisible()) {
+                return false;
+            }
+        }
+        Log.e(DEBUG_TAG, "inconsistent layer config, didn't find layer " + layer.getContentId());
+        return false;
     }
 
     /**
@@ -562,10 +586,6 @@ public class Map extends View implements IMapView {
         clipBox.set(myViewBox);
         clipBox.scale(1.1);
 
-        final Logic logic = App.getLogic();
-        final Mode tmpDrawingEditMode = logic.getMode();
-        tmpLocked = logic.isLocked();
-
         // Draw our Overlays.
         canvas.getClipBounds(canvasBounds);
 
@@ -592,7 +612,8 @@ public class Map extends View implements IMapView {
             }
         }
 
-        final boolean backgroundAlignMode = tmpDrawingEditMode == Mode.MODE_ALIGN_BACKGROUND;
+        final Logic logic = App.getLogic();
+        final boolean backgroundAlignMode = logic.getMode() == Mode.MODE_ALIGN_BACKGROUND;
         if (zoomLevel > STORAGE_BOX_LIMIT && !backgroundAlignMode) {
             // shallow copy to avoid modification issues
             boundingBoxes.clear();
@@ -600,7 +621,7 @@ public class Map extends View implements IMapView {
             paintStorageBox(canvas, boundingBoxes);
         }
         paintGpsPos(canvas);
-        if (App.getLogic().isInEditZoomRange()) {
+        if (showCrosshairs && logic.isInEditZoomRange()) {
             paintCrosshairs(canvas);
         }
 
@@ -689,15 +710,12 @@ public class Map extends View implements IMapView {
      * @param canvas the Canvas to draw on
      */
     private void paintCrosshairs(@NonNull Canvas canvas) {
-        //
-        if (showCrosshairs) {
-            float x = GeoMath.lonE7ToX(getWidth(), getViewBox(), crosshairsLon);
-            float y = GeoMath.latE7ToY(getHeight(), getWidth(), getViewBox(), crosshairsLat);
-            Paint paint = DataStyle.getInternal(DataStyle.CROSSHAIRS_HALO).getPaint();
-            drawCrosshairs(canvas, x, y, paint);
-            paint = DataStyle.getInternal(DataStyle.CROSSHAIRS).getPaint();
-            drawCrosshairs(canvas, x, y, paint);
-        }
+        float x = GeoMath.lonE7ToX(getWidth(), getViewBox(), crosshairsLon);
+        float y = GeoMath.latE7ToY(getHeight(), getWidth(), getViewBox(), crosshairsLat);
+        Paint paint = DataStyle.getInternal(DataStyle.CROSSHAIRS_HALO).getPaint();
+        drawCrosshairs(canvas, x, y, paint);
+        paint = DataStyle.getInternal(DataStyle.CROSSHAIRS).getPaint();
+        drawCrosshairs(canvas, x, y, paint);
     }
 
     /**
@@ -813,7 +831,7 @@ public class Map extends View implements IMapView {
      */
     private void paintZoomAndOffset(@NonNull final Canvas canvas) {
         int pos = ThemeUtils.getActionBarHeight(context) + 5 + (int) de.blau.android.layer.grid.MapOverlay.LONGTICKS_DP * 3;
-        Offset o = getBackgroundLayer().getTileLayerConfiguration().getOffset(zoomLevel);
+        Offset o = ((Main) context).getBackgroundAlignmentActionModeCallback().getLayerSource().getOffset(zoomLevel);
         String text = context.getString(R.string.zoom_and_offset, zoomLevel, o != null ? String.format(Locale.US, "%.5f", o.getDeltaLon()) : "0.00000",
                 o != null ? String.format(Locale.US, "%.5f", o.getDeltaLat()) : "0.00000");
         float textSize = textPaint.getTextSize();

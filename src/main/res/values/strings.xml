@@ -966,12 +966,12 @@
     <string name="menu_preset_feedback">Provide preset feedback</string>  
     <string name="menu_privacy">Privacy</string>
     <!-- Background alignment -->
-    <string name="menu_tools_background_align">Align background</string>
+    <string name="menu_tools_background_align">Align imagery</string>
     <string name="menu_tools_background_align_reset">Reset</string>
     <string name="menu_tools_background_align_zero">Zero</string>
     <string name="menu_tools_background_align_retrieve_from_db">From database</string>
     <string name="menu_tools_background_align_retrieve_from_device">From device</string>
-    <string name="menu_tools_background_align_save_db">Save to database</string>
+    <string name="menu_tools_background_align_save_db">Save to database…</string>
     <string name="menu_tools_background_align_save_device">Save to device</string>
     <string name="menu_tools_background_align_apply2all">Apply (all zoom levels)</string>
     <string name="min_max_zoom">%1$d - %2$d</string>
@@ -987,6 +987,7 @@
     <string name="menu_layers_add_photolayer">Enable photo layer</string>
     <string name="menu_layers_enable_mapillary_layer">Enable Mapillary layer</string>
     <string name="menu_layers_configure">Configure…</string>
+    <string name="menu_layers_background_align">Align imagery…</string>
     <!--  -->
     <string name="menu_tools_apply_local_offset">Apply stored offset to imagery</string>
     <string name="menu_tools_background_contrast">Contrast</string>

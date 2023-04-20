@@ -1884,8 +1884,6 @@ public class Main extends FullScreenAppCompatActivity
             menu.findItem(R.id.menu_camera).setVisible(false).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
         }
 
-        menu.findItem(R.id.menu_tools_background_align).setEnabled(map.getBackgroundLayer() != null);
-
         menu.findItem(R.id.menu_tools_calibrate_height)
                 .setVisible(sensorManager != null && sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE) != null && haveTracker);
 
@@ -2402,18 +2400,6 @@ public class Main extends FullScreenAppCompatActivity
                 }
                 map.invalidate();
             });
-            return true;
-        case R.id.menu_tools_background_align:
-            // protect against weird state
-            Mode oldMode = logic.getMode() != Mode.MODE_ALIGN_BACKGROUND ? logic.getMode() : Mode.MODE_EASYEDIT;
-            try {
-                backgroundAlignmentActionModeCallback = new BackgroundAlignmentActionModeCallback(this, oldMode);
-                // NOTE needs to be after instance creation
-                logic.setMode(this, Mode.MODE_ALIGN_BACKGROUND);
-                startSupportActionMode(getBackgroundAlignmentActionModeCallback());
-            } catch (IllegalStateException isex) {
-                Log.e(DEBUG_TAG, isex.getMessage());
-            }
             return true;
         case R.id.menu_tools_apply_local_offset:
             MapTilesLayer<?> backgroundLayer = map.getBackgroundLayer();
@@ -4220,6 +4206,10 @@ public class Main extends FullScreenAppCompatActivity
      */
     public BackgroundAlignmentActionModeCallback getBackgroundAlignmentActionModeCallback() {
         return backgroundAlignmentActionModeCallback;
+    }
+
+    public void setBackgroundAlignmentActionModeCallback(BackgroundAlignmentActionModeCallback callback) {
+        backgroundAlignmentActionModeCallback = callback;
     }
 
     /**

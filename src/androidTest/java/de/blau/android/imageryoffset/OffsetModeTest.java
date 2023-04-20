@@ -1,9 +1,13 @@
 package de.blau.android.imageryoffset;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.io.IOException;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -17,13 +21,16 @@ import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
+import androidx.test.uiautomator.UiObject2;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.MockTileServer;
+import de.blau.android.R;
 import de.blau.android.TestUtils;
 import de.blau.android.exception.OsmException;
+import de.blau.android.layer.LayerDialogTest;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerDatabase;
@@ -108,22 +115,20 @@ public class OffsetModeTest {
     @Test
     public void createOffset() {
         startMode();
-        Assert.assertTrue(TestUtils.clickText(device, false, "Align background", true, false));
-        Assert.assertTrue(TestUtils.findText(device, false, "Align background"));
         TileLayerSource tileLayerConfiguration = map.getBackgroundLayer().getTileLayerConfiguration();
         tileLayerConfiguration.setOffset(0, 0);
         TestUtils.zoomToLevel(device, main, tileLayerConfiguration.getMaxZoom());
         int zoomLevel = map.getZoomLevel();
         Offset offset = tileLayerConfiguration.getOffset(zoomLevel);
-        Assert.assertEquals(0D, offset.getDeltaLat(), 0.1E-4);
-        Assert.assertEquals(0D, offset.getDeltaLon(), 0.1E-4);
+        assertEquals(0D, offset.getDeltaLat(), 0.1E-4);
+        assertEquals(0D, offset.getDeltaLon(), 0.1E-4);
         TestUtils.drag(device, map, 8.38782, 47.390339, 8.388, 47.391, true, 50);
         TestUtils.clickOverflowButton(device);
-        TestUtils.clickText(device, false, "Save to database", true, false);
+        TestUtils.clickText(device, false, main.getString(R.string.menu_tools_background_align_save_db), true, false);
         // 74.22 m
-        TestUtils.clickText(device, false, "Cancel", true, false);
+        TestUtils.clickText(device, false, main.getString(R.string.cancel), true, false);
         TestUtils.clickOverflowButton(device);
-        TestUtils.clickText(device, false, "Apply", true, false);
+        TestUtils.clickText(device, false, main.getString(R.string.apply), true, false);
         TestUtils.clickUp(device);
         try {
             Thread.sleep(5000); // NOSONAR
@@ -131,15 +136,15 @@ public class OffsetModeTest {
         }
         zoomLevel = map.getZoomLevel();
         offset = tileLayerConfiguration.getOffset(zoomLevel);
-        Assert.assertNotNull(offset);
-        Assert.assertEquals(6.462E-4, offset.getDeltaLat(), 0.1E-4);
-        Assert.assertEquals(1.773E-4, offset.getDeltaLon(), 0.1E-4);
+        assertNotNull(offset);
+        assertEquals(6.462E-4, offset.getDeltaLat(), 0.1E-4);
+        assertEquals(1.773E-4, offset.getDeltaLon(), 0.1E-4);
     }
 
     /**
      * Zoom in and start the alignment mode
      */
-    void startMode() {
+    private void startMode() {
         TestUtils.zoomToLevel(device, main, 18);
         try {
             BoundingBox bbox = GeoMath.createBoundingBoxForCoordinates(47.390339D, 8.38782D, 50D);
@@ -152,22 +157,12 @@ public class OffsetModeTest {
             }
             main.invalidateOptionsMenu();
         } catch (OsmException e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
-
-        if (!TestUtils.clickMenuButton(device, "Tools", false, true)) {
-            TestUtils.clickOverflowButton(device);
-            TestUtils.clickText(device, false, "Tools", true, false);
-        }
-        if (!TestUtils.findText(device, false, "Align background")) {
-            // retry
-            device.pressBack();
-            device.waitForWindowUpdate(null, 2000);
-            if (!TestUtils.clickMenuButton(device, "Tools", false, true)) {
-                TestUtils.clickOverflowButton(device);
-                TestUtils.clickText(device, false, "Tools", true, false);
-            }
-        }
+        UiObject2 menuButton = TestUtils.getLayerButton(device, "Vespucci Test", LayerDialogTest.MENU_BUTTON);
+        menuButton.click();
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_layers_background_align), true, false));
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.menu_tools_background_align)));
     }
 
     /**
@@ -178,13 +173,11 @@ public class OffsetModeTest {
     public void downloadOffset() {
         mockServer.enqueue("imagery_offset");
         startMode();
-        Assert.assertTrue(TestUtils.clickText(device, false, "Align background", true, false));
-        Assert.assertTrue(TestUtils.findText(device, false, "Align background"));
         TileLayerSource tileLayerConfiguration = map.getBackgroundLayer().getTileLayerConfiguration();
         TestUtils.zoomToLevel(device, main, tileLayerConfiguration.getMaxZoom());
         int zoomLevel = map.getZoomLevel();
-        TestUtils.clickMenuButton(device, "From database", false, true);
-        TestUtils.clickText(device, false, "Apply", true, false);
+        TestUtils.clickMenuButton(device, main.getString(R.string.menu_tools_background_align_retrieve_from_db), false, true);
+        TestUtils.clickText(device, false, main.getString(R.string.apply), true, false);
         TestUtils.clickUp(device);
         try {
             Thread.sleep(5000); // NOSONAR
@@ -192,8 +185,8 @@ public class OffsetModeTest {
         }
         zoomLevel = map.getZoomLevel();
         Offset offset = tileLayerConfiguration.getOffset(zoomLevel);
-        Assert.assertNotNull(offset);
-        Assert.assertEquals(8.7E-6, offset.getDeltaLat(), 0.1E-6);
-        Assert.assertEquals(-1.056E-5, offset.getDeltaLon(), 0.01E-5);
+        assertNotNull(offset);
+        assertEquals(8.7E-6, offset.getDeltaLat(), 0.1E-6);
+        assertEquals(-1.056E-5, offset.getDeltaLon(), 0.01E-5);
     }
 }

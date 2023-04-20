@@ -83,15 +83,15 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
     private static final int MENUITEM_SAVELOCAL  = 7;
     private static final int MENUITEM_HELP       = 8;
 
-    private Mode              oldMode;
+    private final Mode        oldMode;
     private final Preferences prefs;
     private final Uri         offsetServerUri;
 
     private final Offset[] oldOffsets;
 
-    private TileLayerSource osmts;
-    private final Map       map;
-    private final Main      main;
+    private final TileLayerSource osmts;
+    private final Map             map;
+    private final Main            main;
 
     private List<ImageryOffset> offsetList;
 
@@ -103,11 +103,11 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
      * @param main the current instance of Main
      * @param oldMode the Mode before we were called
      */
-    public BackgroundAlignmentActionModeCallback(@NonNull Main main, @NonNull Mode oldMode) {
+    public BackgroundAlignmentActionModeCallback(@NonNull Main main, @NonNull Mode oldMode, @NonNull String layerId) {
         this.oldMode = oldMode;
         this.main = main; // currently we are only called from here
         map = main.getMap();
-        MapTilesLayer<?> layer = map.getBackgroundLayer();
+        MapTilesLayer<?> layer = (MapTilesLayer<?>) map.getLayer(layerId);
         if (layer == null) {
             throw new IllegalStateException("MapTilesLayer is null");
         }
@@ -117,6 +117,16 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
         prefs = App.getPreferences(main);
         String offsetServer = prefs.getOffsetServer();
         offsetServerUri = Uri.parse(offsetServer);
+    }
+
+    /**
+     * Get the tilelayer we are currently adjusting
+     * 
+     * @return a TileLayerSource
+     */
+    @NonNull
+    public TileLayerSource getLayerSource() {
+        return osmts;
     }
 
     /**
@@ -246,6 +256,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 
         main.showBottomBar();
         logic.setMode(main, oldMode);
+        main.setBackgroundAlignmentActionModeCallback(null);
         main.showLock();
         main.showLayersControl();
         if (prefs.areSimpleActionsEnabled()) {
