@@ -155,9 +155,9 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
     }
 
     /**
-     * This method gets called when an OsmElement long click has to be handled. The ActionModeCallback can then either return
-     * true to indicate that the click was handled (or should be ignored), or return false to indicate default handling
-     * should apply.
+     * This method gets called when an OsmElement long click has to be handled. The ActionModeCallback can then either
+     * return true to indicate that the click was handled (or should be ignored), or return false to indicate default
+     * handling should apply.
      * 
      * @param element the OsmElement that was long clicked
      * @return true if the click has been handled, false if default handling should apply
@@ -165,7 +165,7 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
     public boolean handleElementLongClick(@NonNull OsmElement element) {
         return false;
     }
-    
+
     /**
      * Indicate if the mode uses long clicks internally
      * 
@@ -198,7 +198,7 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
          * reflection it is dependent on the code in the androidx libs. THis further cannot be called in
          * onCreateActionMode as the Views don't seem to have been inflated yet.
          */
-        View close = getActionCloseView();
+        View close = getActionCloseView(mode);
         if (close != null) {
             close.setOnClickListener(v -> onCloseClicked());
         }
@@ -393,41 +393,39 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
      *
      * From:
      * https://stackoverflow.com/questions/27438644/how-do-we-show-a-back-button-instead-of-donecheckmark-button-in-the-contextual
+     * 
+     * @param mode2
      *
      * @return the View or null if not found
      */
     @Nullable
-    private View getActionCloseView() {
-        if (mode != null) {
-            Object modeObject = mode;
-            try {
-                final Field wrappedObjectField = modeObject.getClass().getDeclaredField("mWrappedObject");
-                wrappedObjectField.setAccessible(true); // NOSONAR
-                modeObject = wrappedObjectField.get(mode);
-            } catch (Exception ex) {
-                // ignore
-            }
-            try {
-                final Field contextViewField = modeObject.getClass().getDeclaredField("mContextView");
-                contextViewField.setAccessible(true); // NOSONAR
-                Object mContextView = contextViewField.get(modeObject);
-                final Field closeField = mContextView.getClass().getDeclaredField("mClose");
-                closeField.setAccessible(true); // NOSONAR
-                final Object mClose = closeField.get(mContextView);
-                if (mClose instanceof View) {
-                    View closeButton = ((View) mClose).findViewById(R.id.action_mode_close_button);
-                    if (closeButton == null) {
-                        Log.e(DEBUG_TAG, "action_mode_close_button not found");
-                    }
-                    return closeButton;
-                } else {
-                    Log.e(DEBUG_TAG, "mClose has an unexpected type " + (mClose != null ? mClose.getClass().getCanonicalName() : " null"));
+    public static View getActionCloseView(@NonNull ActionMode mode) {
+        Object modeObject = mode;
+        try {
+            final Field wrappedObjectField = modeObject.getClass().getDeclaredField("mWrappedObject");
+            wrappedObjectField.setAccessible(true); // NOSONAR
+            modeObject = wrappedObjectField.get(mode);
+        } catch (Exception ex) {
+            // ignore
+        }
+        try {
+            final Field contextViewField = modeObject.getClass().getDeclaredField("mContextView");
+            contextViewField.setAccessible(true); // NOSONAR
+            Object mContextView = contextViewField.get(modeObject);
+            final Field closeField = mContextView.getClass().getDeclaredField("mClose");
+            closeField.setAccessible(true); // NOSONAR
+            final Object mClose = closeField.get(mContextView);
+            if (mClose instanceof View) {
+                View closeButton = ((View) mClose).findViewById(R.id.action_mode_close_button);
+                if (closeButton == null) {
+                    Log.e(DEBUG_TAG, "action_mode_close_button not found");
                 }
-            } catch (Exception ex) {
-                Log.e(DEBUG_TAG, ex.getClass().getSimpleName() + " in #getActionCloseView: " + ex.getLocalizedMessage());
+                return closeButton;
+            } else {
+                Log.e(DEBUG_TAG, "mClose has an unexpected type " + (mClose != null ? mClose.getClass().getCanonicalName() : " null"));
             }
-        } else {
-            Log.e(DEBUG_TAG, "getActionCloseView mode is null");
+        } catch (Exception ex) {
+            Log.e(DEBUG_TAG, ex.getClass().getSimpleName() + " in #getActionCloseView: " + ex.getLocalizedMessage());
         }
         return null;
     }

@@ -831,7 +831,7 @@ public class Map extends View implements IMapView {
      */
     private void paintZoomAndOffset(@NonNull final Canvas canvas) {
         int pos = ThemeUtils.getActionBarHeight(context) + 5 + (int) de.blau.android.layer.grid.MapOverlay.LONGTICKS_DP * 3;
-        Offset o = ((Main) context).getBackgroundAlignmentActionModeCallback().getLayerSource().getOffset(zoomLevel);
+        Offset o = ((Main) context).getImageryAlignmentActionModeCallback().getLayerSource().getOffset(zoomLevel);
         String text = context.getString(R.string.zoom_and_offset, zoomLevel, o != null ? String.format(Locale.US, "%.5f", o.getDeltaLon()) : "0.00000",
                 o != null ? String.format(Locale.US, "%.5f", o.getDeltaLat()) : "0.00000");
         float textSize = textPaint.getTextSize();

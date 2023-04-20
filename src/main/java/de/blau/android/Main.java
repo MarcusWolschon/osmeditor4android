@@ -127,7 +127,7 @@ import de.blau.android.filter.TagFilter;
 import de.blau.android.geocode.CoordinatesOrOLC;
 import de.blau.android.geocode.Search.SearchResult;
 import de.blau.android.gpx.TrackPoint;
-import de.blau.android.imageryoffset.BackgroundAlignmentActionModeCallback;
+import de.blau.android.imageryoffset.ImageryAlignmentActionModeCallback;
 import de.blau.android.imageryoffset.ImageryOffsetUtils;
 import de.blau.android.layer.ClickableInterface;
 import de.blau.android.layer.DownloadInterface;
@@ -431,7 +431,7 @@ public class Main extends FullScreenAppCompatActivity
     private UndoListener undoListener;
 
     // hack to protect against weird state
-    private BackgroundAlignmentActionModeCallback backgroundAlignmentActionModeCallback = null;
+    private ImageryAlignmentActionModeCallback imageryAlignmentActionModeCallback = null;
 
     private Location lastLocation = null;
 
@@ -3377,17 +3377,20 @@ public class Main extends FullScreenAppCompatActivity
      */
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
-        if (easyEditManager != null && easyEditManager.isProcessingAction()) {
-            if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
-                if (event.getAction() == KeyEvent.ACTION_DOWN) {
-                    Log.d(DEBUG_TAG, "calling handleBackPressed");
-                    actionResult = easyEditManager.handleBackPressed();
-                    return actionResult;
-                } else { // note to avoid tons of error messages we need to
-                         // consume both events
-                    return actionResult;
-                }
+        final boolean backPressed = event.getKeyCode() == KeyEvent.KEYCODE_BACK;
+        final boolean actionDown = event.getAction() == KeyEvent.ACTION_DOWN;
+        if (easyEditManager != null && easyEditManager.isProcessingAction() && backPressed) {
+            if (actionDown) {
+                actionResult = easyEditManager.handleBackPressed();
+                return actionResult;
+            } else { // note to avoid tons of error messages we need to
+                     // consume both events
+                return actionResult;
             }
+        }
+        if (imageryAlignmentActionModeCallback != null && backPressed) {
+            imageryAlignmentActionModeCallback.close();
+            return true;
         }
         return super.dispatchKeyEvent(event);
     }
@@ -4202,14 +4205,20 @@ public class Main extends FullScreenAppCompatActivity
     }
 
     /**
-     * @return the backgroundAlignmentActionModeCallback
+     * @return the current ImageryAlignmentActionModeCallback or null
      */
-    public BackgroundAlignmentActionModeCallback getBackgroundAlignmentActionModeCallback() {
-        return backgroundAlignmentActionModeCallback;
+    @Nullable
+    public ImageryAlignmentActionModeCallback getImageryAlignmentActionModeCallback() {
+        return imageryAlignmentActionModeCallback;
     }
 
-    public void setBackgroundAlignmentActionModeCallback(BackgroundAlignmentActionModeCallback callback) {
-        backgroundAlignmentActionModeCallback = callback;
+    /**
+     * Set the current ImageryAlignmentActionModeCallback
+     * 
+     * @param callback the ImageryAlignmentActionModeCallback to set
+     */
+    public void setImageryAlignmentActionModeCallback(@Nullable ImageryAlignmentActionModeCallback callback) {
+        imageryAlignmentActionModeCallback = callback;
     }
 
     /**

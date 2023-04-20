@@ -1629,7 +1629,7 @@ public class Logic {
         int relativeLon = lon - viewBox.getLeft();
         int relativeLat = lat - viewBox.getBottom();
         // TileLayerSource osmts = map.getBackgroundLayer().getTileLayerConfiguration();
-        TileLayerSource osmts = ((Main) map.getContext()).getBackgroundAlignmentActionModeCallback().getLayerSource();
+        TileLayerSource osmts = ((Main) map.getContext()).getImageryAlignmentActionModeCallback().getLayerSource();
         double lonOffset = 0d;
         double latOffset = 0d;
         Offset o = osmts.getOffset(map.getZoomLevel());

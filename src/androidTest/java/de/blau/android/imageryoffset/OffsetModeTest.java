@@ -2,6 +2,7 @@ package de.blau.android.imageryoffset;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -129,7 +130,7 @@ public class OffsetModeTest {
         TestUtils.clickText(device, false, main.getString(R.string.cancel), true, false);
         TestUtils.clickOverflowButton(device);
         TestUtils.clickText(device, false, main.getString(R.string.apply), true, false);
-        TestUtils.clickUp(device);
+        TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
         try {
             Thread.sleep(5000); // NOSONAR
         } catch (InterruptedException e) {
@@ -178,7 +179,7 @@ public class OffsetModeTest {
         int zoomLevel = map.getZoomLevel();
         TestUtils.clickMenuButton(device, main.getString(R.string.menu_tools_background_align_retrieve_from_db), false, true);
         TestUtils.clickText(device, false, main.getString(R.string.apply), true, false);
-        TestUtils.clickUp(device);
+        TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
         try {
             Thread.sleep(5000); // NOSONAR
         } catch (InterruptedException e) {
@@ -188,5 +189,31 @@ public class OffsetModeTest {
         assertNotNull(offset);
         assertEquals(8.7E-6, offset.getDeltaLat(), 0.1E-6);
         assertEquals(-1.056E-5, offset.getDeltaLon(), 0.01E-5);
+    }
+
+    /**
+     * Start offset mode and drag the screen, abort
+     */
+    // @SdkSuppress(minSdkVersion = 26)
+    @Test
+    public void abortOffset() {
+        startMode();
+        TileLayerSource tileLayerConfiguration = map.getBackgroundLayer().getTileLayerConfiguration();
+        tileLayerConfiguration.setOffset(0, 0);
+        TestUtils.zoomToLevel(device, main, tileLayerConfiguration.getMaxZoom());
+        int zoomLevel = map.getZoomLevel();
+        Offset offset = tileLayerConfiguration.getOffset(zoomLevel);
+        assertEquals(0D, offset.getDeltaLat(), 0.1E-4);
+        assertEquals(0D, offset.getDeltaLon(), 0.1E-4);
+        TestUtils.drag(device, map, 8.38782, 47.390339, 8.388, 47.391, true, 50);
+        TestUtils.clickUp(device);
+        TestUtils.clickText(device, false, main.getString(R.string.yes), true);
+        try {
+            Thread.sleep(5000); // NOSONAR
+        } catch (InterruptedException e) {
+        }
+        zoomLevel = map.getZoomLevel();
+        offset = tileLayerConfiguration.getOffset(zoomLevel);
+        assertNull(offset);
     }
 }

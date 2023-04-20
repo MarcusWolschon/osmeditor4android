@@ -62,7 +62,7 @@ import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.gpx.Track;
 import de.blau.android.gpx.TrackPoint;
 import de.blau.android.gpx.WayPoint;
-import de.blau.android.imageryoffset.BackgroundAlignmentActionModeCallback;
+import de.blau.android.imageryoffset.ImageryAlignmentActionModeCallback;
 import de.blau.android.layer.AbstractConfigurationDialog;
 import de.blau.android.layer.ConfigureInterface;
 import de.blau.android.layer.DiscardInterface;
@@ -881,11 +881,11 @@ public class Layers extends AbstractConfigurationDialog {
                     if (layer != null) {
                         try {
                             Logic logic = App.getLogic();
-                            BackgroundAlignmentActionModeCallback backgroundAlignmentActionModeCallback = new BackgroundAlignmentActionModeCallback(
-                                    ((Main) activity), logic.getMode() != Mode.MODE_ALIGN_BACKGROUND ? logic.getMode() : Mode.MODE_EASYEDIT,
+                            ImageryAlignmentActionModeCallback backgroundAlignmentActionModeCallback = new ImageryAlignmentActionModeCallback(((Main) activity),
+                                    logic.getMode() != Mode.MODE_ALIGN_BACKGROUND ? logic.getMode() : Mode.MODE_EASYEDIT,
                                     ((MapTilesLayer<?>) layer).getContentId());
                             // NOTE needs to be after instance creation, logic.setMode needs to be called -after- this
-                            ((Main) activity).setBackgroundAlignmentActionModeCallback(backgroundAlignmentActionModeCallback);
+                            ((Main) activity).setImageryAlignmentActionModeCallback(backgroundAlignmentActionModeCallback);
                             logic.setMode(((Main) activity), Mode.MODE_ALIGN_BACKGROUND);
                             ((Main) activity).startSupportActionMode(backgroundAlignmentActionModeCallback);
                         } catch (IllegalStateException isex) {

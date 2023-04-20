@@ -11,6 +11,16 @@ import android.net.Uri;
  *
  */
 public class ImageryOffset {
+
+    private static final String STORE             = "store";
+    static final String         IMLON_PARAM       = "imlon";
+    static final String         IMLAT_PARAM       = "imlat";
+    static final String         IMAGERY_PARAM     = "imagery";
+    static final String         DESCRIPTION_PARAM = "description";
+    static final String         AUTHOR_PARAM      = "author";
+    static final String         LAT_PARAM         = "lat";
+    static final String         LON_PARAM         = "lon";
+
     @SuppressWarnings("unused")
     long            id;
     String          imageryId;
@@ -37,11 +47,11 @@ public class ImageryOffset {
      * @return an url with the parameters filled in
      */
     public String toSaveUrl(final Uri offsetServerUri) {
-        Uri uriBuilder = offsetServerUri.buildUpon().appendPath("store").appendQueryParameter("lat", String.format(Locale.US, "%.7f", lat))
-                .appendQueryParameter("lon", String.format(Locale.US, "%.7f", lon)).appendQueryParameter("author", author)
-                .appendQueryParameter("description", description).appendQueryParameter("imagery", imageryId)
-                .appendQueryParameter("imlat", String.format(Locale.US, "%.7f", getImageryLat()))
-                .appendQueryParameter("imlon", String.format(Locale.US, "%.7f", getImageryLon())).build();
+        Uri uriBuilder = offsetServerUri.buildUpon().appendPath(STORE).appendQueryParameter(LAT_PARAM, String.format(Locale.US, "%.7f", lat))
+                .appendQueryParameter(LON_PARAM, String.format(Locale.US, "%.7f", lon)).appendQueryParameter(AUTHOR_PARAM, author)
+                .appendQueryParameter(DESCRIPTION_PARAM, description).appendQueryParameter(IMAGERY_PARAM, imageryId)
+                .appendQueryParameter(IMLAT_PARAM, String.format(Locale.US, "%.7f", getImageryLat()))
+                .appendQueryParameter(IMLON_PARAM, String.format(Locale.US, "%.7f", getImageryLon())).build();
         return uriBuilder.toString();
     }
 
