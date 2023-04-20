@@ -257,9 +257,7 @@ public class Map extends View implements IMapView {
                                     ((de.blau.android.layer.gpx.MapOverlay) layer).setTrack(getTracker().getTrack());
                                 }
                             } else if (!((de.blau.android.layer.gpx.MapOverlay) layer).fromFile(ctx, Uri.parse(contentId), true, null)) {
-                                db.deleteLayer(LayerType.GPX, contentId);
-                                Log.w(DEBUG_TAG, "Deleted GPX layer for " + contentId);
-                                continue; // skip
+                                layer = null; // this will delete the layer
                             }
                             break;
                         case TASKS:
@@ -269,8 +267,7 @@ public class Map extends View implements IMapView {
                             layer = new de.blau.android.layer.geojson.MapOverlay(this);
                             if (!((de.blau.android.layer.geojson.MapOverlay) layer).loadGeoJsonFile(ctx, Uri.parse(contentId), true)) {
                                 // other error, has already been toasted
-                                db.deleteLayer(LayerType.GEOJSON, contentId);
-                                continue;
+                                layer = null; // this will delete the layer
                             }
                             break;
                         case MAPILLARY:
@@ -290,6 +287,10 @@ public class Map extends View implements IMapView {
                     if (LayerType.IMAGERY.equals(type) || LayerType.OVERLAYIMAGERY.equals(type)) {
                         ImageryOffsetUtils.applyImageryOffsets(ctx, prefs, ((MapTilesLayer<Bitmap>) layer).getTileLayerConfiguration(), getViewBox());
                     }
+                } else {
+                    // remove layers from DB for which the content is missing
+                    db.deleteLayer(type, contentId);
+                    Log.w(DEBUG_TAG, "Deleted " + type + " layer for " + contentId);
                 }
             }
         }
