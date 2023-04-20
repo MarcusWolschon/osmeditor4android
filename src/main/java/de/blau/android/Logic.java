@@ -1617,7 +1617,7 @@ public class Logic {
     }
 
     /**
-     * Converts screen-coords to gps-coords and offests background layer.
+     * Converts screen-coords to gps-coords and offsets background layer.
      * 
      * @param screenTransX Movement on the screen.
      * @param screenTransY Movement on the screen.
@@ -1628,7 +1628,8 @@ public class Logic {
         int lat = yToLatE7(height - screenTransY);
         int relativeLon = lon - viewBox.getLeft();
         int relativeLat = lat - viewBox.getBottom();
-        TileLayerSource osmts = map.getBackgroundLayer().getTileLayerConfiguration();
+        // TileLayerSource osmts = map.getBackgroundLayer().getTileLayerConfiguration();
+        TileLayerSource osmts = ((Main) map.getContext()).getImageryAlignmentActionModeCallback().getLayerSource();
         double lonOffset = 0d;
         double latOffset = 0d;
         Offset o = osmts.getOffset(map.getZoomLevel());

@@ -1,10 +1,10 @@
 package de.blau.android.imageryoffset;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -13,12 +13,14 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface.OnClickListener;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Handler;
 import android.util.Log;
@@ -46,6 +48,7 @@ import de.blau.android.Mode;
 import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
 import de.blau.android.dialogs.Progress;
+import de.blau.android.easyedit.EasyEditActionModeCallback;
 import de.blau.android.imageryoffset.ImageryOffset.DeprecationNote;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.ViewBox;
@@ -70,32 +73,34 @@ import okhttp3.ResponseBody;
  * @author simon
  *
  */
-public class BackgroundAlignmentActionModeCallback implements Callback {
+public class ImageryAlignmentActionModeCallback implements Callback {
 
     private static final String DEBUG_TAG = "BackgroundAlign...";
 
-    private static final int MENUITEM_QUERYDB    = 1;
-    private static final int MENUITEM_QUERYLOCAL = 2;
-    private static final int MENUITEM_APPLY2ALL  = 3;
-    private static final int MENUITEM_RESET      = 4;
-    private static final int MENUITEM_ZERO       = 5;
-    private static final int MENUITEM_SAVE2DB    = 6;
-    private static final int MENUITEM_SAVELOCAL  = 7;
-    private static final int MENUITEM_HELP       = 8;
+    private static final int MENUITEM_QUERYDB   = 1;
+    private static final int MENUITEM_APPLY2ALL = 2;
+    private static final int MENUITEM_RESET     = 3;
+    private static final int MENUITEM_ZERO      = 4;
+    private static final int MENUITEM_SAVE2DB   = 5;
+    private static final int MENUITEM_HELP      = 6;
 
-    private Mode              oldMode;
+    private final Mode        oldMode;
     private final Preferences prefs;
     private final Uri         offsetServerUri;
 
     private final Offset[] oldOffsets;
 
-    private TileLayerSource osmts;
-    private final Map       map;
-    private final Main      main;
+    private final TileLayerSource osmts;
+    private final Map             map;
+    private final Main            main;
 
     private List<ImageryOffset> offsetList;
 
     private ActionMenuView cabBottomBar;
+
+    private Drawable   savedButtonDrawable;
+    private boolean    savedButtonEnabled;
+    private ActionMode actionMode;
 
     /**
      * Construct a new BackgroundAlignmentActionModeCallback
@@ -103,11 +108,11 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
      * @param main the current instance of Main
      * @param oldMode the Mode before we were called
      */
-    public BackgroundAlignmentActionModeCallback(@NonNull Main main, @NonNull Mode oldMode) {
+    public ImageryAlignmentActionModeCallback(@NonNull Main main, @NonNull Mode oldMode, @NonNull String layerId) {
         this.oldMode = oldMode;
         this.main = main; // currently we are only called from here
         map = main.getMap();
-        MapTilesLayer<?> layer = map.getBackgroundLayer();
+        MapTilesLayer<?> layer = (MapTilesLayer<?>) map.getLayer(layerId);
         if (layer == null) {
             throw new IllegalStateException("MapTilesLayer is null");
         }
@@ -117,6 +122,16 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
         prefs = App.getPreferences(main);
         String offsetServer = prefs.getOffsetServer();
         offsetServerUri = Uri.parse(offsetServer);
+    }
+
+    /**
+     * Get the tilelayer we are currently adjusting
+     * 
+     * @return a TileLayerSource
+     */
+    @NonNull
+    public TileLayerSource getLayerSource() {
+        return osmts;
     }
 
     /**
@@ -139,6 +154,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 
     @Override
     public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+        actionMode = mode;
         main.hideLock();
         main.hideLayersControl();
         mode.setTitle(R.string.menu_tools_background_align);
@@ -156,8 +172,14 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
                 cabBottomBar.getMenu().clear();
             }
         }
-        if (prefs.areSimpleActionsEnabled()) {
-            main.disableSimpleActionsButton();
+        FloatingActionButton button = main.getSimpleActionsButton();
+        button.setOnClickListener(v -> saveAndFinish());
+        savedButtonDrawable = button.getDrawable();
+        savedButtonEnabled = button.isEnabled();
+        button.setImageResource(R.drawable.ic_done_white_36dp);
+        main.enableSimpleActionsButton();
+        if (!prefs.areSimpleActionsEnabled()) {
+            main.showSimpleActionsButton();
         }
         return true;
     }
@@ -166,22 +188,22 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
     public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
         if (cabBottomBar != null) {
             menu = cabBottomBar.getMenu();
-            final ActionMode actionMode = mode;
             cabBottomBar.setOnMenuItemClickListener(item -> onActionItemClicked(actionMode, item));
             MenuUtil.setupBottomBar(main, cabBottomBar, main.isFullScreen(), prefs.lightThemeEnabled());
         }
         menu.clear();
         menu.add(Menu.NONE, MENUITEM_QUERYDB, Menu.NONE, R.string.menu_tools_background_align_retrieve_from_db).setEnabled(main.isConnectedOrConnecting())
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_download)).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        // menu.add(Menu.NONE, MENUITEM_QUERYLOCAL, Menu.NONE,
-        // R.string.menu_tools_background_align_retrieve_from_device);
         menu.add(Menu.NONE, MENUITEM_RESET, Menu.NONE, R.string.menu_tools_background_align_reset)
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_undo)).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         menu.add(Menu.NONE, MENUITEM_ZERO, Menu.NONE, R.string.menu_tools_background_align_zero);
         menu.add(Menu.NONE, MENUITEM_APPLY2ALL, Menu.NONE, R.string.menu_tools_background_align_apply2all);
         menu.add(Menu.NONE, MENUITEM_SAVE2DB, Menu.NONE, R.string.menu_tools_background_align_save_db).setEnabled(main.isConnectedOrConnecting());
-        // menu.add(Menu.NONE, MENUITEM_SAVELOCAL, Menu.NONE, R.string.menu_tools_background_align_save_device);
         menu.add(Menu.NONE, MENUITEM_HELP, Menu.NONE, R.string.menu_help);
+        View close = EasyEditActionModeCallback.getActionCloseView(mode);
+        if (close != null) {
+            close.setOnClickListener(v -> close());
+        }
         return true;
     }
 
@@ -193,8 +215,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
             map.invalidate();
             break;
         case MENUITEM_RESET:
-            osmts.setOffsets(copy(oldOffsets));
-            map.invalidate();
+            reset();
             break;
         case MENUITEM_APPLY2ALL:
             Offset o = osmts.getOffset(map.getZoomLevel());
@@ -207,12 +228,8 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
         case MENUITEM_QUERYDB:
             getOffsetFromDB();
             break;
-        case MENUITEM_QUERYLOCAL:
-            break;
         case MENUITEM_SAVE2DB:
             saveOffsetsToDB();
-            break;
-        case MENUITEM_SAVELOCAL:
             break;
         case MENUITEM_HELP:
             HelpViewer.start(main, R.string.help_aligningbackgroundiamgery);
@@ -223,11 +240,57 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
         return true;
     }
 
+    /**
+     * Reset to the original offsets
+     */
+    private void reset() {
+        osmts.setOffsets(copy(oldOffsets));
+        map.invalidate();
+    }
+
     @Override
     public void onDestroyActionMode(ActionMode mode) {
         if (cabBottomBar != null) {
             cabBottomBar.setVisibility(View.GONE);
         }
+        Logic logic = App.getLogic();
+        main.showBottomBar();
+        logic.setMode(main, oldMode);
+        main.setImageryAlignmentActionModeCallback(null);
+        main.showLock();
+        main.showLayersControl();
+        FloatingActionButton button = main.getSimpleActionsButton();
+        button.setImageDrawable(savedButtonDrawable);
+        main.setSimpleActionsButtonListener();
+        if (!savedButtonEnabled) {
+            main.disableSimpleActionsButton();
+        }
+        if (!prefs.areSimpleActionsEnabled()) {
+            main.hideSimpleActionsButton();
+        }
+    }
+
+    /**
+     * Modify the behaviour of the "done"/"close" button
+     */
+    public void close() {
+        Log.d(DEBUG_TAG, "close");
+        if (!Arrays.equals(osmts.getOffsets(), oldOffsets)) {
+            new AlertDialog.Builder(main).setTitle(R.string.abort_action_title).setPositiveButton(R.string.yes, (dialog, which) -> {
+                reset();
+                actionMode.finish();
+            }).setNeutralButton(R.string.cancel, null).show();
+            return;
+        }
+        actionMode.finish();
+    }
+
+    /**
+     * Save the offsets to the imagery configuration and exit
+     * 
+     * @return true
+     */
+    private boolean saveAndFinish() {
         Logic logic = App.getLogic();
         new ExecutorTask<Void, Void, Void>(logic.getExecutorService(), logic.getHandler()) {
             @Override
@@ -243,14 +306,8 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
                 }
             }
         }.execute();
-
-        main.showBottomBar();
-        logic.setMode(main, oldMode);
-        main.showLock();
-        main.showLayersControl();
-        if (prefs.areSimpleActionsEnabled()) {
-            main.enableSimpleActionsButton();
-        }
+        actionMode.finish();
+        return true;
     }
 
     /**
@@ -260,6 +317,19 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
      *
      */
     private class OffsetLoader extends ExecutorTask<Double[], Void, List<ImageryOffset>> {
+
+        private static final String GET              = "get";
+        private static final String DEPRECATED_FIELD = "deprecated";
+        private static final String MAX_ZOOM_FIELD   = "max-zoom";
+        private static final String MIN_ZOOM_FIELD   = "min-zoom";
+        private static final String ID_FIELD         = "id";
+        private static final String TYPE_FIELD       = "type";
+        private static final String DATE_FIELD       = "date";
+        private static final String REASON_FIELD     = "reason";
+        private static final String ERROR_FIELD      = "error";
+        private static final String JSON_VALUE       = "json";
+        private static final String FORMAT_PARAM     = "format";
+        private static final String RADIUS_PARAM     = "radius";
 
         private String                       error = null;
         private final PostAsyncActionHandler handler;
@@ -292,43 +362,43 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
             while (reader.hasNext()) {
                 String jsonName = reader.nextName();
                 switch (jsonName) {
-                case "type":
+                case TYPE_FIELD:
                     type = reader.nextString();
                     break;
-                case "id":
+                case ID_FIELD:
                     result.id = reader.nextLong();
                     break;
-                case "lat":
+                case ImageryOffset.LAT_PARAM:
                     result.setLat(reader.nextDouble());
                     break;
-                case "lon":
+                case ImageryOffset.LON_PARAM:
                     result.setLon(reader.nextDouble());
                     break;
-                case "author":
+                case ImageryOffset.AUTHOR_PARAM:
                     result.author = reader.nextString();
                     break;
-                case "date":
+                case DATE_FIELD:
                     result.date = reader.nextString();
                     break;
-                case "imagery":
+                case ImageryOffset.IMAGERY_PARAM:
                     result.imageryId = reader.nextString();
                     break;
-                case "imlat":
+                case ImageryOffset.IMLAT_PARAM:
                     result.setImageryLat(reader.nextDouble());
                     break;
-                case "imlon":
+                case ImageryOffset.IMLON_PARAM:
                     result.setImageryLon(reader.nextDouble());
                     break;
-                case "min-zoom":
+                case MIN_ZOOM_FIELD:
                     result.setMinZoom(reader.nextInt());
                     break;
-                case "max-zoom":
+                case MAX_ZOOM_FIELD:
                     result.setMaxZoom(reader.nextInt());
                     break;
-                case "description":
+                case ImageryOffset.DESCRIPTION_PARAM:
                     result.description = reader.nextString();
                     break;
-                case "deprecated":
+                case DEPRECATED_FIELD:
                     result.deprecated = readDeprecated(reader);
                     break;
                 default:
@@ -358,13 +428,13 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
             while (reader.hasNext()) {
                 String jsonName = reader.nextName();
                 switch (jsonName) {
-                case "author":
+                case ImageryOffset.AUTHOR_PARAM:
                     result.author = reader.nextString();
                     break;
-                case "reason":
+                case REASON_FIELD:
                     result.reason = reader.nextString();
                     break;
-                case "date":
+                case DATE_FIELD:
                     result.date = reader.nextString();
                     break;
                 default:
@@ -384,19 +454,19 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
          * @param radius radius around the location in fm
          * @return a List containing the found ImageryOffsets or null
          */
-        @Nullable
+        @NonNull
         List<ImageryOffset> getOffsetList(double lat, double lon, int radius) {
-            Uri.Builder uriBuilder = offsetServerUri.buildUpon().appendPath("get").appendQueryParameter("lat", String.valueOf(lat)).appendQueryParameter("lon",
-                    String.valueOf(lon));
+            Uri.Builder uriBuilder = offsetServerUri.buildUpon().appendPath(GET).appendQueryParameter(ImageryOffset.LAT_PARAM, String.valueOf(lat))
+                    .appendQueryParameter(ImageryOffset.LON_PARAM, String.valueOf(lon));
             if (radius > 0) {
-                uriBuilder.appendQueryParameter("radius", String.valueOf(radius));
+                uriBuilder.appendQueryParameter(RADIUS_PARAM, String.valueOf(radius));
             }
-            uriBuilder.appendQueryParameter("imagery", osmts.getImageryOffsetId()).appendQueryParameter("format", "json");
+            uriBuilder.appendQueryParameter(ImageryOffset.IMAGERY_PARAM, osmts.getImageryOffsetId()).appendQueryParameter(FORMAT_PARAM, JSON_VALUE);
 
             String urlString = uriBuilder.build().toString();
+            List<ImageryOffset> result = new ArrayList<>();
             try {
                 Log.d(DEBUG_TAG, "urlString " + urlString);
-                InputStream inputStream = null;
 
                 Request request = new Request.Builder().url(urlString).build();
                 OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(Server.TIMEOUT, TimeUnit.MILLISECONDS)
@@ -404,15 +474,8 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
                 Call offsetListCall = client.newCall(request);
                 Response offestListCallResponse = offsetListCall.execute();
                 if (offestListCallResponse.isSuccessful()) {
-                    ResponseBody responseBody = offestListCallResponse.body();
-                    inputStream = responseBody.byteStream();
-                } else {
-                    Server.throwOsmServerException(offestListCallResponse);
-                }
-
-                try (JsonReader reader = new JsonReader(new InputStreamReader(inputStream))) {
-                    List<ImageryOffset> result = new ArrayList<>();
-                    try {
+                    try (ResponseBody responseBody = offestListCallResponse.body();
+                            JsonReader reader = new JsonReader(new InputStreamReader(responseBody.byteStream()))) {
                         JsonToken token = reader.peek();
                         if (token.equals(JsonToken.BEGIN_ARRAY)) {
                             reader.beginArray();
@@ -427,28 +490,24 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
                             reader.beginObject();
                             while (reader.hasNext()) {
                                 String jsonName = reader.nextName();
-                                if ("error".equals(jsonName)) {
+                                if (ERROR_FIELD.equals(jsonName)) {
                                     error = reader.nextString();
-                                    Log.d(DEBUG_TAG, "search error " + error);
                                 } else {
                                     reader.skipValue();
                                 }
                             }
-                            return null;
                         } // can't happen ?
-                    } catch (IOException | IllegalStateException e) {
-                        error = e.getMessage();
                     }
-                    if (error != null) {
-                        Log.d(DEBUG_TAG, "search error " + error);
-                    }
-                    return result;
+                } else {
+                    Server.throwOsmServerException(offestListCallResponse);
                 }
-            } catch (IOException e) {
+            } catch (IOException | IllegalStateException e) {
                 error = e.getMessage();
             }
-            Log.d(DEBUG_TAG, "search error " + error);
-            return null;
+            if (error != null) {
+                Log.d(DEBUG_TAG, "search error " + error);
+            }
+            return result;
         }
 
         @Override
@@ -458,16 +517,14 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 
         @Override
         protected List<ImageryOffset> doInBackground(Double[] params) {
-
             if (params.length != 3) {
-                Log.e(DEBUG_TAG, "wrong number of params in OffsetLoader " + params.length);
-                return null;
+                throw new IllegalArgumentException("wrong number of params in OffsetLoader " + params.length);
             }
             double centerLat = params[0];
             double centerLon = params[1];
             int radius = (int) (params[2] == null ? 0 : params[2]);
             List<ImageryOffset> result = getOffsetList(centerLat, centerLon, radius);
-            if (result == null || result.isEmpty()) {
+            if (result.isEmpty()) {
                 // retry with max radius
                 Log.d(DEBUG_TAG, "retrying search with max radius");
                 result = getOffsetList(centerLat, centerLon, 0);
@@ -584,7 +641,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
         };
         Logic logic = App.getLogic();
         OffsetLoader loader = new OffsetLoader(logic.getExecutorService(), logic.getHandler(), () -> {
-            if (offsetList != null && !offsetList.isEmpty()) {
+            if (!offsetList.isEmpty()) {
                 Collections.sort(offsetList, cmp);
                 AppCompatDialog d = createDisplayOffsetDialog(0);
                 d.show();

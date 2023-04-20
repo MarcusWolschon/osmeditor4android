@@ -50,7 +50,7 @@ public enum Mode {
 
         @Override
         public void setup(Main main, Logic logic) {
-            if (main.getBackgroundAlignmentActionModeCallback() == null) {
+            if (main.getImageryAlignmentActionModeCallback() == null) {
                 Log.d("Logic", "weird state of edit mode, resetting");
                 logic.setMode(main, Mode.MODE_EASYEDIT);
             }

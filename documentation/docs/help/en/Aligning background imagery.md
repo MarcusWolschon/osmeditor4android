@@ -1,4 +1,4 @@
-# Align background
+# Align imagery
 
 Many different background sources are available for OpenStreetMap editors. Satellite and aerial imagery often suffers from small to large offsets from reality. It is important to check and potentially adjust for this **before** tracing anything for inclusion in OpenStreetMap in every editor. Vespucci provides functions do this both from stored offsets and manually.
 
@@ -6,9 +6,9 @@ All operations affect only the current background layer.
 
 ### Manually adjusting the offset
 
-To adjust the offset manually you need to align it to a reference. This could be a known numeric coordinate offset, GPS traces (from the corresponding overlay) or simply the existing OpenStreetMap data. In the "Align background" screen you can simply drag the background to the desired position, overlays and the OpenStreetMap data will remain stationary. In the upper left hand corner you will see a display indicating current zoom level and the current offset in decimal degrees.
+To adjust the offset manually you need to align it to a reference. This could be a known numeric coordinate offset, GPS traces (from the corresponding overlay) or simply the existing OpenStreetMap data. In the "Align imagery" screen you can simply drag the background to the desired position, overlays and the OpenStreetMap data will remain stationary. In the upper left hand corner you will see a display indicating current zoom level and the current offset in decimal degrees.
 
-Exiting the screen with "Done" will store the offset for this zoom level. To apply it to all zoom levels select "Apply (all Zooms)" from the menu. Per adjusted layer one set of offsets is stored permanently。 If the app is started with a view near (default 100m, can be changed in the preferences) the location of such an adjustment it will be automatically applied and a warning displayed, the same on background layer changes. As result app restarts and pausing in the same location will not suddenly change imagery alignment, but doing so further away from the location will show the layer as is.
+Exiting the screen with the green checkmark button will store the offset for this zoom level. To apply it to all zoom levels select "Apply (all Zooms)" from the menu. Per adjusted layer one set of offsets is stored permanently。 If the app is started with a view near (default 100m, can be changed in the preferences) the location of such an adjustment it will be automatically applied and a warning displayed, the same on background layer changes. As result app restarts and pausing in the same location will not suddenly change imagery alignment, but doing so further away from the location will show the layer as is.
 
 ### Retrieving an offset from the imagery offset DB
 

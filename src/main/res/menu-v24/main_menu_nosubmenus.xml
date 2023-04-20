@@ -173,9 +173,6 @@
         app:showAsAction="ifRoom">
         <menu>
             <item
-                android:id="@+id/menu_tools_background_align"
-                android:title="@string/menu_tools_background_align" />
-            <item
                 android:id="@+id/menu_tools_apply_local_offset"
                 android:title="@string/menu_tools_apply_local_offset" />
             <item
