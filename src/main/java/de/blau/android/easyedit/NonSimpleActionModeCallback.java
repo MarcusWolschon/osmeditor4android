@@ -31,15 +31,15 @@ public class NonSimpleActionModeCallback extends EasyEditActionModeCallback impl
 
     @Override
     public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-        super.onCreateActionMode(mode, menu);
-        if (prefs.areSimpleActionsEnabled()) {
-            main.disableSimpleActionsButton();
-        }
+        super.onCreateActionMode(mode, menu); 
         return true;
     }
 
     @Override
     public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+        if (prefs.areSimpleActionsEnabled()) {
+            main.disableSimpleActionsButton();
+        }
         menu = replaceMenu(menu, mode, this);
         super.onPrepareActionMode(mode, menu);
         menu.clear();
