@@ -10,6 +10,7 @@ import de.blau.android.exception.StorageException;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Way;
+import de.blau.android.util.SerializableState;
 
 /**
  * Callback for splitting a closed way/polygon
@@ -18,10 +19,13 @@ import de.blau.android.osm.Way;
  *
  */
 public class ClosedWaySplittingActionModeCallback extends AbstractClosedWaySplittingActionModeCallback {
-    private static final String DEBUG_TAG      = "ClosedWaySplit...";
-    private final Way           way;
-    private final Node          node;
-    private boolean             createPolygons = false;
+    private static final String DEBUG_TAG = "ClosedWaySplit...";
+
+    private static final String CREATE_POLYGONS_KEY = "create polygons";
+
+    private final Way  way;
+    private final Node node;
+    private boolean    createPolygons = false;
 
     /**
      * Construct a new callback for splitting a closed way/polygon
@@ -36,9 +40,32 @@ public class ClosedWaySplittingActionModeCallback extends AbstractClosedWaySplit
         this.way = way;
         this.node = node;
         this.createPolygons = createPolygons;
+        setup(createPolygons);
+    }
+
+    /**
+     * Construct a new callback from saved state
+     * 
+     * @param manager the current EasyEditManager instance
+     * @param state the saved state
+     */
+    public ClosedWaySplittingActionModeCallback(@NonNull EasyEditManager manager, @NonNull SerializableState state) {
+        super(manager);
+        way = getSavedWay(state);
+        node = getSavedNode(state);
+        setup(state.getBoolean(CREATE_POLYGONS_KEY));
+    }
+
+    /**
+     * Setup code that is common to both constructors
+     * 
+     * @param createPolygons if a closed way create polygons
+     */
+    private void setup(Boolean createPolygons) {
         List<Node> allNodes = way.getNodes();
         nodes.addAll(allNodes);
-        if (createPolygons) { // remove neighbouring nodes
+        this.createPolygons = createPolygons != null && createPolygons;
+        if (this.createPolygons) { // remove neighbouring nodes
             if (way.isEndNode(node)) { // we have at least 4 nodes so this will not cause problems
                 nodes.remove(allNodes.get(1)); // remove 2nd element
                 nodes.remove(allNodes.get(allNodes.size() - 2)); // remove 2nd last element
@@ -75,5 +102,12 @@ public class ClosedWaySplittingActionModeCallback extends AbstractClosedWaySplit
         manager.finish();
         Log.d(DEBUG_TAG, "split failed at element " + (element != null ? element : "null"));
         return true;
+    }
+
+    @Override
+    public void saveState(SerializableState state) {
+        state.putLong(WAY_ID_KEY, way.getOsmId());
+        state.putLong(NODE_ID_KEY, node.getOsmId());
+        state.putBoolean(CREATE_POLYGONS_KEY, createPolygons);
     }
 }

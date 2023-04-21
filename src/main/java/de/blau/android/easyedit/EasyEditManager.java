@@ -61,9 +61,11 @@ public class EasyEditManager {
 
     private boolean contextMenuEnabled;
 
-    private static final List<String> restartable = Collections.unmodifiableList(
-            Arrays.asList(RouteSegmentActionModeCallback.class.getCanonicalName(), RestartRouteSegmentActionModeCallback.class.getCanonicalName(),
-                    EditRelationMembersActionModeCallback.class.getCanonicalName(), PathCreationActionModeCallback.class.getCanonicalName()));
+    private static final List<String> restartable = Collections.unmodifiableList(Arrays.asList(RouteSegmentActionModeCallback.class.getCanonicalName(),
+            RestartRouteSegmentActionModeCallback.class.getCanonicalName(), EditRelationMembersActionModeCallback.class.getCanonicalName(),
+            PathCreationActionModeCallback.class.getCanonicalName(), WaySegmentModifyActionModeCallback.class.getCanonicalName(),
+            WaySegmentActionModeCallback.class.getCanonicalName(), WaySplittingActionModeCallback.class.getCanonicalName(),
+            ClosedWaySplittingActionModeCallback.class.getCanonicalName(), WaySelectPartActionModeCallback.class.getCanonicalName()));
 
     public static final String              FILENAME     = "easyeditmanager.res";
     private SavingHelper<SerializableState> savingHelper = new SavingHelper<>();
@@ -626,7 +628,6 @@ public class EasyEditManager {
             if (currentActionModeCallback != null) {
                 SerializableState state = new SerializableState();
                 currentActionModeCallback.saveState(state);
-                // FISME wrap in an async task?
                 savingHelper.save(main, FILENAME, state, false, true);
             }
         }

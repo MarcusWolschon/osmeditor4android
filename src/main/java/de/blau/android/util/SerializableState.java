@@ -72,6 +72,16 @@ public class SerializableState implements Serializable {
     }
 
     /**
+     * Store a Boolean
+     * 
+     * @param key the key
+     * @param b the Boolean
+     */
+    public void putBoolean(@NonNull String key, @Nullable Boolean b) {
+        state.put(key, b);
+    }
+
+    /**
      * Get a serializable object
      * 
      * @param key the key
@@ -106,6 +116,21 @@ public class SerializableState implements Serializable {
     public Integer getInteger(String key) {
         try {
             return (Integer) state.get(key);
+        } catch (ClassCastException e) {
+            return null;
+        }
+    }
+
+    /**
+     * Get a Boolean
+     * 
+     * @param key the key
+     * @return a Boolean or null if not found or not a Boolean
+     */
+    @Nullable
+    public Boolean getBoolean(@NonNull String key) {
+        try {
+            return (Boolean) state.get(key);
         } catch (ClassCastException e) {
             return null;
         }

@@ -14,6 +14,7 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Result;
 import de.blau.android.osm.Way;
+import de.blau.android.util.SerializableState;
 import de.blau.android.util.Util;
 
 public class WaySelectPartActionModeCallback extends NonSimpleActionModeCallback {
@@ -34,6 +35,18 @@ public class WaySelectPartActionModeCallback extends NonSimpleActionModeCallback
         super(manager);
         this.way = way;
         this.node = node;
+    }
+
+    /**
+     * Construct a new callback from saved state
+     * 
+     * @param manager the current EasyEditManager instance
+     * @param state the saved state
+     */
+    public WaySelectPartActionModeCallback(@NonNull EasyEditManager manager, @NonNull SerializableState state) {
+        super(manager);
+        way = getSavedWay(state);
+        node = getSavedNode(state);
     }
 
     @Override
@@ -78,6 +91,12 @@ public class WaySelectPartActionModeCallback extends NonSimpleActionModeCallback
         return true;
     }
 
+    @Override
+    public void saveState(SerializableState state) {
+        state.putLong(WAY_ID_KEY, way.getOsmId());
+        state.putLong(NODE_ID_KEY, node.getOsmId());
+    }
+    
     @Override
     public void onDestroyActionMode(ActionMode mode) {
         logic.setClickableElements(null);

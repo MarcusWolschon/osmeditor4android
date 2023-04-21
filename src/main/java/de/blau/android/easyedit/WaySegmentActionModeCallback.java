@@ -17,6 +17,7 @@ import de.blau.android.osm.Result;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.util.Geometry;
+import de.blau.android.util.SerializableState;
 import de.blau.android.util.Util;
 
 public class WaySegmentActionModeCallback extends NonSimpleActionModeCallback {
@@ -34,6 +35,17 @@ public class WaySegmentActionModeCallback extends NonSimpleActionModeCallback {
     public WaySegmentActionModeCallback(@NonNull EasyEditManager manager, @NonNull Way way) {
         super(manager);
         this.way = way;
+    }
+
+    /**
+     * Construct a new callback from saved state
+     * 
+     * @param manager the current EasyEditManager instance
+     * @param state the saved state
+     */
+    public WaySegmentActionModeCallback(@NonNull EasyEditManager manager, @NonNull SerializableState state) {
+        super(manager);
+        way = getSavedWay(state);
     }
 
     @Override
@@ -128,5 +140,10 @@ public class WaySegmentActionModeCallback extends NonSimpleActionModeCallback {
         logic.setClickableElements(null);
         logic.setReturnRelations(true);
         super.onDestroyActionMode(mode);
+    }
+
+    @Override
+    public void saveState(SerializableState state) {
+        state.putLong(WAY_ID_KEY, way.getOsmId());
     }
 }

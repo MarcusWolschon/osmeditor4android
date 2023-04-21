@@ -6,7 +6,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.view.ActionMode;
 import de.blau.android.App;
 import de.blau.android.R;
+import de.blau.android.osm.Node;
+import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.util.SerializableState;
 import de.blau.android.util.ThemeUtils;
 
 /**
@@ -16,6 +19,9 @@ import de.blau.android.util.ThemeUtils;
  *
  */
 public class NonSimpleActionModeCallback extends EasyEditActionModeCallback implements android.view.MenuItem.OnMenuItemClickListener {
+
+    protected static final String WAY_ID_KEY  = "way id";
+    protected static final String NODE_ID_KEY = "node id";
 
     protected final Preferences prefs;
 
@@ -31,7 +37,7 @@ public class NonSimpleActionModeCallback extends EasyEditActionModeCallback impl
 
     @Override
     public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-        super.onCreateActionMode(mode, menu); 
+        super.onCreateActionMode(mode, menu);
         return true;
     }
 
@@ -59,5 +65,33 @@ public class NonSimpleActionModeCallback extends EasyEditActionModeCallback impl
     @Override
     public boolean onMenuItemClick(MenuItem arg0) {
         return false;
+    }
+
+    /**
+     * Get a way from saved state
+     * 
+     * @param state the saved state
+     */
+    protected Way getSavedWay(@NonNull SerializableState state) {
+        Long wayId = state.getLong(WAY_ID_KEY);
+        if (wayId != null) {
+            return (Way) App.getDelegator().getOsmElement(Way.NAME, wayId);
+        } else {
+            throw new IllegalStateException("Failed to find way " + wayId);
+        }
+    }
+
+    /**
+     * Get a node from saved state
+     * 
+     * @param state the saved state
+     */
+    protected Node getSavedNode(SerializableState state) {
+        Long nodeId = state.getLong(NODE_ID_KEY);
+        if (nodeId != null) {
+            return (Node) App.getDelegator().getOsmElement(Node.NAME, nodeId);
+        } else {
+            throw new IllegalStateException("Failed to find node " + nodeId);
+        }
     }
 }
