@@ -211,6 +211,7 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
         Log.d(DEBUG_TAG, "onActionItemClicked");
         if (item.getItemId() == MENUITEM_HELP) {
             startHelp();
+            return true;
         }
         return false;
     }
