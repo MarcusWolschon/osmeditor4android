@@ -6,6 +6,7 @@ import java.util.List;
 
 import android.view.Menu;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.view.ActionMode;
 import de.blau.android.R;
 import de.blau.android.dialogs.Tip;
@@ -15,10 +16,14 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Result;
 import de.blau.android.osm.Way;
+import de.blau.android.util.SerializableState;
 import de.blau.android.util.Snack;
 import de.blau.android.util.Util;
 
 public class WaySplittingActionModeCallback extends NonSimpleActionModeCallback {
+
+    private static final String CREATE_POLYGONS_KEY = "create polygons";
+
     private final Way        way;
     private List<OsmElement> nodes          = new ArrayList<>();
     private boolean          createPolygons = false;
@@ -33,13 +38,34 @@ public class WaySplittingActionModeCallback extends NonSimpleActionModeCallback 
     public WaySplittingActionModeCallback(@NonNull EasyEditManager manager, @NonNull Way way, boolean createPolygons) {
         super(manager);
         this.way = way;
+        setup(createPolygons);
+    }
+
+    /**
+     * Construct a new callback from saved state
+     * 
+     * @param manager the current EasyEditManager instance
+     * @param state the saved state
+     */
+    public WaySplittingActionModeCallback(@NonNull EasyEditManager manager, @NonNull SerializableState state) {
+        super(manager);
+        way = getSavedWay(state);
+        setup(state.getBoolean(CREATE_POLYGONS_KEY));
+    }
+
+    /**
+     * Setup code that is common to both constructors
+     * 
+     * @param createPolygons if a closed way create polygons
+     */
+    private void setup(@Nullable Boolean createPolygons) {
         nodes.addAll(way.getNodes());
         if (!way.isClosed()) {
             // remove first and last node
             nodes.remove(0);
             nodes.remove(nodes.size() - 1);
         } else {
-            this.createPolygons = createPolygons;
+            this.createPolygons = createPolygons != null && createPolygons;
         }
     }
 
@@ -96,7 +122,7 @@ public class WaySplittingActionModeCallback extends NonSimpleActionModeCallback 
         }
         return true;
     }
-    
+
     @Override
     public boolean usesLongClick() {
         return true;
@@ -107,5 +133,11 @@ public class WaySplittingActionModeCallback extends NonSimpleActionModeCallback 
         logic.setClickableElements(null);
         logic.setReturnRelations(true);
         super.onDestroyActionMode(mode);
+    }
+
+    @Override
+    public void saveState(SerializableState state) {
+        state.putLong(WAY_ID_KEY, way.getOsmId());
+        state.putBoolean(CREATE_POLYGONS_KEY, createPolygons);
     }
 }

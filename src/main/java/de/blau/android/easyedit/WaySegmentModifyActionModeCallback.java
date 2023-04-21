@@ -5,10 +5,12 @@ import java.util.HashMap;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import androidx.annotation.NonNull;
 import androidx.appcompat.view.ActionMode;
 import de.blau.android.R;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
+import de.blau.android.util.SerializableState;
 import de.blau.android.util.ThemeUtils;
 
 public class WaySegmentModifyActionModeCallback extends NonSimpleActionModeCallback {
@@ -31,6 +33,17 @@ public class WaySegmentModifyActionModeCallback extends NonSimpleActionModeCallb
         super(manager);
         Log.d(DEBUG_TAG, "constructor");
         this.way = way;
+    }
+
+    /**
+     * Construct a new callback from saved state
+     * 
+     * @param manager the current EasyEditManager instance
+     * @param state the saved state
+     */
+    public WaySegmentModifyActionModeCallback(@NonNull EasyEditManager manager, @NonNull SerializableState state) {
+        super(manager);
+        way = getSavedWay(state);
     }
 
     @Override
@@ -97,5 +110,10 @@ public class WaySegmentModifyActionModeCallback extends NonSimpleActionModeCallb
             }
         }
         return true;
+    }
+
+    @Override
+    public void saveState(SerializableState state) {
+        state.putLong(WAY_ID_KEY, way.getOsmId());
     }
 }
