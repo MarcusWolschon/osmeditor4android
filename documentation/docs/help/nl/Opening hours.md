@@ -1,12 +1,12 @@
-# OpenStreetMap openingstijden bewerker
+# OpenStreetMap openingstijden-bewerker
 
-De OpenStreetMap openingstijden bewerker is redelijk complex en leent zich niet voor een simpele en intuïtieve gebruikersinterface.
+De OpenStreetMap openingstijden-bewerker is redelijk complex en leent zich niet voor een simpele en intuïtieve gebruikersinterface.
 
 Toch zal je meestal maar een klein deel van de definitie gebruiken. De bewerker helpt hiermee door de obscure onderdelen te verbergen in menus en het gebruik "op de straat" meestal te beperken tot kleine aanpassingen van voorgedefinieerde sjablonen.
 
-_Deze documentatie is voorlopig is werk in uitvoering_
+_Deze documentatie is voorlopig en een werk in uitvoering_
 
-## Gebruik van de openingstijdenbewerker
+## Gebruik van de openingstijden-bewerker
 
 In een typische workflow zal het object dat wordt bewerkt al een bestaande openingstijden tag (opening_hours, service_times en collection_times) hebben, of je kan opnieuw een voorkeuze toepassen op het object om een leeg openingstijden veld te krijgen. Om handmatig het veld toe te voegen in Vespucci kan je in de detailspagina de sleutel toevoegen en dan terug naar de formuliergebaseerde wijzigingstab om te wijzigen. Als je denkt dat de openingstijden tag deel had moeten zijn van de voorkeuze, dan kan je een probleemmelding openen voor jouw bewerker. 
 

@@ -201,6 +201,7 @@
   <string name="search_objects_hint">Einen JOSM-Suchausdruck eingeben</string>
   <string name="search_objects_use_regexps">Reguläre Ausdrücke verwenden</string>
   <string name="search_objects_unsupported">Ausdruck „%1$s“ wird nicht unterstützt</string>
+  <string name="search_objects_query_overpass">Overpass abfragen</string>
   <!---->
   <string name="preset_search_hint">Vorlagensuche</string>
   <string name="preset_autopreset">Auto-Preset</string>
@@ -242,6 +243,7 @@
   <string name="ways">Wege</string>
   <!--Tile layer info dialog-->
   <string name="attribution">Quellenhinweis</string>
+  <!--GPX info dialog-->
   <!--Too much data dialog-->
   <string name="too_much_data_title">Zu viele Daten!</string>
   <string name="too_much_data_message">Es sind %1$d Knoten geladen, was den eingestellten Höchstwert übersteigt. Dies macht die App langsam und führt möglicherweise zu Problemen beim Sichern des aktuellen Zustandes.</string>
@@ -278,6 +280,14 @@
   <!--Safe split dialog-->
   <string name="split_safe_title">Fehlende Relationsmitglieder</string>
   <string name="split_safe_message">Benachbarte Relationsmitglieder fehlen im Download. Ohne diese kann möglicherweise die korrekte Reihenfolge der Mitglieder nicht bestimmt werden.</string>
+  <!--JS console dialog-->
+  <string name="evaluate">Auswerten</string>
+  <string name="js_console_msg_live">Live-Modus!</string>
+  <string name="js_console_msg_debug">Debug-Modus!</string>
+  <string name="console_output_hint">Ausgabe wird hier angezeigt</string>
+  <!--Overpass console-->
+  <string name="run">Ausführen</string>
+  <string name="overpass_console">Overpass Konsole</string>
   <!---->
   <string name="error">Fehler</string>
   <string name="warning">Warnung</string>
@@ -292,12 +302,6 @@
   <string name="attached_object_warning_stop">OK, ignorieren</string>
   <!--debug dialog-->
   <string name="send_debug_information">Informationen zur Problembehebung senden</string>
-  <!--JS console dialog-->
-  <string name="evaluate">Auswerten</string>
-  <string name="js_console_msg_live">Live-Modus!</string>
-  <string name="js_console_msg_debug">Debug-Modus!</string>
-  <string name="js_console_input_hint">JavaScript hier eingeben</string>
-  <string name="js_console_output_hint">Ausgabe wird hier angezeigt</string>
   <!--Validator dialogs-->
   <string name="validator_title">Validationsregeln %1$s</string>
   <string name="resurvey_entries">Überprüfen</string>
@@ -448,6 +452,7 @@
   <string name="boxpicker_firsttimetitle">OSM-Daten herunterladen</string>
   <!--Clear/Reset GPX Track-->
   <string name="clear_track_description">Aufzeichnung beenden und alle gespeicherten Trackpunkte löschen. Diese Aktion kann nicht rückgängig gemacht werden.</string>
+  <!--Measurement dialog-->
   <!--Tips-->
   <string name="tip_title">Wussten Sie?</string>
   <string name="tip_check_label">Optionale Tipps nicht mehr anzeigen</string>
@@ -549,10 +554,6 @@
   <string name="toast_missing_filemanager">Bitte einen \"File Manager\" installieren</string>
   <string name="toast_outside_of_download">Weitere Daten herunterladen, um diesen Bereich zu editieren.</string>
   <string name="toast_file_not_found">%1$s nicht gefunden.</string>
-  <plurals name="toast_imported_track_points">
-    <item quantity="one">%1$dGPX-Trackpunkte und 1 Wegpunkt importiert.</item>
-    <item quantity="other">%1$d GPX-Trackpunkte und %2$d Wegpunkte importiert.</item>
-  </plurals>
   <string name="toast_unknown_voice_command">„%1$s“ wird im Augenblick nicht unterstützt</string>
   <string name="toast_inconsistent_state">Inkonsistenter Zustand entdeckt. Bitte senden Sie einen Fehlerreport.</string>
   <string name="toast_camera_error">Fehler beim Starten der Kamera-App: %1$s</string>
@@ -587,7 +588,6 @@
   <string name="toast_invalid_object">Ungültiges Objekt</string>
   <string name="toast_openinghours_invalid">Ungültiger Öffnungszeitenwert für %1$s</string>
   <string name="toast_openinghours_autocorrected">Öffnungszeitenwert für %1$s wurde korrigiert</string>
-  <string name="toast_exit_multiselect">An einer leeren Stelle doppeltippen oder den Zurückpfeil verwenden, um den Modus zu verlassen</string>
   <string name="toast_abort_actionmode">\"Zurückpfeil\" wählen, um abzubrechen</string>
   <string name="toast_null_island">Bitte keine Objekte bei 0°/0° (Null Island) hinzufügen</string>
   <string name="toast_string_too_long">Text ist zu lang (%1$d Zeichen), gekürzt!</string>
@@ -707,6 +707,7 @@
   <string name="osm_tags">OSM Tags</string>
   <!--Read a file-->
   <string name="read">Lesen</string>
+  <string name="load">Laden</string>
   <string name="overwrite">Überschreiben</string>
   <string name="share">Teilen</string>
   <string name="share_position">Position teilen</string>
@@ -950,12 +951,10 @@
   <string name="menu_preset_feedback">Rückmeldung zu Vorlage senden</string>
   <string name="menu_privacy">Datenschutz</string>
   <!--Background alignment-->
-  <string name="menu_tools_background_align">Hintergrund justieren</string>
   <string name="menu_tools_background_align_reset">Zurücksetzen</string>
   <string name="menu_tools_background_align_zero">Auf Null setzen</string>
   <string name="menu_tools_background_align_retrieve_from_db">Aus Datenbank</string>
   <string name="menu_tools_background_align_retrieve_from_device">Vom Gerät</string>
-  <string name="menu_tools_background_align_save_db">In Datenbank speichern</string>
   <string name="menu_tools_background_align_save_device">Auf Gerät speichern</string>
   <string name="menu_tools_background_align_apply2all">Anwenden (alle Zoomstufen)</string>
   <string name="min_max_zoom">%1$d - %2$d</string>
@@ -1088,7 +1087,7 @@
   <string name="config_validatorprefs_summary">Validierungsregeln konfigurieren</string>
   <string name="config_connectedNodeTolerance_title">Toleranz für verbundene Knoten</string>
   <string name="config_connectedNodeTolerance_summary">Wenn ein Endknoten eines Wegs innerhalb dieses Abstands (in Meter) zum Weg liegt, sollte er mit diesem verbunden werden</string>
-  <string name="config_enabledValidations_title">Gültigkeitsprüfung aktiviert</string>
+  <string name="config_enabledValidations_title">Aktivierte Prüfungen</string>
   <string name="config_enabledValidations_summary">Aktivieren/Deaktivieren individueller Gültigkeitsprüfung</string>
   <!--opening hours templates-->
   <string name="config_opening_hours_title">Öffnungszeitenvorlage</string>
@@ -1150,11 +1149,7 @@
   <string name="config_maxStrokeWidth_title">Maximale Linienbreite</string>
   <string name="config_maxStrokeWidth_summary">Weg nicht breiter zeichnen als:</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>
-  <string name="config_uploadOk_title">Ausstehende Uploads OK</string>
-  <string name="config_uploadOk_summary">Grenze unter der ausstehende Objekt-Uploads als OK gelten</string>
   <string name="config_upload_current">%1$d Objekte</string>
-  <string name="config_uploadWarn_title">Ausstehende Uploads Warnung</string>
-  <string name="config_uploadWarn_summary">Grenze, unterhalb derer ausstehende Objekt-Uploads den Status \"Warnung\" erhalten.</string>
   <string name="config_uploadChecker_title">Erinnerungsintervall für das Hochladen</string>
   <string name="config_uploadChecker_summary">Intervall für Erinnerungen bei unveröffentlichten Änderungen.</string>
   <string name="config_uploadChecker_current">%1$d Stunden</string>
@@ -1179,6 +1174,9 @@
   <string name="config_overrideRegionAddressTags_summary">Diese Voreinstellungen für Adresseigenschaften anstatt regionsspezifische Werte verwenden</string>
   <string name="config_address_tags">Adressattribute</string>
   <string name="config_address_tags_summary">Für die Adressvorhersage verwendete Attribute</string>
+  <string name="config_neighbourDistance_title">Distanz zwischen benachbarten Adressen</string>
+  <string name="config_neighbourDistance_summary">Die Distanz bis zu der zwei Adressen angenommen wird, dass sie benachbart sind.</string>
+  <string name="config_neighbourDistance_current">%1$d Meter</string>
   <string name="config_enableNameSuggestions_title">Namensvorschläge</string>
   <string name="config_enableNameSuggestions_summary">Vorschläge für Namen einschalten</string>
   <string name="config_enableNameSuggestionsPresets_title">Vorlagen aus Namensvorschlägen</string>
@@ -1482,7 +1480,7 @@ in %1$d m %2$s</string>
   <string name="toast_nohelp">Keine Hilfe zu diesem Thema!</string>
   <!--Bookmarks-->
   <string name="add_bookmark">Lesezeichen hinzufügen…</string>
-  <string name="bookmarks_desc">Kommentare hinzufügen</string>
+  <string name="bookmarks_desc">Beschreibung</string>
   <string name="show_bookmarks">Lesezeichen…</string>
   <string name="_dots">⋮</string>
   <string name="gotobookmark">Los</string>

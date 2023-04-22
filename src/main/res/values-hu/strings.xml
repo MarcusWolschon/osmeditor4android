@@ -242,6 +242,7 @@
   <string name="ways">Vonalak</string>
   <!--Tile layer info dialog-->
   <string name="attribution">Attribútum</string>
+  <!--GPX info dialog-->
   <!--Too much data dialog-->
   <string name="too_much_data_title">Túl sok adat van betöltve!</string>
   <string name="too_much_data_message">%1$d csomópont van betöltve, ami túllépte a beállított korlátot. Ez lassulást okoz, ha pedig még több adatot ad hozzá, az esetleges mentési problémákhoz vezethet.</string>
@@ -278,6 +279,12 @@
   <!--Safe split dialog-->
   <string name="split_safe_title">Hiányzó kapcsolattagok</string>
   <string name="split_safe_message">A szomszédos kapcsolattag-vonalak nincsenek letöltve. A kapcsolattagok sorrendjének megmaradása függhet ezektől.</string>
+  <!--JS console dialog-->
+  <string name="evaluate">Kiértékelés</string>
+  <string name="js_console_msg_live">Éles mód!</string>
+  <string name="js_console_msg_debug">Hibakereső mód!</string>
+  <string name="console_output_hint">A kimenet itt fog megjelenni</string>
+  <!--Overpass console-->
   <!---->
   <string name="error">Hiba</string>
   <string name="warning">Figyelmeztetés</string>
@@ -292,12 +299,6 @@
   <string name="attached_object_warning_stop">Hanyagoljuk</string>
   <!--debug dialog-->
   <string name="send_debug_information">Hibakeresési információk elküldése</string>
-  <!--JS console dialog-->
-  <string name="evaluate">Kiértékelés</string>
-  <string name="js_console_msg_live">Éles mód!</string>
-  <string name="js_console_msg_debug">Hibakereső mód!</string>
-  <string name="js_console_input_hint">Adjon meg JavaScriptet itt</string>
-  <string name="js_console_output_hint">A kimenet itt fog megjelenni</string>
   <!--Validator dialogs-->
   <string name="validator_title">%1$s érvényesítő szabálykészlet </string>
   <string name="resurvey_entries">Ismételt felmérés</string>
@@ -449,6 +450,7 @@ elemek megkövetelése</string>
   <string name="boxpicker_firsttimetitle">OpenStreetMap-adatok letöltése</string>
   <!--Clear/Reset GPX Track-->
   <string name="clear_track_description">Követés leállítása és a tárolt nyomvonalpontok törlése. Ez nem vonható vissza.</string>
+  <!--Measurement dialog-->
   <!--Tips-->
   <string name="tip_title">Tudta?</string>
   <string name="tip_check_label">Ne mutassa az opcionális tippeket</string>
@@ -550,10 +552,6 @@ elemek megkövetelése</string>
   <string name="toast_missing_filemanager">Kérjük telepítsen egy fájlkezelőt.</string>
   <string name="toast_outside_of_download">Töltsön le több adatot a terület szerkesztéséhez.</string>
   <string name="toast_file_not_found">%1$s nem található.</string>
-  <plurals name="toast_imported_track_points">
-    <item quantity="one">%1$d GPX nyomvonalpont és 1 vonalpont importálva.</item>
-    <item quantity="other">%1$d GPX nyomvonalpont és %2$d vonalpont importálva.</item>
-  </plurals>
   <string name="toast_unknown_voice_command">Sajnáljuk, a(z) „%1$s” jelenleg nem értelmezhető</string>
   <string name="toast_inconsistent_state">Inkonzisztens állapot észlelve, küldje be a hibajelentésben.</string>
   <string name="toast_camera_error">A kamera alkalmazás nem indítható el: %1$s</string>
@@ -588,7 +586,6 @@ elemek megkövetelése</string>
   <string name="toast_invalid_object">Érvénytelen objektum</string>
   <string name="toast_openinghours_invalid">Érvénytelen nyitva tartás ehhez: %1$s</string>
   <string name="toast_openinghours_autocorrected">A(z) %1$s nyitva tartási értéke automatikus javításra került</string>
-  <string name="toast_exit_multiselect">Pöccintsen duplán egy üres helyre, vagy használja a ← nyilat a kilépéshez</string>
   <string name="toast_abort_actionmode">Használja a ← nyilat a megszakításhoz</string>
   <string name="toast_null_island">Kérjük ne adjon hozzá elemeket itt: 0°/0° (Nulla sziget)</string>
   <string name="toast_string_too_long">A karakterlánc túl hosszú (%1$d karakter), csonkolva!</string>
@@ -708,6 +705,7 @@ elemek megkövetelése</string>
   <string name="osm_tags">OSM címkék</string>
   <!--Read a file-->
   <string name="read">Olvasás</string>
+  <string name="load">Betöltés</string>
   <string name="overwrite">Felülírás</string>
   <string name="share">Megosztás</string>
   <string name="share_position">Pozíció megosztása</string>
@@ -951,12 +949,10 @@ elemek megkövetelése</string>
   <string name="menu_preset_feedback">Visszajelzés küldése előbeállításról</string>
   <string name="menu_privacy">Adatvédelem</string>
   <!--Background alignment-->
-  <string name="menu_tools_background_align">Háttér igazítása</string>
   <string name="menu_tools_background_align_reset">Alaphelyzet</string>
   <string name="menu_tools_background_align_zero">Nulla</string>
   <string name="menu_tools_background_align_retrieve_from_db">Adatbázisból</string>
   <string name="menu_tools_background_align_retrieve_from_device">Eszközről</string>
-  <string name="menu_tools_background_align_save_db">Mentés adatbázisba</string>
   <string name="menu_tools_background_align_save_device">Mentés eszközre</string>
   <string name="menu_tools_background_align_apply2all">Alkalmaz (minden nagyítási szint)</string>
   <string name="min_max_zoom">%1$d – %2$d</string>
@@ -1140,7 +1136,6 @@ elemek megkövetelése</string>
   <string name="config_disableTranslations_summary">A felhasználói felület legyen angol</string>
   <string name="config_maxInlineValues_title">A soron belüli értékek maximális száma</string>
   <string name="config_maxInlineValues_summary">A soron belül megjelenített értékek maximális száma a címkeűrlapon.</string>
-  <string name="config_maxInlineValues_current">%1$d érték</string>
   <string name="config_autoLockDelay_title">Várakozási idő az automatikus lezárás előtt</string>
   <string name="config_autoLockDelay_summary">Másodpercek száma az automatikus lezárás előtt, a 0 kikapcsolja.</string>
   <string name="config_autoLockDelay_current">%1$d másodperc</string>
@@ -1151,11 +1146,7 @@ elemek megkövetelése</string>
   <string name="config_maxStrokeWidth_title">Legnagyobb vonalvastagság</string>
   <string name="config_maxStrokeWidth_summary">Ne rajzoljon ennél vastagabb vonalat.</string>
   <string name="config_maxStrokeWidth_current">%1$d pixel</string>
-  <string name="config_uploadOk_title">Függőben lévő feltöltés rendben</string>
-  <string name="config_uploadOk_summary">Korlátozás, amely alatt a függőben lévő objektumfeltöltések rendben lévőnek minősülnek</string>
   <string name="config_upload_current">%1$d objektum</string>
-  <string name="config_uploadWarn_title">Függőben lévő feltöltés figyelmeztetési állapotban</string>
-  <string name="config_uploadWarn_summary">Határérték, amely alatt a függőben lévő objektumok feltöltése figyelmeztetés státuszt kap.</string>
   <string name="config_uploadChecker_title">Feltöltési emlékeztetők intervalluma</string>
   <string name="config_uploadChecker_summary">Az emlékeztetők időköze, ha nem közzétett módosításai vannak.</string>
   <string name="config_uploadChecker_current">%1$d óra</string>
@@ -1180,6 +1171,7 @@ elemek megkövetelése</string>
   <string name="config_overrideRegionAddressTags_summary">A régióspecifikus értékek helyett használja a címcímke-konfigurációnkat </string>
   <string name="config_address_tags">Címcímkék</string>
   <string name="config_address_tags_summary">A címelőrejelzéshez használt címkék.</string>
+  <string name="config_neighbourDistance_current">%1$d méter</string>
   <string name="config_enableNameSuggestions_title">Névjavaslatok engedélyezése</string>
   <string name="config_enableNameSuggestions_summary">A név címke javaslatainak bekapcsolása.</string>
   <string name="config_enableNameSuggestionsPresets_title">Névjavaslatot tevő előbeállítások engedélyezése</string>
@@ -1482,7 +1474,7 @@ elemek megkövetelése</string>
   <string name="toast_nohelp">Ehhez nincs súgó.</string>
   <!--Bookmarks-->
   <string name="add_bookmark">Könyvjelző hozzáadása…</string>
-  <string name="bookmarks_desc">Megjegyzés hozzáadása</string>
+  <string name="bookmarks_desc">Leírás</string>
   <string name="show_bookmarks">Könyvjelzők…</string>
   <string name="_dots">⋮</string>
   <string name="gotobookmark">Ugrás</string>

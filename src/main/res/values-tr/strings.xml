@@ -9,13 +9,13 @@
   <string name="mode_voice">Ses</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Dikkat!</string>
-  <string name="transfer_download_current_dialog_message">Değişiklikler yaptınız. Onları atmak yerine yüklemek ister misiniz?</string>
+  <string name="transfer_download_current_dialog_message">Değişiklikler yaptınız. Onları silmek yerine yüklemek ister misiniz?</string>
   <string name="transfer_download_current_upload">Yükle</string>
   <string name="transfer_download_current_download">At &amp; indir</string>
-  <string name="transfer_download_current_back">Geri (bir şey yapmadan)</string>
+  <string name="transfer_download_current_back">Geri (bir şey yapmayın)</string>
   <string name="upload_problem_title">Yüklenemedi</string>
   <string name="upload_problem_message">Verilerin bir kısmı veya tamamı yüklenmedi. Daha sonra tekrar deneyin.</string>
-  <string name="bad_request_message">API bir hatayla yanıt verdi, lütfen verilerinizi kaydedin ve sorunu bildirin: \n\n</string>
+  <string name="bad_request_message">API bir hatayla yanıt verdi, lütfen verilerinizi kaydedin ve sorunu bildirin:\n\n</string>
   <string name="upload_conflict_title">Yükleme çakışması</string>
   <string name="upload_conflict_message_version">%1$s \nyerel sürümü %2$d dir\nsunucudaki  %3$d</string>
   <string name="upload_conflict_message_deleted">%1$s \nyerel sürümü %2$d \nve sunucusunda silindi</string>
@@ -30,10 +30,10 @@
   <string name="ssl_handshake_failed">HTTPS anlaşması başarısız olduğu için OSM sunucusuna bağlanılamadı. API tercihlerinde şifrelenmemiş bir bağlantıya geçmeyi deneyin.</string>
   <string name="wrong_login_data_title">Kimlik doğrulaması yapılamadı</string>
   <string name="wrong_login_data_message">OAuth kullanıyorsanız, yeniden doğrulayın ve tekrar deneyin. Kullanıcı adı ve şifre kullanıyorsanız (önerilmez), lütfen bunların doğru girilip girilmediğini kontrol edin.</string>
-  <string name="wrong_login_data_re_authenticate">Yeniden kimlik doğrula</string>
+  <string name="wrong_login_data_re_authenticate">Yeniden kimlik doğrulaması</string>
   <string name="forbidden_login_title">Oturum açma yasak</string>
-  <string name="not_found_title">Öğe bulunamadı</string>
-  <string name="not_found_message">API, belirtilen kimlikte bir öğe veya değişim kümesi bulamadı.&lt;br&gt;&lt;br&gt;</string>
+  <string name="not_found_title">Öge bulunamadı</string>
+  <string name="not_found_message">API, belirtilen kimlikte bir öge veya değişim kümesi bulamadı.&lt;br&gt;&lt;br&gt;</string>
   <string name="unknown_error_title">Bilinmeyen hata</string>
   <string name="unknown_error_message">API\'den hata kodu geri döndü .&lt;br&gt;&lt;br&gt; ya da ileti işlenemedi.</string>
   <string name="no_data_title">Veri yok</string>
@@ -64,7 +64,7 @@
   <string name="applying_osc_failed_message">Büyük olasılıkla değişiklikleri uygulamak için gereken tüm özgün verileri yüklemediniz.</string>
   <!---->
   <string name="welcome_title">Hoş geldin</string>
-  <string name="welcome_message">Vespucci\'yi yüklediğiniz için teşekkürler. n&lt;br&gt;&lt;br&gt; Başlamadan bilmeniz gereken üç şey:\n&lt;ul&gt;&lt;li&gt; sol üst köşedeki kilit simgesine dokunmak kilitli (düzenleme yok) ve kilitsiz modlar arasında geçiş yapar,&lt;/li&gt;&lt;li&gt;OpenStreetMap\'i düzenlemek için, önce değiştirmek istediğiniz alanın verilerini indirmeniz gerekir (bunu denemeden önce yakınlaştırın),&lt;/li&gt;&lt;li&gt;yeni nesne eklemek için: büyük yeşil düğmeye dokunun ve eklemek istediğinizi seçin, daha sonra istediğiniz pozisyona konumlandırın.&lt;/li&gt;&lt;/ul&gt;\nŞimdi hazırsınız, eğlenmeye ve haritalamaya başlayabilirsiniz!</string>
+  <string name="welcome_message">Vespucci\'yi yüklediğiniz için teşekkürler.\n&lt;br&gt;&lt;br&gt; Başlamadan bilmeniz gereken üç şey:\n&lt;ul&gt;&lt;li&gt; Sol üst köşedeki kilit simgesine dokunmak kilitli (düzenleme yok) ve kilitsiz modlar arasında geçiş yapar,&lt;/li&gt;&lt;li&gt;OpenStreetMap\'i düzenlemek için, önce değiştirmek istediğiniz alanın verilerini indirmeniz gerekir (bunu denemeden önce yakınlaştırın),&lt;/li&gt;&lt;li&gt;Yeni nesne eklemek için: büyük yeşil düğmeye dokunun ve eklemek istediğinizi seçin, daha sonra istediğiniz pozisyona konumlandırın.&lt;/li&gt;&lt;/ul&gt;\nŞimdi hazırsınız, eğlenmeye ve haritalamaya başlayabilirsiniz!</string>
   <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;Cihazın görüntüden gizlenmiş \'\'yazılım tuşları\'\'na sahip. Aşağıya kaydırarak onları tekrardan görüntüle.</string>
   <string name="read_introduction">Tanıtımı okuyun</string>
   <string name="upgrade_title">Bu yeni bir Vespucci sürümü</string>
@@ -118,7 +118,8 @@
   <string name="openstreetbug_new_nodeway">Düğüm/Yol oluştur</string>
   <string name="openstreetbug_edit_title">Notu düzenle</string>
   <string name="openstreetbug_comment_label">Yorum:</string>
-  <string name="openstreetbug_commit_ok">Görev-değişikliği kaydedildi</string>
+  <string name="openstreetbug_commit_ok">Görev değişiklikleri kaydedildi</string>
+  <string name="openstreetbug_commit_fail">Görev değişiklikleri kaydedilemedi</string>
   <string name="openstreetbug_unknown_task_type">Bilinmeyen görev türü</string>
   <string name="openstreetbug_not_supported">%1$s desteklenmiyor.</string>
   <string name="note_description">Not: %1$s - %2$s</string>
@@ -204,6 +205,7 @@
   <string name="ways">Yollar</string>
   <!--Tile layer info dialog-->
   <string name="attribution">Atfetme</string>
+  <!--GPX info dialog-->
   <!--Too much data dialog-->
   <string name="too_much_data_title">Çok fazla veri yüklendi!</string>
   <string name="too_much_data_message">%1$d yüklenmiş ve yapılandırılmış nesne sınırına ulaştınız. Bu, daha fazla veri eklerseniz, potansiyel sorunları kaydetme durumuna yavaşlamaya neden olur.</string>
@@ -236,6 +238,12 @@
   <string name="odd">Garip</string>
   <string name="other">Diğer</string>
   <!--Safe split dialog-->
+  <!--JS console dialog-->
+  <string name="evaluate">Değerlendir</string>
+  <string name="js_console_msg_live">Canlı kip!</string>
+  <string name="js_console_msg_debug">Hata ayıklama kipi!</string>
+  <string name="console_output_hint">Çıktı burada görünecek</string>
+  <!--Overpass console-->
   <!---->
   <string name="error">Hata</string>
   <string name="warning">Uyarı</string>
@@ -250,12 +258,6 @@
   <string name="attached_object_warning_stop">Tamam yoksay</string>
   <!--debug dialog-->
   <string name="send_debug_information">Hata ayıklama bilgisi gönder</string>
-  <!--JS console dialog-->
-  <string name="evaluate">Değerlendir</string>
-  <string name="js_console_msg_live">Canlı kip!</string>
-  <string name="js_console_msg_debug">Hata ayıklama kipi!</string>
-  <string name="js_console_input_hint">Javascript\'i buraya girin</string>
-  <string name="js_console_output_hint">Çıktı burada görünecek</string>
   <!--Validator dialogs-->
   <string name="validator_title">Doğrulayıcı kural kümesi %1$s</string>
   <string name="resurvey_entries">Yeniden anket</string>
@@ -377,6 +379,7 @@
   <string name="boxpicker_firsttimetitle">OpenStreetMap verisini indir</string>
   <!--Clear/Reset GPX Track-->
   <string name="clear_track_description">İzlemeyi durdurun ve kayıtlı tüm izleme noktalarını silin. Bu geri alınamaz.</string>
+  <!--Measurement dialog-->
   <!--Tips-->
   <string name="tip_title">Biliyor musun?</string>
   <string name="tip_check_label">İsteğe bağlı ipuçlarını gösterme</string>
@@ -448,10 +451,6 @@
   <string name="toast_missing_filemanager">Lütfen bir dosya yöneticisi yükleyin.</string>
   <string name="toast_outside_of_download">Bu alanı düzenlemek için daha fazla veri yükleyin.</string>
   <string name="toast_file_not_found">%1$s bulunamadı.</string>
-  <plurals name="toast_imported_track_points">
-    <item quantity="one">%1$dGPX izleme noktası ve bir yol noktası içe aktarıldı.</item>
-    <item quantity="other">%1$d GPX izleme noktası ve %2$d yol noktası içe aktarıldı.</item>
-  </plurals>
   <string name="toast_unknown_voice_command">Üzgünüz, şu anda \"%1$s\" anlaşılmıyor</string>
   <string name="toast_inconsistent_state">Tutarsız durum algılandı, lütfen hata raporunu gönderin.</string>
   <string name="toast_camera_error">Kamera uygulaması başlatılamadı: %1$s</string>
@@ -484,7 +483,6 @@
   <string name="toast_invalid_object">Geçersiz nesne</string>
   <string name="toast_openinghours_invalid">%1$s için geçersiz açılış saati değeri</string>
   <string name="toast_openinghours_autocorrected">%1$s açılış saatleri otomatik düzeltildi</string>
-  <string name="toast_exit_multiselect">Çıkmak için boş bir alana çift tıklayın veya ← okunu kullanın</string>
   <string name="toast_abort_actionmode">İptal etmek için ← okunu kullanın</string>
   <string name="toast_null_island">Lütfen 0 ° / 0 ° (Null Adası) \'da öğe eklemeyin</string>
   <string name="toast_string_too_long">Dize fazlasıyla uzun (%1$d karakterleri), kesildi!</string>
@@ -578,6 +576,7 @@
   <string name="select">Seçiniz</string>
   <!--Read a file-->
   <string name="read">Oku</string>
+  <string name="load">Yükle</string>
   <string name="overwrite">Üzerine yaz</string>
   <string name="share">Paylaş</string>
   <string name="share_position">Konumu paylaş</string>
@@ -797,12 +796,10 @@
   <string name="menu_preset_feedback">Ön ayarlı geri bildirim sağla</string>
   <string name="menu_privacy">Gizlilik</string>
   <!--Background alignment-->
-  <string name="menu_tools_background_align">Arka planı hizala</string>
   <string name="menu_tools_background_align_reset">Sıfırla</string>
   <string name="menu_tools_background_align_zero">Sıfır</string>
   <string name="menu_tools_background_align_retrieve_from_db">Veritabanından</string>
   <string name="menu_tools_background_align_retrieve_from_device">Cihazdan</string>
-  <string name="menu_tools_background_align_save_db">Veritabanına kaydet</string>
   <string name="menu_tools_background_align_save_device">Cihaza kaydet</string>
   <string name="menu_tools_background_align_apply2all">Uygula (tüm yakınlaştırma seviyeleri)</string>
   <string name="min_max_zoom">%1$d - %2$d</string>
@@ -948,7 +945,6 @@
   <string name="config_splitActionBarEnabled_summary">\"Bölünmüş eyleme izin ver\" çubuğu kullanımı cihaza özeldir. Vespucci\'yi yeniden başlatmayı ve Android 4.0 veya sonraki bir sürümü gerektirir.</string>
   <string name="config_maxInlineValues_title">Sıralı değerlerin maksimum sayısı</string>
   <string name="config_maxInlineValues_summary">Etiket biçiminde görüntülenen maksimum sıralı değer sayısı.</string>
-  <string name="config_maxInlineValues_current">%1$d Değer</string>
   <string name="config_autoLockDelay_title">Otomatik kilitlemeden önce bekleme süresi</string>
   <string name="config_autoLockDelay_summary">Otomatik kilitlemeden önce beklenecek saniye miktarı, 0 kapatır.</string>
   <string name="config_autoLockDelay_current">%1$d\'ın</string>
@@ -959,10 +955,7 @@
   <string name="config_maxStrokeWidth_title">Maks çizgi genişliği</string>
   <string name="config_maxStrokeWidth_summary">Bundan daha kalın bir yol çizmeyin.</string>
   <string name="config_maxStrokeWidth_current">%1$dpiksel</string>
-  <string name="config_uploadOk_title">Yükleme beklemesi tamam</string>
-  <string name="config_uploadOk_summary">Bekleyen nesne yüklemelerinin Tamam olarak kabul edileceği sınırın altında</string>
   <string name="config_upload_current">%1$dnesneN</string>
-  <string name="config_uploadWarn_title">Yükleme uyarısı bekleniyor</string>
   <string name="config_uploadChecker_current">%1$d saat</string>
   <string name="config_dataWarn_title">Çok fazla veri uyarısı</string>
   <string name="config_useUrlForFeedback_title">Geri bildirim etkinliğini devre dışı bırakın</string>
@@ -978,6 +971,7 @@
   <string name="config_forceContextMenu_summary">Seçim belirsizse her zaman bağlamsal menüyü göster.</string>
   <string name="config_address_tags">Adres etiketleri</string>
   <string name="config_address_tags_summary">Adres tahmini için kullanılan etiketler.</string>
+  <string name="config_neighbourDistance_current">%1$d metre</string>
   <string name="config_enableNameSuggestions_title">İsim tavsiyelerini etkinleştir</string>
   <string name="config_enableNameSuggestions_summary">Ad etiketi için önerileri açın.</string>
   <string name="config_enableNameSuggestionsPresets_title">Ad önerisi ön ayarlarını etkinleştir</string>
@@ -1249,6 +1243,7 @@
   <!--Help system-->
   <string name="toast_nohelp">Burada yardım yok</string>
   <!--Bookmarks-->
+  <string name="bookmarks_desc">Açıklama</string>
   <!--Element types-->
   <string name="element_type_area">alan</string>
   <string name="element_type_relation">küme</string>

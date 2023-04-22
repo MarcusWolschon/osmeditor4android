@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="validations_entries">
+        <item>Stáří objektu</item>
+        <item>Tagy FIXME</item>
+        <item>Chybějící tagy</item>
+        <item>Neznámý typ cesty</item>
+        <item>Žádný typ relace</item>
+        <item>Chybějící imperiální jednotky</item>
+        <item>Neplatný objekt</item>
+        <item>Neoznačené objekty</item>
+        <item>Nepřipojený koncový uzel</item>
+        <item>Degenerovaná cesta</item>
+        <item>Prázdná relace</item>
+        <item>Chybějící role člena relace</item>
+        <item>Smyčka relací</item>
+        <item>Nestandardní typ prvku</item>
+    </string-array>
+    </resources>

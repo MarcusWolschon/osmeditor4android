@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="validations_entries">
+        <item>Возраст объекта</item>
+        <item>Теги FIXME</item>
+        <item>Пропущенные теги</item>
+        <item>Дорога</item>
+        <item>Не указан тип отношения</item>
+        <item>Не указаны английские единицы измерения</item>
+        <item>Некорректный объект</item>
+        <item>Объект без тегов</item>
+        <item>Незамкнутые линии</item>
+        <item>Вырожденная линия</item>
+        <item>Пустое отношение</item>
+        <item>Не указана роль участника отношения</item>
+        <item>Зацикливание отношений</item>
+        <item>Нестандартные типы  элементов</item>
+    </string-array>
+    </resources>

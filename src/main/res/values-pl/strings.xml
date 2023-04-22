@@ -209,6 +209,7 @@
   <string name="ways">Drogi</string>
   <!--Tile layer info dialog-->
   <string name="attribution">Przypisanie</string>
+  <!--GPX info dialog-->
   <!--Too much data dialog-->
   <string name="too_much_data_title">Wczytano zbyt wiele danych!</string>
   <string name="too_much_data_message">Wczytałeś %1$d Węzłów i przekroczyłeś ustawiony limit. To spowoduje spowolnienie, a jeśli dodasz więcej danych, być może problemy z zapisem stanu.</string>
@@ -241,6 +242,12 @@
   <string name="odd">Nieparzyste</string>
   <string name="other">Inne</string>
   <!--Safe split dialog-->
+  <!--JS console dialog-->
+  <string name="evaluate">Ewaluuj</string>
+  <string name="js_console_msg_live">Tryb na żywo!</string>
+  <string name="js_console_msg_debug">Tryb debugowania!</string>
+  <string name="console_output_hint">Wyjście zostanie wyświetlone tutaj</string>
+  <!--Overpass console-->
   <!---->
   <string name="error">Błąd</string>
   <string name="warning">Ostrzeżenie</string>
@@ -255,12 +262,6 @@
   <string name="attached_object_warning_stop">OK, zignoruj</string>
   <!--debug dialog-->
   <string name="send_debug_information">Prześlij informacje do debugowania</string>
-  <!--JS console dialog-->
-  <string name="evaluate">Ewaluuj</string>
-  <string name="js_console_msg_live">Tryb na żywo!</string>
-  <string name="js_console_msg_debug">Tryb debugowania!</string>
-  <string name="js_console_input_hint">Wpisz tu JavaScript</string>
-  <string name="js_console_output_hint">Wyjście zostanie wyświetlone tutaj</string>
   <!--Validator dialogs-->
   <string name="validator_title">Zbiór zasad walidatora: %1$s</string>
   <string name="resurvey_entries">Sprawdzić ponownie</string>
@@ -381,6 +382,7 @@
   <string name="boxpicker_firsttimetitle">Pobierz dane OpenStreetMap</string>
   <!--Clear/Reset GPX Track-->
   <string name="clear_track_description">Zatrzymaj śledzenie i usuń wszystkie zapisane punkty. Nie można tego cofnąć.</string>
+  <!--Measurement dialog-->
   <!--Tips-->
   <string name="tip_title">Czy wiesz, że?</string>
   <string name="tip_check_label">Przestań wyświetlać opcjonalne porady </string>
@@ -448,12 +450,6 @@
   <string name="toast_missing_filemanager">Prosimy zainstalować menadżera plików.</string>
   <string name="toast_outside_of_download">Pobierz więcej danych, aby edytować ten obszar.</string>
   <string name="toast_file_not_found">%1$s – nie znaleziono szukanej frazy.</string>
-  <plurals name="toast_imported_track_points">
-    <item quantity="one">Zaimportowano %1$d węzłów śladu GPX i 1 punkt.</item>
-    <item quantity="few">Zaimportowano %1$d węzłów śladu GPX i %2$d punkty.</item>
-    <item quantity="many">Zaimportowano %1$d węzłów śladu GPX i %2$d punktów.</item>
-    <item quantity="other">Zaimportowano %1$d węzłów śladu GPX i %2$d punktów.</item>
-  </plurals>
   <string name="toast_unknown_voice_command">Przepraszamy, aktualnie \"%1$s\" nie jest rozpoznawane</string>
   <string name="toast_inconsistent_state">Został wykryty niejednoznaczny stan danych, prosimy o wysłanie raportu błędów.</string>
   <string name="toast_camera_error">Nie można uruchomić aplikacji kamery: %1$s</string>
@@ -485,7 +481,6 @@
   <string name="toast_invalid_object">Nieprawidłowy obiekt</string>
   <string name="toast_openinghours_invalid">Niepoprawne godziny otwarcia %1$s</string>
   <string name="toast_openinghours_autocorrected">Wartość godzin otwarcia %1$s została automatycznie poprawiona</string>
-  <string name="toast_exit_multiselect">Dwukrotnie dotknij pustego miejsca lub użyj strzałki ←, aby wyjść</string>
   <string name="toast_abort_actionmode">Użyj strzałki ←, aby przerwać</string>
   <string name="toast_null_island">Prosimy nie dodawać obiektów na 0°/0° (Null Island)</string>
   <string name="toast_string_too_long">Napis za długi (%1$d znaków), został przycięty!</string>
@@ -568,6 +563,7 @@
   <string name="select">Wybierz</string>
   <!--Read a file-->
   <string name="read">Odczytaj</string>
+  <string name="load">Wczytaj</string>
   <string name="overwrite">Nadpisz</string>
   <string name="share">Udostępnij</string>
   <string name="share_position">Udostępnij pozycję</string>
@@ -782,12 +778,10 @@
   <string name="menu_preset_feedback">Przekaż opinię o szablonie</string>
   <string name="menu_privacy">Prywatność</string>
   <!--Background alignment-->
-  <string name="menu_tools_background_align">Kalibracja podkładu</string>
   <string name="menu_tools_background_align_reset">Reset</string>
   <string name="menu_tools_background_align_zero">Wyzeruj</string>
   <string name="menu_tools_background_align_retrieve_from_db">Z bazy danych</string>
   <string name="menu_tools_background_align_retrieve_from_device">Z urządzenia</string>
-  <string name="menu_tools_background_align_save_db">Zapisz do bazy danych</string>
   <string name="menu_tools_background_align_save_device">Zapisz na urządzeniu</string>
   <string name="menu_tools_background_align_apply2all">Zastosuj (wszystkie poziomy przybliżenia)</string>
   <string name="min_max_zoom">%1$d – %2$d</string>
@@ -933,7 +927,6 @@
   <string name="config_splitActionBarEnabled_summary">Włącz rozdzielony pasek nawigacyjny, użycie zależy od konkretnego urządzenia. Wymaga ponownego uruchomienia oraz wersji Androida 4.0 lub wyższej.</string>
   <string name="config_maxInlineValues_title">Maks. liczba wartości w jednym wierszu</string>
   <string name="config_maxInlineValues_summary">Maksymalna liczba wartości wyświetlanych w jednym wierszu formularza znacznika.</string>
-  <string name="config_maxInlineValues_current">%1$d Wartości</string>
   <string name="config_autoLockDelay_title">Czas oczekiwania przed zablokowaniem</string>
   <string name="config_autoLockDelay_summary">Liczba sekund przed automatycznym zablokowaniem, 0 wyłącza funkcję.</string>
   <string name="config_autoLockDelay_current">%1$d s</string>
@@ -944,7 +937,6 @@
   <string name="config_maxStrokeWidth_title">Maksymalna szerokość linii</string>
   <string name="config_maxStrokeWidth_summary">Nie wyświetlaj linii grubszych niż.</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>
-  <string name="config_uploadOk_title">Oczekujące wysyłanie OK</string>
   <string name="config_upload_current">%1$d obiektów</string>
   <string name="config_uploadChecker_current">%1$d godzin</string>
   <string name="config_beepVolume_title">Głośność brzęczyka</string>
@@ -958,6 +950,7 @@
   <string name="config_forceContextMenu_summary">Zawsze wyświetlaj menu podręczne, jeśli zaznaczenie jest niejednoznaczne.</string>
   <string name="config_address_tags">Znaczniki adresu</string>
   <string name="config_address_tags_summary">Znaczniki używane do określania adresu.</string>
+  <string name="config_neighbourDistance_current">%1$d metr(ów)</string>
   <string name="config_enableNameSuggestions_title">Sugerowanie nazw</string>
   <string name="config_enableNameSuggestions_summary">Wyświetl sugestie nazwy znacznika.</string>
   <string name="config_enableNameSuggestionsPresets_title">Włącz szablony sugerowanych nazw</string>
@@ -1227,6 +1220,7 @@
   <!--Help system-->
   <string name="toast_nohelp">Brak tutaj pomocy.</string>
   <!--Bookmarks-->
+  <string name="bookmarks_desc">Opis</string>
   <!--Element types-->
   <string name="element_type_area">obszar</string>
   <string name="element_type_relation">relacja</string>

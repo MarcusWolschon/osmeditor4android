@@ -27,7 +27,7 @@
   <string name="no_login_data_message">Si vous utilisez OAuth, ceci est probablement un bogue, merci de rapporter le problème. Si vous utilisez un login et un mot de passe (non recommandé) vérifiez que vous les avez renseigné correctement.</string>
   <string name="no_connection_title">Pas de connexion au serveur</string>
   <string name="no_connection_message">Impossible de se connecter au serveur OSM. Vérifiez votre connexion Internet ou réessayez plus tard.</string>
-  <string name="ssl_handshake_failed">Impossible de se connecter au serveur OSM car la connexion HTTPS a échoué. Réessayez en passant à une connexion non chiffrée dans les préférences de l\'API.</string>
+  <string name="ssl_handshake_failed">Impossible de se connecter au serveur OSM car la connexion HTTPS a échoué. Réessayez en passant à une connexion non chiffrée dans les paramètres de l\'API.</string>
   <string name="wrong_login_data_title">Erreur d\'authentification</string>
   <string name="wrong_login_data_message">Si vous utilisez OAuth, ré-authentifiez-vous puis réessayez. Si vous utilisez un identifiant et mot de passe (non recommandé), vérifiez qu\'ils sont correctement renseignés.</string>
   <string name="wrong_login_data_re_authenticate">Réauthentifier</string>
@@ -237,6 +237,7 @@
   <string name="ways">Chemins</string>
   <!--Tile layer info dialog-->
   <string name="attribution">Attribution</string>
+  <!--GPX info dialog-->
   <!--Too much data dialog-->
   <string name="too_much_data_title">Trop de données chargées !</string>
   <string name="upload_data_now">Envoyer les changements</string>
@@ -262,6 +263,12 @@
   <string name="odd">Impaires</string>
   <string name="other">Autre</string>
   <!--Safe split dialog-->
+  <!--JS console dialog-->
+  <string name="evaluate">Evaluer</string>
+  <string name="js_console_msg_live">Mode direct</string>
+  <string name="js_console_msg_debug">Mode débogage</string>
+  <string name="console_output_hint">La sortie apparaîtra ici</string>
+  <!--Overpass console-->
   <!---->
   <string name="error">Erreur</string>
   <string name="warning">Avertissement</string>
@@ -276,12 +283,6 @@
   <string name="attached_object_warning_stop">OK puis ignorer</string>
   <!--debug dialog-->
   <string name="send_debug_information">Envoyer les informations de débogage</string>
-  <!--JS console dialog-->
-  <string name="evaluate">Evaluer</string>
-  <string name="js_console_msg_live">Mode direct</string>
-  <string name="js_console_msg_debug">Mode débogage</string>
-  <string name="js_console_input_hint">Saisissez du Javascript ici</string>
-  <string name="js_console_output_hint">La sortie apparaîtra ici</string>
   <!--Validator dialogs-->
   <string name="validator_title">Règle de validation %1$s</string>
   <string name="resurvey_entries">Re-arpenter</string>
@@ -428,6 +429,7 @@
   <string name="boxpicker_firsttimetitle">Télécharger les données d\'OpenStreetMap</string>
   <!--Clear/Reset GPX Track-->
   <string name="clear_track_description">Arrêter de suivre les points GPS et supprimer ceux qui ont été enregistrés. Cela ne peut être annulé.</string>
+  <!--Measurement dialog-->
   <!--Tips-->
   <string name="tip_title">Le saviez-vous ?</string>
   <string name="tip_check_label">Ne plus montrer d\'astuces facultatives</string>
@@ -502,11 +504,6 @@
   <string name="toast_missing_filemanager">Installez un gestionnaire de fichiers.</string>
   <string name="toast_outside_of_download">Téléchargez plus de données pour modifier cette zone.</string>
   <string name="toast_file_not_found">%1$s introuvable.</string>
-  <plurals name="toast_imported_track_points">
-    <item quantity="one">%1$d points et un chemin importé.</item>
-    <item quantity="many">%1$d points et %2$d chemins importés.</item>
-    <item quantity="other">%1$d points et %2$d chemins importés.</item>
-  </plurals>
   <string name="toast_unknown_voice_command">Désolé, « %1$s » n\'est actuellement pas compris</string>
   <string name="toast_inconsistent_state">État instable détecté, envoyez un rapport d\'erreur !</string>
   <string name="toast_camera_error">Erreur en lançant l\'appli caméra : %1$s</string>
@@ -539,7 +536,6 @@
   <string name="toast_invalid_object">objet invalide</string>
   <string name="toast_openinghours_invalid">Horaires d\'ouverture de %1$s invalides</string>
   <string name="toast_openinghours_autocorrected">Les horaires d\'ouvertures de %1$sont été corrigées automatiquement</string>
-  <string name="toast_exit_multiselect">Appuyez deux fois sur un espace vide ou utilisez la flèche ← pour quitter</string>
   <string name="toast_abort_actionmode">Utilisez la flèche ← pour abandonner</string>
   <string name="toast_null_island">N\'ajoutez pas d\'élément à 0°/0° (Null Island)</string>
   <string name="toast_string_too_long">Chaîne trop longue (%1$d caractères), tronquée !</string>
@@ -627,6 +623,7 @@
   <string name="more_information">Plus d\'informations</string>
   <!--Read a file-->
   <string name="read">Lire</string>
+  <string name="load">Télécharger</string>
   <string name="overwrite">Écrire par dessus</string>
   <string name="share">Partager</string>
   <string name="share_position">Partager la position</string>
@@ -634,7 +631,7 @@
   <string name="min">Min.</string>
   <string name="max">Max.</string>
   <string name="geojson_object">%1$s (%2$s)</string>
-  <string name="none">Aucun</string>
+  <string name="none">Aucune</string>
   <!--Dialog for back button-->
   <string name="exit_title">Quitter Vespucci</string>
   <string name="exit_text">Êtes-vous certain de vouloir quitter ?</string>
@@ -751,7 +748,7 @@
   <string name="menu_move">Naviguer</string>
   <string name="menu_edit">Déplacer</string>
   <string name="menu_add">Ajouter</string>
-  <string name="menu_config">Préférences</string>
+  <string name="menu_config">Paramètres</string>
   <string name="menu_find">Rechercher</string>
   <string name="menu_help">Aide</string>
   <string name="menu_view">Vue</string>
@@ -858,12 +855,10 @@
   <string name="menu_preset_feedback">Faire un retour sur le modèle</string>
   <string name="menu_privacy">Vie privée</string>
   <!--Background alignment-->
-  <string name="menu_tools_background_align">Aligner le fond de carte</string>
   <string name="menu_tools_background_align_reset">Réinitialiser</string>
   <string name="menu_tools_background_align_zero">Zéro</string>
   <string name="menu_tools_background_align_retrieve_from_db">Depuis la base de données</string>
   <string name="menu_tools_background_align_retrieve_from_device">Depuis l\'appareil</string>
-  <string name="menu_tools_background_align_save_db">Enregistrer dans la base de données</string>
   <string name="menu_tools_background_align_save_device">Enregistrer sur l\'appareil</string>
   <string name="menu_tools_background_align_apply2all">Appliquer (tous les zooms)</string>
   <string name="min_max_zoom">%1$d - %2$d</string>
@@ -940,7 +935,7 @@
   <plurals name="actionmode_object_count">
     <item quantity="one">un objet</item>
     <item quantity="many">%1$d objets</item>
-    <item quantity="other">%1$d objets</item>
+    <item quantity="other">%1$d nœuds</item>
   </plurals>
   <string name="actionmode_rotateway">Tourner le chemin</string>
   <!--Simple Action Mode-->
@@ -975,7 +970,7 @@
   <string name="config_largeDragArea_summary">Propose une zone plus grande pour déplacer les nœuds</string>
   <string name="config_wayNodeDragging_title">Autoriser le déplacement d\'un nœud d\'un chemin</string>
   <string name="config_wayNodeDragging_summary">Permettre de déplacer individuellement des nœuds d\'un chemin sélectionné (par défaut, sélectionner un chemin sélectionne uniquement celui-ci. Avec cette option, le chemin et les nœuds sont séléctionnés en même temps)</string>
-  <string name="config_advancedprefs">Préférences avancées</string>
+  <string name="config_advancedprefs">Paramètres avancés</string>
   <string name="config_moreprefs">Plus de paramètres…</string>
   <string name="config_presetbutton_title">Modèles d\'attributs</string>
   <string name="config_presetbutton_summary">Ajouter et activer des modèles d\'attributs de JOSM</string>
@@ -1004,8 +999,8 @@
   <string name="config_showWayIcons_summary">Montrer sur les batiments l\'icône du modèle d\'attribut le plus proche</string>
   <string name="config_tagFormEnabled_title">Afficher le formulaire d\'attributs</string>
   <string name="config_tagFormEnabled_summary">Afficher le formulaire d\'attributs pour l\'édition</string>
-  <string name="config_showCameraAction_title">Voir l\'action caméra</string>
-  <string name="config_showCameraAction_summary">Voir l\'icône caméra sur la barre d\'action</string>
+  <string name="config_showCameraAction_title">Icöne caméra</string>
+  <string name="config_showCameraAction_summary">Ajouter l\'icône caméra sur la barre d\'action</string>
   <string name="config_selectCameraApp_title">Application photo</string>
   <string name="config_system_camera">Valeur système par défaut</string>
   <string name="config_fv5_pro">FV5 pro</string>
@@ -1022,16 +1017,17 @@
   <string name="config_map_orientation_title">Orientation de l\'écran de la carte</string>
   <string name="config_map_orientation_summary">Comportement de la carte au moment du changement d\'orientation de l\'appareil.</string>
   <string name="config_showTolerance_title">Afficher les zones interactives</string>
-  <string name="config_showTolerance_summary">Affiche la zone où un élément peut être sélectionné.</string>
+  <string name="config_showTolerance_summary">Affiche une zone autour d\'un élément pour faciliter sa sélection.</string>
   <string name="config_use_back_for_undo_title">Bouton ← pour annuler</string>
-  <string name="config_use_back_for_undo_summary">Utiliser le bouton ← pour annuler vos modifications</string>
+  <string name="config_use_back_for_undo_summary">Utiliser le bouton \"Retour en arrière\" pour annuler vos modifications</string>
   <string name="config_enableLightTheme_title">Activer le thème clair</string>
   <string name="config_enableLightTheme_summary">Thème clair avec des fonds blancs.</string>
-  <string name="config_splitActionBarEnabled_title">Activer la barre d\'action divisée</string>
-  <string name="config_splitActionBarEnabled_summary">Utiliser la barre d\'action divisée si l\'appareil est compatible. Nécessite Android 4.0 ou supérieur et le redémarrage de l\'application.</string>
-  <string name="config_maxInlineValues_title">Nombre max. de valeurs intégrées</string>
-  <string name="config_maxInlineValues_summary">Nombre maximum de valeurs intégrées affichées dans le formulaire d\'attributs.</string>
-  <string name="config_maxInlineValues_current">%1$d Valeurs</string>
+  <string name="config_splitActionBarEnabled_title">Afiicher la barre de menu en bas</string>
+  <string name="config_splitActionBarEnabled_summary">Pour afficher les boutons du menu en bas de l\'écran. Nécessite Android 4.0 ou supérieur et le redémarrage de l\'application.</string>
+  <string name="config_disableTranslations_title">Ne pas traduire</string>
+  <string name="config_disableTranslations_summary">L\'application affichera tous les textes en anglais</string>
+  <string name="config_maxInlineValues_title">Nombre max. de valeurs suggérées</string>
+  <string name="config_maxInlineValues_summary">Nombre maximum de valeurs suggérées affichées dans le formulaire de saisie des attributs.</string>
   <string name="config_autoLockDelay_title">Temps avant le verrouillage automatique</string>
   <string name="config_autoLockDelay_summary">Temps en secondes avant le verrouillage automatique. 0 pour désactiver.</string>
   <string name="config_autoLockDelay_current">%1$d s</string>
@@ -1039,42 +1035,47 @@
   <string name="config_enableAntiAliasing_summary">Lisse les traits.</string>
   <string name="config_enableHwAcceleration_title">Activer l\'accélération matérielle</string>
   <string name="config_enableHwAcceleration_summary">Autoriser l\'utilisation de l\'accélération matérielle quand elle est supportée, pour le moment ce réglage n\'a pas d\'effet.</string>
-  <string name="config_maxStrokeWidth_title">Largeur maximale de ligne</string>
+  <string name="config_maxStrokeWidth_title">Largeur maximale des lignes des chemins</string>
   <string name="config_maxStrokeWidth_summary">Ne pas dessiner de chemin plus épais que ça.</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>
-  <string name="config_uploadOk_title">Envois en attente OK</string>
-  <string name="config_uploadOk_summary">Limite sous laquelle les objets en attente d\'envoi sont considérés comme OK</string>
-  <string name="config_upload_current">%1$d objets</string>
-  <string name="config_uploadWarn_title">Seuil d\'alerte des envois en attente</string>
-  <string name="config_uploadWarn_summary">Limite en dessus de laquelle les objets en attente d\'envoi passeront en mode avertissement.</string>
+  <string name="config_upload_current">%1$d éléments</string>
+  <string name="config_uploadChecker_title">Rappel d\'envoi des données</string>
+  <string name="config_uploadChecker_summary">Intervalle pour les rappels si vous avez des modifications non publiées.</string>
   <string name="config_uploadChecker_current">%1$d heures</string>
-  <string name="config_dataWarn_title">Seuil d\'alerte pour la consommation de données</string>
+  <string name="config_dataWarn_title">Alerte si trop de données téléchargées</string>
+  <string name="config_useUrlForFeedback_title">Désactiver le retour d\'informations</string>
+  <string name="config_useUrlForFeedback_summary">Empêcher le retour d\'activité et utiliser une URL à la place</string>
   <string name="config_beepVolume_title">Volume du signal sonore</string>
   <string name="config_beepVolume_summary">Réglage du volume des signaux sonores</string>
   <string name="config_beepVolume_current">%1$d</string>
+  <string name="config_mapillary_min_zoom_title">Zoom mini pour Mapillary</string>
+  <string name="config_mapillary_min_zoom_summary">Niveau de zoom minimale pour afficher la couche avec les images horizontales Mapillary</string>
   <string name="config_mapillary_min_zoom_current">%1$d</string>
   <string name="config_nameCap_summary">Mise en majuscule automatique des attributs name et équivalents lors de la saisie</string>
-  <string name="config_nameCap_title">Majuscules pour name</string>
+  <string name="config_nameCap_title">Majuscules pour l\'attribut name et équivalents</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Paramètres de données et de modifications</string>
   <string name="config_category_editing_summary">Paramètres de téléchargement automatique, de sauvegardes et de notifications.</string>
   <string name="config_forceContextMenu_title">Toujours utiliser le menu contextuel</string>
   <string name="config_forceContextMenu_summary">Toujours montrer le menu contextuel si la sélection est ambiguë.</string>
+  <string name="config_overrideRegionAddressTags_title">Remplacer la balise d\'adresse par la notre</string>
+  <string name="config_overrideRegionAddressTags_summary">Utiliser notre configuration des attributs d\'adresse au lieu des valeurs spécifiques régionales</string>
   <string name="config_address_tags">Attributs d\'adresse</string>
   <string name="config_address_tags_summary">Attributs utilisés pour la prédiction d\'adresse.</string>
+  <string name="config_neighbourDistance_current">%1$d mètres</string>
   <string name="config_enableNameSuggestions_title">Activer les suggestions de nom</string>
   <string name="config_enableNameSuggestions_summary">Activer les suggestions pour les attributs de nom.</string>
   <string name="config_enableNameSuggestionsPresets_title">Activer le remplissage de modèle avec la suggestion de nom</string>
   <string name="config_enableNameSuggestionsPresets_summary">Remplir automatiquement certains attributs quand un nom suggéré est choisi.</string>
   <string name="config_autoApplyPreset_title">Activer l\'application automatique d\'un modèle</string>
-  <string name="config_autoApplyPreset_summary">Appliquer automatiquement le modèle au démarrage de l\'éditeur de propriétés</string>
+  <string name="config_autoApplyPreset_summary">Appliquer automatiquement le modèle lors du démarrage de l\'éditeur de propriétés</string>
   <string name="config_generateAlerts_title">Générer des notifications</string>
   <string name="config_generateAlerts_summary">Générer une notification pour les données problématiques ou les notes.</string>
-  <string name="config_groupAlertsOnly_title">Alertes de groupe uniquement</string>
-  <string name="config_groupAlertsOnly_summary">Ne générer qu\'une alerte (audio) pour les groupes de notifications</string>
+  <string name="config_groupAlertsOnly_title">Alertes uniques de notification</string>
+  <string name="config_groupAlertsOnly_summary">Ne générer qu\'une seule alerte (audio) par groupe de notifications</string>
   <string name="config_notificationCacheSize_title">Nombre max. de notifications affichées</string>
   <string name="config_notificationCacheSize_summary">Nombre maximum de notifications affichées par type (au moins 1).</string>
-  <string name="config_notificationCacheSize_current">%1$d Notifications</string>
+  <string name="config_notificationCacheSize_current">%1$d notification(s)</string>
   <string name="config_maxAlertDistance_title">Distance maximale pour les notifications</string>
   <string name="config_maxAlertDistance_summary">Distance maximale entre l\'emplacement d\'un problème ou d\'une note et la position actuelle pour générer une notification.</string>
   <string name="config_maxAlertDistance_current">%1$d mètres</string>
@@ -1085,8 +1086,9 @@
   <string name="config_orthogonalizeThreshold_title">Limite d\'orthogonalisation</string>
   <string name="config_orthogonalizeThreshold_summary">La limite en ° au delà de laquelle les angles sont ignorés</string>
   <string name="config_orthogonalizeThreshold_current">%1$d°</string>
-  <string name="config_autoformatPhoneNumbers_title">Formater automatique des numéros de téléphones</string>
+  <string name="config_autoformatPhoneNumbers_title">Formatage automatique des numéros de téléphone</string>
   <string name="config_autoformatPhoneNumbers_summary">Activer le formatage automatique des numéros de téléphone</string>
+  <string name="config_maxOffsetDistance_title">Distance maximale pour les décalages d\'images stockées</string>
   <string name="config_maxOffsetDistance_current">%1$d mètres</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Paramètres du téléchargement automatique</string>
@@ -1337,7 +1339,7 @@
   <!--Help system-->
   <string name="toast_nohelp">Pas d\'aide ici.</string>
   <!--Bookmarks-->
-  <string name="bookmarks_desc">Ajouter un commentaire</string>
+  <string name="bookmarks_desc">Description</string>
   <string name="_dots">⋮</string>
   <!--Element types-->
   <string name="element_type_node">nœud</string>

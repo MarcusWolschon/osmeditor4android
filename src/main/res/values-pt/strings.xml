@@ -221,6 +221,7 @@
   <string name="ways">Vias</string>
   <!--Tile layer info dialog-->
   <string name="attribution">Atribuição</string>
+  <!--GPX info dialog-->
   <!--Too much data dialog-->
   <string name="too_much_data_title">Demasiados dados carregados!</string>
   <string name="upload_data_now">Enviar alterações</string>
@@ -239,6 +240,12 @@
   <string name="odd">Ímpar</string>
   <string name="other">Outro</string>
   <!--Safe split dialog-->
+  <!--JS console dialog-->
+  <string name="evaluate">Avaliar</string>
+  <string name="js_console_msg_live">Modo ao vivo!</string>
+  <string name="js_console_msg_debug">Modo depuração de erros!</string>
+  <string name="console_output_hint">A saída aparecerá aqui</string>
+  <!--Overpass console-->
   <!---->
   <string name="error">Erro</string>
   <string name="warning">Aviso</string>
@@ -253,12 +260,6 @@
   <string name="attached_object_warning_stop">OK, ignorar</string>
   <!--debug dialog-->
   <string name="send_debug_information">Enviar informações de depuração</string>
-  <!--JS console dialog-->
-  <string name="evaluate">Avaliar</string>
-  <string name="js_console_msg_live">Modo ao vivo!</string>
-  <string name="js_console_msg_debug">Modo depuração de erros!</string>
-  <string name="js_console_input_hint">Introduza o JavaScript aqui</string>
-  <string name="js_console_output_hint">A saída aparecerá aqui</string>
   <!--Validator dialogs-->
   <string name="validator_title">Regras de verificação %1$s</string>
   <string name="edit_resurvey_title">Editar o levantamento submetido</string>
@@ -355,6 +356,7 @@
   <string name="boxpicker_firsttimetitle">Descarregar dados OpenStreetMap</string>
   <!--Clear/Reset GPX Track-->
   <string name="clear_track_description">Parar de gravar o percurso e e eliminar pontos do trilho. Isto não pode ser desfeito.</string>
+  <!--Measurement dialog-->
   <!--Tips-->
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
@@ -412,11 +414,6 @@
   <string name="toast_missing_filemanager">Por favor instale um gestor de ficheiros.</string>
   <string name="toast_outside_of_download">Descarregar mais dados para editar esta área.</string>
   <string name="toast_file_not_found">%1$s não encontrado.</string>
-  <plurals name="toast_imported_track_points">
-    <item quantity="one">Importado %1$d pontos de trilho GPX e 1 ponto de linha.</item>
-    <item quantity="many">Importados %1$d pontos de trilhos GPX e %2$d pontos de linhas.</item>
-    <item quantity="other">Importados %1$d pontos de trilhos GPX e %2$d pontos de linhas.</item>
-  </plurals>
   <string name="toast_unknown_voice_command">Desculpe, neste momento \"%1$s\" não é compreensível</string>
   <string name="toast_inconsistent_state">Detetado um estado inconsistente. Por favor envie um relatório de erro.</string>
   <string name="toast_camera_error">Não foi possível iniciar a app da câmara: %1$s</string>
@@ -448,7 +445,6 @@
   <string name="toast_openinghours_invalid">Horário de abertura inválido para %1$s</string>
   <string name="toast_openinghours_autocorrected">O horário de abertura para %1$s foi automaticamente corrigido
 </string>
-  <string name="toast_exit_multiselect">Toque 2 vezes num espaço em branco ou utilize a seta ← para sair</string>
   <string name="toast_abort_actionmode">Use a seta ← para abortar</string>
   <string name="toast_null_island">Por favor não adicione elementos em 0°/0° (Ilha nula)</string>
   <string name="toast_string_too_long">A expressão é demasiado longa (%1$d caracteres), truncado!</string>
@@ -516,6 +512,7 @@
   <string name="select">Selecionar</string>
   <!--Read a file-->
   <string name="read">Ler</string>
+  <string name="load">Carregar</string>
   <string name="overwrite">Sobrescrever</string>
   <string name="share">Partilhar</string>
   <string name="share_position">Partilhar posição</string>
@@ -702,12 +699,10 @@ há %3$s %4$s</string>
   <string name="menu_preset_feedback">Fornecer opinião de modelo de etiquetas</string>
   <string name="menu_privacy">Privacidade</string>
   <!--Background alignment-->
-  <string name="menu_tools_background_align">Alinhar o fundo do mapa</string>
   <string name="menu_tools_background_align_reset">Repôr</string>
   <string name="menu_tools_background_align_zero">Zero</string>
   <string name="menu_tools_background_align_retrieve_from_db">Da base de dados</string>
   <string name="menu_tools_background_align_retrieve_from_device">Do dispositivo</string>
-  <string name="menu_tools_background_align_save_db">Gravar para a base de dados</string>
   <string name="menu_tools_background_align_save_device">Gravar para o dispositivo</string>
   <string name="menu_tools_background_align_apply2all">Aplicar (todos os níveis de zoom)</string>
   <string name="min_max_zoom">%1$d - %2$d</string>
@@ -839,7 +834,6 @@ há %3$s %4$s</string>
   <string name="config_splitActionBarEnabled_summary">Separa a barra de ações em 2, uma no topo e outra em baixo. A sua utilização é específica para cada dispositivo. É necessário reiniciar o Vespucci e requer uma versão do Android 4.0 ou superior.</string>
   <string name="config_maxInlineValues_title">Nº máx. de valores na linha</string>
   <string name="config_maxInlineValues_summary">Número máximo de valores na linha mostrados no formulário de etiquetas.</string>
-  <string name="config_maxInlineValues_current">%1$d Valores</string>
   <string name="config_autoLockDelay_title">Tempo de espera de bloqueio</string>
   <string name="config_autoLockDelay_summary">Tempo de espera em segundos antes do bloqueio automático ser ativado, usar 0 para desativar.</string>
   <string name="config_autoLockDelay_current">%1$d segundos</string>
@@ -859,6 +853,7 @@ há %3$s %4$s</string>
   <string name="config_forceContextMenu_summary">Mostrar sempre o menu contextual se uma seleção for ambígua.</string>
   <string name="config_address_tags">Etiquetas de endereço</string>
   <string name="config_address_tags_summary">Etiquetas para previsão de endereço.</string>
+  <string name="config_neighbourDistance_current">%1$d metro(s)</string>
   <string name="config_enableNameSuggestions_title">Sugerir nomes</string>
   <string name="config_enableNameSuggestions_summary">Ativa a apresentação de sugestões para a etiqueta de nome.</string>
   <string name="config_enableNameSuggestionsPresets_title">Sugerir etiquetas</string>
@@ -1102,6 +1097,7 @@ há %3$s %4$s</string>
   <!--Help system-->
   <string name="toast_nohelp">Sem ajuda aqui.</string>
   <!--Bookmarks-->
+  <string name="bookmarks_desc">Descrição</string>
   <!--Element types-->
   <string name="element_type_way">caminho</string>
   <string name="element_type_area">área</string>

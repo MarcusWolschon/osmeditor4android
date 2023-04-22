@@ -234,6 +234,7 @@
   <string name="ways">路径</string>
   <!--Tile layer info dialog-->
   <string name="attribution">属性</string>
+  <!--GPX info dialog-->
   <!--Too much data dialog-->
   <string name="too_much_data_title">加载了过多数据！</string>
   <string name="too_much_data_message">您加载了 %1$d 个节点并且已经超过了设定的限制。这会导致运行缓慢，如果添加了过多数据，可能导致保存状态出现问题。</string>
@@ -270,6 +271,12 @@
   <!--Safe split dialog-->
   <string name="split_safe_title">丢失关系成员</string>
   <string name="split_safe_message">邻近的关系成员没有下载下来。要维护关系成员的顺序，也许要依赖邻近的关系成员。</string>
+  <!--JS console dialog-->
+  <string name="evaluate">评估</string>
+  <string name="js_console_msg_live">Live 模式！</string>
+  <string name="js_console_msg_debug">调试模式！</string>
+  <string name="console_output_hint">此处显示输出结果</string>
+  <!--Overpass console-->
   <!---->
   <string name="error">错误</string>
   <string name="warning">警告</string>
@@ -284,12 +291,6 @@
   <string name="attached_object_warning_stop">OK，忽略</string>
   <!--debug dialog-->
   <string name="send_debug_information">发送调试信息</string>
-  <!--JS console dialog-->
-  <string name="evaluate">评估</string>
-  <string name="js_console_msg_live">Live 模式！</string>
-  <string name="js_console_msg_debug">调试模式！</string>
-  <string name="js_console_input_hint">在此输入 JavaScript</string>
-  <string name="js_console_output_hint">此处显示输出结果</string>
   <!--Validator dialogs-->
   <string name="validator_title">验证器规则集 %1$s</string>
   <string name="resurvey_entries">重新调查</string>
@@ -430,6 +431,7 @@
   <string name="boxpicker_firsttimetitle">下载 OpenStreetMap 数据</string>
   <!--Clear/Reset GPX Track-->
   <string name="clear_track_description">停止记录并删除所有已存储的轨迹点。此操作无法撤销。</string>
+  <!--Measurement dialog-->
   <!--Tips-->
   <string name="tip_title">你知道吗？</string>
   <string name="tip_check_label">不再显示可选提示</string>
@@ -523,9 +525,6 @@
   <string name="toast_missing_filemanager">请安装文件管理器。</string>
   <string name="toast_outside_of_download">下载更多数据以编辑此区域。</string>
   <string name="toast_file_not_found">%1$s 未找到。</string>
-  <plurals name="toast_imported_track_points">
-    <item quantity="other">导入 %1$d GPX 轨迹点和 %2$d 路径点。</item>
-  </plurals>
   <string name="toast_unknown_voice_command">抱歉，目前无法理解 \"%1$s\"</string>
   <string name="toast_inconsistent_state">检测到不相容的状态，请发送错误报告。</string>
   <string name="toast_camera_error">无法启动相机：%1$s</string>
@@ -560,7 +559,6 @@
   <string name="toast_invalid_object">无效的对象</string>
   <string name="toast_openinghours_invalid">无效的营业时间 %1$s</string>
   <string name="toast_openinghours_autocorrected">自动修正了营业时间 %1$s</string>
-  <string name="toast_exit_multiselect">双击空白处或使用 ← 键退出</string>
   <string name="toast_abort_actionmode">使用 ← 键中止</string>
   <string name="toast_null_island">请不要在 0°/0° 添加要素(Null Island)</string>
   <string name="toast_string_too_long">字符串过长（%1$d 字符）被截断了！</string>
@@ -675,6 +673,7 @@
   <string name="osm_tags">OSM 标签</string>
   <!--Read a file-->
   <string name="read">读取</string>
+  <string name="load">加载</string>
   <string name="overwrite">覆写</string>
   <string name="share">分享</string>
   <string name="share_position">分享位置</string>
@@ -906,12 +905,10 @@
   <string name="menu_preset_feedback">提供预设反馈</string>
   <string name="menu_privacy">隐私</string>
   <!--Background alignment-->
-  <string name="menu_tools_background_align">对齐背景</string>
   <string name="menu_tools_background_align_reset">重置</string>
   <string name="menu_tools_background_align_zero">零</string>
   <string name="menu_tools_background_align_retrieve_from_db">从数据库</string>
   <string name="menu_tools_background_align_retrieve_from_device">从设备</string>
-  <string name="menu_tools_background_align_save_db">保存到数据库</string>
   <string name="menu_tools_background_align_save_device">保存到设备</string>
   <string name="menu_tools_background_align_apply2all">应用（所有缩放等级）</string>
   <string name="min_max_zoom">%1$d - %2$d</string>
@@ -1079,7 +1076,6 @@
   <string name="config_disableTranslations_summary">在用户界面中使用英语</string>
   <string name="config_maxInlineValues_title">最大行内数值</string>
   <string name="config_maxInlineValues_summary">在标签表单中显示的行内数字最大值。</string>
-  <string name="config_maxInlineValues_current">%1$d 值</string>
   <string name="config_autoLockDelay_title">自动锁定前等待的时间</string>
   <string name="config_autoLockDelay_summary">自动锁定前等待的秒数，0表示关闭。</string>
   <string name="config_autoLockDelay_current">%1$d s</string>
@@ -1090,11 +1086,7 @@
   <string name="config_maxStrokeWidth_title">最大线宽</string>
   <string name="config_maxStrokeWidth_summary">不要把路径绘制得比这更宽</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>
-  <string name="config_uploadOk_title">待上传确定</string>
-  <string name="config_uploadOk_summary">低于下限的待上传的物件会视为没问题。</string>
   <string name="config_upload_current">%1$d 对象</string>
-  <string name="config_uploadWarn_title">待上传警告</string>
-  <string name="config_uploadWarn_summary">低于下限的待上传的物件会有警告状态。</string>
   <string name="config_uploadChecker_title">提醒上传的间隔</string>
   <string name="config_uploadChecker_summary">提醒未发布变更的间隔</string>
   <string name="config_uploadChecker_current">%1$d 小时</string>
@@ -1119,6 +1111,7 @@
   <string name="config_overrideRegionAddressTags_summary">使用我们的地址标签设置取代特定区域的值</string>
   <string name="config_address_tags">地址标签</string>
   <string name="config_address_tags_summary">用于地址预测的标签。</string>
+  <string name="config_neighbourDistance_current">%1$d 米</string>
   <string name="config_enableNameSuggestions_title">启用建议名称</string>
   <string name="config_enableNameSuggestions_summary">为名称标签启用建议。</string>
   <string name="config_enableNameSuggestionsPresets_title">启用名称建议预设</string>
@@ -1415,7 +1408,7 @@
   <string name="toast_nohelp">这里没有帮助。</string>
   <!--Bookmarks-->
   <string name="add_bookmark">添加书签…</string>
-  <string name="bookmarks_desc">添加评论</string>
+  <string name="bookmarks_desc">描述</string>
   <string name="show_bookmarks">书签…</string>
   <string name="_dots">⋮</string>
   <string name="gotobookmark">出发</string>

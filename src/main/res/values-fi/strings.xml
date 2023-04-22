@@ -35,6 +35,7 @@
   <string name="not_found_message">API ei löytänyt kohdetta tai muutossettiä, jolla olisi annettu ID.&lt;br&gt;&lt;br&gt;</string>
   <string name="unknown_error_title">Tuntematon virhe</string>
   <string name="unknown_error_message">API:n palauttamaa virhekoodia tai -ilmoitusta ei voitu käsitellä.&lt;br&gt;&lt;br&gt;</string>
+  <string name="no_data_title">Ei dataa</string>
   <string name="go_to_openstreetmap">Mene sivulle openstreetmap.org</string>
   <string name="data_conflict_title">Ristiriita versioissa</string>
   <string name="data_conflict_message">Ladattava data on ristiriidassa muokkaustesi kanssa. Lähetä muokkauksesi ennen kuin yrität ladata uudestaan.</string>
@@ -88,6 +89,7 @@
   <string name="upload_validation_error_empty_comment">Kommentti ei voi olla tyhjä</string>
   <string name="upload_validation_error_empty_source">Lähde ei voi olla tyhjä</string>
   <!--Review changes dialog-->
+  <string name="review_changes_title">Muutosten tarkistus</string>
   <!--Upload GPX-->
   <string name="upload_gpx_title">Lähetä GPX-jälki</string>
   <string name="upload_gpx_description_label">Kuvaus</string>
@@ -103,6 +105,7 @@
   <string name="openstreetbug_edit_title">Muokkaa huomiota</string>
   <string name="openstreetbug_comment_label">Kommentti:</string>
   <string name="openstreetbug_commit_ok">Tehtävämuutokset tallennettu</string>
+  <string name="openstreetbug_commit_fail">Tehtävämuutoksia ei voitu tallentaa</string>
   <string name="openstreetbug_unknown_task_type">Tuntematon tehtävätyyppi</string>
   <string name="openstreetbug_not_supported">Tehtävää %1$s ei tueta.</string>
   <string name="note_description">Huomio: %1$s - %2$s</string>
@@ -146,6 +149,7 @@
   <string name="geocoder_prompt">hakemistosta</string>
   <string name="geocoder_limit_label">näkymässä</string>
   <!--Search objects dialog-->
+  <string name="search_objects_title">Etsi kohteita</string>
   <!---->
   <string name="preset_search_hint">Esivalinnan hakuteksti</string>
   <string name="preset_autopreset">Autom. esivalinta</string>
@@ -178,6 +182,7 @@
   <string name="total">Yhteensä</string>
   <string name="ways">Viivat</string>
   <!--Tile layer info dialog-->
+  <!--GPX info dialog-->
   <!--Too much data dialog-->
   <string name="upload_data_now">Lähetetäänkö?</string>
   <!--Delete custom preset dialog-->
@@ -195,6 +200,11 @@
   <string name="odd">Pariton</string>
   <string name="other">Muu</string>
   <!--Safe split dialog-->
+  <!--JS console dialog-->
+  <string name="evaluate">Suorita</string>
+  <string name="js_console_msg_live">Suoramuokkaustila!</string>
+  <string name="js_console_msg_debug">Testaustila!</string>
+  <!--Overpass console-->
   <!---->
   <string name="error">Virhe</string>
   <string name="warning">Varoitus</string>
@@ -208,10 +218,6 @@
   <!--This concerns a shown message that should only be shown once-->
   <!--debug dialog-->
   <string name="send_debug_information">Lähetä tietoja virheestä</string>
-  <!--JS console dialog-->
-  <string name="evaluate">Suorita</string>
-  <string name="js_console_msg_live">Suoramuokkaustila!</string>
-  <string name="js_console_msg_debug">Testaustila!</string>
   <!--Validator dialogs-->
   <string name="validator_title">Tarkistimen sääntöryhmä %1$s</string>
   <string name="edit_resurvey_title">Muokkaa kontrollikäyntiä</string>
@@ -295,6 +301,7 @@
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">Lataa dataa OpenStreetMapistä</string>
   <!--Clear/Reset GPX Track-->
+  <!--Measurement dialog-->
   <!--Tips-->
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
@@ -348,10 +355,6 @@
   <string name="toast_missing_filemanager">Asenna tiedostonhallintasovellus.</string>
   <string name="toast_outside_of_download">Ennen muokkausta tämä alue pitää ladata.</string>
   <string name="toast_file_not_found">Tiedostoa %1$s ei löytynyt.</string>
-  <plurals name="toast_imported_track_points">
-    <item quantity="one">GPX:stä tuotiin %1$d jälkipistettä ja 1 välietappi.</item>
-    <item quantity="other">GPX:stä tuotiin %1$d jälkipistettä ja %2$d välietappia.</item>
-  </plurals>
   <string name="toast_unknown_voice_command">Valitettavasti komento \"%1$s\" ei vielä toimi</string>
   <string name="toast_inconsistent_state">Epäjohdonmukainen tila. Ilmoita virheestä, kiitos!</string>
   <string name="toast_camera_error">Virhe kamerasovellusta avattaessa: %1$s</string>
@@ -381,7 +384,6 @@
   <string name="toast_missing_key">Avain %1$s puuttuu</string>
   <string name="toast_openinghours_invalid">Kohteella %1$s on virheellinen aukioloaika</string>
   <string name="toast_openinghours_autocorrected">Kohteen %1$s aukioloaika korjattiin automaattisesti</string>
-  <string name="toast_exit_multiselect">Napauta kahdesti tyhjään kohtaan tai käytä nuolta ←, jos haluat poistua</string>
   <string name="toast_abort_actionmode">Käytä nuolta ←, jos haluat keskeyttää</string>
   <string name="toast_null_island">Älä lisää elementtejä paikkaan 0°/0° (Nollasaari)</string>
   <string name="toast_string_too_long">Liian pitkä merkkijono (%1$d merkkiä) katkaistiin!</string>
@@ -433,6 +435,7 @@
   <string name="select">Yhden kohteen valitseminen</string>
   <!--Read a file-->
   <string name="read">Lue</string>
+  <string name="load">Lataa</string>
   <string name="overwrite">Korvaa</string>
   <string name="share">Jaa</string>
   <string name="share_position">Jaa sijainti</string>
@@ -511,6 +514,7 @@
   <string name="location_last_text_parameterized">Viimeksi tunnettu sijainti: %1$s</string>
   <string name="location_current_text_parameterized">Nykyinen sijainti: %1$s</string>
   <string name="location_text_metadata_location">\nlev %1$4g, pit %2$4g\n%3$s %4$s sitten</string>
+  <string name="location_text_metadata_accuracy">Tarkkuus %1$2.0f metriä, </string>
   <string name="location_text_metadata">(%1$s%2$s)</string>
   <string name="location_coordinates_text">Koordinaateista:</string>
   <string name="location_lat_label">Lev:</string>
@@ -543,6 +547,7 @@
   <string name="menu_append">Jatka</string>
   <string name="menu_relation">Luo relaatio</string>
   <string name="menu_edit_relation">Muokkaa relaatiota</string>
+  <string name="menu_add_relation_member">Lisää / poista jäsen</string>
   <string name="menu_select_relation_members">Valitse jäsenet</string>
   <string name="menu_tag">Muokkaa tägejä</string>
   <string name="menu_openstreetbug">Lisää huomio</string>
@@ -556,10 +561,22 @@
   <string name="menu_gps_pause">Pysäytä GPX-jälki</string>
   <string name="menu_gps_clear">Nollaa GPX-jälki ja sen välietapit</string>
   <string name="menu_gps_track_managment">GPX-älkien hallinta...</string>
+  <string name="menu_gps_upload">Lähetä GPX-jälki…</string>
+  <string name="menu_gps_export">Vie GPX-jälki…</string>
+  <string name="menu_gps_import">Tuo GPX-jälki…</string>
   <string name="menu_gps_goto_start">Siirry GPX-jäljen alkuun</string>
   <string name="menu_gps_goto_first_waypoint">Siirry 1. välietappiin</string>
+  <string name="menu_enable_gps_autodownload">Sijaintipohjainen automaattilataus</string>
+  <string name="menu_enable_pan_and_zoom_auto_download">Automaattilataus liikutettaessa</string>
   <string name="menu_transfer">Siirrä...</string>
   <string name="menu_transfer_download_current">Lataa nykyinen näkymä</string>
+  <string name="menu_transfer_download_replace">Tyhjennä ja lataa nykyinen näkymä</string>
+  <string name="menu_transfer_load_current">Lataa nykyinen näkymä</string>
+  <string name="menu_transfer_load_replace">Tyhjennä ja lataa nykyinen näkymä</string>
+  <string name="menu_transfer_upload">Lähetä data OSM-palvelimelle…</string>
+  <string name="menu_transfer_review">Tarkista muutokset…</string>
+  <string name="menu_transfer_update">Päivitä data</string>
+  <string name="menu_transfer_data_clear">Tyhjennä data</string>
   <string name="menu_transfer_close_changeset">Sulje nykyinen muutossetti</string>
   <string name="menu_transfer_file">Tiedosto...</string>
   <string name="menu_transfer_export">Vie muutokset OSC-tiedostoon</string>
@@ -590,11 +607,13 @@
   <string name="menu_split_polygon">Jaa monikulmioiksi</string>
   <string name="menu_newnode_gps">Uusi piste GPS-sijaintiin</string>
   <string name="menu_extend_selection">Lisää valintaan</string>
+  <string name="menu_information">Info…</string>
   <string name="menu_voice_commands">Äänikomennot</string>
   <string name="menu_set_name">Aseta nimi</string>
   <string name="menu_tools">Työkalut...</string>
   <string name="menu_tools_add_imagery_from_oam">Lisää kuvasto OAM:stä</string>
   <string name="menu_tools_flush_all_tile_caches">Tyhjennä kaikki laattamuistit</string>
+  <string name="menu_tools_background_properties">Taustan ominaisuudet…</string>
   <string name="menu_tools_zoom_to_layer_extent">Näytä taustatason koko alue</string>
   <string name="menu_tools_clear_clipboard">Tyhjennä leikepöytä</string>
   <!---->
@@ -602,12 +621,10 @@
   <string name="menu_feedback">Lähetä palautetta</string>
   <string name="menu_privacy">Yksityisyys</string>
   <!--Background alignment-->
-  <string name="menu_tools_background_align">Kohdista tausta</string>
   <string name="menu_tools_background_align_reset">Palauta</string>
   <string name="menu_tools_background_align_zero">Nollaa</string>
   <string name="menu_tools_background_align_retrieve_from_db">Tietokannasta</string>
   <string name="menu_tools_background_align_retrieve_from_device">Laitteelta</string>
-  <string name="menu_tools_background_align_save_db">Tallenna tietokantaan</string>
   <string name="menu_tools_background_align_save_device">Tallenna laitteelle</string>
   <string name="menu_tools_background_align_apply2all">Toteuta (kaikille tasoille)</string>
   <string name="min_max_zoom">%1$d–%2$d</string>
@@ -732,7 +749,6 @@
   <string name="config_splitActionBarEnabled_summary">Salli jaettu toimintopalkki; toiminta on laitekohtainen. Vaatii Vespuccin uudelleenkäynnistyksen ja vähintään Android 4.0:n.</string>
   <string name="config_maxInlineValues_title">Suurin määrä rivinsisäisiä arvoja</string>
   <string name="config_maxInlineValues_summary">Suurin määrä arvoja, jotka näytetään yhdellä rivillä tägilomakkeessa</string>
-  <string name="config_maxInlineValues_current">%1$d arvoa</string>
   <string name="config_autoLockDelay_title">Automaattilukituksen aikaraja</string>
   <string name="config_autoLockDelay_summary">Aika sekunteina ennen kuin lukitus laitetaan päälle automaattisesti – 0 poistaa käytöstä.</string>
   <string name="config_autoLockDelay_current">%1$d s</string>
@@ -752,6 +768,7 @@
   <string name="config_forceContextMenu_summary">Näytä kohdevalikko aina, kun valinta ei ole yksiselitteinen.</string>
   <string name="config_address_tags">Osoitetägit</string>
   <string name="config_address_tags_summary">Osoitteen ennustuksessa käytettävät tägit</string>
+  <string name="config_neighbourDistance_current">%1$d metri(ä)</string>
   <string name="config_enableNameSuggestions_title">Käytä nimiehdotuksia</string>
   <string name="config_enableNameSuggestions_summary">Ota käyttöön nimitägien ehdotukset.</string>
   <string name="config_enableNameSuggestionsPresets_title">Käytä esivalintaa nimiehdotuksille</string>
@@ -787,6 +804,7 @@
   <string name="config_maxBugDownloadSpeed_title">Suurin nopeus tehtävien automaattilataukselle</string>
   <string name="config_maxBugDownloadSpeed_summary">Nopeusraja (km/h) jonka ylittyessä tehtävien automaattilataus keskeytetään.</string>
   <!--Location Settings-->
+  <string name="config_category_gps">Paikannusasetukset</string>
   <string name="config_category_gps_summary">GPS/GNSS- ja muita paikannusasetuksia.</string>
   <string name="config_gps_source_title">GPS/GNSS-lähde</string>
   <string name="config_gps_source_summary">GPS/GNSS-sijainnin päivitysten lähde</string>
@@ -803,6 +821,7 @@
   <string name="config_gps_network_title">Käytä nettipaikkaa varalla</string>
   <string name="config_gps_network_summary">Jos GPS/GNSS-paikkaa ei saada tai se ei ole päällä, käytä nettiyhteyden sijaintitietoa.</string>
   <string name="config_gnssTimeToStale_current">%1$d s</string>
+  <string name="config_useBarometricHeight_title">Käytä barometristä korkeutta</string>
   <!--Server Settings-->
   <string name="config_category_server">Palvelimen asetukset</string>
   <string name="config_category_server_summary">OSM-API:n ja muiden palvelimien asetukset</string>
@@ -989,6 +1008,8 @@
   <!--Help system-->
   <string name="toast_nohelp">Tähän ei ole ohjetta.</string>
   <!--Bookmarks-->
+  <string name="add_bookmark">Lisää kirjanmerkki…</string>
+  <string name="bookmarks_desc">Kuvaus</string>
   <!--Element types-->
   <string name="element_type_area">alue</string>
   <string name="element_type_relation">relaatio</string>

@@ -61,9 +61,9 @@ As regras padrão são adicionadas como regras _normais_, isto implica que elas 
     * __Data variável - fecho após últ.cliente__: começa numa data inicial variável.
     * __Ocorrência no mês - fecho após últ.cliente__: começa num dia da semana num mês inicial.
     * __Com deslocamentos...__: como as mesmas entradas de cima mas com deslocamentos especificados (isto raramente é usado)
-* __Add year range...__    
+* __Adicionar intervalo de anos...__    
     * __Adicionar intervalo de anos__: adiciona um seletor baseado em anos.
-    * __Add starting year__: add an open ended year range.
+    * __Adicionar ano de início__: adicionar um intervalo de anos com fim aberto.
 * __Adicionar intervalo de semanas__: adiciona um seletor baseado no número da semana
 * __Duplicar__: cria uma cópia da regra atual e insere-a após a posição atual.
 * __Mostrar tipo de regra__: mostra e permite mudar o tipo de regra _normal_, _aditivo_ e _alternativo (ou)_ (não disponível na primeira regra).

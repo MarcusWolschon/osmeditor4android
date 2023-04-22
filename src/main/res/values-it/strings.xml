@@ -234,7 +234,7 @@
   <!--GeoJSON feature display dialog-->
   <string name="feature_information">Info elemento GeoJSON</string>
   <string name="vt_feature_information">Info elemento tassello vettoriale</string>
-  <string name="vt_layer">Livello tasselli vettoriali</string>
+  <string name="vt_layer">Strato tasselli vettoriali</string>
   <string name="copy_properties">Copia proprietà</string>
   <string name="create_osm_element">Crea elemento OSM</string>
   <!--API/Data layer info dialog-->
@@ -244,6 +244,7 @@
   <string name="ways">Percorsi</string>
   <!--Tile layer info dialog-->
   <string name="attribution">Attribuzione</string>
+  <!--GPX info dialog-->
   <!--Too much data dialog-->
   <string name="too_much_data_title">Caricati troppi dati!</string>
   <string name="too_much_data_message">Hai caricato %1$d nodi e sei andato oltre il limite impostato. Questo causerà un rallentamento e, se carichi più dati, un potenziale problema con il salvataggio.</string>
@@ -279,6 +280,12 @@
   <string name="other">Altro</string>
   <!--Safe split dialog-->
   <string name="split_safe_title">Membri della relazione mancanti</string>
+  <!--JS console dialog-->
+  <string name="evaluate">Valuta</string>
+  <string name="js_console_msg_live">Modalità live!</string>
+  <string name="js_console_msg_debug">Modalità debug!</string>
+  <string name="console_output_hint">Il risultato apparirà qui</string>
+  <!--Overpass console-->
   <!---->
   <string name="error">Errore</string>
   <string name="warning">Attenzione</string>
@@ -293,12 +300,6 @@
   <string name="attached_object_warning_stop">OK, ignora</string>
   <!--debug dialog-->
   <string name="send_debug_information">Invia informazioni di debug</string>
-  <!--JS console dialog-->
-  <string name="evaluate">Valuta</string>
-  <string name="js_console_msg_live">Modalità live!</string>
-  <string name="js_console_msg_debug">Modalità debug!</string>
-  <string name="js_console_input_hint">Inserisci codice JavaScript</string>
-  <string name="js_console_output_hint">Il risultato apparirà qui</string>
   <!--Validator dialogs-->
   <string name="validator_title">Insieme di regole di validazione %1$s</string>
   <string name="resurvey_entries">Controlla di nuovo</string>
@@ -330,9 +331,9 @@
   <string name="custom_layer_title">Livello immagini personalizzato</string>
   <string name="oam_layer_title">Immagini OAM</string>
   <string name="wms_endpoints_title">Endpoint dei WMS</string>
-  <string name="edit_layer_title">Modifica livello</string>
-  <string name="add_layer_title">Aggiungi livello</string>
-  <string name="select_layer_title">Seleziona livello</string>
+  <string name="edit_layer_title">Modifica strato</string>
+  <string name="add_layer_title">Aggiungi strato</string>
+  <string name="select_layer_title">Seleziona strato</string>
   <string name="overlay">Sovraimpresso</string>
   <string name="coverage">Copertura</string>
   <string name="coverage_top">In alto</string>
@@ -341,16 +342,16 @@
   <string name="coverage_bottom">In basso</string>
   <string name="tile_size">Dimensione tassello</string>
   <string name="toast_invalid_box">Riquadro di selezione non valido</string>
-  <string name="delete_layer">Eliminare il livello?</string>
+  <string name="delete_layer">Eliminare lo strato?</string>
   <string name="delete_endpoint">Cancellare endpoint?</string>
   <string name="add_wms_endpoint_title">Aggiungi endpoint del WMS</string>
   <string name="edit_wms_endpoint_title">Modifica endpoint del WMS</string>
   <string name="add_imagery_from_wms_endpoint">Aggiunti immagini da WMS</string>
   <!--Layer style dialog-->
-  <string name="layer_style_title">Stile livello</string>
+  <string name="layer_style_title">Stile strato</string>
   <string name="layer_style_stroke_width">Larghezza linee</string>
   <string name="layer_style_color">Colore</string>
-  <string name="layer_style_layer">Sotto-livello</string>
+  <string name="layer_style_layer">Sotto-strato</string>
   <string name="layer_style_label">Etichetta</string>
   <string name="layer_style_symbol">Simbolo</string>
   <string name="json_object_not_displayed">Oggetto JSON (non visibile)</string>
@@ -383,10 +384,10 @@
   <string name="layer_category_osmbasedmap">Mappa basata su OSM</string>
   <string name="layer_category_qa">Controllo qualità</string>
   <string name="layer_category_other">Altro</string>
-  <string name="layer_add_layer_from_mvt_style">Aggiungere un livello dallo stile MVT…</string>
+  <string name="layer_add_layer_from_mvt_style">Aggiungere uno strato dallo stile MVT…</string>
   <string name="layer_add_custom_imagery">Aggiungi immagini personalizzate…</string>
   <string name="layer_edit_custom_imagery_configuration">Modifica configurazione delle immagini personalizzate…</string>
-  <string name="layer_add_gpx">Aggiungi livello da file GPX…</string>
+  <string name="layer_add_gpx">Aggiungi strato da file GPX…</string>
   <string name="layer_download_track">Scarica traccia GPX…</string>
   <string name="layer_available_tracks">Tracce GPX disponibili</string>
   <string name="layer_start_playback">Avvio riproduzione</string>
@@ -404,7 +405,7 @@
   <string name="layer_info_privacy_policy">Privacy policy</string>
   <string name="projection">Proiezione</string>
   <string name="errors">Errori</string>
-  <string name="layer_info_layer_not_available">Informazioni del livello non disponibili</string>
+  <string name="layer_info_layer_not_available">Informazioni dello strato non disponibili</string>
   <string name="layer_info_no_meta_data">Meta-dati non caricati</string>
   <!--Mapillary layer-->
   <string name="mapillary_image">mapillary %1$s</string>
@@ -449,6 +450,7 @@
   <string name="boxpicker_firsttimetitle">Scarica dati OpenStreetMap</string>
   <!--Clear/Reset GPX Track-->
   <string name="clear_track_description">Smetti di tracciare e cancella tutti i punti registrati. Questa azione non può essere annullata.</string>
+  <!--Measurement dialog-->
   <!--Tips-->
   <string name="tip_title">Lo sapevi?</string>
   <string name="tip_check_label">Non mostrare più suggerimenti facoltativi</string>
@@ -483,7 +485,7 @@
   <string name="toast_url_empty">Inserisci URL</string>
   <string name="toast_min_zoom">Imposta lo zoom minimo ad un valore minore del massimo</string>
   <string name="toast_tile_layer_exists">La sorgente della piastrella %1$s  ha lo stesso URL</string>
-  <string name="toast_styleable_layer_exists">È presente il livello per %1$s</string>
+  <string name="toast_styleable_layer_exists">È presente lo strato per %1$s</string>
   <string name="toast_no_changes">Non hai ancora modificato niente…</string>
   <string name="toast_jpeg_not_transparent">I file JPEG non sono trasparenti e non possono essere utilizzati come overlay</string>
   <string name="toast_unsupported_projection">Proiezione non supportata  %1$s.\n\nSolo EPSG:3857, EPSG:4326 e   sinonimi sono supportati</string>
@@ -543,11 +545,6 @@
   <string name="toast_missing_filemanager">Per favore installa un file manager</string>
   <string name="toast_outside_of_download">Scarica più dati per modificare quest’area.</string>
   <string name="toast_file_not_found">%1$s non è stato trovato.</string>
-  <plurals name="toast_imported_track_points">
-    <item quantity="one">Importato %1$d punti traccia GPX e 1 waypoint.</item>
-    <item quantity="many">Importato %1$d punti traccia GPX e %2$d waypoint.</item>
-    <item quantity="other">Importato %1$d punti traccia GPX e %2$d waypoint.</item>
-  </plurals>
   <string name="toast_unknown_voice_command">Spiacenti, non è possibile comprendere “%1$s” adesso</string>
   <string name="toast_inconsistent_state">È stato rilevato uno stato inconsistente: si prega di inviare il rapporto di errore.</string>
   <string name="toast_camera_error">Impossibile eseguire l’app della telecamera: %1$s</string>
@@ -582,7 +579,6 @@
   <string name="toast_invalid_object">Oggetto non valido</string>
   <string name="toast_openinghours_invalid">Il valore orari di apertura non è valido per %1$s</string>
   <string name="toast_openinghours_autocorrected">Il valore degli orari di apertura %1$s è stato corretto automaticamente</string>
-  <string name="toast_exit_multiselect">Per uscire tocca due volte in uno spazio vuoto oppure usa il tasto ←</string>
   <string name="toast_abort_actionmode">Usa il tasto ← per interrompere</string>
   <string name="toast_null_island">Per favole non aggiungere elementi a 0°/0° (Null Island)</string>
   <string name="toast_string_too_long">Sequenza troppo lunga (%1$d caratteri), accorciata!</string>
@@ -605,8 +601,8 @@
   <string name="toast_properties_copied">Proprietà copiate in memoria</string>
   <string name="toast_task_conflict">%1$s è stato modificato sul server, caricare prima sul server e poi ri-scaricare</string>
   <string name="toast_move_note_warning">Solo le nuove note possono essere spostate</string>
-  <string name="toast_task_layer_disabled">Livello compiti disabilitato</string>
-  <string name="toast_unable_to_create_task_layer">Impossibile creare un livello per i compiti</string>
+  <string name="toast_task_layer_disabled">Strato compiti disabilitato</string>
+  <string name="toast_unable_to_create_task_layer">Impossibile creare uno strato per i compiti</string>
   <string name="toast_merged">Unito</string>
   <string name="toast_invalid_style_file">File di stile %1$s non valido\n%2$s </string>
   <string name="toast_no_geometry">Non è stata trovata alcuna geometria per l’elemento</string>
@@ -700,6 +696,7 @@
   <string name="osm_tags">Etichette OSM</string>
   <!--Read a file-->
   <string name="read">Leggi</string>
+  <string name="load">Carica</string>
   <string name="overwrite">Sovrascrivi</string>
   <string name="share">Condividi</string>
   <string name="share_position">Condividi posizione</string>
@@ -875,7 +872,7 @@
   <string name="menu_transfer_upload">Carica dati sul server OSM…</string>
   <string name="menu_transfer_review">Controlla le modifiche…</string>
   <string name="menu_transfer_update">Aggiorna dati</string>
-  <string name="menu_transfer_data_clear">Cancella dai</string>
+  <string name="menu_transfer_data_clear">Cancella dati</string>
   <string name="menu_transfer_close_changeset">Chiudi il gruppo di modifiche corrente</string>
   <string name="menu_transfer_file">File...</string>
   <string name="menu_transfer_export">Esporta modifiche su un file OSC</string>
@@ -931,7 +928,7 @@
   <string name="menu_tools_background_properties">Proprietà dello sfondo…</string>
   <string name="menu_tools_update_imagery_configuration">Aggiorna configurazione</string>
   <string name="menu_tools_update_imagery_configuration_eli">Aggiorna configurazione da ELI</string>
-  <string name="menu_tools_zoom_to_layer_extent">Ingrandisci sul livello di sfondo</string>
+  <string name="menu_tools_zoom_to_layer_extent">Ingrandisci sullo strato di sfondo</string>
   <string name="menu_tools_clear_clipboard">Cancella gli appunti</string>
   <string name="menu_tools_calibrate_height">Calibra il sensore di pressione...</string>
   <string name="menu_tools_install_egm">Installa EGM</string>
@@ -944,26 +941,24 @@
   <string name="menu_preset_feedback">Invia un commento sul preset</string>
   <string name="menu_privacy">Privacy</string>
   <!--Background alignment-->
-  <string name="menu_tools_background_align">Allinea lo sfondo</string>
   <string name="menu_tools_background_align_reset">Ripristina</string>
   <string name="menu_tools_background_align_zero">Azzera</string>
   <string name="menu_tools_background_align_retrieve_from_db">Dal database</string>
   <string name="menu_tools_background_align_retrieve_from_device">Dal dispositivo</string>
-  <string name="menu_tools_background_align_save_db">Salva su database</string>
   <string name="menu_tools_background_align_save_device">Salva sul dispositivo</string>
-  <string name="menu_tools_background_align_apply2all">Applica (tutti i livelli di zoom)</string>
+  <string name="menu_tools_background_align_apply2all">Applica (tutti i livelli d\'ingrandimento)</string>
   <string name="min_max_zoom">%1$d - %2$d</string>
   <string name="distance_meter">%1$.2f metri</string>
   <string name="distance_km">%1$.3f km</string>
   <!--Menus in layers dialog-->
-  <string name="menu_layers">Livelli...</string>
-  <string name="menu_layers_load_geojson">Aggiungi livello GeoJSON…</string>
-  <string name="menu_layers_add_backgroundlayer">Aggiungi livello immagini di sfondo…</string>
-  <string name="menu_layers_add_overlaylayer">Aggiungi livello immagini sovrimpresso…</string>
-  <string name="menu_layers_add_tasklayer">Abilita il livello compiti</string>
+  <string name="menu_layers">Strati...</string>
+  <string name="menu_layers_load_geojson">Aggiungi strato GeoJSON…</string>
+  <string name="menu_layers_add_backgroundlayer">Aggiungi strato immagini di sfondo…</string>
+  <string name="menu_layers_add_overlaylayer">Aggiungi strato immagini sovrimpresso…</string>
+  <string name="menu_layers_add_tasklayer">Abilita lo strato compiti</string>
   <string name="menu_layers_add_grid">Abilita griglia</string>
-  <string name="menu_layers_add_photolayer">Abilita il livello foto</string>
-  <string name="menu_layers_enable_mapillary_layer">Abilita livello Mapillary</string>
+  <string name="menu_layers_add_photolayer">Abilita lo strato foto</string>
+  <string name="menu_layers_enable_mapillary_layer">Abilita strato Mapillary</string>
   <string name="menu_layers_configure">Configura...</string>
   <!---->
   <string name="menu_tools_apply_local_offset">Applica lo scostamento memorizzato alle immagini</string>
@@ -1057,15 +1052,15 @@
   <string name="config_backgroundLayer_summary">Lo sfondo della mappa fatto di tasselli.</string>
   <string name="config_overlayLayer_title">Mappa sovrapposta</string>
   <string name="config_overlayLayer_summary">La mappa sovrimpressa fatta di tasselli.</string>
-  <string name="config_customlayers_title">Livelli personalizzati</string>
+  <string name="config_customlayers_title">Strati personalizzati</string>
   <string name="config_customlayers_summary">Gestire gli strati non presenti nella configurazione predefinita.</string>
   <string name="config_scale_title">Visibilità della scala grafica</string>
   <string name="config_scale_summary">Tipo di scala mostrata sulla mappa.</string>
   <string name="config_mapProfile_title">Stile dati</string>
-  <string name="config_mapProfile_summary">Scegli uno stile per il livello dati.</string>
+  <string name="config_mapProfile_summary">Scegli uno stile per lo strato dati.</string>
   <string name="config_enableOpenStreetBugs_title">Mostra compiti</string>
   <string name="config_enableOpenStreetBugs_summary">Mostra, modifica e crea note, segnalazioni di errori e compiti.</string>
-  <string name="config_enablePhotoLayer_title">Abilita lo strato delle fotografie</string>
+  <string name="config_enablePhotoLayer_title">Abilita lo strato fotografie</string>
   <string name="config_enablePhotoLayer_summary">Mostra foto geo-referenziate</string>
   <string name="config_enableKeepScreenOn_title">Mantieni lo schermo acceso</string>
   <string name="config_enableKeepScreenOn_summary">Impedisci allo schermo di spegnersi per risparmiare energia.</string>
@@ -1134,7 +1129,6 @@
   <string name="config_disableTranslations_summary">Mostra l\'interfaccia grafica in inglese</string>
   <string name="config_maxInlineValues_title">Numero massimo di valori in linea</string>
   <string name="config_maxInlineValues_summary">Numero massimo di valori in linea visualizzati nella scheda delle etichette.</string>
-  <string name="config_maxInlineValues_current">%1$d Valori</string>
   <string name="config_autoLockDelay_title">Intervallo oltre il quale attivare il blocco automatico</string>
   <string name="config_autoLockDelay_summary">Numero di secondi da aspettare prima del blocco automatico, 0 per disabilitare.</string>
   <string name="config_autoLockDelay_current">%1$d s</string>
@@ -1145,11 +1139,7 @@
   <string name="config_maxStrokeWidth_title">Massimo spessore di linea</string>
   <string name="config_maxStrokeWidth_summary">Non disegnare una strada più larga di così.</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>
-  <string name="config_uploadOk_title">Caricamento in attesa OK</string>
-  <string name="config_uploadOk_summary">Limite massimo del numero di oggetti in attesa di essere caricati considerato OK</string>
   <string name="config_upload_current">%1$d oggetti</string>
-  <string name="config_uploadWarn_title">Avviso di caricamenti pendenti</string>
-  <string name="config_uploadWarn_summary">Limite sotto il quale i caricamenti degli oggetti pendenti saranno messi in stato \"avviso\".</string>
   <string name="config_uploadChecker_title">Intervallo di caricamento del promemoria</string>
   <string name="config_uploadChecker_summary">Intervallo per i promemoria in caso di modifiche non pubblicate.</string>
   <string name="config_uploadChecker_current">%1$d ore</string>
@@ -1174,6 +1164,7 @@
   <string name="config_overrideRegionAddressTags_summary">Usa la nostra configurazione sui civici al posto di qualsiasi valore specifico dell’area</string>
   <string name="config_address_tags">Etichette degli indirizzi</string>
   <string name="config_address_tags_summary">Etichette usate per la predizione dei civici.</string>
+  <string name="config_neighbourDistance_current">%1$d metro(i)</string>
   <string name="config_enableNameSuggestions_title">Abilita il suggerimento dei nomi</string>
   <string name="config_enableNameSuggestions_summary">Abilita il suggerimento delle etichette nome.</string>
   <string name="config_enableNameSuggestionsPresets_title">Abilita i predifiniti per il suggerimento del nome</string>
@@ -1200,7 +1191,7 @@
   <string name="config_autoformatPhoneNumbers_title">Formatta automaticamente i numeri telefonici</string>
   <string name="config_autoformatPhoneNumbers_summary">Abilita la formattazione automatica dei numeri telefonici</string>
   <string name="config_maxOffsetDistance_title">Distanza max per gli offset locali delle immagini</string>
-  <string name="config_maxOffsetDistance_summary">La distanza più lontana a cui l’offset di un livello salvato localmente sarà applicato automaticamente.</string>
+  <string name="config_maxOffsetDistance_summary">La distanza più lontana a cui l’offset di uno strato salvato localmente sarà applicato automaticamente.</string>
   <string name="config_maxOffsetDistance_current">%1$d metro(i)</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Impostazioni per lo scaricamento automatico</string>
@@ -1215,10 +1206,10 @@
   <string name="config_autoPruneNodeLimit_summary">Numero di nodi in memoria oltre al quale verrà effettuata una riduzione automatica.</string>
   <string name="config_autoPruneNodeLimit_current">%1$d Nodi</string>
   <string name="config_panAndZoomLimit_title">Limite zoom</string>
-  <string name="config_panAndZoomLimit_summary">Minimo livello di zoom per lo scaricamento automatico dopo zoom e spostamento schermata.</string>
+  <string name="config_panAndZoomLimit_summary">Ingrandimento minimo per lo scaricamento automatico dopo zoom e spostamento schermata.</string>
   <string name="config_panAndZoomLimit_current">%1$d</string>
   <string name="config_bugFilter_title">Filtra compiti</string>
-  <string name="config_bugFilter_summary">Seleziona quali elementi vengono mostrati nel livello di note, errori e compiti.</string>
+  <string name="config_bugFilter_summary">Seleziona quali elementi vengono mostrati negli strati note, errori e compiti.</string>
   <string name="config_bugDownloadRadius_title">Raggio di download dei compiti</string>
   <string name="config_bugDownloadRadius_summary">Raggio (m) entro cui scaricare i compiti.</string>
   <string name="config_maxBugDownloadSpeed_title">Velocità massima per lo scaricamento automatico dei compiti</string>
@@ -1482,7 +1473,7 @@
   <string name="toast_nohelp">Nessun aiuto disponibile.</string>
   <!--Bookmarks-->
   <string name="add_bookmark">Aggiungi segnalibro…</string>
-  <string name="bookmarks_desc">Aggiungi commenti</string>
+  <string name="bookmarks_desc">Descrizione</string>
   <string name="show_bookmarks">Segnalibri…</string>
   <string name="_dots">⋮</string>
   <string name="gotobookmark">Vai</string>

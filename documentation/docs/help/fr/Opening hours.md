@@ -10,7 +10,7 @@ _Cette documentation est inachevée_
 
 Dans votre travail quotidien, l'objet que vous modifiez peut soit avoir déjà un attribut d'horaires d'ouverture (opening_hours, service_times ou collection_times) ou vous pouvez ré-appliquer le modèle d'attribut pour obtenir un attribut vide. Si vous avez besoin d'ajouter le champs manuellement et que vous utilisez Vespucci, vous pouvez saisir la clef sur la page de détails puis revenir sur le formulaire pour la modifier. Si vous pensez que l'attribut d'horaires d'ouverture aurait dû faire parti du modèle, ouvrez un rapport de bogue pour votre éditeur.
 
-If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for specific key, for example "opening_hours", "collection_times" and "service_times" or custom values. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tag (for example amenity=restaurant). 
+Si vous avez défini un modèle par défaut (vous pouvez le faire via le menu "Gérer les modèles"), il sera automatiquement chargé au démarrage de l'éditeur avec une valeur vide. Avec la fonction "Charger le modèle", vous pouvez charger n'importe quel modèle enregistré et avec le menu "Enregistrer le modèle", vous pouvez enregistrer la valeur actuelle en tant que modèle. Vous pouvez définir des modèles et des valeurs par défaut distincts pour une clé spécifique, par exemple "opening_hours", "collection_times" et "service_times". En outre, vous pouvez limiter l'applicabilité d'un modèle à une région et à un élément spécifique, par exemple un élément OSM de niveau supérieur (comme amenity=restaurant).
 
 Naturellement vous pouvez construire des horaires d'ouverture à partir de rien, mais nous recommandons d'utiliser l'un des modèles existants comme point de départ.
 
@@ -61,9 +61,9 @@ Les règles par défaut sont ajoutées comme des règles _normales_, ce qui impl
     * __Date variable à durée indéterminée__ : à partir d'une date de début variable.
     * __Occurrence dans le mois à durée indéterminée__ : à partir d'une occurrence d'un jour de la semaine dans un mois.
     * __Avec décalages…__ : les mêmes entrées que précédemment, mais avec des décalages spécifiés (c'est rarement utile).
-* __Add year range...__    
+* __Ajouter une plage d'années...__    
     * __Ajouter un intervalle d'années__ : ajouter un sélecteur d'années.
-    * __Add starting year__: add an open ended year range.
+    * __Ajouter l'année de départ__: ouvre une plage d'années sans date de fin.
 * __Ajouter un intervalle de semaines__ : ajouter un sélecteur de numéro de semaine.
 * __Dupliquer__ : créer une copie de cette règle et l'insérer après la position actuelle.
 * __Montrer le type de règle__ : afficher et permettre de changer le type de règle entre _normal_, _additif_ et _par défaut_ (indisponible sur la première règle).
@@ -89,22 +89,22 @@ Cliquer sur la barre (mais pas sur les épingles) ouvrira le grand sélecteur d'
 
 ### Gérer les modèles
 
-The template management dialog allows you to add, edit and delete templates.
+La boîte de dialogue pour la gestion des modèles vous permet d'ajouter, modifier et supprmer des modèles.
 
-In Android 4.4 and later the following additional functionality is available from the menu button. 
+A partir de la version 4.4 d'Android, les fonctionnalités supplémentaires suivantes sont disponibles depuis le bouton de menu.
 
-* __Show all__: display all templates in the database.
-* __Save to file__: write the contents of the template database to a file.
-* __Load from file (replace)__: load templates from a file replacing the current contents of the database.
-* __Load from file__: load templates from a file retaining the current contents.
+* __Montrer tout__: montre tous les modèles disponibles.
+* __Sauvegarder dans un fichier__: sauvegarde le contenu du modèle dans une fichier.
+* __Charger depuis un fichier (remplace)__: charge des modèles depuis un fichier en remplaçant les données actuelles.
+* __Charger depuis un fichier__: charge les modèles contenus dans un fichier sans supprimer le contenu actuel.
 
-#### Save and edit template dialogs
+#### Boîte de dialogue pour sauvegarder et modifier un modèle
 
-The dialog allows you to set
+La boîte de dialogue vous permet de mettre
 
-* __Name__ a descriptive name for the template.
-* __Default__ if checked this will be consider as a default template (typically further constrained by the other fields).
-* __Key__ the key this template is relevant for, if set to _Custom key_ you can add a non-standard value in the field below. The key values support SQL wild cards, that is _%_ matches zero or more characters, *_* matches a single character. Both wild card characters can be escaped with _\\_ for literal matches.
-* __Region__ the region the template is applicable to.
-* __Object__ an application specific string to use for matching.
+* __Nom__: un nom descriptif pour le modèle.
+* __Par défaut__ si sélectionné, le modèle sera considéré comme le modèle par défaut (en général limité par les autres champs).
+* __Clé__ la clé pour laquelle ce modèle est pertinent. Si définie avec _Clé personnelle_, vous pouvez ajouter une valeur non standard dans le champ ci-dessous. Les valeurs de clé prennent en charge les caractères spéciaux SQL : _%_ correspond à zéro ou plusieurs caractères et *_* correspond à un seul caractère. Ces deux caractères spéciaux peuvent être échappés avec _\\_ pour les utiliser tels quels dans les correspondances.
+* __Région__ zone où le modèle est disponible.
+* __Objet__ une chaîne spécifique de l'application utilisée pour trouver une correspondance.
 

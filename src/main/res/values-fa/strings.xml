@@ -242,6 +242,7 @@
   <string name="ways">راه‌ها</string>
   <!--Tile layer info dialog-->
   <string name="attribution">انتساب</string>
+  <!--GPX info dialog-->
   <!--Too much data dialog-->
   <string name="too_much_data_title">دادهٔ خیلی زیادی بار شده!</string>
   <string name="too_much_data_message">شما %1$d گره را بارگذاری کرده‌اید و از حد پیکربندی شده فراتر رفته‌اید. این منجر به کُند شدن می‌شود و اگر داده‌های بیشتری اضافه کنید، احتمال دارد برای ذخیره‌سازی وضعیت با مشکلاتی مواجه شوید.</string>
@@ -278,6 +279,12 @@
   <!--Safe split dialog-->
   <string name="split_safe_title">اعضای رابطه گمشده</string>
   <string name="split_safe_message">راه‌های عضو ارتباط همسایه(کنار) دانلود نمی‌شود. حفظ نظم اعضای رابطه ممکن است به این موارد بستگی داشته باشد.</string>
+  <!--JS console dialog-->
+  <string name="evaluate">ارزیابی</string>
+  <string name="js_console_msg_live">حالت زنده!</string>
+  <string name="js_console_msg_debug">حالت اشکال‌زدایی!</string>
+  <string name="console_output_hint">خروجی اینجا ظاهر می‌شود</string>
+  <!--Overpass console-->
   <!---->
   <string name="error">خطا</string>
   <string name="warning">هشدار</string>
@@ -292,12 +299,6 @@
   <string name="attached_object_warning_stop">خب، دیگر نشان نده</string>
   <!--debug dialog-->
   <string name="send_debug_information">ارسال اطلاعات اشکال‌زدایی</string>
-  <!--JS console dialog-->
-  <string name="evaluate">ارزیابی</string>
-  <string name="js_console_msg_live">حالت زنده!</string>
-  <string name="js_console_msg_debug">حالت اشکال‌زدایی!</string>
-  <string name="js_console_input_hint">جاوااسکریپت را اینجا بنویسید</string>
-  <string name="js_console_output_hint">خروجی اینجا ظاهر می‌شود</string>
   <!--Validator dialogs-->
   <string name="validator_title">مجموعهٔ قواعد %1$s اعتبارسنج</string>
   <string name="resurvey_entries">بازنقشه‌برداری</string>
@@ -448,6 +449,7 @@
   <string name="boxpicker_firsttimetitle">بارگیری دادهٔ اوپن‌‌استریت‌مپ</string>
   <!--Clear/Reset GPX Track-->
   <string name="clear_track_description">ردگیری را متوقف و همهٔ نقاط ذخیره‌شدهٔ رد را حذف کن. این کار برگشت‌پذیر نیست.</string>
+  <!--Measurement dialog-->
   <!--Tips-->
   <string name="tip_title">آیا می‌دانستید؟</string>
   <string name="tip_check_label">نکات اختیاری را دیگر نشان نده</string>
@@ -549,10 +551,6 @@
   <string name="toast_missing_filemanager">لطفاً برنامه‌ای برای مدیریت پرونده‌ها نصب کنید.</string>
   <string name="toast_outside_of_download">برای ویرایش این محدوده دادهٔ بیشتری بارگیری کنید.</string>
   <string name="toast_file_not_found">‏%1$s پیدا نشد.</string>
-  <plurals name="toast_imported_track_points">
-    <item quantity="one">%1$d نقطهٔ رد و 1 نقطهٔ بین‌راهی GPX درون‌برد شد.</item>
-    <item quantity="other">%1$d نقطهٔ رد و %2$d راه‌نشان GPX درون‌برد شد.</item>
-  </plurals>
   <string name="toast_unknown_voice_command">ببخشید، هم‌اکنون %1$s فهمیده نشد</string>
   <string name="toast_inconsistent_state">وضعیت ناپایدار تشخیص داده شد. لطفاً گزارش خطا را بفرستید.</string>
   <string name="toast_camera_error">اجرای برنامهٔ دوربین ناموفق بود: %1$s</string>
@@ -587,7 +585,6 @@
   <string name="toast_invalid_object">شیء نامعتبر</string>
   <string name="toast_openinghours_invalid">مقدار ساعت کاری برای %1$s نامعتبر است</string>
   <string name="toast_openinghours_autocorrected">مقدار ساعت کاری برای %1$s به‌طور خودکار درست شد</string>
-  <string name="toast_exit_multiselect">برای خروج، فضایی خالی را دو بار پیاپی لمس کنید یا روی → بزنید</string>
   <string name="toast_abort_actionmode">برای لغو روی → بزنید</string>
   <string name="toast_null_island">لطفاً در ‎0°/0° (جزیرهٔ پوچ) عنصری اضافه نکنید</string>
   <string name="toast_string_too_long">رشته بسیار طولانی است (%1$d نویسه). کوتاه شد!</string>
@@ -707,6 +704,7 @@
   <string name="osm_tags">برچسب‌های OSM</string>
   <!--Read a file-->
   <string name="read">خواندن</string>
+  <string name="load">بارکردن</string>
   <string name="overwrite">بَرنویسی</string>
   <string name="share">همرسانی</string>
   <string name="share_position">همرسانی موقعیت</string>
@@ -950,12 +948,10 @@
   <string name="menu_preset_feedback">بازخورد دربارهٔ پیش‌تنظیم</string>
   <string name="menu_privacy">حریم خصوصی</string>
   <!--Background alignment-->
-  <string name="menu_tools_background_align">ترازکردن پس‌زمینه</string>
   <string name="menu_tools_background_align_reset">بازنشانی</string>
   <string name="menu_tools_background_align_zero">صفر</string>
   <string name="menu_tools_background_align_retrieve_from_db">از پایگاه‌داده</string>
   <string name="menu_tools_background_align_retrieve_from_device">از دستگاه</string>
-  <string name="menu_tools_background_align_save_db">ذخیره در پایگاه‌داده</string>
   <string name="menu_tools_background_align_save_device">ذخیره در دستگاه</string>
   <string name="menu_tools_background_align_apply2all">به‌کارگیری (همهٔ زوم‌ها)</string>
   <string name="min_max_zoom">%1$d - %2$d</string>
@@ -1139,7 +1135,6 @@
   <string name="config_disableTranslations_summary">از زبان انگلیسی برای رابط کاربری استفاده کنید</string>
   <string name="config_maxInlineValues_title">بیشترین تعداد مقادیر درخط</string>
   <string name="config_maxInlineValues_summary">بیشترین تعداد مقادیر درون‌خط که در فرم برچسب نمایان باشد.</string>
-  <string name="config_maxInlineValues_current">%1$d مقدار</string>
   <string name="config_autoLockDelay_title">مدت انتظار پیش از قفل‌شدن خودکار</string>
   <string name="config_autoLockDelay_summary">تعداد ثانیه‌های انتظار پیش از قفل‌شدن خودکار. 0 آن را غیرفعال می‌کند.</string>
   <string name="config_autoLockDelay_current">%1$d ثانیه</string>
@@ -1150,11 +1145,7 @@
   <string name="config_maxStrokeWidth_title">بیشینهٔ پهنای خط</string>
   <string name="config_maxStrokeWidth_summary">راهی را ضخیم‌تر از این رسم نکن.</string>
   <string name="config_maxStrokeWidth_current">%1$d پیکسل</string>
-  <string name="config_uploadOk_title">بارگذاری در انتظار - مناسب</string>
-  <string name="config_uploadOk_summary">در محدودیت زیر مشخص کنید کدام بارگذاری‌های در انتظار، مناسب دانسته شود</string>
   <string name="config_upload_current">%1$d شیء</string>
-  <string name="config_uploadWarn_title">بارگذاری در انتظار - هشدار</string>
-  <string name="config_uploadWarn_summary">در محدودیت زیر مشخص کنید برای کدام بارگذاری‌های در انتظار، هشدار داده شود.</string>
   <string name="config_uploadChecker_title">فاصله زمانی یادآوری بارگذاری</string>
   <string name="config_uploadChecker_summary">فاصله زمانی برای یادآوری اگر تغییرات منتشر نشده دارید.</string>
   <string name="config_uploadChecker_current">%1$d ساعت</string>
@@ -1179,6 +1170,9 @@
   <string name="config_overrideRegionAddressTags_summary">از پیکربندی برچسب نشانی ما در مقادیر خاص منطقه استفاده کنید</string>
   <string name="config_address_tags">برچسب‌های نشانی</string>
   <string name="config_address_tags_summary">برچسب‌هایی که برای پیش‌بینی نشانی به کار می‌روند.</string>
+  <string name="config_neighbourDistance_title">فاصله بین آدرس‌های همسایه</string>
+  <string name="config_neighbourDistance_summary">فاصله‌ای که دو آدرس به عنوان همسایه‌های بالقوه در نظر گرفته می‌شوند</string>
+  <string name="config_neighbourDistance_current">%1$d متر</string>
   <string name="config_enableNameSuggestions_title">فعال‌سازی پیشنهادهای نام</string>
   <string name="config_enableNameSuggestions_summary">پیشنهادهای برچسب نام را فعال کنید.</string>
   <string name="config_enableNameSuggestionsPresets_title">فعال‌سازی پیش‌تنظیم‌های پیشنهاد نام</string>
@@ -1481,7 +1475,7 @@
   <string name="toast_nohelp">این راهنما ندارد.</string>
   <!--Bookmarks-->
   <string name="add_bookmark">اضافه کردن نشانک…</string>
-  <string name="bookmarks_desc">اضافه کردن نظرات</string>
+  <string name="bookmarks_desc">توضیح</string>
   <string name="show_bookmarks">نشانک‌ها…</string>
   <string name="_dots">⋮</string>
   <string name="gotobookmark">برو</string>

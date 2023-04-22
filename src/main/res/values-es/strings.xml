@@ -204,6 +204,7 @@
   <string name="ways">Caminos</string>
   <!--Tile layer info dialog-->
   <string name="attribution">Atribución</string>
+  <!--GPX info dialog-->
   <!--Too much data dialog-->
   <string name="too_much_data_title">¡Demasiados datos cargados!</string>
   <string name="too_much_data_message">Tiene %1$d nodos cargados y han sobrepasado el límite configurado. Esto hará que la aplicación vaya más despacio. Si añade más datos,  pueden aparecer problemas al guardar el estado.</string>
@@ -238,6 +239,12 @@
   <string name="odd">Impar</string>
   <string name="other">Otro</string>
   <!--Safe split dialog-->
+  <!--JS console dialog-->
+  <string name="evaluate">Evaluar</string>
+  <string name="js_console_msg_live">¡Modo en directo!</string>
+  <string name="js_console_msg_debug">¡Modo de depuración!</string>
+  <string name="console_output_hint">La salida aparecerá aquí</string>
+  <!--Overpass console-->
   <!---->
   <string name="error">Error</string>
   <string name="warning">Advertencia</string>
@@ -252,12 +259,6 @@
   <string name="attached_object_warning_stop">OK, ignorar</string>
   <!--debug dialog-->
   <string name="send_debug_information">Enviar información de depuración</string>
-  <!--JS console dialog-->
-  <string name="evaluate">Evaluar</string>
-  <string name="js_console_msg_live">¡Modo en directo!</string>
-  <string name="js_console_msg_debug">¡Modo de depuración!</string>
-  <string name="js_console_input_hint">Ingrese JavaScript aquí</string>
-  <string name="js_console_output_hint">La salida aparecerá aquí</string>
   <!--Validator dialogs-->
   <string name="validator_title">Conjunto de reglas del validador %1$s</string>
   <string name="resurvey_entries">Relevamiento</string>
@@ -378,6 +379,7 @@
   <string name="boxpicker_firsttimetitle">Descargar datos de OpenStreetMap</string>
   <!--Clear/Reset GPX Track-->
   <string name="clear_track_description">Detenga el seguimiento y elimine los puntos de seguimiento almacenados. Esto no se puede deshacer.</string>
+  <!--Measurement dialog-->
   <!--Tips-->
   <string name="tip_title">¿Sabías?</string>
   <string name="tip_check_label">Deja de mostrar consejos opcionales</string>
@@ -449,11 +451,6 @@
   <string name="toast_missing_filemanager">Instala un administrador de archivos.</string>
   <string name="toast_outside_of_download">Descargue más datos para editar esta área.</string>
   <string name="toast_file_not_found">%1$s no encontrado.</string>
-  <plurals name="toast_imported_track_points">
-    <item quantity="one">Se importó %1$d puntos de traza GPX y 1 punto de vía.</item>
-    <item quantity="many">Se importó %1$d puntos de traza GPX y %2$d puntos de vía.</item>
-    <item quantity="other">Se importó %1$d puntos de traza GPX y %2$d puntos de vía.</item>
-  </plurals>
   <string name="toast_unknown_voice_command">Lo siento, \"%1$s\" no se entiende</string>
   <string name="toast_inconsistent_state">Estado inconsistente detectado, envíe el informe de error.</string>
   <string name="toast_camera_error">No se pudo iniciar la aplicación de la cámara: %1$s</string>
@@ -486,7 +483,6 @@
   <string name="toast_invalid_object">Objeto inválido</string>
   <string name="toast_openinghours_invalid">Valor de horas de apertura no válidas para %1$s</string>
   <string name="toast_openinghours_autocorrected">Horario de apertura de %1$s autocorregido</string>
-  <string name="toast_exit_multiselect">Toca dos veces un espacio vacío o usa la flecha ← para salir</string>
   <string name="toast_abort_actionmode">Use la flecha ← para abortar</string>
   <string name="toast_null_island">Por favor, no añada elementos en 0°/0° (Isla Nula)</string>
   <string name="toast_string_too_long">¡Cadena demasiado larga (%1$d carácteres), truncada!</string>
@@ -583,6 +579,7 @@
   <string name="select">Seleccionar</string>
   <!--Read a file-->
   <string name="read">Leer</string>
+  <string name="load">Cargar</string>
   <string name="overwrite">Sobreescribir</string>
   <string name="share">Compartir</string>
   <string name="share_position">Compartir posición</string>
@@ -804,12 +801,10 @@
   <string name="menu_preset_feedback">Proporcionar comentarios sobre el predefinido</string>
   <string name="menu_privacy">Privacidad</string>
   <!--Background alignment-->
-  <string name="menu_tools_background_align">Alinear fondo</string>
   <string name="menu_tools_background_align_reset">Restablecer</string>
   <string name="menu_tools_background_align_zero">Cero</string>
   <string name="menu_tools_background_align_retrieve_from_db">Desde la base de datos</string>
   <string name="menu_tools_background_align_retrieve_from_device">Desde el dispositivo</string>
-  <string name="menu_tools_background_align_save_db">Guardar en la base de datos</string>
   <string name="menu_tools_background_align_save_device">Guardar en el dispositivo</string>
   <string name="menu_tools_background_align_apply2all">Aplicar (todos los niveles de zoom)</string>
   <string name="min_max_zoom">%1$d - %2$d</string>
@@ -961,7 +956,6 @@
   <string name="config_splitActionBarEnabled_summary">Permitir barra de acción dividida, el uso es específico del dispositivo. Requiere iniciar Vespucci nuevamente y Android 4.0 o posterior.</string>
   <string name="config_maxInlineValues_title">Número máx. de valores en línea</string>
   <string name="config_maxInlineValues_summary">Número máximo de valores en línea que se muestran en forma de etiqueta.</string>
-  <string name="config_maxInlineValues_current">%1$d Valores</string>
   <string name="config_autoLockDelay_title">Tiempo de espera antes de auto-bloqueo</string>
   <string name="config_autoLockDelay_summary">Cantidad de segundos para esperar antes del bloqueo automático, 0 lo apaga.</string>
   <string name="config_autoLockDelay_current">%1$d s</string>
@@ -972,10 +966,7 @@
   <string name="config_maxStrokeWidth_title">Anchura máxima de linea</string>
   <string name="config_maxStrokeWidth_summary">No dibuje una vía más gruesa que esta.</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>
-  <string name="config_uploadOk_title">Carga pendiente de OK</string>
-  <string name="config_uploadOk_summary">Límite por debajo del cual las cargas de objetos pendientes se considerarán correctas</string>
   <string name="config_upload_current">%1$d objetos</string>
-  <string name="config_uploadWarn_title">Advertencia de carga pendiente</string>
   <string name="config_uploadChecker_current">%1$d horas</string>
   <string name="config_dataWarn_title">Advertencia de demasiados datos</string>
   <string name="config_useUrlForFeedback_title">Deshabilitar la actividad de comentarios</string>
@@ -993,6 +984,7 @@
   <string name="config_overrideRegionAddressTags_summary">Utilice nuestra configuración de etiquetas de dirección en cualquier valor específico de la región</string>
   <string name="config_address_tags">Etiquetas de dirección</string>
   <string name="config_address_tags_summary">Etiquetas utilizadas para la predicción de direcciones.</string>
+  <string name="config_neighbourDistance_current">%1$d metro(s)</string>
   <string name="config_enableNameSuggestions_title">Activar sugerencias de nombres</string>
   <string name="config_enableNameSuggestions_summary">Activa las sugerencias para la etiqueta de nombre.</string>
   <string name="config_enableNameSuggestionsPresets_title">Habilitar predefinidos de sugerencia de nombre</string>
@@ -1277,6 +1269,7 @@
   <!--Help system-->
   <string name="toast_nohelp">No hay ayuda aquí.</string>
   <!--Bookmarks-->
+  <string name="bookmarks_desc">Descripción</string>
   <!--Element types-->
   <string name="element_type_way">vía</string>
   <string name="element_type_area">área</string>

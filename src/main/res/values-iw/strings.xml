@@ -64,6 +64,7 @@
   <string name="applying_osc_failed_message">כנראה שלא טענת את הנתונים המקוריים שנדרשים לטובת החלת השינויים.</string>
   <string name="duplicate_tag_key_title">מפתחות כפולים</string>
   <string name="duplicate_tag_key_message">הוספת את המפתח הבא יותר מפעם אחת, יש לפתור את הסוגיה הזאת לפני שניתן יהיה להמשיך:</string>
+  <string name="select_file_picker_title">בחירת בורר קבצים</string>
   <!---->
   <string name="welcome_title">ברוך בואך</string>
   <string name="welcome_message">תודה לך על התקנת וספוצ׳י.\n&lt;br&gt;&lt;br&gt;כדי להתחיל עליך לדעת שלושה דברים:\n&lt;ul&gt;&lt;li&gt;נגיעה בסמל המנעול בפינה השמאלית העליונה תחליף בין מצב נעול (אין עריכה) לפתוח,&lt;/li&gt;&lt;li&gt;כדי לערוך את OpenStreetMap עליך להוריד תחילה את הנתונים עבור האזור שבו ברצונך לערוך שינויים (יש להתקרב לפני ניסיון ביצוע שינויים),&lt;/li&gt;&lt;li&gt;כדי להוסיף פריט חדש: יש לגעת בכפתור הירוק הגדול, לאחר מכן לגעת במיקום בו ברצונך למקם אותו.&lt;/li&gt;&lt;/ul&gt;\nההכנות הסתיימו. אפשר להתחיל למפות וליהנות!</string>
@@ -81,6 +82,7 @@
   <string name="progress_saving_message">מתבצעת שמירה…</string>
   <string name="progress_uploading_message">מתבצעת העלאה…</string>
   <string name="progress_preset_message">הערכה מתקבלת…</string>
+  <string name="progress_loading_preset_message">הערכה נטענת…</string>
   <string name="progress_importing_file_message">קובץ מיובא…</string>
   <string name="progress_running_message">מתבצעת הרצה…</string>
   <string name="progress_oauth">החשבון שלך ב־openstreetmap.org נטען לטובת אימות עם OAuth…</string>
@@ -153,6 +155,7 @@
   <string name="maproulette_task_apikey_set">מפתח ה־API של MapRoulette נשמר</string>
   <string name="maproulette_task_no_apikey">אין מפתח API של MapRoulette</string>
   <!--Todo dialogs-->
+  <string name="todo_list_legend">רשימת משימות</string>
   <string name="todo_comment_legend">תגובה</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">אזהרה!</string>
@@ -223,6 +226,7 @@
   <string name="ways">דרכים</string>
   <!--Tile layer info dialog-->
   <string name="attribution">ייחוס</string>
+  <!--GPX info dialog-->
   <!--Too much data dialog-->
   <string name="too_much_data_title">נטענו יותר מדי נתונים!</string>
   <string name="too_much_data_message">נטענו אצלך %1$d מפרקים וחרגת מהסף המוגדר. מצב זה יוביל להאטה ובמקרה של הוספת נתונים נוספים אף לתקלות ביכולת שמירת המצב.</string>
@@ -257,6 +261,12 @@
   <string name="other">אחר</string>
   <!--Safe split dialog-->
   <string name="split_safe_title">חסרים חברים ביחס</string>
+  <!--JS console dialog-->
+  <string name="evaluate">הערכה</string>
+  <string name="js_console_msg_live">מצב חי!</string>
+  <string name="js_console_msg_debug">מצב ניפוי שגיאות!</string>
+  <string name="console_output_hint">הפלט יופיע כאן</string>
+  <!--Overpass console-->
   <!---->
   <string name="error">שגיאה</string>
   <string name="warning">אזהרה</string>
@@ -271,12 +281,6 @@
   <string name="attached_object_warning_stop">בסדר, להתעלם</string>
   <!--debug dialog-->
   <string name="send_debug_information">שליחת נתוני ניפוי שגיאות</string>
-  <!--JS console dialog-->
-  <string name="evaluate">הערכה</string>
-  <string name="js_console_msg_live">מצב חי!</string>
-  <string name="js_console_msg_debug">מצב ניפוי שגיאות!</string>
-  <string name="js_console_input_hint">נא להכניס כאן JavaScript</string>
-  <string name="js_console_output_hint">הפלט יופיע כאן</string>
   <!--Validator dialogs-->
   <string name="validator_title">ערכת כללי מאמת %1$s</string>
   <string name="resurvey_entries">לתשאל מחדש</string>
@@ -423,6 +427,7 @@
   <string name="boxpicker_firsttimetitle">הורדת נתוני OpenStreetMap</string>
   <!--Clear/Reset GPX Track-->
   <string name="clear_track_description">עצירת המעקב ומחיקת נקודות המסלול שנשמרו. לא ניתן להשתקם מפעולה זו.</string>
+  <!--Measurement dialog-->
   <!--Tips-->
   <string name="tip_title">הידעת?</string>
   <string name="tip_check_label">להפסיק להציג עצות כרשות</string>
@@ -502,12 +507,6 @@
   <string name="toast_missing_filemanager">נא להתקין מנהל קבצים.</string>
   <string name="toast_outside_of_download">יש להוריד נתונים נוספים כדי לערוך את האזור הזה.</string>
   <string name="toast_file_not_found">%1$s לא נמצא.</string>
-  <plurals name="toast_imported_track_points">
-    <item quantity="one">יובאו %1$d נקודות מסלול GPX ונקודת דרך אחת.</item>
-    <item quantity="two">יובאו %1$d נקודות מסלול GPX ו־%2$d נקודות דרך.</item>
-    <item quantity="many">יובאו %1$d נקודות מסלול GPX ו־%2$d נקודות דרך.</item>
-    <item quantity="other">יובאו %1$d נקודות מסלול GPX ו־%2$d נקודות דרך.</item>
-  </plurals>
   <string name="toast_unknown_voice_command">נכון לעכשיו, הביטוי „%1$s” אינו מובן, עמך הסליחה.</string>
   <string name="toast_inconsistent_state">התגלה מצב בלתי אחיד, נא לשלוח דיווח על תקלות.</string>
   <string name="toast_camera_error">לא ניתן להפעיל את יישומון המצלמה: %1$s</string>
@@ -541,7 +540,6 @@
   <string name="toast_invalid_object">רכיב שגוי</string>
   <string name="toast_openinghours_invalid">ערך שעות פתיחה שגוי עבור %1$s</string>
   <string name="toast_openinghours_autocorrected">ערך שעות הפתיחה עבור %1$s תוקן אוטומטית</string>
-  <string name="toast_exit_multiselect">יש לגעת נגיעה כפולה במיקום ריק או להשתמש ב־← כדי לצאת.</string>
   <string name="toast_abort_actionmode">יש להשתמש ב־← כדי לבטל</string>
   <string name="toast_null_island">נא לא להוסיף רכיבים במיקום ‎0°/0° (אי האפס)</string>
   <string name="toast_string_too_long">המחרוזת ארוכה מדי (%1$d תווים), נחתכה!</string>
@@ -641,6 +639,7 @@
   <string name="select">בחירה</string>
   <!--Read a file-->
   <string name="read">קריאה</string>
+  <string name="load">טעינה</string>
   <string name="overwrite">שכתוב</string>
   <string name="share">שיתוף</string>
   <string name="share_position">שיתוף מיקום</string>
@@ -860,12 +859,10 @@
   <string name="menu_preset_feedback">הגשת משוב על ערכה מוגדרת</string>
   <string name="menu_privacy">פרטיות</string>
   <!--Background alignment-->
-  <string name="menu_tools_background_align">יישור הרקע</string>
   <string name="menu_tools_background_align_reset">איפוס</string>
   <string name="menu_tools_background_align_zero">אפס</string>
   <string name="menu_tools_background_align_retrieve_from_db">ממסד הנתונים</string>
   <string name="menu_tools_background_align_retrieve_from_device">מהמכשיר</string>
-  <string name="menu_tools_background_align_save_db">שמירה למסד נתונים</string>
   <string name="menu_tools_background_align_save_device">שמירה למכשיר</string>
   <string name="menu_tools_background_align_apply2all">להחיל (כל רמות התקריב)</string>
   <string name="min_max_zoom">%1$d - %2$d</string>
@@ -1022,7 +1019,6 @@
   <string name="config_disableTranslations_summary">להשתמש באנגלית למנשק המשתמש</string>
   <string name="config_maxInlineValues_title">מספר מרבי של ערכים פנימיים</string>
   <string name="config_maxInlineValues_summary">מספר הערכים המרבי בתוך השורה שמוצגים בתצורת תגיות.</string>
-  <string name="config_maxInlineValues_current">%1$d ערכים</string>
   <string name="config_autoLockDelay_title">זמן להמתנה לפני נעילה אוטומטית</string>
   <string name="config_autoLockDelay_summary">כמות שניות בטרם נעילה אוטומטית, 0 להשבתה.</string>
   <string name="config_autoLockDelay_current">%1$d שנ׳</string>
@@ -1033,10 +1029,7 @@
   <string name="config_maxStrokeWidth_title">עובי קו מרבי</string>
   <string name="config_maxStrokeWidth_summary">לא לצייר דרכים בקו עבה יותר מההגדרה הזאת.</string>
   <string name="config_maxStrokeWidth_current">%1$d פיקסלים</string>
-  <string name="config_uploadOk_title">ההמתנה הממתינה תקינה</string>
-  <string name="config_uploadOk_summary">סף שמתחתיו העלאות הפריטים הממתינות תיחשבנה בסדר</string>
   <string name="config_upload_current">%1$d פריטים</string>
-  <string name="config_uploadWarn_title">אזהרת העלאות ממתינות</string>
   <string name="config_uploadChecker_current">%1$d שעות</string>
   <string name="config_dataWarn_title">יותר מדי אזהרות נתונים</string>
   <string name="config_useUrlForFeedback_title">להשבית פעילות משוב</string>
@@ -1055,6 +1048,7 @@
   <string name="config_overrideRegionAddressTags_title">דריסת תגית הכתובת כבררת מחדל</string>
   <string name="config_address_tags">תגיות כתובת</string>
   <string name="config_address_tags_summary">תגים בהם נעשה שימוש לחיזוי כתובות.</string>
+  <string name="config_neighbourDistance_current">%1$d מטר/ים</string>
   <string name="config_enableNameSuggestions_title">הפעלת הצעות שמות</string>
   <string name="config_enableNameSuggestions_summary">הפעלת הצעות לתגית שם.</string>
   <string name="config_enableNameSuggestionsPresets_title">הפעלת ערכת הצעות שמות</string>
@@ -1338,7 +1332,7 @@
   <string name="toast_nohelp">אין כאן עזרה.</string>
   <!--Bookmarks-->
   <string name="add_bookmark">הוספת סימנייה…</string>
-  <string name="bookmarks_desc">הוספת הערות</string>
+  <string name="bookmarks_desc">תיאור</string>
   <string name="show_bookmarks">סימניות…</string>
   <string name="_dots">⋮</string>
   <string name="gotobookmark">מעבר</string>

@@ -18,6 +18,7 @@
     <string name="help_propertyeditor">ویرایشگر خصوصیت</string>
     <string name="help_preferences">ترجیحات</string>
     <string name="help_advanced_preferences">ترجیحات پیشرفته</string>
+    <string name="help_custom_imagery">تصویر سفارشی</string>
     <string name="help_presets">پیش‌تنظیم‌ها</string>
     <string name="help_conflictresolution">حل تداخل</string>
     <string name="help_gpssources">منابع GPS</string>
@@ -28,7 +29,7 @@
     <string name="help_newnoteselection">انتخاب یادداشت تازه</string>
     <string name="help_voice_commands">فرمان‌های صوتی</string>
     <string name="help_add_route_segment">افزودن پارهٔ مسیر</string>
-    <string name="help_upgrade">یادداشت‌های عرضه 18.1</string>
+    <string name="help_upgrade_181">یادداشت‌های عرضه 18.1</string>
     <string name="help_upgrade_180">یادداشت‌های عرضه 18.0</string>
     <string name="help_upgrade_171">یادداشت‌های عرضه 17.1</string>
     <string name="help_upgrade_170">یادداشت‌های عرضه 17.0</string>
@@ -67,6 +68,7 @@
         <item>@string/help_pathcreation</item>
         <item>@string/help_preferences</item>
         <item>@string/help_advanced_preferences</item>
+        <item>@string/help_custom_imagery</item>
     	<item>@string/help_presets</item>	
     	<item>@string/help_aligningbackgroundiamgery</item>
     	<item>@string/help_conflictresolution</item>
@@ -77,7 +79,9 @@
     	<item>@string/help_opening_hours</item>
         <item>@string/help_newnoteselection</item>
         <item>@string/help_voice_commands</item>
+        <item>@string/help_add_route_segment</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_181</item>
         <item>@string/help_upgrade_180</item>
         <item>@string/help_upgrade_171</item>
         <item>@string/help_upgrade_170</item>
@@ -118,6 +122,7 @@
         <item>Adding way nodes</item>
         <item>Preferences</item>
         <item>Advanced preferences</item>
+        <item>Custom imagery</item>
     	<item>Presets</item>	
     	<item>Aligning background imagery</item>
     	<item>Conflict resolution</item>
@@ -128,6 +133,8 @@
     	<item>Opening hours</item>
         <item>New Note selected</item>
         <item>Voice commands</item>
+        <item>Add route segment</item>
+        <item>19.0.0 Release notes</item>
         <item>18.1.0 Release notes</item>
         <item>18.0.0 Release notes</item>
         <item>17.1.0 Release notes</item>

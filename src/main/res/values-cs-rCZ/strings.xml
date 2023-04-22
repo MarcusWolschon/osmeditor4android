@@ -246,6 +246,7 @@
   <string name="ways">Cesty</string>
   <!--Tile layer info dialog-->
   <string name="attribution">Uvedení autora</string>
+  <!--GPX info dialog-->
   <!--Too much data dialog-->
   <string name="too_much_data_title">Načteno příliš mnoho dat!</string>
   <string name="too_much_data_message">Máte načtené %1$d uzly a překročili jste nastavený limit. To povede ke zpomalení, a pokud přidáte další data, k potenciálním problémům s uložením stavu.</string>
@@ -282,6 +283,12 @@
   <!--Safe split dialog-->
   <string name="split_safe_title">Chybí členy relace</string>
   <string name="split_safe_message">Způsoby členství v sousedství se nestahují. Udržování pořadí členů vztahu na nich může záviset.</string>
+  <!--JS console dialog-->
+  <string name="evaluate">Spustit</string>
+  <string name="js_console_msg_live">Ostrý režim!</string>
+  <string name="js_console_msg_debug">Režim ladění!</string>
+  <string name="console_output_hint">Zde se objeví výstup</string>
+  <!--Overpass console-->
   <!---->
   <string name="error">Chyba</string>
   <string name="warning">Varování</string>
@@ -296,12 +303,6 @@
   <string name="attached_object_warning_stop">Ok, ignorovat</string>
   <!--debug dialog-->
   <string name="send_debug_information">Poslat ladicí informace</string>
-  <!--JS console dialog-->
-  <string name="evaluate">Spustit</string>
-  <string name="js_console_msg_live">Ostrý režim!</string>
-  <string name="js_console_msg_debug">Režim ladění!</string>
-  <string name="js_console_input_hint">Sem zadejte JavaScript</string>
-  <string name="js_console_output_hint">Zde se objeví výstup</string>
   <!--Validator dialogs-->
   <string name="validator_title">Pravidla validátoru %1$s</string>
   <string name="resurvey_entries">Ověřit</string>
@@ -452,6 +453,7 @@
   <string name="boxpicker_firsttimetitle">Stáhnout data OpenStreetMap</string>
   <!--Clear/Reset GPX Track-->
   <string name="clear_track_description">Zastaví záznam a smaže body trasy. Akci nelze vrátit zpět.</string>
+  <!--Measurement dialog-->
   <!--Tips-->
   <string name="tip_title">Věděli jste?</string>
   <string name="tip_check_label">Přestat zobrazovat volitelné tipy</string>
@@ -543,7 +545,7 @@
   <string name="toast_untagged_element">Neoznačený prvek</string>
   <string name="toast_unconnected_end_node">Uzel je poblíž prvku, ke kterému by se mohl připojit</string>
   <string name="toast_degenerate_way">Degenerovaná cesta</string>
-  <string name="toast_wrong_element_type">Nestandartní typ prvku: %1$s</string>
+  <string name="toast_wrong_element_type">Nestandardní typ prvku: %1$s</string>
   <!---->
   <string name="toast_oauth_retry">Nahrávání zkuste zopakovat poté, co povolíte OAuth přístup k vašemu OSM účtu.</string>
   <string name="toast_oauth">Povolte prosím OAuth přístup k vašemu OSM účtu.</string>
@@ -559,12 +561,6 @@
   <string name="toast_missing_filemanager">Prosím nainstalujte správce souborů.</string>
   <string name="toast_outside_of_download">Stáhněte více dat pro editování této oblasti.</string>
   <string name="toast_file_not_found">%1$s nenalezeno.</string>
-  <plurals name="toast_imported_track_points">
-    <item quantity="one">Importováno %1$d GPX bodů trasy a 1 waypoint.</item>
-    <item quantity="few">Importováno %1$d GPX bodů trasy a %2$d waypointy.</item>
-    <item quantity="many">Importováno %1$d GPX bodů trasy a %2$d waypointů.</item>
-    <item quantity="other">Importováno %1$d GPX bodů trasy a %2$d waypointů.</item>
-  </plurals>
   <string name="toast_unknown_voice_command">Promiňte, momentálně „%1$s“ nerozumíme</string>
   <string name="toast_inconsistent_state">Zjištěn nekonzistentní stav, pošlete prosím chybové hlášení.</string>
   <string name="toast_camera_error">Nelze sputit aplikaci fotoaparátu: %1$s</string>
@@ -599,7 +595,6 @@
   <string name="toast_invalid_object">Neplatný objekt</string>
   <string name="toast_openinghours_invalid">Neplatná hodnota otevírací doby pro %1$s</string>
   <string name="toast_openinghours_autocorrected">Hodnota otevírací doby pro %1$s automaticky opravena</string>
-  <string name="toast_exit_multiselect">Pro ukončení klepněte dvakrát na prázdné místo nebo použijte šipku ←</string>
   <string name="toast_abort_actionmode">Pro zrušení použijte šipku ←</string>
   <string name="toast_null_island">Prosím nepřidávejte prvky na 0°/0° (Null Island)</string>
   <string name="toast_string_too_long">Příliš dlouhý řetězec (%1$d znaků), zkrácen!</string>
@@ -721,6 +716,7 @@
   <string name="osm_tags">Tagy OSM</string>
   <!--Read a file-->
   <string name="read">Načíst</string>
+  <string name="load">Načíst</string>
   <string name="overwrite">Přepsat</string>
   <string name="share">Sdílet</string>
   <string name="share_position">Sdílet pozici</string>
@@ -964,12 +960,10 @@
   <string name="menu_preset_feedback">Zpětná vazba k předvolbám</string>
   <string name="menu_privacy">Soukromí</string>
   <!--Background alignment-->
-  <string name="menu_tools_background_align">Zarovnat pozadí</string>
   <string name="menu_tools_background_align_reset">Reset</string>
   <string name="menu_tools_background_align_zero">Nula</string>
   <string name="menu_tools_background_align_retrieve_from_db">Z databáze</string>
   <string name="menu_tools_background_align_retrieve_from_device">Ze zařízení</string>
-  <string name="menu_tools_background_align_save_db">Uložit do databáze</string>
   <string name="menu_tools_background_align_save_device">Uložit do zařízení</string>
   <string name="menu_tools_background_align_apply2all">Použít (všechna přiblížení)</string>
   <string name="min_max_zoom">%1$d - %2$d</string>
@@ -1155,7 +1149,6 @@
   <string name="config_disableTranslations_summary">Použít uživatelské rozhraní v angličtině</string>
   <string name="config_maxInlineValues_title">Max. počet vložených hodnot</string>
   <string name="config_maxInlineValues_summary">Maximální počet vložených hodnot zobrazených ve formuláři značky.</string>
-  <string name="config_maxInlineValues_current">%1$d hodnoty</string>
   <string name="config_autoLockDelay_title">Časový limit automatického uzamčení</string>
   <string name="config_autoLockDelay_summary">Počet sekund před automatickým uzamčením, 0 = deaktivováno.</string>
   <string name="config_autoLockDelay_current">%1$d s</string>
@@ -1166,11 +1159,7 @@
   <string name="config_maxStrokeWidth_title">Max. tloušťka čáry</string>
   <string name="config_maxStrokeWidth_summary">Nekreslit tlustší cestu než tuto.</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>
-  <string name="config_uploadOk_title">Probíhající upload OK</string>
-  <string name="config_uploadOk_summary">Limit, pod jakou hranicí bude čekající nahrávání objektů považováno za v pořádku</string>
   <string name="config_upload_current">%1$d objekty</string>
-  <string name="config_uploadWarn_title">Varování čekající na nahrání</string>
-  <string name="config_uploadWarn_summary">Limit, pod jakou hranicí čekajících na nahrání objektu bude zobrazeno varování.</string>
   <string name="config_uploadChecker_title">Interval připomenutí nahrávání</string>
   <string name="config_uploadChecker_summary">Interval pro připomenutí, že máte neuložené změny.</string>
   <string name="config_uploadChecker_current">%1$d hodin</string>
@@ -1195,6 +1184,7 @@
   <string name="config_overrideRegionAddressTags_summary">Použijte naši konfiguraci značky adresy pro hodnoty specifické pro jakoukoli oblast</string>
   <string name="config_address_tags">Tagy pro adresu</string>
   <string name="config_address_tags_summary">Tagy používané k předvyplnění adresy.</string>
+  <string name="config_neighbourDistance_current">%1$d m</string>
   <string name="config_enableNameSuggestions_title">Povolit návrhy názvu</string>
   <string name="config_enableNameSuggestions_summary">Zapnout návrhy pro tag s názvem.</string>
   <string name="config_enableNameSuggestionsPresets_title">Povolit předvolby z návrhu názvu</string>
@@ -1509,7 +1499,7 @@
   <string name="toast_nohelp">Nápověda není k dispozici.</string>
   <!--Bookmarks-->
   <string name="add_bookmark">Přidat záložku…</string>
-  <string name="bookmarks_desc">Přidat komentář</string>
+  <string name="bookmarks_desc">Popis</string>
   <string name="show_bookmarks">Záložky…</string>
   <string name="_dots">⋮</string>
   <string name="gotobookmark">Přejít</string>
