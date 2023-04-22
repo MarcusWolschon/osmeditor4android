@@ -6,7 +6,7 @@ As there is essentially no documentation available from JOSM there is no guarant
 
 ## Overpass API queries
 
-We support generating Overpass queries from the JOSM search language very similar to how _JOSM_ and _Overpass Turbo_ does the same. THe most important
+We support generating Overpass queries from the JOSM search language very similar to how _JOSM_ and _Overpass Turbo_ does the same. The most important
 deviation is that _in_ and _around_ expressions are treated like normal predicates. In the case of boolean logical "and" combinations this doesn't make a difference
 
     highway=residential type:way in Bergdietikon
