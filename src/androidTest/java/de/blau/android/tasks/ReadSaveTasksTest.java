@@ -203,30 +203,15 @@ public class ReadSaveTasksTest {
      */
     @Test
     public void readNotes() {
-        try {
-            File notes = JavaResources.copyFileFromResources(main, TEST_RESULT_OSN, null, "/");
-            try {
-                assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.menu_transfer), false, true));
-                assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_bugs), true, false));
-                assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_file), true, false));
-                assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_read_notes), true, false));
-                TestUtils.selectFile(device, main, null, TEST_RESULT_OSN, true);
-                TestUtils.findText(device, false, main.getString(R.string.toast_read_successfully), 1000);
-                TestUtils.textGone(device, main.getString(R.string.toast_read_successfully), 1000);
-                List<Task> tasks = App.getTaskStorage().getTasks();
-                // see previous test
-                assertEquals(59, tasks.size());
-                for (Task t : tasks) {
-                    if (t instanceof Note && ((Note) t).getId() == 893035) {
-                        return;
-                    }
-                }
-                fail("Note 893035 not found");
-            } finally {
-                TestUtils.deleteFile(main, TEST_RESULT_OSN);
+        NotesTest.readNotes(device, main);
+        List<Task> tasks = App.getTaskStorage().getTasks();
+        // see previous test
+        assertEquals(59, tasks.size());
+        for (Task t : tasks) {
+            if (t instanceof Note && ((Note) t).getId() == 893035) {
+                return;
             }
-        } catch (IOException e) {
-            fail(e.getMessage());
         }
+        fail("Note 893035 not found");
     }
 }
