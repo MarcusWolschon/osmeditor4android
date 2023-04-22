@@ -1,5 +1,73 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+19.1.0-1:
+
+- Fix use new github token for builds
+- Fix check clipboard consistency after undo
+- Fix regression that caused beep & tip on long click not to work
+- Fix too aggressive relation filtering
+- Fix highlight elements from member relations of selected relations
+- Fix preset role copy constructor
+- Fix add validation.xml to transifex
+- Fix integer overflow when translating between locations > 200° apart
+- Fix only attempt to save state if webView isn't null
+- Fix update ElementHistoryDialog to avoid crash
+- Fix for broken task icon caching
+- Fix don't allow dragging the splitter outside of the views area
+- Fix relation sorting issues and improve performance
+- Fix NPE when manually re-ordering ring members
+- Fix saving layer style after reset and some minor inconsistencies
+- Fix improve navigation with back key in WebViews
+- Fix reset data style to default if previously selected style doesn't exist
+- Fix don't ask to move tags to multi-polygon if none are present
+- Fix if text_context is not set for combo use values_context if set
+- Fix copy constructor didn't copy translation context fields
+- Fix determine current tile cache size in thread (not on main thread)
+- Fix don't synchronize getMin/MaxZoom
+- Fix protect against no elements being provided for centroid calculation
+- Fix don't delete GPX recording layer automatically on setup
+- Fix invalidate menu after clearing data
+- Fix make a deep copy instead of cloning imagery offset array
+- Fix disable / enable simple mode button in imagery alignment mode
+- Fix correctly handle expanding/shrinking the offset array
+- Fix post displaying dropdowns
+- Fix run loading GeoJson files in an ExecutorTask (crash when loading file from Nextcloud)
+- Fix support selection of segment for the new way when splitting in all modes
+- Fix making an EditText text selectable makes it uneditable in Android 7.1 and breaks editing Notes
+- Fix limit mapbox-gl style files to 10MB
+- Fix key only tags weren't copied in the tag editor
+- Fix use Logic.rollback() instead of just removing the checkpoint when undoing a way append
+- Fix disable ACRA below Android 5.0
+- Fix set "follow" GPS when starting GPX playback
+- Fix remove empty image if camera app is cancelled and image is empty
+- Remove Maxar Standard imagery configuration
+- Add the current on disk tile cache size to debug page
+- Add render natural=glacier
+- Add make more action modes restartable
+- Add move imagery alignment to layer dialog
+- Add support creating Overpass queries from JOSM filter/search language
+- Add support querying the Overpass api
+- Add function to go to start/end of selected way
+- Add an autosave mechanism for GPX tracks
+- Add exit layer modal directly for GPX play back operations
+- Add support adding relations in the EditRelationMembers action mode
+- Add validate unconnected end nodes of waterways
+- Add make search result dialog horizontally scrollable
+- Add support for displaying preset label fields in the tag form
+- Add support calling external measurement apps for appropriate preset fields
+- Add support for an adjustable "nearby" POI display
+- Add default rendering for linear barriers, specific for retaining_wall
+- Add some more path patterns for data rendering
+- Add info modal for GPX layers
+- Add support to presets for list_entry sequences in chunks
+- Add support selection of segment for the new way when splitting in all modes
+- Add removing the text from an not uploaded note will now remove the comment
+- Update translations
+- Update imagery from ELI
+- Update preset
+- Update synonyms
+- Update NSI
+
 18.1.0:
 
 - Fix catch if we can't read GPX when delivered via intent
