@@ -355,9 +355,9 @@ public abstract class TaskFragment extends ImmersiveDialogFragment {
         if (bug.isNew() && ((Note) bug).count() == 0) { // isNew can currently only be true for Notes
             App.getTaskStorage().add(bug); // sets dirty
         }
-        saveTaskSpecific(bug);
         bug.setState(pos2state(state.getSelectedItemPosition()));
         bug.setChanged(true);
+        saveTaskSpecific(bug);
         App.getTaskStorage().setDirty();
     }
 
@@ -373,7 +373,7 @@ public abstract class TaskFragment extends ImmersiveDialogFragment {
     }
 
     /**
-     * Get the task, not should never actually be null
+     * Get the task, note should never actually be null
      * 
      * @return the task
      */
