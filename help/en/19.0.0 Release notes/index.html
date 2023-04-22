@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../../../img/favicon.ico">
-        <title>0.9.9 Release notes - Vespucci</title>
+        <title>19.0.0 Release notes - Vespucci</title>
         <link href="../../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../../css/base.css" rel="stylesheet">
@@ -55,7 +55,7 @@
 </li>
                                     
 <li>
-    <a href="../19.0.0%20Release%20notes/" class="dropdown-item">19.0.0 Release notes</a>
+    <a href="./" class="dropdown-item active">19.0.0 Release notes</a>
 </li>
                                     
 <li>
@@ -143,7 +143,7 @@
 </li>
                                     
 <li>
-    <a href="./" class="dropdown-item active">0.9.9 Release notes</a>
+    <a href="../0.9.9%20Release%20notes/" class="dropdown-item">0.9.9 Release notes</a>
 </li>
                                     
 <li>
@@ -337,12 +337,12 @@
 
 <!--
                             <li class="nav-item">
-                                <a rel="prev" href="../10.0.0%20Release%20notes/" class="nav-link">
+                                <a rel="prev" href="../../../tutorials/features/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../0.9.8%20Release%20notes/" class="nav-link">
+                                <a rel="next" href="../18.1.0%20Release%20notes/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li> -->
@@ -364,36 +364,8 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#vespucci-099-malenki-highlights" class="nav-link">Vespucci 0.9.9 "malenki" Highlights</a>
+            <li class="nav-item" data-level="1"><a href="#vespucci-190-beta-highlights" class="nav-link">Vespucci 19.0 BETA Highlights</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#end-of-android-22-api-8-support" class="nav-link">End of Android 2.2 / API 8 support</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#indoor-mode" class="nav-link">Indoor mode</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#changed-geometry-improvement-handle-behaviour" class="nav-link">Changed "Geometry Improvement Handle" behaviour</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#opening-hours-editor" class="nav-link">Opening hours editor</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#tag-based-filter" class="nav-link">Tag based filter</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#preset-based-filter" class="nav-link">Preset based filter</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#scripting" class="nav-link">Scripting</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
             <li class="nav-item" data-level="2"><a href="#miscellaneous" class="nav-link">Miscellaneous</a>
               <ul class="nav flex-column">
               </ul>
@@ -401,12 +373,12 @@
               </ul>
             </li>
             
-            <li class="nav-item" data-level="1"><a href="#known-problems" class="nav-link">Known problems</a>
+            <li class="nav-item" data-level="1"><a href="#upgrading-from-previous-versions" class="nav-link">Upgrading from previous versions</a>
               <ul class="nav flex-column">
               </ul>
             </li>
             
-            <li class="nav-item" data-level="1"><a href="#upgrading-from-previous-versions" class="nav-link">Upgrading from previous versions</a>
+            <li class="nav-item" data-level="1"><a href="#known-problems" class="nav-link">Known problems</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -415,60 +387,47 @@
 </div></div>
 <div class="col-md-9" role="main">
 
-<h1 id="vespucci-099-malenki-highlights">Vespucci 0.9.9 "malenki" Highlights<a class="headerlink" href="#vespucci-099-malenki-highlights" title="Permanent link">#</a></h1>
-<p>2017-08-20</p>
-<p>This release is dedicated to the memory of Thomas Bellmann "malenki", an engaged OpenStreetMap contributor and Vespucci user.</p>
-<h2 id="end-of-android-22-api-8-support">End of Android 2.2 / API 8 support<a class="headerlink" href="#end-of-android-22-api-8-support" title="Permanent link">#</a></h2>
-<p>Release 0.9.9 no longer supports Android 2.2. Google has removed 2.2 support from the libraries we use to provide backwards compatible support and there doesn't seem to be a way that we can replace them in any reasonable fashion. Even as is, we cannot use the latest version of these libraries that would match the Android version we are building against.</p>
-<p>As Android 2.2 was released in May 2010, nearly 7 years ago, we hope that this change does not affect all too many users.</p>
-<h2 id="indoor-mode">Indoor mode<a class="headerlink" href="#indoor-mode" title="Permanent link">#</a></h2>
-<p>Long pressing the lock icon will cycle through:</p>
-<ul>
-<li>Normal editing mode</li>
-<li>Tag only mode</li>
-<li>Indoor editing mode</li>
-</ul>
-<p>In indoor mode the displayed level can be changed with the up/down buttons, tapping the level display button will show everything that doesn’t have a level tag (roughly, it is slightly more complicated than that). </p>
-<h2 id="changed-geometry-improvement-handle-behaviour">Changed "Geometry Improvement Handle" behaviour<a class="headerlink" href="#changed-geometry-improvement-handle-behaviour" title="Permanent link">#</a></h2>
-<p>Geometry improvement handles on ways now work as they do with iD: </p>
-<ul>
-<li>Select way</li>
-<li>Drag handle (default rendering is a red x)</li>
-<li>Way remains selected</li>
-<li>Drag handle</li>
-<li>.. and so on ...</li>
-</ul>
-<p>The trade-off is that now more care has to be exercised when dragging ways.</p>
-<h2 id="opening-hours-editor">Opening hours editor<a class="headerlink" href="#opening-hours-editor" title="Permanent link">#</a></h2>
-<p>On devices with Android 3.1 and later, opening_hours, service_times and collection_times tags can be created and edited with a form interface. Opening hour strings will be auto corrected if possible. The UI for this is still in development, but is already very usable. More information can be found in the source code repositories <a href="https://github.com/simonpoole/OpeningHoursFragment">OpeningHoursFragment</a>  and <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a>,</p>
-<h2 id="tag-based-filter">Tag based filter<a class="headerlink" href="#tag-based-filter" title="Permanent link">#</a></h2>
-<p>The filter can be enabled from the normal main menu, the filter can then be changed by tapping the filter icon. More documentation can be found on device or <a href="https://github.com/MarcusWolschon/osmeditor4android/blob/master/documentation/docs/help/en/Tag%20filter.md">here</a>.</p>
-<h2 id="preset-based-filter">Preset based filter<a class="headerlink" href="#preset-based-filter" title="Permanent link">#</a></h2>
-<p>An alternative to the above, objects are filtered either on individual presets or on preset groups. Tapping on the filter icon will display a preset selection dialog, similar to that used elsewhere in Vespucci. Individual presets can be selected by a normal click, preset groups by a long click (normal click enters the group).</p>
-<h2 id="scripting">Scripting<a class="headerlink" href="#scripting" title="Permanent link">#</a></h2>
-<p>Presets now support a "javascript" property that allows a script to manipulate tags, for example a "check_date" tag can be auto filled with the current date. An <a href="https://github.com/simonpoole/preset-scripting-examples">example preset</a>.  Outside of the use in presets, scripts can be run in an expanded mode via the "JS Console". This is currently of limited usefulness as there is no documentation, however it is intended to add that for future releases.</p>
+<h1 id="vespucci-190-beta-highlights">Vespucci 19.0 BETA Highlights<a class="headerlink" href="#vespucci-190-beta-highlights" title="Permanent link">#</a></h1>
+<p>2023-04-23</p>
+<h3 id="nearby-poi-display">"nearby POI" display<a class="headerlink" href="#nearby-poi-display" title="Permanent link">#</a></h3>
+<p>The main map display now supports a "nearby POI" display that can be dragged in to view with a handle in the middle of the bottom menu bar.</p>
+<p>The view will include a filtered view of all "POI"s displayed on the current map view. If no explicit filter is set this is limited to objects that have a key with one of
+<em>shop</em>, <em>amenity</em>, <em>leisure</em>, <em>tourism</em>, <em>craft</em>, <em>office</em> or <em>emergency</em>. If an explicit filter is set, that is a tag filter or a preset filter, or a mode (<em>Indoor</em> and <em>C</em>-mode) is selected that sets a filter the display will display objects that are allowed by the filter. For example if <em>Indoor</em> mode is selected, the display will only show POIs on the currently selected level. </p>
+<p>Tapping an entry in the display will center the map on the object and select it, tapping it a second time (just as on the map display) will start the property editor, in <em>Tag only</em> mode the property editor will start directly as expected. The POI entries are highlighted with the same validation indication as map icons, see <a href="https://github.com/MarcusWolschon/osmeditor4android/blob/master/src/main/assets/styles/Color-round.xml#L39">validation styling</a>.</p>
+<h3 id="overpass-api-support">Overpass API support<a class="headerlink" href="#overpass-api-support" title="Permanent link">#</a></h3>
+<p>We now support directly querying an Overpass API server (a non-standard instance can be set in the <em>Advanced preerences</em>). Note that to be valid OSM data that Vespucci can use for editing you need to include object meta data and all nodes referenced by ways.</p>
+<p>To make this easier to use, similar to Overpass Turbo, you can generate Overpass queries from JOSM filter/search language. See <a href="http://vespucci.io/tutorials/object_search/">Object search</a>.</p>
+<h3 id="support-for-external-measurement-apps">Support for external measurement apps<a class="headerlink" href="#support-for-external-measurement-apps" title="Permanent link">#</a></h3>
+<p>We now support external measuring apps for setting the values of suitable fields in the property editor. For example if you have <em>StreetMeasure</em> installed it will be started automatically if you click on a corresponding field, for example <em>Width</em>, and the measurements will be added as values.</p>
+<p>Originally we had intended to add support for Bosch laser range finders for this release, however Bosch licenses its SDK for these devices on very restrictive terms that do not allow public distribution of apps that utilize it, even if the functionality is encapsulated in a closed source interface app. As Bosch was not willing to even consider changing these terms, adding support isn't possible for now. </p>
+<p>If you have, or believe you can produce, a clean room reverse engineered specification of the Bosch protocol please feel free to get in contact with us.  </p>
+<h3 id="support-for-displaying-preset-label-fields">Support for displaying preset label fields<a class="headerlink" href="#support-for-displaying-preset-label-fields" title="Permanent link">#</a></h3>
+<p>We now support text labels from the presets, this is helpful to explain details or give a context to fields. As these can be annoyingly large on devices with smaller screens, support can be turned off in the <em>Advanced preferences</em>.</p>
+<h3 id="imagery-alignment-function-moved-to-layer-dialog">Imagery alignment function moved to layer dialog<a class="headerlink" href="#imagery-alignment-function-moved-to-layer-dialog" title="Permanent link">#</a></h3>
+<p>The imagery alignment for a layer is now started from the respective entry in the layer modal. This allows all types of tile based imagery layers to be adjusted, not just the top background layer. The mode has been changed to be more in line with our current UI: clicking the back button will abort the process, click the checkbox will apply the current alignment changes.</p>
 <h2 id="miscellaneous">Miscellaneous<a class="headerlink" href="#miscellaneous" title="Permanent link">#</a></h2>
 <ul>
-<li>the "Find" search function now supports Photon based geocoders. The default configuration of the OSMF Nominatim and Komoot's Photon instances can be changed in the advanced preferences.</li>
-<li>presets support a "deprecated" property that allows them to be matched for the map display and in the form-based tag editor, but they are not offered and found for new use.</li>
-<li>support for opening a photo viewer in a split window on Android N and later.</li>
-<li>a lot of work has been done to make it easier to contribute to Vespucci, this includes migrating to the new standard Android project layout, making more operations available via gradle tasks and adding tests for a substantial part of the code.</li>
-<li>timestamps are now retained on downloaded elements, the value is displayed in the info dialog </li>
-<li>a small set of objects (shops, restaurants, etc) are checked for if their last edit or check_date tag is more than 1 year back, if this is the case the object is highlighted and an alert is generated.</li>
-<li>increased maximum supported zoom so that very small objects can be drawn (please see Known Problems), at the equator the minimum width of the displayed map is now limited to roughly 3 meters compared to the previous 11 meters. </li>
-<li>populate most recently used preset list from manually entered tags.</li>
-<li>the 255 character length limit on tag key, value and relation member role values is now enforced in the editor, previously uploads with such data would fail. </li>
-</ul>
-<p>The full change log is available <a href="https://github.com/MarcusWolschon/osmeditor4android/commits/master">here</a></p>
-<h1 id="known-problems">Known problems<a class="headerlink" href="#known-problems" title="Permanent link">#</a></h1>
-<ul>
-<li>Due to a change in the way Android N handles URIs that reference on-device files it may not be possible to display photos that are on removable storage. The current workaround of this problem may not work on your device or go away in future Android versions. </li>
-<li>Some manipulations of very small objects (dimensions roughly 1 meter and smaller), in particular rotation, orthogonalisation and arranging in a circle will possibly not show good results due to the maximum resolution of OSM data which is roughly 1cm at the equator.</li>
+<li>Add render natural=glacier</li>
+<li>Add function to go to start/end of selected way</li>
+<li>Add an autosave mechanism for GPX tracks</li>
+<li>Add exit layer modal directly for GPX play back operations</li>
+<li>Add support adding relations in the EditRelationMembers action mode</li>
+<li>Add validate unconnected end nodes of waterways</li>
+<li>Add make search result dialog horizontally scrollable</li>
+<li>Add default rendering for linear barriers, specific for retaining_wall</li>
+<li>Add info modal for GPX layers</li>
+<li>Add support to presets for list_entry sequences in chunks</li>
+<li>Add support selection of segment for the new way when splitting in all modes</li>
+<li>Add removing the text from an not uploaded note will now remove the comment</li>
 </ul>
 <h1 id="upgrading-from-previous-versions">Upgrading from previous versions<a class="headerlink" href="#upgrading-from-previous-versions" title="Permanent link">#</a></h1>
 <ul>
-<li>The saved editing state file format has changed, please complete any edits before upgrading.</li>
-<li>For known problems with the beta build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
+<li>As the saved state file has changed you should upload any pending changes before updating.</li>
+</ul>
+<h1 id="known-problems">Known problems<a class="headerlink" href="#known-problems" title="Permanent link">#</a></h1>
+<ul>
+<li>The documentation is out of date.</li>
+<li>For other known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
 </ul></div> -->
 		    
                     	<div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
@@ -482,36 +441,8 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#vespucci-099-malenki-highlights" class="nav-link">Vespucci 0.9.9 "malenki" Highlights</a>
+            <li class="nav-item" data-level="1"><a href="#vespucci-190-beta-highlights" class="nav-link">Vespucci 19.0 BETA Highlights</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#end-of-android-22-api-8-support" class="nav-link">End of Android 2.2 / API 8 support</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#indoor-mode" class="nav-link">Indoor mode</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#changed-geometry-improvement-handle-behaviour" class="nav-link">Changed "Geometry Improvement Handle" behaviour</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#opening-hours-editor" class="nav-link">Opening hours editor</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#tag-based-filter" class="nav-link">Tag based filter</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#preset-based-filter" class="nav-link">Preset based filter</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#scripting" class="nav-link">Scripting</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
             <li class="nav-item" data-level="2"><a href="#miscellaneous" class="nav-link">Miscellaneous</a>
               <ul class="nav flex-column">
               </ul>
@@ -519,12 +450,12 @@
               </ul>
             </li>
             
-            <li class="nav-item" data-level="1"><a href="#known-problems" class="nav-link">Known problems</a>
+            <li class="nav-item" data-level="1"><a href="#upgrading-from-previous-versions" class="nav-link">Upgrading from previous versions</a>
               <ul class="nav flex-column">
               </ul>
             </li>
             
-            <li class="nav-item" data-level="1"><a href="#upgrading-from-previous-versions" class="nav-link">Upgrading from previous versions</a>
+            <li class="nav-item" data-level="1"><a href="#known-problems" class="nav-link">Known problems</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -533,60 +464,47 @@
 </div></div>
                     	<div class="col-md-9" role="main">
 
-<h1 id="vespucci-099-malenki-highlights">Vespucci 0.9.9 "malenki" Highlights<a class="headerlink" href="#vespucci-099-malenki-highlights" title="Permanent link">#</a></h1>
-<p>2017-08-20</p>
-<p>This release is dedicated to the memory of Thomas Bellmann "malenki", an engaged OpenStreetMap contributor and Vespucci user.</p>
-<h2 id="end-of-android-22-api-8-support">End of Android 2.2 / API 8 support<a class="headerlink" href="#end-of-android-22-api-8-support" title="Permanent link">#</a></h2>
-<p>Release 0.9.9 no longer supports Android 2.2. Google has removed 2.2 support from the libraries we use to provide backwards compatible support and there doesn't seem to be a way that we can replace them in any reasonable fashion. Even as is, we cannot use the latest version of these libraries that would match the Android version we are building against.</p>
-<p>As Android 2.2 was released in May 2010, nearly 7 years ago, we hope that this change does not affect all too many users.</p>
-<h2 id="indoor-mode">Indoor mode<a class="headerlink" href="#indoor-mode" title="Permanent link">#</a></h2>
-<p>Long pressing the lock icon will cycle through:</p>
-<ul>
-<li>Normal editing mode</li>
-<li>Tag only mode</li>
-<li>Indoor editing mode</li>
-</ul>
-<p>In indoor mode the displayed level can be changed with the up/down buttons, tapping the level display button will show everything that doesn’t have a level tag (roughly, it is slightly more complicated than that). </p>
-<h2 id="changed-geometry-improvement-handle-behaviour">Changed "Geometry Improvement Handle" behaviour<a class="headerlink" href="#changed-geometry-improvement-handle-behaviour" title="Permanent link">#</a></h2>
-<p>Geometry improvement handles on ways now work as they do with iD: </p>
-<ul>
-<li>Select way</li>
-<li>Drag handle (default rendering is a red x)</li>
-<li>Way remains selected</li>
-<li>Drag handle</li>
-<li>.. and so on ...</li>
-</ul>
-<p>The trade-off is that now more care has to be exercised when dragging ways.</p>
-<h2 id="opening-hours-editor">Opening hours editor<a class="headerlink" href="#opening-hours-editor" title="Permanent link">#</a></h2>
-<p>On devices with Android 3.1 and later, opening_hours, service_times and collection_times tags can be created and edited with a form interface. Opening hour strings will be auto corrected if possible. The UI for this is still in development, but is already very usable. More information can be found in the source code repositories <a href="https://github.com/simonpoole/OpeningHoursFragment">OpeningHoursFragment</a>  and <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a>,</p>
-<h2 id="tag-based-filter">Tag based filter<a class="headerlink" href="#tag-based-filter" title="Permanent link">#</a></h2>
-<p>The filter can be enabled from the normal main menu, the filter can then be changed by tapping the filter icon. More documentation can be found on device or <a href="https://github.com/MarcusWolschon/osmeditor4android/blob/master/documentation/docs/help/en/Tag%20filter.md">here</a>.</p>
-<h2 id="preset-based-filter">Preset based filter<a class="headerlink" href="#preset-based-filter" title="Permanent link">#</a></h2>
-<p>An alternative to the above, objects are filtered either on individual presets or on preset groups. Tapping on the filter icon will display a preset selection dialog, similar to that used elsewhere in Vespucci. Individual presets can be selected by a normal click, preset groups by a long click (normal click enters the group).</p>
-<h2 id="scripting">Scripting<a class="headerlink" href="#scripting" title="Permanent link">#</a></h2>
-<p>Presets now support a "javascript" property that allows a script to manipulate tags, for example a "check_date" tag can be auto filled with the current date. An <a href="https://github.com/simonpoole/preset-scripting-examples">example preset</a>.  Outside of the use in presets, scripts can be run in an expanded mode via the "JS Console". This is currently of limited usefulness as there is no documentation, however it is intended to add that for future releases.</p>
+<h1 id="vespucci-190-beta-highlights">Vespucci 19.0 BETA Highlights<a class="headerlink" href="#vespucci-190-beta-highlights" title="Permanent link">#</a></h1>
+<p>2023-04-23</p>
+<h3 id="nearby-poi-display">"nearby POI" display<a class="headerlink" href="#nearby-poi-display" title="Permanent link">#</a></h3>
+<p>The main map display now supports a "nearby POI" display that can be dragged in to view with a handle in the middle of the bottom menu bar.</p>
+<p>The view will include a filtered view of all "POI"s displayed on the current map view. If no explicit filter is set this is limited to objects that have a key with one of
+<em>shop</em>, <em>amenity</em>, <em>leisure</em>, <em>tourism</em>, <em>craft</em>, <em>office</em> or <em>emergency</em>. If an explicit filter is set, that is a tag filter or a preset filter, or a mode (<em>Indoor</em> and <em>C</em>-mode) is selected that sets a filter the display will display objects that are allowed by the filter. For example if <em>Indoor</em> mode is selected, the display will only show POIs on the currently selected level. </p>
+<p>Tapping an entry in the display will center the map on the object and select it, tapping it a second time (just as on the map display) will start the property editor, in <em>Tag only</em> mode the property editor will start directly as expected. The POI entries are highlighted with the same validation indication as map icons, see <a href="https://github.com/MarcusWolschon/osmeditor4android/blob/master/src/main/assets/styles/Color-round.xml#L39">validation styling</a>.</p>
+<h3 id="overpass-api-support">Overpass API support<a class="headerlink" href="#overpass-api-support" title="Permanent link">#</a></h3>
+<p>We now support directly querying an Overpass API server (a non-standard instance can be set in the <em>Advanced preerences</em>). Note that to be valid OSM data that Vespucci can use for editing you need to include object meta data and all nodes referenced by ways.</p>
+<p>To make this easier to use, similar to Overpass Turbo, you can generate Overpass queries from JOSM filter/search language. See <a href="http://vespucci.io/tutorials/object_search/">Object search</a>.</p>
+<h3 id="support-for-external-measurement-apps">Support for external measurement apps<a class="headerlink" href="#support-for-external-measurement-apps" title="Permanent link">#</a></h3>
+<p>We now support external measuring apps for setting the values of suitable fields in the property editor. For example if you have <em>StreetMeasure</em> installed it will be started automatically if you click on a corresponding field, for example <em>Width</em>, and the measurements will be added as values.</p>
+<p>Originally we had intended to add support for Bosch laser range finders for this release, however Bosch licenses its SDK for these devices on very restrictive terms that do not allow public distribution of apps that utilize it, even if the functionality is encapsulated in a closed source interface app. As Bosch was not willing to even consider changing these terms, adding support isn't possible for now. </p>
+<p>If you have, or believe you can produce, a clean room reverse engineered specification of the Bosch protocol please feel free to get in contact with us.  </p>
+<h3 id="support-for-displaying-preset-label-fields">Support for displaying preset label fields<a class="headerlink" href="#support-for-displaying-preset-label-fields" title="Permanent link">#</a></h3>
+<p>We now support text labels from the presets, this is helpful to explain details or give a context to fields. As these can be annoyingly large on devices with smaller screens, support can be turned off in the <em>Advanced preferences</em>.</p>
+<h3 id="imagery-alignment-function-moved-to-layer-dialog">Imagery alignment function moved to layer dialog<a class="headerlink" href="#imagery-alignment-function-moved-to-layer-dialog" title="Permanent link">#</a></h3>
+<p>The imagery alignment for a layer is now started from the respective entry in the layer modal. This allows all types of tile based imagery layers to be adjusted, not just the top background layer. The mode has been changed to be more in line with our current UI: clicking the back button will abort the process, click the checkbox will apply the current alignment changes.</p>
 <h2 id="miscellaneous">Miscellaneous<a class="headerlink" href="#miscellaneous" title="Permanent link">#</a></h2>
 <ul>
-<li>the "Find" search function now supports Photon based geocoders. The default configuration of the OSMF Nominatim and Komoot's Photon instances can be changed in the advanced preferences.</li>
-<li>presets support a "deprecated" property that allows them to be matched for the map display and in the form-based tag editor, but they are not offered and found for new use.</li>
-<li>support for opening a photo viewer in a split window on Android N and later.</li>
-<li>a lot of work has been done to make it easier to contribute to Vespucci, this includes migrating to the new standard Android project layout, making more operations available via gradle tasks and adding tests for a substantial part of the code.</li>
-<li>timestamps are now retained on downloaded elements, the value is displayed in the info dialog </li>
-<li>a small set of objects (shops, restaurants, etc) are checked for if their last edit or check_date tag is more than 1 year back, if this is the case the object is highlighted and an alert is generated.</li>
-<li>increased maximum supported zoom so that very small objects can be drawn (please see Known Problems), at the equator the minimum width of the displayed map is now limited to roughly 3 meters compared to the previous 11 meters. </li>
-<li>populate most recently used preset list from manually entered tags.</li>
-<li>the 255 character length limit on tag key, value and relation member role values is now enforced in the editor, previously uploads with such data would fail. </li>
-</ul>
-<p>The full change log is available <a href="https://github.com/MarcusWolschon/osmeditor4android/commits/master">here</a></p>
-<h1 id="known-problems">Known problems<a class="headerlink" href="#known-problems" title="Permanent link">#</a></h1>
-<ul>
-<li>Due to a change in the way Android N handles URIs that reference on-device files it may not be possible to display photos that are on removable storage. The current workaround of this problem may not work on your device or go away in future Android versions. </li>
-<li>Some manipulations of very small objects (dimensions roughly 1 meter and smaller), in particular rotation, orthogonalisation and arranging in a circle will possibly not show good results due to the maximum resolution of OSM data which is roughly 1cm at the equator.</li>
+<li>Add render natural=glacier</li>
+<li>Add function to go to start/end of selected way</li>
+<li>Add an autosave mechanism for GPX tracks</li>
+<li>Add exit layer modal directly for GPX play back operations</li>
+<li>Add support adding relations in the EditRelationMembers action mode</li>
+<li>Add validate unconnected end nodes of waterways</li>
+<li>Add make search result dialog horizontally scrollable</li>
+<li>Add default rendering for linear barriers, specific for retaining_wall</li>
+<li>Add info modal for GPX layers</li>
+<li>Add support to presets for list_entry sequences in chunks</li>
+<li>Add support selection of segment for the new way when splitting in all modes</li>
+<li>Add removing the text from an not uploaded note will now remove the comment</li>
 </ul>
 <h1 id="upgrading-from-previous-versions">Upgrading from previous versions<a class="headerlink" href="#upgrading-from-previous-versions" title="Permanent link">#</a></h1>
 <ul>
-<li>The saved editing state file format has changed, please complete any edits before upgrading.</li>
-<li>For known problems with the beta build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
+<li>As the saved state file has changed you should upload any pending changes before updating.</li>
+</ul>
+<h1 id="known-problems">Known problems<a class="headerlink" href="#known-problems" title="Permanent link">#</a></h1>
+<ul>
+<li>The documentation is out of date.</li>
+<li>For other known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
 </ul></div>
                     
             </div>

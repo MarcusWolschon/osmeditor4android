@@ -55,6 +55,10 @@
 </li>
                                     
 <li>
+    <a href="../../en/19.0.0%20Release%20notes/" class="dropdown-item">19.0.0 Release notes</a>
+</li>
+                                    
+<li>
     <a href="../../en/18.1.0%20Release%20notes/" class="dropdown-item">18.1.0 Release notes</a>
 </li>
                                     
@@ -369,7 +373,7 @@
 <p><em>Cette documentation est inachevée</em></p>
 <h2 id="utiliser-lediteur-dhoraires-douverture">Utiliser l'éditeur d'horaires d'ouverture<a class="headerlink" href="#utiliser-lediteur-dhoraires-douverture" title="Permanent link">#</a></h2>
 <p>Dans votre travail quotidien, l'objet que vous modifiez peut soit avoir déjà un attribut d'horaires d'ouverture (opening_hours, service_times ou collection_times) ou vous pouvez ré-appliquer le modèle d'attribut pour obtenir un attribut vide. Si vous avez besoin d'ajouter le champs manuellement et que vous utilisez Vespucci, vous pouvez saisir la clef sur la page de détails puis revenir sur le formulaire pour la modifier. Si vous pensez que l'attribut d'horaires d'ouverture aurait dû faire parti du modèle, ouvrez un rapport de bogue pour votre éditeur.</p>
-<p>If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for specific key, for example "opening_hours", "collection_times" and "service_times" or custom values. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tag (for example amenity=restaurant). </p>
+<p>Si vous avez défini un modèle par défaut (vous pouvez le faire via le menu "Gérer les modèles"), il sera automatiquement chargé au démarrage de l'éditeur avec une valeur vide. Avec la fonction "Charger le modèle", vous pouvez charger n'importe quel modèle enregistré et avec le menu "Enregistrer le modèle", vous pouvez enregistrer la valeur actuelle en tant que modèle. Vous pouvez définir des modèles et des valeurs par défaut distincts pour une clé spécifique, par exemple "opening_hours", "collection_times" et "service_times". En outre, vous pouvez limiter l'applicabilité d'un modèle à une région et à un élément spécifique, par exemple un élément OSM de niveau supérieur (comme amenity=restaurant).</p>
 <p>Naturellement vous pouvez construire des horaires d'ouverture à partir de rien, mais nous recommandons d'utiliser l'un des modèles existants comme point de départ.</p>
 <p>Si une valeur d'horaires d'ouverture existante est chargée, le logiciel tentera de la corriger automatiquement pour qu'elle soit conforme avec la spécification. Si cela n'est pas possible, l'emplacement approximatif où l'erreur a eu lieue sera surlignée dans l'affichage de la valeur brute et vous pourrez essayer de la corriger manuellement. Environ un quart des valeurs d'horaires d'ouverture ont des problèmes, mais moins de 10% ne peuvent pas être corrigées. Voir <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a> pour plus d'information sur les déviations à la spécification qui sont tolérées.</p>
 <h3 id="bouton-de-menu-principal">Bouton de menu principal<a class="headerlink" href="#bouton-de-menu-principal" title="Permanent link">#</a></h3>
@@ -419,9 +423,9 @@
 <li><strong>Avec décalages…</strong> : les mêmes entrées que précédemment, mais avec des décalages spécifiés (c'est rarement utile).</li>
 </ul>
 </li>
-<li><strong>Add year range...</strong>    <ul>
+<li><strong>Ajouter une plage d'années...</strong>    <ul>
 <li><strong>Ajouter un intervalle d'années</strong> : ajouter un sélecteur d'années.</li>
-<li><strong>Add starting year</strong>: add an open ended year range.</li>
+<li><strong>Ajouter l'année de départ</strong>: ouvre une plage d'années sans date de fin.</li>
 </ul>
 </li>
 <li><strong>Ajouter un intervalle de semaines</strong> : ajouter un sélecteur de numéro de semaine.</li>
@@ -445,22 +449,22 @@
 <li><strong>Effacer</strong>  : supprimer cet intervalle de temps.</li>
 </ul>
 <h3 id="gerer-les-modeles">Gérer les modèles<a class="headerlink" href="#gerer-les-modeles" title="Permanent link">#</a></h3>
-<p>The template management dialog allows you to add, edit and delete templates.</p>
-<p>In Android 4.4 and later the following additional functionality is available from the menu button. </p>
+<p>La boîte de dialogue pour la gestion des modèles vous permet d'ajouter, modifier et supprmer des modèles.</p>
+<p>A partir de la version 4.4 d'Android, les fonctionnalités supplémentaires suivantes sont disponibles depuis le bouton de menu.</p>
 <ul>
-<li><strong>Show all</strong>: display all templates in the database.</li>
-<li><strong>Save to file</strong>: write the contents of the template database to a file.</li>
-<li><strong>Load from file (replace)</strong>: load templates from a file replacing the current contents of the database.</li>
-<li><strong>Load from file</strong>: load templates from a file retaining the current contents.</li>
+<li><strong>Montrer tout</strong>: montre tous les modèles disponibles.</li>
+<li><strong>Sauvegarder dans un fichier</strong>: sauvegarde le contenu du modèle dans une fichier.</li>
+<li><strong>Charger depuis un fichier (remplace)</strong>: charge des modèles depuis un fichier en remplaçant les données actuelles.</li>
+<li><strong>Charger depuis un fichier</strong>: charge les modèles contenus dans un fichier sans supprimer le contenu actuel.</li>
 </ul>
-<h4 id="save-and-edit-template-dialogs">Save and edit template dialogs<a class="headerlink" href="#save-and-edit-template-dialogs" title="Permanent link">#</a></h4>
-<p>The dialog allows you to set</p>
+<h4 id="boite-de-dialogue-pour-sauvegarder-et-modifier-un-modele">Boîte de dialogue pour sauvegarder et modifier un modèle<a class="headerlink" href="#boite-de-dialogue-pour-sauvegarder-et-modifier-un-modele" title="Permanent link">#</a></h4>
+<p>La boîte de dialogue vous permet de mettre</p>
 <ul>
-<li><strong>Name</strong> a descriptive name for the template.</li>
-<li><strong>Default</strong> if checked this will be consider as a default template (typically further constrained by the other fields).</li>
-<li><strong>Key</strong> the key this template is relevant for, if set to <em>Custom key</em> you can add a non-standard value in the field below. The key values support SQL wild cards, that is <em>%</em> matches zero or more characters, <em>_</em> matches a single character. Both wild card characters can be escaped with <em>\</em> for literal matches.</li>
-<li><strong>Region</strong> the region the template is applicable to.</li>
-<li><strong>Object</strong> an application specific string to use for matching.</li>
+<li><strong>Nom</strong>: un nom descriptif pour le modèle.</li>
+<li><strong>Par défaut</strong> si sélectionné, le modèle sera considéré comme le modèle par défaut (en général limité par les autres champs).</li>
+<li><strong>Clé</strong> la clé pour laquelle ce modèle est pertinent. Si définie avec <em>Clé personnelle</em>, vous pouvez ajouter une valeur non standard dans le champ ci-dessous. Les valeurs de clé prennent en charge les caractères spéciaux SQL : <em>%</em> correspond à zéro ou plusieurs caractères et <em>_</em> correspond à un seul caractère. Ces deux caractères spéciaux peuvent être échappés avec <em>\</em> pour les utiliser tels quels dans les correspondances.</li>
+<li><strong>Région</strong> zone où le modèle est disponible.</li>
+<li><strong>Objet</strong> une chaîne spécifique de l'application utilisée pour trouver une correspondance.</li>
 </ul></div> -->
 		    
                     	<div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
@@ -493,7 +497,7 @@
 <p><em>Cette documentation est inachevée</em></p>
 <h2 id="utiliser-lediteur-dhoraires-douverture">Utiliser l'éditeur d'horaires d'ouverture<a class="headerlink" href="#utiliser-lediteur-dhoraires-douverture" title="Permanent link">#</a></h2>
 <p>Dans votre travail quotidien, l'objet que vous modifiez peut soit avoir déjà un attribut d'horaires d'ouverture (opening_hours, service_times ou collection_times) ou vous pouvez ré-appliquer le modèle d'attribut pour obtenir un attribut vide. Si vous avez besoin d'ajouter le champs manuellement et que vous utilisez Vespucci, vous pouvez saisir la clef sur la page de détails puis revenir sur le formulaire pour la modifier. Si vous pensez que l'attribut d'horaires d'ouverture aurait dû faire parti du modèle, ouvrez un rapport de bogue pour votre éditeur.</p>
-<p>If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for specific key, for example "opening_hours", "collection_times" and "service_times" or custom values. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tag (for example amenity=restaurant). </p>
+<p>Si vous avez défini un modèle par défaut (vous pouvez le faire via le menu "Gérer les modèles"), il sera automatiquement chargé au démarrage de l'éditeur avec une valeur vide. Avec la fonction "Charger le modèle", vous pouvez charger n'importe quel modèle enregistré et avec le menu "Enregistrer le modèle", vous pouvez enregistrer la valeur actuelle en tant que modèle. Vous pouvez définir des modèles et des valeurs par défaut distincts pour une clé spécifique, par exemple "opening_hours", "collection_times" et "service_times". En outre, vous pouvez limiter l'applicabilité d'un modèle à une région et à un élément spécifique, par exemple un élément OSM de niveau supérieur (comme amenity=restaurant).</p>
 <p>Naturellement vous pouvez construire des horaires d'ouverture à partir de rien, mais nous recommandons d'utiliser l'un des modèles existants comme point de départ.</p>
 <p>Si une valeur d'horaires d'ouverture existante est chargée, le logiciel tentera de la corriger automatiquement pour qu'elle soit conforme avec la spécification. Si cela n'est pas possible, l'emplacement approximatif où l'erreur a eu lieue sera surlignée dans l'affichage de la valeur brute et vous pourrez essayer de la corriger manuellement. Environ un quart des valeurs d'horaires d'ouverture ont des problèmes, mais moins de 10% ne peuvent pas être corrigées. Voir <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a> pour plus d'information sur les déviations à la spécification qui sont tolérées.</p>
 <h3 id="bouton-de-menu-principal">Bouton de menu principal<a class="headerlink" href="#bouton-de-menu-principal" title="Permanent link">#</a></h3>
@@ -543,9 +547,9 @@
 <li><strong>Avec décalages…</strong> : les mêmes entrées que précédemment, mais avec des décalages spécifiés (c'est rarement utile).</li>
 </ul>
 </li>
-<li><strong>Add year range...</strong>    <ul>
+<li><strong>Ajouter une plage d'années...</strong>    <ul>
 <li><strong>Ajouter un intervalle d'années</strong> : ajouter un sélecteur d'années.</li>
-<li><strong>Add starting year</strong>: add an open ended year range.</li>
+<li><strong>Ajouter l'année de départ</strong>: ouvre une plage d'années sans date de fin.</li>
 </ul>
 </li>
 <li><strong>Ajouter un intervalle de semaines</strong> : ajouter un sélecteur de numéro de semaine.</li>
@@ -569,22 +573,22 @@
 <li><strong>Effacer</strong>  : supprimer cet intervalle de temps.</li>
 </ul>
 <h3 id="gerer-les-modeles">Gérer les modèles<a class="headerlink" href="#gerer-les-modeles" title="Permanent link">#</a></h3>
-<p>The template management dialog allows you to add, edit and delete templates.</p>
-<p>In Android 4.4 and later the following additional functionality is available from the menu button. </p>
+<p>La boîte de dialogue pour la gestion des modèles vous permet d'ajouter, modifier et supprmer des modèles.</p>
+<p>A partir de la version 4.4 d'Android, les fonctionnalités supplémentaires suivantes sont disponibles depuis le bouton de menu.</p>
 <ul>
-<li><strong>Show all</strong>: display all templates in the database.</li>
-<li><strong>Save to file</strong>: write the contents of the template database to a file.</li>
-<li><strong>Load from file (replace)</strong>: load templates from a file replacing the current contents of the database.</li>
-<li><strong>Load from file</strong>: load templates from a file retaining the current contents.</li>
+<li><strong>Montrer tout</strong>: montre tous les modèles disponibles.</li>
+<li><strong>Sauvegarder dans un fichier</strong>: sauvegarde le contenu du modèle dans une fichier.</li>
+<li><strong>Charger depuis un fichier (remplace)</strong>: charge des modèles depuis un fichier en remplaçant les données actuelles.</li>
+<li><strong>Charger depuis un fichier</strong>: charge les modèles contenus dans un fichier sans supprimer le contenu actuel.</li>
 </ul>
-<h4 id="save-and-edit-template-dialogs">Save and edit template dialogs<a class="headerlink" href="#save-and-edit-template-dialogs" title="Permanent link">#</a></h4>
-<p>The dialog allows you to set</p>
+<h4 id="boite-de-dialogue-pour-sauvegarder-et-modifier-un-modele">Boîte de dialogue pour sauvegarder et modifier un modèle<a class="headerlink" href="#boite-de-dialogue-pour-sauvegarder-et-modifier-un-modele" title="Permanent link">#</a></h4>
+<p>La boîte de dialogue vous permet de mettre</p>
 <ul>
-<li><strong>Name</strong> a descriptive name for the template.</li>
-<li><strong>Default</strong> if checked this will be consider as a default template (typically further constrained by the other fields).</li>
-<li><strong>Key</strong> the key this template is relevant for, if set to <em>Custom key</em> you can add a non-standard value in the field below. The key values support SQL wild cards, that is <em>%</em> matches zero or more characters, <em>_</em> matches a single character. Both wild card characters can be escaped with <em>\</em> for literal matches.</li>
-<li><strong>Region</strong> the region the template is applicable to.</li>
-<li><strong>Object</strong> an application specific string to use for matching.</li>
+<li><strong>Nom</strong>: un nom descriptif pour le modèle.</li>
+<li><strong>Par défaut</strong> si sélectionné, le modèle sera considéré comme le modèle par défaut (en général limité par les autres champs).</li>
+<li><strong>Clé</strong> la clé pour laquelle ce modèle est pertinent. Si définie avec <em>Clé personnelle</em>, vous pouvez ajouter une valeur non standard dans le champ ci-dessous. Les valeurs de clé prennent en charge les caractères spéciaux SQL : <em>%</em> correspond à zéro ou plusieurs caractères et <em>_</em> correspond à un seul caractère. Ces deux caractères spéciaux peuvent être échappés avec <em>\</em> pour les utiliser tels quels dans les correspondances.</li>
+<li><strong>Région</strong> zone où le modèle est disponible.</li>
+<li><strong>Objet</strong> une chaîne spécifique de l'application utilisée pour trouver une correspondance.</li>
 </ul></div>
                     
             </div>
@@ -593,7 +597,7 @@
         <footer class="col-md-12">
             <hr>
 	    <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 18.1.0 </p>
+	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 19.0.0 </p>
         </footer>
         <script>
             var base_url = "../../..",

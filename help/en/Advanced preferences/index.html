@@ -55,6 +55,10 @@
 </li>
                                     
 <li>
+    <a href="../19.0.0%20Release%20notes/" class="dropdown-item">19.0.0 Release notes</a>
+</li>
+                                    
+<li>
     <a href="../18.1.0%20Release%20notes/" class="dropdown-item">18.1.0 Release notes</a>
 </li>
                                     
@@ -428,7 +432,7 @@
 <p>If on the non-downloaded areas will be dimmed when the screen is locked. Default: <em>off</em>.</p>
 <h3 id="fullscreen-mode">Fullscreen mode<a class="headerlink" href="#fullscreen-mode" title="Permanent link">#</a></h3>
 <p>On devices without hardware buttons Vespucci can run in full screen mode, that means that "virtual" navigation buttons will be automatically hidden while the map is displayed, providing more space on the screen for the map. Depending on your device this may work well or not.  </p>
-<p>In <em>Auto</em> mode we try to determine automatically if using full screen mode is sensible or not, setting it to <em>Force</em> or <em>Never</em> skips the automatic check and full screen mode will always be used or always not be used respectively. </p>
+<p>In <em>Auto</em> mode we try to determine automatically if using full screen mode is sensible or not, setting it to <em>Force</em> or <em>Never</em> skips the automatic check and full screen mode will always be used or always not be used respectively. <em>No statusbar</em> will additionally try to remove Androids status bar besides forcing full screen mode.</p>
 <p>On devices running Android 11 or higher the <em>Auto</em> mode will never turn full screen mode on as Androids gesture navigation provides a viable alternative to it. </p>
 <p>Default on Android 4.4 and later: <em>Auto</em>, 4.0 - 4.3: <em>Never</em>. </p>
 <p>You need to restart the app for changes to this setting to take effect.</p>
@@ -452,10 +456,10 @@
 <p>Use anto-aliasing when rendering OSM data. Default: <em>on</em>.</p>
 <h3 id="max-line-width">Max line width<a class="headerlink" href="#max-line-width" title="Permanent link">#</a></h3>
 <p>Maximum width lines will increase to when zooming in. Default: <em>16 pixels</em>.</p>
-<h3 id="pending-upload-ok">Pending upload OK<a class="headerlink" href="#pending-upload-ok" title="Permanent link">#</a></h3>
-<p>Limit below which pending object uploads will be considered OK. Default: <em>50 objects</em>.</p>
-<h3 id="pending-upload-warning">Pending upload warning<a class="headerlink" href="#pending-upload-warning" title="Permanent link">#</a></h3>
-<p>Limit below which pending object uploads will have warning status. Default: <em>200 objects</em>.</p>
+<h3 id="pending-upload-ok-limit">Pending upload OK limit<a class="headerlink" href="#pending-upload-ok-limit" title="Permanent link">#</a></h3>
+<p>If the number of pending object uploads is below this limit the situation is considered unproblematic. Default: <em>50 objects</em>.</p>
+<h3 id="pending-upload-warning-limit">Pending upload warning limit<a class="headerlink" href="#pending-upload-warning-limit" title="Permanent link">#</a></h3>
+<p>If the number of pending object uploads is below this limit it will have warning status. A pending upload count above this will have danger status. Default: <em>200 objects</em>.</p>
 <h3 id="disable-feedback-activity">Disable feedback activity<a class="headerlink" href="#disable-feedback-activity" title="Permanent link">#</a></h3>
 <p>Disable the feedback activity and use an URL instead. Default: <em>false</em>.</p>
 <h3 id="upload-reminder-interval">Upload reminder interval<a class="headerlink" href="#upload-reminder-interval" title="Permanent link">#</a></h3>
@@ -577,6 +581,8 @@ This is used both for data and tasks. Default: <em>17</em>. </p>
 <p>Minimum number of changes required for a save to occur. Default: <em>1</em>.</p>
 <h3 id="maximum-number-of-osc-files-to-retain">Maximum number of OSC files to retain<a class="headerlink" href="#maximum-number-of-osc-files-to-retain" title="Permanent link">#</a></h3>
 <p>The maximum number of OSC files the app will retain, when this limit is reached the oldest files will be deleted. Default: <em>5</em>.</p>
+<h3 id="minimum-gpx-saving-interval">Minimum GPX saving interval<a class="headerlink" href="#minimum-gpx-saving-interval" title="Permanent link">#</a></h3>
+<p>Minimum interval in minutes between saves of GPX recordings. Default: <em>5 minutes</em>.</p>
 <h2 id="miscellaneous">Miscellaneous<a class="headerlink" href="#miscellaneous" title="Permanent link">#</a></h2>
 <h3 id="report-app-crashes">Report app crashes<a class="headerlink" href="#report-app-crashes" title="Permanent link">#</a></h3>
 <p>Submit ACRA crash dumps to the Vespucci developers. You will still be asked on a per event basis if you want to submit a specific crash dump, if you set this to <em>off</em> the functionalitiy is completely disabled. Default: <em>on</em>.</p>
@@ -671,7 +677,7 @@ This is used both for data and tasks. Default: <em>17</em>. </p>
 <p>If on the non-downloaded areas will be dimmed when the screen is locked. Default: <em>off</em>.</p>
 <h3 id="fullscreen-mode">Fullscreen mode<a class="headerlink" href="#fullscreen-mode" title="Permanent link">#</a></h3>
 <p>On devices without hardware buttons Vespucci can run in full screen mode, that means that "virtual" navigation buttons will be automatically hidden while the map is displayed, providing more space on the screen for the map. Depending on your device this may work well or not.  </p>
-<p>In <em>Auto</em> mode we try to determine automatically if using full screen mode is sensible or not, setting it to <em>Force</em> or <em>Never</em> skips the automatic check and full screen mode will always be used or always not be used respectively. </p>
+<p>In <em>Auto</em> mode we try to determine automatically if using full screen mode is sensible or not, setting it to <em>Force</em> or <em>Never</em> skips the automatic check and full screen mode will always be used or always not be used respectively. <em>No statusbar</em> will additionally try to remove Androids status bar besides forcing full screen mode.</p>
 <p>On devices running Android 11 or higher the <em>Auto</em> mode will never turn full screen mode on as Androids gesture navigation provides a viable alternative to it. </p>
 <p>Default on Android 4.4 and later: <em>Auto</em>, 4.0 - 4.3: <em>Never</em>. </p>
 <p>You need to restart the app for changes to this setting to take effect.</p>
@@ -695,10 +701,10 @@ This is used both for data and tasks. Default: <em>17</em>. </p>
 <p>Use anto-aliasing when rendering OSM data. Default: <em>on</em>.</p>
 <h3 id="max-line-width">Max line width<a class="headerlink" href="#max-line-width" title="Permanent link">#</a></h3>
 <p>Maximum width lines will increase to when zooming in. Default: <em>16 pixels</em>.</p>
-<h3 id="pending-upload-ok">Pending upload OK<a class="headerlink" href="#pending-upload-ok" title="Permanent link">#</a></h3>
-<p>Limit below which pending object uploads will be considered OK. Default: <em>50 objects</em>.</p>
-<h3 id="pending-upload-warning">Pending upload warning<a class="headerlink" href="#pending-upload-warning" title="Permanent link">#</a></h3>
-<p>Limit below which pending object uploads will have warning status. Default: <em>200 objects</em>.</p>
+<h3 id="pending-upload-ok-limit">Pending upload OK limit<a class="headerlink" href="#pending-upload-ok-limit" title="Permanent link">#</a></h3>
+<p>If the number of pending object uploads is below this limit the situation is considered unproblematic. Default: <em>50 objects</em>.</p>
+<h3 id="pending-upload-warning-limit">Pending upload warning limit<a class="headerlink" href="#pending-upload-warning-limit" title="Permanent link">#</a></h3>
+<p>If the number of pending object uploads is below this limit it will have warning status. A pending upload count above this will have danger status. Default: <em>200 objects</em>.</p>
 <h3 id="disable-feedback-activity">Disable feedback activity<a class="headerlink" href="#disable-feedback-activity" title="Permanent link">#</a></h3>
 <p>Disable the feedback activity and use an URL instead. Default: <em>false</em>.</p>
 <h3 id="upload-reminder-interval">Upload reminder interval<a class="headerlink" href="#upload-reminder-interval" title="Permanent link">#</a></h3>
@@ -820,6 +826,8 @@ This is used both for data and tasks. Default: <em>17</em>. </p>
 <p>Minimum number of changes required for a save to occur. Default: <em>1</em>.</p>
 <h3 id="maximum-number-of-osc-files-to-retain">Maximum number of OSC files to retain<a class="headerlink" href="#maximum-number-of-osc-files-to-retain" title="Permanent link">#</a></h3>
 <p>The maximum number of OSC files the app will retain, when this limit is reached the oldest files will be deleted. Default: <em>5</em>.</p>
+<h3 id="minimum-gpx-saving-interval">Minimum GPX saving interval<a class="headerlink" href="#minimum-gpx-saving-interval" title="Permanent link">#</a></h3>
+<p>Minimum interval in minutes between saves of GPX recordings. Default: <em>5 minutes</em>.</p>
 <h2 id="miscellaneous">Miscellaneous<a class="headerlink" href="#miscellaneous" title="Permanent link">#</a></h2>
 <h3 id="report-app-crashes">Report app crashes<a class="headerlink" href="#report-app-crashes" title="Permanent link">#</a></h3>
 <p>Submit ACRA crash dumps to the Vespucci developers. You will still be asked on a per event basis if you want to submit a specific crash dump, if you set this to <em>off</em> the functionalitiy is completely disabled. Default: <em>on</em>.</p>
@@ -841,7 +849,7 @@ This is used both for data and tasks. Default: <em>17</em>. </p>
         <footer class="col-md-12">
             <hr>
 	    <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 18.1.0 </p>
+	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 19.0.0 </p>
         </footer>
         <script>
             var base_url = "../../..",

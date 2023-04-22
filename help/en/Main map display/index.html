@@ -55,6 +55,10 @@
 </li>
                                     
 <li>
+    <a href="../19.0.0%20Release%20notes/" class="dropdown-item">19.0.0 Release notes</a>
+</li>
+                                    
+<li>
     <a href="../18.1.0%20Release%20notes/" class="dropdown-item">18.1.0 Release notes</a>
 </li>
                                     
@@ -405,6 +409,7 @@
 <li><strong>Flush tile cache</strong> Flush the on device cache for this layer.</li>
 <li><strong>Background properties</strong> Set contrast of layer.</li>
 <li><strong>Info</strong> Display information on the currently selected imagery.</li>
+<li><strong>Align imagery...</strong> start the imagery alignment mode to adjust this layer. This can be done manually of by querying the "Imagery Offset" database.</li>
 </ul>
 </li>
 <li>Custom imagery tile based layers (additionally to the above):<ul>
@@ -464,7 +469,7 @@
 <li><strong>Add background imagery layer</strong> Adds a tile based imagery layer from the internal configuration, which can be from ELI or JOSM, or a custom imagery layer.</li>
 <li><strong>Add overlay imagery layer</strong> As above but assumes that the layer is partially transparent.</li>
 <li><strong>Add layer from GPX file</strong> Adds a layer from a GPX file on device.</li>
-<li><strong>Download GPX track</strong> Download a GPX file from the OSM API for the user and create a layer from it. Note that only GPX tracks with their starting point in the area currently displayed will be available for selection, this is a limitation of the current OSM API.</li>
+<li><strong>Download GPX track</strong> Download a GPX <a href="https://www.openstreetmap.org/traces/mine">track that you have previously uploaded to the OSM website</a>, and create a layer from it. Note that only GPX tracks with their starting point in the area currently displayed will be available for selection, this is a limitation of the current OSM API.</li>
 <li><strong>Add custom imagery</strong> Adds a custom imagery configuration, this can then be used just 
   as any tile based imagery source, the entries can be managed in the <a href="../Preferences/">preferences</a>.</li>
 <li><strong>Add layer from MVT style</strong> Load a Mapbox-GL style file that has a "sources" section and create a layer. </li>
@@ -529,6 +534,7 @@ To reposition or remove the "on-map" GPS button use the "Follow position button 
 <li><strong>Review changes...</strong> - review current changes</li>
 <li><strong>Download current view</strong> - download the area visible on the screen and merge it with existing data <em>(requires network connectivity)</em></li>
 <li><strong>Clear and download current view</strong> - clear any data in memory and then download the area visible on the screen <em>(requires network connectivity)</em></li>
+<li><strong>Query Overpass...</strong> - run a query against a Overpass API server <em>(requires network connectivity)</em></li>
 <li><strong>Close current changeset</strong> - manually close the current changeset <em>(only available if a changeset is open)</em></li>
 <li><strong>Location based auto download</strong> - download an area around the current location automatically <em>(requires network connectivity)</em> <em>(requires GPS)</em></li>
 <li><strong>Pan and zoom auto download</strong> - download the area shown in the current screen automatically <em>(requires network connectivity)</em></li>
@@ -563,7 +569,6 @@ To reposition or remove the "on-map" GPS button use the "Follow position button 
 <p>Show the user preference screens. The settings are split into two sets: the first screen contains the more commonly used preferences, the "Advanced preferences" contains the less used ones. </p>
 <h3 id="tools"><img alt="Tools" src="../../images/menu_tools.png" /> Tools<a class="headerlink" href="#tools" title="Permanent link">#</a></h3>
 <ul>
-<li><strong>Align background</strong> - align the current background layer, this can be done manually or from the image alignment database <em>(requires network connectivity)</em></li>
 <li><strong>Apply stored offset to imagery</strong> - apply stored offset, if it exists, for the current background layer </li>
 <li><strong>More imagery tools</strong><ul>
 <li><strong>Update imagery layer configuration</strong> - download a current version of the imagery layer configuration. <em>(requires network connectivity)</em></li>
@@ -585,7 +590,8 @@ To reposition or remove the "on-map" GPS button use the "Follow position button 
 <h3 id="find"><img alt="Find" src="../../images/ic_menu_search_holo_light.png" /> Find<a class="headerlink" href="#find" title="Permanent link">#</a></h3>
 <p>Search for a location and pan to it with the OpenStreetMap Nominatim or Photon service <em>(requires network connectivity)</em></p>
 <h3 id="search-for-objects">Search for objects<a class="headerlink" href="#search-for-objects" title="Permanent link">#</a></h3>
-<p>Search for OSM objects in the loaded data using JOSMs search/filter expressions. See <a href="http://vespucci.io/tutorials/object_search/">JOSM filter documentation</a> for more information.</p>
+<p>Search for OSM objects in the loaded data using JOSMs search/filter expressions. See <a href="http://vespucci.io/tutorials/object_search/">JOSM filter documentation</a> for more information. Besides searching in the loaded data alternatively you can create a 
+Overpass API query and use that to download data.</p>
 <h3 id="tag-filter-checkbox">Tag-Filter <em>(checkbox)</em><a class="headerlink" href="#tag-filter-checkbox" title="Permanent link">#</a></h3>
 <p>Enable the tag based filter, the filter can be configured by tapping the filter button on the map display.</p>
 <h3 id="preset-filter-checkbox">Preset-Filter <em>(checkbox)</em><a class="headerlink" href="#preset-filter-checkbox" title="Permanent link">#</a></h3>
@@ -655,6 +661,7 @@ To reposition or remove the "on-map" GPS button use the "Follow position button 
 <li><strong>Flush tile cache</strong> Flush the on device cache for this layer.</li>
 <li><strong>Background properties</strong> Set contrast of layer.</li>
 <li><strong>Info</strong> Display information on the currently selected imagery.</li>
+<li><strong>Align imagery...</strong> start the imagery alignment mode to adjust this layer. This can be done manually of by querying the "Imagery Offset" database.</li>
 </ul>
 </li>
 <li>Custom imagery tile based layers (additionally to the above):<ul>
@@ -714,7 +721,7 @@ To reposition or remove the "on-map" GPS button use the "Follow position button 
 <li><strong>Add background imagery layer</strong> Adds a tile based imagery layer from the internal configuration, which can be from ELI or JOSM, or a custom imagery layer.</li>
 <li><strong>Add overlay imagery layer</strong> As above but assumes that the layer is partially transparent.</li>
 <li><strong>Add layer from GPX file</strong> Adds a layer from a GPX file on device.</li>
-<li><strong>Download GPX track</strong> Download a GPX file from the OSM API for the user and create a layer from it. Note that only GPX tracks with their starting point in the area currently displayed will be available for selection, this is a limitation of the current OSM API.</li>
+<li><strong>Download GPX track</strong> Download a GPX <a href="https://www.openstreetmap.org/traces/mine">track that you have previously uploaded to the OSM website</a>, and create a layer from it. Note that only GPX tracks with their starting point in the area currently displayed will be available for selection, this is a limitation of the current OSM API.</li>
 <li><strong>Add custom imagery</strong> Adds a custom imagery configuration, this can then be used just 
   as any tile based imagery source, the entries can be managed in the <a href="../Preferences/">preferences</a>.</li>
 <li><strong>Add layer from MVT style</strong> Load a Mapbox-GL style file that has a "sources" section and create a layer. </li>
@@ -779,6 +786,7 @@ To reposition or remove the "on-map" GPS button use the "Follow position button 
 <li><strong>Review changes...</strong> - review current changes</li>
 <li><strong>Download current view</strong> - download the area visible on the screen and merge it with existing data <em>(requires network connectivity)</em></li>
 <li><strong>Clear and download current view</strong> - clear any data in memory and then download the area visible on the screen <em>(requires network connectivity)</em></li>
+<li><strong>Query Overpass...</strong> - run a query against a Overpass API server <em>(requires network connectivity)</em></li>
 <li><strong>Close current changeset</strong> - manually close the current changeset <em>(only available if a changeset is open)</em></li>
 <li><strong>Location based auto download</strong> - download an area around the current location automatically <em>(requires network connectivity)</em> <em>(requires GPS)</em></li>
 <li><strong>Pan and zoom auto download</strong> - download the area shown in the current screen automatically <em>(requires network connectivity)</em></li>
@@ -813,7 +821,6 @@ To reposition or remove the "on-map" GPS button use the "Follow position button 
 <p>Show the user preference screens. The settings are split into two sets: the first screen contains the more commonly used preferences, the "Advanced preferences" contains the less used ones. </p>
 <h3 id="tools"><img alt="Tools" src="../../images/menu_tools.png" /> Tools<a class="headerlink" href="#tools" title="Permanent link">#</a></h3>
 <ul>
-<li><strong>Align background</strong> - align the current background layer, this can be done manually or from the image alignment database <em>(requires network connectivity)</em></li>
 <li><strong>Apply stored offset to imagery</strong> - apply stored offset, if it exists, for the current background layer </li>
 <li><strong>More imagery tools</strong><ul>
 <li><strong>Update imagery layer configuration</strong> - download a current version of the imagery layer configuration. <em>(requires network connectivity)</em></li>
@@ -835,7 +842,8 @@ To reposition or remove the "on-map" GPS button use the "Follow position button 
 <h3 id="find"><img alt="Find" src="../../images/ic_menu_search_holo_light.png" /> Find<a class="headerlink" href="#find" title="Permanent link">#</a></h3>
 <p>Search for a location and pan to it with the OpenStreetMap Nominatim or Photon service <em>(requires network connectivity)</em></p>
 <h3 id="search-for-objects">Search for objects<a class="headerlink" href="#search-for-objects" title="Permanent link">#</a></h3>
-<p>Search for OSM objects in the loaded data using JOSMs search/filter expressions. See <a href="http://vespucci.io/tutorials/object_search/">JOSM filter documentation</a> for more information.</p>
+<p>Search for OSM objects in the loaded data using JOSMs search/filter expressions. See <a href="http://vespucci.io/tutorials/object_search/">JOSM filter documentation</a> for more information. Besides searching in the loaded data alternatively you can create a 
+Overpass API query and use that to download data.</p>
 <h3 id="tag-filter-checkbox">Tag-Filter <em>(checkbox)</em><a class="headerlink" href="#tag-filter-checkbox" title="Permanent link">#</a></h3>
 <p>Enable the tag based filter, the filter can be configured by tapping the filter button on the map display.</p>
 <h3 id="preset-filter-checkbox">Preset-Filter <em>(checkbox)</em><a class="headerlink" href="#preset-filter-checkbox" title="Permanent link">#</a></h3>
@@ -855,7 +863,7 @@ To reposition or remove the "on-map" GPS button use the "Follow position button 
         <footer class="col-md-12">
             <hr>
 	    <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 18.1.0 </p>
+	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 19.0.0 </p>
         </footer>
         <script>
             var base_url = "../../..",

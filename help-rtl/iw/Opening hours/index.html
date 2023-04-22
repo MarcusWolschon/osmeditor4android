@@ -55,6 +55,10 @@
 </li>
                                     
 <li>
+    <a href="../../../help/en/19.0.0%20Release%20notes/" class="dropdown-item">19.0.0 Release notes</a>
+</li>
+                                    
+<li>
     <a href="../../../help/en/18.1.0%20Release%20notes/" class="dropdown-item">18.1.0 Release notes</a>
 </li>
                                     
@@ -369,7 +373,7 @@
 <p><em>תיעוד זה הוא ראשוני בלבד וכרגע מתבצעות עליו עבודות עריכה נוספות</em></p>
 <h2 id="_1">שימוש בעורך שעות הפתיחה<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
 <p>במצב עבודה טיפוסי לפריט שבחרת לערוך כבר יש תגית שעות פתיחה (opening_hours,‏ service_times ו־collection_times) או שניתן להחיל מחדש את הערכה עבור הפריט כדי לקבל שדה שעות פתיחה ריק. אם יש לך צורך בהוספת השדה ידנית וניסית לעשות זאת דרך וספוצ׳י ניתן להקליד את שם המפתח בעמוד הפרטים ואז לחזור ללשונית מבוססת הטפסים לטובת עריכה. אם לדעתך תגית שעות הפתיחה אמורה להיות חלק מהערכה הראשונית, נא לדווח על תקלה כנגד העורך שלך.</p>
-<p>If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for specific key, for example "opening_hours", "collection_times" and "service_times" or custom values. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tag (for example amenity=restaurant). </p>
+<p>אם הגדרת תבנית בררת מחדל (אפשר לעשות את זה דרך הפריט „ניהול תבניות” בתפריט) היא תיטען אוטומטית עם הפעלת העורך עם ערך ריק. בעזרת הפונקציה „טעינת תבנית” אפשר לטעון כל תבנית שמורה שהיא ועם התפריט „שמירת תבנית” אפשר לשמור את הערך הנוכחי כתבנית. אפשר להגדיר תבניות נפרדות ובררות מחדל למפתח מסוים, למשל „opening_hours”,‏ „collection_times” ו־„service_times” או ערכים משלך. נוסף על כך, ניתן להגביל את היכולת להחיל תבנית על איזור ומזהה מסוים, בדרך כלל תגית ברמה עליונה של OSM (למשל amenity=restaurant).</p>
 <p>באופן טבעי ניתן להרכיב ערך שעות פתיחה מאפשר, אך אנו ממליצים להשתמש באחת מהתבניות הקיימות כנקודת התחלה.</p>
 <p>אם נטען ערך קיים של שעות פתיחה, מתבצע ניסיון לתקן אותו אוטומטית כדי להתאים למפרט שעות הפתיחה. אם פעולה כזו אינה אפשרית המיקום בקירוב בו התרחשה השגיאה יודגש בתצוגה של ערכי שעות הפתיחה הגולמיים ותהיה לך אפשרות לנסות ולתקן זאת ידנית. בערך ברבע מערכי שעות הפתיחה במסד הנתונים של OpenStreetMap יש תקלות אך פחות מ־10% אינן ניתנות לתיקון, יש לעיין בערך <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a> (מנתח שעות פתיחה) לקבלת מידע נוסף על אילו סטיות מהמפרט נסבלות.</p>
 <h3 id="_2">כפתור תפריט ראשי<a class="headerlink" href="#_2" title="Permanent link">#</a></h3>
@@ -453,14 +457,14 @@
 <li><strong>טעינה מקובץ (החלפה)</strong>: טעינת תבניות מקובץ שמחליפה את התוכן הנוכחי של מסד הנתונים.</li>
 <li><strong>טעינה מקובץ</strong>: טעינת תבניות מקובץ תוך שימור התכנים הנוכחיים.</li>
 </ul>
-<h4 id="save-and-edit-template-dialogs">Save and edit template dialogs<a class="headerlink" href="#save-and-edit-template-dialogs" title="Permanent link">#</a></h4>
-<p>The dialog allows you to set</p>
+<h4 id="_8">לשמור ולערוך חלוניות תבניות<a class="headerlink" href="#_8" title="Permanent link">#</a></h4>
+<p>החלונית מאפשרת לך להגדיר</p>
 <ul>
-<li><strong>Name</strong> a descriptive name for the template.</li>
-<li><strong>Default</strong> if checked this will be consider as a default template (typically further constrained by the other fields).</li>
-<li><strong>Key</strong> the key this template is relevant for, if set to <em>Custom key</em> you can add a non-standard value in the field below. The key values support SQL wild cards, that is <em>%</em> matches zero or more characters, <em>_</em> matches a single character. Both wild card characters can be escaped with <em>\</em> for literal matches.</li>
-<li><strong>Region</strong> the region the template is applicable to.</li>
-<li><strong>Object</strong> an application specific string to use for matching.</li>
+<li><strong>שם</strong> שם ייצוגי לתבנית.</li>
+<li><strong>בררת מחדל</strong> אם מסומן, זאת תיחשב לתבנית בררת המחדל (בדרך כלל מקובע אף יותר על ידי השדות האחרים).</li>
+<li><strong>מפתח</strong> המפתח שהתבנית הזו מתאימה לו, אם מוגדר לכדי <em>מפתח אישי</em> אפשר להוסיף ערך מחוץ לתקן בשדה שלהלן. ערכי המפתח תומכים בתווים כוללניים של SQL, כאשר <em>%</em> לוכד אפס תווים או יותר, <em>_</em> לוכד תו יחיד. את שני התווים הכוללניים אפשר להחריג באמצעות <em>\</em> ללכידה כפי שהם.</li>
+<li><strong>אזור</strong> האזור עליו חלה התבנית.</li>
+<li><strong>פריט</strong> מחרוזת ייעודית ליישום לשימוש עבור התאמה.</li>
 </ul></div> -->
 		    
                     	<div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
@@ -493,7 +497,7 @@
 <p><em>תיעוד זה הוא ראשוני בלבד וכרגע מתבצעות עליו עבודות עריכה נוספות</em></p>
 <h2 id="_1">שימוש בעורך שעות הפתיחה<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
 <p>במצב עבודה טיפוסי לפריט שבחרת לערוך כבר יש תגית שעות פתיחה (opening_hours,‏ service_times ו־collection_times) או שניתן להחיל מחדש את הערכה עבור הפריט כדי לקבל שדה שעות פתיחה ריק. אם יש לך צורך בהוספת השדה ידנית וניסית לעשות זאת דרך וספוצ׳י ניתן להקליד את שם המפתח בעמוד הפרטים ואז לחזור ללשונית מבוססת הטפסים לטובת עריכה. אם לדעתך תגית שעות הפתיחה אמורה להיות חלק מהערכה הראשונית, נא לדווח על תקלה כנגד העורך שלך.</p>
-<p>If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for specific key, for example "opening_hours", "collection_times" and "service_times" or custom values. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tag (for example amenity=restaurant). </p>
+<p>אם הגדרת תבנית בררת מחדל (אפשר לעשות את זה דרך הפריט „ניהול תבניות” בתפריט) היא תיטען אוטומטית עם הפעלת העורך עם ערך ריק. בעזרת הפונקציה „טעינת תבנית” אפשר לטעון כל תבנית שמורה שהיא ועם התפריט „שמירת תבנית” אפשר לשמור את הערך הנוכחי כתבנית. אפשר להגדיר תבניות נפרדות ובררות מחדל למפתח מסוים, למשל „opening_hours”,‏ „collection_times” ו־„service_times” או ערכים משלך. נוסף על כך, ניתן להגביל את היכולת להחיל תבנית על איזור ומזהה מסוים, בדרך כלל תגית ברמה עליונה של OSM (למשל amenity=restaurant).</p>
 <p>באופן טבעי ניתן להרכיב ערך שעות פתיחה מאפשר, אך אנו ממליצים להשתמש באחת מהתבניות הקיימות כנקודת התחלה.</p>
 <p>אם נטען ערך קיים של שעות פתיחה, מתבצע ניסיון לתקן אותו אוטומטית כדי להתאים למפרט שעות הפתיחה. אם פעולה כזו אינה אפשרית המיקום בקירוב בו התרחשה השגיאה יודגש בתצוגה של ערכי שעות הפתיחה הגולמיים ותהיה לך אפשרות לנסות ולתקן זאת ידנית. בערך ברבע מערכי שעות הפתיחה במסד הנתונים של OpenStreetMap יש תקלות אך פחות מ־10% אינן ניתנות לתיקון, יש לעיין בערך <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a> (מנתח שעות פתיחה) לקבלת מידע נוסף על אילו סטיות מהמפרט נסבלות.</p>
 <h3 id="_2">כפתור תפריט ראשי<a class="headerlink" href="#_2" title="Permanent link">#</a></h3>
@@ -577,14 +581,14 @@
 <li><strong>טעינה מקובץ (החלפה)</strong>: טעינת תבניות מקובץ שמחליפה את התוכן הנוכחי של מסד הנתונים.</li>
 <li><strong>טעינה מקובץ</strong>: טעינת תבניות מקובץ תוך שימור התכנים הנוכחיים.</li>
 </ul>
-<h4 id="save-and-edit-template-dialogs">Save and edit template dialogs<a class="headerlink" href="#save-and-edit-template-dialogs" title="Permanent link">#</a></h4>
-<p>The dialog allows you to set</p>
+<h4 id="_8">לשמור ולערוך חלוניות תבניות<a class="headerlink" href="#_8" title="Permanent link">#</a></h4>
+<p>החלונית מאפשרת לך להגדיר</p>
 <ul>
-<li><strong>Name</strong> a descriptive name for the template.</li>
-<li><strong>Default</strong> if checked this will be consider as a default template (typically further constrained by the other fields).</li>
-<li><strong>Key</strong> the key this template is relevant for, if set to <em>Custom key</em> you can add a non-standard value in the field below. The key values support SQL wild cards, that is <em>%</em> matches zero or more characters, <em>_</em> matches a single character. Both wild card characters can be escaped with <em>\</em> for literal matches.</li>
-<li><strong>Region</strong> the region the template is applicable to.</li>
-<li><strong>Object</strong> an application specific string to use for matching.</li>
+<li><strong>שם</strong> שם ייצוגי לתבנית.</li>
+<li><strong>בררת מחדל</strong> אם מסומן, זאת תיחשב לתבנית בררת המחדל (בדרך כלל מקובע אף יותר על ידי השדות האחרים).</li>
+<li><strong>מפתח</strong> המפתח שהתבנית הזו מתאימה לו, אם מוגדר לכדי <em>מפתח אישי</em> אפשר להוסיף ערך מחוץ לתקן בשדה שלהלן. ערכי המפתח תומכים בתווים כוללניים של SQL, כאשר <em>%</em> לוכד אפס תווים או יותר, <em>_</em> לוכד תו יחיד. את שני התווים הכוללניים אפשר להחריג באמצעות <em>\</em> ללכידה כפי שהם.</li>
+<li><strong>אזור</strong> האזור עליו חלה התבנית.</li>
+<li><strong>פריט</strong> מחרוזת ייעודית ליישום לשימוש עבור התאמה.</li>
 </ul></div>
                     
             </div>
@@ -593,7 +597,7 @@
         <footer class="col-md-12">
             <hr>
 	    <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 18.1.0 </p>
+	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 19.0.0 </p>
         </footer>
         <script>
             var base_url = "../../..",

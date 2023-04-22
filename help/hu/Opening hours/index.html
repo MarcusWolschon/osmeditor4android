@@ -55,6 +55,10 @@
 </li>
                                     
 <li>
+    <a href="../../en/19.0.0%20Release%20notes/" class="dropdown-item">19.0.0 Release notes</a>
+</li>
+                                    
+<li>
     <a href="../../en/18.1.0%20Release%20notes/" class="dropdown-item">18.1.0 Release notes</a>
 </li>
                                     
@@ -369,7 +373,7 @@
 <p><em>Ez a dokumentáció ideiglenes, és dolgozunk rajta</em></p>
 <h2 id="a-nyitvatartas-szerkeszto-hasznalata">A nyitvatartás-szerkesztő használata<a class="headerlink" href="#a-nyitvatartas-szerkeszto-hasznalata" title="Permanent link">#</a></h2>
 <p>A szokásos munkamenet szerint a szerkesztett térképelemnek vagy már van egy nyitva tartást tartalmazó címkéje (opening_hours, service_times vagy collection_times), vagy az előbeállításnak a térképelemre történő újraalkalmazásával nyithat egy üres nyitva tartási mezőt. Ha a mezőt kézzel kell hozzáadnia és Vespuccit használ, akkor a kulcsot megadhatja a részletes adatok oldalán, majd visszakapcsolhat az űrlapalapú fülre a szerkesztéshez. Ha úgy véli, hogy a nyitva tartási címkének az előbeállításban is szerepelnie kellene, kérjük, nyisson egy kérdést (issue) a szerkesztőjéhez.</p>
-<p>If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for specific key, for example "opening_hours", "collection_times" and "service_times" or custom values. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tag (for example amenity=restaurant). </p>
+<p>Ha meghatározott egy alapértelmezett sablont (ezt a „Sablonok kezelése” menüpontban teheti meg), akkor az automatikusan be fog töltődni, amikor a szerkesztő egy üres értékkel indul. A „Sablon betöltése” funkcióval bármilyen sablont betölthet, a „Sablon mentése” menüvel pedig sablonként elmentheti az adott értéket. Például külön sablonokat és alapértelmezéseket határozhat meg az „opening_hours”, a „collection_times” és a „service_times” kulcsokra. Továbbá a sablon alkalmazhatóságát korlátozhatja egy régióra és egy adott azonosítóra, jellemzően egy felső szintű OSM-címkére (például amenity=restaurant). </p>
 <p>Természetesen a semmiből is elkezdheted összeállítani a nyitva tartást, azonban azt talácsoljuk, hogy kiindulási pontként használd valamelyik sablont.</p>
 <p>Amikor egy meglévő nyitva tartás betöltődik, akkor történik egy automatikus javítási kísérlet, hogy megfeleljen a nyitva tartási idők specifikációjának. Ha ez nem lehetséges, akkor a hiba körülbelüli helye kiemelődik a nyers nyitva tartás kijelzőjén, és megpróbálhatod kézzel kijavítani. Az OpenStreetMap adatbázisában a nyitva tartási értékek mintegy negyede hibás, azonban csak kevesebb mint 10% -uk nem javítható. A specifikációtól való megtűrt eltérések: <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a></p>
 <h3 id="fomenu-gomb">Főmenü gomb<a class="headerlink" href="#fomenu-gomb" title="Permanent link">#</a></h3>
@@ -453,14 +457,14 @@
 <li><strong>Betöltés fájlból (csere)</strong>: egy fájlból betölti a sablonokat, és ezzel lecseréli az adatbázis jelenlegi tartalmát.</li>
 <li><strong>Betöltés fájlból</strong>: egy fájlból betölti a sablonokat miközben a jelenlegi tartalom is megmarad.</li>
 </ul>
-<h4 id="save-and-edit-template-dialogs">Save and edit template dialogs<a class="headerlink" href="#save-and-edit-template-dialogs" title="Permanent link">#</a></h4>
-<p>The dialog allows you to set</p>
+<h4 id="sablonparbeszedek-mentese-es-szerkesztese">Sablonpárbeszédek mentése és szerkesztése<a class="headerlink" href="#sablonparbeszedek-mentese-es-szerkesztese" title="Permanent link">#</a></h4>
+<p>A párbeszéddel beállíthatja a következőket:</p>
 <ul>
-<li><strong>Name</strong> a descriptive name for the template.</li>
-<li><strong>Default</strong> if checked this will be consider as a default template (typically further constrained by the other fields).</li>
-<li><strong>Key</strong> the key this template is relevant for, if set to <em>Custom key</em> you can add a non-standard value in the field below. The key values support SQL wild cards, that is <em>%</em> matches zero or more characters, <em>_</em> matches a single character. Both wild card characters can be escaped with <em>\</em> for literal matches.</li>
-<li><strong>Region</strong> the region the template is applicable to.</li>
-<li><strong>Object</strong> an application specific string to use for matching.</li>
+<li><strong>Név</strong>: a sablon leíró neve.</li>
+<li><strong>Alapértelmezett</strong>: ha be vanjelölve, akkor ez lesz az alapértelmezett sablon (jellemzően a többi mező által korlátozva).</li>
+<li><strong>Kulcs</strong> az a kulcs, amelyre ez a sablon vonatkozik. Ha <em>Egyéni kulcs</em> értékre van állítva, hozzáadhat egy nem szabványos értéket az alábbi mezőben. A kulcsérték támogatja az SQL helyettesítő karaktereit, vagyis a <em>%</em> nulla vagy több karakternek felel meg, a <em>_</em> pedig egyetlen karakternek. A szó szerinti egyezések érdekében mindkét helyettesítő karakter semlegesíthető a <em>\</em> karakterrel.</li>
+<li><strong>Régió</strong>: az a térség, amelyre a sablon vonatkozik.</li>
+<li><strong>Objektum</strong>: egy alkalmazásspecifikus karakterlánc a párosításhoz.</li>
 </ul></div> -->
 		    
                     	<div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
@@ -493,7 +497,7 @@
 <p><em>Ez a dokumentáció ideiglenes, és dolgozunk rajta</em></p>
 <h2 id="a-nyitvatartas-szerkeszto-hasznalata">A nyitvatartás-szerkesztő használata<a class="headerlink" href="#a-nyitvatartas-szerkeszto-hasznalata" title="Permanent link">#</a></h2>
 <p>A szokásos munkamenet szerint a szerkesztett térképelemnek vagy már van egy nyitva tartást tartalmazó címkéje (opening_hours, service_times vagy collection_times), vagy az előbeállításnak a térképelemre történő újraalkalmazásával nyithat egy üres nyitva tartási mezőt. Ha a mezőt kézzel kell hozzáadnia és Vespuccit használ, akkor a kulcsot megadhatja a részletes adatok oldalán, majd visszakapcsolhat az űrlapalapú fülre a szerkesztéshez. Ha úgy véli, hogy a nyitva tartási címkének az előbeállításban is szerepelnie kellene, kérjük, nyisson egy kérdést (issue) a szerkesztőjéhez.</p>
-<p>If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for specific key, for example "opening_hours", "collection_times" and "service_times" or custom values. Further you can limit applicability of a template to a region and a specific identifier, typically an OSM top-level tag (for example amenity=restaurant). </p>
+<p>Ha meghatározott egy alapértelmezett sablont (ezt a „Sablonok kezelése” menüpontban teheti meg), akkor az automatikusan be fog töltődni, amikor a szerkesztő egy üres értékkel indul. A „Sablon betöltése” funkcióval bármilyen sablont betölthet, a „Sablon mentése” menüvel pedig sablonként elmentheti az adott értéket. Például külön sablonokat és alapértelmezéseket határozhat meg az „opening_hours”, a „collection_times” és a „service_times” kulcsokra. Továbbá a sablon alkalmazhatóságát korlátozhatja egy régióra és egy adott azonosítóra, jellemzően egy felső szintű OSM-címkére (például amenity=restaurant). </p>
 <p>Természetesen a semmiből is elkezdheted összeállítani a nyitva tartást, azonban azt talácsoljuk, hogy kiindulási pontként használd valamelyik sablont.</p>
 <p>Amikor egy meglévő nyitva tartás betöltődik, akkor történik egy automatikus javítási kísérlet, hogy megfeleljen a nyitva tartási idők specifikációjának. Ha ez nem lehetséges, akkor a hiba körülbelüli helye kiemelődik a nyers nyitva tartás kijelzőjén, és megpróbálhatod kézzel kijavítani. Az OpenStreetMap adatbázisában a nyitva tartási értékek mintegy negyede hibás, azonban csak kevesebb mint 10% -uk nem javítható. A specifikációtól való megtűrt eltérések: <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a></p>
 <h3 id="fomenu-gomb">Főmenü gomb<a class="headerlink" href="#fomenu-gomb" title="Permanent link">#</a></h3>
@@ -577,14 +581,14 @@
 <li><strong>Betöltés fájlból (csere)</strong>: egy fájlból betölti a sablonokat, és ezzel lecseréli az adatbázis jelenlegi tartalmát.</li>
 <li><strong>Betöltés fájlból</strong>: egy fájlból betölti a sablonokat miközben a jelenlegi tartalom is megmarad.</li>
 </ul>
-<h4 id="save-and-edit-template-dialogs">Save and edit template dialogs<a class="headerlink" href="#save-and-edit-template-dialogs" title="Permanent link">#</a></h4>
-<p>The dialog allows you to set</p>
+<h4 id="sablonparbeszedek-mentese-es-szerkesztese">Sablonpárbeszédek mentése és szerkesztése<a class="headerlink" href="#sablonparbeszedek-mentese-es-szerkesztese" title="Permanent link">#</a></h4>
+<p>A párbeszéddel beállíthatja a következőket:</p>
 <ul>
-<li><strong>Name</strong> a descriptive name for the template.</li>
-<li><strong>Default</strong> if checked this will be consider as a default template (typically further constrained by the other fields).</li>
-<li><strong>Key</strong> the key this template is relevant for, if set to <em>Custom key</em> you can add a non-standard value in the field below. The key values support SQL wild cards, that is <em>%</em> matches zero or more characters, <em>_</em> matches a single character. Both wild card characters can be escaped with <em>\</em> for literal matches.</li>
-<li><strong>Region</strong> the region the template is applicable to.</li>
-<li><strong>Object</strong> an application specific string to use for matching.</li>
+<li><strong>Név</strong>: a sablon leíró neve.</li>
+<li><strong>Alapértelmezett</strong>: ha be vanjelölve, akkor ez lesz az alapértelmezett sablon (jellemzően a többi mező által korlátozva).</li>
+<li><strong>Kulcs</strong> az a kulcs, amelyre ez a sablon vonatkozik. Ha <em>Egyéni kulcs</em> értékre van állítva, hozzáadhat egy nem szabványos értéket az alábbi mezőben. A kulcsérték támogatja az SQL helyettesítő karaktereit, vagyis a <em>%</em> nulla vagy több karakternek felel meg, a <em>_</em> pedig egyetlen karakternek. A szó szerinti egyezések érdekében mindkét helyettesítő karakter semlegesíthető a <em>\</em> karakterrel.</li>
+<li><strong>Régió</strong>: az a térség, amelyre a sablon vonatkozik.</li>
+<li><strong>Objektum</strong>: egy alkalmazásspecifikus karakterlánc a párosításhoz.</li>
 </ul></div>
                     
             </div>
@@ -593,7 +597,7 @@
         <footer class="col-md-12">
             <hr>
 	    <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 18.1.0 </p>
+	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 19.0.0 </p>
         </footer>
         <script>
             var base_url = "../../..",
