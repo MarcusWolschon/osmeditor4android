@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.3.1" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,building:part,cemetery,club,disused:amenity,disused:leisure,disused:man_made,golf,hazard,noexit,disused:shop,ford,indoor,playground,police,public_transport,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,telecom">
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.4.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,building:part,cemetery,club,disused:amenity,disused:leisure,disused:man_made,golf,hazard,noexit,disused:shop,ford,indoor,playground,police,public_transport,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,telecom">
 <!--
     Icons have been derived from mainly from
   
@@ -277,7 +277,7 @@
             <list_entry value="zebra" short_description="Zebra"/>
             <list_entry value="zebra:double" short_description="Double zebra"/>
             <list_entry value="zebra:paired" short_description="Paired zebra"/>
-            <list_entry value="zebra:bicolor" short_description="Bicolor zebra"/>
+            <list_entry value="zebra:bicolour" short_description="Bicolour zebra"/>
             <list_entry value="ladder" short_description="Ladder"/>
             <list_entry value="ladder:skewed" short_description="Skewed ladder"/>
             <list_entry value="ladder:paired" short_description="Paired ladder"/>
@@ -1638,9 +1638,12 @@
     <chunk id="backrest">
         <check key="backrest" text="Backrest"/>
     </chunk>
+    <chunk id="intermittent">
+        <check key="intermittent" text="Is the water body intermittent (doesn't permanently contain water)?" disable_off="true"/>
+    </chunk>
     <chunk id="water_body">
         <check key="salt" text="Salt Water" disable_off="true"/>
-        <check key="intermittent" text="Is the water body intermittent (doesn't permanently contain water)?" disable_off="true"/>
+        <reference ref="intermittent"/>
         <check key="tidal" text="In the tidal range" disable_off="true"/>
         <reference ref="wikipedia_wikidata"/>
         <reference ref="water_access"/>
@@ -1672,11 +1675,12 @@
         <label text="Authentication:"/>
         <checkgroup text="Authentication" columns="4">
             <check key="authentication:none" text="None" disable_off="true"/>
+            <check key="authentication:app" text="Mobile app" disable_off="true"/>
             <check key="authentication:phone_call" text="Phone call" disable_off="true"/>
             <check key="authentication:short_message" text="Short message" disable_off="true"/>
             <check key="authentication:nfc" text="NFC" disable_off="true"/>
+            <check key="authentication:membership_card" text="Membership card" disable_off="true"/>
         </checkgroup>
-        <combo key="authentication:membership_card" text="Membership card" values="yes"/>
         <space/>
         <optional>
             <combo key="voltage" text="Voltage" values="230,400"/>
@@ -3632,6 +3636,14 @@
             <reference ref="optional_name"/>
         </item> <!-- Basin -->
         <item name="Reservoir" icon="icons/png/water_reservoir_22110.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:natural=water"/>
+            <space/>
+            <key key="natural" value="water"/>
+            <key key="water" value="reservoir"/>
+            <combo key="reservoir_type" text="Type" values="evaporator,sewage,tailings,water_storage" display_values="Evaporator,Sewage,Tailings,Water storage"/>
+            <reference ref="optional_name"/>
+        </item> <!-- Reservoir -->
+        <item name="Reservoir" icon="icons/png/water_reservoir_22110.png" type="node,closedway,multipolygon" deprecated="true" preset_name_label="true">
             <link wiki="Tag:landuse=reservoir"/>
             <space/>
             <key key="landuse" value="reservoir"/>
@@ -3668,6 +3680,13 @@
             <text key="name" text="Name"/>
             <space/>
             <reference ref="water_body"/>
+        </item> <!-- Pond -->
+        <item name="Tailings Pond" icon="" type="closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:man_made=tailings_pond"/>
+            <key key="man_made" value="tailings_pond"/>
+            <space/>
+            <reference ref="intermittent"/>
+            <check key="hazard" text="Contaminated" value_on="contamination" disable_off="true"/>
         </item> <!-- Pond -->
         <item name="Other waterbodies" name_context="natural" icon="icons/png/water_waterbody.png" type="closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:natural=water"/>
@@ -9024,6 +9043,8 @@
                 <check key="monitoring:tide_gauge" text="Tide Level" disable_off="true"/>
                 <check key="monitoring:groundwater" text="Groundwater" disable_off="true"/>
                 <check key="monitoring:traffic" text="Traffic" disable_off="true"/>
+                <check key="monitoring:bicycle" text="Bicycles" disable_off="true"/>
+                <check key="monitoring:pedestrian" text="Pedestrians" disable_off="true"/>
                 <check key="monitoring:air_quality" text="Air Quality" disable_off="true"/>
                 <check key="monitoring:noise" text="Noise" disable_off="true"/>
                 <check key="monitoring:gps" text="GPS Signals" disable_off="true"/>
