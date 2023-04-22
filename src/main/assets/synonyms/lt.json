@@ -346,9 +346,6 @@
 "plotas",
 "Plotas"
 ],
-"attraction/big_wheel":[
-"Didelis ratas"
-],
 "attraction/carousel":[
 "Karuselė"
 ],
@@ -409,10 +406,6 @@
 ],
 "barrier/kissing_gate":[
 "Atsidarantys varteliai"
-],
-"barrier/lift_gate":[
-"pakeliami vartai",
-"Pakeliami vartai"
 ],
 "barrier/retaining_wall":[
 "Laikančioji siena"
@@ -581,9 +574,6 @@
 ],
 "building/stadium":[
 "Stadiono pastatas"
-],
-"building/static_caravan":[
-"Statiški mobilūs namai"
 ],
 "building/temple":[
 "Šventyklos pastatas"

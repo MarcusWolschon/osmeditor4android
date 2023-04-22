@@ -1972,12 +1972,6 @@
 "attraction/animal":[
 "Recinto de animais"
 ],
-"attraction/big_wheel":[
-"nora",
-"atracción",
-"Noria",
-"noria"
-],
 "attraction/bumper_car":[
 "Coches de choque"
 ],
@@ -2210,9 +2204,6 @@
 ],
 "barrier/kissing_gate":[
 "Porta Kissing"
-],
-"barrier/lift_gate":[
-"Barreira levadiza"
 ],
 "barrier/retaining_wall":[
 "Muro de contención"
@@ -2585,9 +2576,6 @@
 ],
 "building/stadium":[
 "Edificio do estadio"
-],
-"building/static_caravan":[
-"Autocaravana estática"
 ],
 "building/temple":[
 "Edificio do templo"
@@ -3323,17 +3311,11 @@
 "highway/crossing":[
 "Paso de peóns"
 ],
-"highway/crossing/marked":[
-"Paso de peóns marcado"
-],
 "highway/crossing/unmarked":[
 "peonil",
 "Paso de peóns sen marcar",
 "peonal",
 "paso de peóns sen marcar"
-],
-"highway/crossing/zebra":[
-"Paso de peóns marcado"
 ],
 "highway/cycleway":[
 "camiño",
@@ -3366,9 +3348,6 @@
 "bicicleta",
 "peonal",
 "ciclismo"
-],
-"highway/cycleway/crossing/marked":[
-"Paso de bicicletas marcado"
 ],
 "highway/cycleway/crossing/unmarked":[
 "cruzamento de senda ciclista",
@@ -7244,9 +7223,6 @@
 ],
 "shop/pet":[
 "Tenda de mascotas"
-],
-"shop/pet_grooming":[
-"Tenda de coidado de animais"
 ],
 "shop/photo":[
 "Tenda de fotografía"

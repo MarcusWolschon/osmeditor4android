@@ -4062,19 +4062,6 @@
 "chuong cop",
 "vườn thú"
 ],
-"attraction/big_wheel":[
-"du quay dung",
-"vong quay mat troi",
-"vòng quay mặt trời",
-"đu quay đứng",
-"vòng quay quan sát",
-"vong quay quan sat",
-"Vòng Đu quay",
-"vòng quay ferris",
-"vòng đu quay",
-"vong du quay",
-"vong quay ferris"
-],
 "attraction/bumper_car":[
 "Xe Điện đụng",
 "xe dien dung",
@@ -4370,14 +4357,6 @@
 "cua hang rao chan trau bo",
 "Cửa Hàng rào Chắn Trâu bò",
 "cửa hàng rào chắn trâu bò"
-],
-"barrier/lift_gate":[
-"rào chắn đóng mở",
-"rao chan dong mo",
-"Rào chắn Đóng mở"
-],
-"barrier/log":[
-"Cây Đổ"
 ],
 "barrier/motorcycle_barrier":[
 "chướng ngại mô-tô",
@@ -4908,13 +4887,6 @@
 "toa nha svd",
 "Kiến trúc Sân vận động",
 "tòa nhà svđ"
-],
-"building/static_caravan":[
-"Nhà Lưu động để Một Chỗ",
-"nha di dong de mot cho",
-"nha luu dong de mot cho",
-"nhà di động để một chỗ",
-"nhà lưu động để một chỗ"
 ],
 "building/sty":[
 "chuong lon",
@@ -5802,6 +5774,26 @@
 "còi tầm",
 "còi báo"
 ],
+"emergency/water_reservoir":[
+"hồ chứa nước cứu hỏa",
+"hồ chứa nước chữa cháy",
+"hồ chứa nước phòng cháy",
+"ho chua nuoc phong chay",
+"hồ chứa nước cứu hoả",
+"ho chua nuoc cuu hoa",
+"ho chua nuoc chua chay",
+"Hồ Chứa Nước Cứu hỏa"
+],
+"emergency/water_reservoir_covered":[
+"hồ chứa nước cứu hỏa ngầm",
+"Hồ Chứa Nước Cứu hỏa Ngầm",
+"hồ chứa nước chữa cháy ngầm",
+"hồ chứa nước phòng cháy ngầm",
+"ho chua nuoc cuu hoa ngam",
+"hồ chứa nước cứu hoả ngầm",
+"ho chua nuoc phong chay ngam",
+"ho chua nuoc chua chay ngam"
+],
 "emergency/water_tank":[
 "thung nuoc chua chay",
 "thùng nước cứu hỏa",
@@ -6259,9 +6251,6 @@
 "highway/crossing":[
 "Lối Băng qua Đường"
 ],
-"highway/crossing/marked":[
-"Vạch Qua đường"
-],
 "highway/crossing/traffic_signals":[
 "vạch qua đường có đèn tín hiệu",
 "vach qua duong co den canh bao",
@@ -6273,18 +6262,12 @@
 "loi qua duong co den tin hieu",
 "Lối Qua đường có Đèn Cảnh báo"
 ],
-"highway/crossing/uncontrolled":[
-"Vạch Qua đường"
-],
 "highway/crossing/unmarked":[
 "Lối Qua đường Không có Vạch",
 "lối qua đường không có vạch",
 "loi bang qua duong khong co vach",
 "lối băng qua đường không có vạch",
 "loi qua duong khong co vach"
-],
-"highway/crossing/zebra":[
-"Vạch Qua đường"
 ],
 "highway/cycleway":[
 "đường mòn xe đạp",
@@ -6311,9 +6294,6 @@
 "Lối Đi bộ & Xe đạp Qua đường",
 "lối đi bộ và xe đạp qua đường",
 "loi di bo va xe dap qua duong"
-],
-"highway/cycleway/crossing/marked":[
-"Vạch Xe đạp Qua đường"
 ],
 "highway/cycleway/crossing/unmarked":[
 "loi bang qua duong danh cho xe dap khong co vach",
@@ -6667,20 +6647,18 @@
 "dan sinh",
 "duong dan sinh",
 "dân sinh",
-"ngo dan cu",
-"ngõ dân cư",
+"duong nho",
+"đường nhỏ dân sinh",
+"duong nho dan cu",
 "dan cu",
 "đường dân cư",
 "duong dan cu",
-"ngõ dân sinh",
+"đường nhỏ dân cư",
+"đường nhỏ",
+"duong nho dan sinh",
 "đường dân sinh",
-"ngo dan sinh",
-"ngo",
-"dân cư",
-"Ngõ Dân cư",
-"ngõ",
-"kiệt",
-"kiet"
+"Đường Nhỏ Dân cư",
+"dân cư"
 ],
 "highway/rest_area":[
 "tram thong tin",
@@ -7124,11 +7102,8 @@
 "Bùng binh ở Đường cùng"
 ],
 "highway/unclassified":[
-"ngo",
-"ngõ",
-"Ngõ",
-"kiệt",
-"kiet"
+"đường nhỏ",
+"Đường Nhỏ"
 ],
 "historic":[
 "Nơi Lịch sử",
@@ -8281,19 +8256,6 @@
 "san go crike",
 "sân bóng gậy",
 "san co cricket"
-],
-"leisure/pitch/equestrian":[
-"clb cưỡi ngựa",
-"cau lac bo cuoi ngua",
-"cau lac bo ngua",
-"câu lạc bộ ngựa",
-"clb ngựa",
-"clb ngua",
-"Sân Cưỡi ngựa",
-"sân cưỡi ngựa",
-"câu lạc bộ cưỡi ngựa",
-"clb cuoi ngua",
-"san cuoi ngua"
 ],
 "leisure/pitch/field_hockey":[
 "san hockey tren co",
@@ -13454,19 +13416,6 @@
 "cửa hàng vật nuôi",
 "Tiệm Vật nuôi",
 "cửa hiệu thú vật"
-],
-"shop/pet_grooming":[
-"tỉa lông chó",
-"dich vu tia long",
-"tia long thu cung",
-"Dịch vụ Tỉa lông",
-"tia long meo",
-"dịch vụ tỉa lông",
-"tỉa lông mèo",
-"tia long cho",
-"tỉa lông thú cưng",
-"tỉa lông ngựa",
-"tia long ngua"
 ],
 "shop/photo":[
 "cửa hàng nhiếp ảnh",

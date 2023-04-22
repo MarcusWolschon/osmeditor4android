@@ -3,7 +3,8 @@
 "Adres İnterpolasyonu"
 ],
 "address":[
-"adres",
+"konum",
+"bulunak",
 "Adres"
 ],
 "advertising/billboard":[
@@ -823,6 +824,9 @@
 "amenity/theatre/type/amphi":[
 "Amfitiyatro"
 ],
+"amenity/toilets":[
+"tuvalet"
+],
 "amenity/toilets/disposal/flush":[
 "Alafranga tuvaletler"
 ],
@@ -976,10 +980,6 @@
 "attraction/animal":[
 "Hayvan Muhafazası"
 ],
-"attraction/big_wheel":[
-"dönme dolap",
-"Dönme Dolap"
-],
 "attraction/bumper_car":[
 "Çarpışan Arabalar"
 ],
@@ -1116,8 +1116,10 @@
 "sadece i̇nsanlar i̇çin giriş kapısı"
 ],
 "barrier/lift_gate":[
-"Asansör Kapı",
-"asansör kapı"
+"bariyer",
+"yol bariyeri",
+"Bom Bariyeri",
+"turnike"
 ],
 "barrier/retaining_wall":[
 "İstinat Duvarı",
@@ -1223,7 +1225,8 @@
 "Bina İnşaatı"
 ],
 "building/cowshed":[
-"Ahır"
+"Ahır",
+"mandıra"
 ],
 "building/detached":[
 "Müstakil Ev",
@@ -1341,10 +1344,6 @@
 "Stadyum",
 "stadyum"
 ],
-"building/static_caravan":[
-"Karavan",
-"karavan"
-],
 "building/sty":[
 "Domuz Ahırı"
 ],
@@ -1413,6 +1412,9 @@
 "craft/bookbinder":[
 "ciltçi",
 "Ciltçi"
+],
+"craft/brewery":[
+"El Yapımı Bira İşletmesi"
 ],
 "craft/carpenter":[
 "dülger",
@@ -1825,6 +1827,16 @@
 "highway/bus_stop":[
 "Otobüs Durağı"
 ],
+"highway/busway":[
+"otobüs yolu",
+"Otobüs Güzerhâhı",
+"otobüs hattı"
+],
+"highway/construction":[
+"yol i̇nşaatı",
+"yol çalışması",
+"Yapım Aşamasında Yol"
+],
 "highway/corridor":[
 "koridor",
 "geçit",
@@ -1833,33 +1845,51 @@
 "highway/crossing":[
 "Geçit"
 ],
-"highway/crossing/marked":[
-"İşaretli Yaya Geçidi"
+"highway/crossing/uncontrolled":[
+"i̇şaretlenmiş yaya geçidi",
+"zebra çizgili yaya geçidi",
+"zebra desenli yaya geçidi",
+"İşaretli Yaya Geçidi",
+"yaya geçidi",
+"sinyalizasyonlu yaya geçidi"
 ],
 "highway/crossing/unmarked":[
 "İşaretsiz Yaya Geçidi"
-],
-"highway/crossing/zebra":[
-"İşaretli Yaya Geçidi"
 ],
 "highway/cycleway":[
 "Bisiklet Yolu",
 "bisiklet yolu"
 ],
 "highway/cycleway/bicycle_foot":[
-"Bisiklet & Yaya Yolu"
+"yaya yolu",
+"bisikletli yolu",
+"Bisiklet ve Yaya Yolu",
+"bisiklet yolu"
 ],
 "highway/cycleway/crossing":[
 "Bisiklet Geçidi"
 ],
 "highway/cycleway/crossing/bicycle_foot":[
-"Bisiklet ve Yaya Geçidi"
+"çok amaçlı geçit",
+"bisiklet geçidi",
+"Bisiklet ve Yaya Geçidi",
+"yaya geçidi"
 ],
-"highway/cycleway/crossing/marked":[
+"highway/cycleway/crossing/traffic_signals":[
+"trafik lambalı bisiklet geçidi",
+"trafik i̇şaretli bisiklet geçidi",
+"Trafik Lambası Olan Bisiklet Geçidi"
+],
+"highway/cycleway/crossing/uncontrolled":[
+"zebra çizgili bisiklet geçidi",
+"i̇şaretlenmiş bisiklet geçidi",
 "İşaretli Bisiklet Geçidi"
 ],
 "highway/cycleway/crossing/unmarked":[
 "İşaretsiz Bisiklet Geçidi"
+],
+"highway/cycleway/moped_link-NL":[
+"Moped Bağlantı Yolu"
 ],
 "highway/elevator":[
 "asansör",
@@ -1867,6 +1897,9 @@
 ],
 "highway/elevator_line":[
 "Eğimli Asansör"
+],
+"highway/emergency_access_point":[
+"Acil erişim notası"
 ],
 "highway/emergency_bay":[
 "Acil Duruş Yeri"
@@ -1887,6 +1920,9 @@
 ],
 "highway/footway/sidewalk":[
 "Kaldırım"
+],
+"highway/footway/traffic_island":[
+"Dönüş adası"
 ],
 "highway/give_way":[
 "yol ver i̇şareti",
@@ -1960,7 +1996,7 @@
 ],
 "highway/residential":[
 "mahalle arası yol",
-"Yerleşim Yeri Yolu",
+"İmar Yolu",
 "yerleşim yeri yolu"
 ],
 "highway/rest_area":[
@@ -2010,6 +2046,9 @@
 "Park Yolu",
 "park yolu"
 ],
+"highway/service_area":[
+"Servis alanı"
+],
 "highway/services":[
 "Servis Alanı",
 "servis alanı",
@@ -2019,6 +2058,9 @@
 "Hız Kontrol Kamerası",
 "radar kamerası",
 "hız kontrol kamerası"
+],
+"highway/speed_display":[
+"Hız radarı"
 ],
 "highway/steps":[
 "merdiven",
@@ -2049,6 +2091,13 @@
 ],
 "highway/toll_gantry":[
 "Açık Yol Geçiş Ücreti"
+],
+"highway/track":[
+"bakımsız patika",
+"bakımsız araç yolu",
+"bakımsız yol",
+"Dağ Aracı / Karadan Erişim Yolu",
+"tarım yolu"
 ],
 "highway/traffic_mirror":[
 "Trafik Aynası",
@@ -2225,6 +2274,9 @@
 "landuse/construction":[
 "İnşaat Alanı"
 ],
+"landuse/education":[
+"Eğitim kurumları yerleşkesi"
+],
 "landuse/farm":[
 "Tarım Alanı"
 ],
@@ -2264,6 +2316,9 @@
 "Sanayi Bölgesi",
 "sanayi bölgesi",
 "sanayi alanı"
+],
+"landuse/industrial/depot":[
+"Depo"
 ],
 "landuse/industrial/scrap_yard":[
 "Hurdalık"
@@ -2323,10 +2378,16 @@
 "landuse/residential/apartments":[
 "Apartman Kompleksi"
 ],
+"landuse/residential/trailer_park":[
+"Karavan parkı"
+],
 "landuse/retail":[
 "Çarşı",
 "çarşı",
 "esnaf bölgesi"
+],
+"landuse/salt_pond":[
+"Tuzla"
 ],
 "landuse/vineyard":[
 "bağ",
@@ -2495,6 +2556,9 @@
 "amerikan futbol sahası",
 "Amerikan Futbol Sahası"
 ],
+"leisure/pitch/archery":[
+"Okçuluk poligonu"
+],
 "leisure/pitch/australian_football":[
 "Avustralya Futbol Sahası"
 ],
@@ -2526,8 +2590,16 @@
 "Kriket Sahası",
 "kriket sahası"
 ],
+"leisure/pitch/equestrian":[
+"Atçılık sahası"
+],
 "leisure/pitch/field_hockey":[
 "Çim Hokeyi Sahası"
+],
+"leisure/pitch/futsal":[
+"Futsal sahası",
+"salon futbolu
+beşe beş futbol"
 ],
 "leisure/pitch/horseshoes":[
 "Nal Çukuru"
@@ -2592,6 +2664,12 @@
 "leisure/sports_centre/climbing":[
 "Tırmanma Salonu"
 ],
+"leisure/sports_centre/horse_racing":[
+"Hipodrom"
+],
+"leisure/sports_centre/shooting":[
+"Sportif atış poligonu"
+],
 "leisure/sports_centre/swimming":[
 "yüzme havuzu merkezi",
 "Yüzme Havuzu Merkezi"
@@ -2617,6 +2695,9 @@
 "leisure/track/cycling":[
 "Bisiklet Parkuru"
 ],
+"leisure/track/horse_racing":[
+"At yarışları pisti"
+],
 "leisure/track/running":[
 "Koşu Parkuru"
 ],
@@ -2630,6 +2711,9 @@
 "line":[
 "çizgi",
 "Çizgi"
+],
+"man_made":[
+"İnsan Yapımı Özellik"
 ],
 "man_made/adit":[
 "Tünel Girişi",
@@ -2743,6 +2827,9 @@
 "man_made/mast/communication/television":[
 "Televizyon Yayın Direği"
 ],
+"man_made/mast/lighting":[
+"Aydınlatma direği"
+],
 "man_made/mineshaft":[
 "Maden kuyusu"
 ],
@@ -2794,6 +2881,9 @@
 ],
 "man_made/street_cabinet":[
 "Sokak Dolabı"
+],
+"man_made/street_cabinet/postal_service":[
+"Posta kutusu"
 ],
 "man_made/surveillance":[
 "güvenlik direği",
@@ -3828,6 +3918,10 @@
 "Bahis Merkezi",
 "bahis merkezi"
 ],
+"shop/books":[
+"kitapçı",
+"Kitapçı"
+],
 "shop/boutique":[
 "Butik Mağaza"
 ],
@@ -3941,6 +4035,10 @@
 "shop/dairy":[
 "Süt Mağazası",
 "süt mağazası"
+],
+"shop/deli":[
+"şarküteri",
+"Şarküteri"
 ],
 "shop/department_store":[
 "mağaza",
@@ -4156,6 +4254,10 @@
 "müzik aletleri mağazası",
 "Müzik Aletleri Mağazası"
 ],
+"shop/newsagent":[
+"Gazete Bayii",
+"gazete bayii"
+],
 "shop/nutrition_supplements":[
 "enerji takviye ürünleri mağazası",
 "gıda takviye ürünleri mağazası",
@@ -4192,9 +4294,6 @@
 "evcil hayvan mağazası",
 "petşop",
 "Evcil Hayvan Mağazası"
-],
-"shop/pet_grooming":[
-"Evcil Hayvan Bakım Mağazası"
 ],
 "shop/photo":[
 "Fotoğrafçı",
@@ -4325,6 +4424,10 @@
 "elektrikli süpürge mağazası",
 "Elektrikli Süpürge Mağazası"
 ],
+"shop/variety_store":[
+"İndirim Mağazası",
+"1 tl mağazası"
+],
 "shop/video":[
 "Film - Video Mağazası",
 "film - video mağazası"
@@ -4374,6 +4477,12 @@
 ],
 "tourism":[
 "Turizm Özelliği"
+],
+"tourism/alpine_hut":[
+"baraka",
+"dağ evi",
+"Dağ Köşkü",
+"dağ kulübesi"
 ],
 "tourism/apartment":[
 "misafir apartmanı",
@@ -4614,6 +4723,11 @@
 ],
 "type/route/aerialway":[
 "Araç Güzergahı"
+],
+"type/route/bicycle":[
+"bisiklet güzergahı",
+"bisiklet rotası",
+"Bisiklet Rotası"
 ],
 "type/route/bus":[
 "Otobüs Güzergahı",

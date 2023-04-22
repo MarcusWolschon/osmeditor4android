@@ -496,13 +496,6 @@
 "area":[
 "Apgabals"
 ],
-"attraction/big_wheel":[
-"atrakcija",
-"lielais rats",
-"rats",
-"bruciens",
-"Panorāmas rats"
-],
 "attraction/bungee_jumping":[
 "lekšana",
 "gumija",
@@ -585,12 +578,6 @@
 "dubultie",
 "abpusējie",
 "dubultvārti"
-],
-"barrier/lift_gate":[
-"bomis",
-"paceļamie",
-"Lifta ieeja",
-"bomja"
 ],
 "barrier/retaining_wall":[
 "Stiprinājuma siena"

@@ -35,16 +35,22 @@
 "Gondolheis"
 ],
 "aerialway/goods":[
-"Gods Luftvei"
+"Luftvei for gods"
 ],
 "aerialway/j-bar":[
-"J-Bar Heis"
+"J-krokheis"
+],
+"aerialway/magic_carpet":[
+"Rullebåndheis"
 ],
 "aerialway/mixed_lift":[
-"Blandet HHHeis"
+"Blandet heis"
+],
+"aerialway/platter":[
+"Stolheis"
 ],
 "aerialway/pylon":[
-"Skiheis Tårn"
+"Tårn for skiheis"
 ],
 "aerialway/zip_line":[
 "Løypestreng"
@@ -64,8 +70,11 @@
 "aeroway/helipad":[
 "Helikopterlandingsplass"
 ],
+"aeroway/jet_bridge":[
+"Ombordstigningsbro"
+],
 "aeroway/parking_position":[
-"Luftfartøy Parkering Posisjon"
+"Parkeringsposisjon for luftfartøy"
 ],
 "aeroway/runway":[
 "Rullebane"
@@ -92,7 +101,7 @@
 "Dyrehjem"
 ],
 "amenity/arts_centre":[
-"Kunst Senter"
+"Kunstsenter"
 ],
 "amenity/atm":[
 "Minibank"
@@ -104,7 +113,8 @@
 "Bar"
 ],
 "amenity/bar/lgbtq":[
-"LGBTQ+ Bar"
+"homsebar",
+"LHBTQ+-bar"
 ],
 "amenity/bbq":[
 "Grill"
@@ -116,7 +126,7 @@
 "Sykkelparkering"
 ],
 "amenity/bicycle_parking/building":[
-"Sykkelhotel"
+"Sykkelhotell"
 ],
 "amenity/bicycle_parking/lockers":[
 "Sykkelgarasje"
@@ -128,7 +138,7 @@
 "Sykkelutleie"
 ],
 "amenity/bicycle_repair_station":[
-"Sykkel Mekkestativ"
+"Sykkelservicestasjon"
 ],
 "amenity/biergarten":[
 "Ølhage"
@@ -144,6 +154,9 @@
 ],
 "amenity/cafe":[
 "Kafé"
+],
+"amenity/cafe/coffee_shop":[
+"Kaffehus"
 ],
 "amenity/car_rental":[
 "Bilutleie"
@@ -182,10 +195,10 @@
 "Samfunnshus"
 ],
 "amenity/community_centre/lgbtq":[
-"LGBTQ+ samfunnssenter"
+"LHBTQ+-samfunnssenter"
 ],
 "amenity/compressed_air":[
-"Komprimert Luft"
+"Trykkluft"
 ],
 "amenity/conference_centre":[
 "Konferansesenter"
@@ -194,7 +207,7 @@
 "Tinghus"
 ],
 "amenity/coworking_space":[
-"Medarbeider Rom"
+"Rom for medarbeider"
 ],
 "amenity/crematorium":[
 "Krematorium"
@@ -227,25 +240,31 @@
 "Hurtigmat"
 ],
 "amenity/fast_food/chicken":[
-"Kylling Hurtigmat"
+"Hurtigmat for kylling"
 ],
 "amenity/fast_food/donut":[
-"Donut Donut"
+"Hurtigmat for smultring"
+],
+"amenity/fast_food/fish_and_chips":[
+"Hurigmat for fish & chips"
+],
+"amenity/fast_food/hot_dog":[
+"Hurtigmat for pølse"
 ],
 "amenity/fast_food/ice_cream":[
-"iskrem Hurtigmat"
+"Hurtigmat for iskrem"
 ],
 "amenity/fast_food/kebab":[
-"Kebab Hurtigmat"
+"Hurtigmat for kebab"
 ],
 "amenity/fast_food/mexican":[
-"Meksikansk Hurtigmat"
+"Meksikansk hurtigmat"
 ],
 "amenity/fast_food/pizza":[
-"Pizza Hurtigmat"
+"Hurtigmat for pizza"
 ],
 "amenity/fast_food/sandwich":[
-"Sandwich Hurtigmat"
+"Hurtigmat for sandwich"
 ],
 "amenity/ferry_terminal":[
 "Fergekai"
@@ -281,7 +300,7 @@
 "Jakttårn"
 ],
 "amenity/ice_cream":[
-"Iskrem Butikk"
+"Iskrembutikk"
 ],
 "amenity/internet_cafe":[
 "Internettkafé"
@@ -325,6 +344,9 @@
 "amenity/nightclub":[
 "Nattklubb"
 ],
+"amenity/nightclub/lgbtq":[
+"LHBTQ+-nattklubb"
+],
 "amenity/nursing_home":[
 "Gamlehjem"
 ],
@@ -334,11 +356,14 @@
 "amenity/parking/multi-storey":[
 "Parkeringsbygg"
 ],
+"amenity/parking/park_ride":[
+"Innfartsparkering parkeringsplass"
+],
 "amenity/parking/underground":[
 "Underjordisk parkering"
 ],
 "amenity/parking_entrance":[
-"Parkeringshus Inngang / utgang"
+"Inn-/utkjøring parkeringshus"
 ],
 "amenity/parking_space":[
 "Parkeringsplass"
@@ -350,7 +375,7 @@
 "Betalingsterminal"
 ],
 "amenity/pharmacy":[
-"Apotek Disk"
+"Apotekdisk"
 ],
 "amenity/photo_booth":[
 "Fotokiosk"
@@ -365,7 +390,7 @@
 "Kristen kirke"
 ],
 "amenity/place_of_worship/christian/jehovahs_witness":[
-"Rikets sal Av Jehovas Vitner"
+"Rikets sal av Jehovas vitner"
 ],
 "amenity/place_of_worship/hindu":[
 "Hinduistisk tempel"
@@ -392,13 +417,13 @@
 "Politi"
 ],
 "amenity/polling_station":[
-"Fast Stemmeplass"
+"Fast stemmeplass"
 ],
 "amenity/post_box":[
-"Post innleveringspostkasse"
+"Innleveringspostkasse"
 ],
 "amenity/post_depot":[
-"Post Sorteringskontor"
+"Sorteringssenter"
 ],
 "amenity/post_office":[
 "Postkontor"
@@ -413,7 +438,8 @@
 "Irsk pub"
 ],
 "amenity/pub/lgbtq":[
-"LGBTQ+ Pub"
+"homsepub",
+"LHBTQ+-pub"
 ],
 "amenity/pub/microbrewery":[
 "Bryggeripub"
@@ -431,7 +457,7 @@
 "Resirkulering"
 ],
 "amenity/recycling/container/green_waste":[
-"Grønn Avfallscontainer"
+"Grønn avfallscontainer"
 ],
 "amenity/recycling_centre":[
 "Gjenvinningssenter"
@@ -443,7 +469,7 @@
 "Flyktningeleir"
 ],
 "amenity/research_institute":[
-"Forskningsinstitutt Grunn"
+"Grunn for forskningsinstitutt"
 ],
 "amenity/restaurant":[
 "Restaurant"
@@ -527,7 +553,7 @@
 "Røykeområde"
 ],
 "amenity/social_facility/ambulatory_care":[
-"Ambulatorisk Omsorg"
+"Ambulatorisk omsorg"
 ],
 "amenity/social_facility/food_bank":[
 "Matsentral"
@@ -566,7 +592,7 @@
 "Amfiteater"
 ],
 "amenity/toilets/disposal/flush":[
-"Spyl Toaletter"
+"Spyletoaletter"
 ],
 "amenity/townhall":[
 "Rådhus"
@@ -619,6 +645,12 @@
 "amenity/vending_machine/parking_tickets":[
 "Parkeringsautomat"
 ],
+"amenity/vending_machine/pizza":[
+"Pizzaautomat"
+],
+"amenity/vending_machine/public_transport_tickets":[
+"Billettautomat"
+],
 "amenity/vending_machine/sweets":[
 "Godteriautomat"
 ],
@@ -632,7 +664,7 @@
 "Søppelkonteiner"
 ],
 "amenity/water_point":[
-"Bobil Drikkevann"
+"Drikkevann for bobiler"
 ],
 "amenity/watering_place":[
 "Dyrevanningssted"
@@ -643,17 +675,17 @@
 "area":[
 "Areal"
 ],
+"area/footway":[
+"Gangvei-område"
+],
 "area/highway":[
-"Veieområde"
+"Veiområde"
 ],
 "attraction":[
 "Attraksjon"
 ],
 "attraction/animal":[
 "Dyreinnhegning"
-],
-"attraction/big_wheel":[
-"Pariserhjul"
 ],
 "attraction/bumper_car":[
 "Radiobil"
@@ -754,9 +786,6 @@
 "barrier/kerb/raised":[
 "Hevet kantstein"
 ],
-"barrier/lift_gate":[
-"Vippebom"
-],
 "barrier/retaining_wall":[
 "Støttemur"
 ],
@@ -785,7 +814,7 @@
 "Mur"
 ],
 "barrier/wall/noise_barrier":[
-"Støysperre"
+"Støyskjerm"
 ],
 "boundary":[
 "Grense"
@@ -798,6 +827,9 @@
 ],
 "building":[
 "Bygning"
+],
+"building/allotment_house":[
+"Kolonihagehus"
 ],
 "building/apartments":[
 "Leilighetsbygg"
@@ -818,7 +850,7 @@
 "Hytte"
 ],
 "building/carport":[
-"Carport"
+"Bilbås"
 ],
 "building/cathedral":[
 "Katedral"
@@ -853,6 +885,9 @@
 "building/farm_auxiliary":[
 "Gårdsbygg"
 ],
+"building/fire_station":[
+"Brannstasjonbygg"
+],
 "building/garage":[
 "Garasje"
 ],
@@ -885,6 +920,9 @@
 ],
 "building/kindergarten":[
 "Førskole / Barnehage (bygning)"
+],
+"building/manufacture":[
+"Industriell produksjonsbygning"
 ],
 "building/mosque":[
 "Moskébygning"
@@ -925,9 +963,6 @@
 "building/stadium":[
 "Stadionbyging"
 ],
-"building/static_caravan":[
-"Statisk campingvogn"
-],
 "building/temple":[
 "Tempelbygning"
 ],
@@ -938,7 +973,7 @@
 "Togstasjonsbygning"
 ],
 "building/transportation":[
-"Trasportbygning"
+"Transportbygning"
 ],
 "building/university":[
 "Universitetsbygning"
@@ -951,6 +986,9 @@
 ],
 "building_point":[
 "Bygning"
+],
+"cemetery/grave":[
+"Grav"
 ],
 "club":[
 "Klubb"
@@ -1103,16 +1141,16 @@
 "Vingård"
 ],
 "demolished/building":[
-"Nylig Revet Bygning"
+"Nylig revet bygning"
 ],
 "disused/amenity":[
-"Nedlagt Bekvemmelighet"
+"Nedlagt fasilitet"
 ],
 "disused/railway":[
-"Nedlagt Jernbane Funksjon"
+"Nedlagt jernbanerelatert egenskap"
 ],
 "disused/shop":[
-"Nedlagt Butikk"
+"Nedlagt butikk"
 ],
 "embankment":[
 "Dike"
@@ -1127,10 +1165,10 @@
 "Defibrillator"
 ],
 "emergency/designated":[
-"Dedikert Nødtilgang"
+"Dedikert nødtilgang"
 ],
 "emergency/fire_alarm":[
-"Brannalarm Telefonboks"
+"Brannalarm-telefonboks"
 ],
 "emergency/fire_extinguisher":[
 "Brannslukningsapparat"
@@ -1151,10 +1189,10 @@
 "Livvakt"
 ],
 "emergency/no":[
-"Nødtilgang Nei"
+"Nødtilgang nei"
 ],
 "emergency/official":[
-"Offisiell Nødadgang"
+"Nødtilgang offisiell"
 ],
 "emergency/phone":[
 "Nødtelefon"
@@ -1163,7 +1201,7 @@
 "Sirene"
 ],
 "emergency/yes":[
-"Nødstilgang Ja"
+"Nødtilgang ja"
 ],
 "entrance":[
 "Inngang / Utgang"
@@ -1173,6 +1211,9 @@
 ],
 "entrance/emergency_ward_entrance":[
 "Inngang til legevakt"
+],
+"entrance/main":[
+"Hovedinngang"
 ],
 "ford":[
 "Vadested"
@@ -1196,7 +1237,7 @@
 "Golfbanehull"
 ],
 "golf/path":[
-"Golf Gangvei"
+"Gangvei i golfbane"
 ],
 "golf/rough":[
 "Rough"
@@ -1243,17 +1284,26 @@
 "highway/bus_stop":[
 "Bussholdeplass"
 ],
+"highway/busway":[
+"Bussvei"
+],
+"highway/construction":[
+"Vei under bygging"
+],
 "highway/corridor":[
 "Innendørs korridor"
 ],
-"highway/crossing/marked":[
-"Fotgjengerovergang"
+"highway/crossing":[
+"Overgang"
+],
+"highway/crossing/traffic_signals":[
+"Fotgjengerovergang med fotgjengersignal"
+],
+"highway/crossing/uncontrolled":[
+"Gangfelt"
 ],
 "highway/crossing/unmarked":[
 "Tilrettelagt kryssing"
-],
-"highway/crossing/zebra":[
-"Fotgjengerovergang"
 ],
 "highway/cycleway":[
 "Sykkelvei"
@@ -1267,8 +1317,11 @@
 "highway/cycleway/crossing/bicycle_foot":[
 "Sykkel- og fotgjengerovergang"
 ],
-"highway/cycleway/crossing/marked":[
-"Merket Sykkelovergang"
+"highway/cycleway/crossing/traffic_signals":[
+"Sykkelkryssing med trafikklys"
+],
+"highway/cycleway/crossing/uncontrolled":[
+"Sykkelkryssing med merking"
 ],
 "highway/cycleway/crossing/unmarked":[
 "Umerket sykkelovergang"
@@ -1276,14 +1329,29 @@
 "highway/elevator":[
 "Heis"
 ],
+"highway/emergency_bay":[
+"Havarilomme"
+],
 "highway/footway":[
 "Gangvei"
 ],
 "highway/footway/conveying":[
 "Rullende fortau"
 ],
+"highway/footway/crossing":[
+"Fotgjengeroverang"
+],
+"highway/footway/crossing/uncontrolled":[
+"Gangfelt"
+],
+"highway/footway/crossing/unmarked":[
+"Tilrettelagt kryssing"
+],
 "highway/footway/sidewalk":[
 "Fortau"
+],
+"highway/footway/traffic_island":[
+"Trafikkøy for fotgjengere"
 ],
 "highway/give_way":[
 "Vikepliktskilt"
@@ -1320,11 +1388,11 @@
 "highway/primary":[
 "Primær hovedvei"
 ],
-"highway/primary_link":[
-"Primær lenke"
-],
 "highway/raceway":[
-"Motorsport Racerbane"
+"Racerbane for motorsport"
+],
+"highway/raceway/karting":[
+"Racerbane for gokart"
 ],
 "highway/residential":[
 "Boliggate"
@@ -1335,11 +1403,14 @@
 "highway/road":[
 "Ukjent vei"
 ],
+"highway/road/bridge":[
+"Ukjent veibru"
+],
 "highway/secondary":[
 "Sekundær hovedvei"
 ],
 "highway/secondary_link":[
-"Sekundær lenke"
+"Innfart"
 ],
 "highway/service":[
 "Stikkvei"
@@ -1381,7 +1452,10 @@
 "Tertiær hovedvei"
 ],
 "highway/tertiary_link":[
-"Tertiær lenke"
+"Utfart"
+],
+"highway/toll_gantry":[
+"Automastisk bomstasjon"
 ],
 "highway/traffic_mirror":[
 "Trafikkspeil"
@@ -1392,7 +1466,13 @@
 "highway/trailhead":[
 "Stihode"
 ],
+"highway/trunk":[
+"Stamvei"
+],
 "highway/turning_circle":[
+"Snuplass"
+],
+"highway/turning_loop":[
 "Snuplass"
 ],
 "highway/unclassified":[
@@ -1408,22 +1488,28 @@
 "Grensestein"
 ],
 "historic/building":[
-"Historisk Bygning"
+"Historisk bygning"
 ],
 "historic/castle":[
 "Slott"
 ],
 "historic/castle/fortress":[
-"Historisk Fort"
+"Historisk festning"
 ],
 "historic/castle/palace":[
-"palass"
+"Palass"
 ],
 "historic/city_gate":[
-"By Port"
+"Byport"
+],
+"historic/fort":[
+"Historisk fort"
 ],
 "historic/memorial":[
 "Minnesmerke"
+],
+"historic/memorial/plaque":[
+"Minnetavle"
 ],
 "historic/monument":[
 "Monument"
@@ -1441,7 +1527,7 @@
 "Innendørsegenskap"
 ],
 "indoor/door":[
-"Innendørs Dør"
+"Innendørs dør"
 ],
 "indoor/elevator":[
 "Innendørs heissjakt"
@@ -1450,10 +1536,10 @@
 "Rom"
 ],
 "indoor/stairs":[
-"Innendørs Trapperom"
+"Innendørs trapperom"
 ],
 "indoor/wall":[
-"Innendørs Vegg"
+"Innendørs vegg"
 ],
 "junction":[
 "Kryss"
@@ -1476,6 +1562,9 @@
 "landuse/commercial":[
 "Kommersielt område"
 ],
+"landuse/construction":[
+"Byggeplass"
+],
 "landuse/farm":[
 "Jordbruksland"
 ],
@@ -1489,7 +1578,7 @@
 "Blomsterseng"
 ],
 "landuse/forest":[
-"Forvaltet Skog"
+"Forvaltet skog"
 ],
 "landuse/grass":[
 "Gress"
@@ -1501,7 +1590,7 @@
 "Industrielt område"
 ],
 "landuse/industrial/scrap_yard":[
-"Søppeldynge"
+"Opphuggeri"
 ],
 "landuse/industrial/slaughterhouse":[
 "Slakteri"
@@ -1546,10 +1635,13 @@
 "Vingård"
 ],
 "landuse/winter_sports":[
-"Vintersport Område"
+"Vintersportområde"
 ],
 "leisure/adult_gaming_centre":[
 "Spillekasino"
+],
+"leisure/amusement_arcade":[
+"Spillehall"
 ],
 "leisure/beach_resort":[
 "Strandhotell"
@@ -1567,7 +1659,7 @@
 "Danseskole"
 ],
 "leisure/disc_golf_course":[
-"Disc Golf Bane"
+"Diskgolfbane"
 ],
 "leisure/dog_park":[
 "Hundepark"
@@ -1576,7 +1668,7 @@
 "Bålplass"
 ],
 "leisure/fishing":[
-"Fiske Plass"
+"Fiskeplass"
 ],
 "leisure/fitness_centre":[
 "Treningssenter"
@@ -1647,11 +1739,17 @@
 "leisure/pitch/cricket":[
 "Cricketbane"
 ],
+"leisure/pitch/paintball":[
+"Paintballbane"
+],
 "leisure/pitch/rugby_league":[
 "Rugby league-bane"
 ],
 "leisure/pitch/rugby_union":[
 "Rugby union-bane"
+],
+"leisure/pitch/shooting":[
+"Skytefelt"
 ],
 "leisure/pitch/skateboard":[
 "Skatepark"
@@ -1708,7 +1806,10 @@
 "Sykkelbane"
 ],
 "leisure/track/running":[
-"Løpe bane"
+"Løpebane"
+],
+"leisure/trampoline_park":[
+"Trampolinepark"
 ],
 "leisure/water_park":[
 "Utendørs badeland"
@@ -1716,11 +1817,17 @@
 "line":[
 "Linje"
 ],
+"man_made":[
+"Menneskeskapt objekt"
+],
 "man_made/adit":[
 "Stoll"
 ],
 "man_made/antenna":[
 "Antenne"
+],
+"man_made/beehive":[
+"Bikube"
 ],
 "man_made/breakwater":[
 "Molo"
@@ -1732,7 +1839,7 @@
 "Pipe"
 ],
 "man_made/clearcut":[
-"Nedhugget Skog"
+"Nedhugget skog"
 ],
 "man_made/courtyard":[
 "Gårdsplass"
@@ -1756,7 +1863,7 @@
 "Fyrtårn"
 ],
 "man_made/manhole":[
-"Mannhull"
+"Kum"
 ],
 "man_made/mast":[
 "Mast"
@@ -1834,7 +1941,7 @@
 "Obervasjonstårn"
 ],
 "man_made/tunnel":[
-"Tunell Område"
+"Tunnelområde"
 ],
 "man_made/wastewater_plant":[
 "Renseanlegg"
@@ -1857,11 +1964,14 @@
 "man_made/windmill":[
 "Vindmølle"
 ],
+"man_made/windpump":[
+"Vindpumpe"
+],
 "man_made/works":[
 "Fabrikk"
 ],
 "natural":[
-"Naturlig trekk"
+"Naturrelatert egenskap"
 ],
 "natural/bare_rock":[
 "Svaberg"
@@ -1939,7 +2049,7 @@
 "Basseng"
 ],
 "natural/water/canal":[
-"Kanal Område"
+"Kanalområde"
 ],
 "natural/water/lake":[
 "Innsjø"
@@ -1951,19 +2061,19 @@
 "Vannreservoir"
 ],
 "natural/water/river":[
-"Elv Område"
+"Elvområde"
 ],
 "natural/water/stream":[
-"Bekk Område"
+"Bekkområde"
 ],
 "natural/wetland":[
 "Myr"
 ],
 "natural/wetland/tidalflat":[
-"Flatt Tidalvann"
+"Flatt tidevann"
 ],
 "natural/wood":[
-"Naturlig Skog"
+"Naturskog"
 ],
 "noexit/yes":[
 "Ingen utgang"
@@ -2032,13 +2142,13 @@
 "Lege"
 ],
 "office/political_party":[
-"Politisk Parti Kontor"
+"Partikontor"
 ],
 "office/private_investigator":[
-"Privat Etterforskning Kontor"
+"Kontor for privat etterforskning"
 ],
 "office/religion":[
-"Religiøst Kontor"
+"Religiøst kontor"
 ],
 "office/research":[
 "Forskningskontor"
@@ -2059,13 +2169,13 @@
 "Reisebyrå"
 ],
 "office/yes":[
-"Office (Unspecified Type)"
+"Kontor (uspesifisert type)"
 ],
 "piste/downhill":[
 "Utforløype"
 ],
 "piste/downhill/halfpipe":[
-"Snøsport Half-Pipe"
+"Halfpipe"
 ],
 "piste/hike":[
 "Truger / Vintertursti"
@@ -2080,7 +2190,10 @@
 "Snøsportsti/ Piste"
 ],
 "piste/skitour":[
-"Tur Ski Sti"
+"Skitursti"
+],
+"piste/sleigh":[
+"Akebakke"
 ],
 "place":[
 "Sted"
@@ -2128,7 +2241,7 @@
 "Lekebru"
 ],
 "playground/climbingwall":[
-"Leke Klatrevegg"
+"Lekeklatrevegg"
 ],
 "playground/playhouse":[
 "Lekehus"
@@ -2154,11 +2267,14 @@
 "playground/swing":[
 "Huske"
 ],
+"playground/trampoline":[
+"Trampoline"
+],
 "point":[
 "Punkt"
 ],
 "polling_station":[
-"Midlertidig Stemme Plass"
+"Midlertidig stemmeplass"
 ],
 "power/generator":[
 "Strømgenerator"
@@ -2186,11 +2302,35 @@
 "strøm",
 "linje"
 ],
+"power/plant/source/coal":[
+"Kullkraftverk"
+],
+"power/plant/source/gas":[
+"Gasskraftverk"
+],
+"power/plant/source/hydro":[
+"Vannkraftverk"
+],
+"power/plant/source/method/photovoltaic":[
+"Solcellepark"
+],
 "power/plant/source/nuclear":[
 "Atomkraftverk"
 ],
+"power/plant/source/solar":[
+"Solkraftverk"
+],
+"power/plant/source/waste":[
+"Forbrenningsanlegg"
+],
+"power/plant/source/wind":[
+"Vindpark"
+],
 "power/pole":[
 "Høyspentmast"
+],
+"power/substation":[
+"Transformatorstasjon"
 ],
 "power/tower":[
 "Høyspent tårn"
@@ -2201,29 +2341,69 @@
 "public_transport/platform":[
 "Perrong"
 ],
+"public_transport/platform/bus":[
+"Bussperrong"
+],
 "public_transport/platform/bus_point":[
 "Bussholdeplass"
+],
+"public_transport/platform/bus_tram_point":[
+"holdeplass for sporvogn og buss",
+"Holdeplass for trikk og buss"
 ],
 "public_transport/platform/light_rail":[
 "Bybaneperrong"
 ],
+"public_transport/platform/monorail":[
+"Monorailplattform"
+],
 "public_transport/platform/subway":[
-"T-baneplattform"
+"T-baneplattform",
+"metroplattform",
+"tunnelbaneplattform"
 ],
 "public_transport/platform/subway_point":[
 "T-banestopp / -plattform"
 ],
 "public_transport/platform/train":[
+"jernbaneplattform",
+"togplattform",
 "Togperrong"
 ],
+"public_transport/platform/train_point":[
+"Togstopp / -plattform"
+],
 "public_transport/platform/tram":[
-"Trikkeperrong"
+"Trikkeperrong",
+"perrong for sporvogn"
+],
+"public_transport/platform/tram_point":[
+"Trikkeholdeplass / -perrong",
+"holdeplass /-plattform for sporvogn"
+],
+"public_transport/platform/trolleybus":[
+"Trolleybussperrong"
 ],
 "public_transport/platform/trolleybus_point":[
 "Holdeplass for trolleybuss"
 ],
+"public_transport/platform_point":[
+"Holdeplass / perrong for kollektivtrafikk"
+],
+"public_transport/station":[
+"Kollektivstasjon"
+],
+"public_transport/station_bus":[
+"Busstasjon/-terminal"
+],
+"public_transport/station_ferry":[
+"Fergeterminal"
+],
 "public_transport/station_light_rail":[
-"Light Rail Station"
+"Bybanestasjon"
+],
+"public_transport/station_monorail":[
+"Monorailstasjon"
 ],
 "public_transport/station_subway":[
 "T-banestasjon"
@@ -2231,11 +2411,64 @@
 "public_transport/station_train":[
 "Togstasjon"
 ],
+"public_transport/station_train_halt":[
+"Togstasjon (holdeplass)",
+"jernbaneholdeplass",
+"togholdeplass"
+],
 "public_transport/station_tram":[
+"sporvognstasjon",
 "Trikkestasjon"
+],
+"public_transport/station_trolleybus":[
+"Trolleybusstasjon / -terminal"
+],
+"public_transport/stop_area":[
+"Stoppestedområde for kollektivtrafikk"
+],
+"public_transport/stop_position":[
+"Stoppested"
+],
+"public_transport/stop_position_bus":[
+"Stoppested for buss"
+],
+"public_transport/stop_position_ferry":[
+"Stoppested for ferge"
+],
+"public_transport/stop_position_light_rail":[
+"Stoppested for bybane"
+],
+"public_transport/stop_position_subway":[
+"Stoppested for T-bane"
+],
+"public_transport/stop_position_train":[
+"Stoppested for tog"
+],
+"public_transport/stop_position_tram":[
+"Stoppested for trikk"
+],
+"public_transport/stop_position_trolleybus":[
+"Stoppested for trolleybuss"
+],
+"railway":[
+"Jernbanerelatert egenskap"
 ],
 "railway/abandoned":[
 "Nedlagt jernbane"
+],
+"railway/buffer_stop":[
+"Sporstopper"
+],
+"railway/construction":[
+"Jernbane under bygging"
+],
+"railway/crossing":[
+"Planovergang for gang-/sykkelvei"
+],
+"railway/derail":[
+"Sporsperre",
+"avsporingstunge",
+"avsporer"
 ],
 "railway/disused":[
 "Ubrukt jernbane"
@@ -2249,17 +2482,35 @@
 "railway/light_rail":[
 "Bybanespor"
 ],
+"railway/milestone":[
+"Kilometerskilt for jernbane"
+],
 "railway/miniature":[
 "Miniatyrjernbanespor"
 ],
+"railway/monorail":[
+"Monorailspor"
+],
+"railway/monorail/hanging":[
+"Hengende monorailspor"
+],
+"railway/narrow_gauge":[
+"Smalsporet jernbane"
+],
 "railway/platform":[
 "Togperrong"
+],
+"railway/preserved":[
+"Museumsbane"
 ],
 "railway/rail":[
 "Jernbanespor"
 ],
 "railway/rail/highspeed":[
 "Høyhastighetsbane"
+],
+"railway/railway_crossing":[
+"Sporkryss"
 ],
 "railway/signal":[
 "Togsignal"
@@ -2268,16 +2519,39 @@
 "Togstasjon"
 ],
 "railway/subway":[
-"T -banespor"
+"tunnelbanespor",
+"T-banespor",
+"metrospor"
 ],
 "railway/subway_entrance":[
 "T-baneinngang"
+],
+"railway/switch":[
+"Sporveksel"
 ],
 "railway/train_wash":[
 "Tog Vask"
 ],
 "railway/tram":[
+"sporvognspor",
 "Trikkespor"
+],
+"railway/tram_crossing":[
+"Trikk-gang-/sykkelveikryss",
+"sporvei-gang-/sykkelveikryss"
+],
+"railway/tram_level_crossing":[
+"Trikk-veikryss",
+"sporvei-veikryss"
+],
+"railway/tram_stop":[
+"Trikkeholdeplass"
+],
+"railway/turntable":[
+"Svingskive"
+],
+"railway/yard":[
+"Jernbanegård"
 ],
 "relation":[
 "Relasjon"
@@ -2290,6 +2564,9 @@
 ],
 "shop/alcohol":[
 "Vinutsalg"
+],
+"shop/anime":[
+"Anime- / mangabutikk"
 ],
 "shop/appliance":[
 "Hvitevarebutikk"
@@ -2339,6 +2616,9 @@
 "shop/candles":[
 "Lysstøperi"
 ],
+"shop/cannabis":[
+"Cannabisbutikk"
+],
 "shop/car":[
 "Bilforhandler"
 ],
@@ -2347,6 +2627,9 @@
 ],
 "shop/car_repair":[
 "Bilverksted"
+],
+"shop/caravan":[
+"Bobilforhandler"
 ],
 "shop/carpet":[
 "Teppehandler"
@@ -2375,6 +2658,9 @@
 "shop/coffee":[
 "Kaffebutikk"
 ],
+"shop/collector":[
+"Samlingsbutikk"
+],
 "shop/computer":[
 "Databutikk"
 ],
@@ -2391,7 +2677,7 @@
 "Parfymeri"
 ],
 "shop/craft":[
-"Kunst & Håndverksbutikk"
+"Kunst & håndverksbutikk"
 ],
 "shop/curtain":[
 "Gardinbutikk"
@@ -2406,10 +2692,13 @@
 "Byggevarehus"
 ],
 "shop/doors":[
-"Dør Butikk"
+"Dørbutikk"
 ],
 "shop/dry_cleaning":[
 "Renseri"
+],
+"shop/e-cigarette":[
+"E-sigarettbutikk"
 ],
 "shop/electrical":[
 "Elektrisk utstyrsbutikk"
@@ -2419,6 +2708,9 @@
 ],
 "shop/erotic":[
 "Erotikkbutikk"
+],
+"shop/erotic/lgbtq":[
+"Erotikkbutikk for LHBTQ+"
 ],
 "shop/fabric":[
 "Stoffbutikk"
@@ -2451,7 +2743,7 @@
 "Møbelforhandler"
 ],
 "shop/games":[
-"Bordspill Butikk"
+"Bordspill-butikk"
 ],
 "shop/garden_centre":[
 "Gartneri"
@@ -2481,10 +2773,7 @@
 "Hifi-butikk"
 ],
 "shop/hobby":[
-"Hobby Butikk"
-],
-"shop/houseware":[
-"Isenkrambutikk"
+"Hobbybutikk"
 ],
 "shop/hunting":[
 "Jaktbutikk"
@@ -2503,6 +2792,9 @@
 ],
 "shop/laundry":[
 "Vaskeri"
+],
+"shop/laundry/self_service":[
+"Selvbetjent vaskeri"
 ],
 "shop/leather":[
 "Skinnbutikk"
@@ -2648,6 +2940,9 @@
 "shop/weapons":[
 "Våpenbutikk"
 ],
+"shop/wholesale":[
+"Grossisthandel"
+],
 "shop/window_blind":[
 "Persiennebutikk"
 ],
@@ -2705,6 +3000,9 @@
 "tourism/information/map":[
 "Kart"
 ],
+"tourism/information/office":[
+"Besøkssenter"
+],
 "tourism/information/route_marker":[
 "Stimarkør"
 ],
@@ -2718,7 +3016,7 @@
 "Museum"
 ],
 "tourism/museum/history":[
-"Historisk Museum"
+"Historisk museum"
 ],
 "tourism/picnic_site":[
 "Pikniksted"
@@ -2768,6 +3066,9 @@
 "traffic_calming/island":[
 "Trafikkøy"
 ],
+"traffic_calming/mini_bumps":[
+"Mini-fartshump"
+],
 "traffic_calming/rumble_strip":[
 "Rumlestripe"
 ],
@@ -2780,23 +3081,69 @@
 "traffic_sign/maxspeed":[
 "Fartsgrenseskilt"
 ],
+"traffic_sign/variable_message":[
+"Variable skilt"
+],
 "type/boundary":[
 "Grense"
 ],
 "type/boundary/administrative":[
 "Adminstrativ grense"
 ],
+"type/connectivity":[
+"Kjørefeltkobling"
+],
+"type/destination_sign":[
+"Veivisningsskilt"
+],
+"type/enforcement":[
+"Håndheving"
+],
+"type/enforcement/maxspeed":[
+"Håndheving av fartsgrense"
+],
 "type/multipolygon":[
 "Multipolygon"
+],
+"type/public_transport/stop_area_group":[
+"Stoppestedområde-gruppe for kollektivtrafikk"
 ],
 "type/restriction":[
 "Begrensning"
 ],
 "type/restriction/no_left_turn":[
-"Ingen venstresving"
+"Ingen venstresving",
+"venstresving forbudt"
 ],
 "type/restriction/no_right_turn":[
+"høyresving forbudt",
 "Ingen høyresving"
+],
+"type/restriction/no_straight_on":[
+"Ikke rett fram",
+"rett fram forbudt"
+],
+"type/restriction/no_u_turn":[
+"Ingen U-sving",
+"vendingsforbud"
+],
+"type/restriction/only_left_turn":[
+"venstresving påbudt",
+"påbudt venstresving",
+"Bare venstresving"
+],
+"type/restriction/only_right_turn":[
+"høyresving påbudt",
+"Bare høyresving",
+"påbudt høyresving"
+],
+"type/restriction/only_straight_on":[
+"påbudt rett fram",
+"Bare rett fram"
+],
+"type/restriction/only_u_turn":[
+"vendingspåbud",
+"Bare U-sving"
 ],
 "type/route":[
 "Rute"
@@ -2830,6 +3177,9 @@
 "type/route/power":[
 "Kraftlinje"
 ],
+"type/route/railway":[
+"Jernbanelinje"
+],
 "type/route/road":[
 "Veirute"
 ],
@@ -2840,13 +3190,14 @@
 "Jernbanelinje"
 ],
 "type/route/tram":[
-"Trikkelinje"
+"Trikkelinje",
+"sporvognslinje"
 ],
 "type/route/trolleybus":[
 "Trolleybussrute"
 ],
 "type/route_master":[
-"Routemaster"
+"Rutemester"
 ],
 "type/site":[
 "Sted"
@@ -2885,13 +3236,13 @@
 "Bekk"
 ],
 "waterway/stream_intermittent":[
-"Periodisk Bekk"
+"Periodisk bekk"
 ],
 "waterway/tidal_channel":[
 "Tidevannskanal"
 ],
 "waterway/water_point":[
-"Marint Drikkevann"
+"Marint drikkevann"
 ],
 "waterway/waterfall":[
 "Foss"

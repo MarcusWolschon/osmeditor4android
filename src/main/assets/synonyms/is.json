@@ -523,9 +523,6 @@
 "attraction/amusement_ride":[
 "Skemmtitæki"
 ],
-"attraction/big_wheel":[
-"Parísarhjól"
-],
 "attraction/bungee_jumping":[
 "Teygjustökk"
 ],
@@ -591,9 +588,6 @@
 ],
 "barrier/kissing_gate":[
 "Sjálflokandi hlið"
-],
-"barrier/lift_gate":[
-"Lyftuhlið"
 ],
 "barrier/retaining_wall":[
 "Hallaveggur"
@@ -735,9 +729,6 @@
 ],
 "building/stadium":[
 "Íþróttaleikvangur"
-],
-"building/static_caravan":[
-"Staðfast hjólhýsi"
 ],
 "building/temple":[
 "Musterisbygging"
@@ -1015,14 +1006,8 @@
 "highway/corridor":[
 "Gangur innanhúss"
 ],
-"highway/crossing/marked":[
-"Merkt gangbraut"
-],
 "highway/crossing/unmarked":[
 "Ómerkt gangbraut"
-],
-"highway/crossing/zebra":[
-"Merkt gangbraut"
 ],
 "highway/cycleway":[
 "Hjólastígur"
@@ -2305,9 +2290,6 @@
 ],
 "shop/pet":[
 "Dýrabúð"
-],
-"shop/pet_grooming":[
-"Dýrasnyrtiverslun"
 ],
 "shop/photo":[
 "Ljósmyndavöruverslun"

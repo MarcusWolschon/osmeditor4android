@@ -1866,12 +1866,6 @@
 "tigro",
 "elefanto"
 ],
-"attraction/big_wheel":[
-"Spektoradego",
-"giganta radego",
-"radego de ferris",
-"granda radego"
-],
 "attraction/bumper_car":[
 "aŭtetoj",
 "Karambolaj aŭtetoj (allogaĵo)",
@@ -2138,11 +2132,6 @@
 "kontraubruta",
 "kontrauxbruta",
 "kontraŭbruta"
-],
-"barrier/lift_gate":[
-"Bariero levebla",
-"vojbarilo",
-"movebla barilo"
 ],
 "barrier/retaining_wall":[
 "Apogmuro",
@@ -2523,12 +2512,6 @@
 "sportejo",
 "stadiono",
 "Konstruaĵo de stadiono"
-],
-"building/static_caravan":[
-"movebla domo",
-"kampveturilo statika",
-"kampadveturilo statika",
-"Movdomo (nemovata)"
 ],
 "building/sty":[
 "porkstalo",
@@ -3346,21 +3329,12 @@
 "highway/crossing":[
 "Stratpasejo"
 ],
-"highway/crossing/marked":[
-"Stratpasejo zebrostria"
-],
-"highway/crossing/uncontrolled":[
-"Stratpasejo zebrostria"
-],
 "highway/crossing/unmarked":[
 "pasejo",
 "Stratpasejo nemarkita",
 "piedira transirejo",
 "transpasejo",
 "trairejo"
-],
-"highway/crossing/zebra":[
-"Stratpasejo zebrostria"
 ],
 "highway/cycleway":[
 "biciklo",
@@ -3384,9 +3358,6 @@
 "biciklovojo",
 "Stratpasejo por biciklistoj k piedirantoj",
 "biciklvojo"
-],
-"highway/cycleway/crossing/marked":[
-"Stratpasejo bicikla (markita)"
 ],
 "highway/cycleway/crossing/unmarked":[
 "pasejo",
@@ -7439,12 +7410,7 @@
 "Aldfidela-sona vendejo"
 ],
 "shop/hobby":[
-"figuroj",
-"modelfarado",
-"hobio",
-"Hobia vendejo",
-"animeo",
-"ŝatokupo"
+"Hobia vendejo"
 ],
 "shop/household_linen":[
 "tablotukoj",
@@ -7680,15 +7646,6 @@
 "kobajo",
 "kuniklo",
 "bestoj"
-],
-"shop/pet_grooming":[
-"hundoj",
-"dombestoj",
-"Hejmbesta beligejo",
-"hartondisto",
-"hejmbestoj",
-"katoj",
-"frizejo"
 ],
 "shop/photo":[
 "Fotografia vendejo",

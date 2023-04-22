@@ -30,6 +30,10 @@
 "Zračna luka",
 "zračna luka"
 ],
+"aeroway/apron":[
+"platforma",
+"Stajanka za parkiranje zrakoplova"
+],
 "aeroway/hangar":[
 "hangar",
 "garaža za avione",
@@ -43,12 +47,20 @@
 "pista za helikoptere",
 "Heliodrom"
 ],
+"aeroway/holding_position":[
+"površina za čekanje",
+"Pozicija za čekanje"
+],
+"aeroway/parking_position":[
+"Parkirna pozicija za zrakoplov"
+],
 "aeroway/runway":[
 "zrakoplovna pista",
 "Uzletno-sletna staza",
 "uzletna staza",
 "sletna staza",
 "pista",
+"staza za uzlijetanje i slijetanje",
 "avionska pista"
 ],
 "aeroway/taxiway":[
@@ -535,9 +547,9 @@
 ],
 "amenity/waste_basket":[
 "kanta za smeće",
+"Koš za smeće",
 "koš za smeće",
-"smeće",
-"Kanta za smeće"
+"smeće"
 ],
 "amenity/waste_disposal":[
 "Kontejner za smeće"
@@ -624,9 +636,6 @@
 "barrier/kissing_gate":[
 "Rotirajući prolaz za ljude"
 ],
-"barrier/lift_gate":[
-"Rampa"
-],
 "barrier/retaining_wall":[
 "Potporni zid"
 ],
@@ -645,12 +654,18 @@
 "boundary/administrative":[
 "Administrativna granica"
 ],
+"bridge/support/pier":[
+"Stup mosta"
+],
 "building":[
 "neboder",
 "zgrada",
 "kuća",
 "građevina",
 "Građevina"
+],
+"building/apartments":[
+"Stambena zgrada"
 ],
 "building/barn":[
 "Ambar",
@@ -751,9 +766,6 @@
 ],
 "building/stadium":[
 "Zgrada stadiona"
-],
-"building/static_caravan":[
-"Statičan mobilan dom"
 ],
 "building/terrace":[
 "Kuće u nizu"
@@ -909,6 +921,13 @@
 "garaža hitne pomoći",
 "hitna pomoć"
 ],
+"emergency/fire_extinguisher":[
+"Aparat za gašenje požara",
+"vatrogasni aparat"
+],
+"emergency/fire_hose":[
+"Vatrogasno crijevo"
+],
 "emergency/fire_hydrant":[
 "hidrant",
 "Požarni hidrant"
@@ -918,12 +937,19 @@
 "spasioc",
 "plaži"
 ],
+"emergency/mountain_rescue":[
+"Gorska služba spašavanja",
+"hgss"
+],
 "emergency/phone":[
 "Telefon za nuždu"
 ],
 "entrance":[
 "vrata",
 "Ulaz / izlaz"
+],
+"entrance/main":[
+"Glavni ulaz"
 ],
 "ford":[
 "gaz",
@@ -969,14 +995,8 @@
 "highway/corridor":[
 "Hodnik"
 ],
-"highway/crossing/marked":[
-"Označeni pješački prijelaz"
-],
 "highway/crossing/unmarked":[
 "Neoznačeni pješački prijelaz"
-],
-"highway/crossing/zebra":[
-"Označeni pješački prijelaz"
 ],
 "highway/cycleway":[
 "Biciklistička staza"
@@ -986,9 +1006,6 @@
 ],
 "highway/cycleway/crossing":[
 "Biciklistički prijelaz"
-],
-"highway/cycleway/crossing/marked":[
-"Označeni biciklistički prijelaz"
 ],
 "highway/cycleway/crossing/unmarked":[
 "Neoznačeni biciklistički prijelaz"
@@ -1097,6 +1114,9 @@
 ],
 "highway/tertiary_link":[
 "Pristupna cesta lokalne ceste"
+],
+"highway/track":[
+"Poljski ili šumski put"
 ],
 "highway/traffic_mirror":[
 "Prometno ogledalo"
@@ -1357,6 +1377,9 @@
 "leisure/pitch/chess":[
 "Golema šahovska ploča"
 ],
+"leisure/pitch/handball":[
+"Teren za rukomet"
+],
 "leisure/pitch/skateboard":[
 "skejt",
 "park za ekstremne sportove",
@@ -1488,6 +1511,7 @@
 "Izvor nafte"
 ],
 "man_made/pier":[
+"dok",
 "lukobran",
 "mul",
 "molo",
@@ -1495,6 +1519,11 @@
 "mol",
 "gat",
 "Mol"
+],
+"man_made/pier/floating":[
+"plutajući dok",
+"Plutajući mol",
+"plutajući ponton"
 ],
 "man_made/pipeline":[
 "cjevovod",
@@ -1617,8 +1646,23 @@
 "man_made/windmill":[
 "Vetrenjača"
 ],
+"man_made/windpump":[
+"Pumpa za vodu na vjetar"
+],
 "man_made/works":[
 "Tvornica"
+],
+"marker":[
+"Oznaka"
+],
+"marker/utility":[
+"trasirka",
+"kontrolna cijev",
+"lula",
+"Oznaka infrastrukture"
+],
+"marker/utility/power":[
+"Oznaka električne infrastrukture"
 ],
 "natural":[
 "Prirodne značajke"
@@ -1964,6 +2008,15 @@
 ],
 "power/minor_line":[
 "Mali dalekovod"
+],
+"power/plant/source/coal":[
+"Termoelektrana na ugljen"
+],
+"power/plant/source/gas":[
+"Termoelektrana na plin"
+],
+"power/plant/source/oil":[
+"Termoelektrana na loživo ulje"
 ],
 "power/pole":[
 "stup dalekovoda",

@@ -493,11 +493,6 @@
 "area":[
 "Área"
 ],
-"attraction/big_wheel":[
-"rueda",
-"Noria",
-"atracciones"
-],
 "attraction/carousel":[
 "Caballinos",
 "carrusel",
@@ -550,9 +545,6 @@
 ],
 "barrier/kissing_gate":[
 "Puerta ganadera"
-],
-"barrier/lift_gate":[
-"Barrera"
 ],
 "barrier/retaining_wall":[
 "Muru de contención"
@@ -674,9 +666,6 @@
 "corte",
 "cuadra",
 "Establu"
-],
-"building/static_caravan":[
-"Casa portátil"
 ],
 "building/terrace":[
 "Filera de cases"

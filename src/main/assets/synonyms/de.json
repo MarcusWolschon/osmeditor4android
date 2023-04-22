@@ -6,6 +6,15 @@
 "Adresse",
 "adresse"
 ],
+"advertising":[
+"werbemittel",
+"werbung",
+"Werbeträger",
+"schild",
+"werbeträger",
+"werbeschild",
+"poster"
+],
 "advertising/billboard":[
 "anschlagtafel",
 "reklametafel",
@@ -467,6 +476,13 @@
 "schwangerschaftsabbruchsklinik",
 "abtreibungsklinik"
 ],
+"amenity/clinic/dialysis":[
+"nierenzentrum",
+"dialysepraxis",
+"Dialysezentrum",
+"dialyse",
+"nephrologisches zentrum"
+],
 "amenity/clinic/fertility":[
 "Kinderwunschklinik",
 "in-vitro-fertilisation",
@@ -558,9 +574,246 @@
 "doktorin",
 "ärztin"
 ],
+"amenity/doctors/allergology":[
+"allergie",
+"asthma",
+"Allergologe"
+],
+"amenity/doctors/cardiology":[
+"herzspezialist",
+"Kardiologe"
+],
+"amenity/doctors/child_psychiatry":[
+"kjp",
+"kjpd",
+"Kinder- und Jugendpsychiater",
+"jugendpsychiater",
+"kinder- und jugendpsychiater",
+"psychiatrie",
+"kinderpsychiatrie",
+"jugendpsychiatrie",
+"kinder- und jugendpsychiatrie und -psychotherapie",
+"kinderpsychiater",
+"psychiater",
+"kinder- und jugendpsychiatrie"
+],
+"amenity/doctors/dermatology":[
+"dermatologe",
+"Hautarzt"
+],
+"amenity/doctors/gastroenterology":[
+"verdauung",
+"dickdarm",
+"Gastroenterologe",
+"verdauungssystem",
+"magen-darm-trakt",
+"gallenstein",
+"ösophagus",
+"magen",
+"speiseröhre",
+"gastroenterologie",
+"darm",
+"leber",
+"dünndarm"
+],
+"amenity/doctors/general":[
+"Hausarzt",
+"allgemeinmediziner"
+],
 "amenity/doctors/gynaecology":[
 "gynäkologe",
 "Gynäkologe"
+],
+"amenity/doctors/haematology":[
+"blut",
+"blutgerinnung",
+"thrombophilie",
+"anämie",
+"knochenmark",
+"bluterkrankheit",
+"lymphknoten",
+"hämophilie",
+"blutkrebs",
+"blutstillung",
+"Hämatologe",
+"lymphom",
+"blutarmut",
+"hämatologie",
+"leukämie",
+"hämostaseologie"
+],
+"amenity/doctors/internal":[
+"internistischer allgemeinmediziner",
+"innere medizin",
+"internist",
+"Internist",
+"arzt"
+],
+"amenity/doctors/nephrology":[
+"niere",
+"nierenkrankheit",
+"nephrologie",
+"nierenerkrankung",
+"nierenmedizin",
+"nieren",
+"Nephrologe"
+],
+"amenity/doctors/neurology":[
+"gehirn",
+"neurologie",
+"nervensystem",
+"nerven",
+"Neurologe"
+],
+"amenity/doctors/neurosurgery":[
+"gehirn",
+"neurologische chirurgie",
+"nervensystem",
+"Neurochirurgie"
+],
+"amenity/doctors/oncology":[
+"onkologie",
+"krebs",
+"tumor",
+"Onkologe",
+"chemotherapie"
+],
+"amenity/doctors/ophthalmology":[
+"okular",
+"augen",
+"Augenarzt",
+"ophthalmologie",
+"brille",
+"auge",
+"augenheilkunde"
+],
+"amenity/doctors/orthopaedics":[
+"skelett",
+"orthopädie",
+"Orthopäde",
+"wirbelsäule"
+],
+"amenity/doctors/otolaryngology":[
+"rachen",
+"speiseröhre",
+"luftwege",
+"kehlkopf",
+"hno",
+"oto-rhino-laryngologie",
+"orl",
+"hals-nasen-ohren-heilkunde",
+"Hals-Nasen-Ohren-Arzt",
+"mundhöhle",
+"ohren"
+],
+"amenity/doctors/paediatrics":[
+"kinder",
+"kinderheilkunde",
+"kinder- und jugendmedizin",
+"jugendliche",
+"kleinkinder",
+"pädiatrie",
+"jugendmedizin",
+"pädiatrik",
+"Kinderarzt"
+],
+"amenity/doctors/pathology":[
+"autopsie",
+"Pathologe",
+"pathologie",
+"anatomische pathologie"
+],
+"amenity/doctors/plastic_surgery":[
+"plastische chirurgie",
+"Plastischer Chirurg",
+"kraniofaziale chirurgie",
+"ästhetische chirurgie",
+"kosmetische chirurgie",
+"rekonstruktive chirurgie"
+],
+"amenity/doctors/podiatry":[
+"fußchirurg",
+"Podiater"
+],
+"amenity/doctors/proctology":[
+"Proktologe",
+"analkanal",
+"mastdarm",
+"darmspezialist",
+"proktologie",
+"enddarm",
+"kolorektale chirurgie"
+],
+"amenity/doctors/psychiatrist":[
+"psychiatrie",
+"Psychiater"
+],
+"amenity/doctors/pulmonology":[
+"lungenentzündung",
+"pulmologie",
+"Lungenfacharzt",
+"pulmonologie",
+"asthma",
+"lunge",
+"pneumologie",
+"atemwegsmedizin",
+"lungenheilkunde",
+"atemwege",
+"bronchialheilkunde",
+"pneumonologie",
+"respirologie",
+"brustmedizin"
+],
+"amenity/doctors/radiology":[
+"computertomographie",
+"ct",
+"magnetresonanztomographie",
+"ultraschall",
+"radiologie",
+"Radiologe",
+"ultrasonographie",
+"sonographie",
+"mrt"
+],
+"amenity/doctors/rheumatology":[
+"oteoporose",
+"rheuma",
+"Rheumatologe",
+"rheumatologie",
+"lupus"
+],
+"amenity/doctors/surgery":[
+"allgemeinchirurgie",
+"Allgemeinchirurg",
+"operativen behandlung",
+"chirurgie"
+],
+"amenity/doctors/trauma":[
+"verletzungschirurgie",
+"notfallchirurgie",
+"traumachirurgie",
+"traumatologie",
+"unfallmedizin",
+"unfallheilkunde",
+"unfallchirurgie",
+"wiederherstellungschirurgie",
+"Unfallchirurg"
+],
+"amenity/doctors/urology":[
+"hodensack",
+"niere",
+"nebennieren",
+"harnleiter",
+"harnwege",
+"nebenhoden",
+"hoden",
+"harnröhre",
+"urologie",
+"penis",
+"Urologe",
+"fortpflanzung",
+"blase",
+"prostata"
 ],
 "amenity/dojo":[
 "kampfsportstudio",
@@ -582,8 +835,16 @@
 "trinkbrunnen"
 ],
 "amenity/driver_training":[
-"Fahrschulgeländd",
-"fahrschulgelände"
+"fahrsicherheitszentrum",
+"fahrtechnikzentrum",
+"verkehrsübungsplatz",
+"fahrertraining",
+"fahrsicherheitstraining",
+"fahrsicherheit",
+"fahrschulgelände",
+"fahrsicherheitsanlage",
+"Verkehrsübungsplatz",
+"sht"
 ],
 "amenity/driving_school":[
 "fahrschule",
@@ -701,7 +962,7 @@
 "feuerwehr",
 "feuerwehrgerätehaus",
 "feuerwehrstandort",
-"Feuerwehrhaus",
+"Feuerwache",
 "feuerwehrhaus",
 "feuerwache",
 "feuerwehrstation",
@@ -1343,6 +1604,17 @@
 "Japanisches Restaurant",
 "japanisches restaurant"
 ],
+"amenity/restaurant/korean":[
+"korea",
+"bibimbab",
+"kimchi",
+"koreaner",
+"choen",
+"südkorea",
+"nordkorea",
+"Koreanisches Restaurant",
+"bulgogi"
+],
 "amenity/restaurant/mexican":[
 "Mexikanisches Restaurant",
 "mexicanisches restaurant"
@@ -1358,6 +1630,14 @@
 "amenity/restaurant/seafood":[
 "Meeresfrüchte-Restaurant",
 "meeresfrüchte restaurant"
+],
+"amenity/restaurant/spanish":[
+"tapas",
+"paella",
+"spanier",
+"tortilla",
+"Spanisches Restaurant",
+"spanisch"
 ],
 "amenity/restaurant/steakhouse":[
 "steakhouse",
@@ -1391,9 +1671,11 @@
 "schule",
 "mittelschule",
 "schulhof",
+"gemeinschaftsschule",
 "realschule",
 "förderschule",
-"Schule, Schulgelände"
+"Schule, Schulgelände",
+"gesamtschule"
 ],
 "amenity/shelter":[
 "wetterpilz",
@@ -1445,6 +1727,17 @@
 "Ambulante Unterstützung",
 "streetwork"
 ],
+"amenity/social_facility/assisted_living":[
+"pflege",
+"ältere",
+"Einrichtung für betreutes Seniorenwohnen",
+"betreuung",
+"altenpflege",
+"seniorenwohnen",
+"altenwohnen",
+"seniorenwohnheim",
+"seniorenpflege"
+],
 "amenity/social_facility/food_bank":[
 "tafel",
 "volksküche",
@@ -1471,6 +1764,10 @@
 "behindertenpflegeheim",
 "seniorenwohnheim",
 "Seniorenpflegeheim"
+],
+"amenity/stripclub":[
+"striplokal",
+"Stripclub"
 ],
 "amenity/studio":[
 "tonstudio",
@@ -1815,6 +2112,7 @@
 ],
 "attraction/big_wheel":[
 "Riesenrad",
+"fahrgeschäft",
 "riesenrad"
 ],
 "attraction/bumper_car":[
@@ -2066,13 +2364,19 @@
 "gatter"
 ],
 "barrier/lift_gate":[
-"schranken",
 "Schranke",
+"wegeschranke",
+"schlag",
 "schranke",
 "schlagbaum"
 ],
 "barrier/log":[
-"Baumstamm"
+"baumstamm",
+"ast",
+"Umgefallener Baum",
+"baum",
+"stamm",
+"baumhindernis"
 ],
 "barrier/motorcycle_barrier":[
 "Motorradbarriere",
@@ -2395,9 +2699,9 @@
 "Nebengebäude"
 ],
 "building/pavilion":[
-"Nebengebäude (Pavillon)",
 "nebengebäude",
-"pavillion"
+"pavillion",
+"Sportpavillon"
 ],
 "building/public":[
 "öffentliches amtsgebäude",
@@ -2419,12 +2723,14 @@
 "dach"
 ],
 "building/ruins":[
-"Verlassenes Gebäude",
+"ruine",
+"Künstliche Ruine",
 "verlassenes gebäude"
 ],
 "building/school":[
 "schulgebäude",
 "schulhaus",
+"schule",
 "Schulgebäude"
 ],
 "building/semidetached_house":[
@@ -2450,13 +2756,17 @@
 "stallgebäude"
 ],
 "building/stadium":[
-"Stadion",
+"Stadiongebäude",
 "stadiongebäude"
 ],
 "building/static_caravan":[
-"Feststehender Wohnwagen",
-"dauercamper",
-"abgestellter wohnwagen"
+"wohnwagen",
+"Dauercamper",
+"mobilheim",
+"wohnmobil",
+"mobile home",
+"wohnwagensiedlung",
+"saisoncamping"
 ],
 "building/sty":[
 "Schweinestall",
@@ -2531,6 +2841,13 @@
 "verein",
 "klub"
 ],
+"club/scout":[
+"pfadfinderverein",
+"pfadfinderabteilung",
+"pfadfindergruppe",
+"pfadfinderstamm",
+"Pfadfinder"
+],
 "club/sport":[
 "sportklub",
 "sportclub",
@@ -2561,7 +2878,7 @@
 ],
 "craft/beekeeper":[
 "bienenzüchter",
-"Imker/in",
+"Imkerei",
 "imker"
 ],
 "craft/blacksmith":[
@@ -2573,15 +2890,16 @@
 "kunstschmied"
 ],
 "craft/boatbuilder":[
+"Bootsbauer",
 "bootfachwart",
-"Bootsbauer/in",
 "schiffsbauer",
 "bootsbauer",
 "bootbauer"
 ],
 "craft/bookbinder":[
-"Buchbinder/in",
-"buchbinder"
+"buchbinder",
+"buchbinderin",
+"Buchbinder"
 ],
 "craft/brewery":[
 "brauen",
@@ -2602,10 +2920,10 @@
 "Zimmerer"
 ],
 "craft/carpet_layer":[
-"Teppichleger/in",
 "teppichleger",
 "teppichbodenleger",
-"teppichverleger"
+"teppichverleger",
+"Teppichleger"
 ],
 "craft/caterer":[
 "gastronom",
@@ -2614,15 +2932,15 @@
 "speiselieferant",
 "partyservice",
 "catering",
-"Partyservice",
 "brötchenservice",
+"Catering",
 "lebensmittellieferant"
 ],
 "craft/chimney_sweeper":[
 "kaminkehrer",
-"Kaminkehrer/in",
 "rauchfangkehrer",
 "kaminfeger",
+"Schornsteinfeger",
 "schornsteinfeger"
 ],
 "craft/cleaning":[
@@ -2631,11 +2949,12 @@
 "reinigungsdienst"
 ],
 "craft/clockmaker":[
-"Uhrmacher/in (Standuhr)",
+"Uhrmacher (Standuhr)",
 "uhrmacher (standuhr)"
 ],
 "craft/confectionery":[
 "konditor",
+"zuckerbäcker",
 "confiserie",
 "süßwarengeschäft",
 "konditorei",
@@ -2660,22 +2979,29 @@
 "elektroinstallateur",
 "elektriker",
 "elektromonteur",
-"Elektriker/in"
+"Elektriker"
 ],
 "craft/electronics_repair":[
 "elektronik-reparatur-geschäft",
-"Elektronik-Reparatur-Geschäft"
+"Elektronik-Reparaturdienst"
 ],
 "craft/floorer":[
 "bodenleger",
-"Bodenleger/in"
+"bodenbelag",
+"fußbodenbelag",
+"Bodenleger",
+"fußbodenleger"
 ],
 "craft/gardener":[
+"galabau",
+"Landschaftsgärtner",
 "landschaftspflege",
 "gärtner",
+"landschaftsbau",
 "gartenpflege",
-"Gärtner/in",
-"landschaftsgärtner"
+"gartenbauer",
+"landschaftsgärtner",
+"garten und landschaftsbau"
 ],
 "craft/glaziery":[
 "glasschleiferei",
@@ -2683,54 +3009,66 @@
 "Glaserei",
 "fensterglaserei",
 "autoglaserei",
+"gläserei",
+"kirchenglas",
 "glaserei"
 ],
 "craft/handicraft":[
 "kunsthandwerk",
+"kunstgewerbe",
 "Kunsthandwerk"
 ],
 "craft/hvac":[
 "hvac",
+"anlagentechnik",
 "kältetechnik",
+"hls",
+"hks",
+"gebäudetechnik",
 "Heizungs-, Lüftungs- und Klimatechnik",
 "heizungstechnik",
+"haustechnik",
+"hkls",
 "lüftungstechnik",
 "klimatechnik",
 "techniker für heizungs- lüftungs- und klimatechnik"
 ],
 "craft/insulator":[
-"Dämmstoff",
+"Dämmstoffarbeiten",
 "dämmstoff",
+"eps",
+"xps",
 "isolierstoff",
-"isolierung"
+"isolierung",
+"dämmung"
 ],
 "craft/joiner":[
 "tischler",
 "schreinerei",
 "tischlerei",
-"tischlierbetrieb",
+"möbelbauer",
 "schreiner",
+"tischlerbetrieb",
 "Tischlerei",
 "möbelbau"
 ],
 "craft/key_cutter":[
 "sicherheitstechniker",
-"Schlüsselschneider/in",
 "schlüsselschneider",
+"Schlüsselschneider",
 "schlüsselservice",
 "schlüsselgeschäft",
 "schlüsselmacher",
 "schlüsseldienst"
 ],
 "craft/locksmith":[
-"Schlosser/in"
+"Schlüsselmacher"
 ],
 "craft/metal_construction":[
 "metallplanung",
 "bauschlosser",
 "metallbau",
 "zaun- und geländerbau",
-"Metallbetrieb",
 "stahlbauer",
 "schlosserei",
 "konstruktionsmechaniker",
@@ -2738,7 +3076,8 @@
 "metallverarbeitender betrieb",
 "bauschlosserei",
 "metalltechnik",
-"schlosser"
+"schlosser",
+"Metallbaubetrieb"
 ],
 "craft/painter":[
 "malerbetrieb",
@@ -2750,18 +3089,22 @@
 "Malerbetrieb"
 ],
 "craft/parquet_layer":[
-"Parkettleger/in",
+"holzparkett",
+"Parkettleger",
 "parkettleger",
-"parkettverleger"
+"parkettverleger",
+"holzdielen"
 ],
 "craft/photographer":[
+"Fotograf",
+"lichtbildner",
 "photograph",
 "fotoatelier",
-"Fotograf/in",
 "fotostudio",
 "fotograf"
 ],
 "craft/photographic_laboratory":[
+"dunkelkammer",
 "Fotolabor",
 "fotografisches labor",
 "fotolabor"
@@ -2770,9 +3113,10 @@
 "stukkateur",
 "stuckateur",
 "verputzer",
-"Stuckateur/in",
+"Stuckateur",
 "gipser",
-"kaschierer"
+"kaschierer",
+"putzer"
 ],
 "craft/plumber":[
 "heizungs- und sanitärbetrieb",
@@ -2789,6 +3133,9 @@
 "haus- und sanitärtechnik"
 ],
 "craft/pottery":[
+"brennofen",
+"porzellan",
+"ton",
 "Töpferei",
 "töpfer",
 "topf",
@@ -2797,9 +3144,9 @@
 ],
 "craft/rigger":[
 "takler",
-"Rigger",
 "höhenarbeiter",
-"rigger"
+"rigger",
+"Takler"
 ],
 "craft/roofer":[
 "dachdecker",
@@ -2808,43 +3155,51 @@
 ],
 "craft/saddler":[
 "sattler",
-"Sattler/in"
+"Sattlerei"
 ],
 "craft/sailmaker":[
-"Segelmacher/in",
+"Segelmacher",
 "segelmacher"
 ],
 "craft/sawmill":[
+"schneidmühle",
+"bordmühle",
+"säge",
 "sägemühle",
 "sägewerk",
+"brettmühle",
+"brettsäge",
 "Sägewerk",
 "sägerei"
 ],
 "craft/scaffolder":[
+"Gerüstbaubetrieb",
+"gerüstbau",
 "gerüstbauer",
-"gerüster",
-"Gerüstbau"
+"gerüster"
 ],
 "craft/sculptor":[
 "bildhauer",
-"Bildhauer/in"
+"Bildhauer"
 ],
 "craft/shoemaker":[
+"Schuster",
 "schuster",
 "schuhmacher",
-"Schuster/in",
+"schusterei",
 "schuh-service"
 ],
 "craft/signmaker":[
-"Schilderhersteller/in",
 "schildermacher",
 "reklame",
 "werbetechniker",
 "beschriftung",
 "schilderhersteller",
-"bedruckung"
+"bedruckung",
+"Schilder- und Lichtreklamehersteller"
 ],
 "craft/stonemason":[
+"steinbildhauer",
 "Steinmetz",
 "steinmetz"
 ],
@@ -2852,27 +3207,30 @@
 "Herrenschneiderei"
 ],
 "craft/tiler":[
+"Fliesenleger",
 "plattenleger",
 "fliesenleger",
 "dachdecker",
-"Fliesenleger/in"
+"mosaikleger"
 ],
 "craft/tinsmith":[
 "spengler",
 "klempnerei",
 "blechschmied",
-"Klempnerei",
 "bauklempnerei",
 "klempner",
 "spängler",
 "bauklempner",
 "blechner",
+"Spengler/Klempner",
 "flaschner"
 ],
 "craft/upholsterer":[
 "möbeltapezierer",
+"raumausstatter",
+"stuhlmacher",
 "polsterer",
-"Polsterer"
+"Raumausstatter"
 ],
 "craft/watchmaker":[
 "uhrmacher (armbanduhr)",
@@ -2888,6 +3246,7 @@
 "Weingut",
 "winzer",
 "weingut",
+"winzerbetrieb",
 "weinkellerei",
 "kellerei",
 "weinbauer"
@@ -2978,6 +3337,19 @@
 "hydrant",
 "löschwasserentnahmestelle",
 "Hydrant"
+],
+"emergency/fire_service_inlet":[
+"löschwasser",
+"schlauchkupplung",
+"blindkupplung",
+"übergangsstück",
+"Feuerwehrkupplung",
+"druckkupplung",
+"festkupplung",
+"storz-kupplung",
+"saugkupplung",
+"feuerwehranschluss",
+"einspeisung"
 ],
 "emergency/first_aid_kit":[
 "erste-hilfe-koffer",
@@ -3103,6 +3475,18 @@
 "eingang",
 "zugang"
 ],
+"entrance/staircase":[
+"Treppenhauseingang",
+"aufgang",
+"treppenaufgang",
+"treppe",
+"stiege",
+"tür",
+"treppenhaus",
+"eingang",
+"zugang",
+"stiegenhaus"
+],
 "ford":[
 "furt (gewässerquerung)",
 "Furt (Gewässerquerung)"
@@ -3194,10 +3578,57 @@
 "anthroposophisch",
 "tcm"
 ],
+"healthcare/alternative/acupuncture":[
+"Praxis für Akupunktur",
+"nadel",
+"akkupunktur",
+"nadelstimulation",
+"nadelstiche",
+"akupunktur"
+],
+"healthcare/alternative/ayurveda":[
+"indische medizin",
+"Praxis für Ayurveda",
+"ayurveda",
+"ayurweda"
+],
 "healthcare/alternative/chiropractic":[
 "manualtherapeut",
 "Chiropraktiker/in",
 "chiropraktiker"
+],
+"healthcare/alternative/homeopathy":[
+"homöopathie",
+"globuli",
+"Praxis für Homöopathie"
+],
+"healthcare/alternative/naturopathy":[
+"phytotherapie",
+"bewegungstherapie",
+"wasserkur",
+"naturopathie",
+"naturheilkunde",
+"ernährungstherapie",
+"physiatrie",
+"kältetherapie",
+"Praxis für Naturheilkunde",
+"balneotherapie",
+"wärmetherapie",
+"heilpflanzen",
+"hydrotherapie",
+"naturheilverfahren",
+"ordnungstherapie"
+],
+"healthcare/alternative/osteopathy":[
+"Praxis für Osteopathie",
+"chiropraktik",
+"manualtherapie",
+"manuelle medizin",
+"chirotherapie"
+],
+"healthcare/alternative/traditional_chinese_medicine":[
+"Praxis für Traditionelle Chinesische Medizin",
+"tcm"
 ],
 "healthcare/audiologist":[
 "Hörakustiker/in",
@@ -3337,9 +3768,6 @@
 "highway/crossing":[
 "Übergang"
 ],
-"highway/crossing/marked":[
-"markierter / gekennzeichneter Übergang"
-],
 "highway/crossing/traffic_signals":[
 "fußgängerübergang",
 "radübergang",
@@ -3347,24 +3775,17 @@
 "Kreuzung mit Fußgängerampel"
 ],
 "highway/crossing/uncontrolled":[
-"markierung",
-"querung",
-"markierter übergang",
+"Gehweg-Querung mit Fahrbahnmarkierung",
 "fußgängerüberweg",
-"überweg",
-"zebrastreifen",
-"markierter / gekennzeichneter Übergang",
-"gekennzeichneter übergang",
-"übergang"
+"markierter fußgängerüberweg",
+"markierter zebrastreifen",
+"zebrastreifen"
 ],
 "highway/crossing/unmarked":[
 "Nicht gekennzeichneter Übergang",
 "nicht gekennzeichneter übergang",
 "nicht markierte kreuzung",
 "nicht gekennzeichnete kreuzung"
-],
-"highway/crossing/zebra":[
-"markierter / gekennzeichneter Übergang"
 ],
 "highway/cycleway":[
 "radfahrweg",
@@ -3385,9 +3806,6 @@
 "rad- und fußübergang",
 "Rad- und Fußübergang"
 ],
-"highway/cycleway/crossing/marked":[
-"Gekennzeichneter Fahrrad-Übergang"
-],
 "highway/cycleway/crossing/traffic_signals":[
 "ampel",
 "ampelgeregelt",
@@ -3405,8 +3823,8 @@
 "Radweg-Querung mit Ampel"
 ],
 "highway/cycleway/crossing/uncontrolled":[
-"Radweg-Querung mit Straßenmarkierung",
-"gekennzeichneter fahrrad-übergang"
+"gekennzeichneter fahrrad-übergang",
+"Radweg-Querung mit Fahrbahnmarkierung"
 ],
 "highway/cycleway/crossing/unmarked":[
 "nicht gekennzeichneter fahrrad-übergang",
@@ -3429,9 +3847,10 @@
 "Schrägaufzug"
 ],
 "highway/emergency_access_point":[
-"Notfall-Zugangspunkt",
 "rettung",
-"notfall"
+"Rettungspunkt",
+"notfall",
+"zugangspunkt"
 ],
 "highway/emergency_bay":[
 "nothaltebucht",
@@ -3469,9 +3888,6 @@
 "highway/footway/crossing":[
 "Fußgängerüberweg (eigener Weg)"
 ],
-"highway/footway/crossing/marked":[
-"Gehweg-Querung mit Straßenmarkierung"
-],
 "highway/footway/crossing/traffic_signals":[
 "Gehweg-Querung mit Ampel",
 "fußgängergang",
@@ -3481,7 +3897,7 @@
 "zebrastreifen (ampel)"
 ],
 "highway/footway/crossing/uncontrolled":[
-"Gehweg-Querung mit Straßenmarkierung",
+"Gehweg-Querung mit Fahrbahnmarkierung",
 "fußgängerüberweg",
 "markierter fußgängerüberweg",
 "markierter zebrastreifen",
@@ -3492,9 +3908,6 @@
 "nicht markierte kreuzung",
 "Querung ohne Markierungen",
 "nicht gekennzeichnete kreuzung"
-],
-"highway/footway/crossing/zebra":[
-"Gehweg-Querung mit Zebrastreifen"
 ],
 "highway/footway/informal":[
 "Trampelpfad"
@@ -3764,7 +4177,7 @@
 "fahrweg auf parkplatzflächen"
 ],
 "highway/service_area":[
-"Befestigte Betriebsfläche"
+"Betriebs-/Rangierfläche"
 ],
 "highway/services":[
 "autobahnraststätte",
@@ -4255,6 +4668,17 @@
 "industrie",
 "fabrikgelände"
 ],
+"landuse/industrial/depot":[
+"bauhof",
+"betriebshof",
+"straßenbahndepot",
+"straßenbahn-betriebshof",
+"fahrzeugpark",
+"busbetriebshof",
+"Depot",
+"omnibusdepot",
+"bushof"
+],
 "landuse/industrial/scrap_yard":[
 "autofriedhof",
 "schrottplatz",
@@ -4344,6 +4768,10 @@
 "wohnkomplex",
 "wohnsiedlung",
 "Wohnblockanlage"
+],
+"landuse/residential/trailer_park":[
+"Wohnwagenpark",
+"wohnwagenpark"
 ],
 "landuse/retail":[
 "geschäfte",
@@ -4597,6 +5025,10 @@
 "kooperativer garten",
 "gemeinschaftsgarten"
 ],
+"leisure/garden/residential":[
+"Hausgarten",
+"privatgarten"
+],
 "leisure/golf_course":[
 "Golfplatz",
 "golfkurs",
@@ -4710,6 +5142,56 @@
 "armbrust",
 "Bogenschießanlage"
 ],
+"leisure/pitch/athletics":[
+"Leichtathletikanlage"
+],
+"leisure/pitch/athletics/discus_throw":[
+"wurfkreis",
+"wurfring",
+"Diskusring / Kreissektor",
+"kreissektor",
+"diskusring"
+],
+"leisure/pitch/athletics/hammer_throw":[
+"wurfkreis",
+"wurfring",
+"kreissektor",
+"Hammerwurfring / Kreissektor",
+"hammerwurfkreis"
+],
+"leisure/pitch/athletics/high_jump":[
+"sprungmatte",
+"matte",
+"Hochsprunganlage",
+"hochsprung",
+"hochsprunglatte",
+"latte"
+],
+"leisure/pitch/athletics/javelin_throw":[
+"sektor",
+"Speerwurfsektor",
+"abwurf",
+"speerwurfbereich",
+"kreissektor"
+],
+"leisure/pitch/athletics/long_jump":[
+"anlaufbahn",
+"sprunggrube",
+"Weitsprunganlage",
+"sprunganlage"
+],
+"leisure/pitch/athletics/pole_vault":[
+"Stabhochsprunggrube",
+"stabhochsprunggrube"
+],
+"leisure/pitch/athletics/shot_put":[
+"kugelstoßring / -grube",
+"Kugelstoßring / -grube"
+],
+"leisure/pitch/athletics/triple_jump":[
+"dreisprunggrube",
+"Dreisprunggrube"
+],
 "leisure/pitch/australian_football":[
 "australischer football feld",
 "Australian-Football-Feld",
@@ -4768,6 +5250,7 @@
 "longieren",
 "reitbahn",
 "round-pen",
+"rodeo",
 "reiten",
 "dressurplatz",
 "springplatz"
@@ -5034,6 +5517,36 @@
 "laufbahn",
 "rennbahn (nicht motorsport)"
 ],
+"leisure/track/athletics":[
+"Leichtathletik-Laufbahn"
+],
+"leisure/track/athletics/javelin_throw":[
+"Speerwurfbahn",
+"speerwurfbahn"
+],
+"leisure/track/athletics/long_jump":[
+"weitsprung-laufbahn",
+"Weitsprung-Laufbahn"
+],
+"leisure/track/athletics/pole_vault":[
+"Stabhochsprung-Laufbahn",
+"stabhochsprung-laufbahn"
+],
+"leisure/track/athletics/running":[
+"Laufbahn"
+],
+"leisure/track/athletics/sprint":[
+"Sprint-Laufbahn",
+"sprint-laufbahn"
+],
+"leisure/track/athletics/steeplechase":[
+"hindernis-laufbahn",
+"Hindernis-Laufbahn"
+],
+"leisure/track/athletics/triple_jump":[
+"Dreisprung-Laufbahn",
+"dreisprung-laufbahn"
+],
 "leisure/track/cycling":[
 "Radrennbahn",
 "radsportrennbahn",
@@ -5159,12 +5672,12 @@
 "Kran"
 ],
 "man_made/crane/gantry_crane":[
-"brückenkran",
-"Bckenkran"
+"Brückenkran",
+"brückenkran"
 ],
 "man_made/crane/portal_crane":[
-"portalkran",
-"Portalkran"
+"Portalkran",
+"portalwippdrehkran"
 ],
 "man_made/cross":[
 "gipfelkreuz",
@@ -5202,8 +5715,12 @@
 "fahne"
 ],
 "man_made/gantry":[
-"Portal",
-"portal"
+"Schilderbrücke",
+"wechselverkehrszeichen",
+"kragarm",
+"wegweiserbrücke",
+"portal",
+"vzb"
 ],
 "man_made/gasometer":[
 "Gasometer",
@@ -5397,6 +5914,16 @@
 "Pumpwerk",
 "pumpstation"
 ],
+"man_made/quay":[
+"Kai",
+"kaje",
+"uferbefestigung",
+"spundwand",
+"ufer",
+"quai",
+"flussufer",
+"kaimauer"
+],
 "man_made/reservoir_covered":[
 "untergrund",
 "unterirdisch",
@@ -5427,6 +5954,66 @@
 "Schaltschrank im Freien",
 "ampelsteuerungsschrank",
 "telekomunikationsschrank"
+],
+"man_made/street_cabinet/postal_service":[
+"briefablagekaste",
+"Postablagekasten",
+"briefsammelkasten",
+"postsammelkasten"
+],
+"man_made/street_cabinet/traffic_control":[
+"verteilerschrank",
+"Schaltschrank mit Ampelsteuerungstechnik",
+"straßenschrank",
+"ampelautomatisierungssystem",
+"verkehrssteuerungssystem",
+"verkehrsautomatisierung",
+"lichtsignalsteuerung",
+"ampelsteuerung",
+"schaltschrank",
+"verkehrssteuerung",
+"technikschrank"
+],
+"man_made/street_cabinet/traffic_monitoring":[
+"verteilerschrank",
+"fahrradzählung",
+"straßenschrank",
+"fahrzeugzählung",
+"seitenradar",
+"schaltschrank",
+"verkehrsanalyse",
+"verkehrsmessung",
+"verkehrszählung",
+"verkehrsüberwachung",
+"verkehrsmanagement",
+"verkehrserhebung",
+"Schaltschrank mit Verkehrsmesstechnik",
+"kabelschrank",
+"technikschrank"
+],
+"man_made/street_cabinet/transport_management":[
+"verteilerschrank",
+"fahrradzählung",
+"straßenschrank",
+"fahrzeugzählung",
+"Schaltschrank mit Verkehrssteuerungstechnik",
+"seitenradar",
+"schaltschrank",
+"verkehrsanalyse",
+"verkehrsmessung",
+"verkehrszählung",
+"verkehrsüberwachung",
+"verkehrsmanagement",
+"verkehrserhebung",
+"kabelschrank",
+"technikschrank"
+],
+"man_made/street_cabinet/waste":[
+"Mülltonnenbox",
+"mülltonneneinfassung",
+"mülltonnenverkleidung",
+"müllsammelschrank",
+"müllbox"
 ],
 "man_made/surveillance":[
 "Überwachung",
@@ -5727,6 +6314,13 @@
 "hügel",
 "zipfel",
 "bergkuppe"
+],
+"natural/peninsula":[
+"binnenhalbinsel",
+"landzunge",
+"nehrung",
+"landspitze",
+"Halbinsel"
 ],
 "natural/reef":[
 "Riff",
@@ -6153,6 +6747,15 @@
 "Energieversorgungsunternehmen",
 "energieversorgungsunternehmen"
 ],
+"office/engineer":[
+"statiker",
+"tragwerksplaner",
+"ingenieur",
+"bauingenieur",
+"maschinenbauingenieur",
+"elektroingenieur",
+"Ingenieurbüro"
+],
 "office/estate_agent":[
 "immobilienhändler",
 "grundstücksmakler",
@@ -6219,6 +6822,11 @@
 "office/government/tax":[
 "Finanzamt",
 "finanzamt"
+],
+"office/graphic_design":[
+"Grafikdesign",
+"grafikdesign",
+"komunikationsdesign"
 ],
 "office/guide":[
 "fremdenführer",
@@ -6365,7 +6973,7 @@
 "Büro (nicht spezifizierter Typ)"
 ],
 "pipeline":[
-"Pipeline-Inhalt"
+"Pipeline Objekt"
 ],
 "pipeline/substation":[
 "unterstation",
@@ -6791,8 +7399,8 @@
 "solarstromanlage"
 ],
 "power/generator/method/photovoltaic/building/roof":[
+"Dach-Photovoltaikanlage",
 "photovoltaikanlage",
-"Photovoltaikanlage",
 "dach",
 "carport"
 ],
@@ -6984,8 +7592,9 @@
 "Strommast"
 ],
 "power/portal":[
-"ankerportal",
-"Ankerportal"
+"portalmast",
+"verteilportal",
+"Abspannportal"
 ],
 "power/substation":[
 "umspannwerk",
@@ -7385,6 +7994,13 @@
 "railway/tram_stop":[
 "Straßenbahn-Halteplatz"
 ],
+"railway/turntable":[
+"Eisenbahn-Drehscheibe",
+"doppeldrehscheibe",
+"drehbühne",
+"segmentdrehscheibe",
+"drehscheibe"
+],
 "railway/yard":[
 "gleisgruppe",
 "güterbahnhof",
@@ -7500,10 +8116,14 @@
 "babygeschäft"
 ],
 "shop/bag":[
-"taschengeschäft",
-"reisegepäckgeschäft",
-"taschen/koffer-geschäft",
-"Taschenladen"
+"handtaschen",
+"koffer",
+"umhängetaschen",
+"taschen",
+"reisegepäck",
+"reisetaschen",
+"rollkoffer",
+"Taschengeschäft"
 ],
 "shop/bakery":[
 "Bäckerei",
@@ -8043,9 +8663,7 @@
 "HiFi-Laden"
 ],
 "shop/hobby":[
-"hobbyshop",
-"Bastelgeschäft",
-"bastelgeschäft"
+"Bastelgeschäft"
 ],
 "shop/household_linen":[
 "haushaltswaren",
@@ -8134,6 +8752,7 @@
 ],
 "shop/locksmith":[
 "Schlüsseldienst",
+"schlüsselmacher",
 "schlosser",
 "schlüsseldienst"
 ],
@@ -8229,6 +8848,23 @@
 "gewichtsreduktionspräparategeschäft",
 "nahrungsergänzungsmittelgeschäft"
 ],
+"shop/nuts":[
+"kokosnüsse",
+"walnüsse",
+"erdnüsse",
+"macadamia",
+"pistazien",
+"paranüsse",
+"pekannüsse",
+"samen",
+"Nussgeschäft",
+"trockenfrüchte",
+"nüsse",
+"mandeln",
+"haselnüsse",
+"cashews",
+"kastanien"
+],
 "shop/optician":[
 "optiker",
 "brillengeschäft",
@@ -8278,16 +8914,21 @@
 "parfümerie"
 ],
 "shop/pet":[
-"Tierhandlung",
+"Zoofachgeschäft",
+"haustier",
+"tiernahrung",
 "zoohandlung",
+"goldfisch",
 "tierhandlung",
-"zoofachgeschäft"
+"zoofachgeschäft",
+"tierzubehör"
 ],
 "shop/pet_grooming":[
 "hundesalon",
 "tierpflegedienst",
 "hundefriseur",
-"Tierpflegedienst, Tierfriseur (meist Hundesalon)",
+"tierpflege",
+"Tierfriseur",
 "tierfriseur"
 ],
 "shop/photo":[
@@ -8375,8 +9016,17 @@
 "brockenstube"
 ],
 "shop/sewing":[
-"nähzubehörgeschäft",
-"Kurzwarenladen"
+"stricken",
+"Geschäft für Nähzubehör",
+"garn",
+"nähmaschinen",
+"stricknadeln",
+"nähzubehör",
+"kurzwaren",
+"nähen",
+"sticken",
+"nadeln",
+"häckeln"
 ],
 "shop/shoe_repair":[
 "kopfsteinpflaster",
@@ -8439,6 +9089,7 @@
 "shop/tailor":[
 "herrenschneider",
 "änderungsservice",
+"anzugsschneider",
 "änderungsschneiderei",
 "Schneider",
 "schneider"
@@ -8524,7 +9175,11 @@
 "reifenservice"
 ],
 "shop/vacant":[
-"Leerstehendes Geschäft"
+"leeres geschäft",
+"Leerstehendes Geschäft",
+"ungenutztes geschäft",
+"leerstehendes geschäft",
+"leerstand"
 ],
 "shop/vacuum_cleaner":[
 "staubsaugerladen",
@@ -8933,6 +9588,10 @@
 "traffic_sign/maxspeed":[
 "höchstgeschwindigkeits-schild",
 "Höchstgeschwindigkeits-Schild"
+],
+"traffic_sign/variable_message":[
+"wechselverkehrszeichen",
+"Wechselverkehrszeichen"
 ],
 "type/boundary":[
 "Grenze",

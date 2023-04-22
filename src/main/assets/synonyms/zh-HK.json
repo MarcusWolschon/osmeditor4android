@@ -1111,11 +1111,6 @@
 "機動遊戲機",
 "機動遊戲"
 ],
-"attraction/big_wheel":[
-"big wheel",
-"ferris wheel",
-"摩天輪"
-],
 "attraction/bungee_jumping":[
 "笨豬跳",
 "bungee jumping",
@@ -1227,12 +1222,6 @@
 "barrier/kissing_gate":[
 "kissing gate",
 "單人轉門"
-],
-"barrier/lift_gate":[
-"擋車器",
-"閘桿",
-"道閘",
-"lift gate"
 ],
 "barrier/retaining_wall":[
 "擋土墻",
@@ -1450,10 +1439,6 @@
 ],
 "building/stadium":[
 "體育館建築物"
-],
-"building/static_caravan":[
-"露營車",
-"固定式露營車"
 ],
 "building/temple":[
 "寺廟建築物"

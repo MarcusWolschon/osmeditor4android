@@ -499,6 +499,9 @@
 "arkitekto bulegoa",
 "Arkitektura bulegoa"
 ],
+"place/locality":[
+"Aurkintza"
+],
 "shop/hairdresser":[
 "Ile-apaintzailea"
 ],
@@ -510,5 +513,11 @@
 ],
 "shop/vacant":[
 "Denda-lokal hutsa"
+],
+"type/boundary":[
+"Muga"
+],
+"waterway/waterfall":[
+"Ur-jauzia"
 ]
 }

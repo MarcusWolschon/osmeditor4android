@@ -746,10 +746,6 @@
 "vrata ki skozi ograjo spustijo le po eno osebo naenkrat",
 "Vrata \"na poljub\""
 ],
-"barrier/lift_gate":[
-"Dvižna zapornica",
-"rampa"
-],
 "barrier/retaining_wall":[
 "zid",
 "škarfa",
@@ -909,11 +905,6 @@
 "building/stable":[
 "štala",
 "Hlev"
-],
-"building/static_caravan":[
-"Nepremična bivalna prikolica",
-"nepremični avtodom",
-"fiksni bivalnik"
 ],
 "building/terrace":[
 "Vrstne hiše",

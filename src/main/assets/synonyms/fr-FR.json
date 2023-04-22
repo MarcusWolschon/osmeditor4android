@@ -1,4 +1,10 @@
 {
+"amenity/recycling/container/electrical_items":[
+"Benne pour déchets d'équipements électriques et électroniques (DEEE)"
+],
+"amenity/recycling/container/green_waste":[
+"Benne pour déchets verts"
+],
 "waterway/river":[
 "Rivière"
 ]

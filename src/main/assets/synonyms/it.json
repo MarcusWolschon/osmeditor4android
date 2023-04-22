@@ -1040,7 +1040,18 @@
 "bollette"
 ],
 "amenity/mortuary":[
-"Obitorio"
+"necroforo",
+"funebri",
+"funerale",
+"Obitorio",
+"camera mortuaria",
+"defunto",
+"morgue",
+"commiato",
+"crematorio",
+"becchino",
+"sepoltura",
+"cadavere"
 ],
 "amenity/motorcycle_parking":[
 "Parcheggio moto",
@@ -2247,18 +2258,6 @@
 "gabbie",
 "zoo safari"
 ],
-"attraction/big_wheel":[
-"grande ruota",
-"parco a tema",
-"ruota",
-"Ruota panoramica",
-"attrazioni",
-"divertimenti",
-"panoramica",
-"giostra",
-"luna park",
-"divertimento"
-],
 "attraction/bumper_car":[
 "Autoscontro"
 ],
@@ -2524,10 +2523,6 @@
 "Cancello che non fa passare il bestiame",
 "kissing gate"
 ],
-"barrier/lift_gate":[
-"barriera a sollevamento",
-"Sbarra"
-],
 "barrier/retaining_wall":[
 "Muro di contenimento",
 "muro di contenimento"
@@ -2564,6 +2559,9 @@
 ],
 "barrier/wall/noise_barrier":[
 "Barriera antirumore"
+],
+"barrier/yes":[
+"Barriera (Tipo non specificato)"
 ],
 "boundary":[
 "Confine"
@@ -2944,12 +2942,6 @@
 "sport",
 "stadio olimpico"
 ],
-"building/static_caravan":[
-"casa mobile",
-"container",
-"Roulotte stazionaria",
-"casa prefabbricata"
-],
 "building/sty":[
 "Porcile"
 ],
@@ -2993,6 +2985,17 @@
 ],
 "building_point":[
 "Edificio"
+],
+"cemetery/sector":[
+"cimitero",
+"cimiteriale",
+"colombario",
+"Sezione cimitero",
+"mausoleo",
+"camposanto",
+"tomba",
+"sepoltura",
+"campo"
 ],
 "club":[
 "centro sociale",
@@ -3076,7 +3079,11 @@
 "disinfezione"
 ],
 "craft/clockmaker":[
+"costruttore",
 "orologi",
+"orologiaio",
+"riparatore",
+"riparazione",
 "Costruttore di orologi"
 ],
 "craft/confectionery":[
@@ -3262,7 +3269,8 @@
 "craft/watchmaker":[
 "orologi",
 "Orologiaio",
-"riparazione"
+"riparazione",
+"riparatore"
 ],
 "craft/window_construction":[
 "vetri",
@@ -3476,6 +3484,7 @@
 "entrance/main":[
 "Ingresso principale",
 "entrata",
+"entrata principale",
 "ingresso",
 "porta"
 ],
@@ -3745,6 +3754,9 @@
 "terapia",
 "voce"
 ],
+"healthcare/yes":[
+"Clinica (Tipo non specificato)"
+],
 "highway":[
 "Elemento stradale"
 ],
@@ -3771,9 +3783,6 @@
 "highway/crossing":[
 "Attraversamento"
 ],
-"highway/crossing/marked":[
-"Strisce pedonali"
-],
 "highway/crossing/traffic_signals":[
 "pedonale",
 "marciapiede",
@@ -3794,9 +3803,6 @@
 "pedoni",
 "attraversamento",
 "pedone"
-],
-"highway/crossing/zebra":[
-"Strisce pedonali"
 ],
 "highway/cycleway":[
 "Percorso ciclabile",
@@ -3826,8 +3832,12 @@
 "ciclabile e pedonale",
 "attraversamento bici e pedoni"
 ],
-"highway/cycleway/crossing/marked":[
-"Strisce per biciclette"
+"highway/cycleway/crossing/traffic_signals":[
+"attraversamento ciclabile con semaforo",
+"Attraversamento ciclabile semaforico"
+],
+"highway/cycleway/crossing/uncontrolled":[
+"Attraversamento ciclabile segnalato"
 ],
 "highway/cycleway/crossing/unmarked":[
 "bicicletta",
@@ -3897,6 +3907,17 @@
 ],
 "highway/footway/crossing":[
 "Attraversamento pedonale"
+],
+"highway/footway/crossing/traffic_signals":[
+"attraversamento pedonale con semaforo",
+"Attraversamento pedonale semaforico"
+],
+"highway/footway/crossing/uncontrolled":[
+"Attraversamento pedonale segnalato",
+"strisce pedonali"
+],
+"highway/footway/crossing/unmarked":[
+"Attraversamento pedonale non segnalato"
 ],
 "highway/footway/sidewalk":[
 "marciapiedi",
@@ -4398,6 +4419,16 @@
 ],
 "landuse/cemetery":[
 "cimitero",
+"gentilizia",
+"tombe",
+"colombario",
+"loculi",
+"cripta",
+"necropoli",
+"mausoleo",
+"camposanto",
+"fossa",
+"sepoltura",
 "Cimitero"
 ],
 "landuse/churchyard":[
@@ -4783,7 +4814,12 @@
 "pista di pattinaggio su ghiaccio"
 ],
 "leisure/indoor_play":[
-"Parco giochi interno"
+"bambini",
+"chiuso",
+"Centro giochi al chiuso",
+"interno",
+"ludoteca",
+"centro giochi"
 ],
 "leisure/marina":[
 "porto turistico",
@@ -4950,9 +4986,18 @@
 "Campo da pallavolo"
 ],
 "leisure/playground":[
-"Parco giochi"
+"esterno",
+"Parco giochi",
+"aperto",
+"area giochi",
+"parco giochi"
 ],
 "leisure/playground/indoor":[
+"bambini",
+"chiuso",
+"interno",
+"ludoteca",
+"centro giochi",
 "Parco giochi interno"
 ],
 "leisure/resort":[
@@ -5062,6 +5107,9 @@
 "Linea",
 "linea"
 ],
+"man_made":[
+"Elemento creato dall'uomo"
+],
 "man_made/adit":[
 "adito",
 "ingresso",
@@ -5157,6 +5205,23 @@
 "deforestazione",
 "foresta",
 "Area disboscata"
+],
+"man_made/compass_rose":[
+"nord",
+"Rosa dei venti",
+"tramontana",
+"sud",
+"libeccio",
+"bussola",
+"maestrale",
+"est",
+"ponente",
+"ovest",
+"scirocco",
+"grecale",
+"levante",
+"rosa",
+"ostro"
 ],
 "man_made/courtyard":[
 "Cortile"
@@ -5329,6 +5394,14 @@
 "man_made/mast/communication/television":[
 "Torre della televisione"
 ],
+"man_made/mast/lighting":[
+"Palo d’illuminazione",
+"stadio",
+"illuminazione",
+"riflettore",
+"luci",
+"fari"
+],
 "man_made/mineshaft":[
 "sotterraneo",
 "buco",
@@ -5387,6 +5460,12 @@
 "fognatura",
 "acqua",
 "Tubatura sotterranea"
+],
+"man_made/planter":[
+"vaso",
+"Fioriera",
+"fioriera",
+"fiori"
 ],
 "man_made/pumping_station":[
 "pompa",
@@ -5469,6 +5548,12 @@
 "man_made/tower/defensive":[
 "Torre fortificata"
 ],
+"man_made/tower/diving":[
+"tuffarsi",
+"tuffo",
+"torre",
+"Trampolino"
+],
 "man_made/tower/minaret":[
 "musulmano",
 "islam",
@@ -5489,6 +5574,14 @@
 ],
 "man_made/utility_pole":[
 "Palo per utenze pubbliche"
+],
+"man_made/video_wall":[
+"Schermo digitale",
+"schermo",
+"tv",
+"televisore",
+"monitor",
+"muro led"
 ],
 "man_made/wastewater_plant":[
 "depuratore",
@@ -5537,6 +5630,16 @@
 "opificio",
 "manifattura",
 "laboratorio"
+],
+"man_made/works/brewery":[
+"alcool",
+"birra",
+"Birrificio industriale",
+"bevuta",
+"sidro"
+],
+"man_made/yes":[
+"Elemento creato dall'uomo (Tipo non specificato)"
 ],
 "marker":[
 "palo",
@@ -5741,6 +5844,13 @@
 "roccia",
 "Roccia non fissata"
 ],
+"natural/strait":[
+"canale",
+"passaggio",
+"passo",
+"Stretto",
+"braccio"
+],
 "natural/tree":[
 "Albero",
 "albero"
@@ -5752,6 +5862,14 @@
 "cipressi",
 "Filare di alberi",
 "viale alberato"
+],
+"natural/tree_stump":[
+"rimosso",
+"tronco",
+"albero",
+"tagliato",
+"ceppo",
+"Troncone"
 ],
 "natural/valley":[
 "depressione",
@@ -6125,6 +6243,9 @@
 ],
 "office/water_utility":[
 "Ufficio azienda di fornitura dell'acqua"
+],
+"office/yes":[
+"Ufficio (Tipo non specificato)"
 ],
 "piste/downhill":[
 "pista di discesa per lo sci",
@@ -6882,6 +7003,14 @@
 "shop/anime":[
 "Negozio di Anime / Manga"
 ],
+"shop/antiques":[
+"disuso",
+"anticaglia",
+"desueti",
+"Negozio di oggetti antichi",
+"antichi",
+"antichità"
+],
 "shop/appliance":[
 "condizionatori",
 "frigo",
@@ -6984,6 +7113,10 @@
 "puntate",
 "Agenzia di scommesse",
 "scommesse"
+],
+"shop/books":[
+"negozio di libri",
+"Libreria"
 ],
 "shop/boutique":[
 "Boutique"
@@ -7331,6 +7464,10 @@
 "negozio di ferramenta",
 "Ferramenta"
 ],
+"shop/health_food":[
+"negozio di cibi salutari",
+"Negozio di cibi sani"
+],
 "shop/hearing_aids":[
 "negozio di apparecchi acustici",
 "apparecchi acustici",
@@ -7347,11 +7484,7 @@
 "Negozio Hifi"
 ],
 "shop/hobby":[
-"figurine",
-"modellini",
-"Negozio di hobbystica",
-"manga",
-"hobby"
+"Negozio di hobbystica"
 ],
 "shop/household_linen":[
 "lenzuola",
@@ -7549,20 +7682,6 @@
 "Negozio per animali",
 "negozio di animali"
 ],
-"shop/pet_grooming":[
-"shampoo",
-"toletta",
-"unghie",
-"toilette",
-"toelettatura",
-"gatti",
-"cani",
-"parrucchiere",
-"cane",
-"gatto",
-"tolettatura",
-"Toelettatura per animali"
-],
 "shop/photo":[
 "diapositive",
 "rullini",
@@ -7624,6 +7743,11 @@
 "Pescheria",
 "ittica",
 "pesce fresco"
+],
+"shop/second_hand":[
+"negozio dell'usato",
+"Mercatino dell'usato",
+"negozio di seconda mano"
 ],
 "shop/sewing":[
 "prodotti per cucito",
@@ -7803,6 +7927,9 @@
 "Enoteca",
 "negozio di vini",
 "vino"
+],
+"shop/yes":[
+"Negozio (Tipo non specificato)"
 ],
 "telecom":[
 "Elemento della telecomunicazione"
@@ -8100,6 +8227,9 @@
 "dosso piatto",
 "Dosso tavola",
 "attraversamento pedonale rialzato"
+],
+"traffic_calming/yes":[
+"Dissuasore di velocità (Tipo non specificato)"
 ],
 "traffic_sign":[
 "cartello",

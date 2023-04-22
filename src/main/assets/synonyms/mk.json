@@ -5,6 +5,9 @@
 "address":[
 "Адреса"
 ],
+"advertising":[
+"Рекламна направа"
+],
 "advertising/billboard":[
 "Рекламна табла"
 ],
@@ -215,6 +218,9 @@
 "amenity/clinic/abortion":[
 "Клиника за абортирање"
 ],
+"amenity/clinic/dialysis":[
+"Центар за дијализа"
+],
 "amenity/clinic/fertility":[
 "Клинка за плодност"
 ],
@@ -260,8 +266,89 @@
 "amenity/doctors":[
 "Лекар"
 ],
+"amenity/doctors/allergology":[
+"Алерголог"
+],
+"amenity/doctors/cardiology":[
+"Кардиолог"
+],
+"amenity/doctors/child_psychiatry":[
+"Детско-младински психијатар"
+],
+"amenity/doctors/dermatology":[
+"Дерматолог"
+],
+"amenity/doctors/gastroenterology":[
+"Гастроентеролог"
+],
+"amenity/doctors/general":[
+"Општ лекар"
+],
 "amenity/doctors/gynaecology":[
 "Гинеколог"
+],
+"amenity/doctors/haematology":[
+"Хематолог"
+],
+"amenity/doctors/internal":[
+"Интернист"
+],
+"amenity/doctors/nephrology":[
+"Нефролог"
+],
+"amenity/doctors/neurology":[
+"Невролог"
+],
+"amenity/doctors/neurosurgery":[
+"Неврохирург"
+],
+"amenity/doctors/oncology":[
+"Онколог"
+],
+"amenity/doctors/ophthalmology":[
+"Офталмолог"
+],
+"amenity/doctors/orthopaedics":[
+"Ортопед"
+],
+"amenity/doctors/otolaryngology":[
+"Оториноларинголог"
+],
+"amenity/doctors/paediatrics":[
+"Педијатар"
+],
+"amenity/doctors/pathology":[
+"Патолог"
+],
+"amenity/doctors/plastic_surgery":[
+"Пластичен хирург"
+],
+"amenity/doctors/podiatry":[
+"Подијатар"
+],
+"amenity/doctors/proctology":[
+"Проктолог"
+],
+"amenity/doctors/psychiatrist":[
+"Психијатар"
+],
+"amenity/doctors/pulmonology":[
+"Пулмонолог"
+],
+"amenity/doctors/radiology":[
+"Радиолог"
+],
+"amenity/doctors/rheumatology":[
+"Ревматолог"
+],
+"amenity/doctors/surgery":[
+"Општ хирург"
+],
+"amenity/doctors/trauma":[
+"Ургентен хирург"
+],
+"amenity/doctors/urology":[
+"Уролог"
 ],
 "amenity/dojo":[
 "Училиште за боречки вештини"
@@ -599,6 +686,11 @@
 "amenity/restaurant/japanese":[
 "Јапонски ресторан"
 ],
+"amenity/restaurant/korean":[
+"Корејски ресторан",
+"одделени со запирки]",
+"[преведете со истозначници и сродни поими на „корејски ресторан“"
+],
 "amenity/restaurant/mexican":[
 "Мексикански ресторан"
 ],
@@ -610,6 +702,11 @@
 ],
 "amenity/restaurant/seafood":[
 "Морска храна"
+],
+"amenity/restaurant/spanish":[
+"[преведете со истозначници и сродни поими на „шпански ресторан“",
+"Шпански ресторан",
+"одделени со запирки]"
 ],
 "amenity/restaurant/steakhouse":[
 "Бифтеци"
@@ -662,6 +759,9 @@
 "amenity/social_facility/ambulatory_care":[
 "Амбулантна нега"
 ],
+"amenity/social_facility/assisted_living":[
+"Старечки дом за потпомогнато живеење"
+],
 "amenity/social_facility/food_bank":[
 "Банка на храна"
 ],
@@ -673,6 +773,9 @@
 ],
 "amenity/social_facility/nursing_home":[
 "Старечки дом"
+],
+"amenity/stripclub":[
+"Стриптиз-клуб"
 ],
 "amenity/studio":[
 "Студио"
@@ -849,7 +952,7 @@
 "Живеалиште за животни"
 ],
 "attraction/big_wheel":[
-"Големо тркало"
+"Панорамско тркало"
 ],
 "attraction/bumper_car":[
 "Автодром"
@@ -987,7 +1090,7 @@
 "Стоконепропусна порта"
 ],
 "barrier/lift_gate":[
-"Порта со дигалка"
+"Рампа"
 ],
 "barrier/log":[
 "Паднато дрво"
@@ -1074,7 +1177,7 @@
 "Автомобилска стреа"
 ],
 "building/cathedral":[
-"Соборен храм"
+"Катедрала"
 ],
 "building/chapel":[
 "Капела"
@@ -1170,7 +1273,7 @@
 "Павилјонска градба"
 ],
 "building/public":[
-"Општествеа градба"
+"Општествена градба"
 ],
 "building/residential":[
 "Станбена градба"
@@ -1200,10 +1303,10 @@
 "Штала"
 ],
 "building/stadium":[
-"Стадионска градба"
+"Стадион"
 ],
 "building/static_caravan":[
-"Недвижечки подвижен дом"
+"Подвижен дом"
 ],
 "building/sty":[
 "Кочина"
@@ -1212,7 +1315,7 @@
 "Синагога"
 ],
 "building/temple":[
-"Храмовска градба"
+"Храм"
 ],
 "building/terrace":[
 "Нанижани куќи"
@@ -1243,6 +1346,9 @@
 ],
 "club":[
 "Клуб"
+],
+"club/scout":[
+"Извидничка група"
 ],
 "club/sport":[
 "Спортски клуб"
@@ -1356,7 +1462,7 @@
 "Грнчар"
 ],
 "craft/rigger":[
-"Подигач"
+"Такелажер"
 ],
 "craft/roofer":[
 "Покривар"
@@ -1463,6 +1569,11 @@
 "emergency/fire_hydrant":[
 "Хидрант"
 ],
+"emergency/fire_service_inlet":[
+"[преведете со истозначници и сродни поими на „пожарникарски довод“",
+"одделени со запирки]",
+"Пожарникарски довод"
+],
 "emergency/first_aid_kit":[
 "Прва помош"
 ],
@@ -1520,6 +1631,9 @@
 "entrance/main":[
 "Главен влез"
 ],
+"entrance/staircase":[
+"Влез кон скали"
+],
 "ford":[
 "Брод"
 ],
@@ -1568,8 +1682,26 @@
 "healthcare/alternative":[
 "Алтернативна медицина"
 ],
+"healthcare/alternative/acupuncture":[
+"Акупунтурист"
+],
+"healthcare/alternative/ayurveda":[
+"Ајурведичар"
+],
 "healthcare/alternative/chiropractic":[
 "Хиропрактичар"
+],
+"healthcare/alternative/homeopathy":[
+"Хомеопат"
+],
+"healthcare/alternative/naturopathy":[
+"Натуропат"
+],
+"healthcare/alternative/osteopathy":[
+"Остеопат"
+],
+"healthcare/alternative/traditional_chinese_medicine":[
+"Традиционален кинески ликар"
 ],
 "healthcare/audiologist":[
 "Слушен лекар"
@@ -1646,22 +1778,14 @@
 "highway/crossing":[
 "Премин"
 ],
-"highway/crossing/marked":[
-"Обележан пешачки премин"
-],
 "highway/crossing/traffic_signals":[
 "Премин со пешачки сигнали"
 ],
 "highway/crossing/uncontrolled":[
-"Обележан пешачки премин",
-"[преведете со истозначници и сродни поими на „обележан пешачки премин“",
-"одделени со запирки]"
+"Обележан премин"
 ],
 "highway/crossing/unmarked":[
 "Необележан премин"
-],
-"highway/crossing/zebra":[
-"Обележан пешачки премин"
 ],
 "highway/cycleway":[
 "Велосипедска патека"
@@ -1674,9 +1798,6 @@
 ],
 "highway/cycleway/crossing/bicycle_foot":[
 "Велосипедско-пешачки премин"
-],
-"highway/cycleway/crossing/marked":[
-"Обележан велосипедски премин"
 ],
 "highway/cycleway/crossing/traffic_signals":[
 "Велосипедски премин со семафор"
@@ -1719,9 +1840,6 @@
 "highway/footway/crossing":[
 "Пешачки премин"
 ],
-"highway/footway/crossing/marked":[
-"Обележан премин"
-],
 "highway/footway/crossing/traffic_signals":[
 "Премин со пешачки семафор"
 ],
@@ -1730,9 +1848,6 @@
 ],
 "highway/footway/crossing/unmarked":[
 "Необележан премин"
-],
-"highway/footway/crossing/zebra":[
-"Обележан премин"
 ],
 "highway/footway/informal":[
 "Неформална пешачка патека"
@@ -1939,7 +2054,7 @@
 "Историски срамен столб"
 ],
 "historic/ruins":[
-"Рушевини"
+"Урнатини"
 ],
 "historic/tomb":[
 "Гробница"
@@ -2049,6 +2164,9 @@
 "landuse/industrial":[
 "Индустриско подрачје"
 ],
+"landuse/industrial/depot":[
+"Депо"
+],
 "landuse/industrial/scrap_yard":[
 "Двор за отпад"
 ],
@@ -2090,6 +2208,9 @@
 ],
 "landuse/residential/apartments":[
 "Станбен комплекс"
+],
+"landuse/residential/trailer_park":[
+"Парк за подвижни домови"
 ],
 "landuse/retail":[
 "Продажно подрачје"
@@ -2202,6 +2323,9 @@
 "leisure/garden/community":[
 "Заедничка градина"
 ],
+"leisure/garden/residential":[
+"Домашна градина"
+],
 "leisure/golf_course":[
 "Терен за голф"
 ],
@@ -2250,6 +2374,41 @@
 "leisure/pitch/archery":[
 "Стреличарско стрелиште"
 ],
+"leisure/pitch/athletics":[
+"Терен за атлетика"
+],
+"leisure/pitch/athletics/discus_throw":[
+"Круг за фрлање диск"
+],
+"leisure/pitch/athletics/hammer_throw":[
+"Круг за фрлање кладиво"
+],
+"leisure/pitch/athletics/high_jump":[
+"Душек за скок во височина",
+"[преведете со истозначници и сродни поими на „душек за скок во височина“",
+"одделени со запирки]"
+],
+"leisure/pitch/athletics/javelin_throw":[
+"Поле за фрлање копје"
+],
+"leisure/pitch/athletics/long_jump":[
+"[преведете со истозначници и сродни поими на „јама за скок во далечина“",
+"одделени со запирки]",
+"Јама за скок во далечина"
+],
+"leisure/pitch/athletics/pole_vault":[
+"[преведете со истозначници и сродни поими на „душек за скок со стап“",
+"одделени со запирки]",
+"Душек за скок со стап"
+],
+"leisure/pitch/athletics/shot_put":[
+"Круг/јама за фрлање ѓуле"
+],
+"leisure/pitch/athletics/triple_jump":[
+"Јама за троскок",
+"одделени со запирки]",
+"[преведете со истозначници и сродни поими на „јама за троскок“"
+],
 "leisure/pitch/australian_football":[
 "Игралиште за австралиски фудбал"
 ],
@@ -2278,7 +2437,9 @@
 "Терен за крикет"
 ],
 "leisure/pitch/equestrian":[
-"Јавачка арена"
+"[преведете со истозначници и сродни поими на „јавачка / родео арена“",
+"одделени со запирки]",
+"Јавачка / родео арена"
 ],
 "leisure/pitch/field_hockey":[
 "Терен за хокеј на трева"
@@ -2396,6 +2557,36 @@
 ],
 "leisure/track":[
 "Тркалиште (немоторно)"
+],
+"leisure/track/athletics":[
+"Писта за атлетика"
+],
+"leisure/track/athletics/javelin_throw":[
+"Писта за фрлање копје"
+],
+"leisure/track/athletics/long_jump":[
+"[преведете со истозначници и сродни поими на „писта за скок во далечина“",
+"Писта за скок во далечина",
+"одделени со запирки]"
+],
+"leisure/track/athletics/pole_vault":[
+"[преведете со истозначници и сродни поими на „писта за скок со стап“",
+"Писта за скок со стап",
+"одделени со запирки]"
+],
+"leisure/track/athletics/running":[
+"Трчачка патека"
+],
+"leisure/track/athletics/sprint":[
+"Патека за спринт"
+],
+"leisure/track/athletics/steeplechase":[
+"Тркалиште со препреки"
+],
+"leisure/track/athletics/triple_jump":[
+"[преведете со истозначници и сродни поими на „писта за троскок“",
+"одделени со запирки]",
+"Писта за троскок"
 ],
 "leisure/track/cycling":[
 "Велосипедска лента"
@@ -2571,6 +2762,9 @@
 "man_made/pumping_station":[
 "Црпна станица"
 ],
+"man_made/quay":[
+"Пристан"
+],
 "man_made/reservoir_covered":[
 "Покриен водозборник"
 ],
@@ -2585,6 +2779,21 @@
 ],
 "man_made/street_cabinet":[
 "Улична кутија"
+],
+"man_made/street_cabinet/postal_service":[
+"Поштенска релејна кутија"
+],
+"man_made/street_cabinet/traffic_control":[
+"Кутија за сообраќајна контрола"
+],
+"man_made/street_cabinet/traffic_monitoring":[
+"Кутија за сообраќаен надзор"
+],
+"man_made/street_cabinet/transport_management":[
+"Кутија за управување со јавен превоз"
+],
+"man_made/street_cabinet/waste":[
+"Приватен сандак за отпад"
 ],
 "man_made/surveillance":[
 "Надзор"
@@ -2726,6 +2935,9 @@
 ],
 "natural/peak":[
 "Врв"
+],
+"natural/peninsula":[
+"Полуостров"
 ],
 "natural/reef":[
 "Морски гребен"
@@ -2899,7 +3111,7 @@
 "Амбасада"
 ],
 "office/diplomatic/liaison":[
-"Служба за врски"
+"Канцеларија за врски"
 ],
 "office/educational_institution":[
 "Образовна установа"
@@ -2909,6 +3121,9 @@
 ],
 "office/energy_supplier":[
 "Енергостопанска служба"
+],
+"office/engineer":[
+"Инженерско биро"
 ],
 "office/estate_agent":[
 "Агенција за недвижности"
@@ -2936,6 +3151,9 @@
 ],
 "office/government/tax":[
 "Служба за даноци и приходи"
+],
+"office/graphic_design":[
+"Графичко ателје"
 ],
 "office/guide":[
 "Туристички водич"
@@ -3504,6 +3722,9 @@
 "railway/tram_stop":[
 "Сопирна положба на трамвајот"
 ],
+"railway/turntable":[
+"Железничка свртница"
+],
 "railway/yard":[
 "Железнички двор"
 ],
@@ -3885,6 +4106,9 @@
 "shop/nutrition_supplements":[
 "Продавница за прехранбени додатоци"
 ],
+"shop/nuts":[
+"Продавница за оревести пловоди"
+],
 "shop/optician":[
 "Оптичар"
 ],
@@ -3913,7 +4137,7 @@
 "Продавница за домашни миленици"
 ],
 "shop/pet_grooming":[
-"Продавница за нега на миленици"
+"Фризер за домашни миленици"
 ],
 "shop/photo":[
 "Фотографски дуќан"
@@ -4210,7 +4434,7 @@
 "Притеснувач"
 ],
 "traffic_calming/cushion":[
-"Улична перница"
+"Брзиноублажувач"
 ],
 "traffic_calming/dip":[
 "Улична бразда"
@@ -4241,6 +4465,9 @@
 ],
 "traffic_sign/maxspeed":[
 "Знак за дозволена брзина"
+],
+"traffic_sign/variable_message":[
+"Знак со променливи известувања"
 ],
 "type/boundary":[
 "Граница"

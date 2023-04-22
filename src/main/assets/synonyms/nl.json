@@ -10,6 +10,9 @@
 "adresgegevens",
 "Adres"
 ],
+"advertising":[
+"Advertentie-object"
+],
 "advertising/billboard":[
 "Reclamebord",
 "billboard"
@@ -398,6 +401,9 @@
 "abortus",
 "Abortiecentrum"
 ],
+"amenity/clinic/dialysis":[
+"Dialysecentrum"
+],
 "amenity/clinic/fertility":[
 "Vruchtbaarheidskliniek",
 "kunstmatige inseminatie",
@@ -495,12 +501,18 @@
 "geneesheer",
 "arts"
 ],
+"amenity/doctors/child_psychiatry":[
+"Kinder- en jeugdpsychiater"
+],
 "amenity/doctors/gynaecology":[
 "vrouw",
 "vrouwenarts",
 "Gynaecoloog",
 "bevalling",
 "gynaecoloog"
+],
+"amenity/doctors/psychiatrist":[
+"Psychiater"
 ],
 "amenity/dojo":[
 "vechtkunsten",
@@ -1215,6 +1227,9 @@
 "Japans restaurant",
 "sushi"
 ],
+"amenity/restaurant/korean":[
+"Koreaans restaurant"
+],
 "amenity/restaurant/mexican":[
 "Mexicaans restaurant"
 ],
@@ -1230,6 +1245,9 @@
 "amenity/restaurant/seafood":[
 "zeevruchtenrestaurant",
 "Visrestaurant"
+],
+"amenity/restaurant/spanish":[
+"Spaans restaurant"
 ],
 "amenity/restaurant/steakhouse":[
 "biefstukrestaurant",
@@ -1339,6 +1357,9 @@
 "Ambulante zorg",
 "ambulant"
 ],
+"amenity/social_facility/assisted_living":[
+"Woonvoorziening voor senioren"
+],
 "amenity/social_facility/food_bank":[
 "voedselbank",
 "Voedselbank"
@@ -1363,6 +1384,9 @@
 "rusthuis",
 "verpleegtehuis",
 "woonzorgcentrum"
+],
+"amenity/stripclub":[
+"Stripclub"
 ],
 "amenity/studio":[
 "Studio",
@@ -1708,11 +1732,6 @@
 "kooi",
 "dierenpark"
 ],
-"attraction/big_wheel":[
-"Reuzenrad",
-"panoramisch rad",
-"gondelrad"
-],
 "attraction/bumper_car":[
 "botsauto",
 "pretpark",
@@ -1949,13 +1968,6 @@
 "kusjeshek",
 "kissing gate",
 "Voetgangershek"
-],
-"barrier/lift_gate":[
-"Slagboom",
-"bareel"
-],
-"barrier/log":[
-"Omgevallen boom"
 ],
 "barrier/motorcycle_barrier":[
 "Motorfietsbarrière"
@@ -2345,11 +2357,6 @@
 "stadion",
 "voetbatlstadion",
 "Stadiongebouw"
-],
-"building/static_caravan":[
-"Stacaravan",
-"chalet",
-"woonwagen"
 ],
 "building/sty":[
 "Varkensstal",
@@ -2821,6 +2828,9 @@
 "straatpot",
 "brandstraatpot"
 ],
+"emergency/fire_service_inlet":[
+"Aansluiting voor de brandweer"
+],
 "emergency/first_aid_kit":[
 "ehbo-kit",
 "verbandkist",
@@ -2931,6 +2941,9 @@
 "toegang",
 "Hoofdingang",
 "doorgang"
+],
+"entrance/staircase":[
+"Ingang van trappenhuis"
 ],
 "ford":[
 "trecht",
@@ -3156,21 +3169,12 @@
 "highway/crossing":[
 "Oversteekplaats"
 ],
-"highway/crossing/marked":[
-"Gemarkeerde Voetgangersoversteekplaats"
-],
 "highway/crossing/traffic_signals":[
 "Kruispunt met voetgangersverkeerslichten"
-],
-"highway/crossing/uncontrolled":[
-"Gemarkeerde voetgangersoversteekplaats"
 ],
 "highway/crossing/unmarked":[
 "ongemarkeerde oversteekplaats",
 "Ongemarkeerde oversteekplaats"
-],
-"highway/crossing/zebra":[
-"Zebrapad"
 ],
 "highway/cycleway":[
 "Fietspad",
@@ -3195,9 +3199,6 @@
 "zebrapad",
 "oversteekplaats",
 "Fiets- en voetgangersoversteekplaats"
-],
-"highway/cycleway/crossing/marked":[
-"Gemarkeerde fietsoversteekplaats"
 ],
 "highway/cycleway/crossing/unmarked":[
 "fietsoversteek",
@@ -3648,14 +3649,15 @@
 "vestiging"
 ],
 "historic/manor":[
-"Manoir",
 "woonhuis",
 "herenhuis",
 "deftig",
+"havezate",
 "woning",
 "royaal",
 "villa",
-"statig"
+"statig",
+"Landhuis"
 ],
 "historic/memorial":[
 "gedenkteken",
@@ -3911,6 +3913,9 @@
 "industriezone",
 "industrieel gebied",
 "industriële zone"
+],
+"landuse/industrial/depot":[
+"Depot"
 ],
 "landuse/industrial/scrap_yard":[
 "schroothoop",
@@ -4269,6 +4274,33 @@
 "handboog",
 "pijl"
 ],
+"leisure/pitch/athletics":[
+"Atletiekveld"
+],
+"leisure/pitch/athletics/discus_throw":[
+"Baan voor discuswerpen"
+],
+"leisure/pitch/athletics/hammer_throw":[
+"Baan voor kogelslingeren"
+],
+"leisure/pitch/athletics/high_jump":[
+"Hoogspringmat"
+],
+"leisure/pitch/athletics/javelin_throw":[
+"Speerwerpsector"
+],
+"leisure/pitch/athletics/long_jump":[
+"Verspringbak"
+],
+"leisure/pitch/athletics/pole_vault":[
+"Polsstokhoogspringmat"
+],
+"leisure/pitch/athletics/shot_put":[
+"Kogelstootbaan"
+],
+"leisure/pitch/athletics/triple_jump":[
+"Hink-stap-sprongbak"
+],
 "leisure/pitch/australian_football":[
 "Australianfootballveld",
 "aussie rules",
@@ -4315,13 +4347,7 @@
 "Cricketveld"
 ],
 "leisure/pitch/equestrian":[
-"piste",
-"ruiter",
-"manege",
-"dressuur",
-"Paardenpiste",
-"paardrijden",
-"arena"
+"Paardrijpiste / rodeo-arena"
 ],
 "leisure/pitch/field_hockey":[
 "Veldhockeyveld"
@@ -4508,6 +4534,30 @@
 "atletiekbaan",
 "velodroom",
 "pisterijden"
+],
+"leisure/track/athletics":[
+"Atletiekbaan"
+],
+"leisure/track/athletics/javelin_throw":[
+"Aanloopbaan speerwerpen"
+],
+"leisure/track/athletics/long_jump":[
+"Aanloopbaan verspringen"
+],
+"leisure/track/athletics/pole_vault":[
+"Aanloopbaan polsstokhoogspringen"
+],
+"leisure/track/athletics/running":[
+"Hardloopbaan"
+],
+"leisure/track/athletics/sprint":[
+"Sprintbaan"
+],
+"leisure/track/athletics/steeplechase":[
+"Aanloopbaan voor steeplechase"
+],
+"leisure/track/athletics/triple_jump":[
+"Aanloopbaan voor hink-stap-sprong"
 ],
 "leisure/track/cycling":[
 "Fietscircuit"
@@ -4762,6 +4812,9 @@
 "Gemaal (waterpompstation)",
 "pompstation",
 "waterpompstation"
+],
+"man_made/quay":[
+"Kade"
 ],
 "man_made/reservoir_covered":[
 "Overdekt reservoir"
@@ -6804,8 +6857,7 @@
 "stereoinstallatie"
 ],
 "shop/hobby":[
-"Hobbywinkel",
-"hobbywinkel"
+"Hobbywinkel"
 ],
 "shop/household_linen":[
 "lakens",
@@ -7049,15 +7101,6 @@
 "huisdieren",
 "dierenzaak",
 "dierenwinkel"
-],
-"shop/pet_grooming":[
-"Trimsalon",
-"kattentrimsalon",
-"hondentrimsalon",
-"kattenverzorging",
-"huisdierentrimsalon",
-"huisdierenverzorging",
-"hondenverzorging"
 ],
 "shop/photo":[
 "Fotowinkel",

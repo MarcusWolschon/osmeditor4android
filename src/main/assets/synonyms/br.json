@@ -1,30 +1,119 @@
 {
 "address":[
-"Chomlec'h"
+"Chomlec'h",
+"kêr",
+"lec'h",
+"chom",
+"chomlec'h",
+"lec'hiadur"
+],
+"advertising/billboard":[
+"panell",
+"brudañ",
+"skritell",
+"pub",
+"bruderezh",
+"Panell vrudañ"
+],
+"advertising/board":[
+"skritellañ",
+"panell",
+"brudañ",
+"skritell",
+"Panell skritellañ",
+"kelaouenn",
+"titouroù",
+"bruderezh",
+"titouriñ",
+"keloù"
 ],
 "aerialway/cable_car":[
-"Fungarr"
+"Fungarr",
+"karr-fun",
+"fungarr"
+],
+"aerialway/chair_lift":[
+"ski",
+"funsacherez",
+"kador",
+"fungador",
+"skiañ",
+"Fungador"
 ],
 "aerialway/drag_lift":[
 "ski",
 "funsacherez",
+"kador",
 "fungador",
+"Teleski",
 "skiañ",
-"Fungador"
+"teleski"
+],
+"aerialway/gondola":[
+"ski",
+"funsacherez",
+"fungador",
+"funlogell",
+"Funlogell",
+"skiañ",
+"fungarr"
+],
+"aerialway/zip_line":[
+"tirolian",
+"Tirolianenn",
+"tirolianenn"
+],
+"aeroway":[
+"Elfenn aerel"
 ],
 "aeroway/aerodrome":[
 "Aerborzh",
 "aerborzh"
 ],
 "aeroway/apron":[
-"Tarmak"
+"Tarmak",
+"nijva",
+"karr-nij",
+"avioñ",
+"tarmak",
+"aerborzh",
+"nijerez",
+"kirri-nij"
 ],
 "aeroway/helipad":[
 "Biñsporzh",
+"askell-viñs",
+"biñsaskell",
+"askell-dro",
 "biñsporzh"
 ],
 "aeroway/runway":[
-"Pradva"
+"pradva",
+"leuriañ",
+"nijva",
+"karr-nij",
+"pradañ",
+"Pradva",
+"parañ",
+"diskenn",
+"aerborzh",
+"nijerez",
+"kirri-nij",
+"hent",
+"dibradañ",
+"douarañ",
+"hentad"
+],
+"aeroway/spaceport":[
+"Kreizenn aeregor"
+],
+"aeroway/windsock":[
+"mañch-aer",
+"milgin-aer",
+"Mañch-aer"
+],
+"amenity":[
+"Danframmoù"
 ],
 "amenity/animal_shelter":[
 "Bod-loened",
@@ -41,10 +130,19 @@
 "moumoun",
 "loen"
 ],
+"amenity/arts_centre":[
+"sevenadur",
+"sevenadurel",
+"arz",
+"kreizenn",
+"arzel",
+"Kreizenn arz ha sevenadur"
+],
 "amenity/atm":[
 "Bilhedaouer"
 ],
 "amenity/bank":[
+"bank",
 "ti-bank",
 "arc'hanti",
 "Ti-bank"
@@ -59,7 +157,15 @@
 "Bank"
 ],
 "amenity/bicycle_parking":[
-"Parklec'h marc'hoù-houarn"
+"parkañ",
+"parklec'h",
+"marc'h-houarn",
+"mirc'hi-houarn",
+"Parklec'h marc'hoù-houarn",
+"belo",
+"marc'hhouarnerezh",
+"marc'hoù-houarn",
+"beloioù"
 ],
 "amenity/bicycle_parking/building":[
 "parklec'h",
@@ -68,11 +174,9 @@
 "Karrdi marc'hoù-houarn"
 ],
 "amenity/bicycle_parking/lockers":[
-"kadranas",
+"Kombodoù marc'hoù-houarn",
 "marc'h-houarn",
-"pluenn",
-"Kadranasoù marc'hoù-houarn",
-"krabotinell"
+"kombod"
 ],
 "amenity/bicycle_parking/shed":[
 "marc'h-houarn",
@@ -81,7 +185,23 @@
 "goudor"
 ],
 "amenity/bicycle_rental":[
-"Marc'hoù-houarn da feurmiñ"
+"feurmiñ",
+"marc'h-houarn",
+"mirc'hi-houarn",
+"Marc'hoù-houarn da feurmiñ",
+"belo",
+"da feurmiñ",
+"stal",
+"marc'hhouarnerezh",
+"gwerzhañ",
+"marc'hoù-houarn",
+"beloioù"
+],
+"amenity/binoculars":[
+"Lunedoù hirwel"
+],
+"amenity/boat_rental":[
+"Bigi da feurmiñ"
 ],
 "amenity/bus_station":[
 "Arsav-dibenn bus"
@@ -90,7 +210,9 @@
 "ti-evañ",
 "ti-kafe",
 "kafedi",
-"Ti-kafe"
+"kafe",
+"Ti-kafe",
+"café"
 ],
 "amenity/cafe/bubble_tea":[
 "Tavarn bubble-tea"
@@ -101,12 +223,52 @@
 "amenity/car_pooling":[
 "Leur-genweturañ"
 ],
+"amenity/car_rental":[
+"feurmiñ",
+"Kirri da feurmiñ",
+"gwetur",
+"karr",
+"karr-tan",
+"karbed",
+"da feurmiñ",
+"kirri-tan",
+"kirri"
+],
+"amenity/car_wash":[
+"gwalc'herezh",
+"gwalc'hiñ",
+"gwetur",
+"karr",
+"karr-tan",
+"Porzh gwalc'hiñ kirri",
+"karbed",
+"kirri-tan",
+"kirri",
+"porzh"
+],
 "amenity/casino":[
-"Kazino"
+"kazino",
+"arc'hant",
+"argant",
+"Kazino",
+"c'hoari"
+],
+"amenity/childcare":[
+"bugel",
+"diwallañ",
+"babig",
+"plediñ",
+"Magouri",
+"kraou",
+"magouri",
+"bugale",
+"ober war-dro"
 ],
 "amenity/cinema":[
 "fiñvskeudenndi",
 "sinema",
+"film",
+"c'hoariva",
 "Sinema",
 "fiñvskeudennva"
 ],
@@ -122,6 +284,18 @@
 "montr",
 "pandulenn"
 ],
+"amenity/clock/sundial":[
+"Kadran",
+"amzer",
+"eur",
+"skeud",
+"heol",
+"eurier-heol",
+"horolaj-heol",
+"eurier",
+"kadran",
+"horolaj"
+],
 "amenity/college":[
 "deskadurezh uhel",
 "skol deskadurezh uhel",
@@ -131,6 +305,24 @@
 "amenity/community_centre":[
 "Sal liezimplij"
 ],
+"amenity/community_centre/lgbtq":[
+"Kreizenn LGDTQ+"
+],
+"amenity/community_centre/youth_centre":[
+"Kreizenn yaouankiz"
+],
+"amenity/compressed_air":[
+"Aer wasket",
+"voustret",
+"gwasket",
+"moustret",
+"kenwasket",
+"wasket",
+"aer"
+],
+"amenity/conference_centre":[
+"Kreizenn ar c'hendalc'hioù"
+],
 "amenity/courthouse":[
 "Ti-barn"
 ],
@@ -138,44 +330,344 @@
 "Lec'h kenlabourat"
 ],
 "amenity/crematorium":[
-"Forn an ankoù"
+"tan",
+"ankoù",
+"douaridigezh",
+"Forn an ankoù",
+"forn an ankoù",
+"forn deviñ korfoù",
+"mervel",
+"kañv",
+"krematoriom",
+"leskiñ",
+"marv",
+"kelan",
+"deviñ",
+"deviñ-korfoù",
+"forn",
+"bez",
+"anaon",
+"bered",
+"douarañ",
+"bolz-kañv",
+"suilhañ",
+"ti-kañv"
+],
+"amenity/dentist":[
+"dantour",
+"Dentour",
+"mezeg-dent",
+"dentour"
 ],
 "amenity/doctors":[
+"medisinour",
+"doktor",
+"medisin",
+"louzaouer",
+"mezeg",
+"milchin",
 "Doktor"
 ],
+"amenity/doctors/allergology":[
+"allergologour",
+"Allergologour",
+"allergologourez",
+"allergologiezh",
+"allergologel",
+"allergiezh"
+],
+"amenity/doctors/cardiology":[
+"kalonour",
+"kalonouriezh",
+"kalon",
+"doktor",
+"medisinerezh",
+"klañvdi",
+"kardiologour",
+"medisin",
+"mezeg",
+"milchin",
+"ospital",
+"mezekniezh",
+"kardiologiezh",
+"Kalonour"
+],
+"amenity/doctors/dermatology":[
+"kroc'hen",
+"Kroc'henour",
+"dermatologour",
+"kleñved",
+"kleñved kroc'hen",
+"kroc'henouriezh",
+"kroc'henour",
+"dermatologiezh"
+],
+"amenity/doctors/gastroenterology":[
+"gastroenterologiezh",
+"genoù",
+"bouzelloù",
+"stomog",
+"doktor",
+"koazhadur",
+"medisinerezh",
+"klañvdi",
+"Koazhadour",
+"medisin",
+"gastroenterit",
+"korzenn-voued",
+"mezeg",
+"milchin",
+"ospital",
+"mezekniezh",
+"koazhañ",
+"koazhadouriezh",
+"treizher",
+"koazhadour",
+"bouzellenn",
+"gastroenterologour"
+],
+"amenity/doctors/gynaecology":[
+"plac'h",
+"benvedininerezh",
+"ginekologel",
+"maouez",
+"Benvezeg",
+"ginekologiezh",
+"medisin",
+"benvezekniezh",
+"mezeg",
+"benvezeg",
+"merc'h",
+"medisin ar merc'hed",
+"benvezegiezh",
+"mezeg ar merc'hed",
+"ginekologour"
+],
+"amenity/doctors/neurology":[
+"neurologiezh",
+"empenn",
+"Neurologour",
+"neurologour",
+"neuron",
+"neurologel"
+],
+"amenity/doctors/neurosurgery":[
+"neurologiezh",
+"Neurosurjian",
+"surjian",
+"neurosurjian"
+],
+"amenity/doctors/oncology":[
+"onkologel",
+"krign",
+"Onkologour",
+"onkologour",
+"onkologiezh",
+"krign-bev"
+],
+"amenity/doctors/ophthalmology":[
+"oftalmologel",
+"medisin an daoulagad",
+"mezegiezh an daoulagad",
+"oftalmologour",
+"oftalmologiezh",
+"Medisin an daoulagad"
+],
+"amenity/doctors/orthopaedics":[
+"Surjian ortopedek",
+"ortopediezh",
+"ortopedist",
+"surjian",
+"surjian ortopedek",
+"ortopedek"
+],
+"amenity/doctors/plastic_surgery":[
+"Surjian kenedel"
+],
+"amenity/doctors/surgery":[
+"Surjian hollek"
+],
+"amenity/doctors/trauma":[
+"Surjian-traomatologour"
+],
+"amenity/doctors/urology":[
+"Urologour",
+"urologour",
+"troazh",
+"urologel",
+"urologiezh",
+"medisin ar troazh",
+"mezeg",
+"troazhadouriezh",
+"mezeg ar troazh"
+],
 "amenity/dojo":[
-"Dojo"
+"Dojo",
+"dornañ",
+"karate",
+"kannañ",
+"judo",
+"gouren",
+"arz-emgannañ",
+"dojo"
 ],
 "amenity/dressing_room":[
 "Gwiskva"
 ],
 "amenity/drinking_water":[
 "dour mat da evañ",
-"Dour Mat da Evañ"
+"dour glan",
+"dour distlabez",
+"dour prop",
+"dour disaotr",
+"Dour mat da vañ",
+"dour naet"
 ],
 "amenity/driver_training":[
 "Tachenn skol-vleinañ"
 ],
 "amenity/driving_school":[
-"Skol-vleinañ"
+"skol",
+"skol vleinañ",
+"Skol-vleinañ",
+"bleinañ"
 ],
 "amenity/embassy":[
 "Kannati"
 ],
 "amenity/fast_food":[
-"Fast Food"
+"fast-food",
+"fast food",
+"preti",
+"Preti fast-food",
+"ti-debriñ",
+"boued-straed",
+"boued"
+],
+"amenity/fast_food/burger":[
+"fast-food",
+"burger",
+"fast food",
+"Ti-hamburger",
+"preti",
+"ti-debriñ",
+"boued-straed",
+"hamburger",
+"boued"
+],
+"amenity/fast_food/cafeteria":[
+"kantin",
+"Kafeteria",
+"kafeteria"
+],
+"amenity/fast_food/chicken":[
+"fast-food",
+"yar fritet",
+"fast food",
+"Preti fast-food kig-yar",
+"preti",
+"ti-debriñ",
+"yar",
+"boued-straed",
+"boued",
+"kig-yar"
+],
+"amenity/fast_food/donut":[
+"fast-food",
+"fast food",
+"preti",
+"donut",
+"ti-debriñ",
+"Ti-donut",
+"boued-straed",
+"boued"
 ],
 "amenity/fast_food/fish_and_chips":[
-"Fish & Chips"
+"fast-food",
+"Ti Fish & Chips",
+"fish & chips",
+"fast food",
+"fish&chips",
+"preti",
+"ti-debriñ",
+"fish and chips",
+"boued-straed",
+"boued"
+],
+"amenity/fast_food/hot_dog":[
+"fast-food",
+"fast food",
+"hot-dog",
+"preti",
+"ti-debriñ",
+"boued-straed",
+"hot dog",
+"boued",
+"Ti-hot-dog"
+],
+"amenity/fast_food/ice_cream":[
+"Ti-dienn-skorn"
+],
+"amenity/fast_food/juice":[
+"fast-food",
+"fast food",
+"preti",
+"ti-debriñ",
+"chug",
+"boued-straed",
+"chug-frouezh",
+"boued",
+"Ti-chug"
 ],
 "amenity/fast_food/kebab":[
+"fast-food",
+"fast food",
+"preti",
+"ti-debriñ",
+"kebab",
+"boued-straed",
+"dönner",
+"boued",
 "Ti-kebab"
 ],
 "amenity/fast_food/mexican":[
-"Fast-food mec'hikan"
+"mec'hikan",
+"mexikan",
+"Preti fast-food mec'hikan",
+"fast food",
+"preti",
+"ti-debriñ",
+"mexiko",
+"tacos",
+"boued-straed",
+"mexik",
+"fast-food",
+"fajita",
+"mec'hiko",
+"boued"
 ],
 "amenity/fast_food/pizza":[
-"Ti-pizza"
+"fast-food",
+"pizza",
+"fast food",
+"Ti-pizza",
+"preti",
+"ti-debriñ",
+"boued-straed",
+"boued"
+],
+"amenity/fast_food/sandwich":[
+"fast-food",
+"predoù war ar prim",
+"fast food",
+"Stal-sandwichoù",
+"preti",
+"ti-debriñ",
+"stal sandwichoù",
+"pretierezh prim",
+"sandwich",
+"ti-sandwich",
+"stal-sandwich"
 ],
 "amenity/fire_station":[
 "tan",
@@ -187,7 +679,6 @@
 "kreizenn sikour",
 "plac'h an tan",
 "mallusted",
-"Kazarn Pomperien",
 "kts",
 "tangwall",
 "gwarez a-enep an tanioù-gwall",
@@ -197,10 +688,16 @@
 "kreizenn tanioù-gwall ha sikourioù",
 "spy",
 "pomperien",
-"paotr an tan"
+"paotr an tan",
+"Kazarn pomperien"
 ],
 "amenity/fountain":[
-"Feunteun"
+"feuntan",
+"Feunteun",
+"feunteun",
+"stivell",
+"andon",
+"fetan"
 ],
 "amenity/fuel":[
 "Porzh Servij"
@@ -209,7 +706,15 @@
 "Bered"
 ],
 "amenity/hospital":[
-"Tachenn ospital"
+"klañvdi",
+"Tachenn ospital",
+"ospital",
+"tachenn"
+],
+"amenity/ice_cream":[
+"dienn-skorn",
+"Stal dienn-skorn",
+"koaven-skorn"
 ],
 "amenity/internet_cafe":[
 "tavarn",
@@ -227,8 +732,16 @@
 "amenity/lavoir":[
 "Poull-kannañ"
 ],
+"amenity/letter_box":[
+"Boest-lizhiri prevez"
+],
 "amenity/library":[
 "Levraoueg"
+],
+"amenity/lounger":[
+"Kador-hir",
+"kador-hir",
+"hirgador"
 ],
 "amenity/marketplace":[
 "Marc'had"
@@ -236,7 +749,41 @@
 "amenity/monastery":[
 "Tachenn abati"
 ],
+"amenity/money_transfer":[
+"treuzkas",
+"Treuzkas arc'hant",
+"bank",
+"ti-bank",
+"post",
+"arc'hant"
+],
+"amenity/mortuary":[
+"Morg"
+],
+"amenity/motorcycle_parking":[
+"Parklec'h marc'hoù-tan"
+],
+"amenity/motorcycle_rental":[
+"c'hwil-tan",
+"feurmiñ",
+"marc'h-tan",
+"marc'hoù-tan",
+"karbed",
+"da feurmiñ",
+"kenfeurmiñ",
+"moto",
+"mekanik",
+"c'hwiled-tan",
+"Marc'hoù-tan da feurmiñ",
+"machin",
+"treuzdougen",
+"dezougen",
+"mirc'hi-ten"
+],
 "amenity/music_school":[
+"skol",
+"sonerezh",
+"muzik",
 "Skol sonerezh"
 ],
 "amenity/nightclub":[
@@ -251,7 +798,18 @@
 "Ti-diskuizh"
 ],
 "amenity/parking":[
-"Parklec'h"
+"parkañ",
+"parklec'h",
+"c'hwil-tan",
+"hent",
+"Parklec'h",
+"karr",
+"marc'h-tan",
+"karr-tan",
+"plas",
+"plas-parkañ",
+"alez",
+"kirri"
 ],
 "amenity/parking/park_ride":[
 "Parklec'h-eskemm"
@@ -266,24 +824,56 @@
 "plasenn parkañ",
 "plasenn",
 "karr-tan",
-"Plasenn parkañ",
-"karbed"
+"karbed",
+"Plas parkañ",
+"plas"
+],
+"amenity/parking_space/disabled":[
+"parkañ",
+"parklec'h",
+"Parklec'h miret d'an TDK",
+"dalc'het",
+"tud dalc'het",
+"tdk",
+"plas",
+"nammet",
+"tud dalc'het en o c'herzhed"
+],
+"amenity/pharmacy":[
+"Apotikerezh"
 ],
 "amenity/photo_booth":[
 "Fotomaton"
 ],
 "amenity/place_of_worship":[
+"neved",
+"iliz",
+"ti-pediñ",
+"orator",
+"katolik",
+"templ",
+"relijion",
+"pediñ",
+"yuzev",
+"meuliñ",
+"sinagogenn",
 "lec'h azeuliñ",
+"Lec'h azeuliñ",
 "lec'h sakr",
-"Lec'h Azeuliñ"
+"azeuldi",
+"azeuliñ",
+"muzulman",
+"ti-azeul",
+"moskeenn",
+"azeulva"
 ],
 "amenity/place_of_worship/buddhist":[
 "templ boudaat",
 "Templ Boudaat"
 ],
 "amenity/place_of_worship/christian":[
-"iliz kristen",
-"Iliz Kristen"
+"Iliz kristen",
+"iliz kristen"
 ],
 "amenity/place_of_worship/christian/la_luz_del_mundo":[
 "Templ La Luz del Mundo"
@@ -323,25 +913,49 @@
 "ti-polis",
 "staelva-polis",
 "Ti-polis",
+"lezenn",
+"polis",
 "post-polis"
 ],
 "amenity/polling_station":[
 "Burev-votiñ pad"
 ],
 "amenity/post_box":[
-"Boest-lizhiri (kas)"
+"lizhiri",
+"lizher",
+"post",
+"boest-lizhiri",
+"ti-post",
+"Boest-lizhiri (kas)",
+"boest kas",
+"kas"
 ],
 "amenity/post_office":[
+"lizhiri",
+"faktor",
+"lizher",
+"post",
+"ti-post",
+"kaser-lizheroù",
+"boest-post",
+"paotr-al-lizhiri",
 "Ti-post"
 ],
 "amenity/prison":[
 "Tachenn doull-bac'h"
 ],
 "amenity/pub":[
+"ti-evañ",
+"tavarn",
+"ostaleri",
+"pub",
 "Pub"
 ],
 "amenity/pub/lgbtq":[
 "Pub LGDTQ+"
+],
+"amenity/pub/microbrewery":[
+"Tavarn breserezh"
 ],
 "amenity/public_bath":[
 "Kibelldi foran"
@@ -365,22 +979,74 @@
 "Kamp repuidi",
 "kamp repuidi"
 ],
+"amenity/research_institute":[
+"Arnodva enklask"
+],
 "amenity/restaurant":[
+"koan",
+"adverenn",
 "Preti",
 "preti",
-"ti-debriñ"
+"kafe",
+"gortozenn",
+"ti-debriñ",
+"lein",
+"adkoan",
+"merenn",
+"debriñ",
+"merenn-vihan",
+"boued"
 ],
 "amenity/restaurant/american":[
-"Ti-debriñ amerikan"
+"amerikan",
+"diner",
+"steakhouse",
+"norzhamerikan",
+"Ti-debriñ amerikan",
+"preti",
+"amerika",
+"ti-debriñ",
+"fritez",
+"norzhamerika",
+"hamburger",
+"hot-dog",
+"debriñ",
+"boued",
+"drive-in",
+"grill"
 ],
 "amenity/restaurant/asian":[
-"Preti aziat"
+"kambodja",
+"japan",
+"preti",
+"ti-debriñ",
+"vietnam",
+"korae",
+"laos",
+"aziat",
+"Preti aziat",
+"thailand",
+"sushi",
+"debriñ",
+"sina",
+"azia",
+"boued"
 ],
 "amenity/restaurant/barbeque":[
 "Ti-debriñ regezer"
 ],
 "amenity/restaurant/chinese":[
-"Preti sinat"
+"Preti sinat",
+"bro-sina",
+"china",
+"chin",
+"preti",
+"reter-pellañ",
+"ti-debriñ",
+"debriñ",
+"sina",
+"boued",
+"sinat"
 ],
 "amenity/restaurant/french":[
 "galleg",
@@ -393,46 +1059,175 @@
 "bro-c'hall"
 ],
 "amenity/restaurant/german":[
-"Preti alaman"
+"alamagn",
+"europa",
+"alaman",
+"Preti alaman",
+"preti",
+"ti-debriñ",
+"debriñ",
+"boued"
 ],
 "amenity/restaurant/greek":[
-"Ti-debriñ gresat"
+"Ti-debriñ gresat",
+"gresian",
+"boued-mor",
+"preti",
+"ti-debriñ",
+"gres",
+"kreizdouarel",
+"debriñ",
+"hellaz",
+"bro-c'hres",
+"boued"
 ],
 "amenity/restaurant/indian":[
-"Preti indian"
+"preti",
+"ti-debriñ",
+"debriñ",
+"Preti indian",
+"india",
+"boued",
+"indian"
 ],
 "amenity/restaurant/italian":[
-"Preti italian"
+"italia",
+"pizza",
+"preti",
+"pasta",
+"toazennoù",
+"Preti italian",
+"ti-debriñ",
+"italian",
+"kreizdouarel",
+"debriñ",
+"boued"
 ],
 "amenity/restaurant/japanese":[
-"Preti japanat"
+"japan",
+"preti",
+"Preti japanat",
+"ti-debriñ",
+"sushi",
+"debriñ",
+"japanat",
+"azia",
+"aziat",
+"boued"
 ],
 "amenity/restaurant/mexican":[
-"Preti mec'hikan"
+"mec'hikan",
+"mexikan",
+"meksik",
+"preti",
+"Preti mec'hikan",
+"ti-debriñ",
+"mexiko",
+"tacos",
+"mexik",
+"fajita",
+"meksiko",
+"mec'hiko",
+"boued"
 ],
 "amenity/restaurant/pizza":[
-"Ti-pizza"
+"pizza",
+"italia",
+"Ti-pizza",
+"preti",
+"ti-debriñ",
+"italian",
+"debriñ",
+"boued"
 ],
 "amenity/restaurant/seafood":[
-"Preti boued-mor"
+"blodeg",
+"kregin",
+"preti",
+"ti-debriñ",
+"blotvil",
+"krank",
+"legestr",
+"mor",
+"meskl",
+"boued-mor",
+"gavr-mor",
+"chifretez",
+"krogen",
+"istr",
+"debriñ",
+"Preti boued-mor",
+"boued",
+"chevr"
 ],
 "amenity/restaurant/sushi":[
-"Preti sushi"
+"Preti sushi",
+"japan",
+"preti",
+"ti-debriñ",
+"suchi",
+"japanat",
+"aziat",
+"boued-mor",
+"reter-pellañ",
+"sushi",
+"debriñ",
+"azia",
+"boued"
 ],
 "amenity/restaurant/thai":[
-"Preti thai"
+"gevred azia",
+"preti",
+"ti-debriñ",
+"thai",
+"azia ar gevred",
+"aziat",
+"thailandat",
+"thailand",
+"reter-pellañ",
+"Preti thai",
+"debriñ",
+"azia",
+"boued"
 ],
 "amenity/restaurant/turkish":[
-"Preti turkat"
+"turkat",
+"preti",
+"Preti turkat",
+"ti-debriñ",
+"kreizdouarel",
+"kebab",
+"turkia",
+"debriñ",
+"turk",
+"boued"
 ],
 "amenity/restaurant/vietnamese":[
-"Preti vietnamat"
+"gevred azia",
+"vietnamat",
+"preti",
+"ti-debriñ",
+"vietnam",
+"Preti vietnamat",
+"azia ar gevred",
+"aziat",
+"reter-pellañ",
+"viet nam",
+"debriñ",
+"azia",
+"boued"
 ],
 "amenity/school":[
 "Tachenn skol"
 ],
 "amenity/shelter":[
 "Goudor"
+],
+"amenity/shelter/picnic_shelter":[
+"Goudor piknik"
+],
+"amenity/shelter/public_transport":[
+"Goudor treuzdougen foran"
 ],
 "amenity/shower":[
 "Strinkerezh"
@@ -445,7 +1240,17 @@
 "Takad Butunerien"
 ],
 "amenity/social_centre":[
-"Kreizenn sokial"
+"Kreizenn sokial",
+"kreizenn sokial"
+],
+"amenity/social_facility":[
+"Diazezadur servijoù sokial"
+],
+"amenity/social_facility/food_bank":[
+"Bank boued"
+],
+"amenity/social_facility/homeless_shelter":[
+"Bod tud hep ti"
 ],
 "amenity/social_facility/nursing_home":[
 "Ti-diskuizh"
@@ -454,18 +1259,37 @@
 "Chadenn radio"
 ],
 "amenity/telephone":[
-"Pellgomzer"
+"Pellgomzer",
+"pellgomzer",
+"telefon",
+"pellgomz"
 ],
 "amenity/theatre":[
+"sonerezh",
+"trajedienn",
+"drama",
+"aktour",
+"fentc'hoari",
+"pezh c'hoari",
 "c'hoariva",
+"komedienn",
 "teatr",
-"C'hoariva"
+"C'hoariva",
+"c'hoari"
 ],
 "amenity/theatre/type/amphi":[
-"Selaouva"
+"Selaouva",
+"amfiteatr",
+"añfiteatr",
+"kelc'hva",
+"c'hoariva",
+"selaouva"
 ],
 "amenity/toilets":[
 "Privezioù"
+],
+"amenity/toilets/disposal/flush":[
+"Privezioù gant skarzh-dour"
 ],
 "amenity/townhall":[
 "maerdi",
@@ -473,6 +1297,10 @@
 "Ti-kêr"
 ],
 "amenity/townhall/city":[
+"maerdi",
+"maer",
+"ti-kêr",
+"adti-kêr",
 "Ti-kêr"
 ],
 "amenity/university":[
@@ -488,17 +1316,103 @@
 "amenity/vending_machine/bicycle_tube":[
 "Dasparzher bouzellennoù-rod"
 ],
+"amenity/vending_machine/cigarettes":[
+"butun",
+"dasparzher",
+"Dasparzher butunennoù",
+"emgefre",
+"emgefreek",
+"ingaler",
+"sigaretenn",
+"butunenn"
+],
 "amenity/vending_machine/coffee":[
-"Greg emgefreek"
+"evaj tomm",
+"laezh",
+"dasparzher",
+"emgefre",
+"ingaler",
+"kafe",
+"dour",
+"te",
+"emgefreek",
+"Greg emgefreek",
+"evaj",
+"greg",
+"chokolad"
+],
+"amenity/vending_machine/condoms":[
+"Dasparzher stevelloù",
+"dasparzher",
+"rev",
+"golo-lost",
+"ingaler",
+"stevell",
+"tog-lost",
+"revel",
+"kondom"
+],
+"amenity/vending_machine/drinks":[
+"dasparzher",
+"evajoù",
+"emgefre",
+"ingaler",
+"dour",
+"kafe",
+"evachoù",
+"soda",
+"te",
+"Ingaler evajoù",
+"emgefreek",
+"evaj",
+"chug"
+],
+"amenity/vending_machine/eggs":[
+"dasparzher",
+"emgefre",
+"vi",
+"emgefreek",
+"ingaler",
+"vioù",
+"Ingaler vioù"
 ],
 "amenity/vending_machine/feminine_hygiene":[
-"Ingaler produioù evit an amzerioù"
+"Ingaler produioù evit an amzerioù",
+"dasparzher",
+"emgefre",
+"emgefreek",
+"amzerioù",
+"mizioù",
+"stouv",
+"ingaler",
+"serviedenn yec'hedus",
+"stouvoù",
+"serviedenn",
+"produioù"
 ],
 "amenity/vending_machine/food":[
-"Dasparzher boued"
+"Dasparzher boued",
+"dasparzher",
+"emgefre",
+"emgefreek",
+"ingaler",
+"madigoù",
+"boued"
+],
+"amenity/vending_machine/fuel":[
+"Post-esañs"
 ],
 "amenity/vending_machine/ice_cream":[
-"Dasparzher dienn-skorn"
+"Dasparzher dienn-skorn",
+"dasparzher",
+"dienn-skorn",
+"emgefre",
+"emgefreek",
+"skorn",
+"ingaler",
+"skornet",
+"skornenn",
+"koaven-skornet"
 ],
 "amenity/vending_machine/newspapers":[
 "dasparzher",
@@ -507,16 +1421,79 @@
 "Dasparzher kazetennoù"
 ],
 "amenity/vending_machine/parking_tickets":[
-"Ingaler tikedennoù parkañ"
+"parklec'h",
+"parkañ",
+"dasparzher",
+"emgefre",
+"emgefreek",
+"ingaler",
+"Ingaler tikedennoù parkañ",
+"tikedennoù",
+"tikedenn"
 ],
 "amenity/vending_machine/pizza":[
 "Dasparzher pizzaoù"
+],
+"amenity/vending_machine/public_transport_tickets":[
+"parkañ",
+"parklec'h",
+"dasparzher",
+"emgefre",
+"emgefreek",
+"ingaler",
+"tikedenn",
+"treuzdougen",
+"teul",
+"Ingaler teulioù treuzdougen"
+],
+"amenity/vending_machine/stamps":[
+"lizhiri",
+"dasparzher",
+"emgefre",
+"emgefreek",
+"post",
+"lizher",
+"Dasparzher timbroù",
+"ingaler",
+"timbr",
+"timbroù"
+],
+"amenity/vending_machine/sweets":[
+"dasparzher",
+"emgefre",
+"emgefreek",
+"ingaler",
+"madigoù",
+"Ingaler madigoù",
+"boued",
+"lipouzerezh",
+"lipaj"
+],
+"amenity/veterinary":[
+"Mezeg-loened"
+],
+"amenity/waste/dog_excrement":[
+"Poubellenn gaoc'h-ki"
 ],
 "amenity/waste_basket":[
 "Poubellenn-straed"
 ],
 "area":[
+"takad",
+"lieskorn",
+"lieskogn",
 "Takad"
+],
+"area/footway":[
+"takad",
+"hent",
+"pourmenadenn",
+"kerzhet",
+"bale",
+"hent-bale",
+"gwenodenn",
+"kerzhourien",
+"Takad hent kerzhet"
 ],
 "area/highway":[
 "Takad hent"
@@ -527,24 +1504,57 @@
 "attraction/bumper_car":[
 "Kirri tos-tos"
 ],
+"attraction/bungee_jumping":[
+"stirenn",
+"bungee jumping",
+"Lammat gant ur stirenn",
+"lamm",
+"lammat gant ur stirenn",
+"lammat"
+],
 "attraction/carousel":[
 "Kezeg-koad"
 ],
 "attraction/maze":[
+"milendall",
+"troielleg",
+"mil-hent-dall",
 "Milendall"
+],
+"attraction/pirate_ship":[
+"park c'hoari",
+"tachenn c'hoari",
+"bigi",
+"bag",
+"Lestr morlaeron",
+"c'hoari",
+"morlaered",
+"tourist",
+"morlaer",
+"lestr",
+"dudi",
+"morbreizher",
+"touristel",
+"park dudi"
 ],
 "attraction/train":[
 "Tren bihan touristel",
 "tren bihan touristel"
 ],
 "attraction/water_slide":[
-"Ruz-dour"
+"Ruz-revr-dour"
+],
+"barrier/bollard":[
+"Post"
 ],
 "barrier/border_control":[
 "Post-harzoù"
 ],
 "barrier/chain":[
 "Chadenn"
+],
+"barrier/city_wall":[
+"Moger-dro"
 ],
 "barrier/ditch":[
 "foz",
@@ -580,11 +1590,26 @@
 "Garzh",
 "garzh"
 ],
-"barrier/log":[
-"Gwezenn kouezet"
+"barrier/kerb":[
+"Ker ar riblenn-straed"
+],
+"barrier/retaining_wall":[
+"Moger-harp"
 ],
 "barrier/wall":[
-"Moger"
+"Moger",
+"moger",
+"mur"
+],
+"barrier/wall/noise_barrier":[
+"Mur eneptrouz",
+"chaoser",
+"didrouz",
+"moger",
+"enep-trouz",
+"mur",
+"trouz",
+"eneptrouz"
 ],
 "barrier/yes":[
 "Harz (n'eo ket spisaet)"
@@ -593,9 +1618,20 @@
 "Harzoù"
 ],
 "boundary/administrative":[
-"Harzoù melestradurel"
+"harz",
+"frontier",
+"amaezhel",
+"Harzoù melestradurel",
+"bevenn",
+"melestradurel",
+"melestradurezh",
+"harzoù"
 ],
 "building":[
+"batimant",
+"savidigezh",
+"ti",
+"savadur",
 "Savadur"
 ],
 "building/apartments":[
@@ -612,7 +1648,7 @@
 "logenn",
 "lojell",
 "loch",
-"Lochell"
+"Lochenn"
 ],
 "building/cathedral":[
 "Iliz-veur",
@@ -634,7 +1670,31 @@
 "Savadur koñvers"
 ],
 "building/construction":[
-"Savadur war ober"
+"tisaver",
+"konstruidigezh",
+"obererezh",
+"oc'h ober",
+"kendi",
+"sevel",
+"labour",
+"tisaverezh",
+"takad",
+"tiadur",
+"savidigezh",
+"o vezañ savet",
+"savadurezh",
+"saver",
+"o vezañ krouet",
+"war ober",
+"ranndi",
+"o sevel",
+"batis",
+"Savadur war ober",
+"ober",
+"ti",
+"labourioù",
+"savadur",
+"savadenn"
 ],
 "building/dormitory":[
 "hunva",
@@ -643,15 +1703,28 @@
 "kouskva"
 ],
 "building/entrance":[
-"Mont-tre / Mont-maez"
+"Mont-tre / mont-maez"
 ],
 "building/farm":[
 "Ti-feurm",
+"kêr",
+"tiegezh",
 "ti-feurm",
-"atant"
+"ti",
+"atant",
+"feurm",
+"labour-douar"
 ],
 "building/farm_auxiliary":[
-"Savadur atant"
+"Savadur atant",
+"tiegezh",
+"savidigezh",
+"ti-feurm",
+"ti",
+"savadur",
+"atant",
+"feurm",
+"labour-douar"
 ],
 "building/fire_station":[
 "Kreizenn-sikour"
@@ -676,10 +1749,24 @@
 "Leti"
 ],
 "building/house":[
-"Ti"
+"batimant",
+"kêr",
+"savidigezh",
+"ti",
+"Ti",
+"savadur"
 ],
 "building/hut":[
-"Log"
+"kabin",
+"lochenn",
+"kabanenn",
+"log",
+"Log",
+"logell",
+"hut",
+"logenn",
+"loch",
+"ti-plouz"
 ],
 "building/industrial":[
 "Savadur greantel"
@@ -698,12 +1785,20 @@
 "Pourpez"
 ],
 "building/public":[
+"foran",
+"savadur",
+"savadur publik",
+"publik",
 "Savadur foran"
 ],
 "building/residential":[
 "Savadur annez"
 ],
 "building/retail":[
+"koñvers",
+"ti",
+"savadur",
+"kenwerzh",
 "Savadur kenwerzhel"
 ],
 "building/roof":[
@@ -721,6 +1816,13 @@
 "building/stadium":[
 "Stad"
 ],
+"building/static_caravan":[
+"ti treuzdougadus",
+"ti",
+"ti heloc'h",
+"karavanenn",
+"Ti heloc'h"
+],
 "building/synagogue":[
 "Sinagogenn"
 ],
@@ -729,6 +1831,9 @@
 ],
 "building/train_station":[
 "Ti-gar"
+],
+"building/transportation":[
+"Savadur an treuzdougen foran"
 ],
 "building/university":[
 "Savadur skol-veur"
@@ -753,6 +1858,21 @@
 "Govel",
 "govel"
 ],
+"craft/boatbuilder":[
+"Saver-bigi"
+],
+"craft/bookbinder":[
+"koubler",
+"koubler-levrioù",
+"Koubler-levrioù"
+],
+"craft/carpenter":[
+"koadaj",
+"Kalvez",
+"kalvez",
+"koad",
+"kilvizerezh"
+],
 "craft/chimney_sweeper":[
 "Skarzher"
 ],
@@ -770,11 +1890,17 @@
 "craft/distillery":[
 "Strilherezh"
 ],
+"craft/dressmaker":[
+"Kemener"
+],
 "craft/electrician":[
 "Tredaner"
 ],
 "craft/gardener":[
 "Liorzhour"
+],
+"craft/hvac":[
+"Paotr/plac'h an tommerezh"
 ],
 "craft/joiner":[
 "Kalvez"
@@ -785,6 +1911,23 @@
 "craft/painter":[
 "Livour"
 ],
+"craft/photographic_laboratory":[
+"Labourva luc'hskeudennerezh",
+"labourva",
+"labourva luc'hskeudennerezh",
+"fotografiezh",
+"arnodva",
+"luc'hskeudennerezh"
+],
+"craft/roofer":[
+"Toer"
+],
+"craft/saddler":[
+"Dibrer"
+],
+"craft/sawmill":[
+"Heskennerezh"
+],
 "craft/sculptor":[
 "Kizeller",
 "maengizeller",
@@ -792,6 +1935,33 @@
 "skultour",
 "kizeller",
 "kizellour"
+],
+"craft/shoemaker":[
+"Botaouer"
+],
+"craft/tiler":[
+"Karreller"
+],
+"craft/window_construction":[
+"farder",
+"munuzerezh",
+"krouiñ",
+"krouer",
+"munuzer",
+"kilvizerezh",
+"sevel",
+"Prenestrer",
+"kalvez",
+"prenestr",
+"saver",
+"aozañ",
+"stal"
+],
+"craft/winery":[
+"Kav"
+],
+"demolished/building":[
+"Savadur distrujet nevez zo"
 ],
 "embankment":[
 "Savenn-douar"
@@ -817,6 +1987,17 @@
 "Genoù tan-gwall",
 "genoù tan-gwall"
 ],
+"emergency/life_ring":[
+"saveteiñ",
+"boue",
+"Boue saveteiñ"
+],
+"emergency/lifeguard":[
+"mestr-neuñv",
+"mestr-neuñvier",
+"Mestr-neuñvier",
+"saveteer"
+],
 "emergency/phone":[
 "Pellgomz difrae"
 ],
@@ -824,7 +2005,7 @@
 "C'hwitellerez"
 ],
 "entrance":[
-"Mont-tre / Mont-maez"
+"Mont-tre / mont-maez"
 ],
 "entrance/emergency":[
 "Ermaez difrae"
@@ -833,24 +2014,73 @@
 "Moned pennañ"
 ],
 "ford":[
-"Roudouz"
+"roudour",
+"Roudouz",
+"roudouz"
 ],
 "ford_line":[
 "Roudouz"
 ],
 "golf/bunker":[
-"Foz (golf)"
+"foz",
+"golf",
+"traezh",
+"Foz (golf)",
+"griped",
+"trap"
+],
+"golf/cartpath":[
+"karrigell",
+"karrigenn",
+"karr golf",
+"kirri-golf",
+"karr",
+"kirri golf",
+"roudenn",
+"Hent karrigelloù-golf",
+"hent",
+"roud",
+"karr-golf",
+"gwenodenn",
+"kirri"
+],
+"golf/clubhouse":[
+"club-house",
+"ti ar c'hleub",
+"ti ar c'hlub",
+"ti-klub",
+"club house",
+"ti-kleub",
+"oaled",
+"ti-golf",
+"golf",
+"ti klub golf",
+"klub golf",
+"bod",
+"clubhouse",
+"Ti-klub golf"
 ],
 "golf/fairway":[
-"kanol-vor",
-"naoz",
-"Kanol-vor"
+"golf",
+"kanol",
+"fairway",
+"Fairway"
 ],
 "golf/green":[
 "Glazenn bleustriñ"
 ],
 "golf/hole":[
-"Toull"
+"golf",
+"toull golf",
+"Toull",
+"toull"
+],
+"golf/path":[
+"golf",
+"hent",
+"gwenodenn golf",
+"gwenodenn",
+"Gwenodenn tachenn golf"
 ],
 "golf/tee":[
 "Torgenn deroù"
@@ -870,6 +2100,14 @@
 "healthcare/laboratory":[
 "Arnodva dielfennadurioù mezegel"
 ],
+"healthcare/midwife":[
+"babig",
+"amieg",
+"gwilioud",
+"amiegez",
+"Amiegez",
+"matronez"
+],
 "healthcare/physiotherapist":[
 "Fizikyac'haour"
 ],
@@ -885,6 +2123,9 @@
 "highway":[
 "Elfenn ar Gourhent"
 ],
+"highway/bridleway":[
+"Gwenodenn varc'hegezh"
+],
 "highway/bus_stop":[
 "Arsav Bus"
 ],
@@ -898,17 +2139,87 @@
 "busway",
 "Forzh bus"
 ],
+"highway/construction":[
+"gourhent",
+"ru",
+"Hent war ober",
+"konstruidigezh",
+"boulouard",
+"obererezh",
+"o sevel",
+"oc'h ober",
+"alez",
+"sevel",
+"labour",
+"bali",
+"savidigezh",
+"ober",
+"o vezañ savet",
+"hent",
+"banell",
+"labourioù",
+"straed",
+"o vezañ krouet",
+"hent-tizh",
+"war ober"
+],
+"highway/crossing/unmarked":[
+"Treuzenn n'eo ket livet"
+],
 "highway/cycleway":[
-"Hent marc'hoù-houarn"
+"hent",
+"marc'h-houarn",
+"mirc'hi-houarn",
+"forzh",
+"belo",
+"marc'hhouarnerezh",
+"Hent marc'hoù-houarn",
+"hentad",
+"gwenodenn",
+"marc'hoù-houarn",
+"beloioù"
+],
+"highway/cycleway/bicycle_foot":[
+"war varc'h-houarn",
+"hent bale",
+"marc'h-houarn",
+"war-droad",
+"gwenodenn-vale",
+"Gwenodenn-vale ha marc'h-houarn"
+],
+"highway/cycleway/crossing/unmarked":[
+"Treuzenn marc'h-houarn n'eo ket livet"
 ],
 "highway/elevator":[
 "Pignerez"
 ],
+"highway/footway":[
+"hent",
+"pourmenadenn",
+"kerzhet",
+"bale",
+"hent-bale",
+"Gwenodenn-vale",
+"gwenodenn",
+"kerzhourien"
+],
+"highway/footway/access_aisle":[
+"Gwenodenn-vale ur parklec'h"
+],
 "highway/footway/crossing":[
 "Treuzenn kerzhourien"
 ],
+"highway/footway/crossing/uncontrolled":[
+"Treuzenn gerzherien livet"
+],
+"highway/footway/crossing/unmarked":[
+"Treuzenn n'eo ket livet"
+],
 "highway/footway/sidewalk":[
 "Riblenn-straed"
+],
+"highway/footway/traffic_island":[
+"Enezenn bod"
 ],
 "highway/give_way":[
 "Panell \"lezit da dremen\""
@@ -916,10 +2227,44 @@
 "highway/living_street":[
 "Straed vev"
 ],
+"highway/milestone":[
+"Maen-bonn"
+],
 "highway/mini_roundabout":[
 "Kroashent-tro bihan",
 "kroashent-tro bihan",
 "kroashent-troig"
+],
+"highway/motorway":[
+"hent",
+"gourhent",
+"Gourhent",
+"hent-tizh"
+],
+"highway/motorway_junction":[
+"kroashent",
+"er-maez",
+"hent-maez",
+"gourhent",
+"hent",
+"ermaez",
+"bretell",
+"eskemmer",
+"Hent-maez / Eskemmer",
+"hent-tizh"
+],
+"highway/motorway_link":[
+"mont-e-maez",
+"mont-tre",
+"hent",
+"gourhent",
+"mont tre",
+"Bretell gourhent",
+"bretell",
+"mont maez",
+"mont-maez",
+"hent-tizh",
+"mont e-maez"
 ],
 "highway/path":[
 "Gwenodenn"
@@ -933,17 +2278,47 @@
 "highway/primary":[
 "Hent pennañ"
 ],
+"highway/primary_link":[
+"mont-tre",
+"gourhent",
+"pennañ",
+"mont-e-maez",
+"Bretell hent pennañ",
+"hent",
+"mont tre",
+"bretell",
+"hent pennañ",
+"mont maez",
+"mont-maez",
+"hent-tizh",
+"mont e-maez"
+],
 "highway/residential":[
 "Hent annez"
 ],
 "highway/road":[
-"Hent Dianav"
+"Hent dianav"
 ],
 "highway/road/bridge":[
 "Pont bleinet dianav"
 ],
 "highway/secondary":[
 "Hent eilrenk"
+],
+"highway/secondary_link":[
+"eil renk",
+"mont-tre",
+"mont-e-maez",
+"eilrenk",
+"hent",
+"hent a eil renk",
+"mont tre",
+"Bretell hent a eil renk",
+"bretell",
+"mont maez",
+"mont-maez",
+"hent eilrenk",
+"mont e-maez"
 ],
 "highway/service":[
 "Hent moned"
@@ -955,13 +2330,29 @@
 "Servij \"drive\""
 ],
 "highway/service/driveway":[
+"parkañ",
+"parklec'h",
+"hent",
+"karrdi",
+"alez",
 "Alez"
 ],
 "highway/service/emergency_access":[
 "Moned trummadoù"
 ],
 "highway/service/parking_aisle":[
-"Plas-parkañ"
+"parkañ",
+"parklec'h",
+"c'hwil-tan",
+"hent",
+"karr",
+"marc'h-tan",
+"Alez parkañ",
+"karr-tan",
+"plas",
+"plas-parkañ",
+"alez",
+"kirri"
 ],
 "highway/service_area":[
 "Leur-servij teret"
@@ -976,7 +2367,8 @@
 ],
 "highway/steps":[
 "diri",
-"Diri"
+"Diri",
+"skalier"
 ],
 "highway/steps/conveying":[
 "eskalator",
@@ -987,13 +2379,58 @@
 "Panell stop"
 ],
 "highway/street_lamp":[
-"Post-lamp"
+"goulaouenn",
+"post",
+"Post-lamp",
+"lamp",
+"straed",
+"gouloù"
 ],
 "highway/tertiary":[
 "Hent trederenk"
 ],
+"highway/tertiary_link":[
+"mont-tre",
+"hent a drede renk",
+"hent trederenk",
+"trede renk",
+"Bretell hent a drede renk",
+"mont-e-maez",
+"hent",
+"mont tre",
+"bretell",
+"mont maez",
+"mont-maez",
+"trederenk",
+"mont e-maez"
+],
+"highway/traffic_mirror":[
+"melezour surentez",
+"hent",
+"melezour hent",
+"melezour",
+"surentez",
+"Melezour-hent"
+],
 "highway/traffic_signals":[
 "Gouleier triliv"
+],
+"highway/trailhead":[
+"penn",
+"Penn ur wenodenn",
+"gwenodenn"
+],
+"highway/trunk_link":[
+"mont-e-maez",
+"Bretell hent-tizh",
+"mont-tre",
+"hent",
+"mont tre",
+"bretell",
+"mont maez",
+"mont-maez",
+"hent-tizh",
+"mont e-maez"
 ],
 "highway/unclassified":[
 "Hent eilrenk/direnk"
@@ -1008,7 +2445,11 @@
 "Savadur istorel"
 ],
 "historic/castle":[
-"Kastell"
+"kêr",
+"kreñvlec'h",
+"kastell",
+"Kastell",
+"fort"
 ],
 "historic/castle/fortress":[
 "Kreñvlec'h istorel"
@@ -1019,11 +2460,28 @@
 "historic/castle/stately":[
 "Kastell"
 ],
+"historic/fort":[
+"Fort istorel"
+],
 "historic/manor":[
+"ti",
+"kastell",
+"palez",
+"tudjentil",
+"domani",
+"maner",
 "Maner"
 ],
 "historic/memorial":[
 "Kounlec'h"
+],
+"historic/memorial/plaque":[
+"plakenn",
+"meuliñ",
+"lidañ",
+"plakenn goun",
+"Plakenn-goun",
+"koun"
 ],
 "historic/monument":[
 "Monumant"
@@ -1042,11 +2500,50 @@
 "historic/wayside_cross":[
 "Kalvar"
 ],
+"historic/wayside_shrine":[
+"ti-pediñ",
+"orator",
+"Orator"
+],
 "historic/wreck":[
 "Peñse"
 ],
+"indoor":[
+"Elfenn diabarzh"
+],
+"indoor/area":[
+"takad",
+"diabarzh",
+"a-ziabarzh",
+"Takad diabarzh"
+],
+"indoor/corridor":[
+"trepas diabarzh",
+"banell",
+"Trepas diabarzh"
+],
+"indoor/corridor_line":[
+"Trepas diabarzh"
+],
+"indoor/door":[
+"dor",
+"Dor diabarzh",
+"diabarzh",
+"a-ziabarzh"
+],
 "indoor/room":[
+"kambr",
 "Kambr"
+],
+"indoor/stairs":[
+"Skalieroù diabarzh"
+],
+"indoor/wall":[
+"moger",
+"Mur diabarzh",
+"diabarzh",
+"a-ziabarzh",
+"mur"
 ],
 "landuse":[
 "Elfenn implij an douar"
@@ -1055,19 +2552,91 @@
 "Dourc'hounezerezh"
 ],
 "landuse/basin":[
-"Diazad"
+"Diazad dour"
+],
+"landuse/brownfield":[
+"Tachenn fraost"
 ],
 "landuse/cemetery":[
+"mervel",
+"kañv",
+"marv",
+"kelan",
+"ankou",
+"douaridigzh",
+"bez",
+"anaon",
+"bered",
+"douarañ",
+"bolz-kañv",
+"ti-kañv",
 "Bered"
+],
+"landuse/churchyard":[
+"Tachenn an iliz"
 ],
 "landuse/commercial":[
 "Takad koñvers"
 ],
 "landuse/construction":[
-"Takad Sevel"
+"tisaver",
+"konstruidigezh",
+"ranndi",
+"obererezh",
+"kendi",
+"batis",
+"sevel",
+"labour",
+"tisaverezh",
+"takad",
+"tiadur",
+"savidigezh",
+"ober",
+"ti",
+"Takad sevel",
+"savadurezh",
+"labourioù",
+"savadur",
+"saver",
+"savadenn"
+],
+"landuse/farm":[
+"Takad labour-douar"
 ],
 "landuse/farmland":[
-"Takad labour-douar"
+"Takad labour-douar",
+"takad",
+"tiegezh",
+"ti-feurm",
+"ti",
+"atant",
+"feurm",
+"gounezerezh",
+"labour-douar"
+],
+"landuse/farmyard":[
+"takad",
+"tiegezh",
+"ti-feurm",
+"ti",
+"Takad ti-feurm",
+"atant",
+"feurm",
+"labour-douar"
+],
+"landuse/forest":[
+"koataerezh",
+"koadoù",
+"korvoet",
+"koad",
+"merañ",
+"koataer",
+"meret",
+"koadeg",
+"Koad meret",
+"korvoiñ",
+"korvoerezh",
+"mererezh"
 ],
 "landuse/grass":[
 "Leton"
@@ -1081,6 +2650,17 @@
 "landuse/industrial":[
 "Takad greantel"
 ],
+"landuse/industrial/scrap_yard":[
+"dismantrañ",
+"feuzañ",
+"distrujañ",
+"karr",
+"drailhadeg",
+"bered kirri",
+"kirri",
+"drailhañ",
+"Drailhadeg kirri"
+],
 "landuse/industrial/slaughterhouse":[
 "lazhti",
 "lazhdi",
@@ -1088,8 +2668,14 @@
 "boserezh",
 "Lazhti"
 ],
+"landuse/landfill":[
+"Diskarg"
+],
 "landuse/meadow":[
 "Pradenn"
+],
+"landuse/orchard":[
+"Gwerje"
 ],
 "landuse/pond":[
 "Poull"
@@ -1104,25 +2690,79 @@
 "Mirlec'h"
 ],
 "landuse/residential":[
-"Takad Annez"
+"Takad annez"
+],
+"landuse/retail":[
+"koñvers",
+"Takad koñvers",
+"kenwerzh"
 ],
 "landuse/salt_pond":[
+"palud",
+"holen",
+"paludoù-holen",
+"palud-holen",
+"paludoù",
 "Palud"
 ],
 "landuse/vineyard":[
 "Gwinieg"
 ],
 "leisure":[
-"Elfenn an Dudi"
+"Elfenn dudi"
+],
+"leisure/beach_resort":[
+"touristañ",
+"touristerezh",
+"Kouronklec'h",
+"hañv",
+"vakañsoù",
+"traezhenn",
+"lec'h kouronkañ",
+"kouronkañ",
+"kêr kouronkañ",
+"traezh",
+"hañvlec'h",
+"aod",
+"touristiñ",
+"touristel",
+"kouronklec'h"
+],
+"leisure/bleachers":[
+"stad",
+"arvesterien",
+"derezioù",
+"Derezioù"
 ],
 "leisure/common":[
 "Tachenn foran"
+],
+"leisure/dance":[
+"dañsal",
+"dañs",
+"Sal dañs",
+"sal"
 ],
 "leisure/dancing_school":[
 "Skol-dañs"
 ],
 "leisure/escape_game":[
-"Escape Room"
+"Escape room (c'hoari achap)"
+],
+"leisure/fishing":[
+"lec'h pesk",
+"mor",
+"aod",
+"pesk",
+"Lec'h pesketa",
+"pesketa",
+"stêr",
+"boued mor"
+],
+"leisure/fitness_centre/yoga":[
+"Sal yoga",
+"yoga",
+"sal"
 ],
 "leisure/fitness_station/parallel_bars":[
 "Divvarrenn genstur"
@@ -1136,7 +2776,11 @@
 "liorzh louzawouriezh"
 ],
 "leisure/golf_course":[
-"Tachenn golf"
+"golf",
+"tachenn c'holf",
+"tachenn golf",
+"Tachenn golf",
+"tachenn"
 ],
 "leisure/horse_riding":[
 "kezeg",
@@ -1149,30 +2793,83 @@
 "marchosi",
 "kreizenn varc'hegezh"
 ],
+"leisure/marina":[
+"mor",
+"marina",
+"porzh-bageal",
+"martolod",
+"lien",
+"bigi",
+"Porzh-bageal",
+"bag",
+"bag-dre-lien",
+"porzh"
+],
 "leisure/miniature_golf":[
+"minigolf",
+"golf",
+"mini golf",
+"mini-golf",
 "Minigolf"
 ],
 "leisure/nature_reserve":[
 "Gwarezva natur"
 ],
 "leisure/park":[
+"jardin",
+"koad",
+"plant",
 "liorzh",
 "park",
+"glasvez",
 "Park"
 ],
 "leisure/picnic_table":[
-"Taol biknik"
+"piknik",
+"Taol biknik",
+"piknikañ",
+"taol"
 ],
 "leisure/picnic_table/chess":[
 "Taol wezboell"
 ],
+"leisure/pitch":[
+"Tachenn sport",
+"dudi",
+"sport",
+"tachenn"
+],
 "leisure/pitch/american_football":[
-"Tachenn football amerikan"
+"amerikan",
+"Tachenn mell-droad amerikan",
+"sport amerikan",
+"amerika",
+"mell-droad amerikan",
+"mell-droad",
+"football",
+"sport",
+"foot",
+"tachenn",
+"tachenn sport"
 ],
 "leisure/pitch/american_handball":[
 "handball amerikan",
 "tachenn handball amerikan",
 "Tachenn handball amerikan"
+],
+"leisure/pitch/australian_football":[
+"mell-droad aostralian",
+"aostraliat",
+"aostralian",
+"Tachenn mell-droad aostralian",
+"aostralia",
+"mell-droad",
+"football",
+"sport",
+"sport aostralian",
+"foot",
+"tachenn",
+"tachenn sport"
 ],
 "leisure/pitch/baseball":[
 "Tachenn baseball"
@@ -1182,16 +2879,56 @@
 ],
 "leisure/pitch/beachvolleyball":[
 "traezhenn",
-"Tachenn traezhenn-volley-ball",
+"beach-volley",
+"sportoù",
+"traezh",
 "volley-ball",
 "volley",
-"volleyball"
+"volleyball",
+"sport",
+"tachenn",
+"Tachenn beach-volley"
+],
+"leisure/pitch/chess":[
+"Tablez echedoù ramzel"
 ],
 "leisure/pitch/cricket":[
 "Tachenn griked",
 "kriked",
 "tachenn griked",
 "sport",
+"tachenn"
+],
+"leisure/pitch/field_hockey":[
+"Tachenn hockey war leton",
+"hockey",
+"hockeyer",
+"skipailh",
+"tachenn sport",
+"tachenn",
+"hokeier",
+"hoke",
+"geot",
+"dudi",
+"leton",
+"war c'heot",
+"sport"
+],
+"leisure/pitch/futsal":[
+"Tachenn futsal",
+"sportoù",
+"dudi",
+"futsal",
+"sport",
+"tachenn"
+],
+"leisure/pitch/netball":[
+"sportoù",
+"Tachenn netball",
+"dudi",
+"netball",
+"sport",
+"net-ball",
 "tachenn"
 ],
 "leisure/pitch/paintball":[
@@ -1204,7 +2941,20 @@
 "Skatepark"
 ],
 "leisure/pitch/soccer":[
-"Tachenn vell-droad"
+"tachenn vell-droad",
+"Tachenn vell-droad",
+"mell-droad",
+"football",
+"sport",
+"foot",
+"tachenn"
+],
+"leisure/pitch/softball":[
+"softball",
+"Tachenn softball",
+"tachenn softball",
+"sport",
+"tachenn"
 ],
 "leisure/pitch/table_tennis":[
 "ping pong",
@@ -1216,14 +2966,63 @@
 "leisure/pitch/tennis":[
 "Tachenn dennis"
 ],
+"leisure/pitch/volleyball":[
+"sportoù",
+"volley-ball",
+"volley",
+"volleyball",
+"Tachenn volley-ball",
+"sport",
+"tachenn"
+],
 "leisure/playground":[
 "Porzh-c'hoari"
+],
+"leisure/resort":[
+"Kreizenn dudi"
 ],
 "leisure/sauna":[
 "Sauna"
 ],
+"leisure/slipway":[
+"mor",
+"kal lakaat en dour",
+"morañ",
+"kal",
+"dour",
+"bigi",
+"Kal morañ",
+"bag",
+"lestr",
+"kal morañ",
+"lakaat en dour",
+"stêr"
+],
 "leisure/sports_centre":[
-"Kreizenn-sport"
+"sportoù",
+"Kreizenn-sport",
+"jiminas",
+"kreizenn",
+"dudi",
+"sport"
+],
+"leisure/sports_centre/climbing":[
+"Sal-krapañ"
+],
+"leisure/sports_centre/shooting":[
+"Kreizenn-dennañ"
+],
+"leisure/sports_centre/swimming":[
+"Kreizenn-dour"
+],
+"leisure/sports_hall":[
+"sportoù",
+"jiminas",
+"kreizenn",
+"dudi",
+"kreizenn-sport",
+"sport",
+"Jiminas"
 ],
 "leisure/stadium":[
 "Stad"
@@ -1234,32 +3033,81 @@
 "leisure/track/horse_racing":[
 "Marc'hva"
 ],
+"leisure/water_park":[
+"Park dour"
+],
 "line":[
 "Linenn"
 ],
 "man_made":[
-"Elfenn Artifisiel"
+"Elfenn artifisiel"
 ],
 "man_made/beehive":[
-"Ruskenn"
+"Ruskenn",
+"gwenan",
+"ruskenn"
 ],
 "man_made/bridge":[
 "Gorread pont"
 ],
+"man_made/cairn":[
+"Karn"
+],
 "man_made/chimney":[
 "Siminal"
 ],
+"man_made/compass_rose":[
+"su",
+"kreisteiz",
+"kornaoueg",
+"pevar avel",
+"Rod an avelioù",
+"hanternoz",
+"gevred",
+"kuzh-heol",
+"mervent",
+"biz",
+"rod an avelioù",
+"sav-heol",
+"reter",
+"kornôg",
+"roud-avel",
+"norzh",
+"gwalarn"
+],
 "man_made/crane":[
-"Gavr"
+"gavr",
+"Gavr",
+"karr-gavr",
+"gavr-houarn"
+],
+"man_made/crane/gantry_crane":[
+"Gavr embregata",
+"dafariñ",
+"gavr",
+"karr-gavr",
+"gavr-houarn",
+"embregata",
+"porched"
 ],
 "man_made/cross":[
 "Kroaz"
+],
+"man_made/dyke":[
+"chaoser",
+"dig",
+"Dig",
+"sav-maen"
 ],
 "man_made/embankment":[
 "Savenn-douar"
 ],
 "man_made/flagpole":[
-"Gwern banniel"
+"gwern",
+"Gwern banniel",
+"post",
+"peul",
+"banniel"
 ],
 "man_made/lighthouse":[
 "Tour-tan"
@@ -1271,7 +3119,11 @@
 "Peul"
 ],
 "man_made/mast/communication":[
-"Peul pellgehentiñ"
+"Peul pellgehentiñ",
+"peul",
+"kehentiñ",
+"tour",
+"peul pellgehentiñ"
 ],
 "man_made/mast/communication/radio":[
 "gwern",
@@ -1294,43 +3146,164 @@
 "skinwel",
 "radio"
 ],
+"man_made/mineshaft":[
+"kav",
+"puñs",
+"mengleuz",
+"Puñs mengleuz"
+],
+"man_made/obelisk":[
+"peulvan",
+"maen-hir",
+"obeliskenn"
+],
 "man_made/observatory":[
 "Arsellva"
+],
+"man_made/petroleum_well":[
+"Puñs eoul-douar"
+],
+"man_made/pier":[
+"Chaoser"
+],
+"man_made/pier/floating":[
+"sav-maen war-neuñv",
+"mor",
+"chaoser",
+"chaoser war-neuñv",
+"sav-maen-neuñv",
+"Sav-maen war-neuñv",
+"bigi",
+"bag",
+"lestr",
+"chaoser-neuñv",
+"neuñv",
+"porzh"
 ],
 "man_made/pipeline":[
 "Gazsan / eoulsan"
 ],
 "man_made/pipeline/underground":[
-"Eoulsan dindandouar"
+"eoul-douar",
+"gaz",
+"dindanvor",
+"petrol",
+"dindandouar",
+"tireoul",
+"Eoulsan dindandouar",
+"eoulsan",
+"korzenn"
 ],
 "man_made/silo":[
 "Silo"
 ],
+"man_made/street_cabinet":[
+"Armel-straed"
+],
+"man_made/surveillance":[
+"Benveg evezhiañ"
+],
 "man_made/surveillance/camera":[
-"Kamera-evezhiañ"
+"evezhiañ",
+"plediñ",
+"anaoudegezh",
+"evezh",
+"merañ",
+"video",
+"gwarez",
+"marilh",
+"diwall",
+"fiñvskeudenner",
+"cctv",
+"webcam",
+"surentez",
+"Kamera-evezhiañ",
+"kamera",
+"eveshaat"
 ],
 "man_made/tower":[
+"skraber-oabl",
+"savadur",
+"tour",
 "Tour"
 ],
 "man_made/tower/bell_tower":[
-"Kloc'hdi"
+"Kloc'hdi",
+"kloc'hdi",
+"iliz",
+"tour-iliz",
+"tour"
+],
+"man_made/tower/communication":[
+"Tour kehentiñ",
+"peul",
+"pellgehentiñ",
+"kehentiñ",
+"tour"
+],
+"man_made/tower/diving":[
+"Splujell"
 ],
 "man_made/tower/minaret":[
-"Minared"
+"islam",
+"muzulman",
+"Minared",
+"minared",
+"moskeenn",
+"tour"
+],
+"man_made/tower/pagoda":[
+"Pagodenn",
+"pagodenn",
+"azeuliñ",
+"azeulva"
 ],
 "man_made/tunnel":[
-"Takad riboul"
+"takad",
+"riboul",
+"Takad riboul",
+"tunel"
+],
+"man_made/video_wall":[
+"Skramm niverel",
+"skramm",
+"ramzel",
+"niverek",
+"niverel",
+"del"
 ],
 "man_made/wastewater_plant":[
+"dourioù lous",
+"purlec'h",
+"dour lous",
 "Purlec'h"
 ],
 "man_made/water_tower":[
+"kastell-dour",
 "Kastell-dour"
 ],
+"man_made/water_well":[
+"mammenn",
+"Puñs",
+"puñs",
+"dour",
+"eienenn"
+],
 "man_made/watermill":[
-"Milin-dour"
+"meilh",
+"milin-dour",
+"milin",
+"Milin-dour",
+"melin",
+"dour",
+"meilh-dour",
+"melin-dour"
 ],
 "man_made/windmill":[
+"avel",
+"meilh",
+"milin",
+"melin",
 "Milin"
 ],
 "man_made/works":[
@@ -1348,11 +3321,33 @@
 "natural":[
 "Elfenn naturel"
 ],
+"natural/bare_rock":[
+"takad",
+"roc'hell",
+"roc'hellek",
+"reier",
+"Takad roc'hellek",
+"kerreg",
+"karreg",
+"roc'h"
+],
 "natural/bay":[
 "Bae"
 ],
 "natural/beach":[
+"mor",
+"traezhenn",
+"arvor",
+"traezh",
+"aod",
+"sablenn",
 "Traezhenn"
+],
+"natural/cape":[
+"penn",
+"beg",
+"Beg",
+"kab"
 ],
 "natural/cave_entrance":[
 "Moned kav"
@@ -1361,8 +3356,15 @@
 "Tornaod"
 ],
 "natural/coastline":[
+"mor",
+"traezhenn",
+"arvor",
+"reier",
+"traezh",
 "aod",
-"Aod"
+"kerreg",
+"Aod",
+"tornaod"
 ],
 "natural/glacier":[
 "Skorneg"
@@ -1373,14 +3375,44 @@
 "natural/heath":[
 "Lann"
 ],
+"natural/hot_spring":[
+"dour",
+"poull",
+"stivell",
+"lenn",
+"tomm",
+"dourredenn",
+"geyser",
+"fetan",
+"Mammenn domm",
+"mammenn",
+"mor",
+"gourstivell",
+"dour zomm",
+"stank",
+"feunteun",
+"gwazh",
+"stêr"
+],
 "natural/mud":[
 "Fank"
+],
+"natural/peak":[
+"Kern"
 ],
 "natural/reef":[
 "Karreg"
 ],
+"natural/rock":[
+"Karreg"
+],
 "natural/sand":[
-"Traezh"
+"gwast",
+"traezhenn",
+"traezh",
+"dezerzh",
+"Traezh",
+"gouelec'h"
 ],
 "natural/scrub":[
 "bod",
@@ -1388,6 +3420,18 @@
 "strouezh",
 "brouskoad",
 "krin"
+],
+"natural/shrub":[
+"Bodenn"
+],
+"natural/spring":[
+"red",
+"mammenn",
+"dour",
+"Mammenn",
+"gwazh",
+"dourredenn",
+"stêr"
 ],
 "natural/strait":[
 "Strizh-mor"
@@ -1399,7 +3443,14 @@
 "Souchenn"
 ],
 "natural/valley":[
-"Traoñienn"
+"flondrenn",
+"traoñ",
+"traoñienn",
+"stank",
+"Traoñienn",
+"saon",
+"stankenn",
+"saonenn"
 ],
 "natural/volcano":[
 "Menez-tan"
@@ -1414,6 +3465,9 @@
 "Takad kanol"
 ],
 "natural/water/lake":[
+"loc'h",
+"stank",
+"poull",
 "lenn",
 "Lenn"
 ],
@@ -1432,6 +3486,50 @@
 "natural/water/wastewater":[
 "Poull dourioù lous"
 ],
+"natural/wetland":[
+"Takad gleb"
+],
+"natural/wetland/bog":[
+"paludenn",
+"palud",
+"geunioù",
+"geun",
+"taouarc'heg",
+"Taouarc'heg"
+],
+"natural/wetland/mangrove":[
+"mangrovenn",
+"Mangrovenn"
+],
+"natural/wetland/marsh":[
+"paludenn",
+"palud",
+"geunioù",
+"Geunioù",
+"geun"
+],
+"natural/wetland/saltmarsh":[
+"paludenn",
+"salin",
+"Palud-holen",
+"palud",
+"geunioù",
+"geun"
+],
+"natural/wetland/swamp":[
+"paludenn",
+"palud",
+"geunioù",
+"geun",
+"Paludenn"
+],
+"natural/wetland/tidalflat":[
+"chal ha dichal",
+"morfont",
+"lanv ha tre",
+"lec'hideg",
+"Morfont"
+],
 "natural/wetland/wet_meadow":[
 "Pradenn c'hleb"
 ],
@@ -1444,11 +3542,55 @@
 "office":[
 "Burev"
 ],
+"office/accountant":[
+"Kontour"
+],
+"office/adoption_agency":[
+"Ajañs advugelañ"
+],
+"office/advertising_agency":[
+"ajañs",
+"Ajañs bruderezh",
+"brudañ",
+"burev",
+"bruderezh"
+],
+"office/architect":[
+"tisavourez",
+"ti",
+"Tisavour",
+"arkitektourez",
+"embregerezh",
+"tisavour",
+"arkitektour",
+"savourez",
+"burev",
+"savour"
+],
 "office/association":[
 "Burev aozadur e-maez-gouarnamant"
 ],
+"office/charity":[
+"karitez",
+"aluzen",
+"aozadur",
+"diazezadur",
+"burev"
+],
 "office/coworking":[
 "Lec'h kenlabourat"
+],
+"office/diplomatic":[
+"kannadouriezh",
+"kannati",
+"kannadiezh",
+"diplomatek",
+"aozadur",
+"savadur",
+"diplomatiezh",
+"kanndi",
+"burev",
+"Savadur diplomatek"
 ],
 "office/diplomatic/consulate":[
 "kannadouriezh",
@@ -1474,14 +3616,37 @@
 "Kannati",
 "viza"
 ],
+"office/diplomatic/liaison":[
+"Burev liammañ",
+"burev liammañ"
+],
+"office/educational_institution":[
+"Kreizenn stummañ"
+],
+"office/energy_supplier":[
+"Pourvezer tredan"
+],
 "office/estate_agent":[
 "Ajañs-tiez"
 ],
 "office/financial_advisor":[
 "Kuzulier-arc'hant"
 ],
+"office/forestry":[
+"Mererezh ar c'hoadoù"
+],
+"office/foundation":[
+"kevredigezh",
+"aozadur",
+"diazezadur",
+"burev",
+"Diazezadur"
+],
 "office/government":[
 "Melestradurezh publik"
+],
+"office/government/prosecutor":[
+"Burev ar prokulor meur"
 ],
 "office/government/tax":[
 "Ti an tailhoù"
@@ -1502,6 +3667,9 @@
 "Burev AMG"
 ],
 "office/notary":[
+"noter",
+"ti an noter",
+"burev",
 "Noter"
 ],
 "office/physician":[
@@ -1510,11 +3678,49 @@
 "office/political_party":[
 "Burev strollad politikel"
 ],
+"office/private_investigator":[
+"enklasker",
+"embregerezh",
+"burev",
+"prevez",
+"imbourc'her",
+"Enklasker prevez"
+],
 "office/quango":[
 "Burev hanter-AMG"
 ],
+"office/religion":[
+"boudist",
+"Burev relijiel",
+"burev",
+"kristen",
+"relijion",
+"yuzev",
+"taoist",
+"relijiel",
+"diazezadur",
+"muzulman",
+"azeuliñ",
+"feiz",
+"ensavadur"
+],
+"office/research":[
+"Aozadur enklask skiantel"
+],
+"office/security":[
+"Ajañs surentez prevez"
+],
+"office/surveyor":[
+"Mentoniour"
+],
 "office/tax_advisor":[
-"Burev kuzulier-arc'hant"
+"tailhoù",
+"yalc'h",
+"kuzulier",
+"taosoù",
+"Burev kuzulier-arc'hant",
+"arc'hant",
+"burev"
 ],
 "office/travel_agent":[
 "Ajañs-veaj"
@@ -1537,7 +3743,7 @@
 "Lec'h"
 ],
 "place/city":[
-"Kêr Vras"
+"Kêr vras"
 ],
 "place/farm":[
 "Atant"
@@ -1547,16 +3753,42 @@
 ],
 "place/island":[
 "enez",
+"atoll",
 "enezenn",
+"enezeg",
+"inizi",
+"enezig",
+"douar",
 "Enez"
+],
+"place/islet":[
+"Enezig",
+"enez",
+"enezenn",
+"enezeg",
+"inizi",
+"enezig"
 ],
 "place/isolated_dwelling":[
 "Annez distro"
+],
+"place/locality":[
+"Kêriadenn didud"
+],
+"place/neighbourhood":[
+"Karter",
+"karter",
+"ranngêr",
+"arondisamant"
 ],
 "place/square":[
 "Skwar",
 "plasenn",
 "skwar"
+],
+"place/suburb":[
+"bannlev",
+"Bannlev"
 ],
 "place/town":[
 "Kêr"
@@ -1564,7 +3796,27 @@
 "place/village":[
 "Kêriadenn"
 ],
+"playground":[
+"Dafar porzh-c'hoari"
+],
+"playground/climbingwall":[
+"C'hoari moger grapañ"
+],
+"playground/sandpit":[
+"bugel",
+"Bailh traezh",
+"bailh",
+"traezh",
+"porzh-c'hoari",
+"bugale",
+"c'hoari"
+],
+"playground/seesaw":[
+"C'hoari-skañbouez"
+],
 "playground/slide":[
+"ruz",
+"ruz-revr",
 "Ruz-revr"
 ],
 "playground/swing":[
@@ -1576,6 +3828,15 @@
 "playground/trampoline":[
 "Trampolin"
 ],
+"playground/zipwire":[
+"tirolian",
+"C'hoari tirolianenn",
+"dudi",
+"tirolianenn",
+"bugale",
+"c'hoari",
+"park"
+],
 "point":[
 "Poent"
 ],
@@ -1583,7 +3844,20 @@
 "Burev-votiñ berrbad"
 ],
 "power":[
-"Elfenn Dredanel"
+"Elfenn dredanel"
+],
+"power/cable":[
+"Fun dredan"
+],
+"power/cable/underground":[
+"dindanvor",
+"tredan",
+"linenn",
+"orjalenn",
+"Fun dredan dindandouar",
+"dindandouar",
+"elektrek",
+"fun"
 ],
 "power/catenary_mast":[
 "Post katener",
@@ -1598,16 +3872,19 @@
 "fotovoltaek"
 ],
 "power/generator/method/photovoltaic/location/roof":[
-"Panell-heol an doen"
+"Panell-heol war an doenn"
 ],
 "power/generator/source/hydro":[
-"Rod-avel"
+"Rod-dour"
 ],
 "power/generator/source/nuclear":[
 "Reaktor nukleel"
 ],
 "power/generator/source/wind":[
 "Rod-avel"
+],
+"power/line":[
+"Linenn dredan"
 ],
 "power/plant":[
 "Tachenn greizenn dredan"
@@ -1622,7 +3899,13 @@
 "Kreizenn dre zour"
 ],
 "power/plant/source/nuclear":[
-"Kreizenn nukleel"
+"tredan",
+"Kreizenn nukleel",
+"derc'hanva",
+"derc'han",
+"kreizenn dredan",
+"nukleel",
+"nukleüs"
 ],
 "power/plant/source/oil":[
 "Kreizenn dermek dre eoul-douar"
@@ -1633,6 +3916,19 @@
 ],
 "power/plant/source/waste":[
 "Pulluc'hva al lastez"
+],
+"power/pole":[
+"tredan",
+"post",
+"peul",
+"Peul tredan"
+],
+"power/transformer":[
+"Treuzfurmer",
+"treuzfurmer"
+],
+"public_transport/platform":[
+"Kae treuzdougen foran"
 ],
 "public_transport/platform/bus":[
 "Kae bus"
@@ -1705,7 +4001,13 @@
 "Ti-gar"
 ],
 "public_transport/station_train_halt":[
-"Ti-gar (arsav diwar c'houlenn)"
+"diwar c'houlenn",
+"gar",
+"goulenn",
+"Ti-gar (arsav diwar c'houlenn)",
+"porzh-houarn",
+"arsav",
+"ti-gar"
 ],
 "public_transport/station_tram":[
 "Arsav tramgarr"
@@ -1738,11 +4040,33 @@
 "Lec'h ma'z ehan an trolleybus"
 ],
 "railway":[
-"Elfenn an Hent-houarn"
+"Elfenn hent-houarn"
 ],
 "railway/abandoned":[
 "Hent-houarn dilezet",
 "hent-houarn dilezet"
+],
+"railway/construction":[
+"konstruidigezh",
+"obererezh",
+"o sevel",
+"oc'h ober",
+"karr-houarn",
+"porzh-houarn",
+"hent-houarn",
+"sevel",
+"labour",
+"ti-gar",
+"tren",
+"savidigezh",
+"ober",
+"o vezañ savet",
+"labourioù",
+"gar",
+"o vezañ krouet",
+"Hent-houarn war ober",
+"war ober",
+"hentoù-houarn"
 ],
 "railway/crossing":[
 "Kroashent-houarn"
@@ -1754,13 +4078,51 @@
 "Ti-gar (arsav diwar c'houlenn)"
 ],
 "railway/light_rail":[
+"tren",
+"tramgarr",
+"hent",
+"forzh",
+"metro",
+"hent-houarn",
+"tram",
+"metro-skañv",
+"hentad",
 "Forzh metro skañv"
 ],
+"railway/milestone":[
+"Maen-bonn tren"
+],
+"railway/miniature":[
+"tren",
+"Hent trenig bihan",
+"hent",
+"tren bihan",
+"forzh",
+"hent-houarn",
+"hentad",
+"trenig"
+],
 "railway/monorail":[
+"hent",
+"forzh",
+"unroudenn",
+"hent-houarn",
+"hentad",
 "Forzh unroudenn"
 ],
+"railway/platform":[
+"Kae ti-gar"
+],
+"railway/preserved":[
+"Hent-houarn touristel"
+],
 "railway/rail":[
-"Hent-houarn"
+"tren",
+"hent",
+"forzh",
+"Hent-houarn",
+"hent-houarn",
+"hentad"
 ],
 "railway/rail/highspeed":[
 "tren",
@@ -1773,13 +4135,32 @@
 "Porzh-houarn"
 ],
 "railway/subway":[
-"Forzh metro"
+"hent",
+"forzh",
+"metro",
+"tren-buzhug",
+"dindandouar",
+"hent-houarn",
+"Forzh metro",
+"hentad"
 ],
 "railway/subway_entrance":[
 "Moned metro"
 ],
+"railway/train_wash":[
+"tren",
+"gwalc'herezh",
+"Porzh gwalc'hiñ trenioù",
+"gwalc'hiñ",
+"porzh"
+],
 "railway/tram":[
-"Forzh tramgarr"
+"tramgarr",
+"hent",
+"forzh",
+"Forzh tramgarr",
+"tram",
+"hent-houarn"
 ],
 "relation":[
 "Darempred"
@@ -1787,8 +4168,55 @@
 "route/ferry":[
 "Hentad ferry"
 ],
+"seamark":[
+"Balizenn"
+],
+"seamark/buoy_lateral/green":[
+"boue",
+"glas",
+"arouez-aod",
+"balizenn",
+"gwer",
+"Boue gwer"
+],
+"seamark/buoy_lateral/red":[
+"boue",
+"Boue ruz",
+"ruz",
+"arouez-aod",
+"balizenn"
+],
 "shop":[
-"Stal"
+"gourstal",
+"marc'had",
+"pratik",
+"Stal",
+"gwerzhañ",
+"stalioù",
+"prenañ",
+"gwerzher",
+"prenadenn",
+"adstal",
+"staliaoua",
+"magazenn",
+"gourmarc'had",
+"embregerezh",
+"stal",
+"aradenn"
+],
+"shop/alcohol":[
+"evaj kreñv",
+"likor",
+"vodka",
+"hini kreñv",
+"koreñv",
+"gwin",
+"alkool",
+"chistr",
+"korev",
+"bier",
+"Stal alkool",
+"sistr"
 ],
 "shop/anime":[
 "Stal mangaoù ha anime"
@@ -1797,42 +4225,234 @@
 "hendraour",
 "Hendraour"
 ],
+"shop/appliance":[
+"Stal mekanikoù tredan"
+],
+"shop/art":[
+"Stal-arz"
+],
 "shop/bakery":[
 "Pastezerezh"
 ],
+"shop/bathroom_furnishing":[
+"Stal dafar sal-gibellañ"
+],
+"shop/beauty":[
+"Kenederezh"
+],
+"shop/bed":[
+"Stal dafar gwele"
+],
+"shop/beverages":[
+"evajoù",
+"evaj",
+"dour",
+"chug",
+"soda",
+"Stal-evajoù"
+],
 "shop/bicycle":[
-"Stal Marc'h-houarn"
+"Stal marc'hoù-houarn",
+"marc'h-houarn",
+"mirc'hi-houarn",
+"belo",
+"stal",
+"marc'hhouarnerezh",
+"marc'hoù-houarn",
+"beloioù",
+"gwerzher"
 ],
 "shop/boat":[
-"Stal vigi"
+"bigi",
+"Stal-vigi",
+"bag",
+"stal"
 ],
 "shop/books":[
+"gwerzher levrioù",
+"levr",
+"levrdi",
 "Levrdi"
 ],
 "shop/butcher":[
 "Kigerezh"
 ],
+"shop/camera":[
+"Stal dafar luc'hskeudennerezh"
+],
+"shop/candles":[
+"goulaouenn",
+"gouloù-koar",
+"kantol-elfenniñ",
+"koar",
+"kantol",
+"Stal-vouji",
+"goulaouenn-goar",
+"boujienn",
+"enaouell",
+"bouji"
+],
 "shop/cannabis":[
 "Stal ganabiz"
 ],
+"shop/car":[
+"Gwerzher kirri",
+"gwetur",
+"karr",
+"karr-tan",
+"karbed",
+"stal",
+"gwerzhañ",
+"kirri",
+"gwerzher"
+],
+"shop/car_repair":[
+"tangarrdi",
+"gwetur",
+"Karrdi kirri",
+"karr",
+"karr-tan",
+"ti-kirri",
+"karbed",
+"karrdi",
+"stal",
+"kirri"
+],
 "shop/cheese":[
-"Formajerezh",
-"formajerezh"
+"fourmajerezh",
+"Fourmajerezh"
+],
+"shop/chemist":[
+"Lezapotikerezh",
+"apotikerezh",
+"apotiker"
+],
+"shop/chocolate":[
+"Chokolader"
 ],
 "shop/clothes":[
-"Stal Dilhad"
+"krubuilh",
+"bragez",
+"bragoù-bihan",
+"lavreg",
+"krepez",
+"hiviz",
+"gwiskamant",
+"dindan-dilhad",
+"bragoù",
+"krez-t",
+"gwiskañ",
+"roched",
+"brennidenn",
+"Stal-dilhad",
+"slip",
+"stammenn",
+"brozh",
+"dilhad",
+"t-shirt"
+],
+"shop/clothes/second_hand":[
+"Stal dilhad eildorn"
+],
+"shop/clothes/suits":[
+"abid",
+"Stal-wiskamantoù",
+"dilhad",
+"gwiskamant",
+"dilhad sul"
 ],
 "shop/clothes/underwear":[
-"Stad dindan-dilhad"
+"bragoù-dindan",
+"bragez",
+"slip",
+"bragoù-bihan",
+"stalig",
+"stal",
+"lavreg",
+"dindan-dilhad",
+"Stal dindan-dilhad",
+"bragoù"
+],
+"shop/clothes/workwear":[
+"Stal dilhad labour"
 ],
 "shop/coffee":[
-"Stal gafe"
+"Stal-gafe",
+"stal-gafe",
+"evajoù",
+"tavarn",
+"evaj",
+"ti-kafe",
+"kafe",
+"stal kafe",
+"café"
 ],
 "shop/computer":[
-"Stal Urzhiater"
+"mekanik",
+"stlenneg",
+"hezoug",
+"urzhiataer",
+"elektronek",
+"urzhiataerezh",
+"urzhiater",
+"Stal-urzhiataerezh"
 ],
 "shop/confectionery":[
-"Stal Vadigoù"
+"sunig",
+"sukrerezh",
+"madig",
+"sunigell",
+"madigoù",
+"Stal-vadigoù",
+"chewing-gum",
+"limig",
+"sukr"
+],
+"shop/convenience":[
+"Ispiserezh / gourstalig"
+],
+"shop/copyshop":[
+"Luc'heilañ ha moullañ"
+],
+"shop/craft":[
+"krouiñ",
+"Stal arzoù krouiñ",
+"arz",
+"stal"
+],
+"shop/curtain":[
+"Stal-rideoz"
+],
+"shop/dairy":[
+"laezh",
+"koavenerezh",
+"boued-laezh",
+"koaven",
+"dienn",
+"Diennerezh",
+"diennerezh",
+"stal",
+"fourmaj",
+"keuz"
+],
+"shop/deli":[
+"Ispiserezh fin"
+],
+"shop/department_store":[
+"Stal vras"
+],
+"shop/doityourself":[
+"bitell",
+"stal vitellat",
+"stal",
+"Stal-vitellat",
+"bitellat"
+],
+"shop/doors":[
+"Stal dorioù"
+],
+"shop/dry_cleaning":[
+"Stal-fererezh"
 ],
 "shop/e-cigarette":[
 "e-sigaretenn",
@@ -1847,47 +4467,251 @@
 "burezhat",
 "aezhenn"
 ],
+"shop/electronics":[
+"Stal mekanikoù tredan hag elektronek"
+],
+"shop/erotic":[
+"Sex-shop"
+],
 "shop/erotic/lgbtq":[
-"Sex-shop LGDTQ+"
+"sex-toy",
+"lgbtqi",
+"lgbtq+",
+"lgdtq+",
+"lgbti+",
+"gadaliezh",
+"sex-shop",
+"erotegezh",
+"lgdte+",
+"oregederezh",
+"lgdte",
+"lgbtqi+",
+"lgbt+",
+"lgbti",
+"lgdt+",
+"rev",
+"lgbtqia",
+"Sex-shop LGDTQ+",
+"lgbtq",
+"erotek",
+"reizh",
+"lgdtqe+",
+"lgdt",
+"lgdtqe",
+"lgbtqia+",
+"lgbt"
+],
+"shop/fashion":[
+"Stal-gizioù"
 ],
 "shop/fireplace":[
 "Stal oaledoù"
 ],
 "shop/fishing":[
-"Stal pesketa"
+"Stal-besketa"
 ],
 "shop/florist":[
-"Stal Vleunioù"
+"Stal-vleunioù"
+],
+"shop/frame":[
+"enframmadur",
+"frammoù",
+"Stal enframmadur",
+"steuñv",
+"stal",
+"stern"
+],
+"shop/frozen_food":[
+"boued skornet",
+"Stal boued skornet"
+],
+"shop/funeral_directors":[
+"lid",
+"kañv",
+"liderezh",
+"bezier",
+"douarañ",
+"Lidoù kañv",
+"kañvlidoù"
 ],
 "shop/furniture":[
-"Stal Arrebeuri"
+"kador",
+"gourvez-vank",
+"bank",
+"sofa",
+"pres",
+"Stal-arrebeuri",
+"sez",
+"taol",
+"kredañs",
+"arrebeuri",
+"armel"
+],
+"shop/garden_centre":[
+"Liorzherezh"
+],
+"shop/gift":[
+"profañ",
+"donezon",
+"road",
+"profadenn",
+"stal",
+"Stal-brofoù",
+"prof"
+],
+"shop/greengrocer":[
+"Marc'hadour frouezh ha legumaj"
 ],
 "shop/hairdresser":[
 "Perukenner"
 ],
+"shop/hardware":[
+"Kinkailherezh"
+],
+"shop/hearing_aids":[
+"Protezour-klevet"
+],
+"shop/hifi":[
+"Stal danvez hifi"
+],
 "shop/hunting":[
 "Stal jiboez"
 ],
+"shop/interior_decoration":[
+"Stal kinklañ diabarzh"
+],
 "shop/jewelry":[
-"Stal-vravrigoù"
+"aour",
+"kelc'h-brec'h",
+"troioù-brec'h",
+"bizoù-divskouarn",
+"arc'hant",
+"kolier",
+"kelc'henn",
+"bizoù",
+"bravig",
+"kloc'hig-skouarn",
+"brageriz",
+"gwalenn-skouarn",
+"tro-c'hoûg",
+"anell",
+"diamant",
+"Stal-vravrigoù",
+"gwalenn",
+"tro-c'houzoug",
+"tro-vrec'h",
+"kloc'hig",
+"stal vravigoù",
+"karkan",
+"montr",
+"kelc'hienn"
 ],
 "shop/kiosk":[
 "Kiosk"
 ],
+"shop/kitchen":[
+"Stal-gegin"
+],
+"shop/laundry":[
+"Kanndi"
+],
+"shop/laundry/self_service":[
+"emgefre",
+"emgefreek",
+"kannañ",
+"kanndi",
+"emservij",
+"Kanndi emgefre"
+],
+"shop/lighting":[
+"Stal lampoù"
+],
 "shop/locksmith":[
 "Alc'hwezerezh"
+],
+"shop/lottery":[
+"Lotiri"
 ],
 "shop/mall":[
 "Kreizenn Genwerzh"
 ],
+"shop/massage":[
+"Saloñs merata"
+],
+"shop/mobile_phone":[
+"hezoug",
+"pellgomzer",
+"telefon",
+"Stal pellgomzerioù hezoug",
+"pellgomz"
+],
+"shop/motorcycle":[
+"Gwerzher marc'hoù-tan"
+],
+"shop/motorcycle_repair":[
+"Karrdi marc'hoù-tan"
+],
 "shop/music":[
-"Stal-sonerezh"
+"sonerezh",
+"muzik",
+"ostilhoù",
+"alto",
+"vinil",
+"piano",
+"uhelgomzer",
+"violoñsell",
+"violoñs",
+"telenn",
+"vinyl",
+"gitar",
+"gourvioloñs",
+"klevell",
+"cd",
+"taboulin",
+"sede",
+"binvioù tos",
+"ograou",
+"gourrebed",
+"pladennoù du",
+"Stal-sonerezh",
+"pladenn",
+"binviji",
+"pladenn zu",
+"binvioù",
+"gitar tredan",
+"trompilh",
+"biolin"
+],
+"shop/musical_instrument":[
+"Stal binvioù sonerezh"
+],
+"shop/newsagent":[
+"Stalig kazetennoù"
+],
+"shop/nutrition_supplements":[
+"Stal klokaennoù boued"
+],
+"shop/nuts":[
+"kelvez",
+"greun",
+"frouezh sec'h",
+"kraoñ",
+"frouezh",
+"Stal-graoñ",
+"stal",
+"kraoñenn"
 ],
 "shop/optician":[
-"Ti al Lunedour"
+"lunedour",
+"luneder",
+"lunedoù",
+"Luneder"
 ],
 "shop/paint":[
 "Stal livadur"
+],
+"shop/party":[
+"Stal dafar gouelioù"
 ],
 "shop/pastry":[
 "Pastezerezh",
@@ -1899,6 +4723,11 @@
 "pastezerezh",
 "kwign"
 ],
+"shop/pawnbroker":[
+"prester ouzh gouestl",
+"prester ouzh teulioù",
+"Prester ouzh gouestl"
+],
 "shop/perfumery":[
 "c'hwezh-vat",
 "Porfumerezh",
@@ -1906,32 +4735,141 @@
 "frond",
 "porfumerezh"
 ],
+"shop/pet":[
+"kizhier",
+"boc'h-dev",
+"Stal-loened",
+"kazh",
+"hamster",
+"razh-segal",
+"razh",
+"chas",
+"aneval",
+"loen",
+"ki",
+"stlejvil"
+],
 "shop/photo":[
-"Stal luc'hskeudennerezh"
+"luc'hskeudenner",
+"foto",
+"Stal luc'hskeudennerezh",
+"luc'hskeudennerezh",
+"kamera",
+"fiñvskeudenn"
+],
+"shop/pottery":[
+"poderezh",
+"prierezh",
+"Stal-boderezh",
+"porselenerezh",
+"feilhañserezh"
+],
+"shop/printer_ink":[
+"Stal liv moullerez"
 ],
 "shop/pyrotechnics":[
 "stal tanioù-arvest",
 "Stal tanioù-arvest",
 "tan-arvest"
 ],
+"shop/rental":[
+"Stal feurmiñ"
+],
+"shop/repair":[
+"kereour",
+"kereon",
+"botaouer",
+"kere"
+],
+"shop/scuba_diving":[
+"splujañ",
+"mor",
+"beuziñ",
+"dindanvor",
+"Stal danvez splujañ",
+"splujiñ",
+"soubañ",
+"splujerezh"
+],
 "shop/seafood":[
 "Stal boued-mor"
 ],
+"shop/shoe_repair":[
+"Kereour"
+],
+"shop/shoes":[
+"botoù-lêr",
+"botez",
+"Stal-votoù",
+"botoù"
+],
+"shop/sports":[
+"atletour",
+"gourenour",
+"sportoù",
+"danvez sport",
+"gouennelerezh",
+"Stal danvez sport",
+"sport",
+"atleterezh",
+"gourenerezh"
+],
+"shop/stationery":[
+"Paperaerezh"
+],
 "shop/supermarket":[
+"marc'had",
 "gourmarc'had",
+"stal",
 "Gourmarc'had"
 ],
 "shop/supermarket/organic":[
 "Gourmarc'had biologel"
 ],
+"shop/swimming_pool":[
+"Stal dafar poull-neuial"
+],
 "shop/tailor":[
-"Kemener"
+"Kemener",
+"kemener",
+"dilhad",
+"gwriat"
+],
+"shop/tattoo":[
+"kroc'henlivadur",
+"tatouadur",
+"livadur",
+"saloñs",
+"tatouerezh",
+"ink",
+"Tatouerezh",
+"liv",
+"ankr",
+"tatouiñ",
+"stal"
 ],
 "shop/tea":[
 "Stal te"
 ],
+"shop/tiles":[
+"Stal-garrelladur"
+],
+"shop/tobacco":[
+"butun",
+"Stal-vutun"
+],
+"shop/tool_hire":[
+"Binviji da feurmiñ"
+],
 "shop/toys":[
-"Stal c'hoarielloù"
+"Stal c'hoarielloù",
+"neñneñ",
+"nanarzh",
+"c'hoariell",
+"doudou",
+"arzhig",
+"arzhig feur",
+"c'hoari"
 ],
 "shop/trade":[
 "groser",
@@ -1946,10 +4884,31 @@
 "shop/travel_agency":[
 "Ajañs-veaj"
 ],
+"shop/tyres":[
+"pneumatek",
+"karr",
+"Stal bandennoù-rod",
+"bandenn",
+"bandenn-rod",
+"kirri"
+],
+"shop/vacant":[
+"Stal dilezet"
+],
 "shop/vacuum_cleaner":[
 "stal sunerezioù",
 "stal sunerezioù-poultr",
 "Stal sunerezioù"
+],
+"shop/variety_store":[
+"Rabati",
+"rabat",
+"marc'had-mat",
+"gwerzhañ war raval",
+"rabati"
+],
+"shop/video":[
+"Klub-video"
 ],
 "shop/video_games":[
 "stal c'hoarioù-video",
@@ -1962,14 +4921,23 @@
 "shop/water":[
 "Stal dour mat da evañ"
 ],
+"shop/weapons":[
+"Armerezh"
+],
 "shop/wigs":[
 "stal perukennoù",
 "Stal perukennoù"
 ],
 "shop/wine":[
 "kav-gwin",
-"stal gwin",
-"Kav-gwin"
+"gwin",
+"alkool",
+"chistr",
+"korev",
+"Kav-gwin",
+"stal win",
+"bier",
+"sistr"
 ],
 "shop/yes":[
 "Stal (n'eo ket spisaet)"
@@ -2001,6 +4969,16 @@
 "Grafiti",
 "grafiti"
 ],
+"tourism/artwork/mural":[
+"liverezh",
+"Murlivadur",
+"livadur",
+"freskenn-voger",
+"moger",
+"liv",
+"freskenn",
+"mur"
+],
 "tourism/artwork/sculpture":[
 "skultadur",
 "kizelladur",
@@ -2009,6 +4987,24 @@
 "tourism/artwork/statue":[
 "Delwenn",
 "delwenn"
+],
+"tourism/camp_pitch":[
+"kampiñ",
+"camping",
+"leur-kampiñ",
+"Plas kampiñ",
+"tachenn gampiñ",
+"kirri-kampiñ",
+"karavanenn",
+"vakañsoù",
+"takad",
+"parkañ",
+"leur-servij",
+"lec'h kampiñ",
+"tachenn-gampiñ",
+"camping-car",
+"plas",
+"karr-kampiñ"
 ],
 "tourism/camp_site":[
 "takad kampiñ",
@@ -2081,6 +5077,19 @@
 "safari",
 "Safari"
 ],
+"tourism/zoo/wildlife":[
+"mirva",
+"gwareziñ",
+"natur",
+"mirout",
+"naturel",
+"gwarezva",
+"park",
+"Mirva natur"
+],
+"traffic_calming":[
+"Kein-gwiz"
+],
 "traffic_calming/bump":[
 "Kein gwiz",
 "kein gwiz"
@@ -2092,8 +5101,14 @@
 "traffic_calming/mini_bumps":[
 "Gorrekaerioù bihan"
 ],
+"traffic_calming/yes":[
+"Gorrekaer (n'eo ket spisaet)"
+],
 "traffic_sign":[
 "Panell-henchañ"
+],
+"traffic_sign/city_limit":[
+"Panell gêr"
 ],
 "traffic_sign/maxspeed":[
 "Panell bevenn tizh"
@@ -2110,8 +5125,23 @@
 "type/restriction/no_left_turn":[
 "Arabat treiñ a-gleiz"
 ],
+"type/restriction/no_right_turn":[
+"Arabat treiñ a-zehou"
+],
+"type/restriction/no_straight_on":[
+"Arabat mont war-eeun"
+],
 "type/restriction/no_u_turn":[
 "Hanter-dro ebet"
+],
+"type/restriction/only_left_turn":[
+"Ret eo treiñ a-gleiz"
+],
+"type/restriction/only_right_turn":[
+"Ret eo treiñ a-zehou"
+],
+"type/restriction/only_straight_on":[
+"Mont war-eeun rediet"
 ],
 "type/restriction/only_u_turn":[
 "Hanter-dro nemetken"
@@ -2120,7 +5150,17 @@
 "Hentad"
 ],
 "type/route/bicycle":[
-"Hentad marc'h-houarn"
+"hent",
+"marc'h-houarn",
+"mirc'hi-houarn",
+"forzh",
+"Hentad marc'h-houarn",
+"belo",
+"marc'hhouarnerezh",
+"hentad",
+"gwenodenn",
+"marc'hoù-houarn",
+"beloioù"
 ],
 "type/route/bus":[
 "Hentad bus"
@@ -2172,11 +5212,23 @@
 "waterway":[
 "Elfenn dourel"
 ],
+"waterway/boatyard":[
+"Chanter-bigi"
+],
 "waterway/canal":[
 "Kanol"
 ],
 "waterway/dam":[
 "Stankell"
+],
+"waterway/ditch":[
+"Foz"
+],
+"waterway/drain":[
+"Kanol-skarzh"
+],
+"waterway/milestone":[
+"Maen-bonn stêr"
 ],
 "waterway/river":[
 "Stêr"

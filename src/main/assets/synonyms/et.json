@@ -369,6 +369,10 @@
 "Ümbertöötluskeskus",
 "taaskasutuskeskus"
 ],
+"amenity/recycling_container":[
+"taaskasutuskonteiner",
+"Pakendijäätmete kogumispunkt"
+],
 "amenity/restaurant":[
 "Restoran"
 ],
@@ -506,6 +510,11 @@
 "amenity/university":[
 "Ülikooliala"
 ],
+"amenity/vending_machine/bottle_return":[
+"taara tagastus",
+"taarapunkt",
+"Taaraautomaat"
+],
 "amenity/vending_machine/parking_tickets":[
 "Parkimispileti automaat"
 ],
@@ -525,9 +534,6 @@
 ],
 "attraction/amusement_ride":[
 "Lõbuatraktsioon"
-],
-"attraction/big_wheel":[
-"Vaateratas"
 ],
 "barrier":[
 "Barjäär",
@@ -581,9 +587,6 @@
 ],
 "barrier/kissing_gate":[
 "Karjavärav"
-],
-"barrier/lift_gate":[
-"Tõkkepuu"
 ],
 "barrier/retaining_wall":[
 "Tugisein",
@@ -798,12 +801,6 @@
 ],
 "building/stadium":[
 "Staadionihoone"
-],
-"building/static_caravan":[
-"haagiselamu",
-"haagismaja",
-"teisaldatav maja",
-"Paikne haagismaja"
 ],
 "building/sty":[
 "Sigala"
@@ -1061,9 +1058,6 @@
 ],
 "highway/cycleway/crossing":[
 "Lõikumine (jalg- ja) jalgrattateega"
-],
-"highway/cycleway/crossing/marked":[
-"Märgistatud lõikumine (jalg- ja) jalgrattateega"
 ],
 "highway/cycleway/crossing/unmarked":[
 "jalgratta",

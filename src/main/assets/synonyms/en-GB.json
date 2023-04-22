@@ -484,9 +484,6 @@
 "attraction/amusement_ride":[
 "Amusement Ride"
 ],
-"attraction/big_wheel":[
-"Big Wheel"
-],
 "attraction/bungee_jumping":[
 "Bungee Jumping"
 ],
@@ -561,9 +558,6 @@
 ],
 "barrier/kissing_gate":[
 "Kissing Gate"
-],
-"barrier/lift_gate":[
-"Lift Gate"
 ],
 "barrier/retaining_wall":[
 "Retaining Wall"
@@ -704,9 +698,6 @@
 ],
 "building/stadium":[
 "Stadium Building"
-],
-"building/static_caravan":[
-"Static Caravan"
 ],
 "building/temple":[
 "Temple Building"
@@ -981,12 +972,6 @@
 ],
 "highway/corridor":[
 "Indoor Corridor"
-],
-"highway/crossing/marked":[
-"Marked Crossing"
-],
-"highway/crossing/zebra":[
-"Marked Crossing"
 ],
 "highway/cycleway":[
 "Cycle Path"
@@ -1380,9 +1365,6 @@
 ],
 "leisure/pitch/cricket":[
 "Cricket Field"
-],
-"leisure/pitch/equestrian":[
-"Horse Riding Arena"
 ],
 "leisure/pitch/netball":[
 "Netball Court"
@@ -2243,9 +2225,6 @@
 ],
 "shop/pet":[
 "Pet Shop"
-],
-"shop/pet_grooming":[
-"Pet Grooming Shop"
 ],
 "shop/photo":[
 "Photography Shop"

@@ -1,0 +1,181 @@
+{
+"address":[
+"پتہ"
+],
+"aeroway/aerodrome":[
+"ہوائی اڈہ"
+],
+"amenity":[
+"سہولت"
+],
+"amenity/atm":[
+"ای ٹی ایم"
+],
+"amenity/bank":[
+"بینک"
+],
+"amenity/bus_station":[
+"بس اسٹیشن"
+],
+"amenity/cinema":[
+"سنیمہ"
+],
+"amenity/doctors":[
+"ڈاکٹر"
+],
+"amenity/embassy":[
+"صفارت خانہ"
+],
+"amenity/fountain":[
+"چشمہ"
+],
+"amenity/grave_yard":[
+"قبرستان"
+],
+"amenity/library":[
+"کتاب گھر"
+],
+"amenity/place_of_worship":[
+"عبادت خانہ",
+"عبادت گاہ"
+],
+"amenity/place_of_worship/christian":[
+"عیسائی گرجا",
+"گرجا",
+"مسیحی گرجا"
+],
+"amenity/place_of_worship/hindu":[
+"مندر",
+"ہندو عبادت گاہ",
+"ہندو مندر"
+],
+"amenity/place_of_worship/jewish":[
+"یہودی عبادت گاہ",
+"یہودی مسجد"
+],
+"amenity/place_of_worship/muslim":[
+"مسجد"
+],
+"amenity/place_of_worship/sikh":[
+"گوردوارہ",
+"سکھ عبادت گاہ",
+"گرودوارہ"
+],
+"amenity/police":[
+"پلیس"
+],
+"amenity/post_office":[
+"ڈاک خانہ"
+],
+"amenity/telephone":[
+"ٹیلی فون"
+],
+"boundary":[
+"حدود"
+],
+"boundary/administrative":[
+"انتظامی سرحد"
+],
+"building":[
+"عمارت"
+],
+"building/bungalow":[
+"بنگلہ"
+],
+"building/church":[
+"گرجا گھر"
+],
+"building/house":[
+"گھر"
+],
+"building/roof":[
+"چھت"
+],
+"building/stable":[
+"استبل",
+"اسطبل"
+],
+"highway/traffic_signals":[
+"ٹریفک اشارے"
+],
+"historic":[
+"تاریخی مقام"
+],
+"historic/castle":[
+"قلعہ"
+],
+"landuse/cemetery":[
+"قبرستان"
+],
+"landuse/grass":[
+"گھاس"
+],
+"leisure/garden":[
+"باغ"
+],
+"leisure/park":[
+"پارک"
+],
+"leisure/stadium":[
+"اسٹیڈیم"
+],
+"man_made/tower":[
+"برج"
+],
+"man_made/water_well":[
+"پانی کا کنوا"
+],
+"natural/beach":[
+"ساحل"
+],
+"natural/tree":[
+"درخت"
+],
+"natural/water":[
+"پانی"
+],
+"natural/water/lake":[
+"جھیل"
+],
+"office":[
+"دفتر"
+],
+"place":[
+"جگہ"
+],
+"place/city":[
+"شہر"
+],
+"place/island":[
+"جزیرہ"
+],
+"place/town":[
+"قصبہ"
+],
+"place/village":[
+"گاؤں"
+],
+"shop":[
+"دکان"
+],
+"shop/mall":[
+"مال"
+],
+"shop/tailor":[
+"درزی"
+],
+"tourism/hotel":[
+"ہوٹل"
+],
+"tourism/museum":[
+"عجائب گھر"
+],
+"waterway/dam":[
+"ڈیم"
+],
+"waterway/river":[
+"دریا",
+"ندی",
+"نہر"
+]
+}

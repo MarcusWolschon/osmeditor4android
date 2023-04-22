@@ -35,6 +35,9 @@
 "jalan rayap",
 "landas ancang"
 ],
+"aeroway/terminal":[
+"Terminal Bandar Udara,Terminal Bandara"
+],
 "amenity":[
 "Keramahan"
 ],
@@ -128,6 +131,9 @@
 ],
 "amenity/dojo":[
 "Sasana Bela Diri"
+],
+"amenity/dressing_room":[
+"Ruang Ganti Pakaian"
 ],
 "amenity/drinking_water":[
 "Air Minum"
@@ -326,6 +332,9 @@
 "Teater",
 "teater"
 ],
+"amenity/toilets":[
+"Kamar Kecil,Kamar Mandi,Toilet"
+],
 "amenity/townhall":[
 "Balai Kota",
 "balai kota"
@@ -380,9 +389,6 @@
 "barrier/kissing_gate":[
 "Gerbang pertemuan"
 ],
-"barrier/lift_gate":[
-"Gerbang lif"
-],
 "barrier/retaining_wall":[
 "Dinding penahan"
 ],
@@ -423,6 +429,7 @@
 "Pintu Masuk/Keluar"
 ],
 "building/garage":[
+"garasi",
 "Garasi tunggal"
 ],
 "building/garages":[
@@ -671,6 +678,7 @@
 "rest area"
 ],
 "highway/road":[
+"jalan tidak diketahui",
 "Jalan Tak Diketahui"
 ],
 "highway/secondary":[
@@ -682,14 +690,21 @@
 "Jalan Penghubung Sekunder"
 ],
 "highway/service":[
-"Jalan Layanan"
+"Jalan Layanan",
+"jalan layanan"
 ],
 "highway/service/alley":[
 "Gang",
 "gang"
 ],
 "highway/service/drive-through":[
+"layanan tanpa turun",
+"lantatur",
 "kendara lewat"
+],
+"highway/service/driveway":[
+"Jalan Masuk",
+"jalan masuk"
 ],
 "highway/service/emergency_access":[
 "Akses Darurat",
@@ -739,7 +754,8 @@
 "putar balik"
 ],
 "highway/unclassified":[
-"Minor/Jalan Tak Diklasifikasi"
+"Minor/Jalan Tak Diklasifikasi",
+"jalanan yang tak ada klasifikasi/kecil"
 ],
 "historic":[
 "Situs Bersejarah",
@@ -778,6 +794,9 @@
 "historic/wayside_shrine":[
 "kuil pinggir jalan",
 "Kuil Pinggir Jalan"
+],
+"indoor/room":[
+"Ruangan"
 ],
 "junction":[
 "Persimpangan",
@@ -862,6 +881,9 @@
 "landuse/vineyard":[
 "kebun anggur",
 "Kebun Anggur"
+],
+"leisure":[
+"Fitur Santai"
 ],
 "leisure/adult_gaming_centre":[
 "Pusat permainan dewasa"
@@ -955,10 +977,16 @@
 "Garis",
 "garis"
 ],
+"man_made":[
+"Fitur Buatan Manusia"
+],
 "man_made/breakwater":[
 "tembok laut",
 "pemecah ombak",
 "Pemecah Gelombang"
+],
+"man_made/cutline":[
+"Garis Putus"
 ],
 "man_made/flagpole":[
 "Tiang Bendera"
@@ -1251,6 +1279,9 @@
 "tukang taruh",
 "Juru Taruh"
 ],
+"shop/books":[
+"Toko Buku"
+],
 "shop/boutique":[
 "Butik"
 ],
@@ -1274,6 +1305,9 @@
 ],
 "shop/cheese":[
 "Toko Keju"
+],
+"shop/chemist":[
+"Toko Obat"
 ],
 "shop/chocolate":[
 "Toko Cokelat"
@@ -1425,6 +1459,9 @@
 "shop/musical_instrument":[
 "Toko Alat Musik"
 ],
+"shop/newsagent":[
+"Kios Koran"
+],
 "shop/optician":[
 "mata",
 "Optik"
@@ -1467,7 +1504,7 @@
 ],
 "shop/supermarket":[
 "pasar swalayan",
-"Supermarket"
+"Pasar Besar"
 ],
 "shop/tailor":[
 "Tukang Jahit"
@@ -1499,6 +1536,9 @@
 ],
 "shop/vacuum_cleaner":[
 "Toko Pengisap Debu"
+],
+"shop/variety_store":[
+"Toko Diskon"
 ],
 "shop/video":[
 "cd",
@@ -1616,6 +1656,9 @@
 ],
 "type/route":[
 "Rute"
+],
+"type/route/bicycle":[
+"Rute Pesepeda,Rute Sepeda"
 ],
 "type/route/bus":[
 "Rute Bus"

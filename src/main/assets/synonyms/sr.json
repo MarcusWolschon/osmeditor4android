@@ -518,6 +518,9 @@
 "amenity/theatre/type/amphi":[
 "Амфитеатар"
 ],
+"amenity/toilets":[
+"Тоалет"
+],
 "amenity/townhall":[
 "Градска кућа"
 ],
@@ -615,6 +618,9 @@
 ],
 "area":[
 "Област"
+],
+"area/footway":[
+"Пешачка област"
 ],
 "attraction":[
 "Атракција"
@@ -728,9 +734,6 @@
 ],
 "barrier/kissing_gate":[
 "Капија са двоје врата"
-],
-"barrier/lift_gate":[
-"Покретна рампа"
 ],
 "barrier/retaining_wall":[
 "Потпорни зид"
@@ -1165,6 +1168,9 @@
 "healthcare/speech_therapist":[
 "Логопед"
 ],
+"highway":[
+"Саобраћајно обележје"
+],
 "highway/bridleway":[
 "јахачка стаза",
 "коњска стаза",
@@ -1182,6 +1188,9 @@
 ],
 "highway/cycleway":[
 "Бициклистичка стаза"
+],
+"highway/cycleway/crossing/bicycle_foot":[
+"Бициклистички и пешачки прелаз"
 ],
 "highway/elevator":[
 "Лифт"
@@ -1286,6 +1295,9 @@
 "highway/tertiary_link":[
 "Локални прилаз"
 ],
+"highway/track":[
+"Стаза / приступни пут"
+],
 "highway/traffic_mirror":[
 "Саобраћајно огледало"
 ],
@@ -1300,6 +1312,9 @@
 ],
 "highway/turning_circle":[
 "Окретница"
+],
+"highway/unclassified":[
+"Секундарни / некласификовани пут"
 ],
 "historic":[
 "Историјско место"
@@ -1389,6 +1404,9 @@
 "landuse":[
 "Намена земљишта"
 ],
+"landuse/allotments":[
+"Баштенске парцеле"
+],
 "landuse/aquaculture":[
 "Аквакултура"
 ],
@@ -1426,6 +1444,9 @@
 "цветница",
 "цветна гредица",
 "Цветница"
+],
+"landuse/forest":[
+"Управљана шума"
 ],
 "landuse/grass":[
 "grass",
@@ -1484,6 +1505,9 @@
 "landuse/vineyard":[
 "Виноград"
 ],
+"leisure":[
+"Рекреативно обележје"
+],
 "leisure/common":[
 "Јавно добро",
 "заједничко добро",
@@ -1532,6 +1556,15 @@
 ],
 "leisure/ice_rink":[
 "Клизалиште"
+],
+"leisure/indoor_play":[
+"забаваоница",
+"забавиште",
+"zabavište",
+"играоница",
+"Забавиште",
+"zabavaonica",
+"igraonica"
 ],
 "leisure/marina":[
 "Марина"
@@ -1642,6 +1675,9 @@
 ],
 "line":[
 "Путања"
+],
+"man_made":[
+"Вештачка творевина"
 ],
 "man_made/adit":[
 "ускоп",
@@ -2169,8 +2205,20 @@
 "playground":[
 "Опрема игралишта"
 ],
+"playground/seesaw":[
+"клацкалица",
+"Клацкалица",
+"klackalica"
+],
 "playground/slide":[
 "Тобоган"
+],
+"playground/springy":[
+"Коњић",
+"коњић",
+"konjić",
+"konjić klackalica",
+"коњић клацкалица"
 ],
 "playground/swing":[
 "Љуљашка"
@@ -2289,11 +2337,17 @@
 "public_transport/station_tram":[
 "Трамвајска станица"
 ],
+"railway":[
+"Железничко обележје"
+],
 "railway/abandoned":[
 "Напуштена железница"
 ],
 "railway/disused":[
 "Некоришћена железница"
+],
+"railway/level_crossing":[
+"Железнички и друмски прелаз"
 ],
 "railway/miniature":[
 "Висећа једноколосечна пруга"
@@ -2639,9 +2693,6 @@
 "shop/pet":[
 "Продавница кућних љубимаца"
 ],
-"shop/pet_grooming":[
-"Сређивање кућних љубимаца"
-],
 "shop/photo":[
 "Фотографска радња"
 ],
@@ -2776,6 +2827,9 @@
 ],
 "tourism":[
 "Туристичко обележје"
+],
+"tourism/alpine_hut":[
+"Планинска кућа"
 ],
 "tourism/apartment":[
 "Гостински апартман"

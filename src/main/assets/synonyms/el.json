@@ -237,7 +237,7 @@
 "Σταθμός Φόρτισης"
 ],
 "amenity/childcare":[
-"Παιδιατρική"
+"Παιδικός σταθμός"
 ],
 "amenity/cinema":[
 "κινηματογράφος",
@@ -311,8 +311,77 @@
 "ιατρείο",
 "ιατρικό κέντρο"
 ],
+"amenity/doctors/allergology":[
+"Αλλεργιολόγος"
+],
+"amenity/doctors/cardiology":[
+"Καρδιολόγος"
+],
+"amenity/doctors/dermatology":[
+"Δερματολόγος"
+],
+"amenity/doctors/gastroenterology":[
+"Γαστρεντερολόγος"
+],
 "amenity/doctors/gynaecology":[
 "Γυναικολόγος"
+],
+"amenity/doctors/haematology":[
+"Αιματολόγος"
+],
+"amenity/doctors/internal":[
+"Παθολόγος"
+],
+"amenity/doctors/nephrology":[
+"Νεφρολόγος"
+],
+"amenity/doctors/neurology":[
+"Νευρολόγος"
+],
+"amenity/doctors/neurosurgery":[
+"Νευροχειρουργός"
+],
+"amenity/doctors/oncology":[
+"Ογκολόγος"
+],
+"amenity/doctors/ophthalmology":[
+"Οφθαλμολόγος"
+],
+"amenity/doctors/orthopaedics":[
+"Ορθοπεδικός Χειρουργός"
+],
+"amenity/doctors/otolaryngology":[
+"Ωτορινολαρυγγολόγος"
+],
+"amenity/doctors/paediatrics":[
+"Παιδίατρος"
+],
+"amenity/doctors/pathology":[
+"Παθολόγος"
+],
+"amenity/doctors/plastic_surgery":[
+"Πλαστικός Χειρουργός"
+],
+"amenity/doctors/podiatry":[
+"Ποδίατρος"
+],
+"amenity/doctors/proctology":[
+"Γαστρεντερολόγος"
+],
+"amenity/doctors/pulmonology":[
+"Πνευμονολόγος"
+],
+"amenity/doctors/radiology":[
+"Ακτινολόγος"
+],
+"amenity/doctors/rheumatology":[
+"Ρευματολόγος"
+],
+"amenity/doctors/surgery":[
+"Γενικός Χειρουργός"
+],
+"amenity/doctors/urology":[
+"Ουρολόγος"
 ],
 "amenity/dojo":[
 "σχολή πολεμικών τεχνών",
@@ -1040,9 +1109,6 @@
 "περίφραξη ζώων",
 "Εγκλεισμός ζώων"
 ],
-"attraction/big_wheel":[
-"Μεγάλη Ρόδα"
-],
 "attraction/bumper_car":[
 "Συγκρουόμενα Αυτοκίνητα"
 ],
@@ -1190,14 +1256,6 @@
 ],
 "barrier/kissing_gate":[
 "Πόρτα Παγίδευσης"
-],
-"barrier/lift_gate":[
-"Ανυψούμενη Μπάρα",
-"μπάρα",
-"αναρτούμενη πύλη"
-],
-"barrier/log":[
-"Πεσμένο Δέντρο"
 ],
 "barrier/motorcycle_barrier":[
 "Εμπόδιο Μοτοσυκλετών"
@@ -1459,9 +1517,6 @@
 ],
 "building/stadium":[
 "Στάδιο"
-],
-"building/static_caravan":[
-"Λυόμενο"
 ],
 "building/sty":[
 "Χοιροστάσιο"
@@ -1866,6 +1921,15 @@
 "healthcare/alternative/chiropractic":[
 "Χειροπράκτορας"
 ],
+"healthcare/alternative/homeopathy":[
+"Ομοιοπαθητικός"
+],
+"healthcare/alternative/naturopathy":[
+"Φυσικοπαθητικός"
+],
+"healthcare/alternative/osteopathy":[
+"Χειροπράκτωρ"
+],
 "healthcare/audiologist":[
 "Ωτορινολαρυγγολόγος"
 ],
@@ -1914,6 +1978,9 @@
 "healthcare/speech_therapist":[
 "Λογοθεραπευτής"
 ],
+"healthcare/yes":[
+"Παροχή Υπηρεσιών Υγείας (Απροσδιόριστος Τύπος)"
+],
 "highway":[
 "Στοιχείο Αυτοκινητόδρομου"
 ],
@@ -1941,20 +2008,14 @@
 "highway/crossing":[
 "Διασταύρωση"
 ],
-"highway/crossing/marked":[
-"Διάβαση Πεζών / Ζέβρα"
-],
 "highway/crossing/traffic_signals":[
 "Διάβαση Με Φανάρια Πεζών"
 ],
 "highway/crossing/uncontrolled":[
-"Διαγραμμισμένη Διάβαση Πεζών"
+"Διαγραμμισμένη Δάβαση Πεζών Χωρίς Σήμανση"
 ],
 "highway/crossing/unmarked":[
 "Διάβαση Χωρίς Διαγράμμιση"
-],
-"highway/crossing/zebra":[
-"Διάβαση Πεζών / Ζέβρα"
 ],
 "highway/cycleway":[
 "ποδηλατολωρίδα",
@@ -1970,9 +2031,6 @@
 ],
 "highway/cycleway/crossing/bicycle_foot":[
 "Διαστάυρωση Ποδηλατόδρομου με Πεζόδρομου"
-],
-"highway/cycleway/crossing/marked":[
-"Διαγραμμισμένη Διάβαση Δίκυκλων"
 ],
 "highway/cycleway/crossing/traffic_signals":[
 "Διάβαση Δίκυκλων Με Φανάρια"
@@ -1999,7 +2057,7 @@
 "highway/footway":[
 "μονοπάτι",
 "πεζόδρομος",
-"Μονοπάτι Πεζών",
+"Πεζόδρομος",
 "βόλτα",
 "διαδρομή πεζού",
 "πεζοδρόμιο"
@@ -2013,9 +2071,6 @@
 "highway/footway/crossing":[
 "Διάβαση Πεζών"
 ],
-"highway/footway/crossing/marked":[
-"Διαγραμμισμένη Διάβαση"
-],
 "highway/footway/crossing/traffic_signals":[
 "Διάβαση Με Φανάρια Πεζών"
 ],
@@ -2024,9 +2079,6 @@
 ],
 "highway/footway/crossing/unmarked":[
 "Διάβαση Χωρίς Διαγράμμιση"
-],
-"highway/footway/crossing/zebra":[
-"Διάβαση Με Διαγράμμιση"
 ],
 "highway/footway/informal":[
 "Ανεπίσημο Μονοπάτι Πεζοπορίας"
@@ -2041,7 +2093,7 @@
 "Σήμανση Παραχώρησης Προτεραιότητας"
 ],
 "highway/living_street":[
-"Δρόμος Ήπιας Κυκλοφορίας"
+"Οδός Ήπιας Κυκλοφορίας"
 ],
 "highway/milestone":[
 "Χιλιομετρικό Σημείο Αυτοκινητόδρομου"
@@ -2064,8 +2116,8 @@
 ],
 "highway/path":[
 "μονοπάτι",
-"διαδρομή",
-"Μονοπάτι (χρήση εκτός μηχανοκίνητων οχημάτων)"
+"Στενό Μονοπάτι",
+"διαδρομή"
 ],
 "highway/path/boardwalk":[
 "Θαλάσσιος Περίπατος"
@@ -2077,9 +2129,9 @@
 "Πεζοδρομημένη Περιοχή"
 ],
 "highway/pedestrian_line":[
-"Πεζοδρομημένος Δρόμος",
-"πεζοδρομημένη οδός
-πεζόδρομος"
+"πεζοδρομημένος δρόμος
+πεζόδρομος",
+"Πεζοδρομημένη Οδός"
 ],
 "highway/primary":[
 "Δευτερεύον Δίκτυο / Εθνική Οδός"
@@ -2100,17 +2152,17 @@
 "highway/residential":[
 "τοπική οδός",
 "αστική οδός",
-"Οικιστικός Δρόμος",
+"Δρόμος Οικιστικός",
 "οδός εντός αστικού ιστού"
 ],
 "highway/rest_area":[
 "Χώρος Στάθμευσης και Αναψυχής - Χ.Σ.Α."
 ],
 "highway/road":[
-"Απροσδιόριστη Οδός"
+"Δρόμος Απροσδιόριστος"
 ],
 "highway/road/bridge":[
-"Γέφυρα Απροσδιόριστης Οδού"
+"Γέφυρα Απροσδιόριστου Δρόμου"
 ],
 "highway/secondary":[
 "Τριτεύον Δίκτυο / Επαρχιακή Οδός"
@@ -2119,11 +2171,11 @@
 "Σύνδεση Τριτεύοντος Δικτύου / Επαρχιακής Οδού"
 ],
 "highway/service":[
+"Δρόμος Εξυπηρέτησης",
 "δρόμος εξυπηρέτησης",
 "συμπληρωματικός δρόμος",
 "βοηθητικός δρόμος",
-"βοηθητική οδός",
-"Δρόμος εξυπηρέτησης"
+"βοηθητική οδός"
 ],
 "highway/service/alley":[
 "στενό",
@@ -2187,10 +2239,9 @@
 "Αυτόματο Σύστημα Διοδίων (Χωρίς Καμπίνες)"
 ],
 "highway/track":[
-"Αγροτικός δρόμος / Δρόμος πρόσβασης γης",
+"Δρόμος Αγροτικός / Πρόσβασης Γης",
 "καρόδρομος",
-"δασικός δρόμος",
-"χωματόδρομος"
+"δασικός δρόμος"
 ],
 "highway/traffic_mirror":[
 "Κυρτοί Καθρέπτες Δρόμου"
@@ -2217,7 +2268,7 @@
 "Νησίδα Αναστροφής"
 ],
 "highway/unclassified":[
-"Δευτερεύων δρόμος/Εκτός Οικιστικών Περιοχών",
+"Δρόμος Μη Οικιστικός / Δευτερεύων",
 "τοπικός δρόμος
 αταξινόμητος δρόμος
 άγνωστη κατηγορία δρόμου
@@ -2695,11 +2746,6 @@
 "leisure/pitch/cricket":[
 "Γήπεδο Cricket"
 ],
-"leisure/pitch/equestrian":[
-"χώρος ιππασίας",
-"Αρένα Ιππασίας",
-"αίθουσα ιππασίας"
-],
 "leisure/pitch/field_hockey":[
 "Γήπεδο Χόκεϋ"
 ],
@@ -2776,7 +2822,7 @@
 "παιδική χαρά"
 ],
 "leisure/playground/indoor":[
-"Παιδική Χαρά Εσωτερικού Χώρου"
+"Παιδότοπος (εσωτερικός)"
 ],
 "leisure/resort":[
 "Θέρετρο"
@@ -3657,6 +3703,9 @@
 "power/cable/underground":[
 "Υπόγειο Καλώδιο Ρεύματος"
 ],
+"power/catenary_mast":[
+"Στύλος Αλυσοειδούς Γραμμής επαφής"
+],
 "power/generator":[
 "Γεννήτρια Ρεύματος",
 "ηλεκτρική γεννήτρια"
@@ -3971,6 +4020,9 @@
 ],
 "railway/tram_stop":[
 "Τοποθεσία Στάσης Τραμ πάνω στις ράγες"
+],
+"railway/turntable":[
+"Σιδηροδρομική Περιστροφική Πλάκα"
 ],
 "railway/yard":[
 "Διαλογή"
@@ -4503,9 +4555,6 @@
 "κατάστημα κατοικιδίων",
 "πετ σοπ",
 "Κατάστημα Κατοικίδιων"
-],
-"shop/pet_grooming":[
-"Κατάστημα Καλλωπισμού Κατοικίδιων"
 ],
 "shop/photo":[
 "φωτογράφος",

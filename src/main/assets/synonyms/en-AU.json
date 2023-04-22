@@ -2,6 +2,9 @@
 "aerialway/zip_line":[
 "Flying Fox"
 ],
+"aeroway/jet_bridge":[
+"Aerobridge"
+],
 "amenity/arts_centre":[
 "Arts Centre"
 ],
@@ -48,7 +51,7 @@
 "Park & Ride Car Park"
 ],
 "amenity/parking_entrance":[
-"Carpark Building Entrance / Exit"
+"Car Park Building Entrance / Exit"
 ],
 "amenity/payment_centre":[
 "Payment Centre"
@@ -129,15 +132,6 @@
 "healthcare/counselling":[
 "Counselling Centre"
 ],
-"highway/crossing/marked":[
-"Marked Crossing"
-],
-"highway/crossing/uncontrolled":[
-"Marked Crossing"
-],
-"highway/crossing/zebra":[
-"Marked Crossing"
-],
 "highway/cycleway/bicycle_foot":[
 "Shared Path"
 ],
@@ -175,6 +169,10 @@
 "lamp",
 "gaslight",
 "Street Light"
+],
+"highway/track":[
+"Track / Land-Access Road",
+"fire trail"
 ],
 "highway/traffic_signals":[
 "Traffic Lights"

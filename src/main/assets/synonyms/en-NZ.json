@@ -45,6 +45,7 @@
 "Exhibition Centre"
 ],
 "amenity/fuel":[
+"service station",
 "gas station",
 "Petrol Station"
 ],
@@ -198,6 +199,9 @@
 "standpipe",
 "riser"
 ],
+"emergency/fire_service_inlet":[
+"Building Inlet"
+],
 "healthcare/birthing_center":[
 "Birthing Centre"
 ],
@@ -336,6 +340,10 @@
 ],
 "tourism/caravan_site":[
 "Caravan Site"
+],
+"tourism/chalet":[
+"crib",
+"bach"
 ],
 "tourism/information/office":[
 "Visitor Centre"
