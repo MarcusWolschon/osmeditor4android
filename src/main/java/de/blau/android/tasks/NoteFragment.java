@@ -130,12 +130,14 @@ public class NoteFragment extends TaskFragment {
     protected void onShowListener(Task task, Button save, Button upload, Button cancel, Spinner state) {
         super.onShowListener(task, save, upload, cancel, state);
         comment.addTextChangedListener(new TextWatcher() {
+            CharSequence original = comment.getText();
+
             @Override
-            public void afterTextChanged(Editable arg0) {
-                boolean changed = changed(state.getSelectedItemPosition());
+            public void afterTextChanged(Editable edited) {
+                boolean changed = !original.equals(edited) || NoteFragment.super.changed(state.getSelectedItemPosition());
                 save.setEnabled(changed);
                 upload.setEnabled(changed);
-                if (comment.length() != 0 && state.getSelectedItemPosition() != State.OPEN.ordinal()) {
+                if (changed && state.getSelectedItemPosition() != State.OPEN.ordinal()) {
                     state.setSelection(State.OPEN.ordinal());
                     Snack.toastTopInfo(getContext(), R.string.toast_note_reopened);
                 }
@@ -163,7 +165,12 @@ public class NoteFragment extends TaskFragment {
         String c = comment.getText().toString();
         NoteComment lastComment = ((Note) task).getLastComment();
         if (lastComment != null && lastComment.isNew()) {
-            lastComment.setText(c);
+            if (c.length() > 0 || super.changed(state.getSelectedItemPosition())) {
+                lastComment.setText(c);
+            } else {
+                ((Note) task).removeLastComment();
+                task.setChanged(false);
+            }
         } else if (c.length() > 0) {
             ((Note) task).addComment(c);
         }

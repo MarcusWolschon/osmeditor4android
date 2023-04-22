@@ -12,6 +12,7 @@ import org.xmlpull.v1.XmlSerializer;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.App;
@@ -30,7 +31,9 @@ import de.blau.android.util.Util;
  * @author Simon Poole
  */
 public class Note extends LongIdTask implements Serializable, JosmXmlSerializable {
-    private static final long serialVersionUID = 7L;
+    private static final String DEBUG_TAG = Note.class.getSimpleName();
+
+    private static final long serialVersionUID = 8L;
 
     public static final String  NOTE_ELEMENT     = "note";
     static final String         LON_KEY          = "lon";
@@ -355,6 +358,23 @@ public class Note extends LongIdTask implements Serializable, JosmXmlSerializabl
      */
     public void addComment(@NonNull NoteComment comment) {
         comments.add(comment);
+    }
+
+    /**
+     * Remove the last comment
+     * 
+     * This will fail if the last comment isn't new/unsaved
+     */
+    public void removeLastComment() {
+        if (comments != null && !comments.isEmpty()) {
+            final int lastPos = comments.size() - 1;
+            NoteComment last = comments.get(lastPos);
+            if (last.isNew()) {
+                comments.remove(lastPos);
+                return;
+            }
+            Log.e(DEBUG_TAG, "Last comment isn't new");
+        }
     }
 
     /**
