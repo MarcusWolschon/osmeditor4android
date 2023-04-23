@@ -10,7 +10,7 @@ Tapping the lock icon will toggle the lock.
 ####  ![Unlocked](../images/unlocked.png) unlocked
 In this mode you can add and change the geometry and tags of OpenStreetMap data. *You will still need to zoom until editing is enabled.*
 
-If a small "T" is displayed on the lock icon you are in "Tag editing only" mode and will not be able to change geometries, a small "I" indicates indoor mapping mode. A long press on the icon will display a menu allowing you to switch between editing modes, for mode switching purposes it dosen't matter if the display in "locked" or "unlocked".
+If a small "T" is displayed on the lock icon you are in "Tag editing only" mode and will not be able to change geometries, a small "I" indicates indoor mapping mode. A long press on the icon will display a menu allowing you to switch between editing modes, for mode switching purposes it dosen't matter if the display is "locked" or "unlocked".
 
 All the mode options are 
 
@@ -24,9 +24,18 @@ The lock icon will always be located in the upper left corner of your devices sc
 
 ### Map and Data display
 
-Once you have downloaded some OSM data you will see it displayed over a configurable background layer. The default background is the standard "Mapnik" style map provided by openstreetmap.org, however you can choose a different background or none from the Preferences. The style of the OSM data displayed on top of the background layer can be fully customized, however the standard "Color round nodes" or for "Pen round nodes" should work for most situations, the latter has smaller "touch areas" mainly for working with a pen. Depending on the device it may however work better for you than the default.
+Once you have downloaded some OSM data you will see it displayed over a background layer. The default background is the standard "Mapnik" style map provided by openstreetmap.org, however you can change the configuration by using the layer control. The styling of the OSM data displayed on top of the background layer can be fully customized, but the standard "Color round nodes" or for "Pen round nodes" should work for most situations, the later has smaller "touch areas" mainly for working with a pen.
 
-Note: the map tiles are cached on device and only deleted if explicitly flushed. In principle you can pre-download the tiles for the area you want to work on and so spare yourself the need to access them online while outside. 
+Note: the map images are cached on device and are only deleted if explicitly flushed. If you need to have background images available without network connectivity see [custom imagery with MBtiles](http://vespucci.io/tutorials/custom_imagery_mbtiles/).
+
+### Nearby point-of-interest display
+
+A nearby point-of-interest display can be shown by pulling the handle in the middle and top of the bottom menu bar up.
+
+The view will include a filtered view of all "POI"s displayed on the current map view. If no explicit filter is set this is limited to objects that have a key with one of
+_shop_, _amenity_, _leisure_, _tourism_, _craft_, _office_ or _emergency_. If an explicit filter is set, that is a tag filter or a preset filter, or a mode (_Indoor_ and _C_-mode) is selected that sets a filter the display will display objects that are allowed by the filter. For example if _Indoor_ mode is selected, the display will only show POIs on the currently selected level. 
+
+Tapping an entry in the display will center the map on the object and select it, tapping it a second time (just as on the map display) will start the property editor, in _Tag only_ mode the property editor will start directly as expected. The POI entries are highlighted with the same validation indication as map icons, see [validation styling](https://github.com/MarcusWolschon/osmeditor4android/blob/master/src/main/assets/styles/Color-round.xml#L39).
 
 ### Layer control
 
@@ -94,15 +103,17 @@ or as decribed above..
 
 ### Highlighting of data issues
 
-With the standard map style certain data issues will be highlighted in magenta, these are
+The included map styles highlight certain data issues, these are
 
-* objects with 'fixme' and 'todo' tags (case insensitive)
-* ways with 'highway=road'
-* ways with 'highway' set to one of: motorway, motorway_link, trunk, trunk_link, primary, primary_link, secondary, secondary_link, tertiary, residential, unclassified, living_street and no 'name' or 'ref' tag
-* relations with no 'type' tag
-* certain points of interest that haven't been edited or verified lately. Default time that must have past since the last edit is 1 year.  
-* untagged ways that are not a member of a relation
-* unconnected highway end nodes, if the end nodes a near to a highway object that they could be connected to, the node is highlighted
+* objects with 'fixme' and 'todo' tags (case insensitive) _magenta_
+* ways with 'highway=road' _magenta_
+* ways with 'highway' set to one of: motorway, motorway_link, trunk, trunk_link, primary, primary_link, secondary, secondary_link, tertiary, residential, unclassified, living_street and no 'name' or 'ref' tag _magenta_
+* relations with no 'type' tag _magenta_
+* certain points of interest that haven't been edited or verified lately. Default time that must have past since the last edit is 1 year. _yellow_
+* untagged ways that are not a member of a relation _magenta_
+* unconnected highway end nodes, if the end nodes a near to a highway object that they could be connected to, the node is highlighted _magenta_
+
+The colours can be changed in the [data style](http://vespucci.io/tutorials/data_styling/#validation-styling).
 
 ### Indoor mode
    
