@@ -526,6 +526,9 @@
 <p>If you want to save your work and do not have Internet access, you can save to a JOSM compatible .osm file and either upload later with Vespucci or with JOSM. </p>
 <h4 id="resolving-conflicts-on-uploads">Resolving conflicts on uploads<a class="headerlink" href="#resolving-conflicts-on-uploads" title="Permanent link">#</a></h4>
 <p>Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on <a href="../Conflict%20resolution/">conflict resolution</a>.  </p>
+<h3 id="nearby-point-of-interest-display">Nearby point-of-interest display<a class="headerlink" href="#nearby-point-of-interest-display" title="Permanent link">#</a></h3>
+<p>A nearby point-of-interest display can be shown by pulling the handle in the middle and top of the bottom menu bar up. </p>
+<p>More information on this and other available functionality on the main display can be found here <a href="Main%20map%display.md">Main map display</a>.</p>
 <h2 id="using-gps-and-gpx-tracks">Using GPS and GPX tracks<a class="headerlink" href="#using-gps-and-gpx-tracks" title="Permanent link">#</a></h2>
 <p>With standard settings Vespucci will try to enable GPS (and other satellite based navigation systems) and will fallback to determining the position via so called "network location" if this is not possible. This behaviour assumes that you in normal use have your Android device itself configured to only use GPX generated locations (to avoid tracking), that is you have the euphemistically named "Improve Location Accuracy" option turned off. If you want to enable the option but want to avoid Vespucci falling back to "network location", you should turn the corresponding option in the <a href="../Advanced%20preferences/">Advanced preferences</a> off. </p>
 <p>Touching the <img alt="GPS" src="../../images/menu_gps.png" /> button (normally on the left hand side of the map display) will center the screen on the current position and as you move the map display will be panned to maintain this.  Moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch GPS button or re-check the equivalent menu option. If the device doesn't have a current location the location marker/arrow will be displayed in black, if a current location is available the marker will be blue.</p>
@@ -543,7 +546,7 @@
 <li>Osmose warning</li>
 <li>Osmose minor issue</li>
 <li>Maproulette</li>
-<li>Custom</li>
+<li>Todo</li>
 </ul>
 <p><a id="indoor"></a></p>
 <h2 id="indoor-mode">Indoor mode<a class="headerlink" href="#indoor-mode" title="Permanent link">#</a></h2>
@@ -587,11 +590,12 @@
 <ul>
 <li>Data layer - this is the layer OpenStreetMap data is loaded in to. In normal use you do not need to change anything here. Default: on.</li>
 <li>Background layer - there is a wide range of aerial and satellite background imagery available. The default value for this is the "standard style" map from openstreetmap.org.</li>
-<li>Overlay layer - these are semi-transparent layers with additional information, for example GPX tracks. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.</li>
+<li>Overlay layer - these are semi-transparent layers with additional information, for example quality assurance information. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.</li>
 <li>Notes/Bugs display - Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.</li>
 <li>Photo layer - Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.</li>
 <li>Mapillary layer - Displays Mapillary segments with markers where images exist, clicking on a marker will display the image. Default: off.</li>
-<li>GeoJSON layer - Displays the contents of a GeoJSON file. Default: off.</li>
+<li>GeoJSON layer - Displays the contents of a GeoJSON file, multiple layers can be added from files. Default: none.</li>
+<li>GPX layer - Displays GPX tracks and way points, multiple layers can be added from files, during recording the generate GPX track is displayed in its own one . Default: none.</li>
 <li>Grid - Displays a scale along the sides of the map or a grid. Default: on. </li>
 </ul>
 <p>More information can be found in the section on the <a href="../Main%20map%20display/">map display</a>.</p>
@@ -786,6 +790,9 @@
 <p>If you want to save your work and do not have Internet access, you can save to a JOSM compatible .osm file and either upload later with Vespucci or with JOSM. </p>
 <h4 id="resolving-conflicts-on-uploads">Resolving conflicts on uploads<a class="headerlink" href="#resolving-conflicts-on-uploads" title="Permanent link">#</a></h4>
 <p>Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on <a href="../Conflict%20resolution/">conflict resolution</a>.  </p>
+<h3 id="nearby-point-of-interest-display">Nearby point-of-interest display<a class="headerlink" href="#nearby-point-of-interest-display" title="Permanent link">#</a></h3>
+<p>A nearby point-of-interest display can be shown by pulling the handle in the middle and top of the bottom menu bar up. </p>
+<p>More information on this and other available functionality on the main display can be found here <a href="Main%20map%display.md">Main map display</a>.</p>
 <h2 id="using-gps-and-gpx-tracks">Using GPS and GPX tracks<a class="headerlink" href="#using-gps-and-gpx-tracks" title="Permanent link">#</a></h2>
 <p>With standard settings Vespucci will try to enable GPS (and other satellite based navigation systems) and will fallback to determining the position via so called "network location" if this is not possible. This behaviour assumes that you in normal use have your Android device itself configured to only use GPX generated locations (to avoid tracking), that is you have the euphemistically named "Improve Location Accuracy" option turned off. If you want to enable the option but want to avoid Vespucci falling back to "network location", you should turn the corresponding option in the <a href="../Advanced%20preferences/">Advanced preferences</a> off. </p>
 <p>Touching the <img alt="GPS" src="../../images/menu_gps.png" /> button (normally on the left hand side of the map display) will center the screen on the current position and as you move the map display will be panned to maintain this.  Moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch GPS button or re-check the equivalent menu option. If the device doesn't have a current location the location marker/arrow will be displayed in black, if a current location is available the marker will be blue.</p>
@@ -803,7 +810,7 @@
 <li>Osmose warning</li>
 <li>Osmose minor issue</li>
 <li>Maproulette</li>
-<li>Custom</li>
+<li>Todo</li>
 </ul>
 <p><a id="indoor"></a></p>
 <h2 id="indoor-mode">Indoor mode<a class="headerlink" href="#indoor-mode" title="Permanent link">#</a></h2>
@@ -847,11 +854,12 @@
 <ul>
 <li>Data layer - this is the layer OpenStreetMap data is loaded in to. In normal use you do not need to change anything here. Default: on.</li>
 <li>Background layer - there is a wide range of aerial and satellite background imagery available. The default value for this is the "standard style" map from openstreetmap.org.</li>
-<li>Overlay layer - these are semi-transparent layers with additional information, for example GPX tracks. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.</li>
+<li>Overlay layer - these are semi-transparent layers with additional information, for example quality assurance information. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.</li>
 <li>Notes/Bugs display - Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.</li>
 <li>Photo layer - Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.</li>
 <li>Mapillary layer - Displays Mapillary segments with markers where images exist, clicking on a marker will display the image. Default: off.</li>
-<li>GeoJSON layer - Displays the contents of a GeoJSON file. Default: off.</li>
+<li>GeoJSON layer - Displays the contents of a GeoJSON file, multiple layers can be added from files. Default: none.</li>
+<li>GPX layer - Displays GPX tracks and way points, multiple layers can be added from files, during recording the generate GPX track is displayed in its own one . Default: none.</li>
 <li>Grid - Displays a scale along the sides of the map or a grid. Default: on. </li>
 </ul>
 <p>More information can be found in the section on the <a href="../Main%20map%20display/">map display</a>.</p>

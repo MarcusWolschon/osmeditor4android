@@ -384,7 +384,7 @@
 <p>Tapping the lock icon will toggle the lock.</p>
 <h4 id="unlocked"><img alt="Unlocked" src="../../images/unlocked.png" /> unlocked<a class="headerlink" href="#unlocked" title="Permanent link">#</a></h4>
 <p>In this mode you can add and change the geometry and tags of OpenStreetMap data. <em>You will still need to zoom until editing is enabled.</em></p>
-<p>If a small "T" is displayed on the lock icon you are in "Tag editing only" mode and will not be able to change geometries, a small "I" indicates indoor mapping mode. A long press on the icon will display a menu allowing you to switch between editing modes, for mode switching purposes it dosen't matter if the display in "locked" or "unlocked".</p>
+<p>If a small "T" is displayed on the lock icon you are in "Tag editing only" mode and will not be able to change geometries, a small "I" indicates indoor mapping mode. A long press on the icon will display a menu allowing you to switch between editing modes, for mode switching purposes it dosen't matter if the display is "locked" or "unlocked".</p>
 <p>All the mode options are </p>
 <ul>
 <li><strong>Normal</strong> conventional editing mode.</li>
@@ -395,8 +395,13 @@
 </ul>
 <p>The lock icon will always be located in the upper left corner of your devices screen. The placement of the following controls will depend on the size, orientation and age of your device, and may be in the top or bottom bar, or in a menu. </p>
 <h3 id="map-and-data-display">Map and Data display<a class="headerlink" href="#map-and-data-display" title="Permanent link">#</a></h3>
-<p>Once you have downloaded some OSM data you will see it displayed over a configurable background layer. The default background is the standard "Mapnik" style map provided by openstreetmap.org, however you can choose a different background or none from the Preferences. The style of the OSM data displayed on top of the background layer can be fully customized, however the standard "Color round nodes" or for "Pen round nodes" should work for most situations, the latter has smaller "touch areas" mainly for working with a pen. Depending on the device it may however work better for you than the default.</p>
-<p>Note: the map tiles are cached on device and only deleted if explicitly flushed. In principle you can pre-download the tiles for the area you want to work on and so spare yourself the need to access them online while outside. </p>
+<p>Once you have downloaded some OSM data you will see it displayed over a background layer. The default background is the standard "Mapnik" style map provided by openstreetmap.org, however you can change the configuration by using the layer control. The styling of the OSM data displayed on top of the background layer can be fully customized, but the standard "Color round nodes" or for "Pen round nodes" should work for most situations, the later has smaller "touch areas" mainly for working with a pen.</p>
+<p>Note: the map images are cached on device and are only deleted if explicitly flushed. If you need to have background images available without network connectivity see <a href="http://vespucci.io/tutorials/custom_imagery_mbtiles/">custom imagery with MBtiles</a>.</p>
+<h3 id="nearby-point-of-interest-display">Nearby point-of-interest display<a class="headerlink" href="#nearby-point-of-interest-display" title="Permanent link">#</a></h3>
+<p>A nearby point-of-interest display can be shown by pulling the handle in the middle and top of the bottom menu bar up.</p>
+<p>The view will include a filtered view of all "POI"s displayed on the current map view. If no explicit filter is set this is limited to objects that have a key with one of
+<em>shop</em>, <em>amenity</em>, <em>leisure</em>, <em>tourism</em>, <em>craft</em>, <em>office</em> or <em>emergency</em>. If an explicit filter is set, that is a tag filter or a preset filter, or a mode (<em>Indoor</em> and <em>C</em>-mode) is selected that sets a filter the display will display objects that are allowed by the filter. For example if <em>Indoor</em> mode is selected, the display will only show POIs on the currently selected level. </p>
+<p>Tapping an entry in the display will center the map on the object and select it, tapping it a second time (just as on the map display) will start the property editor, in <em>Tag only</em> mode the property editor will start directly as expected. The POI entries are highlighted with the same validation indication as map icons, see <a href="https://github.com/MarcusWolschon/osmeditor4android/blob/master/src/main/assets/styles/Color-round.xml#L39">validation styling</a>.</p>
 <h3 id="layer-control">Layer control<a class="headerlink" href="#layer-control" title="Permanent link">#</a></h3>
 <p>Vespucci currently supports multiple tiled background imagery layers, multiple tiled overlay layers (both raster and Mapbox vector tiles), a grid/scale layer, a task layer, a photo layer, multiple GeoJSON layers, multiple GPX/GPS layers and, naturally, an OSM data layer. Tapping the layer control (upper right corner) will display the layer dialog).</p>
 <p>The layer dialog supports the following actions on the layer entries: </p>
@@ -481,16 +486,17 @@
 <p>Custom tile layers, including on device MBTile containers can be added in the <a href="../Preferences/">preferences</a> 
 or as decribed above..</p>
 <h3 id="highlighting-of-data-issues">Highlighting of data issues<a class="headerlink" href="#highlighting-of-data-issues" title="Permanent link">#</a></h3>
-<p>With the standard map style certain data issues will be highlighted in magenta, these are</p>
+<p>The included map styles highlight certain data issues, these are</p>
 <ul>
-<li>objects with 'fixme' and 'todo' tags (case insensitive)</li>
-<li>ways with 'highway=road'</li>
-<li>ways with 'highway' set to one of: motorway, motorway_link, trunk, trunk_link, primary, primary_link, secondary, secondary_link, tertiary, residential, unclassified, living_street and no 'name' or 'ref' tag</li>
-<li>relations with no 'type' tag</li>
-<li>certain points of interest that haven't been edited or verified lately. Default time that must have past since the last edit is 1 year.  </li>
-<li>untagged ways that are not a member of a relation</li>
-<li>unconnected highway end nodes, if the end nodes a near to a highway object that they could be connected to, the node is highlighted</li>
+<li>objects with 'fixme' and 'todo' tags (case insensitive) <em>magenta</em></li>
+<li>ways with 'highway=road' <em>magenta</em></li>
+<li>ways with 'highway' set to one of: motorway, motorway_link, trunk, trunk_link, primary, primary_link, secondary, secondary_link, tertiary, residential, unclassified, living_street and no 'name' or 'ref' tag <em>magenta</em></li>
+<li>relations with no 'type' tag <em>magenta</em></li>
+<li>certain points of interest that haven't been edited or verified lately. Default time that must have past since the last edit is 1 year. <em>yellow</em></li>
+<li>untagged ways that are not a member of a relation <em>magenta</em></li>
+<li>unconnected highway end nodes, if the end nodes a near to a highway object that they could be connected to, the node is highlighted <em>magenta</em></li>
 </ul>
+<p>The colours can be changed in the <a href="http://vespucci.io/tutorials/data_styling/#validation-styling">data style</a>.</p>
 <h3 id="indoor-mode">Indoor mode<a class="headerlink" href="#indoor-mode" title="Permanent link">#</a></h3>
 <p>In indoor mode the displayed level can be changed with the up/down buttons, tapping the level display button will show suitable objects that doesn’t have a level tag, tapping again will revert to the level selector.</p>
 <p>Elements that are not on the current level are drawn in a light grey, this works best on an uncluttered background map, for example the Thunderforest Landscape map. Newly created elements will automatically have the current level assigned in the property editor.</p>
@@ -636,7 +642,7 @@ Overpass API query and use that to download data.</p>
 <p>Tapping the lock icon will toggle the lock.</p>
 <h4 id="unlocked"><img alt="Unlocked" src="../../images/unlocked.png" /> unlocked<a class="headerlink" href="#unlocked" title="Permanent link">#</a></h4>
 <p>In this mode you can add and change the geometry and tags of OpenStreetMap data. <em>You will still need to zoom until editing is enabled.</em></p>
-<p>If a small "T" is displayed on the lock icon you are in "Tag editing only" mode and will not be able to change geometries, a small "I" indicates indoor mapping mode. A long press on the icon will display a menu allowing you to switch between editing modes, for mode switching purposes it dosen't matter if the display in "locked" or "unlocked".</p>
+<p>If a small "T" is displayed on the lock icon you are in "Tag editing only" mode and will not be able to change geometries, a small "I" indicates indoor mapping mode. A long press on the icon will display a menu allowing you to switch between editing modes, for mode switching purposes it dosen't matter if the display is "locked" or "unlocked".</p>
 <p>All the mode options are </p>
 <ul>
 <li><strong>Normal</strong> conventional editing mode.</li>
@@ -647,8 +653,13 @@ Overpass API query and use that to download data.</p>
 </ul>
 <p>The lock icon will always be located in the upper left corner of your devices screen. The placement of the following controls will depend on the size, orientation and age of your device, and may be in the top or bottom bar, or in a menu. </p>
 <h3 id="map-and-data-display">Map and Data display<a class="headerlink" href="#map-and-data-display" title="Permanent link">#</a></h3>
-<p>Once you have downloaded some OSM data you will see it displayed over a configurable background layer. The default background is the standard "Mapnik" style map provided by openstreetmap.org, however you can choose a different background or none from the Preferences. The style of the OSM data displayed on top of the background layer can be fully customized, however the standard "Color round nodes" or for "Pen round nodes" should work for most situations, the latter has smaller "touch areas" mainly for working with a pen. Depending on the device it may however work better for you than the default.</p>
-<p>Note: the map tiles are cached on device and only deleted if explicitly flushed. In principle you can pre-download the tiles for the area you want to work on and so spare yourself the need to access them online while outside. </p>
+<p>Once you have downloaded some OSM data you will see it displayed over a background layer. The default background is the standard "Mapnik" style map provided by openstreetmap.org, however you can change the configuration by using the layer control. The styling of the OSM data displayed on top of the background layer can be fully customized, but the standard "Color round nodes" or for "Pen round nodes" should work for most situations, the later has smaller "touch areas" mainly for working with a pen.</p>
+<p>Note: the map images are cached on device and are only deleted if explicitly flushed. If you need to have background images available without network connectivity see <a href="http://vespucci.io/tutorials/custom_imagery_mbtiles/">custom imagery with MBtiles</a>.</p>
+<h3 id="nearby-point-of-interest-display">Nearby point-of-interest display<a class="headerlink" href="#nearby-point-of-interest-display" title="Permanent link">#</a></h3>
+<p>A nearby point-of-interest display can be shown by pulling the handle in the middle and top of the bottom menu bar up.</p>
+<p>The view will include a filtered view of all "POI"s displayed on the current map view. If no explicit filter is set this is limited to objects that have a key with one of
+<em>shop</em>, <em>amenity</em>, <em>leisure</em>, <em>tourism</em>, <em>craft</em>, <em>office</em> or <em>emergency</em>. If an explicit filter is set, that is a tag filter or a preset filter, or a mode (<em>Indoor</em> and <em>C</em>-mode) is selected that sets a filter the display will display objects that are allowed by the filter. For example if <em>Indoor</em> mode is selected, the display will only show POIs on the currently selected level. </p>
+<p>Tapping an entry in the display will center the map on the object and select it, tapping it a second time (just as on the map display) will start the property editor, in <em>Tag only</em> mode the property editor will start directly as expected. The POI entries are highlighted with the same validation indication as map icons, see <a href="https://github.com/MarcusWolschon/osmeditor4android/blob/master/src/main/assets/styles/Color-round.xml#L39">validation styling</a>.</p>
 <h3 id="layer-control">Layer control<a class="headerlink" href="#layer-control" title="Permanent link">#</a></h3>
 <p>Vespucci currently supports multiple tiled background imagery layers, multiple tiled overlay layers (both raster and Mapbox vector tiles), a grid/scale layer, a task layer, a photo layer, multiple GeoJSON layers, multiple GPX/GPS layers and, naturally, an OSM data layer. Tapping the layer control (upper right corner) will display the layer dialog).</p>
 <p>The layer dialog supports the following actions on the layer entries: </p>
@@ -733,16 +744,17 @@ Overpass API query and use that to download data.</p>
 <p>Custom tile layers, including on device MBTile containers can be added in the <a href="../Preferences/">preferences</a> 
 or as decribed above..</p>
 <h3 id="highlighting-of-data-issues">Highlighting of data issues<a class="headerlink" href="#highlighting-of-data-issues" title="Permanent link">#</a></h3>
-<p>With the standard map style certain data issues will be highlighted in magenta, these are</p>
+<p>The included map styles highlight certain data issues, these are</p>
 <ul>
-<li>objects with 'fixme' and 'todo' tags (case insensitive)</li>
-<li>ways with 'highway=road'</li>
-<li>ways with 'highway' set to one of: motorway, motorway_link, trunk, trunk_link, primary, primary_link, secondary, secondary_link, tertiary, residential, unclassified, living_street and no 'name' or 'ref' tag</li>
-<li>relations with no 'type' tag</li>
-<li>certain points of interest that haven't been edited or verified lately. Default time that must have past since the last edit is 1 year.  </li>
-<li>untagged ways that are not a member of a relation</li>
-<li>unconnected highway end nodes, if the end nodes a near to a highway object that they could be connected to, the node is highlighted</li>
+<li>objects with 'fixme' and 'todo' tags (case insensitive) <em>magenta</em></li>
+<li>ways with 'highway=road' <em>magenta</em></li>
+<li>ways with 'highway' set to one of: motorway, motorway_link, trunk, trunk_link, primary, primary_link, secondary, secondary_link, tertiary, residential, unclassified, living_street and no 'name' or 'ref' tag <em>magenta</em></li>
+<li>relations with no 'type' tag <em>magenta</em></li>
+<li>certain points of interest that haven't been edited or verified lately. Default time that must have past since the last edit is 1 year. <em>yellow</em></li>
+<li>untagged ways that are not a member of a relation <em>magenta</em></li>
+<li>unconnected highway end nodes, if the end nodes a near to a highway object that they could be connected to, the node is highlighted <em>magenta</em></li>
 </ul>
+<p>The colours can be changed in the <a href="http://vespucci.io/tutorials/data_styling/#validation-styling">data style</a>.</p>
 <h3 id="indoor-mode">Indoor mode<a class="headerlink" href="#indoor-mode" title="Permanent link">#</a></h3>
 <p>In indoor mode the displayed level can be changed with the up/down buttons, tapping the level display button will show suitable objects that doesn’t have a level tag, tapping again will revert to the level selector.</p>
 <p>Elements that are not on the current level are drawn in a light grey, this works best on an uncluttered background map, for example the Thunderforest Landscape map. Newly created elements will automatically have the current level assigned in the property editor.</p>
