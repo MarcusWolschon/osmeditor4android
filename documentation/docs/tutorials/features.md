@@ -1,5 +1,4 @@
 ## Vespucci Features
-_Documentation for Vespucci 17.0_
 
 This list is likely not really complete, but gives some idea of the supported functionality.
 
