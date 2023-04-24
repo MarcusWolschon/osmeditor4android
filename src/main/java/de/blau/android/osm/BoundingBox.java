@@ -735,6 +735,15 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
     }
 
     /**
+     * Get an approximate size of the BoundingBox
+     * 
+     * @return the size in squared degrees * 1E7
+     */
+    public long approxArea() {
+        return width * height;
+    }
+
+    /**
      * Prune a list of BoundingBoxes in a DataStorage to box
      * 
      * @param storage the DataStorage

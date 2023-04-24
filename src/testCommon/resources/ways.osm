@@ -1,0 +1,175 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<osm
+    generator="Vespucci/19.0.0.0"
+    upload="true"
+    version="0.6" >
+
+    <node
+        id="-1"
+        action="modify"
+        lat="47.4186713"
+        lon="8.3672115"
+        timestamp="2023-06-18T11:02:42Z"
+        version="1"
+        visible="true" />
+
+    <node
+        id="-2"
+        action="modify"
+        lat="47.418677"
+        lon="8.3674259"
+        timestamp="2023-06-18T11:02:45Z"
+        version="1"
+        visible="true" />
+
+    <node
+        id="-3"
+        action="modify"
+        lat="47.4185162"
+        lon="8.3674399"
+        timestamp="2023-06-18T11:02:47Z"
+        version="1"
+        visible="true" />
+
+    <node
+        id="-4"
+        action="modify"
+        lat="47.4185033"
+        lon="8.3672094"
+        timestamp="2023-06-18T11:02:49Z"
+        version="1"
+        visible="true" />
+
+    <node
+        id="-5"
+        action="modify"
+        lat="47.4186225"
+        lon="8.3672816"
+        timestamp="2023-06-18T11:03:16Z"
+        version="1"
+        visible="true" />
+
+    <node
+        id="-6"
+        action="modify"
+        lat="47.4186296"
+        lon="8.3673635"
+        timestamp="2023-06-18T11:03:17Z"
+        version="1"
+        visible="true" />
+
+    <node
+        id="-7"
+        action="modify"
+        lat="47.4185659"
+        lon="8.3673601"
+        timestamp="2023-06-18T11:03:19Z"
+        version="1"
+        visible="true" />
+
+    <node
+        id="-8"
+        action="modify"
+        lat="47.4185579"
+        lon="8.3672828"
+        timestamp="2023-06-18T11:03:21Z"
+        version="1"
+        visible="true" />
+
+    <node
+        id="-9"
+        action="modify"
+        lat="47.4183577"
+        lon="8.3671924"
+        timestamp="2023-06-18T11:03:37Z"
+        version="1"
+        visible="true" />
+
+    <node
+        id="-10"
+        action="modify"
+        lat="47.418426"
+        lon="8.3673881"
+        timestamp="2023-06-18T11:03:39Z"
+        version="1"
+        visible="true" />
+
+    <node
+        id="-11"
+        action="modify"
+        lat="47.4184602"
+        lon="8.3671988"
+        timestamp="2023-06-18T11:04:02Z"
+        version="1"
+        visible="true" />
+
+    <node
+        id="-12"
+        action="modify"
+        lat="47.4183447"
+        lon="8.367369"
+        timestamp="2023-06-18T11:04:04Z"
+        version="1"
+        visible="true" />
+
+    <way
+        id="-1"
+        action="modify"
+        timestamp="2023-06-18T11:02:51Z"
+        version="1"
+        visible="true" >
+
+        <nd ref="-1" />
+
+        <nd ref="-2" />
+
+        <nd ref="-3" />
+
+        <nd ref="-4" />
+
+        <nd ref="-1" />
+    </way>
+
+    <way
+        id="-2"
+        action="modify"
+        timestamp="2023-06-18T11:03:23Z"
+        version="1"
+        visible="true" >
+
+        <nd ref="-5" />
+
+        <nd ref="-6" />
+
+        <nd ref="-7" />
+
+        <nd ref="-8" />
+
+        <nd ref="-5" />
+    </way>
+
+    <way
+        id="-3"
+        action="modify"
+        timestamp="2023-06-18T11:03:39Z"
+        version="1"
+        visible="true" >
+
+        <nd ref="-9" />
+
+        <nd ref="-10" />
+    </way>
+
+    <way
+        id="-4"
+        action="modify"
+        timestamp="2023-06-18T11:04:04Z"
+        version="1"
+        visible="true" >
+
+        <nd ref="-11" />
+
+        <nd ref="-12" />
+    </way>
+
+</osm>

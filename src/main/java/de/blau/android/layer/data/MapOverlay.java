@@ -651,35 +651,49 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
         }
     }
 
-    /**
-     * For ordering according to layer value and draw lines on top of areas in the same layer
-     */
-    private Comparator<Way> layerComparator = (w1, w2) -> {
-        int layer1 = 0;
-        int layer2 = 0;
-        String layer1Str = w1.getTagWithKey(Tags.KEY_LAYER);
-        if (layer1Str != null) {
-            try {
-                layer1 = Integer.parseInt(layer1Str);
-            } catch (NumberFormatException e) {
-                // ignore
+    static class LayerComparator implements Comparator<Way> {
+
+        private BoundingBox box1 = new BoundingBox();
+        private BoundingBox box2 = new BoundingBox();
+
+        @Override
+        public int compare(Way w1, Way w2) {
+            int layer1 = 0;
+            int layer2 = 0;
+            String layer1Str = w1.getTagWithKey(Tags.KEY_LAYER);
+            if (layer1Str != null) {
+                try {
+                    layer1 = Integer.parseInt(layer1Str);
+                } catch (NumberFormatException e) {
+                    // ignore
+                }
             }
-        }
-        String layer2Str = w2.getTagWithKey(Tags.KEY_LAYER);
-        if (layer2Str != null) {
-            try {
-                layer2 = Integer.parseInt(layer2Str);
-            } catch (NumberFormatException e) {
-                // ignore
+            String layer2Str = w2.getTagWithKey(Tags.KEY_LAYER);
+            if (layer2Str != null) {
+                try {
+                    layer2 = Integer.parseInt(layer2Str);
+                } catch (NumberFormatException e) {
+                    // ignore
+                }
             }
-        }
-        int result = layer2 == layer1 ? 0 : layer2 > layer1 ? -1 : +1;
-        if (result == 0) {
+            if (layer2 != layer1) {
+                return layer2 > layer1 ? -1 : +1;
+            }
             boolean w2closed = w2.isClosed();
-            return w1.isClosed() == w2closed ? 0 : w2closed ? 1 : -1;
+            if (w1.isClosed() != w2closed) {
+                return w2closed ? 1 : -1;
+            }
+            if (!w2closed) {
+                // both not closed
+                return 0;
+            }
+            // both closed
+            // note that testing for intersection will not work here as it will result in inconsistent ordering
+            return Long.compare(w2.getBounds(box2).approxArea(), w1.getBounds(box1).approxArea());
         }
-        return result;
-    };
+    }
+
+    private LayerComparator layerComparator = new LayerComparator();
 
     /**
      * Draw a multipolygon
