@@ -86,5 +86,5 @@ will restrict the query to the current map view.
 |✅|__allinview__                        | | | 
 |✅|__indownloadedarea__                 | | | 
 |✅|__allindownloadedarea__              | | | 
-| |_in_ *place*                       |✅| |
-| |_around_ *place*                   |✅| |
+| |__in__ *place*                     |✅|   |
+| |__around__ *place*                 |✅|   |
