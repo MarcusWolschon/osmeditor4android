@@ -14,6 +14,8 @@ public class BookmarksStorage implements Serializable {
      */
     private static final long serialVersionUID = 1L;
 
+    static final String NAME_FIELD = "name";
+
     private ViewBox viewBox;
     private String  comments;
 
