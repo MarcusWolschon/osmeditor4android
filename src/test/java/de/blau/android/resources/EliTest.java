@@ -19,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.test.filters.LargeTest;
 import de.blau.android.osm.OsmXml;
 import de.blau.android.resources.eli.EliFeatureCollection;
+import de.blau.android.util.FileUtil;
 import de.blau.android.util.Version;
 
 @RunWith(RobolectricTestRunner.class)
@@ -60,15 +61,10 @@ public class EliTest {
     String stringFromResource(@NonNull String path) {
         StringBuilder sb = new StringBuilder();
         try (InputStream is = getClass().getResourceAsStream(path)) {
-            BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName(OsmXml.UTF_8)));
-            int cp;
-            while ((cp = rd.read()) != -1) {
-                sb.append((char) cp);
-            }
+            return FileUtil.readToString(new BufferedReader(new InputStreamReader(is, Charset.forName(OsmXml.UTF_8)))); // NOSONAR
         } catch (IOException e) {
             fail(e.getMessage());
-            e.printStackTrace();
         }
-        return sb.toString();
+        return null;
     }
 }

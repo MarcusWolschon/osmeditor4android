@@ -745,14 +745,9 @@ public class TileLayerSource implements Serializable {
      */
     public static void parseImageryFile(@NonNull Context ctx, @NonNull SQLiteDatabase writeableDb, @NonNull String source, @NonNull InputStream is,
             final boolean async) throws IOException {
-        BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName(OsmXml.UTF_8)));
-        StringBuilder sb = new StringBuilder();
-        int cp;
-        while ((cp = rd.read()) != -1) {
-            sb.append((char) cp);
-        }
+        BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName(OsmXml.UTF_8))); // NOSONAR
         try {
-            EliFeatureCollection fc = EliFeatureCollection.fromJson(sb.toString());
+            EliFeatureCollection fc = EliFeatureCollection.fromJson(FileUtil.readToString(rd));
             Version formatVersion = fc.formatVersion();
             Log.i(DEBUG_TAG, "Reading imagery configuration version " + (formatVersion == null ? "unknown" : formatVersion.toString()));
             boolean fakeMultiPolygons = formatVersion == null || !formatVersion.largerThanOrEqual(Eli.VERSION_1_1);

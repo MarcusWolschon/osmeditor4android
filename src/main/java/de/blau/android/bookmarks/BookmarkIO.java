@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.Reader;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -116,7 +117,7 @@ public class BookmarkIO {
             protected ArrayList<BookmarksStorage> doInBackground(Void param) {
                 try {
                     File infile = new File(FileUtil.getApplicationDirectory(context, Paths.DIRECTORY_PATH_OTHER), NEW_FILENAME);
-                    try (FileInputStream fin = new FileInputStream(infile); Reader in = new InputStreamReader(fin, OsmXml.UTF_8);) { // NOSONAR
+                    try (FileInputStream fin = new FileInputStream(infile); Reader in = new InputStreamReader(fin, Charset.forName(OsmXml.UTF_8));) { // NOSONAR
                         FeatureCollection fc = FeatureCollection.fromJson(FileUtil.readToString(in));
                         for (Feature f : fc.features()) {
                             com.mapbox.geojson.BoundingBox box = f.bbox();

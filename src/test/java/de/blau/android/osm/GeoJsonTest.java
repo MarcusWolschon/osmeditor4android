@@ -18,6 +18,7 @@ import com.mapbox.geojson.Feature;
 import com.mapbox.geojson.Geometry;
 
 import androidx.annotation.NonNull;
+import de.blau.android.util.FileUtil;
 
 public class GeoJsonTest {
 
@@ -330,13 +331,6 @@ public class GeoJsonTest {
      */
     @NonNull
     String inputStreamToString(@NonNull InputStream input) throws IOException {
-        StringBuilder sb = new StringBuilder();
-        int cp;
-        try (BufferedReader rd = new BufferedReader(new InputStreamReader(input, Charset.forName(OsmXml.UTF_8)))) {
-            while ((cp = rd.read()) != -1) {
-                sb.append((char) cp);
-            }
-        }
-        return sb.toString();
+        return FileUtil.readToString(new BufferedReader(new InputStreamReader(input, Charset.forName(OsmXml.UTF_8))));
     }
 }
