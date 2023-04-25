@@ -175,12 +175,13 @@ For Vespucci I've chosen a different approach based on [GNU gettext](https://www
 
     * _opening_hours_ a normal opening hours syntax tag
     * _opening_hours_mixed_ a tag with both text values and opening hours, examples: _fee_, _supervised_ and _lit_
-    * _conditional_ conditional access tag
+    * ~~_conditional_ conditional access tag~~
     * _integer_ a integer numeric value
     * _website_ an URL for a website
     * _phone_ a phone number
     * _wikipedia_ a wikipedia page
     * _wikidata_  a wikidata Q ref
+    * _speed_ a speed value (reserved)
 
 * _items\_sort_ this controls sorting of items in groups, the default is "yes", any other value will disable sorting, the sorting preserves structure. Note: the preset root groups are currently not sortable.
 * _regions_ comma separated list of countries this preset group or item is applicable for.
