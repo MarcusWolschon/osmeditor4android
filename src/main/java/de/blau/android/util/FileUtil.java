@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Reader;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -375,5 +376,38 @@ public final class FileUtil {
         if (!fmd.exists()) {
             fmd.mkdirs();
         }
+    }
+
+    /**
+     * Read the complete input of a Reader in to a String
+     * 
+     * @param in the Reader
+     * @return a String
+     * @throws IOException if reading goes wrong
+     */
+    @NonNull
+    public static String readToString(@NonNull Reader in) throws IOException {
+        StringBuilder builder = new StringBuilder();
+        char[] buffer = new char[4096];
+        for (int numRead; (numRead = in.read(buffer, 0, buffer.length)) > 0;) {
+            builder.append(buffer, 0, numRead);
+        }
+        return builder.toString();
+    }
+
+    /**
+     * Check if a specific private file exists
+     * 
+     * @param context an Android COntext
+     * @param fileName the filename
+     * @return true if the file exists
+     */
+    public static boolean hasPrivateFile(@NonNull Context context, @NonNull String fileName) {
+        for (String f : context.fileList()) {
+            if (fileName.equals(f)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
