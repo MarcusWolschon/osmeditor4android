@@ -28,6 +28,7 @@ import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetItem;
+import de.blau.android.util.FileUtil;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
@@ -76,13 +77,8 @@ class QueryPhoton extends Query {
             if (searchCallResponse.isSuccessful()) {
                 try (ResponseBody responseBody = searchCallResponse.body(); InputStream inputStream = responseBody.byteStream()) {
                     if (inputStream != null) {
-                        BufferedReader rd = new BufferedReader(new InputStreamReader(inputStream, Charset.forName(OsmXml.UTF_8)));
-                        StringBuilder sb = new StringBuilder();
-                        int cp;
-                        while ((cp = rd.read()) != -1) {
-                            sb.append((char) cp);
-                        }
-                        FeatureCollection fc = FeatureCollection.fromJson(sb.toString());
+                        BufferedReader rd = new BufferedReader(new InputStreamReader(inputStream, Charset.forName(OsmXml.UTF_8))); // NOSONAR
+                        FeatureCollection fc = FeatureCollection.fromJson(FileUtil.readToString(rd));
                         for (Feature f : fc.features()) {
                             SearchResult searchResult = readPhotonResult(f);
                             if (searchResult != null) {

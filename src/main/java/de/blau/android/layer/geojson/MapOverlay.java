@@ -65,6 +65,7 @@ import de.blau.android.resources.DataStyle.FeatureStyle;
 import de.blau.android.resources.symbols.TriangleDown;
 import de.blau.android.util.ContentResolverUtil;
 import de.blau.android.util.ExecutorTask;
+import de.blau.android.util.FileUtil;
 import de.blau.android.util.GeoJSONConstants;
 import de.blau.android.util.GeoJson;
 import de.blau.android.util.GeoMath;
@@ -158,8 +159,8 @@ public class MapOverlay extends StyleableLayer
     }
 
     private RTree<BoundedFeature>                data;
-    private final transient Path                 path        = new Path();
-    private transient FloatPrimitiveList         points      = new FloatPrimitiveList();
+    private final transient Path                 path                  = new Path();
+    private transient FloatPrimitiveList         points                = new FloatPrimitiveList();
     private transient Collection<BoundedFeature> queryForDisplayResult = new ArrayList<>();
     /** Map this is an overlay of. */
     private final transient Map                  map;
@@ -465,21 +466,10 @@ public class MapOverlay extends StyleableLayer
         boolean successful = false;
         // don't draw while we are loading
         setVisible(false);
-        BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName(OsmXml.UTF_8)));
-        StringBuilder sb = new StringBuilder();
-        int cp;
+        BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName(OsmXml.UTF_8))); // NOSONAR
         try {
-            while ((cp = rd.read()) != -1) {
-                sb.append((char) cp);
-            }
-        } catch (OutOfMemoryError oom) {
-            Snack.toastTopError(map.getContext(), R.string.out_of_memory_title);
-            Log.e(DEBUG_TAG, "Out of memory error " + oom.getMessage());
-            return false;
-        }
-        try {
+            String json = FileUtil.readToString(rd);
             data = new RTree<>(2, 12);
-            String json = sb.toString();
             FeatureCollection fc = FeatureCollection.fromJson(json);
             List<Feature> features = fc.features();
             if (features != null) {
@@ -503,8 +493,11 @@ public class MapOverlay extends StyleableLayer
             if (!fromState) {
                 dirty();
             }
-        } catch (com.google.gson.JsonSyntaxException jsex) {
+        } catch (OutOfMemoryError oom) {
             data = null;
+            Snack.toastTopError(ctx, R.string.out_of_memory_title);
+            Log.e(DEBUG_TAG, "Out of memory error " + oom.getMessage());
+        } catch (com.google.gson.JsonSyntaxException jsex) {
             Snack.toastTopError(ctx, jsex.getLocalizedMessage());
             Log.e(DEBUG_TAG, "Syntax error " + jsex.getMessage());
         } catch (Exception e) {
