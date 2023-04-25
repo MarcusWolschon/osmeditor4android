@@ -18,7 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.splashscreen.SplashScreen;
 import androidx.preference.PreferenceManager;
-import de.blau.android.bookmarks.BookmarkIO;
+import de.blau.android.bookmarks.BookmarkStorage;
 import de.blau.android.contract.Paths;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.resources.KeyDatabaseHelper;
@@ -100,8 +100,8 @@ public class Splash extends AppCompatActivity {
                             Progress.showDialog(Splash.this, Progress.PROGRESS_BUILDING_IMAGERY_DATABASE);
                         });
                     }
-                    if (FileUtil.hasPrivateFile(Splash.this, BookmarkIO.FILENAME)) {
-                        new BookmarkIO().migrate(Splash.this);
+                    if (FileUtil.hasPrivateFile(Splash.this, BookmarkStorage.FILENAME)) {
+                        new BookmarkStorage().migrate(Splash.this);
                     }
                     if (newInstall || newConfig) {
                         KeyDatabaseHelper.readKeysFromAssets(Splash.this);

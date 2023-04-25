@@ -8,7 +8,7 @@ import de.blau.android.osm.ViewBox;
 /**
  * Storage for a comments and viewbox for a bookmark
  */
-public class BookmarksStorage implements Serializable {
+public class Bookmark implements Serializable {
     /**
      * 
      */
@@ -25,7 +25,7 @@ public class BookmarksStorage implements Serializable {
      * @param comments Bookmark name/comment
      * @param viewBox Map viewbox
      */
-    public BookmarksStorage(@NonNull String comments, @NonNull ViewBox viewBox) {
+    public Bookmark(@NonNull String comments, @NonNull ViewBox viewBox) {
         this.comments = comments;
         this.viewBox = viewBox;
     }
@@ -33,7 +33,7 @@ public class BookmarksStorage implements Serializable {
     /**
      * Default constructor
      */
-    public BookmarksStorage() {
+    public Bookmark() {
     }
 
     /**
