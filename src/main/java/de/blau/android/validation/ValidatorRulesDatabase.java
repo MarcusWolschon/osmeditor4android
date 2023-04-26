@@ -19,7 +19,7 @@ import de.blau.android.util.collections.MultiHashMap;
 public final class ValidatorRulesDatabase {
     /**
      * Table: rulesets (id INTEGER, name TEXT) Table: resurvey (ruleset INTEGER, key TEXT, value TEXT DEFAULT NULL, days
-     * INTEGER DEFAULT 365, FOREIGN KEY(ruleset) REFERENCES rulesets(id)) Table: check (ruleset INTEGER, key TEXT,
+     * INTEGER DEFAULT 365, selected INTEGER DEFAULT 1, FOREIGN KEY(ruleset) REFERENCES rulesets(id)) Table: check (ruleset INTEGER, key TEXT,
      * optional INTEGER DEFAULT 0, FOREIGN KEY(ruleset) REFERENCES rulesets(id))
      */
 
@@ -36,11 +36,12 @@ public final class ValidatorRulesDatabase {
     static final String         RULESET_FIELD        = "ruleset";
     private static final String CHECK_TABLE          = "checktags";
     static final String         OPTIONAL_FIELD       = "optional";
+    static final String         SELECTED_FIELD       = "selected";
 
-    static final String QUERY_RESURVEY_DEFAULT  = "SELECT resurveytags.rowid as _id, key, value, is_regexp, days FROM resurveytags WHERE ruleset = "
+    static final String QUERY_RESURVEY_DEFAULT  = "SELECT resurveytags.rowid as _id, key, value, is_regexp, days, selected FROM resurveytags WHERE ruleset = "
             + DEFAULT_RULESET + " ORDER BY key, value";
-    static final String QUERY_RESURVEY_BY_ROWID = "SELECT key, value, is_regexp, days FROM resurveytags WHERE rowid=?";
-    static final String QUERY_RESURVEY_BY_NAME  = "SELECT resurveytags.rowid as _id, key, value, is_regexp, days FROM resurveytags, rulesets WHERE ruleset = rulesets.id and rulesets.name = ? ORDER BY key, value";
+    static final String QUERY_RESURVEY_BY_ROWID = "SELECT key, value, is_regexp, days, selected FROM resurveytags WHERE rowid=?";
+    static final String QUERY_RESURVEY_BY_NAME  = "SELECT resurveytags.rowid as _id, key, value, is_regexp, days, selected FROM resurveytags, rulesets WHERE ruleset = rulesets.id and rulesets.name = ? ORDER BY key, value";
 
     static final String QUERY_CHECK_DEFAULT  = "SELECT checktags.rowid as _id, key, optional FROM checktags WHERE ruleset = " + DEFAULT_RULESET
             + " ORDER BY key";
@@ -77,18 +78,20 @@ public final class ValidatorRulesDatabase {
     @Nullable
     public static MultiHashMap<String, PatternAndAge> getDefaultResurvey(@NonNull SQLiteDatabase database) {
         MultiHashMap<String, PatternAndAge> result = null;
-        Cursor dbresult = database.query(RESURVEY_TABLE, new String[] { KEY_FIELD, VALUE_FIELD, ISREGEXP_FIELD, DAYS_FIELD },
+        Cursor dbresult = database.query(RESURVEY_TABLE, new String[] { KEY_FIELD, VALUE_FIELD, ISREGEXP_FIELD, DAYS_FIELD, SELECTED_FIELD },
                 RULESET_FIELD + " = " + DEFAULT_RULESET, null, null, null, KEY_FIELD + "," + VALUE_FIELD);
 
         if (dbresult.getCount() >= 1) {
             result = new MultiHashMap<>();
             boolean haveEntry = dbresult.moveToFirst();
             while (haveEntry) {
-                PatternAndAge v = new PatternAndAge();
-                v.setValue(dbresult.getString(1));
-                v.setIsRegexp(dbresult.getInt(2) == 1);
-                v.setAge(dbresult.getLong(3) * 24 * 3600); // days -> secs
-                result.add(dbresult.getString(0), v);
+                if (dbresult.getInt(dbresult.getColumnIndexOrThrow(ValidatorRulesDatabase.SELECTED_FIELD)) == 1){
+                    PatternAndAge v = new PatternAndAge();
+                    v.setValue(dbresult.getString(1));
+                    v.setIsRegexp(dbresult.getInt(2) == 1);
+                    v.setAge(dbresult.getLong(3) * 24 * 3600); // days -> secs
+                    result.add(dbresult.getString(0), v);
+                }
                 haveEntry = dbresult.moveToNext();
             }
         }
@@ -121,13 +124,14 @@ public final class ValidatorRulesDatabase {
      * @param isRegexp if true the value is a regexp
      * @param days how man days old the object should max be
      */
-    public static void addResurvey(@NonNull SQLiteDatabase db, int ruleSetId, @NonNull String key, @Nullable String value, boolean isRegexp, int days) {
+    public static void addResurvey(@NonNull SQLiteDatabase db, int ruleSetId, @NonNull String key, @Nullable String value, boolean isRegexp, int days, boolean selected) {
         ContentValues values = new ContentValues();
         values.put(RULESET_FIELD, ruleSetId);
         values.put(KEY_FIELD, key);
         values.put(VALUE_FIELD, value);
         values.put(ISREGEXP_FIELD, isRegexp ? 1 : 0);
         values.put(DAYS_FIELD, days);
+        values.put(SELECTED_FIELD, selected ? 1 : 0);
         db.insert(RESURVEY_TABLE, null, values);
     }
 
@@ -158,6 +162,19 @@ public final class ValidatorRulesDatabase {
      */
     static void deleteResurvey(final SQLiteDatabase db, final int id) {
         db.delete(RESURVEY_TABLE, "rowid=?", new String[] { Integer.toString(id) });
+    }
+
+    /**
+     * Change the selected row of the resurvey table.
+     *
+     * @param db writable database
+     * @param id rowid of the entry
+     * @param isChecked state of the checkbox
+     */
+    public static void resurveySelected(SQLiteDatabase db, int id, boolean isChecked) {
+        ContentValues values = new ContentValues();
+        values.put(SELECTED_FIELD, isChecked ? 1 : 0);
+        db.update(RESURVEY_TABLE, values, "rowid=" + id, null);
     }
 
     /**

@@ -38,6 +38,7 @@ import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
 import de.blau.android.Authorize;
 import de.blau.android.ErrorCodes;
+import de.blau.android.Logic;
 import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
 import de.blau.android.contract.MimeTypes;
@@ -54,6 +55,7 @@ import de.blau.android.services.util.StreamUtils;
 import de.blau.android.tasks.Note;
 import de.blau.android.tasks.NoteComment;
 import de.blau.android.util.BasicAuthInterceptor;
+import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.Snack;
 import okhttp3.Call;
 import okhttp3.MediaType;
@@ -679,7 +681,19 @@ public class Server {
             // }
             OkHttpClient client = builder.build();
             Call readCall = client.newCall(request);
-            Response readCallResponse = readCall.execute();
+            Logic logic = App.getLogic();
+            ExecutorTask<Call, Void, Response > loader = new ExecutorTask<Call, Void, Response>(logic.getExecutorService(),
+                    logic.getHandler()) {
+                @Override
+                protected Response doInBackground(Call readCall) throws Exception {
+                    return readCall.execute();
+                }
+                protected void onPostExecute(Response result) {
+                    Log.d(DEBUG_TAG, "onPostExecute");
+                }
+            };
+            loader.execute(readCall);
+            Response readCallResponse = loader.get();
             if (readCallResponse.isSuccessful()) {
                 ResponseBody responseBody = readCallResponse.body();
                 return responseBody.byteStream();
@@ -696,8 +710,8 @@ public class Server {
                 }
                 throwOsmServerException(readCallResponse);
             }
-        } catch (IllegalArgumentException iaex) {
-            throw new IOException("Illegal argument", iaex);
+        } catch (Exception tr) {
+            tr.printStackTrace();
         }
         throw new IOException("openCOnnection this can't happen"); // this is actually unreachable
     }
