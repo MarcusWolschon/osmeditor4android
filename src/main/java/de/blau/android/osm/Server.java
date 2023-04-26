@@ -681,19 +681,7 @@ public class Server {
             // }
             OkHttpClient client = builder.build();
             Call readCall = client.newCall(request);
-            Logic logic = App.getLogic();
-            ExecutorTask<Call, Void, Response > loader = new ExecutorTask<Call, Void, Response>(logic.getExecutorService(),
-                    logic.getHandler()) {
-                @Override
-                protected Response doInBackground(Call readCall) throws Exception {
-                    return readCall.execute();
-                }
-                protected void onPostExecute(Response result) {
-                    Log.d(DEBUG_TAG, "onPostExecute");
-                }
-            };
-            loader.execute(readCall);
-            Response readCallResponse = loader.get();
+            Response readCallResponse = readCall.execute();
             if (readCallResponse.isSuccessful()) {
                 ResponseBody responseBody = readCallResponse.body();
                 return responseBody.byteStream();
@@ -710,8 +698,8 @@ public class Server {
                 }
                 throwOsmServerException(readCallResponse);
             }
-        } catch (Exception tr) {
-            tr.printStackTrace();
+        } catch (IllegalArgumentException iaex) {
+            throw new IOException("Illegal argument", iaex);
         }
         throw new IOException("openCOnnection this can't happen"); // this is actually unreachable
     }
