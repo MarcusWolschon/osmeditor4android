@@ -5819,6 +5819,7 @@
 {"description":"Transport/Bicycle/Parking","key": "bicycle_parking","value": "informal","object_types": ["node","way","area"]},
 {"description":"Transport/Bicycle/Parking","key": "bicycle_parking","value": "lockers","object_types": ["node","way","area"]},
 {"description":"Transport/Bicycle/Parking","key": "bicycle_parking","value": "rack","object_types": ["node","way","area"]},
+{"description":"Transport/Bicycle/Parking","key": "bicycle_parking","value": "safe_loops","object_types": ["node","way","area"]},
 {"description":"Transport/Bicycle/Parking","key": "bicycle_parking","value": "shed","object_types": ["node","way","area"]},
 {"description":"Transport/Bicycle/Parking","key": "bicycle_parking","value": "stands","object_types": ["node","way","area"]},
 {"description":"Transport/Bicycle/Parking","key": "bicycle_parking","value": "wall_loops","object_types": ["node","way","area"]},
