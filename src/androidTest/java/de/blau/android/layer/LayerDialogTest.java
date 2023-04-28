@@ -13,6 +13,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -502,5 +503,20 @@ public class LayerDialogTest {
             } catch (IOException e) {
             }
         }
+    }
+
+    /**
+     * Enable/disable bookmark layer
+     */
+    @Test
+    public void bookmarkLayer() {
+        LayerUtils.removeLayer(main, LayerType.BOOKMARKS);
+        assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/layers", true));
+        assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/add", true));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_layers_enable_bookmarkslayer), false));
+        assertTrue(TestUtils.clickText(device, true, main.getString(R.string.done), true, false));
+        UiObject2 menuButton = TestUtils.getLayerButton(device, main.getString(R.string.layer_bookmarks), MENU_BUTTON - 1); // extent field doesn't exist
+        menuButton.clickAndWait(Until.newWindow(), 1000);
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.discard), true, false));
     }
 }

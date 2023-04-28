@@ -32,8 +32,17 @@ public final class LayerUtils {
      * @param context Android context
      */
     public static void removeTaskLayer(@NonNull Context context) {
+        removeLayer(context,LayerType.TASKS);
+    }
+    
+    /**
+     * Remove  layer
+     * 
+     * @param context Android context
+     */
+    public static void removeLayer(@NonNull Context context, @NonNull LayerType type) {
         try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(context)) {
-            db.deleteLayer(LayerType.TASKS, null);
+            db.deleteLayer(type, null);
         }
     }
 

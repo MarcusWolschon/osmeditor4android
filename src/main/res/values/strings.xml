@@ -990,6 +990,7 @@
     <string name="menu_layers_add_grid">Enable grid</string>
     <string name="menu_layers_add_photolayer">Enable photo layer</string>
     <string name="menu_layers_enable_mapillary_layer">Enable Mapillary layer</string>
+    <string name="menu_layers_enable_bookmarkslayer">Enable bookmark layer</string>
     <string name="menu_layers_configure">Configure…</string>
     <string name="menu_layers_background_align">Align imagery…</string>
     <!--  -->

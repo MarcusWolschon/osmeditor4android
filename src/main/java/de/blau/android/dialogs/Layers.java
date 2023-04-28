@@ -222,7 +222,7 @@ public class Layers extends AbstractConfigurationDialog {
             }
 
             if (map.getBookmarksLayer() == null) {
-                item = popup.getMenu().add("Enable bookmarks layer"); // R.string.menu_layers_enable_bookmarkslayer);
+                item = popup.getMenu().add(R.string.menu_layers_enable_bookmarkslayer);
                 item.setOnMenuItemClickListener(unused -> {
                     de.blau.android.layer.Util.addLayer(activity, LayerType.BOOKMARKS);
                     updateDialogAndPrefs(activity, prefs, map);
