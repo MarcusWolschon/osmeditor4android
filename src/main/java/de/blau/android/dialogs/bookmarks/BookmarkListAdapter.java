@@ -107,6 +107,10 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<BookmarkListAdapte
                 listener.onDeleteListener(adapterPosition);
                 return true;
             }
+            if (item.getItemId() == R.id.bookmarkedit) {
+                listener.onEditListener(adapterPosition);
+                return true;
+            }
             return false;
         }
     }
@@ -125,5 +129,12 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<BookmarkListAdapte
          * @param position postition id
          */
         void onGoListener(int position);
+
+        /**
+         * Edits the bookmark when called
+         *
+         * @param position postition id
+         */
+        void onEditListener(int position);
     }
 }

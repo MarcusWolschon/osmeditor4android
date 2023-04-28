@@ -3,11 +3,13 @@ package de.blau.android.dialogs.bookmarks;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import de.blau.android.App;
@@ -17,6 +19,7 @@ import de.blau.android.R;
 import de.blau.android.bookmarks.Bookmark;
 import de.blau.android.bookmarks.BookmarkStorage;
 import de.blau.android.layer.bookmarks.MapOverlay;
+import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 
 /**
@@ -28,7 +31,7 @@ public class BookmarksDialog implements BookmarkListAdapter.Listeners {
     final Map                   map = App.getLogic().getMap();
     private AlertDialog         dialog;
     private BookmarkListAdapter adapter;
-    private Activity            activity;
+    private FragmentActivity    activity;
     private BookmarkStorage     bookmarkStorage;
 
     /**
@@ -36,7 +39,7 @@ public class BookmarksDialog implements BookmarkListAdapter.Listeners {
      *
      * @param activity the calling activity
      */
-    public BookmarksDialog(@NonNull Activity activity) {
+    public BookmarksDialog(@NonNull FragmentActivity activity) {
         this.activity = activity;
         bookmarkStorage = new BookmarkStorage();
         bookmarks = bookmarkStorage.readList(activity);
@@ -110,5 +113,28 @@ public class BookmarksDialog implements BookmarkListAdapter.Listeners {
         map.getViewBox().fitToBoundingBox(map, this.bookmarks.get(position).getViewBox());
         map.invalidate();
         dialog.dismiss();
+    }
+
+    @Override
+    public void onEditListener(int position) {
+        final Bookmark bookmark = bookmarks.get(position);
+        BookmarkEdit.get(activity, bookmark.getComment(), new BookmarkEdit.HandleResult() {
+            @Override
+            public void onSuccess(String message, Context context) {
+                if (message.trim().isEmpty()) {
+                    return;
+                }
+                bookmark.set(message, bookmark.getViewBox());
+                adapter.notifyItemChanged(position);
+            }
+
+            @Override
+            public void onError(Context context) {
+                if (context instanceof Activity) {
+                    ((Activity) context).runOnUiThread(() -> Snack.toastTopError(context, R.string.toast_error_saving_bookmark));
+                }
+            }
+        });
+
     }
 }

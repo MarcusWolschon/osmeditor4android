@@ -114,7 +114,7 @@ import de.blau.android.dialogs.SearchForm;
 import de.blau.android.dialogs.Tip;
 import de.blau.android.dialogs.TooMuchData;
 import de.blau.android.dialogs.UndoDialog;
-import de.blau.android.dialogs.bookmarks.BookmarkHandler;
+import de.blau.android.dialogs.bookmarks.BookmarkEdit;
 import de.blau.android.dialogs.bookmarks.BookmarksDialog;
 import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.easyedit.ElementSelectionActionModeCallback;
@@ -2042,22 +2042,18 @@ public class Main extends FullScreenAppCompatActivity
         case R.id.menu_gps_add_bookmark:
             // the soft keyboard will potentially change the current view box
             final ViewBox bookmarkViewBox = new ViewBox(map.getViewBox());
-            BookmarkHandler.get(this, new BookmarkHandler.HandleResult() {
+            BookmarkEdit.get(this, null, new BookmarkEdit.HandleResult() {
                 @Override
-                public void onSuccess(String message, FragmentActivity activity) {
+                public void onSuccess(String message, Context context) {
                     if (message.trim().isEmpty()) {
                         return;
                     }
-                    new BookmarkStorage().writer(getApplicationContext(), message, bookmarkViewBox);
-                    de.blau.android.layer.bookmarks.MapOverlay layer = Main.this.getMap().getBookmarksLayer();
-                    if (layer != null) {
-                        layer.invalidate();
-                    }
+                    new BookmarkStorage().writer(context, message, bookmarkViewBox);
                 }
 
                 @Override
-                public void onError() {
-                    runOnUiThread(() -> Snack.toastTopError(Main.this, R.string.toast_error_saving_bookmark));
+                public void onError(Context context) {
+                    runOnUiThread(() -> Snack.toastTopError(context, R.string.toast_error_saving_bookmark));
                 }
             });
             return true;
