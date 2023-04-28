@@ -83,23 +83,28 @@
             </RelativeLayout>
         </LinearLayout>
         <LinearLayout
-            android:id="@+id/layer_label_container"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:minHeight="32dp"
             android:layout_marginTop="4dp"
             android:orientation="vertical">
-            <TextView
-                android:text="@string/layer_style_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <Spinner
-                android:id="@+id/layer_style_label"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/layer_label_container"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp" />
+                android:orientation="vertical">
+                <TextView
+                    android:text="@string/layer_style_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <Spinner
+                    android:id="@+id/layer_style_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp" />
+            </LinearLayout>
             <RelativeLayout
-                android:id="@+id/layer_label_min_zoom_container"  
+                android:id="@+id/layer_label_min_zoom_container"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@id/layer_style_label"

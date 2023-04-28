@@ -378,6 +378,7 @@
     <string name="layer_geojson">GeoJSON</string>
     <string name="layer_mapillary">Mapillary</string>
     <string name="layer_grid">Grid</string>
+    <string name="layer_bookmarks">Bookmarks</string>
     <string name="layer_gpx">GPX</string>
     <string name="layer_gpx_recording">GPX recording</string>
     <string name="layer_photos">Photos</string>

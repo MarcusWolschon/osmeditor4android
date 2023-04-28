@@ -27,21 +27,21 @@ import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.TestUtils;
-import de.blau.android.bookmarks.BookmarkIO;
-import de.blau.android.bookmarks.BookmarksStorage;
+import de.blau.android.bookmarks.BookmarkStorage;
+import de.blau.android.bookmarks.Bookmark;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.ViewBox;
 
 @RunWith(AndroidJUnit4.class)
 public class BookmarkDialogsTest {
 
-    Instrumentation             instrumentation   = null;
-    ArrayList<BookmarksStorage> bookmarksStorages = null;
-    ViewBox                     viewBoxtest       = null;
-    ActivityMonitor             monitor           = null;
-    UiDevice                    device            = null;
-    Main                        main              = null;
-    Map                         map               = null;
+    Instrumentation     instrumentation   = null;
+    ArrayList<Bookmark> bookmarksStorages = null;
+    ViewBox             viewBoxtest       = null;
+    ActivityMonitor     monitor           = null;
+    UiDevice            device            = null;
+    Main                main              = null;
+    Map                 map               = null;
 
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class, false, false);
@@ -63,16 +63,16 @@ public class BookmarkDialogsTest {
         TestUtils.dismissStartUpDialogs(device, main);
         TestUtils.stopEasyEdit(main);
         // zap current contents
-        (new BookmarkIO()).writeList(main, new ArrayList<>());
+        (new BookmarkStorage()).writeList(main, new ArrayList<>());
         TestUtils.sleep();
         bookmarksStorages = new ArrayList<>();
         try {
             // India
-            bookmarksStorages.add(new BookmarksStorage("TestLocation0", new ViewBox(68.1766451354, 7.96553477623, 97.4025614766, 35.4940095078)));
+            bookmarksStorages.add(new Bookmark("TestLocation0", new ViewBox(68.1766451354, 7.96553477623, 97.4025614766, 35.4940095078)));
             // Netherlands
-            bookmarksStorages.add(new BookmarksStorage("TestLocation1", new ViewBox(3.31497114423, 50.803721015, 7.09205325687, 53.5104033474)));
+            bookmarksStorages.add(new Bookmark("TestLocation1", new ViewBox(3.31497114423, 50.803721015, 7.09205325687, 53.5104033474)));
             // Serbia
-            bookmarksStorages.add(new BookmarksStorage("TestLocation2", new ViewBox(18.82982, 42.2452243971, 22.9860185076, 46.1717298447)));
+            bookmarksStorages.add(new Bookmark("TestLocation2", new ViewBox(18.82982, 42.2452243971, 22.9860185076, 46.1717298447)));
         } catch (OsmException osmex) {
             osmex.printStackTrace();
         }
@@ -99,7 +99,7 @@ public class BookmarkDialogsTest {
             TestUtils.clickButton(device, "android:id/button1", true);
         }
 
-        List<BookmarksStorage> rereadStorages = new BookmarkIO().readList(main);
+        List<Bookmark> rereadStorages = new BookmarkStorage().readList(main);
         // Show Dialog
         for (int i = 0; i < 3; i++) {
             TestUtils.clickMenuButton(device, main.getString(R.string.menu_gps), false, true);

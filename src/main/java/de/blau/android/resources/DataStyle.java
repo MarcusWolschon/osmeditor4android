@@ -124,6 +124,7 @@ public final class DataStyle extends DefaultHandler {
     public static final String LABELTEXT_SMALL_PROBLEM       = "labeltext_small_problem";
     public static final String LABELTEXT_BACKGROUND          = "labeltext_background";
     public static final String GEOJSON_DEFAULT               = "geojson_default";
+    public static final String BOOKMARK_DEFAULT              = "bookmark_default";
     public static final String DONTRENDER_WAY                = "dontrender_way";
     public static final String MIN_HANDLE_LEN                = "min_handle_length";
     public static final String ICON_ZOOM_LIMIT               = "icon_zoom_limit";
@@ -1156,6 +1157,14 @@ public final class DataStyle extends DefaultHandler {
         fp.getPaint().setStrokeWidth(Density.dpToPx(ctx, 3.0f));
         fp.setUpdateWidth(false);
         internalStyles.put(GEOJSON_DEFAULT, fp);
+
+        fp = new FeatureStyle(BOOKMARK_DEFAULT);
+        fp.getPaint().setStyle(Style.STROKE);
+        fp.setColor(0x9dff0000);
+        fp.setWidthFactor(2f);
+        fp.getPaint().setStrokeWidth(Density.dpToPx(ctx, 3.0f));
+        fp.setUpdateWidth(false);
+        internalStyles.put(BOOKMARK_DEFAULT, fp);
 
         fp = new FeatureStyle(DONTRENDER_WAY, standardPath);
         fp.setColor(Color.WHITE);

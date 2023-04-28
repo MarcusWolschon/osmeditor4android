@@ -1,6 +1,6 @@
 package de.blau.android.dialogs.bookmarks;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -11,10 +11,12 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import de.blau.android.App;
+import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.R;
-import de.blau.android.bookmarks.BookmarkIO;
-import de.blau.android.bookmarks.BookmarksStorage;
+import de.blau.android.bookmarks.Bookmark;
+import de.blau.android.bookmarks.BookmarkStorage;
+import de.blau.android.layer.bookmarks.MapOverlay;
 import de.blau.android.util.ThemeUtils;
 
 /**
@@ -22,12 +24,12 @@ import de.blau.android.util.ThemeUtils;
  */
 public class BookmarksDialog implements BookmarkListAdapter.Listeners {
 
-    private ArrayList<BookmarksStorage> bookmarksStorages;
-    final Map                           map = App.getLogic().getMap();
-    private AlertDialog                 dialog;
-    private BookmarkListAdapter         adapter;
-    private Activity                    activity;
-    private BookmarkIO                  bookmarkIO;
+    private List<Bookmark>      bookmarks;
+    final Map                   map = App.getLogic().getMap();
+    private AlertDialog         dialog;
+    private BookmarkListAdapter adapter;
+    private Activity            activity;
+    private BookmarkStorage     bookmarkStorage;
 
     /**
      * BookmarksDialog Constructor
@@ -36,8 +38,8 @@ public class BookmarksDialog implements BookmarkListAdapter.Listeners {
      */
     public BookmarksDialog(@NonNull Activity activity) {
         this.activity = activity;
-        bookmarkIO = new BookmarkIO();
-        bookmarksStorages = bookmarkIO.readList(activity);
+        bookmarkStorage = new BookmarkStorage();
+        bookmarks = bookmarkStorage.readList(activity);
     }
 
     /**
@@ -48,7 +50,7 @@ public class BookmarksDialog implements BookmarkListAdapter.Listeners {
      * @return return the built alertdialog
      */
     @NonNull
-    private AlertDialog bookmarkSelectDialog(@NonNull Activity activity, @NonNull ArrayList<BookmarksStorage> bookmarksStorages) {
+    private AlertDialog bookmarkSelectDialog(@NonNull Activity activity, @NonNull List<Bookmark> bookmarksStorages) {
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         final LayoutInflater themedInflater = ThemeUtils.getLayoutInflater(activity);
@@ -77,7 +79,7 @@ public class BookmarksDialog implements BookmarkListAdapter.Listeners {
      * Displays the constructed dialog
      */
     public void showDialog() {
-        bookmarkSelectDialog(activity, this.bookmarksStorages).show();
+        bookmarkSelectDialog(activity, this.bookmarks).show();
     }
 
     /**
@@ -88,8 +90,14 @@ public class BookmarksDialog implements BookmarkListAdapter.Listeners {
     @Override
     public void onDeleteListener(int position) {
         adapter.notifyItemRemoved(position);
-        this.bookmarksStorages.remove(position);
-        bookmarkIO.writeList(activity, this.bookmarksStorages);
+        this.bookmarks.remove(position);
+        bookmarkStorage.writeList(activity, this.bookmarks);
+        if (activity instanceof Main) {
+            MapOverlay layer = ((Main) activity).getMap().getBookmarksLayer();
+            if (layer != null) {
+                layer.invalidate();
+            }
+        }
     }
 
     /**
@@ -99,7 +107,7 @@ public class BookmarksDialog implements BookmarkListAdapter.Listeners {
      */
     @Override
     public void onGoListener(int position) {
-        map.getViewBox().fitToBoundingBox(map, this.bookmarksStorages.get(position).getViewBox());
+        map.getViewBox().fitToBoundingBox(map, this.bookmarks.get(position).getViewBox());
         map.invalidate();
         dialog.dismiss();
     }

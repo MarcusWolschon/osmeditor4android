@@ -275,6 +275,9 @@ public class Map extends View implements IMapView {
                         case MAPILLARY:
                             layer = new de.blau.android.layer.mapillary.MapOverlay(this);
                             break;
+                        case BOOKMARKS:
+                            layer = new de.blau.android.layer.bookmarks.MapOverlay(this);
+                            break;
                         }
                     } catch (SecurityException ex) {
                         Log.e(DEBUG_TAG, "SecurityException creating layer, content " + contentId + " " + ex.getMessage());
@@ -518,6 +521,16 @@ public class Map extends View implements IMapView {
     @Nullable
     public de.blau.android.layer.photos.MapOverlay getPhotoLayer() {
         return (de.blau.android.layer.photos.MapOverlay) getLayer(LayerType.PHOTO);
+    }
+
+    /**
+     * Return the current bookmarks layer
+     * 
+     * @return the current bookmarks layer or null if none is configured
+     */
+    @Nullable
+    public de.blau.android.layer.bookmarks.MapOverlay getBookmarksLayer() {
+        return (de.blau.android.layer.bookmarks.MapOverlay) getLayer(LayerType.BOOKMARKS);
     }
 
     /**

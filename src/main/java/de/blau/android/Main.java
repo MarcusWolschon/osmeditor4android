@@ -90,7 +90,7 @@ import de.blau.android.Logic.CursorPaddirection;
 import de.blau.android.RemoteControlUrlActivity.RemoteControlUrlData;
 import de.blau.android.Selection.Ids;
 import de.blau.android.address.Address;
-import de.blau.android.bookmarks.BookmarkIO;
+import de.blau.android.bookmarks.BookmarkStorage;
 import de.blau.android.contract.FileExtensions;
 import de.blau.android.contract.Flavors;
 import de.blau.android.contract.MimeTypes;
@@ -2048,7 +2048,11 @@ public class Main extends FullScreenAppCompatActivity
                     if (message.trim().isEmpty()) {
                         return;
                     }
-                    new BookmarkIO().writer(getApplicationContext(), message, bookmarkViewBox);
+                    new BookmarkStorage().writer(getApplicationContext(), message, bookmarkViewBox);
+                    de.blau.android.layer.bookmarks.MapOverlay layer = Main.this.getMap().getBookmarksLayer();
+                    if (layer != null) {
+                        layer.invalidate();
+                    }
                 }
 
                 @Override

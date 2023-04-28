@@ -141,7 +141,7 @@ public class LayerStyle extends AbstractConfigurationDialog {
                     @Override
                     public void onItemSelected(AdapterView<?> arg0, View arg1, int pos, long arg3) {
                         subLayerName = layerArray[pos];
-                        setupLabelSpinner(labelContainer, labelSpinner);
+                        setupLabelSpinner(labelSpinner);
                         setUpColorSelector(lineWidthView);
                         setUpLineWidthSelector(seeker, lineWidthView);
                         setupSymbolSpinner(symbolSpinner);
@@ -158,13 +158,15 @@ public class LayerStyle extends AbstractConfigurationDialog {
                 layerContainer.setVisibility(View.GONE);
             }
 
-            setupLabelSpinner(labelContainer, labelSpinner);
+            setupLabelSpinner(labelSpinner);
             if (tempLayer instanceof LabelMinZoomInterface) {
+                labelContainer.setVisibility(View.VISIBLE);
+                labelMinZoomContainer.setVisibility(View.VISIBLE);
                 setUpMinLabelZoomPicker(labelMinZoomPicker);
             } else {
                 labelMinZoomContainer.setVisibility(View.GONE);
             }
-            if (tempLayer instanceof LabelMinZoomInterface || hasSubLayers) {
+            if (layer.usesPointSymbol()) {
                 setupSymbolSpinner(symbolSpinner);
             } else {
                 symbolContainer.setVisibility(View.GONE);
@@ -208,7 +210,7 @@ public class LayerStyle extends AbstractConfigurationDialog {
      * 
      * @param minZoomPicker min zoom picker
      */
-    private void setUpMinLabelZoomPicker(NumberPicker minZoomPicker) {
+    private void setUpMinLabelZoomPicker(@NonNull NumberPicker minZoomPicker) {
         int zoom = ((LabelMinZoomInterface) layer).getLabelMinZoom(subLayerName);
         final int min = minZoomPicker.getMin();
         final int max = minZoomPicker.getMax();
@@ -230,7 +232,7 @@ public class LayerStyle extends AbstractConfigurationDialog {
      * @param seeker the SeekBar
      * @param lineWidthView the View displaying the width
      */
-    public void setUpLineWidthSelector(SeekBar seeker, View lineWidthView) {
+    public void setUpLineWidthSelector(@NonNull SeekBar seeker, @NonNull View lineWidthView) {
         LayoutParams layoutParams = lineWidthView.getLayoutParams();
         layoutParams.height = (int) layer.getStrokeWidth(subLayerName);
         lineWidthView.setLayoutParams(layoutParams);
@@ -243,7 +245,7 @@ public class LayerStyle extends AbstractConfigurationDialog {
      * 
      * @param lineWidthView the View displaying the line width
      */
-    public void setUpColorSelector(View lineWidthView) {
+    public void setUpColorSelector(@NonNull View lineWidthView) {
         final int color = layer.getColor(subLayerName);
         colorView.setBackgroundColor(color);
         colorView.setOnClickListener(v -> {
@@ -272,10 +274,9 @@ public class LayerStyle extends AbstractConfigurationDialog {
     /**
      * Set up the label selection spinner
      * 
-     * @param labelContainer the layout holding the spinner
      * @param labelSpinner the Spinner itself
      */
-    public void setupLabelSpinner(@NonNull View labelContainer, @NonNull Spinner labelSpinner) {
+    public void setupLabelSpinner(@NonNull Spinner labelSpinner) {
         final List<String> labelKeys = layer.getLabelList(subLayerName);
         if (!labelKeys.isEmpty()) {
             labelKeys.add(0, getString(R.string.none));
@@ -304,7 +305,7 @@ public class LayerStyle extends AbstractConfigurationDialog {
                 }
             });
         } else {
-            labelContainer.setVisibility(View.GONE);
+            labelSpinner.setVisibility(View.GONE);
         }
     }
 
