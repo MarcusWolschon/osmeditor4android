@@ -117,4 +117,41 @@ public class BookmarkDialogsTest {
         }
         TestUtils.clickText(device, false, main.getString(R.string.done), true, false);
     }
+
+    /**
+     * Change the name of a bookmark
+     */
+    @Test
+    public void editTest() {
+        // Add Dialog
+        map.getViewBox().fitToBoundingBox(map, bookmarksStorages.get(0).getViewBox());
+        map.invalidate();
+        assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/menu_gps", true));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.add_bookmark), true, false));
+        UiObject comments = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/text_line_edit"));
+        try {
+            comments.click();
+            comments.setText("TestLocation0");
+        } catch (UiObjectNotFoundException e) {
+            Assert.fail(e.getMessage());
+        }
+        TestUtils.clickButton(device, "android:id/button1", true);
+
+        TestUtils.clickMenuButton(device, main.getString(R.string.menu_gps), false, true);
+        TestUtils.clickText(device, false, main.getString(R.string.show_bookmarks), true, false);
+        TestUtils.clickText(device, false, "⋮", true, false);
+        TestUtils.clickText(device, false, main.getString(R.string.edit), true, false);
+        assertTrue(TestUtils.findText(device, false, "TestLocation0"));
+        comments = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/text_line_edit"));
+        try {
+            comments.clearTextField();
+            ;
+            comments.setText("TestLocation007");
+        } catch (UiObjectNotFoundException e) {
+            Assert.fail(e.getMessage());
+        }
+        TestUtils.clickButton(device, "android:id/button1", true);
+        assertTrue(TestUtils.findText(device, false, "TestLocation007"));
+        TestUtils.clickText(device, false, main.getString(R.string.done), true, false);
+    }
 }
