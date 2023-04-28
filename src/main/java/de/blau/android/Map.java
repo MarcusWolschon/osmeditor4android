@@ -124,6 +124,12 @@ public class Map extends View implements IMapView {
      */
     private boolean alwaysDrawBoundingBoxes = false;
 
+    /**
+     * RectFs used for drawing BoundingBoxes
+     */
+    private RectF screen    = new RectF();
+    private RectF tempRectF = new RectF();
+
     /** cached zoom level, calculated once per onDraw pass **/
     private int zoomLevel = 0;
 
@@ -684,21 +690,6 @@ public class Map extends View implements IMapView {
     }
 
     /**
-     * As of Android 4.0.4, clipping with Op.DIFFERENCE is not supported if hardware acceleration is used. (see
-     * http://android-developers.blogspot.de/2011/03/android-30-hardware-acceleration.html) Op.DIFFERENCE and clipPath
-     * supported as of 18
-     * 
-     * !!! FIXME Disable using HW clipping completely for now, see bug
-     * https://github.com/MarcusWolschon/osmeditor4android/issues/307
-     * 
-     * @param c Canvas to check
-     * @return true if the canvas supports proper clipping with Op.DIFFERENCE
-     */
-    private static boolean hasFullClippingSupport(@NonNull Canvas c) {
-        return !c.isHardwareAccelerated();
-    }
-
-    /**
      * Paint the position marker for example for creating new objects
      * 
      * Draws the marker twice with different Paaint objects to create a halo effect
@@ -841,46 +832,33 @@ public class Map extends View implements IMapView {
     /**
      * Dim everything that hasn't been downloaded
      * 
+     * Note this assumes that the canvas is not using HW acceleration, as Op.DIFFERENCE will not work then
+     * 
      * @param canvas the canvas we are drawing on
      * @param list list of bounding boxes that we've downloaded
      */
     private void paintStorageBox(@NonNull final Canvas canvas, @NonNull List<BoundingBox> list) {
-        Canvas c = canvas;
-        Bitmap b = null;
-        // Clipping with Op.DIFFERENCE is not supported when a device uses hardware acceleration
-        // drawing to a bitmap however will currently not be accelerated
-        final boolean noFullClipping = !hasFullClippingSupport(canvas);
-        if (noFullClipping) {
-            b = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
-            c = new Canvas(b);
-        } else {
-            c.save();
-        }
+        canvas.save();
         int screenWidth = getWidth();
         int screenHeight = getHeight();
+        screen.set(0, 0, screenWidth, screenHeight);
         ViewBox viewBox = getViewBox();
         path.reset();
-        RectF screen = new RectF(0, 0, getWidth(), getHeight());
+
         for (BoundingBox bb : list) {
             if (bb != null && viewBox.intersects(bb)) { // only need to do this if we are on screen
                 float left = GeoMath.lonE7ToX(screenWidth, viewBox, bb.getLeft());
                 float right = GeoMath.lonE7ToX(screenWidth, viewBox, bb.getRight());
                 float bottom = GeoMath.latE7ToY(screenHeight, screenWidth, viewBox, bb.getBottom());
                 float top = GeoMath.latE7ToY(screenHeight, screenWidth, viewBox, bb.getTop());
-                RectF rect = new RectF(left, top, right, bottom);
-                rect.intersect(screen);
-                path.addRect(rect, Path.Direction.CW);
+                tempRectF.set(left, top, right, bottom);
+                tempRectF.intersect(screen);
+                path.addRect(tempRectF, Path.Direction.CW);
             }
         }
-
-        c.clipPath(path, Region.Op.DIFFERENCE);
-        c.drawRect(screen, boxPaint);
-
-        if (noFullClipping) {
-            canvas.drawBitmap(b, 0, 0, null); // NOSONAR
-        } else {
-            c.restore();
-        }
+        canvas.clipPath(path, Region.Op.DIFFERENCE);
+        canvas.drawRect(screen, boxPaint);
+        canvas.restore();
     }
 
     static final Bitmap NOICON = Bitmap.createBitmap(2, 2, Config.ARGB_8888);
