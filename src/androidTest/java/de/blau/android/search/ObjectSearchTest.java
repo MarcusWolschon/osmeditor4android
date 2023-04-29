@@ -219,10 +219,10 @@ public class ObjectSearchTest {
             TestUtils.clickButton(device, "android:id/button2", true);
             assertTrue(TestUtils.findText(device, false, main.getString(R.string.overpass_console), 5000));
             TestUtils.clickButton(device, "android:id/button1", true);
-            assertTrue(TestUtils.clickText(device, false, main.getString(R.string.save), true));
+            assertTrue(TestUtils.clickText(device, false, main.getString(R.string.save_code), true));
             TestUtils.selectFile(device, main, null, fileName, true, true);
             TestUtils.clickButton(device, "android:id/button1", true);
-            assertTrue(TestUtils.clickText(device, false, main.getString(R.string.load), true));
+            assertTrue(TestUtils.clickText(device, false, main.getString(R.string.load_code), true));
             TestUtils.selectFile(device, main, null, fileName, true);
             TestUtils.clickButton(device, "android:id/button2", false);
             assertTrue(TestUtils.findText(device, false, main.getString(R.string.overpass_query_would_overwrite), 5000));

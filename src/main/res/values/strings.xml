@@ -290,6 +290,9 @@
     <string name="js_console_msg_debug">Debug mode!</string>
     <string name="console_input_hint">Enter code here</string>
     <string name="console_output_hint">Output will appear here</string>
+    <string name="save_code">Save code…</string>
+    <string name="load_code">Load code…</string>
+    <string name="share_code">Share code…</string>
     <!--  Overpass console -->
     <string name="run">Run</string>
     <string name="overpass_result">Downloaded %1$d node(s), %2$d way(s) and %3$d relation(s).</string>
