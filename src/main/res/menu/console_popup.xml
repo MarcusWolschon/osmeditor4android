@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/console_menu_save"
-        android:title="@string/save"
+        android:title="@string/save_code"
     />
     <item
         android:id="@+id/console_menu_load"
-        android:title="@string/load"
+        android:title="@string/load_code"
     />
     <item
         android:id="@+id/console_menu_share"
-        android:title="@string/share"
+        android:title="@string/share_code"
     />
 </menu>
