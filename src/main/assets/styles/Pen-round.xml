@@ -219,12 +219,22 @@
             <interval length="2.0" />
         </dash>
     </feature>
+    <feature type="minor_ways_bridge_casing" updateWidth="true" widthFactor="0.8" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER">
+        <dash phase="1.0">
+            <interval length="2.0" />
+            <interval length="2.0" />
+        </dash>
+    </feature>
     <feature type="way" tags="highway" updateWidth="true" widthFactor="1.0" color="88888888" style="STROKE" cap="BUTT" join="MITER" arrowStyle="oneway_direction" labelZoomLimit="20" >
         <feature type="way" tags="highway=construction" widthFactor="1.0" color="88888888" />
         <feature type="way" tags="highway=proposed" widthFactor="1.0" color="88888888" />
         <feature type="way" tags="highway=pedestrian" widthFactor="0.8" color="ff888888" />
-        <feature type="way" tags="highway=path|surface=asphalt" widthFactor="0.6" color="ffc69c49" />
-        <feature type="way" tags="highway=path|surface=paved" widthFactor="0.6" color="ffc69c49" />
+        <feature type="way" tags="highway=path|surface=asphalt" widthFactor="0.6" color="ffc69c49" >
+            <feature type="way" tags="bridge=yes" casingStyle="minor_ways_bridge_casing" />
+        </feature>
+        <feature type="way" tags="highway=path|surface=paved" widthFactor="0.6" color="ffc69c49" >
+            <feature type="way" tags="bridge=yes" casingStyle="minor_ways_bridge_casing" />
+        </feature>
         <feature type="way" tags="highway=path" widthFactor="0.6" color="ffc69c49" >
             <dash phase="1.0">
                 <interval length="5.0" />
@@ -233,8 +243,12 @@
                 <interval length="1.0" />
             </dash>
         </feature>
-        <feature type="way" tags="highway=cycleway" widthFactor="0.6" color="fff48f42" />
-        <feature type="way" tags="highway=footway" widthFactor="0.6" color="ffff4500" />
+        <feature type="way" tags="highway=cycleway" widthFactor="0.6" color="fff48f42" >
+            <feature type="way" tags="bridge=yes" casingStyle="minor_ways_bridge_casing" />
+        </feature>
+        <feature type="way" tags="highway=footway" widthFactor="0.6" color="ffff4500" >
+            <feature type="way" tags="bridge=yes" casingStyle="minor_ways_bridge_casing" />
+        </feature>
         <feature type="way" tags="highway=steps"  widthFactor="0.6" color="ffff4500" >
             <dash phase="1.0">
     	       <interval length="1.0" />
