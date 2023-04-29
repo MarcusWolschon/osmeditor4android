@@ -377,6 +377,7 @@
         <feature type="way" tags="barrier=city_wall|two_sided=yes" widthFactor="2.0" color="ffCCCCCC" pathPattern="square_both" />
         <feature type="way" tags="barrier=city_wall" widthFactor="2.0" color="ffCCCCCC" pathPattern="square_right" />        
         <feature type="way" tags="barrier=retaining_wall" widthFactor="2.0" color="ffCCCCCC" pathPattern="triangle_right" />
+        <feature type="way" tags="barrier=guard_rail" widthFactor="2.0" color="ffCC9999" pathPattern="square_left" />
     </feature>
     <feature type="way" tags="power" updateWidth="true" widthFactor="0.6" color="ffaa0000" style="STROKE" cap="BUTT" join="MITER">
     	<dash phase="1.0">
