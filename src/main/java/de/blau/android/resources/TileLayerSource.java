@@ -114,9 +114,7 @@ public class TileLayerSource implements Serializable {
     public static final String TYPE_WMS          = "wms";
     public static final String TYPE_WMS_ENDPOINT = "wms_endpoint";
     static final String        TYPE_BING         = "bing";
-    static final String        TYPE_SCANEX       = "scanex";
-
-    private static final String SCANEX_HOST = "irs.gis-lab.info";
+    static final String        TYPE_SCANEX       = "scanex";      // no longer used
 
     public static final String LAYER_MAPNIK    = "MAPNIK";
     public static final String LAYER_NONE      = "NONE";
@@ -704,9 +702,6 @@ public class TileLayerSource implements Serializable {
                     loadMeta(tileUrl);
                 }
             }
-        } else if (TYPE_SCANEX.equals(type)) { // hopelessly hardwired
-            setTileUrl("http://" + SCANEX_HOST + "/?layers=" + tileUrl.toLowerCase(Locale.US) + "&request=GetTile&z={zoom}&x={x}&y={y}");
-            setImageExtension(FileExtensions.JPG);
         }
     }
 
@@ -1863,10 +1858,6 @@ public class TileLayerSource implements Serializable {
         // predefined layers
         if (id.equals(LAYER_BING)) {
             return TYPE_BING;
-        }
-
-        if (url.contains(SCANEX_HOST)) {
-            return "scanex_irs";
         }
 
         if ("Mapbox".equalsIgnoreCase(id)) {
