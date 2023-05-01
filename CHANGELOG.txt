@@ -1,5 +1,21 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+19.1.0-2:
+
+- Fix protect against invalid icons in the POI display (preset dependent crash)
+- Fix update OpeningHoursFragment (fixes infrequent ClassCastException)
+- Fix improve wording for items in the console menu
+- Fix regression that caused non-downloaded areas to always be dimmed
+- Add bridge casing for some minor ways
+- Add signature for barrier=guard_rail
+- Add migrate bookmarks storage format to geojson
+- Update JosmFilterParser (adds some translations)
+- Update release notes
+- Update documentation and improve wording
+- Update Maxar imagery API key
+- Update translations
+- Update imagery from ELI
+
 19.1.0-1:
 
 - Fix use new github token for builds
