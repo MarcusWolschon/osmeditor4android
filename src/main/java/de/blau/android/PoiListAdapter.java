@@ -5,6 +5,7 @@ import java.util.WeakHashMap;
 
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -39,6 +40,8 @@ public class PoiListAdapter extends RecyclerView.Adapter<PoiListAdapter.PoiViewH
     private final OnClickListener onClickListener;
     private int                   defaultTextColor;
     private int                   defaultBackgroundColor;
+
+    private static final BitmapDrawable NO_ICON = new BitmapDrawable(); // NOSONAR
 
     public static class PoiViewHolder extends RecyclerView.ViewHolder {
         TextView tv;
@@ -123,11 +126,16 @@ public class PoiListAdapter extends RecyclerView.Adapter<PoiListAdapter.PoiViewH
         if (icon == null) {
             PresetItem item = Preset.findBestMatch(App.getCurrentPresets(ctx), e.getTags(), null, null);
             if (item != null) {
-                icon = (BitmapDrawable) item.getIcon(ctx, ICON_SIZE);
+                Drawable tempIcon = item.getIcon(ctx, ICON_SIZE);
+                if (tempIcon instanceof BitmapDrawable) {
+                    icon = (BitmapDrawable) tempIcon;
+                } else {
+                    icon = NO_ICON;
+                }
                 e.addToCache(iconCache, icon);
             }
         }
-        holder.tv.setCompoundDrawables(icon, null, null, null);
+        holder.tv.setCompoundDrawables(icon != NO_ICON ? icon : null, null, null, null);
 
         String description = e.getFromCache(descriptionCache);
         if (description == null) {
