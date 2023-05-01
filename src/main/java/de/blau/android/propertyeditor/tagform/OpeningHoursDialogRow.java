@@ -46,7 +46,7 @@ public class OpeningHoursDialogRow extends MultiselectDialogRow {
      * 
      * @param context Android Context
      */
-    public OpeningHoursDialogRow(Context context) {
+    public OpeningHoursDialogRow(@NonNull Context context) {
         super(context);
     }
 
@@ -56,7 +56,7 @@ public class OpeningHoursDialogRow extends MultiselectDialogRow {
      * @param context Android Context
      * @param attrs an AttributeSet
      */
-    public OpeningHoursDialogRow(Context context, AttributeSet attrs) {
+    public OpeningHoursDialogRow(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
@@ -66,7 +66,7 @@ public class OpeningHoursDialogRow extends MultiselectDialogRow {
      * @param ohValue the original opening hours value
      * @param rules rules parsed from the value
      */
-    public void setValue(String ohValue, @Nullable List<Rule> rules) {
+    public void setValue(@Nullable String ohValue, @Nullable List<Rule> rules) {
         int childCount = valueList.getChildCount();
         for (int pos = 0; pos < childCount; pos++) { // don't delete first child, just clear
             if (pos == 0) {
