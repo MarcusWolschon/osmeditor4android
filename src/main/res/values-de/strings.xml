@@ -244,6 +244,8 @@
   <!--Tile layer info dialog-->
   <string name="attribution">Quellenhinweis</string>
   <!--GPX info dialog-->
+  <string name="track_points">Trackpunkte</string>
+  <string name="way_points">Wegpunkte</string>
   <!--Too much data dialog-->
   <string name="too_much_data_title">Zu viele Daten!</string>
   <string name="too_much_data_message">Es sind %1$d Knoten geladen, was den eingestellten Höchstwert übersteigt. Dies macht die App langsam und führt möglicherweise zu Problemen beim Sichern des aktuellen Zustandes.</string>
@@ -284,10 +286,18 @@
   <string name="evaluate">Auswerten</string>
   <string name="js_console_msg_live">Live-Modus!</string>
   <string name="js_console_msg_debug">Debug-Modus!</string>
+  <string name="console_input_hint">Hier Code eingeben</string>
   <string name="console_output_hint">Ausgabe wird hier angezeigt</string>
+  <string name="save_code">Quelltext speichern…</string>
+  <string name="load_code">Quelltext laden…</string>
+  <string name="share_code">Quelltext teilen…</string>
   <!--Overpass console-->
   <string name="run">Ausführen</string>
+  <string name="overpass_result">%1$d Knoten, %2$d Wege und %3$d Relationen heruntergeladen.</string>
   <string name="overpass_console">Overpass Konsole</string>
+  <string name="select_result">Suchresultat</string>
+  <string name="merge_result">Ergebnis kombinieren</string>
+  <string name="overpass_query_would_overwrite">Ergebnis würde Änderungen überschreiben. Abfrage abgebrochen.</string>
   <!---->
   <string name="error">Fehler</string>
   <string name="warning">Warnung</string>
@@ -453,6 +463,7 @@
   <!--Clear/Reset GPX Track-->
   <string name="clear_track_description">Aufzeichnung beenden und alle gespeicherten Trackpunkte löschen. Diese Aktion kann nicht rückgängig gemacht werden.</string>
   <!--Measurement dialog-->
+  <string name="measure">Maßstab</string>
   <!--Tips-->
   <string name="tip_title">Wussten Sie?</string>
   <string name="tip_check_label">Optionale Tipps nicht mehr anzeigen</string>
@@ -588,6 +599,8 @@
   <string name="toast_invalid_object">Ungültiges Objekt</string>
   <string name="toast_openinghours_invalid">Ungültiger Öffnungszeitenwert für %1$s</string>
   <string name="toast_openinghours_autocorrected">Öffnungszeitenwert für %1$s wurde korrigiert</string>
+  <string name="toast_exit_multiselect">Doppel-Tipp auf einen leeren Bereich oder benutze den ← Pfeil um Mehrfach-Selektion zu verlassen</string>
+  <string name="toast_already_in_multiselect">Bereits in Mehrfach-Selektion Modus</string>
   <string name="toast_abort_actionmode">\"Zurückpfeil\" wählen, um abzubrechen</string>
   <string name="toast_null_island">Bitte keine Objekte bei 0°/0° (Null Island) hinzufügen</string>
   <string name="toast_string_too_long">Text ist zu lang (%1$d Zeichen), gekürzt!</string>
@@ -657,6 +670,7 @@
   <string name="toast_error_saving_bookmark">Speichern des Lesezeichens nicht möglich</string>
   <string name="toast_error_loading_style">Kann Stil \"%1$s\" nicht laden</string>
   <string name="toast_only_one_source_supported">Nur eine Quelle per Stil unterstützt.</string>
+  <string name="toast_style_file_too_large">Die angegebene Stil-Datei ist zu groß und wahrscheinlich kein Mapbox-GL Stil.</string>
   <string name="toast_imagery_offset_download_failed">Download vom Versatz fehlgeschlagen: %1$s</string>
   <string name="toast_download_server_version_failed">Laden der Serverversion fehlgeschlagen für %1$s</string>
   <string name="toast_error_element_too_large">Element ist zu gross für den Eigenschaftseditor</string>
@@ -842,6 +856,7 @@
   <string name="menu_set_position">Position</string>
   <string name="menu_split">Auftrennen</string>
   <string name="menu_remove_node_from_way">Knoten aus Weg entfernen</string>
+  <string name="menu_start_end_way">Start/Ende des Wegs</string>
   <string name="menu_extract">Knoten extrahieren</string>
   <string name="menu_append">Anhängen</string>
   <string name="menu_create_route">Route erstellen</string>
@@ -879,6 +894,7 @@
   <string name="menu_transfer_download_replace">Löschen und aktuelle Ansicht herunterladen</string>
   <string name="menu_transfer_load_current">Aktuelle Ansicht laden</string>
   <string name="menu_transfer_load_replace">Löschen und aktuelle Ansicht laden</string>
+  <string name="menu_transfer_query_overpass">Overpass abfragen…</string>
   <string name="menu_transfer_upload">Daten zum OSM-Server hochladen…</string>
   <string name="menu_transfer_review">Änderungen überprüfen…</string>
   <string name="menu_transfer_update">Daten aktualisieren</string>
@@ -951,10 +967,12 @@
   <string name="menu_preset_feedback">Rückmeldung zu Vorlage senden</string>
   <string name="menu_privacy">Datenschutz</string>
   <!--Background alignment-->
+  <string name="menu_tools_background_align">Bildmaterial justieren</string>
   <string name="menu_tools_background_align_reset">Zurücksetzen</string>
   <string name="menu_tools_background_align_zero">Auf Null setzen</string>
   <string name="menu_tools_background_align_retrieve_from_db">Aus Datenbank</string>
   <string name="menu_tools_background_align_retrieve_from_device">Vom Gerät</string>
+  <string name="menu_tools_background_align_save_db">In Datenbank speichern…</string>
   <string name="menu_tools_background_align_save_device">Auf Gerät speichern</string>
   <string name="menu_tools_background_align_apply2all">Anwenden (alle Zoomstufen)</string>
   <string name="min_max_zoom">%1$d - %2$d</string>
@@ -970,6 +988,7 @@
   <string name="menu_layers_add_photolayer">Foto-Ebene anzeigen</string>
   <string name="menu_layers_enable_mapillary_layer">Mapillary-Ebene anzeigen</string>
   <string name="menu_layers_configure">Konfigurieren…</string>
+  <string name="menu_layers_background_align">Bildmaterial justieren…</string>
   <!---->
   <string name="menu_tools_apply_local_offset">Gespeicherten Hintergrundversatz anwenden</string>
   <string name="menu_tools_background_contrast">Kontrast</string>
@@ -982,6 +1001,7 @@
   <!--element action mode menu-->
   <string name="menu_tags">Eigenschaften</string>
   <!--Text should be as short as possible-->
+  <string name="start_end_way_description">Gehe zum Start oder Ende des Weges</string>
   <string name="menu_history">Chronik</string>
   <string name="menu_history_web">Chronik (Web)</string>
   <string name="menu_merge">Wege verbinden</string>
@@ -1106,6 +1126,8 @@
   <string name="config_showWayIcons_summary">Über Gebäuden das Symbol der am besten passenden Vorlage einblenden</string>
   <string name="config_tagFormEnabled_title">Eigenschaftsformular anzeigen</string>
   <string name="config_tagFormEnabled_summary">Formularansicht für Eigenschaften anzeigen</string>
+  <string name="config_supportPresetLabels_title">Zeige Beschriftung der Voreinstellungen</string>
+  <string name="configsupportPresetLabels_summary">Zeige Beschriftung der Voreinstellungen im Tag-Editor an.</string>
   <string name="config_showCameraAction_title">Kameraaktion anzeigen</string>
   <string name="config_showCameraAction_summary">Kamera-Symbol in Menüleiste anzeigen</string>
   <string name="config_selectCameraApp_title">Kamera-App</string>
@@ -1149,7 +1171,11 @@
   <string name="config_maxStrokeWidth_title">Maximale Linienbreite</string>
   <string name="config_maxStrokeWidth_summary">Weg nicht breiter zeichnen als:</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>
+  <string name="config_uploadOk_title">Grenze für ausstehendes Hochladen OK</string>
+  <string name="config_uploadOk_summary">Liegt die Anzahl der anstehenden Objekt-Uploads unter dieser Grenze, wird die Situation als unproblematisch angesehen.</string>
   <string name="config_upload_current">%1$d Objekte</string>
+  <string name="config_uploadWarn_title">Warngrenze für anstehende Uploads</string>
+  <string name="config_uploadWarn_summary">Liegt die Anzahl der ausstehenden Objekt-Uploads unter dieser Grenze, wird der Status Warnung vergeben. Liegt die Anzahl der ausstehenden Uploads über diesem Wert, wird der Status Gefahr angezeigt.</string>
   <string name="config_uploadChecker_title">Erinnerungsintervall für das Hochladen</string>
   <string name="config_uploadChecker_summary">Intervall für Erinnerungen bei unveröffentlichten Änderungen.</string>
   <string name="config_uploadChecker_current">%1$d Stunden</string>
@@ -1205,6 +1231,8 @@
   <string name="config_maxOffsetDistance_title">Max. Abstand für gespeicherte Hintergrundversatzwerte</string>
   <string name="config_maxOffsetDistance_summary">Der größte Abstand bei dem ein Hintergrundversatzkorrekturwert noch automatisch angewendet wird.</string>
   <string name="config_maxOffsetDistance_current">%1$d Meter</string>
+  <string name="config_useImperialUnits_title">Verwenden imperiale Einheiten zum Messen</string>
+  <string name="config_useImperialUnits_summary">Verwende imperiale Einheiten in Ländern, die diese üblicherweise verwenden.</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Auto-Download-Einstellungen</string>
   <string name="config_category_auto_download_summary">Einstellungen für das automatische Herunterladen von Daten und Aufgaben</string>
@@ -1266,6 +1294,8 @@
   <string name="config_geocoderbutton_summary">Geocoder für die Suchfunktion hinzufügen, bearbeiten und löschen</string>
   <string name="config_taginfoServer_title">Taginfo-Server</string>
   <string name="config_taginfoServer_summary">Der Taginfo-Server für das automatische Erstellen von Vorlagen</string>
+  <string name="config_overpassServer_title">Overpass-Server</string>
+  <string name="config_overpassServer_summary">Overpass Server für Abfragen verwendet</string>
   <!--Layer download and storage-->
   <string name="config_category_layers">Hintergrundbilder laden und speichern</string>
   <string name="config_category_layers_summary">Download und Speicher der auf Kacheln basierenden Hintergrundbilder</string>
@@ -1294,6 +1324,8 @@
   <string name="config_autosaveChanges_current">%1$d</string>
   <string name="config_autosaveMaxFiles_title">Maximale Anzahl von OSC-Dateien, die gespeichert werden sollen</string>
   <string name="config_autosaveMaxFiles_current">%1$d</string>
+  <string name="config_gpxAutosaveInterval_title">Minimum GPX Speicherintervall</string>
+  <string name="config_gpxAutosaveInterval_summary">Mindestintervall in Minuten zwischen dem Speichern von GPX-Aufzeichnungen.</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">Verschiedenes</string>
   <string name="pref_enable_acra">Programmabstürze melden</string>
