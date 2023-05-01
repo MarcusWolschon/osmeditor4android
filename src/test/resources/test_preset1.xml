@@ -314,5 +314,9 @@
             <reference ref="road_access_restrictions"/>
             <reference ref="lane_presets"/>
         </item> <!-- Motorway Link -->
+        <item name="Invalid icon" icon="" type="way" preset_name_label="true">
+            <link wiki="Tag:something"/>
+            <key key="highway" value="test"/>
+        </item> <!-- Invalid icon -->
     </group>
 </presets>
