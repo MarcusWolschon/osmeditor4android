@@ -29,11 +29,11 @@
                 android:checkable="true"
                 android:title="@string/menu_gps_follow" />
             <item
-                android:id="@+id/menu_gps_add_bookmark"
-                android:title="@string/add_bookmark" />
-            <item
                 android:id="@+id/menu_gps_show_bookmarks"
                 android:title="@string/show_bookmarks" />
+            <item
+                android:id="@+id/menu_gps_add_bookmark"
+                android:title="@string/menu_gps_add_bookmark" />
             <item
                 android:id="@+id/menu_gps_goto_nearest_todo"
                 android:title="@string/menu_gps_goto_nearest_todo" />
@@ -79,11 +79,13 @@
                 android:alphabeticShortcut="@string/shortcut_download" />
             <item
                 android:id="@+id/menu_transfer_download_replace"
-                android:title="@string/menu_transfer_download_replace" />  
+                android:title="@string/menu_transfer_download_replace" />
             <item
                 android:id="@+id/menu_transfer_query_overpass"
-                android:title="@string/menu_transfer_query_overpass" />           
-            <group android:checkableBehavior="single" android:id="@+id/group1">
+                android:title="@string/menu_transfer_query_overpass" />
+            <group
+                android:checkableBehavior="single"
+                android:id="@+id/group1">
                 <item
                     android:id="@+id/menu_enable_gps_autodownload"
                     android:checkable="true"
@@ -216,7 +218,7 @@
             <item
                 android:id="@+id/menu_tools_remove_egm"
                 android:title="@string/menu_tools_remove_egm" />
-             <item
+            <item
                 android:id="@+id/menu_tools_import_data_style"
                 android:title="@string/menu_tools_import_data_style"
                 app:showAsAction="never" />
