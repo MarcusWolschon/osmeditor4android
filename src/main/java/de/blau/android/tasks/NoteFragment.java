@@ -130,11 +130,11 @@ public class NoteFragment extends TaskFragment {
     protected void onShowListener(Task task, Button save, Button upload, Button cancel, Spinner state) {
         super.onShowListener(task, save, upload, cancel, state);
         comment.addTextChangedListener(new TextWatcher() {
-            CharSequence original = comment.getText();
+            final String original = comment.getText().toString();
 
             @Override
             public void afterTextChanged(Editable edited) {
-                boolean changed = !original.equals(edited) || NoteFragment.super.changed(state.getSelectedItemPosition());
+                boolean changed = !original.equals(edited.toString()) || NoteFragment.super.changed(state.getSelectedItemPosition());
                 save.setEnabled(changed);
                 upload.setEnabled(changed);
                 if (changed && state.getSelectedItemPosition() != State.OPEN.ordinal()) {
