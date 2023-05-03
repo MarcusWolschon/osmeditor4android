@@ -53,7 +53,6 @@ import de.blau.android.presets.PresetRole;
 import de.blau.android.util.BaseFragment;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.ScrollingLinearLayoutManager;
-import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 import de.blau.android.util.collections.MultiHashMap;
@@ -575,17 +574,7 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
                 }
             });
 
-            roleEdit.setOnItemClickListener((parent, view, position, id) -> {
-                Log.d(DEBUG_TAG, "onItemClicked role");
-                Object o = parent.getItemAtPosition(position);
-                if (o instanceof StringWithDescription) {
-                    roleEdit.setText(((StringWithDescription) o).getValue());
-                } else if (o instanceof String) {
-                    roleEdit.setText((String) o);
-                } else if (o instanceof PresetRole) {
-                    roleEdit.setText(((PresetRole) o).getRole());
-                }
-            });
+            RelationMembershipFragment.setRoleOnItemClickListener(roleEdit);
         }
 
         /**
