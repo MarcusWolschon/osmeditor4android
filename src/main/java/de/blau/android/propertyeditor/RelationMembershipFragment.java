@@ -363,17 +363,7 @@ public class RelationMembershipFragment extends BaseFragment implements Property
                 }
             });
 
-            roleEdit.setOnItemClickListener((parent, view, position, id) -> {
-                Log.d(DEBUG_TAG, "onItemClicked role");
-                Object o = parent.getItemAtPosition(position);
-                if (o instanceof StringWithDescription) {
-                    roleEdit.setText(((StringWithDescription) o).getValue());
-                } else if (o instanceof String) {
-                    roleEdit.setText((String) o);
-                } else if (o instanceof PresetRole) {
-                    roleEdit.setText(((PresetRole) o).getRole());
-                }
-            });
+            setRoleOnItemClickListener(roleEdit);
 
             OsmElement element = App.getDelegator().getOsmElement(Relation.NAME, relationId);
             if (element != null) {
@@ -584,6 +574,26 @@ public class RelationMembershipFragment extends BaseFragment implements Property
             this.showSpinner = showSpinner;
         }
     } // RelationMembershipRow
+
+    /**
+     * Set the OnItemClickListener for the role view
+     * 
+     * @param role the role view
+     * 
+     */
+    static void setRoleOnItemClickListener(@NonNull AutoCompleteTextView role) {
+        role.setOnItemClickListener((parent, view, position, id) -> {
+            Log.d(DEBUG_TAG, "onItemClicked role");
+            Object o = parent.getItemAtPosition(position);
+            if (o instanceof StringWithDescription) {
+                role.setText(((StringWithDescription) o).getValue());
+            } else if (o instanceof String) {
+                role.setText((String) o);
+            } else if (o instanceof PresetRole) {
+                role.setText(((PresetRole) o).getRole());
+            }
+        });
+    }
 
     /**
      * Start the action mode when a row is selected
