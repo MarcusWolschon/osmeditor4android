@@ -56,7 +56,7 @@ public class MBTileProviderDataBase {
 
     private final SQLiteDatabase mDatabase;
 
-    private Pools.SynchronizedPool<SQLiteStatement> getStatements;
+    private final Pools.SynchronizedPool<SQLiteStatement> getStatements;
 
     private Map<String, String> metadata = null;
 

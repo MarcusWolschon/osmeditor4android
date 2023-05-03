@@ -39,9 +39,6 @@ import de.blau.android.views.util.MapViewConstants;
  * @author Simon Poole
  */
 public class MapTileProviderDataBase {
-
-    static final String TILE_MARKED_INVALID_IN_DATABASE = "Tile marked invalid in database";
-
     private static final String DEBUG_TAG = "MapTilePro...DataBase";
 
     private static final String DATABASE_NAME    = "osmaptilefscache_db";
@@ -93,6 +90,9 @@ public class MapTileProviderDataBase {
             + " ASC";
 
     private static final String T_FSCACHE_GET = "SELECT " + T_FSCACHE_DATA + " FROM " + T_FSCACHE + " WHERE " + T_FSCACHE_WHERE;
+    
+    static final String TILE_MARKED_INVALID_IN_DATABASE = "Tile marked invalid in database";
+    
     // ===========================================================
     // Fields
     // ===========================================================
@@ -100,7 +100,7 @@ public class MapTileProviderDataBase {
     private final DatabaseHelper databaseHelper;
     private final SQLiteDatabase mDatabase;
 
-    private static Pools.SynchronizedPool<SQLiteStatement> getStatements;
+    private final Pools.SynchronizedPool<SQLiteStatement> getStatements;
 
     // ===========================================================
     // Constructors
