@@ -48,7 +48,7 @@ public final class OsmXml {
         }
         return 0;
     };
-    
+
     /**
      * Empty private constructor to prevent instantiation
      */
@@ -104,7 +104,7 @@ public final class OsmXml {
                 deletedNodes.add(elem);
                 break;
             default:
-                Log.d(DEBUG_TAG, "node id " + elem.osmId + " not modified");
+                logNotModified(elem);
                 continue;
             }
             count++;
@@ -126,7 +126,7 @@ public final class OsmXml {
                     deletedWays.add(elem);
                     break;
                 default:
-                    Log.d(DEBUG_TAG, "way id " + elem.osmId + " not modified");
+                    logNotModified(elem);
                     continue;
                 }
                 count++;
@@ -149,7 +149,7 @@ public final class OsmXml {
                     deletedRelations.add(elem);
                     break;
                 default:
-                    Log.d(DEBUG_TAG, "relation id " + elem.osmId + " not modified");
+                    logNotModified(elem);
                     continue;
                 }
                 count++;
@@ -224,6 +224,15 @@ public final class OsmXml {
 
         serializer.endTag(null, OSM_CHANGE);
         serializer.endDocument();
+    }
+
+    /**
+     * Log that the element hasn't been modified
+     * 
+     * @param elem the OsmElement
+     */
+    private static void logNotModified(@NonNull OsmElement elem) {
+        Log.d(DEBUG_TAG, elem.getName() + " id " + elem.osmId + " not modified");
     }
 
     /**
