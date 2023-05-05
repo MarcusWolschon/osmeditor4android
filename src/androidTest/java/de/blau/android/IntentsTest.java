@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -22,11 +23,17 @@ import android.app.Instrumentation.ActivityMonitor;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.FileProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
+import androidx.test.uiautomator.UiObject2;
+import de.blau.android.contract.MimeTypes;
+import de.blau.android.layer.LayerDialogTest;
 import de.blau.android.osm.Node;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
@@ -34,6 +41,7 @@ import de.blau.android.resources.TileLayerSource;
 import de.blau.android.tasks.Note;
 import de.blau.android.tasks.OsmoseBug;
 import de.blau.android.tasks.Task;
+import de.blau.android.util.FileUtil;
 import okhttp3.HttpUrl;
 
 @RunWith(AndroidJUnit4.class)
@@ -244,5 +252,67 @@ public class IntentsTest {
         assertEquals("osmtest", tileServer.getName());
         assertEquals(2, tileServer.getMinZoomLevel());
         assertEquals(19, tileServer.getMaxZoomLevel());
+    }
+
+    /**
+     * Test that viewing a GPX file via an ACTION_VIEW works
+     */
+    @Test
+    public void gpxView() {
+        startWithFile(Intent.ACTION_VIEW, null, "short.gpx", MimeTypes.GPX);
+    }
+
+    /**
+     * Test that viewing a GPX file via an ACTION_SEND works
+     */
+    @Test
+    public void gpxSend() {
+        startWithFile(Intent.ACTION_SEND, null, "short.gpx", MimeTypes.GPX);
+    }
+
+    /**
+     * Test that viewing a GeoJSON file via an ACTION_VIEW works
+     */
+    @Test
+    public void geojsonView() {
+        startWithFile(Intent.ACTION_VIEW, "geojson/", "featureCollection.geojson", MimeTypes.GEOJSON);
+    }
+
+    /**
+     * Test that viewing a GeoJSON file via an ACTION_SEND works
+     */
+    @Test
+    public void geojsonSend() {
+        startWithFile(Intent.ACTION_SEND, "geojson/", "featureCollection.geojson", MimeTypes.GEOJSON);
+    }
+
+    /**
+     * Construct an intent with a file and then try to start us with it
+     * 
+     * @param action the Intent action
+     */
+    private void startWithFile(@NonNull String action, @Nullable String sourceDir, @NonNull String fileName, @NonNull String mimeType) {
+        try {
+            File destinationDir = FileUtil.getApplicationDirectory(main, "/");
+            File gpxFile = new File(destinationDir, fileName);
+            JavaResources.copyFileFromResources(fileName, sourceDir, gpxFile);
+            try {
+                ActivityMonitor monitor = instrumentation.addMonitor(Main.class.getName(), null, false);
+                Intent intent = new Intent(action);
+                Uri uri = FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".provider", gpxFile);
+                intent.setDataAndType(uri, mimeType);
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                main.startActivity(intent);
+                TestUtils.selectIntentRecipient(device);
+                Main m = (Main) instrumentation.waitForMonitorWithTimeout(monitor, 60000);
+                assertNotNull(m);
+                UiObject2 extentButton = TestUtils.getLayerButton(device, fileName, LayerDialogTest.EXTENT_BUTTON);
+                extentButton.click();
+            } finally {
+                gpxFile.delete();
+            }
+        } catch (IOException e) {
+            fail(e.getMessage());
+        }
     }
 }
