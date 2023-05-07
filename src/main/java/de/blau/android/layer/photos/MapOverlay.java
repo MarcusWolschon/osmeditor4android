@@ -54,16 +54,18 @@ import de.blau.android.views.IMapView;
  */
 public class MapOverlay extends MapViewLayer implements DiscardInterface, ClickableInterface<Photo> {
 
-    private static final String DEBUG_TAG = "PhotoOverlay";
+    private static final String DEBUG_TAG = MapOverlay.class.getSimpleName();
 
-    /** viewbox needs to be less wide than this for displaying bugs, just to avoid querying the whole world for bugs */
-    private static final int TOLERANCE_MIN_VIEWBOX_WIDTH = 40000 * 32;
+    /** viewbox needs to be less wide than this for displaying photos, just to avoid querying the whole world */
+    private static final int TOLERANCE_MAX_VIEWBOX_WIDTH = 40000 * 32;
 
     /** Map this is an overlay of. */
     private final Map map;
 
     /** Photos visible on the overlay. */
     private List<Photo> photos;
+
+    private final ViewBox bb = new ViewBox();
 
     /** have we already run a scan? */
     private boolean indexed = false;
@@ -182,8 +184,8 @@ public class MapOverlay extends MapViewLayer implements DiscardInterface, Clicka
                 return;
             }
 
-            ViewBox bb = osmv.getViewBox();
-            if ((bb.getWidth() > TOLERANCE_MIN_VIEWBOX_WIDTH) || (bb.getHeight() > TOLERANCE_MIN_VIEWBOX_WIDTH)) {
+            bb.set(osmv.getViewBox());
+            if ((bb.getWidth() > TOLERANCE_MAX_VIEWBOX_WIDTH) || (bb.getHeight() > TOLERANCE_MAX_VIEWBOX_WIDTH)) {
                 return;
             }
 

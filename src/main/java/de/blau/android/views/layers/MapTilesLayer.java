@@ -114,6 +114,8 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
 
     private final Context ctx;
 
+    private final BoundingBox viewBox = new BoundingBox();
+
     private final TileRenderer<T> mTileRenderer;
 
     // avoid creating new Rects in onDraw
@@ -371,7 +373,8 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
         if (!isVisible) {
             return;
         }
-        BoundingBox viewBox = osmv.getViewBox();
+
+        viewBox.set(osmv.getViewBox());
         if (!myRendererInfo.covers(viewBox)) {
             if (!coverageWarningDisplayed) {
                 coverageWarningDisplayed = true;

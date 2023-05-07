@@ -94,6 +94,7 @@ public class MapOverlay extends MapViewLayer
 
     private List<Task>        taskList = new ArrayList<>();
     private List<BoundingBox> boxes    = new ArrayList<>();
+    private final ViewBox     bb       = new ViewBox();
 
     private Context context = null;
 
@@ -181,12 +182,12 @@ public class MapOverlay extends MapViewLayer
         int zoomLevel = map.getZoomLevel();
 
         if (isVisible && zoomLevel >= SHOW_TASKS_LIMIT) {
-            ViewBox bb = osmv.getViewBox();
+            bb.set(osmv.getViewBox());
             Location location = map.getLocation();
 
             if (zoomLevel >= panAndZoomLimit && panAndZoomDownLoad && (location == null || location.getSpeed() < maxDownloadSpeed)) {
                 map.getRootView().removeCallbacks(download);
-                download.setBox(map.getViewBox());
+                download.setBox(bb);
                 map.getRootView().postDelayed(download, 100);
             }
 
