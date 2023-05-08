@@ -69,6 +69,7 @@ import de.blau.android.exception.StorageException;
 import de.blau.android.exception.UnsupportedFormatException;
 import de.blau.android.filter.Filter;
 import de.blau.android.gpx.Track;
+import de.blau.android.imageryoffset.ImageryAlignmentActionModeCallback;
 import de.blau.android.imageryoffset.Offset;
 import de.blau.android.layer.MapViewLayer;
 import de.blau.android.osm.BoundingBox;
@@ -1550,7 +1551,7 @@ public class Logic {
             main.getEasyEditManager().invalidate(); // if we are in an action mode update menubar
         } else {
             if (mode == Mode.MODE_ALIGN_BACKGROUND) {
-                performBackgroundOffset(relativeX, relativeY);
+                performBackgroundOffset(main, relativeX, relativeY);
             } else {
                 performTranslation(map, relativeX, relativeY);
                 main.getEasyEditManager().invalidateOnDownload();
@@ -1619,25 +1620,31 @@ public class Logic {
     /**
      * Converts screen-coords to gps-coords and offsets background layer.
      * 
+     * @param main current instance of Main
      * @param screenTransX Movement on the screen.
      * @param screenTransY Movement on the screen.
      */
-    private void performBackgroundOffset(final float screenTransX, final float screenTransY) {
-        int height = map.getHeight();
-        int lon = xToLonE7(screenTransX);
-        int lat = yToLatE7(height - screenTransY);
-        int relativeLon = lon - viewBox.getLeft();
-        int relativeLat = lat - viewBox.getBottom();
-        // TileLayerSource osmts = map.getBackgroundLayer().getTileLayerConfiguration();
-        TileLayerSource osmts = ((Main) map.getContext()).getImageryAlignmentActionModeCallback().getLayerSource();
-        double lonOffset = 0d;
-        double latOffset = 0d;
-        Offset o = osmts.getOffset(map.getZoomLevel());
-        if (o != null) {
-            lonOffset = o.getDeltaLon();
-            latOffset = o.getDeltaLat();
+    private void performBackgroundOffset(@NonNull Main main, final float screenTransX, final float screenTransY) {
+        ImageryAlignmentActionModeCallback callback = main.getImageryAlignmentActionModeCallback();
+        if (callback != null) {
+            TileLayerSource osmts = callback.getLayerSource();
+            int height = map.getHeight();
+            int lon = xToLonE7(screenTransX);
+            int lat = yToLatE7(height - screenTransY);
+            int relativeLon = lon - viewBox.getLeft();
+            int relativeLat = lat - viewBox.getBottom();
+
+            double lonOffset = 0d;
+            double latOffset = 0d;
+            Offset o = osmts.getOffset(map.getZoomLevel());
+            if (o != null) {
+                lonOffset = o.getDeltaLon();
+                latOffset = o.getDeltaLat();
+            }
+            osmts.setOffset(map.getZoomLevel(), lonOffset - relativeLon / 1E7d, latOffset - relativeLat / 1E7d);
+        } else {
+            Log.e(DEBUG_TAG, "performBackgroundOffset callback null");
         }
-        osmts.setOffset(map.getZoomLevel(), lonOffset - relativeLon / 1E7d, latOffset - relativeLat / 1E7d);
     }
 
     /**
