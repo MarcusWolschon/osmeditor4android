@@ -139,12 +139,20 @@ public class ViewBox extends BoundingBox {
         calcBottomMercator();
     }
 
-    /**
-     * @return returns a copy of this object.
-     */
     @Override
     public ViewBox copy() {
         return new ViewBox(this);
+    }
+    
+    @Override
+    public void set(@NonNull final BoundingBox box) {
+        super.set(box);
+        if (box instanceof ViewBox) {
+            this.bottomMercator = ((ViewBox)box).bottomMercator;
+        } else {
+            calcDimensions();
+            calcBottomMercator();
+        }
     }
 
     /**
