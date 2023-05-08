@@ -129,10 +129,12 @@ Tapping the icon once will undo the last operation. A long press will display a 
 
 ### ![Camera](../images/camera.png) Camera
 
-Start a camera app, and add the resulting photograph to the photo layer if it is enabled. The photograph itself should be stored in the Vespucci/Pictures 
-directory, however this depends on the specific camera app. Note that because of restrictions in recent versions of Android you will need to configure the target app in the preferences if you are not happy with the standard app on your device. See [16.1 release notes](16.1.0 Release notes.md).
-Photographs may also be "shared" from other apps into Vespucci.
-Note the purpose of using the camera and photo layers in Vespucci is just for the user's personal reference, not for uploading pictures to Openstreetmap, etc.
+Start a camera app, and add the resulting photograph to the photo layer if it is enabled. The photograph itself will be stored in the Vespucci/Pictures 
+directory, however if this works depends on the specific camera app.  Photographs may also be "shared" from other apps into Vespucci, these can be viewed, just as images taken via the camera button in Vespuccis image viewer.
+
+Notes 
+* Because of restrictions in recent versions of Android you will need to configure the target app in the preferences if you are not happy with the standard app on your device. See [16.1 release notes](16.1.0 Release notes.md).
+* OpenStreetMap currently does not provide an upload/storage facility for large numbers of images (you can store individual images of interest in the OSM wiki).  
 
 ### ![Location](../images/menu_gps.png) Location
 
