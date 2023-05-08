@@ -45,7 +45,6 @@ import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -757,36 +756,6 @@ public class Logic {
                 throw ex; // rethrow
             }
         }
-    }
-
-    /**
-     * Prepares the screen for an empty map. Strokes will be updated and map will be repainted.
-     * 
-     * @param activity activity that called us
-     * @param box the new empty map-box. Don't mess up with the viewBox!
-     */
-    void newEmptyMap(@NonNull FragmentActivity activity, @NonNull ViewBox box) {
-        Log.d(DEBUG_TAG, "newEmptyMap");
-        // not checking will zap edits, given that this method will only be called when we are not downloading, not a
-        // good thing
-        if (!getDelegator().isDirty()) {
-            getDelegator().reset(false);
-            // delegator.setOriginalBox(box); not needed IMHO
-        } else if (!getDelegator().isEmpty()) {
-            // TODO show warning
-            Log.e(DEBUG_TAG, "newEmptyMap called on dirty storage");
-        }
-        // if the map view isn't drawn use an approximation for the aspect ratio of the display ... this is a hack
-        DisplayMetrics metrics = activity.getResources().getDisplayMetrics();
-        float ratio = (float) metrics.widthPixels / (float) metrics.heightPixels;
-        if (map.getHeight() != 0) {
-            ratio = (float) map.getWidth() / map.getHeight();
-        }
-        viewBox.setBorders(map, box, ratio, false);
-        map.setViewBox(viewBox);
-        DataStyle.updateStrokes(strokeWidth(viewBox.getWidth()));
-        invalidateMap();
-        activity.invalidateOptionsMenu();
     }
 
     /**
