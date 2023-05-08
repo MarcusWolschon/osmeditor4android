@@ -114,7 +114,7 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
 
     private final Context ctx;
 
-    private final BoundingBox viewBox = new BoundingBox();
+    private final ViewBox viewBox = new ViewBox();
 
     private final TileRenderer<T> mTileRenderer;
 
@@ -203,7 +203,6 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
         mTileRenderer = aTileRenderer;
         //
         textPaint = DataStyle.getInternal(DataStyle.ATTRIBUTION_TEXT).getPaint();
-        // mPaint.setAlpha(aRendererInfo.getDefaultAlpha());
 
         Log.d(DEBUG_TAG,
                 aRendererInfo != null ? (aRendererInfo.isMetadataLoaded()
@@ -707,7 +706,6 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
         // double south = tile2lat(y + 1, zoomLevel); only calculate when needed (aka non square tiles)
         double west = tile2lon(x, zoomLevel);
         double east = tile2lon(x + 1, zoomLevel);
-        final ViewBox viewBox = osmv.getViewBox();
         int screenLeft = (int) GeoMath.lonE7ToX(w, viewBox, (int) ((west + lonOffset) * 1E7));
         int screenRight = (int) GeoMath.lonE7ToX(w, viewBox, (int) ((east + lonOffset) * 1E7));
         int screenTop = (int) GeoMath.latE7ToY(h, w, viewBox, (int) ((north + latOffset) * 1E7));
