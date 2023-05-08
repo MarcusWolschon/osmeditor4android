@@ -1946,7 +1946,7 @@ public class Logic {
         }
         for (OsmElement e : selection) {
             if (e instanceof Way && e.getState() != OsmElement.STATE_DELETED) {
-                performEraseWay(activity, (Way) e, true, false); // TODO maybe we don't want to delete the nodes
+                performEraseWay(activity, (Way) e, true, false);
             }
         }
         for (OsmElement e : selection) {
