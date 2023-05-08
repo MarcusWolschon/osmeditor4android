@@ -2514,10 +2514,15 @@ public class Logic {
      * @param node Node that is joining the ways to be unjoined.
      */
     public synchronized void performUnjoinWays(@Nullable FragmentActivity activity, @NonNull Node node) {
-        createCheckpoint(activity, R.string.undo_action_unjoin_ways);
-        displayAttachedObjectWarning(activity, node); // needs to be done before unjoin
-        getDelegator().unjoinWays(node);
-        invalidateMap();
+        try {
+            createCheckpoint(activity, R.string.undo_action_unjoin_ways);
+            displayAttachedObjectWarning(activity, node); // needs to be done before unjoin
+            getDelegator().unjoinWays(node);
+            invalidateMap();
+        } catch (OsmIllegalOperationException | StorageException ex) {
+            handleDelegatorException(activity, ex);
+            throw ex; // rethrow
+        }
     }
 
     /**
@@ -5481,10 +5486,15 @@ public class Logic {
         if (way.getNodes().size() < 3) {
             return;
         }
-        createCheckpoint(activity, R.string.undo_action_circulize);
-        getDelegator().circulizeWay(map, way);
-        invalidateMap();
-        displayAttachedObjectWarning(activity, way);
+        try {
+            createCheckpoint(activity, R.string.undo_action_circulize);
+            getDelegator().circulizeWay(map, way);
+            invalidateMap();
+            displayAttachedObjectWarning(activity, way);
+        } catch (OsmIllegalOperationException | StorageException ex) {
+            handleDelegatorException(activity, ex);
+            throw ex;
+        }
     }
 
     /**
