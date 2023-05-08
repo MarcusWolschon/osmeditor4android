@@ -571,7 +571,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
             MultiHashMap<String, CoverageArea> coverages = new MultiHashMap<>();
             try (Cursor coverageCursor = db.rawQuery(
                     "SELECT coverages.id as id,left,bottom,right,top,coverages.zoom_min as zoom_min,coverages.zoom_max as zoom_max FROM layers,coverages WHERE coverages.id=layers.id AND overlay=?",
-                    new String[] { overlay ? "1" : "0" })) {
+                    new String[] { boolean2intString(overlay) })) {
                 if (coverageCursor.getCount() >= 1) {
                     initCoverageFieldIndices(coverageCursor);
                     boolean haveEntry = coverageCursor.moveToFirst();
@@ -585,8 +585,8 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
             }
 
             try (Cursor layerCursor = db.query(LAYERS_TABLE, null,
-                    OVERLAY_FIELD + "=" + (overlay ? 1 : 0) + " AND " + TYPE_FIELD + " <> '" + TileLayerSource.TYPE_WMS_ENDPOINT + "'", null, null, null,
-                    null)) {
+                    OVERLAY_FIELD + "=" + boolean2intString(overlay) + " AND " + TYPE_FIELD + " <> '" + TileLayerSource.TYPE_WMS_ENDPOINT + "'", null, null,
+                    null, null)) {
                 if (layerCursor.getCount() >= 1) {
                     boolean haveEntry = layerCursor.moveToFirst();
                     initLayerFieldIndices(layerCursor);
@@ -608,9 +608,19 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
                 }
             }
         } catch (IllegalArgumentException iaex) {
-            Log.e(DEBUG_TAG, "Retrieveing sources failed " + iaex.getMessage());
+            Log.e(DEBUG_TAG, "Retrieving sources failed " + iaex.getMessage());
         }
         return layers;
+    }
+
+    /**
+     * Return a int string value for a boolean
+     * 
+     * @param bool the boolean
+     * @return "1" or "0"
+     */
+    private static String boolean2intString(boolean bool) {
+        return bool ? "1" : "0";
     }
 
     static int idLayerFieldIndex          = -1;
