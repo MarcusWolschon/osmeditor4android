@@ -18,6 +18,8 @@ public class ViewBox extends BoundingBox {
 
     private static final long serialVersionUID = -2708721312405863618L;
 
+    private static final String DEBUG_TAG = ViewBox.class.getSimpleName();
+
     /**
      * Mercator value for the bottom of the BBos
      */
@@ -42,8 +44,6 @@ public class ViewBox extends BoundingBox {
      * Maximum width to zoom out.
      */
     private static final long MAX_ZOOM_WIDTH = 3599999999L;
-
-    private static final String DEBUG_TAG = ViewBox.class.getSimpleName();
 
     /**
      * The screen w/h ratio of this ViewBox.
@@ -121,8 +121,7 @@ public class ViewBox extends BoundingBox {
      * 
      * @param box box with the new borders.
      */
-    public ViewBox(final ViewBox box) {
-        // this(box.left, box.bottom, box.right, box.top); not good, forces a recalc of everything
+    public ViewBox(@NonNull final ViewBox box) {
         super(box);
         this.bottomMercator = box.bottomMercator;
     }
@@ -133,7 +132,6 @@ public class ViewBox extends BoundingBox {
      * @param box box with the new borders.
      */
     public ViewBox(@NonNull final BoundingBox box) {
-        // this(box.left, box.bottom, box.right, box.top); not good, forces a recalc of everything
         super(box);
         calcDimensions();
         calcBottomMercator();
@@ -143,12 +141,12 @@ public class ViewBox extends BoundingBox {
     public ViewBox copy() {
         return new ViewBox(this);
     }
-    
+
     @Override
     public void set(@NonNull final BoundingBox box) {
         super.set(box);
         if (box instanceof ViewBox) {
-            this.bottomMercator = ((ViewBox)box).bottomMercator;
+            this.bottomMercator = ((ViewBox) box).bottomMercator;
         } else {
             calcDimensions();
             calcBottomMercator();
@@ -190,7 +188,7 @@ public class ViewBox extends BoundingBox {
      * @param ratio The new aspect ratio.
      * @throws OsmException if resulting ViewBox doesn't have valid corners
      */
-    public void setRatio(Map map, final float ratio) throws OsmException {
+    public void setRatio(@NonNull Map map, final float ratio) throws OsmException {
         setRatio(map, ratio, false);
     }
 
@@ -503,7 +501,7 @@ public class ViewBox extends BoundingBox {
      * @param map the current Map instance
      * @param tileZoomLevel The TMS zoom level to zoom to (from 0 for the whole world to about 19 for small areas).
      */
-    public void setZoom(Map map, int tileZoomLevel) {
+    public void setZoom(@NonNull Map map, int tileZoomLevel) {
         // setting an exact zoom level implies one screen pixel == one tile pixel
         // calculate one pixel in degrees (mercator) at this zoom level
         double degE7PerPixel = 3600000000.0d / (256 * Math.pow(2, tileZoomLevel));
@@ -528,7 +526,7 @@ public class ViewBox extends BoundingBox {
      * @param map current map view
      * @param newBox box with the new borders.
      */
-    public void setBorders(Map map, final BoundingBox newBox) {
+    public void setBorders(@NonNull Map map, @NonNull final BoundingBox newBox) {
         setBorders(map, newBox, this.ratio);
     }
 
@@ -539,7 +537,7 @@ public class ViewBox extends BoundingBox {
      * @param newBox new bounding box
      * @param ratio width/height ratio
      */
-    private void setBorders(Map map, final BoundingBox newBox, float ratio) {
+    private void setBorders(@NonNull Map map, @NonNull final BoundingBox newBox, float ratio) {
         setBorders(map, newBox, ratio, true);
     }
 
@@ -551,7 +549,7 @@ public class ViewBox extends BoundingBox {
      * @param newBox new bounding box
      * @param preserveZoom maintain current zoom level
      */
-    public void setBorders(final Map map, final BoundingBox newBox, boolean preserveZoom) {
+    public void setBorders(@NonNull final Map map, @NonNull final BoundingBox newBox, boolean preserveZoom) {
         setBorders(map, newBox, this.ratio, preserveZoom);
     }
 
@@ -564,7 +562,7 @@ public class ViewBox extends BoundingBox {
      * @param ratio current window ratio
      * @param preserveZoom maintain current zoom level
      */
-    public void setBorders(final Map map, final BoundingBox newBox, float ratio, boolean preserveZoom) {
+    public void setBorders(@NonNull final Map map, @NonNull final BoundingBox newBox, float ratio, boolean preserveZoom) {
         set(newBox);
         Log.d(DEBUG_TAG, "setBorders " + newBox.toString() + " ratio is " + ratio);
         try {
@@ -579,7 +577,7 @@ public class ViewBox extends BoundingBox {
      * Make the bounding box a valid request for the API, shrinking into its center if necessary.
      */
     @Override
-    public void makeValidForApi(@NonNull float maxAreaDegrees) {
+    public void makeValidForApi(float maxAreaDegrees) {
         super.makeValidForApi(maxAreaDegrees);
         calcBottomMercator();
     }
