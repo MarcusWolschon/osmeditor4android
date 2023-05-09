@@ -74,7 +74,7 @@
   <string name="upgrade_title">Це нова версія Веспуччі</string>
   <string name="upgrade_message">Нові функції та можливості описані в нотатках до випуску.</string>
   <string name="read_upgrade">Про нову версію.</string>
-  <string name="progress_title">Звантаження</string>
+  <string name="progress_title">Завантаження</string>
   <string name="progress_message">Завантаження даних в пам\'ять…</string>
   <string name="progress_download_message">Завантаження даних з сервера…</string>
   <string name="progress_general_title">Зачекайте</string>
@@ -204,6 +204,7 @@
   <string name="search_objects_hint">Введіть пошуковий запит/вираз (формат JOSM)</string>
   <string name="search_objects_use_regexps">Використовувати регулярні вирази</string>
   <string name="search_objects_unsupported">Вираз не підтримується \"%1$s\"</string>
+  <string name="search_objects_query_overpass">Запит overpass</string>
   <!---->
   <string name="preset_search_hint">Пошук заготовок</string>
   <string name="preset_autopreset">Авто-заготовка</string>
@@ -286,8 +287,15 @@
   <string name="evaluate">Оцінити</string>
   <string name="js_console_msg_live">Наживо!</string>
   <string name="js_console_msg_debug">Відлагодження!</string>
+  <string name="console_input_hint">Введіть код тут</string>
   <string name="console_output_hint">Результат показуватиметься тут</string>
+  <string name="save_code">Зберегти код...</string>
+  <string name="load_code">Завантажити код...</string>
+  <string name="share_code">Поділіться кодом...</string>
   <!--Overpass console-->
+  <string name="run">Старт</string>
+  <string name="merge_result">З\'єднати результат</string>
+  <string name="overpass_query_would_overwrite">Результат перезапише зміни! Запит перервано.</string>
   <!---->
   <string name="error">Помилка</string>
   <string name="warning">Попередження</string>
@@ -886,6 +894,7 @@
   <string name="menu_transfer_download_replace">Очистити та завантажити поточне місце</string>
   <string name="menu_transfer_load_current">Завантажити поточний вигляд</string>
   <string name="menu_transfer_load_replace">Очистити та завантажити поточний вигляд</string>
+  <string name="menu_transfer_query_overpass">Запит Overpass…</string>
   <string name="menu_transfer_upload">Надіслати дані на сервер OSM...</string>
   <string name="menu_transfer_review">Переглянути зміни...</string>
   <string name="menu_transfer_update">Оновити дані</string>
@@ -957,10 +966,12 @@
   <string name="menu_preset_feedback">Надати зворотній звʼязок по шаблону</string>
   <string name="menu_privacy">Конфіденційність</string>
   <!--Background alignment-->
+  <string name="menu_tools_background_align">Вирівняти фон</string>
   <string name="menu_tools_background_align_reset">Скинути</string>
   <string name="menu_tools_background_align_zero">Нуль</string>
   <string name="menu_tools_background_align_retrieve_from_db">З бази даних</string>
   <string name="menu_tools_background_align_retrieve_from_device">З пристрою</string>
+  <string name="menu_tools_background_align_save_db">Зберегти у базу</string>
   <string name="menu_tools_background_align_save_device">Зберегти на пристрій</string>
   <string name="menu_tools_background_align_apply2all">Застосувати (усі масштаби)</string>
   <string name="min_max_zoom">%1$d - %2$d</string>
@@ -976,6 +987,7 @@
   <string name="menu_layers_add_photolayer">Увімкнути шар з фото</string>
   <string name="menu_layers_enable_mapillary_layer">Увімкнути шар Mapillary</string>
   <string name="menu_layers_configure">Налаштувати…</string>
+  <string name="menu_layers_background_align">Вирівняти фон...</string>
   <!---->
   <string name="menu_tools_apply_local_offset">Застосувати збережене зміщення</string>
   <string name="menu_tools_background_contrast">Контраст</string>
@@ -1193,6 +1205,8 @@
   <string name="config_bugDownloadRadius_summary">Радіус (м) завантаження завдання.</string>
   <string name="config_maxBugDownloadSpeed_title">Максимальна швидкість автоматичного завантаження завдання</string>
   <string name="config_maxBugDownloadSpeed_summary">Обмеження (в км/г) після якого автозавантаження нотаток/помилок призупиняеться</string>
+  <string name="config_autoPruneTaskLimit_title">Ліміт автозапуску завдань</string>
+  <string name="config_autoPruneTaskLimit_summary">Кількість завдань у пам\'яті, при досягненні якої спрацьовує обрізка.</string>
   <!--Location Settings-->
   <string name="config_category_gps">Налаштування розташування</string>
   <string name="config_category_gps_summary">Параметри GPS/GNSS та інші постачальники даних про місцезнаходження.</string>
@@ -1229,10 +1243,19 @@
   <string name="config_maxTileDownloadThreads_summary">Максимальна кількість потоків для завантаження тайлів</string>
   <string name="config_tileCacheSize_title">Розмір кешу</string>
   <string name="config_tileCacheSize_summary">Загальний розмір кешу в МБ</string>
+  <string name="config_preferRemovableStorage_title">Надавати перевагу знімним носіям</string>
+  <string name="config_preferRemovableStorage_summary">Надавати перевагу знімному сховищу для кешу тайлів.</string>
   <string name="config_mapillaryCacheSize_summary">Загальний обсяг кешу зображень Mapillary, в МБ</string>
   <!--Auto-save-->
+  <string name="config_category_autosave">Автозбереження конфігурації</string>
   <string name="config_category_autosave_summary">Налаштування автоматичного збереження редагувань.</string>
+  <string name="config_autosaveSaveState_title">Зберегти стан</string>
+  <string name="config_autosaveSaveState_summary">Зберегти повний стан, включаючи незмінені дані.</string>
   <string name="config_autosaveSaveChanges_title">Зберегти зміни</string>
+  <string name="config_autosaveSaveChanges_summary">Зберегти зміни як OSC-файл.</string>
+  <string name="config_autosaveInterval_summary">Мінімальний інтервал у хвилинах між збереженнями.</string>
+  <string name="config_autosaveChanges_summary">Мінімальна кількість змін для збереження.</string>
+  <string name="config_gpxAutosaveInterval_summary">Мінімальний інтервал у хвилинах між збереженнями GPX-записів.</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">Додатково</string>
   <string name="pref_enable_acra">Повідомлення про збій програми</string>
@@ -1243,6 +1266,7 @@
   <!--Experimental-->
   <string name="config_category_experimental">Експериментальний</string>
   <string name="config_js_console_title">Відкрити JS консоль</string>
+  <string name="config_js_console_summary">Зробіть JS-консоль доступною в режимі \"live\"</string>
   <string name="config_voiceCommandsEnabled_title">Задіяти голосові команди</string>
   <string name="config_voiceCommandsEnabled_summary">Задіяти підтримку голосових команд</string>
   <!---->
@@ -1254,6 +1278,7 @@
   <string name="config_password_summary">Не плутайте його з паролем вікі.  Пам’ятайте: він зберігається та передається у відкритому тексті!</string>
   <string name="manage_presets">Керування заготовками</string>
   <string name="listedit_use_translations">Використовувати переклади</string>
+  <string name="manage_geocoders">Керування геокодерами</string>
   <!--preset downloader messages-->
   <string name="preset_update">Оновити заготовку</string>
   <string name="preset_download_successful">Заготовка завантажена</string>

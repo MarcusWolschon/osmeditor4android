@@ -274,7 +274,7 @@ Available layer types:
 
 More information can be found in the section on the [map display](Main%20map%20display.md).
 
-#### Preferences
+#### Уподобання
 
 * Keep screen on. Default: off.
 * Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-center dragging (selection and other operations still use the normal touch tolerance area). Default: off.
