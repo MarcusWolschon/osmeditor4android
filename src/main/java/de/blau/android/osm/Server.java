@@ -1275,7 +1275,6 @@ public class Server {
      */
     @Nullable
     private static String readLine(@NonNull final InputStream in) {
-        // TODO: Optimize? -> no Reader
         BufferedReader reader = new BufferedReader(new InputStreamReader(in), 9);
         String res = null;
         try {

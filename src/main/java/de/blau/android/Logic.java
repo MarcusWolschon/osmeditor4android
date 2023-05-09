@@ -45,7 +45,6 @@ import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -69,6 +68,7 @@ import de.blau.android.exception.StorageException;
 import de.blau.android.exception.UnsupportedFormatException;
 import de.blau.android.filter.Filter;
 import de.blau.android.gpx.Track;
+import de.blau.android.imageryoffset.ImageryAlignmentActionModeCallback;
 import de.blau.android.imageryoffset.Offset;
 import de.blau.android.layer.MapViewLayer;
 import de.blau.android.osm.BoundingBox;
@@ -756,36 +756,6 @@ public class Logic {
                 throw ex; // rethrow
             }
         }
-    }
-
-    /**
-     * Prepares the screen for an empty map. Strokes will be updated and map will be repainted.
-     * 
-     * @param activity activity that called us
-     * @param box the new empty map-box. Don't mess up with the viewBox!
-     */
-    void newEmptyMap(@NonNull FragmentActivity activity, @NonNull ViewBox box) {
-        Log.d(DEBUG_TAG, "newEmptyMap");
-        // not checking will zap edits, given that this method will only be called when we are not downloading, not a
-        // good thing
-        if (!getDelegator().isDirty()) {
-            getDelegator().reset(false);
-            // delegator.setOriginalBox(box); not needed IMHO
-        } else if (!getDelegator().isEmpty()) {
-            // TODO show warning
-            Log.e(DEBUG_TAG, "newEmptyMap called on dirty storage");
-        }
-        // if the map view isn't drawn use an approximation for the aspect ratio of the display ... this is a hack
-        DisplayMetrics metrics = activity.getResources().getDisplayMetrics();
-        float ratio = (float) metrics.widthPixels / (float) metrics.heightPixels;
-        if (map.getHeight() != 0) {
-            ratio = (float) map.getWidth() / map.getHeight();
-        }
-        viewBox.setBorders(map, box, ratio, false);
-        map.setViewBox(viewBox);
-        DataStyle.updateStrokes(strokeWidth(viewBox.getWidth()));
-        invalidateMap();
-        activity.invalidateOptionsMenu();
     }
 
     /**
@@ -1550,7 +1520,7 @@ public class Logic {
             main.getEasyEditManager().invalidate(); // if we are in an action mode update menubar
         } else {
             if (mode == Mode.MODE_ALIGN_BACKGROUND) {
-                performBackgroundOffset(relativeX, relativeY);
+                performBackgroundOffset(main, relativeX, relativeY);
             } else {
                 performTranslation(map, relativeX, relativeY);
                 main.getEasyEditManager().invalidateOnDownload();
@@ -1619,25 +1589,31 @@ public class Logic {
     /**
      * Converts screen-coords to gps-coords and offsets background layer.
      * 
+     * @param main current instance of Main
      * @param screenTransX Movement on the screen.
      * @param screenTransY Movement on the screen.
      */
-    private void performBackgroundOffset(final float screenTransX, final float screenTransY) {
-        int height = map.getHeight();
-        int lon = xToLonE7(screenTransX);
-        int lat = yToLatE7(height - screenTransY);
-        int relativeLon = lon - viewBox.getLeft();
-        int relativeLat = lat - viewBox.getBottom();
-        // TileLayerSource osmts = map.getBackgroundLayer().getTileLayerConfiguration();
-        TileLayerSource osmts = ((Main) map.getContext()).getImageryAlignmentActionModeCallback().getLayerSource();
-        double lonOffset = 0d;
-        double latOffset = 0d;
-        Offset o = osmts.getOffset(map.getZoomLevel());
-        if (o != null) {
-            lonOffset = o.getDeltaLon();
-            latOffset = o.getDeltaLat();
+    private void performBackgroundOffset(@NonNull Main main, final float screenTransX, final float screenTransY) {
+        ImageryAlignmentActionModeCallback callback = main.getImageryAlignmentActionModeCallback();
+        if (callback != null) {
+            TileLayerSource osmts = callback.getLayerSource();
+            int height = map.getHeight();
+            int lon = xToLonE7(screenTransX);
+            int lat = yToLatE7(height - screenTransY);
+            int relativeLon = lon - viewBox.getLeft();
+            int relativeLat = lat - viewBox.getBottom();
+
+            double lonOffset = 0d;
+            double latOffset = 0d;
+            Offset o = osmts.getOffset(map.getZoomLevel());
+            if (o != null) {
+                lonOffset = o.getDeltaLon();
+                latOffset = o.getDeltaLat();
+            }
+            osmts.setOffset(map.getZoomLevel(), lonOffset - relativeLon / 1E7d, latOffset - relativeLat / 1E7d);
+        } else {
+            Log.e(DEBUG_TAG, "performBackgroundOffset callback null");
         }
-        osmts.setOffset(map.getZoomLevel(), lonOffset - relativeLon / 1E7d, latOffset - relativeLat / 1E7d);
     }
 
     /**
@@ -1970,7 +1946,7 @@ public class Logic {
         }
         for (OsmElement e : selection) {
             if (e instanceof Way && e.getState() != OsmElement.STATE_DELETED) {
-                performEraseWay(activity, (Way) e, true, false); // TODO maybe we don't want to delete the nodes
+                performEraseWay(activity, (Way) e, true, false);
             }
         }
         for (OsmElement e : selection) {
@@ -2538,10 +2514,15 @@ public class Logic {
      * @param node Node that is joining the ways to be unjoined.
      */
     public synchronized void performUnjoinWays(@Nullable FragmentActivity activity, @NonNull Node node) {
-        createCheckpoint(activity, R.string.undo_action_unjoin_ways);
-        displayAttachedObjectWarning(activity, node); // needs to be done before unjoin
-        getDelegator().unjoinWays(node);
-        invalidateMap();
+        try {
+            createCheckpoint(activity, R.string.undo_action_unjoin_ways);
+            displayAttachedObjectWarning(activity, node); // needs to be done before unjoin
+            getDelegator().unjoinWays(node);
+            invalidateMap();
+        } catch (OsmIllegalOperationException | StorageException ex) {
+            handleDelegatorException(activity, ex);
+            throw ex; // rethrow
+        }
     }
 
     /**
@@ -4056,6 +4037,8 @@ public class Logic {
 
     /**
      * Loads data from a file
+     *
+     * Note that this doesn't try to read the backup state 
      * 
      * @param activity the activity calling this method
      */
@@ -4063,22 +4046,24 @@ public class Logic {
 
         final int READ_FAILED = 0;
         final int READ_OK = 1;
-        final int READ_BACKUP = 2;
 
         int result = READ_FAILED;
 
         Map mainMap = activity instanceof Main ? ((Main) activity).getMap() : null;
+        final boolean hasMap = mainMap != null;
         Progress.showDialog(activity, Progress.PROGRESS_LOADING);
 
         if (getDelegator().readFromFile(activity)) {
-            viewBox.setBorders(mainMap, getDelegator().getLastBox());
+            if (hasMap) {
+                viewBox.setBorders(mainMap, getDelegator().getLastBox());
+            }
             result = READ_OK;
         }
 
         Progress.dismissDialog(activity, Progress.PROGRESS_LOADING);
         if (result != READ_FAILED) {
             Log.d(DEBUG_TAG, "syncLoadfromFile: File read correctly");
-            if (mainMap != null) {
+            if (hasMap) {
                 try {
                     viewBox.setRatio(mainMap, (float) mainMap.getWidth() / (float) mainMap.getHeight());
                 } catch (Exception e) {
@@ -4087,15 +4072,9 @@ public class Logic {
                 }
                 DataStyle.updateStrokes(STROKE_FACTOR / viewBox.getWidth());
                 loadEditingState((Main) activity, true);
-            }
-
-            if (mainMap != null) {
                 invalidateMap();
             }
             activity.invalidateOptionsMenu();
-            if (result == READ_BACKUP) {
-                Snack.barError(activity, R.string.toast_used_backup);
-            }
         } else {
             Log.d(DEBUG_TAG, "syncLoadfromFile: File read failed");
             Snack.barError(activity, R.string.toast_state_file_failed);
@@ -5505,10 +5484,15 @@ public class Logic {
         if (way.getNodes().size() < 3) {
             return;
         }
-        createCheckpoint(activity, R.string.undo_action_circulize);
-        getDelegator().circulizeWay(map, way);
-        invalidateMap();
-        displayAttachedObjectWarning(activity, way);
+        try {
+            createCheckpoint(activity, R.string.undo_action_circulize);
+            getDelegator().circulizeWay(map, way);
+            invalidateMap();
+            displayAttachedObjectWarning(activity, way);
+        } catch (OsmIllegalOperationException | StorageException ex) {
+            handleDelegatorException(activity, ex);
+            throw ex;
+        }
     }
 
     /**
