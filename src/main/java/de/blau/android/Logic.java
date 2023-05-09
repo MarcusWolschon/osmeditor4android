@@ -4037,6 +4037,8 @@ public class Logic {
 
     /**
      * Loads data from a file
+     *
+     * Note that this doesn't try to read the backup state 
      * 
      * @param activity the activity calling this method
      */
@@ -4044,22 +4046,24 @@ public class Logic {
 
         final int READ_FAILED = 0;
         final int READ_OK = 1;
-        final int READ_BACKUP = 2;
 
         int result = READ_FAILED;
 
         Map mainMap = activity instanceof Main ? ((Main) activity).getMap() : null;
+        final boolean hasMap = mainMap != null;
         Progress.showDialog(activity, Progress.PROGRESS_LOADING);
 
         if (getDelegator().readFromFile(activity)) {
-            viewBox.setBorders(mainMap, getDelegator().getLastBox());
+            if (hasMap) {
+                viewBox.setBorders(mainMap, getDelegator().getLastBox());
+            }
             result = READ_OK;
         }
 
         Progress.dismissDialog(activity, Progress.PROGRESS_LOADING);
         if (result != READ_FAILED) {
             Log.d(DEBUG_TAG, "syncLoadfromFile: File read correctly");
-            if (mainMap != null) {
+            if (hasMap) {
                 try {
                     viewBox.setRatio(mainMap, (float) mainMap.getWidth() / (float) mainMap.getHeight());
                 } catch (Exception e) {
@@ -4068,15 +4072,9 @@ public class Logic {
                 }
                 DataStyle.updateStrokes(STROKE_FACTOR / viewBox.getWidth());
                 loadEditingState((Main) activity, true);
-            }
-
-            if (mainMap != null) {
                 invalidateMap();
             }
             activity.invalidateOptionsMenu();
-            if (result == READ_BACKUP) {
-                Snack.barError(activity, R.string.toast_used_backup);
-            }
         } else {
             Log.d(DEBUG_TAG, "syncLoadfromFile: File read failed");
             Snack.barError(activity, R.string.toast_state_file_failed);
