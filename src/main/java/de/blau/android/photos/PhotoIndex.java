@@ -277,12 +277,11 @@ public class PhotoIndex extends SQLiteOpenHelper {
                             int dirCount2 = dbresult2.getCount();
                             dbresult2.moveToFirst();
                             for (int j = 0; j < dirCount2; j++) {
-                                String dir2 = dbresult2.getString(0);
-                                Log.d(DEBUG_TAG, "Checking dir " + dir2);
-                                File pDir = new File(dir2);
+                                String photo = dbresult2.getString(0);
+                                File pDir = new File(photo);
                                 if (!pDir.exists()) {
-                                    Log.d(DEBUG_TAG, "Deleting entries for gone dir " + dir2);
-                                    db.delete(PHOTOS_TABLE, URI_WHERE, new String[] { dir2 });
+                                    Log.d(DEBUG_TAG, "Deleting entries for gone photo " + photo);
+                                    db.delete(PHOTOS_TABLE, URI_WHERE, new String[] { photo });
                                 }
                                 dbresult2.moveToNext();
                             }
