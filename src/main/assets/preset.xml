@@ -113,6 +113,14 @@
     <chunk id="maxspeed">
         <text key="maxspeed" text="Max speed" long_text="Maximum speed in km/h if no units specified"/>
     </chunk>
+    <chunk id="handrail">
+        <checkgroup text="Handrail" columns="1"> <!-- workaround -->
+            <check key="handrail" text="Handrail" disable_off="true"/>
+            <check key="handrail:left" text="Left handrail" disable_off="true"/>
+            <check key="handrail:center" text="Center handrail" disable_off="true"/>
+            <check key="handrail:right" text="Right handrail" disable_off="true"/>
+        </checkgroup>
+    </chunk>            
     <chunk id="highway_base">
         <reference ref="maxspeed"/>
         <preset_link preset_name="Cond. &amp; direct. max speed"/>
@@ -1009,6 +1017,7 @@
         <reference ref="cables_circuits"/>
         <reference ref="voltage_frequency"/>
     </chunk>
+    
     <chunk id="power_generator">
         <key key="power" value="generator"/>
         <reference ref="name_ref_operator"/>
@@ -1028,15 +1037,15 @@
     <chunk id="power_output">
         <combo key="generator:plant" text="Plant generator type" values="output,intermediate"/>
         <optional text="Energy output:">
-            <combo key="generator:output:biogas" text="biogas" values="yes,2 W,3 kW,5 MW,7 GW" values_sort="false" editable="true"/>
-            <combo key="generator:output:electricity" text="electricity" values="yes,2 W,3 kW,5 MW,7 GW" values_sort="false" editable="true"/>
-            <combo key="generator:output:hot_water" text="hot water" values="yes,2 W,3 kW,5 MW,7 GW" values_sort="false" editable="true"/>
-            <combo key="generator:output:hot_air" text="hot air" values="yes,2 W,3 kW,5 MW,7 GW" values_sort="false" editable="true"/>
-            <combo key="generator:output:cold_water" text="cold water" values="yes,2 W,3 kW,5 MW,7 GW" values_sort="false" editable="true"/>
-            <combo key="generator:output:cold_air" text="cold air" values="yes,2 W,3 kW,5 MW,7 GW" values_sort="false" editable="true"/>
-            <combo key="generator:output:compressed_air" text="compressed air" values="yes,2 W,3 kW,5 MW,7 GW" values_sort="false" editable="true"/>
-            <combo key="generator:output:steam" text="steam" values="yes,2 W,3 kW,5 MW,7 GW" values_sort="false" editable="true"/>
-            <combo key="generator:output:vacuum" text="vacuum" values="yes,2 W,3 kW,5 MW,7 GW" values_sort="false" editable="true"/>
+            <combo key="generator:output:biogas" text="Biogas" values="yes,2 W,3 kW,5 MW,7 GW" values_sort="false" editable="true"/>
+            <combo key="generator:output:electricity" text="Electricity" values="yes,2 W,3 kW,5 MW,7 GW" values_sort="false" editable="true"/>
+            <combo key="generator:output:hot_water" text="Hot water" values="yes,2 W,3 kW,5 MW,7 GW" values_sort="false" editable="true"/>
+            <combo key="generator:output:hot_air" text="Hot air" values="yes,2 W,3 kW,5 MW,7 GW" values_sort="false" editable="true"/>
+            <combo key="generator:output:cold_water" text="Cold water" values="yes,2 W,3 kW,5 MW,7 GW" values_sort="false" editable="true"/>
+            <combo key="generator:output:cold_air" text="Cold air" values="yes,2 W,3 kW,5 MW,7 GW" values_sort="false" editable="true"/>
+            <combo key="generator:output:compressed_air" text="Compressed air" values="yes,2 W,3 kW,5 MW,7 GW" values_sort="false" editable="true"/>
+            <combo key="generator:output:steam" text="Steam" values="yes,2 W,3 kW,5 MW,7 GW" values_sort="false" editable="true"/>
+            <combo key="generator:output:vacuum" text="Vacuum" values="yes,2 W,3 kW,5 MW,7 GW" values_sort="false" editable="true"/>
             <space/>
             <reference ref="voltage_frequency"/>
         </optional>
@@ -1050,14 +1059,14 @@
         <reference ref="name_ref_operator"/>
         <text key="start_date" text="Start date"/>
         <optional text="Energy ouput:">
-            <combo key="plant:output:electricity" text="electricity" values="yes,2 W,3 kW,5 MW,7 GW"/>
-            <combo key="plant:output:hot_water" text="hot water" values="yes,2 W,3 kW,5 MW,7 GW"/>
-            <combo key="plant:output:hot_air" text="hot air" values="yes,2 W,3 kW,5 MW,7 GW"/>
-            <combo key="plant:output:cold_water" text="cold water" values="yes,2 W,3 kW,5 MW,7 GW"/>
-            <combo key="plant:output:cold_air" text="cold air" values="yes,2 W,3 kW,5 MW,7 GW"/>
-            <combo key="plant:output:compressed_air" text="compressed air" values="yes,2 W,3 kW,5 MW,7 GW"/>
-            <combo key="plant:output:steam" text="steam" values="yes,2 W,3 kW,5 MW,7 GW"/>
-            <combo key="plant:output:vacuum" text="vacuum" values="yes,2 W,3 kW,5 MW,7 GW"/>
+            <combo key="plant:output:electricity" text="Electricity" values="yes,2 W,3 kW,5 MW,7 GW"/>
+            <combo key="plant:output:hot_water" text="Hot water" values="yes,2 W,3 kW,5 MW,7 GW"/>
+            <combo key="plant:output:hot_air" text="Hot air" values="yes,2 W,3 kW,5 MW,7 GW"/>
+            <combo key="plant:output:cold_water" text="Cold water" values="yes,2 W,3 kW,5 MW,7 GW"/>
+            <combo key="plant:output:cold_air" text="Cold air" values="yes,2 W,3 kW,5 MW,7 GW"/>
+            <combo key="plant:output:compressed_air" text="Compressed air" values="yes,2 W,3 kW,5 MW,7 GW"/>
+            <combo key="plant:output:steam" text="Steam" values="yes,2 W,3 kW,5 MW,7 GW"/>
+            <combo key="plant:output:vacuum" text="Vacuum" values="yes,2 W,3 kW,5 MW,7 GW"/>
         </optional>
     </chunk>
     <chunk id="utilities">
@@ -1605,8 +1614,8 @@
         </checkgroup>
     </chunk>
     <chunk id="platform">
-        <check key="bench" text="Bench" disable_off="true"/>
-        <check key="shelter" text="Shelter" disable_off="true"/>
+        <check key="bench" text="Bench"/>
+        <check key="shelter" text="Shelter"/>
         <check key="covered" text="Covered"/>
         <reference ref="bin"/>
         <check key="passenger_information_display" text="Passenger information display"/>
@@ -2468,6 +2477,7 @@
                 <reference ref="mtb_scale"/>
                 <combo key="trail_visibility" text="Visibility" values="excellent,good,intermediate,bad,horrible,no" display_values="Excellent,Good,Intermediate,Bad,Horrible,Not visible" values_context="trail_visibility" values_sort="false"/>
                 <reference ref="wheelchair"/>
+                <reference ref="handrail"/>
             </optional>
             <reference ref="path_access_restrictions"/>
         </item> <!-- Path -->
@@ -2540,6 +2550,7 @@
                 <combo key="bicycle" text="Bicycle" values="designated,yes,no" display_values="Designated,Yes,No"/>
                 <combo key="segregated" text="Segregated" values="yes,no" display_values="Yes,No" default=""/>
                 <text key="width" text="Width (meters)" value_type="dimension_horizontal"/>
+                <reference ref="handrail"/>
             </optional>
             <preset_link preset_name="Arcade"/>
             <preset_link preset_name="Colonnade"/>
@@ -2561,12 +2572,7 @@
                 <combo key="ramp:wheelchair" text="Wheelchair ramp" values="yes,limited,no" display_values="Yes,Limited,No"/>
                 <combo key="ramp:luggage" text="Luggage ramp" values="yes,automatic,manual,no" display_values="Yes,Automatic,Manual,No"/>
                 <space/>
-                <checkgroup text="Handrail" columns="1"> <!-- workaround -->
-                    <check key="handrail" text="Handrail" disable_off="true"/>
-                    <check key="handrail:left" text="Left handrail" disable_off="true"/>
-                    <check key="handrail:center" text="Center handrail" disable_off="true"/>
-                    <check key="handrail:right" text="Right handrail" disable_off="true"/>
-                </checkgroup>
+                <reference ref="handrail"/>
                 <space/>
                 <combo key="conveying" text="Escalator" values="yes,forward,backward,reversible" display_values="Yes,Forward,Backward,Reversible"/>
                 <space/>
@@ -2756,6 +2762,9 @@
             <text key="alt_name" text="Alternate name" alternative_autocomplete_keys="name"/>
             <combo key="city_limit" values="begin,end,both" display_values="Begin,End,Both" values_sort="false"/>
             <reference ref="traffic_signals_direction"/>
+            <combo key="colour:back" text="Background colour" values_context="colour">
+                <list_entry value="black" display_value="Black"/><list_entry value="blue" display_value="Blue"/><list_entry value="brown" display_value="Brown"/><list_entry value="gray" display_value="Gray"/><list_entry value="green" display_value="Green"/><list_entry value="orange" display_value="Orange"/><list_entry value="#CD853F" display_value="Peru"/><list_entry value="purple" display_value="Purple"/><list_entry value="red" display_value="Red"/><list_entry value="silver" display_value="Silver"/><list_entry value="white" display_value="White"/><list_entry value="yellow" display_value="Yellow"/>
+            </combo>
             <preset_link preset_name="Name"/>
         </item> <!-- City Limit -->
         <item name="Speed Limit Sign" icon="icons/png/speed_limit.png" type="node" preset_name_label="true">
@@ -4542,6 +4551,7 @@
                 <list_entry value="informal" display_value="Informal"/>
                 <list_entry value="lockers" display_value="Lockers"/>
                 <list_entry value="rack" display_value="Rack"/>
+                <list_entry value="safe_loops" display_value="Safe loops" short_description="Improved wall-loops with the ability to lock the frame"/>
                 <list_entry value="shed" display_value="Shed"/>
                 <list_entry value="stands" display_value="Stands"/>
                 <list_entry value="wall_loops" display_value="Wall loops" short_description="Wheel benders"/>
@@ -4928,8 +4938,8 @@
             <key key="highway" value="bus_stop"/>
             <text key="name" text="Name"/>
             <optional>
-                <check key="shelter" text="Shelter" disable_off="true"/>
-                <check key="bench" text="Bench" disable_off="true"/>
+                <check key="shelter" text="Shelter"/>
+                <check key="bench" text="Bench"/>
                 <reference ref="tactile_paving"/>
             </optional>
         </item> <!-- Bus Stop -->
@@ -6749,13 +6759,6 @@
             <reference ref="link_contact_address"/>
         </item> <!-- Baby Hatch/Safe Haven -->
         <separator/>
-        <item name="Veterinary" icon="icons/png/health_veterinary.png" type="node,closedway,multipolygon" preset_name_label="true">
-            <link wiki="Tag:amenity=veterinary"/>
-            <space/>
-            <key key="amenity" value="veterinary"/>
-            <reference ref="name_oh_wheelchair"/>
-            <reference ref="link_contact_address_payment"/>
-        </item> <!-- Veterinary -->
         <item name="Physiotherapist" icon="icons/png/health_massage_29103.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:healthcare=physiotherapist"/>
             <space/>
@@ -6999,17 +7002,35 @@
         <item name="Lifeguard" icon="icons/png/emergency_empty.png" type="node" preset_name_label="true">
             <link wiki="Tag:emergency=lifeguard"/>
             <key key="emergency" value="lifeguard"/>
+            <combo key="lifeguard" text="Type">
+                <list_entry value="base" display_value="Base" icon="icons/png/emergency_empty.png"/>
+                <list_entry value="tower" display_value="Tower" icon="icons/png/emergency_lifeguard_tower_12076.png"/>
+             </combo>
             <text key="operator" text="Operator"/>
         </item> <!-- Lifeguard -->
-        <item name="Lifeguard base" icon="icons/png/emergency_empty.png" type="node" preset_name_label="true">
+        <item name="Lifeguard base" icon="icons/png/emergency_empty.png" type="node" preset_name_label="true" deprecated="true">
             <link wiki="Tag:emergency=lifeguard_base"/>
             <key key="emergency" value="lifeguard_base"/>
             <text key="ref" text="Reference"/>
             <text key="operator" text="Operator"/>
         </item> <!-- Lifeguard base -->
-        <item name="Lifeguard tower" icon="icons/png/emergency_lifeguard_tower_12076.png" type="node" preset_name_label="true">
+        <item name="Lifeguard base" icon="icons/png/emergency_empty.png" type="node" preset_name_label="true">
+            <link wiki="Tag:emergency=lifeguard"/>
+            <key key="emergency" value="lifeguard"/>
+            <key key="lifeguard" value="base"/>
+            <text key="ref" text="Reference"/>
+            <text key="operator" text="Operator"/>
+        </item> <!-- Lifeguard base -->
+        <item name="Lifeguard tower" icon="icons/png/emergency_lifeguard_tower_12076.png" type="node" preset_name_label="true" deprecated="true">
             <link wiki="Tag:emergency=lifeguard_tower"/>
             <key key="emergency" value="lifeguard_tower"/>
+            <text key="ref" text="Reference"/>
+            <text key="operator" text="Operator"/>
+        </item> <!-- Lifeguard tower -->
+        <item name="Lifeguard tower" icon="icons/png/emergency_lifeguard_tower_12076.png" type="node" preset_name_label="true">
+            <link wiki="Tag:emergency=lifeguard"/>
+            <key key="emergency" value="lifeguard_tower"/>
+            <key key="lifeguard" value="tower"/>
             <text key="ref" text="Reference"/>
             <text key="operator" text="Operator"/>
         </item> <!-- Lifeguard tower -->
@@ -7231,6 +7252,76 @@
             <reference ref="link_contact_address"/>
         </item> <!-- Automobile -->
     </group> <!-- Clubs -->
+    <group name="Animal" icon="icons/png/amenity_animal.png">
+        <item name="Veterinary" icon="icons/png/health_veterinary.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:amenity=veterinary"/>
+            <space/>
+            <key key="amenity" value="veterinary"/>
+            <reference ref="name_oh_wheelchair"/>
+            <reference ref="link_contact_address_payment"/>
+        </item> <!-- Veterinary -->
+        <item name="Animal shelter" icon="icons/png/amenity_animal_shelter_12315.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:amenity=animal_shelter"/>
+            <space/>
+            <key key="amenity" value="animal_shelter"/>
+            <optional>
+                <text key="name" text="Name"/>
+                <text key="operator" text="Operator"/>
+                <text key="description" text="Description" length="255"/>
+                <multiselect key="animal_shelter" text="Animals" values="dog;cat;horse;wildlife;fish;amphibian;reptile;bird;mammal;sea_mammal;sea_animal" display_values="Dog;Cat;Horse;Wildlife;Fish;Amphibian;Reptile;Bird;Mammal;Sea mammal;Sea animal" values_searchable="true" match="key"/>
+                <!-- The following two tags should be multiselects accroding to the wiki, but values outside of yes and no are hardly used -->
+                <check key="animal_shelter:adoption" text="For adoption" disable_off="true"/>
+                <check key="animal_shelter:release" text="For release" disable_off="true"/>
+                <reference ref="oh_wheelchair"/>
+            </optional>
+            <reference ref="link_contact_address"/>
+            <preset_link preset_name="Payment Methods"/>
+        </item> <!-- Animal shelter -->
+        <item name="Animal boarding" icon="icons/png/amenity_animal_boarding_12330.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:amenity=animal_boarding"/>
+            <space/>
+            <key key="amenity" value="animal_boarding"/>
+            <optional>
+                <text key="name" text="Name"/>
+                <text key="operator" text="Operator"/>
+                <text key="description" text="Description" length="255"/>
+                <multiselect key="animal_boarding" text="Animals" values="dog;cat;horse;fish;amphibian;reptile;bird;mammal;wildlife" display_values="Dog;Cat;Horse;Fish;Amphibian;Reptile;Bird;Mammal;Wildlife" values_searchable="true" match="key" rows="9"/>
+                <reference ref="oh_wheelchair"/>
+            </optional>
+            <reference ref="link_contact_address"/>
+            <preset_link preset_name="Payment Methods"/>
+        </item> <!-- Animal boarding -->
+        <item name="Animal breeding" icon="icons/png/amenity_empty.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:amenity=animal_breeding"/>
+            <space/>
+            <key key="amenity" value="animal_breeding"/>
+            <optional>
+                <text key="name" text="Name"/>
+                <text key="operator" text="Operator"/>
+                <text key="description" text="Description" length="255"/>
+                <multiselect key="animal_breeding" text="Animals" values="alpaca;bird;cat;cow;dog;donkey;fish;goat;horse;pig;poultry;rabbit;sheep" display_values="Alpaca;Bird;Cat;Cow;Dog;Donkey;Fish;Goat;Horse;Pig;Poultry;Rabbit;Sheep" values_searchable="true" match="key"/>
+            </optional>
+            <reference ref="link_contact_address"/>
+        </item> <!-- Animal boarding -->
+        <item name="Animal feeding place" icon="icons/png/amenity_empty.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:amenity=feeding_place"/>
+            <space/>
+            <key key="amenity" value="feeding_place"/>
+            <optional>
+                <text key="name" text="Name"/>
+                <text key="description" text="Description" length="255"/>
+            </optional>
+        </item> <!-- Animal feeding place -->
+        <item name="Animal watering place" icon="icons/png/amenity_empty.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:amenity=watering_place"/>
+            <space/>
+            <key key="amenity" value="watering_place"/>
+            <optional>
+                <text key="name" text="Name"/>
+                <text key="description" text="Description" length="255"/>
+            </optional>
+        </item> <!-- Animal watering place -->
+    </group> <!-- Animal -->
     <group name="Facilities" icon="icons/png/amenity_telephone.png">
         <item name="Toilets/Restrooms" icon="icons/png/amenity_toilets.png" type="node,closedway" preset_name_label="true">
             <link wiki="Tag:amenity=toilets"/>
@@ -7489,7 +7580,7 @@
             <space/>
             <key key="amenity" value="hunting_stand"/>
             <combo key="height" text="Height (meters)" values="low,half,full,5,10,15,20" values_context="height" length="7" editable="true" value_type="dimension_vertical"/>
-            <check key="shelter" text="Shelter" disable_off="true"/>
+            <check key="shelter" text="Shelter"/>
             <check key="hide" text="Hide" text_context="hunting stand" disable_off="true"/>
             <check key="lockable" text="Lockable" disable_off="true"/>
         </item> <!-- Hunting Stand -->
@@ -7529,67 +7620,6 @@
                 <reference ref="facility_access"/>
             </optional>
         </item> <!-- Water Point -->
-        <item name="Animal shelter" icon="icons/png/amenity_animal_shelter_12315.png" type="node,closedway,multipolygon" preset_name_label="true">
-            <link wiki="Tag:amenity=animal_shelter"/>
-            <space/>
-            <key key="amenity" value="animal_shelter"/>
-            <optional>
-                <text key="name" text="Name"/>
-                <text key="operator" text="Operator"/>
-                <text key="description" text="Description" length="255"/>
-                <multiselect key="animal_shelter" text="Animals" values="dog;cat;horse;wildlife;fish;amphibian;reptile;bird;mammal;sea_mammal;sea_animal" display_values="Dog;Cat;Horse;Wildlife;Fish;Amphibian;Reptile;Bird;Mammal;Sea mammal;Sea animal" values_searchable="true" match="key"/>
-                <!-- The following two tags should be multiselects accroding to the wiki, but values outside of yes and no are hardly used -->
-                <check key="animal_shelter:adoption" text="For adoption" disable_off="true"/>
-                <check key="animal_shelter:release" text="For release" disable_off="true"/>
-                <reference ref="oh_wheelchair"/>
-            </optional>
-            <reference ref="link_contact_address"/>
-            <preset_link preset_name="Payment Methods"/>
-        </item> <!-- Animal shelter -->
-        <item name="Animal boarding" icon="icons/png/amenity_animal_boarding_12330.png" type="node,closedway,multipolygon" preset_name_label="true">
-            <link wiki="Tag:amenity=animal_boarding"/>
-            <space/>
-            <key key="amenity" value="animal_boarding"/>
-            <optional>
-                <text key="name" text="Name"/>
-                <text key="operator" text="Operator"/>
-                <text key="description" text="Description" length="255"/>
-                <multiselect key="animal_boarding" text="Animals" values="dog;cat;horse;fish;amphibian;reptile;bird;mammal;wildlife" display_values="Dog;Cat;Horse;Fish;Amphibian;Reptile;Bird;Mammal;Wildlife" values_searchable="true" match="key" rows="9"/>
-                <reference ref="oh_wheelchair"/>
-            </optional>
-            <reference ref="link_contact_address"/>
-            <preset_link preset_name="Payment Methods"/>
-        </item> <!-- Animal boarding -->
-        <item name="Animal breeding" icon="icons/png/amenity_empty.png" type="node,closedway,multipolygon" preset_name_label="true">
-            <link wiki="Tag:amenity=animal_breeding"/>
-            <space/>
-            <key key="amenity" value="animal_breeding"/>
-            <optional>
-                <text key="name" text="Name"/>
-                <text key="operator" text="Operator"/>
-                <text key="description" text="Description" length="255"/>
-                <multiselect key="animal_breeding" text="Animals" values="alpaca;bird;cat;cow;dog;donkey;fish;goat;horse;pig;poultry;rabbit;sheep" display_values="Alpaca;Bird;Cat;Cow;Dog;Donkey;Fish;Goat;Horse;Pig;Poultry;Rabbit;Sheep" values_searchable="true" match="key"/>
-            </optional>
-            <reference ref="link_contact_address"/>
-        </item> <!-- Animal boarding -->
-        <item name="Animal feeding place" icon="icons/png/amenity_empty.png" type="node,closedway,multipolygon" preset_name_label="true">
-            <link wiki="Tag:amenity=feeding_place"/>
-            <space/>
-            <key key="amenity" value="feeding_place"/>
-            <optional>
-                <text key="name" text="Name"/>
-                <text key="description" text="Description" length="255"/>
-            </optional>
-        </item> <!-- Animal feeding place -->
-        <item name="Animal watering place" icon="icons/png/amenity_empty.png" type="node,closedway,multipolygon" preset_name_label="true">
-            <link wiki="Tag:amenity=watering_place"/>
-            <space/>
-            <key key="amenity" value="watering_place"/>
-            <optional>
-                <text key="name" text="Name"/>
-                <text key="description" text="Description" length="255"/>
-            </optional>
-        </item> <!-- Animal watering place -->
         <item name="Compressed Air" icon="icons/png/amenity_empty.png" type="node" preset_name_label="true">
             <link wiki="Tag:amenity=compressed_air"/>
             <space/>
@@ -9162,26 +9192,10 @@
             <item name="Power Plant" icon="icons/png/power_station_coal.png" type="closedway,multipolygon,relation" preset_name_label="true" match_expression="power=plant -(&quot;plant:source&quot;=biofuel|&quot;plant:source&quot;=biogas|&quot;plant:source&quot;=biomass|&quot;plant:source&quot;=coal|&quot;plant:source&quot;=diesel|&quot;plant:source&quot;=gas|&quot;plant:source&quot;=gasoline|&quot;plant:source&quot;=geothermal|&quot;plant:source&quot;=hydro|&quot;plant:source&quot;=nuclear|&quot;plant:source&quot;=oil|&quot;plant:source&quot;=osmotic|&quot;plant:source&quot;=solar|&quot;plant:source&quot;=tidal|&quot;plant:source&quot;=waste|&quot;plant:source&quot;=wave|&quot;plant:source&quot;=wind)">
                 <link wiki="Tag:power=plant"/>
                 <space/>
-                <reference ref="power_plant"/>
                 <multiselect key="plant:source" text="Plant source" values_searchable="true" values_sort="false">
-                    <list_entry value="biofuel" display_value="Biofuel" icon="presets/power/power_source-biofuel.svg"/>
-                    <list_entry value="oil" display_value="Oil" icon="presets/power/power_source-oil.svg"/>
-                    <list_entry value="diesel" display_value="Diesel" icon="presets/power/power_source-oil.svg"/>
-                    <list_entry value="gasoline" display_value="Gasoline" icon="presets/power/power_source-oil.svg"/>
-                    <list_entry value="biogas" display_value="Biogas" icon="presets/power/power_source-biofuel.svg"/>
-                    <list_entry value="gas" display_value="Gas" icon="presets/power/power_source-gas.svg"/>
-                    <list_entry value="biomass" display_value="Biomass" icon="presets/power/power_source-biofuel.svg"/>
-                    <list_entry value="waste" display_value="Waste" icon="presets/power/power_source-waste.svg"/>
-                    <list_entry value="coal" display_value="Coal" icon="presets/power/power_source-coal.svg"/>
-                    <list_entry value="nuclear" display_value="Nuclear" icon="presets/power/power_source-nuclear.svg"/>
-                    <list_entry value="geothermal" display_value="Geothermal" icon="presets/power/power_source-geothermal.svg"/>
-                    <list_entry value="hydro" display_value="Hydro" icon="presets/power/power_source-water.svg"/>
-                    <list_entry value="osmotic" display_value="Osmotic" icon="presets/power/power_source-water.svg"/>
-                    <list_entry value="tidal" display_value="Tidal" icon="presets/power/power_source-water.svg"/>
-                    <list_entry value="wave" display_value="Wave" icon="presets/power/power_source-water.svg"/>
-                    <list_entry value="solar" display_value="Solar" icon="presets/power/power_source-sun.svg"/>
-                    <list_entry value="wind" display_value="Wind" icon="presets/power/power_source-wind.svg"/>
+                    <list_entry value="biofuel" display_value="Biofuel" icon="icons/png/power_generator_biofuel_26006.png"/><list_entry value="oil" display_value="Oil" icon="icons/png/power_generator_oil_26025.png"/><list_entry value="diesel" display_value="Diesel" icon="icons/png/power_generator_diesel_26025.png"/><list_entry value="gasoline" display_value="Gasoline" icon="icons/png/power_generator_gasoline_26022.png"/><list_entry value="biogas" display_value="Biogas" icon="icons/png/power_generator_biogas_26007.png"/><list_entry value="gas" display_value="Gas" icon="icons/png/power_station_gas.png"/><list_entry value="biomass" display_value="Biomass" icon="icons/png/power_generator_biomass_26008.png"/><list_entry value="waste" display_value="Waste" icon="icons/png/power_generator_waste_26028.png"/><list_entry value="coal" display_value="Coal" icon="icons/png/power_station_coal.png"/><list_entry value="nuclear" display_value="Nuclear" icon="icons/png/power_generator_nuclear_26024.png"/><list_entry value="geothermal" display_value="Geothermal" icon="icons/png/power_generator_26005.png"/><list_entry value="hydro" display_value="Hydro" icon="icons/png/power_station_water.png"/><list_entry value="osmotic" display_value="Osmotic" icon="icons/png/power_generator_26005.png"/><list_entry value="tidal" display_value="Tidal" icon="icons/png/power_generator_tidal_26027.png"/><list_entry value="wave" display_value="Wave" icon="icons/png/power_generator_wave_26029.png"/><list_entry value="solar" display_value="Solar" icon="icons/png/power_station_solar.png"/><list_entry value="wind" display_value="Wind" icon="icons/png/power_station_wind.png"/>    
                 </multiselect>
+                <reference ref="power_plant"/>
             </item> <!-- Power Plant -->
             <separator/>
             <item name="Biofuel Power Plant" icon="icons/png/power_generator_biofuel_26006.png" type="closedway,multipolygon,relation" preset_name_label="true">
@@ -9308,6 +9322,16 @@
             </item> <!-- Wind Power Plant -->
         </group> <!-- Power Plant -->
         <group name="Power Generator" icon="icons/png/power_station_coal.png">
+            <item name="Power Generator" icon="icons/png/power_station_coal.png" type="node,closedway,multipolygon" preset_name_label="true" match_expression="power=generator -(&quot;generator:source&quot;=biofuel|&quot;generator:source&quot;=biogas|&quot;generator:source&quot;=biomass|&quot;generator:source&quot;=coal|&quot;generator:source&quot;=diesel|&quot;generator:source&quot;=gas|&quot;generator:source&quot;=gasoline|&quot;generator:source&quot;=geothermal|&quot;generator:source&quot;=hydro|&quot;generator:source&quot;=nuclear|&quot;generator:source&quot;=oil|&quot;generator:source&quot;=osmotic|&quot;generator:source&quot;=solar|&quot;generator:source&quot;=tidal|&quot;generator:source&quot;=waste|&quot;generator:source&quot;=wave|&quot;generator:source&quot;=wind)">
+                <link wiki="Tag:power=generator"/>
+                <space/>
+                <combo key="generator:source" text="Generator Source" values_searchable="true" values_sort="false">
+                    <list_entry value="biofuel" display_value="Biofuel" icon="icons/png/power_generator_biofuel_26006.png"/><list_entry value="oil" display_value="Oil" icon="icons/png/power_generator_oil_26025.png"/><list_entry value="diesel" display_value="Diesel" icon="icons/png/power_generator_diesel_26025.png"/><list_entry value="gasoline" display_value="Gasoline" icon="icons/png/power_generator_gasoline_26022.png"/><list_entry value="biogas" display_value="Biogas" icon="icons/png/power_generator_biogas_26007.png"/><list_entry value="gas" display_value="Gas" icon="icons/png/power_station_gas.png"/><list_entry value="biomass" display_value="Biomass" icon="icons/png/power_generator_biomass_26008.png"/><list_entry value="waste" display_value="Waste" icon="icons/png/power_generator_waste_26028.png"/><list_entry value="coal" display_value="Coal" icon="icons/png/power_station_coal.png"/><list_entry value="nuclear" display_value="Nuclear" icon="icons/png/power_generator_nuclear_26024.png"/><list_entry value="geothermal" display_value="Geothermal" icon="icons/png/power_generator_26005.png"/><list_entry value="hydro" display_value="Hydro" icon="icons/png/power_station_water.png"/><list_entry value="osmotic" display_value="Osmotic" icon="icons/png/power_generator_26005.png"/><list_entry value="tidal" display_value="Tidal" icon="icons/png/power_generator_tidal_26027.png"/><list_entry value="wave" display_value="Wave" icon="icons/png/power_generator_wave_26029.png"/><list_entry value="solar" display_value="Solar" icon="icons/png/power_station_solar.png"/><list_entry value="wind" display_value="Wind" icon="icons/png/power_station_wind.png"/>
+                </combo>
+                <reference ref="power_generator"/>
+                <reference ref="power_output"/>
+            </item> <!-- Power Generator -->
+            <separator/>
             <item name="Biofuel Power Generator" icon="icons/png/power_generator_biofuel_26006.png" type="node,closedway,multipolygon" preset_name_label="true">
                 <link wiki="Tag:generator:source=biofuel"/>
                 <key key="generator:source" value="biofuel"/>
@@ -9316,7 +9340,7 @@
                 <key key="generator:method" value="combustion" match="none"/>
                 <combo key="generator:type" text="Generator Type" values="gas_turbine,reciprocating_engine,steam_generator" display_values="Gas turbine,Reciprocating engine,Steam generator"/>
                 <reference ref="power_output"/>
-            </item> <!-- Power Generator -->
+            </item> <!-- Biofuel Power Generator -->
             <item name="Biogas Power Generator" icon="icons/png/power_generator_biogas_26007.png" type="node,closedway,multipolygon" preset_name_label="true">
                 <link wiki="Tag:generator:source=biogas"/>
                 <key key="generator:source" value="biogas"/>
@@ -9651,9 +9675,8 @@
             <combo key="colour" text="Color (HTML name or hexadecimal code)" values="black,red,white,gray,red/white" values_context="colour" match="none" editable="true"/>
             <reference ref="ref_operator"/>
             <optional>
-                <!-- tower:type and branch:type are "deprecated" -->
-                <combo key="tower:type" text="Tower type" values="termination,branch,transposing,crossing,transition" display_values="Termination,Branch,Transposing,Crossing,Transition" text_context="power" values_context="power"/>
-                <combo key="branch:type" text="Branch tower type" values="tap,split,loop,cross" display_values="Tap,Split,Loop,Cross" values_context="power"/>
+                <combo key="tower:type" text="Tower type" values="termination,branch,transposing,crossing,transition" display_values="Termination,Branch,Transposing,Crossing,Transition" text_context="power" values_context="power" deprecated="true"/>
+                <combo key="branch:type" text="Branch tower type" values="tap,split,loop,cross" display_values="Tap,Split,Loop,Cross" values_context="power" deprecated="true"/>
                 <combo key="design" text="Tower design" values="one-level,two-level,donau,three-level,barrel,asymmetric,triangle,flag,donau;one-level,four-level,six-level,nine-level,delta,delta_two-level,y-frame,x-frame,h-frame,guyed_h-frame,portal,portal_two-level,portal_three-level,guyed_v-frame,bipole,monopolar" values_context="power"/>
                 <reference ref="power_line_extra2"/>
                 <check key="triple_tower" text="Triple tower" disable_off="true"/>
@@ -9960,7 +9983,21 @@
         <space/>
         <key key="historic" value="memorial"/>
         <text key="name" text="Name"/>
-        <combo key="memorial" text="Type" values="statue,bust,plaque,stele,stone,war_memorial" display_values="Statue,Bust,Plaque,Stele,Stone,War memorial" values_context="memorial" values_searchable="true"/>
+        <combo key="memorial" text="Type" values_context="memorial" values_searchable="true">
+            <list_entry value="bust" display_value="Bust" short_description="Like a statue, but only showing the upper half of a person."/>
+            <list_entry value="plaque" display_value="Plaque" short_description="A commemorative sign, often mounted on a wall."/>
+            <list_entry value="statue" display_value="Statue" short_description="A statue representing a person."/>
+            <list_entry value="stele" display_value="Stele" short_description="An upright slab engraved or painted with decorations or inscriptions."/>
+            <list_entry value="stone" display_value="Stone" short_description="A stone with an inscription, picture, or similar."/>
+            <list_entry value="war_memorial" display_value="War memorial" short_description="A building, monument, statue or other edifice celebrating a victory or commemorating those who died or were injured in a war."/>
+            <list_entry value="sculpture" display_value="Sculpture" short_description="A non figurative sculpture which does not match any of the other categories."/>
+            <list_entry value="cross" display_value="Cross" short_description="A cross-shaped memorial."/>
+            <list_entry value="blue_plaque" display_value="Blue plaque (UK)" short_description="A blue plaque commemorating a historical link to that location. (UK)"/>
+            <list_entry value="obelisk" display_value="Obelisk" short_description="An obelisk."/>
+            <list_entry value="ghost_bike" display_value="Ghost bike" short_description="A bicycle painted white permanently placed as memorial for a victim of a road accident (usually cyclists)."/>
+            <list_entry value="stolperstein" display_value="Stolperstein" short_description="10cm &#xD7; 10cm brass plaque commemorating victims of Nazi persecution. (EU,RU)"/>
+            <list_entry value="bench" display_value="Bench" short_description="A bench placed in memory of someone or something; usually has a plaque, and sometimes a statue sitting on (part of) it."/>
+        </combo>
         <optional>
             <text key="inscription" text="Inscription" length="255"/>
             <text key="artist_name" text="Artist Name"/>
@@ -11733,7 +11770,29 @@
                 <text key="width" text="Width (m)" length="7" value_type="dimension_horizontal"/>
                 <text key="start_date" text="Start date"/>
             </optional>
+             <preset_link preset_name="Shrubbery" text="Similar but different tags:" alternative="true"/>
         </item> <!-- Shrub -->
+        <item name="Shrubbery" icon="icons/png/natural_shrubbery.png" type="closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:natural=shrubbery"/>
+            <space/>
+            <label text="An area of shrubbery that is actively maintained or pruned by humans."/>
+            <space/>
+            <key key="natural" value="shrubbery"/>
+            <optional>
+                <combo key="shrubbery:density" text="Effective density" values_searchable="true" values_sort="false">
+                    <list_entry value="sparse" icon="" display_value="Sparse" short_description="Sparsely planted shrubbery. Generally speaking able-bodied persons could walk through them (although this is usually not desirable)."/>
+                    <list_entry value="medium" icon="${shrubbery_density_medium}" display_value="Medium" short_description="Shrubbery with a medium density. Able-bodied persons might be able to barge through it, but it takes some effort and might result in scratches or soiled clothing."/>
+                    <list_entry value="dense" icon="${shrubbery_density_dense}" display_value="Dense" short_description="Densely planted shrubbery. Effectively impassible without damaging the shrubbery (which at this point often acts as a hedge) and getting your clothes torn."/>
+                </combo>
+                <text key="height" text="(Average) height" length="7"/>
+                <text key="shrubbery:shape" text="Shape (useful for hedges etc.)"/>
+                <space/>
+                <reference ref="genus_species_taxon"/>
+                <space/>
+                <reference ref="leaf"/>
+            </optional>
+            <preset_link preset_name="Shrub" text="Similar but different tags:" alternative="true"/>
+        </item> <!-- Shrubbery -->
         <separator/>
         <item name="Wood" icon="icons/png/landuse_coniferous_and_deciduous.png" type="closedway,multipolygon" preset_name_label="true" name_context="natural">
             <link wiki="Tag:natural=wood"/>
@@ -11900,7 +11959,7 @@
             <space/>
             <key key="landuse" value="orchard"/>
             <reference ref="optional_name"/>
-            <combo key="trees" text="Trees" values="almond_trees,apple_trees,apricot_trees,avocado_trees,banana_plants,blueberry_plants,cacao_trees,cherimoya_trees,cherry_trees,chestnut_trees,coconut_palms,coffea_plants,date_palms,hazel_plants,hop_plants,lemon_trees,macadamia_trees,mango_trees,oil_palms,olive_trees,orange_trees,papaya_trees,peach_trees,pear_trees,pecan_trees,persimmon_trees,pineapple_plants,pistachio_trees,pitaya_plants,plum_trees,pomegranate_trees,tea_plants,walnut_trees" display_values="Almond trees,Apple trees,Apricot trees,Avocado trees,Banana plants,Blueberry plants,Cacao trees,Cherimoya trees,Cherry trees,Chestnut trees,Coconut palms,Coffea plants,Date palms,Hazel plants,Hop plants,Lemon trees,Macadamia trees,Mango trees,Oil palms,Olive trees,Orange trees,Papaya trees,Peach trees,Pear trees,Pecan trees,Persimmon trees,Pineapple plants,Pistachio trees,Pitaya plants,Plum trees,Pomegranate trees,Tea plants,Walnut trees"/>
+            <combo key="trees" text="Trees" values="almond_trees,apple_trees,apricot_trees,avocado_trees,banana_plants,blueberry_plants,cacao_trees,cherimoya_trees,cherry_trees,chestnut_trees,coconut_palms,coffea_plants,date_palms,hazel_plants,hop_plants,lemon_trees,macadamia_trees,mango_trees,oil_palms,olive_trees,orange_trees,papaya_trees,peach_trees,pear_trees,pecan_trees,persimmon_trees,pineapple_plants,pistachio_trees,pitaya_plants,plum_trees,pomegranate_trees,tea_plants,walnut_trees" display_values="Almond trees,Apple trees,Apricot trees,Avocado trees,Banana plants,Blueberry plants,Cacao trees,Cherimoya trees,Cherry trees,Chestnut trees,Coconut palms,Coffea plants,Date palms,Hazel plants,Hop plants,Lemon trees,Macadamia trees,Mango trees,Oil palms,Olive trees,Orange trees,Papaya trees,Peach trees,Pear trees,Pecan trees,Persimmon trees,Pineapple plants,Pistachio trees,Pitaya plants,Plum trees,Pomegranate trees,Tea plants,Walnut trees" values_searchable="true"/>
         </item> <!-- Orchard -->
         <item name="Vineyard" icon="icons/png/landuse_wine_29203.png" type="closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:landuse=vineyard"/>
@@ -11952,6 +12011,7 @@
                 <text key="operator" text="Operator"/>
                 <reference ref="genus_species_taxon"/>
             </optional>
+            <preset_link preset_name="Garden" text="Similar but different tags:" alternative="true"/>
         </item> <!-- Flowerbed -->
         <item name="Garden" icon="icons/png/landuse_garden_21010.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:leisure=garden"/>
@@ -11960,8 +12020,10 @@
             <combo key="garden:type" text="Type" values="arboretum,botanical,community,residential,roof_garden,show_garden" display_values="Arboretum,Botanical,Community,Residential,Roof garden,Show garden" values_context="garden" match="key"/>
             <combo key="garden:style" text="Style" values="chinese,cottage_garden,english,flower_garden,french,herb_garden,japanese,kitchen,medical_garden,monastery,rosarium,walled_garden,zen" display_values="Chinese,Cottage garden,English,Flower garden,French,Herb garden,Japanese,Kitchen,Medical garden,Monastery,Rosarium,Walled garden,Zen" values_context="garden" match="key"/>
             <optional>
-                <text key="name" text="Name"/>
+                <reference ref="name_operator"/>
+                <reference ref="facility_access"/>
             </optional>
+             <preset_link preset_name="Flowerbed" text="Similar but different tags:" alternative="true"/>
         </item> <!-- Garden -->
         <item name="Grass" icon="icons/png/landuse_grass.png" type="closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:landuse=grass"/>
