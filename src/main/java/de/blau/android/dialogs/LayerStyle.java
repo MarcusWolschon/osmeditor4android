@@ -128,7 +128,8 @@ public class LayerStyle extends AbstractConfigurationDialog {
             builder.setTitle(tempLayer.getName());
             layer = (StyleableInterface) tempLayer;
             final List<String> layerNames = layer.getLayerList();
-            if (!layerNames.isEmpty()) {
+            final boolean hasSubLayers = !layerNames.isEmpty();
+            if (hasSubLayers) {
                 final Spinner layerSpinner = (Spinner) layout.findViewById(R.id.layer_style_layer);
                 String[] layerArray = new String[layerNames.size()];
                 layerNames.toArray(layerArray);
@@ -160,9 +161,12 @@ public class LayerStyle extends AbstractConfigurationDialog {
             setupLabelSpinner(labelContainer, labelSpinner);
             if (tempLayer instanceof LabelMinZoomInterface) {
                 setUpMinLabelZoomPicker(labelMinZoomPicker);
-                setupSymbolSpinner(symbolSpinner);
             } else {
                 labelMinZoomContainer.setVisibility(View.GONE);
+            }
+            if (tempLayer instanceof LabelMinZoomInterface || hasSubLayers) {
+                setupSymbolSpinner(symbolSpinner);
+            } else {
                 symbolContainer.setVisibility(View.GONE);
             }
             setUpColorSelector(lineWidthView);
