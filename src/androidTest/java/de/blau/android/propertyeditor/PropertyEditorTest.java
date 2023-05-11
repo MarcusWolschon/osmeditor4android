@@ -870,6 +870,7 @@ public class PropertyEditorTest {
             fail(e.getMessage());
         }
 
+        TestUtils.clickAwayTip(device, main);
         assertTrue(TestUtils.findText(device, false, "8590205"));
         try {
             UiObject2 shelter = getField(device, "Shelter", 1);
