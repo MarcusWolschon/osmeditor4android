@@ -76,25 +76,25 @@ Current Vespucci builds support Android 4.1 and later. Pre-release testing has b
 
 Physical devices:
 
-    * 5.1.1 Amazon Fire (5th gen) tablet
-    * 6.0 HTC One M8
-    * 6.0.1 Samsung S5
-    * 8.0 Samsung S7
-    * 9.0 Samsung Note 8 
-    * 11.0 Samsung A40
-    * 11.0 Samsung S5e tablet
-    * 13.0 Samsung S23 Ultra
+    5.1.1 Amazon Fire (5th gen) tablet
+    6.0 HTC One M8
+    6.0.1 Samsung S5
+    8.0 Samsung S7
+    9.0 Samsung Note 8 
+    11.0 Samsung A40
+    11.0 Samsung S5e tablet
+    13.0 Samsung S23 Ultra
     
 Emulators:
     
-    * 4.1.2
-    * 4.4.2
-    * 7.1.1
-    * 8.1 (full test suite)
-    * 9.0 (full test suite)
-    * 11.0 (full test suite)
-    * 12.0 (full test suite)
-    * 13.0 
+    4.1.2
+    4.4.2
+    7.1.1
+    8.1 (full test suite)
+    9.0 (full test suite)
+    11.0 (full test suite)
+    12.0 (full test suite)
+    13.0 
     
 ## Installation
 
