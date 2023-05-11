@@ -64,12 +64,38 @@ We also have partial translations for a number of other languages (please see li
 
 ### What is the status of Vespucci development?
 
-We typically provide monthly updates to the released version (bug fixes and updated presets and imagery configurations), minor releases roughly every quarter and major release once to twice a year.
+We typically provide monthly updates to the released version (bug fixes, updated presets and imagery configurations), minor releases roughly every quarter and major release once to twice a year.
 
 ### Is Vespucci available for other mobile platforms?
 
 No, with the exception of those that provide an Android compatible environment.
 
+### Supported devices
+
+Current Vespucci builds support Android 4.1 and later. Pre-release testing has been done on a limited number of physical devices, but with the exception of manufacturer specific quirks there is no reason to believe that it isn't compatible with all devices with a current Android version. Note that pre-Android 5 devices are not recommended due both to the limited resources they typically have and the age of the operating system.
+
+Physical devices:
+
+    * 5.1.1 Amazon Fire (5th gen) tablet
+    * 6.0 HTC One M8
+    * 6.0.1 Samsung S5
+    * 8.0 Samsung S7
+    * 9.0 Samsung Note 8 
+    * 11.0 Samsung A40
+    * 11.0 Samsung S5e tablet
+    * 13.0 Samsung S23 Ultra
+    
+Emulators:
+    
+    * 4.1.2
+    * 4.4.2
+    * 7.1.1
+    * 8.1 (full test suite)
+    * 9.0 (full test suite)
+    * 11.0 (full test suite)
+    * 12.0 (full test suite)
+    * 13.0 
+    
 ## Installation
 
 ### How can I obtain Vespucci?
