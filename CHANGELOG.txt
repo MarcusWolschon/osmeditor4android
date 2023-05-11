@@ -1,10 +1,21 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
-19.1.0-3:
+19.0.0
+
+- Fix protect against maxStringLength < 0 in sanitizeText
+- Fix protect against the view box changing during onDraw
+- Fix wrong references to 19.1 in this document
+- Fix regression that hid point symbol selection for Mapbox Vector Tiles layers
+- Add support for receiving GPX and GeoJSON via ACTION_SEND
+- Update translations and documentation
+- Update preset
+- Update imagery from ELI
+
+19.0.0-3:
 
 - Fix regression that disabled uploading Notes on Android 10 and higher
 
-19.1.0-2:
+19.0.0-2:
 
 - Fix protect against invalid icons in the POI display (preset dependent crash)
 - Fix update OpeningHoursFragment (fixes infrequent ClassCastException)
@@ -20,7 +31,7 @@
 - Update translations
 - Update imagery from ELI
 
-19.1.0-1:
+19.0.0-1:
 
 - Fix use new github token for builds
 - Fix check clipboard consistency after undo
