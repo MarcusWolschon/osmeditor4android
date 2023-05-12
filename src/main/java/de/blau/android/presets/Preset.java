@@ -1507,7 +1507,7 @@ public class Preset {
             outputStream.println("\"data_url\":\"https://raw.githubusercontent.com/MarcusWolschon/osmeditor4android/master/taginfo.json\",");
             outputStream.println("\"project\":{");
             outputStream.println("\"name\":\"Vespucci\",");
-            outputStream.println("\"description\":\"Offline editor for OSM data on Android.\",");
+            outputStream.println("\"description\":\"Presets for Vespucci (OSM editor for Android) and JOSM.\",");
             outputStream.println("\"project_url\":\"https://github.com/MarcusWolschon/osmeditor4android\",");
             outputStream.println("\"doc_url\":\"http://vespucci.io/\",");
             outputStream.println(
