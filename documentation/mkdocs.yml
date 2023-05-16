@@ -80,6 +80,7 @@ nav:
     - 'Object search': 'tutorials/object_search.md'
     - 'Going completely offline with Vespucci': 'tutorials/offline.md'
     - 'Mapbox-GL Style Support': 'tutorials/mapbox-style.md'
+    - 'Todo file format description': 'tutorials/todos.md'
 - Videos & Screenshots: 'tutorials/screenshots.md'
 - FAQ: 'tutorials/faq.md'
 - Privacy: 'help/en/Privacy.md'
