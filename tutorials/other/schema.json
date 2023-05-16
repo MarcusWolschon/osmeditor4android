@@ -1,0 +1,85 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "name": {
+            "description": "The name of the todo list",
+            "type": "string"
+        },
+        "todos": {
+            "description": "Array of the todos",
+            "type": "array",
+            "items": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "lat": {
+                            "description": "WGS84 latitude in decimal degrees",
+                            "type": "number"
+                        },
+                        "lon": {
+                            "description": "WGS84 longitude in decimal degrees",
+                            "type": "number"
+                        },
+                        "id": {
+                            "description": "UUID for the todo",
+                            "type": "string"
+                        },
+                        "state": {
+                            "description": "State of  the todo",
+                            "type": "string",
+                            "enum": [
+                                "OPEN",
+                                "CLOSED"
+                            ]
+                        },
+                        "comment": {
+                            "description": "Per todo comment",
+                            "type": "string"
+                        },
+                        "osm_ids": {
+                            "type": "object",
+                            "properties": {
+                                "nodes": {
+                                    "type": "array",
+                                    "items": [
+                                        {
+                                            "type": "integer"
+                                        }
+                                    ]
+                                },
+                                "ways": {
+                                    "type": "array",
+                                    "items": [
+                                        {
+                                            "type": "integer"
+                                        }
+                                    ]
+                                },
+                                "relations": {
+                                    "type": "array",
+                                    "items": [
+                                        {
+                                            "type": "integer"
+                                        }
+                                    ]
+                                }
+                            },
+                            "additionalProperties": false
+                        }
+                    },
+                    "required": [
+                        "lat",
+                        "lon",
+                        "id",
+                        "state"
+                    ]
+                }
+            ]
+        }
+    },
+    "required": [
+        "name",
+        "todos"
+    ]
+}
