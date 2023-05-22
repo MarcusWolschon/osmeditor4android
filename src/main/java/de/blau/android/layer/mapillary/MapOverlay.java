@@ -376,8 +376,15 @@ public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay {
     public synchronized void select(int pos) {
         if (selected != null && selected.sequenceId != null) {
             List<String> ids = selected.sequenceCache.get(selected.sequenceId);
-            long id = Long.parseLong(ids.get(pos));
-            setSelected(id);
+            if (ids != null) {
+                String idStr = ids.get(pos);
+                if (idStr != null) {
+                    long id = Long.parseLong(ids.get(pos));
+                    setSelected(id);
+                    return;
+                }
+            }
+            Log.e(DEBUG_TAG, "position " + pos + " not found in sequence " + selected.sequenceId);
         }
     }
 
