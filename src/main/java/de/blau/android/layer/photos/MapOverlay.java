@@ -56,6 +56,8 @@ public class MapOverlay extends MapViewLayer implements DiscardInterface, Clicka
 
     private static final String DEBUG_TAG = MapOverlay.class.getSimpleName();
 
+    private static final int VIEWER_MAX = 100;
+
     /** viewbox needs to be less wide than this for displaying photos, just to avoid querying the whole world */
     private static final int TOLERANCE_MAX_VIEWBOX_WIDTH = 40000 * 32;
 
@@ -262,48 +264,56 @@ public class MapOverlay extends MapViewLayer implements DiscardInterface, Clicka
 
     @Override
     public void onSelected(FragmentActivity activity, Photo photo) {
-        Context context = map.getContext();
-        Resources resources = context.getResources();
+        Resources resources = activity.getResources();
         try {
-            Uri photoUri = photo.getRefUri(context);
+            Uri photoUri = photo.getRefUri(activity);
             if (photoUri != null) {
                 Preferences prefs = map.getPrefs();
                 if (prefs.useInternalPhotoViewer()) {
-                    ArrayList<String> uris = new ArrayList<>();
-                    int position = 0;
-                    final int size = photos.size();
-                    for (int i = 0; i < size; i++) {
-                        Photo p = photos.get(i);
-                        Uri uri = p.getRefUri(context);
-                        if (uri != null) {
-                            uris.add(uri.toString());
-                            if (photo.equals(p)) {
-                                position = i;
-                            }
-                        } else {
-                            Log.e(DEBUG_TAG, "Null URI at position " + i);
-                        }
-                    }
-                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
-                        PhotoViewerFragment.showDialog(activity, uris, position, null);
-                    } else {
-                        PhotoViewerActivity.start(activity, uris, position);
-                    }
+                    startInternalViewer(activity, photo);
                 } else {
-                    de.blau.android.layer.photos.Util.startExternalPhotoViewer(context, photoUri);
+                    de.blau.android.layer.photos.Util.startExternalPhotoViewer(activity, photoUri);
                 }
                 selected = photo;
                 invalidate();
             } else {
                 Log.d(DEBUG_TAG, "onSelected null Uri");
-                Snack.toastTopError(context, resources.getString(R.string.toast_error_accessing_photo, photo.getRef()));
+                Snack.toastTopError(activity, resources.getString(R.string.toast_error_accessing_photo, photo.getRef()));
             }
         } catch (SecurityException ex) {
             Log.d(DEBUG_TAG, "onSelected security exception starting intent: " + ex);
-            Snack.toastTopError(context, resources.getString(R.string.toast_security_error_accessing_photo, photo.getRef()));
+            Snack.toastTopError(activity, resources.getString(R.string.toast_security_error_accessing_photo, photo.getRef()));
         } catch (Exception ex) {
             Log.d(DEBUG_TAG, "onSelected exception starting intent: " + ex);
             ACRAHelper.nocrashReport(ex, "onSelected exception starting intent");
+        }
+    }
+
+    /**
+     * Start the internal photo viewer for a photo
+     * 
+     * @param activity the calling activity
+     * @param photo the Photo
+     */
+    private void startInternalViewer(@NonNull FragmentActivity activity, @NonNull Photo photo) {
+        ArrayList<String> uris = new ArrayList<>();
+        List<Photo> temp = new ArrayList<>(photos);
+        GeoMath.sortGeoPoint(photo, temp, new ViewBox(bb), map.getWidth(), map.getHeight());
+
+        final int size = temp.size();
+        for (int i = 0; i < Math.min(VIEWER_MAX, size); i++) {
+            Photo p = temp.get(i);
+            Uri uri = p.getRefUri(activity);
+            if (uri != null) {
+                uris.add(uri.toString());
+            } else {
+                Log.e(DEBUG_TAG, "Null URI at position " + i);
+            }
+        }
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            PhotoViewerFragment.showDialog(activity, uris, 0, null);
+        } else {
+            PhotoViewerActivity.start(activity, uris, 0);
         }
     }
 

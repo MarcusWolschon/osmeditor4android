@@ -13,6 +13,7 @@ import androidx.core.content.FileProvider;
 import androidx.exifinterface.media.ExifInterface;
 import de.blau.android.R;
 import de.blau.android.osm.BoundingBox;
+import de.blau.android.osm.GeoPoint;
 import de.blau.android.util.ExtendedExifInterface;
 import de.blau.android.util.Util;
 import de.blau.android.util.rtree.BoundedObject;
@@ -21,7 +22,7 @@ import de.blau.android.util.rtree.BoundedObject;
  * a photo somewhere on the device or possibly on the network exif accessing code from
  * http://www.blog.nathanhaze.com/how-to-get-exif-tags-gps-coordinates-time-date-from-a-picture/
  */
-public class Photo implements BoundedObject {
+public class Photo implements BoundedObject, GeoPoint {
 
     private static final String DEBUG_TAG = Photo.class.getSimpleName();
 
@@ -186,6 +187,7 @@ public class Photo implements BoundedObject {
      * 
      * @return The latitude *1E7.
      */
+    @Override
     public int getLat() {
         return lat;
     }
@@ -195,6 +197,7 @@ public class Photo implements BoundedObject {
      * 
      * @return The longitude *1E7.
      */
+    @Override
     public int getLon() {
         return lon;
     }

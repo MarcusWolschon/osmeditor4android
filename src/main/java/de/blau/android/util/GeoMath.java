@@ -1,10 +1,14 @@
 package de.blau.android.util;
 
+import java.util.Collections;
+import java.util.List;
+
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import androidx.annotation.NonNull;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
+import de.blau.android.osm.GeoPoint;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.util.collections.FloatPrimitiveList;
 
@@ -657,8 +661,47 @@ public final class GeoMath {
             points.set(o + 3, points.get(i - 1));
             o += 4;
         }
-        // Log.d(DEBUG_TAG, "squash " + points.size() / 4 + " to " + o / 4 + " lines");
         points.truncate(o);
     }
 
+    /**
+     * Sort a list of photos by distance from a specific one
+     * 
+     * @param point the specific photo
+     * @param list the List
+     * @param viewBox current view box
+     * @param w current screen width in WGS84*1E7 degrees
+     * @param h current screen height in WGS84*1E7 degrees
+     */
+    public static <P extends GeoPoint> void sortGeoPoint(@NonNull P point, @NonNull List<P> list, @NonNull ViewBox viewBox, int w, int h) {
+        float pX = GeoMath.lonE7ToX(w, viewBox, point.getLon());
+        float pY = GeoMath.latE7ToY(h, w, viewBox, point.getLat());
+
+        Collections.sort(list, (p1, p2) -> {
+            double d1 = distance(p1, viewBox, pX, pY, w, h);
+            double d2 = distance(p2, viewBox, pX, pY, w, h);
+            if (d1 > d2) {
+                return 1;
+            }
+            if (d2 > d1) {
+                return -1;
+            }
+            return 0;
+        });
+    }
+
+    /**
+     * Calc planar geom. distance between Photo p and a location on the screen
+     * 
+     * @param p the Photo
+     * @param bb current view box
+     * @param x screen x
+     * @param y screen y
+     * @param w current screen width in WGS84*1E7 degrees
+     * @param h current screen height in WGS84*1E7 degrees
+     * @return distance in screen pixel units
+     */
+    private static double distance(@NonNull GeoPoint p, @NonNull ViewBox bb, float x, float y, int w, int h) {
+        return Math.hypot(GeoMath.lonE7ToX(w, bb, p.getLon()) - x, GeoMath.latE7ToY(h, w, bb, p.getLat()) - y);
+    }
 }
