@@ -186,7 +186,7 @@ public class IntentsTest {
         assertNotNull(geo);
         takeRequests();
         assertNotNull(App.getDelegator().getOsmElement(Node.NAME, 101792984L));
-        assertEquals(18, main.getMap().getZoomLevel());
+        assertEquals(19, main.getMap().getZoomLevel());
         assertEquals(8.385D, main.getMap().getViewBox().getCenter()[0], 0.0001D);
         assertEquals(47.3905D, main.getMap().getViewBox().getCenter()[1], 0.0001D);
     }
