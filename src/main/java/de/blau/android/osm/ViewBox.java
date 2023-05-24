@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.Map;
 import de.blau.android.exception.OsmException;
+import de.blau.android.resources.TileLayerSource;
 import de.blau.android.util.GeoMath;
 
 /**
@@ -494,9 +495,15 @@ public class ViewBox extends BoundingBox {
         calcBottomMercator();
     }
 
+    private static final double MAX_W = 2D * GeoMath.MAX_LON_E7;
+    private static final double MAX_H = 2D * GeoMath.MAX_MLAT_E7;
+
     /**
-     * set current zoom level to a tile zoom level equivalent, powers of 2 assuming 256x256 tiles maintain center of
+     * Set current zoom level to a tile zoom level equivalent, powers of 2 assuming 256x256 tiles maintain center of
      * bounding box
+     * 
+     * If one dimension of the screen would exceed the maximum allows bounds for mercator coordinates, it is clamped 
+     * and the other dimension adjusted.
      * 
      * @param map the current Map instance
      * @param tileZoomLevel The TMS zoom level to zoom to (from 0 for the whole world to about 19 for small areas).
@@ -504,9 +511,18 @@ public class ViewBox extends BoundingBox {
     public void setZoom(@NonNull Map map, int tileZoomLevel) {
         // setting an exact zoom level implies one screen pixel == one tile pixel
         // calculate one pixel in degrees (mercator) at this zoom level
-        double degE7PerPixel = 3600000000.0d / (256 * Math.pow(2, tileZoomLevel));
+        double degE7PerPixel = MAX_W / (TileLayerSource.DEFAULT_TILE_SIZE * Math.pow(2, tileZoomLevel));
         double wDegE7 = map.getWidth() * degE7PerPixel;
         double hDegE7 = map.getHeight() * degE7PerPixel;
+        double r = map.getWidth() / (double) map.getHeight();
+        if (hDegE7 > MAX_H) {
+            hDegE7 = MAX_H;
+            wDegE7 = r * hDegE7;
+        }
+        if (wDegE7 > MAX_W) {
+            wDegE7 = MAX_W;
+            hDegE7 = MAX_W / r;
+        }
         long centerLon = getLeft() + getWidth() / 2;
         setLeft((int) (centerLon - wDegE7 / 2));
         setRight((int) (getLeft() + wDegE7));
