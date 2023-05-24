@@ -1186,30 +1186,24 @@ public class Main extends FullScreenAppCompatActivity
      * Process Geo Urls
      */
     void processGeoIntent() {
-        Logic logic = App.getLogic();
+        final Logic logic = App.getLogic();
+        final ViewBox viewBox = logic.getViewBox();
         final double lon = geoData.getLon();
         final double lat = geoData.getLat();
         final int lonE7 = geoData.getLonE7();
         final int latE7 = geoData.getLatE7();
         final boolean hasZoom = geoData.hasZoom();
-        final int zoom = geoData.getZoom();
-        geoData = null; // zap so that we don't re-download
+        final int zoom = geoData.getZoom() + 1; // in practical terms this works better
         Log.d(DEBUG_TAG, "got position from geo: url " + geoData + " storage dirty is " + App.getDelegator().isDirty());
-        if (prefs.getDownloadRadius() != 0) { // download
-            BoundingBox bbox;
+        geoData = null; // zap so that we don't re-download
+
+        final int downloadRadius = prefs.getDownloadRadius();
+        if (downloadRadius != 0) { // download
             try {
-                bbox = GeoMath.createBoundingBoxForCoordinates(lat, lon, prefs.getDownloadRadius());
-                List<BoundingBox> bbList = new ArrayList<>(App.getDelegator().getBoundingBoxes());
-                List<BoundingBox> bboxes = null;
-                if (App.getDelegator().isEmpty()) {
-                    bboxes = new ArrayList<>();
-                    bboxes.add(bbox);
-                } else {
-                    bboxes = BoundingBox.newBoxes(bbList, bbox);
-                }
+                BoundingBox bbox = GeoMath.createBoundingBoxForCoordinates(lat, lon, downloadRadius);
+                List<BoundingBox> bboxes = BoundingBox.newBoxes(new ArrayList<>(App.getDelegator().getBoundingBoxes()), bbox);
 
                 PostAsyncActionHandler handler = () -> {
-                    ViewBox viewBox = logic.getViewBox();
                     if (hasZoom) {
                         viewBox.setZoom(getMap(), zoom);
                         viewBox.moveTo(getMap(), lonE7, latE7);
@@ -1218,7 +1212,7 @@ public class Main extends FullScreenAppCompatActivity
                     }
                     map.invalidate();
                 };
-                if (!bboxes.isEmpty()) {
+                if (!bboxes.isEmpty()) { // we should really loop over bboxes here
                     logic.downloadBox(this, bbox, true, handler);
                     if (map.getTaskLayer() != null) {
                         // always add bugs for now
@@ -1232,7 +1226,6 @@ public class Main extends FullScreenAppCompatActivity
             }
         } else {
             Log.d(DEBUG_TAG, "moving to position");
-            ViewBox viewBox = logic.getViewBox();
             if (hasZoom) {
                 viewBox.setZoom(getMap(), zoom);
             }
