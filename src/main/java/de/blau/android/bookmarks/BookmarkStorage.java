@@ -29,28 +29,39 @@ import de.blau.android.osm.ViewBox;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.SavingHelper;
+import de.blau.android.util.collections.LowAllocArrayList;
 
 /**
  * Handles Bookmark reading/writing operations
  */
-public class BookmarkIO {
+public class BookmarkStorage {
 
-    private static final String DEBUG_TAG = BookmarkIO.class.getSimpleName();
+    private static final String DEBUG_TAG = BookmarkStorage.class.getSimpleName();
 
-    private BookmarksStorage            currentBookmarkStorage;
-    private ArrayList<BookmarksStorage> bookmarksStorage;
-    public static final String          FILENAME     = "bookmarks.ser";
-    private static final String         NEW_FILENAME = "bookmarks.geojson";
+    private Bookmark            currentBookmark;
+    private List<Bookmark>      bookmarks;
+    public static final String  FILENAME     = "bookmarks.ser";
+    private static final String NEW_FILENAME = "bookmarks.geojson";
 
-    SavingHelper<ArrayList<BookmarksStorage>> savingHelper;
+    SavingHelper<ArrayList<Bookmark>> savingHelper;
 
     /**
      * BookmarkIO constructor
      */
-    public BookmarkIO() {
-        this.currentBookmarkStorage = new BookmarksStorage();
-        this.bookmarksStorage = new ArrayList<>();
+    public BookmarkStorage() {
+        this.currentBookmark = new Bookmark();
+        this.bookmarks = new LowAllocArrayList<>();
         this.savingHelper = new SavingHelper<>();
+    }
+
+    /**
+     * Get a list of bookmarks
+     * 
+     * @return the bookmarks
+     */
+    @NonNull
+    public List<Bookmark> getBookmarks() {
+        return bookmarks;
     }
 
     /**
@@ -60,8 +71,8 @@ public class BookmarkIO {
      * @param viewbox Map Viewbox
      */
     public void addDatatolist(@NonNull String comment, @NonNull ViewBox viewbox) {
-        currentBookmarkStorage.set(comment, viewbox);
-        bookmarksStorage.add(currentBookmarkStorage);
+        currentBookmark.set(comment, viewbox);
+        bookmarks.add(currentBookmark);
     }
 
     /**
@@ -71,12 +82,12 @@ public class BookmarkIO {
      * @param bookmarksStorage Arraylist containing BookmarksStorage objects
      * @return true if successful
      */
-    public boolean writeList(@NonNull Context context, @NonNull ArrayList<BookmarksStorage> bookmarksStorage) { // NOSONAR
+    public boolean writeList(@NonNull Context context, @NonNull List<Bookmark> bookmarksStorage) { // NOSONAR
         final List<Feature> features = new ArrayList<>();
-        for (BookmarksStorage b : bookmarksStorage) {
+        for (Bookmark b : bookmarksStorage) {
             BoundingBox box = b.getViewBox();
             JsonObject properties = new JsonObject();
-            properties.add(BookmarksStorage.NAME_FIELD, new JsonPrimitive(b.getComment()));
+            properties.add(Bookmark.NAME_FIELD, new JsonPrimitive(b.getComment()));
             features.add(Feature.fromGeometry(null, properties,
                     com.mapbox.geojson.BoundingBox.fromLngLats(box.getLeft() / 1E7D, box.getBottom() / 1E7D, box.getRight() / 1E7D, box.getTop() / 1E7D)));
         }
@@ -110,18 +121,18 @@ public class BookmarkIO {
      */
 
     @NonNull
-    public ArrayList<BookmarksStorage> readList(@NonNull Context context) { // NOSONAR
-        final ArrayList<BookmarksStorage> jsonResult = new ArrayList<>();
-        ExecutorTask<Void, Void, ArrayList<BookmarksStorage>> reader = new ExecutorTask<Void, Void, ArrayList<BookmarksStorage>>() {
+    public List<Bookmark> readList(@NonNull Context context) { // NOSONAR
+        final LowAllocArrayList<Bookmark> jsonResult = new LowAllocArrayList<>();
+        ExecutorTask<Void, Void, LowAllocArrayList<Bookmark>> reader = new ExecutorTask<Void, Void, LowAllocArrayList<Bookmark>>() {
             @Override
-            protected ArrayList<BookmarksStorage> doInBackground(Void param) {
+            protected LowAllocArrayList<Bookmark> doInBackground(Void param) {
                 try {
                     File infile = new File(FileUtil.getApplicationDirectory(context, Paths.DIRECTORY_PATH_OTHER), NEW_FILENAME);
                     try (FileInputStream fin = new FileInputStream(infile); Reader in = new InputStreamReader(fin, Charset.forName(OsmXml.UTF_8));) { // NOSONAR
                         FeatureCollection fc = FeatureCollection.fromJson(FileUtil.readToString(in));
                         for (Feature f : fc.features()) {
                             com.mapbox.geojson.BoundingBox box = f.bbox();
-                            BookmarksStorage bookmark = new BookmarksStorage(f.properties().get(BookmarksStorage.NAME_FIELD).getAsString(),
+                            Bookmark bookmark = new Bookmark(f.properties().get(Bookmark.NAME_FIELD).getAsString(),
                                     new ViewBox(box.west(), box.south(), box.east(), box.north()));
                             jsonResult.add(bookmark);
                         }
@@ -133,12 +144,12 @@ public class BookmarkIO {
             }
         }.execute();
         try {
-            bookmarksStorage = reader.get(10, TimeUnit.SECONDS);
+            bookmarks = reader.get(10, TimeUnit.SECONDS);
         } catch (InterruptedException | ExecutionException | TimeoutException e) { // NOSONAR
             Log.e(DEBUG_TAG, "Read failed - " + NEW_FILENAME + " " + e.getMessage());
-            bookmarksStorage = new ArrayList<>();
+            bookmarks = new LowAllocArrayList<>();
         }
-        return bookmarksStorage;
+        return bookmarks;
     }
 
     /**
@@ -149,23 +160,8 @@ public class BookmarkIO {
      * @param viewBox map viewbox
      */
     public void writer(@NonNull Context context, @NonNull String comments, @NonNull ViewBox viewBox) {
-        this.bookmarksStorage = readList(context);
+        this.bookmarks = readList(context);
         addDatatolist(comments, viewBox);
-        writeList(context, this.bookmarksStorage);
-    }
-
-    /**
-     * Migrate to geojson
-     * 
-     * @param context an Android Context
-     */
-    public void migrate(@NonNull Context context) {
-        ArrayList<BookmarksStorage> storage = savingHelper.load(context, FILENAME, true);
-        if (storage != null) {
-            Log.i(DEBUG_TAG, "Migrating bookmark storage");
-            if (!(writeList(context, storage) && context.deleteFile(FILENAME))) {
-                Log.e(DEBUG_TAG, "Bookmark storage migration failed");
-            }
-        }
+        writeList(context, this.bookmarks);
     }
 }

@@ -77,6 +77,15 @@ public interface StyleableInterface {
     }
 
     /**
+     * Check if we use point symbols or not
+     * 
+     * @return true if we use point symbols
+     */
+    default boolean usesPointSymbol() {
+        return true;
+    }
+
+    /**
      * Symbol for points
      * 
      * @return the Path object used for points
@@ -138,7 +147,7 @@ public interface StyleableInterface {
      * @return a list of keys, empty if there are none
      */
     @NonNull
-    default List<String> getLabelList(@NonNull String layerName) {
+    default List<String> getLabelList(@Nullable String layerName) {
         return getLabelList();
     }
 

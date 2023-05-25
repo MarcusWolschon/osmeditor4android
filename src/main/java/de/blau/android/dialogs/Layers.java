@@ -221,6 +221,15 @@ public class Layers extends AbstractConfigurationDialog {
                 }
             }
 
+            if (map.getBookmarksLayer() == null) {
+                item = popup.getMenu().add(R.string.menu_layers_enable_bookmarkslayer);
+                item.setOnMenuItemClickListener(unused -> {
+                    de.blau.android.layer.Util.addLayer(activity, LayerType.BOOKMARKS);
+                    updateDialogAndPrefs(activity, prefs, map);
+                    return true;
+                });
+            }
+
             if (map.getLayer(LayerType.MAPILLARY) == null) {
                 try (KeyDatabaseHelper keys = new KeyDatabaseHelper(activity); SQLiteDatabase db = keys.getReadableDatabase()) {
                     if (KeyDatabaseHelper.getKey(db, de.blau.android.layer.mapillary.MapOverlay.APIKEY_KEY, EntryType.API_KEY) != null) {

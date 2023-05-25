@@ -378,6 +378,7 @@
     <string name="layer_geojson">GeoJSON</string>
     <string name="layer_mapillary">Mapillary</string>
     <string name="layer_grid">Grid</string>
+    <string name="layer_bookmarks">Bookmarks</string>
     <string name="layer_gpx">GPX</string>
     <string name="layer_gpx_recording">GPX recording</string>
     <string name="layer_photos">Photos</string>
@@ -889,6 +890,7 @@
     <string name="menu_gps_import">Import GPX track…</string>
     <string name="menu_gps_goto_start">Go to start of GPX track</string>
     <string name="menu_gps_goto_first_waypoint">Go to first waypoint</string>
+    <string name="menu_gps_add_bookmark">Add bookmark…</string>
     <string name="menu_enable_gps_autodownload">Location based auto download</string>
     <string name="menu_enable_pan_and_zoom_auto_download">Pan and zoom auto download</string>
     <string name="menu_transfer">Transfer…</string>
@@ -989,6 +991,7 @@
     <string name="menu_layers_add_grid">Enable grid</string>
     <string name="menu_layers_add_photolayer">Enable photo layer</string>
     <string name="menu_layers_enable_mapillary_layer">Enable Mapillary layer</string>
+    <string name="menu_layers_enable_bookmarkslayer">Enable bookmark layer</string>
     <string name="menu_layers_configure">Configure…</string>
     <string name="menu_layers_background_align">Align imagery…</string>
     <!--  -->
@@ -1515,8 +1518,9 @@
     <!-- Help system -->
     <string name="toast_nohelp">No help here.</string>
     <!-- Bookmarks -->
-    <string name="add_bookmark">Add bookmark…</string>
-    <string name="bookmarks_desc">Description</string>
+    <string name="add_bookmark_title">Add bookmark</string>
+    <string name="edit_bookmark_title">Edit bookmark</string>
+    <string name="bookmarks_desc">Name</string>
     <string name="show_bookmarks">Bookmarks…</string>
     <string name="_dots">⋮</string>
     <string name="gotobookmark">Go</string>

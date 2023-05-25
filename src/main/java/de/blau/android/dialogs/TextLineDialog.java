@@ -55,6 +55,21 @@ public class TextLineDialog {
      * @param ctx the Android Context
      * @param titleId the string resource for the title
      * @param hintId string resource for an hint of -1 if none
+     * @param text initial text to display
+     * @param listener a TextLineInterface listener provided by the caller
+     * @param dismiss dismiss dialog when the positive button is clicked when true
+     * @return an AlertDialog instance
+     */
+    public static AlertDialog get(@NonNull Context ctx, int titleId, int hintId, @Nullable String text, @NonNull TextLineInterface listener, boolean dismiss) {
+        return get(ctx, titleId, hintId, -1, text != null ? Util.wrapInList(text) : null, null, listener, null, null, dismiss);
+    }
+
+    /**
+     * Create a Dialog with one EditText
+     * 
+     * @param ctx the Android Context
+     * @param titleId the string resource for the title
+     * @param hintId string resource for an hint of -1 if none
      * @param checkTextId string resource for an optional checkbox, if -1 no checkbox is shown
      * @param prevText a List of previous input to display
      * @param posButtonText positive button text or null

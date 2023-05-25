@@ -12,17 +12,17 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.RecyclerView;
 import de.blau.android.R;
-import de.blau.android.bookmarks.BookmarksStorage;
+import de.blau.android.bookmarks.Bookmark;
 
 /**
  * Recyclerview adapter for displaying bookmarks
  */
 public class BookmarkListAdapter extends RecyclerView.Adapter<BookmarkListAdapter.ViewHolder> {
 
-    private List<BookmarksStorage> bookmarksStorages;
-    private LayoutParams           viewLayoutParams;
-    private int                    adapterPosition;
-    private Listeners              listener;
+    private List<Bookmark> bookmarksStorages;
+    private LayoutParams   viewLayoutParams;
+    private int            adapterPosition;
+    private Listeners      listener;
 
     /**
      * Bookmarklist adapter
@@ -31,8 +31,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<BookmarkListAdapte
      * @param viewLayoutParams layoutparams for the adapter
      * @param listener interface
      */
-    public BookmarkListAdapter(@NonNull List<BookmarksStorage> bookmarksStorages, @NonNull ViewGroup.LayoutParams viewLayoutParams,
-            @NonNull Listeners listener) {
+    public BookmarkListAdapter(@NonNull List<Bookmark> bookmarksStorages, @NonNull ViewGroup.LayoutParams viewLayoutParams, @NonNull Listeners listener) {
         this.bookmarksStorages = bookmarksStorages;
         this.viewLayoutParams = viewLayoutParams;
         this.listener = listener;
@@ -108,6 +107,10 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<BookmarkListAdapte
                 listener.onDeleteListener(adapterPosition);
                 return true;
             }
+            if (item.getItemId() == R.id.bookmarkedit) {
+                listener.onEditListener(adapterPosition);
+                return true;
+            }
             return false;
         }
     }
@@ -126,5 +129,12 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<BookmarkListAdapte
          * @param position postition id
          */
         void onGoListener(int position);
+
+        /**
+         * Edits the bookmark when called
+         *
+         * @param position postition id
+         */
+        void onEditListener(int position);
     }
 }

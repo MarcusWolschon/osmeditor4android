@@ -114,6 +114,7 @@ labeltext_normal_problem      |
 labeltext_small_problem       | 
 labeltext_background          | 
 geojson_default               | Default style for the geojson layer
+bookmark_default              | Default style for the bookmark layer
 
 ### Validation styling
 
