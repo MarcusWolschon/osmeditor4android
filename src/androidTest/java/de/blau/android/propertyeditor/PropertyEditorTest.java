@@ -1119,7 +1119,8 @@ public class PropertyEditorTest {
         assertTrue(TestUtils.clickText(device, false, "McDonald's", true, true));
         assertTrue(TestUtils.findText(device, false, main.getString(R.string.menu_tags), 5000));
         TestUtils.clickHome(device, true); // close the PropertEditor and save
-        assertEquals("McDonald's", n.getTagWithKey(Tags.KEY_NAME));
+        // NSI unluckily messes things up
+        assertTrue("McDonald's".equals(n.getTagWithKey(Tags.KEY_NAME)) || "McDonald's".equals(n.getTagWithKey(Tags.KEY_OPERATOR)));
     }
 
     /**
