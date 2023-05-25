@@ -88,7 +88,7 @@ public class BookmarkDialogsTest {
             map.getViewBox().fitToBoundingBox(map, bookmarksStorages.get(i).getViewBox());
             map.invalidate();
             assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/menu_gps", true));
-            assertTrue(TestUtils.clickText(device, false, main.getString(R.string.add_bookmark), true, false));
+            assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_add_bookmark), true, false));
             UiObject comments = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/text_line_edit"));
             try {
                 comments.click();
@@ -127,7 +127,7 @@ public class BookmarkDialogsTest {
         map.getViewBox().fitToBoundingBox(map, bookmarksStorages.get(0).getViewBox());
         map.invalidate();
         assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/menu_gps", true));
-        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.add_bookmark), true, false));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_add_bookmark), true, false));
         UiObject comments = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/text_line_edit"));
         try {
             comments.click();
