@@ -885,7 +885,7 @@ public class PropertyEditorTest {
         TestUtils.clickHome(device, false);
         TestUtils.clickHome(device, false);
         assertEquals(OsmElement.STATE_MODIFIED, n.getState());
-        assertFalse(n.hasTagKey("shelter"));
+        assertTrue(n.hasTagWithValue("shelter", Tags.VALUE_NO));
     }
 
     /**
