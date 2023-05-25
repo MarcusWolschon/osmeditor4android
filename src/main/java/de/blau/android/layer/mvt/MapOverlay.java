@@ -378,8 +378,8 @@ public class MapOverlay extends MapTilesOverlayLayer<java.util.Map<String, List<
 
     @Override
     @NonNull
-    public List<String> getLabelList(@NonNull String layerName) {
-        return ((VectorTileRenderer) tileRenderer).getAttributeKeys(layerName);
+    public List<String> getLabelList(@Nullable String layerName) {
+        return layerName != null ? ((VectorTileRenderer) tileRenderer).getAttributeKeys(layerName) : new ArrayList<>();
     }
 
     @Override

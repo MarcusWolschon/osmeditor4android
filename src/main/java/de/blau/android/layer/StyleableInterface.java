@@ -138,7 +138,7 @@ public interface StyleableInterface {
      * @return a list of keys, empty if there are none
      */
     @NonNull
-    default List<String> getLabelList(@NonNull String layerName) {
+    default List<String> getLabelList(@Nullable String layerName) {
         return getLabelList();
     }
 
