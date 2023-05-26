@@ -86,7 +86,7 @@ public class MapOverlay extends StyleableLayer implements DiscardInterface, Labe
                     rect.set(left, top, right, bottom);
                     canvas.drawRect(rect, paint);
                     String label = b.getComment();
-                    if (zoomLevel >= labelMinZoom && label != null) {
+                    if (zoomLevel >= labelMinZoom && !"".equals(label)) {
                         double[] center = bb.getCenter();
                         float x = GeoMath.lonToX(width, vBox, center[0]);
                         float y = GeoMath.latToY(height, width, vBox, center[1]);
