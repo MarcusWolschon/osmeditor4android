@@ -546,7 +546,7 @@ public class PropertyEditorTest {
         }
         main.getMap().getDataLayer().setVisible(true);
         TestUtils.unlock(device);
-        TestUtils.zoomToLevel(device, main, 22);
+        TestUtils.zoomToLevel(device, main, 23);
         TestUtils.clickAtCoordinates(device, main.getMap(), 8.3848461, 47.3899166, true);
         TestUtils.clickText(device, true, context.getString(R.string.okay), true, false); // Tip
         assertTrue(TestUtils.clickText(device, false, "Kindhauserstrasse", false, false));
@@ -612,9 +612,22 @@ public class PropertyEditorTest {
         List<Relation> parents = w.getParentRelations();
         assertNotNull(parents);
         assertTrue(findRole("platform", w, parents));
+        
+        // find the parent relation we modifed
+        Relation found = null;
+        for (Relation p:parents) {
+            if (p.getTagWithKey(Tags.KEY_NAME).startsWith("Bus 305: Kind")) {
+                found = p;
+                break;
+            }
+        }
+        assertNotNull(found);
+        assertTrue(App.getDelegator().getApiStorage().contains(found));
+        
         TestUtils.clickMenuButton(device, context.getString(R.string.undo), false, true);
         assertFalse(findRole("platform", w, parents));
-
+        assertFalse(App.getDelegator().getApiStorage().contains(found));
+        
         assertEquals(pos, determinePosition(w, "Bus 305: Kind"));
 
         //

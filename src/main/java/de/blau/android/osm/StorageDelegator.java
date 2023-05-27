@@ -2066,6 +2066,9 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                     for (RelationMemberPosition newMember : newMembers) {
                         if (!leftOvers.isEmpty()) {
                             RelationMemberPosition member = leftOvers.get(0);
+                            if (!member.getRole().equals(newMember.getRole())) {
+                                apiStorage.insertElementSafe(o);
+                            }
                             member.setRole(newMember.getRole());
                             leftOvers.remove(member);
                         } else {
@@ -2074,6 +2077,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                     }
                     for (RelationMemberPosition rmp : leftOvers) { // these are no longer needed
                         o.removeMember(rmp.getRelationMember());
+                        apiStorage.insertElementSafe(o);
                     }
                 }
             }
