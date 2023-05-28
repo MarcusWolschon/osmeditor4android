@@ -1,10 +1,17 @@
 package de.blau.android.util;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
 
+import de.blau.android.exception.OsmException;
+import de.blau.android.osm.GeoPoint;
+import de.blau.android.osm.ViewBox;
 import de.blau.android.util.collections.FloatPrimitiveList;
 
 public class GeoMathTest {
@@ -233,5 +240,68 @@ public class GeoMathTest {
     public void mercator() {
         assertEquals(4865942.28D, GeoMath.latE7ToMercator((int) (40 * 1E7D)) * 2 * GeoMath.EARTH_RADIUS_EQUATOR / GeoMath._360_PI, 0.01);
         assertEquals(40 * 1E7D, GeoMath.mercatorToLatE7(4865942.28D * GeoMath._360_PI / (2 * GeoMath.EARTH_RADIUS_EQUATOR)), 0.1);
+    }
+
+    private class TestPoint implements GeoPoint {
+        private final int lat;
+        private final int lon;
+        private final int n;
+
+        public TestPoint(int n, int lat, int lon) {
+            this.n = n;
+            this.lat = lat;
+            this.lon = lon;
+        }
+
+        @Override
+        public int getLat() {
+            return lat;
+        }
+
+        @Override
+        public int getLon() {
+            return lon;
+        }
+
+        @Override
+        public String toString() {
+            return Integer.toString(n);
+        }
+    }
+
+    @Test
+    public void pointSorting() {
+        List<TestPoint> points = new ArrayList<>();
+        TestPoint p1 = new TestPoint(1, 0, 0);
+        TestPoint p2 = new TestPoint(2, (int) (0.0005844 * 1E7D), (int) (-0.0005404 * 1E7D));
+        TestPoint p3 = new TestPoint(3, (int) (0.0012702 * 1E7D), (int) (0.0006995 * 1E7D));
+        TestPoint p4 = new TestPoint(4, (int) (-0.0015952 * 1E7D), (int) (0.0005973 * 1E7D));
+        points.add(p3);
+        points.add(p1);
+        points.add(p2);
+        points.add(p4);
+        try {
+            GeoMath.sortGeoPoint(p1, points,
+                    new ViewBox((int) (-0.0024594 * 1E7D), (int) (-0.0032556 * 1E7D), (int) (0.0020165 * 1E7D), (int) (0.0029043 * 1E7D)), 1024, 1920);
+        } catch (OsmException e) {
+            fail(e.getMessage());
+        }
+
+        assertEquals(p1, points.get(0));
+        assertEquals(p2, points.get(1));
+        assertEquals(p3, points.get(2));
+        assertEquals(p4, points.get(3));
+
+        try {
+            GeoMath.sortGeoPoint(p4, points,
+                    new ViewBox((int) (-0.0024594 * 1E7D), (int) (-0.0032556 * 1E7D), (int) (0.0020165 * 1E7D), (int) (0.0029043 * 1E7D)), 1024, 1920);
+        } catch (OsmException e) {
+            fail(e.getMessage());
+        }
+
+        assertEquals(p4, points.get(0));
+        assertEquals(p1, points.get(1));
+        assertEquals(p2, points.get(2));
+        assertEquals(p3, points.get(3));
     }
 }
