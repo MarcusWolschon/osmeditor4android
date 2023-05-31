@@ -258,7 +258,10 @@ public class ReviewAndUpload extends ImmersiveDialogFragment {
         comment.setOnKeyListener(new MyKeyListener());
         setAutoCaps(comment);
         ImageButton clearComment = (ImageButton) layout.findViewById(R.id.upload_comment_clear);
-        clearComment.setOnClickListener(v -> comment.setText(""));
+        clearComment.setOnClickListener(v -> {
+            comment.setText("");
+            comment.requestFocus();
+        });
 
         source = (AutoCompleteTextView) layout.findViewById(R.id.upload_source);
         List<String> sources = new ArrayList<>(App.getLogic().getLastSources());
@@ -271,7 +274,10 @@ public class ReviewAndUpload extends ImmersiveDialogFragment {
         source.setOnKeyListener(new MyKeyListener());
         setAutoCaps(source);
         ImageButton clearSource = (ImageButton) layout.findViewById(R.id.upload_source_clear);
-        clearSource.setOnClickListener(v -> source.setText(""));
+        clearSource.setOnClickListener(v -> {
+            source.setText("");
+            source.requestFocus();
+        });
 
         FormValidation commentValidator = new NotEmptyValidator(comment, getString(R.string.upload_validation_error_empty_comment));
         FormValidation sourceValidator = new NotEmptyValidator(source, getString(R.string.upload_validation_error_empty_source));
