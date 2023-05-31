@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ListView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
@@ -13,14 +12,13 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import de.blau.android.R;
 import de.blau.android.util.ACRAHelper;
-import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.ThemeUtils;
 
 /**
  * Dialog for review of changes (cut down version of ReviewAndUpload
  *
  */
-public class Review extends ImmersiveDialogFragment {
+public class Review extends AbstractReviewDialog {
 
     private static final String DEBUG_TAG = Review.class.getSimpleName();
 
@@ -35,9 +33,9 @@ public class Review extends ImmersiveDialogFragment {
         dismissDialog(activity);
 
         FragmentManager fm = activity.getSupportFragmentManager();
-        Review confirmUploadDialogFragment = newInstance();
+        Review reviewDialogFragment = newInstance();
         try {
-            confirmUploadDialogFragment.show(fm, TAG);
+            reviewDialogFragment.show(fm, TAG);
         } catch (IllegalStateException isex) {
             Log.e(DEBUG_TAG, "showDialog", isex);
             ACRAHelper.nocrashReport(isex, isex.getMessage());
@@ -61,6 +59,9 @@ public class Review extends ImmersiveDialogFragment {
     @NonNull
     private static Review newInstance() {
         Review f = new Review();
+        Bundle args = new Bundle();
+        args.putString(TAG_KEY, TAG);
+        f.setArguments(args);
         f.setShowsDialog(true);
         return f;
     }
@@ -77,8 +78,6 @@ public class Review extends ImmersiveDialogFragment {
 
         final View layout = inflater.inflate(R.layout.review, null);
         builder.setView(layout);
-
-        ReviewAndUpload.addChangesToView(activity, (ListView) layout.findViewById(R.id.upload_changes), null, ReviewAndUpload.DEFAULT_COMPARATOR, Review.TAG);
 
         builder.setNegativeButton(R.string.Done, null);
 
