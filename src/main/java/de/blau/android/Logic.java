@@ -46,6 +46,7 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -4042,7 +4043,7 @@ public class Logic {
     /**
      * Loads data from a file
      *
-     * Note that this doesn't try to read the backup state 
+     * Note that this doesn't try to read the backup state
      * 
      * @param activity the activity calling this method
      */
@@ -4187,7 +4188,7 @@ public class Logic {
                         postUploadHandler.onSuccess();
                     }
                 }
-                activity.getCurrentFocus().invalidate();
+                invalidateCurrentFocus(activity);
                 if (!activity.isFinishing()) {
                     if (error == ErrorCodes.UPLOAD_CONFLICT) {
                         if (result.getOsmId() > 0) {
@@ -4212,6 +4213,18 @@ public class Logic {
                 }
             }
         }.execute();
+    }
+
+    /**
+     * Invalidate whatever has focus
+     * 
+     * @param activity the current Activity
+     */
+    private void invalidateCurrentFocus(@NonNull final Activity activity) {
+        View currentFocus = activity.getCurrentFocus();
+        if (currentFocus != null) {
+            currentFocus.invalidate();
+        }
     }
 
     /**
@@ -4279,7 +4292,7 @@ public class Logic {
                 if (result == 0) {
                     Snack.barInfo(activity, R.string.toast_upload_success);
                 }
-                activity.getCurrentFocus().invalidate();
+                invalidateCurrentFocus(activity);
                 if (result != 0 && !activity.isFinishing()) {
                     if (result == ErrorCodes.INVALID_LOGIN) {
                         InvalidLogin.showDialog(activity);
