@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.4.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,building:part,cemetery,club,disused:amenity,disused:leisure,disused:man_made,golf,hazard,noexit,disused:shop,ford,indoor,playground,police,public_transport,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,telecom">
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.6.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,building:part,cemetery,club,disused:amenity,disused:leisure,disused:man_made,golf,hazard,noexit,disused:shop,ford,indoor,playground,police,public_transport,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,telecom">
 <!--
     Icons have been derived from mainly from
   
@@ -5517,6 +5517,7 @@
                 <check key="mtb" text="Mountainbiking" disable_off="true"/>
                 <check key="ski" text="Skiing" disable_off="true"/>
                 <check key="horse" text="Riding" disable_off="true"/>
+                <check key="inline_skates" text="Inline skating" disable_off="true"/>
                 <space/>
                 <label text="... other transportation modes possible"/>
             </optional>
@@ -6977,12 +6978,6 @@
             <reference ref="name_ref_operator"/>
         </item> <!-- Suction point -->
         <separator/>
-        <item name="Assembly Point" icon="icons/png/emergency_assembly_point_sp.png" type="node" preset_name_label="true">
-            <link wiki="Tag:emergency=assembly_point"/>
-            <space/>
-            <key key="emergency" value="assembly_point"/>
-            <reference ref="name_ref_operator"/>
-        </item> <!-- Assembly Point -->
         <item name="Emergency Phone" icon="icons/png/emergency_emergency_phone_17022.png" type="node" preset_name_label="true">
             <link wiki="Tag:emergency=phone"/>
             <key key="emergency" value="phone"/>
@@ -7055,6 +7050,21 @@
             <key key="emergency" value="mountain_rescue"/>
             <reference ref="link_contact_address"/>
         </item> <!-- Mountain Rescue -->
+        <separator/>
+        <item name="Assembly Point" icon="icons/png/emergency_assembly_point_sp.png" type="node" preset_name_label="true">
+            <link wiki="Tag:emergency=assembly_point"/>
+            <space/>
+            <key key="emergency" value="assembly_point"/>
+            <reference ref="name_ref_operator"/>
+            <reference ref="link_contact_address"/>
+        </item> <!-- Assembly Point -->
+        <item name="Disaster Help Point" icon="icons/png/emergency_disaster_help_point_sp.png" type="node" preset_name_label="true">
+            <link wiki="Tag:emergency=disaster_help_point"/>
+            <space/>
+            <key key="emergency" value="disaster_help_point"/>
+            <reference ref="name_ref_operator"/>
+            <reference ref="link_contact_address"/>
+        </item> <!-- Assembly Point -->
     </group> <!-- Emergency -->
     <group name="Social Facilities" icon="icons/png/amenity_outreach_12252.png">
         <item name="Ambulatory Care" icon="icons/png/amenity_ambulatory_care_12248.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -7680,6 +7690,20 @@
             <space/>
             <key key="amenity" value="weighbridge"/>
             <text key="operator" text="Operator"/>
+        </item> <!-- Weighbridge -->
+        <item name="Letter box" icon="icons/png/amenity_letter_box.png" type="node,way" preset_name_label="true">
+            <link wiki="Tag:amenity=letter_box"/>
+            <space/>
+            <key key="amenity" value="letter_box"/>
+            <optional>
+                <text key="post:housenumber" text="House number" match="key"/>
+                <text key="post:flats" text="Flats" match="key"/>
+                <text key="post:unit" text="Unit" match="key"/>
+                <text key="post:street" text="Street" match="key"/>
+                <text key="post:postcode" text="Post code" match="key"/>
+                <text key="post:city" text="City" match="key"/>
+                <text key="post:state" text="State" match="key"/>
+            </optional>
         </item> <!-- Weighbridge -->
     </group> <!-- Facilities -->
     </group>  <!-- Facilities -->
