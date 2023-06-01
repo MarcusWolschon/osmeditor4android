@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<osm generator="Vespucci/19.0.0.0" version="0.6" upload="true">
+    <node id="-1" action="modify" version="1" timestamp="2023-06-01T06:41:06Z" visible="true" lat="47.389711" lon="8.385914" />
+    <node id="-2" action="modify" version="1" timestamp="2023-06-01T06:41:07Z" visible="true" lat="47.3896084" lon="8.3859956" />
+    <node id="-3" action="modify" version="1" timestamp="2023-06-01T06:41:25Z" visible="true" lat="47.3896624" lon="8.385954" />
+    <node id="-4" action="modify" version="1" timestamp="2023-06-01T06:41:51Z" visible="true" lat="47.3896003" lon="8.3858915">
+        <tag k="public_transport" v="stop_position" />
+    </node>
+    <way id="-1" action="modify" version="1" timestamp="2023-06-01T06:41:07Z" visible="true">
+        <nd ref="-1" />
+        <nd ref="-2" />
+   </way>
+</osm>
