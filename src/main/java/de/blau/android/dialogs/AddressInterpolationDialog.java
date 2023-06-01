@@ -213,7 +213,8 @@ public class AddressInterpolationDialog extends ImmersiveDialogFragment {
                 } else if (Tags.KEY_ADDR_PLACE.equals(key)) {
                     adapter = placeNameAutocompleteAdapter;
                 }
-                PresetTagField presetField = presetItem != null ? presetItem.getField(key) : (PresetTagField) new PresetTextField(key);
+                PresetTagField presetField = presetItem != null && presetItem.hasKey(key) ? presetItem.getField(key)
+                        : (PresetTagField) new PresetTextField(key);
                 tagLayout.addView(SimpleTextRow.getRow(context, inflater, tagLayout, presetItem, presetField, entry.getValue(), adapter));
             }
         }
