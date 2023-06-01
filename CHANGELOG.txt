@@ -1,5 +1,20 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+19.0.1
+
+- Fix protect against missing preset field when adding address interpolations
+- Fix if a beep is already being played, the constructor may fail
+- Fix protect against NPE when getCurrentFocus returns null on upload
+- Fix void ClassCastException if list of elements contains a Node or Relation
+- Fix focus on relevant EditText after clearing comment/source field
+- Fix changing the role of an element via the relations tab
+- Fix protect against NPE if mapillary sequence doesn't have image at position
+- Add data style without path patterns as workaround for issues with Skia
+- Update privacy statement with info on "Provide feedback"
+- Update translations
+- Update imagery from ELI
+- Update preset
+
 19.0.0
 
 - Fix protect against maxStringLength < 0 in sanitizeText
