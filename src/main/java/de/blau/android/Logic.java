@@ -2433,6 +2433,10 @@ public class Logic {
         if (!elements.isEmpty()) {
             createCheckpoint(activity, R.string.undo_action_join);
             for (OsmElement element : elements) {
+                if (!(element instanceof Way)) {
+                    // Note if no ways are in elements this will create an empty checkpoint
+                    continue;
+                }
                 nodeToJoin = (Node) (result != null ? result.get(0).getElement() : nodeToJoin);
                 Way way = (Way) element;
                 List<Node> wayNodes = way.getNodes();
