@@ -50,7 +50,7 @@ public class DataStyleTest {
         Map<String, String> tags = new TreeMap<>();
         tags.put(Tags.KEY_BUILDING, Tags.VALUE_YES);
         delegator.setTags(w, tags);
-        assertEquals(4, DataStyle.getStyleList(ApplicationProvider.getApplicationContext()).length);
+        assertEquals(5, DataStyle.getStyleList(ApplicationProvider.getApplicationContext()).length);
         assertEquals(DataStyle.getBuiltinStyleName(), DataStyle.getCurrent().getName());
         DataStyle.getStyle(DataStyle.getBuiltinStyleName());
         DataStyle.switchTo("Color Round Nodes");
@@ -77,7 +77,7 @@ public class DataStyleTest {
             fail(e.getMessage());
         }
         DataStyle.getStylesFromFiles(ApplicationProvider.getApplicationContext());
-        assertEquals(5, DataStyle.getStyleList(ApplicationProvider.getApplicationContext()).length);
+        assertEquals(6, DataStyle.getStyleList(ApplicationProvider.getApplicationContext()).length);
         // matching test
 
         final StorageDelegator delegator = App.getDelegator();
