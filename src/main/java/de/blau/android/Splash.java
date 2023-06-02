@@ -21,6 +21,7 @@ import androidx.preference.PreferenceManager;
 import de.blau.android.bookmarks.BookmarkIO;
 import de.blau.android.contract.Paths;
 import de.blau.android.dialogs.Progress;
+import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.KeyDatabaseHelper;
 import de.blau.android.resources.TileLayerDatabase;
 import de.blau.android.resources.TileLayerSource;
@@ -36,9 +37,11 @@ import de.blau.android.util.FileUtil;
  *
  */
 public class Splash extends AppCompatActivity {
+
     private static final String DEBUG_TAG = Splash.class.getSimpleName();
 
-    static final String SHORTCUT_EXTRAS_KEY = "shortcut_extras";
+    static final String         SHORTCUT_EXTRAS_KEY = "shortcut_extras";
+    private static final String SAFE                = "safe";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,6 +63,15 @@ public class Splash extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         Log.d(DEBUG_TAG, "onResume");
+        final Bundle shortcutExtras = getIntent().getExtras();
+        if (shortcutExtras != null && shortcutExtras.getBoolean(SAFE)) { 
+            // do anything here to make startup safe
+            // currently this is only setting the data style to the minimal built in version to avoid issues with Skia
+            Log.d(DEBUG_TAG, "Starting in safe mode!");
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+            prefs.edit().putString(getString(R.string.config_mapProfile_key), DataStyle.getBuiltinStyleName()).commit();
+        }
+
         new ExecutorTask<Void, Void, Void>() {
 
             boolean newInstall;
@@ -122,7 +134,7 @@ public class Splash extends AppCompatActivity {
                 App.getCurrentPresets(Splash.this);
                 //
                 Intent intent = new Intent(Splash.this, Main.class);
-                intent.putExtra(SHORTCUT_EXTRAS_KEY, getIntent().getExtras());
+                intent.putExtra(SHORTCUT_EXTRAS_KEY, shortcutExtras);
                 startActivity(intent);
                 return null;
             }

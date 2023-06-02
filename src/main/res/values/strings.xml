@@ -9,6 +9,9 @@
     <string name="mode_address">Address</string>
     <string name="mode_voice">Voice</string>
     
+    <!--  additional short cuts -->
+    <string name="shortcut_safe">Safe</string>
+    
     <!-- Dialogs -->
     <string name="transfer_download_current_dialog_title">Caution!</string>
     <string name="transfer_download_current_dialog_message">You have made changes. Do you want to upload instead of discarding them?</string>
