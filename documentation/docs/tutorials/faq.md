@@ -182,6 +182,18 @@ The google play store allows only one reply to a review with a maximum length of
   
 ## Error messages and other issues
 
+### App hangs
+
+With better rendering support for OSM objects that have "sides", for example embankments and cliffs, there have been more reports of the app hanging on startup after the "Loading presets" message appears.
+
+In our analysis this is due to issues with [Skia]( https://skia.org/), the low level graphics library that Android utilizes, on devices running Android 8 and older. It seems as if Skia
+creates persistent state when [PathDashPathEffects](https://developer.android.com/reference/android/graphics/PathDashPathEffect) is used that is is some form corrupted when the app is forced
+closed. Starting Vespucci in such a situation will lead to the app hanging or crashing.
+
+As a workaround version 19.0.2 and later provide a shortcut that will start the app in "Safe" mode that will set the data rendering style to the minimal built-in style. In testing this allows startup to succeed and the style can then be (manually) changed back. As shortcuts are only available from Android 7.1.1 on, we've further added a data style that avoids the critical style elements that can be used on older devices.
+
+It should be noted that "force closing" any Android app is a bad idea and should only be done when absolutely necessary.
+
 ### Vespucci warning that it cannot write to an external SD card
 
 Vespucci preferentially attempts to store aerial imagery data on an external SD card if present, this is slower but leaves expensive internal storage free. On some devices this seems to cause persistent issues that are not resolved by giving the app permissions to write to external storage. A potential workaround is to remove the SD card (if this works in your setup), and then run Vespucci. If that works and background imagery is displayed you can reinsert the SD card and Vespucci should continue to use the internal storage.
