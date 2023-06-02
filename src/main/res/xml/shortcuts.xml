@@ -12,17 +12,17 @@
     <categories android:name="android.shortcut.conversation" />
   </shortcut>
   <shortcut
-    android:shortcutId="indoor"
+    android:shortcutId="safe"
     android:enabled="true"
     android:icon="@drawable/vespucci_logo_foreground"
-    android:shortcutShortLabel="@string/mode_indoor"
-    android:shortcutLongLabel="@string/mode_indoor" >   
+    android:shortcutShortLabel="@string/shortcut_safe"
+    android:shortcutLongLabel="@string/shortcut_safe" >   
     <intent
       android:action="android.intent.action.MAIN"
       android:targetPackage="de.blau.android"
       android:targetClass="de.blau.android.Splash">
-        <extra android:name="mode" android:value="MODE_INDOOR" />
-      </intent>
+        <extra android:name="safe" android:value="true" />
+    </intent>
     <categories android:name="android.shortcut.conversation" />
   </shortcut>
   <shortcut
@@ -36,7 +36,7 @@
       android:targetPackage="de.blau.android"
       android:targetClass="de.blau.android.Splash">
         <extra android:name="mode" android:value="MODE_TAG_EDIT" />
-      </intent>
+    </intent>
     <categories android:name="android.shortcut.conversation" />
   </shortcut>
   <shortcut
@@ -50,7 +50,21 @@
       android:targetPackage="de.blau.android"
       android:targetClass="de.blau.android.Splash">
         <extra android:name="mode" android:value="MODE_ADDRESS" />
-      </intent>
+    </intent>
+    <categories android:name="android.shortcut.conversation" />
+  </shortcut>
+  <shortcut
+    android:shortcutId="indoor"
+    android:enabled="true"
+    android:icon="@drawable/vespucci_logo_foreground"
+    android:shortcutShortLabel="@string/mode_indoor"
+    android:shortcutLongLabel="@string/mode_indoor" >   
+    <intent
+      android:action="android.intent.action.MAIN"
+      android:targetPackage="de.blau.android"
+      android:targetClass="de.blau.android.Splash">
+        <extra android:name="mode" android:value="MODE_INDOOR" />
+    </intent>
     <categories android:name="android.shortcut.conversation" />
   </shortcut>
 </shortcuts>
