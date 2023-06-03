@@ -22,6 +22,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.SpannedString;
 import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -393,6 +394,7 @@ public class ElementInfo extends InfoDialogFragment {
                         keys.addAll(ue.getTags().keySet());
                     }
                 }
+                final SpannedString compareEmpty = compare ? new SpannedString("") : null;
                 for (String k : keys) {
                     String currentValue = currentTags.get(k);
                     String oldValue = null;
@@ -409,29 +411,25 @@ public class ElementInfo extends InfoDialogFragment {
                         }
                     }
                     // special handling for some stuff
-                    final CharSequence compareEmpty = compare ? "" : null;
                     if (k.equals(Tags.KEY_WIKIPEDIA)) {
                         Log.d(DEBUG_TAG, Urls.WIKIPEDIA + encodeHttpPath(currentValue));
-                        tl.addView(TableLayoutUtils.createRow(activity, k, !oldIsEmpty ? encodeUrl(Urls.WIKIPEDIA, oldValue) : compareEmpty,
-                                !deleted ? encodeUrl(Urls.WIKIPEDIA, currentValue) : null, true, tp, R.attr.colorAccent, R.color.material_teal));
+                        addTagRow(activity, tl, tp, deleted, k, !oldIsEmpty ? encodeUrl(Urls.WIKIPEDIA, oldValue) : compareEmpty,
+                                encodeUrl(Urls.WIKIPEDIA, currentValue));
                     } else if (k.equals(Tags.KEY_WIKIDATA)) {
-                        tl.addView(TableLayoutUtils.createRow(activity, k, !oldIsEmpty ? encodeUrl(Urls.WIKIDATA, oldValue) : compareEmpty,
-                                !deleted ? encodeUrl(Urls.WIKIDATA, currentValue) : null, true, tp, R.attr.colorAccent, R.color.material_teal));
+                        addTagRow(activity, tl, tp, deleted, k, !oldIsEmpty ? encodeUrl(Urls.WIKIDATA, oldValue) : compareEmpty,
+                                encodeUrl(Urls.WIKIDATA, currentValue));
                     } else if (Tags.isWebsiteKey(k)) {
                         try {
-                            tl.addView(TableLayoutUtils.createRow(activity, k, !oldIsEmpty ? encodeUrl(oldValue) : compareEmpty,
-                                    !deleted ? encodeUrl(currentValue) : null, true, tp, R.attr.colorAccent, R.color.material_teal));
+                            addTagRow(activity, tl, tp, deleted, k, !oldIsEmpty ? encodeUrl(oldValue) : compareEmpty, encodeUrl(currentValue));
                         } catch (MalformedURLException | URISyntaxException e1) {
-                            Log.d(DEBUG_TAG, "Value " + currentValue + " caused " + element);
-                            tl.addView(TableLayoutUtils.createRow(activity, k, currentValue, tp));
+                            Log.d(DEBUG_TAG, "Key " + k + " value " + currentValue + " caused " + element + " " + e1.getMessage());
+                            addTagRow(activity, tl, tp, deleted, k, oldValue, currentValue);
                         }
                     } else if (Tags.isPhoneKey(k) || Tags.isEmailKey(k)) {
                         final String url = Tags.isEmailKey(k) ? MAILTO : TEL;
-                        tl.addView(TableLayoutUtils.createRow(activity, k, !oldIsEmpty ? encodeUrl(url, oldValue) : compareEmpty,
-                                !deleted ? encodeUrl(url, currentValue) : null, true, tp, R.attr.colorAccent, R.color.material_teal));
+                        addTagRow(activity, tl, tp, deleted, k, !oldIsEmpty ? encodeUrl(url, oldValue) : compareEmpty, encodeUrl(url, currentValue));
                     } else {
-                        tl.addView(TableLayoutUtils.createRow(activity, k, oldValue, !deleted ? currentValue : null, false, tp, R.attr.colorAccent,
-                                R.color.material_teal));
+                        addTagRow(activity, tl, tp, deleted, k, oldValue, currentValue);
                     }
                 }
             }
@@ -617,6 +615,38 @@ public class ElementInfo extends InfoDialogFragment {
     }
 
     /**
+     * Add a tag row to the table
+     * 
+     * @param activity calling Activity
+     * @param tl the TableLayout
+     * @param tp LayoutParams
+     * @param deleted true if object was deleted
+     * @param key the tag key
+     * @param oldValue the tag old value
+     * @param currentValue the tag new value
+     */
+    private void addTagRow(@NonNull FragmentActivity activity, @NonNull TableLayout tl, @NonNull TableLayout.LayoutParams tp, boolean deleted,
+            @NonNull String key, @NonNull Spanned oldValue, @Nullable Spanned currentValue) {
+        tl.addView(TableLayoutUtils.createRow(activity, key, oldValue, !deleted ? currentValue : null, false, tp, R.attr.colorAccent, R.color.material_teal));
+    }
+
+    /**
+     * Add a tag row to the table
+     * 
+     * @param activity calling Activity
+     * @param tl the TableLayout
+     * @param tp LayoutParams
+     * @param deleted true if object was deleted
+     * @param key the tag key
+     * @param oldValue the tag old value
+     * @param currentValue the tag new value
+     */
+    private void addTagRow(@NonNull FragmentActivity activity, @NonNull TableLayout tl, @NonNull TableLayout.LayoutParams tp, boolean deleted,
+            @NonNull String key, @NonNull String oldValue, @Nullable String currentValue) {
+        tl.addView(TableLayoutUtils.createRow(activity, key, oldValue, !deleted ? currentValue : null, false, tp, R.attr.colorAccent, R.color.material_teal));
+    }
+
+    /**
      * Indicate skipped content
      * 
      * @param activity the calling FragmentActivity
@@ -710,6 +740,9 @@ public class ElementInfo extends InfoDialogFragment {
      * @throws URISyntaxException for broken URLs
      */
     private Spanned encodeUrl(@NonNull String value) throws MalformedURLException, URISyntaxException {
+        if ("".equals(value)) {
+            return new SpannedString("");
+        }
         URL url = new URL(value);
         URI uri = new URI(url.getProtocol(), url.getUserInfo(), url.getHost(), url.getPort(), url.getPath(), url.getQuery(), url.getRef());
         return Util.fromHtml("<a href=\"" + uri.toURL() + "\">" + value + "</a>");
