@@ -44,6 +44,7 @@ import de.blau.android.Map;
 import de.blau.android.MockTileServer;
 import de.blau.android.R;
 import de.blau.android.TestUtils;
+import de.blau.android.gpx.GpxTest;
 import de.blau.android.layer.data.MapOverlay;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
@@ -507,9 +508,21 @@ public class LayerDialogTest {
 
     /**
      * Enable/disable bookmark layer
+     * 
+     * While we do add a bookmark for good measure there is no way to test if it is actually being displayed
      */
     @Test
     public void bookmarkLayer() {
+        GpxTest.clickGpsButton(device);
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_add_bookmark), true));
+        UiObject bookmark = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/text_line_edit"));
+        try {
+            bookmark.click();
+            bookmark.setText("TestLocation");
+        } catch (UiObjectNotFoundException e) {
+            Assert.fail(e.getMessage());
+        }
+        TestUtils.clickButton(device, "android:id/button1", true);
         LayerUtils.removeLayer(main, LayerType.BOOKMARKS);
         assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/layers", true));
         assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/add", true));

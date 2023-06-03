@@ -16,8 +16,6 @@ import org.junit.runner.RunWith;
 
 import android.app.Instrumentation;
 import android.content.Context;
-import android.os.Build;
-import androidx.annotation.NonNull;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -25,7 +23,6 @@ import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
 import androidx.test.uiautomator.UiObject;
 import androidx.test.uiautomator.UiObjectNotFoundException;
-import androidx.test.uiautomator.UiScrollable;
 import androidx.test.uiautomator.UiSelector;
 import de.blau.android.App;
 import de.blau.android.LayerUtils;
@@ -45,7 +42,6 @@ public class ReviewChangesTest {
 
     Context                 context = null;
     Main                    main    = null;
-    private Instrumentation instrumentation;
     UiDevice                device  = null;
 
     @Rule
@@ -56,7 +52,7 @@ public class ReviewChangesTest {
      */
     @Before
     public void setup() {
-        instrumentation = InstrumentationRegistry.getInstrumentation();
+        Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
         device = UiDevice.getInstance(instrumentation);
         context = instrumentation.getTargetContext();
         main = mActivityRule.getActivity();
