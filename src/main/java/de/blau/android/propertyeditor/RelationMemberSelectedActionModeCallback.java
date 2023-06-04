@@ -208,7 +208,7 @@ public class RelationMemberSelectedActionModeCallback implements Callback {
             boolean lineLike = false; // this needs a better name
             if (tags != null && tags.size() == 1) {
                 String type = tags.get(0).get(Tags.KEY_TYPE);
-                lineLike = Tags.VALUE_MULTIPOLYGON.equals(type) || Tags.VALUE_BOUNDARY.equals(type) || Tags.VALUE_ROUTE.equals(type);
+                lineLike = Tags.VALUE_MULTIPOLYGON.equals(type) || Tags.VALUE_BOUNDARY.equals(type);
             }
             List<MemberEntry> temp = RelationUtils.sortRelationMembers(selected, new LinkedList<>(),
                     lineLike ? RelationUtils::haveEndConnection : RelationUtils::haveCommonNode);
