@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -234,6 +235,9 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
         AppCompatCheckBox check = (AppCompatCheckBox) LayoutInflater.from(ctx).inflate(R.layout.snap_action_view, null);
         check.setChecked(snap);
         check.setOnCheckedChangeListener(listener);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            check.setTooltipText(ctx.getString(R.string.menu_snap));
+        }
         snapItem.setActionView(check);
     }
 
