@@ -1045,8 +1045,10 @@ public class Main extends FullScreenAppCompatActivity
                             logic.pushSelection(selection);
                         } else {
                             logic.popSelection();
-                        }
-                        if (Mode.MODE_EASYEDIT == logic.getMode() && !logic.getSelectedElements().isEmpty()) {
+                        }                       
+                        final List<OsmElement> selectedElements = logic.getSelectedElements();
+                        zoomTo(selectedElements);
+                        if (Mode.MODE_EASYEDIT == logic.getMode() && !selectedElements.isEmpty()) {
                             getEasyEditManager().startElementSelectionMode();
                         }
                         invalidateMap();
