@@ -3289,7 +3289,8 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         synchronized (this) {
             for (Way w : currentStorage.getWays()) {
                 final long wayId = w.getOsmId();
-                if (apiStorage.getWay(wayId) == null && !box.intersects(w.getBounds()) && !keepWays.contains(wayId) && !hasModifiedNodes(w)) {
+                if (apiStorage.getWay(wayId) == null && !box.intersects(w.getBounds()) && !keepWays.contains(wayId) && !hasModifiedNodes(w)
+                        && !inIdSet(w.getParentRelations(), keepRelations)) {
                     currentStorage.removeWay(w);
                     removeReferenceFromParents(logic, w);
                 } else { // keeping so we need to keep the nodes
@@ -3300,14 +3301,16 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             }
             for (Node n : currentStorage.getNodes()) {
                 long nodeId = n.getOsmId();
-                if (apiStorage.getNode(nodeId) == null && !box.contains(n.getLon(), n.getLat()) && !keepNodes.contains(nodeId)) {
+                if (apiStorage.getNode(nodeId) == null && !box.contains(n.getLon(), n.getLat()) && !keepNodes.contains(nodeId)
+                        && !inIdSet(n.getParentRelations(), keepRelations)) {
                     currentStorage.removeNode(n);
                     removeReferenceFromParents(logic, n);
                 }
             }
             for (Relation r : currentStorage.getRelations()) {
                 long relationId = r.getOsmId();
-                if (apiStorage.getRelation(relationId) == null && !keepRelations.contains(relationId) && !r.hasDownloadedMembers()) {
+                if (apiStorage.getRelation(relationId) == null && !keepRelations.contains(relationId) && !r.hasDownloadedMembers()
+                        && !inIdSet(r.getParentRelations(), keepRelations)) {
                     // Note: this will not remove already processed relations that had this as a member however further
                     // prune passes will eventually delete them, which is good enough and so we don't rerun this
                     // explicitly
@@ -3319,6 +3322,24 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             BoundingBox.prune(this, box);
         }
         dirty();
+    }
+
+    /**
+     * Check if a list of relations has an id in a set
+     * 
+     * @param relations the List of Relations
+     * @param ids the set of ids
+     * @return true if ids contains one relations ids
+     */
+    private boolean inIdSet(List<Relation> relations, LongHashSet ids) {
+        if (relations != null) {
+            for (Relation r : relations) {
+                if (ids.contains(r.getOsmId())) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**

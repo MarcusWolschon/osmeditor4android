@@ -232,6 +232,13 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
         return relationMembersLayout;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d(DEBUG_TAG, "onStart");
+        adapter.notifyDataSetChanged();
+    }
+
     /**
      * Loop over the the members and set the connection icon
      */

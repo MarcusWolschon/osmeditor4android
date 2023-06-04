@@ -54,7 +54,7 @@ Yes, Vespucci supports manual and automatic download of Notes and offline storag
 Some things missing at this point in time:
 
   * No extensive validation (however in general Vespucci tries to stop you from shooting yourself in the foot)
-  * Property (tag) editor does not run concurrently with the main map and object display.
+  * Property (tag) editor does not run concurrently with the main map and object display (note that there is the experimental [Enable split window property editor](../help/en/Advanced%20preferences.md) setting that will support this, however this tends to work best on tablets and is quite cramped on phones).
 
 ### Which languages are supported?
 
