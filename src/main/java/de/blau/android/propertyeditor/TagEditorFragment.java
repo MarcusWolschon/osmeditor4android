@@ -275,8 +275,12 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             types = (String[]) savedInstanceState.getSerializable(TYPES_KEY);
             @SuppressWarnings("unchecked")
             Map<String, ArrayList<String>> temp = (Map<String, ArrayList<String>>) savedInstanceState.getSerializable(SAVEDTAGS_KEY);
-            savedTags = new LinkedHashMap<>();
-            savedTags.putAll(temp);
+            if (temp != null) {
+                savedTags = new LinkedHashMap<>();
+                savedTags.putAll(temp);
+            } else {
+                Log.e(DEBUG_TAG, "saved state, but no saved tags");
+            }
         }
 
         prefs = App.getLogic().getPrefs();
@@ -2002,6 +2006,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      * @param allowBlanks If true, includes key-value pairs where one or the other is blank.
      * @return The LinkedHashMap&gt;String,String&lt; of key-value pairs.
      */
+    @NonNull
     private LinkedHashMap<String, List<String>> getKeyValueMap(final boolean allowBlanks) {
         return getKeyValueMap((LinearLayout) getOurView(), allowBlanks);
     }
@@ -2013,6 +2018,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      * @param allowBlanks If true, includes key-value pairs where one or the other is blank.
      * @return The LinkedHashMap&lt;String,List&lt;String&gt;&gt; of key-value pairs.
      */
+    @NonNull
     private LinkedHashMap<String, List<String>> getKeyValueMap(LinearLayout rowLayout, final boolean allowBlanks) {
         final LinkedHashMap<String, List<String>> tags = new LinkedHashMap<>();
         if (rowLayout == null && savedTags != null) {
