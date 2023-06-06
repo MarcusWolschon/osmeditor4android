@@ -44,15 +44,14 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.RelationMemberDescription;
-import de.blau.android.osm.Server;
 import de.blau.android.osm.Way;
-import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.presets.PresetRole;
 import de.blau.android.util.BaseFragment;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.ScrollingLinearLayoutManager;
+import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 import de.blau.android.util.collections.MultiHashMap;
@@ -63,7 +62,7 @@ import de.blau.android.util.collections.MultiHashMap;
  * @author Simon Poole
  *
  */
-public class RelationMembersFragment extends BaseFragment implements PropertyRows {
+public class RelationMembersFragment extends BaseFragment implements PropertyRows, DataUpdate {
     private static final String DEBUG_TAG = RelationMembersFragment.class.getSimpleName();
 
     private static final String MEMBERS_KEY = "members";
@@ -86,6 +85,10 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
     private List<MemberEntry>     membersInternal = new ArrayList<>();
     private RelationMemberAdapter adapter;
     private RecyclerView          membersVerticalLayout;
+
+    private int notDownloadedNodeRes;
+    private int notDownloadedWayRes;
+    private int notDownloadedRelationRes;
 
     enum Connected {
         NOT, UP, DOWN, BOTH, RING_TOP, RING, RING_BOTTOM, CLOSEDWAY, CLOSEDWAY_UP, CLOSEDWAY_DOWN, CLOSEDWAY_BOTH, CLOSEDWAY_RING
@@ -205,19 +208,23 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
             savingHelper.save(getContext(), Long.toString(id) + FILENAME_ORIG_MEMBERS, members, true);
         }
 
-        populateMembersInternal(members);
+        if (members != null) {
+            getMemberEntries(members, membersInternal);
+        }
+
+        notDownloadedNodeRes = ThemeUtils.getResIdFromAttribute(getContext(), R.attr.not_downloaded_node_small);
+        notDownloadedWayRes = ThemeUtils.getResIdFromAttribute(getContext(), R.attr.not_downloaded_line_small);
+        notDownloadedRelationRes = ThemeUtils.getResIdFromAttribute(getContext(), R.attr.not_downloaded_relation_small);
 
         setIcons(membersInternal);
 
-        Preferences prefs = App.getLogic().getPrefs();
-        Server server = prefs.getServer();
         adapter = new RelationMemberAdapter(getContext(), this, inflater, membersInternal, (buttonView, isChecked) -> {
             if (isChecked) {
                 memberSelected(null);
             } else {
                 deselectRow();
             }
-        }, server.getCachedCapabilities().getMaxStringLength());
+        }, propertyEditorListener.getCapabilities().getMaxStringLength());
         membersVerticalLayout.setAdapter(adapter);
 
         CheckBox headerCheckBox = (CheckBox) relationMembersLayout.findViewById(R.id.header_member_selected);
@@ -233,10 +240,21 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        Log.d(DEBUG_TAG, "onStart");
-        adapter.notifyDataSetChanged();
+    public void onDataUpdate() {
+        Log.d(DEBUG_TAG, "onDataUpdate");
+        Relation r = (Relation) propertyEditorListener.getElement();
+        List<MemberEntry> tempEntries = new ArrayList<>();
+        final ArrayList<RelationMemberDescription> currentMembers = PropertyEditorData.getRelationMemberDescriptions(r, new ArrayList<>());
+        getMemberEntries(currentMembers, tempEntries);
+        setIcons(tempEntries);
+        if (!tempEntries.equals(membersInternal)) {
+            Log.d(DEBUG_TAG, "onDataUpdate current members have changed");
+            Snack.toastTopInfo(getContext(), R.string.toast_updating_members);
+            membersInternal.clear();
+            membersInternal.addAll(tempEntries);
+            adapter.notifyDataSetChanged();
+            savingHelper.save(getContext(), Long.toString(id) + FILENAME_ORIG_MEMBERS, currentMembers, true);
+        }
     }
 
     /**
@@ -694,11 +712,11 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
                 typeView.setImageResource(ThemeUtils.getResIdFromAttribute(ctx, iconId));
             } else {
                 if (Node.NAME.equals(objectType)) {
-                    typeView.setImageResource(ThemeUtils.getResIdFromAttribute(ctx, R.attr.not_downloaded_node_small));
+                    typeView.setImageResource(owner.notDownloadedNodeRes);
                 } else if (Way.NAME.equals(objectType)) {
-                    typeView.setImageResource(ThemeUtils.getResIdFromAttribute(ctx, R.attr.not_downloaded_line_small));
+                    typeView.setImageResource(owner.notDownloadedWayRes);
                 } else if (Relation.NAME.equals(objectType)) {
-                    typeView.setImageResource(ThemeUtils.getResIdFromAttribute(ctx, R.attr.not_downloaded_relation_small));
+                    typeView.setImageResource(owner.notDownloadedRelationRes);
                 } else {
                     // don't know yet
                 }
@@ -963,22 +981,23 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
         List<RelationMemberDescription> members = savingHelper.load(getContext(), Long.toString(id) + FILENAME_ORIG_MEMBERS, true);
         if (members != null) {
             membersInternal.clear();
-            populateMembersInternal(members);
+            getMemberEntries(members, membersInternal);
         }
         setIcons();
         adapter.notifyDataSetChanged();
     }
 
     /**
-     * Copy a list of RelationMemberDescription to the internal list for the adapter
+     * Get a list of MemberEntry for the adapter
      * 
      * @param members the List of RelationMemberDescription
+     * @param entries the List of MemberEntry
      */
-    private void populateMembersInternal(List<RelationMemberDescription> members) {
+    private void getMemberEntries(@NonNull List<RelationMemberDescription> members, @NonNull List<MemberEntry> entries) {
         int pos = 0;
         for (RelationMemberDescription rmd : members) {
             rmd.setPosition(pos);
-            membersInternal.add(new MemberEntry(rmd));
+            entries.add(new MemberEntry(rmd));
             pos++;
         }
     }

@@ -49,11 +49,13 @@ import de.blau.android.exception.DuplicateKeyException;
 import de.blau.android.exception.IllegalOperationException;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.nsi.Names.TagMap;
+import de.blau.android.osm.Capabilities;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMemberDescription;
 import de.blau.android.osm.RelationMemberPosition;
+import de.blau.android.osm.Server;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.prefs.PrefEditor;
 import de.blau.android.prefs.Preferences;
@@ -173,6 +175,7 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
     private List<String>       isoCodes      = null;
     private ControlListener    controlListener;
     private PageChangeListener pageChangeListener;
+    private Capabilities       capabilities;
 
     /**
      * Build the intent to start the PropertyEditor
@@ -264,8 +267,8 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
         Log.d(DEBUG_TAG, "... done.");
 
         // sanity check
-        if (loadData == null) {
-            abort("loadData null");
+        if (loadData.length == 0) {
+            abort("loadData empty");
             return;
         }
 
@@ -393,6 +396,43 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
         // save tag clipboard
         App.getTagClipboard(getContext()).save(getContext());
         super.onStop();
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) {
+            Log.d(DEBUG_TAG, "onHiddenChanged");
+            if (elementDeleted()) {
+                Snack.toastTopWarning(getContext(), R.string.toast_element_has_been_deleted);
+                App.getLogic().getHandler().post(() -> controlListener.finished(this));
+                return;
+            }
+            if (tagEditorFragment != null) {
+                tagEditorFragment.onDataUpdate();
+            }
+            if (relationMembersFragment != null) {
+                relationMembersFragment.onDataUpdate();
+            }
+            if (relationMembershipFragment != null) {
+                relationMembershipFragment.onDataUpdate();
+            }
+        }
+    }
+
+    /**
+     * Check if an element has been deleted
+     * 
+     * @return true if any of the edited elements has been deleted
+     */
+    private boolean elementDeleted() {
+        StorageDelegator d = App.getDelegator();
+        for (PropertyEditorData p : loadData) {
+            if (OsmElement.STATE_DELETED == d.getOsmElement(p.type, p.osmId).getState()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -856,9 +896,10 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
     }
 
     /**
-     * Get current values from the fragments and end the activity
+     * Get current values from the fragments and end the fragment
      */
     public void updateAndFinish() {
+
         if (!validateTags()) {
             return;
         }
@@ -874,8 +915,13 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
 
         Logic logic = App.getLogic();
         if (logic != null) {
+            StorageDelegator d = App.getDelegator();
             // Tags
             for (int i = 0; i < elementCount; i++) {
+                if (isDeleted(d, i)) {
+                    Log.w(DEBUG_TAG, "element " + types[i] + osmIds[i] + " is deleted");
+                    continue;
+                }
                 final LinkedHashMap<String, String> tags = currentTags.get(i);
                 if (!originalTags.get(i).equals(tags)) {
                     try {
@@ -886,7 +932,7 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
                 }
             }
 
-            if (elementCount == 1) {
+            if (elementCount == 1 && !isDeleted(d, 0)) {
                 // Relation members
                 if (Relation.NAME.equals(types[0])) {
                     List<RelationMemberDescription> currentMembers = relationMembersFragment.getMembersList();
@@ -913,6 +959,17 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
 
         // call through to activity that we are done
         controlListener.finished(this);
+    }
+
+    /**
+     * Check if an element is deleted
+     * 
+     * @param d the current StorageDelegator instance
+     * @param i the element index
+     * @return true if the element has been deleted
+     */
+    private boolean isDeleted(@NonNull StorageDelegator d, int i) {
+        return OsmElement.STATE_DELETED == d.getOsmElement(types[i], osmIds[i]).getState();
     }
 
     /**
@@ -1043,21 +1100,19 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
     private static class MyKeyListener implements OnKeyListener {
         @Override
         public boolean onKey(final View view, final int keyCode, final KeyEvent keyEvent) {
-            if (keyEvent.getAction() == KeyEvent.ACTION_UP || keyEvent.getAction() == KeyEvent.ACTION_MULTIPLE) {
-                if (view instanceof EditText) {
-                    // on Enter -> goto next EditText
-                    if (keyCode == KeyEvent.KEYCODE_ENTER) {
-                        View nextView = view.focusSearch(View.FOCUS_RIGHT);
-                        if (!(nextView instanceof EditText)) {
-                            nextView = view.focusSearch(View.FOCUS_LEFT);
-                            if (nextView != null) {
-                                nextView = nextView.focusSearch(View.FOCUS_DOWN);
-                            }
+            if (view instanceof EditText && (keyEvent.getAction() == KeyEvent.ACTION_UP || keyEvent.getAction() == KeyEvent.ACTION_MULTIPLE)) {
+                // on Enter -> goto next EditText
+                if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                    View nextView = view.focusSearch(View.FOCUS_RIGHT);
+                    if (!(nextView instanceof EditText)) {
+                        nextView = view.focusSearch(View.FOCUS_LEFT);
+                        if (nextView != null) {
+                            nextView = nextView.focusSearch(View.FOCUS_DOWN);
                         }
-                        if (nextView instanceof EditText) {
-                            nextView.requestFocus();
-                            return true;
-                        }
+                    }
+                    if (nextView instanceof EditText) {
+                        nextView.requestFocus();
+                        return true;
                     }
                 }
             }
@@ -1404,5 +1459,14 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
         } else {
             Log.e(DEBUG_TAG, "tagFormFragment is null");
         }
+    }
+
+    @Override
+    public Capabilities getCapabilities() {
+        if (capabilities == null) {
+            Server server = prefs.getServer();
+            capabilities = server.getCachedCapabilities();
+        }
+        return capabilities;
     }
 }

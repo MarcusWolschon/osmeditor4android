@@ -625,13 +625,17 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         Log.d(DEBUG_TAG, "update");
         // remove all editable stuff
         View sv = getView();
+        if (sv == null) {
+            Log.e(DEBUG_TAG, "update ScrollView null");
+            return;
+        }
         LinearLayout ll = (LinearLayout) sv.findViewById(R.id.form_container_layout);
         if (ll != null) {
             while (ll.getChildAt(0) instanceof EditableLayout) {
                 ll.removeViewAt(0);
             }
         } else {
-            Log.d(DEBUG_TAG, "update container layout null");
+            Log.e(DEBUG_TAG, "update container layout null");
             return;
         }
         final EditableLayout editableView = (EditableLayout) inflater.inflate(R.layout.tag_form_editable, ll, false);

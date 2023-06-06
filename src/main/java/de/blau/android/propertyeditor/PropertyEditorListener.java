@@ -6,6 +6,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import de.blau.android.osm.Capabilities;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.presets.Preset;
 
@@ -105,4 +106,12 @@ public interface PropertyEditorListener {
      * Disallow presets to be applied
      */
     public void disablePresets();
+    
+    /**
+     * Get the current API-Servers Capabilities object
+     * 
+     * @return a Capabilities instance
+     */
+    @NonNull
+    public Capabilities getCapabilities();
 }

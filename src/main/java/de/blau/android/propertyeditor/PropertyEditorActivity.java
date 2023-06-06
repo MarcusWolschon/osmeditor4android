@@ -134,6 +134,17 @@ public class PropertyEditorActivity extends LocaleAwareCompatActivity implements
         }
     }
 
+    @Override
+    public void onTopResumedActivityChanged(boolean topResumed) {
+        Log.d(DEBUG_TAG, "onTopResumedActivityChanged " + topResumed);
+        if (topResumed) {
+            Fragment fragment = peekBackStack(getSupportFragmentManager());
+            if (fragment instanceof PropertyEditorFragment) {
+                ((PropertyEditorFragment) fragment).onHiddenChanged(false);
+            }
+        }
+    }
+
     /**
      * Add the Fragment from an Intent
      * 
@@ -160,8 +171,8 @@ public class PropertyEditorActivity extends LocaleAwareCompatActivity implements
         Log.d(DEBUG_TAG, "... done.");
 
         // sanity check
-        if (loadData == null) {
-            abort("loadData null");
+        if (loadData.length == 0) {
+            abort("loadData is empty");
             return;
         }
 
@@ -260,13 +271,14 @@ public class PropertyEditorActivity extends LocaleAwareCompatActivity implements
     public void finished(@Nullable Fragment finishedFragment) {
         final FragmentManager fm = getSupportFragmentManager();
         int count = backStackCount(fm);
+        final boolean notWaiting = getCallingActivity() == null;
         if (count > 1) {
             fm.popBackStackImmediate();
             PropertyEditorFragment top = peekBackStack(fm);
-            final boolean notWaiting = getCallingActivity() == null;
             if (top != null) { // still have a fragment on the stack
                 FragmentTransaction ft = fm.beginTransaction();
                 ft.show(top);
+                ft.commit();
                 if (notWaiting) { // calling activity is not waiting for us
                     startActivity(getIntent(Main.ACTION_POP_SELECTION));
                     return;
@@ -276,6 +288,9 @@ public class PropertyEditorActivity extends LocaleAwareCompatActivity implements
                 startActivity(getIntent(Main.ACTION_MAP_UPDATE));
             }
             return;
+        }
+        if (notWaiting) {
+            startActivity(getIntent(Main.ACTION_CLEAR_SELECTION_STACK));
         }
         finish();
     }

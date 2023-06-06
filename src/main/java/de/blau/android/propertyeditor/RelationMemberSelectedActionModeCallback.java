@@ -95,9 +95,10 @@ public class RelationMemberSelectedActionModeCallback implements Callback {
 
         menu.add(Menu.NONE, MENU_ITEM_MOVE_UP, Menu.NONE, R.string.tag_menu_move_up).setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.menu_up));
         menu.add(Menu.NONE, MENU_ITEM_MOVE_DOWN, Menu.NONE, R.string.tag_menu_move_down).setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.menu_down));
-        menu.add(Menu.NONE, MENU_ITEM_SORT, Menu.NONE, R.string.tag_menu_sort).setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.menu_sort));
+        menu.add(Menu.NONE, MENU_ITEM_SORT, Menu.NONE, R.string.tag_menu_sort).setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.menu_sort))
+                .setEnabled(!members.isEmpty());
         menu.add(Menu.NONE, MENU_ITEM_REVERSE_ORDER, Menu.NONE, R.string.tag_menu_reverse_order)
-                .setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.menu_reverse_order));
+                .setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.menu_reverse_order)).setEnabled(!members.isEmpty());
 
         // we only display the download button if at least one of the selected elements isn't downloaded
         boolean nonDownloadedSelected = false;
@@ -108,12 +109,11 @@ public class RelationMemberSelectedActionModeCallback implements Callback {
                 break;
             }
         }
-        if (nonDownloadedSelected) {
-            MenuItem downloadItem = menu.add(Menu.NONE, MENU_ITEM_DOWNLOAD, Menu.NONE, R.string.tag_menu_download)
-                    .setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.menu_download));
-            // if we don't have network connectivity disable
-            downloadItem.setEnabled(new NetworkStatus(caller.getContext()).isConnected());
-        }
+
+        MenuItem downloadItem = menu.add(Menu.NONE, MENU_ITEM_DOWNLOAD, Menu.NONE, R.string.tag_menu_download)
+                .setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.menu_download));
+        // if we don't have network connectivity disable
+        downloadItem.setEnabled(new NetworkStatus(caller.getContext()).isConnected() && nonDownloadedSelected);
 
         menu.add(Menu.NONE, MENU_ITEM_TOP, Menu.NONE, R.string.tag_menu_top);
         menu.add(Menu.NONE, MENU_ITEM_BOTTOM, Menu.NONE, R.string.tag_menu_bottom);

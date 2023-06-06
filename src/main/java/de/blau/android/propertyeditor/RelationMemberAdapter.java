@@ -27,7 +27,7 @@ public class RelationMemberAdapter extends RecyclerView.Adapter<RelationMemberAd
     private final Context        ctx;
     private final TextWatcher    watcher;
 
-    List<MemberEntry> entries;
+    private List<MemberEntry> entries;
 
     private int selected = -1;
 
@@ -72,7 +72,6 @@ public class RelationMemberAdapter extends RecyclerView.Adapter<RelationMemberAd
         Integer position = (Integer) buttonView.getTag();
         if (position != null) {
             RelationMemberAdapter.this.notifyItemChanged(selected);
-
             selected = position;
             groupChangeListener.onCheckedChanged(null, position);
         }
@@ -122,7 +121,6 @@ public class RelationMemberAdapter extends RecyclerView.Adapter<RelationMemberAd
                 watcher.afterTextChanged(s);
                 memberEntry.setRole(s.toString());
             }
-
         });
 
         if (memberEntry.downloaded() && !memberEntry.selected) {

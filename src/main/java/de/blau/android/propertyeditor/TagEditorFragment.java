@@ -92,7 +92,7 @@ import de.blau.android.util.Util;
 import de.blau.android.util.Value;
 import de.blau.android.views.CustomAutoCompleteTextView;
 
-public class TagEditorFragment extends BaseFragment implements PropertyRows, EditorUpdate {
+public class TagEditorFragment extends BaseFragment implements PropertyRows, EditorUpdate, DataUpdate {
     private static final String DEBUG_TAG = TagEditorFragment.class.getSimpleName();
 
     private static final String SAVEDTAGS_KEY           = "SAVEDTAGS";
@@ -320,7 +320,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             Log.d(DEBUG_TAG, "Restoring from instance variable");
             tags = savedTags;
         } else {
-            tags = buildEdits();
+            tags = getTagsInEditForm();
         }
 
         loaded = false;
@@ -411,6 +411,15 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         return rowLayout;
     }
 
+    @Override
+    public void onDataUpdate() {
+        Log.d(DEBUG_TAG, "onDataUpdate");
+        if (elements.length == 1) {
+            // simple case as we don't have to check for deleted elements
+            // FIXME implement
+        }
+    }
+
     /**
      * Determine the ElementType for all edited elements
      * 
@@ -432,22 +441,32 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     }
 
     /**
-     * Build the data structure we use to build the initial edit display
+     * Build the data structure we use to build the edit display
      * 
      * @return a map of String (the keys) and ArrayList&lt;String&gt; (the values)
      */
-    private LinkedHashMap<String, List<String>> buildEdits() {
-        @SuppressWarnings("unchecked")
-        List<Map<String, String>> originalTags = (ArrayList<Map<String, String>>) getArguments().getSerializable(TAGS_KEY);
+    @SuppressWarnings("unchecked")
+    private LinkedHashMap<String, List<String>> getTagsInEditForm() {
+        return getTagsInEditForm((ArrayList<Map<String, String>>) getArguments().getSerializable(TAGS_KEY));
+    }
+
+    /**
+     * Build the data structure we use to build the edit display
+     * 
+     * @param original tags in original format
+     * 
+     * @return a map of String (the keys) and ArrayList&lt;String&gt; (the values)
+     */
+    private LinkedHashMap<String, List<String>> getTagsInEditForm(List<Map<String, String>> original) {
         //
         LinkedHashMap<String, List<String>> tags = new LinkedHashMap<>();
-        int l = originalTags.size();
+        int l = original.size();
         List<String> valueTemplate = new ArrayList<>(l);
         for (int j = 0; j < l; j++) {
             valueTemplate.add("");
         }
         for (int i = 0; i < l; i++) {
-            Map<String, String> map = originalTags.get(i);
+            Map<String, String> map = original.get(i);
             for (Entry<String, String> entry : map.entrySet()) {
                 String key = entry.getKey();
                 String value = entry.getValue();
@@ -1788,7 +1807,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             for (Entry<String, PresetItem> entry : tags2Preset.entrySet()) {
                 Log.e(DEBUG_TAG, "evalJavaScript " + entry.getKey() + " " + (entry.getValue() != null ? entry.getValue().getName() : " null"));
             }
-            String result = de.blau.android.javascript.Utils.evalString(getActivity(), " " + key, script, buildEdits(), currentValues, defaultValue,
+            String result = de.blau.android.javascript.Utils.evalString(getActivity(), " " + key, script, getTagsInEditForm(), currentValues, defaultValue,
                     tags2Preset, App.getCurrentPresets(getActivity()));
             if (result == null || "".equals(result)) {
                 currentValues.remove(key);
@@ -1985,7 +2004,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             return true;
         case R.id.tag_menu_js_console:
             ConsoleDialog.showDialog(getActivity(), R.string.tag_menu_js_console, -1, -1, null,
-                    (context, input, flag1, flag2) -> de.blau.android.javascript.Utils.evalString(context, "JS Preset Test", input, buildEdits(),
+                    (context, input, flag1, flag2) -> de.blau.android.javascript.Utils.evalString(context, "JS Preset Test", input, getTagsInEditForm(),
                             getKeyValueMap(true), "test", tags2Preset, App.getCurrentPresets(context)));
             return true;
         case R.id.tag_menu_select_all:
@@ -2211,7 +2230,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      * reload original arguments
      */
     void doRevert() {
-        loadEdits(buildEdits(), false);
+        loadEdits(getTagsInEditForm(), false);
         updateAutocompletePresetItem(null);
     }
 

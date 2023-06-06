@@ -38,15 +38,14 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.RelationMemberPosition;
-import de.blau.android.osm.Server;
 import de.blau.android.osm.StorageDelegator;
-import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.presets.PresetRole;
 import de.blau.android.util.ArrayAdapterWithState;
 import de.blau.android.util.BaseFragment;
 import de.blau.android.util.Enabled;
+import de.blau.android.util.Snack;
 import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.Util;
 import de.blau.android.util.collections.MultiHashMap;
@@ -57,7 +56,7 @@ import de.blau.android.util.collections.MultiHashMap;
  * @author Simon Poole
  *
  */
-public class RelationMembershipFragment extends BaseFragment implements PropertyRows, OnItemSelectedListener {
+public class RelationMembershipFragment extends BaseFragment implements PropertyRows, OnItemSelectedListener, DataUpdate {
     private static final String DEBUG_TAG = RelationMembershipFragment.class.getSimpleName();
 
     private static final String PARENTS_KEY      = "parents";
@@ -138,27 +137,10 @@ public class RelationMembershipFragment extends BaseFragment implements Property
             elementType = getArguments().getString(ELEMENT_TYPE_KEY);
         }
 
-        Preferences prefs = App.getLogic().getPrefs();
-        Server server = prefs.getServer();
-        maxStringLength = server.getCachedCapabilities().getMaxStringLength();
+        maxStringLength = propertyEditorListener.getCapabilities().getMaxStringLength();
 
-        // generate a list and an ArrayAdapter of all Relations in Storage
-        // this can, naturally be fairly long and the question is if we could do
-        // something else
-        relationHolderList = new ArrayList<>();
-        final Context context = getContext();
-        int limit = prefs.getServer().getCachedCapabilities().getMaxRelationMembers();
-        relationHolderList.add(new RelationHolder(context, null, limit)); // empty list entry
-        final long osmId = propertyEditorListener.getElement().getOsmId();
-        final boolean isRelation = Relation.NAME.equals(elementType);
-        for (Relation r : App.getDelegator().getCurrentStorage().getRelations()) {
-            // we don't want to make it too easy to create relation loops and
-            // filter out the current element out if it is a relation
-            if (isRelation && r.getOsmId() == osmId) {
-                continue;
-            }
-            relationHolderList.add(new RelationHolder(context, r, limit));
-        }
+        relationHolderList = getAllRelations(new ArrayList<>());
+
         // Adapter containing all Relations
         relationAdapter = new ArrayAdapterWithState<>(getActivity(), R.layout.autocomplete_row, relationHolderList);
 
@@ -173,6 +155,44 @@ public class RelationMembershipFragment extends BaseFragment implements Property
             }
         });
         return parentRelationsLayout;
+    }
+
+    @Override
+    public void onDataUpdate() {
+        Log.d(DEBUG_TAG, "onDataUpdate");
+        OsmElement element = propertyEditorListener.getElement();
+        final MultiHashMap<Long, RelationMemberPosition> newParents = PropertyEditorData.getParentMap(element, new MultiHashMap<>(false, true));
+        final MultiHashMap<Long, RelationMemberPosition> oldParents = getParentRelationMap();
+        if (!oldParents.equals(newParents)) {
+            Snack.toastTopInfo(getContext(), R.string.toast_updating_parents);
+            loadParents(newParents, element.getName());
+        }
+        relationHolderList.clear();
+        relationHolderList = getAllRelations(relationHolderList);
+        relationAdapter.notifyDataSetChanged();
+    }
+
+    /**
+     * Get a list of all relations except the edited object if it is one
+     * 
+     * @param relations the List to fill
+     * @return the list for convenience
+     */
+    private List<RelationHolder> getAllRelations(List<RelationHolder> relations) {
+        final Context context = getContext();
+        int limit = propertyEditorListener.getCapabilities().getMaxRelationMembers();
+        relations.add(new RelationHolder(context, null, limit)); // empty list entry
+        final long osmId = propertyEditorListener.getElement().getOsmId();
+        final boolean isRelation = Relation.NAME.equals(elementType);
+        for (Relation r : App.getDelegator().getCurrentStorage().getRelations()) {
+            // we don't want to make it too easy to create relation loops and
+            // filter out the current element out if it is a relation
+            if (isRelation && r.getOsmId() == osmId) {
+                continue;
+            }
+            relations.add(new RelationHolder(context, r, limit));
+        }
+        return relations;
     }
 
     /**
@@ -364,11 +384,6 @@ public class RelationMembershipFragment extends BaseFragment implements Property
             });
 
             setRoleOnItemClickListener(roleEdit);
-
-            OsmElement element = App.getDelegator().getOsmElement(Relation.NAME, relationId);
-            if (element != null) {
-                ((ControlListener) owner.getActivity()).addPropertyEditor(element);
-            }
         }
 
         /**
@@ -518,7 +533,7 @@ public class RelationMembershipFragment extends BaseFragment implements Property
             if (owner != null) {
                 View cf = owner.getActivity().getCurrentFocus();
                 if (cf == roleEdit) {
-                    owner.focusRow(0);
+                    focusRow(0);
                 }
                 LinearLayout membershipVerticalLayout = (LinearLayout) owner.getOurView();
                 membershipVerticalLayout.removeView(this);
@@ -526,6 +541,17 @@ public class RelationMembershipFragment extends BaseFragment implements Property
             } else {
                 Log.d("PropertyEditor", "deleteRow owner null");
             }
+        }
+
+        /**
+         * Move the focus to the role field of the specified row.
+         * 
+         * @param index The index of the row to move to, counting from 0.
+         * @return true if the row was successfully focused, false otherwise.
+         */
+        private boolean focusRow(int index) {
+            RelationMembershipRow row = (RelationMembershipRow) ((LinearLayout) getParent()).getChildAt(index);
+            return row != null && row.roleEdit.requestFocus();
         }
 
         /**
@@ -639,18 +665,6 @@ public class RelationMembershipFragment extends BaseFragment implements Property
                 row.selected.setChecked(false);
             }
         }
-    }
-
-    /**
-     * Move the focus to the role field of the specified row.
-     * 
-     * @param index The index of the row to move to, counting from 0.
-     * @return true if the row was successfully focused, false otherwise.
-     */
-    private boolean focusRow(int index) {
-        LinearLayout rowLayout = (LinearLayout) getOurView();
-        RelationMembershipRow row = (RelationMembershipRow) rowLayout.getChildAt(index);
-        return row != null && row.roleEdit.requestFocus();
     }
 
     /**
