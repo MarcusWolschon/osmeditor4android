@@ -1,5 +1,6 @@
 package de.blau.android.propertyeditor;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -88,8 +89,9 @@ import de.blau.android.views.ExtendedViewPager;
  * @author mb
  * @author simon
  */
-public class PropertyEditorFragment extends BaseFragment implements PropertyEditorListener, OnPresetSelectedListener, EditorUpdate, FormUpdate, PresetUpdate,
-        NameAdapters, OnSaveListener, ch.poole.openinghoursfragment.OnSaveListener {
+public class PropertyEditorFragment<M extends Map<String, String> & Serializable, L extends List<PresetElementPath> & Serializable, T extends List<Map<String, String>> & Serializable>
+        extends BaseFragment implements PropertyEditorListener, OnPresetSelectedListener, EditorUpdate, FormUpdate, PresetUpdate, NameAdapters, OnSaveListener,
+        ch.poole.openinghoursfragment.OnSaveListener {
 
     private static final String CURRENTITEM            = "current_item";
     static final String         PANELAYOUT             = "pane_layout";
@@ -135,10 +137,10 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
 
     private PropertyEditorData[] loadData;
 
-    private boolean                      applyLastAddressTags = false;
-    private boolean                      showPresets          = false;
-    private HashMap<String, String>      extraTags            = null;
-    private ArrayList<PresetElementPath> presetsToApply       = null;
+    private boolean applyLastAddressTags = false;
+    private boolean showPresets          = false;
+    private M       extraTags            = null;
+    private L       presetsToApply       = null;
 
     /**
      * Handles "enter" key presses.
@@ -180,6 +182,8 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
     /**
      * Build the intent to start the PropertyEditor
      * 
+     * @param <M>
+     * 
      * @param dataClass the tags and relation memberships that should be edited
      * @param predictAddressTags try to predict address tags
      * @param showPresets show the preset tab first
@@ -189,9 +193,10 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
      * @return a suitable Intent
      */
     @NonNull
-    public static PropertyEditorFragment newInstance(@NonNull PropertyEditorData[] dataClass, boolean predictAddressTags, boolean showPresets,
-            @Nullable HashMap<String, String> extraTags, @Nullable ArrayList<PresetElementPath> presetItems, @Nullable Boolean usePaneLayout) {
-        PropertyEditorFragment f = new PropertyEditorFragment();
+    public static <M extends Map<String, String> & Serializable, L extends List<PresetElementPath> & Serializable, T extends List<Map<String, String>> & Serializable> PropertyEditorFragment<M, L, T> newInstance(
+            @NonNull PropertyEditorData[] dataClass, boolean predictAddressTags, boolean showPresets, @Nullable M extraTags, @Nullable L presetItems,
+            @Nullable Boolean usePaneLayout) {
+        PropertyEditorFragment<M, L, T> f = new PropertyEditorFragment<>();
 
         Bundle args = new Bundle();
         args.putSerializable(TAGEDIT_DATA, dataClass);
@@ -240,8 +245,8 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
             loadData = PropertyEditorData.deserializeArray(args.getSerializable(TAGEDIT_DATA));
             applyLastAddressTags = args.getBoolean(TAGEDIT_LAST_ADDRESS_TAGS);
             showPresets = args.getBoolean(TAGEDIT_SHOW_PRESETS);
-            extraTags = (HashMap<String, String>) args.getSerializable(TAGEDIT_EXTRA_TAGS);
-            presetsToApply = (ArrayList<PresetElementPath>) args.getSerializable(TAGEDIT_PRESETSTOAPPLY);
+            extraTags = (M) args.getSerializable(TAGEDIT_EXTRA_TAGS);
+            presetsToApply = (L) args.getSerializable(TAGEDIT_PRESETSTOAPPLY);
             usePaneLayout = args.getBoolean(PANELAYOUT, Screen.isLandscape(getActivity()));
 
             // if we have a preset to auto apply it doesn't make sense to show the Preset tab except if a group is
@@ -311,7 +316,7 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
         actionbar.setDisplayHomeAsUpEnabled(true);
 
         // tags
-        ArrayList<LinkedHashMap<String, String>> tags = new ArrayList<>();
+        T tags =  (T) new ArrayList<Map<String,String>>();
         originalTags = new ArrayList<>();
         for (PropertyEditorData aLoadData : loadData) {
             originalTags.add(aLoadData.originalTags != null ? aLoadData.originalTags : aLoadData.tags);
@@ -363,7 +368,8 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
         pageChangeListener = new PageChangeListener();
         mViewPager.addOnPageChangeListener(pageChangeListener);
         // if currentItem is >= 0 then we are restoring and should use it, otherwise the first or 2nd page
-        mViewPager.setCurrentItem(currentItem != -1 ? currentItem : pagerAdapter.reversePosition(showPresets || usePaneLayout ? 0 : 1));
+        final int initialPosition = showPresets || usePaneLayout ? 0 : 1;
+        mViewPager.setCurrentItem(currentItem != -1 ? currentItem : pagerAdapter.reversePosition(initialPosition));
 
         return layout;
     }
@@ -489,11 +495,11 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
 
     public class PropertyEditorPagerAdapter extends FragmentPagerAdapter {
 
-        private ArrayList<LinkedHashMap<String, String>> tags;
-        private boolean                                  restoring   = false;
-        private boolean                                  rtl         = false;
-        private boolean                                  firstTime   = true;
-        private int                                      primaryItem = -1;
+        private T       tags;
+        private boolean restoring   = false;
+        private boolean rtl         = false;
+        private boolean firstTime   = true;
+        private int     primaryItem = -1;
 
         /**
          * Construct a new PagerAdapter
@@ -503,7 +509,7 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
          * @param rtl true if we should use RTL order for the fragments
          * @param tags the tags
          */
-        public PropertyEditorPagerAdapter(FragmentManager fm, boolean rtl, ArrayList<LinkedHashMap<String, String>> tags) {
+        public PropertyEditorPagerAdapter(FragmentManager fm, boolean rtl, T tags) {
             super(fm);
             this.tags = tags;
             this.rtl = rtl;
@@ -822,14 +828,6 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
             super.restoreState(state, loader);
             restoring = true;
             Log.d(DEBUG_TAG, "restoreState done");
-        }
-
-        @Override
-        public Parcelable saveState() {
-            Log.d(DEBUG_TAG, "saveState");
-            Bundle bundle = (Bundle) super.saveState();
-            Log.d(DEBUG_TAG, "saveState done");
-            return bundle;
         }
 
         @Override
@@ -1402,7 +1400,7 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
     public ArrayAdapter<ValueWithCount> getStreetNameAdapter(List<String> values) {
         if (streetNameAutocompleteAdapter == null) {
             streetNameAutocompleteAdapter = new StreetPlaceNamesAdapter(getContext(), R.layout.autocomplete_row, App.getDelegator(), types[0], osmIds[0],
-                    values, false); // FIXME
+                    values, false); // FIXME multiselect
         }
         return streetNameAutocompleteAdapter;
     }
@@ -1411,14 +1409,14 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
     public ArrayAdapter<ValueWithCount> getPlaceNameAdapter(List<String> values) {
         if (placeNameAutocompleteAdapter == null) {
             placeNameAutocompleteAdapter = new StreetPlaceNamesAdapter(getContext(), R.layout.autocomplete_row, App.getDelegator(), types[0], osmIds[0], values,
-                    true); // FIXME
+                    true); // FIXME multiselect
         }
         return placeNameAutocompleteAdapter;
     }
 
     @Override
     public OsmElement getElement() {
-        return element; // FIXME validate
+        return element;
     }
 
     /**

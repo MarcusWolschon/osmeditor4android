@@ -1,5 +1,6 @@
 package de.blau.android.propertyeditor;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -217,9 +218,9 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      * @return a new instance of TagEditorFragment
      */
     @NonNull
-    public static TagEditorFragment newInstance(@NonNull long[] elementIds, @NonNull String[] elementTypes,
-            @NonNull ArrayList<LinkedHashMap<String, String>> tags, boolean applyLastAddressTags, String focusOnKey, boolean displayMRUpresets,
-            @Nullable HashMap<String, String> extraTags, @Nullable ArrayList<PresetElementPath> presetsToApply) {
+    public static <T extends List<Map<String, String>> & Serializable, M extends Map<String, String> & Serializable, L extends List<PresetElementPath> & Serializable> TagEditorFragment newInstance(
+            @NonNull long[] elementIds, @NonNull String[] elementTypes, @NonNull T tags, boolean applyLastAddressTags, String focusOnKey,
+            boolean displayMRUpresets, @Nullable M extraTags, @Nullable L presetsToApply) {
         TagEditorFragment f = new TagEditorFragment();
 
         Bundle args = new Bundle();
@@ -340,7 +341,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         }
 
         if (displayMRUpresets) {
-            // FIXME this is arguably wrong for multi select
+            // FIXME this is arguably wrong for multiselect
             de.blau.android.propertyeditor.Util.addMRUPresetsFragment(getChildFragmentManager(), R.id.mru_layout, elements[0].getOsmId(),
                     elements[0].getName());
         }
@@ -1498,7 +1499,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             dialog.setTitle(R.string.tag_editor_name_suggestion);
             dialog.setMessage(R.string.tag_editor_name_suggestion_overwrite_message);
             dialog.setPositiveButton(R.string.replace, (d, which) -> {
-                loadEdits(currentValues, false);// FIXME
+                loadEdits(currentValues, false);
                 if (afterApply != null) {
                     afterApply.run();
                 }
@@ -1506,10 +1507,11 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             dialog.setNegativeButton(R.string.cancel, null);
             dialog.create().show();
         } else {
-            loadEdits(currentValues, false);// FIXME
+            loadEdits(currentValues, false);
         }
         if (prefs.nameSuggestionPresetsEnabled()) {
             PresetItem p = Preset.findBestMatch(propertyEditorListener.getPresets(), getKeyValueMapSingle(false), null, null); // FIXME
+                                                                                                                               // multiselect
             if (p != null) {
                 applyPreset((LinearLayout) getOurView(), p, false, false, false, true);
             }
@@ -1983,6 +1985,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         case R.id.tag_menu_apply_preset:
         case R.id.tag_menu_apply_preset_with_optional:
             PresetItem pi = Preset.findBestMatch(propertyEditorListener.getPresets(), getKeyValueMapSingle(false), null, null); // FIXME
+                                                                                                                                // multiselect
             if (pi != null) {
                 boolean displayOptional = itemId == R.id.tag_menu_apply_preset_with_optional;
                 presetSelectedListener.onPresetSelected(pi, displayOptional, false);
@@ -2208,7 +2211,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         });
         if (!sourceSet[0]) {
             // source wasn't set above - add a new pair
-            ArrayList<String> v = new ArrayList<>();
+            List<String> v = new ArrayList<>();
             v.add(Tags.VALUE_SURVEY);
             insertNewEdit((LinearLayout) getOurView(), sourceKey, v, -1, false);
         }
