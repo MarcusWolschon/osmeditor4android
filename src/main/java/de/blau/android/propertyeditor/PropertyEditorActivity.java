@@ -352,7 +352,7 @@ public class PropertyEditorActivity extends LocaleAwareCompatActivity implements
                 if (f instanceof PropertyEditorFragment) {
                     return (PropertyEditorFragment) f;
                 }
-                Log.e(DEBUG_TAG, "Unexpected fragment " + f.getClass().getCanonicalName());
+                Log.e(DEBUG_TAG, "Unexpected fragment " + (f != null ? f.getClass().getCanonicalName() : " is null"));
             }
         }
         return null;
