@@ -14,7 +14,7 @@
 <li>large devices in portrait orientation: multi pane layout with a pane for the tabs, one for the <em>Recently Used Presets</em> and for the <em>Presets</em> screen</li>
 </ul>
 <p>If the property editor is started with multiple elements selected only the <em>Details</em> and <em>Presets</em> tabs will be available. Tabs can be changed by swiping or by tapping the header.</p>
-<p>If the <em>Display tag form</em> preference in the <em>Advanced preferences</em> has been disabled pre-0.9.8 behaviour is enabled and the <em>Details</em> tab will have the heading <em>Properties</em>.</p>
+<p>If the <em>Display tag form</em> preference in the <em><a href="Advanced%20preferences.md">Advanced preferences</a></em> has been disabled pre-0.9.8 behaviour is enabled and the <em>Details</em> tab will have the heading <em>Properties</em>.</p>
 <p>In the tabs tapping the checkbox in the header row will select/de-select all elements.</p>
 <h2>Properties Tab</h2>
 <p>This tab gives a simplified, preset-driven, editing screen for the tags on the selected object on which the keys are represented by their description. To remove individual attributes you can simply remove or reset the value (or delete them in the <em>Details</em> tab).</p>
@@ -70,7 +70,7 @@
 <p>Start the on device help browser.</p>
 <h2>Members Tab</h2>
 <p>This tab will only be displayed if you are editing a relation, it displays entries for all the members of the relation.</p>
-<p>Members with a dark object field and only a numeric id displayed have not been downloaded.</p>
+<p>Members with a dark object field and only a numeric id displayed have not been downloaded, member highlighted in blue can be clicked on and a new property editor will be opened for the element. Note: during such a drill down operation the property editors are stacked, if you close a stacked property editor you will be returned to the previous one and so on.</p>
 <p>The following operation can be performed on selected relation members.</p>
 <ul>
 <li><em>Delete</em> - remove the object from this (the edited) relation.</li>
@@ -99,6 +99,9 @@
 <p>Go up one level.</p>
 <h3><img src="../images/menu_help.png" alt="Help" /> Help</h3>
 <p>Start the on device help browser.</p>
+<h2>Split window mode</h2>
+<p>On devices running Android 7 and later you can enable an <strong>experimental</strong> split window mode in the <a href="Advanced%20preferences.md">Experimental</a> section of the preferences. When this is enabled and the screen is split (on Android 12 and later this will happen automatically), the property editor will be displayed in parallel with the map display. If you click on a relation member in the <em>Member Tab</em> the element will be selected and the map display will zoom to it. While this will work both on phones and tablets, the usefulness on the former is limited.</p>
+<p>Changes to the data made in the map display will be reflected as far as possible in the property editor, for example changes if relation membership, deletions and so on, note however that currently later changes will override changes made in earlier property editor instances.</p>
 
 </body>
 </html>
