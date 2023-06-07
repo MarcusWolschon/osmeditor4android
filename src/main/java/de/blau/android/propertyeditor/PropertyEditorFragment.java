@@ -528,57 +528,87 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
         }
 
         /**
-         * Get a new TagFormFragment instance
+         * Get s PresetFragment instance
          * 
+         * @param instantiate the fragment
+         * 
+         * @return a PresetFragment instance
+         */
+        private Fragment presetFragment(boolean instantiate) {
+            if (instantiate) {
+                presetFragment = PresetFragment.newInstance(getElement().getOsmId(), getElement().getName(), presetsToApply, false); //
+            }
+            return presetFragment;
+        }
+
+        /**
+         * Get a TagFormFragment instance
+         * 
+         * @param instantiate the fragment
          * @param position position in the Pager
          * @param displayRecentPresets if true display the MRU Fragment
+         * 
          * @return a TagFormFragment instance
          */
         @NonNull
-        Fragment tagFormFragment(int position, boolean displayRecentPresets) {
+        Fragment tagFormFragment(boolean instantiate, int position, boolean displayRecentPresets) {
             tagFormFragmentPosition = position;
-            tagFormFragment = TagFormFragment.newInstance(displayRecentPresets, applyLastAddressTags, loadData[0].focusOnKey);
+            if (instantiate) {
+                tagFormFragment = TagFormFragment.newInstance(displayRecentPresets, applyLastAddressTags, loadData[0].focusOnKey);
+            }
             return tagFormFragment;
         }
 
         /**
-         * Get a new TagEditorFragment instance
+         * Get a TagEditorFragment instance
          * 
+         * @param instantiate the fragment
          * @param position position in the Pager
          * @param displayRecentPresets if true display the MRU Fragment
+         * 
          * @return a TagEditorFragment instance
          */
         @NonNull
-        Fragment tagEditorFragment(int position, boolean displayRecentPresets) {
+        Fragment tagEditorFragment(boolean instantiate, int position, boolean displayRecentPresets) {
             tagEditorFragmentPosition = position;
-            tagEditorFragment = TagEditorFragment.newInstance(osmIds, types, tags, applyLastAddressTags, loadData[0].focusOnKey, displayRecentPresets,
-                    extraTags, presetsToApply);
+            if (instantiate) {
+                tagEditorFragment = TagEditorFragment.newInstance(osmIds, types, tags, applyLastAddressTags, loadData[0].focusOnKey, displayRecentPresets,
+                        extraTags, presetsToApply);
+            }
             return tagEditorFragment;
         }
 
         /**
-         * Get a new RelationMembershipFragment instance
+         * Get a RelationMembershipFragment instance
+         * 
+         * @param instantiate the fragment
          * 
          * @return a RelationMembershipFragment instance
          */
         @Nullable
-        Fragment relationMembershipFragment() {
+        Fragment relationMembershipFragment(boolean instantiate) {
             if (loadData.length == 1) {
-                relationMembershipFragment = RelationMembershipFragment.newInstance(loadData[0].parents, types[0]);
+                if (instantiate) {
+                    relationMembershipFragment = RelationMembershipFragment.newInstance(loadData[0].parents, types[0]);
+                }
                 return relationMembershipFragment;
             }
             return null;
         }
 
         /**
-         * Get a new RelationMembersFragment instance
+         * Get a RelationMembersFragment instance
+         * 
+         * @param instantiate the fragment
          * 
          * @return a new RelationMembersFragment instance
          */
         @Nullable
-        Fragment relationMembersFragment() {
+        Fragment relationMembersFragment(boolean instantiate) {
             if (loadData.length == 1 && types[0].endsWith(Relation.NAME)) {
-                relationMembersFragment = RelationMembersFragment.newInstance(osmIds[0], loadData[0].members);
+                if (instantiate) {
+                    relationMembersFragment = RelationMembersFragment.newInstance(osmIds[0], loadData[0].members);
+                }
                 return relationMembersFragment;
             }
             return null;
@@ -604,33 +634,28 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
                 if (!usePaneLayout) {
                     switch (position) {
                     case 0:
-                        if (instantiate) {
-                            presetFragment = PresetFragment.newInstance(getElement().getOsmId(), getElement().getName(), presetsToApply, false); //
-                        }
-                        return presetFragment;
+                        return presetFragment(instantiate);
                     case 1:
-                        return instantiate ? tagFormFragment(position, true) : tagFormFragment;
+                        return tagFormFragment(instantiate, position, true);
                     case 2:
-                        return instantiate ? tagEditorFragment(position, false) : tagEditorFragment;
+                        return tagEditorFragment(instantiate, position, false);
                     case 3:
-                        return isRelation ? (instantiate ? relationMembersFragment() : relationMembersFragment)
-                                : (instantiate ? relationMembershipFragment() : relationMembershipFragment);
+                        return getRelationMemberFragment(instantiate);
                     case 4:
-                        return instantiate ? relationMembershipFragment() : relationMembershipFragment;
+                        return relationMembershipFragment(instantiate);
                     default:
                         // ERROR
                     }
                 } else {
                     switch (position) {
                     case 0:
-                        return instantiate ? tagFormFragment(position, false) : tagFormFragment;
+                        return tagFormFragment(instantiate, position, false);
                     case 1:
-                        return instantiate ? tagEditorFragment(position, false) : tagEditorFragment;
+                        return tagEditorFragment(instantiate, position, false);
                     case 2:
-                        return isRelation ? (instantiate ? relationMembersFragment() : relationMembersFragment)
-                                : (instantiate ? relationMembershipFragment() : relationMembershipFragment);
+                        return getRelationMemberFragment(instantiate);
                     case 3:
-                        return instantiate ? relationMembershipFragment() : relationMembershipFragment;
+                        return relationMembershipFragment(instantiate);
                     default:
                         // ERROR
                     }
@@ -639,29 +664,24 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
                 if (!usePaneLayout) {
                     switch (position) {
                     case 0:
-                        if (instantiate) {
-                            presetFragment = PresetFragment.newInstance(getElement().getOsmId(), getElement().getName(), presetsToApply, false); //
-                        }
-                        return presetFragment;
+                        return presetFragment(instantiate);
                     case 1:
-                        return instantiate ? tagEditorFragment(position, true) : tagEditorFragment;
+                        return tagEditorFragment(instantiate, position, true);
                     case 2:
-                        return isRelation ? (instantiate ? relationMembersFragment() : relationMembersFragment)
-                                : (instantiate ? relationMembershipFragment() : relationMembershipFragment);
+                        return getRelationMemberFragment(instantiate);
                     case 3:
-                        return instantiate ? relationMembershipFragment() : relationMembershipFragment;
+                        return relationMembershipFragment(instantiate);
                     default:
                         // ERROR
                     }
                 } else {
                     switch (position) {
                     case 0:
-                        return instantiate ? tagEditorFragment(position, false) : tagEditorFragment;
+                        return tagEditorFragment(instantiate, position, false);
                     case 1:
-                        return isRelation ? (instantiate ? relationMembersFragment() : relationMembersFragment)
-                                : (instantiate ? relationMembershipFragment() : relationMembershipFragment);
+                        return getRelationMemberFragment(instantiate);
                     case 2:
-                        return instantiate ? relationMembershipFragment() : relationMembershipFragment;
+                        return relationMembershipFragment(instantiate);
                     default:
                         // ERROR
                     }
@@ -669,6 +689,17 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
             }
             Log.e(DEBUG_TAG, "Unknown position " + position);
             return null;
+        }
+
+        /**
+         * Get the RelationMembersFragment if we are editing a relation, otherwise return the RelationMembershipFragment
+         * 
+         * @param instantiate if we need to instantiate the fragment
+         * @return the appropriate fragment
+         */
+        @Nullable
+        private Fragment getRelationMemberFragment(boolean instantiate) {
+            return isRelation ? relationMembersFragment(instantiate) : relationMembershipFragment(instantiate);
         }
 
         @Override
@@ -684,7 +715,7 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
                     case 2:
                         return getString(R.string.tag_details);
                     case 3:
-                        return isRelation ? getString(R.string.members) : getString(R.string.relations);
+                        return getRelationFragmentTitle();
                     case 4:
                         return getString(R.string.relations);
                     default:
@@ -697,7 +728,7 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
                     case 1:
                         return getString(R.string.tag_details);
                     case 2:
-                        return isRelation ? getString(R.string.members) : getString(R.string.relations);
+                        return getRelationFragmentTitle();
                     case 3:
                         return getString(R.string.relations);
                     default:
@@ -712,7 +743,7 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
                     case 1:
                         return getString(R.string.menu_tags);
                     case 2:
-                        return isRelation ? getString(R.string.members) : getString(R.string.relations);
+                        return getRelationFragmentTitle();
                     case 3:
                         return getString(R.string.relations);
                     default:
@@ -723,7 +754,7 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
                     case 0:
                         return getString(R.string.menu_tags);
                     case 1:
-                        return isRelation ? getString(R.string.members) : getString(R.string.relations);
+                        return getRelationFragmentTitle();
                     case 2:
                         return getString(R.string.relations);
                     default:
@@ -733,6 +764,17 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
             }
             Log.e(DEBUG_TAG, "Unknown position " + position);
             return "error";
+        }
+
+        /**
+         * Get the title of the RelationMembersFragment if we are editing a relation, otherwise return the
+         * RelationMembershipFragment title
+         * 
+         * @return the appropriate title
+         */
+        @NonNull
+        private CharSequence getRelationFragmentTitle() {
+            return isRelation ? getString(R.string.members) : getString(R.string.relations);
         }
 
         /**
@@ -752,23 +794,19 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
         public Object instantiateItem(ViewGroup container, int position) {
             BaseFragment fragment = (BaseFragment) super.instantiateItem(container, position);
             // update fragment refs here
+            Log.d(DEBUG_TAG, "Restoring ref to " + fragment.getClass().getSimpleName());
             if (fragment instanceof TagFormFragment) {
                 tagFormFragment = (TagFormFragment) fragment;
-                Log.d(DEBUG_TAG, "Restored ref to TagFormFragment");
+                tagFormFragmentPosition = position;
             } else if (fragment instanceof TagEditorFragment) {
                 tagEditorFragment = (TagEditorFragment) fragment;
-                Log.d(DEBUG_TAG, "Restored ref to TagEditorFragment");
+                tagEditorFragmentPosition = position;
             } else if (fragment instanceof RelationMembershipFragment) {
                 relationMembershipFragment = (RelationMembershipFragment) fragment;
-                Log.d(DEBUG_TAG, "Restored ref to RelationMembershipFragment");
             } else if (fragment instanceof RelationMembersFragment) {
                 relationMembersFragment = (RelationMembersFragment) fragment;
-                Log.d(DEBUG_TAG, "Restored ref to RelationMembersFragment");
             } else if (fragment instanceof PresetFragment) {
                 presetFragment = (PresetFragment) fragment;
-                Log.d(DEBUG_TAG, "Restored ref to PresetFragment");
-            } else {
-                Log.d(DEBUG_TAG, "Unknown fragment ...");
             }
             // hack to recreate the form ui when restoring as there is no callback that
             // runs after the references here have been recreated
@@ -898,7 +936,6 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
      * Get current values from the fragments and end the fragment
      */
     public void updateAndFinish() {
-
         if (!validateTags()) {
             return;
         }
