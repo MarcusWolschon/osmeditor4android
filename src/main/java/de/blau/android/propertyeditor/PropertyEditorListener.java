@@ -1,7 +1,7 @@
 package de.blau.android.propertyeditor;
 
-import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -75,7 +75,15 @@ public interface PropertyEditorListener {
      * @return list containing the tag maps or null if something went wrong
      */
     @Nullable
-    public List<LinkedHashMap<String, String>> getUpdatedTags();
+    public List<Map<String, String>> getUpdatedTags();
+    
+    /**
+     * Get original tags
+     * 
+     * @return list containing the tag maps or null if something went wrong
+     */
+    @Nullable
+    public List<Map<String, String>> getOriginalTags();
 
     /**
      * Re-create the RecentPrestsFragement view

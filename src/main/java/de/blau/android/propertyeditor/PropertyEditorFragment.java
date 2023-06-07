@@ -159,7 +159,7 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
     /**
      * 
      */
-    private ArrayList<LinkedHashMap<String, String>> originalTags;
+    private List<Map<String, String>> originalTags;
 
     /**
      * the same for relations
@@ -287,7 +287,6 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
         }
 
         presets = App.getCurrentPresets(getContext());
-
     }
 
     @Override
@@ -904,7 +903,7 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
             return;
         }
 
-        List<LinkedHashMap<String, String>> currentTags = getUpdatedTags();
+        List<Map<String, String>> currentTags = getUpdatedTags();
 
         // save any address tags for "last address tags"
         final int elementCount = currentTags.size();
@@ -922,7 +921,7 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
                     Log.w(DEBUG_TAG, "element " + types[i] + osmIds[i] + " is deleted");
                     continue;
                 }
-                final LinkedHashMap<String, String> tags = currentTags.get(i);
+                final Map<String, String> tags = currentTags.get(i);
                 if (!originalTags.get(i).equals(tags)) {
                     try {
                         logic.setTags(getActivity(), types[i], osmIds[i], tags);
@@ -981,7 +980,7 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
      * @param tags2 second list of tags
      * @return true if the lists are the same
      */
-    private boolean same(@Nullable List<LinkedHashMap<String, String>> tags1, @Nullable List<LinkedHashMap<String, String>> tags2) {
+    private boolean same(@Nullable List<Map<String, String>> tags1, @Nullable List<Map<String, String>> tags2) {
         if (tags1 == null) {
             return tags2 == null;
         }
@@ -1043,7 +1042,7 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
         if (tagFormFragment != null) {
             tagFormFragment.updateEditorFromText();
         }
-        List<LinkedHashMap<String, String>> currentTags = getUpdatedTags();
+        List<Map<String, String>> currentTags = getUpdatedTags();
         MultiHashMap<Long, RelationMemberPosition> currentParents = null;
         List<RelationMemberDescription> currentMembers = null;
         if (relationMembershipFragment != null) {
@@ -1227,13 +1226,18 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
     }
 
     @Override
-    public List<LinkedHashMap<String, String>> getUpdatedTags() {
+    public List<Map<String, String>> getUpdatedTags() {
         if (tagEditorFragment != null) {
             return tagEditorFragment.getUpdatedTags();
         } else {
             Log.e(DEBUG_TAG, "getUpdatedTags tagEditorFragment is null");
             return new ArrayList<>();
         }
+    }
+
+    @Override
+    public List<Map<String, String>> getOriginalTags() {
+        return originalTags;
     }
 
     @Override

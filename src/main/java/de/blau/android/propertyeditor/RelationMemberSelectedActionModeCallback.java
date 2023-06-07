@@ -2,8 +2,8 @@ package de.blau.android.propertyeditor;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import android.content.Context;
 import android.util.Log;
@@ -204,7 +204,7 @@ public class RelationMemberSelectedActionModeCallback implements Callback {
             ((RelationMembersFragment) caller).scrollToRow(selectedPos.get(selectedPos.size() - 1));
             return true;
         case MENU_ITEM_SORT:
-            List<LinkedHashMap<String, String>> tags = ((RelationMembersFragment) caller).propertyEditorListener.getUpdatedTags();
+            List<Map<String, String>> tags = ((RelationMembersFragment) caller).propertyEditorListener.getUpdatedTags();
             boolean lineLike = false; // this needs a better name
             if (tags != null && tags.size() == 1) {
                 String type = tags.get(0).get(Tags.KEY_TYPE);

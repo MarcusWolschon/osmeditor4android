@@ -414,9 +414,15 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     @Override
     public void onDataUpdate() {
         Log.d(DEBUG_TAG, "onDataUpdate");
-        if (elements.length == 1) {
+        List<Map<String, String>> currentTags = new ArrayList<>();
+        for (OsmElement e : elements) {
+            currentTags.add(new LinkedHashMap<>(e.getTags()));
+        }
+        if (!currentTags.equals(propertyEditorListener.getOriginalTags())) {
             // simple case as we don't have to check for deleted elements
-            // FIXME implement
+            Snack.toastTopInfo(getContext(), R.string.toast_updating_tags);
+            loadEdits(getTagsInEditForm(currentTags), false);
+            formUpdate.tagsUpdated();
         }
     }
 
@@ -2237,7 +2243,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      * reload original arguments
      */
     void doRevert() {
-        loadEdits(getTagsInEditForm(), false);
+        loadEdits(getTagsInEditForm(propertyEditorListener.getOriginalTags()), false);
         updateAutocompletePresetItem(null);
     }
 
@@ -2343,12 +2349,12 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      * @return list of maps containing the tags
      */
     @NonNull
-    public List<LinkedHashMap<String, String>> getUpdatedTags() {
+    public List<Map<String, String>> getUpdatedTags() {
         @SuppressWarnings("unchecked")
 
-        List<Map<String, String>> oldTags = (ArrayList<Map<String, String>>) getArguments().getSerializable(TAGS_KEY);
+        List<Map<String, String>> oldTags = propertyEditorListener.getOriginalTags();
         // make a (nearly) full copy
-        List<LinkedHashMap<String, String>> newTags = new ArrayList<>();
+        List<Map<String, String>> newTags = new ArrayList<>();
         for (Map<String, String> map : oldTags) {
             newTags.add(new LinkedHashMap<>(map));
         }
@@ -2356,7 +2362,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         LinkedHashMap<String, List<String>> edits = getKeyValueMap(true);
         if (edits == null) {
             // if we didn't get a LinkedHashMap as input we need to copy
-            List<LinkedHashMap<String, String>> newOldTags = new ArrayList<>();
+            List<Map<String, String>> newOldTags = new ArrayList<>();
             for (Map<String, String> map : oldTags) {
                 newOldTags.add(new LinkedHashMap<>(map));
             }
@@ -2364,7 +2370,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         }
 
         for (int index = 0; index < newTags.size(); index++) {
-            LinkedHashMap<String, String> map = newTags.get(index);
+            Map<String, String> map = newTags.get(index);
             for (String key : new TreeSet<>(map.keySet())) {
                 if (edits.containsKey(key)) {
                     List<String> valueList = edits.get(key);

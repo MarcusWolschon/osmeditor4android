@@ -3,7 +3,6 @@ package de.blau.android.propertyeditor;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -788,7 +787,7 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
         ArrayAdapter<PresetRole> getMemberRoleAutocompleteAdapter() {
             List<PresetRole> roles = new ArrayList<>();
             PropertyEditorListener listener = (PropertyEditorListener) owner.getParentFragment();
-            List<LinkedHashMap<String, String>> allTags = listener.getUpdatedTags();
+            List<Map<String, String>> allTags = listener.getUpdatedTags();
             if (allTags != null && !allTags.isEmpty()) {
                 PresetItem relationPreset = Preset.findBestMatch(listener.getPresets(), allTags.get(0), null, null);
                 if (relationPreset != null) {
@@ -914,7 +913,7 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
 
         final Relation r = (Relation) propertyEditorListener.getElement();
         final Preset[] presets = propertyEditorListener.getPresets();
-        final List<LinkedHashMap<String, String>> allTags = propertyEditorListener.getUpdatedTags();
+        final List<Map<String, String>> allTags = propertyEditorListener.getUpdatedTags();
         final PresetItem presetItem = allTags != null && !allTags.isEmpty() ? Preset.findBestMatch(presets, allTags.get(0), null, null) : null;
 
         final MultiHashMap<String, String> originalMembersRoles = new MultiHashMap<>(false);
