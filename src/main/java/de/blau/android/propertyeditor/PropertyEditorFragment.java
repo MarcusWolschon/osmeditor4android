@@ -713,23 +713,19 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
         public Object instantiateItem(ViewGroup container, int position) {
             BaseFragment fragment = (BaseFragment) super.instantiateItem(container, position);
             // update fragment refs here
+            Log.d(DEBUG_TAG, "Restoring ref to " + fragment.getClass().getSimpleName());
             if (fragment instanceof TagFormFragment) {
                 tagFormFragment = (TagFormFragment) fragment;
-                Log.d(DEBUG_TAG, "Restored ref to TagFormFragment");
+                tagFormFragmentPosition = position;
             } else if (fragment instanceof TagEditorFragment) {
                 tagEditorFragment = (TagEditorFragment) fragment;
-                Log.d(DEBUG_TAG, "Restored ref to TagEditorFragment");
+                tagEditorFragmentPosition = position;
             } else if (fragment instanceof RelationMembershipFragment) {
                 relationMembershipFragment = (RelationMembershipFragment) fragment;
-                Log.d(DEBUG_TAG, "Restored ref to RelationMembershipFragment");
             } else if (fragment instanceof RelationMembersFragment) {
                 relationMembersFragment = (RelationMembersFragment) fragment;
-                Log.d(DEBUG_TAG, "Restored ref to RelationMembersFragment");
             } else if (fragment instanceof PresetFragment) {
                 presetFragment = (PresetFragment) fragment;
-                Log.d(DEBUG_TAG, "Restored ref to PresetFragment");
-            } else {
-                Log.d(DEBUG_TAG, "Unknown fragment ...");
             }
             // hack to recreate the form ui when restoring as there is no callback that
             // runs after the references here have been recreated
