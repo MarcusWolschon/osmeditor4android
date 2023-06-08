@@ -19,18 +19,18 @@ import de.blau.android.util.GeoMath;
  * @author simonpoole
  */
 public class RTree<T extends BoundedObject> implements Serializable {
-    private static final long     serialVersionUID = 1L;
-    private Node<T>               root;
-    private int                   maxSize;
-    private int                   minSize;
-    private QuadraticNodeSplitter splitter;
+    private static final long        serialVersionUID = 1L;
+    private Node<T>                  root;
+    private int                      maxSize;
+    private int                      minSize;
+    private QuadraticNodeSplitter<T> splitter;
 
-    private class Node<T extends BoundedObject> implements BoundedObject, Serializable {
+    private class Node<Q extends BoundedObject> implements BoundedObject, Serializable {
         private static final long  serialVersionUID = 1L;
-        private Node<T>            parent;
+        private Node<Q>            parent;
         private BoundingBox        box;
-        private ArrayList<Node<T>> children;
-        private ArrayList<T>       data;
+        private ArrayList<Node<Q>> children;
+        private ArrayList<Q>       data;
 
         /**
          * Construct a new tree Node
@@ -68,11 +68,11 @@ public class RTree<T extends BoundedObject> implements Serializable {
          * 
          * @param parent the parent
          */
-        public void addTo(@NonNull Node<T> parent) {
+        public void addTo(@NonNull Node<Q> parent) {
             parent.children.add(this);
             this.parent = parent;
             computeMBR();
-            splitter.split(parent);
+            splitter.split((RTree<T>.Node<T>) parent);
         }
 
         /**
@@ -95,7 +95,6 @@ public class RTree<T extends BoundedObject> implements Serializable {
                 if (children.isEmpty()) {
                     return;
                 }
-
                 box.set(children.get(0).box);
                 final int size = children.size();
                 for (int i = 1; i < size; i++) {
@@ -117,7 +116,6 @@ public class RTree<T extends BoundedObject> implements Serializable {
                     }
                 }
             }
-
             if (doParents && parent != null) {
                 parent.computeMBR();
             }
@@ -156,7 +154,7 @@ public class RTree<T extends BoundedObject> implements Serializable {
          * 
          * @return the BoundingBox
          */
-        @Nullable
+        @Override
         public BoundingBox getBounds() {
             return box;
         }
@@ -187,7 +185,7 @@ public class RTree<T extends BoundedObject> implements Serializable {
          * @return the dept
          */
         public int depth() {
-            Node<T> n = this;
+            Node<Q> n = this;
             int d = 0;
             while (n != null) {
                 n = n.parent;
@@ -202,7 +200,7 @@ public class RTree<T extends BoundedObject> implements Serializable {
         }
     }
 
-    private class QuadraticNodeSplitter implements Serializable {
+    private class QuadraticNodeSplitter<S extends BoundedObject> implements Serializable {
         private static final long serialVersionUID = 1L;
 
         /**
@@ -210,7 +208,7 @@ public class RTree<T extends BoundedObject> implements Serializable {
          * 
          * @param parent2 the node
          */
-        public void split(@NonNull Node parent2) {
+        public void split(@NonNull Node<S> parent2) {
             if (parent2.size() <= maxSize) {
                 return;
             }
@@ -279,19 +277,19 @@ public class RTree<T extends BoundedObject> implements Serializable {
             }
 
             // Distribute
-            Node<T> group1 = new Node<>(isleaf);
+            Node<S> group1 = new Node<>(isleaf);
             group1.box = new BoundingBox(seed1Box);
-            Node<T> group2 = new Node<>(isleaf);
+            Node<S> group2 = new Node<>(isleaf);
             group2.box = new BoundingBox(seed2Box);
             if (isleaf) {
                 distributeLeaves(parent2, cachedBox, group1, group2);
             } else {
                 distributeBranches(parent2, group1, group2);
             }
-            Node<T> parent = parent2.parent;
+            Node<S> parent = parent2.parent;
             if (parent == null) {
                 parent = new Node<>(false);
-                root = parent;
+                root = (RTree<T>.Node<T>) parent;
             } else {
                 parent.children.remove(parent2);
             }
@@ -314,8 +312,7 @@ public class RTree<T extends BoundedObject> implements Serializable {
          * @param g1 new node 1
          * @param g2 new node 2
          */
-        private void distributeBranches(@NonNull Node<T> n, @NonNull Node<T> g1, @NonNull Node<T> g2) {
-
+        private void distributeBranches(@NonNull Node<S> n, @NonNull Node<S> g1, @NonNull Node<S> g2) {
             while (!n.children.isEmpty() && g1.children.size() < maxSize - minSize + 1 && g2.children.size() < maxSize - minSize + 1) {
                 // Pick next
                 long difmax = Long.MIN_VALUE;
@@ -324,7 +321,7 @@ public class RTree<T extends BoundedObject> implements Serializable {
                 long overlap2 = -1;
                 final int size = n.children.size();
                 for (int i = 0; i < size; i++) {
-                    Node<T> node = n.children.get(i);
+                    Node<S> node = n.children.get(i);
                     long expansion1 = expansionNeeded(node.box, g1.box);
                     long expansion2 = expansionNeeded(node.box, g2.box);
                     long dif = Math.abs(expansion1 - expansion2);
@@ -337,8 +334,8 @@ public class RTree<T extends BoundedObject> implements Serializable {
                 }
 
                 // Distribute Entry
-                Node<T> nmax = n.children.remove(nmaxIndex);
-                Node<T> parent = null;
+                Node<S> nmax = n.children.remove(nmaxIndex);
+                Node<S> parent = null;
 
                 // ... to the one with the least expansion
                 if (overlap1 > overlap2) {
@@ -367,7 +364,7 @@ public class RTree<T extends BoundedObject> implements Serializable {
             }
 
             if (!n.children.isEmpty()) {
-                Node<T> parent = null;
+                Node<S> parent = null;
                 if (g1.children.size() == maxSize - minSize + 1) {
                     parent = g2;
                 } else {
@@ -375,7 +372,7 @@ public class RTree<T extends BoundedObject> implements Serializable {
                 }
                 final int size = n.children.size();
                 for (int i = 0; i < size; i++) {
-                    final RTree<T>.Node<T> child = n.children.get(i);
+                    final RTree<T>.Node<S> child = n.children.get(i);
                     parent.children.add(child);
                     child.parent = parent;
                 }
@@ -391,9 +388,8 @@ public class RTree<T extends BoundedObject> implements Serializable {
          * @param g1 new node 1
          * @param g2 new node 2
          */
-        private void distributeLeaves(@NonNull Node<T> n, @NonNull List<BoundingBox> cache, @NonNull Node<T> g1, @NonNull Node<T> g2) {
+        private void distributeLeaves(@NonNull Node<S> n, @NonNull List<BoundingBox> cache, @NonNull Node<S> g1, @NonNull Node<S> g2) {
             // Same process as above; just different types.
-
             while (!n.data.isEmpty() && g1.data.size() < maxSize - minSize + 1 && g2.data.size() < maxSize - minSize + 1) {
                 // Pick next
                 long difmax = Long.MIN_VALUE;
@@ -413,7 +409,7 @@ public class RTree<T extends BoundedObject> implements Serializable {
                 }
 
                 // Distribute Entry
-                T nmax = n.data.remove(nmaxIndex);
+                S nmax = n.data.remove(nmaxIndex);
 
                 // ... to the one with the least expansion
                 cache.remove(nmaxIndex);
@@ -460,7 +456,7 @@ public class RTree<T extends BoundedObject> implements Serializable {
         if (minChildren < 2 || minChildren > maxChildren / 2) {
             throw new IllegalArgumentException("2 <= minChildren <= maxChildren/2");
         }
-        splitter = new QuadraticNodeSplitter();
+        splitter = new QuadraticNodeSplitter<>();
 
         this.minSize = minChildren;
         this.maxSize = maxChildren;
@@ -551,19 +547,18 @@ public class RTree<T extends BoundedObject> implements Serializable {
                 }
             }
             return null;
-        } else {
-            final int size = node.children.size();
-            for (int i = 0; i < size; i++) {
-                final RTree<T>.Node<T> child = node.children.get(i);
-                if (BoundingBox.intersects(child.box, box)) {
-                    BoundedObject result = queryOne(box, child, tempBox);
-                    if (result != null) {
-                        return result;
-                    }
+        }
+        final int size = node.children.size();
+        for (int i = 0; i < size; i++) {
+            final RTree<T>.Node<T> child = node.children.get(i);
+            if (BoundingBox.intersects(child.box, box)) {
+                BoundedObject result = queryOne(box, child, tempBox);
+                if (result != null) {
+                    return result;
                 }
             }
-            return null;
         }
+        return null;
     }
 
     /**
@@ -607,15 +602,16 @@ public class RTree<T extends BoundedObject> implements Serializable {
                     }
                 }
             }
-        } else {
-            final int size = node.children.size();
-            for (int i = 0; i < size; i++) {
-                final RTree<T>.Node<T> child = node.children.get(i);
-                if (child.box.contains(px, py)) {
-                    query(results, px, py, child, tempBox);
-                }
+            return;
+        }
+        final int size = node.children.size();
+        for (int i = 0; i < size; i++) {
+            final RTree<T>.Node<T> child = node.children.get(i);
+            if (child.box.contains(px, py)) {
+                query(results, px, py, child, tempBox);
             }
         }
+
     }
 
     /**
@@ -652,19 +648,18 @@ public class RTree<T extends BoundedObject> implements Serializable {
                 }
             }
             return null;
-        } else {
-            final int size = node.children.size();
-            for (int i = 0; i < size; i++) {
-                final RTree<T>.Node<T> child = node.children.get(i);
-                if (child.box.contains(px, py)) {
-                    BoundedObject result = queryOne(px, py, child, tempBox);
-                    if (result != null) {
-                        return result;
-                    }
+        }
+        final int size = node.children.size();
+        for (int i = 0; i < size; i++) {
+            final RTree<T>.Node<T> child = node.children.get(i);
+            if (child.box.contains(px, py)) {
+                BoundedObject result = queryOne(px, py, child, tempBox);
+                if (result != null) {
+                    return result;
                 }
             }
-            return null;
         }
+        return null;
     }
 
     /**
