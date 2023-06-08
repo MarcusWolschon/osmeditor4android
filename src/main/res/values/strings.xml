@@ -689,6 +689,10 @@
     <string name="toast_unexpected_element">Unexpected element clicked:\n%1$s</string>
     <string name="toast_import_destination_exists">Import destination already exists</string>
     <string name="toast_part_selection_not_supported">Way part selection not supported for closed ways</string>
+    <string name="toast_element_has_been_deleted">Element has been deleted</string>
+    <string name="toast_updating_tags">Updating tags…</string>
+    <string name="toast_updating_parents">Updating parents…</string>
+    <string name="toast_updating_members">Updating members…</string>
     <!-- Error messages -->
     <string name="error_mapsplit_missing_zoom">MapSplit sources must have min and max zoom set</string>
     <string name="error_pbf_no_version">Version information missing in PBF file</string>

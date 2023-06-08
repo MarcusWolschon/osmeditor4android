@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-import java.util.TreeMap;
 
 import android.content.Context;
 import android.content.res.Configuration;
@@ -49,7 +48,6 @@ import de.blau.android.measure.Length;
 import de.blau.android.measure.Measure;
 import de.blau.android.measure.Params;
 import de.blau.android.nsi.Names;
-import de.blau.android.nsi.Names.NameAndTags;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.Tags;
@@ -306,32 +304,18 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     ArrayAdapter<?> getValueAutocompleteAdapter(@Nullable String key, @Nullable List<String> values, @Nullable PresetItem preset,
             @Nullable PresetTagField field, @NonNull Map<String, String> allTags, boolean addRuler, boolean dedup, int addMruSize) {
         ArrayAdapter<?> adapter = null;
-
         if (key != null && key.length() > 0) {
             Set<String> usedKeys = allTags.keySet();
-
             if (TagEditorFragment.isStreetName(key, usedKeys)) {
                 adapter = nameAdapters.getStreetNameAdapter(values);
             } else if (TagEditorFragment.isPlaceName(key, usedKeys)) {
                 adapter = nameAdapters.getPlaceNameAdapter(values);
             } else if (key.equals(Tags.KEY_NAME) && (names != null) && TagEditorFragment.useNameSuggestions(usedKeys)) {
-                Log.d(DEBUG_TAG, "generate suggestions for name from name suggestion index");
-                List<NameAndTags> suggestions = names.getNames(new TreeMap<>(allTags), propertyEditorListener.getIsoCodes());
-                if (suggestions != null && !suggestions.isEmpty()) {
-                    List<NameAndTags> result = suggestions;
-                    Collections.sort(result);
-                    adapter = new ArrayAdapter<>(getActivity(), R.layout.autocomplete_row, result);
-                }
+                adapter = TagEditorFragment.getNameSuggestions(getContext(), names, allTags, propertyEditorListener);
             } else if (Tags.isSpeedKey(key)) {
-                // check if we have localized maxspeed values
-                Properties prop = App.getGeoContext(getContext()).getProperties(propertyEditorListener.getIsoCodes());
-                if (prop != null) {
-                    String[] speedLimits = prop.getSpeedLimits();
-                    if (speedLimits != null) {
-                        adapter = new ArrayAdapter<>(getActivity(), R.layout.autocomplete_row, speedLimits);
-                    }
-                }
+                adapter = TagEditorFragment.getSpeedLimits(getContext(), propertyEditorListener);
             } else {
+                // generate from preset
                 Map<String, Integer> counter = new HashMap<>();
                 int position = 0;
                 ArrayAdapterWithRuler<StringWithDescription> adapter2 = new ArrayAdapterWithRuler<>(getActivity(), R.layout.autocomplete_row, Ruler.class);
@@ -414,7 +398,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                         }
                     }
                 }
-                Log.d(DEBUG_TAG, adapter2 == null ? "adapter2 is null" : "adapter2 has " + adapter2.getCount() + " elements");
+                Log.d(DEBUG_TAG, "adapter2 has " + adapter2.getCount() + " elements");
                 if (adapter2.getCount() > 0) {
                     return adapter2;
                 }
@@ -625,13 +609,17 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         Log.d(DEBUG_TAG, "update");
         // remove all editable stuff
         View sv = getView();
+        if (sv == null) {
+            Log.e(DEBUG_TAG, "update ScrollView null");
+            return;
+        }
         LinearLayout ll = (LinearLayout) sv.findViewById(R.id.form_container_layout);
         if (ll != null) {
             while (ll.getChildAt(0) instanceof EditableLayout) {
                 ll.removeViewAt(0);
             }
         } else {
-            Log.d(DEBUG_TAG, "update container layout null");
+            Log.e(DEBUG_TAG, "update container layout null");
             return;
         }
         final EditableLayout editableView = (EditableLayout) inflater.inflate(R.layout.tag_form_editable, ll, false);

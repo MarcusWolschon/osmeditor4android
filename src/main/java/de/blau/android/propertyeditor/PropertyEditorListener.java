@@ -1,11 +1,12 @@
 package de.blau.android.propertyeditor;
 
-import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import de.blau.android.osm.Capabilities;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.presets.Preset;
 
@@ -74,7 +75,15 @@ public interface PropertyEditorListener {
      * @return list containing the tag maps or null if something went wrong
      */
     @Nullable
-    public List<LinkedHashMap<String, String>> getUpdatedTags();
+    public List<Map<String, String>> getUpdatedTags();
+    
+    /**
+     * Get original tags
+     * 
+     * @return list containing the tag maps or null if something went wrong
+     */
+    @Nullable
+    public List<Map<String, String>> getOriginalTags();
 
     /**
      * Re-create the RecentPrestsFragement view
@@ -105,4 +114,12 @@ public interface PropertyEditorListener {
      * Disallow presets to be applied
      */
     public void disablePresets();
+    
+    /**
+     * Get the current API-Servers Capabilities object
+     * 
+     * @return a Capabilities instance
+     */
+    @NonNull
+    public Capabilities getCapabilities();
 }

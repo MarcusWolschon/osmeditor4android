@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -231,13 +232,14 @@ public class Main extends FullScreenAppCompatActivity
     public static final int VOICE_RECOGNITION_REQUEST_CODE      = 3;
     public static final int VOICE_RECOGNITION_NOTE_REQUEST_CODE = 4;
 
-    public static final String ACTION_EXIT             = "de.blau.android.EXIT";
-    public static final String ACTION_UPDATE           = "de.blau.android.UPDATE";
-    public static final String ACTION_DELETE_PHOTO     = "de.blau.android.DELETE_PHOTO";
-    public static final String ACTION_MAPILLARY_SELECT = "de.blau.android.ACTION_MAPILLARY_SELECT";
-    public static final String ACTION_MAP_UPDATE       = "de.blau.android.MAP_UPDATE";
-    public static final String ACTION_PUSH_SELECTION   = "de.blau.android.PUSH_SELECTION";
-    public static final String ACTION_POP_SELECTION    = "de.blau.android.POP_SELECTION";
+    public static final String ACTION_EXIT                  = "de.blau.android.EXIT";
+    public static final String ACTION_UPDATE                = "de.blau.android.UPDATE";
+    public static final String ACTION_DELETE_PHOTO          = "de.blau.android.DELETE_PHOTO";
+    public static final String ACTION_MAPILLARY_SELECT      = "de.blau.android.ACTION_MAPILLARY_SELECT";
+    public static final String ACTION_MAP_UPDATE            = "de.blau.android.MAP_UPDATE";
+    public static final String ACTION_PUSH_SELECTION        = "de.blau.android.PUSH_SELECTION";
+    public static final String ACTION_POP_SELECTION         = "de.blau.android.POP_SELECTION";
+    public static final String ACTION_CLEAR_SELECTION_STACK = "de.blau.android.CLEAR_SELECTION_STACK";
 
     /**
      * Alpha value for floating action buttons workaround We should probably find a better place for this
@@ -1045,13 +1047,19 @@ public class Main extends FullScreenAppCompatActivity
                             logic.pushSelection(selection);
                         } else {
                             logic.popSelection();
-                        }                       
+                        }
                         final List<OsmElement> selectedElements = logic.getSelectedElements();
                         zoomTo(selectedElements);
                         if (Mode.MODE_EASYEDIT == logic.getMode() && !selectedElements.isEmpty()) {
                             getEasyEditManager().startElementSelectionMode();
                         }
                         invalidateMap();
+                        break;
+                    case ACTION_CLEAR_SELECTION_STACK:
+                        Deque<Selection> stack = logic.getSelectionStack();
+                        while (stack.size() > 1) {
+                            logic.popSelection();
+                        }
                         break;
                     default:
                         // carry on

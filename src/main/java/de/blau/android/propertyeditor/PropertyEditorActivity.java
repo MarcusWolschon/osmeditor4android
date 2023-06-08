@@ -1,7 +1,8 @@
 package de.blau.android.propertyeditor;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
 
 import org.acra.ACRA;
 
@@ -43,7 +44,8 @@ import de.blau.android.util.Snack;
  * @author mb
  * @author simon
  */
-public class PropertyEditorActivity extends LocaleAwareCompatActivity implements ControlListener {
+public class PropertyEditorActivity<M extends Map<String, String> & Serializable, L extends List<PresetElementPath> & Serializable, T extends List<Map<String, String>> & Serializable>
+        extends LocaleAwareCompatActivity implements ControlListener {
 
     private static final String DEBUG_TAG = PropertyEditorActivity.class.getSimpleName();
 
@@ -58,8 +60,8 @@ public class PropertyEditorActivity extends LocaleAwareCompatActivity implements
      * @param presetItems presets that should be applied
      * @param requestCode request code for the response
      */
-    public static void start(@NonNull Activity activity, @NonNull PropertyEditorData[] dataClass, boolean predictAddressTags, boolean showPresets,
-            HashMap<String, String> extraTags, ArrayList<PresetElementPath> presetItems, int requestCode) {
+    public static <M extends Map<String, String> & Serializable, L extends List<PresetElementPath> & Serializable> void start(@NonNull Activity activity,
+            @NonNull PropertyEditorData[] dataClass, boolean predictAddressTags, boolean showPresets, M extraTags, L presetItems, int requestCode) {
         Log.d(DEBUG_TAG, "startFor");
         try {
             final Intent intent = buildIntent(activity, dataClass, predictAddressTags, showPresets, extraTags, presetItems);
@@ -86,8 +88,8 @@ public class PropertyEditorActivity extends LocaleAwareCompatActivity implements
      * @return a suitable Intent
      */
     @NonNull
-    static Intent buildIntent(@NonNull Activity activity, @NonNull PropertyEditorData[] dataClass, boolean predictAddressTags, boolean showPresets,
-            HashMap<String, String> extraTags, ArrayList<PresetElementPath> presetItems) {
+    static <M extends Map<String, String> & Serializable, L extends List<PresetElementPath> & Serializable> Intent buildIntent(@NonNull Activity activity,
+            @NonNull PropertyEditorData[] dataClass, boolean predictAddressTags, boolean showPresets, M extraTags, L presetItems) {
         Intent intent = new Intent(activity, PropertyEditorActivity.class);
         intent.putExtra(PropertyEditorFragment.TAGEDIT_DATA, dataClass);
         intent.putExtra(PropertyEditorFragment.TAGEDIT_LAST_ADDRESS_TAGS, Boolean.valueOf(predictAddressTags));
@@ -134,6 +136,17 @@ public class PropertyEditorActivity extends LocaleAwareCompatActivity implements
         }
     }
 
+    @Override
+    public void onTopResumedActivityChanged(boolean topResumed) {
+        Log.d(DEBUG_TAG, "onTopResumedActivityChanged " + topResumed);
+        if (topResumed) {
+            PropertyEditorFragment<M, L, T> top = peekBackStack(getSupportFragmentManager());
+            if (top != null) {
+                top.onHiddenChanged(false);
+            }
+        }
+    }
+
     /**
      * Add the Fragment from an Intent
      * 
@@ -146,8 +159,8 @@ public class PropertyEditorActivity extends LocaleAwareCompatActivity implements
         boolean applyLastAddressTags = getPrimitiveBoolean((Boolean) intent.getSerializableExtra(PropertyEditorFragment.TAGEDIT_LAST_ADDRESS_TAGS));
         boolean showPresets = getPrimitiveBoolean((Boolean) intent.getSerializableExtra(PropertyEditorFragment.TAGEDIT_SHOW_PRESETS));
 
-        HashMap<String, String> extraTags = (HashMap<String, String>) intent.getSerializableExtra(PropertyEditorFragment.TAGEDIT_EXTRA_TAGS);
-        ArrayList<PresetElementPath> presetsToApply = (ArrayList<PresetElementPath>) intent.getSerializableExtra(PropertyEditorFragment.TAGEDIT_PRESETSTOAPPLY);
+        M extraTags = (M) intent.getSerializableExtra(PropertyEditorFragment.TAGEDIT_EXTRA_TAGS);
+        L presetsToApply = (L) intent.getSerializableExtra(PropertyEditorFragment.TAGEDIT_PRESETSTOAPPLY);
         Boolean usePaneLayout = (Boolean) intent.getSerializableExtra(PropertyEditorFragment.PANELAYOUT);
 
         // if we have a preset to auto apply it doesn't make sense to show the Preset tab except if a group is
@@ -160,8 +173,8 @@ public class PropertyEditorActivity extends LocaleAwareCompatActivity implements
         Log.d(DEBUG_TAG, "... done.");
 
         // sanity check
-        if (loadData == null) {
-            abort("loadData null");
+        if (loadData.length == 0) {
+            abort("loadData is empty");
             return;
         }
 
@@ -190,15 +203,15 @@ public class PropertyEditorActivity extends LocaleAwareCompatActivity implements
      * @param presetsToApply presets that should be applied
      * @param usePaneLayout optional layout control
      */
-    public static void addFragment(@NonNull FragmentManager fm, int viewRes, @NonNull PropertyEditorData[] data, boolean predictAddressTags,
-            boolean showPresets, @Nullable HashMap<String, String> extraTags, @Nullable ArrayList<PresetElementPath> presetsToApply,
-            @Nullable Boolean usePaneLayout) {
+    public void addFragment(@NonNull FragmentManager fm, int viewRes, @NonNull PropertyEditorData[] data, boolean predictAddressTags, boolean showPresets,
+            @Nullable M extraTags, @Nullable L presetsToApply, @Nullable Boolean usePaneLayout) {
         FragmentTransaction ft = fm.beginTransaction();
         Fragment existing = peekBackStack(fm);
         if (existing != null) {
             ft.hide(existing);
         }
-        PropertyEditorFragment fragment = PropertyEditorFragment.newInstance(data, predictAddressTags, showPresets, extraTags, presetsToApply, usePaneLayout);
+        PropertyEditorFragment<M, L, T> fragment = PropertyEditorFragment.newInstance(data, predictAddressTags, showPresets, extraTags, presetsToApply,
+                usePaneLayout);
         String tag = java.util.UUID.randomUUID().toString();
         ft.add(viewRes, fragment, tag);
         ft.addToBackStack(tag);
@@ -247,7 +260,7 @@ public class PropertyEditorActivity extends LocaleAwareCompatActivity implements
     @Override
     public void onBackPressed() {
         Log.d(DEBUG_TAG, "onBackPressed");
-        PropertyEditorFragment top = peekBackStack(getSupportFragmentManager());
+        PropertyEditorFragment<M, L, T> top = peekBackStack(getSupportFragmentManager());
         if (top != null && top.hasChanges()) {
             new AlertDialog.Builder(this).setNeutralButton(R.string.cancel, null).setNegativeButton(R.string.tag_menu_revert, (dialog, which) -> top.doRevert())
                     .setPositiveButton(R.string.tag_menu_exit_no_save, (dialog, which) -> finished(null)).create().show();
@@ -260,13 +273,14 @@ public class PropertyEditorActivity extends LocaleAwareCompatActivity implements
     public void finished(@Nullable Fragment finishedFragment) {
         final FragmentManager fm = getSupportFragmentManager();
         int count = backStackCount(fm);
+        final boolean notWaiting = getCallingActivity() == null;
         if (count > 1) {
             fm.popBackStackImmediate();
-            PropertyEditorFragment top = peekBackStack(fm);
-            final boolean notWaiting = getCallingActivity() == null;
+            PropertyEditorFragment<M, L, T> top = peekBackStack(fm);
             if (top != null) { // still have a fragment on the stack
                 FragmentTransaction ft = fm.beginTransaction();
                 ft.show(top);
+                ft.commit();
                 if (notWaiting) { // calling activity is not waiting for us
                     startActivity(getIntent(Main.ACTION_POP_SELECTION));
                     return;
@@ -276,6 +290,9 @@ public class PropertyEditorActivity extends LocaleAwareCompatActivity implements
                 startActivity(getIntent(Main.ACTION_MAP_UPDATE));
             }
             return;
+        }
+        if (notWaiting) {
+            startActivity(getIntent(Main.ACTION_CLEAR_SELECTION_STACK));
         }
         finish();
     }
@@ -297,7 +314,7 @@ public class PropertyEditorActivity extends LocaleAwareCompatActivity implements
     @Override
     public void addPropertyEditor(@NonNull OsmElement element) {
         final FragmentManager fm = getSupportFragmentManager();
-        PropertyEditorFragment top = peekBackStack(fm);
+        PropertyEditorFragment<M, L, T> top = peekBackStack(fm);
         if (top != null && getCallingActivity() == null) {
             Intent intent = getIntent(Main.ACTION_PUSH_SELECTION);
             Selection selection = new Selection();
@@ -315,7 +332,7 @@ public class PropertyEditorActivity extends LocaleAwareCompatActivity implements
      * @return true if we are using the pane layout
      */
     public boolean usingPaneLayout() {
-        PropertyEditorFragment top = peekBackStack(getSupportFragmentManager());
+        PropertyEditorFragment<M, L, T> top = peekBackStack(getSupportFragmentManager());
         return top != null && top.usingPaneLayout();
     }
 
@@ -327,7 +344,8 @@ public class PropertyEditorActivity extends LocaleAwareCompatActivity implements
      * @param fm a FragmentManager
      * @return the Fragment or null
      */
-    static PropertyEditorFragment peekBackStack(@NonNull FragmentManager fm) {
+    @Nullable
+    PropertyEditorFragment<M, L, T> peekBackStack(@NonNull FragmentManager fm) {
         int count = fm.getBackStackEntryCount();
         if (count > 0) {
             FragmentManager.BackStackEntry topBackStackEntry = fm.getBackStackEntryAt(count - 1);
@@ -335,9 +353,9 @@ public class PropertyEditorActivity extends LocaleAwareCompatActivity implements
             if (tag != null) {
                 Fragment f = fm.findFragmentByTag(tag);
                 if (f instanceof PropertyEditorFragment) {
-                    return (PropertyEditorFragment) f;
+                    return (PropertyEditorFragment<M, L, T>) f;
                 }
-                Log.e(DEBUG_TAG, "Unexpected fragment " + f.getClass().getCanonicalName());
+                Log.e(DEBUG_TAG, "Unexpected fragment " + (f != null ? f.getClass().getCanonicalName() : " is null"));
             }
         }
         return null;

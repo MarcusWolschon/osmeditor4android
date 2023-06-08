@@ -1341,7 +1341,7 @@ public class PropertyEditorTest {
         if (!((PropertyEditorActivity) propertyEditor).usingPaneLayout()) {
             TestUtils.clickText(device, true, main.getString(R.string.menu_tags), false, false);
         }
-        PropertyEditorFragment f = PropertyEditorActivity.peekBackStack(((PropertyEditorActivity) propertyEditor).getSupportFragmentManager());
+        PropertyEditorFragment<?, ?, ?> f = ((PropertyEditorActivity<?, ?, ?>) propertyEditor).peekBackStack(((PropertyEditorActivity) propertyEditor).getSupportFragmentManager());
         assertNotNull(f);
         PresetItem presetItem = f.getBestPreset();
         assertNotNull(presetItem);

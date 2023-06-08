@@ -1,5 +1,6 @@
 package de.blau.android.propertyeditor;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -119,8 +120,8 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
      * @param paneMode we are displayed in Pane mode
      * @return a new PResetFragment
      */
-    public static PresetFragment newInstance(long elementId, @NonNull String elementName, @Nullable ArrayList<PresetElementPath> alternateRootPath,
-            boolean paneMode) {
+    public static <L extends List<PresetElementPath> & Serializable> PresetFragment newInstance(long elementId, @NonNull String elementName,
+            @Nullable L alternateRootPath, boolean paneMode) {
         PresetFragment f = new PresetFragment();
 
         Bundle args = new Bundle();

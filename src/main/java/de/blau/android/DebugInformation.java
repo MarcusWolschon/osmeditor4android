@@ -112,6 +112,13 @@ public class DebugInformation extends LocaleAwareCompatActivity {
             } else {
                 builder.append("Map not available, this is a seriously curious state, please report a bug!" + eol);
             }
+
+            builder.append("Selection stack" + eol);
+            int pos = 0;
+            for (Selection s : logic.getSelectionStack()) {
+                builder.append("Selection " + pos + " " + s.nodeCount() + " nodes " + s.wayCount() + " ways " + s.relationCount() + " relations" + eol);
+                pos++;
+            }
         } else {
             builder.append("Logic not available, this is a seriously curious state, please report a bug!" + eol);
         }

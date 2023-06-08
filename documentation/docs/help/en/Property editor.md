@@ -11,7 +11,7 @@ Depending on size and orientation of your device the layout will change to make 
  
 If the property editor is started with multiple elements selected only the _Details_ and _Presets_ tabs will be available. Tabs can be changed by swiping or by tapping the header.
 
-If the _Display tag form_ preference in the _Advanced preferences_ has been disabled pre-0.9.8 behaviour is enabled and the _Details_ tab will have the heading _Properties_.
+If the _Display tag form_ preference in the _[Advanced preferences](Advanced%20preferences.md)_ has been disabled pre-0.9.8 behaviour is enabled and the _Details_ tab will have the heading _Properties_.
 
 In the tabs tapping the checkbox in the header row will select/de-select all elements.
 
@@ -113,7 +113,7 @@ Start the on device help browser.
 
 This tab will only be displayed if you are editing a relation, it displays entries for all the members of the relation.
 
-Members with a dark object field and only a numeric id displayed have not been downloaded.
+Members with a dark object field and only a numeric id displayed have not been downloaded, member highlighted in blue can be clicked on and a new property editor will be opened for the element. Note: during such a drill down operation the property editors are stacked, if you close a stacked property editor you will be returned to the previous one and so on.
 
 The following operation can be performed on selected relation members.
 
@@ -159,3 +159,9 @@ Go up one level.
 ### ![Help](../images/menu_help.png) Help
 
 Start the on device help browser.
+
+## Split window mode
+
+On devices running Android 7 and later you can enable an __experimental__ split window mode in the [Experimental](Advanced%20preferences.md) section of the preferences. When this is enabled and the screen is split (on Android 12 and later this will happen automatically), the property editor will be displayed in parallel with the map display. If you click on a relation member in the _Member Tab_ the element will be selected and the map display will zoom to it. While this will work both on phones and tablets, the usefulness on the former is limited. 
+
+Changes to the data made in the map display will be reflected as far as possible in the property editor, for example changes if relation membership, deletions and so on, note however that currently later changes will override changes made in earlier property editor instances.

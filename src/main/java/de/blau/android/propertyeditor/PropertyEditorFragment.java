@@ -1,5 +1,6 @@
 package de.blau.android.propertyeditor;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -49,11 +50,13 @@ import de.blau.android.exception.DuplicateKeyException;
 import de.blau.android.exception.IllegalOperationException;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.nsi.Names.TagMap;
+import de.blau.android.osm.Capabilities;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMemberDescription;
 import de.blau.android.osm.RelationMemberPosition;
+import de.blau.android.osm.Server;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.prefs.PrefEditor;
 import de.blau.android.prefs.Preferences;
@@ -86,8 +89,9 @@ import de.blau.android.views.ExtendedViewPager;
  * @author mb
  * @author simon
  */
-public class PropertyEditorFragment extends BaseFragment implements PropertyEditorListener, OnPresetSelectedListener, EditorUpdate, FormUpdate, PresetUpdate,
-        NameAdapters, OnSaveListener, ch.poole.openinghoursfragment.OnSaveListener {
+public class PropertyEditorFragment<M extends Map<String, String> & Serializable, L extends List<PresetElementPath> & Serializable, T extends List<Map<String, String>> & Serializable>
+        extends BaseFragment implements PropertyEditorListener, OnPresetSelectedListener, EditorUpdate, FormUpdate, PresetUpdate, NameAdapters, OnSaveListener,
+        ch.poole.openinghoursfragment.OnSaveListener {
 
     private static final String CURRENTITEM            = "current_item";
     static final String         PANELAYOUT             = "pane_layout";
@@ -133,10 +137,10 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
 
     private PropertyEditorData[] loadData;
 
-    private boolean                      applyLastAddressTags = false;
-    private boolean                      showPresets          = false;
-    private HashMap<String, String>      extraTags            = null;
-    private ArrayList<PresetElementPath> presetsToApply       = null;
+    private boolean applyLastAddressTags = false;
+    private boolean showPresets          = false;
+    private M       extraTags            = null;
+    private L       presetsToApply       = null;
 
     /**
      * Handles "enter" key presses.
@@ -157,7 +161,7 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
     /**
      * 
      */
-    private ArrayList<LinkedHashMap<String, String>> originalTags;
+    private List<Map<String, String>> originalTags;
 
     /**
      * the same for relations
@@ -173,9 +177,12 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
     private List<String>       isoCodes      = null;
     private ControlListener    controlListener;
     private PageChangeListener pageChangeListener;
+    private Capabilities       capabilities;
 
     /**
      * Build the intent to start the PropertyEditor
+     * 
+     * @param <M>
      * 
      * @param dataClass the tags and relation memberships that should be edited
      * @param predictAddressTags try to predict address tags
@@ -186,9 +193,10 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
      * @return a suitable Intent
      */
     @NonNull
-    public static PropertyEditorFragment newInstance(@NonNull PropertyEditorData[] dataClass, boolean predictAddressTags, boolean showPresets,
-            @Nullable HashMap<String, String> extraTags, @Nullable ArrayList<PresetElementPath> presetItems, @Nullable Boolean usePaneLayout) {
-        PropertyEditorFragment f = new PropertyEditorFragment();
+    public static <M extends Map<String, String> & Serializable, L extends List<PresetElementPath> & Serializable, T extends List<Map<String, String>> & Serializable> PropertyEditorFragment<M, L, T> newInstance(
+            @NonNull PropertyEditorData[] dataClass, boolean predictAddressTags, boolean showPresets, @Nullable M extraTags, @Nullable L presetItems,
+            @Nullable Boolean usePaneLayout) {
+        PropertyEditorFragment<M, L, T> f = new PropertyEditorFragment<>();
 
         Bundle args = new Bundle();
         args.putSerializable(TAGEDIT_DATA, dataClass);
@@ -237,8 +245,8 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
             loadData = PropertyEditorData.deserializeArray(args.getSerializable(TAGEDIT_DATA));
             applyLastAddressTags = args.getBoolean(TAGEDIT_LAST_ADDRESS_TAGS);
             showPresets = args.getBoolean(TAGEDIT_SHOW_PRESETS);
-            extraTags = (HashMap<String, String>) args.getSerializable(TAGEDIT_EXTRA_TAGS);
-            presetsToApply = (ArrayList<PresetElementPath>) args.getSerializable(TAGEDIT_PRESETSTOAPPLY);
+            extraTags = (M) args.getSerializable(TAGEDIT_EXTRA_TAGS);
+            presetsToApply = (L) args.getSerializable(TAGEDIT_PRESETSTOAPPLY);
             usePaneLayout = args.getBoolean(PANELAYOUT, Screen.isLandscape(getActivity()));
 
             // if we have a preset to auto apply it doesn't make sense to show the Preset tab except if a group is
@@ -264,8 +272,8 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
         Log.d(DEBUG_TAG, "... done.");
 
         // sanity check
-        if (loadData == null) {
-            abort("loadData null");
+        if (loadData.length == 0) {
+            abort("loadData empty");
             return;
         }
 
@@ -284,7 +292,6 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
         }
 
         presets = App.getCurrentPresets(getContext());
-
     }
 
     @Override
@@ -309,7 +316,7 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
         actionbar.setDisplayHomeAsUpEnabled(true);
 
         // tags
-        ArrayList<LinkedHashMap<String, String>> tags = new ArrayList<>();
+        T tags =  (T) new ArrayList<Map<String,String>>();
         originalTags = new ArrayList<>();
         for (PropertyEditorData aLoadData : loadData) {
             originalTags.add(aLoadData.originalTags != null ? aLoadData.originalTags : aLoadData.tags);
@@ -361,7 +368,8 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
         pageChangeListener = new PageChangeListener();
         mViewPager.addOnPageChangeListener(pageChangeListener);
         // if currentItem is >= 0 then we are restoring and should use it, otherwise the first or 2nd page
-        mViewPager.setCurrentItem(currentItem != -1 ? currentItem : pagerAdapter.reversePosition(showPresets || usePaneLayout ? 0 : 1));
+        final int initialPosition = showPresets || usePaneLayout ? 0 : 1;
+        mViewPager.setCurrentItem(currentItem != -1 ? currentItem : pagerAdapter.reversePosition(initialPosition));
 
         return layout;
     }
@@ -393,6 +401,43 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
         // save tag clipboard
         App.getTagClipboard(getContext()).save(getContext());
         super.onStop();
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) {
+            Log.d(DEBUG_TAG, "onHiddenChanged");
+            if (elementDeleted()) {
+                Snack.toastTopWarning(getContext(), R.string.toast_element_has_been_deleted);
+                App.getLogic().getHandler().post(() -> controlListener.finished(this));
+                return;
+            }
+            if (tagEditorFragment != null) {
+                tagEditorFragment.onDataUpdate();
+            }
+            if (relationMembersFragment != null) {
+                relationMembersFragment.onDataUpdate();
+            }
+            if (relationMembershipFragment != null) {
+                relationMembershipFragment.onDataUpdate();
+            }
+        }
+    }
+
+    /**
+     * Check if an element has been deleted
+     * 
+     * @return true if any of the edited elements has been deleted
+     */
+    private boolean elementDeleted() {
+        StorageDelegator d = App.getDelegator();
+        for (PropertyEditorData p : loadData) {
+            if (OsmElement.STATE_DELETED == d.getOsmElement(p.type, p.osmId).getState()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -450,11 +495,11 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
 
     public class PropertyEditorPagerAdapter extends FragmentPagerAdapter {
 
-        private ArrayList<LinkedHashMap<String, String>> tags;
-        private boolean                                  restoring   = false;
-        private boolean                                  rtl         = false;
-        private boolean                                  firstTime   = true;
-        private int                                      primaryItem = -1;
+        private T       tags;
+        private boolean restoring   = false;
+        private boolean rtl         = false;
+        private boolean firstTime   = true;
+        private int     primaryItem = -1;
 
         /**
          * Construct a new PagerAdapter
@@ -464,7 +509,7 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
          * @param rtl true if we should use RTL order for the fragments
          * @param tags the tags
          */
-        public PropertyEditorPagerAdapter(FragmentManager fm, boolean rtl, ArrayList<LinkedHashMap<String, String>> tags) {
+        public PropertyEditorPagerAdapter(FragmentManager fm, boolean rtl, T tags) {
             super(fm);
             this.tags = tags;
             this.rtl = rtl;
@@ -489,57 +534,87 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
         }
 
         /**
-         * Get a new TagFormFragment instance
+         * Get s PresetFragment instance
          * 
+         * @param instantiate the fragment
+         * 
+         * @return a PresetFragment instance
+         */
+        private Fragment presetFragment(boolean instantiate) {
+            if (instantiate) {
+                presetFragment = PresetFragment.newInstance(getElement().getOsmId(), getElement().getName(), presetsToApply, false); //
+            }
+            return presetFragment;
+        }
+
+        /**
+         * Get a TagFormFragment instance
+         * 
+         * @param instantiate the fragment
          * @param position position in the Pager
          * @param displayRecentPresets if true display the MRU Fragment
+         * 
          * @return a TagFormFragment instance
          */
         @NonNull
-        Fragment tagFormFragment(int position, boolean displayRecentPresets) {
+        Fragment tagFormFragment(boolean instantiate, int position, boolean displayRecentPresets) {
             tagFormFragmentPosition = position;
-            tagFormFragment = TagFormFragment.newInstance(displayRecentPresets, applyLastAddressTags, loadData[0].focusOnKey);
+            if (instantiate) {
+                tagFormFragment = TagFormFragment.newInstance(displayRecentPresets, applyLastAddressTags, loadData[0].focusOnKey);
+            }
             return tagFormFragment;
         }
 
         /**
-         * Get a new TagEditorFragment instance
+         * Get a TagEditorFragment instance
          * 
+         * @param instantiate the fragment
          * @param position position in the Pager
          * @param displayRecentPresets if true display the MRU Fragment
+         * 
          * @return a TagEditorFragment instance
          */
         @NonNull
-        Fragment tagEditorFragment(int position, boolean displayRecentPresets) {
+        Fragment tagEditorFragment(boolean instantiate, int position, boolean displayRecentPresets) {
             tagEditorFragmentPosition = position;
-            tagEditorFragment = TagEditorFragment.newInstance(osmIds, types, tags, applyLastAddressTags, loadData[0].focusOnKey, displayRecentPresets,
-                    extraTags, presetsToApply);
+            if (instantiate) {
+                tagEditorFragment = TagEditorFragment.newInstance(osmIds, types, tags, applyLastAddressTags, loadData[0].focusOnKey, displayRecentPresets,
+                        extraTags, presetsToApply);
+            }
             return tagEditorFragment;
         }
 
         /**
-         * Get a new RelationMembershipFragment instance
+         * Get a RelationMembershipFragment instance
+         * 
+         * @param instantiate the fragment
          * 
          * @return a RelationMembershipFragment instance
          */
         @Nullable
-        Fragment relationMembershipFragment() {
+        Fragment relationMembershipFragment(boolean instantiate) {
             if (loadData.length == 1) {
-                relationMembershipFragment = RelationMembershipFragment.newInstance(loadData[0].parents, types[0]);
+                if (instantiate) {
+                    relationMembershipFragment = RelationMembershipFragment.newInstance(loadData[0].parents, types[0]);
+                }
                 return relationMembershipFragment;
             }
             return null;
         }
 
         /**
-         * Get a new RelationMembersFragment instance
+         * Get a RelationMembersFragment instance
+         * 
+         * @param instantiate the fragment
          * 
          * @return a new RelationMembersFragment instance
          */
         @Nullable
-        Fragment relationMembersFragment() {
+        Fragment relationMembersFragment(boolean instantiate) {
             if (loadData.length == 1 && types[0].endsWith(Relation.NAME)) {
-                relationMembersFragment = RelationMembersFragment.newInstance(osmIds[0], loadData[0].members);
+                if (instantiate) {
+                    relationMembersFragment = RelationMembersFragment.newInstance(osmIds[0], loadData[0].members);
+                }
                 return relationMembersFragment;
             }
             return null;
@@ -565,33 +640,28 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
                 if (!usePaneLayout) {
                     switch (position) {
                     case 0:
-                        if (instantiate) {
-                            presetFragment = PresetFragment.newInstance(getElement().getOsmId(), getElement().getName(), presetsToApply, false); //
-                        }
-                        return presetFragment;
+                        return presetFragment(instantiate);
                     case 1:
-                        return instantiate ? tagFormFragment(position, true) : tagFormFragment;
+                        return tagFormFragment(instantiate, position, true);
                     case 2:
-                        return instantiate ? tagEditorFragment(position, false) : tagEditorFragment;
+                        return tagEditorFragment(instantiate, position, false);
                     case 3:
-                        return isRelation ? (instantiate ? relationMembersFragment() : relationMembersFragment)
-                                : (instantiate ? relationMembershipFragment() : relationMembershipFragment);
+                        return getRelationMemberFragment(instantiate);
                     case 4:
-                        return instantiate ? relationMembershipFragment() : relationMembershipFragment;
+                        return relationMembershipFragment(instantiate);
                     default:
                         // ERROR
                     }
                 } else {
                     switch (position) {
                     case 0:
-                        return instantiate ? tagFormFragment(position, false) : tagFormFragment;
+                        return tagFormFragment(instantiate, position, false);
                     case 1:
-                        return instantiate ? tagEditorFragment(position, false) : tagEditorFragment;
+                        return tagEditorFragment(instantiate, position, false);
                     case 2:
-                        return isRelation ? (instantiate ? relationMembersFragment() : relationMembersFragment)
-                                : (instantiate ? relationMembershipFragment() : relationMembershipFragment);
+                        return getRelationMemberFragment(instantiate);
                     case 3:
-                        return instantiate ? relationMembershipFragment() : relationMembershipFragment;
+                        return relationMembershipFragment(instantiate);
                     default:
                         // ERROR
                     }
@@ -600,29 +670,24 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
                 if (!usePaneLayout) {
                     switch (position) {
                     case 0:
-                        if (instantiate) {
-                            presetFragment = PresetFragment.newInstance(getElement().getOsmId(), getElement().getName(), presetsToApply, false); //
-                        }
-                        return presetFragment;
+                        return presetFragment(instantiate);
                     case 1:
-                        return instantiate ? tagEditorFragment(position, true) : tagEditorFragment;
+                        return tagEditorFragment(instantiate, position, true);
                     case 2:
-                        return isRelation ? (instantiate ? relationMembersFragment() : relationMembersFragment)
-                                : (instantiate ? relationMembershipFragment() : relationMembershipFragment);
+                        return getRelationMemberFragment(instantiate);
                     case 3:
-                        return instantiate ? relationMembershipFragment() : relationMembershipFragment;
+                        return relationMembershipFragment(instantiate);
                     default:
                         // ERROR
                     }
                 } else {
                     switch (position) {
                     case 0:
-                        return instantiate ? tagEditorFragment(position, false) : tagEditorFragment;
+                        return tagEditorFragment(instantiate, position, false);
                     case 1:
-                        return isRelation ? (instantiate ? relationMembersFragment() : relationMembersFragment)
-                                : (instantiate ? relationMembershipFragment() : relationMembershipFragment);
+                        return getRelationMemberFragment(instantiate);
                     case 2:
-                        return instantiate ? relationMembershipFragment() : relationMembershipFragment;
+                        return relationMembershipFragment(instantiate);
                     default:
                         // ERROR
                     }
@@ -630,6 +695,17 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
             }
             Log.e(DEBUG_TAG, "Unknown position " + position);
             return null;
+        }
+
+        /**
+         * Get the RelationMembersFragment if we are editing a relation, otherwise return the RelationMembershipFragment
+         * 
+         * @param instantiate if we need to instantiate the fragment
+         * @return the appropriate fragment
+         */
+        @Nullable
+        private Fragment getRelationMemberFragment(boolean instantiate) {
+            return isRelation ? relationMembersFragment(instantiate) : relationMembershipFragment(instantiate);
         }
 
         @Override
@@ -645,7 +721,7 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
                     case 2:
                         return getString(R.string.tag_details);
                     case 3:
-                        return isRelation ? getString(R.string.members) : getString(R.string.relations);
+                        return getRelationFragmentTitle();
                     case 4:
                         return getString(R.string.relations);
                     default:
@@ -658,7 +734,7 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
                     case 1:
                         return getString(R.string.tag_details);
                     case 2:
-                        return isRelation ? getString(R.string.members) : getString(R.string.relations);
+                        return getRelationFragmentTitle();
                     case 3:
                         return getString(R.string.relations);
                     default:
@@ -673,7 +749,7 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
                     case 1:
                         return getString(R.string.menu_tags);
                     case 2:
-                        return isRelation ? getString(R.string.members) : getString(R.string.relations);
+                        return getRelationFragmentTitle();
                     case 3:
                         return getString(R.string.relations);
                     default:
@@ -684,7 +760,7 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
                     case 0:
                         return getString(R.string.menu_tags);
                     case 1:
-                        return isRelation ? getString(R.string.members) : getString(R.string.relations);
+                        return getRelationFragmentTitle();
                     case 2:
                         return getString(R.string.relations);
                     default:
@@ -694,6 +770,17 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
             }
             Log.e(DEBUG_TAG, "Unknown position " + position);
             return "error";
+        }
+
+        /**
+         * Get the title of the RelationMembersFragment if we are editing a relation, otherwise return the
+         * RelationMembershipFragment title
+         * 
+         * @return the appropriate title
+         */
+        @NonNull
+        private CharSequence getRelationFragmentTitle() {
+            return isRelation ? getString(R.string.members) : getString(R.string.relations);
         }
 
         /**
@@ -713,23 +800,19 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
         public Object instantiateItem(ViewGroup container, int position) {
             BaseFragment fragment = (BaseFragment) super.instantiateItem(container, position);
             // update fragment refs here
+            Log.d(DEBUG_TAG, "Restoring ref to " + fragment.getClass().getSimpleName());
             if (fragment instanceof TagFormFragment) {
                 tagFormFragment = (TagFormFragment) fragment;
-                Log.d(DEBUG_TAG, "Restored ref to TagFormFragment");
+                tagFormFragmentPosition = position;
             } else if (fragment instanceof TagEditorFragment) {
                 tagEditorFragment = (TagEditorFragment) fragment;
-                Log.d(DEBUG_TAG, "Restored ref to TagEditorFragment");
+                tagEditorFragmentPosition = position;
             } else if (fragment instanceof RelationMembershipFragment) {
                 relationMembershipFragment = (RelationMembershipFragment) fragment;
-                Log.d(DEBUG_TAG, "Restored ref to RelationMembershipFragment");
             } else if (fragment instanceof RelationMembersFragment) {
                 relationMembersFragment = (RelationMembersFragment) fragment;
-                Log.d(DEBUG_TAG, "Restored ref to RelationMembersFragment");
             } else if (fragment instanceof PresetFragment) {
                 presetFragment = (PresetFragment) fragment;
-                Log.d(DEBUG_TAG, "Restored ref to PresetFragment");
-            } else {
-                Log.d(DEBUG_TAG, "Unknown fragment ...");
             }
             // hack to recreate the form ui when restoring as there is no callback that
             // runs after the references here have been recreated
@@ -745,14 +828,6 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
             super.restoreState(state, loader);
             restoring = true;
             Log.d(DEBUG_TAG, "restoreState done");
-        }
-
-        @Override
-        public Parcelable saveState() {
-            Log.d(DEBUG_TAG, "saveState");
-            Bundle bundle = (Bundle) super.saveState();
-            Log.d(DEBUG_TAG, "saveState done");
-            return bundle;
         }
 
         @Override
@@ -856,14 +931,14 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
     }
 
     /**
-     * Get current values from the fragments and end the activity
+     * Get current values from the fragments and end the fragment
      */
     public void updateAndFinish() {
         if (!validateTags()) {
             return;
         }
 
-        List<LinkedHashMap<String, String>> currentTags = getUpdatedTags();
+        List<Map<String, String>> currentTags = getUpdatedTags();
 
         // save any address tags for "last address tags"
         final int elementCount = currentTags.size();
@@ -874,9 +949,14 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
 
         Logic logic = App.getLogic();
         if (logic != null) {
+            StorageDelegator d = App.getDelegator();
             // Tags
             for (int i = 0; i < elementCount; i++) {
-                final LinkedHashMap<String, String> tags = currentTags.get(i);
+                if (isDeleted(d, i)) {
+                    Log.w(DEBUG_TAG, "element " + types[i] + osmIds[i] + " is deleted");
+                    continue;
+                }
+                final Map<String, String> tags = currentTags.get(i);
                 if (!originalTags.get(i).equals(tags)) {
                     try {
                         logic.setTags(getActivity(), types[i], osmIds[i], tags);
@@ -886,7 +966,7 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
                 }
             }
 
-            if (elementCount == 1) {
+            if (elementCount == 1 && !isDeleted(d, 0)) {
                 // Relation members
                 if (Relation.NAME.equals(types[0])) {
                     List<RelationMemberDescription> currentMembers = relationMembersFragment.getMembersList();
@@ -916,6 +996,17 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
     }
 
     /**
+     * Check if an element is deleted
+     * 
+     * @param d the current StorageDelegator instance
+     * @param i the element index
+     * @return true if the element has been deleted
+     */
+    private boolean isDeleted(@NonNull StorageDelegator d, int i) {
+        return OsmElement.STATE_DELETED == d.getOsmElement(types[i], osmIds[i]).getState();
+    }
+
+    /**
      * Check if two lists of tags are the same
      * 
      * Note: this considers order relevant
@@ -924,7 +1015,7 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
      * @param tags2 second list of tags
      * @return true if the lists are the same
      */
-    private boolean same(@Nullable List<LinkedHashMap<String, String>> tags1, @Nullable List<LinkedHashMap<String, String>> tags2) {
+    private boolean same(@Nullable List<Map<String, String>> tags1, @Nullable List<Map<String, String>> tags2) {
         if (tags1 == null) {
             return tags2 == null;
         }
@@ -986,7 +1077,7 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
         if (tagFormFragment != null) {
             tagFormFragment.updateEditorFromText();
         }
-        List<LinkedHashMap<String, String>> currentTags = getUpdatedTags();
+        List<Map<String, String>> currentTags = getUpdatedTags();
         MultiHashMap<Long, RelationMemberPosition> currentParents = null;
         List<RelationMemberDescription> currentMembers = null;
         if (relationMembershipFragment != null) {
@@ -1043,21 +1134,19 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
     private static class MyKeyListener implements OnKeyListener {
         @Override
         public boolean onKey(final View view, final int keyCode, final KeyEvent keyEvent) {
-            if (keyEvent.getAction() == KeyEvent.ACTION_UP || keyEvent.getAction() == KeyEvent.ACTION_MULTIPLE) {
-                if (view instanceof EditText) {
-                    // on Enter -> goto next EditText
-                    if (keyCode == KeyEvent.KEYCODE_ENTER) {
-                        View nextView = view.focusSearch(View.FOCUS_RIGHT);
-                        if (!(nextView instanceof EditText)) {
-                            nextView = view.focusSearch(View.FOCUS_LEFT);
-                            if (nextView != null) {
-                                nextView = nextView.focusSearch(View.FOCUS_DOWN);
-                            }
+            if (view instanceof EditText && (keyEvent.getAction() == KeyEvent.ACTION_UP || keyEvent.getAction() == KeyEvent.ACTION_MULTIPLE)) {
+                // on Enter -> goto next EditText
+                if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                    View nextView = view.focusSearch(View.FOCUS_RIGHT);
+                    if (!(nextView instanceof EditText)) {
+                        nextView = view.focusSearch(View.FOCUS_LEFT);
+                        if (nextView != null) {
+                            nextView = nextView.focusSearch(View.FOCUS_DOWN);
                         }
-                        if (nextView instanceof EditText) {
-                            nextView.requestFocus();
-                            return true;
-                        }
+                    }
+                    if (nextView instanceof EditText) {
+                        nextView.requestFocus();
+                        return true;
                     }
                 }
             }
@@ -1172,13 +1261,18 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
     }
 
     @Override
-    public List<LinkedHashMap<String, String>> getUpdatedTags() {
+    public List<Map<String, String>> getUpdatedTags() {
         if (tagEditorFragment != null) {
             return tagEditorFragment.getUpdatedTags();
         } else {
             Log.e(DEBUG_TAG, "getUpdatedTags tagEditorFragment is null");
             return new ArrayList<>();
         }
+    }
+
+    @Override
+    public List<Map<String, String>> getOriginalTags() {
+        return originalTags;
     }
 
     @Override
@@ -1306,7 +1400,7 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
     public ArrayAdapter<ValueWithCount> getStreetNameAdapter(List<String> values) {
         if (streetNameAutocompleteAdapter == null) {
             streetNameAutocompleteAdapter = new StreetPlaceNamesAdapter(getContext(), R.layout.autocomplete_row, App.getDelegator(), types[0], osmIds[0],
-                    values, false); // FIXME
+                    values, false); // FIXME multiselect
         }
         return streetNameAutocompleteAdapter;
     }
@@ -1315,14 +1409,14 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
     public ArrayAdapter<ValueWithCount> getPlaceNameAdapter(List<String> values) {
         if (placeNameAutocompleteAdapter == null) {
             placeNameAutocompleteAdapter = new StreetPlaceNamesAdapter(getContext(), R.layout.autocomplete_row, App.getDelegator(), types[0], osmIds[0], values,
-                    true); // FIXME
+                    true); // FIXME multiselect
         }
         return placeNameAutocompleteAdapter;
     }
 
     @Override
     public OsmElement getElement() {
-        return element; // FIXME validate
+        return element;
     }
 
     /**
@@ -1404,5 +1498,14 @@ public class PropertyEditorFragment extends BaseFragment implements PropertyEdit
         } else {
             Log.e(DEBUG_TAG, "tagFormFragment is null");
         }
+    }
+
+    @Override
+    public Capabilities getCapabilities() {
+        if (capabilities == null) {
+            Server server = prefs.getServer();
+            capabilities = server.getCachedCapabilities();
+        }
+        return capabilities;
     }
 }

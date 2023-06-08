@@ -2,8 +2,8 @@ package de.blau.android.propertyeditor;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import android.content.Context;
 import android.util.Log;
@@ -95,9 +95,10 @@ public class RelationMemberSelectedActionModeCallback implements Callback {
 
         menu.add(Menu.NONE, MENU_ITEM_MOVE_UP, Menu.NONE, R.string.tag_menu_move_up).setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.menu_up));
         menu.add(Menu.NONE, MENU_ITEM_MOVE_DOWN, Menu.NONE, R.string.tag_menu_move_down).setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.menu_down));
-        menu.add(Menu.NONE, MENU_ITEM_SORT, Menu.NONE, R.string.tag_menu_sort).setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.menu_sort));
+        menu.add(Menu.NONE, MENU_ITEM_SORT, Menu.NONE, R.string.tag_menu_sort).setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.menu_sort))
+                .setEnabled(!members.isEmpty());
         menu.add(Menu.NONE, MENU_ITEM_REVERSE_ORDER, Menu.NONE, R.string.tag_menu_reverse_order)
-                .setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.menu_reverse_order));
+                .setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.menu_reverse_order)).setEnabled(!members.isEmpty());
 
         // we only display the download button if at least one of the selected elements isn't downloaded
         boolean nonDownloadedSelected = false;
@@ -108,12 +109,11 @@ public class RelationMemberSelectedActionModeCallback implements Callback {
                 break;
             }
         }
-        if (nonDownloadedSelected) {
-            MenuItem downloadItem = menu.add(Menu.NONE, MENU_ITEM_DOWNLOAD, Menu.NONE, R.string.tag_menu_download)
-                    .setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.menu_download));
-            // if we don't have network connectivity disable
-            downloadItem.setEnabled(new NetworkStatus(caller.getContext()).isConnected());
-        }
+
+        MenuItem downloadItem = menu.add(Menu.NONE, MENU_ITEM_DOWNLOAD, Menu.NONE, R.string.tag_menu_download)
+                .setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.menu_download));
+        // if we don't have network connectivity disable
+        downloadItem.setEnabled(new NetworkStatus(caller.getContext()).isConnected() && nonDownloadedSelected);
 
         menu.add(Menu.NONE, MENU_ITEM_TOP, Menu.NONE, R.string.tag_menu_top);
         menu.add(Menu.NONE, MENU_ITEM_BOTTOM, Menu.NONE, R.string.tag_menu_bottom);
@@ -204,11 +204,11 @@ public class RelationMemberSelectedActionModeCallback implements Callback {
             ((RelationMembersFragment) caller).scrollToRow(selectedPos.get(selectedPos.size() - 1));
             return true;
         case MENU_ITEM_SORT:
-            List<LinkedHashMap<String, String>> tags = ((RelationMembersFragment) caller).propertyEditorListener.getUpdatedTags();
+            List<Map<String, String>> tags = ((RelationMembersFragment) caller).propertyEditorListener.getUpdatedTags();
             boolean lineLike = false; // this needs a better name
             if (tags != null && tags.size() == 1) {
                 String type = tags.get(0).get(Tags.KEY_TYPE);
-                lineLike = Tags.VALUE_MULTIPOLYGON.equals(type) || Tags.VALUE_BOUNDARY.equals(type) || Tags.VALUE_ROUTE.equals(type);
+                lineLike = Tags.VALUE_MULTIPOLYGON.equals(type) || Tags.VALUE_BOUNDARY.equals(type);
             }
             List<MemberEntry> temp = RelationUtils.sortRelationMembers(selected, new LinkedList<>(),
                     lineLike ? RelationUtils::haveEndConnection : RelationUtils::haveCommonNode);

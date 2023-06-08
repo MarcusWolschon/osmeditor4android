@@ -379,6 +379,7 @@ public final class RelationUtils {
      * 
      * @param list List of relation members
      * @param temp List of relation members used for processing in the method
+     * @param c method to determine if ways are connected
      * @return fully or partially sorted List of RelationMembers, if partially sorted the unsorted elements will come
      *         first
      * @param <T> Class that extents RelationMember
