@@ -373,6 +373,34 @@ public class TileLayerSource implements Serializable {
         }
     }
 
+    public static class Header implements Serializable {
+        private static final long serialVersionUID = 1L;
+
+        private final String name;
+        private final String value;
+
+        public Header(@NonNull String name, @NonNull String value) {
+            this.name = name;
+            this.value = value;
+        }
+
+        /**
+         * @return the name
+         */
+        @NonNull
+        public String getName() {
+            return name;
+        }
+
+        /**
+         * @return the value
+         */
+        @NonNull
+        public String getValue() {
+            return value;
+        }
+    }
+
     public static final int PREFERENCE_DEFAULT = 0;
     public static final int PREFERENCE_BEST    = 10;
 
@@ -431,6 +459,7 @@ public class TileLayerSource implements Serializable {
     private String                   wmsAxisOrder     = null;
     private transient List<Provider> providers        = new ArrayList<>();
     private TileType                 tileType;
+    private List<Header>             headers;
 
     private boolean  readOnly = false;
     private String   imageryOffsetId; // cached id for offset DB
@@ -2522,5 +2551,20 @@ public class TileLayerSource implements Serializable {
      */
     public List<Provider> getProviders() {
         return providers;
+    }
+
+    /**
+     * @return the headers
+     */
+    @Nullable
+    public List<Header> getHeaders() {
+        return headers;
+    }
+
+    /**
+     * @param headers the headers to set
+     */
+    public void setHeaders(@Nullable List<Header> headers) {
+        this.headers = headers;
     }
 }
