@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -24,6 +25,7 @@ import androidx.annotation.NonNull;
 import de.blau.android.App;
 import de.blau.android.contract.MimeTypes;
 import de.blau.android.resources.TileLayerSource;
+import de.blau.android.resources.TileLayerSource.Header;
 import de.blau.android.util.NetworkStatus;
 import de.blau.android.views.util.MapTileProvider;
 import de.blau.android.views.util.MapTileProviderCallback;
@@ -31,6 +33,7 @@ import okhttp3.Call;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.Request.Builder;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
@@ -154,9 +157,9 @@ public class MapTileDownloader extends MapAsyncTileProvider {
                         if (Log.isLoggable(DEBUG_TAG, Log.DEBUG)) {
                             Log.d(DEBUG_TAG, "Downloading Maptile from url: " + tileURLString);
                         }
-
-                        Request request = new Request.Builder().url(tileURLString).addHeader(HTTP_HEADER_ACCEPT_ENCODING, GZIP).build();
-
+                        Builder builder = new Request.Builder().url(tileURLString);
+                        addCustomHeaders(renderer, builder);
+                        Request request = builder.addHeader(HTTP_HEADER_ACCEPT_ENCODING, GZIP).build();
                         Call tileCall = client.newCall(request);
                         tileCallResponse = tileCall.execute();
                         if (tileCallResponse.isSuccessful()) {
@@ -266,6 +269,21 @@ public class MapTileDownloader extends MapAsyncTileProvider {
                      * to re-request it.
                      */
                     finished();
+                }
+            }
+        }
+
+        /**
+         * Add custom headers from configuration to the request
+         * 
+         * @param tileLayerSource source config
+         * @param builder the request builder
+         */
+        private void addCustomHeaders(@NonNull TileLayerSource tileLayerSource, @NonNull Builder builder) {
+            List<Header> headers = tileLayerSource.getHeaders();
+            if (headers != null) {
+                for (Header h : headers) {
+                    builder.header(h.getName(), h.getValue());
                 }
             }
         }

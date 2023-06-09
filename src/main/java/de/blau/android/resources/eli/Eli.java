@@ -25,6 +25,10 @@ import de.blau.android.util.DateFormatter;
 import de.blau.android.util.GeoJson;
 
 public final class Eli {
+    private static final String HEADER_VALUE_KEY = "header-value";
+
+    private static final String HEADER_NAME_KEY = "header-name";
+
     private static final String DEBUG_TAG = "Eli";
 
     public static final String VERSION_1_1 = "1.1";
@@ -53,6 +57,7 @@ public final class Eli {
     private static final String TILE_SIZE_KEY             = "tile-size";
     private static final String TILE_TYPE_KEY             = "tile_type";            // extension
     private static final String MVT_VALUE                 = "mvt";
+    private static final String CUSTOM_HTTP_HEADERS_KEY   = "custom-http-headers";
 
     /**
      * Private constructor to prevent instantiation
@@ -69,7 +74,7 @@ public final class Eli {
      * @return the string or null if it couldn't be found
      */
     @Nullable
-    static String getJsonString(@NonNull JsonObject jsonObject, @NonNull String name) {
+    private static String getJsonString(@NonNull JsonObject jsonObject, @NonNull String name) {
         JsonElement field = jsonObject.get(name);
         if (field != null && field.isJsonPrimitive() && ((JsonPrimitive) field).isString()) {
             return field.getAsString();
@@ -85,7 +90,7 @@ public final class Eli {
      * @return the string array or null if it couldb't be found or if the field wasn't an array
      */
     @Nullable
-    static String[] getJsonStringArray(@NonNull JsonObject jsonObject, @NonNull String name) {
+    private static String[] getJsonStringArray(@NonNull JsonObject jsonObject, @NonNull String name) {
         JsonElement field = jsonObject.get(name);
         if (field != null && field.isJsonArray()) {
             JsonArray array = field.getAsJsonArray();
@@ -107,7 +112,7 @@ public final class Eli {
      * @return the string array or null if it couldb't be found
      */
     @Nullable
-    static JsonObject getJsonObject(@NonNull JsonObject jsonObject, @NonNull String name) {
+    private static JsonObject getJsonObject(@NonNull JsonObject jsonObject, @NonNull String name) {
         JsonElement field = jsonObject.get(name);
         if (field != null && field.isJsonObject()) {
             return (JsonObject) field;
@@ -122,7 +127,7 @@ public final class Eli {
      * @param name the name of the boolean we want to retrieve
      * @return the value or false if it couldb't be found
      */
-    static boolean getJsonBoolean(@NonNull JsonObject jsonObject, @NonNull String name) {
+    private static boolean getJsonBoolean(@NonNull JsonObject jsonObject, @NonNull String name) {
         JsonElement field = jsonObject.get(name);
         if (field != null && field.isJsonPrimitive()) {
             return field.getAsBoolean();
@@ -138,7 +143,7 @@ public final class Eli {
      * @param defaultValue the value to use if the int couldn't be found
      * @return the value or defaltValue if it couldb't be found
      */
-    static int getJsonInteger(@NonNull JsonObject jsonObject, @NonNull String name, final int defaultValue) {
+    private static int getJsonInteger(@NonNull JsonObject jsonObject, @NonNull String name, final int defaultValue) {
         JsonElement field = jsonObject.get(name);
         if (field != null && field.isJsonPrimitive()) {
             return field.getAsInt();
@@ -265,6 +270,7 @@ public final class Eli {
                 tileWidth = tileSize.getAsInt();
                 tileHeight = tileWidth;
             }
+
             if (type == null || url == null || (isWMS && proj == null)) {
                 Log.w(DEBUG_TAG, "skipping name " + name + " id " + id + " type " + type + " url " + url);
                 if (TileLayerSource.TYPE_WMS.equals(type)) {
@@ -279,7 +285,15 @@ public final class Eli {
             if (TileLayerSource.TYPE_TMS.equals(osmts.getType())) {
                 osmts.setTileType(MVT_VALUE.equals(getJsonString(properties, TILE_TYPE_KEY)) ? TileType.MVT : TileType.BITMAP);
             }
-
+            // we currently only support a single header object
+            JsonObject headers = getJsonObject(properties, CUSTOM_HTTP_HEADERS_KEY);
+            if (headers != null) {
+                String headerName = headers.getAsJsonPrimitive(HEADER_NAME_KEY).getAsString();
+                String headerValue = headers.getAsJsonPrimitive(HEADER_VALUE_KEY).getAsString();
+                if (headerName != null && headerValue != null) {
+                    osmts.setHeaders(de.blau.android.util.Util.wrapInList(new TileLayerSource.Header(headerName, headerValue)));
+                }
+            }
         } catch (UnsupportedOperationException uoex) {
             Log.e(DEBUG_TAG, "Got " + uoex.getMessage());
         }

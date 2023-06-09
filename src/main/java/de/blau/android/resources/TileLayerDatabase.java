@@ -1,6 +1,7 @@
 package de.blau.android.resources;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.resources.TileLayerSource.Category;
+import de.blau.android.resources.TileLayerSource.Header;
 import de.blau.android.resources.TileLayerSource.Provider;
 import de.blau.android.resources.TileLayerSource.Provider.CoverageArea;
 import de.blau.android.resources.TileLayerSource.TileType;
@@ -26,7 +28,7 @@ import de.blau.android.util.collections.MultiHashMap;
 public class TileLayerDatabase extends SQLiteOpenHelper {
     private static final String DEBUG_TAG        = "TileLayerDatabase";
     public static final String  DATABASE_NAME    = "tilelayers";
-    private static final int    DATABASE_VERSION = 8;
+    private static final int    DATABASE_VERSION = 9;
 
     public static final String SOURCE_ELI          = "eli";    // editor-layer-index
     public static final String SOURCE_JOSM_IMAGERY = "josm";   // josm.openstreetmap.de/wiki/maps
@@ -72,6 +74,10 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
     private static final String RIGHT_FIELD     = "right";
     private static final String TOP_FIELD       = "top";
 
+    private static final String HEADERS_TABLE      = "headers";
+    private static final String HEADER_NAME_FIELD  = "name";
+    private static final String HEADER_VALUE_FIELD = "value";
+
     static final String QUERY_LAYER_BY_ROWID = "SELECT * FROM layers WHERE rowid=?";
 
     /**
@@ -105,6 +111,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
                     + " left INTEGER DEFAULT NULL, bottom INTEGER DEFAULT NULL, right INTEGER DEFAULT NULL, top INTEGER DEFAULT NULL,"
                     + " FOREIGN KEY(id) REFERENCES layers(id) ON DELETE CASCADE)");
             db.execSQL("CREATE INDEX coverages_idx ON coverages(id)");
+            createHeadersTable(db);
         } catch (SQLException e) {
             Log.w(DEBUG_TAG, "Problem creating database", e);
         }
@@ -136,6 +143,20 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
         if (oldVersion <= 7 && newVersion >= 8) {
             db.execSQL("ALTER TABLE layers ADD COLUMN tile_type TEXT DEFAULT NULL");
         }
+        if (oldVersion <= 8 && newVersion >= 9) {
+            createHeadersTable(db);
+        }
+    }
+
+    /**
+     * Create a table for custom headers
+     * 
+     * @param db a writable database instance
+     */
+    private void createHeadersTable(SQLiteDatabase db) {
+        db.execSQL("CREATE TABLE headers (id TEXT NOT NULL, name TEXT NOT NULL, value TEXT NOT NULL,"
+                + " FOREIGN KEY(id) REFERENCES layers(id) ON DELETE CASCADE)");
+        db.execSQL("CREATE INDEX headers_idx ON headers(id)");
     }
 
     @Override
@@ -205,17 +226,18 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
     }
 
     /**
-     * Add a layer, will add coverage areas to the coverage table
+     * Add a layer, will add coverage areas to the coverage and headers to the headers table
      * 
      * @param db writable database
      * @param source source the layer comes from
-     * @param layer a TileLayerServer object
+     * @param layer a TileLayerSource object
      */
     public static void addLayer(@NonNull SQLiteDatabase db, @NonNull String source, @NonNull TileLayerSource layer) {
         ContentValues values = getContentValuesForLayer(source, layer);
         try {
             db.insertOrThrow(LAYERS_TABLE, null, values);
             addCoverageFromLayer(db, layer);
+            addHeadersFromLayer(db, layer);
         } catch (SQLiteConstraintException e) {
             // even when in a transaction only this insert will get rolled back
             Log.e(DEBUG_TAG, "Constraint exception " + source + " " + layer + " " + e.getMessage());
@@ -226,7 +248,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
      * Add coverage entries
      * 
      * @param db writable database
-     * @param layer a TileLayerServer instance
+     * @param layer a TileLayerSource instance
      */
     private static void addCoverageFromLayer(@NonNull SQLiteDatabase db, @NonNull TileLayerSource layer) {
         // insert coverage areas
@@ -239,10 +261,26 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
     }
 
     /**
+     * Add header entries
+     * 
+     * @param db writable database
+     * @param layer a TileLayerSource instance
+     */
+    private static void addHeadersFromLayer(@NonNull SQLiteDatabase db, @NonNull TileLayerSource layer) {
+        // insert coverage areas
+        List<Header> headers = layer.getHeaders();
+        if (headers != null) {
+            for (Header h : headers) {
+                addHeader(db, layer.getId(), h);
+            }
+        }
+    }
+
+    /**
      * Get an ContentValues object suitable for insertion or an update of a layer
      * 
      * @param source the source of the layer, use null if this is an update
-     * @param layer TileLayerServer object holding the valuse
+     * @param layer TileLayerSource object holding the values
      * @return a ContentValues object
      */
     private static ContentValues getContentValuesForLayer(@Nullable String source, @NonNull TileLayerSource layer) {
@@ -336,11 +374,28 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
                     if (haveEntry) {
                         initLayerFieldIndices(layerCursor);
                         layer = getLayerFromCursor(context, provider, layerCursor);
+                        setHeadersForLayer(db, layer);
                     }
                 }
             }
         }
         return layer;
+    }
+
+    /**
+     * Retrieve headers for a layer and set them
+     * 
+     * @param db a readable DB instance
+     * @param layer the layer
+     */
+    private static void setHeadersForLayer(SQLiteDatabase db, TileLayerSource layer) {
+        try (Cursor headerCursor = db.query(HEADERS_TABLE, null, ID_FIELD + "='" + layer.getId() + "'", null, null, null, null)) {
+            initHeaderFieldIndices(headerCursor);
+            List<Header> headers = getHeadersFromCursor(headerCursor);
+            if (!headers.isEmpty()) {
+                layer.setHeaders(headers);
+            }
+        }
     }
 
     /**
@@ -363,6 +418,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
                     try (Cursor providerCursor = db.query(COVERAGES_TABLE, null, ID_FIELD + "='" + id + "'", null, null, null, null)) {
                         Provider provider = getProviderFromCursor(providerCursor);
                         layer = getLayerFromCursor(context, provider, layerCursor);
+                        setHeadersForLayer(db, layer);
                     }
                 }
             }
@@ -403,13 +459,13 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
                 "SELECT coverages.id as id,left,bottom,right,top,coverages.zoom_min as zoom_min,coverages.zoom_max as zoom_max FROM layers,coverages WHERE layers.rowid=? AND layers.id=coverages.id",
                 new String[] { Long.toString(rowId) })) {
             Provider provider = getProviderFromCursor(providerCursor);
-
             try (Cursor layerCursor = db.rawQuery(QUERY_LAYER_BY_ROWID, new String[] { Long.toString(rowId) })) {
                 if (layerCursor.getCount() >= 1) {
                     boolean haveEntry = layerCursor.moveToFirst();
                     if (haveEntry) {
                         initLayerFieldIndices(layerCursor);
                         layer = getLayerFromCursor(context, provider, layerCursor);
+                        setHeadersForLayer(db, layer);
                     }
                 }
             } catch (IllegalArgumentException iaex) {
@@ -425,6 +481,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
      * @param cursor the Cursor
      * @return a Provider instance
      */
+    @NonNull
     private static Provider getProviderFromCursor(@NonNull Cursor cursor) {
         Provider provider = new Provider();
         try {
@@ -433,8 +490,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
                 boolean haveEntry = cursor.moveToFirst();
                 initCoverageFieldIndices(cursor);
                 while (haveEntry) {
-                    CoverageArea ca = getCoverageFromCursor(cursor);
-                    provider.addCoverageArea(ca);
+                    provider.addCoverageArea(getCoverageFromCursor(cursor));
                     haveEntry = cursor.moveToNext();
                 }
             }
@@ -442,6 +498,31 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
             Log.e(DEBUG_TAG, "retrieving provider failed " + iaex.getMessage());
         }
         return provider;
+    }
+
+    /**
+     * Get Headers from a Cursor
+     * 
+     * @param cursor the Cursor
+     * @return a List of Header objects
+     */
+    @NonNull
+    private static List<Header> getHeadersFromCursor(@NonNull Cursor cursor) {
+        List<Header> headers = new ArrayList<>();
+        try {
+            if (cursor.getCount() >= 1) {
+                Log.d(DEBUG_TAG, "Got 1 or more headers");
+                boolean haveEntry = cursor.moveToFirst();
+                initHeaderFieldIndices(cursor);
+                while (haveEntry) {
+                    headers.add(getHeaderFromCursor(cursor));
+                    haveEntry = cursor.moveToNext();
+                }
+            }
+        } catch (IllegalArgumentException iaex) {
+            Log.e(DEBUG_TAG, "retrieving headers failed " + iaex.getMessage());
+        }
+        return headers;
     }
 
     /**
@@ -479,13 +560,13 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
         db.delete(LAYERS_TABLE, "layers.id=?", new String[] { id });
     }
 
-    private static int idFieldIndex      = -1;
-    private static int leftFieldIndex    = -1;
-    private static int bottomFieldIndex  = -1;
-    private static int rightFieldIndex   = -1;
-    private static int topFieldIndex     = -1;
-    private static int zoomMinFieldIndex = -1;
-    private static int zoomMaxFieldIndex = -1;
+    private static int coverageIdFieldIndex = -1;
+    private static int leftFieldIndex       = -1;
+    private static int bottomFieldIndex     = -1;
+    private static int rightFieldIndex      = -1;
+    private static int topFieldIndex        = -1;
+    private static int zoomMinFieldIndex    = -1;
+    private static int zoomMaxFieldIndex    = -1;
 
     /**
      * Create a CoverageArea from a Cursor
@@ -496,17 +577,12 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
      * @return a CoverageArea instance
      */
     private static CoverageArea getCoverageFromCursor(@NonNull Cursor cursor) {
-        if (idFieldIndex == -1) {
+        if (coverageIdFieldIndex == -1) {
             throw new IllegalStateException("Coverage field indices not initialized");
         }
-        int left = cursor.getInt(leftFieldIndex);
-        int bottom = cursor.getInt(bottomFieldIndex);
-        int right = cursor.getInt(rightFieldIndex);
-        int top = cursor.getInt(topFieldIndex);
-        BoundingBox box = new BoundingBox(left, bottom, right, top);
-        int zoomMin = cursor.getInt(zoomMinFieldIndex);
-        int zoomMax = cursor.getInt(zoomMaxFieldIndex);
-        return new CoverageArea(zoomMin, zoomMax, box);
+        BoundingBox box = new BoundingBox(cursor.getInt(leftFieldIndex), cursor.getInt(bottomFieldIndex), cursor.getInt(rightFieldIndex),
+                cursor.getInt(topFieldIndex));
+        return new CoverageArea(cursor.getInt(zoomMinFieldIndex), cursor.getInt(zoomMaxFieldIndex), box);
     }
 
     /**
@@ -515,13 +591,35 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
      * @param cursor the Cursor
      */
     private static synchronized void initCoverageFieldIndices(@NonNull Cursor cursor) {
-        idFieldIndex = cursor.getColumnIndexOrThrow(ID_FIELD);
+        coverageIdFieldIndex = cursor.getColumnIndexOrThrow(ID_FIELD);
         leftFieldIndex = cursor.getColumnIndexOrThrow(LEFT_FIELD);
         bottomFieldIndex = cursor.getColumnIndexOrThrow(BOTTOM_FIELD);
         rightFieldIndex = cursor.getColumnIndexOrThrow(RIGHT_FIELD);
         topFieldIndex = cursor.getColumnIndexOrThrow(TOP_FIELD);
         zoomMinFieldIndex = cursor.getColumnIndexOrThrow(ZOOM_MIN_FIELD);
         zoomMaxFieldIndex = cursor.getColumnIndexOrThrow(ZOOM_MAX_FIELD);
+    }
+
+    private static int headerIdFieldIndex    = -1;
+    private static int headerNameFieldIndex  = -1;
+    private static int headerValueFieldIndex = -1;
+
+    private static Header getHeaderFromCursor(@NonNull Cursor cursor) {
+        if (headerIdFieldIndex == -1) {
+            throw new IllegalStateException("Header field indices not initialized");
+        }
+        return new Header(cursor.getString(headerNameFieldIndex), cursor.getString(headerValueFieldIndex));
+    }
+
+    /**
+     * Init the field indices for a Header Cursor
+     * 
+     * @param cursor the Cursor
+     */
+    private static synchronized void initHeaderFieldIndices(@NonNull Cursor cursor) {
+        headerIdFieldIndex = cursor.getColumnIndexOrThrow(ID_FIELD);
+        headerNameFieldIndex = cursor.getColumnIndexOrThrow(HEADER_NAME_FIELD);
+        headerValueFieldIndex = cursor.getColumnIndexOrThrow(HEADER_VALUE_FIELD);
     }
 
     /**
@@ -568,21 +666,8 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
     public static Map<String, TileLayerSource> getAllLayers(@NonNull Context context, @NonNull SQLiteDatabase db, boolean overlay) {
         Map<String, TileLayerSource> layers = new HashMap<>();
         try {
-            MultiHashMap<String, CoverageArea> coverages = new MultiHashMap<>();
-            try (Cursor coverageCursor = db.rawQuery(
-                    "SELECT coverages.id as id,left,bottom,right,top,coverages.zoom_min as zoom_min,coverages.zoom_max as zoom_max FROM layers,coverages WHERE coverages.id=layers.id AND overlay=?",
-                    new String[] { boolean2intString(overlay) })) {
-                if (coverageCursor.getCount() >= 1) {
-                    initCoverageFieldIndices(coverageCursor);
-                    boolean haveEntry = coverageCursor.moveToFirst();
-                    while (haveEntry) {
-                        String id = coverageCursor.getString(idFieldIndex);
-                        CoverageArea ca = getCoverageFromCursor(coverageCursor);
-                        coverages.add(id, ca);
-                        haveEntry = coverageCursor.moveToNext();
-                    }
-                }
-            }
+            MultiHashMap<String, CoverageArea> coveragesById = getCoveragesById(db, overlay);
+            Map<String, List<Header>> headersById = getHeadersById(db, overlay);
 
             try (Cursor layerCursor = db.query(LAYERS_TABLE, null,
                     OVERLAY_FIELD + "=" + boolean2intString(overlay) + " AND " + TYPE_FIELD + " <> '" + TileLayerSource.TYPE_WMS_ENDPOINT + "'", null, null,
@@ -593,7 +678,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
                     while (haveEntry) {
                         String id = layerCursor.getString(idLayerFieldIndex);
                         Provider provider = new Provider();
-                        for (CoverageArea ca : coverages.get(id)) {
+                        for (CoverageArea ca : coveragesById.get(id)) {
                             provider.addCoverageArea(ca);
                         }
                         TileLayerSource layer = getLayerFromCursor(context, provider, layerCursor);
@@ -603,6 +688,10 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
                         } else {
                             Log.e(DEBUG_TAG, "layer " + id + " is missing an apikey, not added");
                         }
+                        List<Header> headers = headersById.get(id);
+                        if (headers != null && !headers.isEmpty()) {
+                            layer.setHeaders(headers);
+                        }
                         haveEntry = layerCursor.moveToNext();
                     }
                 }
@@ -611,6 +700,63 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
             Log.e(DEBUG_TAG, "Retrieving sources failed " + iaex.getMessage());
         }
         return layers;
+    }
+
+    /**
+     * Get a Map with layer id and Headers
+     * 
+     * @param db a readable DB instance
+     * @param overlay true is and overlay
+     * @return a Map with layer id and Headers
+     */
+    @NonNull
+    private static Map<String, List<Header>> getHeadersById(SQLiteDatabase db, boolean overlay) {
+        Map<String, List<Header>> headersById = new HashMap<>();
+        try (Cursor headerCursor = db.rawQuery(
+                "SELECT headers.id as id,headers.name as name,value FROM layers,headers WHERE headers.id=layers.id AND overlay=?",
+                new String[] { boolean2intString(overlay) })) {
+            if (headerCursor.getCount() >= 1) {
+                initHeaderFieldIndices(headerCursor);
+                boolean haveEntry = headerCursor.moveToFirst();
+                while (haveEntry) {
+                    String id = headerCursor.getString(headerIdFieldIndex);
+                    List<Header> headers = headersById.get(id);
+                    if (headers == null) {
+                        headers = new ArrayList<>();
+                        headersById.put(id, headers);
+                    }
+                    headers.add(getHeaderFromCursor(headerCursor));
+                    haveEntry = headerCursor.moveToNext();
+                }
+            }
+        }
+        return headersById;
+    }
+
+    /**
+     * Get a Map with layer id and CoverageArea
+     * 
+     * @param db a readable DB instance
+     * @param overlay true is and overlay
+     * @return a Map with layer id and CoverageArea
+     */
+    private static MultiHashMap<String, CoverageArea> getCoveragesById(SQLiteDatabase db, boolean overlay) {
+        MultiHashMap<String, CoverageArea> coveragesById = new MultiHashMap<>();
+        try (Cursor coverageCursor = db.rawQuery(
+                "SELECT coverages.id as id,left,bottom,right,top,coverages.zoom_min as zoom_min,coverages.zoom_max as zoom_max FROM layers,coverages WHERE coverages.id=layers.id AND overlay=?",
+                new String[] { boolean2intString(overlay) })) {
+            if (coverageCursor.getCount() >= 1) {
+                initCoverageFieldIndices(coverageCursor);
+                boolean haveEntry = coverageCursor.moveToFirst();
+                while (haveEntry) {
+                    String id = coverageCursor.getString(coverageIdFieldIndex);
+                    CoverageArea ca = getCoverageFromCursor(coverageCursor);
+                    coveragesById.add(id, ca);
+                    haveEntry = coverageCursor.moveToNext();
+                }
+            }
+        }
+        return coveragesById;
     }
 
     /**
@@ -784,6 +930,31 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
      * @param id the id for which we want to delete the coverage
      */
     public static void deleteCoverage(@NonNull SQLiteDatabase db, @NonNull String id) {
+        db.delete(COVERAGES_TABLE, "id=?", new String[] { id });
+    }
+
+    /**
+     * Add a header to the database
+     * 
+     * @param db a writable database
+     * @param layerId the id of the layer we are associated with
+     * @param header the Header object
+     */
+    private static void addHeader(@NonNull SQLiteDatabase db, @NonNull String layerId, @NonNull Header header) {
+        ContentValues values = new ContentValues();
+        values.put(ID_FIELD, layerId);
+        values.put(HEADER_NAME_FIELD, header.getName());
+        values.put(HEADER_VALUE_FIELD, header.getValue());
+        db.insert(HEADERS_TABLE, null, values);
+    }
+
+    /**
+     * Delete all headers for a specific layer id
+     * 
+     * @param db a writable database
+     * @param id the id for which we want to delete the coverage
+     */
+    public static void deleteHeader(@NonNull SQLiteDatabase db, @NonNull String id) {
         db.delete(COVERAGES_TABLE, "id=?", new String[] { id });
     }
 }
