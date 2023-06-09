@@ -53,7 +53,11 @@
                 "start_date": "2016-1-1",
                 "end_date": "2016-12-31",
                 "type": "tms",
-                "id": "B"
+                "id": "B",
+                "custom-http-headers": {
+                    "header-name": "User-Agent",
+                    "header-value": "Mozilla/5.0 (JOSM)"
+                }
             },
             "type": "Feature"
         }

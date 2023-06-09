@@ -1,6 +1,7 @@
 package de.blau.android.services.util;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -22,8 +23,10 @@ import android.database.sqlite.SQLiteDatabase;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
 import de.blau.android.MockTileServer;
+import de.blau.android.net.UserAgentInterceptor;
 import de.blau.android.resources.TileLayerDatabase;
 import de.blau.android.resources.TileLayerSource;
+import de.blau.android.util.Util;
 import de.blau.android.views.util.MapTileProviderCallback;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -115,6 +118,7 @@ public class MapTileFilesystemProviderTest {
             fail(e.getMessage());
         }
         assertEquals(1, callback.result);
+
         try {
             RecordedRequest request = tileServer.takeRequest(1, TimeUnit.SECONDS);
             System.out.println("checked request " + request);
@@ -180,5 +184,46 @@ public class MapTileFilesystemProviderTest {
         }
         assertEquals(MapAsyncTileProvider.IOERR, callback.result);
         assertEquals(1, tileServer.getRequestCount());
+    }
+
+    @Test
+    public void customHeaderTest() {
+        TileLayerSource layer = TileLayerSource.get(ApplicationProvider.getApplicationContext(), MockTileServer.MOCK_TILE_SOURCE, false);
+        assertNotNull(layer);
+        layer.setHeaders(Util.wrapInList(new TileLayerSource.Header(UserAgentInterceptor.USER_AGENT_HEADER, "Mozilla/5.0 (JOSM)")));
+        // this should load from the server
+        final CountDownLatch signal1 = new CountDownLatch(1);
+        MapTile mockedTile = new MapTile(MockTileServer.MOCK_TILE_SOURCE, 19, 274335, 183514); // not this needs to be a different tile than above
+        CallbackWithResult callback = new CallbackWithResult() {
+
+            @Override
+            public void mapTileLoaded(String rendererID, int zoomLevel, int tileX, int tileY, byte[] aImage) throws IOException {
+                result = 1;
+                signal1.countDown();
+            }
+
+            @Override
+            public void mapTileFailed(String rendererID, int zoomLevel, int tileX, int tileY, int reason) throws IOException {
+                result = 2;
+                signal1.countDown();
+            }
+        };
+        provider.loadMapTileAsync(mockedTile, callback);
+        try {
+            signal1.await(5, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            fail(e.getMessage());
+        }
+        assertEquals(1, callback.result);
+        
+        
+        try {
+            RecordedRequest request = tileServer.takeRequest(1, TimeUnit.SECONDS);    
+            assertNotNull(request);
+            assertEquals("Mozilla/5.0 (JOSM)", request.getHeader(UserAgentInterceptor.USER_AGENT_HEADER));
+        } catch (InterruptedException e1) {
+            fail("no tileserver request found " + e1.getMessage());
+        }
+        assertEquals(1, tileServer.getRequestCount());       
     }
 }

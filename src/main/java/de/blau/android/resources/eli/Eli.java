@@ -285,6 +285,7 @@ public final class Eli {
             if (TileLayerSource.TYPE_TMS.equals(osmts.getType())) {
                 osmts.setTileType(MVT_VALUE.equals(getJsonString(properties, TILE_TYPE_KEY)) ? TileType.MVT : TileType.BITMAP);
             }
+            // we currently only support a single header object
             JsonObject headers = getJsonObject(properties, CUSTOM_HTTP_HEADERS_KEY);
             if (headers != null) {
                 String headerName = headers.getAsJsonPrimitive(HEADER_NAME_KEY).getAsString();

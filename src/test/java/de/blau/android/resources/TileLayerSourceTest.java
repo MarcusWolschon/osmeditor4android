@@ -20,7 +20,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
+import de.blau.android.net.UserAgentInterceptor;
 import de.blau.android.resources.TileLayerSource.Category;
+import de.blau.android.resources.TileLayerSource.Header;
 import de.blau.android.resources.TileLayerSource.Provider;
 import de.blau.android.resources.TileLayerSource.TileType;
 import de.blau.android.resources.TileLayerSource.Provider.CoverageArea;
@@ -90,6 +92,30 @@ public class TileLayerSourceTest {
             assertNotNull(b);
             List<CoverageArea> areas = b.getCoverage();
             assertEquals(1, areas.size());
+        } catch (IOException e) {
+            fail(e.getMessage());
+        }
+    }
+
+    /**
+     * Custom header
+     */
+    @Test
+    public void customHeader() {
+        try {
+            TileLayerDatabase.addSource(db.getWritableDatabase(), TileLayerDatabase.SOURCE_ELI);
+            TileLayerSource.parseImageryFile(ApplicationProvider.getApplicationContext(), db.getWritableDatabase(), TileLayerDatabase.SOURCE_ELI,
+                    getClass().getResourceAsStream("/imagery_test_1_1.geojson"), true);
+            TileLayerSource.getListsLocked(ApplicationProvider.getApplicationContext(), db.getReadableDatabase(), true);
+            String[] ids = TileLayerSource.getIds(null, false, null, null);
+            assertEquals(1, ids.length);
+            TileLayerSource b = TileLayerSource.get(ApplicationProvider.getApplicationContext(), "B", false);
+            assertNotNull(b);
+            List<Header> headers = b.getHeaders();
+            assertNotNull(headers);
+            assertEquals(1, headers.size());
+            assertEquals(UserAgentInterceptor.USER_AGENT_HEADER, headers.get(0).getName());
+            assertEquals("Mozilla/5.0 (JOSM)", headers.get(0).getValue());
         } catch (IOException e) {
             fail(e.getMessage());
         }
