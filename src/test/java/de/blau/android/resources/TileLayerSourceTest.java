@@ -14,17 +14,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 
-import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
 import de.blau.android.net.UserAgentInterceptor;
-import de.blau.android.resources.TileLayerSource.Category;
 import de.blau.android.resources.TileLayerSource.Header;
-import de.blau.android.resources.TileLayerSource.Provider;
-import de.blau.android.resources.TileLayerSource.TileType;
 import de.blau.android.resources.TileLayerSource.Provider.CoverageArea;
 import de.blau.android.services.util.MapTile;
 

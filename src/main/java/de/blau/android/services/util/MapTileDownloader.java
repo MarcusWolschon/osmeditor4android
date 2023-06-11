@@ -62,10 +62,10 @@ public class MapTileDownloader extends MapAsyncTileProvider {
     // Fields
     // ===========================================================
 
-    private final Context                   mCtx;
-    private final MapTileFilesystemProvider mMapTileFSProvider;
-    private final NetworkStatus             networkStatus;
-    private final OkHttpClient              client;
+    private final Context       mCtx;
+    private final MapTileSaver  mapTileSaver;
+    private final NetworkStatus networkStatus;
+    private final OkHttpClient  client;
 
     // ===========================================================
     // Constructors
@@ -75,11 +75,11 @@ public class MapTileDownloader extends MapAsyncTileProvider {
      * Construct a new MapTileDownloader
      * 
      * @param ctx Android Context
-     * @param aMapTileFSProvider a MapTileFilesystemProvider instance
+     * @param mapTileSaver a MapTileFilesystemProvider instance
      */
-    public MapTileDownloader(@NonNull final Context ctx, @NonNull final MapTileFilesystemProvider aMapTileFSProvider) {
+    public MapTileDownloader(@NonNull final Context ctx, @NonNull final MapTileSaver mapTileSaver) {
         mCtx = ctx;
-        mMapTileFSProvider = aMapTileFSProvider;
+        this.mapTileSaver = mapTileSaver;
         networkStatus = new NetworkStatus(ctx);
         mThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(App.getPreferences(ctx).getMaxTileDownloadThreads());
         client = App.getHttpClient().newBuilder().connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS).readTimeout(TIMEOUT, TimeUnit.MILLISECONDS).build();
@@ -142,133 +142,124 @@ public class MapTileDownloader extends MapAsyncTileProvider {
                 }
                 return;
             }
-
-            InputStream in = null;
-            OutputStream out = null;
-            ResponseBody responseBody = null;
-            MediaType format = null;
-            InputStream inputStream = null;
-            Response tileCallResponse = null;
             TileLayerSource renderer = TileLayerSource.get(mCtx, mTile.rendererID, false);
             if (renderer != null) {
                 final String tileURLString = buildURL(renderer, mTile);
-                try {
-                    if (tileURLString.length() > 0) {
-                        if (Log.isLoggable(DEBUG_TAG, Log.DEBUG)) {
-                            Log.d(DEBUG_TAG, "Downloading Maptile from url: " + tileURLString);
-                        }
+                if (tileURLString.length() > 0) {
+                    if (Log.isLoggable(DEBUG_TAG, Log.DEBUG)) {
+                        Log.d(DEBUG_TAG, "Downloading Maptile from url: " + tileURLString);
+                    }
+                    try {
                         Builder builder = new Request.Builder().url(tileURLString);
                         addCustomHeaders(renderer, builder);
                         Request request = builder.addHeader(HTTP_HEADER_ACCEPT_ENCODING, GZIP).build();
                         Call tileCall = client.newCall(request);
-                        tileCallResponse = tileCall.execute();
-                        if (tileCallResponse.isSuccessful()) {
-                            responseBody = tileCallResponse.body();
-                            inputStream = responseBody.byteStream();
-                            format = responseBody.contentType();
-                        } else {
-                            int code = tileCallResponse.code();
-                            if (code == HttpURLConnection.HTTP_NOT_FOUND) {
-                                throw new FileNotFoundException(TILE_NOT_AVAILABLE);
-                            } else {
-                                throw new IOException("Code: " + code + " message: " + tileCallResponse.body().string());
-                            }
-                        }
-                        String noTileHeader = renderer.getNoTileHeader();
-                        if (noTileHeader != null) {
-                            String headerValue = tileCallResponse.header(noTileHeader);
-                            if (headerValue != null) {
-                                String[] noTileValues = renderer.getNoTileValues();
-                                if (noTileValues != null) {
-                                    for (String v : noTileValues) {
-                                        if (headerValue.equals(v)) {
+                        try (Response tileCallResponse = tileCall.execute()) {
+                            if (tileCallResponse.isSuccessful()) {
+                                ResponseBody responseBody = tileCallResponse.body();
+                                InputStream inputStream = responseBody.byteStream();
+                                MediaType format = responseBody.contentType();
+                                String noTileHeader = renderer.getNoTileHeader();
+                                if (noTileHeader != null) {
+                                    String headerValue = tileCallResponse.header(noTileHeader);
+                                    if (headerValue != null) {
+                                        String[] noTileValues = renderer.getNoTileValues();
+                                        if (noTileValues != null) {
+                                            for (String v : noTileValues) {
+                                                if (headerValue.equals(v)) {
+                                                    throw new FileNotFoundException(TILE_NOT_AVAILABLE);
+                                                }
+                                            }
+                                        } else {
                                             throw new FileNotFoundException(TILE_NOT_AVAILABLE);
                                         }
                                     }
-                                } else {
-                                    throw new FileNotFoundException(TILE_NOT_AVAILABLE);
                                 }
-                            }
-                        }
-                        in = new BufferedInputStream(inputStream, StreamUtils.IO_BUFFER_SIZE);
-                        final ByteArrayOutputStream dataStream = new ByteArrayOutputStream();
-                        out = new BufferedOutputStream(dataStream, StreamUtils.IO_BUFFER_SIZE);
-                        StreamUtils.copy(in, out);
-                        out.flush();
+                                try (final InputStream in = new BufferedInputStream(inputStream, StreamUtils.IO_BUFFER_SIZE);
+                                        final ByteArrayOutputStream dataStream = new ByteArrayOutputStream();
+                                        final OutputStream out = new BufferedOutputStream(dataStream, StreamUtils.IO_BUFFER_SIZE)) {
+                                    StreamUtils.copy(in, out);
+                                    out.flush();
 
-                        byte[] data = dataStream.toByteArray();
-                        if (data.length == 0) {
-                            throw new FileNotFoundException(TILE_NOT_AVAILABLE);
-                        }
-                        // check format
-                        if (format != null) {
-                            switch (format.type().toLowerCase(Locale.US)) {
-                            case MimeTypes.IMAGE_TYPE:
-                                if (MimeTypes.BMP_SUBTYPE.equalsIgnoreCase(format.subtype())) {
-                                    // if tile is in BMP format, compress
-                                    data = compressBitmap(CompressFormat.PNG, dataStream, data);
-                                }
-                                break;
-                            case MimeTypes.TEXT_TYPE:
-                                // this can't be a tile and is likely an error message
-                                Log.e(DEBUG_TAG, responseBody.string());
-                                throw new FileNotFoundException(TILE_NOT_AVAILABLE);
-                            case MimeTypes.APPLICATION_TYPE: // WMS errors, MVT tiles
-                                switch (format.subtype().toLowerCase()) {
-                                case MimeTypes.WMS_EXCEPTION_XML_SUBTYPE:
-                                case MimeTypes.JSON_SUBTYPE:
-                                    Log.e(DEBUG_TAG, responseBody.string());
-                                    throw new FileNotFoundException(TILE_NOT_AVAILABLE);
-                                case MimeTypes.MVT_SUBTYPE:
-                                case MimeTypes.X_PROTOBUF_SUBTYPE:
-                                    byte[] noTileTile = renderer.getNoTileTile();
-                                    if (noTileTile != null && data.length == noTileTile.length && Arrays.equals(data, noTileTile)) {
-                                        Log.e(DEBUG_TAG, "MVT \"no tile\" tile for " + mTile);
+                                    byte[] data = dataStream.toByteArray();
+                                    if (data.length == 0) {
                                         throw new FileNotFoundException(TILE_NOT_AVAILABLE);
                                     }
-                                    break;
-                                default:
-                                    Log.e(DEBUG_TAG, "Application sub type " + format.subtype());
+                                    // check format
+                                    if (format != null) {
+                                        switch (format.type().toLowerCase(Locale.US)) {
+                                        case MimeTypes.IMAGE_TYPE:
+                                            if (MimeTypes.BMP_SUBTYPE.equalsIgnoreCase(format.subtype())) {
+                                                // if tile is in BMP format, compress
+                                                data = compressBitmap(CompressFormat.PNG, dataStream, data);
+                                            }
+                                            break;
+                                        case MimeTypes.TEXT_TYPE:
+                                            // this can't be a tile and is likely an error message
+                                            Log.e(DEBUG_TAG, responseBody.string());
+                                            throw new FileNotFoundException(TILE_NOT_AVAILABLE);
+                                        case MimeTypes.APPLICATION_TYPE: // WMS errors, MVT tiles
+                                            switch (format.subtype().toLowerCase()) {
+                                            case MimeTypes.WMS_EXCEPTION_XML_SUBTYPE:
+                                            case MimeTypes.JSON_SUBTYPE:
+                                                Log.e(DEBUG_TAG, responseBody.string());
+                                                throw new FileNotFoundException(TILE_NOT_AVAILABLE);
+                                            case MimeTypes.MVT_SUBTYPE:
+                                            case MimeTypes.X_PROTOBUF_SUBTYPE:
+                                                byte[] noTileTile = renderer.getNoTileTile();
+                                                if (noTileTile != null && data.length == noTileTile.length && Arrays.equals(data, noTileTile)) {
+                                                    Log.e(DEBUG_TAG, "MVT \"no tile\" tile for " + mTile);
+                                                    throw new FileNotFoundException(TILE_NOT_AVAILABLE);
+                                                }
+                                                break;
+                                            default:
+                                                Log.e(DEBUG_TAG, "Application sub type " + format.subtype());
+                                            }
+                                            break;
+                                        default:
+                                            Log.e(DEBUG_TAG, "Unexpected response format " + format + " tile url " + tileURLString);
+                                            throw new FileNotFoundException(TILE_NOT_AVAILABLE);
+                                        }
+                                    }
+                                    mCallback.mapTileLoaded(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, data);
+                                    mapTileSaver.saveFile(mTile, data);
                                 }
-                                break;
-                            default:
-                                Log.e(DEBUG_TAG, "Unexpected response format " + format + " tile url " + tileURLString);
-                                throw new FileNotFoundException(TILE_NOT_AVAILABLE);
+                            } else {
+                                int code = tileCallResponse.code();
+                                if (code == HttpURLConnection.HTTP_NOT_FOUND) {
+                                    throw new FileNotFoundException(TILE_NOT_AVAILABLE);
+                                } else {
+                                    throw new IOException("Code: " + code + " message: " + tileCallResponse.body().string());
+                                }
                             }
                         }
-                        mCallback.mapTileLoaded(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, data);
-                        mMapTileFSProvider.saveFile(mTile, data);
-                    }
-                } catch (IOException ioe) {
-                    try {
-                        int reason = ioe instanceof FileNotFoundException ? DOESNOTEXIST : IOERR; // NOSONAR
-                        if (reason == DOESNOTEXIST) {
-                            mMapTileFSProvider.markAsInvalid(mTile);
-                        } else { // FileNotFound is an expected exception, any other IOException should be logged, and
-                                 // reported a an error
+                    } catch (IOException ioe) {
+                        try {
+                            int reason = ioe instanceof FileNotFoundException ? DOESNOTEXIST : IOERR; // NOSONAR
+                            if (reason == DOESNOTEXIST) {
+                                mapTileSaver.markAsInvalid(mTile);
+                            } else { // FileNotFound is an expected exception, any other IOException should be logged,
+                                     // and
+                                     // reported a an error
+                                Log.e(DEBUG_TAG, "Error Downloading MapTile. Exception: " + ioe.getClass().getSimpleName() + " " + tileURLString + " "
+                                        + ioe.getMessage());
+                                mCallback.mapTileFailed(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, reason);
+                            }
+                        } catch (NullPointerException | IOException e) {
                             Log.e(DEBUG_TAG,
-                                    "Error Downloading MapTile. Exception: " + ioe.getClass().getSimpleName() + " " + tileURLString + " " + ioe.getMessage());
-                            mCallback.mapTileFailed(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, reason);
+                                    "Error calling mCallback for MapTile. Exception: " + ioe.getClass().getSimpleName() + " further mapTileFailed failed " + e,
+                                    ioe);
                         }
-                    } catch (NullPointerException | IOException e) {
-                        Log.e(DEBUG_TAG,
-                                "Error calling mCallback for MapTile. Exception: " + ioe.getClass().getSimpleName() + " further mapTileFailed failed " + e,
-                                ioe);
+                    } catch (NullPointerException | IllegalArgumentException e) {
+                        Log.e(DEBUG_TAG, "Error in TileLoader. Url " + tileURLString + " Exception: " + e);
+                    } finally {
+                        /*
+                         * What to do when downloading tile caused an error? Also remove it from the mPending? Not doing
+                         * so blocks it for the whole existence of this TileDownloader. -> we remove it and the
+                         * application has to re-request it.
+                         */
+                        finished();
                     }
-                } catch (NullPointerException | IllegalArgumentException e) {
-                    Log.e(DEBUG_TAG, "Error in TileLoader. Url " + tileURLString + " Exception: " + e);
-                } finally {
-                    StreamUtils.closeStream(in);
-                    StreamUtils.closeStream(out);
-                    if (tileCallResponse != null) {
-                        tileCallResponse.close();
-                    }
-                    /*
-                     * What to do when downloading tile caused an error? Also remove it from the mPending? Not doing so
-                     * blocks it for the whole existence of this TileDownloader. -> we remove it and the application has
-                     * to re-request it.
-                     */
-                    finished();
                 }
             }
         }

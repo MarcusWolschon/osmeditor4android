@@ -40,7 +40,7 @@ import de.blau.android.views.util.MapTileProviderCallback;
  * @author Simon Poole
  *
  */
-public class MapTileFilesystemProvider extends MapAsyncTileProvider {
+public class MapTileFilesystemProvider extends MapAsyncTileProvider implements MapTileSaver {
     // ===========================================================
     // Constants
     // ===========================================================
@@ -117,13 +117,7 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
     // Methods
     // ===========================================================
 
-    /**
-     * Save the image data for a tile to the database, making space if necessary
-     * 
-     * @param tile tile meta-data
-     * @param data the tile image data
-     * @throws IOException if saving the file goes wrong
-     */
+    @Override
     public void saveFile(final MapTile tile, final byte[] data) throws IOException {
         try {
             final int bytesGrown = mDatabase.addTile(tile, data);
@@ -338,12 +332,7 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
         }
     }
 
-    /**
-     * Mark a tile as invalid (really doesn't exist)
-     * 
-     * @param mTile tile meta-data
-     * @throws IOException if writing to the database fails
-     */
+    @Override
     public void markAsInvalid(@NonNull MapTile mTile) throws IOException {
         mDatabase.addTile(mTile, null);
     }
