@@ -312,7 +312,7 @@ public class MapTileProvider<T> {
         }
 
         @Override
-        public void mapTileFailed(@NonNull final String rendererID, final int zoomLevel, final int tileX, final int tileY, final int reason)
+        public void mapTileFailed(@NonNull final String rendererID, final int zoomLevel, final int tileX, final int tileY, final int reason, String message)
                 throws IOException {
             MapTile t = new MapTile(rendererID, zoomLevel, tileX, tileY);
             synchronized (pending) {

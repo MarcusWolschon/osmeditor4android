@@ -106,7 +106,7 @@ public class MapTileFilesystemProviderTest {
             }
 
             @Override
-            public void mapTileFailed(String rendererID, int zoomLevel, int tileX, int tileY, int reason) throws IOException {
+            public void mapTileFailed(String rendererID, int zoomLevel, int tileX, int tileY, int reason, String message) throws IOException {
                 result = 2;
                 signal1.countDown();
             }
@@ -165,7 +165,7 @@ public class MapTileFilesystemProviderTest {
             }
 
             @Override
-            public void mapTileFailed(String rendererID, int zoomLevel, int tileX, int tileY, int reason) throws IOException {
+            public void mapTileFailed(String rendererID, int zoomLevel, int tileX, int tileY, int reason, String message) throws IOException {
                 result = reason;
                 signal1.countDown();
             };
@@ -182,7 +182,7 @@ public class MapTileFilesystemProviderTest {
         } catch (InterruptedException e1) {
             fail("no tileserver request found " + e1.getMessage());
         }
-        assertEquals(MapAsyncTileProvider.IOERR, callback.result);
+        assertEquals(MapAsyncTileProvider.DOESNOTEXIST, callback.result);
         assertEquals(1, tileServer.getRequestCount());
     }
 
@@ -193,7 +193,9 @@ public class MapTileFilesystemProviderTest {
         layer.setHeaders(Util.wrapInList(new TileLayerSource.Header(UserAgentInterceptor.USER_AGENT_HEADER, "Mozilla/5.0 (JOSM)")));
         // this should load from the server
         final CountDownLatch signal1 = new CountDownLatch(1);
-        MapTile mockedTile = new MapTile(MockTileServer.MOCK_TILE_SOURCE, 19, 274335, 183514); // not this needs to be a different tile than above
+        MapTile mockedTile = new MapTile(MockTileServer.MOCK_TILE_SOURCE, 19, 274335, 183514); // not this needs to be a
+                                                                                               // different tile than
+                                                                                               // above
         CallbackWithResult callback = new CallbackWithResult() {
 
             @Override
@@ -203,7 +205,7 @@ public class MapTileFilesystemProviderTest {
             }
 
             @Override
-            public void mapTileFailed(String rendererID, int zoomLevel, int tileX, int tileY, int reason) throws IOException {
+            public void mapTileFailed(String rendererID, int zoomLevel, int tileX, int tileY, int reason, String message) throws IOException {
                 result = 2;
                 signal1.countDown();
             }
@@ -215,15 +217,14 @@ public class MapTileFilesystemProviderTest {
             fail(e.getMessage());
         }
         assertEquals(1, callback.result);
-        
-        
+
         try {
-            RecordedRequest request = tileServer.takeRequest(1, TimeUnit.SECONDS);    
+            RecordedRequest request = tileServer.takeRequest(1, TimeUnit.SECONDS);
             assertNotNull(request);
             assertEquals("Mozilla/5.0 (JOSM)", request.getHeader(UserAgentInterceptor.USER_AGENT_HEADER));
         } catch (InterruptedException e1) {
             fail("no tileserver request found " + e1.getMessage());
         }
-        assertEquals(1, tileServer.getRequestCount());       
+        assertEquals(1, tileServer.getRequestCount());
     }
 }

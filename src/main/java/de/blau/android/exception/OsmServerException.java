@@ -6,7 +6,7 @@ import android.util.Log;
 
 public class OsmServerException extends OsmException {
 
-    private static final String DEBUG_TAG = "OsmServerException";
+    private static final String DEBUG_TAG = OsmServerException.class.getSimpleName();
 
     private static final String ELEMENT_TYPE_NONE = "none";
 

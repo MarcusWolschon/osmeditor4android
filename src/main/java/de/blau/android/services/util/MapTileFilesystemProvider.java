@@ -296,7 +296,7 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider implements M
          */
         private void failed(@NonNull MapTile tile, int code) {
             try {
-                mCallback.mapTileFailed(tile.rendererID, tile.zoomLevel, tile.x, tile.y, code);
+                mCallback.mapTileFailed(tile.rendererID, tile.zoomLevel, tile.x, tile.y, code, null);
             } catch (IOException e) {
                 Log.e(DEBUG_TAG, "mapTileFailed failed with " + e.getMessage());
             }
@@ -311,8 +311,8 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider implements M
             }
 
             @Override
-            public void mapTileFailed(@NonNull String rendererID, int zoomLevel, int tileX, int tileY, int reason) throws IOException {
-                mCallback.mapTileFailed(rendererID, zoomLevel, tileX, tileY, reason);
+            public void mapTileFailed(@NonNull String rendererID, int zoomLevel, int tileX, int tileY, int reason, String message) throws IOException {
+                mCallback.mapTileFailed(rendererID, zoomLevel, tileX, tileY, reason, null);
                 finished();
             }
         };
