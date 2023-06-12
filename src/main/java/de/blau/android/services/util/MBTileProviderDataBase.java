@@ -59,11 +59,11 @@ public class MBTileProviderDataBase {
 
     private final Pools.SynchronizedPool<SQLiteStatement> getStatements;
 
-    private static class Buffer {
+    private static class BufferWrapper {
         byte[] buffer = new byte[BUFFER_SIZE];
     }
 
-    private final Pools.SynchronizedPool<Buffer> buffers;
+    private final Pools.SynchronizedPool<BufferWrapper> buffers;
 
     private final Pools.SynchronizedPool<ByteArrayOutputStream> streams;
 
@@ -91,7 +91,7 @@ public class MBTileProviderDataBase {
         streams = new Pools.SynchronizedPool<>(maxThreads);
         Log.i(DEBUG_TAG, "Allocating " + maxThreads + " prepared statements");
         for (int i = 0; i < maxThreads; i++) {
-            buffers.release(new Buffer());
+            buffers.release(new BufferWrapper());
             streams.release(new ByteArrayOutputStream());
             getStatements.release(mDatabase.compileStatement(T_MBTILES_GET));
         }
@@ -116,21 +116,26 @@ public class MBTileProviderDataBase {
      */
     @Nullable
     public byte[] getTile(@NonNull final MapTile aTile) throws IOException {
-        InputStream is = getTileStream(aTile);
-        if (is != null) {
-            ByteArrayOutputStream bos = streams.acquire();
-            Buffer b = buffers.acquire();
-            if (bos != null && b != null) {
-                bos.reset();
-                byte[] buffer = b.buffer;
-                int bytesRead;
-                while ((bytesRead = is.read(buffer)) != -1) {
-                    bos.write(buffer, 0, bytesRead);
+        try (InputStream is = getTileStream(aTile)) {
+            if (is != null) {
+                ByteArrayOutputStream bos = streams.acquire();
+                BufferWrapper b = buffers.acquire();
+                if (bos != null && b != null) {
+                    try {
+                        bos.reset();
+                        byte[] buffer = b.buffer;
+                        int bytesRead;
+                        while ((bytesRead = is.read(buffer)) != -1) {
+                            bos.write(buffer, 0, bytesRead);
+                        }
+                    } finally {
+                        streams.release(bos);
+                        buffers.release(b);
+                    }
+                    return bos.toByteArray();
                 }
-                is.close();
-                return bos.toByteArray();
+                throw new IOException("Pools exhausted");
             }
-            throw new IOException("Pools exhausted");
         }
         return null;
     }
@@ -151,25 +156,25 @@ public class MBTileProviderDataBase {
         }
         try {
             if (mDatabase.isOpen()) {
-                SQLiteStatement get = null;
+                SQLiteStatement get = getStatements.acquire();
+                if (get == null) {
+                    throw new IOException("Used all statements");
+                }
                 try {
-                    get = getStatements.acquire();
-                    if (get == null) {
-                        throw new IOException("Used all statements");
-                    }
                     bindTile(aTile, get);
                     final ParcelFileDescriptor pfd = get.simpleQueryForBlobFileDescriptor();
                     if (pfd != null) {
                         return new ParcelFileDescriptor.AutoCloseInputStream(pfd);
                     }
-                } catch (SQLiteDoneException sde) {
-                    // nothing found
                     return null;
                 } finally {
-                    if (get != null) {
-                        getStatements.release(get);
-                    }
+                    getStatements.release(get);
                 }
+            }
+        } catch (SQLiteDoneException sde) {
+            // nothing found
+            if (DEBUGMODE) {
+                Log.d(MapTileFilesystemProvider.DEBUG_TAG, "Tile not found in DB " + sde.getMessage());
             }
         } catch (SQLiteException sex) { // handle these exceptions the same
             throw new IOException(sex.getMessage());
