@@ -2,6 +2,7 @@ package de.blau.android;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.HttpURLConnection;
 
 import android.content.Context;
 import android.net.Uri;
@@ -62,12 +63,12 @@ public class TileDispatcher extends Dispatcher {
             byte[] bytes = tileDb.getTile(tile);
             if (bytes != null) {
                 data.write(bytes);
-                return new MockResponse().setResponseCode(200).setBody(data);
+                return new MockResponse().setResponseCode(HttpURLConnection.HTTP_OK).setBody(data);
             }
-            return new MockResponse().setResponseCode(400);
+            return new MockResponse().setResponseCode(HttpURLConnection.HTTP_NOT_FOUND);
         } catch (IOException | NumberFormatException e) {
             Log.e(DEBUG_TAG, "dispatch failed for " + request + " " + e.getMessage());
-            return new MockResponse().setResponseCode(500);
+            return new MockResponse().setResponseCode(HttpURLConnection.HTTP_INTERNAL_ERROR);
         }
     }
 }
