@@ -27,9 +27,10 @@ import de.blau.android.util.ContentResolverUtil;
  * @author Simon Poole
  */
 public class MBTileProviderDataBase {
-
     private static final String  DEBUG_TAG = "MBTilePro...DataBase";
     private static final boolean DEBUGMODE = false;
+
+    private static final int BUFFER_SIZE = 4096;
 
     static final String         T_MBTILES            = "tiles";
     private static final String T_MBTILES_ZOOM_LEVEL = "zoom_level";
@@ -58,6 +59,14 @@ public class MBTileProviderDataBase {
 
     private final Pools.SynchronizedPool<SQLiteStatement> getStatements;
 
+    private static class Buffer {
+        byte[] buffer = new byte[BUFFER_SIZE];
+    }
+
+    private final Pools.SynchronizedPool<Buffer> buffers;
+
+    private final Pools.SynchronizedPool<ByteArrayOutputStream> streams;
+
     private Map<String, String> metadata = null;
 
     // ===========================================================
@@ -78,8 +87,12 @@ public class MBTileProviderDataBase {
             maxThreads = App.getPreferences(context).getMaxTileDownloadThreads();
         }
         getStatements = new Pools.SynchronizedPool<>(maxThreads);
+        buffers = new Pools.SynchronizedPool<>(maxThreads);
+        streams = new Pools.SynchronizedPool<>(maxThreads);
         Log.i(DEBUG_TAG, "Allocating " + maxThreads + " prepared statements");
         for (int i = 0; i < maxThreads; i++) {
+            buffers.release(new Buffer());
+            streams.release(new ByteArrayOutputStream());
             getStatements.release(mDatabase.compileStatement(T_MBTILES_GET));
         }
     }
@@ -105,14 +118,19 @@ public class MBTileProviderDataBase {
     public byte[] getTile(@NonNull final MapTile aTile) throws IOException {
         InputStream is = getTileStream(aTile);
         if (is != null) {
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            byte[] buffer = new byte[4096];
-            int bytesRead;
-            while ((bytesRead = is.read(buffer)) != -1) {
-                bos.write(buffer, 0, bytesRead);
+            ByteArrayOutputStream bos = streams.acquire();
+            Buffer b = buffers.acquire();
+            if (bos != null && b != null) {
+                bos.reset();
+                byte[] buffer = b.buffer;
+                int bytesRead;
+                while ((bytesRead = is.read(buffer)) != -1) {
+                    bos.write(buffer, 0, bytesRead);
+                }
+                is.close();
+                return bos.toByteArray();
             }
-            is.close();
-            return bos.toByteArray();
+            throw new IOException("Pools exhausted");
         }
         return null;
     }
