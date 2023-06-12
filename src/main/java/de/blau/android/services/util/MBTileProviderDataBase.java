@@ -101,6 +101,7 @@ public class MBTileProviderDataBase {
      * @return the contents of the tile or null on failure to retrieve
      * @throws IOException if we had issues reading from the database
      */
+    @Nullable
     public byte[] getTile(@NonNull final MapTile aTile) throws IOException {
         InputStream is = getTileStream(aTile);
         if (is != null) {
@@ -125,6 +126,7 @@ public class MBTileProviderDataBase {
      * @return the contents of the tile as an InputStream or null on failure to retrieve
      * @throws IOException if we had issues reading from the database
      */
+    @Nullable
     public InputStream getTileStream(@NonNull final MapTile aTile) throws IOException {
         if (DEBUGMODE) {
             Log.d(MapTileFilesystemProvider.DEBUG_TAG, "Trying to retrieve " + aTile + " from db");
@@ -138,7 +140,10 @@ public class MBTileProviderDataBase {
                         throw new IOException("Used all statements");
                     }
                     bindTile(aTile, get);
-                    return new ParcelFileDescriptor.AutoCloseInputStream(get.simpleQueryForBlobFileDescriptor());
+                    final ParcelFileDescriptor pfd = get.simpleQueryForBlobFileDescriptor();
+                    if (pfd != null) {
+                        return new ParcelFileDescriptor.AutoCloseInputStream(pfd);
+                    }
                 } catch (SQLiteDoneException sde) {
                     // nothing found
                     return null;
