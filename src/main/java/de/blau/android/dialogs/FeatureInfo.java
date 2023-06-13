@@ -167,9 +167,8 @@ public class FeatureInfo extends InfoDialogFragment {
 
     @Override
     protected View createView(@Nullable ViewGroup container) {
-        LayoutInflater inflater;
         FragmentActivity activity = getActivity();
-        inflater = ThemeUtils.getLayoutInflater(activity);
+        LayoutInflater inflater = ThemeUtils.getLayoutInflater(activity);
         ScrollView sv = (ScrollView) inflater.inflate(R.layout.element_info_view, container, false);
         TableLayout tl = (TableLayout) sv.findViewById(R.id.element_info_vertical_layout);
 

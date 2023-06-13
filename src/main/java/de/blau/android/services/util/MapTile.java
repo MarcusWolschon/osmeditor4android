@@ -1,5 +1,7 @@
 package de.blau.android.services.util;
 
+import java.io.Serializable;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -13,7 +15,9 @@ import androidx.annotation.Nullable;
  * @author Marcus Wolschon &lt;Marcus@Wolschon.biz&gt;
  * @author Simon Poole
  */
-public class MapTile {
+public class MapTile implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     public final String rendererID;
 

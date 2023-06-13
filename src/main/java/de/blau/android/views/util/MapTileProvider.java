@@ -78,14 +78,15 @@ public class MapTileProvider<T> {
          * @param small use a little memory as possible
          * @return the tile in the target format
          */
+        @Nullable
         D decode(@NonNull byte[] data, boolean small);
     }
 
     public static class BitmapDecoder implements TileDecoder<Bitmap> {
+        private BitmapFactory.Options options = new BitmapFactory.Options();
 
         @Override
         public Bitmap decode(@NonNull byte[] data, boolean small) {
-            BitmapFactory.Options options = new BitmapFactory.Options();
             if (small) {
                 options.inPreferredConfig = Bitmap.Config.RGB_565;
             } else {

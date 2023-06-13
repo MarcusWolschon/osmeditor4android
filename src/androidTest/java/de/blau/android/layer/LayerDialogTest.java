@@ -69,7 +69,6 @@ public class LayerDialogTest {
     Main                 main            = null;
     UiDevice             device          = null;
     Map                  map             = null;
-    Logic                logic           = null;
     Instrumentation      instrumentation = null;
     MockWebServer        tileServer      = null;
 
@@ -344,6 +343,31 @@ public class LayerDialogTest {
     }
 
     /**
+     * Test the mock layer
+     */
+    @Test
+    public void layerTestModal() {
+        TestUtils.zoomToNullIsland(App.getLogic(), map);
+        UiObject2 menuButton = TestUtils.getLayerButton(device, "Vespucci Test", MENU_BUTTON);
+        menuButton.clickAndWait(Until.newWindow(), 1000);
+        TestUtils.scrollTo(main.getString(R.string.layer_test), false);
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.layer_test), true, false));
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.tile_fail), 2000, true));
+        assertTrue(TestUtils.clickText(device, true, main.getString(R.string.done), true, false));
+        assertTrue(TestUtils.clickText(device, true, main.getString(R.string.done), true, false));       
+        TestUtils.zoomToLevel(device, main, 19);
+        map.getViewBox().moveTo(map, (int) (8.3642221 * 1E7D), (int) (47.4176842 * 1E7D));
+        map.invalidate();
+        menuButton = TestUtils.getLayerButton(device, "Vespucci Test", MENU_BUTTON);
+        menuButton.clickAndWait(Until.newWindow(), 1000);
+        TestUtils.scrollTo(main.getString(R.string.layer_test), false);
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.layer_test), true, false));
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.tile_success), 2000, true));
+        assertTrue(TestUtils.clickText(device, true, main.getString(R.string.done), true, false));
+        assertTrue(TestUtils.clickText(device, true, main.getString(R.string.done), true, false));
+    }
+
+    /**
      * Display background properties dialog
      */
     @Test
@@ -528,7 +552,10 @@ public class LayerDialogTest {
         assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/add", true));
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_layers_enable_bookmarkslayer), false));
         assertTrue(TestUtils.clickText(device, true, main.getString(R.string.done), true, false));
-        UiObject2 menuButton = TestUtils.getLayerButton(device, main.getString(R.string.layer_bookmarks), MENU_BUTTON - 1); // extent field doesn't exist
+        UiObject2 menuButton = TestUtils.getLayerButton(device, main.getString(R.string.layer_bookmarks), MENU_BUTTON - 1); // extent
+                                                                                                                            // field
+                                                                                                                            // doesn't
+                                                                                                                            // exist
         menuButton.clickAndWait(Until.newWindow(), 1000);
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.discard), true, false));
     }

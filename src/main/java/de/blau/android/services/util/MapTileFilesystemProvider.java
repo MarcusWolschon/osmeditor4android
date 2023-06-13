@@ -58,7 +58,7 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider implements M
     private boolean                       errorDisplayed = false;
 
     private final Map<String, MBTileProviderDataBase> mbTileDatabases = new HashMap<>();
-    private final Random                              random          = new Random();
+    private final Random                              random          = App.getRandom();
 
     /** online provider */
     private final MapTileDownloader mTileDownloader;

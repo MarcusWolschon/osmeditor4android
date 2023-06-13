@@ -904,6 +904,15 @@ public class Layers extends AbstractConfigurationDialog {
                     }
                     return true;
                 });
+
+                item = menu.add(R.string.layer_test);
+                item.setOnMenuItemClickListener(unused -> {
+                    if (layer != null) {
+                        TileSourceDiagnostics.showDialog(activity, ((MapTilesLayer<?>) layer).getTileLayerConfiguration(), map.getZoomLevel(),
+                                map.getViewBox());
+                    }
+                    return true;
+                });
             }
             if (layer instanceof de.blau.android.layer.gpx.MapOverlay) {
                 boolean recordingLayer = activity.getString(R.string.layer_gpx_recording).equals(layer.getContentId());
@@ -1188,7 +1197,6 @@ public class Layers extends AbstractConfigurationDialog {
                 dialog.dismiss(); // dismiss this
                 dismissDialog(); // and then the caller
             }, 100);
-
         }
     }
 
