@@ -51,7 +51,7 @@ The layer dialog supports the following actions on the layer entries:
         * __Flush tile cache__ Flush the on device cache for this layer.
         * __Background properties__ Set contrast of layer.
         * __Info__ Display information on the currently selected imagery.
-        * __Align imagery...__ start the imagery alignment mode to adjust this layer. This can be done manually of by querying the "Imagery Offset" database.
+        * __Align imagery...__ start the imagery alignment mode to adjust this layer. This can be done manually or by querying the "Imagery Offset" database.
     * Custom imagery tile based layers (additionally to the above):
         * __Edit custom imagery configuration__ edit the configuration of the imagery, for example the URL.
     * Mapbox Vector Tile layers (additionally to _Tile based layers_):
