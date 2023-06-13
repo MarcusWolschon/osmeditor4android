@@ -1,5 +1,7 @@
 package de.blau.android;
 
+import static org.junit.Assert.fail;
+
 import java.io.IOException;
 
 import android.content.Context;
@@ -87,7 +89,7 @@ public final class MockTileServer {
             }
         } catch (IOException e) {
             Log.e(DEBUG_TAG, "setDispatcher " + e.getMessage());
-            e.printStackTrace();
+            fail("setupTileServer " + e.getMessage());
         }
         return tileServer;
     }

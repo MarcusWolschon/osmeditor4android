@@ -40,7 +40,7 @@ import de.blau.android.views.util.MapTileProviderCallback;
  * @author Simon Poole
  *
  */
-public class MapTileFilesystemProvider extends MapAsyncTileProvider {
+public class MapTileFilesystemProvider extends MapAsyncTileProvider implements MapTileSaver {
     // ===========================================================
     // Constants
     // ===========================================================
@@ -58,7 +58,7 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
     private boolean                       errorDisplayed = false;
 
     private final Map<String, MBTileProviderDataBase> mbTileDatabases = new HashMap<>();
-    private final Random                              random          = new Random();
+    private final Random                              random          = App.getRandom();
 
     /** online provider */
     private final MapTileDownloader mTileDownloader;
@@ -117,13 +117,7 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
     // Methods
     // ===========================================================
 
-    /**
-     * Save the image data for a tile to the database, making space if necessary
-     * 
-     * @param tile tile meta-data
-     * @param data the tile image data
-     * @throws IOException if saving the file goes wrong
-     */
+    @Override
     public void saveFile(final MapTile tile, final byte[] data) throws IOException {
         try {
             final int bytesGrown = mDatabase.addTile(tile, data);
@@ -302,7 +296,7 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
          */
         private void failed(@NonNull MapTile tile, int code) {
             try {
-                mCallback.mapTileFailed(tile.rendererID, tile.zoomLevel, tile.x, tile.y, code);
+                mCallback.mapTileFailed(tile.rendererID, tile.zoomLevel, tile.x, tile.y, code, null);
             } catch (IOException e) {
                 Log.e(DEBUG_TAG, "mapTileFailed failed with " + e.getMessage());
             }
@@ -317,8 +311,8 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
             }
 
             @Override
-            public void mapTileFailed(@NonNull String rendererID, int zoomLevel, int tileX, int tileY, int reason) throws IOException {
-                mCallback.mapTileFailed(rendererID, zoomLevel, tileX, tileY, reason);
+            public void mapTileFailed(@NonNull String rendererID, int zoomLevel, int tileX, int tileY, int reason, String message) throws IOException {
+                mCallback.mapTileFailed(rendererID, zoomLevel, tileX, tileY, reason, null);
                 finished();
             }
         };
@@ -338,12 +332,7 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
         }
     }
 
-    /**
-     * Mark a tile as invalid (really doesn't exist)
-     * 
-     * @param mTile tile meta-data
-     * @throws IOException if writing to the database fails
-     */
+    @Override
     public void markAsInvalid(@NonNull MapTile mTile) throws IOException {
         mDatabase.addTile(mTile, null);
     }

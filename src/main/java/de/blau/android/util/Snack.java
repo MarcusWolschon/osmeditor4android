@@ -1,10 +1,9 @@
 package de.blau.android.util;
 
 import java.util.LinkedList;
-import java.util.Random;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 
 import android.app.Activity;
 import android.content.Context;
@@ -17,6 +16,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
+import de.blau.android.App;
 import de.blau.android.R;
 
 /**
@@ -46,8 +46,6 @@ public final class Snack {
     protected static LinkedList<Snackbar> infoQueue    = new LinkedList<>();
     protected static LinkedList<Snackbar> warningQueue = new LinkedList<>();
     protected static LinkedList<Snackbar> errorQueue   = new LinkedList<>();
-
-    private static final Random random = new Random();
 
     /**
      * Private constructor to stop instantiation
@@ -678,7 +676,7 @@ public final class Snack {
         if (context != null) {
             toastTop(context, msgRes, ThemeUtils.getStyleAttribColorValue(context, R.attr.snack_error, R.color.material_red), Toast.LENGTH_LONG);
             if (persist) {
-                Notifications.error(context, R.string.error, context.getString(msgRes), random.nextInt());
+                Notifications.error(context, R.string.error, context.getString(msgRes), App.getRandom().nextInt());
             }
         }
     }
@@ -704,7 +702,7 @@ public final class Snack {
         if (context != null) {
             toastTop(context, msg, ThemeUtils.getStyleAttribColorValue(context, R.attr.snack_error, R.color.material_red), Toast.LENGTH_LONG);
             if (persist) {
-                Notifications.error(context, R.string.error, msg, random.nextInt());
+                Notifications.error(context, R.string.error, msg, App.getRandom().nextInt());
             }
         }
     }

@@ -27,9 +27,10 @@ import de.blau.android.util.ContentResolverUtil;
  * @author Simon Poole
  */
 public class MBTileProviderDataBase {
-
     private static final String  DEBUG_TAG = "MBTilePro...DataBase";
     private static final boolean DEBUGMODE = false;
+
+    private static final int BUFFER_SIZE = 4096;
 
     static final String         T_MBTILES            = "tiles";
     private static final String T_MBTILES_ZOOM_LEVEL = "zoom_level";
@@ -58,6 +59,14 @@ public class MBTileProviderDataBase {
 
     private final Pools.SynchronizedPool<SQLiteStatement> getStatements;
 
+    private static class BufferWrapper {
+        byte[] buffer = new byte[BUFFER_SIZE];
+    }
+
+    private final Pools.SynchronizedPool<BufferWrapper> buffers;
+
+    private final Pools.SynchronizedPool<ByteArrayOutputStream> streams;
+
     private Map<String, String> metadata = null;
 
     // ===========================================================
@@ -78,8 +87,12 @@ public class MBTileProviderDataBase {
             maxThreads = App.getPreferences(context).getMaxTileDownloadThreads();
         }
         getStatements = new Pools.SynchronizedPool<>(maxThreads);
+        buffers = new Pools.SynchronizedPool<>(maxThreads);
+        streams = new Pools.SynchronizedPool<>(maxThreads);
         Log.i(DEBUG_TAG, "Allocating " + maxThreads + " prepared statements");
         for (int i = 0; i < maxThreads; i++) {
+            buffers.release(new BufferWrapper());
+            streams.release(new ByteArrayOutputStream());
             getStatements.release(mDatabase.compileStatement(T_MBTILES_GET));
         }
     }
@@ -101,17 +114,28 @@ public class MBTileProviderDataBase {
      * @return the contents of the tile or null on failure to retrieve
      * @throws IOException if we had issues reading from the database
      */
+    @Nullable
     public byte[] getTile(@NonNull final MapTile aTile) throws IOException {
-        InputStream is = getTileStream(aTile);
-        if (is != null) {
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            byte[] buffer = new byte[4096];
-            int bytesRead;
-            while ((bytesRead = is.read(buffer)) != -1) {
-                bos.write(buffer, 0, bytesRead);
+        try (InputStream is = getTileStream(aTile)) {
+            if (is != null) {
+                ByteArrayOutputStream bos = streams.acquire();
+                BufferWrapper b = buffers.acquire();
+                if (bos != null && b != null) {
+                    try {
+                        bos.reset();
+                        byte[] buffer = b.buffer;
+                        int bytesRead;
+                        while ((bytesRead = is.read(buffer)) != -1) {
+                            bos.write(buffer, 0, bytesRead);
+                        }
+                    } finally {
+                        streams.release(bos);
+                        buffers.release(b);
+                    }
+                    return bos.toByteArray();
+                }
+                throw new IOException("Pools exhausted");
             }
-            is.close();
-            return bos.toByteArray();
         }
         return null;
     }
@@ -125,28 +149,32 @@ public class MBTileProviderDataBase {
      * @return the contents of the tile as an InputStream or null on failure to retrieve
      * @throws IOException if we had issues reading from the database
      */
+    @Nullable
     public InputStream getTileStream(@NonNull final MapTile aTile) throws IOException {
         if (DEBUGMODE) {
             Log.d(MapTileFilesystemProvider.DEBUG_TAG, "Trying to retrieve " + aTile + " from db");
         }
         try {
             if (mDatabase.isOpen()) {
-                SQLiteStatement get = null;
+                SQLiteStatement get = getStatements.acquire();
+                if (get == null) {
+                    throw new IOException("Used all statements");
+                }
                 try {
-                    get = getStatements.acquire();
-                    if (get == null) {
-                        throw new IOException("Used all statements");
-                    }
                     bindTile(aTile, get);
-                    return new ParcelFileDescriptor.AutoCloseInputStream(get.simpleQueryForBlobFileDescriptor());
-                } catch (SQLiteDoneException sde) {
-                    // nothing found
+                    final ParcelFileDescriptor pfd = get.simpleQueryForBlobFileDescriptor();
+                    if (pfd != null) {
+                        return new ParcelFileDescriptor.AutoCloseInputStream(pfd);
+                    }
                     return null;
                 } finally {
-                    if (get != null) {
-                        getStatements.release(get);
-                    }
+                    getStatements.release(get);
                 }
+            }
+        } catch (SQLiteDoneException sde) {
+            // nothing found
+            if (DEBUGMODE) {
+                Log.d(MapTileFilesystemProvider.DEBUG_TAG, "Tile not found in DB " + sde.getMessage());
             }
         } catch (SQLiteException sex) { // handle these exceptions the same
             throw new IOException(sex.getMessage());

@@ -4,6 +4,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.util.Random;
 import java.util.TreeMap;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
@@ -81,6 +82,7 @@ public class App extends LocaleAwareApplication implements android.app.Applicati
     private static OkHttpClient     httpClient;
     private static final Object     httpClientLock  = new Object();
     private static String           userAgent;
+    private static final Random     random          = new Random();
 
     /**
      * The logic that manipulates the model. (non-UI)
@@ -849,5 +851,14 @@ public class App extends LocaleAwareApplication implements android.app.Applicati
      */
     public static boolean isPropertyEditorRunning() {
         return propertyEditorRunning;
+    }
+
+    /**
+     * Retrieve the app wide Random instance
+     * 
+     * @return the Random instance
+     */
+    public static Random getRandom() {
+        return random;
     }
 }

@@ -393,6 +393,7 @@
     <string name="layer_load_style">Load style…</string>
     <string name="layer_reset_style">Reset style</string>
     <string name="layer_select_imagery">Select imagery…</string>
+    <string name="layer_test">Test…</string>
     <string name="layer_category_all">All</string>
     <string name="layer_category_photo">Aerial imagery</string>
     <string name="layer_category_elevation">Terrain</string>
@@ -1543,4 +1544,21 @@
     <string name="node_id">node %1$d</string>
     <string name="way_id">way %1$d</string>
     <string name="relation_id">relation %1$d</string>
+    <!--  Tile downloader diagnostics -->
+    <string name="layer_diag_title">Layer diagnostics</string>
+    <string name="no_tile_header">"No tile" header %1$s</string>
+    <string name="no_tile_mvt_tile">MVT "no tile" tile %1$s</string>
+    <string name="empty_tile">Empty tile</string>
+    <string name="tile_error">Tile error code: %1$d\n\n%2$s</string>
+    <string name="tile_error_message">Tile error message:\n\n%1$s\n\n%2$s</string>
+    <string name="unexpected_tile_format">Unexpected format\nURL:%1$s %2$s</string>
+    <string name="unexpected_tile_format_subtype">Unexpected format subtype %1$s\nURL: %2$s</string>
+    <string name="diagnostics_for_tile">Diagnostics for %1$s</string>
+    <string name="tile_spec">zoom %1$d x %2$d y %3$d</string>
+    <string name="tile_input_error">Tile input error: %1$s\nURL: %2$s</string>
+    <string name="tile_data_received">Successfully received %1$d bytes</string>
+    <string name="tile_mark_invalid">Marking tile as invalid</string>
+    <string name="tile_decoding_failed">Tile decoding failed</string>
+    <string name="tile_success">Success</string>
+    <string name="tile_fail">Fail</string>
 </resources>

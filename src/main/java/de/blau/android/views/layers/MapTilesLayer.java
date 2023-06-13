@@ -417,21 +417,16 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
 
         final MapTile tile = new MapTile(myRendererInfo.getId(), 0, 0, 0);
         final MapTile originalTile = new MapTile(tile);
-        //
-        final double lonLeft = viewBox.getLeft() / 1E7d - (lonOffset > 0 ? lonOffset : 0d);
-        final double lonRight = viewBox.getRight() / 1E7d - (lonOffset < 0 ? lonOffset : 0d);
-        final double latTop = Math.toRadians(viewBox.getTop() / 1E7d - (latOffset < 0 ? latOffset : 0d));
-        final double latBottom = Math.toRadians(viewBox.getBottom() / 1E7d - (latOffset > 0 ? latOffset : 0d));
 
         // pseudo-code for lon/lat to tile numbers
         // n = 2 ^ zoom
         // xtile = ((lon_deg + 180) / 360) * n
         // ytile = (1 - (log(tan(lat_rad) + sec(lat_rad)) / PI)) / 2 * n
         final int n = 1 << zoomLevel;
-        final int xTileLeft = xTileNumber(lonLeft, n);
-        final int xTileRight = xTileNumber(lonRight, n);
-        final int yTileTop = yTileNumber(latTop, n);
-        final int yTileBottom = yTileNumber(latBottom, n);
+        final int xTileLeft = tileLeft(viewBox.getLeft(), lonOffset, n);
+        final int xTileRight = tileRight(viewBox.getRight(), lonOffset, n);
+        final int yTileTop = tileTop(viewBox.getTop(), latOffset, n);
+        final int yTileBottom = tileBottom(viewBox.getBottom(), latOffset, n);
 
         final int tileNeededLeft = Math.min(xTileLeft, xTileRight);
         final int tileNeededRight = Math.max(xTileLeft, xTileRight);
@@ -550,13 +545,61 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
     }
 
     /**
+     * Get the bottom most tile y coordinate
+     * 
+     * @param bottom bottom coordinate in WGS84*1E7
+     * @param latOffset latitude offset in WGS84
+     * @param n 1 << zoom
+     * @return the bottom tile y coordinate
+     */
+    public static int tileBottom(int bottom, double latOffset, final int n) {
+        return yTileNumber(Math.toRadians(bottom / 1E7d - (latOffset > 0 ? latOffset : 0d)), n);
+    }
+
+    /**
+     * Get the top most tile y coordinate
+     * 
+     * @param top top coordinate in WGS84*1E7
+     * @param latOffset latitude offset in WGS84
+     * @param n 1 << zoom
+     * @return the top tile y coordinate
+     */
+    public static int tileTop(int top, double latOffset, final int n) {
+        return yTileNumber(Math.toRadians(top / 1E7d - (latOffset < 0 ? latOffset : 0d)), n);
+    }
+
+    /**
+     * Get the right most tile x coordinate
+     * 
+     * @param right right coordinate in WGS84*1E7
+     * @param lonOffset longitude offset in WGS84
+     * @param n 1 << zoom
+     * @return the right tile x coordinate
+     */
+    public static int tileRight(int right, double lonOffset, final int n) {
+        return xTileNumber(right / 1E7d - (lonOffset < 0 ? lonOffset : 0d), n);
+    }
+
+    /**
+     * Get the left most tile x coordinate
+     * 
+     * @param left left coordinate in WGS84*1E7
+     * @param lonOffset longitude offset in WGS84
+     * @param n 1 << zoom
+     * @return the left tile x coordinate
+     */
+    public static int tileLeft(int left, double lonOffset, final int n) {
+        return xTileNumber(left / 1E7d - (lonOffset > 0 ? lonOffset : 0d), n);
+    }
+
+    /**
      * Get the y tile number
      * 
      * @param lat the latitude
      * @param n 2^zoom
      * @return the tile number for the vertical coordinate
      */
-    protected int yTileNumber(final double lat, final int n) {
+    protected static int yTileNumber(final double lat, final int n) {
         return (int) Math.floor((1d - Math.log(Math.tan(lat) + 1d / Math.cos(lat)) / Math.PI) * n / 2d);
     }
 
@@ -567,7 +610,7 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
      * @param n 2^zoom
      * @return the tile number for the horizontal coordinate
      */
-    protected int xTileNumber(final double lon, final int n) {
+    protected static int xTileNumber(final double lon, final int n) {
         return (int) Math.floor(((lon + 180d) / 360d) * n);
     }
 

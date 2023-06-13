@@ -3,6 +3,7 @@ package de.blau.android.views.util;
 import java.io.IOException;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 public interface MapTileProviderCallback {
 
@@ -27,7 +28,9 @@ public interface MapTileProviderCallback {
      * @param tileX tile x
      * @param tileY tile y
      * @param reason error code
+     * @param message any relevant error message
      * @throws IOException if something goes wrong receiving the tile
      */
-    public void mapTileFailed(@NonNull final String rendererID, final int zoomLevel, final int tileX, final int tileY, final int reason) throws IOException;
+    public void mapTileFailed(@NonNull final String rendererID, final int zoomLevel, final int tileX, final int tileY, final int reason,
+            @Nullable String message) throws IOException;
 }
