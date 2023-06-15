@@ -14,6 +14,8 @@ import de.blau.android.R;
  */
 public class LoginDataPreferenceFragment extends PreferenceDialogFragmentCompat {
 
+    private static final String PREF_KEY = "key";
+    
     private EditText userEdit;
     private EditText passwordEdit;
 
@@ -26,7 +28,7 @@ public class LoginDataPreferenceFragment extends PreferenceDialogFragmentCompat 
     public static LoginDataPreferenceFragment newInstance(@NonNull Preference preference) {
         LoginDataPreferenceFragment fragment = new LoginDataPreferenceFragment();
         Bundle bundle = new Bundle(1);
-        bundle.putString("key", preference.getKey());
+        bundle.putString(PREF_KEY, preference.getKey());
         fragment.setArguments(bundle);
         return fragment;
     }
