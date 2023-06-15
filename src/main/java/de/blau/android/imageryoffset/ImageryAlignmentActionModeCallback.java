@@ -47,6 +47,7 @@ import de.blau.android.Map;
 import de.blau.android.Mode;
 import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
+import de.blau.android.contract.Schemes;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.easyedit.EasyEditActionModeCallback;
 import de.blau.android.imageryoffset.ImageryOffset.DeprecationNote;
@@ -102,6 +103,8 @@ public class ImageryAlignmentActionModeCallback implements Callback {
     private boolean    savedButtonEnabled;
     private ActionMode actionMode;
 
+    private boolean isService;
+
     /**
      * Construct a new BackgroundAlignmentActionModeCallback
      * 
@@ -117,6 +120,7 @@ public class ImageryAlignmentActionModeCallback implements Callback {
             throw new IllegalStateException("MapTilesLayer is null");
         }
         osmts = layer.getTileLayerConfiguration();
+        isService = osmts.getTileUrl().startsWith(Schemes.HTTP) || osmts.getTileUrl().startsWith(Schemes.HTTPS);
         Offset[] offsets = osmts.getOffsets();
         oldOffsets = copy(offsets);
         prefs = App.getPreferences(main);
@@ -192,13 +196,14 @@ public class ImageryAlignmentActionModeCallback implements Callback {
             MenuUtil.setupBottomBar(main, cabBottomBar, main.isFullScreen(), prefs.lightThemeEnabled());
         }
         menu.clear();
-        menu.add(Menu.NONE, MENUITEM_QUERYDB, Menu.NONE, R.string.menu_tools_background_align_retrieve_from_db).setEnabled(main.isConnectedOrConnecting())
-                .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_download)).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        menu.add(Menu.NONE, MENUITEM_QUERYDB, Menu.NONE, R.string.menu_tools_background_align_retrieve_from_db)
+                .setEnabled(main.isConnectedOrConnecting() && isService).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_download))
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         menu.add(Menu.NONE, MENUITEM_RESET, Menu.NONE, R.string.menu_tools_background_align_reset)
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_undo)).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         menu.add(Menu.NONE, MENUITEM_ZERO, Menu.NONE, R.string.menu_tools_background_align_zero);
         menu.add(Menu.NONE, MENUITEM_APPLY2ALL, Menu.NONE, R.string.menu_tools_background_align_apply2all);
-        menu.add(Menu.NONE, MENUITEM_SAVE2DB, Menu.NONE, R.string.menu_tools_background_align_save_db).setEnabled(main.isConnectedOrConnecting());
+        menu.add(Menu.NONE, MENUITEM_SAVE2DB, Menu.NONE, R.string.menu_tools_background_align_save_db).setEnabled(main.isConnectedOrConnecting() && isService);
         menu.add(Menu.NONE, MENUITEM_HELP, Menu.NONE, R.string.menu_help);
         View close = EasyEditActionModeCallback.getActionCloseView(mode);
         if (close != null) {
@@ -481,7 +486,7 @@ public class ImageryAlignmentActionModeCallback implements Callback {
                             reader.beginArray();
                             while (reader.hasNext()) {
                                 ImageryOffset imOffset = readOffset(reader);
-                                if (imOffset != null && imOffset.deprecated == null) { // TODO handle deprecated
+                                if (imOffset != null && imOffset.deprecated == null) { // deprecated offsets are ignored
                                     result.add(imOffset);
                                 }
                             }

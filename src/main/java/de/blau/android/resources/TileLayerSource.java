@@ -19,9 +19,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Queue;
-import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
@@ -615,7 +613,7 @@ public class TileLayerSource implements Serializable {
      * @param privacyPolicyUrl a link to a privacy policy or null
      * @param async run loadInfo async, needed for main process
      */
-    public TileLayerSource(@NonNull final Context ctx, @Nullable final String id, @NonNull final String name, final String url, final String type,
+    public TileLayerSource(@NonNull final Context ctx, @Nullable final String id, @NonNull final String name, @NonNull final String url, final String type,
             Category category, final boolean overlay, final boolean defaultLayer, @Nullable final Provider provider, final String termsOfUseUrl,
             final String icon, String logoUrl, byte[] logoBytes, final int zoomLevelMin, final int zoomLevelMax, int maxOverZoom, final int tileWidth,
             final int tileHeight, final String proj, final int preference, final long startDate, final long endDate, @Nullable String noTileHeader,
@@ -1868,82 +1866,15 @@ public class TileLayerSource implements Serializable {
     }
 
     /**
-     * This is essentially the code in in the reference implementation see
-     * 
-     * https://trac.openstreetmap.org/browser/subversion/applications/editors/josm/plugins/imagery_offset_db/src/iodb/ImageryIdGenerator.java#L24
+     * Get the imagery offset id, the value is cached after being generated
      * 
      * @return the id for a imagery offset database query
      */
-    @Nullable
+    @NonNull
     public String getImageryOffsetId() {
-        if (imageryOffsetId != null) {
-            return imageryOffsetId;
+        if (imageryOffsetId == null) {
+            imageryOffsetId = ImageryOffsetId.generate(id, originalUrl);
         }
-        String url = originalUrl;
-        if (url == null) {
-            return null;
-        }
-
-        // predefined layers
-        if (id.equals(LAYER_BING)) {
-            return TYPE_BING;
-        }
-
-        if ("Mapbox".equalsIgnoreCase(id)) {
-            return "mapbox";
-        }
-
-        // Remove protocol
-        int i = url.indexOf("://");
-        if (i == -1) { // TODO more sanity checks
-            return "invalid_URL";
-        }
-        url = url.substring(i + 3);
-
-        // Split URL into address and query string
-        i = url.indexOf('?');
-        String query = "";
-        if (i > 0) {
-            query = url.substring(i);
-            url = url.substring(0, i);
-        }
-
-        TreeMap<String, String> qparams = new TreeMap<>();
-        String[] qparamsStr = query.length() > 1 ? query.substring(1).split("&") : new String[0];
-        for (String p : qparamsStr) {
-            String[] kv = p.split("=");
-            kv[0] = kv[0].toLowerCase(Locale.US);
-            // TMS: skip parameters with variable values and Mapbox's access token
-            if ((kv.length > 1 && kv[1].indexOf('{') >= 0 && kv[1].indexOf('}') > 0) || "access_token".equals(kv[0])) {
-                continue;
-            }
-            qparams.put(kv[0].toLowerCase(Locale.US), kv.length > 1 ? kv[1] : null);
-        }
-
-        // Reconstruct query parameters
-        StringBuilder sb = new StringBuilder();
-        for (Entry<String, String> qk : qparams.entrySet()) {
-            if (sb.length() > 0) {
-                sb.append('&');
-            } else if (query.length() > 0) {
-                sb.append('?');
-            }
-            sb.append(qk.getKey()).append('=').append(qk.getValue());
-        }
-        query = sb.toString();
-
-        // TMS: remove /{zoom} and /{y}.png parts
-        url = url.replaceAll("\\/\\{[^}]+\\}(?:\\.\\w+)?", "");
-        // TMS: remove variable parts
-        url = url.replaceAll("\\{[^}]+\\}", "");
-        while (url.contains("..")) {
-            url = url.replace("..", ".");
-        }
-        if (url.startsWith(".")) {
-            url = url.substring(1);
-        }
-        imageryOffsetId = url + query;
-
         return imageryOffsetId;
     }
 
@@ -2193,7 +2124,7 @@ public class TileLayerSource implements Serializable {
      * 
      * @param originalUrl the unprocessed url
      */
-    void setOriginalTileUrl(String originalUrl) {
+    void setOriginalTileUrl(@NonNull String originalUrl) {
         this.originalUrl = originalUrl;
     }
 
