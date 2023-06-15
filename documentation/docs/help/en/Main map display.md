@@ -205,7 +205,7 @@ Show the user preference screens. The settings are split into two sets: the firs
 
  * **Apply stored offset to imagery** - apply stored offset, if it exists, for the current background layer 
  * **More imagery tools**
-    * **Update configuration** - download a current version of the imagery layer configuration from the JOSM repository. Currently the default configuration is provided by the Editor Layer Index, not JOSM. *(requires network connectivity)*
+    * **Update configuration from JOSM** - download a current version of the imagery layer configuration from the JOSM repository. Currently the default configuration is provided by the Editor Layer Index, not JOSM. *(requires network connectivity)*
     * **Update configuration from ELI** - download a current version of the imagery layer configuration from the Editor Layer Index repository. *(requires network connectivity)*
     * **Flush all tile caches** - empty all on device tile caches. 
  * **Reset address prediction** - reset the current address prediction data, will seeded from loaded data if possible.

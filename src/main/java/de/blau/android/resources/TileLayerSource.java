@@ -49,7 +49,6 @@ import de.blau.android.Main;
 import de.blau.android.contract.FileExtensions;
 import de.blau.android.contract.Files;
 import de.blau.android.contract.MimeTypes;
-import de.blau.android.contract.Urls;
 import de.blau.android.imageryoffset.Offset;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.OsmXml;
@@ -66,7 +65,6 @@ import de.blau.android.util.Density;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.GeoMath;
-import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Util;
 import de.blau.android.util.Version;
 import de.blau.android.views.layers.MapTilesLayer;
@@ -711,7 +709,6 @@ public class TileLayerSource implements Serializable {
             logoBitmap = BitmapFactory.decodeByteArray(logoBytes, 0, logoBytes.length);
         }
 
-        // TODO think of a elegant way to do this
         if (TYPE_BING.equals(type)) {
             metadataLoaded = false;
             if (replaceApiKey(ctx, true)) { // this will leave the entry in the DB but it will then be ignored
@@ -877,12 +874,9 @@ public class TileLayerSource implements Serializable {
                     parseImageryFile(ctx, writableDb, TileLayerDatabase.SOURCE_JOSM_IMAGERY, is, async);
                 } catch (IOException e) {
                     Log.e(DEBUG_TAG, "reading conf file " + fn + " got " + e.getMessage());
-                    throw e;
                 }
             }
             writableDb.setTransactionSuccessful();
-        } catch (IOException e) {
-            // already logged
         } finally {
             writableDb.endTransaction();
         }
@@ -930,10 +924,11 @@ public class TileLayerSource implements Serializable {
      * 
      * @param ctx Android Context
      * @param writeableDb a writable SQLiteDatabase
-     * @param eli if true use ELI
+     * @param source source name
+     * @param url url to retrieve the configuration from
      * @throws IOException if there was an IO error
      */
-    public static void updateImagery(@NonNull final Context ctx, @NonNull SQLiteDatabase writeableDb, boolean eli) throws IOException {
+    public static void updateImagery(@NonNull final Context ctx, @NonNull SQLiteDatabase writeableDb, String source, @NonNull String url) throws IOException {
         Log.d(DEBUG_TAG, "Updating from imagery sources");
         AssetManager assetManager = ctx.getAssets();
         try {
@@ -941,8 +936,7 @@ public class TileLayerSource implements Serializable {
             // delete old
             TileLayerDatabase.deleteSource(writeableDb, TileLayerDatabase.SOURCE_ELI);
             TileLayerDatabase.deleteSource(writeableDb, TileLayerDatabase.SOURCE_JOSM_IMAGERY);
-
-            String source = eli ? TileLayerDatabase.SOURCE_ELI : TileLayerDatabase.SOURCE_JOSM_IMAGERY;
+            // add source back
             TileLayerDatabase.addSource(writeableDb, source);
 
             // still need to read our base config first
@@ -951,24 +945,21 @@ public class TileLayerSource implements Serializable {
             } catch (IOException e) {
                 Log.e(DEBUG_TAG, "reading conf files got " + e.getMessage());
             }
-            InputStream is = null;
-            try {
-                Request request = new Request.Builder().url(eli ? Urls.ELI : Urls.JOSM_IMAGERY).build();
-                OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(Server.TIMEOUT, TimeUnit.MILLISECONDS)
-                        .readTimeout(Server.TIMEOUT, TimeUnit.MILLISECONDS).build();
-                Call josmImageryCall = client.newCall(request);
-                Response josmImageryCallResponse = josmImageryCall.execute();
-                if (josmImageryCallResponse.isSuccessful()) {
-                    ResponseBody responseBody = josmImageryCallResponse.body();
-                    is = responseBody.byteStream();
+
+            Request request = new Request.Builder().url(url).build();
+            OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(Server.TIMEOUT, TimeUnit.MILLISECONDS)
+                    .readTimeout(Server.TIMEOUT, TimeUnit.MILLISECONDS).build();
+            Call imageryCall = client.newCall(request);
+            Response imageryCallResponse = imageryCall.execute();
+            if (imageryCallResponse.isSuccessful()) {
+                ResponseBody responseBody = imageryCallResponse.body();
+                try (InputStream is = responseBody.byteStream()) {
                     parseImageryFile(ctx, writeableDb, source, is, true);
                     writeableDb.setTransactionSuccessful();
                     getListsLocked(ctx, writeableDb, true);
-                } else {
-                    throw new IOException(josmImageryCallResponse.message());
                 }
-            } finally {
-                SavingHelper.close(is);
+            } else {
+                throw new IOException(imageryCallResponse.message());
             }
         } finally {
             writeableDb.endTransaction();
