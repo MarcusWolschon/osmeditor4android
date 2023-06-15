@@ -5,23 +5,37 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
+
+import com.orhanobut.mockwebserverplus.MockWebServerPlus;
 
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
+import de.blau.android.JavaResources;
+import de.blau.android.Main;
+import de.blau.android.ShadowWorkManager;
+import de.blau.android.contract.Files;
 import de.blau.android.net.UserAgentInterceptor;
 import de.blau.android.resources.TileLayerSource.Header;
 import de.blau.android.resources.TileLayerSource.Provider.CoverageArea;
 import de.blau.android.services.util.MapTile;
+import de.blau.android.util.FileUtil;
+import okhttp3.mockwebserver.MockResponse;
+import okio.Buffer;
 
 @RunWith(RobolectricTestRunner.class)
+@Config(shadows = { ShadowWorkManager.class })
 @LargeTest
 public class TileLayerSourceTest {
     TileLayerDatabase db;
@@ -31,6 +45,7 @@ public class TileLayerSourceTest {
      */
     @Before
     public void setup() {
+        Main main = Robolectric.buildActivity(Main.class).create().resume().get(); // needed for the update test
         ApplicationProvider.getApplicationContext().deleteDatabase(TileLayerDatabase.DATABASE_NAME);
         db = new TileLayerDatabase(ApplicationProvider.getApplicationContext());
     }
@@ -221,6 +236,58 @@ public class TileLayerSourceTest {
             assertNull(a.getOffset(19));
         } catch (IOException e) {
             fail(e.getMessage());
+        }
+    }
+
+    /**
+     * Test that reading the config from a user supplied file works
+     */
+    @Test
+    public void updateFromCustomImageryFile() {
+        try {
+            File destinationDir = FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), "/");
+            File destinationFile = new File(destinationDir, Files.FILE_NAME_USER_IMAGERY);
+            JavaResources.copyFileFromResources("imagery_test.geojson", null, destinationFile);
+            TileLayerSource.createOrUpdateCustomSource(ApplicationProvider.getApplicationContext(), db.getWritableDatabase(), false);
+            String[] ids = TileLayerSource.getIds(null, false, null, null);
+            TileLayerSource a = TileLayerSource.get(ApplicationProvider.getApplicationContext(), "A", false);
+            assertNotNull(a);
+            TileLayerSource b = TileLayerSource.get(ApplicationProvider.getApplicationContext(), "B", false);
+            assertNotNull(b);
+        } catch (IOException e) {
+            fail(e.getMessage());
+        }
+    }
+
+    /**
+     * Update config
+     */
+    @Test
+    public void updateConfig() {
+        MockWebServerPlus mockServer = new MockWebServerPlus();
+        Buffer data = new Buffer();
+        try {
+            String url = mockServer.url("/imagery.geojson");
+            ClassLoader loader = Thread.currentThread().getContextClassLoader();
+            InputStream is = loader.getResourceAsStream("imagery_test.geojson");
+            data.readFrom(is);
+            mockServer.server().enqueue(new MockResponse().setResponseCode(200).setBody(data));
+            TileLayerSource.updateImagery(ApplicationProvider.getApplicationContext(), db.getWritableDatabase(), TileLayerDatabase.SOURCE_ELI, url);
+            String[] ids = TileLayerSource.getIds(null, false, null, null);
+            assertEquals(7, ids.length); // base config plus what we just loaded
+            TileLayerSource a = TileLayerSource.get(ApplicationProvider.getApplicationContext(), "A", false);
+            assertNotNull(a);
+            TileLayerSource b = TileLayerSource.get(ApplicationProvider.getApplicationContext(), "B", false);
+            assertNotNull(b);
+        } catch (IOException e) {
+            fail(e.getMessage());
+        } finally {
+            data.close();
+            try {
+                mockServer.server().shutdown();
+            } catch (IOException e) {
+                // do nothing
+            }
         }
     }
 }

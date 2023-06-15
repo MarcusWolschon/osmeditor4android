@@ -2411,34 +2411,10 @@ public class Main extends FullScreenAppCompatActivity
             }
             return true;
         case R.id.menu_tools_update_imagery_configuration:
+            updateImagery(logic, TileLayerDatabase.SOURCE_JOSM_IMAGERY, Urls.JOSM_IMAGERY);
+            return true;
         case R.id.menu_tools_update_imagery_configuration_eli:
-            new ExecutorTask<Void, Void, Void>(logic.getExecutorService(), logic.getHandler()) {
-                TileLayerDatabase db = new TileLayerDatabase(Main.this);
-
-                @Override
-                protected void onPreExecute() {
-                    Progress.showDialog(Main.this, Progress.PROGRESS_BUILDING_IMAGERY_DATABASE);
-                }
-
-                @Override
-                protected Void doInBackground(Void param) {
-                    try {
-                        TileLayerSource.updateImagery(Main.this, db.getWritableDatabase(),
-                                item.getItemId() == R.id.menu_tools_update_imagery_configuration_eli);
-                    } catch (IOException e) {
-                        Log.e(DEBUG_TAG, "Update imagery conf. " + e.getMessage());
-                        Util.toastDowloadError(Main.this, e);
-                    } finally {
-                        db.close();
-                    }
-                    return null;
-                }
-
-                @Override
-                protected void onPostExecute(Void result) {
-                    Progress.dismissDialog(Main.this, Progress.PROGRESS_BUILDING_IMAGERY_DATABASE);
-                }
-            }.execute();
+            updateImagery(logic, TileLayerDatabase.SOURCE_ELI, Urls.ELI);
             return true;
         case R.id.menu_tools_install_egm:
             DownloadManager mgr = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
@@ -2550,6 +2526,41 @@ public class Main extends FullScreenAppCompatActivity
             Log.w(DEBUG_TAG, "Unknown menu item " + item.getItemId());
         }
         return false;
+    }
+
+    /**
+     * Update the imagery configuration from a network source
+     * 
+     * @param logic the current logic instance
+     * @param url the url for the source
+     */
+    private void updateImagery(@NonNull final Logic logic, @NonNull String source, @NonNull String url) {
+        new ExecutorTask<Void, Void, Void>(logic.getExecutorService(), logic.getHandler()) {
+            TileLayerDatabase db = new TileLayerDatabase(Main.this);
+
+            @Override
+            protected void onPreExecute() {
+                Progress.showDialog(Main.this, Progress.PROGRESS_BUILDING_IMAGERY_DATABASE);
+            }
+
+            @Override
+            protected Void doInBackground(Void param) {
+                try {
+                    TileLayerSource.updateImagery(Main.this, db.getWritableDatabase(), source, url);
+                } catch (IOException e) {
+                    Log.e(DEBUG_TAG, "Update imagery conf. " + e.getMessage());
+                    Util.toastDowloadError(Main.this, e);
+                } finally {
+                    db.close();
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void result) {
+                Progress.dismissDialog(Main.this, Progress.PROGRESS_BUILDING_IMAGERY_DATABASE);
+            }
+        }.execute();
     }
 
     /**
