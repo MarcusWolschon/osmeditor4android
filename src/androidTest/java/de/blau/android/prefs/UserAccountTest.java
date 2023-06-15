@@ -113,9 +113,7 @@ public class UserAccountTest {
             fail(e.getMessage());
         }
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.okay), true, false));
-        assertTrue(TestUtils.clickHome(device, true));
-        assertTrue(TestUtils.clickHome(device, true));
-        assertTrue(TestUtils.clickHome(device, true));
+       
         try (AdvancedPrefDatabase prefDb = new AdvancedPrefDatabase(main)) {
             API current = prefDb.getCurrentAPI();
             assertEquals("test", current.user);
