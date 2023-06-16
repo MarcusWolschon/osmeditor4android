@@ -493,27 +493,6 @@ public final class TransferTasks {
     }
 
     /**
-     * Write Notes to a file in (J)OSM compatible format
-     * 
-     * If fileName contains directories these are created, otherwise it is stored in the standard public dir
-     * 
-     * @param activity activity that called this
-     * @param all if true write all notes, if false just those that have been modified
-     * @param fileName file to write to
-     * @param postWrite handler to execute after the task has finished
-     */
-    public static void writeOsnFile(@NonNull final FragmentActivity activity, final boolean all, @NonNull final String fileName,
-            @Nullable final PostAsyncActionHandler postWrite) {
-        try {
-            File outfile = FileUtil.openFileForWriting(activity, fileName);
-            Log.d(DEBUG_TAG, "Saving to " + outfile.getPath());
-            writeOsnFile(activity, all, new BufferedOutputStream(new FileOutputStream(outfile)), postWrite);
-        } catch (IOException e) {
-            handleExceptionOnWrite(activity, postWrite, e);
-        }
-    }
-
-    /**
      * Common code to execute if a write throws an exception
      * 
      * @param activity the calling FragmentActivity
@@ -779,28 +758,6 @@ public final class TransferTasks {
             if (c.isInstance(t)) {
                 storage.delete(t);
             }
-        }
-    }
-
-    /**
-     * Write Todos to a file
-     * 
-     * If fileName contains directories these are created, otherwise it is stored in the standard public dir
-     * 
-     * @param activity activity that called this
-     * @param fileName file to write to
-     * @param list name of the todo list // NOSONAR
-     * @param all if true write all todos, otherwise just open ones
-     * @param postWrite call this when finished
-     */
-    public static void writeTodoFile(@NonNull final FragmentActivity activity, @NonNull final String fileName, @Nullable String list, boolean all,
-            @Nullable final PostAsyncActionHandler postWrite) {
-        try {
-            File outfile = FileUtil.openFileForWriting(activity, fileName);
-            Log.d(DEBUG_TAG, "Saving to " + outfile.getPath());
-            writeTodoFile(activity, new FileOutputStream(outfile), list, all, postWrite);
-        } catch (IOException e) {
-            handleExceptionOnWrite(activity, postWrite, e);
         }
     }
 
