@@ -1,0 +1,21 @@
+<osm version="0.6" generator="CGImap 0.8.8 (705007 spike-08.openstreetmap.org)" copyright="OpenStreetMap and contributors" attribution="http://www.openstreetmap.org/copyright" license="http://opendatacommons.org/licenses/odbl/1-0/">
+<node id="416064528" visible="true" version="13" changeset="78094805" timestamp="2019-12-07T19:44:19Z" user="Nzara" uid="481380" lat="47.3941025" lon="8.3761179">
+<tag k="bus" v="yes"/>
+<tag k="ele" v="560"/>
+<tag k="name" v="Kindhausen"/>
+<tag k="network" v="ZVV"/>
+<tag k="operator" v="VBZ"/>
+<tag k="public_transport" v="stop_position"/>
+<tag k="ref" v="1397"/>
+<tag k="uic_name" v="Kindhausen AG"/>
+<tag k="uic_ref" v="8587018"/>
+</node>
+<node id="4826775422" visible="true" version="3" changeset="70109208" timestamp="2019-05-10T13:06:50Z" user="sovereign_ch" uid="5755216" lat="47.3940104" lon="8.3761420"/>
+<node id="4826775423" visible="true" version="3" changeset="70109208" timestamp="2019-05-10T13:06:50Z" user="sovereign_ch" uid="5755216" lat="47.3939810" lon="8.3759241"/>
+<way id="35479120" visible="true" version="5" changeset="58236367" timestamp="2018-04-19T15:18:51Z" user="d_berger" uid="1234273">
+<nd ref="4826775423"/>
+<nd ref="4826775422"/>
+<nd ref="416064528"/>
+<tag k="highway" v="service"/>
+</way>
+</osm>
