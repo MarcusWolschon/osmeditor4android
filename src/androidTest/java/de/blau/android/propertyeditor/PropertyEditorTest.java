@@ -58,6 +58,7 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
+import de.blau.android.osm.RelationMemberPosition;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
@@ -612,10 +613,10 @@ public class PropertyEditorTest {
         List<Relation> parents = w.getParentRelations();
         assertNotNull(parents);
         assertTrue(findRole("platform", w, parents));
-        
+
         // find the parent relation we modifed
         Relation found = null;
-        for (Relation p:parents) {
+        for (Relation p : parents) {
             if (p.getTagWithKey(Tags.KEY_NAME).startsWith("Bus 305: Kind")) {
                 found = p;
                 break;
@@ -623,11 +624,11 @@ public class PropertyEditorTest {
         }
         assertNotNull(found);
         assertTrue(App.getDelegator().getApiStorage().contains(found));
-        
+
         TestUtils.clickMenuButton(device, context.getString(R.string.undo), false, true);
         assertFalse(findRole("platform", w, parents));
         assertFalse(App.getDelegator().getApiStorage().contains(found));
-        
+
         assertEquals(pos, determinePosition(w, "Bus 305: Kind"));
 
         //
@@ -817,6 +818,165 @@ public class PropertyEditorTest {
         assertTrue(r.getMembers().isEmpty());
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.delete), true));
         assertEquals(OsmElement.STATE_DELETED, r.getState());
+    }
+
+    /**
+     * Select a relation move member up 2 positions and then down one
+     */
+    @Test
+    public void relationMemberMove() {
+        final CountDownLatch signal = new CountDownLatch(1);
+        mockServer.enqueue("capabilities1");
+        mockServer.enqueue("download1");
+        Logic logic = App.getLogic();
+        logic.downloadBox(main, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D), false, new SignalHandler(signal));
+        try {
+            signal.await(30, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            fail(e.getMessage());
+        }
+        Relation r = (Relation) App.getDelegator().getOsmElement(Relation.NAME, 2807173);
+        assertNotNull(r);
+        Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 577098580);
+        assertNotNull(n);
+        List<RelationMemberPosition> members = r.getAllMembersWithPosition(n);
+        assertEquals(1, members.size());
+        int oldPos = members.get(0).getPosition();
+        
+        main.performTagEdit(r, null, false, false);
+        waitForPropertyEditor();
+
+        TestUtils.clickText(device, true, main.getString(R.string.tag_details), false, false);
+        TestUtils.clickText(device, true, main.getString(R.string.members), false, false);
+
+        selectMember("Vorbühl");
+       
+        clickButtonOrOverflowMenu(main.getString(R.string.move_up));
+        clickButtonOrOverflowMenu(main.getString(R.string.move_up));
+        clickButtonOrOverflowMenu(main.getString(R.string.move_down));
+        // exit property editor
+        TestUtils.clickUp(device);
+        TestUtils.clickHome(device, false);
+              
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.actionmode_relationselect), 5000));
+        assertEquals(OsmElement.STATE_MODIFIED, r.getState());
+        members = r.getAllMembersWithPosition(n);
+        assertEquals(1, members.size());
+        assertEquals(oldPos - 1, members.get(0).getPosition());      
+    }
+
+    /**
+     * Select a relation select two members reverse position
+     */
+    @Test
+    public void relationMembersReverse() {
+        final CountDownLatch signal = new CountDownLatch(1);
+        mockServer.enqueue("capabilities1");
+        mockServer.enqueue("download1");
+        Logic logic = App.getLogic();
+        logic.downloadBox(main, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D), false, new SignalHandler(signal));
+        try {
+            signal.await(30, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            fail(e.getMessage());
+        }
+        Relation r = (Relation) App.getDelegator().getOsmElement(Relation.NAME, 2807173);
+        assertNotNull(r);
+        RelationMember m1 = r.getMember(Way.NAME, 35479120L);
+        RelationMember m2 = r.getMember(Way.NAME, 35479116L);
+
+        List<RelationMember> members = r.getMembers();
+        int oldPos1 = members.indexOf(m1);
+        int oldPos2 = members.indexOf(m2);
+
+        main.performTagEdit(r, null, false, false);
+        waitForPropertyEditor();
+
+        TestUtils.clickText(device, true, main.getString(R.string.tag_details), false, false);
+        TestUtils.clickText(device, true, main.getString(R.string.members), false, false);
+
+        selectMember("#35479120");
+        selectMember("#35479116");
+        clickButtonOrOverflowMenu(main.getString(R.string.tag_menu_reverse_order));
+
+        // exit property editor
+        TestUtils.clickUp(device);
+        TestUtils.clickHome(device, false);
+
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.actionmode_relationselect), 5000));
+        assertEquals(OsmElement.STATE_MODIFIED, r.getState());
+
+        assertEquals(oldPos1, members.indexOf(m2));
+        assertEquals(oldPos2, members.indexOf(m1));
+    }
+
+    /**
+     * Select a relation member
+     * 
+     * @param description description of the member to select
+     */
+    private void selectMember(@NonNull String description) {
+        UiObject text = device.findObject(new UiSelector().textStartsWith(description));
+        assertTrue(text.exists());
+        try {
+            UiObject checkbox = text.getFromParent(new UiSelector().resourceId(device.getCurrentPackageName() + ":id/member_selected"));
+            assertTrue(checkbox.click());
+        } catch (UiObjectNotFoundException ex) {
+            fail(ex.getMessage());
+        }
+    }
+
+    /**
+     * Select a relation move member up 2 positions and then down one
+     */
+    @Test
+    public void relationMemberDownload() {
+        final CountDownLatch signal = new CountDownLatch(1);
+        mockServer.enqueue("capabilities1");
+        mockServer.enqueue("download1");
+        Logic logic = App.getLogic();
+        logic.downloadBox(main, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D), false, new SignalHandler(signal));
+        try {
+            signal.await(30, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            fail(e.getMessage());
+        }
+        Relation r = (Relation) App.getDelegator().getOsmElement(Relation.NAME, 2807173);
+        assertNotNull(r);
+        RelationMember member = r.getMember(Way.NAME, 35479120L);
+        assertNotNull(member);
+        assertFalse(member.downloaded());
+
+        main.performTagEdit(r, null, false, false);
+        waitForPropertyEditor();
+
+        TestUtils.clickText(device, true, main.getString(R.string.tag_details), false, false);
+        TestUtils.clickText(device, true, main.getString(R.string.members), false, false);
+
+        mockServer.enqueue("download3");
+
+        selectMember("#35479120");
+        clickButtonOrOverflowMenu(main.getString(R.string.download));
+
+        // exit property editor
+        TestUtils.clickUp(device);
+        TestUtils.clickHome(device, false);
+
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.actionmode_relationselect), 5000));
+        assertEquals(OsmElement.STATE_UNCHANGED, r.getState());
+        assertTrue(member.downloaded());
+    }
+
+    /**
+     * Click either the button or the text in the overflow menu
+     * 
+     * @param text the text to click
+     */
+    private void clickButtonOrOverflowMenu(@NonNull String text) {
+        if (!TestUtils.clickMenuButton(device, text, false, false)) {
+            TestUtils.clickOverflowButton(device);
+            assertTrue(TestUtils.clickText(device, false, text, false));
+        }
     }
 
     /**
@@ -1341,7 +1501,8 @@ public class PropertyEditorTest {
         if (!((PropertyEditorActivity) propertyEditor).usingPaneLayout()) {
             TestUtils.clickText(device, true, main.getString(R.string.menu_tags), false, false);
         }
-        PropertyEditorFragment<?, ?, ?> f = ((PropertyEditorActivity<?, ?, ?>) propertyEditor).peekBackStack(((PropertyEditorActivity) propertyEditor).getSupportFragmentManager());
+        PropertyEditorFragment<?, ?, ?> f = ((PropertyEditorActivity<?, ?, ?>) propertyEditor)
+                .peekBackStack(((PropertyEditorActivity) propertyEditor).getSupportFragmentManager());
         assertNotNull(f);
         PresetItem presetItem = f.getBestPreset();
         assertNotNull(presetItem);
@@ -1523,7 +1684,7 @@ public class PropertyEditorTest {
         waitForPropertyEditor();
         instrumentation.removeMonitor(monitor);
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.tag_details), false));
-        
+
         TestUtils.scrollTo(Tags.KEY_NAME, false);
         BySelector bySelector = By.textStartsWith("Bergdietikon");
         UiObject2 valueField = device.wait(Until.findObject(bySelector), 500);
