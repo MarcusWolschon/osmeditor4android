@@ -2,8 +2,6 @@ package de.blau.android.tasks;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -53,7 +51,6 @@ import de.blau.android.prefs.Preferences;
 import de.blau.android.tasks.Task.State;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.ExecutorTask;
-import de.blau.android.util.FileUtil;
 import de.blau.android.util.IssueAlert;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Snack;
