@@ -303,109 +303,139 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     @Nullable
     ArrayAdapter<?> getValueAutocompleteAdapter(@Nullable String key, @Nullable List<String> values, @Nullable PresetItem preset,
             @Nullable PresetTagField field, @NonNull Map<String, String> allTags, boolean addRuler, boolean dedup, int addMruSize) {
-        ArrayAdapter<?> adapter = null;
         if (key != null && key.length() > 0) {
             Set<String> usedKeys = allTags.keySet();
             if (TagEditorFragment.isStreetName(key, usedKeys)) {
-                adapter = nameAdapters.getStreetNameAdapter(values);
-            } else if (TagEditorFragment.isPlaceName(key, usedKeys)) {
-                adapter = nameAdapters.getPlaceNameAdapter(values);
-            } else if (key.equals(Tags.KEY_NAME) && (names != null) && TagEditorFragment.useNameSuggestions(usedKeys)) {
-                adapter = TagEditorFragment.getNameSuggestions(getContext(), names, allTags, propertyEditorListener);
-            } else if (Tags.isSpeedKey(key)) {
-                adapter = TagEditorFragment.getSpeedLimits(getContext(), propertyEditorListener);
-            } else {
-                // generate from preset
-                Map<String, Integer> counter = new HashMap<>();
-                int position = 0;
-                ArrayAdapterWithRuler<StringWithDescription> adapter2 = new ArrayAdapterWithRuler<>(getActivity(), R.layout.autocomplete_row, Ruler.class);
-                if (preset != null) {
-                    Collection<StringWithDescription> presetValues = field != null ? preset.getAutocompleteValues(field) : preset.getAutocompleteValues(key);
-                    int presetValuesCount = presetValues.size();
-                    List<String> mruValues = App.getMruTags().getValues(preset, key);
-                    if (mruValues != null) {
-                        for (String v : mruValues) {
-                            StringWithDescription mruValue = preset.getStringWithDescriptionForValue(key, v);
-                            if (mruValue == null) {
-                                mruValue = new StringWithDescription(v);
-                            } else if (presetValuesCount < addMruSize) {
-                                // for small numbers only add unknown values
+                return nameAdapters.getStreetNameAdapter(values);
+            }
+            if (TagEditorFragment.isPlaceName(key, usedKeys)) {
+                return nameAdapters.getPlaceNameAdapter(values);
+            }
+            if (key.equals(Tags.KEY_NAME) && (names != null) && TagEditorFragment.useNameSuggestions(usedKeys)) {
+                return TagEditorFragment.getNameSuggestions(getContext(), names, allTags, propertyEditorListener);
+            }
+            // generate from preset
+            Map<String, Integer> counter = new HashMap<>();
+            int position = 0;
+            ArrayAdapterWithRuler<StringWithDescription> adapter2 = new ArrayAdapterWithRuler<>(getActivity(), R.layout.autocomplete_row, Ruler.class);
+            boolean isSpeedKey = Tags.isSpeedKey(key) && !Tags.isConditional(key);
+            if (preset != null) {
+                Collection<StringWithDescription> presetValues = field != null ? preset.getAutocompleteValues(field) : preset.getAutocompleteValues(key);
+                int presetValuesCount = presetValues.size();
+                List<String> mruValues = App.getMruTags().getValues(preset, key);
+                if (mruValues != null) {
+                    for (String v : mruValues) {
+                        StringWithDescription mruValue = preset.getStringWithDescriptionForValue(key, v);
+                        if (mruValue == null) {
+                            mruValue = new StringWithDescription(v);
+                        } else if (presetValuesCount < addMruSize) {
+                            // for small numbers only add unknown values
+                            continue;
+                        }
+                        adapter2.add(mruValue);
+                        counter.put(v, position++);
+                    }
+                    addRuler(addRuler, adapter2);
+                }
+                if (isSpeedKey) {
+                    addMaxSpeeds(adapter2);
+                }
+                Log.d(DEBUG_TAG, "setting autocomplete adapter for values " + presetValues);
+                if (!presetValues.isEmpty()) {
+                    List<StringWithDescription> result = new ArrayList<>(presetValues);
+                    if (preset.sortValues(key)) {
+                        Collections.sort(result, comparator);
+                    }
+                    for (StringWithDescription s : result) {
+                        boolean deprecated = (s instanceof ExtendedStringWithDescription) && ((ExtendedStringWithDescription) s).isDeprecated();
+                        Integer storedPosition = counter.get(s.getValue());
+                        if (storedPosition != null) {
+                            if (dedup) {
                                 continue;
                             }
-                            adapter2.add(mruValue);
-                            counter.put(v, position++);
-                        }
-                        if (addRuler && !adapter2.isEmpty()) {
-                            adapter2.add(new Ruler());
-                        }
-                    }
-                    Log.d(DEBUG_TAG, "setting autocomplete adapter for values " + presetValues);
-                    if (!presetValues.isEmpty()) {
-                        List<StringWithDescription> result = new ArrayList<>(presetValues);
-                        if (preset.sortValues(key)) {
-                            Collections.sort(result, comparator);
-                        }
-                        for (StringWithDescription s : result) {
-                            boolean deprecated = (s instanceof ExtendedStringWithDescription) && ((ExtendedStringWithDescription) s).isDeprecated();
-                            Integer storedPosition = counter.get(s.getValue());
-                            if (storedPosition != null) {
-                                if (dedup) {
-                                    continue;
-                                }
-                                if (storedPosition >= 0) { // hack so that we retain the descriptions
-                                    StringWithDescription r = adapter2.getItem(storedPosition);
-                                    r.setDescription(s.getDescription());
-                                }
-                            } else if (deprecated) { // skip deprecated values except if it is actually already present
-                                if (!values.contains(s.getValue())) {
-                                    continue;
-                                }
-                                s = new StringWithDescriptionAndIcon(s);
-                                s.setDescription(getContext().getString(R.string.deprecated, s.getDescription()));
+                            if (storedPosition >= 0) { // hack so that we retain the descriptions
+                                StringWithDescription r = adapter2.getItem(storedPosition);
+                                r.setDescription(s.getDescription());
                             }
-                            adapter2.add(s);
-                            counter.put(s.getValue(), position++);
+                        } else if (deprecated) { // skip deprecated values except if it is actually already present
+                            if (!values.contains(s.getValue())) {
+                                continue;
+                            }
+                            s = new StringWithDescriptionAndIcon(s);
+                            s.setDescription(getContext().getString(R.string.deprecated, s.getDescription()));
                         }
-                        Log.d(DEBUG_TAG, "key " + key + " type " + preset.getKeyType(key));
+                        adapter2.add(s);
+                        counter.put(s.getValue(), position++);
                     }
-                } else {
-                    List<String> mruValues = App.getMruTags().getValues(key);
-                    if (mruValues != null) {
-                        for (String v : mruValues) {
-                            adapter2.add(new StringWithDescription(v));
-                        }
-                    }
-                    OsmElement element = propertyEditorListener.getElement();
-                    if (propertyEditorListener.getPresets() != null) {
-                        Log.d(DEBUG_TAG, "generate suggestions for >" + key + "< from presets");
-                        // only do this if/ there is no other source of suggestions
-                        for (StringWithDescription s : Preset.getAutocompleteValues(propertyEditorListener.getPresets(), element.getType(), key)) {
-                            adapter2.add(s);
-                        }
+                    Log.d(DEBUG_TAG, "key " + key + " type " + preset.getKeyType(key));
+                }
+            } else {
+                List<String> mruValues = App.getMruTags().getValues(key);
+                if (mruValues != null) {
+                    for (String v : mruValues) {
+                        adapter2.add(new StringWithDescription(v));
                     }
                 }
-                if (!counter.containsKey("") && !counter.containsKey(null) && !(field instanceof PresetCheckField)) {
-                    // add empty value so that we can remove tag
-                    StringWithDescription s = new StringWithDescription("", getString(R.string.tag_not_set));
-                    adapter2.insert(s, 0);
+                addRuler(addRuler, adapter2);
+                if (isSpeedKey) {
+                    addMaxSpeeds(adapter2);
                 }
-                if (values != null) { // add in any non-standard non-empty values
-                    for (String value : values) {
-                        if (value != null && !"".equals(value) && !counter.containsKey(value)) {
-                            StringWithDescription s = new StringWithDescription(value);
-                            adapter2.remove(s);
-                            adapter2.insert(s, 0);
-                        }
+                if (propertyEditorListener.getPresets() != null) {
+                    Log.d(DEBUG_TAG, "generate suggestions for >" + key + "< from presets");
+                    // only do this if/ there is no other source of suggestions
+                    for (StringWithDescription s : Preset.getAutocompleteValues(propertyEditorListener.getPresets(),
+                            propertyEditorListener.getElement().getType(), key)) {
+                        adapter2.add(s);
                     }
-                }
-                Log.d(DEBUG_TAG, "adapter2 has " + adapter2.getCount() + " elements");
-                if (adapter2.getCount() > 0) {
-                    return adapter2;
                 }
             }
+
+            if (!counter.containsKey("") && !counter.containsKey(null) && !(field instanceof PresetCheckField)) {
+                // add empty value so that we can remove tag
+                StringWithDescription s = new StringWithDescription("", getString(R.string.tag_not_set));
+                adapter2.insert(s, 0);
+            }
+            if (values != null) { // add in any non-standard non-empty values
+                for (String value : values) {
+                    if (value != null && !"".equals(value) && !counter.containsKey(value)) {
+                        StringWithDescription s = new StringWithDescription(value);
+                        adapter2.remove(s);
+                        adapter2.insert(s, 0);
+                    }
+                }
+            }
+            Log.d(DEBUG_TAG, "adapter2 has " + adapter2.getCount() + " elements");
+            if (adapter2.getCount() > 0) {
+                return adapter2;
+            }
         }
-        Log.d(DEBUG_TAG, adapter == null ? "adapter is null" : "adapter has " + adapter.getCount() + " elements");
-        return adapter;
+        return null;
+    }
+
+    /**
+     * Add ruler to the adapter
+     * 
+     * @param addRuler if true add the ruler
+     * @param adapter the Adapter
+     */
+    private void addRuler(boolean addRuler, ArrayAdapterWithRuler<StringWithDescription> adapter) {
+        if (addRuler && !adapter.isEmpty()) {
+            adapter.add(new Ruler());
+        }
+    }
+
+    /**
+     * Add max speed values to an adapter
+     * 
+     * @param adapter the adapter
+     */
+    private void addMaxSpeeds(ArrayAdapter<StringWithDescription> adapter) {
+        String[] maxSpeeds = TagEditorFragment.getSpeedLimits(getContext(), propertyEditorListener);
+        if (maxSpeeds != null) {
+            for (String maxSpeed : maxSpeeds) {
+                adapter.add(new StringWithDescription(maxSpeed));
+            }
+        }
     }
 
     /**
