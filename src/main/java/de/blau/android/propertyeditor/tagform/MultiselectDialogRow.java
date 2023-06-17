@@ -85,14 +85,7 @@ public class MultiselectDialogRow extends DialogRow {
     public void setValue(List<StringWithDescription> values) {
         String value = "";
         char delimiter = preset.getDelimiter(getKey());
-        int childCount = valueList.getChildCount();
-        for (int pos = 0; pos < childCount; pos++) { // don^t delete first child, just clear
-            if (pos == 0) {
-                setValue("", "");
-            } else {
-                valueList.removeViewAt(1);
-            }
-        }
+        de.blau.android.propertyeditor.Util.resetValueLayout(valueList, () -> setValue("", ""));
         boolean first = true;
         StringBuilder builder = new StringBuilder(value);
         for (StringWithDescription swd : values) {
