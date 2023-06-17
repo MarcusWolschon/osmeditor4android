@@ -67,14 +67,7 @@ public class OpeningHoursDialogRow extends MultiselectDialogRow {
      * @param rules rules parsed from the value
      */
     public void setValue(@Nullable String ohValue, @Nullable List<Rule> rules) {
-        int childCount = valueList.getChildCount();
-        for (int pos = 0; pos < childCount; pos++) { // don't delete first child, just clear
-            if (pos == 0) {
-                setValue("", "");
-            } else {
-                valueList.removeViewAt(1);
-            }
-        }
+        de.blau.android.propertyeditor.Util.resetValueLayout(valueList, () -> setValue("", ""));
         boolean first = true;
         if (rules != null && !rules.isEmpty()) {
             for (Rule r : rules) {

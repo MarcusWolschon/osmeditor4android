@@ -66,14 +66,7 @@ public class CheckGroupDialogRow extends MultiselectDialogRow {
      */
     public void setSelectedValues(@NonNull Map<String, String> keyValues) {
         this.keyValues = keyValues;
-        int childCount = valueList.getChildCount();
-        for (int pos = 0; pos < childCount; pos++) { // don^t delete first child, just clear
-            if (pos == 0) {
-                setValue("", "");
-            } else {
-                valueList.removeViewAt(1);
-            }
-        }
+        de.blau.android.propertyeditor.Util.resetValueLayout(valueList, () -> setValue("", ""));
 
         boolean first = true;
         PresetCheckGroupField field = null;
