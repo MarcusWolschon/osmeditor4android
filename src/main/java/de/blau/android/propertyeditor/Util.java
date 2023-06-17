@@ -1,6 +1,7 @@
 package de.blau.android.propertyeditor;
 
 import android.util.Log;
+import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -79,6 +80,23 @@ public final class Util {
                 FragmentTransaction ft = fm.beginTransaction();
                 ft.remove(alternativePresetItemsFragment);
                 ft.commit();
+            }
+        }
+    }
+
+    /**
+     * Remove all but one child of a LinearLayout, run the runnable for the remaining one
+     * 
+     * @param layout the LinearLayer
+     * @param runnable the Runnable
+     */
+    public static void resetValueLayout(@NonNull LinearLayout layout, @NonNull Runnable runnable) {
+        int childCount = layout.getChildCount();
+        for (int pos = 0; pos < childCount; pos++) { // don't delete first child, just clear
+            if (pos == 0) {
+                runnable.run();
+            } else {
+                layout.removeViewAt(1);
             }
         }
     }
