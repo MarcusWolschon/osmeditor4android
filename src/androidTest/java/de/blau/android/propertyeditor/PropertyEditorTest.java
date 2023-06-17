@@ -1563,9 +1563,9 @@ public class PropertyEditorTest {
         assertNotNull(w);
 
         main.performTagEdit(w, null, false, false);
-        PropertyEditorActivity propertyEditor = waitForPropertyEditor();
+        PropertyEditorActivity<?, ?, ?> propertyEditor = waitForPropertyEditor();
 
-        if (!((PropertyEditorActivity) propertyEditor).usingPaneLayout()) {
+        if (!((PropertyEditorActivity<?, ?, ?>) propertyEditor).usingPaneLayout()) {
             assertTrue(TestUtils.clickText(device, true, main.getString(R.string.tag_menu_preset), false, false));
         }
         boolean found = TestUtils.clickText(device, true, getTranslatedPresetGroupName(main, "Highways"), true, false);
@@ -1609,7 +1609,7 @@ public class PropertyEditorTest {
         } catch (UiObjectNotFoundException e) {
             fail();
         }
-        assertEquals("50 @ Mo-Fr 19:00-31:00,Sa,Su; 30 @ maxweight>40", conditionalMaxSpeed.getText());
+        assertEquals("50 @ Mo-Fr 19:00-07:00,Sa,Su; 30 @ maxweight>40", conditionalMaxSpeed.getText());
     }
 
     /**

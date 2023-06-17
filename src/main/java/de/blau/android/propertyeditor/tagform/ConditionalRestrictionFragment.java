@@ -2,9 +2,12 @@ package de.blau.android.propertyeditor.tagform;
 
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -45,7 +48,6 @@ import androidx.appcompat.widget.ActionMenuView;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import ch.poole.conditionalrestrictionparser.Condition;
 import ch.poole.conditionalrestrictionparser.Condition.CompOp;
@@ -63,6 +65,8 @@ import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.osm.Tags;
 import de.blau.android.presets.PresetItem;
+import de.blau.android.propertyeditor.PropertyEditorListener;
+import de.blau.android.propertyeditor.TagEditorFragment;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 
@@ -77,7 +81,7 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
     /**
      * For now hardwired defaults in lieu of moving this to a DB
      */
-    private static final String DESTINATION_MO_FR_19_00_31_00_SA_SU = "destination @ Mo-Fr 19:00-31:00,Sa,Su";
+    private static final String DESTINATION_MO_FR_19_00_07_00_SA_SU = "destination @ Mo-Fr 19:00-07:00,Sa,Su";
 
     private static final Map<String, String> DEFAULT_VALUES = new HashMap<>();
 
@@ -88,13 +92,13 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
     private static final String MAX_STRING_LENGTH_KEY = "maxStringLength";
 
     static {
-        DEFAULT_VALUES.put(Tags.KEY_MAXSPEED, "50 @ Mo-Fr 19:00-31:00,Sa,Su");
-        DEFAULT_VALUES.put(Tags.KEY_ACCESS, DESTINATION_MO_FR_19_00_31_00_SA_SU);
-        DEFAULT_VALUES.put(Tags.KEY_VEHICLE, DESTINATION_MO_FR_19_00_31_00_SA_SU);
-        DEFAULT_VALUES.put(Tags.KEY_BICYCLE, DESTINATION_MO_FR_19_00_31_00_SA_SU);
-        DEFAULT_VALUES.put(Tags.KEY_MOTORCAR, DESTINATION_MO_FR_19_00_31_00_SA_SU);
-        DEFAULT_VALUES.put(Tags.KEY_MOTORCYCLE, DESTINATION_MO_FR_19_00_31_00_SA_SU);
-        DEFAULT_VALUES.put(Tags.KEY_MOTOR_VEHICLE, DESTINATION_MO_FR_19_00_31_00_SA_SU);
+        DEFAULT_VALUES.put(Tags.KEY_MAXSPEED, "50 @ Mo-Fr 19:00-07:00,Sa,Su");
+        DEFAULT_VALUES.put(Tags.KEY_ACCESS, DESTINATION_MO_FR_19_00_07_00_SA_SU);
+        DEFAULT_VALUES.put(Tags.KEY_VEHICLE, DESTINATION_MO_FR_19_00_07_00_SA_SU);
+        DEFAULT_VALUES.put(Tags.KEY_BICYCLE, DESTINATION_MO_FR_19_00_07_00_SA_SU);
+        DEFAULT_VALUES.put(Tags.KEY_MOTORCAR, DESTINATION_MO_FR_19_00_07_00_SA_SU);
+        DEFAULT_VALUES.put(Tags.KEY_MOTORCYCLE, DESTINATION_MO_FR_19_00_07_00_SA_SU);
+        DEFAULT_VALUES.put(Tags.KEY_MOTOR_VEHICLE, DESTINATION_MO_FR_19_00_07_00_SA_SU);
     }
 
     private LayoutInflater inflater = null;
@@ -111,13 +115,14 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
     /**
      * Lists of possible values generated from templates
      */
-    private List<String> restrictionValues         = null;
-    private List<String> simpleConditionValues     = null;
-    private List<String> expressionConditionValues = null;
+    private Set<String> restrictionValues         = new LinkedHashSet<>();
+    private Set<String> simpleConditionValues     = new LinkedHashSet<>();
+    private Set<String> expressionConditionValues = new LinkedHashSet<>();
 
     private ScrollView sv;
 
-    private OnSaveListener saveListener = null;
+    private OnSaveListener         saveListener           = null;
+    private PropertyEditorListener propertyEditorListener = null;
 
     private OnSaveListener realOnSaveListener = null;
 
@@ -154,8 +159,8 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
     public void onAttach(Context context) {
         super.onAttach(context);
         Log.d(DEBUG_TAG, "onAttach");
-        Fragment parent = de.blau.android.util.Util.getParentFragmentWithInterface(this, OnSaveListener.class);
-        saveListener = (OnSaveListener) parent;
+        saveListener = (OnSaveListener) de.blau.android.util.Util.getParentFragmentWithInterface(this, OnSaveListener.class);
+        propertyEditorListener = (PropertyEditorListener) de.blau.android.util.Util.getParentFragmentWithInterface(this, PropertyEditorListener.class);
     }
 
     @Override
@@ -200,8 +205,9 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
             maxStringLength = savedInstanceState.getInt(MAX_STRING_LENGTH_KEY);
         }
 
+        String nonConditionalKey = null;
         if (conditionalRestrictionValue == null || "".equals(conditionalRestrictionValue)) {
-            String nonConditionalKey = key.replace(Tags.KEY_CONDITIONAL_SUFFIX, "");
+            nonConditionalKey = key.replace(Tags.KEY_CONDITIONAL_SUFFIX, "");
             conditionalRestrictionValue = DEFAULT_VALUES.get(nonConditionalKey);
             loadedDefault = conditionalRestrictionValue != null;
         }
@@ -218,9 +224,6 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
                         Integer.parseInt(v);
                     } catch (NumberFormatException nfex) {
                         // not a number add it to list
-                        if (restrictionValues == null) {
-                            restrictionValues = new ArrayList<>();
-                        }
                         restrictionValues.add(v);
                     }
                     for (Condition c : r.getConditions()) {
@@ -228,27 +231,25 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
                             try {
                                 // noinspection ResultOfMethodCallIgnored
                                 Integer.parseInt(c.term1());
-                                if (expressionConditionValues == null) {
-                                    expressionConditionValues = new ArrayList<>();
-                                }
                                 expressionConditionValues.add(c.term2());
                             } catch (NumberFormatException nfex) {
                                 // not a number add it to list
-                                if (expressionConditionValues == null) {
-                                    expressionConditionValues = new ArrayList<>();
-                                }
                                 expressionConditionValues.add(c.term1());
                             }
                         } else if (!c.isOpeningHours()) {
-                            if (simpleConditionValues == null) {
-                                simpleConditionValues = new ArrayList<>();
-                            }
                             simpleConditionValues.add(c.term1());
                         }
                     }
                 }
             } catch (Exception ex) {
                 Log.e(DEBUG_TAG, "Parsing template " + t + " raised " + ex);
+            }
+        }
+
+        if (Tags.isSpeedKey(nonConditionalKey) && propertyEditorListener != null) {
+            String[] speedLimits = TagEditorFragment.getSpeedLimits(getContext(), propertyEditorListener);
+            if (speedLimits != null) {
+                restrictionValues.addAll(Arrays.asList(speedLimits));
             }
         }
 
@@ -355,9 +356,9 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
                     return true;
                 });
                 MenuItem clear = popup.getMenu().add(R.string.clear);
+                clear.setEnabled(restrictions != null && !restrictions.isEmpty());
                 clear.setOnMenuItemClickListener(item -> {
-                    if (restrictions != null) { // FIXME should likely disable the entry if there is actually
-                                                // nothing to clear
+                    if (restrictions != null) {
                         restrictions.clear();
                         updateString();
                         watcher.afterTextChanged(null); // hack to force rebuild of form
@@ -444,8 +445,8 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
         final AutoCompleteTextView value = (AutoCompleteTextView) groupHeader.findViewById(R.id.editValue);
         String v = r.getValue().trim();
         value.setText(v);
-        if (restrictionValues != null) {
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), R.layout.autocomplete_row, restrictionValues);
+        if (!restrictionValues.isEmpty()) {
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), R.layout.autocomplete_row, new ArrayList<>(restrictionValues));
             if (!restrictionValues.contains(v)) {
                 adapter.insert(v, 0);
             }
@@ -492,8 +493,8 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
                     final AutoCompleteTextView term2 = (AutoCompleteTextView) expression.findViewById(R.id.editTerm2);
                     term2.setText(c.term2());
                     AutoCompleteTextView term = null;
-                    if (expressionConditionValues != null) {
-                        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), R.layout.autocomplete_row, expressionConditionValues);
+                    if (!expressionConditionValues.isEmpty()) {
+                        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), R.layout.autocomplete_row, new ArrayList<>(expressionConditionValues));
                         try {
                             // noinspection ResultOfMethodCallIgnored
                             Integer.parseInt(c.term1());
@@ -583,8 +584,8 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
                     final AutoCompleteTextView term = (AutoCompleteTextView) condition.findViewById(R.id.editCondition);
                     term.setText(c.term1());
 
-                    if (simpleConditionValues != null) {
-                        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), R.layout.autocomplete_row, simpleConditionValues);
+                    if (!simpleConditionValues.isEmpty()) {
+                        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), R.layout.autocomplete_row, new ArrayList<>(simpleConditionValues));
                         if (!simpleConditionValues.contains(c.term1())) {
                             adapter.insert(c.term1(), 0);
                         }
