@@ -11,7 +11,7 @@ import org.junit.Test;
 public class ReverseTest {
 
     /**
-     * Test that way reversing has the intentd effects
+     * Test that way reversing has the intended effects
      */
     @Test
     public void reverse() {
@@ -44,7 +44,7 @@ public class ReverseTest {
         Way e = OsmElementFactory.createWay(-1L, 1L, System.currentTimeMillis() / 1000, OsmElement.STATE_CREATED);
         // don't bother added way nodes for now
         
-        Map<String, String> tags = new HashMap<String, String>();
+        Map<String, String> tags = new HashMap<>();
         tags.put(key, value);
         
         e.setTags(tags);
