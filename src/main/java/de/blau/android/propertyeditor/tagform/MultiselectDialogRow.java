@@ -22,7 +22,6 @@ import de.blau.android.contract.Ui;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.util.StringWithDescription;
-import de.blau.android.util.StringWithDescriptionAndIcon;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
@@ -185,36 +184,10 @@ public class MultiselectDialogRow extends DialogRow {
         divider.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 2));
         builder.setView(layout);
 
-        android.view.ViewGroup.LayoutParams buttonLayoutParams = valueGroup.getLayoutParams();
-        buttonLayoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
-
-        List<String> values = Preset.splitValues(Util.wrapInList(row.getValue()), preset, key);
         if (adapter != null) {
-            int count = adapter.getCount();
-            for (int i = 0; i < count; i++) {
-                Object o = adapter.getItem(i);
-                if (o instanceof TagFormFragment.Ruler) {
-                    valueGroup.addView(divider);
-                } else {
-                    StringWithDescription swd;
-                    Drawable icon = null;
-                    if (o instanceof StringWithDescriptionAndIcon) {
-                        icon = ((StringWithDescriptionAndIcon) o).getIcon(caller.getContext(), preset);
-                        if (icon != null) {
-                            swd = new StringWithDescriptionAndIcon(o);
-                        } else {
-                            swd = new StringWithDescription(o);
-                        }
-                    } else {
-                        swd = new StringWithDescription(o);
-                    }
-                    String v = swd.getValue();
-                    if (v == null || "".equals(v)) {
-                        continue;
-                    }
-                    addCheck(caller.getActivity(), valueGroup, swd, values != null && values.contains(v), icon, buttonLayoutParams);
-                }
-            }
+            List<String> values = Preset.splitValues(Util.wrapInList(row.getValue()), preset, key);
+            ComboDialogRow.addButtons(caller.getContext(), adapter, valueGroup, divider, preset, (context, i, swd, v, icon,
+                    buttonLayoutParams) -> addCheck(context, valueGroup, swd, values != null && values.contains(v), icon, buttonLayoutParams));
         }
         builder.setNeutralButton(R.string.clear, (dialog, iwhich) -> {
             // do nothing
@@ -225,7 +198,8 @@ public class MultiselectDialogRow extends DialogRow {
             String delimiter = kd[1];
             List<StringWithDescription> valueList = new ArrayList<>();
             StringBuilder stringBuilder = new StringBuilder();
-            for (int pos = 0; pos < valueGroup.getChildCount(); pos++) {
+            int childCount = valueGroup.getChildCount();
+            for (int pos = 0; pos < childCount; pos++) {
                 View c = valueGroup.getChildAt(pos);
                 if (c instanceof AppCompatCheckBox) {
                     AppCompatCheckBox checkBox = (AppCompatCheckBox) c;
@@ -254,9 +228,8 @@ public class MultiselectDialogRow extends DialogRow {
      * @param selected if true the CheckBox will be selected
      * @param icon an icon if there is one
      * @param layoutParams the LayoutParams for the CheckBox
-     * @return the CheckBox for further use
      */
-    private static AppCompatCheckBox addCheck(@NonNull Context context, @NonNull LinearLayout layout, @NonNull StringWithDescription swd, boolean selected,
+    private static void addCheck(@NonNull Context context, @NonNull ViewGroup layout, @NonNull StringWithDescription swd, boolean selected,
             @Nullable Drawable icon, @NonNull ViewGroup.LayoutParams layoutParams) {
         final AppCompatCheckBox check = new AppCompatCheckBox(context);
         String description = swd.getDescription();
@@ -269,6 +242,5 @@ public class MultiselectDialogRow extends DialogRow {
         check.setLayoutParams(layoutParams);
         check.setChecked(selected);
         layout.addView(check);
-        return check;
     }
 }
