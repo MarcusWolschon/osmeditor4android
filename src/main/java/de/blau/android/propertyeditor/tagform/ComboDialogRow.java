@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -22,8 +23,8 @@ import androidx.appcompat.widget.AppCompatRadioButton;
 import de.blau.android.R;
 import de.blau.android.contract.Ui;
 import de.blau.android.presets.PresetComboField;
-import de.blau.android.presets.PresetTagField;
 import de.blau.android.presets.PresetItem;
+import de.blau.android.presets.PresetTagField;
 import de.blau.android.propertyeditor.tagform.TagFormFragment.Ruler;
 import de.blau.android.util.SelectByImageFragment;
 import de.blau.android.util.StringWithDescription;
@@ -183,35 +184,9 @@ public class ComboDialogRow extends DialogRow {
             }
         };
 
-        android.view.ViewGroup.LayoutParams buttonLayoutParams = valueGroup.getLayoutParams();
-        buttonLayoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
-
         if (adapter != null) {
-            for (int i = 0; i < adapter.getCount(); i++) {
-                Object o = adapter.getItem(i);
-                if (o instanceof TagFormFragment.Ruler) {
-                    valueGroup.addView(divider);
-                } else {
-                    StringWithDescription swd;
-                    Drawable icon = null;
-                    if (o instanceof StringWithDescriptionAndIcon) {
-                        icon = ((StringWithDescriptionAndIcon) o).getIcon(caller.getContext(), preset);
-                        if (icon != null) {
-                            swd = new StringWithDescriptionAndIcon(o);
-                        } else {
-                            swd = new StringWithDescription(o);
-                        }
-                    } else {
-                        swd = new StringWithDescription(o);
-                    }
-                    String v = swd.getValue();
-
-                    if (v == null || "".equals(v)) {
-                        continue;
-                    }
-                    addButton(caller.getActivity(), valueGroup, i, swd, v.equals(value), icon, listener, buttonLayoutParams);
-                }
-            }
+            addButtons(caller.getContext(), adapter, valueGroup, divider, preset, (context, i, swd, v, icon, buttonLayoutParams) -> addButton(context,
+                    valueGroup, i, swd, v.equals(value), icon, listener, buttonLayoutParams));
         }
         builder.setPositiveButton(R.string.clear, (dialog, which) -> {
             View groupView = ((AlertDialog) dialog).findViewById(R.id.valueGroup);
@@ -238,6 +213,55 @@ public class ComboDialogRow extends DialogRow {
         return dialog;
     }
 
+    interface AddValue {
+        /**
+         * Add button for a value
+         * 
+         * @param context an Android COntext
+         * @param i the position
+         * @param swd a StringWithDescription for the value
+         * @param v the current value
+         * @param icon an icon or null
+         * @param buttonLayoutParams layout params
+         */
+        void add(@NonNull Context context, int i, @NonNull StringWithDescription swd, @NonNull String v, @Nullable Drawable icon,
+                @NonNull android.view.ViewGroup.LayoutParams buttonLayoutParams);
+    }
+
+    /**
+     * Common code for Combo and Multiselect to add buttons to the dialog layout
+     * 
+     * @param context an Android Context
+     * @param adapter the Adapter holding the values for the buttons
+     * @param valueGroup the layout we are adding the buttons too
+     * @param divider divider View
+     * @param preset the PresetItem
+     * @param addValue callback to actually add the button
+     */
+    static void addButtons(@NonNull Context context, @NonNull Adapter adapter, @NonNull ViewGroup valueGroup, @NonNull View divider, @NonNull PresetItem preset,
+            @NonNull AddValue addValue) {
+        android.view.ViewGroup.LayoutParams buttonLayoutParams = valueGroup.getLayoutParams();
+        buttonLayoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
+        final int count = adapter.getCount();
+        for (int i = 0; i < count; i++) {
+            Object o = adapter.getItem(i);
+            if (o instanceof TagFormFragment.Ruler) {
+                valueGroup.addView(divider);
+            } else {
+                Drawable icon = null;
+                if (o instanceof StringWithDescriptionAndIcon) {
+                    icon = ((StringWithDescriptionAndIcon) o).getIcon(context, preset);
+                }
+                StringWithDescription swd = new StringWithDescription(o);
+                String v = swd.getValue();
+                if (v == null || "".equals(v)) {
+                    continue;
+                }
+                addValue.add(context, i, swd, v, icon, buttonLayoutParams);
+            }
+        }
+    }
+
     /**
      * Add a button to a RadioGroup
      * 
@@ -250,7 +274,7 @@ public class ComboDialogRow extends DialogRow {
      * @param listener the Listener to call if the button is clicked
      * @param layoutParams LayoutParams for the button
      */
-    private static void addButton(@NonNull Context context, @NonNull RadioGroup group, int id, @NonNull StringWithDescription swd, boolean selected,
+    private static void addButton(@NonNull Context context, @NonNull ViewGroup group, int id, @NonNull StringWithDescription swd, boolean selected,
             @Nullable Drawable icon, @NonNull View.OnClickListener listener, @NonNull ViewGroup.LayoutParams layoutParams) {
         final AppCompatRadioButton button = new AppCompatRadioButton(context);
         String description = swd.getDescription();
