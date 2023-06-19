@@ -203,6 +203,19 @@ public class TextRow extends LinearLayout implements KeyValueRow {
         }
         setHint(field, ourValueView);
         final ValueType valueType = row.getValueType();
+        if (showMeasureDialog(context, row)) {
+            ourValueView.setFocusable(false);
+            ourValueView.setFocusableInTouchMode(false);
+            ourValueView.setOnClickListener(v -> {
+                final View finalView = v;
+                finalView.setEnabled(false); // debounce
+                final AlertDialog dialog = buildMeasureDialog(caller, hint != null ? hint : key, key,
+                        caller.getValueAutocompleteAdapter(key, values, preset, null, allTags, true, false, -1), row, valueType, imperial);
+                dialog.setOnDismissListener(d -> finalView.setEnabled(true));
+                dialog.show();
+                return;
+            });
+        }
         ourValueView.setOnFocusChangeListener((v, hasFocus) -> {
             Log.d(DEBUG_TAG, "onFocusChange");
             String rowValue = row.getValue();
@@ -211,27 +224,21 @@ public class TextRow extends LinearLayout implements KeyValueRow {
                 if (rowLayout instanceof EditableLayout) {
                     ((EditableLayout) rowLayout).putTag(key, rowValue);
                 }
-            } else if (hasFocus) {
+                return;
+            }
+            if (hasFocus) {
                 ArrayAdapter<?> adapter = caller.getValueAutocompleteAdapter(key, values, preset, null, allTags, true, false, -1);
-                if (showMeasureDialog(context, row)) {
-                    final View finalView = v;
-                    finalView.setEnabled(false); // debounce
-                    final AlertDialog dialog = buildMeasureDialog(caller, hint != null ? hint : key, key, adapter, row, valueType, imperial);
-                    dialog.setOnDismissListener(d -> finalView.setEnabled(true));
-                    dialog.show();
+                setAdapter(ourValueView, adapter);
+                if (isMPHSpeed) {
+                    TagEditorFragment.initMPHSpeed(context, ourValueView, caller.propertyEditorListener);
+                } else if (valueType == null) {
+                    InputTypeUtil.enableTextSuggestions(ourValueView);
+                }
+                if (isName && LocaleUtils.usesLatinScript(Util.getPrimaryLocale(caller.getResources()))) {
+                    ourValueView.setInputType(
+                            (ourValueView.getInputType() & ~INPUTTYPE_CAPS_MASK) | InputType.TYPE_CLASS_TEXT | App.getLogic().getPrefs().getAutoNameCap());
                 } else {
-                    setAdapter(ourValueView, adapter);
-                    if (isMPHSpeed) {
-                        TagEditorFragment.initMPHSpeed(context, ourValueView, caller.propertyEditorListener);
-                    } else if (valueType == null) {
-                        InputTypeUtil.enableTextSuggestions(ourValueView);
-                    }
-                    if (isName && LocaleUtils.usesLatinScript(Util.getPrimaryLocale(caller.getResources()))) {
-                        ourValueView.setInputType(
-                                (ourValueView.getInputType() & ~INPUTTYPE_CAPS_MASK) | InputType.TYPE_CLASS_TEXT | App.getLogic().getPrefs().getAutoNameCap());
-                    } else {
-                        InputTypeUtil.setInputTypeFromValueType(ourValueView, valueType);
-                    }
+                    InputTypeUtil.setInputTypeFromValueType(ourValueView, valueType);
                 }
             }
         });
@@ -243,9 +250,8 @@ public class TextRow extends LinearLayout implements KeyValueRow {
                 caller.applyTagSuggestions(((NameAndTags) o).getTags(), caller::update);
                 caller.update();
                 return;
-            } else {
-                setOrReplaceText(ourValueView, o);
             }
+            setOrReplaceText(ourValueView, o);
             caller.updateSingleValue(key, row.getValue());
             if (rowLayout instanceof EditableLayout) {
                 ((EditableLayout) rowLayout).putTag(key, row.getValue());
@@ -285,7 +291,9 @@ public class TextRow extends LinearLayout implements KeyValueRow {
     protected static void setOrReplaceText(final CustomAutoCompleteTextView textView, Object text) {
         if (text instanceof Value) {
             textView.setOrReplaceText(((Value) text).getValue());
-        } else if (text instanceof String) {
+            return;
+        }
+        if (text instanceof String) {
             textView.setOrReplaceText((String) text);
         }
     }
@@ -299,9 +307,9 @@ public class TextRow extends LinearLayout implements KeyValueRow {
     protected static void setHint(@Nullable final PresetTagField field, @NonNull final CustomAutoCompleteTextView valueView) {
         if (field instanceof PresetTextField) {
             valueView.setHint(R.string.tag_value_hint);
-        } else {
-            valueView.setHint(R.string.tag_autocomplete_value_hint);
+            return;
         }
+        valueView.setHint(R.string.tag_autocomplete_value_hint);
     }
 
     /**
