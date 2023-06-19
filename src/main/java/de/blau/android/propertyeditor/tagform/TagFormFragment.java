@@ -578,7 +578,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             return false; // already destroyed?
         }
         LinearLayout l = (LinearLayout) fragementView.findViewById(R.id.form_container_layout);
-        if (l != null) { // FIXME this might need an alert
+        if (l != null) {
             View v = l.findFocus();
             Log.d(DEBUG_TAG, "focus is on " + v);
             if (v instanceof CustomAutoCompleteTextView || v instanceof EditText) {
@@ -644,13 +644,12 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             return;
         }
         LinearLayout ll = (LinearLayout) sv.findViewById(R.id.form_container_layout);
-        if (ll != null) {
-            while (ll.getChildAt(0) instanceof EditableLayout) {
-                ll.removeViewAt(0);
-            }
-        } else {
+        if (ll == null) {
             Log.e(DEBUG_TAG, "update container layout null");
             return;
+        }
+        while (ll.getChildAt(0) instanceof EditableLayout) {
+            ll.removeViewAt(0);
         }
         final EditableLayout editableView = (EditableLayout) inflater.inflate(R.layout.tag_form_editable, ll, false);
         editableView.setSaveEnabled(false);
@@ -705,20 +704,22 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 
         // some final UI stuff only once
         if (firstUpdate) {
+            firstUpdate = false;
             if (focusOnAddress) {
                 focusOnAddress = false; // only do it once
                 if (!focusOnTag(Tags.KEY_ADDR_HOUSENUMBER) && !focusOnTag(Tags.KEY_ADDR_STREET)) {
                     focusOnEmpty();
                 }
-            } else if (focusTag != null) {
+                return;
+            }
+            if (focusTag != null) {
                 if (!focusOnTag(focusTag)) {
                     focusOnEmpty();
                 }
                 focusTag = null;
-            } else {
-                focusOnEmpty();
+                return;
             }
-            firstUpdate = false;
+            focusOnEmpty();
         }
     }
 
@@ -938,118 +939,136 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     void addRow(@Nullable final LinearLayout rowLayout, @NonNull final PresetTagField field, final String value, @Nullable PresetItem preset,
             @NonNull Map<String, String> allTags) {
         final String key = field.getKey();
-        if (rowLayout != null) {
-            if (preset != null) {
-                if (!(field instanceof PresetFixedField)) {
-                    List<String> values = null;
-                    boolean isCheckField = field instanceof PresetCheckField;
-                    boolean isComboField = field instanceof PresetComboField && !((PresetComboField) field).isMultiSelect();
-                    boolean isMultiSelectField = field instanceof PresetComboField && ((PresetComboField) field).isMultiSelect();
-                    if (isMultiSelectField) {
-                        values = Preset.splitValues(Util.wrapInList(value), preset, key);
-                    } else {
-                        values = Util.wrapInList(value);
-                    }
-                    String hint = field.getHint();
-                    if (field.isDeprecated() && (hint != null && !"".equals(hint))) {
-                        hint = getString(R.string.deprecated, hint);
-                    }
-                    //
-                    ValueType valueType = field.getValueType();
-                    if (field instanceof PresetTextField || key.startsWith(Tags.KEY_ADDR_BASE)
-                            || (isComboField && ((PresetComboField) field).isEditable() && ValueType.OPENING_HOURS_MIXED != valueType)
-                            || Tags.isConditional(key)) {
-                        if (Tags.isConditional(key)) {
-                            rowLayout.addView(getConditionalRestrictionDialogRow(rowLayout, preset, hint, key, value, values, allTags));
-                        } else if (isOpeningHours(key, valueType)) {
-                            rowLayout.addView(OpeningHoursDialogRow.getRow(this, inflater, rowLayout, preset, hint, key, value, null));
-                        } else if (ValueType.PHONE == valueType) {
-                            rowLayout.addView(MultiTextRow.getRow(this, inflater, rowLayout, preset, hint, key, values, null, null, null, null));
-                        } else if (ValueType.WEBSITE == valueType || Tags.isWebsiteKey(key)) {
-                            rowLayout.addView(UrlDialogRow.getRow(this, inflater, rowLayout, preset, hint, key, value));
-                        } else {
-                            rowLayout.addView(TextRow.getRow(this, inflater, rowLayout, preset, field, value, values, allTags));
-                        }
-                    } else {
-                        ArrayAdapter<?> adapter = getValueAutocompleteAdapter(key, values, preset, field, allTags, true, true, maxInlineValues * 2);
-                        int count = 0;
-                        if (adapter != null) {
-                            // adapters other than for PresetCheckField have an empty value added that we don't want to
-                            // count
-                            count = adapter.getCount() - (isCheckField ? 0 : 1);
-                        } else {
-                            Log.d(DEBUG_TAG, "adapter null " + key + " " + value + " " + preset);
-                        }
-                        if (isComboField || (isCheckField && count > 2)) {
-                            if (isOpeningHours(key, valueType)) {
-                                rowLayout.addView(OpeningHoursDialogRow.getRow(this, inflater, rowLayout, preset, hint, key, value, adapter));
-                            } else if (count <= maxInlineValues) {
-                                rowLayout.addView(ComboRow.getRow(this, inflater, rowLayout, preset, hint, key, value, adapter));
-                            } else {
-                                rowLayout.addView(ComboDialogRow.getRow(this, inflater, rowLayout, preset, hint, key, value, adapter));
-                            }
-                        } else if (isMultiSelectField) {
-                            if (((PresetComboField) field).isEditable()) {
-                                String valueCountKey = ((PresetComboField) field).getValueCountKey();
-                                String valueCountValue = valueCountKey != null ? allTags.get(valueCountKey) : null;
-                                MultiTextRow row = MultiTextRow.getRow(this, inflater, rowLayout, preset, hint, key, values, null, valueCountKey,
-                                        valueCountValue, adapter);
-                                row.changed(valueCountKey, valueCountValue);
-                                rowLayout.addView(row);
-                            } else {
-                                if (count <= maxInlineValues) {
-                                    rowLayout.addView(MultiselectRow.getRow(this, inflater, rowLayout, preset, hint, key, values, adapter));
-                                } else {
-                                    rowLayout.addView(MultiselectDialogRow.getRow(this, inflater, rowLayout, preset, hint, key, values, adapter));
-                                }
-                            }
-                        } else if (isCheckField) {
-                            if (adapter != null) {
-                                final String valueOn = ((PresetCheckField) field).getOnValue().getValue();
-                                StringWithDescription tempOff = ((PresetCheckField) field).getOffValue();
-                                final String valueOff = tempOff == null ? "" : tempOff.getValue();
-                                String description = tempOff == null ? "" : tempOff.getDescription();
-                                if (description == null) {
-                                    description = valueOff;
-                                }
-                                final CheckRow row = (CheckRow) inflater.inflate(R.layout.tag_form_check_row, rowLayout, false);
-                                row.getKeyView().setText(hint != null ? hint : key);
-                                row.getKeyView().setTag(key);
-                                IndeterminateCheckBox checkBox = row.getCheckBox();
-                                checkBox.setIndeterminate(tempOff != null && (value == null || "".equals(value))); // tri-state
-                                                                                                                   // needed
-                                if (!checkBox.isIndeterminate()) {
-                                    checkBox.setChecked(valueOn != null && valueOn.equals(value));
-                                }
-                                rowLayout.addView(row);
-                                checkBox.setOnStateChangedListener((check, state) -> {
-                                    String checkValue = state != null ? (state ? valueOn : valueOff) : ""; // NOSONAR
-                                    updateSingleValue(key, checkValue);
-                                    if (rowLayout instanceof EditableLayout) {
-                                        ((EditableLayout) rowLayout).putTag(key, checkValue);
-                                    }
-                                });
-                            } else {
-                                Log.e(DEBUG_TAG, "preset element type " + key + " " + value + " " + preset.getName() + " adapter for checkbox is null");
-                            }
-                        } else {
-                            Log.e(DEBUG_TAG, "unknown preset element type " + key + " " + value + " " + preset.getName());
-                        }
-                    }
-                }
-            } else { // no preset here so we can only handle hardwired stuff specially
-                if (key.endsWith(Tags.KEY_CONDITIONAL_SUFFIX)) {
-                    rowLayout.addView(getConditionalRestrictionDialogRow(rowLayout, null, null, key, value, null, allTags));
-                } else if (Tags.OPENING_HOURS_SYNTAX.contains(key)) {
-                    rowLayout.addView(OpeningHoursDialogRow.getRow(this, inflater, rowLayout, null, null, key, value, null));
-                } else {
-                    PresetTextField textField = new PresetTextField(key);
-                    rowLayout.addView(TextRow.getRow(this, inflater, rowLayout, null, textField, value, null, allTags));
-                }
-            }
-        } else {
-            Log.d(DEBUG_TAG, "addRow rowLayout null");
+        if (rowLayout == null) {
+            Log.e(DEBUG_TAG, "addRow rowLayout null");
+            return;
         }
+        if (field instanceof PresetFixedField) {
+            Log.e(DEBUG_TAG, "addRow called for fixed field " + field);
+            return;
+        }
+        if (preset == null) { // no preset here so we can only handle hardwired stuff specially
+            if (key.endsWith(Tags.KEY_CONDITIONAL_SUFFIX)) {
+                rowLayout.addView(getConditionalRestrictionDialogRow(rowLayout, null, null, key, value, null, allTags));
+                return;
+            }
+            if (Tags.OPENING_HOURS_SYNTAX.contains(key)) {
+                rowLayout.addView(OpeningHoursDialogRow.getRow(this, inflater, rowLayout, null, null, key, value, null));
+                return;
+            }
+            rowLayout.addView(TextRow.getRow(this, inflater, rowLayout, null, new PresetTextField(key), value, null, allTags));
+            return;
+        }
+
+        List<String> values = null;
+        boolean isCheckField = field instanceof PresetCheckField;
+        boolean isComboField = field instanceof PresetComboField && !((PresetComboField) field).isMultiSelect();
+        boolean isMultiSelectField = field instanceof PresetComboField && ((PresetComboField) field).isMultiSelect();
+        if (isMultiSelectField) {
+            values = Preset.splitValues(Util.wrapInList(value), preset, key);
+        } else {
+            values = Util.wrapInList(value);
+        }
+        String hint = field.getHint();
+        if (field.isDeprecated() && (hint != null && !"".equals(hint))) {
+            hint = getString(R.string.deprecated, hint);
+        }
+        //
+        ValueType valueType = field.getValueType();
+        if (field instanceof PresetTextField || key.startsWith(Tags.KEY_ADDR_BASE)
+                || (isComboField && ((PresetComboField) field).isEditable() && ValueType.OPENING_HOURS_MIXED != valueType) || Tags.isConditional(key)) {
+            if (Tags.isConditional(key)) {
+                rowLayout.addView(getConditionalRestrictionDialogRow(rowLayout, preset, hint, key, value, values, allTags));
+                return;
+            }
+            if (isOpeningHours(key, valueType)) {
+                rowLayout.addView(OpeningHoursDialogRow.getRow(this, inflater, rowLayout, preset, hint, key, value, null));
+                return;
+            }
+            if (ValueType.PHONE == valueType) {
+                rowLayout.addView(MultiTextRow.getRow(this, inflater, rowLayout, preset, hint, key, values, null, null, null, null));
+                return;
+            }
+            if (ValueType.WEBSITE == valueType || Tags.isWebsiteKey(key)) {
+                rowLayout.addView(UrlDialogRow.getRow(this, inflater, rowLayout, preset, hint, key, value));
+                return;
+            }
+            final int longStringLimit = prefs.getLongStringLimit();
+            if (field instanceof PresetTextField
+                    && (longStringLimit <= ((PresetTextField) field).length() || (value != null && longStringLimit <= value.length()))) {
+                rowLayout.addView(LongTextDialogRow.getRow(this, inflater, rowLayout, preset, (PresetTextField) field, value,
+                        propertyEditorListener.getCapabilities().getMaxStringLength()));
+                return;
+            }
+            rowLayout.addView(TextRow.getRow(this, inflater, rowLayout, preset, field, value, values, allTags));
+            return;
+        }
+
+        ArrayAdapter<?> adapter = getValueAutocompleteAdapter(key, values, preset, field, allTags, true, true, maxInlineValues * 2);
+        int count = 0;
+        if (adapter != null) {
+            // adapters other than for PresetCheckField have an empty value added that we don't want to
+            // count
+            count = adapter.getCount() - (isCheckField ? 0 : 1);
+        } else {
+            Log.d(DEBUG_TAG, "adapter null " + key + " " + value + " " + preset);
+        }
+        if (isComboField || (isCheckField && count > 2)) {
+            if (isOpeningHours(key, valueType)) {
+                rowLayout.addView(OpeningHoursDialogRow.getRow(this, inflater, rowLayout, preset, hint, key, value, adapter));
+                return;
+            }
+            if (count <= maxInlineValues) {
+                rowLayout.addView(ComboRow.getRow(this, inflater, rowLayout, preset, hint, key, value, adapter));
+                return;
+            }
+            rowLayout.addView(ComboDialogRow.getRow(this, inflater, rowLayout, preset, hint, key, value, adapter));
+            return;
+        }
+        if (isMultiSelectField) {
+            if (((PresetComboField) field).isEditable()) {
+                String valueCountKey = ((PresetComboField) field).getValueCountKey();
+                String valueCountValue = valueCountKey != null ? allTags.get(valueCountKey) : null;
+                MultiTextRow row = MultiTextRow.getRow(this, inflater, rowLayout, preset, hint, key, values, null, valueCountKey, valueCountValue, adapter);
+                row.changed(valueCountKey, valueCountValue);
+                rowLayout.addView(row);
+                return;
+            }
+            if (count <= maxInlineValues) {
+                rowLayout.addView(MultiselectRow.getRow(this, inflater, rowLayout, preset, hint, key, values, adapter));
+                return;
+            }
+            rowLayout.addView(MultiselectDialogRow.getRow(this, inflater, rowLayout, preset, hint, key, values, adapter));
+            return;
+        }
+        if (isCheckField) {
+            final String valueOn = ((PresetCheckField) field).getOnValue().getValue();
+            StringWithDescription tempOff = ((PresetCheckField) field).getOffValue();
+            final String valueOff = tempOff == null ? "" : tempOff.getValue();
+            String description = tempOff == null ? "" : tempOff.getDescription();
+            if (description == null) {
+                description = valueOff;
+            }
+            final CheckRow row = (CheckRow) inflater.inflate(R.layout.tag_form_check_row, rowLayout, false);
+            row.getKeyView().setText(hint != null ? hint : key);
+            row.getKeyView().setTag(key);
+            IndeterminateCheckBox checkBox = row.getCheckBox();
+            checkBox.setIndeterminate(tempOff != null && (value == null || "".equals(value))); // tri-state
+                                                                                               // needed
+            if (!checkBox.isIndeterminate()) {
+                checkBox.setChecked(valueOn != null && valueOn.equals(value));
+            }
+            rowLayout.addView(row);
+            checkBox.setOnStateChangedListener((check, state) -> {
+                String checkValue = state != null ? (state ? valueOn : valueOff) : ""; // NOSONAR
+                updateSingleValue(key, checkValue);
+                if (rowLayout instanceof EditableLayout) {
+                    ((EditableLayout) rowLayout).putTag(key, checkValue);
+                }
+            });
+            return;
+        }
+        Log.e(DEBUG_TAG, "unknown preset element type " + key + " " + value + " " + preset.getName());
     }
 
     /**
@@ -1134,30 +1153,29 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         boolean found = false;
         View sv = getView();
         LinearLayout ll = (LinearLayout) sv.findViewById(R.id.form_container_layout);
-        if (ll != null) {
-            int pos = 0;
-            while (ll.getChildAt(pos) instanceof EditableLayout && pos < ll.getChildCount() && !found) {
-                EditableLayout ll2 = (EditableLayout) ll.getChildAt(pos);
-                Log.d(DEBUG_TAG, "focusOnTag key " + key);
-                for (int i = ll2.getChildCount() - 1; i >= 0; --i) {
-                    View v = ll2.getChildAt(i);
-                    if (v instanceof TextRow && ((TextRow) v).getKey().equals(key)) {
-                        Util.scrollToRow(sv, v, true, true);
-                        ((TextRow) v).getValueView().requestFocus();
-                        found = true;
-                        break;
-                    } else if (v instanceof DialogRow && ((DialogRow) v).getKey().equals(key)) {
-                        Util.scrollToRow(sv, v, true, true);
-                        ((DialogRow) v).click();
-                        found = true;
-                        break;
-                    }
-                }
-                pos++;
-            }
-        } else {
+        if (ll == null) {
             Log.d(DEBUG_TAG, "focusOnTag container layout null");
             return false;
+        }
+        int pos = 0;
+        while (ll.getChildAt(pos) instanceof EditableLayout && pos < ll.getChildCount() && !found) {
+            EditableLayout ll2 = (EditableLayout) ll.getChildAt(pos);
+            Log.d(DEBUG_TAG, "focusOnTag key " + key);
+            for (int i = ll2.getChildCount() - 1; i >= 0; --i) {
+                View v = ll2.getChildAt(i);
+                boolean isTextRow = v instanceof TextRow;
+                if ((v instanceof DialogRow || isTextRow) && ((KeyValueRow) v).getKey().equals(key)) {
+                    Util.scrollToRow(sv, v, true, true);
+                    if (isTextRow) {
+                        ((TextRow) v).getValueView().requestFocus();
+                    } else {
+                        ((DialogRow) v).click();
+                    }
+                    found = true;
+                    break;
+                }
+            }
+            pos++;
         }
         return found;
     }
@@ -1170,24 +1188,23 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     private boolean focusOnEmpty() {
         boolean found = false;
         LinearLayout ll = (LinearLayout) getView().findViewById(R.id.form_container_layout);
-        if (ll != null) {
-            int pos = 0;
-            while (ll.getChildAt(pos) instanceof EditableLayout && pos < ll.getChildCount() && !found) {
-                EditableLayout ll2 = (EditableLayout) ll.getChildAt(pos);
-                for (int i = 0; i < ll2.getChildCount(); i++) {
-                    View v = ll2.getChildAt(i);
-                    // we currently only focus on TextRows without a special ValueType
-                    if (v instanceof TextRow && ((TextRow) v).initialFoxus(getContext())) {
-                        ((TextRow) v).getValueView().requestFocus();
-                        found = true;
-                        break;
-                    }
-                }
-                pos++;
-            }
-        } else {
+        if (ll == null) {
             Log.d(DEBUG_TAG, "update container layout null");
             return false;
+        }
+        int pos = 0;
+        while (ll.getChildAt(pos) instanceof EditableLayout && pos < ll.getChildCount() && !found) {
+            EditableLayout ll2 = (EditableLayout) ll.getChildAt(pos);
+            for (int i = 0; i < ll2.getChildCount(); i++) {
+                View v = ll2.getChildAt(i);
+                // we currently only focus on TextRows without a special ValueType
+                if (v instanceof TextRow && ((TextRow) v).initialFoxus(getContext())) {
+                    ((TextRow) v).getValueView().requestFocus();
+                    found = true;
+                    break;
+                }
+            }
+            pos++;
         }
         return found;
     }

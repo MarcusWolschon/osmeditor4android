@@ -1204,6 +1204,9 @@
     <string name="config_mapillary_min_zoom_current">%1$d</string>
     <string name="config_nameCap_summary">Automatic capitalization of name tags on input</string>
     <string name="config_nameCap_title">Name capitalization</string>
+    <string name="config_longStringLimit_title">Long string limit</string>
+    <string name="config_longStringLimit_summary">Limit from which to show a modal for editing text in the property editor</string>
+    <string name="config_longStringLimit_current">%1$d</string>
             
     <!-- Data and Editing Settings -->
     <string name="config_category_editing">Data and edit settings</string>

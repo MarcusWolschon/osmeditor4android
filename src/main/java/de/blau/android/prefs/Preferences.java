@@ -17,6 +17,7 @@ import androidx.annotation.Nullable;
 import androidx.preference.PreferenceManager;
 import de.blau.android.R;
 import de.blau.android.contract.Urls;
+import de.blau.android.osm.Capabilities;
 import de.blau.android.osm.Server;
 import de.blau.android.presets.Preset;
 import de.blau.android.resources.DataStyle;
@@ -118,6 +119,7 @@ public class Preferences {
     private final boolean     splitWindowForPropertyEditor;
     private final boolean     useImperialUnits;
     private final boolean     supportPresetLabels;
+    private final int         longStringLimit;
 
     private static final String DEFAULT_MAP_PROFILE = "Color Round Nodes";
 
@@ -289,6 +291,8 @@ public class Preferences {
         splitWindowForPropertyEditor = prefs.getBoolean(r.getString(R.string.config_splitWindowForPropertyEditor_key), false);
 
         useImperialUnits = prefs.getBoolean(r.getString(R.string.config_useImperialUnits_key), false);
+
+        longStringLimit = getIntPref(R.string.config_longStringLimit_key, Capabilities.DEFAULT_MAX_STRING_LENGTH);
     }
 
     /**
@@ -1596,6 +1600,15 @@ public class Preferences {
      */
     public boolean supportPresetLabels() {
         return supportPresetLabels;
+    }
+
+    /**
+     * Get the limit at which we start showing a modal for long strings in the property editor
+     * 
+     * @return the length from which we will start showing a modal for editing text
+     */
+    public int getLongStringLimit() {
+        return longStringLimit;
     }
 
     /**
