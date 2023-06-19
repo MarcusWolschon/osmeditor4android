@@ -126,16 +126,6 @@
     <string name="config_maxOffsetDistance_key">maxOffsetDistance</string>
     <string name="config_mapillary_min_zoom_key">mapillaryMinZoom</string>
     <string name="config_neighbourDistance_key">neighbourDistance</string>
-    <string name="gps_source_internal">internal</string>
-    <string name="gps_source_nmea">nmea</string>
-    <string name="gps_source_tcpclient">tcpclient</string>
-    <string name="gps_source_tcpserver">tcpserver</string>
-    <string-array name="gps_source_keys">
-        <item>@string/gps_source_internal</item>
-        <item>@string/gps_source_nmea</item>
-        <item>@string/gps_source_tcpclient</item>
-        <item>@string/gps_source_tcpserver</item>
-    </string-array>
     <string name="config_gps_source_tcp_key">gpsTcpSourceKey</string>
     <string name="config_longStringLimit_key">longStringLimit</string>
     <!-- Last directories used in the file selector -->

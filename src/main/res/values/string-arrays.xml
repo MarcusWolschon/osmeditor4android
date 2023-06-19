@@ -13,6 +13,16 @@
         <item>NMEA from TCP client</item>
         <item>NMEA from TCP server</item>
     </string-array>
+    <string name="gps_source_internal" translatable="false">internal</string>
+    <string name="gps_source_nmea" translatable="false">nmea</string>
+    <string name="gps_source_tcpclient" translatable="false">tcpclient</string>
+    <string name="gps_source_tcpserver" translatable="false">tcpserver</string>
+    <string-array name="gps_source_keys" translatable="false">
+        <item>@string/gps_source_internal</item>
+        <item>@string/gps_source_nmea</item>
+        <item>@string/gps_source_tcpclient</item>
+        <item>@string/gps_source_tcpserver</item>
+    </string-array>
     <string name="state_open" translatable="false">OPEN</string>
     <string name="state_closed" translatable="false">CLOSED</string>
     <string name="state_false_positive" translatable="false">FALSE_POSITIVE</string>
