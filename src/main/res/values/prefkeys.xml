@@ -137,6 +137,7 @@
         <item>@string/gps_source_tcpserver</item>
     </string-array>
     <string name="config_gps_source_tcp_key">gpsTcpSourceKey</string>
+    <string name="config_longStringLimit_key">longStringLimit</string>
     <!-- Last directories used in the file selector -->
     <string name="config_gpxPreferredDir_key">gpxPreferredDir</string>
     <string name="config_osmPreferredDir_key">osmPreferredDir</string>

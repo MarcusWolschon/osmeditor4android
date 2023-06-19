@@ -111,6 +111,18 @@
             app:spt_currentValueText="@string/config_maxInlineValues_current"
             app:spt_setWrapSelectorWheel="false" />
         <ch.poole.android.numberpickerpreference.NumberPickerPreference
+            android:defaultValue="255"
+            android:dialogTitle="@string/config_longStringLimit_title"
+            android:key="@string/config_longStringLimit_key"
+            android:numeric="integer"
+            android:summary="@string/config_longStringLimit_summary"
+            android:title="@string/config_longStringLimit_title"
+            app:spt_maxValue="255"
+            app:spt_minValue="0"
+            app:spt_increment="1"
+            app:spt_currentValueText="@string/config_longStringLimit_current"
+            app:spt_setWrapSelectorWheel="false" />
+        <ch.poole.android.numberpickerpreference.NumberPickerPreference
             android:defaultValue="60"
             android:dialogTitle="@string/config_autoLockDelay_title"
             android:key="@string/config_autoLockDelay_key"

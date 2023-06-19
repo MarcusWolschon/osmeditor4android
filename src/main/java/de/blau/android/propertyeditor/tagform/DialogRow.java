@@ -28,7 +28,7 @@ import de.blau.android.util.StringWithDescriptionAndIcon;
 /**
  * Display a single value and allow editing via a dialog
  */
-public class DialogRow extends LinearLayout {
+public class DialogRow extends LinearLayout implements KeyValueRow {
 
     private static final String DEBUG_TAG = "DialogRow";
 
@@ -72,11 +72,7 @@ public class DialogRow extends LinearLayout {
         valueView.setOnClickListener(listener);
     }
 
-    /**
-     * Return the OSM key value
-     * 
-     * @return the key as a String
-     */
+    @Override
     public String getKey() {
         return (String) keyView.getTag();
     }
@@ -150,11 +146,7 @@ public class DialogRow extends LinearLayout {
         value = s;
     }
 
-    /**
-     * Get the value for this row
-     * 
-     * @return the value as a String
-     */
+    @Override
     public String getValue() {
         return value;
     }

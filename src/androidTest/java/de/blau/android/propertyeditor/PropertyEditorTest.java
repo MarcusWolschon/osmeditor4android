@@ -439,6 +439,74 @@ public class PropertyEditorTest {
     }
 
     /**
+     * Select an untagged node, then - apply restaurant preset - edit wheelchair access details
+     */
+    @Test
+    public void longText() {
+        final CountDownLatch signal = new CountDownLatch(1);
+        mockServer.enqueue("capabilities1");
+        mockServer.enqueue("download1");
+        Logic logic = App.getLogic();
+        logic.downloadBox(main, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D), false, new SignalHandler(signal));
+        try {
+            signal.await(30, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            fail(e.getMessage());
+        }
+        main.getMap().getDataLayer().setVisible(true);
+        TestUtils.unlock(device);
+        TestUtils.zoomToLevel(device, main, 21);
+     
+        Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 599672192L);
+        assertNotNull(n);
+        final CountDownLatch signal2 = new CountDownLatch(1);
+        main.runOnUiThread(() -> {
+            main.getEasyEditManager().editElement(n);
+            (new SignalHandler(signal2)).onSuccess();
+        });
+        try {
+            signal2.await(20, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            fail(e.getMessage());
+        }
+
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
+
+        assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.menu_tags), false, true));
+        PropertyEditorActivity propertyEditor = waitForPropertyEditor();
+
+        if (!((PropertyEditorActivity) propertyEditor).usingPaneLayout()) {
+            assertTrue(TestUtils.clickText(device, true, main.getString(R.string.tag_menu_preset), false, false));
+        }
+        boolean found = TestUtils.clickText(device, true, getTranslatedPresetGroupName(main, "Facilities"), true, false);
+        assertTrue(found);
+        found = TestUtils.clickText(device, true, getTranslatedPresetGroupName(main, "Food+Drinks"), true, false);
+        assertTrue(found);
+        found = TestUtils.clickText(device, true, getTranslatedPresetItemName(main, "Restaurant"), true, false);
+        assertTrue(found);
+        
+        // apply optional tags and check that diaper tag isn't present
+        assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.tag_menu_apply_preset_with_optional), false, false));
+        TestUtils.scrollTo("Wheelchair access details", false);
+        
+        try {
+            UiObject2 details = getField(device, "Wheelchair access details", 1);
+            assertNotNull(details);
+            details.click();
+            UiObject editText = TestUtils.findObjectWithResourceId(device, false, device.getCurrentPackageName() + ":id/editText");
+            editText.setText("1234567890");
+            assertTrue(TestUtils.clickText(device, false, main.getString(R.string.save), true));
+        } catch (UiObjectNotFoundException e) {
+            fail();
+        }  
+
+        TestUtils.clickHome(device, true);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
+        device.waitForIdle();
+        assertTrue(n.hasTag("wheelchair:description", "1234567890"));
+    }
+    
+    /**
      * Select an untagged node, then - apply charging station preset- set vehicle type
      */
     @Test

@@ -65,7 +65,7 @@ Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/
 |                   | default                       | supported |
 |                   | use_last_as_default           | partial   | "force" has the same effect as "true"
 |                   | auto_increment                | ignored   |
-|                   | length                        | ignored   |
+|                   | length                        | partial   | depending on the settings a modal will be displayed for editing instead of an inline text field
 |                   | alternative_autocomplete_keys | ignored   |
 |                   | javascript                    | extension | if value is not set, execute the JS script
 |                   | i18n                          | extension | if set to true this tag has i18n variants

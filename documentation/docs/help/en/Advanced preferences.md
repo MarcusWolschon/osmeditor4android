@@ -80,6 +80,10 @@ Use English for the user interface. Google does not provide a supported way to s
 
 Maximum number of values that will directly be displayed in the form based editor for Tags with pre-determined values. Default: _4_.
 
+### Long string limit
+
+Limit from which, instead of an inline text field, a modal will be displayed will be used for text editing in the form based editor. The modal will be displayed if either the existing text is longer than the limit, or if the preset text field length attribute is longer than the limit. Default: _255_.
+
 ### Time to wait before auto-locking
 
 How long to wait before auto-locking the map display, setting the value to 0 disables the auto-locking. Default _60 seconds_.
