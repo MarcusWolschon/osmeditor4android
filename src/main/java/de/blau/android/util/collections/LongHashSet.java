@@ -41,18 +41,18 @@ public class LongHashSet implements Serializable {
     private static final int   DEFAULT_CAPACITY   = 16;
 
     /** Keys and values */
-    private long[] m_data;
+    private long[] data;
 
     /** Fill factor, must be between (0 and 1) */
-    private final float m_fillFactor;
+    private final float fillFactor;
     /** We will resize a map once it reaches this size */
-    private int         m_threshold;
+    private int         threshold;
     /** Current map size */
-    private int         m_size;
+    private int         size;
     /** Mask to calculate the original position */
-    private long        m_mask;
+    private long        mask;
     /** Do we have 'free' key in the map? */
-    private boolean     m_hasFreeKey;
+    private boolean     hasFreeKey;
 
     /**
      * Create a new map with default values for capacity and fill factor
@@ -84,14 +84,14 @@ public class LongHashSet implements Serializable {
             throw new IllegalArgumentException("Size must be positive!");
         }
         final int capacity = Tools.arraySize(size, fillFactor);
-        m_mask = capacity - 1L;
-        m_fillFactor = fillFactor;
+        this.mask = capacity - 1L;
+        this.fillFactor = fillFactor;
 
-        m_data = new long[capacity];
+        data = new long[capacity];
 
-        m_threshold = (int) (capacity * fillFactor);
+        threshold = (int) (capacity * fillFactor);
 
-        m_hasFreeKey = false;
+        hasFreeKey = false;
     }
 
     /**
@@ -101,12 +101,12 @@ public class LongHashSet implements Serializable {
      */
     @SuppressLint("NewApi")
     public LongHashSet(@NonNull LongHashSet set) {
-        m_mask = set.m_mask;
-        m_fillFactor = set.m_fillFactor;
-        m_threshold = set.m_threshold;
-        m_size = set.m_size;
-        m_hasFreeKey = set.m_hasFreeKey;
-        m_data = Arrays.copyOf(set.m_data, set.m_data.length);
+        mask = set.mask;
+        fillFactor = set.fillFactor;
+        threshold = set.threshold;
+        size = set.size;
+        hasFreeKey = set.hasFreeKey;
+        data = Arrays.copyOf(set.data, set.data.length);
     }
 
     /**
@@ -116,18 +116,18 @@ public class LongHashSet implements Serializable {
      */
     public void put(final long value) {
         if (value == FREE_KEY) {
-            m_hasFreeKey = true;
+            hasFreeKey = true;
             return;
         }
-        int ptr = (int) (Tools.phiMix(value) & m_mask);
-        long e = m_data[ptr];
+        int ptr = (int) (Tools.phiMix(value) & mask);
+        long e = data[ptr];
 
         if (e == FREE_KEY) { // end of chain already
-            m_data[ptr] = value;
-            if (m_size >= m_threshold) {
-                rehash(m_data.length * 2); // size is set inside
+            data[ptr] = value;
+            if (size >= threshold) {
+                rehash(data.length * 2); // size is set inside
             } else {
-                ++m_size;
+                ++size;
             }
             return;
         } else if (e == value) { // we check FREE and REMOVED prior to this call
@@ -135,14 +135,14 @@ public class LongHashSet implements Serializable {
         }
 
         while (true) {
-            ptr = (int) ((ptr + 1) & m_mask); // the next index calculation
-            e = m_data[ptr];
+            ptr = (int) ((ptr + 1) & mask); // the next index calculation
+            e = data[ptr];
             if (e == FREE_KEY) {
-                m_data[ptr] = value;
-                if (m_size >= m_threshold) {
-                    rehash(m_data.length * 2); // size is set inside
+                data[ptr] = value;
+                if (size >= threshold) {
+                    rehash(data.length * 2); // size is set inside
                 } else {
-                    ++m_size;
+                    ++size;
                 }
                 return;
             } else if (e == value) {
@@ -157,7 +157,7 @@ public class LongHashSet implements Serializable {
      * @param array the long array
      */
     public void putAll(@NonNull long[] array) {
-        ensureCapacity(m_data.length + array.length);
+        ensureCapacity(data.length + array.length);
         for (long e : array) { // trivial implementation for now
             put(e);
         }
@@ -171,25 +171,25 @@ public class LongHashSet implements Serializable {
      */
     public boolean remove(final long value) {
         if (value == FREE_KEY) {
-            m_hasFreeKey = false;
+            hasFreeKey = false;
             return true;
         }
-        int ptr = (int) (Tools.phiMix(value) & m_mask);
-        long e = m_data[ptr];
+        int ptr = (int) (Tools.phiMix(value) & mask);
+        long e = data[ptr];
         if (e == FREE_KEY) {
             return false; // end of chain already
         } else if (e == value) { // we check FREE and REMOVED prior to this call
-            --m_size;
+            --size;
             shiftKeys(ptr);
             return true;
         }
         while (true) {
-            ptr = (int) ((ptr + 1) & m_mask); // that's next index calculation
-            e = m_data[ptr];
+            ptr = (int) ((ptr + 1) & mask); // that's next index calculation
+            e = data[ptr];
             if (e == FREE_KEY) {
                 return false;
             } else if (e == value) {
-                --m_size;
+                --size;
                 shiftKeys(ptr);
                 return true;
             }
@@ -206,21 +206,22 @@ public class LongHashSet implements Serializable {
         int last;
         int slot;
         long k;
-        final long[] data = this.m_data;
+        final long[] temp = this.data;
         while (true) {
-            pos = (int) (((last = pos) + 1) & m_mask);
+            last = pos;
+            pos = (int) ((pos + 1) & mask);
             while (true) {
-                if ((k = data[pos]) == FREE_KEY) {
-                    data[last] = FREE_KEY;
+                if ((k = temp[pos]) == FREE_KEY) {
+                    temp[last] = FREE_KEY;
                     return last;
                 }
-                slot = (int) (Tools.phiMix(k) & m_mask);// calculate the starting slot for the current key
+                slot = (int) (Tools.phiMix(k) & mask);// calculate the starting slot for the current key
                 if (last <= pos ? last >= slot || slot > pos : last >= slot && slot > pos) {
                     break;
                 }
-                pos = (int) ((pos + 1) & m_mask); // go to the next entry
+                pos = (int) ((pos + 1) & mask); // go to the next entry
             }
-            data[last] = k;
+            temp[last] = k;
         }
     }
 
@@ -234,8 +235,8 @@ public class LongHashSet implements Serializable {
         if (value == FREE_KEY) {
             return true;
         }
-        int ptr = (int) (Tools.phiMix(value) & m_mask);
-        long e = m_data[ptr];
+        int ptr = (int) (Tools.phiMix(value) & mask);
+        long e = data[ptr];
         if (e == FREE_KEY) {
             return false;
         }
@@ -243,8 +244,8 @@ public class LongHashSet implements Serializable {
             return true;
         }
         while (true) {
-            ptr = (int) ((ptr + 1) & m_mask); // the next index
-            e = m_data[ptr];
+            ptr = (int) ((ptr + 1) & mask); // the next index
+            e = data[ptr];
             if (e == FREE_KEY) {
                 return false;
             }
@@ -262,12 +263,12 @@ public class LongHashSet implements Serializable {
     @NonNull
     public long[] values() {
         int found = 0;
-        long[] result = new long[m_size];
-        for (long v : m_data) {
+        long[] result = new long[size];
+        for (long v : data) {
             if (v != FREE_KEY) {
                 result[found] = v;
                 found++;
-                if (found >= m_size) { // found all
+                if (found >= size) { // found all
                     break;
                 }
             }
@@ -281,7 +282,7 @@ public class LongHashSet implements Serializable {
      * @return the element count
      */
     public int size() {
-        return m_size;
+        return size;
     }
 
     /**
@@ -290,18 +291,18 @@ public class LongHashSet implements Serializable {
      * @return true if the set is empty
      */
     public boolean isEmpty() {
-        return m_size == 0;
+        return size == 0;
     }
 
     /**
      * Remove all elements from the set
      */
     public void clear() {
-        for (int i = 0; i < m_data.length; i++) {
-            m_data[i] = FREE_KEY;
+        for (int i = 0; i < data.length; i++) {
+            data[i] = FREE_KEY;
         }
-        m_size = 0;
-        m_hasFreeKey = false;
+        size = 0;
+        hasFreeKey = false;
     }
 
     /**
@@ -310,8 +311,8 @@ public class LongHashSet implements Serializable {
      * @param minimumCapacity minimum capacity
      */
     public void ensureCapacity(int minimumCapacity) {
-        int newCapacity = Tools.arraySize(minimumCapacity, m_fillFactor);
-        if (newCapacity > m_data.length) {
+        int newCapacity = Tools.arraySize(minimumCapacity, fillFactor);
+        if (newCapacity > data.length) {
             rehash(newCapacity);
         }
     }
@@ -322,15 +323,15 @@ public class LongHashSet implements Serializable {
      * @param newCapacity new capacity
      */
     private void rehash(final int newCapacity) {
-        m_threshold = (int) (newCapacity * m_fillFactor);
-        m_mask = newCapacity - 1L;
+        threshold = (int) (newCapacity * fillFactor);
+        mask = newCapacity - 1L;
 
-        final int oldCapacity = m_data.length;
-        final long[] oldData = m_data;
+        final int oldCapacity = data.length;
+        final long[] oldData = data;
 
-        m_data = new long[newCapacity];
+        data = new long[newCapacity];
 
-        m_size = 0;
+        size = 0;
 
         for (int i = 0; i < oldCapacity; i++) {
             final long e = oldData[i];
