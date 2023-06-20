@@ -28,7 +28,7 @@ public class ImagePagerAdapter extends PagerAdapter {
         mContext = context;
         this.loader = loader;
         this.images = images;
-        mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        mLayoutInflater = ThemeUtils.getLayoutInflater(context);
     }
 
     @Override

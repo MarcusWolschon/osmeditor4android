@@ -7,14 +7,15 @@ import java.util.Set;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.content.res.Resources.NotFoundException;
 import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.preference.PreferenceManager;
+import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.contract.Urls;
 import de.blau.android.osm.Capabilities;
@@ -31,7 +32,10 @@ import de.blau.android.util.Sound;
  * @author mb
  */
 public class Preferences {
-    private static final String DEBUG_TAG = "Preferences";
+    private static final String DEBUG_TAG = Preferences.class.getSimpleName();
+
+    private static final String ACRA_ENABLE  = "acra.enable";
+    private static final String ACRA_DISABLE = "acra.disable";
 
     private final AdvancedPrefDatabase advancedPrefs;
 
@@ -85,7 +89,7 @@ public class Preferences {
     private final boolean     generateAlerts;
     private final boolean     groupAlertsOnly;
     private int               maxAlertDistance;
-    private final boolean     lightThemeEnabled;
+    private final String      theme;
     private final boolean     overrideCountryAddressTags;
     private final Set<String> addressTags;
     private final int         neighbourDistance;
@@ -131,25 +135,23 @@ public class Preferences {
      * Construct a new instance
      * 
      * @param ctx Android context
-     * @throws IllegalArgumentException
-     * @throws NotFoundException
      */
     @SuppressLint("NewApi")
-    public Preferences(@NonNull Context ctx) throws IllegalArgumentException, NotFoundException {
+    public Preferences(@NonNull Context ctx) {
         prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
         r = ctx.getResources();
         advancedPrefs = new AdvancedPrefDatabase(ctx);
 
         // we're not using acra.disable - ensure it isn't present
-        if (prefs.contains("acra.disable")) {
+        if (prefs.contains(ACRA_DISABLE)) {
             SharedPreferences.Editor editor = prefs.edit();
-            editor.remove("acra.disable");
+            editor.remove(ACRA_DISABLE);
             editor.commit();
         }
         // we *are* using acra.enable
-        if (!prefs.contains("acra.enable")) {
+        if (!prefs.contains(ACRA_ENABLE)) {
             SharedPreferences.Editor editor = prefs.edit();
-            editor.putBoolean("acra.enable", true);
+            editor.putBoolean(ACRA_ENABLE, true);
             editor.commit();
         }
 
@@ -184,9 +186,9 @@ public class Preferences {
         autoApplyPreset = prefs.getBoolean(r.getString(R.string.config_autoApplyPreset_key), true);
         closeChangesetOnSave = prefs.getBoolean(r.getString(R.string.config_closeChangesetOnSave_key), true);
         splitActionBarEnabled = prefs.getBoolean(r.getString(R.string.config_splitActionBarEnabled_key), true);
-        scaleLayer = prefs.getString(r.getString(R.string.config_scale_key), "SCALE_METRIC");
+        scaleLayer = prefs.getString(r.getString(R.string.config_scale_key), r.getString(R.string.scale_metric));
         mapProfile = prefs.getString(r.getString(R.string.config_mapProfile_key), null);
-        gpsSource = prefs.getString(r.getString(R.string.config_gps_source_key), "internal");
+        gpsSource = prefs.getString(r.getString(R.string.config_gps_source_key), r.getString(R.string.gps_source_internal));
         gpsTcpSource = prefs.getString(r.getString(R.string.config_gps_source_tcp_key), "127.0.0.1:1958");
         gpsDistance = getIntPref(R.string.config_gps_distance_key, 2);
         gpsInterval = getIntPref(R.string.config_gps_interval_key, 1000);
@@ -212,8 +214,7 @@ public class Preferences {
         maxAlertDistance = getIntPref(R.string.config_maxAlertDistance_key, 100);
         groupAlertsOnly = prefs.getBoolean(r.getString(R.string.config_groupAlertsOnly_key), false);
 
-        // light theme now always default
-        lightThemeEnabled = prefs.getBoolean(r.getString(R.string.config_enableLightTheme_key), true);
+        theme = getThemePref(prefs, r);
 
         overrideCountryAddressTags = prefs.getBoolean(r.getString(R.string.config_overrideRegionAddressTags_key), false);
 
@@ -929,12 +930,71 @@ public class Preferences {
     }
 
     /**
+     * Get the configured theme
+     * 
+     * @return the current theme
+     */
+    @NonNull
+    public String getTheme() {
+        return theme;
+    }
+
+    /**
+     * Check if we are following the system theme
+     * 
+     * @return true if we are following the system theme
+     */
+    public boolean followingSystemTheme() {
+        return theme.equals(r.getString(R.string.theme_follow));
+    }
+
+    /**
      * Check if the light theme is enabled
      * 
      * @return true if the light theme is enabled
      */
     public boolean lightThemeEnabled() {
-        return lightThemeEnabled;
+        return lightThemeEnabled(theme, r);
+    }
+
+    /**
+     * Check if the light theme is enabled
+     * 
+     * @return true if the light theme is enabled
+     */
+    private static boolean lightThemeEnabled(@NonNull String theme, @NonNull Resources r) {
+        if (theme.equals(r.getString(R.string.theme_follow))) {
+            // use our copy here that will have been updated by onConfigurationChanged
+            final Configuration configuration = App.getConfiguration();
+            final int uiMode = configuration.uiMode & Configuration.UI_MODE_NIGHT_MASK;
+            return uiMode == Configuration.UI_MODE_NIGHT_NO;
+        }
+        return theme.equals(r.getString(R.string.theme_light));
+    }
+
+    /**
+     * Static version for use when we don't want to recreate this class
+     * 
+     * @param context an Android Context
+     * @return true if the light theme is enabled
+     */
+    public static boolean lightThemeEnabled(@NonNull Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        Resources r = context.getResources();
+        return lightThemeEnabled(getThemePref(prefs, r), r);
+    }
+
+    /**
+     * Static utility to get the current theme mode
+     * 
+     * @param prefs a SharedPreferences object
+     * @param r an Resources object
+     * @return the current theme mode
+     */
+    @NonNull
+    private static String getThemePref(@NonNull SharedPreferences prefs, @NonNull Resources r) {
+        return prefs.getString(r.getString(R.string.config_theme_key),
+                r.getString(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q ? R.string.theme_follow : R.string.theme_light));
     }
 
     /**

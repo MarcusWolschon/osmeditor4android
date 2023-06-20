@@ -214,4 +214,27 @@
         <item>1</item>
         <item>2</item>
     </string-array>
+    <string-array name="theme_entries">
+        <item>Follow system</item>
+        <item>Light</item>
+        <item>Dark</item>
+    </string-array>
+    <string-array name="theme_entries_28">
+        <item>Follow system</item>
+        <item>Light</item>
+        <item>Dark</item>
+    </string-array>
+    <string name="theme_follow" translatable="false">follow</string>
+    <string name="theme_light" translatable="false">light</string>
+    <string name="theme_dark" translatable="false">dark</string>
+    <string-array name="theme_values" translatable="false">
+        <item>@string/theme_follow</item>
+        <item>@string/theme_light</item>
+        <item>@string/theme_dark</item>
+    </string-array>
+    <string-array name="theme_values_28" translatable="false">
+        <item>@string/theme_follow</item>
+        <item>@string/theme_light</item>
+        <item>@string/theme_dark</item>
+    </string-array>
  </resources>

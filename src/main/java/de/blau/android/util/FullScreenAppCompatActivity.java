@@ -1,12 +1,11 @@
 package de.blau.android.util;
 
-import com.zeugmasolutions.localehelper.LocaleAwareCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
@@ -21,7 +20,7 @@ import de.blau.android.prefs.Preferences;
  * @author Simon Poole
  *
  */
-public abstract class FullScreenAppCompatActivity extends LocaleAwareCompatActivity {
+public abstract class FullScreenAppCompatActivity extends ConfigurationChangeAwareActivity {
 
     private static final String DEBUG_TAG = FullScreenAppCompatActivity.class.getSimpleName();
 
@@ -35,7 +34,7 @@ public abstract class FullScreenAppCompatActivity extends LocaleAwareCompatActiv
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        handler = new Handler(getMainLooper());
+        handler = new Handler(Looper.getMainLooper());
     }
 
     @SuppressWarnings("deprecation")
@@ -149,7 +148,7 @@ public abstract class FullScreenAppCompatActivity extends LocaleAwareCompatActiv
         }
         return fullScreen;
     }
-    
+
     /**
      * Variant of isInMultiWindowMode that can be called on any platform
      * 

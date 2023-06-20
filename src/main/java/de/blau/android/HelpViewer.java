@@ -50,7 +50,6 @@ import de.blau.android.prefs.VespucciURLActivity;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.UpdatedWebViewClient;
-import de.blau.android.util.Util;
 import de.blau.android.util.WebViewActivity;
 
 /**
@@ -125,7 +124,7 @@ public class HelpViewer extends WebViewActivity {
         }
         super.onCreate(savedInstanceState);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            Configuration config = getResources().getConfiguration();
+            Configuration config = App.getConfiguration();
             rtl = config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
         }
         unselectedItemBackground = ThemeUtils.getStyleAttribColorValue(this, R.attr.unselected_item_background, R.color.light_grey);
@@ -389,13 +388,6 @@ public class HelpViewer extends WebViewActivity {
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         mDrawerToggle.syncState();
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        Util.clearCaches(this, newConfig);
-        mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
     private class DrawerItemClickListener implements AdapterView.OnItemClickListener {

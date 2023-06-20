@@ -2,8 +2,6 @@ package de.blau.android.photos;
 
 import java.util.ArrayList;
 
-import com.zeugmasolutions.localehelper.LocaleAwareCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -14,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import de.blau.android.R;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.util.ConfigurationChangeAwareActivity;
 import de.blau.android.util.ImageLoader;
 
 /**
@@ -23,7 +22,7 @@ import de.blau.android.util.ImageLoader;
  * @author simon
  *
  */
-public class PhotoViewerActivity extends LocaleAwareCompatActivity {
+public class PhotoViewerActivity extends ConfigurationChangeAwareActivity {
 
     private static final String DEBUG_TAG = PhotoViewerActivity.class.getSimpleName();
 

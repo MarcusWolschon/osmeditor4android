@@ -1165,8 +1165,9 @@
     <string name="config_showTolerance_summary">Displays area where an element can be selected.</string>
     <string name="config_use_back_for_undo_title">Use ← key to undo</string>
     <string name="config_use_back_for_undo_summary">Use the ← key to undo in main edit view.</string>
-    <string name="config_enableLightTheme_title">Light theme</string>
-    <string name="config_enableLightTheme_summary">Light and white backgrounds.</string>
+    
+    <string name="config_theme_title">Theme</string>
+    <string name="config_theme_summary">Select app styling.</string>
     <string name="config_splitActionBarEnabled_title">Enable split action bar</string>
     <string name="config_splitActionBarEnabled_summary">Show the menu buttons at the bottom of the screen. Requires starting Vespucci again, and Android 4.0 or later.</string>
     <string name="config_disableTranslations_title">Disable translations</string>

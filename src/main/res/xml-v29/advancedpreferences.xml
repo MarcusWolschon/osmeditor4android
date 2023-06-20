@@ -62,9 +62,9 @@
             android:summary="@string/config_alwaysDrawBoundingBoxes_summary"
             android:title="@string/config_alwaysDrawBoundingBoxes_title" />
         <androidx.preference.ListPreference
-            android:defaultValue="@string/full_screen_never"
-            android:entries="@array/full_screen_preference_no_auto_entries"
-            android:entryValues="@array/full_screen_preference_no_auto_values"
+            android:defaultValue="@string/full_screen_auto"
+            android:entries="@array/full_screen_preference_entries"
+            android:entryValues="@array/full_screen_preference_values"
             android:key="@string/config_fullscreenMode_key"
             android:summary="@string/config_fullscreenMode_summary"
             android:title="@string/config_fullscreenMode_title" />
@@ -86,9 +86,9 @@
             android:summary="@string/config_use_back_for_undo_summary"
             android:title="@string/config_use_back_for_undo_title" />
         <androidx.preference.ListPreference
-            android:defaultValue="@string/theme_light"
-            android:entries="@array/theme_entries_28"
-            android:entryValues="@array/theme_values_28"
+            android:defaultValue="@string/theme_follow"
+            android:entries="@array/theme_entries"
+            android:entryValues="@array/theme_values"
             android:key="@string/config_theme_key"
             android:summary="@string/config_theme_summary"
             android:title="@string/config_theme_title" />
@@ -258,6 +258,11 @@
             android:entries="@array/address_tags_entries"
             android:entryValues="@array/address_tags_values"
             android:defaultValue="@array/address_tags_defaults" />
+        <androidx.preference.CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/config_autoApplyPreset_key"
+            android:summary="@string/config_autoApplyPreset_summary"
+            android:title="@string/config_autoApplyPreset_title" />
         <ch.poole.android.numberpickerpreference.NumberPickerPreference
             android:defaultValue="50"
             android:dialogTitle="@string/config_neighbourDistance_title"
@@ -270,11 +275,6 @@
             app:spt_increment="5"
             app:spt_currentValueText="@string/config_neighbourDistance_current"
             app:spt_setWrapSelectorWheel="false" />
-        <androidx.preference.CheckBoxPreference
-            android:defaultValue="true"
-            android:key="@string/config_autoApplyPreset_key"
-            android:summary="@string/config_autoApplyPreset_summary"
-            android:title="@string/config_autoApplyPreset_title" />
         <androidx.preference.CheckBoxPreference
             android:defaultValue="true"
             android:key="@string/config_enableNameSuggestions_key"
@@ -290,6 +290,11 @@
             android:key="@string/config_generateAlerts_key"
             android:summary="@string/config_generateAlerts_summary"
             android:title="@string/config_generateAlerts_title" />
+        <androidx.preference.CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/config_groupAlertsOnly_key"
+            android:summary="@string/config_groupAlertsOnly_summary"
+            android:title="@string/config_groupAlertsOnly_title" />
         <ch.poole.android.numberpickerpreference.NumberPickerPreference
             android:defaultValue="5"
             android:dialogTitle="@string/config_notificationCacheSize_title"
@@ -687,6 +692,11 @@
             android:key="@string/config_voiceCommandsEnabled_key"
             android:summary="@string/config_voiceCommandsEnabled_summary"
             android:title="@string/config_voiceCommandsEnabled_title" />
+        <androidx.preference.CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/config_enableHwAcceleration_key"
+            android:summary="@string/config_enableHwAcceleration_summary"
+            android:title="@string/config_enableHwAcceleration_title" />
         <androidx.preference.CheckBoxPreference
             android:defaultValue="false"
             android:key="@string/config_splitWindowForPropertyEditor_key"

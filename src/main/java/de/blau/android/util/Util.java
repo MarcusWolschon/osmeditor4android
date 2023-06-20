@@ -62,6 +62,7 @@ import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
+import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.resources.TileLayerSource;
 
@@ -485,17 +486,28 @@ public final class Util {
      * Side effect updates stored Configuration
      * 
      * @param context Android Context
+     * @param oldConfig old Configuration
      * @param newConfig new Configuration
      */
-    public static void clearCaches(@NonNull Context context, @NonNull Configuration newConfig) {
-        Configuration oldConfig = App.getConfiguration();
+    public static void clearCaches(@NonNull Context context, Configuration oldConfig, @NonNull Configuration newConfig) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             if (oldConfig == null || oldConfig.densityDpi != newConfig.densityDpi || oldConfig.fontScale != newConfig.fontScale) {
                 // if the density has changed the icons will have wrong dimension remove them
                 clearIconCaches(context);
-                App.setConfiguration(newConfig);
             }
         }
+    }
+
+    /**
+     * Check if the theme has changed in the system and we are following those changes
+     * 
+     * @param oldConfig the old configuration
+     * @param newConfig the new configuration
+     * 
+     * @return true if the theme has changed
+     */
+    public static boolean themeChanged(@NonNull Preferences prefs, Configuration oldConfig, @NonNull Configuration newConfig) {
+        return prefs.followingSystemTheme() && (oldConfig.uiMode & Configuration.UI_MODE_NIGHT_MASK) != (newConfig.uiMode & Configuration.UI_MODE_NIGHT_MASK);
     }
 
     /**
