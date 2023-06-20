@@ -87,7 +87,7 @@ public class MultiHashMap<K, V> implements Serializable {
             values = (sorted ? new TreeSet<>() : new HashSet<>());
             map.put(key, values);
         }
-        return item != null && values.add(item);
+        return values.add(item);
     }
 
     /**
