@@ -32,7 +32,6 @@ import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import androidx.exifinterface.media.ExifInterface;
 import de.blau.android.App;
-import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.contract.FileExtensions;
@@ -146,8 +145,7 @@ class MapillaryLoader extends ImageLoader {
      * Prune the image cache
      */
     private void pruneCache() {
-        Logic logic = App.getLogic();
-        new ExecutorTask<Void, Void, Void>(logic.getExecutorService(), logic.getHandler()) {
+        new ExecutorTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void arg) {
                 FileUtil.pruneCache(cacheDir, cacheSize);
