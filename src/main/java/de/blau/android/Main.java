@@ -715,7 +715,7 @@ public class Main extends FullScreenAppCompatActivity
 
         showActionBar();
 
-        Util.clearCaches(this, App.getConfiguration());
+        Util.clearCaches(this, App.getConfiguration(), getResources().getConfiguration());
     }
 
     @Override
@@ -1469,7 +1469,6 @@ public class Main extends FullScreenAppCompatActivity
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         Log.d(DEBUG_TAG, "onConfigurationChanged");
-        super.onConfigurationChanged(newConfig);
         if (App.getLogic().getMap() == null) {
             App.getLogic().setMap(map, false);
         } else {
@@ -1478,7 +1477,7 @@ public class Main extends FullScreenAppCompatActivity
         if (easyEditManager != null && easyEditManager.isProcessingAction()) {
             easyEditManager.invalidate();
         }
-        Util.clearCaches(this, newConfig);
+        super.onConfigurationChanged(newConfig);
     }
 
     @Override

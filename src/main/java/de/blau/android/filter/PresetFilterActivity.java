@@ -1,7 +1,5 @@
 package de.blau.android.filter;
 
-import com.zeugmasolutions.localehelper.LocaleAwareCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,6 +21,7 @@ import de.blau.android.presets.PresetElement;
 import de.blau.android.presets.PresetElementPath;
 import de.blau.android.presets.PresetGroup;
 import de.blau.android.presets.PresetItem;
+import de.blau.android.util.ConfigurationChangeAwareActivity;
 import de.blau.android.util.Snack;
 
 /**
@@ -32,7 +31,7 @@ import de.blau.android.util.Snack;
  * @author simon
  *
  */
-public class PresetFilterActivity extends LocaleAwareCompatActivity implements PresetClickHandler {
+public class PresetFilterActivity extends ConfigurationChangeAwareActivity implements PresetClickHandler {
 
     private static final String DEBUG_TAG = "PresetFilterActivity";
 

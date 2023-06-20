@@ -213,6 +213,9 @@ public class App extends LocaleAwareApplication implements android.app.Applicati
     /**
      * Retrieve the saved Configuration object
      * 
+     * This is used to determine what bits of the configuration have changed and may be stale, in practical terms this
+     * should never be null
+     * 
      * @return the saved Configuration or null
      */
     @Nullable

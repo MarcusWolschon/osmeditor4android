@@ -2,9 +2,6 @@ package de.blau.android;
 
 import java.io.InputStreamReader;
 
-import com.zeugmasolutions.localehelper.LocaleAwareCompatActivity;
-
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -14,13 +11,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import de.blau.android.osm.OsmXml;
-import de.blau.android.util.Util;
+import de.blau.android.util.ConfigurationChangeAwareActivity;
 
 /**
  * Show licence and author information for the app
  *
  */
-public class LicenseViewer extends LocaleAwareCompatActivity {
+public class LicenseViewer extends ConfigurationChangeAwareActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         if (App.getPreferences(this).lightThemeEnabled()) {
@@ -58,12 +55,6 @@ public class LicenseViewer extends LocaleAwareCompatActivity {
             Log.e("LicenseViewer", "Unknown menu item " + item.getTitle());
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        Util.clearCaches(this, newConfig);
     }
 
     /**

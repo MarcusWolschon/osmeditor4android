@@ -1,9 +1,6 @@
 package de.blau.android.prefs;
 
-import com.zeugmasolutions.localehelper.LocaleAwareCompatActivity;
-
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -15,9 +12,9 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceScreen;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
+import de.blau.android.util.ConfigurationChangeAwareActivity;
 import de.blau.android.util.SelectFile;
 import de.blau.android.util.ThemeUtils;
-import de.blau.android.util.Util;
 
 /**
  * The handling of PreferenceScreen is partially based on
@@ -26,7 +23,7 @@ import de.blau.android.util.Util;
  * @author simon
  *
  */
-public abstract class PrefEditorActivity extends LocaleAwareCompatActivity implements PreferenceFragmentCompat.OnPreferenceStartScreenCallback {
+public abstract class PrefEditorActivity extends ConfigurationChangeAwareActivity implements PreferenceFragmentCompat.OnPreferenceStartScreenCallback {
 
     private static final String DEBUG_TAG = "PrefEditorActivity";
 
@@ -71,12 +68,6 @@ public abstract class PrefEditorActivity extends LocaleAwareCompatActivity imple
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        Util.clearCaches(this, newConfig);
-    }
-
     /**
      * {@inheritDoc}
      */
@@ -93,7 +84,6 @@ public abstract class PrefEditorActivity extends LocaleAwareCompatActivity imple
     public boolean onPreferenceStartScreen(PreferenceFragmentCompat preferenceFragmentCompat, PreferenceScreen preferenceScreen) {
         Log.d(DEBUG_TAG, "callback called to attach the preference sub screen " + preferenceScreen.getKey());
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        // SubScreenFragment fragment = SubScreenFragment.newInstance();
         ExtendedPreferenceFragment fragment = newEditorFragment();
         Bundle args = new Bundle();
         // Defining the sub screen as new root for the subscreen

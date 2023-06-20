@@ -64,6 +64,7 @@ public class AdvancedPrefEditorFragment extends ExtendedPreferenceFragment {
         }
 
         setListPreferenceSummary(R.string.config_selectCameraApp_key, false);
+        setListPreferenceSummary(R.string.config_theme_key, true);
         setListPreferenceSummary(R.string.config_fullscreenMode_key, true);
         setListPreferenceSummary(R.string.config_mapOrientation_key, false);
         setListPreferenceSummary(R.string.config_gps_source_key, false);

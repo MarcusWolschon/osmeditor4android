@@ -48,7 +48,7 @@ In _Auto_ mode we try to determine automatically if using full screen mode is se
 
 On devices running Android 11 or higher the _Auto_ mode will never turn full screen mode on as Androids gesture navigation provides a viable alternative to it. 
 
-Default on Android 4.4 and later: _Auto_, 4.0 - 4.3: _Never_. 
+Default on Android 4.4 - 10:0: _Auto_, 4.0 - 4.3 and 11.0 and later: _Never_. 
 
 You need to restart the app for changes to this setting to take effect.
 
@@ -64,9 +64,9 @@ Show halos indicating the size of the "touch areas" around elements. Default: _o
 
 Use the back key for undo. Default: _off_.
 
-### Light theme
+### Theme
 
-Use a theme with a light background. Default: _on_. You need to restart the app for changes to this setting to take effect.
+Select the theme to use. _Follow system_ will follow the setting in the system preferences as far as possible, _Light_ and _Dark_ will fix the setting on the respective theme. _Follow system_ is only available on Android 10 and later. Default: _Follow system_. You need to restart the app for changes to this setting to take effect.
 
 ### Enable split action bar
 

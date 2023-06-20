@@ -1,7 +1,6 @@
 package de.blau.android.util;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -16,8 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
-import androidx.preference.PreferenceManager;
 import de.blau.android.R;
+import de.blau.android.prefs.Preferences;
 
 /**
  *
@@ -30,7 +29,7 @@ import de.blau.android.R;
  */
 public final class ThemeUtils {
 
-    private static final String DEBUG_TAG = "ThemeUtils";
+    private static final String DEBUG_TAG = ThemeUtils.class.getSimpleName();
 
     /**
      * Private constructor
@@ -138,10 +137,10 @@ public final class ThemeUtils {
      * @param darkTheme resource id for the dark theme
      * @return a themed Context
      */
+    @NonNull
     public static ContextThemeWrapper getThemedContext(@NonNull Context caller, int lightTheme, int darkTheme) {
         // don't use Preferences here as this will create a lot of disk activity and create the default folder
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(caller);
-        return new ContextThemeWrapper(caller, prefs.getBoolean(caller.getString(R.string.config_enableLightTheme_key), true) ? lightTheme : darkTheme);
+        return new ContextThemeWrapper(caller, Preferences.lightThemeEnabled(caller) ? lightTheme : darkTheme);
     }
 
     /**
@@ -152,6 +151,7 @@ public final class ThemeUtils {
      * @param attr the id of the themeable color attribtue
      * @return the tinted Drawable
      */
+    @NonNull
     public static Drawable getTintedDrawable(@NonNull Context ctx, int resource, int attr) {
         Drawable drawable = ContextCompat.getDrawable(ctx, resource);
         return getTintedDrawable(ctx, drawable, attr);
@@ -165,6 +165,7 @@ public final class ThemeUtils {
      * @param attr the id of the themeable color attribtue
      * @return the tinted Drawable
      */
+    @NonNull
     public static Drawable getTintedDrawable(@NonNull Context ctx, @NonNull Drawable drawable, int attr) {
         ColorStateList tint = ContextCompat.getColorStateList(ctx, ThemeUtils.getResIdFromAttribute(ctx, attr));
         DrawableCompat.setTintList(drawable, tint);

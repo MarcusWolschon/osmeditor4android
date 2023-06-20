@@ -235,6 +235,7 @@ public class PropertyEditorActivity<M extends Map<String, String> & Serializable
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         this.recreate();
+        App.setConfiguration(newConfig);
     }
 
     @Override

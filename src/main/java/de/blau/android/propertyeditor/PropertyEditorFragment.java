@@ -316,7 +316,7 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
         actionbar.setDisplayHomeAsUpEnabled(true);
 
         // tags
-        T tags =  (T) new ArrayList<Map<String,String>>();
+        T tags = (T) new ArrayList<Map<String, String>>();
         originalTags = new ArrayList<>();
         for (PropertyEditorData aLoadData : loadData) {
             originalTags.add(aLoadData.originalTags != null ? aLoadData.originalTags : aLoadData.tags);
@@ -443,8 +443,9 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         Log.d(DEBUG_TAG, "onConfigurationChanged");
-        Util.clearCaches(getContext(), newConfig);
+        Util.clearCaches(getContext(), App.getConfiguration(), newConfig);
         super.onConfigurationChanged(newConfig);
+        App.setConfiguration(newConfig);
     }
 
     @Override

@@ -30,7 +30,7 @@
 <p>On devices without hardware buttons Vespucci can run in full screen mode, that means that &quot;virtual&quot; navigation buttons will be automatically hidden while the map is displayed, providing more space on the screen for the map. Depending on your device this may work well or not.</p>
 <p>In <em>Auto</em> mode we try to determine automatically if using full screen mode is sensible or not, setting it to <em>Force</em> or <em>Never</em> skips the automatic check and full screen mode will always be used or always not be used respectively. <em>No statusbar</em> will additionally try to remove Androids status bar besides forcing full screen mode.</p>
 <p>On devices running Android 11 or higher the <em>Auto</em> mode will never turn full screen mode on as Androids gesture navigation provides a viable alternative to it.</p>
-<p>Default on Android 4.4 and later: <em>Auto</em>, 4.0 - 4.3: <em>Never</em>.</p>
+<p>Default on Android 4.4 - 10:0: <em>Auto</em>, 4.0 - 4.3 and 11.0 and later: <em>Never</em>.</p>
 <p>You need to restart the app for changes to this setting to take effect.</p>
 <h3>Map screen orientation</h3>
 <p>If set to any other value than <em>Auto</em> Vespucci will try to override your device settings for screen rotation.</p>
@@ -38,14 +38,16 @@
 <p>Show halos indicating the size of the &quot;touch areas&quot; around elements. Default: <em>on</em>.</p>
 <h3>Use back key for Undo</h3>
 <p>Use the back key for undo. Default: <em>off</em>.</p>
-<h3>Light theme</h3>
-<p>Use a theme with a light background. Default: <em>on</em>. You need to restart the app for changes to this setting to take effect.</p>
+<h3>Theme</h3>
+<p>Select the theme to use. <em>Follow system</em> will follow the setting in the system preferences as far as possible, <em>Light</em> and <em>Dark</em> will fix the setting on the respective theme. <em>Follow system</em> is only available on Android 10 and later. Default: <em>Follow system</em>. You need to restart the app for changes to this setting to take effect.</p>
 <h3>Enable split action bar</h3>
 <p>Show the menu buttons at the bottom of the screen. Default: <em>on</em>. You need to restart the app for changes to this setting to take effect.</p>
 <h3>Disable translations</h3>
 <p>Use English for the user interface. Google does not provide a supported way to switch languages for individual apps, as a result this setting relies on multiple workarounds that may, or may not, work on your device. Preset translations can be disabled in the preset configurations.</p>
 <h3>Max. number of inline values</h3>
 <p>Maximum number of values that will directly be displayed in the form based editor for Tags with pre-determined values. Default: <em>4</em>.</p>
+<h3>Long string limit</h3>
+<p>Limit from which, instead of an inline text field, a modal will be displayed will be used for text editing in the form based editor. The modal will be displayed if either the existing text is longer than the limit, or if the preset text field length attribute is longer than the limit. Default: <em>255</em>.</p>
 <h3>Time to wait before auto-locking</h3>
 <p>How long to wait before auto-locking the map display, setting the value to 0 disables the auto-locking. Default <em>60 seconds</em>.</p>
 <h3>Enable Anti-Aliasing</h3>

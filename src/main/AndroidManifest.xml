@@ -222,15 +222,18 @@
             android:theme="@style/Theme.AppCompat" />
         <activity
             android:name="LicenseViewer"
+            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
             android:theme="@style/Theme.custom" />
         <activity
             android:name="DebugInformation"
+            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
             android:theme="@style/Theme.custom" />
         <activity
             android:name="HelpViewer"
             android:launchMode="singleTask"
             android:taskAffinity=".HelpViewer"
             android:theme="@style/Theme.customHelpViewer" 
+            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -242,6 +245,7 @@
             android:launchMode="singleTask"
             android:taskAffinity=".PhotoViewerActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" 
+            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -253,6 +257,7 @@
             android:launchMode="singleTask"
             android:taskAffinity=".MapillaryViewerActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" 
+            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -265,11 +270,11 @@
         </activity>
         <activity
             android:name=".filter.TagFilterActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode"
+            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
             android:theme="@style/Theme.customActionBar" />
         <activity
             android:name=".filter.PresetFilterActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode"
+            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
             android:theme="@style/Theme.customActionBar" />
         <activity
             android:name="org.acra.dialog.CrashReportDialog"

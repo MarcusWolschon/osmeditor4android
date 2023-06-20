@@ -85,11 +85,13 @@
             android:key="@string/config_use_back_for_undo_key"
             android:summary="@string/config_use_back_for_undo_summary"
             android:title="@string/config_use_back_for_undo_title" />
-        <androidx.preference.CheckBoxPreference
-            android:defaultValue="true"
-            android:key="@string/config_enableLightTheme_key"
-            android:summary="@string/config_enableLightTheme_summary"
-            android:title="@string/config_enableLightTheme_title" />
+        <androidx.preference.ListPreference
+            android:defaultValue="@string/theme_light"
+            android:entries="@array/theme_entries_28"
+            android:entryValues="@array/theme_values_28"
+            android:key="@string/config_theme_key"
+            android:summary="@string/config_theme_summary"
+            android:title="@string/config_theme_title" />
         <androidx.preference.CheckBoxPreference
             android:defaultValue="true"
             android:key="@string/config_splitActionBarEnabled_key"
