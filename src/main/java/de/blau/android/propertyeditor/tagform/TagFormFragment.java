@@ -578,21 +578,22 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             return false; // already destroyed?
         }
         LinearLayout l = (LinearLayout) fragementView.findViewById(R.id.form_container_layout);
-        if (l != null) {
-            View v = l.findFocus();
-            Log.d(DEBUG_TAG, "focus is on " + v);
-            if (v instanceof CustomAutoCompleteTextView || v instanceof EditText) {
-                View row = v;
-                do {
-                    row = (View) row.getParent();
-                } while (row != null && !(row instanceof TextRow || row instanceof MultiTextRow));
-                if (row != null) {
-                    String rowKey = ((KeyValueRow) row).getKey();
-                    String rowValue = ((KeyValueRow) row).getValue();
-                    updateSingleValue(rowKey, rowValue);
-                    if (row.getParent() instanceof EditableLayout) {
-                        ((EditableLayout) row.getParent()).putTag(rowKey, rowValue);
-                    }
+        if (l == null) {
+            return true;
+        }
+        View v = l.findFocus();
+        Log.d(DEBUG_TAG, "focus is on " + v);
+        if (v instanceof CustomAutoCompleteTextView || v instanceof EditText) {
+            View row = v;
+            do {
+                row = (View) row.getParent();
+            } while (row != null && !(row instanceof TextRow || row instanceof MultiTextRow));
+            if (row != null) {
+                String rowKey = ((KeyValueRow) row).getKey();
+                String rowValue = ((KeyValueRow) row).getValue();
+                updateSingleValue(rowKey, rowValue);
+                if (row.getParent() instanceof EditableLayout) {
+                    ((EditableLayout) row.getParent()).putTag(rowKey, rowValue);
                 }
             }
         }

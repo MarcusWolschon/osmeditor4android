@@ -247,23 +247,24 @@ public class MergeAction {
         List<Relation> r1 = o1.getParentRelations() != null ? o1.getParentRelations() : new ArrayList<>();
         List<Relation> r2 = o2.getParentRelations() != null ? o2.getParentRelations() : new ArrayList<>();
         for (Relation r : r1) {
-            if (r2.contains(r)) {
-                RelationMember rm1 = r.getMember(o1);
-                RelationMember rm2 = r.getMember(o2);
-                if (rm1 != null && rm2 != null) { // if either of these are null something is broken
-                    String role1 = rm1.getRole();
-                    String role2 = rm2.getRole();
-                    // noinspection StringEquality
-                    if ((role1 != null && role2 == null) || (role1 == null && role2 != null) || (role1 != role2 && !role1.equals(role2))) { // NOSONAR
-                        Log.d(DEBUG_TAG, "role conflict between " + o1.getDescription() + " role " + role1 + " and " + o2.getDescription() + " role " + role2);
-                        addRoleConflictIssue(result, r);
-                    }
-                } else {
-                    String msg = "inconsistent relation membership in " + r.getOsmId() + " for " + o1.getOsmId() + " and " + o2.getOsmId();
-                    Log.e(DEBUG_TAG, msg);
-                    ACRAHelper.nocrashReport(null, msg);
+            if (!r2.contains(r)) {
+                continue;
+            }
+            RelationMember rm1 = r.getMember(o1);
+            RelationMember rm2 = r.getMember(o2);
+            if (rm1 != null && rm2 != null) { // if either of these are null something is broken
+                String role1 = rm1.getRole();
+                String role2 = rm2.getRole();
+                // noinspection StringEquality
+                if ((role1 != null && role2 == null) || (role1 == null && role2 != null) || (role1 != role2 && !role1.equals(role2))) { // NOSONAR
+                    Log.d(DEBUG_TAG, "role conflict between " + o1.getDescription() + " role " + role1 + " and " + o2.getDescription() + " role " + role2);
                     addRoleConflictIssue(result, r);
                 }
+            } else {
+                String msg = "inconsistent relation membership in " + r.getOsmId() + " for " + o1.getOsmId() + " and " + o2.getOsmId();
+                Log.e(DEBUG_TAG, msg);
+                ACRAHelper.nocrashReport(null, msg);
+                addRoleConflictIssue(result, r);
             }
         }
         return result;
@@ -709,23 +710,23 @@ public class MergeAction {
         for (Entry<String, String> entry : e2.getTags().entrySet()) {
             final String key = entry.getKey();
             String value = entry.getValue();
-            final String mergedValue = merged.get(key);
-            if (mergedValue != null) {
-                if (!mergedValue.equals(value)) { // identical tags do not need to be merged
-                    if (Tags.hasNestedLists(key)) {
-                        value = mergedValue + Tags.OSM_VALUE_SEPARATOR + value; // no expectation that this is valid
-                    } else {
-                        Set<String> values = new LinkedHashSet<>(Arrays.asList(splitValue(mergedValue)));
-                        values.addAll(Arrays.asList(splitValue(value)));
-                        value = Util.toOsmList(values);
-                    }
-                    if (value.length() > Capabilities.DEFAULT_MAX_STRING_LENGTH) {
-                        // can't merge without losing information
-                        throw new OsmIllegalOperationException("Merged tags too long for key " + key);
-                    }
-                    merged.put(key, value);
+            final String mergedValue = merged.get(key); // NOSONAR
+            if (mergedValue == null) {
+                merged.put(key, value);
+                continue;
+            }
+            if (!mergedValue.equals(value)) { // identical tags do not need to be merged
+                if (Tags.hasNestedLists(key)) {
+                    value = mergedValue + Tags.OSM_VALUE_SEPARATOR + value; // no expectation that this is valid
+                } else {
+                    Set<String> values = new LinkedHashSet<>(Arrays.asList(splitValue(mergedValue)));
+                    values.addAll(Arrays.asList(splitValue(value)));
+                    value = Util.toOsmList(values);
                 }
-            } else {
+                if (value.length() > Capabilities.DEFAULT_MAX_STRING_LENGTH) {
+                    // can't merge without losing information
+                    throw new OsmIllegalOperationException("Merged tags too long for key " + key);
+                }
                 merged.put(key, value);
             }
         }

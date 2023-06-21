@@ -143,67 +143,68 @@ public class SplitPaneLayout extends ViewGroup {
      */
     private void extractAttributes(@NonNull Context context, @Nullable AttributeSet attrs) {
         createDefaultHandle();
-        if (attrs != null) {
-            TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SplitPaneLayout);
-            mOrientation = a.getInt(R.styleable.SplitPaneLayout_orientation, 0);
-            mSplitterSize = a.getDimensionPixelSize(R.styleable.SplitPaneLayout_splitterSize,
-                    context.getResources().getDimensionPixelSize(R.dimen.spl_default_splitter_size));
-            mSplitterMovable = a.getBoolean(R.styleable.SplitPaneLayout_splitterMovable, true);
-            TypedValue value = a.peekValue(R.styleable.SplitPaneLayout_splitterPosition);
-            if (value != null) {
-                if (value.type == TypedValue.TYPE_DIMENSION) {
-                    mSplitterPosition = a.getDimensionPixelSize(R.styleable.SplitPaneLayout_splitterPosition, Integer.MIN_VALUE);
-                } else if (value.type == TypedValue.TYPE_FRACTION) {
-                    mSplitterPositionPercent = a.getFraction(R.styleable.SplitPaneLayout_splitterPosition, 100, 100, 50) * 0.01f;
-                }
-            } else {
-                mSplitterPosition = Integer.MIN_VALUE;
-                mSplitterPositionPercent = 0.5f;
-            }
-            value = a.peekValue(R.styleable.SplitPaneLayout_splitterBackground);
-            if (value != null) {
-                if (value.type == TypedValue.TYPE_REFERENCE || value.type == TypedValue.TYPE_STRING) {
-                    mSplitterDrawable = a.getDrawable(R.styleable.SplitPaneLayout_splitterBackground);
-                } else if (value.type == TypedValue.TYPE_INT_COLOR_ARGB8 || value.type == TypedValue.TYPE_INT_COLOR_ARGB4
-                        || value.type == TypedValue.TYPE_INT_COLOR_RGB8 || value.type == TypedValue.TYPE_INT_COLOR_RGB4) {
-                    mSplitterDrawable = new PaintDrawable(a.getColor(R.styleable.SplitPaneLayout_splitterBackground, DEFAULT_COLOR));
-                }
-            }
-            value = a.peekValue(R.styleable.SplitPaneLayout_splitterDraggingBackground);
-            if (value != null) {
-                if (value.type == TypedValue.TYPE_REFERENCE || value.type == TypedValue.TYPE_STRING) {
-                    mSplitterDraggingDrawable = a.getDrawable(R.styleable.SplitPaneLayout_splitterDraggingBackground);
-                } else if (value.type == TypedValue.TYPE_INT_COLOR_ARGB8 || value.type == TypedValue.TYPE_INT_COLOR_ARGB4
-                        || value.type == TypedValue.TYPE_INT_COLOR_RGB8 || value.type == TypedValue.TYPE_INT_COLOR_RGB4) {
-                    mSplitterDraggingDrawable = new PaintDrawable(a.getColor(R.styleable.SplitPaneLayout_splitterDraggingBackground, DEFAULT_DRAGGING_COLOR));
-                }
-            } else {
-                mSplitterDraggingDrawable = new PaintDrawable(DEFAULT_DRAGGING_COLOR);
-            }
-
-            value = a.peekValue(R.styleable.SplitPaneLayout_handleBackground);
-            if (value != null) {
-                if (value.type == TypedValue.TYPE_REFERENCE || value.type == TypedValue.TYPE_STRING) {
-                    mHandleDrawable = a.getDrawable(R.styleable.SplitPaneLayout_handleBackground);
-                } else if (value.type == TypedValue.TYPE_INT_COLOR_ARGB8 || value.type == TypedValue.TYPE_INT_COLOR_ARGB4
-                        || value.type == TypedValue.TYPE_INT_COLOR_RGB8 || value.type == TypedValue.TYPE_INT_COLOR_RGB4) {
-                    ((ShapeDrawable) mHandleDrawable).getPaint().setColor(a.getColor(R.styleable.SplitPaneLayout_handleBackground, DEFAULT_COLOR));
-                    ((ShapeDrawable) mHandleDrawable).getPaint().setStrokeWidth(mSplitterSize);
-                }
-            }
-            value = a.peekValue(R.styleable.SplitPaneLayout_handleDraggingBackground);
-            if (value != null) {
-                if (value.type == TypedValue.TYPE_REFERENCE || value.type == TypedValue.TYPE_STRING) {
-                    mHandleDraggingDrawable = a.getDrawable(R.styleable.SplitPaneLayout_handleDraggingBackground);
-                } else if (value.type == TypedValue.TYPE_INT_COLOR_ARGB8 || value.type == TypedValue.TYPE_INT_COLOR_ARGB4
-                        || value.type == TypedValue.TYPE_INT_COLOR_RGB8 || value.type == TypedValue.TYPE_INT_COLOR_RGB4) {
-                    ((ShapeDrawable) mHandleDraggingDrawable).getPaint()
-                            .setColor(a.getColor(R.styleable.SplitPaneLayout_handleDraggingBackground, DEFAULT_DRAGGING_COLOR));
-                    ((ShapeDrawable) mHandleDraggingDrawable).getPaint().setStrokeWidth(mSplitterSize);
-                }
-            }
-            a.recycle();
+        if (attrs == null) {
+            return;
         }
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SplitPaneLayout);
+        mOrientation = a.getInt(R.styleable.SplitPaneLayout_orientation, 0);
+        mSplitterSize = a.getDimensionPixelSize(R.styleable.SplitPaneLayout_splitterSize,
+                context.getResources().getDimensionPixelSize(R.dimen.spl_default_splitter_size));
+        mSplitterMovable = a.getBoolean(R.styleable.SplitPaneLayout_splitterMovable, true);
+        TypedValue value = a.peekValue(R.styleable.SplitPaneLayout_splitterPosition);
+        if (value != null) {
+            if (value.type == TypedValue.TYPE_DIMENSION) {
+                mSplitterPosition = a.getDimensionPixelSize(R.styleable.SplitPaneLayout_splitterPosition, Integer.MIN_VALUE);
+            } else if (value.type == TypedValue.TYPE_FRACTION) {
+                mSplitterPositionPercent = a.getFraction(R.styleable.SplitPaneLayout_splitterPosition, 100, 100, 50) * 0.01f;
+            }
+        } else {
+            mSplitterPosition = Integer.MIN_VALUE;
+            mSplitterPositionPercent = 0.5f;
+        }
+        value = a.peekValue(R.styleable.SplitPaneLayout_splitterBackground);
+        if (value != null) {
+            if (value.type == TypedValue.TYPE_REFERENCE || value.type == TypedValue.TYPE_STRING) {
+                mSplitterDrawable = a.getDrawable(R.styleable.SplitPaneLayout_splitterBackground);
+            } else if (value.type == TypedValue.TYPE_INT_COLOR_ARGB8 || value.type == TypedValue.TYPE_INT_COLOR_ARGB4
+                    || value.type == TypedValue.TYPE_INT_COLOR_RGB8 || value.type == TypedValue.TYPE_INT_COLOR_RGB4) {
+                mSplitterDrawable = new PaintDrawable(a.getColor(R.styleable.SplitPaneLayout_splitterBackground, DEFAULT_COLOR));
+            }
+        }
+        value = a.peekValue(R.styleable.SplitPaneLayout_splitterDraggingBackground);
+        if (value != null) {
+            if (value.type == TypedValue.TYPE_REFERENCE || value.type == TypedValue.TYPE_STRING) {
+                mSplitterDraggingDrawable = a.getDrawable(R.styleable.SplitPaneLayout_splitterDraggingBackground);
+            } else if (value.type == TypedValue.TYPE_INT_COLOR_ARGB8 || value.type == TypedValue.TYPE_INT_COLOR_ARGB4
+                    || value.type == TypedValue.TYPE_INT_COLOR_RGB8 || value.type == TypedValue.TYPE_INT_COLOR_RGB4) {
+                mSplitterDraggingDrawable = new PaintDrawable(a.getColor(R.styleable.SplitPaneLayout_splitterDraggingBackground, DEFAULT_DRAGGING_COLOR));
+            }
+        } else {
+            mSplitterDraggingDrawable = new PaintDrawable(DEFAULT_DRAGGING_COLOR);
+        }
+
+        value = a.peekValue(R.styleable.SplitPaneLayout_handleBackground);
+        if (value != null) {
+            if (value.type == TypedValue.TYPE_REFERENCE || value.type == TypedValue.TYPE_STRING) {
+                mHandleDrawable = a.getDrawable(R.styleable.SplitPaneLayout_handleBackground);
+            } else if (value.type == TypedValue.TYPE_INT_COLOR_ARGB8 || value.type == TypedValue.TYPE_INT_COLOR_ARGB4
+                    || value.type == TypedValue.TYPE_INT_COLOR_RGB8 || value.type == TypedValue.TYPE_INT_COLOR_RGB4) {
+                ((ShapeDrawable) mHandleDrawable).getPaint().setColor(a.getColor(R.styleable.SplitPaneLayout_handleBackground, DEFAULT_COLOR));
+                ((ShapeDrawable) mHandleDrawable).getPaint().setStrokeWidth(mSplitterSize);
+            }
+        }
+        value = a.peekValue(R.styleable.SplitPaneLayout_handleDraggingBackground);
+        if (value != null) {
+            if (value.type == TypedValue.TYPE_REFERENCE || value.type == TypedValue.TYPE_STRING) {
+                mHandleDraggingDrawable = a.getDrawable(R.styleable.SplitPaneLayout_handleDraggingBackground);
+            } else if (value.type == TypedValue.TYPE_INT_COLOR_ARGB8 || value.type == TypedValue.TYPE_INT_COLOR_ARGB4
+                    || value.type == TypedValue.TYPE_INT_COLOR_RGB8 || value.type == TypedValue.TYPE_INT_COLOR_RGB4) {
+                ((ShapeDrawable) mHandleDraggingDrawable).getPaint()
+                        .setColor(a.getColor(R.styleable.SplitPaneLayout_handleDraggingBackground, DEFAULT_DRAGGING_COLOR));
+                ((ShapeDrawable) mHandleDraggingDrawable).getPaint().setStrokeWidth(mSplitterSize);
+            }
+        }
+        a.recycle();
     }
 
     @Override
@@ -215,34 +216,35 @@ public class SplitPaneLayout extends ViewGroup {
         int heightMode = MeasureSpec.getMode(heightMeasureSpec);
 
         check();
-        if (widthSize > 0 && heightSize > 0) {
-            final int halfOfSplitter = mSplitterSize / 2;
-            if (mOrientation == ORIENTATION_HORIZONTAL) {
-                if (mSplitterPosition == Integer.MIN_VALUE && mSplitterPositionPercent < 0) {
-                    mSplitterPosition = widthSize / 2;
-                } else if (mSplitterPositionPercent >= 0) {
-                    mSplitterPosition = (int) (widthSize * mSplitterPositionPercent);
-                } else if (mSplitterPosition != Integer.MIN_VALUE && mSplitterPositionPercent < 0) {
-                    calcPercent(mSplitterPosition, widthSize);
-                }
-                getChildAt(0).measure(MeasureSpec.makeMeasureSpec(mSplitterPosition - halfOfSplitter, widthMode),
-                        MeasureSpec.makeMeasureSpec(heightSize, heightMode));
-                getChildAt(1).measure(MeasureSpec.makeMeasureSpec(widthSize - halfOfSplitter - mSplitterPosition, widthMode),
-                        MeasureSpec.makeMeasureSpec(heightSize, heightMode));
-            } else if (mOrientation == ORIENTATION_VERTICAL) {
-                if (mSplitterPosition == Integer.MIN_VALUE && mSplitterPositionPercent < 0) {
-                    mSplitterPosition = heightSize / 2;
-                } else if (mSplitterPositionPercent >= 0) {
-                    mSplitterPosition = (int) (heightSize * mSplitterPositionPercent);
-                } else if (mSplitterPosition != Integer.MIN_VALUE && mSplitterPositionPercent < 0) {
-                    calcPercent(mSplitterPosition, heightSize);
-                }
-                getChildAt(0).measure(MeasureSpec.makeMeasureSpec(widthSize, widthMode),
-                        MeasureSpec.makeMeasureSpec(mSplitterPosition - halfOfSplitter, heightMode));
-                getChildAt(1).measure(MeasureSpec.makeMeasureSpec(widthSize, widthMode),
-                        MeasureSpec.makeMeasureSpec(heightSize - halfOfSplitter - mSplitterPosition, heightMode));
-            }
+        if (widthSize <= 0 || heightSize <= 0) {
+            return;
         }
+        final int halfOfSplitter = mSplitterSize / 2;
+        if (mOrientation == ORIENTATION_HORIZONTAL) {
+            if (mSplitterPosition == Integer.MIN_VALUE && mSplitterPositionPercent < 0) {
+                mSplitterPosition = widthSize / 2;
+            } else if (mSplitterPositionPercent >= 0) {
+                mSplitterPosition = (int) (widthSize * mSplitterPositionPercent);
+            } else if (mSplitterPosition != Integer.MIN_VALUE && mSplitterPositionPercent < 0) {
+                calcPercent(mSplitterPosition, widthSize);
+            }
+            getChildAt(0).measure(MeasureSpec.makeMeasureSpec(mSplitterPosition - halfOfSplitter, widthMode),
+                    MeasureSpec.makeMeasureSpec(heightSize, heightMode));
+            getChildAt(1).measure(MeasureSpec.makeMeasureSpec(widthSize - halfOfSplitter - mSplitterPosition, widthMode),
+                    MeasureSpec.makeMeasureSpec(heightSize, heightMode));
+            return;
+        }
+        // ORIENTATION_VERTICAL
+        if (mSplitterPosition == Integer.MIN_VALUE && mSplitterPositionPercent < 0) {
+            mSplitterPosition = heightSize / 2;
+        } else if (mSplitterPositionPercent >= 0) {
+            mSplitterPosition = (int) (heightSize * mSplitterPositionPercent);
+        } else if (mSplitterPosition != Integer.MIN_VALUE && mSplitterPositionPercent < 0) {
+            calcPercent(mSplitterPosition, heightSize);
+        }
+        getChildAt(0).measure(MeasureSpec.makeMeasureSpec(widthSize, widthMode), MeasureSpec.makeMeasureSpec(mSplitterPosition - halfOfSplitter, heightMode));
+        getChildAt(1).measure(MeasureSpec.makeMeasureSpec(widthSize, widthMode),
+                MeasureSpec.makeMeasureSpec(heightSize - halfOfSplitter - mSplitterPosition, heightMode));
     }
 
     @Override
@@ -274,52 +276,52 @@ public class SplitPaneLayout extends ViewGroup {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (mSplitterMovable) {
-            int x = (int) event.getX();
-            int y = (int) event.getY();
-
-            switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                if (mSplitterRect.contains(x, y) || mHandleRect.contains(x, y)) {
-                    performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
-                    isDragging = true;
-                    temp.set(mSplitterRect);
-                    invalidate();
-                    lastX = x;
-                    lastY = y;
-                }
-                break;
-            case MotionEvent.ACTION_MOVE:
-                if (isDragging) {
-                    if (mOrientation == ORIENTATION_HORIZONTAL) {
-                        temp.offset((x - lastX), 0);
-                    } else if (mOrientation == ORIENTATION_VERTICAL) {
-                        temp.offset(0, y - lastY);
-                    }
-                    lastX = x;
-                    lastY = y;
-                    invalidate();
-                }
-                break;
-            case MotionEvent.ACTION_UP:
-                if (isDragging) {
-                    isDragging = false;
-                    // note that the relative pos has to be set here
-                    if (mOrientation == ORIENTATION_HORIZONTAL) {
-                        calcPercent(x, getWidth());
-                    } else if (mOrientation == ORIENTATION_VERTICAL) {
-                        calcPercent(y, getHeight());
-                    }
-                    remeasure();
-                    requestLayout();
-                }
-                break;
-            default:
-                return false;
-            }
-            return true;
+        if (!mSplitterMovable) {
+            return false;
         }
-        return false;
+        int x = (int) event.getX();
+        int y = (int) event.getY();
+
+        switch (event.getAction()) {
+        case MotionEvent.ACTION_DOWN:
+            if (mSplitterRect.contains(x, y) || mHandleRect.contains(x, y)) {
+                performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
+                isDragging = true;
+                temp.set(mSplitterRect);
+                invalidate();
+                lastX = x;
+                lastY = y;
+            }
+            break;
+        case MotionEvent.ACTION_MOVE:
+            if (isDragging) {
+                if (mOrientation == ORIENTATION_HORIZONTAL) {
+                    temp.offset((x - lastX), 0);
+                } else if (mOrientation == ORIENTATION_VERTICAL) {
+                    temp.offset(0, y - lastY);
+                }
+                lastX = x;
+                lastY = y;
+                invalidate();
+            }
+            break;
+        case MotionEvent.ACTION_UP:
+            if (isDragging) {
+                isDragging = false;
+                // note that the relative pos has to be set here
+                if (mOrientation == ORIENTATION_HORIZONTAL) {
+                    calcPercent(x, getWidth());
+                } else if (mOrientation == ORIENTATION_VERTICAL) {
+                    calcPercent(y, getHeight());
+                }
+                remeasure();
+                requestLayout();
+            }
+            break;
+        default:
+            return false;
+        }
+        return true;
     }
 
     /**

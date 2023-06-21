@@ -167,27 +167,28 @@ public class TileLayerDatabaseView {
      * @param layer the layer we are updating
      */
     public static void updateLayerConfig(@NonNull Context context, @Nullable MapTilesLayer<?> layer) {
-        if (layer != null) {
-            Log.d(DEBUG_TAG, "updating layer " + layer.getName());
-            TileLayerSource config = layer.getTileLayerConfiguration();
-            if (config != null) {
-                TileLayerSource newConfig = TileLayerSource.get(context, config.getId(), false);
-                if (newConfig != null) { // if null the layer has been deleted
-                    boolean isOverlay = layer.getType() == LayerType.OVERLAYIMAGERY;
-                    if ((isOverlay && !newConfig.isOverlay()) || (!isOverlay && newConfig.isOverlay())) {
-                        // not good overlay as background or the other way around
-                        try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(context)) {
-                            db.deleteLayer(isOverlay ? LayerType.OVERLAYIMAGERY : LayerType.IMAGERY, newConfig.getId());
-                        }
-                    } else {
-                        layer.setRendererInfo(newConfig);
+        if (layer == null) {
+            return;
+        }
+        Log.d(DEBUG_TAG, "updating layer " + layer.getName());
+        TileLayerSource config = layer.getTileLayerConfiguration();
+        if (config != null) {
+            TileLayerSource newConfig = TileLayerSource.get(context, config.getId(), false);
+            if (newConfig != null) { // if null the layer has been deleted
+                boolean isOverlay = layer.getType() == LayerType.OVERLAYIMAGERY;
+                if ((isOverlay && !newConfig.isOverlay()) || (!isOverlay && newConfig.isOverlay())) {
+                    // not good overlay as background or the other way around
+                    try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(context)) {
+                        db.deleteLayer(isOverlay ? LayerType.OVERLAYIMAGERY : LayerType.IMAGERY, newConfig.getId());
                     }
+                } else {
+                    layer.setRendererInfo(newConfig);
                 }
             }
-            layer.getTileProvider().update();
-            checkMru(layer, layer.getType() == LayerType.OVERLAYIMAGERY ? TileLayerSource.getOverlayIds(null, false, null, null)
-                    : TileLayerSource.getIds(null, false, null, null));
         }
+        layer.getTileProvider().update();
+        checkMru(layer, layer.getType() == LayerType.OVERLAYIMAGERY ? TileLayerSource.getOverlayIds(null, false, null, null)
+                : TileLayerSource.getIds(null, false, null, null));
     }
 
     /**

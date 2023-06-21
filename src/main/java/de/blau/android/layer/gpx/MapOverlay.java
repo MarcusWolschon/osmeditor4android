@@ -215,33 +215,34 @@ public class MapOverlay extends StyleableLayer
      * @param canvas the Canvas to draw on to
      */
     private void drawWayPoints(@NonNull Canvas canvas) {
-        if (symbolPath != null) {
-            final ViewBox viewBox = map.getViewBox();
-            final int width = map.getWidth();
-            final int height = map.getHeight();
-            final int zoomLevel = map.getZoomLevel();
-            final int labelIndex = labelList.indexOf(labelKey);
-            final boolean drawLabel = zoomLevel >= labelMinZoom && labelIndex >= 0;
-            final float topOffset = yOffset + fm.bottom;
-            final float textSize = fontPaint.getTextSize();
-            for (WayPoint wp : track.getWayPoints()) {
-                int lon = wp.getLon();
-                int lat = wp.getLat();
-                if (viewBox.contains(lon, lat)) {
-                    float x = GeoMath.lonE7ToX(width, viewBox, lon);
-                    float y = GeoMath.latE7ToY(height, width, viewBox, lat);
-                    canvas.save();
-                    canvas.translate(x, y);
-                    canvas.drawPath(symbolPath, wayPointPaint);
-                    canvas.restore();
-                    if (drawLabel) {
-                        String label = indexToLabel(labelIndex, wp);
-                        if (label != null) {
-                            float halfTextWidth = fontPaint.measureText(label) / 2;
-                            float top = y + topOffset;
-                            canvas.drawRect(x - halfTextWidth, top, x + halfTextWidth, top - textSize, labelBackground);
-                            canvas.drawText(label, x - halfTextWidth, y + yOffset, fontPaint);
-                        }
+        if (symbolPath == null) {
+            return;
+        }
+        final ViewBox viewBox = map.getViewBox();
+        final int width = map.getWidth();
+        final int height = map.getHeight();
+        final int zoomLevel = map.getZoomLevel();
+        final int labelIndex = labelList.indexOf(labelKey);
+        final boolean drawLabel = zoomLevel >= labelMinZoom && labelIndex >= 0;
+        final float topOffset = yOffset + fm.bottom;
+        final float textSize = fontPaint.getTextSize();
+        for (WayPoint wp : track.getWayPoints()) {
+            int lon = wp.getLon();
+            int lat = wp.getLat();
+            if (viewBox.contains(lon, lat)) {
+                float x = GeoMath.lonE7ToX(width, viewBox, lon);
+                float y = GeoMath.latE7ToY(height, width, viewBox, lat);
+                canvas.save();
+                canvas.translate(x, y);
+                canvas.drawPath(symbolPath, wayPointPaint);
+                canvas.restore();
+                if (drawLabel) {
+                    String label = indexToLabel(labelIndex, wp);
+                    if (label != null) {
+                        float halfTextWidth = fontPaint.measureText(label) / 2;
+                        float top = y + topOffset;
+                        canvas.drawRect(x - halfTextWidth, top, x + halfTextWidth, top - textSize, labelBackground);
+                        canvas.drawText(label, x - halfTextWidth, y + yOffset, fontPaint);
                     }
                 }
             }

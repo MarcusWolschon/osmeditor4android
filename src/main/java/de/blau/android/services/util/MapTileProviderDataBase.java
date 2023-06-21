@@ -90,9 +90,9 @@ public class MapTileProviderDataBase {
             + " ASC";
 
     private static final String T_FSCACHE_GET = "SELECT " + T_FSCACHE_DATA + " FROM " + T_FSCACHE + " WHERE " + T_FSCACHE_WHERE;
-    
+
     static final String TILE_MARKED_INVALID_IN_DATABASE = "Tile marked invalid in database";
-    
+
     // ===========================================================
     // Fields
     // ===========================================================
@@ -184,7 +184,6 @@ public class MapTileProviderDataBase {
                 }
                 return tileData != null ? tileData.length : 0;
             }
-            return 0;
         } catch (SQLiteConstraintException scex) {
             if (tileData != null && isInvalid(aTile)) {
                 Log.w(DEBUG_TAG, "Formerly invalid tile has become available " + aTile);
@@ -198,13 +197,12 @@ public class MapTileProviderDataBase {
                     Log.d(MapTileFilesystemProvider.DEBUG_TAG, "Inserting tile for invalid one result " + result);
                 }
                 return tileData.length;
-            } else {
-                Log.w(DEBUG_TAG, "Constraint violated inserting tile " + aTile);
-                return 0; // file was already inserted
             }
+            Log.w(DEBUG_TAG, "Constraint violated inserting tile " + aTile);
         } catch (SQLiteException sex) { // handle these the same
             throw new IOException(sex.getMessage());
         }
+        return 0;
     }
 
     /**

@@ -188,37 +188,38 @@ public class ComboRow extends LinearLayout {
         final ComboRow row = (ComboRow) inflater.inflate(R.layout.tag_form_combo_row, rowLayout, false);
         row.getKeyView().setText(hint != null ? hint : key);
         row.getKeyView().setTag(key);
-        if (adapter != null) {
-            for (int i = 0; i < adapter.getCount(); i++) {
-                Object o = adapter.getItem(i);
-                StringWithDescriptionAndIcon swd = new StringWithDescriptionAndIcon(o);
-                String v = swd.getValue();
-                String description = swd.getDescription();
-                if (v == null || "".equals(v)) {
-                    continue;
-                }
-                if (description == null) {
-                    description = v;
-                }
-                Drawable icon = swd.getIcon(caller.getContext(), preset);
-                row.addButton(description, v, v.equals(value), icon);
-            }
-
-            row.getRadioGroup().setOnCheckedChangeListener((group, checkedId) -> {
-                Log.d(DEBUG_TAG, "radio group onCheckedChanged");
-                String v = "";
-                if (checkedId != -1) {
-                    RadioButton button = (RadioButton) group.findViewById(checkedId);
-                    v = (String) button.getTag();
-                }
-                caller.updateSingleValue(key, v);
-                if (rowLayout instanceof EditableLayout) {
-                    ((EditableLayout) rowLayout).putTag(key, v);
-                }
-                row.setValue(v);
-                row.setChanged(true);
-            });
+        if (adapter == null) {
+            return row;
         }
+        for (int i = 0; i < adapter.getCount(); i++) {
+            Object o = adapter.getItem(i);
+            StringWithDescriptionAndIcon swd = new StringWithDescriptionAndIcon(o);
+            String v = swd.getValue();
+            String description = swd.getDescription();
+            if (v == null || "".equals(v)) {
+                continue;
+            }
+            if (description == null) {
+                description = v;
+            }
+            Drawable icon = swd.getIcon(caller.getContext(), preset);
+            row.addButton(description, v, v.equals(value), icon);
+        }
+
+        row.getRadioGroup().setOnCheckedChangeListener((group, checkedId) -> {
+            Log.d(DEBUG_TAG, "radio group onCheckedChanged");
+            String v = "";
+            if (checkedId != -1) {
+                RadioButton button = (RadioButton) group.findViewById(checkedId);
+                v = (String) button.getTag();
+            }
+            caller.updateSingleValue(key, v);
+            if (rowLayout instanceof EditableLayout) {
+                ((EditableLayout) rowLayout).putTag(key, v);
+            }
+            row.setValue(v);
+            row.setChanged(true);
+        });
         return row;
     }
 }

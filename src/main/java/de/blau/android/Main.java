@@ -1234,14 +1234,14 @@ public class Main extends FullScreenAppCompatActivity
             } catch (OsmException e) {
                 Log.d(DEBUG_TAG, "processIntents got " + e.getMessage());
             }
-        } else {
-            Log.d(DEBUG_TAG, "moving to position");
-            if (hasZoom) {
-                viewBox.setZoom(getMap(), zoom);
-            }
-            viewBox.moveTo(getMap(), lonE7, latE7);
-            map.invalidate();
+            return;
         }
+        Log.d(DEBUG_TAG, "moving to position");
+        if (hasZoom) {
+            viewBox.setZoom(getMap(), zoom);
+        }
+        viewBox.moveTo(getMap(), lonE7, latE7);
+        map.invalidate();
     }
 
     /**

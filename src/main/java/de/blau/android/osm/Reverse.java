@@ -160,35 +160,38 @@ final class Reverse {
     private static String reverseDirection(final String value) {
         if (Tags.VALUE_UP.equals(value)) {
             return Tags.VALUE_DOWN;
-        } else if (Tags.VALUE_DOWN.equals(value)) {
+        }
+        if (Tags.VALUE_DOWN.equals(value)) {
             return Tags.VALUE_UP;
-        } else if (Tags.VALUE_FORWARD.equals(value)) {
+        }
+        if (Tags.VALUE_FORWARD.equals(value)) {
             return Tags.VALUE_BACKWARD;
-        } else if (Tags.VALUE_BACKWARD.equals(value)) {
+        }
+        if (Tags.VALUE_BACKWARD.equals(value)) {
             return Tags.VALUE_FORWARD;
-        } else {
-            if (value.endsWith(DEGREE)) { // degrees
-                try {
-                    String tmpVal = value.substring(0, value.length() - 1);
-                    return floatToString(((Float.valueOf(tmpVal) + 180.0f) % 360.0f)) + DEGREE;
-                } catch (NumberFormatException nex) {
-                    // oops put back original values
-                    return value;
-                }
-            } else if (value.matches("-?\\d+(\\.\\d+)?")) { // degrees without degree symbol
-                try {
-                    return floatToString(((Float.valueOf(value) + 180.0f) % 360.0f));
-                } catch (NumberFormatException nex) {
-                    // oops put back original values
-                    return value;
-                }
-            } else { // cardinal directions
-                try {
-                    return reverseCardinalDirection(value);
-                } catch (IllegalArgumentException fex) {
-                    return value;
-                }
+        }
+        if (value.endsWith(DEGREE)) { // degrees
+            try {
+                String tmpVal = value.substring(0, value.length() - 1);
+                return floatToString(((Float.valueOf(tmpVal) + 180.0f) % 360.0f)) + DEGREE;
+            } catch (NumberFormatException nex) {
+                // oops put back original values
+                return value;
             }
+        }
+        if (value.matches("-?\\d+(\\.\\d+)?")) { // degrees without degree symbol
+            try {
+                return floatToString(((Float.valueOf(value) + 180.0f) % 360.0f));
+            } catch (NumberFormatException nex) {
+                // oops put back original values
+                return value;
+            }
+        }
+        // cardinal directions
+        try {
+            return reverseCardinalDirection(value);
+        } catch (IllegalArgumentException fex) {
+            return value;
         }
     }
 

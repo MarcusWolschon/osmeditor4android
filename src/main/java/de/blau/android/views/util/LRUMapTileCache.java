@@ -228,39 +228,38 @@ public class LRUMapTileCache<T> {
 
         CacheElement<T> prev = cache.get(key);
         // if the key isn't in the cache and the cache is full...
-        if (prev == null) {
-            long sizeInc = 1;
-            if (value instanceof Bitmap) {
-                Bitmap bitmap = (Bitmap) value;
-                sizeInc = (long) bitmap.getRowBytes() * bitmap.getHeight();
-                if (!applyCacheLimit(sizeInc * 2, owner)) {
-                    // failed: cache is to small to handle all tiles necessary for one draw cycle
-                    // see if we can expand by 50%
-                    if (maxCacheSize < (Runtime.getRuntime().maxMemory() - Runtime.getRuntime().totalMemory()) && (maxCacheSize / 2 > sizeInc)) {
-                        Log.w(DEBUG_TAG, "expanding memory tile cache from " + maxCacheSize + " to " + (maxCacheSize + maxCacheSize / 2));
-                        maxCacheSize = maxCacheSize + maxCacheSize / 2;
-                    } else {
-                        throw new StorageException(StorageException.OOM); // can't expand any more
-                    }
-                }
-            } else {
-                applyCacheLimit(2, owner);
-            }
-            // avoid creating new objects
-            CacheElement<T> ce = null;
-            if (!reuseList.isEmpty()) {
-                ce = reuseList.remove(0);
-                ce.init(key, value, recycleable, owner);
-            } else {
-                ce = new CacheElement<>(key, value, recycleable, owner);
-            }
-            list.add(0, ce);
-            cache.put(key, ce);
-            cacheSize += sizeInc;
-        } else {
+        if (prev != null) {
             update(prev);
+            return value;
         }
-
+        long sizeInc = 1;
+        if (value instanceof Bitmap) {
+            Bitmap bitmap = (Bitmap) value;
+            sizeInc = (long) bitmap.getRowBytes() * bitmap.getHeight();
+            if (!applyCacheLimit(sizeInc * 2, owner)) {
+                // failed: cache is to small to handle all tiles necessary for one draw cycle
+                // see if we can expand by 50%
+                if (maxCacheSize < (Runtime.getRuntime().maxMemory() - Runtime.getRuntime().totalMemory()) && (maxCacheSize / 2 > sizeInc)) {
+                    Log.w(DEBUG_TAG, "expanding memory tile cache from " + maxCacheSize + " to " + (maxCacheSize + maxCacheSize / 2));
+                    maxCacheSize = maxCacheSize + maxCacheSize / 2;
+                } else {
+                    throw new StorageException(StorageException.OOM); // can't expand any more
+                }
+            }
+        } else {
+            applyCacheLimit(2, owner);
+        }
+        // avoid creating new objects
+        CacheElement<T> ce = null;
+        if (!reuseList.isEmpty()) {
+            ce = reuseList.remove(0);
+            ce.init(key, value, recycleable, owner);
+        } else {
+            ce = new CacheElement<>(key, value, recycleable, owner);
+        }
+        list.add(0, ce);
+        cache.put(key, ce);
+        cacheSize += sizeInc;
         return value;
     }
 

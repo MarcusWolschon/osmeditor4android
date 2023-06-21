@@ -77,16 +77,16 @@ public class PresetMRUInfo implements Serializable {
             Preset preset = item.getPreset();
             for (PresetItemLink pl : linkedPresets) {
                 PresetItem linkedItem = preset.getItemByName(pl.getPresetName(), region);
-                if (linkedItem != null) { // null if the link wasn't found
-                    TimestampedPresetElementPath linkedPath = new TimestampedPresetElementPath(linkedItem.getPath(rootGroup));
-                    if (!recentPresets.contains(linkedPath)) { // only add if not already present
-                        recentPresets.addFirst(linkedPath);
-                        if (recentPresets.size() > MAX_MRU_SIZE) {
-                            recentPresets.removeLast();
-                        }
-                    }
-                } else {
+                if (linkedItem == null) { // null if the link wasn't found
                     Log.e(DEBUG_TAG, "linked preset not found for " + pl.getPresetName() + " in preset " + item.getName());
+                    continue;
+                }
+                TimestampedPresetElementPath linkedPath = new TimestampedPresetElementPath(linkedItem.getPath(rootGroup));
+                if (!recentPresets.contains(linkedPath)) { // only add if not already present
+                    recentPresets.addFirst(linkedPath);
+                    if (recentPresets.size() > MAX_MRU_SIZE) {
+                        recentPresets.removeLast();
+                    }
                 }
             }
         }

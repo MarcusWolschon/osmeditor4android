@@ -48,7 +48,7 @@ import de.blau.android.util.Snack;
 
 public class TileLayerDialog {
 
-    protected static final String DEBUG_TAG = "TileLayerDialog";
+    protected static final String DEBUG_TAG = TileLayerDialog.class.getSimpleName();
 
     public interface OnUpdateListener {
         /**
@@ -217,7 +217,7 @@ public class TileLayerDialog {
                                 setBoundingBoxFields(templateView, corners[0], corners[1], corners[2], corners[3]);
                             }
                         }
-                        if (zooms != null && zooms.length == 2) {
+                        if (zooms.length == 2) {
                             minZoomPicker.setValue(zooms[0]);
                             maxZoomPicker.setValue(zooms[1]);
                         }
