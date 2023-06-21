@@ -1,12 +1,13 @@
 package de.blau.android.layer.mapillary;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -17,6 +18,7 @@ import com.orhanobut.mockwebserverplus.MockWebServerPlus;
 import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -27,6 +29,7 @@ import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.MockTileServer;
+import de.blau.android.R;
 import de.blau.android.TestUtils;
 import de.blau.android.layer.LayerType;
 import de.blau.android.photos.MapillaryViewerActivity;
@@ -164,7 +167,13 @@ public class MapillaryTest {
                 mockImagesServer.server().takeRequest(10, TimeUnit.SECONDS);
                 mockImagesServer.server().takeRequest(10, TimeUnit.SECONDS);
             } catch (InterruptedException e) {
-                Assert.fail(e.getMessage());
+                fail(e.getMessage());
+            }
+            assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.share), false, true));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                assertTrue(TestUtils.findText(device, false, "178993950747668"));
+            } else { // currently can't test this properly on Android before 10
+                assertTrue(TestUtils.findText(device, false, "Share with"));
             }
             device.pressBack();
         } finally {
