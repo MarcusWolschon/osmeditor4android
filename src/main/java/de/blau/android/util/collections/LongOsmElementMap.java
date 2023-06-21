@@ -206,10 +206,8 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
             } else if (e.getOsmId() == key) {
                 data[ptr] = value;
                 return (V) e;
-            } else if (e == removedKey) {
-                if (firstRemoved == -1) {
-                    firstRemoved = ptr;
-                }
+            } else if (e == removedKey && firstRemoved == -1) {
+                firstRemoved = ptr;
             }
         }
     }
