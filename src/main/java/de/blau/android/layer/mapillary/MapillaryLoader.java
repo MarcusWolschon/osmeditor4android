@@ -35,6 +35,7 @@ import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.contract.FileExtensions;
+import de.blau.android.contract.MimeTypes;
 import de.blau.android.contract.Schemes;
 import de.blau.android.osm.OsmXml;
 import de.blau.android.util.ExecutorTask;
@@ -86,49 +87,7 @@ class MapillaryLoader extends ImageLoader {
     @Override
     public void load(SubsamplingScaleImageView view, String key) {
         File imageFile = new File(cacheDir, key + JPG);
-        if (!imageFile.exists() || imageFile.length() == 0) { // download
-            if (mThreadPool == null) {
-                mThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(IMAGERY_LOAD_THREADS);
-            }
-            try {
-                mThreadPool.execute(() -> {
-                    Log.d(DEBUG_TAG, "querying server for " + key);
-                    try {
-                        String urlString = String.format(imageUrl, key);
-                        URL url = new URL(urlString);
-                        Request request = new Request.Builder().url(url).build();
-                        OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(20000, TimeUnit.MILLISECONDS)
-                                .readTimeout(20000, TimeUnit.MILLISECONDS).build();
-                        Call mapillaryCall = client.newCall(request);
-                        Response mapillaryCallResponse = mapillaryCall.execute();
-                        if (mapillaryCallResponse.isSuccessful()) {
-                            try (ResponseBody responseBody = mapillaryCallResponse.body(); InputStream inputStream = responseBody.byteStream()) {
-                                if (inputStream != null) {
-                                    JsonElement root = JsonParser
-                                            .parseReader(new BufferedReader(new InputStreamReader(inputStream, Charset.forName(OsmXml.UTF_8))));
-                                    if (root.isJsonObject() && ((JsonObject) root).has(THUMB_2048_URL_FIELD)) {
-                                        loadImage(key, imageFile, client, ((JsonObject) root).get(COMPUTED_GEOMETRY_FIELD),
-                                                ((JsonObject) root).get(THUMB_2048_URL_FIELD).getAsString());
-                                    } else {
-                                        throw new IOException("Unexpected / missing response");
-                                    }
-                                }
-                            }
-                        } else {
-                            throw new IOException(
-                                    "Download of " + key + " failed with " + mapillaryCallResponse.code() + " " + mapillaryCallResponse.message());
-                        }
-                    } catch (IOException e) {
-                        Log.e(DEBUG_TAG, e.getMessage());
-                        return;
-                    }
-                    setImage(view, imageFile);
-                    pruneCache();
-                });
-            } catch (RejectedExecutionException rjee) {
-                Log.e(DEBUG_TAG, "Execution rejected " + rjee.getMessage());
-            }
-        } else {
+        if (imageFile.exists() && imageFile.length() > 0) {
             if (!coordinates.containsKey(key)) {
                 try {
                     ExifInterface exif = new ExifInterface(imageFile);
@@ -138,6 +97,46 @@ class MapillaryLoader extends ImageLoader {
                 }
             }
             setImage(view, imageFile);
+            return;
+        }
+        // download
+        if (mThreadPool == null) {
+            mThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(IMAGERY_LOAD_THREADS);
+        }
+        try {
+            mThreadPool.execute(() -> {
+                Log.d(DEBUG_TAG, "querying server for " + key);
+                try {
+                    String urlString = String.format(imageUrl, key);
+                    URL url = new URL(urlString);
+                    Request request = new Request.Builder().url(url).build();
+                    OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(20000, TimeUnit.MILLISECONDS)
+                            .readTimeout(20000, TimeUnit.MILLISECONDS).build();
+                    Call mapillaryCall = client.newCall(request);
+                    Response mapillaryCallResponse = mapillaryCall.execute();
+                    if (!mapillaryCallResponse.isSuccessful()) {
+                        throw new IOException("Download of " + key + " failed with " + mapillaryCallResponse.code() + " " + mapillaryCallResponse.message());
+                    }
+                    try (ResponseBody responseBody = mapillaryCallResponse.body(); InputStream inputStream = responseBody.byteStream()) {
+                        if (inputStream != null) {
+                            JsonElement root = JsonParser.parseReader(new BufferedReader(new InputStreamReader(inputStream, Charset.forName(OsmXml.UTF_8))));
+                            if (root.isJsonObject() && ((JsonObject) root).has(THUMB_2048_URL_FIELD)) {
+                                loadImage(key, imageFile, client, ((JsonObject) root).get(COMPUTED_GEOMETRY_FIELD),
+                                        ((JsonObject) root).get(THUMB_2048_URL_FIELD).getAsString());
+                            } else {
+                                throw new IOException("Unexpected / missing response");
+                            }
+                        }
+                    }
+                } catch (IOException e) {
+                    Log.e(DEBUG_TAG, e.getMessage());
+                    return;
+                }
+                setImage(view, imageFile);
+                pruneCache();
+            });
+        } catch (RejectedExecutionException rjee) {
+            Log.e(DEBUG_TAG, "Execution rejected " + rjee.getMessage());
         }
     }
 
@@ -227,7 +226,7 @@ class MapillaryLoader extends ImageLoader {
         File imageFile = new File(cacheDir, key + JPG);
         if (imageFile.exists()) {
             Uri f = FileProvider.getUriForFile(context, context.getString(R.string.content_provider), imageFile);
-            de.blau.android.layer.photos.Util.startExternalPhotoViewer(context, f);
+            de.blau.android.layer.photos.Util.sharePhoto(context, key, f, MimeTypes.JPEG);
         } else {
             Snack.toastTopError(context, context.getString(R.string.toast_error_accessing_photo, key));
         }
