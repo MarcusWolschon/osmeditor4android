@@ -29,7 +29,7 @@ import de.blau.android.R;
  */
 public final class ClipboardUtils {
 
-    private static final String DEBUG_TAG = "ClipboardUtils";
+    private static final String DEBUG_TAG = ClipboardUtils.class.getSimpleName();
 
     private static final String EOL                 = "\\r?\\n|\\r";
     private static final String NON_BREAKABLE_SPACE = "\u00A0";
