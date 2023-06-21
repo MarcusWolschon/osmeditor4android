@@ -986,18 +986,19 @@ public class TrackerService extends Service {
         if ((location.getSpeed() < maxSpeed / 3.6f) && (prevLocation == null || location.distanceTo(prevLocation) > radius / 8)) {
             List<BoundingBox> bbList = new ArrayList<>(boxes);
             BoundingBox newBox = getNextBox(bbList, prevLocation, location, radius);
-            if (newBox != null) {
-                if (radius != 0) { // download
-                    List<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, newBox);
-                    for (BoundingBox b : bboxes) {
-                        if (b.getWidth() > 1 && b.getHeight() > 1) {
-                            // ignore super small bb likely due to rounding errors
-                            downloadBox.download(b);
-                        }
+            if (newBox == null) {
+                return;
+            }
+            if (radius != 0) { // download
+                List<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, newBox);
+                for (BoundingBox b : bboxes) {
+                    if (b.getWidth() > 1 && b.getHeight() > 1) {
+                        // ignore super small bb likely due to rounding errors
+                        downloadBox.download(b);
                     }
                 }
-                downloadBox.saveLocation(location);
             }
+            downloadBox.saveLocation(location);
         }
     }
 

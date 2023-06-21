@@ -93,45 +93,45 @@ public class RecentPresetsFragment extends BaseFragment {
     @Nullable
     private View getRecentPresetsView(@NonNull final LinearLayout presetLayout, @Nullable final OsmElement element, @Nullable final Preset[] presets) {
         View v = null;
-        if (presets != null && presets.length >= 1 && element != null) {
-            // check if any of the presets has a MRU
-            boolean mruFound = false;
-            for (Preset p : presets) {
-                if (p != null && p.hasMRU()) {
-                    mruFound = true;
-                    break;
-                }
-            }
-            if (mruFound) {
-                final ElementType filterType = element.getType();
-                final PresetClickHandler presetClickHandler = new PresetClickHandler() {
-                    @Override
-                    public void onItemClick(PresetItem item) {
-                        Log.d(DEBUG_TAG, "normal click");
-                        if (enabled) {
-                            presetSelectedListener.onPresetSelected(item);
-                            recreateRecentPresetView(presetLayout);
-                        }
-                    }
-
-                    @Override
-                    public boolean onItemLongClick(PresetItem item) {
-                        Log.d(DEBUG_TAG, "long click");
-                        if (enabled) {
-                            removePresetFromMRU(presetLayout, item);
-                        }
-                        return true;
-                    }
-                };
-                // all MRUs get added to this view
-                v = Preset.getRecentPresetView(getActivity(), presets, presetClickHandler, filterType, propertyEditorListener.getCountryIsoCode());
-
-                v.setId(R.id.recentPresets);
-            } else {
-                Log.d(DEBUG_TAG, "getRecentPresetsView no MRU found!");
-            }
-        } else {
+        if (presets == null || presets.length == 0 || element == null) {
             Log.d(DEBUG_TAG, "getRecentPresetsView problem with presets or element " + element);
+            return v;
+        }
+        // check if any of the presets has a MRU
+        boolean mruFound = false;
+        for (Preset p : presets) {
+            if (p != null && p.hasMRU()) {
+                mruFound = true;
+                break;
+            }
+        }
+        if (mruFound) {
+            final ElementType filterType = element.getType();
+            final PresetClickHandler presetClickHandler = new PresetClickHandler() {
+                @Override
+                public void onItemClick(PresetItem item) {
+                    Log.d(DEBUG_TAG, "normal click");
+                    if (enabled) {
+                        presetSelectedListener.onPresetSelected(item);
+                        recreateRecentPresetView(presetLayout);
+                    }
+                }
+
+                @Override
+                public boolean onItemLongClick(PresetItem item) {
+                    Log.d(DEBUG_TAG, "long click");
+                    if (enabled) {
+                        removePresetFromMRU(presetLayout, item);
+                    }
+                    return true;
+                }
+            };
+            // all MRUs get added to this view
+            v = Preset.getRecentPresetView(getActivity(), presets, presetClickHandler, filterType, propertyEditorListener.getCountryIsoCode());
+
+            v.setId(R.id.recentPresets);
+        } else {
+            Log.d(DEBUG_TAG, "getRecentPresetsView no MRU found!");
         }
         return v;
     }

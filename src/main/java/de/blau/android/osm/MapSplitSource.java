@@ -42,7 +42,7 @@ public final class MapSplitSource {
         final double latBottom = Math.toRadians(box.getBottom() / 1E7d);
 
         int[] minMaxZoom = mbTiles.getMinMaxZoom();
-        if (minMaxZoom == null) {
+        if (minMaxZoom.length == 0) {
             throw new UnsupportedFormatException(context.getString(R.string.error_mapsplit_missing_zoom));
         }
         int minZoom = minMaxZoom[0];

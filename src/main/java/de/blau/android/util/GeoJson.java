@@ -173,54 +173,55 @@ public final class GeoJson {
         boolean thisIntersects = false;
         boolean nextIntersects = false;
         int nodesSize = nodes.size();
-        if (nodesSize > 0) {
-            Point nextNode = nodes.get(0);
-            double nextNodeLat = nextNode.latitude();
-            double nextNodeLon = nextNode.longitude();
-            int nextNodeLatE7 = (int) (nextNode.latitude() * 1E7);
-            int nextNodeLonE7 = (int) (nextNode.longitude() * 1E7);
-            float x;
-            float y = -Float.MAX_VALUE;
-            for (int i = 0; i < nodesSize; i++) {
-                Point node = nextNode;
-                double nodeLon = nextNodeLon;
-                double nodeLat = nextNodeLat;
-                int nodeLonE7 = nextNodeLonE7;
-                int nodeLatE7 = nextNodeLatE7;
-                nextIntersects = true;
-                if (i < nodesSize - 1) {
-                    nextNode = nodes.get(i + 1);
-                    nextNodeLat = nextNode.latitude();
-                    nextNodeLon = nextNode.longitude();
-                    nextNodeLatE7 = (int) (nextNodeLat * 1E7);
-                    nextNodeLonE7 = (int) (nextNodeLon * 1E7);
-                    nextIntersects = box.isIntersectionPossible(nextNodeLonE7, nextNodeLatE7, nodeLonE7, nodeLatE7);
-                } else {
-                    nextNode = null;
-                }
-                x = -Float.MAX_VALUE; // misuse this as a flag
-                if (prevNode != null && (thisIntersects || nextIntersects || (!(nextNode != null && lastDrawnNode != null)
-                        || box.isIntersectionPossible(nextNodeLonE7, nextNodeLatE7, lastDrawnNodeLonE7, lastDrawnNodeLatE7)))) {
-                    x = GeoMath.lonToX(w, box, nodeLon);
-                    y = GeoMath.latToY(h, w, box, nodeLat);
-                    if (prevX == -Float.MAX_VALUE) { // last segment didn't intersect
-                        prevX = GeoMath.lonToX(w, box, prevNode.longitude());
-                        prevY = GeoMath.latToY(h, w, box, prevNode.latitude());
-                    }
-                    // Line segment needs to be drawn
-                    points.add(prevX);
-                    points.add(prevY);
-                    points.add(x);
-                    points.add(y);
-                    lastDrawnNode = node;
-                    lastDrawnNodeLatE7 = nodeLatE7;
-                    lastDrawnNodeLonE7 = nodeLonE7;
-                }
-                prevNode = node;
-                prevX = x;
-                prevY = y;
-                thisIntersects = nextIntersects;
+        if (nodesSize == 0) {
+            return;
+        }
+        Point nextNode = nodes.get(0);
+        double nextNodeLat = nextNode.latitude();
+        double nextNodeLon = nextNode.longitude();
+        int nextNodeLatE7 = (int) (nextNode.latitude() * 1E7);
+        int nextNodeLonE7 = (int) (nextNode.longitude() * 1E7);
+        float x;
+        float y = -Float.MAX_VALUE;
+        for (int i = 0; i < nodesSize; i++) {
+            Point node = nextNode;
+            double nodeLon = nextNodeLon;
+            double nodeLat = nextNodeLat;
+            int nodeLonE7 = nextNodeLonE7;
+            int nodeLatE7 = nextNodeLatE7;
+            nextIntersects = true;
+            if (i < nodesSize - 1) {
+                nextNode = nodes.get(i + 1);
+                nextNodeLat = nextNode.latitude();
+                nextNodeLon = nextNode.longitude();
+                nextNodeLatE7 = (int) (nextNodeLat * 1E7);
+                nextNodeLonE7 = (int) (nextNodeLon * 1E7);
+                nextIntersects = box.isIntersectionPossible(nextNodeLonE7, nextNodeLatE7, nodeLonE7, nodeLatE7);
+            } else {
+                nextNode = null;
             }
+            x = -Float.MAX_VALUE; // misuse this as a flag
+            if (prevNode != null && (thisIntersects || nextIntersects || (!(nextNode != null && lastDrawnNode != null)
+                    || box.isIntersectionPossible(nextNodeLonE7, nextNodeLatE7, lastDrawnNodeLonE7, lastDrawnNodeLatE7)))) {
+                x = GeoMath.lonToX(w, box, nodeLon);
+                y = GeoMath.latToY(h, w, box, nodeLat);
+                if (prevX == -Float.MAX_VALUE) { // last segment didn't intersect
+                    prevX = GeoMath.lonToX(w, box, prevNode.longitude());
+                    prevY = GeoMath.latToY(h, w, box, prevNode.latitude());
+                }
+                // Line segment needs to be drawn
+                points.add(prevX);
+                points.add(prevY);
+                points.add(x);
+                points.add(y);
+                lastDrawnNode = node;
+                lastDrawnNodeLatE7 = nodeLatE7;
+                lastDrawnNodeLonE7 = nodeLonE7;
+            }
+            prevNode = node;
+            prevX = x;
+            prevY = y;
+            thisIntersects = nextIntersects;
         }
     }
 

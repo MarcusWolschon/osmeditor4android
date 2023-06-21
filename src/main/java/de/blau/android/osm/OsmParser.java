@@ -401,47 +401,47 @@ public class OsmParser extends DefaultHandler {
         try {
             if (currentRelation == null) {
                 Log.e(DEBUG_TAG, "No currentRelation set!");
-            } else {
-                long ref = Long.parseLong(atts.getValue(Relation.MEMBER_REF_ATTR));
-                String type = atts.getValue(Relation.MEMBER_TYPE_ATTR);
-                String role = atts.getValue(Relation.MEMBER_ROLE_ATTR);
-                RelationMember member = null;
-                switch (type) {
-                case Node.NAME:
-                    Node n = nodeIndex.get(ref);
-                    if (n != null) {
-                        n.addParentRelation(currentRelation);
-                        member = new RelationMember(role, n);
-                    } else {
-                        member = new RelationMember(type, ref, role);
-                    }
-                    break;
-                case Way.NAME:
-                    Way w = wayIndex.get(ref);
-                    if (w != null) {
-                        w.addParentRelation(currentRelation);
-                        member = new RelationMember(role, w);
-                    } else {
-                        member = new RelationMember(type, ref, role);
-                    }
-                    break;
-                case Relation.NAME:
-                    Relation r = storage.getRelation(ref);
-                    if (r != null) {
-                        r.addParentRelation(currentRelation);
-                        member = new RelationMember(role, r);
-                    } else {
-                        // these need to be saved and reprocessed
-                        member = new RelationMember(type, ref, role);
-                        MissingRelation mr = new MissingRelation(member, currentRelation);
-                        missingRelations.add(mr);
-                    }
-                    break;
-                default:
-                    throw new OsmParseException("Unknown OSM object type " + type);
-                }
-                currentRelation.addMember(member);
+                return;
             }
+            long ref = Long.parseLong(atts.getValue(Relation.MEMBER_REF_ATTR));
+            String type = atts.getValue(Relation.MEMBER_TYPE_ATTR);
+            String role = atts.getValue(Relation.MEMBER_ROLE_ATTR);
+            RelationMember member = null;
+            switch (type) {
+            case Node.NAME:
+                Node n = nodeIndex.get(ref);
+                if (n != null) {
+                    n.addParentRelation(currentRelation);
+                    member = new RelationMember(role, n);
+                } else {
+                    member = new RelationMember(type, ref, role);
+                }
+                break;
+            case Way.NAME:
+                Way w = wayIndex.get(ref);
+                if (w != null) {
+                    w.addParentRelation(currentRelation);
+                    member = new RelationMember(role, w);
+                } else {
+                    member = new RelationMember(type, ref, role);
+                }
+                break;
+            case Relation.NAME:
+                Relation r = storage.getRelation(ref);
+                if (r != null) {
+                    r.addParentRelation(currentRelation);
+                    member = new RelationMember(role, r);
+                } else {
+                    // these need to be saved and reprocessed
+                    member = new RelationMember(type, ref, role);
+                    MissingRelation mr = new MissingRelation(member, currentRelation);
+                    missingRelations.add(mr);
+                }
+                break;
+            default:
+                throw new OsmParseException("Unknown OSM object type " + type);
+            }
+            currentRelation.addMember(member);
         } catch (NumberFormatException e) {
             throw new OsmParseException("RelationMember unparsable");
         }

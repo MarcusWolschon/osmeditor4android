@@ -502,22 +502,22 @@ public class Relation extends StyledOsmElement implements BoundedObject {
     private BoundingBox getBounds(int depth) {
         // NOTE this will only return a bb covering the downloaded elements
         BoundingBox result = null;
-        if (depth <= MAX_DEPTH) {
-            for (RelationMember rm : members) {
-                OsmElement e = rm.getElement();
-                if (e != null) {
-                    BoundingBox box = e instanceof Relation ? ((Relation) e).getBounds(depth + 1) : e.getBounds();
-                    if (result == null) {
-                        result = box;
-                    } else {
-                        if (box != null) {
-                            result.union(box);
-                        }
+        if (depth > MAX_DEPTH) {
+            Log.e(NAME, "getBounds relation nested too deep " + getOsmId());
+            return result;
+        }
+        for (RelationMember rm : members) {
+            OsmElement e = rm.getElement();
+            if (e != null) {
+                BoundingBox box = e instanceof Relation ? ((Relation) e).getBounds(depth + 1) : e.getBounds();
+                if (result == null) {
+                    result = box;
+                } else {
+                    if (box != null) {
+                        result.union(box);
                     }
                 }
             }
-        } else {
-            Log.e(NAME, "getBounds relation nested too deep " + getOsmId());
         }
         return result;
     }

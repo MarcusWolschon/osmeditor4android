@@ -2283,19 +2283,20 @@ public class Logic {
             protected void onPostExecute(StorageException ex) {
                 if (ex != null) {
                     handleDelegatorException(activity, ex);
-                } else {
-                    invalidateMap();
-                    if (activity != null) {
-                        Snack.toastTopInfo(activity, R.string.Done);
-                    }
-                    if (getFilter() != null && showAttachedObjectWarning()) {
-                        Set<Node> nodes = new HashSet<>();
-                        for (Way w : ways) {
-                            nodes.addAll(w.getNodes());
-                        }
-                        displayAttachedObjectWarning(activity, nodes);
-                    }
+                    return;
                 }
+                invalidateMap();
+                if (activity != null) {
+                    Snack.toastTopInfo(activity, R.string.Done);
+                }
+                if (getFilter() != null && showAttachedObjectWarning()) {
+                    Set<Node> nodes = new HashSet<>();
+                    for (Way w : ways) {
+                        nodes.addAll(w.getNodes());
+                    }
+                    displayAttachedObjectWarning(activity, nodes);
+                }
+
             }
         }.execute();
     }
@@ -3112,10 +3113,10 @@ public class Logic {
                     if (postLoadHandler != null) {
                         postLoadHandler.onError(null);
                     }
-                } else {
-                    if (postLoadHandler != null) {
-                        postLoadHandler.onSuccess();
-                    }
+                    return;
+                }
+                if (postLoadHandler != null) {
+                    postLoadHandler.onSuccess();
                 }
             }
         }.execute();
@@ -3218,10 +3219,10 @@ public class Logic {
                     if (postLoadHandler != null) {
                         postLoadHandler.onSuccess();
                     }
-                } else {
-                    if (postLoadHandler != null) {
-                        postLoadHandler.onError(null);
-                    }
+                    return;
+                }
+                if (postLoadHandler != null) {
+                    postLoadHandler.onError(null);
                 }
             }
         }
@@ -4027,12 +4028,11 @@ public class Logic {
                     if (postLoad != null) {
                         postLoad.onSuccess();
                     }
-
-                } else {
-                    Log.d(DEBUG_TAG, "loadLayerState: state load failed");
-                    if (postLoad != null) {
-                        postLoad.onError(null);
-                    }
+                    return;
+                }
+                Log.d(DEBUG_TAG, "loadLayerState: state load failed");
+                if (postLoad != null) {
+                    postLoad.onError(null);
                 }
                 map.invalidate();
             }

@@ -221,24 +221,24 @@ public class DialogRow extends LinearLayout implements KeyValueRow {
     @Nullable
     private static TagFormFragment findFragment(@NonNull Context context) {
         context = unwrap(context);
-        if (context instanceof FragmentActivity) {
-            FragmentManager fm = ((FragmentActivity) context).getSupportFragmentManager();
-            List<Fragment> fragments = new ArrayList<>(fm.getFragments());
-            Collections.reverse(fragments); // latest added first
-            for (Fragment fragment : fragments) {
-                if (fragment instanceof PropertyEditorFragment) {
-                    fm = fragment.getChildFragmentManager();
-                    for (Fragment f : fm.getFragments()) {
-                        if (f instanceof TagFormFragment) {
-                            return (TagFormFragment) f;
-                        }
+        if (!(context instanceof FragmentActivity)) {
+            Log.e(DEBUG_TAG, "Context is not a FragmentActivity, instead it is " + context.getClass().getCanonicalName());
+            return null;
+        }
+        FragmentManager fm = ((FragmentActivity) context).getSupportFragmentManager();
+        List<Fragment> fragments = new ArrayList<>(fm.getFragments());
+        Collections.reverse(fragments); // latest added first
+        for (Fragment fragment : fragments) {
+            if (fragment instanceof PropertyEditorFragment) {
+                fm = fragment.getChildFragmentManager();
+                for (Fragment f : fm.getFragments()) {
+                    if (f instanceof TagFormFragment) {
+                        return (TagFormFragment) f;
                     }
                 }
             }
-            Log.e(DEBUG_TAG, "TagFormFragment not found");
-        } else {
-            Log.e(DEBUG_TAG, "Context is not a FragmentActivity, instead it is " + context.getClass().getCanonicalName());
         }
+        Log.e(DEBUG_TAG, "TagFormFragment not found");
         return null;
     }
 
