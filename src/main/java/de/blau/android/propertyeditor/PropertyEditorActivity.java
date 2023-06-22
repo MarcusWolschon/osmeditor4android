@@ -166,8 +166,13 @@ public class PropertyEditorActivity<M extends Map<String, String> & Serializable
         // if we have a preset to auto apply it doesn't make sense to show the Preset tab except if a group is
         // selected
         if (presetsToApply != null && !presetsToApply.isEmpty()) {
-            PresetElement alternativeRootElement = Preset.getElementByPath(App.getCurrentRootPreset(this).getRootGroup(), presetsToApply.get(0));
-            showPresets = alternativeRootElement instanceof PresetGroup;
+            final PresetElementPath path = presetsToApply.get(0);
+            if (path != null) {
+                PresetElement alternativeRootElement = Preset.getElementByPath(App.getCurrentRootPreset(this).getRootGroup(), path);
+                showPresets = alternativeRootElement instanceof PresetGroup;
+            } else {
+                Log.e(DEBUG_TAG, "Preset path is null");
+            }
         }
 
         Log.d(DEBUG_TAG, "... done.");
