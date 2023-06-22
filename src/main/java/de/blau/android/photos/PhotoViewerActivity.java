@@ -77,7 +77,7 @@ public class PhotoViewerActivity extends ConfigurationChangeAwareActivity {
             // No previous state to restore - get the state from the intent
             Log.d(DEBUG_TAG, "Initializing from intent");
             photoList = (ArrayList<String>) getIntent().getSerializableExtra(PhotoViewerFragment.PHOTO_LIST_KEY);
-            startPos = (int) getIntent().getSerializableExtra(PhotoViewerFragment.START_POS_KEY);
+            startPos = getIntent().getIntExtra(PhotoViewerFragment.START_POS_KEY, 0);
             photoLoader = (ImageLoader) getIntent().getSerializableExtra(PhotoViewerFragment.PHOTO_LOADER_KEY);
             wrap = (boolean) getIntent().getSerializableExtra(PhotoViewerFragment.WRAP_KEY);
         } else {
