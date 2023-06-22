@@ -30,8 +30,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
+import de.blau.android.ErrorCodes;
 import de.blau.android.R;
 import de.blau.android.contract.Schemes;
+import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.PresetElement;
 
@@ -141,7 +143,7 @@ public final class SelectFile {
      * @param intentRequestCode the request code
      * @param path a directory path to try to start with
      */
-    private static void startFileSelector(@NonNull Activity activity, @NonNull String intentAction, int intentRequestCode, @Nullable String path) {
+    private static void startFileSelector(@NonNull FragmentActivity activity, @NonNull String intentAction, int intentRequestCode, @Nullable String path) {
         Intent i = new Intent(intentAction);
         i.setType("*/*");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && path != null) {
@@ -149,6 +151,10 @@ public final class SelectFile {
         }
         final PackageManager pm = activity.getPackageManager();
         List<ResolveInfo> activities = pm.queryIntentActivities(i, 0);
+        if (activities.isEmpty()) {
+            ErrorAlert.showDialog(activity, ErrorCodes.REQUIRED_FEATURE_MISSING, "file selector");
+            return;
+        }
         if (activities.size() > 1) { // multiple activities support the required action
             selectFileSelectorActivity(activity, pm, activities, i, intentRequestCode);
             return;
