@@ -85,6 +85,11 @@ public class PresetItem extends PresetElement {
      * Count of labels for naming
      */
     private int labelCounter = 0;
+    
+    /**
+     * Optional template for creating/formatting a name
+     */
+    private String nameTemplate = null;
 
     /**
      * Construct a new PresetItem
@@ -894,6 +899,25 @@ public class PresetItem extends PresetElement {
     }
 
     /**
+     * Get the name template
+     * 
+     * @return the template or null
+     */
+    @Nullable
+    public String getNameTemplate() {
+        return preset.translate(nameTemplate, nameContext);
+    }
+
+    /**
+     * Set the name template
+     * 
+     * @param nameTemplate the template to set
+     */
+    public void setNameTemplate(@Nullable String nameTemplate) {
+        this.nameTemplate = nameTemplate;
+    }
+    
+    /**
      * @return the fixed tags belonging to this item (unmodifiable)
      */
     public Map<String, PresetFixedField> getFixedTags() {
@@ -1224,9 +1248,7 @@ public class PresetItem extends PresetElement {
         String presetName = presetNameBuilder.toString();
         StringBuilder jsonString = new StringBuilder();
         for (Entry<String, PresetFixedField> entry : fixedTags.entrySet()) {
-            if (jsonString.length() != 0) {
-                jsonString.append(",\n");
-            }
+            appendEol(jsonString);
             jsonString.append(tagToJSON(presetName, entry.getKey(), entry.getValue().getValue()));
         }
         for (Entry<String, PresetField> entry : fields.entrySet()) {
@@ -1240,22 +1262,29 @@ public class PresetItem extends PresetElement {
             boolean editable = field instanceof PresetComboField && ((PresetComboField) field).isEditable();
             if (editable || field instanceof PresetTextField || field instanceof PresetCheckField
                     || (match != null && match != MatchType.KEY_VALUE && match != MatchType.KEY)) {
-                if (jsonString.length() != 0) {
-                    jsonString.append(",\n");
-                }
+                appendEol(jsonString);
                 jsonString.append(tagToJSON(presetName, k, null));
             }
             if (field instanceof PresetComboField && !editable
                     && (match == null || match == MatchType.KEY_VALUE || match == MatchType.KEY || match == MatchType.KEY_VALUE_NEG)) {
                 for (StringWithDescription v : ((PresetComboField) entry.getValue()).getValues()) {
-                    if (jsonString.length() != 0) {
-                        jsonString.append(",\n");
-                    }
+                    appendEol(jsonString);
                     jsonString.append(tagToJSON(presetName, k, v));
                 }
             }
         }
         return jsonString.toString();
+    }
+
+    /**
+     * Append an EOL to the StringBuilder
+     * 
+     * @param jsonString the StringBuilder
+     */
+    private static void appendEol(@NonNull StringBuilder jsonString) {
+        if (jsonString.length() != 0) {
+            jsonString.append(",\n");
+        }
     }
 
     /**

@@ -19,6 +19,7 @@ import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetItem;
+import de.blau.android.util.Util;
 import de.blau.android.util.rtree.BoundedObject;
 import de.blau.android.validation.Validator;
 
@@ -368,12 +369,16 @@ public class Relation extends StyledOsmElement implements BoundedObject {
     public String getDescription(Context ctx) {
         String description = "";
         String type = getTagWithKey(Tags.KEY_TYPE);
-        if (type != null && !"".equals(type)) {
+        if (Util.notEmpty(type)) {
             PresetItem p = null;
             if (ctx != null) {
                 p = Preset.findBestMatch(App.getCurrentPresets(ctx), tags, null, null);
             }
             if (p != null) {
+                String templateName = nameFromTemplate(ctx, p);
+                if (Util.notEmpty(templateName)) {
+                    return templateName;
+                }
                 description = p.getTranslatedName();
                 if (Tags.VALUE_RESTRICTION.equals(type)) {
                     String restriction = getTagWithKey(Tags.VALUE_RESTRICTION);

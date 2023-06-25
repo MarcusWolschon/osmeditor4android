@@ -1,5 +1,6 @@
 package de.blau.android.osm;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -16,12 +17,17 @@ import android.content.Context;
 import android.content.res.Resources;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import ch.poole.osm.josmtemplateparser.Formatter;
+import ch.poole.osm.josmtemplateparser.JosmTemplateParseException;
+import ch.poole.osm.josmtemplateparser.JosmTemplateParser;
 import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetItem;
+import de.blau.android.search.Wrapper;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.IssueAlert;
+import de.blau.android.util.Util;
 import de.blau.android.validation.Validator;
 
 public abstract class OsmElement implements Serializable, XmlSerializable, JosmXmlSerializable {
@@ -566,30 +572,32 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
         }
         // Then the address
         String housenumber = getTagWithKey(Tags.KEY_ADDR_HOUSENUMBER);
-        if (housenumber != null && housenumber.length() > 0) {
+        final boolean haveCtx = ctx != null;
+        if (Util.notEmpty(housenumber)) {
             try {
                 String street = getTagWithKey(Tags.KEY_ADDR_STREET);
-                if (street != null && street.length() > 0) {
-                    if (ctx != null) {
+                if (Util.notEmpty(street)) {
+                    if (haveCtx) {
                         return ctx.getResources().getString(R.string.address_housenumber_street, street, housenumber);
-                    } else {
-                        return "address " + housenumber + " " + street;
                     }
-                } else {
-                    if (ctx != null) {
-                        return ctx.getResources().getString(R.string.address_housenumber, housenumber);
-                    } else {
-                        return "address " + housenumber;
-                    }
+                    return "address " + housenumber + " " + street;
                 }
+                if (haveCtx) {
+                    return ctx.getResources().getString(R.string.address_housenumber, housenumber);
+                }
+                return "address " + housenumber;
             } catch (Exception ex) {
                 // protect against translation errors
             }
         }
         // try to match with a preset
-        if (ctx != null) {
+        if (haveCtx) {
             PresetItem p = Preset.findBestMatch(App.getCurrentPresets(ctx), tags, null, null);
             if (p != null) {
+                String templateName = nameFromTemplate(ctx, p);
+                if (Util.notEmpty(templateName)) {
+                    return templateName;
+                }
                 String ref = getTagWithKey(Tags.KEY_REF);
                 return p.getDisplayName(ctx) + (ref != null ? " " + ref : "");
             }
@@ -602,6 +610,30 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 
         // Failing the above, the OSM ID
         return (withType ? getName() + " #" : "#") + Long.toString(getOsmId());
+    }
+
+    /**
+     * Get a name from a preset name template
+     * 
+     * @param ctx an Android Context
+     * @param p the matching PresetItem
+     * @return a name or null
+     */
+    @Nullable
+    protected String nameFromTemplate(@NonNull Context ctx, @NonNull PresetItem p) {
+        String nameTemplate = p.getNameTemplate();
+        if (nameTemplate != null) {
+            JosmTemplateParser parser = new JosmTemplateParser(new ByteArrayInputStream(nameTemplate.getBytes()));
+            try {
+                List<Formatter> rs = parser.formatters();
+                Wrapper wrapper = new Wrapper(ctx);
+                wrapper.setElement(this);
+                return ch.poole.osm.josmtemplateparser.Util.listFormat(rs, wrapper.getType(), wrapper, getTags());
+            } catch (JosmTemplateParseException e) {
+                // ignore
+            }
+        }
+        return null;
     }
 
     /**
