@@ -36,6 +36,9 @@
         <intent>
             <action android:name="android.intent.action.OPEN_DOCUMENT" />
         </intent>
+        <intent>
+            <action android:name="android.intent.action.CREATE_DOCUMENT" />
+        </intent>
         <package android:name="de.westnordost.streetmeasure"/>
         <package android:name="com.android.vending"/>
     </queries>
