@@ -699,7 +699,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
      * @return a name or null
      */
     @Nullable
-    protected String nameFromTemplate(@NonNull Context ctx, @NonNull PresetItem p) {
+    public String nameFromTemplate(@NonNull Context ctx, @NonNull PresetItem p) {
         String nameTemplate = p.getNameTemplate();
         if (nameTemplate != null) {
             JosmTemplateParser parser = new JosmTemplateParser(new ByteArrayInputStream(nameTemplate.getBytes()));
