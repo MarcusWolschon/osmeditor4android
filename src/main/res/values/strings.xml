@@ -1419,6 +1419,10 @@
     <!-- element description -->
     <string name="address_housenumber">Address %1$s</string>
     <string name="address_housenumber_street">Address %1$s %2$s</string>
+    <string name="description_id">%1$s #%2$s</string>
+    <string name="description_type_id">%1$s %2$s #%3$s</string>
+    <string name="only_id">#%1$s</string>
+    <string name="type_id">%1$s #%2$s</string>
     <!-- undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname" -->
     <string name="undo_action_movenode">Node moved</string>
     <string name="undo_action_moveway">Way moved</string>

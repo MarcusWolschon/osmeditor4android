@@ -6,7 +6,6 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.SortedMap;
 import java.util.TreeMap;
 
 import org.xmlpull.v1.XmlSerializer;
@@ -367,71 +366,82 @@ public class Relation extends StyledOsmElement implements BoundedObject {
 
     @Override
     public String getDescription(Context ctx) {
-        String description = "";
+        return getDescription(ctx, true);
+    }
+
+    @Override
+    public String getDescription(Context ctx, boolean withType) {
+        String name = getTagWithKey(Tags.KEY_NAME);
         String type = getTagWithKey(Tags.KEY_TYPE);
-        if (Util.notEmpty(type)) {
-            PresetItem p = null;
-            if (ctx != null) {
-                p = Preset.findBestMatch(App.getCurrentPresets(ctx), tags, null, null);
-            }
-            if (p != null) {
-                String templateName = nameFromTemplate(ctx, p);
-                if (Util.notEmpty(templateName)) {
-                    return templateName;
-                }
-                description = p.getTranslatedName();
-                if (Tags.VALUE_RESTRICTION.equals(type)) {
-                    String restriction = getTagWithKey(Tags.VALUE_RESTRICTION);
-                    if (restriction != null) {
-                        String d = p.getDescriptionForValue(Tags.VALUE_RESTRICTION, restriction);
-                        if (d != null) { // the names of turn restrictions are clear enough
-                            description = d;
-                        }
-                    }
-                } else {
-                    SortedMap<String, String> tagsCopy = new TreeMap<>(tags);
-                    if (tagsCopy.remove(Tags.KEY_TYPE) != null) {
-                        p = Preset.findBestMatch(App.getCurrentPresets(ctx), tagsCopy, null, null);
-                        if (p != null) {
-                            description = description + " " + p.getTranslatedName();
-                        }
-                    }
-                }
-            } else {
-                description = type;
-                if (Tags.VALUE_RESTRICTION.equals(type)) {
-                    String restriction = getTagWithKey(Tags.VALUE_RESTRICTION);
-                    if (restriction != null) {
-                        description = restriction + " " + description;
-                    }
-                } else if (Tags.VALUE_ROUTE.equals(type)) {
-                    String route = getTagWithKey(Tags.VALUE_ROUTE);
-                    if (route != null) {
-                        description = route + " " + description;
-                    }
-                } else if (Tags.VALUE_MULTIPOLYGON.equals(type)) {
-                    String b = getTagWithKey(Tags.KEY_BOUNDARY);
-                    if (b != null) {
-                        description = b + " " + Tags.KEY_BOUNDARY + " " + description;
-                    } else {
-                        String l = getTagWithKey(Tags.KEY_LANDUSE);
-                        if (l != null) {
-                            description = Tags.KEY_LANDUSE + " " + l + " " + description;
-                        } else {
-                            String n = getTagWithKey(Tags.KEY_NATURAL);
-                            if (n != null) {
-                                description = Tags.KEY_NATURAL + " " + n + " " + description;
-                            }
-                        }
-                    }
-                }
-            }
-        } else {
-            description = App.resources().getString(R.string.unset_relation_type);
+        if (!Util.notEmpty(type)) {
+            return addId(ctx, (name != null ? name + " " : "") + App.resources().getString(R.string.unset_relation_type), withType);
         }
 
-        String name = getTagWithKey(Tags.KEY_NAME);
-        return name != null ? name + " " + description : description + " #" + osmId;
+        PresetItem p = null;
+        if (ctx != null) {
+            p = Preset.findBestMatch(App.getCurrentPresets(ctx), tags, null, null);
+        }
+        if (p != null) {
+            String templateName = nameFromTemplate(ctx, p);
+            if (Util.notEmpty(templateName)) {
+                return templateName;
+            }
+            String description = p.getTranslatedName();
+            if (Tags.VALUE_RESTRICTION.equals(type)) {
+                String restriction = getTagWithKey(Tags.VALUE_RESTRICTION);
+                if (restriction != null) {
+                    String d = p.getDescriptionForValue(Tags.VALUE_RESTRICTION, restriction);
+                    if (d != null) { // the names of turn restrictions are clear enough
+                        description = d;
+                    }
+                }
+                return addId(ctx, description, true);
+            }
+            if (Tags.VALUE_MULTIPOLYGON.equals(type)) {
+                Map<String, String> tagsCopy = new TreeMap<>(tags);
+                tagsCopy.remove(Tags.KEY_TYPE);
+                return getDescription(ctx, tagsCopy, withType);
+            }
+
+            return addId(ctx, name != null ? name + " " + description : description, withType);
+        }
+        String description = type;
+        switch (type) {
+        case Tags.VALUE_RESTRICTION:
+            String restriction = getTagWithKey(Tags.VALUE_RESTRICTION);
+            if (restriction != null) {
+                description = restriction + " " + description;
+            }
+            break;
+        case Tags.VALUE_ROUTE:
+            String route = getTagWithKey(Tags.VALUE_ROUTE);
+            if (route != null) {
+                description = route + " " + description;
+            }
+            break;
+
+        case Tags.VALUE_BOUNDARY:
+            String b = getTagWithKey(Tags.KEY_BOUNDARY);
+            if (b != null) {
+                description = b + " " + Tags.KEY_BOUNDARY + " " + description;
+            }
+            break;
+        case Tags.VALUE_MULTIPOLYGON:
+            String l = getTagWithKey(Tags.KEY_LANDUSE);
+            if (l != null) {
+                description = Tags.KEY_LANDUSE + " " + l + " " + description;
+            } else {
+                String n = getTagWithKey(Tags.KEY_NATURAL);
+                if (n != null) {
+                    description = Tags.KEY_NATURAL + " " + n + " " + description;
+                }
+            }
+            break;
+        default:
+            // nothing
+        }
+
+        return addId(ctx, name != null ? name + " " + description : description, withType);
     }
 
     @Override

@@ -312,6 +312,18 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
      */
     @Nullable
     public String getTagWithKey(@NonNull final String key) {
+        return getTagWithKey(tags, key);
+    }
+
+    /**
+     * Get the value of a tag with key
+     * 
+     * @param tags a Map holding the tags
+     * @param key the key to search for (case sensitive)
+     * @return the value of this key.
+     */
+    @Nullable
+    public static String getTagWithKey(Map<String, String> tags, @NonNull final String key) {
         return tags != null ? tags.get(key) : null;
     }
 
@@ -322,6 +334,17 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
      * @return true if the element has a tag with this key.
      */
     public boolean hasTagKey(@NonNull final String key) {
+        return hasTagKey(tags, key);
+    }
+
+    /**
+     * Check if the tags contain an entry for key
+     * 
+     * @param tags a Map holding the tags
+     * @param key the key to search for (case sensitive)
+     * @return true if the element has a tag with this key.
+     */
+    public static boolean hasTagKey(@Nullable Map<String, String> tags, @NonNull final String key) {
         return tags != null && tags.containsKey(key);
     }
 
@@ -564,18 +587,93 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
      * @return a string containing the description
      */
     @NonNull
-    private String getDescription(@Nullable Context ctx, boolean withType) {
+    protected String getDescription(@Nullable Context ctx, boolean withType) {
+        return getDescription(ctx, tags, withType);
+    }
+
+    /**
+     * Return a concise description of the element
+     * 
+     * @param ctx Android context
+     * @param tags the elements tags
+     * @param withType include an indication of the object type (node, way, relation)
+     * @return a string containing the description
+     */
+    @NonNull
+    protected String getDescription(Context ctx, @Nullable Map<String, String> tags, boolean withType) {
         // Use the name if it exists
-        String name = getTagWithKey(Tags.KEY_NAME);
-        if (name != null && name.length() > 0) {
-            return name;
+        String name = getTagWithKey(tags, Tags.KEY_NAME);
+        if (Util.notEmpty(name)) {
+            return addId(ctx, name, withType);
         }
+
         // Then the address
-        String housenumber = getTagWithKey(Tags.KEY_ADDR_HOUSENUMBER);
+        String address = getAddressString(ctx, tags);
+        if (Util.notEmpty(address) && (hasTagKey(tags, Tags.KEY_BUILDING) || hasTagKey(tags, Tags.KEY_ENTRANCE))) {
+            return addId(ctx, address, withType);
+        }
+
+        // try to match with a preset
+        if (ctx != null) {
+            PresetItem p = Preset.findBestMatch(App.getCurrentPresets(ctx), tags, null, null);
+            if (p != null) {
+                String templateName = nameFromTemplate(ctx, p);
+                if (Util.notEmpty(templateName)) {
+                    return templateName;
+                }
+                String ref = getTagWithKey(tags, Tags.KEY_REF);
+                return addId(ctx, p.getDisplayName(ctx) + (ref != null ? " " + ref : ""), withType);
+            }
+        }
+
+        // Then the value of the most 'important' tag the element has
+        String tag = getPrimaryTag(ctx);
+        if (tag != null) {
+            return addId(ctx, tag, withType);
+        }
+
+        return addId(ctx, null, withType);
+    }
+
+    /**
+     * Add the element id to a description
+     * 
+     * @param ctx an ANdroid Context
+     * @param description the descriptin
+     * @param withType if the type should be included
+     * @return a formatted String
+     */
+    @NonNull
+    protected String addId(@Nullable Context ctx, @Nullable String description, boolean withType) {
+        final String idString = Long.toString(getOsmId());
+        if (Util.notEmpty(description)) {
+            if (ctx != null) {
+                return withType ? ctx.getString(R.string.description_type_id, description, getName(), idString)
+                        : ctx.getString(R.string.description_id, description, idString);
+            } else {
+                return (withType ? description + " " + getName() : description) + " #" + idString;
+            }
+        }
+        if (ctx != null) {
+            return withType ? ctx.getString(R.string.type_id, getName(), idString) : ctx.getString(R.string.only_id, idString);
+        }
+        return (withType ? getName() : "") + " #" + idString;
+    }
+
+    /**
+     * Get a String from address tags (if any)
+     * 
+     * @param ctx an Android Context
+     * @param tags the tags
+     * @return a String or null
+     */
+    @Nullable
+    private String getAddressString(@Nullable Context ctx, @Nullable Map<String, String> tags) {
         final boolean haveCtx = ctx != null;
+        String housenumber = getTagWithKey(tags, Tags.KEY_ADDR_HOUSENUMBER);
         if (Util.notEmpty(housenumber)) {
             try {
-                String street = getTagWithKey(Tags.KEY_ADDR_STREET);
+                String street = getTagWithKey(tags, Tags.KEY_ADDR_STREET);
                 if (Util.notEmpty(street)) {
                     if (haveCtx) {
                         return ctx.getResources().getString(R.string.address_housenumber_street, street, housenumber);
@@ -590,26 +688,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
                 // protect against translation errors
             }
         }
-        // try to match with a preset
-        if (haveCtx) {
-            PresetItem p = Preset.findBestMatch(App.getCurrentPresets(ctx), tags, null, null);
-            if (p != null) {
-                String templateName = nameFromTemplate(ctx, p);
-                if (Util.notEmpty(templateName)) {
-                    return templateName;
-                }
-                String ref = getTagWithKey(Tags.KEY_REF);
-                return p.getDisplayName(ctx) + (ref != null ? " " + ref : "");
-            }
-        }
-        // Then the value of the most 'important' tag the element has
-        String tag = getPrimaryTag(ctx);
-        if (tag != null) {
-            return (withType ? getName() + " " : "") + tag;
-        }
-
-        // Failing the above, the OSM ID
-        return (withType ? getName() + " #" : "#") + Long.toString(getOsmId());
+        return null;
     }
 
     /**
