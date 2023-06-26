@@ -1383,6 +1383,24 @@ public final class TestUtils {
             }
         }
     }
+    
+    /**
+     * Scroll to a specific text
+     * 
+     * @param text the text
+     * @param fail fail if scrollable not found
+     */
+    public static void scrollToStartsWith(@NonNull String text, boolean fail) {
+        UiScrollable appView = new UiScrollable(new UiSelector().scrollable(true));
+        try {
+            appView.setSwipeDeadZonePercentage(0.4);
+            appView.scrollIntoView(new UiSelector().textStartsWith(text));
+        } catch (UiObjectNotFoundException e) {
+            if (fail) {
+                Assert.fail(text + " not found");
+            }
+        }
+    }
 
     /**
      * Scroll to end

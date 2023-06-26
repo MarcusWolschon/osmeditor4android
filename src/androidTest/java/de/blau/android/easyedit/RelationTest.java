@@ -181,10 +181,12 @@ public class RelationTest {
     @Test
     public void createAndAddToMultiPolygon() {
         map.getDataLayer().setVisible(true);
-        TestUtils.zoomToLevel(device, main, 22);
         TestUtils.unlock(device);
+        TestUtils.clickAwayTip(device, main);
+        TestUtils.zoomToLevel(device, main, 22);
         // split building first
         TestUtils.clickAtCoordinates(device, map, 8.3882060, 47.3885768, true);
+        TestUtils.clickAwayTip(device, main);
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
         assertTrue(TestUtils.clickMenuButton(device, "Split", false, true));
         TestUtils.clickAwayTip(device, context);
@@ -255,7 +257,7 @@ public class RelationTest {
         assertTrue(TestUtils.clickOverflowButton(device));
         TestUtils.scrollTo(context.getString(R.string.tag_menu_addtorelation), true);
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.tag_menu_addtorelation), true, false));
-        assertTrue(TestUtils.clickText(device, false, "Multipolygon Building", true, false));
+        assertTrue(TestUtils.clickText(device, false, "Address Bergstrasse 40", true, false));
         // finish again
         TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
         // assertTrue(TestUtils.findText(device, false, context.getString(R.string.remove), 5000));

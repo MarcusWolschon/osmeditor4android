@@ -1094,7 +1094,7 @@ public class PropertyEditorTest {
         TestUtils.clickText(device, true, main.getString(R.string.tag_details), false, false);
         TestUtils.clickText(device, true, main.getString(R.string.members), false, false);
         String name1 = m1.getElement().getTagWithKey(Tags.KEY_NAME);
-        TestUtils.scrollTo(name1, true);
+        TestUtils.scrollToStartsWith(name1, true);
         selectMember(name1);
         clickButtonOrOverflowMenu(main.getString(R.string.tag_menu_move_up));
         // exit property editor
@@ -1117,7 +1117,7 @@ public class PropertyEditorTest {
         TestUtils.clickText(device, true, main.getString(R.string.members), false, false);
  
         String name2 = m2.getElement().getTagWithKey(Tags.KEY_NAME);
-        TestUtils.scrollTo(name2, true);
+        TestUtils.scrollToStartsWith(name2, true);
         selectMember(name1);
         selectMember("#119104097");
         selectMember(name2);
