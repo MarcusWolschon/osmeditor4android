@@ -1,5 +1,5 @@
 # Vespucci Preset System
-_Documentation for Vespucci 19.0_
+_Documentation for Vespucci 19.1_
 
 As explained in the [help documentation](../help/en/Presets.md) Vespucci uses JOSM compatible presets, currently any preset used in JOSM should simply work with Vespucci, however there can be differences. Particularly with the new preset driven tagging interface presets have become even more important and if you are writing presets yourself and want them to work well in Vespucci please keep on reading.
 
@@ -38,7 +38,7 @@ Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/
 |                   | name_context                  | supported |
 |                   | icon                          | supported | you really should add one for Vespucci
 |                   | type                          | supported |
-|                   | name_template                 | ignored   |
+|                   | name_template                 | supported | if set will always be used 
 |                   | name_template_filter          | ignored   |
 |                   | preset_name_label             | ignored   |
 |                   | deprecated                    | extension | only use the preset for matching and map icon display
@@ -67,6 +67,7 @@ Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/
 |                   | auto_increment                | ignored   |
 |                   | length                        | partial   | depending on the settings a modal will be displayed for editing instead of an inline text field
 |                   | alternative_autocomplete_keys | ignored   |
+|                   | value_template                | ignored   |
 |                   | javascript                    | extension | if value is not set, execute the JS script
 |                   | i18n                          | extension | if set to true this tag has i18n variants
 |                   | value_type                    | extension | indicate the kind of value this tag should have

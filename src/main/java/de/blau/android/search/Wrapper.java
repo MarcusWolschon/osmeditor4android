@@ -5,8 +5,11 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.SortedMap;
+
+import org.jetbrains.annotations.NotNull;
 
 import android.content.Context;
 import androidx.annotation.NonNull;
@@ -60,6 +63,16 @@ public class Wrapper implements Meta {
      */
     public void setElement(OsmElement element) {
         this.element = element;
+    }
+
+    @Override
+    public Type getType() {
+        return toJosmFilterType(element);
+    }
+
+    @Override
+    public Map<String, String> getTags() {
+        return element.getTags();
     }
 
     /**
@@ -346,10 +359,8 @@ public class Wrapper implements Meta {
                 if (element.hasParentRelation((Relation) o)) {
                     return true;
                 }
-            } else if (o instanceof Way && element instanceof Node) {
-                if (((Way) o).hasNode((Node) element)) {
-                    return true;
-                }
+            } else if (o instanceof Way && element instanceof Node && ((Way) o).hasNode((Node) element)) {
+                return true;
             }
         }
         return false;
@@ -362,10 +373,8 @@ public class Wrapper implements Meta {
                 if (((OsmElement) o).hasParentRelation((Relation) element)) {
                     return true;
                 }
-            } else if (element instanceof Way && o instanceof Node) {
-                if (((Way) element).hasNode((Node) o)) {
-                    return true;
-                }
+            } else if (element instanceof Way && o instanceof Node && ((Way) element).hasNode((Node) o)) {
+                return true;
             }
         }
         return false;
@@ -426,5 +435,12 @@ public class Wrapper implements Meta {
             }
         }
         return result;
+    }
+
+    @Override
+    public @NotNull Meta wrap(Object arg0) {
+        Wrapper wrapper = new Wrapper(context);
+        wrapper.setElement((OsmElement) arg0);
+        return wrapper;
     }
 }

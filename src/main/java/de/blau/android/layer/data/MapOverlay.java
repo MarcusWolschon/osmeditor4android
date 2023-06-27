@@ -1140,7 +1140,8 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
             if (style.usePresetLabel() && tmpPresets != null) {
                 PresetItem match = Preset.findBestMatch(tmpPresets, e.getTags(), null, null);
                 if (match != null) {
-                    label = match.getTranslatedName();
+                    String template = e.nameFromTemplate(context, match);
+                    label = template != null ? template : match.getTranslatedName();
                 } else {
                     label = e.getPrimaryTag(context);
                 }

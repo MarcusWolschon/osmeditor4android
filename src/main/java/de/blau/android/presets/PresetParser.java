@@ -89,6 +89,7 @@ public class PresetParser {
     static final String         ICON                  = "icon";
     private static final String IMAGE                 = "image";
     static final String         NAME                  = "name";
+    private static final String NAME_TEMPLATE         = "name_template";
     private static final String OBJECT_KEYS           = "object_keys";
     static final String         OBJECT                = "object";
     static final String         GROUP                 = "group";
@@ -247,6 +248,10 @@ public class PresetParser {
                     context = attr.getValue(NAME_CONTEXT);
                     if (context != null) {
                         currentItem.setNameContext(context);
+                    }
+                    String nameTemplate = attr.getValue(NAME_TEMPLATE);
+                    if (nameTemplate != null) {
+                        currentItem.setNameTemplate(nameTemplate);
                     }
                     currentItem.setDeprecated(TRUE.equals(attr.getValue(DEPRECATED)));
                     currentItem.setRegions(attr.getValue(REGIONS));
