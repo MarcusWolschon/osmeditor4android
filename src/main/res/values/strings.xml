@@ -136,9 +136,9 @@
     <string name="openstreetbug_commit_fail_with_message">Could not save task changes\n%1$s</string>
     <string name="openstreetbug_unknown_task_type">Unknown task type</string>
     <string name="openstreetbug_not_supported">%1$s is not supported.</string>
-    <string name="note_description">Note: %1$s - %2$s</string>
-    <string name="bug_description">%1$s: %2$s - %3$s</string>
-    <string name="bug_description_2">%1$s: %2$s %3$s - %4$s</string>
+    <string name="note_description">%1$s - %2$s</string>
+    <string name="bug_description">%1$s - %2$s</string>
+    <string name="bug_description_2">%1$s %2$s - %3$s</string>
     <string name="generic_bug">Bug</string>
     <string name="osmose_bug">Osmose</string>
     <string name="todo_title">Todo</string>
@@ -427,7 +427,7 @@
     <string name="layer_info_layer_not_available">Layer information not available</string>
     <string name="layer_info_no_meta_data">Meta data not loaded</string>
     <!--  Mapillary layer -->
-    <string name="mapillary_image">mapillary %1$s</string>
+    <string name="mapillary_image">%1$s</string>
     <!-- Photo viewer -->
     <string name="photo_viewer_delete_title">Delete photo</string>
     <string name="photo_viewer_delete_button">Delete permanently</string>

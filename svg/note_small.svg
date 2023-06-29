@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.0"
+   height="256"
+   width="256"
+   viewBox="0 0 256 256"
+   id="svg857"
+   sodipodi:docname="note_small.svg"
+   inkscape:export-filename="C:\Users\simon\git\osmeditor4android\src\main\res\drawable-xhdpi\note_small.png"
+   inkscape:export-xdpi="13.606299"
+   inkscape:export-ydpi="13.606299"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)">
+  <defs
+     id="defs861" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1066"
+     inkscape:window-height="628"
+     id="namedview859"
+     showgrid="false"
+     inkscape:zoom="0.91"
+     inkscape:cx="-166.59481"
+     inkscape:cy="200.89492"
+     inkscape:window-x="234"
+     inkscape:window-y="234"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg857" />
+  <title
+     id="title839">OpenStreetMap way element icon</title>
+  <metadata
+     id="metadata841">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>OpenStreetMap way element icon</dc:title>
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/by-sa/4.0/" />
+        <dc:date>2014-03-10</dc:date>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>https://wiki.openstreetmap.org/wiki/User:Moresby</dc:title>
+          </cc:Agent>
+        </dc:creator>
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/by-sa/4.0/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Notice" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Attribution" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#ShareAlike" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+  <rect
+     style="fill:#f0f0f0;stroke:#000000;stroke-width:12"
+     id="rect843"
+     y="7"
+     x="7"
+     ry="32"
+     height="242"
+     width="242" />
+  <path
+     d="m 184.28348,59.402733 26.91099,1.491529 a 9.5203974,9.5203974 0 0 1 8.34621,12.947741 L 166.41687,207.12757 a 9.5203974,9.5203974 0 0 1 -10.72632,5.7757 L 62.739737,193.86248 A 9.5203974,9.5203974 0 0 1 56.234133,180.24831 L 83.779816,126.3946"
+     id="path5187"
+     inkscape:connector-curvature="0"
+     style="fill:none;stroke:#1d1d1b;stroke-width:12.62;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none" />
+  <path
+     style="fill:none;stroke:#1d1d1b;stroke-width:13.02;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
+     inkscape:connector-curvature="0"
+     d="M 96.695821,101.26075 116.97427,61.751098 a 9.5203974,9.5203974 0 0 1 8.8857,-5.141015 l 20.34192,1.01551"
+     id="path5185" />
+  <polyline
+     style="fill:none;stroke:#1d1d1b;stroke-width:4.10276991;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
+     points="64.08 21.9 48.38 60.35 22.02 55.57"
+     id="polyline5189"
+     transform="matrix(3.1734658,0,0,3.1734658,1.0792969,1.0426973)" />
+  <path
+     style="fill:none;stroke:#1d1d1b;stroke-width:13.02;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
+     inkscape:connector-curvature="0"
+     d="m 172.22431,71.049353 -19.80243,-1.269386 a 6.6642782,6.6642782 0 0 1 -6.18826,-6.632544 V 49.533255 a 6.6008089,6.6008089 0 0 1 7.17204,-6.600809 l 27.32354,1.872345 a 6.6008089,6.6008089 0 0 1 5.26795,9.901213 l -7.61632,12.979475 a 6.5690742,6.5690742 0 0 1 -6.15652,3.363874 z"
+     id="path5191" />
+  <line
+     style="fill:none;stroke:#1d1d1b;stroke-width:13.02;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
+     x1="124.55885"
+     y1="92.438507"
+     x2="173.96971"
+     y2="96.849632"
+     id="line5193" />
+  <line
+     style="fill:none;stroke:#1d1d1b;stroke-width:13.02;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
+     x1="117.92631"
+     y1="106.97299"
+     x2="167.33717"
+     y2="112.114"
+     id="line5195" />
+  <line
+     style="fill:none;stroke:#1d1d1b;stroke-width:13.02;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
+     x1="117.54549"
+     y1="122.71338"
+     x2="160.6729"
+     y2="127.37837"
+     id="line5197" />
+  <line
+     style="fill:none;stroke:#1d1d1b;stroke-width:13.02;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
+     x1="125.32049"
+     y1="139.34235"
+     x2="154.04034"
+     y2="142.64273"
+     id="line5199" />
+  <path
+     style="fill:none;stroke:#1d1d1b;stroke-width:13.02;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
+     inkscape:connector-curvature="0"
+     d="m 117.54549,122.71338 16.56549,35.41587 -34.908121,-17.00977 a 7.9019298,7.9019298 0 0 1 -1.872344,-1.30112 L 37.954969,80.56975 c -3.712954,-3.712955 -2.443568,-10.948457 2.79265,-16.21641 v 0 c 5.267954,-5.267953 12.53519,-6.505605 16.216411,-2.79265 l 59.21687,59.18514 a 7.2672367,7.2672367 0 0 1 1.36459,1.96755 z"
+     id="path5201" />
+</svg>

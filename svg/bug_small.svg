@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.0"
+   height="256"
+   width="256"
+   viewBox="0 0 256 256"
+   id="svg857"
+   sodipodi:docname="bug_small.svg"
+   inkscape:export-filename="C:\Users\simon\git\osmeditor4android\src\main\res\drawable-xhdpi\bug_small.png"
+   inkscape:export-xdpi="13.606299"
+   inkscape:export-ydpi="13.606299"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)">
+  <defs
+     id="defs861" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1066"
+     inkscape:window-height="628"
+     id="namedview859"
+     showgrid="false"
+     inkscape:zoom="0.91"
+     inkscape:cx="73.515084"
+     inkscape:cy="200.89492"
+     inkscape:window-x="234"
+     inkscape:window-y="234"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg857" />
+  <title
+     id="title839">OpenStreetMap way element icon</title>
+  <metadata
+     id="metadata841">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>OpenStreetMap way element icon</dc:title>
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/by-sa/4.0/" />
+        <dc:date>2014-03-10</dc:date>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>https://wiki.openstreetmap.org/wiki/User:Moresby</dc:title>
+          </cc:Agent>
+        </dc:creator>
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/by-sa/4.0/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Notice" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Attribution" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#ShareAlike" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+  <rect
+     style="fill:#f0f0f0;stroke:#000000;stroke-width:12"
+     id="rect843"
+     y="7"
+     x="7"
+     ry="32"
+     height="242"
+     width="242" />
+  <path
+     d="m 175.63929,197.69298 q -2.25067,1.53312 -5.01574,1.00875 -2.76507,-0.52437 -4.29819,-2.77503 l -13.20839,-19.3904 q -14.80248,10.08319 -29.05435,11.30034 l -5.82699,30.32925 q -0.52437,2.76506 -2.77504,4.29816 -2.25067,1.53313 -5.01575,1.00876 -2.70611,-0.4378 -4.29819,-2.77501 -1.59208,-2.33727 -1.00875,-5.01576 l 5.37788,-28.75601 q -0.72764,-0.13799 -2.00982,-0.53191 -1.28217,-0.39391 -4.94365,-1.95516 -3.661494,-1.56125 -6.992384,-3.47442 -3.33092,-1.91317 -7.34558,-5.38825 -4.01467,-3.47509 -6.84504,-7.63017 l 77.561574,-52.83355 -7.54765,-11.08021 -77.56157,52.83353 q -3.007261,-4.41478 -4.816433,-9.58231 -1.809163,-5.16753 -2.273418,-9.47697 -0.464254,-4.30943 -0.515745,-8.01291 -0.05147,-3.70349 0.24831,-5.68194 l 0.327412,-2.124 -28.709581,-3.63529 q -2.997168,-0.493 -4.648218,-2.9168 -1.41518,-2.07753 -1.150505,-4.66571 0.437803,-2.70611 2.643303,-4.39855 2.205501,-1.69245 4.939215,-1.40018 l 31.561211,4.10069 Q 78.885508,97.329076 92.735786,87.894506 L 79.527404,68.504122 q -1.533114,-2.25067 -1.008744,-5.015743 0.524361,-2.765074 2.775031,-4.298192 2.25067,-1.533119 5.015745,-1.008749 2.76508,0.524369 4.29819,2.775035 L 103.81602,80.346869 129.26591,63.010866 134.0404,37.83413 q 0.52437,-2.765077 2.77504,-4.298189 2.25067,-1.533118 5.01574,-1.008749 2.76507,0.524362 4.29819,2.775033 1.53312,2.250672 1.00875,5.015749 l -4.77449,25.176733 49.76729,73.060223 25.17672,4.77449 q 2.76506,0.52437 4.29821,2.77504 1.5331,2.25068 1.00873,5.01575 -0.52436,2.76507 -2.77503,4.29819 -2.25067,1.53311 -5.01574,1.00875 l -25.17673,-4.7745 -25.44988,17.336 13.20838,19.3904 q 1.53312,2.25067 1.00875,5.01574 -0.52437,2.76507 -2.77504,4.29819 z m 21.55733,-75.51525 -37.73824,-55.40112 q 11.51305,-7.842475 25.12012,-5.262043 13.60708,2.580439 21.44956,14.093486 7.84248,11.513043 5.26203,25.120127 -2.58043,13.60708 -14.09347,21.44955 z"
+     id="path2987"
+     inkscape:connector-curvature="0"
+     style="fill:#000000;fill-opacity:1;stroke-width:0.20116472"
+     inkscape:export-filename="C:\Users\simon\git\osmeditor4android\res\drawable-xhdpi\bug_open.png"
+     inkscape:export-xdpi="4.544838"
+     inkscape:export-ydpi="4.544838" />
+</svg>

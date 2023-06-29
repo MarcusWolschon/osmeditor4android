@@ -50,18 +50,14 @@ import android.provider.Settings;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.InputDevice;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnCreateContextMenuListener;
 import android.view.View.OnGenericMotionListener;
 import android.view.View.OnKeyListener;
 import android.view.View.OnLongClickListener;
@@ -131,6 +127,7 @@ import de.blau.android.gpx.TrackPoint;
 import de.blau.android.imageryoffset.ImageryAlignmentActionModeCallback;
 import de.blau.android.imageryoffset.ImageryOffsetUtils;
 import de.blau.android.layer.ClickableInterface;
+import de.blau.android.layer.ClickedObject;
 import de.blau.android.layer.DownloadInterface;
 import de.blau.android.layer.LayerType;
 import de.blau.android.layer.MapViewLayer;
@@ -432,6 +429,8 @@ public class Main extends FullScreenAppCompatActivity
 
     private UndoListener undoListener;
 
+    private MapTouchListener mapTouchListener;
+
     // hack to protect against weird state
     private ImageryAlignmentActionModeCallback imageryAlignmentActionModeCallback = null;
 
@@ -526,9 +525,8 @@ public class Main extends FullScreenAppCompatActivity
         map.setId(R.id.map_view);
 
         // Register some Listener
-        MapTouchListener mapTouchListener = new MapTouchListener();
+        mapTouchListener = new MapTouchListener();
         map.setOnTouchListener(mapTouchListener);
-        map.setOnCreateContextMenuListener(mapTouchListener);
         map.setOnKeyListener(new MapKeyListener());
         map.setOnGenericMotionListener(new MotionEventListener());
 
@@ -3482,40 +3480,7 @@ public class Main extends FullScreenAppCompatActivity
      * @author mb
      * @author simon
      */
-    private class MapTouchListener
-            implements OnTouchListener, VersionedGestureDetector.OnGestureListener, OnCreateContextMenuListener, OnMenuItemClickListener {
-
-        class ClickedObject<V> {
-            private final ClickableInterface<V> layer;
-            private final V                     object;
-
-            /**
-             * Construct a new container for objects that were clicked on a layer
-             * 
-             * @param layer the layer the object is on
-             * @param object the object
-             */
-            ClickedObject(@NonNull ClickableInterface<V> layer, @NonNull V object) {
-                this.layer = layer;
-                this.object = object;
-            }
-
-            /**
-             * Do something when this is selected
-             */
-            void onSelected() {
-                layer.onSelected(Main.this, object);
-            }
-
-            /**
-             * Get a description of the object
-             *
-             * @return the description
-             */
-            SpannableString getDescription() {
-                return layer.getDescription(object);
-            }
-        }
+    private class MapTouchListener implements OnTouchListener, VersionedGestureDetector.OnGestureListener, DisambiguationMenu.OnMenuItemClickListener {
 
         private List<OsmElement> clickedNodesAndWays;
 
@@ -3576,7 +3541,7 @@ public class Main extends FullScreenAppCompatActivity
                     break;
                 case 1:
                     descheduleAutoLock();
-                    clickedObjects.get(0).onSelected();
+                    clickedObjects.get(0).onSelected(Main.this);
                     break;
                 default:
                     v.showContextMenu();
@@ -3605,7 +3570,7 @@ public class Main extends FullScreenAppCompatActivity
                 int itemCount = elementCount + clickedObjectsCount;
                 if (itemCount == 1) {
                     if (clickedObjectsCount == 1) {
-                        clickedObjects.get(0).onSelected();
+                        clickedObjects.get(0).onSelected(Main.this);
                     } else if (elementCount == 1) {
                         ElementInfo.showDialog(Main.this, clickedNodesAndWays.get(0));
                     }
@@ -3727,7 +3692,7 @@ public class Main extends FullScreenAppCompatActivity
                     // exactly one element touched
                     if (clickedObjects.size() == 1) {
                         descheduleAutoLock();
-                        clickedObjects.get(0).onSelected();
+                        clickedObjects.get(0).onSelected(Main.this);
                     } else if (clickedNodesAndWays.size() == 1) {
                         if (inEasyEditMode) {
                             getEasyEditManager().editElement(clickedNodesAndWays.get(0));
@@ -3743,7 +3708,7 @@ public class Main extends FullScreenAppCompatActivity
                 default:
                     // multiple possible elements touched - show menu
                     if (menuRequired()) {
-                        v.showContextMenu();
+                        showDisambiguationMenu(v);
                     } else {
                         // menuRequired tells us it's ok to just take the first one
                         if (inEasyEditMode) {
@@ -3777,40 +3742,25 @@ public class Main extends FullScreenAppCompatActivity
             return tmp;
         }
 
-        @Override
-        public void onCreateContextMenu(final ContextMenu menu, final View v, final ContextMenuInfo menuInfo) {
-            if (!getEasyEditManager().createContextMenu(menu)) {
-                onCreateDefaultContextMenu(menu);
-            }
-        }
-
         /**
          * Creates a context menu with the objects near where the screen was touched
          * 
          * @param menu Menu object to add our entries to
          */
-        public void onCreateDefaultContextMenu(@NonNull final ContextMenu menu) {
+        public void onCreateDefaultDisambiguationMenu(@NonNull final DisambiguationMenu menu) {
             int id = 0;
             if (!clickedObjects.isEmpty()) {
                 for (final ClickedObject<?> co : clickedObjects) {
-                    menu.add(Menu.NONE, id++, Menu.NONE, co.getDescription()).setOnMenuItemClickListener(item -> {
+                    menu.add(id++, co, co.getDescription(Main.this), false, pos -> {
                         descheduleAutoLock();
-                        co.onSelected();
-                        return true;
+                        co.onSelected(Main.this);
                     });
                 }
             }
             if (clickedNodesAndWays != null) {
                 Logic logic = App.getLogic();
                 for (OsmElement e : clickedNodesAndWays) {
-                    String description = descriptionForContextMenu(e);
-                    if (logic.isSelected(e)) {
-                        SpannableString s = new SpannableString(description);
-                        s.setSpan(new ForegroundColorSpan(ThemeUtils.getStyleAttribColorValue(Main.this, R.attr.colorAccent, 0)), 0, s.length(), 0);
-                        menu.add(Menu.NONE, id++, Menu.NONE, s).setOnMenuItemClickListener(this);
-                    } else {
-                        menu.add(Menu.NONE, id++, Menu.NONE, description).setOnMenuItemClickListener(this);
-                    }
+                    menu.add(id++, e, descriptionForContextMenu(e), logic.isSelected(e), this);
                 }
             }
         }
@@ -3875,8 +3825,8 @@ public class Main extends FullScreenAppCompatActivity
         }
 
         @Override
-        public boolean onMenuItemClick(final android.view.MenuItem item) {
-            int itemId = item.getItemId() - clickedObjects.size();
+        public void onItemClick(int position) {
+            int itemId = position - clickedObjects.size();
             if ((itemId >= 0) && (clickedNodesAndWays != null) && (itemId < clickedNodesAndWays.size())) {
                 final OsmElement element = clickedNodesAndWays.get(itemId);
                 if (App.getLogic().isLocked()) {
@@ -3898,7 +3848,6 @@ public class Main extends FullScreenAppCompatActivity
                     }
                 }
             }
-            return true;
         }
 
         @Override
@@ -3919,7 +3868,7 @@ public class Main extends FullScreenAppCompatActivity
                                 // multiple possible elements touched - show menu
                                 Log.d(DEBUG_TAG, "onDoubleTap displaying menu");
                                 doubleTap = true; // ugly flag
-                                v.showContextMenu();
+                                showDisambiguationMenu(v);
                             } else {
                                 // menuRequired tells us it's ok to just take the first one
                                 getEasyEditManager().startExtendedSelection(clickedNodesAndWays.get(0));
@@ -3934,6 +3883,26 @@ public class Main extends FullScreenAppCompatActivity
             }
             return true;
         }
+
+        /**
+         * Create and show the disambiguation menu
+         * 
+         * @param view the current anchor view
+         */
+        public void showDisambiguationMenu(@NonNull View view) {
+            DisambiguationMenu menu = new DisambiguationMenu(view);
+            if (!getEasyEditManager().createDisambiguationMenu(menu)) {
+                onCreateDefaultDisambiguationMenu(menu);
+            }
+            menu.show();
+        }
+    }
+
+    /**
+     * Create and show the disambiguation menu
+     */
+    public void showDisambiguationMenu() {
+        mapTouchListener.showDisambiguationMenu(getMap());
     }
 
     /**
@@ -4566,7 +4535,7 @@ public class Main extends FullScreenAppCompatActivity
                 }
             }
         }
-        String description = e.getDescription(this);
+        String description = e.getDescription(this, false);
         return parentList.length() == 0 ? getString(R.string.element_for_menu, description)
                 : getString(R.string.element_for_menu_with_parents, description, parentList.toString());
     }

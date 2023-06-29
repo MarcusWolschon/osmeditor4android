@@ -2,6 +2,7 @@ package de.blau.android.layer;
 
 import java.util.List;
 
+import android.content.Context;
 import android.text.SpannableString;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -56,5 +57,16 @@ public interface ClickableInterface<V> {
      * @param object the Object from this layer
      * @return the description
      */
+    @NonNull
     SpannableString getDescription(@NonNull final V object);
+
+    /**
+     * Get a short description of the object suitable for a menu
+     * 
+     * @param context an Android Context
+     * @param object the Object from this layer
+     * @return the description
+     */
+    @NonNull
+    SpannableString getDescription(@NonNull Context context, @NonNull final V object);
 }

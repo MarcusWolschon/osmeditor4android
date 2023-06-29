@@ -290,7 +290,12 @@ public class MapOverlay extends MapViewLayer
 
     @Override
     public SpannableString getDescription(Task t) {
-        SpannableString d = new SpannableString(t.getDescription(map.getContext()));
+        return getDescription(map.getContext(), t);
+    }
+
+    @Override
+    public SpannableString getDescription(Context context, Task t) {
+        SpannableString d = new SpannableString(t.getDescription(context));
         if (t.isClosed()) {
             d.setSpan(new StrikethroughSpan(), 0, d.length(), 0);
         }

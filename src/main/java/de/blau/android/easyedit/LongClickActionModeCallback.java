@@ -5,12 +5,12 @@ import java.util.List;
 
 import android.location.LocationManager;
 import android.util.Log;
-import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.view.ActionMode;
 import de.blau.android.App;
+import de.blau.android.DisambiguationMenu;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.dialogs.GnssPositionInfo;
@@ -27,7 +27,7 @@ import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 import de.blau.android.voice.Commands;
 
-public class LongClickActionModeCallback extends EasyEditActionModeCallback implements android.view.MenuItem.OnMenuItemClickListener {
+public class LongClickActionModeCallback extends EasyEditActionModeCallback implements DisambiguationMenu.OnMenuItemClickListener {
     private static final String DEBUG_TAG                = "LongClickActionMode...";
     private static final int    MENUITEM_OSB             = 1;
     private static final int    MENUITEM_NEWNODEWAY      = 2;
@@ -121,13 +121,13 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
     }
 
     @Override
-    public boolean onCreateContextMenu(ContextMenu menu) {
+    public boolean onCreateDisambiguationMenu(DisambiguationMenu menu) {
         if (clickedNonClosedWays != null && !clickedNonClosedWays.isEmpty()) {
             menu.setHeaderTitle(R.string.split_context_title);
             int id = 0;
-            menu.add(Menu.NONE, id++, Menu.NONE, R.string.split_all_ways).setOnMenuItemClickListener(this);
+            menu.add(id++, (DisambiguationMenu.Type) null, R.string.split_all_ways, false, this);
             for (Way w : clickedNonClosedWays) {
-                menu.add(Menu.NONE, id++, Menu.NONE, w.getDescription(main)).setOnMenuItemClickListener(this);
+                menu.add(id++, w, w.getDescription(main), false, this);
             }
             return true;
         }
@@ -135,8 +135,8 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
     }
 
     @Override
-    public boolean onMenuItemClick(MenuItem item) {
-        int itemId = item.getItemId();
+    public void onItemClick(int position) {
+        int itemId = position;
 
         final List<Way> ways = new ArrayList<>();
         if (itemId == 0) {
@@ -160,7 +160,6 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
         } catch (OsmIllegalOperationException e) {
             finishOnException(e);
         }
-        return false;
     }
 
     /**
@@ -194,7 +193,7 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
             return true;
         case MENUITEM_SPLITWAY:
             if (clickedNonClosedWays.size() > 1) {
-                manager.showContextMenu();
+                manager.showDisambiguationMenu();
             } else {
                 Way way = clickedNonClosedWays.get(0);
                 try {

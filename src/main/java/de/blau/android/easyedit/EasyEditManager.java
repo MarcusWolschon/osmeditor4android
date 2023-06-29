@@ -8,7 +8,6 @@ import java.util.Collections;
 import java.util.List;
 
 import android.util.Log;
-import android.view.ContextMenu;
 import android.view.HapticFeedbackConstants;
 import android.view.View;
 import androidx.annotation.NonNull;
@@ -16,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.view.ActionMode;
 import androidx.appcompat.view.ActionMode.Callback;
 import de.blau.android.App;
+import de.blau.android.DisambiguationMenu;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.Map;
@@ -553,11 +553,11 @@ public class EasyEditManager {
      * 
      * This is slightly complicated because Android will always show a menu on long press if one has been created
      */
-    public void showContextMenu() {
+    public void showDisambiguationMenu() {
         synchronized (actionModeCallbackLock) {
             contextMenuEnabled = true;
         }
-        main.getMap().showContextMenu();
+        main.showDisambiguationMenu();
     }
 
     /**
@@ -566,11 +566,11 @@ public class EasyEditManager {
      * @param menu the ContextMenu
      * @return true if a menu was created
      */
-    public boolean createContextMenu(ContextMenu menu) {
+    public boolean createDisambiguationMenu(DisambiguationMenu menu) {
         try {
             synchronized (actionModeCallbackLock) {
                 if (currentActionModeCallback != null && contextMenuEnabled && isProcessingAction()) {
-                    return currentActionModeCallback.onCreateContextMenu(menu);
+                    return currentActionModeCallback.onCreateDisambiguationMenu(menu);
                 }
             }
             return false;

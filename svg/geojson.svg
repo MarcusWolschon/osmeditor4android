@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.0"
+   height="256"
+   width="256"
+   viewBox="0 0 256 256"
+   id="svg857"
+   sodipodi:docname="geojson.svg"
+   inkscape:export-filename="C:\Users\simon\git\osmeditor4android\src\main\res\drawable-xhdpi\geojson.png"
+   inkscape:export-xdpi="13.606299"
+   inkscape:export-ydpi="13.606299"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)">
+  <defs
+     id="defs861" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1066"
+     inkscape:window-height="628"
+     id="namedview859"
+     showgrid="false"
+     inkscape:zoom="0.91"
+     inkscape:cx="-157.54798"
+     inkscape:cy="200.89492"
+     inkscape:window-x="234"
+     inkscape:window-y="234"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg857" />
+  <title
+     id="title839">OpenStreetMap way element icon</title>
+  <metadata
+     id="metadata841">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>OpenStreetMap way element icon</dc:title>
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/by-sa/4.0/" />
+        <dc:date>2014-03-10</dc:date>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>https://wiki.openstreetmap.org/wiki/User:Moresby</dc:title>
+          </cc:Agent>
+        </dc:creator>
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/by-sa/4.0/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Notice" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Attribution" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#ShareAlike" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+  <rect
+     style="fill:#f0f0f0;stroke:#000000;stroke-width:12"
+     id="rect843"
+     y="7"
+     x="7"
+     ry="32"
+     height="242"
+     width="242" />
+  <flowRoot
+     xml:space="preserve"
+     id="flowRoot5856"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:149.33334351px;line-height:125%;font-family:'Courier New';-inkscape-font-specification:'Courier New Bold';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     transform="matrix(0.68175857,0.48683322,-0.49245592,0.67397448,81.958433,-32.819278)"><flowRegion
+       id="flowRegion5858"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:149.33334351px;font-family:'Courier New';-inkscape-font-specification:'Courier New Bold'"><rect
+         id="rect5860"
+         width="346.15384"
+         height="281.3187"
+         x="20.87912"
+         y="34.021976"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:149.33334351px;font-family:'Courier New';-inkscape-font-specification:'Courier New Bold'" /></flowRegion><flowPara
+       id="flowPara5862">GEO</flowPara></flowRoot></svg>

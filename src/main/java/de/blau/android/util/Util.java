@@ -720,4 +720,18 @@ public final class Util {
     public static boolean permissionGranted(@NonNull Context ctx, @NonNull String permission) {
         return ContextCompat.checkSelfPermission(ctx, permission) == PackageManager.PERMISSION_GRANTED;
     }
+
+    /**
+     * Determine if we are displaying in an RTL script
+     * 
+     * @param context an Android Context
+     * @return true if RTL
+     */
+    public static boolean isRtlScript(@NonNull Context context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            Configuration config = context.getResources().getConfiguration();
+            return config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
+        }
+        return false;
+    }
 }

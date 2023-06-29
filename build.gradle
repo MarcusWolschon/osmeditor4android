@@ -593,6 +593,7 @@ dependencies {
     implementation "androidx.window:window:1.0.0"
     implementation 'androidx.core:core-splashscreen:1.0.0-beta02'
     implementation "androidx.multidex:multidex:2.0.1"
+    implementation "androidx.cardview:cardview:1.0.0"
     
     //
     implementation 'com.heinrichreimersoftware:android-issue-reporter:1.4'

@@ -419,9 +419,13 @@ public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay {
 
     @Override
     public SpannableString getDescription(de.blau.android.util.mvt.VectorTileDecoder.Feature f) {
+        return getDescription(map.getContext(), f);
+    }
+
+    @Override
+    public SpannableString getDescription(@NonNull Context context, de.blau.android.util.mvt.VectorTileDecoder.Feature f) {
         Long capturedAt = (Long) f.getAttributes().get(CAPTURED_AT_KEY);
-        return new SpannableString(
-                map.getContext().getString(R.string.mapillary_image, DateFormatter.getUtcFormat(OsmParser.TIMESTAMP_FORMAT).format(capturedAt)));
+        return new SpannableString(context.getString(R.string.mapillary_image, DateFormatter.getUtcFormat(OsmParser.TIMESTAMP_FORMAT).format(capturedAt)));
     }
 
     @Override
