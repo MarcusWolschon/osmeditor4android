@@ -15,11 +15,9 @@ import java.util.Map.Entry;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -50,6 +48,7 @@ import de.blau.android.prefs.VespucciURLActivity;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.UpdatedWebViewClient;
+import de.blau.android.util.Util;
 import de.blau.android.util.WebViewActivity;
 
 /**
@@ -123,10 +122,8 @@ public class HelpViewer extends WebViewActivity {
             setTheme(R.style.Theme_customHelpViewer_Light);
         }
         super.onCreate(savedInstanceState);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            Configuration config = App.getConfiguration();
-            rtl = config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
-        }
+        rtl = Util.isRtlScript(this);
+
         unselectedItemBackground = ThemeUtils.getStyleAttribColorValue(this, R.attr.unselected_item_background, R.color.light_grey);
         selectedItemBackground = ThemeUtils.getStyleAttribColorValue(this, R.attr.selected_item_background, R.color.dark_grey);
         int topicId = R.string.help_introduction;

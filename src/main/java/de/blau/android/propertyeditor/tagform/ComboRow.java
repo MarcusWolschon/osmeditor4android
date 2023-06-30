@@ -18,6 +18,7 @@ import de.blau.android.contract.Ui;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.propertyeditor.tagform.TagFormFragment.EditableLayout;
 import de.blau.android.util.StringWithDescriptionAndIcon;
+import de.blau.android.util.Util;
 
 /**
  * A row that shows a radio-button like UI for selecting a single value
@@ -136,7 +137,7 @@ public class ComboRow extends LinearLayout {
         button.setChecked(selected);
         button.setId(idCounter++);
         if (icon != null) {
-            button.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
+            Util.setCompoundDrawableWithIntrinsicBounds(Util.isRtlScript(context), button, icon);
             button.setCompoundDrawablePadding(Ui.COMPOUND_DRAWABLE_PADDING);
         }
         valueGroup.addView(button);

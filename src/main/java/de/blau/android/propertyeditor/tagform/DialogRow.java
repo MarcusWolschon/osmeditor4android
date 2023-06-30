@@ -24,6 +24,7 @@ import de.blau.android.propertyeditor.PropertyEditorFragment;
 import de.blau.android.propertyeditor.tagform.TagFormFragment.EditableLayout;
 import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.StringWithDescriptionAndIcon;
+import de.blau.android.util.Util;
 
 /**
  * Display a single value and allow editing via a dialog
@@ -122,8 +123,9 @@ public class DialogRow extends LinearLayout implements KeyValueRow {
         Drawable icon = null;
         Log.d(DEBUG_TAG, "got swd but no swdai");
         if (swd instanceof StringWithDescriptionAndIcon) {
-            icon = ((StringWithDescriptionAndIcon) swd).getIcon(getContext(), preset);
-            valueView.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
+            final Context context = getContext();
+            icon = ((StringWithDescriptionAndIcon) swd).getIcon(context, preset);
+            Util.setCompoundDrawableWithIntrinsicBounds(Util.isRtlScript(context), valueView, icon);
             valueView.setCompoundDrawablePadding(Ui.COMPOUND_DRAWABLE_PADDING);
         }
     }

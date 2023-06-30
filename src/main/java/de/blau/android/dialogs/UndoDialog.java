@@ -263,9 +263,9 @@ public class UndoDialog extends ImmersiveDialogFragment {
             int pad = Density.dpToPx(ctx, 15);
             setPadding(pad, pad, pad, pad);
             setCompoundDrawablePadding(pad);
-            setCompoundDrawablesWithIntrinsicBounds(
-                    isRedo ? ThemeUtils.getResIdFromAttribute(ctx, R.attr.undolist_redo) : ThemeUtils.getResIdFromAttribute(ctx, R.attr.undolist_undo), 0, 0,
-                    0);
+            int iconRes = isRedo ? ThemeUtils.getResIdFromAttribute(ctx, R.attr.undolist_redo) : ThemeUtils.getResIdFromAttribute(ctx, R.attr.undolist_undo);
+            boolean rtl = de.blau.android.util.Util.isRtlScript(ctx);
+            setCompoundDrawablesWithIntrinsicBounds(!rtl ? iconRes : 0, 0, rtl ? iconRes : 0, 0);
             this.index = index;
             this.isRedo = isRedo;
         }

@@ -13,7 +13,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
@@ -336,11 +335,7 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
             formEnabled = prefs.tagFormEnabled();
         }
 
-        boolean rtl = false;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            Configuration config = getResources().getConfiguration();
-            rtl = config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
-        }
+        boolean rtl = Util.isRtlScript(getContext());
         PropertyEditorPagerAdapter pagerAdapter = new PropertyEditorPagerAdapter(getChildFragmentManager(), rtl, tags);
         mViewPager = (ExtendedViewPager) layout.findViewById(R.id.pager);
         PagerTabStrip pagerTabStrip = (PagerTabStrip) mViewPager.findViewById(R.id.pager_header);

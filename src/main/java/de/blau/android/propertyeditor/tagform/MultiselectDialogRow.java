@@ -236,7 +236,7 @@ public class MultiselectDialogRow extends DialogRow {
         check.setText(description != null && !"".equals(description) ? description : swd.getValue());
         check.setTag(swd);
         if (icon != null) {
-            check.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
+            Util.setCompoundDrawableWithIntrinsicBounds(Util.isRtlScript(context),check,icon);
             check.setCompoundDrawablePadding(Ui.COMPOUND_DRAWABLE_PADDING);
         }
         check.setLayoutParams(layoutParams);

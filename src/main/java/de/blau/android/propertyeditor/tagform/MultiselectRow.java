@@ -18,6 +18,7 @@ import de.blau.android.contract.Ui;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.propertyeditor.tagform.TagFormFragment.EditableLayout;
 import de.blau.android.util.StringWithDescriptionAndIcon;
+import de.blau.android.util.Util;
 
 /**
  * Inline multiselect value display with checkboxes
@@ -121,7 +122,7 @@ public class MultiselectRow extends LinearLayout {
         check.setText(description);
         check.setTag(value);
         if (icon != null) {
-            check.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
+            Util.setCompoundDrawableWithIntrinsicBounds(Util.isRtlScript(context), check, icon);
             check.setCompoundDrawablePadding(Ui.COMPOUND_DRAWABLE_PADDING);
         }
         check.setChecked(selected);

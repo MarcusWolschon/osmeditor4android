@@ -39,6 +39,7 @@ import android.text.style.MetricAffectingSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -68,7 +69,7 @@ import de.blau.android.resources.TileLayerSource;
 
 public final class Util {
 
-    private static final String DEBUG_TAG = "Util";
+    private static final String DEBUG_TAG = Util.class.getSimpleName();
 
     /**
      * Private constructor
@@ -114,6 +115,7 @@ public final class Util {
      * @param list List of ways
      * @return null if not connected or not all ways connected or the sorted list of ways
      */
+    @Nullable
     public static List<OsmElement> sortWays(@NonNull List<OsmElement> list) {
         List<OsmElement> result = new ArrayList<>();
         List<OsmElement> unconnected = new ArrayList<>(list);
@@ -250,19 +252,19 @@ public final class Util {
                     Log.e(DEBUG_TAG, "scrollToRow unexpected view " + sv);
                 }
             });
-        } else {
-            Log.d(DEBUG_TAG, "scrollToRow scrolling to row");
-            sv.post(() -> {
-                final int target = up ? row.getTop() : row.getBottom();
-                if (sv instanceof ScrollView) {
-                    ((ScrollView) sv).smoothScrollTo(0, target);
-                } else if (sv instanceof NestedScrollView) {
-                    ((NestedScrollView) sv).smoothScrollTo(0, target);
-                } else {
-                    Log.e(DEBUG_TAG, "scrollToRow unexpected view " + sv);
-                }
-            });
+            return;
         }
+        Log.d(DEBUG_TAG, "scrollToRow scrolling to row");
+        sv.post(() -> {
+            final int target = up ? row.getTop() : row.getBottom();
+            if (sv instanceof ScrollView) {
+                ((ScrollView) sv).smoothScrollTo(0, target);
+            } else if (sv instanceof NestedScrollView) {
+                ((NestedScrollView) sv).smoothScrollTo(0, target);
+            } else {
+                Log.e(DEBUG_TAG, "scrollToRow unexpected view " + sv);
+            }
+        });
     }
 
     /**
@@ -490,11 +492,10 @@ public final class Util {
      * @param newConfig new Configuration
      */
     public static void clearCaches(@NonNull Context context, Configuration oldConfig, @NonNull Configuration newConfig) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            if (oldConfig == null || oldConfig.densityDpi != newConfig.densityDpi || oldConfig.fontScale != newConfig.fontScale) {
-                // if the density has changed the icons will have wrong dimension remove them
-                clearIconCaches(context);
-            }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1
+                && (oldConfig == null || oldConfig.densityDpi != newConfig.densityDpi || oldConfig.fontScale != newConfig.fontScale)) {
+            // if the density has changed the icons will have wrong dimension remove them
+            clearIconCaches(context);
         }
     }
 
@@ -733,5 +734,16 @@ public final class Util {
             return config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
         }
         return false;
+    }
+
+    /**
+     * Set the TextView CompoundDrawable according to if we are using RTL rendering or not
+     * 
+     * @param rtl if true RTL
+     * @param textView the TextView
+     * @param drawable the Drawable to set
+     */
+    public static void setCompoundDrawableWithIntrinsicBounds(boolean rtl, @NonNull final TextView textView, @Nullable final Drawable drawable) {
+        textView.setCompoundDrawablesWithIntrinsicBounds(!rtl ? drawable : null, null, rtl ? drawable : null, null);
     }
 }
