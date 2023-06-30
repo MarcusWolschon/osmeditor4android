@@ -319,6 +319,11 @@ public class MapOverlay extends MapViewLayer implements DiscardInterface, Clicka
 
     @Override
     public SpannableString getDescription(Photo photo) {
+        return getDescription(map.getContext(), photo);
+    }
+
+    @Override
+    public SpannableString getDescription(Context context, Photo photo) {
         return new SpannableString(photo.getDisplayName());
     }
 

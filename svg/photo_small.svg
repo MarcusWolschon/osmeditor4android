@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.0"
+   height="256"
+   width="256"
+   viewBox="0 0 256 256"
+   id="svg857"
+   sodipodi:docname="photo_small.svg"
+   inkscape:export-filename="C:\Users\simon\git\osmeditor4android\src\main\res\drawable-xhdpi\photo_small.png"
+   inkscape:export-xdpi="13.606299"
+   inkscape:export-ydpi="13.606299"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)">
+  <defs
+     id="defs861" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1066"
+     inkscape:window-height="628"
+     id="namedview859"
+     showgrid="false"
+     inkscape:zoom="0.91"
+     inkscape:cx="82.561911"
+     inkscape:cy="200.89492"
+     inkscape:window-x="234"
+     inkscape:window-y="234"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg857" />
+  <title
+     id="title839">OpenStreetMap way element icon</title>
+  <metadata
+     id="metadata841">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>OpenStreetMap way element icon</dc:title>
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/by-sa/4.0/" />
+        <dc:date>2014-03-10</dc:date>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>https://wiki.openstreetmap.org/wiki/User:Moresby</dc:title>
+          </cc:Agent>
+        </dc:creator>
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/by-sa/4.0/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Notice" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Attribution" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#ShareAlike" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+  <rect
+     style="fill:#f0f0f0;stroke:#000000;stroke-width:12"
+     id="rect843"
+     y="7"
+     x="7"
+     ry="32"
+     height="242"
+     width="242" />
+  <g
+     id="g6481">
+    <path
+       id="rect2985"
+       d="m 151.63193,45.274564 -45.25646,0.359947 a 10.633353,10.633353 0 0 0 -8.874083,4.914666 L 82.508198,74.001129 H 40.740466 A 10.633353,10.633353 0 0 0 30.108176,84.633418 V 200.09344 a 10.633353,10.633353 0 0 0 10.63229,10.6323 H 215.25954 a 10.633353,10.633353 0 0 0 10.63229,-10.6323 V 84.633418 A 10.633353,10.633353 0 0 0 215.25954,74.001129 H 173.53333 L 161.07362,50.867591 a 10.633353,10.633353 0 0 0 -9.44169,-5.593027 z m -6.25755,21.319956 3.98711,7.406609 H 128 107.74604 l 4.56856,-7.14357 z M 51.372756,95.265713 H 88.239667 C 74.094314,107.07776 65.050754,124.82117 65.050754,144.59234 c 0,17.4306 7.043338,33.26737 18.398845,44.86881 H 51.372756 Z m 119.073334,0 h 34.18116 v 94.195437 h -29.37724 c 11.3555,-11.60144 18.385,-27.43821 18.385,-44.86881 0,-19.77138 -9.04331,-37.51458 -23.18892,-49.326627 z m -41.10321,6.312917 c 23.8883,0 43.02755,19.13741 43.02755,43.01371 0,23.8763 -19.13594,42.99986 -43.02755,42.99986 -23.89161,0 -43.027547,-19.12356 -43.027547,-42.99986 0,-23.8763 19.139247,-43.01371 43.027547,-43.01371 z"
+       style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:Sans;-inkscape-font-specification:Sans;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:start;display:inline;overflow:visible;visibility:visible;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:21.26457977;marker:none;enable-background:accumulate"
+       inkscape:connector-curvature="0" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path3782"
+       d="M 51.395478,142.37715 V 95.312278 l 18.390295,0.0046 c 16.203973,0.004 18.357322,0.02946 18.112934,0.214325 -0.776666,0.587438 -4.303322,3.931222 -5.372806,5.094207 -8.453441,9.19252 -13.761377,19.41028 -16.198382,31.18184 -1.576406,7.61458 -1.698154,15.9035 -0.348265,23.71098 1.283716,7.42478 3.85937,14.48059 7.769063,21.28276 2.106296,3.66458 5.891848,8.71382 8.700974,11.60552 l 1.005996,1.03557 H 67.425382 51.395478 v -47.06487 z"
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.04430121;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path3784"
+       d="m 108.12948,73.48439 c 0.18121,-0.299826 1.19512,-1.899144 2.25314,-3.554051 l 1.92367,-3.008911 9.93182,-0.08645 c 5.46251,-0.04755 12.89601,-0.122825 16.51891,-0.167281 l 6.58707,-0.08083 1.94745,3.63984 c 1.0711,2.00191 1.94745,3.676509 1.94745,3.721329 0,0.04482 -9.32377,0.08149 -20.7195,0.08149 H 107.8 Z"
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.04430121;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path3786"
+       d="m 176.39864,188.28744 c 5.76412,-6.33399 9.76377,-12.67599 12.82917,-20.34243 4.59715,-11.49728 5.648,-24.80863 2.92702,-37.07703 -2.26962,-10.23329 -6.75318,-19.3039 -13.62121,-27.55682 -1.44189,-1.73263 -5.25387,-5.640087 -6.9406,-7.11444 l -0.99986,-0.873961 17.03334,-0.0052 17.03334,-0.0052 v 47.064861 47.06488 h -14.65595 -14.65595 l 1.0507,-1.15459 z"
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.04430121;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+  </g>
+</svg>

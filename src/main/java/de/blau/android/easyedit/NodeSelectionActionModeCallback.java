@@ -9,7 +9,6 @@ import java.util.SortedMap;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface.OnClickListener;
 import android.util.Log;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,6 +21,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.appcompat.view.ActionMode;
+import de.blau.android.DisambiguationMenu;
 import de.blau.android.R;
 import de.blau.android.dialogs.TagConflictDialog;
 import de.blau.android.easyedit.turnrestriction.FromElementWithViaNodeActionModeCallback;
@@ -39,7 +39,7 @@ import de.blau.android.util.Sound;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
-public class NodeSelectionActionModeCallback extends ElementSelectionActionModeCallback implements android.view.MenuItem.OnMenuItemClickListener {
+public class NodeSelectionActionModeCallback extends ElementSelectionActionModeCallback implements DisambiguationMenu.OnMenuItemClickListener {
     private static final String DEBUG_TAG             = "NodeSelectionAction...";
     private static final int    MENUITEM_APPEND       = LAST_REGULAR_MENUITEM + 1;
     private static final int    MENUITEM_JOIN         = LAST_REGULAR_MENUITEM + 2;
@@ -159,7 +159,7 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
                 switch (action) {
                 case MENUITEM_APPEND:
                     if (appendableWays.size() > 1) {
-                        manager.showContextMenu();
+                        manager.showDisambiguationMenu();
                     } else {
                         final PathCreationActionModeCallback callback = new PathCreationActionModeCallback(manager, appendableWays.get(0), (Node) element);
                         callback.setTitle(R.string.menu_append);
@@ -231,14 +231,15 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
     }
 
     @Override
-    public boolean onCreateContextMenu(@NonNull ContextMenu menu) {
+    public boolean onCreateDisambiguationMenu(@NonNull DisambiguationMenu menu) {
         if (action == MENUITEM_JOIN && joinableElements.size() > 1) {
             menu.setHeaderTitle(R.string.merge_context_title);
-            menu.add(Menu.NONE, 0, Menu.NONE, joinableElements.get(0) instanceof Way ? R.string.merge_with_all_ways : R.string.merge_with_all_nodes)
-                    .setOnMenuItemClickListener(this);
+            menu.add(0, (DisambiguationMenu.Type) null, joinableElements.get(0) instanceof Way ? R.string.merge_with_all_ways : R.string.merge_with_all_nodes,
+                    false, this);
             addElementsToContextMenu(menu, 1, joinableElements);
             return true;
-        } else if ((action == MENUITEM_APPEND && appendableWays.size() > 1)) {
+        }
+        if ((action == MENUITEM_APPEND && appendableWays.size() > 1)) {
             menu.setHeaderTitle(R.string.append_context_title);
             addElementsToContextMenu(menu, 0, appendableWays);
             return true;
@@ -254,15 +255,15 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
      * @param startIndex the index to use for the item
      * @param elements list of elements to add
      */
-    private <T extends OsmElement> void addElementsToContextMenu(@NonNull ContextMenu menu, int startIndex, @NonNull List<T> elements) {
+    private <T extends OsmElement> void addElementsToContextMenu(@NonNull DisambiguationMenu menu, int startIndex, @NonNull List<T> elements) {
         for (OsmElement e : elements) {
-            menu.add(Menu.NONE, startIndex++, Menu.NONE, main.descriptionForContextMenu(e)).setOnMenuItemClickListener(this);
+            menu.add(startIndex++, e, main.descriptionForContextMenu(e), false, this);
         }
     }
 
     @Override
-    public boolean onMenuItemClick(MenuItem item) {
-        int itemId = item.getItemId();
+    public void onItemClick(int position) {
+        int itemId = position;
         if (action == MENUITEM_JOIN) {
             if (itemId == 0) {
                 mergeNodeWith(joinableElements);
@@ -272,7 +273,6 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
         } else if (action == MENUITEM_APPEND) {
             main.startSupportActionMode(new PathCreationActionModeCallback(manager, appendableWays.get(itemId), (Node) element));
         }
-        return true;
     }
 
     @Override
@@ -320,7 +320,7 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
      */
     void mergeNode(int count) {
         if (count > 1) {
-            manager.showContextMenu();
+            manager.showDisambiguationMenu();
         } else {
             mergeNodeWith(joinableElements);
         }

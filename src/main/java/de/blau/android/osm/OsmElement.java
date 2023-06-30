@@ -587,7 +587,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
      * @return a string containing the description
      */
     @NonNull
-    protected String getDescription(@Nullable Context ctx, boolean withType) {
+    public String getDescription(@Nullable Context ctx, boolean withType) {
         return getDescription(ctx, tags, withType);
     }
 

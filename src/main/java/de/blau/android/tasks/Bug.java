@@ -99,14 +99,13 @@ public abstract class Bug extends Task implements Serializable {
      * @param bugNameRes the resource id of the name of the bug type
      * @return a String with a short description
      */
-    protected String getBugDescription(@NonNull Context context, int bugNameRes) {
+    protected String getBugDescription(@NonNull Context context, int bugNameRes) { // NOSONAR
         String[] states = context.getResources().getStringArray(R.array.bug_state);
         String state = states[getState().ordinal()];
-        String bugName = context.getString(bugNameRes);
         if (notEmpty(title) && notEmpty(subtitle)) {
-            return context.getString(R.string.bug_description_2, bugName, title, subtitle, state);
+            return context.getString(R.string.bug_description_2, title, subtitle, state);
         } else {
-            return context.getString(R.string.bug_description, bugName, notEmpty(title) ? title : (notEmpty(subtitle) ? subtitle : ""), state);
+            return context.getString(R.string.bug_description, notEmpty(title) ? title : (notEmpty(subtitle) ? subtitle : ""), state);
         }
     }
 

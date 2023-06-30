@@ -12,7 +12,6 @@ import java.util.SortedMap;
 
 import android.content.DialogInterface;
 import android.util.Log;
-import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,6 +24,7 @@ import androidx.appcompat.view.ActionMode;
 import androidx.appcompat.widget.ActionMenuView;
 import de.blau.android.App;
 import de.blau.android.AsyncResult;
+import de.blau.android.DisambiguationMenu;
 import de.blau.android.HelpViewer;
 import de.blau.android.Logic;
 import de.blau.android.Main;
@@ -274,7 +274,7 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
      * @param menu the menu
      * @return true if we created a menu
      */
-    public boolean onCreateContextMenu(@NonNull ContextMenu menu) {
+    public boolean onCreateDisambiguationMenu(@NonNull DisambiguationMenu menu) {
         return false;
     }
 

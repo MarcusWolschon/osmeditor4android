@@ -358,7 +358,12 @@ public class MapOverlay extends StyleableLayer
 
     @Override
     public SpannableString getDescription(WayPoint wp) {
-        return new SpannableString(wp.getShortDescription(map.getContext()));
+        return getDescription(map.getContext(), wp);
+    }
+
+    @Override
+    public SpannableString getDescription(Context context, WayPoint wp) {
+        return new SpannableString(wp.getShortDescription(context));
     }
 
     @Override

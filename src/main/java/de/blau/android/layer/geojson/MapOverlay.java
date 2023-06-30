@@ -826,6 +826,11 @@ public class MapOverlay extends StyleableLayer
 
     @Override
     public SpannableString getDescription(Feature f) {
+        return getDescription(map.getContext(), f);
+    }
+
+    @Override
+    public SpannableString getDescription(Context context, Feature f) {
         String label = getLabel(f);
         if (label == null || "".equals(label)) {
             Geometry g = f.geometry();
@@ -833,7 +838,7 @@ public class MapOverlay extends StyleableLayer
                 label = g.type();
             }
         }
-        return new SpannableString(map.getContext().getString(R.string.geojson_object, label, getName()));
+        return new SpannableString(context.getString(R.string.geojson_object, label, getName()));
     }
 
     @Override

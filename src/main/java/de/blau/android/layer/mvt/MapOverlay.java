@@ -284,6 +284,11 @@ public class MapOverlay extends MapTilesOverlayLayer<java.util.Map<String, List<
 
     @Override
     public SpannableString getDescription(de.blau.android.util.mvt.VectorTileDecoder.Feature f) {
+        return getDescription(map.getContext(), f);
+    }
+
+    @Override
+    public SpannableString getDescription(Context context, de.blau.android.util.mvt.VectorTileDecoder.Feature f) {
         Object nameObject = f.getAttributes().get(Tags.KEY_NAME);
         return new SpannableString(
                 (nameObject != null ? nameObject.toString() : Long.toString(f.getId())) + " " + f.getGeometry().type() + " " + f.getLayerName());
