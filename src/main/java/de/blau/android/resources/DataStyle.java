@@ -40,6 +40,7 @@ import android.graphics.Paint.Cap;
 import android.graphics.Paint.FontMetrics;
 import android.graphics.Paint.Join;
 import android.graphics.Paint.Style;
+import android.os.Build;
 import android.graphics.Path;
 import android.graphics.PathDashPathEffect;
 import android.graphics.Typeface;
@@ -186,6 +187,7 @@ public final class DataStyle extends DefaultHandler {
         DashPath                  dashPath       = null;
         private FontMetrics       fontMetrics    = null;
         private PathPattern       pathPattern    = null;
+        private boolean           pathPatternSupported;
         private FeatureStyle      arrowStyle     = null;
         private FeatureStyle      casingStyle    = null;
         private boolean           oneway         = false;
@@ -229,6 +231,7 @@ public final class DataStyle extends DefaultHandler {
             }
             textColor = paint.getColor();
             widthFactor = 1.0f;
+            pathPatternSupported = Build.VERSION.SDK_INT >= Build.VERSION_CODES.P;
         }
 
         /**
@@ -272,6 +275,7 @@ public final class DataStyle extends DefaultHandler {
             iconPath = fp.iconPath;
             cascadedStyles = null;
             textColor = fp.textColor;
+            pathPatternSupported = fp.pathPatternSupported;
         }
 
         /**
@@ -393,7 +397,7 @@ public final class DataStyle extends DefaultHandler {
                 DashPathEffect dp = new DashPathEffect(intervals, dashPath.phase);
                 paint.setPathEffect(dp);
             } else {
-                if (pathPattern != null) {
+                if (pathPattern != null && pathPatternSupported) {
                     getPaint().setPathEffect(new PathDashPathEffect(pathPattern.draw(newWidth), pathPattern.advance(newWidth), 0f, pathPattern.style()));
                 } else {
                     getPaint().setPathEffect(null);
@@ -463,7 +467,7 @@ public final class DataStyle extends DefaultHandler {
          */
         void setPathPattern(@Nullable PathPattern pathPattern) {
             this.pathPattern = pathPattern;
-            if (pathPattern != null) {
+            if (pathPattern != null && pathPatternSupported) {
                 float width = getPaint().getStrokeWidth();
                 getPaint().setPathEffect(new PathDashPathEffect(pathPattern.draw(width), pathPattern.advance(width), 0f, pathPattern.style()));
             } else {
