@@ -68,7 +68,9 @@ public class NearbyPoiUpdateListener<E> implements UpdateInterface.OnUpdateListe
             filterElements(all, relations, filter != null);
             final double[] center = map.getViewBox().getCenter();
             final int[] loc = new int[] { (int) (center[1] * 1E7), (int) (center[0] * 1E7) };
-            Collections.sort(all, (OsmElement e1, OsmElement e2) -> Double.compare(e1.getMinDistance(loc), e2.getMinDistance(loc)));
+            synchronized (App.getDelegator()) {
+                Collections.sort(all, (OsmElement e1, OsmElement e2) -> Double.compare(e1.getMinDistance(loc), e2.getMinDistance(loc)));
+            }
             layout.getAdapter().notifyDataSetChanged();
             updates = 0;
         };
