@@ -504,30 +504,34 @@ public class UndoStorage implements Serializable {
         public boolean restore(@Nullable Checkpoint redoCheckpoint) {
             boolean ok = true;
             List<UndoElement> list = new ArrayList<>(elements.values());
-            if (redoCheckpoint != null) {
+            final StorageDelegator delegator = App.getDelegator();
+            synchronized (delegator) {
+                if (redoCheckpoint != null) {
+                    for (UndoElement ue : list) {
+                        redoCheckpoint.add(getUptodateElement(ue.element)); // save current state
+                    }
+                }
+                // we sort according to element type and relation membership so that
+                // all member elements should be restored before their parents
+                Collections.sort(list, elementOrder);
+                boolean restoredNode = false;
                 for (UndoElement ue : list) {
-                    redoCheckpoint.add(getUptodateElement(ue.element)); // save current state
+                    if (ue instanceof UndoNode) {
+                        restoredNode = true;
+                    }
+                    ok = (ue.restore() != null) && ok;
                 }
-            }
-            // we sort according to element type and relation membership so that
-            // all member elements should be restored before their parents
-            Collections.sort(list, elementOrder);
-            boolean restoredNode = false;
-            for (UndoElement ue : list) {
-                if (ue instanceof UndoNode) {
-                    restoredNode = true;
+                if (restoredNode) {
+                    // zap the bounding box of all ways as their geometry may have changed
+                    //
+                    // this looks expensive but is actually the cheapest option
+                    for (Way way : currentStorage.getWays()) {
+                        way.invalidateBoundingBox();
+                    }
                 }
-                ok = (ue.restore() != null) && ok;
+
+                delegator.fixupBacklinks();
             }
-            if (restoredNode) {
-                // zap the bounding box of all ways as their geometry may have changed
-                //
-                // this looks expensive but is actually the cheapest option
-                for (Way way : currentStorage.getWays()) {
-                    way.invalidateBoundingBox();
-                }
-            }
-            App.getDelegator().fixupBacklinks();
             return ok;
         }
 
@@ -612,6 +616,7 @@ public class UndoStorage implements Serializable {
          * 
          * @return true if the restore was successful
          */
+        @Nullable
         public OsmElement restore() {
             // Restore element existence
             Log.e(DEBUG_TAG, "restoring " + element.getOsmId() + " state " + state + " current " + inCurrentStorage + " api " + inApiStorage);
