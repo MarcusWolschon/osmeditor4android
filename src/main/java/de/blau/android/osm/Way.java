@@ -457,14 +457,12 @@ public class Way extends StyledOsmElement implements BoundedObject {
     @Override
     public ElementType getType(Map<String, String> tags) {
         ElementType type = getType();
-        if (type == ElementType.CLOSEDWAY) {
-            /*
-             * From a systematic pov it would be better to get this from a preset, however the current matching preset
-             * isn't available here and using the style is far cheaper.
-             */
-            if (style != null && style.isArea()) {
-                return ElementType.AREA;
-            }
+        /*
+         * From a systematic pov it would be better to get this from a preset, however the current matching preset isn't
+         * available here and using the style is far cheaper.
+         */
+        if (type == ElementType.CLOSEDWAY && (style != null && style.isArea())) {
+            return ElementType.AREA;
         }
         return type;
     }
@@ -527,9 +525,9 @@ public class Way extends StyledOsmElement implements BoundedObject {
     @Override
     public double getMinDistance(final int[] location) {
         double distance = Double.MAX_VALUE;
-        if (location != null) {
+        int len = nodes.size();
+        if (location != null && len > 0) {
             Node n1 = nodes.get(0);
-            int len = nodes.size();
             for (int i = 1; i < len; i++) {
                 // distance to nodes of way
                 Node n2 = nodes.get(i);
