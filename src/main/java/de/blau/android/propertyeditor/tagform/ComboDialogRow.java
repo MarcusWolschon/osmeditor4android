@@ -283,7 +283,7 @@ public class ComboDialogRow extends DialogRow {
         button.setChecked(selected);
         button.setId(id);
         if (icon != null) {
-            button.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
+            Util.setCompoundDrawableWithIntrinsicBounds(Util.isRtlScript(context), button, icon);
             button.setCompoundDrawablePadding(Ui.COMPOUND_DRAWABLE_PADDING);
         }
         button.setLayoutParams(layoutParams);

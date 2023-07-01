@@ -328,7 +328,7 @@ public class DisambiguationMenu {
             Drawable drawable = getDrawable(item);
             if (drawable != null) {
                 title.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
-                title.setCompoundDrawablesWithIntrinsicBounds(!rtl ? drawable : null, null, rtl ? drawable : null, null);
+                Util.setCompoundDrawableWithIntrinsicBounds(rtl, title, drawable);
                 title.setCompoundDrawablePadding(DRAWABLE_PADDING);
             }
             title.setText(item.getTitle());

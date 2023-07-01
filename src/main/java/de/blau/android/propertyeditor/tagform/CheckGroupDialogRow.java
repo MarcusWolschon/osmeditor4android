@@ -29,6 +29,7 @@ import de.blau.android.presets.PresetItem;
 import de.blau.android.propertyeditor.tagform.TagFormFragment.EditableLayout;
 import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.ThemeUtils;
+import de.blau.android.util.Util;
 import de.blau.android.views.TriStateCheckBox;
 
 /**
@@ -342,7 +343,7 @@ public class CheckGroupDialogRow extends MultiselectDialogRow {
         check.setText(description != null && !"".equals(description) ? description : swd.getValue());
         check.setTag(swd);
         if (icon != null) {
-            check.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
+            Util.setCompoundDrawableWithIntrinsicBounds(Util.isRtlScript(context), check, icon);
         }
         check.setLayoutParams(layoutParams);
         check.setState(selected);
