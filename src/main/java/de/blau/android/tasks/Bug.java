@@ -103,9 +103,9 @@ public abstract class Bug extends Task implements Serializable {
         String[] states = context.getResources().getStringArray(R.array.bug_state);
         String state = states[getState().ordinal()];
         if (notEmpty(title) && notEmpty(subtitle)) {
-            return context.getString(R.string.bug_description_2, title, subtitle, state);
+            return context.getString(R.string.bug_description_2_191, title, subtitle, state);
         } else {
-            return context.getString(R.string.bug_description, notEmpty(title) ? title : (notEmpty(subtitle) ? subtitle : ""), state);
+            return context.getString(R.string.bug_description_191, notEmpty(title) ? title : (notEmpty(subtitle) ? subtitle : ""), state);
         }
     }
 

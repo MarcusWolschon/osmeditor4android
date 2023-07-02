@@ -137,8 +137,8 @@
     <string name="openstreetbug_unknown_task_type">Unknown task type</string>
     <string name="openstreetbug_not_supported">%1$s is not supported.</string>
     <string name="note_description">%1$s - %2$s</string>
-    <string name="bug_description">%1$s - %2$s</string>
-    <string name="bug_description_2">%1$s %2$s - %3$s</string>
+    <string name="bug_description_191">%1$s - %2$s</string>
+    <string name="bug_description_2_191">%1$s %2$s - %3$s</string>
     <string name="generic_bug">Bug</string>
     <string name="osmose_bug">Osmose</string>
     <string name="todo_title">Todo</string>
