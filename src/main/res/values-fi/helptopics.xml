@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="help_app_label">Ohjeet</string>
+    <string name="help_title">Ohjeet: %1$s</string>
     <string name="help_introduction">Johdanto</string>
     <string name="help_main">Pääkarttanäkymä</string>
     <string name="help_simple_actions">Perustoiminnot</string>
@@ -24,6 +25,16 @@
     <string name="help_opening_hours">Aukioloajat</string>
     <string name="help_newnoteselection">Uuden huomion valinta</string>
     <string name="help_voice_commands">Äänikomennot</string>
+    <string name="help_upgrade">19.0 Julkaisutiedot</string>
+    <string name="help_upgrade_181">18.1 Julkaisutiedot</string>
+    <string name="help_upgrade_180">18.0 Julkaisutiedot</string>
+    <string name="help_upgrade_171">17.1 Julkaisutiedot</string>
+    <string name="help_upgrade_170">17.0 Julkaisutiedot</string>
+    <string name="help_upgrade_161">16.1 Julkaisutiedot</string>
+    <string name="help_upgrade_160">16.0 Julkaisutiedot</string>
+    <string name="help_upgrade_152">15.2 Julkaisutiedot</string>
+    <string name="help_upgrade_151">15.1 Julkaisutiedot</string>
+    <string name="help_upgrade_150">15.0 Julkaisutiedot</string>
     <string name="help_upgrade_141">14.1 Julkaisutiedot</string>
     <string name="help_upgrade_140">14.0 Julkaisutiedot</string>
     <string name="help_upgrade_131">13.1 Julkaisutiedot</string>
