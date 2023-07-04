@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.6.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,building:part,cemetery,club,disused:amenity,disused:leisure,disused:man_made,golf,hazard,noexit,disused:shop,ford,indoor,playground,police,public_transport,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,telecom">
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.9.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,building:part,cemetery,club,disused:amenity,disused:leisure,disused:man_made,golf,hazard,noexit,disused:shop,ford,indoor,playground,police,public_transport,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,telecom">
 <!--
     Icons have been derived from mainly from
   
@@ -87,15 +87,15 @@
     <chunk id="sport_surface">
         <combo key="surface" text="Surface" match="none"> 
             <list_entry value="acrylic" display_value="Acrylic"/>
-            <list_entry value="artificial_turf" display_values="Artificial turf"/>
-            <list_entry value="asphalt" display_values="Asphalt"/>
-            <list_entry value="clay" display_values="Clay"/>
-            <list_entry value="concrete" display_values="Concrete"/>
-            <list_entry value="decoturf" display_values="DecoTurf" deprecated="true"/>
-            <list_entry value="grass" display_values="Grass"/>
-            <list_entry value="sand" display_values="Sand"/>
-            <list_entry value="tartan" display_values="Tartan"/>
-            <list_entry value="ground" display_values="Ground"/>
+            <list_entry value="artificial_turf" display_value="Artificial turf"/>
+            <list_entry value="asphalt" display_value="Asphalt"/>
+            <list_entry value="clay" display_value="Clay"/>
+            <list_entry value="concrete" display_value="Concrete"/>
+            <list_entry value="decoturf" display_value="DecoTurf" deprecated="true"/>
+            <list_entry value="grass" display_value="Grass"/>
+            <list_entry value="sand" display_value="Sand"/>
+            <list_entry value="tartan" display_value="Tartan"/>
+            <list_entry value="ground" display_value="Ground"/>
         </combo>
     </chunk>
     <chunk id="motorsport_surface">
@@ -239,7 +239,7 @@
         <text key="junction:ref" text="Junction reference"/>
         <text key="width" text="Width (meters)" value_type="dimension_horizontal"/>
         <reference ref="shoulder"/>
-        <checkgroup text="Additional attributes" columns="4">
+        <checkgroup text="Additional attributes" columns="5">
             <check key="oneway" text="Oneway" default="on"/>
             <check key="motorroad" text="Motorroad" disable_off="true"/>
             <check key="bridge" text="Bridge" disable_off="true"/>
@@ -248,6 +248,7 @@
             <check key="embankment" text="Embankment" disable_off="true"/>
             <check key="lit" text="Lit" disable_off="true"/>
             <check key="toll" text="Toll" disable_off="true"/>
+            <check key="lane_markings" text="Lane markings"/>
             <check key="winter_road" text="Winter road" disable_off="true"/>
             <check key="ice_road" text="Ice road" disable_off="true"/>
         </checkgroup>
@@ -591,20 +592,29 @@
         </optional>
         <preset_link preset_name="No name"/>
     </chunk>
+    <chunk id="image_tags">
+        <text key="image" text="Image" match="none"/>
+        <text key="mapillary" text="Mapillary image" match="none"/>
+        <text key="wikimedia_commons" text="Wikimedia commons" match="none"/>
+    </chunk>
     <chunk id="wikipedia_wikidata">
-        <text key="wikipedia" text="Wikipedia" value_type="wikipedia"/>
-        <text key="wikidata" text="Wikidata" value_type="wikidata"/>
+        <text key="wikipedia" text="Wikipedia" value_type="wikipedia" match="none"/>
+        <text key="wikidata" text="Wikidata" value_type="wikidata" match="none"/>
+    </chunk>
+    <chunk id="wikipedia_wikidata_images">
+        <reference ref="wikipedia_wikidata"/>
+        <reference ref="image_tags"/>
     </chunk>
     <chunk id="name_wikipedia">
         <text key="name" text="Name"/>
-        <reference ref="wikipedia_wikidata"/>
+        <reference ref="wikipedia_wikidata_images"/>
         <preset_link preset_name="Name"/>
         <preset_link preset_name="No name"/>
     </chunk>
     <chunk id="optional_name_wikipedia">
         <optional>
             <text key="name" text="Name"/>
-            <reference ref="wikipedia_wikidata"/>
+            <reference ref="wikipedia_wikidata_images"/>
         </optional>
         <preset_link preset_name="No name"/>
     </chunk>
@@ -676,6 +686,8 @@
             <list_entry value="sausage" display_value="Sausage"/>
             <list_entry value="seafood" display_value="Seafood"/>
             <list_entry value="soba" display_value="Soba"/>
+            <list_entry value="soup" display_value="Soup"/>
+            <list_entry value="smoothie" display_value="Smoothie"/>
             <list_entry value="spanish" display_value="Spanish"/>
             <list_entry value="steak_house" display_value="Steak house"/>
             <list_entry value="sushi" display_value="Sushi"/>
@@ -734,14 +746,14 @@
     </chunk>
     <chunk id="vehicle_access">
         <combo key="vehicle" text="All vehicles" values_context="access" values_sort="false" match="key">
-            <list_entry value="yes" display_values="Public access"/><list_entry value="official" display_values="Official" deprecated="true"/><list_entry value="designated" display_values="Designated"/><list_entry value="destination" display_values="Destination"/><list_entry value="delivery" display_values="Delivery"/><list_entry value="customer" display_values="Customers"/><list_entry value="permissive" display_values="Permissive"/><list_entry value="private" display_values="Private"/><list_entry value="permit" display_values="Permit required"/><list_entry value="no" display_values="No access"/>
-            <list_entry value="agricultural" display_values="Agricultural"/><list_entry value="forestry" display_values="Forestry"/>
+            <list_entry value="yes" display_value="Public access"/><list_entry value="official" display_value="Official" deprecated="true"/><list_entry value="designated" display_value="Designated"/><list_entry value="destination" display_value="Destination"/><list_entry value="delivery" display_value="Delivery"/><list_entry value="customer" display_value="Customers"/><list_entry value="permissive" display_value="Permissive"/><list_entry value="private" display_value="Private"/><list_entry value="permit" display_value="Permit required"/><list_entry value="no" display_value="No access"/>
+            <list_entry value="agricultural" display_value="Agricultural"/><list_entry value="forestry" display_value="Forestry"/>
         </combo>
     </chunk>
     <chunk id="motor_vehicle_access">
         <combo key="motor_vehicle" text="Motor vehicles" values_context="access" values_sort="false" match="key">
-            <list_entry value="yes" display_values="Public access"/><list_entry value="official" display_values="Official" deprecated="true"/><list_entry value="designated" display_values="Designated"/><list_entry value="destination" display_values="Destination"/><list_entry value="delivery" display_values="Delivery"/><list_entry value="customer" display_values="Customers"/><list_entry value="permissive" display_values="Permissive"/><list_entry value="private" display_values="Private"/><list_entry value="permit" display_values="Permit required"/><list_entry value="no" display_values="No access"/>
-            <list_entry value="agricultural" display_values="Agricultural"/><list_entry value="forestry" display_values="Forestry"/>
+            <list_entry value="yes" display_value="Public access"/><list_entry value="official" display_value="Official" deprecated="true"/><list_entry value="designated" display_value="Designated"/><list_entry value="destination" display_value="Destination"/><list_entry value="delivery" display_value="Delivery"/><list_entry value="customer" display_value="Customers"/><list_entry value="permissive" display_value="Permissive"/><list_entry value="private" display_value="Private"/><list_entry value="permit" display_value="Permit required"/><list_entry value="no" display_value="No access"/>
+            <list_entry value="agricultural" display_value="Agricultural"/><list_entry value="forestry" display_value="Forestry"/>
        </combo>
     </chunk>
     <chunk id="check_access_motor">
@@ -916,10 +928,16 @@
         <text key="postal_code" text="Postal code"/>
         <text key="website" text="Website" value_type="website"/>
     </chunk>
+    <chunk id="route_from_via_to">
+        <text key="from" text="From (start)"/>
+        <text key="to" text="To (end)"/>
+        <text key="via" text="Via (intermediate point)"/>
+    </chunk>
     <chunk id="route_hikebike_optionals">
         <check key="network:type" text="Node network" value_on="node_network" disable_off="true"/>
         <text key="ref" text="Reference"/>
         <text key="operator" text="Operator"/>
+        <reference ref="route_from_via_to"/>
         <text key="distance" text="Distance (km)"/>
         <text key="ascent" text="Ascent (m)"/>
         <text key="descent" text="Descent (m)"/>
@@ -1050,9 +1068,20 @@
             <reference ref="voltage_frequency"/>
         </optional>
     </chunk>
+    <chunk id="line_management">
+        <combo key="line_management" text="Line management" text_context="power" values_context="power">
+            <list_entry value="straight" display_value="Straight"/>
+            <list_entry value="branch" display_value="Branch"/>
+            <list_entry value="split" display_value="Split"/>
+            <list_entry value="transpose" display_value="Transpose"/>
+            <list_entry value="cross" display_value="Cross"/>
+            <list_entry value="transition" display_value="Transition"/>
+            <list_entry value="termination" display_value="Termination"/>
+        </combo>
+    </chunk>
     <chunk id="power_line_extra2">
         <combo key="line_attachment" text="Line attachment" values="anchor,pin,pulley,suspension" display_values="Anchor,Pin,Pulley,Suspension" values_context="power"/>
-        <combo key="line_management" text="Line management" values="branch,cross,split,straight,termination,transition,transpose" display_values="Branch,Cross,Split,Straight,Termination,Transition,Transpose" values_context="power"/>
+        <reference ref="line_management"/>    
     </chunk>
     <chunk id="power_plant">
         <key key="power" value="plant"/>
@@ -1075,15 +1104,16 @@
     <chunk id="pole">
         <text key="height" text="Height (meters)" length="7" value_type="dimension_vertical"/>
         <reference ref="material"/>
+        <check key="guyed" text="Guyed" disable_off="true"/> 
         <reference ref="ref_operator"/>
+        <preset_link preset_name="Street Lamp"/>
     </chunk>
     <chunk id="power_pole">
         <reference ref="pole"/>
         <reference ref="power_line_extra2"/>
         <check key="location:transition" text="Location transition" disable_off="true"/>
         <optional>
-            <!-- This tag seems to have been "deprecated" even though it is more popular than the newer proposal -->
-            <combo key="pole:type" text="Pole type" values="termination,branch,transposing,crossing,transition" display_values="Termination,Branch,Transposing,Crossing,Transition" text_context="power" values_context="power"/>
+            <combo key="pole:type" text="Pole type" values="termination,branch,transposing,crossing,transition" display_values="Termination,Branch,Transposing,Crossing,Transition" text_context="power" values_context="power" deprecated="true"/>
         </optional>
     </chunk>
     <chunk id="rating_phases">
@@ -1147,21 +1177,21 @@
     </chunk>
     <chunk id="waterway_wikipedia">
         <reference ref="waterway"/>
-        <reference ref="wikipedia_wikidata"/>
+        <reference ref="wikipedia_wikidata_images"/>
     </chunk>
     <chunk id="water_access">
         <optional text="Water access rules:">
             <combo key="ship" text="Ship" values_sort="false" values_context="access">
-                <list_entry value="yes" display_values="Public access"/><list_entry value="official" display_values="Official" deprecated="true"/><list_entry value="designated" display_values="Designated"/><list_entry value="destination" display_values="Destination"/><list_entry value="delivery" display_values="Delivery"/><list_entry value="customer" display_values="Customers"/><list_entry value="permissive" display_values="Permissive"/><list_entry value="private" display_values="Private"/><list_entry value="permit" display_values="Permit required"/><list_entry value="no" display_values="No access"/>
+                <list_entry value="yes" display_value="Public access"/><list_entry value="official" display_value="Official" deprecated="true"/><list_entry value="designated" display_value="Designated"/><list_entry value="destination" display_value="Destination"/><list_entry value="delivery" display_value="Delivery"/><list_entry value="customer" display_value="Customers"/><list_entry value="permissive" display_value="Permissive"/><list_entry value="private" display_value="Private"/><list_entry value="permit" display_value="Permit required"/><list_entry value="no" display_value="No access"/>
             </combo>
             <combo key="boat" text="Boat" values_sort="false" values_context="access">
-                <list_entry value="yes" display_values="Public access"/><list_entry value="official" display_values="Official" deprecated="true"/><list_entry value="designated" display_values="Designated"/><list_entry value="destination" display_values="Destination"/><list_entry value="delivery" display_values="Delivery"/><list_entry value="customer" display_values="Customers"/><list_entry value="permissive" display_values="Permissive"/><list_entry value="private" display_values="Private"/><list_entry value="permit" display_values="Permit required"/><list_entry value="no" display_values="No access"/>
+                <list_entry value="yes" display_value="Public access"/><list_entry value="official" display_value="Official" deprecated="true"/><list_entry value="designated" display_value="Designated"/><list_entry value="destination" display_value="Destination"/><list_entry value="delivery" display_value="Delivery"/><list_entry value="customer" display_value="Customers"/><list_entry value="permissive" display_value="Permissive"/><list_entry value="private" display_value="Private"/><list_entry value="permit" display_value="Permit required"/><list_entry value="no" display_value="No access"/>
             </combo>
             <combo key="motorboat" text="Motorboat" values_sort="false" values_context="access">
-                <list_entry value="yes" display_values="Public access"/><list_entry value="official" display_values="Official" deprecated="true"/><list_entry value="designated" display_values="Designated"/><list_entry value="destination" display_values="Destination"/><list_entry value="delivery" display_values="Delivery"/><list_entry value="customer" display_values="Customers"/><list_entry value="permissive" display_values="Permissive"/><list_entry value="private" display_values="Private"/><list_entry value="permit" display_values="Permit required"/><list_entry value="no" display_values="No access"/>
+                <list_entry value="yes" display_value="Public access"/><list_entry value="official" display_value="Official" deprecated="true"/><list_entry value="designated" display_value="Designated"/><list_entry value="destination" display_value="Destination"/><list_entry value="delivery" display_value="Delivery"/><list_entry value="customer" display_value="Customers"/><list_entry value="permissive" display_value="Permissive"/><list_entry value="private" display_value="Private"/><list_entry value="permit" display_value="Permit required"/><list_entry value="no" display_value="No access"/>
             </combo>
             <combo key="canoe" text="Canoe" values_sort="false" values_context="access">
-                <list_entry value="yes" display_values="Public access"/><list_entry value="official" display_values="Official" deprecated="true"/><list_entry value="designated" display_values="Designated"/><list_entry value="destination" display_values="Destination"/><list_entry value="delivery" display_values="Delivery"/><list_entry value="customer" display_values="Customers"/><list_entry value="permissive" display_values="Permissive"/><list_entry value="private" display_values="Private"/><list_entry value="permit" display_values="Permit required"/><list_entry value="no" display_values="No access"/>
+                <list_entry value="yes" display_value="Public access"/><list_entry value="official" display_value="Official" deprecated="true"/><list_entry value="designated" display_value="Designated"/><list_entry value="destination" display_value="Destination"/><list_entry value="delivery" display_value="Delivery"/><list_entry value="customer" display_value="Customers"/><list_entry value="permissive" display_value="Permissive"/><list_entry value="private" display_value="Private"/><list_entry value="permit" display_value="Permit required"/><list_entry value="no" display_value="No access"/>
             </combo>
         </optional>
     </chunk> 
@@ -1200,7 +1230,7 @@
             <combo key="aerodrome:type" text="Type" values="international,regional,gliding,airfield,private" display_values="International,Regional,Gliding,Airfield,Private"/>
             <text key="iata" text="IATA"/>
             <text key="icao" text="ICAO"/>
-            <reference ref="wikipedia_wikidata"/>
+            <reference ref="wikipedia_wikidata_images"/>
         </optional>
         <preset_link preset_name="No name"/>
     </chunk>
@@ -1383,10 +1413,10 @@
     </chunk>
     <chunk id="obm_building_tags">
         <combo key="building:frame:material" text="Building frame material" editable="false" values_context="building" values_searchable="true" match="key">
-           <list_entry value="brick" display_value="Brick"/><list_entry value="cement_block" display_value="Cement block"/><list_entry value="clay" display_value="Clay"/><list_entry value="concrete" display_value="Concrete"/><list_entry value="glass" display_value="Glass"/><list_entry value="limestone" display_value="Limestone"/><list_entry value="masonry" display_value="Masonry"/><list_entry value="mdf" display_value="MDF"/><list_entry value="metal" display_value="Metal"/><list_entry value="metal_plates" display_value="Metal plates"/><list_entry value="mirror" display_value="Mirror"/><list_entry value="mud" display_value="Mud"/><list_entry value="plaster" display_value="Plaster"/><list_entry value="plastic" display_value="Plastic"/><list_entry value="sandstone" display_value="Sandstone"/><list_entry value="steel" display_value="Steel"/><list_entry value="stone" display_value="Stone"/><list_entry value="timber_framing" display_value="Timber framing"/><list_entry value="tin" display_value="Tin"/><list_entry value="traditional" display_value="Traditional"/><list_entry value="vinyl" display_value="Vinly"/><list_entry value="wood" display_values="Wood"/> 
+           <list_entry value="brick" display_value="Brick"/><list_entry value="cement_block" display_value="Cement block"/><list_entry value="clay" display_value="Clay"/><list_entry value="concrete" display_value="Concrete"/><list_entry value="glass" display_value="Glass"/><list_entry value="limestone" display_value="Limestone"/><list_entry value="masonry" display_value="Masonry"/><list_entry value="mdf" display_value="MDF"/><list_entry value="metal" display_value="Metal"/><list_entry value="metal_plates" display_value="Metal plates"/><list_entry value="mirror" display_value="Mirror"/><list_entry value="mud" display_value="Mud"/><list_entry value="plaster" display_value="Plaster"/><list_entry value="plastic" display_value="Plastic"/><list_entry value="sandstone" display_value="Sandstone"/><list_entry value="steel" display_value="Steel"/><list_entry value="stone" display_value="Stone"/><list_entry value="timber_framing" display_value="Timber framing"/><list_entry value="tin" display_value="Tin"/><list_entry value="traditional" display_value="Traditional"/><list_entry value="vinyl" display_value="Vinly"/><list_entry value="wood" display_value="Wood"/> 
         </combo>
         <combo key="building:wall:material" text="Building wall material" editable="false" values_context="building" values_searchable="true" match="key">
-           <list_entry value="brick" display_value="Brick"/><list_entry value="cement_block" display_value="Cement block"/><list_entry value="clay" display_value="Clay"/><list_entry value="concrete" display_value="Concrete"/><list_entry value="glass" display_value="Glass"/><list_entry value="limestone" display_value="Limestone"/><list_entry value="masonry" display_value="Masonry"/><list_entry value="mdf" display_value="MDF"/><list_entry value="metal" display_value="Metal"/><list_entry value="metal_plates" display_value="Metal plates"/><list_entry value="mirror" display_value="Mirror"/><list_entry value="mud" display_value="Mud"/><list_entry value="plaster" display_value="Plaster"/><list_entry value="plastic" display_value="Plastic"/><list_entry value="sandstone" display_value="Sandstone"/><list_entry value="steel" display_value="Steel"/><list_entry value="stone" display_value="Stone"/><list_entry value="timber_framing" display_value="Timber framing"/><list_entry value="tin" display_value="Tin"/><list_entry value="traditional" display_value="Traditional"/><list_entry value="vinyl" display_value="Vinly"/><list_entry value="wood" display_values="Wood"/> 
+           <list_entry value="brick" display_value="Brick"/><list_entry value="cement_block" display_value="Cement block"/><list_entry value="clay" display_value="Clay"/><list_entry value="concrete" display_value="Concrete"/><list_entry value="glass" display_value="Glass"/><list_entry value="limestone" display_value="Limestone"/><list_entry value="masonry" display_value="Masonry"/><list_entry value="mdf" display_value="MDF"/><list_entry value="metal" display_value="Metal"/><list_entry value="metal_plates" display_value="Metal plates"/><list_entry value="mirror" display_value="Mirror"/><list_entry value="mud" display_value="Mud"/><list_entry value="plaster" display_value="Plaster"/><list_entry value="plastic" display_value="Plastic"/><list_entry value="sandstone" display_value="Sandstone"/><list_entry value="steel" display_value="Steel"/><list_entry value="stone" display_value="Stone"/><list_entry value="timber_framing" display_value="Timber framing"/><list_entry value="tin" display_value="Tin"/><list_entry value="traditional" display_value="Traditional"/><list_entry value="vinyl" display_value="Vinly"/><list_entry value="wood" display_value="Wood"/> 
         </combo>
     </chunk>
     <chunk id="additional_building_tags">
@@ -1399,7 +1429,7 @@
         <combo key="building:use" text="Building use" values="agricultural,civic,commercial,cultural,education,equestrian,exhibition,foodservice,garage,gathering,government,hotel,industrial,leisure,medical,office,parking,public,railway,religious,research,residential,retail,service,shelter,sport,storage,transportation" display_values="Agricultural,Civic,Commercial,Cultural,Education,Equestrian,Exhibition,Foodservice,Garage,Gathering,Government,Hotel,Industrial,Leisure,Medical,Office,Parking,Public,Railway,Religious,Research,Residential,Retail,Service,Shelter,Sport,Storage,Transportation" editable="false" values_context="building" values_searchable="true" match="key"/>
         <combo key="building:colour" text="Building colour" values="black,blue,brown,red,yellow,white,grey" display_values="Black,Blue,Brown,Red,Yellow,White,Grey" editable="true" text_context="building" match="key"/>
         <combo key="building:material" text="Building material" editable="false" values_context="building" values_searchable="true" match="key">
-            <list_entry value="brick" display_value="Brick"/><list_entry value="cement_block" display_value="Cement block"/><list_entry value="clay" display_value="Clay"/><list_entry value="concrete" display_value="Concrete"/><list_entry value="glass" display_value="Glass"/><list_entry value="limestone" display_value="Limestone"/><list_entry value="masonry" display_value="Masonry"/><list_entry value="mdf" display_value="MDF"/><list_entry value="metal" display_value="Metal"/><list_entry value="metal_plates" display_value="Metal plates"/><list_entry value="mirror" display_value="Mirror"/><list_entry value="mud" display_value="Mud"/><list_entry value="plaster" display_value="Plaster"/><list_entry value="plastic" display_value="Plastic"/><list_entry value="sandstone" display_value="Sandstone"/><list_entry value="steel" display_value="Steel"/><list_entry value="stone" display_value="Stone"/><list_entry value="timber_framing" display_value="Timber framing"/><list_entry value="tin" display_value="Tin"/><list_entry value="traditional" display_value="Traditional"/><list_entry value="vinyl" display_value="Vinly"/><list_entry value="wood" display_values="Wood"/>
+            <list_entry value="brick" display_value="Brick"/><list_entry value="cement_block" display_value="Cement block"/><list_entry value="clay" display_value="Clay"/><list_entry value="concrete" display_value="Concrete"/><list_entry value="glass" display_value="Glass"/><list_entry value="limestone" display_value="Limestone"/><list_entry value="masonry" display_value="Masonry"/><list_entry value="mdf" display_value="MDF"/><list_entry value="metal" display_value="Metal"/><list_entry value="metal_plates" display_value="Metal plates"/><list_entry value="mirror" display_value="Mirror"/><list_entry value="mud" display_value="Mud"/><list_entry value="plaster" display_value="Plaster"/><list_entry value="plastic" display_value="Plastic"/><list_entry value="sandstone" display_value="Sandstone"/><list_entry value="steel" display_value="Steel"/><list_entry value="stone" display_value="Stone"/><list_entry value="timber_framing" display_value="Timber framing"/><list_entry value="tin" display_value="Tin"/><list_entry value="traditional" display_value="Traditional"/><list_entry value="vinyl" display_value="Vinly"/><list_entry value="wood" display_value="Wood"/>
         </combo> 
         <combo key="roof:shape" text="Roof type" values_searchable="true" editable="false" values_context="building">
             <list_entry value="dome" short_description="Dome" icon="icons/png/dome.png"/>
@@ -1654,7 +1684,7 @@
         <check key="salt" text="Salt Water" disable_off="true"/>
         <reference ref="intermittent"/>
         <check key="tidal" text="In the tidal range" disable_off="true"/>
-        <reference ref="wikipedia_wikidata"/>
+        <reference ref="wikipedia_wikidata_images"/>
         <reference ref="water_access"/>
         <preset_link preset_name="No name"/>
     </chunk>
@@ -2217,15 +2247,15 @@
             <link wiki="Bicycle"/>
             <space/>
             <combo key="cycleway" text="Cycleway" values_context="cycleway" match="none">
-                <list_entry value="lane" display_values="Lane"/><list_entry value="track" display_values="Track"/><list_entry value="share_busway" display_values="Share busway"/><list_entry value="shared_lane" display_values="Shared lane"/><list_entry value="separate" display_values="Separate"/>
+                <list_entry value="lane" display_value="Lane"/><list_entry value="track" display_value="Track"/><list_entry value="share_busway" display_value="Share busway"/><list_entry value="shared_lane" display_value="Shared lane"/><list_entry value="separate" display_value="Separate"/>
                 <list_entry value="opposite_track" display_value="Opposite track"/>
                 <list_entry value="opposite" display_value="Opposite"/>
             </combo>
             <combo key="cycleway:left" text="Cycleway left" values_context="cycleway" match="none">
-                <list_entry value="lane" display_values="Lane"/><list_entry value="track" display_values="Track"/><list_entry value="share_busway" display_values="Share busway"/><list_entry value="shared_lane" display_values="Shared lane"/><list_entry value="separate" display_values="Separate"/>
+                <list_entry value="lane" display_value="Lane"/><list_entry value="track" display_value="Track"/><list_entry value="share_busway" display_value="Share busway"/><list_entry value="shared_lane" display_value="Shared lane"/><list_entry value="separate" display_value="Separate"/>
             </combo>
             <combo key="cycleway:right" text="Cycleway right" values_context="cycleway" display_values="Lane,Track,Share busway,Shared lane,Separate" match="none">
-                <list_entry value="lane" display_values="Lane"/><list_entry value="track" display_values="Track"/><list_entry value="share_busway" display_values="Share busway"/><list_entry value="shared_lane" display_values="Shared lane"/><list_entry value="separate" display_values="Separate"/>
+                <list_entry value="lane" display_value="Lane"/><list_entry value="track" display_value="Track"/><list_entry value="share_busway" display_value="Share busway"/><list_entry value="shared_lane" display_value="Shared lane"/><list_entry value="separate" display_value="Separate"/>
             </combo>
             <combo key="oneway:bicycle" text="Oneway (bicycle)" values="yes,no" display_values="Yes,No"/>
             <space/>
@@ -2540,7 +2570,14 @@
             <link wiki="Tag:highway=footway"/>
             <key key="highway" value="footway"/>
             <optional>
-                <combo key="footway" text="Type" values="sidewalk,crossing,access_aisle" display_values="Sidewalk,Crossing,Access aisle" values_context="footway"/>
+                <combo key="footway" text="Type" values_context="footway">
+                    <list_entry value="access_aisle" display_value="Access aisle" short_description="Marked footpath in a parking lot"/>
+                    <list_entry value="crossing" display_value="Pedestrian crossing" short_description="A pedestrian crossing"/>
+                    <list_entry value="sidewalk" display_value="Sidewalk" short_description="A footway alongside a street"/>
+                    <list_entry value="link" display_value="Link" short_description="Footway sections that do not exist but are necessary for routing"/>
+                    <list_entry value="traffic_island" display_value="Traffic island" short_description="Footway sections inside a crossing island"/>
+                    <list_entry value="alley" display_value="Alley" short_description="Access for back entrances and/or emergency access"/>
+                </combo>
                 <reference ref="name"/>
                 <reference ref="surface_smoothness"/>
                 <reference ref="cycleway_surface"/>
@@ -2857,7 +2894,7 @@
             <optional>
                 <text key="name" text="Name"/>
                 <text key="ele" text="Elevation (meters)" length="10"/>
-                <reference ref="wikipedia_wikidata"/>
+                <reference ref="wikipedia_wikidata_images"/>
             </optional>
         </item> <!-- Mountain Pass -->
     </group> <!-- Waypoints -->
@@ -3358,15 +3395,15 @@
             <link wiki="Key:access"/>
             <space/>
             <combo key="motorcar" text="Motorcar" values_context="access" values_sort="false" match="key">
-                <list_entry value="yes" display_values="Public access"/><list_entry value="official" display_values="Official" deprecated="true"/><list_entry value="designated" display_values="Designated"/><list_entry value="destination" display_values="Destination"/><list_entry value="delivery" display_values="Delivery"/><list_entry value="customer" display_values="Customers"/><list_entry value="permissive" display_values="Permissive"/><list_entry value="private" display_values="Private"/><list_entry value="permit" display_values="Permit required"/><list_entry value="no" display_values="No access"/>
-                <list_entry value="agricultural" display_values="Agricultural"/><list_entry value="forestry" display_values="Forestry"/>
+                <list_entry value="yes" display_value="Public access"/><list_entry value="official" display_value="Official" deprecated="true"/><list_entry value="designated" display_value="Designated"/><list_entry value="destination" display_value="Destination"/><list_entry value="delivery" display_value="Delivery"/><list_entry value="customer" display_value="Customers"/><list_entry value="permissive" display_value="Permissive"/><list_entry value="private" display_value="Private"/><list_entry value="permit" display_value="Permit required"/><list_entry value="no" display_value="No access"/>
+                <list_entry value="agricultural" display_value="Agricultural"/><list_entry value="forestry" display_value="Forestry"/>
             </combo>
             <combo key="motorcar:conditional" text="Motorcar @" long_text="Conditional restriction for motorcars" values_sort="false" match="key">
                 <list_entry value="yes @ wet"/><list_entry value="no @ dry"/><list_entry value="destination @ rain"/><list_entry value="delivery @ snow"/><list_entry value="agricultural @ hazmat"/><list_entry value="forestry @ weight&lt;=0"/><list_entry value="private @ length&lt;=0"/><list_entry value="no @ width&lt;=0"/>
             </combo>
             <combo key="motorcycle" text="Motorcycle" values_context="access" values_sort="false" match="key">
-                <list_entry value="yes" display_values="Public access"/><list_entry value="official" display_values="Official" deprecated="true"/><list_entry value="designated" display_values="Designated"/><list_entry value="destination" display_values="Destination"/><list_entry value="delivery" display_values="Delivery"/><list_entry value="customer" display_values="Customers"/><list_entry value="permissive" display_values="Permissive"/><list_entry value="private" display_values="Private"/><list_entry value="permit" display_values="Permit required"/><list_entry value="no" display_values="No access"/>
-                <list_entry value="agricultural" display_values="Agricultural"/><list_entry value="forestry" display_values="Forestry"/>
+                <list_entry value="yes" display_value="Public access"/><list_entry value="official" display_value="Official" deprecated="true"/><list_entry value="designated" display_value="Designated"/><list_entry value="destination" display_value="Destination"/><list_entry value="delivery" display_value="Delivery"/><list_entry value="customer" display_value="Customers"/><list_entry value="permissive" display_value="Permissive"/><list_entry value="private" display_value="Private"/><list_entry value="permit" display_value="Permit required"/><list_entry value="no" display_value="No access"/>
+                <list_entry value="agricultural" display_value="Agricultural"/><list_entry value="forestry" display_value="Forestry"/>
             </combo>
             <combo key="motorcycle:conditional" text="Motorcycle @" long_text="Conditional restriction for motorcycles" values_sort="false" match="key">
                 <list_entry value="yes @ wet"/><list_entry value="no @ dry"/><list_entry value="destination @ rain"/><list_entry value="delivery @ snow"/><list_entry value="agricultural @ hazmat"/><list_entry value="forestry @ weight&lt;=0"/><list_entry value="private @ length&lt;=0"/><list_entry value="no @ width&lt;=0"/>
@@ -3377,8 +3414,8 @@
             <link wiki="Key:access"/>
             <space/>
             <combo key="motorcar" text="Motorcar" values_context="access" values_sort="false" match="key">
-                <list_entry value="yes" display_values="Public access"/><list_entry value="official" display_values="Official" deprecated="true"/><list_entry value="designated" display_values="Designated"/><list_entry value="destination" display_values="Destination"/><list_entry value="delivery" display_values="Delivery"/><list_entry value="customer" display_values="Customers"/><list_entry value="permissive" display_values="Permissive"/><list_entry value="private" display_values="Private"/><list_entry value="permit" display_values="Permit required"/><list_entry value="no" display_values="No access"/>
-                <list_entry value="agricultural" display_values="Agricultural"/><list_entry value="forestry" display_values="Forestry"/>
+                <list_entry value="yes" display_value="Public access"/><list_entry value="official" display_value="Official" deprecated="true"/><list_entry value="designated" display_value="Designated"/><list_entry value="destination" display_value="Destination"/><list_entry value="delivery" display_value="Delivery"/><list_entry value="customer" display_value="Customers"/><list_entry value="permissive" display_value="Permissive"/><list_entry value="private" display_value="Private"/><list_entry value="permit" display_value="Permit required"/><list_entry value="no" display_value="No access"/>
+                <list_entry value="agricultural" display_value="Agricultural"/><list_entry value="forestry" display_value="Forestry"/>
             </combo>
             <combo key="motorcar:conditional" text="Motorcar @" long_text="Conditional restriction for motorcars" values_sort="false" match="key">
                 <list_entry value="yes @ wet"/><list_entry value="no @ dry"/><list_entry value="destination @ rain"/><list_entry value="delivery @ snow"/><list_entry value="agricultural @ hazmat"/><list_entry value="forestry @ weight&lt;=0"/><list_entry value="private @ length&lt;=0"/><list_entry value="no @ width&lt;=0"/>
@@ -3389,8 +3426,8 @@
             <link wiki="Key:access"/>
             <space/>
             <combo key="motorcycle" text="Motorcycle" values_context="access" values_sort="false" match="key">
-                <list_entry value="yes" display_values="Public access"/><list_entry value="official" display_values="Official" deprecated="true"/><list_entry value="designated" display_values="Designated"/><list_entry value="destination" display_values="Destination"/><list_entry value="delivery" display_values="Delivery"/><list_entry value="customer" display_values="Customers"/><list_entry value="permissive" display_values="Permissive"/><list_entry value="private" display_values="Private"/><list_entry value="permit" display_values="Permit required"/><list_entry value="no" display_values="No access"/>
-                <list_entry value="agricultural" display_values="Agricultural"/><list_entry value="forestry" display_values="Forestry"/>
+                <list_entry value="yes" display_value="Public access"/><list_entry value="official" display_value="Official" deprecated="true"/><list_entry value="designated" display_value="Designated"/><list_entry value="destination" display_value="Destination"/><list_entry value="delivery" display_value="Delivery"/><list_entry value="customer" display_value="Customers"/><list_entry value="permissive" display_value="Permissive"/><list_entry value="private" display_value="Private"/><list_entry value="permit" display_value="Permit required"/><list_entry value="no" display_value="No access"/>
+                <list_entry value="agricultural" display_value="Agricultural"/><list_entry value="forestry" display_value="Forestry"/>
             </combo>
             <combo key="motorcycle:conditional" text="Motorcycle @" long_text="Conditional restriction for motorcycles" values_sort="false" match="key">
                 <list_entry value="yes @ wet"/><list_entry value="no @ dry"/><list_entry value="destination @ rain"/><list_entry value="delivery @ snow"/><list_entry value="agricultural @ hazmat"/><list_entry value="forestry @ weight&lt;=0"/><list_entry value="private @ length&lt;=0"/><list_entry value="no @ width&lt;=0"/>
@@ -3401,23 +3438,23 @@
             <link wiki="Key:access"/>
             <space/>
             <combo key="hgv" values_context="access" values_sort="false" match="key">
-                <list_entry value="yes" display_values="Public access"/><list_entry value="official" display_values="Official" deprecated="true"/><list_entry value="designated" display_values="Designated"/><list_entry value="destination" display_values="Destination"/><list_entry value="delivery" display_values="Delivery"/><list_entry value="customer" display_values="Customers"/><list_entry value="permissive" display_values="Permissive"/><list_entry value="private" display_values="Private"/><list_entry value="permit" display_values="Permit required"/><list_entry value="no" display_values="No access"/>
-                <list_entry value="agricultural" display_values="Agricultural"/><list_entry value="forestry" display_values="Forestry"/>
+                <list_entry value="yes" display_value="Public access"/><list_entry value="official" display_value="Official" deprecated="true"/><list_entry value="designated" display_value="Designated"/><list_entry value="destination" display_value="Destination"/><list_entry value="delivery" display_value="Delivery"/><list_entry value="customer" display_value="Customers"/><list_entry value="permissive" display_value="Permissive"/><list_entry value="private" display_value="Private"/><list_entry value="permit" display_value="Permit required"/><list_entry value="no" display_value="No access"/>
+                <list_entry value="agricultural" display_value="Agricultural"/><list_entry value="forestry" display_value="Forestry"/>
             </combo>
             <combo key="hgv:conditional" text="HGV @" long_text="Conditional restriction for heavy goods vehicles" delimiter="|" values_sort="false" match="key">
                 <list_entry value="yes @ wet"/><list_entry value="no @ dry"/><list_entry value="destination @ rain"/><list_entry value="delivery @ snow"/><list_entry value="agricultural @ hazmat"/><list_entry value="forestry @ weight&lt;=0"/><list_entry value="private @ length&lt;=0"/><list_entry value="no @ width&lt;=0"/>
             </combo>
             <text key="maxspeed:hgv" text="Max. speed HGV" long_text="Maximum speed for heavy goods vehicles specified in km/h" match="key"/>
             <combo key="maxspeed:hgv:conditional" text="Max speed HGV @" values_sort="false" match="key">
-                <list_entry value="0 @ wet"/><list_entry value="0 @ dry"/><list_entry value="0 @ rain"/><list_entry value="0 @ snow"/><list_entry value="0 @ hazmat"/><list_entry value="0 @ weightt&lt;=0"/><list_entry value="0 @ lengtht&lt;=0"/><list_entry value="0 @ widtht&lt;=0"/>
+                <list_entry value="0 @ wet"/><list_entry value="0 @ dry"/><list_entry value="0 @ rain"/><list_entry value="0 @ snow"/><list_entry value="0 @ hazmat"/><list_entry value="0 @ weight&lt;=0"/><list_entry value="0 @ length&lt;=0"/><list_entry value="0 @ width&lt;=0"/>
             </combo>
             <text key="maxspeed:hgv:forward" text="Max. speed HGV &#x2192;" long_text="Maximum speed for heavy goods vehicles in way direction specified in km/h" match="key"/>
             <combo key="maxspeed:hgv:forward:conditional" text="Max speed HGV &#x2192; @" long_text="Conditional maximum speed for heavy goods vehicles in way direction specified in km/h" values_sort="false" match="key">
-                <list_entry value="0 @ wet"/><list_entry value="0 @ dry"/><list_entry value="0 @ rain"/><list_entry value="0 @ snow"/><list_entry value="0 @ hazmat"/><list_entry value="0 @ weightt&lt;=0"/><list_entry value="0 @ lengtht&lt;=0"/><list_entry value="0 @ widtht&lt;=0"/>
+                <list_entry value="0 @ wet"/><list_entry value="0 @ dry"/><list_entry value="0 @ rain"/><list_entry value="0 @ snow"/><list_entry value="0 @ hazmat"/><list_entry value="0 @ weight&lt;=0"/><list_entry value="0 @ length&lt;=0"/><list_entry value="0 @ width&lt;=0"/>
             </combo>
             <text key="maxspeed:hgv:backward" text="Max. speed HGV &#x2190;" long_text="Maximum speed for heavy goods vehicles opposite way direction specified in km/h" match="key"/>
             <combo key="maxspeed:hgv:backward:conditional" text="Max speed HGV &#x2190; @" long_text="Conditional maximum speed for heavy goods vehicles opposite way direction specified in km/h" values_sort="false" match="key">
-                <list_entry value="0 @ wet"/><list_entry value="0 @ dry"/><list_entry value="0 @ rain"/><list_entry value="0 @ snow"/><list_entry value="0 @ hazmat"/><list_entry value="0 @ weightt&lt;=0"/><list_entry value="0 @ lengtht&lt;=0"/><list_entry value="0 @ widtht&lt;=0"/>
+                <list_entry value="0 @ wet"/><list_entry value="0 @ dry"/><list_entry value="0 @ rain"/><list_entry value="0 @ snow"/><list_entry value="0 @ hazmat"/><list_entry value="0 @ weight&lt;=0"/><list_entry value="0 @ length&lt;=0"/><list_entry value="0 @ width&lt;=0"/>
             </combo>
             <reference ref="additional_access_tags"/>
         </item> <!-- Heavy Goods Vehicle -->
@@ -3425,8 +3462,8 @@
             <link wiki="Key:access"/>
             <space/>
             <combo key="access" values_context="access" values_sort="false" match="key" values_searchable="true">
-                <list_entry value="yes" display_values="Public access"/><list_entry value="official" display_values="Official" deprecated="true"/><list_entry value="designated" display_values="Designated"/><list_entry value="destination" display_values="Destination"/><list_entry value="delivery" display_values="Delivery"/><list_entry value="customer" display_values="Customers"/><list_entry value="permissive" display_values="Permissive"/><list_entry value="private" display_values="Private"/><list_entry value="permit" display_values="Permit required"/><list_entry value="no" display_values="No access"/>
-                <list_entry value="agricultural" display_values="Agricultural"/><list_entry value="forestry" display_values="Forestry"/>
+                <list_entry value="yes" display_value="Public access"/><list_entry value="official" display_value="Official" deprecated="true"/><list_entry value="designated" display_value="Designated"/><list_entry value="destination" display_value="Destination"/><list_entry value="delivery" display_value="Delivery"/><list_entry value="customer" display_value="Customers"/><list_entry value="permissive" display_value="Permissive"/><list_entry value="private" display_value="Private"/><list_entry value="permit" display_value="Permit required"/><list_entry value="no" display_value="No access"/>
+                <list_entry value="agricultural" display_value="Agricultural"/><list_entry value="forestry" display_value="Forestry"/>
             </combo>
             <combo key="access:conditional" text="General access @" values_sort="false" match="key">
                 <list_entry value="yes @ wet"/><list_entry value="no @ dry"/><list_entry value="destination @ rain"/><list_entry value="delivery @ snow"/><list_entry value="agricultural @ hazmat"/><list_entry value="forestry @ weight&lt;=0"/><list_entry value="private @ length&lt;=0"/><list_entry value="no @ width&lt;=0"/>    
@@ -3444,41 +3481,41 @@
         <item name="Cond. &amp; direct. max speed" icon="icons/png/speed_limit.png" type="node,way,closedway" preset_name_label="true">
             <link wiki="Conditional_restrictions"/>
             <combo key="maxspeed:conditional" text="Max speed @" long_text="Conditional maximum speed specified in km/h" match="key">
-                <list_entry value="0 @ wet"/><list_entry value="0 @ dry"/><list_entry value="0 @ rain"/><list_entry value="0 @ snow"/><list_entry value="0 @ hazmat"/><list_entry value="0 @ weightt&lt;=0"/><list_entry value="0 @ lengtht&lt;=0"/><list_entry value="0 @ widtht&lt;=0"/>
+                <list_entry value="0 @ wet"/><list_entry value="0 @ dry"/><list_entry value="0 @ rain"/><list_entry value="0 @ snow"/><list_entry value="0 @ hazmat"/><list_entry value="0 @ weight&lt;=0"/><list_entry value="0 @ length&lt;=0"/><list_entry value="0 @ width&lt;=0"/>
             </combo>
             <text key="maxspeed:forward" text="Max speed &#x2192;" long_text="Maximum speed in way direction specified in km/h"/>
             <combo key="maxspeed:forward:conditional" text="Max speed &#x2192; @" long_text="Conditional maximum speed in way direction specified in km/h" match="key">
-                <list_entry value="0 @ wet"/><list_entry value="0 @ dry"/><list_entry value="0 @ rain"/><list_entry value="0 @ snow"/><list_entry value="0 @ hazmat"/><list_entry value="0 @ weightt&lt;=0"/><list_entry value="0 @ lengtht&lt;=0"/><list_entry value="0 @ widtht&lt;=0"/>
+                <list_entry value="0 @ wet"/><list_entry value="0 @ dry"/><list_entry value="0 @ rain"/><list_entry value="0 @ snow"/><list_entry value="0 @ hazmat"/><list_entry value="0 @ weight&lt;=0"/><list_entry value="0 @ length&lt;=0"/><list_entry value="0 @ width&lt;=0"/>
             </combo>
             <text key="maxspeed:backward" text="Max speed &#x2190;" long_text="Maximum speed opposite way direction specified in km/h"/>
             <combo key="maxspeed:backward:conditional" text="Max speed &#x2190; @" long_text="Conditional maximum speed opposite way direction specified in km/h" match="key">
-                <list_entry value="0 @ wet"/><list_entry value="0 @ dry"/><list_entry value="0 @ rain"/><list_entry value="0 @ snow"/><list_entry value="0 @ hazmat"/><list_entry value="0 @ weightt&lt;=0"/><list_entry value="0 @ lengtht&lt;=0"/><list_entry value="0 @ widtht&lt;=0"/>
+                <list_entry value="0 @ wet"/><list_entry value="0 @ dry"/><list_entry value="0 @ rain"/><list_entry value="0 @ snow"/><list_entry value="0 @ hazmat"/><list_entry value="0 @ weight&lt;=0"/><list_entry value="0 @ length&lt;=0"/><list_entry value="0 @ width&lt;=0"/>
             </combo>
         </item> <!--  Conditional max speed -->
         <item name="Other mode restrictions" icon="icons/png/no_walking.png" type="node,way,closedway,multipolygon,relation" preset_name_label="true">
             <link wiki="Key:access"/>
             <space/>
             <combo key="foot" text="Foot" values_context="access" match="key" values_sort="false">
-                <list_entry value="yes" display_values="Public access"/><list_entry value="official" display_values="Official" deprecated="true"/><list_entry value="designated" display_values="Designated"/><list_entry value="destination" display_values="Destination"/><list_entry value="delivery" display_values="Delivery"/><list_entry value="customer" display_values="Customers"/><list_entry value="permissive" display_values="Permissive"/><list_entry value="private" display_values="Private"/><list_entry value="permit" display_values="Permit required"/><list_entry value="no" display_values="No access"/>
+                <list_entry value="yes" display_value="Public access"/><list_entry value="official" display_value="Official" deprecated="true"/><list_entry value="designated" display_value="Designated"/><list_entry value="destination" display_value="Destination"/><list_entry value="delivery" display_value="Delivery"/><list_entry value="customer" display_value="Customers"/><list_entry value="permissive" display_value="Permissive"/><list_entry value="private" display_value="Private"/><list_entry value="permit" display_value="Permit required"/><list_entry value="no" display_value="No access"/>
                 <list_entry value="use_sidepath" display_value="Use sidepath"/>
             </combo>
             <combo key="bicycle" text="Bicycle" values_context="access" match="key" values_sort="false">
-                <list_entry value="yes" display_values="Public access"/><list_entry value="official" display_values="Official" deprecated="true"/><list_entry value="designated" display_values="Designated"/><list_entry value="destination" display_values="Destination"/><list_entry value="delivery" display_values="Delivery"/><list_entry value="customer" display_values="Customers"/><list_entry value="permissive" display_values="Permissive"/><list_entry value="private" display_values="Private"/><list_entry value="permit" display_values="Permit required"/><list_entry value="no" display_values="No access"/>
+                <list_entry value="yes" display_value="Public access"/><list_entry value="official" display_value="Official" deprecated="true"/><list_entry value="designated" display_value="Designated"/><list_entry value="destination" display_value="Destination"/><list_entry value="delivery" display_value="Delivery"/><list_entry value="customer" display_value="Customers"/><list_entry value="permissive" display_value="Permissive"/><list_entry value="private" display_value="Private"/><list_entry value="permit" display_value="Permit required"/><list_entry value="no" display_value="No access"/>
                 <list_entry value="use_sidepath" display_value="Use sidepath"/>
             </combo>
             <combo key="agricultural" text="Agricultural" values_context="access" match="key" values_sort="false">
-                <list_entry value="yes" display_values="Public access"/><list_entry value="official" display_values="Official" deprecated="true"/><list_entry value="designated" display_values="Designated"/><list_entry value="destination" display_values="Destination"/><list_entry value="delivery" display_values="Delivery"/><list_entry value="customer" display_values="Customers"/><list_entry value="permissive" display_values="Permissive"/><list_entry value="private" display_values="Private"/><list_entry value="permit" display_values="Permit required"/><list_entry value="no" display_values="No access"/>
+                <list_entry value="yes" display_value="Public access"/><list_entry value="official" display_value="Official" deprecated="true"/><list_entry value="designated" display_value="Designated"/><list_entry value="destination" display_value="Destination"/><list_entry value="delivery" display_value="Delivery"/><list_entry value="customer" display_value="Customers"/><list_entry value="permissive" display_value="Permissive"/><list_entry value="private" display_value="Private"/><list_entry value="permit" display_value="Permit required"/><list_entry value="no" display_value="No access"/>
             </combo>
             <combo key="emergency" text="Emergency vehicles" values="yes,official,designated,destination,no" display_values="Yes,Official,Designated,Destination,No" values_context="access" match="keyvalue" values_sort="false"/>
             <combo key="goods" text="Light Commercial Vehicles (goods)" values_context="access" match="key" values_sort="false">
-                <list_entry value="yes" display_values="Public access"/><list_entry value="official" display_values="Official" deprecated="true"/><list_entry value="designated" display_values="Designated"/><list_entry value="destination" display_values="Destination"/><list_entry value="delivery" display_values="Delivery"/><list_entry value="customer" display_values="Customers"/><list_entry value="permissive" display_values="Permissive"/><list_entry value="private" display_values="Private"/><list_entry value="permit" display_values="Permit required"/><list_entry value="no" display_values="No access"/>
-                <list_entry value="agricultural" display_values="Agricultural"/><list_entry value="forestry" display_values="Forestry"/>
+                <list_entry value="yes" display_value="Public access"/><list_entry value="official" display_value="Official" deprecated="true"/><list_entry value="designated" display_value="Designated"/><list_entry value="destination" display_value="Destination"/><list_entry value="delivery" display_value="Delivery"/><list_entry value="customer" display_value="Customers"/><list_entry value="permissive" display_value="Permissive"/><list_entry value="private" display_value="Private"/><list_entry value="permit" display_value="Permit required"/><list_entry value="no" display_value="No access"/>
+                <list_entry value="agricultural" display_value="Agricultural"/><list_entry value="forestry" display_value="Forestry"/>
             </combo>
             <combo key="hov" text="High-occupancy vehicles (hov)" values_context="access" match="key" values_sort="false">
-                <list_entry value="yes" display_values="Public access"/><list_entry value="official" display_values="Official" deprecated="true"/><list_entry value="designated" display_values="Designated"/><list_entry value="destination" display_values="Destination"/><list_entry value="delivery" display_values="Delivery"/><list_entry value="customer" display_values="Customers"/><list_entry value="permissive" display_values="Permissive"/><list_entry value="private" display_values="Private"/><list_entry value="permit" display_values="Permit required"/><list_entry value="no" display_values="No access"/>
+                <list_entry value="yes" display_value="Public access"/><list_entry value="official" display_value="Official" deprecated="true"/><list_entry value="designated" display_value="Designated"/><list_entry value="destination" display_value="Destination"/><list_entry value="delivery" display_value="Delivery"/><list_entry value="customer" display_value="Customers"/><list_entry value="permissive" display_value="Permissive"/><list_entry value="private" display_value="Private"/><list_entry value="permit" display_value="Permit required"/><list_entry value="no" display_value="No access"/>
             </combo>
             <combo key="psv" text="Public Service Vehicles (psv)" values_context="access" match="key" values_sort="false">
-                <list_entry value="yes" display_values="Public access"/><list_entry value="official" display_values="Official" deprecated="true"/><list_entry value="designated" display_values="Designated"/><list_entry value="destination" display_values="Destination"/><list_entry value="delivery" display_values="Delivery"/><list_entry value="customer" display_values="Customers"/><list_entry value="permissive" display_values="Permissive"/><list_entry value="private" display_values="Private"/><list_entry value="permit" display_values="Permit required"/><list_entry value="no" display_values="No access"/>
+                <list_entry value="yes" display_value="Public access"/><list_entry value="official" display_value="Official" deprecated="true"/><list_entry value="designated" display_value="Designated"/><list_entry value="destination" display_value="Destination"/><list_entry value="delivery" display_value="Delivery"/><list_entry value="customer" display_value="Customers"/><list_entry value="permissive" display_value="Permissive"/><list_entry value="private" display_value="Private"/><list_entry value="permit" display_value="Permit required"/><list_entry value="no" display_value="No access"/>
             </combo>
             <combo key="tourist_bus" text="Tourist buses" values="yes,no" display_values="Yes,No" match="key" values_context="access" values_sort="false"/>
             <combo key="4wd_only" text="4WD only" values="yes,recommended,no" display_values="Yes,Recommended,No" values_context="access" match="key" values_sort="false"/>
@@ -3617,7 +3654,7 @@
             <key key="tunnel" value="culvert"/>
             <optional>
                 <text key="name" text="Name"/>
-                <combo key="layer" text="Layer" values="5,4,3,2,1,0,-1,-2,-3,-4,-5" default="-1" length="3" motch="none" editable="true"/>
+                <combo key="layer" text="Layer" values="5,4,3,2,1,0,-1,-2,-3,-4,-5" default="-1" length="3" match="none" editable="true"/>
                 <text key="width" text="Width (meters)" value_type="dimension_horizontal"/>
             </optional>
         </item> <!-- Culvert -->
@@ -3820,7 +3857,7 @@
             <combo key="cargo" text="Cargo" values="passengers,vehicle,bicycle,hgv,passengers;vehicle" values_context="cargo"/>
             <preset_link preset_name="No name"/>
         </item> <!-- Ferry Terminal -->
-        <item name="Ferry Route" icon="icons/png/water_route_sp.png" type="way,closedway,relation" preset_name_label="true">
+        <item name="Ferry Route" icon="icons/png/water_route_sp.png" type="way,closedway,relation" preset_name_label="true" name_template="Ferry ({operator} {ref} ?{'{from} - {via} - {to}' | '{from} - {to}' | '{from}' | '{to}'})">
             <link wiki="Tag:route=ferry"/>
             <key key="route" value="ferry"/>
             <optional>
@@ -4643,7 +4680,7 @@
                 <role key="" text="route segment" requisite="required" type="way,closedway" member_expression="railway|route=ferry"/>
             </roles>
         </item> <!-- Public Transport Route (Rail) -->
-        <item name="Public Transport Route (Bus)" icon="icons/png/transport_route_sp.png" type="relation" preset_name_label="true">
+        <item name="Public Transport Route (Bus)" icon="icons/png/transport_route_sp.png" type="relation" preset_name_label="true" name_template="Bus ({operator} {ref} ?{'{from} - {via} - {to}' | '{from} - {to}' | '{from}' | '{to}'})">
             <link wiki="Tag:route=bus"/>
             <space/>
             <key key="type" value="route"/>
@@ -4665,7 +4702,7 @@
                 <role key="hail_and_ride" text="hail and ride route segment" requisite="optional" type="way,closedway" member_expression="highway"/>
             </roles>
         </item> <!-- Public Transport Route (Bus) -->
-        <item name="Public Transport Route (Ferry)" icon="icons/png/transport_ferry_route_sp.png" type="relation" preset_name_label="true">
+        <item name="Public Transport Route (Ferry)" icon="icons/png/transport_ferry_route_sp.png" type="relation" preset_name_label="true" name_template="Ferry ({operator} {ref} ?{'{from} - {via} - {to}' | '{from} - {to}' | '{from}' | '{to}'})">
             <link wiki="Tag:route=ferry"/>
             <key key="type" value="route"/>
             <key key="route" value="ferry"/>
@@ -4686,7 +4723,7 @@
                 <role key="" text="route segment" requisite="required" type="way,closedway" member_expression="route=ferry"/>
             </roles>
         </item> <!-- Public Transport Route (Ferry) -->
-        <item name="Public Transport Route (Aerialway)" icon="icons/png/transport_route_sp.png" type="relation" preset_name_label="true">
+        <item name="Public Transport Route (Aerialway)" icon="icons/png/transport_route_sp.png" type="relation" preset_name_label="true" name_template="Aerial ({operator} {ref} ?{'{from} - {via} - {to}' | '{from} - {to}' | '{from}' | '{to}'})">
             <link wiki="Public_transport"/>
             <space/>
             <key key="type" value="route"/>
@@ -4847,7 +4884,7 @@
                 <role key="platform" text="platform" requisite="optional" type="node,way,closedway" member_expression="highway=platform OR railway=platform"/>
             </roles>
         </item> <!-- Public transport route (Legacy) -->
-         <item name="Public transport route (Legacy) (Ferry)" icon="icons/png/transport_ferry_route_sp.png" type="relation" preset_name_label="true">
+         <item name="Public transport route (Legacy) (Ferry)" icon="icons/png/transport_ferry_route_sp.png" type="relation" preset_name_label="true" name_template="Ferry ({operator} {ref} ?{'{from} - {via} - {to}' | '{from} - {to}' | '{from}' | '{to}'})">
             <link wiki="Tag:route=ferry"/>
             <space/>
             <key key="type" value="route"/>
@@ -4872,7 +4909,7 @@
                 <role key="platform" text="platform" requisite="optional" type="node,way,closedway,multipolygon" member_expression="man_made=pier OR (public_transport=platform ferry=yes)"/>
             </roles>
         </item> <!-- Public transport route (Legacy) (Ferry) -->
-        <item name="Public transport route (Legacy) (Aerialway)" icon="icons/png/transport_route_sp.png" type="relation" preset_name_label="true">
+        <item name="Public transport route (Legacy) (Aerialway)" icon="icons/png/transport_route_sp.png" type="relation" preset_name_label="true" name_template="Aerial ({operator} {ref} ?{'{from} - {via} - {to}' | '{from} - {to}' | '{from}' | '{to}'})">
             <link wiki="Public_transport"/>
             <space/>
             <key key="type" value="route"/>
@@ -5618,7 +5655,7 @@
             <key key="tourism" value="zoo"/>
             <reference ref="name_oh_wheelchair_toilets"/>
             <combo key="zoo" text="Type" values="aviary,birds,butterfly,enclosure,falconry,petting_zoo,reptile,safari_park,wildlife_park" display_values="Aviary,Birds,Butterfly,Enclosure,Falconry,Petting zoo,Reptile,Safari park,Wildlife park"/>
-            <reference ref="wikipedia_wikidata"/>
+            <reference ref="wikipedia_wikidata_images"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Zoo -->
         <item name="Aquarium" icon="icons/png/tourist_aquarium_29063.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -5626,7 +5663,7 @@
             <space/>
             <key key="tourism" value="aquarium"/>
             <reference ref="name_oh_wheelchair_toilets"/>
-            <reference ref="wikipedia_wikidata"/>
+            <reference ref="wikipedia_wikidata_images"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Aquarium -->
         <item name="Animals" icon="icons/png/tourist_animals.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -5726,7 +5763,7 @@
                 <text key="species" text="Species"/>
                 <reference ref="oh_wheelchair"/>
                 <reference ref="toilets_with_access"/>
-                <reference ref="wikipedia_wikidata"/>
+                <reference ref="wikipedia_wikidata_images"/>
             </optional>
         </item> <!-- Animals -->
         <separator/>
@@ -5782,7 +5819,7 @@
                 <text key="name" text="Name"/>
                 <reference ref="oh_wheelchair"/>
                 <reference ref="toilets_with_access"/>
-                <reference ref="wikipedia_wikidata"/>
+                <reference ref="wikipedia_wikidata_images"/>
             </optional>
         </item> <!-- Rides -->
         <item name="Escape game" icon="icons/png/tourist_empty.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -5874,8 +5911,8 @@
             <preset_link preset_name="Water Park" text="Similar but different tags:" alternative="true"/>
             <preset_link preset_name="Sports Centre" text="Similar but different tags:" alternative="true"/>
         </item> <!-- Public bath -->
-        <item name="Tanning Studio" icon="icons/png/amenity_tanning_studio.png" type="node,closedway,multipolygon" preset_name_label="true">
-            <link wiki="Tag:leisure=tanning_studio"/>
+        <item name="Tanning Salon" icon="icons/png/amenity_tanning_studio.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:leisure=tanning_salon"/>
             <space/>
             <key key="leisure" value="tanning_salon"/>
             <check key="self_service" text="Self-service" disable_off="true"/>
@@ -5884,7 +5921,7 @@
             <reference ref="facility_access"/>
             <space/>
             <reference ref="link_contact_address_payment"/>
-        </item> <!-- Tanning Studio -->
+        </item> <!-- Tanning Salon -->
         <item name="Dance" icon="icons/png/amenity_dance_21173.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:leisure=dance"/>
             <space/>
@@ -5927,6 +5964,9 @@
             <link wiki="Tag:railway=miniature"/>
             <key key="railway" value="miniature"/>
             <reference ref="optional_name"/>
+            <optional>
+                <reference ref="railway_service_gauge_electrified"/>
+            </optional>
         </item> <!-- Minature railway -->
         <item name="Toy library" icon="icons/png/amenity_toys.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:amenity=toy_library"/>
@@ -6206,7 +6246,7 @@
             <multiselect key="museum" text="Type" values="archaeological;art;aviation;cars;ceramics;children;history;maritime;military;music;nature;person;railway;science;sport;technology;transport;war" display_values="Archaeological;Art;Aviation;Cars;Ceramics;Children;History;Maritime;Military;Music;Nature;Person;Railway;Science;Sport;Technology;Transport;War" values_searchable="true"/>
             <combo key="museum_type" text="Museum scope" values="national,municipal,regional" display_values="National,Municipal,Regional"/>
             <reference ref="name_operator_oh_wheelchair_toilets"/>
-            <reference ref="wikipedia_wikidata"/>
+            <reference ref="wikipedia_wikidata_images"/>
             <reference ref="link_contact_address_payment"/>
             <reference ref="kids_area"/>
         </item> <!-- Museum -->
@@ -6215,7 +6255,7 @@
             <space/>
             <key key="tourism" value="gallery"/>
             <reference ref="name_operator_oh_wheelchair_toilets"/>
-            <reference ref="wikipedia_wikidata"/>
+            <reference ref="wikipedia_wikidata_images"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Art gallery -->
         <item name="Theatre" icon="icons/png/tourist_theatre.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -8904,6 +8944,15 @@
             <space/>
             <key key="man_made" value="embankment"/>
         </item> <!-- Embankment -->
+        <item name="Avalanche Protection" icon="${man_made_avalanche_protector}" type="node,way,closed_way" preset_name_label="true">
+            <link wiki="Tag:man_made=avalanche_protection"/>
+            <space/>
+            <key key="man_made" value="avalanche_protection"/>
+            <optional>
+                <combo key="avalanche_protection" text="Avalance protection" values="snow_bridge,dam,berm,mound,shed,gas_ignition" display_values="Snow bridge,Dam,Berm,Mound,Shed,Gas ignition"/>
+                <check key="barrier" value_on="fence" text="Fence"/>
+            </optional>
+        </item> <!-- Avalanche Protection -->
         <item name="Cairn" icon="icons/png/man_made_cairn_22005.png" type="node,closedway" preset_name_label="true">
             <link wiki="Tag:man_made=cairn"/>
             <space/>
@@ -9699,6 +9748,7 @@
             <combo key="colour" text="Color (HTML name or hexadecimal code)" values="black,red,white,gray,red/white" values_context="colour" match="none" editable="true"/>
             <reference ref="ref_operator"/>
             <optional>
+                <reference ref="line_management"/>
                 <combo key="tower:type" text="Tower type" values="termination,branch,transposing,crossing,transition" display_values="Termination,Branch,Transposing,Crossing,Transition" text_context="power" values_context="power" deprecated="true"/>
                 <combo key="branch:type" text="Branch tower type" values="tap,split,loop,cross" display_values="Tap,Split,Loop,Cross" values_context="power" deprecated="true"/>
                 <combo key="design" text="Tower design" values="one-level,two-level,donau,three-level,barrel,asymmetric,triangle,flag,donau;one-level,four-level,six-level,nine-level,delta,delta_two-level,y-frame,x-frame,h-frame,guyed_h-frame,portal,portal_two-level,portal_three-level,guyed_v-frame,bipole,monopolar" values_context="power"/>
@@ -9907,7 +9957,7 @@
         <optional>
             <text key="name" text="Name"/>
             <reference ref="religious"/>
-            <reference ref="wikipedia_wikidata"/>
+            <reference ref="wikipedia_wikidata_images"/>
             <reference ref="oh_wheelchair"/>
         </optional>
         <preset_link preset_name="Monastery" text="Similar but different tags:" alternative="true"/>
@@ -9955,6 +10005,7 @@
             <list_entry value="baths" short_description="Baths"/>
         </combo>
         <combo key="archaeological_site" text="Type">
+            <list_entry value="baths" short_description="Baths"/>
             <list_entry value="tumulus" short_description="Tumulus"/>
             <list_entry value="megalith" short_description="Megalith"/>
             <list_entry value="fortification" short_description="Fortification"/>
@@ -9973,6 +10024,24 @@
         <reference ref="historic_optional"/>
         <reference ref="name_oh_wheelchair"/>
     </item> <!-- Archaeological Site -->
+    <item name="Fortification Site" icon="icons/png/tourist_empty.png" type="node,closedway,multipolygon" preset_name_label="true">
+        <link wiki="Tag:historic=archaeological_site"/>
+        <space/>
+        <key key="historic" value="archaeological_site"/>
+        <key key="archaeological_site" value="fortification"/>
+        <combo key="fortification_type" text="Fortification type">
+            <list_entry value="hill_fort" display_value="Hill fort" short_description="Forts using a rise of elevation"/>
+            <list_entry value="limes" display_value="Limes" short_description="Fortifications for border defense"/>
+            <list_entry value="sconce" display_value="Sconce" short_description="A small protective fortification"/>
+            <list_entry value="ring_ditch" display_value="Ring ditch" short_description="Circular ditched enclosures"/>
+            <list_entry value="ringfort" display_value="Ringfort" short_description="Circular fortified settlement"/>
+            <list_entry value="motte" display_value="Motte" short_description="Raised area of ground for a castle"/>
+            <list_entry value="watchtower" display_value="Watchtower" short_description="Military observation"/>
+            <list_entry value="battery" display_value="Battery" short_description="A group of artillary (cannon) in a fixed fortification"/>
+        </combo>
+        <reference ref="historic_optional"/>
+        <reference ref="name_oh_wheelchair"/>
+    </item> <!-- Battlefield -->
     <item name="Battlefield" icon="icons/png/tourist_battlefield.png" type="node,closedway,multipolygon" preset_name_label="true">
         <link wiki="Tag:historic=battlefield"/>
         <space/>
@@ -10027,7 +10096,7 @@
             <text key="artist_name" text="Artist Name"/>
             <text key="start_date" text="Start date"/>
             <reference ref="material"/>
-            <reference ref="wikipedia_wikidata"/>
+            <reference ref="wikipedia_wikidata_images"/>
         </optional>
         <reference ref="historic_optional"/>
     </item> <!-- Memorial -->
@@ -10039,7 +10108,7 @@
         <reference ref="religious_catholic_christian"/>
         <text key="start_date" text="Start date"/>
         <text key="inscription" text="Inscription" length="255"/>
-        <text key="material" text="Material"/>
+        <reference ref="material"/>
         <reference ref="historic_optional"/>
     </item> <!-- Wayside Cross -->
     <item name="Wayside Shrine" icon="icons/png/tourist_wayside_shrine.png" type="node,closedway" preset_name_label="true">
@@ -10721,13 +10790,16 @@
                 <list_entry value="cosmetics" short_description="Cosmetics"/>
                 <list_entry value="hair" short_description="Hairdresser"/>
                 <list_entry value="hair_removal" short_description="Hair removal"/>
+                <list_entry value="waxing" short_description="Waxing"/>
                 <list_entry value="skin_care" short_description="Skin care"/>
                 <list_entry value="spa" short_description="Spa"/>
-                <list_entry value="tanning" short_description="Tanning"/>
+                <list_entry value="tanning" short_description="Tanning"/>              
+                <list_entry value="eyelash" short_description="Eyelashes"/>
             </multiselect>
             <reference ref="name_oh_wheelchair_level"/>
             <reference ref="link_contact_address_payment"/>
             <reference ref="kids_area"/>
+            <preset_link preset_name="Hairdresser/Barber" text="Similar but different tags:" alternative="true"/>
         </item> <!-- Beauty -->
         <item name="Nail salon" icon="icons/png/shopping_nail_salon_29108.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:shop=beauty"/>
@@ -10775,6 +10847,7 @@
                 <check key="unisex" text="Unisex" disable_off="true"/>
             </checkgroup>
             <reference ref="link_contact_address_payment"/>
+            <preset_link preset_name="Beauty" text="Similar but different tags:" alternative="true"/>
         </item> <!-- Hairdresser/Barber -->
         <item name="Tattoo" icon="icons/png/shopping_tattoo_29190.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:shop=tattoo"/>
@@ -11450,7 +11523,7 @@
             <optional>
                 <reference ref="name_operator"/>
                 <reference ref="oh"/>
-                <reference ref="wikipedia_wikidata"/>
+                <reference ref="wikipedia_wikidata_images"/>
                 <text key="start_date" text="Start date"/>
             </optional>
         </item> <!-- Protected Area -->
@@ -11522,15 +11595,15 @@
             <reference ref="population_postcode_website"/>
         </item> <!-- County -->
         <separator/>
-        <item name="City" icon="icons/png/poi_place_city.png" type="node,closedway,,multipolygon,relation" preset_name_label="true">
+        <item name="City" icon="icons/png/poi_place_city.png" type="node,closedway,multipolygon,relation" preset_name_label="true">
             <link wiki="Tag:place=city"/>
             <space/>
             <key key="place" value="city"/>
             <reference ref="name_wikipedia"/>
             <reference ref="population_postcode_website"/>
         </item> <!-- City -->
-        <item name="Municipality" icon="icons/png/poi_place_city.png" type="node,closedway,,multipolygon,relation" preset_name_label="true">
-            <link wiki="Tag:place=city"/>
+        <item name="Municipality" icon="icons/png/poi_place_city.png" type="node,closedway,multipolygon,relation" preset_name_label="true">
+            <link wiki="Tag:place=municipality"/>
             <space/>
             <key key="place" value="municipality"/>
             <reference ref="name_wikipedia"/>
@@ -12037,6 +12110,15 @@
             </optional>
             <preset_link preset_name="Garden" text="Similar but different tags:" alternative="true"/>
         </item> <!-- Flowerbed -->
+        <item name="Planter" icon="icons/png/man_made_planter.png" type="closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:man_made=planter"/>
+            <space/>
+            <key key="man_made" value="planter"/>
+            <optional>
+                <reference ref="material"/>
+                <check key="barrier" value_on="planter" text="Planter barrier" disable_off="true"/>
+            </optional>
+        </item>
         <item name="Garden" icon="icons/png/landuse_garden_21010.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:leisure=garden"/>
             <space/>
@@ -12142,7 +12224,7 @@
             <space/>
             <key key="landuse" value="industrial"/>
             <reference ref="optional_name"/>
-            <combo key="industrial" text="Type" values="bakery,brewery,brickyard,depot,distributor,factory,grinding_mill,heating_station,machine_shop,mine,oil,port,salt_pond,sawmill,scrap_yard,shipyard,slaughterhouse,warehouse" display_values="Bakery,Brewery,Brickyard,Depot,Distributor,Factory,Grinding mill,Heating station,Machine shop,Mine,Oil,Port,Salt pond,Sawmill,Scrap yard,Shipyard,Slaughterhouse,Warehouse" editable="true" values_context="industrial" match="key"/>
+            <combo key="industrial" text="Type" values="bakery,brewery,brickyard,depot,distributor,factory,grinding_mill,heating_station,machine_shop,mine,oil,port,salt_pond,sawmill,scrap_yard,shipyard,slaughterhouse,warehouse,wellsite" display_values="Bakery,Brewery,Brickyard,Depot,Distributor,Factory,Grinding mill,Heating station,Machine shop,Mine,Oil,Port,Salt pond,Sawmill,Scrap yard,Shipyard,Slaughterhouse,Warehouse,Well site" editable="true" values_context="industrial" match="key"/>
         </item> <!-- Industrial area -->
         <item name="Garages" icon="presets/garages.png" type="closedway,multipolygon" name_context="Landuse" preset_name_label="true">
             <link wiki="Tag:landuse=garages"/>
@@ -12270,7 +12352,7 @@
             <text key="mobile" text="Mobile phone number" match="key" value_type="phone"/>
             <text key="fax" text="Fax Number" match="key" value_type="phone"/>
             <space/>
-            <reference ref="wikipedia_wikidata"/>
+            <reference ref="wikipedia_wikidata_images"/>
             <text key="image" text="Image"/>
             <preset_link preset_name="Social Networks"/>
             <preset_link preset_name="Contact ('contact:*')" text="Similar tags but different tagging schema:" text_context="Contact" alternative="true"/>
@@ -12285,7 +12367,7 @@
             <text key="contact:mobile" text="Mobile phone number" match="key" value_type="phone"/>
             <text key="contact:fax" text="Fax Number" match="key" value_type="phone"/>
             <space/>
-            <reference ref="wikipedia_wikidata"/>
+            <reference ref="wikipedia_wikidata_images"/>
             <text key="image" text="Image"/>
             <preset_link preset_name="Social Networks"/>
             <preset_link preset_name="Contact" text="Similar tags but different tagging schema:" text_context="Contact" alternative="true"/>
@@ -12561,7 +12643,7 @@
         </item> <!-- Enforcement (average speed) -->
         <separator/>
         <group name="Routes" icon="icons/png/osm_route_sp.png">
-            <item name="Bicycle Route" icon="icons/png/osm_route_sp.png" type="relation" preset_name_label="true">
+            <item name="Bicycle Route" icon="icons/png/osm_route_sp.png" type="relation" preset_name_label="true" name_template="Bicycle route (?{'{ref} ' | ''} ?{'{from} - {via} - {to}' | '{from} - {to}' | '{from}' | '{to}'})">
                 <link wiki="Tag:route=bicycle"/>
                 <space/>
                 <key key="type" value="route"/>
@@ -12575,7 +12657,7 @@
                     <reference ref="route_segment_roles"/>
                 </roles>
             </item> <!-- Bicycle Route -->
-            <item name="Mountain Biking Route" icon="icons/png/osm_route_sp.png" type="relation" preset_name_label="true">
+            <item name="Mountain Biking Route" icon="icons/png/osm_route_sp.png" type="relation" preset_name_label="true" name_template="MTB route (?{'{ref} ' | ''} ?{'{from} - {via} - {to}' | '{from} - {to}' | '{from}' | '{to}'})">
                 <link wiki="Mountain_biking"/>
                 <space/>
                 <key key="type" value="route"/>
@@ -12588,7 +12670,7 @@
                     <reference ref="route_segment_roles"/>
                 </roles>
             </item> <!-- Mountain Biking Route -->
-            <item name="Hiking Route" icon="icons/png/osm_route_sp.png" type="relation" preset_name_label="true">
+            <item name="Hiking Route" icon="icons/png/osm_route_sp.png" type="relation" preset_name_label="true" name_template="Hiking route (?{'{ref} ' | ''} ?{'{from} - {via} - {to}' | '{from} - {to}' | '{from}' | '{to}'})">
                 <link wiki="Tag:route=hiking#Tagging_walking_and_hiking_Route_Networks"/>
                 <space/>
                 <key key="type" value="route"/>
@@ -12600,7 +12682,7 @@
                 </optional>
                 <reference ref="walking_routes_roles"/>
             </item> <!-- Hiking Route -->
-            <item name="Walking Route" icon="icons/png/osm_route_sp.png" type="relation" preset_name_label="true">
+            <item name="Walking Route" icon="icons/png/osm_route_sp.png" type="relation" preset_name_label="true" name_template="Walking route (?{'{ref} ' | ''} ?{'{from} - {via} - {to}' | '{from} - {to}' | '{from}' | '{to}'})">
                 <link wiki="Tag:route=foot"/>
                 <space/>
                 <key key="type" value="route"/>
@@ -12612,7 +12694,7 @@
                 </optional>
                 <reference ref="walking_routes_roles"/>
             </item> <!-- Walking Route -->
-            <item name="Running Route" icon="icons/png/osm_route_sp.png" type="relation" preset_name_label="true">
+            <item name="Running Route" icon="icons/png/osm_route_sp.png" type="relation" preset_name_label="true" name_template="Running route (?{'{ref} ' | ''} ?{'{from} - {via} - {to}' | '{from} - {to}' | '{from}' | '{to}'})">
                 <link wiki="Tag:route=running"/>
                 <space/>
                 <key key="type" value="route"/>
@@ -12642,7 +12724,7 @@
                     <role key="station" text="fitness station" requisite="optional" type="node,way,closedway" member_expression="leisure=fitness_station"/>
                 </roles>
             </item> <!-- Fitness Trail -->
-            <item name="Riding Route" icon="icons/png/osm_route_sp.png" type="relation" preset_name_label="true">
+            <item name="Riding Route" icon="icons/png/osm_route_sp.png" type="relation" preset_name_label="true" name_template="Riding route (?{'{ref} ' | ''} ?{'{from} - {via} - {to}' | '{from} - {to}' | '{from}' | '{to}'})">
                 <link wiki="Tag:route=horse"/>
                 <space/>
                 <key key="type" value="route"/>
@@ -12659,7 +12741,7 @@
                     <role key="guidepost" text="guidepost" requisite="optional" type="node" member_expression="information=guidepost"/>
                 </roles>
             </item> <!-- Riding Route -->
-            <item name="Piste Route" icon="icons/png/osm_route_sp.png" type="relation" preset_name_label="true">
+            <item name="Piste Route" icon="icons/png/osm_route_sp.png" type="relation" preset_name_label="true" name_template="Piste (?{'{ref} ' | ''} ?{'{from} - {via} - {to}' | '{from} - {to}' | '{from}' | '{to}'})">
                 <link wiki="Tag:route=piste"/>
                 <space/>
                 <key key="type" value="route"/>
@@ -12670,17 +12752,14 @@
                     <reference ref="route_hikebike_optionals"/>
                 </optional>
                 <roles>
-                    <role key="" text="route segment" requisite="optional" type="way"/>
-                    <role key="forward" text="forward segment" requisite="optional" type="way"/>
-                    <role key="backward" text="backward segment" requisite="optional" type="way"/>
+                    <reference ref="route_segment_roles"/>
                     <role key="link" text="link segment" requisite="optional" type="way"/>
                     <role key="shortcut" text="shortcut segment" requisite="optional" type="way"/>
                     <role key="variant" text="variant segment" requisite="optional" type="way"/>
                     <role key="start" text="entry points" requisite="optional" type="node"/>
-                    <role key="guidepost" text="guidepost" requisite="optional" type="node" member_expression="information=guidepost"/>
                 </roles>
             </item> <!-- Piste Route -->
-            <item name="Ski Route" icon="icons/png/osm_route_sp.png" type="relation" preset_name_label="true">
+            <item name="Ski Route" icon="icons/png/osm_route_sp.png" type="relation" preset_name_label="true" name_template="Ski route (?{'{ref} ' | ''} ?{'{from} - {via} - {to}' | '{from} - {to}' | '{from}' | '{to}'})">
                 <link wiki="Tag:route=ski"/>
                 <space/>
                 <key key="type" value="route"/>
@@ -12691,17 +12770,14 @@
                     <reference ref="route_hikebike_optionals"/>
                 </optional>
                 <roles>
-                    <role key="" text="route segment" requisite="optional" type="way"/>
-                    <role key="forward" text="forward segment" requisite="optional" type="way"/>
-                    <role key="backward" text="backward segment" requisite="optional" type="way"/>
+                    <reference ref="route_segment_roles"/>
                     <role key="link" text="link segment" requisite="optional" type="way"/>
                     <role key="shortcut" text="shortcut segment" requisite="optional" type="way"/>
                     <role key="variant" text="variant segment" requisite="optional" type="way"/>
                     <role key="start" text="entry points" requisite="optional" type="node"/>
-                    <role key="guidepost" text="guidepost" requisite="optional" type="node" member_expression="information=guidepost"/>
                 </roles>
             </item> <!-- Ski Route -->
-            <item name="Inline Skating Route" icon="icons/png/osm_route_sp.png" type="relation" preset_name_label="true">
+            <item name="Inline Skating Route" icon="icons/png/osm_route_sp.png" type="relation" preset_name_label="true" name_template="Inline skating route (?{'{ref} ' | ''} ?{'{from} - {via} - {to}' | '{from} - {to}' | '{from}' | '{to}'})">
                 <link wiki="Tag:route=inline_skates"/>
                 <space/>
                 <key key="type" value="route"/>
@@ -12711,7 +12787,10 @@
                 <optional>
                     <reference ref="route_hikebike_optionals"/>
                 </optional>
-            </item> <!-- Walking Route -->
+                <roles>
+                    <reference ref="route_segment_roles"/>
+                </roles>
+            </item> <!-- Inline Skating Route -->
             <separator/>
             <item name="Detour Route" icon="icons/png/osm_route_sp.png" type="relation" preset_name_label="true">
                 <link wiki="Tag:route=detour"/>
@@ -12894,7 +12973,7 @@
                 <text key="ref:regine" text="Reference REGINE (NO)"/>
                 <text key="ref:gnis" text="Reference GNIS (USA)"/>
                 <text key="ref:gnbc" text="Reference GNBC (CA)"/>
-                <reference ref="wikipedia_wikidata"/>
+                <reference ref="wikipedia_wikidata_images"/>
             </optional>
             <roles>
                 <role key="" text="waterways (no riverbank)" requisite="optional" type="way" member_expression="waterway -waterway:riverbank"/>
