@@ -1,6 +1,49 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
-19.0.0
+19.1.0-1:
+
+- Fix use a separate tag for the task downloading progress dialog
+- Fix avoid crash by synchronizing undo and nearest POI sorting with the StorageDelegator
+- Fix position of TextView CompoundDrawable for RTL
+- Fix de-support path patterns for Android pre-9.0
+- Fix protect against no file selector installed on Android 10 and lower
+- Fix protect against and log null preset path
+- Fix protect against logic being null if we are running solo
+- Fix stop measure dialog appearing when the row gets focus
+- Fix improve handling of conditional maxspeed
+- Fix avoid allocating new buffers and ByteArrayOutputStream for each MBT-tile
+- Fix protect against new sqlite behaviour when tile not found
+- Fix avoid parsing an empty URL value
+- Fix avoid crash caused by concurrent "beeps"
+- Fix protect against NPE when getCurrentFocus returns null
+- Fix avoid ClassCastException joining ways if multiselect contains a Node or Relation 
+- Fix focus on resp. EditText after clearing comment/source field
+- Fix re-validate changes after editing in upload and review modals
+- Fix limit list of photo urls to 100, sort by distance from clicked photo
+- Fix changing the role of an element via the relations tab
+- Fix protect against NPE if mapillary sequence doesn't have image at position
+- Fix clamp dimensions in degrees when setting zoom
+- Fix use any way connection for sorting routes
+- Add improve area order when rendering by sorting closed ways according to bounding box size
+- Add support custom headers from imagery configuration
+- Add improved property editor behaviour in split screen mode
+- Add improved diagnostics for the tile downloader and testing facility in layer modal
+- Add description (tooltip on long press) for snap toggle in PathCreation mode
+- Add data style without path patterns
+- Add a "safe" shortcut
+- Add allow name of bookmark to be changed
+- Add layer with bookmark display
+- Add new disambiguation menu that is horizontally scrollable and adds icons as a more concise indication of the object type.
+- Add support for JOSM style name templates in element selection and when rendering nodes and closed ways
+- Add functionality to follow system theme setting
+- Add support displaying a modal for editing longer text fields
+- Add support for sharing an Mapillary image including its id
+- Update privacy statement with info on "Provide feedback"
+- Update translations
+- Update preset
+- Update imagery from ELI
+
+19.0.0:
 
 - Fix protect against maxStringLength < 0 in sanitizeText
 - Fix protect against the view box changing during onDraw
