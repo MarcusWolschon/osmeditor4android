@@ -2,6 +2,7 @@
 
 19.0.3:
 
+- Fix Synchronize undo and nearest POI sorting with the StorageDelegator
 - Fix de-support path patterns for Android pre-9.0
 - Fix protect against null start pos in photo viewer
 - Fix protect against no file selector installed on Android 10 and lower
