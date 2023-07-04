@@ -1,6 +1,22 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
-19.0.2
+19.0.3:
+
+- Fix de-support path patterns for Android pre-9.0
+- Fix protect against null start pos in photo viewer
+- Fix protect against no file selector installed on Android 10 and lower
+- Fix protect against and log null preset path
+- Fix stop measure dialog appearing when the row gets focus
+- Fix protect against new sqlite behaviour when tile not found
+- Fix use any way connection for sorting routes
+- Fix protect against saved tags missing
+- Fix avoid parsing an empty URL 
+- Add description (tooltip on long press) for snap toggle in PathCreation mode
+- Update preset
+- Update translations
+- Update imagery from ELI
+
+19.0.2:
 
 - Add shortcut for "Safe startup"
 
@@ -19,7 +35,7 @@
 - Update imagery from ELI
 - Update preset
 
-19.0.0
+19.0.0:
 
 - Fix protect against maxStringLength < 0 in sanitizeText
 - Fix protect against the view box changing during onDraw
