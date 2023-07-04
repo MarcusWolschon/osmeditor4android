@@ -7,6 +7,7 @@
   <string name="mode_correct">C 模式</string>
   <string name="mode_address">地址</string>
   <string name="mode_voice">语音</string>
+  <!--additional short cuts-->
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">小心！</string>
   <string name="transfer_download_current_dialog_message">你作了修改。要不要上传？不要的话就没了。 </string>
@@ -125,9 +126,6 @@
   <string name="openstreetbug_commit_fail_with_message">无法保存任务变动\n%1$s</string>
   <string name="openstreetbug_unknown_task_type">未知任务类型</string>
   <string name="openstreetbug_not_supported">%1$s 不支持。</string>
-  <string name="note_description">备注： %1$s - %2$s</string>
-  <string name="bug_description">%1$s: %2$s - %3$s</string>
-  <string name="bug_description_2">%1$s: %2$s %3$s - %4$s</string>
   <string name="generic_bug">Bug</string>
   <string name="osmose_bug">Osmose</string>
   <string name="todo_title">待办事项</string>
@@ -355,6 +353,7 @@
   <string name="layer_geojson">GeoJSON</string>
   <string name="layer_mapillary">Mapillary</string>
   <string name="layer_grid">网格</string>
+  <string name="layer_bookmarks">书签</string>
   <string name="layer_gpx">GPX</string>
   <string name="layer_gpx_recording">记录成 GPX 文件格式</string>
   <string name="layer_photos">照片</string>
@@ -389,7 +388,6 @@
   <string name="projection">投影</string>
   <string name="errors">错误</string>
   <!--Mapillary layer-->
-  <string name="mapillary_image">mapillary %1$s</string>
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">删除照片</string>
   <string name="photo_viewer_delete_button">永久删除</string>
@@ -831,6 +829,7 @@
   <string name="menu_gps_track_managment">GPX 轨迹管理…</string>
   <string name="menu_gps_goto_start">前往 GPX 轨迹的起始点</string>
   <string name="menu_gps_goto_first_waypoint">前往第一个航点</string>
+  <string name="menu_gps_add_bookmark">添加书签…</string>
   <string name="menu_enable_gps_autodownload">根据位置自动下载</string>
   <string name="menu_enable_pan_and_zoom_auto_download">平移和缩放自动下载</string>
   <string name="menu_transfer">传输...</string>
@@ -891,7 +890,6 @@
   <string name="menu_tools_imagery">更多影像工具…</string>
   <string name="menu_tools_add_imagery_from_oam">从 OAM 添加影像</string>
   <string name="menu_tools_flush_all_tile_caches">刷新所有瓦片缓存</string>
-  <string name="menu_tools_update_imagery_configuration">更新设定</string>
   <string name="menu_tools_update_imagery_configuration_eli">从 ELI 更新设定</string>
   <string name="menu_tools_zoom_to_layer_extent">缩放到背景图层范围</string>
   <string name="menu_tools_clear_clipboard">清除剪贴板</string>
@@ -932,6 +930,8 @@
   <string name="preset_menu_invert">反选过滤</string>
   <!--element action mode menu-->
   <string name="menu_tags">属性</string>
+  <!--ELement entry in context menu-->
+  <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">历史</string>
   <string name="menu_history_web">历史（跳转网页）</string>
@@ -1068,10 +1068,8 @@
   <string name="config_showTolerance_summary">显示要素可被选中的区域。</string>
   <string name="config_use_back_for_undo_title">使用 ← 键撤销</string>
   <string name="config_use_back_for_undo_summary">使用 ← 键在主编辑视图中撤销。</string>
-  <string name="config_enableLightTheme_title">明亮主题</string>
-  <string name="config_enableLightTheme_summary">明亮的白色背景。</string>
+  <string name="config_theme_title">主题</string>
   <string name="config_splitActionBarEnabled_title">启用拆分工具栏</string>
-  <string name="config_splitActionBarEnabled_summary">允许拆分工具栏，特定设备才可用。需要重新启动 Vespucci 且安卓版本在 4.0 或以上。</string>
   <string name="config_disableTranslations_title">禁用翻译</string>
   <string name="config_disableTranslations_summary">在用户界面中使用英语</string>
   <string name="config_maxInlineValues_title">最大行内数值</string>
@@ -1102,6 +1100,7 @@
   <string name="config_mapillary_min_zoom_current">%1$d</string>
   <string name="config_nameCap_summary">键入时，自动将标签的名称大写</string>
   <string name="config_nameCap_title">名称大写</string>
+  <string name="config_longStringLimit_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">数据和编辑设置</string>
   <string name="config_category_editing_summary">自动下载，保存和通知设置。</string>
@@ -1407,8 +1406,7 @@
   <!--Help system-->
   <string name="toast_nohelp">这里没有帮助。</string>
   <!--Bookmarks-->
-  <string name="add_bookmark">添加书签…</string>
-  <string name="bookmarks_desc">描述</string>
+  <string name="bookmarks_desc">名称</string>
   <string name="show_bookmarks">书签…</string>
   <string name="_dots">⋮</string>
   <string name="gotobookmark">出发</string>
@@ -1423,4 +1421,5 @@
   <string name="node_id">节点 %1$d</string>
   <string name="way_id">路径 %1$d</string>
   <string name="relation_id">关系 %1$d</string>
+  <!--Tile downloader diagnostics-->
 </resources>

@@ -7,6 +7,7 @@
   <string name="mode_correct">Только конфликты</string>
   <string name="mode_address">Адрес</string>
   <string name="mode_voice">Голос</string>
+  <!--additional short cuts-->
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Внимание!</string>
   <string name="transfer_download_current_dialog_message">Вы сделали изменения. Хотите передать их на сервер?</string>
@@ -133,9 +134,6 @@
   <string name="openstreetbug_commit_fail_with_message">Не удалось сохранить изменения задачи\n%1$s</string>
   <string name="openstreetbug_unknown_task_type">Неизвестный тип задачи</string>
   <string name="openstreetbug_not_supported">%1$s не поддерживается.</string>
-  <string name="note_description">Заметка: %1$s - %2$s</string>
-  <string name="bug_description">%1$s: %2$s - %3$s</string>
-  <string name="bug_description_2">%1$s: %2$s %3$s - %4$s</string>
   <string name="generic_bug">Ошибка</string>
   <string name="osmose_bug">Osmose</string>
   <string name="todo_title">Доделать</string>
@@ -344,6 +342,7 @@
   <string name="layer_geojson">GeoJSON</string>
   <string name="layer_mapillary">Mapillary</string>
   <string name="layer_grid">Сетка</string>
+  <string name="layer_bookmarks">Закладки</string>
   <string name="layer_gpx">GPX</string>
   <string name="layer_photos">Фотографии</string>
   <string name="layer_tasks">Задачи</string>
@@ -378,7 +377,6 @@
   <string name="errors">Ошибки</string>
   <string name="layer_info_layer_not_available">Информация о слое недоступна</string>
   <!--Mapillary layer-->
-  <string name="mapillary_image">Mapillary %1$s</string>
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Удалить фото</string>
   <string name="photo_viewer_delete_button">Удалить навсегда</string>
@@ -814,6 +812,7 @@
   <string name="menu_gps_upload">Передать GPS-трек...</string>
   <string name="menu_gps_goto_start">Перейти к началу GPX-трека</string>
   <string name="menu_gps_goto_first_waypoint">Перейти к первой путевой точке</string>
+  <string name="menu_gps_add_bookmark">Добавить закладку...</string>
   <string name="menu_enable_gps_autodownload">Автозагрузка на основе местоположения</string>
   <string name="menu_enable_pan_and_zoom_auto_download">Автозагрузка текущего экрана</string>
   <string name="menu_transfer">Передача…</string>
@@ -871,7 +870,6 @@
   <string name="menu_tools_add_imagery_from_oam">Добавить снимки из OAM</string>
   <string name="menu_tools_flush_all_tile_caches">Очистить все базы для карты</string>
   <string name="menu_tools_background_properties">Свойства фона...</string>
-  <string name="menu_tools_update_imagery_configuration">Обновить настройки</string>
   <string name="menu_tools_update_imagery_configuration_eli">Обновить настройки из ELI</string>
   <string name="menu_tools_zoom_to_layer_extent">Приблизить к нижнему слою</string>
   <string name="menu_tools_clear_clipboard">Очистить буфер обмена</string>
@@ -916,6 +914,8 @@
   <string name="preset_menu_invert">Инвертировать фильтры</string>
   <!--element action mode menu-->
   <string name="menu_tags">Свойства</string>
+  <!--ELement entry in context menu-->
+  <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">История</string>
   <string name="menu_history_web">История (сайт)</string>
@@ -941,7 +941,7 @@
   <!--EasyEdit action mode titles-->
   <string name="actionmode_wayselect">Выбрана линия</string>
   <string name="actionmode_nodeselect">Выбрана точка</string>
-  <string name="actionmode_relationselect">Отношение выбрано</string>
+  <string name="actionmode_relationselect">Выбрано отношение</string>
   <string name="actionmode_createpath">Рисование линии</string>
   <string name="actionmode_multiselect">Мультивыбор</string>
   <string name="actionmode_newnoteselect">Выбрана новая заметка</string>
@@ -1054,10 +1054,8 @@
   <string name="config_showTolerance_summary">Показывать область, в которой элемент может быть выбран.</string>
   <string name="config_use_back_for_undo_title">Отмена кнопкой ←</string>
   <string name="config_use_back_for_undo_summary">Использовать кнопку ← для отмены в главном окне редактирования.</string>
-  <string name="config_enableLightTheme_title">Светлая тема</string>
-  <string name="config_enableLightTheme_summary">Светлое оформление с белым фоном.</string>
+  <string name="config_theme_title">Тематика</string>
   <string name="config_splitActionBarEnabled_title">Разделить панель</string>
-  <string name="config_splitActionBarEnabled_summary">Позволяет использовать отдельную панель действий, в зависимости от модели устройства. Требуется перезапуск Vespucci и Android версии 4.0 или старше.</string>
   <string name="config_disableTranslations_title">Отключить переводы</string>
   <string name="config_disableTranslations_summary">Использовать английский язык для пользовательского интерфейса</string>
   <string name="config_maxInlineValues_title">Макс. число встроенных значений</string>
@@ -1085,6 +1083,7 @@
   <string name="config_mapillary_min_zoom_title">Минимальный масштаб для Mapillary</string>
   <string name="config_mapillary_min_zoom_summary">Для отображения данных Mapillary необходим минимальный масштаб.</string>
   <string name="config_mapillary_min_zoom_current">%1$d</string>
+  <string name="config_longStringLimit_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Данные и редактирование</string>
   <string name="config_category_editing_summary">Автозагрузка, сохранение изменений, оповещения</string>
@@ -1387,8 +1386,7 @@
   <!--Help system-->
   <string name="toast_nohelp">Справка недоступна.</string>
   <!--Bookmarks-->
-  <string name="add_bookmark">Добавить закладку...</string>
-  <string name="bookmarks_desc">Описание</string>
+  <string name="bookmarks_desc">Название</string>
   <string name="show_bookmarks">Закладки...</string>
   <string name="_dots">⋮</string>
   <string name="gotobookmark">Перейти</string>
@@ -1400,4 +1398,5 @@
   <string name="element_type_area">полигон</string>
   <string name="element_type_relation">отношение</string>
   <!--Element names with id-->
+  <!--Tile downloader diagnostics-->
 </resources>

@@ -7,6 +7,7 @@
   <string name="mode_correct">C-Mode</string>
   <string name="mode_address">Адреса</string>
   <string name="mode_voice">Голосовий ввід</string>
+  <!--additional short cuts-->
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Увага!</string>
   <string name="transfer_download_current_dialog_message">Ви зробили зміни. Надіслати їх замість того, щоб відкинути?</string>
@@ -132,9 +133,6 @@
   <string name="openstreetbug_commit_fail_with_message">Неможливо зберегти зміни Завдань\n%1$s</string>
   <string name="openstreetbug_unknown_task_type">Невідомий тип завдання</string>
   <string name="openstreetbug_not_supported">%1$s не підтримується</string>
-  <string name="note_description">Примітка: %1$s - %2$s</string>
-  <string name="bug_description">%1$s: %2$s - %3$s</string>
-  <string name="bug_description_2">%1$s: %2$s %3$s - %4$s</string>
   <string name="generic_bug">Проблема</string>
   <string name="osmose_bug">Osmose</string>
   <string name="todo_title">Завдання</string>
@@ -374,6 +372,7 @@
   <string name="layer_geojson">GeoJSON</string>
   <string name="layer_mapillary">Mapillary</string>
   <string name="layer_grid">Сітка</string>
+  <string name="layer_bookmarks">Закладки</string>
   <string name="layer_gpx">GPX</string>
   <string name="layer_gpx_recording">Запис GPX</string>
   <string name="layer_photos">Фото</string>
@@ -418,7 +417,6 @@
   <string name="layer_info_layer_not_available">Інформація шару не доступна</string>
   <string name="layer_info_no_meta_data">Метадані не завантажено</string>
   <!--Mapillary layer-->
-  <string name="mapillary_image">mapillary %1$s</string>
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Вилучити фото</string>
   <string name="photo_viewer_delete_button">Видалити остаточно</string>
@@ -472,7 +470,7 @@
   <string name="tip_longpress_simple_mode">В спрощеному режимі довге натискання не працює. Відключить спрощений режим в головному меню, якщо ви бажаєте додавати об\'єкти довгим натисканням.</string>
   <string name="tip_gpx_no_elevation">Починаючи з версії 15, треки GPX типово не містять інформацію про висоту над рівнем моря.&lt;p&gt;Для увімкнення такої можливості встановіть модель Геоіда обравши пункт &lt;i&gt;Встановити EGM&lt;/i&gt; з меню Інструменти, або перемкніться на використання формату NMEA.</string>
   <string name="tip_tag_conflict">Злиття та відновлення елементів OSM іноді вимагають зміни їх атрибутів, якщо виникають потенційні конфлікти даних у змінених об\'єктів, у вас буде можливість перевірити такі об\'єкти та прийняти відповідне рішення.</string>
-  <string name="tip_gpx_recording">Коли ви вмикаєте запис треків GPX, Веспуччі збирає інформацію про ваше положення, навіть у фоновому режимі.&lt;p&gt;Вихід із застосунку явним чином або зупинка запису GPX припиняє збирання даних про місцезнаходження.</string>
+  <string name="tip_gpx_recording">Коли ви вмикаєте запис треків GPX, Веспуччі збирає інформацію про ваше місцезнаходження, навіть у фоновому режимі.&lt;p&gt;Вихід із застосунку явним чином або зупинка запису GPX припиняє збирання даних про місцезнаходження.</string>
   <string name="tip_auto_download">Коли ви вмикаєте автозавантаження даних OSM чи інших завдань, Веспуччі використовує дані про ваше місцеположення навіть у фоновому режимі.&lt;p&gt;Вихід із застосунку явним чином або відключення автозавантаження даних припиняє збирання інформації про ваше місцеположення.</string>
   <string name="tip_tristate_checkbox">Ви щойно торкнулися трипозиційного перемикача, він працює так само як і звичайні перемикачі, які перемикаються між двома значеннями, наприклад, так/ні або true/false.&lt;p&gt;. Однак вони мають додаткове третє положення &lt;b&gt;не встановлено&lt;/b&gt;, яке показується сірим, що говорить про те, що теґ не буде доданий. Перевести перемикач в цей стан можна довгим дотиком.</string>
   <string name="tip_alternative_tagging">Ви щойно застосували стиль, який містить посилання на альтернативне теґування. Це інший спосіб позначення цього об’єкта, який може бути більш відповідними. Ці альтернативні налаштування показуватимуться у верхній частині екрана попередніх налаштувань, які використовувалися останнім.</string>
@@ -614,7 +612,7 @@
   <string name="toast_unsupported_format">Формат не підтримується: %1$s</string>
   <string name="toast_returning_less_than_found">Повертаємо %1$d з %2$d знайдених елементів</string>
   <string name="toast_not_mbtiles">Формат файлу не MBTiles</string>
-  <string name="toast_using_network_location">Використовується мережеве положення</string>
+  <string name="toast_using_network_location">Використовується мережеве розташування</string>
   <string name="toast_using_gps_location">Використовується GPS/GNSS положення</string>
   <string name="toast_using_gps_disabled_tracking_stopped">Позиціонування GPS/GNSS вимкнено, спробуйте припинити відстеження.</string>
   <string name="toast_remote_nmea_connection">Віддалене NMEA з\'єднання з/до %1$s</string>
@@ -649,7 +647,7 @@
   <string name="toast_members_not_downloaded">Деякі учасники зв\'язку не завантажені</string>
   <string name="toast_restart_required">Вам потрібно перезапустити Vespucci, щоб зміни вступили в силу</string>
   <string name="toast_unable_to_open_offline_data">Неможливо відкрити офлайн-дані %1$s %2$s</string>
-  <string name="toast_no_usable_location">Дані про місцеположення відсутні</string>
+  <string name="toast_no_usable_location">Дані про місцезнаходження відсутні</string>
   <string name="toast_default_channel_needs_to_be_enabled">Щоб почати запис, потрібно ввімкнути стандартний канал сповіщень</string>
   <plurals name="added_required_elements">
     <item quantity="one">Додано необхідний елемент</item>
@@ -854,9 +852,10 @@
   <string name="menu_help">Довідка</string>
   <string name="menu_view">Вид</string>
   <string name="menu_erase">Вилучити точку</string>
-  <string name="menu_set_position">Положення</string>
+  <string name="menu_set_position">Позиція</string>
   <string name="menu_split">Розділити</string>
   <string name="menu_remove_node_from_way">Видалити точку з лінії</string>
+  <string name="menu_start_end_way">Початок/Кінець лінії</string>
   <string name="menu_extract">Відокремити точку</string>
   <string name="menu_append">Додати</string>
   <string name="menu_create_route">Створити маршрут</string>
@@ -887,6 +886,7 @@
   <string name="menu_gps_import">Імпортувати GPX-трек...</string>
   <string name="menu_gps_goto_start">Перейти на початок треку</string>
   <string name="menu_gps_goto_first_waypoint">Перейти до першої маршрутної точки</string>
+  <string name="menu_gps_add_bookmark">Додати закладку…</string>
   <string name="menu_enable_gps_autodownload">Автозавантаження на основі розташування</string>
   <string name="menu_enable_pan_and_zoom_auto_download">Автозавантаження поточного екрану</string>
   <string name="menu_transfer">Передача…</string>
@@ -952,7 +952,6 @@
   <string name="menu_tools_add_imagery_from_oam">Додати зображення з OAM</string>
   <string name="menu_tools_flush_all_tile_caches">Очистити усі кеші тайлів</string>
   <string name="menu_tools_background_properties">Властивості фону...</string>
-  <string name="menu_tools_update_imagery_configuration">Оновити конфігурацію</string>
   <string name="menu_tools_zoom_to_layer_extent">Збільшити масштаб фонового шару</string>
   <string name="menu_tools_clear_clipboard">Очистити буфер обміну</string>
   <string name="menu_tools_calibrate_height">Відкалібрувати датчик тиску…</string>
@@ -999,6 +998,8 @@
   <string name="preset_menu_invert">Інвертувати фільтри</string>
   <!--element action mode menu-->
   <string name="menu_tags">Властивості</string>
+  <!--ELement entry in context menu-->
+  <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">Історія</string>
   <string name="menu_history_web">Історія (сайт)</string>
@@ -1136,10 +1137,8 @@
   <string name="config_showTolerance_summary">Відображати область, де можна вибрати елемент.</string>
   <string name="config_use_back_for_undo_title">Використовуйте клавішу ←, щоб скасувати</string>
   <string name="config_use_back_for_undo_summary">Використовувати кнопку назад для відміни в режимі редагування</string>
-  <string name="config_enableLightTheme_title">Включити світлу тему</string>
-  <string name="config_enableLightTheme_summary">Світла тема з білим фоном</string>
+  <string name="config_theme_title">Тема</string>
   <string name="config_splitActionBarEnabled_title">Включити розділення панелі інструментів</string>
-  <string name="config_splitActionBarEnabled_summary">Дозволяє розділення панелі інструментів, в залежності від можливостей пристрою. Потребує перезапуску та Android версії  4.0 та новіше</string>
   <string name="config_maxInlineValues_title">Макс.  кількість вбудованих значень</string>
   <string name="config_maxInlineValues_summary">Максимальна кількість вбудованих значень, що відображаються у шаблоні тегу.</string>
   <string name="config_autoLockDelay_title">Час очікування перед автоблокуванням</string>
@@ -1150,12 +1149,17 @@
   <string name="config_enableHwAcceleration_summary">Дозволяє використовувати апаратне прискорення, якщо і де підтримується, наразі це налаштування ні на що не впливає.</string>
   <string name="config_maxStrokeWidth_title">Макс. ширина лінії</string>
   <string name="config_maxStrokeWidth_summary">Не малювати лінію товстіше, ніж ця.</string>
+  <string name="config_uploadOk_summary">Якщо кількість об\'єктів, що очікують на завантаження, не перевищує цього ліміту, ситуація вважається безпроблемною.</string>
   <string name="config_upload_current">%1$d об\'єктів</string>
+  <string name="config_uploadWarn_title">Ліміт попереджень про завантаження в очікуванні</string>
+  <string name="config_uploadWarn_summary">Якщо кількість об\'єктів, що очікують на завантаження, буде нижчою за цю межу, вони матимуть статус попередження. Якщо кількість об\'єктів, що очікують на завантаження, перевищує цю межу, то вони матимуть статус небезпеки.</string>
   <string name="config_uploadChecker_title">Інтервал нагадування про надсилання</string>
   <string name="config_uploadChecker_summary">Інтервал для нагадувань, якщо у вас є неопубліковані зміни.</string>
   <string name="config_uploadChecker_current">%1$d годин</string>
   <string name="config_dataWarn_title">Попередження про забагато даних</string>
   <string name="config_dataWarn_summary">Ліміт (за кількістю точок), при якому ми починаємо попереджати про занадто велике завантаження даних.</string>
+  <string name="config_nameCap_summary">Автоматичне введення імен з великої літери при введенні</string>
+  <string name="config_nameCap_title">Великі літери в іменах</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Налаштування даних та редагування</string>
   <string name="config_category_editing_summary">Налаштування автозавантаження, збереження та сповіщень.</string>
@@ -1187,6 +1191,9 @@
   <string name="config_orthogonalizeThreshold_summary">Поріг у °, за яким кути ігноруються</string>
   <string name="config_autoformatPhoneNumbers_title">Автоматичне форматування телефонних номерів</string>
   <string name="config_autoformatPhoneNumbers_summary">Увімкнути автоматичне форматування телефонних номерів</string>
+  <string name="config_maxOffsetDistance_title">Максимальна відстань для збережених зсувів зображень</string>
+  <string name="config_useImperialUnits_title">Використовувати імперські одиниці для вимірювання</string>
+  <string name="config_useImperialUnits_summary">Використовувати імперські одиниці для вимірювання в країнах, де вони зазвичай використовуються.</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Налаштування автозавантаження</string>
   <string name="config_category_auto_download_summary">Налаштування автоматичного завантаження даних і завдань</string>
@@ -1222,7 +1229,7 @@
   <string name="config_leaveGpsDisabled_summary">Не пропонувати включати GPS, коли він відключений</string>
   <string name="config_gps_network_title">Повернення до мережевого розташування</string>
   <string name="config_gps_network_summary">Якщо позиціонування GPS/GNSS відсутнє або ввімкнено, зверніться до постачальника мережі.</string>
-  <string name="config_gnssTimeToStale_summary">Час (у секундах), за який місцеположення має вважатися застарілим.</string>
+  <string name="config_gnssTimeToStale_summary">Час (у секундах), за який місцезнаходження має вважатися застарілим.</string>
   <string name="config_useBarometricHeight_summary">Використовувати значення висоти в треку з датчика тиску повітря, якщо є в наявності</string>
   <!--Server Settings-->
   <string name="config_category_server">Налаштування сервера</string>
@@ -1307,7 +1314,7 @@
   <string name="url">URL</string>
   <string name="default_">Типово</string>
   <string name="regular_expression">Регулярні вирази</string>
-  <string name="state">Штат</string>
+  <string name="state">Стан</string>
   <!---->
   <string name="empty_list">Записів немає</string>
   <string name="geocoder_type">Тип геокодера</string>
@@ -1427,8 +1434,7 @@
   <!--Help system-->
   <string name="toast_nohelp">Довідка відсутня.</string>
   <!--Bookmarks-->
-  <string name="add_bookmark">Додати закладку…</string>
-  <string name="bookmarks_desc">Опис</string>
+  <string name="bookmarks_desc">Назва</string>
   <string name="show_bookmarks">Закладки…</string>
   <string name="_dots">⋮</string>
   <string name="gotobookmark">Вперед</string>
@@ -1438,4 +1444,5 @@
   <string name="element_type_area">полігон</string>
   <string name="element_type_relation">зв’язок</string>
   <!--Element names with id-->
+  <!--Tile downloader diagnostics-->
 </resources>

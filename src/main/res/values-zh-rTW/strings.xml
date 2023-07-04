@@ -7,6 +7,7 @@
   <string name="mode_correct">C 模式</string>
   <string name="mode_address">地址</string>
   <string name="mode_voice">語音</string>
+  <!--additional short cuts-->
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">注意！</string>
   <string name="transfer_download_current_dialog_message">您有做了變更。您是否想上傳而非放棄它們？ </string>
@@ -130,9 +131,6 @@
   <string name="openstreetbug_commit_fail_with_message">無法儲存任務變動 %1$s</string>
   <string name="openstreetbug_unknown_task_type">不知名任務類型</string>
   <string name="openstreetbug_not_supported">並不支援 %1$s</string>
-  <string name="note_description">備註：%1$s - %2$s</string>
-  <string name="bug_description">%1$s:%2$s - %3$s</string>
-  <string name="bug_description_2">%1$s: %2$s %3$s - %4$s</string>
   <string name="generic_bug">Bug</string>
   <string name="osmose_bug">Osmose</string>
   <string name="todo_title">待辦</string>
@@ -199,6 +197,7 @@
   <string name="search_objects_hint">輸入 JOSM 過濾/搜尋表示式</string>
   <string name="search_objects_use_regexps">做用正規表示式</string>
   <string name="search_objects_unsupported">不支援的表示式 \"%1$s\"</string>
+  <string name="search_objects_query_overpass">檢索 overpass</string>
   <!---->
   <string name="preset_search_hint">預置搜尋字串</string>
   <string name="preset_autopreset">自動預設</string>
@@ -241,6 +240,8 @@
   <!--Tile layer info dialog-->
   <string name="attribution">署名</string>
   <!--GPX info dialog-->
+  <string name="track_points">軌跡節點</string>
+  <string name="way_points">路徑節點</string>
   <!--Too much data dialog-->
   <string name="too_much_data_title">載入太多資料了！</string>
   <string name="too_much_data_message">你載入 %1$d個節點而且已經超過設定限制，這會導致執行速度變慢，而且如果載入更多資料，有可能造成儲存時的可能問題。</string>
@@ -281,8 +282,18 @@
   <string name="evaluate">評估</string>
   <string name="js_console_msg_live">Live 模式！</string>
   <string name="js_console_msg_debug">Debug 模式</string>
+  <string name="console_input_hint">這裡輸入程式碼</string>
   <string name="console_output_hint">這邊會出現結果</string>
+  <string name="save_code">儲存程式碼...</string>
+  <string name="load_code">載入程式碼...</string>
+  <string name="share_code">分享程式碼...</string>
   <!--Overpass console-->
+  <string name="run">執行</string>
+  <string name="overpass_result">下載%1$d節點，%2$d路徑與%3$d關聯。</string>
+  <string name="overpass_console">Overpass 終端機</string>
+  <string name="select_result">選擇結果</string>
+  <string name="merge_result">合併結果</string>
+  <string name="overpass_query_would_overwrite">結果會被覆寫掉！放棄檢索。</string>
   <!---->
   <string name="error">錯誤</string>
   <string name="warning">警告</string>
@@ -361,6 +372,7 @@
   <string name="layer_geojson">GeoJSON</string>
   <string name="layer_mapillary">Mapillary</string>
   <string name="layer_grid">網格</string>
+  <string name="layer_bookmarks">書籤</string>
   <string name="layer_gpx">GPX</string>
   <string name="layer_gpx_recording">GPX 錄製</string>
   <string name="layer_photos">照片</string>
@@ -405,7 +417,6 @@
   <string name="layer_info_layer_not_available">並沒有圖層資訊</string>
   <string name="layer_info_no_meta_data">沒有載入中繼資料</string>
   <!--Mapillary layer-->
-  <string name="mapillary_image">mapillary %1$s</string>
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">刪除圖片</string>
   <string name="photo_viewer_delete_button">永久刪除</string>
@@ -448,6 +459,7 @@
   <!--Clear/Reset GPX Track-->
   <string name="clear_track_description">停止記錄並且刪除所有儲存的航點，這不能復原。</string>
   <!--Measurement dialog-->
+  <string name="measure">測量</string>
   <!--Tips-->
   <string name="tip_title">你知道嗎？</string>
   <string name="tip_check_label">停止顯示選擇性的技巧</string>
@@ -580,6 +592,8 @@
   <string name="toast_invalid_object">無效的物件</string>
   <string name="toast_openinghours_invalid">%1$s 無效的營業時間</string>
   <string name="toast_openinghours_autocorrected">自動修正開放時間數值 %1$s</string>
+  <string name="toast_exit_multiselect">點兩下空白處或是用 ← 鍵離開多重選擇模式</string>
+  <string name="toast_already_in_multiselect">已經是多重選擇模式了</string>
   <string name="toast_abort_actionmode">使用 ← 鍵中止動作</string>
   <string name="toast_null_island">請不要在 0°/0° (Null Island) 增加物件</string>
   <string name="toast_string_too_long">字串太長 (%1$d 文字) 被截斷了！</string>
@@ -648,6 +662,7 @@
   <string name="toast_error_saving_bookmark">無法儲存書籤</string>
   <string name="toast_error_loading_style">無法載入樣式：%1$s</string>
   <string name="toast_only_one_source_supported">每個樣式只支援一個來源</string>
+  <string name="toast_style_file_too_large">這個樣式檔案太大了，而且可能不是 Mapbox-GL 樣式。</string>
   <string name="toast_imagery_offset_download_failed">偏移量下載失敗：%1$s</string>
   <string name="toast_download_server_version_failed">因為 %1$s而從伺服器下載版本失敗</string>
   <string name="toast_error_element_too_large">對屬性編輯器來說元件太大了</string>
@@ -834,6 +849,7 @@
   <string name="menu_set_position">位置</string>
   <string name="menu_split">拆分</string>
   <string name="menu_remove_node_from_way">移除路徑的節點</string>
+  <string name="menu_start_end_way">路徑開始/結束</string>
   <string name="menu_extract">抽出節點</string>
   <string name="menu_append">追加</string>
   <string name="menu_create_route">創建路線</string>
@@ -864,6 +880,7 @@
   <string name="menu_gps_import">匯入 GPS 軌跡…</string>
   <string name="menu_gps_goto_start">前往 GPS 軌跡的起始處</string>
   <string name="menu_gps_goto_first_waypoint">到第一個航點</string>
+  <string name="menu_gps_add_bookmark">新增書籤…</string>
   <string name="menu_enable_gps_autodownload">以位置決定自動下載</string>
   <string name="menu_enable_pan_and_zoom_auto_download">平移和縮放自動下載</string>
   <string name="menu_transfer">傳輸…</string>
@@ -871,6 +888,7 @@
   <string name="menu_transfer_download_replace">清除和下載目前檢視</string>
   <string name="menu_transfer_load_current">載入目前檢視</string>
   <string name="menu_transfer_load_replace">清除和載入目前檢視</string>
+  <string name="menu_transfer_query_overpass">檢索 Overpass...</string>
   <string name="menu_transfer_upload">上傳資料到 OSM 的伺服器…</string>
   <string name="menu_transfer_review">覆核變動…</string>
   <string name="menu_transfer_update">更新資料</string>
@@ -928,7 +946,6 @@
   <string name="menu_tools_add_imagery_from_oam">從 OAM 增加影像</string>
   <string name="menu_tools_flush_all_tile_caches">更新所有圖磚暫存檔</string>
   <string name="menu_tools_background_properties">背景屬性…</string>
-  <string name="menu_tools_update_imagery_configuration">更新設定</string>
   <string name="menu_tools_update_imagery_configuration_eli">從 ELI 更新設定</string>
   <string name="menu_tools_zoom_to_layer_extent">縮放到背景圖層範圍</string>
   <string name="menu_tools_clear_clipboard">清除剪貼簿</string>
@@ -943,10 +960,12 @@
   <string name="menu_preset_feedback">提供預設組合回饋</string>
   <string name="menu_privacy">隱私</string>
   <!--Background alignment-->
+  <string name="menu_tools_background_align">對齊影像</string>
   <string name="menu_tools_background_align_reset">重置</string>
   <string name="menu_tools_background_align_zero">零</string>
   <string name="menu_tools_background_align_retrieve_from_db">從資料庫</string>
   <string name="menu_tools_background_align_retrieve_from_device">從裝置</string>
+  <string name="menu_tools_background_align_save_db">儲存至資料庫...</string>
   <string name="menu_tools_background_align_save_device">儲存至裝置</string>
   <string name="menu_tools_background_align_apply2all">套用(所有縮放層級)</string>
   <string name="min_max_zoom">%1$d - %2$d</string>
@@ -962,6 +981,7 @@
   <string name="menu_layers_add_photolayer">啟用照片圖層</string>
   <string name="menu_layers_enable_mapillary_layer">啟用 Mapillary 圖層</string>
   <string name="menu_layers_configure">設定...</string>
+  <string name="menu_layers_background_align">對齊影像...</string>
   <!---->
   <string name="menu_tools_apply_local_offset">套用儲存的影像偏移值</string>
   <string name="menu_tools_background_contrast">對比</string>
@@ -973,7 +993,10 @@
   <string name="preset_menu_invert">反轉篩選</string>
   <!--element action mode menu-->
   <string name="menu_tags">屬性</string>
+  <!--ELement entry in context menu-->
+  <string name="element_for_menu_with_parents">%1$s(%2$s)</string>
   <!--Text should be as short as possible-->
+  <string name="start_end_way_description">到路徑開始會結束的地方</string>
   <string name="menu_history">歷史</string>
   <string name="menu_history_web">編輯歷史 (網頁)</string>
   <string name="menu_merge">加入</string>
@@ -1097,6 +1120,8 @@
   <string name="config_showWayIcons_summary">在建築物上顯示最符合預設組合</string>
   <string name="config_tagFormEnabled_title">顯示標籤表格</string>
   <string name="config_tagFormEnabled_summary">顯示標籤表格以便編輯。</string>
+  <string name="config_supportPresetLabels_title">從預設組合顯示標籤</string>
+  <string name="configsupportPresetLabels_summary">從標籤表單編輯器顯示預設組合的標籤</string>
   <string name="config_showCameraAction_title">顯示相機的動作</string>
   <string name="config_showCameraAction_summary">在動作列上顯示相機圖示。</string>
   <string name="config_selectCameraApp_title">相機 app</string>
@@ -1121,14 +1146,13 @@
   <string name="config_showTolerance_summary">在元件周圍顯示可以被選取的區域。</string>
   <string name="config_use_back_for_undo_title">用 ← 作取消復原</string>
   <string name="config_use_back_for_undo_summary">在主編輯檢視中，使用 ← 復原。</string>
-  <string name="config_enableLightTheme_title">明亮主題</string>
-  <string name="config_enableLightTheme_summary">明亮主題與白色背景。</string>
+  <string name="config_theme_title">主題</string>
   <string name="config_splitActionBarEnabled_title">啟用拆分動作列</string>
-  <string name="config_splitActionBarEnabled_summary">允許拆分動作列，於特定裝置才有作用。需要重開程式並且 Android 4.0 或之後版本。</string>
   <string name="config_disableTranslations_title">關閉翻譯</string>
   <string name="config_disableTranslations_summary">使用者界面用英文</string>
   <string name="config_maxInlineValues_title">最大內嵌數值</string>
   <string name="config_maxInlineValues_summary">最大內嵌數值顯示的標籤表格。</string>
+  <string name="config_maxInlineValues_current">%1$d數值</string>
   <string name="config_autoLockDelay_title">自動鎖定所需等待的時間</string>
   <string name="config_autoLockDelay_summary">自動鎖定之前所需等待的秒教，0意味關閉。</string>
   <string name="config_autoLockDelay_current">%1$d 秒</string>
@@ -1139,7 +1163,11 @@
   <string name="config_maxStrokeWidth_title">最大線寬</string>
   <string name="config_maxStrokeWidth_summary">不要畫出比這更粗的道路。</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>
+  <string name="config_uploadOk_title">待上傳確定限制</string>
+  <string name="config_uploadOk_summary">如果待上傳確定數值低於這個限制，會被視為沒有問題。</string>
   <string name="config_upload_current">%1$d物件</string>
+  <string name="config_uploadWarn_title">待上傳警告限制</string>
+  <string name="config_uploadWarn_summary">如果待上傳確定數值低於這個限制，會顯示警告狀態。待上傳計算高於這個值會是危險狀態。</string>
   <string name="config_uploadChecker_title">上傳提醒區間</string>
   <string name="config_uploadChecker_summary">提醒還有沒有發佈的變動的區間。</string>
   <string name="config_uploadChecker_current">%1$d小時</string>
@@ -1155,6 +1183,7 @@
   <string name="config_mapillary_min_zoom_current">%1$d</string>
   <string name="config_nameCap_summary">輸入時自動大寫名稱標籤</string>
   <string name="config_nameCap_title">名稱大寫</string>
+  <string name="config_longStringLimit_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">資料和編輯設定</string>
   <string name="config_category_editing_summary">自動下載，儲存和通知設定</string>
@@ -1195,6 +1224,8 @@
   <string name="config_maxOffsetDistance_title">儲存影像偏移的最大距離</string>
   <string name="config_maxOffsetDistance_summary">本地儲存圖層偏移的最遠距離會被自動套用。</string>
   <string name="config_maxOffsetDistance_current">%1$d公尺</string>
+  <string name="config_useImperialUnits_title">測量時顯示英制單位</string>
+  <string name="config_useImperialUnits_summary">在慣用英制國家的地方，測量時顯示英制單位。</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">自動下載設定</string>
   <string name="config_category_auto_download_summary">資料和任務自動下載的設定</string>
@@ -1256,6 +1287,8 @@
   <string name="config_geocoderbutton_summary">為搜尋功能增加、編輯、刪除 geocoders。</string>
   <string name="config_taginfoServer_title">Taginfo 伺服器</string>
   <string name="config_taginfoServer_summary">Taginfo 伺服器會使用預設。</string>
+  <string name="config_overpassServer_title">Overpass 伺服器</string>
+  <string name="config_overpassServer_summary">檢索時的 Overpass 伺服器</string>
   <!--Layer download and storage-->
   <string name="config_category_layers">圖層下載和儲存</string>
   <string name="config_category_layers_summary">圖磚為主的背景影像下載和儲存。</string>
@@ -1284,6 +1317,8 @@
   <string name="config_autosaveChanges_current">%1$d</string>
   <string name="config_autosaveMaxFiles_title">保留 OSC 檔案的最大數字</string>
   <string name="config_autosaveMaxFiles_current">%1$d</string>
+  <string name="config_gpxAutosaveInterval_title">GPS 的最小儲存時間間隔</string>
+  <string name="config_gpxAutosaveInterval_summary">每次 GPX 記錄儲存時以分鐘計的最小區間。</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">雜項</string>
   <string name="pref_enable_acra">回報 app 當機</string>
@@ -1462,8 +1497,7 @@
   <!--Help system-->
   <string name="toast_nohelp">這裡沒幫助。</string>
   <!--Bookmarks-->
-  <string name="add_bookmark">新增書籤…</string>
-  <string name="bookmarks_desc">説明</string>
+  <string name="bookmarks_desc">名稱</string>
   <string name="show_bookmarks">書籤…</string>
   <string name="_dots">⋮</string>
   <string name="gotobookmark">到</string>
@@ -1478,4 +1512,5 @@
   <string name="node_id">節點 %1$d</string>
   <string name="way_id">路徑 %1$d</string>
   <string name="relation_id">關聯 %1$d</string>
+  <!--Tile downloader diagnostics-->
 </resources>

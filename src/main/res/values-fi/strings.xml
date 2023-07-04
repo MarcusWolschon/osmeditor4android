@@ -6,6 +6,7 @@
   <string name="mode_indoor">Sisätila</string>
   <string name="mode_correct">C-tila</string>
   <string name="mode_address">Osoite</string>
+  <!--additional short cuts-->
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Varoitus!</string>
   <string name="transfer_download_current_dialog_message">Olet tehnyt muutoksia. Haluatko lähettää vai hylätä ne?</string>
@@ -69,6 +70,8 @@
   <string name="progress_saving_message">Tallennetaan...</string>
   <string name="progress_uploading_message">Lähetetään...</string>
   <string name="progress_preset_message">Ladataan esivalintaa...</string>
+  <string name="progress_loading_preset_message">Ladataan esivalintaa...</string>
+  <string name="progress_importing_file_message">Tuodaan tiedostoa...</string>
   <string name="progress_running_message">Suoritetaan...</string>
   <string name="progress_oauth">Sinun openstreetmap.org-tiliä ladataan OAuth-todennusta varten...</string>
   <string name="progress_building_imagery_database">Kootaan ilmakuvatietokantaa...</string>
@@ -80,12 +83,13 @@
   <string name="confirm_upload_title">Lähetetäänkö?</string>
   <plurals name="confirm_upload_text">
     <item quantity="one">Lähetetäänkö tämä muutos?</item>
-    <item quantity="other">Lähetetäänkö nämä %1$d muutokset?</item>
+    <item quantity="other">Lähetetäänkö nämä %1$d muutosta?</item>
   </plurals>
   <string name="confirm_upload_edits_page">Muutokset</string>
   <string name="upload_comment_label">Kommentti:</string>
   <string name="upload_source_label">Lähde:</string>
   <string name="upload_close_changeset_label">Sulje muutossetti:</string>
+  <string name="upload_request_review_label">Pyydä tarkistusta:</string>
   <string name="upload_validation_error_empty_comment">Kommentti ei voi olla tyhjä</string>
   <string name="upload_validation_error_empty_source">Lähde ei voi olla tyhjä</string>
   <!--Review changes dialog-->
@@ -95,6 +99,7 @@
   <string name="upload_gpx_description_label">Kuvaus</string>
   <string name="upload_gpx_tags_label">Tägit</string>
   <string name="upload_gpx_visibility_label">Näkyvyys</string>
+  <string name="upload_validation_error_empty_description">Tyhjä kuvaus</string>
   <!--Background properties-->
   <string name="background_properties_title">Taustan ominaisuudet</string>
   <!--task fragment-->
@@ -106,11 +111,9 @@
   <string name="openstreetbug_comment_label">Kommentti:</string>
   <string name="openstreetbug_commit_ok">Tehtävämuutokset tallennettu</string>
   <string name="openstreetbug_commit_fail">Tehtävämuutoksia ei voitu tallentaa</string>
+  <string name="openstreetbug_commit_fail_with_message">Tehtävämuutoksia ei voitu tallentaa\n%1$s</string>
   <string name="openstreetbug_unknown_task_type">Tuntematon tehtävätyyppi</string>
   <string name="openstreetbug_not_supported">Tehtävää %1$s ei tueta.</string>
-  <string name="note_description">Huomio: %1$s - %2$s</string>
-  <string name="bug_description">%1$s: %2$s - %3$s</string>
-  <string name="bug_description_2">%1$s: %2$s %3$s - %4$s</string>
   <string name="generic_bug">Virhe</string>
   <string name="osmose_bug">Osmose</string>
   <string name="bug_element_1">%1$s (ei ladattu) #%2$d</string>
@@ -118,12 +121,14 @@
   <string name="maproulette_task_title">MapRoulette-tehtävä</string>
   <string name="maproulette_task_coords">Lev %1$4g, Pit %2$4g</string>
   <string name="maproulette_task_explanations">Ohjeet</string>
+  <string name="maproulette_task_instructions">Ohjeet</string>
   <string name="maproulette_task_set_apikey">Aseta MapRouletten API-avain</string>
   <string name="maproulette_task_apikey_not_set">MapRouletten API-avainta ei voitu tallentaa</string>
   <string name="maproulette_task_disable">Poista käytöstä</string>
   <string name="maproulette_task_apikey_set">MapRouletten API-avain tallennettu</string>
   <!--Todo dialogs-->
   <string name="todo_comment_legend">Kommentti</string>
+  <string name="todo_comment_hint">Valinnainen kommentti</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Varoitus!</string>
   <string name="unsaved_data_message">Tallentamattomat muokkaukset hylätään jos jatkat.</string>
@@ -150,6 +155,7 @@
   <string name="geocoder_limit_label">näkymässä</string>
   <!--Search objects dialog-->
   <string name="search_objects_title">Etsi kohteita</string>
+  <string name="search_objects_use_regexps">Käytä säännöllisiä lausekkeita</string>
   <!---->
   <string name="preset_search_hint">Esivalinnan hakuteksti</string>
   <string name="preset_autopreset">Autom. esivalinta</string>
@@ -178,18 +184,23 @@
   <!--GeoJSON feature display dialog-->
   <string name="feature_information">Tietoja GeoJSON-kohteesta</string>
   <string name="copy_properties">Kopioi ominaisuudet</string>
+  <string name="create_osm_element"> Luo OSM-elementti</string>
   <!--API/Data layer info dialog-->
   <string name="total">Yhteensä</string>
   <string name="ways">Viivat</string>
   <!--Tile layer info dialog-->
   <!--GPX info dialog-->
   <!--Too much data dialog-->
+  <string name="too_much_data_title">Liikaa dataa ladattu!</string>
   <string name="upload_data_now">Lähetetäänkö?</string>
   <!--Delete custom preset dialog-->
   <!--Duplicate route segment dialog-->
+  <string name="duplicate_route_segment_message">Tämä tie on jo reitin osa.</string>
+  <string name="duplicate_route_segment_button">Lisää silti</string>
   <!--Duplicate relation element dialog-->
   <!--Move multi-polygon outer element tags to relation-->
   <string name="move">Siirrä</string>
+  <string name="leave_as_is">Jätä ennalleen</string>
   <!--Remove duplicate tags from multi-polygon outer element-->
   <string name="remove">Poista</string>
   <!--Abort action mode dialog-->
@@ -204,7 +215,11 @@
   <string name="evaluate">Suorita</string>
   <string name="js_console_msg_live">Suoramuokkaustila!</string>
   <string name="js_console_msg_debug">Testaustila!</string>
+  <string name="save_code">Tallenna koodi...</string>
+  <string name="load_code">Lataa koodi...</string>
+  <string name="share_code">Jaa koodi...</string>
   <!--Overpass console-->
+  <string name="select_result">Valitse tulos</string>
   <!---->
   <string name="error">Virhe</string>
   <string name="warning">Varoitus</string>
@@ -271,21 +286,39 @@
   <string name="layer_mapillary">Mapillary</string>
   <string name="layer_grid">Ruudukko</string>
   <string name="layer_gpx">GPX</string>
+  <string name="layer_gpx_recording">GPX-tallennus</string>
   <string name="layer_photos">Valokuvat</string>
   <string name="layer_tasks">Tehtävät</string>
   <string name="layer_data">OSM-data</string>
+  <string name="layer_data_name">%1$s-data</string>
   <string name="layer_flush_tile_cache">Tyhjennä laattamuisti</string>
+  <string name="layer_change_style">Vaihda tyyliä...</string>
+  <string name="layer_load_style">Lataa tyyli...</string>
+  <string name="layer_reset_style">Nollaa tyyli</string>
+  <string name="layer_select_imagery">Valitse kuvasto...</string>
   <string name="layer_category_all">Kaikki</string>
+  <string name="layer_category_photo">ilmakuva</string>
   <string name="layer_category_map">Kartta</string>
+  <string name="layer_category_historicmap">Vanhentunut kartta</string>
   <string name="layer_category_other">Muu</string>
+  <string name="layer_add_custom_imagery">Lisää oma kuvasto...</string>
+  <string name="layer_start_playback">Aloita toisto</string>
+  <string name="layer_pause_playback">Keskeytä toisto</string>
+  <string name="layer_stop_playback">Pysäytä toisto</string>
+  <string name="layer_toast_playback_paused">Toisto keskeytetty</string>
+  <string name="layer_toast_playback_resumed">Toisto jatkettu</string>
   <!--Layer info dialog-->
   <string name="errors">Virheet</string>
   <!--Mapillary layer-->
   <!--Photo viewer-->
+  <string name="photo_viewer_delete_title">Poista valokuva</string>
   <!--API info dialog-->
   <!--Tag conflict dialog-->
   <!--Relation selection dialog-->
+  <string name="select_route_title">Valitse reitti</string>
+  <string name="select_relation_title">Valitse relaatio</string>
   <!--Preset selection dialog-->
+  <string name="select_relation_type_title">Valitse relaation tyyppi</string>
   <string name="select_relation_type_other">Muu</string>
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Tarkastuspisteet</string>
@@ -293,6 +326,7 @@
   <string name="undo_redo_one">Vain valittu tarkastuspiste (riskialtis)</string>
   <string name="undo_all">Peru kaikki myöhemmätkin (turvallinen)</string>
   <string name="redo_all">Palauta kaikki aiemmatkin (turvallinen)</string>
+  <string name="undo_latest">Viimeisin</string>
   <!--Undo location not in view dialog-->
   <!--Feedback activity-->
   <string name="feedback_with_displayname">Lähetä OpenStreetMapin näyttönimellä</string>
@@ -303,13 +337,19 @@
   <!--Clear/Reset GPX Track-->
   <!--Measurement dialog-->
   <!--Tips-->
+  <string name="tip_title">Tiesitkö?</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
   <string name="digit_one">1</string>
   <!--NotificationChannels-->
+  <string name="default_channel_name">Vespuccin oletus</string>
   <string name="qa_channel_name">Vespucci QA</string>
   <!--Notifications-->
+  <plurals name="upload_checker_message">
+    <item quantity="one">Sinulla on yksi julkaisematon muutos.</item>
+    <item quantity="other">Sinulla on %1$d julkaisematonta muutosta.</item>
+  </plurals>
   <!--Toaster-->
   <string name="toast_name_empty">Valitse nimi</string>
   <string name="toast_url_empty">Syötä URL</string>
@@ -377,11 +417,13 @@
   <string name="toast_invalid_preseturl">Esivalinta-URL on virheellinen</string>
   <string name="toast_invalid_filter_regexp">Virheellinen säännöllinen lauseke suodattimessa, jossa avain=\"%1$sja \" arvo=\"%2$s\"</string>
   <string name="toast_error_accessing_photo">Valokuvaa %1$s ei voida lukea</string>
+  <string name="toast_no_photo_found">Valokuvaa ei löytynyt</string>
   <string name="toast_no_voice_recognition">Puheentunnistusta ei ole saatavilla</string>
   <string name="toast_no_coverage">%1$s ei kata tätä aluetta</string>
   <string name="toast_file_exists">Tiedosto %1$s on olemassa.</string>
   <string name="toast_needs_resurvey">Kohde saattaa olla vanhentunut</string>
   <string name="toast_missing_key">Avain %1$s puuttuu</string>
+  <string name="toast_invalid_object">Virheellinen elementti</string>
   <string name="toast_openinghours_invalid">Kohteella %1$s on virheellinen aukioloaika</string>
   <string name="toast_openinghours_autocorrected">Kohteen %1$s aukioloaika korjattiin automaattisesti</string>
   <string name="toast_abort_actionmode">Käytä nuolta ←, jos haluat keskeyttää</string>
@@ -406,6 +448,7 @@
   <string name="toast_task_layer_disabled">Tehtävätaso pois päältä</string>
   <string name="toast_unable_to_create_task_layer">Tehtävätaasoa ei voitu luoda</string>
   <string name="toast_merged">Sulautettu yhteen</string>
+  <string name="toast_read_successfully">Tiedosto luettu onnistuneesti</string>
   <string name="toast_out_of_memory">MUISTI LOPPU!</string>
   <!--Error messages-->
   <!--Some generic labels/buttons-->
@@ -545,6 +588,8 @@
   <string name="menu_split">Jaa kahtia</string>
   <string name="menu_extract">Irrota piste</string>
   <string name="menu_append">Jatka</string>
+  <string name="menu_create_route">Luo reitti</string>
+  <string name="menu_add_to_route">Lisää reittiin</string>
   <string name="menu_relation">Luo relaatio</string>
   <string name="menu_edit_relation">Muokkaa relaatiota</string>
   <string name="menu_add_relation_member">Lisää / poista jäsen</string>
@@ -566,6 +611,7 @@
   <string name="menu_gps_import">Tuo GPX-jälki…</string>
   <string name="menu_gps_goto_start">Siirry GPX-jäljen alkuun</string>
   <string name="menu_gps_goto_first_waypoint">Siirry 1. välietappiin</string>
+  <string name="menu_gps_add_bookmark">Lisää kirjanmerkki…</string>
   <string name="menu_enable_gps_autodownload">Sijaintipohjainen automaattilataus</string>
   <string name="menu_enable_pan_and_zoom_auto_download">Automaattilataus liikutettaessa</string>
   <string name="menu_transfer">Siirrä...</string>
@@ -607,7 +653,7 @@
   <string name="menu_split_polygon">Jaa monikulmioiksi</string>
   <string name="menu_newnode_gps">Uusi piste GPS-sijaintiin</string>
   <string name="menu_extend_selection">Lisää valintaan</string>
-  <string name="menu_information">Info…</string>
+  <string name="menu_information">Tietoa…</string>
   <string name="menu_voice_commands">Äänikomennot</string>
   <string name="menu_set_name">Aseta nimi</string>
   <string name="menu_tools">Työkalut...</string>
@@ -645,6 +691,8 @@
   <string name="preset_menu_invert">Suodattimet käänteisiksi</string>
   <!--element action mode menu-->
   <string name="menu_tags">Ominaisuudet</string>
+  <!--ELement entry in context menu-->
+  <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">Historia</string>
   <string name="menu_merge">Yhdistä</string>
@@ -665,9 +713,12 @@
   <string name="actionmode_createpath">Luodaan polkua</string>
   <string name="actionmode_multiselect">Monivalinta</string>
   <string name="actionmode_newnoteselect">Uusi huomio valittu</string>
+  <string name="actionmode_add_segment">Lisää segmentti</string>
+  <string name="actionmode_reselect_first_segment">Valitse ensimmäinen segmentti uudestaan</string>
   <!--EasyEdit action mode sub-titles-->
   <string name="actionmode_restriction">Lisää kääntymisrajoitus</string>
   <string name="actionmode_restriction_restart_from">Valitse \"from\"-viiva uudestaan</string>
+  <string name="actionmode_restriction_select_from">Valitse \"from\"-viiva</string>
   <string name="actionmode_restriction_via">Lisää \"via\"-viiva</string>
   <string name="actionmode_restriction_restart_via">Valitse \"via\"-viiva uudestaan</string>
   <string name="actionmode_restriction_to">Lisää \"to\"-viiva</string>
@@ -743,10 +794,8 @@
   <string name="config_showTolerance_summary">Näytä elementin ympärillä alue, josta sen voi valita.</string>
   <string name="config_use_back_for_undo_title">Peruuta ←-näppäimellä</string>
   <string name="config_use_back_for_undo_summary">Käytä ←-nappia peruutustoimintona päämuokkausnäkymässä.</string>
-  <string name="config_enableLightTheme_title">Vaalea teema</string>
-  <string name="config_enableLightTheme_summary">Vaalea teema, jossa valkoiset taustat.</string>
+  <string name="config_theme_title">Teema</string>
   <string name="config_splitActionBarEnabled_title">Käytä jaettua toimintopalkkia</string>
-  <string name="config_splitActionBarEnabled_summary">Salli jaettu toimintopalkki; toiminta on laitekohtainen. Vaatii Vespuccin uudelleenkäynnistyksen ja vähintään Android 4.0:n.</string>
   <string name="config_maxInlineValues_title">Suurin määrä rivinsisäisiä arvoja</string>
   <string name="config_maxInlineValues_summary">Suurin määrä arvoja, jotka näytetään yhdellä rivillä tägilomakkeessa</string>
   <string name="config_autoLockDelay_title">Automaattilukituksen aikaraja</string>
@@ -761,6 +810,7 @@
   <string name="config_uploadChecker_current">%1$d tuntia</string>
   <string name="config_beepVolume_current">%1$d</string>
   <string name="config_mapillary_min_zoom_current">%1$d</string>
+  <string name="config_longStringLimit_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Data- ja muokkausasetukset</string>
   <string name="config_category_editing_summary">Automaattilataus-, tallennus ja ilmoitusasetukset.</string>
@@ -846,6 +896,8 @@
   <string name="config_tileCache_current">%1$d Mt</string>
   <!--Auto-save-->
   <string name="config_autosaveSaveChanges_title">Tallenna muutokset</string>
+  <string name="config_autosaveSaveChanges_summary">Tallenna muutokset OSC-tiedostona.</string>
+  <string name="config_autosaveChanges_title">Muutosten vähimmäismäärä</string>
   <string name="config_autosaveChanges_current">%1$d</string>
   <string name="config_autosaveMaxFiles_current">%1$d</string>
   <!--Miscellaneous-->
@@ -978,8 +1030,10 @@
   <!--Things-->
   <string name="bridge">Silta</string>
   <string name="tunnel">Tunneli</string>
+  <string name="culvert">siltarumpu</string>
   <string name="steps">Portaat</string>
   <!--Issues-->
+  <string name="issue_split_route_ordering">Reitti saattaa vaatia manuaalista uudelleenjärjestelyä</string>
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">1 päivä</item>
@@ -1008,10 +1062,10 @@
   <!--Help system-->
   <string name="toast_nohelp">Tähän ei ole ohjetta.</string>
   <!--Bookmarks-->
-  <string name="add_bookmark">Lisää kirjanmerkki…</string>
-  <string name="bookmarks_desc">Kuvaus</string>
+  <string name="bookmarks_desc">Nimi</string>
   <!--Element types-->
   <string name="element_type_area">alue</string>
   <string name="element_type_relation">relaatio</string>
   <!--Element names with id-->
+  <!--Tile downloader diagnostics-->
 </resources>

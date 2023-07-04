@@ -7,6 +7,7 @@
   <string name="mode_correct">Mode C</string>
   <string name="mode_address">Adresse</string>
   <string name="mode_voice">Voix</string>
+  <!--additional short cuts-->
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Attention !</string>
   <string name="transfer_download_current_dialog_message">Vous avez fait des modifications. Voulez-vous les envoyer au lieu de les abandonner ?</string>
@@ -129,9 +130,6 @@
   <string name="openstreetbug_commit_fail_with_message">Impossible de sauvegarder vos modifications\n%1$s</string>
   <string name="openstreetbug_unknown_task_type">Type de tâche inconnue</string>
   <string name="openstreetbug_not_supported">%1$s n\'est pas supporté.</string>
-  <string name="note_description">Remarque : %1$s - %2$s</string>
-  <string name="bug_description">%1$s  %2$s - %3$s</string>
-  <string name="bug_description_2">%1$s : %2$s %3$s — %4$s</string>
   <string name="generic_bug">Bogue</string>
   <string name="osmose_bug">Osmose</string>
   <string name="todo_title">Tâches</string>
@@ -391,7 +389,6 @@
   <string name="layer_info_layer_not_available">Informations du calque indisponibles</string>
   <string name="layer_info_no_meta_data">Métadonnées non chargées</string>
   <!--Mapillary layer-->
-  <string name="mapillary_image">mapillary %1$s</string>
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Supprimer la photo</string>
   <string name="photo_viewer_delete_button">Supprimer définitivement</string>
@@ -842,7 +839,6 @@
   <string name="menu_tools_add_imagery_from_oam">Ajouter une imagerie depuis OAM</string>
   <string name="menu_tools_flush_all_tile_caches">Vider tous les caches de tuiles</string>
   <string name="menu_tools_background_properties">Propriétés du fond de carte...</string>
-  <string name="menu_tools_update_imagery_configuration">Mettre à jour la configuration</string>
   <string name="menu_tools_update_imagery_configuration_eli">Mettre à jour la configuration depuis ELI</string>
   <string name="menu_tools_zoom_to_layer_extent">Zoomer sur l\'étendu de la couche de fond de carte</string>
   <string name="menu_tools_clear_clipboard">Effacer le presse-papier</string>
@@ -885,9 +881,11 @@
   <string name="preset_menu_invert">Inverser les filtres</string>
   <!--element action mode menu-->
   <string name="menu_tags">Propriétés</string>
+  <!--ELement entry in context menu-->
+  <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">Historique</string>
-  <string name="menu_history_web">Historique</string>
+  <string name="menu_history_web">Historique (Web)</string>
   <string name="menu_merge">Fusionner</string>
   <string name="menu_reverse">Inverser</string>
   <string name="notreversable_description">Ce chemin ne peut être inversé car il contient des attributs dépendants du sens. Inverser ce chemin rendrait ces attributs incorrects.</string>
@@ -1020,10 +1018,8 @@
   <string name="config_showTolerance_summary">Affiche une zone autour d\'un élément pour faciliter sa sélection.</string>
   <string name="config_use_back_for_undo_title">Bouton ← pour annuler</string>
   <string name="config_use_back_for_undo_summary">Utiliser le bouton \"Retour en arrière\" pour annuler vos modifications</string>
-  <string name="config_enableLightTheme_title">Activer le thème clair</string>
-  <string name="config_enableLightTheme_summary">Thème clair avec des fonds blancs.</string>
+  <string name="config_theme_title">Thème</string>
   <string name="config_splitActionBarEnabled_title">Afiicher la barre de menu en bas</string>
-  <string name="config_splitActionBarEnabled_summary">Pour afficher les boutons du menu en bas de l\'écran. Nécessite Android 4.0 ou supérieur et le redémarrage de l\'application.</string>
   <string name="config_disableTranslations_title">Ne pas traduire</string>
   <string name="config_disableTranslations_summary">L\'application affichera tous les textes en anglais</string>
   <string name="config_maxInlineValues_title">Nombre max. de valeurs suggérées</string>
@@ -1053,6 +1049,7 @@
   <string name="config_mapillary_min_zoom_current">%1$d</string>
   <string name="config_nameCap_summary">Mise en majuscule automatique des attributs name et équivalents lors de la saisie</string>
   <string name="config_nameCap_title">Majuscules pour l\'attribut name et équivalents</string>
+  <string name="config_longStringLimit_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Paramètres de données et de modifications</string>
   <string name="config_category_editing_summary">Paramètres de téléchargement automatique, de sauvegardes et de notifications.</string>
@@ -1339,7 +1336,7 @@
   <!--Help system-->
   <string name="toast_nohelp">Pas d\'aide ici.</string>
   <!--Bookmarks-->
-  <string name="bookmarks_desc">Description</string>
+  <string name="bookmarks_desc">Nom</string>
   <string name="_dots">⋮</string>
   <!--Element types-->
   <string name="element_type_node">nœud</string>
@@ -1349,4 +1346,5 @@
   <!--Element names with id-->
   <string name="node_id">nœud %1$d</string>
   <string name="relation_id">relation %1$d</string>
+  <!--Tile downloader diagnostics-->
 </resources>

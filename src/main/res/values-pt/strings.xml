@@ -7,6 +7,7 @@
   <string name="mode_correct">Modo-C</string>
   <string name="mode_address">Morada</string>
   <string name="mode_voice">Voz</string>
+  <!--additional short cuts-->
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Atenção!</string>
   <string name="transfer_download_current_dialog_message">Fez alterações. Quer enviá-las para o OpenStreetMap em vez de as descartar?</string>
@@ -126,9 +127,6 @@
   <string name="openstreetbug_commit_fail_with_message">Não foi possível guardar as alterações da tarefa\n%1$s</string>
   <string name="openstreetbug_unknown_task_type">Modo tarefas não designadas</string>
   <string name="openstreetbug_not_supported">%1$snão é suportado</string>
-  <string name="note_description">Nota: %1$s - %2$s</string>
-  <string name="bug_description">%1$s: %2$s - %3$s</string>
-  <string name="bug_description_2">%1$s: %2$s %3$s - %4$s</string>
   <string name="generic_bug">Erro</string>
   <string name="osmose_bug">Osmose</string>
   <string name="todo_title">A fazer</string>
@@ -723,6 +721,8 @@ há %3$s %4$s</string>
   <string name="preset_menu_invert">Inverter filtros</string>
   <!--element action mode menu-->
   <string name="menu_tags">Propriedades</string>
+  <!--ELement entry in context menu-->
+  <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">Histórico</string>
   <string name="menu_merge">Unir</string>
@@ -828,10 +828,8 @@ há %3$s %4$s</string>
   <string name="config_showTolerance_summary">Mostra a área onde um elemento pode ser selecionado.</string>
   <string name="config_use_back_for_undo_title">Usar tecla ← para desfazer</string>
   <string name="config_use_back_for_undo_summary">Usar a tecla ← para desfazer na vista de edição principal.</string>
-  <string name="config_enableLightTheme_title">Tema em tons claros</string>
-  <string name="config_enableLightTheme_summary">Fundos em tons claros e branco.</string>
+  <string name="config_theme_title">Tema</string>
   <string name="config_splitActionBarEnabled_title">Dividir barra de ações</string>
-  <string name="config_splitActionBarEnabled_summary">Separa a barra de ações em 2, uma no topo e outra em baixo. A sua utilização é específica para cada dispositivo. É necessário reiniciar o Vespucci e requer uma versão do Android 4.0 ou superior.</string>
   <string name="config_maxInlineValues_title">Nº máx. de valores na linha</string>
   <string name="config_maxInlineValues_summary">Número máximo de valores na linha mostrados no formulário de etiquetas.</string>
   <string name="config_autoLockDelay_title">Tempo de espera de bloqueio</string>
@@ -1097,10 +1095,11 @@ há %3$s %4$s</string>
   <!--Help system-->
   <string name="toast_nohelp">Sem ajuda aqui.</string>
   <!--Bookmarks-->
-  <string name="bookmarks_desc">Descrição</string>
+  <string name="bookmarks_desc">Nome</string>
   <!--Element types-->
   <string name="element_type_way">caminho</string>
   <string name="element_type_area">área</string>
   <string name="element_type_relation">relação</string>
   <!--Element names with id-->
+  <!--Tile downloader diagnostics-->
 </resources>

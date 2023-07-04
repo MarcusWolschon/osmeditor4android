@@ -7,6 +7,7 @@
   <string name="mode_correct">Modalità C</string>
   <string name="mode_address">Indirizzo</string>
   <string name="mode_voice">Voce</string>
+  <!--additional short cuts-->
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Attenzione!</string>
   <string name="transfer_download_current_dialog_message">Hai effettuato delle modifiche. Vuoi caricarle invece di annullarle?</string>
@@ -132,9 +133,6 @@
   <string name="openstreetbug_commit_fail_with_message">Impossibile salvare le modifiche dell\'attività\n%1$s</string>
   <string name="openstreetbug_unknown_task_type">Tipo di obiettivo sconosciuto</string>
   <string name="openstreetbug_not_supported">%1$s non supportato</string>
-  <string name="note_description">Nota: %1$s - %2$s</string>
-  <string name="bug_description">%1$s: %2$s - %3$s</string>
-  <string name="bug_description_2">%1$s: %2$s %3$s - %4$s</string>
   <string name="generic_bug">Bug</string>
   <string name="osmose_bug">Osmose</string>
   <string name="todo_title">Cose da fare</string>
@@ -364,6 +362,7 @@
   <string name="layer_geojson">GeoJSON</string>
   <string name="layer_mapillary">Mapillary</string>
   <string name="layer_grid">Griglia</string>
+  <string name="layer_bookmarks">Segnalibri</string>
   <string name="layer_gpx">GPX</string>
   <string name="layer_gpx_recording">Registrazione GPX</string>
   <string name="layer_photos">Foto</string>
@@ -408,7 +407,6 @@
   <string name="layer_info_layer_not_available">Informazioni dello strato non disponibili</string>
   <string name="layer_info_no_meta_data">Meta-dati non caricati</string>
   <!--Mapillary layer-->
-  <string name="mapillary_image">mapillary %1$s</string>
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Cancella foto</string>
   <string name="photo_viewer_delete_button">Cancella definitivamente</string>
@@ -862,6 +860,7 @@
   <string name="menu_gps_import">Importa traccia GPX…</string>
   <string name="menu_gps_goto_start">Vai all\'inizio della traccia GPX</string>
   <string name="menu_gps_goto_first_waypoint">Vai al primo punto</string>
+  <string name="menu_gps_add_bookmark">Aggiungi segnalibro…</string>
   <string name="menu_enable_gps_autodownload">Scaricamento automatico basato sulla posizione</string>
   <string name="menu_enable_pan_and_zoom_auto_download">Scarica automaticamente dopo zoom o spostamento schermata</string>
   <string name="menu_transfer">Trasferimento…</string>
@@ -926,7 +925,6 @@
   <string name="menu_tools_add_imagery_from_oam">Aggiungi immagini da OAM</string>
   <string name="menu_tools_flush_all_tile_caches">Cancella la cache di tutti i livelli di immagini</string>
   <string name="menu_tools_background_properties">Proprietà dello sfondo…</string>
-  <string name="menu_tools_update_imagery_configuration">Aggiorna configurazione</string>
   <string name="menu_tools_update_imagery_configuration_eli">Aggiorna configurazione da ELI</string>
   <string name="menu_tools_zoom_to_layer_extent">Ingrandisci sullo strato di sfondo</string>
   <string name="menu_tools_clear_clipboard">Cancella gli appunti</string>
@@ -971,6 +969,8 @@
   <string name="preset_menu_invert">Inverti filtri</string>
   <!--element action mode menu-->
   <string name="menu_tags">Proprietà</string>
+  <!--ELement entry in context menu-->
+  <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">Cronologia</string>
   <string name="menu_history_web">Cronologia (web)</string>
@@ -1121,10 +1121,8 @@
   <string name="config_showTolerance_summary">Mostra l\'area all\'interno della quale l\'elemento può essere selezionato.</string>
   <string name="config_use_back_for_undo_title">Usa il tasto ← per annullare</string>
   <string name="config_use_back_for_undo_summary">Utilizza il tasto ← per annullare nella vista principale.</string>
-  <string name="config_enableLightTheme_title">Tema chiaro</string>
-  <string name="config_enableLightTheme_summary">Sfondi chiari e bianchi.</string>
+  <string name="config_theme_title">Tema</string>
   <string name="config_splitActionBarEnabled_title">Abilita la split action bar</string>
-  <string name="config_splitActionBarEnabled_summary">Abilita la barra split action, il cui uso dipende dal dispositivo. Richiede il riavvio di Vespucci e una versione Android 4.0 o successiva.</string>
   <string name="config_disableTranslations_title">Disabilita traduzioni</string>
   <string name="config_disableTranslations_summary">Mostra l\'interfaccia grafica in inglese</string>
   <string name="config_maxInlineValues_title">Numero massimo di valori in linea</string>
@@ -1155,6 +1153,7 @@
   <string name="config_mapillary_min_zoom_current">%1$d</string>
   <string name="config_nameCap_summary">Maiuscole automatiche nei nomi durante l’inserimento</string>
   <string name="config_nameCap_title">Nomi con prima lettera in maiuscolo</string>
+  <string name="config_longStringLimit_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Dati e impostazioni di modifica</string>
   <string name="config_category_editing_summary">Impostazioni di download automatico, salvataggio e notifiche</string>
@@ -1472,8 +1471,7 @@
   <!--Help system-->
   <string name="toast_nohelp">Nessun aiuto disponibile.</string>
   <!--Bookmarks-->
-  <string name="add_bookmark">Aggiungi segnalibro…</string>
-  <string name="bookmarks_desc">Descrizione</string>
+  <string name="bookmarks_desc">Nome</string>
   <string name="show_bookmarks">Segnalibri…</string>
   <string name="_dots">⋮</string>
   <string name="gotobookmark">Vai</string>
@@ -1488,4 +1486,5 @@
   <string name="node_id">nodo %1$d</string>
   <string name="way_id">via %1$d</string>
   <string name="relation_id">relazione %1$d</string>
+  <!--Tile downloader diagnostics-->
 </resources>

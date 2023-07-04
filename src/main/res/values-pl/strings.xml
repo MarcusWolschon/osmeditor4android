@@ -7,6 +7,7 @@
   <string name="mode_correct">Tryb błędów</string>
   <string name="mode_address">Adres</string>
   <string name="mode_voice">Głos</string>
+  <!--additional short cuts-->
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Uwaga!</string>
   <string name="transfer_download_current_dialog_message">Wprowadziłeś zmiany. Czy chcesz je wysłać zamiast porzucenia?</string>
@@ -124,9 +125,6 @@
   <string name="openstreetbug_commit_fail">Nie udało się zapisać zmian w zadaniu</string>
   <string name="openstreetbug_unknown_task_type">Nieznany typ zadania</string>
   <string name="openstreetbug_not_supported">%1$s nie jest wspierane.</string>
-  <string name="note_description">Uwaga: %1$s – %2$s</string>
-  <string name="bug_description">%1$s: %2$s – %3$s</string>
-  <string name="bug_description_2">%1$s: %2$s %3$s – %4$s</string>
   <string name="generic_bug">Błąd</string>
   <string name="osmose_bug">Osmose</string>
   <string name="bug_long_description_1">%1$s: %2$s&lt;br&gt;&lt;br&gt;%3$s&lt;br&gt;&lt;br&gt;%4$s&lt;br&gt;</string>
@@ -767,7 +765,6 @@
   <string name="menu_tools">Narzędzia...</string>
   <string name="menu_tools_add_imagery_from_oam">Dodaj warstwy z OAM</string>
   <string name="menu_tools_flush_all_tile_caches">Wyczyść cache kafelków</string>
-  <string name="menu_tools_update_imagery_configuration">Aktualizuj konfigurację</string>
   <string name="menu_tools_zoom_to_layer_extent">Pokaż cały obszar objęty warstwą wyświetlaną w tle</string>
   <string name="menu_tools_clear_clipboard">Wyczyść schowek</string>
   <string name="menu_tools_install_egm">Instaluj EGM</string>
@@ -805,6 +802,8 @@
   <string name="preset_menu_invert">Odwróć filtry</string>
   <!--element action mode menu-->
   <string name="menu_tags">Właściwości</string>
+  <!--ELement entry in context menu-->
+  <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">Historia</string>
   <string name="menu_merge">Połącz</string>
@@ -921,10 +920,8 @@
   <string name="config_showTolerance_summary">Wyświetla obszar, z którego można wybrać element.</string>
   <string name="config_use_back_for_undo_title">Użyj klawisza ←, aby cofnąć</string>
   <string name="config_use_back_for_undo_summary">Użyj klawisza ←, aby cofnąć w głównym widoku edycji.</string>
-  <string name="config_enableLightTheme_title">Motyw jasny</string>
-  <string name="config_enableLightTheme_summary">Jasne i białe tła.</string>
+  <string name="config_theme_title">Motyw</string>
   <string name="config_splitActionBarEnabled_title">Rozdzielony pasek czynności</string>
-  <string name="config_splitActionBarEnabled_summary">Włącz rozdzielony pasek nawigacyjny, użycie zależy od konkretnego urządzenia. Wymaga ponownego uruchomienia oraz wersji Androida 4.0 lub wyższej.</string>
   <string name="config_maxInlineValues_title">Maks. liczba wartości w jednym wierszu</string>
   <string name="config_maxInlineValues_summary">Maksymalna liczba wartości wyświetlanych w jednym wierszu formularza znacznika.</string>
   <string name="config_autoLockDelay_title">Czas oczekiwania przed zablokowaniem</string>
@@ -943,6 +940,7 @@
   <string name="config_beepVolume_summary">Ustawienie głośności brzęczyka.</string>
   <string name="config_beepVolume_current">%1$d</string>
   <string name="config_mapillary_min_zoom_current">%1$d</string>
+  <string name="config_longStringLimit_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Dane i ustawienia edycji</string>
   <string name="config_category_editing_summary">Opcje automatycznego pobierania, zapisywania i powiadomień.</string>
@@ -1220,9 +1218,10 @@
   <!--Help system-->
   <string name="toast_nohelp">Brak tutaj pomocy.</string>
   <!--Bookmarks-->
-  <string name="bookmarks_desc">Opis</string>
+  <string name="bookmarks_desc">Nazwa</string>
   <!--Element types-->
   <string name="element_type_area">obszar</string>
   <string name="element_type_relation">relacja</string>
   <!--Element names with id-->
+  <!--Tile downloader diagnostics-->
 </resources>

@@ -29,7 +29,8 @@
     <string name="help_newnoteselection">Neue Notizauswahl</string>
     <string name="help_voice_commands">Sprachbefehle</string>
     <string name="help_add_route_segment">Routenteil</string>
-    <string name="help_upgrade">19.0 Versionshinweise</string>
+    <string name="help_upgrade">19.1 Versionshinweise</string>
+    <string name="help_upgrade_190">19.0 Versionshinweise</string>
     <string name="help_upgrade_181">18.1 Versionshinweise</string>
     <string name="help_upgrade_180">18.0 Versionshinweise</string>
     <string name="help_upgrade_171">17.1 Versionshinweise</string>
@@ -82,6 +83,7 @@
         <item>@string/help_voice_commands</item>
         <item>@string/help_add_route_segment</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_190</item>
         <item>@string/help_upgrade_181</item>
         <item>@string/help_upgrade_180</item>
         <item>@string/help_upgrade_171</item>
@@ -135,6 +137,7 @@
         <item>New Note selected</item>
         <item>Voice commands</item>
         <item>Add route segment</item>
+        <item>19.1.0 Release notes</item>
         <item>19.0.0 Release notes</item>
         <item>18.1.0 Release notes</item>
         <item>18.0.0 Release notes</item>

@@ -6,6 +6,7 @@
   <string name="mode_indoor">Interior</string>
   <string name="mode_correct">Modo-C</string>
   <string name="mode_address">Dirección</string>
+  <!--additional short cuts-->
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">¡Precaución!</string>
   <string name="transfer_download_current_dialog_message">Introdujiste cambios. ¿Quieres subirlos? De otra manera, se descartarán.</string>
@@ -119,9 +120,6 @@
   <string name="openstreetbug_commit_ok">Cambios de tarea guardados</string>
   <string name="openstreetbug_unknown_task_type">Tipo de tarea desconocida</string>
   <string name="openstreetbug_not_supported">%1$s no está soportado.</string>
-  <string name="note_description">Nota: %1$s - %2$s</string>
-  <string name="bug_description">%1$s: %2$s - %3$s</string>
-  <string name="bug_description_2">%1$s: %2$s %3$s - %4$s</string>
   <string name="generic_bug">Error</string>
   <string name="osmose_bug">Osmose</string>
   <string name="bug_long_description_1">%1$s: %2$s&lt;br&gt;&lt;br&gt;%3$s&lt;br&gt;&lt;br&gt;%4$s&lt;br&gt;</string>
@@ -789,7 +787,6 @@
   <string name="menu_tools_imagery">Más herramientas de imágenes…</string>
   <string name="menu_tools_add_imagery_from_oam">Añadir imágenes desde OAM</string>
   <string name="menu_tools_flush_all_tile_caches">Limpiar todas las cachés de teselas</string>
-  <string name="menu_tools_update_imagery_configuration"> Actualizar configuración</string>
   <string name="menu_tools_update_imagery_configuration_eli">Actualizar configuración desde ELI</string>
   <string name="menu_tools_zoom_to_layer_extent">Acercar a la extensión de la capa de fondo</string>
   <string name="menu_tools_clear_clipboard">Limpiar portapapeles</string>
@@ -828,6 +825,8 @@
   <string name="preset_menu_invert">Invertir filtros</string>
   <!--element action mode menu-->
   <string name="menu_tags">Propiedades</string>
+  <!--ELement entry in context menu-->
+  <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">Historial</string>
   <string name="menu_merge">Combinar</string>
@@ -950,10 +949,8 @@
   <string name="config_showTolerance_summary">Muestra el área donde se puede seleccionar un elemento.</string>
   <string name="config_use_back_for_undo_title">Use la tecla ← para deshacer</string>
   <string name="config_use_back_for_undo_summary">Use la tecla ← para deshacer en la vista de edición principal.</string>
-  <string name="config_enableLightTheme_title">Tema claro.</string>
-  <string name="config_enableLightTheme_summary">Fondos claros y blancos.</string>
+  <string name="config_theme_title">Tema</string>
   <string name="config_splitActionBarEnabled_title">Habilitar barra de acciones dividida</string>
-  <string name="config_splitActionBarEnabled_summary">Permitir barra de acción dividida, el uso es específico del dispositivo. Requiere iniciar Vespucci nuevamente y Android 4.0 o posterior.</string>
   <string name="config_maxInlineValues_title">Número máx. de valores en línea</string>
   <string name="config_maxInlineValues_summary">Número máximo de valores en línea que se muestran en forma de etiqueta.</string>
   <string name="config_autoLockDelay_title">Tiempo de espera antes de auto-bloqueo</string>
@@ -975,6 +972,7 @@
   <string name="config_beepVolume_summary">Ajuste de volumen para pitidos.</string>
   <string name="config_beepVolume_current">%1$d</string>
   <string name="config_mapillary_min_zoom_current">%1$d</string>
+  <string name="config_longStringLimit_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Configuración de datos y edición</string>
   <string name="config_category_editing_summary">Ajustes de autodescarga, guardado y notificaciones</string>
@@ -1269,10 +1267,11 @@
   <!--Help system-->
   <string name="toast_nohelp">No hay ayuda aquí.</string>
   <!--Bookmarks-->
-  <string name="bookmarks_desc">Descripción</string>
+  <string name="bookmarks_desc">Nombre</string>
   <!--Element types-->
   <string name="element_type_way">vía</string>
   <string name="element_type_area">área</string>
   <string name="element_type_relation">relación</string>
   <!--Element names with id-->
+  <!--Tile downloader diagnostics-->
 </resources>

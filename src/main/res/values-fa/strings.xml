@@ -7,6 +7,7 @@
   <string name="mode_correct">حالت C</string>
   <string name="mode_address">نشانی</string>
   <string name="mode_voice">صدا</string>
+  <!--additional short cuts-->
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">احتیاط! </string>
   <string name="transfer_download_current_dialog_message">تغییراتی انجام داده‌اید. می‌خواهید به‌جای دورریختن، آن‌ها را بارگذاری کنید؟ </string>
@@ -131,9 +132,6 @@
   <string name="openstreetbug_commit_fail_with_message">ذخیره‌سازی تغییرات وظیفه ناموفق بود\n%1$s</string>
   <string name="openstreetbug_unknown_task_type">نوع ناشناخته از وظیفه</string>
   <string name="openstreetbug_not_supported">‏‏%1$s پشتیبانی نمی‌شود.</string>
-  <string name="note_description">یادداشت: %1$s - %2$s</string>
-  <string name="bug_description">%1$s: %2$s - %3$s</string>
-  <string name="bug_description_2">%1$s: %2$s %3$s - %4$s</string>
   <string name="generic_bug">باگ</string>
   <string name="osmose_bug">Osmose</string>
   <string name="todo_title">انجام دادن</string>
@@ -201,6 +199,7 @@
   <string name="search_objects_hint">فیلتر JOSM/عبارت جستجو را وارد کنید</string>
   <string name="search_objects_use_regexps">از عبارات معمولی استفاده کنید</string>
   <string name="search_objects_unsupported">عبارت پشتیبانی‌نشده \"%1$s\"</string>
+  <string name="search_objects_query_overpass">درخواست روگذر</string>
   <!---->
   <string name="preset_search_hint">جستجوی پیش‌تنظیم</string>
   <string name="preset_autopreset">پیش‌تنظیم خودکار</string>
@@ -243,6 +242,8 @@
   <!--Tile layer info dialog-->
   <string name="attribution">انتساب</string>
   <!--GPX info dialog-->
+  <string name="track_points">ردیابی نقاط</string>
+  <string name="way_points">نقاط راه</string>
   <!--Too much data dialog-->
   <string name="too_much_data_title">دادهٔ خیلی زیادی بار شده!</string>
   <string name="too_much_data_message">شما %1$d گره را بارگذاری کرده‌اید و از حد پیکربندی شده فراتر رفته‌اید. این منجر به کُند شدن می‌شود و اگر داده‌های بیشتری اضافه کنید، احتمال دارد برای ذخیره‌سازی وضعیت با مشکلاتی مواجه شوید.</string>
@@ -283,8 +284,18 @@
   <string name="evaluate">ارزیابی</string>
   <string name="js_console_msg_live">حالت زنده!</string>
   <string name="js_console_msg_debug">حالت اشکال‌زدایی!</string>
+  <string name="console_input_hint">کد را در اینجا وارد کنید</string>
   <string name="console_output_hint">خروجی اینجا ظاهر می‌شود</string>
+  <string name="save_code">ذخیره کد…</string>
+  <string name="load_code">بارگذاری کد…</string>
+  <string name="share_code">اشتراک‌گذاری کد…</string>
   <!--Overpass console-->
+  <string name="run">اجرا</string>
+  <string name="overpass_result">دانلود شد%1$d گره(ها), %2$d راه (ها) و %3$d رابطه(ها).</string>
+  <string name="overpass_console">کنسول روگذر</string>
+  <string name="select_result">نتیجه را انتخاب کنید</string>
+  <string name="merge_result">ادغام نتیجه</string>
+  <string name="overpass_query_would_overwrite">نتیجه تغییرات را بازنویسی خواهد کرد! درخواست لغو شد.</string>
   <!---->
   <string name="error">خطا</string>
   <string name="warning">هشدار</string>
@@ -363,6 +374,7 @@
   <string name="layer_geojson">GeoJSON</string>
   <string name="layer_mapillary">مپیلاری</string>
   <string name="layer_grid">شبکه</string>
+  <string name="layer_bookmarks">نشانک‌ها</string>
   <string name="layer_gpx">GPX</string>
   <string name="layer_gpx_recording">ضبط GPX</string>
   <string name="layer_photos">عکس‌ها</string>
@@ -407,7 +419,6 @@
   <string name="layer_info_layer_not_available">اطلاعات لایه در دسترس نیست</string>
   <string name="layer_info_no_meta_data">داده‌های متا بارگیری نشده است</string>
   <!--Mapillary layer-->
-  <string name="mapillary_image">مپیلاری %1$s</string>
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">حذف عکس</string>
   <string name="photo_viewer_delete_button">برای همیشه حذف شود</string>
@@ -450,6 +461,7 @@
   <!--Clear/Reset GPX Track-->
   <string name="clear_track_description">ردگیری را متوقف و همهٔ نقاط ذخیره‌شدهٔ رد را حذف کن. این کار برگشت‌پذیر نیست.</string>
   <!--Measurement dialog-->
+  <string name="measure">اندازه گرفتن</string>
   <!--Tips-->
   <string name="tip_title">آیا می‌دانستید؟</string>
   <string name="tip_check_label">نکات اختیاری را دیگر نشان نده</string>
@@ -585,6 +597,8 @@
   <string name="toast_invalid_object">شیء نامعتبر</string>
   <string name="toast_openinghours_invalid">مقدار ساعت کاری برای %1$s نامعتبر است</string>
   <string name="toast_openinghours_autocorrected">مقدار ساعت کاری برای %1$s به‌طور خودکار درست شد</string>
+  <string name="toast_exit_multiselect">برای خروج از چند انتخاب روی یک فضای خالی دو بار پیاپی سریع کلیک کنید یا از فلش ← استفاده کنید</string>
+  <string name="toast_already_in_multiselect">در حال حاضر در حالت انتخاب چندگانه</string>
   <string name="toast_abort_actionmode">برای لغو روی → بزنید</string>
   <string name="toast_null_island">لطفاً در ‎0°/0° (جزیرهٔ پوچ) عنصری اضافه نکنید</string>
   <string name="toast_string_too_long">رشته بسیار طولانی است (%1$d نویسه). کوتاه شد!</string>
@@ -654,6 +668,7 @@
   <string name="toast_error_saving_bookmark">نشانک ذخیره نمی‌شود</string>
   <string name="toast_error_loading_style">بارگیری سبک امکان پذیر نیست: %1$s</string>
   <string name="toast_only_one_source_supported">فقط یک منبع در هر سبک پشتیبانی می شود</string>
+  <string name="toast_style_file_too_large">فایل سبک ارائه شده بیش از حد بزرگ است و احتمالاً سبک Mapbox-GL نیست.</string>
   <string name="toast_imagery_offset_download_failed">بارگیری افست انجام نشد: %1$s</string>
   <string name="toast_download_server_version_failed">بارگیری نسخه سرور برای %1$s انجام نشد</string>
   <string name="toast_error_element_too_large">عنصر برای ویرایشگر ویژگی خیلی بزرگ است</string>
@@ -839,6 +854,7 @@
   <string name="menu_set_position">موقعیت</string>
   <string name="menu_split">دونیم‌کردن</string>
   <string name="menu_remove_node_from_way">حذف گره از راه</string>
+  <string name="menu_start_end_way">شروع/پایان راه</string>
   <string name="menu_extract">استخراج گره</string>
   <string name="menu_append">ادامه‌دادن</string>
   <string name="menu_create_route">ایجاد مسیر</string>
@@ -869,6 +885,7 @@
   <string name="menu_gps_import">درون‌برد رد GPX...</string>
   <string name="menu_gps_goto_start">برو به ابتدای رد GPX</string>
   <string name="menu_gps_goto_first_waypoint">برو به اولین راه‌نشان</string>
+  <string name="menu_gps_add_bookmark">اضافه کردن نشانک…</string>
   <string name="menu_enable_gps_autodownload">بارگیری خودکار مکان‌محور</string>
   <string name="menu_enable_pan_and_zoom_auto_download">بارگیری خودکار با جابه‌جایی و زوم</string>
   <string name="menu_transfer">داده‌رسانی...</string>
@@ -876,6 +893,7 @@
   <string name="menu_transfer_download_replace">پاک‌سازی و بارگیری نمای کنونی</string>
   <string name="menu_transfer_load_current">بارکردن نمای کنونی</string>
   <string name="menu_transfer_load_replace">پاک‌سازی و بارکردن نمای کنونی</string>
+  <string name="menu_transfer_query_overpass">درخواست روگذر...</string>
   <string name="menu_transfer_upload">بارگذاری داده‌ها در سرور OSM...</string>
   <string name="menu_transfer_review">بررسی تغییرات...</string>
   <string name="menu_transfer_update">به‌روزرسانی داده</string>
@@ -933,7 +951,6 @@
   <string name="menu_tools_add_imagery_from_oam">افزودن تصویر از OAM</string>
   <string name="menu_tools_flush_all_tile_caches">پاک‌سازی همهٔ نهان‌گاه‌های کاشی</string>
   <string name="menu_tools_background_properties">خصوصیات پس‌زمینه...</string>
-  <string name="menu_tools_update_imagery_configuration">به‌روزرسانی پیکربندی</string>
   <string name="menu_tools_update_imagery_configuration_eli">به‌روزرسانی پیکربندی از ELI</string>
   <string name="menu_tools_zoom_to_layer_extent">زوم به گسترهٔ لایهٔ پس‌زمینه</string>
   <string name="menu_tools_clear_clipboard">پاک‌سازی بریده‌دان</string>
@@ -948,10 +965,12 @@
   <string name="menu_preset_feedback">بازخورد دربارهٔ پیش‌تنظیم</string>
   <string name="menu_privacy">حریم خصوصی</string>
   <!--Background alignment-->
+  <string name="menu_tools_background_align">ترازکردن تصاویر</string>
   <string name="menu_tools_background_align_reset">بازنشانی</string>
   <string name="menu_tools_background_align_zero">صفر</string>
   <string name="menu_tools_background_align_retrieve_from_db">از پایگاه‌داده</string>
   <string name="menu_tools_background_align_retrieve_from_device">از دستگاه</string>
+  <string name="menu_tools_background_align_save_db">ذخیره در پایگاه‌داده…</string>
   <string name="menu_tools_background_align_save_device">ذخیره در دستگاه</string>
   <string name="menu_tools_background_align_apply2all">به‌کارگیری (همهٔ زوم‌ها)</string>
   <string name="min_max_zoom">%1$d - %2$d</string>
@@ -967,6 +986,7 @@
   <string name="menu_layers_add_photolayer">فعال‌سازی لایهٔ عکس</string>
   <string name="menu_layers_enable_mapillary_layer">فعال‌سازی لایهٔ مپیلاری</string>
   <string name="menu_layers_configure">پیکربندی...</string>
+  <string name="menu_layers_background_align">ترازکردن تصاویر...</string>
   <!---->
   <string name="menu_tools_apply_local_offset">به‌کارگیری آفست ذخیره‌شده بر تصویر</string>
   <string name="menu_tools_background_contrast">پادنمایی</string>
@@ -978,7 +998,10 @@
   <string name="preset_menu_invert">برعکس‌کردن پالایه‌ها</string>
   <!--element action mode menu-->
   <string name="menu_tags">خصوصیات</string>
+  <!--ELement entry in context menu-->
+  <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
   <!--Text should be as short as possible-->
+  <string name="start_end_way_description">به ابتدای راه یا انتهای راه بروید</string>
   <string name="menu_history">تاریخچه</string>
   <string name="menu_history_web">تاریخچه (وب)</string>
   <string name="menu_merge">پیوند</string>
@@ -1103,6 +1126,8 @@
   <string name="config_showWayIcons_summary">روی ساختمان‌ها نماد جورترین پیش‌تنظیم را نشان بده.</string>
   <string name="config_tagFormEnabled_title">نمایش فرم برچسب</string>
   <string name="config_tagFormEnabled_summary">فرم برچسب را برای ویرایش نشان بده.</string>
+  <string name="config_supportPresetLabels_title">نمایش برچسب‌ها از پیش‌تنظیم‌ها</string>
+  <string name="configsupportPresetLabels_summary">برچسب‌ها را از پیش تنظیم‌ها در ویرایشگر فرم برچسب نمایش دهید.</string>
   <string name="config_showCameraAction_title">نمایش کنش دوربین</string>
   <string name="config_showCameraAction_summary">نماد دوربین را در نوار کنش نشان بده.</string>
   <string name="config_selectCameraApp_title">برنامه دوربین</string>
@@ -1127,14 +1152,13 @@
   <string name="config_showTolerance_summary">منطقه‌ای را که می‌توان عنصری را در آن انتخاب کرد، نمایش می‌دهد.</string>
   <string name="config_use_back_for_undo_title">استفاده از دکمهٔ عقب برای واگرد</string>
   <string name="config_use_back_for_undo_summary">در نمای اصلی ویرایش، برای برگرداندن ویرایش دکمهٔ عقب را بزنید.</string>
-  <string name="config_enableLightTheme_title">پوستهٔ روشن</string>
-  <string name="config_enableLightTheme_summary">زمینه‌های روشن و سفید.</string>
+  <string name="config_theme_title">موضوع</string>
   <string name="config_splitActionBarEnabled_title">فعال‌سازی نوار کنش دوبخشی</string>
-  <string name="config_splitActionBarEnabled_summary">اجازه دهید نوار کنش تقسیم شود. کاربرد آن به نوع دستگاه بستگی دارد. نیازمند راه‌اندازی مجدد وسپوچی و اندروید 4.0 یا بالاتر است.</string>
   <string name="config_disableTranslations_title">غیرفعال کردن ترجمه ها</string>
   <string name="config_disableTranslations_summary">از زبان انگلیسی برای رابط کاربری استفاده کنید</string>
   <string name="config_maxInlineValues_title">بیشترین تعداد مقادیر درخط</string>
   <string name="config_maxInlineValues_summary">بیشترین تعداد مقادیر درون‌خط که در فرم برچسب نمایان باشد.</string>
+  <string name="config_maxInlineValues_current">%1$d مقدار</string>
   <string name="config_autoLockDelay_title">مدت انتظار پیش از قفل‌شدن خودکار</string>
   <string name="config_autoLockDelay_summary">تعداد ثانیه‌های انتظار پیش از قفل‌شدن خودکار. 0 آن را غیرفعال می‌کند.</string>
   <string name="config_autoLockDelay_current">%1$d ثانیه</string>
@@ -1145,7 +1169,11 @@
   <string name="config_maxStrokeWidth_title">بیشینهٔ پهنای خط</string>
   <string name="config_maxStrokeWidth_summary">راهی را ضخیم‌تر از این رسم نکن.</string>
   <string name="config_maxStrokeWidth_current">%1$d پیکسل</string>
+  <string name="config_uploadOk_title">محدودیت آپلود در انتظار تأیید است</string>
+  <string name="config_uploadOk_summary">اگر تعداد آپلودهای شیء در انتظار کمتر از این حد باشد، وضعیت بدون مشکل در نظر گرفته می‌شود.</string>
   <string name="config_upload_current">%1$d شیء</string>
+  <string name="config_uploadWarn_title">محدودیت هشدار آپلود در انتظار</string>
+  <string name="config_uploadWarn_summary">اگر تعداد آپلودهای شیء در انتظار کمتر از این حد باشد، وضعیت هشدار خواهد داشت. تعداد آپلود معلق بالاتر از این وضعیت خطرناک خواهد بود.</string>
   <string name="config_uploadChecker_title">فاصله زمانی یادآوری بارگذاری</string>
   <string name="config_uploadChecker_summary">فاصله زمانی برای یادآوری اگر تغییرات منتشر نشده دارید.</string>
   <string name="config_uploadChecker_current">%1$d ساعت</string>
@@ -1161,6 +1189,7 @@
   <string name="config_mapillary_min_zoom_current">%1$d</string>
   <string name="config_nameCap_summary">بزرگ‌نویسی خودکار برچسب‌های نام در ورودی</string>
   <string name="config_nameCap_title">حروف بزرگ نام</string>
+  <string name="config_longStringLimit_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">تنظیمات داده و ویرایش</string>
   <string name="config_category_editing_summary">بارگیری خودکار، ذخیره‌سازی و تنظیمات اعلان.</string>
@@ -1201,6 +1230,8 @@
   <string name="config_maxOffsetDistance_title">حداکثر فاصله برای جابجایی تصاویر ذخیره شده</string>
   <string name="config_maxOffsetDistance_summary">دورترین فاصله ای که یک لایه ذخیره شده به صورت محلی ذخیره می شود به طور خودکار اعمال می شود.</string>
   <string name="config_maxOffsetDistance_current">%1$d متر (ها)</string>
+  <string name="config_useImperialUnits_title">برای اندازه‌گیری از واحدهای امپریالیستی استفاده کنید</string>
+  <string name="config_useImperialUnits_summary">هنگام اندازه‌گیری در کشورهایی که معمولاً از آنها استفاده می‌کنند، از واحدهای امپریالیستی استفاده کنید.</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">تنظیمات بارگیری خودکار</string>
   <string name="config_category_auto_download_summary">تنظیمات بارگیری خودکار داده و وظیفه</string>
@@ -1262,6 +1293,8 @@
   <string name="config_geocoderbutton_summary">زمین‌کدیاب‌ها را که برای قابلیت جستجو به کار می‌روند، بیفزایید، بویرایید یا حذف کنید.</string>
   <string name="config_taginfoServer_title">سرور اطلاعات برچسب/Taginfo</string>
   <string name="config_taginfoServer_summary">سرور اطلاعات برچسب/Taginfo برای استفاده برای تولید از پیش تعیین شده</string>
+  <string name="config_overpassServer_title">سرور روگذر</string>
+  <string name="config_overpassServer_summary">سرور روگذر مورد استفاده برای پرس و جوها</string>
   <!--Layer download and storage-->
   <string name="config_category_layers">بارگیری لایه و محل ذخیره</string>
   <string name="config_category_layers_summary">ذخیره‌گاه و بارگیری تصویر پس‌زمینهٔ مبتنی بر کاشی</string>
@@ -1290,6 +1323,8 @@
   <string name="config_autosaveChanges_current">%1$d</string>
   <string name="config_autosaveMaxFiles_title">حداکثر تعداد فایل‌های OSC برای نگهداری</string>
   <string name="config_autosaveMaxFiles_current">%1$d</string>
+  <string name="config_gpxAutosaveInterval_title">حداقل فاصله ذخیره‌سازی GPX</string>
+  <string name="config_gpxAutosaveInterval_summary">حداقل فاصله در دقیقه بین ذخیره‌های ضبط‌شده GPX.</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">سایر</string>
   <string name="pref_enable_acra">گزارش فروپاشی‌های برنامه</string>
@@ -1474,8 +1509,7 @@
   <!--Help system-->
   <string name="toast_nohelp">این راهنما ندارد.</string>
   <!--Bookmarks-->
-  <string name="add_bookmark">اضافه کردن نشانک…</string>
-  <string name="bookmarks_desc">توضیح</string>
+  <string name="bookmarks_desc">نام</string>
   <string name="show_bookmarks">نشانک‌ها…</string>
   <string name="_dots">⋮</string>
   <string name="gotobookmark">برو</string>
@@ -1490,4 +1524,5 @@
   <string name="node_id">گره %1$d</string>
   <string name="way_id">مسیر %1$d</string>
   <string name="relation_id">رابطه %1$d</string>
+  <!--Tile downloader diagnostics-->
 </resources>

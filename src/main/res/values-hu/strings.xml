@@ -7,6 +7,7 @@
   <string name="mode_correct">Javító mód</string>
   <string name="mode_address">Cím</string>
   <string name="mode_voice">Hang</string>
+  <!--additional short cuts-->
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Vigyázat!</string>
   <string name="transfer_download_current_dialog_message">Módosításai vannak. Feltölti azokat az eldobásuk helyett?</string>
@@ -131,9 +132,6 @@
   <string name="openstreetbug_commit_fail_with_message">Nem sikerült menteni a feladatmódosításokat\n%1$s</string>
   <string name="openstreetbug_unknown_task_type">Ismeretlen feladattípus</string>
   <string name="openstreetbug_not_supported">%1$s nem támogatott.</string>
-  <string name="note_description">Jegyzet: %1$s– %2$s</string>
-  <string name="bug_description">%1$s: %2$s – %3$s</string>
-  <string name="bug_description_2">%1$s: %2$s %3$s - %4$s</string>
   <string name="generic_bug">Hiba</string>
   <string name="osmose_bug">Osmose</string>
   <string name="todo_title">Teendők</string>
@@ -201,6 +199,7 @@
   <string name="search_objects_hint">JOSM szűrő-/keresőkifejezés megadása</string>
   <string name="search_objects_use_regexps">Reguláris kifejezés használata</string>
   <string name="search_objects_unsupported">Nem támogatott kifejezés: „%1$s”</string>
+  <string name="search_objects_query_overpass">Overpass-lekérdezés</string>
   <!---->
   <string name="preset_search_hint">Előbeállítás-kereső szöveg</string>
   <string name="preset_autopreset">Automatikus előbeállítás</string>
@@ -243,6 +242,8 @@
   <!--Tile layer info dialog-->
   <string name="attribution">Attribútum</string>
   <!--GPX info dialog-->
+  <string name="track_points">Nyomvonalpontok</string>
+  <string name="way_points">Vonalpontok</string>
   <!--Too much data dialog-->
   <string name="too_much_data_title">Túl sok adat van betöltve!</string>
   <string name="too_much_data_message">%1$d csomópont van betöltve, ami túllépte a beállított korlátot. Ez lassulást okoz, ha pedig még több adatot ad hozzá, az esetleges mentési problémákhoz vezethet.</string>
@@ -283,8 +284,18 @@
   <string name="evaluate">Kiértékelés</string>
   <string name="js_console_msg_live">Éles mód!</string>
   <string name="js_console_msg_debug">Hibakereső mód!</string>
+  <string name="console_input_hint">Adja meg a kódot itt</string>
   <string name="console_output_hint">A kimenet itt fog megjelenni</string>
+  <string name="save_code">Kód mentése…</string>
+  <string name="load_code">Kód betöltése…</string>
+  <string name="share_code">Kód megosztása…</string>
   <!--Overpass console-->
+  <string name="run">Futtatás</string>
+  <string name="overpass_result">Letöltve %1$d pont, %2$d vonal és %3$d kapcsolat.</string>
+  <string name="overpass_console">Overpass-konzol</string>
+  <string name="select_result">Eredmény kijelölése</string>
+  <string name="merge_result">Eredmény beolvasztása</string>
+  <string name="overpass_query_would_overwrite">Az eredmény felülírná a módosításokat! Lekérdezés megszakítva.</string>
   <!---->
   <string name="error">Hiba</string>
   <string name="warning">Figyelmeztetés</string>
@@ -364,6 +375,7 @@ elemek megkövetelése</string>
   <string name="layer_geojson">GeoJSON</string>
   <string name="layer_mapillary">Mapillary</string>
   <string name="layer_grid">Rács</string>
+  <string name="layer_bookmarks">Könyvjelzők</string>
   <string name="layer_gpx">GPX</string>
   <string name="layer_gpx_recording">GPX rögzítése</string>
   <string name="layer_photos">Fényképek</string>
@@ -408,7 +420,6 @@ elemek megkövetelése</string>
   <string name="layer_info_layer_not_available">Nem áll rendelkezésre információ a rétegről</string>
   <string name="layer_info_no_meta_data">A metaadatok nincsenek betöltve</string>
   <!--Mapillary layer-->
-  <string name="mapillary_image">mapillary %1$s</string>
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Fénykép törlése</string>
   <string name="photo_viewer_delete_button">Végleges törlés</string>
@@ -451,6 +462,7 @@ elemek megkövetelése</string>
   <!--Clear/Reset GPX Track-->
   <string name="clear_track_description">Követés leállítása és a tárolt nyomvonalpontok törlése. Ez nem vonható vissza.</string>
   <!--Measurement dialog-->
+  <string name="measure">Mérés</string>
   <!--Tips-->
   <string name="tip_title">Tudta?</string>
   <string name="tip_check_label">Ne mutassa az opcionális tippeket</string>
@@ -586,6 +598,8 @@ elemek megkövetelése</string>
   <string name="toast_invalid_object">Érvénytelen objektum</string>
   <string name="toast_openinghours_invalid">Érvénytelen nyitva tartás ehhez: %1$s</string>
   <string name="toast_openinghours_autocorrected">A(z) %1$s nyitva tartási értéke automatikus javításra került</string>
+  <string name="toast_exit_multiselect">Koppintson duplán egy üres helyre, vagy használja a ← nyilat a többszörös kijelölésből való kilépéshez</string>
+  <string name="toast_already_in_multiselect">Már a többszörös kijelölés módban van</string>
   <string name="toast_abort_actionmode">Használja a ← nyilat a megszakításhoz</string>
   <string name="toast_null_island">Kérjük ne adjon hozzá elemeket itt: 0°/0° (Nulla sziget)</string>
   <string name="toast_string_too_long">A karakterlánc túl hosszú (%1$d karakter), csonkolva!</string>
@@ -655,6 +669,7 @@ elemek megkövetelése</string>
   <string name="toast_error_saving_bookmark">A könyvjelző nem menthető</string>
   <string name="toast_error_loading_style">A stílus nem tölthető be: %1$s</string>
   <string name="toast_only_one_source_supported">Stílusonként egy forrás támogatott</string>
+  <string name="toast_style_file_too_large">A megadott stílusfájl túl nagy, és valószínűleg nem Mapbox-GL stílusú.</string>
   <string name="toast_imagery_offset_download_failed">Az eltolás letöltése sikertelen: %1$s</string>
   <string name="toast_download_server_version_failed">%1$s: szerververzió letöltése sikertelen</string>
   <string name="toast_error_element_too_large">Az elem túl nagy a tulajdonságszerkesztőhöz</string>
@@ -840,6 +855,7 @@ elemek megkövetelése</string>
   <string name="menu_set_position">Pozíció</string>
   <string name="menu_split">Szétvágás</string>
   <string name="menu_remove_node_from_way">Pont eltávolítása egy vonalból</string>
+  <string name="menu_start_end_way">Vonal kezdete/vége</string>
   <string name="menu_extract">Pont kiemelése</string>
   <string name="menu_append">Hozzáfűzés</string>
   <string name="menu_create_route">Útvonal létrehozása</string>
@@ -870,6 +886,7 @@ elemek megkövetelése</string>
   <string name="menu_gps_import">GPX nyomvonal importálása...</string>
   <string name="menu_gps_goto_start">Ugrás a GPX nyomvonal elejére</string>
   <string name="menu_gps_goto_first_waypoint">Ugrás az első útpontra</string>
+  <string name="menu_gps_add_bookmark">Könyvjelző hozzáadása…</string>
   <string name="menu_enable_gps_autodownload">Helyalapú automatikus letöltés</string>
   <string name="menu_enable_pan_and_zoom_auto_download">Automatikus letöltés pásztázással és nagyítással</string>
   <string name="menu_transfer">Átvitel…</string>
@@ -877,6 +894,7 @@ elemek megkövetelése</string>
   <string name="menu_transfer_download_replace">Törlés és jelenlegi nézet letöltése</string>
   <string name="menu_transfer_load_current">Jelenlegi nézet betöltése</string>
   <string name="menu_transfer_load_replace">Törlés és jelenlegi nézet betöltése</string>
+  <string name="menu_transfer_query_overpass">Overpass lekérdezése…</string>
   <string name="menu_transfer_upload">Adatok feltöltése az OSM kiszolgálóra...</string>
   <string name="menu_transfer_review">Változások áttekintése...</string>
   <string name="menu_transfer_update">Adatok frissítése</string>
@@ -934,7 +952,6 @@ elemek megkövetelése</string>
   <string name="menu_tools_add_imagery_from_oam">Légifelvétel hozzáadása az OpenAerialMapről (OAM)</string>
   <string name="menu_tools_flush_all_tile_caches">Összes csempe-gyorsítótár ürítése</string>
   <string name="menu_tools_background_properties">Háttér tulajdonságok...</string>
-  <string name="menu_tools_update_imagery_configuration">Beállítások frissítése</string>
   <string name="menu_tools_update_imagery_configuration_eli">Beállítások frissítése az ELI-ből (Editor Layer Index)</string>
   <string name="menu_tools_zoom_to_layer_extent">Nagyítás a háttérréteg teljes kiterjedésére</string>
   <string name="menu_tools_clear_clipboard">Vágólap törlése</string>
@@ -949,10 +966,12 @@ elemek megkövetelése</string>
   <string name="menu_preset_feedback">Visszajelzés küldése előbeállításról</string>
   <string name="menu_privacy">Adatvédelem</string>
   <!--Background alignment-->
+  <string name="menu_tools_background_align">Légi felvétel igazítása</string>
   <string name="menu_tools_background_align_reset">Alaphelyzet</string>
   <string name="menu_tools_background_align_zero">Nulla</string>
   <string name="menu_tools_background_align_retrieve_from_db">Adatbázisból</string>
   <string name="menu_tools_background_align_retrieve_from_device">Eszközről</string>
+  <string name="menu_tools_background_align_save_db">Mentés adatbázisba…</string>
   <string name="menu_tools_background_align_save_device">Mentés eszközre</string>
   <string name="menu_tools_background_align_apply2all">Alkalmaz (minden nagyítási szint)</string>
   <string name="min_max_zoom">%1$d – %2$d</string>
@@ -968,6 +987,7 @@ elemek megkövetelése</string>
   <string name="menu_layers_add_photolayer">Fényképréteg engedélyezése</string>
   <string name="menu_layers_enable_mapillary_layer">Mapillary réteg engedélyezése</string>
   <string name="menu_layers_configure">Beállítás…</string>
+  <string name="menu_layers_background_align">Légi felvétel igazítása…</string>
   <!---->
   <string name="menu_tools_apply_local_offset">Tárolt eltolás alkalmazása a légifelvételekre</string>
   <string name="menu_tools_background_contrast">Kontraszt</string>
@@ -979,7 +999,10 @@ elemek megkövetelése</string>
   <string name="preset_menu_invert">Szűrők megfordítása</string>
   <!--element action mode menu-->
   <string name="menu_tags">Tulajdonságok</string>
+  <!--ELement entry in context menu-->
+  <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
   <!--Text should be as short as possible-->
+  <string name="start_end_way_description">Ugrás a vonal elejéhez vagy végéhez</string>
   <string name="menu_history">Előzmények</string>
   <string name="menu_history_web">Előzmények (web)</string>
   <string name="menu_merge">Összekapcsolás</string>
@@ -1104,6 +1127,8 @@ elemek megkövetelése</string>
   <string name="config_showWayIcons_summary">A legjobban illeszkedő előbeállítás ikonjának megjelenítése az épületek fölött.</string>
   <string name="config_tagFormEnabled_title">Címkeűrlap megjelenítése</string>
   <string name="config_tagFormEnabled_summary">Címkeűrlap megjelenítése a szerkesztéshez.</string>
+  <string name="config_supportPresetLabels_title">Az előbeállításokból származó feliratok megjelenítése</string>
+  <string name="configsupportPresetLabels_summary">Az előbeállításokból származó feliratok megjelenítése a címkeűrlap-szerkesztőben</string>
   <string name="config_showCameraAction_title">Kameraművelet megjelenítése</string>
   <string name="config_showCameraAction_summary">Kamera ikon megjelenítése a műveletsávon.</string>
   <string name="config_selectCameraApp_title">Kameraalkalmazás</string>
@@ -1128,14 +1153,13 @@ elemek megkövetelése</string>
   <string name="config_showTolerance_summary">Megjeleníti azt a területet, amelyen egy elem kijelölhető.</string>
   <string name="config_use_back_for_undo_title">A visszavonáshoz használja a ← gombot</string>
   <string name="config_use_back_for_undo_summary">Használja a ← gombot a visszavonáshoz a fő szerkesztőnézetben.</string>
-  <string name="config_enableLightTheme_title">Világos téma</string>
-  <string name="config_enableLightTheme_summary">Világos és fehér háttérkép.</string>
+  <string name="config_theme_title">Téma</string>
   <string name="config_splitActionBarEnabled_title">Szétvágás műveletsáv engedélyezése</string>
-  <string name="config_splitActionBarEnabled_summary">Szétvágás műveletsáv engedélyezése, a használat eszközfüggő. A Vespucci újraindítása szükséges, és Android 4.0 vagy újabb verziót igényel.</string>
   <string name="config_disableTranslations_title">Fordítások letiltása</string>
   <string name="config_disableTranslations_summary">A felhasználói felület legyen angol</string>
   <string name="config_maxInlineValues_title">A soron belüli értékek maximális száma</string>
   <string name="config_maxInlineValues_summary">A soron belül megjelenített értékek maximális száma a címkeűrlapon.</string>
+  <string name="config_maxInlineValues_current">%1$d érték</string>
   <string name="config_autoLockDelay_title">Várakozási idő az automatikus lezárás előtt</string>
   <string name="config_autoLockDelay_summary">Másodpercek száma az automatikus lezárás előtt, a 0 kikapcsolja.</string>
   <string name="config_autoLockDelay_current">%1$d másodperc</string>
@@ -1146,7 +1170,11 @@ elemek megkövetelése</string>
   <string name="config_maxStrokeWidth_title">Legnagyobb vonalvastagság</string>
   <string name="config_maxStrokeWidth_summary">Ne rajzoljon ennél vastagabb vonalat.</string>
   <string name="config_maxStrokeWidth_current">%1$d pixel</string>
+  <string name="config_uploadOk_title">Függőben lévő feltöltések normális felső korlátja</string>
+  <string name="config_uploadOk_summary">Ha a függőben lévő objektumfeltöltések száma e határérték alatt van, a helyzet problémamentesnek minősül.</string>
   <string name="config_upload_current">%1$d objektum</string>
+  <string name="config_uploadWarn_title">Függőben lévő feltöltések figyelmeztetési korlátja</string>
+  <string name="config_uploadWarn_summary">Ha a függőben lévő objektumfeltöltések száma e határérték alatt van, akkor figyelmeztető státuszban lesz. Az e feletti függőben lévő feltöltések száma veszélyes státuszú lesz.</string>
   <string name="config_uploadChecker_title">Feltöltési emlékeztetők intervalluma</string>
   <string name="config_uploadChecker_summary">Az emlékeztetők időköze, ha nem közzétett módosításai vannak.</string>
   <string name="config_uploadChecker_current">%1$d óra</string>
@@ -1162,6 +1190,7 @@ elemek megkövetelése</string>
   <string name="config_mapillary_min_zoom_current">%1$d</string>
   <string name="config_nameCap_summary">Névcímkék (name) értékének automatikus átalakítása nagy kezdőbetűssé</string>
   <string name="config_nameCap_title">Név nagybetűssé alakítása</string>
+  <string name="config_longStringLimit_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Adat- és szerkesztési beállítások</string>
   <string name="config_category_editing_summary">Automatikus letöltési, mentési és értesítési beállítások.</string>
@@ -1171,6 +1200,8 @@ elemek megkövetelése</string>
   <string name="config_overrideRegionAddressTags_summary">A régióspecifikus értékek helyett használja a címcímke-konfigurációnkat </string>
   <string name="config_address_tags">Címcímkék</string>
   <string name="config_address_tags_summary">A címelőrejelzéshez használt címkék.</string>
+  <string name="config_neighbourDistance_title">Szomszédos címek közötti távolság</string>
+  <string name="config_neighbourDistance_summary">Az a távolság, ameddig két cím lehetséges szomszédnak tekinthető</string>
   <string name="config_neighbourDistance_current">%1$d méter</string>
   <string name="config_enableNameSuggestions_title">Névjavaslatok engedélyezése</string>
   <string name="config_enableNameSuggestions_summary">A név címke javaslatainak bekapcsolása.</string>
@@ -1200,6 +1231,8 @@ elemek megkövetelése</string>
   <string name="config_maxOffsetDistance_title">A tárolt légifelvétel-eltolások legnagyobb távolsága</string>
   <string name="config_maxOffsetDistance_summary">Az a legnagyobb távolság, amennyire a helyben tárolt rétegeltolás automatikusan alkalmazódni fog.</string>
   <string name="config_maxOffsetDistance_current">%1$d méter</string>
+  <string name="config_useImperialUnits_title">Angolszász mértékegységes használata a mérésekhez</string>
+  <string name="config_useImperialUnits_summary">Angolszász mértékegységek használata, amikor olyan országokban mér, ahol ezeket szokás használni.</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Beállítások automatikus letöltése</string>
   <string name="config_category_auto_download_summary">Adatok és feladatok automatikus letöltésének beállításai</string>
@@ -1261,6 +1294,8 @@ elemek megkövetelése</string>
   <string name="config_geocoderbutton_summary">Geokódolók hozzáadása, szerkesztése, törlése a keresőfunkcióhoz.</string>
   <string name="config_taginfoServer_title">Taginfo kiszolgáló</string>
   <string name="config_taginfoServer_summary">Az előbeállítás-létrehozáshoz használt Taginfo kiszolgáló</string>
+  <string name="config_overpassServer_title">Overpass-szerver</string>
+  <string name="config_overpassServer_summary">A lekérdezésekhez használat Overpass-kiszolgáló</string>
   <!--Layer download and storage-->
   <string name="config_category_layers">Rétegek letöltése és tárolása</string>
   <string name="config_category_layers_summary">Csempealapú háttér-légifelvételek letöltése és tárolása.</string>
@@ -1289,6 +1324,8 @@ elemek megkövetelése</string>
   <string name="config_autosaveChanges_current">%1$d</string>
   <string name="config_autosaveMaxFiles_title">A megőrizendő OSC-fájlok legnagyobb száma</string>
   <string name="config_autosaveMaxFiles_current">%1$d</string>
+  <string name="config_gpxAutosaveInterval_title">Legkisebb GPX-mentési időköz</string>
+  <string name="config_gpxAutosaveInterval_summary">A GPX-felvételek mentése közötti legkisebb időintervallum (perc).</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">Egyebek</string>
   <string name="pref_enable_acra">Alkalmazás-összeomlások jelentése</string>
@@ -1473,8 +1510,7 @@ elemek megkövetelése</string>
   <!--Help system-->
   <string name="toast_nohelp">Ehhez nincs súgó.</string>
   <!--Bookmarks-->
-  <string name="add_bookmark">Könyvjelző hozzáadása…</string>
-  <string name="bookmarks_desc">Leírás</string>
+  <string name="bookmarks_desc">Név</string>
   <string name="show_bookmarks">Könyvjelzők…</string>
   <string name="_dots">⋮</string>
   <string name="gotobookmark">Ugrás</string>
@@ -1489,4 +1525,5 @@ elemek megkövetelése</string>
   <string name="node_id">%1$d pont</string>
   <string name="way_id">%1$d vonal</string>
   <string name="relation_id">%1$d kapcsolat</string>
+  <!--Tile downloader diagnostics-->
 </resources>

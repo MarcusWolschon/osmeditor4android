@@ -6,6 +6,7 @@
   <string name="mode_indoor">Interior</string>
   <string name="mode_correct">Modo-C</string>
   <string name="mode_address">Enderezo</string>
+  <!--additional short cuts-->
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Coidado!</string>
   <string name="transfer_download_current_dialog_message">Fixeches unhas modificacións. Queres subilas no canto de desbotalas?</string>
@@ -113,9 +114,6 @@
   <string name="openstreetbug_commit_ok">Modificacións da tarefa gardadas</string>
   <string name="openstreetbug_unknown_task_type">Tipo de tarefa descoñecida</string>
   <string name="openstreetbug_not_supported">%1$s non está suportado.</string>
-  <string name="note_description">Nota: %1$s - %2$s</string>
-  <string name="bug_description">%1$s: %2$s - %3$s</string>
-  <string name="bug_description_2">%1$s: %2$s %3$s - %4$s</string>
   <string name="generic_bug">Erro</string>
   <string name="osmose_bug">Osmose</string>
   <string name="bug_long_description_1">%1$s: %2$s&lt;br&gt;&lt;br&gt;%3$s&lt;br&gt;&lt;br&gt;%4$s&lt;br&gt;</string>
@@ -674,6 +672,8 @@
   <string name="preset_menu_invert">Inverter filtros</string>
   <!--element action mode menu-->
   <string name="menu_tags">Propiedades</string>
+  <!--ELement entry in context menu-->
+  <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">Historial</string>
   <string name="menu_merge">Combinar</string>
@@ -765,8 +765,7 @@
   <string name="config_map_orientation_title">Orientación do mapa</string>
   <string name="config_showTolerance_title">Amosar tolerancia</string>
   <string name="config_use_back_for_undo_title">Preme a tecla ← para desfacer</string>
-  <string name="config_enableLightTheme_title">Tema claro</string>
-  <string name="config_enableLightTheme_summary">Fondos claros e brancos.</string>
+  <string name="config_theme_title">Tema</string>
   <string name="config_splitActionBarEnabled_title">Activar barra acción dividir</string>
   <string name="config_maxInlineValues_title">Max. número de valores en liña</string>
   <string name="config_autoLockDelay_title">Tempo de agarde antes do autobloqueo</string>
@@ -950,9 +949,10 @@
   <!--Help system-->
   <string name="toast_nohelp">Non hai axuda aquí.</string>
   <!--Bookmarks-->
-  <string name="bookmarks_desc">Descrición</string>
+  <string name="bookmarks_desc">Nome</string>
   <!--Element types-->
   <string name="element_type_area">área</string>
   <string name="element_type_relation">relación</string>
   <!--Element names with id-->
+  <!--Tile downloader diagnostics-->
 </resources>

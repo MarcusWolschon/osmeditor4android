@@ -7,6 +7,7 @@
   <string name="mode_correct">C-Modus</string>
   <string name="mode_address">Adres</string>
   <string name="mode_voice">Stem</string>
+  <!--additional short cuts-->
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Let op!</string>
   <string name="transfer_download_current_dialog_message">Je hebt wijzigingen gemaakt. Wil je ze uploaden in plaats van verwerpen?</string>
@@ -131,9 +132,6 @@
   <string name="openstreetbug_commit_fail_with_message">Kon taakwijzigingen niet opslaan\n%1$s</string>
   <string name="openstreetbug_unknown_task_type">Onbekend taaktype</string>
   <string name="openstreetbug_not_supported">%1$s is niet ondersteund.</string>
-  <string name="note_description">Notitie: %1$s - %2$s</string>
-  <string name="bug_description">%1$s: %2$s - %3$s</string>
-  <string name="bug_description_2">%1$s: %2$s %3$s - %4$s</string>
   <string name="generic_bug">Bug</string>
   <string name="osmose_bug">Osmose</string>
   <string name="todo_title">Taak</string>
@@ -201,6 +199,7 @@
   <string name="search_objects_hint">Voer een JOSM filter/zoek expressie in</string>
   <string name="search_objects_use_regexps">Gebruik reguliere expressies</string>
   <string name="search_objects_unsupported">Niet ondersteunde expressie \"%1$s\"</string>
+  <string name="search_objects_query_overpass">Vraag op uit overpass</string>
   <!---->
   <string name="preset_search_hint">Voorkeuze zoekterm</string>
   <string name="preset_autopreset">Auto-voorkeuze</string>
@@ -243,6 +242,8 @@
   <!--Tile layer info dialog-->
   <string name="attribution">Attributie</string>
   <!--GPX info dialog-->
+  <string name="track_points">Trackpunten</string>
+  <string name="way_points">Wegpunten</string>
   <!--Too much data dialog-->
   <string name="too_much_data_title">Te veel gegevens ingeladen!</string>
   <string name="too_much_data_message">Je hebt %1$d Knopen ingeladen en daarmee is het ingestelde limiet overschreden. Dit zal zorgen voor een langzame ervaring en problemen met opslaan als je meer gegevens toevoegt.</string>
@@ -283,8 +284,15 @@
   <string name="evaluate">Evalueer</string>
   <string name="js_console_msg_live">Live modus!</string>
   <string name="js_console_msg_debug">Debug modus!</string>
+  <string name="console_input_hint">Voer code hier in</string>
   <string name="console_output_hint">Output zal hier worden getoond</string>
   <!--Overpass console-->
+  <string name="run">Rennen</string>
+  <string name="overpass_result">%1$d knoop/knopen, %2$d weg/wegen en %3$d relatie(s) gedownload.</string>
+  <string name="overpass_console">Overpass console</string>
+  <string name="select_result">Selecteer resultaat</string>
+  <string name="merge_result">Voeg resultaat samen</string>
+  <string name="overpass_query_would_overwrite">Resultaat zou veranderingen overschrijven. Vraag afgebroken.</string>
   <!---->
   <string name="error">Fout</string>
   <string name="warning">Waarschuwing</string>
@@ -363,6 +371,7 @@
   <string name="layer_geojson">GeoJSON</string>
   <string name="layer_mapillary">Mapillary</string>
   <string name="layer_grid">Raster</string>
+  <string name="layer_bookmarks">Bladwijzers</string>
   <string name="layer_gpx">GPX</string>
   <string name="layer_gpx_recording">GPX-opname</string>
   <string name="layer_photos">Foto\'s</string>
@@ -407,7 +416,6 @@
   <string name="layer_info_layer_not_available">Laaginformatie niet beschikbaar</string>
   <string name="layer_info_no_meta_data">Metagegevens niet geladen</string>
   <!--Mapillary layer-->
-  <string name="mapillary_image">mapillary %1$s</string>
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Verwijder foto</string>
   <string name="photo_viewer_delete_button">Permanent verwijderen</string>
@@ -450,6 +458,7 @@
   <!--Clear/Reset GPX Track-->
   <string name="clear_track_description">Stop met tracken en verwijder alle opgeslagen trackpunten. Dit kan niet ongedaan worden gemaakt.</string>
   <!--Measurement dialog-->
+  <string name="measure">Meting</string>
   <!--Tips-->
   <string name="tip_title">Wist je dat?</string>
   <string name="tip_check_label">Stop met tonen van optionele tips </string>
@@ -585,6 +594,8 @@
   <string name="toast_invalid_object">Ongeldig object</string>
   <string name="toast_openinghours_invalid">Ongeldige openingstijden waarde voor %1$s</string>
   <string name="toast_openinghours_autocorrected">Openingstijden waarde voor %1$s automatisch gecorrigeerd</string>
+  <string name="toast_exit_multiselect">Tik dubbel op een lege plek, of gebruik de ← pijl om multi-selectie af te sluiten</string>
+  <string name="toast_already_in_multiselect">Multi-selectie modus is al actief</string>
   <string name="toast_abort_actionmode">Gebruik de ← pijl om af te breken</string>
   <string name="toast_null_island">Voer geen elementen toe op 0°/0° (Null Island)</string>
   <string name="toast_string_too_long">Tekst is te lang (%1$d tekens), afgekapt!</string>
@@ -654,6 +665,7 @@
   <string name="toast_error_saving_bookmark">Kon bladwijzer niet opslaan</string>
   <string name="toast_error_loading_style">Kon stijl niet laden: %1$s</string>
   <string name="toast_only_one_source_supported">Per stijl wordt maar één bron ondersteund</string>
+  <string name="toast_style_file_too_large">De gegeven stijl is te groot en waarschijnlijk geen Mapbox-GL stijl. </string>
   <string name="toast_imagery_offset_download_failed">Verplaatsing download mislukt: %1$s</string>
   <string name="toast_download_server_version_failed">Download van server versie gefaald voor %1$s</string>
   <string name="toast_error_element_too_large">Element is te groot voor de eigenschappenbewerker</string>
@@ -839,6 +851,7 @@
   <string name="menu_set_position">Positie</string>
   <string name="menu_split">Splits</string>
   <string name="menu_remove_node_from_way">Verwijder knoop uit de weg</string>
+  <string name="menu_start_end_way">Begin/Einde van Weg</string>
   <string name="menu_extract">Extraheer knoop</string>
   <string name="menu_append">Voeg toe</string>
   <string name="menu_create_route">Route aanmaken</string>
@@ -869,6 +882,7 @@
   <string name="menu_gps_import">Importeer GPX-route...</string>
   <string name="menu_gps_goto_start">Ga naar start van GPX route</string>
   <string name="menu_gps_goto_first_waypoint">Ga naar eerste richtingspunt</string>
+  <string name="menu_gps_add_bookmark">Bladwijzer toevoegen…</string>
   <string name="menu_enable_gps_autodownload">Locatiegebaseerde auto-download</string>
   <string name="menu_enable_pan_and_zoom_auto_download">Sleep en zoom auto-download</string>
   <string name="menu_transfer">Verstuur...</string>
@@ -876,6 +890,7 @@
   <string name="menu_transfer_download_replace">Wis en download huidig gebied</string>
   <string name="menu_transfer_load_current">Laad huidige gebied</string>
   <string name="menu_transfer_load_replace">Wis en laad huidig gebied</string>
+  <string name="menu_transfer_query_overpass">Vraag op uit Overpass...</string>
   <string name="menu_transfer_upload">Upload gegevens naar OSM server...</string>
   <string name="menu_transfer_review">Controleer aanpassingen...</string>
   <string name="menu_transfer_update">Update gegevens</string>
@@ -933,7 +948,6 @@
   <string name="menu_tools_add_imagery_from_oam">Voeg luchtfotografie toe van OAM</string>
   <string name="menu_tools_flush_all_tile_caches">Leeg alle tegelopslag</string>
   <string name="menu_tools_background_properties">Achtergrondeigenschappen...</string>
-  <string name="menu_tools_update_imagery_configuration">Update configuratie</string>
   <string name="menu_tools_update_imagery_configuration_eli">Update configuratie van ELI</string>
   <string name="menu_tools_zoom_to_layer_extent">Zoom naar achtergrondlaag bereik</string>
   <string name="menu_tools_clear_clipboard">Leeg klembord</string>
@@ -948,10 +962,12 @@
   <string name="menu_preset_feedback">Geef feedback over voorkeuzen</string>
   <string name="menu_privacy">Privacy</string>
   <!--Background alignment-->
+  <string name="menu_tools_background_align">Luchtfoto\'s uitlijnen</string>
   <string name="menu_tools_background_align_reset">Resetten</string>
   <string name="menu_tools_background_align_zero">Nul</string>
   <string name="menu_tools_background_align_retrieve_from_db">Uit gegevensbank</string>
   <string name="menu_tools_background_align_retrieve_from_device">Van apparaat</string>
+  <string name="menu_tools_background_align_save_db">Sla op naar gegevensbank</string>
   <string name="menu_tools_background_align_save_device">Sla op naar apparaat</string>
   <string name="menu_tools_background_align_apply2all">Pas toe (alle zoomniveaus)</string>
   <string name="min_max_zoom">%1$d - %2$d</string>
@@ -967,6 +983,7 @@
   <string name="menu_layers_add_photolayer">Zet fotolaag aan</string>
   <string name="menu_layers_enable_mapillary_layer">Zet Mapillary-laag aan</string>
   <string name="menu_layers_configure">Configureer...</string>
+  <string name="menu_layers_background_align">Luchtfoto\'s uitlijnen...</string>
   <!---->
   <string name="menu_tools_apply_local_offset">Pas opgeslagen verplaatsing op luchtfotografie toe </string>
   <string name="menu_tools_background_contrast">Contrast</string>
@@ -978,7 +995,10 @@
   <string name="preset_menu_invert">Keer filter om</string>
   <!--element action mode menu-->
   <string name="menu_tags">Eigenschappen</string>
+  <!--ELement entry in context menu-->
+  <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
   <!--Text should be as short as possible-->
+  <string name="start_end_way_description">Naar Begin of Eind van Weg</string>
   <string name="menu_history">Geschiedenis</string>
   <string name="menu_history_web">Geschiedenis (Web)</string>
   <string name="menu_merge">Voeg samen</string>
@@ -1103,6 +1123,8 @@
   <string name="config_showWayIcons_summary">Toon het icoon van de best passende voorkeuze boven gebouwen.</string>
   <string name="config_tagFormEnabled_title">Weergave van tags</string>
   <string name="config_tagFormEnabled_summary">Weergave van tags bij wijzigen.</string>
+  <string name="config_supportPresetLabels_title">Toon labels van voorkeuzen</string>
+  <string name="configsupportPresetLabels_summary">Toon labels van voorkeuzen in het tag formulier.</string>
   <string name="config_showCameraAction_title">Weergeef camera-actie</string>
   <string name="config_showCameraAction_summary">Toon camera icoon in de actiebalk.</string>
   <string name="config_selectCameraApp_title">Foto app</string>
@@ -1127,14 +1149,13 @@
   <string name="config_showTolerance_summary">Toont gebied waar een element kan worden geselecteerd.</string>
   <string name="config_use_back_for_undo_title">Gebruik ← toets om ongedaan te maken</string>
   <string name="config_use_back_for_undo_summary">Gebruik ← toets om ongedaan te maken in hoofdwijzigscherm.</string>
-  <string name="config_enableLightTheme_title">Licht thema</string>
-  <string name="config_enableLightTheme_summary">Licht en witte achtergronden.</string>
+  <string name="config_theme_title">Thema</string>
   <string name="config_splitActionBarEnabled_title">Zet gesplitste actiebalk aan</string>
-  <string name="config_splitActionBarEnabled_summary">Sta een gespleten actiebalk toe, het gebruik is apparaat specifiek. Vereist herstarten van Vespucci, en Android 4.0 of later.</string>
   <string name="config_disableTranslations_title">Vertalingen uitzetten</string>
   <string name="config_disableTranslations_summary">Gebruik Engels voor de gebruikersinterface </string>
   <string name="config_maxInlineValues_title">Max. aantal waarden op een regel</string>
   <string name="config_maxInlineValues_summary">Maximaal aantal waarden dat op een regel in een tag formulier wordt getoond.</string>
+  <string name="config_maxInlineValues_current">%1$d waarden</string>
   <string name="config_autoLockDelay_title">Tijd voordat automatisch wordt vergrendeld</string>
   <string name="config_autoLockDelay_summary">Aantal seconden om te wachten alvorens automatisch te vergrendelen, 0 zet dit uit.</string>
   <string name="config_autoLockDelay_current">%1$d s</string>
@@ -1145,7 +1166,11 @@
   <string name="config_maxStrokeWidth_title">Maximale lijndikte</string>
   <string name="config_maxStrokeWidth_summary">Teken geen weg dikker dan dit</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>
+  <string name="config_uploadOk_title">Openstaande upload OK limiet</string>
+  <string name="config_uploadOk_summary">Als het aantal openstaande object uploads onder deze waarde ligt, zijn er geen problemen.</string>
   <string name="config_upload_current">%1$d objecten</string>
+  <string name="config_uploadWarn_title">Openstaande upload limiet waarschuwing</string>
+  <string name="config_uploadWarn_summary">Het aantal object uploads in behandeling onder deze limiet zal een waarschuwingsstatus tonen. Een aantal object uploads boven boven de limiet zal een foutstatus tonen.</string>
   <string name="config_uploadChecker_title">Uploadherinnering interval</string>
   <string name="config_uploadChecker_summary">Interval voor herinneringen als er ongepubliceerde wijzigingen zijn.</string>
   <string name="config_uploadChecker_current">%1$d uur</string>
@@ -1161,6 +1186,7 @@
   <string name="config_mapillary_min_zoom_current">%1$d</string>
   <string name="config_nameCap_summary">Automatische kapitalisatie van naam-tags bij invoer.</string>
   <string name="config_nameCap_title">Naam kapitalisatie</string>
+  <string name="config_longStringLimit_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Gegevens en wijzigen instellingen</string>
   <string name="config_category_editing_summary">Auto-download, opslaan en notificatieinstellingen</string>
@@ -1170,6 +1196,8 @@
   <string name="config_overrideRegionAddressTags_summary">Gebruik onze adres-tag configuratie boven regio-specifieke waarden.</string>
   <string name="config_address_tags">Adrestags</string>
   <string name="config_address_tags_summary">Tags die worden gebruikt voor adresvoorspelling.</string>
+  <string name="config_neighbourDistance_title">Afstand tussen naburige adressen</string>
+  <string name="config_neighbourDistance_summary">De afstand waarbinnen twee adressen kunnen worden beschouwd als buren</string>
   <string name="config_neighbourDistance_current">%1$d meter</string>
   <string name="config_enableNameSuggestions_title">Activeer naamsuggesties</string>
   <string name="config_enableNameSuggestions_summary">Zet suggesties aan voor de naam van een tag.</string>
@@ -1199,6 +1227,8 @@
   <string name="config_maxOffsetDistance_title">Max afstand voor opgeslagen luchtfoto verplaatstingen.</string>
   <string name="config_maxOffsetDistance_summary">De grootste afstand van een lokaal opgeslagen laagverplaasting die automatisch wordt toegepast.</string>
   <string name="config_maxOffsetDistance_current">%1$d meter</string>
+  <string name="config_useImperialUnits_title">Gebruik imperiale eenheden voor metingen.</string>
+  <string name="config_useImperialUnits_summary">Gebruik imperiale eenheden voor metingen in landen waar deze meestal worden gebruikt.</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Auto-download instellingen</string>
   <string name="config_category_auto_download_summary">Instellingen voor het automatisch downloaden van gegevens en taken</string>
@@ -1260,6 +1290,8 @@
   <string name="config_geocoderbutton_summary">Geocoders toevoegen, wijzigen en verwijderen voor zoekfunctionaliteit.</string>
   <string name="config_taginfoServer_title">Taginfo server</string>
   <string name="config_taginfoServer_summary">Taginfo server voor voorkeuze generatie</string>
+  <string name="config_overpassServer_title">Overpass server</string>
+  <string name="config_overpassServer_summary">Overpass server die zal worden gebruikt voor vragen</string>
   <!--Layer download and storage-->
   <string name="config_category_layers">Lagen downloaden en opslag</string>
   <string name="config_category_layers_summary">Tegelgebaseerde luchtfotografie achtergronden download en opslag.</string>
@@ -1288,6 +1320,8 @@
   <string name="config_autosaveChanges_current">%1$d</string>
   <string name="config_autosaveMaxFiles_title">Minimaal aantal OSC-bestanden onthouden</string>
   <string name="config_autosaveMaxFiles_current">%1$d</string>
+  <string name="config_gpxAutosaveInterval_title">Minimum GPX opslaan periode</string>
+  <string name="config_gpxAutosaveInterval_summary">Minimale periode in minuten tussen het opslaan van GPX-opnamen.</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">Overig</string>
   <string name="pref_enable_acra">Rapporteer app crashes</string>
@@ -1472,8 +1506,7 @@
   <!--Help system-->
   <string name="toast_nohelp">Geen help hier.</string>
   <!--Bookmarks-->
-  <string name="add_bookmark">Bladwijzer toevoegen…</string>
-  <string name="bookmarks_desc">Beschrijving</string>
+  <string name="bookmarks_desc">Naam</string>
   <string name="show_bookmarks">Bladwijzers…</string>
   <string name="_dots">⋮</string>
   <string name="gotobookmark">Gaan</string>
@@ -1488,4 +1521,5 @@
   <string name="node_id">knoop %1$d</string>
   <string name="way_id">weg %1$d</string>
   <string name="relation_id">relatie %1$d</string>
+  <!--Tile downloader diagnostics-->
 </resources>

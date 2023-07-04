@@ -7,6 +7,7 @@
   <string name="mode_correct">C-Modu</string>
   <string name="mode_address">Adres</string>
   <string name="mode_voice">Ses</string>
+  <!--additional short cuts-->
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Dikkat!</string>
   <string name="transfer_download_current_dialog_message">Değişiklikler yaptınız. Onları silmek yerine yüklemek ister misiniz?</string>
@@ -122,9 +123,6 @@
   <string name="openstreetbug_commit_fail">Görev değişiklikleri kaydedilemedi</string>
   <string name="openstreetbug_unknown_task_type">Bilinmeyen görev türü</string>
   <string name="openstreetbug_not_supported">%1$s desteklenmiyor.</string>
-  <string name="note_description">Not: %1$s - %2$s</string>
-  <string name="bug_description">%1$s: %2$s - %3$s</string>
-  <string name="bug_description_2">%1$s: %2$s %3$s - %4$s</string>
   <string name="generic_bug">Hata</string>
   <string name="osmose_bug">Ozmos</string>
   <string name="bug_long_description_1">%1$s: %2$s&lt;br&gt;&lt;br&gt;%3$s&lt;br&gt;&lt;br&gt;%4$s&lt;br&gt;</string>
@@ -784,7 +782,6 @@
   <string name="menu_tools_imagery">Daha fazla görüntü aracı…</string>
   <string name="menu_tools_add_imagery_from_oam">OAM\'den görüntü ekle</string>
   <string name="menu_tools_flush_all_tile_caches">Tüm döşeme önbelleklerini temizle</string>
-  <string name="menu_tools_update_imagery_configuration">Konfigürasyonu güncelle</string>
   <string name="menu_tools_update_imagery_configuration_eli">ELI\'den yapılandırmayı güncelle</string>
   <string name="menu_tools_zoom_to_layer_extent">Arka plan katman ölçüsüne yakınlaştır</string>
   <string name="menu_tools_clear_clipboard">Panoyu temizle</string>
@@ -823,6 +820,8 @@
   <string name="preset_menu_invert">Filtreleri ters çevir</string>
   <!--element action mode menu-->
   <string name="menu_tags">Özellikler</string>
+  <!--ELement entry in context menu-->
+  <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">Geçmiş</string>
   <string name="menu_merge">Katıl</string>
@@ -939,10 +938,8 @@
   <string name="config_showTolerance_summary">Bir elemanın seçilebileceği alanı görüntüler.</string>
   <string name="config_use_back_for_undo_title">Geri almak için ← tuşunu kullan</string>
   <string name="config_use_back_for_undo_summary">Ana düzenleme görünümünde geri almak için ← tuşunu kullanın.</string>
-  <string name="config_enableLightTheme_title">Açık tema</string>
-  <string name="config_enableLightTheme_summary">Açık ve beyaz arka planlar.</string>
+  <string name="config_theme_title">Tema</string>
   <string name="config_splitActionBarEnabled_title">Bölme eylem çubuğunu etkinleştir</string>
-  <string name="config_splitActionBarEnabled_summary">\"Bölünmüş eyleme izin ver\" çubuğu kullanımı cihaza özeldir. Vespucci\'yi yeniden başlatmayı ve Android 4.0 veya sonraki bir sürümü gerektirir.</string>
   <string name="config_maxInlineValues_title">Sıralı değerlerin maksimum sayısı</string>
   <string name="config_maxInlineValues_summary">Etiket biçiminde görüntülenen maksimum sıralı değer sayısı.</string>
   <string name="config_autoLockDelay_title">Otomatik kilitlemeden önce bekleme süresi</string>
@@ -964,6 +961,7 @@
   <string name="config_beepVolume_summary">Bip sesleri için ses seviyesi ayarı.</string>
   <string name="config_beepVolume_current">%1$d</string>
   <string name="config_mapillary_min_zoom_current">%1$d</string>
+  <string name="config_longStringLimit_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Veriler ve düzenleme ayarları</string>
   <string name="config_category_editing_summary">Otomatik indirme, kaydetme ve bildirim ayarları.</string>
@@ -1243,9 +1241,10 @@
   <!--Help system-->
   <string name="toast_nohelp">Burada yardım yok</string>
   <!--Bookmarks-->
-  <string name="bookmarks_desc">Açıklama</string>
+  <string name="bookmarks_desc">İsim</string>
   <!--Element types-->
   <string name="element_type_area">alan</string>
   <string name="element_type_relation">küme</string>
   <!--Element names with id-->
+  <!--Tile downloader diagnostics-->
 </resources>

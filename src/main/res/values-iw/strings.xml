@@ -7,6 +7,7 @@
   <string name="mode_correct">מצב תיקון (C)</string>
   <string name="mode_address">כתובתכ</string>
   <string name="mode_voice">קול</string>
+  <!--additional short cuts-->
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">זהירות!</string>
   <string name="transfer_download_current_dialog_message">ערכת שינויים. להעלות אותם במקום להתעלם מהם?</string>
@@ -131,9 +132,6 @@
   <string name="openstreetbug_commit_fail_with_message">לא ניתן לשמור את השינויים במשימה\n%1$s</string>
   <string name="openstreetbug_unknown_task_type">סוג המשימה אינו ידוע</string>
   <string name="openstreetbug_not_supported">אין תמיכה ב־%1$s.</string>
-  <string name="note_description">הערה: %1$s - %2$s</string>
-  <string name="bug_description">%1$s: %2$s - %3$s</string>
-  <string name="bug_description_2">%1$s: %2$s %3$s - %4$s</string>
   <string name="generic_bug">תקלה</string>
   <string name="osmose_bug">Osmose</string>
   <string name="todo_title">מטלה</string>
@@ -345,6 +343,7 @@
   <string name="layer_geojson">GeoJSON</string>
   <string name="layer_mapillary">Mapillary</string>
   <string name="layer_grid">רשת</string>
+  <string name="layer_bookmarks">סימניות</string>
   <string name="layer_gpx">GPX</string>
   <string name="layer_gpx_recording">הקלטת GPX</string>
   <string name="layer_photos">תמונות</string>
@@ -386,7 +385,6 @@
   <string name="layer_info_layer_not_available">פרטי השכבה לא זמינים</string>
   <string name="layer_info_no_meta_data">נתוני על לא נטענו</string>
   <!--Mapillary layer-->
-  <string name="mapillary_image">mapillary %1$s</string>
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">מחיקת תמונה</string>
   <string name="photo_viewer_delete_button">למחוק לצמיתות</string>
@@ -795,6 +793,7 @@
   <string name="menu_gps_track_managment">ניהול מסלול GPX…</string>
   <string name="menu_gps_goto_start">מעבר לתחילת מסלול ה־GPX</string>
   <string name="menu_gps_goto_first_waypoint">קפיצה לנקודת הדרך הראשונה</string>
+  <string name="menu_gps_add_bookmark">הוספת סימנייה…</string>
   <string name="menu_enable_gps_autodownload">הורדה אוטומטית על בסיס מיקום</string>
   <string name="menu_enable_pan_and_zoom_auto_download">הורדה אוטומטית בסריקה ובהתמקדות</string>
   <string name="menu_transfer">העברה…</string>
@@ -846,7 +845,6 @@
   <string name="menu_tools_imagery">כלי תמונות רקע נוספים…</string>
   <string name="menu_tools_add_imagery_from_oam">הוספת תמונות רקע מ־OAM</string>
   <string name="menu_tools_flush_all_tile_caches">פינוי כל מטמוני האריחים</string>
-  <string name="menu_tools_update_imagery_configuration">עדכון הגדרות</string>
   <string name="menu_tools_update_imagery_configuration_eli">עדכון הגדרות מ־ELI</string>
   <string name="menu_tools_zoom_to_layer_extent">לשנות את רמת התקריב עד להיקף שכבת הרקע</string>
   <string name="menu_tools_clear_clipboard">מחיקת לוח הגזירים</string>
@@ -886,6 +884,8 @@
   <string name="preset_menu_invert">היפוך מסננים</string>
   <!--element action mode menu-->
   <string name="menu_tags">מאפיינים</string>
+  <!--ELement entry in context menu-->
+  <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">היסטוריה</string>
   <string name="menu_history_web">היסטוריה (אינטרנט)</string>
@@ -1011,10 +1011,8 @@
   <string name="config_showTolerance_summary">מציג אזור בו ניתן לבחור פריטים.</string>
   <string name="config_use_back_for_undo_title">יש להשתמש בכפתור ← כדי לבטל</string>
   <string name="config_use_back_for_undo_summary">יש להשתמש בכפתור ← כדי לבטל בתצוגת עריכה ראשית.</string>
-  <string name="config_enableLightTheme_title">ערכת עיצוב בהירה</string>
-  <string name="config_enableLightTheme_summary">רקעים בהירים ולבנים.</string>
+  <string name="config_theme_title">נושא</string>
   <string name="config_splitActionBarEnabled_title">לאפשר סרגל פעולות מפוצל</string>
-  <string name="config_splitActionBarEnabled_summary">לאפשר סרגל פעולה מפוצל, השימוש תלוי מכשיר. דורש הפעלה של וספוצ׳י ו־Android 4.0 ומעלה.</string>
   <string name="config_disableTranslations_title">השבתת תרגומים</string>
   <string name="config_disableTranslations_summary">להשתמש באנגלית למנשק המשתמש</string>
   <string name="config_maxInlineValues_title">מספר מרבי של ערכים פנימיים</string>
@@ -1040,6 +1038,7 @@
   <string name="config_mapillary_min_zoom_title">רמת תקריב מזערית ל־Mapillary</string>
   <string name="config_mapillary_min_zoom_summary">רצת התקריב המזערכית שנדרשת לפני שהנתונים מ־Mapillary מוצגים.</string>
   <string name="config_mapillary_min_zoom_current">%1$d</string>
+  <string name="config_longStringLimit_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">הגדרות נתונים ועריכה</string>
   <string name="config_category_editing_summary">הגדרות הורדה אוטומטית, שמירה והתראות.</string>
@@ -1331,8 +1330,7 @@
   <!--Help system-->
   <string name="toast_nohelp">אין כאן עזרה.</string>
   <!--Bookmarks-->
-  <string name="add_bookmark">הוספת סימנייה…</string>
-  <string name="bookmarks_desc">תיאור</string>
+  <string name="bookmarks_desc">שם</string>
   <string name="show_bookmarks">סימניות…</string>
   <string name="_dots">⋮</string>
   <string name="gotobookmark">מעבר</string>
@@ -1341,4 +1339,5 @@
   <string name="element_type_area">שטח</string>
   <string name="element_type_relation">יחס</string>
   <!--Element names with id-->
+  <!--Tile downloader diagnostics-->
 </resources>

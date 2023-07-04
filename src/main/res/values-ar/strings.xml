@@ -7,6 +7,7 @@
   <string name="mode_correct">وضع الاكمال</string>
   <string name="mode_address">العنوان</string>
   <string name="mode_voice">صوت</string>
+  <!--additional short cuts-->
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">تنبيه!</string>
   <string name="transfer_download_current_dialog_message">لقد قمت بإجراء تغييرات.  هل تريد رفعها بدلا من التخلص منها؟</string>
@@ -135,9 +136,6 @@
   <string name="openstreetbug_commit_fail_with_message">لا يمكن حفظ تغييرات المهمة\n%1$s</string>
   <string name="openstreetbug_unknown_task_type">نوع مهمة غير معروف</string>
   <string name="openstreetbug_not_supported">%1$s غير مدعوم.</string>
-  <string name="note_description">ملاحظة: %1$s - %2$s</string>
-  <string name="bug_description">%1$s: %2$s - %3$s</string>
-  <string name="bug_description_2">%1$s: %2$s %3$s - %4$s</string>
   <string name="generic_bug">خلل برمجي</string>
   <string name="osmose_bug">أوسموس</string>
   <string name="todo_title">للانجاز لاحقاً</string>
@@ -371,6 +369,7 @@
   <string name="layer_geojson">GeoJSON</string>
   <string name="layer_mapillary">Mapillary</string>
   <string name="layer_grid">المسطرة</string>
+  <string name="layer_bookmarks">المفضلات</string>
   <string name="layer_gpx">GPX</string>
   <string name="layer_gpx_recording">تسجيل GPX</string>
   <string name="layer_photos">الصور</string>
@@ -415,7 +414,6 @@
   <string name="layer_info_layer_not_available">معلومات الطبقة غير متوفرة</string>
   <string name="layer_info_no_meta_data">لم يتم تحميل البيانات الوصفية</string>
   <!--Mapillary layer-->
-  <string name="mapillary_image">%1$s مابلاري </string>
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">حذف الصورة</string>
   <string name="photo_viewer_delete_button">حذف نهائيًا</string>
@@ -893,6 +891,7 @@
   <string name="menu_gps_import">استيراد مسار GPX ...</string>
   <string name="menu_gps_goto_start">انتقل إلى بداية مسار GPX</string>
   <string name="menu_gps_goto_first_waypoint">انتقل إلى نقطة المسار الأولى</string>
+  <string name="menu_gps_add_bookmark">إضافة للمفضلة…</string>
   <string name="menu_enable_gps_autodownload">تنزيل تلقائي بناء على موقعك الحالي</string>
   <string name="menu_enable_pan_and_zoom_auto_download">التنزيل التلقائي وفقًا للعرض الحالي</string>
   <string name="menu_transfer">تحويل…</string>
@@ -957,7 +956,6 @@
   <string name="menu_tools_add_imagery_from_oam">أضف صورًا من خريطة الشارع المفتوحة</string>
   <string name="menu_tools_flush_all_tile_caches">مسح جميع محفوظات ذاكرة صور الخرائط</string>
   <string name="menu_tools_background_properties">خصائص الخلفية ...</string>
-  <string name="menu_tools_update_imagery_configuration">تحديث التكوينات</string>
   <string name="menu_tools_update_imagery_configuration_eli">تحديث التكوينات من ELI</string>
   <string name="menu_tools_zoom_to_layer_extent">تكبير لمدى طبقة الخلفية</string>
   <string name="menu_tools_clear_clipboard">مسح الحافظة</string>
@@ -1002,6 +1000,8 @@
   <string name="preset_menu_invert">عكس المصفيت/الفلتر</string>
   <!--element action mode menu-->
   <string name="menu_tags">خصائص</string>
+  <!--ELement entry in context menu-->
+  <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">السجل التاريخي</string>
   <string name="menu_history_web">السجل التاريخي للعنصر (ويب)</string>
@@ -1155,10 +1155,8 @@
   <string name="config_showTolerance_summary">يعرض المنطقة التي يمكن فيها تحديد عنصر.</string>
   <string name="config_use_back_for_undo_title">استخدم مفتاح ← للتراجع</string>
   <string name="config_use_back_for_undo_summary">استخدم مفتاح ← للتراجع في عرض التحرير الرئيسي.</string>
-  <string name="config_enableLightTheme_title">مظهر خفيف</string>
-  <string name="config_enableLightTheme_summary">خلفيات بيضاء وخفيفة.</string>
+  <string name="config_theme_title">النمط</string>
   <string name="config_splitActionBarEnabled_title">تمكين تجزئة شريط الإجراءات</string>
-  <string name="config_splitActionBarEnabled_summary">السماح بتجزئة شريط الإجراءات ، والاستخدام خاص بالجهاز.  يتطلب تشغيل فسبوتشي مرة أخرى ، ونظام أندرويد 4.0 أو أحدث.</string>
   <string name="config_disableTranslations_title">تعطيل الترجمات</string>
   <string name="config_disableTranslations_summary">استخدم اللغة الإنجليزية كواجهة للتطبيق</string>
   <string name="config_maxInlineValues_title">الأعلى.  عدد القيم المضمنة</string>
@@ -1189,6 +1187,7 @@
   <string name="config_mapillary_min_zoom_current">%1$d</string>
   <string name="config_nameCap_summary">الكتابة التلقائية للوسوم بالأحرف الكبيرة على الإدخال</string>
   <string name="config_nameCap_title">كتابة الاسم بأحرف كبيرة</string>
+  <string name="config_longStringLimit_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">البيانات وتحرير الإعدادات</string>
   <string name="config_category_editing_summary">إعدادات التنزيل التلقائي والحفظ والتنبيهات.</string>
@@ -1524,8 +1523,7 @@
   <!--Help system-->
   <string name="toast_nohelp">لا توجد تعليمات هنا.</string>
   <!--Bookmarks-->
-  <string name="add_bookmark">إضافة للمفضلة…</string>
-  <string name="bookmarks_desc">الوصف</string>
+  <string name="bookmarks_desc">الاسم</string>
   <string name="show_bookmarks">المفضلات…</string>
   <string name="_dots">⋮</string>
   <string name="gotobookmark">انطلق</string>
@@ -1540,4 +1538,5 @@
   <string name="node_id">العقدة %1$d</string>
   <string name="way_id">الخط %1$d</string>
   <string name="relation_id">العلاقة %1$d</string>
+  <!--Tile downloader diagnostics-->
 </resources>

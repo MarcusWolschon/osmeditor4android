@@ -7,6 +7,7 @@
   <string name="mode_correct">C-läge</string>
   <string name="mode_address">Adress</string>
   <string name="mode_voice">Röst</string>
+  <!--additional short cuts-->
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Försiktig!</string>
   <string name="transfer_download_current_dialog_message">Du har gjort ändringar. Vill du ladda upp istället för att kassera dem?</string>
@@ -106,7 +107,6 @@
   <string name="openstreetbug_commit_ok">Uppgift-ändringar sparade</string>
   <string name="openstreetbug_unknown_task_type">Okänd uppgiftstyp</string>
   <string name="openstreetbug_not_supported">%1$s stöds inte.</string>
-  <string name="bug_description">%1$s: %2$s - %3$s</string>
   <string name="generic_bug">Fel</string>
   <string name="osmose_bug">Osmose</string>
   <string name="todo_title">Att göra</string>
@@ -115,11 +115,14 @@
   <string name="todo_list_and_comment">Lista %1$s&lt;br&gt;&lt;br&gt;%2$s</string>
   <string name="todo">Att göra</string>
   <string name="select_todo_list">Välj attgöra-lista</string>
+  <string name="bug_long_description_1">%1$s: %2$s&lt;br&gt;&lt;br&gt;%3$s&lt;br&gt;&lt;br&gt;%4$s&lt;br&gt;</string>
+  <string name="bug_long_description_2">&lt;br&gt;senast uppdaterad:&lt;br&gt;%1$s&lt;br&gt;id: %2$s</string>
   <string name="bug_element_1">%1$s (inte hämtad) #%2$d</string>
   <string name="bug_element_2">%1$s %2$s</string>
   <string name="maproulette_task_title">MapRoulette-uppgift</string>
   <string name="maproulette_task_coords">Lat %1$4g, Lon %2$4g</string>
   <string name="maproulette_task_explanations">Förklaringar</string>
+  <string name="maproulette_task_instructions">Instruktioner</string>
   <string name="maproulette_task_disable">Inaktivera</string>
   <!--Todo dialogs-->
   <string name="todo_list_legend">Attgöra-lista</string>
@@ -613,6 +616,8 @@
   <string name="preset_menu_invert">Invertera filter</string>
   <!--element action mode menu-->
   <string name="menu_tags">Egenskaper</string>
+  <!--ELement entry in context menu-->
+  <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">Historik</string>
   <string name="menu_merge">Anslut</string>
@@ -691,8 +696,7 @@
   <string name="config_fullscreenMode_title">Fullskärmsläge</string>
   <string name="config_showTolerance_title">Visa tolerans</string>
   <string name="config_showTolerance_summary">Visar område där ett element kan väljas.</string>
-  <string name="config_enableLightTheme_title">Ljust tema</string>
-  <string name="config_enableLightTheme_summary">Ljusa och vita bakgrunder.</string>
+  <string name="config_theme_title">Tema</string>
   <string name="config_autoLockDelay_current">%1$d s</string>
   <string name="config_enableAntiAliasing_title">Aktivera anti-aliasing</string>
   <string name="config_enableAntiAliasing_summary">Gör linjerna jämnare.</string>
@@ -703,6 +707,7 @@
   <string name="config_uploadChecker_current">%1$d timmar</string>
   <string name="config_beepVolume_current">%1$d</string>
   <string name="config_mapillary_min_zoom_current">%1$d</string>
+  <string name="config_longStringLimit_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Data och redigera inställningar</string>
   <string name="config_forceContextMenu_title">Använd alltid kontextmeny</string>
@@ -895,11 +900,12 @@
   <!--Help system-->
   <string name="toast_nohelp">Ingen hjälp här.</string>
   <!--Bookmarks-->
-  <string name="bookmarks_desc">Beskrivning</string>
+  <string name="bookmarks_desc">Namn</string>
   <string name="gotobookmark">Gå</string>
   <!--Element types-->
   <string name="element_type_way">väg</string>
   <string name="element_type_area">område</string>
   <string name="element_type_relation">relation</string>
   <!--Element names with id-->
+  <!--Tile downloader diagnostics-->
 </resources>

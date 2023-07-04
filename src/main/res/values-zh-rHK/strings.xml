@@ -6,6 +6,7 @@
   <string name="mode_indoor">室內</string>
   <string name="mode_correct">C 模式</string>
   <string name="mode_address">地址</string>
+  <!--additional short cuts-->
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">注意！</string>
   <string name="transfer_download_current_dialog_message">您有做了變更。您是否想上傳而非放棄它們？ </string>
@@ -109,8 +110,6 @@
   <string name="openstreetbug_commit_ok">任務變動已經儲存</string>
   <string name="openstreetbug_unknown_task_type">不知名任務類型</string>
   <string name="openstreetbug_not_supported">並不支援 %1$s</string>
-  <string name="note_description">備註：%1$s - %2$s</string>
-  <string name="bug_description">%1$s:%2$s - %3$s</string>
   <string name="generic_bug">Bug</string>
   <string name="osmose_bug">Osmose</string>
   <string name="bug_element_1">%1$s(未下載) %2$d</string>
@@ -634,6 +633,8 @@
   <string name="preset_menu_invert">反轉篩選</string>
   <!--element action mode menu-->
   <string name="menu_tags">屬性</string>
+  <!--ELement entry in context menu-->
+  <string name="element_for_menu_with_parents">%1$s(%2$s)</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">歷史</string>
   <string name="menu_merge">加入</string>
@@ -733,10 +734,8 @@
   <string name="config_showTolerance_summary">在元件周圍顯示可以被選取的區域。</string>
   <string name="config_use_back_for_undo_title">用 ← 作取消復原</string>
   <string name="config_use_back_for_undo_summary">在主編輯檢視中，使用 ← 復原。</string>
-  <string name="config_enableLightTheme_title">明亮主題</string>
-  <string name="config_enableLightTheme_summary">明亮主題與白色背景。</string>
+  <string name="config_theme_title">主題</string>
   <string name="config_splitActionBarEnabled_title">啟用拆分動作列</string>
-  <string name="config_splitActionBarEnabled_summary">允許拆分動作列，於特定裝置才有作用。需要重開程式並且 Android 4.0 或之後版本。</string>
   <string name="config_maxInlineValues_title">最大內嵌數值</string>
   <string name="config_maxInlineValues_summary">最大內嵌數值顯示的標籤表格。</string>
   <string name="config_autoLockDelay_title">自動鎖定所需等待的時間</string>
@@ -989,9 +988,10 @@
   <!--Help system-->
   <string name="toast_nohelp">這裡沒幫助。</string>
   <!--Bookmarks-->
-  <string name="bookmarks_desc">記述</string>
+  <string name="bookmarks_desc">名稱</string>
   <!--Element types-->
   <string name="element_type_area">範圍</string>
   <string name="element_type_relation">關係</string>
   <!--Element names with id-->
+  <!--Tile downloader diagnostics-->
 </resources>

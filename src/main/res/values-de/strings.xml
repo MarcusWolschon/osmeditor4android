@@ -7,6 +7,7 @@
   <string name="mode_correct">C-Modus</string>
   <string name="mode_address">Adresse</string>
   <string name="mode_voice">Stimme</string>
+  <!--additional short cuts-->
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Achtung!</string>
   <string name="transfer_download_current_dialog_message">Sie haben Änderungen vorgenommen. Möchten Sie diese hochladen, anstatt sie zu verwerfen?</string>
@@ -131,9 +132,9 @@
   <string name="openstreetbug_commit_fail_with_message">Aufgabenänderungen konnten nicht gespeichert werden\n%1$s</string>
   <string name="openstreetbug_unknown_task_type">Unbekannter Tasktyp</string>
   <string name="openstreetbug_not_supported">%1$s ist nicht unterstützt.</string>
-  <string name="note_description">Notiz: %1$s - %2$s</string>
-  <string name="bug_description">%1$s: %2$s - %3$s</string>
-  <string name="bug_description_2">%1$s: %2$s %3$s - %4$s</string>
+  <string name="note_description">%1$s - %2$s</string>
+  <string name="bug_description_191">%1$s - %2$s</string>
+  <string name="bug_description_2_191">%1$s %2$s - %3$s</string>
   <string name="generic_bug">Bug</string>
   <string name="osmose_bug">Osmose</string>
   <string name="todo_title">Aufgabe</string>
@@ -376,6 +377,7 @@
   <string name="layer_geojson">GeoJSON</string>
   <string name="layer_mapillary">Mapillary</string>
   <string name="layer_grid">Gitternetz</string>
+  <string name="layer_bookmarks">Lesezeichen…</string>
   <string name="layer_gpx">GPX</string>
   <string name="layer_gpx_recording">GPX Aufnahme</string>
   <string name="layer_photos">Fotos</string>
@@ -387,6 +389,7 @@
   <string name="layer_load_style">Stil laden…</string>
   <string name="layer_reset_style">Stil zurücksetzen</string>
   <string name="layer_select_imagery">Bildmaterial auswählen…</string>
+  <string name="layer_test">Test…</string>
   <string name="layer_category_all">Alle</string>
   <string name="layer_category_photo">Luftbild</string>
   <string name="layer_category_elevation">Terrain</string>
@@ -420,7 +423,7 @@
   <string name="layer_info_layer_not_available">Keine Ebeneninformation verfügbar</string>
   <string name="layer_info_no_meta_data">Metadaten nicht geladen</string>
   <!--Mapillary layer-->
-  <string name="mapillary_image">mapillary %1$s</string>
+  <string name="mapillary_image">%1$s</string>
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Foto löschen</string>
   <string name="photo_viewer_delete_button">Endgültig löschen</string>
@@ -887,6 +890,7 @@
   <string name="menu_gps_import">GPX-Track importieren…</string>
   <string name="menu_gps_goto_start">Zum Anfang des GPX-Tracks gehen</string>
   <string name="menu_gps_goto_first_waypoint">Zum ersten Wegpunkt gehen</string>
+  <string name="menu_gps_add_bookmark">Lesezeichen hinzufügen…</string>
   <string name="menu_enable_gps_autodownload">Auto-Download nach Standort</string>
   <string name="menu_enable_pan_and_zoom_auto_download">Auto-Download nach aktueller Ansicht</string>
   <string name="menu_transfer">Übertragung…</string>
@@ -952,7 +956,6 @@
   <string name="menu_tools_add_imagery_from_oam">Hintergrund von OAM hinzufügen</string>
   <string name="menu_tools_flush_all_tile_caches">Alle Tile-Caches leeren</string>
   <string name="menu_tools_background_properties">Hintergrundeigenschaften…</string>
-  <string name="menu_tools_update_imagery_configuration">Konfiguration aktualisieren</string>
   <string name="menu_tools_update_imagery_configuration_eli">Konfiguration von ELI aktualisieren</string>
   <string name="menu_tools_zoom_to_layer_extent">Auf Abdeckung des Hintergrunds zoomen</string>
   <string name="menu_tools_clear_clipboard">Zwischenablage löschen</string>
@@ -1000,6 +1003,9 @@
   <string name="preset_menu_invert">Filter umkehren</string>
   <!--element action mode menu-->
   <string name="menu_tags">Eigenschaften</string>
+  <!--ELement entry in context menu-->
+  <string name="element_for_menu">%1$s</string>
+  <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
   <!--Text should be as short as possible-->
   <string name="start_end_way_description">Gehe zum Start oder Ende des Weges</string>
   <string name="menu_history">Chronik</string>
@@ -1152,10 +1158,8 @@
   <string name="config_showTolerance_summary">Zeigt die Fläche, mit der ein Element selektiert werden kann.</string>
   <string name="config_use_back_for_undo_title">\" ← \"-Taste für \"Rückgängig machen\"</string>
   <string name="config_use_back_for_undo_summary">\"Zurückpfeil\" in der Hauptansicht für \"Rückgängig machen\" verwenden</string>
-  <string name="config_enableLightTheme_title">Helles Thema verwenden</string>
-  <string name="config_enableLightTheme_summary">Helle und weiße Hintergründe.</string>
+  <string name="config_theme_title">Thema</string>
   <string name="config_splitActionBarEnabled_title">Geteilte Action-Bar</string>
-  <string name="config_splitActionBarEnabled_summary">Geteilte Action-Bar erlauben, Nutzung hängt vom Gerät ab. Benötigt einen Neustart und eine Android-Version ab 4.0</string>
   <string name="config_disableTranslations_title">Übersetzungen ausschalten</string>
   <string name="config_disableTranslations_summary">Englisch für die Benutzerschnittstelle verwenden</string>
   <string name="config_maxInlineValues_title">Max. Anzahl direkt angezeigter Werte</string>
@@ -1191,6 +1195,7 @@
   <string name="config_mapillary_min_zoom_current">%1$d</string>
   <string name="config_nameCap_summary">Automatische Großschreibung von Tag-Namen bei der Eingabe</string>
   <string name="config_nameCap_title">Großschreibung des Namens</string>
+  <string name="config_longStringLimit_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Daten- und Bearbeitungseinstellungen</string>
   <string name="config_category_editing_summary">Auto-Download-Einstellungen</string>
@@ -1399,6 +1404,9 @@
   <!--element description-->
   <string name="address_housenumber">Adresse %1$s</string>
   <string name="address_housenumber_street">Adresse %1$s %2$s</string>
+  <string name="description_id">%1$s #%2$s</string>
+  <string name="description_type_id">%1$s %2$s #%3$s</string>
+  <string name="type_id">%1$s #%2$s</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">Knoten verschoben</string>
   <string name="undo_action_moveway">Weg verschoben</string>
@@ -1511,8 +1519,7 @@ in %1$d m %2$s</string>
   <!--Help system-->
   <string name="toast_nohelp">Keine Hilfe zu diesem Thema!</string>
   <!--Bookmarks-->
-  <string name="add_bookmark">Lesezeichen hinzufügen…</string>
-  <string name="bookmarks_desc">Beschreibung</string>
+  <string name="bookmarks_desc">Name</string>
   <string name="show_bookmarks">Lesezeichen…</string>
   <string name="_dots">⋮</string>
   <string name="gotobookmark">Los</string>
@@ -1527,4 +1534,5 @@ in %1$d m %2$s</string>
   <string name="node_id">Knoten %1$d</string>
   <string name="way_id">Weg %1$d</string>
   <string name="relation_id">Relation %1$d</string>
+  <!--Tile downloader diagnostics-->
 </resources>

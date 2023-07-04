@@ -31,6 +31,11 @@
         <item>Schon behoben</item>
         <item>Zu schwierig</item>
     </string-array>
+    <string-array name="todo_state">
+        <item>Offen</item>
+        <item>Geschlossen</item>
+        <item>Übersprungen</item> 
+    </string-array>
     <string-array name="followGPSbutton_entries">
         <item>Links</item>
         <item>Rechts</item>
@@ -76,4 +81,7 @@
         <item>Großschreibung aller Wörter</item>
         <item>Großschreibung am Satzanfang</item>
     </string-array>
+    <string name="theme_follow_entry">System folgen</string>
+    <string name="theme_light_entry">Hell</string>
+    <string name="theme_dark_entry">Dunkel</string>
     </resources>
