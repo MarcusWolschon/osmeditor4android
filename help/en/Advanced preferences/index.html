@@ -55,6 +55,10 @@
 </li>
                                     
 <li>
+    <a href="../19.0.0%20Release%20notes/" class="dropdown-item">19.1 BETA Release notes</a>
+</li>
+                                    
+<li>
     <a href="../19.0.0%20Release%20notes/" class="dropdown-item">19.0.0 Release notes</a>
 </li>
                                     
@@ -438,7 +442,7 @@
 <p>On devices without hardware buttons Vespucci can run in full screen mode, that means that "virtual" navigation buttons will be automatically hidden while the map is displayed, providing more space on the screen for the map. Depending on your device this may work well or not.  </p>
 <p>In <em>Auto</em> mode we try to determine automatically if using full screen mode is sensible or not, setting it to <em>Force</em> or <em>Never</em> skips the automatic check and full screen mode will always be used or always not be used respectively. <em>No statusbar</em> will additionally try to remove Androids status bar besides forcing full screen mode.</p>
 <p>On devices running Android 11 or higher the <em>Auto</em> mode will never turn full screen mode on as Androids gesture navigation provides a viable alternative to it. </p>
-<p>Default on Android 4.4 and later: <em>Auto</em>, 4.0 - 4.3: <em>Never</em>. </p>
+<p>Default on Android 4.4 - 10:0: <em>Auto</em>, 4.0 - 4.3 and 11.0 and later: <em>Never</em>. </p>
 <p>You need to restart the app for changes to this setting to take effect.</p>
 <h3 id="map-screen-orientation">Map screen orientation<a class="headerlink" href="#map-screen-orientation" title="Permanent link">#</a></h3>
 <p>If set to any other value than <em>Auto</em> Vespucci will try to override your device settings for screen rotation.</p>
@@ -446,14 +450,16 @@
 <p>Show halos indicating the size of the "touch areas" around elements. Default: <em>on</em>.</p>
 <h3 id="use-back-key-for-undo">Use back key for Undo<a class="headerlink" href="#use-back-key-for-undo" title="Permanent link">#</a></h3>
 <p>Use the back key for undo. Default: <em>off</em>.</p>
-<h3 id="light-theme">Light theme<a class="headerlink" href="#light-theme" title="Permanent link">#</a></h3>
-<p>Use a theme with a light background. Default: <em>on</em>. You need to restart the app for changes to this setting to take effect.</p>
+<h3 id="theme">Theme<a class="headerlink" href="#theme" title="Permanent link">#</a></h3>
+<p>Select the theme to use. <em>Follow system</em> will follow the setting in the system preferences as far as possible, <em>Light</em> and <em>Dark</em> will fix the setting on the respective theme. <em>Follow system</em> is only available on Android 10 and later. Default: <em>Follow system</em>. You need to restart the app for changes to this setting to take effect.</p>
 <h3 id="enable-split-action-bar">Enable split action bar<a class="headerlink" href="#enable-split-action-bar" title="Permanent link">#</a></h3>
 <p>Show the menu buttons at the bottom of the screen. Default: <em>on</em>. You need to restart the app for changes to this setting to take effect.</p>
 <h3 id="disable-translations">Disable translations<a class="headerlink" href="#disable-translations" title="Permanent link">#</a></h3>
 <p>Use English for the user interface. Google does not provide a supported way to switch languages for individual apps, as a result this setting relies on multiple workarounds that may, or may not, work on your device. Preset translations can be disabled in the preset configurations. </p>
 <h3 id="max-number-of-inline-values">Max. number of inline values<a class="headerlink" href="#max-number-of-inline-values" title="Permanent link">#</a></h3>
 <p>Maximum number of values that will directly be displayed in the form based editor for Tags with pre-determined values. Default: <em>4</em>.</p>
+<h3 id="long-string-limit">Long string limit<a class="headerlink" href="#long-string-limit" title="Permanent link">#</a></h3>
+<p>Limit from which, instead of an inline text field, a modal will be displayed will be used for text editing in the form based editor. The modal will be displayed if either the existing text is longer than the limit, or if the preset text field length attribute is longer than the limit. Default: <em>255</em>.</p>
 <h3 id="time-to-wait-before-auto-locking">Time to wait before auto-locking<a class="headerlink" href="#time-to-wait-before-auto-locking" title="Permanent link">#</a></h3>
 <p>How long to wait before auto-locking the map display, setting the value to 0 disables the auto-locking. Default <em>60 seconds</em>.</p>
 <h3 id="enable-anti-aliasing">Enable Anti-Aliasing<a class="headerlink" href="#enable-anti-aliasing" title="Permanent link">#</a></h3>
@@ -683,7 +689,7 @@ This is used both for data and tasks. Default: <em>17</em>. </p>
 <p>On devices without hardware buttons Vespucci can run in full screen mode, that means that "virtual" navigation buttons will be automatically hidden while the map is displayed, providing more space on the screen for the map. Depending on your device this may work well or not.  </p>
 <p>In <em>Auto</em> mode we try to determine automatically if using full screen mode is sensible or not, setting it to <em>Force</em> or <em>Never</em> skips the automatic check and full screen mode will always be used or always not be used respectively. <em>No statusbar</em> will additionally try to remove Androids status bar besides forcing full screen mode.</p>
 <p>On devices running Android 11 or higher the <em>Auto</em> mode will never turn full screen mode on as Androids gesture navigation provides a viable alternative to it. </p>
-<p>Default on Android 4.4 and later: <em>Auto</em>, 4.0 - 4.3: <em>Never</em>. </p>
+<p>Default on Android 4.4 - 10:0: <em>Auto</em>, 4.0 - 4.3 and 11.0 and later: <em>Never</em>. </p>
 <p>You need to restart the app for changes to this setting to take effect.</p>
 <h3 id="map-screen-orientation">Map screen orientation<a class="headerlink" href="#map-screen-orientation" title="Permanent link">#</a></h3>
 <p>If set to any other value than <em>Auto</em> Vespucci will try to override your device settings for screen rotation.</p>
@@ -691,14 +697,16 @@ This is used both for data and tasks. Default: <em>17</em>. </p>
 <p>Show halos indicating the size of the "touch areas" around elements. Default: <em>on</em>.</p>
 <h3 id="use-back-key-for-undo">Use back key for Undo<a class="headerlink" href="#use-back-key-for-undo" title="Permanent link">#</a></h3>
 <p>Use the back key for undo. Default: <em>off</em>.</p>
-<h3 id="light-theme">Light theme<a class="headerlink" href="#light-theme" title="Permanent link">#</a></h3>
-<p>Use a theme with a light background. Default: <em>on</em>. You need to restart the app for changes to this setting to take effect.</p>
+<h3 id="theme">Theme<a class="headerlink" href="#theme" title="Permanent link">#</a></h3>
+<p>Select the theme to use. <em>Follow system</em> will follow the setting in the system preferences as far as possible, <em>Light</em> and <em>Dark</em> will fix the setting on the respective theme. <em>Follow system</em> is only available on Android 10 and later. Default: <em>Follow system</em>. You need to restart the app for changes to this setting to take effect.</p>
 <h3 id="enable-split-action-bar">Enable split action bar<a class="headerlink" href="#enable-split-action-bar" title="Permanent link">#</a></h3>
 <p>Show the menu buttons at the bottom of the screen. Default: <em>on</em>. You need to restart the app for changes to this setting to take effect.</p>
 <h3 id="disable-translations">Disable translations<a class="headerlink" href="#disable-translations" title="Permanent link">#</a></h3>
 <p>Use English for the user interface. Google does not provide a supported way to switch languages for individual apps, as a result this setting relies on multiple workarounds that may, or may not, work on your device. Preset translations can be disabled in the preset configurations. </p>
 <h3 id="max-number-of-inline-values">Max. number of inline values<a class="headerlink" href="#max-number-of-inline-values" title="Permanent link">#</a></h3>
 <p>Maximum number of values that will directly be displayed in the form based editor for Tags with pre-determined values. Default: <em>4</em>.</p>
+<h3 id="long-string-limit">Long string limit<a class="headerlink" href="#long-string-limit" title="Permanent link">#</a></h3>
+<p>Limit from which, instead of an inline text field, a modal will be displayed will be used for text editing in the form based editor. The modal will be displayed if either the existing text is longer than the limit, or if the preset text field length attribute is longer than the limit. Default: <em>255</em>.</p>
 <h3 id="time-to-wait-before-auto-locking">Time to wait before auto-locking<a class="headerlink" href="#time-to-wait-before-auto-locking" title="Permanent link">#</a></h3>
 <p>How long to wait before auto-locking the map display, setting the value to 0 disables the auto-locking. Default <em>60 seconds</em>.</p>
 <h3 id="enable-anti-aliasing">Enable Anti-Aliasing<a class="headerlink" href="#enable-anti-aliasing" title="Permanent link">#</a></h3>
@@ -853,7 +861,7 @@ This is used both for data and tasks. Default: <em>17</em>. </p>
         <footer class="col-md-12">
             <hr>
 	    <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 19.0.0 </p>
+	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 19.1.0 </p>
         </footer>
         <script>
             var base_url = "../../..",
