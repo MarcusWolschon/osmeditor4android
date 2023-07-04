@@ -2,6 +2,7 @@
 
 19.0.3:
 
+- Fix use different tag for task download progress dialog
 - Fix Synchronize undo and nearest POI sorting with the StorageDelegator
 - Fix de-support path patterns for Android pre-9.0
 - Fix protect against null start pos in photo viewer
