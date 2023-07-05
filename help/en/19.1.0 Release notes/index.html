@@ -408,6 +408,8 @@ a custom modal that displays icons as a concise way of indicating the object typ
 <h3 id="name-templates">Name templates<a class="headerlink" href="#name-templates" title="Permanent link">#</a></h3>
 <p>We now support JOSM style name templates in the presets and the default presets have been extended with these for nearly all route items. On matching objects without a name tag these will be used to generate a label for display purposes in the disambiguation menu and for nodes and closed ways. This removes the need for fake names for routes and allows to generate a descriptive label automatically, for example from "from" and "to" tags.</p>
 <p>Name templates are included in the translation files and can be localized. </p>
+<p>Note: JOSM does not implement a consistent grammar for name templates, for example it doesn't require that quotes are escaped when they are nested in some situations. 
+Our implementation will differ from JOSM for such reasons, however any template that works for Vespucci should work with JOSM too. </p>
 <h3 id="modal-for-entering-longer-text-in-tags">Modal for entering longer text in tags<a class="headerlink" href="#modal-for-entering-longer-text-in-tags" title="Permanent link">#</a></h3>
 <p>A small number of OSM tags can contain longer texts, for example <em>description</em> and <em>inscription</em> tags these are difficult to enter in the standard one line text field. To make this simpler
 for longer pieces of texts we've added a dedicated modal for text entry.</p>
@@ -486,6 +488,8 @@ a custom modal that displays icons as a concise way of indicating the object typ
 <h3 id="name-templates">Name templates<a class="headerlink" href="#name-templates" title="Permanent link">#</a></h3>
 <p>We now support JOSM style name templates in the presets and the default presets have been extended with these for nearly all route items. On matching objects without a name tag these will be used to generate a label for display purposes in the disambiguation menu and for nodes and closed ways. This removes the need for fake names for routes and allows to generate a descriptive label automatically, for example from "from" and "to" tags.</p>
 <p>Name templates are included in the translation files and can be localized. </p>
+<p>Note: JOSM does not implement a consistent grammar for name templates, for example it doesn't require that quotes are escaped when they are nested in some situations. 
+Our implementation will differ from JOSM for such reasons, however any template that works for Vespucci should work with JOSM too. </p>
 <h3 id="modal-for-entering-longer-text-in-tags">Modal for entering longer text in tags<a class="headerlink" href="#modal-for-entering-longer-text-in-tags" title="Permanent link">#</a></h3>
 <p>A small number of OSM tags can contain longer texts, for example <em>description</em> and <em>inscription</em> tags these are difficult to enter in the standard one line text field. To make this simpler
 for longer pieces of texts we've added a dedicated modal for text entry.</p>
