@@ -157,7 +157,10 @@ Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/
 |                        | text_context             | ignored   |
 |                        | alternative              | extension | If "true", the linked to preset is an alternative tagging for the object in question
 
+## Name templates
 
+The Vespucci name templates differ slightly from the JOSM implementation, in particular nested quotes need to be escaped, however any template that works with Vespucci should
+work with JOSM.
 
 ## Translation <a name="Translation"></a>
 
