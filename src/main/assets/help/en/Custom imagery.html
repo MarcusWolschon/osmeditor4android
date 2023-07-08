@@ -27,6 +27,7 @@
 <h3>Supported place holders</h3>
 <p>Place holders are replaced when the application retrieves imagery files from the source and are replaced by calculated values. There are some variants even between applications that in principle use the same system, which are noted for completeness sake below.</p>
 <p>The place holders have the general format of <strong>{</strong> <em>place holder name</em> <strong>}</strong>.</p>
+<p><strong>{apikey}</strong> api key for sources that require it. <em>JOSM</em>, <em>iD</em>, <em>Vespucci (only in configuration files)</em> see <a href="https://github.com/MarcusWolschon/osmeditor4android/blob/master/src/main/assets/keys2-default.txt">key configuration example</a> for more information.</p>
 <p><strong>{zoom}</strong> the zoom level</p>
 <p><strong>{x}</strong> the x tile number</p>
 <p><strong>{y}</strong> the y tile number</p>
@@ -35,6 +36,7 @@
 <p><strong>{switch:a,b,c}</strong> rotating server selection (replace <em>a,b,c</em> by the actual sub-domains). <em>JOSM</em>, <em>iD</em>, <em>Vespucci</em></p>
 <p><strong>{quadkey}</strong> used for Bing. <em>Vespucci</em></p>
 <p><strong>{proj}</strong> projection for WMS servers. <em>JOSM</em>, <em>Vespucci (only in configuration files)</em></p>
+<p><strong>{wkid}</strong> projection for proprietary ESRI servers. <em>JOSM</em>, <em>Vespucci (only in configuration files)</em></p>
 <p><strong>{width}</strong> tile width for WMS servers. <em>JOSM</em>, <em>Vespucci</em></p>
 <p><strong>{height}</strong> tile height for WMS servers. <em>JOSM</em>, <em>Vespucci</em></p>
 <p><strong>{bbox}</strong> bounding box in <em>proj</em> coordinates for WMS servers. <em>JOSM</em>, <em>Vespucci</em></p>

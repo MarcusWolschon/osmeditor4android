@@ -252,11 +252,8 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
      */
     private static void addCoverageFromLayer(@NonNull SQLiteDatabase db, @NonNull TileLayerSource layer) {
         // insert coverage areas
-        List<CoverageArea> coverages = layer.getCoverage();
-        if (coverages != null) {
-            for (CoverageArea ca : coverages) {
-                addCoverage(db, layer.getId(), ca);
-            }
+        for (CoverageArea ca : layer.getCoverage()) {
+            addCoverage(db, layer.getId(), ca);
         }
     }
 

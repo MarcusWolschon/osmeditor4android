@@ -88,10 +88,12 @@ import okhttp3.ResponseBody;
  *
  */
 public class TileLayerSource implements Serializable {
+
     private static final String DEBUG_TAG = TileLayerSource.class.getSimpleName();
 
     private static final long serialVersionUID = 5L;
 
+    private static final String EPSG_PREFIX = "EPSG:";
     // EPSG:3857 and historic synonyms
     public static final String        EPSG_3857            = "EPSG:3857";
     public static final String        EPSG_900913          = "EPSG:900913";
@@ -118,6 +120,26 @@ public class TileLayerSource implements Serializable {
     public static final String LAYER_BING      = "BING";
 
     private static final String SWITCH_START = "{switch:";
+
+    // supported URL placeholders
+    private static final String APIKEY_PLACEHOLDER    = "apikey";
+    private static final String CULTURE_PLACEHOLDER   = "culture";
+    private static final String BBOX_PLACEHOLDER      = "bbox";
+    private static final String HEIGHT_PLACEHOLDER    = "height";
+    private static final String WIDTH_PLACEHOLDER     = "width";
+    private static final String PROJ_PLACEHOLDER      = "proj";
+    private static final String WKID_PLACEHOLDER      = "wkid";
+    private static final String SUBDOMAIN_PLACEHOLDER = "subdomain";
+    private static final String QUADKEY_PLACEHOLDER   = "quadkey";
+    private static final String MINUS_Y_PLACEHOLDER   = "-y";
+    private static final String TY_PLACEHOLDER        = "ty";
+    private static final String ZOOM_PLACEHOLDER      = "zoom";
+    private static final String Z_PLACEHOLDER         = "z";
+    private static final String Y_PLACEHOLDER         = "y";
+    private static final String X_PLACEHOLDER         = "x";
+
+    private static final char PLACEHOLDER_END   = '}';
+    private static final char PLACEHOLDER_START = '{';
 
     private static final String WMS_VERSION_130 = "1.3.0";
 
@@ -817,11 +839,10 @@ public class TileLayerSource implements Serializable {
             TileLayerSource overlay = overlayServerList.get(id);
             if (overlay != null) {
                 return overlay;
-            } else {
-                TileLayerSource background = backgroundServerList.get(id);
-                if (background != null) {
-                    return background;
-                }
+            }
+            TileLayerSource background = backgroundServerList.get(id);
+            if (background != null) {
+                return background;
             }
         }
         // layer couldn't be found in memory, check database
@@ -1090,16 +1111,6 @@ public class TileLayerSource implements Serializable {
      */
     public int getMaxZoomLevel() {
         checkMetaData();
-        // if (providers != null && providers.size() > 0) {
-        // zoomLevelMax = 0;
-        // BoundingBox bbox = Application.mainActivity.getMap().getViewBox();
-        // for (Provider p:providers) {
-        // Provider.CoverageArea ca = p.getCoverageArea((bbox.getLeft() + bbox.getWidth()/2)/1E7d, bbox.getCenterLat());
-        // if (ca != null && ca.zoomMax > zoomLevelMax)
-        // zoomLevelMax = ca.zoomMax;
-        // Log.d("OpenStreetMapTileServer","Provider " + p.getAttribution() + " max zoom " + zoomLevelMax);
-        // }
-        // }
         return getMaxZoom();
     }
 
@@ -1396,7 +1407,8 @@ public class TileLayerSource implements Serializable {
         Collections.sort(list, (t1, t2) -> {
             if (t1.preference < t2.preference) {
                 return 1;
-            } else if (t1.preference > t2.preference) {
+            }
+            if (t1.preference > t2.preference) {
                 return -1;
             }
             if (t1.defaultLayer != t2.defaultLayer) {
@@ -1406,13 +1418,12 @@ public class TileLayerSource implements Serializable {
             double t2Size = coverageSize(t2.getCoverage());
             if (t1Size != t2Size) {
                 return t1Size < t2Size ? -1 : 1;
-            } else {
-                if (t1.endDate != t2.endDate) {
-                    // assumption no end date == ongoing
-                    return t1.endDate < t2.endDate ? 1 : -1;
-                }
-                return t1.getName().compareToIgnoreCase(t2.getName()); // alphabetic
             }
+            if (t1.endDate != t2.endDate) {
+                // assumption no end date == ongoing
+                return t1.endDate < t2.endDate ? 1 : -1;
+            }
+            return t1.getName().compareToIgnoreCase(t2.getName()); // alphabetic
         });
         // add NONE
         if (noneLayer != null) {
@@ -1427,14 +1438,12 @@ public class TileLayerSource implements Serializable {
      * @param areas List of ConverageAreas
      * @return an approximate size value in WGS84 degrees^2
      */
-    private static double coverageSize(@Nullable List<CoverageArea> areas) {
+    private static double coverageSize(@NonNull List<CoverageArea> areas) {
         double result = 0;
-        if (areas != null) {
-            for (CoverageArea area : areas) {
-                BoundingBox box = area.getBoundingBox();
-                if (box != null) {
-                    result = +box.getWidth() / 1E7D * box.getHeight() / 1E7D;
-                }
+        for (CoverageArea area : areas) {
+            BoundingBox box = area.getBoundingBox();
+            if (box != null) {
+                result = +box.getWidth() / 1E7D * box.getHeight() / 1E7D;
             }
         }
         return result == 0 ? GeoMath.MAX_LON * GeoMath.MAX_COMPAT_LAT * 4 : result;
@@ -1648,7 +1657,7 @@ public class TileLayerSource implements Serializable {
      */
     public String replaceGeneralParameters(@NonNull final String s) {
         final Locale l = Util.getPrimaryLocale(ctx.getResources());
-        return replaceParameter(s, "culture", l.getLanguage().toLowerCase(Locale.US) + "-" + l.getCountry().toLowerCase(Locale.US));
+        return replaceParameter(s, CULTURE_PLACEHOLDER, l.getLanguage().toLowerCase(Locale.US) + "-" + l.getCountry().toLowerCase(Locale.US));
     }
 
     private static final int BASE_STATE  = 0;
@@ -1677,39 +1686,37 @@ public class TileLayerSource implements Serializable {
         int state = BASE_STATE;
         for (char c : tileUrl.toCharArray()) {
             if (state == BASE_STATE) {
-                if (c == '{') {
+                if (c == PLACEHOLDER_START) {
                     state = PARAM_STATE;
                     param.setLength(0); // reset
                 } else {
                     builder.append(c);
                 }
             } else {
-                if (c == '}') {
+                if (c == PLACEHOLDER_END) {
                     state = BASE_STATE;
                     String p = param.toString();
                     switch (p) {
-                    case "x":
+                    case X_PLACEHOLDER:
                         builder.append(Integer.toString(aTile.x));
                         break;
-                    case "y":
+                    case Y_PLACEHOLDER:
                         builder.append(Integer.toString(aTile.y));
                         break;
-                    case "z":
+                    case Z_PLACEHOLDER:
+                    case ZOOM_PLACEHOLDER:
                         builder.append(Integer.toString(aTile.zoomLevel));
                         break;
-                    case "zoom":
-                        builder.append(Integer.toString(aTile.zoomLevel));
-                        break;
-                    case "ty":
-                    case "-y":
+                    case TY_PLACEHOLDER:
+                    case MINUS_Y_PLACEHOLDER:
                         int ymax = 1 << aTile.zoomLevel;
                         int y = ymax - aTile.y - 1;
                         builder.append(Integer.toString(y));
                         break;
-                    case "quadkey":
+                    case QUADKEY_PLACEHOLDER:
                         builder.append(quadTree(aTile));
                         break;
-                    case "subdomain":
+                    case SUBDOMAIN_PLACEHOLDER:
                         // Rotate through the list of sub-domains
                         String subdomain = null;
                         synchronized (getSubdomains()) {
@@ -1722,16 +1729,19 @@ public class TileLayerSource implements Serializable {
                             builder.append(subdomain);
                         }
                         break;
-                    case "proj": // WMS support from here on
+                    case WKID_PLACEHOLDER: // ESRI proprietary
+                        builder.append(proj.startsWith(EPSG_PREFIX) ? proj.substring(EPSG_PREFIX.length()) : proj);
+                        break;
+                    case PROJ_PLACEHOLDER: // WMS support from here on
                         builder.append(proj);
                         break;
-                    case "width":
+                    case WIDTH_PLACEHOLDER:
                         builder.append(Integer.toString(tileWidth));
                         break;
-                    case "height":
+                    case HEIGHT_PLACEHOLDER:
                         builder.append(Integer.toString(tileHeight));
                         break;
-                    case "bbox":
+                    case BBOX_PLACEHOLDER:
                         builder.append(wmsBox(aTile));
                         break;
                     default:
@@ -1751,6 +1761,7 @@ public class TileLayerSource implements Serializable {
      * @param aTile The tile coordinates to convert
      * @return The QuadTree as String.
      */
+    @NonNull
     String quadTree(final MapTile aTile) {
         quadKey.setLength(0);
         for (int i = aTile.zoomLevel; i > 0; i--) {
@@ -1767,66 +1778,88 @@ public class TileLayerSource implements Serializable {
         return quadKey.toString();
     }
 
+    private static final Pattern WMS_VERSION = Pattern.compile("[\\?\\&]version=([0-9\\.]+)", Pattern.CASE_INSENSITIVE);
+
     /**
      * Converts TMS tile coordinates to WMS bounding box for EPSG:3857/900913 and EPSG:4326
      * 
-     * As side effects this will extract the projection from the url if not already set and determine if we need to flip
+     * As side effect this will extract the projection from the url if not already set and determine if we need to flip
      * the axis
      * 
      * @param aTile The tile coordinates to convert
      * @return a WMS bounding box string
      */
+    @NonNull
     String wmsBox(@NonNull final MapTile aTile) {
         boxBuilder.setLength(0);
         if (proj != null) {
+            final int zoomLevel = aTile.zoomLevel;
             if (is3857compatible(proj)) {
-                int ymax = 1 << aTile.zoomLevel;
+                int ymax = 1 << zoomLevel;
                 int y = ymax - aTile.y - 1;
-                boxBuilder.append(GeoMath.tile2lonMerc(tileWidth, aTile.x, aTile.zoomLevel)).append(',');
-                boxBuilder.append(GeoMath.tile2latMerc(tileHeight, y, aTile.zoomLevel)).append(',');
-                boxBuilder.append(GeoMath.tile2lonMerc(tileWidth, aTile.x + 1, aTile.zoomLevel)).append(',');
-                boxBuilder.append(GeoMath.tile2latMerc(tileHeight, y + 1, aTile.zoomLevel));
-            } else if (EPSG_4326.equals(proj)) {
-                if (wmsAxisOrder == null) {
-                    // fix craziness that WMS servers >= version 1.3 use the ordering of the axis
-                    // in the EPSG definition, which means it changes for 4326
-                    Pattern versionPattern = Pattern.compile("[\\?\\&]version=([0-9\\.]+)", Pattern.CASE_INSENSITIVE);
-                    Matcher matcher = versionPattern.matcher(originalUrl);
-                    if (matcher.find()) {
-                        String versionStr = matcher.group(1);
-                        if (versionStr != null) {
-                            Version version = new Version(versionStr);
-                            wmsAxisOrder = version.largerThanOrEqual(WMS_VERSION_130) ? WMS_AXIS_YX : WMS_AXIS_XY;
-                        }
-                    }
-                }
+                return buildBox(boxBuilder, GeoMath.tile2lonMerc(tileWidth, aTile.x, zoomLevel), GeoMath.tile2latMerc(tileHeight, y, zoomLevel),
+                        GeoMath.tile2lonMerc(tileWidth, aTile.x + 1, zoomLevel), GeoMath.tile2latMerc(tileHeight, y + 1, zoomLevel));
+            }
+            if (EPSG_4326.equals(proj)) {
                 // note this is hack that simply squashes the vertical axis to fit to square tiles
-                if (WMS_AXIS_XY.equals(wmsAxisOrder)) {
-                    boxBuilder.append(GeoMath.tile2lon(aTile.x, aTile.zoomLevel)).append(',');
-                    boxBuilder.append(GeoMath.tile2lat(aTile.y + 1, aTile.zoomLevel)).append(',');
-                    boxBuilder.append(GeoMath.tile2lon(aTile.x + 1, aTile.zoomLevel)).append(',');
-                    boxBuilder.append(GeoMath.tile2lat(aTile.y, aTile.zoomLevel));
-                } else {
-                    boxBuilder.append(GeoMath.tile2lat(aTile.y + 1, aTile.zoomLevel)).append(',');
-                    boxBuilder.append(GeoMath.tile2lon(aTile.x, aTile.zoomLevel)).append(',');
-                    boxBuilder.append(GeoMath.tile2lat(aTile.y, aTile.zoomLevel)).append(',');
-                    boxBuilder.append(GeoMath.tile2lon(aTile.x + 1, aTile.zoomLevel));
+                if (wmsAxisOrder == null) {
+                    wmsAxisOrder = getWmsAxisOrder();
                 }
-            } else {
-                Log.e(DEBUG_TAG, "Unsupported projection " + proj + " for " + getName());
+                if (WMS_AXIS_XY.equals(wmsAxisOrder)) {
+                    return buildBox(boxBuilder, GeoMath.tile2lon(aTile.x, zoomLevel), GeoMath.tile2lat(aTile.y + 1, zoomLevel),
+                            GeoMath.tile2lon(aTile.x + 1, zoomLevel), GeoMath.tile2lat(aTile.y, zoomLevel));
+                }
+                return buildBox(boxBuilder, GeoMath.tile2lat(aTile.y + 1, zoomLevel), GeoMath.tile2lon(aTile.x, zoomLevel),
+                        GeoMath.tile2lat(aTile.y, zoomLevel), GeoMath.tile2lon(aTile.x + 1, zoomLevel));
             }
-        } else {
-            proj = projFromUrl(originalUrl);
-            if (proj != null) {
-                Log.i(DEBUG_TAG, "Extracted " + proj + " from layer " + getName());
-                return wmsBox(aTile);
-            }
-            Log.e(DEBUG_TAG, "No projection for layer " + getName());
+            Log.e(DEBUG_TAG, "Unsupported projection " + proj + " for " + getName());
+            return "";
         }
-        return boxBuilder.toString();
+        proj = projFromUrl(originalUrl);
+        if (proj != null) {
+            Log.i(DEBUG_TAG, "Extracted " + proj + " from layer " + getName());
+            return wmsBox(aTile);
+        }
+        Log.e(DEBUG_TAG, "No projection for layer " + getName());
+        return "";
     }
 
-    private static final Pattern pat = Pattern.compile("[\\?\\&][sc]rs=(EPSG:[0-9]+)", Pattern.CASE_INSENSITIVE);
+    /**
+     * Try to determine the axis order for a WMS server from the URL
+     * 
+     * fix craziness that WMS servers >= version 1.3 use the ordering of the axis in the EPSG definition, which means it
+     * changes for 4326
+     */
+    @Nullable
+    private String getWmsAxisOrder() {
+        Matcher matcher = WMS_VERSION.matcher(originalUrl);
+        if (matcher.find()) {
+            String versionStr = matcher.group(1);
+            if (versionStr != null) {
+                Version version = new Version(versionStr);
+                return version.largerThanOrEqual(WMS_VERSION_130) ? WMS_AXIS_YX : WMS_AXIS_XY;
+            }
+        }
+        Log.e(DEBUG_TAG, "Unable to determine WMS axis order from URL");
+        return null;
+    }
+
+    /**
+     * Append 4 comma-separated doubles to a StringBuilder
+     * 
+     * @param builder the StringBuilder
+     * @param a 1st double
+     * @param b 2nd double
+     * @param c 3rd double
+     * @param d 4th double
+     * @param the String
+     */
+    @NonNull
+    private String buildBox(@NonNull StringBuilder builder, double a, double b, double c, double d) {
+        return builder.append(a).append(',').append(b).append(',').append(c).append(',').append(d).toString();
+    }
+
+    private static final Pattern PROJ_IN_URL = Pattern.compile("[\\?\\&][sc]rs=(EPSG:[0-9]+)", Pattern.CASE_INSENSITIVE);
 
     /**
      * Extract the proj parameter from a WMS url
@@ -1837,7 +1870,7 @@ public class TileLayerSource implements Serializable {
     @Nullable
     public static String projFromUrl(@NonNull String url) {
         // set proj from url &SRS=EPSG:4326 or &CRS=EPSG:4326
-        Matcher matcher = pat.matcher(url);
+        Matcher matcher = PROJ_IN_URL.matcher(url);
         if (matcher.find()) {
             String projParameter = matcher.group(1);
             if (projParameter != null) {
@@ -2016,12 +2049,12 @@ public class TileLayerSource implements Serializable {
      * 
      * @return a List of Provider.CoverageArea
      */
-    @Nullable
+    @NonNull
     public List<Provider.CoverageArea> getCoverage() {
         if (!getProviders().isEmpty()) {
             return getProviders().get(0).getCoverageAreas();
         }
-        return null;
+        return new ArrayList<>();
     }
 
     /**
@@ -2350,7 +2383,7 @@ public class TileLayerSource implements Serializable {
         return EPSG_3857_COMPATIBLE.contains(proj) || EPSG_4326.equals(proj);
     }
 
-    private static final Pattern APIKEY_PATTERN = Pattern.compile(".*\\{apikey\\}.*", Pattern.CASE_INSENSITIVE);
+    private static final Pattern APIKEY_PATTERN = Pattern.compile(".*\\{" + APIKEY_PLACEHOLDER + "\\}.*", Pattern.CASE_INSENSITIVE);
 
     /**
      * Replace any apikey placeholder if possible
@@ -2366,7 +2399,7 @@ public class TileLayerSource implements Serializable {
             try (SQLiteDatabase db = keys.getReadableDatabase()) {
                 String key = KeyDatabaseHelper.getKey(db, getId(), EntryType.IMAGERY);
                 if (key != null && !"".equals(key)) {
-                    setTileUrl(replaceParameter(tileUrl, "apikey", key));
+                    setTileUrl(replaceParameter(tileUrl, APIKEY_PLACEHOLDER, key));
                     return true;
                 }
             } finally {
