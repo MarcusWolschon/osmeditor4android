@@ -27,6 +27,8 @@ Place holders are replaced when the application retrieves imagery files from the
 
 The place holders have the general format of __{__ _place holder name_ __}__.
 
+__{apikey}__ api key for sources that require it. _JOSM_, _iD_, _Vespucci (only in configuration files)_ see [key configuration example](https://github.com/MarcusWolschon/osmeditor4android/blob/master/src/main/assets/keys2-default.txt) for more information.
+
 __{zoom}__ the zoom level
 
 __{x}__ the x tile number
@@ -42,6 +44,8 @@ __{switch:a,b,c}__ rotating server selection (replace _a,b,c_ by the actual sub-
 __{quadkey}__ used for Bing. _Vespucci_
 
 __{proj}__ projection for WMS servers. _JOSM_, _Vespucci (only in configuration files)_
+
+__{wkid}__ projection for proprietary ESRI servers. _JOSM_, _Vespucci (only in configuration files)_
 
 __{width}__ tile width for WMS servers. _JOSM_, _Vespucci_
 
