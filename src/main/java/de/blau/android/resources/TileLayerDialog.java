@@ -120,7 +120,7 @@ public class TileLayerDialog {
                 minZoomPicker.setValue(layer.getMinZoomLevel());
                 maxZoomPicker.setValue(layer.getMaxZoomLevel());
                 List<CoverageArea> coverages = layer.getCoverage();
-                if (coverages != null && !coverages.isEmpty()) {
+                if (!coverages.isEmpty()) {
                     BoundingBox box = coverages.get(0).getBoundingBox();
                     Log.d(DEBUG_TAG, "Coverage box " + box);
                     if (box != null) {
