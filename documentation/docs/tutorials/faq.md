@@ -233,6 +233,12 @@ You don't. You can return to the app and continue working by pressing the back b
 
 The reasoning behind this is that we assume that typical use is an on the ground survey and that you will want your current position to be displayed on the map. As a result the standard behaviour is to ask you (once) on start up of the app to turn GPS on, you can however disable this in the "Advanced Preferences" in the GPS section, by setting the "Leave GPS off" preference. 
 
+### Location unstable
+
+Vespucci will generally prefer location information from satellite based position systems aka GPS or GNSS. If it hasn't received a location update for a longer time (20 x the _Minimum GPS interval_ up to version 19.0, the _Stale location after_ value from 19.1 onwards), it will fallback to a "network" location provider if one is enabled and _Fallback to network location_ is turned on. As "network" services derived locations can differ substantially from GNSS derived ones this can lead to the impression of a jittery location if the the GNSS location is updated rarely, to avoid this turn _Fallback to network location_ off. Track recording and similar functions in Vespucci all only work with positions from GNSS services. All location related settings can be found in the _Advanced preferences_/_Location Settings_
+
+Note that any setting on your device that indicates better local accuracy typically uses network derived location services and leaks your position information to google. 
+
 ### The translation for language X is incomplete or wrong!
 
 Vespucci is a community developed, open source, project. While not everybody will be able to contribute to the code, everybody should be able to work on the translations on 
