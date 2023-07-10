@@ -740,7 +740,7 @@ public class TrackerService extends Service {
                     boolean useNema = gpsSource.equals(prefNmea);
                     if (useNema || gpsSource.equals(prefInternal)) {
                         source = GpsSource.INTERNAL;
-                        staleGPSMilli = prefs.getGpsInterval() * 20L; // 20 times the intended interval
+                        staleGPSMilli = prefs.getGnssTimeToStale() * 1000L;
                         staleGPSNano = staleGPSMilli * 1000; // convert to nanoseconds
                         if (locationManager.getProvider(LocationManager.GPS_PROVIDER) != null) {
                             // internal NMEA resource only works if normal updates are turned on
