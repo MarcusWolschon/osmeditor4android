@@ -781,6 +781,10 @@ public class ElementInfo extends InfoDialogFragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+        if (element == null) {
+            Log.e(DEBUG_TAG, "attempt to save null element");
+            return;
+        }
         outState.putString(ELEMENT_TYPE_KEY, element.getName());
         outState.putLong(ELEMENT_ID_KEY, element.getOsmId());
         outState.putInt(UNDOELEMENT_INDEX_KEY, ueIndex);
