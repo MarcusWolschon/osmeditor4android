@@ -1397,9 +1397,18 @@ public final class DataStyle extends DefaultHandler {
         }
         // creating the default style object will set availableStyles
         String[] res = new String[availableStyles.size()];
-
         res[0] = BUILTIN_STYLE_NAME;
-        String[] keys = (new TreeMap<>(availableStyles)).keySet().toArray(new String[0]); // sort the list
+        Map<String, DataStyle> sortedMap = new TreeMap<>();
+        for (Entry<String, DataStyle> entry : availableStyles.entrySet()) {
+            final DataStyle value = entry.getValue();
+            final String key = entry.getKey();
+            if (value != null) {
+                sortedMap.put(key, value);
+            } else {
+                Log.e(DEBUG_TAG, "Style object missing for style " + key);
+            }
+        }
+        String[] keys = sortedMap.keySet().toArray(new String[0]); // sort the list
         int j = 1;
         for (int i = 0; i < res.length; i++) {
             if (!BUILTIN_STYLE_NAME.equals(keys[i])) {
@@ -1415,7 +1424,7 @@ public final class DataStyle extends DefaultHandler {
      * 
      * @param context an Android Context
      * @param styleNames the list of style names to translate
-     * @return list of available Styles translated (or untranslated if no translation is avilable)
+     * @return list of available Styles translated (or untranslated if no translation is available)
      */
     @NonNull
     public static String[] getStyleListTranslated(@NonNull Context context, @NonNull String[] styleNames) {
