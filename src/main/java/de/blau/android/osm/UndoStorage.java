@@ -614,7 +614,7 @@ public class UndoStorage implements Serializable {
         /**
          * Restores the saved state of the element
          * 
-         * @return true if the restore was successful
+         * @return the element the restore was successful
          */
         @Nullable
         public OsmElement restore() {
@@ -970,6 +970,9 @@ public class UndoStorage implements Serializable {
                 ((Relation) restored).members.clear();
                 for (RelationMember rm : members) {
                     OsmElement rmElement = rm.getElement();
+                    if (rmElement instanceof StyleableFeature ) {
+                        ((StyleableFeature) rmElement).setStyle(null); // style could have been generated from Relation
+                    }
                     OsmElement rmStorage = currentStorage.getOsmElement(rm.getType(), rm.getRef());
                     Log.d(DEBUG_TAG, "rmElement " + rmElement + " rmStorage " + rmStorage);
                     if (rmElement == null || rmStorage != null) {
