@@ -31,6 +31,11 @@
         <item>כבר תוקן</item>
         <item>קשה מדי</item>
     </string-array>
+    <string-array name="todo_state">
+        <item>פתוח</item>
+        <item>נסגר</item>
+        <item>דולג</item> 
+    </string-array>
     <string-array name="followGPSbutton_entries">
         <item>שמאל</item>
         <item>ימין</item>
@@ -76,4 +81,7 @@
         <item>הגדלת אותיות של מילים</item>
         <item>הגדלת אותיות של משפטים</item>
     </string-array>
+    <string name="theme_follow_entry">כמו המערכת</string>
+    <string name="theme_light_entry">בהיר</string>
+    <string name="theme_dark_entry">כהה</string>
     </resources>

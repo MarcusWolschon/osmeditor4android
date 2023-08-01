@@ -31,6 +31,11 @@
         <item>已經修正了</item>
         <item>太困難了</item>
     </string-array>
+    <string-array name="todo_state">
+        <item>開放</item>
+        <item>已關閉</item>
+        <item>跳過</item> 
+    </string-array>
     <string-array name="followGPSbutton_entries">
         <item>左邊</item>
         <item>右邊</item>
@@ -76,4 +81,7 @@
         <item>文字大寫</item>
         <item>句子大寫</item>
     </string-array>
+    <string name="theme_follow_entry">跟隨系統</string>
+    <string name="theme_light_entry">明亮</string>
+    <string name="theme_dark_entry">黑暗</string>
     </resources>

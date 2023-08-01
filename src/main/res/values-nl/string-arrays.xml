@@ -10,8 +10,8 @@
     <string-array name="gps_source">
         <item>Intern</item>
         <item>Intern NMEA</item>
-        <item>NMEA van TCP cliënt</item>
-        <item>NMEA van TCP server</item>
+        <item>NMEA van TCP-cliënt</item>
+        <item>NMEA van TCP-server</item>
     </string-array>
     <string-array name="bug_state">
         <item>Open</item>
@@ -30,6 +30,11 @@
         <item>Verwijderd:</item>
         <item>Al gerepareerd</item>
         <item>Te moeilijk</item>
+    </string-array>
+    <string-array name="todo_state">
+        <item>Open</item>
+        <item>Gesloten</item>
+        <item>Overgeslagen</item> 
     </string-array>
     <string-array name="followGPSbutton_entries">
         <item>Links</item>
@@ -70,4 +75,13 @@
         <item>Misvormde URL</item>
         <item>Ongeldige invoer</item>
     </string-array>
- </resources>
+    <!-- automatic name tag capitalization -->
+    <string-array translatable="true" name="name_cap_entries">
+        <item>Geen kapitalisatie</item>
+        <item>Woord kapitalisatie</item>
+        <item>Zin kapitalisatie</item>
+    </string-array>
+    <string name="theme_follow_entry">Volg systeem</string>
+    <string name="theme_light_entry">Licht</string>
+    <string name="theme_dark_entry">Donker</string>
+    </resources>

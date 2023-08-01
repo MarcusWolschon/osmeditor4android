@@ -31,6 +31,11 @@
         <item>قبلاً درست شده</item>
         <item>خیلی سخت</item>
     </string-array>
+    <string-array name="todo_state">
+        <item>باز</item>
+        <item>بسته شده</item>
+        <item>نادیده شده</item> 
+    </string-array>
     <string-array name="followGPSbutton_entries">
         <item>چپ</item>
         <item>راست</item>
@@ -76,4 +81,7 @@
         <item>حروف بزرگ کلمات</item>
         <item>حروف بزرگ جمله</item>
     </string-array>
+    <string name="theme_follow_entry">سیستم را دنبال کنید</string>
+    <string name="theme_light_entry">روشن</string>
+    <string name="theme_dark_entry">تاریک</string>
     </resources>

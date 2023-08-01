@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="validations_entries">
+        <item>גיל עצם</item>
+        <item>תגיות FIXME (לתיקון)</item>
+        <item>תגיות חסרות</item>
+        <item>כביש מהיר</item>
+        <item>אין סוג יחס</item>
+        <item>חסרות יחידות אימפריאליות</item>
+        <item>רכיב שגוי</item>
+        <item>עצם ללא תגית</item>
+        <item>נקודת קצה מנותקת</item>
+        <item>יחס ריק</item>
+        <item>תפקיד חברות ביחס חסר</item>
+        <item>לולאת יחס</item>
+        <item>סוג רכיב לא רגיל</item>
+    </string-array>
+    </resources>

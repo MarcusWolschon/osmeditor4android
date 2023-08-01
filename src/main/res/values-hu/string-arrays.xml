@@ -31,6 +31,11 @@
         <item>Már javított</item>
         <item>Túl nehéz</item>
     </string-array>
+    <string-array name="todo_state">
+        <item>Nyitott</item>
+        <item>Lezárt</item>
+        <item>Kihagyott</item> 
+    </string-array>
     <string-array name="followGPSbutton_entries">
         <item>Balra</item>
         <item>Jobbra</item>
@@ -76,4 +81,7 @@
         <item>Szó nagybetűssé alakítása</item>
         <item>Mondat nagybetűssé alakítása</item>
     </string-array>
+    <string name="theme_follow_entry">Rendszerbeállítások követése</string>
+    <string name="theme_light_entry">Világos</string>
+    <string name="theme_dark_entry">Sötét</string>
     </resources>

@@ -1,67 +1,67 @@
-_Before we start: most screens have links in the menu to the on-device help system giving you direct access to information relevant for the current context, you can easily navigate back to this text too. If you have a larger device, for example a tablet, you can open the help system in a separate split window.  All the help texts and more (FAQs, tutorials) can be found on the [Vespucci documentation site](https://vespucci.io/) too._
+_Aluksi pieni huomio: useimpien näyttöjen valikossa on linkkejä sovelluksen sisäisille ohjesivuille, joten pääset suoraan senhetkiseen tilanteeseen liittyviin tietoihin, ja voit myös helposti palata takaisin tähän tekstiin. Jos sinulla on isohko laite – esimerkiksi tabletti – voit avata ohjesivut erilliseen ikkunaan. Kaikki ohjeet ja muutakin (FAQ, oppaat) löytyvät myös [Vespuccin ohjesivustolta](https://vespucci.io/)._
 
-# Johdanto Vespucciin
+# Vespuccin esittely
 
-Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 10.0 and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size.
+Vespucci on monipuolinen OpenStreetMap-muokkain, joka sisältää useimmat tietokonemuokkainten tarjoamat toiminnot. Se on läpäissyt testit Googlen Androidin versioissa 2.3–10.0 ja eri AOSP-pohjaisissa varianteissa. Pieni varoituksen sana: vaikka mobiililaitteiden suorituskyky on saanut kiinni eroa tietokoneisiin, niin varsinkin vanhemmissa laitteissa on niukasti muistia ja ne tuppaavat olemaan varsin hitaita. Sinun kannattaa ottaa tämä huomioon, kun käytät Vespuccia, ja esimerkiksi pitää muokattavat alueet järkevissä rajoissa. 
 
 ## Muokkaaminen Vespuccilla
 
-Laitteesi näytön koosta ja iästä riippuen muokkaustoiminnot voivat löytyä joko suoraan yläpalkin kuvakkeista, palkin oikean laidan alasvetovalikosta, mahdollisesta alapalkista tai valikkonäppäimen kautta.
+Laitteesi näytön koosta ja sen iästä riippuen muokkaustoiminnot voivat löytyä joko suoraan yläpalkin kuvakkeista, palkin oikean laidan alasvetovalikosta, alapalkista (jos sellainen on) tai valikkonäppäimen kautta.
 
 <a id="download"></a>
 
 ### OSM-datan lataaminen
 
-Kosketa ensin siirtokuvaketta ![Siirto](../images/menu_transfer.png) tai avaa valikosta "Siirto". Esiin tulee seitsemän valintaa:
+Kosketa ensin datansiirtokuvaketta ![Siirrä dataa](../images/menu_transfer.png) tai valitse valikosta "Siirrä dataa". Avatuvassa valikossa on kahdeksan vaihtoehtoa:
 
-* **Download current view** - download the area visible on the screen and merge it with existing data *(requires network connectivity or offline data source)*
-* **Clear and download current view** - clear any data in memory and then download the area visible on the screen *(requires network connectivity)*
-* **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
-* **Update data** - re-download data for all areas and update what is in memory *(requires network connectivity)*
-* **Location based auto download** - download an area around the current geographic location automatically *(requires network connectivity or offline data)* *(requires GPS)*
-* **Pan and zoom auto download** - download data for the currently displayed map area automatically *(requires network connectivity or offline data)* *(requires GPS)*
-* **File...** - saving and loading OSM data to/from on device files.
-* **Note/Bugs...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
+* **Lataa nykyinen näkymä** – lataa näytöllä näkyvän alueen ja yhdistää sen aiempaan dataan *(vaatii internetyhteyden tai paikallisen datalähteen)*
+* **Tyhjennä ja lataa nykyinen näkymä** – tyhjentää muistissa olevan datan ja lataa näytöllä näkyvän alueen *(vaatii internetyhteyden)*
+* **Lähetä data OSM-palvelimelle** – lähetä muokkaukset OpenStreetMappiin *(vaatii tunnistautumisen)* *(vaatii internetyhteyden)*
+* **Päivitä data** – lataa uudelleen kaikkien jo ladattujen aluiden data ja päivitä muistissa olevat tiedot *(vaatii internetyhteyden)*
+**Sijaintipohjainen automaattilataus** – lataa automaattisesti alueen nykyisen maantieteellisen sijainnin ympäriltä *(vaatii internetyhteyden tai paikallisen datalähteen)* *(vaatii GPS:n)*
+**Automaattilataus liikutettaessa** – lataa automaattisesti näytöllä näkyvän alueen *(vaatii internetyhteyden tai paikallisen datalähteen)* *(vaatii GPS:n)*
+* **Tiedosto...** – OSM-datan tallennus laitteelle tai lataus laitteelta
+* **Muistiinpanot/Virheet...** – lataa (automaattisesti tai käsin) OSM-muistiinpanoja tai -virheitä QA-työkaluista (nykyisin OSMOSE) *(vaatii internetyhteyden)*
 
-Helpoin tapa ladata dataa laitteelle on etsiä muokattavaksi aiottu karttanäkymä ja avata valikosta "Lataa nykyinen näkymä". Voit suurentaa ja pienentää sormieleillä, plus- ja miinusnapilla tai laitteen äänenvoimakkuusnappuloilla. Vespuccin pitäisi sitten ladata karttanäkymää vastaava data. Sinun ei tarvitse tunnistautua datan lataamista varten.
+Helpoin tapa ladata dataa laitteelle on etsiä muokattavaksi aiottu karttanäkymä ja avata valikosta "Lataa nykyinen näkymä". Voit suurentaa ja pienentää sormieleillä, plus- ja miinusnapilla tai laitteen äänenvoimakkuuspainikkeilla. Vespuccin pitäisi sitten ladata karttanäkymää vastaava data. Sinun ei tarvitse tunnistautua datan lataamista varten.
 
-With the default settings any non-downloaded areas will be dimmed relative to the downloaded ones, this is to avoid inadvertently adding duplicate objects in areas that are not being displayed. The behaviour can be changed in the [Advanced preferences](Advanced%20preferences.md).
+Oletusasetuksilla lataamattomat alueet näkyvät ladattuja alueita himmeämpinä. Tällä pyritään välttämään olemassa olevien kohteiden lisääminen epähuomiossa uudelleen alueille, jotka eivät ole näkyvissä. Käyttäytymisen voi muuttaa [Lisäasetuksista](../en/Advanced%20preferences.md).
 
 ### Muokkaaminen
 
 <a id="lock"></a>
 
-#### Lock, unlock, mode switching
+#### Lukitus ja tilan vaihtaminen
 
-Tahattomien muokkausten välttämiseksi Vespucci käynnistyy lukitussa tilassa, jossa voi vain siirtää ja suurentaa karttaa. Kosketa ![lukko](../images/locked.png)-kuvaketta niin lukitus menee pois päältä. 
+Tahattomien muokkausten välttämiseksi Vespucci käynnistyy lukitussa tilassa, jossa karttaa voi vain siirtää ja suurentaa. Kosketa ![lukko](../images/locked.png)-kuvaketta niin lukitus avataan. 
 
-A long press on the lock icon will display a menu currently offering 4 options:
+Pitkä painallus lukkokuvakkeeseen avaa valikon, jossa tällä hetkellä on 5 vaihtoehtoa:
 
-* **Normal** - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.
-* **Tag only** - selecting an existing object will start the Property Editor, a long press on the main screen will add objects, but no other geometry operations will work. White lock icon with a "T" is displayed.
-* **Address** - enables Address mode, a slightly simplified mode with specific actions available from the [Simple mode](../en/Simple%20actions.md) "+" button. White lock icon with an "A" is displayed.
-* **Indoor** - enables Indoor mode, see [Indoor mode](#indoor). White lock icon with an "I" is displayed.
-* **C-Mode** - enables C-Mode, only objects that have a warning flag set will be displayed, see [C-Mode](#c-mode). White lock icon with a "C" is displayed.
+* **Tavallinen** - oletusmuokkaustila, uusia kohteita voi lisätä ja olemassaolevia muokata, liikuttaa ja poistaa. Kuvakkeena valkoinen avoin lukko.
+* **Vain tägi** - olemassaolevan kohteen valitseminen avaa ominaisuusmuokkaimen; pitkä painallus lisää uuden kohteen, mutta muut muototoiminnot eivät toimi. Kuvakkeena T-kirjain valkoisen lukon vieressä.
+* **Osoite** - osoitetila on hieman yksinkertaistettu tila, jossa on tiettyjä toimintoja [Perustilan](../en/Simple%20actions.md) "+"-painikkeesta. Kuvakkeena A-kirjain valkoisen lukon vieressä.
+* **Sisätila** - katso [Sisätila](#indoor). Kuvakkeena I-kirjain valkoisen lukon vieressä.
+* **C-tila** - C-tilassa näytetään vain kohteet, joilla on varoitusmerkintä; katso [C-tila](#c-mode). Kuvakkeena C-kirjain valkoisen lukon vieressä.
 
 #### Napautus, tuplanapautus ja pitkä painallus
 
-Valittavissa olevia pisteitä ja viivoja ympäröi oletuksena oranssi alue, joka näyttää suurinpiirtein mihin pitää napauttaa kohteen valitsemiseksi. Vaihtoehtoja on kolme:
+Valittavissa olevia pisteitä ja viivoja ympäröi oletuksena oranssi varjostus, joka näyttää mihin pitää napauttaa, jos haluaa valita kohteen. Vaihtoehtoja on kolme:
 
-* Single tap: Selects object. 
-    * An isolated node/way is highlighted immediately. 
-    * However, if you try to select an object and Vespucci determines that the selection could mean multiple objects it will present a selection menu, enabling you to choose the object you wish to select. 
-    * Selected objects are highlighted in yellow. 
-    * For further information see [Node selected](Node%20selected.md), [Way selected](Way%20selected.md) and [Relation selected](Relation%20selected.md).
-* Double tap: Start [Multiselect mode](Multiselect.md)
-* Long press: Creates a "crosshair", enabling you to add nodes, see below and [Creating new objects](Creating%20new%20objects.md). This is only enabled if "Simple mode" is deactivated.
+* Yksittäinen napautus: Valitsee kohteen. 
+    * Erillinen piste tai viiva korostetaan heti.
+    * Mutta jos napautuskohdan lähellä on useita kohteita eikä Vespucci ole varma minkä niistä haluat valita, se näyttää listan, josta voi valita haluamansa kohteen.
+    * Valitut kohteet korostetaan keltaisella.
+    * Lisätietoa saat kohdista [Piste valittuna](../fi/Piste%20valittuna.md), [Viiva valittuna](../fi/Viiva%20valittuna.md) ja [Relaatio valittuna](../fi/Relaatio%20valittuna.md).
+* Tuplanapautus: Aloittaa [monivalintatilan](../fi/Monivalinta.md)
+* Pitkä painallus: Piirtää "hiusristikon", jonka avulla voit lisätä pisteen; katso alempaa ja [Uusien kohteiden luominen](../fi/Uusien%20kohteiden%20luominen.md). Käytössä vain, jos perustila on pois päältä.
 
 Kannattaa lähentää näkymää tiheään kartoitettua aluetta muokattaessa.
 
-Vespuccissa on hyvä peruutus- ja palautustoiminnot, joten voit huoletta tehdä kokeiluja laitteellasi. Älä kuitenkaan lähetä tai tallenna puhdasta testidataa.
+Vespuccissa on hyvä perumis- ja toistojärjestelmä, joten älä arkaile tehdä kokeiluja laitteellasi. Älä kuitenkaan lähetä tai tallenna puhdasta testidataa.
 
-#### Valitseminen ja valinnan poisto (yksi napautus ja "valintavalikko")
+#### Valitseminen ja valinnan poisto (yksittäinen napautus ja "valintavalikko")
 
-Touch an object to select and highlight it. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else, simply touch the object in question, there is no need to de-select first. A double tap on an object will start [Multiselect mode](Multiselect.md).
+Kohteen koskettaminen valitsee ja korostaa sen. Kosketus tyhjään kohtaan ruutua poistaa valinnan. Jos jokin kohde on jo valittuna, kun sinun pitää valita jokin muu kohde, ei aiempaa valintaa tarvitse ensin poistaa, vaan riittää että vain kosketat uutta kohdetta. Tuplanapautus kohteeseen aloittaa [Monivalinnan](../en/Multiselect.md).
 
 Huomaa että jos Vespucci ei valintatilanteessa ole varma mitä kohdetta yrität valita (vaikkapa viivan pistettä tai muita päällekkäisiä kohteita), sinulle näytetään valintavalikko: kosketa kohdetta, jonka haluat valita, ja valinta on valmis. 
 
