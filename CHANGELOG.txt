@@ -7,7 +7,7 @@
 - Fix check data style entries before sorting them
 - Fix change configuration for network location fallback time to stale location data pref
 - Fix dismissing disambiguation menu by clicking outside on older Android versions
-- Add support fo wkid placeholder in imagery configs 
+- Add support for wkid placeholder in imagery configs 
 - Update imagery from ELI
 - Update NSI
 - Update preset
