@@ -57,6 +57,22 @@ public class RelationUtilTest {
     }
 
     /**
+     * Set roles on MP rings odd number of segments
+     */
+    @Test
+    public void setMultiPolygonRolesTest2() {
+        StorageDelegator d = UnitTestUtils.loadTestData(getClass(), "rings2.osm");    
+        Way w1 = getWay(d, -1L);
+        Way w2 = getWay(d, -2L);
+        Way w12 = getWay(d, -12L);
+        Relation mp = d.createAndInsertRelation(Arrays.asList(w1, w2, w12));
+        assertNotNull(mp);
+        RelationUtils.setMultipolygonRoles(null, mp.getMembers(), false);
+        assertEquals(Tags.ROLE_OUTER, mp.getMember(w1).getRole());
+        assertEquals(Tags.ROLE_OUTER, mp.getMember(w2).getRole());
+        assertEquals(Tags.ROLE_OUTER, mp.getMember(w12).getRole());
+    }
+    /**
      * Move tags from outer rings to relation test
      */
     @Test
