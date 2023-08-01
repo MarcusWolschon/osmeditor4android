@@ -111,29 +111,6 @@
         {
             "geometry": null,
             "properties": {
-                "attribution": {
-                    "required": true,
-                    "text": "Terms & Feedback",
-                    "url": "https://wiki.openstreetmap.org/wiki/DigitalGlobe"
-                },
-                "default": true,
-                "license": "COMMERCIAL",
-                "permission_osm": "explicit",
-                "description": "Maxar Premium is a mosaic composed of Maxar basemap with select regions filled with +Vivid or custom area of interest imagery, 50cm resolution or better, and refreshed more frequently with ongoing updates.",
-                "i18n": true,
-                "icon": "https://osmlab.github.io/editor-layer-index/sources/world/Maxar.png",
-                "id": "Maxar-Premium",
-                "max_zoom": 22,
-                "name": "Maxar Premium Imagery",
-                "type": "tms",
-                "category": "photo",
-                "url": "https://services.digitalglobe.com/earthservice/tmsaccess/tms/1.0.0/DigitalGlobe:ImageryTileService@EPSG:3857@jpg/{zoom}/{x}/{-y}.jpg?connectId={apikey}&foo=premium"
-            },
-            "type": "Feature"
-        },
-        {
-            "geometry": null,
-            "properties": {
                 "id": "MAPILLARYV4",
                 "overlay": true,
                 "max_zoom": 14,
