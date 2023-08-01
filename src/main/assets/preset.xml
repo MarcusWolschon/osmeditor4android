@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.9.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,building:part,cemetery,club,disused:amenity,disused:leisure,disused:man_made,golf,hazard,noexit,disused:shop,ford,indoor,playground,police,public_transport,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,telecom">
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.11.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,building:part,cemetery,club,disused:amenity,disused:leisure,disused:man_made,golf,hazard,noexit,disused:shop,ford,indoor,playground,police,public_transport,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,telecom,mountain_pass,marker">
 <!--
     Icons have been derived from mainly from
   
@@ -746,13 +746,13 @@
     </chunk>
     <chunk id="vehicle_access">
         <combo key="vehicle" text="All vehicles" values_context="access" values_sort="false" match="key">
-            <list_entry value="yes" display_value="Public access"/><list_entry value="official" display_value="Official" deprecated="true"/><list_entry value="designated" display_value="Designated"/><list_entry value="destination" display_value="Destination"/><list_entry value="delivery" display_value="Delivery"/><list_entry value="customer" display_value="Customers"/><list_entry value="permissive" display_value="Permissive"/><list_entry value="private" display_value="Private"/><list_entry value="permit" display_value="Permit required"/><list_entry value="no" display_value="No access"/>
+            <list_entry value="yes" display_value="Public access"/><list_entry value="official" display_value="Official" deprecated="true"/><list_entry value="designated" display_value="Designated"/><list_entry value="destination" display_value="Destination"/><list_entry value="delivery" display_value="Delivery"/><list_entry value="customers" display_value="Customers"/><list_entry value="permissive" display_value="Permissive"/><list_entry value="private" display_value="Private"/><list_entry value="permit" display_value="Permit required"/><list_entry value="no" display_value="No access"/>
             <list_entry value="agricultural" display_value="Agricultural"/><list_entry value="forestry" display_value="Forestry"/>
         </combo>
     </chunk>
     <chunk id="motor_vehicle_access">
         <combo key="motor_vehicle" text="Motor vehicles" values_context="access" values_sort="false" match="key">
-            <list_entry value="yes" display_value="Public access"/><list_entry value="official" display_value="Official" deprecated="true"/><list_entry value="designated" display_value="Designated"/><list_entry value="destination" display_value="Destination"/><list_entry value="delivery" display_value="Delivery"/><list_entry value="customer" display_value="Customers"/><list_entry value="permissive" display_value="Permissive"/><list_entry value="private" display_value="Private"/><list_entry value="permit" display_value="Permit required"/><list_entry value="no" display_value="No access"/>
+            <list_entry value="yes" display_value="Public access"/><list_entry value="official" display_value="Official" deprecated="true"/><list_entry value="designated" display_value="Designated"/><list_entry value="destination" display_value="Destination"/><list_entry value="delivery" display_value="Delivery"/><list_entry value="customers" display_value="Customers"/><list_entry value="permissive" display_value="Permissive"/><list_entry value="private" display_value="Private"/><list_entry value="permit" display_value="Permit required"/><list_entry value="no" display_value="No access"/>
             <list_entry value="agricultural" display_value="Agricultural"/><list_entry value="forestry" display_value="Forestry"/>
        </combo>
     </chunk>
@@ -1182,16 +1182,16 @@
     <chunk id="water_access">
         <optional text="Water access rules:">
             <combo key="ship" text="Ship" values_sort="false" values_context="access">
-                <list_entry value="yes" display_value="Public access"/><list_entry value="official" display_value="Official" deprecated="true"/><list_entry value="designated" display_value="Designated"/><list_entry value="destination" display_value="Destination"/><list_entry value="delivery" display_value="Delivery"/><list_entry value="customer" display_value="Customers"/><list_entry value="permissive" display_value="Permissive"/><list_entry value="private" display_value="Private"/><list_entry value="permit" display_value="Permit required"/><list_entry value="no" display_value="No access"/>
+                <list_entry value="yes" display_value="Public access"/><list_entry value="official" display_value="Official" deprecated="true"/><list_entry value="designated" display_value="Designated"/><list_entry value="destination" display_value="Destination"/><list_entry value="delivery" display_value="Delivery"/><list_entry value="customers" display_value="Customers"/><list_entry value="permissive" display_value="Permissive"/><list_entry value="private" display_value="Private"/><list_entry value="permit" display_value="Permit required"/><list_entry value="no" display_value="No access"/>
             </combo>
             <combo key="boat" text="Boat" values_sort="false" values_context="access">
-                <list_entry value="yes" display_value="Public access"/><list_entry value="official" display_value="Official" deprecated="true"/><list_entry value="designated" display_value="Designated"/><list_entry value="destination" display_value="Destination"/><list_entry value="delivery" display_value="Delivery"/><list_entry value="customer" display_value="Customers"/><list_entry value="permissive" display_value="Permissive"/><list_entry value="private" display_value="Private"/><list_entry value="permit" display_value="Permit required"/><list_entry value="no" display_value="No access"/>
+                <list_entry value="yes" display_value="Public access"/><list_entry value="official" display_value="Official" deprecated="true"/><list_entry value="designated" display_value="Designated"/><list_entry value="destination" display_value="Destination"/><list_entry value="delivery" display_value="Delivery"/><list_entry value="customers" display_value="Customers"/><list_entry value="permissive" display_value="Permissive"/><list_entry value="private" display_value="Private"/><list_entry value="permit" display_value="Permit required"/><list_entry value="no" display_value="No access"/>
             </combo>
             <combo key="motorboat" text="Motorboat" values_sort="false" values_context="access">
-                <list_entry value="yes" display_value="Public access"/><list_entry value="official" display_value="Official" deprecated="true"/><list_entry value="designated" display_value="Designated"/><list_entry value="destination" display_value="Destination"/><list_entry value="delivery" display_value="Delivery"/><list_entry value="customer" display_value="Customers"/><list_entry value="permissive" display_value="Permissive"/><list_entry value="private" display_value="Private"/><list_entry value="permit" display_value="Permit required"/><list_entry value="no" display_value="No access"/>
+                <list_entry value="yes" display_value="Public access"/><list_entry value="official" display_value="Official" deprecated="true"/><list_entry value="designated" display_value="Designated"/><list_entry value="destination" display_value="Destination"/><list_entry value="delivery" display_value="Delivery"/><list_entry value="customers" display_value="Customers"/><list_entry value="permissive" display_value="Permissive"/><list_entry value="private" display_value="Private"/><list_entry value="permit" display_value="Permit required"/><list_entry value="no" display_value="No access"/>
             </combo>
             <combo key="canoe" text="Canoe" values_sort="false" values_context="access">
-                <list_entry value="yes" display_value="Public access"/><list_entry value="official" display_value="Official" deprecated="true"/><list_entry value="designated" display_value="Designated"/><list_entry value="destination" display_value="Destination"/><list_entry value="delivery" display_value="Delivery"/><list_entry value="customer" display_value="Customers"/><list_entry value="permissive" display_value="Permissive"/><list_entry value="private" display_value="Private"/><list_entry value="permit" display_value="Permit required"/><list_entry value="no" display_value="No access"/>
+                <list_entry value="yes" display_value="Public access"/><list_entry value="official" display_value="Official" deprecated="true"/><list_entry value="designated" display_value="Designated"/><list_entry value="destination" display_value="Destination"/><list_entry value="delivery" display_value="Delivery"/><list_entry value="customers" display_value="Customers"/><list_entry value="permissive" display_value="Permissive"/><list_entry value="private" display_value="Private"/><list_entry value="permit" display_value="Permit required"/><list_entry value="no" display_value="No access"/>
             </combo>
         </optional>
     </chunk> 
@@ -1745,6 +1745,9 @@
             <combo key="reusable_packaging:accept" text="Accepts reusable packaging" values="yes,no,only" values_sort="false" display_values="Yes,No,Only"/>
             <combo key="reusable_packaging:offer" text="Offers reusable packaging" values="yes,no,only" values_sort="false" display_values="Yes,No,Only"/>
         </optional>
+    </chunk>
+    <chunk id="sanitary_dump_station">
+        <combo key="sanitary_dump_station" text="Dump Station" values="yes,public,customers,no" display_values="Available,Public,Customers,Not available" match="none"/>
     </chunk>
     <!-- Groups -->
     <group name="Highways" icon="icons/png/highway_highway_sp.png">
@@ -3395,14 +3398,14 @@
             <link wiki="Key:access"/>
             <space/>
             <combo key="motorcar" text="Motorcar" values_context="access" values_sort="false" match="key">
-                <list_entry value="yes" display_value="Public access"/><list_entry value="official" display_value="Official" deprecated="true"/><list_entry value="designated" display_value="Designated"/><list_entry value="destination" display_value="Destination"/><list_entry value="delivery" display_value="Delivery"/><list_entry value="customer" display_value="Customers"/><list_entry value="permissive" display_value="Permissive"/><list_entry value="private" display_value="Private"/><list_entry value="permit" display_value="Permit required"/><list_entry value="no" display_value="No access"/>
+                <list_entry value="yes" display_value="Public access"/><list_entry value="official" display_value="Official" deprecated="true"/><list_entry value="designated" display_value="Designated"/><list_entry value="destination" display_value="Destination"/><list_entry value="delivery" display_value="Delivery"/><list_entry value="customers" display_value="Customers"/><list_entry value="permissive" display_value="Permissive"/><list_entry value="private" display_value="Private"/><list_entry value="permit" display_value="Permit required"/><list_entry value="no" display_value="No access"/>
                 <list_entry value="agricultural" display_value="Agricultural"/><list_entry value="forestry" display_value="Forestry"/>
             </combo>
             <combo key="motorcar:conditional" text="Motorcar @" long_text="Conditional restriction for motorcars" values_sort="false" match="key">
                 <list_entry value="yes @ wet"/><list_entry value="no @ dry"/><list_entry value="destination @ rain"/><list_entry value="delivery @ snow"/><list_entry value="agricultural @ hazmat"/><list_entry value="forestry @ weight&lt;=0"/><list_entry value="private @ length&lt;=0"/><list_entry value="no @ width&lt;=0"/>
             </combo>
             <combo key="motorcycle" text="Motorcycle" values_context="access" values_sort="false" match="key">
-                <list_entry value="yes" display_value="Public access"/><list_entry value="official" display_value="Official" deprecated="true"/><list_entry value="designated" display_value="Designated"/><list_entry value="destination" display_value="Destination"/><list_entry value="delivery" display_value="Delivery"/><list_entry value="customer" display_value="Customers"/><list_entry value="permissive" display_value="Permissive"/><list_entry value="private" display_value="Private"/><list_entry value="permit" display_value="Permit required"/><list_entry value="no" display_value="No access"/>
+                <list_entry value="yes" display_value="Public access"/><list_entry value="official" display_value="Official" deprecated="true"/><list_entry value="designated" display_value="Designated"/><list_entry value="destination" display_value="Destination"/><list_entry value="delivery" display_value="Delivery"/><list_entry value="customers" display_value="Customers"/><list_entry value="permissive" display_value="Permissive"/><list_entry value="private" display_value="Private"/><list_entry value="permit" display_value="Permit required"/><list_entry value="no" display_value="No access"/>
                 <list_entry value="agricultural" display_value="Agricultural"/><list_entry value="forestry" display_value="Forestry"/>
             </combo>
             <combo key="motorcycle:conditional" text="Motorcycle @" long_text="Conditional restriction for motorcycles" values_sort="false" match="key">
@@ -3414,7 +3417,7 @@
             <link wiki="Key:access"/>
             <space/>
             <combo key="motorcar" text="Motorcar" values_context="access" values_sort="false" match="key">
-                <list_entry value="yes" display_value="Public access"/><list_entry value="official" display_value="Official" deprecated="true"/><list_entry value="designated" display_value="Designated"/><list_entry value="destination" display_value="Destination"/><list_entry value="delivery" display_value="Delivery"/><list_entry value="customer" display_value="Customers"/><list_entry value="permissive" display_value="Permissive"/><list_entry value="private" display_value="Private"/><list_entry value="permit" display_value="Permit required"/><list_entry value="no" display_value="No access"/>
+                <list_entry value="yes" display_value="Public access"/><list_entry value="official" display_value="Official" deprecated="true"/><list_entry value="designated" display_value="Designated"/><list_entry value="destination" display_value="Destination"/><list_entry value="delivery" display_value="Delivery"/><list_entry value="customers" display_value="Customers"/><list_entry value="permissive" display_value="Permissive"/><list_entry value="private" display_value="Private"/><list_entry value="permit" display_value="Permit required"/><list_entry value="no" display_value="No access"/>
                 <list_entry value="agricultural" display_value="Agricultural"/><list_entry value="forestry" display_value="Forestry"/>
             </combo>
             <combo key="motorcar:conditional" text="Motorcar @" long_text="Conditional restriction for motorcars" values_sort="false" match="key">
@@ -3426,7 +3429,7 @@
             <link wiki="Key:access"/>
             <space/>
             <combo key="motorcycle" text="Motorcycle" values_context="access" values_sort="false" match="key">
-                <list_entry value="yes" display_value="Public access"/><list_entry value="official" display_value="Official" deprecated="true"/><list_entry value="designated" display_value="Designated"/><list_entry value="destination" display_value="Destination"/><list_entry value="delivery" display_value="Delivery"/><list_entry value="customer" display_value="Customers"/><list_entry value="permissive" display_value="Permissive"/><list_entry value="private" display_value="Private"/><list_entry value="permit" display_value="Permit required"/><list_entry value="no" display_value="No access"/>
+                <list_entry value="yes" display_value="Public access"/><list_entry value="official" display_value="Official" deprecated="true"/><list_entry value="designated" display_value="Designated"/><list_entry value="destination" display_value="Destination"/><list_entry value="delivery" display_value="Delivery"/><list_entry value="customers" display_value="Customers"/><list_entry value="permissive" display_value="Permissive"/><list_entry value="private" display_value="Private"/><list_entry value="permit" display_value="Permit required"/><list_entry value="no" display_value="No access"/>
                 <list_entry value="agricultural" display_value="Agricultural"/><list_entry value="forestry" display_value="Forestry"/>
             </combo>
             <combo key="motorcycle:conditional" text="Motorcycle @" long_text="Conditional restriction for motorcycles" values_sort="false" match="key">
@@ -3438,7 +3441,7 @@
             <link wiki="Key:access"/>
             <space/>
             <combo key="hgv" values_context="access" values_sort="false" match="key">
-                <list_entry value="yes" display_value="Public access"/><list_entry value="official" display_value="Official" deprecated="true"/><list_entry value="designated" display_value="Designated"/><list_entry value="destination" display_value="Destination"/><list_entry value="delivery" display_value="Delivery"/><list_entry value="customer" display_value="Customers"/><list_entry value="permissive" display_value="Permissive"/><list_entry value="private" display_value="Private"/><list_entry value="permit" display_value="Permit required"/><list_entry value="no" display_value="No access"/>
+                <list_entry value="yes" display_value="Public access"/><list_entry value="official" display_value="Official" deprecated="true"/><list_entry value="designated" display_value="Designated"/><list_entry value="destination" display_value="Destination"/><list_entry value="delivery" display_value="Delivery"/><list_entry value="customers" display_value="Customers"/><list_entry value="permissive" display_value="Permissive"/><list_entry value="private" display_value="Private"/><list_entry value="permit" display_value="Permit required"/><list_entry value="no" display_value="No access"/>
                 <list_entry value="agricultural" display_value="Agricultural"/><list_entry value="forestry" display_value="Forestry"/>
             </combo>
             <combo key="hgv:conditional" text="HGV @" long_text="Conditional restriction for heavy goods vehicles" delimiter="|" values_sort="false" match="key">
@@ -3462,7 +3465,7 @@
             <link wiki="Key:access"/>
             <space/>
             <combo key="access" values_context="access" values_sort="false" match="key" values_searchable="true">
-                <list_entry value="yes" display_value="Public access"/><list_entry value="official" display_value="Official" deprecated="true"/><list_entry value="designated" display_value="Designated"/><list_entry value="destination" display_value="Destination"/><list_entry value="delivery" display_value="Delivery"/><list_entry value="customer" display_value="Customers"/><list_entry value="permissive" display_value="Permissive"/><list_entry value="private" display_value="Private"/><list_entry value="permit" display_value="Permit required"/><list_entry value="no" display_value="No access"/>
+                <list_entry value="yes" display_value="Public access"/><list_entry value="official" display_value="Official" deprecated="true"/><list_entry value="designated" display_value="Designated"/><list_entry value="destination" display_value="Destination"/><list_entry value="delivery" display_value="Delivery"/><list_entry value="customers" display_value="Customers"/><list_entry value="permissive" display_value="Permissive"/><list_entry value="private" display_value="Private"/><list_entry value="permit" display_value="Permit required"/><list_entry value="no" display_value="No access"/>
                 <list_entry value="agricultural" display_value="Agricultural"/><list_entry value="forestry" display_value="Forestry"/>
             </combo>
             <combo key="access:conditional" text="General access @" values_sort="false" match="key">
@@ -3496,26 +3499,26 @@
             <link wiki="Key:access"/>
             <space/>
             <combo key="foot" text="Foot" values_context="access" match="key" values_sort="false">
-                <list_entry value="yes" display_value="Public access"/><list_entry value="official" display_value="Official" deprecated="true"/><list_entry value="designated" display_value="Designated"/><list_entry value="destination" display_value="Destination"/><list_entry value="delivery" display_value="Delivery"/><list_entry value="customer" display_value="Customers"/><list_entry value="permissive" display_value="Permissive"/><list_entry value="private" display_value="Private"/><list_entry value="permit" display_value="Permit required"/><list_entry value="no" display_value="No access"/>
+                <list_entry value="yes" display_value="Public access"/><list_entry value="official" display_value="Official" deprecated="true"/><list_entry value="designated" display_value="Designated"/><list_entry value="destination" display_value="Destination"/><list_entry value="delivery" display_value="Delivery"/><list_entry value="customers" display_value="Customers"/><list_entry value="permissive" display_value="Permissive"/><list_entry value="private" display_value="Private"/><list_entry value="permit" display_value="Permit required"/><list_entry value="no" display_value="No access"/>
                 <list_entry value="use_sidepath" display_value="Use sidepath"/>
             </combo>
             <combo key="bicycle" text="Bicycle" values_context="access" match="key" values_sort="false">
-                <list_entry value="yes" display_value="Public access"/><list_entry value="official" display_value="Official" deprecated="true"/><list_entry value="designated" display_value="Designated"/><list_entry value="destination" display_value="Destination"/><list_entry value="delivery" display_value="Delivery"/><list_entry value="customer" display_value="Customers"/><list_entry value="permissive" display_value="Permissive"/><list_entry value="private" display_value="Private"/><list_entry value="permit" display_value="Permit required"/><list_entry value="no" display_value="No access"/>
+                <list_entry value="yes" display_value="Public access"/><list_entry value="official" display_value="Official" deprecated="true"/><list_entry value="designated" display_value="Designated"/><list_entry value="destination" display_value="Destination"/><list_entry value="delivery" display_value="Delivery"/><list_entry value="customers" display_value="Customers"/><list_entry value="permissive" display_value="Permissive"/><list_entry value="private" display_value="Private"/><list_entry value="permit" display_value="Permit required"/><list_entry value="no" display_value="No access"/>
                 <list_entry value="use_sidepath" display_value="Use sidepath"/>
             </combo>
             <combo key="agricultural" text="Agricultural" values_context="access" match="key" values_sort="false">
-                <list_entry value="yes" display_value="Public access"/><list_entry value="official" display_value="Official" deprecated="true"/><list_entry value="designated" display_value="Designated"/><list_entry value="destination" display_value="Destination"/><list_entry value="delivery" display_value="Delivery"/><list_entry value="customer" display_value="Customers"/><list_entry value="permissive" display_value="Permissive"/><list_entry value="private" display_value="Private"/><list_entry value="permit" display_value="Permit required"/><list_entry value="no" display_value="No access"/>
+                <list_entry value="yes" display_value="Public access"/><list_entry value="official" display_value="Official" deprecated="true"/><list_entry value="designated" display_value="Designated"/><list_entry value="destination" display_value="Destination"/><list_entry value="delivery" display_value="Delivery"/><list_entry value="customers" display_value="Customers"/><list_entry value="permissive" display_value="Permissive"/><list_entry value="private" display_value="Private"/><list_entry value="permit" display_value="Permit required"/><list_entry value="no" display_value="No access"/>
             </combo>
             <combo key="emergency" text="Emergency vehicles" values="yes,official,designated,destination,no" display_values="Yes,Official,Designated,Destination,No" values_context="access" match="keyvalue" values_sort="false"/>
             <combo key="goods" text="Light Commercial Vehicles (goods)" values_context="access" match="key" values_sort="false">
-                <list_entry value="yes" display_value="Public access"/><list_entry value="official" display_value="Official" deprecated="true"/><list_entry value="designated" display_value="Designated"/><list_entry value="destination" display_value="Destination"/><list_entry value="delivery" display_value="Delivery"/><list_entry value="customer" display_value="Customers"/><list_entry value="permissive" display_value="Permissive"/><list_entry value="private" display_value="Private"/><list_entry value="permit" display_value="Permit required"/><list_entry value="no" display_value="No access"/>
+                <list_entry value="yes" display_value="Public access"/><list_entry value="official" display_value="Official" deprecated="true"/><list_entry value="designated" display_value="Designated"/><list_entry value="destination" display_value="Destination"/><list_entry value="delivery" display_value="Delivery"/><list_entry value="customers" display_value="Customers"/><list_entry value="permissive" display_value="Permissive"/><list_entry value="private" display_value="Private"/><list_entry value="permit" display_value="Permit required"/><list_entry value="no" display_value="No access"/>
                 <list_entry value="agricultural" display_value="Agricultural"/><list_entry value="forestry" display_value="Forestry"/>
             </combo>
             <combo key="hov" text="High-occupancy vehicles (hov)" values_context="access" match="key" values_sort="false">
-                <list_entry value="yes" display_value="Public access"/><list_entry value="official" display_value="Official" deprecated="true"/><list_entry value="designated" display_value="Designated"/><list_entry value="destination" display_value="Destination"/><list_entry value="delivery" display_value="Delivery"/><list_entry value="customer" display_value="Customers"/><list_entry value="permissive" display_value="Permissive"/><list_entry value="private" display_value="Private"/><list_entry value="permit" display_value="Permit required"/><list_entry value="no" display_value="No access"/>
+                <list_entry value="yes" display_value="Public access"/><list_entry value="official" display_value="Official" deprecated="true"/><list_entry value="designated" display_value="Designated"/><list_entry value="destination" display_value="Destination"/><list_entry value="delivery" display_value="Delivery"/><list_entry value="customers" display_value="Customers"/><list_entry value="permissive" display_value="Permissive"/><list_entry value="private" display_value="Private"/><list_entry value="permit" display_value="Permit required"/><list_entry value="no" display_value="No access"/>
             </combo>
             <combo key="psv" text="Public Service Vehicles (psv)" values_context="access" match="key" values_sort="false">
-                <list_entry value="yes" display_value="Public access"/><list_entry value="official" display_value="Official" deprecated="true"/><list_entry value="designated" display_value="Designated"/><list_entry value="destination" display_value="Destination"/><list_entry value="delivery" display_value="Delivery"/><list_entry value="customer" display_value="Customers"/><list_entry value="permissive" display_value="Permissive"/><list_entry value="private" display_value="Private"/><list_entry value="permit" display_value="Permit required"/><list_entry value="no" display_value="No access"/>
+                <list_entry value="yes" display_value="Public access"/><list_entry value="official" display_value="Official" deprecated="true"/><list_entry value="designated" display_value="Designated"/><list_entry value="destination" display_value="Destination"/><list_entry value="delivery" display_value="Delivery"/><list_entry value="customers" display_value="Customers"/><list_entry value="permissive" display_value="Permissive"/><list_entry value="private" display_value="Private"/><list_entry value="permit" display_value="Permit required"/><list_entry value="no" display_value="No access"/>
             </combo>
             <combo key="tourist_bus" text="Tourist buses" values="yes,no" display_values="Yes,No" match="key" values_context="access" values_sort="false"/>
             <combo key="4wd_only" text="4WD only" values="yes,recommended,no" display_values="Yes,Recommended,No" values_context="access" match="key" values_sort="false"/>
@@ -3876,7 +3879,7 @@
             <space/>
             <key key="leisure" value="marina"/>
             <text key="name" text="Name"/>
-            <combo key="sanitary_dump_station" text="Dump Station" values="yes,public,customers,no"/>
+            <reference ref="sanitary_dump_station"/>
             <preset_link preset_name="No name"/>
         </item> <!-- Marina -->
         <item name="Marine Fuel" icon="icons/png/transport_fuel.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -5064,7 +5067,10 @@
         <item name="Hangar" icon="icons/png/transport_hangar_11004.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:aeroway=hangar"/>
             <key key="aeroway" value="hangar"/>
-            <combo key="building" text="Building" values="hangar" values_context="building" default="hangar" values_searchable="true" match="keyvalue"/>
+            <check key="building" value_on="hangar" text="Hangar building" default="on" values_context="building" disable_off="true" values_searchable="true" match="keyvalue"/>
+            <optional>
+                <reference ref="additional_building_tags"/>
+            </optional>
         </item> <!-- Hangar -->
         <item name="Beacon" icon="icons/png/transport_beacon_22008.png" name_context="airmark" type="node" preset_name_label="true">
             <link wiki="Tag:airmark=beacon"/>
@@ -5242,7 +5248,7 @@
             <reference ref="reservation"/>
             <text key="capacity" text="Number of places" value_type="integer"/>
             <reference ref="fee_interval"/>
-            <combo key="sanitary_dump_station" text="Dump Station" values="yes,public,customers,no"/>
+            <reference ref="sanitary_dump_station"/>
             <check key="power_supply" text="Power supply" disable_off="true"/>
             <check key="tents" text="Tents allowed" disable_off="true"/>
             <space/>
@@ -5266,7 +5272,7 @@
                 <check key="backcountry" text="Backcountry" disable_off="true"/>
                 <check key="group_only" text="Group only access" disable_off="true"/>
             </checkgroup>
-            <combo key="sanitary_dump_station" text="Dump Station" values="yes,public,customers,no" display_values="Exists,Public,Customers,Private" match="none"/>
+            <reference ref="sanitary_dump_station"/>
             <reference ref="wheelchair"/>
             <space/>
             <reference ref="internet"/>
@@ -8837,8 +8843,9 @@
             <key key="man_made" value="gasometer"/>
             <optional>
                 <reference ref="name_ref_operator"/>
-                <combo key="building" text="Building" values="gasometer" values_context="building"/>
+                <check key="building" value_on="gasometer" text="Gasometer building" values_context="building" disable_off="true" values_searchable="true" match="keyvalue"/>
                 <text key="height" text="Height (meters)" length="7" value_type="dimension_vertical"/>
+                <reference ref="additional_building_tags"/>
             </optional>
         </item> <!-- Gasometer -->
         <item name="Silo" icon="icons/png/man_made_silo_22049.png" type="node,closedway" preset_name_label="true">
@@ -8847,8 +8854,9 @@
             <key key="man_made" value="silo"/>
             <optional>
                 <reference ref="name_ref_operator"/>
-                <combo key="building" text="Building" values="silo" values_context="building"/>
+                <check key="building" value_on="silo" text="Silo building" values_context="building" disable_off="true" values_searchable="true" match="keyvalue"/>
                 <text key="height" text="Height (meters)" length="7" value_type="dimension_vertical"/>
+                <reference ref="additional_building_tags"/>
             </optional>
         </item> <!-- Silo -->
         <item name="Storage Tank" icon="icons/png/man_made_storage_tank_22060.png" type="node,closedway">
@@ -8856,9 +8864,10 @@
             <key key="man_made" value="storage_tank"/>
             <optional>
                 <reference ref="name_ref_operator"/>
-                <combo key="building" text="Building" values="storage_tank" values_context="building"/>
+                <check key="building" value_on="storage_tank" text="Storage tank building" values_context="building" disable_off="true" values_searchable="true" match="keyvalue"/>
                 <combo key="content" text="Content" values="fuel,manure,oil,sewage,silage,slurry,water,wine" display_values="Fuel,Manure,Oil,Sewage,Silage,Slurry,Water,Wine" values_context="content"/>
                 <text key="height" text="Height (meters)" length="7" value_type="dimension_vertical"/>
+                <reference ref="additional_building_tags"/>
             </optional>
         </item> <!-- Storage Tank -->
         <item name="Water Works" icon="icons/png/man_made_water_works_22084.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -9971,7 +9980,7 @@
         <reference ref="link_contact_address_payment"/>
     </item> <!-- City gate -->
     <item name="Building" icon="icons/png/tourist_building_19005.png" type="node,closedway,multipolygon" preset_name_label="true">
-        <link wiki="Tag:historic"/>
+        <link wiki="Tag:historic=building"/>
         <space/>
         <key key="historic" value="building"/>
         <reference ref="optional_name_wikipedia"/>
@@ -10118,10 +10127,13 @@
         <reference ref="optional_name"/>
         <reference ref="religious_catholic_christian"/>
         <check key="amenity" text="Place of worship" value_on="place_of_worship" disable_off="true"/>
-        <combo key="building" text="Building" values="wayside_shrine" values_context="building"/>
+        <check key="building" value_on="wayside_shrine" text="Wayside shrine building" values_context="building" disable_off="true" values_searchable="true" match="keyvalue"/>
         <text key="start_date" text="Start date"/>
         <text key="inscription" text="Inscription" length="255"/>
         <reference ref="historic_optional"/>
+        <optional>
+            <reference ref="additional_building_tags"/>
+        </optional>
     </item> <!-- Wayside Shrine -->
     <item name="Torii" icon="icons/png/tourist_shinto3.png" type="node,closedway" preset_name_label="true">
         <link wiki="Tag:man_made=torii"/>
@@ -10795,6 +10807,7 @@
                 <list_entry value="spa" short_description="Spa"/>
                 <list_entry value="tanning" short_description="Tanning"/>              
                 <list_entry value="eyelash" short_description="Eyelashes"/>
+                <list_entry value="nails" short_description="Nails"/>
             </multiselect>
             <reference ref="name_oh_wheelchair_level"/>
             <reference ref="link_contact_address_payment"/>
@@ -11730,9 +11743,17 @@
             <reference ref="name_wikipedia"/>
             <text key="ele" text="Elevation (meters)" length="10"/>
             <optional>
-                <combo key="volcano:status" text="Current Status" values="active,dormant,extinct"/>
-                <combo key="volcano:type" text="Type" values="stratovolcano,shield,scoria"/>
-            </optional>
+            <combo key="volcano:status" text="Current Status">
+                <list_entry value="active" display_value="Active"/>
+                <list_entry value="dormant" display_value="Dormant" short_description="Was active in historical times"/>
+                <list_entry value="extinct" display_value="Extinct" short_description="Not erupted in recorded history"/>
+            </combo>
+            <combo key="volcano:type" text="Type">
+                <list_entry value="scoria" display_value="Scoria (volcanic cone)"/>
+                <list_entry value="shield" display_value="Shield volcano (low profile)"/>
+                <list_entry value="stratovolcano" display_value="Stratovolcano (composite volcano)"/>
+            </combo>
+        </optional>
         </item> <!-- Volcano -->
         <item name="Ar&#xEA;te" icon="icons/png/poi_arete_sp.png" type="way" preset_name_label="true">
             <link wiki="Tag:natural=arete"/>
