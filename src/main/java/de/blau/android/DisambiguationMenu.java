@@ -6,6 +6,7 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Context;
 import android.database.DataSetObserver;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.text.SpannableString;
@@ -227,6 +228,8 @@ public class DisambiguationMenu {
         View menuView = inflater.inflate(R.layout.disambiguation_menu, null, false);
         final PopupWindow menuWindow = new PopupWindow(menuView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         menuWindow.setFocusable(true);
+        menuWindow.setBackgroundDrawable(new ColorDrawable());
+        menuWindow.setOutsideTouchable(true);
 
         ListView itemsView = menuView.findViewById(R.id.menu_listView);
         itemsView.setOnItemClickListener((AdapterView<?> parent, View view, int position, long id) -> {
