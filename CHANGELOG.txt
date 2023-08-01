@@ -1,5 +1,18 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+19.1.0:
+
+- Fix completely remove MAXAR imagery
+- Fix protect against trying to save an element that was null on restore in the element info modal
+- Fix check data style entries before sorting them
+- Fix change configuration for network location fallback time to stale location data pref
+- Add support fo wkid placeholder in imagery configs 
+- Update imagery from ELI
+- Update NSI
+- Update preset
+- Update synonyms
+- Update translations
+
 19.1.0-1:
 
 - Fix use a separate tag for the task downloading progress dialog
