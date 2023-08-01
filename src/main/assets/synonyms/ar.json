@@ -337,9 +337,6 @@
 "amenity/doctors":[
 "طبيب"
 ],
-"amenity/doctors/gynaecology":[
-"طبيب أمراض نساء"
-],
 "amenity/dojo":[
 "دوجو",
 "دوجو /  أكاديمية الفنون القتالية",
@@ -490,9 +487,6 @@
 "تمهيدي ، حضانة ، روض",
 "أرض حضانة / روض",
 "رياض أطفال"
-],
-"amenity/kneipp_water_cure":[
-"بركة علاج القدم بالماء"
 ],
 "amenity/language_school":[
 "مدرسة لغات"

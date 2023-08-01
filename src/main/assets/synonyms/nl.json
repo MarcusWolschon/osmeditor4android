@@ -331,10 +331,10 @@
 "brasserie",
 "cafetaria",
 "lunchroom",
-"Brasserie",
 "tearoom",
 "cake",
-"bistro"
+"bistro",
+"Café"
 ],
 "amenity/cafe/bubble_tea":[
 "Bubbelthee café"
@@ -505,11 +505,7 @@
 "Kinder- en jeugdpsychiater"
 ],
 "amenity/doctors/gynaecology":[
-"vrouw",
-"vrouwenarts",
-"Gynaecoloog",
-"bevalling",
-"gynaecoloog"
+"Verloskundige/Gynaecoloog"
 ],
 "amenity/doctors/psychiatrist":[
 "Psychiater"
@@ -580,6 +576,9 @@
 "frieten",
 "Fastfoodrestaurant"
 ],
+"amenity/fast_food/bagel":[
+"Bagelwinkel"
+],
 "amenity/fast_food/burger":[
 "burgerrestaurant",
 "Burgerrestaurant",
@@ -613,7 +612,7 @@
 "Hotdogzaak"
 ],
 "amenity/fast_food/ice_cream":[
-"IJszaak"
+"IJskraam"
 ],
 "amenity/fast_food/juice":[
 "vruchtendrank",
@@ -647,6 +646,9 @@
 "smos",
 "broodjeszaak",
 "Broodjesfastfoodzaak"
+],
+"amenity/fast_food/wings":[
+"Fastfoodrestaurant voor chicken wings"
 ],
 "amenity/ferry_terminal":[
 "Veerbootterminal"
@@ -724,10 +726,13 @@
 ],
 "amenity/ice_cream":[
 "ijskraam",
+"IJssalon",
 "ijscowinkel",
-"Ĳskraam",
 "ijsventer",
 "ijskraampje"
+],
+"amenity/ice_cream/frozen_yogurt":[
+"Frozen yoghurt-winkel"
 ],
 "amenity/internet_cafe":[
 "Internetcafé",
@@ -741,7 +746,7 @@
 "Gebied van Crèche/Kleuterschool"
 ],
 "amenity/kneipp_water_cure":[
-"Kneipp Waterbad"
+"Kneipp-faciliteit"
 ],
 "amenity/language_school":[
 "school",
@@ -1198,6 +1203,9 @@
 "avondeten",
 "Frans restaurant"
 ],
+"amenity/restaurant/georgian":[
+"Georgisch restaurant"
+],
 "amenity/restaurant/german":[
 "duits",
 "worst",
@@ -1242,6 +1250,9 @@
 "Pizzarestaurant",
 "pizzeria"
 ],
+"amenity/restaurant/ramen":[
+"Ramen-restaurant"
+],
 "amenity/restaurant/seafood":[
 "zeevruchtenrestaurant",
 "Visrestaurant"
@@ -1263,6 +1274,9 @@
 ],
 "amenity/restaurant/turkish":[
 "Turks restaurant"
+],
+"amenity/restaurant/ukrainian":[
+"Oekraïens restaurant"
 ],
 "amenity/restaurant/vietnamese":[
 "Vietnamees restaurant"
@@ -1969,6 +1983,12 @@
 "kissing gate",
 "Voetgangershek"
 ],
+"barrier/lift_gate":[
+"Slagboom"
+],
+"barrier/log":[
+"Blokkade door omgevallen boom"
+],
 "barrier/motorcycle_barrier":[
 "Motorfietsbarrière"
 ],
@@ -2415,6 +2435,9 @@
 "club":[
 "Club",
 "vereniging"
+],
+"club/scout":[
+"Scouting"
 ],
 "club/sport":[
 "club",
@@ -4226,6 +4249,9 @@
 "Jachthaven",
 "marina"
 ],
+"leisure/marina_no_facilities":[
+"Ligplaatsen voor jachten"
+],
 "leisure/miniature_golf":[
 "hole",
 "golf",
@@ -5020,6 +5046,9 @@
 "piek",
 "bergtop"
 ],
+"natural/peninsula":[
+"Schiereiland"
+],
 "natural/reef":[
 "koraalrif",
 "zandbank",
@@ -5793,13 +5822,17 @@
 "fotovoltaïsche module"
 ],
 "power/generator/method/photovoltaic/building/roof":[
-"zonnepaneel carport",
-"zonnepaneel overdekking",
-"Zonnepaneel als luifel"
+"overkapping",
+"zonnepaneel",
+"overdekking",
+"Zonnepaneel als luifel",
+"carport"
 ],
 "power/generator/method/photovoltaic/location/roof":[
 "Zonnepaneel op dak",
-"zonnepaneel"
+"zonnepaneel",
+"huis",
+"dak"
 ],
 "power/generator/source/hydro":[
 "francisturbine",
@@ -5862,6 +5895,9 @@
 "hydro-elektrische elektriciteitscentrale",
 "Hydro-elektrische centrale"
 ],
+"power/plant/source/method/photovoltaic":[
+"Zonnepark"
+],
 "power/plant/source/nuclear":[
 "Nucleaire centrale",
 "nucleaire elektriciteitscentrale"
@@ -5870,6 +5906,9 @@
 "elektriciteitscentrale op olie",
 "olie elektriciteitscentrale",
 "Oliecentrale"
+],
+"power/plant/source/solar":[
+"Zonnepark"
 ],
 "power/plant/source/waste":[
 "afvalverbrandingscentrale",
@@ -6744,9 +6783,12 @@
 "bloemist"
 ],
 "shop/frame":[
+"kadering",
 "schilderijen",
-"kadrering",
-"Kaderwinkel",
+"Lijstenmakerij",
+"lijstenmaker",
+"inlijsten",
+"lijsten",
 "kunst"
 ],
 "shop/frozen_food":[
@@ -6858,6 +6900,9 @@
 ],
 "shop/hobby":[
 "Hobbywinkel"
+],
+"shop/honey":[
+"Honingwinkel"
 ],
 "shop/household_linen":[
 "lakens",
@@ -7675,12 +7720,13 @@
 ],
 "traffic_sign/city_limit":[
 "rand",
-"Verkeersbord stadsgrens",
 "plaats",
 "dorp",
+"kombord",
 "nederzetting",
-"bord stadsgrens",
-"grens"
+"Plaatsnaambord",
+"grens",
+"stadsgrens"
 ],
 "traffic_sign/maxspeed":[
 "Verkeersbord maximumsnelheid",

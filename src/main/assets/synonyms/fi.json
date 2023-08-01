@@ -468,6 +468,9 @@
 "amenity/community_centre/lgbtq":[
 "Seksuaalivähemmistöjen yhteisökeskus"
 ],
+"amenity/community_centre/youth_centre":[
+"Nuorisokeskus"
+],
 "amenity/compressed_air":[
 "paineilma",
 "auto",
@@ -1163,6 +1166,9 @@
 "amenity/restaurant/japanese":[
 "Japanilainen ravintola"
 ],
+"amenity/restaurant/korean":[
+"Korealainen ravintola"
+],
 "amenity/restaurant/mexican":[
 "Meksikolainen ravintola"
 ],
@@ -1172,8 +1178,14 @@
 "amenity/restaurant/pizza":[
 "Pitseria"
 ],
+"amenity/restaurant/ramen":[
+"Ramenravintola"
+],
 "amenity/restaurant/seafood":[
 "Meriruokaravintola"
+],
+"amenity/restaurant/spanish":[
+"Espanjalainen ravintola"
 ],
 "amenity/restaurant/steakhouse":[
 "Pihviravintola"
@@ -1186,6 +1198,9 @@
 ],
 "amenity/restaurant/turkish":[
 "Turkkilainen ravintola"
+],
+"amenity/restaurant/ukrainian":[
+"Ukrainalainen ravintola"
 ],
 "amenity/restaurant/vietnamese":[
 "Vietnamilainen ravintola"
@@ -1405,6 +1420,9 @@
 "Myyntiautomaatti",
 "palautusautomaatti"
 ],
+"amenity/vending_machine/bicycle_tube":[
+"Polkupyörän sisäkumien myyntiautomaatti"
+],
 "amenity/vending_machine/bottle_return":[
 "Pullonpalautusautomaatti"
 ],
@@ -1476,6 +1494,9 @@
 "Pysäköintimaksuautomaatti",
 "pysäköinti",
 "parkkimaksu"
+],
+"amenity/vending_machine/pizza":[
+"Pizza-automaatti"
 ],
 "amenity/vending_machine/public_transport_tickets":[
 "automaatti",
@@ -1754,6 +1775,9 @@
 "barrier/lift_gate":[
 "Nostopuomi"
 ],
+"barrier/log":[
+"Kaatunut puu"
+],
 "barrier/retaining_wall":[
 "Tukimuuri"
 ],
@@ -1778,6 +1802,9 @@
 "barrier/wall/noise_barrier":[
 "äänivalli",
 "Melueste"
+],
+"barrier/yes":[
+"Epämääräinen este"
 ],
 "boundary":[
 "Raja"
@@ -2003,6 +2030,9 @@
 ],
 "building/stadium":[
 "Stadionrakennus"
+],
+"building/static_caravan":[
+"Asuntovaunu"
 ],
 "building/sty":[
 "Sikala"
@@ -2355,6 +2385,9 @@
 "paloposti",
 "vedensyöttö"
 ],
+"emergency/fire_service_inlet":[
+"Palokunnan vedensyöttöliitin"
+],
 "emergency/first_aid_kit":[
 "Ensiapupiste"
 ],
@@ -2420,6 +2453,13 @@
 ],
 "entrance/main":[
 "Pääsisäänkäynti"
+],
+"entrance/staircase":[
+"porras",
+"rappu",
+"raput",
+"portaikko",
+"Sisäänkäynti portaikkoon"
 ],
 "ford":[
 "Kahlauspaikka"
@@ -2632,6 +2672,9 @@
 ],
 "highway/elevator":[
 "Hissi"
+],
+"highway/elevator_line":[
+"Rinnehissi"
 ],
 "highway/emergency_bay":[
 "Hätäpysäytyspaikka"
@@ -3670,6 +3713,12 @@
 "lippu",
 "lippusalko",
 "liputus"
+],
+"man_made/gantry":[
+"liikennemerkki",
+"Portaali",
+"liikennevalo",
+"tukirakenne"
 ],
 "man_made/gasometer":[
 "Kaasusäiliö"

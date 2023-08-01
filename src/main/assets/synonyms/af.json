@@ -271,6 +271,15 @@
 "amenity/place_of_worship/buddhist":[
 "Boeddhiste tempel"
 ],
+"amenity/place_of_worship/christian":[
+"Christen Kerk"
+],
+"amenity/place_of_worship/jewish":[
+"Joodse Sinagoge"
+],
+"amenity/place_of_worship/muslim":[
+"Moslem Moskee"
+],
 "amenity/police":[
 "Polisie"
 ],
@@ -333,6 +342,9 @@
 ],
 "amenity/theatre":[
 "Teater"
+],
+"amenity/toilets":[
+"Badkamer"
 ],
 "amenity/townhall":[
 "Stadsaal"
@@ -829,6 +841,7 @@
 "Snelheidskamera"
 ],
 "highway/steps":[
+"treë",
 "Trappe"
 ],
 "highway/stop":[
@@ -1035,6 +1048,9 @@
 "Druiweprieel",
 "wingerd"
 ],
+"leisure":[
+"Gemakseienksap"
+],
 "leisure/dog_park":[
 "Hondepark"
 ],
@@ -1117,6 +1133,9 @@
 "lyn",
 "Lyn"
 ],
+"man_made":[
+"Mensgemaakde eienskap"
+],
 "man_made/breakwater":[
 "golfbreker",
 "Breekwater",
@@ -1124,6 +1143,9 @@
 ],
 "man_made/bridge":[
 "Bruggebied"
+],
+"man_made/cutline":[
+"snylyn"
 ],
 "man_made/lighthouse":[
 "lugtoring",
@@ -1313,7 +1335,10 @@
 "meer"
 ],
 "natural/water/pond":[
-"Dammetjie"
+"dammetjie",
+"poel",
+"Dammetjie",
+"poeletjie"
 ],
 "natural/water/reservoir":[
 "Reservoir"
@@ -1461,6 +1486,9 @@
 ],
 "power":[
 "Kragbaken"
+],
+"power/generator":[
+"kragopwekker"
 ],
 "power/line":[
 "Kraglyn",
@@ -1693,6 +1721,9 @@
 "shop/bookmaker":[
 "Beroepswedder"
 ],
+"shop/books":[
+"Boekwinkel"
+],
 "shop/boutique":[
 "Boetiek"
 ],
@@ -1716,6 +1747,9 @@
 ],
 "shop/cheese":[
 "Kaaswinkel"
+],
+"shop/chemist":[
+"Apteek"
 ],
 "shop/chocolate":[
 "Sjokoladewinkel"
@@ -1805,6 +1839,9 @@
 "shop/interior_decoration":[
 "Binnenshuise versieringwinkel"
 ],
+"shop/kiosk":[
+"Kiosk"
+],
 "shop/laundry":[
 "Wassery"
 ],
@@ -1892,10 +1929,15 @@
 "tourism/attraction":[
 "Toerismeaantreklikheid"
 ],
+"tourism/camp_site":[
+"Kampterrein"
+],
 "tourism/caravan_site":[
 "RV Park"
 ],
 "tourism/guest_house":[
+"oornag verblyf",
+"gastehuis",
 "Gastehuis"
 ],
 "tourism/hostel":[
@@ -1994,6 +2036,9 @@
 ],
 "type/route/tram":[
 "Tremroete"
+],
+"type/route_master":[
+"Roete Meester"
 ],
 "type/site":[
 "Plek"

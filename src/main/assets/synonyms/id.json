@@ -11,7 +11,7 @@
 ],
 "aeroway/aerodrome":[
 "lapangan terbang",
-"Bandar udara",
+"Bandar Udara",
 "bandara"
 ],
 "aeroway/gate":[
@@ -23,8 +23,8 @@
 "aeroway/helipad":[
 "bandar helikopter",
 "pendaratan helikopter",
-"Helipad",
-"helikopter"
+"helikopter",
+"Pendaratan Helikopter"
 ],
 "aeroway/runway":[
 "Landas pacu"
@@ -94,6 +94,9 @@
 "amenity/car_rental":[
 "penyewaan mobil",
 "Penyewaan Mobil"
+],
+"amenity/car_sharing":[
+"Stasiun Berbagi Mobil"
 ],
 "amenity/car_wash":[
 "cuci mobil",
@@ -333,7 +336,10 @@
 "teater"
 ],
 "amenity/toilets":[
-"Kamar Kecil,Kamar Mandi,Toilet"
+"kamar kecil",
+"toilet",
+"kamar mandi",
+"Toilet"
 ],
 "amenity/townhall":[
 "Balai Kota",
@@ -384,13 +390,16 @@
 "Gerbang"
 ],
 "barrier/hedge":[
-"Tanaman pagar"
+"Pagar Tanaman"
 ],
 "barrier/kissing_gate":[
 "Gerbang pertemuan"
 ],
+"barrier/lift_gate":[
+"Palang"
+],
 "barrier/retaining_wall":[
-"Dinding penahan"
+"Dinding Penahan"
 ],
 "barrier/toll_booth":[
 "Gerbang Tol"
@@ -402,7 +411,13 @@
 "Batas Administrasi"
 ],
 "building":[
+"bangunan",
+"gedung",
+"struktur",
 "Bangunan"
+],
+"building/apartments":[
+"Bangunan Apartemen"
 ],
 "building/barn":[
 "Lumbung"
@@ -445,7 +460,10 @@
 "Bangunan Hotel"
 ],
 "building/house":[
-"Rumah"
+"keluarga",
+"perumahan",
+"Rumah",
+"rumah"
 ],
 "building/hut":[
 "Gubuk"
@@ -591,29 +609,95 @@
 "alkohol",
 "minuman keras"
 ],
+"emergency":[
+"Fitur Kedaruratan"
+],
 "emergency/ambulance_station":[
 "ambulan",
 "Pos Ambulans"
+],
+"emergency/assembly_point":[
+"titik pertemuan",
+"titik kumpul darurat",
+"titik kumpul tsunami",
+"Titik Kumpul Darurat",
+"titik kumpul gempa"
+],
+"emergency/designated":[
+"Akses Darurat Khusus"
+],
+"emergency/destination":[
+"Destinasi Akses Darurat"
 ],
 "emergency/fire_hydrant":[
 "Keran Pemadam Kebakaran",
 "hidran",
 "pompa air"
 ],
+"emergency/landing_site":[
+"Tempat Pendaratan Darurat",
+"tempat pendaratan darurat"
+],
+"emergency/no":[
+"Tak Ada Akses Darurat"
+],
+"emergency/official":[
+"Akses Darurat Resmi"
+],
 "emergency/phone":[
 "Telepon Darurat"
 ],
+"emergency/private":[
+"Akses Darurat Pribadi"
+],
+"emergency/water_reservoir":[
+"waduk darurat",
+"pemadan kebakaran",
+"Waduk Darurat"
+],
+"emergency/water_reservoir_covered":[
+"Waduk Darurat (Bawah Tanah)",
+"darurat",
+"waduk",
+"pemadam kebakaran"
+],
+"emergency/water_tank":[
+"Tangki Air Darurat",
+"pemadam api",
+"tangki air darurat",
+"pemadam kebakaran"
+],
+"emergency/yes":[
+"Terdapat Akses Darurat"
+],
 "entrance":[
 "Pintu Masuk / Keluar"
+],
+"entrance/emergency":[
+"pintu keluar darurat",
+"Pintu Keluar Darurat",
+"pintu kebakaran",
+"kedaruratan",
+"pintu",
+"pintu keselamatan"
+],
+"entrance/emergency_ward_entrance":[
+"departemen kecelakaan & kedarutatan",
+"pintu masuk ruang kedaruratan",
+"ruangan kedaruratan",
+"Pintu Masuk Ruang Kedaruratan"
 ],
 "ford":[
 "Ford"
 ],
 "golf/fairway":[
-"Jalan damai"
+"Jalur Golf"
+],
+"golf/green":[
+"Lapangan Rumput Datar"
 ],
 "golf/hole":[
-"Lubang golf"
+"Lubang Golf"
 ],
 "highway":[
 "Fitur Jalan Raya"
@@ -629,10 +713,30 @@
 "Perhentian Bus"
 ],
 "highway/corridor":[
-"Lorong dalam"
+"lorong",
+"selasar",
+"Selasar dalam Ruangan"
 ],
 "highway/cycleway":[
 "Jalur Sepeda"
+],
+"highway/emergency_access_point":[
+"penyelamatan",
+"titik akses darurat",
+"penanda darurat",
+"Titik Akses Darurat"
+],
+"highway/emergency_bay":[
+"tempat berhenti darurat",
+"tempat mobil berhenti",
+"tempat stop darurat",
+"Tempat Berhenti Darurat"
+],
+"highway/escape":[
+"jalur rem blong",
+"Jalur Penyelamat Rem Blong",
+"jalur darurat rem blong",
+"jalur penyelamat"
 ],
 "highway/footway":[
 "pejalan kaki",
@@ -699,8 +803,9 @@
 ],
 "highway/service/drive-through":[
 "layanan tanpa turun",
-"lantatur",
-"kendara lewat"
+"pelayanan kendaraan",
+"pelayanan mobil",
+"Layanan Tanpa Turun"
 ],
 "highway/service/driveway":[
 "Jalan Masuk",
@@ -736,6 +841,9 @@
 "highway/tertiary_link":[
 "jalan penghubung tersier",
 "Jalan Penghubung Tersier"
+],
+"highway/track":[
+"Jalur / Jalan Akses Lahan"
 ],
 "highway/traffic_signals":[
 "lampu merah",
@@ -795,8 +903,45 @@
 "kuil pinggir jalan",
 "Kuil Pinggir Jalan"
 ],
+"indoor":[
+"Fitur dalam Ruangan"
+],
+"indoor/area":[
+"ruang dalam ruangan",
+"wilayah dalam ruangan",
+"area dalam ruangan",
+"Wilayah dalam Ruangan"
+],
+"indoor/corridor":[
+"lorong",
+"selasar",
+"Selasar dalam Ruangan"
+],
+"indoor/corridor_line":[
+"Selasar dalam Ruangan"
+],
+"indoor/door":[
+"pintu dalam ruangan",
+"pintu ruang",
+"Pintu dalam Ruangan",
+"akses ruangan"
+],
+"indoor/elevator":[
+"elevator",
+"Elevator dalam Ruangan",
+"lift"
+],
 "indoor/room":[
 "Ruangan"
+],
+"indoor/stairs":[
+"Tangga dalam Ruangan",
+"tangga"
+],
+"indoor/wall":[
+"penghalang dalam ruangan",
+"Dinding dalam Ruangan",
+"dinding dalam ruangan"
 ],
 "junction":[
 "Persimpangan",
@@ -805,6 +950,9 @@
 ],
 "landuse":[
 "Fitur Lahan"
+],
+"landuse/allotments":[
+"Bidang Tanah Kebun Komunitas"
 ],
 "landuse/basin":[
 "Cekungan"
@@ -898,6 +1046,9 @@
 "leisure/dog_park":[
 "Taman Anjing"
 ],
+"leisure/escape_game":[
+"Ruangan Melarikan Diri (Permainan)"
+],
 "leisure/garden":[
 "Kebun",
 "kebun"
@@ -909,6 +1060,11 @@
 "leisure/ice_rink":[
 "Arena Seluncur Es",
 "ice skating"
+],
+"leisure/indoor_play":[
+"tempat bermain dalam ruangan",
+"anak-anak",
+"Tempat Bermain dalam Ruangan"
 ],
 "leisure/marina":[
 "marina",
@@ -961,6 +1117,10 @@
 "leisure/playground":[
 "Lapangan Bermain",
 "tempat bermain"
+],
+"leisure/playground/indoor":[
+"Lapangan Bermain dalam Ruangan",
+"lapangan bermain dalam ruangan"
 ],
 "leisure/slipway":[
 "Slipway"
@@ -1213,11 +1373,17 @@
 "railway/monorail":[
 "Monorel"
 ],
+"railway/platform":[
+"Platform Kereta"
+],
 "railway/rail":[
 "Rel Kereta"
 ],
+"railway/station":[
+"Stasiun Kereta"
+],
 "railway/subway":[
-"Rel kereta bawah tanah"
+"Rel Kereta Bawah Tanah"
 ],
 "railway/subway_entrance":[
 "Pintu Terowongan"
@@ -1354,6 +1520,9 @@
 ],
 "shop/fabric":[
 "Toko Kain"
+],
+"shop/farm":[
+"Kios Tanaman"
 ],
 "shop/fashion":[
 "Toko Mode"
@@ -1572,6 +1741,9 @@
 "tourism":[
 "Fitur Pariwisata"
 ],
+"tourism/alpine_hut":[
+"Pondok Gunung"
+],
 "tourism/artwork":[
 "Karya Seni"
 ],
@@ -1581,6 +1753,9 @@
 ],
 "tourism/camp_site":[
 "Perkemahan"
+],
+"tourism/caravan_site":[
+"Taman RV"
 ],
 "tourism/chalet":[
 "Vila Liburan"

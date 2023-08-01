@@ -482,10 +482,6 @@
 "rendelő",
 "gyerekorvos"
 ],
-"amenity/doctors/gynaecology":[
-"nőorvos",
-"Nőgyógyászat"
-],
 "amenity/dojo":[
 "kempo",
 "Harcművészeti edzőterem / dodzso",
@@ -712,11 +708,6 @@
 "kisdedóvó terület",
 "Óvoda / óvodai terület",
 "bölcsőde terület"
-],
-"amenity/kneipp_water_cure":[
-"Kneipp-medence",
-"vízgyógyászat",
-"hidroterápia"
 ],
 "amenity/language_school":[
 "idegen nyelv",
@@ -1157,6 +1148,9 @@
 "szusi",
 "japán étterem"
 ],
+"amenity/restaurant/korean":[
+"Koreai étterem"
+],
 "amenity/restaurant/mexican":[
 "quesadilla",
 "tortilla",
@@ -1176,6 +1170,9 @@
 "halvendéglő",
 "Tengeri ételek étterme"
 ],
+"amenity/restaurant/spanish":[
+"Spanyol étterem"
+],
 "amenity/restaurant/steakhouse":[
 "Bifsztek étterem",
 "marhahús"
@@ -1189,6 +1186,9 @@
 ],
 "amenity/restaurant/turkish":[
 "Török étterem"
+],
+"amenity/restaurant/ukrainian":[
+"Ukrán étterem"
 ],
 "amenity/restaurant/vietnamese":[
 "Vietnámi étterem"
@@ -1285,6 +1285,9 @@
 "fogyatékosok otthona",
 "öregek otthona",
 "Ápolóotthon"
+],
+"amenity/stripclub":[
+"Sztriptízbár"
 ],
 "amenity/studio":[
 "műterem",
@@ -1604,6 +1607,9 @@
 "tematikus park",
 "állatpark"
 ],
+"attraction/big_wheel":[
+"Óriáskerék"
+],
 "attraction/bumper_car":[
 "Dodzsem",
 "dodgem"
@@ -1800,6 +1806,12 @@
 "ütközős csapóajtó",
 "Lengőkapu"
 ],
+"barrier/lift_gate":[
+"Sorompó"
+],
+"barrier/log":[
+"Kidőlt fa akadály"
+],
 "barrier/planter":[
 "Virágláda (akadály)"
 ],
@@ -1821,7 +1833,8 @@
 "létra"
 ],
 "barrier/swing_gate":[
-"Elforduló sorompó"
+"Elforduló sorompó",
+"forgó sorompó"
 ],
 "barrier/toll_booth":[
 "matrica",
@@ -2790,10 +2803,10 @@
 "Gyalogosátkelő"
 ],
 "highway/crossing/traffic_signals":[
-"Jelzőlámpás gyalogátkelőhely"
+"Jelzőlámpás gyalogosátkelő"
 ],
 "highway/crossing/uncontrolled":[
-"Jelzett kereszteződés"
+"Jelzett gyalogosátkelő"
 ],
 "highway/crossing/unmarked":[
 "Jelöletlen gyalogosátkelő"
@@ -2807,13 +2820,19 @@
 "Gyalog- és kerékpárút"
 ],
 "highway/cycleway/crossing":[
-"Kerékpárosátkelő"
+"Kerékpáros-átkelő"
 ],
 "highway/cycleway/crossing/bicycle_foot":[
-"Gyalogos- és kerékpárosátkelő"
+"Gyalogos- és kerékpáros-átkelő"
+],
+"highway/cycleway/crossing/traffic_signals":[
+"Lámpás kerékpáros-átkelő"
+],
+"highway/cycleway/crossing/uncontrolled":[
+"Jelzett kerékpáros-átkelő"
 ],
 "highway/cycleway/crossing/unmarked":[
-"Nem jelölt kerékpárosátkelő"
+"Nem jelölt kerékpáros-átkelő"
 ],
 "highway/elevator":[
 "felvonó",
@@ -2843,8 +2862,11 @@
 "highway/footway/crossing":[
 "Gyalogosátkelő"
 ],
+"highway/footway/crossing/traffic_signals":[
+"Gyalogosátkelő gyalogos jelzésekkel"
+],
 "highway/footway/crossing/uncontrolled":[
-"Jelzett kereszteződés"
+"Jelzett gyalogosátkelő"
 ],
 "highway/footway/crossing/unmarked":[
 "Jelöletlen gyalogosátkelő"
@@ -3975,13 +3997,20 @@
 "Mobiltelefon-torony"
 ],
 "man_made/mast/communication/radio":[
-"Rádió adótorony"
+"antenna",
+"Rádió adótorony",
+"rádióantenna",
+"rádióadó"
 ],
 "man_made/mast/communication/television":[
-"Tévé adótorony"
+"antenna",
+"tévéantenna",
+"Tévé adótorony",
+"tévéadó"
 ],
 "man_made/mast/lighting":[
-"Reflektoroszlop"
+"Reflektoroszlop",
+"világítás"
 ],
 "man_made/mineshaft":[
 "akna",
@@ -5951,6 +5980,9 @@
 "kisállat",
 "Kisállatkereskedés",
 "állateledel"
+],
+"shop/pet_grooming":[
+"Kisállat fodrász"
 ],
 "shop/photo":[
 "fényképész",

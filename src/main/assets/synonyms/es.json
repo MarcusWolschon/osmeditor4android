@@ -842,19 +842,16 @@
 "médico primario"
 ],
 "amenity/doctors/gynaecology":[
-"óvulo",
-"ginecólogo",
-"ginecologo",
-"ovulación",
-"ovulacion",
-"ginecologa ginecología",
-"reproductiva",
-"ginecologia",
-"obstetricia",
+"reproductor",
 "ginecóloga",
-"médico de la mujer",
-"medicina de la mujer",
-"Ginecólogo"
+"ginecólogo",
+"ovulación",
+"reproductivo",
+"Obstetra / ginecólogo",
+"ginecología",
+"gine",
+"obstetricia",
+"ovarios"
 ],
 "amenity/doctors/haematology":[
 "Hematólogo",
@@ -1124,6 +1121,12 @@
 "comida de paso",
 "snack bar"
 ],
+"amenity/fast_food/bagel":[
+"desayuno",
+"bagelm",
+"salmón",
+"Bagel (Comida rápida)"
+],
 "amenity/fast_food/burger":[
 "comedor",
 "cafe",
@@ -1295,6 +1298,17 @@
 "desayuno",
 "cena"
 ],
+"amenity/fast_food/wings":[
+"alitas",
+"Alitas de pollo (Comida rápida)",
+"mesa",
+"comer",
+"comida",
+"cena",
+"pollo",
+"chicken wings",
+"cenar"
+],
 "amenity/ferry_terminal":[
 "Terminal de ferry"
 ],
@@ -1411,6 +1425,15 @@
 "tarta helada",
 "Heladería"
 ],
+"amenity/ice_cream/frozen_yogurt":[
+"yogurt",
+"frogurt",
+"yogur",
+"helado",
+"Tienda de yogures helados",
+"yogur congelado",
+"froyo"
+],
 "amenity/internet_cafe":[
 "cybercafe",
 "juegos",
@@ -1447,11 +1470,12 @@
 "jardín de niños"
 ],
 "amenity/kneipp_water_cure":[
-"kneipp",
-"Cura de agua Kneipp",
+"Instalación Kneipp",
+"kneippismo",
+"hidroterapia kneipp",
+"baño de pies",
 "hidroterapia",
-"cura",
-"agua"
+"cura kneipp"
 ],
 "amenity/language_school":[
 "idiomas",
@@ -2269,6 +2293,18 @@
 "Restaurante francés",
 "café"
 ],
+"amenity/restaurant/georgian":[
+"bar",
+"mesa",
+"almuerzo",
+"restaurante",
+"Restaurante georgiano",
+"comer",
+"desayuno",
+"cena",
+"restorán",
+"cenar"
+],
 "amenity/restaurant/german":[
 "comedor",
 "cafe",
@@ -2389,6 +2425,18 @@
 "cafe. porción",
 "café"
 ],
+"amenity/restaurant/ramen":[
+"bar",
+"mesa",
+"almuerzo",
+"sopa",
+"comer",
+"cena",
+"japonés",
+"fideos",
+"Restaurante de ramen",
+"cenar"
+],
 "amenity/restaurant/seafood":[
 "ostras",
 "comedor",
@@ -2477,6 +2525,18 @@
 "desayuno",
 "cena",
 "café"
+],
+"amenity/restaurant/ukrainian":[
+"bar",
+"mesa",
+"almuerzo",
+"restaurante",
+"comer",
+"desayuno",
+"cena",
+"restorán",
+"Restaurante ucraniano",
+"cenar"
 ],
 "amenity/restaurant/vietnamese":[
 "comedor",
@@ -4266,6 +4326,15 @@
 "Clubs",
 "cocina"
 ],
+"club/scout":[
+"guía",
+"Grupo de exploradores / Scout",
+"explorador",
+"exploración",
+"niño explorador",
+"scout",
+"boy scout"
+],
 "club/sport":[
 "club de atletismo",
 "Club de deportes",
@@ -5618,7 +5687,16 @@
 "interior"
 ],
 "highway/crossing":[
-"Cruce"
+"cruce",
+"cruce peatonal",
+"peatonal",
+"peatón",
+"paso",
+"paso de peatones",
+"cebra",
+"Cruce",
+"paso de cebra",
+"paso peatonal"
 ],
 "highway/crossing/traffic_signals":[
 "paso de bicicletas",
@@ -5777,7 +5855,16 @@
 "Pasarela móvil"
 ],
 "highway/footway/crossing":[
-"Cruce peatonal"
+"cruce",
+"peatones",
+"cruce peatonal",
+"peatonal",
+"peatón",
+"paso",
+"Cruce peatonal",
+"paso de peatones",
+"cebra",
+"paso de cebra"
 ],
 "highway/footway/crossing/traffic_signals":[
 "paso de bicicletas",
@@ -7335,6 +7422,15 @@
 "puerto deportivo",
 "embarcadero",
 "dársena"
+],
+"leisure/marina_no_facilities":[
+"puerto",
+"Amarres para yates",
+"barcos",
+"puerto deportivo",
+"amarres",
+"muelles",
+"yates"
 ],
 "leisure/miniature_golf":[
 "minigolf",
@@ -11997,6 +12093,12 @@
 ],
 "shop/hobby":[
 "Tienda de pasatiempos"
+],
+"shop/honey":[
+"miel",
+"tienda de miel",
+"apicultura",
+"Tienda de miel"
 ],
 "shop/household_linen":[
 "pañuelos",

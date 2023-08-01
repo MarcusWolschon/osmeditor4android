@@ -901,19 +901,6 @@
 "văn phòng bác sỹ",
 "van phong thay thuoc"
 ],
-"amenity/doctors/gynaecology":[
-"bac sy phu khoa",
-"bác sỹ phụ khoa",
-"Bác sĩ Phụ khoa",
-"bác sĩ phụ khoa",
-"nhà phụ khoa học",
-"thầy thuốc phụ khoa",
-"thay thuoc phu khoa",
-"phu khoa",
-"nha phu khoa hoc",
-"bac si phu khoa",
-"phụ khoa"
-],
 "amenity/dojo":[
 "vo thuat",
 "Võ đường",
@@ -1416,13 +1403,6 @@
 "sân trường mầm non",
 "sân trường mẫu giáo",
 "Sân Nhà trẻ"
-],
-"amenity/kneipp_water_cure":[
-"Bồn tắm Trị liệu Kneipp",
-"bon tam kneipp",
-"bồn tắm kneipp",
-"bồn tắm trị liệu kneipp",
-"bon tam tri lieu kneipp"
 ],
 "amenity/language_school":[
 "truong ngon ngu",

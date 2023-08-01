@@ -514,15 +514,6 @@
 "amenity/doctors/general":[
 "Clínico Geral"
 ],
-"amenity/doctors/gynaecology":[
-"obstetrícia",
-"ginecológica",
-"saúde da mulher",
-"Ginecologista",
-"reprodução",
-"clínica ginecológica",
-"médico ginecologista"
-],
 "amenity/doctors/haematology":[
 "Hematologista"
 ],
@@ -836,10 +827,6 @@
 "escola de educação infantil",
 "Escola de educação infantil"
 ],
-"amenity/kneipp_water_cure":[
-"cura da água do kneipp",
-"Cura da água do Kneipp"
-],
 "amenity/language_school":[
 "escola de idiomas",
 "Escola de idiomas"
@@ -924,7 +911,7 @@
 "boate lgbtq+"
 ],
 "amenity/nursing_home":[
-"Casa de Repouso"
+"Casa de repouso"
 ],
 "amenity/parcel_locker":[
 "armários",
@@ -1520,7 +1507,7 @@
 "amenity/taxi":[
 "cooperativa",
 "táxi",
-"Ponto de Táxi"
+"Ponto de táxi"
 ],
 "amenity/telephone":[
 "telefone",
@@ -1829,7 +1816,7 @@
 "parque de diversões",
 "bungue",
 "radical",
-"Ponto de Bungee Jumping",
+"Ponto de bungee jumping",
 "bang",
 "esporte de aventura",
 "salto",
@@ -2209,8 +2196,8 @@
 "edifício de igreja"
 ],
 "building/civic":[
-"Edifício de uso público",
-"edifício cívico"
+"edifício cívico",
+"Edifício cívico"
 ],
 "building/college":[
 "ensino profissionalizante",
@@ -2351,7 +2338,7 @@
 ],
 "building/public":[
 "prédio público",
-"Edifício Público",
+"Edifício público",
 "edifício público"
 ],
 "building/residential":[
@@ -2443,7 +2430,7 @@
 "Edifício de estação de trem"
 ],
 "building/transportation":[
-"Edifício logístico",
+"Edifício de transporte público",
 "edifício de transporte"
 ],
 "building/university":[
@@ -2895,12 +2882,22 @@
 "Saída de emergência"
 ],
 "entrance/emergency_ward_entrance":[
-"entrada do quarto de emergência",
-"Entrada do quarto de emergência"
+"departamento de acidentes e emergência",
+"enfermaria de emergência",
+"departamento de emergência",
+"sala de emergência",
+"Entrada da sala de emergência"
 ],
 "entrance/main":[
 "Entrada principal",
 "entrada principal"
+],
+"entrance/staircase":[
+"Entrada com escadaria",
+"rolante",
+"escadaria",
+"rolar",
+"stairway"
 ],
 "ford":[
 "lugar em um rio no qual se pode passar a pé",
@@ -2975,13 +2972,13 @@
 "healthcare":[
 "consultório médico",
 "enfermaria",
+"Assistência médica",
 "posto de saúde",
 "saúde",
 "dentista",
 "unidade básica de saúde",
 "clínica",
 "médico",
-"Assistência Médica",
 "atendimento médico",
 "fisioterapia",
 "serviços médicos",
@@ -3130,8 +3127,8 @@
 ],
 "healthcare/rehabilitation":[
 "terapia",
-"Clínica de Reabilitação",
-"reabilitação"
+"reabilitação",
+"Clínica de reabilitação"
 ],
 "healthcare/speech_therapist":[
 "fonoaudiologista",
@@ -3194,10 +3191,10 @@
 "Travessia"
 ],
 "highway/crossing/traffic_signals":[
-"Travessia de pedestres com semáforo",
 "travessia de bicicletas com sinal",
 "travessia de pedestres com sinal",
-"sinal de travessia de pedestres"
+"sinal de travessia de pedestres",
+"Faixa de pedestres com semáforo"
 ],
 "highway/crossing/uncontrolled":[
 "zebra",
@@ -3336,8 +3333,8 @@
 "preferencial"
 ],
 "highway/living_street":[
+"Via compartilhada",
 "beco",
-"Via Compartilhada",
 "rua de convivência",
 "rua preferencial a pedestres",
 "espaço compartilhado",
@@ -3627,8 +3624,8 @@
 "balão de retorno"
 ],
 "highway/turning_loop":[
-"Balão de Retorno (com Ilha Central)",
-"retorno"
+"retorno",
+"Balão de Retorno (com ilha central)"
 ],
 "highway/unclassified":[
 "vicinal",
@@ -3784,12 +3781,21 @@
 "eixo de elevador interno"
 ],
 "indoor/room":[
+"câmara",
 "quarto",
-"Quarto"
+"Sala",
+"ambiente",
+"sala interna",
+"ante-sala",
+"cela",
+"vestíbulo",
+"antecâmara",
+"átrio",
+"saguão"
 ],
 "indoor/stairs":[
-"Vão das escadas interior",
-"vão das escadas interior"
+"Caixa de escada interior",
+"caixa de escada interior"
 ],
 "indoor/wall":[
 "Parede interior",
@@ -3808,8 +3814,8 @@
 "Elemento de uso do solo"
 ],
 "landuse/allotments":[
-"loteamentos de jardim",
-"Horta urbana"
+"Horta urbana/comunitária",
+"loteamentos de jardim"
 ],
 "landuse/aquaculture":[
 "ostreicultura",
@@ -3873,12 +3879,12 @@
 "landuse/farmland":[
 "quinta",
 "agrícola",
-"Área de Lavoura",
 "rural",
 "terra arável",
 "campo agrícola",
 "agricultura",
 "lavoura",
+"Área de lavoura",
 "fazenda",
 "campanha"
 ],
@@ -4248,8 +4254,8 @@
 "leisure/garden":[
 "jardim",
 "plantas",
-"Jardim / Horta",
 "flores",
+"Jardim/Horta",
 "horta",
 "vegetais"
 ],
@@ -4598,12 +4604,12 @@
 "campo de tiro"
 ],
 "leisure/sports_centre/swimming":[
-"Academia de Natação",
 "esportes aquáticos",
 "natação",
 "desportos aquáticos",
 "piscina",
 "centro de natação",
+"Academia de natação",
 "nado"
 ],
 "leisure/sports_hall":[
@@ -4809,8 +4815,14 @@
 "bueiro"
 ],
 "man_made/manhole/drain":[
-"Dreno de tempestade",
-"dreno de tempestade"
+"drenagem",
+"Bueiro",
+"sarjeta",
+"boca de lobo",
+"sumidouro",
+"sumidoiro",
+"dreno",
+"esgoto"
 ],
 "man_made/manhole/gas":[
 "Bueiro de serviço de gás",
@@ -5708,8 +5720,8 @@
 "Administradora imobiliária ou escritório de locação"
 ],
 "office/quango":[
-"Escritório de Organização Não Governamental Quase Autônoma",
 "quase-autônoma",
+"Escritório de autarquia autônoma",
 "ong",
 "organização",
 "não governamental"
@@ -5850,8 +5862,8 @@
 "place/isolated_dwelling":[
 "moradia isolada",
 "casa isolada",
-"habitação isolada",
-"Moradia Isolada"
+"Moradia isolada",
+"habitação isolada"
 ],
 "place/locality":[
 "Localidade",
@@ -6197,9 +6209,9 @@
 "ônibus"
 ],
 "public_transport/platform/bus_point":[
-"Ponto de Ônibus",
 "parada de ônibus",
-"ponto de ônibus"
+"ponto de ônibus",
+"Ponto de ônibus"
 ],
 "public_transport/platform/bus_tram_point":[
 "Ponto de bonde e ônibus",
@@ -6740,7 +6752,7 @@
 "carro",
 "loja de carros",
 "concessionária de automóveis",
-"Revenda de Automóveis",
+"Concessionária de carros",
 "carros novos"
 ],
 "shop/car/second_hand":[
@@ -7202,7 +7214,7 @@
 ],
 "shop/motorcycle":[
 "concessionária de motos",
-"Revenda de Motos"
+"Loja de motocicletas"
 ],
 "shop/motorcycle_repair":[
 "motos",
@@ -7230,6 +7242,39 @@
 "shop/nutrition_supplements":[
 "Loja de Suplementos Nutricionais",
 "loja de suplementos"
+],
+"shop/nuts":[
+"amendoins",
+"frutos",
+"fruta",
+"pecans",
+"nozes",
+"tâmaras",
+"pinhão",
+"macadamia",
+"pistache",
+"amêndoas",
+"cajus",
+"peanuts",
+"brazil nuts",
+"hazelnuts",
+"walnuts",
+"castanhas",
+"pistacio",
+"chestnuts",
+"pecã",
+"figos",
+"dried fruits",
+"seeds",
+"amendoim",
+"almonds",
+"nuts",
+"pistachios",
+"pinhões",
+"coconuts",
+"cashews",
+"pistacho",
+"Loja de frutos secos"
 ],
 "shop/optician":[
 "ótica",
@@ -7274,7 +7319,11 @@
 "bolos"
 ],
 "shop/pawnbroker":[
-"Loja de penhor"
+"penhorar",
+"pawn shop",
+"penhores",
+"Loja de penhor",
+"penhoras"
 ],
 "shop/perfumery":[
 "cosméticos",
@@ -7291,6 +7340,24 @@
 "Loja de animais ou artigos para animais",
 "cão",
 "cães"
+],
+"shop/pet_grooming":[
+"tosquiaria",
+"higiênico",
+"Banho e tosa",
+"gatos",
+"higiene",
+"estética",
+"higiênica",
+"cão",
+"limpeza",
+"tosquia",
+"groomer",
+"animais",
+"grooming",
+"asseio",
+"cães",
+"tosa"
 ],
 "shop/photo":[
 "foto",
@@ -7351,11 +7418,21 @@
 "peixes"
 ],
 "shop/second_hand":[
-"Brechó"
+"roupa usada",
+"loja de consignação",
+"thrift store",
+"segunda mão",
+"2.ª mão",
+"consignação",
+"consignment",
+"usado",
+"usados",
+"Brechó",
+"2ª mão"
 ],
 "shop/sewing":[
 "armarinho",
-"Loja de suprimentos de costura",
+"Loja de aviamentos",
 "loja de suprimentos de costura"
 ],
 "shop/shoe_repair":[
@@ -7789,9 +7866,9 @@
 "lomba"
 ],
 "traffic_calming/island":[
+"Ilha divisória",
 "canteiro",
-"ilha separadora de tráfego",
-"Ilha Divisória"
+"ilha separadora de tráfego"
 ],
 "traffic_calming/mini_bumps":[
 "tartarugas",

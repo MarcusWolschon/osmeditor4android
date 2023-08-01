@@ -7,6 +7,9 @@
 "bulunak",
 "Adres"
 ],
+"advertising":[
+"Advertising Device"
+],
 "advertising/billboard":[
 "Reklam Panosu",
 "reklam panosu",
@@ -270,6 +273,9 @@
 "Kürtaj Kliniği",
 "kürtaj merkezi"
 ],
+"amenity/clinic/dialysis":[
+"Dialysis Center"
+],
 "amenity/clinic/fertility":[
 "bebek merkezi",
 "doğurganlık merkezi",
@@ -294,6 +300,9 @@
 ],
 "amenity/community_centre/lgbtq":[
 "LGBTQ+ Topluluk Merkezi"
+],
+"amenity/community_centre/youth_centre":[
+"Youth Center"
 ],
 "amenity/compressed_air":[
 "hava basma i̇stasyonu",
@@ -326,6 +335,87 @@
 "doktor",
 "Doktor"
 ],
+"amenity/doctors/allergology":[
+"Allergologist"
+],
+"amenity/doctors/cardiology":[
+"Cardiologist"
+],
+"amenity/doctors/child_psychiatry":[
+"Child and Adolescent Psychiatrist"
+],
+"amenity/doctors/dermatology":[
+"Dermatologist"
+],
+"amenity/doctors/gastroenterology":[
+"Gastroenterologist"
+],
+"amenity/doctors/general":[
+"Primary Care Physician"
+],
+"amenity/doctors/haematology":[
+"Hematologist"
+],
+"amenity/doctors/internal":[
+"Internist"
+],
+"amenity/doctors/nephrology":[
+"Nephrologist"
+],
+"amenity/doctors/neurology":[
+"Neurologist"
+],
+"amenity/doctors/neurosurgery":[
+"Neurosurgeon"
+],
+"amenity/doctors/oncology":[
+"Oncologist"
+],
+"amenity/doctors/ophthalmology":[
+"Ophthalmologist"
+],
+"amenity/doctors/orthopaedics":[
+"Orthopedic Surgeon"
+],
+"amenity/doctors/otolaryngology":[
+"Otolaryngologist"
+],
+"amenity/doctors/paediatrics":[
+"Pediatrician"
+],
+"amenity/doctors/pathology":[
+"Pathologist"
+],
+"amenity/doctors/plastic_surgery":[
+"Plastic Surgeon"
+],
+"amenity/doctors/podiatry":[
+"Podiatrist"
+],
+"amenity/doctors/proctology":[
+"Colorectal Surgeon"
+],
+"amenity/doctors/psychiatrist":[
+"Psychiatrist"
+],
+"amenity/doctors/pulmonology":[
+"Pulmonologist"
+],
+"amenity/doctors/radiology":[
+"Radiologist"
+],
+"amenity/doctors/rheumatology":[
+"Rheumatologist"
+],
+"amenity/doctors/surgery":[
+"General Surgeon"
+],
+"amenity/doctors/trauma":[
+"Trauma Surgeon"
+],
+"amenity/doctors/urology":[
+"Urologist"
+],
 "amenity/dojo":[
 "dövüş sanatları akademisi",
 "Dövüş Sanatları Akademisi"
@@ -337,6 +427,9 @@
 "sebil",
 "İçme Suyu",
 "i̇çme suyu"
+],
+"amenity/driver_training":[
+"Driver Training Grounds"
 ],
 "amenity/driving_school":[
 "sürücü okulu",
@@ -358,6 +451,9 @@
 ],
 "amenity/fast_food/burger":[
 "Hamburger Fast Food"
+],
+"amenity/fast_food/cafeteria":[
+"Cafeteria"
 ],
 "amenity/fast_food/chicken":[
 "Tavuk Fast Food"
@@ -451,9 +547,6 @@
 "amenity/kindergarten":[
 "Anaokulu Sahası"
 ],
-"amenity/kneipp_water_cure":[
-"Kneipp Hidroterapisi"
-],
 "amenity/language_school":[
 "Dil Okulu"
 ],
@@ -514,6 +607,9 @@
 "amenity/nursing_home":[
 "Bakım Evi"
 ],
+"amenity/parcel_locker":[
+"Parcel Locker"
+],
 "amenity/parking":[
 "Otopark"
 ],
@@ -522,6 +618,9 @@
 ],
 "amenity/parking/park_ride":[
 "Park & Biniş Arsası"
+],
+"amenity/parking/street-side":[
+"Street-side Parking"
 ],
 "amenity/parking/underground":[
 "Yeraltı Park Yeri"
@@ -654,13 +753,15 @@
 "Geri Dönüşüm"
 ],
 "amenity/recycling/container/electrical_items":[
-"E-atık Konteyneri"
+"E-Atık Kutusu"
 ],
 "amenity/recycling/container/green_waste":[
 "Yeşil Atık Konteyneri"
 ],
 "amenity/recycling_centre":[
-"geri dönüşüm merkezi",
+"yeniden kullanım",
+"yer",
+"yeri",
 "Geri Dönüşüm Merkezi"
 ],
 "amenity/recycling_container":[
@@ -683,6 +784,9 @@
 "amenity/restaurant/asian":[
 "Asya Restoranı"
 ],
+"amenity/restaurant/barbeque":[
+"Barbeque Restaurant"
+],
 "amenity/restaurant/chinese":[
 "Çin Restoranı"
 ],
@@ -704,6 +808,9 @@
 "amenity/restaurant/japanese":[
 "Japon Restoranı"
 ],
+"amenity/restaurant/korean":[
+"Korean Restaurant"
+],
 "amenity/restaurant/mexican":[
 "Meksika Restoranı"
 ],
@@ -715,6 +822,9 @@
 ],
 "amenity/restaurant/seafood":[
 "Deniz Yiyecekleri Restoranı"
+],
+"amenity/restaurant/spanish":[
+"Spanish Restaurant"
 ],
 "amenity/restaurant/steakhouse":[
 "Et Lokantası"
@@ -775,6 +885,9 @@
 "amenity/social_facility/ambulatory_care":[
 "Ayakta Tedavi"
 ],
+"amenity/social_facility/assisted_living":[
+"Senior Assisted Living Facility"
+],
 "amenity/social_facility/food_bank":[
 "aşevi",
 "Aşevi"
@@ -791,6 +904,9 @@
 "amenity/social_facility/nursing_home":[
 "bakım evi",
 "Bakım Evi"
+],
+"amenity/stripclub":[
+"Striptiz kulübü"
 ],
 "amenity/studio":[
 "Stüdyo",
@@ -824,7 +940,11 @@
 "amenity/theatre/type/amphi":[
 "Amfitiyatro"
 ],
+"amenity/ticket_validator":[
+"Ticket Validator"
+],
 "amenity/toilets":[
+"Restroom",
 "tuvalet"
 ],
 "amenity/toilets/disposal/flush":[
@@ -846,6 +966,9 @@
 "amenity/toy_library":[
 "Oyuncak Kütüphanesi"
 ],
+"amenity/trolley_bay":[
+"Cart Corral"
+],
 "amenity/university":[
 "üniversite kampüsü",
 "üniversite yerleşkesi",
@@ -861,6 +984,9 @@
 "otomat",
 "otomatik satış makinası",
 "Otomatik Satış Makinası"
+],
+"amenity/vending_machine/bicycle_tube":[
+"Bicycle Inner Tube Vending Machine"
 ],
 "amenity/vending_machine/bottle_return":[
 "Şişe Geri Verme İstasyonu"
@@ -920,6 +1046,9 @@
 "Park Fişi Otomatı",
 "park fişi otomatı"
 ],
+"amenity/vending_machine/pizza":[
+"Pizza Vending Machine"
+],
 "amenity/vending_machine/public_transport_tickets":[
 "Otobüs Bileti Otomatı",
 "otobüs bileti otomatı"
@@ -968,6 +1097,9 @@
 "alan",
 "Alan"
 ],
+"area/footway":[
+"Footway Area"
+],
 "area/highway":[
 "Yol Alanı"
 ],
@@ -979,6 +1111,9 @@
 ],
 "attraction/animal":[
 "Hayvan Muhafazası"
+],
+"attraction/big_wheel":[
+"Ferris Wheel"
 ],
 "attraction/bumper_car":[
 "Çarpışan Arabalar"
@@ -1052,6 +1187,15 @@
 "gümrük kontrolü",
 "Gümrük Kontrolü"
 ],
+"barrier/bump_gate":[
+"Bump Gate"
+],
+"barrier/bus_trap":[
+"Bus Trap"
+],
+"barrier/cable_barrier":[
+"Cable Barrier"
+],
 "barrier/cattle_grid":[
 "Izgara",
 "izgara"
@@ -1082,6 +1226,9 @@
 "barrier/fence/railing":[
 "Korkuluk"
 ],
+"barrier/full-height_turnstile":[
+"Full-Height Turnstile"
+],
 "barrier/gate":[
 "Kapı",
 "kapı"
@@ -1089,12 +1236,21 @@
 "barrier/guard_rail":[
 "Korkuluk"
 ],
+"barrier/hampshire_gate":[
+"Wire Gate"
+],
+"barrier/handrail":[
+"Handrail"
+],
 "barrier/hedge":[
 "koruma duvarı",
 "Koruma Duvarı"
 ],
 "barrier/height_restrictor":[
 "Yükseklik Kısıtlayıcı"
+],
+"barrier/jersey_barrier":[
+"Jersey Barrier"
 ],
 "barrier/kerb":[
 "Kaldırım kenarı"
@@ -1121,9 +1277,21 @@
 "Bom Bariyeri",
 "turnike"
 ],
+"barrier/log":[
+"Fallen Tree Obstruction"
+],
+"barrier/motorcycle_barrier":[
+"Motorcycle Barrier"
+],
+"barrier/planter":[
+"Planter (Barrier)"
+],
 "barrier/retaining_wall":[
 "İstinat Duvarı",
 "i̇stinat duvarı"
+],
+"barrier/rope":[
+"Rope Fence"
 ],
 "barrier/sally_port":[
 "Çıkış Kapısı"
@@ -1152,6 +1320,12 @@
 "barrier/wall/noise_barrier":[
 "Gürültü Bariyeri"
 ],
+"barrier/wicket_gate":[
+"Wicket Gate"
+],
+"barrier/yes":[
+"Barrier (Unspecified Type)"
+],
 "boundary":[
 "Sınır"
 ],
@@ -1168,6 +1342,9 @@
 "building":[
 "yapı",
 "Bina"
+],
+"building/allotment_house":[
+"Allotment House"
 ],
 "building/apartments":[
 "Apartman binası"
@@ -1245,6 +1422,9 @@
 "building/farm_auxiliary":[
 "Çiftlik Binası"
 ],
+"building/fire_station":[
+"Fire Station Building"
+],
 "building/garage":[
 "Garaj",
 "garaj"
@@ -1252,6 +1432,9 @@
 "building/garages":[
 "garajlar",
 "Garajlar"
+],
+"building/ger":[
+"Yurt"
 ],
 "building/grandstand":[
 "Tribün"
@@ -1289,12 +1472,18 @@
 "building/kindergarten":[
 "Anaokulu Bina"
 ],
+"building/manufacture":[
+"Industrial Production Building"
+],
 "building/mosque":[
 "cami",
 "Cami"
 ],
 "building/office":[
 "Ofis Binası"
+],
+"building/outbuilding":[
+"Outbuilding"
 ],
 "building/pavilion":[
 "Köşk"
@@ -1344,8 +1533,14 @@
 "Stadyum",
 "stadyum"
 ],
+"building/static_caravan":[
+"Mobile Home"
+],
 "building/sty":[
 "Domuz Ahırı"
+],
+"building/synagogue":[
+"Synagogue Building"
 ],
 "building/temple":[
 "Tapınak",
@@ -1376,10 +1571,19 @@
 "building_point":[
 "Bina"
 ],
+"cemetery/grave":[
+"Grave"
+],
+"cemetery/sector":[
+"Cemetery Section"
+],
 "club":[
 "bar",
 "Klüb",
 "kulüp"
+],
+"club/scout":[
+"Scout Group"
 ],
 "club/sport":[
 "Spor Kulübü"
@@ -1600,6 +1804,15 @@
 "demolished/building":[
 "Son Zamanlarda Yıkılmış Bina"
 ],
+"disc_golf/basket":[
+"Disc Golf Basket"
+],
+"disc_golf/hole":[
+"Disc Golf Hole"
+],
+"disc_golf/tee":[
+"Disc Golf Tee"
+],
 "disused/amenity":[
 "Kullanılmayan Temina"
 ],
@@ -1618,6 +1831,9 @@
 "emergency/ambulance_station":[
 "ambulans i̇stasyonu",
 "Ambulans İstasyonu"
+],
+"emergency/assembly_point":[
+"Emergency Assembly Point"
 ],
 "emergency/defibrillator":[
 "şok cihazı",
@@ -1641,6 +1857,9 @@
 "emergency/fire_hydrant":[
 "Yangın Musluğu",
 "yangın musluğu"
+],
+"emergency/fire_service_inlet":[
+"Fire Department Connection"
 ],
 "emergency/first_aid_kit":[
 "İlk Yardım Kiti"
@@ -1676,6 +1895,12 @@
 "emergency/siren":[
 "Siren"
 ],
+"emergency/water_reservoir":[
+"Emergency Water Reservoir"
+],
+"emergency/water_reservoir_covered":[
+"Emergency Water Reservoir (Underground)"
+],
 "emergency/water_tank":[
 "Acil Su Deposu"
 ],
@@ -1693,6 +1918,9 @@
 ],
 "entrance/main":[
 "Ana Giriş"
+],
+"entrance/staircase":[
+"Staircase Entrance"
 ],
 "ford":[
 "Sığ Geçit, Akarsu Üzerinde Geçit Yeri",
@@ -1752,9 +1980,27 @@
 "Alternatif Tıp",
 "alternatif tıp"
 ],
+"healthcare/alternative/acupuncture":[
+"Acupuncture Practitioner"
+],
+"healthcare/alternative/ayurveda":[
+"Ayurveda Practitioner"
+],
 "healthcare/alternative/chiropractic":[
 "Masör",
 "masaj uzmanı"
+],
+"healthcare/alternative/homeopathy":[
+"Homeopath"
+],
+"healthcare/alternative/naturopathy":[
+"Naturopath"
+],
+"healthcare/alternative/osteopathy":[
+"Osteopath"
+],
+"healthcare/alternative/traditional_chinese_medicine":[
+"Traditional Chinese Medicine Practitioner"
 ],
 "healthcare/audiologist":[
 "odyolog",
@@ -1809,9 +2055,15 @@
 "Rehabilitasyon Merkezi, İyileştirme Merkezi",
 "rehabilitasyon tesisi"
 ],
+"healthcare/sample_collection":[
+"Sample Collection Facility"
+],
 "healthcare/speech_therapist":[
 "konuşma uzmanı",
 "Konuşma Terapisti"
+],
+"healthcare/yes":[
+"Healthcare Facility (Unspecified Type)"
 ],
 "highway":[
 "Karayolu Özelliği"
@@ -1844,6 +2096,9 @@
 ],
 "highway/crossing":[
 "Geçit"
+],
+"highway/crossing/traffic_signals":[
+"Crossing With Pedestrian Signals"
 ],
 "highway/crossing/uncontrolled":[
 "i̇şaretlenmiş yaya geçidi",
@@ -1904,6 +2159,9 @@
 "highway/emergency_bay":[
 "Acil Duruş Yeri"
 ],
+"highway/escape":[
+"Runaway Truck Ramp"
+],
 "highway/footway":[
 "yaya yolu",
 "Yürüyüş Yolu",
@@ -1917,6 +2175,18 @@
 ],
 "highway/footway/crossing":[
 "Yaya Geçidi"
+],
+"highway/footway/crossing/traffic_signals":[
+"Crossing With Pedestrian Signals"
+],
+"highway/footway/crossing/uncontrolled":[
+"İşaretli Yaya Geçidi"
+],
+"highway/footway/crossing/unmarked":[
+"Unmarked Crossing"
+],
+"highway/footway/informal":[
+"Informal Foot Path"
 ],
 "highway/footway/sidewalk":[
 "Kaldırım"
@@ -1996,7 +2266,7 @@
 ],
 "highway/residential":[
 "mahalle arası yol",
-"İmar Yolu",
+"Yerleşim Yeri Yolu",
 "yerleşim yeri yolu"
 ],
 "highway/rest_area":[
@@ -2509,6 +2779,9 @@
 "leisure/garden/community":[
 "Topluluk Bahçesi"
 ],
+"leisure/garden/residential":[
+"Residential Garden"
+],
 "leisure/golf_course":[
 "golf sahası",
 "Golf Sahası"
@@ -2516,9 +2789,15 @@
 "leisure/hackerspace":[
 "Bilgisayar Korsanı Alanı"
 ],
+"leisure/horse_riding":[
+"Horseback Riding Center"
+],
 "leisure/ice_rink":[
 "buz pateni",
 "Buz Pateni"
+],
+"leisure/indoor_play":[
+"Indoor Play Center"
 ],
 "leisure/marina":[
 "marina",
@@ -2556,8 +2835,38 @@
 "amerikan futbol sahası",
 "Amerikan Futbol Sahası"
 ],
+"leisure/pitch/american_handball":[
+"American Handball Court"
+],
 "leisure/pitch/archery":[
 "Okçuluk poligonu"
+],
+"leisure/pitch/athletics":[
+"Track & Field Pitch"
+],
+"leisure/pitch/athletics/discus_throw":[
+"Discus Ring / Sector"
+],
+"leisure/pitch/athletics/hammer_throw":[
+"Hammer Throw Ring / Sector"
+],
+"leisure/pitch/athletics/high_jump":[
+"High Jump Pit"
+],
+"leisure/pitch/athletics/javelin_throw":[
+"Javelin Sector"
+],
+"leisure/pitch/athletics/long_jump":[
+"Long Jump Pit"
+],
+"leisure/pitch/athletics/pole_vault":[
+"Pole Vault Pit"
+],
+"leisure/pitch/athletics/shot_put":[
+"Shot Put Ring / Pit"
+],
+"leisure/pitch/athletics/triple_jump":[
+"Triple Jump Pit"
 ],
 "leisure/pitch/australian_football":[
 "Avustralya Futbol Sahası"
@@ -2596,16 +2905,37 @@
 "leisure/pitch/field_hockey":[
 "Çim Hokeyi Sahası"
 ],
+"leisure/pitch/four_square":[
+"Four Square Court"
+],
+"leisure/pitch/funnel_ball":[
+"Funnel Ball Court"
+],
 "leisure/pitch/futsal":[
 "Futsal sahası",
 "salon futbolu
 beşe beş futbol"
+],
+"leisure/pitch/gaga":[
+"Gaga Pit"
+],
+"leisure/pitch/handball":[
+"Team Handball Court"
 ],
 "leisure/pitch/horseshoes":[
 "Nal Çukuru"
 ],
 "leisure/pitch/netball":[
 "Netball Kortu"
+],
+"leisure/pitch/padel":[
+"Padel Court"
+],
+"leisure/pitch/paintball":[
+"Paintball Field"
+],
+"leisure/pitch/pickleball":[
+"Pickleball Court"
 ],
 "leisure/pitch/rugby_league":[
 "Ragbi Lig Sahası",
@@ -2614,6 +2944,9 @@ beşe beş futbol"
 "leisure/pitch/rugby_union":[
 "ragbi sahası",
 "Ragbi Sahası"
+],
+"leisure/pitch/shooting":[
+"Shooting Range"
 ],
 "leisure/pitch/shuffleboard":[
 "Disk İteleme Sporu Sahası"
@@ -2629,6 +2962,9 @@ beşe beş futbol"
 "leisure/pitch/softball":[
 "Softbol Sahası"
 ],
+"leisure/pitch/table_soccer":[
+"Foosball Table"
+],
 "leisure/pitch/table_tennis":[
 "masa tenisi",
 "Masa Tennis"
@@ -2636,6 +2972,9 @@ beşe beş futbol"
 "leisure/pitch/tennis":[
 "tenis sahası",
 "Tenis Sahası"
+],
+"leisure/pitch/tetherball":[
+"Tetherball Court"
 ],
 "leisure/pitch/volleyball":[
 "Voleybol Sahası",
@@ -2645,6 +2984,9 @@ beşe beş futbol"
 "oyun alanı",
 "Çocuk Parkı",
 "çocuk parkı"
+],
+"leisure/playground/indoor":[
+"Indoor Playground"
 ],
 "leisure/resort":[
 "tatil yeri",
@@ -2656,6 +2998,9 @@ beşe beş futbol"
 "leisure/slipway":[
 "gemi kızağı",
 "Gemi Kızağı"
+],
+"leisure/slipway_drivable":[
+"Slipway (Drivable)"
 ],
 "leisure/sports_centre":[
 "spor merkezi",
@@ -2691,6 +3036,30 @@ beşe beş futbol"
 "leisure/track":[
 "yarış yolu",
 "Yarış Pisti (motor spor hariç)"
+],
+"leisure/track/athletics":[
+"Track & Field Runway"
+],
+"leisure/track/athletics/javelin_throw":[
+"Javelin Runway"
+],
+"leisure/track/athletics/long_jump":[
+"Long Jump Runway"
+],
+"leisure/track/athletics/pole_vault":[
+"Pole Vault Runway"
+],
+"leisure/track/athletics/running":[
+"Running Track"
+],
+"leisure/track/athletics/sprint":[
+"Sprint Runway"
+],
+"leisure/track/athletics/steeplechase":[
+"Steeplechase Runway"
+],
+"leisure/track/athletics/triple_jump":[
+"Triple Jump Runway"
 ],
 "leisure/track/cycling":[
 "Bisiklet Parkuru"
@@ -2742,6 +3111,9 @@ beşe beş futbol"
 "man_made/cairn":[
 "Dağ Tepesine Yığılan Taş"
 ],
+"man_made/carpet_hanger":[
+"Carpet Hanger"
+],
 "man_made/chimney":[
 "Baca",
 "baca"
@@ -2749,11 +3121,20 @@ beşe beş futbol"
 "man_made/clearcut":[
 "Tıraşlama kesilmiş Orman"
 ],
+"man_made/compass_rose":[
+"Compass Rose"
+],
 "man_made/courtyard":[
 "Avlu"
 ],
 "man_made/crane":[
 "Vinç"
+],
+"man_made/crane/gantry_crane":[
+"Gantry Crane"
+],
+"man_made/crane/portal_crane":[
+"Portal Crane"
 ],
 "man_made/cross":[
 "Geçit"
@@ -2774,6 +3155,9 @@ beşe beş futbol"
 "man_made/flagpole":[
 "bayrak direği",
 "Bayrak Direği"
+],
+"man_made/gantry":[
+"Gantry"
 ],
 "man_made/gasometer":[
 "Gazölçer",
@@ -2860,9 +3244,15 @@ beşe beş futbol"
 "man_made/pipeline/underground":[
 "Yeraltı Boru Hattı"
 ],
+"man_made/planter":[
+"Planter"
+],
 "man_made/pumping_station":[
 "pompa i̇stasyonu",
 "Pompa İstasyonu"
+],
+"man_made/quay":[
+"Quay"
 ],
 "man_made/reservoir_covered":[
 "Kapalı Rezervuar"
@@ -2885,6 +3275,18 @@ beşe beş futbol"
 "man_made/street_cabinet/postal_service":[
 "Posta kutusu"
 ],
+"man_made/street_cabinet/traffic_control":[
+"Traffic Control System Cabinet"
+],
+"man_made/street_cabinet/traffic_monitoring":[
+"Traffic Monitoring Cabinet"
+],
+"man_made/street_cabinet/transport_management":[
+"Transport Management Cabinet"
+],
+"man_made/street_cabinet/waste":[
+"Private Waste Collection Cabinet"
+],
 "man_made/surveillance":[
 "güvenlik direği",
 "Güvenlik Direği"
@@ -2895,6 +3297,9 @@ beşe beş futbol"
 "man_made/survey_point":[
 "Ölçüm Kontrol Noktası",
 "ölçüm kontrol noktası"
+],
+"man_made/tailings_pond":[
+"Tailings Pond"
 ],
 "man_made/torii":[
 "Tore Kapısı"
@@ -2915,6 +3320,9 @@ beşe beş futbol"
 "man_made/tower/defensive":[
 "Güçlendirilmiş kule"
 ],
+"man_made/tower/diving":[
+"Diving Platform"
+],
 "man_made/tower/minaret":[
 "Minare"
 ],
@@ -2929,6 +3337,9 @@ beşe beş futbol"
 ],
 "man_made/utility_pole":[
 "Hizmet Direği"
+],
+"man_made/video_wall":[
+"Digital Screen"
 ],
 "man_made/wastewater_plant":[
 "Su Arıtma Tesisleri",
@@ -2967,6 +3378,12 @@ beşe beş futbol"
 "Fabrika",
 "sanayi",
 "fabrika"
+],
+"man_made/works/brewery":[
+"Industrial Brewery"
+],
+"man_made/yes":[
+"Man-Made Feature (Unspecified Type)"
 ],
 "marker":[
 "İşaretleyici"
@@ -3049,6 +3466,9 @@ beşe beş futbol"
 "zirve",
 "Doruk"
 ],
+"natural/peninsula":[
+"Peninsula"
+],
 "natural/reef":[
 "Resif"
 ],
@@ -3094,12 +3514,18 @@ beşe beş futbol"
 "natural/stone":[
 "Bağlı Olmayan Taş / Aşınmış Kaya Parçaları"
 ],
+"natural/strait":[
+"Strait"
+],
 "natural/tree":[
 "ağaç",
 "Ağaç"
 ],
 "natural/tree_row":[
 "Ağaç Sırası"
+],
+"natural/tree_stump":[
+"Tree Stump"
 ],
 "natural/valley":[
 "Vadi"
@@ -3127,6 +3553,9 @@ beşe beş futbol"
 "natural/water/moat":[
 "Kale Hendeği"
 ],
+"natural/water/oxbow":[
+"Oxbow Lake"
+],
 "natural/water/pond":[
 "gölet",
 "Gölet",
@@ -3151,8 +3580,41 @@ beşe beş futbol"
 "sulak arazi",
 "Sulak Alan"
 ],
+"natural/wetland/bog":[
+"Bog"
+],
+"natural/wetland/fen":[
+"Fen"
+],
+"natural/wetland/mangrove":[
+"Mangrove"
+],
+"natural/wetland/marsh":[
+"Marsh"
+],
+"natural/wetland/reedbed":[
+"Reed bed"
+],
+"natural/wetland/saltmarsh":[
+"Coastal Salt Marsh"
+],
+"natural/wetland/string_bog":[
+"String Bog"
+],
+"natural/wetland/swamp":[
+"Swamp"
+],
+"natural/wetland/tidalflat":[
+"Tidal Flat"
+],
+"natural/wetland/wet_meadow":[
+"Wet Meadow"
+],
 "natural/wood":[
 "Doğal Orman"
+],
+"network/type/node_network-DE-NL-BE-LU":[
+"Recreational Network Node"
 ],
 "noexit/yes":[
 "çıkış yok",
@@ -3184,6 +3646,9 @@ beşe beş futbol"
 "office/association":[
 "yardım kuruluşu merkezi",
 "Yardım Kuruluşu"
+],
+"office/bail_bond_agent-US-PH":[
+"Bail Bond Agent"
 ],
 "office/charity":[
 "Hayır Kurumu",
@@ -3226,6 +3691,9 @@ beşe beş futbol"
 "Enerji Kurumu Şubesi",
 "enerji kurumu ofisi"
 ],
+"office/engineer":[
+"Engineering Office"
+],
 "office/estate_agent":[
 "emlak ofisi",
 "Gayrimenkul Ofisi"
@@ -3259,6 +3727,9 @@ beşe beş futbol"
 "office/government/tax":[
 "Vergi Dairesi",
 "vergi i̇daresi"
+],
+"office/graphic_design":[
+"Graphic Design Office"
 ],
 "office/guide":[
 "tur rehber merkezi",
@@ -3305,6 +3776,9 @@ beşe beş futbol"
 "Dedektif",
 "dedektif şubesi"
 ],
+"office/property_management":[
+"Property Management / Leasing Office"
+],
 "office/quango":[
 "yarı özel sivil toplum kuruluşu",
 "Yarı Özel Sivil Toplum Örgütü"
@@ -3339,9 +3813,24 @@ beşe beş futbol"
 "office/travel_agent":[
 "Seyahat Acentesi"
 ],
+"office/union":[
+"Labor Union Office"
+],
 "office/water_utility":[
 "Su Müdürlüğü",
 "su ve kanalizasyon müdürlüğü"
+],
+"office/yes":[
+"Office (Unspecified Type)"
+],
+"pipeline":[
+"Pipeline Feature"
+],
+"pipeline/substation":[
+"Pipeline Substation"
+],
+"pipeline/valve":[
+"Pipeline Valve"
 ],
 "piste/downhill":[
 "Tepe Aşağı Kayak Pisti"
@@ -3436,6 +3925,12 @@ beşe beş futbol"
 "playground":[
 "Oyun Parkı Ekipmanları"
 ],
+"playground/activitypanel":[
+"Play Activity Panel"
+],
+"playground/aerialrotator":[
+"Hanging Spinner"
+],
 "playground/balancebeam":[
 "Denge Aleti Oyna"
 ],
@@ -3445,14 +3940,29 @@ beşe beş futbol"
 "playground/basketswing":[
 "Sepet Salıncak"
 ],
+"playground/bridge":[
+"Play Bridge"
+],
 "playground/climbingframe":[
 "Tırmanma Çerçevesi oyna"
+],
+"playground/climbingwall":[
+"Play Climbing Wall"
 ],
 "playground/cushion":[
 "Zıplayan Minder"
 ],
+"playground/funnel_ball":[
+"Funnel Ball Funnel"
+],
+"playground/hopscotch":[
+"Hopscotch"
+],
 "playground/horizontal_bar":[
 "Barfiks Bar"
+],
+"playground/map":[
+"Painted Playground Map"
 ],
 "playground/playhouse":[
 "Ev oyna"
@@ -3466,8 +3976,14 @@ beşe beş futbol"
 "playground/seesaw":[
 "Tahterevalli"
 ],
+"playground/sledding":[
+"Play Sledding Hill"
+],
 "playground/slide":[
 "Kaydırak"
+],
+"playground/splash_pad":[
+"Play Splash Pad"
 ],
 "playground/springy":[
 "Zıp Zıp"
@@ -3478,6 +3994,21 @@ beşe beş futbol"
 "playground/swing":[
 "Salıncak"
 ],
+"playground/teenshelter":[
+"Teen Shelter"
+],
+"playground/tetherball":[
+"Tetherball Pole"
+],
+"playground/trampoline":[
+"Trampoline"
+],
+"playground/tunnel_tube":[
+"Play Tunnel"
+],
+"playground/water":[
+"Play Water Pump/Screw"
+],
 "playground/zipwire":[
 "Zipline"
 ],
@@ -3485,6 +4016,9 @@ beşe beş futbol"
 "nokta",
 "konum",
 "Nokta"
+],
+"police/checkpoint":[
+"Police Checkpoint"
 ],
 "polling_station":[
 "Geçici Oy Kullanma Alanı"
@@ -3498,6 +4032,9 @@ beşe beş futbol"
 "power/cable/underground":[
 "Yeraltı Enerji Kablosu"
 ],
+"power/catenary_mast":[
+"Catenary Pole"
+],
 "power/generator":[
 "jenerator",
 "üretici",
@@ -3505,6 +4042,12 @@ beşe beş futbol"
 ],
 "power/generator/method/photovoltaic":[
 "Güneş Paneli"
+],
+"power/generator/method/photovoltaic/building/roof":[
+"Solar Panel Canopy"
+],
+"power/generator/method/photovoltaic/location/roof":[
+"Rooftop Solar Panel"
 ],
 "power/generator/source/hydro":[
 "Su Türbini"
@@ -3538,11 +4081,20 @@ beşe beş futbol"
 "power/plant/source/hydro":[
 "Hidroelektrik Güç İstasyonu"
 ],
+"power/plant/source/method/photovoltaic":[
+"Solar Farm"
+],
 "power/plant/source/nuclear":[
 "Nükleer Güç Santrali"
 ],
 "power/plant/source/oil":[
 "Petrol Yakıtlı Enerji Santrali"
+],
+"power/plant/source/solar":[
+"Solar Power Plant"
+],
+"power/plant/source/waste":[
+"Waste Incineration Power Plant"
 ],
 "power/plant/source/wind":[
 "Rüzgar Enerjisi Çiftliği"
@@ -3550,6 +4102,9 @@ beşe beş futbol"
 "power/pole":[
 "elektrik direği",
 "Elektrik Direği"
+],
+"power/portal":[
+"Anchor Portal"
 ],
 "power/substation":[
 "Trafo",
@@ -3815,6 +4370,9 @@ beşe beş futbol"
 "railway/tram_stop":[
 "Tramvay Durma Yeri"
 ],
+"railway/turntable":[
+"Railway Turntable"
+],
 "railway/yard":[
 "Demir Yolu Sahası"
 ],
@@ -3862,6 +4420,9 @@ beşe beş futbol"
 ],
 "shop/anime":[
 "Anime / Manga Dükkanı"
+],
+"shop/antiques":[
+"Antique Shop"
 ],
 "shop/appliance":[
 "beyaz eşya mağazası",
@@ -3991,11 +4552,17 @@ beşe beş futbol"
 "shop/clothes/second_hand":[
 "İkinci El Kıyafet Mağazası"
 ],
+"shop/clothes/suits":[
+"Suits Store"
+],
 "shop/clothes/underwear":[
 "İç Çamaşırı Mağazası"
 ],
 "shop/clothes/wedding":[
 "Düğün Giyim Mağazası"
+],
+"shop/clothes/workwear":[
+"Workwear Store"
 ],
 "shop/coffee":[
 "kahveci",
@@ -4024,6 +4591,9 @@ beşe beş futbol"
 "shop/cosmetics":[
 "kozmetik mağazası",
 "Kozmetik Mağazası"
+],
+"shop/country_store":[
+"Rural Supplies Store"
 ],
 "shop/craft":[
 "El Sanatları Mağazası"
@@ -4152,6 +4722,9 @@ beşe beş futbol"
 "donanım mağazası",
 "Donanım Mağazası"
 ],
+"shop/health_food":[
+"Health Food Store"
+],
 "shop/hearing_aids":[
 "i̇şitme cihazı mağazası",
 "İşitme Cihazı Mağazası"
@@ -4263,6 +4836,9 @@ beşe beş futbol"
 "gıda takviye ürünleri mağazası",
 "Gıda Takviye Ürünleri Mağazası"
 ],
+"shop/nuts":[
+"Nuts Shop"
+],
 "shop/optician":[
 "Gözlükçü",
 "optik",
@@ -4286,6 +4862,9 @@ beşe beş futbol"
 "Pastane",
 "pastane"
 ],
+"shop/pawnbroker":[
+"Pawnshop"
+],
 "shop/perfumery":[
 "parfüm mağazası",
 "Parfümeri"
@@ -4294,6 +4873,9 @@ beşe beş futbol"
 "evcil hayvan mağazası",
 "petşop",
 "Evcil Hayvan Mağazası"
+],
+"shop/pet_grooming":[
+"Pet Groomer"
 ],
 "shop/photo":[
 "Fotoğrafçı",
@@ -4333,6 +4915,9 @@ beşe beş futbol"
 "shop/seafood":[
 "Deniz Ürünleri Mağazası",
 "deniz ürünleri mağazası"
+],
+"shop/second_hand":[
+"Thrift Store"
 ],
 "shop/sewing":[
 "Dikiş Malzemeleri Dükkanı"
@@ -4465,6 +5050,9 @@ beşe beş futbol"
 "shop/wine":[
 "şarap mağazası",
 "Şarap Mağazası"
+],
+"shop/yes":[
+"Shop (Unspecified Type)"
 ],
 "telecom":[
 "Telekom Özelliği"
@@ -4662,12 +5250,18 @@ beşe beş futbol"
 "Refüj",
 "refüj"
 ],
+"traffic_calming/mini_bumps":[
+"Mini Speed Bumps"
+],
 "traffic_calming/rumble_strip":[
 "Hız Şeridi",
 "hız şeridi"
 ],
 "traffic_calming/table":[
 "Hız Tabelası"
+],
+"traffic_calming/yes":[
+"Traffic Calming (Unspecified Type)"
 ],
 "traffic_sign":[
 "Trafik Tabelası"
@@ -4677,6 +5271,9 @@ beşe beş futbol"
 ],
 "traffic_sign/maxspeed":[
 "Hız Sınırı Tabelası"
+],
+"traffic_sign/variable_message":[
+"Variable Message Sign"
 ],
 "type/boundary":[
 "sınır",
@@ -4716,6 +5313,24 @@ beşe beş futbol"
 "sağa dönüş yasak",
 "Sağa Dönüş Yasak"
 ],
+"type/restriction/no_straight_on":[
+"No Straight Ahead"
+],
+"type/restriction/no_u_turn":[
+"No U-Turn"
+],
+"type/restriction/only_left_turn":[
+"Left Turn Only"
+],
+"type/restriction/only_right_turn":[
+"Right Turn Only"
+],
+"type/restriction/only_straight_on":[
+"Straight Ahead Only"
+],
+"type/restriction/only_u_turn":[
+"U-Turn Only"
+],
 "type/route":[
 "güzergah",
 "Güzergah",
@@ -4752,11 +5367,17 @@ beşe beş futbol"
 "Yürüyüş Güzergahı",
 "yürüyüş güzergahı"
 ],
+"type/route/horse":[
+"Horseback Riding Route"
+],
 "type/route/light_rail":[
 "Hafif Raylı Sistem Rotası"
 ],
 "type/route/monorail":[
 "Monoray Rotası"
+],
+"type/route/mtb":[
+"Mountain Biking Route"
 ],
 "type/route/pipeline":[
 "Boru Hattı Güzergahı",
@@ -4770,6 +5391,9 @@ beşe beş futbol"
 "elektrik hattı rotası",
 "Elektrik Hattı Güzergahı",
 "elektrik hattı güzergahı"
+],
+"type/route/railway":[
+"Railway Route"
 ],
 "type/route/road":[
 "Yol Güzergahı",

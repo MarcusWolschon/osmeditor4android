@@ -703,15 +703,17 @@
 ],
 "amenity/doctors/gynaecology":[
 "gynekologie",
-"Gynekolog",
+"lékař na ženy",
+"gynekolog",
 "gynekologický",
 "porodnictví",
 "ovulace",
 "lékař pro ženy",
 "vajíčko",
+"porodní",
 "reprodukční",
-"lékař pro dámy",
-"gynekologista"
+"Porodník / gynekolog",
+"porodnice"
 ],
 "amenity/doctors/haematology":[
 "kostní dřeň",
@@ -944,15 +946,21 @@
 "restaurace",
 "Rychlé občerstvení"
 ],
+"amenity/fast_food/bagel":[
+"snídaně",
+"Bagel rychlé občerstvení",
+"lox"
+],
 "amenity/fast_food/burger":[
 "snídaně",
 "stolování",
 "Burger rychlé občerstvení",
+"stolovat",
 "večeře",
 "jídlo",
-"odvoz",
 "oběd",
 "stůl",
+"drive-in",
 "gril"
 ],
 "amenity/fast_food/cafeteria":[
@@ -964,15 +972,15 @@
 ],
 "amenity/fast_food/chicken":[
 "snídaně",
-"kantýna",
+"stolování",
+"stolovat",
 "večeře",
-"odjezd",
 "jíst",
 "oběd",
 "stůl",
 "jídelna",
-"večeřet",
 "Kuřecí rychlé občerstvení",
+"drive-in",
 "gril"
 ],
 "amenity/fast_food/donut":[
@@ -992,17 +1000,17 @@
 ],
 "amenity/fast_food/fish_and_chips":[
 "snídaně",
+"stolování",
 "kavárna",
 "Fish & Chips rychlé občerstvení",
+"kafe",
 "oběd",
 "stůl",
-"jídelna",
 "hranolky",
-"kafé",
+"stolovat",
 "večeře",
 "jíst",
-"večeřet",
-"zajížďka",
+"drive-in",
 "gril"
 ],
 "amenity/fast_food/hot_dog":[
@@ -1030,66 +1038,77 @@
 ],
 "amenity/fast_food/kebab":[
 "snídaně",
+"stolování",
 "kavárna",
-"jídlo",
-"odjezd",
+"kafe",
 "oběd",
 "stůl",
 "jídelna",
-"kafé",
 "bar",
+"stolovat",
 "večeře",
 "Kebab rychlé občerstvení",
 "jíst",
-"večeřet",
+"drive-in",
 "gril"
 ],
 "amenity/fast_food/mexican":[
 "snídaně",
+"stolování",
 "quesadillas",
 "fajitas",
 "nachos",
 "oběd",
 "stůl",
-"jídelna",
 "tacos",
 "enchiladas",
 "burritos",
 "salsa",
+"stolovat",
 "Mexické rychlé občerstvení",
 "večeře",
 "tortilly",
 "jíst",
-"večeřet",
 "drive-in",
 "gril",
 "tamales"
 ],
 "amenity/fast_food/pizza":[
+"stolování",
+"stolovat",
 "večeře",
 "tenká kůrka",
-"jízda",
 "jíst",
 "oběd",
 "stůl",
-"večeřet",
 "hluboká mísa",
 "plátek",
+"drive-in",
 "Pizza rychlé občerstvení"
 ],
 "amenity/fast_food/sandwich":[
 "snídaně",
+"stolování",
+"stolovat",
 "kavárna",
 "večeře",
-"jídelní",
 "Sandwichové rychlé občerstvení",
 "kafe",
 "jíst",
 "oběd",
 "stůl",
-"večeřet",
-"zajížďka",
+"drive-in",
 "gril"
+],
+"amenity/fast_food/wings":[
+"stolování",
+"stolovat",
+"kuře",
+"večeře",
+"jíst",
+"oběd",
+"stůl",
+"Kuřecí křídla rychlé občerstvení"
 ],
 "amenity/ferry_terminal":[
 "Terminál přívozu/trajektu"
@@ -1196,6 +1215,15 @@
 "Zmrzlina",
 "jogurt"
 ],
+"amenity/ice_cream/frozen_yogurt":[
+"zmrzlina",
+"Prodej mraženého jogurtu",
+"zmrzka",
+"mrogurt",
+"mražený jogurt",
+"mrojo",
+"jogurt"
+],
 "amenity/internet_cafe":[
 "kyberkavárna",
 "taxifon",
@@ -1221,7 +1249,11 @@
 ],
 "amenity/kneipp_water_cure":[
 "Kneippova lázeň",
-"hydroterapie"
+"lázeň nohou",
+"kneippova hydroterapie",
+"kneippova péče",
+"hydroterapie",
+"kneippismus"
 ],
 "amenity/language_school":[
 "jazykovka",
@@ -1816,6 +1848,7 @@
 ],
 "amenity/restaurant":[
 "snídaně",
+"stolování",
 "kavárna",
 "kafe",
 "oběd",
@@ -1823,16 +1856,16 @@
 "jídelna",
 "bar",
 "káva",
-"kantýna",
+"stolovat",
 "večeře",
 "Restaurace",
 "jíst",
-"večeřet",
 "drive-in",
 "gril"
 ],
 "amenity/restaurant/american":[
 "snídaně",
+"stolování",
 "kavárna",
 "Americká restaurace",
 "kafe",
@@ -1841,15 +1874,15 @@
 "jídelna",
 "bar",
 "káva",
-"kantýna",
+"stolovat",
 "večeře",
 "jíst",
-"večeřet",
 "drive-in",
 "gril"
 ],
 "amenity/restaurant/asian":[
 "snídaně",
+"stolování",
 "kavárna",
 "kafe",
 "oběd",
@@ -1857,22 +1890,22 @@
 "jídelna",
 "bar",
 "káva",
-"kantýna",
+"stolovat",
 "večeře",
 "jíst",
-"večeřet",
 "Asijská restaurace",
 "drive-in",
 "gril"
 ],
 "amenity/restaurant/barbeque":[
+"stolování",
 "bar",
+"stolovat",
 "večeře",
 "jíst",
 "oběd",
 "stůl",
 "jídelna",
-"večeřet",
 "Grilovací restaurace",
 "grilovací",
 "drive-in",
@@ -1880,6 +1913,7 @@
 ],
 "amenity/restaurant/chinese":[
 "snídaně",
+"stolování",
 "kavárna",
 "Čínská restaurace",
 "kafe",
@@ -1887,16 +1921,15 @@
 "stůl",
 "jídelna",
 "bar",
-"káva",
-"kantýna",
+"stolovat",
 "večeře",
 "jíst",
-"večeřet",
 "drive-in",
 "gril"
 ],
 "amenity/restaurant/french":[
 "snídaně",
+"stolování",
 "Francouzská restaurace",
 "kavárna",
 "kafe",
@@ -1904,16 +1937,27 @@
 "stůl",
 "jídelna",
 "bar",
-"káva",
-"kantýna",
+"stolovat",
 "večeře",
 "jíst",
-"večeřet",
 "drive-in",
 "gril"
 ],
+"amenity/restaurant/georgian":[
+"snídaně",
+"stolování",
+"bar",
+"stolovat",
+"večeře",
+"jíst",
+"oběd",
+"stůl",
+"Gruzínská restaurace",
+"drive-in"
+],
 "amenity/restaurant/german":[
 "snídaně",
+"stolování",
 "kavárna",
 "Německá restaurace",
 "kafe",
@@ -1922,16 +1966,16 @@
 "jídelna",
 "bar",
 "káva",
-"kantýna",
+"stolovat",
 "večeře",
 "jíst",
-"večeřet",
 "drive-in",
 "gril"
 ],
 "amenity/restaurant/greek":[
 "snídaně",
 "gyros",
+"stolování",
 "olivy",
 "kavárna",
 "Řecká restaurace",
@@ -1941,30 +1985,30 @@
 "jídelna",
 "bar",
 "káva",
-"kantýna",
+"stolovat",
 "večeře",
 "pitas",
 "jíst",
-"večeřet",
 "drive-in",
 "gril"
 ],
 "amenity/restaurant/indian":[
 "snídaně",
+"stolování",
 "Indická restaurace",
 "bar",
+"stolovat",
 "večeře",
 "jíst",
 "oběd",
 "stůl",
-"jídelna",
-"večeřet",
 "drive-in",
 "gril",
 "kari"
 ],
 "amenity/restaurant/italian":[
 "snídaně",
+"stolování",
 "kavárna",
 "těstoviny",
 "Italská restaurace",
@@ -1973,32 +2017,48 @@
 "stůl",
 "jídelna",
 "bar",
-"kantýna",
+"stolovat",
 "pizza",
 "večeře",
 "jíst",
-"večeřet",
 "drive-in",
 "gril"
 ],
 "amenity/restaurant/japanese":[
 "snídaně",
+"stolování",
 "kavárna",
 "kafe",
 "oběd",
 "stůl",
 "jídelna",
 "bar",
-"kantýna",
+"stolovat",
 "večeře",
 "jíst",
-"večeřet",
 "drive-in",
 "gril",
 "Japonská restaurace"
 ],
+"amenity/restaurant/korean":[
+"snídaně",
+"stolování",
+"kavárna",
+"kafe",
+"oběd",
+"stůl",
+"jídelna",
+"Korejská restaurace",
+"bar",
+"stolovat",
+"večeře",
+"jíst",
+"drive-in",
+"gril"
+],
 "amenity/restaurant/mexican":[
 "snídaně",
+"stolování",
 "quesadillas",
 "fajitas",
 "nachos",
@@ -2010,18 +2070,18 @@
 "burritos",
 "salsa",
 "bar",
-"kantýna",
+"stolovat",
 "večeře",
 "tortilly",
 "Mexická restaurace",
 "jíst",
-"večeřet",
 "drive-in",
 "gril",
 "tamales"
 ],
 "amenity/restaurant/noodle":[
 "snídaně",
+"stolování",
 "kavárna",
 "kafe",
 "oběd",
@@ -2032,10 +2092,9 @@
 "ramen nudle",
 "polévka",
 "bar",
-"kantýna",
+"stolovat",
 "večeře",
 "jíst",
-"večeřet",
 "rýžové nudle",
 "drive-in",
 "gril",
@@ -2043,17 +2102,25 @@
 ],
 "amenity/restaurant/pizza":[
 "Pizzerie",
+"stolování",
 "bar",
+"stolovat",
 "večeře",
 "tenká kůrka",
 "jíst",
 "oběd",
 "stůl",
-"jídelna",
-"večeřet",
 "plátek",
 "drive-in",
 "hluboká miska"
+],
+"amenity/restaurant/ramen":[
+"polévka",
+"nudle",
+"japonská",
+"ramen-ten",
+"Restaurace Ramen",
+"ramen-ya"
 ],
 "amenity/restaurant/seafood":[
 "snídaně",
@@ -2063,10 +2130,11 @@
 "stůl",
 "Restaurace s mořskými rybami",
 "bar",
-"kantýna",
+"stolovat",
 "jíst",
 "krevety",
 "drive-in",
+"stolování",
 "kavárna",
 "kafe",
 "kraby",
@@ -2076,14 +2144,30 @@
 "večeře",
 "mlži",
 "ústřice",
-"večeřet",
 "hlavonožci",
 "měkkýši",
 "korýši",
 "gril"
 ],
+"amenity/restaurant/spanish":[
+"snídaně",
+"Španělská restaurace",
+"stolování",
+"kavárna",
+"kafe",
+"oběd",
+"stůl",
+"jídelna",
+"bar",
+"stolovat",
+"večeře",
+"jíst",
+"drive-in",
+"gril"
+],
 "amenity/restaurant/steakhouse":[
 "snídaně",
+"stolování",
 "hovězí maso",
 "kavárna",
 "steakhouse",
@@ -2093,75 +2177,86 @@
 "jídelna",
 "chophouse",
 "bar",
-"kantýna",
+"stolovat",
 "večeře",
 "jíst",
-"večeřet",
 "Steakhouse",
 "drive-in",
 "gril"
 ],
 "amenity/restaurant/sushi":[
 "snídaně",
+"stolování",
 "kavárna",
 "kafe",
 "oběd",
 "stůl",
 "jídelna",
 "bar",
-"kantýna",
+"stolovat",
 "večeře",
 "jíst",
-"večeřet",
 "Sushi restaurace",
 "drive-in",
 "gril"
 ],
 "amenity/restaurant/thai":[
 "snídaně",
+"stolování",
 "kavárna",
 "kafe",
 "oběd",
 "stůl",
 "jídelna",
 "bar",
-"kantýna",
+"stolovat",
 "večeře",
 "jíst",
 "Thajská restaurace",
-"večeřet",
 "drive-in",
 "gril"
 ],
 "amenity/restaurant/turkish":[
 "snídaně",
+"stolování",
 "kavárna",
 "kafe",
 "oběd",
 "stůl",
 "jídelna",
 "bar",
-"kantýna",
+"stolovat",
 "večeře",
 "Turecká restaurace",
 "jíst",
-"večeřet",
 "drive-in",
 "gril"
 ],
+"amenity/restaurant/ukrainian":[
+"snídaně",
+"stolování",
+"bar",
+"stolovat",
+"večeře",
+"Ukrajinská restaurace",
+"jíst",
+"oběd",
+"stůl",
+"drive-in"
+],
 "amenity/restaurant/vietnamese":[
 "snídaně",
+"stolování",
 "kavárna",
 "kafe",
 "oběd",
 "stůl",
 "jídelna",
 "bar",
-"kantýna",
+"stolovat",
 "večeře",
 "Vietnamská restaurace",
 "jíst",
-"večeřet",
 "drive-in",
 "gril"
 ],
@@ -2999,6 +3094,10 @@
 "zvedací brána",
 "závora přes cestu"
 ],
+"barrier/log":[
+"spadlý strom",
+"Překážka ve formě spadlého stromu"
+],
 "barrier/motorcycle_barrier":[
 "bariéra",
 "motorková zábrana",
@@ -3601,6 +3700,12 @@
 "sociální",
 "Klub"
 ],
+"club/scout":[
+"průkopník",
+"skauting",
+"Skautský oddíl",
+"průvodce"
+],
 "club/sport":[
 "atletický klub",
 "sportovní svaz",
@@ -4019,6 +4124,20 @@
 "Požární hydrant",
 "pumpa",
 "požární hydrant"
+],
+"emergency/fire_service_inlet":[
+"fdc",
+"přívod požární ochrany",
+"přívod požárního sprinkleru",
+"přívod mokré stoupačky",
+"přívod stavebního hydrantu",
+"přívod suchého stoupacího potrubí",
+"stoupací potrubí",
+"mokré stoupací potrubí",
+"přívod stoupačky",
+"nabitá stoupačka",
+"suché stoupací potrubí",
+"Přípojka hasičského sboru"
 ],
 "emergency/first_aid_kit":[
 "lékařská souprava",
@@ -5012,7 +5131,7 @@
 "4x4",
 "nákladní cesta",
 "zarostlý",
-"Nezpevněná lesní, polní cesta",
+"Lesní / polní cesta",
 "zemědělská silnice",
 "farmářská cesta",
 "offroad",
@@ -5337,12 +5456,12 @@
 "komerční"
 ],
 "landuse/construction":[
+"Staveniště",
 "infrastruktura",
 "budova",
 "staveniště",
 "jeřáb",
 "demolice",
-"Stavební plocha",
 "stavební zóna",
 "výstavba",
 "buldozer"
@@ -6005,6 +6124,18 @@
 "luk a šíp",
 "Lukostřelba"
 ],
+"leisure/pitch/athletics":[
+"Atletický stadion"
+],
+"leisure/pitch/athletics/discus_throw":[
+"Sektor pro hod diskem"
+],
+"leisure/pitch/athletics/hammer_throw":[
+"Sektor pro hod kladivem"
+],
+"leisure/pitch/athletics/javelin_throw":[
+"Hřiště pro hod oštěpem"
+],
 "leisure/pitch/australian_football":[
 "fotbal",
 "Hřiště pro australský fotbal",
@@ -6336,6 +6467,15 @@
 "jezdit na kole",
 "pes",
 "závod*"
+],
+"leisure/track/athletics":[
+"Atletická dráha"
+],
+"leisure/track/athletics/running":[
+"Bežecká atletická dráha"
+],
+"leisure/track/athletics/sprint":[
+"Sprinterská dráha"
 ],
 "leisure/track/cycling":[
 "dráha pro cyklisty",
@@ -6813,6 +6953,9 @@
 "Čerpací stanice",
 "benzín"
 ],
+"man_made/quay":[
+"Nábřeží"
+],
 "man_made/reservoir_covered":[
 "rezervoár",
 "vodní nádrž",
@@ -7229,6 +7372,9 @@
 "kopec",
 "mount",
 "vrchol"
+],
+"natural/peninsula":[
+"Poloostrov"
 ],
 "natural/reef":[
 "bariéra",
@@ -10997,8 +11143,8 @@
 "nástěnná malba"
 ],
 "tourism/artwork/sculpture":[
-"Skulptura",
-"socha",
+"skulptura",
+"Socha",
 "plastika"
 ],
 "tourism/artwork/statue":[

@@ -290,9 +290,6 @@
 "소아청소년과",
 "정신건강의학과"
 ],
-"amenity/doctors/gynaecology":[
-"산부인과 의원"
-],
 "amenity/dojo":[
 "도장 / 무술 학원"
 ],
@@ -413,9 +410,6 @@
 ],
 "amenity/kindergarten":[
 "유치원 부지"
-],
-"amenity/kneipp_water_cure":[
-"크나이프 물 치료"
 ],
 "amenity/language_school":[
 "영어 학원",

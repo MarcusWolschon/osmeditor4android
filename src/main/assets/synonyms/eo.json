@@ -608,12 +608,6 @@
 "doktoro",
 "sanigejo"
 ],
-"amenity/doctors/gynaecology":[
-"Kabineto de ginekologiisto",
-"ginekologiisto",
-"ginekologo",
-"virinkuracisto"
-],
 "amenity/dojo":[
 "batalarto",
 "luktarto",
@@ -878,14 +872,6 @@
 "infanoghardeno",
 "lernludejo",
 "infangxardeno"
-],
-"amenity/kneipp_water_cure":[
-"piedbano",
-"nagxejeto",
-"nahgejeto",
-"baseneto",
-"banejo",
-"Naĝejeto"
 ],
 "amenity/language_school":[
 "lingvolernejo",

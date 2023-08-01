@@ -622,7 +622,8 @@
 ],
 "amenity/doctors/gynaecology":[
 "gynäkologe",
-"Gynäkologe"
+"Gynäkologe",
+"gynäkologie"
 ],
 "amenity/doctors/haematology":[
 "blut",
@@ -869,6 +870,11 @@
 "Schnellimbiss",
 "schnellrestaurant"
 ],
+"amenity/fast_food/bagel":[
+"frühstück",
+"Bagel Fast Food",
+"bagel"
+],
 "amenity/fast_food/burger":[
 "Burger Fast Food",
 "hamburgerstand",
@@ -954,6 +960,17 @@
 "sandwich takeaway",
 "Sandwich Fast Food",
 "sandwich fast food"
+],
+"amenity/fast_food/wings":[
+"chicken-wings",
+"pouletflügel",
+"geflügel",
+"hühnerflügel",
+"flieten",
+"hühnchen",
+"chickenwings",
+"hähnchen",
+"Chicken Wings Fast Food"
 ],
 "amenity/ferry_terminal":[
 "Schiffsanleger"
@@ -1055,6 +1072,14 @@
 "schleckeishändler",
 "eisdiele"
 ],
+"amenity/ice_cream/frozen_yogurt":[
+"frogurt",
+"Frozen Yogurt Geschäft",
+"joghurteis",
+"froyo",
+"joghurt",
+"frozen yogurt"
+],
 "amenity/internet_cafe":[
 "Internetcafé",
 "internetcafé",
@@ -1075,8 +1100,22 @@
 "Kindergarten, Kindergartengelände"
 ],
 "amenity/kneipp_water_cure":[
-"kneippanlage",
-"Kneippanlage"
+"wasserkur",
+"armbecken",
+"wassertretbecken",
+"wassertretanlage",
+"Kneipp-Anlage",
+"fußbad",
+"wassertreten",
+"kneipp",
+"wassertretstelle",
+"kneipp-einrichtung",
+"kneipp-therapie",
+"hydrotherapie",
+"barfuß",
+"kneippbecken",
+"barfußlaufen",
+"kneippkur"
 ],
 "amenity/language_school":[
 "Sprachschule",
@@ -1584,6 +1623,12 @@
 "französisches restaurant",
 "Französisches Restaurant"
 ],
+"amenity/restaurant/georgian":[
+"georgien",
+"restaurant",
+"essen",
+"Georgisches Restaurant"
+],
 "amenity/restaurant/german":[
 "Deutsches Restaurant",
 "deutsches restaurant"
@@ -1627,6 +1672,13 @@
 "pizza restaurant",
 "Pizzeria"
 ],
+"amenity/restaurant/ramen":[
+"nudel",
+"Ramen Restaurant",
+"ramen",
+"japan",
+"suppe"
+],
 "amenity/restaurant/seafood":[
 "Meeresfrüchte-Restaurant",
 "meeresfrüchte restaurant"
@@ -1654,6 +1706,10 @@
 "amenity/restaurant/turkish":[
 "türkisches restaurant",
 "Türkisches Restaurant"
+],
+"amenity/restaurant/ukrainian":[
+"ukrainisches restaurant",
+"Ukrainisches Restaurant"
 ],
 "amenity/restaurant/vietnamese":[
 "vietnamesisches restaurant",
@@ -3766,7 +3822,15 @@
 "durchgang"
 ],
 "highway/crossing":[
-"Übergang"
+"fußgängerquerung",
+"querung",
+"fußgängerüberweg",
+"Übergang",
+"überweg",
+"überquerung",
+"fußgängerübergang",
+"fußgängerüberquerung",
+"übergang"
 ],
 "highway/crossing/traffic_signals":[
 "fußgängerübergang",
@@ -3886,6 +3950,10 @@
 "rollender bürgersteig"
 ],
 "highway/footway/crossing":[
+"fußgängerquerung",
+"fußgängerüberweg",
+"fußgängerkreuzung",
+"fußgängerübergang",
 "Fußgängerüberweg (eigener Weg)"
 ],
 "highway/footway/crossing/traffic_signals":[
@@ -3959,9 +4027,12 @@
 ],
 "highway/motorway_junction":[
 "autobahnabfahrt (kreuzungspunkt)",
+"ausfahrt",
 "autobahnanschluss",
 "autobahnkreuz",
+"anschlussstelle",
 "autobahnzubringer",
+"abfahrt",
 "Autobahnkreuzungspunkt"
 ],
 "highway/motorway_link":[
@@ -4172,7 +4243,7 @@
 "Zufahrtsstraße für Rettungskräfte"
 ],
 "highway/service/parking_aisle":[
-"Parkplatzweg",
+"Parkplatz-Nebenfahrgasse",
 "parkplatzfahrgasse",
 "fahrweg auf parkplatzflächen"
 ],
@@ -5053,6 +5124,7 @@
 "reitanlage",
 "reitpark",
 "pferdesport",
+"reitbetrieb",
 "reitstall",
 "reitzentrum",
 "pferdereiteinrichtung",
@@ -5080,6 +5152,10 @@
 "marina",
 "Yachthafen",
 "yachthafen"
+],
+"leisure/marina_no_facilities":[
+"liegeplatz ohne ausstattung",
+"Liegeplatz ohne Ausstattung"
 ],
 "leisure/miniature_golf":[
 "minigolfplatz",
@@ -8664,6 +8740,14 @@
 ],
 "shop/hobby":[
 "Bastelgeschäft"
+],
+"shop/honey":[
+"biene",
+"Honiggeschäft",
+"mel",
+"honig",
+"propolis",
+"wachs"
 ],
 "shop/household_linen":[
 "haushaltswaren",

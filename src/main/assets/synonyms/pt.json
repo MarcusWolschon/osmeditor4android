@@ -669,6 +669,21 @@
 "relógio solar",
 "solar"
 ],
+"amenity/college":[
+"cursos",
+"qualificações",
+"educar",
+"educação",
+"instituto",
+"superior",
+"cet",
+"escola",
+"Centro de formação tecnológica",
+"colégio",
+"especialização",
+"escolar",
+"tecnológicos"
+],
 "amenity/community_centre":[
 "centro social",
 "espaço social",
@@ -838,13 +853,7 @@
 "atenção primária à saúde"
 ],
 "amenity/doctors/gynaecology":[
-"ginecológico",
-"Ginecologista",
-"medicina",
-"ginecologia",
-"médica",
-"consultório",
-"médico"
+"Ginecologista / Obstetra"
 ],
 "amenity/doctors/haematology":[
 "sangue",
@@ -1429,10 +1438,10 @@
 ],
 "amenity/kneipp_water_cure":[
 "kneipp",
-"termas",
-"kneippiano",
-"balneário",
-"Balneário Kneippiano"
+"banho",
+"Espaço de terapia Kneipp",
+"kneippismo",
+"hidroterapia"
 ],
 "amenity/language_school":[
 "idiomas",
@@ -2106,6 +2115,21 @@
 "Restaurante francês",
 "francês"
 ],
+"amenity/restaurant/georgian":[
+"jantar",
+"Restaurante georgiano",
+"comer",
+"lanchar",
+"geórgia",
+"georgia",
+"lanche",
+"alimentar",
+"comida",
+"repasto",
+"almoço",
+"georgian",
+"alimentação"
+],
 "amenity/restaurant/german":[
 "Restaurante alemão",
 "restaurante de comida alemã",
@@ -2233,6 +2257,20 @@
 "turca",
 "cozinha turca",
 "comida turca"
+],
+"amenity/restaurant/ukrainian":[
+"jantar",
+"lanche",
+"alimentar",
+"ukraine",
+"comer",
+"comida",
+"lanchar",
+"Restaurante ucraniano",
+"repasto",
+"almoço",
+"ucrânia",
+"alimentação"
 ],
 "amenity/restaurant/vietnamese":[
 "comida vietnamita",
@@ -3301,6 +3339,16 @@
 "Cancela elevatória",
 "barreita"
 ],
+"barrier/log":[
+"obstrução",
+"fallen",
+"tombada",
+"tree",
+"Tronco",
+"árvore",
+"obstáculo",
+"caída"
+],
 "barrier/motorcycle_barrier":[
 "motas",
 "motorcycle",
@@ -3431,6 +3479,15 @@
 "residência",
 "Edifício"
 ],
+"building/allotment_house":[
+"casa",
+"Casa de jardim",
+"quintal",
+"edifício",
+"horta",
+"rural",
+"allotment"
+],
 "building/apartments":[
 "arranha-céu",
 "apartamento",
@@ -3511,6 +3568,10 @@
 "civil",
 "centro cívico",
 "Edifício cívico"
+],
+"building/college":[
+"edifício",
+"escolar"
 ],
 "building/commercial":[
 "Edifício empresarial",
@@ -3984,6 +4045,15 @@
 "Clube/Associação",
 "fã",
 "hobby"
+],
+"club/scout":[
+"escuteiros",
+"escoteiros",
+"escutismo",
+"escotismo",
+"baden",
+"Grupo de escuteiros",
+"scout"
 ],
 "club/sport":[
 "sports club",
@@ -4568,6 +4638,23 @@
 "marco de água",
 "Boca de incêndio",
 "hidrante"
+],
+"emergency/fire_service_inlet":[
+"fogo",
+"boca",
+"edifício",
+"incêndio",
+"bombeiros",
+"torneira",
+"aspersor",
+"standpipe",
+"hidrante",
+"inlet",
+"canalização",
+"Válvula para bombeiros",
+"combate",
+"tubo",
+"sprinkler"
 ],
 "emergency/first_aid_kit":[
 "bandagem",
@@ -6985,7 +7072,7 @@
 "leisure/indoor_play":[
 "crianças",
 "aniversários",
-"Centro de Diversões Interior",
+"Centro de diversões interior",
 "interno",
 "brincar",
 "brincadeiras",
@@ -12760,6 +12847,13 @@
 ],
 "shop/hobby":[
 "Loja de modelismo"
+],
+"shop/honey":[
+"mel",
+"honey",
+"apicultura",
+"abelhas",
+"Loja de mel"
 ],
 "shop/household_linen":[
 "cortinas",

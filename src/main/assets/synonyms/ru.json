@@ -1,4 +1,7 @@
 {
+"addr/interpolation":[
+"Интерполяция адресов"
+],
 "address":[
 "Адрес",
 "адрес",
@@ -20,11 +23,11 @@
 "Доска объявлений"
 ],
 "advertising/column":[
-"Афишная тумба Морриса",
 "реклама",
 "тумба моририса",
 "колонна",
 "рекламная",
+"Афишная тумба",
 "афиша"
 ],
 "aerialway":[
@@ -75,6 +78,9 @@
 "aerialway/rope_tow":[
 "бугельный подъёмник"
 ],
+"aerialway/zip_line":[
+"Зиплайн"
+],
 "aeroway":[
 "Авиация"
 ],
@@ -95,6 +101,9 @@
 "Вертолётная площадка",
 "вертолётная площадка"
 ],
+"aeroway/parking_position":[
+"Стоянка воздушного судна"
+],
 "aeroway/runway":[
 "впп",
 "взлётно-посадочная полоса",
@@ -111,6 +120,9 @@
 "aeroway/terminal":[
 "терминал аэропорта",
 "Терминал аэропорта"
+],
+"aeroway/windsock":[
+"Ветроуказатель"
 ],
 "allotments/plot":[
 "огород",
@@ -188,6 +200,9 @@
 "парковка для велосипедов",
 "паркинг для велосипедов"
 ],
+"amenity/bicycle_parking/building":[
+"Парковка для велосипедов (гараж)"
+],
 "amenity/bicycle_parking/lockers":[
 "Шкафчик для велосипедов"
 ],
@@ -214,9 +229,16 @@
 "ресторан-пивоварня",
 "пивной сад"
 ],
+"amenity/binoculars":[
+"стационарные бинокли",
+"Установленные бинокли"
+],
 "amenity/boat_rental":[
 "прокат лодок",
 "Аренда Лодок"
+],
+"amenity/boat_storage":[
+"Лодочное хранилище"
 ],
 "amenity/bureau_de_change":[
 "деньги",
@@ -306,6 +328,9 @@
 "аборт",
 "прерывание беременности"
 ],
+"amenity/clinic/dialysis":[
+"Центр диализа"
+],
 "amenity/clinic/fertility":[
 "репродуктивная клиника",
 "Клиника планирования семьи",
@@ -318,6 +343,9 @@
 "часы",
 "время"
 ],
+"amenity/clock/sundial":[
+"Солнечные часы"
+],
 "amenity/college":[
 "пту",
 "Территория колледжа",
@@ -328,6 +356,9 @@
 "дом культуры",
 "Общественный центр"
 ],
+"amenity/community_centre/lgbtq":[
+"Центр сообщества ЛГБТК+"
+],
 "amenity/community_centre/youth_centre":[
 "Молодёжный центр"
 ],
@@ -336,6 +367,9 @@
 "компрессор",
 "воздух",
 "Сжатый воздух"
+],
+"amenity/conference_centre":[
+"Конференц-центр"
 ],
 "amenity/courthouse":[
 "суд",
@@ -365,6 +399,9 @@
 "стоматология",
 "зубной врач"
 ],
+"amenity/dive_centre":[
+"Дайв-центр"
+],
 "amenity/doctors":[
 "фельдшер",
 "медпункт",
@@ -376,6 +413,81 @@
 "здравпункт",
 "врач",
 "клиника"
+],
+"amenity/doctors/allergology":[
+"Аллерголог"
+],
+"amenity/doctors/cardiology":[
+"Кардиолог"
+],
+"amenity/doctors/child_psychiatry":[
+"Детский и подростковый психиатр"
+],
+"amenity/doctors/dermatology":[
+"Дерматолог"
+],
+"amenity/doctors/gastroenterology":[
+"Гастроэнтеролог"
+],
+"amenity/doctors/gynaecology":[
+"Акушер-гинеколог"
+],
+"amenity/doctors/haematology":[
+"Гематолог"
+],
+"amenity/doctors/internal":[
+"Терапевт"
+],
+"amenity/doctors/nephrology":[
+"Нефролог"
+],
+"amenity/doctors/neurology":[
+"Невролог"
+],
+"amenity/doctors/neurosurgery":[
+"Нейрохирург"
+],
+"amenity/doctors/oncology":[
+"Онколог"
+],
+"amenity/doctors/ophthalmology":[
+"Офтальмолог"
+],
+"amenity/doctors/orthopaedics":[
+"Хирург-ортопед"
+],
+"amenity/doctors/otolaryngology":[
+"Отоларинголог (лор)"
+],
+"amenity/doctors/paediatrics":[
+"Педиатр"
+],
+"amenity/doctors/plastic_surgery":[
+"Пластический хирург"
+],
+"amenity/doctors/podiatry":[
+"Ортопед"
+],
+"amenity/doctors/psychiatrist":[
+"Психиатр"
+],
+"amenity/doctors/pulmonology":[
+"Пульмонолог"
+],
+"amenity/doctors/radiology":[
+"Радиолог"
+],
+"amenity/doctors/rheumatology":[
+"Ревматолог"
+],
+"amenity/doctors/surgery":[
+"Хирург общего профиля"
+],
+"amenity/doctors/trauma":[
+"Хирург-травматолог"
+],
+"amenity/doctors/urology":[
+"Уролог"
 ],
 "amenity/dojo":[
 "школа",
@@ -411,20 +523,47 @@
 "кафетерий",
 "Фаст-фуд"
 ],
+"amenity/fast_food/bagel":[
+"Бублики быстрого приготовления"
+],
+"amenity/fast_food/burger":[
+"Бургерный фаст-фуд"
+],
 "amenity/fast_food/cafeteria":[
 "Столовая"
 ],
 "amenity/fast_food/chicken":[
 "Куриный Фаст-Фуд"
 ],
+"amenity/fast_food/donut":[
+"Донаты быстрого приготовления"
+],
 "amenity/fast_food/fish_and_chips":[
 "Фастфуд фиш-энд-чипс"
+],
+"amenity/fast_food/hot_dog":[
+"Хотдог фаст-фуд"
+],
+"amenity/fast_food/ice_cream":[
+"Мороженое быстрого приготовления"
+],
+"amenity/fast_food/juice":[
+"Сок быстрого приготовления"
 ],
 "amenity/fast_food/kebab":[
 "Кебаб"
 ],
+"amenity/fast_food/mexican":[
+"Мексиканский фаст-фуд"
+],
 "amenity/fast_food/pizza":[
 "Пиццерия"
+],
+"amenity/fast_food/sandwich":[
+"Сэндвичевый фаст-фуд"
+],
+"amenity/fast_food/wings":[
+"Куриные крылышки быстрого приготовления"
 ],
 "amenity/ferry_terminal":[
 "Причал для паромов"
@@ -460,6 +599,9 @@
 "агзс",
 "дизель"
 ],
+"amenity/gambling":[
+"Игорный зал"
+],
 "amenity/grave_yard":[
 "Небольшие захоронения при местах служения (церквях и т.п.)",
 "кладбище животных",
@@ -490,6 +632,9 @@
 "Прилавок с мороженным",
 "замороженный йогурт"
 ],
+"amenity/ice_cream/frozen_yogurt":[
+"Магазин замороженных йогуртов"
+],
 "amenity/internet_cafe":[
 "интернет-клуб",
 "интернет-кафе",
@@ -502,9 +647,21 @@
 "иностранные языки",
 "Языковая школа"
 ],
+"amenity/lavoir":[
+"Полоскалка (стирка белья на водоёмах)"
+],
+"amenity/letter_box":[
+"Почтовый ящик"
+],
 "amenity/library":[
 "библиотека",
 "Библиотека"
+],
+"amenity/loading_dock":[
+"Погрузочная платформа"
+],
+"amenity/lounger":[
+"Шезлонг"
 ],
 "amenity/love_hotel":[
 "отель любви",
@@ -528,6 +685,9 @@
 "amenity/money_transfer":[
 "Денежные переводы"
 ],
+"amenity/mortuary":[
+"Морг"
+],
 "amenity/motorcycle_parking":[
 "мотостоянка",
 "Парковка для мотоциклов",
@@ -535,6 +695,9 @@
 "паркинг для мотоциклов",
 "мотопарковка",
 "парковка для мотоциклов"
+],
+"amenity/motorcycle_rental":[
+"Мотопрокат"
 ],
 "amenity/music_school":[
 "школа музыки",
@@ -548,8 +711,14 @@
 "дискотека",
 "гадюшник"
 ],
+"amenity/nightclub/lgbtq":[
+"ЛГБТ+ Ночной клуб"
+],
 "amenity/nursing_home":[
 "Дом престарелых/Дом инвалидов (устаревший тег)"
+],
+"amenity/parcel_locker":[
+"Почтомат"
 ],
 "amenity/parking":[
 "стоянка",
@@ -574,6 +743,9 @@
 "Отдельное парковочное место на парковке",
 "парковочное место",
 "отдельное парковочное место на стоянке"
+],
+"amenity/payment_centre":[
+"Центр платежей"
 ],
 "amenity/payment_terminal":[
 "Платёжный терминал"
@@ -657,6 +829,12 @@
 "пиво",
 "Паб"
 ],
+"amenity/pub/irish":[
+"Ирландский паб"
+],
+"amenity/pub/lgbtq":[
+"ЛГБТ+ Паб"
+],
 "amenity/public_bath":[
 "общественная душевая",
 "Общественная баня",
@@ -694,15 +872,88 @@
 "переработка",
 "вторичное сырьё"
 ],
+"amenity/refugee_site":[
+"Лагерь беженцев"
+],
+"amenity/research_institute":[
+"Территория научно-исследовательского института"
+],
 "amenity/restaurant":[
 "ресторан",
 "Ресторан"
 ],
+"amenity/restaurant/american":[
+"Американский ресторан"
+],
+"amenity/restaurant/asian":[
+"Азиатский ресторан"
+],
+"amenity/restaurant/barbeque":[
+"Ресторан барбекю"
+],
+"amenity/restaurant/chinese":[
+"Ресторан китайской кухни"
+],
+"amenity/restaurant/french":[
+"Ресторан французской кухни"
+],
+"amenity/restaurant/georgian":[
+"Ресторан грузинской кухни"
+],
+"amenity/restaurant/german":[
+"Ресторан немецкой кухни"
+],
+"amenity/restaurant/greek":[
+"Ресторан греческой кухни"
+],
+"amenity/restaurant/indian":[
+"Ресторан индийской кухни"
+],
+"amenity/restaurant/italian":[
+"Ресторан итальянской кухни"
+],
 "amenity/restaurant/japanese":[
 "Ресторан японской кухни"
 ],
+"amenity/restaurant/korean":[
+"Ресторан корейской кухни"
+],
+"amenity/restaurant/mexican":[
+"Ресторан мексиканской кухни"
+],
+"amenity/restaurant/noodle":[
+"Ресторан с лапшой"
+],
 "amenity/restaurant/pizza":[
 "Ресторан итальянской кухни"
+],
+"amenity/restaurant/ramen":[
+"Раменная",
+"рамэн"
+],
+"amenity/restaurant/seafood":[
+"Ресторан морепродуктов"
+],
+"amenity/restaurant/spanish":[
+"Ресторан испанской кухни"
+],
+"amenity/restaurant/steakhouse":[
+"Стейк-хаус"
+],
+"amenity/restaurant/sushi":[
+"Ресторан суши"
+],
+"amenity/restaurant/thai":[
+"Ресторан тайской кухни"
+],
+"amenity/restaurant/turkish":[
+"Ресторан турецкой кухни"
+],
+"amenity/restaurant/ukrainian":[
+"Ресторан украинской кухни"
+],
+"amenity/restaurant/vietnamese":[
+"Ресторан вьетнамской кухни"
 ],
 "amenity/sanitary_dump_station":[
 "утилизация туалета трейлера",
@@ -754,6 +1005,9 @@
 "место для курения",
 "зона для курения"
 ],
+"amenity/social_centre":[
+"Социальный центр"
+],
 "amenity/social_facility":[
 "социальные",
 "удобства",
@@ -766,6 +1020,9 @@
 "детский дом",
 "услуги",
 "дом престарелых"
+],
+"amenity/social_facility/ambulatory_care":[
+"Амбулаторная помощь"
 ],
 "amenity/social_facility/food_bank":[
 "еда",
@@ -800,6 +1057,9 @@
 "Дом престарелых (устаревший тег)",
 "дом престарелых"
 ],
+"amenity/stripclub":[
+"Стриптиз-клуб"
+],
 "amenity/studio":[
 "студия",
 "радиостудия",
@@ -812,6 +1072,12 @@
 ],
 "amenity/studio/radio":[
 "Радиостанция"
+],
+"amenity/studio/television":[
+"Телестанция"
+],
+"amenity/studio/video":[
+"Киностудия"
 ],
 "amenity/taxi":[
 "Стоянка такси",
@@ -830,8 +1096,21 @@
 "театр",
 "Амфитеатр"
 ],
+"amenity/ticket_validator":[
+"Валидатор билетов",
+"устройство для проверки билетов"
+],
 "amenity/toilets":[
 "Туалет"
+],
+"amenity/toilets/disposal/flush":[
+"Туалеты со смывом"
+],
+"amenity/toilets/disposal/pitlatrine":[
+"Выгребная яма"
+],
+"amenity/toilets/portable":[
+"Портативный туалет"
 ],
 "amenity/townhall":[
 "администрация",
@@ -842,6 +1121,15 @@
 "совет",
 "муниципалитет",
 "Администрация"
+],
+"amenity/townhall/city":[
+"Городская ратуша"
+],
+"amenity/toy_library":[
+"Игротека"
+],
+"amenity/trolley_bay":[
+"Загон для тележек"
 ],
 "amenity/university":[
 "высшее образование",
@@ -857,6 +1145,12 @@
 "amenity/vending_machine":[
 "автомат по продаже товаров",
 "Торговый автомат"
+],
+"amenity/vending_machine/bottle_return":[
+"Установка для возврата бутылок"
+],
+"amenity/vending_machine/bread":[
+"Торговый автомат по продаже хлеба"
 ],
 "amenity/vending_machine/cigarettes":[
 "Автомат по продаже сигарет",
@@ -876,6 +1170,9 @@
 "напитки",
 "Автомат по продаже напитков",
 "газировка"
+],
+"amenity/vending_machine/eggs":[
+"Торговый автомат по продаже яиц"
 ],
 "amenity/vending_machine/electronics":[
 "автомат с электроникой",
@@ -935,6 +1232,9 @@
 "парковочные билеты",
 "Паркомат"
 ],
+"amenity/vending_machine/pizza":[
+"Торговый автомат по продаже пиццы"
+],
 "amenity/vending_machine/public_transport_tickets":[
 "Автомат по продаже проездных билетов",
 "билетный автомат",
@@ -991,13 +1291,22 @@
 "Водопой для животных",
 "поилка"
 ],
+"amenity/weighbridge":[
+"Весы для грузовых автомобилей"
+],
 "area":[
 "Полигон",
 "область",
 "полигон"
 ],
+"area/footway":[
+"Площадь пешеходной дорожки"
+],
 "area/highway":[
 "Зона автомобильной дороги"
+],
+"attraction":[
+"Аттракцион"
 ],
 "attraction/amusement_ride":[
 "Аттракцион в парке развлечений"
@@ -1076,6 +1385,9 @@
 "препятствие для животных",
 "Сетка для животных"
 ],
+"barrier/chain":[
+"Цепь"
+],
 "barrier/city_wall":[
 "Городская стена",
 "городская стена",
@@ -1145,6 +1457,12 @@
 "barrier/lift_gate":[
 "Шлагбаум"
 ],
+"barrier/motorcycle_barrier":[
+"Барьер для мотоциклов"
+],
+"barrier/planter":[
+"Клумба (барьер)"
+],
 "barrier/retaining_wall":[
 "укрепляющая стена",
 "подпорная стена",
@@ -1172,6 +1490,15 @@
 "стена",
 "барьер",
 "стенка"
+],
+"barrier/wall/noise_barrier":[
+"Шумозащитный барьер"
+],
+"barrier/yes":[
+"Барьер (неуточненный тип)"
+],
+"boundary":[
+"Граница"
 ],
 "boundary/administrative":[
 "Административная граница",
@@ -1260,6 +1587,9 @@
 "Строящееся здание",
 "сооружение"
 ],
+"building/cowshed":[
+"Коровник"
+],
 "building/detached":[
 "отдельный дом",
 "частный дом",
@@ -1282,6 +1612,9 @@
 "рига",
 "Нежилое здание на ферме"
 ],
+"building/fire_station":[
+"Здание пожарной станции"
+],
 "building/garage":[
 "ракушка",
 "Гараж",
@@ -1291,6 +1624,9 @@
 "Гаражи",
 "гаражи",
 "ракушки"
+],
+"building/ger":[
+"Юрта"
 ],
 "building/grandstand":[
 "трибуна",
@@ -1326,6 +1662,9 @@
 "Частный жилой дом",
 "хата"
 ],
+"building/houseboat":[
+"Дом-лодка (постоянное местоположение)"
+],
 "building/hut":[
 "хижина",
 "хата",
@@ -1350,6 +1689,9 @@
 ],
 "building/office":[
 "Офисное здание"
+],
+"building/outbuilding":[
+"Пристройка"
 ],
 "building/pavilion":[
 "Павильон"
@@ -1415,6 +1757,15 @@
 "стадион",
 "Здание стадиона"
 ],
+"building/static_caravan":[
+"Стационарный дом на колёсах"
+],
+"building/sty":[
+"Свинарник"
+],
+"building/synagogue":[
+"Здание синагоги"
+],
 "building/temple":[
 "здание храма",
 "здание церкви",
@@ -1449,6 +1800,15 @@
 ],
 "building_part":[
 "Часть здания"
+],
+"building_point":[
+"Здание"
+],
+"cemetery/grave":[
+"Могила"
+],
+"cemetery/sector":[
+"Участок кладбища"
 ],
 "club":[
 "Клуб",
@@ -1491,6 +1851,9 @@
 "Переплётчик книг",
 "переплётчик"
 ],
+"craft/brewery":[
+"Ремесленная пивоварня"
+],
 "craft/carpenter":[
 "плотник",
 "столяр",
@@ -1515,6 +1878,9 @@
 "трубочист",
 "Трубочист"
 ],
+"craft/cleaning":[
+"Уборщик"
+],
 "craft/clockmaker":[
 "часовщик",
 "Часовщик"
@@ -1529,10 +1895,10 @@
 ],
 "craft/dressmaker":[
 "одежда",
+"Портной (женская одежда)",
 "портниха",
 "швея",
 "модистка",
-"Портной",
 "портной"
 ],
 "craft/electrician":[
@@ -1557,12 +1923,18 @@
 "стёкла",
 "стекла"
 ],
+"craft/hvac":[
+"Место работника ОВКВ (отопления, вентилляции, кондиционирования воздуха)"
+],
 "craft/insulator":[
 "изоляция",
 "утеплитель",
 "тепло",
 "здание",
 "Мастерская теплоизоляции"
+],
+"craft/joiner":[
+"Столяр"
 ],
 "craft/key_cutter":[
 "изготовление",
@@ -1573,12 +1945,18 @@
 "craft/locksmith":[
 "Мастер по работе с замками и ключами"
 ],
+"craft/metal_construction":[
+"Работник с металлоконструкциями"
+],
 "craft/painter":[
 "художник",
 "Маляр",
 "краска",
 "декоратор",
 "маляр"
+],
+"craft/parquet_layer":[
+"Укладчик паркета"
 ],
 "craft/photographer":[
 "фотограф",
@@ -1607,6 +1985,9 @@
 "сантехник",
 "водопроводчик",
 "Офис слесаря-сантехника"
+],
+"craft/pottery":[
+"Мастер по керамике"
 ],
 "craft/rigger":[
 "парус",
@@ -1724,6 +2105,9 @@
 "пункт первой помощи",
 "амбулатория"
 ],
+"emergency/assembly_point":[
+"Пункт сбора в чрезвычайных ситуациях"
+],
 "emergency/defibrillator":[
 "Дефибриллятор"
 ],
@@ -1745,6 +2129,9 @@
 "огонь",
 "Огнетушитель"
 ],
+"emergency/fire_hose":[
+"Пожарный рукав"
+],
 "emergency/fire_hydrant":[
 "пожарный гидрант",
 "пожарная колонка",
@@ -1757,6 +2144,9 @@
 "спасение жизни",
 "аптечка"
 ],
+"emergency/landing_site":[
+"Место для экстренной посадки"
+],
 "emergency/life_ring":[
 "Спасательный круг"
 ],
@@ -1767,6 +2157,9 @@
 "утонул",
 "Спасатель на воде",
 "пляж"
+],
+"emergency/mountain_rescue":[
+"Горноспасательная служба"
 ],
 "emergency/no":[
 "Доступ экстренных служб отсутствует"
@@ -1824,6 +2217,9 @@
 "дверь",
 "Главный вход"
 ],
+"entrance/staircase":[
+"Дверь в подъезд"
+],
 "ford":[
 "переправа",
 "Брод",
@@ -1865,8 +2261,26 @@
 "healthcare/alternative":[
 "Альтернативная медицина"
 ],
+"healthcare/alternative/acupuncture":[
+"Практикующий акупунктурист"
+],
+"healthcare/alternative/ayurveda":[
+"Практик Аюрведы"
+],
 "healthcare/alternative/chiropractic":[
 "Хиропрактика"
+],
+"healthcare/alternative/homeopathy":[
+"Гомеопат"
+],
+"healthcare/alternative/naturopathy":[
+"Натуропат"
+],
+"healthcare/alternative/osteopathy":[
+"Остеопат"
+],
+"healthcare/alternative/traditional_chinese_medicine":[
+"Практикующий врач традиционной китайской медицины"
 ],
 "healthcare/audiologist":[
 "Аудиолог"
@@ -1878,6 +2292,9 @@
 ],
 "healthcare/blood_donation":[
 "Станция переливания крови"
+],
+"healthcare/dentist/orthodontics":[
+"Ортодонт"
 ],
 "healthcare/hospice":[
 "Хоспис"
@@ -1961,6 +2378,15 @@
 "highway/elevator":[
 "Лифт"
 ],
+"highway/elevator_line":[
+"Наклонный лифт"
+],
+"highway/emergency_bay":[
+"Место экстренной остановки"
+],
+"highway/escape":[
+"Аварийный съезд"
+],
 "highway/footway":[
 "пешая тропа",
 "Пешеходная дорожка",
@@ -1979,8 +2405,20 @@
 "highway/footway/crossing/traffic_signals":[
 "Регулируемый пешеходный переход"
 ],
+"highway/footway/crossing/uncontrolled":[
+"Размеченный (нерегулируемый) пешеходный переход"
+],
+"highway/footway/crossing/unmarked":[
+"Неразмеченный пешеходный переход"
+],
+"highway/footway/informal":[
+"Стихийная тропа"
+],
 "highway/footway/sidewalk":[
 "Тротуар"
+],
+"highway/footway/traffic_island":[
+"Островок безопасности"
 ],
 "highway/give_way":[
 "Знак \"Уступи дорогу\""
@@ -2232,6 +2670,12 @@
 "historic/castle/palace":[
 "Дворец"
 ],
+"historic/castle/stately":[
+"Шато"
+],
+"historic/city_gate":[
+"Городские ворота"
+],
 "historic/fort":[
 "Исторический форт"
 ],
@@ -2281,8 +2725,20 @@
 "затонул",
 "корабль"
 ],
+"indoor":[
+"Объекты в помещении"
+],
+"indoor/area":[
+"Зона внутри здания"
+],
+"indoor/corridor":[
+"Коридор внутри здания"
+],
 "indoor/corridor_line":[
 "Коридор внутри здания"
+],
+"indoor/door":[
+"Дверь внутри здания"
 ],
 "indoor/room":[
 "Комната в здании"
@@ -2343,6 +2799,10 @@
 "landuse/construction":[
 "Строительная площадка"
 ],
+"landuse/education":[
+"кампус",
+"Образовательный кампус"
+],
 "landuse/farm":[
 "Сельскохозяйственные угодья (устаревший тег)"
 ],
@@ -2389,6 +2849,9 @@
 "склад",
 "депо",
 "фабрика"
+],
+"landuse/industrial/depot":[
+"Депо"
 ],
 "landuse/industrial/scrap_yard":[
 "Склад металлолома/свалка"
@@ -2555,6 +3018,9 @@
 "Перекладина",
 "турник"
 ],
+"leisure/fitness_station/horizontal_ladder":[
+"Горизонтальная лестница"
+],
 "leisure/fitness_station/hyperextension":[
 "Тренажер для гиперэкстензии"
 ],
@@ -2584,6 +3050,12 @@
 "leisure/garden/botanical":[
 "Ботанический сад"
 ],
+"leisure/garden/community":[
+"Общественный сад"
+],
+"leisure/garden/residential":[
+"Жилой сад"
+],
 "leisure/golf_course":[
 "гольфполе",
 "Площадка для гольфа",
@@ -2593,12 +3065,18 @@
 "хакспейс",
 "Хакерспейс"
 ],
+"leisure/horse_riding":[
+"Центр верховой езды"
+],
 "leisure/ice_rink":[
 "коньки",
 "лед",
 "фигурное катание",
 "Каток",
 "каток"
+],
+"leisure/indoor_play":[
+"Детская площадка внутри здания"
 ],
 "leisure/marina":[
 "стоянка для яхт",
@@ -2646,6 +3124,15 @@
 "поле для американского футбола",
 "Регбийное поле"
 ],
+"leisure/pitch/american_handball":[
+"Американский гандбол (площадка)"
+],
+"leisure/pitch/archery":[
+"Стрельбище для стрельбы из лука"
+],
+"leisure/pitch/australian_football":[
+"Поле для австралийского футбола"
+],
 "leisure/pitch/badminton":[
 "волан",
 "сетка",
@@ -2678,6 +3165,9 @@
 "leisure/pitch/cricket":[
 "Поля для крикета"
 ],
+"leisure/pitch/paintball":[
+"Пейнтбольное поле"
+],
 "leisure/pitch/rugby_league":[
 "регбилиг",
 "Регби-13"
@@ -2696,6 +3186,9 @@
 ],
 "leisure/pitch/softball":[
 "Софтбольное поле"
+],
+"leisure/pitch/table_soccer":[
+"Настольный футбол"
 ],
 "leisure/pitch/table_tennis":[
 "пинг-понг",
@@ -2794,6 +3287,9 @@
 "man_made/antenna":[
 "Антенна"
 ],
+"man_made/beacon":[
+"Маяк"
+],
 "man_made/beehive":[
 "пчелы",
 "рой",
@@ -2815,6 +3311,9 @@
 "хранилище",
 "силос"
 ],
+"man_made/carpet_hanger":[
+"Вешалка для ковров"
+],
 "man_made/chimney":[
 "заводская труба",
 "дымовая труба",
@@ -2826,9 +3325,18 @@
 "вырубка",
 "Сплошная рубка"
 ],
+"man_made/courtyard":[
+"Внутренний двор"
+],
 "man_made/crane":[
 "Подъемный кран",
 "кран"
+],
+"man_made/crane/gantry_crane":[
+"Козловой кран"
+],
+"man_made/crane/portal_crane":[
+"Портальный кран"
 ],
 "man_made/cross":[
 "Крест"
@@ -2839,6 +3347,9 @@
 ],
 "man_made/dovecote":[
 "Голубятня"
+],
+"man_made/dyke":[
+"Дамба"
 ],
 "man_made/embankment":[
 "Насыпь"
@@ -2853,6 +3364,12 @@
 "man_made/gasometer":[
 "Газгольдер",
 "газовое хранилище"
+],
+"man_made/goods_conveyor":[
+"Конвейерная линия"
+],
+"man_made/groyne":[
+"Полузапруда"
 ],
 "man_made/lighthouse":[
 "Маяк",
@@ -2940,6 +3457,9 @@
 "man_made/pipeline/underground":[
 "Подземный трубопровод"
 ],
+"man_made/planter":[
+"Клумба"
+],
 "man_made/pumping_station":[
 "Насосная станция"
 ],
@@ -2970,6 +3490,12 @@
 "man_made/survey_point":[
 "Тригонометрический пункт",
 "тригонометрический пункт"
+],
+"man_made/tailings_pond":[
+"Отстойник хвостов"
+],
+"man_made/torii":[
+"Тории"
 ],
 "man_made/tower":[
 "башня",
@@ -3035,9 +3561,15 @@
 "мельница",
 "Ветряная мельница"
 ],
+"man_made/windpump":[
+"Ветряной насос"
+],
 "man_made/works":[
 "Завод",
 "фабрика"
+],
+"man_made/works/brewery":[
+"Промышленная пивоварня"
 ],
 "marker":[
 "Маркер/указатель/табличка"
@@ -3080,6 +3612,9 @@
 "Лесоповал",
 "пастбище"
 ],
+"natural/geyser":[
+"Гейзер"
+],
 "natural/glacier":[
 "Ледник",
 "ледник"
@@ -3115,11 +3650,17 @@
 "гора",
 "Вершина"
 ],
+"natural/peninsula":[
+"Полуостров"
+],
 "natural/reef":[
 "Риф"
 ],
 "natural/ridge":[
 "Хребет"
+],
+"natural/rock":[
+"Прикрепленная скала / валун"
 ],
 "natural/saddle":[
 "перевал",
@@ -3143,6 +3684,9 @@
 "подлесок",
 "кусты"
 ],
+"natural/shingle":[
+"Галечник"
+],
 "natural/shrub":[
 "Куст"
 ],
@@ -3152,6 +3696,12 @@
 "ручей",
 "источник"
 ],
+"natural/stone":[
+"Неприкрепленная скала / валун"
+],
+"natural/strait":[
+"Пролив"
+],
 "natural/tree":[
 "дерево",
 "Дерево"
@@ -3159,6 +3709,9 @@
 "natural/tree_row":[
 "аллея",
 "Ряд деревьев"
+],
+"natural/tree_stump":[
+"Пень"
 ],
 "natural/valley":[
 "Долина"
@@ -3193,6 +3746,14 @@
 "защитный ров",
 "канава"
 ],
+"natural/water/oxbow":[
+"Старица (русло)",
+"староречье",
+"старица",
+"полой",
+"курья",
+"пойменное озеро"
+],
 "natural/water/pond":[
 "Пруд",
 "пруд"
@@ -3226,6 +3787,33 @@
 "Болото",
 "болото",
 "заболоченная территория"
+],
+"natural/wetland/bog":[
+"Верховое (торфяное) болото"
+],
+"natural/wetland/fen":[
+"Переходное болото"
+],
+"natural/wetland/mangrove":[
+"Мангровые заросли"
+],
+"natural/wetland/marsh":[
+"Болото"
+],
+"natural/wetland/reedbed":[
+"Тростниковые заросли"
+],
+"natural/wetland/saltmarsh":[
+"Прибрежный солончак"
+],
+"natural/wetland/swamp":[
+"Болото (топь, наиболее переувлажненная часть)"
+],
+"natural/wetland/tidalflat":[
+"Зона прилива"
+],
+"natural/wetland/wet_meadow":[
+"Заболоченный луг"
 ],
 "natural/wood":[
 "дерево",
@@ -3292,6 +3880,12 @@
 "office/coworking":[
 "Коворкинг"
 ],
+"office/diplomatic":[
+"Дипломатическое учреждение"
+],
+"office/diplomatic/consulate":[
+"Консульство"
+],
 "office/diplomatic/embassy":[
 "Посольство"
 ],
@@ -3323,6 +3917,9 @@
 "office/financial":[
 "финансовая организация",
 "Финансовая организация"
+],
+"office/financial_advisor":[
+"Финансовый советник"
 ],
 "office/forestry":[
 "Лесоводство"
@@ -3430,6 +4027,9 @@
 "Научно-исследовательская организация",
 "нии"
 ],
+"office/security":[
+"Офис охраны"
+],
 "office/surveyor":[
 "замеры",
 "Организация оценки и статистики",
@@ -3451,8 +4051,14 @@
 "office/travel_agent":[
 "Турагентство (устаревший тег)"
 ],
+"office/union":[
+"Офис профсоюза"
+],
 "office/water_utility":[
 "Офис водопроводной компании"
+],
+"office/yes":[
+"Офис (любой тип)"
 ],
 "piste/downhill":[
 "Горнолыжный спуск"
@@ -3466,6 +4072,9 @@
 "place/city":[
 "город",
 "Большой город"
+],
+"place/city_block":[
+"Городской квартал"
 ],
 "place/farm":[
 "Ферма"
@@ -3558,6 +4167,9 @@
 "playground/swing":[
 "Качели (подвесные)"
 ],
+"playground/trampoline":[
+"Батут"
+],
 "playground/zipwire":[
 "Зиплайн"
 ],
@@ -3577,6 +4189,9 @@
 "power/cable/underground":[
 "Подземный силовой кабель"
 ],
+"power/catenary_mast":[
+"Контактный столб"
+],
 "power/generator":[
 "турбина",
 "котёл",
@@ -3595,6 +4210,9 @@
 ],
 "power/generator/method/photovoltaic":[
 "Солнечная Панель"
+],
+"power/generator/method/photovoltaic/building/roof":[
+"Навес панели солнечных батарей"
 ],
 "power/generator/method/photovoltaic/location/roof":[
 "Солнечная батарея на крыше",
@@ -3648,12 +4266,18 @@
 "гэс",
 "Гидроэлетростанция"
 ],
+"power/plant/source/method/photovoltaic":[
+"Солнечная электростанция"
+],
 "power/plant/source/nuclear":[
 "аэс",
 "Атомная электростанция"
 ],
 "power/plant/source/oil":[
 "Электростанция на мазуте"
+],
+"power/plant/source/solar":[
+"Станция-генератор, работающая на солнечной энергии"
 ],
 "power/plant/source/waste":[
 "Мусоросжигающая электростанция"
@@ -3740,6 +4364,9 @@
 ],
 "public_transport/station_bus":[
 "Автобусная станция/терминал"
+],
+"public_transport/station_ferry":[
+"Паромный причал"
 ],
 "public_transport/station_light_rail":[
 "Станция легкорельсового транспорта"
@@ -3904,6 +4531,9 @@
 "railway/tram_stop":[
 "Место остановки трамвая"
 ],
+"railway/turntable":[
+"Железнодорожный поворотный круг"
+],
 "relation":[
 "Отношение",
 "отношение"
@@ -4037,8 +4667,14 @@
 "лототрон",
 "Букмекерская контора"
 ],
+"shop/books":[
+"Книжный магазин"
+],
 "shop/boutique":[
 "Бутик"
+],
+"shop/brewing_supplies":[
+"Магазин пивоваренного оборудования"
 ],
 "shop/butcher":[
 "мясной",
@@ -4055,6 +4691,9 @@
 "канделябры",
 "подсвечники",
 "свечи"
+],
+"shop/cannabis":[
+"Магазин марихуаны"
 ],
 "shop/car":[
 "автомобильный салон",
@@ -4118,12 +4757,18 @@
 "shop/clothes/wedding":[
 "Магазин свадебных платьев"
 ],
+"shop/clothes/workwear":[
+"Магазин спецодежды"
+],
 "shop/coffee":[
 "кофейные аксессуары",
 "Магазин кофе",
 "кофе",
 "кофейная техника",
 "кофейное оборудование"
+],
+"shop/collector":[
+"Коллекционный магазин"
 ],
 "shop/computer":[
 "компьютерный магазин",
@@ -4153,6 +4798,9 @@
 "Магазин косметики",
 "косметика"
 ],
+"shop/craft":[
+"Магазин художественных принадлежностей"
+],
 "shop/curtain":[
 "Магазин штор и драпировок",
 "драпировки",
@@ -4161,6 +4809,9 @@
 "shop/dairy":[
 "Магазин молочных продуктов",
 "молочные продукты"
+],
+"shop/deli":[
+"Деликатесы"
 ],
 "shop/department_store":[
 "Универсальный магазин (с отделами)",
@@ -4314,6 +4965,9 @@
 "барбершоп",
 "Парикмахерская",
 "парикмахерский салон"
+],
+"shop/hairdresser_supply":[
+"Парикмахерские принадлежности"
 ],
 "shop/hardware":[
 "хозяйственный",
@@ -4475,8 +5129,14 @@
 "песенники",
 "струны"
 ],
+"shop/newsagent":[
+"Газетный киоск"
+],
 "shop/nutrition_supplements":[
 "Магазин пищевых добавок"
+],
+"shop/nuts":[
+"Магазин орехов"
 ],
 "shop/optician":[
 "окулист",
@@ -4511,6 +5171,9 @@
 "штрудели",
 "выпечка"
 ],
+"shop/pawnbroker":[
+"Ломбард"
+],
 "shop/perfumery":[
 "парфюм",
 "парфюмерия",
@@ -4521,6 +5184,10 @@
 "для животных",
 "зоомагазин",
 "Зоомагазин"
+],
+"shop/pet_grooming":[
+"Парикмахерская для животных",
+"грумер"
 ],
 "shop/photo":[
 "фото на паспорт",
@@ -4579,6 +5246,9 @@
 "Магазин морепродуктов",
 "рыбный",
 "морепродукты"
+],
+"shop/second_hand":[
+"Комиссионный магазин"
 ],
 "shop/sewing":[
 "нитки",
@@ -4675,6 +5345,9 @@
 "Бюро путешествий",
 "турагенство"
 ],
+"shop/trophy":[
+"Магазин наград"
+],
 "shop/tyres":[
 "покрышки",
 "автошины",
@@ -4713,6 +5386,9 @@
 "shop/watches":[
 "Магазин часов"
 ],
+"shop/water":[
+"Магазин питьевой воды"
+],
 "shop/water_sports":[
 "ласты",
 "костюм",
@@ -4733,6 +5409,9 @@
 "кэш энд кэрри",
 "Оптовый магазин",
 "cash and carry"
+],
+"shop/wigs":[
+"Магазин париков"
 ],
 "shop/window_blind":[
 "Магазин жалюзей",
@@ -4867,6 +5546,9 @@
 "Информационный стенд",
 "доска объявлений",
 "информационная доска"
+],
+"tourism/information/board/welcome_sign":[
+"Приветственный знак"
 ],
 "tourism/information/guidepost":[
 "указатель",
@@ -5056,21 +5738,27 @@
 "поворот направо запрещен"
 ],
 "type/restriction/no_straight_on":[
+"Нет пути по прямой",
 "движение прямо запрещено"
 ],
 "type/restriction/no_u_turn":[
-"разворот запрещен"
+"разворот запрещен",
+"Нет разворота"
 ],
 "type/restriction/only_left_turn":[
-"только налево"
+"только налево",
+"Поворот только налево"
 ],
 "type/restriction/only_right_turn":[
+"Поворот только направо",
 "только направо"
 ],
 "type/restriction/only_straight_on":[
+"Только прямо",
 "только прямо"
 ],
 "type/restriction/only_u_turn":[
+"Только разворот",
 "только разворот"
 ],
 "type/route":[
@@ -5081,6 +5769,7 @@
 "Воздушный маршрут"
 ],
 "type/route/bicycle":[
+"Велосипедный маршрут",
 "велосипед",
 "велосипедный маршрут"
 ],
@@ -5108,11 +5797,15 @@
 "туризм",
 "хайкинг"
 ],
+"type/route/horse":[
+"Конный маршрут"
+],
 "type/route/light_rail":[
 "Маршрут легкорельсового транспорта"
 ],
 "type/route/monorail":[
-"монорельс"
+"монорельс",
+"Монорельсовый маршрут"
 ],
 "type/route/mtb":[
 "Маршрут для горного велосипеда",
@@ -5134,6 +5827,9 @@
 "электроэнергетика",
 "Маршрут электроэнергии",
 "электропередачи"
+],
+"type/route/railway":[
+"Железнодорожный маршрут"
 ],
 "type/route/road":[
 "автомобильный маршрут",

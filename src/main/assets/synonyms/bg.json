@@ -66,6 +66,12 @@
 "amenity/courthouse":[
 "Съд"
 ],
+"amenity/dentist":[
+"зъби",
+"Стоматолог",
+"зъб",
+"зъболекар"
+],
 "amenity/drinking_water":[
 "Чешма"
 ],
@@ -267,6 +273,12 @@
 ],
 "amenity/university":[
 "Университет"
+],
+"amenity/vehicle_inspection":[
+"годишен технически преглед",
+"технически преглед",
+"годишни технически прегледи",
+"ГТП"
 ],
 "amenity/vending_machine":[
 "Автомат за стоки"
@@ -583,11 +595,17 @@
 "highway/crossing":[
 "Пешеходна пътека"
 ],
+"highway/crossing/uncontrolled":[
+"Маркирана пешеходна пътека"
+],
 "highway/crossing/unmarked":[
 "Немаркирана пешеходна пътека"
 ],
 "highway/cycleway":[
 "Велоалея"
+],
+"highway/cycleway/crossing/uncontrolled":[
+"Маркирана велосипедна пътека"
 ],
 "highway/cycleway/crossing/unmarked":[
 "Немаркирана велосипедна пътека"
@@ -604,6 +622,9 @@
 ],
 "highway/footway/crossing":[
 "Пешеходна пътека"
+],
+"highway/footway/crossing/uncontrolled":[
+"Маркирана пешеходна пътека"
 ],
 "highway/footway/crossing/unmarked":[
 "Немаркирана пешеходна пътека",
@@ -934,6 +955,12 @@
 ],
 "man_made/crane":[
 "Кран"
+],
+"man_made/crane/gantry_crane":[
+"Мостов кран"
+],
+"man_made/crane/portal_crane":[
+"Портален кран"
 ],
 "man_made/cutline":[
 "Просека"
@@ -1378,7 +1405,12 @@
 "Магазин за хранителни стоки"
 ],
 "shop/dairy":[
-"Млекарница"
+"яйца",
+"кашкавал",
+"Млекарница",
+"сирене",
+"мляко",
+"мандра"
 ],
 "shop/department_store":[
 "Универсален магазин"

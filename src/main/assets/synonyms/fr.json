@@ -271,11 +271,11 @@
 "amenity/animal_boarding":[
 "chargement",
 "mouton",
+"Pension animalière",
 "rampe",
 "cheval",
 "vache",
 "plateforme",
-"Plateforme de chargement d'animaux",
 "animaux"
 ],
 "amenity/animal_breeding":[
@@ -599,6 +599,7 @@
 "hopital d'avortement"
 ],
 "amenity/clinic/dialysis":[
+"centre de dialyse",
 "Centre de dialyse"
 ],
 "amenity/clinic/fertility":[
@@ -759,6 +760,8 @@
 "dermatologue"
 ],
 "amenity/doctors/allergology":[
+"allergologue",
+"allergie",
 "Allergologue"
 ],
 "amenity/doctors/cardiology":[
@@ -770,88 +773,171 @@
 "cœur"
 ],
 "amenity/doctors/child_psychiatry":[
-"Pédopsychiatre"
+"pédopsychiatre",
+"psychiatre",
+"adolescente",
+"adolescent",
+"Pédopsychiatre",
+"enfant",
+"ado"
 ],
 "amenity/doctors/dermatology":[
-"Dermatologue"
+"Dermatologue",
+"cheveux",
+"dermatologie",
+"peau",
+"dermatologiste"
 ],
 "amenity/doctors/gastroenterology":[
-"Gastroentérologue"
+"gastroentérologue",
+"Gastroentérologue",
+"digestion",
+"gastroentérologie",
+"estomac"
 ],
 "amenity/doctors/general":[
-"Médecin généraliste"
+"Médecin généraliste",
+"médecine",
+"docteur",
+"soin",
+"soignant",
+"générale",
+"médecin",
+"généraliste"
 ],
 "amenity/doctors/gynaecology":[
+"obstétricien",
 "gynécologue",
-"santé",
-"génital",
-"femme",
-"Gynécologue",
-"reproduction",
-"ovulation"
+"obstétricienne",
+"Gynécologue"
 ],
 "amenity/doctors/haematology":[
-"Hématologue"
+"sang",
+"anémie",
+"lymphome",
+"Hématologue",
+"maladie",
+"hématologue",
+"leucémie"
 ],
 "amenity/doctors/internal":[
-"Interniste"
+"médecine interne",
+"interniste",
+"Interniste",
+"auto-immune",
+"systémique"
 ],
 "amenity/doctors/nephrology":[
-"Néphrologue"
+"Néphrologue",
+"néphrologue",
+"néphrologie"
 ],
 "amenity/doctors/neurology":[
-"Neurologue"
+"neurologue",
+"Neurologue",
+"neurologie"
 ],
 "amenity/doctors/neurosurgery":[
+"neurochirurgie",
+"neurochirurgien",
+"cerveau",
 "Neurochirurgien"
 ],
 "amenity/doctors/oncology":[
-"Oncologue"
+"Oncologue",
+"chimiothérapie",
+"oncologie",
+"tumeur",
+"cancer",
+"oncologiste"
 ],
 "amenity/doctors/ophthalmology":[
-"Ophtalmologue"
+"Ophtalmologue",
+"ophtalmologue",
+"ophtalmologie"
 ],
 "amenity/doctors/orthopaedics":[
-"Chirurgien orthopédique"
+"Chirurgien orthopédique",
+"chirurgien",
+"épaule",
+"colonne vertébrale",
+"articulation",
+"hanche",
+"main",
+"pied",
+"genou",
+"coude"
 ],
 "amenity/doctors/otolaryngology":[
-"Otorhinolaryngologiste"
+"larynx",
+"oreille",
+"nez",
+"Otorhinolaryngologiste",
+"gorge",
+"orl",
+"cou",
+"tête"
 ],
 "amenity/doctors/paediatrics":[
-"Pédiatre"
+"Pédiatre",
+"pédiatrie",
+"pédiatre"
 ],
 "amenity/doctors/pathology":[
-"Anatomopathologiste"
+"tissu",
+"anapath",
+"lésion",
+"pathologiste",
+"Anatomopathologiste",
+"anat-patho"
 ],
 "amenity/doctors/plastic_surgery":[
+"chirurgien plasticien",
+"plasticien",
+"chirurgie plastique",
 "Chirurgien plastique"
 ],
 "amenity/doctors/podiatry":[
-"Podologue"
+"podologue",
+"Podologue",
+"pédicure-podologue"
 ],
 "amenity/doctors/proctology":[
+"chirurgie colorectale",
+"proctologue",
 "Proctologue"
 ],
 "amenity/doctors/psychiatrist":[
-"Psychiatre"
+"Psychiatre",
+"psychiatrie",
+"psychiatre"
 ],
 "amenity/doctors/pulmonology":[
-"Pneumologue"
+"Pneumologue",
+"pneumologue"
 ],
 "amenity/doctors/radiology":[
-"Radiologue"
+"radiologie",
+"Radiologue",
+"radiologue"
 ],
 "amenity/doctors/rheumatology":[
+"rhumatologiste",
 "Rhumatologue"
 ],
 "amenity/doctors/surgery":[
+"chirurgien généraliste",
 "Chirurgien généraliste"
 ],
 "amenity/doctors/trauma":[
-"Chirurgien traumatologue"
+"Chirurgien traumatologue",
+"chirurgien traumatologue"
 ],
 "amenity/doctors/urology":[
-"Urologue"
+"urologie",
+"urine",
+"Urologue",
+"urologue"
 ],
 "amenity/dojo":[
 "bojustu",
@@ -976,6 +1062,12 @@
 "restauration rapide",
 "kebab"
 ],
+"amenity/fast_food/bagel":[
+"fast-food",
+"restaurant",
+"Restaurant de bagel",
+"bagel"
+],
 "amenity/fast_food/burger":[
 "fast-food",
 "mcdo",
@@ -1062,6 +1154,13 @@
 "Sandwicherie",
 "sandwich",
 "panini"
+],
+"amenity/fast_food/wings":[
+"fast-food",
+"Restaurant d'ailes de poulet",
+"restaurant d'ailes de poulet",
+"poulet",
+"wings"
 ],
 "amenity/ferry_terminal":[
 "Terminal de ferry"
@@ -1200,6 +1299,12 @@
 "Magasin de crèmes glacées",
 "magasin de glaces"
 ],
+"amenity/ice_cream/frozen_yogurt":[
+"restaurant",
+"Magasin de yaourt glacé",
+"yaourt glacé",
+"frozen yogurt"
+],
 "amenity/internet_cafe":[
 "café internet",
 "internet café",
@@ -1227,8 +1332,14 @@
 ],
 "amenity/kneipp_water_cure":[
 "kneipp",
-"cure",
-"Cure par l'eau Kneipp"
+"soin",
+"thérapie",
+"eau",
+"bain",
+"pied",
+"hydrothérapie",
+"piscine",
+"Bain Kneipp"
 ],
 "amenity/language_school":[
 "École de langues",
@@ -1716,6 +1827,11 @@
 "cuisine francaise",
 "restaurant francais"
 ],
+"amenity/restaurant/georgian":[
+"géorgie",
+"Restaurant géorgien",
+"restaurant géorgien"
+],
 "amenity/restaurant/german":[
 "bar",
 "restaurant allemand",
@@ -1757,7 +1873,11 @@
 "café"
 ],
 "amenity/restaurant/korean":[
-"Restaurant coréen"
+"restaurant coréen",
+"bar",
+"corée",
+"Restaurant coréen",
+"café"
 ],
 "amenity/restaurant/mexican":[
 "bar",
@@ -1788,6 +1908,12 @@
 "pizzeria",
 "Pizzeria"
 ],
+"amenity/restaurant/ramen":[
+"ramen",
+"nouilles",
+"restaurant",
+"Restaurant de ramen"
+],
 "amenity/restaurant/seafood":[
 "crustacés",
 "Restaurant de fruits de mer",
@@ -1801,7 +1927,11 @@
 "café"
 ],
 "amenity/restaurant/spanish":[
-"Restaurant espagnol"
+"bar",
+"Restaurant espagnol",
+"castillan",
+"restaurant espagnol",
+"café"
 ],
 "amenity/restaurant/steakhouse":[
 "bar",
@@ -1833,6 +1963,10 @@
 "Restaurant turc",
 "restaurant turc",
 "café"
+],
+"amenity/restaurant/ukrainian":[
+"Restaurant ukrainien",
+"restaurant ukrainien"
 ],
 "amenity/restaurant/vietnamese":[
 "bar",
@@ -1921,7 +2055,10 @@
 "soins ambulatoires"
 ],
 "amenity/social_facility/assisted_living":[
-"EPHAD"
+"ehpad",
+"EPHAD",
+"maison de repos",
+"maison de retraite"
 ],
 "amenity/social_facility/food_bank":[
 "banque alimentaire",
@@ -1943,7 +2080,10 @@
 "maison de retraite médicalisée"
 ],
 "amenity/stripclub":[
-"Club de strip-tease"
+"strip-tease",
+"club de strip-tease",
+"Club de strip-tease",
+"strip club"
 ],
 "amenity/studio":[
 "studio",
@@ -2694,20 +2834,20 @@
 "obstacle"
 ],
 "barrier/bollard":[
-"Poteau",
 "poteau",
 "borne",
 "bollard",
 "pilier",
+"Borne",
 "potelet",
 "borne escamotable"
 ],
 "barrier/bollard_line":[
 "poteaux",
 "alignement de poteaux",
+"Rangée de bornes",
 "borne",
 "bollard",
-"Ligne de poteaux",
 "pilier",
 "potelet"
 ],
@@ -3015,6 +3155,8 @@
 "sécurité"
 ],
 "barrier/log":[
+"arbre tombé",
+"arbre couché",
 "Arbre couché"
 ],
 "barrier/motorcycle_barrier":[
@@ -3179,19 +3321,18 @@
 "Pilier"
 ],
 "building":[
+"maison",
 "habitation",
+"résidence",
 "hlm",
+"construction",
 "Bâtiment",
 "immeuble",
+"édifice",
 "batiment",
 "bâtisse",
 "building",
-"tour",
-"bâtiment",
-"maison",
-"résidence",
-"construction",
-"édifice"
+"tour"
 ],
 "building/allotment_house":[
 "habitation",
@@ -3748,6 +3889,9 @@
 "guide"
 ],
 "club/scout":[
+"scouts",
+"scoutisme",
+"groupe de scout",
 "Groupe de scout"
 ],
 "club/sport":[
@@ -4149,7 +4293,8 @@
 "borne fontaine"
 ],
 "emergency/fire_service_inlet":[
-"Colonne sèche"
+"Colonne sèche",
+"colonne sèche"
 ],
 "emergency/first_aid_kit":[
 "pansement",
@@ -4282,7 +4427,13 @@
 "entrée"
 ],
 "entrance/staircase":[
-"Entrée d'escalier"
+"accès d'escalier",
+"vestibule",
+"escaliers",
+"escalier",
+"Entrée d'escalier",
+"cage d'escalier",
+"entrée d'escalier"
 ],
 "ford":[
 "gué",
@@ -4373,10 +4524,12 @@
 "Médecine alternative"
 ],
 "healthcare/alternative/acupuncture":[
-"Acupuncteur"
+"Acupuncteur",
+"acupuncteur"
 ],
 "healthcare/alternative/ayurveda":[
-"Praticien ayurvédique"
+"Praticien ayurvédique",
+"praticien ayurvédique"
 ],
 "healthcare/alternative/chiropractic":[
 "chiropraticien",
@@ -4384,16 +4537,26 @@
 "chiropracteur"
 ],
 "healthcare/alternative/homeopathy":[
-"Homéopathe"
+"homéopathe",
+"Homéopathe",
+"homéopathie"
 ],
 "healthcare/alternative/naturopathy":[
+"naturopathie",
+"naturopathe",
 "Naturopathe"
 ],
 "healthcare/alternative/osteopathy":[
-"Ostéopathe"
+"Ostéopathe",
+"ostéopathe",
+"ostéopathie"
 ],
 "healthcare/alternative/traditional_chinese_medicine":[
-"Médecine traditionnelle chinoise"
+"médecine chinoise",
+"techniques de bien-être alternatives",
+"orientale",
+"Médecine traditionnelle chinoise",
+"médecine alternative chinoise"
 ],
 "healthcare/audiologist":[
 "audiologue",
@@ -4522,6 +4685,7 @@
 "corridor intérieur"
 ],
 "highway/crossing":[
+"passage piéton",
 "Passage piéton"
 ],
 "highway/crossing/traffic_signals":[
@@ -4648,6 +4812,7 @@
 "tapis roulant"
 ],
 "highway/footway/crossing":[
+"passage piéton",
 "Passage piéton"
 ],
 "highway/footway/crossing/traffic_signals":[
@@ -5286,7 +5451,8 @@
 "usines"
 ],
 "landuse/industrial/depot":[
-"Dépôt"
+"Dépôt",
+"dépôt"
 ],
 "landuse/industrial/scrap_yard":[
 "Casse automobile",
@@ -5579,6 +5745,13 @@
 "partagé"
 ],
 "leisure/garden/residential":[
+"cour avant",
+"jardin domestique",
+"jardin privé",
+"jardin résidentiel",
+"cour arrière",
+"espace vert",
+"parterre",
 "Jardin résidentiel"
 ],
 "leisure/golf_course":[
@@ -5616,6 +5789,10 @@
 "leisure/marina":[
 "marina",
 "Marina"
+],
+"leisure/marina_no_facilities":[
+"mouillage",
+"Mouillage"
 ],
 "leisure/miniature_golf":[
 "mini golf",
@@ -5679,27 +5856,42 @@
 "Terrain d'athlétisme"
 ],
 "leisure/pitch/athletics/discus_throw":[
-"Terrain de lancer de disque"
+"Terrain de lancer de disque",
+"terrain de lancer de disque"
 ],
 "leisure/pitch/athletics/hammer_throw":[
-"Terrain de lancer de marteau"
+"secteur",
+"terrain de lancer de marteau",
+"lancer de marteau",
+"Terrain de lancer de marteau",
+"zone"
 ],
 "leisure/pitch/athletics/high_jump":[
+"terrain de saut en hauteur",
 "Terrain de saut en hauteur"
 ],
 "leisure/pitch/athletics/javelin_throw":[
-"Terrain de lancer de javelot"
+"Terrain de lancer de javelot",
+"terrain de lancer de javelot"
 ],
 "leisure/pitch/athletics/long_jump":[
-"Terrain de saut en longueur"
+"secteur",
+"zone",
+"saut en longueur",
+"Terrain de saut en longueur",
+"terrain de saut en longueur",
+"terrain"
 ],
 "leisure/pitch/athletics/pole_vault":[
+"terrain de saut à la perche",
 "Terrain de saut à la perche"
 ],
 "leisure/pitch/athletics/shot_put":[
-"Terrain de lancer de poids"
+"Terrain de lancer de poids",
+"terrain de lancer de poids"
 ],
 "leisure/pitch/athletics/triple_jump":[
+"terrain de triple-saut",
 "Terrain de triple-saut"
 ],
 "leisure/pitch/australian_football":[
@@ -5749,11 +5941,11 @@
 ],
 "leisure/pitch/equestrian":[
 "arène",
+"Terrain d'équitation",
 "rodéo",
 "cheval",
 "équitation",
-"terrain",
-"Terrain de rodéo"
+"terrain"
 ],
 "leisure/pitch/field_hockey":[
 "Terrain de hockey sur gazon"
@@ -6017,24 +6209,30 @@
 "Piste d'athlétisme"
 ],
 "leisure/track/athletics/javelin_throw":[
+"piste de lancer de javelot",
 "Piste de lancer de javelot"
 ],
 "leisure/track/athletics/long_jump":[
-"Piste de saut en longueur"
+"Piste de saut en longueur",
+"piste de saut en longueur"
 ],
 "leisure/track/athletics/pole_vault":[
+"piste de saut à la perche",
 "Piste de saut à la perche"
 ],
 "leisure/track/athletics/running":[
 "Piste de course"
 ],
 "leisure/track/athletics/sprint":[
+"piste de sprint",
 "Piste de sprint"
 ],
 "leisure/track/athletics/steeplechase":[
-"Piste de steeple"
+"Piste de steeple",
+"piste de steeple"
 ],
 "leisure/track/athletics/triple_jump":[
+"piste de triple-saut",
 "Piste de triple-saut"
 ],
 "leisure/track/cycling":[
@@ -6145,14 +6343,26 @@
 "Cour intérieure"
 ],
 "man_made/crane":[
+"palan",
+"pont roulant",
 "Grue",
+"portique",
 "grue"
 ],
 "man_made/crane/gantry_crane":[
+"pont roulant",
+"levage",
+"portique",
+"grue",
 "Portique de manutention"
 ],
 "man_made/crane/portal_crane":[
-"Grue"
+"roulant",
+"pont",
+"manutention",
+"levage",
+"grue",
+"Pont roulant"
 ],
 "man_made/cross":[
 "croix",
@@ -6187,7 +6397,14 @@
 "drapeau"
 ],
 "man_made/gantry":[
-"Portique"
+"signalisation",
+"autoroute",
+"Portique de signalisation",
+"routière",
+"portique",
+"support",
+"routier",
+"structure"
 ],
 "man_made/gasometer":[
 "gazomètre",
@@ -6402,6 +6619,8 @@
 "pompe"
 ],
 "man_made/quay":[
+"docks",
+"quai",
 "Quai"
 ],
 "man_made/reservoir_covered":[
@@ -6444,18 +6663,29 @@
 "électricité"
 ],
 "man_made/street_cabinet/postal_service":[
-"Relais postal"
+"envoi postal",
+"boîte aux lettres",
+"boîte postale",
+"distribution du courrier",
+"dépôt postal",
+"courrier",
+"Relais postal",
+"service postal"
 ],
 "man_made/street_cabinet/traffic_control":[
-"Système de régulation du trafic"
+"Système de régulation du trafic",
+"système de régulation du trafic"
 ],
 "man_made/street_cabinet/traffic_monitoring":[
+"système de contrôle du trafic",
 "Système de contrôle du trafic"
 ],
 "man_made/street_cabinet/transport_management":[
-"Système de gestion du trafic"
+"Système de gestion du trafic",
+"système de gestion du trafic"
 ],
 "man_made/street_cabinet/waste":[
+"collecteur d'ordures privé",
 "Collecteur d'ordures privé"
 ],
 "man_made/surveillance":[
@@ -6763,7 +6993,15 @@
 "mont"
 ],
 "natural/peninsula":[
-"Péninsule"
+"cap",
+"presqu'île",
+"île",
+"baie",
+"Péninsule",
+"promontoire",
+"littoral",
+"érosion",
+"îlot"
 ],
 "natural/reef":[
 "barrière",
@@ -6788,6 +7026,7 @@
 "pierre"
 ],
 "natural/saddle":[
+"col",
 "Col",
 "passe"
 ],
@@ -7127,7 +7366,16 @@
 "électricité"
 ],
 "office/engineer":[
-"Bureau d'études et d'ingénierie"
+"Bureau d'études et d'ingénierie",
+"ingénieur structure",
+"ingénieur civil",
+"société d'ingénierie",
+"ingénieur électricien",
+"cabinet d'ingénierie",
+"ingénieur mécanique",
+"ingénieur",
+"bureau d'études",
+"ingénieur technique"
 ],
 "office/estate_agent":[
 "agence immobilière",
@@ -7175,7 +7423,12 @@
 "bureau des impôts"
 ],
 "office/graphic_design":[
-"Designer"
+"graphique",
+"bureau",
+"designer",
+"cabinet",
+"graphiste",
+"Graphiste"
 ],
 "office/guide":[
 "Bureau des guides",
@@ -7191,8 +7444,11 @@
 "Spécialiste en informatique"
 ],
 "office/lawyer":[
+"juriste",
 "Cabinet d'avocats",
-"cabinet d'avocats"
+"avocat",
+"bureau",
+"cabinet"
 ],
 "office/lawyer/notary":[
 "Notaire"
@@ -7316,7 +7572,15 @@
 "canalisation"
 ],
 "pipeline/valve":[
-"Valve pour canalisations"
+"obturateur",
+"pipeline",
+"déversoir",
+"tuyau",
+"vanne",
+"Vanne de canalisation",
+"bonde",
+"robinet",
+"canalisation"
 ],
 "piste/downhill":[
 "Piste de ski alpin",
@@ -7799,7 +8063,13 @@
 "Poteau électrique"
 ],
 "power/portal":[
-"Portail d'ancrage"
+"câble",
+"électrique",
+"Portique (électricité)",
+"portique",
+"support",
+"électricité",
+"structure"
 ],
 "power/substation":[
 "Sous-station",
@@ -8383,6 +8653,7 @@
 "Emplacement où s'arrête le tram"
 ],
 "railway/turntable":[
+"voie de retournement",
 "Voie de retournement"
 ],
 "railway/yard":[
@@ -9034,6 +9305,14 @@
 "shop/hobby":[
 "Magasin pour hobby (non spécifié)"
 ],
+"shop/honey":[
+"miel",
+"apicultrice",
+"magasin de miel",
+"apiculteur",
+"Magasin de miel",
+"apiculture"
+],
 "shop/household_linen":[
 "voilage",
 "nappe",
@@ -9468,7 +9747,9 @@
 "magasin de pneus"
 ],
 "shop/vacant":[
-"Commerce désaffecté"
+"lot vacant",
+"Commerce désaffecté",
+"espace vacant"
 ],
 "shop/vacuum_cleaner":[
 "aspirateur",
@@ -9575,14 +9856,16 @@
 "aquarium"
 ],
 "tourism/artwork":[
+"art",
 "peinture",
 "mosaïque",
-"œuvre d'art",
 "statue",
+"oeuvre",
+"artistique",
 "sculpture",
 "graffiti",
 "Œuvre d'art",
-"œuvre artistique",
+"oeuvre d'art",
 "fresque"
 ],
 "tourism/artwork/bust":[
@@ -9794,9 +10077,9 @@
 "réserve naturelle",
 "parc faunique",
 "parc naturel",
+"Parc animalier",
 "zoo",
-"parc animalier",
-"Réserve naturelle"
+"parc animalier"
 ],
 "traffic_calming":[
 "Apaisement du trafic",
@@ -9875,7 +10158,12 @@
 "vitesse limite"
 ],
 "traffic_sign/variable_message":[
-"Panneau numérique"
+"Panneau à messages variables",
+"signalisation",
+"pmv",
+"panneau",
+"message",
+"lumineux"
 ],
 "type/boundary":[
 "Frontière",

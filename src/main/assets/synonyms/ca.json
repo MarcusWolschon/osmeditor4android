@@ -392,18 +392,6 @@
 "Metge d'atenció primària",
 "atenció primària"
 ],
-"amenity/doctors/gynaecology":[
-"ovulació",
-"òvul",
-"obstetrícia",
-"obstètric",
-"ou",
-"embaràs",
-"Ginecòleg",
-"reproducció",
-"ginecòloga",
-"ginecologia"
-],
 "amenity/doctors/haematology":[
 "òs",
 "ossos",
@@ -1369,7 +1357,10 @@
 "Màquina expenedora de gel"
 ],
 "amenity/vending_machine/newspapers":[
-"Màquina expenedora de diaris"
+"periòdic",
+"diari",
+"Màquina expenedora de diaris",
+"premsa"
 ],
 "amenity/vending_machine/parking_tickets":[
 "Màquina de cobrament del tiquet d'aparcament"
@@ -3832,8 +3823,11 @@
 "Notaria"
 ],
 "office/newspaper":[
+"periòdic",
+"diari",
 "Oficines d'un Diari",
 "sala de premsa",
+"premsa",
 "redacció"
 ],
 "office/ngo":[
@@ -4357,6 +4351,9 @@
 "via de ferrocarril abandonada",
 "Via fèrria abandonada"
 ],
+"railway/buffer_stop":[
+"Topall"
+],
 "railway/construction":[
 "Via fèrria en construcció"
 ],
@@ -4384,6 +4381,9 @@
 ],
 "railway/light_rail":[
 "Via de tren lleuger"
+],
+"railway/milestone":[
+"Fita quilomètrica ferroviaria"
 ],
 "railway/monorail":[
 "Via de monoraïl"
@@ -5032,7 +5032,11 @@
 "Botiga d'instruments musicals"
 ],
 "shop/newsagent":[
-"Quiosc de premsa"
+"periòdic",
+"Quiosc de premsa",
+"diari",
+"premsa",
+"quiosc"
 ],
 "shop/nutrition_supplements":[
 "Botiga de suplements nutricionals"
@@ -5056,6 +5060,16 @@
 ],
 "shop/pet":[
 "Botiga d'animals"
+],
+"shop/pet_grooming":[
+"perruqueria de gosssos",
+"Perruqueria d'animals",
+"peluquria de gats",
+"gos",
+"peluqueria d'animals",
+"gat",
+"peluqueria de gossos",
+"perruqueria de gats"
 ],
 "shop/photo":[
 "Botiga de fotografia"
@@ -5478,6 +5492,9 @@
 "traffic_calming/island":[
 "Refugi viari"
 ],
+"traffic_calming/mini_bumps":[
+"Xinxeta reductora de velocitat"
+],
 "traffic_calming/rumble_strip":[
 "Bandes rugoses",
 "bandes",
@@ -5524,6 +5541,12 @@
 ],
 "type/destination_sign":[
 "Senyal de destinació"
+],
+"type/enforcement":[
+"Control de compliment"
+],
+"type/enforcement/maxspeed":[
+"Control del límit de velocitat"
 ],
 "type/multipolygon":[
 "Multipolígon"

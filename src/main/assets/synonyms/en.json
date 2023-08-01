@@ -1408,6 +1408,9 @@
 "domestic cloths",
 "Household Linen Shop"
 ],
+"shop/honey":[
+"Honey Store"
+],
 "shop/hifi":[
 "hi-fi",
 "stereo",
@@ -1920,6 +1923,7 @@
 "dishwasher",
 "dryer",
 "washer",
+"white goods",
 "Appliance Store",
 "stove",
 "freezer",
@@ -2526,6 +2530,7 @@
 "public_transport/station_bus":[
 "bus",
 "public transit",
+"bus terminal",
 "transit",
 "station",
 "terminal",
@@ -4723,6 +4728,16 @@
 "crazy golf",
 "Miniature Golf"
 ],
+"leisure/marina_no_facilities":[
+"harbour",
+"marina",
+"moorings",
+"yachts",
+"docks",
+"harbor",
+"boats",
+"Yacht Berths"
+],
 "leisure/marina":[
 "harbour",
 "moorings",
@@ -4748,12 +4763,12 @@
 "equestrian",
 "horse ranch",
 "horse riding facility",
-"horse stables",
 "equestrian facility",
 "horse park",
 "riding facility",
 "horse farm",
 "horse riding center",
+"riding stables",
 "stables",
 "Horseback Riding Center",
 "horse riding"
@@ -6133,6 +6148,12 @@
 "Cycle Path",
 "bike path"
 ],
+"highway/crossing":[
+"crosswalk",
+"foot path crossing",
+"Crossing",
+"pedestrian crossing"
+],
 "highway/corridor":[
 "hallway",
 "passage",
@@ -6166,9 +6187,6 @@
 "equestrian",
 "Bridle Path",
 "bridleway"
-],
-"highway/crossing":[
-"Crossing"
 ],
 "highway/bus_stop":[
 "Bus Stop"
@@ -6250,6 +6268,11 @@
 "sidepath",
 "Sidewalk"
 ],
+"highway/footway/crossing":[
+"Pedestrian Crossing",
+"crosswalk",
+"foot path crossing"
+],
 "highway/footway/conveying":[
 "conveyor",
 "autwalk",
@@ -6274,9 +6297,6 @@
 ],
 "highway/footway/informal":[
 "Informal Foot Path"
-],
-"highway/footway/crossing":[
-"Pedestrian Crossing"
 ],
 "highway/footway/crossing/unmarked":[
 "unmarked foot path crossing",
@@ -6392,10 +6412,12 @@
 "anxiety",
 "mind",
 "counselor",
+"psychology",
 "mental health",
 "therapy",
 "suicide",
 "depression",
+"psychotherapy",
 "Psychotherapist",
 "therapist"
 ],
@@ -8239,8 +8261,12 @@
 "esl"
 ],
 "amenity/kneipp_water_cure":[
+"kneippism",
+"kneipp cure",
+"Kneipp Facility",
 "hydrotherapy",
-"Kneipp Water Cure"
+"kneipp hydrotherapy",
+"foot bath"
 ],
 "amenity/kindergarten":[
 "kindergarten",
@@ -9015,6 +9041,18 @@
 "grill",
 "table"
 ],
+"amenity/restaurant/ukrainian":[
+"bar",
+"lunch",
+"dine",
+"dining",
+"Ukrainian Restaurant",
+"eat",
+"breakfast",
+"dinner",
+"drive-in",
+"table"
+],
 "amenity/restaurant/turkish":[
 "lunch",
 "dining",
@@ -9124,6 +9162,14 @@
 "lobsters",
 "crab"
 ],
+"amenity/restaurant/ramen":[
+"soup",
+"Ramen Restaurant",
+"japanese",
+"noodles",
+"ramen-ten",
+"ramen-ya"
+],
 "amenity/restaurant/pizza":[
 "thin crust",
 "bar",
@@ -9153,7 +9199,6 @@
 "soba noodles",
 "canteen",
 "eat",
-"ramen noodles",
 "breakfast",
 "drive-in",
 "grill",
@@ -9278,6 +9323,18 @@
 "German Restaurant",
 "drive-in",
 "grill",
+"table"
+],
+"amenity/restaurant/georgian":[
+"bar",
+"lunch",
+"dine",
+"dining",
+"eat",
+"Georgian Restaurant",
+"breakfast",
+"dinner",
+"drive-in",
 "table"
 ],
 "amenity/restaurant/french":[
@@ -9560,6 +9617,25 @@
 "lgbt nightclub",
 "lgb nightclub"
 ],
+"amenity/ice_cream/frozen_yogurt":[
+"yogurt",
+"frogurt",
+"ice cream",
+"yoghurt",
+"Frozen Yogurt Shop",
+"frozen yoghurt",
+"froyo"
+],
+"amenity/fast_food/wings":[
+"chicken",
+"lunch",
+"dine",
+"dining",
+"eat",
+"Chicken Wings Fast Food",
+"dinner",
+"table"
+],
 "amenity/fast_food/sandwich":[
 "deli sandwich",
 "lunch",
@@ -9710,6 +9786,11 @@
 "grill",
 "table"
 ],
+"amenity/fast_food/bagel":[
+"lox",
+"breakfast",
+"Bagel Fast Food"
+],
 "amenity/fast_food/ice_cream":[
 "Ice Cream Fast Food"
 ],
@@ -9759,20 +9840,24 @@
 "sonography"
 ],
 "amenity/doctors/pulmonology":[
+"asthma",
+"pulmonology",
+"Pulmonologist",
+"pneumology",
+"chest medicine",
 "lung",
 "pneumonology",
 "respirology",
 "pneumonia",
 "respiratory tract",
+"pneumonologist",
 "respiratory medicine",
-"asthma",
-"pulmonology",
-"Pulmonologist",
-"pneumology",
-"chest medicine"
+"lungs"
 ],
 "amenity/doctors/psychiatrist":[
+"psychology",
 "psychiatry",
+"psychotherapy",
 "Psychiatrist"
 ],
 "amenity/doctors/proctology":[
@@ -9882,15 +9967,17 @@
 ],
 "amenity/doctors/gynaecology":[
 "gynecology",
-"Gynecologist",
+"obgyn",
 "egg",
 "gynaecologist",
+"ob/gyn",
 "women's doctor",
 "gynaecology",
 "obstetrics",
 "woman's doctor",
 "ovulation",
-"reproductive"
+"reproductive",
+"Obstetrician/Gynecologist"
 ],
 "amenity/doctors/general":[
 "family practitioner",
@@ -10204,16 +10291,26 @@
 "aerial cable"
 ],
 "advertising/totem":[
-"Advertising Totem"
+"ad",
+"Advertising Totem",
+"advertising",
+"spam"
 ],
 "advertising/poster_box":[
-"Poster Box"
+"Poster Box",
+"ad",
+"advertising",
+"spam"
 ],
 "advertising/column":[
-"Advertising Column"
+"ad",
+"advertising",
+"Advertising Column",
+"spam"
 ],
 "advertising/board":[
 "blackboard",
+"ad",
 "Notice Board",
 "sign",
 "advertising",
@@ -10225,6 +10322,7 @@
 "pinboard",
 "fliers",
 "noticeboard",
+"spam",
 "announcements"
 ],
 "advertising/billboard":[

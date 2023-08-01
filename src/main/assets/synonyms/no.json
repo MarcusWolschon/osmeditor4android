@@ -55,6 +55,9 @@
 "aerialway/zip_line":[
 "Løypestreng"
 ],
+"aeroway":[
+"Luftfartrelatert egenskap"
+],
 "aeroway/aerodrome":[
 "Flyplass"
 ],
@@ -368,6 +371,11 @@
 "amenity/parking_space":[
 "Parkeringsplass"
 ],
+"amenity/parking_space/disabled":[
+"handikapparkering",
+"Parkeringsplass for funksjonshemmede",
+"handikapparkeringplass"
+],
 "amenity/payment_centre":[
 "Betalingssenter"
 ],
@@ -679,6 +687,7 @@
 "Gangvei-område"
 ],
 "area/highway":[
+"gateområde",
 "Veiområde"
 ],
 "attraction":[
@@ -1339,7 +1348,7 @@
 "Rullende fortau"
 ],
 "highway/footway/crossing":[
-"Fotgjengeroverang"
+"Fotgjengerovergang"
 ],
 "highway/footway/crossing/uncontrolled":[
 "Gangfelt"
@@ -1369,6 +1378,7 @@
 "Motorveikryss / Avkjøring"
 ],
 "highway/motorway_link":[
+"motorveiforbindelse",
 "Motorveirampe"
 ],
 "highway/path":[
@@ -1386,7 +1396,13 @@
 "Gågate"
 ],
 "highway/primary":[
-"Primær hovedvei"
+"Primær hovedvei",
+"fylkesvei"
+],
+"highway/primary_link":[
+"Primærveiforbindelse",
+"primær hovedveiforbindelse",
+"primærveirampe"
 ],
 "highway/raceway":[
 "Racerbane for motorsport"
@@ -1407,10 +1423,13 @@
 "Ukjent veibru"
 ],
 "highway/secondary":[
+"kommunal vei",
 "Sekundær hovedvei"
 ],
 "highway/secondary_link":[
-"Innfart"
+"Sekundærveiforbindelse",
+"sekundærveirampe",
+"sekundær hovedveiforbindelse"
 ],
 "highway/service":[
 "Stikkvei"
@@ -1452,7 +1471,9 @@
 "Tertiær hovedvei"
 ],
 "highway/tertiary_link":[
-"Utfart"
+"tertiærveirampe",
+"Tertiærveiforbindelse",
+"tertiær hovedveiforbindelse"
 ],
 "highway/toll_gantry":[
 "Automastisk bomstasjon"
@@ -1467,7 +1488,12 @@
 "Stihode"
 ],
 "highway/trunk":[
+"riksvei",
 "Stamvei"
+],
+"highway/trunk_link":[
+"stamveirampe",
+"Stamveiforbindelse"
 ],
 "highway/turning_circle":[
 "Snuplass"
@@ -1898,6 +1924,9 @@
 "man_made/pipeline":[
 "Rørledning"
 ],
+"man_made/pipeline/underground":[
+"Bakkerør"
+],
 "man_made/pumping_station":[
 "Pumpestasjon"
 ],
@@ -2276,11 +2305,26 @@
 "polling_station":[
 "Midlertidig stemmeplass"
 ],
+"power":[
+"Strømrelatert egenskap"
+],
+"power/cable":[
+"Kraftkabel"
+],
+"power/cable/underground":[
+"Bakkekabel"
+],
+"power/catenary_mast":[
+"Kontaktledningsmast"
+],
 "power/generator":[
 "Strømgenerator"
 ],
 "power/generator/method/photovoltaic":[
 "Solcellepanel"
+],
+"power/generator/method/photovoltaic/location/roof":[
+"Solcellepanel på taket"
 ],
 "power/generator/source/hydro":[
 "Vannturbin"
@@ -2299,6 +2343,7 @@
 "strømlinje",
 "stolpe",
 "elektrisitet",
+"Lavspentlinje",
 "strøm",
 "linje"
 ],
@@ -2329,8 +2374,15 @@
 "power/pole":[
 "Høyspentmast"
 ],
+"power/portal":[
+"Forankringsportal"
+],
 "power/substation":[
-"Transformatorstasjon"
+"Transformatorstasjon",
+"trafostasjon"
+],
+"power/switch":[
+"Strømbryter"
 ],
 "power/tower":[
 "Høyspent tårn"
@@ -2342,6 +2394,7 @@
 "Perrong"
 ],
 "public_transport/platform/bus":[
+"bussplattform",
 "Bussperrong"
 ],
 "public_transport/platform/bus_point":[
@@ -2382,6 +2435,7 @@
 "holdeplass /-plattform for sporvogn"
 ],
 "public_transport/platform/trolleybus":[
+"trolleybussplattform",
 "Trolleybussperrong"
 ],
 "public_transport/platform/trolleybus_point":[
@@ -2421,7 +2475,7 @@
 "Trikkestasjon"
 ],
 "public_transport/station_trolleybus":[
-"Trolleybusstasjon / -terminal"
+"Trolleybusstasjon/-terminal"
 ],
 "public_transport/stop_area":[
 "Stoppestedområde for kollektivtrafikk"
@@ -2530,10 +2584,11 @@
 "Sporveksel"
 ],
 "railway/train_wash":[
-"Tog Vask"
+"Togvask"
 ],
 "railway/tram":[
 "sporvognspor",
+"sporvei",
 "Trikkespor"
 ],
 "railway/tram_crossing":[
@@ -2558,6 +2613,9 @@
 ],
 "route/ferry":[
 "Fergerute"
+],
+"seamark":[
+"Sjømerke"
 ],
 "shop":[
 "Butikk"
@@ -2698,7 +2756,8 @@
 "Renseri"
 ],
 "shop/e-cigarette":[
-"E-sigarettbutikk"
+"E-sigarettbutikk",
+"vapebutikk"
 ],
 "shop/electrical":[
 "Elektrisk utstyrsbutikk"
@@ -3147,6 +3206,9 @@
 ],
 "type/route":[
 "Rute"
+],
+"type/route/bicycle":[
+"Sykkelrute"
 ],
 "type/route/bus":[
 "Bussrute"

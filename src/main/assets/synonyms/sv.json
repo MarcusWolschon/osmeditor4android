@@ -909,17 +909,6 @@
 "primärvårdsläkare",
 "familjeläkare"
 ],
-"amenity/doctors/gynaecology":[
-"Gynekolog",
-"kvinnodoktor",
-"gynekolog",
-"obstetrik",
-"reproduktiv",
-"kvinnovård",
-"gynekologi",
-"kvinnoläkare",
-"ägglossning"
-],
 "amenity/doctors/haematology":[
 "blod",
 "Hematolog",
@@ -1563,16 +1552,6 @@
 "daghem",
 "lekis",
 "förskola"
-],
-"amenity/kneipp_water_cure":[
-"kallvattenkuranstalt",
-"vattenkur",
-"kallvattenkur",
-"kneipp vattenterapi",
-"kneipp",
-"hydrotherapie",
-"Kneipp vattenterapi",
-"fotbad. vatten"
 ],
 "amenity/language_school":[
 "språk",

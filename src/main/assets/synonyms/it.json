@@ -637,10 +637,6 @@
 "Medico di base",
 "ambulatorio"
 ],
-"amenity/doctors/gynaecology":[
-"ginecologa",
-"Ginecologo"
-],
 "amenity/dojo":[
 "karate",
 "Dojo/Accademia di arti marziali",
@@ -860,6 +856,7 @@
 ],
 "amenity/food_court":[
 "Zona ristorazione",
+"food lounge",
 "ristoranti",
 "area cibo",
 "food court",
@@ -966,9 +963,6 @@
 "scuola",
 "piccoli",
 "materna"
-],
-"amenity/kneipp_water_cure":[
-"Cura Acquatica Kneipp"
 ],
 "amenity/language_school":[
 "lingue",
@@ -2123,7 +2117,6 @@
 "parcheggio",
 "macchinetta",
 "ticket",
-"parcometro",
 "biglietto",
 "Parcometro",
 "biglietti parcheggio",
@@ -2219,6 +2212,15 @@
 "Area",
 "poligono"
 ],
+"area/footway":[
+"pedonale",
+"pedoni",
+"area pavimento",
+"Area pedonale",
+"area marciapiedi",
+"cordolo",
+"forma"
+],
 "area/highway":[
 "Area stradale"
 ],
@@ -2232,9 +2234,11 @@
 "parco tematico",
 "parco a tema",
 "attrazione",
-"Parco divertimenti",
+"Giostra",
+"luna park",
 "giostra",
 "parco dei divertimenti",
+"lunapark",
 "parco di divertimento"
 ],
 "attraction/animal":[
@@ -3781,7 +3785,14 @@
 "Corridoio"
 ],
 "highway/crossing":[
-"Attraversamento"
+"zebra",
+"pedonale",
+"passaggio",
+"attraversamento",
+"Attraversamento",
+"piedi",
+"strisce",
+"incrocio"
 ],
 "highway/crossing/traffic_signals":[
 "pedonale",
@@ -3793,6 +3804,17 @@
 "ciclabile",
 "piedi",
 "semaforo"
+],
+"highway/crossing/uncontrolled":[
+"zebra",
+"pedonale",
+"Attraversamento pedonale segnalato",
+"passaggio",
+"pedoni",
+"attraversamento",
+"piedi",
+"strisce",
+"incrocio"
 ],
 "highway/crossing/unmarked":[
 "informale",
@@ -3837,7 +3859,13 @@
 "Attraversamento ciclabile semaforico"
 ],
 "highway/cycleway/crossing/uncontrolled":[
-"Attraversamento ciclabile segnalato"
+"bici",
+"biciclette",
+"passaggio",
+"attraversamento",
+"Attraversamento ciclabile segnalato",
+"ciclabile",
+"incrocio"
 ],
 "highway/cycleway/crossing/unmarked":[
 "bicicletta",
@@ -3917,7 +3945,15 @@
 "strisce pedonali"
 ],
 "highway/footway/crossing/unmarked":[
-"Attraversamento pedonale non segnalato"
+"pedonale",
+"senza strisce",
+"Attraversamento pedonale non segnalato",
+"passaggio",
+"pedoni",
+"attraversamento",
+"piedi",
+"incrocio",
+"non segnato"
 ],
 "highway/footway/sidewalk":[
 "marciapiedi",
@@ -4629,7 +4665,12 @@
 "bisca"
 ],
 "leisure/amusement_arcade":[
+"flipper",
+"simulatori",
 "Sala giochi",
+"videogame",
+"gettoni",
+"guida",
 "videogiochi"
 ],
 "leisure/bandstand":[
@@ -4888,6 +4929,16 @@
 ],
 "leisure/pitch/archery":[
 "Campo di tiro con l'arco"
+],
+"leisure/pitch/athletics/shot_put":[
+"area",
+"Pedana del getto del peso",
+"ring",
+"lancio",
+"peso",
+"pedana",
+"getto",
+"cerchio"
 ],
 "leisure/pitch/australian_football":[
 "calcio",
@@ -5976,10 +6027,10 @@
 "arboreo",
 "selva",
 "macchia",
+"Bosco naturale",
 "alberi",
 "taiga",
 "boreale",
-"Bosco Naturale",
 "boscaglia",
 "bosco",
 "albero",
@@ -6076,6 +6127,8 @@
 "interinale",
 "lavoro",
 "ufficio per l'impiego",
+"agenzia del lavoro",
+"agenzia per il lavoro",
 "impiego",
 "ufficio interinale"
 ],
@@ -6754,10 +6807,10 @@
 "Area della fermata del trasporto pubblico"
 ],
 "public_transport/stop_position":[
-"Punto di stop del trasporto pubblico"
+"Punto di fermata del trasporto pubblico"
 ],
 "public_transport/stop_position_aerialway":[
-"Punto di stop del trasporto a fune"
+"Punto di fermata del trasporto a fune"
 ],
 "public_transport/stop_position_bus":[
 "Fermata autobus"
@@ -6766,6 +6819,7 @@
 "Fermata battello"
 ],
 "public_transport/stop_position_light_rail":[
+"Punto di fermata della metropolitana di superficie",
 "filobus",
 "transito",
 "metropolitana",
@@ -6775,24 +6829,23 @@
 "transito pubblico",
 "ferrovia",
 "trasporto",
-"Punto di stop della metropolitana di superficie",
 "elettrico",
 "trasporto pubblico"
 ],
 "public_transport/stop_position_monorail":[
-"Punto di stop della monorotaia"
+"Punto di fermata della monorotaia"
 ],
 "public_transport/stop_position_subway":[
-"Punto di stop della metropolitana"
+"Punto di fermata della metropolitana"
 ],
 "public_transport/stop_position_train":[
 "Posizione fermata del treno"
 ],
 "public_transport/stop_position_tram":[
-"Punto di stop del tram"
+"Punto di fermata del tram"
 ],
 "public_transport/stop_position_trolleybus":[
-"Punto di stop del filobus"
+"Punto di fermata del filobus"
 ],
 "railway":[
 "Elemento ferroviario"
@@ -8135,8 +8188,14 @@
 "area picnic"
 ],
 "tourism/theme_park":[
+"parco divertimenti",
+"giostre",
+"parco tematico",
 "parco a tema",
-"Parco a tema"
+"Parco a tema",
+"parco divertimento",
+"luna park",
+"lunapark"
 ],
 "tourism/trail_riding_station":[
 "cavalcatura",
@@ -8288,7 +8347,7 @@
 "Multipoligono"
 ],
 "type/public_transport/stop_area_group":[
-"Area della fermata del trasporto pubblico per gruppi"
+"Raggruppamento aree di fermata del trasporto pubblico"
 ],
 "type/restriction":[
 "Limitazione",

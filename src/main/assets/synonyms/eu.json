@@ -24,7 +24,7 @@
 "ATM"
 ],
 "amenity/bank":[
-"Banku"
+"Bankua"
 ],
 "amenity/bar":[
 "Taberna"
@@ -113,6 +113,11 @@
 "amenity/doctors":[
 "Mediku"
 ],
+"amenity/dressing_room":[
+"Aldagela",
+"aldagela",
+"bestuario"
+],
 "amenity/drinking_water":[
 "Ur edangarria"
 ],
@@ -181,6 +186,11 @@
 ],
 "amenity/parking_space":[
 "Aparkatzeko lekua"
+],
+"amenity/pharmacy":[
+"botika",
+"Botika",
+"farmazia"
 ],
 "amenity/place_of_worship":[
 "Gurtza gune"
@@ -278,11 +288,19 @@
 "amenity/studio":[
 "Estudio"
 ],
+"amenity/studio/television":[
+"telebisio",
+"telebista estudioa",
+"Telebista-estudioa",
+"telebista"
+],
 "amenity/taxi":[
 "Taxi postu"
 ],
 "amenity/telephone":[
-"Telefono"
+"urrutizkina",
+"Telefono",
+"telefonoa"
 ],
 "amenity/theatre":[
 "Antzoki"
@@ -359,11 +377,20 @@
 "barrier/wall":[
 "Pareta"
 ],
+"building/apartments":[
+"Apartamentu-blokea"
+],
 "building/dormitory":[
 "Erresidentzia"
 ],
 "building/entrance":[
 "Sarrera/Irteera"
+],
+"building/farm":[
+"basetxea",
+"Baserria",
+"baserria",
+"basarria"
 ],
 "building/garage":[
 "Garaje"
@@ -386,11 +413,21 @@
 "club":[
 "Klub"
 ],
+"craft/confectionery":[
+"gozogilea",
+"goxokiak",
+"gozoki-egilea",
+"Gozoki-fabrika",
+"gozokiak"
+],
 "craft/distillery":[
 "Destilategi"
 ],
 "craft/gardener":[
 "Lorezain"
+],
+"craft/locksmith":[
+"Sarrailagilea"
 ],
 "craft/painter":[
 "Margolari"
@@ -409,6 +446,13 @@
 ],
 "craft/rigger":[
 "Aparejadore"
+],
+"healthcare/physiotherapist":[
+"Fisioterapeuta",
+"fisioterapia",
+"masaia",
+"fisioterapeuta",
+"masajea"
 ],
 "highway/cycleway/bicycle_foot":[
 "Bizikleta eta oinezko-bidea"
@@ -439,6 +483,9 @@
 ],
 "landuse/residential":[
 "Bizitegi-eremua"
+],
+"landuse/residential/apartments":[
+"Apartamentu-konplexua"
 ],
 "leisure/pitch/table_tennis":[
 "ping-pong mahai"
@@ -488,6 +535,9 @@
 "man_made/chimney":[
 "Tximinia"
 ],
+"man_made/manhole/telecom":[
+"Telekomunikazioko erregistro-tapa"
+],
 "natural/hot_spring":[
 "Iturburu termala"
 ],
@@ -499,8 +549,53 @@
 "arkitekto bulegoa",
 "Arkitektura bulegoa"
 ],
+"office/political_party":[
+"hauteskunde",
+"alderdia",
+"alderdi politikoa"
+],
+"place/farm":[
+"Baserria"
+],
 "place/locality":[
 "Aurkintza"
+],
+"relation":[
+"Erlazioa",
+"harremana",
+"erlazioa",
+"lotura",
+"zerikusia"
+],
+"shop/agrarian":[
+"aitzurrak",
+"traktoreak",
+"nekazal-tresnak",
+"Nekazal-tresna denda",
+"atxurrak",
+"ongarriak",
+"makinaria"
+],
+"shop/bakery":[
+"okindegia",
+"ogia",
+"Okindegia",
+"okina"
+],
+"shop/confectionery":[
+"azukrea",
+"gozodenda",
+"goxokiak",
+"Gozodenda",
+"txutxeak"
+],
+"shop/greengrocer":[
+"entsalada",
+"fruituak",
+"frutadenda",
+"Fruta eta barazki-saltzailea",
+"barazkiak",
+"frutak"
 ],
 "shop/hairdresser":[
 "Ile-apaintzailea"
@@ -508,8 +603,33 @@
 "shop/hairdresser_supply":[
 "Ile-apaindegiko hornidura-denda"
 ],
+"shop/locksmith":[
+"sarrailak",
+"sarrailagilea",
+"Sarrailagilea"
+],
+"shop/medical_supply":[
+"Ortopedia eta medikuntzako-hornidura denda"
+],
 "shop/photo":[
 "Argazkilaritza denda"
+],
+"shop/shoe_repair":[
+"Oinetako-konponketak",
+"oinetako-konponketak",
+"zapatagilea",
+"zapataria",
+"zapateroa"
+],
+"shop/shoes":[
+"oinetako-denda",
+"oinetakoak",
+"zapatadenda",
+"Zapata-denda",
+"zapata-denda"
+],
+"shop/stationery":[
+"Paperdenda"
 ],
 "shop/vacant":[
 "Denda-lokal hutsa"

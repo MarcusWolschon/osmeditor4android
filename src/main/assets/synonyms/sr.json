@@ -1,9 +1,16 @@
 {
+"addr/interpolation":[
+"Интерполација адресе"
+],
 "address":[
 "Адреса"
 ],
+"advertising":[
+"Рекламни пано"
+],
 "advertising/billboard":[
-"Огласна табла"
+"огласна табла",
+"Билборд"
 ],
 "advertising/board":[
 "Огласна табла"
@@ -22,6 +29,9 @@
 ],
 "aerialway/gondola":[
 "Ваздушна гондола"
+],
+"aerialway/zip_line":[
+"Зип-лајн"
 ],
 "aeroway":[
 "Ваздухопловство"
@@ -42,13 +52,15 @@
 "Хелиодром"
 ],
 "aeroway/runway":[
-"Узлетиште"
+"писта за узлетање",
+"Полетно-слетна стаза"
 ],
 "aeroway/spaceport":[
 "Свемирска лука"
 ],
 "aeroway/taxiway":[
-"Полетно-слетна стаза"
+"Рулна стаза",
+"возна стаза"
 ],
 "aeroway/terminal":[
 "Аеродромски терминал"
@@ -94,6 +106,9 @@
 ],
 "amenity/bureau_de_change":[
 "Мењачница"
+],
+"amenity/bus_station":[
+"Аутобуска станица"
 ],
 "amenity/cafe":[
 "kafa",
@@ -147,6 +162,9 @@
 "amenity/clock/sundial":[
 "Сунчани сат"
 ],
+"amenity/college":[
+"Колеџ кампус"
+],
 "amenity/community_centre":[
 "Дом културе"
 ],
@@ -173,6 +191,87 @@
 ],
 "amenity/doctors":[
 "Доктор"
+],
+"amenity/doctors/allergology":[
+"Алерголог"
+],
+"amenity/doctors/cardiology":[
+"Кардиолог"
+],
+"amenity/doctors/child_psychiatry":[
+"Психијатар за децу и адолесценте"
+],
+"amenity/doctors/dermatology":[
+"Дерматолог"
+],
+"amenity/doctors/gastroenterology":[
+"Гастроентеролог"
+],
+"amenity/doctors/general":[
+"Лекар опште праксе"
+],
+"amenity/doctors/haematology":[
+"Хематолог"
+],
+"amenity/doctors/internal":[
+"Интерниста"
+],
+"amenity/doctors/nephrology":[
+"Нефролог"
+],
+"amenity/doctors/neurology":[
+"Неуролог"
+],
+"amenity/doctors/neurosurgery":[
+"Неурохирург"
+],
+"amenity/doctors/oncology":[
+"Онколог"
+],
+"amenity/doctors/ophthalmology":[
+"Офтамолог"
+],
+"amenity/doctors/orthopaedics":[
+"Ортопедски хирург"
+],
+"amenity/doctors/otolaryngology":[
+"Оториноларинголог"
+],
+"amenity/doctors/paediatrics":[
+"Педијатар"
+],
+"amenity/doctors/pathology":[
+"Патолог"
+],
+"amenity/doctors/plastic_surgery":[
+"Пластични хирург"
+],
+"amenity/doctors/podiatry":[
+"Подиатрист"
+],
+"amenity/doctors/proctology":[
+"Колоректални хирург"
+],
+"amenity/doctors/psychiatrist":[
+"Психијатар"
+],
+"amenity/doctors/pulmonology":[
+"Пулмолог"
+],
+"amenity/doctors/radiology":[
+"Радиолог"
+],
+"amenity/doctors/rheumatology":[
+"Реуматолог"
+],
+"amenity/doctors/surgery":[
+"Општи хирург"
+],
+"amenity/doctors/trauma":[
+"Ургентни хирург"
+],
+"amenity/doctors/urology":[
+"Уролог"
 ],
 "amenity/dojo":[
 "Школа борилачких вештина"
@@ -201,6 +300,9 @@
 "брза храна бургери",
 "бургерџиница",
 "брза храна пљескавице"
+],
+"amenity/fast_food/cafeteria":[
+"Кафетерија"
 ],
 "amenity/fast_food/donut":[
 "Крофџиница"
@@ -295,6 +397,9 @@
 "amenity/nursing_home":[
 "Старачки дом"
 ],
+"amenity/parcel_locker":[
+"Пакетомат"
+],
 "amenity/parking":[
 "Паркинг место"
 ],
@@ -312,6 +417,9 @@
 ],
 "amenity/pharmacy":[
 "Апотекарски шалтер"
+],
+"amenity/photo_booth":[
+"Фотоаутомат"
 ],
 "amenity/place_of_worship":[
 "Место богослужења"
@@ -352,6 +460,9 @@
 "amenity/police":[
 "Полиција"
 ],
+"amenity/post_box":[
+"Поштанско сандуче"
+],
 "amenity/post_depot":[
 "Поштански сортажни центар"
 ],
@@ -363,6 +474,9 @@
 ],
 "amenity/pub":[
 "Паб"
+],
+"amenity/pub/irish":[
+"Ирски паб"
 ],
 "amenity/pub/lgbtq":[
 "Геј бар"
@@ -394,6 +508,9 @@
 "amenity/refugee_site":[
 "Избеглички камп"
 ],
+"amenity/research_institute":[
+"Подручије истаживачког института"
+],
 "amenity/restaurant":[
 "Ресторан"
 ],
@@ -402,6 +519,9 @@
 ],
 "amenity/restaurant/asian":[
 "Азијски реторан"
+],
+"amenity/restaurant/barbeque":[
+"Роштиљ ресторан"
 ],
 "amenity/restaurant/chinese":[
 "Кинески ресторан"
@@ -472,7 +592,7 @@
 "туш-кабина"
 ],
 "amenity/smoking_area":[
-"Област за пушаче"
+"Зона за пушаче"
 ],
 "amenity/social_centre":[
 "Дружтвени центар"
@@ -622,6 +742,9 @@
 "area/footway":[
 "Пешачка област"
 ],
+"area/highway":[
+"Коловоз"
+],
 "attraction":[
 "Атракција"
 ],
@@ -669,7 +792,13 @@
 "Блокада"
 ],
 "barrier/bollard":[
-"Битва"
+"стуб",
+"Битва",
+"битве",
+"стубови"
+],
+"barrier/bollard_line":[
+"Ред битви"
 ],
 "barrier/border_control":[
 "гранична контрола",
@@ -679,6 +808,9 @@
 ],
 "barrier/cattle_grid":[
 "Тор"
+],
+"barrier/chain":[
+"Ланац"
 ],
 "barrier/city_wall":[
 "Зидине града"
@@ -702,10 +834,26 @@
 "плот",
 "Ограда"
 ],
+"barrier/full-height_turnstile":[
+"ротациона рампа у пуној висини",
+"обртни крст у пуној висини",
+"окретни криж у пуној висини",
+"Окретни крст у пуној висини"
+],
 "barrier/gate":[
 "Капија"
 ],
+"barrier/guard_rail":[
+"Заштитна ограда"
+],
+"barrier/hampshire_gate":[
+"Жичана капија"
+],
+"barrier/handrail":[
+"Рукохват"
+],
 "barrier/hedge":[
+"жива ограда",
 "Живица"
 ],
 "barrier/height_restrictor":[
@@ -738,23 +886,54 @@
 "barrier/retaining_wall":[
 "Потпорни зид"
 ],
+"barrier/rope":[
+"Ограда од ужета"
+],
 "barrier/stile":[
-"Прелаз преко ограде"
+"Прелаз преко ограде",
+"прелаз"
 ],
 "barrier/toll_booth":[
 "Наплатна рампа"
 ],
+"barrier/turnstile":[
+"окретни криж",
+"обртни крст",
+"ротациона рампа",
+"Окретни крст"
+],
 "barrier/wall":[
 "Зид"
+],
+"barrier/wall/noise_barrier":[
+"Звучна баријера"
+],
+"barrier/wicket_gate":[
+"Мала капија"
+],
+"boundary":[
+"Граница"
 ],
 "boundary/administrative":[
 "Административна граница"
 ],
+"bridge/support":[
+"Подршка мосту"
+],
+"bridge/support/pier":[
+"Стуб моста"
+],
 "building":[
 "Зграда"
 ],
+"building/apartments":[
+"Стамбена зграда"
+],
 "building/barn":[
 "Амбар"
+],
+"building/boathouse":[
+"Сплав"
 ],
 "building/bungalow":[
 "Бунгалов"
@@ -763,7 +942,11 @@
 "Бункер"
 ],
 "building/cabin":[
-"Брвнара"
+"Брвнара",
+"колиба"
+],
+"building/carport":[
+"Надстрешница за аутомобиле"
 ],
 "building/cathedral":[
 "Катедрала"
@@ -775,7 +958,7 @@
 "Црквена зграда"
 ],
 "building/college":[
-"Факултетска зграда"
+"Зграда колеџа"
 ],
 "building/commercial":[
 "Пословна зграда"
@@ -796,6 +979,12 @@
 "building/entrance":[
 "Улаз/излаз"
 ],
+"building/farm":[
+"Сеоска кућа"
+],
+"building/fire_station":[
+"Зграда ватрогасне станице"
+],
 "building/garage":[
 "паркинг простор",
 "Гаража",
@@ -805,6 +994,9 @@
 "паркинг простори",
 "Гараже",
 "гараже"
+],
+"building/ger":[
+"Јурта"
 ],
 "building/greenhouse":[
 "Стаклена башта",
@@ -831,6 +1023,9 @@
 "дом",
 "Кућа"
 ],
+"building/houseboat":[
+"Сплав"
+],
 "building/hut":[
 "појата",
 "барака",
@@ -855,6 +1050,9 @@
 "building/office":[
 "Канцеларијска зграда"
 ],
+"building/outbuilding":[
+"Споредни објекат"
+],
 "building/pavilion":[
 "Павиљон"
 ],
@@ -865,7 +1063,7 @@
 "Стамбена зграда"
 ],
 "building/retail":[
-"Зграда за издавање"
+"Малопродајна зграда"
 ],
 "building/roof":[
 "Кров"
@@ -877,7 +1075,7 @@
 "Школска зграда"
 ],
 "building/semidetached_house":[
-"Полуодвојена кућа"
+"Двојна кућа"
 ],
 "building/service":[
 "Сервисна зграда"
@@ -894,11 +1092,21 @@
 "building/sty":[
 "Свињац"
 ],
+"building/synagogue":[
+"Зграда синагоге",
+"синагога"
+],
 "building/temple":[
 "Зграда храма"
 ],
 "building/terrace":[
-"Куће у низу"
+"типне куће",
+"куће у реду",
+"куће у низу",
+"Редне куће"
+],
+"building/train_station":[
+"Зграда железничке станице"
 ],
 "building/university":[
 "Универзитетска зграда"
@@ -1061,6 +1269,9 @@
 "craft/winery":[
 "Винарија"
 ],
+"demolished/building":[
+"Недавно срушена зграда"
+],
 "embankment":[
 "Насип"
 ],
@@ -1115,6 +1326,9 @@
 "entrance/emergency_ward_entrance":[
 "Улаз за хитне случајеве"
 ],
+"entrance/main":[
+"Главни улаз"
+],
 "ford":[
 "плићак",
 "Газ",
@@ -1141,11 +1355,32 @@
 "healthcare/alternative":[
 "Алтернативна медицина"
 ],
+"healthcare/alternative/acupuncture":[
+"Акупунктурни лекар"
+],
+"healthcare/alternative/ayurveda":[
+"Практичар ајурведе"
+],
 "healthcare/alternative/chiropractic":[
 "Киропрактичар"
 ],
+"healthcare/alternative/homeopathy":[
+"Хомеопат"
+],
+"healthcare/alternative/naturopathy":[
+"Натуропат"
+],
+"healthcare/alternative/osteopathy":[
+"Остеопат"
+],
+"healthcare/alternative/traditional_chinese_medicine":[
+"Практичар традиционалне кинеске медицине"
+],
 "healthcare/blood_donation":[
 "Центар за донације крви"
+],
+"healthcare/dentist/orthodontics":[
+"Ортодонт"
 ],
 "healthcare/laboratory":[
 "Медицинска лабораторија"
@@ -1177,8 +1412,18 @@
 "коњичка стаза",
 "Коњичка стаза"
 ],
+"highway/bus_guideway":[
+"Аутобуска вођица"
+],
 "highway/bus_stop":[
 "Аутобуско стајалиште"
+],
+"highway/busway":[
+"Аутобуска трака"
+],
+"highway/construction":[
+"Пут у изградњи",
+"улица у изградњи"
 ],
 "highway/corridor":[
 "Унутрашњи ходник"
@@ -1186,14 +1431,38 @@
 "highway/crossing":[
 "Прелаз"
 ],
+"highway/crossing/traffic_signals":[
+"Пешачки прелаз са семафором"
+],
+"highway/crossing/uncontrolled":[
+"Обележени пешачки прелаз"
+],
+"highway/crossing/unmarked":[
+"Необележени пешачки прелаз"
+],
 "highway/cycleway":[
 "Бициклистичка стаза"
+],
+"highway/cycleway/bicycle_foot":[
+"Бициклистичка и пешачка стаза"
 ],
 "highway/cycleway/crossing/bicycle_foot":[
 "Бициклистички и пешачки прелаз"
 ],
+"highway/cycleway/crossing/traffic_signals":[
+"Бициклистички прелаз са семаформ"
+],
+"highway/cycleway/crossing/uncontrolled":[
+"Обележени бициклистички прелаз"
+],
+"highway/cycleway/crossing/unmarked":[
+"Необележени бициклистички прелаз"
+],
 "highway/elevator":[
 "Лифт"
+],
+"highway/elevator_line":[
+"Коси лифт"
 ],
 "highway/footway":[
 "Пешачка стаза"
@@ -1201,30 +1470,60 @@
 "highway/footway/access_aisle":[
 "Приступна трака"
 ],
+"highway/footway/conveying":[
+"Покретни тротоар"
+],
 "highway/footway/crossing":[
 "Пешачки прелаз"
 ],
+"highway/footway/crossing/traffic_signals":[
+"Пешачки прелаз са семафором"
+],
+"highway/footway/crossing/uncontrolled":[
+"Обележени пешачки прелаз"
+],
+"highway/footway/crossing/unmarked":[
+"Необележени пешачки прелаз"
+],
+"highway/footway/informal":[
+"Неформална пешачка стаза"
+],
+"highway/footway/sidewalk":[
+"Тротоар"
+],
+"highway/give_way":[
+"Знак првенства пролаза"
+],
 "highway/living_street":[
 "Стамбена улица"
+],
+"highway/milestone":[
+"Километража пута"
 ],
 "highway/mini_roundabout":[
 "Мини кружни ток"
 ],
 "highway/motorway":[
-"Магистрални пут"
+"Ауто-пут"
 ],
 "highway/motorway_junction":[
 "Излаз са ауто-пута"
 ],
 "highway/motorway_link":[
-"Прилаз аутопуту"
+"Прилаз ауто-путу"
 ],
 "highway/path":[
 "Стаза"
 ],
+"highway/path/boardwalk":[
+"Дашчана пешачка стаза"
+],
+"highway/path/informal":[
+"Неформална стаза"
+],
 "highway/pedestrian_area":[
 "трг",
-"Пешачка област",
+"Пешачка зона",
 "пешачка зона",
 "плаза"
 ],
@@ -1233,10 +1532,13 @@
 "Пешачка улица"
 ],
 "highway/primary":[
-"Главни пут"
+"Магистрални пут"
 ],
 "highway/primary_link":[
-"Главни прилаз"
+"Прилаз магистралном путу"
+],
+"highway/raceway/motocross":[
+"Мотокрос стаза"
 ],
 "highway/residential":[
 "Улица"
@@ -1260,7 +1562,7 @@
 "Дрворед"
 ],
 "highway/service/drive-through":[
-"Наручивање из возила"
+"Драјв-тру"
 ],
 "highway/service/driveway":[
 "Коловоз"
@@ -1295,6 +1597,9 @@
 "highway/tertiary_link":[
 "Локални прилаз"
 ],
+"highway/toll_gantry":[
+"Отворена путарина"
+],
 "highway/track":[
 "Стаза / приступни пут"
 ],
@@ -1302,13 +1607,15 @@
 "Саобраћајно огледало"
 ],
 "highway/traffic_signals":[
-"Саобраћајна сигнализација"
+"Семафори"
 ],
 "highway/trunk":[
-"Магистрални пут"
+"пут резервисани за саобраћај моторних возила",
+"Мотопут",
+"брза саобраћајница"
 ],
 "highway/trunk_link":[
-"Магистрални прилаз"
+"Прилаз мотопуту"
 ],
 "highway/turning_circle":[
 "Окретница"
@@ -1332,7 +1639,8 @@
 "Замак"
 ],
 "historic/castle/fortress":[
-"Историјско утврђење"
+"историјско утврђење",
+"Историјска тврђава"
 ],
 "historic/castle/palace":[
 "Палата"
@@ -1344,7 +1652,9 @@
 "Капија града"
 ],
 "historic/memorial":[
-"Спомен-комплекс"
+"спомен-комплекс",
+"Меморијал",
+"споменик"
 ],
 "historic/memorial/plaque":[
 "Комеморативна плоча"
@@ -1372,7 +1682,7 @@
 "Унутрашње обележје"
 ],
 "indoor/area":[
-"Унутрашња област"
+"Унутрашња зона"
 ],
 "indoor/corridor":[
 "Унутрашњи ходник"
@@ -1426,7 +1736,7 @@
 "Црквено двориште"
 ],
 "landuse/commercial":[
-"Пословна област"
+"Пословна зона"
 ],
 "landuse/construction":[
 "Градилиште"
@@ -1461,7 +1771,10 @@
 "Лука"
 ],
 "landuse/industrial":[
-"Индустријска област"
+"Индустријска зона"
+],
+"landuse/industrial/depot":[
+"Депо"
 ],
 "landuse/industrial/slaughterhouse":[
 "Фабричка кланица"
@@ -1481,6 +1794,9 @@
 "расадник биљака",
 "биљни расадник"
 ],
+"landuse/pond":[
+"Језерце"
+],
 "landuse/quarry":[
 "Каменолом"
 ],
@@ -1497,7 +1813,10 @@
 "Резервоар"
 ],
 "landuse/residential":[
-"Стамбена област"
+"Стамбена зона"
+],
+"landuse/residential/apartments":[
+"Стамбени комплекс"
 ],
 "landuse/retail":[
 "Малопродајна област"
@@ -1630,6 +1949,10 @@
 "leisure/pitch/softball":[
 "Терен за софтбал"
 ],
+"leisure/pitch/table_tennis":[
+"пинг-понг сто",
+"Сто за стони тенис"
+],
 "leisure/pitch/tennis":[
 "терен за тенис",
 "тениски терен",
@@ -1652,6 +1975,9 @@
 "leisure/slipway":[
 "Навоз"
 ],
+"leisure/slipway_drivable":[
+"Навоз (може да се вози на њему)"
+],
 "leisure/sports_centre":[
 "Спортски центар / Комплекс"
 ],
@@ -1664,8 +1990,17 @@
 "leisure/swimming_pool":[
 "Базен"
 ],
+"leisure/track/athletics/running":[
+"Тркачка стаза"
+],
+"leisure/track/athletics/steeplechase":[
+"Стиплчез стаза"
+],
 "leisure/track/cycling":[
 "Бициклистичка стаза"
+],
+"leisure/track/running":[
+"Тркачка стаза"
 ],
 "leisure/water_park":[
 "аква-парк",
@@ -1696,6 +2031,9 @@
 "man_made/breakwater":[
 "Лукобран"
 ],
+"man_made/bridge":[
+"Подручије моста"
+],
 "man_made/bunker_silo":[
 "Подземни силос"
 ],
@@ -1706,6 +2044,9 @@
 ],
 "man_made/crane":[
 "Кран"
+],
+"man_made/cross":[
+"Крст"
 ],
 "man_made/cutline":[
 "Усек"
@@ -1939,6 +2280,9 @@
 "natural/peak":[
 "Врх"
 ],
+"natural/peninsula":[
+"Полуострво"
+],
 "natural/reef":[
 "Гребен"
 ],
@@ -1971,6 +2315,9 @@
 ],
 "natural/tree_row":[
 "Дрворед"
+],
+"natural/tree_stump":[
+"Пањ"
 ],
 "natural/valley":[
 "Долина"
@@ -2009,6 +2356,9 @@
 "Басен отпадних вода"
 ],
 "natural/wetland":[
+"Мочвара"
+],
+"natural/wetland/swamp":[
 "Мочвара"
 ],
 "natural/wood":[
@@ -2117,7 +2467,7 @@
 "Новинска канцеларија"
 ],
 "office/ngo":[
-"НВО канцеларија"
+"Канцеларија НВО"
 ],
 "office/notary":[
 "Нотарска канцеларија"
@@ -2162,7 +2512,7 @@
 "Град"
 ],
 "place/city_block":[
-"Градска четврт"
+"Градски блок"
 ],
 "place/farm":[
 "Фарма"
@@ -2190,11 +2540,18 @@
 "place/plot":[
 "Парцела"
 ],
+"place/quarter":[
+"Четврт",
+"кварт"
+],
 "place/square":[
 "јавни трг",
 "трг",
 "Трг",
 "сквер"
+],
+"place/suburb":[
+"Градска општина / Предграђе"
 ],
 "place/town":[
 "Варош"
@@ -2222,6 +2579,9 @@
 ],
 "playground/swing":[
 "Љуљашка"
+],
+"playground/trampoline":[
+"Трамболина"
 ],
 "point":[
 "Чвор"
@@ -2295,6 +2655,10 @@
 "public_transport/platform/bus_point":[
 "Аутобуско стајалиште"
 ],
+"public_transport/platform/bus_tram_point":[
+"трамвајска и аутобуска станица",
+"Трамвајско и аутобуско стајалиште"
+],
 "public_transport/platform/ferry":[
 "Трајектни перон"
 ],
@@ -2325,11 +2689,17 @@
 "public_transport/platform/trolleybus_point":[
 "Тролејбуско стајалиште"
 ],
+"public_transport/station_bus":[
+"Аутобуска станица"
+],
 "public_transport/station_ferry":[
 "Трајектни терминал"
 ],
 "public_transport/station_monorail":[
 "Једноколосечна станица"
+],
+"public_transport/station_subway":[
+"Метро станица"
 ],
 "public_transport/station_train":[
 "Железничка станица"
@@ -2337,17 +2707,32 @@
 "public_transport/station_tram":[
 "Трамвајска станица"
 ],
+"public_transport/station_trolleybus":[
+"Тролејбуска станица / терминал"
+],
 "railway":[
 "Железничко обележје"
 ],
 "railway/abandoned":[
 "Напуштена железница"
 ],
+"railway/buffer_stop":[
+"Одбојник"
+],
+"railway/construction":[
+"Пруга у изградњи"
+],
+"railway/crossing":[
+"Прелаз пешачке стазе преко железничке пруге"
+],
 "railway/disused":[
 "Некоришћена железница"
 ],
 "railway/level_crossing":[
-"Железнички и друмски прелаз"
+"Укрштање пута и железничке пруге"
+],
+"railway/light_rail":[
+"Пруга лаке железнице"
 ],
 "railway/miniature":[
 "Висећа једноколосечна пруга"
@@ -2385,6 +2770,18 @@
 "railway/switch":[
 "Престројница"
 ],
+"railway/tram":[
+"Трамвајска пруга"
+],
+"railway/tram_crossing":[
+"Укрштање стазе и трамвајске пруге"
+],
+"railway/tram_level_crossing":[
+"Укрштање пута и трамвајске пруге"
+],
+"railway/tram_stop":[
+"Место заустављања трамваја"
+],
 "relation":[
 "Однос"
 ],
@@ -2402,6 +2799,9 @@
 ],
 "shop/anime":[
 "Продавница манга и аниме"
+],
+"shop/appliance":[
+"Продавница беле технике"
 ],
 "shop/art":[
 "Продавница уметнина"
@@ -2434,13 +2834,16 @@
 "Продавница чамаца"
 ],
 "shop/bookmaker":[
-"Кладионичар"
+"Кладионица"
+],
+"shop/books":[
+"Књижара"
 ],
 "shop/boutique":[
 "Бутик"
 ],
 "shop/butcher":[
-"Месар"
+"Месара"
 ],
 "shop/candles":[
 "Свећарница",
@@ -2470,6 +2873,10 @@
 "shop/cheese":[
 "Продавница сирева"
 ],
+"shop/chemist":[
+"лекарна",
+"Апотека"
+],
 "shop/chocolate":[
 "Продавница чоколаде"
 ],
@@ -2479,8 +2886,14 @@
 "shop/clothes/second_hand":[
 "Продавница коришћене одеће"
 ],
+"shop/clothes/underwear":[
+"Продавница доњег веша"
+],
 "shop/clothes/wedding":[
 "Продавница венчаница"
+],
+"shop/clothes/workwear":[
+"Продавница одела за рад"
 ],
 "shop/coffee":[
 "Продавница кафе"
@@ -2497,7 +2910,8 @@
 "Бомбонџиница"
 ],
 "shop/convenience":[
-"Бакалница"
+"Мала продавница",
+"мали дућан"
 ],
 "shop/copyshop":[
 "копирница",
@@ -2585,6 +2999,9 @@
 "shop/hairdresser":[
 "Фризер"
 ],
+"shop/hairdresser_supply":[
+"Продавница опреме за фризера"
+],
 "shop/hardware":[
 "Гвожђара"
 ],
@@ -2608,6 +3025,7 @@
 ],
 "shop/kiosk":[
 "киоск",
+"трафика",
 "штанд",
 "Киоск"
 ],
@@ -2616,6 +3034,9 @@
 ],
 "shop/laundry":[
 "Перионица"
+],
+"shop/laundry/self_service":[
+"Самоуслужна перионица"
 ],
 "shop/leather":[
 "Продавница коже"
@@ -2634,6 +3055,7 @@
 "игре на срећу"
 ],
 "shop/mall":[
+"шопинг центар",
 "Тржни центар"
 ],
 "shop/massage":[
@@ -2666,8 +3088,14 @@
 "shop/musical_instrument":[
 "Продавница музичких инструмената"
 ],
+"shop/newsagent":[
+"Новинарница"
+],
 "shop/nutrition_supplements":[
 "Продавница додатака исхрани"
+],
+"shop/nuts":[
+"Продавница орашастих плодова"
 ],
 "shop/optician":[
 "Оптичар"
@@ -2678,12 +3106,18 @@
 "shop/paint":[
 "Фарбара"
 ],
+"shop/party":[
+"Продавница опреме за журке"
+],
 "shop/pastry":[
 "Посластичарница",
 "продавница посластица",
 "продавница слаткиша",
 "посластичарница",
 "сластичарница"
+],
+"shop/pawnbroker":[
+"Залагаоница"
 ],
 "shop/perfumery":[
 "продавница парфема",
@@ -2739,10 +3173,10 @@
 "Изнајмљивање складишта"
 ],
 "shop/supermarket":[
-"Самопослуга"
+"Супермаркет"
 ],
 "shop/supermarket/organic":[
-"Самопослуга органске хране"
+"Супермаркет органске хране"
 ],
 "shop/tailor":[
 "Kројач"
@@ -2818,6 +3252,9 @@
 "винотека",
 "продавница вина",
 "Винарница"
+],
+"shop/yes":[
+"Продавница (неодређеног типа)"
 ],
 "telecom/data_center":[
 "Складиште података"
@@ -2938,6 +3375,9 @@
 "tourism/zoo/wildlife":[
 "Парк дивљих животиња"
 ],
+"traffic_calming":[
+"Успоривачи брзине"
+],
 "traffic_calming/bump":[
 "Лежећи полицајац"
 ],
@@ -2987,20 +3427,47 @@
 "type/restriction/no_right_turn":[
 "Забрана скретања удесно"
 ],
+"type/restriction/no_u_turn":[
+"Забрана полукружног окретања"
+],
+"type/restriction/only_left_turn":[
+"Само лево скретање"
+],
+"type/restriction/only_right_turn":[
+"Само десно скретање"
+],
+"type/restriction/only_straight_on":[
+"Само пролазак право"
+],
+"type/restriction/only_u_turn":[
+"Само полукружно скретање"
+],
 "type/route":[
-"Путања"
+"Рута"
+],
+"type/route/aerialway":[
+"Ваздушна рута"
+],
+"type/route/bicycle":[
+"Бициклистичка рута"
 ],
 "type/route/bus":[
-"Аутобуска путања"
+"Аутобуска линија"
 ],
 "type/route/detour":[
 "Обилазница"
 ],
 "type/route/ferry":[
-"Трајектна путања"
+"Линија трајектна"
+],
+"type/route/foot":[
+"Пешачка рута"
 ],
 "type/route/hiking":[
 "Планинарска путања"
+],
+"type/route/light_rail":[
+"Линија лаке железнице"
 ],
 "type/route/pipeline":[
 "Цевоводна путања"
@@ -3015,16 +3482,20 @@
 "Саобраћајна путања"
 ],
 "type/route/subway":[
-"Подземна (железница) путања"
+"линија подземне железнице",
+"Линија метроа"
 ],
 "type/route/train":[
-"Железничка путања"
+"Линја воза"
 ],
 "type/route/tram":[
-"Трамвајска путања"
+"Трамвајска линија"
 ],
 "type/route/trolleybus":[
-"Тролејбуска путања"
+"Тролејбуска линија"
+],
+"type/route_master":[
+"Главна линија"
 ],
 "type/waterway":[
 "Водоток"

@@ -521,12 +521,6 @@
 "医院",
 "医生"
 ],
-"amenity/doctors/gynaecology":[
-"妇产科诊所",
-"妇科医生",
-"妇产科医生",
-"妇科诊所"
-],
 "amenity/dojo":[
 "武术学院",
 "道场/武术学院",
@@ -848,9 +842,6 @@
 "幼儿园",
 "学前班",
 "幼稚园"
-],
-"amenity/kneipp_water_cure":[
-"克奈圃水疗"
 ],
 "amenity/language_school":[
 "语言学校"
@@ -2635,6 +2626,7 @@
 ],
 "barrier/lift_gate":[
 "道闸",
+"门",
 "挡车",
 "升降杆",
 "拦车"
@@ -7956,6 +7948,9 @@
 ],
 "shop/vacuum_cleaner":[
 "吸尘器店"
+],
+"shop/variety_store":[
+"折扣商店"
 ],
 "shop/video":[
 "影像店"
