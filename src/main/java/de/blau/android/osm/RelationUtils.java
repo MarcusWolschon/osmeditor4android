@@ -69,18 +69,21 @@ public final class RelationUtils {
                     rings.add(currentRing);
                     currentRing = null;
                 } else {
+
                     final Node currentFirstNode = currentRingSegment.getFirstNode();
                     final Node currentLastNode = currentRingSegment.getLastNode();
                     final Node previousFirstNode = previousRingSegment.getFirstNode();
                     final Node previousLastNode = previousRingSegment.getLastNode();
-                    if (currentFirstNode.equals(previousFirstNode) || currentFirstNode.equals(previousLastNode) || currentLastNode.equals(previousFirstNode)
-                            || currentLastNode.equals(previousLastNode)) {
+                    boolean firstConnected = currentFirstNode.equals(previousFirstNode) || currentFirstNode.equals(previousLastNode);
+                    boolean lastConnected = currentLastNode.equals(previousFirstNode) || currentLastNode.equals(previousLastNode);
+                    if (firstConnected || lastConnected) {
                         currentRing.add(rm);
                         final Way firstSegment = (Way) currentRing.get(0).getElement();
                         final Node firstFirstNode = firstSegment.getFirstNode();
                         final Node firstLastNode = firstSegment.getLastNode();
-                        if (firstFirstNode.equals(currentFirstNode) || firstFirstNode.equals(currentLastNode) || firstLastNode.equals(currentFirstNode)
-                                || firstLastNode.equals(currentLastNode)) {
+                        // check if ring is complete
+                        if ((lastConnected && (firstFirstNode.equals(currentFirstNode) || firstLastNode.equals(currentFirstNode)))
+                                || (firstConnected && (firstFirstNode.equals(currentLastNode) || firstLastNode.equals(currentLastNode)))) {
                             rings.add(currentRing);
                             currentRing = null;
                         }
@@ -94,6 +97,9 @@ public final class RelationUtils {
             } else {
                 other.add(rm);
             }
+        }
+        if (currentRing != null) {
+            partialRings.add(currentRing);
         }
         final int ringCount = rings.size();
         List<List<RelationMember>> rings2 = new ArrayList<>(rings);
