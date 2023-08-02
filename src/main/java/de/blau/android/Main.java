@@ -987,82 +987,83 @@ public class Main extends FullScreenAppCompatActivity
         synchronized (newIntentsLock) {
             while ((intent = newIntents.poll()) != null) {
                 String action = intent.getAction();
-                if (action != null) {
-                    Log.d(DEBUG_TAG, "action " + action);
-                    final Logic logic = App.getLogic();
-                    switch (action) {
-                    case ACTION_EXIT:
-                        exit();
-                        return;
-                    case ACTION_UPDATE:
-                        updatePrefs(new Preferences(this));
-                        logic.setPrefs(prefs);
-                        if (map != null) {
-                            map.setPrefs(this, prefs);
-                            map.invalidate();
-                        }
-                        break;
-                    case ACTION_DELETE_PHOTO: // harmless as this just deletes from the index
-                        try (PhotoIndex index = new PhotoIndex(this)) {
-                            Uri uri = intent.getData();
-                            if (!index.deletePhoto(this, uri)) {
-                                String path = ContentResolverUtil.getPath(this, uri);
-                                if (path != null && !index.deletePhoto(this, path)) {
-                                    Log.e(DEBUG_TAG, "deleting " + uri + " from index failed");
-                                }
-                            }
-                            if (uri.equals(contentUri)) {
-                                contentUri = null;
-                            }
-                        }
-                        final de.blau.android.layer.photos.MapOverlay photoLayer = map != null ? map.getPhotoLayer() : null;
-                        if (photoLayer != null) {
-                            photoLayer.deselectObjects();
-                            photoLayer.invalidate();
-                        }
-                        break;
-                    case ACTION_MAPILLARY_SELECT:
-                        final de.blau.android.layer.mapillary.MapOverlay mapillaryLayer = map != null
-                                ? (de.blau.android.layer.mapillary.MapOverlay) map.getLayer(LayerType.MAPILLARY)
-                                : null;
-                        if (mapillaryLayer != null) {
-                            double[] coords = intent.getDoubleArrayExtra(de.blau.android.layer.mapillary.MapOverlay.COORDINATES_KEY);
-                            if (coords != null) {
-                                map.getViewBox().moveTo(map, (int) (coords[1] * 1E7), (int) (coords[0] * 1E7));
-                            }
-                            mapillaryLayer.select(intent.getIntExtra(de.blau.android.layer.mapillary.MapOverlay.SET_POSITION_KEY, 0));
-                        }
-                        break;
-                    case ACTION_MAP_UPDATE:
-                        invalidateMap();
-                        break;
-                    case ACTION_PUSH_SELECTION:
-                    case ACTION_POP_SELECTION:
-                        if (ACTION_PUSH_SELECTION.equals(action)) {
-                            Selection.Ids ids = (Ids) intent.getSerializableExtra(Selection.SELECTION_KEY);
-                            Selection selection = new Selection();
-                            selection.fromIds(App.getDelegator(), ids);
-                            logic.pushSelection(selection);
-                        } else {
-                            logic.popSelection();
-                        }
-                        final List<OsmElement> selectedElements = logic.getSelectedElements();
-                        zoomTo(selectedElements);
-                        if (Mode.MODE_EASYEDIT == logic.getMode() && !selectedElements.isEmpty()) {
-                            getEasyEditManager().startElementSelectionMode();
-                        }
-                        invalidateMap();
-                        break;
-                    case ACTION_CLEAR_SELECTION_STACK:
-                        Deque<Selection> stack = logic.getSelectionStack();
-                        while (stack.size() > 1) {
-                            logic.popSelection();
-                        }
-                        break;
-                    default:
-                        // carry on
-                        Log.d(DEBUG_TAG, "Intent action " + action);
+                if (action == null) {
+                    continue;
+                }
+                Log.d(DEBUG_TAG, "action " + action);
+                final Logic logic = App.getLogic();
+                switch (action) {
+                case ACTION_EXIT:
+                    exit();
+                    return;
+                case ACTION_UPDATE:
+                    updatePrefs(new Preferences(this));
+                    logic.setPrefs(prefs);
+                    if (map != null) {
+                        map.setPrefs(this, prefs);
+                        map.invalidate();
                     }
+                    break;
+                case ACTION_DELETE_PHOTO: // harmless as this just deletes from the index
+                    try (PhotoIndex index = new PhotoIndex(this)) {
+                        Uri uri = intent.getData();
+                        if (!index.deletePhoto(this, uri)) {
+                            String path = ContentResolverUtil.getPath(this, uri);
+                            if (path != null && !index.deletePhoto(this, path)) {
+                                Log.e(DEBUG_TAG, "deleting " + uri + " from index failed");
+                            }
+                        }
+                        if (uri.equals(contentUri)) {
+                            contentUri = null;
+                        }
+                    }
+                    final de.blau.android.layer.photos.MapOverlay photoLayer = map != null ? map.getPhotoLayer() : null;
+                    if (photoLayer != null) {
+                        photoLayer.deselectObjects();
+                        photoLayer.invalidate();
+                    }
+                    break;
+                case ACTION_MAPILLARY_SELECT:
+                    final de.blau.android.layer.mapillary.MapOverlay mapillaryLayer = map != null
+                            ? (de.blau.android.layer.mapillary.MapOverlay) map.getLayer(LayerType.MAPILLARY)
+                            : null;
+                    if (mapillaryLayer != null) {
+                        double[] coords = intent.getDoubleArrayExtra(de.blau.android.layer.mapillary.MapOverlay.COORDINATES_KEY);
+                        if (coords != null) {
+                            map.getViewBox().moveTo(map, (int) (coords[1] * 1E7), (int) (coords[0] * 1E7));
+                        }
+                        mapillaryLayer.select(intent.getIntExtra(de.blau.android.layer.mapillary.MapOverlay.SET_POSITION_KEY, 0));
+                    }
+                    break;
+                case ACTION_MAP_UPDATE:
+                    invalidateMap();
+                    break;
+                case ACTION_PUSH_SELECTION:
+                case ACTION_POP_SELECTION:
+                    if (ACTION_PUSH_SELECTION.equals(action)) {
+                        Selection.Ids ids = (Ids) intent.getSerializableExtra(Selection.SELECTION_KEY);
+                        Selection selection = new Selection();
+                        selection.fromIds(App.getDelegator(), ids);
+                        logic.pushSelection(selection);
+                    } else {
+                        logic.popSelection();
+                    }
+                    final List<OsmElement> selectedElements = logic.getSelectedElements();
+                    zoomTo(selectedElements);
+                    if (Mode.MODE_EASYEDIT == logic.getMode() && !selectedElements.isEmpty()) {
+                        getEasyEditManager().startElementSelectionMode();
+                    }
+                    invalidateMap();
+                    break;
+                case ACTION_CLEAR_SELECTION_STACK:
+                    Deque<Selection> stack = logic.getSelectionStack();
+                    while (stack.size() > 1) {
+                        logic.popSelection();
+                    }
+                    break;
+                default:
+                    // carry on
+                    Log.d(DEBUG_TAG, "Intent action " + action);
                 }
             }
             if (geoData != null) {
@@ -1327,29 +1328,30 @@ public class Main extends FullScreenAppCompatActivity
             StorageDelegator storageDelegator = App.getDelegator();
             for (String s : rcData.getSelect().split(",")) {
                 // see http://wiki.openstreetmap.org/wiki/JOSM/Plugins/RemoteControl
-                if (s != null) {
-                    Log.d(DEBUG_TAG, "rc select: " + s);
-                    try {
-                        if (s.startsWith(Node.NAME)) {
-                            Node n = (Node) getRcElement(Node.NAME, storageDelegator, s);
-                            if (n != null) {
-                                logic.addSelectedNode(n);
-                            }
-                        } else if (s.startsWith(Way.NAME)) {
-                            Way w = (Way) getRcElement(Way.NAME, storageDelegator, s);
-                            if (w != null) {
-                                logic.addSelectedWay(w);
-                            }
-                        } else if (s.startsWith(Relation.NAME)) {
-                            Relation r = (Relation) getRcElement(Relation.NAME, storageDelegator, s);
-                            if (r != null) {
-                                logic.addSelectedRelation(r);
-                            }
+                if (s == null) {
+                    continue;
+                }
+                Log.d(DEBUG_TAG, "rc select: " + s);
+                try {
+                    if (s.startsWith(Node.NAME)) {
+                        Node n = (Node) getRcElement(Node.NAME, storageDelegator, s);
+                        if (n != null) {
+                            logic.addSelectedNode(n);
                         }
-                    } catch (NumberFormatException nfe) {
-                        Log.d(DEBUG_TAG, "Parsing " + s + " caused " + nfe);
-                        // not much more we can do here
+                    } else if (s.startsWith(Way.NAME)) {
+                        Way w = (Way) getRcElement(Way.NAME, storageDelegator, s);
+                        if (w != null) {
+                            logic.addSelectedWay(w);
+                        }
+                    } else if (s.startsWith(Relation.NAME)) {
+                        Relation r = (Relation) getRcElement(Relation.NAME, storageDelegator, s);
+                        if (r != null) {
+                            logic.addSelectedRelation(r);
+                        }
                     }
+                } catch (NumberFormatException nfe) {
+                    Log.d(DEBUG_TAG, "Parsing " + s + " caused " + nfe);
+                    // not much more we can do here
                 }
             }
             FloatingActionButton lock = getLock();
@@ -3574,33 +3576,33 @@ public class Main extends FullScreenAppCompatActivity
                     } else if (elementCount == 1) {
                         ElementInfo.showDialog(Main.this, clickedNodesAndWays.get(0));
                     }
-                } else if (itemCount > 0) {
+                } else if (itemCount > 1) {
                     v.showContextMenu();
                 }
                 return true;
             }
-            if (logic.isInEditZoomRange()) {
-                if (prefs.areSimpleActionsEnabled()) {
-                    if (getEasyEditManager().usesLongClick()) {
-                        if (elementCount == 1 && getEasyEditManager().handleLongClick(v, clickedNodesAndWays.get(0))) {
-                            return true;
-                        }
-                        if (elementCount > 1) {
-                            longClick = true; // another ugly flag
-                            v.showContextMenu();
-                            return true;
-                        }
-                    } // fall through to beep
-                } else if (getEasyEditManager().handleLongClick(v, x, y)) {
-                    // editing with the screen moving under you is a pain
-                    setFollowGPS(false);
-                    return true;
-                }
-                Tip.showDialog(Main.this, R.string.tip_longpress_simple_mode_key, R.string.tip_longpress_simple_mode);
-                Sound.beep();
-            } else {
+            if (!logic.isInEditZoomRange()) {
                 Snack.barWarningShort(Main.this, R.string.toast_not_in_edit_range);
+                return false;
             }
+            if (prefs.areSimpleActionsEnabled()) {
+                if (getEasyEditManager().usesLongClick()) {
+                    if (elementCount == 1 && getEasyEditManager().handleLongClick(v, clickedNodesAndWays.get(0))) {
+                        return true;
+                    }
+                    if (elementCount > 1) {
+                        longClick = true; // another ugly flag
+                        v.showContextMenu();
+                        return true;
+                    }
+                } // fall through to beep
+            } else if (getEasyEditManager().handleLongClick(v, x, y)) {
+                // editing with the screen moving under you is a pain
+                setFollowGPS(false);
+                return true;
+            }
+            Tip.showDialog(Main.this, R.string.tip_longpress_simple_mode_key, R.string.tip_longpress_simple_mode);
+            Sound.beep();
             return false;
         }
 
@@ -3851,37 +3853,36 @@ public class Main extends FullScreenAppCompatActivity
         }
 
         @Override
-        public boolean onDoubleTap(View v, float x, float y) {
+        public void onDoubleTap(View v, float x, float y) {
             final Logic logic = App.getLogic();
-            if (!logic.isLocked()) {
-                if (logic.getMode().elementsGeomEditiable()) {
-                    boolean dataIsVisible = map.getDataLayer() != null && map.getDataLayer().isVisible();
-                    clickedNodesAndWays = dataIsVisible ? App.getLogic().getClickedNodesAndWays(x, y) : new ArrayList<>();
-                    final int clickedCount = clickedNodesAndWays.size();
-                    if (clickedCount == 0) {
-                        // no elements were touched
-                        // short cut to finishing multi-select
-                        getEasyEditManager().nothingTouched(true);
-                    } else {
-                        if (!getEasyEditManager().inMultiSelectMode()) {
-                            if (clickedCount > 1 && menuRequired()) {
-                                // multiple possible elements touched - show menu
-                                Log.d(DEBUG_TAG, "onDoubleTap displaying menu");
-                                doubleTap = true; // ugly flag
-                                showDisambiguationMenu(v);
-                            } else {
-                                // menuRequired tells us it's ok to just take the first one
-                                getEasyEditManager().startExtendedSelection(clickedNodesAndWays.get(0));
-                            }
-                        } else {
-                            Snack.toastTopInfo(Main.this, R.string.toast_already_in_multiselect);
-                        }
-                    }
-                }
-            } else {
+            if (logic.isLocked()) {
                 Snack.toastTopInfo(Main.this, R.string.toast_unlock_to_edit);
+                return;
             }
-            return true;
+            if (logic.getMode().elementsGeomEditiable()) {
+                boolean dataIsVisible = map.getDataLayer() != null && map.getDataLayer().isVisible();
+                clickedNodesAndWays = dataIsVisible ? App.getLogic().getClickedNodesAndWays(x, y) : new ArrayList<>();
+                final int clickedCount = clickedNodesAndWays.size();
+                if (clickedCount == 0) {
+                    // no elements were touched
+                    // short cut to finishing multi-select
+                    getEasyEditManager().nothingTouched(true);
+                    return;
+                }
+                if (!getEasyEditManager().inMultiSelectMode()) {
+                    if (clickedCount > 1 && menuRequired()) {
+                        // multiple possible elements touched - show menu
+                        Log.d(DEBUG_TAG, "onDoubleTap displaying menu");
+                        doubleTap = true; // ugly flag
+                        showDisambiguationMenu(v);
+                    } else {
+                        // menuRequired tells us it's ok to just take the first one
+                        getEasyEditManager().startExtendedSelection(clickedNodesAndWays.get(0));
+                    }
+                } else {
+                    Snack.toastTopInfo(Main.this, R.string.toast_already_in_multiselect);
+                }
+            }
         }
 
         /**
@@ -4310,26 +4311,25 @@ public class Main extends FullScreenAppCompatActivity
         Map mapView = getMap();
         if (elements.size() > 1 || !(elements.get(0) instanceof Node)) {
             for (OsmElement e : elements) {
-                if (e != null) {
-                    BoundingBox box = e.getBounds();
-                    if (result == null) {
-                        result = box;
-                    } else {
-                        if (box != null) {
-                            result.union(box);
-                        }
-                    }
+                if (e == null) {
+                    continue;
+                }
+                BoundingBox box = e.getBounds();
+                if (result == null) {
+                    result = box;
+                } else if (box != null) {
+                    result.union(box);
                 }
             }
-        } else {
-            if (mapView.getZoomLevel() < Ui.ZOOM_FOR_ZOOMTO) {
-                App.getLogic().setZoom(mapView, Ui.ZOOM_FOR_ZOOMTO);
+            if (result != null) {
+                mapView.getViewBox().fitToBoundingBox(mapView, result);
             }
-            mapView.getViewBox().moveTo(mapView, ((Node) elements.get(0)).getLon(), ((Node) elements.get(0)).getLat());
+            return;
         }
-        if (result != null) {
-            mapView.getViewBox().fitToBoundingBox(mapView, result);
+        if (mapView.getZoomLevel() < Ui.ZOOM_FOR_ZOOMTO) {
+            App.getLogic().setZoom(mapView, Ui.ZOOM_FOR_ZOOMTO);
         }
+        mapView.getViewBox().moveTo(mapView, ((Node) elements.get(0)).getLon(), ((Node) elements.get(0)).getLat());
     }
 
     /**

@@ -833,11 +833,12 @@ public class Logic {
         List<Way> ways = getClickableWays();
 
         for (Way way : ways) {
-            if (way.isClosed() && !includeClosed) {
+            List<Node> wayNodes = way.getNodes();
+            int wayNodesSize = wayNodes.size();
+            if ((way.isClosed() && !includeClosed) || wayNodesSize == 0) {
                 continue;
             }
             boolean added = false;
-            List<Node> wayNodes = way.getNodes();
 
             double A = 0;
             double Y = 0;
@@ -846,43 +847,41 @@ public class Logic {
             float node1Y = -Float.MAX_VALUE;
             boolean firstNode = true;
             // Iterate over all WayNodes, but not the last one.
-            int wayNodesSize = wayNodes.size();
-            if (wayNodesSize > 0) {
-                Node node1 = wayNodes.get(0);
-                for (int k = 0; k < wayNodesSize - 1; ++k) {
-                    Node node2 = wayNodes.get(k + 1);
-                    if (firstNode) {
-                        node1X = lonE7ToX(node1.getLon());
-                        node1Y = latE7ToY(node1.getLat());
-                        firstNode = false;
-                    }
-                    float node2X = lonE7ToX(node2.getLon());
-                    float node2Y = latE7ToY(node2.getLat());
-
-                    double distance = Geometry.isPositionOnLine(x, y, node1X, node1Y, node2X, node2Y);
-                    if (distance >= 0) {
-                        result.put(way, distance);
-                        added = true;
-                        break;
-                    }
-                    // calculations for centroid
-                    double d = node1X * node2Y - node2X * node1Y;
-                    A = A + d;
-                    X = X + (node1X + node2X) * d;
-                    Y = Y + (node1Y + node2Y) * d;
-                    node1 = node2;
-                    node1X = node2X;
-                    node1Y = node2Y;
+            Node node1 = wayNodes.get(0);
+            for (int k = 0; k < wayNodesSize - 1; ++k) {
+                Node node2 = wayNodes.get(k + 1);
+                if (firstNode) {
+                    node1X = lonE7ToX(node1.getLon());
+                    node1Y = latE7ToY(node1.getLat());
+                    firstNode = false;
                 }
-                if (Util.notZero(A) && showWayIcons && !added && areaHasIcon(way)) {
-                    Y = Y / (3 * A); // NOSONAR nonZero tests for zero
-                    X = X / (3 * A); // NOSONAR nonZero tests for zero
-                    double distance = Math.hypot(x - X, y - Y);
-                    if (distance < DataStyle.getCurrent().getNodeToleranceValue()) {
-                        result.put(way, distance);
-                    }
+                float node2X = lonE7ToX(node2.getLon());
+                float node2Y = latE7ToY(node2.getLat());
+
+                double distance = Geometry.isPositionOnLine(x, y, node1X, node1Y, node2X, node2Y);
+                if (distance >= 0) {
+                    result.put(way, distance);
+                    added = true;
+                    break;
+                }
+                // calculations for centroid
+                double d = node1X * node2Y - node2X * node1Y;
+                A = A + d;
+                X = X + (node1X + node2X) * d;
+                Y = Y + (node1Y + node2Y) * d;
+                node1 = node2;
+                node1X = node2X;
+                node1Y = node2Y;
+            }
+            if (Util.notZero(A) && showWayIcons && !added && areaHasIcon(way)) {
+                Y = Y / (3 * A); // NOSONAR nonZero tests for zero
+                X = X / (3 * A); // NOSONAR nonZero tests for zero
+                double distance = Math.hypot(x - X, y - Y);
+                if (distance < DataStyle.getCurrent().getNodeToleranceValue()) {
+                    result.put(way, distance);
                 }
             }
+
         }
         return result;
     }
@@ -935,6 +934,7 @@ public class Logic {
      * @param y y display coordinate
      * @return a Handle object or null
      */
+    @Nullable
     private synchronized Handle getClickedWayHandleWithDistances(final float x, final float y) {
 
         Handle result = null;
@@ -943,47 +943,48 @@ public class Logic {
         float minLenForHandle = DataStyle.getCurrent().getMinLenForHandle();
 
         List<Way> ways = getSelectedWays();
-        if (ways != null) {
-            for (Way way : ways) {
-                List<Node> wayNodes = way.getNodes();
+        if (ways == null) {
+            return null;
+        }
+        for (Way way : ways) {
+            List<Node> wayNodes = way.getNodes();
 
-                float node1X = -Float.MAX_VALUE;
-                float node1Y = -Float.MAX_VALUE;
-                boolean firstNode = true;
-                // Iterate over all WayNodes, but not the last one.
-                int wayNodesSize = wayNodes.size();
-                Node node1 = wayNodes.get(0);
-                for (int k = 0; k < wayNodesSize - 1; ++k) {
-                    Node node2 = wayNodes.get(k + 1);
-                    if (firstNode) {
-                        node1X = lonE7ToX(node1.getLon());
-                        node1Y = latE7ToY(node1.getLat());
-                        firstNode = false;
-                    }
-                    float node2X = lonE7ToX(node2.getLon());
-                    float node2Y = latE7ToY(node2.getLat());
-                    float xDelta = node2X - node1X;
-                    float yDelta = node2Y - node1Y;
+            float node1X = -Float.MAX_VALUE;
+            float node1Y = -Float.MAX_VALUE;
+            boolean firstNode = true;
+            // Iterate over all WayNodes, but not the last one.
+            int wayNodesSize = wayNodes.size();
+            Node node1 = wayNodes.get(0);
+            for (int k = 0; k < wayNodesSize - 1; ++k) {
+                Node node2 = wayNodes.get(k + 1);
+                if (firstNode) {
+                    node1X = lonE7ToX(node1.getLon());
+                    node1Y = latE7ToY(node1.getLat());
+                    firstNode = false;
+                }
+                float node2X = lonE7ToX(node2.getLon());
+                float node2Y = latE7ToY(node2.getLat());
+                float xDelta = node2X - node1X;
+                float yDelta = node2Y - node1Y;
 
-                    float handleX = node1X + xDelta / 2;
-                    float handleY = node1Y + yDelta / 2;
+                float handleX = node1X + xDelta / 2;
+                float handleY = node1Y + yDelta / 2;
 
-                    float differenceX = Math.abs(handleX - x);
-                    float differenceY = Math.abs(handleY - y);
+                float differenceX = Math.abs(handleX - x);
+                float differenceY = Math.abs(handleY - y);
 
-                    node1 = node2;
-                    node1X = node2X;
-                    node1Y = node2Y;
+                node1 = node2;
+                node1X = node2X;
+                node1Y = node2Y;
 
-                    if (((differenceX > wayToleranceValue) && (differenceY > wayToleranceValue)) || Math.hypot(xDelta, yDelta) <= minLenForHandle) {
-                        continue;
-                    }
+                if (((differenceX > wayToleranceValue) && (differenceY > wayToleranceValue)) || Math.hypot(xDelta, yDelta) <= minLenForHandle) {
+                    continue;
+                }
 
-                    double dist = Math.hypot(differenceX, differenceY);
-                    if ((dist <= wayToleranceValue) && (dist < bestDistance)) {
-                        bestDistance = dist;
-                        result = new Handle(handleX, handleY);
-                    }
+                double dist = Math.hypot(differenceX, differenceY);
+                if ((dist <= wayToleranceValue) && (dist < bestDistance)) {
+                    bestDistance = dist;
+                    result = new Handle(handleX, handleY);
                 }
             }
         }
@@ -2340,37 +2341,36 @@ public class Logic {
         float jy = latE7ToY(nodeToJoin.getLat());
         // start by looking for the closest nodes
         for (Node node : getDelegator().getCurrentStorage().getNodes()) {
-            if (!nodeToJoin.equals(node)) {
-                Double distance = clickDistance(node, jx, jy);
-                if (distance != null && (filter == null || filter.include(node, false))) {
-                    closestElements.add(node);
-                }
+            if (nodeToJoin.equals(node)) {
+                continue;
+            }
+            Double distance = clickDistance(node, jx, jy);
+            if (distance != null && (filter == null || filter.include(node, false))) {
+                closestElements.add(node);
             }
         }
-        if (closestElements.isEmpty()) {
-            // fall back to closest ways
-            for (Way way : getDelegator().getCurrentStorage().getWays()) {
-                if (!way.hasNode(nodeToJoin)) {
-                    List<Node> wayNodes = way.getNodes();
-                    if (!wayNodes.isEmpty()) {
-                        Node firstNode = wayNodes.get(0);
-                        float node1X = lonE7ToX(firstNode.getLon());
-                        float node1Y = latE7ToY(firstNode.getLat());
-                        for (int i = 1, wayNodesSize = wayNodes.size(); i < wayNodesSize; ++i) {
-                            Node node2 = wayNodes.get(i);
-                            float node2X = lonE7ToX(node2.getLon());
-                            float node2Y = latE7ToY(node2.getLat());
-                            double distance = Geometry.isPositionOnLine(jx, jy, node1X, node1Y, node2X, node2Y);
-                            if (distance >= 0) {
-                                if (filter == null || filter.include(way, false)) {
-                                    closestElements.add(way);
-                                }
-                            }
-                            node1X = node2X;
-                            node1Y = node2Y;
-                        }
-                    }
+        if (!closestElements.isEmpty()) {
+            return closestElements;
+        }
+        // fall back to closest ways
+        for (Way way : getDelegator().getCurrentStorage().getWays()) {
+            List<Node> wayNodes = way.getNodes();
+            if (way.hasNode(nodeToJoin) || wayNodes.isEmpty()) {
+                continue;
+            }
+            Node firstNode = wayNodes.get(0);
+            float node1X = lonE7ToX(firstNode.getLon());
+            float node1Y = latE7ToY(firstNode.getLat());
+            for (int i = 1, wayNodesSize = wayNodes.size(); i < wayNodesSize; ++i) {
+                Node node2 = wayNodes.get(i);
+                float node2X = lonE7ToX(node2.getLon());
+                float node2Y = latE7ToY(node2.getLat());
+                double distance = Geometry.isPositionOnLine(jx, jy, node1X, node1Y, node2X, node2Y);
+                if (distance >= 0 && (filter == null || filter.include(way, false))) {
+                    closestElements.add(way);
                 }
+                node1X = node2X;
+                node1Y = node2Y;
             }
         }
         return closestElements;
@@ -2387,37 +2387,38 @@ public class Logic {
     @NonNull
     public synchronized List<Result> performMergeNodes(@Nullable FragmentActivity activity, @NonNull List<OsmElement> elements, @NonNull Node nodeToJoin) {
         List<Result> overallResult = new ArrayList<>();
-        if (!elements.isEmpty()) {
-            createCheckpoint(activity, R.string.undo_action_join);
-            Result result = null;
-            for (OsmElement element : elements) {
-                nodeToJoin = (Node) (!overallResult.isEmpty() ? overallResult.get(0).getElement() : nodeToJoin);
-                if (element.equals(nodeToJoin)) {
-                    throw new OsmIllegalOperationException("Trying to join node to itself");
-                }
-                displayAttachedObjectWarning(activity, element, nodeToJoin); // needs to be done before join
-                MergeAction action = new MergeAction(getDelegator(), element, nodeToJoin);
-                try {
-                    List<Result> tempResult = action.mergeNodes();
-                    if (overallResult.isEmpty()) {
-                        overallResult = tempResult;
-                        result = overallResult.get(0);
-                    } else {
-                        final Result newMergeResult = tempResult.get(0);
-                        result.setElement(newMergeResult.getElement()); // NOSONAR potential new result element
-                        result.addAllIssues(newMergeResult.getIssues());
-                        overallResult.addAll(tempResult.subList(1, tempResult.size()));
-                    }
-                } catch (OsmIllegalOperationException | StorageException ex) {
-                    handleDelegatorException(activity, ex);
-                    throw ex; // rethrow
-                }
-                if (!(result.getElement() instanceof Node)) {
-                    throw new IllegalStateException("mergeNodes didn't return a Node");
-                }
-            }
-            invalidateMap();
+        if (elements.isEmpty()) {
+            return overallResult;
         }
+        createCheckpoint(activity, R.string.undo_action_join);
+        Result result = null;
+        for (OsmElement element : elements) {
+            nodeToJoin = (Node) (!overallResult.isEmpty() ? overallResult.get(0).getElement() : nodeToJoin);
+            if (element.equals(nodeToJoin)) {
+                throw new OsmIllegalOperationException("Trying to join node to itself");
+            }
+            displayAttachedObjectWarning(activity, element, nodeToJoin); // needs to be done before join
+            MergeAction action = new MergeAction(getDelegator(), element, nodeToJoin);
+            try {
+                List<Result> tempResult = action.mergeNodes();
+                if (overallResult.isEmpty()) {
+                    overallResult = tempResult;
+                    result = overallResult.get(0);
+                } else {
+                    final Result newMergeResult = tempResult.get(0);
+                    result.setElement(newMergeResult.getElement()); // NOSONAR potential new result element
+                    result.addAllIssues(newMergeResult.getIssues());
+                    overallResult.addAll(tempResult.subList(1, tempResult.size()));
+                }
+            } catch (OsmIllegalOperationException | StorageException ex) {
+                handleDelegatorException(activity, ex);
+                throw ex; // rethrow
+            }
+            if (!(result.getElement() instanceof Node)) {
+                throw new IllegalStateException("mergeNodes didn't return a Node");
+            }
+        }
+        invalidateMap();
         return overallResult;
     }
 
@@ -2431,85 +2432,86 @@ public class Logic {
      */
     @NonNull
     public synchronized List<Result> performJoinNodeToWays(@Nullable FragmentActivity activity, @NonNull List<OsmElement> elements, @NonNull Node nodeToJoin) {
-        List<Result> result = null;
-        if (!elements.isEmpty()) {
-            createCheckpoint(activity, R.string.undo_action_join);
-            for (OsmElement element : elements) {
-                if (!(element instanceof Way)) {
-                    // Note if no ways are in elements this will create an empty checkpoint
-                    continue;
-                }
-                nodeToJoin = (Node) (result != null ? result.get(0).getElement() : nodeToJoin);
-                Way way = (Way) element;
-                List<Node> wayNodes = way.getNodes();
-                if (wayNodes.contains(nodeToJoin)) {
-                    throw new OsmIllegalOperationException("Trying to join node to itself in way");
-                }
-                List<Result> tempResult = null;
-                float x = lonE7ToX(nodeToJoin.getLon());
-                float y = latE7ToY(nodeToJoin.getLat());
-                Node node1 = wayNodes.get(0);
-                float node1X = lonE7ToX(node1.getLon());
-                float node1Y = latE7ToY(node1.getLat());
-                for (int i = 1, wayNodesSize = wayNodes.size(); i < wayNodesSize; ++i) {
-                    Node node2 = wayNodes.get(i);
-                    float node2X = lonE7ToX(node2.getLon());
-                    float node2Y = latE7ToY(node2.getLat());
-                    double distance = Geometry.isPositionOnLine(x, y, node1X, node1Y, node2X, node2Y);
-                    if (distance >= 0) {
-                        float[] p = GeoMath.closestPoint(x, y, node1X, node1Y, node2X, node2Y);
-                        int lat = yToLatE7(p[1]);
-                        int lon = xToLonE7(p[0]);
-                        Node node = null;
-                        if (node == null && lat == node1.getLat() && lon == node1.getLon()) {
-                            node = node1;
-                        }
-                        if (node == null && lat == node2.getLat() && lon == node2.getLon()) {
-                            node = node2;
-                        }
-                        if (node == null) {
-                            displayAttachedObjectWarning(activity, way, nodeToJoin); // needs to be done before join
-                            // move the existing node onto the way and insert it into the way
-                            try {
-                                getDelegator().moveNode(nodeToJoin, lat, lon);
-                                getDelegator().addNodeToWayAfter(i - 1, nodeToJoin, way);
-                                tempResult = Util.wrapInList(new Result(nodeToJoin));
-                            } catch (OsmIllegalOperationException e) {
-                                dismissAttachedObjectWarning(activity); // doesn't make sense to show
-                                rollback();
-                                throw new OsmIllegalOperationException(e);
-                            }
-                        } else {
-                            displayAttachedObjectWarning(activity, node, nodeToJoin); // needs to be done before join
-                            // merge node into target Node
-                            MergeAction action = new MergeAction(getDelegator(), node, nodeToJoin);
-                            try {
-                                tempResult = action.mergeNodes();
-                            } catch (OsmIllegalOperationException | StorageException ex) {
-                                handleDelegatorException(activity, ex);
-                                throw ex; // rethrow
-                            }
-                        }
-                        break; // need to leave loop !!!
-                    }
-                    node1 = node2;
-                    node1X = node2X;
-                    node1Y = node2Y;
-                }
-                if (result == null) {
-                    result = tempResult;
-                } else if (tempResult != null && !tempResult.isEmpty()) { // if null we didn't actually merge anything
-                    final Result newMergeResult = tempResult.get(0);
-                    final Result mergeResult = result.get(0);
-                    mergeResult.setElement(newMergeResult.getElement());
-                    if (newMergeResult.hasIssue()) {
-                        mergeResult.addAllIssues(newMergeResult.getIssues());
-                    }
-                    result.addAll(tempResult.subList(1, tempResult.size()));
-                }
-            }
-            invalidateMap();
+        if (elements.isEmpty()) {
+            return new ArrayList<>();
         }
+        List<Result> result = null;
+        createCheckpoint(activity, R.string.undo_action_join);
+        for (OsmElement element : elements) {
+            if (!(element instanceof Way)) {
+                // Note if no ways are in elements this will create an empty checkpoint
+                continue;
+            }
+            nodeToJoin = (Node) (result != null ? result.get(0).getElement() : nodeToJoin);
+            Way way = (Way) element;
+            List<Node> wayNodes = way.getNodes();
+            if (wayNodes.contains(nodeToJoin)) {
+                throw new OsmIllegalOperationException("Trying to join node to itself in way");
+            }
+            List<Result> tempResult = null;
+            float x = lonE7ToX(nodeToJoin.getLon());
+            float y = latE7ToY(nodeToJoin.getLat());
+            Node node1 = wayNodes.get(0);
+            float node1X = lonE7ToX(node1.getLon());
+            float node1Y = latE7ToY(node1.getLat());
+            for (int i = 1, wayNodesSize = wayNodes.size(); i < wayNodesSize; ++i) {
+                Node node2 = wayNodes.get(i);
+                float node2X = lonE7ToX(node2.getLon());
+                float node2Y = latE7ToY(node2.getLat());
+                double distance = Geometry.isPositionOnLine(x, y, node1X, node1Y, node2X, node2Y);
+                if (distance >= 0) {
+                    float[] p = GeoMath.closestPoint(x, y, node1X, node1Y, node2X, node2Y);
+                    int lat = yToLatE7(p[1]);
+                    int lon = xToLonE7(p[0]);
+                    Node node = null;
+                    if (node == null && lat == node1.getLat() && lon == node1.getLon()) {
+                        node = node1;
+                    }
+                    if (node == null && lat == node2.getLat() && lon == node2.getLon()) {
+                        node = node2;
+                    }
+                    if (node == null) {
+                        displayAttachedObjectWarning(activity, way, nodeToJoin); // needs to be done before join
+                        // move the existing node onto the way and insert it into the way
+                        try {
+                            getDelegator().moveNode(nodeToJoin, lat, lon);
+                            getDelegator().addNodeToWayAfter(i - 1, nodeToJoin, way);
+                            tempResult = Util.wrapInList(new Result(nodeToJoin));
+                        } catch (OsmIllegalOperationException e) {
+                            dismissAttachedObjectWarning(activity); // doesn't make sense to show
+                            rollback();
+                            throw new OsmIllegalOperationException(e);
+                        }
+                    } else {
+                        displayAttachedObjectWarning(activity, node, nodeToJoin); // needs to be done before join
+                        // merge node into target Node
+                        MergeAction action = new MergeAction(getDelegator(), node, nodeToJoin);
+                        try {
+                            tempResult = action.mergeNodes();
+                        } catch (OsmIllegalOperationException | StorageException ex) {
+                            handleDelegatorException(activity, ex);
+                            throw ex; // rethrow
+                        }
+                    }
+                    break; // need to leave loop !!!
+                }
+                node1 = node2;
+                node1X = node2X;
+                node1Y = node2Y;
+            }
+            if (result == null) {
+                result = tempResult;
+            } else if (tempResult != null && !tempResult.isEmpty()) { // if null we didn't actually merge anything
+                final Result newMergeResult = tempResult.get(0);
+                final Result mergeResult = result.get(0);
+                mergeResult.setElement(newMergeResult.getElement());
+                if (newMergeResult.hasIssue()) {
+                    mergeResult.addAllIssues(newMergeResult.getIssues());
+                }
+                result.addAll(tempResult.subList(1, tempResult.size()));
+            }
+        }
+        invalidateMap();
         return result;
     }
 
@@ -3893,41 +3895,41 @@ public class Logic {
                 } catch (Exception ex) {
                     Log.e(DEBUG_TAG, "loadFromFile dismiss dialog failed with " + ex);
                 }
-                if (result != READ_FAILED) {
-                    Log.d(DEBUG_TAG, "loadfromFile: File read correctly");
-                    if (mainMap != null) {
-                        try {
-                            viewBox.setRatio(mainMap, (float) mainMap.getWidth() / (float) mainMap.getHeight());
-                        } catch (Exception e) {
-                            // invalid dimensions or similar error
-                            viewBox.setBorders(mainMap, new BoundingBox(-GeoMath.MAX_LON, -GeoMath.MAX_COMPAT_LAT, GeoMath.MAX_LON, GeoMath.MAX_COMPAT_LAT));
-                        }
-                        DataStyle.updateStrokes(STROKE_FACTOR / viewBox.getWidth()); // safety measure if not done in
-                                                                                     // loadEiditngState
-                        synchronized (Logic.this) {
-                            loadEditingState((Main) activity, true);
-                        }
-                    } else {
-                        Log.e(DEBUG_TAG, "loadFromFile map is null");
-                    }
-
-                    if (postLoad != null) {
-                        postLoad.onSuccess();
-                    }
-                    if (mainMap != null) {
-                        invalidateMap();
-                    }
-                    // this updates the Undo icon if present
-                    activity.invalidateOptionsMenu();
-                    if (result == READ_BACKUP) {
-                        Snack.barError(activity, R.string.toast_used_backup);
-                    }
-                } else {
+                if (result == READ_FAILED) {
                     Log.d(DEBUG_TAG, "loadfromFile: File read failed");
                     Snack.barError(activity, R.string.toast_state_file_failed);
                     if (postLoad != null) {
                         postLoad.onError(null);
                     }
+                    return;
+                }
+                Log.d(DEBUG_TAG, "loadfromFile: File read correctly");
+                if (mainMap != null) {
+                    try {
+                        viewBox.setRatio(mainMap, (float) mainMap.getWidth() / (float) mainMap.getHeight());
+                    } catch (Exception e) {
+                        // invalid dimensions or similar error
+                        viewBox.setBorders(mainMap, new BoundingBox(-GeoMath.MAX_LON, -GeoMath.MAX_COMPAT_LAT, GeoMath.MAX_LON, GeoMath.MAX_COMPAT_LAT));
+                    }
+                    DataStyle.updateStrokes(STROKE_FACTOR / viewBox.getWidth()); // safety measure if not done in
+                                                                                 // loadEiditngState
+                    synchronized (Logic.this) {
+                        loadEditingState((Main) activity, true);
+                    }
+                } else {
+                    Log.e(DEBUG_TAG, "loadFromFile map is null");
+                }
+
+                if (postLoad != null) {
+                    postLoad.onSuccess();
+                }
+                if (mainMap != null) {
+                    invalidateMap();
+                }
+                // this updates the Undo icon if present
+                activity.invalidateOptionsMenu();
+                if (result == READ_BACKUP) {
+                    Snack.barError(activity, R.string.toast_used_backup);
                 }
             }
         };
@@ -5091,26 +5093,27 @@ public class Logic {
      * @param depth current recursion depth
      */
     private synchronized void setSelectedRelationMembers(@Nullable Relation r, int depth) {
-        if (r != null) {
-            for (RelationMember rm : r.getMembers()) {
-                OsmElement e = rm.getElement();
-                if (e != null) {
-                    switch (e.getName()) {
-                    case Way.NAME:
-                        addSelectedRelationWay((Way) e);
-                        break;
-                    case Node.NAME:
-                        addSelectedRelationNode((Node) e);
-                        break;
-                    case Relation.NAME:
-                        // break recursion if already selected or max depth exceeded
-                        if ((selectedRelationRelations == null || !selectedRelationRelations.contains(e)) && depth <= MAX_RELATION_SELECTION_DEPTH) {
-                            addSelectedRelationRelation((Relation) e, depth);
-                        }
-                        break;
-                    default:
-                        Log.e(DEBUG_TAG, "Unknown relation member " + e.getName());
+        if (r == null) {
+            return;
+        }
+        for (RelationMember rm : r.getMembers()) {
+            OsmElement e = rm.getElement();
+            if (e != null) {
+                switch (e.getName()) {
+                case Way.NAME:
+                    addSelectedRelationWay((Way) e);
+                    break;
+                case Node.NAME:
+                    addSelectedRelationNode((Node) e);
+                    break;
+                case Relation.NAME:
+                    // break recursion if already selected or max depth exceeded
+                    if ((selectedRelationRelations == null || !selectedRelationRelations.contains(e)) && depth <= MAX_RELATION_SELECTION_DEPTH) {
+                        addSelectedRelationRelation((Relation) e, depth);
                     }
+                    break;
+                default:
+                    Log.e(DEBUG_TAG, "Unknown relation member " + e.getName());
                 }
             }
         }
@@ -5328,28 +5331,28 @@ public class Logic {
      * @param elementLocal the local instance of the element
      * @param elementOnServer the remote instance of the element
      */
-    public void fixElementWithConflict(@Nullable Activity activity, long newVersion, OsmElement elementLocal, OsmElement elementOnServer) {
+    public void fixElementWithConflict(@Nullable Activity activity, long newVersion, @NonNull OsmElement elementLocal, @Nullable OsmElement elementOnServer) {
         createCheckpoint(activity, R.string.undo_action_fix_conflict);
-
         if (elementOnServer == null) { // deleted on server
-            if (elementLocal.getState() != OsmElement.STATE_DELETED) { // but not locally
-                // given that the element is deleted on the server we likely need to add it back to ways and relations
-                // there too
-                if (elementLocal.getName().equals(Node.NAME)) {
-                    for (Way w : getWaysForNode((Node) elementLocal)) {
-                        getDelegator().setOsmVersion(w, w.getOsmVersion() + 1);
-                    }
-                }
-                if (elementLocal.hasParentRelations()) {
-                    for (Relation r : elementLocal.getParentRelations()) {
-                        getDelegator().setOsmVersion(r, r.getOsmVersion() + 1);
-                    }
-                }
-            } else { // deleted locally too
+            if (elementLocal.getState() == OsmElement.STATE_DELETED) {
+                // deleted locally too
                 // note this sets the state to unchanged, but the element
                 // isn't referenced anywhere anymore so that doesn't matter
                 getDelegator().removeFromUpload(elementLocal, OsmElement.STATE_UNCHANGED);
                 return;
+            }
+            // not locally deleted
+            // given that the element is deleted on the server we likely need to add it back to ways and relations
+            // there too
+            if (elementLocal.getName().equals(Node.NAME)) {
+                for (Way w : getWaysForNode((Node) elementLocal)) {
+                    getDelegator().setOsmVersion(w, w.getOsmVersion() + 1);
+                }
+            }
+            if (elementLocal.hasParentRelations()) {
+                for (Relation r : elementLocal.getParentRelations()) {
+                    getDelegator().setOsmVersion(r, r.getOsmVersion() + 1);
+                }
             }
         }
         getDelegator().setOsmVersion(elementLocal, newVersion);

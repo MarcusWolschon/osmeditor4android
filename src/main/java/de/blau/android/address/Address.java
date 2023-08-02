@@ -539,23 +539,24 @@ public final class Address implements Serializable {
     private static void setCountryAndState(double lon, double lat, @NonNull Map<String, String> tags) {
         final String country = tags.get(Tags.KEY_ADDR_COUNTRY);
         final String state = tags.get(Tags.KEY_ADDR_STATE);
-        if (country != null || state != null) {
-            try {
-                if (geoContext != null) {
-                    CountryAndStateIso casi = geoContext.getCountryAndStateIso(lon, lat);
-                    if (casi != null) {
-                        if ("".equals(country)) { // will be null if empty
-                            tags.put(Tags.KEY_ADDR_COUNTRY, casi.getCountry());
-                        }
-                        if (casi.getState() != null && "".equals(state)) {
-                            // note this assumes that the ISO code actually makes sense here
-                            tags.put(Tags.KEY_ADDR_STATE, casi.getState());
-                        }
+        if (country == null && state == null) {
+            return;
+        }
+        try {
+            if (geoContext != null) {
+                CountryAndStateIso casi = geoContext.getCountryAndStateIso(lon, lat);
+                if (casi != null) {
+                    if ("".equals(country)) { // will be null if empty
+                        tags.put(Tags.KEY_ADDR_COUNTRY, casi.getCountry());
+                    }
+                    if (casi.getState() != null && "".equals(state)) {
+                        // note this assumes that the ISO code actually makes sense here
+                        tags.put(Tags.KEY_ADDR_STATE, casi.getState());
                     }
                 }
-            } catch (IllegalArgumentException iaex) {
-                Log.e(DEBUG_TAG, "setCountryAndState " + iaex);
             }
+        } catch (IllegalArgumentException iaex) {
+            Log.e(DEBUG_TAG, "setCountryAndState " + iaex);
         }
     }
 

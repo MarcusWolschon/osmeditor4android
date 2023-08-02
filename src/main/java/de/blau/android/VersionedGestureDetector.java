@@ -97,9 +97,8 @@ public abstract class VersionedGestureDetector {
          * @param v the View
          * @param x screen x coordinate
          * @param y screen y coordinate
-         * @return true if double click events are handled, false if they should be ignore
          */
-        boolean onDoubleTap(@NonNull View v, float x, float y);
+        void onDoubleTap(@NonNull View v, float x, float y);
     }
 
     /**
