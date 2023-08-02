@@ -196,7 +196,6 @@ public class GnssPositionInfo extends InfoDialogFragment {
             Logic logic = App.getLogic();
             Node node = logic.performAddNode(getActivity(), lon, lat);
             TreeMap<String, String> tags = new TreeMap<>(node.getTags());
-
             if (location instanceof ExtendedLocation) {
                 ExtendedLocation loc = (ExtendedLocation) location;
                 Preferences prefs = logic.getPrefs();
@@ -278,34 +277,35 @@ public class GnssPositionInfo extends InfoDialogFragment {
      */
     private void updateView(@NonNull FragmentActivity activity, @NonNull TableLayout tl, @NonNull TableLayout.LayoutParams tp) {
         tl.removeAllViews();
-        if (location != null) {
-            tl.addView(TableLayoutUtils.createRow(activity, R.string.location_lat_label, String.format(Locale.US, "%.8f", location.getLatitude()), tp));
-            tl.addView(TableLayoutUtils.createRow(activity, R.string.location_lon_label, String.format(Locale.US, "%.8f", location.getLongitude()), tp));
-            tl.addView(TableLayoutUtils.divider(activity));
+        if (location == null) {
+            return;
+        }
+        tl.addView(TableLayoutUtils.createRow(activity, R.string.location_lat_label, String.format(Locale.US, "%.8f", location.getLatitude()), tp));
+        tl.addView(TableLayoutUtils.createRow(activity, R.string.location_lon_label, String.format(Locale.US, "%.8f", location.getLongitude()), tp));
+        tl.addView(TableLayoutUtils.divider(activity));
 
-            if (location instanceof ExtendedLocation) {
-                ExtendedLocation loc = (ExtendedLocation) location;
-                if (loc.hasHdop()) {
-                    tl.addView(TableLayoutUtils.createRow(activity, R.string.position_info_hdop, String.format(Locale.US, "%.1f", loc.getHdop()), tp));
-                }
-                tl.addView(TableLayoutUtils.createRow(activity, R.string.position_info_altitude, null, tp));
-                if (loc.hasGeoidHeight()) {
-                    tl.addView(TableLayoutUtils.createRow(activity, R.string.position_info_geoid_height, String.format(Locale.US, "%.3f", loc.getGeoidHeight()),
-                            tp));
-                }
-                if (loc.hasBarometricHeight()) {
-                    tl.addView(TableLayoutUtils.createRow(activity, R.string.position_info_barometric_height,
-                            String.format(Locale.US, "%.3f", loc.getBarometricHeight()), tp));
-                }
-                if (loc.hasGeoidCorrection()) {
-                    tl.addView(TableLayoutUtils.createRow(activity, R.string.position_info_geoid_correction,
-                            String.format(Locale.US, "%.3f", loc.getGeoidCorrection()), tp));
-                }
+        if (location instanceof ExtendedLocation) {
+            ExtendedLocation loc = (ExtendedLocation) location;
+            if (loc.hasHdop()) {
+                tl.addView(TableLayoutUtils.createRow(activity, R.string.position_info_hdop, String.format(Locale.US, "%.1f", loc.getHdop()), tp));
             }
-            if (location.hasAltitude()) {
-                tl.addView(TableLayoutUtils.createRow(activity, R.string.position_info_ellipsoid_height,
-                        String.format(Locale.US, "%.3f", location.getAltitude()), tp));
+            tl.addView(TableLayoutUtils.createRow(activity, R.string.position_info_altitude, null, tp));
+            if (loc.hasGeoidHeight()) {
+                tl.addView(
+                        TableLayoutUtils.createRow(activity, R.string.position_info_geoid_height, String.format(Locale.US, "%.3f", loc.getGeoidHeight()), tp));
             }
+            if (loc.hasBarometricHeight()) {
+                tl.addView(TableLayoutUtils.createRow(activity, R.string.position_info_barometric_height,
+                        String.format(Locale.US, "%.3f", loc.getBarometricHeight()), tp));
+            }
+            if (loc.hasGeoidCorrection()) {
+                tl.addView(TableLayoutUtils.createRow(activity, R.string.position_info_geoid_correction,
+                        String.format(Locale.US, "%.3f", loc.getGeoidCorrection()), tp));
+            }
+        }
+        if (location.hasAltitude()) {
+            tl.addView(TableLayoutUtils.createRow(activity, R.string.position_info_ellipsoid_height, String.format(Locale.US, "%.3f", location.getAltitude()),
+                    tp));
         }
     }
 

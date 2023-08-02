@@ -278,29 +278,15 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
      * @return true if the visibility was changed
      */
     public static boolean setItemVisibility(boolean condition, @NonNull MenuItem item, boolean setEnabled) {
-        if (condition) {
-            if (setEnabled) {
-                if (!item.isEnabled()) {
-                    item.setEnabled(true);
-                    return true;
-                }
-            } else {
-                if (!item.isVisible()) {
-                    item.setVisible(true);
-                    return true;
-                }
+        if (setEnabled) {
+            if (item.isEnabled() == !condition) {
+                item.setEnabled(condition);
+                return true;
             }
         } else {
-            if (setEnabled) {
-                if (item.isEnabled()) {
-                    item.setEnabled(false);
-                    return true;
-                }
-            } else {
-                if (item.isVisible()) {
-                    item.setVisible(false);
-                    return true;
-                }
+            if (item.isVisible() == !condition) {
+                item.setVisible(condition);
+                return true;
             }
         }
         return false;
@@ -784,17 +770,18 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
 
         final Map<String, PresetItem> items = new HashMap<>();
         for (Preset preset : App.getCurrentPresets(context)) {
-            if (preset != null) {
-                for (PresetItem item : preset.getItemsForType(type).values()) {
-                    if (filterKey != null) {
-                        PresetTagField field = item.getField(filterKey);
-                        if (field != null && (filterValue == null
-                                || (field instanceof PresetFixedField && filterValue.equals(((PresetFixedField) field).getValue().getValue())))) {
-                            items.put(item.getTranslatedName(), item);
-                        }
-                    } else {
-                        items.put(item.getTranslatedName(), item);
-                    }
+            if (preset == null) {
+                continue;
+            }
+            for (PresetItem item : preset.getItemsForType(type).values()) {
+                if (filterKey == null) {
+                    items.put(item.getTranslatedName(), item);
+                    continue;
+                }
+                PresetTagField field = item.getField(filterKey);
+                if (field != null && (filterValue == null
+                        || (field instanceof PresetFixedField && filterValue.equals(((PresetFixedField) field).getValue().getValue())))) {
+                    items.put(item.getTranslatedName(), item);
                 }
             }
         }
