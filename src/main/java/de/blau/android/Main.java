@@ -254,6 +254,12 @@ public class Main extends FullScreenAppCompatActivity
     private static final int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 54321;
 
     /**
+     * Not clear if this is even useful
+     */
+    public static final String STORAGE_PERMISSION = Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU ? Manifest.permission.READ_MEDIA_IMAGES
+            : Manifest.permission.WRITE_EXTERNAL_STORAGE;
+
+    /**
      * Minimum change in azimuth before we redraw
      */
     private static final int MIN_AZIMUT_CHANGE = 5;
@@ -920,18 +926,18 @@ public class Main extends FullScreenAppCompatActivity
             }
         }
         synchronized (storagePermissionLock) {
-            if (!Util.permissionGranted(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            if (!Util.permissionGranted(this, STORAGE_PERMISSION)
                     || (prefs.scanMediaStore() && !Util.permissionGranted(this, Manifest.permission.ACCESS_MEDIA_LOCATION))) {
                 storagePermissionGranted = false;
                 // Should we show an explanation?
                 if (askedForStoragePermission) {
-                    if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(this, STORAGE_PERMISSION)) {
                         // for now we just repeat the request (max once)
-                        permissionsList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                        permissionsList.add(STORAGE_PERMISSION);
                         permissionsList.add(Manifest.permission.ACCESS_MEDIA_LOCATION);
                     }
                 } else {
-                    permissionsList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                    permissionsList.add(STORAGE_PERMISSION);
                     permissionsList.add(Manifest.permission.ACCESS_MEDIA_LOCATION); // yes this is weird, but ask the
                                                                                     // goog
                     askedForStoragePermission = true;
@@ -1494,7 +1500,7 @@ public class Main extends FullScreenAppCompatActivity
                         locationPermissionGranted = true;
                     }
                 } // if not granted do nothing for now
-                if (permissions[i].equals(Manifest.permission.WRITE_EXTERNAL_STORAGE) && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (permissions[i].equals(STORAGE_PERMISSION) && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // permission was granted :)
                     synchronized (storagePermissionLock) {
                         storagePermissionGranted = true;

@@ -24,6 +24,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
 import de.blau.android.Logic;
+import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
@@ -181,7 +182,7 @@ public class MapOverlay extends MapViewLayer implements DiscardInterface, Clicka
     @Override
     protected void onDraw(Canvas c, IMapView osmv) {
         if (isVisible) {
-            if (needsIndexing() && Util.permissionGranted(map.getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            if (needsIndexing() && Util.permissionGranted(map.getContext(), Main.STORAGE_PERMISSION)) {
                 indexer.execute(map::invalidate);
                 return;
             }
