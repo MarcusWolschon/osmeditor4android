@@ -1,13 +1,12 @@
 package de.blau.android.util;
 
-import com.zeugmasolutions.localehelper.LocaleAwareCompatActivity;
-
 import android.content.res.Configuration;
 import android.util.Log;
+import androidx.appcompat.app.AppCompatActivity;
 import de.blau.android.App;
 
-public abstract class ConfigurationChangeAwareActivity extends LocaleAwareCompatActivity {
-    
+public abstract class ConfigurationChangeAwareActivity extends AppCompatActivity {
+
     private static final String DEBUG_TAG = ConfigurationChangeAwareActivity.class.getSimpleName();
 
     @Override
@@ -20,6 +19,6 @@ public abstract class ConfigurationChangeAwareActivity extends LocaleAwareCompat
             Log.d(DEBUG_TAG, "recreating activity " + this.getClass().getCanonicalName());
             recreate();
         }
-        Util.clearCaches(this, oldConfig, newConfig);    
+        Util.clearCaches(this, oldConfig, newConfig);
     }
 }

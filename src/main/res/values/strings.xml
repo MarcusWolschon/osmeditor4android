@@ -1174,8 +1174,8 @@
     <string name="config_theme_summary">Select app styling.</string>
     <string name="config_splitActionBarEnabled_title">Enable split action bar</string>
     <string name="config_splitActionBarEnabled_summary">Show the menu buttons at the bottom of the screen. Requires starting Vespucci again, and Android 4.0 or later.</string>
-    <string name="config_disableTranslations_title">Disable translations</string>
-    <string name="config_disableTranslations_summary">Use English for the user interface</string>
+    <string name="config_appLocale_title">App language</string>
+    <string name="config_appLocale_summary">Select non-standard app language</string>
     <string name="config_maxInlineValues_title">Max. number of inline values</string>
     <string name="config_maxInlineValues_summary">Maximum number of inline values displayed in tag form.</string>
     <string name="config_maxInlineValues_current">%1$d values</string>

@@ -22,9 +22,9 @@ import org.nustaq.serialization.serializers.FSTMapSerializer;
 
 import com.faendir.rhino_android.AndroidContextFactory;
 import com.faendir.rhino_android.RhinoAndroidHelper;
-import com.zeugmasolutions.localehelper.LocaleAwareApplication;
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -72,7 +72,7 @@ import okhttp3.OkHttpClient;
 @AcraHttpSender(httpMethod = HttpSender.Method.POST, uri = "https://acrarium.vespucci.io/")
 @AcraDialog(resText = R.string.crash_dialog_text, resCommentPrompt = R.string.crash_dialog_comment_prompt, resTheme = R.style.Theme_AppCompat_Light_Dialog)
 
-public class App extends LocaleAwareApplication implements android.app.Application.ActivityLifecycleCallbacks {
+public class App extends Application implements android.app.Application.ActivityLifecycleCallbacks {
     private static final String DEBUG_TAG = App.class.getCanonicalName();
 
     private static final String     RHINO_LAZY_LOAD = "lazyLoad";

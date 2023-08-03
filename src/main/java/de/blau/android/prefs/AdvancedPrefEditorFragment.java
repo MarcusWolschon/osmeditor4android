@@ -5,18 +5,16 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
-import com.zeugmasolutions.localehelper.LocaleAwareCompatActivity;
-
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import androidx.annotation.NonNull;
-import androidx.preference.CheckBoxPreference;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.os.LocaleListCompat;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
-import androidx.preference.PreferenceManager;
+import androidx.preference.Preference.OnPreferenceChangeListener;
 import de.blau.android.R;
 import de.blau.android.util.LocaleUtils;
 import de.blau.android.util.Util;
@@ -63,6 +61,11 @@ public class AdvancedPrefEditorFragment extends ExtendedPreferenceFragment {
             setupCameraPref(cameraAppPref);
         }
 
+        ListPreference appLocalePref = (ListPreference) getPreferenceScreen().findPreference(r.getString(R.string.config_appLocale_key));
+        if (appLocalePref != null) {
+            setupAppLocalePref(appLocalePref);
+        }
+
         setListPreferenceSummary(R.string.config_selectCameraApp_key, false);
         setListPreferenceSummary(R.string.config_theme_key, true);
         setListPreferenceSummary(R.string.config_fullscreenMode_key, true);
@@ -85,6 +88,43 @@ public class AdvancedPrefEditorFragment extends ExtendedPreferenceFragment {
         setRestartRequiredMessage(R.string.config_indexMediaStore_key);
         setRestartRequiredMessage(R.string.config_supportPresetLabels_key);
         setTitle();
+    }
+
+    /**
+     * Setup the app local preference
+     * 
+     * @param appLocalePref the preference
+     * 
+     */
+    private void setupAppLocalePref(@NonNull ListPreference appLocalePref) {
+        Locale currentLocale = Locale.getDefault();
+        LocaleListCompat appLocales = LocaleUtils.getSupportedLocales(getContext());
+        LocaleListCompat currentLocales = AppCompatDelegate.getApplicationLocales();
+        if (!currentLocales.isEmpty()) {
+            LocaleListCompat temp = LocaleListCompat.getAdjustedDefault();
+            if (!temp.isEmpty()) {
+                currentLocale = temp.get(0);
+            }
+        }
+        String[] entries = new String[appLocales.size()];
+        String[] values = new String[appLocales.size()];
+        for (int i = 0; i < appLocales.size(); i++) {
+            Locale l = appLocales.get(i);
+            entries[i] = l.getDisplayName(currentLocale);
+            values[i] = l.toString();
+        }
+        appLocalePref.setEntryValues(values);
+        appLocalePref.setEntries(entries);
+        appLocalePref.setDefaultValue(currentLocale.toString());
+        OnPreferenceChangeListener p = (preference, newValue) -> {
+            Log.d(DEBUG_TAG, "onPreferenceChange appLocale " + newValue);
+            LocaleListCompat newDefaultList = LocaleListCompat.forLanguageTags((String) newValue);
+            Locale newDefault = newDefaultList.get(0);
+            AppCompatDelegate.setApplicationLocales(newDefaultList);
+            preference.setSummary(newDefault.getDisplayName(newDefault));
+            return true;
+        };
+        appLocalePref.setOnPreferenceChangeListener(p);
     }
 
     /**
@@ -131,24 +171,6 @@ public class AdvancedPrefEditorFragment extends ExtendedPreferenceFragment {
         if (geocoderPref != null) {
             geocoderPref.setOnPreferenceClickListener(preference -> {
                 GeocoderEditorActivity.start(getActivity());
-                return true;
-            });
-        }
-
-        Preference disableTranslationsPref = getPreferenceScreen().findPreference(r.getString(R.string.config_disableTranslations_key));
-        if (disableTranslationsPref != null) {
-            disableTranslationsPref.setOnPreferenceClickListener(preference -> {
-                LocaleAwareCompatActivity lac = ((LocaleAwareCompatActivity) getActivity());
-                String savedLocaleKey = lac.getString(R.string.config_savedLocale_key);
-                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(lac);
-                if (((CheckBoxPreference) disableTranslationsPref).isChecked()) {
-                    if (!prefs.contains(savedLocaleKey)) {
-                        prefs.edit().putString(savedLocaleKey, LocaleUtils.toLanguageTag(Locale.getDefault())).commit();
-                    }
-                    lac.updateLocale(Locale.ENGLISH);
-                } else {
-                    lac.updateLocale(LocaleUtils.forLanguageTag(prefs.getString(savedLocaleKey, Locale.ENGLISH.toString())));
-                }
                 return true;
             });
         }

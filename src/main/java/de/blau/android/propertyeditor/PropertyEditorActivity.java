@@ -6,8 +6,6 @@ import java.util.Map;
 
 import org.acra.ACRA;
 
-import com.zeugmasolutions.localehelper.LocaleAwareCompatActivity;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -17,6 +15,7 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -45,7 +44,7 @@ import de.blau.android.util.Snack;
  * @author simon
  */
 public class PropertyEditorActivity<M extends Map<String, String> & Serializable, L extends List<PresetElementPath> & Serializable, T extends List<Map<String, String>> & Serializable>
-        extends LocaleAwareCompatActivity implements ControlListener {
+        extends AppCompatActivity implements ControlListener {
 
     private static final String DEBUG_TAG = PropertyEditorActivity.class.getSimpleName();
 
