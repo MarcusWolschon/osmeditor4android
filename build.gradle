@@ -24,7 +24,7 @@ buildscript {
         classpath 'com.github.ksoichiro:gradle-eclipse-aar-plugin:0.3.1'
         classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:3.0.1'
         classpath 'com.google.protobuf:protobuf-gradle-plugin:0.9.1'
-        classpath 'com.malinskiy.marathon:marathon-gradle-plugin:0.8.0'
+        classpath 'com.malinskiy.marathon:marathon-gradle-plugin:0.8.4'
     }
 }
 
@@ -523,6 +523,10 @@ afterEvaluate{
         uninstallAll.dependsOn deinstallDummyMeasureApp
     }
 
+    tasks.named('marathonCurrentDebugAndroidTestGenerateMarathonfile') { 
+        doNotTrackState('Gradle 8 compatability hack') 
+    }
+
     // these tasks needs to be created after the uninstall tasks
 
     // hardwired single test, this is only needed during initial developement, once the whole test suite has been run
@@ -601,6 +605,7 @@ dependencies {
     implementation 'androidx.core:core-splashscreen:1.0.0-beta02'
     implementation "androidx.multidex:multidex:2.0.1"
     implementation "androidx.cardview:cardview:1.0.0"
+    implementation "androidx.viewpager:viewpager:1.1.0-alpha01"
     
     //
     implementation 'com.heinrichreimersoftware:android-issue-reporter:1.4'
@@ -716,8 +721,8 @@ task jacocoTestReport(type:JacocoReport, dependsOn: "testCurrentDebugUnitTest") 
             dir     : "$buildDir",
             include : ['outputs/unit_test_code_coverage/currentDebugUnitTest/testCurrentDebugUnitTest.exec', 'outputs/code-coverage/connected/flavors/CURRENT/*coverage.ec', 'reports/marathon/currentDebugAndroidTest/device-files/*/coverage/*.ec'])
     reports {
- //       xml.enabled = true
- //       html.enabled = true
+        xml.required = true
+        html.required = true
     }
 
     sourceDirectories.from = files(coverageSourceDirs)
