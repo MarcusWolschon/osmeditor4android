@@ -8,11 +8,14 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import android.content.Context;
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.util.FileUtil;
 
 public final class JavaResources {
+
+    private static final String DEBUG_TAG = JavaResources.class.getSimpleName();
 
     /**
      * Private constructor to stop instantiation
@@ -49,8 +52,8 @@ public final class JavaResources {
      * @throws IOException if copying goes wrong
      * @throws FileNotFoundException if the file is not found
      */
-    public static void copyFileFromResources(@NonNull String fileName, @Nullable String source, @NonNull File destinationFile)
-            throws IOException {
+    public static void copyFileFromResources(@NonNull String fileName, @Nullable String source, @NonNull File destinationFile) throws IOException {
+        Log.d(DEBUG_TAG, "args " + fileName + " " + source + " " + destinationFile.getAbsolutePath());
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         try (OutputStream os = new FileOutputStream(destinationFile); InputStream is = loader.getResourceAsStream((source != null ? source : "") + fileName)) {
             byte[] buffer = new byte[8 * 1024];
@@ -59,6 +62,8 @@ public final class JavaResources {
                 os.write(buffer, 0, bytesRead);
             }
             os.flush();
+        } catch (Exception ex) {
+            Log.e(DEBUG_TAG, ex.getMessage());
         }
     }
 }
