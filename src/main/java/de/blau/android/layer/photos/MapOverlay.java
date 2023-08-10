@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.res.Resources;
 import android.database.ContentObserver;
