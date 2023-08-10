@@ -15,7 +15,7 @@
  
     <uses-sdk
         android:minSdkVersion="14"
-        android:targetSdkVersion="30" 
+        android:targetSdkVersion="33" 
         tools:overrideLibrary="android_libs.ub_uiautomator" />
 
     <instrumentation

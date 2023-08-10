@@ -19,7 +19,7 @@ buildscript {
         
         classpath 'com.android.tools.build:gradle:8.1.0'
         classpath 'ch.poole.gradle:markdown-gradle-plugin:0.2.4'
-        classpath 'org.jacoco:org.jacoco.core:0.8.7'
+        classpath 'org.jacoco:org.jacoco.core:0.8.9'
         classpath "ch.poole:preset-utils:0.26.0"
         classpath 'com.github.ksoichiro:gradle-eclipse-aar-plugin:0.3.1'
         classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:3.0.1'
@@ -278,7 +278,9 @@ android {
 
     testOptions {
         unitTests.all {
-            jacoco { includeNoLocationClasses = true }
+            jacoco { 
+                includeNoLocationClasses = true 
+            }
             testLogging {
                 events "passed", "skipped", "failed", "standardOut", "standardError"
                 outputs.upToDateWhen {false}
@@ -651,9 +653,9 @@ dependencies {
     testImplementation "junit:junit:4.13.2"
     testImplementation 'xmlpull:xmlpull:1.1.3.1'
     testImplementation 'net.sf.kxml:kxml2:2.3.0'
-    testImplementation 'org.robolectric:robolectric:4.8.1'
-    testImplementation 'androidx.test.ext:junit:1.1.3'
-    testImplementation 'androidx.test:rules:1.4.0'
+    testImplementation 'org.robolectric:robolectric:4.10.3'
+    testImplementation 'androidx.test.ext:junit:1.1.5'
+    testImplementation 'androidx.test:rules:1.5.0'
     testImplementation "com.squareup.okhttp3:mockwebserver:$okHttpVersion"
     testImplementation "pl.droidsonroids.yaml:snakeyaml:1.18-android"
     testImplementation ("com.orhanobut:mockwebserverplus:1.0.0") {
@@ -662,8 +664,8 @@ dependencies {
     testImplementation "androidx.work:work-testing:$work_version"
 
     // Instrumentation tests
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test:rules:1.4.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test:rules:1.5.0'
     androidTestImplementation "org.hamcrest:hamcrest-library:2.2"
     androidTestImplementation "com.squareup.okhttp3:mockwebserver:$okHttpVersion"
     androidTestImplementation "pl.droidsonroids.yaml:snakeyaml:1.18-android"
@@ -701,7 +703,15 @@ def coverageSourceDirs = ['src/main/java']
 // see https://github.com/gradle/gradle/issues/5184
 tasks.withType(Test) {
     jacoco.includeNoLocationClasses = true
-    jacoco.excludes = ['jdk.internal.*']
+    jacoco.excludes = ['jdk.internal.*', '*']
+    // java 17 reflection workarounds for FST
+    jvmArgs = ["--add-opens","java.base/java.lang=ALL-UNNAMED", 
+               "--add-opens", "java.base/java.math=ALL-UNNAMED", 
+               "--add-opens", "java.base/java.util=ALL-UNNAMED", 
+               "--add-opens", "java.base/java.util.concurrent=ALL-UNNAMED",
+               "--add-opens", "java.base/java.net=ALL-UNNAMED",
+               "--add-opens", "java.base/java.text=ALL-UNNAMED",
+               "--add-opens", "java.base/java.io=ALL-UNNAMED"]
 }
 
 task jacocoTestReport(type:JacocoReport, dependsOn: "testCurrentDebugUnitTest") {

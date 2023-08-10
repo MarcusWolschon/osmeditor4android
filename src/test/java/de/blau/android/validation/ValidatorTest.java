@@ -28,8 +28,7 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.xml.sax.SAXException;
 
-import com.drew.lang.annotations.NotNull;
-
+import androidx.annotation.NonNull;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
 import de.blau.android.App;
@@ -204,7 +203,7 @@ public class ValidatorTest {
      * 
      * @param fileName the resource file name
      */
-    private void readTestData(@NotNull String fileName) {
+    private void readTestData(@NonNull String fileName) {
         // read in test data
         final CountDownLatch signal1 = new CountDownLatch(1);
 
