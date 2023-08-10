@@ -7,7 +7,13 @@ See [translations document](TRANSLATIONS.md) for information on how Vespucci is 
 
 ## Java
 
-Building 16.1 and later requires a Java 11 JDK, previous versions assume Java 8.
+Building with gradle requires a Java JDK to be installed.
+
+- 19.1 and later requires Java 17
+- 16.1 - 19.0 Java 11
+- up to 16.0 Java 8
+
+Note that if you are contributing to the code you should restrict yourself only supported Java 8 and Java 11 in Android, in particular the additional de-sugaring provided in later AGP versions doesn't work for Android prior to 5, see https://github.com/MarcusWolschon/osmeditor4android/pull/2131
 
 ## Proguard
 
@@ -15,7 +21,7 @@ All builds now require proguard to be enabled as we have gone over the limit for
 
 ## Build flavors
 
-Due to the forced upgrade policy from google from November 1st 2018 onwards we are now supporting two build flavors: _current_ that will target a recent Android SDK and support library and _legacy_ that will support old Android versions as long as practical.
+Due to the forced upgrade policy from google from November 1st 2018 onwards we supported two build flavors: _current_ that will target a recent Android SDK and support library and _legacy_ that will support old Android versions as long as practical.
 
 For version 15.0 the legacy flavour has been removed as androidx doesn't support versions older than Android 4 and as versions older than 4.1 do not support TLS 1.2 they would be largely non-functional in any case, however flavours may be reactivated if necessary.
 
@@ -82,8 +88,6 @@ On an Intel based emulator the tests currently take something around 90 to 120 m
 To make running individual tests simpler refreshing the gradle tasks (assuming there was a prior complete run of the tests with ``connectedCurrentDebugAndroidTest``) will create individual tasks for the tests, for the failed ones in the "failed tests" group, for successful ones in the "successful tests" group.
 
 For the on device tests the time to run the tests can be reduced substantially by running against multiple emulators with ``marathonCurrentDebugAndroidTest`` marathon can execute the tests sharded according to the configuration and retry failed tests. An additional bonus is that the test output is much easier to consume and understand. marathon will include a video of failed tests (we migrated from ``spoon`` to `` marathon`` for 16.1). For more information see [https://marathonlabs.github.io/marathon/](https://marathonlabs.github.io/marathon/). On a 20 core/174GB machine running 20 emulators this reduces the run time to between 15 and 20 minutes.
-
-__Important:__ currently marathon requires requesting and granting the MANAGE_EXTERNAL_STORAGE permission on Android 11 and higher to generate coverage output. A corresponding manifest files is located in src/debug/AndroidManifest.xml with the relevant element commented out. Using this however leads to tests not reflecting the conditions they would be run under in the production app, so you should consider running the tests without the permission during the actual testing and only request it once testing is completed to generate coverage stats.
 
 Notes: 
 
