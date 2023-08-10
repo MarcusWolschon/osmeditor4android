@@ -154,13 +154,16 @@ public class PropertyEditorActivity<M extends Map<String, String> & Serializable
     private void addFromIntent(@NonNull final Intent intent) {
         Log.d(DEBUG_TAG, "Adding from intent");
 
-        PropertyEditorData[] loadData = PropertyEditorData.deserializeArray(intent.getSerializableExtra(PropertyEditorFragment.TAGEDIT_DATA));
-        boolean applyLastAddressTags = getPrimitiveBoolean((Boolean) intent.getSerializableExtra(PropertyEditorFragment.TAGEDIT_LAST_ADDRESS_TAGS));
-        boolean showPresets = getPrimitiveBoolean((Boolean) intent.getSerializableExtra(PropertyEditorFragment.TAGEDIT_SHOW_PRESETS));
+        PropertyEditorData[] loadData = PropertyEditorData
+                .deserializeArray(de.blau.android.util.Util.getSerializableExtra(intent, PropertyEditorFragment.TAGEDIT_DATA, PropertyEditorData[].class));
+        boolean applyLastAddressTags = getPrimitiveBoolean(
+                de.blau.android.util.Util.getSerializableExtra(intent, PropertyEditorFragment.TAGEDIT_LAST_ADDRESS_TAGS, Boolean.class));
+        boolean showPresets = getPrimitiveBoolean(
+                de.blau.android.util.Util.getSerializableExtra(intent, PropertyEditorFragment.TAGEDIT_SHOW_PRESETS, Boolean.class));
 
         M extraTags = (M) intent.getSerializableExtra(PropertyEditorFragment.TAGEDIT_EXTRA_TAGS);
         L presetsToApply = (L) intent.getSerializableExtra(PropertyEditorFragment.TAGEDIT_PRESETSTOAPPLY);
-        Boolean usePaneLayout = (Boolean) intent.getSerializableExtra(PropertyEditorFragment.PANELAYOUT);
+        Boolean usePaneLayout = de.blau.android.util.Util.getSerializableExtra(intent, PropertyEditorFragment.PANELAYOUT, Boolean.class);
 
         // if we have a preset to auto apply it doesn't make sense to show the Preset tab except if a group is
         // selected

@@ -959,8 +959,8 @@ public class Main extends FullScreenAppCompatActivity
      */
     private void getIntentData() {
         synchronized (newIntentsLock) {
-            geoData = (GeoUrlData) getIntent().getSerializableExtra(GeoUrlActivity.GEODATA);
-            rcData = (RemoteControlUrlData) getIntent().getSerializableExtra(RemoteControlUrlActivity.RCDATA);
+            geoData = Util.getSerializableExtra(getIntent(), GeoUrlActivity.GEODATA, GeoUrlData.class);
+            rcData = Util.getSerializableExtra(getIntent(), RemoteControlUrlActivity.RCDATA, RemoteControlUrlData.class);
             shortcutExtras = getIntent().getBundleExtra(Splash.SHORTCUT_EXTRAS_KEY);
             Uri uri = getIntent().getData();
             contentUriType = getIntent().getType();
@@ -971,7 +971,7 @@ public class Main extends FullScreenAppCompatActivity
                 Bundle extras = getIntent().getExtras();
                 if (extras != null) {
                     try {
-                        Uri streamUri = (Uri) extras.getParcelable(Intent.EXTRA_STREAM);
+                        Uri streamUri = Util.getParcelable(extras, Intent.EXTRA_STREAM, Uri.class);
                         Log.d(DEBUG_TAG, "getIntentData EXTRA_STREAM " + streamUri);
                         if (streamUri != null) {
                             contentUri = streamUri;
@@ -1047,7 +1047,7 @@ public class Main extends FullScreenAppCompatActivity
                 case ACTION_PUSH_SELECTION:
                 case ACTION_POP_SELECTION:
                     if (ACTION_PUSH_SELECTION.equals(action)) {
-                        Selection.Ids ids = (Ids) intent.getSerializableExtra(Selection.SELECTION_KEY);
+                        Selection.Ids ids = Util.getSerializableExtra(intent, Selection.SELECTION_KEY, Ids.class);
                         Selection selection = new Selection();
                         selection.fromIds(App.getDelegator(), ids);
                         logic.pushSelection(selection);
