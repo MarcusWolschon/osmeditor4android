@@ -7,7 +7,10 @@ import android.view.MotionEvent;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.viewpager.widget.PagerTabStrip;
+import androidx.viewpager.widget.ViewPager;
 
+// this undocumented annotation is required for ViewPAger to detect that the strip is present
+@ViewPager.DecorView
 public class ExtendedPagerTabStrip extends PagerTabStrip {
 
     private static final String DEBUG_TAG = ExtendedPagerTabStrip.class.getName();

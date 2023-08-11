@@ -72,9 +72,9 @@ Select the theme to use. _Follow system_ will follow the setting in the system p
 
 Show the menu buttons at the bottom of the screen. Default: _on_. You need to restart the app for changes to this setting to take effect.
 
-### Disable translations
+### App language
 
-Use English for the user interface. Google does not provide a supported way to switch languages for individual apps, as a result this setting relies on multiple workarounds that may, or may not, work on your device. Preset translations can be disabled in the preset configurations. 
+Select a language for the user interface that is different from the device default. On devices running Android 13 and later the app language can be changed in the system settings too. Preset translations can be disabled in the preset configurations. 
 
 ### Max. number of inline values
 

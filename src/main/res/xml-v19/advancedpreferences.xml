@@ -97,11 +97,11 @@
             android:key="@string/config_splitActionBarEnabled_key"
             android:summary="@string/config_splitActionBarEnabled_summary"
             android:title="@string/config_splitActionBarEnabled_title" />
-        <androidx.preference.CheckBoxPreference
-            android:defaultValue="false"
-            android:key="@string/config_disableTranslations_key"
-            android:summary="@string/config_disableTranslations_summary"
-            android:title="@string/config_disableTranslations_title" />
+        <androidx.preference.ListPreference
+            android:key="@string/config_appLocale_key"
+            android:title="@string/config_appLocale_title"
+            android:summary="@string/config_appLocale_summary"
+            android:defaultValue="en" />
         <ch.poole.android.numberpickerpreference.NumberPickerPreference
             android:defaultValue="4"
             android:key="@string/config_maxInlineValues_key"

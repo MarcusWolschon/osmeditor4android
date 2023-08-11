@@ -95,7 +95,23 @@ public class PhotosTest {
      */
     @After
     public void teardown() {
+        LayerUtils.removeLayer(main, LayerType.PHOTO);
+        map.setUpLayers(main);
+        map.invalidate();
         PreferenceManager.getDefaultSharedPreferences(main).edit().putBoolean(main.getString(R.string.config_indexMediaStore_key), false).commit();
+        try (PhotoIndex index = new PhotoIndex(main)) {
+            RTree<Photo> tree = new RTree<>(2, 5);
+            index.fill(tree);
+            List<Photo> photos = new ArrayList<>();
+            tree.query(photos);
+            for (Photo p : photos) {
+                try {
+                    main.getContentResolver().delete(p.getRefUri(main), null, null);
+                } catch (SecurityException ex) {
+                    //
+                }
+            }
+        }
         if (photo1 != null) {
             photo1.delete();
         }

@@ -1,14 +1,27 @@
 package de.blau.android.util;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+
+import android.app.LocaleConfig;
+import android.content.Context;
 import android.os.Build;
+import android.util.Log;
 import androidx.annotation.NonNull;
+import androidx.core.os.LocaleListCompat;
+import de.blau.android.R;
 
 public final class LocaleUtils {
+
+    private static final String DEBUG_TAG = LocaleUtils.class.getSimpleName();
 
     // list of languages that use Latin script from https://gist.github.com/phil-brown/8056700
     private static Set<String> latin = new HashSet<>(Arrays.asList("aa", "ace", "ach", "ada", "af", "agq", "ak", "ale", "amo", "an", "arn", "arp", "arw", "asa",
@@ -170,5 +183,33 @@ public final class LocaleUtils {
      */
     public static boolean usesLatinScript(@NonNull Locale locale) {
         return latin.contains(locale.getLanguage());
+    }
+
+    /**
+     * Get a list of supported locales for the app
+     * 
+     * For devices prior to Android 13 this reads and parses locales_config.xml directly, note that since we are using
+     * automatic generation of the file it has a different name.
+     * 
+     * @param context an Android Context
+     * @return a LocaleListCompat
+     */
+    public static LocaleListCompat getSupportedLocales(@NonNull Context context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            return LocaleListCompat.wrap(new LocaleConfig(context).getSupportedLocales());
+        }
+        List<String> locales = new ArrayList<>();
+        try {
+            XmlPullParser parser = context.getResources().getXml(R.xml._generated_res_locale_config);
+            while (parser.getEventType() != XmlPullParser.END_DOCUMENT) {
+                if (parser.getEventType() == XmlPullParser.START_TAG && "locale".equals(parser.getName())) {
+                    locales.add(parser.getAttributeValue(0));
+                }
+                parser.next();
+            }
+        } catch (XmlPullParserException | IOException e) {
+            Log.e(DEBUG_TAG, "Error reading locales_config " + e.getMessage());
+        }
+        return LocaleListCompat.forLanguageTags(String.join(",", locales));
     }
 }

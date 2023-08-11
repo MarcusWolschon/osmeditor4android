@@ -17,14 +17,14 @@ buildscript {
             }
         }
         
-        classpath 'com.android.tools.build:gradle:7.2.2'
+        classpath 'com.android.tools.build:gradle:8.1.0'
         classpath 'ch.poole.gradle:markdown-gradle-plugin:0.2.4'
-        classpath 'org.jacoco:org.jacoco.core:0.8.7'
+        classpath 'org.jacoco:org.jacoco.core:0.8.9'
         classpath "ch.poole:preset-utils:0.26.0"
         classpath 'com.github.ksoichiro:gradle-eclipse-aar-plugin:0.3.1'
         classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:3.0.1'
-        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.18'
-        classpath 'com.malinskiy.marathon:marathon-gradle-plugin:0.8.0'
+        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.9.1'
+        classpath 'com.malinskiy.marathon:marathon-gradle-plugin:0.8.4'
     }
 }
 
@@ -220,8 +220,10 @@ ext {
 }
     
 android {
-    
+    namespace "de.blau.android"
+ 
     defaultConfig {
+        applicationId "de.blau.android"
         versionCode project.getVersionCode()
         versionName "${project.getVersionName()}"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -253,7 +255,7 @@ android {
     }
 
     // this, unluckily, cannot be set per flavour
-    compileSdkVersion 31
+    compileSdkVersion 33
 
     // Specifies one flavor dimension.
     flavorDimensions "api"
@@ -262,7 +264,7 @@ android {
             dimension "api"
             multiDexEnabled true
             minSdkVersion 16
-            targetSdkVersion 31
+            targetSdkVersion 33
             applicationIdSuffix ""
             versionNameSuffix ""
             resValue "string", "content_provider", "de.blau.android.provider"
@@ -276,7 +278,9 @@ android {
 
     testOptions {
         unitTests.all {
-            jacoco { includeNoLocationClasses = true }
+            jacoco { 
+                includeNoLocationClasses = true 
+            }
             testLogging {
                 events "passed", "skipped", "failed", "standardOut", "standardError"
                 outputs.upToDateWhen {false}
@@ -316,6 +320,10 @@ android {
             java.srcDirs += commonTestJava
             resources.srcDirs += commonTestResources
         }
+    }
+    
+    androidResources {
+        generateLocaleConfig true
     }
 }
 
@@ -517,6 +525,10 @@ afterEvaluate{
         uninstallAll.dependsOn deinstallDummyMeasureApp
     }
 
+    tasks.named('marathonCurrentDebugAndroidTestGenerateMarathonfile') { 
+        doNotTrackState('Gradle 8 compatability hack') 
+    }
+
     // these tasks needs to be created after the uninstall tasks
 
     // hardwired single test, this is only needed during initial developement, once the whole test suite has been run
@@ -579,21 +591,23 @@ dependencies {
     implementation "ch.acra:acra-http:$acraVersion"
     implementation "ch.acra:acra-dialog:$acraVersion"
     // android support and other libraries
-    implementation "androidx.activity:activity:1.2.0"
-    implementation "androidx.fragment:fragment:1.3.0"
-    implementation "androidx.appcompat:appcompat:1.3.0"
+    implementation "androidx.activity:activity:1.2.4"
+    implementation "androidx.fragment:fragment:1.3.6"
+    implementation "androidx.appcompat:appcompat:1.6.1"
+    implementation "androidx.appcompat:appcompat-resources:1.6.1"
     implementation "androidx.recyclerview:recyclerview:1.1.0"
     implementation "androidx.preference:preference:1.1.0"
     implementation "com.google.android.material:material:1.3.0"
     implementation "androidx.annotation:annotation:1.1.0"
     implementation "androidx.core:core:1.7.0"
-    implementation "androidx.exifinterface:exifinterface:1.1.0"
+    implementation "androidx.exifinterface:exifinterface:1.3.6"
     implementation "androidx.legacy:legacy-preference-v14:1.0.0"
     implementation "androidx.work:work-runtime:$work_version"
     implementation "androidx.window:window:1.0.0"
     implementation 'androidx.core:core-splashscreen:1.0.0-beta02'
     implementation "androidx.multidex:multidex:2.0.1"
     implementation "androidx.cardview:cardview:1.0.0"
+    implementation "androidx.viewpager:viewpager:1.1.0-alpha01"
     
     //
     implementation 'com.heinrichreimersoftware:android-issue-reporter:1.4'
@@ -602,8 +616,6 @@ dependencies {
     implementation 'se.akerfeldt:okhttp-signpost:1.1.0'
     implementation "com.squareup.okhttp3:okhttp:$okHttpVersion"
     implementation "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
-    implementation "com.adobe.xmp:xmpcore:6.1.11"
-    implementation "com.drewnoakes:metadata-extractor:2.16.0"
     implementation 'com.google.protobuf:protobuf-java:3.12.2'
     implementation "com.google.code.gson:gson:2.8.9"
     implementation "com.google.protobuf:protobuf-java:$googleProtobufVersion"
@@ -631,7 +643,6 @@ dependencies {
     implementation 'com.davemorrissey.labs:subsampling-scale-image-view:3.10.0'
     implementation 'io.michaelrocks:libphonenumber-android:8.12.39'
     implementation 'io.noties.markwon:core:4.6.2'
-    implementation 'com.zeugmasolutions.localehelper:locale-helper-android:1.1.4'
     implementation 'com.github.zedlabs:ElementHistoryDialog:1.0.6'
     implementation 'com.caverock:androidsvg-aar:1.4'
     
@@ -642,9 +653,9 @@ dependencies {
     testImplementation "junit:junit:4.13.2"
     testImplementation 'xmlpull:xmlpull:1.1.3.1'
     testImplementation 'net.sf.kxml:kxml2:2.3.0'
-    testImplementation 'org.robolectric:robolectric:4.8.1'
-    testImplementation 'androidx.test.ext:junit:1.1.3'
-    testImplementation 'androidx.test:rules:1.4.0'
+    testImplementation 'org.robolectric:robolectric:4.10.3'
+    testImplementation 'androidx.test.ext:junit:1.1.5'
+    testImplementation 'androidx.test:rules:1.5.0'
     testImplementation "com.squareup.okhttp3:mockwebserver:$okHttpVersion"
     testImplementation "pl.droidsonroids.yaml:snakeyaml:1.18-android"
     testImplementation ("com.orhanobut:mockwebserverplus:1.0.0") {
@@ -653,8 +664,8 @@ dependencies {
     testImplementation "androidx.work:work-testing:$work_version"
 
     // Instrumentation tests
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test:rules:1.4.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test:rules:1.5.0'
     androidTestImplementation "org.hamcrest:hamcrest-library:2.2"
     androidTestImplementation "com.squareup.okhttp3:mockwebserver:$okHttpVersion"
     androidTestImplementation "pl.droidsonroids.yaml:snakeyaml:1.18-android"
@@ -692,7 +703,15 @@ def coverageSourceDirs = ['src/main/java']
 // see https://github.com/gradle/gradle/issues/5184
 tasks.withType(Test) {
     jacoco.includeNoLocationClasses = true
-    jacoco.excludes = ['jdk.internal.*']
+    jacoco.excludes = ['jdk.internal.*', '*']
+    // java 17 reflection workarounds for FST
+    jvmArgs = ["--add-opens","java.base/java.lang=ALL-UNNAMED", 
+               "--add-opens", "java.base/java.math=ALL-UNNAMED", 
+               "--add-opens", "java.base/java.util=ALL-UNNAMED", 
+               "--add-opens", "java.base/java.util.concurrent=ALL-UNNAMED",
+               "--add-opens", "java.base/java.net=ALL-UNNAMED",
+               "--add-opens", "java.base/java.text=ALL-UNNAMED",
+               "--add-opens", "java.base/java.io=ALL-UNNAMED"]
 }
 
 task jacocoTestReport(type:JacocoReport, dependsOn: "testCurrentDebugUnitTest") {
@@ -710,8 +729,8 @@ task jacocoTestReport(type:JacocoReport, dependsOn: "testCurrentDebugUnitTest") 
             dir     : "$buildDir",
             include : ['outputs/unit_test_code_coverage/currentDebugUnitTest/testCurrentDebugUnitTest.exec', 'outputs/code-coverage/connected/flavors/CURRENT/*coverage.ec', 'reports/marathon/currentDebugAndroidTest/device-files/*/coverage/*.ec'])
     reports {
-        xml.enabled = true
-        html.enabled = true
+        xml.required = true
+        html.required = true
     }
 
     sourceDirectories.from = files(coverageSourceDirs)

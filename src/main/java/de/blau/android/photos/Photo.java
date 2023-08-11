@@ -2,6 +2,7 @@ package de.blau.android.photos;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Objects;
 
 import android.content.Context;
@@ -14,7 +15,6 @@ import androidx.exifinterface.media.ExifInterface;
 import de.blau.android.R;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.GeoPoint;
-import de.blau.android.util.ExtendedExifInterface;
 import de.blau.android.util.Util;
 import de.blau.android.util.rtree.BoundedObject;
 
@@ -50,7 +50,28 @@ public class Photo implements BoundedObject, GeoPoint {
      * @throws NumberFormatException If there was a problem parsing the XML.
      */
     public Photo(@NonNull Context context, @NonNull Uri uri, @Nullable String displayName) throws IOException, NumberFormatException {
-        this(new ExtendedExifInterface(context, uri), uri.toString(), displayName);
+        this(new ExifInterface(openInputStream(context, uri)), uri.toString(), displayName);
+    }
+
+    /**
+     * Get an InputStream from an uri
+     * 
+     * @param context Android context
+     * @param uri a content or file uri
+     * @return an InputStream
+     * @throws IOException if anything goes wrong
+     */
+    @NonNull
+    private static InputStream openInputStream(@NonNull Context context, @NonNull Uri uri) throws IOException {
+        try {
+            return context.getContentResolver().openInputStream(uri);
+        } catch (Exception ex) {
+            // other stuff broken ... for example ArrayIndexOutOfBounds
+            throw new IOException(ex.getMessage());
+        } catch (Error err) { // NOSONAR crashing is not an option
+            // other stuff broken ... for example NoSuchMethodError
+            throw new IOException(err.getMessage());
+        }
     }
 
     /**
@@ -62,7 +83,7 @@ public class Photo implements BoundedObject, GeoPoint {
      * @throws NumberFormatException If there was a problem parsing the XML.
      */
     public Photo(@NonNull File directory, @NonNull File imageFile) throws IOException, NumberFormatException {
-        this(new ExtendedExifInterface(imageFile.toString()), imageFile.getAbsolutePath(), imageFile.getName());
+        this(new ExifInterface(imageFile.toString()), imageFile.getAbsolutePath(), imageFile.getName());
     }
 
     /**
@@ -73,7 +94,7 @@ public class Photo implements BoundedObject, GeoPoint {
      * @param displayName a name of the image for display purposes
      * @throws IOException if location information is missing
      */
-    private Photo(@NonNull ExtendedExifInterface exif, @NonNull String ref, @Nullable String displayName) throws IOException {
+    private Photo(@NonNull ExifInterface exif, @NonNull String ref, @Nullable String displayName) throws IOException {
         this.ref = ref;
         this.displayName = displayName;
 
@@ -87,14 +108,14 @@ public class Photo implements BoundedObject, GeoPoint {
         float lonf = convertToDegree(lonStr);
 
         String lonRef = exif.getAttribute(ExifInterface.TAG_GPS_LONGITUDE_REF);
-        if (lonRef != null && !ExtendedExifInterface.EAST.equals(lonRef)) { // deal with the negative degrees
+        if (lonRef != null && !ExifInterface.LONGITUDE_EAST.equals(lonRef)) { // deal with the negative degrees
             lonf = -lonf;
         }
 
         float latf = convertToDegree(exif.getAttribute(ExifInterface.TAG_GPS_LATITUDE));
 
         String latRef = exif.getAttribute(ExifInterface.TAG_GPS_LATITUDE_REF);
-        if (latRef != null && !ExtendedExifInterface.NORTH.equals(latRef)) {
+        if (latRef != null && !ExifInterface.LATITUDE_NORTH.equals(latRef)) {
             latf = -latf;
         }
         if (!(Util.notZero(lonf) && Util.notZero(latf))) {
@@ -104,11 +125,15 @@ public class Photo implements BoundedObject, GeoPoint {
         lat = (int) (latf * 1E7d);
         lon = (int) (lonf * 1E7d);
         Log.d(DEBUG_TAG, "lat: " + lat + " lon: " + lon);
-
-        String dir = exif.getAttribute(ExtendedExifInterface.TAG_GPS_IMG_DIRECTION);
+        String dir = exif.getAttribute(ExifInterface.TAG_GPS_IMG_DIRECTION);
         if (dir != null) {
-            direction = (int) Double.parseDouble(dir);
-            directionRef = exif.getAttribute(ExtendedExifInterface.TAG_GPS_IMG_DIRECTION_REF);
+            String[] r = dir.split("/");
+            if (r.length != 2) {
+                return;
+            }
+            direction = (int) (Double.valueOf(r[0]) / Double.valueOf(r[1]));
+            Log.d(DEBUG_TAG, ExifInterface.TAG_GPS_IMG_DIRECTION + " " + dir);
+            directionRef = exif.getAttribute(ExifInterface.TAG_GPS_IMG_DIRECTION_REF);
             Log.d(DEBUG_TAG, "dir " + dir + " direction " + direction + " ref " + directionRef);
         }
     }
@@ -141,7 +166,7 @@ public class Photo implements BoundedObject, GeoPoint {
         this.lat = lat;
         this.lon = lon;
         this.direction = direction;
-        this.directionRef = ExtendedExifInterface.MAGNETIC_NORTH;
+        this.directionRef = ExifInterface.GPS_DIRECTION_MAGNETIC;
         this.ref = ref;
         this.displayName = displayName;
     }

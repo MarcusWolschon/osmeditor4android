@@ -46,7 +46,8 @@ import de.blau.android.util.rtree.RTree;
 public class PhotoIndex extends SQLiteOpenHelper {
 
     private static final int    DATA_VERSION = 6;
-    private static final String DEBUG_TAG    = "PhotoIndex";
+    public static final String  DB_NAME      = PhotoIndex.class.getSimpleName();
+    private static final String DEBUG_TAG    = DB_NAME;
 
     private static final String NOVESPUCCI = ".novespucci";
 
@@ -291,16 +292,15 @@ public class PhotoIndex extends SQLiteOpenHelper {
                         } finally {
                             close(dbresult2);
                         }
-                    } else {
-                        Log.d(DEBUG_TAG, "Directory " + indir.getAbsolutePath() + " doesn't exist");
-                        // remove all entries for this directory
-                        db.delete(PHOTOS_TABLE, URI_WHERE, new String[] { indir.getAbsolutePath() });
-                        db.delete(PHOTOS_TABLE, "dir LIKE ?", new String[] { indir.getAbsolutePath() + "/%" });
+                        continue;
                     }
+                    Log.d(DEBUG_TAG, "Directory " + indir.getAbsolutePath() + " doesn't exist");
+                    // remove all entries for this directory
+                    db.delete(PHOTOS_TABLE, URI_WHERE, new String[] { indir.getAbsolutePath() });
+                    db.delete(PHOTOS_TABLE, "dir LIKE ?", new String[] { indir.getAbsolutePath() + "/%" });
                 }
                 dbresult.moveToNext();
             }
-
         } catch (SQLiteException ex) {
             // Don't crash just report
             ACRAHelper.nocrashReport(ex, ex.getMessage());

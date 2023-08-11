@@ -6,8 +6,6 @@ import java.util.Map;
 
 import org.acra.ACRA;
 
-import com.zeugmasolutions.localehelper.LocaleAwareCompatActivity;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -17,6 +15,7 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -45,7 +44,7 @@ import de.blau.android.util.Snack;
  * @author simon
  */
 public class PropertyEditorActivity<M extends Map<String, String> & Serializable, L extends List<PresetElementPath> & Serializable, T extends List<Map<String, String>> & Serializable>
-        extends LocaleAwareCompatActivity implements ControlListener {
+        extends AppCompatActivity implements ControlListener {
 
     private static final String DEBUG_TAG = PropertyEditorActivity.class.getSimpleName();
 
@@ -155,13 +154,16 @@ public class PropertyEditorActivity<M extends Map<String, String> & Serializable
     private void addFromIntent(@NonNull final Intent intent) {
         Log.d(DEBUG_TAG, "Adding from intent");
 
-        PropertyEditorData[] loadData = PropertyEditorData.deserializeArray(intent.getSerializableExtra(PropertyEditorFragment.TAGEDIT_DATA));
-        boolean applyLastAddressTags = getPrimitiveBoolean((Boolean) intent.getSerializableExtra(PropertyEditorFragment.TAGEDIT_LAST_ADDRESS_TAGS));
-        boolean showPresets = getPrimitiveBoolean((Boolean) intent.getSerializableExtra(PropertyEditorFragment.TAGEDIT_SHOW_PRESETS));
+        PropertyEditorData[] loadData = PropertyEditorData
+                .deserializeArray(de.blau.android.util.Util.getSerializableExtra(intent, PropertyEditorFragment.TAGEDIT_DATA, PropertyEditorData[].class));
+        boolean applyLastAddressTags = getPrimitiveBoolean(
+                de.blau.android.util.Util.getSerializableExtra(intent, PropertyEditorFragment.TAGEDIT_LAST_ADDRESS_TAGS, Boolean.class));
+        boolean showPresets = getPrimitiveBoolean(
+                de.blau.android.util.Util.getSerializableExtra(intent, PropertyEditorFragment.TAGEDIT_SHOW_PRESETS, Boolean.class));
 
         M extraTags = (M) intent.getSerializableExtra(PropertyEditorFragment.TAGEDIT_EXTRA_TAGS);
         L presetsToApply = (L) intent.getSerializableExtra(PropertyEditorFragment.TAGEDIT_PRESETSTOAPPLY);
-        Boolean usePaneLayout = (Boolean) intent.getSerializableExtra(PropertyEditorFragment.PANELAYOUT);
+        Boolean usePaneLayout = de.blau.android.util.Util.getSerializableExtra(intent, PropertyEditorFragment.PANELAYOUT, Boolean.class);
 
         // if we have a preset to auto apply it doesn't make sense to show the Preset tab except if a group is
         // selected

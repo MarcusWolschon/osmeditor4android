@@ -2,6 +2,7 @@ package de.blau.android.util;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashMap;
@@ -31,6 +32,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcel;
+import android.os.Parcelable;
 import android.text.Editable;
 import android.text.Html;
 import android.text.Spanned;
@@ -745,5 +747,35 @@ public final class Util {
      */
     public static void setCompoundDrawableWithIntrinsicBounds(boolean rtl, @NonNull final TextView textView, @Nullable final Drawable drawable) {
         textView.setCompoundDrawablesWithIntrinsicBounds(!rtl ? drawable : null, null, rtl ? drawable : null, null);
+    }
+
+    /**
+     * Wrapper for getSerializableExtra
+     * 
+     * @param <T> the Serializable type
+     * @param intent the Intent
+     * @param key the key
+     * @param clazz the class we want to retrieve
+     * @return an instance of clazz or null
+     */
+    @SuppressWarnings({ "deprecation", "unchecked" })
+    @Nullable
+    public static <T extends Serializable> T getSerializableExtra(@NonNull Intent intent, @NonNull String key, @NonNull Class<T> clazz) {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU ? intent.getSerializableExtra(key, clazz) : (T) intent.getSerializableExtra(key);
+    }
+
+    /**
+     * Wrapper for getParcelable
+     * 
+     * @param <T> the Parceable type
+     * @param bundle the Bundle
+     * @param key the key
+     * @param clazz the class we want to retrieve
+     * @return an instance of clazz or null
+     */
+    @SuppressWarnings({ "deprecation", "unchecked" })
+    @Nullable
+    public static <T extends Parcelable> T getParcelable(@NonNull Bundle bundle, @NonNull String key, @NonNull Class<T> clazz) {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU ? bundle.getParcelable(key, clazz) : (T) bundle.getParcelable(key);
     }
 }
