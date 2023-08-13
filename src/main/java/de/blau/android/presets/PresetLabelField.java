@@ -9,7 +9,8 @@ import androidx.annotation.Nullable;
 import ch.poole.poparser.Po;
 
 public class PresetLabelField extends PresetField {
-
+    private static final long serialVersionUID = 1L;
+    
     private String label;
 
     /**

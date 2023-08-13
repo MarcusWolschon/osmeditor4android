@@ -1,6 +1,7 @@
 package de.blau.android.presets;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,29 +26,31 @@ import de.blau.android.osm.OsmElement.ElementType;
 /**
  * Represents an element (group or item) in a preset data structure
  */
-public abstract class PresetElement {
+public abstract class PresetElement implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private static final int VIEW_PADDING     = 4;
     private static final int VIEW_SIDE_LENGTH = 72;
     public static final int  ICON_SIZE_DP     = 36;
 
-    protected final Preset preset;
-    String                 name;
-    String                 nameContext    = null;
-    private String         iconpath;
-    Drawable               icon;
-    BitmapDrawable         mapIcon;
-    private String         imagePath;
-    PresetGroup            parent;
-    boolean                appliesToWay;
-    boolean                appliesToNode;
-    boolean                appliesToClosedway;
-    boolean                appliesToRelation;
-    boolean                appliesToArea;
-    private boolean        deprecated     = false;
-    private List<String>   regions        = null;
-    private boolean        excludeRegions = false;
-    private String         mapFeatures;
+    protected final Preset   preset;
+    String                   name;
+    String                   nameContext    = null;
+    private String           iconpath;
+    transient Drawable       icon;
+    transient BitmapDrawable mapIcon;
+    private String           imagePath;
+    PresetGroup              parent;
+    boolean                  appliesToWay;
+    boolean                  appliesToNode;
+    boolean                  appliesToClosedway;
+    boolean                  appliesToRelation;
+    boolean                  appliesToArea;
+    private boolean          deprecated     = false;
+    private List<String>     regions        = null;
+    private boolean          excludeRegions = false;
+    private String           mapFeatures;
 
     /**
      * Creates the element, setting parent, name and icon, and registers with the parent

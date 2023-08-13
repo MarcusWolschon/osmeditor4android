@@ -41,6 +41,8 @@ import de.blau.android.util.StringWithDescription;
 /** Represents a preset item (e.g. "footpath", "grocery store") */
 public class PresetItem extends PresetElement {
 
+    private static final long serialVersionUID = 1L;
+
     private static final String DEBUG_TAG = PresetItem.class.getSimpleName();
 
     /**

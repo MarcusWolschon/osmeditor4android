@@ -12,6 +12,8 @@ import de.blau.android.osm.Tags;
 import de.blau.android.util.StringWithDescription;
 
 public class PresetFixedField extends PresetTagField {
+    private static final long serialVersionUID = 1L;
+    
     private final StringWithDescription value;
     private Boolean                     isObject;
 

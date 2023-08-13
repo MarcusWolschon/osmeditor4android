@@ -10,6 +10,7 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.io.Serializable;
 import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -83,7 +84,9 @@ import de.blau.android.util.collections.MultiHashMap;
  * 
  * @author Jan Schejbal
  */
-public class Preset {
+public class Preset implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     static final String COMBO_DELIMITER       = ",";
     static final String MULTISELECT_DELIMITER = ";";

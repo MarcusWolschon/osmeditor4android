@@ -3,6 +3,8 @@ package de.blau.android.presets;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
 
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
@@ -20,6 +22,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
+import de.blau.android.App;
 import de.blau.android.contract.FileExtensions;
 import de.blau.android.util.Density;
 import de.blau.android.util.Hash;
@@ -31,12 +34,14 @@ import de.blau.android.util.Hash;
  * @author Jan
  *
  */
-public class PresetIconManager {
+public class PresetIconManager implements Serializable {
 
-    private static final String DEBUG_TAG = "PresetIconManager";
+    private static final String DEBUG_TAG = PresetIconManager.class.getSimpleName();
+
+    private static final long serialVersionUID = 1L;
 
     /** context of own application */
-    private final Context context;
+    private final transient Context context;
 
     /** base path for downloaded icons */
     private final String basePath;
@@ -44,13 +49,13 @@ public class PresetIconManager {
     private static final String ASSET_IMAGE_PREFIX = "images/";
 
     /** Asset manager for default assets (e.g. icons) stored in a separate APK, if available */
-    private final AssetManager externalDefaultAssets;
+    private transient AssetManager externalDefaultAssets;
 
     /** Asset manager for internal preset assets */
-    private final AssetManager internalAssets;
+    private transient AssetManager internalAssets;
 
     /** Asset manager for preset assets stored in a separate APK, if available */
-    private final AssetManager externalAssets;
+    private transient AssetManager externalAssets;
 
     /** the name of an external package containing assets (may be null), used for debug output */
     private final String externalAssetPackage;
@@ -69,31 +74,29 @@ public class PresetIconManager {
         this.basePath = basePath;
         this.externalAssetPackage = externalAssetPackage;
 
-        AssetManager tmpExternalDefaultAssets = null;
-        try {
-            Context extCtx = context.createPackageContext(EXTERNAL_DEFAULT_ASSETS_PACKAGE, 0);
-            tmpExternalDefaultAssets = extCtx.getAssets();
-        } catch (NameNotFoundException e) {
-            Log.i(DEBUG_TAG, "External default asset package not installed");
-        } catch (Exception e) {
-            Log.e(DEBUG_TAG, "Exception while loading external default assets", e);
-        }
-        externalDefaultAssets = tmpExternalDefaultAssets;
+        initAssets(context);
+    }
 
-        AssetManager tmpExternalDataAssets = null;
-        if (externalAssetPackage != null) {
+    /**
+     * Get an AssertManager for a names package
+     * 
+     * @param context an Android Context
+     * @param assetPackage the name of the package
+     * @return the AssetManager or null
+     */
+    @Nullable
+    private AssetManager getAssets(@NonNull Context context, @Nullable String assetPackage) {
+        if (assetPackage != null) {
             try {
-                Context extCtx = context.createPackageContext(externalAssetPackage, 0);
-                tmpExternalDataAssets = extCtx.getAssets();
+                Context extCtx = context.createPackageContext(assetPackage, 0);
+                return extCtx.getAssets();
             } catch (NameNotFoundException e) {
-                Log.e(DEBUG_TAG, "External data asset package not found" + externalAssetPackage);
+                Log.e(DEBUG_TAG, "Asset package not found" + assetPackage);
             } catch (Exception e) {
-                Log.e(DEBUG_TAG, "Exception while loading external asset package " + externalAssetPackage, e);
+                Log.e(DEBUG_TAG, "Exception while loading  asset package " + assetPackage, e);
             }
         }
-        externalAssets = tmpExternalDataAssets;
-
-        internalAssets = context.getAssets();
+        return null;
     }
 
     /**
@@ -293,5 +296,26 @@ public class PresetIconManager {
         // if everything fails
         Log.e(DEBUG_TAG, "Could not load asset " + path + " from any source " + "[externalAssetPackage=" + externalAssetPackage + "]");
         return null;
+    }
+
+    /**
+     * Read serialized object
+     * 
+     * @param in the input stream
+     * @throws IOException if reading fails
+     * @throws ClassNotFoundException if the Class to deserialize can't be found
+     */
+    private void readObject(@NonNull ObjectInputStream in) throws IOException, ClassNotFoundException {
+        in.defaultReadObject();
+        initAssets(App.getCurrentInstance());
+    }
+
+    /**
+     * Initialize tha asset packages
+     */
+    private void initAssets(@NonNull Context context) {
+        externalDefaultAssets = getAssets(context, EXTERNAL_DEFAULT_ASSETS_PACKAGE);
+        externalAssets = getAssets(context, externalAssetPackage);
+        internalAssets = context.getAssets();
     }
 }
