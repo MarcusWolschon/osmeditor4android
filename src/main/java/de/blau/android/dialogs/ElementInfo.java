@@ -207,7 +207,7 @@ public class ElementInfo extends InfoDialogFragment {
             parentTag = savedInstanceState.getString(PARENT_TAG_KEY);
         } else {
             // always do this first
-            element = (OsmElement) getArguments().getSerializable(ELEMENT_KEY);
+            element = Util.getSerializeable(getArguments(), ELEMENT_KEY, OsmElement.class);
             ueIndex = getArguments().getInt(UNDOELEMENT_INDEX_KEY, -1);
             parentTag = getArguments().getString(PARENT_TAG_KEY);
             /*

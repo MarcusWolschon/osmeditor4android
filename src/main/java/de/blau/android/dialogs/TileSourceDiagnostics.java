@@ -121,9 +121,9 @@ public class TileSourceDiagnostics extends ImmersiveDialogFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState != null) {
-            tile = (MapTile) savedInstanceState.getSerializable(TILE_KEY);
+            tile = de.blau.android.util.Util.getSerializeable(savedInstanceState, TILE_KEY, MapTile.class);
         } else {
-            tile = (MapTile) getArguments().getSerializable(TILE_KEY);
+            tile = de.blau.android.util.Util.getSerializeable(getArguments(), TILE_KEY, MapTile.class);
         }
     }
 

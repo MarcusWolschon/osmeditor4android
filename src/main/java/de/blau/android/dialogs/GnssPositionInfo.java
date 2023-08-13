@@ -140,10 +140,10 @@ public class GnssPositionInfo extends InfoDialogFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState != null) {
-            location = savedInstanceState.getParcelable(LOCATION_KEY);
+            location = Util.getParcelable(savedInstanceState, LOCATION_KEY, Location.class);
             Log.d(DEBUG_TAG, "restoring from saved state");
         } else {
-            location = getArguments().getParcelable(LOCATION_KEY);
+            location = Util.getParcelable(getArguments(), LOCATION_KEY, Location.class);
         }
     }
 

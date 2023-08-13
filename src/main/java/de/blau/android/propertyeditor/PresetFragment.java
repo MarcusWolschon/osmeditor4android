@@ -185,7 +185,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
         Log.d(DEBUG_TAG, "presets size " + presets.length);
         paneMode = getArguments().getBoolean(PANE_MODE);
         @SuppressWarnings("unchecked")
-        List<PresetElementPath> alternateRootPaths = (ArrayList<PresetElementPath>) getArguments().getSerializable(ALTERNATE_ROOT_PATHS);
+        List<PresetElementPath> alternateRootPaths = Util.getSerializeableArrayList(getArguments(), ALTERNATE_ROOT_PATHS, PresetElementPath.class);
 
         LinearLayout presetPaneLayout = (LinearLayout) inflater.inflate(R.layout.preset_pane, null);
         final LinearLayout presetLayout = (LinearLayout) presetPaneLayout.findViewById(R.id.preset_presets);

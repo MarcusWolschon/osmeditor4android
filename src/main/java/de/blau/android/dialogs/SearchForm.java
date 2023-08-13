@@ -97,9 +97,9 @@ public class SearchForm extends ImmersiveDialogFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState != null) {
-            bbox = (ViewBox) savedInstanceState.getSerializable(BBOX_KEY);
+            bbox = de.blau.android.util.Util.getSerializeable(savedInstanceState, BBOX_KEY, ViewBox.class);
         } else {
-            bbox = (ViewBox) getArguments().getSerializable(BBOX_KEY);
+            bbox = de.blau.android.util.Util.getSerializeable(getArguments(), BBOX_KEY, ViewBox.class);
         }
     }
 

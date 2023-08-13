@@ -241,7 +241,7 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
             // No previous state to restore - get the state from the intent
             Log.d(DEBUG_TAG, "Initializing from intent");
             final Bundle args = getArguments();
-            loadData = PropertyEditorData.deserializeArray(args.getSerializable(TAGEDIT_DATA));
+            loadData = PropertyEditorData.deserializeArray(Util.getSerializeable(args, TAGEDIT_DATA, Serializable.class));
             applyLastAddressTags = args.getBoolean(TAGEDIT_LAST_ADDRESS_TAGS);
             showPresets = args.getBoolean(TAGEDIT_SHOW_PRESETS);
             extraTags = (M) args.getSerializable(TAGEDIT_EXTRA_TAGS);
@@ -257,7 +257,7 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
         } else {
             // Restore activity from saved state
             Log.d(DEBUG_TAG, "Restoring from savedInstanceState");
-            loadData = PropertyEditorData.deserializeArray(savedInstanceState.getSerializable(TAGEDIT_DATA));
+            loadData = PropertyEditorData.deserializeArray(Util.getSerializeable(savedInstanceState, TAGEDIT_DATA, Serializable.class));
             usePaneLayout = savedInstanceState.getBoolean(PANELAYOUT); // FIXME this disables layout changes on
                                                                        // restarting
             StorageDelegator delegator = App.getDelegator();

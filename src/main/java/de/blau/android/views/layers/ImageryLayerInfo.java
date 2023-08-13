@@ -35,7 +35,7 @@ public class ImageryLayerInfo extends LayerInfo {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        layer = (TileLayerSource) getArguments().getSerializable(LAYER_KEY);
+        layer = Util.getSerializeable(getArguments(), LAYER_KEY, TileLayerSource.class);
         tileErrorCount = getArguments().getLong(ERROR_COUNT_KEY, 0);
     }
 

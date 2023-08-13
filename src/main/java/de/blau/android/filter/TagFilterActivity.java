@@ -97,7 +97,7 @@ public class TagFilterActivity extends ListActivity {
         actionbar.setDisplayHomeAsUpEnabled(true);
         final String filterParam;
         if (savedInstanceState == null) {
-            filterParam = (String) getIntent().getSerializableExtra(FILTER_KEY);
+            filterParam = getIntent().getStringExtra(FILTER_KEY);
         } else {
             filterParam = savedInstanceState.getString(FILTER_KEY);
         }

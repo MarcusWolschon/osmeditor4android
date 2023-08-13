@@ -211,7 +211,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             // Restore activity from saved state
             Log.d(DEBUG_TAG, "Restoring from savedInstanceState");
             displayMRUpresets = savedInstanceState.getBoolean(DISPLAY_MRU_PRESETS);
-            Object temp = savedInstanceState.getSerializable(SAVED_DISPLAY_OPTIONAL);
+            Serializable temp = Util.getSerializeable(savedInstanceState, SAVED_DISPLAY_OPTIONAL, Serializable.class);
             if (temp instanceof Map<?, ?>) {
                 final PresetGroup rootGroup = App.getCurrentRootPreset(getContext()).getRootGroup();
                 for (Entry<PresetElementPath, Boolean> entry : ((Map<PresetElementPath, Boolean>) temp).entrySet()) {

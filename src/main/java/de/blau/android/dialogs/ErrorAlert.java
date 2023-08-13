@@ -245,7 +245,7 @@ public class ErrorAlert extends ImmersiveDialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        titleId = (Integer) getArguments().getSerializable(TITLE);
+        titleId = Util.getSerializeable(getArguments(), TITLE, Integer.class);
         messageId = getArguments().getInt(MESSAGE);
         originalMessage = getArguments().getString(ORIGINAL_MESSAGE);
     }

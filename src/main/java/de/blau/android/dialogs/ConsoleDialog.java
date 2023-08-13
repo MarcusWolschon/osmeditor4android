@@ -124,7 +124,7 @@ public class ConsoleDialog extends DialogFragment {
 
         Builder builder = new AlertDialog.Builder(getActivity());
         int titleResource = getArguments().getInt(TITLE_KEY);
-        EvalCallback callback = (EvalCallback) getArguments().getSerializable(CALLBACK_KEY);
+        EvalCallback callback = Util.getSerializeable(getArguments(), CALLBACK_KEY, EvalCallback.class);
         int checkbox1Resource = getArguments().getInt(CHECKBOX1_KEY);
         int checkbox2Resource = getArguments().getInt(CHECKBOX2_KEY);
         String initialText = getArguments().getString(INITIAL_TEXT_KEY);

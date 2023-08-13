@@ -264,18 +264,18 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         if (savedInstanceState == null) {
             // No previous state to restore - get the state from the intent
             Log.d(DEBUG_TAG, "Initializing from original arguments");
-            osmIds = (long[]) getArguments().getSerializable(IDS_KEY);
-            types = (String[]) getArguments().getSerializable(TYPES_KEY);
+            osmIds = Util.getSerializeable(getArguments(), IDS_KEY, long[].class);
+            types = Util.getSerializeable(getArguments(), TYPES_KEY, String[].class);
             applyLastAddressTags = getArguments().getBoolean(APPLY_LAST_ADDRESS_TAGS, false);
             displayMRUpresets = getArguments().getBoolean(DISPLAY_MRU_PRESETS, false);
-            focusOnKey = (String) getArguments().getSerializable(FOCUS_ON_KEY);
+            focusOnKey = Util.getSerializeable(getArguments(), FOCUS_ON_KEY, String.class);
         } else {
             // Restore activity from saved state
             Log.d(DEBUG_TAG, "Restoring from savedInstanceState");
-            osmIds = (long[]) savedInstanceState.getSerializable(IDS_KEY);
-            types = (String[]) savedInstanceState.getSerializable(TYPES_KEY);
+            osmIds = Util.getSerializeable(savedInstanceState, IDS_KEY, long[].class);
+            types = Util.getSerializeable(savedInstanceState, TYPES_KEY, String[].class);
             @SuppressWarnings("unchecked")
-            Map<String, ArrayList<String>> temp = (Map<String, ArrayList<String>>) savedInstanceState.getSerializable(SAVEDTAGS_KEY);
+            Map<String, ArrayList<String>> temp = (Map<String, ArrayList<String>>) Util.getSerializeable(savedInstanceState, SAVEDTAGS_KEY, Serializable.class);
             if (temp != null) {
                 savedTags = new LinkedHashMap<>();
                 savedTags.putAll(temp);
@@ -333,7 +333,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
 
         // Add any extra tags that were supplied
         @SuppressWarnings("unchecked")
-        Map<String, String> extraTags = (HashMap<String, String>) getArguments().getSerializable(EXTRA_TAGS_KEY);
+        Map<String, String> extraTags = Util.getSerializeable(getArguments(), EXTRA_TAGS_KEY, HashMap.class);
         if (extraTags != null) {
             for (Entry<String, String> e : extraTags.entrySet()) {
                 addTag(editRowLayout, e.getKey(), e.getValue(), true, false);
@@ -356,8 +356,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         });
 
         if (savedInstanceState == null) { // the following should only happen once on initial creation
-            @SuppressWarnings("unchecked")
-            List<PresetElementPath> presetsToApply = (ArrayList<PresetElementPath>) getArguments().getSerializable(PRESETSTOAPPLY_KEY);
+            List<PresetElementPath> presetsToApply = Util.getSerializeableArrayList(getArguments(), PRESETSTOAPPLY_KEY, PresetElementPath.class);
             if (presetsToApply != null && !presetsToApply.isEmpty()) {
                 FragmentActivity activity = getActivity();
                 Preset preset = App.getCurrentRootPreset(activity);
@@ -454,7 +453,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      */
     @SuppressWarnings("unchecked")
     private LinkedHashMap<String, List<String>> getTagsInEditForm() {
-        return getTagsInEditForm((ArrayList<Map<String, String>>) getArguments().getSerializable(TAGS_KEY));
+        return getTagsInEditForm((ArrayList<Map<String, String>>) Util.getSerializeable(getArguments(), TAGS_KEY, Serializable.class));
     }
 
     /**

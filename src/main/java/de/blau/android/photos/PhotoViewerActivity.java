@@ -14,6 +14,7 @@ import de.blau.android.R;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.ConfigurationChangeAwareActivity;
 import de.blau.android.util.ImageLoader;
+import de.blau.android.util.Util;
 
 /**
  * 
@@ -76,15 +77,15 @@ public class PhotoViewerActivity extends ConfigurationChangeAwareActivity {
         if (savedInstanceState == null) {
             // No previous state to restore - get the state from the intent
             Log.d(DEBUG_TAG, "Initializing from intent");
-            photoList = (ArrayList<String>) getIntent().getSerializableExtra(PhotoViewerFragment.PHOTO_LIST_KEY);
+            photoList = getIntent().getStringArrayListExtra(PhotoViewerFragment.PHOTO_LIST_KEY);
             startPos = getIntent().getIntExtra(PhotoViewerFragment.START_POS_KEY, 0);
-            photoLoader = (ImageLoader) getIntent().getSerializableExtra(PhotoViewerFragment.PHOTO_LOADER_KEY);
-            wrap = (boolean) getIntent().getSerializableExtra(PhotoViewerFragment.WRAP_KEY);
+            photoLoader = Util.getSerializableExtra(getIntent(), PhotoViewerFragment.PHOTO_LOADER_KEY, ImageLoader.class);
+            wrap = Util.getSerializableExtra(getIntent(), PhotoViewerFragment.WRAP_KEY, Boolean.class);
         } else {
             Log.d(DEBUG_TAG, "Initializing from saved state");
             photoList = savedInstanceState.getStringArrayList(PhotoViewerFragment.PHOTO_LIST_KEY);
             startPos = savedInstanceState.getInt(PhotoViewerFragment.START_POS_KEY);
-            photoLoader = (ImageLoader) savedInstanceState.getSerializable(PhotoViewerFragment.PHOTO_LOADER_KEY);
+            photoLoader = Util.getSerializeable(savedInstanceState, PhotoViewerFragment.PHOTO_LOADER_KEY, ImageLoader.class);
             wrap = savedInstanceState.getBoolean(PhotoViewerFragment.WRAP_KEY);
         }
         String tag = PhotoViewerFragment.class.getName() + this.getClass().getName();
@@ -98,8 +99,8 @@ public class PhotoViewerActivity extends ConfigurationChangeAwareActivity {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        ArrayList<String> tempList = (ArrayList<String>) intent.getSerializableExtra(PhotoViewerFragment.PHOTO_LIST_KEY);
-        int tempPos = (int) intent.getSerializableExtra(PhotoViewerFragment.START_POS_KEY);
+        ArrayList<String> tempList = getIntent().getStringArrayListExtra(PhotoViewerFragment.PHOTO_LIST_KEY);
+        int tempPos = intent.getIntExtra(PhotoViewerFragment.START_POS_KEY, 0);
         String tempPhoto = tempList.get(tempPos);
         int index = photoList.indexOf(tempPhoto);
         Fragment f = getSupportFragmentManager().findFragmentById(android.R.id.content);
