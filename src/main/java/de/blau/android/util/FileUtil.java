@@ -25,11 +25,10 @@ import de.blau.android.contract.Paths;
 import de.blau.android.contract.Schemes;
 
 public final class FileUtil {
-    private static final char PATH_DELIMITER_CHAR = '/';
-
     private static final String DEBUG_TAG = FileUtil.class.getSimpleName();
 
-    public static final String FILE_SCHEME_PREFIX = Schemes.FILE + ":";
+    private static final char  PATH_DELIMITER_CHAR = '/';
+    public static final String FILE_SCHEME_PREFIX  = Schemes.FILE + ":";
 
     /**
      * Private constructor to stop instantiation
@@ -45,7 +44,7 @@ public final class FileUtil {
      * @throws IOException if we can't create the directory
      */
     public static @NonNull File getPublicDirectory() throws IOException {
-        return getPublicDirectory(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), Paths.DIRECTORY_PATH_VESPUCCI); // NOSONAR
+        return getPublicDirectory(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), Paths.DIRECTORY_PATH_VESPUCCI);
     }
 
     /**
@@ -54,7 +53,7 @@ public final class FileUtil {
      * @return true if the directory exists
      */
     public static boolean publicDirectoryExists() {
-        return new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), Paths.DIRECTORY_PATH_VESPUCCI).exists(); // NOSONAR
+        return new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), Paths.DIRECTORY_PATH_VESPUCCI).exists();
     }
 
     /**
@@ -64,7 +63,7 @@ public final class FileUtil {
      * @throws IOException if we can't create the directory
      */
     public static @NonNull File getLegacyPublicDirectory() throws IOException {
-        return getPublicDirectory(Environment.getExternalStorageDirectory(), Paths.DIRECTORY_PATH_VESPUCCI); // NOSONAR
+        return getPublicDirectory(Environment.getExternalStorageDirectory(), Paths.DIRECTORY_PATH_VESPUCCI);
     }
 
     /**
