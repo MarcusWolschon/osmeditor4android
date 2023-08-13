@@ -558,9 +558,14 @@ public final class Util {
      * @param packageManager a PackageManager instance
      * @return true if the package is installed
      */
+    @SuppressWarnings("deprecation")
     public static boolean isPackageInstalled(@NonNull String packageName, @NonNull PackageManager packageManager) {
         try {
-            packageManager.getPackageInfo(packageName, 0);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                packageManager.getPackageInfo(packageName, PackageManager.PackageInfoFlags.of(0));
+            } else {
+                packageManager.getPackageInfo(packageName, 0);
+            }
             return true;
         } catch (PackageManager.NameNotFoundException e) {
             return false;
