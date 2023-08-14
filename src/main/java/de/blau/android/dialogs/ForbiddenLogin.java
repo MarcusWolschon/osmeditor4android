@@ -16,6 +16,7 @@ import de.blau.android.contract.Urls;
 import de.blau.android.listener.DoNothingListener;
 import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.ThemeUtils;
+import de.blau.android.util.Util;
 
 /**
  * Simple alert dialog with an OK button that does nothing
@@ -82,7 +83,7 @@ public class ForbiddenLogin extends ImmersiveDialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        message = (String) getArguments().getSerializable(MESSAGE_KEY);
+        message = Util.getSerializeable(getArguments(), MESSAGE_KEY, String.class);
     }
 
     @NonNull

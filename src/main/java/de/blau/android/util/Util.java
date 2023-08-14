@@ -558,9 +558,14 @@ public final class Util {
      * @param packageManager a PackageManager instance
      * @return true if the package is installed
      */
+    @SuppressWarnings("deprecation")
     public static boolean isPackageInstalled(@NonNull String packageName, @NonNull PackageManager packageManager) {
         try {
-            packageManager.getPackageInfo(packageName, 0);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                packageManager.getPackageInfo(packageName, PackageManager.PackageInfoFlags.of(0));
+            } else {
+                packageManager.getPackageInfo(packageName, 0);
+            }
             return true;
         } catch (PackageManager.NameNotFoundException e) {
             return false;
@@ -777,5 +782,36 @@ public final class Util {
     @Nullable
     public static <T extends Parcelable> T getParcelable(@NonNull Bundle bundle, @NonNull String key, @NonNull Class<T> clazz) {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU ? bundle.getParcelable(key, clazz) : (T) bundle.getParcelable(key);
+    }
+
+    /**
+     * Wrapper for getSerializeable
+     * 
+     * @param <T> the Serializable type
+     * @param bundle the Bundle
+     * @param key the key
+     * @param clazz the class we want to retrieve
+     * @return an instance of clazz or null
+     */
+    @SuppressWarnings({ "deprecation", "unchecked" })
+    @Nullable
+    public static <T extends Serializable> T getSerializeable(@NonNull Bundle bundle, @NonNull String key, @NonNull Class<T> clazz) {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU ? bundle.getSerializable(key, clazz) : (T) bundle.getSerializable(key);
+    }
+
+    /**
+     * Get an ArrayList of T
+     * 
+     * @param <T> the Serializable type
+     * @param bundle the Bundle
+     * @param key the key
+     * @param clazz the class we want to retrieve
+     * @return an instance of ArrayList<T> or null
+     */
+    @SuppressWarnings({ "deprecation", "unchecked" })
+    @Nullable
+    public static <T extends Serializable> ArrayList<T> getSerializeableArrayList(@NonNull Bundle bundle, @NonNull String key, @NonNull Class<T> clazz) { // NOSONAR
+        return (ArrayList<T>) (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU ? bundle.getSerializable(key, ArrayList.class)
+                : bundle.getSerializable(key));
     }
 }

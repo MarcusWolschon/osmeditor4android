@@ -96,7 +96,7 @@ public class PresetSearchResultsFragment extends DialogFragment implements Updat
         presetsLayout = (LinearLayout) inflater.inflate(R.layout.preset_search_results_view, null);
 
         searchTerm = getArguments().getString(SEARCH_TERM_KEY);
-        presets = (ArrayList<PresetElement>) getArguments().getSerializable(SEARCH_RESULTS_KEY);
+        presets = Util.getSerializeableArrayList(getArguments(), SEARCH_RESULTS_KEY, PresetElement.class);
         /*
          * Saving this argument (done by the FragmentManager) will typically exceed the 1MB transaction size limit and
          * cause a android.os.TransactionTooLargeException Removing it doesn't seem to have direct negative

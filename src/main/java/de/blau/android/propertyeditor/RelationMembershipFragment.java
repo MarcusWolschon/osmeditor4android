@@ -127,13 +127,13 @@ public class RelationMembershipFragment extends BaseFragment implements Property
         MultiHashMap<Long, RelationMemberPosition> parents;
         if (savedInstanceState != null) {
             Log.d(DEBUG_TAG, "Restoring from saved state");
-            parents = (MultiHashMap<Long, RelationMemberPosition>) savedInstanceState.getSerializable(PARENTS_KEY);
+            parents = Util.getSerializeable(savedInstanceState, PARENTS_KEY, MultiHashMap.class);
             elementType = savedInstanceState.getString(ELEMENT_TYPE_KEY);
         } else if (savedParents != null) {
             Log.d(DEBUG_TAG, "Restoring from instance variable");
             parents = savedParents;
         } else {
-            parents = (MultiHashMap<Long, RelationMemberPosition>) getArguments().getSerializable(PARENTS_KEY);
+            parents = Util.getSerializeable(getArguments(), PARENTS_KEY, MultiHashMap.class);
             elementType = getArguments().getString(ELEMENT_TYPE_KEY);
         }
 
@@ -785,7 +785,7 @@ public class RelationMembershipFragment extends BaseFragment implements Property
      */
     @SuppressWarnings("unchecked")
     void doRevert() {
-        loadParents((MultiHashMap<Long, RelationMemberPosition>) getArguments().getSerializable(PARENTS_KEY), getArguments().getString(ELEMENT_TYPE_KEY));
+        loadParents(Util.getSerializeable(getArguments(), PARENTS_KEY, MultiHashMap.class), getArguments().getString(ELEMENT_TYPE_KEY));
     }
 
     /**

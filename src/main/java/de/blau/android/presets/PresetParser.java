@@ -170,12 +170,12 @@ public class PresetParser {
                 case CHUNK:
                     PresetChunk chunk = ((PresetChunk) currentItem);
                     if (LIST_ENTRY.equals(name) && chunk.getFields().isEmpty()) {
-                        if (chunk.listValues == null) {
-                            chunk.listValues = new ArrayList<>();
+                        if (chunk.getListValues() == null) {
+                            chunk.setListValues(new ArrayList<>());
                         }
-                        addListEntry(chunk.listValues, attr);
+                        addListEntry(chunk.getListValues(), attr);
                     } else {
-                        if (chunk.listValues == null) {
+                        if (chunk.getListValues() == null) {
                             parseItem(name, attr);
                         } else {
                             Log.w(DEBUG_TAG, "chunk can only contain a sequence LIST_ENTRY or normal ITEM elements: " + name);
@@ -559,9 +559,9 @@ public class PresetParser {
                     PresetChunk chunk = chunks.get(attr.getValue(REF)); // note this assumes that there are no
                                                                         // forward references
                     if (chunk != null) {
-                        if (chunk.listValues != null) {
+                        if (chunk.getListValues() != null) {
                             if (listValues != null) {
-                                listValues.addAll(chunk.listValues);
+                                listValues.addAll(chunk.getListValues());
                             } else {
                                 Log.d(DEBUG_TAG, "chunk with LIST_ENTRY sequence referenced outside of COMBO/MULTISELECT");
                                 throw new SAXException("chunk with LIST_ENTRY sequence referenced outside of COMBO/MULTISELECT");

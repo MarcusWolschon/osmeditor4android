@@ -150,13 +150,13 @@ public class SelectByImageFragment extends SizedDynamicImmersiveDialogFragment i
             Log.d(DEBUG_TAG, "Initializing from intent");
             imageList = getArguments().getStringArrayList(IMAGE_LIST_KEY);
             startPos = getArguments().getInt(START_POS_KEY);
-            imageLoader = (ImageLoader) getArguments().getSerializable(IMAGE_LOADER_KEY);
+            imageLoader = Util.getSerializeable(getArguments(), IMAGE_LOADER_KEY, ImageLoader.class);
             getArguments().remove(IMAGE_LOADER_KEY);
         } else {
             Log.d(DEBUG_TAG, "Initializing from saved state");
             imageList = savedInstanceState.getStringArrayList(IMAGE_LIST_KEY);
             startPos = savedInstanceState.getInt(START_POS_KEY);
-            imageLoader = (ImageLoader) savedInstanceState.getSerializable(IMAGE_LOADER_KEY);
+            imageLoader = Util.getSerializeable(savedInstanceState, IMAGE_LOADER_KEY, ImageLoader.class);
         }
 
         View layout = themedInflater.inflate(R.layout.photo_viewer, null);

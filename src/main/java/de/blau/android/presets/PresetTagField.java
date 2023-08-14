@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import ch.poole.poparser.Po;
 
 public abstract class PresetTagField extends PresetField {
+    private static final long serialVersionUID = 1L;
 
     /**
      * Key this field is for

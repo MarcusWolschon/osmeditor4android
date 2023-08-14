@@ -14,7 +14,8 @@ import androidx.annotation.Nullable;
 import ch.poole.poparser.Po;
 
 public class PresetCheckGroupField extends PresetTagField {
-
+    private static final long serialVersionUID = 1L;
+    
     private Map<String, PresetCheckField> checks = new LinkedHashMap<>();
 
     /**

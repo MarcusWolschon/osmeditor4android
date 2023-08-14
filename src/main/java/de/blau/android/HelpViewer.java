@@ -127,7 +127,7 @@ public class HelpViewer extends WebViewActivity {
         unselectedItemBackground = ThemeUtils.getStyleAttribColorValue(this, R.attr.unselected_item_background, R.color.light_grey);
         selectedItemBackground = ThemeUtils.getStyleAttribColorValue(this, R.attr.selected_item_background, R.color.dark_grey);
         int topicId = R.string.help_introduction;
-        Serializable s = getIntent().getSerializableExtra(TOPIC);
+        Serializable s = Util.getSerializableExtra(getIntent(), TOPIC, Serializable.class);
         if (s != null) {
             try {
                 topicId = (Integer) s;
@@ -287,7 +287,7 @@ public class HelpViewer extends WebViewActivity {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        Serializable s = intent.getSerializableExtra(TOPIC);
+        Serializable s = Util.getSerializableExtra(intent, TOPIC, Serializable.class);
         int topicId = R.string.help_introduction;
         if (s != null) {
             try {

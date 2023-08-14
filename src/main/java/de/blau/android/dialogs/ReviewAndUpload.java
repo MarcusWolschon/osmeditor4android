@@ -115,7 +115,6 @@ public class ReviewAndUpload extends AbstractReviewDialog {
         return f;
     }
 
-    @SuppressWarnings("unchecked")
     @NonNull
     @SuppressLint("InflateParams")
     @Override
@@ -123,9 +122,9 @@ public class ReviewAndUpload extends AbstractReviewDialog {
         Log.d(DEBUG_TAG, "onCreateDialog");
         if (savedInstanceState != null) {
             Log.d(DEBUG_TAG, "restoring from saved state");
-            elements = (List<OsmElement>) savedInstanceState.getSerializable(ELEMENTS_KEY);
+            elements = Util.getSerializeableArrayList(savedInstanceState, ELEMENTS_KEY, OsmElement.class);
         } else {
-            elements = (List<OsmElement>) getArguments().getSerializable(ELEMENTS_KEY);
+            elements = Util.getSerializeableArrayList(getArguments(), ELEMENTS_KEY, OsmElement.class);
         }
 
         FragmentActivity activity = getActivity();

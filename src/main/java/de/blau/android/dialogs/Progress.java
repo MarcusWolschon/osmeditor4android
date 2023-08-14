@@ -187,7 +187,7 @@ public class Progress extends ImmersiveDialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        dialogType = (Integer) getArguments().getSerializable(TYPE);
+        dialogType = de.blau.android.util.Util.getSerializeable(getArguments(), TYPE, Integer.class);
     }
 
     @NonNull

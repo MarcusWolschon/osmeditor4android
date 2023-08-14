@@ -91,18 +91,17 @@ public class TagConflictDialog extends ImmersiveDialogFragment {
 
     @NonNull
     @Override
-    @SuppressWarnings("unchecked")
     @SuppressLint("InflateParams")
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
         if (savedInstanceState != null) {
             Log.d(DEBUG_TAG, "Recreating from saved state");
-            result = (List<Result>) savedInstanceState.getSerializable(RESULTS_KEY);
+            result = Util.getSerializeableArrayList(savedInstanceState, RESULTS_KEY, Result.class);
             // restore the elements
             for (Result r : result) {
                 r.restoreElement(App.getDelegator());
             }
         } else {
-            result = (List<Result>) getArguments().getSerializable(RESULTS_KEY);
+            result = Util.getSerializeableArrayList(getArguments(), RESULTS_KEY, Result.class);
         }
         final LayoutInflater inflater = ThemeUtils.getLayoutInflater(getActivity());
         View layout = inflater.inflate(R.layout.tag_conflict, null);

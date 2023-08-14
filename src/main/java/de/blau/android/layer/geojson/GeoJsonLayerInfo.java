@@ -23,7 +23,7 @@ public class GeoJsonLayerInfo extends LayerInfo {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        layerInfo = (de.blau.android.layer.geojson.MapOverlay.Info) getArguments().getSerializable(LAYER_INFO_KEY);
+        layerInfo = de.blau.android.util.Util.getSerializeable(getArguments(), LAYER_INFO_KEY, de.blau.android.layer.geojson.MapOverlay.Info.class);
     }
 
     @Override

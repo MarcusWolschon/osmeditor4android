@@ -11,7 +11,9 @@ import de.blau.android.util.StringWithDescription;
 
 public class PresetChunk extends PresetItem {
 
-    List<StringWithDescription> listValues = null;
+    private static final long serialVersionUID = 1L;
+
+    private List<StringWithDescription> listValues = null;
 
     /**
      * Construct a new PresetChunk
@@ -27,13 +29,32 @@ public class PresetChunk extends PresetItem {
     }
 
     /**
+     * Get the current list values
+     * 
+     * @return the list values
+     */
+    @Nullable
+    List<StringWithDescription> getListValues() {
+        return listValues;
+    }
+
+    /**
+     * Set the current list values
+     * 
+     * @param listValues the list values
+     */
+    void setListValues(@Nullable List<StringWithDescription> listValues) {
+        this.listValues = listValues;
+    }
+
+    /**
      * This is typically never used as chunks will be expanded
      */
     @Override
     public void toXml(XmlSerializer s) throws IllegalArgumentException, IllegalStateException, IOException {
         s.startTag("", PresetParser.CHUNK);
-        if (listValues != null) {
-            PresetComboField.valuesToXml(s, listValues.toArray(new StringWithDescription[listValues.size()]));
+        if (getListValues() != null) {
+            PresetComboField.valuesToXml(s, getListValues().toArray(new StringWithDescription[getListValues().size()]));
         } else {
             itemToXml(s);
         }

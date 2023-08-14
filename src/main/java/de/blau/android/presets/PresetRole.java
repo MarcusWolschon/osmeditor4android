@@ -1,5 +1,6 @@
 package de.blau.android.presets;
 
+import java.io.Serializable;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -11,7 +12,9 @@ import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Way;
 
-public class PresetRole implements Comparable<PresetRole> {
+public class PresetRole implements Comparable<PresetRole>, Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private static final String DEBUG_TAG = PresetRole.class.getSimpleName();
 

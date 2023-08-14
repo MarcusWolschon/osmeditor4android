@@ -40,6 +40,7 @@ import de.blau.android.util.OnPageSelectedListener;
 import de.blau.android.util.SizedDynamicImmersiveDialogFragment;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
+import de.blau.android.util.Util;
 
 /**
  * Very simple photo viewer
@@ -201,14 +202,14 @@ public class PhotoViewerFragment extends SizedDynamicImmersiveDialogFragment imp
             Log.d(DEBUG_TAG, "Initializing from intent");
             photoList = getArguments().getStringArrayList(PHOTO_LIST_KEY);
             startPos = getArguments().getInt(START_POS_KEY);
-            photoLoader = (ImageLoader) getArguments().getSerializable(PHOTO_LOADER_KEY);
+            photoLoader = Util.getSerializeable(getArguments(), PHOTO_LOADER_KEY, ImageLoader.class);
             getArguments().remove(PHOTO_LOADER_KEY);
             wrap = getArguments().getBoolean(WRAP_KEY, true);
         } else {
             Log.d(DEBUG_TAG, "Initializing from saved state");
             photoList = savedInstanceState.getStringArrayList(PHOTO_LIST_KEY);
             startPos = savedInstanceState.getInt(START_POS_KEY);
-            photoLoader = (ImageLoader) savedInstanceState.getSerializable(PHOTO_LOADER_KEY);
+            photoLoader = Util.getSerializeable(savedInstanceState, PHOTO_LOADER_KEY, ImageLoader.class);
             wrap = savedInstanceState.getBoolean(WRAP_KEY);
         }
         if (photoLoader == null) {

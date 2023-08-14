@@ -150,7 +150,11 @@ public final class SelectFile {
             i.putExtra(DocumentsContract.EXTRA_INITIAL_URI, Uri.parse(path));
         }
         final PackageManager pm = activity.getPackageManager();
-        List<ResolveInfo> activities = pm.queryIntentActivities(i, PackageManager.MATCH_ALL);
+
+        @SuppressWarnings("deprecation")
+        List<ResolveInfo> activities = Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
+                ? pm.queryIntentActivities(i, PackageManager.ResolveInfoFlags.of(PackageManager.MATCH_ALL))
+                : pm.queryIntentActivities(i, PackageManager.MATCH_ALL);
         if (activities.isEmpty() && Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
             ErrorAlert.showDialog(activity, ErrorCodes.REQUIRED_FEATURE_MISSING, "file selector");
             return;

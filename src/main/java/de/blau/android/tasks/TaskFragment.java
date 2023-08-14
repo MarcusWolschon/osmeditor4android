@@ -41,6 +41,7 @@ import de.blau.android.prefs.Preferences;
 import de.blau.android.tasks.Task.State;
 import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.IssueAlert;
+import de.blau.android.util.Util;
 
 /**
  * Very simple dialog fragment to display bug or notes etc
@@ -74,9 +75,9 @@ public abstract class TaskFragment extends ImmersiveDialogFragment {
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
         if (savedInstanceState != null) {
             Log.d(DEBUG_TAG, "restoring from saved state");
-            task = (Task) savedInstanceState.getSerializable(BUG_KEY);
+            task = Util.getSerializeable(savedInstanceState, BUG_KEY, Task.class);
         } else {
-            task = (Task) getArguments().getSerializable(BUG_KEY);
+            task = Util.getSerializeable(getArguments(), BUG_KEY, Task.class);
         }
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         // Get the layout inflater

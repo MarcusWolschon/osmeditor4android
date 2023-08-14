@@ -111,9 +111,9 @@ public class ViewWayPoint extends ImmersiveDialogFragment {
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
         if (savedInstanceState != null) {
             Log.d(DEBUG_TAG, "restoring from saved state");
-            wp = (WayPoint) savedInstanceState.getSerializable(WAYPOINT);
+            wp = de.blau.android.util.Util.getSerializeable(savedInstanceState, WAYPOINT, WayPoint.class);
         } else {
-            wp = (WayPoint) getArguments().getSerializable(WAYPOINT);
+            wp = de.blau.android.util.Util.getSerializeable(getArguments(), WAYPOINT, WayPoint.class);
         }
 
         FragmentActivity activity = getActivity();

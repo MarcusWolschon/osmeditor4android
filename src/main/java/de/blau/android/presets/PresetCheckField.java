@@ -10,6 +10,8 @@ import ch.poole.poparser.Po;
 import de.blau.android.util.StringWithDescription;
 
 public class PresetCheckField extends PresetTagField {
+    private static final long serialVersionUID = 1L;
+
     /**
      * on value
      */

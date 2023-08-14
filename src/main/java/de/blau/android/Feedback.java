@@ -126,11 +126,11 @@ public class Feedback extends IssueReporterActivity implements ActivityResultHan
 
         super.onCreate(savedInstanceState);
 
-        Serializable s = getIntent().getSerializableExtra(REPO_USER_KEY);
+        Serializable s = Util.getSerializableExtra(getIntent(), REPO_USER_KEY, Serializable.class);
         if (s != null) {
             repoUser = s.toString();
         }
-        s = getIntent().getSerializableExtra(REPO_NAME_KEY);
+        s = Util.getSerializableExtra(getIntent(), REPO_NAME_KEY, Serializable.class);
         if (s != null) {
             repoName = s.toString();
         }

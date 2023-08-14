@@ -82,8 +82,8 @@ public class AlternativePresetItemsFragment extends ImmersiveDialogFragment {
         float density = getResources().getDisplayMetrics().density;
         presetsLayout.setPadding(0, 0, 0, (int) (Preset.SPACING * density));
 
-        PresetElementPath presetElementPath = (PresetElementPath) (savedInstanceState != null ? savedInstanceState.getSerializable(ITEM_PATH_KEY)
-                : getArguments().getSerializable(ITEM_PATH_KEY));
+        PresetElementPath presetElementPath = savedInstanceState != null ? Util.getSerializeable(savedInstanceState, ITEM_PATH_KEY, PresetElementPath.class)
+                : Util.getSerializeable(getArguments(), ITEM_PATH_KEY, PresetElementPath.class);
         if (presetElementPath == null) {
             Log.e(DEBUG_TAG, "presetElementPath is null");
             return null;

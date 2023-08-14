@@ -17,6 +17,7 @@ import de.blau.android.R;
 import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.SaveFile;
 import de.blau.android.util.ThemeUtils;
+import de.blau.android.util.Util;
 
 /**
  * Display a dialog asking for a file name to save to
@@ -25,6 +26,8 @@ import de.blau.android.util.ThemeUtils;
 public class GetFileName extends ImmersiveDialogFragment {
 
     private static final String DEBUG_TAG = GetFileName.class.getSimpleName();
+
+    private static final String CALLBACK_KEY = "callback";
 
     private static final String TAG = "fragment_save_file";
 
@@ -64,7 +67,7 @@ public class GetFileName extends ImmersiveDialogFragment {
     private static GetFileName newInstance(@NonNull de.blau.android.util.SaveFile callback) {
         GetFileName f = new GetFileName();
         Bundle args = new Bundle();
-        args.putSerializable("callback", callback);
+        args.putSerializable(CALLBACK_KEY, callback);
         f.setArguments(args);
         f.setShowsDialog(true);
         return f;
@@ -74,7 +77,7 @@ public class GetFileName extends ImmersiveDialogFragment {
     @SuppressLint("InflateParams")
     @Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
-        SaveFile callback = (SaveFile) getArguments().getSerializable("callback");
+        SaveFile callback = Util.getSerializeable(getArguments(), CALLBACK_KEY, SaveFile.class);
         final LayoutInflater inflater = ThemeUtils.getLayoutInflater(getActivity());
         Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(R.string.save_file);

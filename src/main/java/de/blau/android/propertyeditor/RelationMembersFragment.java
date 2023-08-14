@@ -169,7 +169,6 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
         getActivity().invalidateOptionsMenu();
     }
 
-    @SuppressWarnings("unchecked")
     @SuppressLint("InflateParams")
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -195,7 +194,7 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
             members = savedMembers;
         } else {
             id = getArguments().getLong(ID_KEY);
-            members = (ArrayList<RelationMemberDescription>) getArguments().getSerializable(MEMBERS_KEY);
+            members = Util.getSerializeableArrayList(getArguments(), MEMBERS_KEY, RelationMemberDescription.class);
             /*
              * Saving this argument (done by the FragmentManager) will typically exceed the 1MB transaction size limit
              * and cause a android.os.TransactionTooLargeException

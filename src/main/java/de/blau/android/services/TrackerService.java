@@ -479,10 +479,15 @@ public class TrackerService extends Service {
      * Halt the service if we are not doing anything important aka we are not recording a track or autodownloading
      * something
      */
+    @SuppressWarnings("deprecation")
     private void stop() {
         if (!tracking && !downloading && !downloadingBugs) {
             Log.d(DEBUG_TAG, "Stopping service");
-            stopForeground(true);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                stopForeground(0);
+            } else {
+                stopForeground(true);
+            }
             stopSelf();
         }
         if (externalListener != null) {

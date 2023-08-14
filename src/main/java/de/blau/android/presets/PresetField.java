@@ -1,6 +1,7 @@
 package de.blau.android.presets;
 
 import java.io.IOException;
+import java.io.Serializable;
 
 import org.xmlpull.v1.XmlSerializer;
 
@@ -8,7 +9,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import ch.poole.poparser.Po;
 
-public abstract class PresetField {
+public abstract class PresetField implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * Translation contexts

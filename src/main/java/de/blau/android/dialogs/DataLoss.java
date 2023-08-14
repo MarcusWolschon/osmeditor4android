@@ -85,10 +85,10 @@ public class DataLoss extends ImmersiveDialogFragment {
         super.onCreate(savedInstanceState);
         if (savedInstanceState != null) {
             Log.d(DEBUG_TAG, "restoring from saved state");
-            intent = savedInstanceState.getParcelable(INTENT_KEY);
+            intent = de.blau.android.util.Util.getParcelable(savedInstanceState, INTENT_KEY, Intent.class);
             requestCode = savedInstanceState.getInt(REQUESTCODE_KEY);
         } else {
-            intent = getArguments().getParcelable(INTENT_KEY);
+            intent = de.blau.android.util.Util.getParcelable(getArguments(), INTENT_KEY, Intent.class);
             requestCode = getArguments().getInt(REQUESTCODE_KEY);
         }
     }
