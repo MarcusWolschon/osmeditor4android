@@ -695,6 +695,7 @@
     <string name="toast_updating_tags">Updating tags…</string>
     <string name="toast_updating_parents">Updating parents…</string>
     <string name="toast_updating_members">Updating members…</string>
+    <string name="toast_error_loading_egm">Error loading EGM %1$s</string>
     <!-- Error messages -->
     <string name="error_mapsplit_missing_zoom">MapSplit sources must have min and max zoom set</string>
     <string name="error_pbf_no_version">Version information missing in PBF file</string>

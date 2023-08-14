@@ -87,8 +87,10 @@ public class DownloadActivity extends WebViewActivity {
                     }
                 }
                 // Start download
+                @SuppressWarnings("deprecation")
                 DownloadManager.Request request = new DownloadManager.Request(uri).setAllowedOverRoaming(false).setTitle(filename)
-                        .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, Paths.DIRECTORY_PATH_VESPUCCI + Paths.DELIMITER + filename);
+                        .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, Paths.DIRECTORY_PATH_VESPUCCI + Paths.DELIMITER + filename)
+                        .setVisibleInDownloadsUi(true);
                 request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
                 if (!allNetworks) {
                     request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI);
