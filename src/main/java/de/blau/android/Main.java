@@ -1887,7 +1887,8 @@ public class Main extends FullScreenAppCompatActivity
         menu.findItem(R.id.menu_tools_calibrate_height)
                 .setVisible(sensorManager != null && sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE) != null && haveTracker);
 
-        boolean egmInstalled = prefs.getEgmFile() != null;
+        Uri egmUri = prefs.getEgmFile();
+        boolean egmInstalled = egmUri != null && new File(egmUri.getPath()).exists();
         menu.findItem(R.id.menu_tools_install_egm).setVisible(!egmInstalled);
         menu.findItem(R.id.menu_tools_remove_egm).setVisible(egmInstalled);
 
@@ -2418,7 +2419,7 @@ public class Main extends FullScreenAppCompatActivity
             Uri egm96 = Uri.parse(Urls.EGM96);
             String egmFile = egm96.getLastPathSegment();
             DownloadManager.Request request = new DownloadManager.Request(egm96).setAllowedOverRoaming(false).setTitle(egmFile)
-                    .setDestinationInExternalFilesDir(this, Environment.DIRECTORY_DOWNLOADS, egmFile)
+                    .setDestinationInExternalFilesDir(this, Environment.DIRECTORY_DOWNLOADS, egmFile + "." + FileExtensions.TEMP)
                     .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
             mgr.enqueue(request);
             return true;

@@ -196,8 +196,9 @@ public class TrackerService extends Service {
                 egm = new EGM96(egmFile.getPath());
                 egmLoaded = true;
             } catch (IOException ioex) {
-                Log.e(DEBUG_TAG, "Error loading EGM " + ioex.getMessage());
-                Snack.toastTopInfo(this, "Error loading EGM " + ioex.getMessage());
+                String egmError = getString(R.string.toast_error_loading_egm, ioex.getMessage());
+                Log.e(DEBUG_TAG, egmError);
+                Snack.toastTopError(this, egmError);
             }
         }
     }
