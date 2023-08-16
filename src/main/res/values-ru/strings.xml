@@ -266,8 +266,18 @@
   <string name="evaluate">Оценить</string>
   <string name="js_console_msg_live">\"Живой\" режим!</string>
   <string name="js_console_msg_debug">Режим отладки!</string>
+  <string name="console_input_hint">Введите запрос здесь</string>
   <string name="console_output_hint">Вывод появится здесь</string>
+  <string name="save_code">Сохранить запрос...</string>
+  <string name="load_code">Загрузить запрос...</string>
+  <string name="share_code">Поделиться запросом...</string>
   <!--Overpass console-->
+  <string name="run">Запустить</string>
+  <string name="overpass_result">Загружено %1$d точек, %2$d линий и %3$d отношений.</string>
+  <string name="overpass_console">Консоль Overpass</string>
+  <string name="select_result">Выбрать результат</string>
+  <string name="merge_result">Объединить результат</string>
+  <string name="overpass_query_would_overwrite">Результат перезапишет изменения! Запрос отменён.</string>
   <!---->
   <string name="error">Ошибка</string>
   <string name="warning">Предупреждение</string>
@@ -429,6 +439,7 @@
   <string name="tip_longpress_simple_mode">В простом режиме долгое нажатие ничего не даст. Отключите простой режим в главном меню, если вы хотите использовать долгие нажатия для создания объектов.</string>
   <string name="tip_gpx_no_elevation">Начиная с версии 15, треки GPX больше не содержат информацию о высоте по умолчанию.&lt;p&gt; Чтобы включить запись высоты, установите модель геоида с помощью &lt;i&gt; Установить EGM&lt;/i&gt; в меню «Инструменты» или переключитесь на ввод NMEA.</string>
   <string name="tip_tag_conflict">Слияние и реверсирование элементов OSM иногда требует изменения атрибутов элементов. Если есть потенциальная ошибка или конфликт, вы будете предупреждены об этом и получите возможность просмотреть рассматриваемые объекты.</string>
+  <string name="tip_auto_download">Когда вы запускаете автоматическую загрузку данных или задач OSM, Vespucci использует данные о местоположении для определения текущего положения, даже если приложение не отображается.&lt;p&gt; Явное закрытие приложения или отключение автоматической загрузки остановит использование данных о местоположении в таких случаях.</string>
   <string name="tip_no_redo">Этот режим пока не поддерживает повтор добавления точек.</string>
   <string name="tip_way_splitting">Нажмите на выбранную точку для определения позиции разделения. Долгое нажатие позволит определить ту часть, которая будет использована для новой линии на следующем шаге.</string>
   <string name="tip_closed_way_splitting">Замкнутая линия должна быть разделена в двух местах. Нажмите на выбранную точку, чтобы определить первую позицию разделения, на следующем шаге вам будет предложено выбрать вторую позицию.</string>
@@ -982,6 +993,7 @@
   <string name="simple_paste">Нажмите на экран в нужном месте</string>
   <string name="menu_paste_multiple">Вставить несколько раз</string>
   <string name="simple_paste_multiple">Нажмите на экран в нужном месте</string>
+  <string name="menu_snap">Привязка</string>
   <!--Preferences-->
   <string name="config_backgroundLayer_title">Фоновая карта</string>
   <string name="config_backgroundLayer_summary">Растровая фоновая карта</string>

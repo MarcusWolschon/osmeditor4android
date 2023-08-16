@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string name="addr_housenumber">Husnummer (addr:housenumber)</string>
+  <string name="addr_conscriptionnumber">Fältpostnummer (addr:consscriptionnumber)</string>
+  <string name="addr_street">Gata (adds:street)</string>
+  <string name="addr_postcode">Postnummer (addr:postcode)</string>
+  <string name="addr_city">Postort (addr:city)</string>
+  <string name="addr_country">Land (addr:country)</string>
+  <string name="addr_full">Komplett adress (addr:full)</string>
+  <string name="addr_place">Plats (addr:place)</string>
+  <string name="addr_block">Kvarter (adds:block)</string>
+  <string name="addr_block_number">Kvartersnummer (addr:block_number)</string>
+  <string name="addr_parentstreet">Ytterligare platsinformation (addr:parentstreet)</string>
+  <string name="addr_hamlet">Liten by (addr:hamlet)</string>
+  <string name="addr_suburb">Förort (addr:suburb)</string>
+  <string name="addr_subdistrict">Underdistrikt (adde:subdistrict)</string>
+  <string name="addr_district">Distrikt (addr:district)</string>
+  <string name="addr_province">Provins (addr:province)</string>
+  <string name="addr_state">Delstat (addr:state)</string>
+  <string name="addr_flats">Lägenheter (addr:flats)</string>
+  <string name="addr_door">Dörr (addr:door)</string>
+  <string name="addr_unit">Enhet (addr:unit)</string>
+</resources>

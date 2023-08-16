@@ -31,6 +31,11 @@
         <item>Redan fixad</item>
         <item>För svårt</item>
     </string-array>
+    <string-array name="todo_state">
+        <item>Öppna lindningar</item>
+        <item>Stängd</item>
+        <item>Överhoppad</item> 
+    </string-array>
     <string-array name="followGPSbutton_entries">
         <item>Vänster</item>
         <item>Höger</item>
@@ -76,4 +81,7 @@
         <item>Versaler för ord</item>
         <item>Versaler för meningar</item>
     </string-array>
+    <string name="theme_follow_entry">Följ systemet</string>
+    <string name="theme_light_entry">Ljus</string>
+    <string name="theme_dark_entry">Mörk</string>
     </resources>

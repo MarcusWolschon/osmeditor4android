@@ -80,6 +80,7 @@
   <string name="progress_saving_message">Zapisywanie…</string>
   <string name="progress_uploading_message">Wysyłanie…</string>
   <string name="progress_preset_message">Pobieranie szablonu…</string>
+  <string name="progress_importing_file_message">Importowanie pliku...</string>
   <string name="progress_running_message">Wykonywanie poleceń...</string>
   <string name="progress_oauth">Wczytywanie danych konta na openstreetmap.org w celu uwierzytelnienia OAuth...</string>
   <string name="progress_building_imagery_database">Tworzenie bazy danych podkładów…</string>
@@ -106,6 +107,7 @@
   <string name="upload_validation_error_empty_comment">Komentarz nie może być pusty</string>
   <string name="upload_validation_error_empty_source">Żródło nie powinno być puste</string>
   <!--Review changes dialog-->
+  <string name="review_changes_title">Przejrzyj zmiany</string>
   <!--Upload GPX-->
   <string name="upload_gpx_title">Wyślij ślad GPX</string>
   <string name="upload_gpx_description_label">Opis</string>
@@ -300,6 +302,7 @@
   <string name="coverage_left">Lewo</string>
   <string name="coverage_right">Prawo</string>
   <string name="coverage_bottom">Dół</string>
+  <string name="tile_size">Rozmiar kafelka</string>
   <string name="toast_invalid_box">Niepoprawny lub niekompletny bounding box.</string>
   <string name="delete_layer">Usunąć warstwę?</string>
   <string name="delete_endpoint">Usunąć punkt końcowy?</string>
@@ -318,6 +321,7 @@
   <string name="layer_geojson">GeoJSON</string>
   <string name="layer_mapillary">Mapillary</string>
   <string name="layer_grid">Siatka</string>
+  <string name="layer_bookmarks">Zakładki</string>
   <string name="layer_gpx">GPX</string>
   <string name="layer_photos">Zdjęcia</string>
   <string name="layer_tasks">Zadania</string>
@@ -470,6 +474,7 @@
   <string name="toast_invalid_preseturl">Błędny adres URL szablonu</string>
   <string name="toast_invalid_filter_regexp">Nieprawidłowe wyrażenie regularne z filtrem w kluczu=\"%1$s\" wartość=\"%2$s\"</string>
   <string name="toast_error_accessing_photo">Otwieranie zdjęcia %1$s nie powiodło się</string>
+  <string name="toast_no_photo_found">Nie znaleziono zdjęcia</string>
   <string name="toast_security_error_accessing_photo">Brak pozwolenia na dostęp do zdjęcia %1$s</string>
   <string name="toast_no_voice_recognition">Brak funkcji rozpoznawania głosu</string>
   <string name="toast_no_coverage">%1$s nie obejmuje tego terenu</string>
@@ -529,6 +534,7 @@
   <string name="toast_outer_rings_differing_tags">Zewnętrzne granice mają różne znaczniki</string>
   <string name="toast_multipolygon_has_incomplete_rings">Multipolygon ma niekompletne granice</string>
   <string name="toast_multipolygon_inconsistent_roles">Multipolygon ma niespójne role przypisane do granicy</string>
+  <string name="toast_error_saving_bookmark">Nie można zapisać zakładki</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">Źródło MapSplit musi mieć ustawione min. i maks. przybliżenie</string>
   <string name="error_pbf_no_version">Brak informacji o wersji w pliku PBF</string>
@@ -558,7 +564,9 @@
   <string name="prune">Przytnij</string>
   <string name="check">Sprawdź</string>
   <string name="download">Pobierz</string>
+  <string name="abort">Przerwij</string>
   <string name="select">Wybierz</string>
+  <string name="skip">Pomiń</string>
   <!--Read a file-->
   <string name="read">Odczytaj</string>
   <string name="load">Wczytaj</string>
@@ -715,6 +723,7 @@
   <string name="menu_gps_track_managment">Zarządzaj śladami GPX...</string>
   <string name="menu_gps_goto_start">Przejdź do początku śladu GPX</string>
   <string name="menu_gps_goto_first_waypoint">Przejdź do pierwszego punktu</string>
+  <string name="menu_gps_add_bookmark">Dodaj zakładkę</string>
   <string name="menu_enable_gps_autodownload">Autopobieranie – śledź lokalizację</string>
   <string name="menu_enable_pan_and_zoom_auto_download">Autopobieranie – śledź kamerę</string>
   <string name="menu_transfer">Transfer…</string>
@@ -1219,6 +1228,7 @@
   <string name="toast_nohelp">Brak tutaj pomocy.</string>
   <!--Bookmarks-->
   <string name="bookmarks_desc">Nazwa</string>
+  <string name="bookmarkstitle">Zakładki</string>
   <!--Element types-->
   <string name="element_type_area">obszar</string>
   <string name="element_type_relation">relacja</string>
