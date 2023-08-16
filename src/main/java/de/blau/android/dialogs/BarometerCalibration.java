@@ -1,5 +1,8 @@
 package de.blau.android.dialogs;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,6 +32,8 @@ public class BarometerCalibration extends ImmersiveDialogFragment {
     private static final String DEBUG_TAG = BarometerCalibration.class.getSimpleName();
 
     private static final String TAG = "fragment_calibration_form";
+
+    private static final Pattern FLOAT_PATTERN = Pattern.compile("[^0-9]*([0-9]+[.][0-9]*)[^0-9]*");
 
     /**
      * Display a dialog allowing barometer calibration
@@ -93,7 +98,12 @@ public class BarometerCalibration extends ImmersiveDialogFragment {
                     intent.putExtra(TrackerService.CALIBRATE_HEIGHT_KEY, Integer.parseInt(calibrationValue));
                     break;
                 case 1: // reference pressure
-                    intent.putExtra(TrackerService.CALIBRATE_P0_KEY, Float.parseFloat(calibrationValue.substring(0, calibrationValue.length() - 2).trim()));
+                    Matcher matcher = FLOAT_PATTERN.matcher(calibrationValue);
+                    if (matcher.find()) {
+                        intent.putExtra(TrackerService.CALIBRATE_P0_KEY, Float.parseFloat(matcher.group(1)));
+                    } else {
+                        throw new NumberFormatException(calibrationValue);
+                    }
                     break;
                 default: // GNSS
                     // this is the default
