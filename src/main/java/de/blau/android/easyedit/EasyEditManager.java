@@ -327,7 +327,7 @@ public class EasyEditManager {
                                         getMain().startSupportActionMode(cb);
                                         return;
                                     } catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException
-                                            | IllegalAccessException | IllegalArgumentException | InvocationTargetException exception) {
+                                            | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NullPointerException exception) {
                                         Log.e(DEBUG_TAG, "Restarting " + restartActionModeCallbackName + " received " + exception.getClass().getCanonicalName()
                                                 + " " + exception.getMessage());
                                     }
