@@ -2252,7 +2252,7 @@ public class TileLayerSource implements Serializable {
      */
     public void setMinZoom(int newZoomLevelMin) {
         synchronized (this) {
-            if (offsets != null && zoomLevelMin != newZoomLevelMin) {
+            if (offsets != null && zoomLevelMin != newZoomLevelMin && zoomLevelMax > newZoomLevelMin) {
                 Offset[] tempOffsets = new Offset[zoomLevelMax - newZoomLevelMin + 1];
                 int destOffset = Math.max(0, zoomLevelMin - newZoomLevelMin);
                 System.arraycopy(offsets, Math.max(0, newZoomLevelMin - zoomLevelMin), tempOffsets, destOffset, tempOffsets.length - destOffset);
@@ -2280,7 +2280,7 @@ public class TileLayerSource implements Serializable {
      */
     public void setMaxZoom(int newZoomLevelMax) {
         synchronized (this) {
-            if (offsets != null && zoomLevelMax != newZoomLevelMax) {
+            if (offsets != null && zoomLevelMax != newZoomLevelMax && newZoomLevelMax > zoomLevelMin) {
                 Offset[] tempOffsets = new Offset[newZoomLevelMax - zoomLevelMin + 1];
                 System.arraycopy(offsets, 0, tempOffsets, 0, Math.min(offsets.length, tempOffsets.length));
                 offsets = tempOffsets;
