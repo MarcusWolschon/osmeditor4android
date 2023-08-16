@@ -19,7 +19,7 @@ import de.blau.android.R;
 /**
  * Based on https://mobikul.com/adding-badge-count-on-menu-items-like-cart-notification-etc/
  * 
- * Unluckily google BadgeDrawable seems to rather non-functional and without as stable API currently.
+ * Unluckily google BadgeDrawable seems to rather non-functional and without a stable API currently.
  * 
  * @author simon
  *
@@ -102,13 +102,13 @@ public class BadgeDrawable extends Drawable {
             mBadgePaint.setColor(errorColor);
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            canvas.drawRoundRect(centerX - halfWidth - 7.5f, centerY + radius + 7.5f, centerX + halfWidth + 7.5f, centerY - radius - 7.5f, radius, radius,
+            canvas.drawRoundRect(centerX - halfWidth - 7.5f, centerY - radius - 7.5f, centerX + halfWidth + 7.5f, centerY + radius + 7.5f, radius, radius,
                     mBadgePaint1);
-            canvas.drawRoundRect(centerX - halfWidth - 5.5f, centerY + radius + 5.5f, centerX + halfWidth + 5.5f, centerY - radius - 5.5f, radius, radius,
+            canvas.drawRoundRect(centerX - halfWidth - 5.5f, centerY - radius - 5.5f, centerX + halfWidth + 5.5f, centerY + radius + 5.5f, radius, radius,
                     mBadgePaint);
         } else {
-            canvas.drawRect(centerX - halfWidth - 7.5f, centerY + radius + 7.5f, centerX + halfWidth + 7.5f, centerY - radius - 7.5f, mBadgePaint1);
-            canvas.drawRect(centerX - halfWidth - 5.5f, centerY + radius + 5.5f, centerX + halfWidth + 5.5f, centerY - radius - 5.5f, mBadgePaint);
+            canvas.drawRect(centerX - halfWidth - 7.5f, centerY - radius - 7.5f, centerX + halfWidth + 7.5f, centerY + radius + 7.5f, mBadgePaint1);
+            canvas.drawRect(centerX - halfWidth - 5.5f, centerY - radius - 5.5f, centerX + halfWidth + 5.5f, centerY + radius + 5.5f, mBadgePaint);
         }
         float textHeight = (float) mTxtRect.bottom - mTxtRect.top;
         float textY = centerY + (textHeight / 2f);
