@@ -643,11 +643,13 @@ public class Map extends View implements IMapView {
         zoomLevel = calcZoomLevel(canvas);
 
         clipBox.set(myViewBox);
-        clipBox.scale(1.1);
-
+        clipBox.scale(5);
+int height2 = canvas.getHeight()/2;
+int width2 = canvas.getWidth()/2;
         // Draw our Overlays.
         canvas.getClipBounds(canvasBounds);
-
+    
+        canvas.rotate(-45, width2, height2);
         synchronized (mLayers) {
             // use a copy here, avoids locking over a longer time
             // using a temp List avoids creating a new object
@@ -684,7 +686,7 @@ public class Map extends View implements IMapView {
         if (showCrosshairs && logic.isInEditZoomRange()) {
             paintCrosshairs(canvas);
         }
-
+        canvas.rotate(45, width2, height2);
         if (imageryAlignMode) {
             paintZoomAndOffset(canvas);
         }
