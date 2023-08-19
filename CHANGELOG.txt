@@ -1,5 +1,24 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+19.2.0-1:
+
+- Fix improved parsing of reference pressure values
+- Fix protect against invalid min - max zoom values
+- Fix protect against (undocumented) NPE in Class.forName
+- Fix missing pending upload badge on Android 5 and 6
+- Fix avoid EGM file being deleted by the DownloadManager after a while
+- Fix update ElementHistory dependency, fixes crash on restore
+- Fix issue when building multi-polygons from a selection that could cause the last member not to be added
+- Fix reset member element styling when a relation edit is undone
+- Fix correctness fix preset search results
+- Update migrate to Android 13s per app locale support
+- Update to AGP 8.1 and appcompat 1.6.1
+- Update to Java 17 for building
+- Update to target API 33
+- Update imagery from ELI
+- Update preset
+- Update translations
+
 19.1.0:
 
 - Fix completely remove MAXAR imagery
