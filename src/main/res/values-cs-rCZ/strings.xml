@@ -8,6 +8,7 @@
   <string name="mode_address">Adresa</string>
   <string name="mode_voice">Hlas</string>
   <!--additional short cuts-->
+  <string name="shortcut_safe">Bezpečné</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Varování!</string>
   <string name="transfer_download_current_dialog_message">Provedli jste změny. Nechcete je nahrát namísto jejich zahození?</string>
@@ -79,6 +80,7 @@
   <string name="progress_title">Načítám</string>
   <string name="progress_message">Načítam data do paměti…</string>
   <string name="progress_download_message">Stahuji data ze serveru…</string>
+  <string name="progress_download_tasks_message">Stahování úkolů se serverů...</string>
   <string name="progress_general_title">Čekejte prosím</string>
   <string name="progress_deleting_message">Mazání...</string>
   <string name="progress_searching_message">Prohledávání…</string>
@@ -134,6 +136,9 @@
   <string name="openstreetbug_commit_fail_with_message">Nelze uložit změny úlohy\n%1$s</string>
   <string name="openstreetbug_unknown_task_type">Neznámý typ úlohy</string>
   <string name="openstreetbug_not_supported">%1$s není podporována.</string>
+  <string name="note_description">%1$s - %2$s</string>
+  <string name="bug_description_191">%1$s - %2$s</string>
+  <string name="bug_description_2_191">%1$s %2$s - %3$s</string>
   <string name="generic_bug">Chyba</string>
   <string name="osmose_bug">Osmose</string>
   <string name="todo_title">Úkol</string>
@@ -203,6 +208,7 @@
   <string name="search_objects_hint">Zadejte výraz filtru / vyhledávání JOSM</string>
   <string name="search_objects_use_regexps">Použít regulární výrazy</string>
   <string name="search_objects_unsupported">Nepodporovaný výraz  \"%1$s\"</string>
+  <string name="search_objects_query_overpass">Dotaz overpass</string>
   <!---->
   <string name="preset_search_hint">Vyhledávací řetězec předvoleb</string>
   <string name="preset_autopreset">Auto-předvolby</string>
@@ -245,6 +251,8 @@
   <!--Tile layer info dialog-->
   <string name="attribution">Uvedení autora</string>
   <!--GPX info dialog-->
+  <string name="track_points">Body trasy</string>
+  <string name="way_points">Body cesty</string>
   <!--Too much data dialog-->
   <string name="too_much_data_title">Načteno příliš mnoho dat!</string>
   <string name="too_much_data_message">Máte načtené %1$d uzly a překročili jste nastavený limit. To povede ke zpomalení, a pokud přidáte další data, k potenciálním problémům s uložením stavu.</string>
@@ -285,8 +293,18 @@
   <string name="evaluate">Spustit</string>
   <string name="js_console_msg_live">Ostrý režim!</string>
   <string name="js_console_msg_debug">Režim ladění!</string>
+  <string name="console_input_hint">Sem zadejte kód</string>
   <string name="console_output_hint">Zde se objeví výstup</string>
+  <string name="save_code">Uložit kód…</string>
+  <string name="load_code">Načíst kód…</string>
+  <string name="share_code">Sdílet kód…</string>
   <!--Overpass console-->
+  <string name="run">Spustit</string>
+  <string name="overpass_result">Staženo %1$d bod(ů), %2$d cest(a) a %3$d relace(í).</string>
+  <string name="overpass_console">Konzole Overpass</string>
+  <string name="select_result">Vybrat výsledek</string>
+  <string name="merge_result">Spojit výsledek</string>
+  <string name="overpass_query_would_overwrite">Výsledek by měl přepsat změny! Dotaz přerušen.</string>
   <!---->
   <string name="error">Chyba</string>
   <string name="warning">Varování</string>
@@ -377,6 +395,7 @@
   <string name="layer_load_style">Načíst styl…</string>
   <string name="layer_reset_style">Obnovit styl</string>
   <string name="layer_select_imagery">Zvolit snímky…</string>
+  <string name="layer_test">Test…</string>
   <string name="layer_category_all">Vše</string>
   <string name="layer_category_photo">Letecké snímky</string>
   <string name="layer_category_elevation">Terén</string>
@@ -410,6 +429,7 @@
   <string name="layer_info_layer_not_available">Informace o vrstvě nejsou dostupné</string>
   <string name="layer_info_no_meta_data">Meta data nejsou načtena</string>
   <!--Mapillary layer-->
+  <string name="mapillary_image">%1$s</string>
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Smazat fotku</string>
   <string name="photo_viewer_delete_button">Trvale smazat</string>
@@ -452,6 +472,7 @@
   <!--Clear/Reset GPX Track-->
   <string name="clear_track_description">Zastaví záznam a smaže body trasy. Akci nelze vrátit zpět.</string>
   <!--Measurement dialog-->
+  <string name="measure">Změřit</string>
   <!--Tips-->
   <string name="tip_title">Věděli jste?</string>
   <string name="tip_check_label">Přestat zobrazovat volitelné tipy</string>
@@ -593,6 +614,8 @@
   <string name="toast_invalid_object">Neplatný objekt</string>
   <string name="toast_openinghours_invalid">Neplatná hodnota otevírací doby pro %1$s</string>
   <string name="toast_openinghours_autocorrected">Hodnota otevírací doby pro %1$s automaticky opravena</string>
+  <string name="toast_exit_multiselect">Pro ukončení vícenásobného výběru klepněte dvakrát na prázdné místo nebo použijte šipku ←</string>
+  <string name="toast_already_in_multiselect">Již v režimu vícenásobného výběru</string>
   <string name="toast_abort_actionmode">Pro zrušení použijte šipku ←</string>
   <string name="toast_null_island">Prosím nepřidávejte prvky na 0°/0° (Null Island)</string>
   <string name="toast_string_too_long">Příliš dlouhý řetězec (%1$d znaků), zkrácen!</string>
@@ -664,6 +687,7 @@
   <string name="toast_error_saving_bookmark">Záložku nelze uložit</string>
   <string name="toast_error_loading_style">Nelze načíst styl: %1$s</string>
   <string name="toast_only_one_source_supported">Podporován pouze jeden zdroj na styl</string>
+  <string name="toast_style_file_too_large">Poskytnutý soubor stylu je příliš velký a pravděpodobně nejde o styl Mapbox-GL.</string>
   <string name="toast_imagery_offset_download_failed">Stažení odsazení se nezdařilo: %1$s</string>
   <string name="toast_download_server_version_failed">Stažení verze serveru se nezdařilo pro %1$s</string>
   <string name="toast_error_element_too_large">Prvek je pro editor vlastností příliš velký</string>
@@ -676,6 +700,10 @@
   <string name="toast_unexpected_element">Kliknuto na neočekávaný prvek:\n%1$s</string>
   <string name="toast_import_destination_exists">Cíl importu již existuje</string>
   <string name="toast_part_selection_not_supported">Část cesty nepodporuje uzavřené cesty</string>
+  <string name="toast_element_has_been_deleted">Prvek byl smazán</string>
+  <string name="toast_updating_tags">Aktualizace tagů…</string>
+  <string name="toast_updating_parents">Aktualizace nadřazených…</string>
+  <string name="toast_updating_members">Aktualizace členů…</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">Zdroje MapSplit musí mít nastaveno minimální a maximální zvětšení</string>
   <string name="error_pbf_no_version">V souboru PBF chybí informace o verzi</string>
@@ -849,6 +877,7 @@
   <string name="menu_set_position">Poloha</string>
   <string name="menu_split">Rozdělit</string>
   <string name="menu_remove_node_from_way">Odebrat uzel z cesty</string>
+  <string name="menu_start_end_way">Začátek/Konec cesty</string>
   <string name="menu_extract">Odpojit uzel</string>
   <string name="menu_append">Přidat</string>
   <string name="menu_create_route">Vytvořit trasu</string>
@@ -887,6 +916,7 @@
   <string name="menu_transfer_download_replace">Přepsat stažené aktuálním pohledem</string>
   <string name="menu_transfer_load_current">Načíst aktuální zobrazení</string>
   <string name="menu_transfer_load_replace">Vymazat a načíst aktuální zobrazení</string>
+  <string name="menu_transfer_query_overpass">Dotaz Overpass…</string>
   <string name="menu_transfer_upload">Nahrát data na server OSM…</string>
   <string name="menu_transfer_review">Zkontrolovat změny…</string>
   <string name="menu_transfer_update">Aktualizovat data</string>
@@ -944,6 +974,7 @@
   <string name="menu_tools_add_imagery_from_oam">Přidat snímky z OAM</string>
   <string name="menu_tools_flush_all_tile_caches">Vyčistit veškerou mezipaměť dlaždic</string>
   <string name="menu_tools_background_properties">Vlastnosti pozadí…</string>
+  <string name="menu_tools_update_imagery_configuration">Aktualizovat konfiguraci z JOSM</string>
   <string name="menu_tools_update_imagery_configuration_eli">Aktualizovat konfiguraci z ELI</string>
   <string name="menu_tools_zoom_to_layer_extent">Přiblížit na rozsah pozadí</string>
   <string name="menu_tools_clear_clipboard">Vyčistit schránku</string>
@@ -958,10 +989,12 @@
   <string name="menu_preset_feedback">Zpětná vazba k předvolbám</string>
   <string name="menu_privacy">Soukromí</string>
   <!--Background alignment-->
+  <string name="menu_tools_background_align">Zarovnat snímky</string>
   <string name="menu_tools_background_align_reset">Reset</string>
   <string name="menu_tools_background_align_zero">Nula</string>
   <string name="menu_tools_background_align_retrieve_from_db">Z databáze</string>
   <string name="menu_tools_background_align_retrieve_from_device">Ze zařízení</string>
+  <string name="menu_tools_background_align_save_db">Uložit do databáze…</string>
   <string name="menu_tools_background_align_save_device">Uložit do zařízení</string>
   <string name="menu_tools_background_align_apply2all">Použít (všechna přiblížení)</string>
   <string name="min_max_zoom">%1$d - %2$d</string>
@@ -976,7 +1009,9 @@
   <string name="menu_layers_add_grid">Povolit mřížku</string>
   <string name="menu_layers_add_photolayer">Povolit fotovrstvu</string>
   <string name="menu_layers_enable_mapillary_layer">Povolit vrstvu Mapillary</string>
+  <string name="menu_layers_enable_bookmarkslayer">Povolit vrstvu záložek</string>
   <string name="menu_layers_configure">Nastavit…</string>
+  <string name="menu_layers_background_align">Zarovnat snímky…</string>
   <!---->
   <string name="menu_tools_apply_local_offset">Použít uložený ofset na snímky</string>
   <string name="menu_tools_background_contrast">Kontrast</string>
@@ -989,8 +1024,10 @@
   <!--element action mode menu-->
   <string name="menu_tags">Vlastnosti</string>
   <!--ELement entry in context menu-->
+  <string name="element_for_menu">%1$s</string>
   <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
   <!--Text should be as short as possible-->
+  <string name="start_end_way_description">Přejít na začátek nebo konec cesty</string>
   <string name="menu_history">Historie</string>
   <string name="menu_history_web">Historie (webové stránky)</string>
   <string name="menu_merge">Spojit cesty</string>
@@ -1117,6 +1154,8 @@
   <string name="config_showWayIcons_summary">Ukázat ikonku nejlépe odpovídající předvolbě budovy.</string>
   <string name="config_tagFormEnabled_title">Zobrazit formulář tagů</string>
   <string name="config_tagFormEnabled_summary">Pro úpravu tagů zobrazí formulář.</string>
+  <string name="config_supportPresetLabels_title">Zobrazit štítky předvoleb</string>
+  <string name="configsupportPresetLabels_summary">Zobrazovat štítky předvoleb ve formuláři tagů editoru.</string>
   <string name="config_showCameraAction_title">Zobrazit tlačítko fotoaparátu</string>
   <string name="config_showCameraAction_summary">Zobrazit ikonu fotoaparátu na liště nástrojů.</string>
   <string name="config_selectCameraApp_title">Aplikace kamery</string>
@@ -1142,11 +1181,12 @@
   <string name="config_use_back_for_undo_title">Tlačítkem ← vracet změny</string>
   <string name="config_use_back_for_undo_summary">Použít tlačítko ← pro vracení úprav v hlavním okně</string>
   <string name="config_theme_title">Motiv</string>
+  <string name="config_theme_summary">Vyberte vzhled aplikace.</string>
   <string name="config_splitActionBarEnabled_title">Povolit rozdělení lišty nástrojů</string>
-  <string name="config_disableTranslations_title">Vypnout překlady</string>
-  <string name="config_disableTranslations_summary">Použít uživatelské rozhraní v angličtině</string>
+  <string name="config_splitActionBarEnabled_summary">Zobrazit tlačítka nabídky ve spodní části obrazovky. Vyžaduje opětovné spuštění a Android 4.0 či novější.</string>
   <string name="config_maxInlineValues_title">Max. počet vložených hodnot</string>
   <string name="config_maxInlineValues_summary">Maximální počet vložených hodnot zobrazených ve formuláři značky.</string>
+  <string name="config_maxInlineValues_current">%1$d hodnoty</string>
   <string name="config_autoLockDelay_title">Časový limit automatického uzamčení</string>
   <string name="config_autoLockDelay_summary">Počet sekund před automatickým uzamčením, 0 = deaktivováno.</string>
   <string name="config_autoLockDelay_current">%1$d s</string>
@@ -1157,7 +1197,11 @@
   <string name="config_maxStrokeWidth_title">Max. tloušťka čáry</string>
   <string name="config_maxStrokeWidth_summary">Nekreslit tlustší cestu než tuto.</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>
+  <string name="config_uploadOk_title">OK limit čekajících na nahrání</string>
+  <string name="config_uploadOk_summary">Pokud je počet čekajících objektů na nahrání pod tímto limitem, je situace považována za bezproblémovou.</string>
   <string name="config_upload_current">%1$d objekty</string>
+  <string name="config_uploadWarn_title">Varovný limit čekajících na nahrání</string>
+  <string name="config_uploadWarn_summary">Pokud je počet čekajících objektů na nahrání pod tímto limitem, bude mít stav varování. Počet čekajících na nahrání nad tento počet bude mít stav nebezpečí.</string>
   <string name="config_uploadChecker_title">Interval připomenutí nahrávání</string>
   <string name="config_uploadChecker_summary">Interval pro připomenutí, že máte neuložené změny.</string>
   <string name="config_uploadChecker_current">%1$d hodin</string>
@@ -1173,6 +1217,8 @@
   <string name="config_mapillary_min_zoom_current">%1$d</string>
   <string name="config_nameCap_summary">Automatické psaní velkých písmen jmenovek na vstupu</string>
   <string name="config_nameCap_title">Jméno velkými písmeny</string>
+  <string name="config_longStringLimit_title">Limit dlouhého řetězce</string>
+  <string name="config_longStringLimit_summary">Limit, ze kterého se má zobrazit modal pro úpravu textu v editoru vlastností</string>
   <string name="config_longStringLimit_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Nastavení dat a úprav</string>
@@ -1183,6 +1229,8 @@
   <string name="config_overrideRegionAddressTags_summary">Použijte naši konfiguraci značky adresy pro hodnoty specifické pro jakoukoli oblast</string>
   <string name="config_address_tags">Tagy pro adresu</string>
   <string name="config_address_tags_summary">Tagy používané k předvyplnění adresy.</string>
+  <string name="config_neighbourDistance_title">Rozdíl mezi sousedními adresami</string>
+  <string name="config_neighbourDistance_summary">Vzdálenost, do které jsou dvě adresy považovány za potenciální sousedy</string>
   <string name="config_neighbourDistance_current">%1$d m</string>
   <string name="config_enableNameSuggestions_title">Povolit návrhy názvu</string>
   <string name="config_enableNameSuggestions_summary">Zapnout návrhy pro tag s názvem.</string>
@@ -1212,6 +1260,8 @@
   <string name="config_maxOffsetDistance_title">Maximální vzdálenost pro uložené odsazení snímků</string>
   <string name="config_maxOffsetDistance_summary">Automaticky se použije nejvzdálenější vzdálenost lokálně uloženého posunu vrstvy.</string>
   <string name="config_maxOffsetDistance_current">%1$d m</string>
+  <string name="config_useImperialUnits_title">Použít k měření imperiální jednotky</string>
+  <string name="config_useImperialUnits_summary">Použít imperiální jednotky při měření v zemích, které je běžně používají.</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Nastavení automatického stahování</string>
   <string name="config_category_auto_download_summary">Nastavení automatického stahování dat a úkolů</string>
@@ -1273,6 +1323,8 @@
   <string name="config_geocoderbutton_summary">Přidat, upravit, smazat geokodéry pro funkci vyhledávání.</string>
   <string name="config_taginfoServer_title">Server Taginfo</string>
   <string name="config_taginfoServer_summary">Server Taginfo, který se má použít pro generování předvoleb</string>
+  <string name="config_overpassServer_title">Overpass server</string>
+  <string name="config_overpassServer_summary">Overpass server používaný pro dotazy</string>
   <!--Layer download and storage-->
   <string name="config_category_layers">Stahování a ukládání vrstev</string>
   <string name="config_category_layers_summary">Stahování a ukládání pozadí z dlaždic snímků.</string>
@@ -1301,6 +1353,8 @@
   <string name="config_autosaveChanges_current">%1$d</string>
   <string name="config_autosaveMaxFiles_title">Maximální počet souborů OSC k uchování</string>
   <string name="config_autosaveMaxFiles_current">%1$d</string>
+  <string name="config_gpxAutosaveInterval_title">Minimální interval ukládání GPX</string>
+  <string name="config_gpxAutosaveInterval_summary">Minimální interval v minutách mezi uloženími záznamů GPX.</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">Různé</string>
   <string name="pref_enable_acra">Hlásit pády aplikace</string>
@@ -1374,6 +1428,10 @@
   <!--element description-->
   <string name="address_housenumber">Adresa %1$s</string>
   <string name="address_housenumber_street">Adresa %1$s %2$s</string>
+  <string name="description_id">%1$s #%2$s</string>
+  <string name="description_type_id">%1$s %2$s #%3$s</string>
+  <string name="only_id">#%1$s</string>
+  <string name="type_id">%1$s #%2$s</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">Posunut uzel</string>
   <string name="undo_action_moveway">Posunuta cesta</string>
@@ -1497,6 +1555,8 @@
   <!--Help system-->
   <string name="toast_nohelp">Nápověda není k dispozici.</string>
   <!--Bookmarks-->
+  <string name="add_bookmark_title">Přidat žáložku</string>
+  <string name="edit_bookmark_title">Upravit záložku</string>
   <string name="bookmarks_desc">Název</string>
   <string name="show_bookmarks">Záložky…</string>
   <string name="_dots">⋮</string>
@@ -1513,4 +1573,20 @@
   <string name="way_id">cesta %1$d</string>
   <string name="relation_id">relace %1$d</string>
   <!--Tile downloader diagnostics-->
+  <string name="layer_diag_title">Diagnostika vrstev</string>
+  <string name="no_tile_header">Záhlaví \"Žádné dlaždice\" %1$s</string>
+  <string name="no_tile_mvt_tile">MVT dlaždice \"žádné dlaždice\" %1$s</string>
+  <string name="empty_tile">Prázdná dlaždice</string>
+  <string name="tile_error">Kód chyby dlaždic: %1$d\n\n%2$s</string>
+  <string name="tile_error_message">Zpráva chyby dlaždic:\n\n%1$s\n\n%2$s</string>
+  <string name="unexpected_tile_format">Neočekávaný formát\nURL: %1$s %2$s</string>
+  <string name="unexpected_tile_format_subtype">Neočekávaný formát podtypu %1$s\nURL: %2$s</string>
+  <string name="diagnostics_for_tile">Diagnostika pro %1$s</string>
+  <string name="tile_spec">přiblížení %1$d x %2$d y %3$d</string>
+  <string name="tile_input_error">Vstupní chyba dlaždice: %1$s\nURL: %2$s</string>
+  <string name="tile_data_received">Úspěšně přijato %1$d bajtů</string>
+  <string name="tile_mark_invalid">Označit dlaždici jako neplatnou</string>
+  <string name="tile_decoding_failed">Dekódování dlaždice selhalo</string>
+  <string name="tile_success">Úspěch</string>
+  <string name="tile_fail">Selhání</string>
 </resources>

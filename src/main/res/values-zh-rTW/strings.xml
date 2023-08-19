@@ -8,6 +8,7 @@
   <string name="mode_address">地址</string>
   <string name="mode_voice">語音</string>
   <!--additional short cuts-->
+  <string name="shortcut_safe">安全</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">注意！</string>
   <string name="transfer_download_current_dialog_message">您有做了變更。您是否想上傳而非放棄它們？ </string>
@@ -79,6 +80,7 @@
   <string name="progress_title">載入</string>
   <string name="progress_message">載入資料到記憶體中…</string>
   <string name="progress_download_message">正從伺服器下載資料…</string>
+  <string name="progress_download_tasks_message">從伺服器下載任務...</string>
   <string name="progress_general_title">請稍候</string>
   <string name="progress_deleting_message">正在刪除...</string>
   <string name="progress_searching_message">正在搜尋...</string>
@@ -131,6 +133,9 @@
   <string name="openstreetbug_commit_fail_with_message">無法儲存任務變動 %1$s</string>
   <string name="openstreetbug_unknown_task_type">不知名任務類型</string>
   <string name="openstreetbug_not_supported">並不支援 %1$s</string>
+  <string name="note_description">%1$s-%2$s</string>
+  <string name="bug_description_191">%1$s - %2$s</string>
+  <string name="bug_description_2_191">%1$s %2$s - %3$s</string>
   <string name="generic_bug">Bug</string>
   <string name="osmose_bug">Osmose</string>
   <string name="todo_title">待辦</string>
@@ -384,6 +389,7 @@
   <string name="layer_load_style">載入樣式…</string>
   <string name="layer_reset_style">重設樣式</string>
   <string name="layer_select_imagery">選擇影像…</string>
+  <string name="layer_test">測試...</string>
   <string name="layer_category_all">所有</string>
   <string name="layer_category_photo">空照影像</string>
   <string name="layer_category_elevation">地形</string>
@@ -417,6 +423,7 @@
   <string name="layer_info_layer_not_available">並沒有圖層資訊</string>
   <string name="layer_info_no_meta_data">沒有載入中繼資料</string>
   <!--Mapillary layer-->
+  <string name="mapillary_image">%1$s</string>
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">刪除圖片</string>
   <string name="photo_viewer_delete_button">永久刪除</string>
@@ -675,6 +682,10 @@
   <string name="toast_unexpected_element">未預期的元素檢查：\n%1$s</string>
   <string name="toast_import_destination_exists">匯入目的已經存在了</string>
   <string name="toast_part_selection_not_supported">封閉路徑的路徑部分選取功能並不支援</string>
+  <string name="toast_element_has_been_deleted">元素已經刪除了</string>
+  <string name="toast_updating_tags">更新標籤...</string>
+  <string name="toast_updating_parents">更新父元素…</string>
+  <string name="toast_updating_members">更新成員…</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">MapSplit 資源必須設定最小和最大</string>
   <string name="error_pbf_no_version">PBF 檔案缺少版本資訊</string>
@@ -946,6 +957,7 @@
   <string name="menu_tools_add_imagery_from_oam">從 OAM 增加影像</string>
   <string name="menu_tools_flush_all_tile_caches">更新所有圖磚暫存檔</string>
   <string name="menu_tools_background_properties">背景屬性…</string>
+  <string name="menu_tools_update_imagery_configuration">從 JOSM 更新設定</string>
   <string name="menu_tools_update_imagery_configuration_eli">從 ELI 更新設定</string>
   <string name="menu_tools_zoom_to_layer_extent">縮放到背景圖層範圍</string>
   <string name="menu_tools_clear_clipboard">清除剪貼簿</string>
@@ -980,6 +992,7 @@
   <string name="menu_layers_add_grid">啟用網格</string>
   <string name="menu_layers_add_photolayer">啟用照片圖層</string>
   <string name="menu_layers_enable_mapillary_layer">啟用 Mapillary 圖層</string>
+  <string name="menu_layers_enable_bookmarkslayer">啟用書籤圖層</string>
   <string name="menu_layers_configure">設定...</string>
   <string name="menu_layers_background_align">對齊影像...</string>
   <!---->
@@ -994,6 +1007,7 @@
   <!--element action mode menu-->
   <string name="menu_tags">屬性</string>
   <!--ELement entry in context menu-->
+  <string name="element_for_menu">%1$s</string>
   <string name="element_for_menu_with_parents">%1$s(%2$s)</string>
   <!--Text should be as short as possible-->
   <string name="start_end_way_description">到路徑開始會結束的地方</string>
@@ -1147,9 +1161,9 @@
   <string name="config_use_back_for_undo_title">用 ← 作取消復原</string>
   <string name="config_use_back_for_undo_summary">在主編輯檢視中，使用 ← 復原。</string>
   <string name="config_theme_title">主題</string>
+  <string name="config_theme_summary">選擇 app 樣式。</string>
   <string name="config_splitActionBarEnabled_title">啟用拆分動作列</string>
-  <string name="config_disableTranslations_title">關閉翻譯</string>
-  <string name="config_disableTranslations_summary">使用者界面用英文</string>
+  <string name="config_splitActionBarEnabled_summary">顯示螢幕下面的選單按鈕。需要再次啟動 Vespucci，而且還要 Android 4.0 之後的版本。</string>
   <string name="config_maxInlineValues_title">最大內嵌數值</string>
   <string name="config_maxInlineValues_summary">最大內嵌數值顯示的標籤表格。</string>
   <string name="config_maxInlineValues_current">%1$d數值</string>
@@ -1183,6 +1197,8 @@
   <string name="config_mapillary_min_zoom_current">%1$d</string>
   <string name="config_nameCap_summary">輸入時自動大寫名稱標籤</string>
   <string name="config_nameCap_title">名稱大寫</string>
+  <string name="config_longStringLimit_title">長字串限制</string>
+  <string name="config_longStringLimit_summary">在屬性編輯器中顯示編輯文字模式的限制</string>
   <string name="config_longStringLimit_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">資料和編輯設定</string>
@@ -1392,6 +1408,10 @@
   <!--element description-->
   <string name="address_housenumber">地址 %1$s</string>
   <string name="address_housenumber_street">地址 %1$s%2$s</string>
+  <string name="description_id">%1$s #%2$s</string>
+  <string name="description_type_id">%1$s %2$s #%3$s</string>
+  <string name="only_id">#%1$s</string>
+  <string name="type_id">%1$s #%2$s</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">節點已移動</string>
   <string name="undo_action_moveway">路徑已移動</string>
@@ -1497,6 +1517,8 @@
   <!--Help system-->
   <string name="toast_nohelp">這裡沒幫助。</string>
   <!--Bookmarks-->
+  <string name="add_bookmark_title">新增書籤</string>
+  <string name="edit_bookmark_title">編輯書籤</string>
   <string name="bookmarks_desc">名稱</string>
   <string name="show_bookmarks">書籤…</string>
   <string name="_dots">⋮</string>
@@ -1513,4 +1535,20 @@
   <string name="way_id">路徑 %1$d</string>
   <string name="relation_id">關聯 %1$d</string>
   <!--Tile downloader diagnostics-->
+  <string name="layer_diag_title">圖層診斷</string>
+  <string name="no_tile_header">\"沒有圖磚\"標頭%1$s</string>
+  <string name="no_tile_mvt_tile">MVT \"沒有圖磚\" 圖磚%1$s</string>
+  <string name="empty_tile">空白圖磚</string>
+  <string name="tile_error">圖磚錯誤代碼：%1$d\n\n%2$s</string>
+  <string name="tile_error_message">圖磚錯誤訊息：\n\n%1$s\n\n%2$s</string>
+  <string name="unexpected_tile_format">非預期格式\n網址：%1$s%2$s</string>
+  <string name="unexpected_tile_format_subtype">非預期格式的次類型%1$s\n 網址：%2$s</string>
+  <string name="diagnostics_for_tile">%1$s診斷</string>
+  <string name="tile_spec">縮放%1$dx%2$dy%3$d</string>
+  <string name="tile_input_error">圖磚輸入錯誤：%1$s\n網址：%2$s</string>
+  <string name="tile_data_received">成功接收%1$d位元</string>
+  <string name="tile_mark_invalid">標記圖磚已經無效</string>
+  <string name="tile_decoding_failed">圖磚解析失敗</string>
+  <string name="tile_success">成功</string>
+  <string name="tile_fail">失敗</string>
 </resources>

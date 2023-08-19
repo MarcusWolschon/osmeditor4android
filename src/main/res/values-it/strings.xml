@@ -79,6 +79,7 @@
   <string name="progress_title">Caricamento</string>
   <string name="progress_message">Caricamento dati in memoria…</string>
   <string name="progress_download_message">Scaricamento dati dal server…</string>
+  <string name="progress_download_tasks_message">Scaricamento dei compiti dai server…</string>
   <string name="progress_general_title">Attendi</string>
   <string name="progress_deleting_message">Sto eliminando...</string>
   <string name="progress_searching_message">Sto cercando...</string>
@@ -133,6 +134,9 @@
   <string name="openstreetbug_commit_fail_with_message">Impossibile salvare le modifiche dell\'attività\n%1$s</string>
   <string name="openstreetbug_unknown_task_type">Tipo di obiettivo sconosciuto</string>
   <string name="openstreetbug_not_supported">%1$s non supportato</string>
+  <string name="note_description">%1$s - %2$s</string>
+  <string name="bug_description_191">%1$s - %2$s</string>
+  <string name="bug_description_2_191">%1$s %2$s - %3$s</string>
   <string name="generic_bug">Bug</string>
   <string name="osmose_bug">Osmose</string>
   <string name="todo_title">Cose da fare</string>
@@ -201,6 +205,7 @@
   <string name="search_objects_hint">Inserisci un’espressione di ricerca JOSM</string>
   <string name="search_objects_use_regexps">Usa espressioni regolari</string>
   <string name="search_objects_unsupported">Espressione “%1$s” non supportata</string>
+  <string name="search_objects_query_overpass">Richiesta overpass</string>
   <!---->
   <string name="preset_search_hint">Testo di ricerca predefinito</string>
   <string name="preset_autopreset">Predefiniti automatici</string>
@@ -243,6 +248,7 @@
   <!--Tile layer info dialog-->
   <string name="attribution">Attribuzione</string>
   <!--GPX info dialog-->
+  <string name="track_points">Punti della traccia</string>
   <!--Too much data dialog-->
   <string name="too_much_data_title">Caricati troppi dati!</string>
   <string name="too_much_data_message">Hai caricato %1$d nodi e sei andato oltre il limite impostato. Questo causerà un rallentamento e, se carichi più dati, un potenziale problema con il salvataggio.</string>
@@ -282,8 +288,18 @@
   <string name="evaluate">Valuta</string>
   <string name="js_console_msg_live">Modalità live!</string>
   <string name="js_console_msg_debug">Modalità debug!</string>
+  <string name="console_input_hint">Inserisci qui il codice</string>
   <string name="console_output_hint">Il risultato apparirà qui</string>
+  <string name="save_code">Salva codice…</string>
+  <string name="load_code">Carica codice…</string>
+  <string name="share_code">Condividi codice…</string>
   <!--Overpass console-->
+  <string name="run">Esegui</string>
+  <string name="overpass_result">Scaricati %1$d nodo/i, %2$d percorso/i e %3$d relazione/i.</string>
+  <string name="overpass_console">Console overpass</string>
+  <string name="select_result">Seleziona risultato</string>
+  <string name="merge_result">Unisci risultato</string>
+  <string name="overpass_query_would_overwrite">Il risultato sovrascriverebbe le modifiche! Richiesta annullata.</string>
   <!---->
   <string name="error">Errore</string>
   <string name="warning">Attenzione</string>
@@ -374,6 +390,7 @@
   <string name="layer_load_style">Carica stile…</string>
   <string name="layer_reset_style">Reimposta stile</string>
   <string name="layer_select_imagery">Seleziona immagini…</string>
+  <string name="layer_test">Test…</string>
   <string name="layer_category_all">Tutti</string>
   <string name="layer_category_photo">Immagini aeree</string>
   <string name="layer_category_elevation">Terreno</string>
@@ -407,6 +424,7 @@
   <string name="layer_info_layer_not_available">Informazioni dello strato non disponibili</string>
   <string name="layer_info_no_meta_data">Meta-dati non caricati</string>
   <!--Mapillary layer-->
+  <string name="mapillary_image">%1$s</string>
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Cancella foto</string>
   <string name="photo_viewer_delete_button">Cancella definitivamente</string>
@@ -449,6 +467,7 @@
   <!--Clear/Reset GPX Track-->
   <string name="clear_track_description">Smetti di tracciare e cancella tutti i punti registrati. Questa azione non può essere annullata.</string>
   <!--Measurement dialog-->
+  <string name="measure">Misura</string>
   <!--Tips-->
   <string name="tip_title">Lo sapevi?</string>
   <string name="tip_check_label">Non mostrare più suggerimenti facoltativi</string>
@@ -459,6 +478,7 @@
   <string name="tip_longpress_simple_mode">In modalità semplice tenendo premuto non succederà niente. Disabilita la modalità semplice nel menù principale se vuoi tenere premuto per creare oggetti.</string>
   <string name="tip_gpx_no_elevation">A partire dalla versione 15, le tracce GPX inizialmente non contengono le informazioni di elevazione.&lt;p&gt;Per abilitare la registrazione dell’elevazione installa un modello di geoide con &lt;i&gt;Installa EGM&lt;/i&gt; dal menù Strumenti oppure commuta su input NMEA.</string>
   <string name="tip_tag_conflict">La fusione e l’inversione degli elementi OSM talvolta richiede la modifica di attributi su quegli elementi, in caso di un possibile errore o conflitto verrai avvisato e ti sarà offerta l’opportunità di verificare gli oggetti in questione.</string>
+  <string name="tip_auto_download">Quando comincia a scaricare dati OSM o compiti automaticamente, Vespucci utilizza i dati della posizione per determinare la posizione corrente anche quando l’app non è visibile.&lt;p&gt;L’accesso alla posizione in questi casi terminerà chiudendo esplicitamente l’app oppure disabilitando lo scaricamento automatico.</string>
   <string name="tip_alternative_tagging">È stata appena applicata una preimpostazione che contiene collegamenti alle etichette alternative. Cioè altri modi di etichettare questo oggetto che potrebbero essere più appropriati o semplicemente correlati. Queste preimpostazioni alternative vengono visualizzate in cima alla visualizzazione delle ultime preimpostazioni utilizzate.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
@@ -656,6 +676,9 @@
   <string name="toast_url_check">%1$s %2$d</string>
   <string name="toast_url_check_with_msg">%1$s %2$d %3$s</string>
   <string name="toast_import_destination_exists">La destinazione dell’importazione è già esistente</string>
+  <string name="toast_element_has_been_deleted">L’elemento è stato cancellato</string>
+  <string name="toast_updating_tags">Aggiornamento dei tag…</string>
+  <string name="toast_updating_members">Aggiornamento dei membri…</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">Le sorgenti MapSplit devono avere un valore di zoom massimo e minimo</string>
   <string name="error_pbf_no_version">Informazione sulla versione mancante nel file PBF</string>
@@ -830,6 +853,7 @@
   <string name="menu_set_position">Posizione</string>
   <string name="menu_split">Dividi</string>
   <string name="menu_remove_node_from_way">Rimuovi nodo dalla linea</string>
+  <string name="menu_start_end_way">Inizia/Termina percorso</string>
   <string name="menu_extract">Estrai nodo</string>
   <string name="menu_append">Aggiungi</string>
   <string name="menu_create_route">Crea ‘route’</string>
@@ -868,6 +892,7 @@
   <string name="menu_transfer_download_replace">Cancella e scarica vista corrente</string>
   <string name="menu_transfer_load_current">Carica la vista corrente</string>
   <string name="menu_transfer_load_replace">Cancella e carica vista corrente</string>
+  <string name="menu_transfer_query_overpass">Richiesta Overpass…</string>
   <string name="menu_transfer_upload">Carica dati sul server OSM…</string>
   <string name="menu_transfer_review">Controlla le modifiche…</string>
   <string name="menu_transfer_update">Aggiorna dati</string>
@@ -925,6 +950,7 @@
   <string name="menu_tools_add_imagery_from_oam">Aggiungi immagini da OAM</string>
   <string name="menu_tools_flush_all_tile_caches">Cancella la cache di tutti i livelli di immagini</string>
   <string name="menu_tools_background_properties">Proprietà dello sfondo…</string>
+  <string name="menu_tools_update_imagery_configuration">Aggiorna configurazione da JOSM</string>
   <string name="menu_tools_update_imagery_configuration_eli">Aggiorna configurazione da ELI</string>
   <string name="menu_tools_zoom_to_layer_extent">Ingrandisci sullo strato di sfondo</string>
   <string name="menu_tools_clear_clipboard">Cancella gli appunti</string>
@@ -939,10 +965,12 @@
   <string name="menu_preset_feedback">Invia un commento sul preset</string>
   <string name="menu_privacy">Privacy</string>
   <!--Background alignment-->
+  <string name="menu_tools_background_align">Allinea immagini</string>
   <string name="menu_tools_background_align_reset">Ripristina</string>
   <string name="menu_tools_background_align_zero">Azzera</string>
   <string name="menu_tools_background_align_retrieve_from_db">Dal database</string>
   <string name="menu_tools_background_align_retrieve_from_device">Dal dispositivo</string>
+  <string name="menu_tools_background_align_save_db">Salva su database…</string>
   <string name="menu_tools_background_align_save_device">Salva sul dispositivo</string>
   <string name="menu_tools_background_align_apply2all">Applica (tutti i livelli d\'ingrandimento)</string>
   <string name="min_max_zoom">%1$d - %2$d</string>
@@ -958,6 +986,7 @@
   <string name="menu_layers_add_photolayer">Abilita lo strato foto</string>
   <string name="menu_layers_enable_mapillary_layer">Abilita strato Mapillary</string>
   <string name="menu_layers_configure">Configura...</string>
+  <string name="menu_layers_background_align">Allinea immagini…</string>
   <!---->
   <string name="menu_tools_apply_local_offset">Applica lo scostamento memorizzato alle immagini</string>
   <string name="menu_tools_background_contrast">Contrasto</string>
@@ -970,8 +999,10 @@
   <!--element action mode menu-->
   <string name="menu_tags">Proprietà</string>
   <!--ELement entry in context menu-->
+  <string name="element_for_menu">%1$s</string>
   <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
   <!--Text should be as short as possible-->
+  <string name="start_end_way_description">Vai all’inizio o alla fine del percorso</string>
   <string name="menu_history">Cronologia</string>
   <string name="menu_history_web">Cronologia (web)</string>
   <string name="menu_merge">Unisci</string>
@@ -1097,6 +1128,7 @@
   <string name="config_showWayIcons_summary">Mostra le icone dei predefiniti più simili sopra gli edifici</string>
   <string name="config_tagFormEnabled_title">Mostra la scheda delle etichette</string>
   <string name="config_tagFormEnabled_summary">Mostra la scheda delle etichette per la modifica.</string>
+  <string name="config_supportPresetLabels_title">Mostra etichette dalle preimpostazioni</string>
   <string name="config_showCameraAction_title">Mostra la videocamera</string>
   <string name="config_showCameraAction_summary">Mostra l’icona della telecamera nella barra delle azioni.</string>
   <string name="config_selectCameraApp_title">App per la telecamera</string>
@@ -1122,11 +1154,11 @@
   <string name="config_use_back_for_undo_title">Usa il tasto ← per annullare</string>
   <string name="config_use_back_for_undo_summary">Utilizza il tasto ← per annullare nella vista principale.</string>
   <string name="config_theme_title">Tema</string>
+  <string name="config_theme_summary">Seleziona lo stile dell’app.</string>
   <string name="config_splitActionBarEnabled_title">Abilita la split action bar</string>
-  <string name="config_disableTranslations_title">Disabilita traduzioni</string>
-  <string name="config_disableTranslations_summary">Mostra l\'interfaccia grafica in inglese</string>
   <string name="config_maxInlineValues_title">Numero massimo di valori in linea</string>
   <string name="config_maxInlineValues_summary">Numero massimo di valori in linea visualizzati nella scheda delle etichette.</string>
+  <string name="config_maxInlineValues_current">%1$d valori</string>
   <string name="config_autoLockDelay_title">Intervallo oltre il quale attivare il blocco automatico</string>
   <string name="config_autoLockDelay_summary">Numero di secondi da aspettare prima del blocco automatico, 0 per disabilitare.</string>
   <string name="config_autoLockDelay_current">%1$d s</string>
@@ -1253,6 +1285,8 @@
   <string name="config_geocoderbutton_summary">Aggiungi, modifica, cancella i ‘geocoder’ per la funzione di ricerca.</string>
   <string name="config_taginfoServer_title">Server Taginfo</string>
   <string name="config_taginfoServer_summary">Server Taginfo per la generazione dei predefiniti</string>
+  <string name="config_overpassServer_title">Server Overpass</string>
+  <string name="config_overpassServer_summary">Il server Overpass usato per le richieste</string>
   <!--Layer download and storage-->
   <string name="config_category_layers">Scarico e salvataggio degli strati</string>
   <string name="config_category_layers_summary">Scaricamento e stoccaggio delle immagini di sfondo con tasselli</string>
@@ -1281,6 +1315,8 @@
   <string name="config_autosaveChanges_current">%1$d</string>
   <string name="config_autosaveMaxFiles_title">Numero massimo di documenti OSC da conservare</string>
   <string name="config_autosaveMaxFiles_current">%1$d</string>
+  <string name="config_gpxAutosaveInterval_title">Intervallo minimo per il salvataggio GPX</string>
+  <string name="config_gpxAutosaveInterval_summary">Intervallo minimo in minuti tra un salvataggio e l’altro delle registrazioni GPX.</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">Varie</string>
   <string name="pref_enable_acra">Segnala crash dell\'applicazione</string>
@@ -1354,6 +1390,10 @@
   <!--element description-->
   <string name="address_housenumber">Indirizzo %1$s</string>
   <string name="address_housenumber_street">Indirizzo %1$s %2$s</string>
+  <string name="description_id">%1$s #%2$s</string>
+  <string name="description_type_id">%1$s %2$s #%3$s</string>
+  <string name="only_id">#%1$s</string>
+  <string name="type_id">%1$s #%2$s</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">Spostato nodo</string>
   <string name="undo_action_moveway">Spostata linea</string>
@@ -1487,4 +1527,8 @@
   <string name="way_id">via %1$d</string>
   <string name="relation_id">relazione %1$d</string>
   <!--Tile downloader diagnostics-->
+  <string name="empty_tile">Mattonella vuota</string>
+  <string name="tile_error">Codice di errore della mattonella: %1$d\n\n%2$s</string>
+  <string name="tile_success">Successo</string>
+  <string name="tile_fail">Fallimento</string>
 </resources>

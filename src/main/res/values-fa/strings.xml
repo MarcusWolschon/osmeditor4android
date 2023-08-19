@@ -8,6 +8,7 @@
   <string name="mode_address">نشانی</string>
   <string name="mode_voice">صدا</string>
   <!--additional short cuts-->
+  <string name="shortcut_safe">بی‌خطر</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">احتیاط! </string>
   <string name="transfer_download_current_dialog_message">تغییراتی انجام داده‌اید. می‌خواهید به‌جای دورریختن، آن‌ها را بارگذاری کنید؟ </string>
@@ -79,6 +80,7 @@
   <string name="progress_title">در حال بارکردن</string>
   <string name="progress_message">در حال بارکردن داده‌ها در حافظه…</string>
   <string name="progress_download_message">در حال بارگیری داده‌ها از سرور…</string>
+  <string name="progress_download_tasks_message">درحال‌بارگیری وظایف از سرورها…</string>
   <string name="progress_general_title">لطفاً صبر کنید</string>
   <string name="progress_deleting_message">در حال حذف…</string>
   <string name="progress_searching_message">در حال جستجو… </string>
@@ -132,6 +134,9 @@
   <string name="openstreetbug_commit_fail_with_message">ذخیره‌سازی تغییرات وظیفه ناموفق بود\n%1$s</string>
   <string name="openstreetbug_unknown_task_type">نوع ناشناخته از وظیفه</string>
   <string name="openstreetbug_not_supported">‏‏%1$s پشتیبانی نمی‌شود.</string>
+  <string name="note_description">%1$s - %2$s</string>
+  <string name="bug_description_191">%1$s - %2$s</string>
+  <string name="bug_description_2_191">%1$s %2$s - %3$s</string>
   <string name="generic_bug">باگ</string>
   <string name="osmose_bug">Osmose</string>
   <string name="todo_title">انجام دادن</string>
@@ -386,6 +391,7 @@
   <string name="layer_load_style">سبک بارگذاری…</string>
   <string name="layer_reset_style">بازنشانی سبک</string>
   <string name="layer_select_imagery">انتخاب تصاویر…</string>
+  <string name="layer_test">آزمایش…</string>
   <string name="layer_category_all">همه</string>
   <string name="layer_category_photo">تصویر هوایی</string>
   <string name="layer_category_elevation">زمین</string>
@@ -419,6 +425,7 @@
   <string name="layer_info_layer_not_available">اطلاعات لایه در دسترس نیست</string>
   <string name="layer_info_no_meta_data">داده‌های متا بارگیری نشده است</string>
   <!--Mapillary layer-->
+  <string name="mapillary_image">%1$s</string>
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">حذف عکس</string>
   <string name="photo_viewer_delete_button">برای همیشه حذف شود</string>
@@ -681,6 +688,10 @@
   <string name="toast_unexpected_element">عنصر غیرمنتظره کلیک شد: \n%1$s</string>
   <string name="toast_import_destination_exists">مقصد واردات از قبل وجود دارد</string>
   <string name="toast_part_selection_not_supported">انتخاب قسمت راه برای راه‌های بسته پشتیبانی نمی‌شود</string>
+  <string name="toast_element_has_been_deleted">عنصر حذف شد</string>
+  <string name="toast_updating_tags">به‌روزرسانی برچسب‌ها…</string>
+  <string name="toast_updating_parents">به‌روزرسانی والدین…</string>
+  <string name="toast_updating_members">به‌روزرسانی اعضا…</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">برای منابع MapSplit باید زوم کمینه و بیشینه تنظیم شده باشد</string>
   <string name="error_pbf_no_version">پروندهٔ PBF اطلاعات نسخه ندارد</string>
@@ -951,6 +962,7 @@
   <string name="menu_tools_add_imagery_from_oam">افزودن تصویر از OAM</string>
   <string name="menu_tools_flush_all_tile_caches">پاک‌سازی همهٔ نهان‌گاه‌های کاشی</string>
   <string name="menu_tools_background_properties">خصوصیات پس‌زمینه...</string>
+  <string name="menu_tools_update_imagery_configuration">پیکربندی را از JOSM به‌روزرسانی کنید</string>
   <string name="menu_tools_update_imagery_configuration_eli">به‌روزرسانی پیکربندی از ELI</string>
   <string name="menu_tools_zoom_to_layer_extent">زوم به گسترهٔ لایهٔ پس‌زمینه</string>
   <string name="menu_tools_clear_clipboard">پاک‌سازی بریده‌دان</string>
@@ -985,6 +997,7 @@
   <string name="menu_layers_add_grid">فعال‌سازی شبکه</string>
   <string name="menu_layers_add_photolayer">فعال‌سازی لایهٔ عکس</string>
   <string name="menu_layers_enable_mapillary_layer">فعال‌سازی لایهٔ مپیلاری</string>
+  <string name="menu_layers_enable_bookmarkslayer">فعال‌کردن لایه نشانک</string>
   <string name="menu_layers_configure">پیکربندی...</string>
   <string name="menu_layers_background_align">ترازکردن تصاویر...</string>
   <!---->
@@ -999,6 +1012,7 @@
   <!--element action mode menu-->
   <string name="menu_tags">خصوصیات</string>
   <!--ELement entry in context menu-->
+  <string name="element_for_menu">%1$s</string>
   <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
   <!--Text should be as short as possible-->
   <string name="start_end_way_description">به ابتدای راه یا انتهای راه بروید</string>
@@ -1153,9 +1167,9 @@
   <string name="config_use_back_for_undo_title">استفاده از دکمهٔ عقب برای واگرد</string>
   <string name="config_use_back_for_undo_summary">در نمای اصلی ویرایش، برای برگرداندن ویرایش دکمهٔ عقب را بزنید.</string>
   <string name="config_theme_title">موضوع</string>
+  <string name="config_theme_summary">استایل برنامه را انتخاب کنید.</string>
   <string name="config_splitActionBarEnabled_title">فعال‌سازی نوار کنش دوبخشی</string>
-  <string name="config_disableTranslations_title">غیرفعال کردن ترجمه ها</string>
-  <string name="config_disableTranslations_summary">از زبان انگلیسی برای رابط کاربری استفاده کنید</string>
+  <string name="config_splitActionBarEnabled_summary">دکمه‌های منو را در پایین صفحه نمایش دهید. نیاز به راه‌اندازی مجدد وسپوچی و اندروید 4.0 یا بالاتر دارد.</string>
   <string name="config_maxInlineValues_title">بیشترین تعداد مقادیر درخط</string>
   <string name="config_maxInlineValues_summary">بیشترین تعداد مقادیر درون‌خط که در فرم برچسب نمایان باشد.</string>
   <string name="config_maxInlineValues_current">%1$d مقدار</string>
@@ -1189,6 +1203,8 @@
   <string name="config_mapillary_min_zoom_current">%1$d</string>
   <string name="config_nameCap_summary">بزرگ‌نویسی خودکار برچسب‌های نام در ورودی</string>
   <string name="config_nameCap_title">حروف بزرگ نام</string>
+  <string name="config_longStringLimit_title">محدودیت رشته طولانی</string>
+  <string name="config_longStringLimit_summary">محدودیتی که از آن برای نمایش یک مدال برای ویرایش متن در ویرایشگر ویژگی</string>
   <string name="config_longStringLimit_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">تنظیمات داده و ویرایش</string>
@@ -1398,6 +1414,10 @@
   <!--element description-->
   <string name="address_housenumber">نشانی %1$s</string>
   <string name="address_housenumber_street">نشانی %1$s %2$s</string>
+  <string name="description_id">%1$s #%2$s</string>
+  <string name="description_type_id">%1$s %2$s #%3$s</string>
+  <string name="only_id">#%1$s</string>
+  <string name="type_id">%1$s #%2$s</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">گره جابه‌جا شد</string>
   <string name="undo_action_moveway">راه جابه‌جا شد</string>
@@ -1509,6 +1529,8 @@
   <!--Help system-->
   <string name="toast_nohelp">این راهنما ندارد.</string>
   <!--Bookmarks-->
+  <string name="add_bookmark_title">اضافه‌کردن نشانه</string>
+  <string name="edit_bookmark_title">ویرایش نشانک</string>
   <string name="bookmarks_desc">نام</string>
   <string name="show_bookmarks">نشانک‌ها…</string>
   <string name="_dots">⋮</string>
@@ -1525,4 +1547,20 @@
   <string name="way_id">مسیر %1$d</string>
   <string name="relation_id">رابطه %1$d</string>
   <!--Tile downloader diagnostics-->
+  <string name="layer_diag_title">تشخیص لایه‌ها</string>
+  <string name="no_tile_header">سرصفحه \"بدون کاشی\" %1$s</string>
+  <string name="no_tile_mvt_tile">کاشی MVT \"بدون کاشی\" %1$s</string>
+  <string name="empty_tile">کاشی خالی</string>
+  <string name="tile_error">کد خطای کاشی: %1$d\n\n%2$s</string>
+  <string name="tile_error_message">پیام خطای کاشی:\n\n%1$s\n\n%2$s</string>
+  <string name="unexpected_tile_format">قالب غیرمنتظره\nURL: %1$s %2$s</string>
+  <string name="unexpected_tile_format_subtype">نوع فرعی قالب غیرمنتظره%1$s\nURL:%2$s</string>
+  <string name="diagnostics_for_tile">تشخیص برای %1$s</string>
+  <string name="tile_spec">زوم %1$dx%2$dy%3$d</string>
+  <string name="tile_input_error">خطای ورودی کاشی: %1$s\nURL:%2$s</string>
+  <string name="tile_data_received">با موفقیت دریافت شد %1$d bytes</string>
+  <string name="tile_mark_invalid">علامت‌گذاری کاشی به عنوان نامعتبر</string>
+  <string name="tile_decoding_failed">رمزگشایی کاشی انجام نشد</string>
+  <string name="tile_success">موفقیت</string>
+  <string name="tile_fail">شکست</string>
 </resources>

@@ -8,6 +8,7 @@
   <string name="mode_address">Adres</string>
   <string name="mode_voice">Stem</string>
   <!--additional short cuts-->
+  <string name="shortcut_safe">Veilig</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Let op!</string>
   <string name="transfer_download_current_dialog_message">Je hebt wijzigingen gemaakt. Wil je ze uploaden in plaats van verwerpen?</string>
@@ -79,6 +80,7 @@
   <string name="progress_title">Laden</string>
   <string name="progress_message">Gegevens in geheugen laden...</string>
   <string name="progress_download_message">Gegevens downloaden van server…</string>
+  <string name="progress_download_tasks_message">Taken downloaden van servers...</string>
   <string name="progress_general_title">Even geduld a.u.b.</string>
   <string name="progress_deleting_message">Verwijderen…</string>
   <string name="progress_searching_message">Zoeken…</string>
@@ -132,6 +134,9 @@
   <string name="openstreetbug_commit_fail_with_message">Kon taakwijzigingen niet opslaan\n%1$s</string>
   <string name="openstreetbug_unknown_task_type">Onbekend taaktype</string>
   <string name="openstreetbug_not_supported">%1$s is niet ondersteund.</string>
+  <string name="note_description">%1$s - %2$s</string>
+  <string name="bug_description_191">%1$s - %2$s</string>
+  <string name="bug_description_2_191">%1$s %2$s - %3$s</string>
   <string name="generic_bug">Bug</string>
   <string name="osmose_bug">Osmose</string>
   <string name="todo_title">Taak</string>
@@ -286,6 +291,9 @@
   <string name="js_console_msg_debug">Debug modus!</string>
   <string name="console_input_hint">Voer code hier in</string>
   <string name="console_output_hint">Output zal hier worden getoond</string>
+  <string name="save_code">Sla code op...</string>
+  <string name="load_code">Laad code...</string>
+  <string name="share_code">Deel code...</string>
   <!--Overpass console-->
   <string name="run">Rennen</string>
   <string name="overpass_result">%1$d knoop/knopen, %2$d weg/wegen en %3$d relatie(s) gedownload.</string>
@@ -383,6 +391,7 @@
   <string name="layer_load_style">Laat stijl...</string>
   <string name="layer_reset_style">Reset stijl</string>
   <string name="layer_select_imagery">Selecteer luchtfotografie...</string>
+  <string name="layer_test">Test...</string>
   <string name="layer_category_all">Alle</string>
   <string name="layer_category_photo">Luchtfoto\'s</string>
   <string name="layer_category_elevation">Terrein</string>
@@ -416,6 +425,7 @@
   <string name="layer_info_layer_not_available">Laaginformatie niet beschikbaar</string>
   <string name="layer_info_no_meta_data">Metagegevens niet geladen</string>
   <!--Mapillary layer-->
+  <string name="mapillary_image">%1$s</string>
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Verwijder foto</string>
   <string name="photo_viewer_delete_button">Permanent verwijderen</string>
@@ -678,6 +688,10 @@
   <string name="toast_unexpected_element">Onbekend element aangeklikt:\n%1$s</string>
   <string name="toast_import_destination_exists">Import doel bestaat al</string>
   <string name="toast_part_selection_not_supported">Selecteren van wegonderdelen niet ondersteund voor gesloten wegen.</string>
+  <string name="toast_element_has_been_deleted">Element is verwijderd</string>
+  <string name="toast_updating_tags">Tags updaten...</string>
+  <string name="toast_updating_parents">Bovenliggende elementen updaten...</string>
+  <string name="toast_updating_members">Onderdelen updaten...</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">MapSplit bronnen moeten minimum en maximum zoom hebben gezet</string>
   <string name="error_pbf_no_version">Versie-informatie ontbreekt in PBF bestand</string>
@@ -948,6 +962,7 @@
   <string name="menu_tools_add_imagery_from_oam">Voeg luchtfotografie toe van OAM</string>
   <string name="menu_tools_flush_all_tile_caches">Leeg alle tegelopslag</string>
   <string name="menu_tools_background_properties">Achtergrondeigenschappen...</string>
+  <string name="menu_tools_update_imagery_configuration">Update configuratie vanuit JOSM</string>
   <string name="menu_tools_update_imagery_configuration_eli">Update configuratie van ELI</string>
   <string name="menu_tools_zoom_to_layer_extent">Zoom naar achtergrondlaag bereik</string>
   <string name="menu_tools_clear_clipboard">Leeg klembord</string>
@@ -982,6 +997,7 @@
   <string name="menu_layers_add_grid">Zet raster aan</string>
   <string name="menu_layers_add_photolayer">Zet fotolaag aan</string>
   <string name="menu_layers_enable_mapillary_layer">Zet Mapillary-laag aan</string>
+  <string name="menu_layers_enable_bookmarkslayer">Zet bladwijzerlaag aan</string>
   <string name="menu_layers_configure">Configureer...</string>
   <string name="menu_layers_background_align">Luchtfoto\'s uitlijnen...</string>
   <!---->
@@ -996,6 +1012,7 @@
   <!--element action mode menu-->
   <string name="menu_tags">Eigenschappen</string>
   <!--ELement entry in context menu-->
+  <string name="element_for_menu">%1$s</string>
   <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
   <!--Text should be as short as possible-->
   <string name="start_end_way_description">Naar Begin of Eind van Weg</string>
@@ -1150,9 +1167,9 @@
   <string name="config_use_back_for_undo_title">Gebruik ← toets om ongedaan te maken</string>
   <string name="config_use_back_for_undo_summary">Gebruik ← toets om ongedaan te maken in hoofdwijzigscherm.</string>
   <string name="config_theme_title">Thema</string>
+  <string name="config_theme_summary">Selecteer app vormgeving.</string>
   <string name="config_splitActionBarEnabled_title">Zet gesplitste actiebalk aan</string>
-  <string name="config_disableTranslations_title">Vertalingen uitzetten</string>
-  <string name="config_disableTranslations_summary">Gebruik Engels voor de gebruikersinterface </string>
+  <string name="config_splitActionBarEnabled_summary">Toon de menuknoppen aan de onderkant van het scherm. Vereist herstarten van Vespucci, en Android 4.0 of nieuwer.</string>
   <string name="config_maxInlineValues_title">Max. aantal waarden op een regel</string>
   <string name="config_maxInlineValues_summary">Maximaal aantal waarden dat op een regel in een tag formulier wordt getoond.</string>
   <string name="config_maxInlineValues_current">%1$d waarden</string>
@@ -1186,6 +1203,8 @@
   <string name="config_mapillary_min_zoom_current">%1$d</string>
   <string name="config_nameCap_summary">Automatische kapitalisatie van naam-tags bij invoer.</string>
   <string name="config_nameCap_title">Naam kapitalisatie</string>
+  <string name="config_longStringLimit_title">Lange tekst limiet</string>
+  <string name="config_longStringLimit_summary">Limiet vanaf waar een modaal wordt geopend om tekst te wijzigen in de eigenschappen editor.</string>
   <string name="config_longStringLimit_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Gegevens en wijzigen instellingen</string>
@@ -1395,6 +1414,10 @@
   <!--element description-->
   <string name="address_housenumber">Adres %1$s</string>
   <string name="address_housenumber_street">Adres %1$s %2$s</string>
+  <string name="description_id">%1$s #%2$s</string>
+  <string name="description_type_id">%1$s %2$s #%3$s</string>
+  <string name="only_id">#%1$s</string>
+  <string name="type_id">%1$s #%2$s</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">Knoop verplaatst</string>
   <string name="undo_action_moveway">Weg verplaatst</string>
@@ -1506,6 +1529,8 @@
   <!--Help system-->
   <string name="toast_nohelp">Geen help hier.</string>
   <!--Bookmarks-->
+  <string name="add_bookmark_title">Voeg bladwijzer toe</string>
+  <string name="edit_bookmark_title">Wijzig bladwijzer</string>
   <string name="bookmarks_desc">Naam</string>
   <string name="show_bookmarks">Bladwijzers…</string>
   <string name="_dots">⋮</string>
@@ -1522,4 +1547,20 @@
   <string name="way_id">weg %1$d</string>
   <string name="relation_id">relatie %1$d</string>
   <!--Tile downloader diagnostics-->
+  <string name="layer_diag_title">Lagen diagnostiek</string>
+  <string name="no_tile_header">\"Geen tegel\" titel %1$s</string>
+  <string name="no_tile_mvt_tile">MVT \"geen tegel\" tegel %1$s</string>
+  <string name="empty_tile">Lege tegel</string>
+  <string name="tile_error">Tegel foutcode: %1$d\n\n%2$s</string>
+  <string name="tile_error_message">Tegel foutbericht:\n\n%1$s\n\n%2$s</string>
+  <string name="unexpected_tile_format">Onverwacht formaat\nURL:%1$s %2$s</string>
+  <string name="unexpected_tile_format_subtype">Onverwacht format subtype %1$s\nURL: %2$s</string>
+  <string name="diagnostics_for_tile">Diagnostiek voor %1$s</string>
+  <string name="tile_spec">zoom %1$d x %2$d y %3$d</string>
+  <string name="tile_input_error">Tegel invoerfout: %1$s\nURL: %2$s</string>
+  <string name="tile_data_received">Succesvol %1$d bytes ontvangen</string>
+  <string name="tile_mark_invalid">Tegel als ongeldig gemarkeerd</string>
+  <string name="tile_decoding_failed">Tegel decoderen mislukt</string>
+  <string name="tile_success">Succes</string>
+  <string name="tile_fail">Mislukt</string>
 </resources>

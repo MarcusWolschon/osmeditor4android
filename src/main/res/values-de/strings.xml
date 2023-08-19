@@ -45,7 +45,7 @@
   <string name="required_feature_missing_message">Diese Funktion verwendet eine fehlende oder abgeschaltete Komponente.</string>
   <string name="go_to_openstreetmap">openstreetmap.org besuchen</string>
   <string name="data_conflict_title">Versionskonflikt</string>
-  <string name="data_conflict_message">Der Download enthält Daten, die mit den lokalen Änderungen nicht kompatibel sind. Bitte die Änderungen vor einem neuen Versuch hochladen.</string>
+  <string name="data_conflict_message">Der Download enthält Daten, die Ihren lokalen Änderungen widersprechen. Laden Sie vor einem neuen Versuch zunächst Ihre Daten hoch.</string>
   <string name="corrupted_data_title">Inkonsistente Daten</string>
   <string name="corrupted_data_message">Eine Dateninkonsistenz ist entdeckt worden. Bitte als erstes allfällige Änderungen hochladen und dann löschen und aktuelle Ansicht herunterladen ausführen.</string>
   <string name="invalid_bounding_box_title">Ungültiges Begrenzungsrechteck</string>
@@ -79,6 +79,7 @@
   <string name="progress_title">Laden</string>
   <string name="progress_message">Daten in den Speicher laden…</string>
   <string name="progress_download_message">Daten vom Server herunterladen…</string>
+  <string name="progress_download_tasks_message">Aufgaben vom Server herunterladen...</string>
   <string name="progress_general_title">Bitte warten</string>
   <string name="progress_deleting_message">Löschen…</string>
   <string name="progress_searching_message">Suchen…</string>
@@ -686,6 +687,9 @@
   <string name="toast_unexpected_element">Unerwartetes Element angeklickt:\n%1$s</string>
   <string name="toast_import_destination_exists">Datei ist bereits importiert</string>
   <string name="toast_part_selection_not_supported">Wegteil-Auswahl wird für geschlossene Wege nicht unterstützt</string>
+  <string name="toast_element_has_been_deleted">Element wurde gelöscht</string>
+  <string name="toast_updating_tags">Tags aktualisieren...</string>
+  <string name="toast_updating_members">Mitglieder aktualisieren...</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">Für MapSplit-Quellen müssen Zoomgrenzen festgelegt sein.</string>
   <string name="error_pbf_no_version">Versionsinformation fehlt in PBF-Datei</string>
@@ -956,6 +960,7 @@
   <string name="menu_tools_add_imagery_from_oam">Hintergrund von OAM hinzufügen</string>
   <string name="menu_tools_flush_all_tile_caches">Alle Tile-Caches leeren</string>
   <string name="menu_tools_background_properties">Hintergrundeigenschaften…</string>
+  <string name="menu_tools_update_imagery_configuration">Konfiguration aus JOSM aktualisieren</string>
   <string name="menu_tools_update_imagery_configuration_eli">Konfiguration von ELI aktualisieren</string>
   <string name="menu_tools_zoom_to_layer_extent">Auf Abdeckung des Hintergrunds zoomen</string>
   <string name="menu_tools_clear_clipboard">Zwischenablage löschen</string>
@@ -1081,7 +1086,7 @@
   <string name="simple_paste">Bildschirmposition antippen</string>
   <string name="menu_paste_multiple">Objekt mehrfach einfügen</string>
   <string name="simple_paste_multiple">Bildschirmposition antippen</string>
-  <string name="menu_snap">Objektfang</string>
+  <string name="menu_snap">Einrasten</string>
   <!--Preferences-->
   <string name="config_backgroundLayer_title">Kartenhintergrund</string>
   <string name="config_backgroundLayer_summary">Auswahl des Bildmaterials für den Hintergrund.</string>
@@ -1159,9 +1164,10 @@
   <string name="config_use_back_for_undo_title">\" ← \"-Taste für \"Rückgängig machen\"</string>
   <string name="config_use_back_for_undo_summary">\"Zurückpfeil\" in der Hauptansicht für \"Rückgängig machen\" verwenden</string>
   <string name="config_theme_title">Thema</string>
+  <string name="config_theme_summary">Aussehen der App auswählen</string>
   <string name="config_splitActionBarEnabled_title">Geteilte Action-Bar</string>
-  <string name="config_disableTranslations_title">Übersetzungen ausschalten</string>
-  <string name="config_disableTranslations_summary">Englisch für die Benutzerschnittstelle verwenden</string>
+  <string name="config_appLocale_title">App Sprache</string>
+  <string name="config_appLocale_summary">Eine andere Sprache als die Systemsprache verwenden.</string>
   <string name="config_maxInlineValues_title">Max. Anzahl direkt angezeigter Werte</string>
   <string name="config_maxInlineValues_summary">Höchstzahl der Werte, die im Eigenschaftsformular direkt angezeigt werden.</string>
   <string name="config_maxInlineValues_current">%1$d Werte</string>
@@ -1519,6 +1525,8 @@ in %1$d m %2$s</string>
   <!--Help system-->
   <string name="toast_nohelp">Keine Hilfe zu diesem Thema!</string>
   <!--Bookmarks-->
+  <string name="add_bookmark_title">Lesezeichen hinzufügen</string>
+  <string name="edit_bookmark_title">Lesezeichen bearbeiten</string>
   <string name="bookmarks_desc">Name</string>
   <string name="show_bookmarks">Lesezeichen…</string>
   <string name="_dots">⋮</string>
@@ -1535,4 +1543,8 @@ in %1$d m %2$s</string>
   <string name="way_id">Weg %1$d</string>
   <string name="relation_id">Relation %1$d</string>
   <!--Tile downloader diagnostics-->
+  <string name="empty_tile">Leere Kachel</string>
+  <string name="tile_error">Kachel-Fehlercode: %1$d\n\n%2$s</string>
+  <string name="tile_error_message">Kachel-Fehlermeldung:\n\n%1$s\n\n%2$s</string>
+  <string name="unexpected_tile_format">Unerwartetes Format\nURL:%1$s %2$s</string>
 </resources>

@@ -1157,8 +1157,6 @@
   <string name="config_use_back_for_undo_summary">استخدم مفتاح ← للتراجع في عرض التحرير الرئيسي.</string>
   <string name="config_theme_title">النمط</string>
   <string name="config_splitActionBarEnabled_title">تمكين تجزئة شريط الإجراءات</string>
-  <string name="config_disableTranslations_title">تعطيل الترجمات</string>
-  <string name="config_disableTranslations_summary">استخدم اللغة الإنجليزية كواجهة للتطبيق</string>
   <string name="config_maxInlineValues_title">الأعلى.  عدد القيم المضمنة</string>
   <string name="config_maxInlineValues_summary">الحد الأقصى لعدد القيم التي تظهر في نموذج الخصائص والوسوم.</string>
   <string name="config_autoLockDelay_title">وقت الانتظار قبل القفل التلقائي</string>

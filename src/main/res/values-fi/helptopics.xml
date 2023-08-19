@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="help_app_label">Ohjeet</string>
+    <string name="help_app_description">Vespuccin ohjeselain</string>
     <string name="help_title">Ohjeet: %1$s</string>
-    <string name="help_introduction">Johdanto</string>
+    <string name="help_introduction">Esittely</string>
     <string name="help_main">Pääkarttanäkymä</string>
     <string name="help_simple_actions">Perustoiminnot</string>
     <string name="help_addrelationmember">Relaatio valittu</string>
     <string name="help_multiselect">Monivalinta</string>
     <string name="help_longclick">Uuden kohteen luonti</string>
     <string name="help_nodeselection">Piste valittu</string>
+    <string name="help_pathcreation">Viivapisteiden lisääminen</string>
     <string name="help_relationselection">Relaatio valittu</string>
+    <string name='help_add_route_segmement'>Lisää pätkä reittiin</string>
     <string name="help_wayselection">Viiva valittu</string>
     <string name="help_aligningbackgroundiamgery">Ilmakuvien kohdistaminen</string>
     <string name="help_propertyeditor">Ominaisuusmuokkain</string>
@@ -25,6 +28,8 @@
     <string name="help_opening_hours">Aukioloajat</string>
     <string name="help_newnoteselection">Uuden huomion valinta</string>
     <string name="help_voice_commands">Äänikomennot</string>
+    <string name="help_add_route_segment">Lisätäänkö reittisegmentti?</string>
+    <string name="help_upgrade_191">19.1 Julkaisutiedot</string>
     <string name="help_upgrade_190">19.0 Julkaisutiedot</string>
     <string name="help_upgrade_181">18.1 Julkaisutiedot</string>
     <string name="help_upgrade_180">18.0 Julkaisutiedot</string>
@@ -78,6 +83,7 @@
         <item>@string/help_voice_commands</item>
         <item>@string/help_add_route_segment</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_191</item>
         <item>@string/help_upgrade_190</item>
         <item>@string/help_upgrade_181</item>
         <item>@string/help_upgrade_180</item>
@@ -132,6 +138,7 @@
         <item>New Note selected</item>
         <item>Voice commands</item>
         <item>Add route segment</item>
+        <item>19.2.0 Release notes</item>
         <item>19.1.0 Release notes</item>
         <item>19.0.0 Release notes</item>
         <item>18.1.0 Release notes</item>

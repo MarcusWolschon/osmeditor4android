@@ -197,6 +197,7 @@
   <string name="search_objects_hint">Saisissez une expression de recherche ou de filtre JOSM</string>
   <string name="search_objects_use_regexps">Utiliser des expressions régulières</string>
   <string name="search_objects_unsupported">Expression « %1$s » non prise en charge</string>
+  <string name="search_objects_query_overpass">Faire une requête overpass</string>
   <!---->
   <string name="preset_search_hint">Chaîne de recherche dans les modèles d’attributs</string>
   <string name="preset_autopreset">Modèle d\'attributs automatique</string>
@@ -267,6 +268,7 @@
   <string name="js_console_msg_debug">Mode débogage</string>
   <string name="console_output_hint">La sortie apparaîtra ici</string>
   <!--Overpass console-->
+  <string name="overpass_console">Console Overpass</string>
   <!---->
   <string name="error">Erreur</string>
   <string name="warning">Avertissement</string>
@@ -620,7 +622,7 @@
   <string name="more_information">Plus d\'informations</string>
   <!--Read a file-->
   <string name="read">Lire</string>
-  <string name="load">Télécharger</string>
+  <string name="load">Charger</string>
   <string name="overwrite">Écrire par dessus</string>
   <string name="share">Partager</string>
   <string name="share_position">Partager la position</string>
@@ -714,7 +716,7 @@
   <string name="location_lat_label">Lat :</string>
   <string name="location_lon_label">Lon :</string>
   <string name="location_search_label">Rechercher :</string>
-  <string name="location_load_button">Télécharger</string>
+  <string name="location_load_button">Charger</string>
   <string name="location_load_dismiss">Aller à la carte</string>
   <string name="location_nan_title">Valeur incorrecte !</string>
   <string name="location_nan_message">Saisissez les coordonnées avec décimales (p. ex. « 52.333572 », « 8.741185 »). Lat doit être entre -85.0 et +85.0, et Lon doit être entre -175.0 et +175.0.</string>
@@ -788,8 +790,11 @@
   <string name="menu_transfer_download_replace">Nettoyer et télécharger la vue actuelle</string>
   <string name="menu_transfer_load_current">Charger la vue actuelle</string>
   <string name="menu_transfer_load_replace">Nettoyer et charger la vue actuelle</string>
+  <string name="menu_transfer_query_overpass">Faire une requête Overpass…</string>
   <string name="menu_transfer_upload">Envoyer les données au serveur OSM...</string>
+  <string name="menu_transfer_review">Examiner les modifications…</string>
   <string name="menu_transfer_update">Mettre à jour les données</string>
+  <string name="menu_transfer_data_clear">Effacer les données</string>
   <string name="menu_transfer_close_changeset">Fermer le groupe de modifications actuel</string>
   <string name="menu_transfer_file">Fichier…</string>
   <string name="menu_transfer_export">Exporter les changements vers un fichier OSC</string>
@@ -807,6 +812,7 @@
   <string name="menu_transfer_autodownload_long">Téléchargement automatique des tâches</string>
   <string name="menu_transfer_save_notes_all">Enregistrer toutes les notes...</string>
   <string name="menu_transfer_save_notes_new_and_changed">Enregistrer les notes nouvelles ou modifiées…</string>
+  <string name="menu_transfer_read_notes">Charger des notes…</string>
   <string name="menu_transfer_read_todos">Charger les tâches...</string>
   <string name="menu_transfer_write_todos">Enregistrer les tâches...</string>
   <string name="menu_save">Enregistrer dans un fichier</string>
@@ -1020,8 +1026,6 @@
   <string name="config_use_back_for_undo_summary">Utiliser le bouton \"Retour en arrière\" pour annuler vos modifications</string>
   <string name="config_theme_title">Thème</string>
   <string name="config_splitActionBarEnabled_title">Afiicher la barre de menu en bas</string>
-  <string name="config_disableTranslations_title">Ne pas traduire</string>
-  <string name="config_disableTranslations_summary">L\'application affichera tous les textes en anglais</string>
   <string name="config_maxInlineValues_title">Nombre max. de valeurs suggérées</string>
   <string name="config_maxInlineValues_summary">Nombre maximum de valeurs suggérées affichées dans le formulaire de saisie des attributs.</string>
   <string name="config_autoLockDelay_title">Temps avant le verrouillage automatique</string>
@@ -1079,7 +1083,7 @@
   <string name="config_closeChangesetOnSave_title">Fermer les groupes de modifications</string>
   <string name="config_closeChangesetOnSave_summary">Par défaut, fermer les groupes de modifications à l\'enregistrement</string>
   <string name="config_enableAutoPresets_title">Activer la génération de modèles d\'attributs automatique</string>
-  <string name="config_enableAutoPresets_summary">Permet la génération de modèles d\'attributs depuis Taginfo.</string>
+  <string name="config_enableAutoPresets_summary">Permet la génération de modèles d\'attributs depuis taginfo.</string>
   <string name="config_orthogonalizeThreshold_title">Limite d\'orthogonalisation</string>
   <string name="config_orthogonalizeThreshold_summary">La limite en ° au delà de laquelle les angles sont ignorés</string>
   <string name="config_orthogonalizeThreshold_current">%1$d°</string>
@@ -1132,7 +1136,7 @@
   <string name="config_useBarometricHeight_title">Utiliser la hauteur barométrique</string>
   <string name="config_useBarometricHeight_summary">Insérer l\'altitude mesurée par le capteur de pression dans les traces si elle est disponible</string>
   <!--Server Settings-->
-  <string name="config_category_server">Paramètres du serveur</string>
+  <string name="config_category_server">Paramètres de serveur</string>
   <string name="config_category_server_summary">Configuration de l\'API OSM et d\'autres serveurs.</string>
   <string name="config_apibutton_title">URL de l\'API OSM</string>
   <string name="config_apibutton_summary">Vous pouvez indiquer ici une URL non standarde de l\'API. Vous ne devriez normalement pas la modifier !</string>
@@ -1144,6 +1148,10 @@
   <string name="config_osmoseServer_summary">URL du serveur Osmose.</string>
   <string name="config_geocoderbutton_title">Configurer les géocodeurs</string>
   <string name="config_geocoderbutton_summary">Ajouter, modifier et supprimer les géocodeurs pour la fonction de recherche.</string>
+  <string name="config_taginfoServer_title">Serveur taginfo</string>
+  <string name="config_taginfoServer_summary">Serveur taginfo à utiliser pour la génération de modèles d\'attributs</string>
+  <string name="config_overpassServer_title">Serveur Overpass</string>
+  <string name="config_overpassServer_summary">Serveur Overpass utilisé pour les requêtes</string>
   <!--Layer download and storage-->
   <string name="config_category_layers">Téléchargement et stockage des couches</string>
   <string name="config_category_layers_summary">Téléchargement et stockage des images de fond de carte basées sur des tuiles.</string>

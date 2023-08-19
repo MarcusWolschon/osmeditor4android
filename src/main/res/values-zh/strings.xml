@@ -962,8 +962,6 @@
   <string name="config_use_back_for_undo_title">使用 ← 键撤销</string>
   <string name="config_use_back_for_undo_summary">使用 ← 键在主编辑视图中撤销。</string>
   <string name="config_splitActionBarEnabled_title">启用拆分工具栏</string>
-  <string name="config_disableTranslations_title">禁用翻译</string>
-  <string name="config_disableTranslations_summary">在用户界面中使用英语</string>
   <string name="config_maxInlineValues_title">最大行内数值</string>
   <string name="config_maxInlineValues_summary">在标签表单中显示的行内数字最大值。</string>
   <string name="config_autoLockDelay_title">自动锁定前等待的时间</string>
