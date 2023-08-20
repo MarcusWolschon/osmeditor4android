@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../../../img/favicon.ico">
-        <title>Tag based filter - Vespucci</title>
+        <title>19.2.0 Release notes - Vespucci</title>
         <link href="../../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../../css/base.css" rel="stylesheet">
@@ -42,7 +42,7 @@
                                     
                                         <a href="../../.." class="nav-link"><img src="/vespucci_logo_small.png"></a>
                                 </li>
-                            <li class="dropdown">
+                            <li class="dropdown active">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
@@ -55,7 +55,7 @@
 </li>
                                     
 <li>
-    <a href="../19.2.0%20Release%20notes/" class="dropdown-item">19.2.0 Release notes</a>
+    <a href="./" class="dropdown-item active">19.2.0 Release notes</a>
 </li>
                                     
 <li>
@@ -171,7 +171,7 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown active">
+                            <li class="dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Editing <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
@@ -232,7 +232,7 @@
 </li>
                                     
 <li>
-    <a href="./" class="dropdown-item active">Tag based filter</a>
+    <a href="../Tag%20filter/" class="dropdown-item">Tag based filter</a>
 </li>
                                     
 <li>
@@ -349,12 +349,12 @@
 
 <!--
                             <li class="nav-item">
-                                <a rel="prev" href="../GPS%20sources/" class="nav-link">
+                                <a rel="prev" href="../../../tutorials/features/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../Preset%20filter/" class="nav-link">
+                                <a rel="next" href="../19.1.0%20Release%20notes/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li> -->
@@ -376,16 +376,18 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#tag-filter" class="nav-link">Tag filter</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#actions" class="nav-link">Actions</a>
+            <li class="nav-item" data-level="1"><a href="#vespucci-192-beta-highlights" class="nav-link">Vespucci 19.2 BETA Highlights</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#filter-entries" class="nav-link">Filter entries</a>
+            
+            <li class="nav-item" data-level="1"><a href="#upgrading-from-previous-versions" class="nav-link">Upgrading from previous versions</a>
               <ul class="nav flex-column">
               </ul>
             </li>
+            
+            <li class="nav-item" data-level="1"><a href="#known-problems" class="nav-link">Known problems</a>
+              <ul class="nav flex-column">
               </ul>
             </li>
         </ul>
@@ -393,18 +395,20 @@
 </div></div>
 <div class="col-md-9" role="main">
 
-<h1 id="tag-filter">Tag filter<a class="headerlink" href="#tag-filter" title="Permanent link">#</a></h1>
-<p>Vespucci provides a simple mechanism to filter displayed and editable objects based on selecting keys and values with regular expressions. Elements that are not selectable and visible will be drawn with light grey lines. All edits and additions to the filter entries are immediately stored on your device.</p>
-<p>The preset filter is enabled by selecting the corresponding menu entry in the menu on the main map display.</p>
-<h2 id="actions">Actions<a class="headerlink" href="#actions" title="Permanent link">#</a></h2>
-<h3 id="add">+ Add<a class="headerlink" href="#add" title="Permanent link">#</a></h3>
-<p>Add a new filter entry.</p>
-<h3 id="help"><img alt="Help" src="../../images/menu_help.png" /> Help<a class="headerlink" href="#help" title="Permanent link">#</a></h3>
-<p>Start the Vespucci Help browser</p>
-<h2 id="filter-entries">Filter entries<a class="headerlink" href="#filter-entries" title="Permanent link">#</a></h2>
-<p>Default, no entries state, is to not include any objects. Each entry can be enabled/disabled with the checkbox and are applied in the top-down order as they are displayed. Selecting the "+" node will include objects that match, "-" will exclude objects. OSM object type can be either <em>All</em>, <em>Nodes</em>, <em>Ways</em>. <em>Ways+</em> (automatically include way nodes of matched ways), <em>Relations</em> and <em>Relations+</em> (automatically include way nodes of matched ways). Included ways and relations will include their member objects.</p>
-<p>Regular expressions can be entered in the Key and Value text fields, an empty field will match all strings. Combination of tags is currently not supported.</p>
-<p>Clicking the trash can icon will delete the entry.</p></div> -->
+<h1 id="vespucci-192-beta-highlights">Vespucci 19.2 BETA Highlights<a class="headerlink" href="#vespucci-192-beta-highlights" title="Permanent link">#</a></h1>
+<p>2023-08-19</p>
+<p>This release targets Android 13 as per google requirements per August 31st 2023 and does not have any major user visible functionality changes. However as there are a number of larger modifications under the hood, this warrants its own minor and beta release. On Android 13 and later devices you will be now be asked to permit the app to post notifications, you should in general allow this and fine tune notifications within the app iteself.</p>
+<h3 id="support-for-android-13-per-app-languages">Support for Android 13 per app languages<a class="headerlink" href="#support-for-android-13-per-app-languages" title="Permanent link">#</a></h3>
+<p>Android 13 supports (at last) per app language selection, the language can be set both via the system preferences and in the app. Starting with 19.2 this replaces the simple switch to using English in the <em>Advanced preferences</em> that was implemented with a 3rd party library. If you had the previous setting enabled, you will need to re-set this in the preferences.</p>
+<h1 id="upgrading-from-previous-versions">Upgrading from previous versions<a class="headerlink" href="#upgrading-from-previous-versions" title="Permanent link">#</a></h1>
+<ul>
+<li>As the saved state file may have changed you should upload any pending changes before updating.</li>
+</ul>
+<h1 id="known-problems">Known problems<a class="headerlink" href="#known-problems" title="Permanent link">#</a></h1>
+<ul>
+<li>The documentation is out of date.</li>
+<li>For other known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
+</ul></div> -->
 		    
                     	<div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
     <div class="navbar-header">
@@ -417,16 +421,18 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#tag-filter" class="nav-link">Tag filter</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#actions" class="nav-link">Actions</a>
+            <li class="nav-item" data-level="1"><a href="#vespucci-192-beta-highlights" class="nav-link">Vespucci 19.2 BETA Highlights</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#filter-entries" class="nav-link">Filter entries</a>
+            
+            <li class="nav-item" data-level="1"><a href="#upgrading-from-previous-versions" class="nav-link">Upgrading from previous versions</a>
               <ul class="nav flex-column">
               </ul>
             </li>
+            
+            <li class="nav-item" data-level="1"><a href="#known-problems" class="nav-link">Known problems</a>
+              <ul class="nav flex-column">
               </ul>
             </li>
         </ul>
@@ -434,18 +440,20 @@
 </div></div>
                     	<div class="col-md-9" role="main">
 
-<h1 id="tag-filter">Tag filter<a class="headerlink" href="#tag-filter" title="Permanent link">#</a></h1>
-<p>Vespucci provides a simple mechanism to filter displayed and editable objects based on selecting keys and values with regular expressions. Elements that are not selectable and visible will be drawn with light grey lines. All edits and additions to the filter entries are immediately stored on your device.</p>
-<p>The preset filter is enabled by selecting the corresponding menu entry in the menu on the main map display.</p>
-<h2 id="actions">Actions<a class="headerlink" href="#actions" title="Permanent link">#</a></h2>
-<h3 id="add">+ Add<a class="headerlink" href="#add" title="Permanent link">#</a></h3>
-<p>Add a new filter entry.</p>
-<h3 id="help"><img alt="Help" src="../../images/menu_help.png" /> Help<a class="headerlink" href="#help" title="Permanent link">#</a></h3>
-<p>Start the Vespucci Help browser</p>
-<h2 id="filter-entries">Filter entries<a class="headerlink" href="#filter-entries" title="Permanent link">#</a></h2>
-<p>Default, no entries state, is to not include any objects. Each entry can be enabled/disabled with the checkbox and are applied in the top-down order as they are displayed. Selecting the "+" node will include objects that match, "-" will exclude objects. OSM object type can be either <em>All</em>, <em>Nodes</em>, <em>Ways</em>. <em>Ways+</em> (automatically include way nodes of matched ways), <em>Relations</em> and <em>Relations+</em> (automatically include way nodes of matched ways). Included ways and relations will include their member objects.</p>
-<p>Regular expressions can be entered in the Key and Value text fields, an empty field will match all strings. Combination of tags is currently not supported.</p>
-<p>Clicking the trash can icon will delete the entry.</p></div>
+<h1 id="vespucci-192-beta-highlights">Vespucci 19.2 BETA Highlights<a class="headerlink" href="#vespucci-192-beta-highlights" title="Permanent link">#</a></h1>
+<p>2023-08-19</p>
+<p>This release targets Android 13 as per google requirements per August 31st 2023 and does not have any major user visible functionality changes. However as there are a number of larger modifications under the hood, this warrants its own minor and beta release. On Android 13 and later devices you will be now be asked to permit the app to post notifications, you should in general allow this and fine tune notifications within the app iteself.</p>
+<h3 id="support-for-android-13-per-app-languages">Support for Android 13 per app languages<a class="headerlink" href="#support-for-android-13-per-app-languages" title="Permanent link">#</a></h3>
+<p>Android 13 supports (at last) per app language selection, the language can be set both via the system preferences and in the app. Starting with 19.2 this replaces the simple switch to using English in the <em>Advanced preferences</em> that was implemented with a 3rd party library. If you had the previous setting enabled, you will need to re-set this in the preferences.</p>
+<h1 id="upgrading-from-previous-versions">Upgrading from previous versions<a class="headerlink" href="#upgrading-from-previous-versions" title="Permanent link">#</a></h1>
+<ul>
+<li>As the saved state file may have changed you should upload any pending changes before updating.</li>
+</ul>
+<h1 id="known-problems">Known problems<a class="headerlink" href="#known-problems" title="Permanent link">#</a></h1>
+<ul>
+<li>The documentation is out of date.</li>
+<li>For other known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
+</ul></div>
                     
             </div>
         </div>
