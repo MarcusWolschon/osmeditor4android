@@ -485,7 +485,7 @@ public class TrackerService extends Service {
         if (!tracking && !downloading && !downloadingBugs) {
             Log.d(DEBUG_TAG, "Stopping service");
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                stopForeground(0);
+                stopForeground(Service.STOP_FOREGROUND_LEGACY);
             } else {
                 stopForeground(true);
             }
