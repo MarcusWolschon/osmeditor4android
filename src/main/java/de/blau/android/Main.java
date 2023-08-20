@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Deque;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -445,13 +446,12 @@ public class Main extends FullScreenAppCompatActivity
     /**
      * Status of permissions
      */
-    private boolean      locationPermissionGranted  = false;
-    private boolean      askedForLocationPermission = false;
-    private final Object locationPermissionLock     = new Object();
+    private class PermissionStatus {
+        boolean granted = false;
+        boolean asked   = false;
+    }
 
-    private boolean      storagePermissionGranted  = false;
-    private boolean      askedForStoragePermission = false;
-    private final Object storagePermissionLock     = new Object();
+    private final java.util.Map<String, PermissionStatus> permissions;
 
     /**
      * 
@@ -484,6 +484,13 @@ public class Main extends FullScreenAppCompatActivity
     private RecyclerView nearByPois;
 
     private static final float LARGE_FAB_ELEVATION = 16; // used for re-enabling elevation on the FABs
+
+    public Main() {
+        permissions = new LinkedHashMap<>();
+        permissions.put(Manifest.permission.ACCESS_FINE_LOCATION, new PermissionStatus());
+        permissions.put(STORAGE_PERMISSION, new PermissionStatus());
+        permissions.put(Manifest.permission.POST_NOTIFICATIONS, new PermissionStatus());
+    }
 
     /**
      * {@inheritDoc}
@@ -907,50 +914,54 @@ public class Main extends FullScreenAppCompatActivity
      */
     private void checkPermissions(@NonNull Runnable whenDone) {
         final List<String> permissionsList = new ArrayList<>();
-        synchronized (locationPermissionLock) {
-            if (!Util.permissionGranted(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
-                locationPermissionGranted = false;
-                if (askedForLocationPermission) {
-                    // Should we show an explanation?
-                    if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
-                        // for now we just repeat the request (max once)
-                        permissionsList.add(Manifest.permission.ACCESS_FINE_LOCATION);
-                    }
-                } else {
-                    permissionsList.add(Manifest.permission.ACCESS_FINE_LOCATION);
-                    askedForLocationPermission = true;
-                }
-            } else { // permission was already given
-                bindService(new Intent(this, TrackerService.class), this, BIND_AUTO_CREATE);
-                locationPermissionGranted = true;
-            }
+        checkPermission(Manifest.permission.ACCESS_FINE_LOCATION, permissionsList,
+                () -> bindService(new Intent(this, TrackerService.class), this, BIND_AUTO_CREATE));
+        checkPermission(STORAGE_PERMISSION, permissionsList, null);
+        if (permissionsList.contains(STORAGE_PERMISSION)) {
+            permissionsList.add(Manifest.permission.ACCESS_MEDIA_LOCATION);
         }
-        synchronized (storagePermissionLock) {
-            if (!Util.permissionGranted(this, STORAGE_PERMISSION)
-                    || (prefs.scanMediaStore() && !Util.permissionGranted(this, Manifest.permission.ACCESS_MEDIA_LOCATION))) {
-                storagePermissionGranted = false;
-                // Should we show an explanation?
-                if (askedForStoragePermission) {
-                    if (ActivityCompat.shouldShowRequestPermissionRationale(this, STORAGE_PERMISSION)) {
-                        // for now we just repeat the request (max once)
-                        permissionsList.add(STORAGE_PERMISSION);
-                        permissionsList.add(Manifest.permission.ACCESS_MEDIA_LOCATION);
-                    }
-                } else {
-                    permissionsList.add(STORAGE_PERMISSION);
-                    permissionsList.add(Manifest.permission.ACCESS_MEDIA_LOCATION); // yes this is weird, but ask the
-                                                                                    // goog
-                    askedForStoragePermission = true;
-                }
-            } else { // permission was already given
-                storagePermissionGranted = true;
-            }
-        }
+        checkPermission(Manifest.permission.POST_NOTIFICATIONS, permissionsList, null);
+
         if (!permissionsList.isEmpty()) {
             this.whenPermissionsGranted = whenDone;
             ActivityCompat.requestPermissions(this, permissionsList.toArray(new String[permissionsList.size()]), REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS);
         } else {
             whenDone.run();
+        }
+    }
+
+    /**
+     * Check if a permission needs to be requested, and if that is the case add it to a list
+     * 
+     * @param permission the permission in question
+     * @param permissionsList the list to add it to
+     * @param onGranted execute this id the permission has been granted
+     */
+    private void checkPermission(@NonNull final String permission, @NonNull final List<String> permissionsList, @Nullable Runnable onGranted) {
+        PermissionStatus permissionStatus = permissions.get(permission);
+        if (permissionStatus == null) {
+            Log.e(DEBUG_TAG, "No status found for permission " + permission);
+            return;
+        }
+        synchronized (permissionStatus) {
+            if (!Util.permissionGranted(this, permission)) {
+                permissionStatus.granted = false;
+                if (permissionStatus.asked) {
+                    // Should we show an explanation?
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission)) {
+                        // for now we just repeat the request (max once)
+                        permissionsList.add(permission);
+                    }
+                } else {
+                    permissionsList.add(permission);
+                    permissionStatus.asked = true;
+                }
+            } else { // permission was already given
+                if (onGranted != null) {
+                    onGranted.run();
+                }
+                permissionStatus.granted = true;
+            }
         }
     }
 
@@ -1490,33 +1501,42 @@ public class Main extends FullScreenAppCompatActivity
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         Log.d(DEBUG_TAG, "onRequestPermissionsResult");
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS) {
-            for (int i = 0; i < permissions.length; i++) {
-                Log.d(DEBUG_TAG, permissions[i] + " status " + grantResults[i]);
-                if (permissions[i].equals(Manifest.permission.ACCESS_FINE_LOCATION) && grantResults[i] == PackageManager.PERMISSION_GRANTED) {
-                    // permission was granted :)
-                    bindService(new Intent(this, TrackerService.class), this, BIND_AUTO_CREATE);
-                    synchronized (locationPermissionLock) {
-                        locationPermissionGranted = true;
-                    }
-                } // if not granted do nothing for now
-                if (permissions[i].equals(STORAGE_PERMISSION) && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // permission was granted :)
-                    synchronized (storagePermissionLock) {
-                        storagePermissionGranted = true;
-                    }
-                } // if not granted do nothing for now
-            }
-            synchronized (this) {
-                if (whenPermissionsGranted != null) {
-                    whenPermissionsGranted.run();
-                    whenPermissionsGranted = null;
-                }
-            }
-        } else {
+        if (requestCode != REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS) {
             Log.w(DEBUG_TAG, "Unknown request code " + requestCode);
+            triggerMenuInvalidation();
+            return;
+        }
+        for (int i = 0; i < permissions.length; i++) {
+            Log.d(DEBUG_TAG, permissions[i] + " status " + grantResults[i]);
+            if (permissions[i].equals(Manifest.permission.ACCESS_FINE_LOCATION) && grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+                // permission was granted :)
+                bindService(new Intent(this, TrackerService.class), this, BIND_AUTO_CREATE);
+                permissionGranted(Manifest.permission.ACCESS_FINE_LOCATION);
+            } // if not granted do nothing for now
+            if (permissions[i].equals(STORAGE_PERMISSION) && grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+                permissionGranted(STORAGE_PERMISSION);
+            }
+
+            if (permissions[i].equals(Manifest.permission.POST_NOTIFICATIONS) && grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+                permissionGranted(Manifest.permission.POST_NOTIFICATIONS);
+            } // if not granted do nothing for now
+        }
+        synchronized (this) {
+            if (whenPermissionsGranted != null) {
+                whenPermissionsGranted.run();
+                whenPermissionsGranted = null;
+            }
         }
         triggerMenuInvalidation(); // update menus
+    }
+
+    private void permissionGranted(@NonNull String permission) {
+        PermissionStatus permissionStatus = permissions.get(permission);
+        if (permissionStatus != null) {
+            synchronized (permissionStatus) {
+                permissionStatus.granted = true;
+            }
+        }
     }
 
     /**
@@ -1525,7 +1545,18 @@ public class Main extends FullScreenAppCompatActivity
      * @return true if the permission has been granted
      */
     public boolean isStoragePermissionGranted() {
-        return storagePermissionGranted;
+        PermissionStatus permissionStatus = permissions.get(STORAGE_PERMISSION);
+        return permissionStatus != null && permissionStatus.granted;
+    }
+
+    /**
+     * Check if permission to write to "external" storage has been granted
+     * 
+     * @return true if the permission has been granted
+     */
+    public boolean isLocationPermissionGranted() {
+        PermissionStatus permissionStatus = permissions.get(Manifest.permission.ACCESS_FINE_LOCATION);
+        return permissionStatus != null && permissionStatus.granted;
     }
 
     /**
@@ -1553,8 +1584,8 @@ public class Main extends FullScreenAppCompatActivity
     private void setupFollowButton() {
         FloatingActionButton followButton = getFollowButton();
         if (followButton != null) {
-            String[] locationProviders = getEnabledLocationProviders();
-            if (locationProviders != null) {
+            List<String> locationProviders = getEnabledLocationProviders();
+            if (!locationProviders.isEmpty()) {
                 RelativeLayout.LayoutParams params = (LayoutParams) followButton.getLayoutParams();
                 String followGPSbuttonPosition = prefs.followGPSbuttonPosition();
                 boolean isVisible = true;
@@ -1570,7 +1601,7 @@ public class Main extends FullScreenAppCompatActivity
                 }
                 followButton.setLayoutParams(params);
                 // only show GPS symbol if we only have GPS
-                setFollowImage(locationProviders.length == 1 && LocationManager.GPS_PROVIDER.equals(locationProviders[0]), isVisible);
+                setFollowImage(locationProviders.size() == 1 && LocationManager.GPS_PROVIDER.equals(locationProviders.get(0)), isVisible);
             } else {
                 followButton.hide();
             }
@@ -1780,7 +1811,8 @@ public class Main extends FullScreenAppCompatActivity
         }
 
         boolean networkConnected = isConnected();
-        String[] locationProviders = getEnabledLocationProviders();
+        boolean locationPermissionGranted = isLocationPermissionGranted();
+        List<String> locationProviders = getEnabledLocationProviders();
         boolean gpsProviderEnabled = haveLocationProvider(locationProviders, LocationManager.GPS_PROVIDER) && locationPermissionGranted;
         boolean locationProviderEnabled = gpsProviderEnabled || (haveLocationProvider(locationProviders, LocationManager.NETWORK_PROVIDER)
                 && prefs.isNetworkLocationFallbackAllowed() && locationPermissionGranted);
@@ -1851,6 +1883,7 @@ public class Main extends FullScreenAppCompatActivity
 
         // the following depends on us having permission to write to "external"
         // storage
+        boolean storagePermissionGranted = isStoragePermissionGranted();
         menu.findItem(R.id.menu_transfer_export).setEnabled(storagePermissionGranted);
         menu.findItem(R.id.menu_transfer_save_file).setEnabled(storagePermissionGranted);
         menu.findItem(R.id.menu_transfer_save_notes_all).setEnabled(storagePermissionGranted);
@@ -1910,16 +1943,14 @@ public class Main extends FullScreenAppCompatActivity
     /**
      * Check if we have a specific location provider
      * 
-     * @param providers array holding the provider names
+     * @param providers list holding the provider names
      * @param provider the provider
      * @return true if the provider is present
      */
-    private boolean haveLocationProvider(@Nullable String[] providers, @Nullable String provider) {
-        if (providers != null) {
-            for (String p : providers) {
-                if (p != null && p.equals(provider)) {
-                    return true;
-                }
+    private boolean haveLocationProvider(@NonNull List<String> providers, @Nullable String provider) {
+        for (String p : providers) {
+            if (p != null && p.equals(provider)) {
+                return true;
             }
         }
         return false;
@@ -2725,7 +2756,7 @@ public class Main extends FullScreenAppCompatActivity
         if (getTracker() != null) {
             gotoLoc = getTracker().getLastLocation();
         }
-        if (gotoLoc == null && getEnabledLocationProviders() != null) { // fallback
+        if (gotoLoc == null && !getEnabledLocationProviders().isEmpty()) { // fallback
             gotoLoc = getLastLocation();
         } // else moan? without GPS enabled this shouldn't be selectable
           // currently
@@ -2805,7 +2836,7 @@ public class Main extends FullScreenAppCompatActivity
      */
     private void startStopAutoDownload() {
         Log.d(DEBUG_TAG, "autoDownload");
-        if (getTracker() != null && getEnabledLocationProviders() != null) {
+        if (getTracker() != null && !getEnabledLocationProviders().isEmpty()) {
             if (prefs.getAutoDownload()) {
                 getTracker().startAutoDownload();
                 Tip.showDialog(this, R.string.tip_auto_download_key, R.string.tip_auto_download);
@@ -2820,7 +2851,7 @@ public class Main extends FullScreenAppCompatActivity
      */
     private void startStopBugAutoDownload() {
         Log.d(DEBUG_TAG, "bugAutoDownload");
-        if (getTracker() != null && getEnabledLocationProviders() != null) {
+        if (getTracker() != null && !getEnabledLocationProviders().isEmpty()) {
             if (prefs.getBugAutoDownload()) {
                 getTracker().startBugAutoDownload();
                 Tip.showDialog(this, R.string.tip_auto_download_key, R.string.tip_auto_download);
@@ -2836,7 +2867,7 @@ public class Main extends FullScreenAppCompatActivity
      * @param show turn location updates on or off
      */
     private void setShowGPS(boolean show) {
-        if (show && getEnabledLocationProviders() == null) {
+        if (show && getEnabledLocationProviders().isEmpty()) {
             show = false;
         }
         showGPS = show;
@@ -2858,37 +2889,37 @@ public class Main extends FullScreenAppCompatActivity
      * 
      * @return the provider if a usable one is enabled, null if not
      */
-    private String[] getEnabledLocationProviders() {
+    @NonNull
+    private List<String> getEnabledLocationProviders() {
+        List<String> result = new ArrayList<>();
         // no permission no point in trying to turn stuff on
-        if (!locationPermissionGranted) {
-            return null;
+        if (!isLocationPermissionGranted()) {
+            return result;
         }
-        List<String> temp = new ArrayList<>();
+
         try {
             LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
             if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                 gpsChecked = false;
-                temp.add(LocationManager.GPS_PROVIDER);
+                result.add(LocationManager.GPS_PROVIDER);
             }
             if (prefs.isNetworkLocationFallbackAllowed() && locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
                 gpsChecked = false;
-                temp.add(LocationManager.NETWORK_PROVIDER);
+                result.add(LocationManager.NETWORK_PROVIDER);
             }
-            if (!temp.isEmpty()) {
-                return temp.toArray(new String[temp.size()]);
+            if (!result.isEmpty()) {
+                return result;
             }
-            if (locationManager.getProvider(LocationManager.GPS_PROVIDER) != null) {
-                // check if there is a GPS provider at all
-                if (!gpsChecked && !prefs.leaveGpsDisabled()) {
-                    gpsChecked = true;
-                    startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-                }
+            // check if there is a GPS provider at all
+            if (locationManager.getProvider(LocationManager.GPS_PROVIDER) != null && !gpsChecked && !prefs.leaveGpsDisabled()) {
+                gpsChecked = true;
+                startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
             }
         } catch (Exception e) {
             Log.d(DEBUG_TAG, "Error when checking for GPS, assuming GPS not available", e);
             Snack.barInfo(this, R.string.gps_failure);
         }
-        return null;
+        return result;
     }
 
     /**
@@ -4420,7 +4451,7 @@ public class Main extends FullScreenAppCompatActivity
      */
     private void showFollowButton() {
         FloatingActionButton button = getFollowButton();
-        if (button != null && getEnabledLocationProviders() != null && locationPermissionGranted && !"NONE".equals(prefs.followGPSbuttonPosition())) {
+        if (button != null && !getEnabledLocationProviders().isEmpty() && isLocationPermissionGranted() && !"NONE".equals(prefs.followGPSbuttonPosition())) {
             button.show();
         }
     }
