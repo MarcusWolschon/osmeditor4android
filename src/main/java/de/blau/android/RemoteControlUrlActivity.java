@@ -1,7 +1,6 @@
 package de.blau.android;
 
 import java.io.Serializable;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
@@ -168,17 +167,12 @@ public class RemoteControlUrlActivity extends UrlActivity {
                 String topParam = data.getQueryParameter(TOP_PARAMETER);
 
                 if (leftParam != null && rightParam != null && bottomParam != null && topParam != null) {
-                    try {
-                        Double left = Double.valueOf(leftParam);
-                        Double right = Double.valueOf(rightParam);
-                        Double bottom = Double.valueOf(bottomParam);
-                        Double top = Double.valueOf(topParam);
-                        rcData.setBox(new BoundingBox(left, bottom, right, top));
-                        Log.d(DEBUG_TAG, "bbox " + rcData.getBox() + " load " + rcData.load());
-                    } catch (NumberFormatException e) {
-                        Log.e(DEBUG_TAG, "Invalid bounding box parameter " + data.toString());
-                        return false;
-                    }
+                    Double left = Double.valueOf(leftParam);
+                    Double right = Double.valueOf(rightParam);
+                    Double bottom = Double.valueOf(bottomParam);
+                    Double top = Double.valueOf(topParam);
+                    rcData.setBox(new BoundingBox(left, bottom, right, top));
+                    Log.d(DEBUG_TAG, "bbox " + rcData.getBox() + " load " + rcData.load());
                 }
 
                 rcData.setChangesetComment(data.getQueryParameter(CHANGESET_COMMENT_PARAMETER));
@@ -195,12 +189,7 @@ public class RemoteControlUrlActivity extends UrlActivity {
                 if (url != null) {
                     String title = data.getQueryParameter(TITLE_PARAMETER);
                     if (title == null) {
-                        try {
-                            title = new URL(url).getHost() + " " + DateFormatter.getFormattedString("YYYY-MM-DD HH:mm");
-                        } catch (MalformedURLException e) {
-                            Log.e(DEBUG_TAG, "Invalid url " + url);
-                            return false;
-                        }
+                        title = new URL(url).getHost() + " " + DateFormatter.getFormattedString("YYYY-MM-DD HH:mm");
                     }
                     List<String> ids = Arrays.asList(TileLayerSource.getIds(null, false, null, null));
                     String id = TileLayerSource.nameToId(title);
@@ -248,7 +237,7 @@ public class RemoteControlUrlActivity extends UrlActivity {
             }
 
         } catch (Exception ex) { // avoid crashing on getting called with stuff that can't be parsed
-            Log.e(DEBUG_TAG, "Exception: " + ex);
+            Log.e(DEBUG_TAG, "Exception: " + ex + " " + ex.getMessage());
             return false;
         }
     }

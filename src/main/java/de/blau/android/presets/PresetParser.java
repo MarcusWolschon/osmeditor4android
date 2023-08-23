@@ -800,14 +800,14 @@ public class PresetParser {
      * Returns a list of icon URLs referenced by a preset
      * 
      * @param presetDir a File object pointing to the directory containing this preset
-     * @return a List of http and https URLs as string, or null if there is an error during parsing
+     * @return a List of http and https URLs as string
      */
-    @Nullable
+    @NonNull
     public static List<String> parseForURLs(@NonNull File presetDir) {
         final List<String> urls = new ArrayList<>();
         String presetFilename = Preset.getPresetFileName(presetDir);
         if (presetFilename == null) { // no preset file found
-            return null;
+            return urls;
         }
         try {
             SAXParserFactory factory = SAXParserFactory.newInstance(); // NOSONAR
@@ -829,7 +829,6 @@ public class PresetParser {
             });
         } catch (Exception e) {
             Log.e(DEBUG_TAG, "Error parsing " + presetFilename + " for URLs", e);
-            return null;
         }
         return urls;
     }

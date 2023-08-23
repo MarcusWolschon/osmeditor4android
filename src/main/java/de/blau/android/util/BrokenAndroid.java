@@ -65,33 +65,27 @@ public class BrokenAndroid {
     private Map<String, Properties> getPropertiesMap(@NonNull AssetManager assetManager, @NonNull String fileName) {
         Map<String, Properties> result = new HashMap<>();
         try (InputStream is = assetManager.open(fileName); JsonReader reader = new JsonReader(new InputStreamReader(is, "UTF-8"))) {
-            try {
+            reader.beginObject();
+            while (reader.hasNext()) {
+                String manufacturerDevice = reader.nextName();
+                Properties prop = new Properties();
                 reader.beginObject();
                 while (reader.hasNext()) {
-                    String manufacturerDevice = reader.nextName();
-                    Properties prop = new Properties();
-                    reader.beginObject();
-                    while (reader.hasNext()) {
-                        String propName = reader.nextName();
-                        switch (propName) {
-                        case FULLSCREEN:
-                            prop.fullScreen = reader.nextBoolean();
-                            break;
-                        default:
-                            Log.e(DEBUG_TAG, "Unknown property " + propName);
-                            reader.skipValue();
-                        }
+                    String propName = reader.nextName();
+                    if (FULLSCREEN.equals(propName)) {
+                        prop.fullScreen = reader.nextBoolean();
+                    } else {
+                        Log.e(DEBUG_TAG, "Unknown property " + propName);
+                        reader.skipValue();
                     }
-                    reader.endObject();
-                    result.put(manufacturerDevice, prop);
                 }
                 reader.endObject();
-                Log.d(DEBUG_TAG, "Found " + result.size() + " entries.");
-            } catch (IOException | NumberFormatException e) {
-                Log.d(DEBUG_TAG, "Reading " + fileName + " " + e.getMessage());
+                result.put(manufacturerDevice, prop);
             }
-        } catch (IOException e) {
-            Log.d(DEBUG_TAG, "Opening " + fileName + " " + e.getMessage());
+            reader.endObject();
+            Log.d(DEBUG_TAG, "Found " + result.size() + " entries.");
+        } catch (IOException | NumberFormatException e) {
+            Log.d(DEBUG_TAG, "Opening/reading " + fileName + " " + e.getMessage());
         }
         return result;
     }

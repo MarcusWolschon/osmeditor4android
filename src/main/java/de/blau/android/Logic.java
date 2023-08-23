@@ -2841,14 +2841,8 @@ public class Logic {
                 }
                 int code = result.getCode();
                 if (code != 0) {
-                    switch (code) {
-                    case ErrorCodes.OUT_OF_MEMORY:
-                        if (getDelegator().isDirty()) {
-                            result = new AsyncResult(ErrorCodes.OUT_OF_MEMORY_DIRTY);
-                        }
-                        break;
-                    default:
-                        // do nothing
+                    if (code == ErrorCodes.OUT_OF_MEMORY && getDelegator().isDirty()) {
+                        result = new AsyncResult(ErrorCodes.OUT_OF_MEMORY_DIRTY);
                     }
                     try {
                         if (hasActivity && !((FragmentActivity) context).isFinishing()) {
@@ -3122,7 +3116,6 @@ public class Logic {
                 }
             }
         }.execute();
-
     }
 
     /**
@@ -3217,15 +3210,14 @@ public class Logic {
 
             @Override
             protected void onPostExecute(Integer result) {
-                if (result == ErrorCodes.OK) {
-                    if (postLoadHandler != null) {
-                        postLoadHandler.onSuccess();
-                    }
+                if (postLoadHandler == null) {
                     return;
                 }
-                if (postLoadHandler != null) {
-                    postLoadHandler.onError(null);
+                if (result == ErrorCodes.OK) {
+                    postLoadHandler.onSuccess();
+                    return;
                 }
+                postLoadHandler.onError(null);
             }
         }
         DownLoadElementTask loader = new DownLoadElementTask(executorService, uiHandler);
@@ -3239,9 +3231,8 @@ public class Logic {
                 loader.cancel();
                 return -1;
             }
-        } else {
-            return 0;
         }
+        return 0;
     }
 
     /**
@@ -3641,10 +3632,8 @@ public class Logic {
                     }
                 }
                 if (result != 0) {
-                    if (result == ErrorCodes.OUT_OF_MEMORY) {
-                        if (getDelegator().isDirty()) {
-                            result = ErrorCodes.OUT_OF_MEMORY_DIRTY;
-                        }
+                    if (result == ErrorCodes.OUT_OF_MEMORY && getDelegator().isDirty()) {
+                        result = ErrorCodes.OUT_OF_MEMORY_DIRTY;
                     }
                     if (!activity.isFinishing()) {
                         ErrorAlert.showDialog(activity, result);
@@ -4274,16 +4263,15 @@ public class Logic {
                         break;
                     default:
                         ACRAHelper.nocrashReport(e, e.getMessage());
+                        result = ErrorCodes.UPLOAD_PROBLEM;
                         break;
                     }
                 } catch (final IOException e) {
                     result = ErrorCodes.NO_CONNECTION;
                     Log.e(DEBUG_TAG, "", e);
-                } catch (final NullPointerException e) {
-                    Log.e(DEBUG_TAG, "", e);
-                    ACRAHelper.nocrashReport(e, e.getMessage());
-                } catch (IllegalArgumentException | IllegalStateException e) {
+                } catch (IllegalArgumentException | IllegalStateException | NullPointerException e) {
                     result = ErrorCodes.UPLOAD_PROBLEM;
+                    Log.e(DEBUG_TAG, "", e);
                 }
                 return result;
             }
@@ -4291,16 +4279,18 @@ public class Logic {
             @Override
             protected void onPostExecute(Integer result) {
                 Progress.dismissDialog(activity, Progress.PROGRESS_UPLOADING);
+                invalidateCurrentFocus(activity);
                 if (result == 0) {
                     Snack.barInfo(activity, R.string.toast_upload_success);
+                    return;
                 }
-                invalidateCurrentFocus(activity);
-                if (result != 0 && !activity.isFinishing()) {
-                    if (result == ErrorCodes.INVALID_LOGIN) {
-                        InvalidLogin.showDialog(activity);
-                    } else {
-                        ErrorAlert.showDialog(activity, result);
-                    }
+                if (activity.isFinishing()) {
+                    return;
+                }
+                if (result == ErrorCodes.INVALID_LOGIN) {
+                    InvalidLogin.showDialog(activity);
+                } else {
+                    ErrorAlert.showDialog(activity, result);
                 }
             }
         }.execute();
