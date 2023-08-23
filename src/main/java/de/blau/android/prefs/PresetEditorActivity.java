@@ -61,7 +61,7 @@ public class PresetEditorActivity extends URLListEditActivity {
     private static final int RESULT_TOTAL_FAILURE       = 0;
     private static final int RESULT_TOTAL_SUCCESS       = 1;
     private static final int RESULT_IMAGE_FAILURE       = 2;
-    private static final int RESULT_PRESET_NOT_PARSABLE = 3;
+    private static final int RESULT_PRESET_NOT_PARSABLE = 3; // NOSONAR currently unused
     private static final int RESULT_DOWNLOAD_CANCELED   = 4;
 
     /**
@@ -286,10 +286,6 @@ public class PresetEditorActivity extends URLListEditActivity {
                 }
 
                 List<String> urls = PresetParser.parseForURLs(presetDir);
-                if (urls == null) {
-                    Log.e(DEBUG_TAG, "Could not parse preset for URLs");
-                    return RESULT_PRESET_NOT_PARSABLE;
-                }
 
                 boolean allImagesSuccessful = true;
                 for (String url : urls) {
@@ -311,10 +307,6 @@ public class PresetEditorActivity extends URLListEditActivity {
                     break;
                 case RESULT_TOTAL_FAILURE:
                     msgbox(R.string.preset_download_failed);
-                    break;
-                case RESULT_PRESET_NOT_PARSABLE:
-                    db.removePresetDirectory(item.id);
-                    msgbox(R.string.preset_download_parse_failed);
                     break;
                 case RESULT_IMAGE_FAILURE:
                     msgbox(R.string.preset_download_missing_images);
