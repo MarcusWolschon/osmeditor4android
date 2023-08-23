@@ -295,9 +295,9 @@ public class MRUTags {
                     try (FileOutputStream fout = new FileOutputStream(outfile); OutputStream out = new BufferedOutputStream(fout);) {
                         writeXml(ctx, out);
                         dirty = false;
-                    } catch (IllegalArgumentException | IllegalStateException | XmlPullParserException e) {
-                        Log.e(DEBUG_TAG, "Writing XML failed with " + e.getMessage());
                     }
+                } catch (IllegalArgumentException | IllegalStateException | XmlPullParserException e) {
+                    Log.e(DEBUG_TAG, "Writing XML failed with " + e.getMessage());
                 } catch (IOException ioex) {
                     Log.e(DEBUG_TAG, "Saving failed with " + ioex.getMessage());
                 }

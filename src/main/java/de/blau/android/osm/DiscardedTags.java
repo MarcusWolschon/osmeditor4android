@@ -38,19 +38,15 @@ public class DiscardedTags {
         Log.d(DEBUG_TAG, "Parsing configuration file");
         AssetManager assetManager = context.getAssets();
         try (InputStream is = assetManager.open(ASSET_FILE); JsonReader reader = new JsonReader(new InputStreamReader(is, OsmXml.UTF_8));) {
-            try {
-                reader.beginObject();
-                while (reader.hasNext()) {
-                    redundantTags.add(reader.nextName());
-                    reader.skipValue();
-                }
-                reader.endObject();
-                Log.d(DEBUG_TAG, "Found " + redundantTags.size() + " tags.");
-            } catch (IOException e) {
-                Log.d(DEBUG_TAG, "Reading " + ASSET_FILE + " " + e.getMessage());
+            reader.beginObject();
+            while (reader.hasNext()) {
+                redundantTags.add(reader.nextName());
+                reader.skipValue();
             }
+            reader.endObject();
+            Log.d(DEBUG_TAG, "Found " + redundantTags.size() + " tags.");
         } catch (IOException e) {
-            Log.d(DEBUG_TAG, "Opening " + ASSET_FILE + " " + e.getMessage());
+            Log.d(DEBUG_TAG, "Opening/reading " + ASSET_FILE + " " + e.getMessage());
         }
     }
 
