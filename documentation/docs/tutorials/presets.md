@@ -1,5 +1,5 @@
 # Vespucci Preset System
-_Documentation for Vespucci 19.1_
+_Documentation for Vespucci 19.2_
 
 As explained in the [help documentation](../help/en/Presets.md) Vespucci uses JOSM compatible presets, currently any preset used in JOSM should simply work with Vespucci, however there can be differences. Particularly with the new preset driven tagging interface presets have become even more important and if you are writing presets yourself and want them to work well in Vespucci please keep on reading.
 
@@ -133,10 +133,10 @@ Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/
 |                   | match                         | supported |
 |                   | match_expression              | ignored   |
 |                   | use_last_as_default           | extension | "force" has the same effect as "true"
-|__&lt;label&gt;__  |                               | ignored   |
+|__&lt;label&gt;__  |                               | supported |
 |__&lt;space/&gt;__ |                               | ignored   |
 |__&lt;optional&gt;__ |                             | supported | contained fields are not displayed the in "Properties" tab when a preset is applied except if applying with optional fields is used, further matching ignores any optional fields
-|                   | text                          | ignored   | not displayed
+|                   | text                          | supported |
 |__&lt;separator/&gt;__ |                           | supported | starts a new row in the preset selection display
 |__&lt;item_separator/&gt;__ |                      | ignored   |
 |__&lt;link&gt;__   |                               | supported | not legal inside &lt;chunk&gt; elements

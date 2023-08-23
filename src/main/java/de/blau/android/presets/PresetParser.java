@@ -154,6 +154,7 @@ public class PresetParser {
             private int                         checkGroupCounter = 0;
             /** */
             private String                      currentLabel      = null;
+            private boolean                     addedLabel        = false;
 
             /**
              * ${@inheritDoc}.
@@ -304,6 +305,7 @@ public class PresetParser {
                 switch (name) {
                 case OPTIONAL:
                     inOptionalSection = true;
+                    currentLabel = addLabelField(supportLabels, attr);
                     break;
                 case KEY_ATTR:
                     String key = attr.getValue(KEY_ATTR);
@@ -396,12 +398,7 @@ public class PresetParser {
                     }
                     break;
                 case LABEL:
-                    currentLabel = attr.getValue(TEXT);
-                    if (supportLabels) {
-                        PresetLabelField labelField = new PresetLabelField(currentLabel, attr.getValue(TEXT_CONTEXT));
-                        currentItem.addField(labelField);
-                        labelField.setOptional(inOptionalSection);
-                    }
+                    currentLabel = addLabelField(supportLabels, attr);
                     break;
                 case CHECKGROUP:
                     checkGroup = new PresetCheckGroupField(currentItem.getName() + PresetCheckGroupField.class.getSimpleName() + checkGroupCounter);
@@ -619,9 +616,30 @@ public class PresetParser {
                     Log.w(DEBUG_TAG, "Unknown start tag in preset item " + name);
                 }
                 // always zap label after next element
-                if (!LABEL.equals(name)) {
+                if (!addedLabel) {
                     currentLabel = null;
+                } else {
+                    addedLabel = false;
                 }
+            }
+
+            /**
+             * Extract the label text and add a field if supportLabels is true
+             * 
+             * @param supportLabels flag
+             * @param attr XML attributes
+             * @return the label text or null
+             */
+            @Nullable
+            private String addLabelField(boolean supportLabels, @NonNull Attributes attr) {
+                String labelText = attr.getValue(TEXT);
+                if (supportLabels && labelText != null) {
+                    PresetLabelField labelField = new PresetLabelField(labelText, attr.getValue(TEXT_CONTEXT));
+                    currentItem.addField(labelField);
+                    labelField.setOptional(inOptionalSection);
+                    addedLabel = true;
+                }
+                return labelText;
             }
 
             /**
