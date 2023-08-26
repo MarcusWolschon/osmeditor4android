@@ -3,6 +3,7 @@ package de.blau.android.views.layers;
 import java.io.IOException;
 import java.util.BitSet;
 import java.util.Collection;
+import java.util.Random;
 
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -115,6 +116,8 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
     private final Context ctx;
 
     private final ViewBox viewBox = new ViewBox();
+
+    private final Random random = new Random();
 
     private final TileRenderer<T> mTileRenderer;
 
@@ -388,8 +391,8 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
             Snack.toastTopWarning(ctx, ctx.getString(R.string.toast_tile_layer_errors, myRendererInfo.getName()));
         }
 
-        long owner = (long) (Math.random() * Long.MAX_VALUE); // unique values so that we can track in the cache which
-                                                              // invocation of onDraw the tile belongs too
+        long owner = random.nextLong(); // unique values so that we can track in the cache which
+                                        // invocation of onDraw the tile belongs too
 
         int maxZoom = myRendererInfo.getMaxZoomLevel();
         int minZoom = myRendererInfo.getMinZoomLevel();
