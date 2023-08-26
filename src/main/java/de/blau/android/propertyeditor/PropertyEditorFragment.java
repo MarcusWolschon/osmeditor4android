@@ -428,7 +428,8 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
     private boolean elementDeleted() {
         StorageDelegator d = App.getDelegator();
         for (PropertyEditorData p : loadData) {
-            if (OsmElement.STATE_DELETED == d.getOsmElement(p.type, p.osmId).getState()) {
+            final OsmElement e = d.getOsmElement(p.type, p.osmId);
+            if (e == null || OsmElement.STATE_DELETED == e.getState()) {
                 return true;
             }
         }
