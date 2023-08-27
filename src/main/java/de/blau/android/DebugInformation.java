@@ -9,6 +9,7 @@ import android.annotation.SuppressLint;
 import android.content.pm.ApplicationInfo;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Debug;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -94,7 +95,8 @@ public class DebugInformation extends ConfigurationChangeAwareActivity {
         builder.append("Target SDK: " + appInfo.targetSdkVersion + eol);
 
         builder.append("Maximum avaliable memory " + Runtime.getRuntime().maxMemory() + eol);
-        builder.append("Total memory used " + Runtime.getRuntime().totalMemory() + eol);
+        builder.append("Total memory used (non-native) " + Runtime.getRuntime().totalMemory() + eol);
+        builder.append("Native memory usage " + Debug.getNativeHeapAllocatedSize() + eol);
         Logic logic = App.getLogic();
         if (logic != null) {
             Map map = logic.getMap();

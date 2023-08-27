@@ -191,7 +191,7 @@ public class WmsEndpointDatabaseView {
             Uri.Builder uriBuilder = uri.buildUpon();
             uriBuilder.clearQuery();
             for (String n : uri.getQueryParameterNames()) {
-                if (!"request".equalsIgnoreCase(n) && !"service".equalsIgnoreCase(n)) {
+                if (!"".equals(n) && !"request".equalsIgnoreCase(n) && !"service".equalsIgnoreCase(n)) {
                     uriBuilder.appendQueryParameter(n, uri.getQueryParameter(n));
                 }
             }

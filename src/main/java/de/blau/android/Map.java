@@ -310,6 +310,14 @@ public class Map extends View implements IMapView {
             mLayers.clear();
             mLayers.addAll(tempLayers);
         }
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+            // check memory usage and zap caches if necessary
+            // Android 8 and later allocate Bitmap storage natively
+            Runtime runtime = Runtime.getRuntime();
+            if (runtime.totalMemory() > runtime.maxMemory() / 2) {
+                flushInvisibleImageryCaches();
+            }
+        }
     }
 
     /**
@@ -436,6 +444,27 @@ public class Map extends View implements IMapView {
         }
         Log.e(DEBUG_TAG, "inconsistent layer config, didn't find layer " + layer.getContentId());
         return false;
+    }
+
+    /**
+     * Flush the in memory caches for all imagery layers except the top one if it is visible
+     */
+    public void flushInvisibleImageryCaches() {
+        List<MapViewLayer> layers = new ArrayList<>();
+        synchronized (mLayers) {
+            layers.addAll(mLayers);
+        }
+        Collections.reverse(layers);
+        boolean seenTop = false;
+        for (MapViewLayer l : layers) {
+            if (l.getType() == LayerType.IMAGERY) {
+                if (!l.isVisible() || seenTop) {
+                    ((MapTilesLayer<?>) l).flushTileCache(null, false);
+                } else {
+                    seenTop = true;
+                }
+            }
+        }
     }
 
     /**

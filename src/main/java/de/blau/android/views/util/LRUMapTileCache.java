@@ -112,7 +112,7 @@ public class LRUMapTileCache<T> {
     // ===========================================================
 
     /**
-     * Overrides clear() to also clear the LRU list.
+     * Empty all data structures
      */
     public synchronized void clear() {
         for (CacheElement<T> ce : cache.values()) {
@@ -123,6 +123,7 @@ public class LRUMapTileCache<T> {
         }
         cache.clear();
         list.clear();
+        cacheSize = 0;
     }
 
     /**
