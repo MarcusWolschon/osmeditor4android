@@ -22,6 +22,7 @@ import org.xml.sax.helpers.DefaultHandler;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import de.blau.android.exception.UnsupportedFormatException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.util.GeoMath;
@@ -66,13 +67,21 @@ public class WmsCapabilities {
     private static final String REQUEST                    = "Request";
     private static final String GETMAP                     = "GetMap";
     private static final String GET                        = "Get";
+    private static final String MAXY_ATTR                  = "maxy";
+    private static final String MAXX_ATTR                  = "maxx";
+    private static final String MINY_ATTR                  = "miny";
+    private static final String MINX_ATTR                  = "minx";
+    private static final String ONLINE_RESOURCE            = "OnlineResource";
+    private static final String XLINK_HREF_ATTR            = "xlink:href";
 
-    private static final String      IMAGE_BMP         = "image/bmp";
-    private static final String      IMAGE_PNG         = "image/png";
-    private static final String      IMAGE_PNG8        = "image/png8";
-    public static final String       IMAGE_JPEG        = "image/jpeg";
-    private static final String      IMAGE_JPEG_PNG    = "image/vnd.jpeg-png";
-    private static final String      IMAGE_JPEG_PNG8   = "image/vnd.jpeg-png8";
+    private static final String IMAGE_BMP       = "image/bmp";
+    private static final String IMAGE_PNG       = "image/png";
+    private static final String IMAGE_PNG8      = "image/png8";
+    public static final String  IMAGE_JPEG      = "image/jpeg";
+    private static final String IMAGE_JPEG_PNG  = "image/vnd.jpeg-png";
+    private static final String IMAGE_JPEG_PNG8 = "image/vnd.jpeg-png8";
+
+    // order is most preferred to least
     public static final List<String> FORMAT_PREFERENCE = Collections
             .unmodifiableList(Arrays.asList(IMAGE_JPEG_PNG8, IMAGE_JPEG_PNG, IMAGE_PNG8, IMAGE_PNG, IMAGE_JPEG, IMAGE_BMP));
 
@@ -222,10 +231,10 @@ public class WmsCapabilities {
                         if (TileLayerSource.EPSG_4326.equals(tempCrs)
                                 || (TileLayerSource.is3857compatible(tempCrs) && !TileLayerSource.EPSG_4326.equals(current.boxCrs))) {
                             try {
-                                current.minx = new BigDecimal(attr.getValue("minx"));
-                                current.miny = new BigDecimal(attr.getValue("miny"));
-                                current.maxx = new BigDecimal(attr.getValue("maxx"));
-                                current.maxy = new BigDecimal(attr.getValue("maxy"));
+                                current.minx = new BigDecimal(attr.getValue(MINX_ATTR));
+                                current.miny = new BigDecimal(attr.getValue(MINY_ATTR));
+                                current.maxx = new BigDecimal(attr.getValue(MAXX_ATTR));
+                                current.maxy = new BigDecimal(attr.getValue(MAXY_ATTR));
                                 current.boxCrs = tempCrs;
                             } catch (NumberFormatException e) {
                                 Log.e(DEBUG_TAG, "Error in bounding box " + e.getMessage());
@@ -307,8 +316,8 @@ public class WmsCapabilities {
                     }
                     break;
                 case GET:
-                    if ("OnlineResource".equals(name)) {
-                        getMapUrl = attr.getValue("xlink:href");
+                    if (ONLINE_RESOURCE.equals(name)) {
+                        getMapUrl = attr.getValue(XLINK_HREF_ATTR);
                     }
                     break;
                 default:
@@ -360,8 +369,12 @@ public class WmsCapabilities {
                         break;
                     case LAYER:
                         if (!current.group && current.name != null) {
-                            Layer layer = constructLayer(layerStack);
-                            layers.add(layer);
+                            try {
+                                Layer layer = constructLayer(layerStack);
+                                layers.add(layer);
+                            } catch (UnsupportedFormatException fex) {
+                                Log.e(DEBUG_TAG, fex.getMessage());
+                            }
                         }
                         layerStack.pop();
                         currentState = stateStack.pop();
@@ -481,10 +494,13 @@ public class WmsCapabilities {
      * @return a Layer object
      */
     @NonNull
-    Layer constructLayer(@NonNull Deque<LayerTemp> stack) {
+    private Layer constructLayer(@NonNull Deque<LayerTemp> stack) {
         Layer layer = new Layer();
         layer.wmsVersion = wmsVersion;
         layer.format = tileFormat;
+        if (layer.format == null) {
+            throw new UnsupportedFormatException("No supported image format");
+        }
         StringBuilder resultTitle = new StringBuilder();
         boolean first = true;
         Iterator<LayerTemp> it = stack.descendingIterator();
@@ -504,6 +520,8 @@ public class WmsCapabilities {
             }
             if (t.crs != null) {
                 layer.proj = t.crs;
+            } else {
+                throw new UnsupportedFormatException("No supported projection");
             }
             if (t.boxCrs != null) {
                 try {
