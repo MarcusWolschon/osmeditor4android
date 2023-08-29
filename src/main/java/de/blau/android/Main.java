@@ -1309,13 +1309,13 @@ public class Main extends FullScreenAppCompatActivity
      */
     public void downLoadBugs(BoundingBox bbox) {
         if (isConnected()) { // don't try if we are not connected
-            Progress.showDialog(this, Progress.PROGRESS_DOWNLOAD);
+            Progress.showDialog(this, Progress.PROGRESS_DOWNLOAD_TASKS);
             TransferTasks.downloadBox(this, prefs.getServer(), bbox, true, TransferTasks.MAX_PER_REQUEST, () -> {
                 de.blau.android.layer.tasks.MapOverlay taskLayer = map.getTaskLayer();
                 if (taskLayer != null) {
                     taskLayer.setVisible(true);
                 }
-                Progress.dismissDialog(Main.this, Progress.PROGRESS_DOWNLOAD);
+                Progress.dismissDialog(Main.this, Progress.PROGRESS_DOWNLOAD_TASKS);
                 getMap().invalidate();
             });
         }
@@ -3123,15 +3123,15 @@ public class Main extends FullScreenAppCompatActivity
      * @param add if true merge the data with the current contents, if false replace
      */
     public void performCurrentViewHttpLoad(boolean add) {
+        if (map.getTaskLayer() != null) { // always adds bugs for now
+            downLoadBugs(map.getViewBox().copy());
+        }
         int nodeCount = App.getDelegator().getCurrentStorage().getNodeCount();
         if (add && nodeCount >= prefs.getDataWarnLimit()) {
             TooMuchData.showDialog(this, nodeCount);
             return;
         }
         App.getLogic().downloadBox(this, map.getViewBox().copy(), add, null);
-        if (map.getTaskLayer() != null) { // always adds bugs for now
-            downLoadBugs(map.getViewBox().copy());
-        }
     }
 
     /**
