@@ -327,25 +327,25 @@ public class BaseValidator implements Validator {
     /**
      * Check the end nodes of the way for potential mergers
      * 
-     * @param w the way we are checkint
+     * @param w the way we are checking
      * @param key the key of target ways
      */
     private void validateEndNodes(@NonNull Way w, @NonNull String key) {
         Logic logic = App.getLogic();
         int layer = getLayer(w);
         de.blau.android.Map map = logic.getMap();
-
         if (unconnectedEndNodeValidation && map != null) {
             // we try to cache these (tolerance) fairly expensive to calculate values at least as long as the ViewBox
             // hasn't changed
-            if (!map.getViewBox().equals(cachedViewBox)) {
-                double centerLat = map.getViewBox().getCenterLat();
-                double widthInMeters = GeoMath.haversineDistance(map.getViewBox().getLeft() / 1E7D, centerLat, map.getViewBox().getRight() / 1E7D, centerLat);
+            final ViewBox viewBox = map.getViewBox();
+            if (!viewBox.equals(cachedViewBox) && map.getPrefs() != null) {
+                double centerLat = viewBox.getCenterLat();
+                double widthInMeters = GeoMath.haversineDistance(viewBox.getLeft() / 1E7D, centerLat, viewBox.getRight() / 1E7D, centerLat);
                 tolerance = (float) (map.getPrefs().getConnectedNodeTolerance() / widthInMeters * map.getWidth());
                 if (cachedViewBox == null) {
-                    cachedViewBox = new ViewBox(map.getViewBox());
+                    cachedViewBox = new ViewBox(viewBox);
                 } else {
-                    cachedViewBox.set(map.getViewBox());
+                    cachedViewBox.set(viewBox);
                 }
             }
             try {
