@@ -791,7 +791,7 @@ public class PresetParser {
              */
             @NonNull
             private String getImagePath(@NonNull Preset preset, @NonNull String imagePath) {
-                return preset.isDefault() ? imagePath : preset.getDirectory().toString() + imagePath;
+                return preset.isDefault() ? imagePath : preset.getDirectory().getAbsolutePath() + "/" + imagePath;
             }
         });
     }
