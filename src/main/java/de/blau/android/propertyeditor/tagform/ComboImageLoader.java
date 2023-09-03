@@ -22,8 +22,8 @@ public class ComboImageLoader extends ImageLoader {
 
     private static final long serialVersionUID = 1L;
 
-    private List<Value> values; // NOSONAR
-    private String      key;
+    private final List<Value> values; // NOSONAR
+    private final String      key;
 
     /**
      * Construct a new loader
@@ -31,7 +31,7 @@ public class ComboImageLoader extends ImageLoader {
      * @param key the key
      * @param values a list of values
      */
-    ComboImageLoader(String key, @NonNull List<Value> values) {
+    ComboImageLoader(@NonNull String key, @NonNull List<Value> values) {
         this.key = key;
         this.values = values;
     }

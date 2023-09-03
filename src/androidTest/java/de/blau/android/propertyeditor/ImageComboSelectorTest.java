@@ -39,6 +39,10 @@ import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.prefs.PresetLoader;
 import de.blau.android.presets.Preset;
+import de.blau.android.presets.PresetComboField;
+import de.blau.android.presets.PresetItem;
+import de.blau.android.util.StringWithDescription;
+import de.blau.android.util.StringWithDescriptionAndIcon;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
@@ -148,5 +152,29 @@ public class ImageComboSelectorTest {
         Node n = logic.getSelectedNode();
         assertNotNull(n);
         assertTrue(n.hasTag("bicycle_parking", "handlebar_holder"));
+    }
+
+    /**
+     * Check that the images can actually be opened
+     */
+    @Test
+    public void checkImage() {
+        Preset[] presets = App.getCurrentPresets(main);
+        for (Preset p:presets) {
+            PresetItem item =p.getItemByName("Parking", null);
+            if (item != null) {
+                PresetComboField combo = (PresetComboField) item.getField("bicycle_parking");
+                for (StringWithDescription value: combo.getValues()) {
+                    if ("stands".equals(value.getValue()) && value instanceof StringWithDescriptionAndIcon) {
+                        String imagePath = ((StringWithDescriptionAndIcon) value).getImagePath();
+                        if (imagePath != null) {
+                            assertTrue(new File(imagePath).exists());
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+        fail("preset not found");
     }
 }
