@@ -13,7 +13,7 @@ public interface MapTileSaver {
      * @param data the tile image data
      * @throws IOException if saving the file goes wrong
      */
-    public void saveFile(final MapTile tile, final byte[] data) throws IOException;
+    public void saveTile(final MapTile tile, final byte[] data) throws IOException;
     
     /**
      * Mark a tile as invalid (really doesn't exist)

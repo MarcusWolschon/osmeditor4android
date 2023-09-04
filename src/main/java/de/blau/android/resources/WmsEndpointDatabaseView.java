@@ -16,6 +16,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,19 +24,23 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
+import androidx.appcompat.app.AppCompatDialog;
 import androidx.cursoradapter.widget.CursorAdapter;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import de.blau.android.App;
 import de.blau.android.Logic;
+import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.osm.Server;
 import de.blau.android.resources.TileLayerDialog.OnUpdateListener;
 import de.blau.android.resources.WmsCapabilities.Layer;
 import de.blau.android.util.ExecutorTask;
+import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.Snack;
 import de.blau.android.util.Util;
 import de.blau.android.util.WidestItemArrayAdapter;
@@ -43,27 +48,74 @@ import de.blau.android.util.WidestItemArrayAdapter;
 /**
  * WMS endpoint management UI
  */
-public class WmsEndpointDatabaseView {
+public class WmsEndpointDatabaseView extends ImmersiveDialogFragment implements OnUpdateListener {
     private static final String DEBUG_TAG = WmsEndpointDatabaseView.class.getSimpleName();
 
     private EndpointAdapter endpointAdapter;
 
+    private SQLiteDatabase writableDb;
+
+    private static final String TAG = "fragment_wms_endpoints";
+
     /**
-     * Show a list of the layers in the database, selection will either load a template or start the edit dialog on it
+     * Query the list of WMS endpoints catalog and display the results for selection
      * 
-     * @param activity Android context
-     * @param onUpdateListener call this if layer has been added
+     * @param activity the calling Activity
+     * 
      */
-    public void manageEndpoints(@NonNull final FragmentActivity activity, @Nullable OnUpdateListener onUpdateListener) {
+    public static void showDialog(@NonNull Fragment parent) {
+        dismissDialog(parent);
+        try {
+            FragmentManager fm = parent.getChildFragmentManager();
+            FragmentActivity activity = parent.getActivity();
+            if (activity instanceof Main) {
+                ((Main) activity).descheduleAutoLock();
+            }
+            WmsEndpointDatabaseView fragment = newInstance();
+            fragment.show(fm, TAG);
+        } catch (IllegalStateException isex) {
+            Log.e(DEBUG_TAG, "showDialog", isex);
+        }
+    }
+
+    /**
+     * Dismiss the Dialog
+     * 
+     * @param parent the calling FragmentActivity
+     */
+    private static void dismissDialog(@NonNull Fragment parent) {
+        de.blau.android.dialogs.Util.dismissDialog(parent, TAG);
+    }
+
+    /**
+     * Create new instance of this object
+     * 
+     * @param result the List of Result elements
+     * @return a WmsEndpointDatabaseView instance
+     */
+    private static WmsEndpointDatabaseView newInstance() {
+        WmsEndpointDatabaseView f = new WmsEndpointDatabaseView();
+        Bundle args = new Bundle();
+
+        f.setArguments(args);
+        f.setShowsDialog(true);
+
+        return f;
+    }
+
+    @NonNull
+    @Override
+    public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
+        FragmentActivity activity = getActivity();
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
         View endpointListView = LayoutInflater.from(activity).inflate(R.layout.layer_list, null);
         alertDialog.setTitle(R.string.wms_endpoints_title);
         alertDialog.setView(endpointListView);
         final TileLayerDatabase tlDb = new TileLayerDatabase(activity); // NOSONAR will be closed when dismissed
-        final SQLiteDatabase writableDb = tlDb.getWritableDatabase();
+        writableDb = tlDb.getWritableDatabase();
         ListView endpointList = (ListView) endpointListView.findViewById(R.id.listViewLayer);
         Cursor endpointCursor = TileLayerDatabase.getAllWmsEndPoints(writableDb);
-        endpointAdapter = new EndpointAdapter(writableDb, activity, endpointCursor, onUpdateListener);
+        endpointAdapter = new EndpointAdapter(writableDb, activity, endpointCursor);
         endpointList.setAdapter(endpointAdapter);
         alertDialog.setNeutralButton(R.string.done, null);
         alertDialog.setOnDismissListener(dialog -> {
@@ -79,13 +131,12 @@ public class WmsEndpointDatabaseView {
         });
         final FloatingActionButton fab = (FloatingActionButton) endpointListView.findViewById(R.id.add);
         fab.setOnClickListener(v -> WmsEndpointDialog.showDialog(activity, -1, () -> newLayerCursor(writableDb)));
-        alertDialog.show();
+        return alertDialog.create();
     }
 
     private class EndpointAdapter extends CursorAdapter {
         final SQLiteDatabase   db;
         final FragmentActivity activity;
-        final OnUpdateListener onUpdateListener;
 
         /**
          * A cursor adapter that binds Layers to Views
@@ -95,12 +146,10 @@ public class WmsEndpointDatabaseView {
          * @param cursor the Cursor
          * @param onUpdateListener call this if layer has been added
          */
-        public EndpointAdapter(@NonNull final SQLiteDatabase db, @NonNull final FragmentActivity activity, @NonNull Cursor cursor,
-                final @Nullable OnUpdateListener onUpdateListener) {
+        public EndpointAdapter(@NonNull final SQLiteDatabase db, @NonNull final FragmentActivity activity, @NonNull Cursor cursor) {
             super(activity, cursor, 0);
             this.db = db;
             this.activity = activity;
-            this.onUpdateListener = onUpdateListener;
         }
 
         @Override
@@ -114,7 +163,6 @@ public class WmsEndpointDatabaseView {
             final int id = cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
             view.setTag(id);
             String name = cursor.getString(cursor.getColumnIndexOrThrow(TileLayerDatabase.NAME_FIELD));
-
             TextView nameView = (TextView) view.findViewById(R.id.name);
             nameView.setText(name);
             view.setLongClickable(true);
@@ -129,51 +177,48 @@ public class WmsEndpointDatabaseView {
                     }
 
                     @Override
-                    protected WmsCapabilities doInBackground(Void params) {
+                    protected WmsCapabilities doInBackground(Void params) throws IOException, ParserConfigurationException, SAXException {
                         String url = Util.appendQuery(sanitize(endpoint.getTileUrl()), "request=GetCapabilities&service=wms");
                         try (InputStream is = Server.openConnection(activity, new URL(url))) {
                             return new WmsCapabilities(is);
-                        } catch (IOException | ParserConfigurationException | SAXException e) {
-                            Log.e(DEBUG_TAG, e.getMessage());
                         }
-                        return null;
+                    }
+
+                    @Override
+                    protected void onBackgroundError(Exception e) {
+                        Progress.dismissDialog(activity, Progress.PROGRESS_DOWNLOAD);
+                        Snack.toastTopError(activity, activity.getString(R.string.toast_querying_wms_server_failed, e.getLocalizedMessage()));
                     }
 
                     @Override
                     protected void onPostExecute(WmsCapabilities result) {
                         Progress.dismissDialog(activity, Progress.PROGRESS_DOWNLOAD);
-                        if (result != null) {
-                            Builder builder = new AlertDialog.Builder(activity);
-                            builder.setTitle(R.string.select_layer_title);
-                            builder.setNeutralButton(R.string.Done, null);
-                            View layerListView = LayoutInflater.from(activity).inflate(R.layout.wms_layer_list, null);
-                            ListView layerList = (ListView) layerListView.findViewById(R.id.listViewLayer);
-                            builder.setView(layerListView);
-                            List<String> layers = new ArrayList<>();
-                            for (Layer layer : result.layers) {
-                                layers.add(layer.title);
-                            }
-                            WidestItemArrayAdapter<String> adapter = new WidestItemArrayAdapter<>(activity, R.layout.layer_list_item, R.id.name, layers);
-                            layerList.setAdapter(adapter);
-                            layerList.setOnItemClickListener((parent, view, position, id) -> {
-                                LayerEntry entry = new LayerEntry();
-                                Layer layer = result.layers.get(position);
-                                entry.title = layer.title;
-                                entry.tileUrl = layer.getTileUrl(result.getGetMapUrl() != null ? result.getGetMapUrl() : sanitize(endpoint.getTileUrl()));
-                                entry.box = layer.extent;
-                                entry.gsd = layer.gsd;
-                                TileLayerDialog.showLayerDialog(activity, -1, entry, () -> {
-                                    TileLayerDatabaseView.resetLayer(activity, db);
-                                    if (onUpdateListener != null) {
-                                        onUpdateListener.update();
-                                    }
-                                });
-                            });
-
-                            builder.create().show();
-                        } else {
+                        if (result.layers.isEmpty()) {
                             Snack.toastTopError(activity, R.string.toast_nothing_found);
+                            return;
                         }
+                        Builder builder = new AlertDialog.Builder(activity);
+                        builder.setTitle(R.string.select_layer_title);
+                        builder.setNeutralButton(R.string.Done, null);
+                        View layerListView = LayoutInflater.from(activity).inflate(R.layout.wms_layer_list, null);
+                        ListView layerList = (ListView) layerListView.findViewById(R.id.listViewLayer);
+                        builder.setView(layerListView);
+                        List<String> layers = new ArrayList<>();
+                        for (Layer layer : result.layers) {
+                            layers.add(layer.title);
+                        }
+                        WidestItemArrayAdapter<String> adapter = new WidestItemArrayAdapter<>(activity, R.layout.layer_list_item, R.id.name, layers);
+                        layerList.setAdapter(adapter);
+                        layerList.setOnItemClickListener((parent, view, position, id) -> {
+                            LayerEntry entry = new LayerEntry();
+                            Layer layer = result.layers.get(position);
+                            entry.title = layer.title;
+                            entry.tileUrl = layer.getTileUrl(result.getGetMapUrl() != null ? result.getGetMapUrl() : sanitize(endpoint.getTileUrl()));
+                            entry.box = layer.extent;
+                            entry.gsd = layer.gsd;
+                            TileLayerDialog.showDialog(WmsEndpointDatabaseView.this, -1, entry);
+                        });
+                        builder.create().show();
                     }
                 }.execute();
             });
@@ -209,5 +254,11 @@ public class WmsEndpointDatabaseView {
         Cursor oldCursor = endpointAdapter.swapCursor(newCursor);
         oldCursor.close();
         endpointAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void update() {
+        TileLayerDatabaseView.resetLayer(getActivity(), writableDb);
+        TileLayerDialog.update(this);
     }
 }

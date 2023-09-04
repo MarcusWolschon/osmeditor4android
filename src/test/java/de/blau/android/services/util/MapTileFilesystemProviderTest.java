@@ -72,7 +72,7 @@ public class MapTileFilesystemProviderTest {
     @Test
     public void saveFileTest() {
         try {
-            provider.saveFile(new MapTile("test", 10, 511, 340), MapTileProviderDataBaseTest.getTestTile());
+            provider.saveTile(new MapTile("test", 10, 511, 340), MapTileProviderDataBaseTest.getTestTile());
         } catch (IOException e) {
             fail(e.getMessage());
         }

@@ -58,7 +58,7 @@ public class MapTileTester {
         MapTileSaver saver = new MapTileSaver() {
 
             @Override
-            public void saveFile(MapTile tile, byte[] data) throws IOException {
+            public void saveTile(MapTile tile, byte[] data) throws IOException {
                 tileData = data;
             }
 

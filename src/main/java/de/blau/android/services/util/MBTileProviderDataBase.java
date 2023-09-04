@@ -26,7 +26,7 @@ import de.blau.android.util.ContentResolverUtil;
 /**
  * @author Simon Poole
  */
-public class MBTileProviderDataBase {
+public class MBTileProviderDataBase implements LocalTileContainer {
     private static final String  DEBUG_TAG = "MBTilePro...DataBase";
     private static final boolean DEBUGMODE = false;
 
@@ -107,14 +107,7 @@ public class MBTileProviderDataBase {
         this(context, Uri.parse(mbTilesUri), -1);
     }
 
-    /**
-     * Returns requested tile
-     * 
-     * @param aTile the tile meta data
-     * @return the contents of the tile or null on failure to retrieve
-     * @throws IOException if we had issues reading from the database
-     */
-    @Nullable
+    @Override
     public byte[] getTile(@NonNull final MapTile aTile) throws IOException {
         try (InputStream is = getTileStream(aTile)) {
             if (is != null) {

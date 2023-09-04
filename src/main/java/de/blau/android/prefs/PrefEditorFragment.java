@@ -78,8 +78,7 @@ public class PrefEditorFragment extends ExtendedPreferenceFragment {
         if (customLayersPref != null) {
             customLayersPref.setOnPreferenceClickListener(preference -> {
                 Log.d(DEBUG_TAG, "onPreferenceClick custom layers");
-                TileLayerDatabaseView ui = new TileLayerDatabaseView();
-                ui.manageLayers(getActivity());
+                TileLayerDatabaseView.showDialog(getActivity());
                 return true;
             });
         }

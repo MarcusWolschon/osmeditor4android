@@ -87,6 +87,7 @@ import de.blau.android.resources.KeyDatabaseHelper.EntryType;
 import de.blau.android.resources.OAMCatalogView;
 import de.blau.android.resources.TileLayerDatabase;
 import de.blau.android.resources.TileLayerDialog;
+import de.blau.android.resources.TileLayerDialog.OnUpdateListener;
 import de.blau.android.resources.TileLayerSource;
 import de.blau.android.resources.TileLayerSource.Category;
 import de.blau.android.resources.TileLayerSource.TileType;
@@ -112,7 +113,7 @@ import de.blau.android.views.layers.MapTilesLayer;
  * @author Simon Poole
  *
  */
-public class Layers extends AbstractConfigurationDialog {
+public class Layers extends AbstractConfigurationDialog implements OnUpdateListener {
     private static final String DEBUG_TAG = Layers.class.getName();
 
     private static final int  VERTICAL_OFFSET     = 64;
@@ -126,6 +127,8 @@ public class Layers extends AbstractConfigurationDialog {
     private int menuId;
 
     private TableLayout tl;
+
+    private OnUpdateListener updateListener;
 
     /**
      * Show dialog that allows to configure the layers
@@ -258,7 +261,7 @@ public class Layers extends AbstractConfigurationDialog {
 
             item = popup.getMenu().add(R.string.layer_add_custom_imagery);
             item.setOnMenuItemClickListener(unused -> {
-                TileLayerDialog.showLayerDialog(activity, null, () -> updateDialogAndPrefs(activity, prefs, map));
+                TileLayerDialog.showDialog(this, null);
                 return true;
             });
 
@@ -270,15 +273,13 @@ public class Layers extends AbstractConfigurationDialog {
 
             item = popup.getMenu().add(R.string.menu_tools_add_imagery_from_oam);
             item.setOnMenuItemClickListener(unused -> {
-                OAMCatalogView.queryAndSelectLayers(getActivity(), activity instanceof Main ? ((Main) activity).getMap().getViewBox() : null,
-                        () -> updateDialogAndPrefs(activity, prefs, map));
+                OAMCatalogView.showDialog(this, activity instanceof Main ? ((Main) activity).getMap().getViewBox() : null);
                 return true;
             });
 
             item = popup.getMenu().add(R.string.add_imagery_from_wms_endpoint);
             item.setOnMenuItemClickListener(unused -> {
-                WmsEndpointDatabaseView ui = new WmsEndpointDatabaseView();
-                ui.manageEndpoints(getActivity(), () -> updateDialogAndPrefs(activity, prefs, map));
+                WmsEndpointDatabaseView.showDialog(this);
                 return true;
             });
 
@@ -748,11 +749,12 @@ public class Layers extends AbstractConfigurationDialog {
                     editItem.setOnMenuItemClickListener(unused -> {
                         try (TileLayerDatabase tlDb = new TileLayerDatabase(activity); SQLiteDatabase db = tlDb.getReadableDatabase()) {
                             long rowid = TileLayerDatabase.getLayerRowId(db, currentServerId);
-                            TileLayerDialog.showLayerDialog(activity, rowid, null, () -> {
+                            updateListener = () -> {
                                 populateImageryLists(activity);
                                 map.setUpLayers(activity);
-                                updateDialogAndPrefs(activity, App.getLogic().getPrefs(), map);
-                            });
+
+                            };
+                            TileLayerDialog.showDialog(Layers.this, rowid, null);
                         } catch (IllegalArgumentException iaex) {
                             Snack.toastTopError(activity, iaex.getMessage());
                         }
@@ -1285,5 +1287,15 @@ public class Layers extends AbstractConfigurationDialog {
             ((Main) activity).updatePrefs(prefs);
             App.getLogic().getMap().setPrefs(activity, prefs);
         }
+    }
+
+    @Override
+    public void update() {
+        if (updateListener != null) {
+            updateListener.update();
+            updateListener = null;
+        }
+        final Logic logic = App.getLogic();
+        updateDialogAndPrefs(getActivity(), logic.getPrefs(), logic.getMap());
     }
 }

@@ -589,6 +589,9 @@
     <string name="toast_split_to">Splitted \"to\" way</string>
     <string name="toast_tile_database_issue_short">Tile database issue</string>
     <string name="toast_tile_database_issue">Serious issue with map tile database\n"%1$s"\nPlease consult our FAQ at https://vespucci.io/</string>
+    <string name="toast_tile_source_issue">Serious issue with map tile source, temporarily disabled\n"%1$s"</string>
+    <string name="toast_tile_container_issue">Tile container file "%1$s" doesn\'t exist or cannot be opened</string>
+    <string name="toast_unable_to_configure_from_source">Unable to configure from remote: %1$s</string>
     <string name="toast_invalid_apiurl">Invalid API URL</string>
     <string name="toast_invalid_readonlyurl">Invalid ReadOnly API URL</string>
     <string name="toast_invalid_notesurl">Invalid notes API URL</string>
@@ -620,7 +623,7 @@
     <string name="toast_applied_offset">Image offset applied.</string>
     <string name="toast_unsupported_format">Unsupported format: %1$s</string>
     <string name="toast_returning_less_than_found">Returning %1$d of %2$d found entries</string>
-    <string name="toast_not_mbtiles">Not a MBTiles format file</string>
+    <string name="toast_not_mbtiles">Not a MBTiles or PMTiles format file</string>
     <string name="toast_using_network_location">Using network location</string>
     <string name="toast_using_gps_location">Using GPS/GNSS location</string>
     <string name="toast_using_gps_disabled_tracking_stopped">GPS/GNSS positioning turned off, consider stopping tracking.</string>
@@ -696,6 +699,7 @@
     <string name="toast_updating_parents">Updating parents…</string>
     <string name="toast_updating_members">Updating members…</string>
     <string name="toast_error_loading_egm">Error loading EGM %1$s</string>
+    <string name="toast_querying_wms_server_failed">Querying WMS server failed: %1$s</string>
     <!-- Error messages -->
     <string name="error_mapsplit_missing_zoom">MapSplit sources must have min and max zoom set</string>
     <string name="error_pbf_no_version">Version information missing in PBF file</string>

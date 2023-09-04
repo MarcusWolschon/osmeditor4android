@@ -9,6 +9,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,39 +19,84 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatDialog;
 import androidx.cursoradapter.widget.CursorAdapter;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import de.blau.android.App;
 import de.blau.android.Logic;
+import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.layer.LayerType;
 import de.blau.android.prefs.AdvancedPrefDatabase;
+import de.blau.android.resources.TileLayerDialog.OnUpdateListener;
+import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.views.layers.MapTilesLayer;
 import de.blau.android.views.layers.MapTilesOverlayLayer;
 
-public class TileLayerDatabaseView {
+public class TileLayerDatabaseView extends ImmersiveDialogFragment implements OnUpdateListener {
     private static final String DEBUG_TAG = TileLayerDatabaseView.class.getSimpleName();
 
-    /**
-     * Ruleset database related methods and fields
-     */
-    private LayerAdapter layerAdapter;
+    private static final String TAG = "fragment_layer_database_view";
 
     /**
-     * Show a list of the layers in the database, selection will either load a template or start the edit dialog on it
      * 
-     * @param activity Android context
      */
-    public void manageLayers(@NonNull final FragmentActivity activity) {
+    private LayerAdapter   layerAdapter;
+    private SQLiteDatabase writableDb;
+
+    /**
+     * Show a dialog to manage custom imagery layers
+     * 
+     * @param activity the calling FragmentActivity
+     */
+    public static void showDialog(@NonNull FragmentActivity activity) {
+        dismissDialog(activity);
+        try {
+            FragmentManager fm = activity.getSupportFragmentManager();
+            if (activity instanceof Main) {
+                ((Main) activity).descheduleAutoLock();
+            }
+            TileLayerDatabaseView fragment = newInstance();
+
+            fragment.show(fm, TAG);
+        } catch (IllegalStateException isex) {
+            Log.e(DEBUG_TAG, "showDialog", isex);
+        }
+    }
+
+    /**
+     * Dismiss the Dialog
+     * 
+     * @param activity the calling FragmentActivity
+     */
+    private static void dismissDialog(@NonNull FragmentActivity activity) {
+        de.blau.android.dialogs.Util.dismissDialog(activity, TAG);
+    }
+
+    /**
+     * Create new instance of this object
+     * 
+     */
+    private static TileLayerDatabaseView newInstance() {
+        TileLayerDatabaseView f = new TileLayerDatabaseView();
+        f.setShowsDialog(true);
+        return f;
+    }
+
+    @NonNull
+    @Override
+    public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
+        FragmentActivity activity = getActivity();
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
         View layerListView = LayoutInflater.from(activity).inflate(R.layout.layer_list, null);
         alertDialog.setTitle(R.string.custom_layer_title);
         alertDialog.setView(layerListView);
         final TileLayerDatabase tlDb = new TileLayerDatabase(activity); // NOSONAR will be closed when dismissed
-        final SQLiteDatabase writableDb = tlDb.getWritableDatabase();
+        writableDb = tlDb.getWritableDatabase();
         ListView layerList = (ListView) layerListView.findViewById(R.id.listViewLayer);
         Cursor layerCursor = TileLayerDatabase.getAllCustomLayers(writableDb);
-        layerAdapter = new LayerAdapter(writableDb, activity, layerCursor);
+        layerAdapter = new LayerAdapter(activity, layerCursor);
         layerList.setAdapter(layerAdapter);
         alertDialog.setNeutralButton(R.string.done, null);
         alertDialog.setOnDismissListener(dialog -> {
@@ -75,28 +121,20 @@ public class TileLayerDatabaseView {
             return true;
         });
         final FloatingActionButton fab = (FloatingActionButton) layerListView.findViewById(R.id.add);
-        fab.setOnClickListener(v -> TileLayerDialog.showLayerDialog(activity, -1, null, () -> {
-            newLayerCursor(writableDb);
-            resetLayer(activity, writableDb);
-        }));
-        alertDialog.show();
+        fab.setOnClickListener(v -> TileLayerDialog.showDialog(this, -1, null));
+        return alertDialog.create();
     }
 
     private class LayerAdapter extends CursorAdapter {
-        final SQLiteDatabase   db;
-        final FragmentActivity activity;
 
         /**
          * A cursor adapter that binds Layers to Views
          * 
-         * @param db an open db
          * @param activity the calling activity
          * @param cursor the Cursor
          */
-        public LayerAdapter(@NonNull final SQLiteDatabase db, @NonNull final FragmentActivity activity, @NonNull Cursor cursor) {
+        public LayerAdapter(@NonNull final FragmentActivity activity, @NonNull Cursor cursor) {
             super(activity, cursor, 0);
-            this.db = db;
-            this.activity = activity;
         }
 
         @Override
@@ -118,13 +156,9 @@ public class TileLayerDatabaseView {
             view.setLongClickable(true);
             view.setOnClickListener(v -> {
                 Integer tag = (Integer) view.getTag();
-                TileLayerDialog.showLayerDialog(activity, tag != null ? tag : -1, null, () -> {
-                    newLayerCursor(db);
-                    resetLayer(activity, db);
-                });
+                TileLayerDialog.showDialog(TileLayerDatabaseView.this, tag != null ? tag : -1, null);
             });
         }
-
     }
 
     /**
@@ -179,7 +213,7 @@ public class TileLayerDatabaseView {
                 if ((isOverlay && !newConfig.isOverlay()) || (!isOverlay && newConfig.isOverlay())) {
                     // not good overlay as background or the other way around
                     try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(context)) {
-                        db.deleteLayer(isOverlay ? LayerType.OVERLAYIMAGERY : LayerType.IMAGERY, newConfig.getId());
+                        db.deleteLayer(layer.getType(), newConfig.getId());
                     }
                 } else {
                     layer.setRendererInfo(newConfig);
@@ -221,5 +255,11 @@ public class TileLayerDatabaseView {
         } else {
             Log.e(DEBUG_TAG, "layerConfig should not be null here");
         }
+    }
+
+    @Override
+    public void update() {
+        newLayerCursor(writableDb);
+        resetLayer(getContext(), writableDb);
     }
 }

@@ -282,7 +282,7 @@ public final class Eli {
                     TileLayerSource.DEFAULT_MAX_OVERZOOM, tileWidth, tileHeight, proj, preference, startDate, endDate, noTileHeader, noTileValues, description,
                     privacyPolicyUrl, async);
             osmts.setNoTileTile(noTileTile);
-            if (TileLayerSource.TYPE_TMS.equals(osmts.getType())) {
+            if (TileLayerSource.TYPE_TMS.equals(osmts.getType()) || TileLayerSource.TYPE_PMT_3.equals(osmts.getType())) {
                 osmts.setTileType(MVT_VALUE.equals(getJsonString(properties, TILE_TYPE_KEY)) ? TileType.MVT : TileType.BITMAP);
             }
             // we currently only support a single header object
