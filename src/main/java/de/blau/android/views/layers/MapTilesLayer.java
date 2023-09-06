@@ -957,6 +957,10 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
         super.onRestoreState(ctx);
         synchronized (getLastServers()) {
             MRUList<String> tempLastServers = mruSavingHelper.load(ctx, getClass().getName() + "lastServers", true);
+            if (tempLastServers == null) {
+                Log.w(DEBUG_TAG, "No MRU");
+                return false;
+            }
             Log.d(DEBUG_TAG, "read MRU size " + tempLastServers.size());
             getLastServers().ensureCapacity(MRU_SIZE);
             getLastServers().pushAll(tempLastServers);
