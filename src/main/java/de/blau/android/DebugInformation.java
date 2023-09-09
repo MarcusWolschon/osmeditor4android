@@ -105,7 +105,7 @@ public class DebugInformation extends ConfigurationChangeAwareActivity {
                     if (ov instanceof MapTilesLayer || ov instanceof MapTilesOverlayLayer) {
                         TileLayerSource tileLayerConfiguration = ((MapTilesLayer<?>) ov).getTileLayerConfiguration();
                         if (tileLayerConfiguration != null) {
-                            builder.append("In memory Tile Cache " + tileLayerConfiguration.getId() + " usage "
+                            builder.append("In memory Tile Cache " + tileLayerConfiguration.getId() + " type " + tileLayerConfiguration.getType() + " tiles " + tileLayerConfiguration.getTileType() + " usage "
                                     + ((MapTilesLayer<?>) ov).getTileProvider().getCacheUsageInfo() + eol);
                         }
                     }
