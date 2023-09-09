@@ -163,7 +163,7 @@ public class LayerDialogCustomImageryTest {
         assertTrue(TestUtils.textGone(device, main.getString(R.string.layer_add_custom_imagery), 2000));
         assertTrue(TestUtils.findText(device, false, "Vespucci Test")); // layer dialog
         try (TileLayerDatabase db = new TileLayerDatabase(ApplicationProvider.getApplicationContext())) {
-            TileLayerSource tls = TileLayerDatabase.getLayer(main, db.getReadableDatabase(), "VESPUCCITEST");
+            TileLayerSource tls = TileLayerDatabase.getLayer(main, db.getReadableDatabase(), MockTileServer.MOCK_TILE_SOURCE);
             assertNotNull(tls);
             assertEquals(TileLayerSource.TYPE_TMS, tls.getType());
             assertEquals(TileLayerSource.TileType.BITMAP, tls.getTileType());
