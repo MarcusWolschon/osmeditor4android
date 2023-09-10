@@ -88,12 +88,12 @@ public class MapTileDownloader extends MapAsyncTileProvider {
 
     public static final long TIMEOUT = 5000;
 
-    private final Context                            mCtx;
-    private final MapTileSaver                       mapTileSaver;
-    private final NetworkStatus                      networkStatus;
-    private final OkHttpClient                       client;
-    private static final ReaderCache<String, Reader> pmtilesReaderCache = new ReaderCache<>();
-    private static final HashSet<String>             disabled           = new HashSet<>();
+    private final Context                     mCtx;
+    private final MapTileSaver                mapTileSaver;
+    private final NetworkStatus               networkStatus;
+    private final OkHttpClient                client;
+    private final ReaderCache<String, Reader> pmtilesReaderCache = new ReaderCache<>();
+    private final HashSet<String>             disabled           = new HashSet<>();
 
     /**
      * Construct a new MapTileDownloader
