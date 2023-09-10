@@ -36,6 +36,7 @@ public class PMTilesDispatcher extends Dispatcher {
      * @throws IOException if the source can't copied out of the assets and opened
      */
     public PMTilesDispatcher(@NonNull Context context, @NonNull String source) throws IOException {
+        Log.d(DEBUG_TAG, "creating new dispatcher for " + source);
         try {
             File destinationDir = ContextCompat.getExternalCacheDirs(context)[0];
             File file = new File(destinationDir, source);
@@ -52,7 +53,7 @@ public class PMTilesDispatcher extends Dispatcher {
 
     @Override
     public MockResponse dispatch(RecordedRequest request) throws InterruptedException {
-        Log.i(DEBUG_TAG, "request " + request);
+        Log.d(DEBUG_TAG, "request " + request);
         try (Buffer data = new Buffer()) {
             Matcher matcher = RANGE_PATTERN.matcher(request.getHeader(RANGE_HEADER));
             if (matcher.find()) {
@@ -65,6 +66,7 @@ public class PMTilesDispatcher extends Dispatcher {
                     return new MockResponse().setResponseCode(HttpURLConnection.HTTP_OK).setBody(data);
                 }
             }
+            Log.e(DEBUG_TAG, "no range header found");
             return new MockResponse().setResponseCode(HttpURLConnection.HTTP_NOT_FOUND);
         } catch (IOException | NumberFormatException e) {
             Log.e(DEBUG_TAG, "dispatch failed for " + request + " " + e.getMessage());
@@ -74,6 +76,7 @@ public class PMTilesDispatcher extends Dispatcher {
 
     @Override
     public void shutdown() {
+        Log.d(DEBUG_TAG, "shutting down dispatcher");
         try {
             channel.close();
         } catch (IOException e) {
