@@ -334,7 +334,9 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider implements M
         tileCache.close();
         synchronized (tileContainerCache) {
             for (LocalTileContainer container : tileContainerCache.values()) {
-                container.close();
+                if (container != null) {
+                    container.close();
+                }
             }
             tileContainerCache.clear();
         }
