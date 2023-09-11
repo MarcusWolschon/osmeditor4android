@@ -7,12 +7,13 @@ import java.util.Locale;
 import java.util.SortedMap;
 
 import android.annotation.SuppressLint;
-import android.content.DialogInterface.OnClickListener;
+import android.content.DialogInterface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -344,51 +345,42 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
      * @return the Dialog
      */
     @SuppressLint("InflateParams")
-    AppCompatDialog createSetPositionDialog(int lonE7, int latE7) {
+    private AppCompatDialog createSetPositionDialog(int lonE7, int latE7) {
         final LayoutInflater inflater = ThemeUtils.getLayoutInflater(main);
-        Builder dialog = new AlertDialog.Builder(main);
-        dialog.setTitle(R.string.menu_set_position);
+        Builder builder = new AlertDialog.Builder(main);
+        builder.setTitle(R.string.menu_set_position);
 
         View layout = inflater.inflate(R.layout.set_position, null);
-        dialog.setView(layout);
+        builder.setView(layout);
         // TODO add conversion to/from other datums
         TextView datum = (TextView) layout.findViewById(R.id.set_position_datum);
         datum.setText(R.string.WGS84);
-        EditText lon = (EditText) layout.findViewById(R.id.set_position_lon);
+        final EditText lon = (EditText) layout.findViewById(R.id.set_position_lon);
         lon.setText(String.format(Locale.US, "%.7f", lonE7 / 1E7d));
-        EditText lat = (EditText) layout.findViewById(R.id.set_position_lat);
+        final EditText lat = (EditText) layout.findViewById(R.id.set_position_lat);
         lat.setText(String.format(Locale.US, "%.7f", latE7 / 1E7d));
 
-        dialog.setPositiveButton(R.string.set, createSetButtonListener(lon, lat, (Node) element));
-        dialog.setNegativeButton(R.string.cancel, null);
-
-        return dialog.create();
-    }
-
-    /**
-     * Create an onClick listener that sets the coordinates in the node
-     * 
-     * @param lonField the EditText with the longitude
-     * @param latField the EditText with the latitude
-     * @param node the Node we want to change the location of
-     * @return the OnClickListnener
-     */
-    @NonNull
-    private OnClickListener createSetButtonListener(@NonNull final EditText lonField, @NonNull final EditText latField, @NonNull final Node node) {
-        return (dialog, which) -> {
-            double lon = Double.parseDouble(lonField.getText().toString());
-            double lat = Double.parseDouble(latField.getText().toString());
-            if (GeoMath.coordinatesInCompatibleRange(lon, lat)) {
+        builder.setPositiveButton(R.string.set, null);
+        builder.setNegativeButton(R.string.cancel, null);
+        final AlertDialog dialog = builder.create();
+        dialog.setOnShowListener((DialogInterface dialogInterface) -> {
+            Button positive = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
+            positive.setOnClickListener((View v) -> {
                 try {
-                    logic.performSetPosition(main, node, lon, lat);
-                } catch (OsmIllegalOperationException ex) {
-                    Snack.barError(main, ex.getLocalizedMessage()); // this "can't" happen
+                    double longitude = Double.parseDouble(lon.getText().toString());
+                    double latitude = Double.parseDouble(lat.getText().toString());
+                    if (GeoMath.coordinatesInCompatibleRange(longitude, latitude)) {
+                        logic.performSetPosition(main, (Node) element, longitude, latitude);
+                        dialog.dismiss();
+                        manager.invalidate();
+                        return;
+                    }
+                } catch (OsmIllegalOperationException | NumberFormatException nfex) {
+                    Log.w(DEBUG_TAG, nfex.getMessage());
                 }
-                manager.invalidate();
-            } else {
-                createSetPositionDialog((int) (lon * 1E7), (int) (lat * 1E7)).show();
-                Snack.barWarning(main, R.string.coordinates_out_of_range);
-            }
-        };
+                Snack.toastTopWarning(main, R.string.coordinates_out_of_range);
+            });
+        });
+        return dialog;
     }
 }
