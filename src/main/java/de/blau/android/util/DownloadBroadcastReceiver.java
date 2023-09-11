@@ -32,27 +32,27 @@ public class DownloadBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context ctxt, Intent intent) {
         if (DownloadManager.ACTION_DOWNLOAD_COMPLETE.equals(intent.getAction())) {
-            long downloadId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
-            if (downloadId > 0) {
-                DownloadManager mgr = (DownloadManager) ctxt.getSystemService(Context.DOWNLOAD_SERVICE);
-                Cursor queryCursor = mgr.query(new DownloadManager.Query().setFilterById(downloadId));
-                // cancelled downloads seem to be removed from the DB
-                if (queryCursor == null || queryCursor.getCount() == 0) {
-                    return;
-                }
-                queryCursor.moveToFirst();
-                try {
+            try {
+                long downloadId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
+                if (downloadId > 0) {
+                    DownloadManager mgr = (DownloadManager) ctxt.getSystemService(Context.DOWNLOAD_SERVICE);
+                    Cursor queryCursor = mgr.query(new DownloadManager.Query().setFilterById(downloadId));
+                    // cancelled downloads seem to be removed from the DB
+                    if (queryCursor == null || queryCursor.getCount() == 0) {
+                        return;
+                    }
+                    queryCursor.moveToFirst();
+
                     int status = queryCursor.getInt(queryCursor.getColumnIndexOrThrow(DownloadManager.COLUMN_STATUS));
                     if (status == DownloadManager.STATUS_SUCCESSFUL) {
                         processDownload(ctxt, queryCursor.getString(queryCursor.getColumnIndexOrThrow(DownloadManager.COLUMN_LOCAL_URI)));
                     }
-                } catch (IllegalArgumentException iaex) {
-                    Log.e(DEBUG_TAG, iaex.getMessage());
-                    Snack.toastTopError(ctxt, iaex.getMessage());
                 }
+            } catch (Exception  ex) { // NOSONAR catch all errors here, see
+                Log.e(DEBUG_TAG, ex.getMessage());
+                Snack.toastTopError(ctxt, ex.getMessage());
             }
         }
-
     }
 
     /**
