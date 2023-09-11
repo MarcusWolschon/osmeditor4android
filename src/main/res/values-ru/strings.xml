@@ -931,6 +931,7 @@
   <string name="menu_history">История</string>
   <string name="menu_history_web">История (сайт)</string>
   <string name="menu_merge">Объединить</string>
+  <string name="menu_add_node_at_intersection">Добавить точку на пересечении</string>
   <string name="menu_reverse">Изменить направление</string>
   <string name="notreversable_description">Линия имеет теги, которые зависят от её направления. Попытка ее развернуть испортит тегирование.</string>
   <string name="reverse_anyway">Всё равно изменить направление</string>
@@ -1068,6 +1069,8 @@
   <string name="config_use_back_for_undo_summary">Использовать кнопку ← для отмены в главном окне редактирования.</string>
   <string name="config_theme_title">Тематика</string>
   <string name="config_splitActionBarEnabled_title">Разделить панель</string>
+  <string name="config_appLocale_title">Язык приложения</string>
+  <string name="config_appLocale_summary">Выберите нестандартный язык приложения</string>
   <string name="config_maxInlineValues_title">Макс. число встроенных значений</string>
   <string name="config_maxInlineValues_summary">Макс. число встроенных значений, отображаемых в шаблоне тега.</string>
   <string name="config_autoLockDelay_title">Время автоблокировки</string>

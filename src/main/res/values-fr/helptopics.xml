@@ -29,6 +29,7 @@
     <string name="help_newnoteselection">Sélection d\'une nouvelle note</string>
     <string name="help_voice_commands">Commandes vocales</string>
     <string name="help_add_route_segment">Ajout de segment de route</string>
+    <string name="help_upgrade">Notes de la version 19.2</string>
     <string name="help_upgrade_191">Notes de la version 19.1</string>
     <string name="help_upgrade_190">Notes de la version 19.0</string>
     <string name="help_upgrade_181">Notes de la version 18.1</string>

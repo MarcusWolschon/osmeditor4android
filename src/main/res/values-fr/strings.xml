@@ -857,6 +857,7 @@
   <string name="menu_preset_feedback">Faire un retour sur le modèle</string>
   <string name="menu_privacy">Vie privée</string>
   <!--Background alignment-->
+  <string name="menu_tools_background_align">Aligner l\'imagerie</string>
   <string name="menu_tools_background_align_reset">Réinitialiser</string>
   <string name="menu_tools_background_align_zero">Zéro</string>
   <string name="menu_tools_background_align_retrieve_from_db">Depuis la base de données</string>
@@ -1003,7 +1004,7 @@
   <string name="config_showWayIcons_summary">Montrer sur les batiments l\'icône du modèle d\'attribut le plus proche</string>
   <string name="config_tagFormEnabled_title">Afficher le formulaire d\'attributs</string>
   <string name="config_tagFormEnabled_summary">Afficher le formulaire d\'attributs pour l\'édition</string>
-  <string name="config_showCameraAction_title">Icöne caméra</string>
+  <string name="config_showCameraAction_title">Icône caméra</string>
   <string name="config_showCameraAction_summary">Ajouter l\'icône caméra sur la barre d\'action</string>
   <string name="config_selectCameraApp_title">Application photo</string>
   <string name="config_system_camera">Valeur système par défaut</string>
@@ -1031,7 +1032,7 @@
   <string name="config_autoLockDelay_title">Temps avant le verrouillage automatique</string>
   <string name="config_autoLockDelay_summary">Temps en secondes avant le verrouillage automatique. 0 pour désactiver.</string>
   <string name="config_autoLockDelay_current">%1$d s</string>
-  <string name="config_enableAntiAliasing_title">Active l\'anti-crénelage</string>
+  <string name="config_enableAntiAliasing_title">Activer l\'anti-crénelage</string>
   <string name="config_enableAntiAliasing_summary">Lisse les traits.</string>
   <string name="config_enableHwAcceleration_title">Activer l\'accélération matérielle</string>
   <string name="config_enableHwAcceleration_summary">Autoriser l\'utilisation de l\'accélération matérielle quand elle est supportée, pour le moment ce réglage n\'a pas d\'effet.</string>

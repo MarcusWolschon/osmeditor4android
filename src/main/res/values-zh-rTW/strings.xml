@@ -686,6 +686,7 @@
   <string name="toast_updating_tags">更新標籤...</string>
   <string name="toast_updating_parents">更新父元素…</string>
   <string name="toast_updating_members">更新成員…</string>
+  <string name="toast_error_loading_egm">錯誤載入 EGM %1$s</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">MapSplit 資源必須設定最小和最大</string>
   <string name="error_pbf_no_version">PBF 檔案缺少版本資訊</string>
@@ -1164,6 +1165,8 @@
   <string name="config_theme_summary">選擇 app 樣式。</string>
   <string name="config_splitActionBarEnabled_title">啟用拆分動作列</string>
   <string name="config_splitActionBarEnabled_summary">顯示螢幕下面的選單按鈕。需要再次啟動 Vespucci，而且還要 Android 4.0 之後的版本。</string>
+  <string name="config_appLocale_title">App 語言</string>
+  <string name="config_appLocale_summary">選擇非正規 app 語言</string>
   <string name="config_maxInlineValues_title">最大內嵌數值</string>
   <string name="config_maxInlineValues_summary">最大內嵌數值顯示的標籤表格。</string>
   <string name="config_maxInlineValues_current">%1$d數值</string>

@@ -692,6 +692,7 @@
   <string name="toast_updating_tags">به‌روزرسانی برچسب‌ها…</string>
   <string name="toast_updating_parents">به‌روزرسانی والدین…</string>
   <string name="toast_updating_members">به‌روزرسانی اعضا…</string>
+  <string name="toast_error_loading_egm">خطا در بارگیری EGM %1$s</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">برای منابع MapSplit باید زوم کمینه و بیشینه تنظیم شده باشد</string>
   <string name="error_pbf_no_version">پروندهٔ PBF اطلاعات نسخه ندارد</string>
@@ -1170,6 +1171,8 @@
   <string name="config_theme_summary">استایل برنامه را انتخاب کنید.</string>
   <string name="config_splitActionBarEnabled_title">فعال‌سازی نوار کنش دوبخشی</string>
   <string name="config_splitActionBarEnabled_summary">دکمه‌های منو را در پایین صفحه نمایش دهید. نیاز به راه‌اندازی مجدد وسپوچی و اندروید 4.0 یا بالاتر دارد.</string>
+  <string name="config_appLocale_title">زبان برنامه</string>
+  <string name="config_appLocale_summary">زبان غیراستاندارد برنامه را انتخاب کنید</string>
   <string name="config_maxInlineValues_title">بیشترین تعداد مقادیر درخط</string>
   <string name="config_maxInlineValues_summary">بیشترین تعداد مقادیر درون‌خط که در فرم برچسب نمایان باشد.</string>
   <string name="config_maxInlineValues_current">%1$d مقدار</string>

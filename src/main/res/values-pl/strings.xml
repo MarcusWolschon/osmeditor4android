@@ -63,6 +63,7 @@
   <string name="file_write_failed_message">Vespucci nie może zmienić ani zapisać pliku.</string>
   <string name="applying_osc_failed_title">Stosowanie zmian z pliku OSC nie powiodło się</string>
   <string name="applying_osc_failed_message">Najprawdopodobniej nie załadowałeś wszystkich oryginalnych danych wymaganych do zastosowania zmian.</string>
+  <string name="duplicate_tag_key_title">Powielone klucze</string>
   <!---->
   <string name="welcome_title">Witaj</string>
   <string name="welcome_message">Dziękujemy za zainstalowanie Vespucci.\n&lt;br&gt;&lt;br&gt;Przed rozpoczęciem powinieneś wiedzieć trzy rzeczy:\n&lt;ul&gt;&lt;li&gt;dotknięcie ikony kłódki w lewym górnym rogu przełącza pomiędzy trybem zablokowanym (brak edycji) a odblokowanym,&lt;/li&gt;&lt;li&gt;aby edytować OpenStreetMap należy najpierw pobrać dane obszaru, na którym chcesz coś zmienić (na początek przybliż mapę),&lt;/li&gt;&lt;li&gt;aby dodać nowy obiekt: przytrzymaj duży zielony przycisk i wybierz, co chcesz dodać, a następnie dotknij pozycję, w której chcesz umieścić ten obiekt.&lt;/li&gt;&lt;/ul&gt;\nTeraz jesteś już gotowy. Zacznij mapować i baw się dobrze!</string>
@@ -80,6 +81,8 @@
   <string name="progress_saving_message">Zapisywanie…</string>
   <string name="progress_uploading_message">Wysyłanie…</string>
   <string name="progress_preset_message">Pobieranie szablonu…</string>
+  <string name="progress_loading_preset_message">Ładowanie szablonu...</string>
+  <string name="progress_importing_file_message">Importowanie pliku...</string>
   <string name="progress_running_message">Wykonywanie poleceń...</string>
   <string name="progress_oauth">Wczytywanie danych konta na openstreetmap.org w celu uwierzytelnienia OAuth...</string>
   <string name="progress_building_imagery_database">Tworzenie bazy danych podkładów…</string>
@@ -106,6 +109,7 @@
   <string name="upload_validation_error_empty_comment">Komentarz nie może być pusty</string>
   <string name="upload_validation_error_empty_source">Żródło nie powinno być puste</string>
   <!--Review changes dialog-->
+  <string name="review_changes_title">Przejrzyj zmiany</string>
   <!--Upload GPX-->
   <string name="upload_gpx_title">Wyślij ślad GPX</string>
   <string name="upload_gpx_description_label">Opis</string>
@@ -123,6 +127,7 @@
   <string name="openstreetbug_comment_label">Komentarz:</string>
   <string name="openstreetbug_commit_ok">Zapisano zmiany zadania</string>
   <string name="openstreetbug_commit_fail">Nie udało się zapisać zmian w zadaniu</string>
+  <string name="openstreetbug_commit_fail_with_message">Nie udało się zapisać zmian w zadaniu\n%1$s</string>
   <string name="openstreetbug_unknown_task_type">Nieznany typ zadania</string>
   <string name="openstreetbug_not_supported">%1$s nie jest wspierane.</string>
   <string name="generic_bug">Błąd</string>
@@ -133,13 +138,17 @@
   <string name="maproulette_task_title">Zadanie MapRoulette</string>
   <string name="maproulette_task_coords">Szer. %1$4g, Dł. %2$4g</string>
   <string name="maproulette_task_explanations">Wyjaśnienia</string>
+  <string name="maproulette_task_instructions">Instrukcje</string>
   <string name="maproulette_task_set_apikey">Ustaw klucz API MapRoulette</string>
   <string name="maproulette_task_apikey_not_set">Nie można zapisać klucza API MapRoulette</string>
   <string name="maproulette_task_disable">Wyłącz</string>
   <string name="maproulette_task_apikey_set">Klucz API MapRoulette został zapisany</string>
   <string name="maproulette_task_no_apikey">Brak klucza API MapRoulette</string>
+  <string name="maproulette_description">Maproulette: %1$s</string>
   <!--Todo dialogs-->
+  <string name="todo_list_hint">Kliknij, aby wyświetlić sugestie</string>
   <string name="todo_comment_legend">Komentarz</string>
+  <string name="todo_comment_hint">Opcjonalny komentarz</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Uwaga!</string>
   <string name="unsaved_data_message">Twoje niezapisane zmiany zostaną odrzucone, jeśli będziesz kontynuować.</string>
@@ -198,6 +207,7 @@
   <string name="edit_properties">Edytuj tagi</string>
   <!--GeoJSON feature display dialog-->
   <string name="feature_information">Informacja o obiekcie GeoJSON</string>
+  <string name="vt_layer">Warstwa kafelków wektorowych</string>
   <string name="copy_properties">Kopiuj właściwości</string>
   <string name="create_osm_element">Utwórz element OSM</string>
   <!--API/Data layer info dialog-->
@@ -246,6 +256,7 @@
   <string name="js_console_msg_debug">Tryb debugowania!</string>
   <string name="console_output_hint">Wyjście zostanie wyświetlone tutaj</string>
   <!--Overpass console-->
+  <string name="run">Uruchom</string>
   <!---->
   <string name="error">Błąd</string>
   <string name="warning">Ostrzeżenie</string>
@@ -300,6 +311,7 @@
   <string name="coverage_left">Lewo</string>
   <string name="coverage_right">Prawo</string>
   <string name="coverage_bottom">Dół</string>
+  <string name="tile_size">Rozmiar kafelka</string>
   <string name="toast_invalid_box">Niepoprawny lub niekompletny bounding box.</string>
   <string name="delete_layer">Usunąć warstwę?</string>
   <string name="delete_endpoint">Usunąć punkt końcowy?</string>
@@ -318,12 +330,14 @@
   <string name="layer_geojson">GeoJSON</string>
   <string name="layer_mapillary">Mapillary</string>
   <string name="layer_grid">Siatka</string>
+  <string name="layer_bookmarks">Zakładki</string>
   <string name="layer_gpx">GPX</string>
   <string name="layer_photos">Zdjęcia</string>
   <string name="layer_tasks">Zadania</string>
   <string name="layer_data">Dane OSM</string>
   <string name="layer_data_name">Dane %1$s</string>
   <string name="layer_flush_tile_cache">Wyczyść cache kafelków</string>
+  <string name="layer_load_style">Załaduj styl...</string>
   <string name="layer_category_all">Wszystkie</string>
   <string name="layer_category_photo">Zdjęcia lotnicze</string>
   <string name="layer_category_historicphoto">Nieaktualne zdjęcia lotnicze</string>
@@ -344,6 +358,7 @@
   <!--Mapillary layer-->
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Usuń zdjęcie</string>
+  <string name="photo_viewer_delete_button">Usuń trwale</string>
   <string name="photo_viewer_goto">Przejdź do zdjęcia</string>
   <string name="photo_viewer_label">Przeglądarka Zdjęć</string>
   <string name="mapillary_viewer_label">Przeglądarka Mapillary</string>
@@ -381,6 +396,7 @@
   <!--Clear/Reset GPX Track-->
   <string name="clear_track_description">Zatrzymaj śledzenie i usuń wszystkie zapisane punkty. Nie można tego cofnąć.</string>
   <!--Measurement dialog-->
+  <string name="measure">Zmierz</string>
   <!--Tips-->
   <string name="tip_title">Czy wiesz, że?</string>
   <string name="tip_check_label">Przestań wyświetlać opcjonalne porady </string>
@@ -395,6 +411,7 @@
   <string name="qa_channel_name">Vespucci QA</string>
   <string name="qa_channel_description">Kanał alarmów QA dla problemów z danymi i zadaniami</string>
   <!--Notifications-->
+  <string name="upload_checker_title">Pamiętaj, aby wysłać swoją pracę</string>
   <!--Toaster-->
   <string name="toast_permission_denied">Odmowa przyzwolenia %1$s</string>
   <string name="toast_unable_to_persist_permissions">Nie można zapisać uprawnień</string>
@@ -427,6 +444,7 @@
   <string name="toast_photo_indexing_started">Rozpoczęto skanowanie zdjęć georeferencyjnych.</string>
   <string name="toast_photo_indexing_finished">Zakończono skanowanie zdjęć georeferencyjnych.</string>
   <string name="toast_download_failed">Nie udało się pobrać. Kod błędu %1$d, wiadomość %2$s</string>
+  <string name="toast_note_reopened">Notatka ponownie otwarta</string>
   <!--Validation-->
   <string name="toast_unsurveyed_road">Niezidentyfikowana droga</string>
   <string name="toast_noname">Droga nie ma nazwy ani numeru</string>
@@ -470,6 +488,7 @@
   <string name="toast_invalid_preseturl">Błędny adres URL szablonu</string>
   <string name="toast_invalid_filter_regexp">Nieprawidłowe wyrażenie regularne z filtrem w kluczu=\"%1$s\" wartość=\"%2$s\"</string>
   <string name="toast_error_accessing_photo">Otwieranie zdjęcia %1$s nie powiodło się</string>
+  <string name="toast_no_photo_found">Nie znaleziono zdjęcia</string>
   <string name="toast_security_error_accessing_photo">Brak pozwolenia na dostęp do zdjęcia %1$s</string>
   <string name="toast_no_voice_recognition">Brak funkcji rozpoznawania głosu</string>
   <string name="toast_no_coverage">%1$s nie obejmuje tego terenu</string>
@@ -529,6 +548,7 @@
   <string name="toast_outer_rings_differing_tags">Zewnętrzne granice mają różne znaczniki</string>
   <string name="toast_multipolygon_has_incomplete_rings">Multipolygon ma niekompletne granice</string>
   <string name="toast_multipolygon_inconsistent_roles">Multipolygon ma niespójne role przypisane do granicy</string>
+  <string name="toast_error_saving_bookmark">Nie można zapisać zakładki</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">Źródło MapSplit musi mieć ustawione min. i maks. przybliżenie</string>
   <string name="error_pbf_no_version">Brak informacji o wersji w pliku PBF</string>
@@ -558,7 +578,10 @@
   <string name="prune">Przytnij</string>
   <string name="check">Sprawdź</string>
   <string name="download">Pobierz</string>
+  <string name="abort">Przerwij</string>
   <string name="select">Wybierz</string>
+  <string name="skip">Pomiń</string>
+  <string name="osm_tags">Tagi OSM</string>
   <!--Read a file-->
   <string name="read">Odczytaj</string>
   <string name="load">Wczytaj</string>
@@ -713,8 +736,11 @@
   <string name="menu_gps_pause">Wstrzymaj rejestrowanie śladu GPX</string>
   <string name="menu_gps_clear">Wyczyść ślad i punkty GPX</string>
   <string name="menu_gps_track_managment">Zarządzaj śladami GPX...</string>
+  <string name="menu_gps_export">Eksportuj ślad GPX...</string>
+  <string name="menu_gps_import">Importuj ślad GPX...</string>
   <string name="menu_gps_goto_start">Przejdź do początku śladu GPX</string>
   <string name="menu_gps_goto_first_waypoint">Przejdź do pierwszego punktu</string>
+  <string name="menu_gps_add_bookmark">Dodaj zakładkę</string>
   <string name="menu_enable_gps_autodownload">Autopobieranie – śledź lokalizację</string>
   <string name="menu_enable_pan_and_zoom_auto_download">Autopobieranie – śledź kamerę</string>
   <string name="menu_transfer">Transfer…</string>
@@ -722,6 +748,7 @@
   <string name="menu_transfer_download_replace">Wyczyść i pobierz bieżący widok</string>
   <string name="menu_transfer_load_current">Wczytaj bieżący widok</string>
   <string name="menu_transfer_load_replace">Wyczyść i wczytaj bieżący widok</string>
+  <string name="menu_transfer_upload">Wyślij dane do serwera OSM...</string>
   <string name="menu_transfer_update">Uaktualnij dane</string>
   <string name="menu_transfer_close_changeset">Zamknij zestaw zmian</string>
   <string name="menu_transfer_file">Plik…</string>
@@ -779,6 +806,7 @@
   <string name="menu_tools_background_align_zero">Wyzeruj</string>
   <string name="menu_tools_background_align_retrieve_from_db">Z bazy danych</string>
   <string name="menu_tools_background_align_retrieve_from_device">Z urządzenia</string>
+  <string name="menu_tools_background_align_save_db">Zapisz do bazy danych...</string>
   <string name="menu_tools_background_align_save_device">Zapisz na urządzeniu</string>
   <string name="menu_tools_background_align_apply2all">Zastosuj (wszystkie poziomy przybliżenia)</string>
   <string name="min_max_zoom">%1$d – %2$d</string>
@@ -922,6 +950,8 @@
   <string name="config_use_back_for_undo_summary">Użyj klawisza ←, aby cofnąć w głównym widoku edycji.</string>
   <string name="config_theme_title">Motyw</string>
   <string name="config_splitActionBarEnabled_title">Rozdzielony pasek czynności</string>
+  <string name="config_appLocale_title">Język aplikacji</string>
+  <string name="config_appLocale_summary">Wybierz niestandardowy język aplikacji</string>
   <string name="config_maxInlineValues_title">Maks. liczba wartości w jednym wierszu</string>
   <string name="config_maxInlineValues_summary">Maksymalna liczba wartości wyświetlanych w jednym wierszu formularza znacznika.</string>
   <string name="config_autoLockDelay_title">Czas oczekiwania przed zablokowaniem</string>
@@ -1023,6 +1053,7 @@
   <string name="config_osmoseServer_summary">Adres URL serwera OSMOSE.</string>
   <string name="config_geocoderbutton_title">Geokodowanie</string>
   <string name="config_geocoderbutton_summary">Dodawanie, edytowanie, usuwanie geokoderów wyszukiwarki.</string>
+  <string name="config_overpassServer_title">Serwer Overpass</string>
   <!--Layer download and storage-->
   <string name="config_category_layers">Pobieranie i przechowywanie warstw</string>
   <string name="config_category_layers_summary">Pobieranie i przechowywanie podkładów na bazie kafelków.</string>
@@ -1218,10 +1249,16 @@
   <!--Help system-->
   <string name="toast_nohelp">Brak tutaj pomocy.</string>
   <!--Bookmarks-->
+  <string name="add_bookmark_title">Dodaj zakładkę</string>
+  <string name="edit_bookmark_title">Edytuj zakładkę</string>
   <string name="bookmarks_desc">Nazwa</string>
+  <string name="show_bookmarks">Zakładki</string>
+  <string name="bookmarkstitle">Zakładki</string>
   <!--Element types-->
+  <string name="element_type_node">węzeł</string>
   <string name="element_type_area">obszar</string>
   <string name="element_type_relation">relacja</string>
   <!--Element names with id-->
   <!--Tile downloader diagnostics-->
+  <string name="tile_success">Sukces</string>
 </resources>

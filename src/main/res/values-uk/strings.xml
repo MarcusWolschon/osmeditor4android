@@ -219,7 +219,7 @@
   <string name="relation_membership">Належність до зв\'язків</string>
   <string name="problem">Проблема</string>
   <string name="members">Члени</string>
-  <string name="closed">Полігон</string>
+  <string name="closed">Зачинено</string>
   <string name="version">Версія</string>
   <string name="length_m">Довжина (м)</string>
   <string name="not_downloaded">Не завантажено</string>
@@ -952,6 +952,8 @@
   <string name="menu_tools_add_imagery_from_oam">Додати зображення з OAM</string>
   <string name="menu_tools_flush_all_tile_caches">Очистити усі кеші тайлів</string>
   <string name="menu_tools_background_properties">Властивості фону...</string>
+  <string name="menu_tools_update_imagery_configuration">Оновити конфігурацію з JOSM</string>
+  <string name="menu_tools_update_imagery_configuration_eli">Оновити конфігурацію з ELI</string>
   <string name="menu_tools_zoom_to_layer_extent">Збільшити масштаб фонового шару</string>
   <string name="menu_tools_clear_clipboard">Очистити буфер обміну</string>
   <string name="menu_tools_calibrate_height">Відкалібрувати датчик тиску…</string>
@@ -1073,6 +1075,7 @@
   <string name="simple_paste">Торкніться екрана</string>
   <string name="menu_paste_multiple">Вставити кілька разів</string>
   <string name="simple_paste_multiple">Торкніться екрана</string>
+  <string name="menu_snap">Прив\'язка</string>
   <!--Preferences-->
   <string name="config_backgroundLayer_title">Фон мапи</string>
   <string name="config_backgroundLayer_summary">Растрова фонова мапа.</string>
@@ -1139,6 +1142,8 @@
   <string name="config_use_back_for_undo_summary">Використовувати кнопку назад для відміни в режимі редагування</string>
   <string name="config_theme_title">Тема</string>
   <string name="config_splitActionBarEnabled_title">Включити розділення панелі інструментів</string>
+  <string name="config_appLocale_title">Мова програми</string>
+  <string name="config_appLocale_summary">Вибір нестандартної мови програми</string>
   <string name="config_maxInlineValues_title">Макс.  кількість вбудованих значень</string>
   <string name="config_maxInlineValues_summary">Максимальна кількість вбудованих значень, що відображаються у шаблоні тегу.</string>
   <string name="config_autoLockDelay_title">Час очікування перед автоблокуванням</string>
@@ -1351,6 +1356,7 @@
   <string name="undo_action_create_relation">Створити зв’язок</string>
   <string name="undo_action_delete_relation">Вилучити зв’язок</string>
   <string name="undo_action_update_relations">Оновлення зв’язку</string>
+  <string name="undo_action_move_tags">Перемістити теги до Зв\'язку</string>
   <string name="undo_action_cut">Вирізати</string>
   <string name="undo_action_paste">Вставити</string>
   <string name="undo_action_rotateway">Розвернути лінію</string>
@@ -1368,6 +1374,7 @@
   <string name="report_failure">Не вдалося надіслати звіт.</string>
   <!--Exceptions messages-->
   <string name="exception_too_many_nodes">Ця операція призведе до створення лінії з завеликою кількістю точок.</string>
+  <string name="exception_too_many_members">Ця операція додасть занадто багато членів до зв\'язку %1$s.</string>
   <!--Notifications-->
   <string name="alert_data_issue">Виявлено проблему в даних OSM</string>
   <string name="alert_note"> Поруч знаходиться Нотатка OSM</string>
@@ -1386,6 +1393,7 @@
   <string name="deleterelation_relation_description">Ви намагаєтесь вилучити зв’язок, який є членом одного чи більше зв’язків. Його вилучення, можливо, призведе до його(їх) спотворення.</string>
   <string name="deleterelation">Вилучити зв\'язок</string>
   <string name="delete_from_relation_description">Ви збираєтеся вилучити цей елемент зі зв\'язку.</string>
+  <string name="delete_elements_from_relation_description">Ви збираєтеся видалити елементи з одного або декількох зв\'язків</string>
   <string name="unset_relation_type">Невстановлено тип зв’язку</string>
   <!--Things-->
   <string name="bridge">Контур мосту</string>
@@ -1394,6 +1402,7 @@
   <string name="steps">Сходи</string>
   <!--Issues-->
   <string name="issue_shared_node">Поділитись іншим способом</string>
+  <string name="issue_precondition_relation_member_count">Перевищено кількість членів зв\'язку</string>
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">1 день</item>
@@ -1444,5 +1453,6 @@
   <string name="element_type_area">полігон</string>
   <string name="element_type_relation">зв’язок</string>
   <!--Element names with id-->
+  <string name="relation_id">зв\'язок %1$d</string>
   <!--Tile downloader diagnostics-->
 </resources>

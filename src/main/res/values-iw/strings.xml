@@ -8,6 +8,7 @@
   <string name="mode_address">כתובתכ</string>
   <string name="mode_voice">קול</string>
   <!--additional short cuts-->
+  <string name="shortcut_safe">בטוח</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">זהירות!</string>
   <string name="transfer_download_current_dialog_message">ערכת שינויים. להעלות אותם במקום להתעלם מהם?</string>
@@ -914,10 +915,12 @@
   <string name="menu_preset_feedback">הגשת משוב על ערכה מוגדרת</string>
   <string name="menu_privacy">פרטיות</string>
   <!--Background alignment-->
+  <string name="menu_tools_background_align">יישור תמונת רקע</string>
   <string name="menu_tools_background_align_reset">איפוס</string>
   <string name="menu_tools_background_align_zero">אפס</string>
   <string name="menu_tools_background_align_retrieve_from_db">ממסד הנתונים</string>
   <string name="menu_tools_background_align_retrieve_from_device">מהמכשיר</string>
+  <string name="menu_tools_background_align_save_db">שמירה למסד הנתונים…</string>
   <string name="menu_tools_background_align_save_device">שמירה למכשיר</string>
   <string name="menu_tools_background_align_apply2all">להחיל (כל רמות התקריב)</string>
   <string name="min_max_zoom">%1$d - %2$d</string>
@@ -925,11 +928,14 @@
   <string name="distance_km">%1$.3f ק״מ</string>
   <!--Menus in layers dialog-->
   <string name="menu_layers">שכבות…</string>
+  <string name="menu_layers_load_geojson">הוספת שכבת GeoJSON…</string>
   <string name="menu_layers_add_tasklayer">הפעלת שכבת משימות</string>
   <string name="menu_layers_add_grid">הפעלת רשת</string>
   <string name="menu_layers_add_photolayer">הפעלת שכבת תמונות</string>
   <string name="menu_layers_enable_mapillary_layer">הפעלת שכבת Mapillary</string>
+  <string name="menu_layers_enable_bookmarkslayer">הפעלת שכבת סימניות</string>
   <string name="menu_layers_configure">הגדרה…</string>
+  <string name="menu_layers_background_align">יישור תמונת רקע…</string>
   <!---->
   <string name="menu_tools_apply_local_offset">החלת היסט מאוחסן לתמונת הרקע</string>
   <string name="menu_tools_background_contrast">ניגוד</string>
