@@ -113,6 +113,8 @@ public class TileLayerSource implements Serializable {
     public static final String TYPE_WMS_ENDPOINT = "wms_endpoint";
     static final String        TYPE_BING         = "bing";
     static final String        TYPE_SCANEX       = "scanex";      // no longer used
+    static final String        TYPE_WMTS         = "wmts";
+    public static final String TYPE_PMT_3        = "pmt3";
 
     public static final String LAYER_MAPNIK    = "MAPNIK";
     public static final String LAYER_NONE      = "NONE";
@@ -479,8 +481,8 @@ public class TileLayerSource implements Serializable {
     private TileType                 tileType;
     private List<Header>             headers;
 
-    private boolean  readOnly = false;
-    private String   imageryOffsetId; // cached id for offset DB
+    private boolean  localFile = false;
+    private String   imageryOffsetId;  // cached id for offset DB
     private Offset[] offsets;
 
     private static Map<String, TileLayerSource> backgroundServerList = null;
@@ -677,8 +679,8 @@ public class TileLayerSource implements Serializable {
         // generate id from name if necessary
         this.id = (id != null ? id : nameToId(this.name)).toUpperCase(Locale.US);
 
-        if (originalUrl.startsWith(FileUtil.FILE_SCHEME_PREFIX)) { // mbtiles no further processing needed
-            readOnly = true;
+        if (originalUrl.startsWith(FileUtil.FILE_SCHEME_PREFIX)) { // mbtiles and pmtiles no further processing needed
+            localFile = true;
         }
 
         // extract switch values
@@ -1353,12 +1355,12 @@ public class TileLayerSource implements Serializable {
     }
 
     /**
-     * Check if this layer is "read only" aka a mbtiles file
+     * Check if this layer is a local file
      * 
      * @return true if read only
      */
-    public boolean isReadOnly() {
-        return readOnly;
+    public boolean isLocalFile() {
+        return localFile;
     }
 
     /**

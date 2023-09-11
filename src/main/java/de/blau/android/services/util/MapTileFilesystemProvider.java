@@ -3,13 +3,16 @@ package de.blau.android.services.util;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteException;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
@@ -41,31 +44,21 @@ import de.blau.android.views.util.MapTileProviderCallback;
  *
  */
 public class MapTileFilesystemProvider extends MapAsyncTileProvider implements MapTileSaver {
-    // ===========================================================
-    // Constants
-    // ===========================================================
 
-    static final String DEBUG_TAG = "MapTileFile...Provider";
-
-    // ===========================================================
-    // Fields
-    // ===========================================================
+    static final String DEBUG_TAG = MapTileFilesystemProvider.class.getSimpleName();
 
     private final Context                 mCtx;
-    private final MapTileProviderDataBase mDatabase;
+    private final MapTileProviderDataBase tileCache;
     private final int                     mMaxFSCacheByteSize;
     private int                           mCurrentCacheByteSize;
-    private boolean                       errorDisplayed = false;
 
-    private final Map<String, MBTileProviderDataBase> mbTileDatabases = new HashMap<>();
-    private final Random                              random          = App.getRandom();
+    private final Map<String, LocalTileContainer> tileContainerCache = new HashMap<>();
+    private final Set<String>                     errorDisplayed     = new HashSet<>(); // track error display
+
+    private static final Random random = App.getRandom();
 
     /** online provider */
     private final MapTileDownloader mTileDownloader;
-
-    // ===========================================================
-    // Constructors
-    // ===========================================================
 
     /**
      * Construct a new tile cache on a local device
@@ -77,7 +70,7 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider implements M
     public MapTileFilesystemProvider(@NonNull final Context ctx, @NonNull File mountPoint, final int aMaxFSCacheByteSize) {
         mCtx = ctx;
         mMaxFSCacheByteSize = aMaxFSCacheByteSize;
-        mDatabase = new MapTileProviderDataBase(new CustomDatabaseContext(ctx, mountPoint.getAbsolutePath()));
+        tileCache = new MapTileProviderDataBase(new CustomDatabaseContext(ctx, mountPoint.getAbsolutePath()));
 
         int maxThreads = App.getPreferences(ctx).getMaxTileDownloadThreads();
         mThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(maxThreads);
@@ -86,14 +79,10 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider implements M
 
         mThreadPool.execute(() -> {
             // mCurrentCacheByteSize will be zero till this is set which is harmless
-            mCurrentCacheByteSize = mDatabase.getCurrentFSCacheByteSize();
+            mCurrentCacheByteSize = tileCache.getCurrentFSCacheByteSize();
             Log.d(DEBUG_TAG, "Currently used cache-size is: " + mCurrentCacheByteSize + " of " + mMaxFSCacheByteSize + " Bytes");
         });
     }
-
-    // ===========================================================
-    // Getter & Setter
-    // ===========================================================
 
     /**
      * Get the current size of the caches contents
@@ -104,23 +93,15 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider implements M
         return mCurrentCacheByteSize;
     }
 
-    // ===========================================================
-    // Methods from SuperClass/Interfaces
-    // ===========================================================
-
     @Override
     public Runnable getTileLoader(@NonNull MapTile aTile, @NonNull MapTileProviderCallback aCallback) {
         return new TileLoader(aTile, aCallback);
     }
 
-    // ===========================================================
-    // Methods
-    // ===========================================================
-
     @Override
-    public void saveFile(final MapTile tile, final byte[] data) throws IOException {
+    public void saveTile(final MapTile tile, final byte[] data) throws IOException {
         try {
-            final int bytesGrown = mDatabase.addTile(tile, data);
+            final int bytesGrown = tileCache.addTile(tile, data);
             mCurrentCacheByteSize += bytesGrown;
 
             if (Log.isLoggable(DEBUG_TAG, Log.DEBUG)) {
@@ -132,7 +113,7 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider implements M
                     Log.d(DEBUG_TAG, "Freeing FS cache...");
                 }
                 // Free 5% of cache
-                mCurrentCacheByteSize -= mDatabase.deleteOldest((int) (mMaxFSCacheByteSize * 0.05f));
+                mCurrentCacheByteSize -= tileCache.deleteOldest((int) (mMaxFSCacheByteSize * 0.05f));
             }
             if (Log.isLoggable(DEBUG_TAG, Log.DEBUG)) {
                 Log.d(DEBUG_TAG, "Tile saved");
@@ -158,20 +139,21 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider implements M
      */
     private void cutCurrentCacheBy(final int bytesToCut) {
         synchronized (this) {
-            mDatabase.deleteOldest(bytesToCut);
+            tileCache.deleteOldest(bytesToCut);
         }
-        mCurrentCacheByteSize = mDatabase.getCurrentFSCacheByteSize();
+        mCurrentCacheByteSize = tileCache.getCurrentFSCacheByteSize();
     }
 
     /**
      * delete tiles for specific provider or all
      * 
-     * @param rendererID the provider or null for all
+     * @param sourceId the provider or null for all
      */
-    public void flushCache(@Nullable String rendererID) {
+    public void flushCache(@Nullable String sourceId) {
         try {
-            mDatabase.flushCache(rendererID);
-            mCurrentCacheByteSize = mDatabase.getCurrentFSCacheByteSize();
+            tileCache.flushCache(sourceId);
+            mCurrentCacheByteSize = tileCache.getCurrentFSCacheByteSize();
+            mTileDownloader.flushDisabled(sourceId);
         } catch (EmptyCacheException e) {
             if (Log.isLoggable(DEBUG_TAG, Log.DEBUG)) {
                 Log.d(DEBUG_TAG, "Flushing tile cache failed", e);
@@ -186,10 +168,13 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider implements M
         mTileDownloader.flushQueue(rendererId, zoom);
     }
 
-    // ===========================================================
-    // Inner and Anonymous Classes
-    // ===========================================================
-
+    /**
+     * This will load a single tile from a local source or from the local tile cache, if necessary it will queue the
+     * tile for download in the later case.
+     * 
+     * @author simon
+     *
+     */
     private class TileLoader extends MapAsyncTileProvider.TileLoader {
 
         /**
@@ -204,88 +189,89 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider implements M
 
         @Override
         public void run() {
-            /*
-             * If we don't have the tile in the database and need to download we have to keep the tile in our queue
-             * until the download attempt is finished
-             */
+            TileLayerSource source = TileLayerSource.get(mCtx, mTile.rendererID, false);
+            if (source == null) {
+                Log.e(DEBUG_TAG, "No source for " + mTile.rendererID);
+                finished();
+                return;
+            }
+            final String sourceId = source.getId();
             boolean download = false;
+            final boolean isLocalFile = source.isLocalFile();
             try {
-                TileLayerSource renderer = TileLayerSource.get(mCtx, mTile.rendererID, false);
-                if (renderer == null || !renderer.isMetadataLoaded()) {
+                if (!source.isMetadataLoaded()) {
                     failed(mTile, RETRY);
                     return;
                 }
-                if (mTile.zoomLevel < renderer.getMinZoomLevel() || !mTile.rendererID.equals(renderer.getId())) {
+                if (mTile.zoomLevel < source.getMinZoomLevel()) {
                     failed(mTile, DOESNOTEXIST);
                     return;
                 }
-                if (renderer.isReadOnly()) {
-                    MBTileProviderDataBase mbTileDatabase = mbTileDatabases.get(renderer.getId());
-                    if (mbTileDatabase == null) {
-                        if (!mbTileDatabases.containsKey(renderer.getId())) {
-                            synchronized (mbTileDatabases) {
-                                mbTileDatabase = mbTileDatabases.get(renderer.getId());
-                                if (mbTileDatabase == null) { // re-test
-                                    try {
-                                        mbTileDatabase = new MBTileProviderDataBase(mCtx, renderer.getOriginalTileUrl());
-                                        mbTileDatabases.put(renderer.getId(), mbTileDatabase);
-                                    } catch (SQLiteException sqlex) {
-                                        Log.e(DEBUG_TAG, "Unable to open db " + renderer.getOriginalTileUrl());
-                                        mbTileDatabases.put(renderer.getId(), null);
-                                    }
-                                }
-                            }
-                        } else {
-                            failed(mTile, DOESNOTEXIST);
-                        }
-                    }
-                    byte[] data = mbTileDatabase.getTile(mTile);
+                byte[] data = null;
+                if (isLocalFile) {
+                    data = getTileContainer(source.getType(), sourceId, source.getOriginalTileUrl()).getTile(mTile);
                     if (data == null) {
-                        if (Log.isLoggable(DEBUG_TAG, Log.DEBUG)) {
-                            Log.d(DEBUG_TAG, "FS failed " + mTile + " " + mTile.toId());
-                        }
                         failed(mTile, DOESNOTEXIST);
-                    } else { // success!
-                        mCallback.mapTileLoaded(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, data);
+                        return;
                     }
                 } else {
-                    try {
-                        byte[] data = mDatabase.getTile(mTile);
-                        if (data == null) {
-                            if (Log.isLoggable(DEBUG_TAG, Log.DEBUG)) {
-                                Log.d(DEBUG_TAG, "FS failed, request for download " + mTile + " " + mTile.toId());
-                            }
-                            download = true;
-                            mTileDownloader.loadMapTileAsync(mTile, passedOnCallback);
-                        } else { // success!
-                            mCallback.mapTileLoaded(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, data);
-                        }
-                    } catch (InvalidTileException itex) {
-                        failed(mTile, DOESNOTEXIST);
+                    // retrieve from on device cache or download
+                    data = tileCache.getTile(mTile);
+                    if (data == null) {
+                        download = true;
+                        mTileDownloader.loadMapTileAsync(mTile, passedOnCallback);
+                        return;
                     }
                 }
-                if (Log.isLoggable(DEBUG_TAG, Log.DEBUG)) {
-                    Log.d(DEBUG_TAG, "Loaded: " + mTile.toString());
-                }
+                mCallback.mapTileLoaded(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, data);
+            } catch (InvalidTileException itex) {
+                failed(mTile, DOESNOTEXIST);
             } catch (IOException | NullPointerException | IllegalStateException e) {
-                if (Log.isLoggable(DEBUG_TAG, Log.DEBUG)) {
-                    Log.d(DEBUG_TAG, "Tile loading failed", e);
-                }
-                if (!download && !errorDisplayed) {
-                    // something is seriously wrong with the database, show a toast once
-                    final String localizedMessage = e.getLocalizedMessage();
-                    final String message = mCtx.getString(R.string.toast_tile_database_issue, localizedMessage);
-                    Handler handler = new Handler(Looper.getMainLooper());
-                    handler.post(() -> Snack.toastTopError(mCtx, message, false));
-                    Notifications.error(mCtx, R.string.toast_tile_database_issue_short,
-                            Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP ? localizedMessage : message, random.nextInt());
-                    errorDisplayed = true;
-                }
+                displayError(mCtx, errorDisplayed, isLocalFile ? sourceId : DEBUG_TAG, R.string.toast_tile_database_issue, e);
             } finally {
+                /*
+                 * If we don't have the tile in the database and need to download we have to keep the tile in our queue
+                 * until the download attempt is finished
+                 */
                 if (!download) {
                     finished();
                 }
             }
+        }
+
+        /**
+         * Get a local tile container, if it isn't in the cache cache it
+         * 
+         * @param type the type currently everything except PMTiles are assumed to be MBT sqlite databases
+         * @param sourceId the id of the tile source
+         * @param uri an URI with the location of the container
+         * @return a LocalTileContainer instance
+         * @throws IOException if the container couldn't be opened
+         */
+        @NonNull
+        private LocalTileContainer getTileContainer(@NonNull String type, @NonNull String sourceId, @NonNull String uri) throws IOException {
+            LocalTileContainer tileContainer = tileContainerCache.get(sourceId);
+            if (tileContainer == null) {
+                synchronized (tileContainerCache) {
+                    tileContainer = tileContainerCache.get(sourceId);
+                    if (tileContainer != null) { // another thread may have created it
+                        return tileContainer;
+                    }
+                    if (!tileContainerCache.containsKey(sourceId)) {
+                        try {
+                            tileContainer = TileLayerSource.TYPE_PMT_3.equals(type) ? new PMTilesContainer(new File(Uri.parse(uri).getPath()))
+                                    : new MBTileProviderDataBase(mCtx, uri);
+                            tileContainerCache.put(sourceId, tileContainer);
+                            return tileContainer;
+                        } catch (IOException | SQLiteException ex) {
+                            Log.e(DEBUG_TAG, "Unable to open tile container " + uri + " " + ex.getMessage());
+                            tileContainerCache.put(sourceId, null);
+                        }
+                    }
+                    throw new IOException(mCtx.getString(R.string.toast_tile_container_issue, uri));
+                }
+            }
+            return tileContainer;
         }
 
         /**
@@ -319,22 +305,46 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider implements M
     }
 
     /**
+     * Display an error notification once per "source"
+     * 
+     * @param ctx and Android Context
+     * @param displayed a set to track if we have already messaged
+     * @param sourceId the source id
+     * @param msg a string resource with the message
+     * @param e the Exception we caught
+     */
+    static void displayError(Context ctx, Set<String> displayed, final String sourceId, int msg, Exception e) {
+        if (!displayed.contains(sourceId)) {
+            // something is seriously wrong with the database or source file, show a toast once
+            final String localizedMessage = e.getLocalizedMessage();
+            final String message = ctx.getString(msg, localizedMessage);
+            Handler handler = new Handler(Looper.getMainLooper());
+            handler.post(() -> Snack.toastTopError(ctx, message, false));
+            Notifications.error(ctx, R.string.toast_tile_database_issue_short,
+                    Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP ? localizedMessage : message, random.nextInt());
+            displayed.add(sourceId);
+        }
+    }
+
+    /**
      * Call when the object is no longer needed to close the database
      */
     public void destroy() {
         Log.d(DEBUG_TAG, "Closing tile databases");
-        mDatabase.close();
-        synchronized (mbTileDatabases) {
-            for (MBTileProviderDataBase mb : mbTileDatabases.values()) {
-                mb.close();
+        tileCache.close();
+        synchronized (tileContainerCache) {
+            for (LocalTileContainer container : tileContainerCache.values()) {
+                if (container != null) {
+                    container.close();
+                }
             }
-            mbTileDatabases.clear();
+            tileContainerCache.clear();
         }
     }
 
     @Override
     public void markAsInvalid(@NonNull MapTile mTile) throws IOException {
-        mDatabase.addTile(mTile, null);
+        tileCache.addTile(mTile, null);
     }
 
     /**
@@ -354,49 +364,43 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider implements M
         for (File dir : ContextCompat.getExternalFilesDirs(ctx, null)) { // iterate over the directories
                                                                          // preferring a removable one if
                                                                          // required
-            if (dir == null) {
-                Log.d(DEBUG_TAG, "storage dir null");
+            if (dir == null || !dir.canWrite()) {
+                Log.d(DEBUG_TAG, "storage dir null or not writable ");
                 continue;
             }
+
             Log.d(DEBUG_TAG, "candidate storage directory " + dir.getPath());
-            if (MapTileProviderDataBase.exists(dir)) { // existing tile cache, only use if we can write
-                if (dir.canWrite()) {
-                    mountPoint = dir;
+            mountPoint = dir;
+            // existing tile cache
+            if (MapTileProviderDataBase.exists(dir)) {
+                break;
+            }
+            if (!preferRemovableStorage || Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+                break; // we are done
+            }
+            try {
+                if (Environment.isExternalStorageRemovable(dir)) {
+                    // prefer removable storage
+                    Log.d(DEBUG_TAG, "isExternalStorageRemovable claims dir is removable");
                     break;
                 }
-            } else if (dir.canWrite()) {
-                mountPoint = dir;
-                if (preferRemovableStorage && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    try {
-                        if (Environment.isExternalStorageRemovable(dir)) {
-                            // prefer removable storage
-                            Log.d(DEBUG_TAG, "isExternalStorageRemovable claims dir is removable");
-                            break;
-                        }
-                    } catch (IllegalArgumentException iae) {
-                        // we've seen this on some devices even if it doesn't make sense
-                        Log.d(DEBUG_TAG, "isExternalStorageRemovable didn't like " + dir);
-                    }
-                } else {
-                    break; // just use the first writable directory
-                }
-            } else {
-                Log.d(DEBUG_TAG, dir.getPath() + " not writable");
+            } catch (IllegalArgumentException iae) {
+                // we've seen this on some devices even if it doesn't make sense
+                Log.d(DEBUG_TAG, "isExternalStorageRemovable didn't like " + dir);
             }
+        }
+        if (mountPoint == null) {
+            Snack.toastTopError(ctx, R.string.toast_no_suitable_storage);
+            return null;
         }
 
-        MapTileFilesystemProvider result = null;
-        if (mountPoint != null) {
-            Log.d(DEBUG_TAG, "Setting cache size to " + tileCacheSize + " on " + mountPoint.getPath());
-            try {
-                result = new MapTileFilesystemProvider(ctx, mountPoint, tileCacheSize * 1024 * 1024); // FSCache
-            } catch (SQLiteException slex) {
-                Log.d(DEBUG_TAG, "Opening DB hit " + slex);
-                Snack.toastTopError(ctx, ctx.getString(R.string.toast_tile_database_issue, slex.getMessage()));
-            }
-        } else {
-            Snack.toastTopError(ctx, R.string.toast_no_suitable_storage);
+        Log.d(DEBUG_TAG, "Setting cache size to " + tileCacheSize + " on " + mountPoint.getPath());
+        try {
+            return new MapTileFilesystemProvider(ctx, mountPoint, tileCacheSize * 1024 * 1024); // FSCache
+        } catch (SQLiteException slex) {
+            Log.d(DEBUG_TAG, "Opening DB hit " + slex);
+            Snack.toastTopError(ctx, ctx.getString(R.string.toast_tile_database_issue, slex.getMessage()));
         }
-        return result;
+        return null;
     }
 }

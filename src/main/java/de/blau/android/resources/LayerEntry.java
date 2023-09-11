@@ -1,13 +1,19 @@
 package de.blau.android.resources;
 
+import java.io.Serializable;
+
 import de.blau.android.osm.BoundingBox;
 
 /**
  * Small container class for layer configuration information
+ * 
  * @author simon
  *
  */
-public class LayerEntry {
+public class LayerEntry implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     String      id;
     String      title;
     String      tileUrl;

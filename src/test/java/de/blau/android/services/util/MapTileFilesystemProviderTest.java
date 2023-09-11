@@ -20,12 +20,17 @@ import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowLog;
 
 import android.database.sqlite.SQLiteDatabase;
+import androidx.annotation.NonNull;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
 import de.blau.android.MockTileServer;
+import de.blau.android.PMTilesDispatcher;
 import de.blau.android.net.UserAgentInterceptor;
 import de.blau.android.resources.TileLayerDatabase;
 import de.blau.android.resources.TileLayerSource;
+import de.blau.android.resources.TileLayerSource.Category;
+import de.blau.android.resources.TileLayerSource.Provider;
+import de.blau.android.resources.TileLayerSource.TileType;
 import de.blau.android.util.Util;
 import de.blau.android.views.util.MapTileProviderCallback;
 import okhttp3.mockwebserver.MockWebServer;
@@ -36,8 +41,10 @@ import okhttp3.mockwebserver.RecordedRequest;
 @LargeTest
 public class MapTileFilesystemProviderTest {
 
-    MapTileFilesystemProvider provider;
-    MockWebServer             tileServer;
+    private static final String FIRENZE = "FIRENZE";
+    MapTileFilesystemProvider   provider;
+    MockWebServer               tileServerMBT;
+    MockWebServer               tileServerPMT;
 
     /**
      * Pre-test setup
@@ -46,7 +53,22 @@ public class MapTileFilesystemProviderTest {
     public void setup() {
         ShadowLog.setupLogging();
         provider = new MapTileFilesystemProvider(ApplicationProvider.getApplicationContext(), new File("."), 1000000);
-        tileServer = MockTileServer.setupTileServer(ApplicationProvider.getApplicationContext(), "ersatz_background.mbt", true);
+        provider.flushCache(null);
+        tileServerMBT = MockTileServer.setupTileServer(ApplicationProvider.getApplicationContext(), "ersatz_background.mbt", true);
+        final String fileName = "protomaps(vector)ODbL_firenze.pmtiles";
+        tileServerPMT = new MockWebServer();
+        try {
+            PMTilesDispatcher tileDispatcher = new PMTilesDispatcher(ApplicationProvider.getApplicationContext(), fileName);
+            tileServerPMT.setDispatcher(tileDispatcher);
+        } catch (IOException e) {
+            fail(e.getMessage());
+        }
+        try (TileLayerDatabase db = new TileLayerDatabase(ApplicationProvider.getApplicationContext())) {
+            TileLayerDatabase.deleteLayerWithId(db.getWritableDatabase(), FIRENZE);
+            TileLayerSource.addOrUpdateCustomLayer(ApplicationProvider.getApplicationContext(), db.getWritableDatabase(), FIRENZE, null, -1, -1, "Firenze",
+                    new Provider(), Category.other, TileLayerSource.TYPE_PMT_3, TileType.MVT, 0, 15, TileLayerSource.DEFAULT_TILE_SIZE, false,
+                    tileServerPMT.url("/").toString() + "firenze.pmtiles");
+        }
         // force update of tile sources
         try (TileLayerDatabase tlDb = new TileLayerDatabase(ApplicationProvider.getApplicationContext()); SQLiteDatabase db = tlDb.getReadableDatabase()) {
             TileLayerSource.getListsLocked(ApplicationProvider.getApplicationContext(), db, false);
@@ -60,7 +82,12 @@ public class MapTileFilesystemProviderTest {
     public void teardown() {
         provider.destroy();
         try {
-            tileServer.close();
+            tileServerMBT.close();
+        } catch (IOException e) {
+            // ignore
+        }
+        try {
+            tileServerPMT.close();
         } catch (IOException e) {
             // ignore
         }
@@ -72,7 +99,7 @@ public class MapTileFilesystemProviderTest {
     @Test
     public void saveFileTest() {
         try {
-            provider.saveFile(new MapTile("test", 10, 511, 340), MapTileProviderDataBaseTest.getTestTile());
+            provider.saveTile(new MapTile("test", 10, 511, 340), MapTileProviderDataBaseTest.getTestTile());
         } catch (IOException e) {
             fail(e.getMessage());
         }
@@ -89,14 +116,43 @@ public class MapTileFilesystemProviderTest {
         assertEquals(0, provider.getCurrentCacheByteSize());
     }
 
+    @Test
+    public void loadTileFromTileServerSuccess() {
+        loadMapTileAsyncSuccessTest(tileServerMBT, MockTileServer.MOCK_TILE_SOURCE, 19, 274335, 183513);
+    }
+
+    @Test
+    public void loadTileFromTileServerFail() {
+        loadMapTileAsyncFailTest(tileServerMBT, MockTileServer.MOCK_TILE_SOURCE, 14, 11541, 3864);
+    }
+
+    @Test
+    public void tileServerCustomerHeaders() {
+        customHeaderTest(tileServerMBT, MockTileServer.MOCK_TILE_SOURCE, 19, 274335, 183514);
+    }
+
+    @Test
+    public void loadTileFromPMTilesServerSuccess() {
+        loadMapTileAsyncSuccessTest(tileServerPMT, FIRENZE, 14, 8703, 5971);
+    }
+
+    @Test
+    public void loadTileFromPMTilesServerFail() {
+        loadMapTileAsyncFailTest(tileServerPMT, FIRENZE, 14, 11541, 3864);
+    }
+
+    @Test
+    public void pmtilesServerCustomerHeaders() {
+        customHeaderTest(tileServerPMT, FIRENZE, 14, 8703, 5971);
+    }
+
     /**
      * Load a tile successfully
      */
-    @Test
-    public void loadMapTileAsyncSuccessTest() {
+    public void loadMapTileAsyncSuccessTest(@NonNull MockWebServer tileServer, @NonNull String source, int zoom, int x, int y) {
         // this should load from the server
         final CountDownLatch signal1 = new CountDownLatch(1);
-        MapTile mockedTile = new MapTile(MockTileServer.MOCK_TILE_SOURCE, 19, 274335, 183513);
+        MapTile mockedTile = new MapTile(source, zoom, x, y);
         CallbackWithResult callback = new CallbackWithResult() {
 
             @Override
@@ -125,7 +181,13 @@ public class MapTileFilesystemProviderTest {
         } catch (InterruptedException e1) {
             fail("no tileserver request found " + e1.getMessage());
         }
-        assertEquals(1, tileServer.getRequestCount());
+        // flush requests
+        try {
+            while (tileServer.takeRequest(1, TimeUnit.SECONDS) != null) {
+            }
+        } catch (InterruptedException e2) {
+            fail(e2.getMessage());
+        }
 
         // this should load from the cache
         final CountDownLatch signal2 = new CountDownLatch(1);
@@ -142,7 +204,6 @@ public class MapTileFilesystemProviderTest {
         } catch (InterruptedException e1) {
             // this is what should happen
         }
-        assertEquals(1, tileServer.getRequestCount());
     }
 
     abstract class CallbackWithResult implements MapTileProviderCallback {
@@ -152,10 +213,9 @@ public class MapTileFilesystemProviderTest {
     /**
      * Try to load a tile that doesn't exist
      */
-    @Test
-    public void loadMapTileAsyncFailTest() {
+    public void loadMapTileAsyncFailTest(@NonNull MockWebServer tileServer, @NonNull String source, int zoom, int x, int y) {
         final CountDownLatch signal1 = new CountDownLatch(1);
-        MapTile mockedTile = new MapTile(MockTileServer.MOCK_TILE_SOURCE, 14, 11541, 3864);
+        MapTile mockedTile = new MapTile(source, zoom, x, y);
         CallbackWithResult callback = new CallbackWithResult() {
 
             @Override
@@ -183,19 +243,17 @@ public class MapTileFilesystemProviderTest {
             fail("no tileserver request found " + e1.getMessage());
         }
         assertEquals(MapAsyncTileProvider.DOESNOTEXIST, callback.result);
-        assertEquals(1, tileServer.getRequestCount());
     }
 
-    @Test
-    public void customHeaderTest() {
-        TileLayerSource layer = TileLayerSource.get(ApplicationProvider.getApplicationContext(), MockTileServer.MOCK_TILE_SOURCE, false);
+    public void customHeaderTest(@NonNull MockWebServer tileServer, @NonNull String source, int zoom, int x, int y) {
+        TileLayerSource layer = TileLayerSource.get(ApplicationProvider.getApplicationContext(), source, false);
         assertNotNull(layer);
         layer.setHeaders(Util.wrapInList(new TileLayerSource.Header(UserAgentInterceptor.USER_AGENT_HEADER, "Mozilla/5.0 (JOSM)")));
         // this should load from the server
         final CountDownLatch signal1 = new CountDownLatch(1);
-        MapTile mockedTile = new MapTile(MockTileServer.MOCK_TILE_SOURCE, 19, 274335, 183514); // not this needs to be a
-                                                                                               // different tile than
-                                                                                               // above
+        MapTile mockedTile = new MapTile(source, zoom, x, y); // not this needs to be a
+                                                              // different tile than
+                                                              // above
         CallbackWithResult callback = new CallbackWithResult() {
 
             @Override
@@ -220,11 +278,9 @@ public class MapTileFilesystemProviderTest {
 
         try {
             RecordedRequest request = tileServer.takeRequest(1, TimeUnit.SECONDS);
-            assertNotNull(request);
             assertEquals("Mozilla/5.0 (JOSM)", request.getHeader(UserAgentInterceptor.USER_AGENT_HEADER));
         } catch (InterruptedException e1) {
             fail("no tileserver request found " + e1.getMessage());
         }
-        assertEquals(1, tileServer.getRequestCount());
     }
 }

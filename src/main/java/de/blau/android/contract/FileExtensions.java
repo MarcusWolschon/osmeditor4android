@@ -17,6 +17,7 @@ public final class FileExtensions {
     public static final String RES     = "res";
     public static final String SVG     = "svg";
     public static final String TEMP    = "temp";
+    public static final String PMTILES = "pmtiles";
 
     /**
      * Private default constructor
