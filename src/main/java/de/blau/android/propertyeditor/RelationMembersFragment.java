@@ -872,6 +872,7 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
                         }
                     }
                     adapter.notifyDataSetChanged();
+                    deselectRow();
                 });
     }
 

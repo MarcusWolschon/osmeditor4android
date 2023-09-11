@@ -136,6 +136,10 @@ public class RelationMemberSelectedActionModeCallback implements Callback {
             }
         }
         final int selectedCount = selectedPos.size();
+        if (selectedCount < 1) {
+            Log.e(DEBUG_TAG, "onActionItemClicked called with nothing selected");
+            return true;
+        }
         int change = 1;
         int action = item.getItemId();
         switch (action) {
