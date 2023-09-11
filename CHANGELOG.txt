@@ -1,5 +1,14 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+19.2.0:
+
+- Fix if all memebr rows are deselected terminate action mode
+- Fix missing path separator in image path that stopped imaged being displayed in the large image combo
+- Add pre-Android 8 flush memory cache of layers that are not visible
+- Add support the text attribute in optional segments as labels
+- Update translations
+- Update imagery from ELI
+
 19.2.0-1:
 
 - Fix improved parsing of reference pressure values
