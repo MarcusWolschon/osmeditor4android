@@ -97,7 +97,10 @@ public class StreetPlaceNamesAdapter extends ArrayAdapter<ValueWithCount> {
      * 
      * @return a String array containing the names
      */
-    public String[] getStreetNames() {
+    public String[] getStreetNames() throws OsmException {
+        if (es == null) {
+            throw new OsmException("ElementSearch null");
+        }
         return es.getStreetNames();
     }
 
@@ -109,6 +112,9 @@ public class StreetPlaceNamesAdapter extends ArrayAdapter<ValueWithCount> {
      * @throws OsmException if the name is not found
      */
     public long getStreetId(@NonNull String name) throws OsmException {
+        if (es == null) {
+            throw new OsmException("ElementSearch null");
+        }
         return es.getStreetId(name);
     }
 
@@ -117,6 +123,7 @@ public class StreetPlaceNamesAdapter extends ArrayAdapter<ValueWithCount> {
      * 
      * @return the ElementSearch instance used to create the adapter
      */
+    @Nullable
     public ElementSearch getElementSearch() {
         return es;
     }
