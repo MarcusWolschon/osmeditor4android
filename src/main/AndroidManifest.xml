@@ -77,7 +77,7 @@
             android:name=".Main"
             android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
             android:exported="true"
-            android:launchMode="singleTask"
+            android:launchMode="singleInstance"
             android:theme="@style/Theme.customMain" >
             <meta-data
                 android:name="com.samsung.android.keepalive.density"

@@ -260,10 +260,19 @@ android {
     // Specifies one flavor dimension.
     flavorDimensions "api"
     productFlavors {
-        current {
+        legacy {
             dimension "api"
             multiDexEnabled true
             minSdkVersion 16
+            targetSdkVersion 33
+            applicationIdSuffix ".legacy"
+            versionNameSuffix "-legacy"
+            resValue "string", "content_provider", "de.blau.android.legacy.provider"
+        }
+        current {
+            dimension "api"
+            multiDexEnabled true
+            minSdkVersion 21
             targetSdkVersion 33
             applicationIdSuffix ""
             versionNameSuffix ""
