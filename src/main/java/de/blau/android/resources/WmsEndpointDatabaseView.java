@@ -135,6 +135,10 @@ public class WmsEndpointDatabaseView extends ImmersiveDialogFragment implements 
     }
 
     private class EndpointAdapter extends CursorAdapter {
+        private static final String SERVICE_PARAM            = "service";
+        private static final String REQUEST_PARAM            = "request";
+        private static final String GET_CAPABILITIES_REQUEST = "GetCapabilities";
+
         final SQLiteDatabase   db;
         final FragmentActivity activity;
 
@@ -178,16 +182,17 @@ public class WmsEndpointDatabaseView extends ImmersiveDialogFragment implements 
 
                     @Override
                     protected WmsCapabilities doInBackground(Void params) throws IOException, ParserConfigurationException, SAXException {
-                        String url = Util.appendQuery(sanitize(endpoint.getTileUrl()), "request=GetCapabilities&service=wms");
+                        String url = Util.appendQuery(sanitize(endpoint.getTileUrl()),
+                                REQUEST_PARAM + "=" + GET_CAPABILITIES_REQUEST + "&" + SERVICE_PARAM + "=wms");
                         try (InputStream is = Server.openConnection(activity, new URL(url))) {
                             return new WmsCapabilities(is);
                         }
                     }
 
-                    @Override
                     protected void onBackgroundError(Exception e) {
                         Progress.dismissDialog(activity, Progress.PROGRESS_DOWNLOAD);
-                        Snack.toastTopError(activity, activity.getString(R.string.toast_querying_wms_server_failed, e.getLocalizedMessage()));
+                        Log.e(DEBUG_TAG, e.getMessage());
+                        Snack.toastTopError(context, activity.getString(R.string.toast_querying_wms_server_failed, e.getMessage()));
                     }
 
                     @Override
@@ -236,7 +241,7 @@ public class WmsEndpointDatabaseView extends ImmersiveDialogFragment implements 
             Uri.Builder uriBuilder = uri.buildUpon();
             uriBuilder.clearQuery();
             for (String n : uri.getQueryParameterNames()) {
-                if (!"".equals(n) && !"request".equalsIgnoreCase(n) && !"service".equalsIgnoreCase(n)) {
+                 if (!"".equals(n) && !REQUEST_PARAM.equalsIgnoreCase(n) && !SERVICE_PARAM.equalsIgnoreCase(n)) {
                     uriBuilder.appendQueryParameter(n, uri.getQueryParameter(n));
                 }
             }
