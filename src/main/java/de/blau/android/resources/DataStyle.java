@@ -67,9 +67,9 @@ import de.blau.android.util.Version;
 import de.blau.android.util.XmlFileFilter;
 
 public final class DataStyle extends DefaultHandler {
-    private static final String I18N_DATASTYLE = "i18n/datastyle_";
-
     private static final String DEBUG_TAG = "DataStyle";
+
+    private static final String I18N_DATASTYLE = "i18n/datastyle_";
 
     private static final Version CURRENT_VERSION = new Version("0.3.0");
 
