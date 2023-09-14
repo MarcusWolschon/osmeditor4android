@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.database.sqlite.SQLiteException;
 import android.os.Build;
@@ -38,6 +37,7 @@ import de.blau.android.resources.TileLayerSource;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.ThemeUtils;
+import de.blau.android.util.Util;
 
 /**
  * Originally based https://www.bignerdranch.com/blog/splash-screens-the-right-way/
@@ -93,9 +93,7 @@ public class Splash extends AppCompatActivity {
                 Log.d(DEBUG_TAG, "checking last package update");
                 long lastUpdateTime = 0L;
                 try {
-                    String packageName = Splash.this.getPackageName();
-                    PackageInfo packageInfo = getPackageManager().getPackageInfo(packageName, 0);
-                    lastUpdateTime = packageInfo.lastUpdateTime;
+                    lastUpdateTime = Util.getPackageInfo(Splash.this.getPackageName(), getPackageManager()).lastUpdateTime;
                 } catch (NameNotFoundException e1) {
                     // can't really happen
                 }
@@ -223,9 +221,7 @@ public class Splash extends AppCompatActivity {
                 startupTask.execute();
             });
         });
-
         dialog.show();
-
     }
 
     /**
