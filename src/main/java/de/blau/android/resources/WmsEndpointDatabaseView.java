@@ -189,6 +189,7 @@ public class WmsEndpointDatabaseView extends ImmersiveDialogFragment implements 
                         }
                     }
 
+                    @Override
                     protected void onBackgroundError(Exception e) {
                         Progress.dismissDialog(activity, Progress.PROGRESS_DOWNLOAD);
                         Log.e(DEBUG_TAG, e.getMessage());
