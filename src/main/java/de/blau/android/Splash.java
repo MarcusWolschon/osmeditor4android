@@ -126,7 +126,9 @@ public class Splash extends AppCompatActivity {
             }
             // read Presets here to avoid reading them on UI thread on startup of Main
             Progress.showDialog(Splash.this, Progress.PROGRESS_LOADING_PRESET);
+            Log.d(DEBUG_TAG, "Initial preset load");
             App.getCurrentPresets(Splash.this);
+            Log.d(DEBUG_TAG, "Preset load finished");
             //
             Intent intent = new Intent(Splash.this, Main.class);
             intent.putExtra(SHORTCUT_EXTRAS_KEY, shortcutExtras);

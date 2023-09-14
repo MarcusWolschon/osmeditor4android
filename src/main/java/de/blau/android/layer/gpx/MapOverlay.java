@@ -49,6 +49,7 @@ import de.blau.android.layer.StyleableLayer;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.ViewBox;
+import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.DataStyle.FeatureStyle;
 import de.blau.android.resources.symbols.TriangleDown;
@@ -114,7 +115,8 @@ public class MapOverlay extends StyleableLayer
     public MapOverlay(@NonNull final Map map, @NonNull String contentId) {
         this.map = map;
         this.contentId = contentId;
-        resetStyling();
+        final Preferences prefs = map.getPrefs();
+        initStyling(prefs.getGpxStrokeWidth(), prefs.getGpxLabelSource(), prefs.getGpxLabelMinZoom(), prefs.getGpxSynbol());
         // the following can only be changed in the DataStyle
         FeatureStyle fs = DataStyle.getInternal(DataStyle.LABELTEXT_NORMAL);
         fontPaint = fs.getPaint();
@@ -122,8 +124,7 @@ public class MapOverlay extends StyleableLayer
         labelBackground = DataStyle.getInternal(DataStyle.LABELTEXT_BACKGROUND).getPaint();
         yOffset = 2 * fontPaint.getStrokeWidth() + iconRadius;
         Context context = map.getContext();
-        labelKey = context.getString(R.string.gpx_automatic); // default, don't have a context in resetStyling
-        labelList = Arrays.asList(labelKey, context.getString(R.string.gpx_name), context.getString(R.string.gpx_description),
+        labelList = Arrays.asList(context.getString(R.string.gpx_automatic), context.getString(R.string.gpx_name), context.getString(R.string.gpx_description),
                 context.getString(R.string.gpx_type));
 
         int threadPoolSize = Util.usableProcessors();
@@ -376,24 +377,39 @@ public class MapOverlay extends StyleableLayer
     public void setStrokeWidth(float width) {
         super.setStrokeWidth(width);
         wayPointPaint.setStrokeWidth(width);
+        map.getPrefs().setGpxStrokeWidth(width);
     }
 
     @Override
     public void resetStyling() {
+        initStyling(DataStyle.DEFAULT_GPX_STROKE_WIDTH, labelList.get(0), Map.SHOW_LABEL_LIMIT, TriangleDown.NAME);
+    }
+
+    /**
+     * Set the styling to the provided values
+     * 
+     * @param strokeWidth the stroke width
+     * @param labelKey the source of the label
+     * @param labelMinZoom min. zoom from on we show the label
+     * @param symbolName the name of the point symbol
+     */
+    private void initStyling(float strokeWidth, @NonNull String labelKey, int labelMinZoom, @NonNull String symbolName) {
         paint = new SerializableTextPaint(DataStyle.getInternal(DataStyle.GPS_TRACK).getPaint());
         wayPointPaint = new SerializableTextPaint(DataStyle.getInternal(DataStyle.GPS_POS_FOLLOW).getPaint());
+
+        paint.setStrokeWidth(strokeWidth);
         // currently styling always sets the waypoint stroke width to the same as the track
-        wayPointPaint.setStrokeWidth(paint.getStrokeWidth());
-        labelKey = "";
-        labelMinZoom = Map.SHOW_LABEL_LIMIT;
+        wayPointPaint.setStrokeWidth(strokeWidth);
+        setLabel(labelKey);
+        setLabelMinZoom(labelMinZoom);
         iconRadius = map.getIconRadius();
-        symbolName = TriangleDown.NAME;
-        symbolPath = DataStyle.getCurrent().getSymbol(TriangleDown.NAME);
+        setPointSymbol(symbolName);
     }
 
     @Override
     public void setLabel(String key) {
         labelKey = key;
+        map.getPrefs().setGpxLabelSource(key);
     }
 
     @Override
@@ -409,11 +425,18 @@ public class MapOverlay extends StyleableLayer
     @Override
     public void setLabelMinZoom(int minZoom) {
         labelMinZoom = minZoom;
+        map.getPrefs().setGpxLabelMinZoom(minZoom);
     }
 
     @Override
     public int getLabelMinZoom() {
         return labelMinZoom;
+    }
+
+    @Override
+    public void setPointSymbol(@NonNull String symbol) {
+        super.setPointSymbol(symbol);
+        map.getPrefs().setGpxSymbol(symbol);
     }
 
     /**
