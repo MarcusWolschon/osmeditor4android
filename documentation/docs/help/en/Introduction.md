@@ -1,4 +1,4 @@
-_Before we start: most screens have links in the menu to the on-device help system giving you direct access to information relevant for the current context, you can easily navigate back to this text too. If you have a larger device, for example a tablet, you can open the help system in a separate split window.  All the help texts and more (FAQs, tutorials) can be found on the [Vespucci documentation site](https://vespucci.io/) too._
+_Before we start: most screens have links in the menu to the on-device help system giving you direct access to information relevant for the current context, you can easily navigate back to this text too. If you have a larger device, for example a tablet, you can open the help system in a separate split window.  All the help texts and more (FAQs, tutorials) can be found on the [Vespucci documentation site](https://vespucci.io/) too. You can further start the help viewer directly on devices that support short cuts with a long press on the app icon and selecting "Help"_
 
 # Vespucci Introduction
 
@@ -46,6 +46,8 @@ A long press on the lock icon will display a menu currently offering 4 options:
 * **Indoor** - enables Indoor mode, see [Indoor mode](#indoor). White lock icon with an "I" is displayed.
 * **C-Mode** - enables C-Mode, only objects that have a warning flag set will be displayed, see [C-Mode](#c-mode). White lock icon with a "C" is displayed.
 
+If you are using Vespucci on an Android device that supports short cuts (long press on the app icon) you can start directly to _Address_ and _Indoor_ mode.
+
 #### Single tap, double tap, and long press
 
 By default, selectable nodes and ways have an orange area around them indicating roughly where you have to touch to select an object. You have three options:
@@ -90,7 +92,7 @@ On first start the app launches in "Simple mode", this can be changed in the mai
 
 Tapping the large green floating button on the map screen will show a menu. After you've selected one of the items, you will be asked to tap the screen at the location where you want to create the object, pan and zoom continues to work if you need to adjust the map view. 
 
-See [Creating new objects in simple actions mode](Simple%20actions.md) for more information.
+See [Creating new objects in simple actions mode](Simple%20actions.md) for more information. Simple mode os the default for new installs.
 
 ##### Advanced (long press) mode
  
@@ -300,10 +302,12 @@ The full description can be found here [Preferences](Preferences.md)
 
 The full description can be found here [Advanced preferences](Advanced%20preferences.md)
 
-## Reporting Problems
+## Reporting and Resolving Issues
 
 If Vespucci crashes, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: [Vespucci issue tracker](https://github.com/MarcusWolschon/osmeditor4android/issues). The "Provide feedback" function from the main menu will open a new issue and include the relevant app and device information without extra typing.
 
-If you want to discuss something related to Vespucci, you can either start a discussion on the [Vespucci Google group](https://groups.google.com/forum/#!forum/osmeditor4android) or on the [OpenStreetMap Android forum](http://forum.openstreetmap.org/viewforum.php?id=56)
+If you are experiencing difficulties starting the app after a crash, you can try to start it in _Safe_ mode on devices that support short cuts: long press on the app icon and then select _Safe_ from the menu. 
+
+If you want to discuss something related to Vespucci, you can either start a discussion on the [OpenStreetMap forum](https://community.openstreetmap.org).
 
 
