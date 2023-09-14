@@ -3857,7 +3857,7 @@ public class Logic {
                     setBorders(mainMap);
                     return READ_OK;
                 }
-                if (getDelegator().readFromFile(activity, StorageDelegator.FILENAME + ".backup")) {
+                if (getDelegator().readFromFile(activity, StorageDelegator.BACKUP_FILENAME)) {
                     getDelegator().dirty(); // we need to overwrite the saved state asap
                     setBorders(mainMap);
                     return READ_BACKUP;

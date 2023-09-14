@@ -83,7 +83,8 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      */
     private transient boolean imageryRecorded = false;
 
-    public static final String FILENAME = "lastActivity" + "." + FileExtensions.RES;
+    public static final String FILENAME        = "lastActivity" + "." + FileExtensions.RES;
+    public static final String BACKUP_FILENAME = FILENAME + ".backup";
 
     private transient SavingHelper<StorageDelegator> savingHelper = new SavingHelper<>();
 

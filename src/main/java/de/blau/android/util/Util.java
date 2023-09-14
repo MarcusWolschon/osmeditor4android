@@ -19,7 +19,9 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -558,18 +560,31 @@ public final class Util {
      * @param packageManager a PackageManager instance
      * @return true if the package is installed
      */
-    @SuppressWarnings("deprecation")
+   
     public static boolean isPackageInstalled(@NonNull String packageName, @NonNull PackageManager packageManager) {
         try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                packageManager.getPackageInfo(packageName, PackageManager.PackageInfoFlags.of(0));
-            } else {
-                packageManager.getPackageInfo(packageName, 0);
-            }
+            getPackageInfo(packageName, packageManager);
             return true;
         } catch (PackageManager.NameNotFoundException e) {
             return false;
         }
+    }
+
+    /**
+     * Get the PackageInfo for a specific package
+     * 
+     * @param packageName the name of the package
+     * @param packageManager a PackageManager instance
+     * @return a PackageInfo object if the package is installed
+     * @throws NameNotFoundException
+     */
+    @SuppressWarnings("deprecation")
+    @NonNull
+    public static PackageInfo getPackageInfo(@NonNull String packageName, @NonNull PackageManager packageManager) throws NameNotFoundException {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            return packageManager.getPackageInfo(packageName, PackageManager.PackageInfoFlags.of(0));
+        }
+        return packageManager.getPackageInfo(packageName, 0);
     }
 
     /**

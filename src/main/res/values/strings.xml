@@ -332,6 +332,13 @@
     <string name="check_optional">Require optional</string>
     <string name="add_resurvey_entry">Add re-survey entry</string>
     <string name="add_check_entry">Add check entry</string>
+     <!-- Safe mode dialog -->
+    <string name="safe_mode_dialog_title">Safe mode options</string>
+    <string name="safe_style_label">Set data style to minimal</string>
+    <string name="safe_layer_label">Disable all layers</string>
+    <string name="safe_state_label">Remove saved state</string>
+    <string name="safe_delete_state_title">Delete saved data state?</string>
+    <string name="safe_delete_state_text">Yes (cannot be undone)</string>
     <!-- Empty relation dialog  -->
     <string name="empty_relation_title">Empty relation</string>
     <string name="empty_relation_message">The %1$s relation has no members.\n\nLeaving it as is will make it non-editable in Vespucci.</string>
@@ -1411,6 +1418,7 @@
     <string name="default_">Default</string>
     <string name="regular_expression">Regular expression</string>
     <string name="state">State</string>
+    <string name="Continue">Continue</string>
     <!--   -->
     <string name="empty_list">No entries</string>
     <string name="geocoder_type">Geocoder type</string>
