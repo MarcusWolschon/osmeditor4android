@@ -14,6 +14,10 @@
     <string name="config_gpx_symbol_key">gpxSymbol</string>
     <string name="config_gpx_label_min_zoom_key">gpxLabelMinZoom</string>
     <string name="config_gpx_stroke_width_key">gpxStrokeWidth</string>
+    <string name="config_geojson_label_source_key">geoJsonLabelSource</string>
+    <string name="config_geojson_symbol_key">geoJsonSymbol</string>
+    <string name="config_geojson_label_min_zoom_key">geoJsonLabelMinZoom</string>
+    <string name="config_geojson_stroke_width_key">geoJsonStrokeWidth</string>
     
     <!-- Preference keys used in the pref editor(s) string & boolean prefs -->
     <string name="config_showStats_key">showStats</string>

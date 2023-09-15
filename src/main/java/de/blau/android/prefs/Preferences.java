@@ -130,6 +130,10 @@ public class Preferences {
     private String            gpxSymbol;
     private int               gpxLabelMinZoom;
     private float             gpxStrokeWidth;
+    private String            geoJsonSymbol;
+    private String            geoJsonLabelSource;
+    private int               geoJsonLabelMinZoom;
+    private float             geoJsonStrokeWidth;
 
     private static final String DEFAULT_MAP_PROFILE = "Color Round Nodes";
 
@@ -203,6 +207,11 @@ public class Preferences {
         gpxLabelMinZoom = getIntPref(R.string.config_gpx_label_min_zoom_key, Map.SHOW_LABEL_LIMIT);
         // DataStyle may not be available here, so use a constant for the default
         gpxStrokeWidth = prefs.getFloat(r.getString(R.string.config_gpx_stroke_width_key), DataStyle.DEFAULT_GPX_STROKE_WIDTH);
+        geoJsonLabelSource = prefs.getString(r.getString(R.string.config_geojson_label_source_key), "");
+        geoJsonSymbol = prefs.getString(r.getString(R.string.config_geojson_symbol_key), TriangleDown.NAME);
+        geoJsonLabelMinZoom = getIntPref(R.string.config_geojson_label_min_zoom_key, Map.SHOW_LABEL_LIMIT);
+        // DataStyle may not be available here, so use a constant for the default
+        geoJsonStrokeWidth = prefs.getFloat(r.getString(R.string.config_geojson_stroke_width_key), DataStyle.DEFAULT_GEOJSON_STROKE_WIDTH);
 
         forceContextMenu = prefs.getBoolean(r.getString(R.string.config_forceContextMenu_key), false);
 
@@ -1723,6 +1732,82 @@ public class Preferences {
     public void setGpxStrokeWidth(float width) {
         gpxStrokeWidth = width;
         prefs.edit().putFloat(r.getString(R.string.config_gpx_stroke_width_key), gpxStrokeWidth).commit();
+    }
+
+    /**
+     * Get the current default GeoJSON label source
+     * 
+     * @return a String with the default source name
+     */
+    public String getGeoJsonLabelSource() {
+        return geoJsonLabelSource;
+    }
+
+    /**
+     * Set the current default GeoJSON label source
+     * 
+     * @param labelSource the default label source
+     */
+    public void setGeoJsonLabelSource(@NonNull String labelSource) {
+        geoJsonLabelSource = labelSource;
+        putString(R.string.config_geojson_label_source_key, labelSource);
+    }
+
+    /**
+     * Get the current default GeoJSON point symbol
+     * 
+     * @return a String with the default symbol name
+     */
+    public String getGeoJsonSynbol() {
+        return geoJsonSymbol;
+    }
+
+    /**
+     * Set the current GeoJSON point symbol
+     * 
+     * @param symbol the symbol name
+     */
+    public void setGeoJsonSymbol(@NonNull String symbol) {
+        geoJsonSymbol = symbol;
+        putString(R.string.config_geojson_symbol_key, symbol);
+    }
+
+    /**
+     * Get the current default GeoJSON min. zoom level to display labels at
+     * 
+     * @param the default GeoJSON min. zoom level to display labels at
+     */
+    public int getGeoJsonLabelMinZoom() {
+        return geoJsonLabelMinZoom;
+    }
+
+    /**
+     * Set the current default GeoJSON min. zoom level to display labels at
+     * 
+     * @param the deault GeoJSON min. zoom level to display labels at
+     */
+    public void setGeoJsonLabelMinZoom(int zoom) {
+        geoJsonLabelMinZoom = zoom;
+        prefs.edit().putInt(r.getString(R.string.config_geojson_label_min_zoom_key), zoom).commit();
+    }
+
+    /**
+     * Get the current default GeoJSON stroke width
+     * 
+     * @param the GeoJSON default stroke width
+     */
+    public float getGeoJsonStrokeWidth() {
+        return geoJsonStrokeWidth;
+    }
+
+    /**
+     * Set the current default GeoJSON stroke width
+     * 
+     * @param the default GeoJSON stroke width
+     */
+    public void setGeoJsonStrokeWidth(float width) {
+        geoJsonStrokeWidth = width;
+        prefs.edit().putFloat(r.getString(R.string.config_geojson_stroke_width_key), width).commit();
     }
 
     /**

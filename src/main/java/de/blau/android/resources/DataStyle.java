@@ -171,8 +171,9 @@ public final class DataStyle extends DefaultHandler {
     private static final String OFFSET_ATTR           = "offset";
     private static final String TEXT_COLOR_ATTR       = "textColor";
 
-    private static final int  DEFAULT_MIN_VISIBLE_ZOOM = 15;
-    public static final float DEFAULT_GPX_STROKE_WIDTH = 4.0f;
+    private static final int  DEFAULT_MIN_VISIBLE_ZOOM     = 15;
+    public static final float DEFAULT_GPX_STROKE_WIDTH     = 4.0f;
+    public static final float DEFAULT_GEOJSON_STROKE_WIDTH = 3.0f;
 
     public class FeatureStyle {
 
@@ -1158,7 +1159,7 @@ public final class DataStyle extends DefaultHandler {
         fp.getPaint().setStyle(Style.STROKE);
         fp.setColor(0x9d00ff00);
         fp.setWidthFactor(2f);
-        fp.getPaint().setStrokeWidth(Density.dpToPx(ctx, 3.0f));
+        fp.getPaint().setStrokeWidth(Density.dpToPx(ctx, DEFAULT_GEOJSON_STROKE_WIDTH));
         fp.setUpdateWidth(false);
         internalStyles.put(GEOJSON_DEFAULT, fp);
 

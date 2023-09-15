@@ -60,6 +60,7 @@ import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.ViewBox;
+import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.DataStyle.FeatureStyle;
 import de.blau.android.resources.symbols.TriangleDown;
@@ -194,7 +195,8 @@ public class MapOverlay extends StyleableLayer
      */
     public MapOverlay(final Map map) {
         this.map = map;
-        resetStyling();
+        final Preferences prefs = map.getPrefs();
+        initStyling(prefs.getGeoJsonStrokeWidth(), prefs.getGeoJsonLabelSource(), prefs.getGeoJsonLabelMinZoom(), prefs.getGeoJsonSynbol());
     }
 
     @Override
@@ -707,41 +709,62 @@ public class MapOverlay extends StyleableLayer
 
     @Override
     public void resetStyling() {
+        initStyling(DataStyle.DEFAULT_GEOJSON_STROKE_WIDTH, "", Map.SHOW_LABEL_LIMIT, TriangleDown.NAME);
+    }
+
+    /**
+     * Init the styling to the provided values
+     * 
+     * @param strokeWidth the stroke width
+     * @param labelKey the source of the label
+     * @param labelMinZoom min. zoom from on we show the label
+     * @param symbolName the name of the point symbol
+     */
+    private void initStyling(float strokeWidth, @NonNull String labelKey, int labelMinZoom, String symbolName) {
         paint = new SerializableTextPaint(DataStyle.getInternal(DataStyle.GEOJSON_DEFAULT).getPaint());
-        labelKey = "";
-        labelMinZoom = Map.SHOW_LABEL_LIMIT;
+        setStrokeWidth(strokeWidth);
+        setLabel(labelKey);
+        setLabelMinZoom(labelMinZoom);
         iconRadius = map.getIconRadius();
+        setPointSymbol(symbolName);
         marker = DataStyle.getCurrent().getSymbol(TriangleDown.NAME);
     }
 
     @Override
     public List<String> getLabelList() {
-        if (data != null) {
-            Collection<BoundedFeature> queryResult = new ArrayList<>();
-            data.query(queryResult);
-            Set<String> result = new TreeSet<>();
-            for (BoundedFeature bf : queryResult) {
-                Feature feature = bf.getFeature();
-                if (feature != null) {
-                    JsonObject properties = feature.properties();
-                    if (properties != null) {
-                        for (String key : properties.keySet()) {
-                            JsonElement e = properties.get(key);
-                            if (e != null && e.isJsonPrimitive()) {
-                                result.add(key);
-                            }
-                        }
-                    }
+        if (data == null) {
+            return super.getLabelList();
+        }
+        Collection<BoundedFeature> queryResult = new ArrayList<>();
+        data.query(queryResult);
+        Set<String> result = new TreeSet<>();
+        for (BoundedFeature bf : queryResult) {
+            Feature feature = bf.getFeature();
+            JsonObject properties = feature != null ? feature.properties() : null;
+            if (properties == null) {
+                continue;
+            }
+            for (String key : properties.keySet()) {
+                JsonElement e = properties.get(key);
+                if (e != null && e.isJsonPrimitive()) {
+                    result.add(key);
                 }
             }
-            return new ArrayList<>(result);
+
         }
-        return super.getLabelList();
+        return new ArrayList<>(result);
+    }
+
+    @Override
+    public void setStrokeWidth(float width) {
+        super.setStrokeWidth(width);
+        map.getPrefs().setGeoJsonStrokeWidth(width);
     }
 
     @Override
     public void setLabel(String key) {
         labelKey = key;
+        map.getPrefs().setGeoJsonLabelSource(key);
     }
 
     @Override
@@ -752,11 +775,18 @@ public class MapOverlay extends StyleableLayer
     @Override
     public void setLabelMinZoom(int minZoom) {
         labelMinZoom = minZoom;
+        map.getPrefs().setGeoJsonLabelMinZoom(minZoom);
     }
 
     @Override
     public int getLabelMinZoom() {
         return labelMinZoom;
+    }
+
+    @Override
+    public void setPointSymbol(@NonNull String symbol) {
+        super.setPointSymbol(symbol);
+        map.getPrefs().setGeoJsonSymbol(symbol);
     }
 
     /**
