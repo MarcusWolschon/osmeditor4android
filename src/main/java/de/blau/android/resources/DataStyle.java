@@ -61,13 +61,12 @@ import de.blau.android.osm.Way;
 import de.blau.android.resources.symbols.Symbols;
 import de.blau.android.util.Density;
 import de.blau.android.util.FileUtil;
-import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Snack;
 import de.blau.android.util.Version;
 import de.blau.android.util.XmlFileFilter;
 
 public final class DataStyle extends DefaultHandler {
-    private static final String DEBUG_TAG = "DataStyle";
+    private static final String DEBUG_TAG = DataStyle.class.getSimpleName();
 
     private static final String I18N_DATASTYLE = "i18n/datastyle_";
 
@@ -172,7 +171,9 @@ public final class DataStyle extends DefaultHandler {
     private static final String OFFSET_ATTR           = "offset";
     private static final String TEXT_COLOR_ATTR       = "textColor";
 
-    private static final int DEFAULT_MIN_VISIBLE_ZOOM = 15;
+    private static final int  DEFAULT_MIN_VISIBLE_ZOOM     = 15;
+    public static final float DEFAULT_GPX_STROKE_WIDTH     = 4.0f;
+    public static final float DEFAULT_GEOJSON_STROKE_WIDTH = 3.0f;
 
     public class FeatureStyle {
 
@@ -980,7 +981,7 @@ public final class DataStyle extends DefaultHandler {
 
         fp = new FeatureStyle(GPS_POS, internalStyles.get(GPS_TRACK));
         fp.getPaint().setStyle(Style.FILL);
-        fp.getPaint().setStrokeWidth(Density.dpToPx(ctx, 4.0f));
+        fp.getPaint().setStrokeWidth(Density.dpToPx(ctx, DEFAULT_GPX_STROKE_WIDTH));
         fp.setUpdateWidth(false);
         internalStyles.put(GPS_POS, fp);
 
@@ -990,7 +991,7 @@ public final class DataStyle extends DefaultHandler {
 
         fp = new FeatureStyle(GPS_POS_STALE, baseWayStyle);
         fp.getPaint().setStyle(Style.FILL);
-        fp.getPaint().setStrokeWidth(Density.dpToPx(ctx, 4.0f));
+        fp.getPaint().setStrokeWidth(Density.dpToPx(ctx, DEFAULT_GPX_STROKE_WIDTH));
         fp.setUpdateWidth(false);
         internalStyles.put(GPS_POS_STALE, fp);
 
@@ -1158,7 +1159,7 @@ public final class DataStyle extends DefaultHandler {
         fp.getPaint().setStyle(Style.STROKE);
         fp.setColor(0x9d00ff00);
         fp.setWidthFactor(2f);
-        fp.getPaint().setStrokeWidth(Density.dpToPx(ctx, 3.0f));
+        fp.getPaint().setStrokeWidth(Density.dpToPx(ctx, DEFAULT_GEOJSON_STROKE_WIDTH));
         fp.setUpdateWidth(false);
         internalStyles.put(GEOJSON_DEFAULT, fp);
 
@@ -1429,15 +1430,7 @@ public final class DataStyle extends DefaultHandler {
     @NonNull
     public static String[] getStyleListTranslated(@NonNull Context context, @NonNull String[] styleNames) {
         Locale locale = Locale.getDefault();
-        String language = locale.getLanguage();
-        InputStream poFileStream = null;
-        try {
-            AssetManager assetManager = context.getAssets();
-            try {
-                poFileStream = assetManager.open(I18N_DATASTYLE + locale + "." + FileExtensions.PO);
-            } catch (IOException ioex) {
-                poFileStream = assetManager.open(I18N_DATASTYLE + language + "." + FileExtensions.PO);
-            }
+        try (InputStream poFileStream = getPoFileStream(context, locale)) {
             Po po = de.blau.android.util.Util.parsePoFile(poFileStream);
             if (po != null) {
                 int len = styleNames.length;
@@ -1453,8 +1446,24 @@ public final class DataStyle extends DefaultHandler {
         } catch (IOException ioex) {
             Log.w(DEBUG_TAG, "No translations found for " + locale);
             return styleNames;
-        } finally {
-            SavingHelper.close(poFileStream);
+        }
+    }
+
+    /**
+     * Get a stream for the translation
+     * 
+     * @param context an Android Context
+     * @param locale the relevant Locale
+     * @return an InputStream
+     * @throws IOException if no file could be opened or read
+     */
+    @NonNull
+    private static InputStream getPoFileStream(Context context, Locale locale) throws IOException {
+        AssetManager assetManager = context.getAssets();
+        try {
+            return assetManager.open(I18N_DATASTYLE + locale + "." + FileExtensions.PO);
+        } catch (IOException ioex) {
+            return assetManager.open(I18N_DATASTYLE + locale.getLanguage() + "." + FileExtensions.PO);
         }
     }
 

@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.preference.PreferenceManager;
 import de.blau.android.App;
+import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.contract.Urls;
 import de.blau.android.osm.Capabilities;
@@ -23,6 +24,7 @@ import de.blau.android.osm.Server;
 import de.blau.android.presets.Preset;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.TileLayerSource.Category;
+import de.blau.android.resources.symbols.TriangleDown;
 import de.blau.android.util.BrokenAndroid;
 import de.blau.android.util.Sound;
 
@@ -124,6 +126,14 @@ public class Preferences {
     private final boolean     useImperialUnits;
     private final boolean     supportPresetLabels;
     private final int         longStringLimit;
+    private String            gpxLabelSource;
+    private String            gpxSymbol;
+    private int               gpxLabelMinZoom;
+    private float             gpxStrokeWidth;
+    private String            geoJsonSymbol;
+    private String            geoJsonLabelSource;
+    private int               geoJsonLabelMinZoom;
+    private float             geoJsonStrokeWidth;
 
     private static final String DEFAULT_MAP_PROFILE = "Color Round Nodes";
 
@@ -192,6 +202,16 @@ public class Preferences {
         gpsTcpSource = prefs.getString(r.getString(R.string.config_gps_source_tcp_key), "127.0.0.1:1958");
         gpsDistance = getIntPref(R.string.config_gps_distance_key, 2);
         gpsInterval = getIntPref(R.string.config_gps_interval_key, 1000);
+        gpxLabelSource = prefs.getString(r.getString(R.string.config_gpx_label_source_key), r.getString(R.string.gpx_automatic));
+        gpxSymbol = prefs.getString(r.getString(R.string.config_gpx_symbol_key), TriangleDown.NAME);
+        gpxLabelMinZoom = getIntPref(R.string.config_gpx_label_min_zoom_key, Map.SHOW_LABEL_LIMIT);
+        // DataStyle may not be available here, so use a constant for the default
+        gpxStrokeWidth = prefs.getFloat(r.getString(R.string.config_gpx_stroke_width_key), DataStyle.DEFAULT_GPX_STROKE_WIDTH);
+        geoJsonLabelSource = prefs.getString(r.getString(R.string.config_geojson_label_source_key), "");
+        geoJsonSymbol = prefs.getString(r.getString(R.string.config_geojson_symbol_key), TriangleDown.NAME);
+        geoJsonLabelMinZoom = getIntPref(R.string.config_geojson_label_min_zoom_key, Map.SHOW_LABEL_LIMIT);
+        // DataStyle may not be available here, so use a constant for the default
+        geoJsonStrokeWidth = prefs.getFloat(r.getString(R.string.config_geojson_stroke_width_key), DataStyle.DEFAULT_GEOJSON_STROKE_WIDTH);
 
         forceContextMenu = prefs.getBoolean(r.getString(R.string.config_forceContextMenu_key), false);
 
@@ -294,39 +314,6 @@ public class Preferences {
         useImperialUnits = prefs.getBoolean(r.getString(R.string.config_useImperialUnits_key), false);
 
         longStringLimit = getIntPref(R.string.config_longStringLimit_key, Capabilities.DEFAULT_MAX_STRING_LENGTH);
-    }
-
-    /**
-     * Get an integer valued preference from a string pref
-     * 
-     * @param keyResId the res id
-     * @param def default value
-     * @return the stored preference or the default if none found
-     */
-    private int getIntFromStringPref(int keyResId, int def) {
-        try {
-            String temp = prefs.getString(r.getString(keyResId), Integer.toString(def));
-            return Integer.parseInt(temp);
-        } catch (ClassCastException | NumberFormatException e) {
-            return def;
-        }
-    }
-
-    /**
-     * Get an integer valued preference
-     * 
-     * @param keyResId the res id
-     * @param def default value
-     * @return the stored preference or the default if none found
-     */
-    int getIntPref(int keyResId, int def) {
-        String key = r.getString(keyResId);
-        try {
-            return prefs.getInt(r.getString(keyResId), def);
-        } catch (ClassCastException e) {
-            Log.w(DEBUG_TAG, "error retrieving pref for " + key);
-            return def;
-        }
     }
 
     /**
@@ -1669,6 +1656,191 @@ public class Preferences {
      */
     public int getLongStringLimit() {
         return longStringLimit;
+    }
+
+    /**
+     * Get the current default GPX label source
+     * 
+     * @return a String with the default source name
+     */
+    public String getGpxLabelSource() {
+        return gpxLabelSource;
+    }
+
+    /**
+     * Set the current default GPX label source
+     * 
+     * @param labelSource the default label source
+     */
+    public void setGpxLabelSource(@NonNull String labelSource) {
+        gpxLabelSource = labelSource;
+        putString(R.string.config_gpx_label_source_key, labelSource);
+    }
+
+    /**
+     * Get the current default GPX waypoint symbol
+     * 
+     * @return a String with the default symbol name
+     */
+    public String getGpxSynbol() {
+        return gpxSymbol;
+    }
+
+    /**
+     * Set the current GPX waypoint symbol
+     * 
+     * @param symbol the symbol name
+     */
+    public void setGpxSymbol(@NonNull String symbol) {
+        gpxSymbol = symbol;
+        putString(R.string.config_gpx_symbol_key, gpxSymbol);
+    }
+
+    /**
+     * Get the current default GPX min. zoom level to display labels at
+     * 
+     * @param the default GPX min. zoom level to display labels at
+     */
+    public int getGpxLabelMinZoom() {
+        return gpxLabelMinZoom;
+    }
+
+    /**
+     * Set the current default GPX min. zoom level to display labels at
+     * 
+     * @param the deault GPX min. zoom level to display labels at
+     */
+    public void setGpxLabelMinZoom(int zoom) {
+        gpxLabelMinZoom = zoom;
+        prefs.edit().putInt(r.getString(R.string.config_gpx_label_min_zoom_key), gpxLabelMinZoom).commit();
+    }
+
+    /**
+     * Get the current default GPX stroke width
+     * 
+     * @param the GPX default stroke width
+     */
+    public float getGpxStrokeWidth() {
+        return gpxStrokeWidth;
+    }
+
+    /**
+     * Set the current default GPX stroke width
+     * 
+     * @param the default GPX stroke width
+     */
+    public void setGpxStrokeWidth(float width) {
+        gpxStrokeWidth = width;
+        prefs.edit().putFloat(r.getString(R.string.config_gpx_stroke_width_key), gpxStrokeWidth).commit();
+    }
+
+    /**
+     * Get the current default GeoJSON label source
+     * 
+     * @return a String with the default source name
+     */
+    public String getGeoJsonLabelSource() {
+        return geoJsonLabelSource;
+    }
+
+    /**
+     * Set the current default GeoJSON label source
+     * 
+     * @param labelSource the default label source
+     */
+    public void setGeoJsonLabelSource(@NonNull String labelSource) {
+        geoJsonLabelSource = labelSource;
+        putString(R.string.config_geojson_label_source_key, labelSource);
+    }
+
+    /**
+     * Get the current default GeoJSON point symbol
+     * 
+     * @return a String with the default symbol name
+     */
+    public String getGeoJsonSynbol() {
+        return geoJsonSymbol;
+    }
+
+    /**
+     * Set the current GeoJSON point symbol
+     * 
+     * @param symbol the symbol name
+     */
+    public void setGeoJsonSymbol(@NonNull String symbol) {
+        geoJsonSymbol = symbol;
+        putString(R.string.config_geojson_symbol_key, symbol);
+    }
+
+    /**
+     * Get the current default GeoJSON min. zoom level to display labels at
+     * 
+     * @param the default GeoJSON min. zoom level to display labels at
+     */
+    public int getGeoJsonLabelMinZoom() {
+        return geoJsonLabelMinZoom;
+    }
+
+    /**
+     * Set the current default GeoJSON min. zoom level to display labels at
+     * 
+     * @param the deault GeoJSON min. zoom level to display labels at
+     */
+    public void setGeoJsonLabelMinZoom(int zoom) {
+        geoJsonLabelMinZoom = zoom;
+        prefs.edit().putInt(r.getString(R.string.config_geojson_label_min_zoom_key), zoom).commit();
+    }
+
+    /**
+     * Get the current default GeoJSON stroke width
+     * 
+     * @param the GeoJSON default stroke width
+     */
+    public float getGeoJsonStrokeWidth() {
+        return geoJsonStrokeWidth;
+    }
+
+    /**
+     * Set the current default GeoJSON stroke width
+     * 
+     * @param the default GeoJSON stroke width
+     */
+    public void setGeoJsonStrokeWidth(float width) {
+        geoJsonStrokeWidth = width;
+        prefs.edit().putFloat(r.getString(R.string.config_geojson_stroke_width_key), width).commit();
+    }
+
+    /**
+     * Get an integer valued preference from a string pref
+     * 
+     * @param keyResId the res id
+     * @param def default value
+     * @return the stored preference or the default if none found
+     */
+    private int getIntFromStringPref(int keyResId, int def) {
+        try {
+            String temp = prefs.getString(r.getString(keyResId), Integer.toString(def));
+            return Integer.parseInt(temp);
+        } catch (ClassCastException | NumberFormatException e) {
+            return def;
+        }
+    }
+
+    /**
+     * Get an integer valued preference
+     * 
+     * @param keyResId the res id
+     * @param def default value
+     * @return the stored preference or the default if none found
+     */
+    int getIntPref(int keyResId, int def) {
+        String key = r.getString(keyResId);
+        try {
+            return prefs.getInt(r.getString(keyResId), def);
+        } catch (ClassCastException e) {
+            Log.w(DEBUG_TAG, "error retrieving pref for " + key);
+            return def;
+        }
     }
 
     /**

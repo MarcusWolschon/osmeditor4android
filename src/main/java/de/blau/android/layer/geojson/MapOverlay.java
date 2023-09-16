@@ -55,21 +55,23 @@ import de.blau.android.layer.ExtentInterface;
 import de.blau.android.layer.LabelMinZoomInterface;
 import de.blau.android.layer.LayerInfoInterface;
 import de.blau.android.layer.LayerType;
+import de.blau.android.layer.StyleableFileLayer;
 import de.blau.android.layer.StyleableLayer;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.ViewBox;
+import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.DataStyle.FeatureStyle;
 import de.blau.android.resources.symbols.TriangleDown;
+import de.blau.android.util.ColorUtil;
 import de.blau.android.util.ContentResolverUtil;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.GeoJSONConstants;
 import de.blau.android.util.GeoJson;
 import de.blau.android.util.GeoMath;
-import de.blau.android.util.Hash;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SerializableTextPaint;
 import de.blau.android.util.Snack;
@@ -78,7 +80,7 @@ import de.blau.android.util.rtree.BoundedObject;
 import de.blau.android.util.rtree.RTree;
 import de.blau.android.views.IMapView;
 
-public class MapOverlay extends StyleableLayer
+public class MapOverlay extends StyleableFileLayer
         implements Serializable, ExtentInterface, DiscardInterface, ClickableInterface<Feature>, LayerInfoInterface, LabelMinZoomInterface {
 
     private static final long serialVersionUID = 4L;
@@ -183,18 +185,19 @@ public class MapOverlay extends StyleableLayer
     private String uri;
 
     /**
-     * State file file name
-     */
-    private String stateFileName = FILENAME;
-
-    /**
      * Construct this layer
      * 
      * @param map the Map object we are displayed on
+     * @param contentId the id for the current contents
      */
-    public MapOverlay(final Map map) {
+    public MapOverlay(@NonNull final Map map, @NonNull String contentId) {
+        super(contentId, FILENAME);
         this.map = map;
-        resetStyling();
+        final Preferences prefs = map.getPrefs();
+        initStyling(!hasStateFile(map.getContext()), prefs.getGeoJsonStrokeWidth(), prefs.getGeoJsonLabelSource(), prefs.getGeoJsonLabelMinZoom(),
+                prefs.getGeoJsonSynbol());
+        paint.setColor(
+                ColorUtil.generateColor(map.getLayerTypeCount(LayerType.GEOJSON), 9, DataStyle.getInternal(DataStyle.GEOJSON_DEFAULT).getPaint().getColor()));
     }
 
     @Override
@@ -418,7 +421,7 @@ public class MapOverlay extends StyleableLayer
                         if (name == null) {
                             name = uri.getLastPathSegment();
                         }
-                        setFileName(uri.getEncodedPath());
+                        setStateFileName(uri.getEncodedPath());
                         MapOverlay.this.uri = uri.toString();
                         return loadGeoJsonFile(ctx, is, fromState);
                     } catch (SecurityException sex) {
@@ -440,17 +443,6 @@ public class MapOverlay extends StyleableLayer
             Log.e(DEBUG_TAG, e.getMessage());
             return false;
         }
-    }
-
-    /**
-     * Set the name of the state file
-     * 
-     * This needs to be unique across all instances so best an encoded uri
-     * 
-     * @param baseName the base name for this specific instance
-     */
-    private void setFileName(@NonNull String baseName) {
-        stateFileName = Hash.sha256(baseName) + "." + FileExtensions.RES;
     }
 
     /**
@@ -707,41 +699,65 @@ public class MapOverlay extends StyleableLayer
 
     @Override
     public void resetStyling() {
+        initStyling(true, DataStyle.DEFAULT_GEOJSON_STROKE_WIDTH, "", Map.SHOW_LABEL_LIMIT, TriangleDown.NAME);
+    }
+
+    /**
+     * Init the styling to the provided values
+     * 
+     * @param style if true set styling
+     * @param strokeWidth the stroke width
+     * @param labelKey the source of the label
+     * @param labelMinZoom min. zoom from on we show the label
+     * @param symbolName the name of the point symbol
+     */
+    private void initStyling(boolean style, float strokeWidth, @NonNull String labelKey, int labelMinZoom, String symbolName) {
         paint = new SerializableTextPaint(DataStyle.getInternal(DataStyle.GEOJSON_DEFAULT).getPaint());
-        labelKey = "";
-        labelMinZoom = Map.SHOW_LABEL_LIMIT;
         iconRadius = map.getIconRadius();
         marker = DataStyle.getCurrent().getSymbol(TriangleDown.NAME);
+        if (style) {
+            setStrokeWidth(strokeWidth);
+            setLabel(labelKey);
+            setLabelMinZoom(labelMinZoom);
+            setPointSymbol(symbolName);
+        }
     }
 
     @Override
     public List<String> getLabelList() {
-        if (data != null) {
-            Collection<BoundedFeature> queryResult = new ArrayList<>();
-            data.query(queryResult);
-            Set<String> result = new TreeSet<>();
-            for (BoundedFeature bf : queryResult) {
-                Feature feature = bf.getFeature();
-                if (feature != null) {
-                    JsonObject properties = feature.properties();
-                    if (properties != null) {
-                        for (String key : properties.keySet()) {
-                            JsonElement e = properties.get(key);
-                            if (e != null && e.isJsonPrimitive()) {
-                                result.add(key);
-                            }
-                        }
-                    }
+        if (data == null) {
+            return super.getLabelList();
+        }
+        Collection<BoundedFeature> queryResult = new ArrayList<>();
+        data.query(queryResult);
+        Set<String> result = new TreeSet<>();
+        for (BoundedFeature bf : queryResult) {
+            Feature feature = bf.getFeature();
+            JsonObject properties = feature != null ? feature.properties() : null;
+            if (properties == null) {
+                continue;
+            }
+            for (String key : properties.keySet()) {
+                JsonElement e = properties.get(key);
+                if (e != null && e.isJsonPrimitive()) {
+                    result.add(key);
                 }
             }
-            return new ArrayList<>(result);
+
         }
-        return super.getLabelList();
+        return new ArrayList<>(result);
+    }
+
+    @Override
+    public void setStrokeWidth(float width) {
+        super.setStrokeWidth(width);
+        map.getPrefs().setGeoJsonStrokeWidth(width);
     }
 
     @Override
     public void setLabel(String key) {
         labelKey = key;
+        map.getPrefs().setGeoJsonLabelSource(key);
     }
 
     @Override
@@ -752,11 +768,18 @@ public class MapOverlay extends StyleableLayer
     @Override
     public void setLabelMinZoom(int minZoom) {
         labelMinZoom = minZoom;
+        map.getPrefs().setGeoJsonLabelMinZoom(minZoom);
     }
 
     @Override
     public int getLabelMinZoom() {
         return labelMinZoom;
+    }
+
+    @Override
+    public void setPointSymbol(@NonNull String symbol) {
+        super.setPointSymbol(symbol);
+        map.getPrefs().setGeoJsonSymbol(symbol);
     }
 
     /**

@@ -436,7 +436,6 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
             map.setUpLayers(activity);
             layer = (de.blau.android.layer.StyleableLayer) map.getLayer(type, uriString);
             if (layer != null) { // if null setUpLayers will have toasted
-                layer.resetStyling();
                 LayerStyle.showDialog(activity, layer.getIndex());
                 SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
                 layer.invalidate();

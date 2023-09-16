@@ -266,7 +266,7 @@ public class Map extends View implements IMapView {
                             layer = new de.blau.android.layer.tasks.MapOverlay(this);
                             break;
                         case GEOJSON:
-                            layer = new de.blau.android.layer.geojson.MapOverlay(this);
+                            layer = new de.blau.android.layer.geojson.MapOverlay(this, contentId);
                             if (!((de.blau.android.layer.geojson.MapOverlay) layer).loadGeoJsonFile(ctx, Uri.parse(contentId), true)) {
                                 // other error, has already been toasted
                                 layer = null; // this will delete the layer
@@ -374,6 +374,24 @@ public class Map extends View implements IMapView {
             }
         }
         return result;
+    }
+
+    /**
+     * Get a count of layers of a specific type
+     * 
+     * @param type the LayerType
+     * @return a count
+     */
+    public int getLayerTypeCount(@NonNull LayerType type) {
+        int count = 0;
+        synchronized (mLayers) {
+            for (MapViewLayer l : mLayers) {
+                if (l.getType().equals(type)) {
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 
     /**
