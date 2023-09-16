@@ -45,6 +45,7 @@ import de.blau.android.layer.ExtentInterface;
 import de.blau.android.layer.LabelMinZoomInterface;
 import de.blau.android.layer.LayerInfoInterface;
 import de.blau.android.layer.LayerType;
+import de.blau.android.layer.StyleableFileLayer;
 import de.blau.android.layer.StyleableLayer;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Server;
@@ -54,10 +55,10 @@ import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.DataStyle.FeatureStyle;
 import de.blau.android.resources.symbols.TriangleDown;
 import de.blau.android.services.TrackerService;
+import de.blau.android.util.ColorUtil;
 import de.blau.android.util.ContentResolverUtil;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.GeoMath;
-import de.blau.android.util.Hash;
 import de.blau.android.util.PlaybackTask;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SerializableTextPaint;
@@ -66,7 +67,7 @@ import de.blau.android.util.Util;
 import de.blau.android.util.collections.FloatPrimitiveList;
 import de.blau.android.views.IMapView;
 
-public class MapOverlay extends StyleableLayer
+public class MapOverlay extends StyleableFileLayer
         implements Serializable, ExtentInterface, ClickableInterface<WayPoint>, LayerInfoInterface, LabelMinZoomInterface {
 
     private static final long serialVersionUID = 5L; // note that this can't actually be serialized as the transient
@@ -91,7 +92,6 @@ public class MapOverlay extends StyleableLayer
     private SerializableTextPaint wayPointPaint;
     private String                labelKey;
     private int                   labelMinZoom;
-    private String                contentId;    // could potentially be transient
     private TrackPoint            pausedPoint;
 
     // way point label styling
@@ -102,28 +102,27 @@ public class MapOverlay extends StyleableLayer
     private final transient List<String> labelList;
 
     /**
-     * State file file name
-     */
-    private String stateFileName = FILENAME;
-
-    /**
      * Construct a new GPX layer
      * 
      * @param map the current Map instance
      * @param contentId the id for the current contents
      */
     public MapOverlay(@NonNull final Map map, @NonNull String contentId) {
+        super(contentId, FILENAME);
         this.map = map;
-        this.contentId = contentId;
+        Context context = map.getContext();
         final Preferences prefs = map.getPrefs();
-        initStyling(prefs.getGpxStrokeWidth(), prefs.getGpxLabelSource(), prefs.getGpxLabelMinZoom(), prefs.getGpxSynbol());
+        // this is slightly annoying as we need to protect against overwriting already saved state
+        initStyling(!hasStateFile(context), prefs.getGpxStrokeWidth(), prefs.getGpxLabelSource(), prefs.getGpxLabelMinZoom(), prefs.getGpxSynbol());
+        paint.setColor(ColorUtil.generateColor(map.getLayerTypeCount(LayerType.GPX), 9, DataStyle.getInternal(DataStyle.GPS_TRACK).getPaint().getColor()));
+
         // the following can only be changed in the DataStyle
         FeatureStyle fs = DataStyle.getInternal(DataStyle.LABELTEXT_NORMAL);
         fontPaint = fs.getPaint();
         fm = fs.getFontMetrics();
         labelBackground = DataStyle.getInternal(DataStyle.LABELTEXT_BACKGROUND).getPaint();
         yOffset = 2 * fontPaint.getStrokeWidth() + iconRadius;
-        Context context = map.getContext();
+
         labelList = Arrays.asList(context.getString(R.string.gpx_automatic), context.getString(R.string.gpx_name), context.getString(R.string.gpx_description),
                 context.getString(R.string.gpx_type));
 
@@ -382,32 +381,35 @@ public class MapOverlay extends StyleableLayer
 
     @Override
     public void resetStyling() {
-        initStyling(DataStyle.DEFAULT_GPX_STROKE_WIDTH, labelList.get(0), Map.SHOW_LABEL_LIMIT, TriangleDown.NAME);
+        initStyling(true, DataStyle.DEFAULT_GPX_STROKE_WIDTH, labelList.get(0), Map.SHOW_LABEL_LIMIT, TriangleDown.NAME);
     }
 
     /**
      * Set the styling to the provided values
      * 
+     * @param style if true set styling
      * @param strokeWidth the stroke width
      * @param labelKey the source of the label
      * @param labelMinZoom min. zoom from on we show the label
      * @param symbolName the name of the point symbol
      */
-    private void initStyling(float strokeWidth, @NonNull String labelKey, int labelMinZoom, @NonNull String symbolName) {
+    private void initStyling(boolean style, float strokeWidth, @NonNull String labelKey, int labelMinZoom, @NonNull String symbolName) {
         paint = new SerializableTextPaint(DataStyle.getInternal(DataStyle.GPS_TRACK).getPaint());
         wayPointPaint = new SerializableTextPaint(DataStyle.getInternal(DataStyle.GPS_POS_FOLLOW).getPaint());
-
-        paint.setStrokeWidth(strokeWidth);
-        // currently styling always sets the waypoint stroke width to the same as the track
-        wayPointPaint.setStrokeWidth(strokeWidth);
-        setLabel(labelKey);
-        setLabelMinZoom(labelMinZoom);
         iconRadius = map.getIconRadius();
-        setPointSymbol(symbolName);
+        if (style) {
+            paint.setStrokeWidth(strokeWidth);
+            // currently styling always sets the waypoint stroke width to the same as the track
+            wayPointPaint.setStrokeWidth(strokeWidth);
+            setLabel(labelKey);
+            setLabelMinZoom(labelMinZoom);
+            setPointSymbol(symbolName);
+        }
     }
 
     @Override
     public void setLabel(String key) {
+        dirty();
         labelKey = key;
         map.getPrefs().setGpxLabelSource(key);
     }
@@ -424,6 +426,7 @@ public class MapOverlay extends StyleableLayer
 
     @Override
     public void setLabelMinZoom(int minZoom) {
+        dirty();
         labelMinZoom = minZoom;
         map.getPrefs().setGpxLabelMinZoom(minZoom);
     }
@@ -487,20 +490,9 @@ public class MapOverlay extends StyleableLayer
         }
     }
 
-    /**
-     * Set the name of the state file
-     * 
-     * This needs to be unique across all instances so best an encoded uri, to avoid filename length issues we use the
-     * SHA-256 hash
-     * 
-     * @param baseName the base name for this specific instance
-     */
-    private void setStateFileName(@NonNull String baseName) {
-        stateFileName = Hash.sha256(baseName) + "." + FileExtensions.RES;
-    }
-
     @Override
     public synchronized boolean save(@NonNull Context context) throws IOException {
+        Log.d(DEBUG_TAG, "Saving state to " + stateFileName);
         if (playbackTask != null) {
             playbackTask.pause();
             pausedPoint = playbackTask.getPausedPoint();
@@ -511,6 +503,7 @@ public class MapOverlay extends StyleableLayer
 
     @Override
     public synchronized StyleableLayer load(@NonNull Context context) {
+        Log.d(DEBUG_TAG, "Loading state from " + stateFileName);
         MapOverlay restoredOverlay = savingHelper.load(context, stateFileName, true);
         if (restoredOverlay != null) {
             Log.d(DEBUG_TAG, "read saved state");

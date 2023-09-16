@@ -1,5 +1,7 @@
 package de.blau.android.util;
 
+import androidx.core.graphics.ColorUtils;
+
 public final class ColorUtil {
 
     /**
@@ -37,5 +39,19 @@ public final class ColorUtil {
      */
     public static int argb(float alpha, float r, float g, float b) {
         return argb(Math.round(alpha * 255), Math.round(r * 255), Math.round(g * 255), Math.round(b * 255));
+    }
+
+    /**
+     * Generate a color
+     * 
+     * @param index index of the color to create
+     * @param steps the number of steps in HSL space
+     * @param seed the initial color (index == 0 will return this)
+     * @return a color value
+     */
+    public static int generateColor(int index, int steps, int seed) {
+        float[] hsl = new float[3];
+        ColorUtils.colorToHSL(seed, hsl);
+        return ColorUtils.HSLToColor(new float[] { (hsl[0] + (index * 360f / steps)) % 360f, hsl[1], hsl[2] });
     }
 }
