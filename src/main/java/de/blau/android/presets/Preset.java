@@ -1202,18 +1202,19 @@ public class Preset implements Serializable {
     private static Set<PresetItem> buildPossibleMatches(@NonNull Set<PresetItem> possibleMatches, @NonNull Preset[] presets, @NonNull Map<String, String> tags,
             boolean useAddressKeys, @Nullable Map<String, String> ignoreTags) {
         for (Preset p : presets) {
-            if (p != null) {
-                for (Entry<String, String> tag : tags.entrySet()) {
-                    final String key = tag.getKey();
-                    final String value = tag.getValue();
-                    final String ignoreValue = ignoreTags != null ? ignoreTags.get(key) : null;
-                    final boolean ignore = "".equals(ignoreValue) || value.equals(ignoreValue);
-                    if ((useAddressKeys || !key.startsWith(Tags.KEY_ADDR_BASE)) && !ignore) {
-                        String tagString = key + "\t";
-                        possibleMatches.addAll(p.objectItems.get(tagString)); // for stuff that doesn't have fixed
-                                                                              // values
-                        possibleMatches.addAll(p.objectItems.get(tagString + value));
-                    }
+            if (p == null) {
+                continue;
+            }
+            for (Entry<String, String> tag : tags.entrySet()) {
+                final String key = tag.getKey();
+                final String value = tag.getValue();
+                final String ignoreValue = ignoreTags != null ? ignoreTags.get(key) : null;
+                final boolean ignore = "".equals(ignoreValue) || value.equals(ignoreValue);
+                if ((useAddressKeys || !key.startsWith(Tags.KEY_ADDR_BASE)) && !ignore) {
+                    String tagString = key + "\t";
+                    possibleMatches.addAll(p.objectItems.get(tagString)); // for stuff that doesn't have fixed
+                                                                          // values
+                    possibleMatches.addAll(p.objectItems.get(tagString + value));
                 }
             }
         }
