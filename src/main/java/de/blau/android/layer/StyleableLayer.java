@@ -68,6 +68,7 @@ public abstract class StyleableLayer extends MapViewLayer implements StyleableIn
 
     @Override
     public void setPointSymbol(@NonNull String symbol) {
+        dirty();
         symbolName = symbol;
         symbolPath = DataStyle.getCurrent().getSymbol(symbol);
     }
