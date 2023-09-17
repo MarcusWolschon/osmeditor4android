@@ -38,7 +38,6 @@ import androidx.test.uiautomator.Until;
 import de.blau.android.App;
 import de.blau.android.JavaResources;
 import de.blau.android.LayerUtils;
-import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.MockTileServer;
@@ -479,6 +478,40 @@ public class LayerDialogTest {
         } finally {
             try {
                 wmsServer.server().shutdown();
+            } catch (IOException e) {
+            }
+        }
+    }
+
+    /**
+     * Test querying and adding a layer from OAM
+     */
+    @Test
+    public void openAerialMap() {
+        assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/layers", true));
+        assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/add", true));
+        TestUtils.scrollToEnd(false);
+
+        MockWebServerPlus oamServer = null;
+        try {
+            oamServer = new MockWebServerPlus();
+            String urlString = oamServer.url("");
+
+            App.getLogic().getPrefs().setOAMServer(urlString);
+            oamServer.url("meta");
+
+            oamServer.enqueue("oam");
+
+            assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_tools_add_imagery_from_oam), true));
+            assertTrue(TestUtils.findText(device, false, main.getString(R.string.oam_layer_title)));
+
+            assertTrue(TestUtils.findText(device, false, "Johnson Valley Soggy Dry Lake Cracks", 5000));
+            assertTrue(TestUtils.clickText(device, false, "Johnson Valley Soggy Dry Lake Cracks", true));
+            assertTrue(TestUtils.findText(device, false, main.getString(R.string.add_layer_title)));
+            assertTrue(TestUtils.findText(device, false, "Johnson Valley Soggy Dry Lake Cracks"));
+        } finally {
+            try {
+                oamServer.server().shutdown();
             } catch (IOException e) {
             }
         }

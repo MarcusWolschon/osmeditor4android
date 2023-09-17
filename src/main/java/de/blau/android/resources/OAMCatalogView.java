@@ -21,7 +21,6 @@ import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
-import de.blau.android.contract.Urls;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.resources.TileLayerDialog.OnUpdateListener;
@@ -137,7 +136,7 @@ public final class OAMCatalogView extends ImmersiveDialogFragment implements OnU
                 OAMCatalog catalog = new OAMCatalog();
                 List<LayerEntry> list = null;
                 try {
-                    list = catalog.getEntries(activity, Urls.OAM_SERVER, box);
+                    list = catalog.getEntries(activity, App.getLogic().getPrefs().getOAMServer(), box);
                     final int found = catalog.getFound();
                     final int limit = catalog.getLimit();
                     if (found > limit) {

@@ -1331,6 +1331,8 @@
     <string name="config_taginfoServer_summary">Taginfo server to use for preset generation</string>
     <string name="config_overpassServer_title">Overpass server</string>
     <string name="config_overpassServer_summary">Overpass server used for queries</string>
+    <string name="config_oamServer_title">OpenAerialMap server</string>
+    <string name="config_oamServer_summary">OpenAerialMap server used for serving imagery</string>
             
     <!-- Layer download and storage -->
     <string name="config_category_layers">Layer download and storage</string>

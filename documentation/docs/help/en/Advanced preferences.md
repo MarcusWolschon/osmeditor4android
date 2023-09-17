@@ -301,6 +301,14 @@ Geocoding service providers. Currently Photon and Nominatim servers are supporte
 
 Configure the taginfo server used for the "online" preset search/construction. 
 
+### Overpass server
+
+Configure the overpass API server used online object search. 
+
+### OpenAerialMap server
+
+Configure the OpenAerialMap server used for providing additional imagery for backgrounds.
+
 ## Layer download and storage
 
 Download and storage configuration for the tiled imagery layers.

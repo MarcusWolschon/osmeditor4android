@@ -556,6 +556,12 @@
             android:summary="@string/config_overpassServer_summary"
             android:dialogMessage="@string/config_overpassServer_summary"
             android:title="@string/config_overpassServer_title" />
+        <androidx.preference.EditTextPreference
+            android:defaultValue="https://api.openaerialmap.org/"
+            android:key="@string/config_oamServer_key"
+            android:summary="@string/config_oamServer_summary"
+            android:dialogMessage="@string/config_oamServer_summary"
+            android:title="@string/config_oamServer_title" />
     </androidx.preference.PreferenceScreen>
     <androidx.preference.PreferenceScreen
         android:key="config_category_layers"
