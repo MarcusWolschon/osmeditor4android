@@ -81,6 +81,7 @@ public class Preferences {
     private final String      mapRouletteServer;
     private String            taginfoServer;
     private String            overpassServer;
+    private String            oamServer;
     private String            mapillarySequencesUrlV4;
     private String            mapillaryImagesUrlV4;
     private final int         mapillaryMinZoom;
@@ -221,6 +222,8 @@ public class Preferences {
         mapRouletteServer = prefs.getString(r.getString(R.string.config_maprouletteServer_key), Urls.DEFAULT_MAPROULETTE_SERVER);
         taginfoServer = prefs.getString(r.getString(R.string.config_taginfoServer_key), Urls.DEFAULT_TAGINFO_SERVER);
         overpassServer = prefs.getString(r.getString(R.string.config_overpassServer_key), Urls.DEFAULT_OVERPASS_SERVER);
+        oamServer = prefs.getString(r.getString(R.string.config_oamServer_key), Urls.DEFAULT_OAM_SERVER);
+
         mapillarySequencesUrlV4 = prefs.getString(r.getString(R.string.config_mapillarySequencesUrlV4_key), Urls.DEFAULT_MAPILLARY_SEQUENCES_URL_V4);
         mapillaryImagesUrlV4 = prefs.getString(r.getString(R.string.config_mapillaryImagesUrlV4_key), Urls.DEFAULT_MAPILLARY_IMAGES_V4);
         mapillaryMinZoom = getIntPref(R.string.config_mapillary_min_zoom_key, de.blau.android.layer.mapillary.MapOverlay.MAPILLARY_DEFAULT_MIN_ZOOM);
@@ -812,6 +815,25 @@ public class Preferences {
     public void setOverpassServer(@NonNull String url) {
         this.overpassServer = url;
         prefs.edit().putString(r.getString(R.string.config_overpassServer_key), url).commit();
+    }
+
+    /**
+     * Get the configured OpenAerialMap server
+     * 
+     * @return base url for the server
+     */
+    public String getOAMServer() {
+        return oamServer;
+    }
+
+    /**
+     * Set the configured OpenAerialMap server
+     * 
+     * @param url base url for the server
+     */
+    public void setOAMServer(@NonNull String url) {
+        this.oamServer = url;
+        prefs.edit().putString(r.getString(R.string.config_oamServer_key), url).commit();
     }
 
     /**

@@ -26,6 +26,7 @@ public final class Urls {
     public static final String DEFAULT_OFFSET_SERVER      = "http://offsets.textual.ru/";
     public static final String DEFAULT_TAGINFO_SERVER     = "https://taginfo.openstreetmap.org/";
     public static final String DEFAULT_OVERPASS_SERVER    = "https://overpass-api.de/api/interpreter";
+    public static final String DEFAULT_OAM_SERVER         = "https://api.openaerialmap.org/";
 
     // these are only configurable for testing
     public static final String DEFAULT_MAPILLARY_IMAGES_V4        = "https://graph.mapillary.com/%s?access_token=%s&fields=thumb_2048_url,computed_geometry";
@@ -42,8 +43,6 @@ public final class Urls {
 
     public static final String ELI          = "https://osmlab.github.io/editor-layer-index/imagery.geojson";
     public static final String JOSM_IMAGERY = "https://josm.openstreetmap.de/maps?format=geojson";
-
-    public static final String OAM_SERVER = "https://api.openaerialmap.org/";
 
     public static final String MSF_SERVER = "https://mapsplit.poole.ch/";
 
