@@ -2160,17 +2160,21 @@ public class Main extends FullScreenAppCompatActivity
                 tipKeys.add(R.string.tip_gpx_no_elevation_key);
                 tipMessageIds.add(R.string.tip_gpx_no_elevation);
             }
-            Tip.showDialog(Main.this, tipKeys, tipMessageIds);
             if (haveTracker && haveLocationProvider(getEnabledLocationProviders(), LocationManager.GPS_PROVIDER)) {
                 getTracker().startTracking();
                 setFollowGPS(true);
             }
             addGpxLayer();
+            mapLayout.post(() -> {
+                triggerMenuInvalidation();
+                Tip.showDialog(Main.this, tipKeys, tipMessageIds);
+            });
             return true;
         case R.id.menu_gps_pause:
             if (haveTracker && haveLocationProvider(getEnabledLocationProviders(), LocationManager.GPS_PROVIDER)) {
                 getTracker().stopTracking(false);
             }
+            mapLayout.post(() -> triggerMenuInvalidation());
             return true;
         case R.id.menu_gps_clear:
             if (haveTracker) {
@@ -2745,7 +2749,6 @@ public class Main extends FullScreenAppCompatActivity
         } else {
             Log.e(DEBUG_TAG, "addGpxLayer tracker not available");
         }
-        triggerMenuInvalidation();
     }
 
     /**
@@ -2928,6 +2931,7 @@ public class Main extends FullScreenAppCompatActivity
      * @param follow if true center on current location
      */
     public synchronized void setFollowGPS(boolean follow) {
+        Log.d(DEBUG_TAG, "Set follow GPS " + follow);
         if (followGPS != follow) {
             followGPS = follow;
             if (follow) {
@@ -4164,6 +4168,7 @@ public class Main extends FullScreenAppCompatActivity
     public void onServiceConnected(ComponentName name, IBinder service) {
         Log.i(DEBUG_TAG, "Service " + name.getClassName() + " connected");
         if (TrackerService.class.getCanonicalName().equals(name.getClassName())) {
+            Log.i(DEBUG_TAG, "Setting up tracker");
             setTracker((((TrackerBinder) service).getService()));
             map.setTracker(getTracker());
             de.blau.android.layer.gpx.MapOverlay layer = (de.blau.android.layer.gpx.MapOverlay) map.getLayer(LayerType.GPX,
@@ -4193,6 +4198,7 @@ public class Main extends FullScreenAppCompatActivity
 
     @Override
     public void onLocationChanged(Location location) {
+        Log.d(DEBUG_TAG, "follow " + followGPS + " " + location);
         if (followGPS) {
             ViewBox viewBox = map.getViewBox();
             // ensure the view is zoomed in to at least the most zoomed-out

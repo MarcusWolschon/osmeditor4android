@@ -15,7 +15,6 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -68,9 +67,6 @@ public class GpxTest {
     MockWebServer   tileServer      = null;
     Preferences     prefs           = null;
 
-    /**
-     * Manual start of activity so that we can set up the monitor for main
-     */
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
 
@@ -87,11 +83,12 @@ public class GpxTest {
         main = mActivityRule.getActivity();
 
         tileServer = MockTileServer.setupTileServer(main, "ersatz_background.mbt", true);
-        prefs = new Preferences(main);
+        prefs = App.getPreferences(main);
         Logic logic = App.getLogic();
         logic.setPrefs(prefs);
         Map map = main.getMap();
         map.setPrefs(main, prefs);
+        prefs.enableBarometricHeight(false);
 
         App.getDelegator().reset(true);
         try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(main)) {
@@ -136,20 +133,7 @@ public class GpxTest {
         TestUtils.setupMockLocation(main, Criteria.ACCURACY_FINE);
         // wait for the trackerservice to start
         // unluckily there doesn't seem to be any elegant way to do this
-        int retries = 0;
-        synchronized (device) {
-            while (main.getTracker() == null && retries < 60) {
-                try {
-                    device.wait(1000);
-                } catch (InterruptedException e) {
-                    // Ignore
-                }
-                retries++;
-                if (retries >= 60) {
-                    fail("Tracker service didn't start");
-                }
-            }
-        }
+        checkTracker();
         // set min distance to 1m
         prefs.setGpsDistance(0);
 
@@ -181,7 +165,7 @@ public class GpxTest {
         try {
             signal.await(TIMEOUT, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
         clickGpsButton(device);
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_pause), true, false));
@@ -234,14 +218,9 @@ public class GpxTest {
     }
 
     /**
-     * Start recording, pause resume, clear
+     * Wait until the tracker is available
      */
-    // @SdkSuppress(minSdkVersion = 26)
-    @Test
-    public void recordPauseAndResume() {
-        TestUtils.setupMockLocation(main, Criteria.ACCURACY_FINE);
-        // wait for the trackerservice to start
-        // unluckily there doesn't seem to be any elegant way to do this
+    private void checkTracker() {
         int retries = 0;
         synchronized (device) {
             while (main.getTracker() == null && retries < 60) {
@@ -256,6 +235,19 @@ public class GpxTest {
                 }
             }
         }
+    }
+
+    /**
+     * Start recording, pause resume, clear
+     */
+    // @SdkSuppress(minSdkVersion = 26)
+    @Test
+    public void recordPauseAndResume() {
+        TestUtils.setupMockLocation(main, Criteria.ACCURACY_FINE);
+        // wait for the trackerservice to start
+        // unluckily there doesn't seem to be any elegant way to do this
+        int retries = 0;
+        checkTracker();
         // set min distance to 1m
         prefs.setGpsDistance(0);
 
@@ -287,7 +279,7 @@ public class GpxTest {
         try {
             signal.await(TIMEOUT, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
         clickGpsButton(device);
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_pause), true, false));
@@ -358,11 +350,14 @@ public class GpxTest {
     @Test
     public void followNetworkLocation() {
         TestUtils.setupMockLocation(main, Criteria.ACCURACY_COARSE);
+        checkTracker();
         // set min distance to 1m
         prefs.setGpsDistance(0);
 
         TestUtils.zoomToLevel(device, main, 19);
         TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/follow", false);
+        assertTrue(main.getFollowGPS());
+
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         InputStream is = loader.getResourceAsStream("20110513_121244-tp.gpx");
         Track track = new Track(main, false);
@@ -371,8 +366,6 @@ public class GpxTest {
         final CountDownLatch signal = new CountDownLatch(1);
         TestUtils.injectLocation(main, track.getTrackPoints(), Criteria.ACCURACY_COARSE, 1000, new SignalHandler(signal));
         TestUtils.sleep(TIMEOUT * 1000L);
-        clickGpsButton(device);
-        assertTrue(TestUtils.clickText(device, false, "Pause GPX track", true, false));
         // compare roughly with last location
         TrackPoint lastPoint = track.getTrackPoints().get(track.getTrackPoints().size() - 1);
         ViewBox box = main.getMap().getViewBox();

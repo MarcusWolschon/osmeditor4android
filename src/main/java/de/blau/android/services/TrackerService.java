@@ -64,7 +64,7 @@ import de.blau.android.validation.Validator;
 
 public class TrackerService extends Service {
 
-    private static final String DEBUG_TAG = "TrackerService";
+    private static final String DEBUG_TAG = TrackerService.class.getSimpleName();
 
     private static final float TRACK_LOCATION_MIN_ACCURACY = 200f;
 
@@ -154,7 +154,7 @@ public class TrackerService extends Service {
         track = new Track(this, true);
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        prefs = new Preferences(this);
+        prefs = App.getPreferences(this);
         validator = App.getDefaultValidator(this);
         prefInternal = getString(R.string.gps_source_internal);
         prefNmea = getString(R.string.gps_source_nmea);
@@ -178,18 +178,8 @@ public class TrackerService extends Service {
             Log.e(DEBUG_TAG, "reflection didn't find addNmeaListener or removeNmeaListener " + e.getMessage());
         }
 
-        // pressure
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        Sensor pressure = sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE);
-        if (prefs.useBarometricHeight() && pressure != null) {
-            pressureListener = new PressureListener();
-            sensorManager.registerListener(pressureListener, pressure, 1000);
-            Sensor temperature = sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
-            if (temperature != null) {
-                temperatureListener = new TemperatureListener();
-                sensorManager.registerListener(temperatureListener, temperature, 1000);
-            }
-        }
+
         Uri egmFile = prefs.getEgmFile();
         if (egmFile != null) {
             try {
@@ -199,6 +189,25 @@ public class TrackerService extends Service {
                 String egmError = getString(R.string.toast_error_loading_egm, ioex.getMessage());
                 Log.e(DEBUG_TAG, egmError);
                 Snack.toastTopError(this, egmError);
+            }
+        }
+    }
+
+    /**
+     * Setup the pressure and temp sensors
+     * 
+     * @param sensorManager a SensorManager instance
+     */
+    private void setupPressureSensor(@NonNull SensorManager sensorManager) {
+        Sensor pressure = sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE);
+        if (prefs.useBarometricHeight() && pressure != null && pressureListener == null) {
+            Log.d(DEBUG_TAG, "Installing pressure listener");
+            pressureListener = new PressureListener();
+            sensorManager.registerListener(pressureListener, pressure, 1000);
+            Sensor temperature = sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
+            if (temperature != null) {
+                temperatureListener = new TemperatureListener();
+                sensorManager.registerListener(temperatureListener, temperature, 1000);
             }
         }
     }
@@ -279,35 +288,43 @@ public class TrackerService extends Service {
             Log.d(DEBUG_TAG, "Start task autodownload");
             startBugAutoDownloadInternal();
         } else if (intent.getBooleanExtra(CALIBRATE_KEY, false)) {
-            Log.d(DEBUG_TAG, "Calibrate height");
-            if (pressureListener != null) {
-                int height = intent.getIntExtra(CALIBRATE_HEIGHT_KEY, Integer.MIN_VALUE);
-                if (height != Integer.MIN_VALUE) {
-                    pressureListener.calibrate(height);
-                } else {
-                    float p0 = intent.getFloatExtra(CALIBRATE_P0_KEY, 0);
-                    if (p0 != 0) {
-                        pressureListener.setP0(p0);
-                    } else if (lastLocation != null) { // calibrate from GPS
-                        if (lastLocation instanceof ExtendedLocation && ((ExtendedLocation) lastLocation).hasGeoidHeight()) {
-                            pressureListener.calibrate((float) ((ExtendedLocation) lastLocation).getGeoidHeight());
-                        } else if (lastLocation.hasAltitude()) {
-                            double offset = getGeoidOffset(lastLocation.getLongitude(), lastLocation.getLatitude());
-                            Log.d(DEBUG_TAG, "Geoid offset " + offset);
-                            pressureListener.calibrate((float) (lastLocation.getAltitude() - offset));
-                        }
-                    }
-                }
-                Snack.toastTopInfo(this, "New height " + pressureListener.barometricHeight + "m\nCurrent pressure " + pressureListener.millibarsOfPressure
-                        + " hPa\nReference pressure " + pressureListener.pressureAtSeaLevel + " hPa");
-            } else {
-                Log.e(DEBUG_TAG, "Calibration attemped but no pressure listener");
-            }
+            calibratePressureListener(intent);
         } else {
             Log.d(DEBUG_TAG, "Received intent with unknown meaning");
         }
-
         return START_STICKY;
+    }
+
+    /**
+     * Process a calibration intent
+     * 
+     * @param intent the Intent
+     */
+    private void calibratePressureListener(Intent intent) {
+        Log.d(DEBUG_TAG, "Calibrate height");
+        if (pressureListener != null) {
+            int height = intent.getIntExtra(CALIBRATE_HEIGHT_KEY, Integer.MIN_VALUE);
+            if (height != Integer.MIN_VALUE) {
+                pressureListener.calibrate(height);
+            } else {
+                float p0 = intent.getFloatExtra(CALIBRATE_P0_KEY, 0);
+                if (p0 != 0) {
+                    pressureListener.setP0(p0);
+                } else if (lastLocation != null) { // calibrate from GPS
+                    if (lastLocation instanceof ExtendedLocation && ((ExtendedLocation) lastLocation).hasGeoidHeight()) {
+                        pressureListener.calibrate((float) ((ExtendedLocation) lastLocation).getGeoidHeight());
+                    } else if (lastLocation.hasAltitude()) {
+                        double offset = getGeoidOffset(lastLocation.getLongitude(), lastLocation.getLatitude());
+                        Log.d(DEBUG_TAG, "Geoid offset " + offset);
+                        pressureListener.calibrate((float) (lastLocation.getAltitude() - offset));
+                    }
+                }
+            }
+            Snack.toastTopInfo(this, "New height " + pressureListener.barometricHeight + "m\nCurrent pressure " + pressureListener.millibarsOfPressure
+                    + " hPa\nReference pressure " + pressureListener.pressureAtSeaLevel + " hPa");
+        } else {
+            Log.e(DEBUG_TAG, "Calibration attemped but no pressure listener");
+        }
     }
 
     /**
@@ -571,7 +588,7 @@ public class TrackerService extends Service {
                         loc.setGeoidHeight(loc.getAltitude() - offset);
                     }
                 }
-                if (pressureListener != null && pressureListener.barometricHeight != 0) {
+                if (pressureListener != null) {
                     if (useBarometricHeight) {
                         loc.setUseBarometricHeight();
                     }
@@ -708,15 +725,16 @@ public class TrackerService extends Service {
     @SuppressLint("MissingPermission")
     @TargetApi(24)
     private void init() {
-        prefs = new Preferences(this);
+        prefs = App.getPreferences(this);
         String gpsSource = prefs.getGpsSource();
         final boolean useTcpClient = gpsSource.equals(prefTcpClient);
         final boolean useTcpServer = gpsSource.equals(prefTcpServer);
         final boolean useTcp = useTcpClient || useTcpServer;
 
-        useBarometricHeight = pressureListener != null && prefs.useBarometricHeight();
-
         boolean needed = listenerNeedsGPS || tracking || downloading || downloadingBugs;
+
+        setupPressureSensor(sensorManager);
+        useBarometricHeight = pressureListener != null;
 
         // update configuration
         if ((needed && !gpsEnabled) || (gpsEnabled && (useTcp && source != GpsSource.TCP) || (!useTcp && source == GpsSource.TCP))) {
@@ -754,13 +772,7 @@ public class TrackerService extends Service {
                             if (useNema) {
                                 source = GpsSource.NMEA;
                                 if (useOldNmea) {
-                                    if (addNmeaListener != null) {
-                                        try {
-                                            addNmeaListener.invoke(locationManager, oldNmeaListener);
-                                        } catch (Exception e) { // NOSONAR
-                                            // IGNORE
-                                        }
-                                    }
+                                    addNmeaListenerWIthReflection(oldNmeaListener);
                                 } else {
                                     locationManager.addNmeaListener(newNmeaListener);
                                 }
@@ -798,6 +810,23 @@ public class TrackerService extends Service {
     }
 
     /**
+     * 
+     * see https://issuetracker.google.com/issues/141019880
+     * 
+     * @param listener the OldNmeaListener listener
+     * 
+     */
+    private void addNmeaListenerWIthReflection(OldNmeaListener listener) {
+        if (addNmeaListener != null) {
+            try {
+                addNmeaListener.invoke(locationManager, listener);
+            } catch (Exception e) { // NOSONAR
+                // IGNORE
+            }
+        }
+    }
+
+    /**
      * If true the listener wants to receive Location updates
      * 
      * @param listenerNeedsGPS true if the listener wants to receive Location updates
@@ -816,6 +845,7 @@ public class TrackerService extends Service {
      * @param listener the listener
      */
     public void setListener(@Nullable TrackerLocationListener listener) {
+        Log.d(DEBUG_TAG, "setListener " + listener);
         if (listener == null) {
             setListenerNeedsGPS(false);
         }
@@ -1028,6 +1058,7 @@ public class TrackerService extends Service {
             return;
         }
         autoLoadDataAndBugs(location);
+        Log.d(DEBUG_TAG,"calling onLocationChanged " + location + " " + externalListener);
         if (externalListener != null) {
             externalListener.onLocationChanged(location);
         }

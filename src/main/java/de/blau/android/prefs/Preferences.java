@@ -116,7 +116,7 @@ public class Preferences {
     private final int         uploadWarnLimit;
     private final int         uploadCheckerInterval;
     private final int         dataWarnLimit;
-    private final boolean     useBarometricHeight;
+    private boolean           useBarometricHeight;
     private final boolean     useUrlForFeedback;
     private final int         beepVolume;
     private final int         maxOffsetDistance;
@@ -1572,6 +1572,16 @@ public class Preferences {
      */
     public boolean useBarometricHeight() {
         return useBarometricHeight;
+    }
+
+    /**
+     * Enable/disable using barometric elevation when recording GPX files
+     * 
+     * @param on if true barometric elevation will be enabled
+     */
+    public void enableBarometricHeight(boolean on) {
+        useBarometricHeight = on;
+        prefs.edit().putBoolean(r.getString(R.string.config_useBarometricHeight_key), on).commit();
     }
 
     /**
