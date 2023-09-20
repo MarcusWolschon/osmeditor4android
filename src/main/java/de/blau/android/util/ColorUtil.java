@@ -52,6 +52,6 @@ public final class ColorUtil {
     public static int generateColor(int index, int steps, int seed) {
         float[] hsl = new float[3];
         ColorUtils.colorToHSL(seed, hsl);
-        return ColorUtils.HSLToColor(new float[] { (hsl[0] + (index * 360f / steps)) % 360f, hsl[1], hsl[2] });
+        return (ColorUtils.HSLToColor(new float[] { (hsl[0] + (index * 360f / steps)) % 360f, hsl[1], hsl[2] }) & 0x00FFFFFF) | (seed & 0xFF000000);
     }
 }

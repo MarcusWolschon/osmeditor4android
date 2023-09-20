@@ -76,6 +76,7 @@ public final class DataStyle extends DefaultHandler {
 
     // constants for the internal profiles
     public static final String GPS_TRACK                     = "gps_track";
+    public static final String MVT_DEFAULT                   = "mvt_default";
     public static final String INFOTEXT                      = "infotext";
     public static final String ATTRIBUTION_TEXT              = "attribution_text";
     public static final String VIEWBOX                       = "viewbox";
@@ -923,6 +924,13 @@ public final class DataStyle extends DefaultHandler {
         fp.getPaint().setStrokeCap(Cap.ROUND);
         fp.getPaint().setStrokeJoin(Join.ROUND);
         internalStyles.put(GPS_TRACK, fp);
+        
+        fp = new FeatureStyle(MVT_DEFAULT, baseWayStyle);
+        fp.setColor(Color.BLUE);
+        fp.getPaint().setAlpha(0x7F);
+        fp.getPaint().setStrokeCap(Cap.ROUND);
+        fp.getPaint().setStrokeJoin(Join.ROUND);
+        internalStyles.put(MVT_DEFAULT, fp);
 
         fp = new FeatureStyle(WAY_TOLERANCE, baseWayStyle);
         fp.setColor(ContextCompat.getColor(ctx, R.color.ccc_ocher));
