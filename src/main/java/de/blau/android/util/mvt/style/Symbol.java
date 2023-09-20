@@ -375,36 +375,36 @@ public class Symbol extends Layer {
         final boolean hasLabel = (label.literal != null && !"".equals(label.literal)) || labelKey != null;
         switch (g.type()) {
         case GeoJSONConstants.POINT:
-            if (symbolPlacement.literal == null) {
-                float x = (float) (destinationRect.left + ((Point) g).longitude() * scaleX);
-                float y = (float) (destinationRect.top + ((Point) g).latitude() * scaleY);
+            if (symbolPlacement.literal != null) {
+                return;
+            }
+            float x = (float) (destinationRect.left + ((Point) g).longitude() * scaleX);
+            float y = (float) (destinationRect.top + ((Point) g).latitude() * scaleY);
+            // non-visible points have already been removed
+            if (iconImage.literal != null || symbolPath != null) {
+                drawIcon(c, sprites, screenRect, x, y, feature);
+            }
+            if (hasLabel) {
+                drawLabel(c, screenRect, x, y, feature);
+            }
+            break;
+        case GeoJSONConstants.MULTIPOINT:
+            if (symbolPlacement.literal != null) {
+                return;
+            }
+            @SuppressWarnings("unchecked")
+            List<Point> pointList = ((CoordinateContainer<List<Point>>) g).coordinates();
+            for (Point p : pointList) {
+                x = (float) (destinationRect.left + p.longitude() * scaleX);
+                y = (float) (destinationRect.top + p.latitude() * scaleY);
                 if (!destinationRect.contains((int) x, (int) y)) {
-                    return; // don't render stuff in the buffer around the tile
+                    continue; // don't render stuff in the buffer around the tile
                 }
                 if (iconImage.literal != null || symbolPath != null) {
                     drawIcon(c, sprites, screenRect, x, y, feature);
                 }
                 if (hasLabel) {
                     drawLabel(c, screenRect, x, y, feature);
-                }
-            }
-            break;
-        case GeoJSONConstants.MULTIPOINT:
-            if (symbolPlacement.literal == null) {
-                @SuppressWarnings("unchecked")
-                List<Point> pointList = ((CoordinateContainer<List<Point>>) g).coordinates();
-                for (Point p : pointList) {
-                    float x = (float) (destinationRect.left + p.longitude() * scaleX);
-                    float y = (float) (destinationRect.top + p.latitude() * scaleY);
-                    if (!destinationRect.contains((int) x, (int) y)) {
-                        return; // don't render stuff in the buffer around the tile
-                    }
-                    if (iconImage.literal != null || symbolPath != null) {
-                        drawIcon(c, sprites, screenRect, x, y, feature);
-                    }
-                    if (hasLabel) {
-                        drawLabel(c, screenRect, x, y, feature);
-                    }
                 }
             }
             break;

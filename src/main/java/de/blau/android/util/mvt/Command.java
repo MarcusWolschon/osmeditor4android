@@ -23,17 +23,17 @@ final class Command {
     /**
      * MoveTo: 1. (2 parameters follow)
      */
-    static final int MoveTo = 1;
+    static final int MOVE_TO = 1;
 
     /**
      * LineTo: 2. (2 parameters follow)
      */
-    static final int LineTo = 2;
+    static final int LINE_TO = 2;
 
     /**
      * ClosePath: 7. (no parameters follow)
      */
-    static final int ClosePath = 7;
+    static final int CLOSE_PATH = 7;
 
     /**
      * Private constructor to inhibit instantiation

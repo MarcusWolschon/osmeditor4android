@@ -37,6 +37,7 @@ import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.util.Log;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import vector_tile.VectorTile;
 import vector_tile.VectorTile.Tile.GeomType;
 import vector_tile.VectorTile.Tile.Layer;
@@ -156,33 +157,34 @@ public class VectorTileDecoder {
             }
 
             if (length > 0) {
-
-                if (command == Command.MoveTo) {
+                if (command == Command.MOVE_TO) {
                     coords = new ArrayList<>();
                     coordsList.add(coords);
                 }
+                length--;
 
-                if (command == Command.ClosePath) {
+                if (coords == null) {
+                    Log.e(DEBUG_TAG, "Command " + command + " without preceeding MOVE_TO");
+                    continue;
+                }
+                if (command == Command.CLOSE_PATH) {
                     if (geomType != VectorTile.Tile.GeomType.POINT && !coords.isEmpty()) {
                         coords.add(coords.get(0));
                     }
-                    length--;
-                    continue;
+                } else {
+                    // Command.LINE_TO must have been proceeded by a MOVE_TO
+                    int dx = commands.get(i++).intValue();
+                    int dy = commands.get(i++).intValue();
+
+                    dx = zigZagDecode(dx);
+                    dy = zigZagDecode(dy);
+
+                    x = x + dx;
+                    y = y + dy;
+
+                    Point coord = Point.fromLngLat(x / scale, y / scale);
+                    coords.add(coord);
                 }
-
-                int dx = commands.get(i++).intValue();
-                int dy = commands.get(i++).intValue();
-
-                length--;
-
-                dx = zigZagDecode(dx);
-                dy = zigZagDecode(dy);
-
-                x = x + dx;
-                y = y + dy;
-
-                Point coord = Point.fromLngLat(x / scale, y / scale);
-                coords.add(coord);
             }
         }
 
@@ -219,11 +221,12 @@ public class VectorTileDecoder {
             List<LineString> ringsForCurrentPolygon = new ArrayList<>();
             for (List<Point> cs : coordsList) {
                 // skip exterior with too few coordinates
-                if (ringsForCurrentPolygon.isEmpty() && cs.size() < 4) {
+                final boolean lessThan4 = cs.size() < 4;
+                if (ringsForCurrentPolygon.isEmpty() && lessThan4) {
                     break;
                 }
                 // skip hole with too few coordinates
-                if (!ringsForCurrentPolygon.isEmpty() && cs.size() < 4) {
+                if (!ringsForCurrentPolygon.isEmpty() && lessThan4) {
                     continue;
                 }
                 LineString ring = LineString.fromLngLats(cs); // is this closed or not?
@@ -242,8 +245,7 @@ public class VectorTileDecoder {
             }
             if (polygons.size() == 1) {
                 geometry = polygons.get(0);
-            }
-            if (polygons.size() > 1) {
+            } else if (polygons.size() > 1) {
                 geometry = MultiPolygon.fromPolygons(polygons);
             }
             break;
@@ -441,11 +443,9 @@ public class VectorTileDecoder {
                     }
 
                     Layer layer = layerIterator.next();
-                    if (!filter.include(layer.getName())) {
-                        continue;
+                    if (filter.include(layer.getName())) {
+                        parseLayer(layer);
                     }
-
-                    parseLayer(layer);
                     continue;
                 }
 
@@ -605,6 +605,7 @@ public class VectorTileDecoder {
         /**
          * @return the box
          */
+        @Nullable
         public Rect getBox() {
             return box;
         }
@@ -612,7 +613,7 @@ public class VectorTileDecoder {
         /**
          * @param box the box to set
          */
-        public void setBox(Rect box) {
+        public void setBox(@Nullable Rect box) {
             this.box = box;
         }
 
