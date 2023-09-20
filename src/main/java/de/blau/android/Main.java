@@ -2174,7 +2174,7 @@ public class Main extends FullScreenAppCompatActivity
             if (haveTracker && haveLocationProvider(getEnabledLocationProviders(), LocationManager.GPS_PROVIDER)) {
                 getTracker().stopTracking(false);
             }
-            mapLayout.post(() -> triggerMenuInvalidation());
+            mapLayout.post(this::triggerMenuInvalidation);
             return true;
         case R.id.menu_gps_clear:
             if (haveTracker) {
