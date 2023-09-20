@@ -1383,7 +1383,7 @@ public final class TestUtils {
             }
         }
     }
-    
+
     /**
      * Scroll to a specific text
      * 
