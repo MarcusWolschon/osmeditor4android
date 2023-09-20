@@ -535,14 +535,9 @@ public abstract class Layer implements Serializable {
             }
         }
         if (type == null || INTERPOLATION_TYPE_EXPONENTIAL.equals(type.getAsString())) {
-            JsonElement temp = function.get(INTERPOLATION_TYPE_EXPONENTIONAL_BASE);
-            float base = 1;
-            if (temp != null && temp.isJsonPrimitive()) {
-                base = temp.getAsFloat();
-            }
-            temp = function.get(Style.INTERPOLATION_STOPS);
-            if (temp != null && temp.isJsonArray()) {
-                JsonArray stops = (JsonArray) temp;
+            float base = getExponentialBase(function);
+            JsonArray stops = getInterpolationStops(function);
+            if (stops != null) {
                 JsonArray start = (JsonArray) stops.get(0);
                 float startX = start.get(0).getAsFloat();
                 float startY = start.get(1).getAsFloat();
@@ -580,14 +575,9 @@ public abstract class Layer implements Serializable {
     protected static int evalColorFunction(@NonNull JsonObject function, @Nullable Feature feature, int x) {
         JsonElement type = function.get(INTERPOLATION_TYPE);
         if (type == null || INTERPOLATION_TYPE_EXPONENTIAL.equals(type.getAsString())) {
-            JsonElement temp = function.get(INTERPOLATION_TYPE_EXPONENTIONAL_BASE);
-            float base = 1;
-            if (temp != null && temp.isJsonPrimitive()) {
-                base = temp.getAsFloat();
-            }
-            temp = function.get(Style.INTERPOLATION_STOPS);
-            if (temp != null && temp.isJsonArray()) {
-                JsonArray stops = (JsonArray) temp;
+            float base = getExponentialBase(function);
+            JsonArray stops = getInterpolationStops(function);
+            if (stops != null) {
                 JsonArray start = (JsonArray) stops.get(0);
                 double startX = start.get(0).getAsFloat();
                 long startY = IntegerUtil.toUnsignedLong(Color.parseColor(start.get(1).getAsString()));
@@ -626,14 +616,9 @@ public abstract class Layer implements Serializable {
         JsonElement type = function.get(INTERPOLATION_TYPE);
         JsonArray result = new JsonArray();
         if (type == null || INTERPOLATION_TYPE_EXPONENTIAL.equals(type.getAsString())) {
-            JsonElement temp = function.get(INTERPOLATION_TYPE_EXPONENTIONAL_BASE);
-            float base = 1;
-            if (temp != null && temp.isJsonPrimitive()) {
-                base = temp.getAsFloat();
-            }
-            temp = function.get(Style.INTERPOLATION_STOPS);
-            if (temp != null && temp.isJsonArray()) {
-                JsonArray stops = (JsonArray) temp;
+            float base = getExponentialBase(function);
+            JsonArray stops = getInterpolationStops(function);
+            if (stops != null) {
                 JsonArray start = (JsonArray) stops.get(0);
                 double startX = start.get(0).getAsFloat();
                 JsonArray startY = start.get(1).getAsJsonArray();
@@ -661,6 +646,33 @@ public abstract class Layer implements Serializable {
     }
 
     /**
+     * Get interpolation stops
+     * 
+     * @param function the JsonObject holding the values
+     * @return an array of the stop values or null
+     */
+    @Nullable
+    private static JsonArray getInterpolationStops(JsonObject function) {
+        JsonElement stops = function.get(Style.INTERPOLATION_STOPS);
+        return stops != null && stops.isJsonArray() ? (JsonArray) stops : null;
+    }
+
+    /**
+     * Get the base for an exponential interpolation
+     * 
+     * @param function the JsonObject holding the values
+     * @return a float value for the base
+     */
+    private static float getExponentialBase(JsonObject function) {
+        JsonElement temp = function.get(INTERPOLATION_TYPE_EXPONENTIONAL_BASE);
+        float base = 1;
+        if (temp != null && temp.isJsonPrimitive()) {
+            base = temp.getAsFloat();
+        }
+        return base;
+    }
+
+    /**
      * Evaluate a interpolation functions for "categories"
      * 
      * @param function the function
@@ -672,9 +684,8 @@ public abstract class Layer implements Serializable {
     protected static JsonElement evalCategoryFunction(@NonNull JsonObject function, @Nullable Feature feature, int x) {
         JsonElement type = function.get(INTERPOLATION_TYPE);
         if (type == null || INTERPOLATION_TYPE_CATEGORY.equals(type.getAsString())) {
-            JsonElement temp = function.get(Style.INTERPOLATION_STOPS);
-            if (temp != null && temp.isJsonArray()) {
-                JsonArray stops = (JsonArray) temp;
+            JsonArray stops = getInterpolationStops(function);
+            if (stops != null) {
                 JsonArray start = (JsonArray) stops.get(0);
                 double startX = start.get(0).getAsFloat();
                 JsonElement startY = start.get(1);
