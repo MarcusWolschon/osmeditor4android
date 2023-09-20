@@ -777,9 +777,11 @@ public class MapOverlay extends StyleableFileLayer
     }
 
     @Override
-    public void setPointSymbol(@NonNull String symbol) {
+    public void setPointSymbol(@Nullable String symbol) {
         super.setPointSymbol(symbol);
-        map.getPrefs().setGeoJsonSymbol(symbol);
+        if (symbol != null) {
+            map.getPrefs().setGeoJsonSymbol(symbol);
+        }
     }
 
     /**

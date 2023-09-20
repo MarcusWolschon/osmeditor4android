@@ -9,6 +9,7 @@ import android.content.Context;
 import android.graphics.Path;
 import android.util.Log;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import de.blau.android.R;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.util.SerializableTextPaint;
@@ -67,10 +68,12 @@ public abstract class StyleableLayer extends MapViewLayer implements StyleableIn
     }
 
     @Override
-    public void setPointSymbol(@NonNull String symbol) {
+    public void setPointSymbol(@Nullable String symbol) {
         dirty();
         symbolName = symbol;
-        symbolPath = DataStyle.getCurrent().getSymbol(symbol);
+        if (symbol != null) {
+            symbolPath = DataStyle.getCurrent().getSymbol(symbol);
+        }
     }
 
     @Override
