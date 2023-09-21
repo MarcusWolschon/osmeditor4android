@@ -3584,7 +3584,7 @@ public class Main extends FullScreenAppCompatActivity
                     clickedObjects.get(0).onSelected(Main.this);
                     break;
                 default:
-                    v.showContextMenu();
+                    showDisambiguationMenu(v);
                     break;
                 }
             }
@@ -3615,7 +3615,7 @@ public class Main extends FullScreenAppCompatActivity
                         ElementInfo.showDialog(Main.this, clickedNodesAndWays.get(0));
                     }
                 } else if (itemCount > 1) {
-                    v.showContextMenu();
+                    showDisambiguationMenu(v);
                 }
                 return true;
             }
@@ -3630,7 +3630,7 @@ public class Main extends FullScreenAppCompatActivity
                     }
                     if (elementCount > 1) {
                         longClick = true; // another ugly flag
-                        v.showContextMenu();
+                        showDisambiguationMenu(v);
                         return true;
                     }
                 } // fall through to beep
@@ -3934,6 +3934,7 @@ public class Main extends FullScreenAppCompatActivity
                 onCreateDefaultDisambiguationMenu(menu);
             }
             menu.show();
+            Tip.showDialog(Main.this, R.string.tip_disambiguation_menu_key, R.string.tip_disambiguation_menu);
         }
     }
 

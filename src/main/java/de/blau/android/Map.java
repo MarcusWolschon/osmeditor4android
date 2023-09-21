@@ -1273,12 +1273,4 @@ public class Map extends View implements IMapView {
     public TrackerService getTracker() {
         return this.tracker;
     }
-
-    @Override
-    public boolean showContextMenu() {
-        if (context instanceof FragmentActivity) {
-            Tip.showDialog((FragmentActivity) context, R.string.tip_disambiguation_menu_key, R.string.tip_disambiguation_menu);
-        }
-        return super.showContextMenu();
-    }
 }
