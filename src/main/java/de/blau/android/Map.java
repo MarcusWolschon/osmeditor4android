@@ -28,8 +28,6 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentActivity;
-import de.blau.android.dialogs.Tip;
 import de.blau.android.exception.OsmException;
 import de.blau.android.imageryoffset.ImageryOffsetUtils;
 import de.blau.android.imageryoffset.Offset;
