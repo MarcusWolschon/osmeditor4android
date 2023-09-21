@@ -311,13 +311,14 @@ public class VectorTileRenderer implements MapTilesLayer.TileRenderer<Map<String
     private boolean intersectsScreen(@NonNull VectorTileDecoder.Feature f) {
         Geometry g = f.getGeometry();
         if (GeoJSONConstants.POINT.equals(g.type())) {
-            return true;
+            return screenRect.contains(destinationRect.left + (int) (((Point) g).longitude() * scaleX),
+                    destinationRect.top + (int) (((Point) g).latitude() * scaleY));
         }
         Rect rect = f.getBox();
         if (rect == null) {
             rect = getBoundingBox(new Rect(), g);
+            f.setBox(rect);
         }
-        f.setBox(rect);
         tempRect.set(rect);
         tempRect.right = destinationRect.left + (int) (tempRect.right * scaleX);
         tempRect.left = destinationRect.left + (int) (tempRect.left * scaleX);

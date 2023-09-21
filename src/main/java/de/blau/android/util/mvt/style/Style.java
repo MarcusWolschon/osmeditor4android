@@ -42,6 +42,7 @@ import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.Server;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.symbols.TriangleDown;
+import de.blau.android.util.ColorUtil;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.collections.MultiHashMap;
 import de.blau.android.util.mvt.style.Source.SourceType;
@@ -704,15 +705,15 @@ public class Style implements Serializable {
         if (!layerMap.containsKey(sourceLayer)) {
             synchronized (layers) {
                 // add default styles
-                Paint defaultPaint = DataStyle.getInternal(DataStyle.GPS_TRACK).getPaint();
-                Line defaultLine = Line.fromPaint(sourceLayer, defaultPaint);
+                Paint paint = new Paint(DataStyle.getInternal(DataStyle.MVT_DEFAULT).getPaint());
+                paint.setColor(ColorUtil.generateColor(layers.size() / 3, 11, paint.getColor()));
+                Line defaultLine = Line.fromPaint(sourceLayer, paint);
                 layerMap.add(sourceLayer, defaultLine);
                 layers.add(defaultLine);
-                Fill defaultFill = Fill.fromPaint(sourceLayer, defaultPaint);
+                Fill defaultFill = Fill.fromPaint(sourceLayer, paint);
                 layerMap.add(sourceLayer, defaultFill);
                 layers.add(defaultFill);
-                Symbol defaultSymbol = Symbol.fromPaint(sourceLayer, defaultPaint, DataStyle.getInternal(DataStyle.LABELTEXT_NORMAL).getPaint(),
-                        TriangleDown.NAME);
+                Symbol defaultSymbol = Symbol.fromPaint(sourceLayer, paint, DataStyle.getInternal(DataStyle.LABELTEXT_NORMAL).getPaint(), TriangleDown.NAME);
                 layerMap.add(sourceLayer, defaultSymbol);
                 layers.add(defaultSymbol);
                 Collections.sort(layers, LAYER_TYPE_COMPARATOR);

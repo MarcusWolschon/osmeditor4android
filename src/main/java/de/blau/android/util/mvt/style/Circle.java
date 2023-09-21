@@ -105,9 +105,12 @@ public class Circle extends Layer {
     }
 
     @Override
-    public void render(@NonNull Canvas c, @NonNull Style style, @NonNull Feature feature, int z, @Nullable Rect screenRect, @NonNull Rect destinationRect,
+    public void render(@NonNull Canvas c, @NonNull Style style, @Nullable Feature feature, int z, @Nullable Rect screenRect, @NonNull Rect destinationRect,
             float scaleX, float scaleY) {
         super.render(c, style, feature, z, screenRect, destinationRect, scaleX, scaleY);
+        if (feature == null) {
+            return;
+        }
         this.destinationRect = destinationRect;
         this.scaleX = scaleX;
         this.scaleY = scaleY;
