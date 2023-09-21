@@ -3604,8 +3604,7 @@ public class Main extends FullScreenAppCompatActivity
         @Override
         public boolean onLongClick(final View v, final float x, final float y) {
             final Logic logic = App.getLogic();
-            boolean dataIsVisible = map.getDataLayer() != null && map.getDataLayer().isVisible();
-            clickedNodesAndWays = dataIsVisible ? App.getLogic().getClickedNodesAndWays(x, y) : new ArrayList<>();
+            clickedNodesAndWays = getClickedOsmElements(logic, x, y);
             int elementCount = clickedNodesAndWays.size();
             if (logic.isLocked()) {
                 // display context menu
@@ -3714,9 +3713,8 @@ public class Main extends FullScreenAppCompatActivity
          */
         public void performEdit(Mode mode, final View v, final float x, final float y) {
             if (!getEasyEditManager().actionModeHandledClick(x, y)) {
-                boolean dataIsVisible = map.getDataLayer() != null && map.getDataLayer().isVisible();
-                clickedNodesAndWays = dataIsVisible ? App.getLogic().getClickedNodesAndWays(x, y) : new ArrayList<>();
                 Logic logic = App.getLogic();
+                clickedNodesAndWays = getClickedOsmElements(logic, x, y);
                 Filter filter = logic.getFilter();
                 if (filter != null) { // filter elements
                     clickedNodesAndWays = filterElements(clickedNodesAndWays);
@@ -3902,8 +3900,7 @@ public class Main extends FullScreenAppCompatActivity
                 return;
             }
             if (logic.getMode().elementsGeomEditiable()) {
-                boolean dataIsVisible = map.getDataLayer() != null && map.getDataLayer().isVisible();
-                clickedNodesAndWays = dataIsVisible ? App.getLogic().getClickedNodesAndWays(x, y) : new ArrayList<>();
+                clickedNodesAndWays = getClickedOsmElements(logic, x, y);
                 final int clickedCount = clickedNodesAndWays.size();
                 if (clickedCount == 0) {
                     // no elements were touched
@@ -3925,6 +3922,19 @@ public class Main extends FullScreenAppCompatActivity
                     Snack.toastTopInfo(Main.this, R.string.toast_already_in_multiselect);
                 }
             }
+        }
+
+        /**
+         * Get clicked osm elements
+         * 
+         * @param logic the current Logic instance
+         * @param x screen x coordinate
+         * @param y screen y coordinate
+         */
+        @NonNull
+        private List<OsmElement> getClickedOsmElements(@NonNull final Logic logic, float x, float y) {
+            boolean dataIsVisible = map.getDataLayer() != null && map.getDataLayer().isVisible();
+            return dataIsVisible ? logic.getClickedNodesAndWays(x, y) : new ArrayList<>();
         }
 
         /**
