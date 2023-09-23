@@ -28,6 +28,7 @@ import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.MockTileServer;
+import de.blau.android.Mode;
 import de.blau.android.R;
 import de.blau.android.TestUtils;
 import de.blau.android.exception.OsmException;
@@ -96,6 +97,7 @@ public class OffsetModeTest {
         if (main != null) {
             TestUtils.zoomToNullIsland(logic, map);
             TestUtils.resetOffsets(main.getMap());
+            logic.setMode(main, Mode.MODE_EASYEDIT);
             main.deleteDatabase(TileLayerDatabase.DATABASE_NAME);
             main.finish();
         } else {
@@ -214,6 +216,7 @@ public class OffsetModeTest {
         }
         zoomLevel = map.getZoomLevel();
         offset = tileLayerConfiguration.getOffset(zoomLevel);
-        assertNull(offset);
+        assertEquals(0D, offset.getDeltaLat(), 0.1E-4);
+        assertEquals(0D, offset.getDeltaLon(), 0.1E-4);
     }
 }

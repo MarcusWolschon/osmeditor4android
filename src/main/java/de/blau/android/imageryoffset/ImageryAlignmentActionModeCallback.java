@@ -2,6 +2,8 @@ package de.blau.android.imageryoffset;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -65,6 +67,8 @@ import de.blau.android.util.Density;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.MenuUtil;
+import de.blau.android.util.SavingHelper;
+import de.blau.android.util.SerializableState;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.views.layers.MapTilesLayer;
@@ -91,6 +95,13 @@ public class ImageryAlignmentActionModeCallback implements Callback {
     private static final int MENUITEM_ZERO      = 4;
     private static final int MENUITEM_SAVE2DB   = 5;
     private static final int MENUITEM_HELP      = 6;
+
+    private static final String LAYER_ID_KEY = "layerId";
+    private static final String OLD_MODE_KEY = "oldMode";
+    private static final String OFFSETS_KEY  = "offsets";
+    private static final String FILENAME     = ImageryAlignmentActionModeCallback.class.getSimpleName() + ".res";
+
+    private static SavingHelper<SerializableState> savingHelper = new SavingHelper<>();
 
     private final Mode        oldMode;
     private final Preferences prefs;
@@ -120,22 +131,50 @@ public class ImageryAlignmentActionModeCallback implements Callback {
      * 
      * @param main the current instance of Main
      * @param oldMode the Mode before we were called
+     * @param layerId the id for the "layer" we want to adjust
      */
     public ImageryAlignmentActionModeCallback(@NonNull Main main, @NonNull Mode oldMode, @NonNull String layerId) {
+        this(main, oldMode, layerId, null);
+    }
+
+    /**
+     * Construct a new callback from saved state
+     * 
+     * @param main the current instance of Main
+     * @param state the saved state
+     */
+    public ImageryAlignmentActionModeCallback(@NonNull Main main, @NonNull SerializableState state) {
+        this(main, (Mode) state.getSerializable(OLD_MODE_KEY), state.getString(LAYER_ID_KEY), state.getList(OFFSETS_KEY));
+    }
+
+    /**
+     * Actually construct an instance
+     * 
+     * @param main the current instance of Main
+     * @param oldMode the Mode before we were called
+     * @param layerId the id for the "layer" we want to adjust
+     * @param offsetList the current (original) list of Offsets
+     */
+    private ImageryAlignmentActionModeCallback(@NonNull Main main, @Nullable Mode oldMode, @Nullable String layerId, @Nullable List<Offset> offsetList) {
+        this.main = main;
         this.oldMode = oldMode;
-        this.main = main; // currently we are only called from here
+
+        prefs = App.getPreferences(main);
+        String offsetServer = prefs.getOffsetServer();
+        offsetServerUri = Uri.parse(offsetServer);
         map = main.getMap();
+        if (layerId == null) {
+            throw new IllegalStateException("Layer id is null");
+        }
         MapTilesLayer<?> layer = (MapTilesLayer<?>) map.getLayer(layerId);
         if (layer == null) {
             throw new IllegalStateException("MapTilesLayer is null");
         }
         osmts = layer.getTileLayerConfiguration();
-        isService = osmts.getTileUrl().startsWith(Schemes.HTTP) || osmts.getTileUrl().startsWith(Schemes.HTTPS);
-        Offset[] offsets = osmts.getOffsets();
+        Offset[] offsets = offsetList == null ? osmts.getOffsets() : offsetList.toArray(new Offset[0]);
+
         oldOffsets = copy(offsets);
-        prefs = App.getPreferences(main);
-        String offsetServer = prefs.getOffsetServer();
-        offsetServerUri = Uri.parse(offsetServer);
+        isService = osmts.getTileUrl().startsWith(Schemes.HTTP) || osmts.getTileUrl().startsWith(Schemes.HTTPS);
 
         zoomAndOffsetText = new SpannableStringBuilder();
         zoomAndOffsetLayout = new DynamicLayout(zoomAndOffsetText, zoomAndOffsetText,
@@ -935,5 +974,42 @@ public class ImageryAlignmentActionModeCallback implements Callback {
     @NonNull
     public DynamicLayout getZoomAndOffsetLayout() {
         return zoomAndOffsetLayout;
+    }
+
+    /**
+     * Save any state that is needed to restart
+     */
+    public void saveState() {
+        SerializableState state = new SerializableState();
+        state.putSerializable(OLD_MODE_KEY, oldMode);
+        state.putString(LAYER_ID_KEY, osmts.getId());
+        state.putList(OFFSETS_KEY, Arrays.asList(oldOffsets));
+        savingHelper.save(main, FILENAME, state, false, true);
+    }
+
+    /**
+     * Restart from saved state
+     * 
+     * @param main current instance of main
+     */
+    public static void restart(@NonNull Main main) {
+        new ExecutorTask<Void, Void, SerializableState>() {
+            @Override
+            protected SerializableState doInBackground(Void param) {
+                return savingHelper.load(main, FILENAME, false, true, true);
+            }
+
+            @Override
+            protected void onPostExecute(SerializableState state) {
+                if (state != null) {
+                    ImageryAlignmentActionModeCallback callback = new ImageryAlignmentActionModeCallback(main, state);
+                    main.startSupportActionMode(callback);
+                    main.setImageryAlignmentActionModeCallback(callback);
+                    return;
+                }
+                Log.e(DEBUG_TAG, "restart, saved state is null");
+                App.getLogic().setMode(main, Mode.MODE_EASYEDIT);
+            }
+        }.execute();
     }
 }

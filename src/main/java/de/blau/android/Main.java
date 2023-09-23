@@ -766,6 +766,8 @@ public class Main extends FullScreenAppCompatActivity
             } else if (mode.elementsEditable()) {
                 // de-select everything
                 logic.deselectAll();
+            } else if (mode == Mode.MODE_ALIGN_BACKGROUND) {
+                ImageryAlignmentActionModeCallback.restart(Main.this);
             }
             Intent intent = getIntent();
             if (rcData != null || geoData != null || contentUri != null || shortcutExtras != null || (intent != null && intent.getAction() != null)) {
@@ -1419,6 +1421,9 @@ public class Main extends FullScreenAppCompatActivity
 
         // always save editing state
         App.getLogic().saveEditingState(this);
+        if (imageryAlignmentActionModeCallback != null) {
+            imageryAlignmentActionModeCallback.saveState();
+        }
         // save tag clipboard
         App.getTagClipboard(this).save(this);
         super.onPause();
