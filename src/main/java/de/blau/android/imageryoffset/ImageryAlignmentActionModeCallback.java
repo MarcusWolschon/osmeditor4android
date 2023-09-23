@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -23,6 +24,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Handler;
+import android.text.DynamicLayout;
+import android.text.Layout;
+import android.text.SpannableStringBuilder;
+import android.text.TextPaint;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -54,7 +59,9 @@ import de.blau.android.imageryoffset.ImageryOffset.DeprecationNote;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.TileLayerSource;
+import de.blau.android.util.Density;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.MenuUtil;
@@ -76,7 +83,7 @@ import okhttp3.ResponseBody;
  */
 public class ImageryAlignmentActionModeCallback implements Callback {
 
-    private static final String DEBUG_TAG = "BackgroundAlign...";
+    private static final String DEBUG_TAG = "ImageryAlign...";
 
     private static final int MENUITEM_QUERYDB   = 1;
     private static final int MENUITEM_APPLY2ALL = 2;
@@ -105,6 +112,9 @@ public class ImageryAlignmentActionModeCallback implements Callback {
 
     private boolean isService;
 
+    private final DynamicLayout          zoomAndOffsetLayout;
+    private final SpannableStringBuilder zoomAndOffsetText;
+
     /**
      * Construct a new BackgroundAlignmentActionModeCallback
      * 
@@ -126,6 +136,13 @@ public class ImageryAlignmentActionModeCallback implements Callback {
         prefs = App.getPreferences(main);
         String offsetServer = prefs.getOffsetServer();
         offsetServerUri = Uri.parse(offsetServer);
+
+        zoomAndOffsetText = new SpannableStringBuilder();
+        zoomAndOffsetLayout = new DynamicLayout(zoomAndOffsetText, zoomAndOffsetText,
+                new TextPaint(DataStyle.getInternal(DataStyle.LABELTEXT_NORMAL).getPaint()),
+                map.getWidth() - 2 * (int) Density.dpToPx(main, de.blau.android.layer.grid.MapOverlay.DISTANCE2SIDE_DP),
+                map.rtlLayout() ? Layout.Alignment.ALIGN_OPPOSITE : Layout.Alignment.ALIGN_NORMAL, 1.0f, 0f, true);
+        setOffset(map.getZoomLevel(), 0, 0);
     }
 
     /**
@@ -250,6 +267,9 @@ public class ImageryAlignmentActionModeCallback implements Callback {
      */
     private void reset() {
         osmts.setOffsets(copy(oldOffsets));
+        final int zoomLevel = map.getZoomLevel();
+        Offset o = osmts.getOffset(zoomLevel);
+        setOffset(zoomLevel, o != null ? (float) o.getDeltaLon() : 0f, o != null ? (float) o.getDeltaLat() : 0f);
         map.invalidate();
     }
 
@@ -872,5 +892,48 @@ public class ImageryAlignmentActionModeCallback implements Callback {
             });
         }
         return dialog.create();
+    }
+
+    /**
+     * Converts screen-coords to gps-coords and offsets background layer.
+     * 
+     * @param zoomLevel the zoom level
+     * @param screenTransX Movement on the screen.
+     * @param screenTransY Movement on the screen.
+     */
+    public void setOffset(final int zoomLevel, final float screenTransX, final float screenTransY) {
+        int height = map.getHeight();
+        Logic logic = App.getLogic();
+        int lon = logic.xToLonE7(screenTransX);
+        int lat = logic.yToLatE7(height - screenTransY);
+        ViewBox viewBox = logic.getViewBox();
+        int relativeLon = lon - viewBox.getLeft();
+        int relativeLat = lat - viewBox.getBottom();
+
+        double lonOffset = 0d;
+        double latOffset = 0d;
+        Offset o = osmts.getOffset(zoomLevel);
+        final boolean hasOffset = o != null;
+        if (hasOffset) {
+            lonOffset = o.getDeltaLon();
+            latOffset = o.getDeltaLat();
+        }
+        lonOffset = lonOffset - relativeLon / 1E7d;
+        latOffset = latOffset - relativeLat / 1E7d;
+        osmts.setOffset(zoomLevel, lonOffset, latOffset);
+        double[] center = viewBox.getCenter();
+        zoomAndOffsetText.replace(0, zoomAndOffsetText.length(),
+                main.getString(R.string.zoom_and_offsets, zoomLevel, String.format(Locale.US, "%.7f", lonOffset), String.format(Locale.US, "%.7f", latOffset),
+                        String.format(Locale.US, "%.2f", GeoMath.haversineDistance(center[0], center[1], center[0] + lonOffset, center[1])),
+                        String.format(Locale.US, "%.2f", GeoMath.haversineDistance(center[0], center[1], center[0], center[1] + latOffset))));
+
+    }
+
+    /**
+     * @return the zoomAndOffsetLayout
+     */
+    @NonNull
+    public DynamicLayout getZoomAndOffsetLayout() {
+        return zoomAndOffsetLayout;
     }
 }
