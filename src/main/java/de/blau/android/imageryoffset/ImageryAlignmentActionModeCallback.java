@@ -185,16 +185,6 @@ public class ImageryAlignmentActionModeCallback implements Callback {
     }
 
     /**
-     * Get the tilelayer we are currently adjusting
-     * 
-     * @return a TileLayerSource
-     */
-    @NonNull
-    public TileLayerSource getLayerSource() {
-        return osmts;
-    }
-
-    /**
      * Deep copy an Offset array
      * 
      * @param offsets the offsets to copy
@@ -793,7 +783,8 @@ public class ImageryAlignmentActionModeCallback implements Callback {
      * @return a Dialog
      */
     @SuppressLint("InflateParams")
-    private AppCompatDialog createSaveOffsetDialog(final int index, final List<ImageryOffset> saveOffsetList) {
+    @NonNull
+    private AppCompatDialog createSaveOffsetDialog(final int index, @NonNull final List<ImageryOffset> saveOffsetList) {
         final LayoutInflater inflater = ThemeUtils.getLayoutInflater(main);
         Builder dialog = new AlertDialog.Builder(main);
         dialog.setTitle(R.string.imagery_offset_title);
@@ -837,8 +828,9 @@ public class ImageryAlignmentActionModeCallback implements Callback {
      * @param saveOffsetList list of offsets to save
      * @return the OnClickListnener
      */
-    private OnClickListener createSaveButtonListener(final EditText description, final EditText author, final int index,
-            final List<ImageryOffset> saveOffsetList) {
+    @NonNull
+    private OnClickListener createSaveButtonListener(@NonNull final EditText description, @NonNull final EditText author, final int index,
+            @NonNull final List<ImageryOffset> saveOffsetList) {
         return (dialog, which) -> {
             String error = null;
             ImageryOffset offset = saveOffsetList.get(index);

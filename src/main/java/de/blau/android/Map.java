@@ -47,7 +47,6 @@ import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.DataStyle;
-import de.blau.android.resources.DataStyle.FeatureStyle;
 import de.blau.android.resources.TileLayerSource;
 import de.blau.android.resources.TileLayerSource.TileType;
 import de.blau.android.services.TrackerService;
