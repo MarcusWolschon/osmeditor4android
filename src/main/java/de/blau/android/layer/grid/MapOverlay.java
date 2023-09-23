@@ -45,7 +45,7 @@ public class MapOverlay extends StyleableLayer implements DiscardInterface, Conf
 
     private transient SavingHelper<MapOverlay> savingHelper = new SavingHelper<>();
 
-    private static final float  DISTANCE2SIDE_DP = 4f;
+    public static final float   DISTANCE2SIDE_DP = 4f;
     private static final float  SHORTTICKS_DP    = 12f;
     public static final float   LONGTICKS_DP     = 20f;
     private static final double METERS2FEET      = 3.28084;

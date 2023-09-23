@@ -2,12 +2,15 @@ package de.blau.android.imageryoffset;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -23,6 +26,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Handler;
+import android.text.DynamicLayout;
+import android.text.Layout;
+import android.text.SpannableStringBuilder;
+import android.text.TextPaint;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -54,10 +61,14 @@ import de.blau.android.imageryoffset.ImageryOffset.DeprecationNote;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.TileLayerSource;
+import de.blau.android.util.Density;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.MenuUtil;
+import de.blau.android.util.SavingHelper;
+import de.blau.android.util.SerializableState;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.views.layers.MapTilesLayer;
@@ -76,7 +87,7 @@ import okhttp3.ResponseBody;
  */
 public class ImageryAlignmentActionModeCallback implements Callback {
 
-    private static final String DEBUG_TAG = "BackgroundAlign...";
+    private static final String DEBUG_TAG = "ImageryAlign...";
 
     private static final int MENUITEM_QUERYDB   = 1;
     private static final int MENUITEM_APPLY2ALL = 2;
@@ -84,6 +95,13 @@ public class ImageryAlignmentActionModeCallback implements Callback {
     private static final int MENUITEM_ZERO      = 4;
     private static final int MENUITEM_SAVE2DB   = 5;
     private static final int MENUITEM_HELP      = 6;
+
+    private static final String LAYER_ID_KEY = "layerId";
+    private static final String OLD_MODE_KEY = "oldMode";
+    private static final String OFFSETS_KEY  = "offsets";
+    private static final String FILENAME     = ImageryAlignmentActionModeCallback.class.getSimpleName() + ".res";
+
+    private static SavingHelper<SerializableState> savingHelper = new SavingHelper<>();
 
     private final Mode        oldMode;
     private final Preferences prefs;
@@ -105,37 +123,65 @@ public class ImageryAlignmentActionModeCallback implements Callback {
 
     private boolean isService;
 
+    private final DynamicLayout          zoomAndOffsetLayout;
+    private final SpannableStringBuilder zoomAndOffsetText;
+
     /**
      * Construct a new BackgroundAlignmentActionModeCallback
      * 
      * @param main the current instance of Main
      * @param oldMode the Mode before we were called
+     * @param layerId the id for the "layer" we want to adjust
      */
     public ImageryAlignmentActionModeCallback(@NonNull Main main, @NonNull Mode oldMode, @NonNull String layerId) {
+        this(main, oldMode, layerId, null);
+    }
+
+    /**
+     * Construct a new callback from saved state
+     * 
+     * @param main the current instance of Main
+     * @param state the saved state
+     */
+    public ImageryAlignmentActionModeCallback(@NonNull Main main, @NonNull SerializableState state) {
+        this(main, (Mode) state.getSerializable(OLD_MODE_KEY), state.getString(LAYER_ID_KEY), state.getList(OFFSETS_KEY));
+    }
+
+    /**
+     * Actually construct an instance
+     * 
+     * @param main the current instance of Main
+     * @param oldMode the Mode before we were called
+     * @param layerId the id for the "layer" we want to adjust
+     * @param offsetList the current (original) list of Offsets
+     */
+    private ImageryAlignmentActionModeCallback(@NonNull Main main, @Nullable Mode oldMode, @Nullable String layerId, @Nullable List<Offset> offsetList) {
+        this.main = main;
         this.oldMode = oldMode;
-        this.main = main; // currently we are only called from here
+
+        prefs = App.getPreferences(main);
+        String offsetServer = prefs.getOffsetServer();
+        offsetServerUri = Uri.parse(offsetServer);
         map = main.getMap();
+        if (layerId == null) {
+            throw new IllegalStateException("Layer id is null");
+        }
         MapTilesLayer<?> layer = (MapTilesLayer<?>) map.getLayer(layerId);
         if (layer == null) {
             throw new IllegalStateException("MapTilesLayer is null");
         }
         osmts = layer.getTileLayerConfiguration();
-        isService = osmts.getTileUrl().startsWith(Schemes.HTTP) || osmts.getTileUrl().startsWith(Schemes.HTTPS);
-        Offset[] offsets = osmts.getOffsets();
-        oldOffsets = copy(offsets);
-        prefs = App.getPreferences(main);
-        String offsetServer = prefs.getOffsetServer();
-        offsetServerUri = Uri.parse(offsetServer);
-    }
+        Offset[] offsets = offsetList == null ? osmts.getOffsets() : offsetList.toArray(new Offset[0]);
 
-    /**
-     * Get the tilelayer we are currently adjusting
-     * 
-     * @return a TileLayerSource
-     */
-    @NonNull
-    public TileLayerSource getLayerSource() {
-        return osmts;
+        oldOffsets = copy(offsets);
+        isService = osmts.getTileUrl().startsWith(Schemes.HTTP) || osmts.getTileUrl().startsWith(Schemes.HTTPS);
+
+        zoomAndOffsetText = new SpannableStringBuilder();
+        zoomAndOffsetLayout = new DynamicLayout(zoomAndOffsetText, zoomAndOffsetText,
+                new TextPaint(DataStyle.getInternal(DataStyle.LABELTEXT_NORMAL).getPaint()),
+                map.getWidth() - 2 * (int) Density.dpToPx(main, de.blau.android.layer.grid.MapOverlay.DISTANCE2SIDE_DP),
+                map.rtlLayout() ? Layout.Alignment.ALIGN_OPPOSITE : Layout.Alignment.ALIGN_NORMAL, 1.0f, 0f, true);
+        setOffset(map.getZoomLevel(), 0, 0);
     }
 
     /**
@@ -250,6 +296,9 @@ public class ImageryAlignmentActionModeCallback implements Callback {
      */
     private void reset() {
         osmts.setOffsets(copy(oldOffsets));
+        final int zoomLevel = map.getZoomLevel();
+        Offset o = osmts.getOffset(zoomLevel);
+        setOffset(zoomLevel, o != null ? (float) o.getDeltaLon() : 0f, o != null ? (float) o.getDeltaLat() : 0f);
         map.invalidate();
     }
 
@@ -734,7 +783,8 @@ public class ImageryAlignmentActionModeCallback implements Callback {
      * @return a Dialog
      */
     @SuppressLint("InflateParams")
-    private AppCompatDialog createSaveOffsetDialog(final int index, final List<ImageryOffset> saveOffsetList) {
+    @NonNull
+    private AppCompatDialog createSaveOffsetDialog(final int index, @NonNull final List<ImageryOffset> saveOffsetList) {
         final LayoutInflater inflater = ThemeUtils.getLayoutInflater(main);
         Builder dialog = new AlertDialog.Builder(main);
         dialog.setTitle(R.string.imagery_offset_title);
@@ -778,8 +828,9 @@ public class ImageryAlignmentActionModeCallback implements Callback {
      * @param saveOffsetList list of offsets to save
      * @return the OnClickListnener
      */
-    private OnClickListener createSaveButtonListener(final EditText description, final EditText author, final int index,
-            final List<ImageryOffset> saveOffsetList) {
+    @NonNull
+    private OnClickListener createSaveButtonListener(@NonNull final EditText description, @NonNull final EditText author, final int index,
+            @NonNull final List<ImageryOffset> saveOffsetList) {
         return (dialog, which) -> {
             String error = null;
             ImageryOffset offset = saveOffsetList.get(index);
@@ -872,5 +923,85 @@ public class ImageryAlignmentActionModeCallback implements Callback {
             });
         }
         return dialog.create();
+    }
+
+    /**
+     * Converts screen-coords to gps-coords and offsets background layer.
+     * 
+     * @param zoomLevel the zoom level
+     * @param screenTransX Movement on the screen.
+     * @param screenTransY Movement on the screen.
+     */
+    public void setOffset(final int zoomLevel, final float screenTransX, final float screenTransY) {
+        int height = map.getHeight();
+        Logic logic = App.getLogic();
+        int lon = logic.xToLonE7(screenTransX);
+        int lat = logic.yToLatE7(height - screenTransY);
+        ViewBox viewBox = logic.getViewBox();
+        int relativeLon = lon - viewBox.getLeft();
+        int relativeLat = lat - viewBox.getBottom();
+
+        double lonOffset = 0d;
+        double latOffset = 0d;
+        Offset o = osmts.getOffset(zoomLevel);
+        final boolean hasOffset = o != null;
+        if (hasOffset) {
+            lonOffset = o.getDeltaLon();
+            latOffset = o.getDeltaLat();
+        }
+        lonOffset = lonOffset - relativeLon / 1E7d;
+        latOffset = latOffset - relativeLat / 1E7d;
+        osmts.setOffset(zoomLevel, lonOffset, latOffset);
+        double[] center = viewBox.getCenter();
+        zoomAndOffsetText.replace(0, zoomAndOffsetText.length(),
+                main.getString(R.string.zoom_and_offsets, zoomLevel, String.format(Locale.US, "%.7f", lonOffset), String.format(Locale.US, "%.7f", latOffset),
+                        String.format(Locale.US, "%.2f", GeoMath.haversineDistance(center[0], center[1], center[0] + lonOffset, center[1])),
+                        String.format(Locale.US, "%.2f", GeoMath.haversineDistance(center[0], center[1], center[0], center[1] + latOffset))));
+
+    }
+
+    /**
+     * @return the zoomAndOffsetLayout
+     */
+    @NonNull
+    public DynamicLayout getZoomAndOffsetLayout() {
+        return zoomAndOffsetLayout;
+    }
+
+    /**
+     * Save any state that is needed to restart
+     */
+    public void saveState() {
+        SerializableState state = new SerializableState();
+        state.putSerializable(OLD_MODE_KEY, oldMode);
+        state.putString(LAYER_ID_KEY, osmts.getId());
+        state.putList(OFFSETS_KEY, Arrays.asList(oldOffsets));
+        savingHelper.save(main, FILENAME, state, false, true);
+    }
+
+    /**
+     * Restart from saved state
+     * 
+     * @param main current instance of main
+     */
+    public static void restart(@NonNull Main main) {
+        new ExecutorTask<Void, Void, SerializableState>() {
+            @Override
+            protected SerializableState doInBackground(Void param) {
+                return savingHelper.load(main, FILENAME, false, true, true);
+            }
+
+            @Override
+            protected void onPostExecute(SerializableState state) {
+                if (state != null) {
+                    ImageryAlignmentActionModeCallback callback = new ImageryAlignmentActionModeCallback(main, state);
+                    main.startSupportActionMode(callback);
+                    main.setImageryAlignmentActionModeCallback(callback);
+                    return;
+                }
+                Log.e(DEBUG_TAG, "restart, saved state is null");
+                App.getLogic().setMode(main, Mode.MODE_EASYEDIT);
+            }
+        }.execute();
     }
 }

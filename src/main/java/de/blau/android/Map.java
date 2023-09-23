@@ -12,7 +12,6 @@ import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Paint.FontMetrics;
 import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.RectF;
@@ -21,6 +20,7 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
 import android.os.SystemClock;
+import android.text.DynamicLayout;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -29,8 +29,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import de.blau.android.exception.OsmException;
+import de.blau.android.imageryoffset.ImageryAlignmentActionModeCallback;
 import de.blau.android.imageryoffset.ImageryOffsetUtils;
-import de.blau.android.imageryoffset.Offset;
 import de.blau.android.layer.AttributionInterface;
 import de.blau.android.layer.ClickableInterface;
 import de.blau.android.layer.LayerConfig;
@@ -47,7 +47,6 @@ import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.DataStyle;
-import de.blau.android.resources.DataStyle.FeatureStyle;
 import de.blau.android.resources.TileLayerSource;
 import de.blau.android.resources.TileLayerSource.TileType;
 import de.blau.android.services.TrackerService;
@@ -139,8 +138,6 @@ public class Map extends View implements IMapView {
     private Location displayLocation = null;
     private boolean  isFollowingGPS  = false;
 
-    private Paint textPaint;
-
     /**
      * support for display a crosshairs at a position
      */
@@ -161,6 +158,9 @@ public class Map extends View implements IMapView {
 
     private Paint gpsAccuracyPaint;
     private Paint boxPaint;
+
+    private int distance2side;
+    private int offsetPos;
 
     private long timeToStale = 60 * ONE_SECOND_IN_NS;
 
@@ -875,16 +875,16 @@ public class Map extends View implements IMapView {
      * @param canvas canvas to draw on
      */
     private void paintZoomAndOffset(@NonNull final Canvas canvas) {
-        int pos = ThemeUtils.getActionBarHeight(context) + 5 + (int) de.blau.android.layer.grid.MapOverlay.LONGTICKS_DP * 3;
-        Offset o = ((Main) context).getImageryAlignmentActionModeCallback().getLayerSource().getOffset(zoomLevel);
-        String text = context.getString(R.string.zoom_and_offset, zoomLevel, o != null ? String.format(Locale.US, "%.5f", o.getDeltaLon()) : "0.00000",
-                o != null ? String.format(Locale.US, "%.5f", o.getDeltaLat()) : "0.00000");
-        float textSize = textPaint.getTextSize();
-        float textWidth = textPaint.measureText(text);
-        FontMetrics fm = textPaint.getFontMetrics();
-        float yOffset = pos + textSize;
-        canvas.drawRect(5, yOffset + fm.bottom, 5 + textWidth, yOffset - textSize, labelBackground);
-        canvas.drawText(text, 5, pos + textSize, textPaint);
+        ImageryAlignmentActionModeCallback callback = ((Main) context).getImageryAlignmentActionModeCallback();
+        if (callback != null) {
+            DynamicLayout layout = callback.getZoomAndOffsetLayout();
+            canvas.save();
+            canvas.translate(distance2side, offsetPos);
+            canvas.drawRect(0, 0, layout.getWidth(), layout.getHeight(), labelBackground);
+            canvas.translate((rtlLayout() ? -1f : 1f) * distance2side, 0); // padding
+            layout.draw(canvas);
+            canvas.restore();
+        }
     }
 
     /**
@@ -1093,8 +1093,6 @@ public class Map extends View implements IMapView {
     public void updateStyle() {
         // changes when profile changes
         labelBackground = DataStyle.getInternal(DataStyle.LABELTEXT_BACKGROUND).getPaint();
-        FeatureStyle fs = DataStyle.getInternal(DataStyle.LABELTEXT_NORMAL);
-        textPaint = fs.getPaint();
         gpsPosFollowPaint = DataStyle.getInternal(DataStyle.GPS_POS_FOLLOW).getPaint();
         gpsPosPaint = DataStyle.getInternal(DataStyle.GPS_POS).getPaint();
         gpsPosFollowPaintStale = DataStyle.getInternal(DataStyle.GPS_POS_FOLLOW_STALE).getPaint();
@@ -1102,8 +1100,12 @@ public class Map extends View implements IMapView {
         gpsAccuracyPaint = DataStyle.getInternal(DataStyle.GPS_ACCURACY).getPaint();
         boxPaint = DataStyle.getInternal(DataStyle.VIEWBOX).getPaint();
         for (MapViewLayer layer : getLayers(LayerType.OSMDATA, null)) {
-            ((de.blau.android.layer.data.MapOverlay) layer).updateStyle();
+            ((de.blau.android.layer.data.MapOverlay<?>) layer).updateStyle();
         }
+        // offset display positioning
+        distance2side = (int) Density.dpToPx(getContext(), de.blau.android.layer.grid.MapOverlay.DISTANCE2SIDE_DP);
+        int longTicks = (int) Density.dpToPx(getContext(), de.blau.android.layer.grid.MapOverlay.LONGTICKS_DP);
+        offsetPos = ThemeUtils.getActionBarHeight(context) + distance2side + longTicks;
     }
 
     /**
@@ -1288,5 +1290,14 @@ public class Map extends View implements IMapView {
     @Nullable
     public TrackerService getTracker() {
         return this.tracker;
+    }
+
+    /**
+     * Check if we have RTL layout
+     * 
+     * @return true if RTL
+     */
+    public boolean rtlLayout() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1 && getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
     }
 }
