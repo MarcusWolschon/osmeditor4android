@@ -1402,7 +1402,7 @@ public final class DataStyle extends DefaultHandler {
         for (Entry<String, DataStyle> entry : availableStyles.entrySet()) {
             final DataStyle value = entry.getValue();
             final String key = entry.getKey();
-            if (value != null) {
+            if (key != null && value != null) {
                 sortedMap.put(key, value);
             } else {
                 Log.e(DEBUG_TAG, "Style object missing for style " + key);
