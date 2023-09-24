@@ -2259,7 +2259,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @param lat latitude where it was located
      * @param lon longitude where it was located
      */
-    public void copyToClipboard(@NonNull List<OsmElement> elements, int lat, int lon) {
+    public synchronized void copyToClipboard(@NonNull List<OsmElement> elements, int lat, int lon) {
         dirty = true; // otherwise clipboard will not get saved without other changes
         List<OsmElement> toCopy = new ArrayList<>();
         Map<Long, Node> processedNodes = new HashMap<>();
@@ -2296,7 +2296,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @param lat latitude where it was located
      * @param lon longitude where it was located
      */
-    public void cutToClipboard(@NonNull List<OsmElement> elements, int lat, int lon) {
+    public synchronized void cutToClipboard(@NonNull List<OsmElement> elements, int lat, int lon) {
         dirty = true; // otherwise clipboard will not get saved without other changes
         List<OsmElement> toCut = new ArrayList<>();
         Map<Long, Node> replacedNodes = new HashMap<>();
