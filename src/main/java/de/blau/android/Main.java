@@ -2728,12 +2728,14 @@ public class Main extends FullScreenAppCompatActivity
      * 
      * @param fileUri the file uri
      */
-    private void fileNotFound(Uri fileUri) {
-        try {
-            ScreenMessage.toastTopError(this, getResources().getString(R.string.toast_file_not_found, fileUri.toString()));
-        } catch (Exception ex) {
-            // protect against translation errors
-        }
+    private void fileNotFound(@NonNull Uri fileUri) {
+        runOnUiThread(() -> {
+            try {
+                Snack.toastTopError(this, getResources().getString(R.string.toast_file_not_found, fileUri.toString()));
+            } catch (Exception ex) {
+                // protect against translation errors
+            }
+        });
     }
 
     /**

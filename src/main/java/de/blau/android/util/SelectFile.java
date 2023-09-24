@@ -237,34 +237,57 @@ public final class SelectFile {
         try {
             if (code == SAVE_FILE) {
                 File file = new File(uri.getPath());
-                if (file.exists()) {
-                    ScreenMessage.barWarning(activity, activity.getResources().getString(R.string.toast_file_exists, file.getName()), R.string.overwrite, v -> {
-                        synchronized (saveCallbackLock) {
-                            if (saveCallback != null) {
-                                saveCallback.save(uri);
-                            }
+                new ExecutorTask<Void, Void, Boolean>() {
+                    @Override
+                    protected Boolean doInBackground(Void param) {
+                        return file.exists();
+                    }
+
+                    @Override
+                    protected void onPostExecute(Boolean exists) {
+                        if (exists != null && exists) {
+                            Snack.barWarning(activity, activity.getResources().getString(R.string.toast_file_exists, file.getName()), R.string.overwrite,
+                                    v -> saveFile(uri));
+                            return;
                         }
-                    });
-                    return;
-                }
-                synchronized (saveCallbackLock) {
-                    if (saveCallback != null) {
-                        Log.d(DEBUG_TAG, "saving to " + uri);
-                        saveCallback.save(uri);
+                        saveFile(uri);
                     }
-                }
+                }.execute();
             } else if (code == READ_FILE) {
-                synchronized (readCallbackLock) {
-                    if (readCallback != null) {
-                        Log.d(DEBUG_TAG, "reading " + uri);
-                        readCallback.read(uri);
+                new ExecutorTask<Void, Void, Boolean>() {
+                    @Override
+                    protected Boolean doInBackground(Void param) {
+                        synchronized (readCallbackLock) {
+                            if (readCallback != null) {
+                                Log.d(DEBUG_TAG, "reading " + uri);
+                                return readCallback.read(uri);
+                            }
+                            return false;
+                        }
                     }
-                }
+                }.execute();
             }
         } catch (NetworkOnMainThreadException nex) {
             Log.e(DEBUG_TAG, "Got exception for " + " uri " + nex.getMessage());
             ScreenMessage.toastTopError(activity, activity.getString(R.string.toast_network_file_not_supported, nex.getMessage()));
         }
+    }
+
+    /**
+     * Async save the file
+     */
+    private static void saveFile(@NonNull Uri uri) {
+        new ExecutorTask<Void, Void, Boolean>() {
+            @Override
+            protected Boolean doInBackground(Void param) {
+                synchronized (saveCallbackLock) {
+                    if (saveCallback != null) {
+                        return saveCallback.save(uri);
+                    }
+                }
+                return false;
+            }
+        }.execute();
     }
 
     /**
