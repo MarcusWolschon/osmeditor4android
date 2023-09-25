@@ -31,6 +31,11 @@
         <item>Виже виправлено</item>
         <item>Занадто складно</item>
     </string-array>
+    <string-array name="todo_state">
+        <item>Відкриті</item>
+        <item>Закриті</item>
+        <item>Пропущені</item> 
+    </string-array>
     <string-array name="followGPSbutton_entries">
         <item>Ліворуч</item>
         <item>Праворуч</item>
@@ -70,4 +75,13 @@
         <item>Спотворений URL</item>
         <item>Помилковий параметр</item>
     </string-array>
- </resources>
+    <!-- automatic name tag capitalization -->
+    <string-array translatable="true" name="name_cap_entries">
+        <item>Без великих літер</item>
+        <item>Велика перша літера в слові</item>
+        <item>Велика літера на початку речення</item>
+    </string-array>
+    <string name="theme_follow_entry">Системна</string>
+    <string name="theme_light_entry">Світла</string>
+    <string name="theme_dark_entry">Темна</string>
+    </resources>
