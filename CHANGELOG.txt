@@ -1,5 +1,17 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+19.2.1:
+
+- Fix catch NetworkOnMainThreadException when reading or saving files
+- Fix synchronize cut and copy
+- Fix protect against null key
+- Fix regression disambiguation menu on long click on locked screen
+- Fix dirty state if point symbol is changed
+- Fix generate legacy APK with android:launchMode="singleTop"
+- Update preset
+- Update translations
+- Update imagery from ELI
+
 19.2.0:
 
 - Fix if all member rows are de-selected terminate action mode
