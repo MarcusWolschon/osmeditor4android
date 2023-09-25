@@ -602,6 +602,7 @@
     <string name="toast_no_coverage">%1$s has no coverage here</string>
     <string name="toast_tile_layer_errors">The imagery source \'%1$s\' is erroring</string>
     <string name="toast_file_exists">%1$s file exists.</string>
+    <string name="toast_network_file_not_supported">Access to this file over the network is not supported, copy to local storage.\n%1$s</string>
     <string name="toast_needs_resurvey">Object may be out of date</string>
     <string name="toast_missing_key">%1$s key missing</string>
     <string name="toast_invalid_object">Invalid object</string>
