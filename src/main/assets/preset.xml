@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.13.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,building:part,cemetery,club,disused:amenity,disused:leisure,disused:man_made,golf,hazard,noexit,disused:shop,ford,indoor,playground,police,public_transport,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,telecom,mountain_pass,marker">
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.14.1" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,building:part,cemetery,club,disused:amenity,disused:leisure,disused:man_made,golf,hazard,noexit,disused:shop,ford,indoor,playground,police,public_transport,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,telecom,mountain_pass,marker">
 <!--
     Icons have been derived from mainly from
   
@@ -361,6 +361,9 @@
         <optional>
            <reference ref="oh"/>
         </optional>
+    </chunk>
+    <chunk id="collection_times">
+        <combo key="collection_times" text="Collection times" delimiter="|" values="Mo-Sa 09:00|Mo-Fr 17:30; Sa 12:00|Mo-Fr 15:00,19:00; Sa 15:10; Su 10:30" values_no_i18n="true" match="none" editable="true"/>
     </chunk>
     <chunk id="changing_table">
         <combo key="diaper" text="Diaper changing" values_sort="false" deprecated="true">
@@ -960,6 +963,15 @@
             <list_entry value="mixed" display_value="Mixed" short_description="Habitat with evergreen and deciduous vegetation."/>
         </combo>
     </chunk>
+    <chunk id="denotation">
+        <combo key="denotation" text="Denotation" values_searchable="true" values_context="tree denotation">
+            <list_entry value="landmark" display_value="Landmark" short_description="Trees remarkable due to its size or prominent location, usually visible from great distances and useful for navigation."/>
+            <list_entry value="natural_monument" display_value="Natural monument" short_description="Especially old tree, often with a particular shape. Usually protected for its uniqueness."/>
+            <list_entry value="avenue" display_value="Avenue" short_description="Trees aligned along a road."/>
+            <list_entry value="urban" display_value="Urban" short_description="Trees found within settlements, e.g. in parks or spread through residential areas."/>
+            <list_entry value="agricultural" display_value="Agricultural" short_description="Trees in agricultural use."/>
+        </combo>
+    </chunk>
     <!-- start of religions and denominations -->
     <chunk id="religious"> <!-- all religions and denominations -->
         <combo key="religion" text="Religion" values="bahai,buddhist,caodaism,christian,confucian,hindu,jain,jewish,muslim,shinto,sikh,spiritualist,taoist,tenrikyo,unitarian_universalist,zoroastrian" display_values="Bahai,Buddhist,Caodaism,Christian,Confucian,Hindu,Jain,Jewish,Muslim,Shinto,Sikh,Spiritualist,Taoist,Tenrikyo,Unitarian universalist,Zoroastrian"/>
@@ -1079,8 +1091,11 @@
             <list_entry value="termination" display_value="Termination"/>
         </combo>
     </chunk>
-    <chunk id="power_line_extra2">
+    <chunk id="line_attachment">
         <combo key="line_attachment" text="Line attachment" values="anchor,pin,pulley,suspension" display_values="Anchor,Pin,Pulley,Suspension" values_context="power"/>
+    </chunk>
+    <chunk id="line_properties">
+        <reference ref="line_attachment"/>
         <reference ref="line_management"/>    
     </chunk>
     <chunk id="power_plant">
@@ -1110,7 +1125,7 @@
     </chunk>
     <chunk id="power_pole">
         <reference ref="pole"/>
-        <reference ref="power_line_extra2"/>
+        <reference ref="line_properties"/>
         <check key="location:transition" text="Location transition" disable_off="true"/>
         <optional>
             <combo key="pole:type" text="Pole type" values="termination,branch,transposing,crossing,transition" display_values="Termination,Branch,Transposing,Crossing,Transition" text_context="power" values_context="power" deprecated="true"/>
@@ -4429,6 +4444,7 @@
             <text key="socket:type2_combo:output" text="CCS - Type 2 output (kW)"/> 
             <combo key="socket:type3" text="Type 3 (SCAME)" values="1,2,3,4,5,6"/>
             <combo key="socket:chademo" text="CHAdeMO" values="1,2,3,4,5,6"/>
+            <text key="socket:chademo:output" text="CHAdeMO output (kW)"/> 
             <combo key="socket:tesla_supercharger" text="Tesla Supercharger" values="1,2,3,4,5,6"/>
             <combo key="socket:schuko" text="Schuko" values="1,2,3,4,5,6"/>
             <combo key="socket:cee_blue" text="CEE blue" values="1,2,3,4,5,6"/>
@@ -4444,6 +4460,7 @@
             <combo key="socket:type1_combo" text="CCS - Type 1 - SAE J1772 Combo (DC)" values="1,2,3,4,5,6"/>
             <text key="socket:type1_combo:output" text="CCS - Type 1 output (kW)"/>       
             <combo key="socket:chademo" text="CHAdeMO" values="1,2,3,4,5,6"/>
+            <text key="socket:chademo:output" text="CHAdeMO output (kW)"/> 
             <combo key="socket:tesla_supercharger" text="Tesla Supercharger" values="1,2,3,4,5,6"/>
             <combo key="socket:nema_5_15" text="NEMA 5-15" values="1,2,3,4,5,6"/>
             <combo key="socket:nema_5_20" text="NEMA 5-20" values="1,2,3,4,5,6"/>
@@ -4871,7 +4888,7 @@
                 <check key="bicycle" text="Bicycle" disable_off="true"/>
             </optional>
         </item> <!-- Subway Entrance -->
-        <item name="Ticket Machine" icon="icons/png/shopping_vending_machine.png" type="node" preset_name_label="true">
+        <item name="Ticket Machine" icon="icons/png/transport_ticket_29200.png" type="node" preset_name_label="true">
             <link wiki="Tag:amenity=vending_machine"/>
             <space/>
             <key key="amenity" value="vending_machine"/>
@@ -4882,6 +4899,16 @@
             <text key="ref" text="Reference number"/>
             <preset_link preset_name="Payment Methods"/>
         </item> <!-- Ticket Machine -->
+        <item name="Ticket Validator" icon="${public_transport_ticket_validator}" type="node,way" preset_name_label="true">
+            <link wiki="Tag:amenity=ticket_validator"/>
+            <space/>
+            <key key="amenity" value="ticket_validator"/>
+            <text key="operator" text="Operator"/>
+            <reference ref="level"/>
+            <combo key="barrier" value="turnstile,full_height_turnstile,gate" display_values="Turnstile,Full height turnstile,Gate"/>
+            <reference ref="wheelchair"/>
+            <combo key="capacity" text="Capacity" values="1,2,3,4,5,6" value_type="integer"/>
+        </item> <!-- Ticket Validator -->
     </group> <!-- Public Transport -->
     <group name="Public Transport (Legacy)" icon="icons/png/transport_bus_stop.png">
         <item name="Public transport route (Legacy)" icon="icons/png/transport_route_sp.png" type="relation" preset_name_label="true">
@@ -7447,9 +7474,23 @@
             <key key="amenity" value="post_box"/>
             <text key="operator" text="Operator"/>
             <text key="ref" text="Reference number"/>
-            <combo key="collection_times" text="Collection times" delimiter="|" values="Mo-Sa 09:00|Mo-Fr 17:30; Sa 12:00|Mo-Fr 15:00,19:00; Sa 15:10; Su 10:30" values_no_i18n="true" match="none" editable="true"/>
+            <reference ref="collection_times"/>
             <check key="drive_through" text="Drive through" disable_off="true"/>
         </item> <!-- Post Box -->
+        <item name="Parcel Locker" icon="icons/png/amenity_parcel_locker.png" type="node,closedway" preset_name_label="true">
+            <link wiki="Tag:amenity=parcel_locker"/>
+            <space/>
+            <key key="amenity" value="parcel_locker"/>
+            <text key="brand" text="Parcel service brand"/>
+            <text key="operator" text="Machine operator"/>
+            <text key="ref" text="Reference number"/>
+            <combo key="parcel_mail_in" text="Parcel mail in" values="yes,no,returns_only" display_values="Yes,No,Returns only"/>
+            <combo key="parcel_pickup" text="Parcel pickup" values="yes,no" display_values="Yes,No"/>
+            <combo key="refrigerated" text="Refrigerated" values="yes,no" display_values="Yes,No"/>
+            <reference ref="colours"/>
+            <reference ref="collection_times"/>
+            <reference ref="essential_wheelchair"/>
+        </item> <!-- Parcel Locker -->
         <item name="Telephone" icon="icons/png/amenity_telephone.png" type="node" preset_name_label="true">
             <link wiki="Tag:amenity=telephone"/>
             <space/>
@@ -9747,7 +9788,7 @@
             <space/>
             <key key="power" value="terminal"/>
             <optional>
-                <reference ref="power_line_extra2"/>
+                <reference ref="line_properties"/>
                 <reference ref="ref_operator"/>
             </optional>
         </item> <!-- Terminal -->
@@ -9761,7 +9802,7 @@
             <reference ref="colours"/>
             <reference ref="ref_operator"/>
             <combo key="design" text="Portal design" values="portal,portal_two-level,portal_three-level" values_context="power"/>
-            <reference ref="power_line_extra2"/>
+            <reference ref="line_properties"/>
         </item> <!-- Power Portal -->
         <item name="Power Tower" icon="icons/png/power_tower_high2.png" type="node" preset_name_label="true">
             <link wiki="Tag:power=tower"/>
@@ -9777,7 +9818,7 @@
                 <combo key="tower:type" text="Tower type" values="termination,branch,transposing,crossing,transition" display_values="Termination,Branch,Transposing,Crossing,Transition" text_context="power" values_context="power" deprecated="true"/>
                 <combo key="branch:type" text="Branch tower type" values="tap,split,loop,cross" display_values="Tap,Split,Loop,Cross" values_context="power" deprecated="true"/>
                 <combo key="design" text="Tower design" values="one-level,two-level,donau,three-level,barrel,asymmetric,triangle,flag,donau;one-level,four-level,six-level,nine-level,delta,delta_two-level,y-frame,x-frame,h-frame,guyed_h-frame,portal,portal_two-level,portal_three-level,guyed_v-frame,bipole,monopolar" values_context="power"/>
-                <reference ref="power_line_extra2"/>
+                <reference ref="line_properties"/>
                 <check key="triple_tower" text="Triple tower" disable_off="true"/>
                 <check key="design:incomplete" text="Incomplete tower" disable_off="true"/>
                 <check key="location:transition" text="Location transition" disable_off="true"/>
@@ -9837,7 +9878,7 @@
             <link wiki="Tag:power=insulator"/>
             <space/>
             <key key="power" value="insulator"/>
-            <combo key="line_attachment" text="Line attachment" values="anchor,pin,pulley,suspension" display_values="Anchor,Pin,Pulley,Suspension" values_context="power"/>
+            <reference ref="line_attachment"/>
             <reference ref="ref_operator"/>
         </item> <!-- Insulator -->
         <item name="Power Line" icon="icons/png/power_generator_26005.png" type="way" preset_name_label="true">
@@ -11336,8 +11377,8 @@
             <list_entry value="milk" short_description="Milk"/>
             <list_entry value="newspapers" short_description="Newspapers"/>
             <list_entry value="parking_tickets" short_description="Parking tickets"/>
-            <list_entry value="parcel_pickup" short_description="Parcel pickup"/>
-            <list_entry value="parcel_mail_in" short_description="Parcel mail in"/>
+            <list_entry value="parcel_pickup" short_description="Parcel pickup" deprecated="true"/>
+            <list_entry value="parcel_mail_in" short_description="Parcel mail in" deprecated="true"/>
             <list_entry value="pet_food" short_description="Animal feed (domestic)"/>
             <list_entry value="pizza" short_description="Pizza"/>
             <list_entry value="public_transport_plans" short_description="Plans (public transport)"/>
@@ -11361,6 +11402,20 @@
         <preset_link preset_name="Payment Methods"/>
         <reference ref="optional_level"/>
     </item> <!-- Vending Machine -->
+    <item name="Parcel Locker" icon="icons/png/shopping_vending_machine.png" type="node,closedway" preset_name_label="true">
+            <link wiki="Tag:amenity=parcel_locker"/>
+            <space/>
+            <key key="amenity" value="parcel_locker"/>
+            <text key="brand" text="Parcel service brand"/>
+            <text key="operator" text="Machine operator"/>
+            <text key="ref" text="Reference number"/>
+            <combo key="parcel_mail_in" text="Parcel mail in" values="yes,no,returns_only" display_values="Yes,No,Return only"/>
+            <combo key="parcel_pickup" text="Parcel pickup" values="yes,no" display_values="Yes,No"/>
+            <combo key="refrigerated" text="Refrigerated" values="yes,no" display_values="Yes,No"/>
+            <reference ref="colours"/>
+            <combo key="collection_times" text="Collection times" delimiter="|" values="Mo-Sa 09:00|Mo-Fr 17:30; Sa 12:00|Mo-Fr 15:00,19:00; Sa 15:10; Su 10:30" values_no_i18n="true" match="none" editable="true"/>
+            <reference ref="essential_wheelchair"/>
+        </item> <!-- Parcel Locker -->
     <item name="Payment Methods" icon="icons/png/money_payment_methods.png" type="node,way,closedway,multipolygon,relation" preset_name_label="true">
         <link wiki="Key:payment"/>
         <space/>
@@ -11484,6 +11539,10 @@
         <reference ref="brand"/>
         <text key="operator" text="Operator"/>
         <reference ref="oh_wheelchair_level"/>
+        <optional text="Deposits:">
+            <combo key="cash_in" text="Cash deposits" values="yes,no,customers" display_values="Yes,No,Customers"/>
+            <check key="cash_in:coins" text="Coin deposits"/>
+        </optional>
     </item> <!-- Automated Teller Machine -->
     <item name="Payment centre" icon="icons/png/money_empty.png" type="node,closedway,multipolygon" preset_name_label="true">
         <link wiki="Tag:amenity=payment_centre"/>
@@ -11873,13 +11932,7 @@
             <optional>
                 <text key="diameter_crown" text="Crown diameter (meters)"/>
             </optional>
-            <combo key="denotation" text="Denotation" values_searchable="true" values_context="tree denotation">
-                <list_entry value="landmark" display_value="Landmark" short_description="Trees remarkable due to its size or prominent location, usually visible from great distances and useful for navigation."/>
-                <list_entry value="natural_monument" display_value="Natural monument" short_description="Especially old tree, often with a particular shape. Usually protected for its uniqueness."/>
-                <list_entry value="avenue" display_value="Avenue" short_description="Trees aligned along a road."/>
-                <list_entry value="urban" display_value="Urban" short_description="Trees found within settlements, e.g. in parks or spread through residential areas."/>
-                <list_entry value="agricultural" display_value="Agricultural" short_description="Trees in agricultural use."/>
-            </combo>
+            <reference ref="denotation"/>
         </item> <!-- Tree -->
         <item name="Tree Row" icon="icons/png/landuse_coniferous_and_deciduous.png" type="way" preset_name_label="true">
             <link wiki="Tag:natural=tree_row"/>
@@ -11890,6 +11943,7 @@
             <optional>
                 <reference ref="genus_species_taxon"/>
                 <reference ref="leaf"/>
+                <reference ref="denotation"/>
             </optional>
         </item> <!-- Tree Row -->
         <item name="Shrub" icon="icons/png/natural_shrub.png" type="node" preset_name_label="true">
@@ -12557,7 +12611,7 @@
                 <link wiki="Relation:restriction"/>
                 <space/>
                 <key key="type" value="restriction"/>
-                <combo key="restriction" text="Restriction" values_searchable="true" values_sort="false">
+                <combo key="restriction" text="Restriction" values_searchable="true" values_sort="false" values_context="restriction">
                     <list_entry value="no_left_turn" display_value="No left turn" icon="icons/png/no_left_turn.png"/>
                     <list_entry value="no_right_turn" display_value="No right turn" icon="icons/png/no_right_turn.png"/>
                     <list_entry value="no_u_turn" display_value="No u-turn" icon="icons/png/no_u_turn.png"/>
@@ -12627,7 +12681,7 @@
                 <reference ref="turn_restriction_exceptions"/>
                 <reference ref="turn_restriction_roles"/>
             </item> <!-- No straight on -->
-            <item name="No entry" icon="icons/png/no_entry.png" type="relation" preset_name_label="true">
+            <item name="No entry" icon="icons/png/no_entry.png" type="relation" preset_name_label="true" name_context="restriction">
                 <link wiki="Relation:restriction"/>
                 <space/>
                 <key key="type" value="restriction"/>
