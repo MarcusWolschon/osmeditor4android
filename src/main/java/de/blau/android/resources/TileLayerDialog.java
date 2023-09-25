@@ -182,10 +182,10 @@ public class TileLayerDialog extends ImmersiveDialogFragment {
                 try {
                     final File destination = new File(FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_IMPORTS), fileName);
                     if (destination.exists()) {
-                        ScreenMessage.toastTopError(activity, R.string.toast_import_destination_exists);
+                        activity.runOnUiThread(() -> ScreenMessage.toastTopError(activity, R.string.toast_import_destination_exists));
                         return false;
                     }
-                    copyFile(contentUri, destination);
+                    copyFile(urlEdit, contentUri, destination);
                 } catch (IOException ex) {
                     return false;
                 }
@@ -194,10 +194,10 @@ public class TileLayerDialog extends ImmersiveDialogFragment {
                 // rewrite content: Uris
                 final Uri fileUri = FileUtil.contentUriToFileUri(activity, contentUri);
                 if (fileUri == null) {
-                    ScreenMessage.toastTopError(activity, R.string.not_found_title);
+                    activity.runOnUiThread(() -> ScreenMessage.toastTopError(activity, R.string.not_found_title));
                     return false;
                 }
-                return configureFromFile(fileUri);
+                return configureFromFile(urlEdit, fileUri);
             }
         }
     });
@@ -283,7 +283,7 @@ public class TileLayerDialog extends ImmersiveDialogFragment {
      * @param fileUri the file Uri for the file
      * @return true if successful
      */
-    private boolean configureFromFile(@NonNull Uri fileUri) {
+    private boolean configureFromFile(@NonNull final EditText urlEdit, @NonNull final Uri fileUri) {
         try {
             final String path = fileUri.getPath();
             if (DatabaseUtil.isValidSQLite(path)) {
@@ -294,7 +294,7 @@ public class TileLayerDialog extends ImmersiveDialogFragment {
                 }
             }
             // this should really be in the metadata
-            tileSizePicker.setValue(TileLayerSource.DEFAULT_TILE_SIZE);
+            setTileSize(TileLayerSource.DEFAULT_TILE_SIZE);
             urlEdit.setText(fileUri.toString());
             SelectFile.savePref(App.getLogic().getPrefs(), R.string.config_mbtilesPreferredDir_key, fileUri);
             return true;
@@ -303,8 +303,17 @@ public class TileLayerDialog extends ImmersiveDialogFragment {
         } catch (SQLiteException | IOException sqex) {
             Log.e(DEBUG_TAG, "Not a SQLite/MBTiles database or PMTiles file " + fileUri + " " + sqex.getMessage());
         }
-        ScreenMessage.toastTopError(activity, R.string.toast_not_mbtiles);
+        getActivity.runOnUiThread(() -> ScreenMessage.toastTopError(activity, R.string.toast_not_mbtiles));
         return false;
+    }
+
+    /**
+     * Set the tile size picker
+     * 
+     * @param tileSize the size (one side)
+     */
+    private void setTileSize(int tileSize) {
+        tileSizePicker.setValue(tileSize);
     }
 
     /**
@@ -315,7 +324,7 @@ public class TileLayerDialog extends ImmersiveDialogFragment {
      * @param contentUri the source Uri
      * @param destination the destination
      */
-    private void copyFile(@NonNull final Uri contentUri, @NonNull final File destination) {
+    private void copyFile(@NonNull final EditText urlEdit, @NonNull final Uri contentUri, @NonNull final File destination) {
         Logic logic = App.getLogic();
         new ExecutorTask<Void, Void, Boolean>(logic.getExecutorService(), logic.getHandler()) {
 
@@ -339,7 +348,7 @@ public class TileLayerDialog extends ImmersiveDialogFragment {
             protected void onPostExecute(Boolean result) {
                 Progress.dismissDialog(activity, Progress.PROGRESS_IMPORTING_FILE);
                 if (result != null && result && !isCancelled()) {
-                    configureFromFile(Uri.parse(FileUtil.FILE_SCHEME_PREFIX + destination.getAbsolutePath()));
+                    configureFromFile(urlEdit, Uri.parse(FileUtil.FILE_SCHEME_PREFIX + destination.getAbsolutePath()));
                 }
             }
         }.execute();
@@ -626,7 +635,7 @@ public class TileLayerDialog extends ImmersiveDialogFragment {
                     }
                     metadataMap.put(ATTRIBUTION, attribution);
                 }
-                tileSizePicker.setValue(TileLayerSource.DEFAULT_TILE_SIZE);
+                setTileSize(TileLayerSource.DEFAULT_TILE_SIZE);
                 alertDialog.setNeutralButton(R.string.cancel, null);
             }
         } else {
