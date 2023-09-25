@@ -245,6 +245,7 @@ public final class SelectFile {
                             }
                         }
                     });
+                    return;
                 }
                 synchronized (saveCallbackLock) {
                     if (saveCallback != null) {
