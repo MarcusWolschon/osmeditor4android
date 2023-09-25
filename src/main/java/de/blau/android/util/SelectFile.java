@@ -17,6 +17,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.os.NetworkOnMainThreadException;
 import android.provider.DocumentsContract;
 import android.util.Log;
 import android.view.View;
@@ -233,30 +234,35 @@ public final class SelectFile {
             uri = Uri.fromFile(com.nononsenseapps.filepicker.Utils.getFileForUri(data.getData()));
         }
         ContentResolverUtil.persistPermissions(activity, data.getFlags(), uri);
-        if (code == SAVE_FILE) {
-            File file = new File(uri.getPath());
-            if (file.exists()) {
-                Snack.barWarning(activity, activity.getResources().getString(R.string.toast_file_exists, file.getName()), R.string.overwrite, v -> {
-                    synchronized (saveCallbackLock) {
-                        if (saveCallback != null) {
-                            saveCallback.save(uri);
+        try {
+            if (code == SAVE_FILE) {
+                File file = new File(uri.getPath());
+                if (file.exists()) {
+                    Snack.barWarning(activity, activity.getResources().getString(R.string.toast_file_exists, file.getName()), R.string.overwrite, v -> {
+                        synchronized (saveCallbackLock) {
+                            if (saveCallback != null) {
+                                saveCallback.save(uri);
+                            }
                         }
+                    });
+                }
+                synchronized (saveCallbackLock) {
+                    if (saveCallback != null) {
+                        Log.d(DEBUG_TAG, "saving to " + uri);
+                        saveCallback.save(uri);
                     }
-                });
-            }
-            synchronized (saveCallbackLock) {
-                if (saveCallback != null) {
-                    Log.d(DEBUG_TAG, "saving to " + uri);
-                    saveCallback.save(uri);
+                }
+            } else if (code == READ_FILE) {
+                synchronized (readCallbackLock) {
+                    if (readCallback != null) {
+                        Log.d(DEBUG_TAG, "reading " + uri);
+                        readCallback.read(uri);
+                    }
                 }
             }
-        } else if (code == READ_FILE) {
-            synchronized (readCallbackLock) {
-                if (readCallback != null) {
-                    Log.d(DEBUG_TAG, "reading " + uri);
-                    readCallback.read(uri);
-                }
-            }
+        } catch (NetworkOnMainThreadException nex) {
+            Log.e(DEBUG_TAG, "Got exception for " + " uri " + nex.getMessage());
+            Snack.toastTopError(activity, activity.getString(R.string.toast_network_file_not_supported, nex.getMessage()));
         }
     }
 
