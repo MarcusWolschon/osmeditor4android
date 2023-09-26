@@ -560,7 +560,7 @@ public final class Util {
      * @param packageManager a PackageManager instance
      * @return true if the package is installed
      */
-   
+
     public static boolean isPackageInstalled(@NonNull String packageName, @NonNull PackageManager packageManager) {
         try {
             getPackageInfo(packageName, packageManager);
@@ -680,7 +680,17 @@ public final class Util {
      * @return true if text is neither null nor the empty String
      */
     public static boolean notEmpty(@Nullable final String text) {
-        return text != null && !"".equals(text);
+        return text != null && text.length() > 0;
+    }
+
+    /**
+     * Check if a String is either null or the empty String
+     * 
+     * @param text the input String
+     * @return true if text is either null or the empty String
+     */
+    public static boolean isEmpty(@Nullable final String text) {
+        return text == null || text.length() == 0;
     }
 
     /**

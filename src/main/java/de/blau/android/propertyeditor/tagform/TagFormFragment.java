@@ -49,7 +49,6 @@ import de.blau.android.measure.Measure;
 import de.blau.android.measure.Params;
 import de.blau.android.nsi.Names;
 import de.blau.android.osm.OsmElement;
-import de.blau.android.osm.Server;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.osm.Wiki;
@@ -118,7 +117,8 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 
     int maxInlineValues = 3;
 
-    int maxStringLength; // maximum key, value and role length
+    int         maxStringLength; // maximum key, value and role length
+    private int longStringLimit;
 
     private Map<PresetItem, Boolean> displayOptional = new HashMap<>();
 
@@ -235,8 +235,8 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 
         maxInlineValues = prefs.getMaxInlineValues();
 
-        Server server = prefs.getServer();
-        maxStringLength = server.getCachedCapabilities().getMaxStringLength();
+        maxStringLength = propertyEditorListener.getCapabilities().getMaxStringLength();
+        longStringLimit = prefs.getLongStringLimit();
 
         if (displayMRUpresets) {
             de.blau.android.propertyeditor.Util.addMRUPresetsFragment(getChildFragmentManager(), R.id.mru_layout,
@@ -303,7 +303,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     @Nullable
     ArrayAdapter<?> getValueAutocompleteAdapter(@Nullable String key, @Nullable List<String> values, @Nullable PresetItem preset,
             @Nullable PresetTagField field, @NonNull Map<String, String> allTags, boolean addRuler, boolean dedup, int addMruSize) {
-        if (key != null && key.length() > 0) {
+        if (Util.notEmpty(key)) {
             Set<String> usedKeys = allTags.keySet();
             if (TagEditorFragment.isStreetName(key, usedKeys)) {
                 return nameAdapters.getStreetNameAdapter(values);
@@ -397,7 +397,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             }
             if (values != null) { // add in any non-standard non-empty values
                 for (String value : values) {
-                    if (value != null && !"".equals(value) && !counter.containsKey(value)) {
+                    if (Util.notEmpty(value) && !counter.containsKey(value)) {
                         StringWithDescription s = new StringWithDescription(value);
                         adapter2.remove(s);
                         adapter2.insert(s, 0);
@@ -608,10 +608,10 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     /**
      * Return the view we have our rows in and work around some android craziness
      * 
-     * @return the immutable row layout or null if it couldn't be found
+     * @return the non-preset row layout or null if it couldn't be found
      */
     @Nullable
-    private View getImmutableView() {
+    private View getNonPresetView() {
         // android.support.v4.app.NoSaveStateFrameLayout
         View v = getView();
         if (v != null) {
@@ -657,7 +657,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         int pos = 0;
         ll.addView(editableView, pos++);
 
-        LinearLayout nonEditableView = (LinearLayout) getImmutableView();
+        LinearLayout nonEditableView = (LinearLayout) getNonPresetView();
         if (nonEditableView != null && nonEditableView.getChildCount() > 0) {
             nonEditableView.removeAllViews();
         }
@@ -819,7 +819,6 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                                 linkedTags.put(field, value);
                                 keyToLinkedPreset.put(key, l);
                                 editableView.putTag(key, value);
-                                i18nFound = true;
                                 tagList.remove(key);
                                 break;
                             }
@@ -948,6 +947,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             Log.e(DEBUG_TAG, "addRow called for fixed field " + field);
             return;
         }
+        final boolean longString = value != null && longStringLimit <= value.length();
         if (preset == null) { // no preset here so we can only handle hardwired stuff specially
             if (key.endsWith(Tags.KEY_CONDITIONAL_SUFFIX)) {
                 rowLayout.addView(getConditionalRestrictionDialogRow(rowLayout, null, null, key, value, null, allTags));
@@ -955,6 +955,10 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             }
             if (Tags.OPENING_HOURS_SYNTAX.contains(key)) {
                 rowLayout.addView(OpeningHoursDialogRow.getRow(this, inflater, rowLayout, null, null, key, value, null));
+                return;
+            }
+            if (longString) {
+                rowLayout.addView(LongTextDialogRow.getRow(this, inflater, rowLayout, null, (PresetTextField) field, value, maxStringLength));
                 return;
             }
             rowLayout.addView(TextRow.getRow(this, inflater, rowLayout, null, new PresetTextField(key), value, null, allTags));
@@ -971,7 +975,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             values = Util.wrapInList(value);
         }
         String hint = field.getHint();
-        if (field.isDeprecated() && (hint != null && !"".equals(hint))) {
+        if (field.isDeprecated() && Util.notEmpty(hint)) {
             hint = getString(R.string.deprecated, hint);
         }
         //
@@ -994,11 +998,8 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 rowLayout.addView(UrlDialogRow.getRow(this, inflater, rowLayout, preset, hint, key, value));
                 return;
             }
-            final int longStringLimit = prefs.getLongStringLimit();
-            if (field instanceof PresetTextField
-                    && (longStringLimit <= ((PresetTextField) field).length() || (value != null && longStringLimit <= value.length()))) {
-                rowLayout.addView(LongTextDialogRow.getRow(this, inflater, rowLayout, preset, (PresetTextField) field, value,
-                        propertyEditorListener.getCapabilities().getMaxStringLength()));
+            if (field instanceof PresetTextField && (longStringLimit <= ((PresetTextField) field).length() || longString)) {
+                rowLayout.addView(LongTextDialogRow.getRow(this, inflater, rowLayout, preset, (PresetTextField) field, value, maxStringLength));
                 return;
             }
             rowLayout.addView(TextRow.getRow(this, inflater, rowLayout, preset, field, value, values, allTags));
@@ -1047,7 +1048,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             StringWithDescription tempOff = ((PresetCheckField) field).getOffValue();
             final String valueOff = tempOff == null ? "" : tempOff.getValue();
             String description = tempOff == null ? "" : tempOff.getDescription();
-            if (description == null) {
+            if (Util.isEmpty(description)) {
                 description = valueOff;
             }
             final CheckRow row = (CheckRow) inflater.inflate(R.layout.tag_form_check_row, rowLayout, false);
@@ -1093,10 +1094,11 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
      * @param value existing value for the tag
      * @param values a list containing all the predefined values in the PresetItem for the key
      * @param allTags a Map of the tags currently being edited
-     * @return a TagFormDialogRow instance
+     * @return a DialogRow instance
      */
-    private DialogRow getConditionalRestrictionDialogRow(LinearLayout rowLayout, PresetItem preset, final String hint, final String key, final String value,
-            @Nullable final List<String> values, Map<String, String> allTags) {
+    @NonNull
+    private DialogRow getConditionalRestrictionDialogRow(@Nullable LinearLayout rowLayout, @Nullable PresetItem preset, @Nullable final String hint,
+            @Nullable final String key, @Nullable final String value, @Nullable final List<String> values, Map<String, String> allTags) {
         final DialogRow row = (DialogRow) inflater.inflate(R.layout.tag_form_combo_dialog_row, rowLayout, false);
         row.keyView.setText(hint != null ? hint : key);
         row.keyView.setTag(key);
@@ -1112,7 +1114,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                     StringWithDescription swd = new StringWithDescription(o);
                     Log.d(DEBUG_TAG, "adding " + swd);
                     String v = swd.getValue();
-                    if (v == null || "".equals(v)) {
+                    if (Util.isEmpty(v)) {
                         continue;
                     }
                     Log.d(DEBUG_TAG, "adding " + v + " to templates");
@@ -1120,8 +1122,11 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 }
             }
         }
-        if (value != null && !"".equals(value)) {
-            ConditionalRestrictionParser parser = new ConditionalRestrictionParser(new ByteArrayInputStream(value.getBytes()));
+        if (Util.notEmpty(value)) {
+            ConditionalRestrictionParser parser = new ConditionalRestrictionParser(new ByteArrayInputStream(value.getBytes())); // NOSONAR
+                                                                                                                                // can't
+                                                                                                                                // be
+                                                                                                                                // null
             try {
                 row.setValue(ch.poole.conditionalrestrictionparser.Util.prettyPrint(parser.restrictions()));
             } catch (Exception ex) {
@@ -1165,7 +1170,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             for (int i = ll2.getChildCount() - 1; i >= 0; --i) {
                 View v = ll2.getChildAt(i);
                 boolean isTextRow = v instanceof TextRow;
-                if ((v instanceof DialogRow || isTextRow) && ((KeyValueRow) v).getKey().equals(key)) {
+                if ((v instanceof DialogRow || isTextRow) && ((KeyValueRow) v).hasKey(key)) {
                     Util.scrollToRow(sv, v, true, true);
                     if (isTextRow) {
                         ((TextRow) v).getValueView().requestFocus();
@@ -1190,7 +1195,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         boolean found = false;
         LinearLayout ll = (LinearLayout) getView().findViewById(R.id.form_container_layout);
         if (ll == null) {
-            Log.d(DEBUG_TAG, "update container layout null");
+            Log.d(DEBUG_TAG, "container layout null");
             return false;
         }
         int pos = 0;
@@ -1218,22 +1223,22 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
      */
     @Nullable
     public View getRow(@NonNull String key) {
-        View sv = getView();
-        LinearLayout ll = (LinearLayout) sv.findViewById(R.id.form_container_layout);
+        LinearLayout ll = (LinearLayout) getView().findViewById(R.id.form_container_layout);
         if (ll != null) {
             int pos = 0;
             while (pos < ll.getChildCount()) {
                 final View child = ll.getChildAt(pos);
-                if (child instanceof LinearLayout) {
-                    LinearLayout ll2 = (LinearLayout) child;
-                    for (int i = ll2.getChildCount() - 1; i >= 0; --i) {
-                        View v = ll2.getChildAt(i);
-                        if ((v instanceof TextRow || v instanceof DialogRow) && ((KeyValueRow) v).getKey().equals(key)) {
-                            return v;
-                        }
+                pos++;
+                if (!(child instanceof LinearLayout)) {
+                    continue;
+                }
+                LinearLayout ll2 = (LinearLayout) child;
+                for (int i = ll2.getChildCount() - 1; i >= 0; --i) {
+                    View v = ll2.getChildAt(i);
+                    if (v instanceof KeyValueRow && ((KeyValueRow) v).hasKey(key)) {
+                        return v;
                     }
                 }
-                pos++;
             }
         }
         return null;
