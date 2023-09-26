@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import de.blau.android.R;
@@ -58,7 +59,7 @@ public class LongTextDialogRow extends DialogRow {
      * @return an instance of TagFormDialogRow
      */
     static DialogRow getRow(@NonNull final TagFormFragment caller, @NonNull final LayoutInflater inflater, @NonNull final LinearLayout rowLayout,
-            @NonNull final PresetItem preset, @NonNull final PresetTextField field, @NonNull final String value, int maxLength) {
+            @Nullable final PresetItem preset, @NonNull final PresetTextField field, @NonNull final String value, int maxLength) {
         final DialogRow row = (DialogRow) inflater.inflate(R.layout.tag_form_text_dialog_row, rowLayout, false);
         String key = field.getKey();
         String hint = field.getHint();

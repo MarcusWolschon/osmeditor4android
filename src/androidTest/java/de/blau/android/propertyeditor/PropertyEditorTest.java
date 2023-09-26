@@ -485,7 +485,7 @@ public class PropertyEditorTest {
         found = TestUtils.clickText(device, true, getTranslatedPresetItemName(main, "Restaurant"), true, false);
         assertTrue(found);
         
-        // apply optional tags and check that diaper tag isn't present
+        // apply optional tags 
         assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.tag_menu_apply_preset_with_optional), false, false));
         TestUtils.scrollTo("Wheelchair access details", false);
         
@@ -499,7 +499,7 @@ public class PropertyEditorTest {
         } catch (UiObjectNotFoundException e) {
             fail();
         }  
-
+        assertTrue(TestUtils.findText(device, false, "1234567890"));
         TestUtils.clickHome(device, true);
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
         device.waitForIdle();

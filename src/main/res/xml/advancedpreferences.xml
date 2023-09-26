@@ -113,7 +113,7 @@
             app:spt_currentValueText="@string/config_maxInlineValues_current"
             app:spt_setWrapSelectorWheel="false" />
         <ch.poole.android.numberpickerpreference.NumberPickerPreference
-            android:defaultValue="255"
+            android:defaultValue="80"
             android:dialogTitle="@string/config_longStringLimit_title"
             android:key="@string/config_longStringLimit_key"
             android:numeric="integer"

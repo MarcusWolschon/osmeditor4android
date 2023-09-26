@@ -1,5 +1,8 @@
 package de.blau.android.propertyeditor.tagform;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 public interface KeyValueRow {
 
     /**
@@ -7,6 +10,7 @@ public interface KeyValueRow {
      * 
      * @return the key as a String
      */
+    @NonNull
     String getKey();
     
     /**
@@ -14,5 +18,10 @@ public interface KeyValueRow {
      * 
      * @return the current value as a String
      */
+    @Nullable
     String getValue();
+    
+    default boolean hasKey(@Nullable String key) {
+        return getKey().equals(key);
+    }
 }
