@@ -1,5 +1,10 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+19.2.2:
+
+- Fix find all editable rows
+- Fix return if file already exists
+
 19.2.1:
 
 - Fix catch NetworkOnMainThreadException when reading or saving files
