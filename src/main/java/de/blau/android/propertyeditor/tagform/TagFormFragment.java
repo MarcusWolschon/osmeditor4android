@@ -1222,12 +1222,15 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         LinearLayout ll = (LinearLayout) sv.findViewById(R.id.form_container_layout);
         if (ll != null) {
             int pos = 0;
-            while (ll.getChildAt(pos) instanceof EditableLayout && pos < ll.getChildCount()) {
-                EditableLayout ll2 = (EditableLayout) ll.getChildAt(pos);
-                for (int i = ll2.getChildCount() - 1; i >= 0; --i) {
-                    View v = ll2.getChildAt(i);
-                    if ((v instanceof TextRow && ((TextRow) v).getKey().equals(key)) || (v instanceof DialogRow && ((DialogRow) v).getKey().equals(key))) {
-                        return v;
+            while (pos < ll.getChildCount()) {
+                final View child = ll.getChildAt(pos);
+                if (child instanceof LinearLayout) {
+                    LinearLayout ll2 = (LinearLayout) child;
+                    for (int i = ll2.getChildCount() - 1; i >= 0; --i) {
+                        View v = ll2.getChildAt(i);
+                        if ((v instanceof TextRow || v instanceof DialogRow) && ((KeyValueRow) v).getKey().equals(key)) {
+                            return v;
+                        }
                     }
                 }
                 pos++;
