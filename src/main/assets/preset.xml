@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.16.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,building:part,cemetery,club,disused:amenity,disused:leisure,disused:man_made,golf,hazard,noexit,disused:shop,ford,indoor,playground,police,public_transport,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,telecom,mountain_pass,marker">
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.17.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,disc_golf,disused:amenity,disused:leisure,disused:man_made,disused:shop,golf,ford,hazard,noexit,indoor,playground,pipeline,police,public_transport,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom">
 <!--
     Icons have been derived from mainly from
   
@@ -833,9 +833,12 @@
             <list_entry value="croquet" display_value="Croquet"/>
             <list_entry value="cycling" display_value="Cycling"/>
             <list_entry value="dog_racing" display_value="Dog racing"/>
+            <list_entry value="disc_golf" display_value="Disc golf"/>
             <list_entry value="equestrian" display_value="Equestrian"/>
             <list_entry value="field_hockey" display_value="Field hockey"/>
             <list_entry value="fitness" display_value="Fitness"/>
+            <list_entry value="free_flying" display_value="Free flying"/>
+            <list_entry value="futsal" display_value="Futsal"/>
             <list_entry value="gaelic_games" display_value="Gaelic games"/>
             <list_entry value="golf" display_value="Golf"/>
             <list_entry value="gymnastics" display_value="Gymnastics"/>
@@ -844,6 +847,7 @@
             <list_entry value="horseshoes" display_value="Horseshoes"/>
             <list_entry value="ice_hockey" display_value="Ice hockey"/>
             <list_entry value="ice_skating" display_value="Ice skating"/>
+            <list_entry value="ice_stock" display_value="Ice stock"/>
             <list_entry value="karting" display_value="Karting"/>
             <list_entry value="martial_arts" display_value="Martial arts"/>
             <list_entry value="model_aerodrome" display_value="Model aerodrome"/>
@@ -851,6 +855,8 @@
             <list_entry value="motor" display_value="Motor"/>
             <list_entry value="multi" display_value="Multiple"/>
             <list_entry value="netball" display_value="Netball"/>
+            <list_entry value="orienteering" display_value="Orienteering"/>
+            <list_entry value="padel" display_value="Padel"/>
             <list_entry value="pelota" display_value="Pelota"/>
             <list_entry value="racquet" display_value="Racquet"/>
             <list_entry value="rc_car" display_value="RC car"/>
@@ -860,12 +866,15 @@
             <list_entry value="rugby_union" display_value="Rugby union"/>
             <list_entry value="running" display_value="Running"/>
             <list_entry value="safety_training" display_value="Safety training"/>
+            <list_entry value="scuba_diving" display_value="Scuba diving"/>
             <list_entry value="shooting" display_value="Shooting"/>
             <list_entry value="shuffleboard" display_value="Shuffleboard"/>
             <list_entry value="skateboard" display_value="Skateboard"/>
             <list_entry value="skating" display_value="Skating"/>
+            <list_entry value="skiing" display_value="Skiing"/>
             <list_entry value="softball" display_value="Softball"/>
             <list_entry value="soccer" display_value="Soccer"/>
+            <list_entry value="speedway" display_value="Speedway"/>
             <list_entry value="swimming" display_value="Swimming"/>
             <list_entry value="table_tennis" display_value="Table tennis"/>
             <list_entry value="tennis" display_value="Tennis"/>
@@ -1478,6 +1487,43 @@
             <list_entry value="across" display_value="Across"/>
         </combo>
         <reference ref="roof_main"/>
+        <optional>
+            <multiselect key="building:architecture" text="Architectural style">
+                <list_entry value="romanesque" display_value="Romanesque architecture"/>
+                <list_entry value="gothic" display_value="Gothic architecture"/>
+                <list_entry value="renaissance" display_value="Renaissance architecture"/>
+                <list_entry value="mannerism" display_value="Mannerism"/>
+                <list_entry value="ottoman" display_value="Ottoman architecture"/>
+                <list_entry value="baroque" display_value="Baroque architecture"/>
+                <list_entry value="rococo" display_value="Rococo"/>
+                <list_entry value="empire" display_value="Empire style"/>
+                <list_entry value="moorish revival" display_value="Moorish revival"/>
+                <list_entry value="neoclassicism" display_value="Neoclassical architecture"/>
+                <list_entry value="georgian" display_value="Georgian architecture"/>
+                <list_entry value="victorian" display_value="Victorian architecture"/>
+                <list_entry value="historicism" display_value="Historicism (art)"/>
+                <list_entry value="neo-romanesque" display_value="Romanesque Revival architecture"/>
+                <list_entry value="neo-byzantine" display_value="Byzantine Revival architecture"/>
+                <list_entry value="neo-gothic" display_value="Gothic Revival architecture"/>
+                <list_entry value="neo-renaissance" display_value="Renaissance Revival architecture"/>
+                <list_entry value="neo-baroque" display_value="Baroque Revival architecture"/>
+                <list_entry value="art_nouveau" display_value="Art Nouveau"/>
+                <list_entry value="eclectic" display_value="Eclecticism in architecture"/>
+                <list_entry value="functionalism" display_value="Functionalism"/>
+                <list_entry value="cubism" display_value="Cubism"/>
+                <list_entry value="new_objectivity" display_value="New Objectivity"/>
+                <list_entry value="art_deco" display_value="Art Deco"/>
+                <list_entry value="modern" display_value="Modern architecture"/>
+                <list_entry value="amsterdam_school" display_value="Amsterdam School"/>
+                <list_entry value="international_style" display_value="International Style"/>
+                <list_entry value="constructivism" display_value="Constructivism"/>
+                <list_entry value="stalinist_neoclassicism" display_value="Stalinist architecture"/>
+                <list_entry value="brutalist" display_value="Brutalist architecture"/>
+                <list_entry value="postmodern" display_value="Postmodern architecture"/>
+                <list_entry value="contemporary" display_value="Contemporary architecture"/>
+                <list_entry value="vernacular" display_value="Vernacular architecture"/> 
+            </multiselect>
+        </optional>
     </chunk>
     <chunk id="education_operator_type">
         <combo key="operator:type" text="Operator type" values="public,private,religious" display_values="Public,Private,Religious" values_context="operator"/>
@@ -2543,6 +2589,7 @@
             <optional>
                 <reference ref="name"/>
                 <reference ref="surface_smoothness"/>
+                <check key="informal" text="Informal" disable_off="true"/>
                 <reference ref="highway_additional_oneway_lit_width"/>
                 <combo key="sac_scale" text="SAC Scale" values_searchable="true" values_sort="false">
                     <list_entry value="hiking" display_value="T1 - hiking trail" short_description="Trail well cleared. Area flat or slightly sloped, no fall hazard"/>
@@ -3329,6 +3376,12 @@
             <reference ref="check_access_nomotor"/>
             <preset_link preset_name="Access Restrictions"/>
         </item> <!-- Full-Height Turnstile -->
+        <item name="Wicket gate" icon="icons/png/barrier_empty.png" type="node" preset_name_label="true">
+            <link wiki="Tag:barrier=wicket_gate"/>
+            <key key="barrier" value="wicket_gate"/>
+            <reference ref="optional_maxwidth"/>
+            <reference ref="check_access_nomotor"/>
+        </item> <!-- Turnstile -->
         <item name="Sally Port" icon="icons/png/highway_sally_port_13031.png" type="node" preset_name_label="true">
             <link wiki="Tag:barrier=sally_port"/>
             <key key="barrier" value="sally_port"/>
@@ -3583,487 +3636,489 @@
     </item> <!-- Street area -->
     </group> <!-- Highways -->
     <group name="Water" icon="icons/png/water_water_24008.png">
-    <group name="Water" icon="icons/png/water_water_24008.png">
-        <item name="River" icon="icons/png/water_waterway_sp.png" type="way" preset_name_label="true">
-            <link wiki="Tag:waterway=river"/>
-            <space/>
-            <key key="waterway" value="river"/>
-            <text key="name" text="Name"/>
-            <optional>
-                <reference ref="waterway_wikipedia"/>
-                <check key="lock" text="Lock" disable_off="true"/>
-            </optional>
-            <reference ref="water_access"/>
-            <preset_link preset_name="No name"/>
-        </item> <!-- River -->
-        <item name="Stream" icon="icons/png/water_waterway_thin_sp.png" type="way" preset_name_label="true">
-            <link wiki="Tag:waterway=stream"/>
-            <space/>
-            <key key="waterway" value="stream"/>
-            <text key="name" text="Name"/>
-            <optional>
-                <reference ref="waterway_wikipedia"/>
-            </optional>
-            <reference ref="water_access"/>
-            <preset_link preset_name="No name"/>
-        </item> <!-- Stream -->
-        <item name="Tidal channel" icon="" type="way" preset_name_label="true">
-            <link wiki="Tag:waterway=tidal_channel"/>
-            <space/>
-            <key key="waterway" value="tidal_channel"/>
-            <optional>
-                <text key="name" text="Name"/>
-                <check key="salt" text="Salt Water" disable_off="true"/>
-                <check key="intermittent" text="Intermittent" disable_off="true"/>
-                <check key="seasonal" text="Seasonal" disable_off="true"/>
-                <text key="width" text="Width (meters)" value_type="dimension_horizontal"/>
-                <reference ref="waterway_wikipedia"/>
-            </optional>
-        </item> <!-- Tidal channel -->
-        <item name="Canal" icon="icons/png/water_canal_34001.png" type="way" preset_name_label="true">
-            <link wiki="Tag:waterway=canal"/>
-            <space/>
-            <key key="waterway" value="canal"/>
-            <text key="name" text="Name"/>
-            <optional>
-                <combo key="usage" text="Usage" values="transportation,transmission,irrigation,headrace,tailrace,spillway" display_values="Transportation,Transmission,Irrigation,Headrace,Tailrace,Spillway" values_context="usage"/>
-                <reference ref="waterway_wikipedia"/>
-                <check key="lock" text="Lock" disable_off="true"/>
-            </optional>
-            <reference ref="water_access"/>
-            <preset_link preset_name="No name"/>
-        </item> <!-- Canal -->
-        <item name="Drain" icon="icons/png/water_waterway_thin_sp.png" type="way" preset_name_label="true">
-            <link wiki="Tag:waterway=drain"/>
-            <space/>
-            <key key="waterway" value="drain"/>
-            <optional>
-                <text key="name" text="Name"/>
-                <reference ref="waterway"/>
-            </optional>
-        </item> <!-- Drain -->
-        <item name="Ditch" icon="icons/png/water_waterway_thin_sp.png" type="way" preset_name_label="true">
-            <link wiki="Tag:waterway=ditch"/>
-            <space/>
-            <key key="waterway" value="ditch"/>
-            <optional>
-                <text key="name" text="Name"/>
-                <reference ref="waterway"/>
-            </optional>
-        </item> <!-- Ditch -->
-        <separator/>
-        <item name="Spring" icon="icons/png/water_spring_24021.png" type="node,closedway" preset_name_label="true">
-            <link wiki="Tag:natural=spring"/>
-            <space/>
-            <label text="A point where groundwater naturally flows to the surface of the earth from underground."/>
-            <space/>
-            <key key="natural" value="spring"/>
-            <text key="name" text="Name"/>
-            <check key="drinking_water" text="Drinking Water" disable_off="true"/>
-            <preset_link preset_name="No name"/>
-        </item> <!-- Spring -->
-        <item name="Waterfall" icon="icons/png/water_waterfall_24009.png" type="node,way" preset_name_label="true">
-            <link wiki="Tag:waterway=waterfall"/>
-            <space/>
-            <key key="waterway" value="waterfall"/>
-            <reference ref="name_wikipedia"/>
-            <text key="height" text="Height (meters)" length="7" value_type="dimension_vertical"/>
-        </item> <!-- Waterfall -->
-        <item name="Weir" icon="icons/png/water_weir.png" type="node,way" preset_name_label="true">
-            <link wiki="Tag:waterway=weir"/>
-            <space/>
-            <key key="waterway" value="weir"/>
-            <reference ref="optional_name_wikipedia"/>
-        </item> <!-- Weir -->
-        <item name="Dam" icon="icons/png/water_dam.png" type="node,way,closedway,multipolygon" preset_name_label="true">
-            <link wiki="Tag:waterway=dam"/>
-            <space/>
-            <key key="waterway" value="dam"/>
-            <reference ref="name_wikipedia"/>
-        </item> <!-- Dam -->
-        <item name="Fish pass" icon="icons/png/water_fish_29063.png" type="node,way" preset_name_label="true">
-            <link wiki="Tag:waterway=fish_pass"/>
-            <space/>
-            <key key="waterway" value="fish_pass"/>
-            <reference ref="optional_name"/>
-            <check key="tunnel" text="Tunnel" disable_off="true"/>
-            <text key="width" text="Width (Meters)" value_type="dimension_horizontal"/>
-            <check key="seasonal" text="Seasonal"/>
-        </item> <!-- Fish pass -->
-        <item name="Groyne" icon="icons/png/water_groyne_34006.png" type="way,closedway,multipolygon" preset_name_label="true">
-            <link wiki="Tag:man_made=groyne"/>
-            <key key="man_made" value="groyne"/>
-        </item> <!-- Groyne -->
-        <item name="Breakwater" icon="icons/png/water_breakwater_22004.png" type="way,closedway,multipolygon" preset_name_label="true">
-            <link wiki="Tag:man_made=breakwater"/>
-            <space/>
-            <key key="man_made" value="breakwater"/>
-            <text key="ref" text="Reference"/>
-            <text key="name" text="Name"/>
-            <preset_link preset_name="No name"/>
-        </item> <!-- Breakwater -->
-        <separator/>
-        <item name="Culvert" icon="icons/png/water_tunnel_sp.png" type="way" preset_name_label="true">
-            <link wiki="Tag:tunnel=culvert"/>
-            <key key="tunnel" value="culvert"/>
-            <optional>
-                <text key="name" text="Name"/>
-                <combo key="layer" text="Layer" values="5,4,3,2,1,0,-1,-2,-3,-4,-5" default="-1" length="3" match="none" editable="true"/>
-                <text key="width" text="Width (meters)" value_type="dimension_horizontal"/>
-            </optional>
-        </item> <!-- Culvert -->
-        <item name="Penstock" icon="" type="way" preset_name_label="true">
-            <link wiki="Tag:usage=penstock"/>
-            <key key="waterway" value="pressurised"/>
-            <key key="man_made" value="pipeline"/>
-            <key key="substance" value="water"/>
-            <key key="usage" value="penstock"/>
-            <combo key="location" text="Location" values="overground,overhead,surface,underground,underwater" display_values="Overground,Overhead,Surface,Underground,Underwater" values_context="pipeline"/>
-            <optional>
-                <reference ref="name_operator"/>
-                <combo key="diameter" text="Diameter (mm)" values="800,1000,1200,1500,1600,1800,2200,2300,2400,2500,2600,2800,3200,3300,3400,3500,4000,4200,4300,4800"/>
-                <text key="pressure" text="Pressure (bar)"/>
-                <text key="flow_rate" text="Flow rate with unit of measure"/>
-                <combo key="material" text="Material" values="metal,steel" display_values="Metal,Steel"/>
-            </optional>
-        </item> <!-- Penstock -->
-        <separator/>
-        <item name="Basin" icon="icons/png/water_waterbody_shallow.png" type="node,closedway,multipolygon" preset_name_label="true">
-            <link wiki="Tag:landuse=basin"/>
-            <space/>
-            <key key="landuse" value="basin"/>
-            <combo key="basin" text="Type" values="infiltration,detention,retention" display_values="Infiltration,Detention,Retention" match="key" values_searchable="true"/>
-            <reference ref="optional_name"/>
-        </item> <!-- Basin -->
-        <item name="Reservoir" icon="icons/png/water_reservoir_22110.png" type="node,closedway,multipolygon" preset_name_label="true">
-            <link wiki="Tag:natural=water"/>
-            <space/>
-            <key key="natural" value="water"/>
-            <key key="water" value="reservoir"/>
-            <combo key="reservoir_type" text="Type" values="evaporator,sewage,tailings,water_storage" display_values="Evaporator,Sewage,Tailings,Water storage"/>
-            <reference ref="optional_name"/>
-        </item> <!-- Reservoir -->
-        <item name="Reservoir" icon="icons/png/water_reservoir_22110.png" type="node,closedway,multipolygon" deprecated="true" preset_name_label="true">
-            <link wiki="Tag:landuse=reservoir"/>
-            <space/>
-            <key key="landuse" value="reservoir"/>
-            <combo key="reservoir_type" text="Type" values="evaporator,sewage,tailings,water_storage" display_values="Evaporator,Sewage,Tailings,Water storage"/>
-            <reference ref="optional_name"/>
-        </item> <!-- Reservoir -->
-        <item name="Covered Reservoir" icon="icons/png/water_reservoir_covered_22048.png" type="node,closedway,multipolygon" preset_name_label="true">
-            <link wiki="Tag:man_made=reservoir_covered"/>
-            <space/>
-            <key key="man_made" value="reservoir_covered"/>
-            <reference ref="optional_name"/>
-        </item> <!-- Covered Reservoir -->
-        <separator/>
-        <item name="Lake" name_context="natural" icon="icons/png/water_waterbody.png" type="closedway,multipolygon" preset_name_label="true">
-            <link wiki="Tag:natural=water"/>
-            <key key="natural" value="water"/>
-            <key key="water" value="lake"/>
-            <text key="name" text="Name"/>  
-            <space/>        
-            <reference ref="water_body"/>
-        </item> <!-- Lake -->
-        <item name="Lagoon" name_context="natural" icon="icons/png/water_waterbody.png" type="closedway,multipolygon" preset_name_label="true">
-            <link wiki="Tag:natural=water"/>
-            <key key="natural" value="water"/>
-            <key key="water" value="lagoon"/>
-            <text key="name" text="Name"/>  
-            <space/>
-            <reference ref="water_body"/>
-        </item> <!-- Lagoon -->
-        <item name="Pond" name_context="natural" icon="icons/png/water_pond_17021.png" type="closedway,multipolygon" preset_name_label="true">
-            <link wiki="Tag:natural=water"/>
-            <key key="natural" value="water"/>
-            <key key="water" value="pond"/>
-            <text key="name" text="Name"/>
-            <space/>
-            <reference ref="water_body"/>
-        </item> <!-- Pond -->
-        <item name="Tailings Pond" icon="" type="closedway,multipolygon" preset_name_label="true">
-            <link wiki="Tag:man_made=tailings_pond"/>
-            <key key="man_made" value="tailings_pond"/>
-            <space/>
-            <reference ref="intermittent"/>
-            <check key="hazard" text="Contaminated" value_on="contamination" disable_off="true"/>
-        </item> <!-- Pond -->
-        <item name="Other waterbodies" name_context="natural" icon="icons/png/water_waterbody.png" type="closedway,multipolygon" preset_name_label="true">
-            <link wiki="Tag:natural=water"/>
-            <key key="natural" value="water"/>
-            <space/>
-            <label text="A body of water, such as a lake or pond."/>
-            <reference ref="optional_name"/>
-            <combo key="water" text="Waterbody" match="key" values_searchable="true">
-                <list_entry value="stream" display_value="Stream" icon=""/>
-                <list_entry value="river" display_value="River" icon=""/>
-                <list_entry value="canal" display_value="Canal" icon=""/>
-                <list_entry value="drain" display_value="Drain" icon=""/>
-                <list_entry value="ditch" display_value="Ditch" icon=""/>
-                <list_entry value="pond" display_value="Pond"/>
-                <list_entry value="lake" display_value="Lake"/>
-                <list_entry value="lagoon" display_value="Lagoon"/>
-                <list_entry value="moat" display_value="Moat"/>
-                <list_entry value="oxbow" display_value="Oxbow"/>
-                <list_entry value="lock" display_value="Lock" icon=""/>
-                <list_entry value="basin" display_value="Basin" icon=""/>
-                <list_entry value="reservoir" display_value="Reservoir" icon=""/>
-                <list_entry value="fish_pass" display_value="Fish pass"/>
-                <list_entry value="wastewater" display_value="Wastewater"/>
-                <list_entry value="reflecting_pool" display_value="Reflecting pool"/>
-                <list_entry value="stream_pool" display_value="Stream pool"/>
-            </combo>
-            <reference ref="water_body"/>
-        </item> <!-- Other water bodies -->
-        <item name="Coastline" icon="presets/coastline.png" type="way,closedway" preset_name_label="true">
-            <link wiki="Tag:natural=coastline"/>
-            <space/>
-            <label text="Line between the sea and land (with the water on the right side of the way)."/>
-            <space/>
-            <key key="natural" value="coastline"/>
-            <reference ref="optional_name_wikipedia"/>
-        </item> <!-- Coastline -->
-        <item name="Riverbank" icon="presets/waterway.png" type="closedway,multipolygon" preset_name_label="true" deprecated="true">
-            <link wiki="Tag:waterway=riverbank"/>
-            <space/>
-            <key key="waterway" value="riverbank"/>
-            <reference ref="optional_name"/>
-            <check key="intermittent" text="Intermittent (doesn't permanently contain water)" disable_off="true"/>
-        </item> <!-- Riverbank -->
-        <separator/>
-        <item name="Wetland" icon="icons/png/landuse_swamp.png" type="closedway,multipolygon" preset_name_label="true">
-            <link wiki="Tag:natural=wetland"/>
-            <space/>
-            <label text="Waterlogged area, either permanently or seasonally with vegetation."/>
-            <space/>
-            <key key="natural" value="wetland"/>
-            <reference ref="optional_name"/>
-            <combo key="wetland" text="Type" values_searchable="true">
-                <list_entry value="bog" short_description="Bog"/>
-                <list_entry value="fen" short_description="Fen"/>
-                <list_entry value="mangrove" short_description="Mangrove"/>
-                <list_entry value="marsh" short_description="Marsh"/>
-                <list_entry value="reedbed" short_description="Reedbed"/>
-                <list_entry value="saltern" short_description="Saltern"/>
-                <list_entry value="saltmarsh" short_description="Saltmarsh"/>
-                <list_entry value="string_bog" short_description="String bog"/>
-                <list_entry value="swamp" short_description="Swamp"/>
-                <list_entry value="tidalflat" short_description="Tidalflat"/>
-                <list_entry value="wet_meadow" short_description="Wet meadow"/>
-            </combo>
-        </item> <!-- Wetland -->
-        <item name="Mud" icon="presets/mud.png" type="closedway,multipolygon" preset_name_label="true">
-            <link wiki="Tag:natural=mud"/>
-            <space/>
-            <label text="Large area covered with mud."/>
-            <space/>
-            <key key="natural" value="mud"/>
-            <reference ref="optional_name"/>
-        </item> <!-- Mud -->
-        <item name="Beach" icon="icons/png/tourist_beach.png" type="node,closedway,multipolygon" preset_name_label="true">
-            <link wiki="Tag:natural=beach"/>
-            <space/>
-            <label text="A flat area of sand, gravel or pebble next to water."/>
-            <space/>
-            <key key="natural" value="beach"/>
-            <reference ref="optional_name_wikipedia"/>
-            <optional>
-                <reference ref="supervised"/>
-                <reference ref="oh_wheelchair"/>
-                <reference ref="general_access"/>
-                <combo key="surface" text="Surface" values="gravel,pebblestone,sand" display_values="Gravel,Pebblestone,Sand"/>
-                <multiselect key="sport" text="Sport" values="swimming;surfing" display_values="Swimming;Surfing" rows="2"/>
-                <reference ref="nudism"/>
-            </optional>
-        </item> <!-- Beach -->
-        <item name="Bay" icon="presets/bay.png" type="node,way,closedway,multipolygon" preset_name_label="true">
-            <link wiki="Tag:natural=bay"/>
-            <space/>
-            <label text="An area of water mostly surrounded by land but with level connection to the ocean or a lake."/>
-            <space/>
-            <key key="natural" value="bay"/>
-            <optional>
-                <check key="bay" text="Fjord" value_on="fjord" disable_off="true"/>
-            </optional>
-            <reference ref="optional_name_wikipedia"/>
-        </item> <!-- Bay -->
-        <item name="Cape" icon="icons/png/natural_empty.png" type="node,closedway,multipolygon" preset_name_label="true">
-            <link wiki="Tag:natural=cape"/>
-            <space/>
-            <label text="A prominent, elevated piece of land sticking out into the sea or large lake."/>
-            <space/>
-            <key key="natural" value="cape"/>
-            <reference ref="optional_name_wikipedia"/>
-        </item> <!-- Cape -->
-        <item name="Strait" icon="icons/png/natural_empty.png" type="node,way,closedway,multipolygon" preset_name_label="true">
-            <link wiki="Tag:natural=strait"/>
-            <space/>
-            <key key="natural" value="strait"/>
-            <reference ref="optional_name_wikipedia"/>
-        </item> <!-- Strait -->
-    </group> <!-- Water -->
-    <group name="Shipping" icon="icons/png/water_ferry_terminal_12048.png">
-        <item name="Ferry Terminal" icon="icons/png/water_ferry_terminal_12048.png" type="node,closedway,multipolygon" preset_name_label="true">
-            <link wiki="Tag:amenity=ferry_terminal"/>
-            <space/>
-            <key key="amenity" value="ferry_terminal"/>
-            <text key="name" text="Name"/>
-            <combo key="cargo" text="Cargo" values="passengers,vehicle,bicycle,hgv,passengers;vehicle" values_context="cargo"/>
-            <preset_link preset_name="No name"/>
-        </item> <!-- Ferry Terminal -->
-        <item name="Ferry Route" icon="icons/png/water_route_sp.png" type="way,closedway,relation" preset_name_label="true" name_template="Ferry ({operator} ?{'{name} ' | ''}{ref} ?{'{from} - {via} - {to}' | '{from} - {to}' | '{from}' | '{to}'})">
-            <link wiki="Tag:route=ferry"/>
-            <key key="route" value="ferry"/>
-            <optional>
-                <reference ref="name_ref_operator"/>
-                <reference ref="oh_wheelchair"/>
+        <group name="Water" icon="icons/png/water_water_24008.png">
+            <item name="River" icon="icons/png/water_waterway_sp.png" type="way" preset_name_label="true">
+                <link wiki="Tag:waterway=river"/>
                 <space/>
-                <combo key="ferry" text="Highway type connected" values="trunk,primary,secondary,tertiary,unclassified" values_context="Highway" values_sort="false"/>
-                <check key="ferry:cable" text="Reaction ferry"/>
-                <reference ref="public_transport_route_optionals_2"/>
-            </optional>
-            <reference ref="road_access_restrictions"/>
-        </item> <!-- Ferry Route -->
-        <separator/>
-        <item name="Marina" icon="icons/png/transport_marina.png" type="node,closedway,multipolygon" preset_name_label="true">
-            <link wiki="Tag:leisure=marina"/>
-            <space/>
-            <key key="leisure" value="marina"/>
-            <text key="name" text="Name"/>
-            <reference ref="sanitary_dump_station"/>
-            <preset_link preset_name="No name"/>
-        </item> <!-- Marina -->
-        <item name="Marine Fuel" icon="icons/png/transport_fuel.png" type="node,closedway,multipolygon" preset_name_label="true">
-            <link wiki="Tag:waterway=fuel"/>
-            <space/>
-            <key key="waterway" value="fuel"/>
-            <optional>
-                <combo key="brand" text="Brand" values="Agip,Aral,Avia,BP,Chevron,Citgo,Eni,Esso,Exxon,Gulf,Mobil,OMV,Petro-Canada,Pioneer,Q8,Repsol,Shell,Socar,Statoil,Sunoco,Tamoil,Texaco,Total,Independent" values_searchable="true"/>
+                <key key="waterway" value="river"/>
+                <text key="name" text="Name"/>
+                <optional>
+                    <reference ref="waterway_wikipedia"/>
+                    <check key="lock" text="Lock" disable_off="true"/>
+                </optional>
+                <reference ref="water_access"/>
+                <preset_link preset_name="No name"/>
+            </item> <!-- River -->
+            <item name="Stream" icon="icons/png/water_waterway_thin_sp.png" type="way" preset_name_label="true">
+                <link wiki="Tag:waterway=stream"/>
+                <space/>
+                <key key="waterway" value="stream"/>
+                <text key="name" text="Name"/>
+                <optional>
+                    <check key="intermittent" text="Intermittent" disable_off="true"/>
+                    <check key="seasonal" text="Seasonal" disable_off="true"/>
+                    <reference ref="waterway_wikipedia"/>
+                </optional>
+                <reference ref="water_access"/>
+                <preset_link preset_name="No name"/>
+            </item> <!-- Stream -->
+            <item name="Tidal channel" icon="" type="way" preset_name_label="true">
+                <link wiki="Tag:waterway=tidal_channel"/>
+                <space/>
+                <key key="waterway" value="tidal_channel"/>
+                <optional>
+                    <text key="name" text="Name"/>
+                    <check key="salt" text="Salt Water" disable_off="true"/>
+                    <check key="intermittent" text="Intermittent" disable_off="true"/>
+                    <check key="seasonal" text="Seasonal" disable_off="true"/>
+                    <text key="width" text="Width (meters)" value_type="dimension_horizontal"/>
+                    <reference ref="waterway_wikipedia"/>
+                </optional>
+            </item> <!-- Tidal channel -->
+            <item name="Canal" icon="icons/png/water_canal_34001.png" type="way" preset_name_label="true">
+                <link wiki="Tag:waterway=canal"/>
+                <space/>
+                <key key="waterway" value="canal"/>
+                <text key="name" text="Name"/>
+                <optional>
+                    <combo key="usage" text="Usage" values="transportation,transmission,irrigation,headrace,tailrace,spillway" display_values="Transportation,Transmission,Irrigation,Headrace,Tailrace,Spillway" values_context="usage"/>
+                    <reference ref="waterway_wikipedia"/>
+                    <check key="lock" text="Lock" disable_off="true"/>
+                </optional>
+                <reference ref="water_access"/>
+                <preset_link preset_name="No name"/>
+            </item> <!-- Canal -->
+            <item name="Drain" icon="icons/png/water_waterway_thin_sp.png" type="way" preset_name_label="true">
+                <link wiki="Tag:waterway=drain"/>
+                <space/>
+                <key key="waterway" value="drain"/>
+                <optional>
+                    <text key="name" text="Name"/>
+                    <reference ref="waterway"/>
+                </optional>
+            </item> <!-- Drain -->
+            <item name="Ditch" icon="icons/png/water_waterway_thin_sp.png" type="way" preset_name_label="true">
+                <link wiki="Tag:waterway=ditch"/>
+                <space/>
+                <key key="waterway" value="ditch"/>
+                <optional>
+                    <text key="name" text="Name"/>
+                    <reference ref="waterway"/>
+                </optional>
+            </item> <!-- Ditch -->
+            <separator/>
+            <item name="Spring" icon="icons/png/water_spring_24021.png" type="node,closedway" preset_name_label="true">
+                <link wiki="Tag:natural=spring"/>
+                <space/>
+                <label text="A point where groundwater naturally flows to the surface of the earth from underground."/>
+                <space/>
+                <key key="natural" value="spring"/>
+                <text key="name" text="Name"/>
+                <check key="drinking_water" text="Drinking Water" disable_off="true"/>
+                <preset_link preset_name="No name"/>
+            </item> <!-- Spring -->
+            <item name="Waterfall" icon="icons/png/water_waterfall_24009.png" type="node,way" preset_name_label="true">
+                <link wiki="Tag:waterway=waterfall"/>
+                <space/>
+                <key key="waterway" value="waterfall"/>
+                <reference ref="name_wikipedia"/>
+                <text key="height" text="Height (meters)" length="7" value_type="dimension_vertical"/>
+            </item> <!-- Waterfall -->
+            <item name="Weir" icon="icons/png/water_weir.png" type="node,way" preset_name_label="true">
+                <link wiki="Tag:waterway=weir"/>
+                <space/>
+                <key key="waterway" value="weir"/>
+                <reference ref="optional_name_wikipedia"/>
+            </item> <!-- Weir -->
+            <item name="Dam" icon="icons/png/water_dam.png" type="node,way,closedway,multipolygon" preset_name_label="true">
+                <link wiki="Tag:waterway=dam"/>
+                <space/>
+                <key key="waterway" value="dam"/>
+                <reference ref="name_wikipedia"/>
+            </item> <!-- Dam -->
+            <item name="Fish pass" icon="icons/png/water_fish_29063.png" type="node,way" preset_name_label="true">
+                <link wiki="Tag:waterway=fish_pass"/>
+                <space/>
+                <key key="waterway" value="fish_pass"/>
+                <reference ref="optional_name"/>
+                <check key="tunnel" text="Tunnel" disable_off="true"/>
+                <text key="width" text="Width (Meters)" value_type="dimension_horizontal"/>
+                <check key="seasonal" text="Seasonal"/>
+            </item> <!-- Fish pass -->
+            <item name="Groyne" icon="icons/png/water_groyne_34006.png" type="way,closedway,multipolygon" preset_name_label="true">
+                <link wiki="Tag:man_made=groyne"/>
+                <key key="man_made" value="groyne"/>
+            </item> <!-- Groyne -->
+            <item name="Breakwater" icon="icons/png/water_breakwater_22004.png" type="way,closedway,multipolygon" preset_name_label="true">
+                <link wiki="Tag:man_made=breakwater"/>
+                <space/>
+                <key key="man_made" value="breakwater"/>
+                <text key="ref" text="Reference"/>
+                <text key="name" text="Name"/>
+                <preset_link preset_name="No name"/>
+            </item> <!-- Breakwater -->
+            <separator/>
+            <item name="Culvert" icon="icons/png/water_tunnel_sp.png" type="way" preset_name_label="true">
+                <link wiki="Tag:tunnel=culvert"/>
+                <key key="tunnel" value="culvert"/>
+                <optional>
+                    <text key="name" text="Name"/>
+                    <combo key="layer" text="Layer" values="5,4,3,2,1,0,-1,-2,-3,-4,-5" default="-1" length="3" match="none" editable="true"/>
+                    <text key="width" text="Width (meters)" value_type="dimension_horizontal"/>
+                </optional>
+            </item> <!-- Culvert -->
+            <item name="Penstock" icon="" type="way" preset_name_label="true">
+                <link wiki="Tag:usage=penstock"/>
+                <key key="waterway" value="pressurised"/>
+                <key key="man_made" value="pipeline"/>
+                <key key="substance" value="water"/>
+                <key key="usage" value="penstock"/>
+                <combo key="location" text="Location" values="overground,overhead,surface,underground,underwater" display_values="Overground,Overhead,Surface,Underground,Underwater" values_context="pipeline"/>
+                <optional>
+                    <reference ref="name_operator"/>
+                    <combo key="diameter" text="Diameter (mm)" values="800,1000,1200,1500,1600,1800,2200,2300,2400,2500,2600,2800,3200,3300,3400,3500,4000,4200,4300,4800"/>
+                    <text key="pressure" text="Pressure (bar)"/>
+                    <text key="flow_rate" text="Flow rate with unit of measure"/>
+                    <combo key="material" text="Material" values="metal,steel" display_values="Metal,Steel"/>
+                </optional>
+            </item> <!-- Penstock -->
+            <separator/>
+            <item name="Basin" icon="icons/png/water_waterbody_shallow.png" type="node,closedway,multipolygon" preset_name_label="true">
+                <link wiki="Tag:landuse=basin"/>
+                <space/>
+                <key key="landuse" value="basin"/>
+                <combo key="basin" text="Type" values="infiltration,detention,retention" display_values="Infiltration,Detention,Retention" match="key" values_searchable="true"/>
+                <reference ref="optional_name"/>
+            </item> <!-- Basin -->
+            <item name="Reservoir" icon="icons/png/water_reservoir_22110.png" type="node,closedway,multipolygon" preset_name_label="true">
+                <link wiki="Tag:natural=water"/>
+                <space/>
+                <key key="natural" value="water"/>
+                <key key="water" value="reservoir"/>
+                <combo key="reservoir_type" text="Type" values="evaporator,sewage,tailings,water_storage" display_values="Evaporator,Sewage,Tailings,Water storage"/>
+                <reference ref="optional_name"/>
+            </item> <!-- Reservoir -->
+            <item name="Reservoir" icon="icons/png/water_reservoir_22110.png" type="node,closedway,multipolygon" deprecated="true" preset_name_label="true">
+                <link wiki="Tag:landuse=reservoir"/>
+                <space/>
+                <key key="landuse" value="reservoir"/>
+                <combo key="reservoir_type" text="Type" values="evaporator,sewage,tailings,water_storage" display_values="Evaporator,Sewage,Tailings,Water storage"/>
+                <reference ref="optional_name"/>
+            </item> <!-- Reservoir -->
+            <item name="Covered Reservoir" icon="icons/png/water_reservoir_covered_22048.png" type="node,closedway,multipolygon" preset_name_label="true">
+                <link wiki="Tag:man_made=reservoir_covered"/>
+                <space/>
+                <key key="man_made" value="reservoir_covered"/>
+                <reference ref="optional_name"/>
+            </item> <!-- Covered Reservoir -->
+            <separator/>
+            <item name="Lake" name_context="natural" icon="icons/png/water_waterbody.png" type="closedway,multipolygon" preset_name_label="true">
+                <link wiki="Tag:natural=water"/>
+                <key key="natural" value="water"/>
+                <key key="water" value="lake"/>
+                <text key="name" text="Name"/>  
+                <space/>        
+                <reference ref="water_body"/>
+            </item> <!-- Lake -->
+            <item name="Lagoon" name_context="natural" icon="icons/png/water_waterbody.png" type="closedway,multipolygon" preset_name_label="true">
+                <link wiki="Tag:natural=water"/>
+                <key key="natural" value="water"/>
+                <key key="water" value="lagoon"/>
+                <text key="name" text="Name"/>  
+                <space/>
+                <reference ref="water_body"/>
+            </item> <!-- Lagoon -->
+            <item name="Pond" name_context="natural" icon="icons/png/water_pond_17021.png" type="closedway,multipolygon" preset_name_label="true">
+                <link wiki="Tag:natural=water"/>
+                <key key="natural" value="water"/>
+                <key key="water" value="pond"/>
+                <text key="name" text="Name"/>
+                <space/>
+                <reference ref="water_body"/>
+            </item> <!-- Pond -->
+            <item name="Tailings Pond" icon="" type="closedway,multipolygon" preset_name_label="true">
+                <link wiki="Tag:man_made=tailings_pond"/>
+                <key key="man_made" value="tailings_pond"/>
+                <space/>
+                <reference ref="intermittent"/>
+                <check key="hazard" text="Contaminated" value_on="contamination" disable_off="true"/>
+            </item> <!-- Pond -->
+            <item name="Other waterbodies" name_context="natural" icon="icons/png/water_waterbody.png" type="closedway,multipolygon" preset_name_label="true">
+                <link wiki="Tag:natural=water"/>
+                <key key="natural" value="water"/>
+                <space/>
+                <label text="A body of water, such as a lake or pond."/>
+                <reference ref="optional_name"/>
+                <combo key="water" text="Waterbody" match="key" values_searchable="true">
+                    <list_entry value="stream" display_value="Stream" icon=""/>
+                    <list_entry value="river" display_value="River" icon=""/>
+                    <list_entry value="canal" display_value="Canal" icon=""/>
+                    <list_entry value="drain" display_value="Drain" icon=""/>
+                    <list_entry value="ditch" display_value="Ditch" icon=""/>
+                    <list_entry value="pond" display_value="Pond"/>
+                    <list_entry value="lake" display_value="Lake"/>
+                    <list_entry value="lagoon" display_value="Lagoon"/>
+                    <list_entry value="moat" display_value="Moat"/>
+                    <list_entry value="oxbow" display_value="Oxbow"/>
+                    <list_entry value="lock" display_value="Lock" icon=""/>
+                    <list_entry value="basin" display_value="Basin" icon=""/>
+                    <list_entry value="reservoir" display_value="Reservoir" icon=""/>
+                    <list_entry value="fish_pass" display_value="Fish pass"/>
+                    <list_entry value="wastewater" display_value="Wastewater"/>
+                    <list_entry value="reflecting_pool" display_value="Reflecting pool"/>
+                    <list_entry value="stream_pool" display_value="Stream pool"/>
+                </combo>
+                <reference ref="water_body"/>
+            </item> <!-- Other water bodies -->
+            <item name="Coastline" icon="presets/coastline.png" type="way,closedway" preset_name_label="true">
+                <link wiki="Tag:natural=coastline"/>
+                <space/>
+                <label text="Line between the sea and land (with the water on the right side of the way)."/>
+                <space/>
+                <key key="natural" value="coastline"/>
+                <reference ref="optional_name_wikipedia"/>
+            </item> <!-- Coastline -->
+            <item name="Riverbank" icon="presets/waterway.png" type="closedway,multipolygon" preset_name_label="true" deprecated="true">
+                <link wiki="Tag:waterway=riverbank"/>
+                <space/>
+                <key key="waterway" value="riverbank"/>
+                <reference ref="optional_name"/>
+                <check key="intermittent" text="Intermittent (doesn't permanently contain water)" disable_off="true"/>
+            </item> <!-- Riverbank -->
+            <separator/>
+            <item name="Wetland" icon="icons/png/landuse_swamp.png" type="closedway,multipolygon" preset_name_label="true">
+                <link wiki="Tag:natural=wetland"/>
+                <space/>
+                <label text="Waterlogged area, either permanently or seasonally with vegetation."/>
+                <space/>
+                <key key="natural" value="wetland"/>
+                <reference ref="optional_name"/>
+                <combo key="wetland" text="Type" values_searchable="true">
+                    <list_entry value="bog" short_description="Bog"/>
+                    <list_entry value="fen" short_description="Fen"/>
+                    <list_entry value="mangrove" short_description="Mangrove"/>
+                    <list_entry value="marsh" short_description="Marsh"/>
+                    <list_entry value="reedbed" short_description="Reedbed"/>
+                    <list_entry value="saltern" short_description="Saltern"/>
+                    <list_entry value="saltmarsh" short_description="Saltmarsh"/>
+                    <list_entry value="string_bog" short_description="String bog"/>
+                    <list_entry value="swamp" short_description="Swamp"/>
+                    <list_entry value="tidalflat" short_description="Tidalflat"/>
+                    <list_entry value="wet_meadow" short_description="Wet meadow"/>
+                </combo>
+            </item> <!-- Wetland -->
+            <item name="Mud" icon="presets/mud.png" type="closedway,multipolygon" preset_name_label="true">
+                <link wiki="Tag:natural=mud"/>
+                <space/>
+                <label text="Large area covered with mud."/>
+                <space/>
+                <key key="natural" value="mud"/>
+                <reference ref="optional_name"/>
+            </item> <!-- Mud -->
+            <item name="Beach" icon="icons/png/tourist_beach.png" type="node,closedway,multipolygon" preset_name_label="true">
+                <link wiki="Tag:natural=beach"/>
+                <space/>
+                <label text="A flat area of sand, gravel or pebble next to water."/>
+                <space/>
+                <key key="natural" value="beach"/>
+                <reference ref="optional_name_wikipedia"/>
+                <optional>
+                    <reference ref="supervised"/>
+                    <reference ref="oh_wheelchair"/>
+                    <reference ref="general_access"/>
+                    <combo key="surface" text="Surface" values="gravel,pebblestone,sand" display_values="Gravel,Pebblestone,Sand"/>
+                    <multiselect key="sport" text="Sport" values="swimming;surfing" display_values="Swimming;Surfing" rows="2"/>
+                    <reference ref="nudism"/>
+                </optional>
+            </item> <!-- Beach -->
+            <item name="Bay" icon="presets/bay.png" type="node,way,closedway,multipolygon" preset_name_label="true">
+                <link wiki="Tag:natural=bay"/>
+                <space/>
+                <label text="An area of water mostly surrounded by land but with level connection to the ocean or a lake."/>
+                <space/>
+                <key key="natural" value="bay"/>
+                <optional>
+                    <check key="bay" text="Fjord" value_on="fjord" disable_off="true"/>
+                </optional>
+                <reference ref="optional_name_wikipedia"/>
+            </item> <!-- Bay -->
+            <item name="Cape" icon="icons/png/natural_empty.png" type="node,closedway,multipolygon" preset_name_label="true">
+                <link wiki="Tag:natural=cape"/>
+                <space/>
+                <label text="A prominent, elevated piece of land sticking out into the sea or large lake."/>
+                <space/>
+                <key key="natural" value="cape"/>
+                <reference ref="optional_name_wikipedia"/>
+            </item> <!-- Cape -->
+            <item name="Strait" icon="icons/png/natural_empty.png" type="node,way,closedway,multipolygon" preset_name_label="true">
+                <link wiki="Tag:natural=strait"/>
+                <space/>
+                <key key="natural" value="strait"/>
+                <reference ref="optional_name_wikipedia"/>
+            </item> <!-- Strait -->
+        </group> <!-- Water -->
+        <group name="Shipping" icon="icons/png/water_ferry_terminal_12048.png">
+            <item name="Ferry Terminal" icon="icons/png/water_ferry_terminal_12048.png" type="node,closedway,multipolygon" preset_name_label="true">
+                <link wiki="Tag:amenity=ferry_terminal"/>
+                <space/>
+                <key key="amenity" value="ferry_terminal"/>
+                <text key="name" text="Name"/>
+                <combo key="cargo" text="Cargo" values="passengers,vehicle,bicycle,hgv,passengers;vehicle" values_context="cargo"/>
+                <preset_link preset_name="No name"/>
+            </item> <!-- Ferry Terminal -->
+            <item name="Ferry Route" icon="icons/png/water_route_sp.png" type="way,closedway,relation" preset_name_label="true" name_template="Ferry ({operator} ?{'{name} ' | ''}{ref} ?{'{from} - {via} - {to}' | '{from} - {to}' | '{from}' | '{to}'})">
+                <link wiki="Tag:route=ferry"/>
+                <key key="route" value="ferry"/>
+                <optional>
+                    <reference ref="name_ref_operator"/>
+                    <reference ref="oh_wheelchair"/>
+                    <space/>
+                    <combo key="ferry" text="Highway type connected" values="trunk,primary,secondary,tertiary,unclassified" values_context="Highway" values_sort="false"/>
+                    <check key="ferry:cable" text="Reaction ferry"/>
+                    <reference ref="public_transport_route_optionals_2"/>
+                </optional>
+                <reference ref="road_access_restrictions"/>
+            </item> <!-- Ferry Route -->
+            <separator/>
+            <item name="Marina" icon="icons/png/transport_marina.png" type="node,closedway,multipolygon" preset_name_label="true">
+                <link wiki="Tag:leisure=marina"/>
+                <space/>
+                <key key="leisure" value="marina"/>
+                <text key="name" text="Name"/>
+                <reference ref="sanitary_dump_station"/>
+                <preset_link preset_name="No name"/>
+            </item> <!-- Marina -->
+            <item name="Marine Fuel" icon="icons/png/transport_fuel.png" type="node,closedway,multipolygon" preset_name_label="true">
+                <link wiki="Tag:waterway=fuel"/>
+                <space/>
+                <key key="waterway" value="fuel"/>
+                <optional>
+                    <combo key="brand" text="Brand" values="Agip,Aral,Avia,BP,Chevron,Citgo,Eni,Esso,Exxon,Gulf,Mobil,OMV,Petro-Canada,Pioneer,Q8,Repsol,Shell,Socar,Statoil,Sunoco,Tamoil,Texaco,Total,Independent" values_searchable="true"/>
+                    <reference ref="name_operator"/>
+                    <reference ref="oh"/>
+                    <space/>
+                    <label text="Fuel types:"/>
+                    <checkgroup text="Fuel types" columns="2">
+                        <check key="fuel:diesel" text="Diesel" disable_off="true"/>
+                        <check key="fuel:biodiesel" text="Bio Diesel" disable_off="true"/>
+                        <check key="fuel:octane_80" text="Octane 80" disable_off="true"/>
+                        <check key="fuel:octane_87" text="Octane 87" disable_off="true"/>
+                        <check key="fuel:octane_89" text="Octane 89" disable_off="true"/>
+                        <check key="fuel:octane_91" text="Octane 91" disable_off="true"/>
+                        <check key="fuel:octane_92" text="Octane 92" disable_off="true"/>
+                        <check key="fuel:octane_93" text="Octane 93" disable_off="true"/>
+                        <check key="fuel:octane_95" text="Octane 95" disable_off="true"/>
+                        <check key="fuel:octane_98" text="Octane 98" disable_off="true"/>
+                        <check key="fuel:octane_100" text="Octane 100" disable_off="true"/>
+                        <check key="fuel:e10" text="E10 (10% Ethanol mix)" disable_off="true"/>
+                        <check key="fuel:e85" text="E85 (85% Ethanol mix)" disable_off="true"/>
+                        <check key="fuel:ethanol" text="Ethanol (alcohol)" disable_off="true"/>
+                        <check key="fuel:lpg" text="LPG (Liquefied petroleum gas)" disable_off="true"/>
+                        <check key="fuel:cng" text="CNG (Compressed Natural Gas)" disable_off="true"/>
+                    </checkgroup>
+                </optional>
+                <reference ref="link_contact_address_payment"/>
+            </item> <!-- Marine Fuel -->
+            <item name="Water point" icon="icons/png/water_water_point_34025.png" type="node" preset_name_label="true">
+                <link wiki="Tag:waterway=water_point"/>
+                <key key="waterway" value="water_point"/>
+                <check key="drinking_water" text="Drinking Water"/>
+                <optional>
+                    <reference ref="facility_access"/>
+                </optional>
+            </item> <!-- Water point -->
+            <item name="Sanitary dump station" icon="icons/png/water_sanitary_dump_station.png" type="node" preset_name_label="true">
+                <link wiki="Tag:waterway=sanitary_dump_station"/>
+                <key key="waterway" value="sanitary_dump_station"/>
+            </item> <!-- Water point -->
+            <item name="Boat shop" icon="icons/png/shopping_boat.png" type="node,closedway,multipolygon" preset_name_label="true">
+                <link wiki="Tag:shop=boat"/>
+                <space/>
+                <key key="shop" value="boat"/>
+                <reference ref="name_operator_oh_wheelchair"/>
+                <combo key="second_hand" text="Second hand" text_context="transport" values="only,yes,no" display_values="Only,Yes,No"/>
+                <reference ref="link_contact_address_payment"/>
+            </item> <!-- Boat shop -->
+            <item name="Boat rental" icon="icons/png/transport_boat_rental.png" type="node,closedway,multipolygon" preset_name_label="true">
+                <link wiki="Tag:amenity=boat_rental"/>
+                <space/>
+                <key key="amenity" value="boat_rental"/>
                 <reference ref="name_operator"/>
                 <reference ref="oh"/>
+                <optional>
+                    <text key="capacity" text="Number of boats" value_type="integer"/>
+                    <check key="motorboat_rental" text="Motorboats" disable_off="true"/>
+                    <check key="houseboat_rental" text="Houseboats" disable_off="true"/>
+                    <check key="pedalboat_rental" text="Pedalos" disable_off="true"/>
+                    <check key="jetski_rental" text="Jetskis" disable_off="true"/>
+                    <check key="sailboat_rental" text="Sailing boats" disable_off="true"/>
+                    <check key="dinghy_rental" text="Dinghies" disable_off="true"/>
+                    <check key="kayak_rental" text="Kayaks" disable_off="true"/>
+                    <check key="canoe_rental" text="Canoes" disable_off="true"/>
+                </optional>
+                <reference ref="link_contact_address_payment"/>
+            </item> <!-- Boat rental -->
+            <item name="Pier" icon="icons/png/water_pier_22046.png" type="node,way,closedway,multipolygon" preset_name_label="true">
+                <link wiki="Tag:man_made=pier"/>
                 <space/>
-                <label text="Fuel types:"/>
-                <checkgroup text="Fuel types" columns="2">
-                    <check key="fuel:diesel" text="Diesel" disable_off="true"/>
-                    <check key="fuel:biodiesel" text="Bio Diesel" disable_off="true"/>
-                    <check key="fuel:octane_80" text="Octane 80" disable_off="true"/>
-                    <check key="fuel:octane_87" text="Octane 87" disable_off="true"/>
-                    <check key="fuel:octane_89" text="Octane 89" disable_off="true"/>
-                    <check key="fuel:octane_91" text="Octane 91" disable_off="true"/>
-                    <check key="fuel:octane_92" text="Octane 92" disable_off="true"/>
-                    <check key="fuel:octane_93" text="Octane 93" disable_off="true"/>
-                    <check key="fuel:octane_95" text="Octane 95" disable_off="true"/>
-                    <check key="fuel:octane_98" text="Octane 98" disable_off="true"/>
-                    <check key="fuel:octane_100" text="Octane 100" disable_off="true"/>
-                    <check key="fuel:e10" text="E10 (10% Ethanol mix)" disable_off="true"/>
-                    <check key="fuel:e85" text="E85 (85% Ethanol mix)" disable_off="true"/>
-                    <check key="fuel:ethanol" text="Ethanol (alcohol)" disable_off="true"/>
-                    <check key="fuel:lpg" text="LPG (Liquefied petroleum gas)" disable_off="true"/>
-                    <check key="fuel:cng" text="CNG (Compressed Natural Gas)" disable_off="true"/>
-                </checkgroup>
-            </optional>
-            <reference ref="link_contact_address_payment"/>
-        </item> <!-- Marine Fuel -->
-        <item name="Water point" icon="icons/png/water_water_point_34025.png" type="node" preset_name_label="true">
-            <link wiki="Tag:waterway=water_point"/>
-            <key key="waterway" value="water_point"/>
-            <check key="drinking_water" text="Drinking Water"/>
-            <optional>
-                <reference ref="facility_access"/>
-            </optional>
-        </item> <!-- Water point -->
-        <item name="Sanitary dump station" icon="icons/png/water_sanitary_dump_station.png" type="node" preset_name_label="true">
-            <link wiki="Tag:waterway=sanitary_dump_station"/>
-            <key key="waterway" value="sanitary_dump_station"/>
-        </item> <!-- Water point -->
-        <item name="Boat shop" icon="icons/png/shopping_boat.png" type="node,closedway,multipolygon" preset_name_label="true">
-            <link wiki="Tag:shop=boat"/>
-            <space/>
-            <key key="shop" value="boat"/>
-            <reference ref="name_operator_oh_wheelchair"/>
-            <combo key="second_hand" text="Second hand" text_context="transport" values="only,yes,no" display_values="Only,Yes,No"/>
-            <reference ref="link_contact_address_payment"/>
-        </item> <!-- Boat shop -->
-        <item name="Boat rental" icon="icons/png/transport_boat_rental.png" type="node,closedway,multipolygon" preset_name_label="true">
-            <link wiki="Tag:amenity=boat_rental"/>
-            <space/>
-            <key key="amenity" value="boat_rental"/>
-            <reference ref="name_operator"/>
-            <reference ref="oh"/>
-            <optional>
-                <text key="capacity" text="Number of boats" value_type="integer"/>
-                <check key="motorboat_rental" text="Motorboats" disable_off="true"/>
-                <check key="houseboat_rental" text="Houseboats" disable_off="true"/>
-                <check key="pedalboat_rental" text="Pedalos" disable_off="true"/>
-                <check key="jetski_rental" text="Jetskis" disable_off="true"/>
-                <check key="sailboat_rental" text="Sailing boats" disable_off="true"/>
-                <check key="dinghy_rental" text="Dinghies" disable_off="true"/>
-                <check key="kayak_rental" text="Kayaks" disable_off="true"/>
-                <check key="canoe_rental" text="Canoes" disable_off="true"/>
-            </optional>
-            <reference ref="link_contact_address_payment"/>
-        </item> <!-- Boat rental -->
-        <item name="Pier" icon="icons/png/water_pier_22046.png" type="node,way,closedway,multipolygon" preset_name_label="true">
-            <link wiki="Tag:man_made=pier"/>
-            <space/>
-            <key key="man_made" value="pier"/>
-            <reference ref="optional_name"/>
-            <combo key="mooring" text="Mooring" values="yes,no,private,permit,commercial" display_values="Yes,No,Private,Permit required,Commercial"/>
-            <check key="floating" text="Floating"/>
-        </item> <!-- Pier -->
-        <item name="Lock Gate" icon="icons/png/water_lock_gate_34007.png" type="node,way" preset_name_label="true">
-            <link wiki="Tag:waterway=lock_gate"/>
-            <key key="waterway" value="lock_gate"/>
-        </item> <!-- Lock Gate -->
-        <item name="Turning Point" icon="icons/png/water_turning_point_34023.png" type="node" preset_name_label="true">
-            <link wiki="Tag:waterway=turning_point"/>
-            <key key="waterway" value="turning_point"/>
-        </item> <!-- Turning Point -->
-        <separator/>
-        <item name="Slipway" icon="icons/png/transport_slipway.png" type="node" preset_name_label="true">
-            <link wiki="Tag:leisure=slipway"/>
-            <key key="leisure" value="slipway"/>
-            <reference ref="optional_name"/>
-            <optional>
-                <reference ref="incline"/>
-                <reference ref="surface"/>
-                <reference ref="fee"/>
-            </optional>
-        </item> <!-- Slipway -->
-        <item name="Boatyard" icon="icons/png/water_boatyard_34003.png" type="node,closedway,multipolygon" preset_name_label="true">
-            <link wiki="Tag:waterway=boatyard"/>
-            <space/>
-            <key key="waterway" value="boatyard"/>
-            <text key="name" text="Name"/>
-            <preset_link preset_name="No name"/>
-        </item> <!-- Boatyard -->
-        <item name="Dock" icon="icons/png/water_dock_34005.png" type="node,closedway,multipolygon" preset_name_label="true">
-            <link wiki="Tag:waterway=dock"/>
-            <space/>
-            <key key="waterway" value="dock"/>
-            <combo key="dock" text="Type" values="drydock,floating,tidal" display_values="Dry dock,Floating,Tidal"/>
-            <text key="name" text="Name"/>
-            <preset_link preset_name="No name"/>
-        </item> <!-- Dock -->
-        <item name="Boat storage" icon="icons/png/water_boat_storage_12011.png" type="node,closedway,multipolygon" preset_name_label="true">
-            <link wiki="Tag:amenity=boat_storage"/>
-            <space/>
-            <key key="amenity" value="boat_storage"/>
-            <optional>
-                <reference ref="name_operator"/>
-                <reference ref="oh"/>
-            </optional>
-        </item> <!-- Boat storage -->
-        <item name="Waterway milestone" icon="icons/png/water_milestone_34008.png" type="node" preset_name_label="true">
-            <link wiki="Tag:waterway=milestone"/>
-            <key key="waterway" value="milestone"/>
-            <text key="distance" text="Distance (kilometers)"/>
-            <text key="ref" text="Reference"/>
-            <optional>
-                <combo key="direction" text="For direction" values="forward,backward,both" display_values="Forward,Backward,Both"/>
-            </optional>
-        </item> <!-- Waterway milestone -->
-    </group> <!-- Shipping -->
+                <key key="man_made" value="pier"/>
+                <reference ref="optional_name"/>
+                <combo key="mooring" text="Mooring" values="yes,no,private,permit,commercial" display_values="Yes,No,Private,Permit required,Commercial"/>
+                <check key="floating" text="Floating"/>
+            </item> <!-- Pier -->
+            <item name="Lock Gate" icon="icons/png/water_lock_gate_34007.png" type="node,way" preset_name_label="true">
+                <link wiki="Tag:waterway=lock_gate"/>
+                <key key="waterway" value="lock_gate"/>
+            </item> <!-- Lock Gate -->
+            <item name="Turning Point" icon="icons/png/water_turning_point_34023.png" type="node" preset_name_label="true">
+                <link wiki="Tag:waterway=turning_point"/>
+                <key key="waterway" value="turning_point"/>
+            </item> <!-- Turning Point -->
+            <separator/>
+            <item name="Slipway" icon="icons/png/transport_slipway.png" type="node" preset_name_label="true">
+                <link wiki="Tag:leisure=slipway"/>
+                <key key="leisure" value="slipway"/>
+                <reference ref="optional_name"/>
+                <optional>
+                    <reference ref="incline"/>
+                    <reference ref="surface"/>
+                    <reference ref="fee"/>
+                </optional>
+            </item> <!-- Slipway -->
+            <item name="Boatyard" icon="icons/png/water_boatyard_34003.png" type="node,closedway,multipolygon" preset_name_label="true">
+                <link wiki="Tag:waterway=boatyard"/>
+                <space/>
+                <key key="waterway" value="boatyard"/>
+                <text key="name" text="Name"/>
+                <preset_link preset_name="No name"/>
+            </item> <!-- Boatyard -->
+            <item name="Dock" icon="icons/png/water_dock_34005.png" type="node,closedway,multipolygon" preset_name_label="true">
+                <link wiki="Tag:waterway=dock"/>
+                <space/>
+                <key key="waterway" value="dock"/>
+                <combo key="dock" text="Type" values="drydock,floating,tidal" display_values="Dry dock,Floating,Tidal"/>
+                <text key="name" text="Name"/>
+                <preset_link preset_name="No name"/>
+            </item> <!-- Dock -->
+            <item name="Boat storage" icon="icons/png/water_boat_storage_12011.png" type="node,closedway,multipolygon" preset_name_label="true">
+                <link wiki="Tag:amenity=boat_storage"/>
+                <space/>
+                <key key="amenity" value="boat_storage"/>
+                <optional>
+                    <reference ref="name_operator"/>
+                    <reference ref="oh"/>
+                </optional>
+            </item> <!-- Boat storage -->
+            <item name="Waterway milestone" icon="icons/png/water_milestone_34008.png" type="node" preset_name_label="true">
+                <link wiki="Tag:waterway=milestone"/>
+                <key key="waterway" value="milestone"/>
+                <text key="distance" text="Distance (kilometers)"/>
+                <text key="ref" text="Reference"/>
+                <optional>
+                    <combo key="direction" text="For direction" values="forward,backward,both" display_values="Forward,Backward,Both"/>
+                </optional>
+            </item> <!-- Waterway milestone -->
+        </group> <!-- Shipping -->
     </group> <!-- Water -->
     <group name="Transport" icon="icons/png/transport_train_station2.png">
     <group name="Railway" icon="icons/png/transport_train_station2.png" items_sort="false">
@@ -7144,7 +7199,7 @@
             <text key="ref" text="Reference"/>
             <text key="operator" text="Operator"/>
         </item> <!-- Life ring -->
-        <item name="Emergency Access Point" icon="icons/png/emergency_emergency_access_point_17005.png" type="node,closedway" preset_name_label="true">
+        <item name="Emergency Access Point (highway variant)" icon="icons/png/emergency_emergency_access_point_17005.png" type="node,closedway" preset_name_label="true">
             <link wiki="Tag:highway=emergency_access_point"/>
             <space/>
             <key key="highway" value="emergency_access_point"/>
@@ -7153,7 +7208,16 @@
             <text key="operator" text="Operator"/>
             <text key="emergency_telephone_code" text="Emergency Phone Number"/>
             <label text="(Use number as shown on plate.)"/>
+        </item> <!-- Emergency Access Point (highway variant) -->
+        <item name="Emergency Access Point" icon="icons/png/emergency_emergency_access_point_17005.png" type="node,closedway" preset_name_label="true">
+            <link wiki="Tag:emergency=access_point"/>
             <space/>
+            <key key="emergency" value="access_point"/>
+            <text key="ref" text="Point Number"/>
+            <text key="name" text="Point Name"/>
+            <text key="operator" text="Operator"/>
+            <text key="emergency_telephone_code" text="Emergency Phone Number"/>
+            <label text="(Use number as shown on plate.)"/>
         </item> <!-- Emergency Access Point -->
         <item name="Mountain Rescue" icon="icons/png/emergency_mountain_rescue_17040.png" type="node,closedway,multipolygon" preset_name_label="true">
             <key key="emergency" value="mountain_rescue"/>
@@ -7985,6 +8049,17 @@
                 <space/>
                 <key key="golf" value="rough"/>
             </item> <!-- Rough -->
+            <item name="Golf cartpath" name_context="golf" icon="icons/png/sport_empty.png" type="way" preset_name_label="true" deprecated="true">
+                <link wiki="Tag:golf=cartpath"/>
+                <space/>
+                <key key="golf" value="cartpath"/>
+            </item> <!-- Golf cartpath -->
+            <separator/>
+            <item name="Golf path" name_context="golf" icon="icons/png/sport_empty.png" type="way" preset_name_label="true" deprecated="true">
+                <link wiki="Tag:golf=path"/>
+                <space/>
+                <key key="golf" value="path"/>
+            </item> <!-- Golf path -->
             <separator/>
             <item name="Driving range" name_context="golf" icon="icons/png/sport_empty.png" type="node,closedway" preset_name_label="true">
                 <link wiki="Tag:leisure=golf_course"/>
@@ -7992,6 +8067,33 @@
                 <key key="golf" value="driving_range"/>
             </item> <!-- Driving range -->
         </group> <!-- Golf -->
+        <group name="Disc golf" icon="icons/png/sport_disc_golf.png">
+            <item name="Disc golf course" icon="icons/png/sport_disc_golf.png" type="node,closedway,multipolygon" preset_name_label="true">
+                <link wiki="Tag:leisure=disc_golf_course"/>
+                <space/>
+                <key key="leisure" value="disc_golf_course"/>
+                <reference ref="name_oh_wheelchair"/>
+            </item> <!-- Golf Course -->
+            <separator/>
+            <item name="Tee" name_context="disc_golf" icon="icons/png/sport_empty.png" type="node,closedway" preset_name_label="true">
+                <link wiki="Tag:leisure=disc_golf_course"/>
+                <space/>
+                <key key="disc_golf" value="tee"/>
+            </item> <!-- Tee -->
+            <item name="Hole" name_context="disc_golf" icon="icons/png/sport_empty.png" type="way" preset_name_label="true">
+                <link wiki="Tag:leisure=disc_golf_course"/>
+                <space/>
+                <key key="disc_golf" value="hole"/>
+                <optional>
+                    <text key="name" text="Name"/>
+                </optional>
+            </item> <!-- Hole -->
+            <item name="Basket" name_context="disc_golf" icon="icons/png/sport_empty.png" type="node,closedway" preset_name_label="true">
+                <link wiki="Tag:leisure=disc_golf_course"/>
+                <space/>
+                <key key="disc_golf" value="basket"/>
+            </item> <!-- Basket -->
+        </group> <!-- Disc golf -->
         <item name="Miniature Golf" icon="icons/png/sport_minature_golf.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:leisure=miniature_golf"/>
             <space/>
@@ -8544,7 +8646,7 @@
             <link wiki="Key:building"/>
             <space/>
             <combo key="building" text="Building" values_context="building" default="yes" match="keyvalue!" values_searchable="true">
-                <list_entry value="allotment_house" display_value="Allotment house"/><list_entry value="apartments" display_value="Apartments"/><list_entry value="bakehouse" display_value="Bakehouse"/><list_entry value="barn" display_value="Barn"/><list_entry value="basilica" display_value="Basilica"/><list_entry value="boathouse" display_value="Boathouse"/><list_entry value="bungalow" display_value="Bungalow"/><list_entry value="bunker" display_value="Bunker"/><list_entry value="cabin" display_value="Cabin"/><list_entry value="carport" display_value="Carport"/><list_entry value="cathedral" display_value="Cathedral"/><list_entry value="chapel" display_value="Chapel"/><list_entry value="church" display_value="Church"/><list_entry value="college" display_value="College"/><list_entry value="commercial" display_value="Commercial"/><list_entry value="cowshed" display_value="Cowshed"/><list_entry value="detached" display_value="Detached"/><list_entry value="digester" display_value="Digester"/><list_entry value="dormitory" display_value="Dormitory"/><list_entry value="farm" display_value="Farm"/><list_entry value="farm_auxiliary" display_value="Farm auxiliary"/><list_entry value="fire_station" display_value="Fire station"/><list_entry value="garage" display_value="Garage"/><list_entry value="garages" display_value="Garages"/><list_entry value="gasometer" display_value="Gasometer"/><list_entry value="gatehouse" display_value="Gatehouse"/><list_entry value="ger" display_value="Ger"/><list_entry value="grandstand" display_value="Grandstand"/><list_entry value="greenhouse" display_value="Greenhouse"/><list_entry value="hangar" display_value="Hangar"/><list_entry value="hospital" display_value="Hospital"/><list_entry value="hotel" display_value="Hotel"/><list_entry value="house" display_value="House"/><list_entry value="houseboat" display_value="Houseboat"/><list_entry value="hut" display_value="Hut"/><list_entry value="industrial" display_value="Industrial"/><list_entry value="kindergarten" display_value="Kindergarten"/><list_entry value="kiosk" display_value="Kiosk"/><list_entry value="manufacture" display_value="Manufacture"/><list_entry value="monastery" display_value="Monastery"/><list_entry value="mosque" display_value="Mosque"/><list_entry value="office" display_value="Office"/><list_entry value="parking" display_value="Parking"/><list_entry value="pavilion" display_value="Pavilion"/><list_entry value="public" display_value="Public"/><list_entry value="residential" display_value="Residential"/><list_entry value="retail" display_value="Retail"/><list_entry value="roof" display_value="Roof"/><list_entry value="ruins" display_value="Ruins"/><list_entry value="school" display_value="School"/><list_entry value="semidetached_house" display_value="Semidetached house"/><list_entry value="service" display_value="Service"/><list_entry value="shed" display_value="Shed"/><list_entry value="sports_hall" display_value="Sports hall"/><list_entry value="stable" display_value="Stable"/><list_entry value="stadium" display_value="Stadium"/><list_entry value="static_caravan" display_value="Static caravan"/><list_entry value="stilt_house" display_value="Stilt house"/><list_entry value="storage_tank" display_value="Storage tank"/><list_entry value="sty" display_value="Sty"/><list_entry value="supermarket" display_value="Supermarket"/><list_entry value="synagogue" display_value="Synagogue"/><list_entry value="temple" display_value="Temple"/><list_entry value="terrace" display_value="Terrace"/><list_entry value="toilets" display_value="Toilets"/><list_entry value="train_station" display_value="Train station"/><list_entry value="transformer_tower" display_value="Transformer tower"/><list_entry value="transportation" display_value="Transportation"/><list_entry value="university" display_value="University"/><list_entry value="warehouse" display_value="Warehouse"/><list_entry value="yes" display_value="Yes"/>
+                <list_entry value="allotment_house" display_value="Allotment house"/><list_entry value="apartments" display_value="Apartments"/><list_entry value="bakehouse" display_value="Bakehouse"/><list_entry value="barn" display_value="Barn"/><list_entry value="basilica" display_value="Basilica"/><list_entry value="boathouse" display_value="Boathouse"/><list_entry value="bungalow" display_value="Bungalow"/><list_entry value="bunker" display_value="Bunker"/><list_entry value="cabin" display_value="Cabin"/><list_entry value="carport" display_value="Carport"/><list_entry value="cathedral" display_value="Cathedral"/><list_entry value="chapel" display_value="Chapel"/><list_entry value="church" display_value="Church"/><list_entry value="civic" display_value="Cvic" deprecated="true"/><list_entry value="college" display_value="College"/><list_entry value="commercial" display_value="Commercial"/><list_entry value="cowshed" display_value="Cowshed"/><list_entry value="detached" display_value="Detached"/><list_entry value="digester" display_value="Digester"/><list_entry value="dormitory" display_value="Dormitory"/><list_entry value="farm" display_value="Farm"/><list_entry value="farm_auxiliary" display_value="Farm auxiliary"/><list_entry value="fire_station" display_value="Fire station"/><list_entry value="garage" display_value="Garage"/><list_entry value="garages" display_value="Garages"/><list_entry value="gasometer" display_value="Gasometer"/><list_entry value="gatehouse" display_value="Gatehouse"/><list_entry value="ger" display_value="Ger"/><list_entry value="grandstand" display_value="Grandstand"/><list_entry value="greenhouse" display_value="Greenhouse"/><list_entry value="hangar" display_value="Hangar"/><list_entry value="hospital" display_value="Hospital"/><list_entry value="hotel" display_value="Hotel"/><list_entry value="house" display_value="House"/><list_entry value="houseboat" display_value="Houseboat"/><list_entry value="hut" display_value="Hut"/><list_entry value="industrial" display_value="Industrial"/><list_entry value="kindergarten" display_value="Kindergarten"/><list_entry value="kiosk" display_value="Kiosk"/><list_entry value="manufacture" display_value="Manufacture"/><list_entry value="monastery" display_value="Monastery"/><list_entry value="mosque" display_value="Mosque"/><list_entry value="office" display_value="Office"/><list_entry value="parking" display_value="Parking"/><list_entry value="pavilion" display_value="Pavilion"/><list_entry value="public" display_value="Public"/><list_entry value="residential" display_value="Residential"/><list_entry value="retail" display_value="Retail"/><list_entry value="roof" display_value="Roof"/><list_entry value="ruins" display_value="Ruins"/><list_entry value="school" display_value="School"/><list_entry value="semidetached_house" display_value="Semidetached house"/><list_entry value="service" display_value="Service"/><list_entry value="shed" display_value="Shed"/><list_entry value="sports_hall" display_value="Sports hall"/><list_entry value="stable" display_value="Stable"/><list_entry value="stadium" display_value="Stadium"/><list_entry value="static_caravan" display_value="Static caravan"/><list_entry value="stilt_house" display_value="Stilt house"/><list_entry value="storage_tank" display_value="Storage tank"/><list_entry value="sty" display_value="Sty"/><list_entry value="supermarket" display_value="Supermarket"/><list_entry value="synagogue" display_value="Synagogue"/><list_entry value="temple" display_value="Temple"/><list_entry value="terrace" display_value="Terrace"/><list_entry value="toilets" display_value="Toilets"/><list_entry value="train_station" display_value="Train station"/><list_entry value="transformer_tower" display_value="Transformer tower"/><list_entry value="transportation" display_value="Transportation"/><list_entry value="university" display_value="University"/><list_entry value="warehouse" display_value="Warehouse"/><list_entry value="yes" display_value="Yes"/>
             </combo>
             <reference ref="additional_building_tags"/>
             <preset_link preset_name="Address"/>
@@ -8588,7 +8690,7 @@
             <link wiki="Key:building:part"/>
             <space/>
             <combo key="building:part" text="Building part" values_context="building" default="yes" match="key" values_searchable="true">
-                <list_entry value="allotment_house" display_value="Allotment house"/><list_entry value="apartments" display_value="Apartments"/><list_entry value="bakehouse" display_value="Bakehouse"/><list_entry value="barn" display_value="Barn"/><list_entry value="basilica" display_value="Basilica"/><list_entry value="boathouse" display_value="Boathouse"/><list_entry value="bungalow" display_value="Bungalow"/><list_entry value="bunker" display_value="Bunker"/><list_entry value="cabin" display_value="Cabin"/><list_entry value="carport" display_value="Carport"/><list_entry value="cathedral" display_value="Cathedral"/><list_entry value="chapel" display_value="Chapel"/><list_entry value="church" display_value="Church"/><list_entry value="college" display_value="College"/><list_entry value="commercial" display_value="Commercial"/><list_entry value="cowshed" display_value="Cowshed"/><list_entry value="detached" display_value="Detached"/><list_entry value="digester" display_value="Digester"/><list_entry value="dormitory" display_value="Dormitory"/><list_entry value="farm" display_value="Farm"/><list_entry value="farm_auxiliary" display_value="Farm auxiliary"/><list_entry value="fire_station" display_value="Fire station"/><list_entry value="garage" display_value="Garage"/><list_entry value="garages" display_value="Garages"/><list_entry value="gasometer" display_value="Gasometer"/><list_entry value="gatehouse" display_value="Gatehouse"/><list_entry value="ger" display_value="Ger"/><list_entry value="grandstand" display_value="Grandstand"/><list_entry value="greenhouse" display_value="Greenhouse"/><list_entry value="hangar" display_value="Hangar"/><list_entry value="hospital" display_value="Hospital"/><list_entry value="hotel" display_value="Hotel"/><list_entry value="house" display_value="House"/><list_entry value="houseboat" display_value="Houseboat"/><list_entry value="hut" display_value="Hut"/><list_entry value="industrial" display_value="Industrial"/><list_entry value="kindergarten" display_value="Kindergarten"/><list_entry value="kiosk" display_value="Kiosk"/><list_entry value="manufacture" display_value="Manufacture"/><list_entry value="monastery" display_value="Monastery"/><list_entry value="mosque" display_value="Mosque"/><list_entry value="office" display_value="Office"/><list_entry value="parking" display_value="Parking"/><list_entry value="pavilion" display_value="Pavilion"/><list_entry value="public" display_value="Public"/><list_entry value="residential" display_value="Residential"/><list_entry value="retail" display_value="Retail"/><list_entry value="roof" display_value="Roof"/><list_entry value="ruins" display_value="Ruins"/><list_entry value="school" display_value="School"/><list_entry value="semidetached_house" display_value="Semidetached house"/><list_entry value="service" display_value="Service"/><list_entry value="shed" display_value="Shed"/><list_entry value="sports_hall" display_value="Sports hall"/><list_entry value="stable" display_value="Stable"/><list_entry value="stadium" display_value="Stadium"/><list_entry value="static_caravan" display_value="Static caravan"/><list_entry value="stilt_house" display_value="Stilt house"/><list_entry value="storage_tank" display_value="Storage tank"/><list_entry value="sty" display_value="Sty"/><list_entry value="supermarket" display_value="Supermarket"/><list_entry value="synagogue" display_value="Synagogue"/><list_entry value="temple" display_value="Temple"/><list_entry value="terrace" display_value="Terrace"/><list_entry value="toilets" display_value="Toilets"/><list_entry value="train_station" display_value="Train station"/><list_entry value="transformer_tower" display_value="Transformer tower"/><list_entry value="transportation" display_value="Transportation"/><list_entry value="university" display_value="University"/><list_entry value="warehouse" display_value="Warehouse"/><list_entry value="yes" display_value="Yes"/>
+                <list_entry value="allotment_house" display_value="Allotment house"/><list_entry value="apartments" display_value="Apartments"/><list_entry value="bakehouse" display_value="Bakehouse"/><list_entry value="barn" display_value="Barn"/><list_entry value="basilica" display_value="Basilica"/><list_entry value="boathouse" display_value="Boathouse"/><list_entry value="bungalow" display_value="Bungalow"/><list_entry value="bunker" display_value="Bunker"/><list_entry value="cabin" display_value="Cabin"/><list_entry value="carport" display_value="Carport"/><list_entry value="cathedral" display_value="Cathedral"/><list_entry value="chapel" display_value="Chapel"/><list_entry value="church" display_value="Church"/><list_entry value="civic" display_value="Cvic" deprecated="true"/><list_entry value="college" display_value="College"/><list_entry value="commercial" display_value="Commercial"/><list_entry value="cowshed" display_value="Cowshed"/><list_entry value="detached" display_value="Detached"/><list_entry value="digester" display_value="Digester"/><list_entry value="dormitory" display_value="Dormitory"/><list_entry value="farm" display_value="Farm"/><list_entry value="farm_auxiliary" display_value="Farm auxiliary"/><list_entry value="fire_station" display_value="Fire station"/><list_entry value="garage" display_value="Garage"/><list_entry value="garages" display_value="Garages"/><list_entry value="gasometer" display_value="Gasometer"/><list_entry value="gatehouse" display_value="Gatehouse"/><list_entry value="ger" display_value="Ger"/><list_entry value="grandstand" display_value="Grandstand"/><list_entry value="greenhouse" display_value="Greenhouse"/><list_entry value="hangar" display_value="Hangar"/><list_entry value="hospital" display_value="Hospital"/><list_entry value="hotel" display_value="Hotel"/><list_entry value="house" display_value="House"/><list_entry value="houseboat" display_value="Houseboat"/><list_entry value="hut" display_value="Hut"/><list_entry value="industrial" display_value="Industrial"/><list_entry value="kindergarten" display_value="Kindergarten"/><list_entry value="kiosk" display_value="Kiosk"/><list_entry value="manufacture" display_value="Manufacture"/><list_entry value="monastery" display_value="Monastery"/><list_entry value="mosque" display_value="Mosque"/><list_entry value="office" display_value="Office"/><list_entry value="parking" display_value="Parking"/><list_entry value="pavilion" display_value="Pavilion"/><list_entry value="public" display_value="Public"/><list_entry value="residential" display_value="Residential"/><list_entry value="retail" display_value="Retail"/><list_entry value="roof" display_value="Roof"/><list_entry value="ruins" display_value="Ruins"/><list_entry value="school" display_value="School"/><list_entry value="semidetached_house" display_value="Semidetached house"/><list_entry value="service" display_value="Service"/><list_entry value="shed" display_value="Shed"/><list_entry value="sports_hall" display_value="Sports hall"/><list_entry value="stable" display_value="Stable"/><list_entry value="stadium" display_value="Stadium"/><list_entry value="static_caravan" display_value="Static caravan"/><list_entry value="stilt_house" display_value="Stilt house"/><list_entry value="storage_tank" display_value="Storage tank"/><list_entry value="sty" display_value="Sty"/><list_entry value="supermarket" display_value="Supermarket"/><list_entry value="synagogue" display_value="Synagogue"/><list_entry value="temple" display_value="Temple"/><list_entry value="terrace" display_value="Terrace"/><list_entry value="toilets" display_value="Toilets"/><list_entry value="train_station" display_value="Train station"/><list_entry value="transformer_tower" display_value="Transformer tower"/><list_entry value="transportation" display_value="Transportation"/><list_entry value="university" display_value="University"/><list_entry value="warehouse" display_value="Warehouse"/><list_entry value="yes" display_value="Yes"/>
             </combo>
             <reference ref="additional_building_tags"/>
             <combo key="building:min_level" text="Skipped Levels" values="1,2,3,4,5,6,7,8,9,10" editable="true" text_context="building"/>
@@ -8599,7 +8701,7 @@
             <space/>
             <key key="building" value="construction"/>
             <combo key="construction" text="Construction type" values_context="building" default="yes" match="none" values_searchable="true">
-                <list_entry value="allotment_house" display_value="Allotment house"/><list_entry value="apartments" display_value="Apartments"/><list_entry value="bakehouse" display_value="Bakehouse"/><list_entry value="barn" display_value="Barn"/><list_entry value="basilica" display_value="Basilica"/><list_entry value="boathouse" display_value="Boathouse"/><list_entry value="bungalow" display_value="Bungalow"/><list_entry value="bunker" display_value="Bunker"/><list_entry value="cabin" display_value="Cabin"/><list_entry value="carport" display_value="Carport"/><list_entry value="cathedral" display_value="Cathedral"/><list_entry value="chapel" display_value="Chapel"/><list_entry value="church" display_value="Church"/><list_entry value="college" display_value="College"/><list_entry value="commercial" display_value="Commercial"/><list_entry value="cowshed" display_value="Cowshed"/><list_entry value="detached" display_value="Detached"/><list_entry value="digester" display_value="Digester"/><list_entry value="dormitory" display_value="Dormitory"/><list_entry value="farm" display_value="Farm"/><list_entry value="farm_auxiliary" display_value="Farm auxiliary"/><list_entry value="fire_station" display_value="Fire station"/><list_entry value="garage" display_value="Garage"/><list_entry value="garages" display_value="Garages"/><list_entry value="gasometer" display_value="Gasometer"/><list_entry value="gatehouse" display_value="Gatehouse"/><list_entry value="ger" display_value="Ger"/><list_entry value="grandstand" display_value="Grandstand"/><list_entry value="greenhouse" display_value="Greenhouse"/><list_entry value="hangar" display_value="Hangar"/><list_entry value="hospital" display_value="Hospital"/><list_entry value="hotel" display_value="Hotel"/><list_entry value="house" display_value="House"/><list_entry value="houseboat" display_value="Houseboat"/><list_entry value="hut" display_value="Hut"/><list_entry value="industrial" display_value="Industrial"/><list_entry value="kindergarten" display_value="Kindergarten"/><list_entry value="kiosk" display_value="Kiosk"/><list_entry value="manufacture" display_value="Manufacture"/><list_entry value="monastery" display_value="Monastery"/><list_entry value="mosque" display_value="Mosque"/><list_entry value="office" display_value="Office"/><list_entry value="parking" display_value="Parking"/><list_entry value="pavilion" display_value="Pavilion"/><list_entry value="public" display_value="Public"/><list_entry value="residential" display_value="Residential"/><list_entry value="retail" display_value="Retail"/><list_entry value="roof" display_value="Roof"/><list_entry value="ruins" display_value="Ruins"/><list_entry value="school" display_value="School"/><list_entry value="semidetached_house" display_value="Semidetached house"/><list_entry value="service" display_value="Service"/><list_entry value="shed" display_value="Shed"/><list_entry value="sports_hall" display_value="Sports hall"/><list_entry value="stable" display_value="Stable"/><list_entry value="stadium" display_value="Stadium"/><list_entry value="static_caravan" display_value="Static caravan"/><list_entry value="stilt_house" display_value="Stilt house"/><list_entry value="storage_tank" display_value="Storage tank"/><list_entry value="sty" display_value="Sty"/><list_entry value="supermarket" display_value="Supermarket"/><list_entry value="synagogue" display_value="Synagogue"/><list_entry value="temple" display_value="Temple"/><list_entry value="terrace" display_value="Terrace"/><list_entry value="toilets" display_value="Toilets"/><list_entry value="train_station" display_value="Train station"/><list_entry value="transformer_tower" display_value="Transformer tower"/><list_entry value="transportation" display_value="Transportation"/><list_entry value="university" display_value="University"/><list_entry value="warehouse" display_value="Warehouse"/><list_entry value="yes" display_value="Yes"/>
+                <list_entry value="allotment_house" display_value="Allotment house"/><list_entry value="apartments" display_value="Apartments"/><list_entry value="bakehouse" display_value="Bakehouse"/><list_entry value="barn" display_value="Barn"/><list_entry value="basilica" display_value="Basilica"/><list_entry value="boathouse" display_value="Boathouse"/><list_entry value="bungalow" display_value="Bungalow"/><list_entry value="bunker" display_value="Bunker"/><list_entry value="cabin" display_value="Cabin"/><list_entry value="carport" display_value="Carport"/><list_entry value="cathedral" display_value="Cathedral"/><list_entry value="chapel" display_value="Chapel"/><list_entry value="church" display_value="Church"/><list_entry value="civic" display_value="Cvic" deprecated="true"/><list_entry value="college" display_value="College"/><list_entry value="commercial" display_value="Commercial"/><list_entry value="cowshed" display_value="Cowshed"/><list_entry value="detached" display_value="Detached"/><list_entry value="digester" display_value="Digester"/><list_entry value="dormitory" display_value="Dormitory"/><list_entry value="farm" display_value="Farm"/><list_entry value="farm_auxiliary" display_value="Farm auxiliary"/><list_entry value="fire_station" display_value="Fire station"/><list_entry value="garage" display_value="Garage"/><list_entry value="garages" display_value="Garages"/><list_entry value="gasometer" display_value="Gasometer"/><list_entry value="gatehouse" display_value="Gatehouse"/><list_entry value="ger" display_value="Ger"/><list_entry value="grandstand" display_value="Grandstand"/><list_entry value="greenhouse" display_value="Greenhouse"/><list_entry value="hangar" display_value="Hangar"/><list_entry value="hospital" display_value="Hospital"/><list_entry value="hotel" display_value="Hotel"/><list_entry value="house" display_value="House"/><list_entry value="houseboat" display_value="Houseboat"/><list_entry value="hut" display_value="Hut"/><list_entry value="industrial" display_value="Industrial"/><list_entry value="kindergarten" display_value="Kindergarten"/><list_entry value="kiosk" display_value="Kiosk"/><list_entry value="manufacture" display_value="Manufacture"/><list_entry value="monastery" display_value="Monastery"/><list_entry value="mosque" display_value="Mosque"/><list_entry value="office" display_value="Office"/><list_entry value="parking" display_value="Parking"/><list_entry value="pavilion" display_value="Pavilion"/><list_entry value="public" display_value="Public"/><list_entry value="residential" display_value="Residential"/><list_entry value="retail" display_value="Retail"/><list_entry value="roof" display_value="Roof"/><list_entry value="ruins" display_value="Ruins"/><list_entry value="school" display_value="School"/><list_entry value="semidetached_house" display_value="Semidetached house"/><list_entry value="service" display_value="Service"/><list_entry value="shed" display_value="Shed"/><list_entry value="sports_hall" display_value="Sports hall"/><list_entry value="stable" display_value="Stable"/><list_entry value="stadium" display_value="Stadium"/><list_entry value="static_caravan" display_value="Static caravan"/><list_entry value="stilt_house" display_value="Stilt house"/><list_entry value="storage_tank" display_value="Storage tank"/><list_entry value="sty" display_value="Sty"/><list_entry value="supermarket" display_value="Supermarket"/><list_entry value="synagogue" display_value="Synagogue"/><list_entry value="temple" display_value="Temple"/><list_entry value="terrace" display_value="Terrace"/><list_entry value="toilets" display_value="Toilets"/><list_entry value="train_station" display_value="Train station"/><list_entry value="transformer_tower" display_value="Transformer tower"/><list_entry value="transportation" display_value="Transportation"/><list_entry value="university" display_value="University"/><list_entry value="warehouse" display_value="Warehouse"/><list_entry value="yes" display_value="Yes"/>
             </combo>             
             <reference ref="additional_building_tags"/>
             <preset_link preset_name="Address"/>
@@ -8690,7 +8792,7 @@
         <item name="Entrance" icon="icons/png/barrier_entrance.png" type="node" preset_name_label="true">
             <link wiki="Key:entrance"/>
             <space/>
-            <combo key="entrance" text="Entrance" values="yes,main,service,shop,exit,emergency,staircase,home,garage" display_values="Yes,Main,Service,Shop,Exit,Emergency,Staircase,Home,Garage" values_context="entrance" default="yes" match="key"/>
+            <combo key="entrance" text="Entrance" values="yes,main,service,shop,exit,emergency,secondary,staircase,home,garage" display_values="Yes,Main,Service,Shop,Exit,Emergency,Secondary,Staircase,Home,Garage" values_context="entrance" default="yes" match="key"/>
             <combo key="access" text="Access" values="yes,delivery,private,customers,permissive,permit,no" display_values="Yes,Delivery,Private,Customers,Permissive,Permit required,No" values_context="access" match="none"/>
             <optional>
                 <reference ref="wheelchair"/>
@@ -11357,6 +11459,21 @@
             <reference ref="name_oh_wheelchair_level"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Fireworks -->
+        <item name="Outpost / Pickup" icon="icons/png/shopping_empty.png" type="node,closedway,multipolygon" deprecated="true">
+            <link wiki="Tag:shop=outpost"/>
+            <space/>
+            <key key="shop" value="outpost"/>
+            <reference ref="name_oh_wheelchair_level"/>
+            <reference ref="link_contact_address"/>
+        </item> <!-- Outpost / Pickup -->
+        <item name="Vacant" icon="icons/png/shopping_empty.png" type="node,closedway,multipolygon" deprecated="true">
+            <link wiki="Tag:shop=vacant"/>
+            <space/>
+            <key key="shop" value="vacant"/>
+            <reference ref="name_oh_wheelchair_level"/>
+            <reference ref="link_contact_address"/>
+            <preset_link preset_name="Shop disused" text="Similar but different tags:" alternative="true"/>
+        </item> <!-- Vacant -->
     </group> <!-- Other -->
     <separator/>
     <item name="Vending Machine" icon="icons/png/shopping_vending_machine.png" type="node" preset_name_label="true">
@@ -11422,20 +11539,6 @@
         <preset_link preset_name="Payment Methods"/>
         <reference ref="optional_level"/>
     </item> <!-- Vending Machine -->
-    <item name="Parcel Locker" icon="icons/png/shopping_vending_machine.png" type="node,closedway" preset_name_label="true">
-            <link wiki="Tag:amenity=parcel_locker"/>
-            <space/>
-            <key key="amenity" value="parcel_locker"/>
-            <text key="brand" text="Parcel service brand"/>
-            <text key="operator" text="Machine operator"/>
-            <text key="ref" text="Reference number"/>
-            <combo key="parcel_mail_in" text="Parcel mail in" values="yes,no,returns_only" display_values="Yes,No,Return only"/>
-            <combo key="parcel_pickup" text="Parcel pickup" values="yes,no" display_values="Yes,No"/>
-            <combo key="refrigerated" text="Refrigerated" values="yes,no" display_values="Yes,No"/>
-            <reference ref="colours"/>
-            <combo key="collection_times" text="Collection times" delimiter="|" values="Mo-Sa 09:00|Mo-Fr 17:30; Sa 12:00|Mo-Fr 15:00,19:00; Sa 15:10; Su 10:30" values_no_i18n="true" match="none" editable="true"/>
-            <reference ref="essential_wheelchair"/>
-        </item> <!-- Parcel Locker -->
     <item name="Payment Methods" icon="icons/png/money_payment_methods.png" type="node,way,closedway,multipolygon,relation" preset_name_label="true">
         <link wiki="Key:payment"/>
         <space/>
@@ -12281,29 +12384,41 @@
             <reference ref="optional_name"/>
             <reference ref="religious"/>
         </item> <!-- Religious -->
-        <item name="Graveyard" icon="icons/png/landuse_grave_yard_12062.png" type="node,closedway,multipolygon" preset_name_label="true">
-            <link wiki="Tag:amenity=grave_yard"/>
-            <space/>
-            <key key="amenity" value="grave_yard"/>
-            <text key="name" text="Name"/>
-            <reference ref="religious"/>
-        </item> <!-- Graveyard -->
-        <item name="Cemetery" icon="icons/png/landuse_grave_yard_12062.png" type="closedway,multipolygon" preset_name_label="true">
-            <link wiki="Tag:landuse=cemetery"/>
-            <space/>
-            <key key="landuse" value="cemetery"/>
-            <text key="name" text="Name"/>
-            <reference ref="religious"/>
-        </item> <!-- Cemetery -->
-        <item name="Cemetery sector" icon="icons/png/landuse_empty.png" type="node,closedway,multipolygon" preset_name_label="true">
-            <link wiki="Tag:cemetery=sector"/>
-            <space/>
-            <key key="cemetery" value="sector"/>
-            <optional>
-                <text key="ref" text="Reference"/>
+        <group name="Cemetery and graves" icon="icons/png/landuse_grave_yard_12062.png">
+            <item name="Graveyard" icon="icons/png/landuse_grave_yard_12062.png" type="node,closedway,multipolygon" preset_name_label="true">
+                <link wiki="Tag:amenity=grave_yard"/>
+                <space/>
+                <key key="amenity" value="grave_yard"/>
                 <text key="name" text="Name"/>
-            </optional>
-        </item> <!-- Cemetery sector-->
+                <reference ref="religious"/>
+            </item> <!-- Graveyard -->
+            <item name="Cemetery" icon="icons/png/landuse_grave_yard_12062.png" type="closedway,multipolygon" preset_name_label="true">
+                <link wiki="Tag:landuse=cemetery"/>
+                <space/>
+                <key key="landuse" value="cemetery"/>
+                <text key="name" text="Name"/>
+                <reference ref="religious"/>
+            </item> <!-- Cemetery -->
+            <item name="Cemetery sector" icon="icons/png/landuse_empty.png" type="node,closedway,multipolygon" preset_name_label="true">
+                <link wiki="Tag:cemetery=sector"/>
+                <space/>
+                <key key="cemetery" value="sector"/>
+                <optional>
+                    <text key="ref" text="Reference"/>
+                    <text key="name" text="Name"/>
+                </optional>
+            </item> <!-- Cemetery sector-->
+            <separator/>
+            <item name="Grave" icon="icons/png/landuse_empty.png" type="node,closedway,multipolygon" preset_name_label="true">
+                <link wiki="Tag:cemetery=grave"/>
+                <space/>
+                <key key="cemetery" value="grave"/>
+                <optional>
+                    <text key="ref" text="Reference"/>
+                    <text key="name" text="Name"/>
+                </optional>
+            </item> <!-- Cemetery grave-->
+        </group> <!-- Cemetery and graves -->
         <separator/>
         <item name="Residential Area" icon="icons/png/landuse_house_sp.png" type="closedway,multipolygon" name_context="Landuse" preset_name_label="true">
             <link wiki="Tag:landuse=residential"/>
