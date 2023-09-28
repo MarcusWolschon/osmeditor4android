@@ -41,6 +41,7 @@ import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.contract.FileExtensions;
 import de.blau.android.contract.Paths;
+import de.blau.android.osm.DiscardedTags;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.Tags;
@@ -1523,6 +1524,10 @@ public class Preset implements Serializable {
             outputStream.println("]},");
 
             outputStream.println("\"tags\":[");
+            Collection<String> discardedKeys = new DiscardedTags(ctx).getKeys();
+            for (String key:discardedKeys) {
+                outputStream.println("{\"description\":\"Automatically discarded\",\"key\":\"" + key + "\"},");
+            }
             int presetsCount = presets.length;
             for (int i = 0; i < presetsCount; i++) {
                 if (presets[i] != null) {
