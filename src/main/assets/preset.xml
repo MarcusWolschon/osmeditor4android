@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.17.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,disc_golf,disused:amenity,disused:leisure,disused:man_made,disused:shop,golf,ford,hazard,noexit,indoor,playground,pipeline,police,public_transport,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom">
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.18.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,disc_golf,disused:amenity,disused:leisure,disused:man_made,disused:shop,golf,ford,hazard,noexit,indoor,playground,pipeline,police,public_transport,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom">
 <!--
     Icons have been derived from mainly from
   
@@ -9,6 +9,7 @@
     Format description: https://josm.openstreetmap.de/wiki/TaggingPresets and http://vespucci.io/tutorials/presets/
 -->
     <!-- Value chunks for use in combos and multiselects -->
+    
     
     
     
@@ -801,7 +802,7 @@
         </optional>
     </chunk>
     <chunk id="sport_facility">
-        <combo key="leisure" text="Type" values="pitch,sports_centre,stadium" display_values="Pitch,Sports centre,Stadium" values_context="sport"/>
+        <combo key="leisure" text="Type" values="pitch,sports_centre,stadium,sports_hall" display_values="Pitch,Sports centre,Stadium,Sports hall" values_context="sport"/>
     </chunk>
     <chunk id="sport_facility_track">
         <combo key="leisure" text="Type" values="pitch,sports_centre,stadium,track" display_values="Pitch,Sports centre,Stadium,Track" values_context="sport"/>
@@ -858,6 +859,7 @@
             <list_entry value="orienteering" display_value="Orienteering"/>
             <list_entry value="padel" display_value="Padel"/>
             <list_entry value="pelota" display_value="Pelota"/>
+            <list_entry value="pickleball" display_value="Pickleball"/>
             <list_entry value="racquet" display_value="Racquet"/>
             <list_entry value="rc_car" display_value="RC car"/>
             <list_entry value="roller_skating" display_value="Roller skating"/>
@@ -2912,15 +2914,29 @@
             <key key="traffic_sign" value="stop"/>
             <reference ref="traffic_signals_direction"/>
         </item> <!-- Stop sign -->
+        <item name="Traffic sign" icon="icons/png/traffic_signs.png" type="node" preset_name_label="true">
+            <link wiki="Key:traffic_sign"/>
+            <space/>
+            <combo key="traffic_sign" match="key" editable="true">
+                <list_entry value="give_way" display_value="Give way" icon="icons/png/give_way.png"/><list_entry value="hazard" display_value="Hazard" icon="icons/png/danger.png"/><list_entry value="maxheight" display_value="Max. height" icon="${traffic_max_width}"/><list_entry value="maxweight" display_value="Max. weight" icon="${traffic_max_weight}"/><list_entry value="maxwidth" display_value="Max. width" icon="${traffic_max_width}"/><list_entry value="signals_ahead" display_value="Signals ahead"/><list_entry value="stop_ahead" display_value="Stop ahead"/><list_entry value="variable_message" display_value="Variable message"/><list_entry value="yield_ahead" display_value="Yield ahead"/>
+            </combo>
+            <reference ref="traffic_signals_direction"/>
+        </item> <!-- Traffic sign -->
         <item name="Traffic Sign Forward" icon="icons/png/traffic_signs.png" type="node" preset_name_label="true">
             <link wiki="Key:traffic_sign"/>
             <space/>
-            <text key="traffic_sign:forward" match="key"/>
+            <combo key="traffic_sign:forward" match="key" editable="true">
+                <list_entry value="maxspeed" display_value="Max. speed" icon="icons/png/speed_limit.png"/>
+                <list_entry value="give_way" display_value="Give way" icon="icons/png/give_way.png"/><list_entry value="hazard" display_value="Hazard" icon="icons/png/danger.png"/><list_entry value="maxheight" display_value="Max. height" icon="${traffic_max_width}"/><list_entry value="maxweight" display_value="Max. weight" icon="${traffic_max_weight}"/><list_entry value="maxwidth" display_value="Max. width" icon="${traffic_max_width}"/><list_entry value="signals_ahead" display_value="Signals ahead"/><list_entry value="stop_ahead" display_value="Stop ahead"/><list_entry value="variable_message" display_value="Variable message"/><list_entry value="yield_ahead" display_value="Yield ahead"/>
+            </combo>
         </item> <!-- Traffic Sign Forward -->
         <item name="Traffic Sign Backward" icon="icons/png/traffic_signs.png" type="node" preset_name_label="true">
             <link wiki="Key:traffic_sign"/>
             <space/>
-            <text key="traffic_sign:backward" match="key"/>
+            <combo key="traffic_sign:backward" match="key" editable="true">
+                <list_entry value="maxspeed" display_value="Max. speed" icon="icons/png/speed_limit.png"/>
+                <list_entry value="give_way" display_value="Give way" icon="icons/png/give_way.png"/><list_entry value="hazard" display_value="Hazard" icon="icons/png/danger.png"/><list_entry value="maxheight" display_value="Max. height" icon="${traffic_max_width}"/><list_entry value="maxweight" display_value="Max. weight" icon="${traffic_max_weight}"/><list_entry value="maxwidth" display_value="Max. width" icon="${traffic_max_width}"/><list_entry value="signals_ahead" display_value="Signals ahead"/><list_entry value="stop_ahead" display_value="Stop ahead"/><list_entry value="variable_message" display_value="Variable message"/><list_entry value="yield_ahead" display_value="Yield ahead"/>
+            </combo>
         </item> <!-- Traffic Sign Forward -->
         <item name="Speed Camera" icon="icons/png/highway_speed_camera_18025.png" type="node" preset_name_label="true">
             <link wiki="Tag:highway=speed_camera"/>
@@ -5118,11 +5134,11 @@
     </item> <!-- Taxi -->
     <separator/>
     <group name="Airport" icon="icons/png/transport_airport.png">
-        <item name="Airport Ground" icon="icons/png/transport_aerodrome.png" type="node,closedway,multipolygon" preset_name_label="true">
+        <item name="Airport Grounds" icon="icons/png/transport_aerodrome.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:aeroway=aerodrome"/>
             <space/>
             <reference ref="aerodrome"/>
-        </item> <!-- Airport Ground -->
+        </item> <!-- Airport Grounds -->
         <separator/>
         <item name="Runway" icon="presets/runway.png" type="way,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:aeroway=runway"/>
@@ -5152,6 +5168,18 @@
                 <text key="ref" text="Reference"/>
             </optional>
         </item> <!-- Holding Position -->
+         <item name="Heliport" icon="icons/png/transport_heliport.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:aeroway=heliport"/>
+            <key key="aeroway" value="heliport"/>
+            <optional>
+                <reference ref="name_ref"/>
+                <text key="iata" text="IATA"/>
+                <text key="icao" text="ICAO"/>
+                <text key="ele" text="Elevation (meters)" length="10"/>
+                <reference ref="surface"/>
+                <reference ref="wikipedia_wikidata"/>
+            </optional>
+        </item> <!-- Heliport -->
         <item name="Helipad" icon="icons/png/transport_helicopter_pad.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:aeroway=helipad"/>
             <key key="aeroway" value="helipad"/>
@@ -6635,6 +6663,13 @@
             <link wiki="Tag:amenity=townhall"/>
             <space/>
             <key key="amenity" value="townhall"/>
+            <combo key="townhall:type" values_context="townhall">
+                <list_entry value="city" display_value="City"/>
+                <list_entry value="town" display_value="Town"/>
+                <list_entry value="municipality" display_value="Municipality"/>
+                <list_entry value="village" display_value="Village"/>
+                <list_entry value="barangay" display_value="Barangay"/>
+            </combo>
             <reference ref="name_oh_wheelchair_toilets"/>
             <reference ref="link_contact_address"/>
         </item> <!-- Town Hall -->
@@ -7311,6 +7346,16 @@
             <text key="capacity" text="Capacity" value_type="integer"/>
             <reference ref="link_contact_address"/>
         </item> <!-- Group Home -->
+        <item name="Day Care" icon="icons/png/amenity_empty.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Key:social_facility"/>
+            <space/>
+            <key key="amenity" value="social_facility"/>
+            <key key="social_facility" value="day_care"/>
+            <reference ref="social_facility_for"/>
+            <reference ref="name_operator_wheelchair_level"/>
+            <text key="capacity" text="Capacity" value_type="integer"/>
+            <reference ref="link_contact_address"/>
+        </item> <!-- Day Care -->
         <item name="Outreach" icon="icons/png/amenity_outreach_12252.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Key:social_facility"/>
             <space/>
@@ -7517,12 +7562,12 @@
                     <check key="male" text="Male" text_context="restroom" disable_off="true"/>
                     <check key="unisex" text="Unisex" text_context="restroom" disable_off="true"/>
                 </checkgroup>
-                <combo key="toilets:disposal" text="Type" values="flush,pitlatrine,chemical,bucket"/>
+                <combo key="toilets:disposal" text="Type" values="flush,pitlatrine,chemical,bucket" display_values="Flush,Pit latrine,Chemical,Bucket"/>
                 <text key="description" text="Description" length="255"/>
                 <reference ref="fee"/>
                 <reference ref="changing_table"/>
                 <text key="operator" text="Operator"/>
-                <combo key="toilets:position" text="Usage Position" values="seated,seated;urinal,squat,urinal"/>
+                <combo key="toilets:position" text="Usage Position" values="seated,seated;urinal,squat,urinal" display_values="Seated,Seated urinal,Squat,Urinal"/>
                 <reference ref="oh_wheelchair_level"/>
                 <check key="drinking_water" text="Drinking Water"/>
             </optional>
@@ -7636,6 +7681,16 @@
             <key key="amenity" value="photo_booth"/>
             <reference ref="name_operator_oh_wheelchair_level"/>
         </item> <!-- Photo booth -->
+        <item name="Trolley bay" icon="icons/png/amenity_trolley_bay.png" type="node,way,closedway" preset_name_label="true">
+            <link wiki="Tag:amenity=trolley_bay"/>
+            <space/>
+            <key key="amenity" value="trolley_bay"/>
+            <text key="operator" text="Operator"/>
+            <reference ref="fee"/>
+            <check key="covered" text="Covered"/>
+            <check key="indoor" text="Located inside a building?" disable_off="true" match="none"/>
+            <reference ref="level"/>
+        </item> <!-- Trolley bay -->
         <separator/>
         <item name="Bottle return" icon="icons/png/amenity_bottle_return.png" type="node" preset_name_label="true">
             <link wiki="Tag:vending=bottle_return"/>
@@ -7911,6 +7966,15 @@
             <text key="name" text="Name"/>
             <reference ref="sport"/>
             <reference ref="link_contact_address_payment"/>
+        </item> <!-- Sports Centre -->
+        <item name="Sports Hall" icon="icons/png/sport_hall.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:leisure=sports_hall"/>
+            <space/>
+            <key key="leisure" value="sports_hall"/>
+            <text key="name" text="Name"/>
+            <reference ref="sport"/>
+            <reference ref="link_contact_address_payment"/>
+            <preset_link preset_name="Building"/>
         </item> <!-- Sports Centre -->
         <item name="Fitness Centre" icon="icons/png/sport_gym.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:leisure=fitness_centre"/>
@@ -9087,6 +9151,15 @@
                 <reference ref="layer"/>
             </optional>
         </item> <!-- Goods conveyor -->
+        <item name="Gantry" icon="icons/png/man_made_gantry.png" type="way,closedway" preset_name_label="true">
+            <link wiki="Tag:man_made=gantry"/>
+            <space/>
+            <key key="man_made" value="gantry"/>
+            <optional>
+                <text key="maxheight:physical" text="Max. clearance (meters)" value_type="dimension_vertical"/>
+                <reference ref="name_ref_operator"/>
+            </optional>
+        </item> <!-- Gantry -->
         <item name="Mineshaft" icon="icons/png/poi_mine.png" type="node,closedway" preset_name_label="true">
             <link wiki="Tag:man_made=mineshaft"/>
             <space/>
@@ -10165,6 +10238,7 @@
         <reference ref="optional_name_wikipedia"/>
         <check key="ruins" text="Ruins"/>
         <reference ref="link_contact_address_payment"/>
+        <preset_link preset_name="Building"/>
     </item> <!-- Building -->
     <item name="Ruins" icon="icons/png/tourist_ruin.png" type="node,closedway,multipolygon" preset_name_label="true">
         <link wiki="Tag:historic=ruins"/>
