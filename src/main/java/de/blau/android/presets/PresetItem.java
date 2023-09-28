@@ -20,6 +20,7 @@ import java.util.regex.Pattern;
 import org.xmlpull.v1.XmlSerializer;
 
 import android.content.Context;
+import android.net.Uri;
 import android.util.Log;
 import android.view.View;
 import androidx.annotation.NonNull;
@@ -87,7 +88,7 @@ public class PresetItem extends PresetElement {
      * Count of labels for naming
      */
     private int labelCounter = 0;
-    
+
     /**
      * Optional template for creating/formatting a name
      */
@@ -918,7 +919,7 @@ public class PresetItem extends PresetElement {
     public void setNameTemplate(@Nullable String nameTemplate) {
         this.nameTemplate = nameTemplate;
     }
-    
+
     /**
      * @return the fixed tags belonging to this item (unmodifiable)
      */
@@ -1299,8 +1300,17 @@ public class PresetItem extends PresetElement {
      */
     @NonNull
     private String tagToJSON(@NonNull String presetName, @NonNull String key, @Nullable StringWithDescription value) {
-        StringBuilder result = new StringBuilder(
-                "{\"description\":\"" + presetName + "\",\"key\": \"" + key + "\"" + (value == null ? "" : ",\"value\": \"" + value.getValue() + "\""));
+        StringBuilder result = new StringBuilder("{\"description\":\"" + presetName);
+        try {
+            Uri icon = Uri.parse(getIconpath());
+            final String lastPathSegment = icon.getLastPathSegment();
+            if (de.blau.android.util.Util.notEmpty(lastPathSegment)) {
+                result.append("\",\"icon_url\":" + "\"" + Urls.REMOTE_ICON_LOCATION + lastPathSegment);
+            }
+        } catch (Exception ex) {
+            // do nothing
+        }
+        result.append("\",\"key\": \"" + key + "\"" + (value == null ? "" : ",\"value\": \"" + value.getValue() + "\""));
         result.append(",\"object_types\": [");
         boolean first = true;
         if (appliesToNode) {

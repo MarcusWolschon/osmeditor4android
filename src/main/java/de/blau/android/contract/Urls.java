@@ -49,4 +49,6 @@ public final class Urls {
     public static final String EGM96 = "https://github.com/simonpoole/egm96/raw/master/src/main/resources/EGM96.dat";
 
     public static final String GITHUB = "https://github.com/";
+    
+    public static final String REMOTE_ICON_LOCATION = "https://simonpoole.github.io/beautified-JOSM-preset/icons/png/";
 }
