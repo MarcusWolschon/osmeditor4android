@@ -110,10 +110,12 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
     private static final int ICON_SELECTED_BORDER = 2;
     private static final int LABEL_EXTRA          = 40;
 
-    private static final long AUTOPRUNE_MIN_INTERVAL       = 10000; // milli-seconds between autoprunes
+    private static final long AUTOPRUNE_MIN_INTERVAL       = 10000; // milli-seconds between
+                                                                    // autoprunes
     public static final int   DEFAULT_AUTOPRUNE_NODE_LIMIT = 5000;
     public static final int   PAN_AND_ZOOM_LIMIT           = 17;
-    private static final int  MP_SIZE_LIMIT                = 1000;  // max size of MP to render as MP
+    private static final int  MP_SIZE_LIMIT                = 1000;  // max size of MP to render as
+                                                                    // MP
 
     /** half the width/height of a node icon in px */
     private final int iconRadius;
@@ -1209,15 +1211,7 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
         boolean usePresetIcon = style.usePresetIcon();
 
         if (iconPath != null && !usePresetIcon) {
-            iconDrawable = customIconCache.get(iconPath);
-            if (iconDrawable == null && !customIconCache.containsKey(iconPath)) {
-                try (FileInputStream stream = new FileInputStream(iconPath)) {
-                    iconDrawable = PresetIconManager.bitmapDrawableFromStream(context, ICON_SIZE_DP, stream, PresetIconManager.isSvg(iconPath));
-                    customIconCache.put(iconPath, iconDrawable);
-                } catch (IOException e) {
-                    Log.e(DEBUG_TAG, "Icon " + iconPath + " not found");
-                }
-            }
+            iconDrawable = retrieveCustomIcon(iconPath);
         } else if (tmpPresets != null) {
             SortedMap<String, String> tags = element.getTags();
             PresetItem match = null;
@@ -1244,6 +1238,45 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
             element.addToCache(cache, icon);
         }
         map.postInvalidate();
+    }
+
+    /**
+     * Get a custom icon
+     * 
+     * @param iconPath configured icon path
+     */
+    @Nullable
+    public BitmapDrawable retrieveCustomIcon(String iconPath) {
+        BitmapDrawable iconDrawable = customIconCache.get(iconPath); // NOSONAR computeIfAbsent doesn't exist prior to Android 7
+        if (iconDrawable != null || customIconCache.containsKey(iconPath)) {
+            return iconDrawable;
+        }
+        String iconDirPath = DataStyle.getCurrent().getIconDirPath();
+        if (iconDirPath != null) {
+            try (FileInputStream stream = new FileInputStream(iconPath)) {
+                iconDrawable = PresetIconManager.bitmapDrawableFromStream(context, ICON_SIZE_DP, stream, PresetIconManager.isSvg(iconPath));
+                customIconCache.put(iconPath, iconDrawable);
+                return iconDrawable;
+            } catch (IOException e) {
+                Log.w(DEBUG_TAG, "Icon " + iconPath + " not found");
+            }
+        }
+        // search in all presets
+        for (Preset preset : App.getCurrentPresets(context)) {
+            if (preset != null) {
+                PresetIconManager iconManager = preset.getIconManager(context);
+                iconDrawable = iconManager.getDrawable(iconPath, ICON_SIZE_DP);
+                if (iconDrawable != null) {
+                    customIconCache.put(iconPath, iconDrawable);
+                    break;
+                }
+            }
+        }
+        if (iconDrawable == null) {
+            Log.w(DEBUG_TAG, "Icon " + iconPath + " not found");
+            customIconCache.put(iconPath, null);
+        }
+        return iconDrawable;
     }
 
     /**

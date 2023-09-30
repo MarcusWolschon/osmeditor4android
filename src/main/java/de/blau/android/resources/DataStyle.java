@@ -924,7 +924,7 @@ public final class DataStyle extends DefaultHandler {
         fp.getPaint().setStrokeCap(Cap.ROUND);
         fp.getPaint().setStrokeJoin(Join.ROUND);
         internalStyles.put(GPS_TRACK, fp);
-        
+
         fp = new FeatureStyle(MVT_DEFAULT, baseWayStyle);
         fp.setColor(Color.BLUE);
         fp.getPaint().setAlpha(0x7F);
@@ -1998,6 +1998,16 @@ public final class DataStyle extends DefaultHandler {
     @NonNull
     public Path getXPath() {
         return xPath;
+    }
+
+    /**
+     * If a directory is set for custom icons return it
+     * 
+     * @return the directory path or null
+     */
+    @Nullable
+    public String getIconDirPath() {
+        return iconDirPath;
     }
 
     /**
