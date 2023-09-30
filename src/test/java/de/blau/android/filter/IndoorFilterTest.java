@@ -181,6 +181,54 @@ public class IndoorFilterTest {
     }
 
     /**
+     * Test if a building relation is filtered correctly (without UI)
+     */
+    @Test
+    public void indoorFilterBuildingRelation() {
+        try {
+            TreeMap<String, String> tags = new TreeMap<>();
+            Logic logic = App.getLogic();
+
+            logic.performAdd(null, 100.0f, 100.0f);
+            logic.performAdd(null, 1000.0f, 1000.0f);
+            Way w = logic.getSelectedWay();
+            logic.setSelectedNode(null);
+            logic.setSelectedWay(null);
+            logic.performAdd(null, 100.0f, 400.0f);
+            logic.performAdd(null, 1000.0f, 1000.0f);
+            Way w2 = logic.getSelectedWay();
+            logic.setSelectedNode(null);
+            logic.setSelectedWay(null);
+            tags.put(Tags.KEY_LEVEL, "" + 1);
+            logic.setTags(null, w2, tags);
+
+            IndoorFilter f = new IndoorFilter();
+            List<OsmElement> members = new ArrayList<>();
+            members.add(w);
+            members.add(w2);
+            Relation r = logic.createRelation(null, "", members);
+            f.clear();
+            f.setLevel(1);
+            // check that relation without level does change member status
+            Assert.assertFalse(f.include(r, false));
+            Assert.assertFalse(f.include(w, false));
+            Assert.assertTrue(f.include(w2, false));
+
+            // now check inheritance from relation
+            tags.clear();
+            tags.put(Tags.KEY_MIN_LEVEL, "" + 8);
+            tags.put(Tags.KEY_MAX_LEVEL, "" + 10);
+            tags.put(Tags.KEY_BUILDING, "yes");
+            logic.setTags(null, r, tags);
+            f.setLevel(9);
+            Assert.assertTrue(f.include(r, false));
+            Assert.assertTrue(f.include(w, false));
+        } catch (OsmIllegalOperationException e) {
+            Assert.fail(e.getMessage());
+        }
+    }
+
+    /**
      * Test if a relation is filtered correctly (without UI)
      */
     @Test
@@ -209,18 +257,14 @@ public class IndoorFilterTest {
             Relation r = logic.createRelation(null, "", members);
             f.clear();
             f.setLevel(1);
-            // check that relation without level doesn't change member status
-            Assert.assertFalse(f.include(r, false));
-            Assert.assertFalse(f.include(w, false));
-            Assert.assertTrue(f.include(w2, false));
 
-            // now check inheritance from relation
+            // now check relation and inheritance from relation
             tags.clear();
-            tags.put(Tags.KEY_MIN_LEVEL, "" + 8);
-            tags.put(Tags.KEY_MAX_LEVEL, "" + 10);
-            tags.put(Tags.KEY_BUILDING, "yes");
+            tags.put(Tags.KEY_LEVEL, "" + 1);
             logic.setTags(null, r, tags);
-            f.setLevel(9);
+            Assert.assertTrue(f.include(r, true));
+            Assert.assertTrue(f.include(w, true));
+            f.setInverted(true);
             Assert.assertTrue(f.include(r, false));
             Assert.assertTrue(f.include(w, false));
         } catch (OsmIllegalOperationException e) {
