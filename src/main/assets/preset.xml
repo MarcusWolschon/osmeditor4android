@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.18.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,disc_golf,disused:amenity,disused:leisure,disused:man_made,disused:shop,golf,ford,hazard,noexit,indoor,playground,pipeline,police,public_transport,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom">
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.19.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,disc_golf,disused:amenity,disused:leisure,disused:man_made,disused:shop,golf,ford,hazard,noexit,indoor,playground,pipeline,piste:type,police,public_transport,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom">
 <!--
     Icons have been derived from mainly from
   
@@ -2990,7 +2990,7 @@
                 <reference ref="fee"/>
                 <combo key="goods" text="Freight elevator" values="yes,designated,no" display_values="Yes,Designated,No"/>
                 <reference ref="facility_access"/>
-                <combo key="surveillance" text="Surveillance Camera" values="indoor,outdoor" display_values="Indoor,Outdoor"/>
+                <combo key="surveillance" text="Surveillance Camera" values="indoor,outdoor" display_values="Indoor,Outdoor" values_context="surveillance"/>
             </optional>
         </item> <!-- Elevator -->
         <separator/>
@@ -7176,6 +7176,12 @@
             <key key="emergency" value="suction_point"/>
             <reference ref="name_ref_operator"/>
         </item> <!-- Suction point -->
+        <item name="Fire water pond" icon="icons/png/emergency_pond_17021.png" type="node,closedway" preset_name_label="true">
+            <link wiki="Tag:emergency=fire_water_pond"/>
+            <space/>
+            <key key="emergency" value="fire_water_pond"/>
+            <reference ref="name_ref_operator"/>
+        </item> <!-- Fire water pond -->
         <separator/>
         <item name="Emergency Phone" icon="icons/png/emergency_emergency_phone_17022.png" type="node" preset_name_label="true">
             <link wiki="Tag:emergency=phone"/>
@@ -7273,6 +7279,12 @@
             <reference ref="name_ref_operator"/>
             <reference ref="link_contact_address"/>
         </item> <!-- Assembly Point -->
+        <item name="Landing site" icon="icons/png/emergency_helicopter_pad.png" type="node,closedway" preset_name_label="true">
+            <link wiki="Tag:emergency=landing_site"/>
+            <space/>
+            <key key="emergency" value="landing_site"/>
+            <reference ref="name_ref_operator"/>
+        </item> <!-- Landing site -->
     </group> <!-- Emergency -->
     <group name="Social Facilities" icon="icons/png/amenity_outreach_12252.png">
         <item name="Ambulatory Care" icon="icons/png/amenity_ambulatory_care_12248.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -8125,7 +8137,7 @@
                 <key key="golf" value="path"/>
             </item> <!-- Golf path -->
             <separator/>
-            <item name="Driving range" name_context="golf" icon="icons/png/sport_empty.png" type="node,closedway" preset_name_label="true">
+            <item name="Driving range" name_context="golf" icon="icons/png/sport_driving_range.png" type="node,closedway" preset_name_label="true">
                 <link wiki="Tag:leisure=golf_course"/>
                 <space/>
                 <key key="golf" value="driving_range"/>
@@ -9443,7 +9455,7 @@
             <space/>
             <key key="man_made" value="surveillance"/>
             <multiselect key="surveillance:type" text="Method" values="ALPR;camera;guard" display_values="ALPR;camera;guard" text_context="surveillance"/>
-            <combo key="surveillance" text="Location" values="indoor,outdoor,public" display_values="Indoor,Outdoor,Public"/>
+            <combo key="surveillance" text="Location" values="indoor,outdoor,public" display_values="Indoor,Outdoor,Public" values_context="surveillance"/>
             <combo key="surveillance:zone" text="Zone" values="town,parking,traffic,shop,bank,building" display_values="Town,Parking,Traffic,Shop,Bank,Building"/>
             <text key="operator" text="Operator"/>
             <optional>
@@ -12089,6 +12101,18 @@
             <key key="natural" value="geyser"/>
             <reference ref="optional_name_wikipedia"/>
         </item> <!-- Geyser -->
+        <item name="Hot spring" icon="icons/png/natural_spring_24010.png" type="node,closedway" preset_name_label="true">
+            <link wiki="Tag:natural=hot_spring"/>
+            <space/>
+            <key key="natural" value="hot_spring"/>
+            <reference ref="optional_name_wikipedia"/>
+            <combo key="water_characteristic">
+            	<list_entry value="sulfuric" display_value="Contains sulfuric acid"/>
+            	<list_entry value="sulfurous" display_value="Contains sulfur"/>
+            	<list_entry value="mud" display_value="Mud"/>
+            </combo>
+			<text key="temperature" text="Temperature (&#xB0;C)"/> 
+        </item> <!-- Geyser -->
         <separator/>
         <item name="Island" icon="icons/png/poi_island.png" type="node,closedway,multipolygon" preset_name_label="true" name_context="place">
             <link wiki="Tag:place=island"/>
@@ -12143,6 +12167,13 @@
                 <reference ref="denotation"/>
             </optional>
         </item> <!-- Tree Row -->
+        <item name="Tree Stump" icon="icons/png/natural_tree_stump.png" type="node" preset_name_label="true">
+            <link wiki="Tag:natural=tree_stump"/>
+            <space/>
+            <label text="A tree stump."/>
+            <space/>
+            <key key="natural" value="tree_stump"/>
+        </item> <!-- Tree Stump-->
         <item name="Shrub" icon="icons/png/natural_shrub.png" type="node" preset_name_label="true">
             <link wiki="Tag:natural=shrub"/>
             <space/>
