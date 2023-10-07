@@ -329,7 +329,7 @@ public class Preset implements Serializable {
      * @return the PresetIconManager instance
      */
     @NonNull
-    PresetIconManager getIconManager(@NonNull Context ctx) {
+    public PresetIconManager getIconManager(@NonNull Context ctx) {
         if (iconManager == null) {
             if (directory != null) {
                 if (directory.getName().equals(AdvancedPrefDatabase.ID_DEFAULT)) {
@@ -1525,7 +1525,7 @@ public class Preset implements Serializable {
 
             outputStream.println("\"tags\":[");
             Collection<String> discardedKeys = new DiscardedTags(ctx).getKeys();
-            for (String key:discardedKeys) {
+            for (String key : discardedKeys) {
                 outputStream.println("{\"description\":\"Automatically discarded\",\"key\":\"" + key + "\"},");
             }
             int presetsCount = presets.length;
