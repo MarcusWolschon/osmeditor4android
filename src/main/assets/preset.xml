@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.19.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,disc_golf,disused:amenity,disused:leisure,disused:man_made,disused:shop,golf,ford,hazard,noexit,indoor,playground,pipeline,piste:type,police,public_transport,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom">
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.20.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,disc_golf,disused:amenity,disused:leisure,disused:man_made,disused:shop,golf,ford,hazard,noexit,indoor,playground,pipeline,piste:type,police,public_transport,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom">
 <!--
     Icons have been derived from mainly from
   
@@ -266,7 +266,7 @@
     <chunk id="highway_public_transport">
         <check key="trolley_wire" text="Overhead trolley wires" disable_off="true"/>
         <combo key="embedded_rails" text="Embedded rails">
-           <list_entry value="abandoned" display_value="Abandoned"/><list_entry value="construction" display_value="Construction"/><list_entry value="disused" display_value="Disused"/><list_entry value="funicular" display_value="Funicular"/><list_entry value="light_rail" display_value="Light rail"/><list_entry value="miniature" display_value="Miniature"/><list_entry value="narrow_gauge" display_value="Narroe guage"/><list_entry value="rail" display_value="Rail"/><list_entry value="tram" display_value="Tram"/><list_entry value="yes" display_value="Yes"/>
+           <list_entry value="abandoned" display_value="Abandoned"/><list_entry value="construction" display_value="Construction"/><list_entry value="disused" display_value="Disused"/><list_entry value="funicular" display_value="Funicular"/><list_entry value="light_rail" display_value="Light rail"/><list_entry value="miniature" display_value="Miniature"/><list_entry value="narrow_gauge" display_value="Narrow gauge"/><list_entry value="rail" display_value="Rail"/><list_entry value="tram" display_value="Tram"/><list_entry value="yes" display_value="Yes"/>
         </combo>
     </chunk>
     <chunk id="crossing_type">    
@@ -1667,6 +1667,7 @@
         <checkgroup text="Accepted material" columns="4">
             <check key="recycling:aluminium" text="Aluminium" disable_off="true"/>
             <check key="recycling:batteries" text="Batteries" disable_off="true"/>
+            <check key="recycling:beverage_cartons" text="Beverage cartons" disable_off="true"/>
             <check key="recycling:cans" text="Cans" disable_off="true"/>
             <check key="recycling:cardboard" text="Cardboard" disable_off="true"/>
             <check key="recycling:clothes" text="Clothes" disable_off="true"/>
@@ -2261,7 +2262,7 @@
                         <list_entry value="yes" short_description="Yes"/><list_entry value="designated" short_description="Designated"/><list_entry value="no" short_description="No"/>
                     </multiselect>
                     <multiselect key="embedded_rails:lanes" text="Lanes with rails" delimiter="|" match="key" editable="true">
-                        <list_entry value="abandoned" display_value="Abandoned"/><list_entry value="construction" display_value="Construction"/><list_entry value="disused" display_value="Disused"/><list_entry value="funicular" display_value="Funicular"/><list_entry value="light_rail" display_value="Light rail"/><list_entry value="miniature" display_value="Miniature"/><list_entry value="narrow_gauge" display_value="Narroe guage"/><list_entry value="rail" display_value="Rail"/><list_entry value="tram" display_value="Tram"/><list_entry value="yes" display_value="Yes"/>
+                        <list_entry value="abandoned" display_value="Abandoned"/><list_entry value="construction" display_value="Construction"/><list_entry value="disused" display_value="Disused"/><list_entry value="funicular" display_value="Funicular"/><list_entry value="light_rail" display_value="Light rail"/><list_entry value="miniature" display_value="Miniature"/><list_entry value="narrow_gauge" display_value="Narrow gauge"/><list_entry value="rail" display_value="Rail"/><list_entry value="tram" display_value="Tram"/><list_entry value="yes" display_value="Yes"/>
                     </multiselect>
                 </optional>
             </item> <!-- Single direction roads -->
@@ -2294,7 +2295,7 @@
                        <list_entry value="yes" short_description="Yes"/><list_entry value="designated" short_description="Designated"/><list_entry value="no" short_description="No"/>
                     </multiselect>
                     <multiselect key="embedded_rails:lanes:forward" text="Lanes with rails" delimiter="|" match="key" editable="true">
-                        <list_entry value="abandoned" display_value="Abandoned"/><list_entry value="construction" display_value="Construction"/><list_entry value="disused" display_value="Disused"/><list_entry value="funicular" display_value="Funicular"/><list_entry value="light_rail" display_value="Light rail"/><list_entry value="miniature" display_value="Miniature"/><list_entry value="narrow_gauge" display_value="Narroe guage"/><list_entry value="rail" display_value="Rail"/><list_entry value="tram" display_value="Tram"/><list_entry value="yes" display_value="Yes"/>
+                        <list_entry value="abandoned" display_value="Abandoned"/><list_entry value="construction" display_value="Construction"/><list_entry value="disused" display_value="Disused"/><list_entry value="funicular" display_value="Funicular"/><list_entry value="light_rail" display_value="Light rail"/><list_entry value="miniature" display_value="Miniature"/><list_entry value="narrow_gauge" display_value="Narrow gauge"/><list_entry value="rail" display_value="Rail"/><list_entry value="tram" display_value="Tram"/><list_entry value="yes" display_value="Yes"/>
                     </multiselect>
                 </optional>
                 <!-- backwards -->
@@ -2321,7 +2322,7 @@
                         <list_entry value="yes" short_description="Yes"/><list_entry value="designated" short_description="Designated"/><list_entry value="no" short_description="No"/>
                     </multiselect>
                     <multiselect key="embedded_rails:lanes:backwards" text="Lanes with rails" delimiter="|" match="key" editable="true">
-                        <list_entry value="abandoned" display_value="Abandoned"/><list_entry value="construction" display_value="Construction"/><list_entry value="disused" display_value="Disused"/><list_entry value="funicular" display_value="Funicular"/><list_entry value="light_rail" display_value="Light rail"/><list_entry value="miniature" display_value="Miniature"/><list_entry value="narrow_gauge" display_value="Narroe guage"/><list_entry value="rail" display_value="Rail"/><list_entry value="tram" display_value="Tram"/><list_entry value="yes" display_value="Yes"/>
+                        <list_entry value="abandoned" display_value="Abandoned"/><list_entry value="construction" display_value="Construction"/><list_entry value="disused" display_value="Disused"/><list_entry value="funicular" display_value="Funicular"/><list_entry value="light_rail" display_value="Light rail"/><list_entry value="miniature" display_value="Miniature"/><list_entry value="narrow_gauge" display_value="Narrow gauge"/><list_entry value="rail" display_value="Rail"/><list_entry value="tram" display_value="Tram"/><list_entry value="yes" display_value="Yes"/>
                     </multiselect>
                 </optional>
             </item> <!-- Bi-directional roads -->
@@ -2808,6 +2809,11 @@
             <reference ref="check_crossing_access"/>
             <reference ref="tactile_paving"/>
             <reference ref="kerb"/>
+            <optional>
+                <text key="kerb:height" text="Kerb height (both sides)" value_type="dimension_vertical"/>
+                <text key="kerb:right:height" text="Kerb height (right)" value_type="dimension_vertical"/>
+                <text key="kerb:left:height" text="Kerb height (left)" value_type="dimension_vertical"/>
+            </optional>
             <label text="In case of traffic signals:"/>
             <checkgroup text="In case of traffic signals:" columns="2">  
                 <check key="button_operated" text="Button operated" disable_off="true"/>
@@ -5600,8 +5606,8 @@
             <space/>
             <reference ref="internet_smoking"/>
             <optional>
-                <space/>
                 <reference ref="lgbtq"/>
+                <check key="cocktails" text="Cocktails"/>
             </optional>
             <reference ref="link_contact_address_payment"/>
             <reference ref="highchair"/>
@@ -7582,6 +7588,8 @@
                 <combo key="toilets:position" text="Usage Position" values="seated,seated;urinal,squat,urinal" display_values="Seated,Seated urinal,Squat,Urinal"/>
                 <reference ref="oh_wheelchair_level"/>
                 <check key="drinking_water" text="Drinking Water"/>
+                <check key="toilets:handwashing" text="Handwashing facilities"/>
+                <check key="toilets:paper_supplied" text="Wiping paper supplied"/>
             </optional>
         </item> <!-- Toilets/Restrooms -->
         <item name="Shower" icon="icons/png/amenity_shower_12247.png" type="node,closedway" preset_name_label="true">
@@ -7617,6 +7625,11 @@
             <text key="ref" text="Reference number"/>
             <reference ref="collection_times"/>
             <check key="drive_through" text="Drive through" disable_off="true"/>
+            <combo key="post_box:type" text="Type" values_context="post box">
+                <list_entry value="pillar" text="Pillar"/>
+                <list_entry value="lamp" text="Lamp"/>
+                <list_entry value="wall" text="Wall"/>
+            </combo>
         </item> <!-- Post Box -->
         <item name="Parcel Locker" icon="icons/png/amenity_parcel_locker.png" type="node,closedway" preset_name_label="true">
             <link wiki="Tag:amenity=parcel_locker"/>
@@ -8451,6 +8464,7 @@
             <optional>
                 <combo key="piste:difficulty" text="Difficulty" values="novice,easy,intermediate,advanced,expert,freeride" display_values="Novice,Easy,Intermediate,Advanced,Expert,Freeride" values_context="piste:difficulty" values_searchable="true" values_sort="false"/>
                 <combo key="piste:grooming" text="Grooming" values="classic,mogul,skating,classic+skating,scooter,backcountry" display_values="Classic,Mogul,Skating,Classic+skating,Scooter,Backcountry" values_context="piste:grooming"/>
+                <check key="piste:lit" text="Lit"/>
             </optional>
         </item> <!-- Skiing -->
         <item name="Shooting" icon="icons/png/sport_shooting.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -11660,6 +11674,8 @@
         </checkgroup>
         <space/>
         <check key="payment:contactless" text="Contactless payment" match="keyvalue"/>
+        <check key="payment:qr_code" text="QR Code" match="keyvalue"/>
+        <check key="payment:app" text="Dedicated app" match="keyvalue"/>
         <space/>
         <check key="payment:electronic_purses" text="Electronic purses" match="keyvalue"/>
         <checkgroup text="Electronic purses type" columns="4">
