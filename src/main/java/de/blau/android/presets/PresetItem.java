@@ -1242,46 +1242,51 @@ public class PresetItem extends PresetElement {
      */
     @NonNull
     public String toJSON() {
-        StringBuilder presetNameBuilder = new StringBuilder(name);
-        PresetElement p = getParent();
-        while (p != null && p != preset.getRootGroup() && !"".equals(p.getName())) {
-            presetNameBuilder.insert(0, '/');
-            presetNameBuilder.insert(0, p.getName());
-            p = p.getParent();
-        }
-        String presetName = presetNameBuilder.toString();
+        String presetName = getPath(preset.getRootGroup()).toString().replace('|', '/');
+        presetName = presetName.substring(0, Math.max(0, presetName.length() - 1));
         StringBuilder jsonString = new StringBuilder();
-        for (Entry<String, PresetField> entry : fields.entrySet()) {
-            PresetField field = entry.getValue();
-            String k = entry.getKey();
+        for (PresetTagField field : getTagFields()) {
+            final boolean textField = field instanceof PresetTextField;
+            if (textField && ((PresetTextField) field).getScript() != null) {
+                throw new UnsupportedOperationException();
+            }
+            String key = field.getKey();
             if (field instanceof PresetFixedField) {
-                appendEol(jsonString);
-                jsonString.append(tagToJSON(presetName, k, ((PresetFixedField) entry.getValue()).getValue()));
+                appendTag(presetName, jsonString, key, ((PresetFixedField) field).getValue());
                 continue;
             }
             // check match attribute
-            MatchType match = getMatchType(k);
+            MatchType match = getMatchType(key);
+            final boolean canMatch = match == null || match == MatchType.KEY_VALUE || match == MatchType.KEY;
             boolean editable = field instanceof PresetComboField && ((PresetComboField) field).isEditable();
-            if (editable || field instanceof PresetTextField || field instanceof PresetCheckField
-                    || (match != null && match != MatchType.KEY_VALUE && match != MatchType.KEY)) {
-                appendEol(jsonString);
-                jsonString.append(tagToJSON(presetName, k, null));
+            if (editable || textField || field instanceof PresetCheckField || !canMatch) {
+                appendTag(presetName, jsonString, key, null);
             }
-            if (field instanceof PresetComboField && !editable
-                    && (match == null || match == MatchType.KEY_VALUE || match == MatchType.KEY || match == MatchType.KEY_VALUE_NEG)) {
-                for (StringWithDescription v : ((PresetComboField) entry.getValue()).getValues()) {
-                    appendEol(jsonString);
-                    jsonString.append(tagToJSON(presetName, k, v));
+            if (field instanceof PresetComboField && !editable && (canMatch || match == MatchType.KEY_VALUE_NEG)) {
+                for (StringWithDescription v : ((PresetComboField) field).getValues()) {
+                    appendTag(presetName, jsonString, key, v);
                 }
             }
             if (field instanceof PresetCheckGroupField) {
                 for (PresetCheckField check : ((PresetCheckGroupField) field).getCheckFields()) {
-                    appendEol(jsonString);
-                    jsonString.append(tagToJSON(presetName, check.getKey(), null));
+                    appendTag(presetName, jsonString, check.getKey(), null);
                 }
             }
         }
         return jsonString.toString();
+    }
+
+    /**
+     * Append a tag in JSON format
+     * 
+     * @param presetName the preset name
+     * @param jsonString the JSON we are appending to
+     * @param key the tag key
+     * @param value the tag value
+     */
+    private void appendTag(@NonNull String presetName, @NonNull StringBuilder jsonString, @NonNull String key, @Nullable StringWithDescription value) {
+        appendEol(jsonString);
+        jsonString.append(tagToJSON(presetName, key, value));
     }
 
     /**

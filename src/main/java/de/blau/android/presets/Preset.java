@@ -1063,11 +1063,16 @@ public class Preset implements Serializable {
     private String toJSON() {
         final StringBuilder result = new StringBuilder();
         processElements(rootGroup, (PresetElement element) -> {
-            if (element instanceof PresetItem) {
-                if (result.length() != 0) {
-                    result.append(",\n");
+            try {
+                if (element instanceof PresetItem) {
+                    String json = ((PresetItem) element).toJSON();
+                    if (result.length() != 0) {
+                        result.append(",\n");
+                    }
+                    result.append(json);
                 }
-                result.append(((PresetItem) element).toJSON());
+            } catch (UnsupportedOperationException ex) {
+                // ignore
             }
         });
         return result.toString();
