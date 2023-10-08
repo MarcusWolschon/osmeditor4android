@@ -1240,6 +1240,7 @@ public class PresetItem extends PresetElement {
      * 
      * @return JSON format string
      */
+    @NonNull
     public String toJSON() {
         StringBuilder presetNameBuilder = new StringBuilder(name);
         PresetElement p = getParent();
@@ -1250,17 +1251,15 @@ public class PresetItem extends PresetElement {
         }
         String presetName = presetNameBuilder.toString();
         StringBuilder jsonString = new StringBuilder();
-        for (Entry<String, PresetFixedField> entry : fixedTags.entrySet()) {
-            appendEol(jsonString);
-            jsonString.append(tagToJSON(presetName, entry.getKey(), entry.getValue().getValue()));
-        }
         for (Entry<String, PresetField> entry : fields.entrySet()) {
             PresetField field = entry.getValue();
+            String k = entry.getKey();
             if (field instanceof PresetFixedField) {
+                appendEol(jsonString);
+                jsonString.append(tagToJSON(presetName, k, ((PresetFixedField) entry.getValue()).getValue()));
                 continue;
             }
             // check match attribute
-            String k = entry.getKey();
             MatchType match = getMatchType(k);
             boolean editable = field instanceof PresetComboField && ((PresetComboField) field).isEditable();
             if (editable || field instanceof PresetTextField || field instanceof PresetCheckField
@@ -1273,6 +1272,12 @@ public class PresetItem extends PresetElement {
                 for (StringWithDescription v : ((PresetComboField) entry.getValue()).getValues()) {
                     appendEol(jsonString);
                     jsonString.append(tagToJSON(presetName, k, v));
+                }
+            }
+            if (field instanceof PresetCheckGroupField) {
+                for (PresetCheckField check : ((PresetCheckGroupField) field).getCheckFields()) {
+                    appendEol(jsonString);
+                    jsonString.append(tagToJSON(presetName, check.getKey(), null));
                 }
             }
         }
