@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.20.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,disc_golf,disused:amenity,disused:leisure,disused:man_made,disused:shop,golf,ford,hazard,noexit,indoor,playground,pipeline,piste:type,police,public_transport,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom">
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.22.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,disc_golf,disused:amenity,disused:leisure,disused:man_made,disused:shop,golf,ford,harbour,hazard,noexit,indoor,playground,pipeline,piste:type,police,public_transport,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom">
 <!--
     Icons have been derived from mainly from
   
@@ -779,6 +779,9 @@
             </checkgroup>
         </optional>
     </chunk>
+    <chunk id="mooring">
+        <combo key="mooring" text="Mooring" values="yes,no,private,permit,commercial" display_values="Yes,No,Private,Permit required,Commercial"/>
+    </chunk>
     <chunk id="optional_height">
         <optional>
             <text key="height" text="Height (meters)" length="7" value_type="dimension_vertical"/>
@@ -816,6 +819,7 @@
             <list_entry value="10pin" display_value="10pin"/>
             <list_entry value="9pin" display_value="9pin"/>
             <list_entry value="american_football" display_value="American football"/>
+            <list_entry value="american_handball" display_value="American handball"/>
             <list_entry value="archery" display_value="Archery"/>
             <list_entry value="athletics" display_value="Athletics"/>
             <list_entry value="australian_football" display_value="Australian football"/>
@@ -838,6 +842,7 @@
             <list_entry value="equestrian" display_value="Equestrian"/>
             <list_entry value="field_hockey" display_value="Field hockey"/>
             <list_entry value="fitness" display_value="Fitness"/>
+            <list_entry value="four_square" display_value="Four square"/>
             <list_entry value="free_flying" display_value="Free flying"/>
             <list_entry value="futsal" display_value="Futsal"/>
             <list_entry value="gaelic_games" display_value="Gaelic games"/>
@@ -858,6 +863,7 @@
             <list_entry value="netball" display_value="Netball"/>
             <list_entry value="orienteering" display_value="Orienteering"/>
             <list_entry value="padel" display_value="Padel"/>
+            <list_entry value="paintball" display_value="Paintball"/>
             <list_entry value="pelota" display_value="Pelota"/>
             <list_entry value="pickleball" display_value="Pickleball"/>
             <list_entry value="racquet" display_value="Racquet"/>
@@ -878,8 +884,10 @@
             <list_entry value="soccer" display_value="Soccer"/>
             <list_entry value="speedway" display_value="Speedway"/>
             <list_entry value="swimming" display_value="Swimming"/>
+            <list_entry value="table_soccer" display_value="Table soccer"/>
             <list_entry value="table_tennis" display_value="Table tennis"/>
             <list_entry value="tennis" display_value="Tennis"/>
+            <list_entry value="teatherball" display_value="Teatherball"/>
             <list_entry value="volleyball" display_value="Volleyball"/>
             <list_entry value="yoga" display_value="Yoga"/>
         </multiselect>
@@ -3224,6 +3232,11 @@
             <key key="barrier" value="cable_barrier"/>
             <reference ref="optional_height"/>
         </item> <!-- Cable barrier -->
+        <item name="Rope" icon="icons/png/barrier_rope_13030.png" type="node,way,closedway" preset_name_label="true">
+            <link wiki="Tag:barrier=rope"/>
+            <key key="barrier" value="rope"/>
+            <reference ref="optional_height"/>
+        </item> <!-- Rope -->
         <item name="Wall" icon="icons/png/barrier_wall.png" type="way,multipolygon,closedway" preset_name_label="true">
             <link wiki="Tag:barrier=wall"/>
             <key key="barrier" value="wall"/>
@@ -3985,7 +3998,7 @@
                 <space/>
                 <key key="amenity" value="ferry_terminal"/>
                 <text key="name" text="Name"/>
-                <combo key="cargo" text="Cargo" values="passengers,vehicle,bicycle,hgv,passengers;vehicle" values_context="cargo"/>
+                <multiselect key="cargo" text="Cargo" values="passengers;vehicle;bicycle;hgv;container;dry_bulk;liquid_bulk" display_values="Passengers;Vehicles;Bicycles;HGVs;Containers;Dry bulk goods;Liquid bulk goods" values_context="cargo"/>
                 <preset_link preset_name="No name"/>
             </item> <!-- Ferry Terminal -->
             <item name="Ferry Route" icon="icons/png/water_route_sp.png" type="way,closedway,relation" preset_name_label="true" name_template="Ferry ({operator} ?{'{name} ' | ''}{ref} ?{'{from} - {via} - {to}' | '{from} - {to}' | '{from}' | '{to}'})">
@@ -4010,6 +4023,13 @@
                 <reference ref="sanitary_dump_station"/>
                 <preset_link preset_name="No name"/>
             </item> <!-- Marina -->
+            <item name="Harbour" icon="icons/png/transport_marina.png" type="node,closedway,multipolygon" preset_name_label="true">
+                <link wiki="Key:harbour"/>
+                <space/>
+                <key key="harbour" value="yes"/>
+                <reference ref="name_operator"/>
+                <reference ref="link_contact_address"/>
+            </item>
             <item name="Marine Fuel" icon="icons/png/transport_fuel.png" type="node,closedway,multipolygon" preset_name_label="true">
                 <link wiki="Tag:waterway=fuel"/>
                 <space/>
@@ -4085,9 +4105,16 @@
                 <space/>
                 <key key="man_made" value="pier"/>
                 <reference ref="optional_name"/>
-                <combo key="mooring" text="Mooring" values="yes,no,private,permit,commercial" display_values="Yes,No,Private,Permit required,Commercial"/>
+                <reference ref="mooring"/>
                 <check key="floating" text="Floating"/>
             </item> <!-- Pier -->
+            <item name="Quay" icon="icons/png/water_quay.png" type="way,closedway,multipolygon" preset_name_label="true">
+                <link wiki="Tag:man_made=quay"/>
+                <space/>
+                <key key="man_made" value="quay"/>
+                <reference ref="optional_name"/>
+                <reference ref="mooring"/> 
+            </item> <!-- Quay -->
             <item name="Lock Gate" icon="icons/png/water_lock_gate_34007.png" type="node,way" preset_name_label="true">
                 <link wiki="Tag:waterway=lock_gate"/>
                 <key key="waterway" value="lock_gate"/>
@@ -6158,8 +6185,10 @@
                     <check text="Climbing wall" key="playground:climbingwall" disable_off="true" text_context="leisure"/>
                     <check text="Cushion" key="playground:cushion" disable_off="true" text_context="leisure"/>
                     <check text="Exercise" key="playground:exercise" disable_off="true" text_context="leisure"/>
+                    <check text="Funnel ball" key="playground:funnel_ball" disable_off="true" text_context="leisure"/>
                     <check text="Hopscotch" key="playground:hopscotch" disable_off="true" text_context="leisure"/>
                     <check text="Horizontal bar" key="playground:horizontal_bar" disable_off="true" text_context="leisure"/>
+                    <check text="Map" key="playground:map" disable_off="true" text_context="leisure"/>
                     <check text="Multi play" key="playground:multi_play" disable_off="true" text_context="leisure"/>
                     <check text="Playhouse" key="playground:playhouse" disable_off="true" text_context="leisure"/>
                     <check text="Roundabout" key="playground:roundabout" disable_off="true" text_context="leisure"/>
@@ -6202,8 +6231,10 @@
                 <list_entry value="climbingwall" display_value="Climbing wall"/>
                 <list_entry value="cushion" display_value="Cushion"/>
                 <list_entry value="exercise" display_value="Exercise"/>
+                <list_entry value="funnel_ball" display_value="Funnel ball"/>
                 <list_entry value="hopscotch" display_value="Hopscotch"/>
                 <list_entry value="horizontal_bar" display_value="Horizontal bar"/>
+                <list_entry value="map" display_value="Map"/>
                 <list_entry value="multi_play" display_value="Multi play"/>
                 <list_entry value="playhouse" display_value="Playhouse"/>
                 <list_entry value="roundabout" display_value="Roundabout"/>
@@ -6538,7 +6569,18 @@
             <link wiki="Tag:tourism=artwork"/>
             <space/>
             <key key="tourism" value="artwork"/>
-            <combo key="artwork_type" text="Type" values="architecture,mural,painting,sculpture,statue,bust,stone,installation,graffiti" display_values="Architecture,Mural,Painting,Sculpture,Statue,Bust,Stone,Installation,Graffiti" values_searchable="true"/>
+            <combo key="artwork_type" text="Type" values_searchable="true">
+                <list_entry value="architecture" display_value="Architecture"/>
+                <list_entry value="bust" display_value="Bust"/>
+                <list_entry value="graffiti" display_value="Graffiti"/>
+                <list_entry value="installation" display_value="Installation"/>
+                <list_entry value="mosaic" display_value="Mosaic"/>
+                <list_entry value="mural" display_value="Mural"/>
+                <list_entry value="painting" display_value="Painting"/>
+                <list_entry value="sculpture" display_value="Sculpture"/>
+                <list_entry value="statue" display_value="Statue"/>
+                <list_entry value="stone" display_value="Stone"/>
+            </combo>
             <text key="name" text="Name"/>
             <text key="artwork_subject" text="Subject"/>
             <text key="artist_name" text="Artist Name"/>
@@ -7585,7 +7627,7 @@
                 <reference ref="fee"/>
                 <reference ref="changing_table"/>
                 <text key="operator" text="Operator"/>
-                <combo key="toilets:position" text="Usage Position" values="seated,seated;urinal,squat,urinal" display_values="Seated,Seated urinal,Squat,Urinal"/>
+                <multiselect key="toilets:position" text="Usage Position" values="seated;squat;urinal" display_values="Seated;Squat;Urinal"/>
                 <reference ref="oh_wheelchair_level"/>
                 <check key="drinking_water" text="Drinking Water"/>
                 <check key="toilets:handwashing" text="Handwashing facilities"/>
@@ -7609,6 +7651,25 @@
                 <reference ref="oh_wheelchair_level"/>
             </optional>
         </item> <!-- Shower -->
+        <item name="Dressing room" icon="icons/png/amenity_dressing_room.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:amenity=dressing_rooom"/>
+            <space/>
+            <key key="amenity" value="dressing_room"/>
+            <reference ref="facility_access"/>
+            <optional>
+                <checkgroup text="Gender" columns="3">
+                    <check key="female" text="Female" text_context="restroom" disable_off="true"/>
+                    <check key="male" text="Male" text_context="restroom" disable_off="true"/>
+                    <check key="unisex" text="Unisex" text_context="restroom" disable_off="true"/>
+                </checkgroup>
+                <check key="locker" text="Lockers"/>
+                <text key="description" text="Description" length="255"/>
+                <reference ref="fee"/>
+                <text key="operator" text="Operator"/>
+                <reference ref="supervised"/>
+                <reference ref="oh_wheelchair_level"/>
+            </optional>
+        </item> <!-- Dressing room -->
         <item name="Smoking area" icon="icons/png/amenity_tobacco_29141.png" type="node,closedway" preset_name_label="true">
             <link wiki="Tag:amenity=smoking_area"/>
             <space/>
@@ -7645,6 +7706,14 @@
             <reference ref="collection_times"/>
             <reference ref="essential_wheelchair"/>
         </item> <!-- Parcel Locker -->
+        <item name="Post Depot" icon="icons/png/amenity_post_depot.png" type="node,closedway" preset_name_label="true">
+            <link wiki="Tag:amenity=post_depot"/>
+            <space/>
+            <key key="amenity" value="post_depot"/>
+            <reference ref="name_operator_oh_wheelchair_level"/>
+            <text key="ref" text="Reference number"/>
+            <reference ref="essential_wheelchair"/>
+        </item> <!-- Post Depot -->
         <item name="Telephone" icon="icons/png/amenity_telephone.png" type="node" preset_name_label="true">
             <link wiki="Tag:amenity=telephone"/>
             <space/>
@@ -7971,7 +8040,14 @@
                 <text key="post:city" text="City" match="key"/>
                 <text key="post:state" text="State" match="key"/>
             </optional>
-        </item> <!-- Weighbridge -->
+        </item> <!-- Letter box -->
+        <item name="Research institute" icon="icons/png/amenity_research.png" type="node,closedway,multipolygon">
+            <link wiki="Tag:amenity=research_institute"/>
+            <space/>
+            <key key="amenity" value="research_institute"/>
+            <reference ref="name_operator"/>
+            <reference ref="link_contact_address"/>
+        </item> <!-- Research institute -->
     </group> <!-- Facilities -->
     </group>  <!-- Facilities -->
     <group name="Sports" icon="icons/png/sport_soccer.png">
@@ -11523,6 +11599,14 @@
             <reference ref="name_oh_wheelchair"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Security -->
+       <item name="Repair" icon="icons/png/shopping_repair.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:shop=repair"/>
+            <space/>
+            <key key="shop" value="repair"/>
+            <multiselect key="repair" values="assisted_self_service;appliance;computer;electronics;mobile_phone;motorcycle;shoes;tv;tyres" display_values="Assisted self service;Appliances;Computers;Electronics;Mobile phones;Motorcycles;Shoes;TVs;Tyres"/>
+            <reference ref="name_oh_wheelchair"/>
+            <reference ref="link_contact_address_payment"/>
+        </item> <!-- Repair -->
         <item name="Funeral Directors" icon="icons/png/shopping_funeral_directors_29067.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:shop=funeral_directors"/>
             <space/>
@@ -11845,10 +11929,12 @@
             <space/>
             <key key="boundary" value="hazard"/>
             <combo key="hazard" text="Hazard" values_context="hazard">
+                <list_entry value="biohazard" short_description="Biohazard"/>
                 <list_entry value="contamination" short_description="Contamination"/>
                 <list_entry value="minefield" short_description="Minefield"/>
                 <list_entry value="nuclear" short_description="Nuclear"/>
                 <list_entry value="shooting_range" short_description="Shooting range"/>
+                <list_entry value="quicksand" short_description="Quicksand"/>
                 <list_entry value="unexploded_ordnance" short_description="Unexploded ordnance"/>
             </combo>
             <optional>
@@ -12123,11 +12209,11 @@
             <key key="natural" value="hot_spring"/>
             <reference ref="optional_name_wikipedia"/>
             <combo key="water_characteristic">
-            	<list_entry value="sulfuric" display_value="Contains sulfuric acid"/>
-            	<list_entry value="sulfurous" display_value="Contains sulfur"/>
-            	<list_entry value="mud" display_value="Mud"/>
+                <list_entry value="sulfuric" display_value="Contains sulfuric acid"/>
+                <list_entry value="sulfurous" display_value="Contains sulfur"/>
+                <list_entry value="mud" display_value="Mud"/>
             </combo>
-			<text key="temperature" text="Temperature (&#xB0;C)"/> 
+            <text key="temperature" text="Temperature (&#xB0;C)"/> 
         </item> <!-- Geyser -->
         <separator/>
         <item name="Island" icon="icons/png/poi_island.png" type="node,closedway,multipolygon" preset_name_label="true" name_context="place">
@@ -13898,6 +13984,13 @@
             <reference ref="name_oh_wheelchair_level"/>
             <reference ref="link_contact_address"/>
         </item> <!-- Estate agent -->
+        <item name="Property management" icon="icons/png/office_property_management.png" type="node,closedway,multipolygon">
+            <link wiki="Tag:office=property_management"/>
+            <space/>
+            <key key="office" value="property_management"/>
+            <reference ref="name_oh_wheelchair_level"/>
+            <reference ref="link_contact_address"/>
+        </item> <!-- Property management -->
         <item name="Government" icon="icons/png/office_government_25006.png" type="node,closedway,multipolygon">
             <link wiki="Tag:office=government"/>
             <space/>
@@ -13998,6 +14091,20 @@
             <reference ref="name_oh_wheelchair_level"/>
             <reference ref="link_contact_address"/>
         </item> <!-- Architect -->
+        <item name="Engineer" icon="icons/png/office_engineer.png" type="node,closedway,multipolygon">
+            <link wiki="Tag:office=engineer"/>
+            <space/>
+            <key key="office" value="engineer"/>
+            <reference ref="name_oh_wheelchair_level"/>
+            <reference ref="link_contact_address"/>
+        </item> <!-- Engineer -->
+        <item name="Construction company" icon="icons/png/office_construction_company.png" type="node,closedway,multipolygon">
+            <link wiki="Tag:office=construction_company"/>
+            <space/>
+            <key key="office" value="construction_company"/>
+            <reference ref="name_oh_wheelchair_level"/>
+            <reference ref="link_contact_address"/>
+        </item> <!-- Construction company -->
         <item name="Association" icon="icons/png/office_association_25025.png" type="node,closedway,multipolygon">
             <link wiki="Tag:office=association"/>
             <space/>
@@ -14071,6 +14178,13 @@
             <reference ref="name_oh_wheelchair_level"/>
             <reference ref="link_contact_address"/>
         </item> <!-- Tax advisor -->
+        <item name="Financial advisor" icon="icons/png/office_financial_advisor.png" type="node,closedway,multipolygon">
+            <link wiki="Tag:office=financial_advisor"/>
+            <space/>
+            <key key="office" value="financial_advisor"/>
+            <reference ref="name_oh_wheelchair_level"/>
+            <reference ref="link_contact_address"/>
+        </item> <!-- Financial advisor -->
         <item name="Consulting" icon="icons/png/office_consulting_25044.png" type="node,closedway,multipolygon">
             <link wiki="Tag:office=consulting"/>
             <space/>
@@ -14106,6 +14220,13 @@
             <reference ref="name_oh_wheelchair_level"/>
             <reference ref="link_contact_address"/>
         </item> <!-- Logistics -->
+        <item name="Courier" icon="icons/png/office_courier.png" type="node,closedway,multipolygon">
+            <link wiki="Tag:office=courier"/>
+            <space/>
+            <key key="office" value="courier"/>
+            <reference ref="name_oh_wheelchair_level"/>
+            <reference ref="link_contact_address"/>
+        </item> <!-- Courier -->
         <item name="Notary" icon="icons/png/office_notary_25049.png" type="node,closedway,multipolygon">
             <link wiki="Tag:office=notary"/>
             <space/>
@@ -14185,7 +14306,7 @@
             <!-- originalTags and tags are java.util.Map<String,ArrayList<String>>, originalTags are the tags
                  before the PropertyEditor was started, tags are the current values, by removing the key at the
                  end of the script it can be re-run without manually reseting the value, &, <, > need to be escaped -->
-            <text key="set_to_disused" javascript=" var objects = ['shop','amenity','leisure','military','man_made','tourism'];  function isObject(key) {   var objectsLength = objects.length;   for (var i = 0; i &lt; objectsLength; i++) {     if (objects[i].equals(key)) {             return true;     }   }   return false; }  for (var key in Iterator(new java.util.HashSet(tags.keySet()))) {   if (isObject(key)) {     tags.put('disused:'+key,tags.get(key));     tags.remove(key);   } } tags.remove('set_to_disused');"/>
+            <text key="set_to_disused" javascript=" var objects = ['amenity','aeroway','highway','leisure','man_made','military','railway','shop'];  function isObject(key) {   var objectsLength = objects.length;   for (var i = 0; i &lt; objectsLength; i++) {     if (objects[i].equals(key)) {             return true;     }   }   return false; }  for (var key in Iterator(new java.util.HashSet(tags.keySet()))) {   if (isObject(key)) {     tags.put('disused:'+key,tags.get(key));     tags.remove(key);   } } tags.remove('set_to_disused');"/>
         </item>
         <item name="Set to disused (remove tags)" icon="icons/png/javascript.png" type="node,way,closedway,relation" preset_name_label="true">
             <link wiki="Key:disused:"/>
@@ -14193,22 +14314,83 @@
                  originalTags and tags are java.util.Map<String,ArrayList<String>>, originalTags are the tags
                  before the PropertyEditor was started, tags are the current values, by removing the key at the
                  end of the script it can be re-run without manually reseting the value, &, <, > need to be escaped -->
-            <text key="set_to_disused_remove_tags" javascript=" var objects = ['shop','amenity','leisure','military'];  function isObject(key) {   var objectsLength = objects.length;   for (var i = 0; i &lt; objectsLength; i++) {     if (objects[i].equals(key)) {             return true;     }   }   return false; }  var presetItem = null; for (var key in Iterator(new java.util.HashSet(tags.keySet()))) {   if (isObject(key)) {     tags.put('disused:'+key,tags.get(key));     presetItem = key2PresetItem.get(key);     tags.remove(key);   }   if (typeof versionCode !== 'undefined' &amp;&amp; versionCode &gt; 703) {     if (presetItem !== null &amp;&amp; presetItem.equals(key2PresetItem.get(key))) {       tags.remove(key);     }   } } tags.remove('set_to_disused_remove_tags');"/>
+            <text key="set_to_disused_remove_tags" javascript=" var objects = ['amenity','aeroway','highway','leisure','man_made','military','railway','shop'];  function isObject(key) {   var objectsLength = objects.length;   for (var i = 0; i &lt; objectsLength; i++) {     if (objects[i].equals(key)) {             return true;     }   }   return false; }  var presetItem = null; for (var key in Iterator(new java.util.HashSet(tags.keySet()))) {   if (isObject(key)) {     tags.put('disused:'+key,tags.get(key));     presetItem = key2PresetItem.get(key);     tags.remove(key);   }   if (typeof versionCode !== 'undefined' &amp;&amp; versionCode &gt; 703) {     if (presetItem !== null &amp;&amp; presetItem.equals(key2PresetItem.get(key))) {       tags.remove(key);     }   } } tags.remove('set_to_disused_remove_tags');"/>
         </item>
         <item name="Disused amenity" icon="icons/png/lifecycle.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Key:disused:"/>
             <space/>
             <text key="disused:amenity" match="key"/>
         </item> <!-- Disused amenity -->
+        <item name="Disused aeroway" icon="icons/png/lifecycle.png" type="node,way,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Key:disused:"/>
+            <space/>
+            <text key="disused:aeroway" match="key"/>
+        </item> <!-- Disused aeroway -->
+        <item name="Disused building" icon="icons/png/lifecycle.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Key:disused:"/>
+            <space/>
+            <text key="disused:building" match="key"/>
+        </item> <!-- Disused building --> 
+        <item name="Disused highway" icon="icons/png/lifecycle.png" type="node,way,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Key:disused:"/>
+            <space/>
+            <text key="disused:highway" match="key"/>
+        </item> <!-- Disused highway -->
         <item name="Disused leisure" icon="icons/png/lifecycle.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Key:disused:"/>
             <space/>
             <text key="disused:leisure" match="key"/>
         </item> <!-- Disused leisure -->
+        <item name="Disused military object" icon="icons/png/lifecycle.png" type="node,way,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Key:disused:"/>
+            <space/>
+            <text key="disused:military" match="key"/>
+        </item> <!-- Disused military object -->
+        <item name="Disused railway" icon="icons/png/lifecycle.png" type="node,way,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Key:disused:"/>
+            <space/>
+            <text key="disused:railway" match="key"/>
+        </item> <!-- Disused railway -->
         <item name="Disused shop" icon="icons/png/lifecycle.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Key:disused:"/>
             <space/>
             <text key="disused:shop" match="key"/>
         </item> <!-- Disused shop -->
+        <separator/>
+        <item name="Set to abandoned" icon="icons/png/javascript.png" type="node,way,closedway,relation" preset_name_label="true">
+            <link wiki="Key:abandoned:"/>
+            <!-- originalTags and tags are java.util.Map<String,ArrayList<String>>, originalTags are the tags
+                 before the PropertyEditor was started, tags are the current values, by removing the key at the
+                 end of the script it can be re-run without manually reseting the value, &, <, > need to be escaped -->
+            <text key="set_to_abandoned" javascript=" var objects = ['amenity','aeroway','highway','leisure','man_made','military','railway','shop'];  function isObject(key) {   var objectsLength = objects.length;   for (var i = 0; i &lt; objectsLength; i++) {     if (objects[i].equals(key)) {             return true;     }   }   return false; }  for (var key in Iterator(new java.util.HashSet(tags.keySet()))) {   if (isObject(key)) {     tags.put('abandoned:'+key,tags.get(key));     tags.remove(key);   } } tags.remove('set_to_abandoned');"/>
+        </item>
+        <item name="Set to abandoned (remove tags)" icon="icons/png/javascript.png" type="node,way,closedway,relation" preset_name_label="true">
+            <link wiki="Key:abandoned:"/>
+            <!-- This preset will only remove tags on app version 703 and higher (Vespucci 11.1.1)
+                 originalTags and tags are java.util.Map<String,ArrayList<String>>, originalTags are the tags
+                 before the PropertyEditor was started, tags are the current values, by removing the key at the
+                 end of the script it can be re-run without manually reseting the value, &, <, > need to be escaped -->
+            <text key="set_to_abandoned_remove_tags" javascript=" var objects = ['amenity','aeroway','highway','leisure','man_made','military','railway','shop'];  function isObject(key) {   var objectsLength = objects.length;   for (var i = 0; i &lt; objectsLength; i++) {     if (objects[i].equals(key)) {             return true;     }   }   return false; }  var presetItem = null; for (var key in Iterator(new java.util.HashSet(tags.keySet()))) {   if (isObject(key)) {     tags.put('abandoned:'+key,tags.get(key));     presetItem = key2PresetItem.get(key);     tags.remove(key);   }   if (typeof versionCode !== 'undefined' &amp;&amp; versionCode &gt; 703) {     if (presetItem !== null &amp;&amp; presetItem.equals(key2PresetItem.get(key))) {       tags.remove(key);     }   } } tags.remove('set_to_abandoned_remove_tags');"/>
+        </item>
+        <item name="Abandoned aeroway" icon="icons/png/lifecycle.png" type="node,way,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Key:abandoned:"/>
+            <space/>
+            <text key="abandoned:aeroway" match="key"/>
+        </item> <!-- Abandoned aeroway -->
+        <item name="Abandoned building" icon="icons/png/lifecycle.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Key:abandoned:"/>
+            <space/>
+            <text key="abandoned:building" match="key"/>
+        </item> <!-- Abandoned building -->
+        <item name="Abandoned highway" icon="icons/png/lifecycle.png" type="node,way,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Key:abandoned:"/>
+            <space/>
+            <text key="abandoned:highway" match="key"/>
+        </item> <!-- Abandoned highway -->
+        <item name="Abandoned railway" icon="icons/png/lifecycle.png" type="node,way,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Key:abandoned:"/>
+            <space/>
+            <text key="abandoned:railway" match="key"/>
+        </item> <!-- Abandoned railway -->
     </group>
 </presets>
