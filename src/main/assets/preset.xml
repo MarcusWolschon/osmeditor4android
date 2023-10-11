@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.22.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,disc_golf,disused:amenity,disused:leisure,disused:man_made,disused:shop,golf,ford,harbour,hazard,noexit,indoor,playground,pipeline,piste:type,police,public_transport,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom">
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.23.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,disc_golf,disused:amenity,disused:leisure,disused:man_made,disused:shop,golf,ford,harbour,hazard,noexit,indoor,playground,pipeline,piste:type,police,public_transport,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom">
 <!--
     Icons have been derived from mainly from
   
@@ -1000,7 +1000,7 @@
     </chunk>
     <!-- start of religions and denominations -->
     <chunk id="religious"> <!-- all religions and denominations -->
-        <combo key="religion" text="Religion" values="bahai,buddhist,caodaism,christian,confucian,hindu,jain,jewish,muslim,shinto,sikh,spiritualist,taoist,tenrikyo,unitarian_universalist,zoroastrian" display_values="Bahai,Buddhist,Caodaism,Christian,Confucian,Hindu,Jain,Jewish,Muslim,Shinto,Sikh,Spiritualist,Taoist,Tenrikyo,Unitarian universalist,Zoroastrian"/>
+        <combo key="religion" text="Religion" values="bahai,buddhist,caodaism,christian,confucian,hindu,jain,jewish,muslim,shinto,sikh,spiritualist,taoist,tenrikyo,unitarian_universalist,voodoo,zoroastrian" display_values="Bahai,Buddhist,Caodaism,Christian,Confucian,Hindu,Jain,Jewish,Muslim,Shinto,Sikh,Spiritualist,Taoist,Tenrikyo,Unitarian universalist,Voodoo,Zoroastrian"/>
         <combo key="denomination" text="Denomination" values="anglican,baptist,catholic,church_of_scotland,conservative,evangelical,greek_catholic,greek_orthodox,ibadi,iglesia_ni_cristo,jehovahs_witness,lutheran,mahayana,methodist,mormon,new_apostolic,nondenominational,old_catholic,orthodox,pentecostal,presbyterian,protestant,quaker,reform,reformed,roman_catholic,romanian_orthodox,russian_orthodox,serbian_orthodox,seventh_day_adventist,shaivism,shaktism,shia,smartism,spiritist,sunni,tibetan,theravada,united,united_methodist,vaishnavism,vajrayana" display_values="Anglican,Baptist,Catholic,Church of Scotland,Conservative,Evangelical,Greek catholic,Greek orthodox,Ibadi,Iglesia ni cristo,Jehovahs witness,Lutheran,Mahayana,Methodist,Mormon,New apostolic,Nondenominational,Old catholic,Orthodox,Pentecostal,Presbyterian,Protestant,Quaker,Reform,Reformed,Roman catholic,Romanian orthodox,Russian orthodox,Serbian orthodox,Seventh day adventist,Shaivism,Shaktism,Shia,Smartism,Spiritist,Sunni,Tibetan,Theravada,United,United methodist,Vaishnavism,Vajrayana"/>
     </chunk>
     <chunk id="religious_catholic_christian"> <!-- special case for wayside_shrine and wayside_cross: all religions and catholic denominations with default to catholic christian -->
@@ -1833,6 +1833,9 @@
     </chunk>
     <chunk id="sanitary_dump_station">
         <combo key="sanitary_dump_station" text="Dump Station" values="yes,public,customers,no" display_values="Available,Public,Customers,Not available" match="none"/>
+    </chunk>
+    <chunk id="licence_classes">
+        <combo key="license_classes" text="License Classes" values="A;A1;B;BE;C,A;A1;B;B1;C;C1;D;D1;BE;CE;C1E;DE;D1E"/>
     </chunk>
     <!-- Groups -->
     <group name="Highways" icon="icons/png/highway_highway_sp.png">
@@ -2959,6 +2962,13 @@
                 <text key="maxspeed" text="Max. speed (km/h)"/>
             </optional>
         </item> <!-- Speed Camera -->
+        <item name="Speed display" icon="icons/png/speed_display.png" type="node" preset_name_label="true">
+            <link wiki="Tag:highway=speed_display"/>
+            <key key="highway" value="speed_display"/>
+            <optional>
+                <text key="maxspeed" text="Max. speed (km/h)"/>
+            </optional>
+        </item> <!-- Speed display -->
         <item name="Toll gantry" icon="icons/png/transport_toll_gantry_18029.png" type="node" preset_name_label="true">
             <link wiki="Tag:highway=toll_gantry"/>
             <key key="highway" value="toll_gantry"/>
@@ -6342,6 +6352,15 @@
             <preset_link preset_name="Bookmaker" text="Similar but different tags:" alternative="true"/>
             <preset_link preset_name="Lottery" text="Similar but different tags:" alternative="true"/>
         </item> <!-- Amusement arcade -->
+        <item name="Karaoke box" icon="icons/png/amenity_karaoke.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:amenity=karaoke_box"/>
+            <space/>
+            <key key="amenity" value="karaoke_box"/>
+            <reference ref="name_operator_oh_wheelchair_level"/>
+            <space/>
+            <reference ref="internet_smoking"/>
+            <reference ref="link_contact_address_payment"/>
+        </item> <!-- Karaoke box -->
         <item name="Adult gaming centre" icon="icons/png/amenity_slot_machine.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:leisure=adult_gaming_centre"/>
             <space/>
@@ -6903,9 +6922,18 @@
             <key key="amenity" value="driving_school"/>
             <reference ref="name_operator_wheelchair_level"/>
             <reference ref="optional_oh"/>
-            <combo key="license_classes" text="License Classes" values="A;A1;B;BE;C,A;A1;B;B1;C;C1;D;D1;BE;CE;C1E;DE;D1E"/>
+            <reference ref="licence_classes"/>
             <reference ref="link_contact_address"/>
         </item> <!-- Driving School -->
+        <item name="Driver training" icon="icons/png/education_motorsport_track.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:amenity=driver_training"/>
+            <space/>
+            <key key="amenity" value="driving_school"/>
+            <reference ref="name_operator_wheelchair_level"/>
+            <reference ref="optional_oh"/>
+            <reference ref="licence_classes"/>
+            <reference ref="link_contact_address"/>
+        </item> <!-- Driver training -->
         <item name="Music School" icon="icons/png/education_musical_instrument_29107.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:amenity=music_school"/>
             <space/>
@@ -7028,8 +7056,10 @@
                 <list_entry value="birthing_centre" short_description="Birthing centre"/>
                 <list_entry value="blood_donation" short_description="Blood donation"/>
                 <list_entry value="counselling" short_description="Counselling"/>
+                <list_entry value="dialysis" short_description="Dialysis"/>
                 <list_entry value="hospice" short_description="Hospice"/>
                 <list_entry value="rehabilitation" short_description="Rehabilitation"/>
+                <list_entry value="vaccination_centre" short_description="Vaccination centre"/>
             </combo>
             <reference ref="name_oh_wheelchair_level"/>
             <reference ref="link_contact_address_payment"/>
@@ -8797,7 +8827,7 @@
             <reference ref="sport_facility"/>
             <reference ref="motorsport_surface"/>
         </item> <!-- RC Car -->
-        <item name="Raceway" icon="icons/png/sport_empty.png" type="way,closedway,multipolygon" preset_name_label="true">
+        <item name="Raceway" icon="icons/png/sport_motorsport_track.png" type="way,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:highway=raceway"/>
             <space/>
             <key key="highway" value="raceway"/>
@@ -9569,13 +9599,20 @@
                 <text key="operator" text="Operator"/>
             </optional>
         </item> <!-- MDF -->
-        <item name="Beehive" icon="icons/png/man_made_empty.png" name_context="man_made" type="node,closedway" preset_name_label="true">
+        <item name="Beehive" icon="icons/png/man_made_beehive.png" name_context="man_made" type="node,closedway" preset_name_label="true">
             <link wiki="Tag:man_made=beehive"/>
             <key key="man_made" value="beehive"/>
             <optional>
                 <text key="operator" text="Operator"/>
             </optional>
         </item> <!-- Beehive -->
+        <item name="Dovecote" icon="icons/png/man_made_dovecote.png" name_context="man_made" type="node,closedway" preset_name_label="true">
+            <link wiki="Tag:man_made=dovecote"/>
+            <key key="man_made" value="dovecote"/>
+            <optional>
+                <text key="operator" text="Operator"/>
+            </optional>
+        </item> <!-- Dovecote -->
         <item name="Insect hotel" icon="icons/png/man_made_insect_hotel.png" name_context="man_made" type="node" preset_name_label="true">
             <link wiki="Tag:man_made=insect_hotel"/>
             <key key="man_made" value="insect_hotel"/>
@@ -11931,6 +11968,7 @@
             <combo key="hazard" text="Hazard" values_context="hazard">
                 <list_entry value="biohazard" short_description="Biohazard"/>
                 <list_entry value="contamination" short_description="Contamination"/>
+                <list_entry value="hole" short_description="Hole"/>
                 <list_entry value="minefield" short_description="Minefield"/>
                 <list_entry value="nuclear" short_description="Nuclear"/>
                 <list_entry value="shooting_range" short_description="Shooting range"/>
