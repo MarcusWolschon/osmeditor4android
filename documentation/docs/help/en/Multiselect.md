@@ -1,6 +1,6 @@
 # Multiselect
 
-Selected elements can be moved by dragging in the touch area. Individual objects can be selected / de-selected by (single) tapping them. A double tap in an entry area will end the mode.
+Multiple elements can be selected by either selecting an element and then using the _Extend selection_ entry from the menu, or by double-clicking an element. Selected elements can be moved by dragging in the touch area. Individual objects can be selected / de-selected by (single) tapping them. A double tap in an empty area will end the mode.
 
 ## Actions  
 
@@ -30,7 +30,7 @@ Merge multiple selected ways resulting in a single way. Ways will be reversed if
 
 ### Add node at intersection
 
-If two or more ways are selected and they intersect witout a common node, a new node will be added at the first intersection found.
+If two or more ways are selected and they intersect without a common node, a new node will be added at the first intersection found.
 
 ### ![Relation](../images/relation.png) Create relation
 
