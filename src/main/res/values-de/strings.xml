@@ -8,6 +8,7 @@
   <string name="mode_address">Adresse</string>
   <string name="mode_voice">Stimme</string>
   <!--additional short cuts-->
+  <string name="shortcut_safe">Speichern</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Achtung!</string>
   <string name="transfer_download_current_dialog_message">Sie haben Änderungen vorgenommen. Möchten Sie diese hochladen, anstatt sie zu verwerfen?</string>
@@ -689,7 +690,9 @@
   <string name="toast_part_selection_not_supported">Wegteil-Auswahl wird für geschlossene Wege nicht unterstützt</string>
   <string name="toast_element_has_been_deleted">Element wurde gelöscht</string>
   <string name="toast_updating_tags">Tags aktualisieren...</string>
+  <string name="toast_updating_parents">Aktualisierung der Elternelemente...</string>
   <string name="toast_updating_members">Mitglieder aktualisieren...</string>
+  <string name="toast_error_loading_egm">Fehler beim Laden von EGM %1$s</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">Für MapSplit-Quellen müssen Zoomgrenzen festgelegt sein.</string>
   <string name="error_pbf_no_version">Versionsinformation fehlt in PBF-Datei</string>
@@ -995,6 +998,7 @@
   <string name="menu_layers_add_grid">Gitter/Skala anzeigen</string>
   <string name="menu_layers_add_photolayer">Foto-Ebene anzeigen</string>
   <string name="menu_layers_enable_mapillary_layer">Mapillary-Ebene anzeigen</string>
+  <string name="menu_layers_enable_bookmarkslayer">Lesezeichenebene aktivieren</string>
   <string name="menu_layers_configure">Konfigurieren…</string>
   <string name="menu_layers_background_align">Bildmaterial justieren…</string>
   <!---->
@@ -1166,6 +1170,7 @@
   <string name="config_theme_title">Thema</string>
   <string name="config_theme_summary">Aussehen der App auswählen</string>
   <string name="config_splitActionBarEnabled_title">Geteilte Action-Bar</string>
+  <string name="config_splitActionBarEnabled_summary">Zeige die Menübuttons am unteren Bildschirmrand an. Dies erfordert einen erneuten Start von Vespucci und Android 4.0 oder neuer.</string>
   <string name="config_appLocale_title">App Sprache</string>
   <string name="config_appLocale_summary">Eine andere Sprache als die Systemsprache verwenden.</string>
   <string name="config_maxInlineValues_title">Max. Anzahl direkt angezeigter Werte</string>
@@ -1201,6 +1206,8 @@
   <string name="config_mapillary_min_zoom_current">%1$d</string>
   <string name="config_nameCap_summary">Automatische Großschreibung von Tag-Namen bei der Eingabe</string>
   <string name="config_nameCap_title">Großschreibung des Namens</string>
+  <string name="config_longStringLimit_title">Grenze für lange Zeichenfolgen</string>
+  <string name="config_longStringLimit_summary">Grenze, ab der ein Modal zur Bearbeitung von Text im Eigenschafteneditor angezeigt werden soll.</string>
   <string name="config_longStringLimit_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Daten- und Bearbeitungseinstellungen</string>
@@ -1412,6 +1419,7 @@
   <string name="address_housenumber_street">Adresse %1$s %2$s</string>
   <string name="description_id">%1$s #%2$s</string>
   <string name="description_type_id">%1$s %2$s #%3$s</string>
+  <string name="only_id">#%1$s</string>
   <string name="type_id">%1$s #%2$s</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">Knoten verschoben</string>
@@ -1543,8 +1551,20 @@ in %1$d m %2$s</string>
   <string name="way_id">Weg %1$d</string>
   <string name="relation_id">Relation %1$d</string>
   <!--Tile downloader diagnostics-->
+  <string name="layer_diag_title">Ebenen-Diagnose</string>
+  <string name="no_tile_header">\"Keine Kachel\" Kopf %1$s</string>
+  <string name="no_tile_mvt_tile">MVT \"Keine Kachel\" Kachel %1$s</string>
   <string name="empty_tile">Leere Kachel</string>
   <string name="tile_error">Kachel-Fehlercode: %1$d\n\n%2$s</string>
   <string name="tile_error_message">Kachel-Fehlermeldung:\n\n%1$s\n\n%2$s</string>
   <string name="unexpected_tile_format">Unerwartetes Format\nURL:%1$s %2$s</string>
+  <string name="unexpected_tile_format_subtype">Unerwartetes Format-Unterformat %1$s\nURL: %2$s</string>
+  <string name="diagnostics_for_tile">Diagnose für %1$s</string>
+  <string name="tile_spec">Zoom %1$d x %2$d y %3$d</string>
+  <string name="tile_input_error">Kacheleingabefehler: %1$s\nURL: %2$s</string>
+  <string name="tile_data_received">Erfolgreich empfangen: %1$d Bytes</string>
+  <string name="tile_mark_invalid">Markiere die Kachel als ungültig</string>
+  <string name="tile_decoding_failed">Entschlüsselung der Kachel fehlgeschlagen</string>
+  <string name="tile_success">Erfolg</string>
+  <string name="tile_fail">Fehlschlag</string>
 </resources>

@@ -348,9 +348,9 @@
   <string name="custom_layer_title">Imagerie personnalisée</string>
   <string name="oam_layer_title">Imagerie OAM</string>
   <string name="wms_endpoints_title">Couches WMS</string>
-  <string name="edit_layer_title">Modifier la couche</string>
-  <string name="add_layer_title">Ajouter une couche</string>
-  <string name="select_layer_title">Sélectionner la couche</string>
+  <string name="edit_layer_title">Modifier un calque</string>
+  <string name="add_layer_title">Ajouter un calque</string>
+  <string name="select_layer_title">Sélectionner le calque</string>
   <string name="overlay">Sur-couche</string>
   <string name="coverage">Couverture</string>
   <string name="coverage_top">Haut</string>
@@ -359,16 +359,16 @@
   <string name="coverage_bottom">Bas</string>
   <string name="tile_size">Taille de tuile</string>
   <string name="toast_invalid_box">Zone invalide ou incomplète</string>
-  <string name="delete_layer">Supprimer la couche ?</string>
+  <string name="delete_layer">Supprimer le calque ?</string>
   <string name="delete_endpoint">Supprimer la couche ?</string>
   <string name="add_wms_endpoint_title">Ajouter une couche WMS</string>
   <string name="edit_wms_endpoint_title">Éditer une couche WMS</string>
   <string name="add_imagery_from_wms_endpoint">Ajouter une imagerie depuis WMS</string>
   <!--Layer style dialog-->
-  <string name="layer_style_title">Style de la couche</string>
+  <string name="layer_style_title">Style du calque</string>
   <string name="layer_style_stroke_width">Épaisseur des traits</string>
   <string name="layer_style_color">Couleur</string>
-  <string name="layer_style_layer">Sous-couche</string>
+  <string name="layer_style_layer">Sous-calque</string>
   <string name="layer_style_label">Étiquette</string>
   <string name="layer_style_symbol">Symbole</string>
   <string name="json_object_not_displayed">Objet JSON (non affiché)</string>
@@ -441,6 +441,7 @@
   <string name="api_info_mapsplit_source">Source MapSplit en lecture seule</string>
   <!--Tag conflict dialog-->
   <string name="tag_conflict_title">Propriétés modifiées</string>
+  <string name="tag_conflict_message">L\'opération requiert un changement de propriétés pour les éléments concernés.</string>
   <!--Relation selection dialog-->
   <string name="no_suitable_relations_message">Aucune relation ne correspond dans les données téléchargées</string>
   <string name="select_route_title">Sélectionner la route</string>
@@ -480,8 +481,12 @@
   <string name="tip_locked_mode">En mode de verrouillage vous ne pouvez rien modifier, mais un appuie long sur un objet ouvrira un écran avec ses informations détaillées.</string>
   <string name="tip_longpress_simple_mode">Dans le mode simplifié, un appui long est sans effet. Désactivez le mode simplifié dans le menu principal si vous souhaitez utiliser les appuis longs pour créer des objets.</string>
   <string name="tip_gpx_no_elevation">À partir de la version 15, les traces GPX ne contiennent plus d\'informations d\'altitude par défaut.&lt;p&gt;Pour activer l\'enregistrement de l\'altitude, installez un modèle de Géoïde avec &lt;i&gt;Install EGM&lt;/i&gt; dans le menu Outils, ou choisissez NMEA comme entrée.</string>
+  <string name="tip_tag_conflict">Fusionner et annuler des éléments OSM peut parfois nécessiter de changer des attributs sur les éléments, si il y a une erreur potentielle ou un conflit vous en serez alerté et il vous sera proposé de revoir les changements sur les objets en question.</string>
   <string name="tip_gpx_recording">Quand que vous démarrer l\'enregistrement GPX, Vespucci collecte des données de localisation pour activer l\'enregistrement GPX y compris lorsque l\'application n\'est pas visible. &lt;p&gt;La fermeture explicite de l\'application ou l\'arrêt de l\'enregistrement GPX cessera l\'utilisation des données de localisation dans de telles situations.</string>
+  <string name="tip_auto_download">Lorsque vous commencez à télécharger automatiquement des données OSM ou des tâches Vespucci utilise vos données de localisation afin de déterminer votre position actuelle même si l\'application n\'est pas visible.&lt;p&gt;Fermer définitivement l\'application ou stopper le téléchargement automatique stoppera la collecte des données de localisation.</string>
+  <string name="tip_tristate_checkbox">Vous venez de cliquer une case à choix, elles fonctionnent comme une case classique vous donnant le choix entre deux valeurs, par exemple oui/non ou vrai/faux.&amp;lt;p&amp;gt;Cependant elles ont un troisième &amp;lt;b&amp;étatgt;&amp;lt;/b&amp;gt; non défini, indiqué par une case grisée qui empêchera au tag correspondant d'être ajouté. Vous pouvez définir cet état à cette case en cliquant longuement.</string>
   <string name="tip_empty_gpx_download">En raison d\'une bizarrerie dans l\'API OSM, le point de départ de la trace GPX doit être visible pour qu\'elle puisse être trouvée pour être téléchargée.</string>
+  <string name="tip_no_redo">Ce mode ne supporte pas actuellement le ré-ajout de nœuds.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -493,13 +498,22 @@
   <string name="qa_channel_description">Canal d\'alerte qualité pour les problèmes de données et les tâches</string>
   <!--Notifications-->
   <string name="upload_checker_title">Rappelez-vous d\'envoyer vos modifications</string>
+  <plurals name="upload_checker_message">
+    <item quantity="one">Vous avez un changement non publié.</item>
+    <item quantity="many">Vous avez %1$d changements non publiés.</item>
+    <item quantity="other">Vous avez %1$d changements non publiés.</item>
+  </plurals>
   <!--Toaster-->
   <string name="toast_permission_denied">Permission refusée %1$s</string>
+  <string name="toast_unable_to_persist_permissions">Impossible d\'obtenir les permissions</string>
   <string name="toast_name_empty">Choisissez un nom</string>
   <string name="toast_url_empty">Saisissez une URL</string>
   <string name="toast_min_zoom">Indiquez un zoom minimum plus petit que le maximum</string>
+  <string name="toast_tile_layer_exists">La tuile source %1$s a la même url</string>
+  <string name="toast_styleable_layer_exists">Le calque pour %1$s existe</string>
   <string name="toast_no_changes">Vous n\'avez encore rien changé…</string>
   <string name="toast_jpeg_not_transparent">Les images JPEG n\'ont pas de transparence et ne peuvent être utilisées en superposition</string>
+  <string name="toast_unsupported_projection">Projection non supportée  %1$s.\n\nSeulement EPSG:3857, EPSG:4326 et équivalentes sont supportées.</string>
   <string name="toast_unsaved_changes">Envoyez vos modifications non enregistrées d\'abord.</string>
   <string name="clear_anyway">Nettoyer quand même ?</string>
   <string name="toast_upload_success">Envoi au serveur OSM effectué.</string>
@@ -509,6 +523,11 @@
   <string name="toast_save_failed">Erreur d\'enregistrement</string>
   <string name="toast_export_failed">Erreur d\'export</string>
   <string name="toast_export_success">Exporté vers %1$s</string>
+  <plurals name="toast_preset_removed_or_replaced_tags">
+    <item quantity="one">1 tag écrasé ou retiré</item>
+    <item quantity="many">%1$d tags écrasés ou retirés</item>
+    <item quantity="other">%1$d tags écrasés ou retirés</item>
+  </plurals>
   <string name="toast_merge_overwrote_tags">Remarque : l\'opération a réécrit certains attributs</string>
   <string name="toast_cant_autoapply_preset">Ce modèle ne peut pas être appliqué automatiquement</string>
   <string name="toast_oneway_reversed">Vous avez inversé une route à sens unique (oneway), ou un chemin contenant un attribut dépendant de la direction. Vérifiez les attributs et corrigez-les si nécessaire.</string>
@@ -523,12 +542,14 @@
   <string name="read_mail">Lire</string>
   <string name="toast_photo_indexing_started">Début de l\'analyse des photos géo-référencées</string>
   <string name="toast_photo_indexing_finished">Analyse des photos géo-référencées terminée</string>
+  <string name="toast_photo_failed">La capture photo a échoué. Avez-vous activé la géolocalisation dans l\'application photo?</string>
   <string name="toast_download_failed">Le téléchargement a échoué avec le code d\'erreur %1$d, et le message %2$s</string>
   <string name="toast_note_reopened">Note réouverte</string>
   <!--Validation-->
   <string name="toast_unsurveyed_road">Route non vérifiée</string>
   <string name="toast_noname">Nom ou référence manquant</string>
   <string name="toast_notype">La relation n\'a pas de type</string>
+  <string name="toast_missing_role">Membre de la relation sans le rôle requis</string>
   <string name="toast_untagged_element">Élément sans attribut</string>
   <string name="toast_unconnected_end_node">Le nœud est proche d\'un élément auquel il pourrait être relié</string>
   <string name="toast_degenerate_way">Dégénérer le chemin</string>
@@ -815,6 +836,7 @@
   <string name="menu_set_position">Position</string>
   <string name="menu_split">Scinder</string>
   <string name="menu_remove_node_from_way">Supprimer un nœud d\'un chemin</string>
+  <string name="menu_start_end_way">Début/Fin du chemin</string>
   <string name="menu_extract">Extraire le nœud</string>
   <string name="menu_append">Prolonger</string>
   <string name="menu_create_route">Créer une route</string>
@@ -845,6 +867,7 @@
   <string name="menu_gps_import">Importer la trace GPX...</string>
   <string name="menu_gps_goto_start">Aller au début de la trace</string>
   <string name="menu_gps_goto_first_waypoint">Aller au premier point du chemin</string>
+  <string name="menu_gps_add_bookmark">Ajouter un favori...</string>
   <string name="menu_enable_gps_autodownload">Téléchargement auto (localisation GPS)</string>
   <string name="menu_enable_pan_and_zoom_auto_download">Téléchargement auto (zoom/déplacement)</string>
   <string name="menu_transfer">Transfert des données…</string>
@@ -910,12 +933,15 @@
   <string name="menu_tools_add_imagery_from_oam">Ajouter une imagerie depuis OAM</string>
   <string name="menu_tools_flush_all_tile_caches">Vider tous les caches de tuiles</string>
   <string name="menu_tools_background_properties">Propriétés du fond de carte...</string>
+  <string name="menu_tools_update_imagery_configuration">Mettre à jour la configuration depuis JOSM</string>
   <string name="menu_tools_update_imagery_configuration_eli">Mettre à jour la configuration depuis ELI</string>
   <string name="menu_tools_zoom_to_layer_extent">Zoomer sur l\'étendu de la couche de fond de carte</string>
   <string name="menu_tools_clear_clipboard">Effacer le presse-papier</string>
   <string name="menu_tools_calibrate_height">Calibrer le capteur de pression…</string>
   <string name="menu_tools_install_egm">Installer l\'EGM</string>
   <string name="menu_tools_remove_egm">Supprimer l\'EGM</string>
+  <string name="menu_tools_import_data_style">Importer le style de données...</string>
+  <string name="menu_tools_load_keys">Charger les clés depuis un fichier...</string>
   <!---->
   <string name="menu_simple_actions">Mode simplifié</string>
   <string name="menu_feedback">Faire un retour</string>
@@ -927,13 +953,14 @@
   <string name="menu_tools_background_align_zero">Zéro</string>
   <string name="menu_tools_background_align_retrieve_from_db">Depuis la base de données</string>
   <string name="menu_tools_background_align_retrieve_from_device">Depuis l\'appareil</string>
+  <string name="menu_tools_background_align_save_db">Sauvegarder dans la base de données...</string>
   <string name="menu_tools_background_align_save_device">Enregistrer sur l\'appareil</string>
   <string name="menu_tools_background_align_apply2all">Appliquer (tous les zooms)</string>
   <string name="min_max_zoom">%1$d - %2$d</string>
   <string name="distance_meter">%1$.2f mètres</string>
   <string name="distance_km">%1$.3f km</string>
   <!--Menus in layers dialog-->
-  <string name="menu_layers">Couches…</string>
+  <string name="menu_layers">Calques…</string>
   <string name="menu_layers_load_geojson">Ajouter une couche GeoJSON...</string>
   <string name="menu_layers_add_backgroundlayer">Ajouter un fond de carte...</string>
   <string name="menu_layers_add_overlaylayer">Ajouter une surcouche de carte...</string>
@@ -941,6 +968,7 @@
   <string name="menu_layers_add_grid">Activer la grille</string>
   <string name="menu_layers_add_photolayer">Activer la couche photos</string>
   <string name="menu_layers_enable_mapillary_layer">Activer la couche Mapillary</string>
+  <string name="menu_layers_enable_bookmarkslayer">Activer le calque de favoris</string>
   <string name="menu_layers_configure">Configurer…</string>
   <string name="menu_layers_background_align">Aligner l\'imagerie...</string>
   <!---->
@@ -958,6 +986,7 @@
   <string name="element_for_menu">%1$s</string>
   <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
   <!--Text should be as short as possible-->
+  <string name="start_end_way_description">Aller au Début ou à la Fin du Chemin</string>
   <string name="menu_history">Historique</string>
   <string name="menu_history_web">Historique (Web)</string>
   <string name="menu_merge">Fusionner</string>
@@ -1024,6 +1053,8 @@
   <string name="menu_add_address_interpolation">Ajouter une interpolation d\'adresse</string>
   <string name="menu_add_way">Ajouter un chemin</string>
   <string name="add_node_instruction">Toucher la position</string>
+  <string name="add_way_start_instruction">Cliquer la première position pour démarrer</string>
+  <string name="add_way_node_instruction">Cliquer la position du nœud suivant</string>
   <string name="menu_add_map_note">Ajouter une note de carte</string>
   <string name="simple_add_note">Appuyez sur l\'écran à la position souhaitée</string>
   <string name="menu_paste_object">Coller l\'objet</string>
@@ -1036,7 +1067,7 @@
   <string name="config_backgroundLayer_summary">Le fond de carte sous forme de tuiles.</string>
   <string name="config_overlayLayer_title">Couche supplémentaire</string>
   <string name="config_overlayLayer_summary">La surcouche sous forme de tuiles.</string>
-  <string name="config_customlayers_title">Couches personnalisées</string>
+  <string name="config_customlayers_title">Calques personnalisés</string>
   <string name="config_customlayers_summary">La gestion des couches ne fait pas partie de la configuration par défaut.</string>
   <string name="config_scale_title">Affichage de l\'échelle</string>
   <string name="config_scale_summary">Type d\'échelle à afficher sur la carte.</string>
@@ -1044,7 +1075,7 @@
   <string name="config_mapProfile_summary">Choisissez le style de la couche de données</string>
   <string name="config_enableOpenStreetBugs_title">Afficher les tâches</string>
   <string name="config_enableOpenStreetBugs_summary">Permet d\'afficher, modifier et créer des notes, des erreurs et des tâches</string>
-  <string name="config_enablePhotoLayer_title">Activer la couche photo</string>
+  <string name="config_enablePhotoLayer_title">Activer le claque photo</string>
   <string name="config_enablePhotoLayer_summary">Afficher les photos géo-référencées.</string>
   <string name="config_enableKeepScreenOn_title">Garder l\'écran allumé</string>
   <string name="config_enableKeepScreenOn_summary">Ne pas éteindre l\'écran pour économiser l\'énergie.</string>
@@ -1081,6 +1112,7 @@
   <string name="config_showWayIcons_summary">Montrer sur les batiments l\'icône du modèle d\'attribut le plus proche</string>
   <string name="config_tagFormEnabled_title">Afficher le formulaire d\'attributs</string>
   <string name="config_tagFormEnabled_summary">Afficher le formulaire d\'attributs pour l\'édition</string>
+  <string name="config_supportPresetLabels_title">Afficher les noms depuis les modèles</string>
   <string name="config_showCameraAction_title">Icône caméra</string>
   <string name="config_showCameraAction_summary">Ajouter l\'icône caméra sur la barre d\'action</string>
   <string name="config_selectCameraApp_title">Application photo</string>
@@ -1135,6 +1167,7 @@
   <string name="config_mapillary_min_zoom_current">%1$d</string>
   <string name="config_nameCap_summary">Mise en majuscule automatique des attributs name et équivalents lors de la saisie</string>
   <string name="config_nameCap_title">Majuscules pour l\'attribut name et équivalents</string>
+  <string name="config_longStringLimit_title">Limite de chaîne de caractère trop longue</string>
   <string name="config_longStringLimit_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Paramètres de données et de modifications</string>
@@ -1173,6 +1206,7 @@
   <string name="config_autoformatPhoneNumbers_summary">Activer le formatage automatique des numéros de téléphone</string>
   <string name="config_maxOffsetDistance_title">Distance maximale pour les décalages d\'images stockées</string>
   <string name="config_maxOffsetDistance_current">%1$d mètres</string>
+  <string name="config_useImperialUnits_title">Utiliser les unités impériales pour mesurer</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Paramètres du téléchargement automatique</string>
   <string name="config_category_auto_download_summary">Les paramètres pour le téléchargement automatique des données et des tâches</string>
@@ -1242,10 +1276,12 @@
   <string name="config_downLoadThreads_current">%1$d Threads</string>
   <string name="config_tileCacheSize_title">Taille du cache de tuiles</string>
   <string name="config_tileCacheSize_summary">Taille totale du cache des tuiles, en Mo.</string>
+  <string name="config_preferRemovableStorage_title">Préférer le stockage amovible</string>
   <string name="config_tileCache_current">%1$d Mo</string>
   <string name="config_mapillaryCacheSize_title">Taille du cache Mapillary</string>
   <!--Auto-save-->
   <string name="config_autosaveSaveChanges_title">Enregistrer les modifications</string>
+  <string name="config_autosaveInterval_title">Intervalle minimum</string>
   <string name="config_autosaveInterval_current">%1$d min</string>
   <string name="config_autosaveChanges_current">%1$d</string>
   <string name="config_autosaveMaxFiles_current">%1$d</string>

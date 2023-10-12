@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="addr_housenumber">Numéro de l\'entrée (addr:housenumber)</string>
+  <string name="addr_housenumber">Numéro de l\'adresse (addr:housenumber)</string>
   <string name="addr_conscriptionnumber">Numéro du secteur, uniquement pour Autiche, Hongrie, Tchéquie, Slovaquie (addr:conscriptionnumber)</string>
   <string name="addr_street">Rue (addr:street)</string>
   <string name="addr_postcode">Code postal (addr:postcode)</string>

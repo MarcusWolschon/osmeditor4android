@@ -1,29 +1,28 @@
 # 
 # Translators:
-# Robin van der Linde <robin.vanderlinde@gmail.com>, 2020
-# Hidde Wieringa <hidde@hiddewieringa.nl>, 2020
+# Hidde Wieringa <hidde@hiddewieringa.nl>, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2020-04-25 11:28+0200\n"
 "PO-Revision-Date: 2020-05-21 07:54+0000\n"
-"Last-Translator: Hidde Wieringa <hidde@hiddewieringa.nl>, 2020\n"
-"Language-Team: Dutch (https://www.transifex.com/openstreetmap/teams/26285/nl/)\n"
+"Last-Translator: Hidde Wieringa <hidde@hiddewieringa.nl>, 2023\n"
+"Language-Team: Dutch (https://app.transifex.com/openstreetmap/teams/26285/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "Default"
-msgstr "Standaard"
+msgid "Built-in (minimal)"
+msgstr "Ingebouwd (minimaal)"
 
 msgid "Color Round Nodes"
-msgstr "Kleur Ronde Nodes"
+msgstr "Kleur Ronde Knopen"
 
 msgid "Color Round Nodes No Multipolygons"
-msgstr "Kleur Ronde Nodes Zonder Multipolygons"
+msgstr "Kleur Ronde Knopen Zonder Multipolygonen"
 
 msgid "Pen Round Nodes"
-msgstr "Omlijn Ronde Nodes"
+msgstr "Markeer Ronde Knopen"

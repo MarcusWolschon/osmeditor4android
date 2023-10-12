@@ -5,11 +5,11 @@
         <item>FIXME Tags</item>
         <item>Fehlende Tags</item>
         <item>Highway mit \"road\" Wert</item>
-        <item>\"type\" fehlt bei Relation</item>
-        <item>Fehlende Imperiale Einheiten</item>
+        <item>Kein Relationstyp</item>
+        <item>Fehlende imperiale Einheiten</item>
         <item>Ungültiges Objekt</item>
         <item>Objekt ohne Tags</item>
-        <item>Unverbundener Endknoten</item>
+        <item>Endknoten nicht verbunden</item>
         <item>Weg mit fehlerhafter Geometrie</item>
         <item>Leere Relation</item>
         <item>Fehlende Rolle für ein Relationsmitglied</item>

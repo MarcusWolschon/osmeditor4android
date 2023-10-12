@@ -78,6 +78,7 @@
   <string name="progress_title">Завантаження</string>
   <string name="progress_message">Завантаження даних в пам\'ять…</string>
   <string name="progress_download_message">Завантаження даних з сервера…</string>
+  <string name="progress_download_tasks_message">Завантаження завдань з серверів...</string>
   <string name="progress_general_title">Зачекайте</string>
   <string name="progress_deleting_message">Вилучення…</string>
   <string name="progress_searching_message">Пошук…</string>

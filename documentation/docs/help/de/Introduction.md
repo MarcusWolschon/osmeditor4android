@@ -1,4 +1,4 @@
-_Before we start: most screens have links in the menu to the on-device help system giving you direct access to information relevant for the current context, you can easily navigate back to this text too. If you have a larger device, for example a tablet, you can open the help system in a separate split window.  All the help texts and more (FAQs, tutorials) can be found on the [Vespucci documentation site](https://vespucci.io/) too._
+_Bevor wir beginnen: Die meisten Ansichten enthalten im Menü eine Verknüpfung zum geräteinternen Hilfesystem, das Ihnen den direkten Zugriff auf Informationen ermöglicht, die im aktuellen Kontext relevant sind. Hier können Sie auch sehr leicht zu diesem Text hier zurückkehren. Wenn Sie ein größeres Gerät, zum Beispiel ein Tablet, besitzen, können Sie das Hilfesystem in einem geteilten Bildschirmfenster öffnen. Alle Hilfetexte und Weiteres (FAQs, Anleitungen) können auch auf der [Vespucci documentation site](https://vespucci.io/) eingesehen werden._
 
 # Einführung in Vespucci
 
@@ -24,7 +24,7 @@ Entweder das Icon zur Übertragung ![Transfer](../images/menu_transfer.png) oder
 
 Um Daten auf dem Gerät zu öffnen, ist es am einfachsten, mit Gesten den Bildschirm auf das gewünschte Gebiet zu zentrieren und dann im Menü "Aktuelle Ansicht herunterladen" anzuwählen. Der Zoom kann mit Gesten, den Zoom-Schaltflächen oder den Lautstärketasten bedient werden. Vespucci sollte dann das Gebiet herunterladen. Um Daten herunterzuladen, muss man nicht angemeldet sein.
 
-Mit den Standardeinstellungen werden alle "nicht-gedownloadete" Bereiche abgedunkelt. Dies verhindert unabsichtliches Editieren und Verdoppelung von Elementen in solchen Gebieten. Das Verhalten kann in den  [Erweiterteneinstellungen](Advanced%20preferences.md) geändert werden.
+Mit den Standardeinstellungen werden alle nicht heruntergeladenen Bereiche im Vergleich zu heruntergeladenen abgedunkelt. Dies soll unbeabsichtigtes Editieren und Verdoppelung von Elementen in solchen Gebieten verhindern. Das Verhalten kann in den [Erweiterten Einstellungen](Advanced%20preferences.md) geändert werden.
 
 ### Bearbeiten
 
@@ -109,9 +109,9 @@ Man kann auch einen Menüpunkt dafür verwenden: Weitere Informationen dazu unte
 
 Aktuell hat OpenStreetMap keinen eigenen Objekttyp für Flächen im Gegensatz zu anderen Geo-Datensystemen. Der Online-Editor "iD" versucht, aus den zugrundeliegenden OSM-Elementen eine Abstraktion der Flächen zu erstellen, was in bestimmten Fällen gut, in anderen nicht richtig funktioniert. Vespucci versucht das in der vorliegenden Version nicht, deshalb hier einige Informationen dazu wie in OSM Flächen abgebildet werden:
 
-* _closed ways (*polygons")_: the simplest and most common area variant, are ways that have a shared first and last node forming a closed "ring" (for example most buildings are of this type). These are very easy to create in Vespucci, simply connect back to the first node when you are finished with drawing the area. Note: the interpretation of the closed way depends on its tagging: for example if a closed way is tagged as a building it will be considered an area, if it is tagged as a roundabout it wont. In some situations in which both interpretations may be valid, an "area" tag can clarify the intended use.
-* _multi-polygons_: some areas have multiple parts, holes and rings that can't be represented with just one way. OSM uses a specific type of relation (our general purpose object that can model relations between elements) to get around this, a multi-polygon. A multi-polygon can have multiple "outer" rings, and multiple "inner" rings. Each ring can either be a closed way as described above, or multiple individual ways that have common end nodes. While large multi-polygons are difficult to handle with any tool, small ones are not difficult to create in Vespucci. 
-* _coastlines_: for very large objects, continents and islands, even the multi-polygon model doesn't work in a satisfactory way. For natural=coastline ways we assume direction dependent semantics: the land is on the left side of the way, the water on the right side. A side effect of this is that, in general, you shouldn't reverse the direction of a way with coastline tagging. More information can be found on the [OSM wiki](http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline).
+* _geschlossene Wege (*Polygone")_: die einfachste und häufigste Flächenvariante sind Wege, die einen gemeinsamen ersten und letzten Knoten haben, der einen geschlossenen "Ring" bildet (zum Beispiel sind die meisten Gebäude von diesem Typ). Diese sind in Vespucci sehr einfach zu erstellen, indem man einfach eine Verbindung zum ersten Knotenpunkt herstellt, wenn man mit dem Zeichnen der Fläche fertig ist. Hinweis: Die Interpretation des geschlossenen Weges hängt vom Tag ab: Wenn ein geschlossener Weg beispielsweise als Gebäude gekennzeichnet ist, wird er als Fläche interpretiert, wenn er als Kreisverkehr gekennzeichnet ist, nicht. In einigen Situationen, in denen beide Interpretationen gültig sein können, kann ein "area" Tag die vorgesehene Verwendung klären.
+* _Multipolygone_: Einige Flächen bestehen aus mehreren Teilstücken, Löchern und Ringen, die nicht mit nur einem Weg dargestellt werden können. OSM verwendet eine spezielle Art von Relation (unser Allzweckobjekt, das Beziehungen zwischen Elementen modellieren kann), um dies zu umgehen, ein Multipolygon. Ein Multipolygon kann mehrere "äußere" Ringe und mehrere "innere" Ringe haben. Jeder Ring kann entweder ein geschlossener Weg sein, wie oben beschrieben, oder mehrere individuelle Wege, die gemeinsame Endknoten haben. Während große Multipolygone mit jedem Werkzeug schwer zu handhaben sind, lassen sich kleine in Vespucci problemlos erstellen. 
+* _Küstenlinien_: für sehr große Objekte, Kontinente und Inseln, funktioniert selbst das Multipolygon-Modell nicht zufriedenstellend. Für Küstenwege natural=coastline nehmen wir eine richtungsabhängige Semantik an: das Land ist auf der linken Seite des Weges, das Wasser auf der rechten Seite. Ein Nebeneffekt davon ist, dass man im Allgemeinen die Richtung eines Weges mit Küstenlinien-Tagging nicht umkehren sollte. Weitere Informationen hierzu im [OSM Wiki](http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline).
 
 #### Die Geometrie eines Weges verbessern
 
@@ -123,19 +123,19 @@ Ausgewählte Knoten und Wege können kopiert oder ausgeschnitten und dann einmal
 
 #### Effizient Adressen eintragen
 
-Vespucci supports functionality that makes surveying addresses more efficient by predicting house numbers (left and right sides of streets separately) and automatically adding _addr:street_ or _addr:place_ tags based on the last used value and proximity. In the best case this allows adding an address without any typing at all.   
+Vespucci unterstützt Funktionen, die die Erfassung von Adressen effizienter machen, indem sie Hausnummern vorhersagen (linke und rechte Straßenseite getrennt) und automatisch _addr:street_ oder _addr:place_ Tags auf Grundlage vom zuletzt verwendeten Wert und der Nähe hinzufügen. Im besten Fall ermöglicht dies das Hinzufügen einer Adresse, ohne dass überhaupt etwas eingegeben werden muss.   
 
-Adding the tags can be triggered by pressing ![Address](../images/address.png): 
+Das Hinzufügen der Tags kann durch Drücken von ![Adresse](../images/address.png) ausgelöst werden: 
 
-* after a long press (in non-simple mode only): Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add an "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.
-* in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.
-* in the property editor.
+* Nach langem Drücken (nur im nicht-einfachen Modus): Vespucci fügt einen Knoten an diesem Ort hinzu und schätzt die Hausnummer und fügt die Adress-Tags hinzu, die Sie in letzter Zeit verwendet haben. Befindet sich der Knoten auf einem Gebäudeumriss, wird dem Knoten automatisch ein "entrance=yes"-Tag hinzugefügt. Der Tag-Editor wird für das betreffende Objekt geöffnet, und Sie können alle weiteren notwendigen Änderungen vornehmen.
+* In den Modi Knoten/Weg ausgewählt: Vespucci fügt Adress-Tags wie oben beschrieben hinzu und startet den Tag-Editor.
+* im Eigenschaftseditor.
 
-To add individual address nodes directly while in the default "Simple mode" switch to "Address" editing mode (long press on the lock button), "Add address node" will then add an address node at the location and if it is on a building outline add a entrance tag to it as described above.
+Um einzelne Adressknoten im voreingestellten "Einfachen Modus" direkt hinzuzufügen, wechseln Sie in den Bearbeitungsmodus "Adresse" (drücken Sie lange auf die Schlosstaste), "Adressknoten hinzufügen" fügt dann an der Position einen Adressknoten und, wenn dieser sich auf einer Gebäudekontur befindet, auch ein Tag für den Eingang hinzu, wie oben beschrieben.
 
 Die Hausnummernvorhersage benötigt typischerweise mindestens die Eingabe von je 2 Hausnummern auf jeder Seite der Straße, je mehr Nummern in den Daten vorhanden sind desto besser funktioniert die Vorhersage. 
 
-Consider using this with one of the [Auto-download](#download) modes.  
+Diese Funktion kann mit einem der [Auto-Download](#download) Modi verwendet werden.  
 
 #### Abbiegebeschränkungen eintragen
 
@@ -167,15 +167,15 @@ Sollen die Änderungen gespeichert werden und es ist kein Internetzugang verfüg
 
 Vespucci hat einen einfachen Konfliktbehebungsmechanismus eingebaut. Sind größere Probleme mit den Änderungen zu erwarten, empfehlen wir, sie in eine .osc-Datei zu speichern ("Transfer" Menü, "Datei...,"  "Änderungen exportieren") und die Konflikte dann mit JOSM zu beheben. Für Details siehe Hilfetext zur [Konfliktauflösung](../en/Conflict%20resolution.md).  
 
-## Using GPS and GPX tracks
+## Nutzung von GPS und GPX-Tracks
 
-With standard settings Vespucci will try to enable GPS (and other satellite based navigation systems) and will fallback to determining the position via so called "network location" if this is not possible. This behaviour assumes that you in normal use have your Android device itself configured to only use GPX generated locations (to avoid tracking), that is you have the euphemistically named "Improve Location Accuracy" option turned off. If you want to enable the option but want to avoid Vespucci falling back to "network location", you should turn the corresponding option in the [Advanced preferences](Advanced%20preferences.md) off. 
+Mit Standardeinstellungen wird Vespucci versuchen, das GPS (und andere satellitenbasierte Navigstionssysteme) zu aktivieren, und, falls dies nicht möglich ist, auf die Positionsbestimmung über den sogenannten "Netzwerkstandort" zurückgreifen. Dieses Verhalten lässt vermuten, dass Sie für den normalen Gebrauch Ihr Android-Gerät selbst so konfiguriert haben, dass es nur GPX-generierte Standorte verwenden soll (um Tracking zu vermeiden), das heißt, Sie haben die euphemistisch mit "Verbesserte Standortgenauigkeit" bezeichnete Option ausgeschaltet. Wenn Sie die Option aktivieren möchten aber Vespucci daran hindern wollen, auf den "Netzwerkstandort" zurückzugreifen, sollten Sie die dazugehörige Option in den [Erweiterten Einstellungen](Advanced%20preferences.md) ausschalten. 
 
-Touching the ![GPS](../images/menu_gps.png) button (on the left hand side of the map display) will center the screen on the current position and as you move the map display will be padded to maintain this.  Moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch GPS button or re-check the equivalent menu option. If the device doesn't have a current location the location marker/arrow will be displayed in black, if a current location is available the marker will be blue.
+Durch Tippen auf die ![GPS](../images/menu_gps.png) Taste (auf der linken Seite der Karte) wird der Bildschirm auf die aktuelle Position zentriert, und wenn Sie sich bewegen, wird die Kartenanzeige laufend aktualisiert. Wenn Sie den Bildschirm manuell verschieben oder bearbeiten, wird der Modus "GPS folgen" deaktiviert und der blaue GPS-Pfeil wechselt von einem Umriss zu einem ausgefüllten Pfeil. Um schnell zum "Folgen"-Modus zurückzukehren, tippen Sie einfach auf die GPS-Taste oder aktivieren Sie die entsprechende Menüoption erneut. Wenn das Gerät keinen aktuellen Standort hat, wird die Standortmarkierung/der Pfeil schwarz angezeigt, wenn ein aktueller Standort verfügbar ist, wird die Markierung blau.
 
-To record a GPX track and display it on your device select "Start GPX track" item in the ![GPS](../images/menu_gps.png) menu. This will add layer to the display with the current recorded track, you can upload and export the track from the entry in the [layer control](Main%20map%20display.md). Further layers can be added from local GPX files and tracks downloaded from the OSM API.
+Um einen GPX-Track aufzuzeichnen und auf Ihrem Gerät anzuzeigen, wählen Sie "GPX-Track starten" im Menü ![GPS](../images/menu_gps.png). Dies fügt der Anzeige einen Layer mit dem aktuell aufgezeichneten Track hinzu. Sie können den Track über den Eintrag in der [Ebenenkontrolle](Main%20map%20display.md) hochladen und exportieren. Weitere Ebenen können aus lokalen GPX-Dateien und von heruntergeladenen Tracks der OSM-API hinzugefügt werden.
 
-Note: by default Vespucci will not record elevation data with your GPX track, this is due to some Android specific issues. To enable elevation recording, either install a gravitational model, or, simpler, go to the [Advanced preferences](Advanced%20preferences.md) and configure NMEA input.
+Hinweis: Vespucci zeichnet standardmäßig keine Höhendaten mit Ihrem GPX-Track auf, dies ist auf einige Android-spezifische Probleme zurückzuführen. Um die Höhenaufzeichnung zu aktivieren, installieren Sie entweder ein Gravitationsmodell oder, einfacher, gehen Sie zu den [Erweiterten Voreinstellungen](Advanced%20preferences.md) und konfigurieren Sie den NMEA-Eingang.
 
 ## Notizen und Fehler
 
@@ -235,8 +235,8 @@ Die _Annotations_-Gruppe in der Standard-Vorbelegung beinhaltet ein Element, das
 
 Prüfungen auf fehlende Tag-Einträge haben die folgenden zwei Eigenschaften:
 
-* **Key** - Key that should be present on the object according to the matching preset.
-* **Require optional** - Require the key even if the key is in the optional tags of the matching preset.
+* **Schlüssel** - Schlüssel, der gemäß der passenden Vorlage auf dem Objekt vorhanden sein sollte.
+* **Optional anfordern** - Den Schlüssel auch dann anfordern, wenn er nur als optionaler Schlüssel in der passenden Vorlage enthalten ist.
 
 Diese Prüfung funktioniert, indem zuerst die zugehörige Voreinstellung bestimmt und dann geprüft wird, ob **Schlüssel** ein gemäß den Voreinstellungen "empfohlener" Schlüssel für dieses Objekt ist. ****Optional erforderlich** erweitert die Prüfung auf Tags, die "optional" für das Objekt sind. Hinweis: aktuell verlinkte Vorlagen werden nicht geprüft.
 

@@ -1,8 +1,8 @@
-_Before we start: most screens have links in the menu to the on-device help system giving you direct access to information relevant for the current context, you can easily navigate back to this text too. If you have a larger device, for example a tablet, you can open the help system in a separate split window.  All the help texts and more (FAQs, tutorials) can be found on the [Vespucci documentation site](https://vespucci.io/) too._
+_Прежде всего: большинство элементов на экране имеют в меню ссылки на встроенную контекстную справку. Если у вас устройство с большим экраном, например, планшет, можно открыть справку в отдельном окне. Всю справочную информацию, включая FAQ и примеры, также можно найти на [сайте Vespucci](https://vespucci.io/)._
 
 # Введение в Vespucci
 
-Vespucci это полнофункциональный редактор OpenStreetMap для мобильных устройств, который поддерживает большинство операции доступных редакторам для ПК. Работа редактора протестирована на версиях от 2.3 до 10 Android и различных вариантах этой операционной от Google, основанных на AOSP. В качестве предостережения: в то время, как возможности современных мобильных устройств достигли уровня ПК, старые устройства, как правило, довольно медленны и имеют ограниченный размер памяти. Это нужно учитывать при использовании Vespucci — например, разумно ограничивать размер редактируемой области.
+Vespucci это полнофункциональный редактор OpenStreetMap для мобильных устройств, который поддерживает большинство операций, доступных редакторам на компьютерах. Работа редактора проверена на версиях Android от 2.3 до 10.0 и других вариантах этой операционной системы, основанных на AOSP. В качестве предостережения: в то время, как возможности современных мобильных устройств достигли уровня ПК, старые устройства, как правило, довольно медленны и имеют ограниченный размер памяти. Это нужно учитывать при использовании Vespucci — например, разумно больше ограничивать размер редактируемой области.
 
 ## Редактирование в Vespucci
 
@@ -25,7 +25,7 @@ Vespucci это полнофункциональный редактор OpenStre
 
 Самый простой способ загрузить данные на устройство - найти нужную позицию на карте и выбрать "Загрузить текущее место". Вы можете менять масштаб сведением пальцев, кнопками на экране или кнопками громкости. Vespucci загрузит данные для текущей области на карте. Для загрузки данных не требуется авторизация.
 
-По-умолчанию, незагруженные области будут затемнены относительно загруженных. Это сделано для того, чтобы избежать случайного добавления уже существующих объектов в областях, которые не загружены и не отображаются. Такое поведение программы можно изменить в разделе [Расшиненные настройки](Advanced%20preferences.md).
+По умолчанию, незагруженные области будут затемнены относительно загруженных. Это сделано для того, чтобы избежать случайного добавления уже существующих объектов в областях, которые не были загружены и не отображаются. Такое поведение программы можно изменить в разделе [Расширенные настройки](Advanced%20preferences.md).
 
 ### Редактирование
 
@@ -37,11 +37,11 @@ Vespucci это полнофункциональный редактор OpenStre
 
 Долгое нажатие на значке блокировки покажет меню с 4-мя элементами:
 
-* **Normal** - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.
-* **Tag only** - selecting an existing object will start the Property Editor, a long press on the main screen will add objects, but no other geometry operations will work. White lock icon with a "T" is displayed.
-* **Address** - enables Address mode, a slightly simplified mode with specific actions available from the [Simple mode](../en/Simple%20actions.md) "+" button. White lock icon with an "A" is displayed.
-* **Indoor** - enables Indoor mode, see [Indoor mode](#indoor). White lock icon with an "I" is displayed.
-* **C-Mode** - enables C-Mode, only objects that have a warning flag set will be displayed, see [C-Mode](#c-mode). White lock icon with a "C" is displayed.
+* **Нормальный** - режим редактирования по умолчанию, новые объекты могут быть добавлены, существующие - отредактированы, перемещены или удалены. Отображается простой белый значок режима.
+* **Только теги** - выбор существующего объекта запустит редактор свойств, долгое нажатие на экран будет добавлять новые объекты, но другие операции изменения геометрии ну будут работать. Отображается белый значок с буквой "T".
+* **Адреса** - режим редактирования адресов, несколько упрощенный режим с действиями кнопки  "+"  из [Simple mode](../en/Simple%20actions.md). Отображается белый значок с буквой "A".
+* **План помещения** - включает редактирование внутри помещений, см. [План помещения](#indoor). Отображается белый значок с буквой "I".
+* **Только конфликты** - включает режим C-Mode, на карте будут видны только объекты, имеющие замечания или ошибки, см. [C-Mode](#c-mode). Отображается белый значок с буквой "C".
 
 #### Простое, двойное и долгое нажатие
 
@@ -75,7 +75,7 @@ Once the selection has completed you will see (either as buttons or as menu item
 
 Note that for overlapping objects (such as a node on a way) the selection menu comes back up for a second time. Selecting the same object brings up the tag editor; selecting another object simply selects the other object.
 
-#### Selected objects: Moving a Node or Way
+#### Выделенные объекты: Перемещение точки или линии
 
 Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the [preferences](Preferences.md), you get a large area around the selected node that makes it easier to position the object. 
 

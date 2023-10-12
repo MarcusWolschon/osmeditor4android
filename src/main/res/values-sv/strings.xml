@@ -253,6 +253,7 @@
   <string name="altitude">Höjd</string>
   <string name="create_osm_object">Skapa OSM-föremål</string>
   <!--Custom imagery dialogs-->
+  <string name="custom_layer_title">Egen bild</string>
   <string name="select_layer_title">Välj lager</string>
   <string name="coverage">Täckning</string>
   <string name="coverage_top">Överst</string>
