@@ -1286,6 +1286,10 @@
 "Bac à sel",
 "bacs à sel de déneigement"
 ],
+"amenity/hookah_lounge":[
+"bar à chicha",
+"Bar à chicha"
+],
 "amenity/hospital":[
 "hôpital",
 "terrains d'hôpital",
@@ -1509,7 +1513,6 @@
 ],
 "amenity/payment_centre":[
 "paiement",
-"payement",
 "facture",
 "Centre de paiement",
 "argent",
@@ -1755,16 +1758,8 @@
 "parc à conteneurs"
 ],
 "amenity/recycling_container":[
-"carton",
-"recyclage",
-"recyclable",
-"bouteille",
-"verre",
-"bulle à verre",
-"canette",
-"Conteneur de recyclage",
-"poubelle",
-"déchet"
+"conteneur de recyclage",
+"Conteneur de recyclage"
 ],
 "amenity/refugee_site":[
 "réfugiés",
@@ -1804,13 +1799,9 @@
 "nems",
 "bo bun"
 ],
-"amenity/restaurant/barbeque":[
-"bbq",
-"manger",
+"amenity/restaurant/barbecue":[
 "Restaurant de grillades",
-"barbecue",
-"restaurant",
-"grill"
+"restaurant de grillades"
 ],
 "amenity/restaurant/chinese":[
 "restaurant chinois",
@@ -2133,6 +2124,12 @@
 "station de taxi",
 "Station de taxi"
 ],
+"amenity/taxi/motorcycle_taxi":[
+"station de moto-taxi",
+"taxi-moto",
+"Station de moto-taxi",
+"taxi à deux roues"
+],
 "amenity/telephone":[
 "téléphone",
 "Téléphone"
@@ -2194,6 +2191,10 @@
 "hôtel de ville",
 "maison commune",
 "Mairie, hôtel de ville"
+],
+"amenity/townhall/barangay-PH":[
+"siège de barangay",
+"Siège de barangay"
 ],
 "amenity/townhall/city":[
 "mairie",
@@ -2518,6 +2519,7 @@
 ],
 "amenity/waste_basket":[
 "rubbish bin",
+"Poubelle",
 "bac à ordures",
 "trash can",
 "wastebasket",
@@ -2529,7 +2531,6 @@
 "poubelle urbaine",
 "conteneur à déchets",
 "tri sélectif",
-"Poubelle pour piétons",
 "amenity waste basket",
 "poubelle de rue",
 "bac à déchets",
@@ -2648,9 +2649,9 @@
 "area/footway":[
 "piéton",
 "rue",
-"Surface d'une rue piétonne",
 "surface",
-"aire"
+"aire",
+"Chemin piétonnier surfacique"
 ],
 "area/highway":[
 "route",
@@ -3005,6 +3006,7 @@
 ],
 "barrier/fence/railing":[
 "garde-fou",
+"Garde-fou",
 "rampe",
 "garde-corps"
 ],
@@ -3311,6 +3313,10 @@
 "états",
 "frontière administrative",
 "pays"
+],
+"boundary/hazard":[
+"Zone dangereuse",
+"zone dangereuse"
 ],
 "bridge/support":[
 "Support du pont",
@@ -3650,6 +3656,12 @@
 "maison mitoyenne",
 "maison en rangée"
 ],
+"building/house/terraced":[
+"petit hôtel",
+"Maison de ville",
+"maison de ville",
+"maison en rangée"
+],
 "building/houseboat":[
 "maison flottante",
 "Bateau habitable",
@@ -3803,15 +3815,10 @@
 "religion"
 ],
 "building/terrace":[
-"maisons mitoyennes",
-"maisons en bandes",
-"building terrace",
-"terraced houses",
-"rangée d'habitations",
-"logements en bandes",
-"terrace",
-"rangée de bâtiments",
-"Rangée de maisons"
+"maisons en rangée",
+"rangée de maisons de ville",
+"petits hôtels",
+"Rangée de maisons de ville"
 ],
 "building/train_station":[
 "Gare ferroviaire"
@@ -4892,8 +4899,8 @@
 "aire de croisement"
 ],
 "highway/path":[
-"Chemin non carrossable",
-"chemin"
+"chemin",
+"Chemin"
 ],
 "highway/path/boardwalk":[
 "pont",
@@ -4907,6 +4914,7 @@
 "Chemin informel",
 "raccourci",
 "chemin informel",
+"ligne de désire",
 "chemin officieux"
 ],
 "highway/pedestrian_area":[
@@ -6323,6 +6331,10 @@
 "support de tapis",
 "cintre à tapis"
 ],
+"man_made/charge_point":[
+"borne de recharge pour véhicules électriques",
+"Borne de recharge pour véhicules électriques"
+],
 "man_made/chimney":[
 "cheminée",
 "Cheminée"
@@ -6542,6 +6554,10 @@
 "man_made/mast/lighting":[
 "mât d'éclairage",
 "Mât d'éclairage"
+],
+"man_made/milk_churn_stand":[
+"Plate-forme à lait",
+"plate-forme à lait"
 ],
 "man_made/mineshaft":[
 "mine",
@@ -6888,11 +6904,10 @@
 "balise",
 "rondelle",
 "potelet",
-"Marqueur"
+"Balise de repérage"
 ],
 "marker/utility":[
 "pipeline",
-"Balise de repérage de réseau souterrain",
 "enterré",
 "conduite de gaz",
 "souterrain",
@@ -6901,7 +6916,8 @@
 "borne de repérage",
 "canalisation de gaz",
 "câble électrique",
-"balise de repérage de réseau souterrain"
+"balise de repérage de réseau souterrain",
+"Balise de repérage"
 ],
 "marker/utility/power":[
 "enterré",
@@ -7017,8 +7033,11 @@
 "corail"
 ],
 "natural/ridge":[
+"arête",
 "crête",
-"Ligne de crête"
+"Ligne de crête",
+"arete",
+"crete"
 ],
 "natural/rock":[
 "Rocher (rattaché au sol)",
@@ -7081,6 +7100,26 @@
 "natural/tree":[
 "arbre",
 "Arbre"
+],
+"natural/tree/broadleaved":[
+"Arbres feuillus"
+],
+"natural/tree/broadleaved/deciduous":[
+"arbres feuillus (décidus)",
+"Arbres feuillus (décidus)"
+],
+"natural/tree/broadleaved/evergreen":[
+"Arbres feuillus (à l'année)"
+],
+"natural/tree/needleleaved":[
+"Arbres à aiguilles"
+],
+"natural/tree/needleleaved/deciduous":[
+"Arbres à aiguilles (décidus)"
+],
+"natural/tree/needleleaved/evergreen":[
+"arbres à aiguilles (à l'année)",
+"Arbres à aiguilles (à l'année)"
 ],
 "natural/tree_row":[
 "arbres alignés",
@@ -9509,6 +9548,10 @@
 "décorations",
 "costumes"
 ],
+"shop/pasta":[
+"Magasin de pâtes",
+"magasin de pâtes"
+],
 "shop/pastry":[
 "Pâtisserie",
 "gaufre"
@@ -9602,6 +9645,10 @@
 "réparation",
 "retouche"
 ],
+"shop/rice":[
+"Magasin de riz",
+"magasin de riz"
+],
 "shop/scuba_diving":[
 "Magasin de matériel de plongée sous-marine",
 "magasin d'équipement et d'articles de plongée sous-marine"
@@ -9649,7 +9696,7 @@
 "cannelle"
 ],
 "shop/sports":[
-"magasin d'équipement sportif",
+"magasin de sport",
 "Magasin d'équipement sportif"
 ],
 "shop/stationery":[
@@ -9816,7 +9863,7 @@
 "Magasin (non précisé)"
 ],
 "telecom":[
-"Equipement télécom"
+"Équipement télécom"
 ],
 "telecom/data_center":[
 "technologie",

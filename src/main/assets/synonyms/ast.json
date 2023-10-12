@@ -471,11 +471,6 @@
 "perros",
 "bolses"
 ],
-"amenity/waste_basket":[
-"Papelera",
-"papelera",
-"basoria"
-],
 "amenity/waste_disposal":[
 "Contenedor de basoria"
 ],
@@ -666,9 +661,6 @@
 "corte",
 "cuadra",
 "Establu"
-],
-"building/terrace":[
-"Filera de cases"
 ],
 "building/university":[
 "Edificiu universitariu"

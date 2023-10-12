@@ -391,9 +391,6 @@
 "amenity/recycling_centre":[
 "Centar za reciklažu"
 ],
-"amenity/recycling_container":[
-"Kontejner za reciklažu"
-],
 "amenity/restaurant":[
 "zdravljak",
 "buffet",
@@ -544,12 +541,6 @@
 ],
 "amenity/waste/dog_excrement":[
 "Košara za pseći izmet"
-],
-"amenity/waste_basket":[
-"kanta za smeće",
-"Koš za smeće",
-"koš za smeće",
-"smeće"
 ],
 "amenity/waste_disposal":[
 "Kontejner za smeće"
@@ -766,9 +757,6 @@
 ],
 "building/stadium":[
 "Zgrada stadiona"
-],
-"building/terrace":[
-"Kuće u nizu"
 ],
 "building/train_station":[
 "Zgrada željezničkog kolodvora"

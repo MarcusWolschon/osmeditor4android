@@ -1,5 +1,1701 @@
 {
+"addr/interpolation":[
+"Didoli Cyfeiriadau"
+],
+"address":[
+"Cyfeiriad"
+],
+"advertising":[
+"Dyfais Hysbysebu"
+],
+"advertising/billboard":[
+"Bwrdd Hysbysebu"
+],
+"advertising/board":[
+"Hysbysfwrdd"
+],
+"advertising/column":[
+"Colofn Hysbysebu"
+],
+"advertising/poster_box":[
+"Blwch Posteri"
+],
+"aerialway/chair_lift":[
+"Lifft Cadair"
+],
+"aeroway/aerodrome":[
+"Maes Awyr"
+],
+"aeroway/gate":[
+"Gât Maes Awyr"
+],
+"aeroway/runway":[
+"Rhedfa"
+],
+"aeroway/windsock":[
+"Hosan Gwynt"
+],
+"allotments/plot":[
+"Plot Gardd Cymunedol"
+],
+"amenity/atm":[
+"Peiriant Arian Parod",
+"atm"
+],
+"amenity/bank":[
+"Banc"
+],
+"amenity/bar":[
+"Bar"
+],
+"amenity/bar/lgbtq":[
+"Bar LHDTC+"
+],
+"amenity/bbq":[
+"Barbeciw"
+],
+"amenity/bench":[
+"Mainc"
+],
+"amenity/bicycle_parking":[
+"Parcio Beiciau"
+],
+"amenity/bicycle_parking/building":[
+"Garej Parcio Beiciau"
+],
+"amenity/bicycle_parking/shed":[
+"Sied Beiciau"
+],
+"amenity/biergarten":[
+"Biergarten"
+],
+"amenity/bus_station":[
+"Gorsaf Fysiau"
+],
+"amenity/cafe":[
+"Caffi"
+],
+"amenity/cafe/coffee_shop":[
+"Tŷ Coffi"
+],
+"amenity/car_wash":[
+"Golchi Car"
+],
+"amenity/casino":[
+"Casino"
+],
+"amenity/childcare":[
+"Meithrinfa"
+],
+"amenity/cinema":[
+"Sinema"
+],
+"amenity/clinic":[
+"Clinig"
+],
+"amenity/college":[
+"Tiroedd Coleg"
+],
+"amenity/community_centre":[
+"Canolfan Gymunedol"
+],
+"amenity/community_centre/lgbtq":[
+"Canolfan Gymunedol LHDTC+"
+],
+"amenity/community_centre/youth_centre":[
+"Canolfan Ieuenctid"
+],
+"amenity/courthouse":[
+"Llys"
+],
+"amenity/coworking_space":[
+"Ardal Gydweithio"
+],
+"amenity/dentist":[
+"Deintydd"
+],
+"amenity/doctors":[
+"Meddyg"
+],
+"amenity/dressing_room":[
+"Ystafell Newid"
+],
+"amenity/drinking_water":[
+"Dŵr Yfed"
+],
+"amenity/driving_school":[
+"Ysgol Gyrru"
+],
+"amenity/embassy":[
+"Llysgenhadaeth"
+],
+"amenity/events_venue":[
+"Lleoliad Digwyddiadau"
+],
+"amenity/fast_food":[
+"Bwyd Brys"
+],
+"amenity/fast_food/bagel":[
+"Bwyd Brys Bagel"
+],
+"amenity/fast_food/burger":[
+"Bwyd Brys Byrger"
+],
+"amenity/fast_food/cafeteria":[
+"Cantîn"
+],
+"amenity/fast_food/chicken":[
+"Bwyd Brys Cyw Iâr"
+],
+"amenity/fast_food/donut":[
+"Bwyd Brys Toesen"
+],
+"amenity/fast_food/fish_and_chips":[
+"Bwyd Brys Pysgod & Sglodion"
+],
+"amenity/fast_food/hot_dog":[
+"Bwyd Brys Hot Dog"
+],
+"amenity/fast_food/ice_cream":[
+"Bwyd Brys Hufen Iâ"
+],
+"amenity/fast_food/juice":[
+"Bwyd Brys Sudd"
+],
+"amenity/fast_food/kebab":[
+"Bwyd Brys Cebab"
+],
+"amenity/fast_food/mexican":[
+"Bwyd Brys Mecsicanaidd"
+],
+"amenity/fast_food/pizza":[
+"Bwyd Brys Pizza"
+],
+"amenity/fast_food/sandwich":[
+"Bwyd Brys Brechdan"
+],
+"amenity/fast_food/wings":[
+"Bwyd Brys Adenydd Cyw Iâr"
+],
+"amenity/ferry_terminal":[
+"Terfynfa Fferi"
+],
+"amenity/fire_station":[
+"Gorsaf Dân"
+],
+"amenity/food_court":[
+"Cwrt Bwyd"
+],
+"amenity/fountain":[
+"Ffynnon"
+],
+"amenity/fuel":[
+"Gorsaf Petrol"
+],
+"amenity/gambling":[
+"Neuadd Gambl"
+],
+"amenity/grave_yard":[
+"Mynwent"
+],
+"amenity/hookah_lounge":[
+"Lolfa Hwcah"
+],
+"amenity/hospital":[
+"Tiroedd Ysbyty"
+],
+"amenity/ice_cream":[
+"Siop Hufen Iâ"
+],
+"amenity/internet_cafe":[
+"Caffi Rhyngrwyd"
+],
+"amenity/karaoke_box":[
+"Bocs Carioci"
+],
+"amenity/kindergarten":[
+"Tiroedd Meithrinfa"
+],
+"amenity/language_school":[
+"Ysgol Iaith"
+],
+"amenity/lavoir":[
+"Golchdy"
+],
+"amenity/letter_box":[
+"Blwch Llythyrau"
+],
+"amenity/library":[
+"Llyfrgell"
+],
+"amenity/loading_dock":[
+"Doc Llwytho"
+],
+"amenity/love_hotel":[
+"Gwesty Rhyw"
+],
+"amenity/marketplace":[
+"Marchnad"
+],
+"amenity/music_school":[
+"Ysgol Gerddoriaeth"
+],
+"amenity/nightclub":[
+"Clwb Nos"
+],
+"amenity/nightclub/lgbtq":[
+"Clwb Nos LHDTC+"
+],
+"amenity/parking":[
+"Maes Parcio"
+],
+"amenity/parking/multi-storey":[
+"Maes Parcio Aml-lawr"
+],
+"amenity/parking/park_ride":[
+"Maes Parcio a Reidio"
+],
+"amenity/parking_space":[
+"Safle Parcio"
+],
+"amenity/parking_space/disabled":[
+"Safle Parcio Hygyrch"
+],
+"amenity/place_of_worship":[
+"Addoldy"
+],
+"amenity/place_of_worship/buddhist":[
+"Teml Bwdhaidd"
+],
+"amenity/place_of_worship/christian":[
+"Eglwys Cristnogol"
+],
+"amenity/place_of_worship/christian/jehovahs_witness":[
+"Neuadd Teyrnas Tyst Jehofa"
+],
+"amenity/place_of_worship/christian/la_luz_del_mundo":[
+"Teml La Luz del Mundo"
+],
+"amenity/place_of_worship/christian/quaker":[
+"Tŷ Cyfarfod Crynwyr"
+],
+"amenity/place_of_worship/hindu":[
+"Teml Hindŵaidd"
+],
+"amenity/place_of_worship/jewish":[
+"Synagog Iddewig"
+],
+"amenity/place_of_worship/muslim":[
+"Mosg Islamaidd"
+],
+"amenity/place_of_worship/shinto":[
+"Creirfa Shinto"
+],
+"amenity/place_of_worship/sikh":[
+"Teml Sicaidd"
+],
+"amenity/place_of_worship/taoist":[
+"Teml Taoaeth"
+],
+"amenity/planetarium":[
+"Planedariwm"
+],
+"amenity/police":[
+"Heddlu"
+],
+"amenity/polling_station":[
+"Gorsaf Bleidleisio Parhaus"
+],
+"amenity/post_office":[
+"Swyddfa Post"
+],
+"amenity/prep_school":[
+"Ysgol Baratoi"
+],
+"amenity/prison":[
+"Tiroedd Carchar"
+],
+"amenity/pub":[
+"Tafarn"
+],
+"amenity/pub/irish":[
+"Tafarn Gwyddelig"
+],
+"amenity/pub/lgbtq":[
+"Tafarn LHDTC+"
+],
+"amenity/pub/microbrewery":[
+"Bragpyb"
+],
+"amenity/public_bath":[
+"Bath Cyhoeddus"
+],
+"amenity/public_bookcase":[
+"Blwch Llyfrau Cyhoeddus"
+],
+"amenity/recycling":[
+"Ailgylchu"
+],
+"amenity/recycling_centre":[
+"Canolfan Ailgylchu"
+],
+"amenity/recycling_container":[
+"Bin Ailgylchu"
+],
+"amenity/restaurant":[
+"Bwyty"
+],
+"amenity/restaurant/american":[
+"Bwyty Americanaidd"
+],
+"amenity/restaurant/pizza":[
+"Bwyty Pizza"
+],
+"amenity/restaurant/ramen":[
+"Bwyty Ramen"
+],
+"amenity/restaurant/sushi":[
+"Bwyty Sushi"
+],
+"amenity/school":[
+"Tiroedd Ysgol"
+],
+"amenity/shelter/gazebo":[
+"Gasebo"
+],
+"amenity/shelter/lean_to":[
+"Pentis"
+],
+"amenity/shower":[
+"Cawod"
+],
+"amenity/smoking_area":[
+"Ardal Ysmygu"
+],
+"amenity/social_centre":[
+"Canolfan Cymdeithasol"
+],
+"amenity/social_facility/food_bank":[
+"Banc Bwyd"
+],
+"amenity/stripclub":[
+"Clwb Dihatryd"
+],
+"amenity/studio":[
+"Stiwdio"
+],
+"amenity/studio/audio":[
+"Stiwdio Recordio"
+],
+"amenity/studio/radio":[
+"Gorsaf Radio"
+],
+"amenity/studio/television":[
+"Gorsaf Deledu"
+],
+"amenity/studio/video":[
+"Gorsaf Ffilm"
+],
+"amenity/taxi":[
+"Safle Tacsi"
+],
+"amenity/telephone":[
+"Ffôn"
+],
+"amenity/theatre":[
+"Theatr"
+],
+"amenity/theatre/type/amphi":[
+"Amffitheatr"
+],
+"amenity/toilets":[
+"Toiledau"
+],
+"amenity/toilets/portable":[
+"Toiled Symudol"
+],
+"amenity/townhall":[
+"Neuadd y Dref"
+],
+"amenity/townhall/city":[
+"Neuadd y Dinas"
+],
+"amenity/toy_library":[
+"Llyfrgell Tegannau"
+],
+"amenity/trolley_bay":[
+"Bae Trolïau"
+],
+"amenity/university":[
+"Tiroedd Prifysgol"
+],
+"amenity/vending_machine":[
+"Peiriant Gwerthu"
+],
+"amenity/vending_machine/bread":[
+"Peiriant Gwerthu Bara"
+],
+"amenity/vending_machine/cigarettes":[
+"Peiriant Gwerthu Sigaréts"
+],
+"amenity/vending_machine/coffee":[
+"Peiriant Gwerthu Coffi"
+],
+"amenity/vending_machine/condoms":[
+"Peiriant Gwerthu Condomau"
+],
+"amenity/vending_machine/drinks":[
+"Peiriant Gwerthu Diodydd"
+],
+"amenity/vending_machine/eggs":[
+"Peiriant Gwerthu Wyau"
+],
+"amenity/vending_machine/electronics":[
+"Peiriant Gwerthu Electroneg"
+],
+"amenity/vending_machine/feminine_hygiene":[
+"Peiriant Gwerthu Cynnyrch Mislif"
+],
+"amenity/vending_machine/food":[
+"Peiriant Gwerthu Bwyd"
+],
+"amenity/vending_machine/fuel":[
+"Pwmp Petrol"
+],
+"amenity/vending_machine/ice_cream":[
+"Peiriant Gwerthu Hufen Iâ"
+],
+"amenity/vending_machine/ice_cubes":[
+"Peiriant Gwerthu Iâ"
+],
+"amenity/vending_machine/newspapers":[
+"Peiriant Gwerthu Papur Newydd"
+],
+"amenity/vending_machine/parking_tickets":[
+"Peiriant Gwerthu Tocyn Parcio"
+],
+"amenity/vending_machine/pizza":[
+"Peiriant Gwerthu Pizza"
+],
+"amenity/vending_machine/public_transport_tickets":[
+"Peiriant Gwerthu Tocyn Cludiant"
+],
+"amenity/vending_machine/stamps":[
+"Peiriant Gwerthu Post"
+],
+"amenity/vending_machine/sweets":[
+"Peiriant Gwerthu Byrbrydau"
+],
+"amenity/veterinary":[
+"Milfeddyg"
+],
+"amenity/waste_basket":[
+"Bin Sbwriel"
+],
+"area":[
+"Ardal"
+],
+"area/footway":[
+"troedffordd",
+"Ardal Troetffordd",
+"llwybr",
+"troed"
+],
+"area/highway":[
+"Ardal Heol"
+],
+"attraction":[
+"Atyniad"
+],
+"attraction/big_wheel":[
+"Olwyn Fawr"
+],
+"attraction/bumper_car":[
+"Ceir Bymper"
+],
+"attraction/bungee_jumping":[
+"Naid Bwnji"
+],
+"attraction/carousel":[
+"Carwsél"
+],
+"attraction/dark_ride":[
+"Reid Tywyll"
+],
+"attraction/kiddie_ride":[
+"Reid Plant"
+],
+"attraction/log_flume":[
+"Boncyffion"
+],
+"attraction/maze":[
+"Drysfa"
+],
+"attraction/swing_carousel":[
+"Carwsél Siglen"
+],
+"barrier":[
+"Rhwystr"
+],
+"barrier/block":[
+"Bloc"
+],
+"barrier/bollard":[
+"Bolard"
+],
+"barrier/bollard_line":[
+"Rhes o Folardiau"
+],
+"barrier/cattle_grid":[
+"Grât Gwartheg"
+],
+"barrier/chain":[
+"Cadwyn"
+],
+"barrier/entrance":[
+"Mynedfa"
+],
+"barrier/fence":[
+"Ffens"
+],
+"barrier/gate":[
+"Gât"
+],
+"barrier/hedge":[
+"Perth"
+],
+"barrier/wall":[
+"Wal",
+"mur"
+],
+"barrier/yes":[
+"Rhwystr (math anhysbys)"
+],
+"boundary":[
+"Ffin"
+],
+"boundary/administrative":[
+"Ffin Gweinyddol"
+],
+"boundary/hazard":[
+"Ardal Beryglus"
+],
+"building":[
+"Adeilad"
+],
+"building/bungalow":[
+"Bynglo"
+],
+"building/cathedral":[
+"Adeilad Eglwys Cadeiriol"
+],
+"building/chapel":[
+"Adeilad Capel"
+],
+"building/church":[
+"Adeilad Eglwys"
+],
+"building/civic":[
+"Adeilad Dinesig"
+],
+"building/college":[
+"Adeilad Coleg"
+],
+"building/commercial":[
+"Adeilad Masnachol"
+],
+"building/construction":[
+"Adeilad yn cael ei Adeiladu"
+],
+"building/cowshed":[
+"Beudy"
+],
+"building/entrance":[
+"Mynedfa / Allanfa"
+],
+"building/farm":[
+"Ffermdy"
+],
+"building/farm_auxiliary":[
+"Adeilad Fferm"
+],
+"building/fire_station":[
+"Adeilad Gorsaf Dân"
+],
+"building/garage":[
+"Garej"
+],
+"building/garages":[
+"Garejis"
+],
+"building/ger":[
+"Iwrt"
+],
+"building/grandstand":[
+"Prif Stand"
+],
+"building/greenhouse":[
+"Tŷ Gwydr"
+],
+"building/hospital":[
+"Adeilad Ysbyty"
+],
+"building/hotel":[
+"Adeilad Gwesty"
+],
+"building/house":[
+"Tŷ"
+],
+"building/house/terraced":[
+"Tŷ Teras"
+],
+"building/industrial":[
+"Adeilad Diwydiannol"
+],
+"building/kindergarten":[
+"Adeilad Meithrinfa"
+],
+"building/mosque":[
+"Adeilad Mosg"
+],
+"building/office":[
+"Adeilad Swyddfa"
+],
+"building/pavilion":[
+"Adeilad Pafiliwn"
+],
+"building/public":[
+"Adeilad Cyhoeddus"
+],
+"building/residential":[
+"Adeilad Preswyl"
+],
+"building/retail":[
+"Adeilad Adwerthu"
+],
+"building/roof":[
+"To"
+],
+"building/school":[
+"Adeilad Ysgol"
+],
+"building/service":[
+"Adeilad Gwasanaeth"
+],
+"building/shed":[
+"Sied"
+],
+"building/stadium":[
+"Adeilad Stadiwm"
+],
+"building/static_caravan":[
+"Tŷ Symudol"
+],
+"building/synagogue":[
+"Adeilad Synagog"
+],
+"building/temple":[
+"Adeilad Teml"
+],
+"building/terrace":[
+"Rhes Teras"
+],
+"building/train_station":[
+"Adeilad Gorsaf Drên"
+],
+"building/transportation":[
+"Adeilad Cludiant"
+],
+"building/university":[
+"Adeilad Prifysgol"
+],
+"building_part":[
+"Rhan o Adeilad"
+],
+"building_point":[
+"Adeilad"
+],
+"club":[
+"Clwb"
+],
+"club/sport":[
+"Clwb Chwaraeon"
+],
+"craft":[
+"Crefftio"
+],
+"craft/basket_maker":[
+"Gweuwr Basgedi"
+],
+"craft/beekeeper":[
+"Gwenynwr"
+],
+"craft/blacksmith":[
+"Gofaint"
+],
+"craft/caterer":[
+"Arlwywr"
+],
+"craft/chimney_sweeper":[
+"Simneiwr"
+],
+"craft/cleaning":[
+"Gwasanaeth Glanhau"
+],
+"craft/clockmaker":[
+"Clociwr"
+],
+"craft/confectionery":[
+"Cyffeithiwr"
+],
+"craft/distillery":[
+"Distyllfa"
+],
+"craft/dressmaker":[
+"Gwniadwr"
+],
+"craft/electrician":[
+"Trydanwr"
+],
+"craft/electronics_repair":[
+"Siop Atgyweirio Electroneg"
+],
+"craft/floorer":[
+"Lloriwr"
+],
+"craft/gardener":[
+"Garddwr"
+],
+"craft/glaziery":[
+"Gwydrwr"
+],
+"craft/handicraft":[
+"Gweithle Celfyddyd Dwylo"
+],
+"craft/hvac":[
+"Gweithle HVAC"
+],
+"craft/insulator":[
+"Ynyswr"
+],
+"craft/joiner":[
+"Cysylltwr"
+],
+"craft/key_cutter":[
+"Torrwr Goriadau"
+],
+"craft/locksmith":[
+"Gof Cloeon"
+],
+"craft/metal_construction":[
+"Metelwr"
+],
+"craft/painter":[
+"Peintiwr"
+],
+"craft/photographer":[
+"Ffotograffydd"
+],
+"craft/plasterer":[
+"Plastrwr"
+],
+"craft/plumber":[
+"Plymwr"
+],
+"craft/pottery":[
+"Crochenydd"
+],
+"craft/rigger":[
+"Taclwr"
+],
+"craft/roofer":[
+"Töwr"
+],
+"craft/saddler":[
+"Cyfrwyydd"
+],
+"craft/sailmaker":[
+"Carthennwr"
+],
+"craft/sawmill":[
+"Llifelin"
+],
+"emergency":[
+"Nodwedd Argyfwng"
+],
+"emergency/ambulance_station":[
+"Gorsaf Ambiwlans"
+],
+"emergency/first_aid_kit":[
+"Bocs Cymorth Cyntaf"
+],
+"entrance":[
+"Mynedfa / Allanfa"
+],
+"entrance/emergency":[
+"Allanfa Argyfwng"
+],
+"entrance/main":[
+"Prif Fynedfa"
+],
+"ford":[
+"Rhyd",
+"ryd"
+],
+"ford_line":[
+"Rhyd"
+],
+"healthcare/hospice":[
+"Hospis"
+],
+"healthcare/laboratory":[
+"Labordy Meddygol"
+],
+"healthcare/midwife":[
+"Bydwraig"
+],
+"healthcare/occupational_therapist":[
+"Therapydd Galwedigaethol"
+],
+"healthcare/optometrist":[
+"Optometrydd"
+],
+"healthcare/physiotherapist":[
+"Ffisiotherapydd"
+],
+"healthcare/podiatrist":[
+"Podiatrydd"
+],
+"healthcare/psychotherapist":[
+"Seicotherapydd"
+],
+"healthcare/rehabilitation":[
+"Cyfleuster Adsefydlu"
+],
+"healthcare/sample_collection":[
+"Cyfleuster Casglu Sampl"
+],
+"healthcare/speech_therapist":[
+"Therapydd Lleferydd"
+],
+"healthcare/yes":[
+"Cyfleuster Gofal (math anhysbys)"
+],
+"highway":[
+"Nodwedd Priffordd"
+],
+"highway/bus_stop":[
+"Safle Bws"
+],
+"highway/crossing":[
+"Croesfan"
+],
+"highway/cycleway/bicycle_foot":[
+"Ffordd Beiciau & Troed"
+],
+"highway/cycleway/crossing/bicycle_foot":[
+"Croesfan Beiciau & Troed"
+],
+"highway/elevator":[
+"Lifft"
+],
+"highway/footway":[
+"Troetffordd"
+],
+"highway/footway/crossing":[
+"Croesfan Troed"
+],
+"highway/footway/crossing/traffic_signals":[
+"Croesfan â Goleuadau Traffig"
+],
+"highway/footway/crossing/uncontrolled":[
+"Croesfan â Marciau"
+],
+"highway/footway/crossing/unmarked":[
+"Croesfan heb Marciau"
+],
+"highway/footway/informal":[
+"Troetffordd Anffurfiol"
+],
+"highway/footway/traffic_island":[
+"Traffig Ynys"
+],
+"highway/give_way":[
+"Arwydd Ildio"
+],
+"highway/path":[
+"Llwybr"
+],
+"highway/rest_area":[
+"Ardal Seibiant"
+],
+"highway/road":[
+"Heol Anhysbys"
+],
+"highway/services":[
+"Gwasanaethau"
+],
+"highway/speed_camera":[
+"Camera Cyflymder"
+],
+"highway/steps":[
+"Grisiau"
+],
+"highway/steps/conveying":[
+"Esgaladur"
+],
+"highway/stop":[
+"Arwydd Stop"
+],
+"highway/traffic_signals":[
+"Goleuadau Traffig"
+],
+"historic/castle":[
+"Castell"
+],
+"historic/castle/palace":[
+"Palas"
+],
+"historic/castle/stately":[
+"Château"
+],
+"indoor":[
+"Nodwedd Dan-do"
+],
+"indoor/area":[
+"Ardal Dan-do"
+],
+"indoor/corridor":[
+"Coridor Dan-do"
+],
+"indoor/corridor_line":[
+"Coridor Dan-do"
+],
+"indoor/door":[
+"Drws Dan-do"
+],
+"indoor/elevator":[
+"Shafft Lifft Dan-do"
+],
+"indoor/room":[
+"Ystafell"
+],
+"indoor/stairs":[
+"Grisiau Dan-do"
+],
+"indoor/wall":[
+"Wal Dan-do"
+],
+"junction":[
+"Cyffordd"
+],
+"landuse/farm":[
+"Tir Amaeth"
+],
+"landuse/farmland":[
+"Tir Amaeth"
+],
+"landuse/farmyard":[
+"Ffermdy"
+],
+"landuse/flowerbed":[
+"Blodau"
+],
+"landuse/grass":[
+"Gwair"
+],
+"landuse/harbour":[
+"Porthladd"
+],
+"landuse/industrial":[
+"Ystâd Diwydiannol"
+],
+"landuse/meadow":[
+"Gwaun"
+],
+"landuse/pond":[
+"Pwll"
+],
+"landuse/religious":[
+"Ardal Grefyddol"
+],
+"landuse/reservoir":[
+"Cronfa Ddŵr"
+],
+"landuse/retail":[
+"Ardal Adwerthu"
+],
+"leisure/common":[
+"Comin"
+],
+"leisure/dancing_school":[
+"Ysgol Dawnsio"
+],
+"leisure/dog_park":[
+"Parc Cŵn"
+],
+"leisure/escape_game":[
+"Ystafell Ddianc"
+],
+"leisure/fishing":[
+"Safle Pysgota"
+],
+"leisure/fitness_centre":[
+"Campfa"
+],
+"leisure/fitness_centre/yoga":[
+"Stiwdio Ioga"
+],
+"leisure/garden":[
+"Gardd"
+],
+"leisure/garden/botanical":[
+"Gardd Fotaneg"
+],
+"leisure/garden/community":[
+"Gardd Gymunedol"
+],
+"leisure/miniature_golf":[
+"Mini Golff"
+],
+"leisure/nature_reserve":[
+"Gwarchodfa Natur"
+],
+"leisure/park":[
+"Parc"
+],
+"leisure/picnic_table/chess":[
+"Bwrdd Gwyddbwyll"
+],
+"leisure/pitch/chess":[
+"Bwrdd Gwyddbwyll Mawr"
+],
+"leisure/pitch/cricket":[
+"Maes Criced"
+],
+"leisure/pitch/futsal":[
+"Cwrt Fwtsal"
+],
+"leisure/pitch/rugby_union":[
+"Cae Rygbi'r Undeb"
+],
+"leisure/pitch/soccer":[
+"Cae Pêl-droed"
+],
+"leisure/pitch/softball":[
+"Cae Pêl-meddal"
+],
+"leisure/pitch/tennis":[
+"Cwrt Tenis"
+],
+"leisure/playground/indoor":[
+"Ardal Chwarae Dan-do"
+],
+"leisure/sauna":[
+"Sauna"
+],
+"leisure/sports_centre/climbing":[
+"Campfa Dringo"
+],
+"leisure/sports_hall":[
+"Campfa"
+],
+"leisure/stadium":[
+"Stadiwm"
+],
+"leisure/swimming_pool":[
+"Pwll Nofio"
+],
+"line":[
+"Llinell"
+],
+"man_made/crane":[
+"Craen"
+],
+"man_made/cross":[
+"Croes"
+],
+"man_made/lighthouse":[
+"Goleudy"
+],
+"man_made/mast":[
+"Mast"
+],
+"man_made/mast/communication":[
+"Mast Cyfrathrebu"
+],
+"man_made/mast/communication/mobile_phone":[
+"Mast Ffôn Symudol"
+],
+"man_made/mast/communication/radio":[
+"Mast Darlledu Radio"
+],
+"man_made/mast/communication/television":[
+"Mast Darlledu Teledu"
+],
+"man_made/mast/lighting":[
+"Mast Golau"
+],
+"man_made/quay":[
+"Cei"
+],
+"man_made/torii":[
+"Torii"
+],
+"man_made/tower":[
+"Tŵr"
+],
+"man_made/tower/bell_tower":[
+"Tŵr Cloch"
+],
+"man_made/tower/communication":[
+"Tŵr Cyfathrebu"
+],
+"man_made/tower/pagoda":[
+"Pagoda"
+],
+"man_made/tunnel":[
+"Ardal Twnnel"
+],
+"man_made/water_tower":[
+"Tŵr Dŵr"
+],
+"man_made/works":[
+"Ffatri"
+],
+"man_made/works/brewery":[
+"Bragdy Diwydiannol"
+],
+"marker":[
+"Marciwr"
+],
+"marker/utility/power":[
+"Marciwr Pŵer"
+],
+"natural/bare_rock":[
+"Carreg Plaen"
+],
+"natural/bay":[
+"Bae"
+],
+"natural/beach":[
+"Traeth"
+],
+"natural/coastline":[
+"Arfordir"
+],
+"natural/grassland":[
+"Glaswellt"
+],
+"natural/mud":[
+"Mwd"
+],
+"natural/peak":[
+"Copa"
+],
+"natural/sand":[
+"Tywod"
+],
+"natural/tree":[
+"Coeden"
+],
+"natural/tree_row":[
+"Rhes o Goed"
+],
+"natural/valley":[
+"Cwm / Dyffryn"
+],
+"natural/volcano":[
+"Folcano"
+],
+"natural/water":[
+"Dŵr"
+],
+"natural/water/lake":[
+"Llyn"
+],
+"natural/water/pond":[
+"Pwll"
+],
+"natural/water/reservoir":[
+"Cronfa Ddŵr"
+],
+"natural/water/river":[
+"Ardal Afon"
+],
+"natural/wetland":[
+"Gwlyptir"
+],
+"natural/wetland/bog":[
+"Bog"
+],
+"natural/wetland/fen":[
+"Ffen"
+],
+"natural/wetland/mangrove":[
+"Mangrof"
+],
+"natural/wetland/marsh":[
+"Morfa"
+],
+"natural/wetland/reedbed":[
+"Corsle"
+],
+"natural/wetland/saltmarsh":[
+"Morfa Heli Arfordirol"
+],
+"natural/wetland/swamp":[
+"Cors"
+],
+"natural/wetland/wet_meadow":[
+"Gwaun Wlyb"
+],
+"natural/wood":[
+"Coedwig Naturiol"
+],
+"noexit/yes":[
+"Dim Allanfa"
+],
+"office":[
+"Swyddfa"
+],
+"office/charity":[
+"Swyddfa Elusen"
+],
+"office/coworking":[
+"Ardal Gydweithio"
+],
+"office/diplomatic/consulate":[
+"Conswliaeth"
+],
+"office/diplomatic/embassy":[
+"Llysgenhadaeth"
+],
+"office/financial":[
+"Swyddfa Gyllid"
+],
+"office/religion":[
+"Swyddfa Grefyddol"
+],
+"office/research":[
+"Swyddfa Ymchwil"
+],
+"office/security":[
+"Swyddfa Ddiogelwch"
+],
+"office/yes":[
+"Swyddfa (math anhysbys)"
+],
+"place":[
+"Lle"
+],
+"place/city":[
+"Dinas"
+],
+"place/city_block":[
+"Bloc Dinas"
+],
+"place/farm":[
+"Fferm"
+],
+"place/hamlet":[
+"Pentrefan"
+],
+"place/island":[
+"Ynys"
+],
+"place/neighbourhood":[
+"Cymydogaeth"
+],
+"place/plot":[
+"Plot"
+],
+"place/quarter":[
+"Cwarter"
+],
+"place/square":[
+"Sgwâr"
+],
+"place/town":[
+"Tref"
+],
+"place/village":[
+"Pentref"
+],
+"playground":[
+"Offer Ardal Chwarae"
+],
+"point":[
+"Pwynt"
+],
+"polling_station":[
+"Gorsaf Bleidleisio Dros Dro"
+],
+"power":[
+"Nodwedd Pŵer"
+],
+"public_transport/platform/ferry":[
+"Platfform Fferi"
+],
+"public_transport/platform/train":[
+"Platfform Trên"
+],
+"public_transport/platform/tram":[
+"Platfform Tram"
+],
+"public_transport/platform/trolleybus":[
+"Platfform Bws Trydan"
+],
+"public_transport/platform_point":[
+"Gorsaf / Platfform Cludiant"
+],
+"public_transport/station":[
+"Gorsaf Gludiant"
+],
+"public_transport/station_ferry":[
+"Terfynfa Fferi"
+],
+"public_transport/station_train":[
+"Gorsaf Drên"
+],
+"public_transport/station_train_halt":[
+"Gorsaf Drên (Ar gais)"
+],
+"public_transport/station_tram":[
+"Gorsaf Dram"
+],
+"relation":[
+"Perthynas"
+],
+"shop":[
+"Siop"
+],
+"shop/bakery":[
+"Popty"
+],
+"shop/beverages":[
+"Siop Ddiodydd"
+],
+"shop/bicycle":[
+"Siop Feiciau"
+],
+"shop/boat":[
+"Siop Gwch"
+],
+"shop/books":[
+"Siop Lyfrau"
+],
+"shop/butcher":[
+"Cigydd"
+],
+"shop/cannabis":[
+"Siop Ganabis"
+],
+"shop/carpet":[
+"Siop Garped"
+],
+"shop/charity":[
+"Siop Elusen"
+],
+"shop/chocolate":[
+"Siop Siocled"
+],
+"shop/clothes":[
+"Siop Ddillad"
+],
+"shop/clothes/second_hand":[
+"Siop Ddillad Ail-Law"
+],
+"shop/clothes/suits":[
+"Siop Siwtiau"
+],
+"shop/clothes/underwear":[
+"Siop Iswisg"
+],
+"shop/clothes/wedding":[
+"Siop Ddillad Priodas"
+],
+"shop/coffee":[
+"Siop Goffi"
+],
+"shop/computer":[
+"Siop Gyfrifiaduron"
+],
+"shop/confectionery":[
+"Siop Losin"
+],
+"shop/cosmetics":[
+"Siop Golur"
+],
+"shop/craft":[
+"Siop Grefft"
+],
+"shop/doityourself":[
+"Siop DIY"
+],
+"shop/doors":[
+"Siop Ddrysau"
+],
+"shop/e-cigarette":[
+"Siop E-Sigaréts"
+],
+"shop/electronics":[
+"Siop Electroneg"
+],
+"shop/erotic":[
+"Siop Erotig"
+],
+"shop/erotic/lgbtq":[
+"Siop Erotig LHDTC+"
+],
+"shop/fabric":[
+"Siop Ddeunydd"
+],
+"shop/farm":[
+"Stondin Gynnyrch"
+],
+"shop/fishing":[
+"Siop Bysgota"
+],
+"shop/florist":[
+"Blodau"
+],
+"shop/fuel":[
+"Siop Danwydd"
+],
+"shop/furniture":[
+"Siop Gelfi"
+],
+"shop/garden_centre":[
+"Canolfan Garddio"
+],
+"shop/general":[
+"Siop Gyffredinol"
+],
+"shop/gift":[
+"Siop Roddion"
+],
+"shop/hobby":[
+"Siop Hobi"
+],
+"shop/jewelry":[
+"Siop Gemwaith"
+],
+"shop/kiosk":[
+"Ciosg"
+],
+"shop/leather":[
+"Siop Ledr"
+],
+"shop/lottery":[
+"Siop Loteri"
+],
+"shop/mall":[
+"Canolfan Siopa"
+],
+"shop/music":[
+"Siop Gerddoriaeth"
+],
+"shop/optician":[
+"Optegydd"
+],
+"shop/paint":[
+"Siop Baent"
+],
+"shop/pasta":[
+"Siop Basta"
+],
+"shop/pet":[
+"Siop Anifeiliaid Anwes"
+],
+"shop/pyrotechnics":[
+"Siop Dân Gwyllt"
+],
+"shop/religion":[
+"Siop Grefyddol"
+],
+"shop/repair":[
+"Siop Atgyweirio"
+],
+"shop/rice":[
+"Siop Reis"
+],
+"shop/shoe_repair":[
+"Siop Atgyweirio Esgidiau"
+],
+"shop/shoes":[
+"Siop Esgidiau"
+],
+"shop/spices":[
+"Siop Sbeisys"
+],
+"shop/sports":[
+"Siop Offer Chwaraeon"
+],
+"shop/supermarket":[
+"Archfarchnad"
+],
+"shop/toys":[
+"Siop Degannau"
+],
+"shop/vacant":[
+"Siop Wag"
+],
+"shop/video":[
+"Siop Fideos"
+],
+"shop/video_games":[
+"Siop Gemau Fideo"
+],
+"shop/wine":[
+"Siop Win"
+],
+"shop/yes":[
+"Siop (math anhysbys)"
+],
+"tourism/artwork/graffiti":[
+"Graffiti"
+],
+"tourism/caravan_site":[
+"Parc Carafan"
+],
+"tourism/gallery":[
+"Oriel Celf"
+],
+"tourism/hostel":[
+"Hostel"
+],
+"tourism/hotel":[
+"Gwesty",
+"llety"
+],
+"tourism/information":[
+"Gwybodaeth"
+],
+"tourism/information/board":[
+"Bwrdd Gwybodaeth"
+],
+"tourism/information/board/welcome_sign":[
+"Arwydd Groeso"
+],
+"tourism/information/map":[
+"Map"
+],
+"tourism/information/office":[
+"Canolfan Ymwelwyr"
+],
+"tourism/motel":[
+"Motel"
+],
+"tourism/museum":[
+"Amgueddfa"
+],
+"tourism/museum/history":[
+"Amgueddfa Hanes"
+],
+"tourism/picnic_site":[
+"Safle Picnic"
+],
+"tourism/zoo":[
+"Sŵ"
+],
+"tourism/zoo/safari":[
+"Parc Safari"
+],
+"tourism/zoo/wildlife":[
+"Parc Bywyd Gwyllt"
+],
+"traffic_calming":[
+"Tawelu Traffig"
+],
+"traffic_calming/bump":[
+"Bymp"
+],
+"traffic_calming/hump":[
+"Twmpath"
+],
+"traffic_calming/yes":[
+"Tawelu Traffig (math anhysbys)"
+],
+"traffic_sign/maxspeed":[
+"Arwydd Derfyn Cyflymder"
+],
+"type/boundary":[
+"Ffin"
+],
+"type/multipolygon":[
+"Amlochron"
+],
+"type/restriction":[
+"Rhwystr"
+],
+"type/route":[
+"Ffordd"
+],
+"type/route/aerialway":[
+"Ffordd Awyr"
+],
+"type/route/bicycle":[
+"Ffordd Seiclo"
+],
+"type/route/bus":[
+"Ffordd Bws"
+],
+"type/route/detour":[
+"Ffordd Wyriad"
+],
+"type/route/ferry":[
+"Ffordd Fferi"
+],
+"type/route/foot":[
+"Ffordd Gerdded"
+],
+"type/route/hiking":[
+"Ffordd Heicio"
+],
+"type/route/road":[
+"Ffordd Heol"
+],
+"type/route/subway":[
+"Ffordd Dan Ddaear"
+],
+"type/route/train":[
+"Ffordd Drên"
+],
+"type/route/tram":[
+"Ffordd Dram"
+],
+"type/route/trolleybus":[
+"Ffordd Fws Trydan"
+],
+"type/site":[
+"Safle"
+],
+"type/waterway":[
+"Ffordd Ddŵr"
+],
+"waterway/canal":[
+"Camlas"
+],
+"waterway/dam":[
+"Dam"
+],
+"waterway/ditch":[
+"Dyfrffos"
+],
+"waterway/river":[
+"tarddle",
+"ffrwd",
+"aber",
+"nant",
+"Afon",
+"llanw",
+"ffynnon"
+],
+"waterway/stream":[
+"Ffrwd"
+],
 "waterway/waterfall":[
-"Rheadr"
+"Rhaeadr"
 ]
 }

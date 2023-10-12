@@ -1142,16 +1142,6 @@
 "Milieupark/Containerpark",
 "milieustraat"
 ],
-"amenity/recycling_container":[
-"container",
-"afvalcontainer",
-"recyclage",
-"glas",
-"Recyclingcontainer",
-"glascontainer",
-"afval",
-"glasbak"
-],
 "amenity/refugee_site":[
 "vluchtelingen",
 "opvangcentrum",
@@ -1186,8 +1176,8 @@
 "koreaans",
 "filipijns"
 ],
-"amenity/restaurant/barbeque":[
-"Barbequerestaurant"
+"amenity/restaurant/barbecue":[
+"Barbecuerestaurant"
 ],
 "amenity/restaurant/chinese":[
 "rijst",
@@ -1679,10 +1669,7 @@
 "hondenstrontbuis"
 ],
 "amenity/waste_basket":[
-"afvalbak",
-"prullenbak",
-"Vuilnisbak",
-"vuilnisbak"
+"Afvalbak"
 ],
 "amenity/waste_disposal":[
 "Kleine afvalcontainer",
@@ -2038,7 +2025,7 @@
 "heffing"
 ],
 "barrier/turnstile":[
-"Draaipoort",
+"Tourniquet",
 "ingang",
 "draaipoort",
 "toegangspoort",
@@ -2273,6 +2260,9 @@
 "gebouw",
 "wonen"
 ],
+"building/house/terraced":[
+"Rijtjeshuis"
+],
 "building/houseboat":[
 "rivier",
 "Woonboot",
@@ -2394,13 +2384,7 @@
 "Tempelgebouw"
 ],
 "building/terrace":[
-"huis",
-"woningen",
-"woongebied",
-"rijtjeshuizen",
-"woonsten",
-"gebouw",
-"Rijhuizen"
+"Blok van rijtjeshuizen"
 ],
 "building/train_station":[
 "Treinstationgebouw"
@@ -3190,13 +3174,20 @@
 "binnenshuis"
 ],
 "highway/crossing":[
-"Oversteekplaats"
+"Oversteekplaats",
+"oversteken",
+"kruispunt"
 ],
 "highway/crossing/traffic_signals":[
-"Kruispunt met voetgangersverkeerslichten"
+"Oversteekplaats met voetgangersverkeerslichten"
+],
+"highway/crossing/uncontrolled":[
+"zebra",
+"Gemarkeerde oversteekplaats",
+"voetganger",
+"zebrapad"
 ],
 "highway/crossing/unmarked":[
-"ongemarkeerde oversteekplaats",
 "Ongemarkeerde oversteekplaats"
 ],
 "highway/cycleway":[
@@ -3222,6 +3213,14 @@
 "zebrapad",
 "oversteekplaats",
 "Fiets- en voetgangersoversteekplaats"
+],
+"highway/cycleway/crossing/traffic_signals":[
+"Fietsoversteekplaats met verkeerslichten",
+"kruispunt",
+"fiets"
+],
+"highway/cycleway/crossing/uncontrolled":[
+"Gemarkeerde fietsoversteekplaats"
 ],
 "highway/cycleway/crossing/unmarked":[
 "fietsoversteek",
@@ -3271,6 +3270,15 @@
 ],
 "highway/footway/crossing":[
 "Voetgangersoversteekplaats"
+],
+"highway/footway/crossing/traffic_signals":[
+"Oversteekplaats met verkeerslichten voor voetgangers"
+],
+"highway/footway/crossing/uncontrolled":[
+"Gemarkeerde oversteekplaats"
+],
+"highway/footway/crossing/unmarked":[
+"Ongemarkeerde oversteekplaats"
 ],
 "highway/footway/informal":[
 "Informeel voetpad"
@@ -6273,7 +6281,7 @@
 ],
 "railway/railway_crossing":[
 "spoorkruising",
-"Spoorwegovergang tussen meerdere sporen"
+"Kruispunt van meerdere sporen"
 ],
 "railway/signal":[
 "sein",
@@ -7562,12 +7570,12 @@
 ],
 "tourism/information/guidepost":[
 "wandelwegwijzer",
-"Wandel-, fiets-, e.d. -wegwijzer",
 "route",
 "wandelroutewegwijzer",
 "fietswegwijzer",
 "fietsroutewegwijzer",
 "wegwijzer",
+"Wegwijzer",
 "routewegwijzer"
 ],
 "tourism/information/map":[

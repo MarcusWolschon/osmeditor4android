@@ -1295,9 +1295,6 @@
 "资源回收中心",
 "回收中心"
 ],
-"amenity/recycling_container":[
-"回收容器"
-],
 "amenity/refugee_site":[
 "难民营"
 ],
@@ -1367,9 +1364,6 @@
 "中国",
 "晚餐",
 "早点"
-],
-"amenity/restaurant/barbeque":[
-"烧烤餐厅"
 ],
 "amenity/restaurant/chinese":[
 "中国料理",
@@ -2246,11 +2240,6 @@
 "排泄",
 "尿"
 ],
-"amenity/waste_basket":[
-"垃圾",
-"垃圾箱",
-"垃圾桶"
-],
 "amenity/waste_disposal":[
 "垃圾",
 "大型垃圾箱",
@@ -2773,7 +2762,8 @@
 ],
 "building/dormitory":[
 "宿舍",
-"寝室"
+"寝室",
+"学生公寓"
 ],
 "building/entrance":[
 "入口/出口"
@@ -2941,13 +2931,6 @@
 ],
 "building/temple":[
 "庙宇建筑"
-],
-"building/terrace":[
-"房列",
-"联排式住宅",
-"屋列",
-"一列房",
-"一列屋"
 ],
 "building/train_station":[
 "火车站建筑"
@@ -3869,6 +3852,9 @@
 "停车湾",
 "车道",
 "错车"
+],
+"highway/escape":[
+"避险车道"
 ],
 "highway/footway":[
 "步行道路",
@@ -5527,7 +5513,14 @@
 "Utility Marker"
 ],
 "marker/utility/power":[
-"发电站"
+"输电",
+"电力设施标志",
+"警告",
+"电力",
+"标志",
+"牌",
+"保护",
+"发电"
 ],
 "natural":[
 "自然要素"
@@ -6213,9 +6206,9 @@
 "地点"
 ],
 "place/neighbourhood":[
-"街坊社区 / 小区",
 "社区",
-"街坊"
+"街坊",
+"街坊社区"
 ],
 "place/plot":[
 "Plot"

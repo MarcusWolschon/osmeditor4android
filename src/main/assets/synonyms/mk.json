@@ -450,6 +450,9 @@
 "amenity/grit_bin":[
 "Кутија за попескување"
 ],
+"amenity/hookah_lounge":[
+"Наргиле-бар"
+],
 "amenity/hospital":[
 "Болнички двор"
 ],
@@ -660,7 +663,7 @@
 "Рецикларница"
 ],
 "amenity/recycling_container":[
-"Рециклажен контејнер"
+"Рециклажна канта"
 ],
 "amenity/refugee_site":[
 "Бегалски камп"
@@ -677,7 +680,9 @@
 "amenity/restaurant/asian":[
 "Азиски ресторан"
 ],
-"amenity/restaurant/barbeque":[
+"amenity/restaurant/barbecue":[
+"[преведете со истозначници и сродни поими на „скараџилница“",
+"одделени со запирки]",
 "Скараџилница"
 ],
 "amenity/restaurant/chinese":[
@@ -825,6 +830,15 @@
 "amenity/taxi":[
 "Такси-постојка"
 ],
+"amenity/taxi/auto_rickshaw":[
+"Постојка за авторикши"
+],
+"amenity/taxi/cycle_rickshaw":[
+"Постојка за велосипедски рикши"
+],
+"amenity/taxi/motorcycle_taxi":[
+"Постојка за мототакси"
+],
 "amenity/telephone":[
 "Телефон"
 ],
@@ -851,6 +865,9 @@
 ],
 "amenity/townhall":[
 "Градски дом"
+],
+"amenity/townhall/barangay-PH":[
+"Барангајска управа"
 ],
 "amenity/townhall/city":[
 "Градски дом"
@@ -1173,6 +1190,9 @@
 "boundary/administrative":[
 "Административна граница"
 ],
+"boundary/hazard":[
+"Опасно подрачје"
+],
 "bridge/support":[
 "Мостова потпора"
 ],
@@ -1275,6 +1295,9 @@
 "building/house":[
 "Куќа"
 ],
+"building/house/terraced":[
+"Лепенка"
+],
 "building/houseboat":[
 "Пловечка куќа"
 ],
@@ -1348,7 +1371,7 @@
 "Храм"
 ],
 "building/terrace":[
-"Нанижани куќи"
+"Низа лепенки"
 ],
 "building/train_station":[
 "Железничкостанична градба"
@@ -2669,6 +2692,9 @@
 "man_made/carpet_hanger":[
 "Шипка за тепих"
 ],
+"man_made/charge_point":[
+"Полнач за електрични возила"
+],
 "man_made/chimney":[
 "Оџак"
 ],
@@ -2761,6 +2787,9 @@
 ],
 "man_made/mast/lighting":[
 "Расветен јарбол"
+],
+"man_made/milk_churn_stand":[
+"Оставалиште за млеко"
 ],
 "man_made/mineshaft":[
 "Рудничко окно"
@@ -3010,6 +3039,24 @@
 ],
 "natural/tree":[
 "Дрво"
+],
+"natural/tree/broadleaved":[
+"Широколисно дрво"
+],
+"natural/tree/broadleaved/deciduous":[
+"Широколисно дрво (листопадно)"
+],
+"natural/tree/broadleaved/evergreen":[
+"Широколисно двро (зимзелено)"
+],
+"natural/tree/needleleaved":[
+"Иглолисно дрво"
+],
+"natural/tree/needleleaved/deciduous":[
+"Иглолисно дрво (листопадно)"
+],
+"natural/tree/needleleaved/evergreen":[
+"Иглолисно дрво (зимзелено)"
 ],
 "natural/tree_row":[
 "Дрворед"
@@ -4160,6 +4207,9 @@
 "shop/party":[
 "Набавки за забавни настани"
 ],
+"shop/pasta":[
+"Продавница за тестенини"
+],
 "shop/pastry":[
 "Бели печива"
 ],
@@ -4201,6 +4251,9 @@
 ],
 "shop/repair":[
 "Поправачница"
+],
+"shop/rice":[
+"Продавница за ориз"
 ],
 "shop/scuba_diving":[
 "Продавница за нуркачка опрема"

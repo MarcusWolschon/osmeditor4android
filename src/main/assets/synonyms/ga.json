@@ -1,0 +1,107 @@
+{
+"amenity/bus_station":[
+"Stáisiún / Críochfort Bus"
+],
+"amenity/community_centre":[
+"Ionad Pobail"
+],
+"amenity/school":[
+"Fearann Scoile"
+],
+"amenity/university":[
+"Fearann Ollscoile"
+],
+"building/school":[
+"Foirgneamh Scoile"
+],
+"building/train_station":[
+"Foirgneamh Stáisiún Traenach"
+],
+"building/university":[
+"Foirgneamh Ollscoile"
+],
+"highway/bus_stop":[
+"Stad bus"
+],
+"highway/motorway":[
+"Mótarbhealach"
+],
+"highway/motorway_junction":[
+"Slí Amach / Acomhal Mótarbhealaigh"
+],
+"highway/pedestrian_line":[
+"Sráid Choisithe"
+],
+"highway/street_lamp":[
+"Solas sráide"
+],
+"public_transport/platform/bus_point":[
+"Stad bus"
+],
+"public_transport/platform/bus_tram_point":[
+"Stad Tram & Bus"
+],
+"public_transport/platform/subway":[
+"Ardán Meitreo"
+],
+"public_transport/platform/subway_point":[
+"Stad / Ardán Meitreo"
+],
+"public_transport/platform/train":[
+"Ardán Traenach"
+],
+"public_transport/platform/tram":[
+"Ardán Tram"
+],
+"public_transport/platform/tram_point":[
+"Stad / Ardán Tram"
+],
+"public_transport/platform/trolleybus_point":[
+"Stad bus tralaí"
+],
+"public_transport/station_train":[
+"Stáisiún Traenach"
+],
+"public_transport/stop_position_tram":[
+"Áit Stoptha Tram"
+],
+"railway/funicular":[
+"Ráille Iarnróid Cáblach"
+],
+"railway/halt":[
+"Stáisiún Traenach (Stad ar iarratas)"
+],
+"railway/narrow_gauge":[
+"Iarnród Caol"
+],
+"railway/platform":[
+"Ardán Traenach"
+],
+"railway/rail":[
+"Ráille Traenach"
+],
+"railway/rail/highspeed":[
+"Ráille Thraein Ardluais"
+],
+"railway/station":[
+"Stáisiún Traenach"
+],
+"railway/subway":[
+"Ráille Meitreo"
+],
+"railway/subway_entrance":[
+"Bealach Isteach Meitreo"
+],
+"railway/tram":[
+"Tramrian"
+],
+"railway/tram_crossing":[
+"Crosaire Tram-Cosán"
+],
+"railway/tram_level_crossing":[
+"Crosaire Tram-Bóthar"
+],
+"type/route/train":[
+"Líne Traenach"
+]
+}

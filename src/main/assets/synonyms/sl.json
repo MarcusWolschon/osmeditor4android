@@ -506,9 +506,6 @@
 "amenity/recycling_centre":[
 "Center za recikliranje"
 ],
-"amenity/recycling_container":[
-"Ekološki otok"
-],
 "amenity/restaurant":[
 "gostilna",
 "Restavracija",
@@ -665,11 +662,6 @@
 ],
 "amenity/waste/dog_excrement":[
 "Koš za pasje iztrebke"
-],
-"amenity/waste_basket":[
-"koš za smeti",
-"smetnjak",
-"Koš za odpadke"
 ],
 "amenity/waste_disposal":[
 "Zabojnik za odpadke"
@@ -905,10 +897,6 @@
 "building/stable":[
 "štala",
 "Hlev"
-],
-"building/terrace":[
-"Vrstne hiše",
-"vrstna hiša"
 ],
 "building/university":[
 "višja šola",

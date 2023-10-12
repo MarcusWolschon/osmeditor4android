@@ -8,17 +8,29 @@
 "aerialway/cable_car":[
 "Kereta Kabel"
 ],
+"amenity/atm":[
+"ATM"
+],
 "amenity/cafe":[
 "Kafe"
+],
+"amenity/clinic/dialysis":[
+"Pusat Dialisis"
+],
+"amenity/conference_centre":[
+"Pusat Konvensyen"
 ],
 "amenity/driving_school":[
 "Sekolah Memandu"
 ],
 "amenity/embassy":[
-"Kedutaan"
+"Kedutaan Besar"
 ],
 "amenity/fast_food":[
 "Makanan Segera"
+],
+"amenity/fast_food/mexican":[
+"Makanan Segera Mexico"
 ],
 "amenity/fire_station":[
 "Balai Bomba"
@@ -92,6 +104,21 @@
 ],
 "amenity/restaurant":[
 "Restoran"
+],
+"amenity/restaurant/asian":[
+"Restoran Asia"
+],
+"amenity/restaurant/chinese":[
+"Restoran Cina"
+],
+"amenity/restaurant/spanish":[
+"Restoran Sepanyol"
+],
+"amenity/restaurant/ukrainian":[
+"Restoran Ukraine"
+],
+"amenity/restaurant/vietnamese":[
+"Restoran Vietnam"
 ],
 "amenity/school":[
 "Kawasan Sekolah"
@@ -207,8 +234,14 @@
 "building/school":[
 "Bangunan Sekolah"
 ],
+"building/service":[
+"Bangunan Perkhidmatan"
+],
 "building/stable":[
 "Kandang Kuda"
+],
+"building/temple":[
+"Bangunan Kuil"
 ],
 "building/university":[
 "Bangunan Universiti"
@@ -218,6 +251,9 @@
 ],
 "club":[
 "Kelab"
+],
+"emergency/ambulance_station":[
+"Stesen Ambulans"
 ],
 "highway/primary":[
 "Jalan Utama"
@@ -243,11 +279,23 @@
 "highway/unclassified":[
 "Jalan Kecil/Tidak Dikelaskan"
 ],
+"leisure/picnic_table/chess":[
+"Meja Catur"
+],
 "leisure/pitch/cricket":[
 "Padang Kriket"
 ],
 "leisure/pitch/soccer":[
 "Padang Bola Sepak"
+],
+"leisure/stadium":[
+"Stadium"
+],
+"natural/peninsula":[
+"Semenanjung"
+],
+"natural/water/lake":[
+"Tasik"
 ],
 "office":[
 "Pejabat"
@@ -287,6 +335,9 @@
 ],
 "office/financial":[
 "Pejabat Kewangan"
+],
+"office/financial_advisor":[
+"Penasihat Kewangan"
 ],
 "office/forestry":[
 "Pejabat Perhutanan"
@@ -341,6 +392,9 @@
 ],
 "office/research":[
 "Pejabat Penyelidikan"
+],
+"office/security":[
+"Pejabat Keselamatan"
 ],
 "office/surveyor":[
 "Pejabat Juruukur"
@@ -438,14 +492,32 @@
 "shop":[
 "Kedai"
 ],
+"shop/anime":[
+"Kedai Anime / Manga"
+],
+"shop/antiques":[
+"Kedai Antik"
+],
+"shop/beverages":[
+"Kedai Minuman"
+],
 "shop/bicycle":[
 "Kedai Basikal"
+],
+"shop/candles":[
+"Kedai Lilin"
+],
+"shop/cheese":[
+"Kedai Keju"
 ],
 "shop/chocolate":[
 "Kedai Coklat"
 ],
 "shop/clothes":[
 "Kedai Pakaian"
+],
+"shop/coffee":[
+"Kedai Kopi"
 ],
 "shop/computer":[
 "Kedai Komputer"
@@ -476,6 +548,9 @@
 "shop/florist":[
 "Kedai Bunga"
 ],
+"shop/gift":[
+"Kedai Hadiah"
+],
 "shop/greengrocer":[
 "Kedai Menjual Sayur"
 ],
@@ -500,11 +575,20 @@
 "shop/paint":[
 "Kedai Cat"
 ],
+"shop/pasta":[
+"Kedai Pasta"
+],
+"shop/shoes":[
+"Kedai Kasut"
+],
 "shop/tailor":[
 "Kedai Tukang Jahit"
 ],
 "shop/toys":[
 "Kedai Permainan"
+],
+"shop/trophy":[
+"Kedai Piala"
 ],
 "shop/tyres":[
 "Kedai Tayar"
@@ -514,6 +598,9 @@
 ],
 "tourism/hotel":[
 "Hotel"
+],
+"tourism/information/board":[
+"Papan Maklumat"
 ],
 "tourism/picnic_site":[
 "Tapak Perkelahan"
@@ -529,5 +616,8 @@
 ],
 "waterway/waterfall":[
 "Air Terjun"
+],
+"waterway/weir":[
+"Tebat"
 ]
 }

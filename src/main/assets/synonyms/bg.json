@@ -104,7 +104,7 @@
 "Бензиностанция"
 ],
 "amenity/grave_yard":[
-"Гробище"
+"Църковно гробище"
 ],
 "amenity/hospital":[
 "Болница"
@@ -296,9 +296,6 @@
 "amenity/vending_machine/parking_tickets":[
 "Автомат за талони за паркиране"
 ],
-"amenity/waste_basket":[
-"Кошче за боклук"
-],
 "amenity/waste_disposal":[
 "Контейнер за боклук"
 ],
@@ -455,6 +452,9 @@
 ],
 "building_point":[
 "Сграда"
+],
+"cemetery/sector":[
+"Гробищен сектор"
 ],
 "craft/agricultural_engines":[
 "Механик на селскостопански двигатели"
@@ -1153,6 +1153,9 @@
 "Соларен панел",
 "слънчев панел"
 ],
+"power/generator/method/photovoltaic/building/roof":[
+"Навес със слънчеви панели"
+],
 "power/generator/method/photovoltaic/location/roof":[
 "Слънчеви панели на покрив"
 ],
@@ -1182,13 +1185,18 @@
 "ВЕЦ",
 "водно електрическа централа"
 ],
+"power/plant/source/method/photovoltaic":[
+"фотоволтаична централа",
+"Фотоволтаична ферма",
+"фотоволтаици"
+],
 "power/plant/source/nuclear":[
 "АЕЦ"
 ],
 "power/plant/source/solar":[
 "Соларна електроцентрала",
 "слънчева",
-"фотоволтаична"
+"слънчева електроцентрала"
 ],
 "power/plant/source/waste":[
 "изгаряне на отпадъци",

@@ -701,9 +701,6 @@
 "amenity/recycling_centre":[
 "مركز إعادة تدوير"
 ],
-"amenity/recycling_container":[
-"حاوية إعادة التدوير"
-],
 "amenity/refugee_site":[
 "مخيم لاجئين"
 ],
@@ -719,9 +716,6 @@
 ],
 "amenity/restaurant/asian":[
 "مطعم آسيوي"
-],
-"amenity/restaurant/barbeque":[
-"مطعم باربيكيو"
 ],
 "amenity/restaurant/chinese":[
 "مطعم صيني"
@@ -1012,14 +1006,6 @@
 "amenity/waste/dog_excrement":[
 "قمامة لبراز الكلاب",
 "حاوية براز الكلاب"
-],
-"amenity/waste_basket":[
-"سلة القمامة",
-"سلة المهملات",
-"سلة مهملات",
-"زبالة",
-"قمامة",
-"مهملات"
 ],
 "amenity/waste_disposal":[
 "حاوية قمامة متحركة",
@@ -1586,10 +1572,6 @@
 ],
 "building/temple":[
 "مبنى المعبد"
-],
-"building/terrace":[
-"صف منازل متلاصقه",
-"صف منازل"
 ],
 "building/train_station":[
 "مبنى محطة القطار"

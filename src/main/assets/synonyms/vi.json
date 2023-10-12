@@ -2188,13 +2188,6 @@
 "trung tâm tái chế",
 "Nhà máy Tái chế"
 ],
-"amenity/recycling_container":[
-"thùng tái chế",
-"thùng thu hồi",
-"thung thu hoi",
-"Thùng Tái chế",
-"thung tai che"
-],
 "amenity/refugee_site":[
 "trại tỵ nạn",
 "trai ti nan",
@@ -2401,21 +2394,6 @@
 "quan an do a chau",
 "quan an do chau a",
 "nhà hàng á châu"
-],
-"amenity/restaurant/barbeque":[
-"nha hang barbecue",
-"Nhà hàng Thịt nướng",
-"quan an thit nuong",
-"nhà hàng thịt nướng",
-"quán ăn thịt nướng",
-"quán ăn barbecue",
-"quan an barbecue",
-"nha hang thit nuong",
-"quán ăn bbq",
-"nhà hàng bbq",
-"quan an bbq",
-"nha hang bbq",
-"nhà hàng barbecue"
 ],
 "amenity/restaurant/chinese":[
 "phong an tau",
@@ -3881,13 +3859,6 @@
 "Thùng Đựng Cứt Chó",
 "thung dung cut cho"
 ],
-"amenity/waste_basket":[
-"sot rac",
-"thung rac",
-"sọt rác",
-"Thùng rác",
-"thùng rác"
-],
 "amenity/waste_disposal":[
 "thung rac lon",
 "thùng rác công nghiệp",
@@ -4902,11 +4873,6 @@
 "kiến trúc chùa chiền",
 "kien truc chua chien",
 "kiến trúc chùa"
-],
-"building/terrace":[
-"dãy nhà",
-"Dãy Nhà",
-"day nha"
 ],
 "building/train_station":[
 "Nhà ga"

@@ -1097,6 +1097,9 @@
 "snorkel",
 "Scuba Diving Shop"
 ],
+"shop/rice":[
+"Rice Store"
+],
 "shop/repair":[
 "broken",
 "patch",
@@ -1182,6 +1185,12 @@
 "cakery",
 "patisserie",
 "cake shop"
+],
+"shop/pasta":[
+"Pasta Store",
+"spaghetti",
+"ravioli",
+"fresh pasta"
 ],
 "shop/party":[
 "Party Supply Store",
@@ -3347,6 +3356,7 @@
 "computer",
 "software",
 "Information Technology Office",
+"it office",
 "information",
 "technology"
 ],
@@ -3946,6 +3956,32 @@
 "drain",
 "retention"
 ],
+"natural/tree/needleleaved":[
+"Needleleaved Tree"
+],
+"natural/tree/broadleaved":[
+"Broadleaved Tree"
+],
+"natural/tree/needleleaved/evergreen":[
+"softwood",
+"Needleleaved Tree (evergreen)",
+"evergreen",
+"needleleaved",
+"conifer"
+],
+"natural/tree/needleleaved/deciduous":[
+"Needleleaved Tree (deciduous)"
+],
+"natural/tree/broadleaved/deciduous":[
+"hardwood",
+"broadleaf",
+"broadleaved",
+"deciduous",
+"Broadleaved Tree (deciduous)"
+],
+"natural/tree/broadleaved/evergreen":[
+"Broadleaved Tree (evergreen)"
+],
 "marker/utility":[
 "gas line marker",
 "identifier",
@@ -4180,6 +4216,12 @@
 "vertical mine entrance",
 "tunnel"
 ],
+"man_made/milk_churn_stand":[
+"milk stand",
+"Milk Churn Stand",
+"creamery stand",
+"milk can stand"
+],
 "man_made/mast":[
 "antenna",
 "radio tower",
@@ -4283,6 +4325,14 @@
 ],
 "man_made/chimney":[
 "Chimney"
+],
+"man_made/charge_point":[
+"ev",
+"charge point",
+"electric vehicle",
+"charging station",
+"EV Charging Point",
+"charging stall"
 ],
 "man_made/carpet_hanger":[
 "rack",
@@ -7046,13 +7096,16 @@
 "Transportation Building"
 ],
 "building/terrace":[
+"row house",
 "brownstone",
 "dwelling",
 "terrace",
+"townhome",
+"row home",
 "family",
 "residence",
-"Row Houses",
-"home"
+"home",
+"Row of Townhouses"
 ],
 "building/temple":[
 "Temple Building"
@@ -7311,11 +7364,27 @@
 "building/bunker":[
 "Bunker"
 ],
+"building/house/terraced":[
+"brownstone",
+"Townhouse",
+"dwelling",
+"terrace",
+"townhome",
+"row home",
+"family",
+"residence",
+"home"
+],
 "bridge/support":[
 "Bridge Support"
 ],
 "bridge/support/pier":[
 "Bridge Pier"
+],
+"boundary/hazard":[
+"Hazardous Area",
+"prohibited",
+"danger"
 ],
 "boundary/administrative":[
 "Administrative Boundary"
@@ -7720,10 +7789,10 @@
 ],
 "amenity/waste_basket":[
 "litter",
+"Trash Can",
 "bin",
 "garbage",
 "rubbish",
-"Waste Basket",
 "trash"
 ],
 "amenity/veterinary":[
@@ -7911,10 +7980,10 @@
 "glass",
 "scrap",
 "bin",
-"Recycling Container",
 "garbage",
 "bottle",
 "rubbish",
+"Recycling Bin",
 "trash"
 ],
 "amenity/recycling_centre":[
@@ -8327,6 +8396,13 @@
 "sanitarium",
 "surgery",
 "Hospital Grounds"
+],
+"amenity/hookah_lounge":[
+"nargile",
+"shisha",
+"flavored tobacco",
+"waterpipe",
+"Hookah Lounge"
 ],
 "amenity/grit_bin":[
 "sand",
@@ -8892,6 +8968,10 @@
 "municipality",
 "City Hall"
 ],
+"amenity/townhall/barangay-PH":[
+"Barangay Hall",
+"barrio hall"
+],
 "amenity/toilets/portable":[
 "porta potty",
 "privy",
@@ -8927,6 +9007,31 @@
 "open air",
 "ampi",
 "Amphitheatre"
+],
+"amenity/taxi/motorcycle_taxi":[
+"Motorcycle Taxi Stand",
+"pillion",
+"habal-habal",
+"moto taxi"
+],
+"amenity/taxi/cycle_rickshaw":[
+"bikecab",
+"Cycle Rickshaw Stand",
+"padyak",
+"trisikad",
+"sikad",
+"velotaxi",
+"becak",
+"trishaw",
+"pedicab"
+],
+"amenity/taxi/auto_rickshaw":[
+"tuk-tuk",
+"bajaj",
+"tricycle station",
+"tuksi",
+"Auto Rickshaw Stand",
+"toda"
 ],
 "amenity/studio/video":[
 "video recording",
@@ -9369,12 +9474,12 @@
 "grill",
 "table"
 ],
-"amenity/restaurant/barbeque":[
+"amenity/restaurant/barbecue":[
 "bbq",
+"Barbecue Restaurant",
 "bar",
 "lunch",
 "dine",
-"Barbeque Restaurant",
 "dining",
 "canteen",
 "eat",

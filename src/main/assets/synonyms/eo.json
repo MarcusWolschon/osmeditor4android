@@ -1288,13 +1288,6 @@
 "Ricikliga centro",
 "recikligo"
 ],
-"amenity/recycling_container":[
-"balaaĵujo",
-"recikligujo",
-"rubujego",
-"Rubujego (recikligo)",
-"rubujo"
-],
 "amenity/refugee_site":[
 "rifughantoj",
 "Kampadejo por rifuĝantoj",
@@ -1774,13 +1767,6 @@
 "Rubujo por hund-fekaĵoj",
 "hundaj fekoj",
 "rubujo"
-],
-"amenity/waste_basket":[
-"balaaĵujo",
-"forĵetaĵujo",
-"balaaĵkesto",
-"Rubujo",
-"rubkesto"
 ],
 "amenity/waste_disposal":[
 "balaaĵujo",
@@ -2515,15 +2501,6 @@
 "templo",
 "sanktejo",
 "Konstruaĵo de templo"
-],
-"building/terrace":[
-"Envicaj domoj",
-"envica domo",
-"brikdomo",
-"ŝtondomo",
-"envicdomo",
-"vica domo",
-"sekvenca domo"
 ],
 "building/train_station":[
 "Fervoj-stacia konstruaĵo"

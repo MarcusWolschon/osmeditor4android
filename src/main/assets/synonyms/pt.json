@@ -853,7 +853,16 @@
 "atenção primária à saúde"
 ],
 "amenity/doctors/gynaecology":[
-"Ginecologista / Obstetra"
+"Ginecologista / Obstetra",
+"ginecológico",
+"medicina",
+"obstétrico",
+"reprodução",
+"ginecologia",
+"médica",
+"consultório",
+"reprodutivo",
+"médico"
 ],
 "amenity/doctors/haematology":[
 "sangue",
@@ -970,7 +979,8 @@
 ],
 "amenity/doctors/podiatry":[
 "podologia",
-"Podólogo",
+"Podologista",
+"podólogo",
 "podiatra",
 "pé",
 "perna",
@@ -1361,6 +1371,20 @@
 "Caixa de sal para estrada",
 "sal"
 ],
+"amenity/hookah_lounge":[
+"shisha",
+"narguilé",
+"fumo",
+"Espaço hookah",
+"narguilê",
+"xixa",
+"narguilhé",
+"arguile",
+"fumar",
+"waterpipe",
+"cachimbo de água",
+"cachimbo"
+],
 "amenity/hospital":[
 "hospitais",
 "cirurgia",
@@ -1393,6 +1417,17 @@
 "sorveteria",
 "geladaria",
 "gelados"
+],
+"amenity/ice_cream/frozen_yogurt":[
+"Loja de iogurte gelado",
+"yogurt",
+"frogurt",
+"ice cream",
+"estabelecimento",
+"yoghurt",
+"frozen yoghurt",
+"froyo",
+"iogurt"
 ],
 "amenity/internet_cafe":[
 "cybercafe",
@@ -1598,7 +1633,9 @@
 "Cacifo postal",
 "encomendas",
 "automática",
-"box"
+"box",
+"entrega",
+"armário"
 ],
 "amenity/parking":[
 "estacionamento",
@@ -1628,12 +1665,15 @@
 "p&r"
 ],
 "amenity/parking/street-side":[
+"parquimetro",
 "parquímetro",
+"parcometro",
 "estacionar",
 "veículos",
 "Estacionamento ao lado da rua",
 "parqueamento",
-"carros"
+"carros",
+"parcómetro"
 ],
 "amenity/parking/underground":[
 "estacionamento",
@@ -1954,12 +1994,17 @@
 "Banhos públicos"
 ],
 "amenity/public_bookcase":[
+"biblioteca livre",
 "livros",
 "troca de livros",
 "estante pública",
 "leitura",
+"cabine",
 "public bookcase",
-"Biblioteca de rua"
+"Biblioteca de rua",
+"cabina",
+"microbiblioteca",
+"minibiblioteca"
 ],
 "amenity/ranger_station":[
 "Posto de guarda florestal",
@@ -2010,22 +2055,19 @@
 "eco-centro"
 ],
 "amenity/recycling_container":[
-"contentor",
+"embalagens",
 "garrafas",
-"ilhas ecológicas",
-"papelão",
+"lixo",
+"metal",
 "plástico",
 "latas",
+"resíduos",
 "reciclar",
+"óleo",
 "roupa",
 "reciclagem",
-"pilhão",
-"embalão",
-"oleão",
-"ecoponto",
-"papel",
 "vidro",
-"vidrão",
+"papel",
 "Contentor de reciclagem"
 ],
 "amenity/refugee_site":[
@@ -2088,16 +2130,6 @@
 "japonês",
 "asiática",
 "comida asiática"
-],
-"amenity/restaurant/barbeque":[
-"bbq",
-"Restaurante de grelhados",
-"barbeque",
-"churrasco",
-"refeições",
-"grelhados",
-"churrascaria",
-"grill"
 ],
 "amenity/restaurant/chinese":[
 "Restaurante chinês",
@@ -2208,6 +2240,17 @@
 "italiana",
 "pizas",
 "italiano"
+],
+"amenity/restaurant/ramen":[
+"ramen",
+"Restaurante ramen",
+"japão",
+"cozinha",
+"ramen-ten",
+"japonês",
+"sopa",
+"ramen-ya",
+"japonesa"
 ],
 "amenity/restaurant/seafood":[
 "camarão",
@@ -2578,6 +2621,9 @@
 "junta",
 "capital de região"
 ],
+"amenity/townhall/barangay-PH":[
+"Barangay"
+],
 "amenity/townhall/city":[
 "sede da câmara",
 "Câmara Municipal",
@@ -2792,13 +2838,16 @@
 "amenity/vending_machine/parking_tickets":[
 "estacionamento",
 "parking",
+"parquimetro",
 "Máquina de bilhetes de estacionamento",
 "venda",
 "parquímetro",
 "ticket",
+"parcometro",
 "estacionar",
 "parquear",
-"máquina"
+"máquina",
+"parcómetro"
 ],
 "amenity/vending_machine/pizza":[
 "venda",
@@ -2857,9 +2906,12 @@
 "saco"
 ],
 "amenity/waste_basket":[
+"waste",
 "Caixote do lixo",
 "lixo",
 "reciclagem",
+"lixeira",
+"bin",
 "caixotes",
 "papeleira",
 "cesto"
@@ -3450,6 +3502,16 @@
 "região",
 "freguesia"
 ],
+"boundary/hazard":[
+"zona",
+"morte",
+"hazard",
+"perigo",
+"proibido",
+"proibida",
+"Área perigosa",
+"risco"
+],
 "bridge/support":[
 "suporte",
 "arco",
@@ -3721,6 +3783,16 @@
 "mansão",
 "residência"
 ],
+"building/house/terraced":[
+"townhouse",
+"geminada",
+"edifício",
+"habitação",
+"terrace",
+"townhome",
+"Casa geminada",
+"residência"
+],
 "building/houseboat":[
 "casa num barco",
 "houseboat",
@@ -3916,19 +3988,6 @@
 "religioso",
 "edifício",
 "oração"
-],
-"building/terrace":[
-"edifício",
-"fila de casas",
-"habitação",
-"row houses",
-"moradias em banda",
-"casas em banda",
-"Casas geminadas",
-"banda",
-"moradia",
-"terraced house",
-"residência"
 ],
 "building/train_station":[
 "Edifício de estação de comboios"
@@ -5092,7 +5151,8 @@
 ],
 "healthcare/podiatrist":[
 "podologia",
-"Podólogo",
+"Podologista",
+"podólogo",
 "podiatra",
 "pé",
 "podologista",
@@ -5180,7 +5240,17 @@
 "galeria"
 ],
 "highway/crossing":[
-"Passadeira"
+"zebra",
+"passagem",
+"pedestres",
+"peão",
+"passagem de peões",
+"faixa de segurança",
+"segurança",
+"riscas",
+"Passadeira",
+"crossing",
+"travessia"
 ],
 "highway/crossing/traffic_signals":[
 "luminoso",
@@ -5375,7 +5445,17 @@
 "passadeira rolante"
 ],
 "highway/footway/crossing":[
-"Passadeira para peões"
+"zebra",
+"passadeira pedonal",
+"peões",
+"peão",
+"faixa de segurança",
+"cross",
+"passadeira com marcas transversais",
+"pedestre",
+"Passadeira para peões",
+"marcas transversais",
+"travessia"
 ],
 "highway/footway/crossing/traffic_signals":[
 "pedestres",
@@ -8089,6 +8169,29 @@
 "tapete",
 "pendurar"
 ],
+"man_made/charge_point":[
+"motor",
+"charge",
+"uve",
+"charging",
+"hibrido",
+"carros elétricos",
+"veículos elétricos",
+"carga",
+"eletrico",
+"motorizado",
+"híbrido",
+"ev",
+"posto",
+"carro",
+"Ponto de carregamento VE",
+"veículos",
+"eletricidade",
+"estação",
+"elétrico",
+"carregar",
+"pcr"
+],
 "man_made/chimney":[
 "Chaminé",
 "fumo",
@@ -9283,6 +9386,40 @@
 "cerejeira",
 "nogueira",
 "acácia"
+],
+"natural/tree/broadleaved":[
+"Árvore de folha larga"
+],
+"natural/tree/broadleaved/deciduous":[
+"decidua",
+"Árvore de folha larga caduca",
+"caduca",
+"deciduous",
+"árvore",
+"decídua",
+"caducifólio",
+"caducifólia"
+],
+"natural/tree/broadleaved/evergreen":[
+"Árvore de folha larga perene"
+],
+"natural/tree/needleleaved":[
+"Árvore de folha acicular"
+],
+"natural/tree/needleleaved/deciduous":[
+"Árvore de folha acicular caduca"
+],
+"natural/tree/needleleaved/evergreen":[
+"acícula",
+"acicular",
+"persistente",
+"Árvore de folha acicular perene",
+"folhas",
+"perenifólia",
+"perene",
+"árvore",
+"perenifólio",
+"agulhas"
 ],
 "natural/tree_row":[
 "fileira de árvores",
@@ -13221,6 +13358,27 @@
 "máscaras",
 "carnaval"
 ],
+"shop/pasta":[
+"tubulares",
+"spaghetti",
+"rigatoni",
+"lasagnette",
+"concha",
+"linguine",
+"penne",
+"tagliatelle",
+"fettucine",
+"Loja de massas",
+"conchiglie",
+"farfalle",
+"estabelecimento",
+"ravioli",
+"fusili",
+"pasta",
+"esparguete",
+"lumaconi",
+"aletria"
+],
 "shop/pastry":[
 "pastelaria",
 "pastel",
@@ -13370,6 +13528,13 @@
 "restauros",
 "consertos",
 "Loja de reparações"
+],
+"shop/rice":[
+"Loja de arroz",
+"cereal",
+"store",
+"rice",
+"cereais"
 ],
 "shop/scuba_diving":[
 "pesca submarina",

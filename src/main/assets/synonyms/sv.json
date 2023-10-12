@@ -2429,22 +2429,6 @@
 "återvinning",
 "sopor"
 ],
-"amenity/recycling_container":[
-"skräp",
-"container",
-"metall",
-"Återvinningscontainer",
-"återvinningscontainer",
-"återvinningsstation",
-"flaskor",
-"glas",
-"återbruk",
-"sopstation",
-"skrot",
-"burkar",
-"återvinning",
-"sopor"
-],
 "amenity/refugee_site":[
 "flykting",
 "flyktingläger",
@@ -2560,7 +2544,7 @@
 "pub",
 "sylta"
 ],
-"amenity/restaurant/barbeque":[
+"amenity/restaurant/barbecue":[
 "bbq",
 "barbeque",
 "restaurang",
@@ -3372,6 +3356,15 @@
 "ålderdomshem",
 "hem för vård och boende"
 ],
+"amenity/stripclub":[
+"lapdance",
+"cabaret",
+"strip*",
+"lap dance",
+"vuxen*",
+"Strippklubb",
+"gentlemen*"
+],
 "amenity/studio":[
 "studio",
 "utsändningslokal",
@@ -3868,11 +3861,12 @@
 "amenity/waste_basket":[
 "skräpkorg",
 "skräp",
-"Soptunna (liten)",
+"Soptunna",
 "sopkärl",
 "papperskorg",
 "papperskärl",
 "avfallskorg",
+"sopkorg",
 "soptunna",
 "sopor"
 ],
@@ -5237,10 +5231,6 @@
 "dyrkan",
 "guds hus",
 "tillbedjan"
-],
-"building/terrace":[
-"Terrasshus",
-"terrasshus"
 ],
 "building/train_station":[
 "Stationshus"
@@ -13854,6 +13844,13 @@
 "shop/hobby":[
 "Hobbyaffär"
 ],
+"shop/honey":[
+"honung",
+"honungsbutik",
+"honungsaffär",
+"honing",
+"Honungsaffär"
+],
 "shop/household_linen":[
 "servetter",
 "sängtextilier",
@@ -14263,6 +14260,18 @@
 "husdjur",
 "djurtillbehör"
 ],
+"shop/pet_grooming":[
+"hund",
+"pälsvård för husdjur",
+"katt",
+"pälsvård",
+"hundvård",
+"kattskötsel",
+"trimning",
+"husdjur",
+"hundskötsel",
+"Pälsvård för husdjur"
+],
 "shop/photo":[
 "fotoaffär",
 "framkallning",
@@ -14364,6 +14373,12 @@
 "Reparatör",
 "laga",
 "verkstad"
+],
+"shop/rice":[
+"Risaffär",
+"risbutik",
+"risaffär",
+"ris"
 ],
 "shop/scuba_diving":[
 "Dykarbutik",
@@ -14655,7 +14670,13 @@
 "däckfirma"
 ],
 "shop/vacant":[
-"Tom lokal"
+"butik för uthyrning",
+"tom butik",
+"lokal för uthyrning",
+"tom lokal",
+"tom butikslokal",
+"Tom lokal",
+"uthyrning"
 ],
 "shop/vacuum_cleaner":[
 "dammsugarbutik",

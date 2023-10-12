@@ -46,8 +46,8 @@
 "plakatbox"
 ],
 "advertising/totem":[
-"werbemasten",
-"Werbemasten"
+"Werbemast",
+"werbemasten"
 ],
 "aerialway":[
 "Seilbahnen ..."
@@ -287,9 +287,11 @@
 "amenity/bbq":[
 "bbq",
 "barbecue",
-"Grillplatz",
+"grillrost",
 "grillen",
-"grillplatz"
+"Grill",
+"grillstelle",
+"grill"
 ],
 "amenity/bench":[
 "bank",
@@ -555,7 +557,7 @@
 "einäscherungshalle"
 ],
 "amenity/dentist":[
-"Zahnarzt, Zahnärztin",
+"Zahnarzt",
 "stomatologe",
 "zahnarzt",
 "dentist"
@@ -568,9 +570,9 @@
 "amenity/doctors":[
 "mediziner",
 "doktor",
+"Arzt",
 "arzt",
 "medizinerin",
-"Arzt, Ärztin",
 "doktorin",
 "ärztin"
 ],
@@ -1040,6 +1042,14 @@
 "Streugutkiste",
 "streugutkiste",
 "splittkiste"
+],
+"amenity/hookah_lounge":[
+"wasserpfeife",
+"nargile",
+"sheesha",
+"Shisha Bar",
+"schischa",
+"tabak"
 ],
 "amenity/hospital":[
 "Krankenhaus",
@@ -1540,17 +1550,11 @@
 "abfallwirtschaftshof"
 ],
 "amenity/recycling_container":[
-"altkleidercontainer",
-"altpapiercontainer",
-"müllcontainer",
-"abfallcontainer",
-"altglascontainer",
-"recyclingcontainer",
-"wertstoffhof",
-"Recyclingcontainer",
-"glascontainer",
-"altkleidersammlung",
-"altmetallcontainer"
+"gelber sack",
+"Recycling Container",
+"wertstoff",
+"recycling",
+"gelbe tonne"
 ],
 "amenity/refugee_site":[
 "Flüchtlingslager",
@@ -1602,18 +1606,11 @@
 "asiatisches restaurant",
 "Asiatisches Restaurant"
 ],
-"amenity/restaurant/barbeque":[
+"amenity/restaurant/barbecue":[
 "bbq",
-"smoker",
-"vom grill",
-"grillerei",
-"barbeque",
-"brisket",
 "Grillrestaurant",
-"fleisch",
-"grill",
-"rippchen",
-"rips"
+"barbecue restaurant",
+"holzkohlegrill"
 ],
 "amenity/restaurant/chinese":[
 "Chinesisches Restaurant",
@@ -1800,7 +1797,7 @@
 "sozialmarkt",
 "suppenküche",
 "essensausgabe",
-"Essensausgabe"
+"Lebensmittelausgabe"
 ],
 "amenity/social_facility/group_home":[
 "Seniorenresidenz",
@@ -1867,6 +1864,18 @@
 "Taxistand",
 "taxi"
 ],
+"amenity/taxi/auto_rickshaw":[
+"auto-rikscha-stand",
+"Autorikscha-Stand"
+],
+"amenity/taxi/cycle_rickshaw":[
+"fahrrad-rikscha-stand",
+"Fahrradrikscha-Stand"
+],
+"amenity/taxi/motorcycle_taxi":[
+"motorrad-taxi-stand",
+"Motorradtaxi-Stand"
+],
 "amenity/telephone":[
 "telefonzelle",
 "telefon",
@@ -1924,6 +1933,11 @@
 "stadtverwaltung",
 "verwaltung",
 "gemeindeverwaltung"
+],
+"amenity/townhall/barangay-PH":[
+"barrio",
+"baranggay",
+"Barangay Halle"
 ],
 "amenity/townhall/city":[
 "gemeinderat",
@@ -2100,11 +2114,12 @@
 ],
 "amenity/waste_basket":[
 "abfalleimer",
+"restmüll",
 "abfallkübel",
-"abfallbehälter",
+"abfallkorb",
+"kehrichteimer",
 "Mülleimer",
-"mistkübel",
-"mülleimer"
+"mistkübel"
 ],
 "amenity/waste_disposal":[
 "müllcontainer",
@@ -2530,6 +2545,15 @@
 "Administrative Grenze",
 "verwaltungsgrenze"
 ],
+"boundary/hazard":[
+"gefahrenbereich",
+"gefahr",
+"Gefahrenbereich",
+"achtung",
+"verboten",
+"warnung",
+"gefahrenstelle"
+],
 "bridge/support":[
 "Brückenaufhängung/-unterstützung",
 "brückenaufhängung/-unterstützung"
@@ -2716,6 +2740,15 @@
 "haus",
 "Einfamilienhaus"
 ],
+"building/house/terraced":[
+"reiheneinfamilienhaus",
+"Reihenhaus",
+"eckreihenhaus",
+"reiheneckhaus",
+"reihenmittelhaus",
+"reihenendhaus",
+"zeilenhaus"
+],
 "building/houseboat":[
 "familie",
 "Hausboot",
@@ -2840,8 +2873,12 @@
 "Tempelgebäude"
 ],
 "building/terrace":[
-"reihenhäuser",
-"Reihenhäuser"
+"Häuserreihe",
+"häuserzeile",
+"häusergruppe",
+"hausreihe",
+"hausgruppe",
+"hauszeile"
 ],
 "building/train_station":[
 "Bahnhofsgebäude"
@@ -3687,8 +3724,8 @@
 "tcm"
 ],
 "healthcare/audiologist":[
-"Hörakustiker/in",
-"hörakustiker/in"
+"Audiologe",
+"hörakustiker"
 ],
 "healthcare/birthing_center":[
 "geburtshaus",
@@ -3704,7 +3741,10 @@
 ],
 "healthcare/counselling":[
 "gesundheitsberatung",
-"Gesundheitsberatung"
+"beratung",
+"gesundheitsberater",
+"Gesundheitsberatung",
+"gesundheitsberaterin"
 ],
 "healthcare/dentist/orthodontics":[
 "kieferausrichtung",
@@ -3734,20 +3774,20 @@
 ],
 "healthcare/occupational_therapist":[
 "ergotherapeut",
-"Beschäftigungstherapeut/in",
-"beschäftigungstherapeut"
+"beschäftigungstherapeut",
+"Beschäftigungstherapeut"
 ],
 "healthcare/optometrist":[
-"Augenoptiker/in",
+"Augenoptiker",
 "optiker",
 "augenoptiker"
 ],
 "healthcare/physiotherapist":[
-"Physiotherapeut/in",
 "physiotherapeut",
 "krankengymnastin",
 "krankengymnast",
-"physiotherapeutin"
+"physiotherapeutin",
+"Physiotherapeut"
 ],
 "healthcare/podiatrist":[
 "podologe",
@@ -3756,8 +3796,8 @@
 "fußheilerin"
 ],
 "healthcare/psychotherapist":[
-"Psychotherapeut/in",
-"psychotherapeut"
+"Psychotherapeut",
+"psychotherapie"
 ],
 "healthcare/rehabilitation":[
 "rehabilitationsklinik",
@@ -5720,6 +5760,17 @@
 "teppichklopfer",
 "teppichreinigung"
 ],
+"man_made/charge_point":[
+"ladesäule",
+"Ladepunkt",
+"schnellladepunkt",
+"ladestelle",
+"normalladestelle",
+"schnellladesäule",
+"normalladepunkt",
+"normalladesäule",
+"schnellladestelle"
+],
 "man_made/chimney":[
 "Schornstein",
 "kamin",
@@ -5925,6 +5976,14 @@
 "flutlicht",
 "beleuchtung",
 "flutlichtanlage"
+],
+"man_made/milk_churn_stand":[
+"melkbank",
+"milchkanne",
+"Milchrampe",
+"milchtisch",
+"milchbank",
+"milchbock"
 ],
 "man_made/mineshaft":[
 "vertikaler mineneintritt",
@@ -6458,10 +6517,10 @@
 ],
 "natural/shingle":[
 "sand",
-"Schotter",
 "strand",
 "grobsand",
 "gerundetes geröll",
+"Geröll",
 "schotter",
 "kies"
 ],
@@ -6495,6 +6554,35 @@
 "natural/tree":[
 "Baum",
 "baum"
+],
+"natural/tree/broadleaved":[
+"Laubbaum"
+],
+"natural/tree/broadleaved/deciduous":[
+"hartholz",
+"laubabwerfend",
+"sommergrün",
+"breitblättrig",
+"Laubbaum (blattabwerfend)",
+"blattabwerfend",
+"laubholz"
+],
+"natural/tree/broadleaved/evergreen":[
+"Laubbaum (immergrün)"
+],
+"natural/tree/needleleaved":[
+"Nadelbaum"
+],
+"natural/tree/needleleaved/deciduous":[
+"Nadelbaum (blattabwerfend)"
+],
+"natural/tree/needleleaved/evergreen":[
+"Nadelbaum (immergrün)",
+"nadelblättrig",
+"nadelholz",
+"immergrün",
+"weichholz",
+"nadelbaum"
 ],
 "natural/tree_row":[
 "Baumreihe",
@@ -8977,6 +9065,14 @@
 "Partyzubehör",
 "partyzubehör"
 ],
+"shop/pasta":[
+"nudel",
+"Nudelgeschäft",
+"spaghetti",
+"ravioli",
+"pasta",
+"nudeln"
+],
 "shop/pastry":[
 "konfiserie",
 "bäckerei",
@@ -9078,6 +9174,12 @@
 "rehabilitieren",
 "kaputt",
 "flicken"
+],
+"shop/rice":[
+"reisladen",
+"Reisgeschäft",
+"reishändler",
+"reishandel"
 ],
 "shop/scuba_diving":[
 "tauchladen",
@@ -9345,8 +9447,8 @@
 ],
 "telecom/data_center":[
 "datenzentrum",
-"datencenter",
-"Datencenter"
+"Rechenzentrum",
+"datencenter"
 ],
 "telecom/exchange":[
 "telefon",
@@ -9540,7 +9642,8 @@
 ],
 "tourism/picnic_site":[
 "picknickplatz",
-"Picknickplatz"
+"Picknickplatz",
+"grillplatz"
 ],
 "tourism/theme_park":[
 "themenpark",

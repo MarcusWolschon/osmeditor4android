@@ -334,9 +334,6 @@
 "amenity/recycling_centre":[
 "Endurvinnslumiðstöð"
 ],
-"amenity/recycling_container":[
-"Endurvinnslugámur"
-],
 "amenity/restaurant":[
 "Veitingahús"
 ],
@@ -501,9 +498,6 @@
 ],
 "amenity/waste/dog_excrement":[
 "Fata undir hundaskít"
-],
-"amenity/waste_basket":[
-"Ruslafata"
 ],
 "amenity/waste_disposal":[
 "Ruslagámur"
@@ -732,9 +726,6 @@
 ],
 "building/temple":[
 "Musterisbygging"
-],
-"building/terrace":[
-"Raðhús"
 ],
 "building/transportation":[
 "Samgöngubygging"

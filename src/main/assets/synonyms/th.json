@@ -389,9 +389,6 @@
 "amenity/recycling_centre":[
 "ศูนย์รีไซเคิล"
 ],
-"amenity/recycling_container":[
-"ถังขยะรีไซเคิล"
-],
 "amenity/refugee_site":[
 "ค่ายผู้ลี้ภัย"
 ],
@@ -406,9 +403,6 @@
 ],
 "amenity/restaurant/asian":[
 "ร้านอาหารเอเชีย"
-],
-"amenity/restaurant/barbeque":[
-"ร้านอาหารบาร์บีคิว"
 ],
 "amenity/restaurant/chinese":[
 "ร้านอาหารจีน"
@@ -631,9 +625,6 @@
 ],
 "amenity/waste/dog_excrement":[
 "ถังขยะสำหรับสุนัข"
-],
-"amenity/waste_basket":[
-"ตะกร้าใส่ขยะ"
 ],
 "amenity/waste_disposal":[
 "ถังขยะ"
@@ -919,9 +910,6 @@
 ],
 "building/temple":[
 "อาคารวัด"
-],
-"building/terrace":[
-"บ้านแถว"
 ],
 "building/train_station":[
 "อาคารสถานีรถไฟ"
@@ -2151,7 +2139,8 @@
 "ร้านซักรีด"
 ],
 "shop/laundry/self_service":[
-"ร้านซักผ้าแบบช่วยตัวเอง"
+"ร้านซักผ้าแบบบริการตนเอง",
+"ร้านซักผ้าบริการตนเอง"
 ],
 "shop/leather":[
 "ร้านเครื่องหนัง"

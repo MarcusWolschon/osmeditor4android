@@ -1388,6 +1388,14 @@
 "Contenedor de gravilla",
 "sal"
 ],
+"amenity/hookah_lounge":[
+"bar de shisha",
+"café con cachimba",
+"bar de cachimbas",
+"hookah lounge",
+"salón de narguile",
+"Bar de cachimbas"
+],
 "amenity/hospital":[
 "sala de emergencias",
 "enfermería",
@@ -2193,13 +2201,10 @@
 "botella"
 ],
 "amenity/recycling_container":[
-"lata",
 "Contenedor de reciclaje",
-"vidrio",
-"basura",
-"chatarra",
-"botella",
-"papelera"
+"recipiente de reciclaje",
+"cesto de reciclaje",
+"contenedor de reciclaje"
 ],
 "amenity/refugee_site":[
 "ong",
@@ -2258,16 +2263,11 @@
 "Restaurante asiático",
 "café"
 ],
-"amenity/restaurant/barbeque":[
+"amenity/restaurant/barbecue":[
 "asador",
-"bbq",
-"almuerzo",
-"Parrilla / Barbacoa (Restaurante)",
+"restaurante de barbacoa",
 "parrilla",
-"barbacoa",
-"bodegón",
-"cantina",
-"cena"
+"Restaurante de barbacoa / Parrilla / Asador"
 ],
 "amenity/restaurant/chinese":[
 "comedor",
@@ -2769,6 +2769,34 @@
 "Parada de taxi",
 "taxi"
 ],
+"amenity/taxi/auto_rickshaw":[
+"parada de auto rickshaw",
+"tuk-tuk",
+"Parada de auto rickshaw",
+"bajaj",
+"estación de triciclo",
+"tuksi",
+"toda"
+],
+"amenity/taxi/cycle_rickshaw":[
+"Parada de ciclo rickshaw",
+"bikecab",
+"padyak",
+"parada de rickshaw de ciclo",
+"trisikad",
+"sikad",
+"velotaxi",
+"becak",
+"trishaw",
+"pedicab"
+],
+"amenity/taxi/motorcycle_taxi":[
+"pillion",
+"habal-habal",
+"Parada de mototaxi",
+"moto taxi",
+"parada de taxi de motocicleta"
+],
 "amenity/telephone":[
 "teléfono",
 "cabina telefónica",
@@ -2870,6 +2898,12 @@
 "municipal",
 "Ayuntamiento / Municipalidad",
 "ediles"
+],
+"amenity/townhall/barangay-PH":[
+"barangay hall",
+"salón del barangay",
+"Salón del barangay",
+"sala del barangay"
 ],
 "amenity/townhall/city":[
 "ayuntamiento",
@@ -3153,21 +3187,10 @@
 "excremento"
 ],
 "amenity/waste_basket":[
-"contenedor",
-"tacho de basura",
-"deshecho",
-"papeles",
-"tacho",
-"papelera",
-"cubo de basura",
-"cubo",
-"bote de basura",
+"basurero",
 "cesto de basura",
-"Papelera",
-"caneca de basura",
-"basura",
-"papelero",
-"tobo de basura"
+"Cesto de basura",
+"papelera"
 ],
 "amenity/waste_disposal":[
 "residuo",
@@ -3825,6 +3848,14 @@
 "frontera",
 "límites"
 ],
+"boundary/hazard":[
+"zona de alerta",
+"Zona peligrosa",
+"zona de riesgo",
+"peligro",
+"prohibido",
+"área de amenaza"
+],
 "bridge/support":[
 "puente",
 "Soporte de puente",
@@ -4063,6 +4094,12 @@
 "hogar",
 "morada"
 ],
+"building/house/terraced":[
+"casa de pueblo",
+"Casa adosada",
+"casa adosada",
+"casa unifamiliar"
+],
 "building/houseboat":[
 "vivienda",
 "residencia",
@@ -4238,11 +4275,10 @@
 "Edificio del templo"
 ],
 "building/terrace":[
-"casa pareada",
-"bloques de casas",
-"viviendas en hilera",
-"Casas adosadas",
-"casas adosadas"
+"fila de casas de pueblo",
+"Hilera de casas adosadas",
+"hilera de casas adosadas",
+"fila de casas unifamiliares"
 ],
 "building/train_station":[
 "Edificio de la estación de tren"
@@ -5524,8 +5560,8 @@
 "healthcare/hospice":[
 "hospicio",
 "enfermedad",
-"Centro de cuidados paliativos",
 "cuidado terminal",
+"Cuidados paliativos",
 "atención paliativa",
 "cuidado de hospicio",
 "terminal",
@@ -5617,8 +5653,8 @@
 "recolección de muestras",
 "colección de muestras",
 "toma de muestras",
-"recopilación de muestras",
-"Instalación de colección de muestras"
+"Centro de recolección de muestras",
+"recopilación de muestras"
 ],
 "healthcare/speech_therapist":[
 "voz",
@@ -8147,6 +8183,15 @@
 "colgador de alfombras",
 "soporte para alfombras"
 ],
+"man_made/charge_point":[
+"ev",
+"estación de carga",
+"vehículo eléctrico",
+"punto de carga",
+"Punto de recarga para vehículos eléctricos",
+"puesto de carga",
+"ve"
+],
 "man_made/chimney":[
 "chimenea",
 "fogón",
@@ -8423,6 +8468,12 @@
 "lámparas",
 "iluminación del estadio",
 "reflectores"
+],
+"man_made/milk_churn_stand":[
+"estante para bidones de leche",
+"Soporte para lecheras",
+"soporte para lecheras",
+"base para latas de leche"
 ],
 "man_made/mineshaft":[
 "cueva",
@@ -9122,6 +9173,31 @@
 "árbol",
 "arbusto",
 "Árbol"
+],
+"natural/tree/broadleaved":[
+"Árbol de hoja ancha"
+],
+"natural/tree/broadleaved/deciduous":[
+"caducifolio",
+"madera dura",
+"Árbol de hoja ancha (caducifolio)",
+"hoja ancha"
+],
+"natural/tree/broadleaved/evergreen":[
+"Árbol de hoja ancha (perennifolio)"
+],
+"natural/tree/needleleaved":[
+"Árbol de hoja acicular"
+],
+"natural/tree/needleleaved/deciduous":[
+"Árbol de hoja acicular (caducifolio)"
+],
+"natural/tree/needleleaved/evergreen":[
+"hoja acicular",
+"conífera",
+"Árbol de hoja acicular (perennifolio)",
+"perenne",
+"madera blanda"
 ],
 "natural/tree_row":[
 "arboles",
@@ -12392,6 +12468,13 @@
 "Tienda de artículos para fiestas",
 "disfraces"
 ],
+"shop/pasta":[
+"tienda de pasta",
+"Fábrica de pastas",
+"pastería",
+"pastelería",
+"fábrica de pastas"
+],
 "shop/pastry":[
 "masa",
 "tarta",
@@ -12517,6 +12600,13 @@
 "remendar",
 "roto",
 "refaccionaría"
+],
+"shop/rice":[
+"arrocería",
+"Tienda de arroz",
+"tienda de arroz",
+"almacén de arroz",
+"granería"
 ],
 "shop/scuba_diving":[
 "buceo",
@@ -13629,10 +13719,11 @@
 ],
 "type/restriction/no_u_turn":[
 "cambio de sentido",
-"Prohibido cambiar de sentido / girar en U",
+"girar en u",
 "no cambiar de sentido",
 "no girar en u",
 "giro en u",
+"Prohibido girar en U",
 "prohibido girar en u",
 "vuelta en u",
 "prohibido cambiar de sentido"
@@ -13660,9 +13751,10 @@
 ],
 "type/restriction/only_u_turn":[
 "cambio de sentido",
+"Sólo girar en U",
 "cambiar de sentido",
+"girar en u",
 "giro en u",
-"Sólo cambiar de sentido / girar en U",
 "vuelta en u",
 "solo giro en u"
 ],

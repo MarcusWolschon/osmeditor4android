@@ -83,15 +83,6 @@
 "amenity/vending_machine/fuel":[
 "Fuel Pump"
 ],
-"amenity/waste_basket":[
-"waste",
-"litter",
-"bin",
-"garbage",
-"rubbish",
-"Rubbish Bin",
-"trash"
-],
 "amenity/weighbridge":[
 "Weighbridge"
 ],
@@ -109,19 +100,6 @@
 ],
 "barrier/kerb/rolled":[
 "Rolled Kerb"
-],
-"building/terrace":[
-"row house",
-"brownstone",
-"townhouses",
-"townhouse",
-"row houses",
-"terraced",
-"dwelling",
-"terrace",
-"residence",
-"Terraced Houses",
-"home"
 ],
 "healthcare/birthing_center":[
 "Birthing Centre"

@@ -470,9 +470,6 @@
 "amenity/recycling_centre":[
 "Gjenvinningssenter"
 ],
-"amenity/recycling_container":[
-"Resirkuleringskonteiner"
-],
 "amenity/refugee_site":[
 "Flyktningeleir"
 ],
@@ -664,9 +661,6 @@
 ],
 "amenity/veterinary":[
 "Veterinær"
-],
-"amenity/waste_basket":[
-"Søppel"
 ],
 "amenity/waste_disposal":[
 "Søppelkonteiner"
@@ -974,9 +968,6 @@
 ],
 "building/temple":[
 "Tempelbygning"
-],
-"building/terrace":[
-"Rekkehus"
 ],
 "building/train_station":[
 "Togstasjonsbygning"

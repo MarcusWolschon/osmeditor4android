@@ -479,13 +479,6 @@
 "kaste",
 "atkritumu"
 ],
-"amenity/waste_basket":[
-"Atkritumu grozs",
-"papīrgrozs",
-"izmestuve",
-"miskaste",
-"atkritumi"
-],
 "amenity/waste_disposal":[
 "Atkritumu konteiners",
 "izgāztuve",
@@ -699,11 +692,6 @@
 "Tempļa Ēka",
 "reliģija",
 "piemiņa"
-],
-"building/terrace":[
-"Rindumājas",
-"rindu mājas",
-"mājas"
 ],
 "building/university":[
 "Universitātes Ēka"

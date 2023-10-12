@@ -314,9 +314,6 @@
 "amenity/recycling_centre":[
 "Recycling Centre"
 ],
-"amenity/recycling_container":[
-"Recycling Bin"
-],
 "amenity/restaurant":[
 "Restaurant"
 ],
@@ -462,9 +459,6 @@
 ],
 "amenity/waste/dog_excrement":[
 "Dog Excrement Bin"
-],
-"amenity/waste_basket":[
-"Rubbish Bin"
 ],
 "amenity/waste_disposal":[
 "Garbage Dumpster"
@@ -701,9 +695,6 @@
 ],
 "building/temple":[
 "Temple Building"
-],
-"building/terrace":[
-"Terraced houses"
 ],
 "building/transportation":[
 "Transportation Building"
