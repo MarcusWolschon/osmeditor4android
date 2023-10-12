@@ -1,5 +1,13 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+19.2.3:
+
+- Update imagery from ELI
+- Update translations
+- Update NSI
+- Update synonyms
+- Update preset
+
 19.2.2:
 
 - Fix find all editable rows
@@ -20,7 +28,7 @@
 19.2.0:
 
 - Fix if all member rows are de-selected terminate action mode
-- Fix missing path separator in image path that stopped imaged being displayed in the large image combo
+- Fix missing path separator in image path that stopped images being displayed in the large image combo
 - Add pre-Android 8 flush memory cache of layers that are not visible
 - Add support the text attribute in optional segments as labels
 - Update translations
