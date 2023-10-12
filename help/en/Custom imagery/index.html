@@ -386,7 +386,7 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#mbtiles" class="nav-link">MBTiles</a>
+            <li class="nav-item" data-level="2"><a href="#mbtiles-and-pmtiles" class="nav-link">MBTiles and PMTiles</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -401,7 +401,7 @@
 <h2 id="supported-layer-types">Supported layer types<a class="headerlink" href="#supported-layer-types" title="Permanent link">#</a></h2>
 <ul>
 <li>google/OSM type tile servers (raster tiles and to a limited extent Mapbox Vector Tiles)</li>
-<li>imagery layers in <a href="https://github.com/mapbox/mbtiles-spec">MBTiles</a> format on device</li>
+<li>imagery layers in <a href="https://github.com/mapbox/mbtiles-spec">MBTiles</a> and <a href="https://github.com/protomaps/PMTiles/blob/main/spec/v3/spec.md">PMtiles V3</a> format on device</li>
 <li>WMS servers supporting images in EPSG:3857 (including alternative names like EPSG:900913 etc) and EPSG:4326 projections</li>
 </ul>
 <p>Besides manually adding layers you can add WMS layers by querying a WMS server for a list of supported layers see <a href="../Main%20map%20display/#Layer%20control">layer control</a>, or by querying the Open Aerial Map (OAM) service.</p>
@@ -416,6 +416,9 @@
 <li><strong>Zoom</strong> <em>Min</em> and <em>Max</em> zoom levels, these indicates the minimum and maximum zoom levels available and are important for the app to determine over- and under-zoom correctly.</li>
 <li><strong>Tile size</strong> side length in pixels for the tiles, default 256. <em>Available from version 16.0 and later</em></li>
 </ul>
+<p>Selecting the <em>Save</em> button will add the source to the configuration, <em>Save and set</em> will additionally add the source to the active layers as the current background for background imagery sources.</p>
+<h3 id="remote-pmtiles-source">Remote PMTiles source<a class="headerlink" href="#remote-pmtiles-source" title="Permanent link">#</a></h3>
+<p>To add a remote PMTiles source add the URL and then select <em>Save</em>. Vespucci will attempt to retrieve all necessary information for the entry from the remote source if the URL ends with <em>.pmtiles</em>.</p>
 <h3 id="supported-place-holders">Supported place holders<a class="headerlink" href="#supported-place-holders" title="Permanent link">#</a></h3>
 <p>Place holders are replaced when the application retrieves imagery files from the source and are replaced by calculated values. There are some variants even between applications that in principle use the same system, which are noted for completeness sake below.</p>
 <p>The place holders have the general format of <strong>{</strong> <em>place holder name</em> <strong>}</strong>.</p>
@@ -433,7 +436,8 @@
 <p><strong>{height}</strong> tile height for WMS servers. <em>JOSM</em>, <em>Vespucci</em></p>
 <p><strong>{bbox}</strong> bounding box in <em>proj</em> coordinates for WMS servers. <em>JOSM</em>, <em>Vespucci</em></p>
 <p><strong>{subdomain}</strong> reserved, used internally by <em>Vespucci</em></p>
-<h5 id="required-place-holders">Required place holders<a class="headerlink" href="#required-place-holders" title="Permanent link">#</a></h5>
+<h5 id="required-placeholders">Required placeholders<a class="headerlink" href="#required-placeholders" title="Permanent link">#</a></h5>
+<p>Note: remote PMTiles sources do not require any placeholders.</p>
 <ul>
 <li>A valid normal (non-Bing) URL for a tile server must contain at least at least <strong>{zoom}</strong>, <strong>{x}</strong> and one of <strong>{y}</strong>, <strong>{-y}</strong> or <strong>{ty}</strong>.</li>
 <li>A valid WMS entry must be a legal WMS URL for a layer containing at least <strong>{width}</strong>, <strong>{height}</strong> and <strong>{bbox}</strong> place holders. Note: do not add a <strong>{proj}</strong> place holder when adding such a layer in the "Custom imagery" form in Vespucci (it is supported in the configuration files), simply leave the SRS or CRS attribute in the URL as is with the desired projection value.</li>
@@ -445,12 +449,15 @@
 <p>WMS server example:</p>
 <pre><code>https://geodienste.sachsen.de/wms_geosn_dop-rgb/guest?FORMAT=image/jpeg&amp;VERSION=1.1.1&amp;SERVICE=WMS&amp;REQUEST=GetMap&amp;LAYERS=sn_dop_020&amp;STYLES=&amp;SRS=EPSG:3857&amp;WIDTH={width}&amp;HEIGHT={height}&amp;BBOX={bbox}
 </code></pre>
-<h2 id="mbtiles">MBTiles<a class="headerlink" href="#mbtiles" title="Permanent link">#</a></h2>
-<p>To add a MBTiles layer, down/upload the MBTiles format file to your device, then go to the <em>Custom imagery</em> form as described above. Tap the <em>SD card</em> icon, navigate to the folder where you saved the file and select it. The form should now be filled out with all necessary values.</p>
+<p>PMTiles example:</p>
+<pre><code>https://r2-public.protomaps.com/protomaps-sample-datasets/overture-pois.pmtiles
+</code></pre>
+<h2 id="mbtiles-and-pmtiles">MBTiles and PMTiles<a class="headerlink" href="#mbtiles-and-pmtiles" title="Permanent link">#</a></h2>
+<p>To add a MBTiles or PMTIles layer, down/upload the file to your device, then go to the <em>Custom imagery</em> form as described above. Tap the <em>SD card</em> icon, navigate to the folder where you saved the file and select it. The form should now be filled out with all necessary values.</p>
 <p>Notes:</p>
 <ul>
 <li>Older MBTiles formats do not contain meta-data for min and max zoom levels, the query that determines the values from the actual file contents may take a long time to run if the file is large.</li>
-<li>Vespucci currently supports png and jpg contents.</li>
+<li>Vespucci currently supports png, jpg and mvt contents.</li>
 <li>You can adjust all values in the form before saving if necessary with exception of the URL field that contains the path to the file.</li>
 <li>You can create MBTiles files for example with <a href="https://sourceforge.net/projects/mobac/">MOBAC</a> and many other tools, some more information can be found on the <a href="https://github.com/hotosm/toolbox/wiki/4.5-Creating-.mbtiles">HOT toolbox site</a> and the <a href="custom_imagery_mbtiles.md">separate tutorial about the generation of custom MBTiles files</a>. </li>
 </ul></div> -->
@@ -476,7 +483,7 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#mbtiles" class="nav-link">MBTiles</a>
+            <li class="nav-item" data-level="2"><a href="#mbtiles-and-pmtiles" class="nav-link">MBTiles and PMTiles</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -491,7 +498,7 @@
 <h2 id="supported-layer-types">Supported layer types<a class="headerlink" href="#supported-layer-types" title="Permanent link">#</a></h2>
 <ul>
 <li>google/OSM type tile servers (raster tiles and to a limited extent Mapbox Vector Tiles)</li>
-<li>imagery layers in <a href="https://github.com/mapbox/mbtiles-spec">MBTiles</a> format on device</li>
+<li>imagery layers in <a href="https://github.com/mapbox/mbtiles-spec">MBTiles</a> and <a href="https://github.com/protomaps/PMTiles/blob/main/spec/v3/spec.md">PMtiles V3</a> format on device</li>
 <li>WMS servers supporting images in EPSG:3857 (including alternative names like EPSG:900913 etc) and EPSG:4326 projections</li>
 </ul>
 <p>Besides manually adding layers you can add WMS layers by querying a WMS server for a list of supported layers see <a href="../Main%20map%20display/#Layer%20control">layer control</a>, or by querying the Open Aerial Map (OAM) service.</p>
@@ -506,6 +513,9 @@
 <li><strong>Zoom</strong> <em>Min</em> and <em>Max</em> zoom levels, these indicates the minimum and maximum zoom levels available and are important for the app to determine over- and under-zoom correctly.</li>
 <li><strong>Tile size</strong> side length in pixels for the tiles, default 256. <em>Available from version 16.0 and later</em></li>
 </ul>
+<p>Selecting the <em>Save</em> button will add the source to the configuration, <em>Save and set</em> will additionally add the source to the active layers as the current background for background imagery sources.</p>
+<h3 id="remote-pmtiles-source">Remote PMTiles source<a class="headerlink" href="#remote-pmtiles-source" title="Permanent link">#</a></h3>
+<p>To add a remote PMTiles source add the URL and then select <em>Save</em>. Vespucci will attempt to retrieve all necessary information for the entry from the remote source if the URL ends with <em>.pmtiles</em>.</p>
 <h3 id="supported-place-holders">Supported place holders<a class="headerlink" href="#supported-place-holders" title="Permanent link">#</a></h3>
 <p>Place holders are replaced when the application retrieves imagery files from the source and are replaced by calculated values. There are some variants even between applications that in principle use the same system, which are noted for completeness sake below.</p>
 <p>The place holders have the general format of <strong>{</strong> <em>place holder name</em> <strong>}</strong>.</p>
@@ -523,7 +533,8 @@
 <p><strong>{height}</strong> tile height for WMS servers. <em>JOSM</em>, <em>Vespucci</em></p>
 <p><strong>{bbox}</strong> bounding box in <em>proj</em> coordinates for WMS servers. <em>JOSM</em>, <em>Vespucci</em></p>
 <p><strong>{subdomain}</strong> reserved, used internally by <em>Vespucci</em></p>
-<h5 id="required-place-holders">Required place holders<a class="headerlink" href="#required-place-holders" title="Permanent link">#</a></h5>
+<h5 id="required-placeholders">Required placeholders<a class="headerlink" href="#required-placeholders" title="Permanent link">#</a></h5>
+<p>Note: remote PMTiles sources do not require any placeholders.</p>
 <ul>
 <li>A valid normal (non-Bing) URL for a tile server must contain at least at least <strong>{zoom}</strong>, <strong>{x}</strong> and one of <strong>{y}</strong>, <strong>{-y}</strong> or <strong>{ty}</strong>.</li>
 <li>A valid WMS entry must be a legal WMS URL for a layer containing at least <strong>{width}</strong>, <strong>{height}</strong> and <strong>{bbox}</strong> place holders. Note: do not add a <strong>{proj}</strong> place holder when adding such a layer in the "Custom imagery" form in Vespucci (it is supported in the configuration files), simply leave the SRS or CRS attribute in the URL as is with the desired projection value.</li>
@@ -535,12 +546,15 @@
 <p>WMS server example:</p>
 <pre><code>https://geodienste.sachsen.de/wms_geosn_dop-rgb/guest?FORMAT=image/jpeg&amp;VERSION=1.1.1&amp;SERVICE=WMS&amp;REQUEST=GetMap&amp;LAYERS=sn_dop_020&amp;STYLES=&amp;SRS=EPSG:3857&amp;WIDTH={width}&amp;HEIGHT={height}&amp;BBOX={bbox}
 </code></pre>
-<h2 id="mbtiles">MBTiles<a class="headerlink" href="#mbtiles" title="Permanent link">#</a></h2>
-<p>To add a MBTiles layer, down/upload the MBTiles format file to your device, then go to the <em>Custom imagery</em> form as described above. Tap the <em>SD card</em> icon, navigate to the folder where you saved the file and select it. The form should now be filled out with all necessary values.</p>
+<p>PMTiles example:</p>
+<pre><code>https://r2-public.protomaps.com/protomaps-sample-datasets/overture-pois.pmtiles
+</code></pre>
+<h2 id="mbtiles-and-pmtiles">MBTiles and PMTiles<a class="headerlink" href="#mbtiles-and-pmtiles" title="Permanent link">#</a></h2>
+<p>To add a MBTiles or PMTIles layer, down/upload the file to your device, then go to the <em>Custom imagery</em> form as described above. Tap the <em>SD card</em> icon, navigate to the folder where you saved the file and select it. The form should now be filled out with all necessary values.</p>
 <p>Notes:</p>
 <ul>
 <li>Older MBTiles formats do not contain meta-data for min and max zoom levels, the query that determines the values from the actual file contents may take a long time to run if the file is large.</li>
-<li>Vespucci currently supports png and jpg contents.</li>
+<li>Vespucci currently supports png, jpg and mvt contents.</li>
 <li>You can adjust all values in the form before saving if necessary with exception of the URL field that contains the path to the file.</li>
 <li>You can create MBTiles files for example with <a href="https://sourceforge.net/projects/mobac/">MOBAC</a> and many other tools, some more information can be found on the <a href="https://github.com/hotosm/toolbox/wiki/4.5-Creating-.mbtiles">HOT toolbox site</a> and the <a href="custom_imagery_mbtiles.md">separate tutorial about the generation of custom MBTiles files</a>. </li>
 </ul></div>
