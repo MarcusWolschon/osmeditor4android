@@ -253,7 +253,7 @@ public class PresetRole implements Comparable<PresetRole>, Serializable {
     /**
      * Set the number of times this role can be present in a Relation
      * 
-     * @param countString a String containg an int
+     * @param countString a String containing an int
      */
     public void setCount(@Nullable String countString) {
         if (countString != null) {

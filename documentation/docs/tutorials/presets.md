@@ -11,7 +11,7 @@ For the preset based editing to work Vespucci has to match the existing tags, in
 
 ## Supported JOSM Preset Elements and Attributes
 
-Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/wiki/TaggingPresets) that works, this may, and likely is, different from the actual implementation. Language specific attributes are ignored (see [Translation](#Translation)). "supported" doesn't necessarily imply the same behaviour as JOSM, simply that Vespucci will do something useful with the value. Icons currently can be in PNG or SVG format.
+Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/wiki/TaggingPresets) that works, this may be, and likely is, different from the actual implementation. Language specific attributes are ignored (see [Translation](#Translation)). "supported" doesn't necessarily imply the same behaviour as JOSM, simply that Vespucci will do something useful with the value. Icons currently can be in PNG or SVG format.
 
 
 |Element            | Attributes                     | Support   | Notes
