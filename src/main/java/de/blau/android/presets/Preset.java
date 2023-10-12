@@ -1533,6 +1533,7 @@ public class Preset implements Serializable {
             for (String key : discardedKeys) {
                 outputStream.println("{\"description\":\"Automatically discarded\",\"key\":\"" + key + "\"},");
             }
+            outputStream.println("{\"description\":\"Used for validation\",\"key\":\"check_date\"},");
             int presetsCount = presets.length;
             for (int i = 0; i < presetsCount; i++) {
                 if (presets[i] != null) {
