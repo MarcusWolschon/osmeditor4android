@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>Multiselect</h1>
-<p>Selected elements can be moved by dragging in the touch area. Individual objects can be selected / de-selected by (single) tapping them. A double tap in an entry area will end the mode.</p>
+<p>Multiple elements can be selected by either selecting an element and then using the <em>Extend selection</em> entry from the menu, or by double-clicking an element. Selected elements can be moved by dragging in the touch area. Individual objects can be selected / de-selected by (single) tapping them. A double tap in an empty area will end the mode.</p>
 <h2>Actions</h2>
 <h3><img src="../images/undolist_undo.png" alt="Undo" /> Undo</h3>
 <p>Tapping the icon once will undo the last operation. A long press will display a list of the operations since the last save, if you have undone anything a corresponding &quot;redo&quot; action will be displayed. If the undo results in the current selected object being removed you will be returned to the main screen. <em>Some operations consist of multiple simpler actions that will be listed as individual items.</em></p>
@@ -21,7 +21,7 @@
 <h3><img src="../images/tag_menu_merge.png" alt="Merge" /> Merge ways</h3>
 <p>Merge multiple selected ways resulting in a single way. Ways will be reversed if necessary. This option will only be available if only ways with common start/end nodes are selected, or the selection is two closed ways (polygons), in the later case if the polygons do not have common nodes a multi-polygon relation will be created and the ways added as members. If post-merge tag conflicts are detected you will be alerted.</p>
 <h3>Add node at intersection</h3>
-<p>If two or more ways are selected and they intersect witout a common node, a new node will be added at the first intersection found.</p>
+<p>If two or more ways are selected and they intersect without a common node, a new node will be added at the first intersection found.</p>
 <h3><img src="../images/relation.png" alt="Relation" /> Create relation</h3>
 <p>Create a relation starting with the current selected elements. The relation type can be selected from a list generated from the available presets. Further objects can be added until the check button is clicked, then the tag editor will be started on the new relation.</p>
 <h3>Add to relation</h3>
