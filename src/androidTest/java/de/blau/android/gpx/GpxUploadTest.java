@@ -1,9 +1,11 @@
 package de.blau.android.gpx;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 
@@ -137,10 +139,30 @@ public class GpxUploadTest {
                 assertTrue(TestUtils.clickText(device, false, main.getString(R.string.Done), true, false));
                 UiObject2 menuButton = TestUtils.getLayerButton(device, GPX_FILE, LayerDialogTest.MENU_BUTTON);
                 menuButton.click();
+                assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_information), true, false));
+                assertTrue(TestUtils.findText(device, false, "112", 500, true));
+                assertTrue(TestUtils.findText(device, false, "79", 500, true));
+                assertTrue(TestUtils.clickText(device, false, main.getString(R.string.Done), true, false));
+                assertTrue(TestUtils.clickText(device, false, main.getString(R.string.Done), true, false));
+                menuButton = TestUtils.getLayerButton(device, GPX_FILE, LayerDialogTest.MENU_BUTTON);
+                menuButton.click();
                 assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_gps_upload), true, false));
+                mockServer.enqueue("userdetails");
                 mockServer.enqueue("200");
                 assertTrue(TestUtils.clickResource(device, false, "android:id/button1", true));
                 assertTrue(TestUtils.textGone(device, "Uploading", 5000));
+
+                try {
+                    mockServer.takeRequest();
+                    String upload = mockServer.takeRequest().getUtf8Body();
+                    int gpxStart = upload.indexOf("<?xml");
+                    Track track = new Track(main, false);
+                    track.importFromGPX(new ByteArrayInputStream(upload.substring(gpxStart).getBytes()));
+                    assertEquals(79, track.getWayPoints().size());
+                    assertEquals(112, track.getTrackPoints().size());
+                } catch (InterruptedException e) {
+                    fail(e.getMessage());
+                }
             } finally {
                 TestUtils.deleteFile(main, GPX_FILE);
             }
