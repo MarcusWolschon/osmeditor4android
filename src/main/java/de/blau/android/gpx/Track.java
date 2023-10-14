@@ -456,11 +456,11 @@ public class Track extends DefaultHandler implements GpxTimeFormater, Exportable
      * 
      * @param outputStream the stream we are writing to
      * @throws XmlPullParserException
-     * @throws IOException
+     * @throws IOException if writing to the stream fails
      * @throws IllegalStateException
      * @throws IllegalArgumentException
      */
-    public void exportToGPX(@NonNull OutputStream outputStream) throws XmlPullParserException, IllegalArgumentException, IllegalStateException, IOException {
+    public void exportToGPX(@NonNull OutputStream outputStream) throws XmlPullParserException, IOException {
         XmlSerializer serializer = XmlPullParserFactory.newInstance().newSerializer();
         serializer.setOutput(outputStream, OsmXml.UTF_8);
         serializer.startDocument(OsmXml.UTF_8, null);
@@ -471,6 +471,9 @@ public class Track extends DefaultHandler implements GpxTimeFormater, Exportable
         serializer.attribute(null, "xsi:schemaLocation", "http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd");
         serializer.attribute(null, "version", "1.0");
         serializer.attribute(null, "creator", "Vespucci");
+        for (WayPoint wt : getWayPoints()) {
+            wt.toXml(serializer, this);
+        }
         serializer.startTag(null, TRK_ELEMENT);
         serializer.startTag(null, TRKSEG_ELEMENT);
         boolean hasPoints = false;
