@@ -28,7 +28,7 @@ import de.blau.android.presets.PresetField;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.presets.ValueType;
 import de.blau.android.presets.ValueWithCount;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.ThemeUtils;
 
@@ -156,11 +156,11 @@ public class OpeningHoursDialogRow extends MultiselectDialogRow {
 
         if (value != null && !"".equals(value)) {
             if (!strictSucceeded && lenientSucceeded) {
-                rowLayout.post(() -> Snack.barWarning(rowLayout, caller.getString(R.string.toast_openinghours_autocorrected, row.keyView.getText().toString()),
+                rowLayout.post(() -> ScreenMessage.barWarning(rowLayout, caller.getString(R.string.toast_openinghours_autocorrected, row.keyView.getText().toString()),
                         BaseTransientBottomBar.LENGTH_LONG));
             } else if (!strictSucceeded && adapter == null) {
                 // only warn if the value should be an OH string
-                rowLayout.post(() -> Snack.barWarning(rowLayout, caller.getString(R.string.toast_openinghours_invalid, row.keyView.getText().toString()),
+                rowLayout.post(() -> ScreenMessage.barWarning(rowLayout, caller.getString(R.string.toast_openinghours_invalid, row.keyView.getText().toString()),
                         BaseTransientBottomBar.LENGTH_LONG));
             }
         }

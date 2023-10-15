@@ -72,7 +72,7 @@ import de.blau.android.util.GeoContext;
 import de.blau.android.util.NetworkStatus;
 import de.blau.android.util.Screen;
 import de.blau.android.util.SelectFile;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.StreetPlaceNamesAdapter;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
@@ -375,7 +375,7 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
      * @param cause String showing a cause for this
      */
     private void abort(@NonNull String cause) {
-        Snack.toastTopError(getContext(), R.string.toast_inconsistent_state);
+        ScreenMessage.toastTopError(getContext(), R.string.toast_inconsistent_state);
         Log.e(DEBUG_TAG, "Inconsistent state because " + cause);
         ACRA.getErrorReporter().putCustomData("CAUSE", cause);
         ACRA.getErrorReporter().handleException(null);
@@ -404,7 +404,7 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
         if (!hidden) {
             Log.d(DEBUG_TAG, "onHiddenChanged");
             if (elementDeleted()) {
-                Snack.toastTopWarning(getContext(), R.string.toast_element_has_been_deleted);
+                ScreenMessage.toastTopWarning(getContext(), R.string.toast_element_has_been_deleted);
                 App.getLogic().getHandler().post(() -> controlListener.finished(this));
                 return;
             }
@@ -958,7 +958,7 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
                     try {
                         logic.setTags(getActivity(), types[i], osmIds[i], tags);
                     } catch (OsmIllegalOperationException e) {
-                        Snack.barError(getActivity(), e.getMessage());
+                        ScreenMessage.barError(getActivity(), e.getMessage());
                     }
                 }
             }

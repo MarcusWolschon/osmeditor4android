@@ -86,7 +86,7 @@ import de.blau.android.util.ClipboardUtils;
 import de.blau.android.util.GeoContext.Properties;
 import de.blau.android.util.KeyValue;
 import de.blau.android.util.Screen;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.StreetPlaceNamesAdapter;
 import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.Util;
@@ -376,7 +376,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                     if (pi.autoapply()) {
                         applyPreset(editRowLayout, pi, false, false, true, false);
                     } else {
-                        Snack.toastTopWarning(getActivity(), R.string.toast_cant_autoapply_preset);
+                        ScreenMessage.toastTopWarning(getActivity(), R.string.toast_cant_autoapply_preset);
                     }
                 }
             }
@@ -420,7 +420,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         }
         if (!currentTags.equals(propertyEditorListener.getOriginalTags())) {
             // simple case as we don't have to check for deleted elements
-            Snack.toastTopInfo(getContext(), R.string.toast_updating_tags);
+            ScreenMessage.toastTopInfo(getContext(), R.string.toast_updating_tags);
             loadEdits(getTagsInEditForm(currentTags), false);
             formUpdate.tagsUpdated();
         }
@@ -1814,7 +1814,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         loadEdits(rowLayout, currentValues, true);
         if (replacedOrRemoved > 0) {
             Resources r = getContext().getResources();
-            Snack.barWarning(getActivity(), r.getQuantityString(R.plurals.toast_preset_removed_or_replaced_tags, replacedOrRemoved, replacedOrRemoved));
+            ScreenMessage.barWarning(getActivity(), r.getQuantityString(R.plurals.toast_preset_removed_or_replaced_tags, replacedOrRemoved, replacedOrRemoved));
         }
 
         // re-determine best preset
@@ -1848,7 +1848,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 currentValues.put(key, Util.wrapInList(result));
             }
         } catch (Exception ex) {
-            Snack.barError(getActivity(), ex.getLocalizedMessage());
+            ScreenMessage.barError(getActivity(), ex.getLocalizedMessage());
         }
     }
 
@@ -1919,7 +1919,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
 
         loadEdits(currentValues, false);
         if (replacedValues > 0) {
-            Snack.barWarning(getActivity(), R.string.toast_merge_overwrote_tags);
+            ScreenMessage.barWarning(getActivity(), R.string.toast_merge_overwrote_tags);
         }
         focusOnEmptyValue();
     }
@@ -1966,7 +1966,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         ensureEmptyRow(rowLayout);
 
         if (replacedValue) {
-            Snack.barWarning(getActivity(), R.string.toast_merge_overwrote_tags);
+            ScreenMessage.barWarning(getActivity(), R.string.toast_merge_overwrote_tags);
         }
         focusOnEmptyValue();
     }

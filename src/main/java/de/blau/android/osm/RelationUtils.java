@@ -17,7 +17,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.R;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.collections.LinkedList;
 import de.blau.android.util.collections.LinkedList.Member;
 
@@ -146,7 +146,7 @@ public final class RelationUtils {
         }
         if (!partialRings.isEmpty()) {
             if (context != null) {
-                Snack.toastTopWarning(context, R.string.toast_multipolygon_has_incomplete_rings);
+                ScreenMessage.toastTopWarning(context, R.string.toast_multipolygon_has_incomplete_rings);
             }
             Log.w(DEBUG_TAG, "Incomplete multi-polgon rings");
         }
@@ -172,7 +172,7 @@ public final class RelationUtils {
                 } else {
                     if (context != null && !warningShown) {
                         warningShown = true;
-                        Snack.toastTopWarning(context, R.string.toast_multipolygon_inconsistent_roles);
+                        ScreenMessage.toastTopWarning(context, R.string.toast_multipolygon_inconsistent_roles);
                     }
                     continue; // skip this one
                 }

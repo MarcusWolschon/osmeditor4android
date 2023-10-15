@@ -34,7 +34,7 @@ import de.blau.android.util.DatabaseUtil;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.ReadFile;
 import de.blau.android.util.SelectFile;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
 
 /** Provides an activity for editing the API list */
@@ -220,7 +220,7 @@ public class APIEditorActivity extends URLListEditActivity {
             public boolean read(Uri uri) {
                 Uri fileUri = FileUtil.contentUriToFileUri(APIEditorActivity.this, uri);
                 if (fileUri == null) {
-                    Snack.toastTopError(APIEditorActivity.this, R.string.not_found_title);
+                    ScreenMessage.toastTopError(APIEditorActivity.this, R.string.not_found_title);
                     return false;
                 }
                 try {
@@ -231,7 +231,7 @@ public class APIEditorActivity extends URLListEditActivity {
                     SelectFile.savePref(new Preferences(APIEditorActivity.this), R.string.config_msfPreferredDir_key, fileUri);
                     return true;
                 } catch (SQLiteException sqex) {
-                    Snack.toastTopError(APIEditorActivity.this, R.string.toast_not_mbtiles);
+                    ScreenMessage.toastTopError(APIEditorActivity.this, R.string.toast_not_mbtiles);
                     return false;
                 }
             }
@@ -287,13 +287,13 @@ public class APIEditorActivity extends URLListEditActivity {
                 }
                 dialog.dismiss();
             } else if (!validAPIURL) { // if garbage value entered show toasts
-                Snack.barError(APIEditorActivity.this, R.string.toast_invalid_apiurl);
+                ScreenMessage.barError(APIEditorActivity.this, R.string.toast_invalid_apiurl);
                 changeBackgroundColor(editValue, ERROR_COLOR);
             } else if (!validReadOnlyAPIURL) {
-                Snack.barError(APIEditorActivity.this, R.string.toast_invalid_readonlyurl);
+                ScreenMessage.barError(APIEditorActivity.this, R.string.toast_invalid_readonlyurl);
                 changeBackgroundColor(editValue2, ERROR_COLOR);
             } else if (!validNotesAPIURL) {
-                Snack.barError(APIEditorActivity.this, R.string.toast_invalid_notesurl);
+                ScreenMessage.barError(APIEditorActivity.this, R.string.toast_invalid_notesurl);
                 changeBackgroundColor(editValue3, ERROR_COLOR);
             }
         });

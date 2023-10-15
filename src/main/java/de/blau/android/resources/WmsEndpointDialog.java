@@ -13,7 +13,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.FragmentActivity;
 import de.blau.android.R;
 import de.blau.android.resources.TileLayerDialog.OnUpdateListener;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 
 public final class WmsEndpointDialog {
 
@@ -97,7 +97,7 @@ public final class WmsEndpointDialog {
 
                 String endpointUrl = urlEdit.getText().toString().trim();
                 if ("".equals(endpointUrl)) {
-                    Snack.toastTopError(activity, R.string.toast_url_empty);
+                    ScreenMessage.toastTopError(activity, R.string.toast_url_empty);
                     return;
                 }
                 try (TileLayerDatabase tlDb = new TileLayerDatabase(activity); SQLiteDatabase db = tlDb.getWritableDatabase()) {

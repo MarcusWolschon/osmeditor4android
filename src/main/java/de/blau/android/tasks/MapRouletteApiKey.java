@@ -20,7 +20,7 @@ import de.blau.android.exception.OsmException;
 import de.blau.android.osm.Server;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.ExecutorTask;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 
 public final class MapRouletteApiKey {
 
@@ -57,7 +57,7 @@ public final class MapRouletteApiKey {
                     try {
                         if (newApiKey.length() > 0) {
                             server.setUserPreference(TransferTasks.MAPROULETTE_APIKEY_V2, newApiKey);
-                            activity.runOnUiThread(() -> Snack.toastTopInfo(activity, R.string.maproulette_task_apikey_set));
+                            activity.runOnUiThread(() -> ScreenMessage.toastTopInfo(activity, R.string.maproulette_task_apikey_set));
                         } else {
                             if (apiKey != null) {
                                 try {
@@ -71,7 +71,7 @@ public final class MapRouletteApiKey {
                                 final Set<String> bugFilter = prefs.taskFilter();
                                 if (bugFilter.contains(activity.getString(R.string.bugfilter_maproulette))) {
                                     activity.runOnUiThread(
-                                            () -> Snack.barError(activity, R.string.maproulette_task_no_apikey, R.string.maproulette_task_disable, v -> {
+                                            () -> ScreenMessage.barError(activity, R.string.maproulette_task_no_apikey, R.string.maproulette_task_disable, v -> {
                                                 bugFilter.remove(activity.getString(R.string.bugfilter_maproulette));
                                                 prefs.setTaskFilter(bugFilter);
                                                 TaskStorage taskStorage = App.getTaskStorage();
@@ -88,7 +88,7 @@ public final class MapRouletteApiKey {
                         }
                     } catch (OsmException oex) {
                         Log.e(DEBUG_TAG, "Unable to set maproulette key " + oex.getMessage());
-                        activity.runOnUiThread(() -> Snack.toastTopError(activity, R.string.maproulette_task_apikey_not_set));
+                        activity.runOnUiThread(() -> ScreenMessage.toastTopError(activity, R.string.maproulette_task_apikey_not_set));
                     }
                     return null;
                 }

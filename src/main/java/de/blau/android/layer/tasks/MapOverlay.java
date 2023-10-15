@@ -52,7 +52,7 @@ import de.blau.android.tasks.TodoFragment;
 import de.blau.android.tasks.TransferTasks;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.views.IMapView;
 
 public class MapOverlay extends MapViewLayer
@@ -342,7 +342,7 @@ public class MapOverlay extends MapViewLayer
                     // this is essentially catastrophic and can only happen if something went really wrong
                     // running out of memory or disk, or HW failure
                     if (context instanceof Activity) {
-                        Snack.barError((Activity) context, R.string.toast_statesave_failed);
+                        ScreenMessage.barError((Activity) context, R.string.toast_statesave_failed);
                     }
                 }
             } finally {

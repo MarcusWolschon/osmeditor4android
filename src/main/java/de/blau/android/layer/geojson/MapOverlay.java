@@ -74,7 +74,7 @@ import de.blau.android.util.GeoJson;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SerializableTextPaint;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.collections.FloatPrimitiveList;
 import de.blau.android.util.rtree.BoundedObject;
 import de.blau.android.util.rtree.RTree;
@@ -427,10 +427,10 @@ public class MapOverlay extends StyleableFileLayer
                     } catch (SecurityException sex) {
                         Log.e(DEBUG_TAG, sex.getMessage());
                         // note need a context here that is on the ui thread
-                        Snack.toastTopError(map.getContext(), ctx.getString(R.string.toast_permission_denied, uri.toString()));
+                        ScreenMessage.toastTopError(map.getContext(), ctx.getString(R.string.toast_permission_denied, uri.toString()));
                         return false;
                     } catch (IOException iex) {
-                        Snack.toastTopError(map.getContext(), ctx.getString(R.string.toast_error_reading, uri.toString()));
+                        ScreenMessage.toastTopError(map.getContext(), ctx.getString(R.string.toast_error_reading, uri.toString()));
                         return false;
                     } finally {
                         if (readingLock.isLocked()) {
@@ -487,15 +487,15 @@ public class MapOverlay extends StyleableFileLayer
             }
         } catch (OutOfMemoryError oom) {
             data = null;
-            Snack.toastTopError(ctx, R.string.out_of_memory_title);
+            ScreenMessage.toastTopError(ctx, R.string.out_of_memory_title);
             Log.e(DEBUG_TAG, "Out of memory error " + oom.getMessage());
         } catch (com.google.gson.JsonSyntaxException jsex) {
-            Snack.toastTopError(ctx, jsex.getLocalizedMessage());
+            ScreenMessage.toastTopError(ctx, jsex.getLocalizedMessage());
             Log.e(DEBUG_TAG, "Syntax error " + jsex.getMessage());
         } catch (Exception e) {
             // never crash
             data = null;
-            Snack.toastTopError(ctx, e.getLocalizedMessage());
+            ScreenMessage.toastTopError(ctx, e.getLocalizedMessage());
             Log.e(DEBUG_TAG, "Exception " + e.getMessage());
         }
         // re-enable drawing

@@ -67,7 +67,7 @@ import de.blau.android.osm.Tags;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.propertyeditor.PropertyEditorListener;
 import de.blau.android.propertyeditor.TagEditorFragment;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
 
 public class ConditionalRestrictionFragment extends DialogFragment implements OnSaveListener {
@@ -273,7 +273,7 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
         super.onResume();
         Log.d(DEBUG_TAG, "onResume");
         if (loadedDefault) {
-            Snack.toastTopWarning(getContext(), getString(R.string.loaded_default));
+            ScreenMessage.toastTopWarning(getContext(), getString(R.string.loaded_default));
         }
     }
 
@@ -390,7 +390,7 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
             spannable.setSpan(new ForegroundColorSpan(Color.RED), c, Math.max(c, Math.min(c + 1, spannable.length())), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             text.setText(spannable, TextView.BufferType.SPANNABLE);
             text.setSelection(Math.min(pos, spannable.length()));
-            Snack.toastTopError(getActivity(), pex.getLocalizedMessage());
+            ScreenMessage.toastTopError(getActivity(), pex.getLocalizedMessage());
         }
     }
 
@@ -789,7 +789,7 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
 
         if (value != null && !"".equals(value) && !strictSucceeded) {
             int toast = lenientSucceeded ? R.string.toast_openinghours_autocorrected : R.string.toast_openinghours_invalid;
-            row.post(() -> Snack.toastTopWarning(getActivity(), getString(toast, key)));
+            row.post(() -> ScreenMessage.toastTopWarning(getActivity(), getString(toast, key)));
         }
 
         row.valueView.setHint(R.string.tag_tap_to_edit_hint);

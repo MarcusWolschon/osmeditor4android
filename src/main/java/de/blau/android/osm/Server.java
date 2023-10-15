@@ -54,7 +54,7 @@ import de.blau.android.services.util.StreamUtils;
 import de.blau.android.tasks.Note;
 import de.blau.android.tasks.NoteComment;
 import de.blau.android.util.BasicAuthInterceptor;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import okhttp3.Call;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -237,7 +237,7 @@ public class Server {
                 tempDB = new MBTileProviderDataBase(context, readOnlyUri, 1);
             } catch (SQLiteException sqlex) {
                 Log.e(DEBUG_TAG, "Unable to open db " + readOnlyUri);
-                Snack.toastTopError(context, context.getString(R.string.toast_unable_to_open_offline_data, getReadOnlyUrl(), sqlex.getLocalizedMessage()));
+                ScreenMessage.toastTopError(context, context.getString(R.string.toast_unable_to_open_offline_data, getReadOnlyUrl(), sqlex.getLocalizedMessage()));
                 // zap readonly api as it is broken
                 this.readonlyURL = null;
             }
@@ -689,7 +689,7 @@ public class Server {
                     final String responseMessage = readCallResponse.message();
                     if (responseCode == HttpURLConnection.HTTP_BAD_REQUEST) {
                         ((Activity) context).runOnUiThread(
-                                () -> Snack.barError((Activity) context, context.getString(R.string.toast_download_failed, responseCode, responseMessage)));
+                                () -> ScreenMessage.barError((Activity) context, context.getString(R.string.toast_download_failed, responseCode, responseMessage)));
                     } else {
                         ((Activity) context).runOnUiThread(new DownloadErrorToast(context, responseCode, responseMessage));
                     }
@@ -1879,7 +1879,7 @@ public class Server {
                     }
                 }));
                 if (server.getOAuth()) { // if still set
-                    Snack.barError(activity, R.string.toast_oauth);
+                    ScreenMessage.barError(activity, R.string.toast_oauth);
                 }
                 return false;
             }

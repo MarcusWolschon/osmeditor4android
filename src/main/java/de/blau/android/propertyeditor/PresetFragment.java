@@ -54,7 +54,7 @@ import de.blau.android.presets.PresetItem;
 import de.blau.android.util.BaseFragment;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.SearchIndexUtils;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.Sound;
 import de.blau.android.util.Util;
 
@@ -193,7 +193,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
             TextView warning = new TextView(getActivity());
             warning.setText(R.string.no_valid_preset);
             presetLayout.addView(warning);
-            Snack.toastTopError(getContext(), R.string.no_valid_preset);
+            ScreenMessage.toastTopError(getContext(), R.string.no_valid_preset);
             return presetPaneLayout;
         }
 
@@ -363,7 +363,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
             protected void onPostExecute(ArrayList<PresetElement> result) {
                 if (!isCancelled() && !fm.isDestroyed()) {
                     if (result.isEmpty()) {
-                        Snack.toastTopInfo(getContext(), R.string.toast_nothing_found);
+                        ScreenMessage.toastTopInfo(getContext(), R.string.toast_nothing_found);
                         if (!propertyEditorListener.isConnected()) { // if not online nothing we can do
                             return;
                         }

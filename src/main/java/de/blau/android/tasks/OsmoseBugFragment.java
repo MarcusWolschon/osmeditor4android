@@ -19,7 +19,7 @@ import de.blau.android.tasks.OsmoseMeta.OsmoseClass;
 import de.blau.android.tasks.Task.State;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.NetworkStatus;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.Util;
 
 /**
@@ -145,7 +145,7 @@ public class OsmoseBugFragment extends BugFragment {
 
             }.execute();
         } else {
-            Snack.toastTopWarning(context, R.string.network_required);
+            ScreenMessage.toastTopWarning(context, R.string.network_required);
         }
     }
 

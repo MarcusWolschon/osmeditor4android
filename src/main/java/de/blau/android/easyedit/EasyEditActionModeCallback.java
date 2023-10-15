@@ -40,7 +40,7 @@ import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.util.MenuUtil;
 import de.blau.android.util.SerializableState;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.Util;
 
 /**
@@ -223,7 +223,7 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
         if (helpTopic != 0) {
             HelpViewer.start(main, helpTopic);
         } else {
-            Snack.barWarning(main, R.string.toast_nohelp); // this is essentially just an error message
+            ScreenMessage.barWarning(main, R.string.toast_nohelp); // this is essentially just an error message
         }
     }
 
@@ -553,6 +553,6 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
      */
     protected void unexpectedElement(@NonNull String debugTag, @NonNull OsmElement element) {
         Log.e(DEBUG_TAG, element.getName() + " clicked");
-        Snack.toastTopError(main, main.getString(R.string.toast_unexpected_element, element.getDescription(true)));
+        ScreenMessage.toastTopError(main, main.getString(R.string.toast_unexpected_element, element.getDescription(true)));
     }
 }

@@ -10,7 +10,7 @@ import de.blau.android.contract.Ui;
 import de.blau.android.photos.Photo;
 import de.blau.android.photos.PhotoIndex;
 import de.blau.android.util.ContentResolverUtil;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 
 class PhotoUriHandler implements PostAsyncActionHandler {
 
@@ -68,7 +68,7 @@ class PhotoUriHandler implements PostAsyncActionHandler {
             map.invalidate();
         } catch (NumberFormatException | IOException e) {
             Log.e(DEBUG_TAG, e.getMessage());
-            Snack.toastTopError(main, main.getString(R.string.toast_error_accessing_photo, uri));
+            ScreenMessage.toastTopError(main, main.getString(R.string.toast_error_accessing_photo, uri));
         }
     }
 }

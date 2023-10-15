@@ -20,7 +20,7 @@ import de.blau.android.layer.LayerType;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.tasks.NoteFragment;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.voice.Commands;
 
@@ -104,7 +104,7 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
                 main.getMap().setUpLayers(main);
                 layer = main.getMap().getTaskLayer();
                 if (layer == null) {
-                    Snack.toastTopError(main, R.string.toast_unable_to_create_task_layer);
+                    ScreenMessage.toastTopError(main, R.string.toast_unable_to_create_task_layer);
                     return;
                 }
                 main.getMap().invalidate();

@@ -32,7 +32,7 @@ import de.blau.android.search.Search;
 import de.blau.android.util.BentleyOttmannForOsm;
 import de.blau.android.util.Coordinates;
 import de.blau.android.util.GeoMath;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.Sound;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
@@ -405,7 +405,7 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
                         main.startSupportActionMode(new NodeSelectionActionModeCallback(manager, node));
                     });
                 } else {
-                    Snack.toastTopError(main, R.string.toast_no_intersection_found);
+                    ScreenMessage.toastTopError(main, R.string.toast_no_intersection_found);
                 }
             }
         }
@@ -433,7 +433,7 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
                 TagConflictDialog.showDialog(main, result);
             }
         } catch (OsmIllegalOperationException | IllegalStateException e) {
-            Snack.barError(main, e.getLocalizedMessage());
+            ScreenMessage.barError(main, e.getLocalizedMessage());
         }
     }
 
@@ -456,7 +456,7 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
                 TagConflictDialog.showDialog(main, result);
             }
         } catch (OsmIllegalOperationException | IllegalStateException e) {
-            Snack.barError(main, e.getLocalizedMessage());
+            ScreenMessage.barError(main, e.getLocalizedMessage());
         }
     }
 

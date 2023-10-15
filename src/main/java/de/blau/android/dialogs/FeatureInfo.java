@@ -38,7 +38,7 @@ import de.blau.android.osm.Relation;
 import de.blau.android.osm.Tags;
 import de.blau.android.util.GeoJSONConstants;
 import de.blau.android.util.InfoDialogFragment;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
@@ -156,7 +156,7 @@ public class FeatureInfo extends InfoDialogFragment {
             if (properties != null) {
                 builder.setNegativeButton(R.string.copy_properties, (dialog, which) -> {
                     App.getTagClipboard(getContext()).copy(GeoJson.extractTags(properties));
-                    Snack.toastTopInfo(getContext(), R.string.toast_properties_copied);
+                    ScreenMessage.toastTopInfo(getContext(), R.string.toast_properties_copied);
                 });
             }
         }

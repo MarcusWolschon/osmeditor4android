@@ -80,7 +80,7 @@ import de.blau.android.util.ArrayAdapterWithRuler;
 import de.blau.android.util.BaseFragment;
 import de.blau.android.util.ExtendedStringWithDescription;
 import de.blau.android.util.GeoContext.Properties;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.StringWithDescriptionAndIcon;
 import de.blau.android.util.Util;
@@ -1358,7 +1358,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             copyButton.setOnClickListener(v -> {
                 formListener.updateEditorFromText();
                 App.getTagClipboard(getContext()).copy(tags);
-                Snack.toastTopInfo(getContext(), R.string.toast_tags_copied);
+                ScreenMessage.toastTopInfo(getContext(), R.string.toast_tags_copied);
             });
             cutButton.setOnClickListener(v -> {
                 formListener.updateEditorFromText();
@@ -1368,7 +1368,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 }
                 editorListener.updatePresets();
                 formListener.tagsUpdated();
-                Snack.toastTopInfo(getContext(), R.string.toast_tags_cut);
+                ScreenMessage.toastTopInfo(getContext(), R.string.toast_tags_cut);
             });
             deleteButton.setOnClickListener(v -> {
                 Builder builder = new AlertDialog.Builder(v.getContext());

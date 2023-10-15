@@ -26,7 +26,7 @@ import de.blau.android.osm.BoundingBox;
 import de.blau.android.resources.TileLayerDialog.OnUpdateListener;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.ImmersiveDialogFragment;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.Util;
 
 public final class OAMCatalogView extends ImmersiveDialogFragment implements OnUpdateListener {
@@ -141,7 +141,7 @@ public final class OAMCatalogView extends ImmersiveDialogFragment implements OnU
                     final int limit = catalog.getLimit();
                     if (found > limit) {
                         activity.runOnUiThread(
-                                () -> Snack.toastTopWarning(activity, activity.getString(R.string.toast_returning_less_than_found, limit, found)));
+                                () -> ScreenMessage.toastTopWarning(activity, activity.getString(R.string.toast_returning_less_than_found, limit, found)));
                     }
                 } catch (final IOException iox) {
                     Log.e(DEBUG_TAG, "Add imagery from oam " + iox.getMessage());
@@ -156,7 +156,7 @@ public final class OAMCatalogView extends ImmersiveDialogFragment implements OnU
                 if (catalog != null && !catalog.isEmpty()) {
                     displayLayers(layerList, catalog);
                 } else {
-                    Snack.toastTopInfo(activity, R.string.toast_nothing_found);
+                    ScreenMessage.toastTopInfo(activity, R.string.toast_nothing_found);
                 }
             }
         }.execute();

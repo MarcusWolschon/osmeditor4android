@@ -41,7 +41,7 @@ import de.blau.android.osm.OsmXml;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.ImageLoader;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -228,7 +228,7 @@ class MapillaryLoader extends ImageLoader {
             Uri f = FileProvider.getUriForFile(context, context.getString(R.string.content_provider), imageFile);
             de.blau.android.layer.photos.Util.sharePhoto(context, key, f, MimeTypes.JPEG);
         } else {
-            Snack.toastTopError(context, context.getString(R.string.toast_error_accessing_photo, key));
+            ScreenMessage.toastTopError(context, context.getString(R.string.toast_error_accessing_photo, key));
         }
     }
 }

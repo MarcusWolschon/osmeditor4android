@@ -14,7 +14,7 @@ import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Result;
 import de.blau.android.osm.Way;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 
 public class WayMergingActionModeCallback extends NonSimpleActionModeCallback {
     private static final String   DEBUG_TAG = "WayMerging...";
@@ -64,7 +64,7 @@ public class WayMergingActionModeCallback extends NonSimpleActionModeCallback {
                 TagConflictDialog.showDialog(main, result);
             }
         } catch (OsmIllegalOperationException e) {
-            Snack.barError(main, e.getLocalizedMessage());
+            ScreenMessage.barError(main, e.getLocalizedMessage());
         } catch (NotFoundException e) {
             Log.d(DEBUG_TAG, "handleElementClick got exception " + e.getMessage());
         }

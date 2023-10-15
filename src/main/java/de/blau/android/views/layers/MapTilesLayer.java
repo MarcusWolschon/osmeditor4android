@@ -49,7 +49,7 @@ import de.blau.android.services.util.MapTile;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.collections.MRUList;
 import de.blau.android.views.IMapView;
 import de.blau.android.views.util.MapTileProvider;
@@ -380,7 +380,7 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
         if (!myRendererInfo.covers(viewBox)) {
             if (!coverageWarningDisplayed) {
                 coverageWarningDisplayed = true;
-                Snack.toastTopWarning(ctx, coverageWarningMessage);
+                ScreenMessage.toastTopWarning(ctx, coverageWarningMessage);
             }
             return; // no point, return immediately
         }
@@ -388,7 +388,7 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
 
         if (tileErrorCount > TILE_ERROR_LIMIT && !tileErrorShown) {
             tileErrorShown = true;
-            Snack.toastTopWarning(ctx, ctx.getString(R.string.toast_tile_layer_errors, myRendererInfo.getName()));
+            ScreenMessage.toastTopWarning(ctx, ctx.getString(R.string.toast_tile_layer_errors, myRendererInfo.getName()));
         }
 
         long owner = random.nextLong(); // unique values so that we can track in the cache which
@@ -823,7 +823,7 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
                 ctx.startActivity(intent);
             } catch (ActivityNotFoundException anfe) {
                 Log.e(DEBUG_TAG, "Activity not found " + anfe.getMessage());
-                Snack.toastTopError(ctx, anfe.getLocalizedMessage() != null ? anfe.getLocalizedMessage() : anfe.getMessage());
+                ScreenMessage.toastTopError(ctx, anfe.getLocalizedMessage() != null ? anfe.getLocalizedMessage() : anfe.getMessage());
             }
             return true;
         }

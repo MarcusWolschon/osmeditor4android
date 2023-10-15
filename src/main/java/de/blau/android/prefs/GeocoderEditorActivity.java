@@ -22,7 +22,7 @@ import androidx.appcompat.app.AlertDialog;
 import de.blau.android.R;
 import de.blau.android.prefs.AdvancedPrefDatabase.Geocoder;
 import de.blau.android.prefs.AdvancedPrefDatabase.GeocoderType;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
 
 /** Provides an activity for editing the API list */
@@ -74,7 +74,7 @@ public class GeocoderEditorActivity extends URLListEditActivity {
     protected void onItemClicked(ListEditItem item) {
         if (item.active && db.getActiveGeocoders().length == 1) { // at least one item needs to be selected
             updateAdapter();
-            Snack.barWarning(this, R.string.toast_min_one_geocoder);
+            ScreenMessage.barWarning(this, R.string.toast_min_one_geocoder);
             return;
         }
         item.active = !item.active;

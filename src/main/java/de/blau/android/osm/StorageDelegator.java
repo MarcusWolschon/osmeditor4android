@@ -43,7 +43,7 @@ import de.blau.android.util.GeoMath;
 import de.blau.android.util.Geometry;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SavingHelper.Exportable;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.Util;
 import de.blau.android.util.collections.LongHashSet;
 import de.blau.android.util.collections.LongOsmElementMap;
@@ -2658,7 +2658,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 // running out of memory or disk, or HW failure
                 if (ctx instanceof Activity) {
                     try {
-                        Snack.barError((Activity) ctx, R.string.toast_statesave_failed);
+                        ScreenMessage.barError((Activity) ctx, R.string.toast_statesave_failed);
                     } catch (Exception ignored) {
                         Log.e(DEBUG_TAG, "Emergency toast failed with " + ignored.getMessage());
                     } catch (Error ignored) { // NOSONAR crashing is not an option

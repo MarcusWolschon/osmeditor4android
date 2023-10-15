@@ -24,7 +24,7 @@ import de.blau.android.net.UrlCheck.CheckStatus;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.propertyeditor.PropertyEditorListener;
 import de.blau.android.util.ExecutorTask;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
 
 /**
@@ -156,9 +156,9 @@ public class UrlDialogRow extends DialogRow {
                                 String msg = result.getMessage() != null
                                         ? activity.getString(R.string.toast_url_check_with_msg, result.getUrl(), result.getCode(), result.getMessage())
                                         : activity.getString(R.string.toast_url_check, result.getUrl(), result.getCode());
-                                Snack.toastTopError(activity, msg);
+                                ScreenMessage.toastTopError(activity, msg);
                             } else {
-                                Snack.toastTopError(activity, statusStrings[status.ordinal()]);
+                                ScreenMessage.toastTopError(activity, statusStrings[status.ordinal()]);
                             }
                         }
                     }

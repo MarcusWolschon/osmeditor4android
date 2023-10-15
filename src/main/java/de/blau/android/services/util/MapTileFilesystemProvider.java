@@ -29,7 +29,7 @@ import de.blau.android.resources.TileLayerSource;
 import de.blau.android.services.exceptions.EmptyCacheException;
 import de.blau.android.util.CustomDatabaseContext;
 import de.blau.android.util.Notifications;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.views.util.MapTileProviderCallback;
 
 /**
@@ -319,7 +319,7 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider implements M
             final String localizedMessage = e.getLocalizedMessage();
             final String message = ctx.getString(msg, localizedMessage);
             Handler handler = new Handler(Looper.getMainLooper());
-            handler.post(() -> Snack.toastTopError(ctx, message, false));
+            handler.post(() -> ScreenMessage.toastTopError(ctx, message, false));
             Notifications.error(ctx, R.string.toast_tile_database_issue_short,
                     Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP ? localizedMessage : message, random.nextInt());
             displayed.add(sourceId);
@@ -390,7 +390,7 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider implements M
             }
         }
         if (mountPoint == null) {
-            Snack.toastTopError(ctx, R.string.toast_no_suitable_storage);
+            ScreenMessage.toastTopError(ctx, R.string.toast_no_suitable_storage);
             return null;
         }
 
@@ -399,7 +399,7 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider implements M
             return new MapTileFilesystemProvider(ctx, mountPoint, tileCacheSize * 1024 * 1024); // FSCache
         } catch (SQLiteException slex) {
             Log.d(DEBUG_TAG, "Opening DB hit " + slex);
-            Snack.toastTopError(ctx, ctx.getString(R.string.toast_tile_database_issue, slex.getMessage()));
+            ScreenMessage.toastTopError(ctx, ctx.getString(R.string.toast_tile_database_issue, slex.getMessage()));
         }
         return null;
     }

@@ -22,7 +22,7 @@ import de.blau.android.net.OAuthHelper;
 import de.blau.android.osm.Server;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.ActivityResultHandler;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.UpdatedWebViewClient;
 import de.blau.android.util.WebViewActivity;
 import oauth.signpost.exception.OAuthException;
@@ -118,7 +118,7 @@ public class Authorize extends WebViewActivity {
         @Override
         public void receivedError(WebView view, int errorCode, String description, String failingUrl) {
             exit();
-            Snack.toastTopError(view.getContext(), description);
+            ScreenMessage.toastTopError(view.getContext(), description);
         }
     }
 
@@ -138,7 +138,7 @@ public class Authorize extends WebViewActivity {
             oa = new OAuthHelper(this, apiName);
         } catch (OsmException oe) {
             server.setOAuth(false); // ups something went wrong turn oauth off
-            Snack.barError(this, getString(R.string.toast_no_oauth, apiName));
+            ScreenMessage.barError(this, getString(R.string.toast_no_oauth, apiName));
             return;
         }
         Log.d(DEBUG_TAG, "oauth auth for " + apiName);
@@ -155,7 +155,7 @@ public class Authorize extends WebViewActivity {
             errorMessage = getString(R.string.toast_oauth_timeout);
         }
         if (authUrl == null) {
-            Snack.barError(this, errorMessage);
+            ScreenMessage.barError(this, errorMessage);
             return;
         }
         Log.d(DEBUG_TAG, "authURl " + authUrl);

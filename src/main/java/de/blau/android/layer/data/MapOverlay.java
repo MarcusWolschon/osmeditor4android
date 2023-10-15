@@ -81,7 +81,7 @@ import de.blau.android.util.Coordinates;
 import de.blau.android.util.Density;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Geometry;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.Util;
 import de.blau.android.util.collections.FloatPrimitiveList;
 import de.blau.android.util.collections.LinkedList;
@@ -407,7 +407,7 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
                             map.postInvalidate();
                         }, true, true);
                         if (ErrorCodes.CORRUPTED_DATA == result.getCode()) {
-                            Snack.toastTopError(context, R.string.corrupted_data_message);
+                            ScreenMessage.toastTopError(context, R.string.corrupted_data_message);
                         }
                     });
                 } catch (RejectedExecutionException rjee) {

@@ -38,7 +38,7 @@ import de.blau.android.presets.PresetSeparator;
 import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.Screen;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
@@ -211,7 +211,7 @@ public class PresetSearchResultsFragment extends DialogFragment implements Updat
             }
 
             if (result.isEmpty()) {
-                Snack.toastTopInfo(getContext(), R.string.toast_nothing_found);
+                ScreenMessage.toastTopInfo(getContext(), R.string.toast_nothing_found);
                 return;
             }
             if (presets != null) {

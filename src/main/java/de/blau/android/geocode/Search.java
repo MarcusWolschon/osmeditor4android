@@ -25,7 +25,7 @@ import androidx.appcompat.app.AppCompatDialog;
 import de.blau.android.R;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.AdvancedPrefDatabase.Geocoder;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 import de.blau.android.util.WidestItemArrayAdapter;
@@ -152,16 +152,16 @@ public class Search {
                 AppCompatDialog sr = createSearchResultsDialog(result, multiline ? R.layout.search_results_item_multi_line : R.layout.search_results_item);
                 sr.show();
             } else {
-                Snack.toastTopWarning(activity, R.string.toast_nothing_found);
+                ScreenMessage.toastTopWarning(activity, R.string.toast_nothing_found);
             }
         } catch (InterruptedException | ExecutionException e) { // NOSONAR cancel does interrupt the thread in
                                                                 // question
             Log.e(DEBUG_TAG, "find got exception " + e.getMessage());
             querier.cancel();
-            Snack.toastTopError(activity, R.string.no_connection_title);
+            ScreenMessage.toastTopError(activity, R.string.no_connection_title);
         } catch (TimeoutException e) {
             Log.e(DEBUG_TAG, "find got exception " + e.getMessage());
-            Snack.toastTopError(activity, R.string.toast_timeout);
+            ScreenMessage.toastTopError(activity, R.string.toast_timeout);
         }
     }
 

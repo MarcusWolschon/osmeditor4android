@@ -34,7 +34,7 @@ import de.blau.android.tasks.Note;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SerializableState;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.validation.Validator;
 
 /**
@@ -231,14 +231,14 @@ public class EasyEditManager {
     public void nothingTouched(boolean doubleTap) {
         // User clicked an empty area. If something is selected, deselect it.
         if (!doubleTap && inMultiSelectMode()) {
-            Snack.toastTopInfo(getMain(), getMain().getString(R.string.toast_exit_multiselect));
+            ScreenMessage.toastTopInfo(getMain(), getMain().getString(R.string.toast_exit_multiselect));
             return; // don't deselect all just because we didn't hit anything
         }
         if (currentActionModeCallback instanceof EditRelationMembersActionModeCallback || currentActionModeCallback instanceof BuilderActionModeCallback
                 || currentActionModeCallback instanceof ViaElementActionModeCallback || currentActionModeCallback instanceof ToElementActionModeCallback
                 || currentActionModeCallback instanceof FromElementActionModeCallback
                 || currentActionModeCallback instanceof RestartFromElementActionModeCallback) {
-            Snack.toastTopInfo(getMain(), getMain().getString(R.string.toast_abort_actionmode));
+            ScreenMessage.toastTopInfo(getMain(), getMain().getString(R.string.toast_abort_actionmode));
             return;
         }
         synchronized (actionModeCallbackLock) {
@@ -299,7 +299,7 @@ public class EasyEditManager {
                 }
             }
         }
-        Snack.toastTopInfo(getMain(), toast.toString());
+        ScreenMessage.toastTopInfo(getMain(), toast.toString());
     }
 
     /**

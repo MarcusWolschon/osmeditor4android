@@ -21,7 +21,7 @@ import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.util.GeoMath;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import io.noties.markwon.Markwon;
 
 /**
@@ -118,7 +118,7 @@ public abstract class BugFragment extends TaskFragment {
             final Markwon markwon = Markwon.create(context);
             showAdditionalText(context, markwon.toMarkdown(text));
         } else {
-            Snack.toastTopWarning(context, R.string.toast_nothing_found);
+            ScreenMessage.toastTopWarning(context, R.string.toast_nothing_found);
         }
     }
 }

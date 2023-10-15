@@ -26,9 +26,9 @@ import de.blau.android.R;
  * @author simon
  *
  */
-public final class Snack {
+public final class ScreenMessage {
 
-    private static final String DEBUG_TAG = Snack.class.getName();
+    private static final String DEBUG_TAG = ScreenMessage.class.getName();
 
     interface MessageControl {
         /**
@@ -172,7 +172,7 @@ public final class Snack {
     /**
      * Private constructor to stop instantiation
      */
-    private Snack() {
+    private ScreenMessage() {
         // private
     }
 

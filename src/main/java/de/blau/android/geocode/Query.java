@@ -15,7 +15,7 @@ import de.blau.android.dialogs.ProgressDialog;
 import de.blau.android.geocode.Search.SearchResult;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.util.ExecutorTask;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 
 class Query extends ExecutorTask<String, Void, List<SearchResult>> {
     private static final String DEBUG_TAG = Query.class.getSimpleName();
@@ -70,6 +70,6 @@ class Query extends ExecutorTask<String, Void, List<SearchResult>> {
      * @param message message to display
      */
     void connectionError(@NonNull final String message) {
-        activity.runOnUiThread(() -> Snack.toastTopError(activity, activity.getString(R.string.toast_server_connection_failed, message)));
+        activity.runOnUiThread(() -> ScreenMessage.toastTopError(activity, activity.getString(R.string.toast_server_connection_failed, message)));
     }
 }

@@ -115,7 +115,7 @@ public class DownloadActivity extends WebViewActivity {
         @Override
         public void receivedError(WebView view, int errorCode, String description, String failingUrl) {
             exit();
-            Snack.toastTopError(view.getContext(), description);
+            ScreenMessage.toastTopError(view.getContext(), description);
         }
 
         /**
@@ -135,13 +135,13 @@ public class DownloadActivity extends WebViewActivity {
                     int status = queryCursor.getInt(queryCursor.getColumnIndexOrThrow(DownloadManager.COLUMN_STATUS));
                     if (status == DownloadManager.STATUS_FAILED) {
                         int reason = queryCursor.getInt(queryCursor.getColumnIndexOrThrow(DownloadManager.COLUMN_REASON));
-                        Snack.toastTopError(DownloadActivity.this, errorMessage(DownloadActivity.this, reason, filename));
+                        ScreenMessage.toastTopError(DownloadActivity.this, errorMessage(DownloadActivity.this, reason, filename));
                     } else if (status == DownloadManager.STATUS_RUNNING) {
-                        Snack.toastTopInfo(DownloadActivity.this, getString(R.string.toast_download_started, filename));
+                        ScreenMessage.toastTopInfo(DownloadActivity.this, getString(R.string.toast_download_started, filename));
                     }
                 } catch (IllegalArgumentException iaex) {
                     Log.e(DEBUG_TAG, iaex.getMessage());
-                    Snack.toastTopError(DownloadActivity.this, errorMessage(DownloadActivity.this, DownloadManager.ERROR_UNKNOWN, filename));
+                    ScreenMessage.toastTopError(DownloadActivity.this, errorMessage(DownloadActivity.this, DownloadManager.ERROR_UNKNOWN, filename));
                 }
             }
         }

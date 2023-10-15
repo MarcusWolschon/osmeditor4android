@@ -24,7 +24,7 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.Tags;
 import de.blau.android.tasks.TransferTasks;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.validation.FormValidation;
 
 /**
@@ -116,7 +116,7 @@ public class UploadListener implements DialogInterface.OnShowListener, View.OnCl
                     TransferTasks.upload(caller, server, null);
                 }
             } else {
-                Snack.barInfo(caller, R.string.toast_no_changes);
+                ScreenMessage.barInfo(caller, R.string.toast_no_changes);
             }
         } else {
             ErrorAlert.showDialog(caller, ErrorCodes.NO_LOGIN_DATA);

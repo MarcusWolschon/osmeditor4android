@@ -364,10 +364,10 @@ public class SavingHelper<T extends Serializable> {
             protected void onPostExecute(Boolean result) {
                 try {
                     if (!result) { // NOSONAR result can't be null
-                        Snack.toastTopError(ctx, R.string.toast_export_failed);
+                        ScreenMessage.toastTopError(ctx, R.string.toast_export_failed);
                     } else {
                         Log.i(DEBUG_TAG, "Successful export to " + uri);
-                        Snack.toastTopInfo(ctx, ctx.getResources().getString(R.string.toast_export_success, uri.getPath()));
+                        ScreenMessage.toastTopInfo(ctx, ctx.getResources().getString(R.string.toast_export_success, uri.getPath()));
                     }
                 } catch (Exception | Error ignored) { // NOSONAR crashing is not an option
                     Log.e(DEBUG_TAG, "Toast in asyncExport.onPostExecute failed with " + ignored.getMessage());
@@ -392,14 +392,14 @@ public class SavingHelper<T extends Serializable> {
                 exportable.export(outputStream);
                 Log.i(DEBUG_TAG, "Successful export to " + filename);
                 if (ctx != null) {
-                    new Handler(ctx.getMainLooper()).post(() -> Snack.toastTopInfo(ctx, ctx.getResources().getString(R.string.toast_export_success, filename)));
+                    new Handler(ctx.getMainLooper()).post(() -> ScreenMessage.toastTopInfo(ctx, ctx.getResources().getString(R.string.toast_export_success, filename)));
                 }
                 return outfile.getAbsolutePath();
             }
         } catch (Exception e) {
             Log.e(DEBUG_TAG, "Export failed - " + filename);
             if (ctx != null) {
-                new Handler(ctx.getMainLooper()).post(() -> Snack.toastTopError(ctx, R.string.toast_export_failed));
+                new Handler(ctx.getMainLooper()).post(() -> ScreenMessage.toastTopError(ctx, R.string.toast_export_failed));
             }
         }
         return null;

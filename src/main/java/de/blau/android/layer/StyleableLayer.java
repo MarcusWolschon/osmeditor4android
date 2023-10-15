@@ -13,7 +13,7 @@ import androidx.annotation.Nullable;
 import de.blau.android.R;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.util.SerializableTextPaint;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 
 public abstract class StyleableLayer extends MapViewLayer implements StyleableInterface, DiscardInterface, Serializable {
     private static final long serialVersionUID = 4L;
@@ -93,7 +93,7 @@ public abstract class StyleableLayer extends MapViewLayer implements StyleableIn
                     // this is essentially catastrophic and can only happen if something went really wrong
                     // running out of memory or disk, or HW failure
                     if (context instanceof Activity) {
-                        Snack.barError((Activity) context, R.string.toast_statesave_failed);
+                        ScreenMessage.barError((Activity) context, R.string.toast_statesave_failed);
                     }
                 }
             } finally {

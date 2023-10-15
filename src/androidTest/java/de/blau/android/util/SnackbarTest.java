@@ -58,22 +58,22 @@ public class SnackbarTest {
         Snackbar s3 = Snackbar.make(v, "Test3", Snackbar.LENGTH_LONG);
         Snackbar s4 = Snackbar.make(v, "Test4", Snackbar.LENGTH_LONG);
 
-        Snack.enqueue(Snack.infoQueue, s1);
-        Snack.enqueue(Snack.infoQueue, s2);
-        Snack.enqueue(Snack.infoQueue, s3);
+        ScreenMessage.enqueue(ScreenMessage.infoQueue, s1);
+        ScreenMessage.enqueue(ScreenMessage.infoQueue, s2);
+        ScreenMessage.enqueue(ScreenMessage.infoQueue, s3);
 
-        Assert.assertTrue(Snack.infoQueue.contains(s1));
-        Assert.assertTrue(Snack.infoQueue.contains(s2));
-        Assert.assertTrue(Snack.infoQueue.contains(s3));
+        Assert.assertTrue(ScreenMessage.infoQueue.contains(s1));
+        Assert.assertTrue(ScreenMessage.infoQueue.contains(s2));
+        Assert.assertTrue(ScreenMessage.infoQueue.contains(s3));
 
         // just to be sure that our assumptions are true
-        Assert.assertEquals(3, Snack.QUEUE_CAPACITY); // NOSONAR
-        Snack.enqueue(Snack.infoQueue, s4);
+        Assert.assertEquals(3, ScreenMessage.QUEUE_CAPACITY); // NOSONAR
+        ScreenMessage.enqueue(ScreenMessage.infoQueue, s4);
 
-        Assert.assertFalse(Snack.infoQueue.contains(s1));
-        Assert.assertTrue(Snack.infoQueue.contains(s2));
-        Assert.assertTrue(Snack.infoQueue.contains(s3));
-        Assert.assertTrue(Snack.infoQueue.contains(s4));
+        Assert.assertFalse(ScreenMessage.infoQueue.contains(s1));
+        Assert.assertTrue(ScreenMessage.infoQueue.contains(s2));
+        Assert.assertTrue(ScreenMessage.infoQueue.contains(s3));
+        Assert.assertTrue(ScreenMessage.infoQueue.contains(s4));
     }
 
     /**
@@ -93,7 +93,7 @@ public class SnackbarTest {
                 signal.countDown();
             }
         });
-        Snack.enqueueInfo(s);
+        ScreenMessage.enqueueInfo(s);
         try {
             signal.await(10, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
@@ -118,7 +118,7 @@ public class SnackbarTest {
                 signal.countDown();
             }
         });
-        Snack.enqueueInfo(s);
+        ScreenMessage.enqueueInfo(s);
         try {
             signal.await(10, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
@@ -143,7 +143,7 @@ public class SnackbarTest {
                 signal.countDown();
             }
         });
-        Snack.enqueueInfo(s);
+        ScreenMessage.enqueueInfo(s);
         try {
             signal.await(10, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
