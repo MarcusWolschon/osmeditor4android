@@ -19,6 +19,8 @@ import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
 import de.blau.android.Main;
 import de.blau.android.TestUtils;
+import de.blau.android.util.ScreenMessage.MessageControl;
+import de.blau.android.util.ScreenMessage.SnackbarWrapper;
 
 /**
  *
@@ -27,7 +29,7 @@ import de.blau.android.TestUtils;
  */
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class SnackbarTest {
+public class ScreenMessageTest {
 
     Main main = null;
     View v    = null;
@@ -53,10 +55,10 @@ public class SnackbarTest {
     @Test
     public void queue() {
 
-        Snackbar s1 = Snackbar.make(v, "Test1", Snackbar.LENGTH_LONG);
-        Snackbar s2 = Snackbar.make(v, "Test2", Snackbar.LENGTH_LONG);
-        Snackbar s3 = Snackbar.make(v, "Test3", Snackbar.LENGTH_LONG);
-        Snackbar s4 = Snackbar.make(v, "Test4", Snackbar.LENGTH_LONG);
+        MessageControl s1 = new SnackbarWrapper(Snackbar.make(v, "Test1", Snackbar.LENGTH_LONG));
+        MessageControl s2 = new SnackbarWrapper(Snackbar.make(v, "Test2", Snackbar.LENGTH_LONG));
+        MessageControl s3 = new SnackbarWrapper(Snackbar.make(v, "Test3", Snackbar.LENGTH_LONG));
+        MessageControl s4 = new SnackbarWrapper(Snackbar.make(v, "Test4", Snackbar.LENGTH_LONG));
 
         ScreenMessage.enqueue(ScreenMessage.infoQueue, s1);
         ScreenMessage.enqueue(ScreenMessage.infoQueue, s2);
@@ -81,11 +83,13 @@ public class SnackbarTest {
      */
     @Test
     public void infoQueue() {
-        Snackbar s = Snackbar.make(v, "Test", Snackbar.LENGTH_LONG);
+        final Snackbar s = Snackbar.make(v, "Test", Snackbar.LENGTH_LONG);
+        MessageControl message = new SnackbarWrapper(s);
         final CountDownLatch signal = new CountDownLatch(1);
         s.addCallback(new Snackbar.Callback() {
             @Override
             public void onDismissed(Snackbar s, int event) {
+                // empty
             }
 
             @Override
@@ -93,7 +97,7 @@ public class SnackbarTest {
                 signal.countDown();
             }
         });
-        ScreenMessage.enqueueInfo(s);
+        ScreenMessage.enqueueInfo(message);
         try {
             signal.await(10, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
@@ -107,10 +111,12 @@ public class SnackbarTest {
     @Test
     public void warningQueue() {
         Snackbar s = Snackbar.make(v, "Test", Snackbar.LENGTH_LONG);
+        MessageControl message = new SnackbarWrapper(s);
         final CountDownLatch signal = new CountDownLatch(1);
         s.addCallback(new Snackbar.Callback() {
             @Override
             public void onDismissed(Snackbar s, int event) {
+                // empty
             }
 
             @Override
@@ -118,7 +124,7 @@ public class SnackbarTest {
                 signal.countDown();
             }
         });
-        ScreenMessage.enqueueInfo(s);
+        ScreenMessage.enqueueInfo(message);
         try {
             signal.await(10, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
@@ -132,10 +138,12 @@ public class SnackbarTest {
     @Test
     public void errorQueue() {
         Snackbar s = Snackbar.make(v, "Test", Snackbar.LENGTH_LONG);
+        MessageControl message = new SnackbarWrapper(s);
         final CountDownLatch signal = new CountDownLatch(1);
         s.addCallback(new Snackbar.Callback() {
             @Override
             public void onDismissed(Snackbar s, int event) {
+                // empty
             }
 
             @Override
@@ -143,7 +151,7 @@ public class SnackbarTest {
                 signal.countDown();
             }
         });
-        ScreenMessage.enqueueInfo(s);
+        ScreenMessage.enqueueInfo(message);
         try {
             signal.await(10, TimeUnit.SECONDS);
         } catch (InterruptedException e) {

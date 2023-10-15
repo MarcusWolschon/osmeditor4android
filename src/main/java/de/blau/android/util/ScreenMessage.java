@@ -110,7 +110,7 @@ public final class ScreenMessage {
         }
     }
 
-    private static class SnackbarWrapper implements MessageControl {
+    protected static class SnackbarWrapper implements MessageControl {
 
         private final Snackbar snackbar;
 
