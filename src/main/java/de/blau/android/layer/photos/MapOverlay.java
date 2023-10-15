@@ -135,9 +135,9 @@ public class MapOverlay extends MapViewLayer implements DiscardInterface, Clicka
         @Override
         protected void onProgress(Integer progress) {
             if (progress == 0) {
-                ScreenMessage.barInfoShort(map, R.string.toast_photo_indexing_started);
+                ScreenMessage.toastTopInfo(map.getContext(), R.string.toast_photo_indexing_started);
             } else if (progress == 1) {
-                ScreenMessage.barInfoShort(map, R.string.toast_photo_indexing_finished);
+                ScreenMessage.toastTopInfo(map.getContext(), R.string.toast_photo_indexing_finished);
             }
         }
 

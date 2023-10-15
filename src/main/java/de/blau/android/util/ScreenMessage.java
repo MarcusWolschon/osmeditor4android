@@ -423,28 +423,6 @@ public final class ScreenMessage {
     }
 
     /**
-     * Display a snackbar with an informational message for a short duration
-     * 
-     * @param v view to display the snackbar on
-     * @param res resource id of the message to display
-     */
-    public static void barInfoShort(@Nullable View v, int res) {
-        barInfo(v, res, BaseTransientBottomBar.LENGTH_SHORT);
-    }
-
-    /**
-     * Display a snackbar with an informational message for a short duration
-     * 
-     * @param activity activity calling us
-     * @param res resource id of the message to display
-     */
-    public static void barInfoShort(@Nullable Activity activity, int res) {
-        if (activity != null) {
-            barInfo(activity.findViewById(android.R.id.content), res, BaseTransientBottomBar.LENGTH_SHORT);
-        }
-    }
-
-    /**
      * Display a snackbar with an informational message
      * 
      * @param v view to display the snackbar on

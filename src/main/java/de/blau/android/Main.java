@@ -3292,7 +3292,7 @@ public class Main extends FullScreenAppCompatActivity
         simpleActionsButton.setOnClickListener(v -> {
             Logic logic = App.getLogic();
             if (!logic.isInEditZoomRange()) {
-                ScreenMessage.barInfoShort(Main.this, R.string.toast_not_in_edit_range);
+                ScreenMessage.toastTopInfo(Main.this, R.string.toast_not_in_edit_range);
             } else {
                 PopupMenu popup = SimpleActionModeCallback.getMenu(Main.this, simpleActionsButton);
                 popup.show();
@@ -3504,7 +3504,7 @@ public class Main extends FullScreenAppCompatActivity
             if (undo.canUndo() || undo.canRedo()) {
                 UndoDialog.showDialog(Main.this);
             } else {
-                ScreenMessage.barInfoShort(Main.this, R.string.undo_nothing);
+                ScreenMessage.toastTopInfo(Main.this, R.string.undo_nothing);
             }
             map.invalidate();
             return true;
@@ -3573,7 +3573,7 @@ public class Main extends FullScreenAppCompatActivity
 
             if (isInEditZoomRange) {
                 if (logic.isLocked()) {
-                    ScreenMessage.barInfoShort(Main.this, R.string.toast_unlock_to_edit);
+                    ScreenMessage.toastTopInfo(Main.this, R.string.toast_unlock_to_edit);
                     Tip.showOptionalDialog(Main.this, R.string.tip_locked_mode_key, R.string.tip_locked_mode);
                 } else {
                     if (mode.elementsEditable()) {
@@ -3585,7 +3585,7 @@ public class Main extends FullScreenAppCompatActivity
                 switch (clickedObjects.size()) {
                 case 0:
                     if (!logic.isLocked()) {
-                        ScreenMessage.barInfoShort(v, R.string.toast_not_in_edit_range);
+                        ScreenMessage.toastTopInfo(Main.this, R.string.toast_not_in_edit_range);
                     }
                     break;
                 case 1:
