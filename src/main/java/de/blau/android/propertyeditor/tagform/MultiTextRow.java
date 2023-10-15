@@ -37,7 +37,7 @@ import de.blau.android.propertyeditor.InputTypeUtil;
 import de.blau.android.propertyeditor.TagChanged;
 import de.blau.android.propertyeditor.tagform.TagFormFragment.EditableLayout;
 import de.blau.android.util.GeoContext;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
@@ -432,7 +432,7 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow, TagChange
             try {
                 row.valueCount = Integer.parseInt(valueCountValue);
             } catch (NumberFormatException nfex) {
-                Snack.toastTopError(caller.getContext(), caller.getString(R.string.toast_invalid_number_format, nfex.getMessage()));
+                ScreenMessage.toastTopError(caller.getContext(), caller.getString(R.string.toast_invalid_number_format, nfex.getMessage()));
             }
         } else {
             row.valueCount = 0;
@@ -476,7 +476,7 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow, TagChange
             }
             if (phoneNumberReformatted > 0) {
                 caller.updateSingleValue(key, row.getValue());
-                row.post(() -> Snack.barWarning(row, R.string.toast_phone_number_reformatted, BaseTransientBottomBar.LENGTH_LONG));
+                row.post(() -> ScreenMessage.barWarning(row, R.string.toast_phone_number_reformatted, BaseTransientBottomBar.LENGTH_LONG));
             }
         }
         int currentCount = splitValues.size();
@@ -518,7 +518,7 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow, TagChange
                     valueLayout.removeAllViews();
                     addValues(caller, key, adapter, this, values);
                 } catch (NumberFormatException nfex) {
-                    Snack.toastTopError(context, context.getString(R.string.toast_invalid_number_format, nfex.getMessage()));
+                    ScreenMessage.toastTopError(context, context.getString(R.string.toast_invalid_number_format, nfex.getMessage()));
                 }
             } else {
                 valueCount = 0;

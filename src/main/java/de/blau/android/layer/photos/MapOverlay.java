@@ -42,7 +42,7 @@ import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.ContentResolverUtil;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.GeoMath;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.Util;
 import de.blau.android.views.IMapView;
 
@@ -135,9 +135,9 @@ public class MapOverlay extends MapViewLayer implements DiscardInterface, Clicka
         @Override
         protected void onProgress(Integer progress) {
             if (progress == 0) {
-                Snack.barInfoShort(map, R.string.toast_photo_indexing_started);
+                ScreenMessage.toastTopInfo(map.getContext(), R.string.toast_photo_indexing_started);
             } else if (progress == 1) {
-                Snack.barInfoShort(map, R.string.toast_photo_indexing_finished);
+                ScreenMessage.toastTopInfo(map.getContext(), R.string.toast_photo_indexing_finished);
             }
         }
 
@@ -278,11 +278,11 @@ public class MapOverlay extends MapViewLayer implements DiscardInterface, Clicka
                 invalidate();
             } else {
                 Log.d(DEBUG_TAG, "onSelected null Uri");
-                Snack.toastTopError(activity, resources.getString(R.string.toast_error_accessing_photo, photo.getRef()));
+                ScreenMessage.toastTopError(activity, resources.getString(R.string.toast_error_accessing_photo, photo.getRef()));
             }
         } catch (SecurityException ex) {
             Log.d(DEBUG_TAG, "onSelected security exception starting intent: " + ex);
-            Snack.toastTopError(activity, resources.getString(R.string.toast_security_error_accessing_photo, photo.getRef()));
+            ScreenMessage.toastTopError(activity, resources.getString(R.string.toast_security_error_accessing_photo, photo.getRef()));
         } catch (Exception ex) {
             Log.d(DEBUG_TAG, "onSelected exception starting intent: " + ex);
             ACRAHelper.nocrashReport(ex, "onSelected exception starting intent");

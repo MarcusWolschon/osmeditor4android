@@ -36,7 +36,7 @@ import de.blau.android.presets.PresetGroup;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.SearchIndexUtils;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
 
 /**
@@ -181,7 +181,7 @@ public class ViewWayPoint extends ImmersiveDialogFragment {
                     PresetGroup rootGroup = presets[0].getRootGroup();
                     presetPath = searchResults.get(0).getPath(rootGroup);
                 } else {
-                    Snack.barInfo(getActivity(), R.string.toast_nothing_found);
+                    ScreenMessage.barInfo(getActivity(), R.string.toast_nothing_found);
                 }
             }
 

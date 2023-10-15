@@ -221,7 +221,7 @@ public final class ContentResolverUtil {
                 return true;
             } catch (Exception ex) {
                 Log.e(DEBUG_TAG, "Unable to persist read permission for " + uri);
-                Snack.toastTopWarning(context, R.string.toast_unable_to_persist_permissions);
+                ScreenMessage.toastTopWarning(context, R.string.toast_unable_to_persist_permissions);
             }
         }
         return false;

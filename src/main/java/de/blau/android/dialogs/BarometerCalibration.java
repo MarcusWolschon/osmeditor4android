@@ -21,7 +21,7 @@ import androidx.fragment.app.FragmentManager;
 import de.blau.android.R;
 import de.blau.android.services.TrackerService;
 import de.blau.android.util.ImmersiveDialogFragment;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
 
 /**
@@ -110,7 +110,7 @@ public class BarometerCalibration extends ImmersiveDialogFragment {
                 }
                 getActivity().startService(intent);
             } catch (NumberFormatException nfex) {
-                Snack.toastTopError(getActivity(), getString(R.string.toast_invalid_number_format, nfex.getMessage()));
+                ScreenMessage.toastTopError(getActivity(), getString(R.string.toast_invalid_number_format, nfex.getMessage()));
             }
         });
 

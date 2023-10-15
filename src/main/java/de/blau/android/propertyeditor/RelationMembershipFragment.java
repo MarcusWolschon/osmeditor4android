@@ -45,7 +45,7 @@ import de.blau.android.presets.PresetRole;
 import de.blau.android.util.ArrayAdapterWithState;
 import de.blau.android.util.BaseFragment;
 import de.blau.android.util.Enabled;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.Util;
 import de.blau.android.util.collections.MultiHashMap;
@@ -164,7 +164,7 @@ public class RelationMembershipFragment extends BaseFragment implements Property
         final MultiHashMap<Long, RelationMemberPosition> newParents = PropertyEditorData.getParentMap(element, new MultiHashMap<>(false, true));
         final MultiHashMap<Long, RelationMemberPosition> oldParents = getParentRelationMap();
         if (!oldParents.equals(newParents)) {
-            Snack.toastTopInfo(getContext(), R.string.toast_updating_parents);
+            ScreenMessage.toastTopInfo(getContext(), R.string.toast_updating_parents);
             loadParents(newParents, element.getName());
         }
         relationHolderList.clear();

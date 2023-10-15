@@ -14,7 +14,7 @@ import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Way;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 
 public class RemoveNodeFromWayActionModeCallback extends NonSimpleActionModeCallback {
     private static final String DEBUG_TAG = "RemoveNode...";
@@ -79,7 +79,7 @@ public class RemoveNodeFromWayActionModeCallback extends NonSimpleActionModeCall
             logic.performRemoveNodeFromWay(main, way, node);
         } catch (OsmIllegalOperationException oloex) {
             Log.e(DEBUG_TAG, "Tried to remove node from way " + way.getOsmId() + " #nodes " + way.getNodes().size() + " cloased " + way.isClosed());
-            Snack.toastTopError(main, oloex.getMessage()); // this should never happen
+            ScreenMessage.toastTopError(main, oloex.getMessage()); // this should never happen
         }
     }
 

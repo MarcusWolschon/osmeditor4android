@@ -61,7 +61,7 @@ import de.blau.android.osm.Way;
 import de.blau.android.resources.symbols.Symbols;
 import de.blau.android.util.Density;
 import de.blau.android.util.FileUtil;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.Version;
 import de.blau.android.util.XmlFileFilter;
 
@@ -1930,7 +1930,7 @@ public final class DataStyle extends DefaultHandler {
                 availableStyles.put(p.getName(), p);
             } catch (Exception ex) { // never crash
                 Log.e(DEBUG_TAG, ex.toString());
-                Snack.toastTopError(ctx, ctx.getString(R.string.toast_invalid_style_file, f.getName(), ex.getMessage()));
+                ScreenMessage.toastTopError(ctx, ctx.getString(R.string.toast_invalid_style_file, f.getName(), ex.getMessage()));
             }
         }
     }

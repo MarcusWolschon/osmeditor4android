@@ -30,7 +30,7 @@ import de.blau.android.presets.Preset;
 import de.blau.android.propertyeditor.CustomPreset;
 import de.blau.android.resources.TileLayerSource;
 import de.blau.android.util.FileUtil;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 
 /**
  * This class provides access to complex settings like OSM APIs which consist of complex/relational data. WARNING: It
@@ -551,7 +551,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
                 }
             } catch (Exception e) {
                 Log.e(DEBUG_TAG, "Failed to create preset", e);
-                Snack.toastTopError(context, context.getString(R.string.toast_preset_failed, pi.name, e.getLocalizedMessage()));
+                ScreenMessage.toastTopError(context, context.getString(R.string.toast_preset_failed, pi.name, e.getLocalizedMessage()));
                 activePresets[i] = null;
             }
         }

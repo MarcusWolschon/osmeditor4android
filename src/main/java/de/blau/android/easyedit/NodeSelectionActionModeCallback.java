@@ -35,7 +35,7 @@ import de.blau.android.osm.Result;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.util.GeoMath;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.Sound;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
@@ -223,11 +223,11 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
                 if (result.size() > 1 || result.get(0).hasIssue()) {
                     TagConflictDialog.showDialog(main, result);
                 } else {
-                    Snack.toastTopInfo(main, R.string.toast_merged);
+                    ScreenMessage.toastTopInfo(main, R.string.toast_merged);
                 }
             }
         } catch (OsmIllegalOperationException | IllegalStateException e) {
-            Snack.barError(main, e.getLocalizedMessage());
+            ScreenMessage.barError(main, e.getLocalizedMessage());
         }
     }
 
@@ -378,7 +378,7 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
                 } catch (OsmIllegalOperationException | NumberFormatException nfex) {
                     Log.w(DEBUG_TAG, nfex.getMessage());
                 }
-                Snack.toastTopWarning(main, R.string.coordinates_out_of_range);
+                ScreenMessage.toastTopWarning(main, R.string.coordinates_out_of_range);
             });
         });
         return dialog;

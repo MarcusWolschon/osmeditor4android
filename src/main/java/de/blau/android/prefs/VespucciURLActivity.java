@@ -24,7 +24,7 @@ import de.blau.android.net.OAuthHelper;
 import de.blau.android.prefs.AdvancedPrefDatabase.PresetInfo;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.ExecutorTask;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import oauth.signpost.exception.OAuthException;
 
 /**
@@ -111,7 +111,7 @@ public class VespucciURLActivity extends AppCompatActivity implements OnClickLis
                 errorMessage = getString(R.string.toast_oauth_timeout);
             }
             if (errorMessage != null) {
-                Snack.toastTopError(this, errorMessage);
+                ScreenMessage.toastTopError(this, errorMessage);
             }
             setResult(RESULT_OK);
             finish();

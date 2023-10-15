@@ -7,6 +7,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Build;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -20,14 +21,136 @@ import de.blau.android.App;
 import de.blau.android.R;
 
 /**
- * Helper methods to display Snackbars in a consistent way and queuing on one of three priority queues
+ * Helper class to display Snackbars and Toasts in a consistent way and queuing on one of three priority queues
  * 
  * @author simon
  *
  */
-public final class Snack {
+public final class ScreenMessage {
 
-    private static final String DEBUG_TAG = Snack.class.getName();
+    private static final String DEBUG_TAG = ScreenMessage.class.getName();
+
+    interface MessageControl {
+        /**
+         * Show the message
+         */
+        public void show();
+
+        /**
+         * Check if the message is showing
+         * 
+         * @return true if the message is showing
+         */
+        public boolean isShowing();
+
+        /**
+         * Cancel the message
+         */
+        public void cancel();
+    }
+
+    private static class ToastWrapper implements MessageControl {
+
+        private boolean     showing = false;
+        private final Toast toast;
+
+        /**
+         * Create a new instance
+         * 
+         * @param toast the Toast to wrap
+         */
+        ToastWrapper(@NonNull Toast toast) {
+            this.toast = toast;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                toast.addCallback(new Toast.Callback() {
+                    @Override
+                    public void onToastShown() {
+                        showing = true;
+                    }
+
+                    @Override
+                    public void onToastHidden() {
+                        showing = false;
+                        removeAndShowNext();
+                    }
+                });
+            }
+        }
+
+        @Override
+        public void show() {
+            toast.show();
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+                removeAndShowNext();
+            }
+        }
+
+        @Override
+        public boolean isShowing() {
+            return Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && showing;
+        }
+
+        @Override
+        public void cancel() {
+            toast.cancel();
+        }
+
+        /**
+         * Remove toast from queue and show next
+         */
+        private void removeAndShowNext() {
+            synchronized (queueLock) {
+                if (!infoQueue.remove(ToastWrapper.this) && !warningQueue.remove(ToastWrapper.this)) {
+                    errorQueue.remove(ToastWrapper.this);
+                }
+                if (!showFirst(errorQueue) && !showFirst(warningQueue)) {
+                    showFirst(infoQueue);
+                }
+            }
+        }
+    }
+
+    protected static class SnackbarWrapper implements MessageControl {
+
+        private final Snackbar snackbar;
+
+        /**
+         * Create a new instance
+         * 
+         * @param snackbar the Snackbar to wrap
+         */
+        SnackbarWrapper(@NonNull Snackbar snackbar) {
+            this.snackbar = snackbar;
+            snackbar.addCallback(new Snackbar.Callback() {
+                @Override
+                public void onDismissed(Snackbar s, int event) {
+                    synchronized (queueLock) {
+                        if (!infoQueue.remove(SnackbarWrapper.this) && !warningQueue.remove(SnackbarWrapper.this)) {
+                            errorQueue.remove(SnackbarWrapper.this);
+                        }
+                        if (!showFirst(errorQueue) && !showFirst(warningQueue)) {
+                            showFirst(infoQueue);
+                        }
+                    }
+                }
+            });
+        }
+
+        @Override
+        public void show() {
+            snackbar.show();
+        }
+
+        @Override
+        public boolean isShowing() {
+            return snackbar.isShown();
+        }
+
+        @Override
+        public void cancel() {
+            snackbar.dismiss();
+        }
+    }
 
     private static final int SHOW_DURATION_ACTION = 5000;
 
@@ -42,15 +165,14 @@ public final class Snack {
 
     private static final Object queueLock = new Object();
 
-    // google has declared Snackbar as final, making life difficult for everybody ....
-    protected static LinkedList<Snackbar> infoQueue    = new LinkedList<>();
-    protected static LinkedList<Snackbar> warningQueue = new LinkedList<>();
-    protected static LinkedList<Snackbar> errorQueue   = new LinkedList<>();
+    protected static LinkedList<MessageControl> infoQueue    = new LinkedList<>();
+    protected static LinkedList<MessageControl> warningQueue = new LinkedList<>();
+    protected static LinkedList<MessageControl> errorQueue   = new LinkedList<>();
 
     /**
      * Private constructor to stop instantiation
      */
-    private Snack() {
+    private ScreenMessage() {
         // private
     }
 
@@ -60,10 +182,10 @@ public final class Snack {
      * @param queue the queue
      * @return true if a SnackBar is being shown
      */
-    static boolean isShowing(@NonNull LinkedList<Snackbar> queue) {
-        Snackbar first = queue.peekFirst();
+    static boolean isShowing(@NonNull LinkedList<MessageControl> queue) {
+        MessageControl first = queue.peekFirst();
         if (first != null) {
-            return first.isShown();
+            return first.isShowing();
         }
         return false;
     }
@@ -76,13 +198,13 @@ public final class Snack {
      * @param queue the queue to use
      * @param s the snackbar to queue
      */
-    static void enqueue(LinkedList<Snackbar> queue, Snackbar s) {
+    static void enqueue(@NonNull LinkedList<MessageControl> queue, @NonNull MessageControl s) {
         if (queue.size() >= QUEUE_CAPACITY) {
-            Snackbar first = queue.peekFirst();
+            MessageControl first = queue.peekFirst();
             if (first != null) {
                 queue.removeFirst();
-                if (first.isShown()) {
-                    first.dismiss(); // will try to remove itself but that is OK
+                if (first.isShowing()) {
+                    first.cancel(); // will try to remove itself but that is OK
                 }
             }
         }
@@ -97,9 +219,9 @@ public final class Snack {
      * @param queue the queue to check
      * @return true if a snackbar was found and shown
      */
-    static boolean showFirst(LinkedList<Snackbar> queue) {
-        Snackbar first = queue.peekFirst();
-        if (first != null && !first.isShown()) {
+    static boolean showFirst(@NonNull LinkedList<MessageControl> queue) {
+        MessageControl first = queue.peekFirst();
+        if (first != null && !first.isShowing()) {
             first.show();
             return true;
         }
@@ -113,10 +235,10 @@ public final class Snack {
      * 
      * @param queue the queue to check
      */
-    static void dismiss(LinkedList<Snackbar> queue) {
-        Snackbar first = queue.peekFirst();
-        if (first != null && !first.isShown()) {
-            first.dismiss();
+    static void dismiss(@NonNull LinkedList<MessageControl> queue) {
+        MessageControl first = queue.peekFirst();
+        if (first != null && !first.isShowing()) {
+            first.cancel();
         }
     }
 
@@ -125,7 +247,7 @@ public final class Snack {
      * 
      * @param s the snackbar to queue
      */
-    static void enqueueInfo(Snackbar s) {
+    static void enqueueInfo(@NonNull MessageControl s) {
         synchronized (queueLock) {
             enqueue(infoQueue, s);
             if (!isShowing(warningQueue) && !isShowing(errorQueue)) {
@@ -139,7 +261,7 @@ public final class Snack {
      * 
      * @param s the snackbar to queue
      */
-    static void enqueueWarning(Snackbar s) {
+    static void enqueueWarning(@NonNull MessageControl s) {
         synchronized (queueLock) {
             enqueue(warningQueue, s);
             if (isShowing(errorQueue)) {
@@ -155,7 +277,7 @@ public final class Snack {
      * 
      * @param s the snackbar to queue
      */
-    static void enqueueError(Snackbar s) {
+    static void enqueueError(@NonNull MessageControl s) {
         synchronized (queueLock) {
             enqueue(errorQueue, s);
             dismiss(infoQueue);
@@ -165,30 +287,12 @@ public final class Snack {
     }
 
     /**
-     * called when a snackbar has been dismissed, removes itself from the queue and shows the next eligible snackbar if
-     * any.
-     */
-    static Snackbar.Callback callback = new Snackbar.Callback() {
-        @Override
-        public void onDismissed(Snackbar s, int event) {
-            synchronized (queueLock) {
-                if (!infoQueue.remove(s) && !warningQueue.remove(s)) {
-                    errorQueue.remove(s);
-                }
-                if (!showFirst(errorQueue) && !showFirst(warningQueue)) {
-                    showFirst(infoQueue);
-                }
-            }
-        }
-    };
-
-    /**
      * Display a snackbar with an error message
      * 
      * @param activity activity calling us
      * @param res resource id of the message to display
      */
-    public static void barError(Activity activity, int res) {
+    public static void barError(@Nullable Activity activity, int res) {
         if (activity != null) {
             barError(activity.findViewById(android.R.id.content), res);
         }
@@ -218,7 +322,7 @@ public final class Snack {
      * @param activity activity calling us
      * @param msg message to display
      */
-    public static void barError(Activity activity, String msg) {
+    public static void barError(@Nullable Activity activity, String msg) {
         if (activity != null) {
             barError(activity.findViewById(android.R.id.content), msg);
         }
@@ -251,8 +355,7 @@ public final class Snack {
     private static void barError(@NonNull View v, @NonNull Snackbar snackbar) {
         try {
             snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_error, R.color.material_red));
-            snackbar.addCallback(callback);
-            enqueueError(snackbar);
+            enqueueError(new SnackbarWrapper(snackbar));
         } catch (IllegalArgumentException e) {
             Log.e(DEBUG_TAG, LOG_BAR_ERROR + e.getMessage());
         }
@@ -266,7 +369,7 @@ public final class Snack {
      * @param actionRes action textRes resource for the text of an action
      * @param listener called when action is selected
      */
-    public static void barError(Activity activity, int msgRes, int actionRes, View.OnClickListener listener) {
+    public static void barError(@Nullable Activity activity, int msgRes, int actionRes, View.OnClickListener listener) {
         if (activity != null) {
             barError(activity.findViewById(android.R.id.content), msgRes, actionRes, listener);
         }
@@ -280,7 +383,7 @@ public final class Snack {
      * @param actionRes action textRes resource for the text of an action
      * @param listener called when action is selected
      */
-    public static void barError(@Nullable View v, int msgRes, int actionRes, View.OnClickListener listener) {
+    public static void barError(@Nullable View v, int msgRes, int actionRes, @Nullable View.OnClickListener listener) {
         if (v == null) {
             Log.e(DEBUG_TAG, NULL_VIEW_IN_BAR_ERROR);
             return;
@@ -291,8 +394,7 @@ public final class Snack {
             snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_error, R.color.material_red));
             snackbar.setActionTextColor(ContextCompat.getColor(v.getContext(), R.color.ccc_white));
             snackbar.setAction(actionRes, listener);
-            snackbar.addCallback(callback);
-            enqueueError(snackbar);
+            enqueueError(new SnackbarWrapper(snackbar));
         } catch (IllegalArgumentException e) {
             Log.e(DEBUG_TAG, LOG_BAR_ERROR + e.getMessage());
         }
@@ -304,7 +406,7 @@ public final class Snack {
      * @param activity activity calling us
      * @param res resource id of the message to display
      */
-    public static void barInfo(Activity activity, int res) {
+    public static void barInfo(@Nullable Activity activity, int res) {
         if (activity != null) {
             barInfo(activity.findViewById(android.R.id.content), res);
         }
@@ -316,30 +418,8 @@ public final class Snack {
      * @param v view to display the snackbar on
      * @param res resource id of the message to display
      */
-    public static void barInfo(View v, int res) {
+    public static void barInfo(@Nullable View v, int res) {
         barInfo(v, res, BaseTransientBottomBar.LENGTH_LONG);
-    }
-
-    /**
-     * Display a snackbar with an informational message for a short duration
-     * 
-     * @param v view to display the snackbar on
-     * @param res resource id of the message to display
-     */
-    public static void barInfoShort(View v, int res) {
-        barInfo(v, res, BaseTransientBottomBar.LENGTH_SHORT);
-    }
-
-    /**
-     * Display a snackbar with an informational message for a short duration
-     * 
-     * @param activity activity calling us
-     * @param res resource id of the message to display
-     */
-    public static void barInfoShort(Activity activity, int res) {
-        if (activity != null) {
-            barInfo(activity.findViewById(android.R.id.content), res, BaseTransientBottomBar.LENGTH_SHORT);
-        }
     }
 
     /**
@@ -370,8 +450,7 @@ public final class Snack {
     private static void barInfo(@NonNull View v, @NonNull Snackbar snackbar) {
         try {
             snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_info, R.color.material_teal));
-            snackbar.addCallback(callback);
-            enqueueInfo(snackbar);
+            enqueueInfo(new SnackbarWrapper(snackbar));
         } catch (IllegalArgumentException e) {
             Log.e(DEBUG_TAG, LOG_BAR_INFO + e.getMessage());
         }
@@ -383,7 +462,7 @@ public final class Snack {
      * @param activity activity calling us
      * @param msg message to display
      */
-    public static void barInfo(Activity activity, String msg) {
+    public static void barInfo(@Nullable Activity activity, @NonNull String msg) {
         if (activity != null) {
             barInfo(activity.findViewById(android.R.id.content), msg);
         }
@@ -395,7 +474,7 @@ public final class Snack {
      * @param activity activity calling us
      * @param msg message to display
      */
-    public static void barInfoShort(Activity activity, String msg) {
+    public static void barInfoShort(@Nullable Activity activity, @NonNull String msg) {
         if (activity != null) {
             barInfo(activity.findViewById(android.R.id.content), msg, BaseTransientBottomBar.LENGTH_SHORT);
         }
@@ -446,7 +525,7 @@ public final class Snack {
      * @param actionRes action textRes resource for the text of an action
      * @param listener called when action is selected
      */
-    public static void barInfo(Activity activity, String msg, int actionRes, View.OnClickListener listener) {
+    public static void barInfo(@Nullable Activity activity, String msg, int actionRes, @Nullable View.OnClickListener listener) {
         if (activity != null) {
             barInfo(activity.findViewById(android.R.id.content), msg, actionRes, listener);
         }
@@ -460,7 +539,7 @@ public final class Snack {
      * @param actionRes action textRes resource for the text of an action
      * @param listener called when action is selected
      */
-    public static void barInfo(@Nullable View v, @NonNull String msg, int actionRes, View.OnClickListener listener) {
+    public static void barInfo(@Nullable View v, @NonNull String msg, int actionRes, @Nullable View.OnClickListener listener) {
         if (v == null) {
             Log.e(DEBUG_TAG, NULL_VIEW_IN_BAR_INFO);
             return;
@@ -471,8 +550,7 @@ public final class Snack {
             snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_info, R.color.material_teal));
             snackbar.setActionTextColor(ContextCompat.getColor(v.getContext(), R.color.ccc_white));
             snackbar.setAction(actionRes, listener);
-            snackbar.addCallback(callback);
-            enqueueInfo(snackbar);
+            enqueueInfo(new SnackbarWrapper(snackbar));
         } catch (IllegalArgumentException e) {
             Log.e(DEBUG_TAG, LOG_BAR_INFO + e.getMessage());
         }
@@ -484,7 +562,7 @@ public final class Snack {
      * @param activity activity calling us
      * @param res resource id of the message to display
      */
-    public static void barWarning(Activity activity, int res) {
+    public static void barWarning(@Nullable Activity activity, int res) {
         if (activity != null) {
             barWarning(activity.findViewById(android.R.id.content), res, BaseTransientBottomBar.LENGTH_LONG);
         }
@@ -496,7 +574,7 @@ public final class Snack {
      * @param activity activity calling us
      * @param res resource id of the message to display
      */
-    public static void barWarningShort(Activity activity, int res) {
+    public static void barWarningShort(@Nullable Activity activity, int res) {
         if (activity != null) {
             barWarning(activity.findViewById(android.R.id.content), res, BaseTransientBottomBar.LENGTH_SHORT);
         }
@@ -527,7 +605,7 @@ public final class Snack {
      * @param activity activity calling us
      * @param msg the message to display
      */
-    public static void barWarning(Activity activity, @NonNull String msg) {
+    public static void barWarning(@Nullable Activity activity, @NonNull String msg) {
         if (activity != null) {
             barWarning(activity.findViewById(android.R.id.content), msg, BaseTransientBottomBar.LENGTH_LONG);
         }
@@ -561,8 +639,7 @@ public final class Snack {
     private static void barWarning(@NonNull View v, @NonNull Snackbar snackbar) {
         try {
             snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_warning, R.color.material_yellow));
-            snackbar.addCallback(callback);
-            enqueueWarning(snackbar);
+            enqueueWarning(new SnackbarWrapper(snackbar));
         } catch (IllegalArgumentException e) {
             Log.e(DEBUG_TAG, LOG_BAR_WARNING + e.getMessage());
         }
@@ -599,8 +676,7 @@ public final class Snack {
             snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_warning, R.color.material_yellow));
             snackbar.setActionTextColor(ContextCompat.getColor(v.getContext(), R.color.ccc_white));
             snackbar.setAction(actionRes, listener);
-            snackbar.addCallback(callback);
-            enqueueWarning(snackbar);
+            enqueueWarning(new SnackbarWrapper(snackbar));
         } catch (IllegalArgumentException e) {
             Log.e(DEBUG_TAG, LOG_BAR_WARNING + e.getMessage());
         }
@@ -615,7 +691,10 @@ public final class Snack {
      */
     public static void toastTopInfo(@Nullable Context context, @NonNull String msg) {
         if (context != null) {
-            toastTop(context, msg, ThemeUtils.getStyleAttribColorValue(context, R.attr.snack_info, R.color.material_teal), Toast.LENGTH_SHORT);
+            Toast info = toastTop(context, msg, ThemeUtils.getStyleAttribColorValue(context, R.attr.snack_info, R.color.material_teal), Toast.LENGTH_SHORT);
+            if (info != null) {
+                enqueueInfo(new ToastWrapper(info));
+            }
         }
     }
 
@@ -627,7 +706,10 @@ public final class Snack {
      */
     public static void toastTopInfo(@Nullable Context context, int msgRes) {
         if (context != null) {
-            toastTop(context, msgRes, ThemeUtils.getStyleAttribColorValue(context, R.attr.snack_info, R.color.material_teal), Toast.LENGTH_LONG);
+            Toast info = toastTop(context, msgRes, ThemeUtils.getStyleAttribColorValue(context, R.attr.snack_info, R.color.material_teal), Toast.LENGTH_LONG);
+            if (info != null) {
+                enqueueInfo(new ToastWrapper(info));
+            }
         }
     }
 
@@ -639,7 +721,11 @@ public final class Snack {
      */
     public static void toastTopWarning(@Nullable Context context, @NonNull String msg) {
         if (context != null) {
-            toastTop(context, msg, ThemeUtils.getStyleAttribColorValue(context, R.attr.snack_warning, R.color.material_yellow), Toast.LENGTH_LONG);
+            Toast warning = toastTop(context, msg, ThemeUtils.getStyleAttribColorValue(context, R.attr.snack_warning, R.color.material_yellow),
+                    Toast.LENGTH_LONG);
+            if (warning != null) {
+                enqueueWarning(new ToastWrapper(warning));
+            }
         }
     }
 
@@ -651,7 +737,11 @@ public final class Snack {
      */
     public static void toastTopWarning(@Nullable Context context, int msgRes) {
         if (context != null) {
-            toastTop(context, msgRes, ThemeUtils.getStyleAttribColorValue(context, R.attr.snack_warning, R.color.material_yellow), Toast.LENGTH_LONG);
+            Toast warning = toastTop(context, msgRes, ThemeUtils.getStyleAttribColorValue(context, R.attr.snack_warning, R.color.material_yellow),
+                    Toast.LENGTH_LONG);
+            if (warning != null) {
+                enqueueWarning(new ToastWrapper(warning));
+            }
         }
     }
 
@@ -674,10 +764,7 @@ public final class Snack {
      */
     public static void toastTopError(@Nullable Context context, int msgRes, boolean persist) {
         if (context != null) {
-            toastTop(context, msgRes, ThemeUtils.getStyleAttribColorValue(context, R.attr.snack_error, R.color.material_red), Toast.LENGTH_LONG);
-            if (persist) {
-                Notifications.error(context, R.string.error, context.getString(msgRes), App.getRandom().nextInt());
-            }
+            toastTopError(context, context.getString(msgRes), persist);
         }
     }
 
@@ -700,7 +787,10 @@ public final class Snack {
      */
     public static void toastTopError(@Nullable Context context, @NonNull String msg, boolean persist) {
         if (context != null) {
-            toastTop(context, msg, ThemeUtils.getStyleAttribColorValue(context, R.attr.snack_error, R.color.material_red), Toast.LENGTH_LONG);
+            Toast error = toastTop(context, msg, ThemeUtils.getStyleAttribColorValue(context, R.attr.snack_error, R.color.material_red), Toast.LENGTH_LONG);
+            if (error != null) {
+                enqueueError(new ToastWrapper(error));
+            }
             if (persist) {
                 Notifications.error(context, R.string.error, msg, App.getRandom().nextInt());
             }
@@ -715,10 +805,11 @@ public final class Snack {
      * @param color background color of the message
      * @param duration how long to display the message
      */
-    private static void toastTop(@Nullable Context context, int msgRes, int color, int duration) {
+    private static Toast toastTop(@Nullable Context context, int msgRes, int color, int duration) {
         if (context != null) {
-            toastTop(context, context.getResources().getString(msgRes), color, duration);
+            return toastTop(context, context.getResources().getString(msgRes), color, duration);
         }
+        return null;
     }
 
     /**
@@ -729,7 +820,7 @@ public final class Snack {
      * @param color background color of the message
      * @param duration how long to display the message
      */
-    private static void toastTop(@NonNull Context context, @NonNull String msg, int color, int duration) {
+    private static Toast toastTop(@NonNull Context context, @NonNull String msg, int color, int duration) {
         try {
             LayoutInflater inflater = LayoutInflater.from(context);
             View layout = inflater.inflate(R.layout.toast, null);
@@ -742,9 +833,10 @@ public final class Snack {
             toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.TOP, 0, yOffset);
             toast.setDuration(duration);
             toast.setView(layout);
-            toast.show();
+            return toast;
         } catch (Exception e) {
             Log.e(DEBUG_TAG, "toast failed with " + e.getMessage());
         }
+        return null;
     }
 }

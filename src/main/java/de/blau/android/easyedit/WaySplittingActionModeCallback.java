@@ -17,7 +17,7 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Result;
 import de.blau.android.osm.Way;
 import de.blau.android.util.SerializableState;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.Util;
 
 public class WaySplittingActionModeCallback extends NonSimpleActionModeCallback {
@@ -116,7 +116,7 @@ public class WaySplittingActionModeCallback extends NonSimpleActionModeCallback 
     public boolean handleElementLongClick(@NonNull OsmElement element) {
         super.handleElementLongClick(element);
         if (way.isClosed()) {
-            Snack.toastTopWarning(main, R.string.toast_part_selection_not_supported);
+            ScreenMessage.toastTopWarning(main, R.string.toast_part_selection_not_supported);
         } else {
             main.startSupportActionMode(new WaySelectPartActionModeCallback(manager, way, (Node) element));
         }

@@ -30,7 +30,7 @@ import de.blau.android.osm.UndoStorage.UndoElement;
 import de.blau.android.osm.UndoStorage.UndoWay;
 import de.blau.android.osm.Way;
 import de.blau.android.util.SerializableState;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.Sound;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
@@ -169,7 +169,7 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
             try {
                 pathCreateNode(x, y);
             } catch (OsmIllegalOperationException e) {
-                Snack.barError(main, e.getLocalizedMessage());
+                ScreenMessage.barError(main, e.getLocalizedMessage());
             }
         }
         logic.hideCrosshairs();
@@ -247,7 +247,7 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
         try {
             pathCreateNode(x, y);
         } catch (OsmIllegalOperationException e) {
-            Snack.barError(main, e.getLocalizedMessage());
+            ScreenMessage.barError(main, e.getLocalizedMessage());
         }
         return true;
     }

@@ -22,7 +22,7 @@ import de.blau.android.osm.Relation;
 import de.blau.android.osm.Way;
 import de.blau.android.search.Wrapper.SearchResult;
 import de.blau.android.util.ExecutorTask;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 
 /**
  * Ask the user for for a JOSM filter/search expression, select and zoom to any results
@@ -94,7 +94,7 @@ public final class Search {
                                 }
                                 dismiss();
                             } else {
-                                Snack.toastTopWarning(activity, errorMsg);
+                                ScreenMessage.toastTopWarning(activity, errorMsg);
                             }
                         }
                     }.execute();
@@ -110,9 +110,9 @@ public final class Search {
                         logic.pushObjectSearch(text);
                         dismiss();
                     } catch (UnsupportedOperationException | ParseException pex) {
-                        Snack.toastTopWarning(activity, pex.getMessage());
+                        ScreenMessage.toastTopWarning(activity, pex.getMessage());
                     } catch (Error err) { // NOSONAR
-                        Snack.toastTopWarning(activity, err.getMessage());
+                        ScreenMessage.toastTopWarning(activity, err.getMessage());
                     }
                 }, false);
         dialog.show();

@@ -32,7 +32,7 @@ import de.blau.android.util.ActivityResultHandler;
 import de.blau.android.util.ElementSearch;
 import de.blau.android.util.IntCoordinates;
 import de.blau.android.util.SearchIndexUtils;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.Util;
 
 /**
@@ -78,7 +78,7 @@ public final class Commands {
                         int number = Integer.parseInt(first);
                         // worked if there is a further word(s) simply add it/them
                         String additionalText = words.length == 2 ? words[1] : "";
-                        Snack.barInfoShort(activity, +number + additionalText);
+                        ScreenMessage.barInfoShort(activity, +number + additionalText);
                         Node node = logic.performAddNode(activity, lonE7, latE7);
                         if (node != null) {
                             Commands.setAddressTags(activity, logic, number, additionalText, node, text);
@@ -125,7 +125,7 @@ public final class Commands {
             List<String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
             Note n = createNote(matches, lonE7, latE7);
             if (n != null) {
-                Snack.toastTopInfo(activity, n.getDescription());
+                ScreenMessage.toastTopInfo(activity, n.getDescription());
             }
             if (activity instanceof Main) {
                 ((Main) activity).getEasyEditManager().finish();
@@ -181,7 +181,7 @@ public final class Commands {
     public static Node addNode(@NonNull Activity activity, @Nullable Node node, @Nullable String name, @NonNull PresetItem pi, @NonNull Logic logic,
             @NonNull String original) {
         if (node != null) {
-            Snack.toastTopInfo(activity, pi.getName() + (name != null ? " name: " + name : ""));
+            ScreenMessage.toastTopInfo(activity, pi.getName() + (name != null ? " name: " + name : ""));
             try {
                 TreeMap<String, String> tags = new TreeMap<>(node.getTags());
                 for (Entry<String, PresetFixedField> tag : pi.getFixedTags().entrySet()) {
@@ -196,7 +196,7 @@ public final class Commands {
                 return node;
             } catch (OsmIllegalOperationException e) {
                 Log.e(DEBUG_TAG, "addNode got " + e.getMessage());
-                Snack.toastTopError(activity, e.getLocalizedMessage());
+                ScreenMessage.toastTopError(activity, e.getLocalizedMessage());
             }
         }
         return null;
@@ -245,7 +245,7 @@ public final class Commands {
         try {
             activity.startActivityForResult(intent, requestCode);
         } catch (Exception ex) {
-            Snack.barError(activity, R.string.toast_no_voice);
+            ScreenMessage.barError(activity, R.string.toast_no_voice);
             return false;
         }
         return true;

@@ -3,7 +3,7 @@ package de.blau.android;
 import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 
 public class PostFileWriteCallback implements PostAsyncActionHandler {
     private final Context context;
@@ -22,11 +22,11 @@ public class PostFileWriteCallback implements PostAsyncActionHandler {
 
     @Override
     public void onSuccess() {
-        Snack.toastTopInfo(context, context.getString(R.string.toast_successfully_written, fileName));
+        ScreenMessage.toastTopInfo(context, context.getString(R.string.toast_successfully_written, fileName));
     }
 
     @Override
     public void onError(@Nullable AsyncResult result) {
-        Snack.toastTopError(context, context.getString(R.string.toast_error_writing, fileName));
+        ScreenMessage.toastTopError(context, context.getString(R.string.toast_error_writing, fileName));
     }
 }

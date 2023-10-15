@@ -59,7 +59,7 @@ import de.blau.android.osm.Way;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.InfoDialogFragment;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 import de.blau.android.validation.Validator;
@@ -219,7 +219,7 @@ public class ElementInfo extends InfoDialogFragment {
         }
         if (element == null) {
             Log.e(DEBUG_TAG, "element is null");
-            Snack.toastTopError(getContext(), R.string.toast_element_not_found_on_restore);
+            ScreenMessage.toastTopError(getContext(), R.string.toast_element_not_found_on_restore);
             return; // dialog will come up empty
         }
         if (ueIndex >= 0) {
@@ -251,7 +251,7 @@ public class ElementInfo extends InfoDialogFragment {
                         ((Main) activity).zoomToAndEdit((int) (center[0] * 1E7D), (int) (center[1] * 1E7D), element);
                     } else {
                         ((Main) activity).edit(element);
-                        Snack.toastTopWarning(activity, R.string.toast_no_geometry);
+                        ScreenMessage.toastTopWarning(activity, R.string.toast_no_geometry);
                     }
                 });
             }

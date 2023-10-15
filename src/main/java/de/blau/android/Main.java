@@ -184,7 +184,7 @@ import de.blau.android.util.SaveFile;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Screen;
 import de.blau.android.util.SelectFile;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.Sound;
 import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.ThemeUtils;
@@ -1273,7 +1273,7 @@ public class Main extends FullScreenAppCompatActivity
             if (photoLayer != null) {
                 photoLayer.createIndex(new PhotoUriHandler(this, contentUri));
             } else {
-                Snack.toastTopError(this, getString(R.string.toast_error_accessing_photo, contentUri));
+                ScreenMessage.toastTopError(this, getString(R.string.toast_error_accessing_photo, contentUri));
             }
         } else {
             (new PhotoUriHandler(this, contentUri)).onSuccess();
@@ -1294,7 +1294,7 @@ public class Main extends FullScreenAppCompatActivity
             map.setUpLayers(this);
             gpxLayer = (de.blau.android.layer.gpx.MapOverlay) map.getLayer(LayerType.GPX, uri.toString());
             if (gpxLayer == null) { // still null
-                Snack.toastTopError(this, getString(R.string.toast_error_reading, uri.toString()));
+                ScreenMessage.toastTopError(this, getString(R.string.toast_error_reading, uri.toString()));
                 return;
             }
         }
@@ -2078,7 +2078,7 @@ public class Main extends FullScreenAppCompatActivity
                 }
             } catch (Exception ex) {
                 try {
-                    Snack.barError(this, getResources().getString(R.string.toast_camera_error, ex.getMessage()));
+                    ScreenMessage.barError(this, getResources().getString(R.string.toast_camera_error, ex.getMessage()));
                     Log.e(DEBUG_TAG, ex.getMessage());
                 } catch (Exception e) {
                     // protect against translation errors
@@ -2105,7 +2105,7 @@ public class Main extends FullScreenAppCompatActivity
 
                 @Override
                 public void onError(Context context) {
-                    runOnUiThread(() -> Snack.toastTopError(context, R.string.toast_error_saving_bookmark));
+                    runOnUiThread(() -> ScreenMessage.toastTopError(context, R.string.toast_error_saving_bookmark));
                 }
             });
             return true;
@@ -2134,7 +2134,7 @@ public class Main extends FullScreenAppCompatActivity
 
                 @Override
                 public void onError(String message) {
-                    runOnUiThread(() -> Snack.toastTopError(Main.this, message));
+                    runOnUiThread(() -> ScreenMessage.toastTopError(Main.this, message));
                 }
             });
             return true;
@@ -2364,13 +2364,13 @@ public class Main extends FullScreenAppCompatActivity
             if (App.getTaskStorage().hasChanges()) {
                 TransferTasks.upload(this, server, null);
             } else {
-                Snack.barInfo(this, R.string.toast_no_changes);
+                ScreenMessage.barInfo(this, R.string.toast_no_changes);
             }
             return true;
 
         case R.id.menu_transfer_bugs_clear:
             if (App.getTaskStorage().hasChanges()) {
-                Snack.barError(this, R.string.toast_unsaved_changes, R.string.clear_anyway, v -> {
+                ScreenMessage.barError(this, R.string.toast_unsaved_changes, R.string.clear_anyway, v -> {
                     App.getTaskStorage().reset();
                     map.invalidate();
                 });
@@ -2442,7 +2442,7 @@ public class Main extends FullScreenAppCompatActivity
             undoListener.onClick(null);
             return true;
         case R.id.menu_tools_flush_all_tile_caches:
-            Snack.barWarning(this, getString(R.string.toast_flus_all_caches), R.string.Yes, v -> {
+            ScreenMessage.barWarning(this, getString(R.string.toast_flus_all_caches), R.string.Yes, v -> {
                 MapTilesLayer<?> backgroundLayer = map.getBackgroundLayer();
                 if (backgroundLayer != null) {
                     backgroundLayer.flushTileCache(Main.this, null, true);
@@ -2533,7 +2533,7 @@ public class Main extends FullScreenAppCompatActivity
                     prefdb.setAPIAccessToken(null, null);
                 }
             } else {
-                Snack.barError(this, R.string.toast_oauth_not_enabled);
+                ScreenMessage.barError(this, R.string.toast_oauth_not_enabled);
             }
             return true;
         case R.id.menu_tools_oauth_authorisation: // immediately start
@@ -2541,7 +2541,7 @@ public class Main extends FullScreenAppCompatActivity
             if (server.getOAuth()) {
                 Authorize.startForResult(this, null);
             } else {
-                Snack.barError(this, R.string.toast_oauth_not_enabled);
+                ScreenMessage.barError(this, R.string.toast_oauth_not_enabled);
             }
             return true;
         case R.id.menu_tools_set_maproulette_apikey:
@@ -2700,7 +2700,7 @@ public class Main extends FullScreenAppCompatActivity
             }
             showNearestTodo(todos, center[0], center[1]);
         } else {
-            Snack.toastTopInfo(this, R.string.toast_no_open_todos);
+            ScreenMessage.toastTopInfo(this, R.string.toast_no_open_todos);
         }
     }
 
@@ -2713,7 +2713,7 @@ public class Main extends FullScreenAppCompatActivity
      */
     private void showNearestTodo(@NonNull List<Todo> todos, double lon, double lat) {
         if (todos.isEmpty()) {
-            Snack.toastTopError(this, R.string.toast_no_todos_in_list, false);
+            ScreenMessage.toastTopError(this, R.string.toast_no_todos_in_list, false);
             return;
         }
         Task.sortByDistance(todos, lon, lat);
@@ -2729,7 +2729,7 @@ public class Main extends FullScreenAppCompatActivity
      */
     private void fileNotFound(Uri fileUri) {
         try {
-            Snack.toastTopError(this, getResources().getString(R.string.toast_file_not_found, fileUri.toString()));
+            ScreenMessage.toastTopError(this, getResources().getString(R.string.toast_file_not_found, fileUri.toString()));
         } catch (Exception ex) {
             // protect against translation errors
         }
@@ -2820,7 +2820,7 @@ public class Main extends FullScreenAppCompatActivity
                     try (PhotoIndex pi = new PhotoIndex(this)) {
                         if (pi.addPhoto(imageFile) == null) {
                             Log.e(DEBUG_TAG, "No image available");
-                            Snack.toastTopError(this, R.string.toast_photo_failed);
+                            ScreenMessage.toastTopError(this, R.string.toast_photo_failed);
                         }
                     }
                     if (map.getPhotoLayer() != null) {
@@ -2925,7 +2925,7 @@ public class Main extends FullScreenAppCompatActivity
             }
         } catch (Exception e) {
             Log.d(DEBUG_TAG, "Error when checking for GPS, assuming GPS not available", e);
-            Snack.barInfo(this, R.string.gps_failure);
+            ScreenMessage.barInfo(this, R.string.gps_failure);
         }
         return result;
     }
@@ -3155,7 +3155,7 @@ public class Main extends FullScreenAppCompatActivity
                 ReviewAndUpload.showDialog(this, elements);
             }
         } else {
-            Snack.barInfo(this, R.string.toast_no_changes);
+            ScreenMessage.barInfo(this, R.string.toast_no_changes);
         }
     }
 
@@ -3292,7 +3292,7 @@ public class Main extends FullScreenAppCompatActivity
         simpleActionsButton.setOnClickListener(v -> {
             Logic logic = App.getLogic();
             if (!logic.isInEditZoomRange()) {
-                Snack.barInfoShort(Main.this, R.string.toast_not_in_edit_range);
+                ScreenMessage.toastTopInfo(Main.this, R.string.toast_not_in_edit_range);
             } else {
                 PopupMenu popup = SimpleActionModeCallback.getMenu(Main.this, simpleActionsButton);
                 popup.show();
@@ -3398,7 +3398,7 @@ public class Main extends FullScreenAppCompatActivity
         if (prefs.useBackForUndo()) {
             String name = App.getLogic().undo();
             if (name != null) {
-                Snack.barInfo(this, getResources().getString(R.string.undo) + ": " + name);
+                ScreenMessage.barInfo(this, getResources().getString(R.string.undo) + ": " + name);
             } else {
                 exit();
             }
@@ -3485,9 +3485,9 @@ public class Main extends FullScreenAppCompatActivity
         void undo(@NonNull final Logic logic) {
             String name = logic.undo();
             if (name != null) {
-                Snack.toastTopInfo(Main.this, getResources().getString(R.string.undo) + ": " + name);
+                ScreenMessage.toastTopInfo(Main.this, getResources().getString(R.string.undo) + ": " + name);
             } else {
-                Snack.toastTopInfo(Main.this, R.string.undo_nothing);
+                ScreenMessage.toastTopInfo(Main.this, R.string.undo_nothing);
             }
             resync(logic);
             map.invalidate();
@@ -3504,7 +3504,7 @@ public class Main extends FullScreenAppCompatActivity
             if (undo.canUndo() || undo.canRedo()) {
                 UndoDialog.showDialog(Main.this);
             } else {
-                Snack.barInfoShort(Main.this, R.string.undo_nothing);
+                ScreenMessage.toastTopInfo(Main.this, R.string.undo_nothing);
             }
             map.invalidate();
             return true;
@@ -3573,7 +3573,7 @@ public class Main extends FullScreenAppCompatActivity
 
             if (isInEditZoomRange) {
                 if (logic.isLocked()) {
-                    Snack.barInfoShort(Main.this, R.string.toast_unlock_to_edit);
+                    ScreenMessage.toastTopInfo(Main.this, R.string.toast_unlock_to_edit);
                     Tip.showOptionalDialog(Main.this, R.string.tip_locked_mode_key, R.string.tip_locked_mode);
                 } else {
                     if (mode.elementsEditable()) {
@@ -3585,7 +3585,7 @@ public class Main extends FullScreenAppCompatActivity
                 switch (clickedObjects.size()) {
                 case 0:
                     if (!logic.isLocked()) {
-                        Snack.barInfoShort(v, R.string.toast_not_in_edit_range);
+                        ScreenMessage.toastTopInfo(Main.this, R.string.toast_not_in_edit_range);
                     }
                     break;
                 case 1:
@@ -3628,7 +3628,7 @@ public class Main extends FullScreenAppCompatActivity
                 return true;
             }
             if (!logic.isInEditZoomRange()) {
-                Snack.barWarningShort(Main.this, R.string.toast_not_in_edit_range);
+                ScreenMessage.barWarningShort(Main.this, R.string.toast_not_in_edit_range);
                 return false;
             }
             if (prefs.areSimpleActionsEnabled()) {
@@ -3676,7 +3676,7 @@ public class Main extends FullScreenAppCompatActivity
             try {
                 App.getLogic().handleTouchEventMove(Main.this, x, y, -dx, dy);
             } catch (OsmIllegalOperationException ex) {
-                Snack.barError(Main.this, ex.getMessage());
+                ScreenMessage.barError(Main.this, ex.getMessage());
             }
             setFollowGPS(false);
         }
@@ -3901,7 +3901,7 @@ public class Main extends FullScreenAppCompatActivity
         public void onDoubleTap(View v, float x, float y) {
             final Logic logic = App.getLogic();
             if (logic.isLocked()) {
-                Snack.toastTopInfo(Main.this, R.string.toast_unlock_to_edit);
+                ScreenMessage.toastTopInfo(Main.this, R.string.toast_unlock_to_edit);
                 return;
             }
             if (logic.getMode().elementsGeomEditiable()) {
@@ -3924,7 +3924,7 @@ public class Main extends FullScreenAppCompatActivity
                         getEasyEditManager().startExtendedSelection(clickedNodesAndWays.get(0));
                     }
                 } else {
-                    Snack.toastTopInfo(Main.this, R.string.toast_already_in_multiselect);
+                    ScreenMessage.toastTopInfo(Main.this, R.string.toast_already_in_multiselect);
                 }
             }
         }

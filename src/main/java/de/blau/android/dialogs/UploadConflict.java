@@ -22,7 +22,7 @@ import de.blau.android.UploadResult;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.ImmersiveDialogFragment;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
 
 /**
@@ -165,7 +165,7 @@ public class UploadConflict extends ImmersiveDialogFragment {
 
                     @Override
                     public void onError(@Nullable AsyncResult result) {
-                        Snack.toastTopError(activity, activity.getString(R.string.toast_download_server_version_failed, elementLocal.getDescription()));
+                        ScreenMessage.toastTopError(activity, activity.getString(R.string.toast_download_server_version_failed, elementLocal.getDescription()));
                     }
                 };
                 if (elementOnServer != null) {

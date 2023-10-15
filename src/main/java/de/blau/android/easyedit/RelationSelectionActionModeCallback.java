@@ -16,7 +16,7 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.ViewBox;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
@@ -108,7 +108,7 @@ public class RelationSelectionActionModeCallback extends ElementSelectionActionM
                     deselect = false;
                     main.startSupportActionMode(new ExtendSelectionActionModeCallback(manager, selection));
                     if (members != null && members.size() != selection.size()) {
-                        Snack.toastTopWarning(main, R.string.toast_members_not_downloaded);
+                        ScreenMessage.toastTopWarning(main, R.string.toast_members_not_downloaded);
                     }
                 }
                 break;

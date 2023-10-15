@@ -31,7 +31,7 @@ import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.util.SerializableState;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
@@ -307,10 +307,10 @@ public class RouteSegmentActionModeCallback extends BuilderActionModeCallback {
             Set<Way> fromElements = new HashSet<>();
             fromElements.add(currentSegment);
             fromElements.add(newCurrentSegment);
-            Snack.barInfo(main, newNextSegment == null ? R.string.toast_split_first_segment : R.string.toast_split_first_and_next_segment);
+            ScreenMessage.barInfo(main, newNextSegment == null ? R.string.toast_split_first_segment : R.string.toast_split_first_and_next_segment);
             main.startSupportActionMode(new RestartRouteSegmentActionModeCallback(manager, fromElements, route, savedResults));
         } else {
-            Snack.barInfo(main, R.string.toast_split_next_segment);
+            ScreenMessage.barInfo(main, R.string.toast_split_next_segment);
             logic.setClickableElements(findViaElements(currentSegment, false));
         }
     }

@@ -22,7 +22,7 @@ import de.blau.android.osm.Result;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.tasks.NoteFragment;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 import de.blau.android.voice.Commands;
@@ -168,7 +168,7 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
      * @param e the Exception
      */
     private void finishOnException(@NonNull Exception e) {
-        Snack.barError(main, e.getLocalizedMessage());
+        ScreenMessage.barError(main, e.getLocalizedMessage());
         Log.d(DEBUG_TAG, "Caught exception " + e);
         manager.finish();
     }
@@ -181,7 +181,7 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
             mode.finish();
             de.blau.android.layer.tasks.MapOverlay layer = main.getMap().getTaskLayer();
             if (layer == null) {
-                Snack.toastTopError(main, R.string.toast_task_layer_disabled);
+                ScreenMessage.toastTopError(main, R.string.toast_task_layer_disabled);
             } else {
                 NoteFragment.showDialog(main, logic.makeNewNote(x, y));
                 logic.hideCrosshairs();
@@ -223,7 +223,7 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
                 logic.setSelectedNode(null);
                 logic.performAdd(main, x, y);
             } catch (OsmIllegalOperationException e1) {
-                Snack.barError(main, e1.getLocalizedMessage());
+                ScreenMessage.barError(main, e1.getLocalizedMessage());
                 Log.d(DEBUG_TAG, "Caught exception " + e1);
             }
             Node lastSelectedNode = logic.getSelectedNode();

@@ -19,6 +19,8 @@ import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
 import de.blau.android.Main;
 import de.blau.android.TestUtils;
+import de.blau.android.util.ScreenMessage.MessageControl;
+import de.blau.android.util.ScreenMessage.SnackbarWrapper;
 
 /**
  *
@@ -27,7 +29,7 @@ import de.blau.android.TestUtils;
  */
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class SnackbarTest {
+public class ScreenMessageTest {
 
     Main main = null;
     View v    = null;
@@ -53,27 +55,27 @@ public class SnackbarTest {
     @Test
     public void queue() {
 
-        Snackbar s1 = Snackbar.make(v, "Test1", Snackbar.LENGTH_LONG);
-        Snackbar s2 = Snackbar.make(v, "Test2", Snackbar.LENGTH_LONG);
-        Snackbar s3 = Snackbar.make(v, "Test3", Snackbar.LENGTH_LONG);
-        Snackbar s4 = Snackbar.make(v, "Test4", Snackbar.LENGTH_LONG);
+        MessageControl s1 = new SnackbarWrapper(Snackbar.make(v, "Test1", Snackbar.LENGTH_LONG));
+        MessageControl s2 = new SnackbarWrapper(Snackbar.make(v, "Test2", Snackbar.LENGTH_LONG));
+        MessageControl s3 = new SnackbarWrapper(Snackbar.make(v, "Test3", Snackbar.LENGTH_LONG));
+        MessageControl s4 = new SnackbarWrapper(Snackbar.make(v, "Test4", Snackbar.LENGTH_LONG));
 
-        Snack.enqueue(Snack.infoQueue, s1);
-        Snack.enqueue(Snack.infoQueue, s2);
-        Snack.enqueue(Snack.infoQueue, s3);
+        ScreenMessage.enqueue(ScreenMessage.infoQueue, s1);
+        ScreenMessage.enqueue(ScreenMessage.infoQueue, s2);
+        ScreenMessage.enqueue(ScreenMessage.infoQueue, s3);
 
-        Assert.assertTrue(Snack.infoQueue.contains(s1));
-        Assert.assertTrue(Snack.infoQueue.contains(s2));
-        Assert.assertTrue(Snack.infoQueue.contains(s3));
+        Assert.assertTrue(ScreenMessage.infoQueue.contains(s1));
+        Assert.assertTrue(ScreenMessage.infoQueue.contains(s2));
+        Assert.assertTrue(ScreenMessage.infoQueue.contains(s3));
 
         // just to be sure that our assumptions are true
-        Assert.assertEquals(3, Snack.QUEUE_CAPACITY); // NOSONAR
-        Snack.enqueue(Snack.infoQueue, s4);
+        Assert.assertEquals(3, ScreenMessage.QUEUE_CAPACITY); // NOSONAR
+        ScreenMessage.enqueue(ScreenMessage.infoQueue, s4);
 
-        Assert.assertFalse(Snack.infoQueue.contains(s1));
-        Assert.assertTrue(Snack.infoQueue.contains(s2));
-        Assert.assertTrue(Snack.infoQueue.contains(s3));
-        Assert.assertTrue(Snack.infoQueue.contains(s4));
+        Assert.assertFalse(ScreenMessage.infoQueue.contains(s1));
+        Assert.assertTrue(ScreenMessage.infoQueue.contains(s2));
+        Assert.assertTrue(ScreenMessage.infoQueue.contains(s3));
+        Assert.assertTrue(ScreenMessage.infoQueue.contains(s4));
     }
 
     /**
@@ -81,11 +83,13 @@ public class SnackbarTest {
      */
     @Test
     public void infoQueue() {
-        Snackbar s = Snackbar.make(v, "Test", Snackbar.LENGTH_LONG);
+        final Snackbar s = Snackbar.make(v, "Test", Snackbar.LENGTH_LONG);
+        MessageControl message = new SnackbarWrapper(s);
         final CountDownLatch signal = new CountDownLatch(1);
         s.addCallback(new Snackbar.Callback() {
             @Override
             public void onDismissed(Snackbar s, int event) {
+                // empty
             }
 
             @Override
@@ -93,7 +97,7 @@ public class SnackbarTest {
                 signal.countDown();
             }
         });
-        Snack.enqueueInfo(s);
+        ScreenMessage.enqueueInfo(message);
         try {
             signal.await(10, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
@@ -107,10 +111,12 @@ public class SnackbarTest {
     @Test
     public void warningQueue() {
         Snackbar s = Snackbar.make(v, "Test", Snackbar.LENGTH_LONG);
+        MessageControl message = new SnackbarWrapper(s);
         final CountDownLatch signal = new CountDownLatch(1);
         s.addCallback(new Snackbar.Callback() {
             @Override
             public void onDismissed(Snackbar s, int event) {
+                // empty
             }
 
             @Override
@@ -118,7 +124,7 @@ public class SnackbarTest {
                 signal.countDown();
             }
         });
-        Snack.enqueueInfo(s);
+        ScreenMessage.enqueueInfo(message);
         try {
             signal.await(10, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
@@ -132,10 +138,12 @@ public class SnackbarTest {
     @Test
     public void errorQueue() {
         Snackbar s = Snackbar.make(v, "Test", Snackbar.LENGTH_LONG);
+        MessageControl message = new SnackbarWrapper(s);
         final CountDownLatch signal = new CountDownLatch(1);
         s.addCallback(new Snackbar.Callback() {
             @Override
             public void onDismissed(Snackbar s, int event) {
+                // empty
             }
 
             @Override
@@ -143,7 +151,7 @@ public class SnackbarTest {
                 signal.countDown();
             }
         });
-        Snack.enqueueInfo(s);
+        ScreenMessage.enqueueInfo(message);
         try {
             signal.await(10, TimeUnit.SECONDS);
         } catch (InterruptedException e) {

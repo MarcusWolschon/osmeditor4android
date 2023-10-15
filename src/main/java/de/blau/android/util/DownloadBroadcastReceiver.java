@@ -50,7 +50,7 @@ public class DownloadBroadcastReceiver extends BroadcastReceiver {
                 }
             } catch (Exception  ex) { // NOSONAR catch all errors here, see
                 Log.e(DEBUG_TAG, ex.getMessage());
-                Snack.toastTopError(ctxt, ex.getMessage());
+                ScreenMessage.toastTopError(ctxt, ex.getMessage());
             }
         }
     }
@@ -95,7 +95,7 @@ public class DownloadBroadcastReceiver extends BroadcastReceiver {
             return;
         }
         (new Preferences(ctxt)).setEgmFile(Uri.parse(targetFile.toURI().toString()));
-        Snack.toastTopInfo(ctxt, R.string.toast_egm_installed);
+        ScreenMessage.toastTopInfo(ctxt, R.string.toast_egm_installed);
         if (ctxt instanceof Main) {
             ((Main) ctxt).invalidateOptionsMenu();
         }
@@ -113,9 +113,9 @@ public class DownloadBroadcastReceiver extends BroadcastReceiver {
             if (db.getReadOnlyApiId(filename) == null) {
                 API current = db.getCurrentAPI();
                 db.addAPI(java.util.UUID.randomUUID().toString(), filename, current.url, uri.toString(), current.notesurl, "", "", current.oauth);
-                Snack.toastTopInfo(ctxt, ctxt.getString(R.string.toast_added_api_entry_for, filename));
+                ScreenMessage.toastTopInfo(ctxt, ctxt.getString(R.string.toast_added_api_entry_for, filename));
             } else {
-                Snack.toastTopInfo(ctxt, ctxt.getString(R.string.toast_updated, filename));
+                ScreenMessage.toastTopInfo(ctxt, ctxt.getString(R.string.toast_updated, filename));
             }
         }
     }

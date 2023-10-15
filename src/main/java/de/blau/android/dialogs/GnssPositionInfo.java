@@ -34,7 +34,7 @@ import de.blau.android.services.TrackerService;
 import de.blau.android.services.util.ExtendedLocation;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.InfoDialogFragment;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
@@ -104,7 +104,7 @@ public class GnssPositionInfo extends InfoDialogFragment {
         if (location != null) {
             GnssPositionInfo.showDialog(activity, location);
         } else {
-            Snack.toastTopError(activity, R.string.toast_no_usable_location);
+            ScreenMessage.toastTopError(activity, R.string.toast_no_usable_location);
         }
     }
 
@@ -172,7 +172,7 @@ public class GnssPositionInfo extends InfoDialogFragment {
                         if (GeoMath.coordinatesInCompatibleRange(lon, lat)) {
                             addNodeAtLocation(lon, lat);
                         } else {
-                            Snack.barError(getActivity(), R.string.toast_null_island);
+                            ScreenMessage.barError(getActivity(), R.string.toast_null_island);
                         }
                     }
                 });
@@ -229,7 +229,7 @@ public class GnssPositionInfo extends InfoDialogFragment {
                 ((Main) getActivity()).edit(node);
             }
         } catch (OsmIllegalOperationException e) {
-            Snack.barError(getActivity(), e.getLocalizedMessage());
+            ScreenMessage.barError(getActivity(), e.getLocalizedMessage());
             Log.d(DEBUG_TAG, "Caught exception " + e);
         }
     }

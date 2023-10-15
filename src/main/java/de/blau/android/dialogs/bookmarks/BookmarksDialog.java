@@ -19,7 +19,7 @@ import de.blau.android.R;
 import de.blau.android.bookmarks.Bookmark;
 import de.blau.android.bookmarks.BookmarkStorage;
 import de.blau.android.layer.bookmarks.MapOverlay;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
 
 /**
@@ -131,7 +131,7 @@ public class BookmarksDialog implements BookmarkListAdapter.Listeners {
             @Override
             public void onError(Context context) {
                 if (context instanceof Activity) {
-                    ((Activity) context).runOnUiThread(() -> Snack.toastTopError(context, R.string.toast_error_saving_bookmark));
+                    ((Activity) context).runOnUiThread(() -> ScreenMessage.toastTopError(context, R.string.toast_error_saving_bookmark));
                 }
             }
         });

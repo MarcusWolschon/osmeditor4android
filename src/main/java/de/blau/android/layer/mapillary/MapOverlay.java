@@ -45,7 +45,7 @@ import de.blau.android.util.DateFormatter;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.GeoJSONConstants;
 import de.blau.android.util.SavingHelper;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.mvt.VectorTileDecoder;
 import de.blau.android.util.mvt.VectorTileRenderer;
 import de.blau.android.util.mvt.style.Layer;
@@ -135,7 +135,7 @@ public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay {
         try (KeyDatabaseHelper keys = new KeyDatabaseHelper(context); SQLiteDatabase db = keys.getReadableDatabase()) {
             apiKey = KeyDatabaseHelper.getKey(db, APIKEY_KEY, EntryType.API_KEY);
             if (apiKey == null) {
-                Snack.toastTopError(context, context.getString(R.string.toast_api_key_missing, APIKEY_KEY));
+                ScreenMessage.toastTopError(context, context.getString(R.string.toast_api_key_missing, APIKEY_KEY));
             }
         }
         setPrefs(map.getPrefs());

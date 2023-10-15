@@ -58,7 +58,7 @@ import de.blau.android.tasks.TaskStorage;
 import de.blau.android.tasks.TransferTasks;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Notifications;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.egm96.EGM96;
 import de.blau.android.validation.Validator;
 
@@ -188,7 +188,7 @@ public class TrackerService extends Service {
             } catch (IOException ioex) {
                 String egmError = getString(R.string.toast_error_loading_egm, ioex.getMessage());
                 Log.e(DEBUG_TAG, egmError);
-                Snack.toastTopError(this, egmError);
+                ScreenMessage.toastTopError(this, egmError);
             }
         }
     }
@@ -320,7 +320,7 @@ public class TrackerService extends Service {
                     }
                 }
             }
-            Snack.toastTopInfo(this, "New height " + pressureListener.barometricHeight + "m\nCurrent pressure " + pressureListener.millibarsOfPressure
+            ScreenMessage.toastTopInfo(this, "New height " + pressureListener.barometricHeight + "m\nCurrent pressure " + pressureListener.millibarsOfPressure
                     + " hPa\nReference pressure " + pressureListener.pressureAtSeaLevel + " hPa");
         } else {
             Log.e(DEBUG_TAG, "Calibration attemped but no pressure listener");
@@ -420,7 +420,7 @@ public class TrackerService extends Service {
             return true; // already running
         }
         if (!Notifications.channelEnabled(this, Notifications.DEFAULT_CHANNEL)) {
-            Snack.toastTopError(TrackerService.this, R.string.toast_default_channel_needs_to_be_enabled);
+            ScreenMessage.toastTopError(TrackerService.this, R.string.toast_default_channel_needs_to_be_enabled);
             return false;
         }
         NotificationCompat.Builder notificationBuilder = Notifications.builder(this);
@@ -600,7 +600,7 @@ public class TrackerService extends Service {
                     track.addTrackPoint(location);
                 }
                 if (lastLocation != null && LocationManager.NETWORK_PROVIDER.equals(lastLocation.getProvider())) {
-                    Snack.toastTopInfo(TrackerService.this, R.string.toast_using_gps_location);
+                    ScreenMessage.toastTopInfo(TrackerService.this, R.string.toast_using_gps_location);
                 }
             }
             updateLocation(location);
@@ -620,7 +620,7 @@ public class TrackerService extends Service {
         @Override
         public void onProviderDisabled(String provider) {
             if (tracking) {
-                Snack.toastTopInfo(TrackerService.this, R.string.toast_using_gps_disabled_tracking_stopped);
+                ScreenMessage.toastTopInfo(TrackerService.this, R.string.toast_using_gps_disabled_tracking_stopped);
             }
         }
     };
@@ -646,7 +646,7 @@ public class TrackerService extends Service {
                                     // but likely still OK
                         }
                     }
-                    Snack.toastTopInfo(TrackerService.this, R.string.toast_using_network_location);
+                    ScreenMessage.toastTopInfo(TrackerService.this, R.string.toast_using_network_location);
                 }
             }
             updateLocation(location);
@@ -704,13 +704,13 @@ public class TrackerService extends Service {
                 gpsListener.onLocationChanged(l);
                 break;
             case CONNECTION_FAILED:
-                Snack.toastTopError(TrackerService.this, (String) inputMessage.obj);
+                ScreenMessage.toastTopError(TrackerService.this, (String) inputMessage.obj);
                 break;
             case CONNECTION_MESSAGE:
-                Snack.toastTopInfo(TrackerService.this, getString(R.string.toast_remote_nmea_connection, (String) inputMessage.obj));
+                ScreenMessage.toastTopInfo(TrackerService.this, getString(R.string.toast_remote_nmea_connection, (String) inputMessage.obj));
                 break;
             case CONNECTION_CLOSED:
-                Snack.toastTopInfo(TrackerService.this, R.string.toast_remote_nmea_connection_closed);
+                ScreenMessage.toastTopInfo(TrackerService.this, R.string.toast_remote_nmea_connection_closed);
                 break;
             default:
                 // ignore
@@ -789,7 +789,7 @@ public class TrackerService extends Service {
                 gpsEnabled = true;
             } catch (RuntimeException rex) {
                 Log.e(DEBUG_TAG, "Failed to enable location service", rex);
-                Snack.toastTopError(this, R.string.gps_failure);
+                ScreenMessage.toastTopError(this, R.string.gps_failure);
             }
         } else if (!needed && gpsEnabled) {
             Log.d(DEBUG_TAG, "Disabling GPS updates");

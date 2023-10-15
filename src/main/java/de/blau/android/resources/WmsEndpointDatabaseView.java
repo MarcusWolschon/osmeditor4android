@@ -41,7 +41,7 @@ import de.blau.android.resources.TileLayerDialog.OnUpdateListener;
 import de.blau.android.resources.WmsCapabilities.Layer;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.ImmersiveDialogFragment;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.Util;
 import de.blau.android.util.WidestItemArrayAdapter;
 
@@ -193,14 +193,14 @@ public class WmsEndpointDatabaseView extends ImmersiveDialogFragment implements 
                     protected void onBackgroundError(Exception e) {
                         Progress.dismissDialog(activity, Progress.PROGRESS_DOWNLOAD);
                         Log.e(DEBUG_TAG, e.getMessage());
-                        Snack.toastTopError(context, activity.getString(R.string.toast_querying_wms_server_failed, e.getMessage()));
+                        ScreenMessage.toastTopError(context, activity.getString(R.string.toast_querying_wms_server_failed, e.getMessage()));
                     }
 
                     @Override
                     protected void onPostExecute(WmsCapabilities result) {
                         Progress.dismissDialog(activity, Progress.PROGRESS_DOWNLOAD);
                         if (result.layers.isEmpty()) {
-                            Snack.toastTopError(activity, R.string.toast_nothing_found);
+                            ScreenMessage.toastTopError(activity, R.string.toast_nothing_found);
                             return;
                         }
                         Builder builder = new AlertDialog.Builder(activity);

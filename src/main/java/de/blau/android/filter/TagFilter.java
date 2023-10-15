@@ -26,7 +26,7 @@ import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 
 /**
  * Filter plus UI for filtering on tags NOTE: the relevant ways should be processed before nodes
@@ -156,7 +156,7 @@ public class TagFilter extends CommonFilter {
                 } catch (PatternSyntaxException psex) {
                     Log.e(DEBUG_TAG, "exception getting FilterEntry " + psex.getMessage());
                     if (context instanceof Activity) {
-                        Snack.barError((Activity) context,
+                        ScreenMessage.barError((Activity) context,
                                 context.getString(R.string.toast_invalid_filter_regexp, dbresult.getString(2), dbresult.getString(3)));
                     }
                 }

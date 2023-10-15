@@ -62,7 +62,7 @@ import de.blau.android.tasks.BugFragment;
 import de.blau.android.tasks.TaskStorage;
 import de.blau.android.tasks.Todo;
 import de.blau.android.tasks.TodoFragment;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
@@ -380,7 +380,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
                 intent.putExtra(TrackerService.CALIBRATE_HEIGHT_KEY, Integer.parseInt(element.getTagWithKey(Tags.KEY_ELE)));
                 main.startService(intent);
             } catch (NumberFormatException nfex) {
-                Snack.toastTopError(main, main.getString(R.string.toast_invalid_number_format, nfex.getMessage()));
+                ScreenMessage.toastTopError(main, main.getString(R.string.toast_invalid_number_format, nfex.getMessage()));
             }
             break;
         case MENUITEM_JS_CONSOLE:
@@ -403,7 +403,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
             break;
         case MENUITEM_TASK_CLOSE_ALL:
             taskStorage.closeTasksForElement(element);
-            Snack.toastTopInfo(main, R.string.toast_todo_all_closed);
+            ScreenMessage.toastTopInfo(main, R.string.toast_todo_all_closed);
             main.invalidateMap();
             manager.invalidate();
             break;
@@ -506,7 +506,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
                 final String comment = todoComment.getText().toString();
                 for (OsmElement e : elements) {
                     if (storage.contains(e, name)) {
-                        Snack.toastTopWarning(activity, R.string.toast_todo_already_in_list);
+                        ScreenMessage.toastTopWarning(activity, R.string.toast_todo_already_in_list);
                         return;
                     }
                 }
@@ -657,7 +657,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
         }
         int added = elements.size() - originalSize;
         if (added > 0) {
-            Snack.toastTopWarning(context, context.getResources().getQuantityString(R.plurals.added_required_elements, added, added));
+            ScreenMessage.toastTopWarning(context, context.getResources().getQuantityString(R.plurals.added_required_elements, added, added));
         }
         return elements;
     }

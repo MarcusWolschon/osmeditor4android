@@ -22,7 +22,7 @@ import de.blau.android.presets.PresetElementPath;
 import de.blau.android.presets.PresetGroup;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.util.ConfigurationChangeAwareActivity;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 
 /**
  * Activity for editing filter entries. Due to the difficulties in using a ListView for editable items, this is a rather
@@ -66,7 +66,7 @@ public class PresetFilterActivity extends ConfigurationChangeAwareActivity imple
             // IGNORE
         }
         if (filter == null) {
-            Snack.barError(this, "illegal state " + filter);
+            ScreenMessage.barError(this, "illegal state " + filter);
             finish();
         }
 

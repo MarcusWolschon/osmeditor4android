@@ -19,7 +19,7 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Result;
 import de.blau.android.osm.Way;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 
 public class FromElementActionModeCallback extends NonSimpleActionModeCallback {
     private static final String   DEBUG_TAG   = "FromElement...";
@@ -157,11 +157,11 @@ public class FromElementActionModeCallback extends NonSimpleActionModeCallback {
             Set<OsmElement> fromElements = new HashSet<>();
             fromElements.add(fromWay);
             fromElements.add(newFromWay);
-            Snack.barInfo(main, newViaWay == null ? R.string.toast_split_from : R.string.toast_split_from_and_via);
+            ScreenMessage.barInfo(main, newViaWay == null ? R.string.toast_split_from : R.string.toast_split_from_and_via);
             main.startSupportActionMode(new RestartFromElementActionModeCallback(manager, fromElements, newViaElements, savedResults));
         } else if (newViaWay != null) {
             // restart via selection
-            Snack.barInfo(main, R.string.toast_split_via);
+            ScreenMessage.barInfo(main, R.string.toast_split_via);
             main.startSupportActionMode(
                     new FromElementActionModeCallback(manager, R.string.actionmode_restriction_restart_via, fromWay, newViaElements, savedResults));
         } else {

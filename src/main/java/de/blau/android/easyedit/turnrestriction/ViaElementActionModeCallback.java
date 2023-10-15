@@ -19,7 +19,7 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Result;
 import de.blau.android.osm.Way;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.Util;
 
 public class ViaElementActionModeCallback extends NonSimpleActionModeCallback {
@@ -103,7 +103,7 @@ public class ViaElementActionModeCallback extends NonSimpleActionModeCallback {
                         Way newViaWay = newWayFromSplitResult(result);
                         if (newViaWay != null) {
                             checkSplitResult(viaWay, result);
-                            Snack.barInfo(main, R.string.toast_split_via);
+                            ScreenMessage.barInfo(main, R.string.toast_split_via);
                             if (fromWay.hasNode(newViaWay.getFirstNode()) || fromWay.hasNode(newViaWay.getLastNode())) {
                                 viaElement = newViaWay;
                             }
@@ -143,7 +143,7 @@ public class ViaElementActionModeCallback extends NonSimpleActionModeCallback {
                     List<Result> result = logic.performSplit(main, toWay, viaNode, true);
                     Way newToWay = newWayFromSplitResult(result);
                     saveSplitResult(toWay, result);
-                    Snack.barInfo(main, R.string.toast_split_to);
+                    ScreenMessage.barInfo(main, R.string.toast_split_to);
                     Set<OsmElement> toCandidates = new HashSet<>();
                     toCandidates.add(toWay);
                     toCandidates.add(newToWay);

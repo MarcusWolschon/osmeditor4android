@@ -16,7 +16,7 @@ import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerSource;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.GeoMath;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 
 public final class ImageryOffsetUtils {
     private static final String DEBUG_TAG = "OffsetUtils";
@@ -77,7 +77,7 @@ public final class ImageryOffsetUtils {
                 }
             }
             if (bbox != null && appliedOffset && Looper.myLooper() != null) {
-                Snack.toastTopInfo(ctx, R.string.toast_applied_offset);
+                ScreenMessage.toastTopInfo(ctx, R.string.toast_applied_offset);
             }
         }
     }

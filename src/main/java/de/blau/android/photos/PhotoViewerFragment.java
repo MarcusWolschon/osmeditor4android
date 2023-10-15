@@ -38,7 +38,7 @@ import de.blau.android.util.ImageLoader;
 import de.blau.android.util.ImagePagerAdapter;
 import de.blau.android.util.OnPageSelectedListener;
 import de.blau.android.util.SizedDynamicImmersiveDialogFragment;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
@@ -174,7 +174,7 @@ public class PhotoViewerFragment extends SizedDynamicImmersiveDialogFragment imp
                     getContext().startActivity(intent);
                 }
             } catch (NumberFormatException | IOException | IndexOutOfBoundsException e) {
-                Snack.toastTopError(context, context.getString(R.string.toast_error_accessing_photo, Integer.toString(index)));
+                ScreenMessage.toastTopError(context, context.getString(R.string.toast_error_accessing_photo, Integer.toString(index)));
             }
         }
 
@@ -220,7 +220,7 @@ public class PhotoViewerFragment extends SizedDynamicImmersiveDialogFragment imp
         // sanity check
         if (photoList == null || photoList.isEmpty() || (startPos + 1) > photoList.size()) {
             Log.e(DEBUG_TAG, "List empty or start position out of bounds");
-            Snack.toastTopError(activity, R.string.toast_no_photo_found);
+            ScreenMessage.toastTopError(activity, R.string.toast_no_photo_found);
             return layout;
         }
         photoPagerAdapter = new PhotoPagerAdapter(activity, photoLoader, photoList);
@@ -377,7 +377,7 @@ public class PhotoViewerFragment extends SizedDynamicImmersiveDialogFragment imp
                                         }
                                     } catch (java.lang.SecurityException sex) {
                                         Log.e(DEBUG_TAG, "Error deleting: " + sex.getMessage() + " " + sex.getClass().getName());
-                                        Snack.toastTopError(getContext(), getString(R.string.toast_permission_denied, sex.getMessage()));
+                                        ScreenMessage.toastTopError(getContext(), getString(R.string.toast_permission_denied, sex.getMessage()));
                                     }
                                 }
                             }).setNeutralButton(R.string.cancel, null).show();

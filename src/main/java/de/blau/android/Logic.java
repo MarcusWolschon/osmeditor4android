@@ -112,7 +112,7 @@ import de.blau.android.util.FileUtil;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Geometry;
 import de.blau.android.util.SavingHelper;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.Util;
 import de.blau.android.util.collections.MRUList;
 import de.blau.android.util.collections.MultiHashMap;
@@ -1449,7 +1449,7 @@ public class Logic {
                             getDelegator().moveNode(handleNode, lat, lon);
                         }
                     } catch (OsmIllegalOperationException e) {
-                        Snack.barError(main, e.getMessage());
+                        ScreenMessage.barError(main, e.getMessage());
                         return;
                     }
                 } else {
@@ -1473,11 +1473,11 @@ public class Logic {
                                 try {
                                     App.getTaskStorage().move(selectedTask, lat, lon);
                                 } catch (IllegalOperationException e) {
-                                    Snack.barError(main, e.getMessage());
+                                    ScreenMessage.barError(main, e.getMessage());
                                     return;
                                 }
                             } else {
-                                Snack.barWarning(main, R.string.toast_move_note_warning);
+                                ScreenMessage.barWarning(main, R.string.toast_move_note_warning);
                             }
                         }
                     }
@@ -1498,7 +1498,7 @@ public class Logic {
                 getDelegator().moveNodes(nodes, lat - startLat, lon - startLon);
 
                 if (nodes.size() > MAX_NODES_FOR_MOVE && selectedWayCount == 1 && selectedNodeCount == 0) {
-                    Snack.toastTopWarning(main, main.getString(R.string.toast_way_nodes_moved, nodes.size()));
+                    ScreenMessage.toastTopWarning(main, main.getString(R.string.toast_way_nodes_moved, nodes.size()));
                 }
                 // update
                 startLat = lat;
@@ -1726,7 +1726,7 @@ public class Logic {
         if (!getDelegator().isInDownload(lonE7, latE7)) {
             Log.d(DEBUG_TAG, "Outside of download");
             if (activity != null) {
-                Snack.toastTopWarning(activity, R.string.toast_outside_of_download);
+                ScreenMessage.toastTopWarning(activity, R.string.toast_outside_of_download);
             }
             return true;
         }
@@ -1961,12 +1961,12 @@ public class Logic {
         if (ex instanceof OsmIllegalOperationException) {
             dismissAttachedObjectWarning(activity);
             if (activity != null) {
-                Snack.toastTopError(activity, activity.getString(R.string.toast_illegal_operation, ex.getLocalizedMessage()));
+                ScreenMessage.toastTopError(activity, activity.getString(R.string.toast_illegal_operation, ex.getLocalizedMessage()));
             }
             rollback();
             invalidateMap();
         } else if ((ex instanceof StorageException) && activity != null) {
-            Snack.toastTopError(activity, R.string.toast_out_of_memory);
+            ScreenMessage.toastTopError(activity, R.string.toast_out_of_memory);
         }
     }
 
@@ -2279,7 +2279,7 @@ public class Logic {
                 }
                 invalidateMap();
                 if (activity != null) {
-                    Snack.toastTopInfo(activity, R.string.Done);
+                    ScreenMessage.toastTopInfo(activity, R.string.Done);
                 }
                 if (getFilter() != null && showAttachedObjectWarning()) {
                     Set<Node> nodes = new HashSet<>();
@@ -2911,7 +2911,7 @@ public class Logic {
             @Override
             protected void onPostExecute(AsyncResult result) {
                 if (ErrorCodes.CORRUPTED_DATA == result.getCode()) {
-                    Snack.toastTopError(context, R.string.corrupted_data_message);
+                    ScreenMessage.toastTopError(context, R.string.corrupted_data_message);
                 }
             }
 
@@ -3877,7 +3877,7 @@ public class Logic {
                 }
                 if (result == READ_FAILED) {
                     Log.d(DEBUG_TAG, "loadfromFile: File read failed");
-                    Snack.barError(activity, R.string.toast_state_file_failed);
+                    ScreenMessage.barError(activity, R.string.toast_state_file_failed);
                     if (postLoad != null) {
                         postLoad.onError(null);
                     }
@@ -3909,7 +3909,7 @@ public class Logic {
                 // this updates the Undo icon if present
                 activity.invalidateOptionsMenu();
                 if (result == READ_BACKUP) {
-                    Snack.barError(activity, R.string.toast_used_backup);
+                    ScreenMessage.barError(activity, R.string.toast_used_backup);
                 }
             }
         };
@@ -3952,7 +3952,7 @@ public class Logic {
                         postLoad.onSuccess();
                     }
                     if (result == READ_BACKUP) {
-                        Snack.barError(activity, R.string.toast_used_bug_backup);
+                        ScreenMessage.barError(activity, R.string.toast_used_bug_backup);
                     }
                 } else {
                     Log.d(DEBUG_TAG, "loadTasksfromFile: File read failed");
@@ -4064,7 +4064,7 @@ public class Logic {
             activity.invalidateOptionsMenu();
         } else {
             Log.d(DEBUG_TAG, "syncLoadfromFile: File read failed");
-            Snack.barError(activity, R.string.toast_state_file_failed);
+            ScreenMessage.barError(activity, R.string.toast_state_file_failed);
         }
     }
 
@@ -4163,7 +4163,7 @@ public class Logic {
                 if (error == 0) {
                     save(activity); // save now to avoid problems if it doesn't succeed later on, this currently writes
                                     // sync and potentially cause ANRs
-                    Snack.barInfo(activity, R.string.toast_upload_success);
+                    ScreenMessage.barInfo(activity, R.string.toast_upload_success);
                     getDelegator().clearUndo(); // only clear on successful upload
                     activity.invalidateOptionsMenu();
                     if (postUploadHandler != null) {
@@ -4272,7 +4272,7 @@ public class Logic {
                 Progress.dismissDialog(activity, Progress.PROGRESS_UPLOADING);
                 invalidateCurrentFocus(activity);
                 if (result == 0) {
-                    Snack.barInfo(activity, R.string.toast_upload_success);
+                    ScreenMessage.barInfo(activity, R.string.toast_upload_success);
                     return;
                 }
                 if (activity.isFinishing()) {
@@ -4311,7 +4311,7 @@ public class Logic {
                 if (result > 0) {
                     try {
                         if (activity != null) {
-                            Snack.barInfo(activity, activity.getResources().getQuantityString(R.plurals.toast_unread_mail, result, result), R.string.read_mail,
+                            ScreenMessage.barInfo(activity, activity.getResources().getQuantityString(R.plurals.toast_unread_mail, result, result), R.string.read_mail,
                                     v -> {
                                         try {
                                             activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Urls.OSM_LOGIN)));

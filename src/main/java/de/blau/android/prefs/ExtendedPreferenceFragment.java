@@ -12,7 +12,7 @@ import androidx.preference.PreferenceFragmentCompat;
 import ch.poole.android.numberpickerpreference.NumberPickerPreference;
 import ch.poole.android.numberpickerpreference.NumberPickerPreferenceFragment;
 import de.blau.android.R;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 
 public abstract class ExtendedPreferenceFragment extends PreferenceFragmentCompat {
 
@@ -75,7 +75,7 @@ public abstract class ExtendedPreferenceFragment extends PreferenceFragmentCompa
                     Log.d(DEBUG_TAG, "onPreferenceChange " + ex);
                 }
                 if (restart) {
-                    Snack.toastTopInfo(getContext(), R.string.toast_restart_required);
+                    ScreenMessage.toastTopInfo(getContext(), R.string.toast_restart_required);
                 }
                 return true;
             });
@@ -104,7 +104,7 @@ public abstract class ExtendedPreferenceFragment extends PreferenceFragmentCompa
                     Log.d(DEBUG_TAG, "onPreferenceChange " + ex);
                 }
                 if (restart) {
-                    Snack.toastTopInfo(getContext(), R.string.toast_restart_required);
+                    ScreenMessage.toastTopInfo(getContext(), R.string.toast_restart_required);
                 }
                 return true;
             });
@@ -120,7 +120,7 @@ public abstract class ExtendedPreferenceFragment extends PreferenceFragmentCompa
         Preference pref = getPreferenceScreen().findPreference(getString(keyResource));
         if (pref != null) {
             pref.setOnPreferenceChangeListener((preference, newValue) -> {
-                Snack.toastTopInfo(getContext(), R.string.toast_restart_required);
+                ScreenMessage.toastTopInfo(getContext(), R.string.toast_restart_required);
                 return true;
             });
         }

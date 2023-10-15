@@ -53,7 +53,7 @@ import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.IssueAlert;
 import de.blau.android.util.SavingHelper;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 
 public final class TransferTasks {
 
@@ -233,7 +233,7 @@ public final class TransferTasks {
                     if (postUploadHandler != null) {
                         postUploadHandler.onSuccess();
                     }
-                    Snack.barInfo(activity, R.string.openstreetbug_commit_ok);
+                    ScreenMessage.barInfo(activity, R.string.openstreetbug_commit_ok);
                     if (activity instanceof Main) {
                         ((Main) activity).invalidateMap();
                     }
@@ -241,7 +241,7 @@ public final class TransferTasks {
                     if (postUploadHandler != null) {
                         postUploadHandler.onError(null);
                     }
-                    Snack.barError(activity, R.string.openstreetbug_commit_fail);
+                    ScreenMessage.barError(activity, R.string.openstreetbug_commit_fail);
                 }
             }
         }.execute();
@@ -412,7 +412,7 @@ public final class TransferTasks {
                     } else if (result.getError() != ErrorCodes.OK) {
                         ErrorAlert.showDialog(activity, result.getError());
                     } else { // no error
-                        Snack.barInfo(activity, R.string.openstreetbug_commit_ok);
+                        ScreenMessage.barInfo(activity, R.string.openstreetbug_commit_ok);
                     }
                 }
             }
@@ -857,7 +857,7 @@ public final class TransferTasks {
                     if (b.getLastUpdate().getTime() > existing.getLastUpdate().getTime()) {
                         // downloaded task is newer
                         if (existing.hasBeenChanged()) { // conflict, show message and abort
-                            Snack.toastTopError(context, context.getString(R.string.toast_task_conflict, existing.getDescription()));
+                            ScreenMessage.toastTopError(context, context.getString(R.string.toast_task_conflict, existing.getDescription()));
                             break;
                         } else {
                             storage.delete(existing);
@@ -931,7 +931,7 @@ public final class TransferTasks {
                 postUploadHandler.onSuccess();
             }
             if (!quiet) {
-                Snack.toastTopInfo(context, R.string.openstreetbug_commit_ok);
+                ScreenMessage.toastTopInfo(context, R.string.openstreetbug_commit_ok);
             }
         } else {
             if (postUploadHandler != null) {
@@ -940,9 +940,9 @@ public final class TransferTasks {
             if (!quiet) {
                 String message = result.getMessage();
                 if (message != null && !"".equals(message)) {
-                    Snack.toastTopError(context, context.getString(R.string.openstreetbug_commit_fail_with_message, message));
+                    ScreenMessage.toastTopError(context, context.getString(R.string.openstreetbug_commit_fail_with_message, message));
                 } else {
-                    Snack.toastTopError(context, R.string.openstreetbug_commit_fail);
+                    ScreenMessage.toastTopError(context, R.string.openstreetbug_commit_fail);
                 }
             }
         }

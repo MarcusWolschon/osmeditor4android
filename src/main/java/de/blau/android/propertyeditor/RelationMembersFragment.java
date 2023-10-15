@@ -50,7 +50,7 @@ import de.blau.android.presets.PresetRole;
 import de.blau.android.util.BaseFragment;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.ScrollingLinearLayoutManager;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 import de.blau.android.util.collections.MultiHashMap;
@@ -247,7 +247,7 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
         setIcons(tempEntries);
         if (!tempEntries.equals(membersInternal)) {
             Log.d(DEBUG_TAG, "onDataUpdate current members have changed");
-            Snack.toastTopInfo(getContext(), R.string.toast_updating_members);
+            ScreenMessage.toastTopInfo(getContext(), R.string.toast_updating_members);
             membersInternal.clear();
             membersInternal.addAll(tempEntries);
             adapter.notifyDataSetChanged();

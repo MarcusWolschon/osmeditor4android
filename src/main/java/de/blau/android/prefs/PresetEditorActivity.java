@@ -42,7 +42,7 @@ import de.blau.android.presets.PresetParser;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.ReadFile;
 import de.blau.android.util.SelectFile;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
 
 /** Provides an activity to edit the preset list. Downloads preset data when necessary. */
@@ -166,7 +166,7 @@ public class PresetEditorActivity extends URLListEditActivity {
     protected void onItemClicked(ListEditItem item) {
         if (item.active && db.getActivePresets().length == 1) { // at least one item needs to be selected
             updateAdapter();
-            Snack.barWarning(this, R.string.toast_min_one_preset);
+            ScreenMessage.barWarning(this, R.string.toast_min_one_preset);
             return;
         }
         item.active = !item.active;
@@ -302,7 +302,7 @@ public class PresetEditorActivity extends URLListEditActivity {
                 Progress.dismissDialog(activity, Progress.PROGRESS_PRESET);
                 switch (result) {
                 case RESULT_TOTAL_SUCCESS:
-                    Snack.barInfo(activity, R.string.preset_download_successful);
+                    ScreenMessage.barInfo(activity, R.string.preset_download_successful);
                     activity.sendResultIfApplicable(item);
                     break;
                 case RESULT_TOTAL_FAILURE:
@@ -433,7 +433,7 @@ public class PresetEditorActivity extends URLListEditActivity {
                 dialog.dismiss();
             } else {
                 // if garbage value entered show toasts
-                Snack.barError(PresetEditorActivity.this, R.string.toast_invalid_preseturl);
+                ScreenMessage.barError(PresetEditorActivity.this, R.string.toast_invalid_preseturl);
                 changeBackgroundColor(editValue, ERROR_COLOR);
             }
         });

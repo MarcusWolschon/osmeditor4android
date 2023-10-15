@@ -45,7 +45,7 @@ import de.blau.android.util.Hash;
 import de.blau.android.util.ReadFile;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SelectFile;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.mvt.VectorTileDecoder;
 import de.blau.android.util.mvt.VectorTileRenderer;
 import de.blau.android.util.mvt.style.Background;
@@ -536,12 +536,12 @@ public class MapOverlay extends MapTilesOverlayLayer<java.util.Map<String, List<
                 } catch (SecurityException sex) {
                     Log.e(DEBUG_TAG, sex.getMessage());
                     // note need a context here that is on the ui thread
-                    Snack.toastTopError(map.getContext(), activity.getString(R.string.toast_permission_denied, fileUri.toString()));
+                    ScreenMessage.toastTopError(map.getContext(), activity.getString(R.string.toast_permission_denied, fileUri.toString()));
                     return false;
                 } catch (FileNotFoundException e) {
-                    Snack.toastTopError(map.getContext(), activity.getString(R.string.toast_file_not_found, fileUri.toString()));
+                    ScreenMessage.toastTopError(map.getContext(), activity.getString(R.string.toast_file_not_found, fileUri.toString()));
                 } catch (IOException e) {
-                    Snack.toastTopError(map.getContext(), activity.getString(R.string.toast_error_reading, fileUri.toString()));
+                    ScreenMessage.toastTopError(map.getContext(), activity.getString(R.string.toast_error_reading, fileUri.toString()));
                 }
                 return true;
             }

@@ -18,7 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.contract.Files;
 import de.blau.android.net.OAuthHelper.OAuthConfiguration;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 
 /**
  * Database helper for managing private keys
@@ -209,7 +209,7 @@ public class KeyDatabaseHelper extends SQLiteOpenHelper {
             final String msg = "Exception reading keys file  " + e.getMessage() + " on line " + lineNumber;
             Log.e(DEBUG_TAG, msg);
             if (context != null) {
-                Snack.toastTopError(context, msg);
+                ScreenMessage.toastTopError(context, msg);
             }
         }
     }

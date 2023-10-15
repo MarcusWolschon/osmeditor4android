@@ -40,7 +40,7 @@ import de.blau.android.presets.PresetItem;
 import de.blau.android.presets.PresetRole;
 import de.blau.android.search.Wrapper;
 import de.blau.android.util.SerializableState;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.collections.MultiHashMap;
 
@@ -241,7 +241,7 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_undo));
         arrangeMenu(menu); // needed at least once
         if (relation != null && !relation.allDownloaded()) {
-            Snack.toastTopWarning(main, R.string.toast_members_not_downloaded);
+            ScreenMessage.toastTopWarning(main, R.string.toast_members_not_downloaded);
         }
         highlightAll();
         setClickableElements();
@@ -502,7 +502,7 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
                             moveOuterTags(tags);
                             return;
                         } else {
-                            Snack.toastTopWarning(main, R.string.toast_outer_rings_differing_tags);
+                            ScreenMessage.toastTopWarning(main, R.string.toast_outer_rings_differing_tags);
                         }
                     }
                     relation = logic.createRelationFromMembers(main, null, newMembers);
@@ -532,7 +532,7 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
                 manager.finish();
             }
         } else {
-            Snack.toastTopWarning(main, R.string.toast_nothing_changed);
+            ScreenMessage.toastTopWarning(main, R.string.toast_nothing_changed);
         }
         if (relation != null) {
             main.startSupportActionMode(new RelationSelectionActionModeCallback(manager, relation));

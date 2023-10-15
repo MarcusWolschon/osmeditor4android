@@ -100,7 +100,7 @@ import de.blau.android.util.ReadFile;
 import de.blau.android.util.SaveFile;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SelectFile;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.mvt.style.Source;
 import de.blau.android.util.mvt.style.Style;
@@ -348,7 +348,7 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
                     builder.show();
                 } else {
                     Tip.showDialog(activity, R.string.tip_empty_gpx_download_key, R.string.tip_empty_gpx_download);
-                    Snack.toastTopWarning(activity, R.string.toast_nothing_found);
+                    ScreenMessage.toastTopWarning(activity, R.string.toast_nothing_found);
                 }
             }
         };
@@ -443,7 +443,7 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
                 addRows(activity);
             }
         } else {
-            Snack.toastTopWarning(activity, activity.getString(R.string.toast_styleable_layer_exists, fileUri.getLastPathSegment()));
+            ScreenMessage.toastTopWarning(activity, activity.getString(R.string.toast_styleable_layer_exists, fileUri.getLastPathSegment()));
         }
     }
 
@@ -465,12 +465,12 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
                 Style style = new Style();
                 try {
                     if (ContentResolverUtil.getSizeColumn(activity, fileUri) > MAX_STYLE_FILE_SIZE) {
-                        Snack.toastTopError(activity, R.string.toast_style_file_too_large);
+                        ScreenMessage.toastTopError(activity, R.string.toast_style_file_too_large);
                         return false;
                     }
                     style.loadStyle(activity, activity.getContentResolver().openInputStream(fileUri));
                     if (style.getSources().size() != 1) {
-                        Snack.toastTopError(activity, R.string.toast_only_one_source_supported);
+                        ScreenMessage.toastTopError(activity, R.string.toast_only_one_source_supported);
                         return false;
                     }
                     Entry<String, Source> entry = new ArrayList<>(style.getSources().entrySet()).get(0);
@@ -487,10 +487,10 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
                     }
                     return true;
                 } catch (FileNotFoundException e) {
-                    Snack.toastTopError(activity, activity.getString(R.string.toast_file_not_found, fileUri.toString()));
+                    ScreenMessage.toastTopError(activity, activity.getString(R.string.toast_file_not_found, fileUri.toString()));
                     return false;
                 } catch (OsmIllegalOperationException e) {
-                    Snack.toastTopError(activity, e.getMessage());
+                    ScreenMessage.toastTopError(activity, e.getMessage());
                     return false;
                 }
             }
@@ -755,7 +755,7 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
                             };
                             TileLayerDialog.showDialog(Layers.this, rowid, null);
                         } catch (IllegalArgumentException iaex) {
-                            Snack.toastTopError(activity, iaex.getMessage());
+                            ScreenMessage.toastTopError(activity, iaex.getMessage());
                         }
                         return true;
                     });
@@ -807,7 +807,7 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
                         try {
                             ((de.blau.android.layer.mvt.MapOverlay) layer).loadStyleFromFile(getActivity());
                         } catch (IOException e) {
-                            Snack.toastTopInfo(activity, getString(R.string.toast_error_loading_style, e.getLocalizedMessage()));
+                            ScreenMessage.toastTopInfo(activity, getString(R.string.toast_error_loading_style, e.getLocalizedMessage()));
                         }
                     }
                     return true;
@@ -929,7 +929,7 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
                                 if (tp != null) {
                                     ((Main) activity).gotoTrackPoint(App.getLogic(), tp);
                                 } else {
-                                    Snack.toastTopWarning(activity, R.string.toast_no_track_points);
+                                    ScreenMessage.toastTopWarning(activity, R.string.toast_no_track_points);
                                 }
                             }
                         }
@@ -945,7 +945,7 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
                                 if (wp != null) {
                                     ((Main) activity).gotoTrackPoint(App.getLogic(), wp);
                                 } else {
-                                    Snack.toastTopWarning(activity, R.string.toast_no_way_points);
+                                    ScreenMessage.toastTopWarning(activity, R.string.toast_no_way_points);
                                 }
                             }
                         }

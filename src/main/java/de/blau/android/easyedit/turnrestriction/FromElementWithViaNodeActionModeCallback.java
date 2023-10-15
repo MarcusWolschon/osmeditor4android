@@ -18,7 +18,7 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Result;
 import de.blau.android.osm.Way;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.Util;
 
 public class FromElementWithViaNodeActionModeCallback extends NonSimpleActionModeCallback {
@@ -104,7 +104,7 @@ public class FromElementWithViaNodeActionModeCallback extends NonSimpleActionMod
             Set<OsmElement> fromElements = new HashSet<>();
             fromElements.add(fromWay);
             fromElements.add(newFromWay);
-            Snack.barInfo(main, R.string.toast_split_from);
+            ScreenMessage.barInfo(main, R.string.toast_split_from);
             Set<OsmElement> via = new HashSet<>();
             via.add(viaNode);
             main.startSupportActionMode(new RestartFromElementActionModeCallback(manager, fromElements, via, savedResults));

@@ -17,7 +17,7 @@ import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
 import de.blau.android.osm.Server;
 import de.blau.android.tasks.Task.State;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.Util;
 
 /**
@@ -139,7 +139,7 @@ public class NoteFragment extends TaskFragment {
                 upload.setEnabled(changed);
                 if (changed && state.getSelectedItemPosition() != State.OPEN.ordinal()) {
                     state.setSelection(State.OPEN.ordinal());
-                    Snack.toastTopInfo(getContext(), R.string.toast_note_reopened);
+                    ScreenMessage.toastTopInfo(getContext(), R.string.toast_note_reopened);
                 }
             }
 

@@ -23,7 +23,7 @@ import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.util.DataStorage;
 import de.blau.android.util.SavingHelper;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.rtree.RTree;
 
@@ -241,7 +241,7 @@ public class TaskStorage implements Serializable, DataStorage {
                     // this is essentially catastrophic and can only happen if something went really wrong
                     // running out of memory or disk, or HW failure
                     if (ctx instanceof Activity) {
-                        Snack.barError((Activity) ctx, R.string.toast_statesave_failed);
+                        ScreenMessage.barError((Activity) ctx, R.string.toast_statesave_failed);
                     }
                 }
             } finally {

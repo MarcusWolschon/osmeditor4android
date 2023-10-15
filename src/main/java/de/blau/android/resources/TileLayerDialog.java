@@ -62,7 +62,7 @@ import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.OkHttpFileChannel;
 import de.blau.android.util.ReadFile;
 import de.blau.android.util.SelectFile;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.Util;
 import okhttp3.OkHttpClient;
 
@@ -182,7 +182,7 @@ public class TileLayerDialog extends ImmersiveDialogFragment {
                 try {
                     final File destination = new File(FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_IMPORTS), fileName);
                     if (destination.exists()) {
-                        Snack.toastTopError(activity, R.string.toast_import_destination_exists);
+                        ScreenMessage.toastTopError(activity, R.string.toast_import_destination_exists);
                         return false;
                     }
                     copyFile(contentUri, destination);
@@ -194,7 +194,7 @@ public class TileLayerDialog extends ImmersiveDialogFragment {
                 // rewrite content: Uris
                 final Uri fileUri = FileUtil.contentUriToFileUri(activity, contentUri);
                 if (fileUri == null) {
-                    Snack.toastTopError(activity, R.string.not_found_title);
+                    ScreenMessage.toastTopError(activity, R.string.not_found_title);
                     return false;
                 }
                 return configureFromFile(fileUri);
@@ -258,7 +258,7 @@ public class TileLayerDialog extends ImmersiveDialogFragment {
         final String format = metadata.get(MBTileConstants.FORMAT);
         final boolean isMVT = MBTileConstants.PBF.equals(format);
         if (!(MBTileConstants.PNG.equals(format) || MBTileConstants.JPG.equals(format) || isMVT)) {
-            Snack.toastTopError(activity, activity.getResources().getString(R.string.toast_unsupported_format, format));
+            ScreenMessage.toastTopError(activity, activity.getResources().getString(R.string.toast_unsupported_format, format));
             return;
         }
         metadataMap.put(TILE_TYPE, isMVT ? TileType.MVT : null);
@@ -303,7 +303,7 @@ public class TileLayerDialog extends ImmersiveDialogFragment {
         } catch (SQLiteException | IOException sqex) {
             Log.e(DEBUG_TAG, "Not a SQLite/MBTiles database or PMTiles file " + fileUri + " " + sqex.getMessage());
         }
-        Snack.toastTopError(activity, R.string.toast_not_mbtiles);
+        ScreenMessage.toastTopError(activity, R.string.toast_not_mbtiles);
         return false;
     }
 
@@ -405,7 +405,7 @@ public class TileLayerDialog extends ImmersiveDialogFragment {
                 BoundingBox box = getBoundingBox(leftText, bottomText, rightText, topText);
                 moan = box == null;
                 if (moan) {
-                    Snack.toastTopError(activity, R.string.toast_invalid_box);
+                    ScreenMessage.toastTopError(activity, R.string.toast_invalid_box);
                 } else {
                     CoverageArea ca = new CoverageArea(minZoom, maxZoom, box);
                     provider.addCoverageArea(ca);
@@ -417,24 +417,24 @@ public class TileLayerDialog extends ImmersiveDialogFragment {
                 provider.setAttribution(Util.fromHtml(attribution).toString());
             }
             if (emptyName) {
-                Snack.toastTopError(activity, R.string.toast_name_empty);
+                ScreenMessage.toastTopError(activity, R.string.toast_name_empty);
                 moan = true;
             }
             if ("".equals(tileUrl)) {
-                Snack.toastTopError(activity, R.string.toast_url_empty);
+                ScreenMessage.toastTopError(activity, R.string.toast_url_empty);
                 moan = true;
             }
             String proj = TileLayerSource.projFromUrl(tileUrl);
             if (proj != null && !TileLayerSource.supportedProjection(proj)) {
-                Snack.toastTopError(activity, activity.getString(R.string.toast_unsupported_projection, proj));
+                ScreenMessage.toastTopError(activity, activity.getString(R.string.toast_unsupported_projection, proj));
                 moan = true;
             }
             if (isOverlay && (tileUrl.contains(WmsCapabilities.IMAGE_JPEG) || tileUrl.contains("." + FileExtensions.JPG))) {
-                Snack.toastTopError(activity, R.string.toast_jpeg_not_transparent);
+                ScreenMessage.toastTopError(activity, R.string.toast_jpeg_not_transparent);
                 moan = true;
             }
             if (minZoom > maxZoom) {
-                Snack.toastTopError(activity, R.string.toast_min_zoom);
+                ScreenMessage.toastTopError(activity, R.string.toast_min_zoom);
                 moan = true;
             }
             int tileSize = tileSizePicker.getValue();
@@ -445,7 +445,7 @@ public class TileLayerDialog extends ImmersiveDialogFragment {
                 TileLayerSource existing = TileLayerDatabase.getLayerWithUrl(activity, db, tileUrl);
                 if (existing != null && !existing.getId().equals(layerId)) {
                     // we are not editing the same entry
-                    Snack.toastTopError(activity, activity.getString(R.string.toast_tile_layer_exists, existing.getName()));
+                    ScreenMessage.toastTopError(activity, activity.getString(R.string.toast_tile_layer_exists, existing.getName()));
                     return false;
                 }
                 TileLayerSource.addOrUpdateCustomLayer(activity, db, layerId, layer, startDate, endDate, name, provider, category,
@@ -493,7 +493,7 @@ public class TileLayerDialog extends ImmersiveDialogFragment {
                 @Override
                 protected void onBackgroundError(Exception e) {
                     Progress.dismissDialog(activity, Progress.PROGRESS_DOWNLOAD);
-                    Snack.toastTopError(activity, activity.getString(R.string.toast_unable_to_configure_from_source, e.getLocalizedMessage()));
+                    ScreenMessage.toastTopError(activity, activity.getString(R.string.toast_unable_to_configure_from_source, e.getLocalizedMessage()));
                 }
 
             }.execute();

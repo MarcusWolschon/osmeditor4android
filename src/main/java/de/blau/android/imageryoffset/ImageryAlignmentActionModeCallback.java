@@ -69,7 +69,7 @@ import de.blau.android.util.GeoMath;
 import de.blau.android.util.MenuUtil;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SerializableState;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.views.layers.MapTilesLayer;
 import okhttp3.Call;
@@ -595,7 +595,7 @@ public class ImageryAlignmentActionModeCallback implements Callback {
                     handler.onSuccess();
                 }
             } else {
-                Snack.toastTopError(main, main.getString(R.string.toast_imagery_offset_download_failed, error));
+                ScreenMessage.toastTopError(main, main.getString(R.string.toast_imagery_offset_download_failed, error));
             }
         }
 
@@ -663,9 +663,9 @@ public class ImageryAlignmentActionModeCallback implements Callback {
         protected void onPostExecute(Integer res) {
             Progress.dismissDialog(main, Progress.PROGRESS_SAVING);
             if (res == 200) {
-                Snack.barInfo(main, R.string.toast_save_done);
+                ScreenMessage.barInfo(main, R.string.toast_save_done);
             } else {
-                Snack.barError(main, R.string.toast_save_failed);
+                ScreenMessage.barError(main, R.string.toast_save_failed);
             }
         }
 

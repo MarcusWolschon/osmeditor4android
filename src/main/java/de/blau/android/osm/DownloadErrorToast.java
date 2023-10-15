@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.R;
 import de.blau.android.util.ACRAHelper;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 
 public class DownloadErrorToast implements Runnable {
     final int     code;
@@ -30,7 +30,7 @@ public class DownloadErrorToast implements Runnable {
     public void run() {
         if (context instanceof Activity) {
             try {
-                Snack.barError((Activity) context, context.getResources().getString(R.string.toast_download_failed, code, message));
+                ScreenMessage.barError((Activity) context, context.getResources().getString(R.string.toast_download_failed, code, message));
             } catch (Exception ex) {
                 // do nothing ... this is stop bugs in the Android format parsing crashing the app, report the error
                 // because it is likely caused by a translation error

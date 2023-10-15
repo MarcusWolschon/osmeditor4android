@@ -32,7 +32,7 @@ import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetElement;
 import de.blau.android.presets.PresetElementPath;
 import de.blau.android.presets.PresetGroup;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 
 /**
  * An Activity to edit OSM-Tags. Sends the edited Tags as Result to its caller-Activity (normally {@link Main}).
@@ -71,7 +71,7 @@ public class PropertyEditorActivity<M extends Map<String, String> & Serializable
             }
         } catch (RuntimeException rex) {
             Log.e(DEBUG_TAG, rex.getMessage());
-            Snack.toastTopError(activity, R.string.toast_error_element_too_large);
+            ScreenMessage.toastTopError(activity, R.string.toast_error_element_too_large);
         }
     }
 
@@ -231,7 +231,7 @@ public class PropertyEditorActivity<M extends Map<String, String> & Serializable
      * @param cause String showing a cause for this
      */
     private void abort(@NonNull String cause) {
-        Snack.toastTopError(this, R.string.toast_inconsistent_state);
+        ScreenMessage.toastTopError(this, R.string.toast_inconsistent_state);
         Log.e(DEBUG_TAG, "Inconsistent state because " + cause);
         ACRA.getErrorReporter().putCustomData("CAUSE", cause);
         ACRA.getErrorReporter().handleException(null);

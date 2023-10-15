@@ -363,7 +363,7 @@ public final class Util {
         if (len > maxStringLength) {
             s.delete(maxStringLength, len);
             if (context != null) {
-                Snack.toastTopWarning(context, context.getString(R.string.toast_string_too_long, len));
+                ScreenMessage.toastTopWarning(context, context.getString(R.string.toast_string_too_long, len));
             }
         }
     }
@@ -533,10 +533,10 @@ public final class Util {
     public static void toastDowloadError(@NonNull final FragmentActivity activity, @NonNull final IOException iox) {
         activity.runOnUiThread(() -> {
             if (iox instanceof OsmServerException) {
-                Snack.toastTopWarning(activity,
+                ScreenMessage.toastTopWarning(activity,
                         activity.getString(R.string.toast_download_failed, ((OsmServerException) iox).getErrorCode(), iox.getMessage()));
             } else {
-                Snack.toastTopWarning(activity, activity.getString(R.string.toast_server_connection_failed, iox.getMessage()));
+                ScreenMessage.toastTopWarning(activity, activity.getString(R.string.toast_server_connection_failed, iox.getMessage()));
             }
         });
     }

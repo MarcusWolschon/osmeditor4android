@@ -62,7 +62,7 @@ import de.blau.android.util.GeoMath;
 import de.blau.android.util.PlaybackTask;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SerializableTextPaint;
-import de.blau.android.util.Snack;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.Util;
 import de.blau.android.util.collections.FloatPrimitiveList;
 import de.blau.android.views.IMapView;
@@ -478,10 +478,10 @@ public class MapOverlay extends StyleableFileLayer
                     } catch (SecurityException sex) {
                         Log.e(DEBUG_TAG, sex.getMessage());
                         // note need a context here that is on the ui thread
-                        Snack.toastTopError(map.getContext(), ctx.getString(R.string.toast_permission_denied, uriString));
+                        ScreenMessage.toastTopError(map.getContext(), ctx.getString(R.string.toast_permission_denied, uriString));
                         return ERROR;
                     } catch (IOException iex) {
-                        Snack.toastTopError(map.getContext(), ctx.getString(R.string.toast_error_reading, uriString));
+                        ScreenMessage.toastTopError(map.getContext(), ctx.getString(R.string.toast_error_reading, uriString));
                         return ERROR;
                     }
                 }
@@ -624,19 +624,19 @@ public class MapOverlay extends StyleableFileLayer
         @Override
         protected void onPostExecute(Void output) {
             playbackTask = null;
-            Snack.toastTopInfo(context, R.string.layer_toast_playback_finished);
+            ScreenMessage.toastTopInfo(context, R.string.layer_toast_playback_finished);
         }
 
         @Override
         public void pause() {
             paused = true;
-            Snack.toastTopInfo(context, R.string.layer_toast_playback_paused);
+            ScreenMessage.toastTopInfo(context, R.string.layer_toast_playback_paused);
         }
 
         @Override
         public void resume() {
             paused = false;
-            Snack.toastTopInfo(context, R.string.layer_toast_playback_resumed);
+            ScreenMessage.toastTopInfo(context, R.string.layer_toast_playback_resumed);
         }
 
         @Override
