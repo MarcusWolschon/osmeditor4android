@@ -5,15 +5,21 @@ import static de.blau.android.util.Winding.COLINEAR;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.App;
+import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
+import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.Relation;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
 import de.blau.android.resources.DataStyle;
 
 public final class Geometry {
+
+    private static final String DEBUG_TAG = Geometry.class.getSimpleName();
 
     /**
      * Private constructor
@@ -23,19 +29,19 @@ public final class Geometry {
     }
 
     /**
-     * calculate the centroid of a way
+     * Calculate the centroid of a way
      * 
      * @param v current display bounding box
      * @param w screen width
      * @param h screen height
      * @param way the Way
-     * @return WS84*17E coordinates of the centroid or null if they could not be determined
+     * @return WS84*17E coordinates [lat/lon] of the centroid or an empty array if they could not be determined
      */
-    @Nullable
+    @NonNull
     public static int[] centroid(int w, int h, @NonNull ViewBox v, @NonNull final Way way) {
         Coordinates c = centroidXY(w, h, v, way);
         if (c == null) {
-            return null;
+            return new int[0];
         }
         int lat = GeoMath.yToLatE7(h, w, v, (float) c.y);
         int lon = GeoMath.xToLonE7(w, v, (float) c.x);
@@ -137,10 +143,10 @@ public final class Geometry {
      * @return WGS84 coordinates of centroid, null if the way has problems and if the way has length or area zero return
      *         the coordinates of the first node
      */
-    @Nullable
+    @NonNull
     public static double[] centroidLonLat(@Nullable final Way way) {
         if (way == null || way.getNodes().isEmpty()) {
-            return null;
+            return new double[0];
         }
         List<Node> nodes = way.getNodes();
         int size = nodes.size();
@@ -156,6 +162,37 @@ public final class Geometry {
         //
         Coordinates centroid = centroidXY(points, closed);
         return new double[] { centroid.x + start.x, GeoMath.mercatorToLat(centroid.y + start.y) };
+    }
+
+    /**
+     * Get the centroid for an OsmElement
+     * 
+     * @param e the OsmElement
+     * @return a double array containing lon - lat in WGS84 coords
+     */
+    @NonNull
+    static double[] centroid(@NonNull OsmElement e) {
+        switch (e.getName()) {
+        case Node.NAME:
+            return new double[] { ((Node) e).getLon() / 1E7D, ((Node) e).getLat() / 1E7D };
+        case Way.NAME:
+            double[] result = Geometry.centroidLonLat((Way) e);
+            if (result.length == 2) {
+                return new double[] { result[0], result[1] };
+            }
+            break;
+        case Relation.NAME:
+            BoundingBox bbox = e.getBounds();
+            if (bbox != null) {
+                ViewBox box = new ViewBox(bbox);
+                result = box.getCenter();
+                return new double[] { result[0], result[1] };
+            }
+            break;
+        default:
+        }
+        Log.d(DEBUG_TAG, "couldn't determine centroid for " + e);
+        return new double[0];
     }
 
     /**

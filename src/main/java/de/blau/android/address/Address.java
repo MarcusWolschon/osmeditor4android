@@ -145,7 +145,7 @@ public final class Address implements Serializable {
         case AREA:
             if (Way.NAME.equals(e.getName())) {
                 double[] center = Geometry.centroidLonLat((Way) e);
-                if (center != null) {
+                if (center.length == 2) {
                     lat = (float) center[1];
                     lon = (float) center[0];
                 }
