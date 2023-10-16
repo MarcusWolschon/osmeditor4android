@@ -101,7 +101,7 @@ public class WayTest {
         TestUtils.zoomToLevel(device, main, 21);
         TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
         TestUtils.clickText(device, true, context.getString(R.string.okay), true, false); // Tip
-        assertTrue(TestUtils.clickText(device, false, "Path", false, false));
+        assertTrue(TestUtils.clickText(device, false, "↓ Path", false, false));
         Way way = App.getLogic().getSelectedWay();
         assertNotNull(way);
         List<Node> origWayNodes = new ArrayList<>(way.getNodes());
@@ -161,7 +161,7 @@ public class WayTest {
         TestUtils.zoomToLevel(device, main, 21);
         TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
         TestUtils.clickText(device, true, context.getString(R.string.okay), true, false); // Tip
-        assertTrue(TestUtils.clickText(device, false, "Path", false, false));
+        assertTrue(TestUtils.clickText(device, false, "↓ Path", false, false));
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
         Way way = App.getLogic().getSelectedWay();
         assertNotNull(way);
@@ -174,7 +174,7 @@ public class WayTest {
         TestUtils.sleep(2000);
         assertTrue(TestUtils.textGone(device, context.getString(R.string.actionmode_wayselect), 5000));
         TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
-        assertTrue(TestUtils.clickText(device, false, "Path", false, false));
+        assertTrue(TestUtils.clickText(device, false, "↗ Path", false, false));
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
         way = App.getLogic().getSelectedWay();
         assertNotNull(way);
@@ -200,7 +200,7 @@ public class WayTest {
         TestUtils.zoomToLevel(device, main, 21);
         TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
         TestUtils.clickText(device, true, context.getString(R.string.okay), true, false); // Tip
-        assertTrue(TestUtils.clickText(device, false, "Path", false, false));
+        assertTrue(TestUtils.clickText(device, false, "↓ Path", false, false));
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
         Way way = App.getLogic().getSelectedWay();
         assertNotNull(way);
@@ -215,7 +215,7 @@ public class WayTest {
         TestUtils.sleep(2000);
         assertTrue(TestUtils.textGone(device, context.getString(R.string.actionmode_wayselect), 5000));
         TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
-        assertTrue(TestUtils.clickText(device, false, "Path", false, false));
+        assertTrue(TestUtils.clickText(device, false, "↗ Path", false, false));
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
         way = App.getLogic().getSelectedWay();
         assertNotNull(way);
@@ -233,7 +233,7 @@ public class WayTest {
         TestUtils.zoomToLevel(device, main, 21);
         TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
         TestUtils.clickText(device, true, context.getString(R.string.okay), true, false); // Tip
-        assertTrue(TestUtils.clickText(device, false, "Path", false, false));
+        assertTrue(TestUtils.clickText(device, false, "↓ Path", false, false));
         Way way = App.getLogic().getSelectedWay();
         assertNotNull(way);
         List<Node> wayNodes = new ArrayList<>(way.getNodes());
@@ -265,7 +265,7 @@ public class WayTest {
         TestUtils.zoomToLevel(device, main, 21);
         TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
         TestUtils.clickText(device, true, context.getString(R.string.okay), true, false); // Tip
-        assertTrue(TestUtils.clickText(device, false, "Path", false, false));
+        assertTrue(TestUtils.clickText(device, false, "↓ Path", false, false));
         Way way = App.getLogic().getSelectedWay();
         assertNotNull(way);
         assertEquals(104148456L, way.getOsmId());
@@ -301,7 +301,7 @@ public class WayTest {
         TestUtils.zoomToLevel(device, main, 22);
         TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
         TestUtils.clickText(device, true, context.getString(R.string.okay), true, false); // Tip
-        assertTrue(TestUtils.clickText(device, false, "Path", false, false));
+        assertTrue(TestUtils.clickText(device, false, "↓ Path", false, false));
         Way way = App.getLogic().getSelectedWay();
         List<Node> origWayNodes = new ArrayList<>(way.getNodes());
         assertNotNull(way);
@@ -346,7 +346,7 @@ public class WayTest {
         TestUtils.zoomToLevel(device, main, 22);
         TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
         TestUtils.clickText(device, true, context.getString(R.string.okay), true, false); // Tip
-        assertTrue(TestUtils.clickText(device, false, "Path", false, false)); 
+        assertTrue(TestUtils.clickText(device, false, "↓ Path", false, false)); 
         Way way = App.getLogic().getSelectedWay();
         assertNotNull(way);
         assertEquals(104148456L, way.getOsmId());
@@ -400,7 +400,7 @@ public class WayTest {
         TestUtils.zoomToLevel(device, main, 22);
         TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
         TestUtils.clickText(device, true, context.getString(R.string.okay), true, false); // Tip
-        assertTrue(TestUtils.clickText(device, false, "Path", false, false));
+        assertTrue(TestUtils.clickText(device, false, "↓ Path", false, false));
         Way way = App.getLogic().getSelectedWay();
         assertNotNull(way);
         assertEquals(104148456L, way.getOsmId());
