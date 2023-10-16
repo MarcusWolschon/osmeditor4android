@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.24.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,disused:amenity,disused:leisure,disused:man_made,disused:shop,golf,ford,harbour,hazard,noexit,indoor,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom">
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.25.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,disused:amenity,disused:leisure,disused:man_made,disused:shop,golf,ford,harbour,hazard,noexit,indoor,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom">
 <!--
     Icons have been derived from mainly from
   
@@ -739,6 +739,19 @@
             <list_entry value="workwear" short_description="Workwear"/>
         </multiselect>
     </chunk>
+    <chunk id="post_office">
+        <combo key="post_office" text="Post office type" values_searchable="true">
+            <list_entry value="bureau" short_description="Full post office"/>
+            <list_entry value="post_annex" short_description="Full post office operated by 3rd party"/>
+            <list_entry value="post_partner" short_description="Postal services provided"/>
+        </combo>
+        <text key="post_office:brand" text="Postal services brand"/>
+    </chunk>
+    <chunk id="post_office_optional">
+        <optional>
+            <reference ref="post_office"/>
+        </optional>
+    </chunk>
     <chunk id="internet">
         <combo key="internet_access" text="Internet access" values="yes,wlan,wired,terminal,no" display_values="Available,WLAN,Wired,Terminal,Not available" values_sort="false"/>
         <combo key="internet_access:fee" text="Internet access fee" values="yes,no" display_values="Yes,No"/>
@@ -1436,17 +1449,21 @@
     </chunk>
     <chunk id="healthcare_speciality">
         <multiselect key="healthcare:speciality" text="Speciality" text_context="healthcare" values_context="healthcare" values_searchable="true" editable="false">
-            <list_entry value="general" short_description="General"/>
+            <list_entry value="general" short_description="General"/>         
             <list_entry value="abortion" short_description="Abortion"/>
-            <list_entry value="fertility" short_description="Fertility"/>
             <list_entry value="allergology" short_description="Allergology"/>
             <list_entry value="cardiology" short_description="Cardiology"/>
             <list_entry value="child_psychiatry" short_description="Child psychiatry"/>
             <list_entry value="chiropractic" short_description="Chiropractic"/>
             <list_entry value="dermatology" short_description="Dermatology"/>
+            <list_entry value="endocrinology" short_description="Endocrinology"/>
+            <list_entry value="fertility" short_description="Fertility"/>
+            <list_entry value="gastroenterology" short_description="Gastroenterology"/>
             <list_entry value="gynaecology" short_description="Gynaecology"/>
             <list_entry value="internal" short_description="Internal"/>
+            <list_entry value="neonatology" short_description="Neonatology"/>
             <list_entry value="neurology" short_description="Neurology"/>
+            <list_entry value="oncology" short_description="Oncology"/>
             <list_entry value="ophthalmology" short_description="Ophthalmology"/>
             <list_entry value="orthopaedics" short_description="Orthopaedics"/>
             <list_entry value="otolaryngology" short_description="Otolaryngology"/>
@@ -1454,8 +1471,13 @@
             <list_entry value="paediatrics" short_description="Paediatrics"/>
             <list_entry value="plastic_surgery" short_description="Plastic surgery"/>
             <list_entry value="psychiatry" short_description="Psychiatry"/>
+            <list_entry value="pulmonology" short_description="Respiratory Medicine"/>
+            <list_entry value="transplant" short_description="Transplant"/>
+            <list_entry value="trauma" short_description="Trauma"/>
+            <list_entry value="tropical" short_description="Tropical"/>         
             <list_entry value="radiology" short_description="Radiology"/>
             <list_entry value="urology" short_description="Urology"/>
+            <list_entry value="venereology" short_description="Venereology"/>
         </multiselect>
     </chunk>
     <chunk id="roof_main">
@@ -4608,7 +4630,7 @@
                 <space/>
                 <key key="amenity" value="parking"/>
                 <reference ref="parking_name_type_ref"/>
-                <combo key="park_ride" text="Park and Ride" values="yes,no,bus,train,tram,metro,ferry"/>
+                <multiselect key="park_ride" text="Park and Ride" values="yes;no;bus;train;tram;metro;ferry" display_values="Yes;No;Bus;Train;Tram;Metro;Ferry"/>
                 <reference ref="parking_access_fee_operator_surface_smoothness"/>
                 <text key="maxheight" text="Max. height (meters)" value_type="dimension_vertical"/>
                 <space/>
@@ -4626,6 +4648,18 @@
                 <link wiki="Tag:amenity=parking_space"/>
                 <space/>
                 <key key="amenity" value="parking_space"/>
+                <combo key="parking_space" text="Type" values_context="parking">
+                    <list_entry value="normal" display_value="Normal"/>
+                    <list_entry value="disabled" display_value="Disabled"/>
+                    <list_entry value="private" display_value="Private"/>
+                    <list_entry value="charging" display_value="Charging"/>
+                    <list_entry value="bus" display_value="Bus"/>
+                    <list_entry value="hgv" display_value="HGV"/>
+                    <list_entry value="staff" display_value="Staff"/>
+                    <list_entry value="parent" display_value="Parent"/>
+                    <list_entry value="motorcycle" display_value="Motorcycle"/>
+                    <list_entry value="delivery" display_value="Delivery"/>
+                </combo>
                 <reference ref="parking_name_type_ref"/>
                 <text key="capacity" text="Capacity" value_type="integer"/>
                 <reference ref="parking_access_fee_operator_surface_smoothness"/>
@@ -6951,6 +6985,7 @@
             <link wiki="Tag:amenity=post_office"/>
             <space/>
             <key key="amenity" value="post_office"/>
+            <reference ref="post_office"/>
             <reference ref="name_operator_oh_wheelchair"/>
             <text key="ref" text="Reference"/>
             <reference ref="link_contact_address_payment"/>
@@ -10724,6 +10759,7 @@
             <reference ref="name_oh_wheelchair_level_toilets"/>
             <reference ref="organic"/>
             <reference ref="bulk_purchase"/>
+            <reference ref="post_office_optional"/>
             <reference ref="link_contact_address_payment"/>
             <reference ref="kids_area"/>
         </item> <!-- Supermarket -->
@@ -10734,6 +10770,7 @@
             <reference ref="name_oh_wheelchair_level_toilets"/>
             <reference ref="organic"/>
             <reference ref="bulk_purchase"/>
+            <reference ref="post_office_optional"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Convenience Store -->
         <item name="General store" icon="icons/png/shopping_convenience.png" gtype="node,closedway,multipolygon" preset_name_label="true">
@@ -10741,6 +10778,7 @@
             <space/>
             <key key="shop" value="general"/>
             <reference ref="name_oh_wheelchair_level_toilets"/>
+            <reference ref="post_office_optional"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- General store -->
         <item name="Kiosk" icon="icons/png/shopping_kiosk.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -10748,6 +10786,7 @@
             <space/>
             <key key="shop" value="kiosk"/>
             <reference ref="name_oh_wheelchair_level"/>
+            <reference ref="post_office_optional"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Kiosk -->
         <separator/>
@@ -11026,6 +11065,7 @@
             <space/>
             <key key="shop" value="dry_cleaning"/>
             <reference ref="name_oh_wheelchair_level"/>
+            <reference ref="post_office_optional"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Dry Cleaning -->
         <item name="Laundry" icon="icons/png/shopping_laundrette.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -11035,6 +11075,7 @@
             <reference ref="name_oh_wheelchair_level"/>
             <check key="self_service" text="Self-service"/>
             <check key="laundry_service" text="Laundry Service"/>
+            <reference ref="post_office_optional"/>
             <reference ref="link_contact_address_payment"/>
             <reference ref="kids_area"/>
         </item> <!-- Laundry -->
@@ -11290,6 +11331,7 @@
             <space/>
             <key key="shop" value="copyshop"/>
             <reference ref="name_operator_oh_wheelchair_level"/>
+            <reference ref="post_office_optional"/>
             <reference ref="link_contact_address_payment"/>
             <reference ref="kids_area"/>
         </item> <!-- Copy Shop -->
@@ -11307,6 +11349,7 @@
             <space/>
             <key key="shop" value="newsagent"/>
             <reference ref="name_oh_wheelchair_level"/>
+            <reference ref="post_office_optional"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Newspaper Stand -->
         <item name="Anime" icon="icons/png/shopping_anime_29160.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -11386,6 +11429,7 @@
             <space/>
             <key key="shop" value="tobacco"/>
             <reference ref="name_operator_oh_wheelchair_level"/>
+            <reference ref="post_office_optional"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Tobacco -->
         <item name="e-cigarette" icon="icons/png/shopping_e-cigarette.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -11525,6 +11569,7 @@
             <space/>
             <key key="shop" value="department_store"/>
             <reference ref="name_operator_oh_wheelchair_toilets"/>
+            <reference ref="post_office_optional"/>
             <reference ref="link_contact_address_payment"/>
             <reference ref="kids_area"/>
         </item> <!-- Department Store -->
@@ -11596,6 +11641,7 @@
             <key key="trade" value="agricultural_supplies"/>
             <multiselect key="agricultural_supplies" text="Supplies" values="feed;fertilizer;machine_parts;pesticide;seed;tools" display_values="Feed;Fertilizer;Machine parts;Pesticide;Seed;Tools"/>
             <reference ref="name_oh_wheelchair_level"/>
+            <reference ref="post_office_optional"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Agricultural supplies -->
         <item name="Agricultural supplies" icon="icons/png/shopping_farm_22120.png" type="node,closedway,multipolygon" preset_name_label="true" deprecated="true">
@@ -11604,6 +11650,7 @@
             <key key="shop" value="agrarian"/>
             <multiselect key="agrarian" text="Supplies" values="feed;fertilizer;machine_parts;pesticide;seed;tools" display_values="Feed;Fertilizer;Machine parts;Pesticide;Seed;Tools"/>
             <reference ref="name_oh_wheelchair_level"/>
+            <reference ref="post_office_optional"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Agricultural supplies -->
         <item name="Hairdresser supply" icon="icons/png/shopping_hairdresser.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -11620,7 +11667,7 @@
             <combo key="wholesale" text="Type" values="general,food,supermarket,electrical,sanitary,paper,florist,pharmacy,seafood,clothes" display_values="General,Food,Supermarket,Electrical,Sanitary,Paper,Florist,Pharmacy,Seafood,Clothes"/>
             <reference ref="name_oh_wheelchair_level"/>
             <reference ref="link_contact_address_payment"/>
-        </item> <!-- Trade supplies -->
+        </item> <!-- Wholesale -->
         <item name="Gas" icon="icons/png/shopping_gas_29070.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:shop=gas"/>
             <space/>
@@ -11882,6 +11929,7 @@
             <space/>
             <key key="shop" value="outpost"/>
             <reference ref="name_oh_wheelchair_level"/>
+            <reference ref="post_office_optional"/>
             <reference ref="link_contact_address"/>
         </item> <!-- Outpost / Pickup -->
         <item name="Vacant" icon="icons/png/shopping_empty.png" type="node,closedway,multipolygon" deprecated="true">
@@ -12066,6 +12114,7 @@
         <space/>
         <key key="amenity" value="bureau_de_change"/>
         <reference ref="name_oh_wheelchair_level"/>
+        <reference ref="post_office_optional"/>
         <reference ref="link_contact_address"/>
     </item> <!-- Money Exchange -->
     <item name="Money transfer" icon="icons/png/money_empty.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -12073,6 +12122,7 @@
         <space/>
         <key key="amenity" value="money_transfer"/>
         <reference ref="name_oh_wheelchair_level"/>
+        <reference ref="post_office_optional"/>
         <reference ref="link_contact_address"/>
     </item> <!-- Money transfer -->
     <item name="Automated Teller Machine" icon="icons/png/money_atm.png" type="node" preset_name_label="true">
@@ -12092,6 +12142,7 @@
         <space/>
         <key key="amenity" value="payment_centre"/>
         <reference ref="name_oh_wheelchair_level"/>
+        <reference ref="post_office_optional"/>
         <reference ref="link_contact_address_payment"/>
     </item> <!-- Payment centre -->
     <item name="Payment terminal" icon="icons/png/money_payment_terminal.png" type="node" preset_name_label="true">
