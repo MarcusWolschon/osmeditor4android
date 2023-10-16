@@ -40,10 +40,11 @@ public final class OsmoseBug extends Bug implements Serializable {
     private static final String OSMOSE_SUBTITLE = "subtitle";
     private static final String OSMOSE_LEVEL    = "level";
 
-    // hardwired stuff used to fixup JOSM derivec tests
+    // hardwired stuff used to fixup JOSM derived tests
     private static final String MOUSTACHE_LEFT = "{";
     private static final int    JOSM_ITEM_HIGH = 9200;
     private static final int    JOSM_ITEM_LOW  = 9000;
+    private static final int    INDOOR_ITEM    = 2120;
 
     private String item;
     private int    bugclass; // class
@@ -144,12 +145,12 @@ public final class OsmoseBug extends Bug implements Serializable {
     private static void fixupJosmSourced(@NonNull OsmoseBug bug) {
         try {
             int item = Integer.parseInt(bug.item);
-            if (item >= JOSM_ITEM_LOW && item < JOSM_ITEM_HIGH && bug.subtitle != null && bug.getTitle().contains(MOUSTACHE_LEFT)) {
+            if ((item >= JOSM_ITEM_LOW && item < JOSM_ITEM_HIGH || item == INDOOR_ITEM) && bug.subtitle != null && bug.getTitle().contains(MOUSTACHE_LEFT)) {
                 bug.setTitle(bug.subtitle);
                 bug.subtitle = null;
             }
         } catch (NumberFormatException nfex) {
-            Log.e(DEBUG_TAG, "Non numberic item " + nfex.getMessage());
+            Log.e(DEBUG_TAG, "Non nummeric item " + nfex.getMessage());
         }
     }
 
