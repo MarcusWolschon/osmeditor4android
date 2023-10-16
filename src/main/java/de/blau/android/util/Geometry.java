@@ -171,7 +171,7 @@ public final class Geometry {
      * @return a double array containing lon - lat in WGS84 coords
      */
     @NonNull
-    static double[] centroid(@NonNull OsmElement e) {
+    public static double[] centroid(@NonNull OsmElement e) {
         switch (e.getName()) {
         case Node.NAME:
             return new double[] { ((Node) e).getLon() / 1E7D, ((Node) e).getLat() / 1E7D };

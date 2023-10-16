@@ -258,7 +258,7 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
      */
     private <T extends OsmElement> void addElementsToContextMenu(@NonNull DisambiguationMenu menu, int startIndex, @NonNull List<T> elements) {
         for (OsmElement e : elements) {
-            menu.add(startIndex++, e, main.descriptionForContextMenu(e), false, this);
+            menu.add(startIndex++, e, main.descriptionForContextMenu(e, Double.MAX_VALUE, Double.MAX_VALUE), false, this);
         }
     }
 
