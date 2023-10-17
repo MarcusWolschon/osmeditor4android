@@ -176,6 +176,7 @@ import de.blau.android.util.FileUtil;
 import de.blau.android.util.FullScreenAppCompatActivity;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.GeoUrlData;
+import de.blau.android.util.Geometry;
 import de.blau.android.util.LatLon;
 import de.blau.android.util.MenuUtil;
 import de.blau.android.util.NetworkStatus;
@@ -3593,7 +3594,7 @@ public class Main extends FullScreenAppCompatActivity
                     clickedObjects.get(0).onSelected(Main.this);
                     break;
                 default:
-                    showDisambiguationMenu(v);
+                    showDisambiguationMenu(v, x, y);
                     break;
                 }
             }
@@ -3623,7 +3624,7 @@ public class Main extends FullScreenAppCompatActivity
                         ElementInfo.showDialog(Main.this, clickedNodesAndWays.get(0));
                     }
                 } else if (itemCount > 1) {
-                    showDisambiguationMenu(v);
+                    showDisambiguationMenu(v, x, y);
                 }
                 return true;
             }
@@ -3638,7 +3639,7 @@ public class Main extends FullScreenAppCompatActivity
                     }
                     if (elementCount > 1) {
                         longClick = true; // another ugly flag
-                        showDisambiguationMenu(v);
+                        showDisambiguationMenu(v, x, y);
                         return true;
                     }
                 } // fall through to beep
@@ -3755,7 +3756,7 @@ public class Main extends FullScreenAppCompatActivity
                 default:
                     // multiple possible elements touched - show menu
                     if (menuRequired()) {
-                        showDisambiguationMenu(v);
+                        showDisambiguationMenu(v, x, y);
                     } else {
                         // menuRequired tells us it's ok to just take the first one
                         if (inEasyEditMode) {
@@ -3777,7 +3778,7 @@ public class Main extends FullScreenAppCompatActivity
          * @param elements List of elements to filter
          * @return List of elements that have passed the filter
          */
-        private List<OsmElement> filterElements(List<OsmElement> elements) {
+        private List<OsmElement> filterElements(@NonNull List<OsmElement> elements) {
             List<OsmElement> tmp = new ArrayList<>();
             Logic logic = App.getLogic();
             Filter filter = logic.getFilter();
@@ -3793,8 +3794,10 @@ public class Main extends FullScreenAppCompatActivity
          * Creates a context menu with the objects near where the screen was touched
          * 
          * @param menu Menu object to add our entries to
+         * @param x x screen coordinate
+         * @param y y screen coordinate
          */
-        public void onCreateDefaultDisambiguationMenu(@NonNull final DisambiguationMenu menu) {
+        public void onCreateDefaultDisambiguationMenu(@NonNull final DisambiguationMenu menu, float x, float y) {
             int id = 0;
             if (!clickedObjects.isEmpty()) {
                 for (final ClickedObject<?> co : clickedObjects) {
@@ -3806,8 +3809,10 @@ public class Main extends FullScreenAppCompatActivity
             }
             if (clickedNodesAndWays != null) {
                 Logic logic = App.getLogic();
+                double lon = x >= 0 ? GeoMath.xToLonE7(map.getWidth(), map.getViewBox(), x) / 1E7D : Double.MAX_VALUE;
+                double lat = x >= 0 ? GeoMath.yToLatE7(map.getHeight(), map.getWidth(), map.getViewBox(), y) / 1E7D : Double.MAX_VALUE;
                 for (OsmElement e : clickedNodesAndWays) {
-                    menu.add(id++, e, descriptionForContextMenu(e), logic.isSelected(e), this);
+                    menu.add(id++, e, descriptionForContextMenu(e, lon, lat), logic.isSelected(e), this);
                 }
             }
         }
@@ -3918,7 +3923,7 @@ public class Main extends FullScreenAppCompatActivity
                         // multiple possible elements touched - show menu
                         Log.d(DEBUG_TAG, "onDoubleTap displaying menu");
                         doubleTap = true; // ugly flag
-                        showDisambiguationMenu(v);
+                        showDisambiguationMenu(v, x, y);
                     } else {
                         // menuRequired tells us it's ok to just take the first one
                         getEasyEditManager().startExtendedSelection(clickedNodesAndWays.get(0));
@@ -3946,11 +3951,13 @@ public class Main extends FullScreenAppCompatActivity
          * Create and show the disambiguation menu
          * 
          * @param view the current anchor view
+         * @param x x screen coordinate
+         * @param y y screen coordinate
          */
-        public void showDisambiguationMenu(@NonNull View view) {
+        public void showDisambiguationMenu(@NonNull View view, float x, float y) {
             DisambiguationMenu menu = new DisambiguationMenu(view);
             if (!getEasyEditManager().createDisambiguationMenu(menu)) {
-                onCreateDefaultDisambiguationMenu(menu);
+                onCreateDefaultDisambiguationMenu(menu, x, y);
             }
             menu.show();
             Tip.showDialog(Main.this, R.string.tip_disambiguation_menu_key, R.string.tip_disambiguation_menu);
@@ -3961,7 +3968,7 @@ public class Main extends FullScreenAppCompatActivity
      * Create and show the disambiguation menu
      */
     public void showDisambiguationMenu() {
-        mapTouchListener.showDisambiguationMenu(getMap());
+        mapTouchListener.showDisambiguationMenu(getMap(), -1f, -1f);
     }
 
     /**
@@ -4572,32 +4579,50 @@ public class Main extends FullScreenAppCompatActivity
      * Get a description of an element suitable for display in a context menu
      * 
      * @param e the OsmELement
+     * @param lon longitude of reference position, if < than the max lon value a direction arrow will be added
+     * @param lat latitude of reference position
      * @return the description
      */
     @NonNull
-    public String descriptionForContextMenu(@NonNull OsmElement e) {
+    public String descriptionForContextMenu(@NonNull OsmElement e, double lon, double lat) {
         StringBuilder parentList = new StringBuilder();
         if (e instanceof Node) {
             List<Way> ways = App.getLogic().getWaysForNode((Node) e);
             for (Way w : ways) {
-                parentList.append(w.getDescription(this));
-                if (!lastMember(ways, w)) {
-                    parentList.append(", ");
-                }
+                appendToTextList(parentList, ways, w);
             }
         }
         if (e.hasParentRelations()) {
             List<Relation> relations = e.getParentRelations();
             for (Relation r : relations) {
-                parentList.append(r.getDescription(this));
-                if (!lastMember(relations, r)) {
-                    parentList.append(", ");
-                }
+                appendToTextList(parentList, relations, r);
             }
         }
         String description = e.getDescription(this, false);
-        return parentList.length() == 0 ? getString(R.string.element_for_menu, description)
-                : getString(R.string.element_for_menu_with_parents, description, parentList.toString());
+        final boolean noParents = parentList.length() == 0;
+        if (lon < GeoMath.MAX_LON) {
+            double[] centroid = Geometry.centroid(e);
+            char direction = Util.getBearingArrow(lon, lat, centroid[0], centroid[1]);
+            return noParents ? getString(R.string.element_for_menu_with_direction, direction, description)
+                    : getString(R.string.element_for_menu_with_parents_with_direction, direction, description, parentList.toString());
+        }
+        return noParents ? getString(R.string.element_for_menu_with_parents, description, parentList.toString())
+                : getString(R.string.element_for_menu, description);
+    }
+
+    /**
+     * Append to a textual list of elements
+     * 
+     * @param <E> OsmElement type
+     * @param list a StringBuilder for the output
+     * @param elements a List of the OsmElements
+     * @param e the OsmElement
+     */
+    private <E extends OsmElement> void appendToTextList(@NonNull StringBuilder list, @NonNull List<E> elements, @NonNull E e) {
+        list.append(e.getDescription(this));
+        if (!lastMember(elements, e)) {
+            list.append(", ");
+        }
     }
 
     /**

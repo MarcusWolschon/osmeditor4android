@@ -90,7 +90,7 @@ public class NodeTest {
     public void selectNode() {
         TestUtils.clickAtCoordinates(device, map, 8.38782, 47.390339, true);
         TestUtils.clickAwayTip(device, context); 
-        assertTrue(TestUtils.clickText(device, false, "Toilets", true, false, 5000));
+        assertTrue(TestUtils.clickText(device, false, "↓ Toilets", true, false, 5000));
         Node node = App.getLogic().getSelectedNode();
         assertNotNull(node);
         assertEquals(3465444349L, node.getOsmId());
@@ -120,7 +120,7 @@ public class NodeTest {
     public void dragNode() {
         TestUtils.clickAtCoordinates(device, map, 8.38782, 47.390339, true);
         TestUtils.clickAwayTip(device, context); 
-        assertTrue(TestUtils.clickText(device, false, "Toilets", true, false, 5000));
+        assertTrue(TestUtils.clickText(device, false, "↓ Toilets", true, false, 5000));
         Node node = App.getLogic().getSelectedNode();
         assertNotNull(node);
         assertEquals(3465444349L, node.getOsmId());
@@ -163,7 +163,7 @@ public class NodeTest {
 
         TestUtils.clickAtCoordinates(device, map, 8.3874964, 47.3884769, false);
         TestUtils.clickAwayTip(device, context); 
-        assertTrue(TestUtils.clickText(device, false, "#633468419", false, false)); // the first node in the list
+        assertTrue(TestUtils.clickText(device, false, "↓ #633468419", false, false)); // the first node in the list
         assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.menu_merge), false, true));
 
         List<Way> waysAfter = logic.getWaysForNode(node);
@@ -191,7 +191,7 @@ public class NodeTest {
 
         TestUtils.clickAtCoordinates(device, map, 8.3866386, 47.3904394, false);
         TestUtils.clickAwayTip(device, context); 
-        assertTrue(TestUtils.clickText(device, false, "#-2221", false, false)); // the first node in the list
+        assertTrue(TestUtils.clickText(device, false, "↓ #-2221", false, false)); // the first node in the list
         assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.menu_merge), false, true));
 
         // merge all

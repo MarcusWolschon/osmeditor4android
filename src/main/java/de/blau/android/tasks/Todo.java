@@ -160,7 +160,7 @@ public final class Todo extends Bug implements Serializable {
         case Way.NAME:
             ways = elementList;
             double[] center = Geometry.centroidLonLat((Way) element);
-            if (center != null) {
+            if (center.length == 2) {
                 lon = (int) Math.round(center[0] * 1E7D);
                 lat = (int) Math.round(center[1] * 1E7D);
             }

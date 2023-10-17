@@ -27,8 +27,6 @@ import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
-import de.blau.android.osm.Relation;
-import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.tasks.Note;
@@ -53,9 +51,6 @@ public final class IssueAlert {
     private static final String GROUP_OSMOSE    = PAACKGE_NAME + ".Osmose";
     private static final int    GROUP_OSMOSE_ID = GROUP_OSMOSE.hashCode();
 
-    private static final int[] bearings = { R.string.bearing_ne, R.string.bearing_e, R.string.bearing_se, R.string.bearing_s, R.string.bearing_sw,
-            R.string.bearing_w, R.string.bearing_nw, R.string.bearing_n };
-
     /**
      * Private constructor to avoid instantiation of the class
      */
@@ -69,7 +64,6 @@ public final class IssueAlert {
      * @param e OsmElement we are generating an alert for
      */
     public static void alert(@NonNull Context context, @NonNull OsmElement e) {
-
         Preferences prefs = App.getPreferences(context);
         if (!prefs.generateAlerts()) { // don't generate alerts
             return;
@@ -82,38 +76,13 @@ public final class IssueAlert {
         } catch (SecurityException sex) {
             // can be safely ignored
         }
-        double eLon;
-        double eLat;
-        switch (e.getName()) {
-        case Node.NAME:
-            eLon = ((Node) e).getLon() / 1E7D;
-            eLat = ((Node) e).getLat() / 1E7D;
-            break;
-        case Way.NAME:
-            double[] result = Geometry.centroidLonLat((Way) e);
-            if (result == null) {
-                Log.d(DEBUG_TAG, "couldn't determine center for " + e);
-                return;
-            }
-            eLon = result[0];
-            eLat = result[1];
-            break;
-        case Relation.NAME:
-            BoundingBox bbox = e.getBounds();
-            if (bbox != null) {
-                ViewBox box = new ViewBox(bbox);
-                result = box.getCenter();
-                eLon = result[0];
-                eLat = result[1];
-            } else {
-                Log.e(DEBUG_TAG, "no bounding box for " + e);
-                return;
-            }
-            break;
-        default:
-            Log.e(DEBUG_TAG, "unknown element type " + e);
+
+        double[] centroid = Geometry.centroid(e);
+        if (centroid.length != 2) {
             return;
         }
+        double eLon = centroid[0];
+        double eLat = centroid[1];
         String title = context.getString(R.string.alert_data_issue);
         String ticker = title;
         StringBuilder message = new StringBuilder("");
@@ -132,15 +101,9 @@ public final class IssueAlert {
             if (distance > prefs.getMaxAlertDistance()) {
                 return;
             }
-            long bearing = GeoMath.bearing(location.getLongitude(), location.getLatitude(), eLon, eLat);
 
-            int index = (int) (bearing - 22.5);
-            if (index < 0) {
-                index += 360;
-            }
-            index = index / 45;
-
-            message.append(context.getString(R.string.alert_distance_direction, distance, context.getString(bearings[index])) + "\n");
+            message.append(context.getString(R.string.alert_distance_direction, distance,
+                    Util.getBearingString(context, location.getLongitude(), location.getLatitude(), eLon, eLat)) + "\n");
             ticker = ticker + " " + message;
         }
         Validator validator = App.getDefaultValidator(context);
@@ -242,15 +205,8 @@ public final class IssueAlert {
                 return;
             }
 
-            long bearing = GeoMath.bearing(location.getLongitude(), location.getLatitude(), eLon, eLat);
-
-            int index = (int) (bearing - 22.5);
-            if (index < 0) {
-                index += 360;
-            }
-            index = index / 45;
-
-            message = context.getString(R.string.alert_distance_direction, distance, context.getString(bearings[index])) + "\n";
+            message = context.getString(R.string.alert_distance_direction, distance,
+                    Util.getBearingString(context, location.getLongitude(), location.getLatitude(), eLon, eLat)) + "\n";
             ticker = ticker + " " + message;
         }
         message = message + b.getDescription();

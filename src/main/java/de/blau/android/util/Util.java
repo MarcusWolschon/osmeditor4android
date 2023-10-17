@@ -196,7 +196,7 @@ public final class Util {
         }
         if (osmElement instanceof Way) {
             double[] coords = Geometry.centroidLonLat((Way) osmElement);
-            if (coords != null) {
+            if (coords.length == 2) {
                 return new IntCoordinates((int) (coords[0] * 1E7), (int) (coords[1] * 1E7));
             }
         }
@@ -208,6 +208,54 @@ public final class Util {
             }
         }
         return null;
+    }
+
+    private static final int[] bearingStrings = { R.string.bearing_ne, R.string.bearing_e, R.string.bearing_se, R.string.bearing_s, R.string.bearing_sw,
+            R.string.bearing_w, R.string.bearing_nw, R.string.bearing_n };
+
+    /**
+     * Get a String indicating the bearing from (sLon/sLat) to (eLon/eLat)
+     * 
+     * @param context an Android Context
+     * @param sLon start lon
+     * @param sLat start lat
+     * @param eLon end lon
+     * @param eLat end lat
+     * @return a String indicating the bearing
+     */
+    @NonNull
+    public static String getBearingString(@NonNull Context context, double sLon, double sLat, double eLon, double eLat) {
+        long bearing = GeoMath.bearing(sLon, sLat, eLon, eLat);
+
+        int index = (int) (bearing - 22.5);
+        if (index < 0) {
+            index += 360;
+        }
+        index = index / 45;
+        return context.getString(bearingStrings[index]);
+    }
+
+    private static final char[] bearingArrows = { '↗', '→', '↘', '↓', '↙', '←', '↖', '↑' };
+
+    /**
+     * Get a char indicating the bearing from (sLon/sLat) to (eLon/eLat)
+     * 
+     * @param sLon start lon
+     * @param sLat start lat
+     * @param eLon end lon
+     * @param eLat end lat
+     * @return a char indicating the bearing
+     */
+    @NonNull
+    public static char getBearingArrow(double sLon, double sLat, double eLon, double eLat) {
+        long bearing = GeoMath.bearing(sLon, sLat, eLon, eLat);
+
+        int index = (int) (bearing - 22.5);
+        if (index < 0) {
+            index += 360;
+        }
+        index = index / 45;
+        return bearingArrows[index];
     }
 
     /**
@@ -308,8 +356,8 @@ public final class Util {
      * @param lonLat coordinates to share
      * @param z the zoom level or null
      */
-    public static void sharePosition(@NonNull Activity activity, @Nullable double[] lonLat, @Nullable Integer z) {
-        if (lonLat != null) {
+    public static void sharePosition(@NonNull Activity activity, @NonNull double[] lonLat, @Nullable Integer z) {
+        if (lonLat.length == 2) {
             Uri geo = Uri.parse("geo:" + String.format(Locale.US, "%.7f", lonLat[1]) + "," + String.format(Locale.US, "%.7f", lonLat[0])
                     + (z != null ? "?z=" + z.toString() : ""));
             Log.d(DEBUG_TAG, "sharing " + geo);

@@ -150,7 +150,7 @@ public class KeyboardTest {
 
         TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
         TestUtils.clickText(device, true, context.getString(R.string.okay), true, false); // Tip
-        Assert.assertTrue(TestUtils.clickText(device, false, "Path", false, false));
+        Assert.assertTrue(TestUtils.clickText(device, false, "↓ Path", false, false));
         Way way = App.getLogic().getSelectedWay();
         Assert.assertNotNull(way);
         Assert.assertEquals(104148456L, way.getOsmId());
@@ -179,7 +179,7 @@ public class KeyboardTest {
         TestUtils.clickText(device, false, "Ok", false); // in case we get a tip
 
         TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
-        Assert.assertTrue(TestUtils.clickText(device, false, "Path", false, false));
+        Assert.assertTrue(TestUtils.clickText(device, false, "↓ Path", false, false));
         way = App.getLogic().getSelectedWay();
         Assert.assertNotNull(way);
         Assert.assertEquals(104148456L, way.getOsmId());

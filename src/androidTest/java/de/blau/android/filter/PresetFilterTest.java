@@ -40,6 +40,7 @@ public class PresetFilterTest {
     private UiDevice        device          = null;
     private Main            main            = null;
     private Map             map             = null;
+    private Preferences     prefs;
 
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
@@ -54,8 +55,10 @@ public class PresetFilterTest {
         context = instrumentation.getTargetContext();
         monitor = instrumentation.addMonitor(PresetFilterActivity.class.getName(), null, false);
         main = mActivityRule.getActivity();
-        Preferences prefs = new Preferences(context);
+        prefs = App.getPreferences(context);
         LayerUtils.removeImageryLayers(context);
+        prefs.enablePresetFilter(false);
+        prefs.enableTagFilter(false);
         map = main.getMap();
         map.setPrefs(main, prefs);
 
@@ -71,6 +74,8 @@ public class PresetFilterTest {
     @After
     public void teardown() {
         instrumentation.removeMonitor(monitor);
+        prefs.enablePresetFilter(false);
+        prefs.enableTagFilter(false);
     }
 
     /**
@@ -111,15 +116,15 @@ public class PresetFilterTest {
         assertTrue(TestUtils.clickText(device, false, "Waypoints", true, true));
         assertTrue(TestUtils.clickText(device, false, "Pedestrian Crossing", true));
         TestUtils.sleep(2000);
-        TestUtils.clickAtCoordinates(device, main.getMap(),  8.3886622D, 47.3887223D, true);
+        TestUtils.clickAtCoordinates(device, main.getMap(), 8.3886622D, 47.3887223D, true);
         assertTrue(TestUtils.findText(device, false, main.getString(R.string.actionmode_nodeselect), 5000));
         assertEquals(289987514L, App.getLogic().getSelectedNode().getOsmId());
 
-        TestUtils.drag(device, main.getMap(), 8.3886622D, 47.3887223D,  8.389D, 47.389D, false, 10);
-        
+        TestUtils.drag(device, main.getMap(), 8.3886622D, 47.3887223D, 8.389D, 47.389D, false, 10);
+
         TestUtils.findText(device, false, main.getString(R.string.attached_object_warning_stop), 2000);
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.attached_object_warning_stop), true));
-        
+
         TestUtils.clickUp(device);
         TestUtils.clickOverflowButton(device);
         TestUtils.clickText(device, false, main.getString(R.string.menu_enable_presetfilter), true, false);

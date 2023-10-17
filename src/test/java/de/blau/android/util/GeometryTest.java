@@ -69,23 +69,23 @@ public class GeometryTest {
         Geometry.offset(input3, output3, input3.length, true, 1);
         assertArrayEquals(new float[] { -4f, 4f, 4f, 4f, 4f, 4f, 4f, -4f, 4f, -4f, -4f, -4f, -4f, -4f, -4f, 4f }, output3, 0.000001f);
     }
-    
+
     /**
-     * Test that calculating the centroid of degenerate ways does what is expected 
+     * Test that calculating the centroid of degenerate ways does what is expected
      */
     @Test
     public void centroidDegenerateWays() {
         final StorageDelegator delegator = App.getDelegator();
         OsmElementFactory factory = delegator.getFactory();
         Way w = factory.createWayWithNewId();
-        
+
         double[] centroid = Geometry.centroidLonLat(w);
-        assertNull(centroid);
+        assertEquals(0, centroid.length);
         Node n0 = factory.createNodeWithNewId(toE7(51.5019094D), toE7(-0.1417412D));
         delegator.addNodeToWay(n0, w);
         centroid = Geometry.centroidLonLat(w);
-        assertNotNull(centroid);
-        assertEquals(centroid[0],-0.1417412D, 0.0000001);
-        assertEquals(centroid[1],51.5019094D, 0.0000001);
+        assertEquals(2, centroid.length);
+        assertEquals(centroid[0], -0.1417412D, 0.0000001);
+        assertEquals(centroid[1], 51.5019094D, 0.0000001);
     }
 }

@@ -322,7 +322,7 @@ public class GeoContext {
                 lat = ((Node) e).getLat() / 1E7D;
             } else if (e instanceof Way) {
                 double[] coords = Geometry.centroidLonLat((Way) e);
-                if (coords == null) {
+                if (coords.length != 2) {
                     throw new IllegalStateException("way " + e.getOsmId() + " no coords");
                 }
                 lon = coords[0];
@@ -409,7 +409,7 @@ public class GeoContext {
      */
     public boolean imperial(@NonNull Way w) {
         double[] coords = Geometry.centroidLonLat(w);
-        return imperial(coords[0], coords[1]);
+        return coords.length == 2 && imperial(coords[0], coords[1]);
     }
 
     /**
@@ -464,7 +464,7 @@ public class GeoContext {
      */
     public boolean driveLeft(@NonNull Way w) {
         double[] coords = Geometry.centroidLonLat(w);
-        return driveLeft(coords[0], coords[1]);
+        return coords.length == 2 && driveLeft(coords[0], coords[1]);
     }
 
     /**

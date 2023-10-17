@@ -99,7 +99,7 @@ public class RelationTest {
         TestUtils.zoomToLevel(device, main, 21);
         TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
         TestUtils.clickAwayTip(device, context);
-        assertTrue(TestUtils.clickText(device, false, "Hiking", false, false));
+        assertTrue(TestUtils.clickText(device, false, "↓ Hiking", false, false));
         List<Relation> rels = App.getLogic().getSelectedRelations();
         assertNotNull(rels);
         assertEquals(1, rels.size());
@@ -135,8 +135,8 @@ public class RelationTest {
         TestUtils.zoomToLevel(device, main, 21);
         TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
         TestUtils.clickAwayTip(device, context);
-        assertTrue(TestUtils.findText(device, false, "Path", 2000));
-        assertTrue(TestUtils.clickText(device, false, "Path", false, false));
+        assertTrue(TestUtils.findText(device, false, "↓ Path", 2000));
+        assertTrue(TestUtils.clickText(device, false, "↓ Path", false, false));
         Way way = App.getLogic().getSelectedWay();
         assertNotNull(way);
         assertEquals(104148456L, way.getOsmId());

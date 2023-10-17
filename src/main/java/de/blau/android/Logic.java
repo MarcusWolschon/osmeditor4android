@@ -4311,8 +4311,8 @@ public class Logic {
                 if (result > 0) {
                     try {
                         if (activity != null) {
-                            ScreenMessage.barInfo(activity, activity.getResources().getQuantityString(R.plurals.toast_unread_mail, result, result), R.string.read_mail,
-                                    v -> {
+                            ScreenMessage.barInfo(activity, activity.getResources().getQuantityString(R.plurals.toast_unread_mail, result, result),
+                                    R.string.read_mail, v -> {
                                         try {
                                             activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Urls.OSM_LOGIN)));
                                         } catch (Exception ex) {
@@ -5375,7 +5375,8 @@ public class Logic {
      */
     public void copyToClipboard(@NonNull List<OsmElement> elements) {
         int[] centroid = calcCentroid(elements);
-        if (centroid == null) {
+        if (centroid.length != 2) {
+            Log.e(DEBUG_TAG, "Unable to determine centroid");
             return;
         }
         getDelegator().copyToClipboard(elements, centroid[0], centroid[1]);
@@ -5402,7 +5403,8 @@ public class Logic {
     public void cutToClipboard(@Nullable Activity activity, @NonNull List<OsmElement> elements) {
         createCheckpoint(activity, R.string.undo_action_cut);
         int[] centroid = calcCentroid(elements);
-        if (centroid == null) {
+        if (centroid.length != 2) {
+            Log.e(DEBUG_TAG, "Unable to determine centroid");
             return;
         }
         getDelegator().cutToClipboard(elements, centroid[0], centroid[1]);
@@ -5416,13 +5418,13 @@ public class Logic {
      * better match the expectation of a user (in which points have the same importance as an area or a way.
      * 
      * @param elements a list of OsmElements
-     * @return the centroid or null if an error occurs
+     * @return the centroid or an empty array if an error occurs [lat, lon] WGS84*E7
      */
-    @Nullable
-    int[] calcCentroid(@NonNull List<OsmElement> elements) {
+    @NonNull
+    private int[] calcCentroid(@NonNull List<OsmElement> elements) {
         if (elements.isEmpty()) {
             Log.e(DEBUG_TAG, "empty element list for for centroid");
-            return null;
+            return new int[0];
         }
         long latE7 = 0;
         long lonE7 = 0;
@@ -5433,15 +5435,15 @@ public class Logic {
             } else if (e instanceof Way) {
                 // use current centroid of way
                 int[] centroid = Geometry.centroid(map.getWidth(), map.getHeight(), viewBox, (Way) e);
-                if (centroid == null) {
+                if (centroid.length != 2) {
                     Log.e(DEBUG_TAG, "centroid of way " + e.getDescription() + " is null");
-                    return null;
+                    return new int[0];
                 }
                 latE7 += centroid[0];
                 lonE7 += centroid[1];
             } else {
                 Log.e(DEBUG_TAG, "unknown object type for centroid");
-                return null;
+                return new int[0];
             }
         }
         final int size = elements.size();
