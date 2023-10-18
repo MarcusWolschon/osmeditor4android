@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.26.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,disused:amenity,disused:leisure,disused:man_made,disused:shop,golf,ford,harbour,hazard,noexit,indoor,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom">
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.27.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,disused:amenity,disused:leisure,disused:man_made,disused:shop,golf,ford,harbour,hazard,noexit,indoor,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom">
 <!--
     Icons have been derived from mainly from
   
@@ -6925,13 +6925,20 @@
             <reference ref="link_contact_address"/>
             <reference ref="kids_area"/>
         </item> <!-- Community Centre -->
-        <item name="Conference Centre" icon="icons/png/amenity_empty.png" type="node,closedway,multipolygon" preset_name_label="true">
+        <item name="Conference Centre" icon="icons/png/amenity_amphitheatre_19035.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:amenity=conference_centre"/>
             <space/>
             <key key="amenity" value="conference_centre"/>
             <reference ref="name_operator_oh_wheelchair_toilets"/>
             <reference ref="link_contact_address"/>
         </item> <!-- Conference Centre -->
+        <item name="Exhibition Centre" icon="icons/png/amenity_exhibition_centre.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:amenity=exhibition_centre"/>
+            <space/>
+            <key key="amenity" value="exhibition_centre"/>
+            <reference ref="name_operator_oh_wheelchair_toilets"/>
+            <reference ref="link_contact_address"/>
+        </item> <!-- Exhibition Centre -->
         <item name="Embassy" icon="icons/png/poi_embassy.png" type="node,closedway,multipolygon" deprecated="true" preset_name_label="true">
             <link wiki="Tag:amenity=embassy"/>
             <space/>
@@ -6997,7 +7004,7 @@
             <reference ref="name_operator_oh_wheelchair"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Crematorium -->
-        <item name="Mortuary" icon="icons/png/amenity_empty.png" type="node,closedway,multipolygon" preset_name_label="true">
+        <item name="Mortuary" icon="icons/png/amenity_mortuary_12424.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:amenity=mortuary"/>
             <space/>
             <key key="amenity" value="mortuary"/>
@@ -9326,7 +9333,21 @@
         <item name="Cross" icon="icons/png/man_made_cross_12107.png" type="node" preset_name_label="true">
             <link wiki="Tag:man_made=cross"/>
             <key key="man_made" value="cross"/>
+            <reference ref="material"/>
+            <text key="height" text="Height (meters)" value_type="dimension_vertical"/>
+            <reference ref="historic_optional"/>
+            <preset_link preset_name="Monument"/>
+            <preset_link preset_name="Memorial"/>          
         </item> <!-- Cross -->
+        <item name="Obelisk" icon="icons/png/man_made_obelisk.png" type="node,closedway" preset_name_label="true">
+            <link wiki="Tag:man_made=obelisk"/>
+            <key key="man_made" value="obelisk"/>
+            <reference ref="material"/>
+            <text key="height" text="Height (meters)" value_type="dimension_vertical"/>
+            <reference ref="historic_optional"/>
+            <preset_link preset_name="Monument"/>
+            <preset_link preset_name="Memorial"/>
+        </item> <!-- Obelisk -->
         <separator/>
         <item name="Works" icon="icons/png/man_made_works_22087.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:man_made=works"/>
@@ -14300,6 +14321,13 @@
             <reference ref="name_oh_wheelchair_level"/>
             <reference ref="link_contact_address"/>
         </item> <!-- It -->
+        <item name="Graphic design" icon="icons/png/office_graphic_design.png" type="node,closedway,multipolygon">
+            <link wiki="Tag:office=graphic_design"/>
+            <space/>
+            <key key="office" value="graphic_design"/>
+            <reference ref="name_oh_wheelchair_level"/>
+            <reference ref="link_contact_address"/>
+        </item> <!-- Graphic design -->
         <item name="Lawyer" icon="icons/png/office_lawyer_25009.png" type="node,closedway,multipolygon">
             <link wiki="Tag:office=lawyer"/>
             <space/>
@@ -14307,6 +14335,13 @@
             <reference ref="name_oh_wheelchair_level"/>
             <reference ref="link_contact_address"/>
         </item> <!-- Lawyer -->
+        <item name="Private investigator" icon="icons/png/office_private_investigator.png" type="node,closedway,multipolygon">
+            <link wiki="Tag:office=private_investigator"/>
+            <space/>
+            <key key="office" value="private_investigator"/>
+            <reference ref="name_oh_wheelchair_level"/>
+            <reference ref="link_contact_address"/>
+        </item> <!-- Private investigator -->
         <item name="Ngo" icon="icons/png/office_ngo_25010.png" type="node,closedway,multipolygon">
             <link wiki="Tag:office=ngo"/>
             <space/>
