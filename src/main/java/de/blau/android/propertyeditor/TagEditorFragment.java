@@ -1168,6 +1168,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                         originalKey = newKey;
                         updateAutocompletePresetItem(rowLayout, null, true);
                     }
+                    row.keyEdit.post(() -> row.keyEdit.dismissDropDown());
                 }
             }
         });
@@ -1195,7 +1196,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                         InputTypeUtil.enableTextSuggestions(row.valueEdit);
                     }
                     InputTypeUtil.setInputTypeFromValueType(row.valueEdit, valueType);
-                    if (row.valueEdit.getText().length() == 0) {
+                    if (row.valueEdit.getText().length() == 0 && (row.tagValues == null || row.tagValues.isEmpty())) {
                         row.valueEdit.post(() -> row.valueEdit.showDropDown());
                     }
                 } else {
@@ -1247,7 +1248,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             }
         };
         row.keyEdit.addTextChangedListener(textWatcher);
-        row.valueEdit.addTextChangedListener(new TextWatcher() {
+        final TextWatcher valueTextWatcher = new TextWatcher() {
 
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -1262,15 +1263,21 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             @Override
             public void afterTextChanged(Editable s) {
                 textWatcher.afterTextChanged(s);
-                if (row.tagValues.size() > 1 && s.length() == 0) { // multi-select value has been emptied
-                    row.setValues(row.getKey(), Util.wrapInList(""), true);
-                }
+                Log.d(DEBUG_TAG, "afterTextChanged >" + s + "<");
+                row.valueEdit.removeTextChangedListener(this);
+                setMultiselectValue(rowLayout, row, s.toString());
+                row.valueEdit.addTextChangedListener(this);
             }
-        });
+        };
+        row.valueEdit.addTextChangedListener(valueTextWatcher);
 
         row.valueEdit.setOnItemClickListener((parent, view, pos, id) -> {
-            Log.d("TagEdit", "onItemClicked value");
+            if (parent == null) {
+                Log.d(DEBUG_TAG, "onItemClicked parent null");
+                return;
+            }
             Object o = parent.getItemAtPosition(pos);
+            Log.d(DEBUG_TAG, "onItemClicked value " + o);
             if (o instanceof Names.NameAndTags) {
                 row.valueEdit.setOrReplaceText(((NameAndTags) o).getName());
                 applyTagSuggestions(((NameAndTags) o).getTags(), null);
@@ -1299,8 +1306,30 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         }
         rowLayout.addView(row, (position == -1) ? rowLayout.getChildCount() : position);
         //
-
         return row;
+    }
+
+    /**
+     * If the there are multiple values set them all to the same and recreate the autocomplete adapter
+     * 
+     * @param rowLayout the layout holding the rows
+     * @param row the row
+     * @param newValue the new value
+     */
+    private void setMultiselectValue(@NonNull final LinearLayout rowLayout, @NonNull final TagEditRow row, @NonNull String newValue) {
+        final int length = osmIds.length;
+        if (length > 1) { // multi-select, all values should be set to the same
+            List<String> newValues = new ArrayList<>(length);
+            for (int i = 0; i < length; i++) {
+                newValues.add(newValue);
+            }
+            final String key = row.getKey();
+            row.setValues(key, newValues, true);
+            row.post(() -> {
+                row.valueEdit.dismissDropDown();
+                row.valueEdit.setAdapter(getValueAutocompleteAdapter(getPreset(key), rowLayout, row));
+            });
+        }
     }
 
     /**
@@ -1405,7 +1434,10 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             this.same = same;
             if (same) {
                 if (tagValues != null && !tagValues.isEmpty()) {
-                    valueEdit.setText(tagValues.get(0));
+                    String newValue = tagValues.get(0);
+                    if (!valueEdit.getText().toString().equals(newValue)) {
+                        valueEdit.setText(tagValues.get(0));
+                    }
                 } else {
                     valueEdit.setText("");
                 }
@@ -1455,14 +1487,26 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 // about to delete the row that has focus!
                 // try to move the focus to the next row or failing that to the previous row
                 int current = owner.rowIndex((LinearLayout) getParent(), this);
-                if (!owner.focusRow(current + 1)) {
-                    owner.focusRow(current - 1);
+                if (!focusRow(rowLayout, current + 1)) {
+                    focusRow(rowLayout, current - 1);
                 }
             }
             rowLayout.removeView(this);
             if (isEmpty() && owner != null) {
                 owner.ensureEmptyRow(rowLayout);
             }
+        }
+
+        /**
+         * Move the focus to the key field of the specified row.
+         * 
+         * @param layout the LinearLayout hold the rows
+         * @param index The index of the row to move to, counting from 0.
+         * @return true if the row was successfully focused, false otherwise.
+         */
+        private boolean focusRow(@NonNull LinearLayout layout, int index) {
+            TagEditRow row = (TagEditRow) layout.getChildAt(index);
+            return row != null && row.keyEdit.requestFocus();
         }
 
         /**
@@ -1597,28 +1641,26 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      */
     @Nullable
     private TagEditRow ensureEmptyRow(@Nullable LinearLayout rowLayout) {
-        if (rowLayout == null) {
+        if (rowLayout == null || !loaded) {
             return null;
         }
         TagEditRow ret = null;
-        if (loaded) {
-            int i = rowLayout.getChildCount();
-            while (--i >= 0) {
-                TagEditRow row = (TagEditRow) rowLayout.getChildAt(i);
-                if (row != null) {
-                    boolean isEmpty = row.isEmpty();
-                    if (ret == null) {
-                        ret = isEmpty ? row : insertNewEdit(rowLayout, "", new ArrayList<>(), -1, false);
-                    } else if (isEmpty) {
-                        row.deleteRow(rowLayout);
-                    }
-                } else {
-                    Log.e(DEBUG_TAG, "ensureEmptyRow no row at position " + i);
+        int i = rowLayout.getChildCount();
+        while (--i >= 0) {
+            TagEditRow row = (TagEditRow) rowLayout.getChildAt(i);
+            if (row != null) {
+                boolean isEmpty = row.isEmpty();
+                if (ret == null) {
+                    ret = isEmpty ? row : insertNewEdit(rowLayout, "", new ArrayList<>(), -1, false);
+                } else if (isEmpty) {
+                    row.deleteRow(rowLayout);
                 }
+            } else {
+                Log.e(DEBUG_TAG, "ensureEmptyRow no row at position " + i);
             }
-            if (ret == null) {
-                ret = insertNewEdit(rowLayout, "", new ArrayList<>(), -1, false);
-            }
+        }
+        if (ret == null) {
+            return insertNewEdit(rowLayout, "", new ArrayList<>(), -1, false);
         }
         return ret;
     }
@@ -1643,23 +1685,12 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         for (int i = 0; i < rowLayout.getChildCount(); i++) {
             TagEditRow ter = (TagEditRow) rowLayout.getChildAt(i);
             if (ter != null && !"".equals(ter.getKey()) && "".equals(ter.getValue())) {
-                focusRowValue(rowLayout, rowIndex(rowLayout, ter));
+                ter.valueEdit.requestFocus();
+                ter.valueEdit.dismissDropDown();
                 return true;
             }
         }
         return false;
-    }
-
-    /**
-     * Move the focus to the key field of the specified row.
-     * 
-     * @param index The index of the row to move to, counting from 0.
-     * @return true if the row was successfully focused, false otherwise.
-     */
-    private boolean focusRow(int index) {
-        LinearLayout rowLayout = (LinearLayout) getOurView();
-        TagEditRow row = (TagEditRow) rowLayout.getChildAt(index);
-        return row != null && row.keyEdit.requestFocus();
     }
 
     /**
@@ -1698,6 +1729,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      * @return true if successful
      */
     private boolean focusOnValue(@NonNull LinearLayout rowLayout, String key) {
+        Log.d(DEBUG_TAG, "focusOnValue " + key);
         boolean found = false;
         for (int i = rowLayout.getChildCount() - 1; i >= 0; --i) {
             TagEditRow ter = (TagEditRow) rowLayout.getChildAt(i);
@@ -2074,36 +2106,51 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     @NonNull
     private LinkedHashMap<String, List<String>> getKeyValueMap(LinearLayout rowLayout, final boolean allowBlanks) {
         final LinkedHashMap<String, List<String>> tags = new LinkedHashMap<>();
-        if (rowLayout == null && savedTags != null) {
-            return savedTags;
-        }
-        if (rowLayout != null) {
-            processKeyValues(rowLayout, (keyEdit, valueEdit, tagValues) -> {
-                String key = keyEdit.getText().toString().trim();
-                String value = valueEdit.getText().toString().trim();
-                boolean keyBlank = "".equals(key);
-                boolean valueBlank = "".equals(value);
-                boolean bothBlank = keyBlank && valueBlank;
-                boolean neitherBlank = !keyBlank && !valueBlank;
-                // both blank is never acceptable
-                if (!bothBlank && (neitherBlank || allowBlanks || (valueBlank && tagValues != null && !tagValues.isEmpty()))) {
-                    List<String> existing = tags.get(key);
-                    boolean existingIsEmpty = existing == null || (existing.size() == 1 && "".equals(existing.get(0)));
-                    if (existingIsEmpty) {
-                        if (valueBlank) {
-                            tags.put(key, tagValues.size() == 1 ? Util.wrapInList("") : tagValues);
-                        } else {
-                            tags.put(key, Util.wrapInList(value));
-                        }
-                    } else {
-                        Log.e(DEBUG_TAG, "Attempt to overwrite existing non-empty value");
-                    }
-                }
-            });
-        } else {
+        if (rowLayout == null) {
             Log.e(DEBUG_TAG, "rowLayout null in getKeyValueMapSingle");
+            if (savedTags != null) {
+                return savedTags;
+            }
+            return tags;
         }
+        processKeyValues(rowLayout, (keyEdit, valueEdit, tagValues) -> {
+            String key = keyEdit.getText().toString().trim();
+            String value = valueEdit.getText().toString().trim();
+            boolean keyBlank = "".equals(key);
+            boolean valueBlank = "".equals(value);
+            boolean bothBlank = keyBlank && valueBlank;
+            boolean neitherBlank = !keyBlank && !valueBlank;
+            // both blank is never acceptable
+            if (!bothBlank && (neitherBlank || allowBlanks || (valueBlank && tagValues != null && !tagValues.isEmpty()))) {
+                List<String> existing = tags.get(key);
+                boolean existingIsEmpty = existing == null || (existing.size() == 1 && "".equals(existing.get(0)));
+                if (existingIsEmpty) {
+                    if (valueBlank) {
+                        tags.put(key, areEmpty(tagValues) ? Util.wrapInList("") : tagValues);
+                    } else {
+                        tags.put(key, Util.wrapInList(value));
+                    }
+                } else {
+                    Log.e(DEBUG_TAG, "Attempt to overwrite existing non-empty value");
+                }
+            }
+        });
         return tags;
+    }
+
+    /**
+     * Check that all values in a list are empty
+     * 
+     * @param values the List of values
+     * @return true if all are empty
+     */
+    private boolean areEmpty(@NonNull List<String> values) {
+        for (String v : values) {
+            if (Util.notEmpty(v)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
