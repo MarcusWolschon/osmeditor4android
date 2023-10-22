@@ -164,19 +164,17 @@ public class SplitPaneLayout extends ViewGroup {
         }
         value = a.peekValue(R.styleable.SplitPaneLayout_splitterBackground);
         if (value != null) {
-            if (value.type == TypedValue.TYPE_REFERENCE || value.type == TypedValue.TYPE_STRING) {
+            if (isStringOrReferenceResource(value)) {
                 mSplitterDrawable = a.getDrawable(R.styleable.SplitPaneLayout_splitterBackground);
-            } else if (value.type == TypedValue.TYPE_INT_COLOR_ARGB8 || value.type == TypedValue.TYPE_INT_COLOR_ARGB4
-                    || value.type == TypedValue.TYPE_INT_COLOR_RGB8 || value.type == TypedValue.TYPE_INT_COLOR_RGB4) {
+            } else if (isColorResource(value)) {
                 mSplitterDrawable = new PaintDrawable(a.getColor(R.styleable.SplitPaneLayout_splitterBackground, DEFAULT_COLOR));
             }
         }
         value = a.peekValue(R.styleable.SplitPaneLayout_splitterDraggingBackground);
         if (value != null) {
-            if (value.type == TypedValue.TYPE_REFERENCE || value.type == TypedValue.TYPE_STRING) {
+            if (isStringOrReferenceResource(value)) {
                 mSplitterDraggingDrawable = a.getDrawable(R.styleable.SplitPaneLayout_splitterDraggingBackground);
-            } else if (value.type == TypedValue.TYPE_INT_COLOR_ARGB8 || value.type == TypedValue.TYPE_INT_COLOR_ARGB4
-                    || value.type == TypedValue.TYPE_INT_COLOR_RGB8 || value.type == TypedValue.TYPE_INT_COLOR_RGB4) {
+            } else if (isColorResource(value)) {
                 mSplitterDraggingDrawable = new PaintDrawable(a.getColor(R.styleable.SplitPaneLayout_splitterDraggingBackground, DEFAULT_DRAGGING_COLOR));
             }
         } else {
@@ -185,26 +183,45 @@ public class SplitPaneLayout extends ViewGroup {
 
         value = a.peekValue(R.styleable.SplitPaneLayout_handleBackground);
         if (value != null) {
-            if (value.type == TypedValue.TYPE_REFERENCE || value.type == TypedValue.TYPE_STRING) {
+            if (isStringOrReferenceResource(value)) {
                 mHandleDrawable = a.getDrawable(R.styleable.SplitPaneLayout_handleBackground);
-            } else if (value.type == TypedValue.TYPE_INT_COLOR_ARGB8 || value.type == TypedValue.TYPE_INT_COLOR_ARGB4
-                    || value.type == TypedValue.TYPE_INT_COLOR_RGB8 || value.type == TypedValue.TYPE_INT_COLOR_RGB4) {
+            } else if (isColorResource(value)) {
                 ((ShapeDrawable) mHandleDrawable).getPaint().setColor(a.getColor(R.styleable.SplitPaneLayout_handleBackground, DEFAULT_COLOR));
                 ((ShapeDrawable) mHandleDrawable).getPaint().setStrokeWidth(mSplitterSize);
             }
         }
         value = a.peekValue(R.styleable.SplitPaneLayout_handleDraggingBackground);
         if (value != null) {
-            if (value.type == TypedValue.TYPE_REFERENCE || value.type == TypedValue.TYPE_STRING) {
+            if (isStringOrReferenceResource(value)) {
                 mHandleDraggingDrawable = a.getDrawable(R.styleable.SplitPaneLayout_handleDraggingBackground);
-            } else if (value.type == TypedValue.TYPE_INT_COLOR_ARGB8 || value.type == TypedValue.TYPE_INT_COLOR_ARGB4
-                    || value.type == TypedValue.TYPE_INT_COLOR_RGB8 || value.type == TypedValue.TYPE_INT_COLOR_RGB4) {
+            } else if (isColorResource(value)) {
                 ((ShapeDrawable) mHandleDraggingDrawable).getPaint()
                         .setColor(a.getColor(R.styleable.SplitPaneLayout_handleDraggingBackground, DEFAULT_DRAGGING_COLOR));
                 ((ShapeDrawable) mHandleDraggingDrawable).getPaint().setStrokeWidth(mSplitterSize);
             }
         }
         a.recycle();
+    }
+
+    /**
+     * Check if value is a string or reference resource
+     * 
+     * @param value the value
+     * @return true if it is a string or reference resource
+     */
+    private boolean isStringOrReferenceResource(TypedValue value) {
+        return value.type == TypedValue.TYPE_REFERENCE || value.type == TypedValue.TYPE_STRING;
+    }
+
+    /**
+     * Check if value is a color resource
+     * 
+     * @param value the value
+     * @return true if it is a color resource
+     */
+    private boolean isColorResource(@NonNull TypedValue value) {
+        return value.type == TypedValue.TYPE_INT_COLOR_ARGB8 || value.type == TypedValue.TYPE_INT_COLOR_ARGB4 || value.type == TypedValue.TYPE_INT_COLOR_RGB8
+                || value.type == TypedValue.TYPE_INT_COLOR_RGB4;
     }
 
     @Override
@@ -264,7 +281,9 @@ public class SplitPaneLayout extends ViewGroup {
         int cX = mSplitterRect.centerX();
         int cY = mSplitterRect.centerY();
         Rect handleBounds = mHandleDrawable.getBounds();
-        mHandleRect.set(cX, cY, cX + handleBounds.width(), cY + handleBounds.height());
+        final int handleW2 = handleBounds.width() / 2;
+        final int handleH2 = handleBounds.height() / 2;
+        mHandleRect.set(cX - handleW2, cY - handleH2, cX + handleW2, cY + handleH2);
     }
 
     @Override
