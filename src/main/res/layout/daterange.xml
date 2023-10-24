@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="4dp"
+    android:orientation="vertical"
+    android:padding="?attr/dialogPreferredPadding">
+    <com.google.android.material.slider.RangeSlider
+        android:id="@+id/range_slider"
+        android:valueFrom="15948"
+        android:valueTo="99999"
+        app:labelBehavior="visible"
+        app:values="@array/initial_daterange_values"
+        style="@style/SliderStyle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

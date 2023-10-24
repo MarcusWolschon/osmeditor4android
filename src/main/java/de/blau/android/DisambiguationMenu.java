@@ -154,7 +154,7 @@ public class DisambiguationMenu {
             return Type.GPX;
         }
         if (object instanceof de.blau.android.util.mvt.VectorTileDecoder.Feature) {
-            return clicked.getLayer() instanceof de.blau.android.layer.mapillary.MapOverlay ? Type.MAPILLARY : Type.MVT;
+            return clicked.getLayer() instanceof de.blau.android.layer.mapillary.MapillaryOverlay ? Type.MAPILLARY : Type.MVT;
         }
         if (object instanceof Photo) {
             return Type.IMAGE;

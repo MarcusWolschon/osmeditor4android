@@ -1044,15 +1044,15 @@ public class Main extends FullScreenAppCompatActivity
                     }
                     break;
                 case ACTION_MAPILLARY_SELECT:
-                    final de.blau.android.layer.mapillary.MapOverlay mapillaryLayer = map != null
-                            ? (de.blau.android.layer.mapillary.MapOverlay) map.getLayer(LayerType.MAPILLARY)
+                    final de.blau.android.layer.mapillary.MapillaryOverlay mapillaryLayer = map != null
+                            ? (de.blau.android.layer.mapillary.MapillaryOverlay) map.getLayer(LayerType.MAPILLARY)
                             : null;
                     if (mapillaryLayer != null) {
-                        double[] coords = intent.getDoubleArrayExtra(de.blau.android.layer.mapillary.MapOverlay.COORDINATES_KEY);
+                        double[] coords = intent.getDoubleArrayExtra(de.blau.android.layer.mapillary.MapillaryOverlay.COORDINATES_KEY);
                         if (coords != null) {
                             map.getViewBox().moveTo(map, (int) (coords[1] * 1E7), (int) (coords[0] * 1E7));
                         }
-                        mapillaryLayer.select(intent.getIntExtra(de.blau.android.layer.mapillary.MapOverlay.SET_POSITION_KEY, 0));
+                        mapillaryLayer.select(intent.getIntExtra(de.blau.android.layer.mapillary.MapillaryOverlay.SET_POSITION_KEY, 0));
                     }
                     break;
                 case ACTION_MAP_UPDATE:

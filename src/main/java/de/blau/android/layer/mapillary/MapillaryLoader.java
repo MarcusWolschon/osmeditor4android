@@ -212,10 +212,10 @@ class MapillaryLoader extends ImageLoader {
         if (!App.isPropertyEditorRunning()) {
             Intent intent = new Intent(context, Main.class);
             intent.setAction(Main.ACTION_MAPILLARY_SELECT);
-            intent.putExtra(MapOverlay.SET_POSITION_KEY, index);
+            intent.putExtra(MapillaryOverlay.SET_POSITION_KEY, index);
             String key = ids.get(index);
             if (key != null && coordinates.containsKey(key)) {
-                intent.putExtra(MapOverlay.COORDINATES_KEY, coordinates.get(key));
+                intent.putExtra(MapillaryOverlay.COORDINATES_KEY, coordinates.get(key));
             }
             context.startActivity(intent);
         }

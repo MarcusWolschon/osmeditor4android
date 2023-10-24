@@ -169,7 +169,7 @@ public class Preferences {
 
         tileCacheSize = getIntPref(R.string.config_tileCacheSize_key, 100);
         preferRemovableStorage = prefs.getBoolean(r.getString(R.string.config_preferRemovableStorage_key), true);
-        mapillaryCacheSize = getIntPref(R.string.config_mapillaryCacheSize_key, de.blau.android.layer.mapillary.MapOverlay.MAPILLARY_DEFAULT_CACHE_SIZE);
+        mapillaryCacheSize = getIntPref(R.string.config_mapillaryCacheSize_key, de.blau.android.layer.mapillary.MapillaryOverlay.MAPILLARY_DEFAULT_CACHE_SIZE);
 
         downloadRadius = getIntPref(R.string.config_extTriggeredDownloadRadius_key, 50);
         maxDownloadSpeed = getIntPref(R.string.config_maxDownloadSpeed_key, 10);
@@ -225,7 +225,7 @@ public class Preferences {
 
         mapillarySequencesUrlV4 = prefs.getString(r.getString(R.string.config_mapillarySequencesUrlV4_key), Urls.DEFAULT_MAPILLARY_SEQUENCES_URL_V4);
         mapillaryImagesUrlV4 = prefs.getString(r.getString(R.string.config_mapillaryImagesUrlV4_key), Urls.DEFAULT_MAPILLARY_IMAGES_V4);
-        mapillaryMinZoom = getIntPref(R.string.config_mapillary_min_zoom_key, de.blau.android.layer.mapillary.MapOverlay.MAPILLARY_DEFAULT_MIN_ZOOM);
+        mapillaryMinZoom = getIntPref(R.string.config_mapillary_min_zoom_key, de.blau.android.layer.mapillary.MapillaryOverlay.MAPILLARY_DEFAULT_MIN_ZOOM);
 
         showCameraAction = prefs.getBoolean(r.getString(R.string.config_showCameraAction_key), true);
         cameraApp = prefs.getString(r.getString(R.string.config_selectCameraApp_key), "");

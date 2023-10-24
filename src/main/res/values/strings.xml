@@ -400,6 +400,7 @@
     <string name="layer_change_style">Change style…</string>
     <string name="layer_load_style">Load style…</string>
     <string name="layer_reset_style">Reset style</string>
+    <string name="layer_set_date_range">Set date range…</string>
     <string name="layer_select_imagery">Select imagery…</string>
     <string name="layer_test">Test…</string>
     <string name="layer_category_all">All</string>
@@ -436,6 +437,8 @@
     <string name="layer_info_no_meta_data">Meta data not loaded</string>
     <!--  Mapillary layer -->
     <string name="mapillary_image">%1$s</string>
+    <!-- Date range dialog -->
+    <string name="date_range_title">Set date range</string>
     <!-- Photo viewer -->
     <string name="photo_viewer_delete_title">Delete photo</string>
     <string name="photo_viewer_delete_button">Delete permanently</string>

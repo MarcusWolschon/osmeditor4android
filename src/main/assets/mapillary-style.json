@@ -6,6 +6,19 @@
             "id": "overview",
             "type": "line",
             "source-layer": "overview",
+            "filter": [
+                "all",
+                [
+                    ">=",
+                    "captured_at",
+                    0
+                ],
+                [
+                    "<=",
+                    "captured_at",
+                    0
+                ]
+            ],
             "maxzoom": 13,
             "paint": {
                 "line-opacity": 1,
@@ -33,6 +46,19 @@
             "id": "sequence",
             "type": "line",
             "source-layer": "sequence",
+            "filter": [
+                "all",
+                [
+                    ">=",
+                    "captured_at",
+                    0
+                ],
+                [
+                    "<=",
+                    "captured_at",
+                    0
+                ]
+            ],
             "minzoom": 14,
             "paint": {
                 "line-opacity": 1,
@@ -60,6 +86,19 @@
             "id": "image",
             "type": "symbol",
             "source-layer": "image",
+            "filter": [
+                "all",
+                [
+                    ">=",
+                    "captured_at",
+                    0
+                ],
+                [
+                    "<=",
+                    "captured_at",
+                    0
+                ]
+            ],
             "minzoom": 19,
             "layout": {
                 "icon-image": "arrow",
@@ -92,7 +131,7 @@
             "paint": {
                 "icon-color": "rgba(200, 100, 0, 1)"
             }
-        }        
+        }
     ],
     "id": "mapillary"
 }

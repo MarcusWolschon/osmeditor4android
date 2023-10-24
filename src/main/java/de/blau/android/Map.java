@@ -271,7 +271,7 @@ public class Map extends View implements IMapView {
                             }
                             break;
                         case MAPILLARY:
-                            layer = new de.blau.android.layer.mapillary.MapOverlay(this);
+                            layer = new de.blau.android.layer.mapillary.MapillaryOverlay(this);
                             break;
                         case BOOKMARKS:
                             layer = new de.blau.android.layer.bookmarks.MapOverlay(this);
