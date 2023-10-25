@@ -1,10 +1,13 @@
 package de.blau.android.layer.mapillary;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.After;
@@ -19,18 +22,23 @@ import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
+import androidx.annotation.NonNull;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
+import androidx.test.uiautomator.UiObject2;
 import de.blau.android.App;
+import de.blau.android.LayerUtils;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.MockTileServer;
 import de.blau.android.R;
 import de.blau.android.TestUtils;
+import de.blau.android.dialogs.DateRangeDialog;
+import de.blau.android.layer.LayerDialogTest;
 import de.blau.android.layer.LayerType;
 import de.blau.android.photos.MapillaryViewerActivity;
 import de.blau.android.prefs.AdvancedPrefDatabase;
@@ -71,9 +79,9 @@ public class MapillaryTest {
 
         assertNotNull(main);
         TestUtils.grantPermissons(device);
-
+        LayerUtils.removeLayer(main, LayerType.MAPILLARY);
         tileServer = MockTileServer.setupTileServer(main, "mapillary.mbt", true, LayerType.MAPILLARY, TileType.MVT,
-                de.blau.android.layer.mapillary.MapOverlay.MAPILLARY_TILES_ID);
+                de.blau.android.layer.mapillary.MapillaryOverlay.MAPILLARY_TILES_ID);
 
         mockApiServer = new MockWebServerPlus();
         HttpUrl mockApiBaseUrl = mockApiServer.server().url("/");
@@ -110,14 +118,15 @@ public class MapillaryTest {
         } catch (IOException | NullPointerException e) {
             // ignore
         }
+        LayerUtils.removeLayer(main, LayerType.MAPILLARY);
         try (TileLayerDatabase tlDb = new TileLayerDatabase(main); SQLiteDatabase db = tlDb.getWritableDatabase()) {
-            TileLayerDatabase.deleteLayerWithId(db, de.blau.android.layer.mapillary.MapOverlay.MAPILLARY_TILES_ID);
+            TileLayerDatabase.deleteLayerWithId(db, de.blau.android.layer.mapillary.MapillaryOverlay.MAPILLARY_TILES_ID);
         }
         instrumentation.waitForIdleSync();
     }
 
     /**
-     * Add mapillary layer
+     * Add mapillary layer and click on one image
      */
     @Test
     public void mapillaryLayer() {
@@ -126,7 +135,7 @@ public class MapillaryTest {
         imageResponse.setResponseCode(200);
         imageResponse.setBody("{\"thumb_2048_url\": \"" + mockImagesBaseUrl.toString() + "\",\"computed_geometry\": {\"type\": \"Point\",\"coordinates\": ["
                 + "8.407748800863,47.412813485744]" + "},\"id\": \"178993950747668\"}");
-        de.blau.android.layer.mapillary.MapOverlay layer = (MapOverlay) map.getLayer(LayerType.MAPILLARY);
+        de.blau.android.layer.mapillary.MapillaryOverlay layer = (MapillaryOverlay) map.getLayer(LayerType.MAPILLARY);
         assertNotNull(layer);
         layer.flushCaches(main); // forces the layer to retrieve everything
 
@@ -183,4 +192,35 @@ public class MapillaryTest {
             }
         }
     }
+
+    /**
+     * Add mapillary layer and click on one image that should be filtered away
+     * 
+     * Unluckily there doesn't seem to be an easy way to drag the sliders
+     */
+    @Test
+    public void mapillaryLayerFilter() {
+        TestUtils.unlock(device);
+        TestUtils.sleep();
+
+        UiObject2 menuButton = TestUtils.getLayerButton(device, "Mapillary", LayerDialogTest.MENU_BUTTON);
+        menuButton.click();
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.layer_set_date_range), true, false));
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.date_range_title)));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.okay), true, false));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.Done), true, false));
+        MapillaryOverlay layer = (MapillaryOverlay) map.getLayer(LayerType.MAPILLARY);
+        layer.setDateRange(0L, 0L);
+        layer.invalidate();
+        //
+        map.getViewBox().moveTo(map, (int) (8.407748800863 * 1E7), (int) (47.412813485744 * 1E7));
+        map.invalidate();
+        TestUtils.zoomToLevel(device, main, 22);
+        TestUtils.clickAtCoordinates(device, map, 8.407748800863, 47.412813485744, true); // nothing should happen
+        if (TestUtils.clickText(device, false, "OK", true)) {
+            TestUtils.clickAtCoordinates(device, map, 8.407748800863, 47.412813485744, true);
+        }
+        assertFalse(TestUtils.clickMenuButton(device, main.getString(R.string.share), false, true));
+    }
+
 }

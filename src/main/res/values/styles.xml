@@ -37,6 +37,29 @@
         <item name="error">@color/material_red</item>
     </style>
     
+    <style name="SliderStyle" parent="@style/Widget.MaterialComponents.Slider">
+        <item name="labelStyle">@style/TooltipStyle</item>
+        <item name="materialThemeOverlay">@style/ThemeOverlay.Slider</item>
+    </style>
+
+    <style name="TooltipStyle" parent="Widget.MaterialComponents.Tooltip">
+        <item name="android:textAppearance">@style/TextAppearanceTooltip</item>
+        <!-- background color of the Tooltip -->
+        <item name="backgroundTint">?attr/colorPrimary</item>
+        <item name="android:padding">3dp</item>
+    </style>
+    
+    <style name="TextAppearanceTooltip">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="ThemeOverlay.Slider" parent="">     
+        <item name="colorOnBackground">?attr/colorPrimary</item>
+        <item name="colorSurface">?attr/colorPrimary</item>
+        <item name="colorPrimary">?attr/colorAccent</item>
+    </style>
+    
 	<style name="customActionBarDropdown" parent="">
 		<item name="android:gravity">right|center_vertical</item>
 	</style>

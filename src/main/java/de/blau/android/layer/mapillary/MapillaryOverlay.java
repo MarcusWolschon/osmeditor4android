@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -31,6 +32,8 @@ import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.contract.FileExtensions;
 import de.blau.android.contract.Urls;
+import de.blau.android.dialogs.DateRangeDialog;
+import de.blau.android.layer.DateRangeInterface;
 import de.blau.android.layer.LayerType;
 import de.blau.android.osm.OsmParser;
 import de.blau.android.osm.ViewBox;
@@ -58,9 +61,9 @@ import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
-public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay {
+public class MapillaryOverlay extends de.blau.android.layer.mvt.MapOverlay implements DateRangeInterface {
 
-    private static final String DEBUG_TAG = MapOverlay.class.getSimpleName();
+    private static final String DEBUG_TAG = MapillaryOverlay.class.getSimpleName();
 
     public static final String MAPILLARY_TILES_ID           = "MAPILLARYV4";
     public static final int    MAPILLARY_DEFAULT_MIN_ZOOM   = 16;
@@ -70,6 +73,8 @@ public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay {
     // mapbox gl style layer ids
     private static final String SELECTED_IMAGE_LAYER = "selected_image";
     private static final String IMAGE_LAYER          = "image";
+    private static final String OVERVIEW_LAYER       = "overview";
+    private static final String SEQUENCE_LAYER       = "sequence";
 
     // mapillary API constants
     private static final String CAPTURED_AT_KEY = "captured_at";
@@ -88,16 +93,18 @@ public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay {
     public static final String SET_POSITION_KEY = "set_position";
     public static final String COORDINATES_KEY  = "coordinates";
 
-    static class Selected implements Serializable {
-        private static final long serialVersionUID = 2L;
+    static class State implements Serializable {
+        private static final long serialVersionUID = 4L;
 
         private String                                         sequenceId    = null;
         private long                                           imageId       = 0;
         private final java.util.Map<String, ArrayList<String>> sequenceCache = new HashMap<>();
+        private long                                           startDate     = 0L;
+        private long                                           endDate       = new Date().getTime();
     }
 
-    private Selected                     selected     = new Selected();
-    private final SavingHelper<Selected> savingHelper = new SavingHelper<>();
+    private State                     state        = new State();
+    private final SavingHelper<State> savingHelper = new SavingHelper<>();
 
     private final String apiKey;
 
@@ -121,7 +128,7 @@ public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay {
      * 
      * @param map the Map object we are displayed on
      */
-    public MapOverlay(@NonNull final Map map) {
+    public MapillaryOverlay(@NonNull final Map map) {
         super(map, new VectorTileRenderer(), false);
         this.setRendererInfo(TileLayerSource.get(map.getContext(), MAPILLARY_TILES_ID, false));
         this.map = map;
@@ -141,6 +148,7 @@ public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay {
         setPrefs(map.getPrefs());
 
         resetStyling();
+        setDateRange(state.startDate, state.endDate);
     }
 
     @Override
@@ -153,16 +161,17 @@ public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay {
     @Override
     public void onSaveState(@NonNull Context ctx) throws IOException {
         super.onSaveState(ctx);
-        savingHelper.save(ctx, FILENAME, selected, false);
+        savingHelper.save(ctx, FILENAME, state, false);
     }
 
     @Override
     public boolean onRestoreState(@NonNull Context ctx) {
         boolean result = super.onRestoreState(ctx);
-        if (selected == null) {
-            selected = savingHelper.load(ctx, FILENAME, true);
-            if (selected != null) {
-                setSelected(selected.imageId);
+        if (state == null) {
+            state = savingHelper.load(ctx, FILENAME, true);
+            if (state != null) {
+                setSelected(state.imageId);
+                setDateRange(state.startDate, state.endDate);
             }
         }
         return result;
@@ -206,7 +215,7 @@ public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay {
             String sequenceId = (String) attributes.get(SEQUENCE_ID_KEY);
             Long id = (Long) attributes.get(ID_KEY);
             if (id != null && sequenceId != null) {
-                ArrayList<String> keys = selected != null ? selected.sequenceCache.get(sequenceId) : null;
+                ArrayList<String> keys = state != null ? state.sequenceCache.get(sequenceId) : null;
                 if (keys == null) {
                     try {
                         Thread t = new Thread(null, new SequenceFetcher(activity, sequenceId, id), "Mapillary Sequence");
@@ -219,7 +228,7 @@ public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay {
                     showImages(activity, id, keys);
                 }
                 setSelected(f);
-                selected.sequenceId = sequenceId;
+                state.sequenceId = sequenceId;
             }
         }
     }
@@ -314,10 +323,10 @@ public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay {
                                             }
                                         }
                                     }
-                                    if (selected == null) {
-                                        selected = new Selected();
+                                    if (state == null) {
+                                        state = new State();
                                     }
-                                    selected.sequenceCache.put(sequenceId, ids);
+                                    state.sequenceCache.put(sequenceId, ids);
                                     showImages(activity, id, ids);
                                 }
                             }
@@ -332,7 +341,7 @@ public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay {
 
     @Override
     public void deselectObjects() {
-        selected = null;
+        state = null;
         setSelected(0);
         dirty();
     }
@@ -358,10 +367,10 @@ public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay {
             }
         }
         if (selectedFilter != null && selectedFilter.size() == 3) {
-            if (selected == null) {
-                selected = new Selected();
+            if (state == null) {
+                state = new State();
             }
-            selected.imageId = id;
+            state.imageId = id;
             selectedFilter.set(2, new JsonPrimitive(id));
             map.invalidate();
             dirty();
@@ -374,8 +383,8 @@ public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay {
      * @param pos the position in the sequence
      */
     public synchronized void select(int pos) {
-        if (selected != null && selected.sequenceId != null) {
-            List<String> ids = selected.sequenceCache.get(selected.sequenceId);
+        if (state != null && state.sequenceId != null) {
+            List<String> ids = state.sequenceCache.get(state.sequenceId);
             if (ids != null) {
                 String idStr = ids.get(pos);
                 if (idStr != null) {
@@ -384,7 +393,7 @@ public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay {
                     return;
                 }
             }
-            Log.e(DEBUG_TAG, "position " + pos + " not found in sequence " + selected.sequenceId);
+            Log.e(DEBUG_TAG, "position " + pos + " not found in sequence " + state.sequenceId);
         }
     }
 
@@ -403,17 +412,57 @@ public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay {
         }
     }
 
+    @Override
+    public void setDateRange(long start, long end) {
+        Style style = ((VectorTileRenderer) tileRenderer).getStyle();
+        setDateRange(style.getLayer(IMAGE_LAYER), start, end);
+        setDateRange(style.getLayer(SEQUENCE_LAYER), start, end);
+        setDateRange(style.getLayer(OVERVIEW_LAYER), start, end);
+        map.invalidate();
+        dirty();
+    }
+
+    /**
+     * Set a range for the capture date
+     * 
+     * This manipulates the filter in the layer
+     * 
+     * @param start the lower bound for the capture date in ms since the epoch
+     * @param end the upper bound for the capture date in ms since the epoch
+     */
+    private void setDateRange(Layer layer, long start, long end) {
+        state.startDate = start;
+        state.endDate = end;
+        JsonArray filter = layer.getFilter();
+        if (filter != null && filter.size() == 3) {
+            setFilterValue(filter.get(1), start);
+            setFilterValue(filter.get(2), end);
+        }
+    }
+
+    /**
+     * Set the value of a filter
+     * 
+     * @param filter a JsonArray representing a filter
+     * @param value the value to set
+     */
+    private void setFilterValue(JsonElement filter, long value) {
+        if (filter instanceof JsonArray && ((JsonArray) filter).size() == 3) {
+            ((JsonArray) filter).set(2, new JsonPrimitive(value));
+        }
+    }
+
     /**
      * Flush the sequence cache
      * 
      * @param ctx an Android Context
      */
     private void flushSequenceCache(@NonNull Context ctx) {
-        if (selected != null) {
-            selected.imageId = 0;
-            selected.sequenceCache.clear();
-            selected.sequenceId = null;
-            savingHelper.save(ctx, FILENAME, selected, false);
+        if (state != null) {
+            state.imageId = 0;
+            state.sequenceCache.clear();
+            state.sequenceId = null;
+            savingHelper.save(ctx, FILENAME, state, false);
         }
     }
 
@@ -476,5 +525,15 @@ public class MapOverlay extends de.blau.android.layer.mvt.MapOverlay {
     @Override
     public int onDrawAttribution(@NonNull Canvas c, @NonNull IMapView osmv, int offset) {
         return offset;
+    }
+
+    /**
+     * Show a dialog to set the displayed date range
+     * 
+     * @param activity the activity we are being shown on
+     * @param layerIndex the index of this layer
+     */
+    public void selectDateRange(@NonNull FragmentActivity activity, int layerIndex) {
+        DateRangeDialog.showDialog(activity, layerIndex, state.startDate, state.endDate);
     }
 }

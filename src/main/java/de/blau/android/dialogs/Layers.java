@@ -235,7 +235,7 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
 
             if (map.getLayer(LayerType.MAPILLARY) == null) {
                 try (KeyDatabaseHelper keys = new KeyDatabaseHelper(activity); SQLiteDatabase db = keys.getReadableDatabase()) {
-                    if (KeyDatabaseHelper.getKey(db, de.blau.android.layer.mapillary.MapOverlay.APIKEY_KEY, EntryType.API_KEY) != null) {
+                    if (KeyDatabaseHelper.getKey(db, de.blau.android.layer.mapillary.MapillaryOverlay.APIKEY_KEY, EntryType.API_KEY) != null) {
                         item = popup.getMenu().add(R.string.menu_layers_enable_mapillary_layer);
                         item.setOnMenuItemClickListener(unused -> {
                             de.blau.android.layer.Util.addLayer(activity, LayerType.MAPILLARY);
@@ -698,7 +698,7 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
             final Map map = App.getLogic().getMap();
 
             // maybe we should use an interface here
-            if (layer instanceof MapTilesLayer && !(layer instanceof de.blau.android.layer.mapillary.MapOverlay)) {
+            if (layer instanceof MapTilesLayer && !(layer instanceof de.blau.android.layer.mapillary.MapillaryOverlay)) {
                 // get MRU list from layer
                 final String[] tileServerIds = ((MapTilesLayer<?>) layer).getMRU();
                 final TileLayerSource tileLayerConfiguration = ((MapTilesLayer<?>) layer).getTileLayerConfiguration();
@@ -798,6 +798,16 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
                     return true;
                 });
                 item.setEnabled(stylingEnabled);
+            }
+
+            if (layer instanceof de.blau.android.layer.mapillary.MapillaryOverlay) {
+                MenuItem item = menu.add(R.string.layer_set_date_range);
+                item.setOnMenuItemClickListener(unused -> {
+                    if (layer != null) {
+                        ((de.blau.android.layer.mapillary.MapillaryOverlay) layer).selectDateRange(getActivity(), layer.getIndex());
+                    }
+                    return true;
+                });
             }
 
             if (layer instanceof de.blau.android.layer.mvt.MapOverlay) {
