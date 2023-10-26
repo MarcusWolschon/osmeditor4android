@@ -16,6 +16,7 @@ import com.heinrichreimersoftware.androidissuereporter.model.github.GithubTarget
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.InputType;
@@ -34,8 +35,11 @@ import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.Server.UserDetails;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.resources.KeyDatabaseHelper;
+import de.blau.android.resources.KeyDatabaseHelper.EntryType;
 import de.blau.android.util.ActivityResultHandler;
 import de.blau.android.util.ExecutorTask;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.Util;
 
 /**
@@ -50,8 +54,9 @@ public class Feedback extends IssueReporterActivity implements ActivityResultHan
 
     private static final String DEBUG_TAG = "Feedback";
 
-    private static final String REPO_USER_KEY = "repo_user";
-    private static final String REPO_NAME_KEY = "repo_name";
+    private static final String REPO_USER_KEY  = "repo_user";
+    private static final String REPO_NAME_KEY  = "repo_name";
+    private static final String GITHUB_API_KEY = "github_api_key";
 
     private static final String EMPTY_BUG_REPORT = "bug_report_empty.md";
 
@@ -82,13 +87,17 @@ public class Feedback extends IssueReporterActivity implements ActivityResultHan
      * @param useUrl if true don't use the builtin reporter, if the github app is installed this is ignored
      */
     public static void start(@NonNull Context context, @NonNull String repoUser, @NonNull String repoName, boolean useUrl) {
-        if (useUrl || Util.isPackageInstalled(Github.APP, context.getPackageManager()) || "".equals(context.getString(R.string.reporter))) {
-            reportViaUrl(context, repoUser, repoName);
-        } else {
-            Intent intent = new Intent(context, Feedback.class);
-            intent.putExtra(REPO_USER_KEY, repoUser);
-            intent.putExtra(REPO_NAME_KEY, repoName);
-            context.startActivity(intent);
+        try (KeyDatabaseHelper keys = new KeyDatabaseHelper(context); SQLiteDatabase db = keys.getReadableDatabase()) {
+            String apiKey = KeyDatabaseHelper.getKey(db, "VESPUCCI_REPORTER", EntryType.API_KEY);
+            if (useUrl || Util.isPackageInstalled(Github.APP, context.getPackageManager()) || Util.isEmpty(apiKey)) {
+                reportViaUrl(context, repoUser, repoName);
+            } else {
+                Intent intent = new Intent(context, Feedback.class);
+                intent.putExtra(REPO_USER_KEY, repoUser);
+                intent.putExtra(REPO_NAME_KEY, repoName);
+                intent.putExtra(GITHUB_API_KEY, apiKey);
+                context.startActivity(intent);
+            }
         }
     }
 
@@ -126,13 +135,13 @@ public class Feedback extends IssueReporterActivity implements ActivityResultHan
 
         super.onCreate(savedInstanceState);
 
-        Serializable s = Util.getSerializableExtra(getIntent(), REPO_USER_KEY, Serializable.class);
+        String s = Util.getSerializableExtra(getIntent(), REPO_USER_KEY, String.class);
         if (s != null) {
-            repoUser = s.toString();
+            repoUser = s;
         }
-        s = Util.getSerializableExtra(getIntent(), REPO_NAME_KEY, Serializable.class);
+        s = Util.getSerializableExtra(getIntent(), REPO_NAME_KEY, String.class);
         if (s != null) {
-            repoName = s.toString();
+            repoName = s;
         }
 
         ActionBar actionBar = getSupportActionBar();
@@ -141,8 +150,8 @@ public class Feedback extends IssueReporterActivity implements ActivityResultHan
             actionBar.setTitle(R.string.feedback_title);
         }
 
-        String k = getString(R.string.reporter);
-        if (!"".equals(k)) {
+        String k = Util.getSerializableExtra(getIntent(), GITHUB_API_KEY, String.class);
+        if (Util.notEmpty(k)) {
             setGuestToken(k);
         }
 
