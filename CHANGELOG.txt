@@ -1,5 +1,14 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+19.3.3:
+
+- Fix keep org.eclipse.egit.github.core.** R8/Proguard fixes issue with issue reporting
+- Fix make the touch area rect symmetric around the splitter
+- Fix apply JOSM fixup to osmose item 2120 too
+- Update translations
+- Update preset
+- Update imagery from ELI
+
 19.2.3:
 
 - Update imagery from ELI
