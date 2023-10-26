@@ -704,6 +704,7 @@
   <string name="toast_updating_tags">Aktualizace tagů…</string>
   <string name="toast_updating_parents">Aktualizace nadřazených…</string>
   <string name="toast_updating_members">Aktualizace členů…</string>
+  <string name="toast_error_loading_egm">Chyba při načítání EGM %1$s</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">Zdroje MapSplit musí mít nastaveno minimální a maximální zvětšení</string>
   <string name="error_pbf_no_version">V souboru PBF chybí informace o verzi</string>
@@ -1184,6 +1185,8 @@
   <string name="config_theme_summary">Vyberte vzhled aplikace.</string>
   <string name="config_splitActionBarEnabled_title">Povolit rozdělení lišty nástrojů</string>
   <string name="config_splitActionBarEnabled_summary">Zobrazit tlačítka nabídky ve spodní části obrazovky. Vyžaduje opětovné spuštění a Android 4.0 či novější.</string>
+  <string name="config_appLocale_title">Jazyk aplikace</string>
+  <string name="config_appLocale_summary">Výběr nestandardního jazyka aplikace</string>
   <string name="config_maxInlineValues_title">Max. počet vložených hodnot</string>
   <string name="config_maxInlineValues_summary">Maximální počet vložených hodnot zobrazených ve formuláři značky.</string>
   <string name="config_maxInlineValues_current">%1$d hodnoty</string>
