@@ -192,7 +192,6 @@
   <string name="imagery_offset_date">Vytvořeno</string>
   <string name="imagery_offset_zoom">Přiblížení</string>
   <string name="imagery_offset_distance">Vzdálenost</string>
-  <string name="zoom_and_offset">LVL %1$d ofset %2$s/%3$s</string>
   <string name="set_position_datum_label">Geodetické datum</string>
   <string name="WGS84">WGS84</string>
   <string name="tag_editor_name_suggestion">Navrhování názvu</string>
@@ -333,6 +332,7 @@
   <string name="check_optional">Kontrolovat volitelné</string>
   <string name="add_resurvey_entry">Přidat pravidlo Ověření</string>
   <string name="add_check_entry">Přidat pravidlo Průzkum</string>
+  <!--Safe mode dialog-->
   <!--Empty relation dialog-->
   <string name="empty_relation_title">Prázdná relace</string>
   <string name="empty_relation_message">Relace %1$s nemá žádné členy.\n\nNecháte-li ji prázdnou, nebude ji možné ve Vespucci upravit.</string>
@@ -430,6 +430,7 @@
   <string name="layer_info_no_meta_data">Meta data nejsou načtena</string>
   <!--Mapillary layer-->
   <string name="mapillary_image">%1$s</string>
+  <!--Date range dialog-->
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Smazat fotku</string>
   <string name="photo_viewer_delete_button">Trvale smazat</string>
@@ -627,7 +628,6 @@
   <string name="toast_applied_offset">Zarovnání snímků použito.</string>
   <string name="toast_unsupported_format">Nepodporovaný formát: %1$s</string>
   <string name="toast_returning_less_than_found">Zobrazuji %1$d z %2$d nalezených záznamů.</string>
-  <string name="toast_not_mbtiles">Soubor nemá formát MBTiles</string>
   <string name="toast_using_network_location">Použita poloha ze sítě</string>
   <string name="toast_using_gps_location">Použita GPS/GNSS poloha</string>
   <string name="toast_using_gps_disabled_tracking_stopped">GPS/GNSS polohování vypnuto, zvažte zastavení sledování.</string>
@@ -704,6 +704,7 @@
   <string name="toast_updating_tags">Aktualizace tagů…</string>
   <string name="toast_updating_parents">Aktualizace nadřazených…</string>
   <string name="toast_updating_members">Aktualizace členů…</string>
+  <string name="toast_error_loading_egm">Chyba při načítání EGM %1$s</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">Zdroje MapSplit musí mít nastaveno minimální a maximální zvětšení</string>
   <string name="error_pbf_no_version">V souboru PBF chybí informace o verzi</string>
@@ -1025,6 +1026,7 @@
   <string name="menu_tags">Vlastnosti</string>
   <!--ELement entry in context menu-->
   <string name="element_for_menu">%1$s</string>
+  <string name="element_for_menu_with_direction">%1$s %2$s</string>
   <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
   <!--Text should be as short as possible-->
   <string name="start_end_way_description">Přejít na začátek nebo konec cesty</string>
@@ -1184,6 +1186,8 @@
   <string name="config_theme_summary">Vyberte vzhled aplikace.</string>
   <string name="config_splitActionBarEnabled_title">Povolit rozdělení lišty nástrojů</string>
   <string name="config_splitActionBarEnabled_summary">Zobrazit tlačítka nabídky ve spodní části obrazovky. Vyžaduje opětovné spuštění a Android 4.0 či novější.</string>
+  <string name="config_appLocale_title">Jazyk aplikace</string>
+  <string name="config_appLocale_summary">Výběr nestandardního jazyka aplikace</string>
   <string name="config_maxInlineValues_title">Max. počet vložených hodnot</string>
   <string name="config_maxInlineValues_summary">Maximální počet vložených hodnot zobrazených ve formuláři značky.</string>
   <string name="config_maxInlineValues_current">%1$d hodnoty</string>
@@ -1411,6 +1415,7 @@
   <string name="default_">Výchozí</string>
   <string name="regular_expression">Regulární výraz</string>
   <string name="state">Stav</string>
+  <string name="Continue">Pokračovat</string>
   <!---->
   <string name="empty_list">Žádné položky</string>
   <string name="geocoder_type">Typ geokodéru</string>

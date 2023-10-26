@@ -146,7 +146,6 @@
   <string name="imagery_offset_date">创建</string>
   <string name="imagery_offset_zoom">放大</string>
   <string name="imagery_offset_distance">距离</string>
-  <string name="zoom_and_offset">Z %1$d 偏移 %2$s/%3$s</string>
   <string name="set_position_datum_label">大地基准点</string>
   <string name="WGS84">WGS84</string>
   <string name="tag_editor_name_suggestion">建议名称</string>
@@ -270,6 +269,7 @@
   <string name="check_opt">必须\n可选</string>
   <string name="add_resurvey_entry">添加重新调查条目</string>
   <string name="add_check_entry">添加检查条目</string>
+  <!--Safe mode dialog-->
   <!--Empty relation dialog-->
   <string name="empty_relation_title">空关系</string>
   <string name="empty_relation_message">关系 %1$s 没有成员。\n\n保持原样将使其在 Vespucci 中无法编辑。</string>
@@ -342,6 +342,7 @@
   <string name="projection">投影</string>
   <string name="errors">错误</string>
   <!--Mapillary layer-->
+  <!--Date range dialog-->
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">删除照片</string>
   <string name="photo_viewer_delete_button">永久删除</string>
@@ -498,7 +499,6 @@
   <string name="toast_applied_offset">设定了影像偏移。</string>
   <string name="toast_unsupported_format">不支持的格式：%1$s</string>
   <string name="toast_returning_less_than_found">返回 %1$d / %2$d 找到的结果</string>
-  <string name="toast_not_mbtiles">不是 MBTiles 格式文件</string>
   <string name="toast_using_network_location">使用网络位置</string>
   <string name="toast_using_gps_location">使用 GPS/GNSS 位置</string>
   <string name="toast_using_gps_disabled_tracking_stopped">GPS/GNSS 已停用，轨迹记录中止。</string>
@@ -834,6 +834,7 @@
   <!--element action mode menu-->
   <string name="menu_tags">属性</string>
   <!--ELement entry in context menu-->
+  <string name="element_for_menu_with_direction">%1$s %2$s</string>
   <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">历史</string>

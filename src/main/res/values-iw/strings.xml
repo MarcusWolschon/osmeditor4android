@@ -160,6 +160,9 @@
   <string name="maproulette_task_no_apikey">אין מפתח API של MapRoulette</string>
   <string name="maproulette_description">Maproulette: %1$s</string>
   <!--Todo dialogs-->
+  <string name="all_todos_done_title">כל המטלות ברשימה בוצעו</string>
+  <string name="all_todos_done_message">כל המטלות ברשימה „%1$s” בוצעו.</string>
+  <string name="all_todos_in_current_done_message">כל המטלות ברשימה הנוכחית בוצעו</string>
   <string name="todo_list_legend">רשימת משימות</string>
   <string name="todo_list_hint">לחיצה להצעות</string>
   <string name="todo_comment_legend">תגובה</string>
@@ -181,7 +184,7 @@
   <string name="imagery_offset_date">נוצר</string>
   <string name="imagery_offset_zoom">תקריב</string>
   <string name="imagery_offset_distance">מרחק</string>
-  <string name="zoom_and_offset">Z %1$d היסט %2$s/%3$s</string>
+  <string name="zoom_and_offsets">תקריב %1$d\nהיסט\n%2$s°/%3$s°\n%4$sמ׳/%5$sמ׳</string>
   <string name="set_position_datum_label">דאטום גאודטי</string>
   <string name="WGS84">WGS84</string>
   <string name="tag_editor_name_suggestion">הצעת שם</string>
@@ -224,6 +227,7 @@
   <string name="current">נוכחי</string>
   <string name="goto_element">מעבר לרכיב</string>
   <string name="edit_properties">עריכת תגיות</string>
+  <string name="toast_element_not_found_on_restore">לא ניתן למצוא את הרכיב לשחזור</string>
   <!--GeoJSON feature display dialog-->
   <string name="feature_information">פרטי תכונת GeoJSON</string>
   <string name="vt_feature_information">פרטים על תכונה של אריח וקטורי</string>
@@ -238,6 +242,8 @@
   <!--Tile layer info dialog-->
   <string name="attribution">ייחוס</string>
   <!--GPX info dialog-->
+  <string name="track_points">נקודות מעקב</string>
+  <string name="way_points">נקודות דרך</string>
   <!--Too much data dialog-->
   <string name="too_much_data_title">נטענו יותר מדי נתונים!</string>
   <string name="too_much_data_message">נטענו אצלך %1$d מפרקים וחרגת מהסף המוגדר. מצב זה יוביל להאטה ובמקרה של הוספת נתונים נוספים אף לתקלות ביכולת שמירת המצב.</string>
@@ -313,6 +319,13 @@
   <string name="check_optional">בדיקת רשות</string>
   <string name="add_resurvey_entry">הוספת רשומת תשאול מחדש</string>
   <string name="add_check_entry">הוספת רשומת בדיקה</string>
+  <!--Safe mode dialog-->
+  <string name="safe_mode_dialog_title">אפשרויות מצב בטוח</string>
+  <string name="safe_style_label">הגדרת סגנון נתונים למצומצם</string>
+  <string name="safe_layer_label">השבתת כל השכבות</string>
+  <string name="safe_state_label">הסרת מצב שמור</string>
+  <string name="safe_delete_state_title">למחוק את מצב הנתונים השמור?</string>
+  <string name="safe_delete_state_text">כן (אי אפשר להחזיר)</string>
   <!--Empty relation dialog-->
   <string name="empty_relation_title">יחס ריק</string>
   <string name="empty_relation_message">ביחס %1$s אין חברים.\n\nאם יישאר ככה לא תהיה אפשרות לערוך אותו בווספוצ׳י.</string>
@@ -374,6 +387,7 @@
   <string name="layer_change_style">החלפת סגנון…</string>
   <string name="layer_load_style">טעינת סגנון…</string>
   <string name="layer_reset_style">איפוס סגנון</string>
+  <string name="layer_set_date_range">הגדרת טווח תאריכים…</string>
   <string name="layer_select_imagery">בחירת תמונת רקע…</string>
   <string name="layer_test">בדיקה…</string>
   <string name="layer_category_all">הכול</string>
@@ -385,6 +399,9 @@
   <string name="layer_category_osmbasedmap">מפה מבוססת OSM</string>
   <string name="layer_category_qa">אבטחת איכות</string>
   <string name="layer_category_other">אחר</string>
+  <string name="layer_add_layer_from_mvt_style">הוספת שכבה מסגנון MVT…</string>
+  <string name="layer_add_custom_imagery">הוספת תמונת רקע בהתאמה אישית…</string>
+  <string name="layer_edit_custom_imagery_configuration">עריכת הגדרות תמונת רקע בהתאמה אישית…</string>
   <string name="layer_add_gpx">הוספת שכבה מקובץ GPX…</string>
   <string name="layer_download_track">הורדת מסלול GPX…</string>
   <string name="layer_available_tracks">מסלולי GPX זמינים</string>
@@ -406,6 +423,9 @@
   <string name="layer_info_layer_not_available">פרטי השכבה לא זמינים</string>
   <string name="layer_info_no_meta_data">נתוני על לא נטענו</string>
   <!--Mapillary layer-->
+  <string name="mapillary_image">%1$s</string>
+  <!--Date range dialog-->
+  <string name="date_range_title">הגדרת טווח תאריכים</string>
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">מחיקת תמונה</string>
   <string name="photo_viewer_delete_button">למחוק לצמיתות</string>
@@ -419,6 +439,7 @@
   <string name="api_info_mapsplit_source">מקור לקריאה בלבד MapSplit</string>
   <!--Tag conflict dialog-->
   <string name="tag_conflict_title">מאפיינים השתנו</string>
+  <string name="tag_conflict_message">הפעולה דרשה שינוי מאפיינים של הרכיבים המעורבים.</string>
   <!--Relation selection dialog-->
   <string name="no_suitable_relations_message">אין קשרים מתאימים בנתונים שהתקבלו</string>
   <string name="select_route_title">בחירת מסלול</string>
@@ -570,7 +591,6 @@
   <string name="toast_applied_offset">חל היסט על התמונה.</string>
   <string name="toast_unsupported_format">תבנית שאינה נתמכת: %1$s</string>
   <string name="toast_returning_less_than_found">מוחזרות %1$d מתוך %2$d רשומות שנמצאו</string>
-  <string name="toast_not_mbtiles">קובץ שאינו בתבנית MBTiles</string>
   <string name="toast_using_network_location">נעשה שימוש במיקום הרשת</string>
   <string name="toast_using_gps_location">נעשה שימוש במיקום מה־GPS/GNSS</string>
   <string name="toast_remote_nmea_connection">חיבור NMEA מרוחק מ/אל %1$s</string>
@@ -948,6 +968,8 @@
   <!--element action mode menu-->
   <string name="menu_tags">מאפיינים</string>
   <!--ELement entry in context menu-->
+  <string name="element_for_menu">%1$s</string>
+  <string name="element_for_menu_with_direction">%1$s %2$s</string>
   <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">היסטוריה</string>
@@ -1262,6 +1284,7 @@
   <string name="default_">בררת מחדל</string>
   <string name="regular_expression">ביטוי רגולרי</string>
   <string name="state">מדינה</string>
+  <string name="Continue">להמשיך</string>
   <!---->
   <string name="empty_list">אין רשומות</string>
   <string name="geocoder_type">סוג מקודד גאוגרפי</string>

@@ -162,7 +162,6 @@
   <string name="imagery_offset_date">Utworzone</string>
   <string name="imagery_offset_zoom">Przybliżenie</string>
   <string name="imagery_offset_distance">Odległość</string>
-  <string name="zoom_and_offset">Z %1$d offset %2$s/%3$s</string>
   <string name="set_position_datum_label">Układ współrzędnych geodezyjnych</string>
   <string name="WGS84">WGS84</string>
   <string name="tag_editor_name_suggestion">Propozycja nazwy</string>
@@ -285,6 +284,7 @@
   <string name="check_optional">Wymagane opcjonalne</string>
   <string name="add_resurvey_entry">Dodaj wpis ponownego przeglądu</string>
   <string name="add_check_entry">Dodaj sprawdzenie</string>
+  <!--Safe mode dialog-->
   <!--Empty relation dialog-->
   <string name="empty_relation_title">Pusta relacja</string>
   <string name="empty_relation_message">Relacja %1$s nie posiada członów.\n\nPozostawienie jej w tym stanie uniemożliwi jej edycję w Vespucci.</string>
@@ -356,6 +356,7 @@
   <string name="projection">Odwzorowanie</string>
   <string name="errors">Błędy</string>
   <!--Mapillary layer-->
+  <!--Date range dialog-->
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Usuń zdjęcie</string>
   <string name="photo_viewer_delete_button">Usuń trwale</string>
@@ -509,7 +510,6 @@
   <string name="toast_applied_offset">Zastosowano przesunięcie podkładu.</string>
   <string name="toast_unsupported_format">Niewspierany format: %1$s</string>
   <string name="toast_returning_less_than_found">Zwrócono %1$d z %2$d znalezionych wpisów</string>
-  <string name="toast_not_mbtiles">Plik nie jest w formacie MBTiles</string>
   <string name="toast_using_network_location">Używanie lokalizacji na podstawie sieci</string>
   <string name="toast_using_gps_location">Używanie lokalizacji na podstawie GPS/GNSS</string>
   <string name="toast_remote_nmea_connection_closed">Zdalne połączenie NMEA zamknięte</string>
@@ -831,6 +831,7 @@
   <!--element action mode menu-->
   <string name="menu_tags">Właściwości</string>
   <!--ELement entry in context menu-->
+  <string name="element_for_menu_with_direction">%1$s %2$s</string>
   <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">Historia</string>
@@ -1122,6 +1123,7 @@
   <string name="default_">Domyślne</string>
   <string name="regular_expression">Wyrażenie regularne</string>
   <string name="state">Stan</string>
+  <string name="Continue">Kontynuuj</string>
   <!---->
   <string name="empty_list">Brak wpisów</string>
   <string name="geocoder_type">Typ geokodera</string>

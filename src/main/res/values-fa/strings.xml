@@ -188,7 +188,7 @@
   <string name="imagery_offset_date">تاریخ ایجاد</string>
   <string name="imagery_offset_zoom">زوم</string>
   <string name="imagery_offset_distance">مسافت</string>
-  <string name="zoom_and_offset">زوم %1$d آفست %2$s/%3$s</string>
+  <string name="zoom_and_offsets">بزرگنمایی %1$d\nآفست\n%2$s°/%3$s°\n%4$sm/%5$sm</string>
   <string name="set_position_datum_label">مبنای Geodetic</string>
   <string name="WGS84">WGS84</string>
   <string name="tag_editor_name_suggestion">پیشنهاد نام</string>
@@ -329,6 +329,13 @@
   <string name="check_optional">اختیاریِ لازم</string>
   <string name="add_resurvey_entry">افزودن مدخل بازنقشه‌برداری</string>
   <string name="add_check_entry">افزودن مدخل بررسی</string>
+  <!--Safe mode dialog-->
+  <string name="safe_mode_dialog_title">گزینه‌های حالت امن</string>
+  <string name="safe_style_label">سبک داده را روی حداقل تنظیم کنید</string>
+  <string name="safe_layer_label">غیرفعال کردن تمام لایه‌ها</string>
+  <string name="safe_state_label">حذف حالت ذخیره شده</string>
+  <string name="safe_delete_state_title">وضعیت داده‌های ذخیره شده حذف شود؟</string>
+  <string name="safe_delete_state_text">بله (قابل واگرد نیست)</string>
   <!--Empty relation dialog-->
   <string name="empty_relation_title">رابطهٔ تهی</string>
   <string name="empty_relation_message">رابطهٔ %1$s هیچ عضوی ندارد.\n\nاگر به همین شکل رهایش کنید، در Vespucci قابل‌ویرایش نخواهد بود.</string>
@@ -390,6 +397,7 @@
   <string name="layer_change_style">تغییر سبک…</string>
   <string name="layer_load_style">سبک بارگذاری…</string>
   <string name="layer_reset_style">بازنشانی سبک</string>
+  <string name="layer_set_date_range">تنظیم محدوده تاریخ…</string>
   <string name="layer_select_imagery">انتخاب تصاویر…</string>
   <string name="layer_test">آزمایش…</string>
   <string name="layer_category_all">همه</string>
@@ -426,6 +434,8 @@
   <string name="layer_info_no_meta_data">داده‌های متا بارگیری نشده است</string>
   <!--Mapillary layer-->
   <string name="mapillary_image">%1$s</string>
+  <!--Date range dialog-->
+  <string name="date_range_title">محدوده تاریخ را تنظیم کنید</string>
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">حذف عکس</string>
   <string name="photo_viewer_delete_button">برای همیشه حذف شود</string>
@@ -586,6 +596,9 @@
   <string name="toast_split_to">راه to دو نیم شد</string>
   <string name="toast_tile_database_issue_short">مسئله با پایگاه‌دادهٔ کاشی</string>
   <string name="toast_tile_database_issue">مسئلهٔ جدی در پایگاه دادهٔ کاشی نقشه \n\"%1$s\"\n لطفاً به پرسش‌های متداول ما در https://vespucci.io/ مراجعه کنید</string>
+  <string name="toast_tile_source_issue">مشکل جدی با منبع کاشی نقشه، به طور موقت غیرفعال است\n\"%1$s\"</string>
+  <string name="toast_tile_container_issue">فایل ظرف کاشی \"%1$s\" وجود ندارد یا باز نمی‌شود</string>
+  <string name="toast_unable_to_configure_from_source">از راه دور پیکربندی نمی‌شود: %1$s</string>
   <string name="toast_invalid_apiurl">‏API URL نامعتبر</string>
   <string name="toast_invalid_readonlyurl">‏ReadOnly API URL نامعتبر</string>
   <string name="toast_invalid_notesurl">‏API URL یادداشت‌ها نامعتبر است</string>
@@ -599,6 +612,7 @@
   <string name="toast_no_coverage">‏%1$s اینجا را پوشش نمی‌دهد</string>
   <string name="toast_tile_layer_errors">منبع تصویر \'%1$s\' خطا می‌کند</string>
   <string name="toast_file_exists">پروندهٔ %1$s وجود دارد.</string>
+  <string name="toast_network_file_not_supported">دسترسی به این فایل از طریق شبکه پشتیبانی نمی‌شود، در حافظه محلی کپی کنید.\n%1$s</string>
   <string name="toast_needs_resurvey">شیء ممکن است تاریخ‌گذشته باشد</string>
   <string name="toast_missing_key">کمبود کلید %1$s </string>
   <string name="toast_invalid_object">شیء نامعتبر</string>
@@ -617,7 +631,7 @@
   <string name="toast_applied_offset">آفست تصویر به کار گرفته شد.</string>
   <string name="toast_unsupported_format">قالب پشتیبانی‌نشده: %1$s</string>
   <string name="toast_returning_less_than_found">در حال برگرداندن %1$d مدخل از %2$d یافته</string>
-  <string name="toast_not_mbtiles">پرونده در قالب MBTiles نیست</string>
+  <string name="toast_not_mbtiles">یک فایل با فرمت MBTiles یا PMTiles نیست</string>
   <string name="toast_using_network_location">استفاده از مکان شبکه</string>
   <string name="toast_using_gps_location">استفاده از مکان GPS/GNSS</string>
   <string name="toast_using_gps_disabled_tracking_stopped">موقعیت‌یابی GPS/GNSS خاموش است، توقف ردیابی را در نظر بگیرید.</string>
@@ -693,6 +707,7 @@
   <string name="toast_updating_parents">به‌روزرسانی والدین…</string>
   <string name="toast_updating_members">به‌روزرسانی اعضا…</string>
   <string name="toast_error_loading_egm">خطا در بارگیری EGM %1$s</string>
+  <string name="toast_querying_wms_server_failed">درخواست سرور WMS ناموفق بود: %1$s</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">برای منابع MapSplit باید زوم کمینه و بیشینه تنظیم شده باشد</string>
   <string name="error_pbf_no_version">پروندهٔ PBF اطلاعات نسخه ندارد</string>
@@ -1014,7 +1029,9 @@
   <string name="menu_tags">خصوصیات</string>
   <!--ELement entry in context menu-->
   <string name="element_for_menu">%1$s</string>
+  <string name="element_for_menu_with_direction">%1$s %2$s</string>
   <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
+  <string name="element_for_menu_with_parents_with_direction">%1$s %2$s (%3$s)</string>
   <!--Text should be as short as possible-->
   <string name="start_end_way_description">به ابتدای راه یا انتهای راه بروید</string>
   <string name="menu_history">تاریخچه</string>
@@ -1314,6 +1331,8 @@
   <string name="config_taginfoServer_summary">سرور اطلاعات برچسب/Taginfo برای استفاده برای تولید از پیش تعیین شده</string>
   <string name="config_overpassServer_title">سرور روگذر</string>
   <string name="config_overpassServer_summary">سرور روگذر مورد استفاده برای پرس و جوها</string>
+  <string name="config_oamServer_title">سرور OpenAerialMap</string>
+  <string name="config_oamServer_summary">سرور OpenAerialMap برای ارائه تصاویر استفاده می‌شود</string>
   <!--Layer download and storage-->
   <string name="config_category_layers">بارگیری لایه و محل ذخیره</string>
   <string name="config_category_layers_summary">ذخیره‌گاه و بارگیری تصویر پس‌زمینهٔ مبتنی بر کاشی</string>
@@ -1400,6 +1419,7 @@
   <string name="default_">پیشفرض</string>
   <string name="regular_expression">عبارت باقاعده</string>
   <string name="state">وضعیت</string>
+  <string name="Continue">ادامه</string>
   <!---->
   <string name="empty_list">بدون مدخل</string>
   <string name="geocoder_type">نوع زمین‌کدیاب</string>

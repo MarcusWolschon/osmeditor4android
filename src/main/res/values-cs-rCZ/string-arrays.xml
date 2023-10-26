@@ -31,6 +31,11 @@
         <item>Opravená</item>
         <item>Příliš těžká</item>
     </string-array>
+    <string-array name="todo_state">
+        <item>Otevřená</item>
+        <item>Uzavřená</item>
+        <item>Přeskočená</item> 
+    </string-array>
     <string-array name="followGPSbutton_entries">
         <item>Vlevo</item>
         <item>Vpravo</item>
@@ -73,7 +78,10 @@
     <!-- automatic name tag capitalization -->
     <string-array translatable="true" name="name_cap_entries">
         <item>Žádné velké písmeno</item>
-        <item>Velké písmena slova</item>
-        <item>Velké písmeno věty</item>
+        <item>Slovo velkými písmeny</item>
+        <item>Věta velkými písmeny</item>
     </string-array>
+    <string name="theme_follow_entry">Sledovat systém</string>
+    <string name="theme_light_entry">Světlý</string>
+    <string name="theme_dark_entry">Tmavý</string>
     </resources>

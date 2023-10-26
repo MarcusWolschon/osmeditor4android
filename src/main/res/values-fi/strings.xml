@@ -188,7 +188,6 @@
   <string name="imagery_offset_date">Luotu</string>
   <string name="imagery_offset_zoom">Suurennus</string>
   <string name="imagery_offset_distance">Etäisyys</string>
-  <string name="zoom_and_offset">Z %1$d siirros %2$s/%3$s</string>
   <string name="set_position_datum_label">Geodeettinen datumi</string>
   <string name="WGS84">WGS84</string>
   <string name="tag_editor_name_suggestion">Nimiehdotus</string>
@@ -329,6 +328,7 @@
   <string name="check_optional">Vaadi myös valinnaiset</string>
   <string name="add_resurvey_entry">Lisää kontrollikäynti</string>
   <string name="add_check_entry">Lisää tarkistus</string>
+  <!--Safe mode dialog-->
   <!--Empty relation dialog-->
   <string name="empty_relation_title">Tyhjä relaatio</string>
   <string name="empty_relation_message">Relaatiolla %1$s ei ole jäseniä.\n\nJos se jää tyhjäksi, sitä ei voi muokata Vespuccissa.</string>
@@ -426,6 +426,7 @@
   <string name="layer_info_no_meta_data">Metatietoja ei ladattu</string>
   <!--Mapillary layer-->
   <string name="mapillary_image">%1$s</string>
+  <!--Date range dialog-->
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Poista valokuva</string>
   <string name="photo_viewer_delete_button">Poista lopullisesti</string>
@@ -617,7 +618,6 @@
   <string name="toast_applied_offset">Kuvatason siirros suoritettu.</string>
   <string name="toast_unsupported_format">Kuvatyyppiä \"%1$s\" ei tueta.</string>
   <string name="toast_returning_less_than_found">Palautetaan %1$d löytyneistä %2$d kohteesta</string>
-  <string name="toast_not_mbtiles">Tiedosto ei ole MBTiles-tyyppiä</string>
   <string name="toast_using_network_location">Käytetään verkkosijaintia</string>
   <string name="toast_using_gps_location">Käytetään GPS/GNSS-sijaintia</string>
   <string name="toast_using_gps_disabled_tracking_stopped">GPS/GNSS-paikannus on pois päältä – kannattaa ehkä pysäyttää jäljitys.</string>
@@ -1013,6 +1013,7 @@
   <string name="menu_tags">Ominaisuudet</string>
   <!--ELement entry in context menu-->
   <string name="element_for_menu">%1$s</string>
+  <string name="element_for_menu_with_direction">%1$s %2$s</string>
   <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
   <!--Text should be as short as possible-->
   <string name="start_end_way_description">Siirry viivan alkuun tai loppuun</string>
@@ -1397,6 +1398,7 @@
   <string name="default_">Oletus</string>
   <string name="regular_expression">Säännöllinen lauseke</string>
   <string name="state">Tila</string>
+  <string name="Continue">Pidennä</string>
   <!---->
   <string name="empty_list">Tyhjä lista</string>
   <string name="geocoder_type">Geokooderin tyyppi</string>

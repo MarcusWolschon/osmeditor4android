@@ -188,7 +188,6 @@
   <string name="imagery_offset_date">Aangemaakt</string>
   <string name="imagery_offset_zoom">Zoom</string>
   <string name="imagery_offset_distance">Afstand</string>
-  <string name="zoom_and_offset">Z %1$d verplaatsing %2$s/%3$s</string>
   <string name="set_position_datum_label">Geodetisch datum</string>
   <string name="WGS84">WGS84</string>
   <string name="tag_editor_name_suggestion">Naamsuggestie</string>
@@ -329,6 +328,7 @@
   <string name="check_optional">Vereis optioneel</string>
   <string name="add_resurvey_entry">Voeg een opnieuw bekijken item toe</string>
   <string name="add_check_entry">Voeg check item toe</string>
+  <!--Safe mode dialog-->
   <!--Empty relation dialog-->
   <string name="empty_relation_title">Lege relatie</string>
   <string name="empty_relation_message">De %1$s relatie heeft geen leden.\n\nAls je het laat zoals het is kan je het via Vespucci niet meer wijzigen.</string>
@@ -426,6 +426,7 @@
   <string name="layer_info_no_meta_data">Metagegevens niet geladen</string>
   <!--Mapillary layer-->
   <string name="mapillary_image">%1$s</string>
+  <!--Date range dialog-->
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Verwijder foto</string>
   <string name="photo_viewer_delete_button">Permanent verwijderen</string>
@@ -617,7 +618,6 @@
   <string name="toast_applied_offset">Luchtfotografie verplaatsing toegepast</string>
   <string name="toast_unsupported_format">Niet ondersteund formaat: %1$s</string>
   <string name="toast_returning_less_than_found">Weergeeft %1$d van %2$d gevonden items</string>
-  <string name="toast_not_mbtiles">Geen MBTiles formaat bestand</string>
   <string name="toast_using_network_location">Gebruikt netwerklocatie</string>
   <string name="toast_using_gps_location">Gebruikt GPS/GNSS locatie</string>
   <string name="toast_using_gps_disabled_tracking_stopped">GPS/GNSS positionering is uitgezet, overweeg het volgen te stoppen.</string>
@@ -1013,6 +1013,7 @@
   <string name="menu_tags">Eigenschappen</string>
   <!--ELement entry in context menu-->
   <string name="element_for_menu">%1$s</string>
+  <string name="element_for_menu_with_direction">%1$s %2$s</string>
   <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
   <!--Text should be as short as possible-->
   <string name="start_end_way_description">Naar Begin of Eind van Weg</string>
@@ -1397,6 +1398,7 @@
   <string name="default_">Standaard</string>
   <string name="regular_expression">Reguliere expressie</string>
   <string name="state">Status</string>
+  <string name="Continue">Ga door</string>
   <!---->
   <string name="empty_list">Geen items</string>
   <string name="geocoder_type">Type Geocoder</string>

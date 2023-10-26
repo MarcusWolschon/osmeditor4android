@@ -1,12 +1,8 @@
+Avant de commencer : le menu de la plupart des écrans comporte des liens vers le système d'aide de l'appareil, ce qui vous permet d'accéder directement aux informations pertinentes dans le contexte actuel ; vous pouvez également revenir facilement à ce texte. Si vous disposez d'un appareil plus grand, par exemple une tablette, vous pouvez ouvrir le système d'aide dans une fenêtre séparée. Tous les textes d'aide et autres (FAQ, tutoriels) sont également disponibles sur le [site de documentation de Vespucci] (https://vespucci.io/).
+
 # Introduction à Vespucci
 
-Vespucci est un éditeur OpenStreetMap complet qui prend en charge la plupart des opérations fournies par les éditeurs de bureau. Il a été testé sur Android 2.3 à 10.0 et diverses variantes basées sur AOSP. Attention cependant : alors que les possibilités des appareils ont rattrapées celles des ordinateurs de bureau, les appareils particulièrement anciens sont très limités en mémoire et tendent à être lents. Vous devriez prendre cela en compte lors de votre utilisation de Vespucci et garder, par exemple, la zone d'édition à une taille raisonnable. 
-
-## Première utilisation
-
-Au démarrage, Vespucci affichera le dialogue « Télécharger d'autres emplacements » / « Charger la zone » après avoir demandé les permissions requises et avoir affiché un message de bienvenu. Si les coordonnées sont affichées et que vous voulez télécharger immédiatement, vous pouvez choisir l'option appropriée et indiquer le rayon autour de l'emplacement que vous voulez télécharger. Ne choisissez pas une zone trop grande sur des appareils lents. 
-
-Ou alors, fermez le dialogue en appuyant sur le bouton « Aller à la carte », zoomez et déplacez-vous jusqu'à l'endroit que vous voulez éditer, puis téléchargez les données à partir de là (voir ci-dessous « Éditer avec Vespucci »).
+Vespucci est un éditeur OpenStreetMap complet qui prend en charge la plupart des opérations fournies par les éditeurs de bureau. Il a été testé sur Android 2.3 à 10.0 et diverses variantes basées sur AOSP. Attention cependant : alors que les possibilités des appareils ont rattrapées celles des ordinateurs de bureau, les appareils particulièrement anciens sont très limités en mémoire et tendent à être lents. Vous devriez prendre cela en compte lors de votre utilisation de Vespucci et garder, par exemple, la zone d'édition à une taille raisonnable.
 
 ## Éditer avec Vespucci
 
@@ -18,18 +14,18 @@ Selon la taille de votre écran et l'âge de l'appareil, les actions d'édition 
 
 Selectionnez soit l’icône de transfert ![Transfer](../images/menu_transfer.png), soit l'onglet Transfert dans le menu. Cela affiche sept options :
 
-* **Download current view** - download the area visible on the screen and merge it with existing data *(requires network connectivity or offline data source)*
-* **Clear and download current view** - clear any data in memory and then download the area visible on the screen *(requires network connectivity)*
-* **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
-* **Update data** - re-download data for all areas and update what is in memory *(requires network connectivity)*
-* **Location based auto download** - download an area around the current geographic location automatically *(requires network connectivity or offline data)* *(requires GPS)*
-* **Pan and zoom auto download** - download data for the currently displayed map area automatically *(requires network connectivity or offline data)* *(requires GPS)*
-* **File...** - saving and loading OSM data to/from on device files.
-* **Note/Bugs...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
+* **Télécharger la vue actuelle** - télécharge la zone visible à l'écran et la fusionne avec les données existantes *(nécessite une connectivité réseau ou une source de données hors ligne)*
+* **Effacer et télécharger la vue actuelle** - efface toutes les données en mémoire puis télécharge la zone visible à l'écran *(nécessite une connectivité réseau)*
+* **Envoyer les données sur le serveur OSM** - envoi les modifications effectuées à OpenStreetMap *(nécessite une authentification)* *(nécessite une connectivité réseau)*
+* **Mettre à jour les données** - télécharge à nouveau les données pour toutes les zones et met à jour ce qui est en mémoire *(nécessite une connectivité réseau)*
+* **Téléchargement automatique basé sur votre position réelle** - télécharge automatiquement une zone autour de votre position géographique actuelle *(nécessite une connectivité réseau ou des données hors ligne)* *(nécessite un GPS)*
+* **Téléchargement automatique en suivant le déplacement et le niveau de zoom** - télécharge automatiquement les données pour la zone de carte en cours *(nécessite une connectivité réseau ou des données hors ligne)* *(nécessite un GPS)*
+* **Fichier...** - enregistre ou charge des données OSM vers ou depuis des fichiers de l'appareil.
+* **Note/Bugs...** - télécharge (automatiquement ou manuellement) les notes OSM et les "Erreurs" à partir des outils d'amélioration de la Qualité (actuellement uniquement OSMOSE) *(nécessite une connectivité réseau)*
 
 La manière la plus simple de télécharger des données est de zoomer et de se déplacer vers le lieu que vous voulez éditer, puis de sélectionner « Télécharger la vue courante ». Vous pouvez zoomer avec deux doigts, avec les boutons de zoom, ou avec les boutons de volume de l'appareil. Vespucci va alors télécharger les données de la vue courante. Il n'y a pas besoin d'être authentifié pour télécharger les données sur votre appareil. 
 
-With the default settings any non-downloaded areas will be dimmed relative to the downloaded ones, this is to avoid inadvertently adding duplicate objects in areas that are not being displayed. The behaviour can be changed in the [Advanced preferences](Advanced%20preferences.md).
+Avec les paramètres par défaut, toutes les zones non téléchargées seront grisées contrairement à celles téléchargées, ceci afin d'éviter d'ajouter par inadvertance des objets en double dans des zones qui n'ont pas été encore chargées. Vous pouvez changer cela dans les [Paramètres avancés](Advanced%20preferences.md).
 
 ### Éditer
 
@@ -41,11 +37,11 @@ Pour éviter des modifications accidentelles Vespucci démarre en mode « verrou
 
 Appuyez longuement sur l'icône de verrouillage pour afficher un menu qui offre actuellement 4 options :
 
-* **Normal** - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.
-* **Tag only** - selecting an existing object will start the Property Editor, a long press on the main screen will add objects, but no other geometry operations will work. White lock icon with a "T" is displayed.
-* **Address** - enables Address mode, a slightly simplified mode with specific actions available from the [Simple mode](../en/Simple%20actions.md) "+" button. White lock icon with an "A" is displayed.
-* **Indoor** - enables Indoor mode, see [Indoor mode](#indoor). White lock icon with an "I" is displayed.
-* **C-Mode** - enables C-Mode, only objects that have a warning flag set will be displayed, see [C-Mode](#c-mode). White lock icon with a "C" is displayed.
+* **Normal** - le mode d'édition par défaut. De nouveaux objets peuvent être ajoutés, ceux existants modifiés, déplacés ou supprimés. Icône affichée : un cadenas blanc simple.
+* **Attributs uniquement** - la sélection d'un objet existant ouvrira l'éditeur de propriétés, un appui long sur l'écran permettra d'ajouter des objets mais aucune autre opération de géométrie (par exemple déplacer un nœud) ne fonctionnera. Icône affichée : un cadenas blanc avec un "T" (pour Tag).
+* **Adresse** - active le mode Adresse, un mode légèrement simplifié avec des actions spécifiques disponibles à partir du bouton "+" [Mode simple](../en/Simple%20actions.md). Icône affichée : un cadenas blanc avec un "A".
+* **Intérieur** - active le mode Intérieur, voir [Mode Intérieur](#indoor). Icône affichée : un cadenas blanc avec un "I".
+* **C-Mode** - active le C-Mode. Seuls les objets qui ont un drapeau d'avertissement seront affichés, voir [C-Mode](#c-mode). Icône affichée : un cadenas blanc avec un "C".
 
 #### Appui simple, appui double, et appui long
 
@@ -81,7 +77,7 @@ Remarquez que pour les objets se chevauchant (tel qu'un nœud sur une voie) le m
 
 ### Objet sélectionné : déplacer un nœud ou une voie
 
-Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the [preferences](Preferences.md), you get a large area around the selected node that makes it easier to position the object. 
+Une fois que vous avez sélectionné un objet, vous pouvez le déplacer. Notez que les objets ne peuvent être glissés/déplacés que lorsqu'ils sont sélectionnés. Faites simplement glisser l'objet sélectionné à proximité (c'est-à-dire dans la zone de tolérance de celui-ci) pour le déplacer. Si vous avez sélectionné la grande zone de glissement dans les [paramètres] (Preferences.md), vous obtenez une grande zone autour du nœud sélectionné qui facilite le positionnement de l'objet. 
 
 #### Ajouter un nouveau nœud ou un nouveau point sur un chemin 
 
@@ -93,20 +89,20 @@ Appuyez sur le gros bouton vert flottant sur la carte pour afficher un menu. Apr
 
 Voir [Créer de nouveaux objets dans le mode d'actions simples](Creating%20new%20objects%20in%20simple%20actions%20mode.md) pour plus d'informations.
 
-##### Advanced (long press) mode
+##### Mode avancé (appui long)
  
-Long press where you want the node to be or the way to start. You will see a black "crosshair" symbol. 
-* If you want to create a new node (not connected to an object), touch away from existing objects.
-* If you want to extend a way, touch within the "tolerance zone" of the way (or a node on the way). The tolerance zone is indicated by the areas around a node or way.
+Appuyez longuement à l'endroit où vous voulez créer un nouveau nœud (que ce soit pour créer uniquement un nœud ou pour démarrer un nouveau chemin) ou appuyez longuement sur un nœud existant. Vous verrez un symbole de type croix noire. 
+* Si vous souhaitez que ce nœud soit non connecté à un objet, appuyez loin des objets existants.
+* Si vous souhaitez que ce nœud soit rattaché à un nœud ou à un chemin existant, touchez dans la "zone de tolérance" du nœud ou du chemin (la zone de tolérance est indiquée par les zones autour d'un nœud ou d'un chemin).
 
 Une fois que vous pouvez voir le symbole « réticule », vous avez trois options :
 
-* _Normal press in the same place._
-    * If the crosshair is not near a node, touching the same location again creates a new node. If you are near a way (but not near a node), the new node will be on the way (and connected to the way).
-    * If the crosshair is near a node (i.e. within the tolerance zone of the node), touching the same location just selects the node (and the tag editor opens. No new node is created. The action is the same as the selection above.
-* _Normal touch in another place._ Touching another location (outside of the tolerance zone of the crosshair) adds a way segment from the original position to the current position. If the crosshair was near a way or node, the new segment will be connected to that node or way.
+* _Appuyez normalement au même endroit._
+    * Si la croix n'est pas proche d'un nœud, toucher à nouveau le même emplacement crée un nouveau nœud. Si vous êtes près d'un chemin (mais pas près d'un nœud), le nouveau nœud sera sur le chemin (et connecté au chemin).
+   * Si le réticule est proche d'un nœud (c'est-à-dire dans la zone de tolérance du nœud), toucher le même emplacement sélectionne simplement le nœud et l'éditeur des attributs s'ouvre. Aucun nouveau nœud n'est créé. L'action est la même que la sélection ci-dessus.
+* _Toucher normalement à un autre endroit._ Toucher un autre endroit (en dehors de la zone de tolérance du réticule) ajoute un segment de chemin de la position d'origine à la position actuelle. Si le réticule était proche d'un chemin ou d'un nœud, le nouveau segment sera connecté à ce nœud ou à ce chemin.
 
-Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the final node is located on a way or node, the segment will be connected to the way or node automatically. 
+Il suffit de toucher l'écran à l'endroit où vous souhaitez ajouter d'autres nœuds. Pour terminer, touchez deux fois le nœud final. Si le nœud final est situé sur une voie ou un nœud, le segment sera automatiquement connecté à la voie ou au nœud. 
 
 Vous pouvez aussi utiliser un élément du menu : voir [Créer de nouveau objets](Creating%20new%20objects.md) pour plus d'information.
 
@@ -114,9 +110,9 @@ Vous pouvez aussi utiliser un élément du menu : voir [Créer de nouveau objet
 
 OpenStreetMap n'a pour l'instant pas de type d'objet « polygone » contrairement aux autres systèmes de données géographiques. L'éditeur en ligne iD essaie de créer une abstraction de la zone à partir des éléments sous-jacents d'OSM, ce qui fonctionne dans certains cas, mais pas dans d'autres. Vespucci n'essaie pas de faire ça, donc vous devez savoir un peu comment les polygones sont représentés :
 
-* _voies fermées (« polygones »)_ : la version la plus courante et la plus simple du polygone, c'est une voie qui dont le premier et le dernier nœud sont communs, ce qui forme un « anneau » fermé (par exemple la plupart des bâtiments sont de ce type). Ils sont très faciles à créer dans vespucci, en connectant simplement le dernier nœud au premier à la fin du dessin du polygone. Remarquez : l'interprétation de la voie fermée dépend de ses attributs : par exemple si une voie fermée a les attributs d'un bâtiment, elle sera considérée comme un polygone. Si elle a les attributs d'un rond-point, elle ne le sera pas. Dans certains cas où les deux interprétations pourraient être valides, un attribut « area » permet de clarifier l'utilisation souhaitée.
-* _multi-polygones_ : certains polygones ont plusieurs parties, des trous et des anneaux qui ne peuvent pas être représentés avec une seule voie. OSM utilise un type de relation spécifique (l'objet général qui modélise des relations entre des éléments) pour cela, un multi-polygone. Un multi-polygone peut avoir plusieurs anneaux « outer » (externes) et plusieurs anneau « inner » (internes). Chaque anneau peut être soit une voie fermée comme décrite ci-dessus, soit plusieurs voies individuelles qui partagent leurs nœuds finals. Tandis que les multi-polygones sont difficiles à gérer avec les outils, les plus petits restent facile à créer dans Vespucci.
-* _lignes de côte_ : pour les objets très vastes, les continents et les îles, même le modèle de multi-polygone ne marche pas de manière satisfaisante. Pour les voies natural=coastline on suppose que la sémantique dépend de l'orientation : la terre est à gauche de la voie et l'eau à droite. Cela a pour effet de bord qu'en général, on ne devrait pas inverser le sens d'une ligne de côte. Plus d'informations se trouvent sur le [wiki d'OSM](http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline).
+* _closed ways (*polygons")_: the simplest and most common area variant, are ways that have a shared first and last node forming a closed "ring" (for example most buildings are of this type). These are very easy to create in Vespucci, simply connect back to the first node when you are finished with drawing the area. Note: the interpretation of the closed way depends on its tagging: for example if a closed way is tagged as a building it will be considered an area, if it is tagged as a roundabout it wont. In some situations in which both interpretations may be valid, an "area" tag can clarify the intended use.
+* _multi-polygons_: some areas have multiple parts, holes and rings that can't be represented with just one way. OSM uses a specific type of relation (our general purpose object that can model relations between elements) to get around this, a multi-polygon. A multi-polygon can have multiple "outer" rings, and multiple "inner" rings. Each ring can either be a closed way as described above, or multiple individual ways that have common end nodes. While large multi-polygons are difficult to handle with any tool, small ones are not difficult to create in Vespucci. 
+* _coastlines_: for very large objects, continents and islands, even the multi-polygon model doesn't work in a satisfactory way. For natural=coastline ways we assume direction dependent semantics: the land is on the left side of the way, the water on the right side. A side effect of this is that, in general, you shouldn't reverse the direction of a way with coastline tagging. More information can be found on the [OSM wiki](http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline).
 
 #### Améliorer la géométrie du chemin
 
@@ -128,15 +124,19 @@ Vous pouvez couper ou copier des nœuds ou chemins sélectionnés, puis les coll
 
 #### Ajouter efficacement des adresses
 
-Vespucci a une fonction d'![Adresses](../images/address.png) « ajouter des attributs d'adresse » qui tente de rendre la collecte d'adresses plus efficace en prédisant le numéro actuel. On peut le sélectionner :
+Vespucci supports functionality that makes surveying addresses more efficient by predicting house numbers (left and right sides of streets separately) and automatically adding _addr:street_ or _addr:place_ tags based on the last used value and proximity. In the best case this allows adding an address without any typing at all.   
 
-* Après un appui prolongé (_mode non simple seulement_) : Vespucci ajoutera un nœud à cet endroit, essaiera de déterminer le numéro du bâtiment et ajoutera les attributs d'adresse que vous avez récemment utilisés. Si le nœud se situe sur le chemin traçant un bâtiment, un attribut « entrance=yes » y sera automatiquement ajouté. L'éditeur d'attributs s'ouvrira alors pour l'objet en question pour vous permettre de faire les changements nécessaires.
-* Dans le mode de sélection de nœud ou de chemin : Vespucci ajoutera les attributs d'adresse comme ci-dessus et affichera l'éditeur d'attributs.
-* Dans l'éditeur d'attributs.
+L'ajout de tags peut être fait en cliquant ![Adresse](../images/address.png): 
+
+* after a long press (in non-simple mode only): Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add an "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.
+* in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.
+* in the property editor.
+
+To add individual address nodes directly while in the default "Simple mode" switch to "Address" editing mode (long press on the lock button), "Add address node" will then add an address node at the location and if it is on a building outline add a entrance tag to it as described above.
 
 La prédiction du numéro de bâtiment nécessite normalement pour fonctionner qu'au moins deux numéros de chaque côté de la voie soient déjà présents. Plus nombreux sont les numéros déjà renseignés, meilleure est la prédiction.
 
-Vous pourriez envisager d'utiliser cette fonction avec le mode de [téléchargement automatique](#download)  
+Consider using this with one of the [Auto-download](#download) modes.  
 
 #### Ajouter des interdictions de tourner
 
@@ -168,11 +168,15 @@ Si vous voulez sauvegarder vos modifications alors que vous n'avez pas accès à
 
 Vespucci dispose d'un outil de résolution des conflits simples. Cependant, si vous soupçonnez un problème important avec vos modifications, exportez-les dans un fichier « .osc » (menu « Transfert des données » puis « Exporter les modifications ») pour les corriger dans JOSM avant de les envoyer. Une aide détaillée est disponible sur [la résolution de conflit](Conflict%20resolution.md).  
 
-## Utiliser le GPS
+ ## En utilisant les traces GPS et GPX
 
-Vous pouvez utiliser Vespucci pour créer une trace GPX et l'afficher à l'écran. Vous pouvez aussi afficher votre position GPS actuelle (avec l'option « Afficher ma position » dans le menu GPS) ou recentrer en continu l'écran sur votre position (option « Recentrer sur ma position »). 
+With standard settings Vespucci will try to enable GPS (and other satellite based navigation systems) and will fallback to determining the position via so called "network location" if this is not possible. This behaviour assumes that you in normal use have your Android device itself configured to only use GPX generated locations (to avoid tracking), that is you have the euphemistically named "Improve Location Accuracy" option turned off. If you want to enable the option but want to avoid Vespucci falling back to "network location", you should turn the corresponding option in the [Advanced preferences](Advanced%20preferences.md) off. 
 
-Si vous avez activé cette dernière, le déplacement manuel de l'écran et l'édition désactivera le mode de recentrage et la flèche GPS bleue vide se remplira. Pour revenir rapidement au mode de recentrage, appuyez simplement sur le bouton GPS ou cochez de nouveau l'option du menu.
+Touching the ![GPS](../images/menu_gps.png) button (on the left hand side of the map display) will center the screen on the current position and as you move the map display will be padded to maintain this.  Moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch GPS button or re-check the equivalent menu option. If the device doesn't have a current location the location marker/arrow will be displayed in black, if a current location is available the marker will be blue.
+
+To record a GPX track and display it on your device select "Start GPX track" item in the ![GPS](../images/menu_gps.png) menu. This will add layer to the display with the current recorded track, you can upload and export the track from the entry in the [layer control](Main%20map%20display.md). Further layers can be added from local GPX files and tracks downloaded from the OSM API.
+
+Note: by default Vespucci will not record elevation data with your GPX track, this is due to some Android specific issues. To enable elevation recording, either install a gravitational model, or, simpler, go to the [Advanced preferences](Advanced%20preferences.md) and configure NMEA input.
 
 ## Notes et bugs
 
@@ -187,11 +191,11 @@ L'affichage des bugs Osmose fournit un lien vers l'objet affecté en bleu. Appuy
 Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. The filter configuration can be accessed from the task layer entry in the [layer control](#layers):
 
 * Notes
-* Osmose error
-* Osmose warning
-* Osmose minor issue
+* Erreur d'Osmose
+* Avertissement d'Osmose
+* Problème mineur d'Osmose
 * Maproulette
-* Custom
+* Personnalisé
 
 <a id="indoor"></a>
 
@@ -232,8 +236,8 @@ Le groupe _Annotations_ des modèles standards contient un élément qui ajouter
 
 Les entrées de vérification ont les deux propriétés suivantes :
 
-* **Clef** : la clef qui devrait être présente sur l'objet d'après le modèle d'attribut correspondant.
-* **Attributs facultatifs requis** : Requiert la clef même si elle fait partie des attributs facultatifs du modèle correspondant.
+* **Key** - Key that should be present on the object according to the matching preset.
+* **Require optional** - Require the key even if the key is in the optional tags of the matching preset.
 
 Cette vérification fonctionne en déterminant d'abord le modèle correspondant puis en vérifiant que la **Clef** est une clef « recommandée » pour cet objet d'après l'attribut, **Attributs facultatifs requis » étendra la vérification aux attributs « facultatifs » de l'objet. Remarquez qu'actuellement les modèles liés ne sont pas vérifiés.
 
@@ -268,22 +272,22 @@ Types de calques disponibles :
 * GeoJSON layer - Displays the contents of a GeoJSON file. Default: off.
 * Grid - Displays a scale along the sides of the map or a grid. Default: on. 
 
-More information can be found in the section on the [map display](Main%20map%20display.md).
+Plus d'informations sont disponibles dans la section de [l'affichage de la carte](Main%20map%20display.md).
 
-#### Préférences
+#### Paramètres
 
 * Garder l'écran allumé. Par défaut : désactivé.
 * Zone élargie de déplacement des nœuds. Déplacer des nœuds sur un appareil tactile est problématique parce que vos doigts cachent l'emplacement actuel sur l'écran. Activer cette option fournira une zone large pour déplacer en étant décalé par rapport au centre (la sélection et les autres opérations continuent d'utiliser la même zone de tolérance). Par défaut : désactivé.
 
-Vous pouvez trouver les descriptions complètes ici [Préférences](Preferences.md)
+Vous pouvez trouver les descriptions complètes ici [Paramètres](Preferences.md)
 
-#### Préférences avancées
+#### Paramètres avancés
 
 * Icône de nœud. Par défaut : activé.
 * Toujours montrer le menu contextuel. Lorsqu'elle est activée, à chaque sélection le menu contextuel sera affiché. Sinon le menu n'est affiché que lorsque aucune sélection non-ambiguë n'est déterminée. Par défaut : désactivé (activé sur d'anciennes versions).
 * Activer le thème clair. Sur les appareils modernes, cette option est activée par défaut. Vous pouvez l'activer sur des appareils Android plus anciens, mais le thème ne sera sans doute pas cohérent avec le reste du système. 
 
-Une description complète est disponible ici [Préférences avancées](Advanced%20preferences.md)
+Une description complète est disponible ici [Paramètres avancés](Advanced%20preferences.md)
 
 ## Rapporter des problèmes
 

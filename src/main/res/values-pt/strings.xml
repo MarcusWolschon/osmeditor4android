@@ -169,7 +169,6 @@
   <string name="imagery_offset_date">Criado</string>
   <string name="imagery_offset_zoom">Zoom</string>
   <string name="imagery_offset_distance">Distância</string>
-  <string name="zoom_and_offset">Z %1$d deslocamento %2$s/%3$s</string>
   <string name="set_position_datum_label">Datum geodésico</string>
   <string name="WGS84">WGS84</string>
   <string name="tag_editor_name_suggestion">Sugestão de nome</string>
@@ -271,6 +270,7 @@
   <string name="check_optional">Exigir opcional</string>
   <string name="add_resurvey_entry">Adicionar o levantamento submetido</string>
   <string name="add_check_entry">Adicionar a verificação submetida</string>
+  <!--Safe mode dialog-->
   <!--Empty relation dialog-->
   <string name="empty_relation_title">Relação vazia</string>
   <string name="empty_relation_message">A relação %1$s não tem membros.\n\nSe a deixar assim não poderá editá-la no Vespucci.</string>
@@ -329,6 +329,7 @@
   <string name="layer_info_privacy_policy">Política de privacidade</string>
   <string name="errors">Erros</string>
   <!--Mapillary layer-->
+  <!--Date range dialog-->
   <!--Photo viewer-->
   <!--API info dialog-->
   <string name="api_info_bounds">Caixa de limites</string>
@@ -454,7 +455,6 @@
   <string name="toast_applied_offset">Aplicado o alinhamento da imagem.</string>
   <string name="toast_unsupported_format">Formato não suportado: %1$s</string>
   <string name="toast_returning_less_than_found">Resultado %1$d de %2$d encontrados</string>
-  <string name="toast_not_mbtiles">Não é um formato MBTiles</string>
   <string name="toast_using_network_location">A usar a localização da rede de telemóveis</string>
   <string name="toast_using_gps_location">A usar a localização GPS/GNSS</string>
   <string name="toast_tags_copied">Etiquetas copiadas</string>
@@ -722,6 +722,7 @@ há %3$s %4$s</string>
   <!--element action mode menu-->
   <string name="menu_tags">Propriedades</string>
   <!--ELement entry in context menu-->
+  <string name="element_for_menu_with_direction">%1$s %2$s</string>
   <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">Histórico</string>
@@ -979,6 +980,7 @@ há %3$s %4$s</string>
   <string name="default_">Padrão</string>
   <string name="regular_expression">Expressão regular</string>
   <string name="state">Estado</string>
+  <string name="Continue">Continuar</string>
   <!---->
   <string name="empty_list">Sem entradas</string>
   <string name="geocoder_type">Tipo de geo-codificador</string>

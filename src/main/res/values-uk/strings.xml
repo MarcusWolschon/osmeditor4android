@@ -78,6 +78,7 @@
   <string name="progress_title">Завантаження</string>
   <string name="progress_message">Завантаження даних в пам\'ять…</string>
   <string name="progress_download_message">Завантаження даних з сервера…</string>
+  <string name="progress_download_tasks_message">Завантаження завдань з серверів...</string>
   <string name="progress_general_title">Зачекайте</string>
   <string name="progress_deleting_message">Вилучення…</string>
   <string name="progress_searching_message">Пошук…</string>
@@ -186,7 +187,6 @@
   <string name="imagery_offset_date">Створено</string>
   <string name="imagery_offset_zoom">Масштаб</string>
   <string name="imagery_offset_distance">Відстань</string>
-  <string name="zoom_and_offset">Z %1$d зсув %2$s/%3$s</string>
   <string name="set_position_datum_label">Геодезичний датум</string>
   <string name="WGS84">WGS84</string>
   <string name="tag_editor_name_suggestion">Підказувати назви</string>
@@ -322,6 +322,7 @@
   <string name="check_optional">Обов\'язково опціонально</string>
   <string name="add_resurvey_entry">Додати елемент дослідження</string>
   <string name="add_check_entry">Додати елемент перевірки</string>
+  <!--Safe mode dialog-->
   <!--Empty relation dialog-->
   <string name="empty_relation_title">Порожній зв\'язок</string>
   <string name="empty_relation_message">%1$s зв\'язок не має жодного члена.\n\nЯкщо лишити його так, його подальше редагування у Веспуччі буде неможливе.</string>
@@ -417,6 +418,7 @@
   <string name="layer_info_layer_not_available">Інформація шару не доступна</string>
   <string name="layer_info_no_meta_data">Метадані не завантажено</string>
   <!--Mapillary layer-->
+  <!--Date range dialog-->
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Вилучити фото</string>
   <string name="photo_viewer_delete_button">Видалити остаточно</string>
@@ -611,7 +613,6 @@
   <string name="toast_applied_offset">Застосовано зміщення фону.</string>
   <string name="toast_unsupported_format">Формат не підтримується: %1$s</string>
   <string name="toast_returning_less_than_found">Повертаємо %1$d з %2$d знайдених елементів</string>
-  <string name="toast_not_mbtiles">Формат файлу не MBTiles</string>
   <string name="toast_using_network_location">Використовується мережеве розташування</string>
   <string name="toast_using_gps_location">Використовується GPS/GNSS положення</string>
   <string name="toast_using_gps_disabled_tracking_stopped">Позиціонування GPS/GNSS вимкнено, спробуйте припинити відстеження.</string>
@@ -1001,6 +1002,7 @@
   <!--element action mode menu-->
   <string name="menu_tags">Властивості</string>
   <!--ELement entry in context menu-->
+  <string name="element_for_menu_with_direction">%1$s %2$s</string>
   <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">Історія</string>
@@ -1320,6 +1322,7 @@
   <string name="default_">Типово</string>
   <string name="regular_expression">Регулярні вирази</string>
   <string name="state">Стан</string>
+  <string name="Continue">Далі</string>
   <!---->
   <string name="empty_list">Записів немає</string>
   <string name="geocoder_type">Тип геокодера</string>

@@ -168,7 +168,6 @@
   <string name="imagery_offset_date">Создано</string>
   <string name="imagery_offset_zoom">Масштаб</string>
   <string name="imagery_offset_distance">Расстояние</string>
-  <string name="zoom_and_offset">Уровень %1$d смещение %2$s/%3$s</string>
   <string name="set_position_datum_label">Геодезическая система координат</string>
   <string name="WGS84">WGS84</string>
   <string name="tag_editor_name_suggestion">Предложение названия</string>
@@ -306,6 +305,7 @@
   <string name="check_optional">Проверять значения, где этот ключ необязателен</string>
   <string name="add_resurvey_entry">Добавить проверку по дате</string>
   <string name="add_check_entry">Добавить проверку по значению</string>
+  <!--Safe mode dialog-->
   <!--Empty relation dialog-->
   <string name="empty_relation_title">Пустое отношение</string>
   <string name="empty_relation_message">Отношение %1$s не имеет участников.\n\nОставляя его таким, вы потеряете возможность его редактирования в Vespucci.</string>
@@ -387,6 +387,7 @@
   <string name="errors">Ошибки</string>
   <string name="layer_info_layer_not_available">Информация о слое недоступна</string>
   <!--Mapillary layer-->
+  <!--Date range dialog-->
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Удалить фото</string>
   <string name="photo_viewer_delete_button">Удалить навсегда</string>
@@ -565,7 +566,6 @@
   <string name="toast_applied_offset">Смещение снимка применено</string>
   <string name="toast_unsupported_format">Неподдерживаемый формат: %1$s</string>
   <string name="toast_returning_less_than_found">Возвращено %1$d из %2$d найденных записей</string>
-  <string name="toast_not_mbtiles">Файл не формата MBTiles</string>
   <string name="toast_using_network_location">Определение местоположения по сети</string>
   <string name="toast_using_gps_location">Местоположение по GPS/GNSS</string>
   <string name="toast_using_gps_disabled_tracking_stopped">GPS/GNSS выключен, запись GPX-трека остановлена</string>
@@ -926,6 +926,7 @@
   <!--element action mode menu-->
   <string name="menu_tags">Свойства</string>
   <!--ELement entry in context menu-->
+  <string name="element_for_menu_with_direction">%1$s %2$s</string>
   <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">История</string>
@@ -1269,6 +1270,7 @@
   <string name="default_">По умолчанию</string>
   <string name="regular_expression">Регулярное выражение</string>
   <string name="state">Состояние</string>
+  <string name="Continue">Продолжить</string>
   <!---->
   <string name="empty_list">Нет записей</string>
   <string name="geocoder_type">Тип геокодера</string>

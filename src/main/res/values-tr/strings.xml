@@ -151,7 +151,6 @@
   <string name="imagery_offset_date">Oluşturuldu</string>
   <string name="imagery_offset_zoom">Yakınlaş</string>
   <string name="imagery_offset_distance">Mesafe</string>
-  <string name="zoom_and_offset">Z %1$d çıkıntı %2$s/%3$s</string>
   <string name="set_position_datum_label">Jeodezik zaman</string>
   <string name="WGS84">WGS84</string>
   <string name="tag_editor_name_suggestion">İsim tavsiyesi</string>
@@ -270,6 +269,7 @@
   <string name="check_optional">İsteğe bağlı gerektirir</string>
   <string name="add_resurvey_entry">Yeniden keşif girdisi ekle</string>
   <string name="add_check_entry">Girdi denetimi ekle</string>
+  <!--Safe mode dialog-->
   <!--Empty relation dialog-->
   <string name="empty_relation_title">Boş ilişki</string>
   <string name="empty_relation_message">%1$s ilişkisinin hiç üyesi yok.\n\n Onu olduğu gibi bırak, ilişkiyi Vespucci\'de düzeltilemez kılacaktır.</string>
@@ -339,6 +339,7 @@
   <string name="projection">Projeksiyon</string>
   <string name="errors">Hatalar</string>
   <!--Mapillary layer-->
+  <!--Date range dialog-->
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Fotoğrafı sil</string>
   <string name="photo_viewer_goto">Fotoğrafa git</string>
@@ -492,7 +493,6 @@
   <string name="toast_applied_offset">Görüntü Uzaklığı uygulandı.</string>
   <string name="toast_unsupported_format">Desteklenmeyen format: %1$s</string>
   <string name="toast_returning_less_than_found">%2$d bulunan girdinin %1$d \'sinin geri dönüşü</string>
-  <string name="toast_not_mbtiles">MBTiles format dosyası değil</string>
   <string name="toast_using_network_location">Ağ konumunu kullanılıyor</string>
   <string name="toast_using_gps_location">GPS/GNSS konumu kullanılıyor</string>
   <string name="toast_remote_nmea_connection">%1$s \'dan/a uzak NMEA bağlantısı </string>
@@ -821,6 +821,7 @@
   <!--element action mode menu-->
   <string name="menu_tags">Özellikler</string>
   <!--ELement entry in context menu-->
+  <string name="element_for_menu_with_direction">%1$s %2$s</string>
   <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">Geçmiş</string>
@@ -1120,6 +1121,7 @@
   <string name="default_">Varsayılan</string>
   <string name="regular_expression">Düzenli ifade</string>
   <string name="state">Eyalet</string>
+  <string name="Continue">Devam et</string>
   <!---->
   <string name="empty_list">Girdiler yok</string>
   <string name="geocoder_type">Geocoder türü</string>

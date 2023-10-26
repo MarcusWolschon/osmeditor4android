@@ -142,7 +142,6 @@
   <string name="imagery_offset_date">Creado</string>
   <string name="imagery_offset_zoom">Achegamento</string>
   <string name="imagery_offset_distance">Distancia</string>
-  <string name="zoom_and_offset">Z %1$d desprazamento %2$s/%3$s</string>
   <string name="set_position_datum_label">Datum xeodésico</string>
   <string name="WGS84">WGS84</string>
   <string name="tag_editor_name_suggestion">Nome suxerido</string>
@@ -242,6 +241,7 @@
   <string name="check_optional">Requirir opcional</string>
   <string name="add_resurvey_entry">Engadir entrada de re-revisión</string>
   <string name="add_check_entry">Engadir entrada de comprobación</string>
+  <!--Safe mode dialog-->
   <!--Empty relation dialog-->
   <string name="empty_relation_title">Relación baleira</string>
   <string name="empty_relation_message">A relación %1$s non ten membros.\n\nSe a deixas así non poderás editala no Vespucci.</string>
@@ -302,6 +302,7 @@
   <string name="layer_info_privacy_policy">Política de privacidade</string>
   <string name="errors">Erros</string>
   <!--Mapillary layer-->
+  <!--Date range dialog-->
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Eliminar imaxe</string>
   <string name="photo_viewer_goto">Ir á imaxe</string>
@@ -432,7 +433,6 @@
   <string name="toast_imperial_units">Unidades imperiais non atopadas</string>
   <string name="toast_flus_all_caches">Isto limpará tódalas cachés das teselas!</string>
   <string name="toast_unsupported_format">Formato non admitido: %1$s</string>
-  <string name="toast_not_mbtiles">Non é un ficheiro en formato MBTiles</string>
   <string name="toast_using_network_location">Estase a empregar a localización por rede</string>
   <string name="toast_tags_copied">Etiquetas copiadas ó portapapeis</string>
   <string name="toast_tags_cut">Etiquetas cortadas ó portapapeis</string>
@@ -673,6 +673,7 @@
   <!--element action mode menu-->
   <string name="menu_tags">Propiedades</string>
   <!--ELement entry in context menu-->
+  <string name="element_for_menu_with_direction">%1$s %2$s</string>
   <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">Historial</string>
@@ -862,6 +863,7 @@
   <string name="default_">Por defecto</string>
   <string name="regular_expression">Expresión regular</string>
   <string name="state">Estado</string>
+  <string name="Continue">Continuar</string>
   <!---->
   <string name="empty_list">Sen entradas</string>
   <string name="geocoder_type">Geocoder tipo</string>

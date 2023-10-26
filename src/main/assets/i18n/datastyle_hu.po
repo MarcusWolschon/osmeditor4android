@@ -1,22 +1,22 @@
 # 
 # Translators:
-# Gábor Babos <gabor.babos@gmail.com>, 2020
+# Gábor Babos <gabor.babos@gmail.com>, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2020-04-25 11:28+0200\n"
 "PO-Revision-Date: 2020-05-21 07:54+0000\n"
-"Last-Translator: Gábor Babos <gabor.babos@gmail.com>, 2020\n"
-"Language-Team: Hungarian (https://www.transifex.com/openstreetmap/teams/26285/hu/)\n"
+"Last-Translator: Gábor Babos <gabor.babos@gmail.com>, 2023\n"
+"Language-Team: Hungarian (https://app.transifex.com/openstreetmap/teams/26285/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "Default"
-msgstr "Alapértelmezett"
+msgid "Built-in (minimal)"
+msgstr "Beépített (minimális)"
 
 msgid "Color Round Nodes"
 msgstr "Kerek színes pontok"

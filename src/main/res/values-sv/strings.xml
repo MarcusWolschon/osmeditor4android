@@ -241,6 +241,7 @@
   <string name="check_entries">Kontrollerat</string>
   <string name="max_age">Max. ålder</string>
   <string name="age">Ålder</string>
+  <!--Safe mode dialog-->
   <!--Empty relation dialog-->
   <string name="empty_relation_title">Tom relation</string>
   <string name="empty_relation_message">Relationen %1$shar inga medlemmar.\n\nOm den lämnas som den är kommer den inte att gå att editera i Vespucci.</string>
@@ -253,6 +254,7 @@
   <string name="altitude">Höjd</string>
   <string name="create_osm_object">Skapa OSM-föremål</string>
   <!--Custom imagery dialogs-->
+  <string name="custom_layer_title">Egen bild</string>
   <string name="select_layer_title">Välj lager</string>
   <string name="coverage">Täckning</string>
   <string name="coverage_top">Överst</string>
@@ -296,6 +298,7 @@
   <string name="projection">Projektion</string>
   <string name="errors">Fel</string>
   <!--Mapillary layer-->
+  <!--Date range dialog-->
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Radera foto</string>
   <string name="photo_viewer_goto">Gå till foto</string>
@@ -379,7 +382,6 @@
   <string name="toast_server_connection_failed">Kunde inte ansluta till server: %1$s</string>
   <string name="toast_flus_all_caches">Detta rensar alla bildrutor som är lagrade!</string>
   <string name="toast_unsupported_format">Format som inte stöds: %1$s</string>
-  <string name="toast_not_mbtiles">Inget MBTIles format</string>
   <string name="toast_using_network_location">Använder nätverksplats</string>
   <string name="toast_using_gps_location">Använder GPS/GNSS-plats</string>
   <string name="toast_tags_copied">Taggar kopierade till urklipp</string>
@@ -617,6 +619,7 @@
   <!--element action mode menu-->
   <string name="menu_tags">Egenskaper</string>
   <!--ELement entry in context menu-->
+  <string name="element_for_menu_with_direction">%1$s %2$s</string>
   <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">Historik</string>
@@ -805,6 +808,7 @@
   <string name="url">URL</string>
   <string name="default_">Standard</string>
   <string name="state">Stat</string>
+  <string name="Continue">Fortsätt</string>
   <!---->
   <string name="empty_list">Inga poster</string>
   <string name="geocoder_type">Geocoder typ</string>

@@ -186,7 +186,6 @@
   <string name="imagery_offset_date">已建立</string>
   <string name="imagery_offset_zoom">縮放</string>
   <string name="imagery_offset_distance">距離</string>
-  <string name="zoom_and_offset">Z %1$d 偏離 %2$s/%3$s</string>
   <string name="set_position_datum_label">大地基準點</string>
   <string name="WGS84">WGS84</string>
   <string name="tag_editor_name_suggestion">建議名稱</string>
@@ -327,6 +326,7 @@
   <string name="check_optional">必須選項</string>
   <string name="add_resurvey_entry">新增重新踏察輸入值</string>
   <string name="add_check_entry">新增檢查輸入值</string>
+  <!--Safe mode dialog-->
   <!--Empty relation dialog-->
   <string name="empty_relation_title">空白關聯</string>
   <string name="empty_relation_message">%1$s 關聯並沒有成員。\n\n如果繼續的話則無法在 Vespucci 編輯。</string>
@@ -424,6 +424,7 @@
   <string name="layer_info_no_meta_data">沒有載入中繼資料</string>
   <!--Mapillary layer-->
   <string name="mapillary_image">%1$s</string>
+  <!--Date range dialog-->
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">刪除圖片</string>
   <string name="photo_viewer_delete_button">永久刪除</string>
@@ -612,7 +613,6 @@
   <string name="toast_applied_offset">設定影像偏移。</string>
   <string name="toast_unsupported_format">不支援的格式：%1$s</string>
   <string name="toast_returning_less_than_found">回覆 %2$d 裡 %1$d 找到的結果</string>
-  <string name="toast_not_mbtiles">不是 MBTiles 格式檔案</string>
   <string name="toast_using_network_location">使用網路位置</string>
   <string name="toast_using_gps_location">使用 GPS/GNSS 位置</string>
   <string name="toast_using_gps_disabled_tracking_stopped">關閉 GPS/GNSS 定位，視為停止記錄軌跡。</string>
@@ -1009,6 +1009,7 @@
   <string name="menu_tags">屬性</string>
   <!--ELement entry in context menu-->
   <string name="element_for_menu">%1$s</string>
+  <string name="element_for_menu_with_direction">%1$s%2$s</string>
   <string name="element_for_menu_with_parents">%1$s(%2$s)</string>
   <!--Text should be as short as possible-->
   <string name="start_end_way_description">到路徑開始會結束的地方</string>
@@ -1394,6 +1395,7 @@
   <string name="default_">預設</string>
   <string name="regular_expression">正規表示式</string>
   <string name="state">狀態</string>
+  <string name="Continue">繼續</string>
   <!---->
   <string name="empty_list">無輸入</string>
   <string name="geocoder_type">geocoder 類型</string>

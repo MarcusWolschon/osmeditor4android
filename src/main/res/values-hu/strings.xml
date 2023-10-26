@@ -188,7 +188,6 @@
   <string name="imagery_offset_date">Létrehozva</string>
   <string name="imagery_offset_zoom">Nagyítás</string>
   <string name="imagery_offset_distance">Távolság</string>
-  <string name="zoom_and_offset">Z %1$d eltolás %2$s/%3$s</string>
   <string name="set_position_datum_label">Geodéziai rendszer</string>
   <string name="WGS84">WGS84</string>
   <string name="tag_editor_name_suggestion">Névjavaslat</string>
@@ -330,6 +329,7 @@ elemek megkövetelése</string>
   <string name="check_optional">Nem kötelező elemek megkövetelése</string>
   <string name="add_resurvey_entry">Újbóli felmérés bejegyzésének hozzáadása</string>
   <string name="add_check_entry">Ellenőrzési bejegyzés hozzáadása</string>
+  <!--Safe mode dialog-->
   <!--Empty relation dialog-->
   <string name="empty_relation_title">Üres kapcsolat</string>
   <string name="empty_relation_message">A(z) %1$s kapcsolatnak nincs tagja.\n\nHa így marad, akkor a Vespuccival később nem lehet szerkeszteni.</string>
@@ -427,6 +427,7 @@ elemek megkövetelése</string>
   <string name="layer_info_no_meta_data">A metaadatok nincsenek betöltve</string>
   <!--Mapillary layer-->
   <string name="mapillary_image">%1$s</string>
+  <!--Date range dialog-->
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Fénykép törlése</string>
   <string name="photo_viewer_delete_button">Végleges törlés</string>
@@ -618,7 +619,6 @@ elemek megkövetelése</string>
   <string name="toast_applied_offset">Képeltolása alkalmazva.</string>
   <string name="toast_unsupported_format">Nem támogatott formátum: %1$s</string>
   <string name="toast_returning_less_than_found">%1$d / %2$d talált bejegyzés visszaadása</string>
-  <string name="toast_not_mbtiles">Nem MBTiles formátumú fájl</string>
   <string name="toast_using_network_location">Hálózati helyadatok használata</string>
   <string name="toast_using_gps_location">GPS/GNSS helyadatok használata</string>
   <string name="toast_using_gps_disabled_tracking_stopped">A GPS/GNSS helymeghatározás ki van kapcsolva, fontolja meg a követés leállítását.</string>
@@ -1014,6 +1014,7 @@ elemek megkövetelése</string>
   <string name="menu_tags">Tulajdonságok</string>
   <!--ELement entry in context menu-->
   <string name="element_for_menu">%1$s</string>
+  <string name="element_for_menu_with_direction">%1$s %2$s</string>
   <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
   <!--Text should be as short as possible-->
   <string name="start_end_way_description">Ugrás a vonal elejéhez vagy végéhez</string>
@@ -1398,6 +1399,7 @@ elemek megkövetelése</string>
   <string name="default_">Alapértelmezett</string>
   <string name="regular_expression">Reguláris kifejezés</string>
   <string name="state">Állapot</string>
+  <string name="Continue">Folytatás</string>
   <!---->
   <string name="empty_list">Nincsenek bejegyzések</string>
   <string name="geocoder_type">Geokódoló típusa</string>

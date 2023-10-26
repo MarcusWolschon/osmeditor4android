@@ -8,6 +8,7 @@
   <string name="mode_address">Adresse</string>
   <string name="mode_voice">Stimme</string>
   <!--additional short cuts-->
+  <string name="shortcut_safe">Speichern</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Achtung!</string>
   <string name="transfer_download_current_dialog_message">Sie haben Änderungen vorgenommen. Möchten Sie diese hochladen, anstatt sie zu verwerfen?</string>
@@ -187,7 +188,7 @@
   <string name="imagery_offset_date">Erstellt</string>
   <string name="imagery_offset_zoom">Zoomstufe</string>
   <string name="imagery_offset_distance">Entfernung</string>
-  <string name="zoom_and_offset">Z %1$d Versatz %2$s/%3$s</string>
+  <string name="zoom_and_offsets">Zoom %1$d\nVersatz\n%2$s°/%3$s°\n%4$sm/%5$sm</string>
   <string name="set_position_datum_label">Geodätisches Datum</string>
   <string name="WGS84">WGS84</string>
   <string name="tag_editor_name_suggestion">Vorschläge für Namen</string>
@@ -328,6 +329,13 @@
   <string name="check_optional">Optionale Tags überprüfen</string>
   <string name="add_resurvey_entry">Überprüfungstest hinzufügen</string>
   <string name="add_check_entry">Fehlenden Tag-Test hinzufügen</string>
+  <!--Safe mode dialog-->
+  <string name="safe_mode_dialog_title">Optionen fürs sichere Starten</string>
+  <string name="safe_style_label">Minimalen Datenstil verwenden</string>
+  <string name="safe_layer_label">Alle Ebenen ausschalten</string>
+  <string name="safe_state_label">Gespeicherten Zustand entfernen</string>
+  <string name="safe_delete_state_title">Gespeicherten Zustand löschen?</string>
+  <string name="safe_delete_state_text">Ja (kann nicht rückgängig gemacht werden)</string>
   <!--Empty relation dialog-->
   <string name="empty_relation_title">Leere Relation</string>
   <string name="empty_relation_message">Die Relation %1$s hat keine Mitglieder.\n\nBleibt sie so, kann sie in Vespucci nicht mehr bearbeitet werden.</string>
@@ -389,6 +397,7 @@
   <string name="layer_change_style">Stil ändern…</string>
   <string name="layer_load_style">Stil laden…</string>
   <string name="layer_reset_style">Stil zurücksetzen</string>
+  <string name="layer_set_date_range">Datumsbereich setzen...</string>
   <string name="layer_select_imagery">Bildmaterial auswählen…</string>
   <string name="layer_test">Test…</string>
   <string name="layer_category_all">Alle</string>
@@ -425,6 +434,8 @@
   <string name="layer_info_no_meta_data">Metadaten nicht geladen</string>
   <!--Mapillary layer-->
   <string name="mapillary_image">%1$s</string>
+  <!--Date range dialog-->
+  <string name="date_range_title">Datumsbereich setzen</string>
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Foto löschen</string>
   <string name="photo_viewer_delete_button">Endgültig löschen</string>
@@ -585,6 +596,9 @@
   <string name="toast_split_to">„to“-Weg aufgetrennt</string>
   <string name="toast_tile_database_issue_short">Problem mit den Hintergrundkacheln</string>
   <string name="toast_tile_database_issue">Ernster Fehler mit der Speicherung der Hintergrundkacheln\n„%1$s“\nMehr Informationen unter FAQ auf https://vespucci.io/</string>
+  <string name="toast_tile_source_issue">Ernsthaftes Problem mit einer Kartenkachelquelle, temporär abgeschaltet\n\"%1$s\"</string>
+  <string name="toast_tile_container_issue">Kartenkacheldatei \"%1$s\" existiert nicht oder kann nicht geöffnet werden </string>
+  <string name="toast_unable_to_configure_from_source">Konfiguration über das Netzwerk fehlgeschlagen: %1$s</string>
   <string name="toast_invalid_apiurl">Ungültige API-URL</string>
   <string name="toast_invalid_readonlyurl">Ungültige \"nur lesen\" API-URL</string>
   <string name="toast_invalid_notesurl">Ungültige API-URL für Notizen</string>
@@ -598,6 +612,7 @@
   <string name="toast_no_coverage">%1$s hat hier keine Abdeckung</string>
   <string name="toast_tile_layer_errors">Die Quelle ‚%1$s‘ produziert Fehler</string>
   <string name="toast_file_exists">Datei %1$s existiert bereits.</string>
+  <string name="toast_network_file_not_supported">Der Zugriff auf diese Datei über das Netzwerk wird nicht unterstützt. Kopiere die Datei direkt auf das Gerät.\n%1$s</string>
   <string name="toast_needs_resurvey">Objekt könnte veraltet sein</string>
   <string name="toast_missing_key">Schlüssel %1$s fehlt</string>
   <string name="toast_invalid_object">Ungültiges Objekt</string>
@@ -616,7 +631,7 @@
   <string name="toast_applied_offset">Hintergrundversatzkorrektur automatisch angewendet</string>
   <string name="toast_unsupported_format">Nicht unterstütztes Format: %1$s</string>
   <string name="toast_returning_less_than_found">Anzeige von %1$d von %2$d total gefundenen Einträgen</string>
-  <string name="toast_not_mbtiles">Die Datei ist nicht im MBTiles-Format</string>
+  <string name="toast_not_mbtiles">Keine Datei in MBTiles oder PMTiles-Format</string>
   <string name="toast_using_network_location">Netzwerkstandort</string>
   <string name="toast_using_gps_location">GPS/GNSS-Standort</string>
   <string name="toast_using_gps_disabled_tracking_stopped">GPS/GNSS ist abgeschaltet, gegebenenfalls sollte die Aufzeichnung gestoppt werden.  </string>
@@ -689,7 +704,10 @@
   <string name="toast_part_selection_not_supported">Wegteil-Auswahl wird für geschlossene Wege nicht unterstützt</string>
   <string name="toast_element_has_been_deleted">Element wurde gelöscht</string>
   <string name="toast_updating_tags">Tags aktualisieren...</string>
+  <string name="toast_updating_parents">Aktualisierung der Elternelemente...</string>
   <string name="toast_updating_members">Mitglieder aktualisieren...</string>
+  <string name="toast_error_loading_egm">Fehler beim Laden von EGM %1$s</string>
+  <string name="toast_querying_wms_server_failed">Anfrage an WMS Server fehlgeschlagen: %1$s</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">Für MapSplit-Quellen müssen Zoomgrenzen festgelegt sein.</string>
   <string name="error_pbf_no_version">Versionsinformation fehlt in PBF-Datei</string>
@@ -995,6 +1013,7 @@
   <string name="menu_layers_add_grid">Gitter/Skala anzeigen</string>
   <string name="menu_layers_add_photolayer">Foto-Ebene anzeigen</string>
   <string name="menu_layers_enable_mapillary_layer">Mapillary-Ebene anzeigen</string>
+  <string name="menu_layers_enable_bookmarkslayer">Lesezeichenebene aktivieren</string>
   <string name="menu_layers_configure">Konfigurieren…</string>
   <string name="menu_layers_background_align">Bildmaterial justieren…</string>
   <!---->
@@ -1010,7 +1029,9 @@
   <string name="menu_tags">Eigenschaften</string>
   <!--ELement entry in context menu-->
   <string name="element_for_menu">%1$s</string>
+  <string name="element_for_menu_with_direction">%1$s %2$s</string>
   <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
+  <string name="element_for_menu_with_parents_with_direction">%1$s %2$s (%3$s)</string>
   <!--Text should be as short as possible-->
   <string name="start_end_way_description">Gehe zum Start oder Ende des Weges</string>
   <string name="menu_history">Chronik</string>
@@ -1166,6 +1187,7 @@
   <string name="config_theme_title">Thema</string>
   <string name="config_theme_summary">Aussehen der App auswählen</string>
   <string name="config_splitActionBarEnabled_title">Geteilte Action-Bar</string>
+  <string name="config_splitActionBarEnabled_summary">Zeige die Menübuttons am unteren Bildschirmrand an. Dies erfordert einen erneuten Start von Vespucci und Android 4.0 oder neuer.</string>
   <string name="config_appLocale_title">App Sprache</string>
   <string name="config_appLocale_summary">Eine andere Sprache als die Systemsprache verwenden.</string>
   <string name="config_maxInlineValues_title">Max. Anzahl direkt angezeigter Werte</string>
@@ -1201,6 +1223,8 @@
   <string name="config_mapillary_min_zoom_current">%1$d</string>
   <string name="config_nameCap_summary">Automatische Großschreibung von Tag-Namen bei der Eingabe</string>
   <string name="config_nameCap_title">Großschreibung des Namens</string>
+  <string name="config_longStringLimit_title">Grenze für lange Zeichenfolgen</string>
+  <string name="config_longStringLimit_summary">Grenze, ab der ein Modal zur Bearbeitung von Text im Eigenschafteneditor angezeigt werden soll.</string>
   <string name="config_longStringLimit_current">%1$d</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Daten- und Bearbeitungseinstellungen</string>
@@ -1307,6 +1331,8 @@
   <string name="config_taginfoServer_summary">Der Taginfo-Server für das automatische Erstellen von Vorlagen</string>
   <string name="config_overpassServer_title">Overpass-Server</string>
   <string name="config_overpassServer_summary">Overpass Server für Abfragen verwendet</string>
+  <string name="config_oamServer_title">OpenAerialMap Server</string>
+  <string name="config_oamServer_summary">OpenAerialMap Server der als Quelle für Hintergrundbilder verwendet wird</string>
   <!--Layer download and storage-->
   <string name="config_category_layers">Hintergrundbilder laden und speichern</string>
   <string name="config_category_layers_summary">Download und Speicher der auf Kacheln basierenden Hintergrundbilder</string>
@@ -1393,6 +1419,7 @@
   <string name="default_">Standard</string>
   <string name="regular_expression">Regulärer Ausdruck</string>
   <string name="state">Status</string>
+  <string name="Continue">Fortsetzen</string>
   <!---->
   <string name="empty_list">Keine Einträge</string>
   <string name="geocoder_type">Geocodertyp</string>
@@ -1412,6 +1439,7 @@
   <string name="address_housenumber_street">Adresse %1$s %2$s</string>
   <string name="description_id">%1$s #%2$s</string>
   <string name="description_type_id">%1$s %2$s #%3$s</string>
+  <string name="only_id">#%1$s</string>
   <string name="type_id">%1$s #%2$s</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">Knoten verschoben</string>
@@ -1543,8 +1571,20 @@ in %1$d m %2$s</string>
   <string name="way_id">Weg %1$d</string>
   <string name="relation_id">Relation %1$d</string>
   <!--Tile downloader diagnostics-->
+  <string name="layer_diag_title">Ebenen-Diagnose</string>
+  <string name="no_tile_header">\"Keine Kachel\" Kopf %1$s</string>
+  <string name="no_tile_mvt_tile">MVT \"Keine Kachel\" Kachel %1$s</string>
   <string name="empty_tile">Leere Kachel</string>
   <string name="tile_error">Kachel-Fehlercode: %1$d\n\n%2$s</string>
   <string name="tile_error_message">Kachel-Fehlermeldung:\n\n%1$s\n\n%2$s</string>
   <string name="unexpected_tile_format">Unerwartetes Format\nURL:%1$s %2$s</string>
+  <string name="unexpected_tile_format_subtype">Unerwartetes Format-Unterformat %1$s\nURL: %2$s</string>
+  <string name="diagnostics_for_tile">Diagnose für %1$s</string>
+  <string name="tile_spec">Zoom %1$d x %2$d y %3$d</string>
+  <string name="tile_input_error">Kacheleingabefehler: %1$s\nURL: %2$s</string>
+  <string name="tile_data_received">Erfolgreich empfangen: %1$d Bytes</string>
+  <string name="tile_mark_invalid">Markiere die Kachel als ungültig</string>
+  <string name="tile_decoding_failed">Entschlüsselung der Kachel fehlgeschlagen</string>
+  <string name="tile_success">Erfolg</string>
+  <string name="tile_fail">Fehlschlag</string>
 </resources>

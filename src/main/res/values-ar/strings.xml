@@ -191,7 +191,6 @@
   <string name="imagery_offset_date">تم إنشاء</string>
   <string name="imagery_offset_zoom">تكبير/تصغير</string>
   <string name="imagery_offset_distance">المسافة</string>
-  <string name="zoom_and_offset">Z %1$d إزاحة %2$s/%3$s</string>
   <string name="set_position_datum_label">المسند الجيوديسي</string>
   <string name="WGS84">WGS84</string>
   <string name="tag_editor_name_suggestion">اقتراح الاسم</string>
@@ -319,6 +318,7 @@
   <string name="check_optional">متطلب اختياري</string>
   <string name="add_resurvey_entry">إضافة إدخال إعادة المسح</string>
   <string name="add_check_entry">إضافة مدخل تدقيق</string>
+  <!--Safe mode dialog-->
   <!--Empty relation dialog-->
   <string name="empty_relation_title">علاقة فارغة</string>
   <string name="empty_relation_message">العلاقة %1$s ليس لها أعضاء.\n\n تركها كما هي سيجعلها غير قابلة للتعديل في فسبوتشي.</string>
@@ -414,6 +414,7 @@
   <string name="layer_info_layer_not_available">معلومات الطبقة غير متوفرة</string>
   <string name="layer_info_no_meta_data">لم يتم تحميل البيانات الوصفية</string>
   <!--Mapillary layer-->
+  <!--Date range dialog-->
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">حذف الصورة</string>
   <string name="photo_viewer_delete_button">حذف نهائيًا</string>
@@ -614,7 +615,6 @@
   <string name="toast_applied_offset">تم تطبيق إزاحة الصورة.</string>
   <string name="toast_unsupported_format">صيغة غير مدعومة:%1$s</string>
   <string name="toast_returning_less_than_found">إظهار %1$d من %2$d من السجلات التي تم العثور عليها.</string>
-  <string name="toast_not_mbtiles">هذا ليس ملفاً بتنسيق MBTiles</string>
   <string name="toast_using_network_location">باستخدام موقع الشبكة</string>
   <string name="toast_using_gps_location">استخدام موقع GPS/GNSS</string>
   <string name="toast_using_gps_disabled_tracking_stopped">تم إيقاف تشغيل محدد المواقع GPS/GNSS، وربما عليك التفكير في إيقاف التتبع.</string>
@@ -1001,6 +1001,7 @@
   <!--element action mode menu-->
   <string name="menu_tags">خصائص</string>
   <!--ELement entry in context menu-->
+  <string name="element_for_menu_with_direction">%1$s %2$s</string>
   <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">السجل التاريخي</string>
@@ -1369,6 +1370,7 @@
   <string name="default_">الافتراضي</string>
   <string name="regular_expression">تعبير عادي/Regular expression</string>
   <string name="state">الحالة</string>
+  <string name="Continue">إستمرار</string>
   <!---->
   <string name="empty_list">لا توجد إدخالات</string>
   <string name="geocoder_type">نوع الكود الجغرافي</string>

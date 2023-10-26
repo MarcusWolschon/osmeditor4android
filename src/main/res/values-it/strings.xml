@@ -189,7 +189,6 @@
   <string name="imagery_offset_date">Creato</string>
   <string name="imagery_offset_zoom">Ingrandimento</string>
   <string name="imagery_offset_distance">Distanza</string>
-  <string name="zoom_and_offset">Z %1$d allineamento %2$s/%3$s</string>
   <string name="set_position_datum_label">dato geodetico</string>
   <string name="WGS84">WGS84</string>
   <string name="tag_editor_name_suggestion">Suggerimento del nome</string>
@@ -328,6 +327,7 @@
   <string name="check_optional">Richiedi se opzionale</string>
   <string name="add_resurvey_entry">Aggiungi dati sopralluogo</string>
   <string name="add_check_entry">Aggiungi controllo inserimenti</string>
+  <!--Safe mode dialog-->
   <!--Empty relation dialog-->
   <string name="empty_relation_title">Relazione vuota</string>
   <string name="empty_relation_message">La relazione %1$s non ha membri.\n\nSe la lasci così non potrai modificarla con Vespucci.</string>
@@ -425,6 +425,7 @@
   <string name="layer_info_no_meta_data">Meta-dati non caricati</string>
   <!--Mapillary layer-->
   <string name="mapillary_image">%1$s</string>
+  <!--Date range dialog-->
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Cancella foto</string>
   <string name="photo_viewer_delete_button">Cancella definitivamente</string>
@@ -608,7 +609,6 @@
   <string name="toast_applied_offset">Applicato allineamento alle immagini.</string>
   <string name="toast_unsupported_format">Formato non supportato: %1$s</string>
   <string name="toast_returning_less_than_found">Ho trovato %1$d voci di %2$d</string>
-  <string name="toast_not_mbtiles">Non è file in formato MBTiles</string>
   <string name="toast_using_network_location">Sto usando la posizione della rete dati</string>
   <string name="toast_using_gps_location">Sto usando la posizione GPS/GNSS</string>
   <string name="toast_using_gps_disabled_tracking_stopped">GPS/GNSS spento, considera di fermare il tracciamento</string>
@@ -1000,6 +1000,7 @@
   <string name="menu_tags">Proprietà</string>
   <!--ELement entry in context menu-->
   <string name="element_for_menu">%1$s</string>
+  <string name="element_for_menu_with_direction">%1$s %2$s</string>
   <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
   <!--Text should be as short as possible-->
   <string name="start_end_way_description">Vai all’inizio o alla fine del percorso</string>
@@ -1373,6 +1374,7 @@
   <string name="default_">Predefinito</string>
   <string name="regular_expression">Espressione regolare</string>
   <string name="state">Stato</string>
+  <string name="Continue">Continua</string>
   <!---->
   <string name="empty_list">Nessuna voce inserita</string>
   <string name="geocoder_type">Tipo di geo-codificatore</string>

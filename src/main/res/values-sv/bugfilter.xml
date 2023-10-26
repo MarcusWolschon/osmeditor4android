@@ -3,6 +3,6 @@
   <string name="bugfilter_notes_entry">Anteckningar</string>
   <string name="bugfilter_osmose_error_entry">Osmose-fel</string>
   <string name="bugfilter_osmose_warning_entry">Osmose-varning</string>
-  <string name="bugfilter_osmose_minor_issue_entry">Osmose mindre fel</string>
-  <string name="bugfilter_custom_entry">Anpassa</string>
+  <string name="bugfilter_osmose_minor_issue_entry">Osmose mindre problem</string>
+  <string name="bugfilter_custom_entry">Anpassad</string>
 </resources>

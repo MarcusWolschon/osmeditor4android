@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="validations_entries">
+        <item>Вік обʼєкта</item>
+        <item>Теґи FIXME</item>
+        <item>Відсутні теґи</item>
+        <item>Дороги типу road</item>
+        <item>Немає типу звʼязку</item>
+        <item>Одиниці виміру (дюйми, фути, милі) відсутні</item>
+        <item>Пошкоджений обʼєкт</item>
+        <item>Обʼєкт без теґів</item>
+        <item>Незʼєднана кінцева точка</item>
+        <item>Вироджена лінія</item>
+        <item>Порожній звʼязок</item>
+        <item>Роль члена звʼязку відсутня</item>
+        <item>Закільцьоване посилання у звʼязку</item>
+        <item>Нестандартний тип елементу</item>
+    </string-array>
+    </resources>

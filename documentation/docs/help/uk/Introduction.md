@@ -1,12 +1,12 @@
 _Перш ніж ми почнемо: більшість екранів мають посилання в меню на вбудовану довідку, що дає вам прямий доступ до інформації, що стосується поточного контексту, ви також можете легко повернутися до цього тексту. Якщо у вас більший пристрій, наприклад планшет, ви можете відкрити довідкову систему в окремому вікні. Усі довідкові матеріали та багато іншого (поширені запитання, навчальні посібники) також можна знайти на [сайті документації Vespucci](https://vespucci.io/)._
 
-# Веспуччі – вступ
+# Веспуччі – вступ
 
-Веспуччі – це повноцінний редактор даних OpenStreetMap, що підтримує  більшість операцій, доступних у редакторах настільних комп’ютерів. Він був успішно протестований на Android від 2.3 до 10.0 версії від Google, а також у різних варіантах на основі AOSP (Android Open Source Project). Застереження: в той час, як мобільні пристрої наздогнали своїх настільних суперників, старі мобільні пристрої  мають обмежений обсяг пам’яті та будуть доволі повільними в роботі. Враховуйте це під час роботи з Веспуччі та завантажуйте розмір ділянки для редагування у розумних межах.
+Веспуччі – це повноцінний редактор даних OpenStreetMap, що підтримує  більшість операцій, доступних у редакторах настільних комп’ютерів. Він був успішно протестований на Android від 2.3 до 10.0 версії від Google, а також у різних варіантах на основі AOSP (Android Open Source Project). Застереження: в той час, як мобільні пристрої наздогнали своїх настільних суперників, старі мобільні пристрої  мають обмежений обсяг памʼяті та будуть доволі повільними в роботі. Враховуйте це під час роботи з Веспуччі та завантажуйте розмір ділянки для редагування у розумних межах.
 
 ## Редагування у Веспуччі
 
-В залежності від розміру екрану вашого пристрою перехід в режим редагування можливий за допомогою значка зверху на панелі інструментів, через випадаюче меню на панелі інструментів праворуч, з панелі інструментів знизу (якщо є) або за допомогою кнопки меню.
+В залежності від розміру екрана вашого пристрою перехід в режим редагування можливий за допомогою значка зверху на панелі інструментів, через меню на панелі інструментів праворуч, з панелі інструментів знизу (якщо є) або за допомогою кнопки меню.
 
 <a id="download"></a>
 
@@ -158,7 +158,7 @@ Vespucci has a fast way to add turn restrictions. if necessary it will split way
 
 Select the same button or menu item you did for the download and now select "Upload data to OSM server".
 
-Vespucci supports OAuth authorization and the classical username and password method. OAuth is preferable since it avoids sending passwords in the clear.
+Vespucci підтримує авторизацію OAuth і класичний метод з використанням імені користувача та пароля. OAuth є кращим, оскільки дозволяє уникнути надсилання паролів у відкритому вигляді.
 
 New Vespucci installs will have OAuth enabled by default. On your first attempt to upload modified data, a page from the OSM website loads. After you have logged on (over an encrypted connection) you will be asked to authorize Vespucci to edit using your account. If you want to or need to authorize the OAuth access to your account before editing there is a corresponding item in the "Tools" menu.
 
@@ -180,7 +180,7 @@ Note: by default Vespucci will not record elevation data with your GPX track, th
 
 ## Notes and Bugs
 
-Vespucci supports downloading, commenting and closing of OSM Notes (formerly OSM Bugs) and the equivalent functionality for "Bugs" produced by the [OSMOSE quality assurance tool](http://osmose.openstreetmap.fr/en/map/). Both have to either be down loaded explicitly or you can use the auto download facility to access the items in your immediate area. Once edited or closed, you can either upload the bug or Note immediately or upload all at once.
+Vespucci підтримує завантаження, коментування та закриття нотаток osm (раніше osm bugs) та еквівалентну функціональність для "помилок", створених [інструментом забезпечення якості osmose] (http://osmose.openstreetmap.fr/en/map/). Обидва інструменти потрібно або завантажити окремо, або скористатися функцією автоматичного завантаження, щоб отримати доступ до елементів, які знаходяться у вашій безпосередній близькості. Після редагування або закриття ви можете або негайно завантажити помилку або примітку, або завантажити всі одразу.
 
 On the map the Notes and bugs are represented by a small bug icon ![Bug](../images/bug_open.png), green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. 
 
