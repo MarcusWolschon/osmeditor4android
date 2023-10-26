@@ -1,5 +1,34 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+19.3.0-1:
+
+- Fix keep org.eclipse.egit.github.core.** fixes crash creating issues due to changes R8/Proguard behaviour
+- Fix make the touch area rect symmetric around the splitter
+- Fix improve TagEditorFragment behaviour for multiselect (element count update)
+- Fix apply JOSM fixup to osmose item 2120 too
+- Fix replace some snackbars with toasts when blocking behaviour is not desirable
+- Fix support restarting imagery alignment mode
+- Fix regression disambiguation menu on long click on locked screen
+- Fix don't add layers with unsupported image format or projection
+- Fix generate legacy APK with android:launchMode="singleTop"
+- Add improve diagnostics when GetCapabilties fails
+- Add support for PMTiles locally and as remote source
+- Add generate different colours per MVT sub-layer for automatic styling
+- Add automatically choose a new color for additional layers of the same type
+- Add remember last GeoJSON layer style preferences
+- Add remember last GPX layer style preferences
+- Add more digits to offset display and show approximation in meters
+- Add include relations with appropriate level tags in indoor mode
+- Add support long text modal in additional items
+- Add support for uploading GPX waypoints
+- Add allow filtering Mapillary data by date
+- Add if a custom icon is specified include preset icons in search
+- Add support queuing for toasts
+- Add arrows as rough indicators to where elements are
+- Update preset
+- Update translations
+- Update imagery from ELI
+
 19.2.0:
 
 - Fix if all member rows are de-selected terminate action mode
