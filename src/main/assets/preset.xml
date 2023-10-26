@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.24.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,disused:amenity,disused:leisure,disused:man_made,disused:shop,golf,ford,harbour,hazard,noexit,indoor,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom">
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.29.2" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,disused:amenity,disused:leisure,disused:man_made,disused:shop,golf,ford,harbour,hazard,noexit,indoor,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom">
 <!--
     Icons have been derived from mainly from
   
@@ -739,6 +739,19 @@
             <list_entry value="workwear" short_description="Workwear"/>
         </multiselect>
     </chunk>
+    <chunk id="post_office">
+        <combo key="post_office" text="Post office type" values_searchable="true">
+            <list_entry value="bureau" short_description="Full post office"/>
+            <list_entry value="post_annex" short_description="Full post office operated by 3rd party"/>
+            <list_entry value="post_partner" short_description="Postal services provided"/>
+        </combo>
+    </chunk>
+    <chunk id="post_office_optional">
+        <optional>
+            <reference ref="post_office"/>
+        </optional>
+        <text key="post_office:brand" text="Postal services brand"/>
+    </chunk>
     <chunk id="internet">
         <combo key="internet_access" text="Internet access" values="yes,wlan,wired,terminal,no" display_values="Available,WLAN,Wired,Terminal,Not available" values_sort="false"/>
         <combo key="internet_access:fee" text="Internet access fee" values="yes,no" display_values="Yes,No"/>
@@ -1008,6 +1021,19 @@
             <list_entry value="urban" display_value="Urban" short_description="Trees found within settlements, e.g. in parks or spread through residential areas."/>
             <list_entry value="agricultural" display_value="Agricultural" short_description="Trees in agricultural use."/>
         </combo>
+    </chunk>
+    <chunk id="tree_base">
+        <link wiki="Tag:natural=tree"/>
+        <key key="natural" value="tree"/>
+        <optional>
+            <text key="name" text="Name"/>
+        </optional>
+        <text key="height" text="Height (meters)" length="7" value_type="dimension_vertical"/>
+        <text key="circumference" text="Circumference (meters)"/>
+        <reference ref="denotation"/>
+        <optional>
+            <text key="diameter_crown" text="Crown diameter (meters)"/>    
+        </optional>
     </chunk>
     <!-- start of religions and denominations -->
     <chunk id="religious"> <!-- all religions and denominations -->
@@ -1436,17 +1462,21 @@
     </chunk>
     <chunk id="healthcare_speciality">
         <multiselect key="healthcare:speciality" text="Speciality" text_context="healthcare" values_context="healthcare" values_searchable="true" editable="false">
-            <list_entry value="general" short_description="General"/>
+            <list_entry value="general" short_description="General"/>         
             <list_entry value="abortion" short_description="Abortion"/>
-            <list_entry value="fertility" short_description="Fertility"/>
             <list_entry value="allergology" short_description="Allergology"/>
             <list_entry value="cardiology" short_description="Cardiology"/>
             <list_entry value="child_psychiatry" short_description="Child psychiatry"/>
             <list_entry value="chiropractic" short_description="Chiropractic"/>
             <list_entry value="dermatology" short_description="Dermatology"/>
+            <list_entry value="endocrinology" short_description="Endocrinology"/>
+            <list_entry value="fertility" short_description="Fertility"/>
+            <list_entry value="gastroenterology" short_description="Gastroenterology"/>
             <list_entry value="gynaecology" short_description="Gynaecology"/>
             <list_entry value="internal" short_description="Internal"/>
+            <list_entry value="neonatology" short_description="Neonatology"/>
             <list_entry value="neurology" short_description="Neurology"/>
+            <list_entry value="oncology" short_description="Oncology"/>
             <list_entry value="ophthalmology" short_description="Ophthalmology"/>
             <list_entry value="orthopaedics" short_description="Orthopaedics"/>
             <list_entry value="otolaryngology" short_description="Otolaryngology"/>
@@ -1454,8 +1484,13 @@
             <list_entry value="paediatrics" short_description="Paediatrics"/>
             <list_entry value="plastic_surgery" short_description="Plastic surgery"/>
             <list_entry value="psychiatry" short_description="Psychiatry"/>
+            <list_entry value="pulmonology" short_description="Respiratory Medicine"/>
+            <list_entry value="transplant" short_description="Transplant"/>
+            <list_entry value="trauma" short_description="Trauma"/>
+            <list_entry value="tropical" short_description="Tropical"/>         
             <list_entry value="radiology" short_description="Radiology"/>
             <list_entry value="urology" short_description="Urology"/>
+            <list_entry value="venereology" short_description="Venereology"/>
         </multiselect>
     </chunk>
     <chunk id="roof_main">
@@ -1740,10 +1775,11 @@
         </checkgroup>
     </chunk>
     <chunk id="departures_board">
-        <multiselect key="departures_board">
+        <multiselect key="departures_board" text="Departures board" match="key">
             <list_entry value="yes" display_values="Available"/>
             <list_entry value="timetable" display_values="Timetable"/>
             <list_entry value="realtime" display_values="Realtime display"/>
+            <list_entry value="delay" display_values="Delay display"/>
             <list_entry value="no" display_values="None"/>
         </multiselect>
     </chunk>
@@ -2168,6 +2204,17 @@
             </optional>
             <reference ref="road_access_restrictions"/>
         </item> <!-- Parking Aisle -->
+        <item name="Busway" icon="icons/png/highway_busway.png" name_context="Highway" type="way,closedway" preset_name_label="true">
+            <link wiki="Tag:highway=busway"/>
+            <space/>
+            <key key="highway" value="busway" values_context="Highway"/>
+            <optional>
+                <text key="name" text="Name"/>
+                <reference ref="highway_additional_oneway_lit_width_sidewalk"/>
+                <check key="covered" text="Covered" disable_off="true"/>
+                <reference ref="highway_public_transport"/>
+            </optional>
+        </item> <!-- Busway -->
         <item name="Escape" icon="icons/png/escape.png" type="way" preset_name_label="true">
             <link wiki="Tag:highway=escape"/>
             <space/>
@@ -2208,7 +2255,7 @@
                 <list_entry value="service" display_value="Service" icon="icons/png/highway_service_sp.png"/>
                 <list_entry value="pedestrian" display_value="Pedestrian" icon="icons/png/pedestrian_zone.png"/>
                 <list_entry value="bus_guideway" display_value="Bus Guideway" icon="icons/png/transport_bus_stop.png"/>
-                <list_entry value="busway" display_value="Bus Rapid Transit" icon="${highway_busway}"/>
+                <list_entry value="busway" display_value="Bus Rapid Transit" icon="icons/png/highway_busway.png"/>
                 <list_entry value="escape" display_value="Escape" icon="icons/png/escape.png"/>
                 <list_entry value="raceway" display_value="Raceway" icon="${highway_raceway}"/>
                 <list_entry value="track" display_value="Track" icon="icons/png/highway_agricultural_engines_16001.png"/>
@@ -2237,6 +2284,7 @@
                 <reference ref="name_layer"/>
                 <reference ref="highway_base"/>
                 <reference ref="highway_additional_oneway_lit_width_sidewalk"/>
+                <reference ref="highway_public_transport"/>
             </optional>
             <reference ref="road_access_restrictions"/>
             <reference ref="cycle_lanes"/>
@@ -2252,6 +2300,7 @@
                 <reference ref="name_layer"/>
                 <reference ref="highway_base"/>
                 <reference ref="highway_additional_oneway_lit_width_sidewalk"/>
+                <reference ref="highway_public_transport"/>
             </optional>
             <reference ref="road_access_restrictions"/>
             <reference ref="cycle_lanes"/>
@@ -3153,193 +3202,18 @@
                 <reference ref="material"/>
             </optional>
         </item> <!-- Cycle Barrier -->
-        <item name="Cattle Grid" icon="icons/png/barrier_cattle_grid.png" type="node" preset_name_label="true">
-            <link wiki="Tag:barrier=cattle_grid"/>
-            <key key="barrier" value="cattle_grid"/>
-            <reference ref="optional_maxwidth"/>
-            <reference ref="vehicle_access"/>
-            <reference ref="check_access_nomotor"/>
-            <reference ref="check_access_motor"/>
-        </item> <!-- Cattle Grid -->
-        <item name="Bus Trap" icon="icons/png/barrier_bus_trap_13006.png" type="node" preset_name_label="true">
-            <link wiki="Tag:barrier=bus_trap"/>
-            <key key="barrier" value="bus_trap"/>
-            <reference ref="optional_maxwidth"/>
+        <item name="Motorcycle Barrier" icon="icons/png/barrier_motorcycle_barrier_13020.png" type="node,way" preset_name_label="true">
+            <link wiki="Tag:barrier=motorcycle_barrier"/>
             <space/>
-            <label text="Tags which are implied and do not need to be set are:"/>
-            <label text="`motor_vehicle=no`, `psv=yes`, `foot=yes` and `bicycle=yes`"/>
-            <space/>
-            <reference ref="vehicle_access"/>
-            <reference ref="check_access_nomotor"/>
-            <reference ref="check_access_motor"/>
-        </item> <!-- Bus Trap -->
-        <item name="Spikes" icon="icons/png/barrier_spikes_13032.png" type="node" preset_name_label="true">
-            <link wiki="Tag:barrier=spikes"/>
-            <key key="barrier" value="spikes"/>
-            <reference ref="optional_maxwidth"/>
-            <reference ref="vehicle_access"/>
-            <reference ref="check_access_nomotor"/>
-            <reference ref="check_access_motor"/>
-        </item> <!-- Spikes -->
-        <item name="Height restrictor" icon="icons/png/barrier_height_restrictor.png" type="node" preset_name_label="true">
-            <link wiki="Tag:barrier=height_restrictor"/>
-            <key key="barrier" value="height_restrictor"/>
-            <text key="maxheight" text="Max. height (meters)" value_type="dimension_vertical"/>
-            <reference ref="optional_maxwidth"/>
-            <reference ref="vehicle_access"/>
-            <reference ref="check_access_nomotor"/>
-            <reference ref="check_access_motor"/>
-            <preset_link preset_name="Access Restrictions"/>
-        </item> <!-- Height resctrictor -->
-        <item name="Toll Booth" icon="icons/png/barrier_toll_booth.png" type="node,closedway" preset_name_label="true">
-            <link wiki="Tag:barrier=toll_booth"/>
-            <key key="barrier" value="toll_booth"/>
+            <key key="barrier" value="motorcycle_barrier"/>
             <optional>
-                <reference ref="name_ref_operator"/>
-                <reference ref="oh"/>
-                <reference ref="fee_interval"/>
-                <reference ref="lanes"/>
-                <reference ref="optional_maxheight_maxwidth"/>
-                <checkgroup text="Payment" columns="4">
-                    <check key="payment:coins" text="Coins" match="keyvalue" disable_off="true"/>
-                    <check key="payment:notes" text="Notes" text_context="payment" match="keyvalue" disable_off="true"/>
-                    <check key="payment:e_zpass" text="E-ZPass" match="keyvalue" disable_off="true"/>
-                    <check key="payment:license_plate" text="License plate" match="keyvalue" disable_off="true"/>
-                </checkgroup>
-            </optional>
-            <space/>
-            <reference ref="check_access_nomotor"/>
-            <reference ref="check_access_motor"/>
-            <preset_link preset_name="Payment Methods"/>
-        </item> <!-- Toll Booth -->
-        <item name="Border Control" icon="icons/png/barrier_border_control_13003.png" type="node" preset_name_label="true">
-            <link wiki="Tag:barrier=border_control"/>
-            <key key="barrier" value="border_control"/>
-            <optional>
-                <reference ref="name_ref_operator"/>
-                <reference ref="oh"/>
-                <reference ref="fee_interval"/>
-                <reference ref="lanes"/>
-                <reference ref="optional_maxheight_maxwidth"/>
-            </optional>
-            <space/>
-            <reference ref="vehicle_access"/>
-            <reference ref="check_access_nomotor"/>
-            <reference ref="check_access_motor"/>
-        </item> <!-- Border Control -->
-        <separator/> <!-- *** Linear Barriers *** -->
-        <item name="Hedge" icon="icons/png/barrier_hedge.png" type="way,closedway,multipolygon" preset_name_label="true">
-            <link wiki="Tag:barrier=hedge"/>
-            <key key="barrier" value="hedge"/>
-            <reference ref="leaf"/>
-            <optional>
-                <reference ref="genus_species_taxon"/>
-                <text key="height" text="Height (meters)" length="7" value_type="dimension_vertical"/>
-            </optional>
-        </item> <!-- Hedge -->
-        <item name="Fence" icon="icons/png/barrier_fence.png" type="way,closedway" preset_name_label="true">
-            <link wiki="Tag:barrier=fence"/>
-            <key key="barrier" value="fence"/>
-            <optional>
-                <combo key="fence_type" text="Type" values="barbed_wire,bars,chain_link,concrete,electric,metal,pole,railing,split_rail,wire,wood" display_values="Barbed wire,Bars,Chain link,Concrete,Electric,Metal,Pole,Railing,Split rail,Wire,Wood" values_context="material"/>
-                <text key="height" text="Height (meters)" length="7" value_type="dimension_vertical"/>
-            </optional>
-        </item> <!-- Fence -->
-        <item name="Guard Rail" icon="icons/png/barrier_guard_rail.png" type="way,closedway" preset_name_label="true">
-            <link wiki="Tag:barrier=guard_rail"/>
-            <key key="barrier" value="guard_rail"/>
-            <reference ref="optional_height"/>
-        </item> <!-- Guard Rail -->
-        <item name="Handrail" icon="icons/png/barrier_empty.png" type="way,closedway" preset_name_label="true">
-            <link wiki="Tag:barrier=handrail"/>
-            <key key="barrier" value="handrail"/>
-            <optional>
+                <reference ref="optional_maxwidth"/>
                 <reference ref="material"/>
-                <reference ref="colours"/>
             </optional>
-        </item> <!-- Handrail -->
-        <item name="Cable barrier" icon="icons/png/barrier_empty.png" type="way,closedway" preset_name_label="true">
-            <link wiki="Tag:barrier=cable_barrier"/>
-            <key key="barrier" value="cable_barrier"/>
-            <reference ref="optional_height"/>
-        </item> <!-- Cable barrier -->
-        <item name="Rope" icon="icons/png/barrier_rope_13030.png" type="node,way,closedway" preset_name_label="true">
-            <link wiki="Tag:barrier=rope"/>
-            <key key="barrier" value="rope"/>
-            <reference ref="optional_height"/>
-        </item> <!-- Rope -->
-        <item name="Wall" icon="icons/png/barrier_wall.png" type="way,multipolygon,closedway" preset_name_label="true">
-            <link wiki="Tag:barrier=wall"/>
-            <key key="barrier" value="wall"/>
-            <optional>
-                <combo key="wall" text="Type" values_searchable="true">
-                    <list_entry value="brick" display_value="Brick"/>
-                    <list_entry value="castle_wall" display_value="Castle wall"/>
-                    <list_entry value="dry_stone" display_value="Dry stone"/>
-                    <list_entry value="flood_wall" display_value="Flood wall"/>
-                    <list_entry value="gabion" display_value="Gabion"/>
-                    <list_entry value="jersey_barrier" display_value="Jersey barrier"/>
-                    <list_entry value="noise_barrier" display_value="Noise barrier"/>
-                    <list_entry value="seawall" display_value="Seawall"/>
-                    <list_entry value="stone" display_value="Stone"/>
-                </combo>
-                <reference ref="wall_material"/>
-            </optional>
-            <reference ref="optional_height"/>
-        </item> <!-- Wall -->
-        <item name="City Wall" icon="presets/city_wall.png" type="way,multipolygon,closedway" preset_name_label="true">
-            <link wiki="Tag:barrier=city_wall"/>
-            <key key="barrier" value="city_wall"/>
-            <reference ref="wall_material"/>
-            <check key="two_sided" text="Two-sided" disable_off="true"/>
-            <reference ref="optional_height"/>
-        </item> <!-- City Wall -->
-        <item name="Retaining Wall" icon="presets/retaining_wall.png" type="way,multipolygon,closedway" preset_name_label="true">
-            <link wiki="Tag:barrier=retaining_wall"/>
-            <key key="barrier" value="retaining_wall"/>
-            <reference ref="wall_material"/>
-            <reference ref="optional_height"/>
-        </item> <!-- Retaining Wall -->
-        <item name="Jersey Barrier" icon="icons/png/highway_jersey_barrier_13016.png" type="node,way,closedway" preset_name_label="true">
-            <link wiki="Tag:barrier=jersey_barrier"/>
-            <key key="barrier" value="jersey_barrier"/>
-            <combo key="material" text="Material" values="concrete,plastic" display_values="Concrete,Plastic"/>
-        </item> <!-- Jersey Barrier -->
-        <item name="Log" icon="icons/png/barrier_empty.png" type="node,way" preset_name_label="true">
-            <link wiki="Tag:barrier=log"/>
-            <key key="barrier" value="log"/>
-            <space/>
-            <reference ref="check_access_nomotor"/>
-            <reference ref="check_access_motor"/>
-            <reference ref="vehicle_access"/>
-            <preset_link preset_name="Access Restrictions"/>
-        </item> <!-- Log -->
-        <item name="Ditch" icon="icons/png/barrier_empty.png" name_context="Barrier" type="way,closedway" preset_name_label="true">
-            <link wiki="Tag:barrier=ditch"/>
-            <key key="barrier" value="ditch"/>
-            <optional>
-                <text key="width" text="Width (meters)" length="7" value_type="dimension_horizontal"/>
-            </optional>
-        </item> <!-- Ditch -->
-        <item name="Kerb" icon="icons/png/barrier_kerb.png" type="node,way,closedway" preset_name_label="true">
-            <link wiki="Tag:barrier=kerb"/>
-            <key key="barrier" value="kerb"/>
-            <optional>
-                <reference ref="kerb"/>
-            </optional>
-            <reference ref="optional_height"/>
-            <reference ref="wheelchair"/>
-            <reference ref="tactile_paving"/>
-        </item> <!-- Kerb -->
-        <separator/> <!-- *** Access *** -->
-        <item name="Entrance (Barrier Opening)" icon="icons/png/barrier_entrance.png" type="node" preset_name_label="true">
-            <link wiki="Tag:barrier=entrance"/>
-            <key key="barrier" value="entrance"/>
-            <reference ref="optional_maxheight_maxwidth"/>
             <reference ref="vehicle_access"/>
             <reference ref="check_access_nomotor"/>
             <reference ref="check_access_motor"/>
-        </item> <!-- Entrance (Barrier Opening) -->
+        </item> <!-- Motorcycle Barrier -->
         <item name="Gate" icon="icons/png/barrier_gate.png" type="node" preset_name_label="true">
             <link wiki="Tag:barrier=gate"/>
             <key key="barrier" value="gate"/>
@@ -3402,16 +3276,44 @@
             <reference ref="check_access_nomotor"/>
             <check key="locked" text="Usually locked"/>
         </item> <!-- Kissing Gate -->
-        <item name="Chain" icon="icons/png/barrier_chain_13008.png" type="node,way,closedway" preset_name_label="true">
-            <link wiki="Tag:barrier=chain"/>
-            <key key="barrier" value="chain"/>
-            <combo key="material" text="Material" values="metal,plastic" display_values="Metal,Plastic" values_context="material"/>
+        <item name="Height restrictor" icon="icons/png/barrier_height_restrictor.png" type="node" preset_name_label="true">
+            <link wiki="Tag:barrier=height_restrictor"/>
+            <key key="barrier" value="height_restrictor"/>
+            <text key="maxheight" text="Max. height (meters)" value_type="dimension_vertical"/>
             <reference ref="optional_maxwidth"/>
             <reference ref="vehicle_access"/>
             <reference ref="check_access_nomotor"/>
             <reference ref="check_access_motor"/>
-            <check key="locked" text="Usually locked"/>
-        </item> <!-- Chain -->
+            <preset_link preset_name="Access Restrictions"/>
+        </item> <!-- Height resctrictor -->
+        <item name="Cattle Grid" icon="icons/png/barrier_cattle_grid.png" type="node" preset_name_label="true">
+            <link wiki="Tag:barrier=cattle_grid"/>
+            <key key="barrier" value="cattle_grid"/>
+            <reference ref="optional_maxwidth"/>
+            <reference ref="vehicle_access"/>
+            <reference ref="check_access_nomotor"/>
+            <reference ref="check_access_motor"/>
+        </item> <!-- Cattle Grid -->
+        <item name="Bus Trap" icon="icons/png/barrier_bus_trap_13006.png" type="node" preset_name_label="true">
+            <link wiki="Tag:barrier=bus_trap"/>
+            <key key="barrier" value="bus_trap"/>
+            <reference ref="optional_maxwidth"/>
+            <space/>
+            <label text="Tags which are implied and do not need to be set are:"/>
+            <label text="`motor_vehicle=no`, `psv=yes`, `foot=yes` and `bicycle=yes`"/>
+            <space/>
+            <reference ref="vehicle_access"/>
+            <reference ref="check_access_nomotor"/>
+            <reference ref="check_access_motor"/>
+        </item> <!-- Bus Trap -->
+        <item name="Spikes" icon="icons/png/barrier_spikes_13032.png" type="node" preset_name_label="true">
+            <link wiki="Tag:barrier=spikes"/>
+            <key key="barrier" value="spikes"/>
+            <reference ref="optional_maxwidth"/>
+            <reference ref="vehicle_access"/>
+            <reference ref="check_access_nomotor"/>
+            <reference ref="check_access_motor"/>
+        </item> <!-- Spikes -->
         <item name="Stile" icon="icons/png/barrier_stile.png" type="node" preset_name_label="true">
             <link wiki="Tag:barrier=stile"/>
             <space/>
@@ -3456,6 +3358,167 @@
             <reference ref="check_access_nomotor"/>
             <reference ref="check_access_motor"/>
         </item> <!-- Sally Port -->
+        <separator/> <!-- end of highway access barriers -->
+        <item name="Toll Booth" icon="icons/png/barrier_toll_booth.png" type="node,closedway" preset_name_label="true">
+            <link wiki="Tag:barrier=toll_booth"/>
+            <key key="barrier" value="toll_booth"/>
+            <optional>
+                <reference ref="name_ref_operator"/>
+                <reference ref="oh"/>
+                <reference ref="fee_interval"/>
+                <reference ref="lanes"/>
+                <reference ref="optional_maxheight_maxwidth"/>
+                <checkgroup text="Payment" columns="4">
+                    <check key="payment:coins" text="Coins" match="keyvalue" disable_off="true"/>
+                    <check key="payment:notes" text="Notes" text_context="payment" match="keyvalue" disable_off="true"/>
+                    <check key="payment:e_zpass" text="E-ZPass" match="keyvalue" disable_off="true"/>
+                    <check key="payment:license_plate" text="License plate" match="keyvalue" disable_off="true"/>
+                    <check key="payment:credit_cards" text="Credit cards" match="keyvalue" disable_off="true"/>
+                </checkgroup>
+            </optional>
+            <space/>
+            <reference ref="check_access_nomotor"/>
+            <reference ref="check_access_motor"/>
+            <preset_link preset_name="Payment Methods"/>
+        </item> <!-- Toll Booth -->
+        <item name="Border Control" icon="icons/png/barrier_border_control_13003.png" type="node" preset_name_label="true">
+            <link wiki="Tag:barrier=border_control"/>
+            <key key="barrier" value="border_control"/>
+            <optional>
+                <reference ref="name_ref_operator"/>
+                <reference ref="oh"/>
+                <reference ref="fee_interval"/>
+                <reference ref="lanes"/>
+                <reference ref="optional_maxheight_maxwidth"/>
+            </optional>
+            <space/>
+            <reference ref="vehicle_access"/>
+            <reference ref="check_access_nomotor"/>
+            <reference ref="check_access_motor"/>
+        </item> <!-- Border Control -->
+        <separator/> <!-- *** Start Linear Barriers *** -->
+        <item name="Hedge" icon="icons/png/barrier_hedge.png" type="way,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:barrier=hedge"/>
+            <key key="barrier" value="hedge"/>
+            <reference ref="leaf"/>
+            <optional>
+                <reference ref="genus_species_taxon"/>
+                <text key="height" text="Height (meters)" length="7" value_type="dimension_vertical"/>
+            </optional>
+        </item> <!-- Hedge -->
+        <item name="Fence" icon="icons/png/barrier_fence.png" type="way,closedway" preset_name_label="true">
+            <link wiki="Tag:barrier=fence"/>
+            <key key="barrier" value="fence"/>
+            <optional>
+                <combo key="fence_type" text="Type" values="barbed_wire,bars,chain_link,concrete,electric,metal,pole,railing,split_rail,wire,wood" display_values="Barbed wire,Bars,Chain link,Concrete,Electric,Metal,Pole,Railing,Split rail,Wire,Wood" values_context="material"/>
+                <text key="height" text="Height (meters)" length="7" value_type="dimension_vertical"/>
+            </optional>
+        </item> <!-- Fence -->
+        <item name="Guard Rail" icon="icons/png/barrier_guard_rail.png" type="way,closedway" preset_name_label="true">
+            <link wiki="Tag:barrier=guard_rail"/>
+            <key key="barrier" value="guard_rail"/>
+            <reference ref="optional_height"/>
+        </item> <!-- Guard Rail -->
+        <item name="Handrail" icon="icons/png/barrier_empty.png" type="way,closedway" preset_name_label="true">
+            <link wiki="Tag:barrier=handrail"/>
+            <key key="barrier" value="handrail"/>
+            <optional>
+                <reference ref="material"/>
+                <reference ref="colours"/>
+            </optional>
+        </item> <!-- Handrail -->
+        <item name="Cable barrier" icon="icons/png/barrier_empty.png" type="way,closedway" preset_name_label="true">
+            <link wiki="Tag:barrier=cable_barrier"/>
+            <key key="barrier" value="cable_barrier"/>
+            <reference ref="optional_height"/>
+        </item> <!-- Cable barrier -->
+        <item name="Rope" icon="icons/png/barrier_rope_13030.png" type="node,way,closedway" preset_name_label="true">
+            <link wiki="Tag:barrier=rope"/>
+            <key key="barrier" value="rope"/>
+            <reference ref="optional_height"/>
+        </item> <!-- Rope -->
+        <item name="Chain" icon="icons/png/barrier_chain_13008.png" type="node,way,closedway" preset_name_label="true">
+            <link wiki="Tag:barrier=chain"/>
+            <key key="barrier" value="chain"/>
+            <combo key="material" text="Material" values="metal,plastic" display_values="Metal,Plastic" values_context="material"/>
+            <reference ref="optional_maxwidth"/>
+            <reference ref="vehicle_access"/>
+            <reference ref="check_access_nomotor"/>
+            <reference ref="check_access_motor"/>
+            <check key="locked" text="Usually locked"/>
+        </item> <!-- Chain -->
+        <item name="Wall" icon="icons/png/barrier_wall.png" type="way,multipolygon,closedway" preset_name_label="true">
+            <link wiki="Tag:barrier=wall"/>
+            <key key="barrier" value="wall"/>
+            <optional>
+                <combo key="wall" text="Type" values_searchable="true">
+                    <list_entry value="brick" display_value="Brick"/>
+                    <list_entry value="castle_wall" display_value="Castle wall"/>
+                    <list_entry value="dry_stone" display_value="Dry stone"/>
+                    <list_entry value="flood_wall" display_value="Flood wall"/>
+                    <list_entry value="gabion" display_value="Gabion"/>
+                    <list_entry value="jersey_barrier" display_value="Jersey barrier"/>
+                    <list_entry value="noise_barrier" display_value="Noise barrier"/>
+                    <list_entry value="seawall" display_value="Seawall"/>
+                    <list_entry value="stone" display_value="Stone"/>
+                </combo>
+                <reference ref="wall_material"/>
+            </optional>
+            <reference ref="optional_height"/>
+        </item> <!-- Wall -->
+        <item name="City Wall" icon="icons/png/barrier_city_wall.png" type="way,multipolygon,closedway" preset_name_label="true">
+            <link wiki="Tag:barrier=city_wall"/>
+            <key key="barrier" value="city_wall"/>
+            <reference ref="wall_material"/>
+            <check key="two_sided" text="Two-sided" disable_off="true"/>
+            <reference ref="optional_height"/>
+        </item> <!-- City Wall -->
+        <item name="Retaining Wall" icon="icons/png/barrier_retaining_wall.png" type="way,multipolygon,closedway" preset_name_label="true">
+            <link wiki="Tag:barrier=retaining_wall"/>
+            <key key="barrier" value="retaining_wall"/>
+            <reference ref="wall_material"/>
+            <reference ref="optional_height"/>
+        </item> <!-- Retaining Wall -->
+        <item name="Jersey Barrier" icon="icons/png/highway_jersey_barrier_13016.png" type="node,way,closedway" preset_name_label="true">
+            <link wiki="Tag:barrier=jersey_barrier"/>
+            <key key="barrier" value="jersey_barrier"/>
+            <combo key="material" text="Material" values="concrete,plastic" display_values="Concrete,Plastic"/>
+        </item> <!-- Jersey Barrier -->
+        <item name="Log" icon="icons/png/barrier_log.png" type="node,way" preset_name_label="true">
+            <link wiki="Tag:barrier=log"/>
+            <key key="barrier" value="log"/>
+            <space/>
+            <reference ref="check_access_nomotor"/>
+            <reference ref="check_access_motor"/>
+            <reference ref="vehicle_access"/>
+            <preset_link preset_name="Access Restrictions"/>
+        </item> <!-- Log -->
+        <item name="Ditch" icon="icons/png/barrier_empty.png" name_context="Barrier" type="way,closedway" preset_name_label="true">
+            <link wiki="Tag:barrier=ditch"/>
+            <key key="barrier" value="ditch"/>
+            <optional>
+                <text key="width" text="Width (meters)" length="7" value_type="dimension_horizontal"/>
+            </optional>
+        </item> <!-- Ditch -->
+        <item name="Kerb" icon="icons/png/barrier_kerb.png" type="node,way,closedway" preset_name_label="true">
+            <link wiki="Tag:barrier=kerb"/>
+            <key key="barrier" value="kerb"/>
+            <optional>
+                <reference ref="kerb"/>
+            </optional>
+            <reference ref="optional_height"/>
+            <reference ref="wheelchair"/>
+            <reference ref="tactile_paving"/>
+        </item> <!-- Kerb -->
+        <separator/> <!-- *** Access *** -->
+        <item name="Entrance (Barrier Opening)" icon="icons/png/barrier_entrance.png" type="node" preset_name_label="true">
+            <link wiki="Tag:barrier=entrance"/>
+            <key key="barrier" value="entrance"/>
+            <reference ref="optional_maxheight_maxwidth"/>
+            <reference ref="vehicle_access"/>
+            <reference ref="check_access_nomotor"/>
+            <reference ref="check_access_motor"/>
+        </item> <!-- Entrance (Barrier Opening) -->
     </group> <!-- Barriers -->
     <group name="Passageways" icon="icons/png/highway_tunnel_sp.png">
         <item name="Tunnel" icon="icons/png/highway_tunnel_sp.png" type="way" preset_name_label="true">
@@ -4608,7 +4671,7 @@
                 <space/>
                 <key key="amenity" value="parking"/>
                 <reference ref="parking_name_type_ref"/>
-                <combo key="park_ride" text="Park and Ride" values="yes,no,bus,train,tram,metro,ferry"/>
+                <multiselect key="park_ride" text="Park and Ride" values="yes;no;bus;train;tram;metro;ferry" display_values="Yes;No;Bus;Train;Tram;Metro;Ferry"/>
                 <reference ref="parking_access_fee_operator_surface_smoothness"/>
                 <text key="maxheight" text="Max. height (meters)" value_type="dimension_vertical"/>
                 <space/>
@@ -4626,6 +4689,18 @@
                 <link wiki="Tag:amenity=parking_space"/>
                 <space/>
                 <key key="amenity" value="parking_space"/>
+                <combo key="parking_space" text="Type" values_context="parking">
+                    <list_entry value="normal" display_value="Normal"/>
+                    <list_entry value="disabled" display_value="Disabled"/>
+                    <list_entry value="private" display_value="Private"/>
+                    <list_entry value="charging" display_value="Charging"/>
+                    <list_entry value="bus" display_value="Bus"/>
+                    <list_entry value="hgv" display_value="HGV"/>
+                    <list_entry value="staff" display_value="Staff"/>
+                    <list_entry value="parent" display_value="Parent"/>
+                    <list_entry value="motorcycle" display_value="Motorcycle"/>
+                    <list_entry value="delivery" display_value="Delivery"/>
+                </combo>
                 <reference ref="parking_name_type_ref"/>
                 <text key="capacity" text="Capacity" value_type="integer"/>
                 <reference ref="parking_access_fee_operator_surface_smoothness"/>
@@ -5088,7 +5163,7 @@
                 </roles>
             </item> <!-- Stop Area -->
             <separator/>
-            <item name="Stop Position" type="node" icon="presets/barrier.png" preset_name_label="true">
+            <item name="Stop Position" type="node" icon="icons/png/transport_bus_stop2.png" preset_name_label="true">
                 <link wiki="Proposed_features/Public_Transport#Stop_position"/>
                 <space/>
                 <key key="public_transport" value="stop_position"/>
@@ -5170,7 +5245,7 @@
                 <text key="ref" text="Reference number"/>
                 <preset_link preset_name="Payment Methods"/>
             </item> <!-- Ticket Machine -->
-            <item name="Ticket Validator" icon="${public_transport_ticket_validator}" type="node,way" preset_name_label="true">
+            <item name="Ticket Validator" icon="icons/png/transport_ticket_validator.png" type="node,way" preset_name_label="true">
                 <link wiki="Tag:amenity=ticket_validator"/>
                 <space/>
                 <key key="amenity" value="ticket_validator"/>
@@ -5320,7 +5395,7 @@
                 <reference ref="aerodrome"/>
             </item> <!-- Airport Grounds -->
             <separator/>
-            <item name="Runway" icon="presets/runway.png" type="way,closedway,multipolygon" preset_name_label="true">
+            <item name="Runway" icon="icons/png/transport_runway.png" type="way,closedway,multipolygon" preset_name_label="true">
                 <link wiki="Tag:aeroway=runway"/>
                 <key key="aeroway" value="runway"/>
                 <optional>
@@ -5331,7 +5406,7 @@
                     <reference ref="surface"/>
                 </optional>
             </item> <!-- Runway -->
-            <item name="Taxiway" icon="presets/taxiway.png" type="way,closedway,multipolygon" preset_name_label="true">
+            <item name="Taxiway" icon="icons/png/transport_taxiway.png" type="way,closedway,multipolygon" preset_name_label="true">
                 <link wiki="Tag:aeroway=taxiway"/>
                 <key key="aeroway" value="taxiway"/>
                 <optional>
@@ -5439,7 +5514,7 @@
             <key key="aeroway" value="spaceport"/>
             <text key="operator" text="Operator"/>
         </item> <!-- Spaceport -->
-        <item name="Departures board" type="node" preset_name_label="true">
+        <item name="Departures board" icon="icons/png/transport_departures_board.png" type="node" preset_name_label="true">
             <link wiki="Key:departures_board"/>
             <reference ref="departures_board"/>
         </item>
@@ -6891,13 +6966,20 @@
             <reference ref="link_contact_address"/>
             <reference ref="kids_area"/>
         </item> <!-- Community Centre -->
-        <item name="Conference Centre" icon="icons/png/amenity_empty.png" type="node,closedway,multipolygon" preset_name_label="true">
+        <item name="Conference Centre" icon="icons/png/amenity_amphitheatre_19035.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:amenity=conference_centre"/>
             <space/>
             <key key="amenity" value="conference_centre"/>
             <reference ref="name_operator_oh_wheelchair_toilets"/>
             <reference ref="link_contact_address"/>
         </item> <!-- Conference Centre -->
+        <item name="Exhibition Centre" icon="icons/png/amenity_exhibition_centre.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:amenity=exhibition_centre"/>
+            <space/>
+            <key key="amenity" value="exhibition_centre"/>
+            <reference ref="name_operator_oh_wheelchair_toilets"/>
+            <reference ref="link_contact_address"/>
+        </item> <!-- Exhibition Centre -->
         <item name="Embassy" icon="icons/png/poi_embassy.png" type="node,closedway,multipolygon" deprecated="true" preset_name_label="true">
             <link wiki="Tag:amenity=embassy"/>
             <space/>
@@ -6951,6 +7033,7 @@
             <link wiki="Tag:amenity=post_office"/>
             <space/>
             <key key="amenity" value="post_office"/>
+            <reference ref="post_office"/>
             <reference ref="name_operator_oh_wheelchair"/>
             <text key="ref" text="Reference"/>
             <reference ref="link_contact_address_payment"/>
@@ -6962,7 +7045,7 @@
             <reference ref="name_operator_oh_wheelchair"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Crematorium -->
-        <item name="Mortuary" icon="icons/png/amenity_empty.png" type="node,closedway,multipolygon" preset_name_label="true">
+        <item name="Mortuary" icon="icons/png/amenity_mortuary_12424.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:amenity=mortuary"/>
             <space/>
             <key key="amenity" value="mortuary"/>
@@ -7069,7 +7152,7 @@
         <item name="Driver training" icon="icons/png/education_motorsport_track.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:amenity=driver_training"/>
             <space/>
-            <key key="amenity" value="driving_school"/>
+            <key key="amenity" value="driver_training"/>
             <reference ref="name_operator_wheelchair_level"/>
             <reference ref="optional_oh"/>
             <reference ref="licence_classes"/>
@@ -9291,7 +9374,21 @@
         <item name="Cross" icon="icons/png/man_made_cross_12107.png" type="node" preset_name_label="true">
             <link wiki="Tag:man_made=cross"/>
             <key key="man_made" value="cross"/>
+            <reference ref="material"/>
+            <text key="height" text="Height (meters)" value_type="dimension_vertical"/>
+            <reference ref="historic_optional"/>
+            <preset_link preset_name="Monument"/>
+            <preset_link preset_name="Memorial"/>          
         </item> <!-- Cross -->
+        <item name="Obelisk" icon="icons/png/man_made_obelisk.png" type="node,closedway" preset_name_label="true">
+            <link wiki="Tag:man_made=obelisk"/>
+            <key key="man_made" value="obelisk"/>
+            <reference ref="material"/>
+            <text key="height" text="Height (meters)" value_type="dimension_vertical"/>
+            <reference ref="historic_optional"/>
+            <preset_link preset_name="Monument"/>
+            <preset_link preset_name="Memorial"/>
+        </item> <!-- Obelisk -->
         <separator/>
         <item name="Works" icon="icons/png/man_made_works_22087.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:man_made=works"/>
@@ -10724,6 +10821,7 @@
             <reference ref="name_oh_wheelchair_level_toilets"/>
             <reference ref="organic"/>
             <reference ref="bulk_purchase"/>
+            <reference ref="post_office_optional"/>
             <reference ref="link_contact_address_payment"/>
             <reference ref="kids_area"/>
         </item> <!-- Supermarket -->
@@ -10734,6 +10832,7 @@
             <reference ref="name_oh_wheelchair_level_toilets"/>
             <reference ref="organic"/>
             <reference ref="bulk_purchase"/>
+            <reference ref="post_office_optional"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Convenience Store -->
         <item name="General store" icon="icons/png/shopping_convenience.png" gtype="node,closedway,multipolygon" preset_name_label="true">
@@ -10741,6 +10840,7 @@
             <space/>
             <key key="shop" value="general"/>
             <reference ref="name_oh_wheelchair_level_toilets"/>
+            <reference ref="post_office_optional"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- General store -->
         <item name="Kiosk" icon="icons/png/shopping_kiosk.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -10748,6 +10848,7 @@
             <space/>
             <key key="shop" value="kiosk"/>
             <reference ref="name_oh_wheelchair_level"/>
+            <reference ref="post_office_optional"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Kiosk -->
         <separator/>
@@ -11026,6 +11127,7 @@
             <space/>
             <key key="shop" value="dry_cleaning"/>
             <reference ref="name_oh_wheelchair_level"/>
+            <reference ref="post_office_optional"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Dry Cleaning -->
         <item name="Laundry" icon="icons/png/shopping_laundrette.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -11035,6 +11137,7 @@
             <reference ref="name_oh_wheelchair_level"/>
             <check key="self_service" text="Self-service"/>
             <check key="laundry_service" text="Laundry Service"/>
+            <reference ref="post_office_optional"/>
             <reference ref="link_contact_address_payment"/>
             <reference ref="kids_area"/>
         </item> <!-- Laundry -->
@@ -11290,6 +11393,7 @@
             <space/>
             <key key="shop" value="copyshop"/>
             <reference ref="name_operator_oh_wheelchair_level"/>
+            <reference ref="post_office_optional"/>
             <reference ref="link_contact_address_payment"/>
             <reference ref="kids_area"/>
         </item> <!-- Copy Shop -->
@@ -11307,6 +11411,7 @@
             <space/>
             <key key="shop" value="newsagent"/>
             <reference ref="name_oh_wheelchair_level"/>
+            <reference ref="post_office_optional"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Newspaper Stand -->
         <item name="Anime" icon="icons/png/shopping_anime_29160.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -11386,6 +11491,7 @@
             <space/>
             <key key="shop" value="tobacco"/>
             <reference ref="name_operator_oh_wheelchair_level"/>
+            <reference ref="post_office_optional"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Tobacco -->
         <item name="e-cigarette" icon="icons/png/shopping_e-cigarette.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -11514,6 +11620,7 @@
                 <list_entry value="fossils" display_value="Fossils"/>
                 <list_entry value="militaria" display_value="Militaria"/>
                 <list_entry value="postcards" display_value="Postcards"/>
+                <list_entry value="stamps" display_value="Stamps"/>
             </multiselect>
             <reference ref="name_oh_wheelchair_level"/>
             <reference ref="link_contact_address_payment"/>
@@ -11525,6 +11632,7 @@
             <space/>
             <key key="shop" value="department_store"/>
             <reference ref="name_operator_oh_wheelchair_toilets"/>
+            <reference ref="post_office_optional"/>
             <reference ref="link_contact_address_payment"/>
             <reference ref="kids_area"/>
         </item> <!-- Department Store -->
@@ -11596,6 +11704,7 @@
             <key key="trade" value="agricultural_supplies"/>
             <multiselect key="agricultural_supplies" text="Supplies" values="feed;fertilizer;machine_parts;pesticide;seed;tools" display_values="Feed;Fertilizer;Machine parts;Pesticide;Seed;Tools"/>
             <reference ref="name_oh_wheelchair_level"/>
+            <reference ref="post_office_optional"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Agricultural supplies -->
         <item name="Agricultural supplies" icon="icons/png/shopping_farm_22120.png" type="node,closedway,multipolygon" preset_name_label="true" deprecated="true">
@@ -11604,6 +11713,7 @@
             <key key="shop" value="agrarian"/>
             <multiselect key="agrarian" text="Supplies" values="feed;fertilizer;machine_parts;pesticide;seed;tools" display_values="Feed;Fertilizer;Machine parts;Pesticide;Seed;Tools"/>
             <reference ref="name_oh_wheelchair_level"/>
+            <reference ref="post_office_optional"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Agricultural supplies -->
         <item name="Hairdresser supply" icon="icons/png/shopping_hairdresser.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -11620,7 +11730,7 @@
             <combo key="wholesale" text="Type" values="general,food,supermarket,electrical,sanitary,paper,florist,pharmacy,seafood,clothes" display_values="General,Food,Supermarket,Electrical,Sanitary,Paper,Florist,Pharmacy,Seafood,Clothes"/>
             <reference ref="name_oh_wheelchair_level"/>
             <reference ref="link_contact_address_payment"/>
-        </item> <!-- Trade supplies -->
+        </item> <!-- Wholesale -->
         <item name="Gas" icon="icons/png/shopping_gas_29070.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:shop=gas"/>
             <space/>
@@ -11882,6 +11992,7 @@
             <space/>
             <key key="shop" value="outpost"/>
             <reference ref="name_oh_wheelchair_level"/>
+            <reference ref="post_office_optional"/>
             <reference ref="link_contact_address"/>
         </item> <!-- Outpost / Pickup -->
         <item name="Vacant" icon="icons/png/shopping_empty.png" type="node,closedway,multipolygon" deprecated="true">
@@ -12066,6 +12177,7 @@
         <space/>
         <key key="amenity" value="bureau_de_change"/>
         <reference ref="name_oh_wheelchair_level"/>
+        <reference ref="post_office_optional"/>
         <reference ref="link_contact_address"/>
     </item> <!-- Money Exchange -->
     <item name="Money transfer" icon="icons/png/money_empty.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -12073,6 +12185,7 @@
         <space/>
         <key key="amenity" value="money_transfer"/>
         <reference ref="name_oh_wheelchair_level"/>
+        <reference ref="post_office_optional"/>
         <reference ref="link_contact_address"/>
     </item> <!-- Money transfer -->
     <item name="Automated Teller Machine" icon="icons/png/money_atm.png" type="node" preset_name_label="true">
@@ -12092,6 +12205,7 @@
         <space/>
         <key key="amenity" value="payment_centre"/>
         <reference ref="name_oh_wheelchair_level"/>
+        <reference ref="post_office_optional"/>
         <reference ref="link_contact_address_payment"/>
     </item> <!-- Payment centre -->
     <item name="Payment terminal" icon="icons/png/money_payment_terminal.png" type="node" preset_name_label="true">
@@ -12475,23 +12589,33 @@
     <group name="Land use and nature" icon="icons/png/landuse_coniferous_and_deciduous.png">
     <group name="Nature" icon="icons/png/landuse_coniferous_and_deciduous.png">
         <item name="Tree" icon="icons/png/natural_tree_24020.png" type="node" preset_name_label="true">
-            <link wiki="Tag:natural=tree"/>
             <space/>
             <label text="A single tree."/>
             <space/>
-            <key key="natural" value="tree"/>
-            <optional>
-                <text key="name" text="Name"/>
-            </optional>
-            <text key="height" text="Height (meters)" length="7" value_type="dimension_vertical"/>
-            <text key="circumference" text="Circumference (meters)"/>
+            <reference ref="tree_base"/>
             <reference ref="genus_species_taxon"/>
-            <reference ref="leaf"/>
-            <optional>
-                <text key="diameter_crown" text="Crown diameter (meters)"/>
-            </optional>
-            <reference ref="denotation"/>
+            <reference ref="leaf"/> 
         </item> <!-- Tree -->
+        <item name="Peepal tree" icon="icons/png/natural_tree_24020.png" regions="IN" type="node" preset_name_label="true">
+            <reference ref="tree_base"/>
+            <key key="species" value="ficus religiosa"/>
+            <key key="species:wikidata" value="Q3071706"/>
+        </item> <!-- Peepal tree -->
+        <item name="Neem tree" icon="icons/png/natural_tree_24020.png" regions="IN" type="node" preset_name_label="true">
+            <reference ref="tree_base"/>
+            <key key="species" value="azadirachta indica"/>
+            <key key="species:wikidata" value="Q170461"/>
+        </item> <!-- Neem tree -->
+        <item name="Ashok tree" icon="icons/png/natural_tree_24020.png" regions="IN" type="node" preset_name_label="true">
+            <reference ref="tree_base"/>
+            <key key="species" value="monoon longifolium"/>
+            <key key="species:wikidata" value="Q42707873"/>
+        </item> <!-- Ashok tree -->
+        <item name="Banyan tree" icon="icons/png/natural_tree_24020.png" regions="IN" type="node" preset_name_label="true">
+            <reference ref="tree_base"/>
+            <key key="species" value="ficus benghalensis"/>
+            <key key="species:wikidata" value="Q1405636"/>
+        </item> <!-- Banyan tree -->
         <item name="Tree Row" icon="icons/png/landuse_coniferous_and_deciduous.png" type="way" preset_name_label="true">
             <link wiki="Tag:natural=tree_row"/>
             <label text="A line of trees."/>
@@ -14249,6 +14373,13 @@
             <reference ref="name_oh_wheelchair_level"/>
             <reference ref="link_contact_address"/>
         </item> <!-- It -->
+        <item name="Graphic design" icon="icons/png/office_graphic_design.png" type="node,closedway,multipolygon">
+            <link wiki="Tag:office=graphic_design"/>
+            <space/>
+            <key key="office" value="graphic_design"/>
+            <reference ref="name_oh_wheelchair_level"/>
+            <reference ref="link_contact_address"/>
+        </item> <!-- Graphic design -->
         <item name="Lawyer" icon="icons/png/office_lawyer_25009.png" type="node,closedway,multipolygon">
             <link wiki="Tag:office=lawyer"/>
             <space/>
@@ -14256,6 +14387,13 @@
             <reference ref="name_oh_wheelchair_level"/>
             <reference ref="link_contact_address"/>
         </item> <!-- Lawyer -->
+        <item name="Private investigator" icon="icons/png/office_private_investigator.png" type="node,closedway,multipolygon">
+            <link wiki="Tag:office=private_investigator"/>
+            <space/>
+            <key key="office" value="private_investigator"/>
+            <reference ref="name_oh_wheelchair_level"/>
+            <reference ref="link_contact_address"/>
+        </item> <!-- Private investigator -->
         <item name="Ngo" icon="icons/png/office_ngo_25010.png" type="node,closedway,multipolygon">
             <link wiki="Tag:office=ngo"/>
             <space/>
