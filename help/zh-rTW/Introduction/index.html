@@ -372,7 +372,7 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#using-gps-and-gpx-tracks" class="nav-link">Using GPS and GPX tracks</a>
+            <li class="nav-item" data-level="2"><a href="#gps-gpx" class="nav-link">使用 GPS 與 GPX 軌跡</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -407,7 +407,7 @@
 </div></div>
 <div class="col-md-9" role="main">
 
-<p><em>Before we start: most screens have links in the menu to the on-device help system giving you direct access to information relevant for the current context, you can easily navigate back to this text too. If you have a larger device, for example a tablet, you can open the help system in a separate split window.  All the help texts and more (FAQs, tutorials) can be found on the <a href="https://vespucci.io/">Vespucci documentation site</a> too.</em></p>
+<p><em>開始之前：大部分操作畫面在選單當中連結到裝置上的說明系統，能夠給予相關操作的資訊，你也能輕易找到這段文字。如果你有畫面較大的裝置，例如平板的話，你也能有分割畫面模式來開啟說明文件。所有的說明文件以及其他文件 (常見問題、教學) 也能在  <a href="https://vespucci.io/">Vespucci 文件網站</a> 找得到。</em></p>
 <h1 id="vespucci">Vespucci 介紹<a class="headerlink" href="#vespucci" title="Permanent link">#</a></h1>
 <p>Vespucci 是全功能的開放街圖編輯器，支援大部分能在桌面版編輯器能做的操作。Vespucci 已經在 Google Android 2.3 到 10.0 等多個以 AOSP 為基礎的版本測試成功。忠告：儘管行動裝置的效能已經追上桌機，但在較老的裝置上面，記憶體並不夠，因此運作速度上會很慢。你應該記住上述的事情，並且可能的話，控制自己編輯的區域大小在合理的大小。</p>
 <h2 id="vespucci_1">使用 Vespucci 編輯<a class="headerlink" href="#vespucci_1" title="Permanent link">#</a></h2>
@@ -483,25 +483,25 @@
 <h4 id="_10">增加區域<a class="headerlink" href="#_10" title="Permanent link">#</a></h4>
 <p>目前開放街圖並沒有如其他地理資訊系統一樣，有"區域"物件類型。線上編輯器 "iD" 編輯嘗試在現有 OSM 架構下，建立區域類型，目前看來在特定狀況下運作相當好，也有不能好好運作的時候。Vespucci 目前並沒有計畫像 iD 一樣做類似的事情，所以你必須知道路徑區域是怎麼構成的：</p>
 <ul>
-<li><em>closed ways (*polygons")</em>: the simplest and most common area variant, are ways that have a shared first and last node forming a closed "ring" (for example most buildings are of this type). These are very easy to create in Vespucci, simply connect back to the first node when you are finished with drawing the area. Note: the interpretation of the closed way depends on its tagging: for example if a closed way is tagged as a building it will be considered an area, if it is tagged as a roundabout it wont. In some situations in which both interpretations may be valid, an "area" tag can clarify the intended use.</li>
-<li><em>multi-polygons</em>: some areas have multiple parts, holes and rings that can't be represented with just one way. OSM uses a specific type of relation (our general purpose object that can model relations between elements) to get around this, a multi-polygon. A multi-polygon can have multiple "outer" rings, and multiple "inner" rings. Each ring can either be a closed way as described above, or multiple individual ways that have common end nodes. While large multi-polygons are difficult to handle with any tool, small ones are not difficult to create in Vespucci. </li>
-<li><em>coastlines</em>: for very large objects, continents and islands, even the multi-polygon model doesn't work in a satisfactory way. For natural=coastline ways we assume direction dependent semantics: the land is on the left side of the way, the water on the right side. A side effect of this is that, in general, you shouldn't reverse the direction of a way with coastline tagging. More information can be found on the <a href="http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline">OSM wiki</a>.</li>
+<li><em>封閉路徑 ("多邊形*)</em>：最簡單與最常見的區域類型，共享第一個節點與最後個節點的路徑來形成封閉的"環形" (例如說大部分的建築都是屬於這類)。封閉路徑相當容易在 Vespucci 新建，只要畫區域時連回第一個節點就可以了。注意：如何解讀封閉路徑端看加上去的標籤：例如說，如果封閉路徑標為建築，則會視為區域，如果標為圓環則不會。在一些情境當中，兩種解讀則都有效，加上 "area" 標籤能夠清楚區別用途。</li>
+<li><em>多重多邊形</em>：有些區域有多個部分，穿洞與環形，無法只有一個路徑表示。OSM 採用特定型態的關聯 (我們一般用途物件能用關聯模型來連結) 來處理上述狀況，也就是多重多邊形。多重多邊形有"外圍"環形與"內部"環形。每個環形可以是上述提及的封閉路徑，或是多個分享結束節點的獨立路徑。當大型多重多邊形很難被任何工具處理，但小型的多邊形能輕易用 Vespucci 來處理。</li>
+<li><em>海岸線</em>：對於相當大的物件、大陸與島嶼，即便是多重多邊形也無法圓滿來處理。對於 natural=coastline 路徑我們假設是方向相關的片段：陸地是在路徑的左側，而水域則在路徑的右側。然而這樣定義有個副作用，一般來說，你不應該反轉有海岸線標籤的路徑方向。你可以在  <a href="http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline">OSM wiki</a> 閱讀更多資訊。</li>
 </ul>
 <h4 id="_11">改善道路的幾何形狀<a class="headerlink" href="#_11" title="Permanent link">#</a></h4>
 <p>如果你放大到夠大的程度，選取夠長的路徑中間會看到小的"x"。拖動"x"會在路徑位置上創建新的節點。注意：要避免不小心創新節點，因此操作碰觸的容忍區域相當小。</p>
 <h4 id="_12">剪下、複製和貼上<a class="headerlink" href="#_12" title="Permanent link">#</a></h4>
 <p>您可以複製或剪下選擇的節點和路徑，然後貼上一次或多次到一個新的位置。剪切將保留 OSM ID 和版本。要貼上長按要貼上的位置(您會看到一個十字線標記的位置)。然後從選單中選擇“貼上”。</p>
 <h4 id="_13">有效的增加地址<a class="headerlink" href="#_13" title="Permanent link">#</a></h4>
-<p>Vespucci supports functionality that makes surveying addresses more efficient by predicting house numbers (left and right sides of streets separately) and automatically adding <em>addr:street</em> or <em>addr:place</em> tags based on the last used value and proximity. In the best case this allows adding an address without any typing at all.   </p>
-<p>Adding the tags can be triggered by pressing <img alt="Address" src="../../images/address.png" />: </p>
+<p>Vespucci 支援能更有效率在現地調查地址的功能，那就是預測門牌號碼功能 (分別在道路左側與右側作用)，以及依據位置與上次使用的值自動添加 <em>addr:street</em> 或者 <em>addr:place</em>。在最佳情境下，能夠允許添加地址時不用輸入任何資訊。   </p>
+<p>可以長按 <img alt="Address" src="../../images/address.png" /> 來啟動新增標籤： </p>
 <ul>
-<li>after a long press (in non-simple mode only): Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add an "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.</li>
-<li>in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.</li>
-<li>in the property editor.</li>
+<li>長按之後 (只有在非簡單模式下)：Vespucci 會在該位置新增節點，然後依據最近狀況猜測這邊的門牌號碼與地址標籤。如果節點在建築外緣則會自動在該節點加上 "entrance=yes" 標籤。標籤編輯器將會對有疑問的物件開啟，然後可以做進一步的編輯。</li>
+<li>在節點/路徑選取模式：Vespucci 會像上述那樣添加地址標籤，然後啟動標籤編輯器。</li>
+<li>在屬性編輯器。</li>
 </ul>
-<p>To add individual address nodes directly while in the default "Simple mode" switch to "Address" editing mode (long press on the lock button), "Add address node" will then add an address node at the location and if it is on a building outline add a entrance tag to it as described above.</p>
+<p>要直接新增單獨的地址節點的話，則是在預設的"簡單模式"切換到"地址"編輯模式(長按鎖按鈕)，"新增地址節點"則會在該位置新增地址節點，而如果在建築外緣則會像前述那樣加出入口標籤。</p>
 <p>門牌號碼預測，一般需求要在道路的兩側，至少兩間房屋號碼需要輸入到作業中，更多的號碼存在於資料中越好。</p>
-<p>Consider using this with one of the <a href="#download">Auto-download</a> modes.  </p>
+<p>考慮用這個功能搭配<a href="#download">自動下載</a>模式。  </p>
 <h4 id="_14">增加轉​​彎限制<a class="headerlink" href="#_14" title="Permanent link">#</a></h4>
 <p>Vespucci 有個快速增加轉彎限制的功能。如果需要則可以自動切割路徑，並且詢問後重新選擇物件。 </p>
 <ul>
@@ -521,11 +521,11 @@
 <p>如果您想要儲存您的工作，並且不能連入網際網路，您可以儲存成 JOSM 相容的 .osm 檔案，以後以 Vespucci 或 JOSM 任何一個上載。 </p>
 <h4 id="_16">在上傳解決衝突<a class="headerlink" href="#_16" title="Permanent link">#</a></h4>
 <p>Vespucci 有個簡單的衝突解決。不管怎樣，如果您于您的編輯察覺到有重要事件，將您的更改匯出到 .osc  檔案 (在"傳輸"選單中"匯出"的選單項目) 並且修復和上傳給 JOSM。請參閱有關詳細的説明 <a href="Conflict%20resolution.md">衝突解決</a>。  </p>
-<h2 id="using-gps-and-gpx-tracks">Using GPS and GPX tracks<a class="headerlink" href="#using-gps-and-gpx-tracks" title="Permanent link">#</a></h2>
-<p>With standard settings Vespucci will try to enable GPS (and other satellite based navigation systems) and will fallback to determining the position via so called "network location" if this is not possible. This behaviour assumes that you in normal use have your Android device itself configured to only use GPX generated locations (to avoid tracking), that is you have the euphemistically named "Improve Location Accuracy" option turned off. If you want to enable the option but want to avoid Vespucci falling back to "network location", you should turn the corresponding option in the <a href="Advanced%20preferences.md">Advanced preferences</a> off. </p>
-<p>Touching the <img alt="GPS" src="../../images/menu_gps.png" /> button (on the left hand side of the map display) will center the screen on the current position and as you move the map display will be padded to maintain this.  Moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch GPS button or re-check the equivalent menu option. If the device doesn't have a current location the location marker/arrow will be displayed in black, if a current location is available the marker will be blue.</p>
-<p>To record a GPX track and display it on your device select "Start GPX track" item in the <img alt="GPS" src="../../images/menu_gps.png" /> menu. This will add layer to the display with the current recorded track, you can upload and export the track from the entry in the <a href="Main%20map%20display.md">layer control</a>. Further layers can be added from local GPX files and tracks downloaded from the OSM API.</p>
-<p>Note: by default Vespucci will not record elevation data with your GPX track, this is due to some Android specific issues. To enable elevation recording, either install a gravitational model, or, simpler, go to the <a href="Advanced%20preferences.md">Advanced preferences</a> and configure NMEA input.</p>
+<h2 id="gps-gpx">使用 GPS 與 GPX 軌跡<a class="headerlink" href="#gps-gpx" title="Permanent link">#</a></h2>
+<p>當在標準設定時，Vespucci 會嘗試打開 GPS (以及其他依據衛星定位的導航系統)，如果不行才會退下來用"電信網路"來定位。這項行為預設你是在正常狀態使用你的 Android 裝置，只採用 GPX 產生的位置 (避免遭到追蹤)，就是委婉寫做"改進定位準確度"選項關閉。如果你想啟用這選項，但想避免 Vespucci 退下來採用"電信網路位置"，你應該在 <a href="Advanced%20preferences.md">進階設定</a>關閉該選項。 </p>
+<p>當碰觸 <img alt="GPS" src="../../images/menu_gps.png" /> 按鈕 (在地圖顯示的左側) 則會在目前位置置中螢幕，而當你滑動手機時則會持繼置中。手動移動螢幕或是編輯則會讓"跟隨GPS"模式關閉，原來藍色 GPS 箭頭則會從描邊變成充滿的箭頭。要快速變回去"跟隨"模式，只要簡單碰觸 GPS 按鈕或是再檢核相對應的選單選項。如果裝置沒有取得目前位置，位置標示/箭頭會變成黑色，如果有目前位置的話則會顯示為藍色。</p>
+<p>要錄製 GPS 軌跡並且在裝置上顯示，你要在<img alt="GPS" src="../../images/menu_gps.png" /> 選單選擇"開始錄製GPX軌跡"。這會在螢幕上新增目前錄製軌跡圖層，你可以在 <a href="Main%20map%20display.md">圖層控制</a>上傳或是匯出軌跡。你可以新增本地 GPX 檔案與從 OSM API 下載軌跡變成其他圖層。</p>
+<p>注意：預設 Vespucci 不會在錄製 GPX 軌跡時記錄高度，這是因為一些 Android 裝置的特殊問題。要啟用高度記錄，需要啟用高度記錄，或是安裝重力模組，或是更簡單到<a href="Advanced%20preferences.md">進階設定</a> 設定 NMEA 輸入。</p>
 <h2 id="_17">備註和錯誤<a class="headerlink" href="#_17" title="Permanent link">#</a></h2>
 <p>Vespucci 支援下載、回應和關閉 OSM 註解 (先前的 OSM 臭蟲)，以及相等功能由 <a href="http://osmose.openstreetmap.fr/en/map/">OSMOSE 品質監控工具</a>產生的"臭蟲"。兩者都能完整下載下來，或者你可以使用自動下載功能，馬下輔助你取得所在區域的物件。一旦編輯或關閉，你可以馬上上傳臭蟲或是註解，或是全部一次上傳。</p>
 <p>註解和臭蟲會以小蟲子圖示  <img alt="Bug" src="../../images/bug_open.png" /> 顯示在地圖上面，綠色代表關閉/解決，藍色代表被新增或是由你編輯過，而黃色表示仍然有效還沒有變動。 </p>
@@ -564,8 +564,8 @@
 <h4 id="_22">檢查選項<a class="headerlink" href="#_22" title="Permanent link">#</a></h4>
 <p>檢查列表有兩個內容：</p>
 <ul>
-<li><strong>Key</strong> - Key that should be present on the object according to the matching preset.</li>
-<li><strong>Require optional</strong> - Require the key even if the key is in the optional tags of the matching preset.</li>
+<li><strong>鍵</strong> - 鍵應當依據符合的預置出現在相對的物件。</li>
+<li><strong>需要的選填</strong> - 即便是符合的預置的選填標籤，也會需要鍵。</li>
 </ul>
 <p>這次檢查會先決定符合的預置，接著檢查<strong>鍵</strong>是否是預置推薦的"建議"鍵值。<strong>必須的選擇性</strong>則會擴大檢查物件標籤中的"選擇性"標籤。注意：目前連結的預置並不會檢查。</p>
 <h2 id="_23">篩選<a class="headerlink" href="#_23" title="Permanent link">#</a></h2>
@@ -624,7 +624,7 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#using-gps-and-gpx-tracks" class="nav-link">Using GPS and GPX tracks</a>
+            <li class="nav-item" data-level="2"><a href="#gps-gpx" class="nav-link">使用 GPS 與 GPX 軌跡</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -659,7 +659,7 @@
 </div></div>
                     	<div class="col-md-9" role="main">
 
-<p><em>Before we start: most screens have links in the menu to the on-device help system giving you direct access to information relevant for the current context, you can easily navigate back to this text too. If you have a larger device, for example a tablet, you can open the help system in a separate split window.  All the help texts and more (FAQs, tutorials) can be found on the <a href="https://vespucci.io/">Vespucci documentation site</a> too.</em></p>
+<p><em>開始之前：大部分操作畫面在選單當中連結到裝置上的說明系統，能夠給予相關操作的資訊，你也能輕易找到這段文字。如果你有畫面較大的裝置，例如平板的話，你也能有分割畫面模式來開啟說明文件。所有的說明文件以及其他文件 (常見問題、教學) 也能在  <a href="https://vespucci.io/">Vespucci 文件網站</a> 找得到。</em></p>
 <h1 id="vespucci">Vespucci 介紹<a class="headerlink" href="#vespucci" title="Permanent link">#</a></h1>
 <p>Vespucci 是全功能的開放街圖編輯器，支援大部分能在桌面版編輯器能做的操作。Vespucci 已經在 Google Android 2.3 到 10.0 等多個以 AOSP 為基礎的版本測試成功。忠告：儘管行動裝置的效能已經追上桌機，但在較老的裝置上面，記憶體並不夠，因此運作速度上會很慢。你應該記住上述的事情，並且可能的話，控制自己編輯的區域大小在合理的大小。</p>
 <h2 id="vespucci_1">使用 Vespucci 編輯<a class="headerlink" href="#vespucci_1" title="Permanent link">#</a></h2>
@@ -735,25 +735,25 @@
 <h4 id="_10">增加區域<a class="headerlink" href="#_10" title="Permanent link">#</a></h4>
 <p>目前開放街圖並沒有如其他地理資訊系統一樣，有"區域"物件類型。線上編輯器 "iD" 編輯嘗試在現有 OSM 架構下，建立區域類型，目前看來在特定狀況下運作相當好，也有不能好好運作的時候。Vespucci 目前並沒有計畫像 iD 一樣做類似的事情，所以你必須知道路徑區域是怎麼構成的：</p>
 <ul>
-<li><em>closed ways (*polygons")</em>: the simplest and most common area variant, are ways that have a shared first and last node forming a closed "ring" (for example most buildings are of this type). These are very easy to create in Vespucci, simply connect back to the first node when you are finished with drawing the area. Note: the interpretation of the closed way depends on its tagging: for example if a closed way is tagged as a building it will be considered an area, if it is tagged as a roundabout it wont. In some situations in which both interpretations may be valid, an "area" tag can clarify the intended use.</li>
-<li><em>multi-polygons</em>: some areas have multiple parts, holes and rings that can't be represented with just one way. OSM uses a specific type of relation (our general purpose object that can model relations between elements) to get around this, a multi-polygon. A multi-polygon can have multiple "outer" rings, and multiple "inner" rings. Each ring can either be a closed way as described above, or multiple individual ways that have common end nodes. While large multi-polygons are difficult to handle with any tool, small ones are not difficult to create in Vespucci. </li>
-<li><em>coastlines</em>: for very large objects, continents and islands, even the multi-polygon model doesn't work in a satisfactory way. For natural=coastline ways we assume direction dependent semantics: the land is on the left side of the way, the water on the right side. A side effect of this is that, in general, you shouldn't reverse the direction of a way with coastline tagging. More information can be found on the <a href="http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline">OSM wiki</a>.</li>
+<li><em>封閉路徑 ("多邊形*)</em>：最簡單與最常見的區域類型，共享第一個節點與最後個節點的路徑來形成封閉的"環形" (例如說大部分的建築都是屬於這類)。封閉路徑相當容易在 Vespucci 新建，只要畫區域時連回第一個節點就可以了。注意：如何解讀封閉路徑端看加上去的標籤：例如說，如果封閉路徑標為建築，則會視為區域，如果標為圓環則不會。在一些情境當中，兩種解讀則都有效，加上 "area" 標籤能夠清楚區別用途。</li>
+<li><em>多重多邊形</em>：有些區域有多個部分，穿洞與環形，無法只有一個路徑表示。OSM 採用特定型態的關聯 (我們一般用途物件能用關聯模型來連結) 來處理上述狀況，也就是多重多邊形。多重多邊形有"外圍"環形與"內部"環形。每個環形可以是上述提及的封閉路徑，或是多個分享結束節點的獨立路徑。當大型多重多邊形很難被任何工具處理，但小型的多邊形能輕易用 Vespucci 來處理。</li>
+<li><em>海岸線</em>：對於相當大的物件、大陸與島嶼，即便是多重多邊形也無法圓滿來處理。對於 natural=coastline 路徑我們假設是方向相關的片段：陸地是在路徑的左側，而水域則在路徑的右側。然而這樣定義有個副作用，一般來說，你不應該反轉有海岸線標籤的路徑方向。你可以在  <a href="http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline">OSM wiki</a> 閱讀更多資訊。</li>
 </ul>
 <h4 id="_11">改善道路的幾何形狀<a class="headerlink" href="#_11" title="Permanent link">#</a></h4>
 <p>如果你放大到夠大的程度，選取夠長的路徑中間會看到小的"x"。拖動"x"會在路徑位置上創建新的節點。注意：要避免不小心創新節點，因此操作碰觸的容忍區域相當小。</p>
 <h4 id="_12">剪下、複製和貼上<a class="headerlink" href="#_12" title="Permanent link">#</a></h4>
 <p>您可以複製或剪下選擇的節點和路徑，然後貼上一次或多次到一個新的位置。剪切將保留 OSM ID 和版本。要貼上長按要貼上的位置(您會看到一個十字線標記的位置)。然後從選單中選擇“貼上”。</p>
 <h4 id="_13">有效的增加地址<a class="headerlink" href="#_13" title="Permanent link">#</a></h4>
-<p>Vespucci supports functionality that makes surveying addresses more efficient by predicting house numbers (left and right sides of streets separately) and automatically adding <em>addr:street</em> or <em>addr:place</em> tags based on the last used value and proximity. In the best case this allows adding an address without any typing at all.   </p>
-<p>Adding the tags can be triggered by pressing <img alt="Address" src="../../images/address.png" />: </p>
+<p>Vespucci 支援能更有效率在現地調查地址的功能，那就是預測門牌號碼功能 (分別在道路左側與右側作用)，以及依據位置與上次使用的值自動添加 <em>addr:street</em> 或者 <em>addr:place</em>。在最佳情境下，能夠允許添加地址時不用輸入任何資訊。   </p>
+<p>可以長按 <img alt="Address" src="../../images/address.png" /> 來啟動新增標籤： </p>
 <ul>
-<li>after a long press (in non-simple mode only): Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add an "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.</li>
-<li>in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.</li>
-<li>in the property editor.</li>
+<li>長按之後 (只有在非簡單模式下)：Vespucci 會在該位置新增節點，然後依據最近狀況猜測這邊的門牌號碼與地址標籤。如果節點在建築外緣則會自動在該節點加上 "entrance=yes" 標籤。標籤編輯器將會對有疑問的物件開啟，然後可以做進一步的編輯。</li>
+<li>在節點/路徑選取模式：Vespucci 會像上述那樣添加地址標籤，然後啟動標籤編輯器。</li>
+<li>在屬性編輯器。</li>
 </ul>
-<p>To add individual address nodes directly while in the default "Simple mode" switch to "Address" editing mode (long press on the lock button), "Add address node" will then add an address node at the location and if it is on a building outline add a entrance tag to it as described above.</p>
+<p>要直接新增單獨的地址節點的話，則是在預設的"簡單模式"切換到"地址"編輯模式(長按鎖按鈕)，"新增地址節點"則會在該位置新增地址節點，而如果在建築外緣則會像前述那樣加出入口標籤。</p>
 <p>門牌號碼預測，一般需求要在道路的兩側，至少兩間房屋號碼需要輸入到作業中，更多的號碼存在於資料中越好。</p>
-<p>Consider using this with one of the <a href="#download">Auto-download</a> modes.  </p>
+<p>考慮用這個功能搭配<a href="#download">自動下載</a>模式。  </p>
 <h4 id="_14">增加轉​​彎限制<a class="headerlink" href="#_14" title="Permanent link">#</a></h4>
 <p>Vespucci 有個快速增加轉彎限制的功能。如果需要則可以自動切割路徑，並且詢問後重新選擇物件。 </p>
 <ul>
@@ -773,11 +773,11 @@
 <p>如果您想要儲存您的工作，並且不能連入網際網路，您可以儲存成 JOSM 相容的 .osm 檔案，以後以 Vespucci 或 JOSM 任何一個上載。 </p>
 <h4 id="_16">在上傳解決衝突<a class="headerlink" href="#_16" title="Permanent link">#</a></h4>
 <p>Vespucci 有個簡單的衝突解決。不管怎樣，如果您于您的編輯察覺到有重要事件，將您的更改匯出到 .osc  檔案 (在"傳輸"選單中"匯出"的選單項目) 並且修復和上傳給 JOSM。請參閱有關詳細的説明 <a href="Conflict%20resolution.md">衝突解決</a>。  </p>
-<h2 id="using-gps-and-gpx-tracks">Using GPS and GPX tracks<a class="headerlink" href="#using-gps-and-gpx-tracks" title="Permanent link">#</a></h2>
-<p>With standard settings Vespucci will try to enable GPS (and other satellite based navigation systems) and will fallback to determining the position via so called "network location" if this is not possible. This behaviour assumes that you in normal use have your Android device itself configured to only use GPX generated locations (to avoid tracking), that is you have the euphemistically named "Improve Location Accuracy" option turned off. If you want to enable the option but want to avoid Vespucci falling back to "network location", you should turn the corresponding option in the <a href="Advanced%20preferences.md">Advanced preferences</a> off. </p>
-<p>Touching the <img alt="GPS" src="../../images/menu_gps.png" /> button (on the left hand side of the map display) will center the screen on the current position and as you move the map display will be padded to maintain this.  Moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch GPS button or re-check the equivalent menu option. If the device doesn't have a current location the location marker/arrow will be displayed in black, if a current location is available the marker will be blue.</p>
-<p>To record a GPX track and display it on your device select "Start GPX track" item in the <img alt="GPS" src="../../images/menu_gps.png" /> menu. This will add layer to the display with the current recorded track, you can upload and export the track from the entry in the <a href="Main%20map%20display.md">layer control</a>. Further layers can be added from local GPX files and tracks downloaded from the OSM API.</p>
-<p>Note: by default Vespucci will not record elevation data with your GPX track, this is due to some Android specific issues. To enable elevation recording, either install a gravitational model, or, simpler, go to the <a href="Advanced%20preferences.md">Advanced preferences</a> and configure NMEA input.</p>
+<h2 id="gps-gpx">使用 GPS 與 GPX 軌跡<a class="headerlink" href="#gps-gpx" title="Permanent link">#</a></h2>
+<p>當在標準設定時，Vespucci 會嘗試打開 GPS (以及其他依據衛星定位的導航系統)，如果不行才會退下來用"電信網路"來定位。這項行為預設你是在正常狀態使用你的 Android 裝置，只採用 GPX 產生的位置 (避免遭到追蹤)，就是委婉寫做"改進定位準確度"選項關閉。如果你想啟用這選項，但想避免 Vespucci 退下來採用"電信網路位置"，你應該在 <a href="Advanced%20preferences.md">進階設定</a>關閉該選項。 </p>
+<p>當碰觸 <img alt="GPS" src="../../images/menu_gps.png" /> 按鈕 (在地圖顯示的左側) 則會在目前位置置中螢幕，而當你滑動手機時則會持繼置中。手動移動螢幕或是編輯則會讓"跟隨GPS"模式關閉，原來藍色 GPS 箭頭則會從描邊變成充滿的箭頭。要快速變回去"跟隨"模式，只要簡單碰觸 GPS 按鈕或是再檢核相對應的選單選項。如果裝置沒有取得目前位置，位置標示/箭頭會變成黑色，如果有目前位置的話則會顯示為藍色。</p>
+<p>要錄製 GPS 軌跡並且在裝置上顯示，你要在<img alt="GPS" src="../../images/menu_gps.png" /> 選單選擇"開始錄製GPX軌跡"。這會在螢幕上新增目前錄製軌跡圖層，你可以在 <a href="Main%20map%20display.md">圖層控制</a>上傳或是匯出軌跡。你可以新增本地 GPX 檔案與從 OSM API 下載軌跡變成其他圖層。</p>
+<p>注意：預設 Vespucci 不會在錄製 GPX 軌跡時記錄高度，這是因為一些 Android 裝置的特殊問題。要啟用高度記錄，需要啟用高度記錄，或是安裝重力模組，或是更簡單到<a href="Advanced%20preferences.md">進階設定</a> 設定 NMEA 輸入。</p>
 <h2 id="_17">備註和錯誤<a class="headerlink" href="#_17" title="Permanent link">#</a></h2>
 <p>Vespucci 支援下載、回應和關閉 OSM 註解 (先前的 OSM 臭蟲)，以及相等功能由 <a href="http://osmose.openstreetmap.fr/en/map/">OSMOSE 品質監控工具</a>產生的"臭蟲"。兩者都能完整下載下來，或者你可以使用自動下載功能，馬下輔助你取得所在區域的物件。一旦編輯或關閉，你可以馬上上傳臭蟲或是註解，或是全部一次上傳。</p>
 <p>註解和臭蟲會以小蟲子圖示  <img alt="Bug" src="../../images/bug_open.png" /> 顯示在地圖上面，綠色代表關閉/解決，藍色代表被新增或是由你編輯過，而黃色表示仍然有效還沒有變動。 </p>
@@ -816,8 +816,8 @@
 <h4 id="_22">檢查選項<a class="headerlink" href="#_22" title="Permanent link">#</a></h4>
 <p>檢查列表有兩個內容：</p>
 <ul>
-<li><strong>Key</strong> - Key that should be present on the object according to the matching preset.</li>
-<li><strong>Require optional</strong> - Require the key even if the key is in the optional tags of the matching preset.</li>
+<li><strong>鍵</strong> - 鍵應當依據符合的預置出現在相對的物件。</li>
+<li><strong>需要的選填</strong> - 即便是符合的預置的選填標籤，也會需要鍵。</li>
 </ul>
 <p>這次檢查會先決定符合的預置，接著檢查<strong>鍵</strong>是否是預置推薦的"建議"鍵值。<strong>必須的選擇性</strong>則會擴大檢查物件標籤中的"選擇性"標籤。注意：目前連結的預置並不會檢查。</p>
 <h2 id="_23">篩選<a class="headerlink" href="#_23" title="Permanent link">#</a></h2>
