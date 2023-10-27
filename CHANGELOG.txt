@@ -25,6 +25,7 @@
 - Add if a custom icon is specified include preset icons in search
 - Add support queuing for toasts
 - Add arrows as rough indicators to where elements are
+- Add options to safe mode
 - Update preset
 - Update translations
 - Update imagery from ELI
