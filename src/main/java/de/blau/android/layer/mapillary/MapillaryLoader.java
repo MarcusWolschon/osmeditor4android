@@ -22,21 +22,23 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonPrimitive;
 
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import androidx.exifinterface.media.ExifInterface;
+import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.contract.FileExtensions;
 import de.blau.android.contract.MimeTypes;
 import de.blau.android.contract.Schemes;
+import de.blau.android.dialogs.ImageInfo;
 import de.blau.android.osm.OsmXml;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.FileUtil;
@@ -55,9 +57,11 @@ class MapillaryLoader extends ImageLoader {
 
     private static final int IMAGERY_LOAD_THREADS = 3;
 
-    private static final String COORDINATES_FIELD       = "coordinates";
-    private static final String COMPUTED_GEOMETRY_FIELD = "computed_geometry";
-    private static final String THUMB_2048_URL_FIELD    = "thumb_2048_url";
+    private static final String COORDINATES_FIELD            = "coordinates";
+    private static final String COMPUTED_GEOMETRY_FIELD      = "computed_geometry";
+    private static final String COMPUTED_COMPASS_ANGLE_FIELD = "computed_compass_angle";
+    private static final String CAPTURED_AT_FIELD            = "captured_at";
+    private static final String THUMB_2048_URL_FIELD         = "thumb_2048_url";
 
     private static final String JPG = "." + FileExtensions.JPG;
 
@@ -118,22 +122,20 @@ class MapillaryLoader extends ImageLoader {
                         throw new IOException("Download of " + key + " failed with " + mapillaryCallResponse.code() + " " + mapillaryCallResponse.message());
                     }
                     try (ResponseBody responseBody = mapillaryCallResponse.body(); InputStream inputStream = responseBody.byteStream()) {
-                        if (inputStream != null) {
-                            JsonElement root = JsonParser.parseReader(new BufferedReader(new InputStreamReader(inputStream, Charset.forName(OsmXml.UTF_8))));
-                            if (root.isJsonObject() && ((JsonObject) root).has(THUMB_2048_URL_FIELD)) {
-                                loadImage(key, imageFile, client, ((JsonObject) root).get(COMPUTED_GEOMETRY_FIELD),
-                                        ((JsonObject) root).get(THUMB_2048_URL_FIELD).getAsString());
-                            } else {
-                                throw new IOException("Unexpected / missing response");
-                            }
+                        if (inputStream == null) {
+                            throw new IOException("No InputStream");
                         }
+                        JsonElement root = JsonParser.parseReader(new BufferedReader(new InputStreamReader(inputStream, Charset.forName(OsmXml.UTF_8))));
+                        if (!root.isJsonObject() || !((JsonObject) root).has(THUMB_2048_URL_FIELD)) {
+                            throw new IOException("Unexpected / missing response");
+                        }
+                        loadImage(key, imageFile, client, (JsonObject) root, ((JsonObject) root).get(THUMB_2048_URL_FIELD).getAsString());
                     }
+                    setImage(view, imageFile);
+                    pruneCache();
                 } catch (IOException e) {
                     Log.e(DEBUG_TAG, e.getMessage());
-                    return;
                 }
-                setImage(view, imageFile);
-                pruneCache();
             });
         } catch (RejectedExecutionException rjee) {
             Log.e(DEBUG_TAG, "Execution rejected " + rjee.getMessage());
@@ -163,33 +165,48 @@ class MapillaryLoader extends ImageLoader {
      * @param url image url
      * @throws IOException if download or writing has issues
      */
-    private void loadImage(@NonNull String key, @NonNull File imageFile, @NonNull OkHttpClient client, @Nullable JsonElement point, @NonNull String url)
+    private void loadImage(@NonNull String key, @NonNull File imageFile, @NonNull OkHttpClient client, JsonObject meta, @NonNull String url)
             throws IOException {
         Request request = new Request.Builder().url(url).build();
         Response response = client.newCall(request).execute();
-        if (response.isSuccessful()) {
-            try (ResponseBody responseBody = response.body(); InputStream inputStream = responseBody.byteStream()) {
-                if (inputStream != null) {
-                    try (FileOutputStream fileOutput = new FileOutputStream(imageFile)) {
-                        byte[] buffer = new byte[1024];
-                        int bufferLength = 0;
-                        while ((bufferLength = inputStream.read(buffer)) > 0) {
-                            fileOutput.write(buffer, 0, bufferLength);
-                        }
-                    }
-                    if (point instanceof JsonObject && imageFile.length() > 0) {
-                        JsonElement coords = ((JsonObject) point).get(COORDINATES_FIELD);
-                        if (coords instanceof JsonArray && ((JsonArray) coords).size() == 2) {
-                            ExifInterface exif = new ExifInterface(imageFile);
-                            double lat = ((JsonArray) coords).get(1).getAsDouble();
-                            double lon = ((JsonArray) coords).get(0).getAsDouble();
-                            exif.setLatLong(lat, lon);
-                            exif.saveAttributes();
-                            coordinates.put(key, new double[] { lat, lon });
-                        }
-                    }
+        if (!response.isSuccessful()) {
+            throw new IOException("Download failed " + response.message());
+        }
+        try (ResponseBody responseBody = response.body(); InputStream inputStream = responseBody.byteStream()) {
+            if (inputStream == null) {
+                throw new IOException("Download failed no InputStream");
+            }
+            try (FileOutputStream fileOutput = new FileOutputStream(imageFile)) {
+                byte[] buffer = new byte[1024];
+                int bufferLength = 0;
+                while ((bufferLength = inputStream.read(buffer)) > 0) {
+                    fileOutput.write(buffer, 0, bufferLength);
                 }
             }
+            JsonElement point = meta.get(COMPUTED_GEOMETRY_FIELD);
+            if (!(point instanceof JsonObject) || imageFile.length() == 0) {
+                throw new IOException("No geometry for image or image empty");
+            }
+            JsonElement coords = ((JsonObject) point).get(COORDINATES_FIELD);
+            if (!(coords instanceof JsonArray) || ((JsonArray) coords).size() != 2) {
+                throw new IOException("No geometry for image");
+            }
+            ExifInterface exif = new ExifInterface(imageFile);
+            double lat = ((JsonArray) coords).get(1).getAsDouble();
+            double lon = ((JsonArray) coords).get(0).getAsDouble();
+            exif.setLatLong(lat, lon);
+            JsonElement angleElement = meta.get(COMPUTED_COMPASS_ANGLE_FIELD);
+            if (angleElement instanceof JsonPrimitive) {
+                float angle = angleElement.getAsFloat();
+                exif.setAttribute(ExifInterface.TAG_GPS_IMG_DIRECTION, Integer.toString((int) (angle * 100)) + "/100");
+                exif.setAttribute(ExifInterface.TAG_GPS_IMG_DIRECTION_REF, ExifInterface.GPS_DIRECTION_MAGNETIC);
+            }
+            JsonElement capturedAt = meta.get(CAPTURED_AT_FIELD);
+            if (capturedAt instanceof JsonPrimitive) {
+                exif.setDateTime(capturedAt.getAsLong());
+            }
+            exif.saveAttributes();
+            coordinates.put(key, new double[] { lat, lon });
         }
     }
 
@@ -230,5 +247,17 @@ class MapillaryLoader extends ImageLoader {
         } else {
             ScreenMessage.toastTopError(context, context.getString(R.string.toast_error_accessing_photo, key));
         }
+    }
+
+    @Override
+    public boolean supportsInfo() {
+        return true;
+    }
+
+    @Override
+    public void info(@NonNull FragmentActivity activity, @NonNull String uri) {
+        Uri f = FileProvider.getUriForFile(activity, activity.getString(R.string.content_provider), new File(cacheDir, uri + JPG));
+        ImageInfo.showDialog(activity, f.toString());
+
     }
 }

@@ -8,6 +8,7 @@ import android.content.Context;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 public abstract class ImageLoader implements Serializable {
 
@@ -47,6 +48,44 @@ public abstract class ImageLoader implements Serializable {
      * @param uri the Uri or other reference to the photo
      */
     public void share(@NonNull Context context, @NonNull String uri) {
+        // empty
+    }
+
+    /**
+     * Indicate if we support an image information function
+     * 
+     * @return true if supported
+     */
+    public boolean supportsInfo() {
+        return false;
+    }
+
+    /**
+     * Show some information on the image
+     * 
+     * @param activity Android activity
+     * @param uri the Uri or other reference to the photo
+     */
+    public void info(@NonNull FragmentActivity activity, @NonNull String uri) {
+        // empty
+    }
+
+    /**
+     * Indicate if we support an image deletion function
+     * 
+     * @return true if supported
+     */
+    public boolean supportsDelete() {
+        return false;
+    }
+
+    /**
+     * Delete the photo
+     * 
+     * @param context Android Context
+     * @param uri the Uri or other reference to the photo
+     */
+    public void delete(@NonNull Context context, @NonNull String uri) {
         // empty
     }
 

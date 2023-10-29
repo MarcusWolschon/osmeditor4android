@@ -196,8 +196,8 @@ public class FeatureInfo extends InfoDialogFragment {
 
                         Util.sharePosition(getActivity(), new double[] { p.longitude(), p.latitude() }, null);
                     });
-                    tl.addView(TableLayoutUtils.createRowWithButton(activity, R.string.location_lon_label, prettyPrint(p.longitude()), button, tp));
-                    tl.addView(TableLayoutUtils.createRow(activity, R.string.location_lat_label, prettyPrint(p.latitude()), tp));
+                    tl.addView(TableLayoutUtils.createRowWithButton(activity, R.string.location_lon_label, prettyPrintCoord(p.longitude()), button, tp));
+                    tl.addView(TableLayoutUtils.createRow(activity, R.string.location_lat_label, prettyPrintCoord(p.latitude()), tp));
                 }
             }
             tl.addView(TableLayoutUtils.divider(activity));
@@ -219,26 +219,5 @@ public class FeatureInfo extends InfoDialogFragment {
             }
         }
         return sv;
-    }
-
-    /**
-     * Get the string resource formated as an italic string
-     * 
-     * @param resId String resource id
-     * @return a Spanned containing the string
-     */
-    private Spanned toItalic(int resId) {
-        return Util.fromHtml("<i>" + getString(resId) + "</i>");
-    }
-
-    /**
-     * Pretty print a coordinate value
-     * 
-     * @param coord the coordinate in WGS84
-     * @return a reasonable looking string representation
-     */
-    @NonNull
-    private static String prettyPrint(double coord) {
-        return String.format(Locale.US, "%.7f", coord) + "°";
     }
 }

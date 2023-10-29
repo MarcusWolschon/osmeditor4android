@@ -1,7 +1,10 @@
 package de.blau.android.util;
 
+import java.util.Locale;
+
 import android.app.Dialog;
 import android.os.Bundle;
+import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,4 +37,25 @@ public abstract class InfoDialogFragment extends ImmersiveDialogFragment {
      * @return the View
      */
     protected abstract View createView(@Nullable ViewGroup container);
+    
+    /**
+     * Get the string resource formated as an italic string
+     * 
+     * @param resId String resource id
+     * @return a Spanned containing the string
+     */
+    protected Spanned toItalic(int resId) {
+        return Util.fromHtml("<i>" + getString(resId) + "</i>");
+    }
+
+    /**
+     * Pretty print a coordinate value
+     * 
+     * @param coord the coordinate in WGS84
+     * @return a reasonable looking string representation
+     */
+    @NonNull
+    protected static String prettyPrintCoord(double coord) {
+        return String.format(Locale.US, "%.7f°", coord);
+    }
 }
