@@ -1,6 +1,9 @@
 package de.blau.android.util;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import android.content.ContentUris;
@@ -29,6 +32,10 @@ public final class ContentResolverUtil {
     private static final String RAW_PREFIX                = Schemes.RAW + ":";
     private static final String DOWNLOADS_DOCUMENTS       = "com.android.providers.downloads.documents";
     private static final String EXTERNALSTORAGE_DOCUMENTS = "com.android.externalstorage.documents";
+    // see filepaths.xml
+    private static final String ROOT            = "root";
+    private static final String PICTURES_CAMERA = "Pictures Camera";
+    private static final String PICTURES        = "Pictures";
 
     /**
      * Private constructor
@@ -58,7 +65,21 @@ public final class ContentResolverUtil {
         } else if (Schemes.CONTENT.equals(scheme) && context.getString(R.string.content_provider).equals(uri.getAuthority())) {
             Log.i(DEBUG_TAG, "Vespucci file provider");
             try {
-                return FileUtil.getPublicDirectory() + uri.getPath();
+                List<String> segments = new ArrayList<>(uri.getPathSegments());
+                switch (segments.get(0)) {
+                case PICTURES:
+                    return FileUtil.getPublicDirectory() + pathFromSegments(segments, Paths.DELIMITER);
+                case PICTURES_CAMERA:
+                    segments.remove(0);
+                    return new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), pathFromSegments(segments, Paths.DELIMITER))
+                            .getPath();
+                case ROOT:
+                    segments.remove(0);
+                    return pathFromSegments(segments, Paths.DELIMITER);
+                default:
+                    Log.e(DEBUG_TAG, "getPath unknown 1st segment");
+                    return uri.getPath();
+                }
             } catch (IOException e) {
                 Log.e(DEBUG_TAG, "getPath " + e.getMessage());
                 return null;
@@ -68,6 +89,23 @@ public final class ContentResolverUtil {
         }
         Log.e(DEBUG_TAG, "Unable to determine how to handle Uri " + uri);
         return null;
+    }
+
+    /**
+     * Create a path from a list of path segments
+     * 
+     * @param segments the list of segments
+     * @param sep the separator to use
+     * @return the path
+     */
+    @NonNull
+    private static String pathFromSegments(@NonNull List<String> segments, @NonNull String sep) {
+        StringBuilder builder = new StringBuilder();
+        for (String segment : segments) {
+            builder.append(sep);
+            builder.append(segment);
+        }
+        return builder.toString();
     }
 
     /**
