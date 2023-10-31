@@ -1971,25 +1971,6 @@ public class Logic {
     }
 
     /**
-     * Splits all ways containing the node will be split at the nodes position
-     * 
-     * @param activity activity this method was called from, if null no warnings will be displayed
-     * @param node node to split at
-     * @deprecated Only used for testing
-     */
-    @Deprecated
-    public synchronized void performSplit(@Nullable final FragmentActivity activity, @NonNull final Node node) {
-        try {
-            createCheckpoint(activity, R.string.undo_action_split_ways);
-            displayAttachedObjectWarning(activity, node); // needs to be done before split
-            getDelegator().splitAtNode(node);
-            invalidateMap();
-        } catch (OsmIllegalOperationException | StorageException ex) {
-            handleDelegatorException(activity, ex);
-        }
-    }
-
-    /**
      * Splits a way at a given node
      * 
      * @param activity activity this method was called from, if null no warnings will be displayed
@@ -3361,14 +3342,12 @@ public class Logic {
                             }
                         }
                     }
-                    try {
-                        // FIXME need to check if providing a handler makes sense here
-                        if (!getDelegator().mergeData(osmParser.getStorage(), null)) {
-                            result = new AsyncResult(ErrorCodes.DATA_CONFLICT);
-                        }
-                    } catch (IllegalStateException iex) {
-                        result = new AsyncResult(ErrorCodes.CORRUPTED_DATA);
+
+                    if (!getDelegator().mergeData(osmParser.getStorage(), null)) {
+                        result = new AsyncResult(ErrorCodes.DATA_CONFLICT);
                     }
+                } catch (IllegalStateException iex) {
+                    result = new AsyncResult(ErrorCodes.CORRUPTED_DATA);
                 } catch (SAXException e) {
                     Log.e(DEBUG_TAG, "downloadElement problem parsing", e);
                     Exception ce = e.getException();
@@ -3379,7 +3358,7 @@ public class Logic {
                     }
                 } catch (ParserConfigurationException e) {
                     // crash and burn
-                    // TODO this seems to happen when the API call returns text from a proxy or similar intermediate
+                    // this seems to happen when the API call returns text from a proxy or similar intermediate
                     // network device... need to display what we actually got
                     Log.e(DEBUG_TAG, "downloadElements problem parsing", e);
                     result = new AsyncResult(ErrorCodes.INVALID_DATA_RECEIVED);
@@ -3987,15 +3966,16 @@ public class Logic {
             protected Integer doInBackground(Void v) {
                 boolean result = true;
                 for (MapViewLayer layer : map.getLayers()) {
-                    if (layer != null) {
-                        try {
-                            boolean layerResult = layer.onRestoreState(activity);
-                            result = result && layerResult;
-                        } catch (Exception e) {
-                            // Never crash
-                            Log.e(DEBUG_TAG, "loadLayerState failed for " + layer.getName() + " " + e.getMessage());
-                            result = false;
-                        }
+                    if (layer == null) {
+                        continue;
+                    }
+                    try {
+                        boolean layerResult = layer.onRestoreState(activity);
+                        result = result && layerResult;
+                    } catch (Exception e) {
+                        // Never crash
+                        Log.e(DEBUG_TAG, "loadLayerState failed for " + layer.getName() + " " + e.getMessage());
+                        result = false;
                     }
                 }
                 return result ? READ_OK : READ_FAILED;
@@ -4006,7 +3986,6 @@ public class Logic {
                 Log.d(DEBUG_TAG, "loadLayerState onPostExecute");
                 if (result != READ_FAILED) {
                     Log.d(DEBUG_TAG, "loadLayerState: state loaded correctly");
-                    // FIXME if no bbox exists from data, try to use one from bugs
                     if (postLoad != null) {
                         postLoad.onSuccess();
                     }
@@ -4235,7 +4214,7 @@ public class Logic {
                     OsmGpxApi.uploadTrack(server, track, description, tags, visibility);
                 } catch (final OsmServerException e) {
                     Log.e(DEBUG_TAG, e.getMessage());
-                    switch (e.getErrorCode()) { // FIXME use the same mechanics as for data upload
+                    switch (e.getErrorCode()) {
                     case HttpURLConnection.HTTP_FORBIDDEN:
                     case HttpURLConnection.HTTP_UNAUTHORIZED:
                         result = ErrorCodes.INVALID_LOGIN;
@@ -5483,7 +5462,7 @@ public class Logic {
      * @param activity this method was called from, if null no warnings will be displayed
      * @param way way to circulize
      */
-    public void performCirculize(@Nullable FragmentActivity activity, Way way) {
+    public void performCirculize(@Nullable FragmentActivity activity, @NonNull Way way) {
         if (way.getNodes().size() < 3) {
             return;
         }
@@ -5811,43 +5790,76 @@ public class Logic {
      * @param checkRelationsOnly if true only check Relations
      */
     private <T extends OsmElement> void displayAttachedObjectWarning(@Nullable FragmentActivity activity, Collection<T> list, boolean checkRelationsOnly) {
-        if (getFilter() != null && activity != null && showAttachedObjectWarning()) {
-            elementLoop: for (T e : list) {
-                if (!checkRelationsOnly) {
-                    if (e instanceof Node) {
-                        List<Way> ways = getWaysForNode((Node) e);
-                        if (!ways.isEmpty()) {
-                            for (Way w : ways) {
-                                if (!getFilter().include(w, false)) {
-                                    AttachedObjectWarning.showDialog(activity);
-                                    break elementLoop;
-                                }
-                            }
-                        }
-                    } else if (e instanceof Way) {
-                        for (Node n : ((Way) e).getNodes()) {
-                            List<Way> ways = getWaysForNode(n);
-                            if (!ways.isEmpty()) {
-                                for (Way w : ways) {
-                                    if (!getFilter().include(w, false)) {
-                                        AttachedObjectWarning.showDialog(activity);
-                                        break elementLoop;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                if (e.hasParentRelations()) {
-                    for (Relation r : e.getParentRelations()) {
-                        if (!getFilter().include(r, false)) {
-                            AttachedObjectWarning.showDialog(activity);
-                            break elementLoop;
-                        }
+        if (getFilter() == null || !showAttachedObjectWarning()) {
+            return;
+        }
+        for (T e : list) {
+            if (!checkRelationsOnly && ((e instanceof Node && displayAttachedObjectWarning(activity, (Node) e))
+                    || (e instanceof Way && displayAttachedObjectWarning(activity, (Way) e)))) {
+                continue;
+            }
+            displayAttachedRelationWarning(activity, e);
+        }
+    }
+
+    /**
+     * Display a warning if a hidden parent relation would be modified
+     * 
+     * @param activity the calling activity
+     * @param w the Way
+     * @return true if a warning is displayed
+     */
+    private void displayAttachedRelationWarning(@Nullable FragmentActivity activity, @NonNull OsmElement e) {
+        if (activity != null) {
+            if (e.hasParentRelations()) {
+                for (Relation r : e.getParentRelations()) {
+                    if (!getFilter().include(r, false)) {
+                        AttachedObjectWarning.showDialog(activity);
+                        return;
                     }
                 }
             }
         }
+    }
+
+    /**
+     * Display a warning if a hidden object would be modified
+     * 
+     * @param activity the calling activity
+     * @param w the Way
+     * @return true if a warning is displayed
+     */
+    private boolean displayAttachedObjectWarning(@Nullable FragmentActivity activity, @NonNull Way w) {
+        if (activity != null) {
+            for (Node n : w.getNodes()) {
+                if (displayAttachedObjectWarning(activity, n)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Display a warning if a hidden object would be modified
+     * 
+     * @param activity the calling activity
+     * @param n the Node
+     * @return true if a warning is displayed
+     */
+    private boolean displayAttachedObjectWarning(@Nullable FragmentActivity activity, @NonNull Node n) {
+        if (activity != null) {
+            List<Way> ways = getWaysForNode(n);
+            if (!ways.isEmpty()) {
+                for (Way w : ways) {
+                    if (!getFilter().include(w, false)) {
+                        AttachedObjectWarning.showDialog(activity);
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     /**
