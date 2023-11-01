@@ -3,6 +3,7 @@ package de.blau.android.photos;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.util.Objects;
 
 import android.content.Context;
@@ -22,7 +23,9 @@ import de.blau.android.util.rtree.BoundedObject;
  * a photo somewhere on the device or possibly on the network exif accessing code from
  * http://www.blog.nathanhaze.com/how-to-get-exif-tags-gps-coordinates-time-date-from-a-picture/
  */
-public class Photo implements BoundedObject, GeoPoint {
+public class Photo implements BoundedObject, GeoPoint, Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private static final String DEBUG_TAG = Photo.class.getSimpleName();
 

@@ -18,14 +18,14 @@ import de.blau.android.util.GeoMath;
  * @author cnvandev
  * @author simonpoole
  */
-public class RTree<T extends BoundedObject> implements Serializable {
+public class RTree<T extends BoundedObject & Serializable> implements Serializable {
     private static final long        serialVersionUID = 1L;
     private Node<T>                  root;
     private int                      maxSize;
     private int                      minSize;
     private QuadraticNodeSplitter<T> splitter;
 
-    private class Node<Q extends BoundedObject> implements BoundedObject, Serializable {
+    private class Node<Q extends BoundedObject & Serializable> implements BoundedObject, Serializable {
         private static final long  serialVersionUID = 1L;
         private Node<Q>            parent;
         private BoundingBox        box;
@@ -52,27 +52,6 @@ public class RTree<T extends BoundedObject> implements Serializable {
          */
         public boolean isLeaf() {
             return data != null;
-        }
-
-        /**
-         * Check if this is the root Node of the tree
-         * 
-         * @return true in there is no parent Node
-         */
-        public boolean isRoot() {
-            return parent == null;
-        }
-
-        /**
-         * Add this Node to a parent Node
-         * 
-         * @param parent the parent
-         */
-        public void addTo(@NonNull Node<Q> parent) {
-            parent.children.add(this);
-            this.parent = parent;
-            computeMBR();
-            splitter.split((RTree<T>.Node<T>) parent);
         }
 
         /**
@@ -122,34 +101,6 @@ public class RTree<T extends BoundedObject> implements Serializable {
         }
 
         /**
-         * Remove this Node from the tree
-         */
-        public void remove() {
-            if (parent == null) {
-                root = null;
-                return;
-            }
-
-            parent.children.remove(this);
-
-            if (parent.children.isEmpty()) {
-                parent.remove();
-            } else {
-                parent.computeMBR();
-            }
-        }
-
-        /**
-         * Get a List of the items this Node contains
-         * 
-         * @return a List of elements
-         */
-        @Nullable
-        public List<? extends BoundedObject> getSubItems() {
-            return isLeaf() ? data : children;
-        }
-
-        /**
          * Get the BoundingBox for this Node
          * 
          * @return the BoundingBox
@@ -157,17 +108,6 @@ public class RTree<T extends BoundedObject> implements Serializable {
         @Override
         public BoundingBox getBounds() {
             return box;
-        }
-
-        /**
-         * Check if the coordinates are in the BoundingBox of this node
-         * 
-         * @param px x coordinate
-         * @param py y coordinate
-         * @return true if the coordinates are in the BoundingBox
-         */
-        public boolean contains(int px, int py) {
-            return box.contains(px, py);
         }
 
         /**
@@ -200,7 +140,7 @@ public class RTree<T extends BoundedObject> implements Serializable {
         }
     }
 
-    private class QuadraticNodeSplitter<S extends BoundedObject> implements Serializable {
+    private class QuadraticNodeSplitter<S extends BoundedObject & Serializable> implements Serializable {
         private static final long serialVersionUID = 1L;
 
         /**
@@ -289,7 +229,7 @@ public class RTree<T extends BoundedObject> implements Serializable {
             Node<S> parent = parent2.parent;
             if (parent == null) {
                 parent = new Node<>(false);
-                root = (RTree<T>.Node<T>) parent;
+                root = (Node<T>) parent;
             } else {
                 parent.children.remove(parent2);
             }
@@ -874,7 +814,7 @@ public class RTree<T extends BoundedObject> implements Serializable {
      * @param level level the node is on
      * @return true if found
      */
-    private boolean debug(@NonNull BoundedObject o, @Nullable Node<T> node, int level) {
+    private boolean debug(@NonNull BoundedObject o, @Nullable Node<T> node, int level) { // NOSONAR
         if (node == null) {
             System.out.println(level + " debug: node is null"); // NOSONAR
             return false;
