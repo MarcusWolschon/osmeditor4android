@@ -3109,43 +3109,41 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         // zap all existing backlinks for our "old" relations
         for (Relation r : currentStorage.getRelations()) {
             final List<RelationMember> members = r.getMembers();
-            if (members != null) {
-                for (RelationMember rm : members) {
-                    checkMember(r.getOsmId(), rm);
-                    final long ref = rm.getRef();
-                    final String type = rm.getType();
-                    OsmElement e = elementFromIndex(r, type, ref, nodeIndex, wayIndex, relationIndex);
-                    if (e != null) {
-                        e.clearParentRelations();
-                    }
+            if (members == null) {
+                Log.e(DEBUG_TAG, "Existing relation has no members " + r.getOsmId());
+                continue;
+            }
+            for (RelationMember rm : members) {
+                checkMember(r.getOsmId(), rm);
+                OsmElement e = elementFromIndex(r, rm.getType(), rm.getRef(), nodeIndex, wayIndex, relationIndex);
+                if (e != null) {
+                    e.clearParentRelations();
                 }
-            } else {
-                Log.e(DEBUG_TAG, "Relation has no members " + r.getOsmId());
             }
         }
 
         // add backlinks for all "new" relations
         for (Relation r : tempCurrent.getRelations()) {
             final List<RelationMember> members = r.getMembers();
-            if (members != null) {
-                for (RelationMember rm : members) {
-                    checkMember(r.getOsmId(), rm);
-                    final long ref = rm.getRef();
-                    final String type = rm.getType();
-                    OsmElement e = elementFromIndex(r, type, ref, nodeIndex, wayIndex, relationIndex);
-                    if (e != null) {
-                        rm.setElement(e);
-                        e.addParentRelation(r);
-                    } else if (memberIsDeleted(r, rm)) {
-                        Log.e(DEBUG_TAG, "redoBacklinks relation " + r.getOsmId() + " member " + type + " " + ref + " missing");
-                        return false;
-                    } else if (rm.downloaded()) {
-                        Log.w(DEBUG_TAG, "redoBacklinks relation " + r.getOsmId() + " member " + type + " " + ref + " not in target storage");
-                        rm.setElement(null);
-                    }
+            if (members == null) {
+                Log.e(DEBUG_TAG, "New relation has no members " + r.getOsmId());
+                continue;
+            }
+            for (RelationMember rm : members) {
+                checkMember(r.getOsmId(), rm);
+                final long ref = rm.getRef();
+                final String type = rm.getType();
+                OsmElement e = elementFromIndex(r, type, ref, nodeIndex, wayIndex, relationIndex);
+                if (e != null) {
+                    rm.setElement(e);
+                    e.addParentRelation(r);
+                } else if (memberIsDeleted(r, rm)) {
+                    Log.e(DEBUG_TAG, "redoBacklinks relation " + r.getOsmId() + " member " + type + " " + ref + " missing");
+                    return false;
+                } else if (rm.downloaded()) {
+                    Log.w(DEBUG_TAG, "redoBacklinks relation " + r.getOsmId() + " member " + type + " " + ref + " not in target storage");
+                    rm.setElement(null);
                 }
-            } else {
-                Log.e(DEBUG_TAG, "Relation has no members " + r.getOsmId());
             }
         }
         return true; // successful
@@ -3221,27 +3219,28 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         // then add them back
         for (Relation r : currentStorage.getRelations()) {
             final List<RelationMember> members = r.getMembers();
-            if (members != null) {
-                for (RelationMember rm : r.getMembers()) {
-                    OsmElement e = null;
-                    final String type = rm.getType();
-                    final long ref = rm.getRef();
-                    switch (type) {
-                    case Node.NAME:
-                        e = currentStorage.getNode(ref);
-                        break;
-                    case Way.NAME:
-                        e = currentStorage.getWay(ref);
-                        break;
-                    case Relation.NAME:
-                        e = currentStorage.getRelation(ref);
-                        break;
-                    default:
-                        logUnknownMemberType(r, type);
-                    }
-                    if (e != null) {
-                        e.addParentRelation(r);
-                    }
+            if (members == null) {
+                continue;
+            }
+            for (RelationMember rm : r.getMembers()) {
+                OsmElement e = null;
+                final String type = rm.getType();
+                final long ref = rm.getRef();
+                switch (type) {
+                case Node.NAME:
+                    e = currentStorage.getNode(ref);
+                    break;
+                case Way.NAME:
+                    e = currentStorage.getWay(ref);
+                    break;
+                case Relation.NAME:
+                    e = currentStorage.getRelation(ref);
+                    break;
+                default:
+                    logUnknownMemberType(r, type);
+                }
+                if (e != null) {
+                    e.addParentRelation(r);
                 }
             }
         }
@@ -3252,7 +3251,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * 
      * Skips selected elements, removes BoundingBoxes
      * 
-     * FIXME to determine if an element is selected this uses the current Logic instance
+     * To determine if an element is selected this uses the current Logic instance
      * 
      * @param box the BoundingBox
      */
@@ -3309,8 +3308,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                         && !inIdSet(r.getParentRelations(), keepRelations)) {
                     // Note: this will not remove already processed relations that had this as a member however further
                     // prune passes will eventually delete them, which is good enough and so we don't rerun this
-                    // explicitly
-                    // here
+                    // explicitly here
                     currentStorage.removeRelation(r);
                     removeReferenceFromParents(logic, r);
                 }
@@ -3619,14 +3617,12 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                         }
                     }
                     Relation existingRelation = relationIndex.get(r.getOsmId());
-                    if (existingRelation != null) {
-                        if (existingRelation.getOsmVersion() <= r.getOsmVersion()) {
-                            tempUndo.save(existingRelation, true, false);
-                            tempApi.insertRelationUnsafe(r);
-                            tempCurrent.insertElementUnsafe(r);
-                            if (postMerge != null) {
-                                postMerge.handler(r);
-                            }
+                    if (existingRelation != null && existingRelation.getOsmVersion() <= r.getOsmVersion()) {
+                        tempUndo.save(existingRelation, true, false);
+                        tempApi.insertRelationUnsafe(r);
+                        tempCurrent.insertElementUnsafe(r);
+                        if (postMerge != null) {
+                            postMerge.handler(r);
                         }
                     }
                 }
