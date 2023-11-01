@@ -494,14 +494,10 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow, TagChange
     private class MyKeyListener implements OnKeyListener {
         @Override
         public boolean onKey(final View view, final int keyCode, final KeyEvent keyEvent) {
-            if (keyEvent.getAction() == KeyEvent.ACTION_UP || keyEvent.getAction() == KeyEvent.ACTION_MULTIPLE) {
-                if (view instanceof EditText) {
-                    if (keyCode == KeyEvent.KEYCODE_ENTER) {
-                        View nextView = view.focusSearch(View.FOCUS_DOWN);
-                        if (nextView != null && nextView.isFocusable()) {
-                            nextView.requestFocus();
-                        }
-                    }
+            if (keyEvent.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_ENTER) {
+                View nextView = view.focusSearch(View.FOCUS_DOWN);
+                if (nextView != null && nextView.isFocusable()) {
+                    nextView.requestFocus();
                 }
             }
             return false;

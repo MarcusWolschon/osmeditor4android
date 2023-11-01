@@ -1347,10 +1347,8 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                         List<RelationMember> fromMembers = r.getMembersWithRole(Tags.ROLE_FROM);
                         if (fromMembers != null && fromMembers.size() == 1) {
                             OsmElement fromElement = fromMembers.get(0).getElement();
-                            if (fromElement instanceof Way) {
-                                if (((Way) fromElement).hasNode(newWay.getFirstNode())) { // swap
-                                    replaceMemberWay(r, rm, way, newWay);
-                                }
+                            if (fromElement instanceof Way && ((Way) fromElement).hasNode(newWay.getFirstNode())) { // swap
+                                replaceMemberWay(r, rm, way, newWay);
                             }
                         }
                     } else { // default handling of relations membership

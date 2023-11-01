@@ -1131,20 +1131,18 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
     private static class MyKeyListener implements OnKeyListener {
         @Override
         public boolean onKey(final View view, final int keyCode, final KeyEvent keyEvent) {
-            if (view instanceof EditText && (keyEvent.getAction() == KeyEvent.ACTION_UP || keyEvent.getAction() == KeyEvent.ACTION_MULTIPLE)) {
+            if (keyEvent.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_ENTER) {
                 // on Enter -> goto next EditText
-                if (keyCode == KeyEvent.KEYCODE_ENTER) {
-                    View nextView = view.focusSearch(View.FOCUS_RIGHT);
-                    if (!(nextView instanceof EditText)) {
-                        nextView = view.focusSearch(View.FOCUS_LEFT);
-                        if (nextView != null) {
-                            nextView = nextView.focusSearch(View.FOCUS_DOWN);
-                        }
+                View nextView = view.focusSearch(View.FOCUS_RIGHT);
+                if (!(nextView instanceof EditText)) {
+                    nextView = view.focusSearch(View.FOCUS_LEFT);
+                    if (nextView != null) {
+                        nextView = nextView.focusSearch(View.FOCUS_DOWN);
                     }
-                    if (nextView instanceof EditText) {
-                        nextView.requestFocus();
-                        return true;
-                    }
+                }
+                if (nextView instanceof EditText) {
+                    nextView.requestFocus();
+                    return true;
                 }
             }
             return false;
