@@ -428,51 +428,46 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * apiStorage is empty. As a side effect it updates the id sequences for the creation of new elements.
      */
     public synchronized void fixupApiStorage() {
-        try {
-            long minNodeId = 0;
-            long minWayId = 0;
-            long minRelationId = 0;
-            List<Node> nl = new ArrayList<>(currentStorage.getNodes());
-            for (Node n : nl) {
-                if (n.getState() != OsmElement.STATE_UNCHANGED) {
-                    apiStorage.insertElementUnsafe(n);
-                    if (n.getOsmId() < minNodeId) {
-                        minNodeId = n.getOsmId();
-                    }
-                }
-                if (n.getState() == OsmElement.STATE_DELETED) {
-                    currentStorage.removeElement(n);
+        long minNodeId = 0;
+        long minWayId = 0;
+        long minRelationId = 0;
+        List<Node> nl = new ArrayList<>(currentStorage.getNodes());
+        for (Node n : nl) {
+            if (n.getState() != OsmElement.STATE_UNCHANGED) {
+                apiStorage.insertElementUnsafe(n);
+                if (n.getOsmId() < minNodeId) {
+                    minNodeId = n.getOsmId();
                 }
             }
-            List<Way> wl = new ArrayList<>(currentStorage.getWays());
-            for (Way w : wl) {
-                if (w.getState() != OsmElement.STATE_UNCHANGED) {
-                    apiStorage.insertElementUnsafe(w);
-                    if (w.getOsmId() < minWayId) {
-                        minWayId = w.getOsmId();
-                    }
-                }
-                if (w.getState() == OsmElement.STATE_DELETED) {
-                    currentStorage.removeElement(w);
-                }
+            if (n.getState() == OsmElement.STATE_DELETED) {
+                currentStorage.removeElement(n);
             }
-            List<Relation> rl = new ArrayList<>(currentStorage.getRelations());
-            for (Relation r : rl) {
-                if (r.getState() != OsmElement.STATE_UNCHANGED) {
-                    apiStorage.insertElementUnsafe(r);
-                    if (r.getOsmId() < minRelationId) {
-                        minRelationId = r.getOsmId();
-                    }
-                }
-                if (r.getState() == OsmElement.STATE_DELETED) {
-                    currentStorage.removeElement(r);
-                }
-            }
-            getFactory().setIdSequences(minNodeId, minWayId, minRelationId);
-        } catch (StorageException e) {
-            // FIXME do something reasonable
-            Log.e(DEBUG_TAG, "fixupApiStorage got " + e.getMessage());
         }
+        List<Way> wl = new ArrayList<>(currentStorage.getWays());
+        for (Way w : wl) {
+            if (w.getState() != OsmElement.STATE_UNCHANGED) {
+                apiStorage.insertElementUnsafe(w);
+                if (w.getOsmId() < minWayId) {
+                    minWayId = w.getOsmId();
+                }
+            }
+            if (w.getState() == OsmElement.STATE_DELETED) {
+                currentStorage.removeElement(w);
+            }
+        }
+        List<Relation> rl = new ArrayList<>(currentStorage.getRelations());
+        for (Relation r : rl) {
+            if (r.getState() != OsmElement.STATE_UNCHANGED) {
+                apiStorage.insertElementUnsafe(r);
+                if (r.getOsmId() < minRelationId) {
+                    minRelationId = r.getOsmId();
+                }
+            }
+            if (r.getState() == OsmElement.STATE_DELETED) {
+                currentStorage.removeElement(r);
+            }
+        }
+        getFactory().setIdSequences(minNodeId, minWayId, minRelationId);
     }
 
     /**
