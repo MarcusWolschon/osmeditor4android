@@ -1596,10 +1596,8 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     @Override
     public void deselectRow() {
         synchronized (actionModeCallbackLock) {
-            if (tagSelectedActionModeCallback != null) {
-                if (tagSelectedActionModeCallback.rowsDeselected(false)) {
-                    tagSelectedActionModeCallback = null;
-                }
+            if (tagSelectedActionModeCallback != null && tagSelectedActionModeCallback.rowsDeselected(false)) {
+                tagSelectedActionModeCallback = null;
             }
         }
     }

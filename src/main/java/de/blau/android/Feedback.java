@@ -1,6 +1,5 @@
 package de.blau.android;
 
-import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.HashMap;
@@ -39,7 +38,6 @@ import de.blau.android.resources.KeyDatabaseHelper;
 import de.blau.android.resources.KeyDatabaseHelper.EntryType;
 import de.blau.android.util.ActivityResultHandler;
 import de.blau.android.util.ExecutorTask;
-import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.Util;
 
 /**

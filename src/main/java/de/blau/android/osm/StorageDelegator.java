@@ -428,51 +428,46 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * apiStorage is empty. As a side effect it updates the id sequences for the creation of new elements.
      */
     public synchronized void fixupApiStorage() {
-        try {
-            long minNodeId = 0;
-            long minWayId = 0;
-            long minRelationId = 0;
-            List<Node> nl = new ArrayList<>(currentStorage.getNodes());
-            for (Node n : nl) {
-                if (n.getState() != OsmElement.STATE_UNCHANGED) {
-                    apiStorage.insertElementUnsafe(n);
-                    if (n.getOsmId() < minNodeId) {
-                        minNodeId = n.getOsmId();
-                    }
-                }
-                if (n.getState() == OsmElement.STATE_DELETED) {
-                    currentStorage.removeElement(n);
+        long minNodeId = 0;
+        long minWayId = 0;
+        long minRelationId = 0;
+        List<Node> nl = new ArrayList<>(currentStorage.getNodes());
+        for (Node n : nl) {
+            if (n.getState() != OsmElement.STATE_UNCHANGED) {
+                apiStorage.insertElementUnsafe(n);
+                if (n.getOsmId() < minNodeId) {
+                    minNodeId = n.getOsmId();
                 }
             }
-            List<Way> wl = new ArrayList<>(currentStorage.getWays());
-            for (Way w : wl) {
-                if (w.getState() != OsmElement.STATE_UNCHANGED) {
-                    apiStorage.insertElementUnsafe(w);
-                    if (w.getOsmId() < minWayId) {
-                        minWayId = w.getOsmId();
-                    }
-                }
-                if (w.getState() == OsmElement.STATE_DELETED) {
-                    currentStorage.removeElement(w);
-                }
+            if (n.getState() == OsmElement.STATE_DELETED) {
+                currentStorage.removeElement(n);
             }
-            List<Relation> rl = new ArrayList<>(currentStorage.getRelations());
-            for (Relation r : rl) {
-                if (r.getState() != OsmElement.STATE_UNCHANGED) {
-                    apiStorage.insertElementUnsafe(r);
-                    if (r.getOsmId() < minRelationId) {
-                        minRelationId = r.getOsmId();
-                    }
-                }
-                if (r.getState() == OsmElement.STATE_DELETED) {
-                    currentStorage.removeElement(r);
-                }
-            }
-            getFactory().setIdSequences(minNodeId, minWayId, minRelationId);
-        } catch (StorageException e) {
-            // FIXME do something reasonable
-            Log.e(DEBUG_TAG, "fixupApiStorage got " + e.getMessage());
         }
+        List<Way> wl = new ArrayList<>(currentStorage.getWays());
+        for (Way w : wl) {
+            if (w.getState() != OsmElement.STATE_UNCHANGED) {
+                apiStorage.insertElementUnsafe(w);
+                if (w.getOsmId() < minWayId) {
+                    minWayId = w.getOsmId();
+                }
+            }
+            if (w.getState() == OsmElement.STATE_DELETED) {
+                currentStorage.removeElement(w);
+            }
+        }
+        List<Relation> rl = new ArrayList<>(currentStorage.getRelations());
+        for (Relation r : rl) {
+            if (r.getState() != OsmElement.STATE_UNCHANGED) {
+                apiStorage.insertElementUnsafe(r);
+                if (r.getOsmId() < minRelationId) {
+                    minRelationId = r.getOsmId();
+                }
+            }
+            if (r.getState() == OsmElement.STATE_DELETED) {
+                currentStorage.removeElement(r);
+            }
+        }
+        getFactory().setIdSequences(minNodeId, minWayId, minRelationId);
     }
 
     /**
@@ -1352,10 +1347,8 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                         List<RelationMember> fromMembers = r.getMembersWithRole(Tags.ROLE_FROM);
                         if (fromMembers != null && fromMembers.size() == 1) {
                             OsmElement fromElement = fromMembers.get(0).getElement();
-                            if (fromElement instanceof Way) {
-                                if (((Way) fromElement).hasNode(newWay.getFirstNode())) { // swap
-                                    replaceMemberWay(r, rm, way, newWay);
-                                }
+                            if (fromElement instanceof Way && ((Way) fromElement).hasNode(newWay.getFirstNode())) { // swap
+                                replaceMemberWay(r, rm, way, newWay);
                             }
                         }
                     } else { // default handling of relations membership
@@ -3114,43 +3107,41 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         // zap all existing backlinks for our "old" relations
         for (Relation r : currentStorage.getRelations()) {
             final List<RelationMember> members = r.getMembers();
-            if (members != null) {
-                for (RelationMember rm : members) {
-                    checkMember(r.getOsmId(), rm);
-                    final long ref = rm.getRef();
-                    final String type = rm.getType();
-                    OsmElement e = elementFromIndex(r, type, ref, nodeIndex, wayIndex, relationIndex);
-                    if (e != null) {
-                        e.clearParentRelations();
-                    }
+            if (members == null) {
+                Log.e(DEBUG_TAG, "Existing relation has no members " + r.getOsmId());
+                continue;
+            }
+            for (RelationMember rm : members) {
+                checkMember(r.getOsmId(), rm);
+                OsmElement e = elementFromIndex(r, rm.getType(), rm.getRef(), nodeIndex, wayIndex, relationIndex);
+                if (e != null) {
+                    e.clearParentRelations();
                 }
-            } else {
-                Log.e(DEBUG_TAG, "Relation has no members " + r.getOsmId());
             }
         }
 
         // add backlinks for all "new" relations
         for (Relation r : tempCurrent.getRelations()) {
             final List<RelationMember> members = r.getMembers();
-            if (members != null) {
-                for (RelationMember rm : members) {
-                    checkMember(r.getOsmId(), rm);
-                    final long ref = rm.getRef();
-                    final String type = rm.getType();
-                    OsmElement e = elementFromIndex(r, type, ref, nodeIndex, wayIndex, relationIndex);
-                    if (e != null) {
-                        rm.setElement(e);
-                        e.addParentRelation(r);
-                    } else if (memberIsDeleted(r, rm)) {
-                        Log.e(DEBUG_TAG, "redoBacklinks relation " + r.getOsmId() + " member " + type + " " + ref + " missing");
-                        return false;
-                    } else if (rm.downloaded()) {
-                        Log.w(DEBUG_TAG, "redoBacklinks relation " + r.getOsmId() + " member " + type + " " + ref + " not in target storage");
-                        rm.setElement(null);
-                    }
+            if (members == null) {
+                Log.e(DEBUG_TAG, "New relation has no members " + r.getOsmId());
+                continue;
+            }
+            for (RelationMember rm : members) {
+                checkMember(r.getOsmId(), rm);
+                final long ref = rm.getRef();
+                final String type = rm.getType();
+                OsmElement e = elementFromIndex(r, type, ref, nodeIndex, wayIndex, relationIndex);
+                if (e != null) {
+                    rm.setElement(e);
+                    e.addParentRelation(r);
+                } else if (memberIsDeleted(r, rm)) {
+                    Log.e(DEBUG_TAG, "redoBacklinks relation " + r.getOsmId() + " member " + type + " " + ref + " missing");
+                    return false;
+                } else if (rm.downloaded()) {
+                    Log.w(DEBUG_TAG, "redoBacklinks relation " + r.getOsmId() + " member " + type + " " + ref + " not in target storage");
+                    rm.setElement(null);
                 }
-            } else {
-                Log.e(DEBUG_TAG, "Relation has no members " + r.getOsmId());
             }
         }
         return true; // successful
@@ -3226,27 +3217,28 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         // then add them back
         for (Relation r : currentStorage.getRelations()) {
             final List<RelationMember> members = r.getMembers();
-            if (members != null) {
-                for (RelationMember rm : r.getMembers()) {
-                    OsmElement e = null;
-                    final String type = rm.getType();
-                    final long ref = rm.getRef();
-                    switch (type) {
-                    case Node.NAME:
-                        e = currentStorage.getNode(ref);
-                        break;
-                    case Way.NAME:
-                        e = currentStorage.getWay(ref);
-                        break;
-                    case Relation.NAME:
-                        e = currentStorage.getRelation(ref);
-                        break;
-                    default:
-                        logUnknownMemberType(r, type);
-                    }
-                    if (e != null) {
-                        e.addParentRelation(r);
-                    }
+            if (members == null) {
+                continue;
+            }
+            for (RelationMember rm : r.getMembers()) {
+                OsmElement e = null;
+                final String type = rm.getType();
+                final long ref = rm.getRef();
+                switch (type) {
+                case Node.NAME:
+                    e = currentStorage.getNode(ref);
+                    break;
+                case Way.NAME:
+                    e = currentStorage.getWay(ref);
+                    break;
+                case Relation.NAME:
+                    e = currentStorage.getRelation(ref);
+                    break;
+                default:
+                    logUnknownMemberType(r, type);
+                }
+                if (e != null) {
+                    e.addParentRelation(r);
                 }
             }
         }
@@ -3257,7 +3249,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * 
      * Skips selected elements, removes BoundingBoxes
      * 
-     * FIXME to determine if an element is selected this uses the current Logic instance
+     * To determine if an element is selected this uses the current Logic instance
      * 
      * @param box the BoundingBox
      */
@@ -3314,8 +3306,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                         && !inIdSet(r.getParentRelations(), keepRelations)) {
                     // Note: this will not remove already processed relations that had this as a member however further
                     // prune passes will eventually delete them, which is good enough and so we don't rerun this
-                    // explicitly
-                    // here
+                    // explicitly here
                     currentStorage.removeRelation(r);
                     removeReferenceFromParents(logic, r);
                 }
@@ -3624,14 +3615,12 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                         }
                     }
                     Relation existingRelation = relationIndex.get(r.getOsmId());
-                    if (existingRelation != null) {
-                        if (existingRelation.getOsmVersion() <= r.getOsmVersion()) {
-                            tempUndo.save(existingRelation, true, false);
-                            tempApi.insertRelationUnsafe(r);
-                            tempCurrent.insertElementUnsafe(r);
-                            if (postMerge != null) {
-                                postMerge.handler(r);
-                            }
+                    if (existingRelation != null && existingRelation.getOsmVersion() <= r.getOsmVersion()) {
+                        tempUndo.save(existingRelation, true, false);
+                        tempApi.insertRelationUnsafe(r);
+                        tempCurrent.insertElementUnsafe(r);
+                        if (postMerge != null) {
+                            postMerge.handler(r);
                         }
                     }
                 }
