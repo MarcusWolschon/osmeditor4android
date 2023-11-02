@@ -21,6 +21,8 @@ import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.resources.KeyDatabaseHelper;
+import de.blau.android.resources.KeyDatabaseHelper.EntryType;
 import okhttp3.HttpUrl;
 
 @RunWith(AndroidJUnit4.class)
@@ -46,6 +48,7 @@ public class FeedbackTest {
         device = UiDevice.getInstance(instrumentation);
         context = instrumentation.getTargetContext();
         main = mActivityRule.getActivity();
+        KeyDatabaseHelper.replaceOrDeleteKey(new KeyDatabaseHelper(main).getWritableDatabase(), Feedback.VESPUCCI_REPORTER_ENTRY, EntryType.API_KEY, "123", false, false, null, null);;
         mockServer = new MockWebServerPlus();
         HttpUrl mockBaseUrl = mockServer.server().url("/api/0.6/");
         prefDB = new AdvancedPrefDatabase(context);

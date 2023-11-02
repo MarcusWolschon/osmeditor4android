@@ -90,7 +90,7 @@ public class KeyDatabaseHelper extends SQLiteOpenHelper {
      * @param add1 1st additional value to store
      * @param add2 2nd additional value to store
      */
-    static void replaceOrDeleteKey(@NonNull SQLiteDatabase db, @NonNull String name, @NonNull EntryType type, @Nullable String key, boolean custom,
+    public static void replaceOrDeleteKey(@NonNull SQLiteDatabase db, @NonNull String name, @NonNull EntryType type, @Nullable String key, boolean custom,
             boolean overwrite, @Nullable String add1, @Nullable String add2) {
         if ("".equals(key) && overwrite) {
             Log.i(DEBUG_TAG, "Deleting key " + name);

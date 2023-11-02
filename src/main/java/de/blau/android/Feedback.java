@@ -54,9 +54,10 @@ public class Feedback extends IssueReporterActivity implements ActivityResultHan
 
     private static final String DEBUG_TAG = "Feedback";
 
-    private static final String REPO_USER_KEY  = "repo_user";
-    private static final String REPO_NAME_KEY  = "repo_name";
-    private static final String GITHUB_API_KEY = "github_api_key";
+    static final String         VESPUCCI_REPORTER_ENTRY = "VESPUCCI_REPORTER";
+    private static final String REPO_USER_KEY           = "repo_user";
+    private static final String REPO_NAME_KEY           = "repo_name";
+    private static final String GITHUB_API_KEY          = "github_api_key";
 
     private static final String EMPTY_BUG_REPORT = "bug_report_empty.md";
 
@@ -88,7 +89,7 @@ public class Feedback extends IssueReporterActivity implements ActivityResultHan
      */
     public static void start(@NonNull Context context, @NonNull String repoUser, @NonNull String repoName, boolean useUrl) {
         try (KeyDatabaseHelper keys = new KeyDatabaseHelper(context); SQLiteDatabase db = keys.getReadableDatabase()) {
-            String apiKey = KeyDatabaseHelper.getKey(db, "VESPUCCI_REPORTER", EntryType.API_KEY);
+            String apiKey = KeyDatabaseHelper.getKey(db, VESPUCCI_REPORTER_ENTRY, EntryType.API_KEY);
             if (useUrl || Util.isPackageInstalled(Github.APP, context.getPackageManager()) || Util.isEmpty(apiKey)) {
                 reportViaUrl(context, repoUser, repoName);
             } else {
