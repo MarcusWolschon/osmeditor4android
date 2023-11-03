@@ -52,6 +52,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
+import de.blau.android.contract.HttpStatusCodes;
 import de.blau.android.contract.Urls;
 import de.blau.android.dialogs.AttachedObjectWarning;
 import de.blau.android.dialogs.ErrorAlert;
@@ -2984,15 +2985,15 @@ public class Logic {
         } catch (SAXException e) {
             Exception ce = e.getException();
             if ((ce instanceof StorageException) && ((StorageException) ce).getCode() == StorageException.OOM) {
-                result = new AsyncResult(ErrorCodes.OUT_OF_MEMORY, "");
+               result = new AsyncResult(ErrorCodes.OUT_OF_MEMORY, "");
             } else {
-                result = new AsyncResult(ErrorCodes.INVALID_DATA_RECEIVED, e.getMessage());
+               result =  new AsyncResult(ErrorCodes.INVALID_DATA_RECEIVED, e.getMessage());
             }
         } catch (ParserConfigurationException | UnsupportedFormatException e) {
             result = new AsyncResult(ErrorCodes.INVALID_DATA_RECEIVED, e.getMessage());
         } catch (OsmServerException e) {
-            int code = e.getErrorCode();
-            if (code == HttpURLConnection.HTTP_BAD_REQUEST) {
+            switch (e.getErrorCode()) {
+            case HttpURLConnection.HTTP_BAD_REQUEST:
                 // check error messages
                 Matcher m = Server.ERROR_MESSAGE_BAD_OAUTH_REQUEST.matcher(e.getMessage());
                 if (m.matches()) {
@@ -3000,7 +3001,11 @@ public class Logic {
                 } else {
                     result = new AsyncResult(ErrorCodes.BOUNDING_BOX_TOO_LARGE);
                 }
-            } else {
+                break;
+            case HttpStatusCodes.HTTP_BANDWIDTH_LIMIT_EXCEEDED:
+                result = new AsyncResult(ErrorCodes.DOWNLOAD_LIMIT_EXCEEDED);
+                break;
+            default:
                 result = new AsyncResult(ErrorCodes.UNKNOWN_ERROR, e.getMessage());
             }
         } catch (SSLProtocolException e) {
@@ -4113,6 +4118,9 @@ public class Logic {
                     case HttpURLConnection.HTTP_UNAVAILABLE:
                         result.setError(ErrorCodes.UPLOAD_PROBLEM);
                         break;
+                    case HttpStatusCodes.HTTP_TOO_MANY_REQUESTS:
+                        result.setError(ErrorCodes.UPLOAD_LIMIT_EXCEEDED);
+                        break;
                     default:
                         Log.e(DEBUG_TAG, METHOD_UPLOAD, e);
                         result.setError(ErrorCodes.UNKNOWN_ERROR);
@@ -4158,7 +4166,7 @@ public class Logic {
                     } else if (error == ErrorCodes.FORBIDDEN) {
                         ForbiddenLogin.showDialog(activity, result.getMessage());
                     } else if (error == ErrorCodes.BAD_REQUEST || error == ErrorCodes.NOT_FOUND || error == ErrorCodes.UNKNOWN_ERROR
-                            || error == ErrorCodes.UPLOAD_PROBLEM) {
+                            || error == ErrorCodes.UPLOAD_PROBLEM || error == ErrorCodes.UPLOAD_LIMIT_EXCEEDED) {
                         ErrorAlert.showDialog(activity, error, result.getMessage());
                     } else if (error != 0) {
                         ErrorAlert.showDialog(activity, error);

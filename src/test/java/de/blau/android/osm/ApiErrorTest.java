@@ -119,6 +119,7 @@ public class ApiErrorTest {
         assertTrue(App.getDelegator().getApiElementCount() > 0);
         uploadErrorTest(401);
         uploadErrorTest(403);
+        uploadErrorTest(429);
         uploadErrorTest(999);
     }
 
@@ -205,6 +206,14 @@ public class ApiErrorTest {
     @Test
     public void dataDownloadError403() {
         downloadErrorTest(403);
+    }
+
+    /**
+     * Test the response to error code 509 on download
+     */
+    @Test
+    public void dataDownloadError509() {
+        downloadErrorTest(509);
     }
 
     /**

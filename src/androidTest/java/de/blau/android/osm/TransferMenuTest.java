@@ -130,10 +130,7 @@ public class TransferMenuTest {
         } catch (UiObjectNotFoundException e1) {
             fail(e1.getMessage());
         }
-        try {
-            Thread.sleep(10000); // NOSONAR
-        } catch (InterruptedException e) {
-        }
+        TestUtils.sleep(10000);
         Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984);
         assertNotNull(n);
         assertEquals(OsmElement.STATE_UNCHANGED, n.getState());
@@ -172,6 +169,39 @@ public class TransferMenuTest {
     }
 
     /**
+     * Upload to changes (mock-)server get a 429 response
+     */
+    @Test
+    public void dataUploadError() {
+
+        loadTestData();
+
+        mockServer.enqueue("capabilities1"); // for whatever reason this gets asked for twice
+        mockServer.enqueue("capabilities1");
+        mockServer.enqueue("changeset1");
+        mockServer.enqueue("429");
+
+        TestUtils.clickMenuButton(device, main.getString(R.string.menu_transfer), false, true);
+        TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_upload), true, false); // menu item
+
+        UiSelector uiSelector = new UiSelector().className("android.widget.Button").instance(1); // dialog upload button
+        UiObject button = device.findObject(uiSelector);
+        try {
+            button.click();
+        } catch (UiObjectNotFoundException e1) {
+            fail(e1.getMessage());
+        }
+        UploadConflictTest.fillCommentAndSource(instrumentation, device);
+        try {
+            button.clickAndWaitForNewWindow();
+        } catch (UiObjectNotFoundException e1) {
+            fail(e1.getMessage());
+        }
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.upload_limit_title)));
+        assertTrue(TestUtils.clickText(device, false, main.getString(android.R.string.ok), true));
+    }
+
+    /**
      * Clear data
      */
     @Test
@@ -181,7 +211,7 @@ public class TransferMenuTest {
         assertFalse(App.getDelegator().getApiStorage().isEmpty());
         TestUtils.clickMenuButton(device, main.getString(R.string.menu_transfer), false, true);
         TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_data_clear), true, false);
-        TestUtils.clickText(device, false, main.getString(R.string.unsaved_data_proceed), true, false);       
+        TestUtils.clickText(device, false, main.getString(R.string.unsaved_data_proceed), true, false);
         assertTrue(App.getDelegator().getCurrentStorage().isEmpty());
         assertTrue(App.getDelegator().getApiStorage().isEmpty());
     }
