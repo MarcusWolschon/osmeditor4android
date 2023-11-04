@@ -3,6 +3,7 @@ package de.blau.android.exception;
 import java.net.HttpURLConnection;
 
 import android.util.Log;
+import de.blau.android.contract.HttpStatusCodes;
 
 public class OsmServerException extends OsmException {
 
@@ -123,6 +124,10 @@ public class OsmServerException extends OsmException {
             return "An internal error occurred. This is usually an uncaught Ruby exception and should be reported as a bug. There have been cases where such errors were caused by timeouts, i.e. a retry after a short waiting period could succeed. ";
         case HttpURLConnection.HTTP_UNAVAILABLE:
             return "The database has been taken offline for maintenance. ";
+        case HttpStatusCodes.HTTP_TOO_MANY_REQUESTS:
+            return "The upload allowance for the account has been exhausted. ";
+        case HttpStatusCodes.HTTP_BANDWIDTH_LIMIT_EXCEEDED:
+            return "Data download has been rate-limited. ";
         default:
             Log.w(DEBUG_TAG, "Unknown error code " + errorCode);
         }
