@@ -4619,21 +4619,9 @@ public class Main extends FullScreenAppCompatActivity
      * @param e the OsmElement
      */
     private <E extends OsmElement> void appendToTextList(@NonNull StringBuilder list, @NonNull List<E> elements, @NonNull E e) {
-        list.append(e.getDescription(this));
-        if (!lastMember(elements, e)) {
+        if (list.length() > 0) {
             list.append(", ");
         }
-    }
-
-    /**
-     * Check if this is the last member of a list
-     * 
-     * @param <T> type of the List member
-     * @param l the list
-     * @param o the member we are checking
-     * @return true if it is the last item in the list
-     */
-    private <T> boolean lastMember(@NonNull List<T> l, @NonNull T o) {
-        return l.indexOf(o) == (l.size() - 1);
+        list.append(e.getDescription(this));
     }
 }
