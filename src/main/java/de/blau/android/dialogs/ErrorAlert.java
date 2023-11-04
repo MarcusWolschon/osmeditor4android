@@ -267,7 +267,7 @@ public class ErrorAlert extends ImmersiveDialogFragment {
         if (messageId != 0) {
             String message = getString(messageId);
             if (originalMessage != null) {
-                message = message + "<p/>" + originalMessage;
+                message = message + "<p/><i>" + originalMessage + "</i>";
             }
             builder.setMessage(Util.fromHtml(message));
         }

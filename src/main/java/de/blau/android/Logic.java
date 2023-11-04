@@ -4120,6 +4120,7 @@ public class Logic {
                         break;
                     case HttpStatusCodes.HTTP_TOO_MANY_REQUESTS:
                         result.setError(ErrorCodes.UPLOAD_LIMIT_EXCEEDED);
+                        result.setMessage(e.getMessage());
                         break;
                     default:
                         Log.e(DEBUG_TAG, METHOD_UPLOAD, e);
