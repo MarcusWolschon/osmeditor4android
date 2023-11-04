@@ -10,7 +10,9 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
+import android.text.style.TypefaceSpan;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -25,6 +27,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import de.blau.android.gpx.WayPoint;
 import de.blau.android.layer.ClickedObject;
 import de.blau.android.osm.Node;
@@ -63,6 +66,7 @@ public class DisambiguationMenu {
     private final List<OnMenuItemClickListener> onClickListeners = new ArrayList<>();
     private View                                header;
     private boolean                             rtl;
+    private final TypefaceSpan                  monospaceSpan;
 
     /**
      * Create a new menu to disambiguate between nearby objects
@@ -72,6 +76,7 @@ public class DisambiguationMenu {
     public DisambiguationMenu(@NonNull View anchor) {
         this.anchor = anchor;
         rtl = Util.isRtlScript(anchor.getContext());
+        monospaceSpan = new TypefaceSpan(ResourcesCompat.getFont(anchor.getContext(), R.font.b612mono));
     }
 
     /**
@@ -172,13 +177,14 @@ public class DisambiguationMenu {
      * @param listener callback when the menu item is selected
      */
     public void add(int id, @Nullable Type type, @NonNull String text, boolean selected, @NonNull final OnMenuItemClickListener listener) { // NOSONAR
-        if (selected) {
-            SpannableString s = new SpannableString(text);
-            s.setSpan(new ForegroundColorSpan(ThemeUtils.getStyleAttribColorValue(anchor.getContext(), R.attr.colorAccent, 0)), 0, s.length(), 0);
-            add(new DisambiguationMenuItem(type, s), listener);
-            return;
+        SpannableString s = new SpannableString(text);
+        if (text.length() > 0) {
+            s.setSpan(monospaceSpan, 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            if (selected) {
+                s.setSpan(new ForegroundColorSpan(ThemeUtils.getStyleAttribColorValue(anchor.getContext(), R.attr.colorAccent, 0)), 1, s.length(), 0);
+            }
         }
-        add(new DisambiguationMenuItem(type, text), listener);
+        add(new DisambiguationMenuItem(type, s), listener);
     }
 
     /**

@@ -41,6 +41,7 @@ public class LicenseViewer extends ConfigurationChangeAwareActivity {
         load("LICENSE-Apache.txt", builder);
         load("josm-contributors.txt", builder);
         load("LICENSE-LGPL3.txt", builder);
+        load("LICENSE-OFL.txt", builder);
         textFull.setText(builder.toString());
         setContentView(container);
     }
