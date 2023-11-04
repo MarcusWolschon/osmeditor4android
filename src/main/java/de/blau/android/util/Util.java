@@ -225,14 +225,7 @@ public final class Util {
      */
     @NonNull
     public static String getBearingString(@NonNull Context context, double sLon, double sLat, double eLon, double eLat) {
-        long bearing = GeoMath.bearing(sLon, sLat, eLon, eLat);
-
-        int index = (int) (bearing - 22.5);
-        if (index < 0) {
-            index += 360;
-        }
-        index = index / 45;
-        return context.getString(bearingStrings[index]);
+        return context.getString(bearingStrings[getBearingIndex(sLon, sLat, eLon, eLat)]);
     }
 
     private static final char[] bearingArrows = { '↗', '→', '↘', '↓', '↙', '←', '↖', '↑' };
@@ -248,6 +241,19 @@ public final class Util {
      */
     @NonNull
     public static char getBearingArrow(double sLon, double sLat, double eLon, double eLat) {
+        return bearingArrows[getBearingIndex(sLon, sLat, eLon, eLat)];
+    }
+
+    /**
+     * Calculate the bearing and return an index in to an array holding display values
+     * 
+     * @param sLon start lon
+     * @param sLat start lat
+     * @param eLon end lon
+     * @param eLat end lat
+     * @return the index
+     */
+    private static int getBearingIndex(double sLon, double sLat, double eLon, double eLat) {
         long bearing = GeoMath.bearing(sLon, sLat, eLon, eLat);
 
         int index = (int) (bearing - 22.5);
@@ -255,7 +261,7 @@ public final class Util {
             index += 360;
         }
         index = index / 45;
-        return bearingArrows[index];
+        return index;
     }
 
     /**
