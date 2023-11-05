@@ -4589,13 +4589,13 @@ public class Main extends FullScreenAppCompatActivity
         if (e instanceof Node) {
             List<Way> ways = App.getLogic().getWaysForNode((Node) e);
             for (Way w : ways) {
-                appendToTextList(parentList, ways, w);
+                appendToTextList(parentList, w);
             }
         }
         if (e.hasParentRelations()) {
             List<Relation> relations = e.getParentRelations();
             for (Relation r : relations) {
-                appendToTextList(parentList, relations, r);
+                appendToTextList(parentList, r);
             }
         }
         String description = e.getDescription(this, false);
@@ -4615,10 +4615,9 @@ public class Main extends FullScreenAppCompatActivity
      * 
      * @param <E> OsmElement type
      * @param list a StringBuilder for the output
-     * @param elements a List of the OsmElements
      * @param e the OsmElement
      */
-    private <E extends OsmElement> void appendToTextList(@NonNull StringBuilder list, @NonNull List<E> elements, @NonNull E e) {
+    private <E extends OsmElement> void appendToTextList(@NonNull StringBuilder list, @NonNull E e) {
         if (list.length() > 0) {
             list.append(", ");
         }
