@@ -160,6 +160,12 @@
   <string name="maproulette_task_no_apikey">אין מפתח API של MapRoulette</string>
   <string name="maproulette_description">Maproulette: %1$s</string>
   <!--Todo dialogs-->
+  <plurals name="add_todo_title">
+    <item quantity="one">הוספת רכיב לרשימת המטלות</item>
+    <item quantity="two">הוספת רכיבים לרשימת המטלות</item>
+    <item quantity="many">הוספת רכיבים לרשימת המטלות</item>
+    <item quantity="other">הוספת רכיבים לרשימת המטלות</item>
+  </plurals>
   <string name="all_todos_done_title">כל המטלות ברשימה בוצעו</string>
   <string name="all_todos_done_message">כל המטלות ברשימה „%1$s” בוצעו.</string>
   <string name="all_todos_in_current_done_message">כל המטלות ברשימה הנוכחית בוצעו</string>

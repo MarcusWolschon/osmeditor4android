@@ -2197,7 +2197,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13803(item:name|group:Crafts|preset:Beekeeper)
 msgid "Beekeeper"
-msgstr ""
+msgstr "Včelár"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12097(check:text|preset:Payment_Methods|key:payment:ep_beep)
 msgid "Beep"
@@ -2442,7 +2442,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13810(item:name|group:Crafts|preset:Blacksmith)
 msgid "Blacksmith"
-msgstr ""
+msgstr "Kováč"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8123(item:name|group:Facilities|preset:Bleachers)
 msgid "Bleachers"
@@ -2784,7 +2784,7 @@ msgstr "Zarážadlo"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13838(item:name|group:Crafts|preset:Builder)
 msgid "Builder"
-msgstr ""
+msgstr "Staviteľ"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:10529(list_entry:display_value|group:Historic_Places_&_Objects|preset:Historic_object|value:building)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:10605(item:name|group:Historic_Places_&_Objects|preset:Building)
@@ -3238,7 +3238,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13852(item:name|group:Crafts|preset:Carpenter)
 msgid "Carpenter"
-msgstr ""
+msgstr "Stolár"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:11340(item:name|group:Home_furnishing_and_decoration|preset:Carpet)
 msgid "Carpet"
@@ -3676,7 +3676,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13880(item:name|group:Crafts|preset:Clockmaker)
 msgid "Clockmaker"
-msgstr ""
+msgstr "Hodinár"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:11040(group:name|group:Clothes)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:11041(item:name|group:Clothes|preset:Clothes)
@@ -3702,7 +3702,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1744(combo:display_values|key:resource)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9901(list_entry:display_value|group:Power_Plant|preset:Power_Plant|value:coal)
 msgid "Coal"
-msgstr ""
+msgstr "Uhlie"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:10072(item:name|group:Power_Generator|preset:Coal_Power_Generator)
 msgid "Coal Power Generator"
@@ -5191,7 +5191,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13894(item:name|group:Crafts|preset:Electrician)
 msgid "Electrician"
-msgstr ""
+msgstr "Elektrikár"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1121(combo:text|key:generator:output:electricity)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1156(combo:text|key:plant:output:electricity)
@@ -6305,7 +6305,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:14194(item:name|group:Crafts|preset:Gardener)
 msgid "Gardener"
-msgstr ""
+msgstr "Záhradník"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:10034(list_entry:display_value|group:Power_Generator|preset:Power_Generator|value:gas)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1167(combo:display_values|key:utility)
@@ -6526,7 +6526,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1744(combo:display_values|key:resource)
 msgid "Gold"
-msgstr ""
+msgstr "Zlato"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8394(group:name|group:Golf)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8920(item:name|group:Sport_(Ball)|preset:Golf)
@@ -7673,7 +7673,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:14243(item:name|group:Crafts|preset:Jeweller)
 msgid "Jeweller"
-msgstr ""
+msgstr "Klenotník"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:11535(item:name|group:For_the_body|preset:Jewellery)
 msgid "Jewellery"
@@ -9119,7 +9119,7 @@ msgstr "Vodná priekopa"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:11162(item:name|group:Electronics|preset:Mobile_Phone)
 msgid "Mobile Phone"
-msgstr ""
+msgstr "Mobilný telefón"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1844(check:text|key:authentication:app)
 msgid "Mobile app"
@@ -10866,7 +10866,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13998(item:name|group:Crafts|preset:Painter)
 msgid "Painter"
-msgstr ""
+msgstr "Maliar"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6800(list_entry:display_value|group:Culture|preset:Artwork|value:painting)
 msgid "Painting"
@@ -11173,7 +11173,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2649(item:name|group:Ways|preset:Path)
 msgid "Path"
-msgstr ""
+msgstr "Chodníček"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8139(combo:display_values|group:Facilities|preset:Outdoor_seating|key:weather_protection)
 msgid "Pavilion"
@@ -11400,7 +11400,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:14201(item:name|group:Crafts|preset:Photographer)
 msgid "Photographer"
-msgstr ""
+msgstr "Fotograf"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:14012(item:name|group:Crafts|preset:Photographic_laboratory)
 msgid "Photographic laboratory"
@@ -11687,7 +11687,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:14026(item:name|group:Crafts|preset:Plumber)
 msgid "Plumber"
-msgstr ""
+msgstr "Inštalatér"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:11681(combo:display_values|group:Other|preset:Trade_supplies|key:trade)
 msgid "Plumbing"
@@ -13082,7 +13082,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:14047(item:name|group:Crafts|preset:Roofer)
 msgid "Roofer"
-msgstr ""
+msgstr "Strechár"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9273(item:name|group:Indoor_elements|preset:Room)
 msgid "Room"
@@ -13855,7 +13855,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:14215(item:name|group:Crafts|preset:Shoemaker)
 msgid "Shoemaker"
-msgstr ""
+msgstr "Obuvník"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:11935(multiselect:display_values|group:Other|preset:Repair|key:repair)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1729(check:text|key:recycling:shoes)
@@ -16605,7 +16605,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:14159(item:name|group:Crafts|preset:Watchmaker)
 msgid "Watchmaker"
-msgstr ""
+msgstr "Výrobca hodín"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:10672(list_entry:display_value|group:Historic_Places_&_Objects|preset:Fortification_Site|value:watchtower)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9307(combo:display_values|group:Man_Made|preset:Tower|key:tower:type)

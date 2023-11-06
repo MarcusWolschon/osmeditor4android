@@ -29,6 +29,9 @@
     <string name="help_newnoteselection">בחירה בהערות חדשות</string>
     <string name="help_voice_commands">פקודות קוליות</string>
     <string name="help_add_route_segment">הוספת מקטע מסלול</string>
+    <string name="help_upgrade">הערות הוצאה לאור של 19.3</string>
+    <string name="help_upgrade_192">הערות הוצאה לאור של 19.2</string>
+    <string name="help_upgrade_191">הערות הוצאה לאור של 19.1</string>
     <string name="help_upgrade_190">הערות הוצאה לאור של 19.0</string>
     <string name="help_upgrade_181">הערות הוצאה לאור של 18.1</string>
     <string name="help_upgrade_180">הערות הוצאה לאור של 18.0</string>

@@ -8,7 +8,7 @@
   <string name="mode_address">Adresse</string>
   <string name="mode_voice">Stimme</string>
   <!--additional short cuts-->
-  <string name="shortcut_safe">Speichern</string>
+  <string name="shortcut_safe">Sicherer Start</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Achtung!</string>
   <string name="transfer_download_current_dialog_message">Sie haben Änderungen vorgenommen. Möchten Sie diese hochladen, anstatt sie zu verwerfen?</string>

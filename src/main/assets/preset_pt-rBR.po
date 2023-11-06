@@ -4315,7 +4315,7 @@ msgstr "Almofada"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1654(combo:display_values|key:nudism)
 msgid "Customary"
-msgstr ""
+msgstr "Habitual"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12184(combo:display_values|group:Money|preset:Automated_Teller_Machine|key:cash_in)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1877(combo:display_values|key:sanitary_dump_station)
@@ -7153,7 +7153,7 @@ msgstr "Unidades de Cuidados Paliativos"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7173(item:name|group:Health|preset:Hospital)
 msgid "Hospital"
-msgstr ""
+msgstr "Hospital"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:5583(item:name|group:Accommodation|preset:Hostel)
 msgid "Hostel"
@@ -9124,7 +9124,7 @@ msgstr "Fosso inundado"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:11162(item:name|group:Electronics|preset:Mobile_Phone)
 msgid "Mobile Phone"
-msgstr ""
+msgstr "Celular"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1844(check:text|key:authentication:app)
 msgid "Mobile app"
@@ -10154,7 +10154,7 @@ msgstr "Reator Nuclear"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1654(combo:text|key:nudism)
 msgid "Nudism"
-msgstr ""
+msgstr "Nudismo"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2793(text:text|group:Waypoints|preset:Motorway_Junction|key:ref)
 msgid "Number"
@@ -10283,7 +10283,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1654(combo:display_values|key:nudism)
 msgid "Obligatory"
-msgstr ""
+msgstr "Obrigatório"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9307(combo:display_values|group:Man_Made|preset:Tower|key:tower:type)
 msgid "Observation"
@@ -21440,7 +21440,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9118(list_entry:display_value|group:Buildings|preset:Building_construction|value:hospital)
 msgctxt "building"
 msgid "Hospital"
-msgstr ""
+msgstr "Hospital"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1509(combo:display_values|key:building:use)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9063(list_entry:display_value|group:Buildings|preset:Building|value:hotel)
@@ -23652,7 +23652,7 @@ msgstr "Natural"
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7750(list_entry:display_value|group:Clubs|preset:Club|value:nudism)
 msgctxt "leisure"
 msgid "Nudism"
-msgstr ""
+msgstr "Nudismo"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7751(list_entry:display_value|group:Clubs|preset:Club|value:photography)
 msgctxt "leisure"

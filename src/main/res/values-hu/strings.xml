@@ -188,6 +188,7 @@
   <string name="imagery_offset_date">Létrehozva</string>
   <string name="imagery_offset_zoom">Nagyítás</string>
   <string name="imagery_offset_distance">Távolság</string>
+  <string name="zoom_and_offsets">Zoom %1$d\nEltolás\n%2$s°/%3$s°\n%4$sm/%5$sm</string>
   <string name="set_position_datum_label">Geodéziai rendszer</string>
   <string name="WGS84">WGS84</string>
   <string name="tag_editor_name_suggestion">Névjavaslat</string>
@@ -330,6 +331,12 @@ elemek megkövetelése</string>
   <string name="add_resurvey_entry">Újbóli felmérés bejegyzésének hozzáadása</string>
   <string name="add_check_entry">Ellenőrzési bejegyzés hozzáadása</string>
   <!--Safe mode dialog-->
+  <string name="safe_mode_dialog_title">Biztonságos mód beállításai</string>
+  <string name="safe_style_label">Adatstílus minimálisra állítása</string>
+  <string name="safe_layer_label">Összes réteg letiltása</string>
+  <string name="safe_state_label">Mentett állapot eltávolítása</string>
+  <string name="safe_delete_state_title">Törli a mentett állapotot?</string>
+  <string name="safe_delete_state_text">Igen (nem vonható vissza)</string>
   <!--Empty relation dialog-->
   <string name="empty_relation_title">Üres kapcsolat</string>
   <string name="empty_relation_message">A(z) %1$s kapcsolatnak nincs tagja.\n\nHa így marad, akkor a Vespuccival később nem lehet szerkeszteni.</string>
@@ -391,6 +398,7 @@ elemek megkövetelése</string>
   <string name="layer_change_style">Stílus módosítása…</string>
   <string name="layer_load_style">Stílus betöltése…</string>
   <string name="layer_reset_style">Stílus visszaállítása</string>
+  <string name="layer_set_date_range">Dátumtartomány megadása…</string>
   <string name="layer_select_imagery">Légi felvétel kijelölése…</string>
   <string name="layer_test">Teszt…</string>
   <string name="layer_category_all">Összes</string>
@@ -428,6 +436,7 @@ elemek megkövetelése</string>
   <!--Mapillary layer-->
   <string name="mapillary_image">%1$s</string>
   <!--Date range dialog-->
+  <string name="date_range_title">Dátumtartomány megadása</string>
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Fénykép törlése</string>
   <string name="photo_viewer_delete_button">Végleges törlés</string>
@@ -588,6 +597,9 @@ elemek megkövetelése</string>
   <string name="toast_split_to">Szétvágott „to” vonal</string>
   <string name="toast_tile_database_issue_short">Csempeadatbázis-probléma</string>
   <string name="toast_tile_database_issue">Komoly probléma van a térkép csempeadatbázisával\n„%1$s”\nNézze meg a GYIK-et ezen a weboldalon: https://vespucci.io/</string>
+  <string name="toast_tile_source_issue">Súlyos probléma a térképcsempe-forrással, ideiglenesen letiltva\n%1$s</string>
+  <string name="toast_tile_container_issue">%1$s: ez csempetároló-fájl nem létezik vagy nem nyitható meg</string>
+  <string name="toast_unable_to_configure_from_source">Nem lehet távolról konfigurálni: %1$s</string>
   <string name="toast_invalid_apiurl">Érvénytelen API URL</string>
   <string name="toast_invalid_readonlyurl">Érvénytelen csak olvasható API URL</string>
   <string name="toast_invalid_notesurl">Érvénytelen jegyzet API URL</string>
@@ -601,6 +613,7 @@ elemek megkövetelése</string>
   <string name="toast_no_coverage">Nincs lefedettség ehhez: %1$s</string>
   <string name="toast_tile_layer_errors">Ez a képforrás hibás: %1$s</string>
   <string name="toast_file_exists">A(z) %1$s fájl létezik.</string>
+  <string name="toast_network_file_not_supported">Ehhez a fájlhoz nem támogatott a hálózaton keresztül történő hozzáférés. Másolja át egy helyi tárolóba.\n%1$s</string>
   <string name="toast_needs_resurvey">Az objektum elavult lehet</string>
   <string name="toast_missing_key">A(z) %1$s kulcs hiányzik</string>
   <string name="toast_invalid_object">Érvénytelen objektum</string>
@@ -619,6 +632,7 @@ elemek megkövetelése</string>
   <string name="toast_applied_offset">Képeltolása alkalmazva.</string>
   <string name="toast_unsupported_format">Nem támogatott formátum: %1$s</string>
   <string name="toast_returning_less_than_found">%1$d / %2$d talált bejegyzés visszaadása</string>
+  <string name="toast_not_mbtiles">A fájl formátuma nem MBTiles vagy PMTiles</string>
   <string name="toast_using_network_location">Hálózati helyadatok használata</string>
   <string name="toast_using_gps_location">GPS/GNSS helyadatok használata</string>
   <string name="toast_using_gps_disabled_tracking_stopped">A GPS/GNSS helymeghatározás ki van kapcsolva, fontolja meg a követés leállítását.</string>
@@ -693,6 +707,8 @@ elemek megkövetelése</string>
   <string name="toast_updating_tags">Címkék frissítése…</string>
   <string name="toast_updating_parents">Szülők frissítése…</string>
   <string name="toast_updating_members">Tagok frissítése…</string>
+  <string name="toast_error_loading_egm">Hiba történt az EGM %1$s betöltésénél</string>
+  <string name="toast_querying_wms_server_failed">Nem sikerült a WMS-kiszolgálóról történő lekérdezés: %1$s</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">A MapSplit forrásoknál meg kell adni a legkisebb és legnagyobb nagyítást</string>
   <string name="error_pbf_no_version">A verzióinformációk hiányoznak a PBF-fájlban</string>
@@ -1016,6 +1032,7 @@ elemek megkövetelése</string>
   <string name="element_for_menu">%1$s</string>
   <string name="element_for_menu_with_direction">%1$s %2$s</string>
   <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
+  <string name="element_for_menu_with_parents_with_direction">%1$s %2$s (%3$s)</string>
   <!--Text should be as short as possible-->
   <string name="start_end_way_description">Ugrás a vonal elejéhez vagy végéhez</string>
   <string name="menu_history">Előzmények</string>
@@ -1172,6 +1189,8 @@ elemek megkövetelése</string>
   <string name="config_theme_summary">App stílus kiválasztása</string>
   <string name="config_splitActionBarEnabled_title">Szétvágás műveletsáv engedélyezése</string>
   <string name="config_splitActionBarEnabled_summary">A képernyő alján lévő menügombok megjelenítése. A Vespucci újraindítása és Android 4.0 vagy újabb verziószám szükséges.</string>
+  <string name="config_appLocale_title">Alkalmazás nyelve</string>
+  <string name="config_appLocale_summary">Nem standard alkalmazásnyelv kiválasztása</string>
   <string name="config_maxInlineValues_title">A soron belüli értékek maximális száma</string>
   <string name="config_maxInlineValues_summary">A soron belül megjelenített értékek maximális száma a címkeűrlapon.</string>
   <string name="config_maxInlineValues_current">%1$d érték</string>
@@ -1313,6 +1332,8 @@ elemek megkövetelése</string>
   <string name="config_taginfoServer_summary">Az előbeállítás-létrehozáshoz használt Taginfo kiszolgáló</string>
   <string name="config_overpassServer_title">Overpass-szerver</string>
   <string name="config_overpassServer_summary">A lekérdezésekhez használat Overpass-kiszolgáló</string>
+  <string name="config_oamServer_title">OpenAerialMap kiszolgáló</string>
+  <string name="config_oamServer_summary">A képek kiszolgálására használt OpenAerialMap-szerver</string>
   <!--Layer download and storage-->
   <string name="config_category_layers">Rétegek letöltése és tárolása</string>
   <string name="config_category_layers_summary">Csempealapú háttér-légifelvételek letöltése és tárolása.</string>

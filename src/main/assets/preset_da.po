@@ -2117,7 +2117,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:10641(list_entry:short_description|group:Historic_Places_&_Objects|preset:Archaeological_Site|value:baths)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:10655(list_entry:short_description|group:Historic_Places_&_Objects|preset:Archaeological_Site|value:baths)
 msgid "Baths"
-msgstr ""
+msgstr "Bade"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1710(check:text|key:recycling:batteries)
 msgid "Batteries"
@@ -5268,7 +5268,7 @@ msgstr "E-mailadresse"
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:250(check:text|key:embankment)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9567(item:name|group:Man_Made|preset:Embankment)
 msgid "Embankment"
-msgstr ""
+msgstr "Forhøjning / vejdæmning"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:14280(item:name|group:Offices|preset:Embassy)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6969(item:name|group:Public_Building|preset:Embassy)
@@ -7908,7 +7908,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3974(list_entry:display_value|group:Water|preset:Other_waterbodies|value:lake)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7421(list_entry:display_value|group:Emergency|preset:Fire_Hydrant|value:lake)
 msgid "Lake"
-msgstr ""
+msgstr "Sø"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12782(group:name|group:Land_use)
 msgid "Land use"
@@ -9029,7 +9029,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9527(item:name|group:Man_Made|preset:Mineshaft)
 msgid "Mineshaft"
-msgstr ""
+msgstr "Mineskakt"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2894(combo:display_values|group:Traffic_Calming|preset:Traffic_Calming|key:traffic_calming)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2942(item:name|group:Traffic_Calming|preset:Mini_bumps)
