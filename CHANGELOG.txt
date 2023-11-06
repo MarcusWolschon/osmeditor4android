@@ -1,5 +1,16 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+19.3.0:
+
+- Fix use a monospace font for arrows
+- Fix set commas correctly
+- Fix report errors in fixupApiStorage when reading files
+- Fix return correct paths for Uris that use the Vespucci file provider
+- Add explicit handling for 509 error on download and 429 in upload
+- Update translations
+- Update imagery from ELI
+- Update preset
+
 19.3.0-1:
 
 - Fix keep org.eclipse.egit.github.core.** fixes crash creating issues due to changes R8/Proguard behaviour
