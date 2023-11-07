@@ -59,6 +59,8 @@ The GeoJson and Turf classes are Copyright (c) 2016 Mapbox licensed on MIT terms
 
 The google gson library is licensed under the Apache License, version 2.
 
+TypefaceSpanCompat and LeakyTypefaceStorage are derived from the corresponding AOSP code licensed under the Apache License, version 2.
+
 Roulette Wheel by Bakunetsu Kaito from the Noun Project
 
 The material design lightbulb from Austin Andrews SIL Open Font License 1.1

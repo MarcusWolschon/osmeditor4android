@@ -32,6 +32,14 @@ public class LeakyTypefaceStorage {
     private static final ArrayList<Typeface> sStorage = new ArrayList<>();
     private static final ArrayMap<Typeface, Integer> sTypefaceMap = new ArrayMap<>();
 
+    
+    /**
+     * Private constructor to stop instantiation
+     */
+    private LeakyTypefaceStorage() {
+        // nothing
+    }
+    
     /**
      * Write typeface to parcel.
      *
