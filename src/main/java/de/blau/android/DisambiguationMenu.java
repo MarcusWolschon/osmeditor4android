@@ -12,7 +12,6 @@ import android.os.Build;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
-import android.text.style.TypefaceSpan;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -41,6 +40,7 @@ import de.blau.android.tasks.OsmoseBug;
 import de.blau.android.tasks.Todo;
 import de.blau.android.util.Screen;
 import de.blau.android.util.ThemeUtils;
+import de.blau.android.util.TypefaceSpanCompat;
 import de.blau.android.util.Util;
 
 /**
@@ -66,7 +66,7 @@ public class DisambiguationMenu {
     private final List<OnMenuItemClickListener> onClickListeners = new ArrayList<>();
     private View                                header;
     private boolean                             rtl;
-    private final TypefaceSpan                  monospaceSpan;
+    private final TypefaceSpanCompat            monospaceSpan;
 
     /**
      * Create a new menu to disambiguate between nearby objects
@@ -76,7 +76,7 @@ public class DisambiguationMenu {
     public DisambiguationMenu(@NonNull View anchor) {
         this.anchor = anchor;
         rtl = Util.isRtlScript(anchor.getContext());
-        monospaceSpan = new TypefaceSpan(ResourcesCompat.getFont(anchor.getContext(), R.font.b612mono));
+        monospaceSpan = new TypefaceSpanCompat(ResourcesCompat.getFont(anchor.getContext(), R.font.b612mono));
     }
 
     /**
