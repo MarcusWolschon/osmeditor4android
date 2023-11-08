@@ -1,13 +1,8 @@
 package de.blau.android.dialogs;
 
 import android.os.Bundle;
-import android.text.Spanned;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.ViewGroup;
-import android.widget.ScrollView;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatDialog;
@@ -16,8 +11,6 @@ import androidx.fragment.app.FragmentManager;
 import de.blau.android.R;
 import de.blau.android.listener.DoNothingListener;
 import de.blau.android.util.InfoDialogFragment;
-import de.blau.android.util.ThemeUtils;
-import de.blau.android.util.Util;
 
 /**
  * A generic dialog fragment to display some info on layers
@@ -64,15 +57,5 @@ public abstract class LayerInfo extends InfoDialogFragment {
         builder.setPositiveButton(R.string.done, doNothingListener);
         builder.setView(createView(null));
         return builder.create();
-    }
-
-    /**
-     * Get the string resource formated as an italic string
-     * 
-     * @param resId String resource id
-     * @return a Spanned containing the string
-     */
-    protected Spanned toItalic(int resId) {
-        return Util.fromHtml("<i>" + getString(resId) + "</i>");
     }
 }
