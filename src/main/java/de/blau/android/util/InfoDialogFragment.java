@@ -8,8 +8,11 @@ import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ScrollView;
+import android.widget.TableLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import de.blau.android.R;
 
 public abstract class InfoDialogFragment extends ImmersiveDialogFragment {
     
@@ -37,6 +40,32 @@ public abstract class InfoDialogFragment extends ImmersiveDialogFragment {
      * @return the View
      */
     protected abstract View createView(@Nullable ViewGroup container);
+    
+    /**
+     * Create the view we want to display
+     * 
+     * Classes extending LayerInfo need to override this but call through to the super method to get the view
+     * 
+     * @param container parent view or null
+     * @return the View
+     */
+    @NonNull
+    protected ScrollView createEmptyView(@Nullable ViewGroup container) {
+        LayoutInflater inflater = ThemeUtils.getLayoutInflater(getActivity());
+        return (ScrollView) inflater.inflate(R.layout.element_info_view, container, false);
+    }
+    
+    /**
+     * Setup the table layout params
+     * 
+     * @return an instance of TableLayout.LayoutParams
+     */
+    @NonNull
+    protected TableLayout.LayoutParams getTableLayoutParams() {
+        TableLayout.LayoutParams tp = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        tp.setMargins(10, 2, 10, 2);
+        return tp;
+    }
     
     /**
      * Get the string resource formated as an italic string

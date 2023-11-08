@@ -9,7 +9,6 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ScrollView;
@@ -35,7 +34,6 @@ import de.blau.android.services.util.ExtendedLocation;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.InfoDialogFragment;
 import de.blau.android.util.ScreenMessage;
-import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
 /**
@@ -251,18 +249,13 @@ public class GnssPositionInfo extends InfoDialogFragment {
 
     @Override
     protected View createView(@Nullable ViewGroup container) {
-        LayoutInflater inflater;
-        FragmentActivity activity = getActivity();
-        inflater = ThemeUtils.getLayoutInflater(activity);
-        ScrollView sv = (ScrollView) inflater.inflate(R.layout.element_info_view, container, false);
+        ScrollView sv = createEmptyView(container);
         tl = (TableLayout) sv.findViewById(R.id.element_info_vertical_layout);
-
-        tp = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        tp.setMargins(10, 2, 10, 2);
+        tp = getTableLayoutParams();
 
         if (location != null) {
             tl.setColumnShrinkable(1, true);
-            updateView(activity, tl, tp);
+            updateView(getActivity(), tl, tp);
             tl.postDelayed(update, 1000);
         }
         return sv;

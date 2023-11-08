@@ -7,7 +7,6 @@ import java.util.Locale;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ScrollView;
@@ -25,7 +24,6 @@ import de.blau.android.photos.Photo;
 import de.blau.android.util.ContentResolverUtil;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.InfoDialogFragment;
-import de.blau.android.util.ThemeUtils;
 
 /**
  * Very simple dialog fragment to display some info on a GeoJSON element
@@ -108,17 +106,14 @@ public class ImageInfo extends InfoDialogFragment {
 
     @Override
     protected View createView(@Nullable ViewGroup container) {
-        FragmentActivity activity = getActivity();
-        LayoutInflater inflater = ThemeUtils.getLayoutInflater(activity);
-        ScrollView sv = (ScrollView) inflater.inflate(R.layout.element_info_view, container, false);
+        ScrollView sv = createEmptyView(container);
         TableLayout tl = (TableLayout) sv.findViewById(R.id.element_info_vertical_layout);
-
-        TableLayout.LayoutParams tp = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        tp.setMargins(10, 2, 10, 2);
+        TableLayout.LayoutParams tp = getTableLayoutParams();
 
         if (uri != null) {
             tl.setColumnShrinkable(1, true);
             try {
+                FragmentActivity activity = getActivity();
                 Photo image = new Photo(getContext(), uri, null);
                 tl.addView(TableLayoutUtils.createRow(activity, ContentResolverUtil.getPath(getContext(), uri), null, tp));
                 long size = ContentResolverUtil.getSizeColumn(getContext(), uri);

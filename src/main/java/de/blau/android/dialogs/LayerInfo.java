@@ -67,19 +67,6 @@ public abstract class LayerInfo extends InfoDialogFragment {
     }
 
     /**
-     * Create the view we want to display
-     * 
-     * Classes extending LayerInfo need to override this but call through to the super method to get the view
-     * 
-     * @param container parent view or null
-     * @return the View
-     */
-    protected ScrollView createEmptyView(@Nullable ViewGroup container) {
-        LayoutInflater inflater = ThemeUtils.getLayoutInflater(getActivity());
-        return (ScrollView) inflater.inflate(R.layout.element_info_view, container, false);
-    }
-
-    /**
      * Get the string resource formated as an italic string
      * 
      * @param resId String resource id
