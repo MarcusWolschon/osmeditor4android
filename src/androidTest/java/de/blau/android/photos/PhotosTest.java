@@ -128,12 +128,17 @@ public class PhotosTest {
      */
     // @SdkSuppress(minSdkVersion = 26)
     @Test
-    public void selectDisplayDelete() {
+    public void selectDisplayInfoDelete() {
         addLayerAndIndex();
         TestUtils.unlock(device);
         assertEquals(2, App.getPhotoIndex().count());
         TestUtils.clickAtCoordinates(device, main.getMap(), 7.5886112, 47.5519448, true);
 
+        TestUtils.clickMenuButton(device, context.getString(R.string.menu_information), false, true);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.image_information_title)));
+        TestUtils.sleep(20000);
+        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.done),true, false));
+        
         TestUtils.clickMenuButton(device, context.getString(R.string.delete), false, true);
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.photo_viewer_delete_button), true, false));
 

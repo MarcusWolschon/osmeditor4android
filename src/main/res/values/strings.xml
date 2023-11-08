@@ -256,6 +256,13 @@
     <!-- GPX info dialog -->
     <string name="track_points">Track points</string>
     <string name="way_points">Way points</string>
+    <!-- Image information dialog -->
+    <string name="image_information_title">Image info</string>
+    <string name="created_by">Created by</string>
+    <string name="capture_date">Capture date</string>
+    <string name="direction">Direction</string>
+    <string name="file_size">Size</string>
+    <string name="file_size_kB">%1$d kB</string>
     <!-- Too much data dialog -->
     <string name="too_much_data_title">Too much data loaded!</string>
     <string name="too_much_data_message">You have %1$d Nodes loaded and have exceeded the configured limit. This will lead to slowdown, and if you add more data, to potential issues saving state.</string>

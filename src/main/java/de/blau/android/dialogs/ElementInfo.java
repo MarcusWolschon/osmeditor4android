@@ -25,7 +25,6 @@ import android.text.Spanned;
 import android.text.SpannedString;
 import android.text.style.StyleSpan;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ScrollView;
@@ -60,7 +59,6 @@ import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.InfoDialogFragment;
 import de.blau.android.util.ScreenMessage;
-import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 import de.blau.android.validation.Validator;
 
@@ -264,24 +262,16 @@ public class ElementInfo extends InfoDialogFragment {
         return builder.create();
     }
 
-    /**
-     * Create the view we want to display
-     * 
-     * @param container parent view or null
-     * @return the View
-     */
     @Override
     protected View createView(ViewGroup container) {
-        FragmentActivity activity = getActivity();
-        LayoutInflater themedInflater = ThemeUtils.getLayoutInflater(activity);
-        ScrollView sv = (ScrollView) themedInflater.inflate(R.layout.element_info_view, container, false);
+        ScrollView sv = createEmptyView(container);
         TableLayout tl = (TableLayout) sv.findViewById(R.id.element_info_vertical_layout);
+        TableLayout.LayoutParams tp = getTableLayoutParams();
 
         boolean compare = ue != null;
 
-        TableLayout.LayoutParams tp = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        tp.setMargins(10, 2, 10, 2);
         if (element != null) {
+            FragmentActivity activity = getActivity();
             boolean deleted = element.getState() == OsmElement.STATE_DELETED;
             tl.setColumnStretchable(1, true);
             tl.setColumnStretchable(2, true);

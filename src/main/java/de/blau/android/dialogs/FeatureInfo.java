@@ -1,7 +1,6 @@
 package de.blau.android.dialogs;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.Set;
 
 import com.google.gson.JsonElement;
@@ -12,9 +11,7 @@ import com.mapbox.geojson.Point;
 
 import android.app.Dialog;
 import android.os.Bundle;
-import android.text.Spanned;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -167,15 +164,12 @@ public class FeatureInfo extends InfoDialogFragment {
 
     @Override
     protected View createView(@Nullable ViewGroup container) {
-        FragmentActivity activity = getActivity();
-        LayoutInflater inflater = ThemeUtils.getLayoutInflater(activity);
-        ScrollView sv = (ScrollView) inflater.inflate(R.layout.element_info_view, container, false);
+        ScrollView sv = createEmptyView(container);
         TableLayout tl = (TableLayout) sv.findViewById(R.id.element_info_vertical_layout);
-
-        TableLayout.LayoutParams tp = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        tp.setMargins(10, 2, 10, 2);
+        TableLayout.LayoutParams tp = getTableLayoutParams();
 
         if (feature != null) {
+            FragmentActivity activity = getActivity();
             tl.setColumnShrinkable(1, true);
             Geometry geometry = feature.geometry();
             if (geometry != null) {
@@ -196,8 +190,8 @@ public class FeatureInfo extends InfoDialogFragment {
 
                         Util.sharePosition(getActivity(), new double[] { p.longitude(), p.latitude() }, null);
                     });
-                    tl.addView(TableLayoutUtils.createRowWithButton(activity, R.string.location_lon_label, prettyPrint(p.longitude()), button, tp));
-                    tl.addView(TableLayoutUtils.createRow(activity, R.string.location_lat_label, prettyPrint(p.latitude()), tp));
+                    tl.addView(TableLayoutUtils.createRowWithButton(activity, R.string.location_lon_label, prettyPrintCoord(p.longitude()), button, tp));
+                    tl.addView(TableLayoutUtils.createRow(activity, R.string.location_lat_label, prettyPrintCoord(p.latitude()), tp));
                 }
             }
             tl.addView(TableLayoutUtils.divider(activity));
@@ -219,26 +213,5 @@ public class FeatureInfo extends InfoDialogFragment {
             }
         }
         return sv;
-    }
-
-    /**
-     * Get the string resource formated as an italic string
-     * 
-     * @param resId String resource id
-     * @return a Spanned containing the string
-     */
-    private Spanned toItalic(int resId) {
-        return Util.fromHtml("<i>" + getString(resId) + "</i>");
-    }
-
-    /**
-     * Pretty print a coordinate value
-     * 
-     * @param coord the coordinate in WGS84
-     * @return a reasonable looking string representation
-     */
-    @NonNull
-    private static String prettyPrint(double coord) {
-        return String.format(Locale.US, "%.7f", coord) + "°";
     }
 }

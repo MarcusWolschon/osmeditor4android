@@ -43,6 +43,9 @@ public class Photo implements BoundedObject, GeoPoint, Serializable {
     private int          direction    = 0;
     private String       directionRef = null; // if null direction not present
 
+    private Long   captureDate = null;
+    private String creator     = null;
+
     /**
      * Construct a Photo object from an Uri
      * 
@@ -139,6 +142,8 @@ public class Photo implements BoundedObject, GeoPoint, Serializable {
             directionRef = exif.getAttribute(ExifInterface.TAG_GPS_IMG_DIRECTION_REF);
             Log.d(DEBUG_TAG, "dir " + dir + " direction " + direction + " ref " + directionRef);
         }
+        captureDate = exif.getDateTime();
+        creator = exif.getAttribute(ExifInterface.TAG_ARTIST);
     }
 
     /**
@@ -263,6 +268,7 @@ public class Photo implements BoundedObject, GeoPoint, Serializable {
      * 
      * @return a name for human consumption
      */
+    @Nullable
     public String getDisplayName() {
         return displayName != null && !"".equals(displayName) ? displayName : Uri.parse(ref).getLastPathSegment();
     }
@@ -283,6 +289,22 @@ public class Photo implements BoundedObject, GeoPoint, Serializable {
      */
     public int getDirection() {
         return direction;
+    }
+
+    /**
+     * @return the capture date
+     */
+    @Nullable
+    public Long getCaptureDate() {
+        return captureDate;
+    }
+
+    /**
+     * @return the creator of the image
+     */
+    @Nullable
+    public String getCreator() {
+        return creator;
     }
 
     /**

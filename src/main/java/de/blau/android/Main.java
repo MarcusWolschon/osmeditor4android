@@ -1029,7 +1029,7 @@ public class Main extends FullScreenAppCompatActivity
                         Uri uri = intent.getData();
                         if (!index.deletePhoto(this, uri)) {
                             String path = ContentResolverUtil.getPath(this, uri);
-                            if (path != null && !index.deletePhoto(this, path)) {
+                            if (path == null || !index.deletePhoto(this, path)) {
                                 Log.e(DEBUG_TAG, "deleting " + uri + " from index failed");
                             }
                         }

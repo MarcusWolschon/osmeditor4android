@@ -33,6 +33,7 @@ import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.contract.Ui;
+import de.blau.android.dialogs.ImageInfo;
 import de.blau.android.listener.DoNothingListener;
 import de.blau.android.util.ImageLoader;
 import de.blau.android.util.ImagePagerAdapter;
@@ -61,8 +62,9 @@ public class PhotoViewerFragment extends SizedDynamicImmersiveDialogFragment imp
     private static final int MENUITEM_BACK    = 0;
     private static final int MENUITEM_SHARE   = 1;
     private static final int MENUITEM_GOTO    = 2;
-    private static final int MENUITEM_DELETE  = 3;
-    private static final int MENUITEM_FORWARD = 4;
+    private static final int MENUITEM_INFO    = 3;
+    private static final int MENUITEM_DELETE  = 4;
+    private static final int MENUITEM_FORWARD = 5;
 
     private List<String> photoList = null;
 
@@ -185,6 +187,78 @@ public class PhotoViewerFragment extends SizedDynamicImmersiveDialogFragment imp
                 getDialog().dismiss();
             }
         }
+
+        @Override
+        public boolean supportsInfo() {
+            return true;
+        }
+
+        @Override
+        public void info(@NonNull FragmentActivity activity, @NonNull String uri) {
+            ImageInfo.showDialog(activity, uri);
+        }
+
+        @Override
+        public boolean supportsDelete() {
+            return true;
+        }
+
+        @Override
+        public void delete(@NonNull Context context, @NonNull String uri) {
+            new AlertDialog.Builder(getContext()).setTitle(R.string.photo_viewer_delete_title)
+                    .setPositiveButton(R.string.photo_viewer_delete_button, (dialog, which) -> {
+                        if (viewPager == null) {
+                            return;
+                        }
+                        int position = getCurrentPosition();
+                        final int size = photoList.size();
+                        if (position >= 0 && position < size) { // avoid crashes from bouncing
+                            Uri photoUri = Uri.parse(photoList.get(position));
+                            try {
+                                if (getShowsDialog()) {
+                                    // delete from in memory and on device index
+                                    try (PhotoIndex index = new PhotoIndex(getContext())) {
+                                        index.deletePhoto(getContext(), photoUri);
+                                    }
+                                    Map map = (context instanceof Main) ? ((Main) context).getMap() : null;
+                                    final de.blau.android.layer.photos.MapOverlay overlay = map != null ? map.getPhotoLayer() : null;
+                                    if (overlay != null) {
+                                        // as the Photo was selected before calling this it will still have a
+                                        // reference in the layer
+                                        overlay.deselectObjects();
+                                        overlay.invalidate();
+                                    }
+                                } else {
+                                    Intent intent = new Intent(getContext(), Main.class);
+                                    intent.setAction(Main.ACTION_DELETE_PHOTO);
+                                    intent.setData(photoUri);
+                                    getContext().startActivity(intent);
+                                }
+                                // actually delete
+                                if (getContext().getContentResolver().delete(photoUri, null, null) >= 1) {
+                                    photoList.remove(position);
+                                    position = Math.min(position, size - 1); // this will set pos to -1 if
+                                                                             // empty,
+                                    // but we will exit in that case in any case
+                                    if (getShowsDialog() && photoList.isEmpty()) {
+                                        // in fragment mode we want to stay around
+                                        getDialog().dismiss();
+                                    } else {
+                                        photoPagerAdapter.notifyDataSetChanged();
+                                        viewPager.setCurrentItem(position);
+                                        if (size == 1 && itemBackward != null && itemForward != null) {
+                                            itemBackward.setEnabled(false);
+                                            itemForward.setEnabled(false);
+                                        }
+                                    }
+                                }
+                            } catch (java.lang.SecurityException sex) {
+                                Log.e(DEBUG_TAG, "Error deleting: " + sex.getMessage() + " " + sex.getClass().getName());
+                                ScreenMessage.toastTopError(getContext(), getString(R.string.toast_permission_denied, sex.getMessage()));
+                            }
+                        }
+                    }).setNeutralButton(R.string.cancel, null).show();
+        }
     };
 
     /**
@@ -243,7 +317,11 @@ public class PhotoViewerFragment extends SizedDynamicImmersiveDialogFragment imp
         menu.add(Menu.NONE, MENUITEM_SHARE, Menu.NONE, R.string.share).setIcon(R.drawable.ic_share_white_36dp).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         menu.add(Menu.NONE, MENUITEM_GOTO, Menu.NONE, R.string.photo_viewer_goto).setIcon(R.drawable.ic_map_white_36dp)
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        if (getString(R.string.content_provider).equals(Uri.parse(photoList.get(startPos)).getAuthority())) {
+        if (photoLoader.supportsInfo()) {
+            menu.add(Menu.NONE, MENUITEM_INFO, Menu.NONE, R.string.menu_information).setIcon(R.drawable.outline_info_white_48dp)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        }
+        if (photoLoader.supportsDelete() && getString(R.string.content_provider).equals(Uri.parse(photoList.get(startPos)).getAuthority())) {
             // we can only delete stuff that is provided by our provider, currently this is a bit of a hack
             menu.add(Menu.NONE, MENUITEM_DELETE, Menu.NONE, R.string.delete).setIcon(R.drawable.ic_delete_forever_white_36dp)
                     .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
@@ -303,93 +381,50 @@ public class PhotoViewerFragment extends SizedDynamicImmersiveDialogFragment imp
         int size = photoList.size();
         FragmentActivity caller = getActivity();
         int pos = getCurrentPosition();
-        if (photoList != null && !photoList.isEmpty() && pos < size) {
-            try {
-                switch (item.getItemId()) {
-                case MENUITEM_BACK:
-                    pos = pos - 1;
-                    if (pos == -1) {
-                        pos = size - 1;
-                    }
-                    viewPager.setCurrentItem(pos);
-                    break;
-                case MENUITEM_FORWARD:
-                    pos = (pos + 1) % size;
-                    viewPager.setCurrentItem(pos);
-                    break;
-                case MENUITEM_GOTO:
-                    if (photoLoader != null) {
-                        photoLoader.showOnMap(caller, pos);
-                    }
-                    break;
-                case MENUITEM_SHARE:
-                    if (photoLoader != null) {
-                        photoLoader.share(caller, photoList.get(pos));
-                    }
-                    break;
-                case MENUITEM_DELETE:
-                    // TODO This is not generic and only works for the photo layer
-                    new AlertDialog.Builder(getContext()).setTitle(R.string.photo_viewer_delete_title)
-                            .setPositiveButton(R.string.photo_viewer_delete_button, (dialog, which) -> {
-                                if (viewPager == null) {
-                                    return;
-                                }
-                                int position = getCurrentPosition();
-                                if (position >= 0 && position < photoList.size()) { // avoid crashes from bouncing
-                                    Uri photoUri = Uri.parse(photoList.get(position));
-                                    try {
-                                        if (getShowsDialog()) {
-                                            // delete from in memory and on device index
-                                            try (PhotoIndex index = new PhotoIndex(getContext())) {
-                                                index.deletePhoto(getContext(), photoUri);
-                                            }
-                                            Map map = (caller instanceof Main) ? ((Main) caller).getMap() : null;
-                                            final de.blau.android.layer.photos.MapOverlay overlay = map != null ? map.getPhotoLayer() : null;
-                                            if (overlay != null) {
-                                                // as the Photo was selected before calling this it will still have a
-                                                // reference in the layer
-                                                overlay.deselectObjects();
-                                                overlay.invalidate();
-                                            }
-                                        } else {
-                                            Intent intent = new Intent(getContext(), Main.class);
-                                            intent.setAction(Main.ACTION_DELETE_PHOTO);
-                                            intent.setData(photoUri);
-                                            getContext().startActivity(intent);
-                                        }
-                                        // actually delete
-                                        if (getContext().getContentResolver().delete(photoUri, null, null) >= 1) {
-                                            photoList.remove(position);
-                                            position = Math.min(position, size - 1); // this will set pos to -1 if
-                                                                                     // empty,
-                                            // but we will exit in that case in any case
-                                            if (getShowsDialog() && photoList.isEmpty()) {
-                                                // in fragment mode we want to stay around
-                                                getDialog().dismiss();
-                                            } else {
-                                                photoPagerAdapter.notifyDataSetChanged();
-                                                viewPager.setCurrentItem(position);
-                                                if (photoList.size() == 1 && itemBackward != null && itemForward != null) {
-                                                    itemBackward.setEnabled(false);
-                                                    itemForward.setEnabled(false);
-                                                }
-                                            }
-                                        }
-                                    } catch (java.lang.SecurityException sex) {
-                                        Log.e(DEBUG_TAG, "Error deleting: " + sex.getMessage() + " " + sex.getClass().getName());
-                                        ScreenMessage.toastTopError(getContext(), getString(R.string.toast_permission_denied, sex.getMessage()));
-                                    }
-                                }
-                            }).setNeutralButton(R.string.cancel, null).show();
-                    break;
-                default:
-                    // do nothing
-                }
-            } finally {
-                prepareMenu();
-            }
+        if (photoList == null || photoList.isEmpty() || pos >= size) {
+            return false;
         }
-        return false;
+        try {
+            final boolean loaderPresent = photoLoader != null;
+            switch (item.getItemId()) {
+            case MENUITEM_BACK:
+                pos = pos - 1;
+                if (pos == -1) {
+                    pos = size - 1;
+                }
+                viewPager.setCurrentItem(pos);
+                break;
+            case MENUITEM_FORWARD:
+                pos = (pos + 1) % size;
+                viewPager.setCurrentItem(pos);
+                break;
+            case MENUITEM_GOTO:
+                if (loaderPresent) {
+                    photoLoader.showOnMap(caller, pos);
+                }
+                break;
+            case MENUITEM_SHARE:
+                if (loaderPresent) {
+                    photoLoader.share(caller, photoList.get(pos));
+                }
+                break;
+            case MENUITEM_INFO:
+                if (loaderPresent) {
+                    photoLoader.info(caller, photoList.get(pos));
+                }
+                break;
+            case MENUITEM_DELETE:
+                if (loaderPresent) {
+                    photoLoader.delete(caller, photoList.get(pos));
+                }
+                break;
+            default:
+                // do nothing
+            }
+        } finally {
+            prepareMenu();
+        }
+        return true;
     }
 
     @Override
