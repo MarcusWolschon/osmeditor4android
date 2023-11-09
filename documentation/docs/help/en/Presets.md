@@ -39,7 +39,7 @@ Some further potentially useful presets:
  * <a href="vespucci://preset/?preseturl=http://josm.openstreetmap.de/josmfile%3Fpage=Presets/Simple_Indoor_Tagging%26zip=1&presetname=Simple Indoor Tagging">Presets for Simple Indoor Tagging</a>
  * <a href="vespucci://preset/?preseturl=https://github.com/simonpoole/military-preset/releases/latest/download/military.zip&presetname=Military objects">Presets for military objects</a>
  * <a href="vespucci://preset/?preseturl=https://github.com/simonpoole/US-MUTCD-preset/raw/gh-pages/gen/MUTCD.zip&presetname=MUTCD Access Preset">Presets for US MUTCD access signs</a>
- * <a href="vespucci://preset/?preseturl=https://github.com/simonpoole/xmas-preset/raw/gh-pages/gen/xmas.zip&presetname=Xmas Preset">Presets for xmas schema tagging</a>
+ * <a href="vespucci://preset/?preseturl=https://github.com/simonpoole/xmas-preset/releases/latest/download/xmas.zip&presetname=Xmas Preset">Presets for xmas schema tagging</a>
  * <a href="vespucci:/preset?preseturl=https://github.com/simonpoole/preset-scripting-examples/raw/gh-pages/gen/script_examples.zip&presetname=javascript in Vespucci presets examples">Scripting examples (check date, disused life cycle tag)</a>
  * <a href="vespucci://preset/?preseturl=https://github.com/simonpoole/bicycle-parking-preset/releases/latest/download/bicycle_parking.zip&presetname=Bicycle parking">Bicycle parking with large images</a>
 
