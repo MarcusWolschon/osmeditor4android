@@ -43,7 +43,7 @@ import android.text.style.MetricAffectingSpan;
  * <img src="{@docRoot}reference/android/images/text/style/typefacespan.png" /> <figcaption>Text with
  * <code>TypefaceSpan</code>s constructed based on a font from resource and from a font family.</figcaption>
  */
-public class TypefaceSpanCompat extends MetricAffectingSpan implements ParcelableSpan {
+public class TypefaceSpanCompat extends MetricAffectingSpan {
     @Nullable
     private final String   mFamily;
     @Nullable
@@ -69,33 +69,9 @@ public class TypefaceSpanCompat extends MetricAffectingSpan implements Parcelabl
         this(null, typeface);
     }
 
-    /**
-     * Constructs a {@link TypefaceSpan} from a parcel.
-     */
-    public TypefaceSpanCompat(@NonNull Parcel src) {
-        mFamily = src.readString();
-        mTypeface = LeakyTypefaceStorage.readTypefaceFromParcel(src);
-    }
-
     private TypefaceSpanCompat(@Nullable String family, @Nullable Typeface typeface) {
         mFamily = family;
         mTypeface = typeface;
-    }
-
-    @Override
-    public int getSpanTypeId() {
-        return 13 /* android.text.TextUtils.TYPEFACE_SPAN */;
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(@NonNull Parcel dest, int flags) {
-        dest.writeString(mFamily);
-        LeakyTypefaceStorage.writeTypefaceToParcel(mTypeface, dest);
     }
 
     /**
