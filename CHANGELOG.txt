@@ -1,5 +1,9 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+19.3.1:
+
+- Fix don't implement ParceableSpan, fixes crash in disambiguation menu
+
 19.3.0:
 
 - Fix use a monospace font for arrows
