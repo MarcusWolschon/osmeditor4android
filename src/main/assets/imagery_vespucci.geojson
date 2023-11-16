@@ -48,7 +48,7 @@
         {
             "properties": {
                 "name": "Bing aerial imagery",
-                "url": "http://dev.virtualearth.net/REST/v1/Imagery/Metadata/Aerial/?mapVersion=v1&key={apikey}&include=ImageryProviders&output=xml",
+                "url": "http://dev.virtualearth.net/REST/v1/Imagery/Metadata/AerialOSM/?mapVersion=v1&key={apikey}&include=ImageryProviders&output=xml",
                 "default": true,
                 "max_zoom": 21,
                 "no_tile_header": {
