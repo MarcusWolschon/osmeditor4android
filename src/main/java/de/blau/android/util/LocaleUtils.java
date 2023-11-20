@@ -23,6 +23,8 @@ public final class LocaleUtils {
 
     private static final String DEBUG_TAG = LocaleUtils.class.getSimpleName();
 
+    private static final String ANDROID_LOCALE_SEPARATOR = "_";
+
     // list of languages that use Latin script from https://gist.github.com/phil-brown/8056700
     private static Set<String> latin = new HashSet<>(Arrays.asList("aa", "ace", "ach", "ada", "af", "agq", "ak", "ale", "amo", "an", "arn", "arp", "arw", "asa",
             "ast", "ay", "az", "bal", "ban", "bas", "bbc", "bem", "bez", "bi", "bik", "bin", "bku", "bla", "bm", "bqv", "br", "bs", "buc", "bug", "bya", "ca",
@@ -211,5 +213,17 @@ public final class LocaleUtils {
             Log.e(DEBUG_TAG, "Error reading locales_config " + e.getMessage());
         }
         return LocaleListCompat.forLanguageTags(String.join(",", locales));
+    }
+
+    /**
+     * Construct a Locale from an Android format locale string
+     * 
+     * @param localeString the Android format locale string
+     * @return a Locale
+     */
+    @NonNull
+    public static Locale localeFromAndroidLocaleTag(@NonNull String localeString) {
+        String[] code = localeString.split(ANDROID_LOCALE_SEPARATOR);
+        return code.length == 1 ? new Locale(code[0]) : new Locale(code[0], code[1]);
     }
 }
