@@ -91,37 +91,46 @@ public class AdvancedPrefEditorFragment extends ExtendedPreferenceFragment {
     }
 
     /**
-     * Setup the app local preference
+     * Setup the app locale preference
      * 
      * @param appLocalePref the preference
      * 
      */
     private void setupAppLocalePref(@NonNull ListPreference appLocalePref) {
+        appLocalePref.setPersistent(false); // stored by the device
         Locale currentLocale = Locale.getDefault();
-        LocaleListCompat appLocales = LocaleUtils.getSupportedLocales(getContext());
-        LocaleListCompat currentLocales = AppCompatDelegate.getApplicationLocales();
-        if (!currentLocales.isEmpty()) {
-            LocaleListCompat temp = LocaleListCompat.getAdjustedDefault();
-            if (!temp.isEmpty()) {
-                currentLocale = temp.get(0);
-            }
+        LocaleListCompat currentAppLocales = AppCompatDelegate.getApplicationLocales();
+        boolean hasAppLocale = !currentAppLocales.isEmpty();
+        if (hasAppLocale) {
+            currentLocale = currentAppLocales.get(0);
         }
-        String[] entries = new String[appLocales.size()];
-        String[] values = new String[appLocales.size()];
+        LocaleListCompat appLocales = LocaleUtils.getSupportedLocales(getContext());
+        final String[] entries = new String[appLocales.size() + 1];
+        String[] values = new String[appLocales.size() + 1];
+        entries[0] = getContext().getString(R.string.config_appLocale_device_language);
+        values[0] = "";
         for (int i = 0; i < appLocales.size(); i++) {
             Locale l = appLocales.get(i);
-            entries[i] = l.getDisplayName(currentLocale);
-            values[i] = l.toString();
+            entries[i + 1] = l.getDisplayName(currentLocale);
+            values[i + 1] = l.toString();
         }
         appLocalePref.setEntryValues(values);
         appLocalePref.setEntries(entries);
-        appLocalePref.setDefaultValue(currentLocale.toString());
+        final String currentLocaleString = currentLocale.toString();
+        appLocalePref.setValue(hasAppLocale ? currentLocaleString : "");
+        appLocalePref.setSummary(hasAppLocale ? currentLocale.getDisplayName() : entries[0]);
         OnPreferenceChangeListener p = (preference, newValue) -> {
-            Log.d(DEBUG_TAG, "onPreferenceChange appLocale " + newValue);
-            LocaleListCompat newDefaultList = LocaleListCompat.forLanguageTags((String) newValue);
-            Locale newDefault = newDefaultList.get(0);
-            AppCompatDelegate.setApplicationLocales(newDefaultList);
-            preference.setSummary(newDefault.getDisplayName(newDefault));
+            // Note google is very confused about Android with _ and proper, with - locale values, we try to circumvent
+            // that here
+            if (Util.notEmpty((String) newValue)) {
+                Locale newLocale = LocaleUtils.localeFromAndroidLocaleTag((String) newValue);
+                LocaleListCompat newAppList = LocaleListCompat.create(newLocale);
+                AppCompatDelegate.setApplicationLocales(newAppList);
+                preference.setSummary(newLocale.getDisplayName());
+            } else {
+                AppCompatDelegate.setApplicationLocales(LocaleListCompat.getEmptyLocaleList());
+                preference.setSummary(entries[0]);
+            }
             return true;
         };
         appLocalePref.setOnPreferenceChangeListener(p);
