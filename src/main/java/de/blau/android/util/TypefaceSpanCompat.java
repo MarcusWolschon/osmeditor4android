@@ -13,14 +13,13 @@
  */
 package de.blau.android.util;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.graphics.Paint;
 import android.graphics.Typeface;
-import android.os.Parcel;
-import android.text.ParcelableSpan;
 import android.text.TextPaint;
 import android.text.style.MetricAffectingSpan;
+import android.text.style.TypefaceSpan;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * Span that updates the typeface of the text it's attached to. The <code>TypefaceSpan</code> can be constructed either
