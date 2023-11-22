@@ -74,7 +74,7 @@ Show the menu buttons at the bottom of the screen. Default: _on_. You need to re
 
 ### App language
 
-Select a language for the user interface that is different from the device default. On devices running Android 13 and later the app language can be changed in the system settings too. Preset translations can be disabled in the preset configurations. 
+Select a language for the user interface that is different from the device default, setting the value to _Device language_ will revert to using your preference for the whole device. On devices running Android 13 and later the app language can be changed in the system settings too. Preset translations can be disabled in the preset configurations. 
 
 ### Max. number of inline values
 

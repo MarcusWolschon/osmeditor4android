@@ -45,7 +45,7 @@
             android:summary="@string/config_useInternalPhotoViewer_summary"
             android:title="@string/config_useInternalPhotoViewer_title" />
         <androidx.preference.CheckBoxPreference
-            android:defaultValue="alse"
+            android:defaultValue="false"
             android:key="@string/config_indexMediaStore_key"
             android:summary="@string/config_indexMediaStore_summary"
             android:title="@string/config_indexMediaStore_title" />
@@ -101,7 +101,7 @@
             android:key="@string/config_appLocale_key"
             android:title="@string/config_appLocale_title"
             android:summary="@string/config_appLocale_summary"
-            android:defaultValue="en" />
+            android:defaultValue="" />
         <ch.poole.android.numberpickerpreference.NumberPickerPreference
             android:defaultValue="4"
             android:key="@string/config_maxInlineValues_key"
