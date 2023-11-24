@@ -1,5 +1,8 @@
 package de.blau.android;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -7,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -55,56 +57,68 @@ public class ScriptingTest {
     }
 
     /**
-     * Post-test teardown
-     */
-    @After
-    public void teardown() {
-    }
-
-    /**
      * Test that the JS environment is properly sandboxed
      */
     @Test
     public void sandbox() {
         // normal scope
         String r = Utils.evalString(context, "sandbox1", "b = new BoundingBox();");
-        Assert.assertEquals("(0,0,0,0)", r);
+        assertEquals("(0,0,0,0)", r);
         r = Utils.evalString(context, "sandbox2", "b = GeoMath.createBoundingBoxForCoordinates(0,0,10);");
-        Assert.assertEquals("(-899,-899,899,899)", r);
+        assertEquals("(-899,-899,899,899)", r);
         final String importError = "Sandbox should stop further importing";
         final String importStatement = "importClass(Packages.de.blau.android.App);";
         try {
-            r = Utils.evalString(context, "sandbox3", importStatement);
-            Assert.fail(importError);
+            Utils.evalString(context, "sandbox3", importStatement);
+            fail(importError);
         } catch (EvaluatorException ex) {
             // carry on
         }
         // scope for presets
-        Map<String, List<String>> tags = new LinkedHashMap<String, List<String>>();
-        List<String> v = new ArrayList<String>();
+        Map<String, List<String>> tags = new LinkedHashMap<>();
+        List<String> v = new ArrayList<>();
         v.add("value");
         tags.put("key", v);
         r = Utils.evalString(context, "sandbox4", "a = new java.util.ArrayList(); a.add('value1'); tags.put('key1',a);tags", tags, tags, "test",
                 new HashMap<>(), App.getCurrentPresets(context));
-        Assert.assertEquals("{key=[value], key1=[value1]}", r);
+        assertEquals("{key=[value], key1=[value1]}", r);
         Logic logic = App.getLogic();
         try {
-            r = Utils.evalString(context, "sandbox4", importStatement, logic);
-            Assert.fail(importError);
+            Utils.evalString(context, "sandbox4", importStatement, logic);
+            fail(importError);
         } catch (EvaluatorException ex) {
             // carry on
         }
         // scope for general scripting
         r = Utils.evalString(context, "sandbox5", "b = new BoundingBox();", logic);
-        Assert.assertEquals("(0,0,0,0)", r);
+        assertEquals("(0,0,0,0)", r);
         r = Utils.evalString(context, "sandbox6", "b = GeoMath.createBoundingBoxForCoordinates(0,0,10);", logic);
-        Assert.assertEquals("(-899,-899,899,899)", r);
+        assertEquals("(-899,-899,899,899)", r);
         r = Utils.evalString(context, "sandbox7", "logic.getModifiedNodes().size() + logic.getNodes().size()", logic);
-        Assert.assertEquals("0", r);
+        assertEquals("0", r);
         try {
-            r = Utils.evalString(context, "sandbox8", importStatement, logic);
-            Assert.fail(importError);
+            Utils.evalString(context, "sandbox8", importStatement, logic);
+            fail(importError);
         } catch (EvaluatorException ex) {
+            // carry on
+        }
+    }
+
+    /**
+     * Check that we can catch an illegal object written to the tags map
+     */
+    @Test
+    public void catchClassCastException() {
+        // scope for presets
+        Map<String, List<String>> tags = new LinkedHashMap<>();
+        List<String> v = new ArrayList<>();
+        v.add("value");
+        tags.put("key", v);
+        try {
+            Utils.evalString(context, "sandbox", "tags.put('Testoutput',['Value TestKey = ' + tags.get('key')[0]])", tags, tags, "test", new HashMap<>(),
+                    App.getCurrentPresets(context));
+            fail("Should have thrown an exception");
+        } catch (ClassCastException cce) {
             // carry on
         }
     }
