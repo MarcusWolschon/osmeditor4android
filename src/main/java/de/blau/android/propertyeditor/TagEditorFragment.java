@@ -1772,7 +1772,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     void applyPreset(@NonNull LinearLayout rowLayout, @NonNull PresetItem item, boolean addOptional, boolean isAlternative, boolean addToMRU,
             boolean useDefaults) {
         Log.d(DEBUG_TAG, "applying preset " + item.getName());
-        LinkedHashMap<String, List<String>> currentValues = getKeyValueMap(rowLayout, true);
+        final LinkedHashMap<String, List<String>> currentValues = getKeyValueMap(rowLayout, true);
 
         int replacedOrRemoved = 0;
 
@@ -1864,7 +1864,8 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      * @param key the key
      * @param script the script
      */
-    private void evalJavaScript(@NonNull PresetItem item, @NonNull Map<String, List<String>> currentValues, @NonNull String key, @NonNull String script) {
+    private void evalJavaScript(final @NonNull PresetItem item, final @NonNull Map<String, List<String>> currentValues, final @NonNull String key,
+            final @NonNull String script) {
         try {
             String defaultValue = item.getDefault(key) == null ? "" : item.getDefault(key);
             for (Entry<String, PresetItem> entry : tags2Preset.entrySet()) {
@@ -1878,7 +1879,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 currentValues.put(key, Util.wrapInList(result));
             }
         } catch (Exception ex) {
-            ScreenMessage.barError(getActivity(), ex.getLocalizedMessage());
+            ScreenMessage.toastTopError(getActivity(), ex.getLocalizedMessage());
         }
     }
 

@@ -1,7 +1,10 @@
 package de.blau.android.javascript;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
@@ -27,8 +30,14 @@ import de.blau.android.presets.PresetItem;
  *
  */
 public final class Utils {
-
     private static final String DEBUG_TAG = "javascript.Utils";
+
+    private static final String LOGIC            = "logic";
+    private static final String KEY2_PRESET_ITEM = "key2PresetItem";
+    private static final String VALUE            = "value";
+    private static final String TAGS             = "tags";
+    private static final String ORIGINAL_TAGS    = "originalTags";
+    private static final String VERSION_CODE     = "versionCode";
 
     /**
      * Empty private constructor
@@ -79,24 +88,42 @@ public final class Utils {
             @NonNull Map<String, List<String>> tags, @NonNull String value, @NonNull Map<String, PresetItem> key2PresetItem, @NonNull Preset[] presets) {
         org.mozilla.javascript.Context rhinoContext = App.getRhinoHelper(ctx).enterContext();
         try {
+            Map<String, List<String>> savedTags = deepCopy(tags);
             Scriptable restrictedScope = App.getRestrictedRhinoScope(ctx);
             Scriptable scope = rhinoContext.newObject(restrictedScope);
             scope.setPrototype(restrictedScope);
             scope.setParentScope(null);
             Object wrappedOut = org.mozilla.javascript.Context.javaToJS(BuildConfig.VERSION_CODE, scope);
-            ScriptableObject.putProperty(scope, "versionCode", wrappedOut);
+            ScriptableObject.putProperty(scope, VERSION_CODE, wrappedOut);
             wrappedOut = org.mozilla.javascript.Context.javaToJS(originalTags, scope);
-            ScriptableObject.putProperty(scope, "originalTags", wrappedOut);
+            ScriptableObject.putProperty(scope, ORIGINAL_TAGS, wrappedOut);
             wrappedOut = org.mozilla.javascript.Context.javaToJS(tags, scope);
-            ScriptableObject.putProperty(scope, "tags", wrappedOut);
+            ScriptableObject.putProperty(scope, TAGS, wrappedOut);
             wrappedOut = org.mozilla.javascript.Context.javaToJS(value, scope);
-            ScriptableObject.putProperty(scope, "value", wrappedOut);
+            ScriptableObject.putProperty(scope, VALUE, wrappedOut);
             wrappedOut = org.mozilla.javascript.Context.javaToJS(key2PresetItem, scope);
-            ScriptableObject.putProperty(scope, "key2PresetItem", wrappedOut);
+            ScriptableObject.putProperty(scope, KEY2_PRESET_ITEM, wrappedOut);
             wrappedOut = org.mozilla.javascript.Context.javaToJS(presets, scope);
             ScriptableObject.putProperty(scope, "presets", wrappedOut);
             Log.d(DEBUG_TAG, "Eval (preset): " + script);
             Object result = rhinoContext.evaluateString(scope, script, scriptName, 1, null);
+            // check that we haven't stored something in currentValues that isn't a String as this will crash things
+            // as soon as it is accessed
+            try {
+                for (Entry<String, List<String>> e : tags.entrySet()) {
+                    for (@SuppressWarnings("unused")
+                    String s : e.getValue()) { // NOSONAR
+                        // do nothing
+                    }
+                }
+            } catch (ClassCastException cce) {
+                // undo all changes
+                tags.clear();
+                for (Entry<String, List<String>> entry : savedTags.entrySet()) {
+                    tags.put(entry.getKey(), savedTags.get(entry.getKey()));
+                }
+                throw cce;
+            }
             if (result == null) {
                 return null;
             } else {
@@ -105,6 +132,21 @@ public final class Utils {
         } finally {
             org.mozilla.javascript.Context.exit();
         }
+    }
+
+    /**
+     * Make a deep copy of the tag map
+     * 
+     * @param tags the tag map
+     * @return a deep copy of the map
+     */
+    @NonNull
+    private static Map<String, List<String>> deepCopy(Map<String, List<String>> tags) {
+        Map<String, List<String>> copy = new HashMap<>();
+        for (Entry<String, List<String>> entry : tags.entrySet()) {
+            copy.put(entry.getKey(), new ArrayList<>(entry.getValue()));
+        }
+        return copy;
     }
 
     /**
@@ -125,9 +167,9 @@ public final class Utils {
             scope.setPrototype(restrictedScope);
             scope.setParentScope(null);
             Object wrappedOut = org.mozilla.javascript.Context.javaToJS(BuildConfig.VERSION_CODE, scope);
-            ScriptableObject.putProperty(scope, "versionCode", wrappedOut);
+            ScriptableObject.putProperty(scope, VERSION_CODE, wrappedOut);
             wrappedOut = org.mozilla.javascript.Context.javaToJS(logic, scope);
-            ScriptableObject.putProperty(scope, "logic", wrappedOut);
+            ScriptableObject.putProperty(scope, LOGIC, wrappedOut);
             Log.d(DEBUG_TAG, "Eval (logic): " + script);
             Object result = rhinoContext.evaluateString(scope, script, scriptName, 1, null);
             if (result == null) {
