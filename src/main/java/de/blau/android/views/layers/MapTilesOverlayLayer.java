@@ -26,13 +26,12 @@ public class MapTilesOverlayLayer<T> extends MapTilesLayer<T> {
 
     @Override
     public boolean isReadyToDraw() {
-        TileLayerSource layer = getTileLayerConfiguration();
-        if (layer == null) {
-            enabled = false;
-        } else {
-            String id = layer.getId();
-            enabled = !(TileLayerSource.LAYER_NOOVERLAY.equals(id) || TileLayerSource.LAYER_NONE.equals(id) || "".equals(id));
+        TileLayerSource layerSource = getTileLayerConfiguration();
+        if (layerSource == null) {
+            return false;
         }
+        String id = layerSource.getId();
+        enabled = !(TileLayerSource.LAYER_NOOVERLAY.equals(id) || "".equals(id));
         return enabled && super.isReadyToDraw();
     }
 

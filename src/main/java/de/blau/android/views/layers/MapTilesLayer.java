@@ -93,7 +93,7 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
     /**
      * The tile-server to load a rendered map from.
      */
-    protected TileLayerSource myRendererInfo;
+    protected TileLayerSource layerSource;
 
     /** Current renderer */
     protected final MapTileProvider<T> mTileProvider;
@@ -215,10 +215,7 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
 
     @Override
     public boolean isReadyToDraw() {
-        if (myRendererInfo != null) {
-            return myRendererInfo.isMetadataLoaded();
-        }
-        return false;
+        return layerSource != null && layerSource.isMetadataLoaded() && !TileLayerSource.LAYER_NONE.equals(layerSource.getId());
     }
 
     /**
@@ -228,7 +225,7 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
      * @param all if true flush the on device cache too
      */
     public void flushTileCache(@Nullable final FragmentActivity activity, boolean all) {
-        flushTileCache(activity, myRendererInfo.getId(), all);
+        flushTileCache(activity, layerSource.getId(), all);
     }
 
     /**
@@ -289,7 +286,7 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
      */
     @Nullable
     public TileLayerSource getTileLayerConfiguration() {
-        return myRendererInfo;
+        return layerSource;
     }
 
     /**
@@ -305,21 +302,21 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
             return;
         }
         Log.d(DEBUG_TAG, "setRendererInfo " + tileLayer.getId());
-        if (myRendererInfo != tileLayer) {
+        if (layerSource != tileLayer) {
             try {
                 coverageWarningMessage = myView.getResources().getString(R.string.toast_no_coverage, tileLayer.getName());
             } catch (Exception ex) {
                 coverageWarningMessage = "";
             }
             coverageWarningDisplayed = false;
-            if (myRendererInfo != null) { // 1st invocation this is null
-                mTileProvider.flushQueue(myRendererInfo.getId(), MapAsyncTileProvider.ALLZOOMS);
+            if (layerSource != null) { // 1st invocation this is null
+                mTileProvider.flushQueue(layerSource.getId(), MapAsyncTileProvider.ALLZOOMS);
                 synchronized (getLastServers()) {
-                    getLastServers().push(myRendererInfo.getId());
+                    getLastServers().push(layerSource.getId());
                 }
             }
         }
-        myRendererInfo = tileLayer;
+        layerSource = tileLayer;
         // reset error counter
         tileErrorCount = 0;
         tileErrorShown = false;
@@ -377,7 +374,7 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
         }
 
         viewBox.set(osmv.getViewBox());
-        if (!myRendererInfo.covers(viewBox)) {
+        if (!layerSource.covers(viewBox)) {
             if (!coverageWarningDisplayed) {
                 coverageWarningDisplayed = true;
                 ScreenMessage.toastTopWarning(ctx, coverageWarningMessage);
@@ -388,22 +385,22 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
 
         if (tileErrorCount > TILE_ERROR_LIMIT && !tileErrorShown) {
             tileErrorShown = true;
-            ScreenMessage.toastTopWarning(ctx, ctx.getString(R.string.toast_tile_layer_errors, myRendererInfo.getName()));
+            ScreenMessage.toastTopWarning(ctx, ctx.getString(R.string.toast_tile_layer_errors, layerSource.getName()));
         }
 
         long owner = random.nextLong(); // unique values so that we can track in the cache which
                                         // invocation of onDraw the tile belongs too
 
-        int maxZoom = myRendererInfo.getMaxZoomLevel();
-        int minZoom = myRendererInfo.getMinZoomLevel();
-        int maxOverZoom = myRendererInfo.getMaxOverZoom();
+        int maxZoom = layerSource.getMaxZoomLevel();
+        int minZoom = layerSource.getMinZoomLevel();
+        int maxOverZoom = layerSource.getMaxOverZoom();
 
         // Do some calculations and drag attributes to local variables to save
         // some performance.
         final int actualZoomLevel = osmv.getZoomLevel();
         final int zoomLevel = Math.min(actualZoomLevel, maxZoom); // clamp to max zoom here
         if (zoomLevel != prevZoomLevel && prevZoomLevel != -1) {
-            mTileProvider.flushQueue(myRendererInfo.getId(), prevZoomLevel);
+            mTileProvider.flushQueue(layerSource.getId(), prevZoomLevel);
         }
         prevZoomLevel = zoomLevel;
 
@@ -412,13 +409,13 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
 
         double lonOffset = 0d;
         double latOffset = 0d;
-        Offset offset = myRendererInfo.getOffset(zoomLevel);
+        Offset offset = layerSource.getOffset(zoomLevel);
         if (offset != null) {
             lonOffset = offset.getDeltaLon();
             latOffset = offset.getDeltaLat();
         }
 
-        final MapTile tile = new MapTile(myRendererInfo.getId(), 0, 0, 0);
+        final MapTile tile = new MapTile(layerSource.getId(), 0, 0, 0);
         final MapTile originalTile = new MapTile(tile);
 
         // pseudo-code for lon/lat to tile numbers
@@ -446,7 +443,7 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
 
         final int width = c.getClipBounds().width();
         final int height = c.getClipBounds().height();
-        boolean squareTiles = myRendererInfo.getTileWidth() == myRendererInfo.getTileHeight();
+        boolean squareTiles = layerSource.getTileWidth() == layerSource.getTileHeight();
         // Draw all the MapTiles that intersect with the screen
         // y = y tile number (latitude)
         // requiredTiles = (tileNeededBottom - tileNeededTop + 1) * (tileNeededRight - tileNeededLeft + 1)
@@ -476,8 +473,8 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
                 }
 
                 // Set the size and top left corner on the source bitmap
-                int sw = myRendererInfo.getTileWidth();
-                int sh = myRendererInfo.getTileHeight();
+                int sw = layerSource.getTileWidth();
+                int sh = layerSource.getTileHeight();
                 int tx = 0;
                 int ty = 0;
                 T tileBlob = null;
@@ -486,7 +483,7 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
                     tileBlob = mTileProvider.getMapTile(tile, owner);
                 }
 
-                final boolean bitmapRenderer = myRendererInfo.getTileType() == TileType.BITMAP;
+                final boolean bitmapRenderer = layerSource.getTileType() == TileType.BITMAP;
 
                 // OVERZOOM
                 // Preferred tile is not available - request it
@@ -504,10 +501,10 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
                     ty >>= 1;
                     // select the correct quarter
                     if ((tile.x & 1) != 0) {
-                        tx += (myRendererInfo.getTileWidth() >> 1);
+                        tx += (layerSource.getTileWidth() >> 1);
                     }
                     if ((tile.y & 1) != 0) {
-                        ty += (myRendererInfo.getTileHeight() >> 1);
+                        ty += (layerSource.getTileHeight() >> 1);
                     }
                     // zoom out to next level
                     tile.x >>= 1;
@@ -535,7 +532,7 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
                 } else if (bitmapRenderer) {
                     tile.reinit();
                     // Still no tile available - try smaller scale tiles
-                    drawTile(c, osmv, Math.min(zoomLevel + 2, myRendererInfo.getMaxZoomLevel()), zoomLevel, x & mapTileMask, y & mapTileMask, squareTiles,
+                    drawTile(c, osmv, Math.min(zoomLevel + 2, layerSource.getMaxZoomLevel()), zoomLevel, x & mapTileMask, y & mapTileMask, squareTiles,
                             lonOffset, latOffset);
                 }
                 xPos += destIncX;
@@ -619,7 +616,7 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
 
     @Override
     public int onDrawAttribution(@NonNull Canvas c, @NonNull IMapView osmv, int offset) {
-        return myRendererInfo.isMetadataLoaded() ? drawAttribution(c, osmv.getViewBox(), osmv.getZoomLevel(), offset) : offset;
+        return layerSource.isMetadataLoaded() ? drawAttribution(c, osmv.getViewBox(), osmv.getZoomLevel(), offset) : offset;
     }
 
     /**
@@ -633,10 +630,10 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
      */
     private int drawAttribution(Canvas c, ViewBox viewBox, final int zoomLevel, final int offset) {
         final Rect viewPort = c.getClipBounds();
-        Collection<String> attributions = myRendererInfo.getAttributions(zoomLevel, viewBox);
+        Collection<String> attributions = layerSource.getAttributions(zoomLevel, viewBox);
         // Draw the tile layer branding logo (if it exists)
         resetAttributionArea(viewPort, offset);
-        Drawable brandLogo = myRendererInfo.getLogoDrawable();
+        Drawable brandLogo = layerSource.getLogoDrawable();
         int logoWidth = -1; // misuse this a flag
         int logoHeight = -1;
         if (brandLogo != null) {
@@ -707,10 +704,10 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
      */
     private boolean drawTile(@NonNull Canvas c, @NonNull IMapView osmv, int maxz, int z, int x, int y, boolean squareTiles, double lonOffset,
             double latOffset) {
-        final MapTile tile = new MapTile(myRendererInfo.getId(), z, x, y);
+        final MapTile tile = new MapTile(layerSource.getId(), z, x, y);
         T bitmap = mTileProvider.getMapTileFromCache(tile);
         if (bitmap != null) {
-            mTileRenderer.render(c, bitmap, 0, new Rect(0, 0, myRendererInfo.getTileWidth(), myRendererInfo.getTileHeight()),
+            mTileRenderer.render(c, bitmap, 0, new Rect(0, 0, layerSource.getTileWidth(), layerSource.getTileHeight()),
                     getScreenRectForTile(new Rect(), c.getClipBounds().width(), c.getClipBounds().height(), osmv, z, y, x, squareTiles, lonOffset, latOffset),
                     mPaint);
             return true;
@@ -810,9 +807,9 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
      * @return true if an attribution uri was found
      */
     private boolean displayAttribution() {
-        String attributionUri = myRendererInfo.getTouUri();
+        String attributionUri = layerSource.getTouUri();
         if (attributionUri == null) {
-            attributionUri = myRendererInfo.getAttributionUrl();
+            attributionUri = layerSource.getAttributionUrl();
         }
         if (attributionUri != null) {
             // Display the End User Terms Of Use (in the browser)
@@ -886,7 +883,7 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
     @Override
     @NonNull
     public String getName() {
-        return myRendererInfo.getName();
+        return layerSource.getName();
     }
 
     /**
@@ -899,8 +896,8 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
     @Override
     @Nullable
     public String getContentId() {
-        if (myRendererInfo != null) {
-            return myRendererInfo.getId();
+        if (layerSource != null) {
+            return layerSource.getId();
         }
         return null;
     }
@@ -913,8 +910,8 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
     @Override
     @Nullable
     public BoundingBox getExtent() {
-        if (myRendererInfo != null) {
-            return myRendererInfo.getOverallCoverage();
+        if (layerSource != null) {
+            return layerSource.getOverallCoverage();
         }
         return null;
     }
@@ -973,7 +970,7 @@ public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, L
         LayerInfo f = new ImageryLayerInfo();
         f.setShowsDialog(true);
         Bundle args = new Bundle();
-        args.putSerializable(ImageryLayerInfo.LAYER_KEY, myRendererInfo);
+        args.putSerializable(ImageryLayerInfo.LAYER_KEY, layerSource);
         args.putSerializable(ImageryLayerInfo.ERROR_COUNT_KEY, tileErrorCount);
         f.setArguments(args);
         LayerInfo.showDialog(activity, f);
