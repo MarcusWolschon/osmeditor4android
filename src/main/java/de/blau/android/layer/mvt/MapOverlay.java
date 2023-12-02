@@ -102,12 +102,12 @@ public class MapOverlay extends MapTilesOverlayLayer<java.util.Map<String, List<
         Log.d(DEBUG_TAG, "getClicked");
 
         Set<VectorTileDecoder.Feature> result = new LinkedHashSet<>();
-        if (myRendererInfo != null) {
+        if (layerSource != null) {
             int z = map.getZoomLevel();
 
             MapTile mapTile = getTile(z, x, y);
             java.util.Map<String, List<VectorTileDecoder.Feature>> tile = mTileProvider.getMapTileFromCache(mapTile);
-            while (tile == null && z > myRendererInfo.getMinZoom()) { // try zooming out
+            while (tile == null && z > layerSource.getMinZoom()) { // try zooming out
                 z--;
                 mapTile = getTile(z, x, y);
                 tile = mTileProvider.getMapTileFromCache(mapTile);
@@ -249,7 +249,7 @@ public class MapOverlay extends MapTilesOverlayLayer<java.util.Map<String, List<
         int n = 1 << z;
         int tileX = xTileNumber(GeoMath.xToLonE7(map.getWidth(), map.getViewBox(), x) / 1E7D, n);
         int tileY = yTileNumber((float) Math.toRadians(GeoMath.yToLatE7(map.getHeight(), map.getWidth(), map.getViewBox(), y) / 1E7D), n);
-        return new MapTile(myRendererInfo.getId(), z, tileX, tileY);
+        return new MapTile(layerSource.getId(), z, tileX, tileY);
     }
 
     @Override
@@ -560,6 +560,6 @@ public class MapOverlay extends MapTilesOverlayLayer<java.util.Map<String, List<
      */
     protected void flushTileCache() {
         MapTileProvider<java.util.Map<String, List<VectorTileDecoder.Feature>>> provider = getTileProvider();
-        provider.flushCache(myRendererInfo.getId(), false);
+        provider.flushCache(layerSource.getId(), false);
     }
 }
