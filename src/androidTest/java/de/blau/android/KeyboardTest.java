@@ -29,14 +29,15 @@ import de.blau.android.propertyeditor.PropertyEditorActivity;
 @LargeTest
 public class KeyboardTest {
 
-    private static final String WAY_SELECTED = "Way selected";
-    Context                     context      = null;
-    AdvancedPrefDatabase        prefDB       = null;
-    Main                        main         = null;
-    UiDevice                    device       = null;
-    Map                         map          = null;
-    Logic                       logic        = null;
-    private Instrumentation     instrumentation;
+    private static final String  WAY_SELECTED = "Way selected";
+    private Context              context      = null;
+    private AdvancedPrefDatabase prefDB       = null;
+    private Main                 main         = null;
+    private UiDevice             device       = null;
+    private Map                  map          = null;
+    private Logic                logic        = null;
+    private Instrumentation      instrumentation;
+    private Preferences          prefs;
 
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
@@ -54,13 +55,14 @@ public class KeyboardTest {
         prefDB.deleteAPI("Test");
         prefDB.addAPI("Test", "Test", "", null, null, "user", "pass", false);
         prefDB.selectAPI("Test");
-        Preferences prefs = new Preferences(context);
+        prefs = new Preferences(context);
         LayerUtils.removeImageryLayers(context);
         map = main.getMap();
         map.setPrefs(main, prefs);
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);
         logic = App.getLogic();
+        logic.setPrefs(prefs);
         logic.deselectAll();
         TestUtils.zoomToNullIsland(logic, map);
         TestUtils.loadTestData(main, "test2.osm");
@@ -72,6 +74,7 @@ public class KeyboardTest {
      */
     @After
     public void teardown() {
+        prefs.setZoomWithKeys(false);
         TestUtils.stopEasyEdit(main);
         TestUtils.zoomToNullIsland(logic, map);
         prefDB.selectAPI(AdvancedPrefDatabase.ID_DEFAULT);
@@ -84,6 +87,7 @@ public class KeyboardTest {
     // @SdkSuppress(minSdkVersion = 26)
     @Test
     public void zoomAndPan() {
+
         map.getDataLayer().setVisible(true);
 
         TestUtils.zoomToLevel(device, main, 20);
@@ -98,6 +102,18 @@ public class KeyboardTest {
         TestUtils.sleep();
         boxIsEqual(viewBox, App.getLogic().getViewBox());
 
+        // volume keys should do nothing
+        prefs.setZoomWithKeys(false);
+        device.pressKeyCode(KeyEvent.KEYCODE_VOLUME_DOWN);
+        TestUtils.sleep();
+        boxIsEqual(viewBox, App.getLogic().getViewBox());
+
+        device.pressKeyCode(KeyEvent.KEYCODE_VOLUME_UP);
+        TestUtils.sleep();
+        boxIsEqual(viewBox, App.getLogic().getViewBox());
+        
+        // volume keys should zoom
+        prefs.setZoomWithKeys(true);
         device.pressKeyCode(KeyEvent.KEYCODE_VOLUME_DOWN);
         TestUtils.sleep();
         Assert.assertNotEquals(viewBox, App.getLogic().getViewBox());

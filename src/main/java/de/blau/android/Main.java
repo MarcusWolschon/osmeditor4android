@@ -3988,115 +3988,138 @@ public class Main extends FullScreenAppCompatActivity
             boolean inElementSelectedMode = getEasyEditManager().inElementSelectedMode();
             switch (event.getAction()) {
             case KeyEvent.ACTION_UP:
-                if (!v.onKeyUp(keyCode, event)) {
-                    switch (keyCode) {
-                    case KeyEvent.KEYCODE_VOLUME_UP:
-                    case KeyEvent.KEYCODE_VOLUME_DOWN:
-                        // this stops the piercing beep related to volume
-                        // adjustments
-                        return true;
-                    default:
-                        // IGNORE
-                    }
+                if (v.onKeyUp(keyCode, event)) {
+                    return true;
+                }
+                switch (keyCode) {
+                case KeyEvent.KEYCODE_VOLUME_UP:
+                case KeyEvent.KEYCODE_VOLUME_DOWN:
+                    // this stops the piercing beep related to volume
+                    // adjustments
+                    return true;
+                default:
+                    // IGNORE
                 }
                 break;
             case KeyEvent.ACTION_DOWN:
-                if (!v.onKeyDown(keyCode, event)) {
-                    switch (keyCode) {
-                    case KeyEvent.KEYCODE_DPAD_CENTER:
-                        setFollowGPS(true);
-                        return true;
-                    case KeyEvent.KEYCODE_DPAD_UP:
-                        translate(Logic.CursorPaddirection.DIRECTION_UP);
-                        return true;
-                    case KeyEvent.KEYCODE_DPAD_DOWN:
-                        translate(Logic.CursorPaddirection.DIRECTION_DOWN);
-                        return true;
-                    case KeyEvent.KEYCODE_DPAD_LEFT:
-                        translate(Logic.CursorPaddirection.DIRECTION_LEFT);
-                        return true;
-                    case KeyEvent.KEYCODE_DPAD_RIGHT:
-                        translate(Logic.CursorPaddirection.DIRECTION_RIGHT);
-                        return true;
-                    case KeyEvent.KEYCODE_VOLUME_UP:
-                    case KeyEvent.KEYCODE_SEARCH:
-                        logic.zoom(Logic.ZOOM_IN);
-                        updateZoomControls();
-                        return true;
-                    case KeyEvent.KEYCODE_VOLUME_DOWN:
-                        logic.zoom(Logic.ZOOM_OUT);
-                        updateZoomControls();
-                        return true;
-                    case KeyEvent.KEYCODE_MOVE_HOME:
-                    case KeyEvent.KEYCODE_CTRL_LEFT:
-                    case KeyEvent.KEYCODE_CTRL_RIGHT:
-                    case KeyEvent.KEYCODE_SHIFT_LEFT:
-                    case KeyEvent.KEYCODE_SHIFT_RIGHT:
-                    case KeyEvent.KEYCODE_ALT_LEFT:
-                    case KeyEvent.KEYCODE_ALT_RIGHT:
-                        // ignore
-                        return true;
-                    case KeyEvent.KEYCODE_ESCAPE:
-                    case KeyEvent.KEYCODE_BACK:
-                        // default handling
-                        return false;
-                    default:
-                        Character c = Character.toLowerCase((char) event.getUnicodeChar());
-                        if (c == Util.getShortCut(Main.this, R.string.shortcut_zoom_in)) {
-                            logic.zoom(Logic.ZOOM_IN);
-                            updateZoomControls();
-                            return true;
-                        } else if (c == Util.getShortCut(Main.this, R.string.shortcut_zoom_out)) {
-                            logic.zoom(Logic.ZOOM_OUT);
-                            updateZoomControls();
-                            return true;
-                        }
-                        if (event.isCtrlPressed()) {
-                            // get rid of Ctrl key
-                            char shortcut = Character.toLowerCase((char) event.getUnicodeChar(0));
-                            // menu based shortcuts don't seem to work (anymore) so we do this on foot
-                            if (isProcessingAction && getEasyEditManager().processShortcut(shortcut)) {
-                                return true;
-                            }
-                            if (logic.getMode().elementsSelectable() && (!isProcessingAction || inElementSelectedMode)) {
-                                if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_help)) {
-                                    HelpViewer.start(Main.this, R.string.help_main);
-                                    return true;
-                                } else if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_undo)) {
-                                    Main.this.undoListener.onClick(null);
-                                    return true;
-                                } else if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_gps_follow)) {
-                                    Main.this.toggleFollowGPS();
-                                    return true;
-                                } else if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_gps_goto)) {
-                                    Main.this.gotoCurrentLocation();
-                                    return true;
-                                } else if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_download)) {
-                                    Main.this.onMenuDownloadCurrent(true);
-                                    return true;
-                                } else if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_bugs_download)) {
-                                    Main.this.downLoadBugs(map.getViewBox().copy());
-                                    return true;
-                                } else if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_paste) && !App.getDelegator().clipboardIsEmpty()) {
-                                    ViewBox viewBox = logic.getViewBox();
-                                    double[] coords = viewBox.getCenter();
-                                    int width = getMap().getWidth();
-                                    int height = getMap().getHeight();
-                                    SimpleActionModeCallback.paste(Main.this, getEasyEditManager(), GeoMath.lonToX(width, viewBox, coords[0]),
-                                            GeoMath.latToY(height, width, viewBox, coords[1]));
-                                    return true;
-                                }
-                            }
-                            // short cut not found
-                            Sound.beep();
-                        }
-                        Log.w(DEBUG_TAG, "Unknown short cut key code " + keyCode + " key event " + event);
-                    }
+                if (v.onKeyDown(keyCode, event)) {
+                    return true;
                 }
-                break;
+                switch (keyCode) {
+                case KeyEvent.KEYCODE_DPAD_CENTER:
+                    setFollowGPS(true);
+                    return true;
+                case KeyEvent.KEYCODE_DPAD_UP:
+                    translate(Logic.CursorPaddirection.DIRECTION_UP);
+                    return true;
+                case KeyEvent.KEYCODE_DPAD_DOWN:
+                    translate(Logic.CursorPaddirection.DIRECTION_DOWN);
+                    return true;
+                case KeyEvent.KEYCODE_DPAD_LEFT:
+                    translate(Logic.CursorPaddirection.DIRECTION_LEFT);
+                    return true;
+                case KeyEvent.KEYCODE_DPAD_RIGHT:
+                    translate(Logic.CursorPaddirection.DIRECTION_RIGHT);
+                    return true;
+                case KeyEvent.KEYCODE_VOLUME_UP:
+                case KeyEvent.KEYCODE_VOLUME_DOWN:
+                case KeyEvent.KEYCODE_SEARCH:
+                    if (!App.getPreferences(Main.this).zoomWithKeys()) {
+                        return false;
+                    }
+                    logic.zoom(keyCode == KeyEvent.KEYCODE_VOLUME_DOWN ? Logic.ZOOM_OUT : Logic.ZOOM_IN);
+                    updateZoomControls();
+                    return true;
+                case KeyEvent.KEYCODE_MOVE_HOME:
+                case KeyEvent.KEYCODE_CTRL_LEFT:
+                case KeyEvent.KEYCODE_CTRL_RIGHT:
+                case KeyEvent.KEYCODE_SHIFT_LEFT:
+                case KeyEvent.KEYCODE_SHIFT_RIGHT:
+                case KeyEvent.KEYCODE_ALT_LEFT:
+                case KeyEvent.KEYCODE_ALT_RIGHT:
+                    // ignore
+                    return true;
+                case KeyEvent.KEYCODE_ESCAPE:
+                case KeyEvent.KEYCODE_BACK:
+                    // default handling
+                    return false;
+                default:
+                    return handleShortCut(event, logic, isProcessingAction, inElementSelectedMode);
+                }
             default:
                 Log.w(DEBUG_TAG, "Unknown key event " + event.getAction());
             }
+            return false;
+        }
+
+        /**
+         * Handle a short cut - modifier button plus character
+         * 
+         * @param event the KeyEvent
+         * @param logic the current Logic instance
+         * @param isProcessingAction true if we are in an ActionMode
+         * @param inElementSelectedMode true if we are in an Element selection mode
+         */
+        private boolean handleShortCut(@NonNull final KeyEvent event, @NonNull final Logic logic, boolean isProcessingAction, boolean inElementSelectedMode) {
+            Character c = Character.toLowerCase((char) event.getUnicodeChar());
+            if (c == Util.getShortCut(Main.this, R.string.shortcut_zoom_in)) {
+                logic.zoom(Logic.ZOOM_IN);
+                updateZoomControls();
+                return true;
+            }
+            if (c == Util.getShortCut(Main.this, R.string.shortcut_zoom_out)) {
+                logic.zoom(Logic.ZOOM_OUT);
+                updateZoomControls();
+                return true;
+            }
+            if (!event.isCtrlPressed()) {
+                return false;
+            }
+            // get rid of Ctrl key
+            char shortcut = Character.toLowerCase((char) event.getUnicodeChar(0));
+            // menu based shortcuts don't seem to work (anymore) so we do this on foot
+            if (isProcessingAction && getEasyEditManager().processShortcut(shortcut)) {
+                return true;
+            }
+            if (!logic.getMode().elementsSelectable() || (isProcessingAction && !inElementSelectedMode)) {
+                return false;
+            }
+            if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_help)) {
+                HelpViewer.start(Main.this, R.string.help_main);
+                return true;
+            }
+            if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_undo)) {
+                Main.this.undoListener.onClick(null);
+                return true;
+            }
+            if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_gps_follow)) {
+                Main.this.toggleFollowGPS();
+                return true;
+            }
+            if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_gps_goto)) {
+                Main.this.gotoCurrentLocation();
+                return true;
+            }
+            if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_download)) {
+                Main.this.onMenuDownloadCurrent(true);
+                return true;
+            }
+            if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_bugs_download)) {
+                Main.this.downLoadBugs(map.getViewBox().copy());
+                return true;
+            }
+            if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_paste) && !App.getDelegator().clipboardIsEmpty()) {
+                ViewBox viewBox = logic.getViewBox();
+                double[] coords = viewBox.getCenter();
+                int width = getMap().getWidth();
+                int height = getMap().getHeight();
+                SimpleActionModeCallback.paste(Main.this, getEasyEditManager(), GeoMath.lonToX(width, viewBox, coords[0]),
+                        GeoMath.latToY(height, width, viewBox, coords[1]));
+                return true;
+            }
+            // short cut not found
+            Sound.beep();
+            Log.w(DEBUG_TAG, "Unknown short cut key event " + event);
             return false;
         }
 

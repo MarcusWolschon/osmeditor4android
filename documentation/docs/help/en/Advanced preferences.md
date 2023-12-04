@@ -130,6 +130,10 @@ Set the capitalization mode for keyboard input for name-like tag. One of _No cap
 
 Note: this setting is only applicable when the current locale uses latin script.
 
+### Use volume keys for zooming
+
+Allow the use of the volume keys for zooming in and out. Default: _false_.
+
 ## Data and Editing Settings
 
 Settings related to editing.

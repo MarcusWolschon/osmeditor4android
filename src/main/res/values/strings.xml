@@ -1242,6 +1242,8 @@
     <string name="config_longStringLimit_title">Long string limit</string>
     <string name="config_longStringLimit_summary">Limit from which to show a modal for editing text in the property editor</string>
     <string name="config_longStringLimit_current">%1$d</string>
+    <string name="config_zoomWithKeys_title">Use volume keys for zooming</string>
+    <string name="config_zoomWithKeys_summary">Allow use of the volume keys for zooming in and out.</string>
             
     <!-- Data and Editing Settings -->
     <string name="config_category_editing">Data and edit settings</string>
