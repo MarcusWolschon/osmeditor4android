@@ -236,6 +236,11 @@
             android:key="@string/config_nameCap_key"
             android:summary="@string/config_nameCap_summary"
             android:title="@string/config_nameCap_title" />
+        <androidx.preference.CheckBoxPreference
+            android:title="@string/config_zoomWithKeys_title"
+            android:key="@string/config_zoomWithKeys_key"
+            android:summary="@string/config_zoomWithKeys_summary"
+            android:defaultValue="false" />
     </androidx.preference.PreferenceScreen>
     <androidx.preference.PreferenceScreen
         android:key="config_category_editing"

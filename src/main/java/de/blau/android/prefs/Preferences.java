@@ -134,6 +134,7 @@ public class Preferences {
     private String            geoJsonLabelSource;
     private int               geoJsonLabelMinZoom;
     private float             geoJsonStrokeWidth;
+    private boolean           zoomWithKeys;
 
     private static final String DEFAULT_MAP_PROFILE = "Color Round Nodes";
 
@@ -316,6 +317,8 @@ public class Preferences {
         useImperialUnits = prefs.getBoolean(r.getString(R.string.config_useImperialUnits_key), false);
 
         longStringLimit = getIntPref(R.string.config_longStringLimit_key, 80);
+
+        zoomWithKeys = prefs.getBoolean(r.getString(R.string.config_zoomWithKeys_key), false);
     }
 
     /**
@@ -1839,6 +1842,25 @@ public class Preferences {
     public void setGeoJsonStrokeWidth(float width) {
         geoJsonStrokeWidth = width;
         prefs.edit().putFloat(r.getString(R.string.config_geojson_stroke_width_key), width).commit();
+    }
+
+    /**
+     * Support using the volume keys for zooming
+     * 
+     * @return true if the volume keys should be used
+     */
+    public boolean zoomWithKeys() {
+        return zoomWithKeys;
+    }
+
+    /**
+     * Enable/diable the zoom with keys preference
+     * 
+     * @param enable value to set
+     */
+    public void setZoomWithKeys(boolean enable) {
+        zoomWithKeys = enable;
+        prefs.edit().putBoolean(r.getString(R.string.config_zoomWithKeys_key), enable).commit();
     }
 
     /**
