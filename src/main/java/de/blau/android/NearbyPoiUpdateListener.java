@@ -100,7 +100,7 @@ public class NearbyPoiUpdateListener<E> implements UpdateInterface.OnUpdateListe
     private static void filterElements(@NonNull List<OsmElement> result, @NonNull List<Node> elements, @Nullable Filter filter) {
         PoiFilter poiFilter = filter == null ? WITHOUT_FILTER : WITH_FILTER;
         for (OsmElement e : elements) {
-            if (poiFilter.accept(e, filter)) {
+            if (poiFilter.accept(e, filter) && e.hasTags()) {
                 result.add(e);
             }
         }
