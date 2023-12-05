@@ -5,8 +5,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -22,10 +24,15 @@ import de.blau.android.util.Util;
 
 public class ZoomControls extends LinearLayout {
 
+    private static final String DEBUG_TAG = ZoomControls.class.getSimpleName();
+
     private final FloatingActionButton zoomIn;
     private final FloatingActionButton zoomOut;
 
     private final Context context;
+
+    private float elevationIn  = -1f;
+    private float elevationOut = -1f;
 
     /**
      * Construct a new zoom control view
@@ -129,5 +136,22 @@ public class ZoomControls extends LinearLayout {
             fab.setBackgroundColor(
                     ThemeUtils.getStyleAttribColorValue(context, isEnabled ? R.attr.colorControlNormal : R.attr.colorPrimary, R.color.dark_grey));
         }
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+        if (elevationIn < 0f) {
+            elevationIn = zoomIn.getElevation();
+            elevationOut = zoomOut.getElevation();
+        }
+    }
+
+    @Override
+    protected void onConfigurationChanged(Configuration newConfig) {
+        // this is a workaround for https://github.com/MarcusWolschon/osmeditor4android/issues/965
+        Log.d(DEBUG_TAG, "onConfigurationChanged " + elevationIn + " " + elevationOut);
+        zoomIn.setElevation(elevationIn);
+        zoomOut.setElevation(elevationOut);
     }
 }
