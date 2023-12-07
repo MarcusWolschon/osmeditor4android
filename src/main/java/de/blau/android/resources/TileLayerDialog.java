@@ -303,7 +303,7 @@ public class TileLayerDialog extends ImmersiveDialogFragment {
         } catch (SQLiteException | IOException sqex) {
             Log.e(DEBUG_TAG, "Not a SQLite/MBTiles database or PMTiles file " + fileUri + " " + sqex.getMessage());
         }
-        getActivity.runOnUiThread(() -> ScreenMessage.toastTopError(activity, R.string.toast_not_mbtiles));
+        getActivity().runOnUiThread(() -> ScreenMessage.toastTopError(activity, R.string.toast_not_mbtiles));
         return false;
     }
 

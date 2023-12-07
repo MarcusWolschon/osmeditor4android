@@ -246,7 +246,7 @@ public final class SelectFile {
                     @Override
                     protected void onPostExecute(Boolean exists) {
                         if (exists != null && exists) {
-                            Snack.barWarning(activity, activity.getResources().getString(R.string.toast_file_exists, file.getName()), R.string.overwrite,
+                            ScreenMessage.barWarning(activity, activity.getResources().getString(R.string.toast_file_exists, file.getName()), R.string.overwrite,
                                     v -> saveFile(uri));
                             return;
                         }

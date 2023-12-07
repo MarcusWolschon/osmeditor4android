@@ -2731,7 +2731,7 @@ public class Main extends FullScreenAppCompatActivity
     private void fileNotFound(@NonNull Uri fileUri) {
         runOnUiThread(() -> {
             try {
-                Snack.toastTopError(this, getResources().getString(R.string.toast_file_not_found, fileUri.toString()));
+                ScreenMessage.toastTopError(this, getResources().getString(R.string.toast_file_not_found, fileUri.toString()));
             } catch (Exception ex) {
                 // protect against translation errors
             }
