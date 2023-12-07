@@ -197,7 +197,8 @@ public class TileLayerDialog extends ImmersiveDialogFragment {
                     activity.runOnUiThread(() -> ScreenMessage.toastTopError(activity, R.string.not_found_title));
                     return false;
                 }
-                return configureFromFile(urlEdit, fileUri);
+                configureFromFile(urlEdit, fileUri);
+                return true;
             }
         }
     });
@@ -283,28 +284,30 @@ public class TileLayerDialog extends ImmersiveDialogFragment {
      * @param fileUri the file Uri for the file
      * @return true if successful
      */
-    private boolean configureFromFile(@NonNull final EditText urlEdit, @NonNull final Uri fileUri) {
-        try {
-            final String path = fileUri.getPath();
-            if (DatabaseUtil.isValidSQLite(path)) {
-                configureFromMBT(fileUri);
-            } else {
-                try (Reader reader = new Reader(new File(path))) {
-                    configureFromPMTiles(reader, reader.getMetadata());
+    private void configureFromFile(@NonNull final EditText urlEdit, @NonNull final Uri fileUri) {
+        // this touches the UI and needs to run on the main thread
+        getActivity().runOnUiThread(() -> {
+            try {
+                final String path = fileUri.getPath();
+                if (DatabaseUtil.isValidSQLite(path)) {
+                    configureFromMBT(fileUri);
+                } else {
+                    try (Reader reader = new Reader(new File(path))) {
+                        configureFromPMTiles(reader, reader.getMetadata());
+                    }
                 }
+                // this should really be in the metadata
+                setTileSize(TileLayerSource.DEFAULT_TILE_SIZE);
+                urlEdit.setText(fileUri.toString());
+                SelectFile.savePref(App.getLogic().getPrefs(), R.string.config_mbtilesPreferredDir_key, fileUri);
+                return;
+            } catch (JsonSyntaxException e) {
+                Log.e(DEBUG_TAG, "Invalid JSON metadata " + e.getMessage());
+            } catch (SQLiteException | IOException sqex) {
+                Log.e(DEBUG_TAG, "Not a SQLite/MBTiles database or PMTiles file " + fileUri + " " + sqex.getMessage());
             }
-            // this should really be in the metadata
-            setTileSize(TileLayerSource.DEFAULT_TILE_SIZE);
-            urlEdit.setText(fileUri.toString());
-            SelectFile.savePref(App.getLogic().getPrefs(), R.string.config_mbtilesPreferredDir_key, fileUri);
-            return true;
-        } catch (JsonSyntaxException e) {
-            Log.e(DEBUG_TAG, "Invalid JSON metadata " + e.getMessage());
-        } catch (SQLiteException | IOException sqex) {
-            Log.e(DEBUG_TAG, "Not a SQLite/MBTiles database or PMTiles file " + fileUri + " " + sqex.getMessage());
-        }
-        getActivity().runOnUiThread(() -> ScreenMessage.toastTopError(activity, R.string.toast_not_mbtiles));
-        return false;
+            ScreenMessage.toastTopError(activity, R.string.toast_not_mbtiles);
+        });
     }
 
     /**
@@ -317,7 +320,7 @@ public class TileLayerDialog extends ImmersiveDialogFragment {
     }
 
     /**
-     * Copy a file to an internal location suitable for random access on recent Android version
+     * Copy a file to an internal location suitable for random access on recent Android versions
      * 
      * As a side effect this will read configuration from the file afte rthe copying is finished
      * 

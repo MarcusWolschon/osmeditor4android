@@ -465,12 +465,12 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
                 Style style = new Style();
                 try {
                     if (ContentResolverUtil.getSizeColumn(activity, fileUri) > MAX_STYLE_FILE_SIZE) {
-                        ScreenMessage.toastTopError(activity, R.string.toast_style_file_too_large);
+                        displayError(activity, R.string.toast_style_file_too_large);
                         return false;
                     }
                     style.loadStyle(activity, activity.getContentResolver().openInputStream(fileUri));
                     if (style.getSources().size() != 1) {
-                        ScreenMessage.toastTopError(activity, R.string.toast_only_one_source_supported);
+                        displayError(activity, R.string.toast_only_one_source_supported);
                         return false;
                     }
                     Entry<String, Source> entry = new ArrayList<>(style.getSources().entrySet()).get(0);
@@ -487,14 +487,34 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
                     }
                     return true;
                 } catch (FileNotFoundException e) {
-                    ScreenMessage.toastTopError(activity, activity.getString(R.string.toast_file_not_found, fileUri.toString()));
+                    displayError(activity, activity.getString(R.string.toast_file_not_found, fileUri.toString()));
                     return false;
                 } catch (OsmIllegalOperationException e) {
-                    ScreenMessage.toastTopError(activity, e.getMessage());
+                    displayError(activity, e.getMessage());
                     return false;
                 }
             }
         });
+    }
+
+    /**
+     * Display an error message
+     * 
+     * @param activity the current Activity
+     * @param res the message resource
+     */
+    private void displayError(@NonNull final FragmentActivity activity, int res) {
+        activity.runOnUiThread(() -> ScreenMessage.toastTopError(activity, R.string.toast_style_file_too_large));
+    }
+
+    /**
+     * Display an error message
+     * 
+     * @param activity the current Activity
+     * @param msg the message
+     */
+    private void displayError(@NonNull final FragmentActivity activity, @NonNull String msg) {
+        activity.runOnUiThread(() -> ScreenMessage.toastTopError(activity, msg));
     }
 
     /**

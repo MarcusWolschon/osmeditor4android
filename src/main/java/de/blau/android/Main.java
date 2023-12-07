@@ -2308,7 +2308,8 @@ public class Main extends FullScreenAppCompatActivity
                         fileNotFound(fileUri);
                     }
                     SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
-                    map.invalidate();
+
+                    runOnUiThread(() -> map.invalidate());
                     return true;
                 }
             });
@@ -2331,7 +2332,7 @@ public class Main extends FullScreenAppCompatActivity
                         fileNotFound(fileUri);
                     }
                     SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
-                    map.invalidate();
+                    runOnUiThread(() -> map.invalidate());
                     return true;
                 }
             };
