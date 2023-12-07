@@ -3,11 +3,13 @@ package de.blau.android.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.nononsenseapps.filepicker.AbstractFilePickerActivity;
 
 import android.app.Activity;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -79,7 +81,7 @@ public final class SelectFile {
         }
         String path = App.getPreferences(activity).getString(directoryPrefKey);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            startFileSelector(activity, Intent.ACTION_CREATE_DOCUMENT, SAVE_FILE, path);
+            startFileSelector(activity, Intent.ACTION_CREATE_DOCUMENT, SAVE_FILE, path, false);
         } else {
             startFilePickerActivity(activity, SAVE_FILE, path);
         }
@@ -92,13 +94,24 @@ public final class SelectFile {
      *            {@link #savePref(Preferences, int, Uri)}
      */
     public static void read(@NonNull FragmentActivity activity, int directoryPrefKey, @NonNull ReadFile readFile) {
+        read(activity, directoryPrefKey, readFile, false);
+    }
+
+    /**
+     * @param activity activity activity that called us
+     * @param directoryPrefKey string resources for shared preferences for preferred (last) directory
+     * @param readFile callback callback that does the actual saving, should call
+     *            {@link #savePref(Preferences, int, Uri)}
+     * @param allowMultiple if true support selecting multiple files
+     */
+    public static void read(@NonNull FragmentActivity activity, int directoryPrefKey, @NonNull ReadFile readFile, boolean allowMultiple) {
         synchronized (readCallbackLock) {
             readCallback = readFile;
             SelectFile.activity = activity;
         }
         String path = App.getPreferences(activity).getString(directoryPrefKey);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            startFileSelector(activity, Intent.ACTION_OPEN_DOCUMENT, READ_FILE, path);
+            startFileSelector(activity, Intent.ACTION_OPEN_DOCUMENT, READ_FILE, path, allowMultiple);
         } else {
             startFilePickerActivity(activity, READ_FILE, path);
         }
@@ -144,11 +157,15 @@ public final class SelectFile {
      * @param intentRequestCode the request code
      * @param path a directory path to try to start with
      */
-    private static void startFileSelector(@NonNull FragmentActivity activity, @NonNull String intentAction, int intentRequestCode, @Nullable String path) {
+    private static void startFileSelector(@NonNull FragmentActivity activity, @NonNull String intentAction, int intentRequestCode, @Nullable String path,
+            boolean allowMultiple) {
         Intent i = new Intent(intentAction);
         i.setType("*/*");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && path != null) {
             i.putExtra(DocumentsContract.EXTRA_INITIAL_URI, Uri.parse(path));
+        }
+        if (intentRequestCode == READ_FILE && allowMultiple) {
+            i.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
         }
         final PackageManager pm = activity.getPackageManager();
 
@@ -236,34 +253,70 @@ public final class SelectFile {
         ContentResolverUtil.persistPermissions(activity, data.getFlags(), uri);
         try {
             if (code == SAVE_FILE) {
-                File file = new File(uri.getPath());
-                if (file.exists()) {
-                    ScreenMessage.barWarning(activity, activity.getResources().getString(R.string.toast_file_exists, file.getName()), R.string.overwrite, v -> {
-                        synchronized (saveCallbackLock) {
-                            if (saveCallback != null) {
-                                saveCallback.save(uri);
-                            }
-                        }
-                    });
-                    return;
-                }
-                synchronized (saveCallbackLock) {
-                    if (saveCallback != null) {
-                        Log.d(DEBUG_TAG, "saving to " + uri);
-                        saveCallback.save(uri);
-                    }
-                }
+                callSaveCallback(uri);
             } else if (code == READ_FILE) {
-                synchronized (readCallbackLock) {
-                    if (readCallback != null) {
-                        Log.d(DEBUG_TAG, "reading " + uri);
-                        readCallback.read(uri);
-                    }
-                }
+                callReadCallback(data, uri);
             }
         } catch (NetworkOnMainThreadException nex) {
             Log.e(DEBUG_TAG, "Got exception for " + " uri " + nex.getMessage());
             ScreenMessage.toastTopError(activity, activity.getString(R.string.toast_network_file_not_supported, nex.getMessage()));
+        }
+    }
+
+    /**
+     * Call the callback for saving to a file
+     * 
+     * @param uri the file Uri
+     */
+    private static void callSaveCallback(@Nullable Uri uri) {
+        if (uri == null) {
+            Log.e(DEBUG_TAG, "callSaveCallback called with null uri");
+            return;
+        }
+        File file = new File(uri.getPath());
+        if (file.exists()) {
+            ScreenMessage.barWarning(activity, activity.getResources().getString(R.string.toast_file_exists, file.getName()), R.string.overwrite, v -> {
+                synchronized (saveCallbackLock) {
+                    if (saveCallback != null) {
+                        saveCallback.save(uri);
+                    }
+                }
+            });
+            return;
+        }
+        synchronized (saveCallbackLock) {
+            if (saveCallback != null) {
+                Log.d(DEBUG_TAG, "saving to " + uri);
+                saveCallback.save(uri);
+            }
+        }
+    }
+
+    /**
+     * Call the callback for reading an or multiple files
+     * 
+     * @param data the Intent
+     * @param uri the file Uri
+     */
+    private static void callReadCallback(@NonNull Intent data, @Nullable Uri uri) {
+        synchronized (readCallbackLock) {
+            if (readCallback != null) {
+                Log.d(DEBUG_TAG, "reading " + uri);
+                if (uri == null) {
+                    ClipData clipData = data.getClipData();
+                    List<Uri> uris = new ArrayList<>();
+                    for (int i = 0; i < clipData.getItemCount(); i++) {
+                        ClipData.Item item = clipData.getItemAt(i);
+                        Uri u = item.getUri();
+                        if (u != null) {
+                            uris.add(u);
+                        }
+                    }
+                    readCallback.read(uris);
+                    return;
+                }
+                readCallback.read(uri);
+            }
         }
     }
 

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import android.net.Uri;
+import androidx.annotation.NonNull;
 
 public abstract class ReadFile implements Serializable {
     /**
@@ -17,14 +18,14 @@ public abstract class ReadFile implements Serializable {
      * @param fileUri Uri of the file to read
      * @return true if sucessful
      */
-    public abstract boolean read(Uri fileUri);
+    public abstract boolean read(@NonNull Uri fileUri);
 
     /**
      * Read multiple files, empty default implementation
      * 
      * @param uris List of Uri to read
      */
-    public void read(List<Uri> uris) {
+    public void read(@NonNull List<Uri> uris) {
         // empty
     }
 }

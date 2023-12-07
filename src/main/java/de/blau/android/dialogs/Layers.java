@@ -339,7 +339,7 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
                             @Override
                             protected void onPostExecute(Uri result) {
                                 if (result != null) {
-                                    addStyleableLayerFromUri(activity, prefs, map, LayerType.GPX, result);
+                                    addStyleableLayerFromUri(activity, prefs, map, LayerType.GPX, result, true);
                                 }
                             }
                         }.execute();
@@ -411,10 +411,17 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
 
             @Override
             public boolean read(Uri fileUri) {
-                addStyleableLayerFromUri(activity, prefs, map, type, fileUri);
+                addStyleableLayerFromUri(activity, prefs, map, type, fileUri, true);
                 return true;
             }
-        });
+
+            @Override
+            public void read(List<Uri> fileUris) {
+                for (Uri fileUri : fileUris) {
+                    addStyleableLayerFromUri(activity, prefs, map, type, fileUri, false);
+                }
+            }
+        }, true);
     }
 
     /**
@@ -425,9 +432,10 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
      * @param map current Map
      * @param type the layer type
      * @param fileUri the file uri
+     * @param showDialog show the style dialog if true
      */
     private void addStyleableLayerFromUri(@NonNull final FragmentActivity activity, @NonNull final Preferences prefs, @NonNull final Map map,
-            @NonNull LayerType type, @NonNull Uri fileUri) {
+            @NonNull LayerType type, @NonNull Uri fileUri, boolean showDialog) {
         final String uriString = fileUri.toString();
         de.blau.android.layer.StyleableLayer layer = (de.blau.android.layer.StyleableLayer) map.getLayer(type, uriString);
         if (layer == null) {
@@ -436,7 +444,9 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
             map.setUpLayers(activity);
             layer = (de.blau.android.layer.StyleableLayer) map.getLayer(type, uriString);
             if (layer != null) { // if null setUpLayers will have toasted
-                LayerStyle.showDialog(activity, layer.getIndex());
+                if (showDialog) {
+                    LayerStyle.showDialog(activity, layer.getIndex());
+                }
                 SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
                 layer.invalidate();
                 tl.removeAllViews();
