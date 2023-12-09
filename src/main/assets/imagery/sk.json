@@ -1,0 +1,439 @@
+{
+    "sk": {
+        "imagery": {
+            "Bing": {
+                "description": "Satelitn\u00c3\u00a9 a leteck\u00c3\u00a9 z\u00c3\u00a1bery",
+                "name": "Bing leteck\u00c3\u00a9 z\u00c3\u00a1bery"
+            },
+            "EOXAT2018CLOUDLESS": {
+                "attribution": {
+                    "text": "Sentinel-2 bez oblakov \u00e2\u20ac\u201c https://s2maps.eu \u00e2\u20ac\u201c od spolo\u00c4\ufffdnosti EOX IT Services GmbH (obsahuje upraven\u00c3\u00a9 d\u00c3\u00a1ta Copernicus Sentinel 2017 a 2018)"
+                },
+                "description": "Dodato\u00c4\ufffdne upraven\u00c3\u00a9 sn\u00c3\u00admky satelitu Sentinel.",
+                "name": "eox.at 2018 bez oblakov"
+            },
+            "EsriWorldImagery": {
+                "attribution": {
+                    "text": "Podmienky & pripomienky"
+                },
+                "description": "Esri sn\u00c3\u00admky sveta",
+                "name": "Esri sn\u00c3\u00admky sveta"
+            },
+            "EsriWorldImageryClarity": {
+                "attribution": {
+                    "text": "Podmienky a pripomienky"
+                },
+                "description": "Arch\u00c3\u00adv sn\u00c3\u00admok Esri, ktor\u00c3\u00a9 m\u00c3\u00b4\u00c5\u00beu by\u00c5\u00a5 jasnej\u00c5\u00a1ie a presnej\u00c5\u00a1ie ne\u00c5\u00be v\u00c3\u00bdchodzia hladina.",
+                "name": "Sn\u00c3\u00admky sveta Esri (Clarity) Beta"
+            },
+            "MAPNIK": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 OpenStreetMap prispievatelia, ODbL 1.0"
+                },
+                "description": "\u00c5\u00a0tandardn\u00c3\u00a1 vrstva OpenStreetMap.",
+                "name": "OpenStreetMap (\u00c5\u00a0tandardn\u00c3\u00a1)"
+            },
+            "Mapbox": {
+                "attribution": {
+                    "text": "Podmienky & pripomienky"
+                },
+                "name": "Mapbox satelitn\u00c3\u00a9"
+            },
+            "OSM_Inspector-Addresses": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, OpenStreetMap prispievatelia, CC-BY-SA"
+                },
+                "name": "OSM Inspector: Adresy"
+            },
+            "OSM_Inspector-Geometry": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, OpenStreetMap prispievatelia, CC-BY-SA"
+                },
+                "name": "OSM Inspector: Geometria"
+            },
+            "OSM_Inspector-Highways": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, OpenStreetMap prispievatelia, CC-BY-SA"
+                },
+                "name": "OSM Inspector: Cesty"
+            },
+            "OSM_Inspector-Multipolygon": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, OpenStreetMap prispievatelia, CC-BY-SA"
+                },
+                "name": "OSM Inspector: Plochy"
+            },
+            "OSM_Inspector-Places": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, OpenStreetMap prispievatelia, CC-BY-SA"
+                },
+                "name": "OSM Inspector: Miesta"
+            },
+            "OSM_Inspector-Routing": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, OpenStreetMap prispievatelia, CC-BY-SA"
+                },
+                "name": "OSM Inspector: Nevigovanie"
+            },
+            "OSM_Inspector-Tagging": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, OpenStreetMap prispievatelia, CC-BY-SA"
+                },
+                "name": "OSM Inspector: Ozna\u00c4\ufffdenia"
+            },
+            "SPW_ORTHO_LAST": {
+                "name": "SPW(Val\u00c3\u00b3nsko) najnov\u00c5\u00a1ie leteck\u00c3\u00a9 sn\u00c3\u00admky"
+            },
+            "SPW_PICC": {
+                "name": "SPW(Val\u00c3\u00b3nsko) PICC numerick\u00c3\u00a9 sn\u00c3\u00admky"
+            },
+            "US-TIGER-Roads-2017": {
+                "description": "\u00c5\u00bdlt\u00c3\u00a1 = Verejne dostupn\u00c3\u00a9 mapov\u00c3\u00a9 \u00c3\u00badaje od US Census. \u00c4\u0152erven\u00c3\u00a1 = D\u00c3\u00a1ta nen\u00c3\u00a1jden\u00c3\u00a9 v OpenStreetMap.",
+                "name": "Cesty TIGER 2017"
+            },
+            "US-TIGER-Roads-2018": {
+                "description": "\u00c5\u00bdlt\u00c3\u00a1 = Verejne dostupn\u00c3\u00a9 mapov\u00c3\u00a9 \u00c3\u00badaje od US Census. \u00c4\u0152erven\u00c3\u00a1 = D\u00c3\u00a1ta nen\u00c3\u00a1jden\u00c3\u00a9 v OpenStreetMap.",
+                "name": "Cesty TIGER 2018"
+            },
+            "US-TIGER-Roads-2019": {
+                "description": "\u00c5\u00bdlt\u00c3\u00a1 = Verejne dostupn\u00c3\u00a9 mapov\u00c3\u00a9 \u00c3\u00badaje od US Census. \u00c4\u0152erven\u00c3\u00a1 = D\u00c3\u00a1ta nen\u00c3\u00a1jden\u00c3\u00a9 v OpenStreetMap.",
+                "name": "Cesty TIGER 2019"
+            },
+            "USDA-NAIP": {
+                "name": "N\u00c3\u00a1rodn\u00c3\u00bd program po\u00c4\u00benohospod\u00c3\u00a1rskych sn\u00c3\u00admok"
+            },
+            "US_Forest_Service_roads_overlay": {
+                "description": "Dia\u00c4\u00benica: Zelen\u00c3\u00a9 or\u00c3\u00a1movanie = nezaraden\u00c3\u00a9. Hned\u00c3\u00a9 or\u00c3\u00a1movanie = po\u00c4\u00ben\u00c3\u00a1 cesta. Povrch: \u00c5\u00a1trk = svetlohned\u00c3\u00a1 v\u00c3\u00bdpl\u00c5\u02c6, asfalt = \u00c4\ufffdierna, spevnen\u00c3\u00a1 = \u00c5\u00a1ed\u00c3\u00a1, zem = biela, bet\u00c3\u00b3n = modr\u00c3\u00a1, tr\u00c3\u00a1va = zelen\u00c3\u00a1. Sez\u00c3\u00b3nne = biele pruhy",
+                "name": "Vrstva lesn\u00c3\u00bdch ciest USA"
+            },
+            "UrbISOrtho2016": {
+                "attribution": {
+                    "text": "Realizovan\u00c3\u00a9 formou Bruselsk\u00c3\u00a9ho UrbIS\u00c2\u00ae \u00c2\u00a9 - Distrib\u00c3\u00bacia a autorsk\u00c3\u00a9 pr\u00c3\u00a1va CIRB"
+                },
+                "name": "UrbIS-Ortho 2016"
+            },
+            "UrbISOrtho2017": {
+                "attribution": {
+                    "text": "Realizovan\u00c3\u00a9 formou Bruselsk\u00c3\u00a9ho UrbIS\u00c2\u00ae \u00c2\u00a9 - Distrib\u00c3\u00bacia a autorsk\u00c3\u00a9 pr\u00c3\u00a1va CIRB"
+                },
+                "name": "UrbIS-Ortho 2017"
+            },
+            "UrbISOrtho2018": {
+                "attribution": {
+                    "text": "Realizovan\u00c3\u00a9 formou Bruselsk\u00c3\u00a9ho UrbIS\u00c2\u00ae \u00c2\u00a9 - Distrib\u00c3\u00bacia a autorsk\u00c3\u00a9 pr\u00c3\u00a1va CIRB"
+                },
+                "name": "UrbIS-Ortho 2018"
+            },
+            "UrbISOrtho2019": {
+                "attribution": {
+                    "text": "Realizovan\u00c3\u00a9 formou Bruselsk\u00c3\u00a9ho UrbIS\u00c2\u00ae \u00c2\u00a9 - Distrib\u00c3\u00bacia a autorsk\u00c3\u00a9 pr\u00c3\u00a1va CIRB"
+                },
+                "name": "UrbIS-Ortho 2019"
+            },
+            "UrbisAdmFR": {
+                "attribution": {
+                    "text": "Realizovan\u00c3\u00a9 formou Bruselsk\u00c3\u00a9ho UrbIS\u00c2\u00ae \u00c2\u00a9 - Distrib\u00c3\u00bacia a autorsk\u00c3\u00a9 pr\u00c3\u00a1va CIRB"
+                },
+                "name": "UrbisAdm FR"
+            },
+            "UrbisAdmNL": {
+                "attribution": {
+                    "text": "Realizovan\u00c3\u00a9 formou Bruselsk\u00c3\u00a9ho UrbIS\u00c2\u00ae \u00c2\u00a9 - Distrib\u00c3\u00bacia a autorsk\u00c3\u00a9 pr\u00c3\u00a1va CIRB"
+                },
+                "name": "UrbisAdm NL"
+            },
+            "Waymarked_Trails-Cycling": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 waymarkedtrails.org, OpenStreetMap prispievatelia, CC by-SA 3.0"
+                },
+                "name": "Waymarked Trails: Cyklistika"
+            },
+            "Waymarked_Trails-Hiking": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 waymarkedtrails.org, OpenStreetMap prispievatelia, CC by-SA 3.0"
+                },
+                "name": "Waymarked Trails: Turistika"
+            },
+            "Waymarked_Trails-MTB": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 waymarkedtrails.org, OpenStreetMap prispievatelia, CC by-SA 3.0"
+                },
+                "name": "Waymarked Trails: Horsk\u00c3\u00a9 bicykle"
+            },
+            "Waymarked_Trails-Skating": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 waymarkedtrails.org, OpenStreetMap prispievatelia, CC by-SA 3.0"
+                },
+                "name": "Waymarked Trails: Skating"
+            },
+            "Waymarked_Trails-Winter_Sports": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 waymarkedtrails.org, OpenStreetMap prispievatelia, CC by-SA 3.0"
+                },
+                "name": "Waymarked Trails: Zimn\u00c3\u00a9 \u00c5\u00a1porty"
+            },
+            "basemap.at": {
+                "attribution": {
+                    "text": "basemap.at"
+                },
+                "description": "Z\u00c3\u00a1kladn\u00c3\u00a1 mapa Rak\u00c3\u00baska na z\u00c3\u00a1klade vl\u00c3\u00a1dnych \u00c3\u00badajov.",
+                "name": "basemap.at"
+            },
+            "basemap.at-orthofoto": {
+                "attribution": {
+                    "text": "basemap.at"
+                },
+                "description": "Leteck\u00c3\u00a9 sn\u00c3\u00admky poskytnut\u00c3\u00a9 od basemap.at. N\u00c3\u00a1stupca z\u00c3\u00a1berov geoimage.at.",
+                "name": "basemap.at Orthofoto"
+            },
+            "basemap.at-overlay": {
+                "attribution": {
+                    "text": "basemap.at"
+                },
+                "description": "Prekrytie anot\u00c3\u00a1ci\u00c3\u00ad poskytuje basemap.at.",
+                "name": "Prekrytie basemap.at"
+            },
+            "eufar-balaton": {
+                "attribution": {
+                    "text": "Ortofoto EUFAR Balaton 2010"
+                },
+                "description": "Fotografie so zemepisn\u00c3\u00bdmi s\u00c3\u00baradnicami od Balaton Limnological Institute z roku 1940.",
+                "name": "Ortofoto EUFAR Balaton"
+            },
+            "gothenburg-citymap": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 oblas\u00c5\u00a5 Gothenburg, licencia CC0"
+                },
+                "description": "Mapa mesta je preh\u00c4\u00beadn\u00c3\u00a1 mapa, ktor\u00c3\u00a1 popisuje G\u00c3\u00b6teborg. Obsahuje v\u00c5\u00a1eobecn\u00c3\u00a9 inform\u00c3\u00a1cie o pozemkoch, komunik\u00c3\u00a1ci\u00c3\u00a1ch, hydrografii, budov\u00c3\u00a1ch, adresn\u00c3\u00bdch \u00c4\ufffd\u00c3\u00adslach a n\u00c3\u00a1zvoch ul\u00c3\u00adc, administrat\u00c3\u00advnom \u00c4\ufffdlenen\u00c3\u00ad a \u00c4\ufffdal\u00c5\u00a1om orienta\u00c4\ufffdnom texte.",
+                "name": "Mestsk\u00c3\u00a1 mapa Gothenburg"
+            },
+            "gothenburg-ortho": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Miestna spr\u00c3\u00a1va Gothenburg, CC0"
+                },
+                "description": "Otrofotomapa od miestnej spr\u00c3\u00a1vy Gothenburg"
+            },
+            "gsi.go.jp_airphoto": {
+                "attribution": {
+                    "text": "GSI Japonsko"
+                },
+                "description": "Leteck\u00c3\u00a9 sn\u00c3\u00admky Japonska od GSI. Ne celkom vyladen\u00c3\u00a9, ale trochu nov\u00c5\u00a1ie, pr\u00c3\u00adpadne s in\u00c3\u00bdm pokryt\u00c3\u00adm ne\u00c5\u00be sn\u00c3\u00admky Japonska (GSI).",
+                "name": "Leteck\u00c3\u00a9 sn\u00c3\u00admky Japonska (GSI)"
+            },
+            "gsi.go.jp_seamlessphoto": {
+                "attribution": {
+                    "text": "Bezo\u00c5\u00a1v\u00c3\u00a9 fotosn\u00c3\u00admky Japonska (GSI)"
+                },
+                "description": "Bezo\u00c5\u00a1v\u00c3\u00a9 sn\u00c3\u00admky Japonska od GSI. Kolekcia nejnov\u00c4\u203aj\u00c5\u00a1\u00c3\u00adch sn\u00c3\u00admk\u00c5\u00af GSI (ortofoto, leteck\u00c3\u00a9) po ne\u00c5\u00a1\u00c5\u00a5ast\u00c3\u00ad a \u00c4\ufffdal\u00c5\u00a1ie.",
+                "name": "Bezo\u00c5\u00a1v\u00c3\u00a9 sn\u00c3\u00admky Japonska (GSI)"
+            },
+            "gsi.go.jp_std_map": {
+                "attribution": {
+                    "text": "GSI Japonsko"
+                },
+                "description": "\u00c5\u00a0tandardn\u00c3\u00a1 mapa Japonska (GSI). Rozsiahle pokrytie.",
+                "name": "\u00c5\u00a0tandardn\u00c3\u00a1 mapa Japonska (GSI)"
+            },
+            "kalmar-orto-2014": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Miestna spr\u00c3\u00a1va Kalmar"
+                },
+                "description": "Leteck\u00c3\u00a9 sn\u00c3\u00admky severn\u00c3\u00a9ho pobre\u00c5\u00beia oblasti Kalmar, 2014",
+                "name": "Leteck\u00c3\u00a9 sn\u00c3\u00admky Kalmar sever, 2014"
+            },
+            "kalmar-orto-2016": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Miestna spr\u00c3\u00a1va Kalmar"
+                },
+                "description": "Leteck\u00c3\u00a9 sn\u00c3\u00admky ju\u00c5\u00ben\u00c3\u00a9ho pobre\u00c5\u00beia oblasti Kalmar, 2016",
+                "name": "Leteck\u00c3\u00a9 sn\u00c3\u00admky Kalmar jh 2016"
+            },
+            "kalmar-orto-2018": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 miestna spr\u00c3\u00a1va Kalmar"
+                },
+                "description": "Leteck\u00c3\u00a9 sn\u00c3\u00admky ob\u00c3\u00bdvan\u00c3\u00bdch z\u00c3\u00b3n oblasti Kalmar, 2018",
+                "name": "Mestsk\u00c3\u00a9 ortofoto Kalmar, 2018"
+            },
+            "kelkkareitit": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Kelkkareitit.fi"
+                },
+                "description": "Kelkkareitit.fi - OSM mapa tr\u00c3\u00a1s pre sne\u00c5\u00ben\u00c3\u00a9 sk\u00c3\u00batre (pokrytie - \u00c5\u00a0kandin\u00c3\u00a1via)",
+                "name": "Prekrytie tr\u00c3\u00a1s pre sne\u00c5\u00ben\u00c3\u00a9 s\u00c2\u00b4k\u00c3\u00batre - \u00c5\u00a0kandin\u00c3\u00a1via"
+            },
+            "lantmateriet-orto1960": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Lantm\u00c3\u00a4teriet, CC0"
+                },
+                "description": "Mozaika \u00c5\u00a0v\u00c3\u00a9dskych leteck\u00c3\u00bdch sn\u00c3\u00admok z obdobia 1955\u00e2\u20ac\u201c1965. M\u00c3\u00b4\u00c5\u00bee miestami obsahova\u00c5\u00a5 star\u00c5\u00a1ie aj nov\u00c5\u00a1ie sn\u00c3\u00admky.",
+                "name": "Lantm\u00c3\u00a4teriet historick\u00c3\u00a1 ortofotomapa 1960"
+            },
+            "lantmateriet-orto1975": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Lantm\u00c3\u00a4teriet, CC0"
+                },
+                "description": "Mozaika \u00c5\u00a0v\u00c3\u00a9dsk\u00c3\u00bdch leteck\u00c3\u00bdch sn\u00c3\u00admok z obdobia 1970\u00e2\u20ac\u201c1980. Pripravuje sa.",
+                "name": "Historick\u00c3\u00a9 leteck\u00c3\u00a9 sn\u00c3\u00admky Lantm\u00c3\u00a4teriet z roku 1975"
+            },
+            "lantmateriet-topowebb": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Lantm\u00c3\u00a4teriet, CC0"
+                },
+                "description": "Topografick\u00c3\u00a1 mapa \u00c5\u00a0v\u00c3\u00a9dska 1:50 000",
+                "name": "Lantm\u00c3\u00a4teriet topografick\u00c3\u00a1 mapa"
+            },
+            "linkoping-orto": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Miestna spr\u00c3\u00a1va Link\u00c3\u00b6ping"
+                },
+                "description": "Leteck\u00c3\u00a9 sn\u00c3\u00admky oblasti Link\u00c3\u00b6ping z roku 2010, vo\u00c4\u00ben\u00c3\u00a9 dielo",
+                "name": "Ortofotomapa Link\u00c3\u00b6pingu"
+            },
+            "mapbox_locator_overlay": {
+                "attribution": {
+                    "text": "Podmienky & pripomienky"
+                },
+                "description": "Zobrazi\u00c5\u00a5 hlavn\u00c3\u00a9 objekty pre lep\u00c5\u00a1iu orient\u00c3\u00a1ciu.",
+                "name": "Lok\u00c3\u00a1torov\u00c3\u00a1 vrstva"
+            },
+            "openpt_map": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 OpenStreetMap prispievatelia, CC-BY-SA"
+                },
+                "name": "OpenPT mapa (prekrytie)"
+            },
+            "openrailwaymap": {
+                "attribution": {
+                    "text": "Zobrazenie: OpenRailwayMap, \u00c2\u00a9 Mapov\u00c3\u00a9 \u00c3\u00badaje: p\u00c5\u2122isp\u00c4\u203avatelia OpenStreetMap"
+                },
+                "description": "Prekr\u00c3\u00bdvaj\u00c3\u00baca vrstva zobrazuj\u00c3\u00baca \u00c5\u00beelezni\u00c4\ufffdn\u00c3\u00ba infra\u00c5\u00a1trukt\u00c3\u00baru z \u00c3\u00badajov OpenStreetMap",
+                "name": "OpenRailwayMap"
+            },
+            "openrailwaymap-maxspeeds": {
+                "attribution": {
+                    "text": "Zobrazenie: OpenRailwayMap, \u00c2\u00a9 Mapov\u00c3\u00a9 \u00c3\u00badaje prispievatelia OpenStreetMap"
+                },
+                "description": "Prekr\u00c3\u00bdvaj\u00c3\u00baca vrstva zobrazuj\u00c3\u00baca \u00c5\u00beelezni\u00c4\ufffdn\u00c3\u00a9 r\u00c3\u00bdchlostn\u00c3\u00a9 limity z \u00c3\u00badajov OpenStreetMap",
+                "name": "Maxim\u00c3\u00a1lne r\u00c3\u00bdchlosti OpenRailwayMap"
+            },
+            "openrailwaymap-signalling": {
+                "attribution": {
+                    "text": "zobrazenie: OpenRailwayMap, \u00c2\u00a9 mapov\u00c3\u00a9 \u00c3\u00badaje: prispievatelia OpenStreetMap"
+                },
+                "description": "Prekr\u00c3\u00bdvaj\u00c3\u00baca vrstva zobrazuj\u00c3\u00baca \u00c5\u00beelezni\u00c4\ufffdn\u00c3\u00a9 n\u00c3\u00a1vestia z \u00c3\u00badajov OpenStreetMap",
+                "name": "N\u00c3\u00a1vestia OpenRailwayMap"
+            },
+            "osm-gps": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 OpenStreetMap prispievatielia"
+                },
+                "description": "Verejn\u00c3\u00a9 GPS stopy nahran\u00c3\u00a9 do OpenStreetMap.",
+                "name": "OpenStreetMap GPS stopy"
+            },
+            "osm-mapnik-german_style": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 OpenStreetMap prispievatelia, CC-BY-SA"
+                },
+                "name": "OpenStreetMap (Nemeck\u00c3\u00bd \u00c5\u00a1t\u00c3\u00bdl)"
+            },
+            "qa_no_address": {
+                "attribution": {
+                    "text": "Simon Poole, \u00c3\u0161daje \u00c2\u00a9OpenStreetMap prispievatelia"
+                },
+                "name": "QA bez adries"
+            },
+            "skobbler": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Dla\u00c5\u00bedice: skobbler Mapov\u00c3\u00a9 \u00c3\u00badaje: OpenStreetMap prispievatelia"
+                },
+                "name": "skobbler"
+            },
+            "skoterleder": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Skoterleder.org"
+                },
+                "description": "Trasy pre sne\u00c5\u00ben\u00c3\u00a9 sk\u00c3\u00batre",
+                "name": "Mapa \u00c5\u00a0v\u00c3\u00a9dska pre sne\u00c5\u00ben\u00c3\u00a9 sk\u00c3\u00batre"
+            },
+            "stamen-terrain-background": {
+                "attribution": {
+                    "text": "Mapov\u00c3\u00a9 dla\u00c5\u00bedice od Stamen Design, licencia CC BY 3.0. Data od OpenStreetMap, licencia ODbL"
+                },
+                "name": "Stamen ter\u00c3\u00a9n"
+            },
+            "stockholm-orto": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Miestna spr\u00c3\u00a1va Stockholm, licencia CC0"
+                },
+                "name": "Ortofoto sn\u00c3\u00admky mesta \u00c5\u00a0tokholm"
+            },
+            "susono_shizuoka_jp_orthophoto": {
+                "attribution": {
+                    "text": "Ortofoto sn\u00c3\u00admky mesta Susono"
+                },
+                "description": "Leteck\u00c3\u00a9 fotografie zverejnen\u00c3\u00a9 mestom Susono City ako otvoren\u00c3\u00a9 d\u00c3\u00a1ta.",
+                "name": "Ortofoto sn\u00c3\u00admky mesta Susono"
+            },
+            "tf-cycle": {
+                "attribution": {
+                    "text": "Mapa \u00c2\u00a9 Thunderforest, \u00c3\u0161daje \u00c2\u00a9 OpenStreetMap prispievatelia"
+                },
+                "name": "Thunderforest OpenCycleMap"
+            },
+            "tf-landscape": {
+                "attribution": {
+                    "text": "Mapa \u00c2\u00a9 Thunderforest, \u00c3\u0161daje \u00c2\u00a9 OpenStreetMap prispievatelia"
+                },
+                "name": "Thunderforest Krajina"
+            },
+            "tf-outdoors": {
+                "attribution": {
+                    "text": "Mapy \u00c2\u00a9 Thunderforest, \u00c3\u0161daje \u00c2\u00a9 OpenStreetMap prispievatelia"
+                },
+                "name": "Outdoor mapa Thunderforest"
+            },
+            "trafikverket-baninfo": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Trafikverket, CC0"
+                },
+                "description": "\u00c5\u00a0v\u00c3\u00a9dsk\u00c3\u00a1 \u00c5\u00beelezni\u00c4\ufffdn\u00c3\u00a1 sie\u00c5\u00a5, v\u00c4\ufffdetne vle\u00c4\ufffdiek",
+                "name": "\u00c5\u00bdelezni\u00c4\ufffdn\u00c3\u00a1 sie\u00c5\u00a5 Trafikverket"
+            },
+            "trafikverket-baninfo-option": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Trafikverket, CC0"
+                },
+                "description": "\u00c5\u00a0v\u00c3\u00a9dsk\u00c3\u00a1 \u00c5\u00beelezni\u00c4\ufffdn\u00c3\u00a1 sie\u00c5\u00a5 s viacer\u00c3\u00bdmi mo\u00c5\u00benos\u00c5\u00a5ami mapov\u00c3\u00bdch vrstiev",
+                "name": "Vo\u00c4\u00beby \u00c5\u00beelezni\u00c4\ufffdnej siete Trafikverket"
+            },
+            "trafikverket-vagnat": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Trafikverket, CC0"
+                },
+                "description": "\u00c5\u00a0v\u00c3\u00a9dska cestn\u00c3\u00a1 sie\u00c5\u00a5 NVDB",
+                "name": "Cestn\u00c3\u00a1 sie\u00c5\u00a5 Trafikverket"
+            },
+            "trafikverket-vagnat-extra": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Trafikverket, CC0"
+                },
+                "description": "Detailn\u00c3\u00a1 \u00c5\u00a0v\u00c3\u00a9dska mapa NVDB: dia\u00c4\u00benice, spoma\u00c4\u00beovanie dopravy, odpo\u00c4\ufffd\u00c3\u00advadl\u00c3\u00a1, autobusov\u00c3\u00a9 zast\u00c3\u00a1vky, mosty, tunely, radary",
+                "name": "Cestn\u00c3\u00a1 sie\u00c5\u00a5 extra Trafikverket"
+            },
+            "trafikverket-vagnat-option": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Trafikverket, CC0"
+                },
+                "description": "\u00c5\u00a0v\u00c3\u00a9dska cestn\u00c3\u00a1 sie\u00c5\u00a5 NVDB s viacer\u00c3\u00bdmi mo\u00c5\u00benos\u00c5\u00a5ami mapov\u00c3\u00bdch vrstiev",
+                "name": "Mo\u00c5\u00benosti cestnej siete Trafikverket"
+            },
+            "wroclaw-orto2018": {
+                "attribution": {
+                    "text": "Mestsk\u00c3\u00bd \u00c3\u00barad Wroclaw"
+                },
+                "name": "Wroclaw: ortofotomapa 2018 (vzdu\u00c5\u00a1n\u00c3\u00a9 z\u00c3\u00a1bery)"
+            }
+        }
+    }
+}

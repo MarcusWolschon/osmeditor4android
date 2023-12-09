@@ -23,7 +23,7 @@ public final class MockTileServer {
 
     private static final String DEBUG_TAG = MockTileServer.class.getName();
 
-    public static final String MOCK_TILE_SOURCE = "VESPUCCITEST";
+    public static final String MOCK_TILE_SOURCE = "VespucciTest";
 
     /**
      * Private constructor to stop instantiation

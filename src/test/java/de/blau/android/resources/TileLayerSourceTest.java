@@ -3,12 +3,14 @@ package de.blau.android.resources;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Locale;
 
 import org.junit.After;
 import org.junit.Before;
@@ -75,7 +77,7 @@ public class TileLayerSourceTest {
             assertNotNull(b);
             List<CoverageArea> areas = b.getCoverage();
             assertEquals(2, areas.size());
-            TileLayerSource bNoDate = TileLayerSource.get(ApplicationProvider.getApplicationContext(), "B NO DATE", false);
+            TileLayerSource bNoDate = TileLayerSource.get(ApplicationProvider.getApplicationContext(), "B no date", false);
             assertNotNull(bNoDate);
             areas = bNoDate.getCoverage();
             assertEquals(2, areas.size());
@@ -166,14 +168,14 @@ public class TileLayerSourceTest {
             TileLayerSource.getListsLocked(ApplicationProvider.getApplicationContext(), db.getReadableDatabase(), true);
             String[] ids = TileLayerSource.getIds(null, false, null, null);
             assertEquals(2, ids.length);
-            TileLayerSource swisstopo = TileLayerSource.get(ApplicationProvider.getApplicationContext(), "swisstopo_swissimage".toUpperCase(), false);
+            TileLayerSource swisstopo = TileLayerSource.get(ApplicationProvider.getApplicationContext(), "swisstopo_swissimage", false);
             assertNotNull(swisstopo);
             MapTile tile = new MapTile("", 16, 34387, 22901);
             String url = swisstopo.getTileURLString(tile);
             assertEquals(
                     "https://wms.geo.admin.ch?LAYERS=ch.swisstopo.swissimage&STYLES=default&FORMAT=image/jpeg&CRS=EPSG:3857&WIDTH=512&HEIGHT=512&BBOX=990012.3903496042,6033021.768492393,990623.8865758851,6033633.264718674&VERSION=1.3.0&SERVICE=WMS&REQUEST=GetMap",
                     url);
-            TileLayerSource thurgau = TileLayerSource.get(ApplicationProvider.getApplicationContext(), "kt_tg_av".toUpperCase(), false);
+            TileLayerSource thurgau = TileLayerSource.get(ApplicationProvider.getApplicationContext(), "kt_tg_av", false);
             assertNotNull(thurgau);
             url = thurgau.getTileURLString(tile);
             assertEquals(
@@ -190,7 +192,7 @@ public class TileLayerSourceTest {
     @Test
     public void projFromWmsUrl() {
         TileLayerDatabase.addSource(db.getWritableDatabase(), TileLayerDatabase.SOURCE_ELI);
-        final String id = "kt_tg_av_test".toUpperCase();
+        final String id = "kt_tg_av_test";
         TileLayerSource.addOrUpdateCustomLayer(ApplicationProvider.getApplicationContext(), db.getWritableDatabase(), id, null, -1L, -1L, "Test", null, null,
                 null, null, 1, 20, 256, false,
                 "https://ows.geo.tg.ch/geofy_access_proxy/basisplanf?LAYERS=Basisplan_farbig&STYLES=&FORMAT=image/png&CRS=EPSG:4326&WIDTH={width}&HEIGHT={height}&BBOX={bbox}&VERSION=1.3.0&SERVICE=WMS&REQUEST=GetMap");
@@ -246,7 +248,7 @@ public class TileLayerSourceTest {
     public void updateFromCustomImageryFile() {
         try {
             File destinationDir = FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), "/");
-            File destinationFile = new File(destinationDir, Files.FILE_NAME_USER_IMAGERY);
+            File destinationFile = new File(destinationDir, Files.FILE_NAME_IMAGERY);
             JavaResources.copyFileFromResources("imagery_test.geojson", null, destinationFile);
             TileLayerSource.createOrUpdateCustomSource(ApplicationProvider.getApplicationContext(), db.getWritableDatabase(), false);
             String[] ids = TileLayerSource.getIds(null, false, null, null);
@@ -289,5 +291,18 @@ public class TileLayerSourceTest {
                 // do nothing
             }
         }
+    }
+    
+    /**
+     * Translation support
+     */
+    @Test
+    public void translations() {
+        Locale.setDefault(new Locale("de", "DE"));
+        TileLayerSource.createOrUpdateFromAssetsSource(ApplicationProvider.getApplicationContext(), db.getWritableDatabase(), true, false);
+        TileLayerSource.getListsLocked(ApplicationProvider.getApplicationContext(), db.getReadableDatabase(), true);
+        TileLayerSource kontour = TileLayerSource.get(ApplicationProvider.getApplicationContext(), "OpenAerialMapMosaic", false);
+        assertNotNull(kontour);
+        assertTrue(kontour.getName().contains("Mosaik"));
     }
 }

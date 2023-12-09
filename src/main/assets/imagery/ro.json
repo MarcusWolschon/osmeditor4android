@@ -1,0 +1,142 @@
+{
+    "ro": {
+        "imagery": {
+            "Bing": {
+                "description": "Imagini aeriane \u00c8\u2122i de satelit."
+            },
+            "MAPNIK": {
+                "description": "Stratul OpenStreetMap implicit.",
+                "name": "OpenStreetMap (Standard)"
+            },
+            "Mapbox": {
+                "attribution": {
+                    "text": "Termeni & feedback"
+                },
+                "name": "Satelit Mapbox"
+            },
+            "OSM_Inspector-Addresses": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, contribuitori OpenStreetMap, CC-BY-SA"
+                },
+                "name": "Inspector OSM: Adrese"
+            },
+            "OSM_Inspector-Geometry": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, contribuitori OpenStreetMap, CC-BY-SA"
+                },
+                "name": "Inspector OSM: Geometrie"
+            },
+            "OSM_Inspector-Highways": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, contribuitori OpenStreetMap, CC-BY-SA"
+                },
+                "name": "Inspector OSM: Drumuri"
+            },
+            "OSM_Inspector-Multipolygon": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, contribuitori OpenStreetMap, CC-BY-SA"
+                },
+                "name": "Inspector OSM: Suprafa\u00c8\u203ae"
+            },
+            "OSM_Inspector-Places": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, contribuitori OpenStreetMap, CC-BY-SA"
+                },
+                "name": "Inspector OSM: Locuri"
+            },
+            "OSM_Inspector-Routing": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, contribuitori OpenStreetMap, CC-BY-SA"
+                },
+                "name": "Inspector OSM: Rutare"
+            },
+            "OSM_Inspector-Tagging": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, contribuitori OpenStreetMap, CC-BY-SA"
+                },
+                "name": "Inspector OSM: Ad\u00c4\u0192ugare de taguri"
+            },
+            "Waymarked_Trails-Cycling": {
+                "name": "Trasee Marcate: Biciclet\u00c4\u0192"
+            },
+            "Waymarked_Trails-Hiking": {
+                "name": "Trasee Marcate: Drume\u00c8\u203aie"
+            },
+            "Waymarked_Trails-MTB": {
+                "name": "Trasee Marcate: MTB"
+            },
+            "Waymarked_Trails-Skating": {
+                "name": "Trasee Marcate: Skating"
+            },
+            "Waymarked_Trails-Winter_Sports": {
+                "name": "Trasee Marcate: Sporturi de iarn\u00c4\u0192"
+            },
+            "basemap.at": {
+                "attribution": {
+                    "text": "basemap.at"
+                },
+                "name": "basemap.at"
+            },
+            "basemap.at-orthofoto": {
+                "attribution": {
+                    "text": "basemap.at"
+                },
+                "description": "Strat Orthofoto furnizat de basemap.at. \"Succesor\" al imaginilor geoimage.at.",
+                "name": "Orthofoto basemap.at "
+            },
+            "mapbox_locator_overlay": {
+                "attribution": {
+                    "text": "Termeni & Feedback"
+                },
+                "description": "Arat\u00c4\u0192 obiecte majore pentru a te ajuta la orientare.",
+                "name": "Acoperire Locator"
+            },
+            "openpt_map": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Contribuitori OpenStreetMap, CC-BY-SA"
+                },
+                "name": "OpenPT Map (acoperire)"
+            },
+            "osm-gps": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Contribuitori OpenStreetMap"
+                },
+                "description": "Urme GPS publice \u00c3\u00aenc\u00c4\u0192rcate la OpenStreetMap.",
+                "name": "OpenStreetMap urme GPS"
+            },
+            "osm-mapnik-german_style": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Contribuitori OpenStreetMap, CC-BY-SA"
+                },
+                "name": "OpenStreetMap (Stil German)"
+            },
+            "qa_no_address": {
+                "attribution": {
+                    "text": "Simon Poole, Date contribuitori \u00c2\u00a9OpenStreetMap"
+                },
+                "name": "QA F\u00c4\u0192r\u00c4\u0192 Adres\u00c4\u0192"
+            },
+            "skobbler": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Pl\u00c4\u0192ci: skobbler Date hart\u00c4\u0192: Contribuitori OpenStreetMap"
+                },
+                "name": "skobbler"
+            },
+            "stamen-terrain-background": {
+                "name": "Teren Stamen"
+            },
+            "tf-cycle": {
+                "attribution": {
+                    "text": "H\u00c4\u0192r\u00c8\u203ai \u00c2\u00a9 Thunderforest, Date \u00c2\u00a9 Contribuitori OpenStreetMap"
+                },
+                "name": "OpenCycleMap Thunderforest"
+            },
+            "tf-landscape": {
+                "attribution": {
+                    "text": "H\u00c4\u0192r\u00c8\u203ai \u00c2\u00a9 Thunderforest, Date \u00c2\u00a9 Contribuitori OpenStreetMap"
+                },
+                "name": "Peisaj Thunderforest "
+            }
+        }
+    }
+}

@@ -1,0 +1,383 @@
+{
+    "lv": {
+        "imagery": {
+            "Bing": {
+                "description": "Satel\u00c4\u00abtu un aerofotoatt\u00c4\u201cli.",
+                "name": "Bing karte Satel\u00c4\u00abtatt\u00c4\u201cls"
+            },
+            "Czestochowa-buildings": {
+                "name": "\u00c4\u0152enstohova: \u00c4\u201ckas"
+            },
+            "EOXAT2018CLOUDLESS": {
+                "description": "Apstr\u00c4\ufffdd\u00c4\ufffdti Sentinel Satal\u00c4\u00abtatt\u00c4\u201cli.",
+                "name": "eox.at 2018 bez-m\u00c4\ufffdko\u00c5\u2020u"
+            },
+            "EsriWorldImagery": {
+                "attribution": {
+                    "text": "Noteikumi un atsauksmes"
+                },
+                "name": "Esri pasaules att\u00c4\u201cli"
+            },
+            "EsriWorldImageryClarity": {
+                "attribution": {
+                    "text": "Noteikumi un atsauksmes"
+                },
+                "description": "Esri arh\u00c4\u00abvu att\u00c4\u201cli kas var b\u00c5\u00abt skaidr\u00c4\ufffdki un prec\u00c4\u00abz\u00c4\ufffdki nek\u00c4\ufffd noklus\u00c4\u201cjuma sl\u00c4\ufffdnis.",
+                "name": "Esri Pasaules Att\u00c4\u201cli (Skaidr\u00c4\u00abba) Beta"
+            },
+            "MAPNIK": {
+                "description": "Noklus\u00c4\u201cjuma OpenStreetMap sl\u00c4\ufffdnis.",
+                "name": "OpenStreetMap (Standarta)"
+            },
+            "Mapbox": {
+                "attribution": {
+                    "text": "Noteikumi un atsauksmes"
+                },
+                "name": "MapBox Satel\u00c4\u00abts"
+            },
+            "OSM_Inspector-Addresses": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, OpenStreetMap ieguld\u00c4\u00abt\u00c4\ufffdji, CC-BY-SA"
+                },
+                "name": "OSM Inspector: Adreses"
+            },
+            "OSM_Inspector-Geometry": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, OpenStreetMap ieguld\u00c4\u00abt\u00c4\ufffdji, CC-BY-SA"
+                },
+                "name": "OSM Inspector: \u00c4\u00a2eometrija"
+            },
+            "OSM_Inspector-Highways": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, OpenStreetMap ieguld\u00c4\u00abt\u00c4\ufffdji, CC-BY-SA"
+                },
+                "name": "OSM Inspector: Lielce\u00c4\u00bci"
+            },
+            "OSM_Inspector-Multipolygon": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, OpenStreetMap ieguld\u00c4\u00abt\u00c4\ufffdji, CC-BY-SA"
+                },
+                "name": "OSM Inspector: Plat\u00c4\u00abbas"
+            },
+            "OSM_Inspector-Places": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, OpenStreetMap ieguld\u00c4\u00abt\u00c4\ufffdji, CC-BY-SA"
+                },
+                "name": "OSM Inspector: Vietas"
+            },
+            "OSM_Inspector-Routing": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, OpenStreetMap ieguld\u00c4\u00abt\u00c4\ufffdji, CC-BY-SA"
+                },
+                "name": "OSM Inspector: Mar\u00c5\u00a1rut\u00c4\u201c\u00c5\u00a1ana"
+            },
+            "OSM_Inspector-Tagging": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, OpenStreetMap ieguld\u00c4\u00abt\u00c4\ufffdji, CC-BY-SA"
+                },
+                "name": "OSM Inspector: Tago\u00c5\u00a1ana"
+            },
+            "SPW_ORTHO_LAST": {
+                "name": "SPW(allonie) vissjaun\u00c4\ufffdkie aerofotoatt\u00c4\u201cli."
+            },
+            "SPW_PICC": {
+                "name": "SPW(allonie) PICC skaitlisk\u00c4\ufffd att\u00c4\u201clo\u00c5\u00a1ana"
+            },
+            "US-TIGER-Roads-2017": {
+                "description": "Dzeltens = Publiska dom\u00c4\u201cna kartes dati no ASV tautskaites. Sarkans = Dati, kas nav atrodami OpenStreetMap",
+                "name": "TIGER Ce\u00c4\u00bci 2017"
+            },
+            "US-TIGER-Roads-2018": {
+                "description": "Dzeltens = Publiska dom\u00c4\u201cna kartes dati no ASV tautskaites. Sarkans = Dati, kas nav atrodami OpenStreetMap",
+                "name": "TIGER Ce\u00c4\u00bci 2018"
+            },
+            "US-TIGER-Roads-2019": {
+                "description": "Dzeltens = Publiska dom\u00c4\u201cna kartes dati no ASV tautskaites. Sarkans = Dati, kas nav atrodami OpenStreetMap",
+                "name": "TIGER Ce\u00c4\u00bci 2019"
+            },
+            "US_Forest_Service_roads_overlay": {
+                "description": "\u00c5\u00a0oseja: Za\u00c4\u00bca apmale = neklasific\u00c4\u201cts. Br\u00c5\u00abna apmale = trase. Virsma: grants = gai\u00c5\u00a1i br\u00c5\u00abns pild\u00c4\u00abjums, Asfalts = melns, Bru\u00c4\u00a3\u00c4\u201cts = pel\u00c4\u201cks, betons = zils, z\u00c4\ufffdle = za\u00c4\u00bc\u00c5\u00a1. Sezon\u00c4\ufffdli = baltas str\u00c4\u00abpas.",
+                "name": "ASV Me\u00c5\u00bea Ce\u00c4\u00bcu P\u00c4\ufffdrkl\u00c4\ufffdjums"
+            },
+            "UrbISOrtho2016": {
+                "attribution": {
+                    "text": "Realiz\u00c4\u201cts, izmantojot  UrbIS\u00c2\u00ae\u00c2\u00a9 - Izplat\u00c4\u00ab\u00c5\u00a1ana & Copyright CIRB"
+                },
+                "name": "UrbIS-Ortho 2016"
+            },
+            "UrbISOrtho2017": {
+                "attribution": {
+                    "text": "Realiz\u00c4\u201cts, izmantojot  UrbIS\u00c2\u00ae\u00c2\u00a9 - Izplat\u00c4\u00ab\u00c5\u00a1ana & Copyright CIRB"
+                },
+                "name": "UrbIS-Ortho 2017"
+            },
+            "UrbISOrtho2018": {
+                "attribution": {
+                    "text": "Realiz\u00c4\u201cts, izmantojot  UrbIS\u00c2\u00ae\u00c2\u00a9 - Izplat\u00c4\u00ab\u00c5\u00a1ana & Copyright CIRB"
+                },
+                "name": "UrbIS-Ortho 2018"
+            },
+            "UrbISOrtho2019": {
+                "attribution": {
+                    "text": "Realiz\u00c4\u201cts, izmantojot  Brussels UrbIS\u00c2\u00ae\u00c2\u00a9 - Izplat\u00c4\u00ab\u00c5\u00a1ana & Autorties\u00c4\u00abbas CIRB"
+                },
+                "name": "UrbIS-Ortho 2019"
+            },
+            "UrbisAdmFR": {
+                "attribution": {
+                    "text": "Realiz\u00c4\u201cts, izmantojot  UrbIS\u00c2\u00ae\u00c2\u00a9 - Izplat\u00c4\u00ab\u00c5\u00a1ana & Copyright CIRB"
+                },
+                "name": "UrbisAdm FR"
+            },
+            "UrbisAdmNL": {
+                "attribution": {
+                    "text": "Realiz\u00c4\u201cts, izmantojot  UrbIS\u00c2\u00ae\u00c2\u00a9 - Izplat\u00c4\u00ab\u00c5\u00a1ana & Copyright CIRB"
+                },
+                "name": "UrbisAdm NL"
+            },
+            "Waymarked_Trails-Cycling": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 waymarkedtrails.org, OpenStreetMap ieguld\u00c4\u00abt\u00c4\ufffdji, CC by-SA 3.0"
+                },
+                "name": "Waymarked Trails: Rite\u00c5\u2020brauk\u00c5\u00a1ana"
+            },
+            "Waymarked_Trails-Hiking": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 waymarkedtrails.org, OpenStreetMap ieguld\u00c4\u00abt\u00c4\ufffdji, CC by-SA 3.0"
+                },
+                "name": "Waymarked Trails: P\u00c4\ufffdrg\u00c4\ufffdjieni"
+            },
+            "Waymarked_Trails-MTB": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 waymarkedtrails.org, OpenStreetMap ieguld\u00c4\u00abt\u00c4\ufffdji, CC by-SA 3.0"
+                },
+                "name": "Waymarked Trails: MTB"
+            },
+            "Waymarked_Trails-Skating": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 waymarkedtrails.org, OpenStreetMap ieguld\u00c4\u00abt\u00c4\ufffdji, CC by-SA 3.0"
+                },
+                "name": "Waymarked Trails: Slido\u00c5\u00a1ana"
+            },
+            "Waymarked_Trails-Winter_Sports": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 waymarkedtrails.org, OpenStreetMap ieguld\u00c4\u00abt\u00c4\ufffdji, CC by-SA 3.0"
+                },
+                "name": "Waymarked Trails: Ziemas Sports"
+            },
+            "basemap.at": {
+                "attribution": {
+                    "text": "basemap.at"
+                },
+                "description": "Austrijas pamatkarte, b\u00c4\ufffdz\u00c4\u201cta uz vald\u00c4\u00abbas datiem.",
+                "name": "basemap.at"
+            },
+            "basemap.at-orthofoto": {
+                "attribution": {
+                    "text": "basemap.at"
+                },
+                "description": "Ortofoto sl\u00c4\ufffdni nodro\u00c5\u00a1ina basemap.at. \"P\u00c4\u201cctecis\" geoimage.at att\u00c4\u201clo\u00c5\u00a1anai.",
+                "name": "basemap.at Ortofoto"
+            },
+            "basemap.at-overlay": {
+                "attribution": {
+                    "text": "basemap.at"
+                },
+                "name": "basemap.at P\u00c4\ufffdrkl\u00c4\ufffdjs"
+            },
+            "eufar-balaton": {
+                "attribution": {
+                    "text": "EUFAR Balton ortofoto 2010"
+                },
+                "description": "1940 \u00c4\u00a3eotagota fotogr\u00c4\ufffdf\u00c4\u201c\u00c5\u00a1ana no Balatonas Limnolo\u00c4\u00a3isk\u00c4\ufffd Instit\u00c5\u00abta",
+                "name": "EUFAR Balaton ortofotogr\u00c4\ufffdfijas"
+            },
+            "gothenburg-citymap": {
+                "name": "G\u00c4\u201cteborgas pils\u00c4\u201ctas karte"
+            },
+            "gothenburg-dtm-2017": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 G\u00c4\u201cterborgas pa\u00c5\u00a1vald\u00c4\u00abba, CC0"
+                }
+            },
+            "gsi.go.jp_airphoto": {
+                "attribution": {
+                    "text": "GSI Jap\u00c4\ufffdna"
+                },
+                "name": "Jap\u00c4\ufffdnas GSI gaisa-foto att\u00c4\u201cli"
+            },
+            "gsi.go.jp_seamlessphoto": {
+                "attribution": {
+                    "text": "GSI Jap\u00c4\ufffdnas bez\u00c5\u00a1uvju foto"
+                }
+            },
+            "gsi.go.jp_std_map": {
+                "attribution": {
+                    "text": "GSI Jap\u00c4\ufffdna"
+                },
+                "description": "Jap\u00c4\ufffdnas GSI Standarta Karte. Pla\u00c5\u00a1i p\u00c4\ufffdrkl\u00c4\ufffdta.",
+                "name": "Jap\u00c4\ufffdnas GSI Standarta karte"
+            },
+            "kalmar-orto-2014": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Kalmaras pa\u00c5\u00a1vald\u00c4\u00abba"
+                },
+                "description": "Kalm\u00c4\ufffdras pa\u00c5\u00a1lavald\u00c4\u00abbas zieme\u00c4\u00bcu krasta ortofoto 2014",
+                "name": "Kalm\u00c4\ufffdras Zieme\u00c4\u00bcu Ortofoto 2014"
+            },
+            "kalmar-orto-2016": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Kalmaras pa\u00c5\u00a1vald\u00c4\u00abba"
+                },
+                "description": "Kalm\u00c4\ufffdras pa\u00c5\u00a1vald\u00c4\u00abbas dienvidu krasta ortofoto 2016",
+                "name": "Kalm\u00c4\ufffdras Dienvidu Ortofoto 2016"
+            },
+            "kalmar-orto-2018": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Kalmaras pa\u00c5\u00a1vald\u00c4\u00abba"
+                },
+                "description": "Urb\u00c4\ufffdno vietu ortofoto no Kalmaras pa\u00c5\u00a1vald\u00c4\u00abbas 2018",
+                "name": "Kalm\u00c4\ufffdras Dienvidu Ortofoto 2018"
+            },
+            "kelkkareitit": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Kelkkareitit.fi"
+                },
+                "description": "Kelkkareitit.fi sniegamotociklu takas no OSM (Nordisks p\u00c4\ufffdrkl\u00c4\ufffdjums)",
+                "name": "Nordisko sniega motociklu p\u00c4\ufffdrkl\u00c4\ufffdjums"
+            },
+            "lantmateriet-orto1960": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Lantm\u00c3\u00a4teriet, CC0"
+                },
+                "description": "Zviedru ortofoto moza\u00c4\u00abka no 1955-1965. gadu perioda. Vec\u00c4\ufffdki un jaun\u00c4\ufffdki att\u00c4\u201cli var b\u00c5\u00abt redzami.",
+                "name": "Lantm\u00c3\u00a4teriet V\u00c4\u201csturiskie Ortofoto 1960"
+            },
+            "lantmateriet-orto1975": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Lantm\u00c3\u00a4teriet, CC0"
+                },
+                "description": "Zviedru ortofoto moza\u00c4\u00abka no 1970-1980. gadu perioda. V\u00c4\u201cl tiek pielabots.",
+                "name": "Lantm\u00c3\u00a4teriet V\u00c4\u201csturiskie Ortofoto 1975"
+            },
+            "lantmateriet-topowebb": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Lantm\u00c3\u00a4teriet, CC0"
+                },
+                "description": "Zviedrijas topogr\u00c4\ufffdfisk\u00c4\ufffd karte 1:50 000",
+                "name": "Lantm\u00c3\u00a4teriet Topogr\u00c4\ufffdfisk\u00c4\ufffd Karte"
+            },
+            "linkoping-orto": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Link\u00c3\u00b6pingas pa\u00c5\u00a1vald\u00c4\u00abba"
+                },
+                "description": "Ortofoto no Link\u00c3\u00b6pingas pa\u00c5\u00a1vald\u00c4\u00abbas 2010, atv\u00c4\u201c\u00c5\u2014tie dati",
+                "name": "Link\u00c3\u00b6pingas Ortofoto"
+            },
+            "mapbox_locator_overlay": {
+                "attribution": {
+                    "text": "Noteikumi un atsauksmes"
+                },
+                "description": "Par\u00c4\ufffdda galvenos objektus, kas pal\u00c4\u00abdz jums orient\u00c4\u201cties.",
+                "name": "Lok\u00c4\ufffdtora P\u00c4\ufffdrkl\u00c4\ufffdjs"
+            },
+            "openpt_map": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 OpenStreetMap ieguld\u00c4\u00abt\u00c4\ufffdji, CC-BY-SA"
+                },
+                "name": "OpenPT Map (p\u00c4\ufffdrkl\u00c4\ufffdjs)"
+            },
+            "osm-gps": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 OpenStreetMap ieguld\u00c4\u00abt\u00c4\ufffdji"
+                },
+                "description": "Publiskas GPS trases, aug\u00c5\u00a1upiel\u00c4\ufffdd\u00c4\u201ctas uz OpenStreetMap.",
+                "name": "OpenStreetMap GPS trases"
+            },
+            "osm-mapnik-german_style": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 OpenStreetMap ieguld\u00c4\u00abt\u00c4\ufffdji, CC-BY-SA"
+                },
+                "name": "OpenStreetMap (V\u00c4\ufffdcijas Izskata)"
+            },
+            "qa_no_address": {
+                "attribution": {
+                    "text": "Simon Poole, Dati \u00c2\u00a9OpenStreetMap ieguld\u00c4\u00abt\u00c4\ufffdji"
+                },
+                "name": "QA Nav Adrese"
+            },
+            "skobbler": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Kv\u00c4\ufffddr\u00c4\ufffdti: skobbler Kartes dati: OpenStreetMap ieguld\u00c4\u00abt\u00c4\ufffdji"
+                },
+                "name": "skobbler"
+            },
+            "skoterleder": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Skoterleder.org"
+                },
+                "description": "Sniega motociklu takas",
+                "name": "Sniega motociklu karte Zviedrij\u00c4\ufffd"
+            },
+            "stamen-terrain-background": {
+                "attribution": {
+                    "text": "Kartes kvadr\u00c4\ufffdti no Stamen Design, zem CC BY 3.0. Dati no OpenStreetMap, zem ODbL"
+                },
+                "name": "Stamen Terrain"
+            },
+            "stockholm-orto": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Stokholmas pa\u00c5\u00a1vald\u00c4\u00abba, CC0"
+                },
+                "name": "Stokholmas Ortofoto"
+            },
+            "tf-cycle": {
+                "attribution": {
+                    "text": "Kartes \u00c2\u00a9 Thunderforest, Dati \u00c2\u00a9OpenStreetMap ieguld\u00c4\u00abt\u00c4\ufffdji"
+                },
+                "name": "Thunderforest OpenCycleMap"
+            },
+            "tf-landscape": {
+                "attribution": {
+                    "text": "Kartes \u00c2\u00a9 Thunderforest, Dati \u00c2\u00a9OpenStreetMap ieguld\u00c4\u00abt\u00c4\ufffdji"
+                },
+                "name": "Thunderforest Landscape"
+            },
+            "trafikverket-baninfo": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Trafikverket, CC0"
+                },
+                "description": "Zviedrijas dzelzce\u00c4\u00bca t\u00c4\u00abkls, ieskaitot brauktuves.",
+                "name": "Trafikverket Dzelzce\u00c4\u00bca T\u00c4\u00abkls"
+            },
+            "trafikverket-baninfo-option": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Trafikverket, CC0"
+                },
+                "description": "Zviedrijas dzelzce\u00c4\u00bca t\u00c4\u00abkls ar vair\u00c4\ufffdk\u00c4\ufffdm kar\u00c5\u00a1u sl\u00c4\ufffd\u00c5\u2020u iesp\u00c4\u201cj\u00c4\ufffdm",
+                "name": "Trafikverket Dzelzce\u00c4\u00bca T\u00c4\u00abkla opcijas"
+            },
+            "trafikverket-vagnat": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Trafikverket, CC0"
+                },
+                "description": "Zviedru NVDB ce\u00c4\u00bcu t\u00c4\u00abkls",
+                "name": "Trafikverket Ce\u00c4\u00bcu T\u00c4\u00abkls"
+            },
+            "trafikverket-vagnat-extra": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Trafikverket, CC0"
+                },
+                "description": "Zviedru NVDB papildu deta\u00c4\u00bcas: Automa\u00c4\u00a3istr\u00c4\ufffdles atsauces, satiksmes, atp\u00c5\u00abtas pieturas, tilti, tune\u00c4\u00bci, fotoradari  ",
+                "name": "Trafikverket Ce\u00c4\u00bcu T\u00c4\u00abkls Extra"
+            },
+            "trafikverket-vagnat-option": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Trafikverket, CC0"
+                },
+                "description": "Zviedrijas NVDB ce\u00c4\u00bcu t\u00c4\u00abkls ar vair\u00c4\ufffdk\u00c4\ufffdm kar\u00c5\u00a1u sl\u00c4\ufffd\u00c5\u2020u iesp\u00c4\u201cj\u00c4\ufffdm",
+                "name": "Trafikverket Ce\u00c4\u00bcu T\u00c4\u00abkla opcijas"
+            }
+        }
+    }
+}

@@ -1,0 +1,52 @@
+{
+    "lt": {
+        "imagery": {
+            "Bing": {
+                "description": "Palydovo ir oro nuotraukos."
+            },
+            "EsriWorldImagery": {
+                "attribution": {
+                    "text": "S\u00c4\u2026lygos ir atsiliepimai"
+                },
+                "name": "Esri Pasaulio Nuotraukos"
+            },
+            "EsriWorldImageryClarity": {
+                "attribution": {
+                    "text": "S\u00c4\u2026lygos ir atsiliepimai"
+                }
+            },
+            "MAPNIK": {
+                "name": "OpenStreetMap (Standartinis)"
+            },
+            "Mapbox": {
+                "attribution": {
+                    "text": "S\u00c4\u2026lygos ir atsiliepimai"
+                }
+            },
+            "gsi.go.jp_std_map": {
+                "attribution": {
+                    "text": "GSI Japonija"
+                },
+                "name": "Japonija GSI Standartinis \u00c5\u00beem\u00c4\u2014lapis"
+            },
+            "mapbox_locator_overlay": {
+                "attribution": {
+                    "text": "S\u00c4\u2026lygos ir atsiliepimai"
+                }
+            },
+            "osm-mapnik-german_style": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 OpenStreetMap talkininkai, CC-BY-SA"
+                },
+                "name": "OpenStreetMap (Voki\u00c5\u00a1kas stilius)"
+            },
+            "trafikverket-vagnat": {
+                "description": "\u00c5\u00a0vedijos NVDB keli\u00c5\u00b3 tinklas",
+                "name": "Trafikverket keli\u00c5\u00b3 tinklas"
+            },
+            "trafikverket-vagnat-option": {
+                "name": "Trafikverket keli\u00c5\u00b3 tinklo pasirinkimai"
+            }
+        }
+    }
+}

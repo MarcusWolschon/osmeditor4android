@@ -193,7 +193,7 @@ public class LayerDialogCustomImageryTest {
         assertTrue(TestUtils.textGone(device, main.getString(R.string.layer_add_custom_imagery), 2000));
         assertTrue(TestUtils.findText(device, false, "protomaps 2023-01")); // layer dialog
         try (TileLayerDatabase db = new TileLayerDatabase(ApplicationProvider.getApplicationContext())) {
-            TileLayerSource tls = TileLayerDatabase.getLayer(main, db.getReadableDatabase(), "PROTOMAPS20230118T074939Z");
+            TileLayerSource tls = TileLayerDatabase.getLayer(main, db.getReadableDatabase(), "protomaps20230118T074939Z");
             assertNotNull(tls);
             assertEquals(TileLayerSource.TYPE_PMT_3, tls.getType());
             assertEquals(TileLayerSource.TileType.MVT, tls.getTileType());
@@ -231,7 +231,7 @@ public class LayerDialogCustomImageryTest {
             assertTrue(TestUtils.textGone(device, main.getString(R.string.layer_add_custom_imagery), 2000));
             assertTrue(TestUtils.findText(device, false, "protomaps 2023-01")); // layer dialog
             try (TileLayerDatabase db = new TileLayerDatabase(ApplicationProvider.getApplicationContext())) {
-                TileLayerSource tls = TileLayerDatabase.getLayer(main, db.getReadableDatabase(), "PROTOMAPS20230118T074939Z");
+                TileLayerSource tls = TileLayerDatabase.getLayer(main, db.getReadableDatabase(), "protomaps20230118T074939Z");
                 assertNotNull(tls);
                 assertEquals(TileLayerSource.TYPE_PMT_3, tls.getType());
                 assertEquals(TileLayerSource.TileType.MVT, tls.getTileType());

@@ -195,7 +195,6 @@ public class KeyDatabaseHelper extends SQLiteOpenHelper {
                     continue; // skip comments
                 }
                 String[] k = line.split("\\t");
-                Log.d(DEBUG_TAG, "k length " + k.length + " " + line);
                 for (int i = 0; i < k.length; i++) {
                     k[i] = k[i].trim();
                 }
@@ -223,9 +222,6 @@ public class KeyDatabaseHelper extends SQLiteOpenHelper {
     private void processLine(@NonNull SQLiteDatabase db, @NonNull String[] k) {
         boolean overwrite = TRUE.equalsIgnoreCase(k[3]);
         EntryType type = EntryType.valueOf(k[1].toUpperCase(Locale.US));
-        if (type == EntryType.IMAGERY) { // backwards compatibility
-            k[0] = k[0].toUpperCase(Locale.US);
-        }
         if (k.length == FIELD_COUNT) {
             replaceOrDeleteKey(db, k[0], type, k[2], false, overwrite, null, null);
         } else if (k.length == FIELD_COUNT + 2) {

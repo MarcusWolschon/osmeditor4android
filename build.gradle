@@ -25,6 +25,7 @@ buildscript {
         classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:3.0.1'
         classpath 'com.google.protobuf:protobuf-gradle-plugin:0.9.1'
         classpath 'com.malinskiy.marathon:marathon-gradle-plugin:0.8.4'
+        classpath 'org.apache.groovy:groovy-yaml:5.0.0-alpha-3'
     }
 }
 
@@ -34,6 +35,8 @@ plugins {
     id "com.github.ben-manes.versions" version "0.39.0"
 }
 import de.undercouch.gradle.tasks.download.Download
+import groovy.json.*
+import groovy.yaml.*
 
 // Project level build file starts here
 apply plugin: 'eclipse'
@@ -55,10 +58,17 @@ allprojects {
     }
 }
 
+
+ext {
+    private_assets = "$projectDir/../private_assets"
+    imagery_assets_dir = projectDir.getPath() + '/src/main/assets/imagery/'
+    help_assets_dir = projectDir.getPath() + '/src/main/assets/help'
+}
+
 markdownToHtml {
     sourceDir =  new File(projectDir.getPath() + '/documentation/docs/help')
     inputEncoding ="utf8"
-    outputDir = new File(projectDir.getPath() + '/src/main/assets/help')
+    outputDir = new File(help_assets_dir)
     outputEncoding = "utf8"
     configuration.template = projectDir.getPath() + "/documentation/html_template.tpl"
 }
@@ -66,7 +76,7 @@ markdownToHtml {
 task markdownToHtmlRtl(type: ch.poole.gradle.markdown.MarkdownToHtmlTask) {
     sourceDir =  new File(projectDir.getPath() + '/documentation/docs/help-rtl')
     inputEncoding ="utf8"
-    outputDir = new File(projectDir.getPath() + '/src/main/assets/help')
+    outputDir = new File(help_assets_dir)
     outputEncoding = "utf8"
     configuration.template = projectDir.getPath() + "/documentation/html_template_rtl.tpl"
 }
@@ -94,6 +104,19 @@ task updatePreset(dependsOn: ["downloadPresetFile", "downloadPresetIconsZipFile"
 }
 updatePreset.group = 'vespucci'
 updatePreset.description = 'Update the default preset from http://simonpoole.github.io/beautified-JOSM-preset/'
+
+task generateImageryTranslations () {
+    description "Convert yaml translation file to json"
+    mkdir(imagery_assets_dir)
+    doLast {     
+        fileTree(dir: 'build/tmp/imagery/').each { yml ->
+            def data = new YamlSlurper().parse(yml)
+            def json = new JsonBuilder(data).toPrettyString()
+            def output = new File(imagery_assets_dir + yml.getName().replace('.yml','.json'))
+            output.write(json);
+        }
+    }
+}
 
 task updateImageryFromJosm(type: Download) {
     acceptAnyCertificate true
@@ -153,6 +176,7 @@ update3rdPartyDocs.description = 'Update markdown help files for 3rd party libra
 }
 
 task updateTranslations(type: Exec) {
+    finalizedBy generateImageryTranslations
     if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
         commandLine 'cmd', '/c', 'tx.exe', 'pull', '-a'
     } else {
@@ -213,10 +237,6 @@ sonarqube {
         property "sonar.java.binaries", "build/intermediates/compile_app_classes_jar/currentDebug/classes.jar"
         property "sonar.coverage.jacoco.xmlReportPaths","build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml"
     }
-}
-
-ext {
-    private_assets = "$projectDir/../private_assets"
 }
     
 android {

@@ -853,8 +853,9 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
 
         TileLayerSource layer = new TileLayerSource(context, id, name, tileUrl, type, category, overlay, defaultLayer, provider, touUri, null, logoUrl,
                 logoBytes, zoomLevelMin, zoomLevelMax, maxOverZoom, tileWidth, tileHeight, proj, preference, startDate, endDate, noTileHeader, noTileValues,
-                description, privacyPolicyUrl, true);
+                privacyPolicyUrl, true);
         layer.setSource(source);
+        layer.setDescription(description);
         layer.setNoTileTile(noTileTile);
         if (tileType != null) {
             layer.setTileType(tileType);

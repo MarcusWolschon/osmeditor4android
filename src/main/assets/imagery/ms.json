@@ -1,0 +1,202 @@
+{
+    "ms": {
+        "imagery": {
+            "Bing": {
+                "description": "Imejan satelit dan udara."
+            },
+            "DV_GRB": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Digitaal Vlaanderen"
+                }
+            },
+            "EsriWorldImagery": {
+                "attribution": {
+                    "text": "Terma & Maklum Balas"
+                },
+                "name": "Esri World Imagery"
+            },
+            "EsriWorldImageryClarity": {
+                "attribution": {
+                    "text": "Terma & Maklum Balas"
+                }
+            },
+            "Geoportal2-PL-sewer-pipe_WMS": {
+                "attribution": {
+                    "text": "G\u00c5\u201a\u00c3\u00b3wny Urz\u00c4\u2026d Geodezji i Kartografii"
+                }
+            },
+            "Lodz-2015": {
+                "attribution": {
+                    "text": "Urz\u00c4\u2026d Miasta \u00c5\ufffdodzi"
+                }
+            },
+            "Lodz-2017": {
+                "attribution": {
+                    "text": "Urz\u00c4\u2026d Miasta \u00c5\ufffdodzi"
+                }
+            },
+            "MAPNIK": {
+                "description": "Lapisan OpenStreetMap tersedia.",
+                "name": "OpenStreetMap (Standard)"
+            },
+            "Mapbox": {
+                "attribution": {
+                    "text": "Terma & Maklum Balas"
+                },
+                "name": "Mapbox Satellite"
+            },
+            "OSM_Inspector-Addresses": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, penyumbang-penyumbang OpenStreetMap, CC-BY-SA"
+                },
+                "name": "OSM Inspector: Alamat"
+            },
+            "OSM_Inspector-Geometry": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, penyumbang-penyumbang OpenStreetMap, CC-BY-SA"
+                },
+                "name": "OSM Inspector: Geometri"
+            },
+            "OSM_Inspector-Highways": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, penyumbang-penyumbang OpenStreetMap, CC-BY-SA"
+                },
+                "name": "OSM Inspector: Lebuh Raya"
+            },
+            "OSM_Inspector-Multipolygon": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, penyumbang-penyumbang OpenStreetMap, CC-BY-SA"
+                },
+                "name": "OSM Inspector: Kawasan"
+            },
+            "OSM_Inspector-Places": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, penyumbang-penyumbang OpenStreetMap, CC-BY-SA"
+                },
+                "name": "OSM Inspector: Tempat"
+            },
+            "OSM_Inspector-Routing": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, penyumbang-penyumbang OpenStreetMap, CC-BY-SA"
+                },
+                "name": "OSM Inspector: Penghalaan"
+            },
+            "OSM_Inspector-Tagging": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, penyumbang-penyumbang OpenStreetMap, CC-BY-SA"
+                },
+                "name": "OSM Inspector: Penandaan"
+            },
+            "US-TIGER-Roads-2017": {
+                "description": "Kuning = Data peta domain awam daripada Banci AS. Merah = Data tidak ditemui dalam OpenStreetMap",
+                "name": "TIGER Roads 2017"
+            },
+            "Waymarked_Trails-Cycling": {
+                "name": "Waymarked Trails: Berbasikal"
+            },
+            "Waymarked_Trails-Hiking": {
+                "name": "Waymarked Trails: Mendaki"
+            },
+            "Waymarked_Trails-MTB": {
+                "name": "Waymarked Trails: Basikal bukit (MTB)"
+            },
+            "Waymarked_Trails-Skating": {
+                "name": "Waymarked Trails: Luncur"
+            },
+            "Waymarked_Trails-Winter_Sports": {
+                "name": "Waymarked Trails: Sukan Musim Sejuk"
+            },
+            "basemap.at": {
+                "attribution": {
+                    "text": "basemap.at"
+                },
+                "name": "basemap.at"
+            },
+            "basemap.at-orthofoto": {
+                "attribution": {
+                    "text": "basemap.at"
+                },
+                "description": "Lapisan Ortofoto disediakan oleh basemap.at. \"Pengganti\" imejan geoimage.at.",
+                "name": "Orthofoto basemap.at"
+            },
+            "maaamet.ee-pohi_vr2": {
+                "attribution": {
+                    "text": "Maa-ameti p\u00c3\u00b5hikaart"
+                }
+            },
+            "mapbox_locator_overlay": {
+                "attribution": {
+                    "text": "Terma & Maklum Balas"
+                },
+                "description": "Menunjukkan ciri-ciri utama untuk menolong mengorientasi anda.",
+                "name": "Lapisan Penunjuk"
+            },
+            "openpt_map": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Penyumbang-penyumbang OpenStreetMap, CC-BY-SA"
+                },
+                "name": "Peta OpenPT (lapisan)"
+            },
+            "osm-gps": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Penyumbang-penyumbang OpenStreetMap"
+                },
+                "description": "Jejak GPS awam dimuat naik ke OpenStreetMap",
+                "name": "Jejak GPS OpenStreetMap"
+            },
+            "osm-mapnik-german_style": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Penyumbang-penyumbang OpenStreetMap, CC-BY-SA"
+                },
+                "name": "OpenStreetMap (Gaya Jerman)"
+            },
+            "qa_no_address": {
+                "attribution": {
+                    "text": "Simon Poole, Data \u00c2\u00a9 penyumbang-penyumbang OpenStreetMap"
+                },
+                "name": "QA Tiada Alamat"
+            },
+            "scb-settlements": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Statistiska Centralbyr\u00c3\u00a5n, CC0"
+                }
+            },
+            "scb-urban": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Statistiska Centralbyr\u00c3\u00a5n, CC0"
+                }
+            },
+            "skobbler": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Tiles: data Peta skobbler: penyumbang-penyumbang OpenStreetMap"
+                },
+                "name": "skobbler"
+            },
+            "stamen-terrain-background": {
+                "name": "Rupa Bumi Stamen"
+            },
+            "tf-cycle": {
+                "attribution": {
+                    "text": "Peta \u00c2\u00a9 Thunderforest, Data \u00c2\u00a9 penyumbang-penyumbang OpenStreetMap"
+                },
+                "name": "OpenCycleMap Thunderforest"
+            },
+            "tf-landscape": {
+                "attribution": {
+                    "text": "Peta \u00c2\u00a9 Thunderforest, Data \u00c2\u00a9 penyumbang-penyumbang OpenStreetMap"
+                },
+                "name": "Landskap Thunderforest"
+            },
+            "wroclaw-orto2015": {
+                "attribution": {
+                    "text": "Urz\u00c4\u2026d Miasta Wroc\u00c5\u201aaw"
+                }
+            },
+            "wroclaw-orto2018": {
+                "attribution": {
+                    "text": "Urz\u00c4\u2026d Miasta Wroc\u00c5\u201aaw"
+                }
+            }
+        }
+    }
+}

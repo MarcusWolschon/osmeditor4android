@@ -1030,6 +1030,7 @@
     <string name="menu_layers_enable_bookmarkslayer">Enable bookmark layer</string>
     <string name="menu_layers_configure">Configure…</string>
     <string name="menu_layers_background_align">Align imagery…</string>
+    <string name="wms_hint">%1$s [wms]</string>
     <!--  -->
     <string name="menu_tools_apply_local_offset">Apply stored offset to imagery</string>
     <string name="menu_tools_background_contrast">Contrast</string>

@@ -58,7 +58,7 @@
                 },
                 "type": "bing",
                 "category": "photo",
-                "id": "BING",
+                "id": "Bing",
                 "license": "COMMERCIAL",
                 "permission_osm": "explicit",
                 "license_url": "https://wiki.openstreetmap.org/wiki/Bing_Maps",

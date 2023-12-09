@@ -16,6 +16,7 @@ public final class Paths {
     public static final String DIRECTORY_PATH_SCRIPTS            = "Scripts";
     public static final String DIRECTORY_PATH_IMPORTS            = "imports";
     public static final String DIRECTORY_PATH_STYLES             = "styles";
+    public static final String DIRECTORY_PATH_IMAGERY            = "imagery";
     public static final String DIRECTORY_PATH_OTHER              = "other";
     public static final String DIRECTORY_PATH_STORAGE            = "/storage";       // NOSONAR
     public static final String DIRECTORY_PATH_VESPUCCI           = "Vespucci";

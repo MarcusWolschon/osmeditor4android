@@ -1,0 +1,1255 @@
+{
+    "cs": {
+        "imagery": {
+            "Bedzin-PL-aerial_image": {
+                "attribution": {
+                    "text": "Starostwo Powiatowe w B\u00c4\u2122dzinie"
+                },
+                "name": "B\u00c4\u2122dzin: leteck\u00c3\u00a9 sn\u00c3\u00admky 2013"
+            },
+            "Bedzin-PL-buildings": {
+                "attribution": {
+                    "text": "Starostwo Powiatowe w B\u00c4\u2122dzinie"
+                },
+                "name": "B\u00c4\u2122dzin: Budovy"
+            },
+            "Bing": {
+                "description": "Satelitn\u00c3\u00ad a leteck\u00c3\u00a9 sn\u00c3\u00admky.",
+                "name": "Leteck\u00c3\u00a9 sn\u00c3\u00admky Bing"
+            },
+            "Bytom-2012": {
+                "attribution": {
+                    "text": "Magistr\u00c3\u00a1t m\u00c4\u203asta Bytom"
+                },
+                "name": "Bytom: leteck\u00c3\u00a9 sn\u00c3\u00admky 2012"
+            },
+            "Bytom-2014": {
+                "attribution": {
+                    "text": "Magistr\u00c3\u00a1t m\u00c4\u203asta Bytom"
+                },
+                "name": "Bytom: fotopl\u00c3\u00a1n 2014"
+            },
+            "Bytom-2016": {
+                "attribution": {
+                    "text": "Magistr\u00c3\u00a1t m\u00c4\u203asta Bytom"
+                },
+                "name": "Bytom: leteck\u00c3\u00a9 sn\u00c3\u00admky 2016"
+            },
+            "Bytom-2018": {
+                "attribution": {
+                    "text": "Magistr\u00c3\u00a1t m\u00c4\u203asta Bytom"
+                },
+                "name": "Bytom: leteck\u00c3\u00a9 sn\u00c3\u00admky 2018"
+            },
+            "Bytom-2021": {
+                "attribution": {
+                    "text": "Magistr\u00c3\u00a1t m\u00c4\u203asta Bytom"
+                },
+                "name": "Bytom: leteck\u00c3\u00a9 sn\u00c3\u00admky 2021"
+            },
+            "Bytom-buildings": {
+                "attribution": {
+                    "text": "Magistr\u00c3\u00a1t m\u00c4\u203asta Bytom"
+                },
+                "name": "Bytom: Budovy"
+            },
+            "Czestochowa-2011": {
+                "attribution": {
+                    "text": "Magistr\u00c3\u00a1t m\u00c4\u203asta \u00c4\u0152enstochov\u00c3\u00a1"
+                },
+                "name": "\u00c4\u0152enstochov\u00c3\u00a1: leteck\u00c3\u00a9 sn\u00c3\u00admky 2011"
+            },
+            "Czestochowa-2013": {
+                "attribution": {
+                    "text": "Magistr\u00c3\u00a1t m\u00c4\u203asta \u00c4\u0152enstochov\u00c3\u00a1"
+                },
+                "name": "\u00c4\u0152enstochov\u00c3\u00a1: leteck\u00c3\u00a9 sn\u00c3\u00admky 2013"
+            },
+            "Czestochowa-2014": {
+                "attribution": {
+                    "text": "Magistr\u00c3\u00a1t m\u00c4\u203asta \u00c4\u0152enstochov\u00c3\u00a1"
+                },
+                "name": "\u00c4\u0152enstochov\u00c3\u00a1: leteck\u00c3\u00a9 sn\u00c3\u00admky 2014"
+            },
+            "Czestochowa-2015": {
+                "attribution": {
+                    "text": "Magistr\u00c3\u00a1t m\u00c4\u203asta \u00c4\u0152enstochov\u00c3\u00a1"
+                },
+                "name": "\u00c4\u0152enstochov\u00c3\u00a1: leteck\u00c3\u00a9 sn\u00c3\u00admky 2015"
+            },
+            "Czestochowa-2016": {
+                "attribution": {
+                    "text": "Magistr\u00c3\u00a1t m\u00c4\u203asta \u00c4\u0152enstochov\u00c3\u00a1"
+                },
+                "name": "\u00c4\u0152enstochov\u00c3\u00a1: leteck\u00c3\u00a9 sn\u00c3\u00admky 2016"
+            },
+            "Czestochowa-2017": {
+                "attribution": {
+                    "text": "Magistr\u00c3\u00a1t m\u00c4\u203asta \u00c4\u0152enstochov\u00c3\u00a1"
+                },
+                "name": "\u00c4\u0152enstochov\u00c3\u00a1: leteck\u00c3\u00a9 sn\u00c3\u00admky 2017"
+            },
+            "Czestochowa-buildings": {
+                "attribution": {
+                    "text": "Magistr\u00c3\u00a1t m\u00c4\u203asta \u00c4\u0152enstochov\u00c3\u00a1"
+                },
+                "name": "\u00c4\u0152enstochov\u00c3\u00a1: Budovy"
+            },
+            "DV_DHMV_II_HILL_25cm": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Digitaal Vlaanderen"
+                },
+                "name": "Digitaal Vlaanderen DHV II s mnohosm\u00c4\u203arov\u00c3\u00bdm st\u00c3\u00adnov\u00c3\u00a1n\u00c3\u00adm svah\u00c5\u00af 0,25 m"
+            },
+            "DV_DHMV_II_SVF_25cm": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Digitaal Vlaanderen"
+                },
+                "name": "Digitaal Vlaanderen DHV II s faktorem zobrazen\u00c3\u00ad 0,25 m"
+            },
+            "DV_GRB": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Digitaal Vlaanderen"
+                },
+                "name": "Digitaal Vlaanderen GRB"
+            },
+            "DV_OrthoPhoto": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Digitaal Vlaanderen"
+                },
+                "name": "Nejaktu\u00c3\u00a1ln\u00c4\u203aj\u00c5\u00a1\u00c3\u00ad leteck\u00c3\u00a9 sn\u00c3\u00admky Digitaal Vlaanderen"
+            },
+            "DV_OrthoPhoto_20132015_10cm": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Digitaal Vlaanderen"
+                },
+                "name": "10cm leteck\u00c3\u00a9 sn\u00c3\u00admky Vl\u00c3\u00a1mska od Digitaal Vlaanderen 2013\u00e2\u20ac\u201c2015"
+            },
+            "DV_OrthoPhoto_Preliminary": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Digitaal Vlaanderen"
+                },
+                "name": "P\u00c5\u2122edb\u00c4\u203a\u00c5\u00ben\u00c3\u00a9 leteck\u00c3\u00a9 sn\u00c3\u00admky Digitaal Vlaanderen"
+            },
+            "DV_Wegenregister": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Digitaal Vlaanderen"
+                },
+                "name": "Digitaal Vlaanderen Wegenregister"
+            },
+            "Dourados_Ortofotos": {
+                "attribution": {
+                    "text": "Prefeitura Municipal de Dourados - GeoDourados"
+                },
+                "description": "Dourados (2018) a n\u00c4\u203akolik okres\u00c5\u00af (2020) ve vysok\u00c3\u00a9m rozli\u00c5\u00a1en\u00c3\u00ad.",
+                "name": "Dourados Ortofotos"
+            },
+            "EOXAT2018CLOUDLESS": {
+                "attribution": {
+                    "text": "Sentinel-2 bez mrak\u00c5\u00af \u00e2\u20ac\u201c https://s2maps.eu \u00e2\u20ac\u201c od spole\u00c4\ufffdnosti EOX IT Services GmbH (obsahuje upraven\u00c3\u00a1 data Copernicus Sentinel 2017 a 2018)"
+                },
+                "description": "Dodate\u00c4\ufffdn\u00c4\u203a upraven\u00c3\u00a9 sn\u00c3\u00admky satelitu Sentinel.",
+                "name": "eox.at 2018 bez mrak\u00c5\u00af"
+            },
+            "EOXAT2019CLOUDLESS": {
+                "attribution": {
+                    "text": "Sentinel-2 bez mrak\u00c5\u00af \u00e2\u20ac\u201c https://s2maps.eu \u00e2\u20ac\u201c od spole\u00c4\ufffdnosti EOX IT Services GmbH (obsahuje upraven\u00c3\u00a1 data Copernicus Sentinel 2019)"
+                },
+                "description": "Dodate\u00c4\ufffdn\u00c4\u203a upraven\u00c3\u00a9 sn\u00c3\u00admky satelitu Sentinel.",
+                "name": "eox.at 2019 bez mrak\u00c5\u00af"
+            },
+            "EOXAT2020CLOUDLESS": {
+                "attribution": {
+                    "text": "Sentinel-2 bez mrak\u00c5\u00af \u00e2\u20ac\u201c https://s2maps.eu \u00e2\u20ac\u201c od spole\u00c4\ufffdnosti EOX IT Services GmbH (obsahuje upraven\u00c3\u00a1 data Copernicus Sentinel 2020)"
+                },
+                "description": "Dodate\u00c4\ufffdn\u00c4\u203a upraven\u00c3\u00a9 sn\u00c3\u00admky satelitu Sentinel.",
+                "name": "eox.at 2020 bez mrak\u00c5\u00af"
+            },
+            "EOXAT2021CLOUDLESS": {
+                "attribution": {
+                    "text": "Sentinel-2 bez mrak\u00c5\u00af \u00e2\u20ac\u201c https://s2maps.eu \u00e2\u20ac\u201c od spole\u00c4\ufffdnosti EOX IT Services GmbH (obsahuje upraven\u00c3\u00a1 data Copernicus Sentinel 2021)"
+                },
+                "description": "Dodate\u00c4\ufffdn\u00c4\u203a upraven\u00c3\u00a9 sn\u00c3\u00admky satelitu Sentinel.",
+                "name": "eox.at 2021 bez mrak\u00c5\u00af"
+            },
+            "EOXAT2022CLOUDLESS": {
+                "description": "N\u00c3\u00a1sledn\u00c4\u203a zpracovan\u00c3\u00a9 sn\u00c3\u00admky ze satelitu Sentinel."
+            },
+            "EsriWorldImagery": {
+                "attribution": {
+                    "text": "Podm\u00c3\u00adnky pou\u00c5\u00beit\u00c3\u00ad a zp\u00c4\u203atn\u00c3\u00a1 vazba"
+                },
+                "description": "Sv\u00c4\u203atov\u00c3\u00a9 sn\u00c3\u00admky Esri",
+                "name": "Sv\u00c4\u203atov\u00c3\u00a9 sn\u00c3\u00admky Esri"
+            },
+            "EsriWorldImageryClarity": {
+                "attribution": {
+                    "text": "Podm\u00c3\u00adnky pou\u00c5\u00beit\u00c3\u00ad a zp\u00c4\u203atn\u00c3\u00a1 vazba"
+                },
+                "description": "Archivn\u00c3\u00ad sn\u00c3\u00admky Esri, kter\u00c3\u00a9 mohou b\u00c3\u00bdt \u00c4\ufffdist\u00c5\u00a1\u00c3\u00ad a p\u00c5\u2122esn\u00c4\u203aj\u00c5\u00a1\u00c3\u00ad jak v\u00c3\u00bdchoz\u00c3\u00ad vrstva.",
+                "name": "Sv\u00c4\u203atov\u00c3\u00a9 sn\u00c3\u00admky Esri (Clarity) Beta"
+            },
+            "Frankfurt-am-Main-2019": {
+                "attribution": {
+                    "text": "M\u00c4\u203astsk\u00c3\u00bd zem\u00c4\u203am\u00c4\u203a\u00c5\u2122ick\u00c3\u00bd \u00c3\u00ba\u00c5\u2122ad Frankfurt nad Mohanem"
+                },
+                "description": "Leteck\u00c3\u00a9 sn\u00c3\u00admky m\u00c4\u203asta Frankfurt nad Mohanem, vyfocen\u00c3\u00a9 16. dubna 2019",
+                "name": "Leteck\u00c3\u00bd sn\u00c3\u00admek Frankfurt nad Mohanem 2019"
+            },
+            "Geodatastyrelsen_Cadastral_Parcels_INSPIRE_View": {
+                "attribution": {
+                    "text": "Geodatastyrelsen og Styrelsen pro Dataforsyning og Infrastruktur"
+                },
+                "name": "SDFI Cadastral Parcels INSPIRE View"
+            },
+            "Geodatastyrelsen_DTK_Kort25": {
+                "attribution": {
+                    "text": "Styrelsen pro Dataforsyning og Infrastruktur"
+                },
+                "name": "SDFI DTK Map25"
+            },
+            "Geodatastyrelsen_Denmark": {
+                "attribution": {
+                    "text": "Styrelsen pro Dataforsyning og Infrastruktur"
+                },
+                "name": "Leteck\u00c3\u00a9 sn\u00c3\u00admky SDFI"
+            },
+            "Geodatastyrelsen_Skaermkort": {
+                "attribution": {
+                    "text": "Styrelsen pro Dataforsyning og Infrastruktur"
+                },
+                "name": "SDFI Screenmap"
+            },
+            "Geoportal2-PL-City-boundaries_WMS": {
+                "attribution": {
+                    "text": "\u00c3\u0161st\u00c5\u2122edn\u00c3\u00ad \u00c3\u00ba\u00c5\u2122ad geod\u00c3\u00a9zie a kartografie"
+                },
+                "description": "WMS slu\u00c5\u00beba vyd\u00c3\u00a1v\u00c3\u00a1n\u00c3\u00ad polsk\u00c3\u00bdch \u00c3\u00bazemn\u00c3\u00adch jednotek v\u00c4\ufffdetn\u00c4\u203a spr\u00c3\u00a1vn\u00c3\u00adch jednotek",
+                "name": "Geoport\u00c3\u00a1l 2: hranice m\u00c4\u203asta WMS"
+            },
+            "Geoportal2-PL-HighResolution-aerial_archival_image_WMS": {
+                "attribution": {
+                    "text": "\u00c3\u0161st\u00c5\u2122edn\u00c3\u00ad \u00c3\u00ba\u00c5\u2122ad geod\u00c3\u00a9zie a kartografie"
+                },
+                "description": "Ortofotomapa s rozli\u00c5\u00a1en\u00c3\u00adm 10 cm nebo v\u00c3\u00adce. Data jsou se\u00c5\u2122azena podle rozli\u00c5\u00a1en\u00c3\u00ad a n\u00c3\u00a1sledn\u00c4\u203a podle aktu\u00c3\u00a1lnosti, nap\u00c5\u2122. list z roku 2012 s rozli\u00c5\u00a1en\u00c3\u00adm 8 cm po\u00c5\u00a1le list z roku 2019 s rozli\u00c5\u00a1en\u00c3\u00adm 10 cm.",
+                "name": "Geoport\u00c3\u00a1l 2: Ortofotomapa s vysok\u00c3\u00bdm rozli\u00c5\u00a1en\u00c3\u00adm (leteck\u00c3\u00bd sn\u00c3\u00admek) (WMS)"
+            },
+            "Geoportal2-PL-HighResolution-aerial_image_WMS": {
+                "attribution": {
+                    "text": "\u00c3\u0161st\u00c5\u2122edn\u00c3\u00ad \u00c3\u00ba\u00c5\u2122ad geod\u00c3\u00a9zie a kartografie"
+                },
+                "description": "Ortofotomapa s rozli\u00c5\u00a1en\u00c3\u00adm 10 cm nebo v\u00c3\u00adce. Data jsou se\u00c5\u2122azena podle rozli\u00c5\u00a1en\u00c3\u00ad a n\u00c3\u00a1sledn\u00c4\u203a podle aktu\u00c3\u00a1lnosti, nap\u00c5\u2122. list z roku 2012 s rozli\u00c5\u00a1en\u00c3\u00adm 8 cm po\u00c5\u00a1le list z roku 2019 s rozli\u00c5\u00a1en\u00c3\u00adm 10 cm.",
+                "name": "Geoport\u00c3\u00a1l 2: Ortofotomapa s vysok\u00c3\u00bdm rozli\u00c5\u00a1en\u00c3\u00adm (leteck\u00c3\u00bd sn\u00c3\u00admek) (WMS)"
+            },
+            "Geoportal2-PL-Streets_WMS": {
+                "attribution": {
+                    "text": "\u00c3\u0161st\u00c5\u2122edn\u00c3\u00ad \u00c3\u00ba\u00c5\u2122ad geod\u00c3\u00a9zie a kartografie"
+                },
+                "description": "WMS Viewing Service Integrace n\u00c3\u00a1rodn\u00c3\u00adho \u00c4\ufffd\u00c3\u00adslov\u00c3\u00a1n\u00c3\u00ad adres umo\u00c5\u00be\u00c5\u02c6uj\u00c3\u00adc\u00c3\u00ad stahov\u00c3\u00a1n\u00c3\u00ad mapov\u00c3\u00bdch obraz\u00c5\u00af vytvo\u00c5\u2122en\u00c3\u00bdch na z\u00c3\u00a1klad\u00c4\u203a prostorov\u00c3\u00bdch dat ze St\u00c3\u00a1tn\u00c3\u00adho registru hranic v r\u00c3\u00a1mci registru ulic a adres.",
+                "name": "Geoport\u00c3\u00a1l 2: N\u00c3\u00a1zvy ulic"
+            },
+            "Geoportal2-PL-addres_points_WMS": {
+                "attribution": {
+                    "text": "\u00c3\u0161st\u00c5\u2122edn\u00c3\u00ad \u00c3\u00ba\u00c5\u2122ad geod\u00c3\u00a9zie a kartografie"
+                },
+                "description": "WMS Viewing Service Integrace n\u00c3\u00a1rodn\u00c3\u00adho \u00c4\ufffd\u00c3\u00adslov\u00c3\u00a1n\u00c3\u00ad adres umo\u00c5\u00be\u00c5\u02c6uj\u00c3\u00adc\u00c3\u00ad stahov\u00c3\u00a1n\u00c3\u00ad mapov\u00c3\u00bdch obraz\u00c5\u00af vytvo\u00c5\u2122en\u00c3\u00bdch na z\u00c3\u00a1klad\u00c4\u203a prostorov\u00c3\u00bdch dat ze St\u00c3\u00a1tn\u00c3\u00adho registru hranic v r\u00c3\u00a1mci registru ulic a adres.",
+                "name": "Geoport\u00c3\u00a1l 2: Adresov\u00c3\u00a9 doby"
+            },
+            "Geoportal2-PL-aerial_archival_image_WMS": {
+                "attribution": {
+                    "text": "\u00c3\u0161st\u00c5\u2122edn\u00c3\u00ad \u00c3\u00ba\u00c5\u2122ad geod\u00c3\u00a9zie a kartografie"
+                },
+                "description": "Prohl\u00c3\u00ad\u00c5\u00beec\u00c3\u00ad slu\u00c5\u00beba (Web Map Service, WMS), kter\u00c3\u00a1 umo\u00c5\u00be\u00c5\u02c6uj\u00c3\u00adc\u00c3\u00ad prohl\u00c3\u00ad\u00c5\u00been\u00c3\u00ad archivn\u00c3\u00adho ortofota v oblasti Polska. Data poskytovan\u00c3\u00a1 prost\u00c5\u2122ednictv\u00c3\u00adm t\u00c3\u00a9to slu\u00c5\u00beby jsou ortofotomapa vytvo\u00c5\u2122en\u00c3\u00a1 z leteck\u00c3\u00bdch sn\u00c3\u00admk\u00c5\u00af. Slu\u00c5\u00beba nab\u00c3\u00adz\u00c3\u00ad podporu pro rozhran\u00c3\u00ad WMS 1.3.0.",
+                "name": "Geoport\u00c3\u00a1l 2: Ortofotomapa archivn\u00c3\u00ad sn\u00c3\u00admky) (WMS)"
+            },
+            "Geoportal2-PL-aerial_image_WMS": {
+                "attribution": {
+                    "text": "\u00c3\u0161st\u00c5\u2122edn\u00c3\u00ad \u00c3\u00ba\u00c5\u2122ad geod\u00c3\u00a9zie a kartografie"
+                },
+                "description": "Prohl\u00c3\u00ad\u00c5\u00beec\u00c3\u00ad slu\u00c5\u00beba (Web Map Service, WMS), kter\u00c3\u00a1 umo\u00c5\u00be\u00c5\u02c6uj\u00c3\u00adc\u00c3\u00ad prohl\u00c3\u00ad\u00c5\u00been\u00c3\u00ad ortofota v oblasti Polska. Data poskytovan\u00c3\u00a1 prost\u00c5\u2122ednictv\u00c3\u00adm t\u00c3\u00a9to slu\u00c5\u00beby jsou ortofotomapa vytvo\u00c5\u2122en\u00c3\u00a1 z leteck\u00c3\u00bdch sn\u00c3\u00admk\u00c5\u00af. Slu\u00c5\u00beba nab\u00c3\u00adz\u00c3\u00ad podporu pro rozhran\u00c3\u00ad WMS 1.3.0.",
+                "name": "Geoport\u00c3\u00a1l 2: Ortofotomapa (nejnov\u00c4\u203aj\u00c5\u00a1\u00c3\u00ad leteck\u00c3\u00a9 sn\u00c3\u00admky) (WMS)"
+            },
+            "Geoportal2-PL-aerial_image_WMTS": {
+                "attribution": {
+                    "text": "\u00c3\u0161st\u00c5\u2122edn\u00c3\u00ad \u00c3\u00ba\u00c5\u2122ad geod\u00c3\u00a9zie a kartografie"
+                },
+                "description": "Prohl\u00c3\u00ad\u00c5\u00beec\u00c3\u00ad slu\u00c5\u00beba (Web Map Tile Service, WMTS), kter\u00c3\u00a1 umo\u00c5\u00be\u00c5\u02c6uj\u00c3\u00adc\u00c3\u00ad prohl\u00c3\u00ad\u00c5\u00been\u00c3\u00ad ortofota v oblasti Polska. Data poskytovan\u00c3\u00a1 prost\u00c5\u2122ednictv\u00c3\u00adm t\u00c3\u00a9to slu\u00c5\u00beby jsou ortofotomapa vytvo\u00c5\u2122en\u00c3\u00a1 z leteck\u00c3\u00bdch sn\u00c3\u00admk\u00c5\u00af.",
+                "name": "Geoport\u00c3\u00a1l 2: Ortofotomapa (nejnov\u00c4\u203aj\u00c5\u00a1\u00c3\u00ad leteck\u00c3\u00a9 sn\u00c3\u00admky) (WMTS)"
+            },
+            "Geoportal2-PL-boundaries-of-communes_WMS": {
+                "attribution": {
+                    "text": "\u00c3\u0161st\u00c5\u2122edn\u00c3\u00ad \u00c3\u00ba\u00c5\u2122ad geod\u00c3\u00a9zie a kartografie"
+                },
+                "description": "WMS slu\u00c5\u00beba vyd\u00c3\u00a1v\u00c3\u00a1n\u00c3\u00ad polsk\u00c3\u00bdch \u00c3\u00bazemn\u00c3\u00adch jednotek v\u00c4\ufffdetn\u00c4\u203a spr\u00c3\u00a1vn\u00c3\u00adch jednotek",
+                "name": "Geoport\u00c3\u00a1l 2: hranice obc\u00c3\u00ad WMS"
+            },
+            "Geoportal2-PL-boundaries-of-counties_WMS": {
+                "attribution": {
+                    "text": "\u00c3\u0161st\u00c5\u2122edn\u00c3\u00ad \u00c3\u00ba\u00c5\u2122ad geod\u00c3\u00a9zie a kartografie"
+                },
+                "description": "WMS slu\u00c5\u00beba vyd\u00c3\u00a1v\u00c3\u00a1n\u00c3\u00ad polsk\u00c3\u00bdch \u00c3\u00bazemn\u00c3\u00adch jednotek v\u00c4\ufffdetn\u00c4\u203a spr\u00c3\u00a1vn\u00c3\u00adch jednotek",
+                "name": "Geoport\u00c3\u00a1l 2: hranice okres\u00c5\u00af WMS"
+            },
+            "Geoportal2-PL-boundaries-of-provinces_WMS": {
+                "attribution": {
+                    "text": "\u00c3\u0161st\u00c5\u2122edn\u00c3\u00ad \u00c3\u00ba\u00c5\u2122ad geod\u00c3\u00a9zie a kartografie"
+                },
+                "description": "WMS slu\u00c5\u00beba vyd\u00c3\u00a1v\u00c3\u00a1n\u00c3\u00ad polsk\u00c3\u00bdch \u00c3\u00bazemn\u00c3\u00adch jednotek v\u00c4\ufffdetn\u00c4\u203a spr\u00c3\u00a1vn\u00c3\u00adch jednotek",
+                "name": "Geoport\u00c3\u00a1l 2: hranice provinci\u00c3\u00ad WMS"
+            },
+            "Geoportal2-PL-buildings_WMS": {
+                "attribution": {
+                    "text": "\u00c3\u0161st\u00c5\u2122edn\u00c3\u00ad \u00c3\u00ba\u00c5\u2122ad geod\u00c3\u00a9zie a kartografie"
+                },
+                "description": "Slu\u00c5\u00beba N\u00c3\u00a1rodn\u00c3\u00ad integrace evidence p\u00c5\u00afdy je hromadn\u00c3\u00a1 slu\u00c5\u00beba pro prezentaci eviden\u00c4\ufffdn\u00c3\u00adch \u00c3\u00badaj\u00c5\u00af poch\u00c3\u00a1zej\u00c3\u00adc\u00c3\u00adch p\u00c5\u2122\u00c3\u00admo z \u00c3\u00bazemn\u00c3\u00adch celk\u00c5\u00af. Slu\u00c5\u00beba obsahuje pouze data t\u00c4\u203ach jednotek, kter\u00c3\u00a9 maj\u00c3\u00ad slu\u00c5\u00bebu WMS s odpov\u00c3\u00addaj\u00c3\u00adc\u00c3\u00admi parametry a rozhodly se za\u00c5\u2122adit svou slu\u00c5\u00bebu WMS do hromadn\u00c3\u00a9 slu\u00c5\u00beby \u00e2\u20ac\u017eKrajowaIntegracjaEwidycjiGruntow\u00e2\u20ac\u0153.",
+                "name": "Geoport\u00c3\u00a1l 2: Stavebn\u00c3\u00ad z\u00c3\u00a1znamy WMS"
+            },
+            "Geoportal2-PL-gas-pipe_WMS": {
+                "attribution": {
+                    "text": "\u00c3\u0161st\u00c5\u2122edn\u00c3\u00ad \u00c3\u00ba\u00c5\u2122ad geod\u00c3\u00a9zie a kartografie"
+                },
+                "description": "Slu\u00c5\u00beba N\u00c3\u00a1rodn\u00c3\u00ad integrace ter\u00c3\u00a9nn\u00c3\u00ad v\u00c3\u00bdzbroje je hromadn\u00c3\u00a1 slu\u00c5\u00beba pro prezentaci dat o in\u00c5\u00been\u00c3\u00bdrsk\u00c3\u00bdch s\u00c3\u00adt\u00c3\u00adch poch\u00c3\u00a1zej\u00c3\u00adc\u00c3\u00adch p\u00c5\u2122\u00c3\u00admo od \u00c3\u00batvar\u00c5\u00af okresn\u00c3\u00ad \u00c3\u00barovn\u00c4\u203a. Slu\u00c5\u00beba obsahuje pouze data t\u00c4\u203ach jednotek, kter\u00c3\u00a9 maj\u00c3\u00ad slu\u00c5\u00bebu WMS s odpov\u00c3\u00addaj\u00c3\u00adc\u00c3\u00admi parametry a rozhodly se za\u00c5\u2122adit svou slu\u00c5\u00bebu WMS do slu\u00c5\u00beby KrajowaIntegracjaUzboszeniaTerenu.",
+                "name": "Geoport\u00c3\u00a1l 2: plynovody WMS"
+            },
+            "Geoportal2-PL-heat-pipe_WMS": {
+                "attribution": {
+                    "text": "\u00c3\u0161st\u00c5\u2122edn\u00c3\u00ad \u00c3\u00ba\u00c5\u2122ad geod\u00c3\u00a9zie a kartografie"
+                },
+                "description": "Slu\u00c5\u00beba N\u00c3\u00a1rodn\u00c3\u00ad integrace ter\u00c3\u00a9nn\u00c3\u00ad v\u00c3\u00bdzbroje je hromadn\u00c3\u00a1 slu\u00c5\u00beba pro prezentaci dat o in\u00c5\u00been\u00c3\u00bdrsk\u00c3\u00bdch s\u00c3\u00adt\u00c3\u00adch poch\u00c3\u00a1zej\u00c3\u00adc\u00c3\u00adch p\u00c5\u2122\u00c3\u00admo od \u00c3\u00batvar\u00c5\u00af okresn\u00c3\u00ad \u00c3\u00barovn\u00c4\u203a. Slu\u00c5\u00beba obsahuje pouze data t\u00c4\u203ach jednotek, kter\u00c3\u00a9 maj\u00c3\u00ad slu\u00c5\u00bebu WMS s odpov\u00c3\u00addaj\u00c3\u00adc\u00c3\u00admi parametry a rozhodly se za\u00c5\u2122adit svou slu\u00c5\u00bebu WMS do slu\u00c5\u00beby KrajowaIntegracjaUzboszeniaTerenu.",
+                "name": "Geoport\u00c3\u00a1l 2: tepeln\u00c3\u00a9 trubice WMS"
+            },
+            "Geoportal2-PL-plot_boundaries_WMS": {
+                "attribution": {
+                    "text": "\u00c3\u0161st\u00c5\u2122edn\u00c3\u00ad \u00c3\u00ba\u00c5\u2122ad geod\u00c3\u00a9zie a kartografie"
+                },
+                "description": "Slu\u00c5\u00beba N\u00c3\u00a1rodn\u00c3\u00ad integrace evidence p\u00c5\u00afdy je hromadn\u00c3\u00a1 slu\u00c5\u00beba pro prezentaci eviden\u00c4\ufffdn\u00c3\u00adch \u00c3\u00badaj\u00c5\u00af poch\u00c3\u00a1zej\u00c3\u00adc\u00c3\u00adch p\u00c5\u2122\u00c3\u00admo z \u00c3\u00bazemn\u00c3\u00adch celk\u00c5\u00af. Slu\u00c5\u00beba obsahuje pouze data t\u00c4\u203ach jednotek, kter\u00c3\u00a9 maj\u00c3\u00ad slu\u00c5\u00bebu WMS s odpov\u00c3\u00addaj\u00c3\u00adc\u00c3\u00admi parametry a rozhodly se za\u00c5\u2122adit svou slu\u00c5\u00bebu WMS do hromadn\u00c3\u00a9 slu\u00c5\u00beby \u00e2\u20ac\u017eKrajowaIntegracjaEwidycjiGruntow\u00e2\u20ac\u0153.",
+                "name": "Geoport\u00c3\u00a1l 2: Hranice pozemk\u00c5\u00af"
+            },
+            "Geoportal2-PL-power-cord_WMS": {
+                "attribution": {
+                    "text": "\u00c3\u0161st\u00c5\u2122edn\u00c3\u00ad \u00c3\u00ba\u00c5\u2122ad geod\u00c3\u00a9zie a kartografie"
+                },
+                "description": "Slu\u00c5\u00beba N\u00c3\u00a1rodn\u00c3\u00ad integrace ter\u00c3\u00a9nn\u00c3\u00ad v\u00c3\u00bdzbroje je hromadn\u00c3\u00a1 slu\u00c5\u00beba pro prezentaci dat o in\u00c5\u00been\u00c3\u00bdrsk\u00c3\u00bdch s\u00c3\u00adt\u00c3\u00adch poch\u00c3\u00a1zej\u00c3\u00adc\u00c3\u00adch p\u00c5\u2122\u00c3\u00admo od \u00c3\u00batvar\u00c5\u00af okresn\u00c3\u00ad \u00c3\u00barovn\u00c4\u203a. Slu\u00c5\u00beba obsahuje pouze data t\u00c4\u203ach jednotek, kter\u00c3\u00a9 maj\u00c3\u00ad slu\u00c5\u00bebu WMS s odpov\u00c3\u00addaj\u00c3\u00adc\u00c3\u00admi parametry a rozhodly se za\u00c5\u2122adit svou slu\u00c5\u00bebu WMS do slu\u00c5\u00beby KrajowaIntegracjaUzboszeniaTerenu.",
+                "name": "Geoport\u00c3\u00a1l 2: nap\u00c3\u00a1jen\u00c3\u00ad kabel WMS"
+            },
+            "Geoportal2-PL-prng": {
+                "attribution": {
+                    "text": "\u00c3\u0161st\u00c5\u2122edn\u00c3\u00ad geodetick\u00c3\u00a9 a kartografick\u00c3\u00a9 dokumenta\u00c4\ufffdn\u00c3\u00ad st\u00c5\u2122edisko"
+                },
+                "name": "Geoport\u00c3\u00a1l 2: PRNG (zem\u00c4\u203apisn\u00c3\u00a9 n\u00c3\u00a1zvy)"
+            },
+            "Geoportal2-PL-sewer-pipe_WMS": {
+                "attribution": {
+                    "text": "\u00c3\u0161st\u00c5\u2122edn\u00c3\u00ad \u00c3\u00ba\u00c5\u2122ad geod\u00c3\u00a9zie a kartografie"
+                },
+                "description": "Slu\u00c5\u00beba N\u00c3\u00a1rodn\u00c3\u00ad integrace ter\u00c3\u00a9nn\u00c3\u00ad v\u00c3\u00bdzbroje je hromadn\u00c3\u00a1 slu\u00c5\u00beba pro prezentaci dat o in\u00c5\u00been\u00c3\u00bdrsk\u00c3\u00bdch s\u00c3\u00adt\u00c3\u00adch poch\u00c3\u00a1zej\u00c3\u00adc\u00c3\u00adch p\u00c5\u2122\u00c3\u00admo od \u00c3\u00batvar\u00c5\u00af okresn\u00c3\u00ad \u00c3\u00barovn\u00c4\u203a. Slu\u00c5\u00beba obsahuje pouze data t\u00c4\u203ach jednotek, kter\u00c3\u00a9 maj\u00c3\u00ad slu\u00c5\u00bebu WMS s odpov\u00c3\u00addaj\u00c3\u00adc\u00c3\u00admi parametry a rozhodly se za\u00c5\u2122adit svou slu\u00c5\u00bebu WMS do slu\u00c5\u00beby KrajowaIntegracjaUzboszeniaTerenu.",
+                "name": "Geoport\u00c3\u00a1l 2: kanaliza\u00c4\ufffdn\u00c3\u00ad potrub\u00c3\u00ad WMS"
+            },
+            "Geoportal2-PL-shaded_relief_WMS": {
+                "attribution": {
+                    "text": "\u00c3\u0161st\u00c5\u2122edn\u00c3\u00ad \u00c3\u00ba\u00c5\u2122ad geod\u00c3\u00a9zie a kartografie"
+                },
+                "description": "Slu\u00c5\u00beba prohl\u00c3\u00ad\u00c5\u00been\u00c3\u00ad (Web Map Service, WMS) pro zobrazen\u00c3\u00ad st\u00c3\u00adnov\u00c3\u00a1n\u00c3\u00ad DMT v m\u00c5\u2122\u00c3\u00ad\u00c5\u00bece 1 m x 1 m. Slu\u00c5\u00beba nab\u00c3\u00adz\u00c3\u00ad podporu rozhran\u00c3\u00ad WMS 1.3.0.",
+                "name": "Geoport\u00c3\u00a1l 2: St\u00c3\u00adnovan\u00c3\u00bd reli\u00c3\u00a9f WMS"
+            },
+            "Geoportal2-PL-squares-and-housing-estates_WMS": {
+                "attribution": {
+                    "text": "\u00c3\u0161st\u00c5\u2122edn\u00c3\u00ad \u00c3\u00ba\u00c5\u2122ad geod\u00c3\u00a9zie a kartografie"
+                },
+                "description": "WMS Viewing Service Integrace n\u00c3\u00a1rodn\u00c3\u00adho \u00c4\ufffd\u00c3\u00adslov\u00c3\u00a1n\u00c3\u00ad adres umo\u00c5\u00be\u00c5\u02c6uj\u00c3\u00adc\u00c3\u00ad stahov\u00c3\u00a1n\u00c3\u00ad mapov\u00c3\u00bdch obraz\u00c5\u00af vytvo\u00c5\u2122en\u00c3\u00bdch na z\u00c3\u00a1klad\u00c4\u203a prostorov\u00c3\u00bdch dat ze St\u00c3\u00a1tn\u00c3\u00adho registru hranic v r\u00c3\u00a1mci registru ulic a adres.",
+                "name": "Geoport\u00c3\u00a1l 2: N\u00c3\u00a1m\u00c4\u203ast\u00c3\u00ad a s\u00c3\u00addli\u00c5\u00a1t\u00c4\u203a"
+            },
+            "Geoportal2-PL-state-borders_WMS": {
+                "attribution": {
+                    "text": "\u00c3\u0161st\u00c5\u2122edn\u00c3\u00ad \u00c3\u00ba\u00c5\u2122ad geod\u00c3\u00a9zie a kartografie"
+                },
+                "description": "WMS slu\u00c5\u00beba vyd\u00c3\u00a1v\u00c3\u00a1n\u00c3\u00ad polsk\u00c3\u00bdch \u00c3\u00bazemn\u00c3\u00adch jednotek v\u00c4\ufffdetn\u00c4\u203a spr\u00c3\u00a1vn\u00c3\u00adch jednotek",
+                "name": "Geoport\u00c3\u00a1l 2: St\u00c3\u00a1tn\u00c3\u00ad hranice WMS"
+            },
+            "Geoportal2-PL-telecommunications-cable_WMS": {
+                "attribution": {
+                    "text": "\u00c3\u0161st\u00c5\u2122edn\u00c3\u00ad \u00c3\u00ba\u00c5\u2122ad geod\u00c3\u00a9zie a kartografie"
+                },
+                "description": "Slu\u00c5\u00beba N\u00c3\u00a1rodn\u00c3\u00ad integrace ter\u00c3\u00a9nn\u00c3\u00ad v\u00c3\u00bdzbroje je hromadn\u00c3\u00a1 slu\u00c5\u00beba pro prezentaci dat o in\u00c5\u00been\u00c3\u00bdrsk\u00c3\u00bdch s\u00c3\u00adt\u00c3\u00adch poch\u00c3\u00a1zej\u00c3\u00adc\u00c3\u00adch p\u00c5\u2122\u00c3\u00admo od \u00c3\u00batvar\u00c5\u00af okresn\u00c3\u00ad \u00c3\u00barovn\u00c4\u203a. Slu\u00c5\u00beba obsahuje pouze data t\u00c4\u203ach jednotek, kter\u00c3\u00a9 maj\u00c3\u00ad slu\u00c5\u00bebu WMS s odpov\u00c3\u00addaj\u00c3\u00adc\u00c3\u00admi parametry a rozhodly se za\u00c5\u2122adit svou slu\u00c5\u00bebu WMS do slu\u00c5\u00beby KrajowaIntegracjaUzboszeniaTerenu.",
+                "name": "Geoport\u00c3\u00a1l 2: telekomunika\u00c4\ufffdn\u00c3\u00ad kabely WMS"
+            },
+            "Geoportal2-PL-water-pipe_WMS": {
+                "attribution": {
+                    "text": "\u00c3\u0161st\u00c5\u2122edn\u00c3\u00ad \u00c3\u00ba\u00c5\u2122ad geod\u00c3\u00a9zie a kartografie"
+                },
+                "description": "Slu\u00c5\u00beba N\u00c3\u00a1rodn\u00c3\u00ad integrace ter\u00c3\u00a9nn\u00c3\u00ad v\u00c3\u00bdzbroje je hromadn\u00c3\u00a1 slu\u00c5\u00beba pro prezentaci dat o in\u00c5\u00been\u00c3\u00bdrsk\u00c3\u00bdch s\u00c3\u00adt\u00c3\u00adch poch\u00c3\u00a1zej\u00c3\u00adc\u00c3\u00adch p\u00c5\u2122\u00c3\u00admo od \u00c3\u00batvar\u00c5\u00af okresn\u00c3\u00ad \u00c3\u00barovn\u00c4\u203a. Slu\u00c5\u00beba obsahuje pouze data t\u00c4\u203ach jednotek, kter\u00c3\u00a9 maj\u00c3\u00ad slu\u00c5\u00bebu WMS s odpov\u00c3\u00addaj\u00c3\u00adc\u00c3\u00admi parametry a rozhodly se za\u00c5\u2122adit svou slu\u00c5\u00bebu WMS do slu\u00c5\u00beby KrajowaIntegracjaUzboszeniaTerenu.",
+                "name": "Geoport\u00c3\u00a1l 2: vodovodn\u00c3\u00ad potrub\u00c3\u00ad WMS"
+            },
+            "Gliwice-2003": {
+                "attribution": {
+                    "text": "Magistr\u00c3\u00a1t m\u00c4\u203asta Hlivice"
+                },
+                "name": "Hlivice: leteck\u00c3\u00a9 sn\u00c3\u00admky 2003"
+            },
+            "Gliwice-2009": {
+                "attribution": {
+                    "text": "Magistr\u00c3\u00a1t m\u00c4\u203asta Hlivice"
+                },
+                "name": "Hlivice: leteck\u00c3\u00a9 sn\u00c3\u00admky 2009"
+            },
+            "Gliwice-2013": {
+                "attribution": {
+                    "text": "Magistr\u00c3\u00a1t m\u00c4\u203asta Hlivice"
+                },
+                "name": "Hlivice: leteck\u00c3\u00a9 sn\u00c3\u00admky 2013"
+            },
+            "Gliwice-2017": {
+                "attribution": {
+                    "text": "Magistr\u00c3\u00a1t m\u00c4\u203asta Hlivice"
+                },
+                "name": "Hlivice: leteck\u00c3\u00a9 sn\u00c3\u00admky 2017"
+            },
+            "Gliwice-2018": {
+                "attribution": {
+                    "text": "Magistr\u00c3\u00a1t m\u00c4\u203asta Hlivice"
+                },
+                "name": "Hlivice: leteck\u00c3\u00a9 sn\u00c3\u00admky 2018"
+            },
+            "Gliwice-2020": {
+                "attribution": {
+                    "text": "Magistr\u00c3\u00a1t m\u00c4\u203asta Hlivice"
+                },
+                "name": "Hlivice: leteck\u00c3\u00a9 sn\u00c3\u00admky 2020"
+            },
+            "Gliwice-2021": {
+                "attribution": {
+                    "text": "Magistr\u00c3\u00a1t m\u00c4\u203asta Hlivice"
+                },
+                "name": "Hlivice: leteck\u00c3\u00a9 sn\u00c3\u00admky 2021"
+            },
+            "Gliwice-buildings": {
+                "attribution": {
+                    "text": "Magistr\u00c3\u00a1t m\u00c4\u203asta Hlivice"
+                },
+                "name": "Hlivice: Budovy"
+            },
+            "LSA-ATKIS_BU": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 GeoBasis-DE/LVermGeo LSA"
+                },
+                "description": "Tvar budov v Sasku-Anhaltsku",
+                "name": "\u00c2\u00a9 GeoBasis-DE/LVermGeo LSA, ATKIS_BU"
+            },
+            "LSA-DOP20": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 GeoBasis-DE/LVermGeo LSA"
+                },
+                "description": "Leteck\u00c3\u00bd sn\u00c3\u00admek spolkov\u00c3\u00a9 zem\u00c4\u203a Sasko-Anhaltsko, rozli\u00c5\u00a1en\u00c3\u00ad 20 cm",
+                "name": "\u00c2\u00a9 GeoBasis-DE/LVermGeo LSA, DOP20"
+            },
+            "LSA-DVG": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 GeoBasis-DE/LVermGeo LSA"
+                },
+                "description": "Vektorov\u00c3\u00bd z\u00c3\u00a1znam administrativn\u00c3\u00adch hranic. Jsou uvedeny hranice spolkov\u00c3\u00a9 zem\u00c4\u203a, okresu, obce a \u00c4\ufffd\u00c3\u00a1sti obce.",
+                "name": "\u00c2\u00a9 GeoBasis-DE/LVermGeo LSA, DVG"
+            },
+            "LocalAuthorities_RightsOfWay": {
+                "attribution": {
+                    "text": "Obsahuje informace ve\u00c5\u2122ejn\u00c3\u00a9ho sektoru licencovan\u00c3\u00a9 pod licenc\u00c3\u00ad Open Government License v3.0."
+                },
+                "description": "Ve\u00c5\u2122ejn\u00c3\u00a1 data o pr\u00c3\u00a1vech cesty zve\u00c5\u2122ejn\u00c4\u203an\u00c3\u00a1 m\u00c3\u00adstn\u00c3\u00admi \u00c3\u00ba\u00c5\u2122ady, shrom\u00c3\u00a1\u00c5\u00bed\u00c4\u203ana na rowmaps.com",
+                "name": "Ve\u00c5\u2122ejn\u00c3\u00a1 pr\u00c3\u00a1va cesty"
+            },
+            "Lodz-2015": {
+                "attribution": {
+                    "text": "Magistr\u00c3\u00a1t m\u00c4\u203asta Lod\u00c5\u00be"
+                },
+                "name": "Lod\u00c5\u00be: leteck\u00c3\u00a9 sn\u00c3\u00admky 2015"
+            },
+            "Lodz-2017": {
+                "attribution": {
+                    "text": "Magistr\u00c3\u00a1t m\u00c4\u203asta Lod\u00c5\u00be"
+                },
+                "name": "Lod\u00c5\u00be: leteck\u00c3\u00a9 sn\u00c3\u00admky 2017"
+            },
+            "Lodz-buildings": {
+                "attribution": {
+                    "text": "Magistr\u00c3\u00a1t m\u00c4\u203asta Lod\u00c5\u00be"
+                },
+                "name": "Lod\u00c5\u00be: Budovy"
+            },
+            "MAPNIK": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 P\u00c5\u2122isp\u00c4\u203avatel\u00c3\u00a9 OpenStreetMap, ODbL 1.0"
+                },
+                "description": "V\u00c3\u00bdchoz\u00c3\u00ad vrstva OpenStreetMap.",
+                "name": "OpenStreetMap (standardn\u00c3\u00ad)"
+            },
+            "Maaamet-Estonia_Cadastre": {
+                "attribution": {
+                    "text": "Maa-ameti katastrikaart ortofoto alusel"
+                },
+                "name": "Katastr\u00c3\u00a1ln\u00c3\u00ad mapy Maa-amet"
+            },
+            "Maaamet-Estonia_Ortho": {
+                "attribution": {
+                    "text": "Maa-ameti ortofoto"
+                },
+                "name": "Maa-amet Ortho (WMS)"
+            },
+            "Mapbox": {
+                "attribution": {
+                    "text": "Podm\u00c3\u00adnky pou\u00c5\u00beit\u00c3\u00ad & zp\u00c4\u203atn\u00c3\u00a1 vazba"
+                },
+                "description": "Sada rastrov\u00c3\u00bdch dla\u00c5\u00bedic poskytovan\u00c3\u00a1 spole\u00c4\ufffdnost\u00c3\u00ad Mapbox, kter\u00c3\u00a1 obsahuje glob\u00c3\u00a1ln\u00c3\u00ad z\u00c3\u00a1kladn\u00c3\u00ad mapu satelitn\u00c3\u00adch a leteck\u00c3\u00bdch sn\u00c3\u00admk\u00c5\u00af s vysok\u00c3\u00bdm rozli\u00c5\u00a1en\u00c3\u00adm",
+                "name": "Satelitn\u00c3\u00ad sn\u00c3\u00admky Mapbox"
+            },
+            "Naturvardsverket-protected": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Naturv\u00c3\u00a5rdsverket, CC0"
+                },
+                "description": "\u00c5\u00a0v\u00c3\u00a9dsk\u00c3\u00a9 n\u00c3\u00a1rodn\u00c3\u00ad parky, p\u00c5\u2122\u00c3\u00adrodn\u00c3\u00ad rezervace a dal\u00c5\u00a1\u00c3\u00ad chr\u00c3\u00a1n\u00c4\u203an\u00c3\u00a9 oblasti a objekty",
+                "name": "Agentura pro ochranu \u00c5\u00beivotn\u00c3\u00adho prost\u00c5\u2122ed\u00c3\u00ad - Chr\u00c3\u00a1n\u00c4\u203an\u00c3\u00a9 oblasti"
+            },
+            "Naturvardsverket-trails": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Naturv\u00c3\u00a5rdsverket, CC0"
+                },
+                "description": "Denn\u00c4\u203a aktualizovan\u00c3\u00a9 stezky v p\u00c5\u2122\u00c3\u00adrodn\u00c3\u00adch rezervac\u00c3\u00adch nebo okol\u00c3\u00ad zaznamenan\u00c3\u00a9 \u00c5\u00a1v\u00c3\u00a9dskou agenturou pro ochranu \u00c5\u00beivotn\u00c3\u00adho prost\u00c5\u2122ed\u00c3\u00ad",
+                "name": "Agentura pro ochranu \u00c5\u00beivotn\u00c3\u00adho prost\u00c5\u2122ed\u00c3\u00ad - Stezky"
+            },
+            "OSIP": {
+                "attribution": {
+                    "text": "Celost\u00c3\u00a1tn\u00c3\u00ad sn\u00c3\u00admkovac\u00c3\u00ad program v Ohiu"
+                },
+                "description": "Ohio celost\u00c3\u00a1tn\u00c3\u00ad sn\u00c3\u00admky III nejprod\u00c3\u00a1van\u00c4\u203aj\u00c5\u00a1\u00c3\u00ad ortoimagery ka\u00c5\u00bed\u00c3\u00a9ho kraje p\u00c5\u2122i \u00c5\u2122e\u00c5\u00a1en\u00c3\u00ad od 1 stopy do 3 palc\u00c5\u00af od roku 2017 do roku 2020.",
+                "name": "Celost\u00c3\u00a1tn\u00c3\u00ad sn\u00c3\u00admkovac\u00c3\u00ad program v Ohiu"
+            },
+            "OSIP_1ft": {
+                "attribution": {
+                    "text": "Celost\u00c3\u00a1tn\u00c3\u00ad sn\u00c3\u00admkovac\u00c3\u00ad program v Ohiu"
+                },
+                "description": "Ortosn\u00c3\u00admky Celost\u00c3\u00a1tn\u00c3\u00adho sn\u00c3\u00admkovac\u00c3\u00adho programu v Ohiu II v\u00c5\u00a1ech 88 okres\u00c5\u00af v rozli\u00c5\u00a1en\u00c3\u00ad jedn\u00c3\u00a9 stopy v letech 2011 a\u00c5\u00be 2014.",
+                "name": "Celost\u00c3\u00a1tn\u00c3\u00ad sn\u00c3\u00admkovac\u00c3\u00ad program v Ohiu jednostop\u00c3\u00bd"
+            },
+            "OSIP_6in": {
+                "attribution": {
+                    "text": "Celost\u00c3\u00a1tn\u00c3\u00ad sn\u00c3\u00admkovac\u00c3\u00ad program v Ohiu"
+                },
+                "description": "Ortosn\u00c3\u00admky Celost\u00c3\u00a1tn\u00c3\u00adho sn\u00c3\u00admkovac\u00c3\u00adho programu v Ohiu III 40 okres\u00c5\u00af po\u00c5\u2122\u00c3\u00adzen\u00c3\u00a9 v 6palcov\u00c3\u00a9m rozli\u00c5\u00a1en\u00c3\u00ad v letech 2017 a 2018 plus sn\u00c3\u00admky OSIP I a OSIP II v 16 dal\u00c5\u00a1\u00c3\u00adch okresech od roku 2010 do roku 2014.",
+                "name": "Celost\u00c3\u00a1tn\u00c3\u00ad sn\u00c3\u00admkovac\u00c3\u00ad program v Ohiu 6palcov\u00c3\u00bd"
+            },
+            "OSMUK-Cadastral-Parcels": {
+                "attribution": {
+                    "text": "Obsahuje informace ve\u00c5\u2122ejn\u00c3\u00a9ho sektoru licencovan\u00c3\u00a9 pod licenc\u00c3\u00ad Open Government License v3.0."
+                },
+                "description": "Dokonale vyrovnan\u00c3\u00a9 katastr\u00c3\u00a1ln\u00c3\u00ad parcely ve Velk\u00c3\u00a9 Brit\u00c3\u00a1nii",
+                "name": "Katastr\u00c3\u00a1ln\u00c3\u00ad parcely OSMUK"
+            },
+            "OSM_Inspector-Addresses": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, p\u00c5\u2122isp\u00c4\u203avatel\u00c3\u00a9 OpenStreetMap, CC-BY-SA"
+                },
+                "name": "OSM Inspektor: Adresy"
+            },
+            "OSM_Inspector-Geometry": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, p\u00c5\u2122isp\u00c4\u203avatel\u00c3\u00a9 OpenStreetMap, CC-BY-SA"
+                },
+                "name": "OSM Inspektor: Geometrie"
+            },
+            "OSM_Inspector-Highways": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, p\u00c5\u2122isp\u00c4\u203avatel\u00c3\u00a9 OpenStreetMap, CC-BY-SA"
+                },
+                "name": "OSM Inspektor: Cesty"
+            },
+            "OSM_Inspector-Multipolygon": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, p\u00c5\u2122isp\u00c4\u203avatel\u00c3\u00a9 OpenStreetMap, CC-BY-SA"
+                },
+                "name": "OSM Inspektor: Plochy"
+            },
+            "OSM_Inspector-Places": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, p\u00c5\u2122isp\u00c4\u203avatel\u00c3\u00a9 OpenStreetMap, CC-BY-SA"
+                },
+                "name": "OSM Inspektor: M\u00c3\u00adsta"
+            },
+            "OSM_Inspector-Routing": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, p\u00c5\u2122isp\u00c4\u203avatel\u00c3\u00a9 OpenStreetMap, CC-BY-SA"
+                },
+                "name": "OSM Inspektor: Navigace"
+            },
+            "OSM_Inspector-Tagging": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, p\u00c5\u2122isp\u00c4\u203avatel\u00c3\u00a9 OpenStreetMap, CC-BY-SA"
+                },
+                "name": "OSM Inspektor: Zna\u00c4\ufffdkov\u00c3\u00a1n\u00c3\u00ad"
+            },
+            "OpenAerialMapMosaic": {
+                "description": "V\u00c5\u00a1echny obr\u00c3\u00a1zky OpenAerialMap v jedn\u00c3\u00a9 mozaikov\u00c3\u00a9 vrstv\u00c4\u203a od Kontur.io",
+                "name": "Mozaika OpenAerialMap, od Kontur.io"
+            },
+            "Riksantikvariambetet-archaeological": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Riksantikvarie\u00c3\u00a4mbetet, CC0"
+                },
+                "description": "Starov\u00c4\u203ak\u00c3\u00a9 a historick\u00c3\u00a9 poz\u00c5\u00afstatky a pam\u00c3\u00a1tky",
+                "name": "Riksantikvarie\u00c3\u00a4mbetet - archeologick\u00c3\u00a1 m\u00c3\u00adsta a pam\u00c3\u00a1tky"
+            },
+            "Riksantikvariambetet-heritage": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Riksantikvarie\u00c3\u00a4mbetet, CC0"
+                },
+                "description": "Budovy a kostely d\u00c4\u203adictv\u00c3\u00ad",
+                "name": "Riksantikvarie\u00c3\u00a4mbetet - Budovy d\u00c4\u203adictv\u00c3\u00ad"
+            },
+            "Riksantikvariambetet-protected": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Riksantikvarie\u00c3\u00a4mbetet, CC0"
+                },
+                "description": "Chr\u00c3\u00a1n\u00c4\u203an\u00c3\u00a9 oblasti pro budovy d\u00c4\u203adictv\u00c3\u00ad a m\u00c3\u00adsta n\u00c3\u00a1bo\u00c5\u00beensk\u00c3\u00a9ho d\u00c4\u203adictv\u00c3\u00ad",
+                "name": "Riksantikvarie\u00c3\u00a4mbetet - Chr\u00c3\u00a1n\u00c4\u203an\u00c3\u00a1 m\u00c3\u00adsta d\u00c4\u203adictv\u00c3\u00ad"
+            },
+            "Riksantikvariambetet-ruins": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Riksantikvarie\u00c3\u00a4mbetet, CC0"
+                },
+                "description": "Z\u00c5\u2122\u00c3\u00adceniny kulturn\u00c4\u203a-historick\u00c3\u00a9ho z\u00c3\u00a1jmu",
+                "name": "Riksantikvarie\u00c3\u00a4mbetet - Z\u00c5\u2122\u00c3\u00adceniny"
+            },
+            "SDFE_Overflade_Skyggekort_40cm": {
+                "attribution": {
+                    "text": "Styrelsen pro Dataforsyning og Infrastruktur"
+                },
+                "name": "SDFI mapa povrchov\u00c3\u00a9ho st\u00c3\u00adnu (40 cm)"
+            },
+            "SDFE_Terraen_Skyggekort_40cm": {
+                "attribution": {
+                    "text": "Styrelsen pro Dataforsyning og Infrastruktur"
+                },
+                "name": "SDFI mapa st\u00c3\u00adnov\u00c3\u00a9ho ter\u00c3\u00a9nu (40 cm)"
+            },
+            "SPW_ORTHO_LAST": {
+                "name": "Nejaktu\u00c3\u00a1ln\u00c4\u203aj\u00c5\u00a1\u00c3\u00ad sn\u00c3\u00admky SPW(allonie)"
+            },
+            "SPW_PICC": {
+                "name": "PICC numerick\u00c3\u00a9 sn\u00c3\u00admky SPW(allonie)"
+            },
+            "Siemianowice_Slaskie-aerial_image": {
+                "attribution": {
+                    "text": "Magistr\u00c3\u00a1t m\u00c4\u203asta Siemianowice \u00c5\u0161l\u00c4\u2026skie"
+                },
+                "name": "Siemianowice \u00c5\u0161l\u00c4\u2026skie: leteck\u00c3\u00a9 sn\u00c3\u00admky"
+            },
+            "Siemianowice_Slaskie-buildings": {
+                "attribution": {
+                    "text": "Magistr\u00c3\u00a1t m\u00c4\u203asta Siemianowice \u00c5\u0161l\u00c4\u2026skie"
+                },
+                "name": "Siemianowice \u00c5\u0161l\u00c4\u2026skie: Budovy"
+            },
+            "US-TIGER-Roads-2017": {
+                "description": "\u00c5\u00bdlut\u00c3\u00a1 = data z ve\u00c5\u2122ejn\u00c4\u203a dostupn\u00c3\u00a9 mapy z americk\u00c3\u00a9ho s\u00c4\ufffd\u00c3\u00adt\u00c3\u00a1n\u00c3\u00ad lidu. \u00c4\u0152erven\u00c3\u00a1 = data nejsou v OpenStreetMap nalezena",
+                "name": "TIGER Roads 2017"
+            },
+            "US-TIGER-Roads-2018": {
+                "description": "\u00c5\u00bdlut\u00c3\u00a1 = data z ve\u00c5\u2122ejn\u00c4\u203a dostupn\u00c3\u00a9 mapy americk\u00c3\u00a9ho s\u00c4\ufffd\u00c3\u00adt\u00c3\u00a1n\u00c3\u00ad lidu. \u00c4\u0152erven\u00c3\u00a1 = data nejsou v OpenStreetMap nalezena",
+                "name": "Silnice TIGER 2018"
+            },
+            "US-TIGER-Roads-2019": {
+                "description": "\u00c5\u00bdlut\u00c3\u00a1 = data z ve\u00c5\u2122ejn\u00c4\u203a dostupn\u00c3\u00a9 mapy americk\u00c3\u00a9ho s\u00c4\ufffd\u00c3\u00adt\u00c3\u00a1n\u00c3\u00ad lidu. \u00c4\u0152erven\u00c3\u00a1 = data nejsou v OpenStreetMap nalezena",
+                "name": "Silnice TIGER 2019"
+            },
+            "US-TIGER-Roads-2020": {
+                "description": "\u00c5\u00bdlut\u00c3\u00a1 = data z ve\u00c5\u2122ejn\u00c4\u203a dostupn\u00c3\u00a9 mapy americk\u00c3\u00a9ho s\u00c4\ufffd\u00c3\u00adt\u00c3\u00a1n\u00c3\u00ad lidu. \u00c4\u0152erven\u00c3\u00a1 = data nejsou v OpenStreetMap nalezena",
+                "name": "Silnice TIGER 2020"
+            },
+            "US-TIGER-Roads-2021": {
+                "description": "\u00c5\u00bdlut\u00c3\u00a1 = data z ve\u00c5\u2122ejn\u00c4\u203a dostupn\u00c3\u00a9 mapy americk\u00c3\u00a9ho s\u00c4\ufffd\u00c3\u00adt\u00c3\u00a1n\u00c3\u00ad lidu. \u00c4\u0152erven\u00c3\u00a1 = data nejsou v OpenStreetMap nalezena",
+                "name": "Silnice TIGER 2021"
+            },
+            "US-TIGER-Roads-2022": {
+                "description": "\u00c5\u00bdlut\u00c3\u00a1 = ve\u00c5\u2122ejn\u00c4\u203a dostupn\u00c3\u00a1 mapov\u00c3\u00a1 data ze s\u00c4\ufffd\u00c3\u00adt\u00c3\u00a1n\u00c3\u00ad lidu USA. \u00c4\u0152erven\u00c3\u00a1 = data nenalezen\u00c3\u00a1 v OpenStreetMap",
+                "name": "TIGER Roads 2022"
+            },
+            "USDA-NAIP": {
+                "attribution": {
+                    "text": "Ministerstvo zem\u00c4\u203ad\u00c4\u203alstv\u00c3\u00ad USA"
+                },
+                "description": "Posledn\u00c3\u00ad rok 30/60cm 4p\u00c3\u00a1smov\u00c3\u00bdch DOQQ z N\u00c3\u00a1rodn\u00c3\u00adho programu pro sn\u00c3\u00admkov\u00c3\u00a1n\u00c3\u00ad zem\u00c4\u203ad\u00c4\u203alstv\u00c3\u00ad (NAIP) pro ka\u00c5\u00bed\u00c3\u00bd st\u00c3\u00a1t v sousedn\u00c3\u00adch Spojen\u00c3\u00bdch st\u00c3\u00a1tech.",
+                "name": "N\u00c3\u00a1rodn\u00c3\u00ad program sn\u00c3\u00admkov\u00c3\u00a1n\u00c3\u00ad zem\u00c4\u203ad\u00c4\u203alstv\u00c3\u00ad"
+            },
+            "US_Forest_Service_roads_overlay": {
+                "description": "Vozovka: Zelen\u00c3\u00a9 okraje = neklasifikovan\u00c3\u00a1. Hn\u00c4\u203ad\u00c3\u00a9 okraje = cesta. Povrch: \u00c5\u00a0t\u00c4\u203ark = sv\u00c4\u203atle hn\u00c4\u203ad\u00c3\u00a1 v\u00c3\u00bdpl\u00c5\u02c6, asfalt = \u00c4\ufffdern\u00c3\u00a1, dla\u00c5\u00beba = \u00c5\u00a1ed\u00c3\u00a1, zemina = b\u00c3\u00adl\u00c3\u00a1, beton = modr\u00c3\u00a1, tr\u00c3\u00a1va = zelen\u00c3\u00a1. Sez\u00c3\u00b3nn\u00c3\u00ad = b\u00c3\u00adl\u00c3\u00a9 \u00c4\ufffd\u00c3\u00a1ry",
+                "name": "Vrstva lesn\u00c3\u00adch cest USA"
+            },
+            "UrbISOrtho": {
+                "attribution": {
+                    "text": "Realizov\u00c3\u00a1no Brussels UrbIS\u00c2\u00ae\u00c2\u00a9 - Distribuce & Copyright CIRB"
+                },
+                "name": "Nejaktu\u00c3\u00a1ln\u00c4\u203aj\u00c5\u00a1\u00c3\u00ad leteck\u00c3\u00a9 sn\u00c3\u00admky CIRB/CIBG"
+            },
+            "UrbISOrtho2016": {
+                "attribution": {
+                    "text": "Realizov\u00c3\u00a1no Brussels UrbIS\u00c2\u00ae\u00c2\u00a9 - Distribuce & Copyright CIRB"
+                },
+                "name": "UrbIS-Ortho 2016"
+            },
+            "UrbISOrtho2017": {
+                "attribution": {
+                    "text": "Realizov\u00c3\u00a1no Brussels UrbIS\u00c2\u00ae\u00c2\u00a9 - Distribuce & Copyright CIRB"
+                },
+                "name": "UrbIS-Ortho 2017"
+            },
+            "UrbISOrtho2018": {
+                "attribution": {
+                    "text": "Realizov\u00c3\u00a1no Brussels UrbIS\u00c2\u00ae\u00c2\u00a9 - Distribuce & Copyright CIRB"
+                },
+                "name": "UrbIS-Ortho 2018"
+            },
+            "UrbISOrtho2019": {
+                "attribution": {
+                    "text": "Realizov\u00c3\u00a1no Brussels UrbIS\u00c2\u00ae\u00c2\u00a9 - Distribuce & Copyright CIRB"
+                },
+                "name": "UrbIS-Ortho 2019"
+            },
+            "UrbISOrtho2020": {
+                "attribution": {
+                    "text": "Realizov\u00c3\u00a1no Brussels UrbIS\u00c2\u00ae\u00c2\u00a9 - Distribuce & Copyright CIRB"
+                },
+                "name": "UrbIS-Ortho 2020"
+            },
+            "UrbisAdmFR": {
+                "attribution": {
+                    "text": "Realizov\u00c3\u00a1no Brussels UrbIS\u00c2\u00ae\u00c2\u00a9 - Distribuce & Copyright CIRB"
+                },
+                "name": "UrbisAdm FR"
+            },
+            "UrbisAdmFRNL": {
+                "attribution": {
+                    "text": "Realizov\u00c3\u00a1no Brussels UrbIS\u00c2\u00ae\u00c2\u00a9 - Distribuce & Copyright CIRB"
+                },
+                "name": "UrbisAdm FR/NL"
+            },
+            "UrbisAdmNL": {
+                "attribution": {
+                    "text": "Realizov\u00c3\u00a1no Brussels UrbIS\u00c2\u00ae\u00c2\u00a9 - Distribuce & Copyright CIRB"
+                },
+                "name": "UrbisAdm NL"
+            },
+            "Waymarked_Trails-Cycling": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 waymarkedtrails.org, p\u00c5\u2122isp\u00c4\u203avatel\u00c3\u00a9 OpenStreetMap, CC BY-SA 3.0"
+                },
+                "name": "Vyzna\u00c4\ufffden\u00c3\u00a9 cesty: Cyklistika"
+            },
+            "Waymarked_Trails-Hiking": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 waymarkedtrails.org, p\u00c5\u2122isp\u00c4\u203avatel\u00c3\u00a9 OpenStreetMap, CC BY-SA 3.0"
+                },
+                "name": "Vyzna\u00c4\ufffden\u00c3\u00a9 cesty: Turistika"
+            },
+            "Waymarked_Trails-MTB": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 waymarkedtrails.org, p\u00c5\u2122isp\u00c4\u203avatel\u00c3\u00a9 OpenStreetMap, CC BY-SA 3.0"
+                },
+                "name": "Vyzna\u00c4\ufffden\u00c3\u00a9 cesty: Horsk\u00c3\u00a1 kola"
+            },
+            "Waymarked_Trails-Skating": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 waymarkedtrails.org, p\u00c5\u2122isp\u00c4\u203avatel\u00c3\u00a9 OpenStreetMap, CC BY-SA 3.0"
+                },
+                "name": "Vyzna\u00c4\ufffden\u00c3\u00a9 cesty: Bruslen\u00c3\u00ad"
+            },
+            "Waymarked_Trails-Winter_Sports": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 waymarkedtrails.org, p\u00c5\u2122isp\u00c4\u203avatel\u00c3\u00a9 OpenStreetMap, CC BY-SA 3.0"
+                },
+                "name": "Vyzna\u00c4\ufffden\u00c3\u00a9 cesty: Zimn\u00c3\u00ad sporty"
+            },
+            "Zabrze-2011": {
+                "attribution": {
+                    "text": "Magistr\u00c3\u00a1t m\u00c4\u203asta Zabrze"
+                },
+                "name": "Zabrze: leteck\u00c3\u00a9 sn\u00c3\u00admky 2011"
+            },
+            "basemap.at": {
+                "attribution": {
+                    "text": "basemap.at"
+                },
+                "description": "Z\u00c3\u00a1kladn\u00c3\u00ad mapa Rakouska, zalo\u00c5\u00been\u00c3\u00a1 na vl\u00c3\u00a1dn\u00c3\u00adch datech.",
+                "name": "basemap.at"
+            },
+            "basemap.at-orthofoto": {
+                "attribution": {
+                    "text": "basemap.at"
+                },
+                "description": "Vrstva ortofoto poskytnuta basemap.at. \u00e2\u20ac\u017eN\u00c3\u00a1sledn\u00c3\u00adk\u00e2\u20ac\u0153 geoimage.at.",
+                "name": "Ortofoto basemap.at"
+            },
+            "basemap.at-overlay": {
+                "attribution": {
+                    "text": "basemap.at"
+                },
+                "description": "P\u00c5\u2122ekryt\u00c3\u00ad anotac\u00c3\u00ad poskytuje basemap.at.",
+                "name": "P\u00c5\u2122ekryv basemap.at"
+            },
+            "cyclosm": {
+                "attribution": {
+                    "text": "Zobrazen\u00c3\u00ad: CyclOSM (hostov\u00c3\u00a1no OpenStreetMap Francie) \u00c2\u00a9 Mapov\u00c3\u00a1 data p\u00c5\u2122isp\u00c4\u203avatel\u00c3\u00a9 OpenStreetMap"
+                },
+                "description": "CyclOSM je mapov\u00c3\u00bd styl navr\u00c5\u00been\u00c3\u00bd s ohledem na cyklistiku. Vyu\u00c5\u00be\u00c3\u00adv\u00c3\u00a1 data OpenStreetMap k vytvo\u00c5\u2122en\u00c3\u00ad kr\u00c3\u00a1sn\u00c3\u00a9 a praktick\u00c3\u00a9 cyklistick\u00c3\u00a9 mapy!",
+                "name": "CyclOSM"
+            },
+            "debicki-buildings": {
+                "attribution": {
+                    "text": "Okres Debica"
+                },
+                "name": "Okres Debica: Budovy"
+            },
+            "eufar-balaton": {
+                "attribution": {
+                    "text": "Ortofoto EUFAR Balaton 2010"
+                },
+                "description": "Fotografie se zem\u00c4\u203apisn\u00c3\u00bdmi sou\u00c5\u2122adnicemi od Balaton Limnological Institute z roku 1940.",
+                "name": "Ortofoto EUFAR Balaton"
+            },
+            "gothenburg-citymap": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 oblast Gothenburg, licence CC0"
+                },
+                "description": "Pl\u00c3\u00a1n m\u00c4\u203asta je p\u00c5\u2122ehledov\u00c3\u00a1 mapa popisuj\u00c3\u00adc\u00c3\u00ad Gothenburg. Obsahuje z\u00c3\u00a1kladn\u00c3\u00ad informace o oblasti, komunikac\u00c3\u00adch, hydrologii, budov\u00c3\u00a1ch, adres\u00c3\u00a1ch a n\u00c3\u00a1zvech ulic, administrativn\u00c3\u00adch \u00c4\ufffd\u00c3\u00a1stech a dal\u00c5\u00a1\u00c3\u00ad orienta\u00c4\ufffdn\u00c3\u00ad text.",
+                "name": "Pl\u00c3\u00a1n m\u00c4\u203asta Gothenburg"
+            },
+            "gothenburg-dtm-2017": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 oblast Gothenburg, licence CC0"
+                },
+                "description": "Webov\u00c3\u00a1 mapov\u00c3\u00a1 slu\u00c5\u00beba p\u00c5\u2122edstavuj\u00c3\u00adc\u00c3\u00ad st\u00c3\u00adny kopc\u00c5\u00af a svah na z\u00c3\u00a1klad\u00c4\u203a v\u00c3\u00bd\u00c5\u00a1kov\u00c3\u00a9ho modelu m\u00c4\u203asta G\u00c3\u00b6teborg z roku 2017. Rozli\u00c5\u00a1en\u00c3\u00ad 0,5 metru na pixel.",
+                "name": "St\u00c3\u00adny kopc\u00c5\u00af Gothenburg"
+            },
+            "gothenburg-ortho": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 oblast Gothenburg, licence CC0"
+                },
+                "description": "Leteck\u00c3\u00a9 sn\u00c3\u00admky oblasti Gothenburg",
+                "name": "Leteck\u00c3\u00a9 sn\u00c3\u00admky Gothenburg 2015"
+            },
+            "gothenburg-ortho_2017": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 oblast Gothenburg, licence CC0"
+                },
+                "description": "Leteck\u00c3\u00a9 sn\u00c3\u00admky oblasti Gothenburg",
+                "name": "Leteck\u00c3\u00a9 sn\u00c3\u00admky Gothenburg 2017"
+            },
+            "gothenburg-ortho_2019": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 oblast Gothenburg, licence CC0"
+                },
+                "description": "Leteck\u00c3\u00a9 sn\u00c3\u00admky oblasti Gothenburg",
+                "name": "Leteck\u00c3\u00a9 sn\u00c3\u00admky Gothenburg 2019"
+            },
+            "gothenburg-ortho_2021": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 oblast Gothenburg, licence CC0"
+                },
+                "description": "Leteck\u00c3\u00a9 sn\u00c3\u00admky oblasti Gothenburg",
+                "name": "Leteck\u00c3\u00a9 sn\u00c3\u00admky Gothenburg 2021"
+            },
+            "gothenburg-ortho_latest": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 oblast Gothenburg, licence CC0"
+                },
+                "description": "Leteck\u00c3\u00a9 sn\u00c3\u00admky oblasti Gothenburg",
+                "name": "Nejnov\u00c4\u203aj\u00c5\u00a1\u00c3\u00ad leteck\u00c3\u00a9 sn\u00c3\u00admky Gothenburg"
+            },
+            "gsi.go.jp_airphoto": {
+                "attribution": {
+                    "text": "GSI Japonsko"
+                },
+                "description": "Leteck\u00c3\u00a9 sn\u00c3\u00admky Japonska od GSI. Ne zcela vylad\u00c4\u203an\u00c3\u00a9, ale trochu nov\u00c4\u203aj\u00c5\u00a1\u00c3\u00ad, p\u00c5\u2122\u00c3\u00adpadn\u00c4\u203a  s jin\u00c3\u00bdm pokryt\u00c3\u00adm ne\u00c5\u00be sn\u00c3\u00admky Japonska (GSI).",
+                "name": "Leteck\u00c3\u00a9 sn\u00c3\u00admky Japonska (GSI)"
+            },
+            "gsi.go.jp_seamlessphoto": {
+                "attribution": {
+                    "text": "Beze\u00c5\u00a1v\u00c3\u00a9 fotosn\u00c3\u00admky Japonska (GSI)"
+                },
+                "description": "Beze\u00c5\u00a1v\u00c3\u00a9 sn\u00c3\u00admky japonska od GSI. Kolekce nejnov\u00c4\u203aj\u00c5\u00a1\u00c3\u00adch sn\u00c3\u00admk\u00c5\u00af GSI, po ne\u00c5\u00a1t\u00c4\u203ast\u00c3\u00ad a dal\u00c5\u00a1\u00c3\u00ad.",
+                "name": "Beze\u00c5\u00a1v\u00c3\u00a9 sn\u00c3\u00admky Japonska (GSI)"
+            },
+            "gsi.go.jp_std_map": {
+                "attribution": {
+                    "text": "GSI Japonsko"
+                },
+                "description": "Standardn\u00c3\u00ad mapa Japonska (GSI). Rozs\u00c3\u00a1hl\u00c3\u00a9 pokryt\u00c3\u00ad.",
+                "name": "Standardn\u00c3\u00ad mapa Japonska (GSI)"
+            },
+            "kalmar-orto-2014": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 oblast Kalmar"
+                },
+                "description": "Leteck\u00c3\u00a9 sn\u00c3\u00admky severn\u00c3\u00adho pob\u00c5\u2122e\u00c5\u00be\u00c3\u00ad oblasti Kalmar 2014",
+                "name": "Leteck\u00c3\u00a9 sn\u00c3\u00admky Kalmar sever 2014"
+            },
+            "kalmar-orto-2016": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 oblast Kalmar"
+                },
+                "description": "Leteck\u00c3\u00a9 sn\u00c3\u00admky ji\u00c5\u00ben\u00c3\u00adho pob\u00c5\u2122e\u00c5\u00be\u00c3\u00ad oblasti Kalmar 2016",
+                "name": "Leteck\u00c3\u00a9 sn\u00c3\u00admky Kalmar jih 2016"
+            },
+            "kalmar-orto-2018": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 oblast Kalmar"
+                },
+                "description": "Leteck\u00c3\u00a9 sn\u00c3\u00admky urbanizovan\u00c3\u00a9 oblasti Kalmar 2018",
+                "name": "Leteck\u00c3\u00a9 sn\u00c3\u00admky m\u00c4\u203asta Kalmar 2018"
+            },
+            "kalmar-orto-2020": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 oblast Kalmar"
+                },
+                "description": "Leteck\u00c3\u00a9 sn\u00c3\u00admky urbanizovan\u00c3\u00a9 oblasti Kalmar 2020",
+                "name": "Leteck\u00c3\u00a9 sn\u00c3\u00admky m\u00c4\u203asta Kalmar 2020"
+            },
+            "kartverket-bygninger": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Kartverket"
+                },
+                "description": "INSPIRE stavby pro Norsko.",
+                "name": "P\u00c5\u2122ekryv budov Kartverket"
+            },
+            "kelkkareitit": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Kelkkareitit.fi"
+                },
+                "description": "Nordick\u00c3\u00a9 cesty pro sn\u00c4\u203a\u00c5\u00ben\u00c3\u00a9 sk\u00c5\u00aftry z OSM  \u00e2\u20ac\u201c Kelkkareitit.fi",
+                "name": "P\u00c5\u2122ekryv nordick\u00c3\u00bdch cest pro sn\u00c4\u203a\u00c5\u00ben\u00c3\u00a9 sk\u00c5\u00aftry"
+            },
+            "lancucki-buildings": {
+                "attribution": {
+                    "text": "Okres \u00c5\ufffda\u00c5\u201ecut"
+                },
+                "name": "Okres \u00c5\ufffda\u00c5\u201ecut: Budovy"
+            },
+            "lantmateriet-orto1960": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Lantm\u00c3\u00a4teriet, CC0"
+                },
+                "description": "Mozaika \u00c5\u00a0v\u00c3\u00a9dsk\u00c3\u00bdch leteck\u00c3\u00bdch sn\u00c3\u00admk\u00c5\u00af z obdob\u00c3\u00ad 1955\u00e2\u20ac\u201c1965. M\u00c5\u00af\u00c5\u00bee m\u00c3\u00adsty obsahovat star\u00c5\u00a1\u00c3\u00ad, \u00c4\ufffdi nov\u00c4\u203aj\u00c5\u00a1\u00c3\u00ad sn\u00c3\u00admky.",
+                "name": "Historick\u00c3\u00a9 leteck\u00c3\u00a9 sn\u00c3\u00admky Lantm\u00c3\u00a4teriet z roku 1960"
+            },
+            "lantmateriet-orto1975": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Lantm\u00c3\u00a4teriet, CC0"
+                },
+                "description": "Mozaika \u00c5\u00a0v\u00c3\u00a9dsk\u00c3\u00bdch leteck\u00c3\u00bdch sn\u00c3\u00admk\u00c5\u00af z obdob\u00c3\u00ad 1970\u00e2\u20ac\u201c1980. V p\u00c5\u2122\u00c3\u00adprav\u00c4\u203a.",
+                "name": "Historick\u00c3\u00a9 leteck\u00c3\u00a9 sn\u00c3\u00admky Lantm\u00c3\u00a4teriet z roku 1975"
+            },
+            "lantmateriet-topowebb": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Lantm\u00c3\u00a4teriet, licence CC0"
+                },
+                "description": "Topografick\u00c3\u00a1 mapa \u00c5\u00a0v\u00c3\u00a9dska 1:50 000",
+                "name": "Topografick\u00c3\u00a1 mapa Lantm\u00c3\u00a4teriet"
+            },
+            "linkoping-orto": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Oblast Link\u00c3\u00b6ping"
+                },
+                "description": "Leteck\u00c3\u00a9 sn\u00c3\u00admky oblasti Link\u00c3\u00b6ping z roku 2010, otev\u00c5\u2122en\u00c3\u00a1 data",
+                "name": "Leteck\u00c3\u00a9 sn\u00c3\u00admky Link\u00c3\u00b6ping"
+            },
+            "lubaczowski-buildings": {
+                "attribution": {
+                    "text": "Okres Lubacz\u00c3\u00b3w"
+                },
+                "name": "Okres Lubacz\u00c3\u00b3w: Budovy"
+            },
+            "maaamet.ee-cir_ngr": {
+                "attribution": {
+                    "text": "Maa-ameti metsanduslik ortofoto"
+                },
+                "name": "Lesnictv\u00c3\u00ad Maa-amet"
+            },
+            "maaamet.ee-orto": {
+                "attribution": {
+                    "text": "Maa-ameti ortofoto"
+                },
+                "name": "Maa-amet Ortho (TMS)"
+            },
+            "maaamet.ee-pohi_vr2": {
+                "attribution": {
+                    "text": "Maa-ameti p\u00c3\u00b5hikaart"
+                },
+                "name": "Z\u00c3\u00a1kladn\u00c3\u00ad mapy Maa-amet"
+            },
+            "mapbox_locator_overlay": {
+                "attribution": {
+                    "text": "Podm\u00c3\u00adnky pou\u00c5\u00beit\u00c3\u00ad a zp\u00c4\u203atn\u00c3\u00a1 vazba"
+                },
+                "description": "Zobrazuje v\u00c3\u00bdznamn\u00c3\u00a9 prvky, kter\u00c3\u00a9 V\u00c3\u00a1m pomohou s orientac\u00c3\u00ad.",
+                "name": "P\u00c5\u2122ekryv lok\u00c3\u00a1toru"
+            },
+            "openpt_map": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 p\u00c5\u2122isp\u00c4\u203avatel\u00c3\u00a9 OpenStreetMap, CC-BY-SA"
+                },
+                "name": "OpenPT Map (p\u00c5\u2122ekryv)"
+            },
+            "openrailwaymap": {
+                "attribution": {
+                    "text": "Zobrazen\u00c3\u00ad: OpenRailwayMap, \u00c2\u00a9 Mapov\u00c3\u00a1 data p\u00c5\u2122isp\u00c4\u203avatel\u00c3\u00a9 OpenStreetMap"
+                },
+                "description": "P\u00c5\u2122ekryvn\u00c3\u00a1 vrstva zobrazuje \u00c5\u00beelezni\u00c4\ufffdn\u00c3\u00ad infrastrukturu podle dat OpenStreetMap",
+                "name": "OpenRailwayMap"
+            },
+            "openrailwaymap-maxspeeds": {
+                "attribution": {
+                    "text": "Zobrazen\u00c3\u00ad: OpenRailwayMap, \u00c2\u00a9 Mapov\u00c3\u00a1 data p\u00c5\u2122isp\u00c4\u203avatel\u00c3\u00a9 OpenStreetMap"
+                },
+                "description": "P\u00c5\u2122ekryvn\u00c3\u00a1 vrstva zobrazuje \u00c5\u00beelezni\u00c4\ufffdn\u00c3\u00ad rychlostn\u00c3\u00ad limity podle dat OpenStreetMap",
+                "name": "Maxim\u00c3\u00a1ln\u00c3\u00ad rychlosti OpenRailwayMap"
+            },
+            "openrailwaymap-signalling": {
+                "attribution": {
+                    "text": "Zobrazen\u00c3\u00ad: OpenRailwayMap, \u00c2\u00a9 Mapov\u00c3\u00a1 data p\u00c5\u2122isp\u00c4\u203avatel\u00c3\u00a9 OpenStreetMap"
+                },
+                "description": "P\u00c5\u2122ekryvn\u00c3\u00a1 vrstva zobrazuje \u00c5\u00beelezni\u00c4\ufffdn\u00c3\u00ad n\u00c3\u00a1v\u00c4\u203asti podle dat OpenStreetMap",
+                "name": "N\u00c3\u00a1v\u00c4\u203astidla OpenRailwayMap"
+            },
+            "osm-gps": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 P\u00c5\u2122isp\u00c4\u203avatel\u00c3\u00a9 OpenStreetMap"
+                },
+                "description": "Ve\u00c5\u2122ejn\u00c3\u00a9 GPS trasy odeslan\u00c3\u00a9 na OpenStreetMap.",
+                "name": "GPS stopy OpenStreetMap"
+            },
+            "osm-mapnik-german_style": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 P\u00c5\u2122isp\u00c4\u203avatel\u00c3\u00a9 OpenStreetMap, CC-BY-SA"
+                },
+                "name": "OpenStreetMap (n\u00c4\u203ameck\u00c3\u00bd styl)"
+            },
+            "osmse-ekonomiska": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Lantm\u00c3\u00a4teriet, CC0"
+                },
+                "description": "Scan of \"Economic maps\" ca. 1950\u00e2\u20ac\u201c1978",
+                "name": "Lantm\u00c3\u00a4teriet Economic Map 1950\u00e2\u20ac\u201c1978"
+            },
+            "osmse-generalstab": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Lantm\u00c3\u00a4teriet, CC0"
+                },
+                "description": "Scan of \"Generalstabskartan\" ca. 1859\u00e2\u20ac\u201c1979",
+                "name": "Lantm\u00c3\u00a4teriet Generalstabskartan 1859\u00e2\u20ac\u201c1979"
+            },
+            "poznan-ortofotomapa2014": {
+                "attribution": {
+                    "text": "Sbor geod\u00c3\u00a9zie a katastru m\u00c4\u203asta GEOPOZ"
+                },
+                "name": "Pozna\u00c5\u02c6: leteck\u00c3\u00a9 sn\u00c3\u00admky 2014"
+            },
+            "poznan-ortofotomapa2016": {
+                "attribution": {
+                    "text": "Sbor geod\u00c3\u00a9zie a katastru m\u00c4\u203asta GEOPOZ"
+                },
+                "name": "Pozna\u00c5\u02c6: leteck\u00c3\u00a9 sn\u00c3\u00admky 2016"
+            },
+            "poznan-ortofotomapaBiezaca": {
+                "attribution": {
+                    "text": "Sbor geod\u00c3\u00a9zie a katastru m\u00c4\u203asta GEOPOZ"
+                },
+                "name": "Pozna\u00c5\u02c6: aktu\u00c3\u00a1ln\u00c3\u00ad leteck\u00c3\u00a9 sn\u00c3\u00admky"
+            },
+            "przemysl-aerial": {
+                "attribution": {
+                    "text": "M\u00c4\u203asto P\u00c5\u2122emy\u00c5\u00a1l"
+                },
+                "name": "P\u00c5\u2122emy\u00c5\u00a1l: leteck\u00c3\u00a9 sn\u00c3\u00admky"
+            },
+            "przemysl-buildings": {
+                "attribution": {
+                    "text": "M\u00c4\u203asto P\u00c5\u2122emy\u00c5\u00a1l"
+                },
+                "name": "P\u00c5\u2122emy\u00c5\u00a1l: Budovy"
+            },
+            "qa_no_address": {
+                "attribution": {
+                    "text": "Simon Poole, data \u00c2\u00a9 p\u00c5\u2122isp\u00c4\u203avatel\u00c3\u00a9 OpenStreetMap"
+                },
+                "name": "QA \u00c5\u00bd\u00c3\u00a1dn\u00c3\u00a1 adresa"
+            },
+            "route500": {
+                "attribution": {
+                    "text": "Tiles \u00c2\u00a9 cquest@Openstreetmap Francie, data \u00c2\u00a9 IGN, LO/OL"
+                },
+                "description": "Silnice klasifikovan\u00c3\u00a9 s\u00c3\u00adt\u00c4\u203a (d\u00c3\u00a1lnice, st\u00c3\u00a1tn\u00c3\u00ad, departementn\u00c3\u00ad)",
+                "name": "Route 500"
+            },
+            "rzeszowski-aerial": {
+                "attribution": {
+                    "text": "Okres \u00c5\u02dce\u00c5\u00a1ov"
+                },
+                "name": "Okres \u00c5\u02dce\u00c5\u00a1ov: leteck\u00c3\u00a9 sn\u00c3\u00admky"
+            },
+            "rzeszowski-buildings": {
+                "attribution": {
+                    "text": "Okres \u00c5\u02dce\u00c5\u00a1ov"
+                },
+                "name": "Okres \u00c5\u02dce\u00c5\u00a1ov: Budovy"
+            },
+            "scb-industrial": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Statistika Centralbyr\u00c3\u00a5n, CC0"
+                },
+                "description": "Geograficky vymezen\u00c3\u00a9 oblasti, kter\u00c3\u00a9 se vyzna\u00c4\ufffduj\u00c3\u00ad rozs\u00c3\u00a1hl\u00c3\u00bdm a pr\u00c5\u00afmyslov\u00c3\u00bdm vyu\u00c5\u00beit\u00c3\u00adm p\u00c5\u00afdy",
+                "name": "SCB - Pr\u00c5\u00afmyslov\u00c3\u00a9 z\u00c3\u00b3ny"
+            },
+            "scb-settlements": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Statistika Centralbyr\u00c3\u00a5n, CC0"
+                },
+                "description": "Sousedn\u00c3\u00ad oblasti budov s 50-199 obyvateli a ne v\u00c3\u00adce ne\u00c5\u00be 150 metr\u00c5\u00af mezi domy",
+                "name": "SCB - Mal\u00c3\u00a9 osady"
+            },
+            "scb-urban": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Statistika Centralbyr\u00c3\u00a5n, CC0"
+                },
+                "description": "Lidsk\u00c3\u00a9 osady nejm\u00c3\u00a9n\u00c4\u203a 200 lid\u00c3\u00ad s m\u00c3\u00a9n\u00c4\u203a ne\u00c5\u00be 500 metr\u00c5\u00af mezi dom\u00c3\u00a1cnostmi",
+                "name": "SCB - M\u00c4\u203astsk\u00c3\u00a9 oblasti"
+            },
+            "scb-vacation": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Statistika Centralbyr\u00c3\u00a5n, CC0"
+                },
+                "description": "Sousedn\u00c3\u00ad oblasti, kter\u00c3\u00a9 se skl\u00c3\u00a1daj\u00c3\u00ad hlavn\u00c4\u203a z dovolen\u00c3\u00bdch; Sb\u00c3\u00adrka nejm\u00c3\u00a9n\u00c4\u203a 50 rekrea\u00c4\ufffdn\u00c3\u00adch dom\u00c5\u00af, kde vzd\u00c3\u00a1lenost mezi nimi nep\u00c5\u2122esahuje 150 metr\u00c5\u00af",
+                "name": "SCB - Oblasti dom\u00c3\u00a1cnost\u00c3\u00ad pro dovolenou"
+            },
+            "skobbler": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Dla\u00c5\u00bedice: skobbler, mapov\u00c3\u00a1 data: p\u00c5\u2122isp\u00c4\u203avatel\u00c3\u00a9 OpenStreetMap"
+                },
+                "name": "skobbler"
+            },
+            "skolverket-schools": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Skolverket"
+                },
+                "description": "\u00c5\u00a0v\u00c3\u00a9dsk\u00c3\u00a9 \u00c5\u00a1koly.",
+                "name": "Skolverket - \u00c5\u00a0koly"
+            },
+            "skoterleder": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Skoterleder.org"
+                },
+                "description": "Cesty pro sn\u00c4\u203a\u00c5\u00ben\u00c3\u00a9 sk\u00c5\u00aftry",
+                "name": "Mapa \u00c5\u00a0v\u00c3\u00a9dska pro sn\u00c4\u203a\u00c5\u00ben\u00c3\u00a9 sk\u00c5\u00aftry"
+            },
+            "sropczyce-buildings": {
+                "attribution": {
+                    "text": "Okres Ropczyce-S\u00c4\u2122dzisz\u00c3\u00b3w"
+                },
+                "name": "Okres Ropczyce-S\u00c4\u2122dzisz\u00c3\u00b3w: Budovy"
+            },
+            "stalowowolski-buildings": {
+                "attribution": {
+                    "text": "Okres Stalowa Wola"
+                },
+                "name": "Okres Stalowa Wola: Budovy"
+            },
+            "stamen-terrain-background": {
+                "attribution": {
+                    "text": "Mapov\u00c3\u00a9 dla\u00c5\u00bedice od Stamen Design pod CC BY 3.0. Data od OpenStreetMap, pod ODbL"
+                },
+                "name": "Ter\u00c3\u00a9n Stamen"
+            },
+            "stockholm-orto": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 oblast Stockholm, licence CC0"
+                },
+                "description": "Leteck\u00c3\u00a9 sn\u00c3\u00admky oblasti Stockholmu z roku 2018, licence CC0",
+                "name": "Ortofotomapy Stockholmu"
+            },
+            "susono_shizuoka_jp_orthophoto": {
+                "attribution": {
+                    "text": "Leteck\u00c3\u00a9 sn\u00c3\u00admky m\u00c4\u203asta Susono"
+                },
+                "description": "Leteck\u00c3\u00a9 sn\u00c3\u00admky zve\u00c5\u2122ejn\u00c4\u203an\u00c3\u00a9 Susono City jako otev\u00c5\u2122en\u00c3\u00a1 data.",
+                "name": "Leteck\u00c3\u00a9 sn\u00c3\u00admky m\u00c4\u203asta Susono"
+            },
+            "svk-electricity-network": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Svenska kraftn\u00c3\u00a4t"
+                },
+                "description": "\u00c5\u00a0v\u00c3\u00a9dsk\u00c3\u00a1 p\u00c5\u2122enosov\u00c3\u00a1 s\u00c3\u00ad\u00c5\u00a5 pro elekt\u00c5\u2122inu.",
+                "name": "SVK - Elektrick\u00c3\u00a1 s\u00c3\u00ad\u00c5\u00a5"
+            },
+            "tf-cycle": {
+                "attribution": {
+                    "text": "Mapy \u00c2\u00a9 Thunderforest, data \u00c2\u00a9 p\u00c5\u2122isp\u00c4\u203avatel\u00c3\u00a9 OpenStreetMap"
+                },
+                "name": "Thunderforest OpenCycleMap"
+            },
+            "tf-landscape": {
+                "attribution": {
+                    "text": "Mapy \u00c2\u00a9 Thunderforest, data \u00c2\u00a9 p\u00c5\u2122isp\u00c4\u203avatel\u00c3\u00a9 OpenStreetMap"
+                },
+                "name": "Thunderforest Landscape"
+            },
+            "tf-outdoors": {
+                "attribution": {
+                    "text": "Mapy \u00c2\u00a9 Thunderforest, data \u00c2\u00a9 p\u00c5\u2122isp\u00c4\u203avatel\u00c3\u00a9 OpenStreetMap"
+                },
+                "name": "Thunderforest Outdoors"
+            },
+            "trafikverket-baninfo": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Trafikverket, CC0"
+                },
+                "description": "\u00c5\u00a0v\u00c3\u00a9dsk\u00c3\u00a1 \u00c5\u00beelezni\u00c4\ufffdn\u00c3\u00ad s\u00c3\u00ad\u00c5\u00a5, v\u00c4\ufffdetn\u00c4\u203a vle\u00c4\ufffdek",
+                "name": "\u00c5\u00bdelezni\u00c4\ufffdn\u00c3\u00ad s\u00c3\u00ad\u00c5\u00a5 Trafikverket"
+            },
+            "trafikverket-baninfo-option": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Trafikverket, CC0"
+                },
+                "description": "\u00c5\u00a0v\u00c3\u00a9dsk\u00c3\u00a1 \u00c5\u00beelezni\u00c4\ufffdn\u00c3\u00ad s\u00c3\u00ad\u00c5\u00a5 s n\u00c4\u203akolika mo\u00c5\u00benostmi mapov\u00c3\u00bdch vrstev",
+                "name": "Volby \u00c5\u00beelezni\u00c4\ufffdn\u00c3\u00ad s\u00c3\u00adt\u00c4\u203a Trafikverket"
+            },
+            "trafikverket-vagnat": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Trafikverket, CC0"
+                },
+                "description": "\u00c5\u00a0v\u00c3\u00a9dsk\u00c3\u00a1 s\u00c3\u00ad\u00c5\u00a5 cest NVDB",
+                "name": "Silni\u00c4\ufffdn\u00c3\u00ad s\u00c3\u00ad\u00c5\u00a5 Trafikverket"
+            },
+            "trafikverket-vagnat-extra": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Trafikverket, CC0"
+                },
+                "description": "\u00c5\u00a0v\u00c3\u00a9dsk\u00c3\u00a1 detailn\u00c3\u00ad mapa NVDB: d\u00c3\u00a1lnice, zklid\u00c5\u02c6ov\u00c3\u00a1n\u00c3\u00ad dopravy, odpo\u00c4\ufffdivadla, autobusov\u00c3\u00a9 zast\u00c3\u00a1vky, mosty, tunely, rychlostn\u00c3\u00ad radary",
+                "name": "Silni\u00c4\ufffdn\u00c3\u00ad s\u00c3\u00ad\u00c5\u00a5 Trafikverket extra"
+            },
+            "trafikverket-vagnat-option": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Trafikverket, CC0"
+                },
+                "description": "\u00c5\u00a0v\u00c3\u00a9dsk\u00c3\u00a1 s\u00c3\u00ad\u00c5\u00a5 cest NVDB s n\u00c4\u203akolika mo\u00c5\u00benostmi mapov\u00c3\u00bdch vrstev",
+                "name": "Volby silni\u00c4\ufffdn\u00c3\u00ad s\u00c3\u00adt\u00c4\u203a Trafikverket"
+            },
+            "wroclaw-orto2015": {
+                "attribution": {
+                    "text": "Magistr\u00c3\u00a1t m\u00c4\u203asta Vratislav"
+                },
+                "name": "Vratislav: leteck\u00c3\u00a9 sn\u00c3\u00admky 2015"
+            },
+            "wroclaw-orto2018": {
+                "attribution": {
+                    "text": "Magistr\u00c3\u00a1t m\u00c4\u203asta Vratislav"
+                },
+                "name": "Vratislav: leteck\u00c3\u00a9 sn\u00c3\u00admky 2018"
+            }
+        }
+    }
+}
