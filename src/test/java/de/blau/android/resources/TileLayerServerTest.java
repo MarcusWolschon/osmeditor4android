@@ -155,7 +155,7 @@ public class TileLayerServerTest {
             data.readFrom(is);
             mockServer.server().enqueue(new MockResponse().setResponseCode(200).setBody(data));
             TileLayerSource bing = new TileLayerSource(ctx, TileLayerSource.LAYER_BING, "Bing meta test", url, TileLayerSource.TYPE_BING, null, false, false,
-                    null, null, null, null, null, 0, 20, 0, 256, 256, null, 0, 0, 0, null, null, null, null, false);
+                    null, null, null, null, null, 0, 20, 0, 256, 256, null, 0, 0, 0, null, null, null, false);
             Assert.assertTrue(bing.isMetadataLoaded());
             MapTile mapTile = new MapTile("", 20, 1111, 2222);
             String s = bing.getTileURLString(mapTile); // note this would fail if the metainfo cannot be retrieved

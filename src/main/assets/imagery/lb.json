@@ -1,0 +1,381 @@
+{
+    "lb": {
+        "imagery": {
+            "Bedzin-PL-aerial_image": {
+                "attribution": {
+                    "text": "Starostwo Powiatowe w B\u00c4\u2122dzinie"
+                },
+                "name": "B\u00c4\u2122dzin: Orthophotomap 2013 (Loftbild)"
+            },
+            "Bedzin-PL-buildings": {
+                "attribution": {
+                    "text": "Starostwo Powiatowe w B\u00c4\u2122dzinie"
+                },
+                "name": "B\u00c4\u2122dzin: Gebaier"
+            },
+            "Bing": {
+                "description": "Satelliten- an Loftbiller",
+                "name": "Bing Maps Loftbiller"
+            },
+            "Bytom-2012": {
+                "attribution": {
+                    "text": "Urz\u00c4\u2026d Miasta Bytomia"
+                },
+                "name": "Bytom: Orthophotomap 2012 (Loftbild)"
+            },
+            "Bytom-2014": {
+                "attribution": {
+                    "text": "Urz\u00c4\u2026d Miasta Bytomia"
+                },
+                "name": "Bytom: Fotoplan 2014 (Loftbild)"
+            },
+            "Bytom-buildings": {
+                "attribution": {
+                    "text": "Urz\u00c4\u2026d Miasta Bytomia"
+                },
+                "name": "Bytom: Gebaier"
+            },
+            "Czestochowa-2011": {
+                "attribution": {
+                    "text": "Urz\u00c4\u2026d Miasta Cz\u00c4\u2122stochowy"
+                },
+                "name": "Cz\u00c4\u2122stochowa: Orthophotomap 2011 (Loftbild)"
+            },
+            "Czestochowa-2013": {
+                "attribution": {
+                    "text": "Urz\u00c4\u2026d Miasta Cz\u00c4\u2122stochowy"
+                },
+                "name": "Cz\u00c4\u2122stochowa: Orthophotomap 2013 (Loftbild)"
+            },
+            "Czestochowa-2014": {
+                "attribution": {
+                    "text": "Urz\u00c4\u2026d Miasta Cz\u00c4\u2122stochowy"
+                },
+                "name": "Cz\u00c4\u2122stochowa: Orthophotomap 2014 (Loftbild)"
+            },
+            "Czestochowa-2015": {
+                "attribution": {
+                    "text": "Urz\u00c4\u2026d Miasta Cz\u00c4\u2122stochowy"
+                },
+                "name": "Cz\u00c4\u2122stochowa: Orthophotomap 2015 (Loftbild)"
+            },
+            "Czestochowa-2016": {
+                "attribution": {
+                    "text": "Urz\u00c4\u2026d Miasta Cz\u00c4\u2122stochowy"
+                },
+                "name": "Cz\u00c4\u2122stochowa: Orthophotomap 2016 (Loftbild)"
+            },
+            "Czestochowa-2017": {
+                "attribution": {
+                    "text": "Urz\u00c4\u2026d Miasta Cz\u00c4\u2122stochowy"
+                },
+                "name": "Cz\u00c4\u2122stochowa: Orthophotomap 2017 (Loftbild)"
+            },
+            "Czestochowa-buildings": {
+                "attribution": {
+                    "text": "Urz\u00c4\u2026d Miasta Cz\u00c4\u2122stochowy"
+                },
+                "name": "Cz\u00c4\u2122stochowa: Gebaier"
+            },
+            "Dourados_Ortofotos": {
+                "attribution": {
+                    "text": "Gemengenverwaltung vun Dourados - GeoDourados"
+                },
+                "description": "Dourados (2018) an verschidden Distrikter (2020) h\u00c3\u00a9ich-opl\u00c3\u00a9isend Loftbiller.",
+                "name": "Dourados Ortofotos"
+            },
+            "EOXAT2018CLOUDLESS": {
+                "attribution": {
+                    "text": "Sentinel-2 Wollekenfr\u00c3\u00a4i- https://s2maps.eu by EOX IT Services GmbH (Enth\u00c3\u00a4lt modifiz\u00c3\u00a9ierten Copernicus Sentinel Daten 2017 & 2018)"
+                },
+                "description": "Nobeaarbeschten Sentinel Satellitenbiller.",
+                "name": "eox.at 2018 Wollekenfr\u00c3\u00a4i"
+            },
+            "EsriWorldImagery": {
+                "attribution": {
+                    "text": "Bed\u00c3\u00a9ngungen & Feedback"
+                },
+                "name": "Esri Weltbiller"
+            },
+            "EsriWorldImageryClarity": {
+                "attribution": {
+                    "text": "Bed\u00c3\u00a9ngungen & Feedback"
+                },
+                "description": "Esri Archivbiller d\u00c3\u00a9i m\u00c3\u00a9i kloer an genau sinn k\u00c3\u00abnnen w\u00c3\u00a9i d\u00c3\u00a9i Standard Ebene.",
+                "name": "Esri Weltbiller (Kloerheet) Beta"
+            },
+            "Frankfurt-am-Main-2019": {
+                "attribution": {
+                    "text": "Stadvermiessungsamt Frankfurt am Main"
+                },
+                "description": "Loftbiller vun Frankfurt am Main, fotograf\u00c3\u00a9iert den 16 Abr\u00c3\u00abll 2019",
+                "name": "Frankfurt am Main Loftbiller 2019"
+            },
+            "Geoportal2-PL-HighResolution-aerial_image_WMS": {
+                "attribution": {
+                    "text": "Zentralamt fir Geod\u00c3\u00a4sie an Kartographie"
+                },
+                "description": "Orthophotokaart mat enger Opl\u00c3\u00a9isung vun 10cm oder m\u00c3\u00a9i. D'Daten ginn no Opl\u00c3\u00a9isung an Aktualit\u00c3\u00a9it sort\u00c3\u00a9iert, z.B. w\u00c3\u00a4ert en Bild aus dem Joer 2019 mat enger Opl\u00c3\u00a9isung vun 10cm engem Bild aus dem Joer 2012 mat enger Opl\u00c3\u00a9isung vun 8cm virgezunn.",
+                "name": "Geoportal 2: H\u00c3\u00a9ich-Opl\u00c3\u00a9isend Orthophotomap (Loftbild) (WMS)"
+            },
+            "Geoportal2-PL-Streets_WMS": {
+                "attribution": {
+                    "text": "Zentralamt fir Geod\u00c3\u00a4sie an Kartographie"
+                },
+                "description": "WMS-Unzeiged\u00c3\u00a9ngscht National Address Nummer\u00c3\u00a9ierung Integratioun, d\u00c3\u00a9i d'eroflueden vun Kaartenbiller erm\u00c3\u00a9iglecht, d\u00c3\u00a9i aus Geodaten vum nationalen Grenzenreg\u00c3\u00abster fir Strossen an Adressen erstallt goufen.",
+                "name": "Geoportal 2 Strossennimm"
+            },
+            "Geoportal2-PL-addres_points_WMS": {
+                "attribution": {
+                    "text": "Zentralamt fir Geod\u00c3\u00a4sie an Kartographie"
+                },
+                "description": "WMS-Unzeiged\u00c3\u00a9ngscht National Address Nummer\u00c3\u00a9ierung Integratioun, d\u00c3\u00a9i d'eroflueden vun Kaartenbiller erm\u00c3\u00a9iglecht, d\u00c3\u00a9i aus Geodaten vum nationalen Grenzenreg\u00c3\u00abster fir Strossen an Adressen erstallt goufen.",
+                "name": "Geoportal 2: Adresspunkten"
+            },
+            "Geoportal2-PL-aerial_image_WMS": {
+                "attribution": {
+                    "text": "Zentralamt fir Geod\u00c3\u00a4sie an Kartographie"
+                },
+                "description": "Unzeiged\u00c3\u00a9ngscht (Web Map Service, WMS), den d'Usiicht vun Orthofotokaarten fir Polen erm\u00c3\u00a9iglecht. Bei den vun d\u00c3\u00abssem D\u00c3\u00a9ngscht bereetgestellten Kaarten handelt es sech em Orthofotokaarten, d\u00c3\u00a9i aus Loftbiller erstallt goufen. Den D\u00c3\u00a9ngscht bidd \u00c3\u2039nnerst\u00c3\u00abtzung fir d'Schn\u00c3\u00abttstell WMS 1.3.0.",
+                "name": "Geoportal 2: Orthophotomap (neisten Loftbiller) (WMS)"
+            },
+            "Geoportal2-PL-aerial_image_WMTS": {
+                "attribution": {
+                    "text": "Zentralamt fir Geod\u00c3\u00a4sie an Kartographie"
+                },
+                "name": "Geoportal 2: Orthophotomap (neisten Loftbiller) (WMTS)"
+            },
+            "Geoportal2-PL-buildings_WMS": {
+                "attribution": {
+                    "text": "G\u00c5\u201a\u00c3\u00b3wny Urz\u00c4\u2026d Geodezji i Kartografii"
+                },
+                "name": "Geoportal 2: Ewidencja budynk\u00c3\u00b3w WMS"
+            },
+            "Gliwice-2020": {
+                "name": "Gliwice: Orthophotomap 2020 (Loftbild)"
+            },
+            "Gliwice-buildings": {
+                "name": "Gliwice: Gebaier"
+            },
+            "LSA-ATKIS_BU": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 GeoBasis-DE/LVermGeo LSA"
+                },
+                "description": "Grondress vun Gebaier an Sachsen-Anhalt",
+                "name": "\u00c2\u00a9 GeoBasis-DE/LVermGeo LSA, ATKIS_BU"
+            },
+            "LSA-DOP20": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 GeoBasis-DE/LVermGeo LSA"
+                },
+                "description": "Loftbiller vum Bundesland Sachsen-Anhalt, 20 cm Opl\u00c3\u00a9isung",
+                "name": "\u00c2\u00a9 GeoBasis-DE/LVermGeo LSA, DOP20"
+            },
+            "LSA-DVG": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 GeoBasis-DE/LVermGeo LSA"
+                },
+                "description": "Vektoriell Erfaassung vun den Verwaltungsgrenzen. Uginn sinn Grenzen vun Bundesl\u00c3\u00a4nder, Distrikter, Municipalit\u00c3\u00a9iten an Subdeeler vun Municipalit\u00c3\u00a9iten.",
+                "name": "\u00c2\u00a9 GeoBasis-DE/LVermGeo LSA, DVG"
+            },
+            "LocalAuthorities_RightsOfWay": {
+                "attribution": {
+                    "text": "Enth\u00c3\u00a4lt \u00c3\u2013ffentlech Informatiounen lizens\u00c3\u00a9iert \u00c3\u00abnnert der Open Governement Licence v3.0."
+                },
+                "description": "Daten iwwert \u00c3\u00b6ffentlech Weerrechter, ver\u00c3\u00b6ffentlecht vun den lokalen Authorit\u00c3\u00a9iten, w\u00c3\u00a9i op rowmaps.com zesummengestallt"
+            },
+            "MAPNIK": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 OpenStreetMap contributors, ODbL 1.0"
+                },
+                "description": "Den Standard Layer von OpenStreetMap.",
+                "name": "OpenStreetMap (Standard)"
+            },
+            "Mapbox": {
+                "attribution": {
+                    "text": "Bed\u00c3\u00a9ngungen & Feedback"
+                },
+                "name": "Mapbox Satellit"
+            },
+            "OSIP_1ft": {
+                "attribution": {
+                    "text": "Ohio Saatsw\u00c3\u00a4iten Billerprogramm"
+                }
+            },
+            "OSM_Inspector-Addresses": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, OpenStreetMap contributors, CC-BY-SA"
+                }
+            },
+            "OSM_Inspector-Geometry": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, OpenStreetMap contributors, CC-BY-SA"
+                }
+            },
+            "OSM_Inspector-Highways": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, OpenStreetMap contributors, CC-BY-SA"
+                },
+                "name": "OSM Objet-Editor: Autobunnen"
+            },
+            "OSM_Inspector-Multipolygon": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, OpenStreetMap contributors, CC-BY-SA"
+                },
+                "name": "OSM Objet-Editor: Ber\u00c3\u00a4ich"
+            },
+            "OSM_Inspector-Places": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, OpenStreetMap contributors, CC-BY-SA"
+                },
+                "name": "OSM Objet-Editor: Plazen"
+            },
+            "OSM_Inspector-Routing": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, OpenStreetMap contributors, CC-BY-SA"
+                }
+            },
+            "OSM_Inspector-Tagging": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, OpenStreetMap contributors, CC-BY-SA"
+                }
+            },
+            "US-TIGER-Roads-2017": {
+                "name": "TIGER Roads 2017"
+            },
+            "US-TIGER-Roads-2018": {
+                "name": "TIGER Roads 2018"
+            },
+            "US-TIGER-Roads-2019": {
+                "name": "TIGER Roads 2019"
+            },
+            "US-TIGER-Roads-2020": {
+                "name": "TIGER Roads 2020"
+            },
+            "US-TIGER-Roads-2021": {
+                "name": "TIGER Roads 2021"
+            },
+            "USDA-NAIP": {
+                "attribution": {
+                    "text": "U.S. Department of Agriculture"
+                },
+                "name": "National Agriculture Imagery Program"
+            },
+            "Waymarked_Trails-Cycling": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 waymarkedtrails.org, OpenStreetMap contributors, CC by-SA 3.0"
+                }
+            },
+            "Waymarked_Trails-Hiking": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 waymarkedtrails.org, OpenStreetMap contributors, CC by-SA 3.0"
+                }
+            },
+            "Waymarked_Trails-MTB": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 waymarkedtrails.org, OpenStreetMap contributors, CC by-SA 3.0"
+                }
+            },
+            "Waymarked_Trails-Skating": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 waymarkedtrails.org, OpenStreetMap contributors, CC by-SA 3.0"
+                }
+            },
+            "Waymarked_Trails-Winter_Sports": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 waymarkedtrails.org, OpenStreetMap contributors, CC by-SA 3.0"
+                }
+            },
+            "gothenburg-citymap": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Gemeng Gothenburg, CC0"
+                }
+            },
+            "gothenburg-dtm-2017": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Gemeng Gothenburg, CC0"
+                }
+            },
+            "gothenburg-ortho": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Gemeng Gothenburg, CC0"
+                }
+            },
+            "gothenburg-ortho_2017": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Gemeng Gothenburg, CC0"
+                }
+            },
+            "gothenburg-ortho_2019": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Gemeng Gothenburg, CC0"
+                }
+            },
+            "kalmar-orto-2014": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Gemeng Kalmar"
+                }
+            },
+            "kalmar-orto-2016": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Gemeng Kalmar"
+                }
+            },
+            "kalmar-orto-2018": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Gemeng Kalmar"
+                }
+            },
+            "kalmar-orto-2020": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Gemeng Kalmar"
+                }
+            },
+            "kartverket-bygninger": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Kartverket"
+                }
+            },
+            "kelkkareitit": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Kelkkareitit.fi"
+                }
+            },
+            "lantmateriet-orto1960": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Lantm\u00c3\u00a4teriet, CC0"
+                }
+            },
+            "lantmateriet-orto1975": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Lantm\u00c3\u00a4teriet, CC0"
+                }
+            },
+            "lantmateriet-topowebb": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Lantm\u00c3\u00a4teriet, CC0"
+                }
+            },
+            "linkoping-orto": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Gemeng Link\u00c3\u00b6ping"
+                }
+            },
+            "openpt_map": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 OpenStreetMap Matwierkender, CC-BY-SA"
+                }
+            },
+            "osm-gps": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 OpenStreetMap contributors"
+                }
+            },
+            "osm-mapnik-german_style": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 OpenStreetMap contributors, CC-BY-SA"
+                }
+            }
+        }
+    }
+}

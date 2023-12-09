@@ -139,7 +139,7 @@ public class MvtTest {
                 TestUtils.selectFile(device, main, "mbtiles", "osm-liberty.json", true);
                 assertTrue(TestUtils.clickText(device, false, main.getString(R.string.Done), true));
                 // check that we actually loaded something
-                de.blau.android.layer.mvt.MapOverlay layer = (MapOverlay) map.getLayer(LayerType.IMAGERY, "TILEMAKERTOOPENMAPTILESSCHEMA");
+                de.blau.android.layer.mvt.MapOverlay layer = (MapOverlay) map.getLayer(LayerType.IMAGERY, "TilemakertoOpenMapTilesschema");
                 assertNotNull(layer);
                 Style style = layer.getStyle();
                 assertNotNull(style);

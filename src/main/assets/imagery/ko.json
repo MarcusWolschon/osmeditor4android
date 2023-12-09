@@ -1,0 +1,238 @@
+{
+    "ko": {
+        "imagery": {
+            "Bing": {
+                "description": "\u00ec\u0153\u201e\u00ec\u201e\u00b1 \u00eb\u00b0\ufffd \u00ed\u2022\u00ad\u00ea\u00b3\u00b5 \u00ec\u02dc\ufffd\u00ec\u0192\ufffd",
+                "name": "Bing \u00ec\u0153\u201e\u00ec\u201e\u00b1 \u00ec\u00a7\u20ac\u00eb\ufffd\u201e"
+            },
+            "Bytom-2012": {
+                "attribution": {
+                    "text": "\u00eb\u00b0\u201d\u00ec\ufffd\u00b4\u00ed\u2020\u00a0\u00eb\u00af\u00b8\u00ec\u2022\u201e \u00ec\u2039\u0153\u00ec\u00b2\u00ad"
+                },
+                "name": "Bytom: Orthophotomap 2012 (\u00ed\u2022\u00ad\u00ea\u00b3\u00b5\u00ec\u201a\u00ac\u00ec\u00a7\u201e)"
+            },
+            "EsriWorldImagery": {
+                "attribution": {
+                    "text": "\u00ec\ufffd\u00b4\u00ec\u0161\u00a9 \u00ec\u2022\u00bd\u00ea\u00b4\u20ac"
+                },
+                "description": "Esri \u00ec\u00a0\u201e\u00ec\u201e\u00b8\u00ea\u00b3\u201e \u00ed\u2022\u00ad\u00ea\u00b3\u00b5 \u00ec\u00a7\u20ac\u00eb\ufffd\u201e",
+                "name": "Esri \u00ec\u00a0\u201e\u00ec\u201e\u00b8\u00ea\u00b3\u201e \u00ed\u2022\u00ad\u00ea\u00b3\u00b5 \u00ec\u00a7\u20ac\u00eb\ufffd\u201e"
+            },
+            "EsriWorldImageryClarity": {
+                "attribution": {
+                    "text": "\u00ec\u2022\u00bd\u00ea\u00b4\u20ac & \u00ed\u201d\u00bc\u00eb\u201c\u0153\u00eb\u00b0\u00b1"
+                },
+                "description": "Esri archive \u00ec\ufffd\u00b4\u00eb\u00af\u00b8\u00ec\u00a7\u20ac\u00eb\u0160\u201d \u00ea\u00b8\u00b0\u00eb\u00b3\u00b8 \u00eb\u00a0\u02c6\u00ec\ufffd\u00b4\u00ec\u2013\u00b4\u00eb\u00b3\u00b4\u00eb\u2039\u00a4 \u00eb\u00aa\u2026\u00ed\u2122\u2022\u00ed\u2022\u02dc\u00ea\u00b3\u00a0 \u00ec\u00a0\u2022\u00ed\u2122\u2022\u00ed\u2022\u00a0 \u00ec\u02c6\u02dc \u00ec\u017e\u02c6\u00ec\u0160\u00b5\u00eb\u2039\u02c6\u00eb\u2039\u00a4.",
+                "name": "Esri \u00ec\u00a0\u201e\u00ec\u201e\u00b8\u00ea\u00b3\u201e \u00ed\u2022\u00ad\u00ea\u00b3\u00b5 \u00ec\u00a7\u20ac\u00eb\ufffd\u201e (\u00ea\u00b3\u00a0\u00ed\u2122\u201d\u00ec\u00a7\u02c6) Beta"
+            },
+            "MAPNIK": {
+                "description": "\u00ea\u00b8\u00b0\u00eb\u00b3\u00b8 OpenStreetMap \u00eb\u00a0\u02c6\u00ec\ufffd\u00b4\u00ec\u2013\u00b4",
+                "name": "OpenStreetMap (\u00ec\ufffd\u00bc\u00eb\u00b0\u02dc)"
+            },
+            "Mapbox": {
+                "attribution": {
+                    "text": "\u00ec\ufffd\u00b4\u00ec\u0161\u00a9 \u00ec\u2022\u00bd\u00ea\u00b4\u20ac"
+                },
+                "description": "\u00ea\u00b3\u00a0\u00ed\u2022\u00b4\u00ec\u0192\ufffd\u00eb\ufffd\u201e \u00ec\u0153\u201e\u00ec\u201e\u00b1, \u00ed\u2022\u00ad\u00ea\u00b3\u00b5\u00ec\u201a\u00ac\u00ec\u00a7\u201e\u00ec\ufffd\u02dc \u00ea\u00b8\u20ac\u00eb\u00a1\u0153\u00eb\u00b2\u0152 \u00ea\u00b8\u00b0\u00eb\u00b3\u00b8 \u00ec\u00a7\u20ac\u00eb\ufffd\u201e\u00eb\u00a5\u00bc \u00ed\ufffd\u00ac\u00ed\u2022\u00a8\u00ed\u2022\u0153 Mapbox \u00ec\u00a0\u0153\u00ea\u00b3\u00b5 \u00eb\u017e\u02dc\u00ec\u0160\u00a4\u00ed\u201e\u00b0 \u00ed\u0192\u20ac\u00ec\ufffd\u00bc\u00ec\u2026\u2039",
+                "name": "Mapbox \u00ec\u0153\u201e\u00ec\u201e\u00b1 \u00ec\u00a7\u20ac\u00eb\ufffd\u201e"
+            },
+            "OSIP": {
+                "name": "\u00eb\u00af\u00b8\u00ea\u00b5\u00ad \u00ec\u02dc\u00a4\u00ed\u2022\u02dc\u00ec\ufffd\u00b4\u00ec\u02dc\u00a4 \u00ec\u00a3\u00bc \u00ed\u2022\u00ad\u00ea\u00b3\u00b5 \u00ec\u00a7\u20ac\u00eb\ufffd\u201e"
+            },
+            "OSIP_1ft": {
+                "attribution": {
+                    "text": "\u00eb\u00af\u00b8\u00ea\u00b5\u00ad \u00ec\u02dc\u00a4\u00ed\u2022\u02dc\u00ec\ufffd\u00b4\u00ec\u02dc\u00a4 \u00ec\u00a3\u00bc \u00ed\u2022\u00ad\u00ea\u00b3\u00b5 \u00ec\u00a7\u20ac\u00eb\ufffd\u201e"
+                }
+            },
+            "OSM_Inspector-Addresses": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, OpenStreetMap \u00ea\u00b8\u00b0\u00ec\u2014\u00ac\u00ec\u017e\ufffd, CC-BY-SA"
+                },
+                "name": "OSM \u00ea\u00b2\u20ac\u00ec\u201a\u00ac\u00ea\u00b8\u00b0: \u00ec\u00a3\u00bc\u00ec\u2020\u0152  "
+            },
+            "OSM_Inspector-Geometry": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, OpenStreetMap \u00ea\u00b8\u00b0\u00ec\u2014\u00ac\u00ec\u017e\ufffd, CC-BY-SA"
+                },
+                "name": "OSM \u00ea\u00b2\u20ac\u00ec\u201a\u00ac\u00ea\u00b8\u00b0: Geometry"
+            },
+            "OSM_Inspector-Highways": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, OpenStreetMap \u00ea\u00b8\u00b0\u00ec\u2014\u00ac\u00ec\u017e\ufffd, CC-BY-SA"
+                },
+                "name": "OSM \u00ea\u00b2\u20ac\u00ec\u201a\u00ac\u00ea\u00b8\u00b0: \u00ea\u00b3\u00a0\u00ec\u2020\ufffd\u00eb\ufffd\u201e\u00eb\u00a1\u0153"
+            },
+            "OSM_Inspector-Multipolygon": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, OpenStreetMap \u00ea\u00b8\u00b0\u00ec\u2014\u00ac\u00ec\u017e\ufffd, CC-BY-SA"
+                },
+                "name": "OSM \u00ea\u00b2\u20ac\u00ec\u201a\u00ac\u00ea\u00b8\u00b0: \u00ec\u00a7\u20ac\u00ec\u2014\u00ad"
+            },
+            "OSM_Inspector-Places": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, OpenStreetMap \u00ea\u00b8\u00b0\u00ec\u2014\u00ac\u00ec\u017e\ufffd, CC-BY-SA"
+                },
+                "name": "OSM \u00ea\u00b2\u20ac\u00ec\u201a\u00ac\u00ea\u00b8\u00b0: \u00ec\u017e\u00a5\u00ec\u2020\u0152"
+            },
+            "OSM_Inspector-Routing": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, OpenStreetMap \u00ea\u00b8\u00b0\u00ec\u2014\u00ac\u00ec\u017e\ufffd, CC-BY-SA"
+                },
+                "name": "OSM \u00ea\u00b2\u20ac\u00ec\u201a\u00ac\u00ea\u00b8\u00b0: \u00ea\u00b2\u00bd\u00eb\u00a1\u0153"
+            },
+            "OSM_Inspector-Tagging": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, OpenStreetMap \u00ea\u00b8\u00b0\u00ec\u2014\u00ac\u00ec\u017e\ufffd, CC-BY-SA"
+                },
+                "name": "OSM \u00ea\u00b2\u20ac\u00ec\u201a\u00ac\u00ea\u00b8\u00b0: \u00ed\u0192\u0153\u00ea\u00b7\u00b8"
+            },
+            "US-TIGER-Roads-2017": {
+                "name": "TIGER Roads 2017"
+            },
+            "US-TIGER-Roads-2018": {
+                "name": "TIGER Roads 2018"
+            },
+            "US-TIGER-Roads-2020": {
+                "name": "TIGER \u00eb\u00af\u00b8\u00ea\u00b5\u00ad \u00eb\ufffd\u201e\u00eb\u00a1\u0153 \u00eb\u00a0\u02c6\u00ec\ufffd\u00b4\u00ec\u2013\u00b4 (2020\u00eb\u2026\u201e \u00ea\u00b8\u00b0\u00ec\u00a4\u20ac)"
+            },
+            "US-TIGER-Roads-2021": {
+                "name": "TIGER \u00eb\u00af\u00b8\u00ea\u00b5\u00ad \u00eb\ufffd\u201e\u00eb\u00a1\u0153 \u00eb\u00a0\u02c6\u00ec\ufffd\u00b4\u00ec\u2013\u00b4 (2021\u00eb\u2026\u201e \u00ea\u00b8\u00b0\u00ec\u00a4\u20ac)"
+            },
+            "US-TIGER-Roads-2022": {
+                "name": "TIGER \u00eb\u00af\u00b8\u00ea\u00b5\u00ad \u00eb\ufffd\u201e\u00eb\u00a1\u0153 \u00eb\u00a0\u02c6\u00ec\ufffd\u00b4\u00ec\u2013\u00b4 (2022\u00eb\u2026\u201e \u00ea\u00b8\u00b0\u00ec\u00a4\u20ac)"
+            },
+            "USDA-NAIP": {
+                "name": "\u00ea\u00b5\u00ad\u00ea\u00b0\u20ac \u00eb\u2020\ufffd\u00ec\u2014\u2026 \u00ec\ufffd\u00b4\u00eb\u00af\u00b8\u00ec\u00a7\u20ac \u00ed\u201d\u201e\u00eb\u00a1\u0153\u00ea\u00b7\u00b8\u00eb\u017e\u00a8"
+            },
+            "Waymarked_Trails-Cycling": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 waymarkedtrails.org, OpenStreetMap \u00ea\u00b8\u00b0\u00ec\u2014\u00ac\u00ec\u017e\ufffd, CC by-SA 3.0"
+                },
+                "name": "\u00eb\ufffd\u201e\u00eb\u00a1\u0153 \u00ed\u2018\u0153\u00ec\u00a7\u20ac\u00ea\u00b0\u20ac \u00eb\u2039\u00ac\u00eb\u00a6\u00b0 \u00ea\u00b8\u00b8: \u00ec\u017e\ufffd\u00ec\u00a0\u201e\u00ea\u00b1\u00b0"
+            },
+            "Waymarked_Trails-Hiking": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 waymarkedtrails.org, OpenStreetMap \u00ea\u00b8\u00b0\u00ec\u2014\u00ac\u00ec\u017e\ufffd, CC by-SA 3.0"
+                },
+                "name": "\u00eb\ufffd\u201e\u00eb\u00a1\u0153 \u00ed\u2018\u0153\u00ec\u00a7\u20ac\u00ea\u00b0\u20ac \u00eb\u2039\u00ac\u00eb\u00a6\u00b0 \u00ea\u00b8\u00b8: \u00ea\u00b1\u00b7\u00ea\u00b8\u00b0"
+            },
+            "Waymarked_Trails-MTB": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 waymarkedtrails.org, OpenStreetMap \u00ea\u00b8\u00b0\u00ec\u2014\u00ac\u00ec\u017e\ufffd, CC by-SA 3.0"
+                },
+                "name": "\u00eb\ufffd\u201e\u00eb\u00a1\u0153 \u00ed\u2018\u0153\u00ec\u00a7\u20ac\u00ea\u00b0\u20ac \u00eb\u2039\u00ac\u00eb\u00a6\u00b0 \u00ea\u00b8\u00b8: \u00ec\u201a\u00b0\u00ec\u2022\u2026 \u00ec\u017e\ufffd\u00ec\u00a0\u201e\u00ea\u00b1\u00b0"
+            },
+            "Waymarked_Trails-Skating": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 waymarkedtrails.org, OpenStreetMap \u00ea\u00b8\u00b0\u00ec\u2014\u00ac\u00ec\u017e\ufffd, CC by-SA 3.0"
+                },
+                "name": "\u00eb\ufffd\u201e\u00eb\u00a1\u0153 \u00ed\u2018\u0153\u00ec\u00a7\u20ac\u00ea\u00b0\u20ac \u00eb\u2039\u00ac\u00eb\u00a6\u00b0 \u00ea\u00b8\u00b8: \u00ec\u0160\u00a4\u00ec\u00bc\u20ac\u00ec\ufffd\u00b4\u00ed\u0160\u00b8"
+            },
+            "Waymarked_Trails-Winter_Sports": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 waymarkedtrails.org, OpenStreetMap \u00ea\u00b8\u00b0\u00ec\u2014\u00ac\u00ec\u017e\ufffd, CC by-SA 3.0"
+                },
+                "name": "\u00eb\ufffd\u201e\u00eb\u00a1\u0153 \u00ed\u2018\u0153\u00ec\u00a7\u20ac\u00ea\u00b0\u20ac \u00eb\u2039\u00ac\u00eb\u00a6\u00b0 \u00ea\u00b8\u00b8: \u00ea\u00b2\u00a8\u00ec\u0161\u00b8 \u00ec\u0160\u00a4\u00ed\ufffd\u00ac\u00ec\u00b8\u00a0"
+            },
+            "basemap.at": {
+                "attribution": {
+                    "text": "basemap.at"
+                },
+                "description": "\u00ec\u02dc\u00a4\u00ec\u0160\u00a4\u00ed\u0160\u00b8\u00eb\u00a6\u00ac\u00ec\u2022\u201e\u00ec\ufffd\u02dc \u00ea\u00b8\u00b0\u00eb\u00b3\u00b8 \u00ec\u00a7\u20ac\u00eb\ufffd\u201e\u00eb\u0160\u201d  \u00ec\u00a0\u2022\u00eb\u00b6\u20ac \u00eb\ufffd\u00b0\u00ec\ufffd\u00b4\u00ed\u201e\u00b0\u00eb\u00a5\u00bc \u00ea\u00b8\u00b0\u00eb\u00b0\u02dc\u00ec\u0153\u00bc\u00eb\u00a1\u0153\u00ed\u2022\u00a9\u00eb\u2039\u02c6\u00eb\u2039\u00a4.",
+                "name": "basemap.at"
+            },
+            "basemap.at-orthofoto": {
+                "attribution": {
+                    "text": "basemap.at"
+                },
+                "description": "Orthofoto \u00ec\u00b8\u00b5\u00ec\ufffd\u20ac basemap.at\u00ec\u2014\ufffd\u00ec\u201e\u0153 \u00ec\u00a0\u0153\u00ea\u00b3\u00b5\u00ed\u2022\u00a9\u00eb\u2039\u02c6\u00eb\u2039\u00a4. geoimage.at \u00ed\u02dc\u2022\u00ec\u0192\ufffd\u00ec\ufffd\u02dc \"\u00ea\u00b3\u201e\u00ec\u0160\u00b9\".",
+                "name": "basemap.at Orthofoto"
+            },
+            "basemap.at-overlay": {
+                "attribution": {
+                    "text": "basemap.at"
+                }
+            },
+            "gsi.go.jp_airphoto": {
+                "attribution": {
+                    "text": "\u00ec\ufffd\u00bc\u00eb\u00b3\u00b8 \u00ea\u00b5\u00ad\u00ed\u2020\u00a0\u00ec\u00a7\u20ac\u00eb\u00a6\u00ac\u00ec\u203a\ufffd"
+                },
+                "name": "\u00ec\ufffd\u00bc\u00eb\u00b3\u00b8 \u00ea\u00b5\u00ad\u00ed\u2020\u00a0\u00ec\u00a7\u20ac\u00eb\u00a6\u00ac\u00ec\u203a\ufffd \u00ed\u2022\u00ad\u00ea\u00b3\u00b5 \u00ec\u201a\u00ac\u00ec\u00a7\u201e"
+            },
+            "gsi.go.jp_std_map": {
+                "attribution": {
+                    "text": "\u00ec\ufffd\u00bc\u00eb\u00b3\u00b8 \u00ea\u00b5\u00ad\u00ed\u2020\u00a0\u00ec\u00a7\u20ac\u00eb\u00a6\u00ac\u00ec\u203a\ufffd"
+                },
+                "name": "\u00ec\ufffd\u00bc\u00eb\u00b3\u00b8 \u00ea\u00b5\u00ad\u00ed\u2020\u00a0\u00ec\u00a7\u20ac\u00eb\u00a6\u00ac\u00ec\u203a\ufffd \u00ed\u2018\u0153\u00ec\u00a4\u20ac \u00ec\u00a7\u20ac\u00eb\ufffd\u201e"
+            },
+            "mapbox_locator_overlay": {
+                "attribution": {
+                    "text": "\u00ec\ufffd\u00b4\u00ec\u0161\u00a9 \u00ec\u2022\u00bd\u00ea\u00b4\u20ac"
+                },
+                "description": "\u00eb\u2039\u00b9\u00ec\u2039\u00a0\u00ec\ufffd\u201e \u00eb\ufffd\u2022\u00ea\u00b8\u00b0 \u00ec\u0153\u201e\u00ed\u2022\u0153 \u00ec\u00a3\u00bc\u00ec\u0161\u201d \u00ea\u00b8\u00b0\u00eb\u0160\u00a5\u00ec\ufffd\u201e \u00eb\u00b3\u00b4\u00ec\u2014\u00ac\u00ec\u00a4\ufffd\u00eb\u2039\u02c6\u00eb\u2039\u00a4.",
+                "name": "\u00eb\ufffd\u201e\u00eb\u00a1\u0153 \u00ec\u02dc\u00a4\u00eb\u00b2\u201e\u00eb\u00a0\u02c6\u00ec\ufffd\u00b4"
+            },
+            "openpt_map": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 OpenStreetMap \u00ea\u00b8\u00b0\u00ec\u2014\u00ac\u00ec\u017e\ufffd, CC-BY-SA"
+                },
+                "name": "OpenPT Map (\u00ec\u02dc\u00a4\u00eb\u00b2\u201e\u00eb\u00a0\u02c6\u00ec\ufffd\u00b4)"
+            },
+            "openrailwaymap": {
+                "attribution": {
+                    "text": "\u00eb\u00a0\u0152\u00eb\ufffd\u201d\u00eb\u00a7\ufffd: OpenRailwayMap, \u00c2\u00a9 \u00ec\u00a7\u20ac\u00eb\ufffd\u201e \u00eb\ufffd\u00b0\u00ec\ufffd\u00b4\u00ed\u201e\u00b0 OpenStreetMap \u00ea\u00b8\u00b0\u00ec\u2014\u00ac\u00ec\u017e\ufffd"
+                },
+                "description": "\u00ec\u02dc\u00a4\u00ed\u201d\u02c6\u00ec\u0160\u00a4\u00ed\u0160\u00b8\u00eb\u00a6\u00ac\u00ed\u0160\u00b8\u00eb\u00a7\u00b5 \u00eb\ufffd\u00b0\u00ec\ufffd\u00b4\u00ed\u201e\u00b0\u00ec\u2014\ufffd \u00ea\u00b8\u00b0\u00eb\u00b0\u02dc\u00ed\u2022\u0153 \u00ec\u00b2\u00a0\u00eb\ufffd\u201e \u00ec\u2039\u0153\u00ec\u201e\u00a4\u00eb\u00ac\u00bc\u00ec\ufffd\u201e \u00eb\u00b3\u00b4\u00ec\u2014\u00ac\u00ec\u00a3\u00bc\u00eb\u0160\u201d \u00ec\u02dc\u00a4\u00eb\u00b2\u201e\u00eb\u00a0\u02c6\u00ec\ufffd\u00b4 \u00ec\ufffd\u00b4\u00eb\u00af\u00b8\u00ec\u00a7\u20ac",
+                "name": "OpenRailwayMap"
+            },
+            "openrailwaymap-maxspeeds": {
+                "attribution": {
+                    "text": "\u00eb\u00a0\u0152\u00eb\ufffd\u201d\u00eb\u00a7\ufffd: OpenRailwayMap, \u00c2\u00a9 \u00ec\u00a7\u20ac\u00eb\ufffd\u201e \u00eb\ufffd\u00b0\u00ec\ufffd\u00b4\u00ed\u201e\u00b0 OpenStreetMap \u00ea\u00b8\u00b0\u00ec\u2014\u00ac\u00ec\u017e\ufffd"
+                },
+                "description": "\u00ec\u02dc\u00a4\u00ed\u201d\u02c6\u00ec\u0160\u00a4\u00ed\u0160\u00b8\u00eb\u00a6\u00ac\u00ed\u0160\u00b8\u00eb\u00a7\u00b5 \u00eb\ufffd\u00b0\u00ec\ufffd\u00b4\u00ed\u201e\u00b0\u00ec\u2014\ufffd \u00ea\u00b8\u00b0\u00eb\u00b0\u02dc\u00ed\u2022\u0153 \u00ec\u00b2\u00a0\u00eb\ufffd\u201e\u00ec\ufffd\u02dc \u00ec\u00a0\u0153\u00ed\u2022\u0153 \u00ec\u2020\ufffd\u00eb\ufffd\u201e\u00eb\u00a5\u00bc \u00eb\u00b3\u00b4\u00ec\u2014\u00ac\u00ec\u00a3\u00bc\u00eb\u0160\u201d \u00ec\u02dc\u00a4\u00eb\u00b2\u201e\u00eb\u00a0\u02c6\u00ec\ufffd\u00b4 \u00ec\ufffd\u00b4\u00eb\u00af\u00b8\u00ec\u00a7\u20ac"
+            },
+            "openrailwaymap-signalling": {
+                "description": "\u00ec\u02dc\u00a4\u00ed\u201d\u02c6\u00ec\u0160\u00a4\u00ed\u0160\u00b8\u00eb\u00a6\u00ac\u00ed\u0160\u00b8\u00eb\u00a7\u00b5 \u00eb\ufffd\u00b0\u00ec\ufffd\u00b4\u00ed\u201e\u00b0\u00ec\u2014\ufffd \u00ea\u00b8\u00b0\u00eb\u00b0\u02dc\u00ed\u2022\u0153 \u00ec\u00b2\u00a0\u00eb\ufffd\u201e \u00ec\u2039\u00a0\u00ed\u02dc\u00b8\u00eb\u00a5\u00bc \u00eb\u00b3\u00b4\u00ec\u2014\u00ac\u00ec\u00a3\u00bc\u00eb\u0160\u201d \u00ec\u02dc\u00a4\u00eb\u00b2\u201e\u00eb\u00a0\u02c6\u00ec\ufffd\u00b4 \u00ec\ufffd\u00b4\u00eb\u00af\u00b8\u00ec\u00a7\u20ac"
+            },
+            "osm-gps": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 OpenStreetMap \u00ea\u00b8\u00b0\u00ec\u2014\u00ac\u00ec\u017e\ufffd"
+                },
+                "description": "\u00ea\u00b3\u00b5\u00ec\u0161\u00a9 GPS \u00ec\u00b6\u201d\u00ec\u00a0\ufffd\u00ec\ufffd\u201e OpenStreetMap\u00ec\u2014\ufffd \u00ec\u2014\u2026\u00eb\u00a1\u0153\u00eb\u201c\u0153\u00ed\u2013\u02c6\u00ec\u0160\u00b5\u00eb\u2039\u02c6\u00eb\u2039\u00a4.",
+                "name": "OpenStreetMap GPS \u00ec\u00b6\u201d\u00ec\u00a0\ufffd\u00eb\u201c\u00a4"
+            },
+            "osm-mapnik-german_style": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 OpenStreetMap \u00ea\u00b8\u00b0\u00ec\u2014\u00ac\u00ec\u017e\ufffd, CC-BY-SA"
+                },
+                "name": "OpenStreetMap (\u00eb\ufffd\u2026\u00ec\ufffd\u00bc \u00ec\u0160\u00a4\u00ed\u0192\u20ac\u00ec\ufffd\u00bc)"
+            },
+            "qa_no_address": {
+                "attribution": {
+                    "text": "Simon Poole, \u00eb\ufffd\u00b0\u00ec\ufffd\u00b4\u00ed\u201e\u00b0 \u00c2\u00a9OpenStreetMap \u00ea\u00b8\u00b0\u00ec\u2014\u00ac\u00ec\u017e\ufffd"
+                },
+                "name": "QA \u00ec\u00a3\u00bc\u00ec\u2020\u0152 \u00ec\u2014\u2020\u00ec\ufffd\u0152"
+            },
+            "skobbler": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 \u00ed\u0192\u20ac\u00ec\ufffd\u00bc: skobbler \u00ec\u00a7\u20ac\u00eb\ufffd\u201e \u00eb\ufffd\u00b0\u00ec\ufffd\u00b4\u00ed\u201e\u00b0: OpenStreetMap \u00ea\u00b8\u00b0\u00ec\u2014\u00ac\u00ec\u017e\ufffd"
+                }
+            },
+            "stamen-terrain-background": {
+                "name": "Stamen \u00ec\u00a7\u20ac\u00ed\u02dc\u2022"
+            },
+            "tf-cycle": {
+                "attribution": {
+                    "text": "\u00ec\u00a7\u20ac\u00eb\ufffd\u201e \u00c2\u00a9 Thunderforest, \u00ec\u017e\ufffd\u00eb\u00a3\u0152 \u00c2\u00a9 \u00ec\u02dc\u00a4\u00ed\u201d\u02c6\u00ec\u0160\u00a4\u00ed\u0160\u00b8\u00eb\u00a6\u00ac\u00ed\u0160\u00b8\u00eb\u00a7\u00b5 \u00ea\u00b8\u00b0\u00ec\u2014\u00ac\u00ec\u017e\ufffd"
+                },
+                "name": "Thunderforest OpenCycleMap"
+            },
+            "tf-landscape": {
+                "attribution": {
+                    "text": "\u00ec\u00a7\u20ac\u00eb\ufffd\u201e \u00c2\u00a9 Thunderforest, \u00ec\u017e\ufffd\u00eb\u00a3\u0152 \u00c2\u00a9 \u00ec\u02dc\u00a4\u00ed\u201d\u02c6\u00ec\u0160\u00a4\u00ed\u0160\u00b8\u00eb\u00a6\u00ac\u00ed\u0160\u00b8\u00eb\u00a7\u00b5 \u00ea\u00b8\u00b0\u00ec\u2014\u00ac\u00ec\u017e\ufffd"
+                },
+                "name": "Thunderforest \u00ed\u2019\ufffd\u00ea\u00b2\u00bd"
+            }
+        }
+    }
+}

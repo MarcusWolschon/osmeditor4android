@@ -19,6 +19,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Queue;
 import java.util.TreeSet;
 import java.util.concurrent.TimeUnit;
@@ -28,6 +29,10 @@ import java.util.regex.Pattern;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
 import com.mapbox.geojson.Feature;
 
 import android.content.Context;
@@ -49,6 +54,7 @@ import de.blau.android.Main;
 import de.blau.android.contract.FileExtensions;
 import de.blau.android.contract.Files;
 import de.blau.android.contract.MimeTypes;
+import de.blau.android.contract.Paths;
 import de.blau.android.imageryoffset.Offset;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.OsmXml;
@@ -119,7 +125,7 @@ public class TileLayerSource implements Serializable {
     public static final String LAYER_MAPNIK    = "MAPNIK";
     public static final String LAYER_NONE      = "NONE";
     public static final String LAYER_NOOVERLAY = "NOOVERLAY";
-    public static final String LAYER_BING      = "BING";
+    public static final String LAYER_BING      = "Bing";
 
     private static final String SWITCH_START = "{switch:";
 
@@ -144,6 +150,11 @@ public class TileLayerSource implements Serializable {
     private static final char PLACEHOLDER_START = '{';
 
     private static final String WMS_VERSION_130 = "1.3.0";
+
+    // translation files
+    private static final String JSON_DESCRIPTION_KEY = "description";
+    private static final String JSON_NAME_KEY        = "name";
+    private static final String JSON_IMAGERY_KEY     = "imagery";
 
     public enum TileType {
         BITMAP, MVT
@@ -631,7 +642,6 @@ public class TileLayerSource implements Serializable {
      * @param endDate end date as a ms since epoch value, -1 if not available
      * @param noTileHeader header that indicates that a tile isn't valid
      * @param noTileValues values that together with the header indicated that a tile isn't valid
-     * @param description a textual description of the layer or null
      * @param privacyPolicyUrl a link to a privacy policy or null
      * @param async run loadInfo async, needed for main process
      */
@@ -639,7 +649,7 @@ public class TileLayerSource implements Serializable {
             Category category, final boolean overlay, final boolean defaultLayer, @Nullable final Provider provider, final String termsOfUseUrl,
             final String icon, String logoUrl, byte[] logoBytes, final int zoomLevelMin, final int zoomLevelMax, int maxOverZoom, final int tileWidth,
             final int tileHeight, final String proj, final int preference, final long startDate, final long endDate, @Nullable String noTileHeader,
-            @Nullable String[] noTileValues, @Nullable String description, @Nullable String privacyPolicyUrl, boolean async) {
+            @Nullable String[] noTileValues, @Nullable String privacyPolicyUrl, boolean async) {
 
         this.ctx = ctx;
         this.name = name;
@@ -656,7 +666,6 @@ public class TileLayerSource implements Serializable {
         this.setTileHeight(tileHeight);
         this.proj = proj;
         this.touUri = termsOfUseUrl;
-        this.description = description;
         this.privacyPolicyUrl = privacyPolicyUrl;
 
         this.offsets = new Offset[zoomLevelMax - zoomLevelMin + 1];
@@ -677,7 +686,7 @@ public class TileLayerSource implements Serializable {
         }
 
         // generate id from name if necessary
-        this.id = (id != null ? id : nameToId(this.name)).toUpperCase(Locale.US);
+        this.id = id != null ? id : nameToId(this.name);
 
         if (originalUrl.startsWith(FileUtil.FILE_SCHEME_PREFIX)) { // mbtiles and pmtiles no further processing needed
             localFile = true;
@@ -760,7 +769,7 @@ public class TileLayerSource implements Serializable {
      * @return a String with an id
      */
     public static String nameToId(@NonNull final String name) {
-        return name.replaceAll("[\\W\\_]", "").toUpperCase(Locale.US);
+        return name.replaceAll("[\\W\\_]", "");
     }
 
     /**
@@ -891,9 +900,9 @@ public class TileLayerSource implements Serializable {
                 TileLayerDatabase.deleteSource(writableDb, TileLayerDatabase.SOURCE_JOSM_IMAGERY);
                 TileLayerDatabase.addSource(writableDb, TileLayerDatabase.SOURCE_JOSM_IMAGERY);
             }
-            String[] imageryFiles = { Files.FILE_NAME_VESPUCCI_IMAGERY, Files.FILE_NAME_USER_IMAGERY };
+            String[] imageryFiles = { Files.FILE_NAME_VESPUCCI_IMAGERY, Files.FILE_NAME_IMAGERY };
             for (String fn : imageryFiles) {
-                try (InputStream is = assetManager.open(fn)) {
+                try (InputStream is = assetManager.open(Paths.DIRECTORY_PATH_IMAGERY + Paths.DELIMITER + fn)) {
                     parseImageryFile(ctx, writableDb, TileLayerDatabase.SOURCE_JOSM_IMAGERY, is, async);
                 } catch (IOException e) {
                     Log.e(DEBUG_TAG, "reading conf file " + fn + " got " + e.getMessage());
@@ -917,7 +926,7 @@ public class TileLayerSource implements Serializable {
         long lastDatabaseUpdate = TileLayerDatabase.getSourceUpdate(writeableDb, TileLayerDatabase.SOURCE_CUSTOM);
         long lastUpdateTime = 0L;
         try {
-            File userImageryFile = new File(FileUtil.getPublicDirectory(), Files.FILE_NAME_USER_IMAGERY);
+            File userImageryFile = new File(FileUtil.getPublicDirectory(), Files.FILE_NAME_IMAGERY);
             Log.i(DEBUG_TAG, "Trying to read custom imagery from " + userImageryFile.getPath());
             lastUpdateTime = userImageryFile.lastModified();
             boolean newConfig = lastUpdateTime > lastDatabaseUpdate;
@@ -963,7 +972,7 @@ public class TileLayerSource implements Serializable {
             TileLayerDatabase.addSource(writeableDb, source);
 
             // still need to read our base config first
-            try (InputStream is = assetManager.open(Files.FILE_NAME_VESPUCCI_IMAGERY)) {
+            try (InputStream is = assetManager.open(Paths.DIRECTORY_PATH_IMAGERY + Paths.DELIMITER + Files.FILE_NAME_VESPUCCI_IMAGERY)) {
                 parseImageryFile(ctx, writeableDb, source, is, true);
             } catch (IOException e) {
                 Log.e(DEBUG_TAG, "reading conf files got " + e.getMessage());
@@ -1029,6 +1038,42 @@ public class TileLayerSource implements Serializable {
             overlayServerList.put(LAYER_MAPNIK, background);
         }
         Log.d(DEBUG_TAG, "Generating TileLayer lists took " + (System.currentTimeMillis() - start) / 1000);
+        setTranslations(ctx);
+    }
+
+    /**
+     * Set name and description to translated values if they exist
+     * 
+     * @param ctx an Android Context
+     */
+    private static void setTranslations(@NonNull final Context ctx) {
+        JsonObject translations = getTranslations(ctx);
+        if (translations == null) {
+            return;
+        }
+        Log.d(DEBUG_TAG, "translations exist");
+        for (Entry<String, JsonElement> entry : translations.entrySet()) {
+            final String key = entry.getKey();
+            TileLayerSource tls = backgroundServerList.get(key);
+            if (tls == null) {
+                tls = overlayServerList.get(key);
+                if (tls == null) {
+                    Log.d(DEBUG_TAG, "translations no entry for " + key + " found");
+                    continue;
+                }
+            }
+            final JsonElement value = entry.getValue();
+            if (value instanceof JsonObject) {
+                final JsonElement translatedName = ((JsonObject) value).get(JSON_NAME_KEY);
+                if (translatedName != null) {
+                    tls.setName(translatedName.getAsString());
+                }
+                final JsonElement translatedDescription = ((JsonObject) value).get(JSON_DESCRIPTION_KEY);
+                if (translatedDescription != null) {
+                    tls.setDescription(translatedDescription.getAsString());
+                }
+            }
+        }
     }
 
     /**
@@ -1573,6 +1618,7 @@ public class TileLayerSource implements Serializable {
     /**
      * Get tile server names from list of ids
      * 
+     * @param ctx an Android context
      * @param ids array containing the ids
      * @return array containing the names
      */
@@ -1668,10 +1714,10 @@ public class TileLayerSource implements Serializable {
     /**
      * Allocate the following just once
      */
-    StringBuilder builder    = new StringBuilder(100); // 100 is just an estimate to avoid re-allocating
-    StringBuilder param      = new StringBuilder();
-    StringBuilder quadKey    = new StringBuilder();
-    StringBuilder boxBuilder = new StringBuilder();
+    private StringBuilder builder    = new StringBuilder(100); // 100 is just an estimate to avoid re-allocating
+    private StringBuilder param      = new StringBuilder();
+    private StringBuilder quadKey    = new StringBuilder();
+    private StringBuilder boxBuilder = new StringBuilder();
 
     /**
      * Get the URL that can be used to obtain the image of the given tile.
@@ -2300,6 +2346,15 @@ public class TileLayerSource implements Serializable {
     }
 
     /**
+     * Set the description value
+     * 
+     * @param the description
+     */
+    public void setDescription(@Nullable String description) {
+        this.description = description;
+    }
+
+    /**
      * @return the privacyPolicyUrl
      */
     @Nullable
@@ -2341,7 +2396,7 @@ public class TileLayerSource implements Serializable {
         }
         if (existingTileServer == null) {
             TileLayerSource layer = new TileLayerSource(ctx, layerId, name, tileUrl, type, category, isOverlay, false, provider, null, null, null, null,
-                    minZoom, maxZoom, TileLayerSource.DEFAULT_MAX_OVERZOOM, tileSize, tileSize, proj, 0, startDate, endDate, null, null, null, null, true);
+                    minZoom, maxZoom, TileLayerSource.DEFAULT_MAX_OVERZOOM, tileSize, tileSize, proj, 0, startDate, endDate, null, null, null, true);
             if (tileType != null) { // if null use automatic detection
                 layer.setTileType(tileType);
             }
@@ -2524,4 +2579,55 @@ public class TileLayerSource implements Serializable {
     public void setHeaders(@Nullable List<Header> headers) {
         this.headers = headers;
     }
+
+    /**
+     * Get the translations for the imagery if any
+     * 
+     * @param ctx an Android Context
+     * @return a JsonOblect with the translations
+     */
+    @Nullable
+    private static JsonObject getTranslations(@NonNull Context ctx) {
+        Log.d(DEBUG_TAG, "loadTranslations");
+        AssetManager assetManager = ctx.getAssets();
+        Locale locale = Locale.getDefault();
+        String language = locale.getLanguage();
+        try (InputStream in = openTranslationFile(assetManager, locale, language)) {
+            try (BufferedReader rd = new BufferedReader(new InputStreamReader(in, Charset.forName(OsmXml.UTF_8)))) {
+                JsonElement root = JsonParser.parseReader(rd);
+                if (root.isJsonObject()) {
+                    JsonObject rootObject = (JsonObject) root;
+                    JsonElement temp = rootObject.get(locale.toLanguageTag());
+                    if (temp == null) {
+                        temp = rootObject.get(language);
+                    }
+                    if (temp instanceof JsonObject) {
+                        return (JsonObject) ((JsonObject) temp).get(JSON_IMAGERY_KEY);
+                    }
+                }
+            }
+        } catch (IOException | JsonSyntaxException e) {
+            Log.e(DEBUG_TAG, "Opening translation for " + locale + " " + e.getMessage());
+        }
+        return null;
+    }
+
+    /**
+     * Open a translation file in the assets first trying the full locale and then just the language
+     * 
+     * @param assetManager an AssetManager instance
+     * @param locale the full locale
+     * @param language the language
+     * @return an InputStream
+     * @throws IOException if no file could be found
+     */
+    private static InputStream openTranslationFile(AssetManager assetManager, Locale locale, String language) throws IOException {
+        final String imagerPath = Paths.DIRECTORY_PATH_IMAGERY + Paths.DELIMITER;
+        try {
+            return assetManager.open(imagerPath + locale + "." + FileExtensions.JSON);
+        } catch (IOException ioex) {
+            return assetManager.open(imagerPath + language + "." + FileExtensions.JSON);
+        }
+    }
+
 }

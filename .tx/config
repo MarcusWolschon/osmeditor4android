@@ -9,6 +9,14 @@ type         = PO
 minimum_perc = 5
 lang_map     = he: iw, ca_ES: ca-rES, cs: cs-rCZ, zh_TW: zh-rTW, zh_CN: zh-rCN, id: in, zh_HK: zh-rHK, pt_BR: pt-rBR, sv_SE: sv-rSE
 
+[o:openstreetmap:p:id-editor:r:imagery]
+file_filter  = build/tmp/imagery/<lang>.yml
+source_file  = build/tmp/imagery/en.yml
+source_lang  = en
+type         = PO
+minimum_perc = 1
+lang_map     = he: iw, ca_ES: ca-rES, cs: cs-rCZ, zh_TW: zh-rTW, zh_CN: zh-rCN, id: in, zh_HK: zh-rHK, pt_BR: pt-rBR, sv_SE: sv-rSE
+
 [o:openstreetmap:p:vespucci:r:addresstagsxml]
 file_filter  = src/main/res/values-<lang>/addresstags.xml
 source_file  = src/main/res/values/addresstags.xml

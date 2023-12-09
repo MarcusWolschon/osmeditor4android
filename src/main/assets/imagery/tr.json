@@ -1,0 +1,1173 @@
+{
+    "tr": {
+        "imagery": {
+            "Bedzin-PL-aerial_image": {
+                "attribution": {
+                    "text": "B\u00c4\u2122dzin'de B\u00c3\u00b6lge Starost Ofisi"
+                },
+                "name": "B\u00c4\u2122dzin: Ortofotomap 2013 (hava g\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bcs\u00c3\u00bc)"
+            },
+            "Bedzin-PL-buildings": {
+                "attribution": {
+                    "text": "B\u00c4\u2122dzin'de Starost B\u00c3\u00b6lge Ofisi"
+                },
+                "name": "B\u00c4\u2122dzin: Binalar"
+            },
+            "Bing": {
+                "description": "Uydu ve hava g\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bcleri.",
+                "name": "Bing Haritalar Havadan G\u00c3\u00b6r\u00c3\u00bcn\u00c3\u00bcm"
+            },
+            "Bytom-2012": {
+                "attribution": {
+                    "text": "Bytom Kent Konseyi"
+                },
+                "name": "Bytom: Ortofotomap 2012 (uydu g\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bcs\u00c3\u00bc)"
+            },
+            "Bytom-2014": {
+                "attribution": {
+                    "text": "Bytom Kent Konseyi"
+                },
+                "name": "Bytom: Fotoplan 2014 (uydu g\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bcs\u00c3\u00bc)"
+            },
+            "Bytom-2016": {
+                "attribution": {
+                    "text": "Bytom Kent Konseyi"
+                },
+                "name": "Bytom: Ortofotomap 2016 (uydu g\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bcs\u00c3\u00bc)"
+            },
+            "Bytom-2018": {
+                "attribution": {
+                    "text": "Bytom Kent Konseyi"
+                },
+                "name": "Bytom: Ortofotomap 2018 (uydu g\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bcs\u00c3\u00bc)"
+            },
+            "Bytom-2021": {
+                "attribution": {
+                    "text": "Bytom Kent Konseyi"
+                },
+                "name": "Bytom: Ortofotomap 2021 (uydu g\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bcs\u00c3\u00bc)"
+            },
+            "Bytom-buildings": {
+                "attribution": {
+                    "text": "Bytom Kent Konseyi"
+                },
+                "name": "Bytom Binalar"
+            },
+            "Czestochowa-2011": {
+                "attribution": {
+                    "text": "Cz\u00c4\u2122stochowa Belediye Meclisi"
+                },
+                "name": "Cz\u00c4\u2122stochowa: Ortofotomap 2011 (uydu g\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bcs\u00c3\u00bc)"
+            },
+            "Czestochowa-2013": {
+                "attribution": {
+                    "text": "Cz\u00c4\u2122stochowa Belediye Meclisi"
+                },
+                "name": "Cz\u00c4\u2122stochowa: Ortofotomap 2013 (uydu g\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bcs\u00c3\u00bc)"
+            },
+            "Czestochowa-2014": {
+                "attribution": {
+                    "text": "Cz\u00c4\u2122stochowa Belediye Meclisi"
+                },
+                "name": "Cz\u00c4\u2122stochowa: Ortofotomap 2014 (uydu g\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bcs\u00c3\u00bc)"
+            },
+            "Czestochowa-2015": {
+                "attribution": {
+                    "text": "Cz\u00c4\u2122stochowa Belediye Meclisi"
+                },
+                "name": "Cz\u00c4\u2122stochowa: Ortofotomap 2015 (uydu g\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bcs\u00c3\u00bc)"
+            },
+            "Czestochowa-2016": {
+                "attribution": {
+                    "text": "Cz\u00c4\u2122stochowa Belediye Meclisi"
+                },
+                "name": "Cz\u00c4\u2122stochowa: Ortofotomap 2016 (uydu g\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bcs\u00c3\u00bc)"
+            },
+            "Czestochowa-2017": {
+                "attribution": {
+                    "text": "Cz\u00c4\u2122stochowa Belediye Meclisi"
+                },
+                "name": "Cz\u00c4\u2122stochowa: Ortofotomap 2017 (uydu g\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bcs\u00c3\u00bc)"
+            },
+            "Czestochowa-buildings": {
+                "attribution": {
+                    "text": "Cz\u00c4\u2122stochowa Belediye Meclisi"
+                },
+                "name": "Cz\u00c4\u2122stochowa: Binalar"
+            },
+            "DV_DHMV_II_HILL_25cm": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Digitaal Vlaanderen"
+                },
+                "name": "Digitaal Vlaanderen DHV II, multidirectional hillshade 0,25 m"
+            },
+            "DV_DHMV_II_SVF_25cm": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Digitaal Vlaanderen"
+                },
+                "name": "Digitaal Vlaanderen DHV II, Skyview factor 0,25 m"
+            },
+            "DV_GRB": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Digitaal Vlaanderen"
+                },
+                "name": "Digitaal Vlaanderen GRB"
+            },
+            "DV_OrthoPhoto": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Digitaal Vlaanderen"
+                },
+                "name": "Digitaal Vlaanderen most recent aerial imagery"
+            },
+            "DV_OrthoPhoto_20132015_10cm": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Digitaal Vlaanderen"
+                },
+                "name": "Digitaal Vlaanderen 2013-2015 aerial imagery 10cm"
+            },
+            "DV_OrthoPhoto_Preliminary": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Digitaal Vlaanderen"
+                },
+                "name": "Digitaal Vlaanderen preliminary aerial imagery"
+            },
+            "DV_Wegenregister": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Digitaal Vlaanderen"
+                },
+                "name": "Digitaal Vlaanderen Wegenregister"
+            },
+            "Dourados_Ortofotos": {
+                "attribution": {
+                    "text": "Dourados Belediye Binas\u00c4\u00b1 - GeoDourados"
+                },
+                "description": "Dourados (2018) ve \u00c3\u00a7e\u00c5\u0178itli b\u00c3\u00b6lgelerin (2020) y\u00c3\u00bcksek \u00c3\u00a7\u00c3\u00b6z\u00c3\u00bcn\u00c3\u00bcrl\u00c3\u00bckl\u00c3\u00bc uydu g\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bcleri.",
+                "name": "Dourados Ortofotolar\u00c4\u00b1"
+            },
+            "EOXAT2018CLOUDLESS": {
+                "attribution": {
+                    "text": "Sentinel-2 bulutsuz - https://s2maps.eu EOX IT Services GmbH taraf\u00c4\u00b1ndan (De\u00c4\u0178i\u00c5\u0178tirilmi\u00c5\u0178 Copernicus Sentinel 2017 ve 2018 verilerini i\u00c3\u00a7erir)"
+                },
+                "description": "\u00c4\u00b0\u00c5\u0178lenmi\u00c5\u0178 Sentinel Uydu g\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bcleri",
+                "name": "eox.at 2018 bulutsuz"
+            },
+            "EsriWorldImagery": {
+                "attribution": {
+                    "text": "\u00c5\u017eartlar & Geri Bildirim"
+                },
+                "description": "Esri D\u00c3\u00bcnya G\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bcleri",
+                "name": "Esri Uydu G\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bcs\u00c3\u00bc"
+            },
+            "EsriWorldImageryClarity": {
+                "attribution": {
+                    "text": "\u00c5\u017eartlar & Geri Bildirim"
+                },
+                "description": "Esri, varsay\u00c4\u00b1lan katmandan daha net ve daha do\u00c4\u0178ru olabilecek g\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bcleri ar\u00c5\u0178ivler.",
+                "name": "Esri Uydu G\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bcs\u00c3\u00bc (Net) Beta"
+            },
+            "Frankfurt-am-Main-2019": {
+                "attribution": {
+                    "text": "Frankfurt am Main \u00c5\u017eehir Ara\u00c5\u0178t\u00c4\u00b1rmac\u00c4\u00b1s\u00c4\u00b1 Ofisi"
+                },
+                "description": "Frankfurt am Main'in 16 Nisan 2019 tarihinde \u00c3\u00a7ekilen havadan g\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bcs\u00c3\u00bc",
+                "name": "Frankfurt am Main Havadan Foto\u00c4\u0178raf 2019"
+            },
+            "Geoportal2-PL-City-boundaries_WMS": {
+                "attribution": {
+                    "text": "Jeodezi ve Haritac\u00c4\u00b1l\u00c4\u00b1k Merkez Ofisi"
+                },
+                "description": "\u00c4\u00b0dari birimler de dahil olmak \u00c3\u00bczere Polonya'n\u00c4\u00b1n b\u00c3\u00b6lgesel b\u00c3\u00b6l\u00c3\u00bcnme birimlerinin WMS hizmeti yay\u00c4\u00b1nc\u00c4\u00b1l\u00c4\u00b1\u00c4\u0178\u00c4\u00b1",
+                "name": "Geoportal 2: \u00c5\u017eehir s\u00c4\u00b1n\u00c4\u00b1rlar\u00c4\u00b1 WMS"
+            },
+            "Geoportal2-PL-HighResolution-aerial_archival_image_WMS": {
+                "attribution": {
+                    "text": "Jeodezi ve Haritac\u00c4\u00b1l\u00c4\u00b1k Merkez Ofisi"
+                },
+                "description": "\u00c3\u2021\u00c3\u00b6z\u00c3\u00bcn\u00c3\u00bcrl\u00c3\u00bc\u00c4\u0178\u00c3\u00bc 10 cm veya daha fazla olan ortofotomap. Veriler \u00c3\u00a7\u00c3\u00b6z\u00c3\u00bcn\u00c3\u00bcrl\u00c3\u00bc\u00c4\u0178e ve ard\u00c4\u00b1ndan g\u00c3\u00bcncelli\u00c4\u0178e g\u00c3\u00b6re s\u00c4\u00b1ralan\u00c4\u00b1r, \u00c3\u00b6rne\u00c4\u0178in 2012'den 8 cm \u00c3\u00a7\u00c3\u00b6z\u00c3\u00bcn\u00c3\u00bcrl\u00c3\u00bc\u00c4\u0178e sahip bir sayfa 2019'dan 10 cm \u00c3\u00a7\u00c3\u00b6z\u00c3\u00bcn\u00c3\u00bcrl\u00c3\u00bc\u00c4\u0178e sahip bir sayfa g\u00c3\u00b6nderir.",
+                "name": "Geoportal 2: Y\u00c3\u00bcksek \u00c3\u2021\u00c3\u00b6z\u00c3\u00bcn\u00c3\u00bcrl\u00c3\u00bckl\u00c3\u00bc Ortofoto Harita (ar\u00c5\u0178iv g\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bcleri) (WMS)"
+            },
+            "Geoportal2-PL-HighResolution-aerial_image_WMS": {
+                "attribution": {
+                    "text": "Jeodezi ve Haritac\u00c4\u00b1l\u00c4\u00b1k Merkez Ofisi"
+                },
+                "description": "\u00c3\u2021\u00c3\u00b6z\u00c3\u00bcn\u00c3\u00bcrl\u00c3\u00bc\u00c4\u0178\u00c3\u00bc 10 cm veya daha fazla olan ortofotomap. Veriler \u00c3\u00a7\u00c3\u00b6z\u00c3\u00bcn\u00c3\u00bcrl\u00c3\u00bc\u00c4\u0178e ve ard\u00c4\u00b1ndan g\u00c3\u00bcncelli\u00c4\u0178e g\u00c3\u00b6re s\u00c4\u00b1ralan\u00c4\u00b1r, \u00c3\u00b6rne\u00c4\u0178in 2012'den 8 cm \u00c3\u00a7\u00c3\u00b6z\u00c3\u00bcn\u00c3\u00bcrl\u00c3\u00bc\u00c4\u0178e sahip bir sayfa 2019'dan 10 cm \u00c3\u00a7\u00c3\u00b6z\u00c3\u00bcn\u00c3\u00bcrl\u00c3\u00bc\u00c4\u0178e sahip bir sayfa g\u00c3\u00b6nderir.",
+                "name": "Geoportal 2: Y\u00c3\u00bcksek \u00c3\u2021\u00c3\u00b6z\u00c3\u00bcn\u00c3\u00bcrl\u00c3\u00bckl\u00c3\u00bc Ortofoto Harita (hava g\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bcs\u00c3\u00bc) (WMS)"
+            },
+            "Geoportal2-PL-Streets_WMS": {
+                "attribution": {
+                    "text": "Jeodezi ve Haritac\u00c4\u00b1l\u00c4\u00b1k Merkez Ofisi"
+                },
+                "description": "WMS g\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bcleme hizmeti Ulusal Adres Numaraland\u00c4\u00b1rma Entegrasyonu, sokak ve adres kay\u00c4\u00b1tlar\u00c4\u00b1 i\u00c3\u00a7in Ulusal S\u00c4\u00b1n\u00c4\u00b1r Kayd\u00c4\u00b1'ndaki uzamsal verilerden olu\u00c5\u0178turulan harita g\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bclerinin indirilmesini sa\u00c4\u0178lar.",
+                "name": "Geoportal 2 Sokak adlar\u00c4\u00b1"
+            },
+            "Geoportal2-PL-addres_points_WMS": {
+                "attribution": {
+                    "text": "Jeodezi ve Haritac\u00c4\u00b1l\u00c4\u00b1k Merkez Ofisi"
+                },
+                "description": "WMS g\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bcleme hizmeti Ulusal Adres Numaraland\u00c4\u00b1rma Entegrasyonu, sokak ve adres kay\u00c4\u00b1tlar\u00c4\u00b1 i\u00c3\u00a7in Ulusal S\u00c4\u00b1n\u00c4\u00b1r Kayd\u00c4\u00b1'ndaki uzamsal verilerden olu\u00c5\u0178turulan harita g\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bclerinin indirilmesini sa\u00c4\u0178lar.",
+                "name": "Geoportal 2: Adres noktalar\u00c4\u00b1"
+            },
+            "Geoportal2-PL-aerial_archival_image_WMS": {
+                "attribution": {
+                    "text": "Jeodezi ve Haritac\u00c4\u00b1l\u00c4\u00b1k Merkez Ofisi"
+                },
+                "description": "Polonya b\u00c3\u00b6lgesi i\u00c3\u00a7in ar\u00c5\u0178ivlenen ortofoto haritalar\u00c4\u00b1n g\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bclenmesini sa\u00c4\u0178layan g\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bcleme hizmeti (Web Harita Hizmeti, WMS). Bu hizmet arac\u00c4\u00b1l\u00c4\u00b1\u00c4\u0178\u00c4\u00b1yla kullan\u00c4\u00b1ma sunulan veriler, hava foto\u00c4\u0178raflar\u00c4\u00b1ndan al\u00c4\u00b1nan ortofoto haritalard\u00c4\u00b1r. Hizmet, WMS 1.3.0 aray\u00c3\u00bcz\u00c3\u00bc i\u00c3\u00a7in destek sunmaktad\u00c4\u00b1r.",
+                "name": "Geoportal 2: Ortofotomap (ar\u00c5\u0178iv g\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bcleri) (WMS)"
+            },
+            "Geoportal2-PL-aerial_image_WMS": {
+                "attribution": {
+                    "text": "Jeodezi ve Haritac\u00c4\u00b1l\u00c4\u00b1k Merkez Ofisi"
+                },
+                "description": "Polonya b\u00c3\u00b6lgesi i\u00c3\u00a7in ortofoto haritalar\u00c4\u00b1n g\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bclenmesini sa\u00c4\u0178layan g\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bcleme hizmeti (Web Harita Hizmeti, WMS). Bu hizmet arac\u00c4\u00b1l\u00c4\u00b1\u00c4\u0178\u00c4\u00b1yla kullan\u00c4\u00b1ma sunulan veriler, hava foto\u00c4\u0178raflar\u00c4\u00b1ndan al\u00c4\u00b1nan ortofoto haritalard\u00c4\u00b1r. Hizmet, WMS 1.3.0 aray\u00c3\u00bcz\u00c3\u00bc i\u00c3\u00a7in destek sunmaktad\u00c4\u00b1r.",
+                "name": "Geoportal 2: Ortofotomap (en son hava g\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bcleri) (WMS)"
+            },
+            "Geoportal2-PL-aerial_image_WMTS": {
+                "attribution": {
+                    "text": "Jeodezi ve Haritac\u00c4\u00b1l\u00c4\u00b1k Merkez Ofisi"
+                },
+                "description": "Polonya b\u00c3\u00b6lgesi i\u00c3\u00a7in ortofotolar\u00c4\u00b1 g\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bclemek i\u00c3\u00a7in g\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bcleme hizmeti (Web Map Tile Service,WMTS). Bu hizmet arac\u00c4\u00b1l\u00c4\u00b1\u00c4\u0178\u00c4\u00b1yla kullan\u00c4\u00b1ma sunulan veriler, hava foto\u00c4\u0178raflar\u00c4\u00b1ndan al\u00c4\u00b1nan ortofoto haritalard\u00c4\u00b1r.",
+                "name": "Geoportal 2: Ortofotomap (en son hava g\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bcleri) (WMTS)"
+            },
+            "Geoportal2-PL-boundaries-of-communes_WMS": {
+                "attribution": {
+                    "text": "Jeodezi ve Haritac\u00c4\u00b1l\u00c4\u00b1k Merkez Ofisi"
+                },
+                "description": "\u00c4\u00b0dari birimler de dahil olmak \u00c3\u00bczere Polonya'n\u00c4\u00b1n b\u00c3\u00b6lgesel b\u00c3\u00b6l\u00c3\u00bcnme birimlerinin WMS hizmeti yay\u00c4\u00b1nc\u00c4\u00b1l\u00c4\u00b1\u00c4\u0178\u00c4\u00b1",
+                "name": "Geoportal 2: Kom\u00c3\u00bcn s\u00c4\u00b1n\u00c4\u00b1rlar\u00c4\u00b1 WMS"
+            },
+            "Geoportal2-PL-boundaries-of-counties_WMS": {
+                "attribution": {
+                    "text": "Jeodezi ve Haritac\u00c4\u00b1l\u00c4\u00b1k Merkez Ofisi"
+                },
+                "description": "\u00c4\u00b0dari birimler de dahil olmak \u00c3\u00bczere Polonya'n\u00c4\u00b1n b\u00c3\u00b6lgesel b\u00c3\u00b6l\u00c3\u00bcnme birimlerinin WMS hizmeti yay\u00c4\u00b1nc\u00c4\u00b1l\u00c4\u00b1\u00c4\u0178\u00c4\u00b1",
+                "name": "Geoportal 2: \u00c4\u00b0l\u00c3\u00a7e s\u00c4\u00b1n\u00c4\u00b1rlar\u00c4\u00b1 WMS"
+            },
+            "Geoportal2-PL-boundaries-of-provinces_WMS": {
+                "attribution": {
+                    "text": "Jeodezi ve Haritac\u00c4\u00b1l\u00c4\u00b1k Merkez Ofisi"
+                },
+                "description": "\u00c4\u00b0dari birimler de d\u00c3\u00a2hil olmak \u00c3\u00bczere Polonya b\u00c3\u00b6lgesel b\u00c3\u00b6l\u00c3\u00bcm birimlerini yay\u00c4\u00b1nlayan WMS hizmeti",
+                "name": "Geoportal 2: \u00c4\u00b0llerin s\u00c4\u00b1n\u00c4\u00b1rlar\u00c4\u00b1 WMS"
+            },
+            "Geoportal2-PL-buildings_WMS": {
+                "attribution": {
+                    "text": "Jeodezi ve Haritac\u00c4\u00b1l\u00c4\u00b1k Genel M\u00c3\u00bcd\u00c3\u00bcrl\u00c3\u00bc\u00c4\u0178\u00c3\u00bc"
+                },
+                "description": "Us\u00c5\u201auga Krajowa Integracja Ewidencji Grunt\u00c3\u00b3w jest us\u00c5\u201aug\u00c4\u2026 zbiorcz\u00c4\u2026 prezentacji danych ewidencyjnych pochodz\u00c4\u2026cych bezpo\u00c5\u203arednio z jednostek szczebla powiatowego. Us\u00c5\u201auga zawiera jedynie dane tych jednostek, kt\u00c3\u00b3re dysponuj\u00c4\u2026 us\u00c5\u201aug\u00c4\u2026 WMS o odpowiednich parametrach i zdecydowa\u00c5\u201ay si\u00c4\u2122 w\u00c5\u201a\u00c4\u2026czy\u00c4\u2021 swoj\u00c4\u2026 us\u00c5\u201aug\u00c4\u2122 WMS do us\u00c5\u201augi zbiorczej KrajowaIntegracjaEwidencjiGruntow.",
+                "name": "Geoportal 2: Ewidencja budynk\u00c3\u00b3w WMS"
+            },
+            "Geoportal2-PL-gas-pipe_WMS": {
+                "attribution": {
+                    "text": "G\u00c5\u201a\u00c3\u00b3wny Urz\u00c4\u2026d Geodezji i Kartografii"
+                },
+                "description": "Us\u00c5\u201auga Krajowa Integracja Uzbrojenia Terenu jest us\u00c5\u201aug\u00c4\u2026 zbiorcz\u00c4\u2026 prezentacji danych uzbrojenia terenu pochodz\u00c4\u2026cych bezpo\u00c5\u203arednio z jednostek szczebla powiatowego. Us\u00c5\u201auga zawiera jedynie dane tych jednostek, kt\u00c3\u00b3re dysponuj\u00c4\u2026 us\u00c5\u201aug\u00c4\u2026 WMS o odpowiednich parametrach i zdecydowa\u00c5\u201ay si\u00c4\u2122 w\u00c5\u201a\u00c4\u2026czy\u00c4\u2021 swoj\u00c4\u2026 us\u00c5\u201aug\u00c4\u2122 WMS do us\u00c5\u201augi zbiorczej KrajowaIntegracjaUzbrojeniaTerenu.",
+                "name": "Geoportal 2: gas pipes WMS"
+            },
+            "Geoportal2-PL-heat-pipe_WMS": {
+                "attribution": {
+                    "text": "G\u00c5\u201a\u00c3\u00b3wny Urz\u00c4\u2026d Geodezji i Kartografii"
+                },
+                "description": "Ulusal Arazi G\u00c3\u00bc\u00c3\u00a7lendirme Entegrasyonu hizmeti, do\u00c4\u0178rudan il\u00c3\u00a7e d\u00c3\u00bczeyindeki birimlerden gelen arazi g\u00c3\u00bc\u00c3\u00a7lendirme verilerinin sunumuna y\u00c3\u00b6nelik toplu bir hizmettir. Hizmet yaln\u00c4\u00b1zca uygun parametrelere sahip bir WMS hizmetine sahip olan ve WMS hizmetlerini NationalIntegrationOfTerrainEquipment toplu hizmetine dahil etmeye karar veren birimlerin verilerini i\u00c3\u00a7erir.",
+                "name": "Geoportal 2: heat pipes WMS"
+            },
+            "Geoportal2-PL-plot_boundaries_WMS": {
+                "attribution": {
+                    "text": "G\u00c5\u201a\u00c3\u00b3wny Urz\u00c4\u2026d Geodezji i Kartografii"
+                },
+                "description": "Us\u00c5\u201auga Krajowa Integracja Ewidencji Grunt\u00c3\u00b3w jest us\u00c5\u201aug\u00c4\u2026 zbiorcz\u00c4\u2026 prezentacji danych ewidencyjnych pochodz\u00c4\u2026cych bezpo\u00c5\u203arednio z jednostek szczebla powiatowego. Us\u00c5\u201auga zawiera jedynie dane tych jednostek, kt\u00c3\u00b3re dysponuj\u00c4\u2026 us\u00c5\u201aug\u00c4\u2026 WMS o odpowiednich parametrach i zdecydowa\u00c5\u201ay si\u00c4\u2122 w\u00c5\u201a\u00c4\u2026czy\u00c4\u2021 swoj\u00c4\u2026 us\u00c5\u201aug\u00c4\u2122 WMS do us\u00c5\u201augi zbiorczej KrajowaIntegracjaEwidencjiGruntow.",
+                "name": "Geoportal 2: Granice dzia\u00c5\u201aek"
+            },
+            "Geoportal2-PL-power-cord_WMS": {
+                "attribution": {
+                    "text": "G\u00c5\u201a\u00c3\u00b3wny Urz\u00c4\u2026d Geodezji i Kartografii"
+                },
+                "description": "Us\u00c5\u201auga Krajowa Integracja Uzbrojenia Terenu jest us\u00c5\u201aug\u00c4\u2026 zbiorcz\u00c4\u2026 prezentacji danych uzbrojenia terenu pochodz\u00c4\u2026cych bezpo\u00c5\u203arednio z jednostek szczebla powiatowego. Us\u00c5\u201auga zawiera jedynie dane tych jednostek, kt\u00c3\u00b3re dysponuj\u00c4\u2026 us\u00c5\u201aug\u00c4\u2026 WMS o odpowiednich parametrach i zdecydowa\u00c5\u201ay si\u00c4\u2122 w\u00c5\u201a\u00c4\u2026czy\u00c4\u2021 swoj\u00c4\u2026 us\u00c5\u201aug\u00c4\u2122 WMS do us\u00c5\u201augi zbiorczej KrajowaIntegracjaUzbrojeniaTerenu.",
+                "name": "Geoportal 2: power cord WMS"
+            },
+            "Geoportal2-PL-prng": {
+                "attribution": {
+                    "text": "Centralny O\u00c5\u203arodek Dokumentacji Geodezyjnej i Kartograficznej"
+                },
+                "name": "Geoportal 2: PRNG (geo names)"
+            },
+            "Geoportal2-PL-sewer-pipe_WMS": {
+                "attribution": {
+                    "text": "G\u00c5\u201a\u00c3\u00b3wny Urz\u00c4\u2026d Geodezji i Kartografii"
+                },
+                "description": "Us\u00c5\u201auga Krajowa Integracja Uzbrojenia Terenu jest us\u00c5\u201aug\u00c4\u2026 zbiorcz\u00c4\u2026 prezentacji danych uzbrojenia terenu pochodz\u00c4\u2026cych bezpo\u00c5\u203arednio z jednostek szczebla powiatowego. Us\u00c5\u201auga zawiera jedynie dane tych jednostek, kt\u00c3\u00b3re dysponuj\u00c4\u2026 us\u00c5\u201aug\u00c4\u2026 WMS o odpowiednich parametrach i zdecydowa\u00c5\u201ay si\u00c4\u2122 w\u00c5\u201a\u00c4\u2026czy\u00c4\u2021 swoj\u00c4\u2026 us\u00c5\u201aug\u00c4\u2122 WMS do us\u00c5\u201augi zbiorczej KrajowaIntegracjaUzbrojeniaTerenu.",
+                "name": "Geoportal 2: sewer pipes WMS"
+            },
+            "Geoportal2-PL-shaded_relief_WMS": {
+                "attribution": {
+                    "text": "G\u00c5\u201a\u00c3\u00b3wny Urz\u00c4\u2026d Geodezji i Kartografii"
+                },
+                "description": "Us\u00c5\u201auga przegl\u00c4\u2026dania (Web Map Service,WMS) umo\u00c5\u00bcliwiaj\u00c4\u2026ca przegl\u00c4\u2026danie cieniowania NMT w siatce 1m x 1m. Us\u00c5\u201auga oferuje wsparcie dla interfejsu WMS 1.3.0.",
+                "name": "Geoportal 2: Shaded relief (WMS)"
+            },
+            "Geoportal2-PL-squares-and-housing-estates_WMS": {
+                "attribution": {
+                    "text": "G\u00c5\u201a\u00c3\u00b3wny Urz\u00c4\u2026d Geodezji i Kartografii"
+                },
+                "description": "Us\u00c5\u201auga przegl\u00c4\u2026dania WMS Krajowa Integracja Numeracji Adresowej umo\u00c5\u00bcliwiaj\u00c4\u2026ca pobieranie obraz\u00c3\u00b3w mapowych utworzonych na podstawie danych przestrzennych z Pa\u00c5\u201estwowego Rejestru Granic w zakresie ewidencji ulic i adres\u00c3\u00b3w.",
+                "name": "Geoportal 2: Squares and housing estates"
+            },
+            "Geoportal2-PL-state-borders_WMS": {
+                "attribution": {
+                    "text": "G\u00c5\u201a\u00c3\u00b3wny Urz\u00c4\u2026d Geodezji i Kartografii"
+                },
+                "description": "Us\u00c5\u201auga WMS publikuj\u00c4\u2026ca jednostki podzia\u00c5\u201au terytorialnego Polski w tym jednostki administracyjne",
+                "name": "Geoportal 2: State borders WMS"
+            },
+            "Geoportal2-PL-telecommunications-cable_WMS": {
+                "attribution": {
+                    "text": "G\u00c5\u201a\u00c3\u00b3wny Urz\u00c4\u2026d Geodezji i Kartografii"
+                },
+                "description": "Us\u00c5\u201auga Krajowa Integracja Uzbrojenia Terenu jest us\u00c5\u201aug\u00c4\u2026 zbiorcz\u00c4\u2026 prezentacji danych uzbrojenia terenu pochodz\u00c4\u2026cych bezpo\u00c5\u203arednio z jednostek szczebla powiatowego. Us\u00c5\u201auga zawiera jedynie dane tych jednostek, kt\u00c3\u00b3re dysponuj\u00c4\u2026 us\u00c5\u201aug\u00c4\u2026 WMS o odpowiednich parametrach i zdecydowa\u00c5\u201ay si\u00c4\u2122 w\u00c5\u201a\u00c4\u2026czy\u00c4\u2021 swoj\u00c4\u2026 us\u00c5\u201aug\u00c4\u2122 WMS do us\u00c5\u201augi zbiorczej KrajowaIntegracjaUzbrojeniaTerenu.",
+                "name": "Geoportal 2: telecommunications cables WMS"
+            },
+            "Geoportal2-PL-water-pipe_WMS": {
+                "attribution": {
+                    "text": "G\u00c5\u201a\u00c3\u00b3wny Urz\u00c4\u2026d Geodezji i Kartografii"
+                },
+                "description": "Us\u00c5\u201auga Krajowa Integracja Uzbrojenia Terenu jest us\u00c5\u201aug\u00c4\u2026 zbiorcz\u00c4\u2026 prezentacji danych uzbrojenia terenu pochodz\u00c4\u2026cych bezpo\u00c5\u203arednio z jednostek szczebla powiatowego. Us\u00c5\u201auga zawiera jedynie dane tych jednostek, kt\u00c3\u00b3re dysponuj\u00c4\u2026 us\u00c5\u201aug\u00c4\u2026 WMS o odpowiednich parametrach i zdecydowa\u00c5\u201ay si\u00c4\u2122 w\u00c5\u201a\u00c4\u2026czy\u00c4\u2021 swoj\u00c4\u2026 us\u00c5\u201aug\u00c4\u2122 WMS do us\u00c5\u201augi zbiorczej KrajowaIntegracjaUzbrojeniaTerenu.",
+                "name": "Geoportal 2: water pipes WMS"
+            },
+            "Gliwice-2003": {
+                "attribution": {
+                    "text": "Urz\u00c4\u2026d Miasta Gliwice"
+                },
+                "name": "Gliwice: Orthophotomap 2003 (aerial image)"
+            },
+            "Gliwice-2009": {
+                "attribution": {
+                    "text": "Urz\u00c4\u2026d Miasta Gliwice"
+                },
+                "name": "Gliwice: Orthophotomap 2009 (aerial image)"
+            },
+            "Gliwice-2013": {
+                "attribution": {
+                    "text": "Urz\u00c4\u2026d Miasta Gliwice"
+                },
+                "name": "Gliwice: Orthophotomap 2013 (aerial image)"
+            },
+            "Gliwice-2017": {
+                "attribution": {
+                    "text": "Urz\u00c4\u2026d Miasta Gliwice"
+                },
+                "name": "Gliwice: Orthophotomap 2017 (aerial image)"
+            },
+            "Gliwice-2018": {
+                "attribution": {
+                    "text": "Urz\u00c4\u2026d Miasta Gliwice"
+                },
+                "name": "Gliwice: Orthophotomap 2018 (aerial image)"
+            },
+            "Gliwice-2020": {
+                "attribution": {
+                    "text": "Urz\u00c4\u2026d Miasta Gliwice"
+                },
+                "name": "Gliwice: Orthophotomap 2020 (aerial image)"
+            },
+            "Gliwice-2021": {
+                "attribution": {
+                    "text": "Urz\u00c4\u2026d Miasta Gliwice"
+                },
+                "name": "Gliwice: Ortofotoharita 2021 (hava g\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bcs\u00c3\u00bc)"
+            },
+            "Gliwice-buildings": {
+                "attribution": {
+                    "text": "Urz\u00c4\u2026d Miasta Gliwice"
+                },
+                "name": "Gliwice: Binalar"
+            },
+            "LSA-ATKIS_BU": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 GeoBasis-DE/LVermGeo LSA"
+                },
+                "description": "Saksonya-Anhalt'daki binalar\u00c4\u00b1n bi\u00c3\u00a7imleri",
+                "name": "\u00c2\u00a9 GeoBasis-DE/LVermGeo LSA, ATKIS_BU"
+            },
+            "LSA-DOP20": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 GeoBasis-DE/LVermGeo LSA"
+                },
+                "description": "aerial image of the state Saxony-Anhalt, 20 cm resolution",
+                "name": "\u00c2\u00a9 GeoBasis-DE/LVermGeo LSA, DOP20"
+            },
+            "LSA-DVG": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 GeoBasis-DE/LVermGeo LSA"
+                },
+                "description": "Vector recording of administrative boundaries. The boundaries of the federal state, district, municipality and parts of the municipality are given. ",
+                "name": "\u00c2\u00a9 GeoBasis-DE/LVermGeo LSA, DVG"
+            },
+            "LocalAuthorities_RightsOfWay": {
+                "attribution": {
+                    "text": "Contains public sector information licensed under the Open Government Licence v3.0."
+                },
+                "description": "Public rights of way data released by local authorities, as collated at rowmaps.com",
+                "name": "Public Rights of Way"
+            },
+            "Lodz-2015": {
+                "attribution": {
+                    "text": "Urz\u00c4\u2026d Miasta \u00c5\ufffdodzi"
+                },
+                "name": "\u00c5\ufffd\u00c3\u00b3d\u00c5\u00ba: Orthophotomap 2015 (aerial image)"
+            },
+            "Lodz-2017": {
+                "attribution": {
+                    "text": "Urz\u00c4\u2026d Miasta \u00c5\ufffdodzi"
+                },
+                "name": "\u00c5\ufffd\u00c3\u00b3d\u00c5\u00ba: Orthophotomap 2017 (aerial image)"
+            },
+            "Lodz-buildings": {
+                "attribution": {
+                    "text": "Urz\u00c4\u2026d Miasta \u00c5\ufffdodzi"
+                },
+                "name": "\u00c5\ufffd\u00c3\u00b3d\u00c5\u00ba: Binalar"
+            },
+            "MAPNIK": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 OpenStreetMap kat\u00c4\u00b1l\u00c4\u00b1mc\u00c4\u00b1lar\u00c4\u00b1, ODbL 1.0"
+                },
+                "description": "Varsay\u00c4\u00b1lan OpenStreetMap katman\u00c4\u00b1.",
+                "name": "OpenStreetMap (Standart)"
+            },
+            "Maaamet-Estonia_Cadastre": {
+                "attribution": {
+                    "text": "Maa-ameti katastrikaart ortofoto alusel"
+                },
+                "name": "Maa-amet (Estonya Harita ve Kadastro Kurulu) Haritas\u00c4\u00b1"
+            },
+            "Maaamet-Estonia_Ortho": {
+                "attribution": {
+                    "text": "\u00c2\u00a0\nMaa-amet (Estonya Harita ve Kadastro Kurulu) ortofotosu"
+                },
+                "name": "Maa-amet (Estonya Harita ve Kadastro Kurulu) Orto (WMS)"
+            },
+            "Mapbox": {
+                "attribution": {
+                    "text": "\u00c5\u017eartlar & Geri Bildirim"
+                },
+                "description": "Mapbox-provided raster tileset that includes a global basemap of high resolution satellite and aerial imagery",
+                "name": "Mapbox Uydu G\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bcs\u00c3\u00bc"
+            },
+            "Naturvardsverket-protected": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Naturv\u00c3\u00a5rdsverket, CC0"
+                },
+                "description": "\u00c4\u00b0sve\u00c3\u00a7 ulusal parklar\u00c4\u00b1, do\u00c4\u0178a koruma alanlar\u00c4\u00b1 ve di\u00c4\u0178er korunan nesne ve alanlar\u00c4\u00b1",
+                "name": "\u00c3\u2021evre Koruma Ajans\u00c4\u00b1 - Korunan Alanlar"
+            },
+            "Naturvardsverket-trails": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Naturv\u00c3\u00a5rdsverket, CC0"
+                },
+                "description": "\u00c4\u00b0sve\u00c3\u00a7 \u00c3\u2021evre Koruma Alans\u00c4\u00b1 taraf\u00c4\u00b1ndan kaydedilmi\u00c5\u0178 durumuyla do\u00c4\u0178al koruma alanlar\u00c4\u00b1 i\u00c3\u00a7inde ya da etrafindaki g\u00c3\u00bcnl\u00c3\u00bck g\u00c3\u00bcncellenen patikalar",
+                "name": "\u00c3\u2021evre Koruma Ajans\u00c4\u00b1 - Patikalar"
+            },
+            "OSIP_1ft": {
+                "attribution": {
+                    "text": "Ohio Eyalet G\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bcleme Program\u00c4\u00b1"
+                },
+                "description": "Ohio Statewide Imagery Program II orthoimagery of all 88 counties at 1-foot resolution from 2011 through 2014."
+            },
+            "OSIP_6in": {
+                "attribution": {
+                    "text": "Ohio Eyalet G\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bcleme Program\u00c4\u00b1"
+                },
+                "description": "Ohio Statewide Imagery Program III orthoimagery of 40 counties captured at 6-inch resolution in 2017 and 2018, plus OSIP I and OSIP II imagery in 16 more counties from 2010 through 2014.",
+                "name": "Ohio Eyalet G\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bcleme Program\u00c4\u00b1 6-in\u00c3\u00a7"
+            },
+            "OSMUK-Cadastral-Parcels": {
+                "attribution": {
+                    "text": "Contains public sector information licensed under the Open Government Licence v3.0."
+                },
+                "description": "Perfectly aligned cadastral (land registry) parcels in Great Britain",
+                "name": "OSMUK Kadastro Parselleri"
+            },
+            "OSM_Inspector-Addresses": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, OpenStreetMap kat\u00c4\u00b1l\u00c4\u00b1mc\u00c4\u00b1lar\u00c4\u00b1, CC-BY-SA"
+                },
+                "name": "OSM Inspector: Adresler"
+            },
+            "OSM_Inspector-Geometry": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, OpenStreetMap kat\u00c4\u00b1l\u00c4\u00b1mc\u00c4\u00b1lar\u00c4\u00b1, CC-BY-SA"
+                },
+                "name": "OSM Inspector: Geometri"
+            },
+            "OSM_Inspector-Highways": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, OpenStreetMap kat\u00c4\u00b1l\u00c4\u00b1mc\u00c4\u00b1lar\u00c4\u00b1, CC-BY-SA"
+                },
+                "name": "OSM Inspector: Karayollar\u00c4\u00b1"
+            },
+            "OSM_Inspector-Multipolygon": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, OpenStreetMap kat\u00c4\u00b1l\u00c4\u00b1mc\u00c4\u00b1lar\u00c4\u00b1, CC-BY-SA"
+                },
+                "name": "OSM Inspector: Alan"
+            },
+            "OSM_Inspector-Places": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, OpenStreetMap kat\u00c4\u00b1l\u00c4\u00b1mc\u00c4\u00b1lar\u00c4\u00b1, CC-BY-SA"
+                },
+                "name": "OSM Inspector: Mekanlar"
+            },
+            "OSM_Inspector-Routing": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, OpenStreetMap kat\u00c4\u00b1l\u00c4\u00b1mc\u00c4\u00b1lar\u00c4\u00b1, CC-BY-SA"
+                },
+                "name": "OSM Inspector: Rotalama"
+            },
+            "OSM_Inspector-Tagging": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, OpenStreetMap kat\u00c4\u00b1l\u00c4\u00b1mc\u00c4\u00b1lar\u00c4\u00b1, CC-BY-SA"
+                },
+                "name": "OSM Inspector: Etiketleme"
+            },
+            "OpenAerialMapMosaic": {
+                "description": "All OpenAerialMap images in one mosaic layer, by Kontur.io",
+                "name": "OpenAerialMap Mosaic, by Kontur.io"
+            },
+            "Riksantikvariambetet-archaeological": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Riksantikvarie\u00c3\u00a4mbetet, CC0"
+                },
+                "description": "Antik ve tarihsel kal\u00c4\u00b1nt\u00c4\u00b1lar ve an\u00c4\u00b1tlar",
+                "name": "Riksantikvarie\u00c3\u00a4mbetet - Arkeolojik An\u00c4\u00b1tlar ve Sit Alanlar\u00c4\u00b1"
+            },
+            "Riksantikvariambetet-heritage": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Riksantikvarie\u00c3\u00a4mbetet, CC0"
+                },
+                "description": "Miras binalar ve kiliseler",
+                "name": "Riksantikvarie\u00c3\u00a4mbetet - Miras yap\u00c4\u00b1lar"
+            },
+            "Riksantikvariambetet-protected": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Riksantikvarie\u00c3\u00a4mbetet, CC0"
+                },
+                "description": "Miras binalar ve dinsel miras yerle\u00c5\u0178imleri i\u00c3\u00a7in koruma alanlar\u00c4\u00b1",
+                "name": "Riksantikvarie\u00c3\u00a4mbetet - Koruma Alt\u00c4\u00b1nda Miras B\u00c3\u00b6lgeleri"
+            },
+            "Riksantikvariambetet-ruins": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Riksantikvarie\u00c3\u00a4mbetet, CC0"
+                },
+                "description": "Tarihi-k\u00c3\u00bclt\u00c3\u00bcrel ilgi konusu y\u00c4\u00b1k\u00c4\u00b1nt\u00c4\u00b1lar",
+                "name": "Riksantikvarie\u00c3\u00a4mbetet - Y\u00c4\u00b1k\u00c4\u00b1nt\u00c4\u00b1lar"
+            },
+            "SPW_ORTHO_LAST": {
+                "name": "SPW(allonie)'nin en g\u00c3\u00bcncel hava g\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bcleri"
+            },
+            "SPW_PICC": {
+                "name": "SPW(allonie) PICC say\u00c4\u00b1sal g\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bcler"
+            },
+            "Siemianowice_Slaskie-aerial_image": {
+                "attribution": {
+                    "text": "Urz\u00c4\u2026d Miasta Siemianowice \u00c5\u0161l\u00c4\u2026skie"
+                },
+                "name": "Siemianowice \u00c5\u0161l\u00c4\u2026skie: Orthophotomap (hava g\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bcs\u00c3\u00bc)"
+            },
+            "Siemianowice_Slaskie-buildings": {
+                "attribution": {
+                    "text": "Urz\u00c4\u2026d Miasta Siemianowice \u00c5\u0161l\u00c4\u2026skie"
+                },
+                "name": "Siemianowice \u00c5\u0161l\u00c4\u2026skie: Binalar"
+            },
+            "US-TIGER-Roads-2017": {
+                "description": "Sar\u00c4\u00b1 = Genel kullan\u00c4\u00b1ma a\u00c3\u00a7\u00c4\u00b1k US Census harita verileri. K\u00c4\u00b1rm\u00c4\u00b1z\u00c4\u00b1 = OpenStreetMap'te bulunmayan veriler",
+                "name": "TIGER Yollar\u00c4\u00b1 2017"
+            },
+            "US-TIGER-Roads-2018": {
+                "description": "Sar\u00c4\u00b1 = Genel kullan\u00c4\u00b1ma a\u00c3\u00a7\u00c4\u00b1k US Census harita verileri. K\u00c4\u00b1rm\u00c4\u00b1z\u00c4\u00b1 = OpenStreetMap'te bulunmayan veriler",
+                "name": "TIGER Yollar\u00c4\u00b1 2018"
+            },
+            "US-TIGER-Roads-2019": {
+                "description": "Sar\u00c4\u00b1 = Genel kullan\u00c4\u00b1ma a\u00c3\u00a7\u00c4\u00b1k US Census harita verileri. K\u00c4\u00b1rm\u00c4\u00b1z\u00c4\u00b1 = OpenStreetMap'te bulunmayan veriler",
+                "name": "TIGER Yollar\u00c4\u00b1 2019"
+            },
+            "US-TIGER-Roads-2020": {
+                "description": "Yellow = Public domain map data from the US Census. Red = Data not found in OpenStreetMap",
+                "name": "TIGER Roads 2020"
+            },
+            "US-TIGER-Roads-2021": {
+                "description": "Yellow = Public domain map data from the US Census. Red = Data not found in OpenStreetMap",
+                "name": "TIGER Roads 2021"
+            },
+            "US-TIGER-Roads-2022": {
+                "description": "Yellow = Public domain map data from the US Census. Red = Data not found in OpenStreetMap",
+                "name": "TIGER Roads 2022"
+            },
+            "USDA-NAIP": {
+                "attribution": {
+                    "text": "ABD Tar\u00c4\u00b1m Bakanl\u00c4\u00b1\u00c4\u0178\u00c4\u00b1"
+                },
+                "description": "The most recent year of 30/60cm 4-band DOQQs from the National Agriculture Imagery Program (NAIP) for each state in the contiguous United States.",
+                "name": "Ulusal Tar\u00c4\u00b1m G\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bc Program\u00c4\u00b1"
+            },
+            "US_Forest_Service_roads_overlay": {
+                "description": "Karayolu: Ye\u00c5\u0178il kaplama = s\u00c4\u00b1n\u00c4\u00b1fland\u00c4\u00b1r\u00c4\u00b1lmam\u00c4\u00b1\u00c5\u0178. Kahverengi kaplama = iz. Y\u00c3\u00bczey: \u00c3\u00a7ak\u00c4\u00b1l = a\u00c3\u00a7\u00c4\u00b1k kahverengi dolgu, Asfalt = siyah, asfaltlanm\u00c4\u00b1\u00c5\u0178 = gri, zemin = beyaz, beton = mavi, \u00c3\u00a7imen = ye\u00c5\u0178il. Mevsimsel = beyaz \u00c3\u00a7ubuklar",
+                "name": "ABD Orman Yollar\u00c4\u00b1 Yerle\u00c5\u0178imi"
+            },
+            "UrbISOrtho": {
+                "attribution": {
+                    "text": "Realized by means of Brussels UrbIS\u00c2\u00ae\u00c2\u00a9 - Distribution & Copyright CIRB"
+                },
+                "name": "CIRB/CIBG en yeni hava g\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bclemesi"
+            },
+            "UrbISOrtho2016": {
+                "attribution": {
+                    "text": "Brussels UrbIS\u00c2\u00ae\u00c2\u00a9 ile uyguland\u00c4\u00b1 - Da\u00c4\u0178\u00c4\u00b1t\u00c4\u00b1m & Telif Hakk\u00c4\u00b1 CIRB"
+                },
+                "name": "UrbIS-Ortho 2016"
+            },
+            "UrbISOrtho2017": {
+                "attribution": {
+                    "text": "Brussels UrbIS\u00c2\u00ae\u00c2\u00a9 ile uyguland\u00c4\u00b1 - Da\u00c4\u0178\u00c4\u00b1t\u00c4\u00b1m & Telif Hakk\u00c4\u00b1 CIRB"
+                },
+                "name": "UrbIS-Ortho 2017"
+            },
+            "UrbISOrtho2018": {
+                "attribution": {
+                    "text": "Brussels UrbIS\u00c2\u00ae\u00c2\u00a9 ile uyguland\u00c4\u00b1 - Da\u00c4\u0178\u00c4\u00b1t\u00c4\u00b1m & Telif Hakk\u00c4\u00b1 CIRB"
+                },
+                "name": "UrbIS-Ortho 2018"
+            },
+            "UrbISOrtho2019": {
+                "attribution": {
+                    "text": "Brussels UrbIS\u00c2\u00ae\u00c2\u00a9 ile uyguland\u00c4\u00b1 - Da\u00c4\u0178\u00c4\u00b1t\u00c4\u00b1m & Telif Hakk\u00c4\u00b1 CIRB"
+                },
+                "name": "UrbIS-Ortho 2019"
+            },
+            "UrbISOrtho2020": {
+                "attribution": {
+                    "text": "Realized by means of Brussels UrbIS\u00c2\u00ae\u00c2\u00a9 - Distribution & Copyright CIRB"
+                },
+                "name": "UrbIS-Ortho 2020"
+            },
+            "UrbisAdmFR": {
+                "attribution": {
+                    "text": "Brussels UrbIS\u00c2\u00ae\u00c2\u00a9 ile uyguland\u00c4\u00b1 - Da\u00c4\u0178\u00c4\u00b1t\u00c4\u00b1m & Telif Hakk\u00c4\u00b1 CIRB"
+                },
+                "name": "UrbisAdm FR"
+            },
+            "UrbisAdmFRNL": {
+                "attribution": {
+                    "text": "Realized by means of Brussels UrbIS\u00c2\u00ae\u00c2\u00a9 - Distribution & Copyright CIRB"
+                },
+                "name": "UrbisAdm FR/NL"
+            },
+            "UrbisAdmNL": {
+                "attribution": {
+                    "text": "Brussels UrbIS\u00c2\u00ae\u00c2\u00a9 ile uyguland\u00c4\u00b1 - Da\u00c4\u0178\u00c4\u00b1t\u00c4\u00b1m & Telif Hakk\u00c4\u00b1 CIRB"
+                },
+                "name": "UrbisAdm NL"
+            },
+            "Waymarked_Trails-Cycling": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 waymarkedtrails.org, OpenStreetMap kat\u00c4\u00b1l\u00c4\u00b1mc\u00c4\u00b1lar\u00c4\u00b1, CC by-SA 3.0"
+                },
+                "name": "Waymarked Trails: Bisiklet"
+            },
+            "Waymarked_Trails-Hiking": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 waymarkedtrails.org, OpenStreetMap kat\u00c4\u00b1l\u00c4\u00b1mc\u00c4\u00b1lar\u00c4\u00b1, CC by-SA 3.0"
+                },
+                "name": "Waymarked Trails: Y\u00c3\u00bcr\u00c3\u00bcy\u00c3\u00bc\u00c5\u0178"
+            },
+            "Waymarked_Trails-MTB": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 waymarkedtrails.org, OpenStreetMap kat\u00c4\u00b1l\u00c4\u00b1mc\u00c4\u00b1lar\u00c4\u00b1, CC by-SA 3.0"
+                },
+                "name": "Waymarked Trails: Da\u00c4\u0178 Bisikleti"
+            },
+            "Waymarked_Trails-Skating": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 waymarkedtrails.org, OpenStreetMap kat\u00c4\u00b1l\u00c4\u00b1mc\u00c4\u00b1lar\u00c4\u00b1, CC by-SA 3.0"
+                },
+                "name": "Waymarked Trails: Kaykay"
+            },
+            "Waymarked_Trails-Winter_Sports": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 waymarkedtrails.org, OpenStreetMap kat\u00c4\u00b1l\u00c4\u00b1mc\u00c4\u00b1lar\u00c4\u00b1, CC by-SA 3.0"
+                },
+                "name": "Waymarked Trails: K\u00c4\u00b1\u00c5\u0178 Sporlar\u00c4\u00b1"
+            },
+            "Zabrze-2011": {
+                "attribution": {
+                    "text": "Urz\u00c4\u2026d Miasta Zabrza"
+                },
+                "name": "Zabrze: Orthophotomap 2011 (hava g\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bcs\u00c3\u00bc)"
+            },
+            "basemap.at": {
+                "attribution": {
+                    "text": "basemap.at"
+                },
+                "description": "H\u00c3\u00bck\u00c3\u00bcmet verilerine dayanan Avusturya'n\u00c4\u00b1n temel haritas\u00c4\u00b1.",
+                "name": "basemap.at"
+            },
+            "basemap.at-orthofoto": {
+                "attribution": {
+                    "text": "basemap.at"
+                },
+                "description": "basemap.at - daha \u00c3\u00b6nce geoimage.at - taraf\u00c4\u00b1ndan sa\u00c4\u0178lanan Orthofoto katman\u00c4\u00b1.",
+                "name": "basemap.at Orthofoto"
+            },
+            "basemap.at-overlay": {
+                "attribution": {
+                    "text": "basemap.at"
+                },
+                "description": "basemap.at taraf\u00c4\u00b1ndan sa\u00c4\u0178lanan ek a\u00c3\u00a7\u00c4\u00b1klama yerle\u00c5\u0178imi ",
+                "name": "basemap.at \u00c5\u017eablon"
+            },
+            "cyclosm": {
+                "attribution": {
+                    "text": "Rendering: CyclOSM (hosted by OpenStreetMap France) \u00c2\u00a9 Map data OpenStreetMap contributors"
+                },
+                "description": "CyclOSM, bisiklet\u00c3\u00a7ili\u00c4\u0178i d\u00c3\u00bc\u00c5\u0178\u00c3\u00bcnerek tasarlanm\u00c4\u00b1\u00c5\u0178 bir harita t\u00c3\u00bcr\u00c3\u00bcd\u00c3\u00bcr. G\u00c3\u00bczel ve kullan\u00c4\u00b1\u00c5\u0178l\u00c4\u00b1 bir bisiklet haritas\u00c4\u00b1 olu\u00c5\u0178turmak i\u00c3\u00a7in OpenStreetMap verisini kullan\u00c4\u00b1r!",
+                "name": "CyclOSM"
+            },
+            "debicki-buildings": {
+                "attribution": {
+                    "text": "Powiat il\u00c3\u00a7esi"
+                },
+                "name": "Powiat il\u00c3\u00a7esi: Binalar"
+            },
+            "eufar-balaton": {
+                "attribution": {
+                    "text": "EUFAR Balaton ortofoto 2010"
+                },
+                "description": "Balaton Limnoloji Enstit\u00c3\u00bcs\u00c3\u00bc'nden 1940 jeo-etiketli foto\u00c4\u0178raflama.",
+                "name": "EUFAR Balaton ortofotolar\u00c4\u00b1"
+            },
+            "gothenburg-citymap": {
+                "attribution": {
+                    "text": "G\u00c3\u00b6teborg Belediyesi, CC0"
+                },
+                "description": "\u00c5\u017eehir haritas\u00c4\u00b1, G\u00c3\u00b6teborg'u tan\u00c4\u00b1mlayan bir genel bak\u00c4\u00b1\u00c5\u0178 haritas\u00c4\u00b1d\u00c4\u00b1r. Arazi, ileti\u00c5\u0178im, hidrografi, binalar, adres numaralar\u00c4\u00b1 ve cadde adlar\u00c4\u00b1, idari b\u00c3\u00b6l\u00c3\u00bcm ve di\u00c4\u0178er y\u00c3\u00b6nlendirme metinleri hakk\u00c4\u00b1nda genel bilgiler i\u00c3\u00a7erir.",
+                "name": "G\u00c3\u00b6teborg \u00c5\u017eehir haritas\u00c4\u00b1"
+            },
+            "gothenburg-dtm-2017": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Gothenburg yerel y\u00c3\u00b6netimi, CC0"
+                },
+                "description": "G\u00c3\u00b6teborg \u00c5\u017eehri i\u00c3\u00a7in 2017 y\u00c3\u00bckseklik modeline dayal\u00c4\u00b1 olarak tepe g\u00c3\u00b6lgesi ve e\u00c4\u0178im sunan web haritas\u00c4\u00b1 hizmeti. Piksel ba\u00c5\u0178\u00c4\u00b1na 0,5 metre \u00c3\u00a7\u00c3\u00b6z\u00c3\u00bcn\u00c3\u00bcrl\u00c3\u00bck.",
+                "name": "Gothenburg Hillshade"
+            },
+            "gothenburg-ortho": {
+                "attribution": {
+                    "text": "G\u00c3\u00b6teborg Belediyesi, CC0"
+                },
+                "description": "G\u00c3\u00b6teborg belediyesi i\u00c3\u00a7in Ortofoto",
+                "name": "G\u00c3\u00b6teborg Ortofoto 2015"
+            },
+            "gothenburg-ortho_2017": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 G\u00c3\u00b6teborg Belediyesi, CC0"
+                },
+                "description": "G\u00c3\u00b6teborg belediyesi i\u00c3\u00a7in ortofoto",
+                "name": "G\u00c3\u00b6teborg Ortofoto 2017"
+            },
+            "gothenburg-ortho_2019": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 G\u00c3\u00b6teborg Belediyesi, CC0"
+                },
+                "description": "G\u00c3\u00b6teborg belediyesi i\u00c3\u00a7in ortofoto",
+                "name": "G\u00c3\u00b6teborg Ortofoto 2019"
+            },
+            "gothenburg-ortho_2021": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 G\u00c3\u00b6teborg Belediyesi, CC0"
+                },
+                "description": "G\u00c3\u00b6teborg belediyesi i\u00c3\u00a7in ortofoto",
+                "name": "G\u00c3\u00b6teborg Ortofoto 2021"
+            },
+            "gothenburg-ortho_latest": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 G\u00c3\u00b6teborg Belediyesi, CC0"
+                },
+                "description": "G\u00c3\u00b6teborg belediyesi i\u00c3\u00a7in ortofoto",
+                "name": "Gothenburg Ortofoto son"
+            },
+            "gsi.go.jp_airphoto": {
+                "attribution": {
+                    "text": "GSI Japonya"
+                },
+                "description": "Japonya GSI hava foto\u00c4\u0178raf\u00c4\u00b1 g\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bcleri. Tamamen ortorektifize edilmemi\u00c5\u0178, ancak biraz daha yeni ve / veya GSI ortog\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bclerinden farkl\u00c4\u00b1 bir \u00c5\u0178ekilde kaplanm\u00c4\u00b1\u00c5\u0178t\u00c4\u00b1r.",
+                "name": "Japonya GSI hava foto\u00c4\u0178raf\u00c4\u00b1 g\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bcleri"
+            },
+            "gsi.go.jp_seamlessphoto": {
+                "attribution": {
+                    "text": "GSI Japonya kesintisiz foto\u00c4\u0178raf"
+                },
+                "description": "Japonya GSI sorunsuz foto\u00c4\u0178raf g\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bcleri. GSI orto, hava foto\u00c4\u0178raf\u00c4\u00b1, afet sonras\u00c4\u00b1 ve di\u00c4\u0178erlerinin en son g\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bclerinin koleksiyonu.",
+                "name": "Japonya GSI sorunsuz foto\u00c4\u0178raf g\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bcleri"
+            },
+            "gsi.go.jp_std_map": {
+                "attribution": {
+                    "text": "GSI Japonya"
+                },
+                "description": "Japonya GSI Standart Haritas\u00c4\u00b1. Geni\u00c5\u0178 kapsaml\u00c4\u00b1.",
+                "name": "Japonya GSI Standart Harita"
+            },
+            "kalmar-orto-2014": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Kalmar belediyesi"
+                },
+                "description": "Kalmar belediyesinin kuzey kesimi i\u00c3\u00a7in ortofotolar 2014",
+                "name": "Kalmar Kuzey Ortofotosu 2014"
+            },
+            "kalmar-orto-2016": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Kalmar belediyesi"
+                },
+                "description": "Kalmar Belediyesi'nin g\u00c3\u00bcney sahili i\u00c3\u00a7in Ortofotolar 2016",
+                "name": "Kalmar G\u00c3\u00bcney Ortofoto 2016"
+            },
+            "kalmar-orto-2018": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Kalmar Belediyesi"
+                },
+                "description": "Kalmar belediyesinin kentsel alanlar\u00c4\u00b1 i\u00c3\u00a7in Ortofotolar 2018",
+                "name": "Kalmar Kentsel Ortofoto 2018"
+            },
+            "kalmar-orto-2020": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Kalmar Belediyesi"
+                },
+                "description": "Kalmar Belediyesi'nin kentsel alanlar\u00c4\u00b1 i\u00c3\u00a7in ortofotolar 2020",
+                "name": "Kalmar Kentsel Ortofoto 2020"
+            },
+            "kartverket-bygninger": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Kartverket"
+                },
+                "description": "Norve\u00c3\u00a7 i\u00c3\u00a7in INSPIRE binalar\u00c4\u00b1.",
+                "name": "Kartverket Binalar\u00c4\u00b1 yer payla\u00c5\u0178\u00c4\u00b1m\u00c4\u00b1"
+            },
+            "kelkkareitit": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Kelkkareitit.fi"
+                },
+                "description": "OSM'den Kelkkareitit.fi kar arabas\u00c4\u00b1 parkurlar\u00c4\u00b1 (\u00c4\u00b0skandinav kapsam\u00c4\u00b1)",
+                "name": "\u00c4\u00b0skandinav kar arabas\u00c4\u00b1 yerle\u00c5\u0178imi"
+            },
+            "lancucki-buildings": {
+                "attribution": {
+                    "text": "\u00c5\ufffda\u00c5\u201ecut b\u00c3\u00b6lgesi"
+                },
+                "name": "\u00c5\ufffda\u00c5\u201ecut b\u00c3\u00b6lgesi: Binalar"
+            },
+            "lantmateriet-orto1960": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Lantm\u00c3\u00a4teriet, CC0"
+                },
+                "description": "1955\u00e2\u20ac\u201c1965 d\u00c3\u00b6nemine ait \u00c4\u00b0sve\u00c3\u00a7 ortofotolar\u00c4\u00b1ndan olu\u00c5\u0178an mozaik. Daha eski ve daha gen\u00c3\u00a7 resimler ortaya \u00c3\u00a7\u00c4\u00b1kabilir.",
+                "name": "Lantm\u00c3\u00a4teriet Tarihi Ortofoto 1980"
+            },
+            "lantmateriet-orto1975": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Lantm\u00c3\u00a4teriet, CC0"
+                },
+                "description": "1970-1980 d\u00c3\u00b6nemine ait \u00c4\u00b0sve\u00c3\u00a7 ortofotolar\u00c4\u00b1 mozai\u00c4\u0178i. Yap\u00c4\u00b1m a\u00c5\u0178amas\u00c4\u00b1ndad\u00c4\u00b1r.",
+                "name": "Lantm\u00c3\u00a4teriet Tarihi Ortofoto 1975"
+            },
+            "lantmateriet-topowebb": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Lantm\u00c3\u00a4teriet, CC0"
+                },
+                "description": "\u00c4\u00b0sve\u00c3\u00a7 topografik haritas\u00c4\u00b1 1:50 000",
+                "name": "Lantm\u00c3\u00a4teriet Topografik Haritas\u00c4\u00b1"
+            },
+            "linkoping-orto": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Link\u00c3\u00b6ping Belediyesi"
+                },
+                "description": "Link\u00c3\u00b6ping belediyesinden ortofotolar 2010 , a\u00c3\u00a7\u00c4\u00b1k veri",
+                "name": "Link\u00c3\u00b6ping Ortofoto"
+            },
+            "lubaczowski-buildings": {
+                "attribution": {
+                    "text": "Lubacz\u00c3\u00b3w b\u00c3\u00b6lgesi"
+                },
+                "name": "Lubacz\u00c3\u00b3w B\u00c3\u00b6lgesi: Binalar"
+            },
+            "maaamet.ee-cir_ngr": {
+                "attribution": {
+                    "text": "Arazi \u00c4\u00b0statistik Ofisi'nden ormanc\u00c4\u00b1l\u00c4\u00b1k ortofotosu"
+                },
+                "name": "Maa-amet Ormanc\u00c4\u00b1l\u00c4\u00b1k"
+            },
+            "maaamet.ee-orto": {
+                "attribution": {
+                    "text": "Arazi \u00c4\u00b0statistik Ofisi ortofotosu"
+                },
+                "name": "Arazi Ofisi Orto (TMS)"
+            },
+            "maaamet.ee-pohi_vr2": {
+                "attribution": {
+                    "text": "Arazi \u00c4\u00b0daresi'nin genel haritas\u00c4\u00b1"
+                },
+                "name": "Maa-amet Temel Haritas\u00c4\u00b1"
+            },
+            "mapbox_locator_overlay": {
+                "attribution": {
+                    "text": "\u00c5\u017eartlar & Geri Bildirim"
+                },
+                "description": "Sadece \u00c3\u00b6nemli \u00c3\u00b6zellikler g\u00c3\u00b6steriliyor.",
+                "name": "Yer Belirleyici Yerle\u00c5\u0178imi"
+            },
+            "openpt_map": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 OpenStreetMap kat\u00c4\u00b1l\u00c4\u00b1mc\u00c4\u00b1lar\u00c4\u00b1, CC-BY-SA"
+                },
+                "name": "OpenPT Map (katman)"
+            },
+            "openrailwaymap": {
+                "attribution": {
+                    "text": "G\u00c3\u00b6rselle\u00c5\u0178tirme: A\u00c3\u00a7\u00c4\u00b1k Demiryolu hartias\u00c4\u00b1 \u00c2\u00a9 Harita verisi OpenStreetMap kat\u00c4\u00b1l\u00c4\u00b1mc\u00c4\u00b1lar\u00c4\u00b1"
+                },
+                "description": "OpenStreetMap verilerine dayal\u00c4\u00b1 demiryolu altyap\u00c4\u00b1s\u00c4\u00b1n\u00c4\u00b1 g\u00c3\u00b6steren y\u00c3\u00bckleme g\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bcleri",
+                "name": "OpenRailwayMap"
+            },
+            "openrailwaymap-maxspeeds": {
+                "attribution": {
+                    "text": "G\u00c3\u00b6rselle\u00c5\u0178tirme: A\u00c3\u00a7\u00c4\u00b1k Demiryolu hartias\u00c4\u00b1 \u00c2\u00a9 Harita verisi OpenStreetMap kat\u00c4\u00b1l\u00c4\u00b1mc\u00c4\u00b1lar\u00c4\u00b1"
+                },
+                "description": "OpenStreetMap verilerine dayal\u00c4\u00b1 demiryolu h\u00c4\u00b1z s\u00c4\u00b1n\u00c4\u00b1rlar\u00c4\u00b1n\u00c4\u00b1 g\u00c3\u00b6steren y\u00c3\u00bckleme g\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bcleri",
+                "name": "OpenRailwayMap Maksimum H\u00c4\u00b1zlar\u00c4\u00b1"
+            },
+            "openrailwaymap-signalling": {
+                "attribution": {
+                    "text": "G\u00c3\u00b6rselle\u00c5\u0178tirme: A\u00c3\u00a7\u00c4\u00b1k Demiryolu hartias\u00c4\u00b1 \u00c2\u00a9 Harita verisi OpenStreetMap kat\u00c4\u00b1l\u00c4\u00b1mc\u00c4\u00b1lar\u00c4\u00b1"
+                },
+                "description": "OpenStreetMap verilerine dayal\u00c4\u00b1 demiryolu sinyallerini g\u00c3\u00b6steren y\u00c3\u00bckleme g\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bcleri",
+                "name": "OpenRailwayMap Sinyali"
+            },
+            "osm-gps": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 OpenStreetMap kat\u00c4\u00b1l\u00c4\u00b1mc\u00c4\u00b1lar\u00c4\u00b1"
+                },
+                "description": "OpenStreetMap'e y\u00c3\u00bcklenmi\u00c5\u0178 GPS izleri.",
+                "name": "OpenStreetMap GPS izleri"
+            },
+            "osm-mapnik-german_style": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 OpenStreetMap kat\u00c4\u00b1l\u00c4\u00b1mc\u00c4\u00b1lar\u00c4\u00b1, CC-BY-SA"
+                },
+                "name": "OpenStreetMap (Alman Stil)"
+            },
+            "poznan-ortofotomapa2014": {
+                "attribution": {
+                    "text": "Jeodezi ve Kentsel Kadastro Y\u00c3\u00b6netimi GEOPOZ"
+                },
+                "name": "Poznan: Ortofotomap 2014 (hava g\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bcs\u00c3\u00bc)"
+            },
+            "poznan-ortofotomapa2016": {
+                "attribution": {
+                    "text": "Jeodezi ve Kentsel Kadastro Y\u00c3\u00b6netimi GEOPOZ"
+                },
+                "name": "Poznan: Ortofotomap 2016 (hava g\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bcs\u00c3\u00bc)"
+            },
+            "poznan-ortofotomapaBiezaca": {
+                "attribution": {
+                    "text": "Jeodezi ve Kentsel Kadastro Y\u00c3\u00b6netimi GEOPOZ"
+                },
+                "name": "Pozna\u00c5\u201e: Ortofoto Harita Ak\u00c4\u00b1m\u00c4\u00b1 (hava g\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bcs\u00c3\u00bc)"
+            },
+            "przemysl-aerial": {
+                "attribution": {
+                    "text": "Przemy\u00c5\u203al \u00c5\u017eehri"
+                },
+                "name": "Przemy\u00c5\u203al: Ortofotomap (hava g\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bcs\u00c3\u00bc)"
+            },
+            "przemysl-buildings": {
+                "attribution": {
+                    "text": "Przemy\u00c5\u203al \u00c5\u017eehri"
+                },
+                "name": "Przemy\u00c5\u203al: Binalar"
+            },
+            "qa_no_address": {
+                "attribution": {
+                    "text": "Simon Poole, Veriler \u00c2\u00a9 OpenStreetMap kat\u00c4\u00b1l\u00c4\u00b1mc\u00c4\u00b1lar\u00c4\u00b1"
+                },
+                "name": "Adres Yok"
+            },
+            "route500": {
+                "attribution": {
+                    "text": "Tiles \u00c2\u00a9 cquest@Openstreetmap France, data \u00c2\u00a9 IGN, LO/OL"
+                },
+                "description": "Routes of the classified network (highways, nationals, departmentals)",
+                "name": "Route 500"
+            },
+            "rzeszowski-aerial": {
+                "attribution": {
+                    "text": "Rzeszow \u00c4\u00b0l\u00c3\u00a7esi"
+                },
+                "name": "Rzeszow \u00c4\u00b0l\u00c3\u00a7esi: Ortofotomap (hava g\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bcs\u00c3\u00bc)"
+            },
+            "rzeszowski-buildings": {
+                "attribution": {
+                    "text": "Rzeszow \u00c4\u00b0l\u00c3\u00a7esi"
+                },
+                "name": "Rzeszow \u00c4\u00b0l\u00c3\u00a7esi: Binalar"
+            },
+            "scb-industrial": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Statistics Sweden, CC0"
+                },
+                "description": "B\u00c3\u00bcy\u00c3\u00bck \u00c3\u00b6l\u00c3\u00a7ekli ve end\u00c3\u00bcstriyel arazi kullan\u00c4\u00b1m\u00c4\u00b1 ile karakterize edilen co\u00c4\u0178rafi olarak s\u00c4\u00b1n\u00c4\u00b1rland\u00c4\u00b1r\u00c4\u00b1lm\u00c4\u00b1\u00c5\u0178 alanlar",
+                "name": "SCB - Sanayi b\u00c3\u00b6lgeleri"
+            },
+            "scb-settlements": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Statistics Sweden, CC0"
+                },
+                "description": "50-199 ki\u00c5\u0178inin ya\u00c5\u0178ad\u00c4\u00b1\u00c4\u0178\u00c4\u00b1 ve evler aras\u00c4\u00b1nda 150 metreden fazla mesafe bulunmayan biti\u00c5\u0178ik bina alanlar\u00c4\u00b1",
+                "name": "SCB - K\u00c3\u00bc\u00c3\u00a7\u00c3\u00bck Yerle\u00c5\u0178imler"
+            },
+            "scb-urban": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Statistics Sweden, CC0"
+                },
+                "description": "Haneler aras\u00c4\u00b1nda 500 metreden az mesafe bulunan en az 200 ki\u00c5\u0178ilik insan yerle\u00c5\u0178imleri",
+                "name": "SCB - Kentsel Alanlar"
+            },
+            "scb-vacation": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Statistics Sweden, CC0"
+                },
+                "description": "\u00c3\u2021o\u00c4\u0178unlukla tatil evlerinden olu\u00c5\u0178an biti\u00c5\u0178ik alanlar; aralar\u00c4\u00b1ndaki mesafenin 150 metreyi ge\u00c3\u00a7medi\u00c4\u0178i en az 50 tatil evinden olu\u00c5\u0178an bir koleksiyon",
+                "name": "SCB - Tatil Evi Alanlar\u00c4\u00b1"
+            },
+            "skobbler": {
+                "attribution": {
+                    "text": "Harita \u00c2\u00a9 skobbler, Veriler \u00c2\u00a9 OpenStreetMap destek\u00c3\u00a7ileri"
+                },
+                "name": "skobbler"
+            },
+            "skolverket-schools": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Skolverket"
+                },
+                "description": "\u00c4\u00b0sve\u00c3\u00a7 okullar\u00c4\u00b1.",
+                "name": "Ropczycko-s\u00c4\u2122dziszowski b\u00c3\u00b6lgesi"
+            },
+            "skoterleder": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Skoterleder.org"
+                },
+                "description": "Kar arabas\u00c4\u00b1 yollar\u00c4\u00b1",
+                "name": "\u00c4\u00b0sve\u00c3\u00a7 kar arabas\u00c4\u00b1 haritas\u00c4\u00b1"
+            },
+            "sropczyce-buildings": {
+                "attribution": {
+                    "text": "Ropczycko-s\u00c4\u2122dziszowski b\u00c3\u00b6lgesi"
+                },
+                "name": "Ropczycko-s\u00c4\u2122dziszowski b\u00c3\u00b6lgesi: Binalar"
+            },
+            "stalowowolski-buildings": {
+                "attribution": {
+                    "text": "Stalowa Wola b\u00c3\u00b6lgesi"
+                },
+                "name": "Stalowa Wola b\u00c3\u00b6lgesi: Binalar"
+            },
+            "stamen-terrain-background": {
+                "attribution": {
+                    "text": "Harita karolar\u00c4\u00b1 Stamen Design taraf\u00c4\u00b1ndan, CC BY 3.0 alt\u00c4\u00b1nda. Veriler OpenStreetMap taraf\u00c4\u00b1ndan, ODbL alt\u00c4\u00b1nda"
+                },
+                "name": "Stamen Arazi"
+            },
+            "stockholm-orto": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Stokholm belediyesi, CC0"
+                },
+                "description": "Stockholm Belediyesi'nden ortofotolar 2018, CC0 lisans\u00c4\u00b1",
+                "name": "Stokholm Ortofoto"
+            },
+            "susono_shizuoka_jp_orthophoto": {
+                "attribution": {
+                    "text": "Susono ortofotosu"
+                },
+                "description": "Susono  taraf\u00c4\u00b1ndan a\u00c3\u00a7\u00c4\u00b1k veri olarak yay\u00c4\u00b1nlanan hava foto\u00c4\u0178raflar\u00c4\u00b1.",
+                "name": "Susono \u00c5\u0178ehir ortofotosu"
+            },
+            "svk-electricity-network": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Svenska kraftn\u00c3\u00a4t"
+                },
+                "description": "\u00c4\u00b0sve\u00c3\u00a7 elektrik iletim a\u00c4\u0178\u00c4\u00b1.",
+                "name": "SVK - Elektrik \u00c5\u017eebekesi"
+            },
+            "tf-cycle": {
+                "attribution": {
+                    "text": "Harita \u00c2\u00a9 Thunderforest, Veriler \u00c2\u00a9 OpenStreetMap destek\u00c3\u00a7ileri"
+                },
+                "name": "Thunderforest OpenCycleMap"
+            },
+            "tf-landscape": {
+                "attribution": {
+                    "text": "Harita \u00c2\u00a9 Thunderforest, Veriler \u00c2\u00a9 OpenStreetMap destek\u00c3\u00a7ileri"
+                },
+                "name": "Thunderforest Arazi"
+            },
+            "tf-outdoors": {
+                "attribution": {
+                    "text": "haritalar \u00c2\u00a9 Thunderforest, veri \u00c2\u00a9 OpenStreetMap katk\u00c4\u00b1da bulunanlar"
+                },
+                "name": "Thunderforest A\u00c3\u00a7\u00c4\u00b1k Hava"
+            },
+            "trafikverket-baninfo": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Trafikverket, CC0"
+                },
+                "description": "\u00c4\u00b0sve\u00c3\u00a7 demiryolu a\u00c4\u0178\u00c4\u00b1, yan hatlar dahil",
+                "name": "Trafikverket Demiryolu A\u00c4\u0178\u00c4\u00b1"
+            },
+            "trafikverket-baninfo-option": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Trafikverket, CC0"
+                },
+                "description": "Harita katmanlar\u00c4\u00b1 i\u00c3\u00a7in \u00c3\u00a7e\u00c5\u0178itli se\u00c3\u00a7eneklere sahip \u00c4\u00b0sve\u00c3\u00a7 demiryolu a\u00c4\u0178\u00c4\u00b1",
+                "name": "Trafikverket Demiryolu A\u00c4\u0178\u00c4\u00b1 Se\u00c3\u00a7enekleri"
+            },
+            "trafikverket-vagnat": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Trafikverket, CC0"
+                },
+                "description": "\u00c4\u00b0sve\u00c3\u00a7 NVDB yol a\u00c4\u0178\u00c4\u00b1",
+                "name": "Trafikverket Yol A\u00c4\u0178\u00c4\u00b1"
+            },
+            "trafikverket-vagnat-extra": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Trafikverket, CC0"
+                },
+                "description": "\u00c4\u00b0sve\u00c3\u00a7 NVDB ekstra ayr\u00c4\u00b1nt\u00c4\u00b1lar: Otoyol referans\u00c4\u00b1, trafi\u00c4\u0178i sakinle\u00c5\u0178tirme, dinlenme alan\u00c4\u00b1, otob\u00c3\u00bcs dura\u00c4\u0178\u00c4\u00b1, k\u00c3\u00b6pr\u00c3\u00bc, t\u00c3\u00bcnel, h\u00c4\u00b1z kameras\u00c4\u00b1",
+                "name": "Trafikverket Yol A\u00c4\u0178\u00c4\u00b1 extra"
+            },
+            "trafikverket-vagnat-option": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Trafikverket, CC0"
+                },
+                "description": "Harita katmanlar\u00c4\u00b1 i\u00c3\u00a7in \u00c3\u00a7e\u00c5\u0178itli se\u00c3\u00a7eneklere sahip \u00c4\u00b0sve\u00c3\u00a7 NVDB yol a\u00c4\u0178\u00c4\u00b1",
+                "name": "Trafikverket Yol A\u00c4\u0178\u00c4\u00b1 Se\u00c3\u00a7enekleri"
+            },
+            "wroclaw-orto2015": {
+                "attribution": {
+                    "text": "Wroclaw Belediye Binas\u00c4\u00b1"
+                },
+                "name": "Wroclaw: Ortofoto haritas\u00c4\u00b1 2015 (uydu g\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bcs\u00c3\u00bc)"
+            },
+            "wroclaw-orto2018": {
+                "attribution": {
+                    "text": "Wroclaw Belediye Binas\u00c4\u00b1"
+                },
+                "name": "Wroclaw: Ortofoto haritas\u00c4\u00b1 2018 (havadan g\u00c3\u00b6r\u00c3\u00bcnt\u00c3\u00bc)"
+            }
+        }
+    }
+}

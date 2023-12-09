@@ -279,8 +279,9 @@ public final class Eli {
                 return null;
             }
             osmts = new TileLayerSource(ctx, id, name, url, type, category, overlay, defaultLayer, provider, termsOfUseUrl, icon, null, null, minZoom, maxZoom,
-                    TileLayerSource.DEFAULT_MAX_OVERZOOM, tileWidth, tileHeight, proj, preference, startDate, endDate, noTileHeader, noTileValues, description,
+                    TileLayerSource.DEFAULT_MAX_OVERZOOM, tileWidth, tileHeight, proj, preference, startDate, endDate, noTileHeader, noTileValues,
                     privacyPolicyUrl, async);
+            osmts.setDescription(description);
             osmts.setNoTileTile(noTileTile);
             if (TileLayerSource.TYPE_TMS.equals(osmts.getType()) || TileLayerSource.TYPE_PMT_3.equals(osmts.getType())) {
                 osmts.setTileType(MVT_VALUE.equals(getJsonString(properties, TILE_TYPE_KEY)) ? TileType.MVT : TileType.BITMAP);

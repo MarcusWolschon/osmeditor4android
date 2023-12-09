@@ -1,0 +1,41 @@
+{
+    "sq": {
+        "imagery": {
+            "OSM_Inspector-Highways": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, OpenStreetMap contributors, CC-BY-SA"
+                }
+            },
+            "OSM_Inspector-Multipolygon": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, OpenStreetMap contributors, CC-BY-SA"
+                }
+            },
+            "OSM_Inspector-Places": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, OpenStreetMap contributors, CC-BY-SA"
+                }
+            },
+            "kelkkareitit": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Kelkkareitit.fi"
+                }
+            },
+            "lantmateriet-orto1960": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Lantm\u00c3\u00a4teriet, CC0"
+                }
+            },
+            "lantmateriet-orto1975": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Lantm\u00c3\u00a4teriet, CC0"
+                }
+            },
+            "trafikverket-baninfo": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Trafikverket, CC0"
+                }
+            }
+        }
+    }
+}

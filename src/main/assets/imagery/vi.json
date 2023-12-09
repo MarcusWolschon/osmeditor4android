@@ -1,0 +1,872 @@
+{
+    "vi": {
+        "imagery": {
+            "Bedzin-PL-aerial_image": {
+                "attribution": {
+                    "text": "Gi\u00c3\u00a1m \u00c4\u2018\u00e1\u00bb\u2018c Huy\u00e1\u00bb\u2021n t\u00e1\u00ba\u00a1i B\u00c4\u2122dzin"
+                },
+                "name": "B\u00c4\u2122dzin: b\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c h\u00c3\u00acnh tr\u00e1\u00bb\u00b1c giao 2013 (kh\u00c3\u00b4ng \u00e1\u00ba\u00a3nh)"
+            },
+            "Bedzin-PL-buildings": {
+                "attribution": {
+                    "text": "Gi\u00c3\u00a1m \u00c4\u2018\u00e1\u00bb\u2018c Huy\u00e1\u00bb\u2021n t\u00e1\u00ba\u00a1i B\u00c4\u2122dzin"
+                },
+                "name": "B\u00c4\u2122dzin: T\u00c3\u00b2a nh\u00c3\u00a0"
+            },
+            "Bing": {
+                "description": "H\u00c3\u00acnh \u00e1\u00ba\u00a3nh v\u00e1\u00bb\u2021 tinh v\u00c3\u00a0 kh\u00c3\u00b4ng \u00e1\u00ba\u00a3nh.",
+                "name": "Bing B\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c Kh\u00c3\u00b4ng \u00e1\u00ba\u00a3nh"
+            },
+            "Bytom-2012": {
+                "attribution": {
+                    "text": "V\u00c4\u0192n ph\u00c3\u00b2ng Th\u00c3\u00a0nh ph\u00e1\u00bb\u2018 Bytom"
+                },
+                "name": "Bytom: b\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c h\u00c3\u00acnh tr\u00e1\u00bb\u00b1c giao 2012 (kh\u00c3\u00b4ng \u00e1\u00ba\u00a3nh)"
+            },
+            "Bytom-2014": {
+                "attribution": {
+                    "text": "V\u00c4\u0192n ph\u00c3\u00b2ng Th\u00c3\u00a0nh ph\u00e1\u00bb\u2018 Bytom"
+                },
+                "name": "Bytom: Fotoplan 2014 (kh\u00c3\u00b4ng \u00e1\u00ba\u00a3nh)"
+            },
+            "Bytom-buildings": {
+                "attribution": {
+                    "text": "V\u00c4\u0192n ph\u00c3\u00b2ng Th\u00c3\u00a0nh ph\u00e1\u00bb\u2018 Bytom"
+                },
+                "name": "Bytom: T\u00c3\u00b2a nh\u00c3\u00a0"
+            },
+            "Czestochowa-2011": {
+                "attribution": {
+                    "text": "V\u00c4\u0192n ph\u00c3\u00b2ng Th\u00c3\u00a0nh ph\u00e1\u00bb\u2018 Cz\u00c4\u2122stochowa"
+                },
+                "name": "Cz\u00c4\u2122stochowa: b\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c h\u00c3\u00acnh tr\u00e1\u00bb\u00b1c giao 2011 (kh\u00c3\u00b4ng \u00e1\u00ba\u00a3nh)"
+            },
+            "Czestochowa-2013": {
+                "attribution": {
+                    "text": "V\u00c4\u0192n ph\u00c3\u00b2ng Th\u00c3\u00a0nh ph\u00e1\u00bb\u2018 Cz\u00c4\u2122stochowa"
+                },
+                "name": "Cz\u00c4\u2122stochowa: b\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c h\u00c3\u00acnh tr\u00e1\u00bb\u00b1c giao 2013 (kh\u00c3\u00b4ng \u00e1\u00ba\u00a3nh)"
+            },
+            "Czestochowa-2014": {
+                "attribution": {
+                    "text": "V\u00c4\u0192n ph\u00c3\u00b2ng Th\u00c3\u00a0nh ph\u00e1\u00bb\u2018 Cz\u00c4\u2122stochowa"
+                },
+                "name": "Cz\u00c4\u2122stochowa: b\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c h\u00c3\u00acnh tr\u00e1\u00bb\u00b1c giao 2014 (kh\u00c3\u00b4ng \u00e1\u00ba\u00a3nh)"
+            },
+            "Czestochowa-2015": {
+                "attribution": {
+                    "text": "V\u00c4\u0192n ph\u00c3\u00b2ng Th\u00c3\u00a0nh ph\u00e1\u00bb\u2018 Cz\u00c4\u2122stochowa"
+                },
+                "name": "Cz\u00c4\u2122stochowa: b\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c h\u00c3\u00acnh tr\u00e1\u00bb\u00b1c giao 2015 (kh\u00c3\u00b4ng \u00e1\u00ba\u00a3nh)"
+            },
+            "Czestochowa-2016": {
+                "attribution": {
+                    "text": "V\u00c4\u0192n ph\u00c3\u00b2ng Th\u00c3\u00a0nh ph\u00e1\u00bb\u2018 Cz\u00c4\u2122stochowa"
+                },
+                "name": "Cz\u00c4\u2122stochowa: b\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c h\u00c3\u00acnh tr\u00e1\u00bb\u00b1c giao 2016 (kh\u00c3\u00b4ng \u00e1\u00ba\u00a3nh)"
+            },
+            "Czestochowa-2017": {
+                "attribution": {
+                    "text": "V\u00c4\u0192n ph\u00c3\u00b2ng Th\u00c3\u00a0nh ph\u00e1\u00bb\u2018 Cz\u00c4\u2122stochowa"
+                },
+                "name": "Cz\u00c4\u2122stochowa: b\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c h\u00c3\u00acnh tr\u00e1\u00bb\u00b1c giao 2017 (kh\u00c3\u00b4ng \u00e1\u00ba\u00a3nh)"
+            },
+            "Czestochowa-buildings": {
+                "attribution": {
+                    "text": "V\u00c4\u0192n ph\u00c3\u00b2ng Th\u00c3\u00a0nh ph\u00e1\u00bb\u2018 Cz\u00c4\u2122stochowa"
+                },
+                "name": "Cz\u00c4\u2122stochowa: T\u00c3\u00b2a nh\u00c3\u00a0"
+            },
+            "Dourados_Ortofotos": {
+                "attribution": {
+                    "text": "T\u00c3\u00b2a th\u00e1\u00bb\u2039 ch\u00c3\u00a1nh Dourados \u00e2\u20ac\u201c GeoDourados"
+                },
+                "description": "Kh\u00c3\u00b4ng h\u00c3\u00acnh \u00c4\u2018\u00e1\u00bb\u2122 ph\u00c3\u00a2n gi\u00e1\u00ba\u00a3i cao Dourados (2018) v\u00c3\u00a0 v\u00c3\u00a0i khu ph\u00e1\u00bb\u2018 (2020).",
+                "name": "Dourados H\u00c3\u00acnh tr\u00e1\u00bb\u00b1c giao"
+            },
+            "EOXAT2018CLOUDLESS": {
+                "attribution": {
+                    "text": "Sentinel-2 kh\u00c3\u00b4ng c\u00c3\u00b3 m\u00c3\u00a2y \u00e2\u20ac\u201c https://s2maps.eu b\u00e1\u00bb\u0178i EOX IT Services GmbH (Ch\u00e1\u00bb\u00a9a d\u00e1\u00bb\u00af li\u00e1\u00bb\u2021u Copernicus Sentinel \u00c4\u2018\u00c3\u00a3 s\u00e1\u00bb\u00ada \u00c4\u2018\u00e1\u00bb\u2022i 2017 & 2018)"
+                },
+                "description": "H\u00c3\u00acnh \u00e1\u00ba\u00a3nh v\u00e1\u00bb\u2021 tinh Sentinel \u00c4\u2018\u00c6\u00b0\u00e1\u00bb\u00a3c x\u00e1\u00bb\u00ad l\u00c3\u00bd sau",
+                "name": "eox.at 2018 kh\u00c3\u00b4ng c\u00c3\u00b3 m\u00c3\u00a2y"
+            },
+            "EsriWorldImagery": {
+                "attribution": {
+                    "text": "\u00c4\ufffdi\u00e1\u00bb\ufffdu kho\u00e1\u00ba\u00a3n & Ph\u00e1\u00ba\u00a3n h\u00e1\u00bb\u201ci"
+                },
+                "description": "Esri H\u00c3\u00acnh \u00e1\u00ba\u00a3nh Th\u00e1\u00ba\u00bf gi\u00e1\u00bb\u203ai",
+                "name": "Esri H\u00c3\u00acnh \u00e1\u00ba\u00a3nh Th\u00e1\u00ba\u00bf gi\u00e1\u00bb\u203ai"
+            },
+            "EsriWorldImageryClarity": {
+                "attribution": {
+                    "text": "\u00c4\ufffdi\u00e1\u00bb\ufffdu kho\u00e1\u00ba\u00a3n & Ph\u00e1\u00ba\u00a3n h\u00e1\u00bb\u201ci"
+                },
+                "description": "H\u00c3\u00acnh \u00e1\u00ba\u00a3nh l\u00c6\u00b0u tr\u00e1\u00bb\u00af Esri c\u00c3\u00b3 th\u00e1\u00bb\u0192 r\u00c3\u00b5 h\u00c6\u00a1n v\u00c3\u00a0 ch\u00c3\u00adnh x\u00c3\u00a1c h\u00c6\u00a1n l\u00e1\u00bb\u203ap m\u00e1\u00ba\u00b7c \u00c4\u2018\u00e1\u00bb\u2039nh.",
+                "name": "Esri H\u00c3\u00acnh \u00e1\u00ba\u00a3nh Th\u00e1\u00ba\u00bf gi\u00e1\u00bb\u203ai (Clarity) Beta"
+            },
+            "Frankfurt-am-Main-2019": {
+                "attribution": {
+                    "text": "V\u00c4\u0192n ph\u00c3\u00b2ng Kh\u00e1\u00ba\u00a3o s\u00c3\u00a1t Th\u00c3\u00a0nh ph\u00e1\u00bb\u2018 Frankfurt am Main"
+                },
+                "description": "Kh\u00c3\u00b4ng \u00e1\u00ba\u00a3nh Frankfurt am Main \u00c4\u2018\u00c6\u00b0\u00e1\u00bb\u00a3c ch\u00e1\u00bb\u00a5p ng\u00c3\u00a0y 16 th\u00c3\u00a1ng 4 n\u00c4\u0192m 2019",
+                "name": "Kh\u00c3\u00b4ng \u00e1\u00ba\u00a3nh Frankfurt am Main 2019"
+            },
+            "Geoportal2-PL-HighResolution-aerial_image_WMS": {
+                "attribution": {
+                    "text": "V\u00c4\u0192n ph\u00c3\u00b2ng Ch\u00c3\u00adnh v\u00c3\u00ac Tr\u00e1\u00ba\u00afc \u00c4\u2018\u00e1\u00bb\u2039a v\u00c3\u00a0 B\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c h\u00e1\u00bb\ufffdc"
+                },
+                "description": "B\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c h\u00c3\u00acnh tr\u00e1\u00bb\u00b1c giao c\u00c3\u00b3 \u00c4\u2018\u00e1\u00bb\u2122 ph\u00c3\u00a2n gi\u00e1\u00ba\u00a3i 10 cm tr\u00e1\u00bb\u0178 l\u00c3\u00aan. D\u00e1\u00bb\u00af li\u00e1\u00bb\u2021u \u00c4\u2018\u00c6\u00b0\u00e1\u00bb\u00a3c s\u00e1\u00ba\u00afp x\u00e1\u00ba\u00bfp theo \u00c4\u2018\u00e1\u00bb\u2122 ph\u00c3\u00a2n gi\u00e1\u00ba\u00a3i r\u00e1\u00bb\u201ci theo \u00c4\u2018\u00e1\u00bb\u2122 t\u00c6\u00b0\u00c6\u00a1i, v\u00c3\u00ad d\u00e1\u00bb\u00a5 m\u00e1\u00ba\u00a3ng ch\u00e1\u00bb\u00a5p n\u00c4\u0192m 2012 c\u00c3\u00b3 \u00c4\u2018\u00e1\u00bb\u2122 ph\u00c3\u00a2n gi\u00e1\u00ba\u00a3i 8 cm s\u00e1\u00ba\u00bd ph\u00e1\u00bb\u00a7 m\u00e1\u00ba\u00a3ng ch\u00e1\u00bb\u00a5p n\u00c4\u0192m 2019 c\u00c3\u00b3 \u00c4\u2018\u00e1\u00bb\u2122 ph\u00c3\u00a2n gi\u00e1\u00ba\u00a3i 10 cm.",
+                "name": "Geoportal 2: B\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c H\u00c3\u00acnh tr\u00e1\u00bb\u00b1c giao \u00c4\ufffd\u00e1\u00bb\u2122 ph\u00c3\u00a2n gi\u00e1\u00ba\u00a3i cao (WMS kh\u00c3\u00b4ng \u00e1\u00ba\u00a3nh)"
+            },
+            "Geoportal2-PL-Streets_WMS": {
+                "attribution": {
+                    "text": "V\u00c4\u0192n ph\u00c3\u00b2ng Ch\u00c3\u00adnh v\u00c3\u00ac Tr\u00e1\u00ba\u00afc \u00c4\u2018\u00e1\u00bb\u2039a v\u00c3\u00a0 B\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c h\u00e1\u00bb\ufffdc"
+                },
+                "description": "WMS \u00c4\ufffd\u00c3\u00a1nh s\u00e1\u00bb\u2018 \u00c4\ufffd\u00e1\u00bb\u2039a ch\u00e1\u00bb\u2030 H\u00e1\u00bb\u00a3p nh\u00e1\u00ba\u00a5t Qu\u00e1\u00bb\u2018c gia \u00c4\u2018\u00e1\u00bb\u0192 t\u00e1\u00ba\u00a3i v\u00e1\u00bb\ufffd c\u00c3\u00a1c h\u00c3\u00acnh \u00e1\u00ba\u00a3nh b\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c d\u00e1\u00bb\u00b1a v\u00c3\u00a0o d\u00e1\u00bb\u00af li\u00e1\u00bb\u2021u kh\u00c3\u00b4ng gian t\u00e1\u00bb\u00ab c\u00c3\u00a1c h\u00e1\u00bb\u201c s\u00c6\u00a1 \u00c4\u2018\u00c6\u00b0\u00e1\u00bb\ufffdng s\u00c3\u00a1 v\u00c3\u00a0 \u00c4\u2018\u00e1\u00bb\u2039a ch\u00e1\u00bb\u2030 c\u00e1\u00bb\u00a7a S\u00e1\u00bb\u2022 b\u00e1\u00bb\u2122 Bi\u00c3\u00aan gi\u00e1\u00bb\u203ai Qu\u00e1\u00bb\u2018c gia.",
+                "name": "Geoportal 2: T\u00c3\u00aan \u00c4\u2018\u00c6\u00b0\u00e1\u00bb\ufffdng"
+            },
+            "Geoportal2-PL-addres_points_WMS": {
+                "attribution": {
+                    "text": "V\u00c4\u0192n ph\u00c3\u00b2ng Ch\u00c3\u00adnh v\u00c3\u00ac Tr\u00e1\u00ba\u00afc \u00c4\u2018\u00e1\u00bb\u2039a v\u00c3\u00a0 B\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c h\u00e1\u00bb\ufffdc"
+                },
+                "description": "WMS \u00c4\ufffd\u00c3\u00a1nh s\u00e1\u00bb\u2018 \u00c4\ufffd\u00e1\u00bb\u2039a ch\u00e1\u00bb\u2030 H\u00e1\u00bb\u00a3p nh\u00e1\u00ba\u00a5t Qu\u00e1\u00bb\u2018c gia \u00c4\u2018\u00e1\u00bb\u0192 t\u00e1\u00ba\u00a3i v\u00e1\u00bb\ufffd c\u00c3\u00a1c h\u00c3\u00acnh \u00e1\u00ba\u00a3nh b\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c d\u00e1\u00bb\u00b1a v\u00c3\u00a0o d\u00e1\u00bb\u00af li\u00e1\u00bb\u2021u kh\u00c3\u00b4ng gian t\u00e1\u00bb\u00ab c\u00c3\u00a1c h\u00e1\u00bb\u201c s\u00c6\u00a1 \u00c4\u2018\u00c6\u00b0\u00e1\u00bb\ufffdng s\u00c3\u00a1 v\u00c3\u00a0 \u00c4\u2018\u00e1\u00bb\u2039a ch\u00e1\u00bb\u2030 c\u00e1\u00bb\u00a7a S\u00e1\u00bb\u2022 b\u00e1\u00bb\u2122 Bi\u00c3\u00aan gi\u00e1\u00bb\u203ai Qu\u00e1\u00bb\u2018c gia.",
+                "name": "Geoportal 2: \u00c4\ufffdi\u00e1\u00bb\u0192m \u00c4\u2018\u00e1\u00bb\u2039a ch\u00e1\u00bb\u2030"
+            },
+            "Geoportal2-PL-aerial_image_WMS": {
+                "attribution": {
+                    "text": "V\u00c4\u0192n ph\u00c3\u00b2ng Ch\u00c3\u00adnh v\u00c3\u00ac Tr\u00e1\u00ba\u00afc \u00c4\u2018\u00e1\u00bb\u2039a v\u00c3\u00a0 B\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c h\u00e1\u00bb\ufffdc"
+                },
+                "name": "Geoportal 2: B\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c H\u00c3\u00acnh tr\u00e1\u00bb\u00b1c giao (kh\u00c3\u00b4ng \u00e1\u00ba\u00a3nh m\u00e1\u00bb\u203ai nh\u00e1\u00ba\u00a5t) (WMS)"
+            },
+            "Geoportal2-PL-aerial_image_WMTS": {
+                "attribution": {
+                    "text": "V\u00c4\u0192n ph\u00c3\u00b2ng Ch\u00c3\u00adnh v\u00c3\u00ac Tr\u00e1\u00ba\u00afc \u00c4\u2018\u00e1\u00bb\u2039a v\u00c3\u00a0 B\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c h\u00e1\u00bb\ufffdc"
+                },
+                "name": "Geoportal 2: B\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c H\u00c3\u00acnh tr\u00e1\u00bb\u00b1c giao (kh\u00c3\u00b4ng \u00e1\u00ba\u00a3nh m\u00e1\u00bb\u203ai nh\u00e1\u00ba\u00a5t) (WMTS)"
+            },
+            "Geoportal2-PL-buildings_WMS": {
+                "attribution": {
+                    "text": "V\u00c4\u0192n ph\u00c3\u00b2ng Ch\u00c3\u00adnh v\u00c3\u00ac Tr\u00e1\u00ba\u00afc \u00c4\u2018\u00e1\u00bb\u2039a v\u00c3\u00a0 B\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c h\u00e1\u00bb\ufffdc"
+                },
+                "name": "Geoportal 2: H\u00e1\u00bb\u201c s\u00c6\u00a1 t\u00c3\u00b2a nh\u00c3\u00a0 WMS"
+            },
+            "Geoportal2-PL-plot_boundaries_WMS": {
+                "attribution": {
+                    "text": "V\u00c4\u0192n ph\u00c3\u00b2ng Ch\u00c3\u00adnh v\u00c3\u00ac Tr\u00e1\u00ba\u00afc \u00c4\u2018\u00e1\u00bb\u2039a v\u00c3\u00a0 B\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c h\u00e1\u00bb\ufffdc"
+                },
+                "name": "Geoportal 2: Mi\u00e1\u00ba\u00bfng \u00c4\u2018\u00e1\u00ba\u00a5t Granice"
+            },
+            "Geoportal2-PL-prng": {
+                "attribution": {
+                    "text": "Trung t\u00c3\u00a2m T\u00c3\u00a0i li\u00e1\u00bb\u2021u Tr\u00e1\u00ba\u00afc \u00c4\u2018\u00e1\u00bb\u2039a v\u00c3\u00a0 B\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c"
+                },
+                "name": "Geoportal 2: C\u00c6\u00a1 s\u00e1\u00bb\u0178 d\u00e1\u00bb\u00af li\u00e1\u00bb\u2021u \u00c4\ufffd\u00e1\u00bb\u2039a danh Ba Lan"
+            },
+            "Gliwice-2013": {
+                "attribution": {
+                    "text": "V\u00c4\u0192n ph\u00c3\u00b2ng Th\u00c3\u00a0nh ph\u00e1\u00bb\u2018 Gliwice"
+                },
+                "name": "Gliwice: b\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c h\u00c3\u00acnh tr\u00e1\u00bb\u00b1c giao 2013 (kh\u00c3\u00b4ng \u00e1\u00ba\u00a3nh)"
+            },
+            "Gliwice-2017": {
+                "attribution": {
+                    "text": "V\u00c4\u0192n ph\u00c3\u00b2ng Th\u00c3\u00a0nh ph\u00e1\u00bb\u2018 Gliwice"
+                },
+                "name": "Gliwice: b\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c h\u00c3\u00acnh tr\u00e1\u00bb\u00b1c giao 2017 (kh\u00c3\u00b4ng \u00e1\u00ba\u00a3nh)"
+            },
+            "Gliwice-2018": {
+                "attribution": {
+                    "text": "V\u00c4\u0192n ph\u00c3\u00b2ng Th\u00c3\u00a0nh ph\u00e1\u00bb\u2018 Gliwice"
+                },
+                "name": "Gliwice: b\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c h\u00c3\u00acnh tr\u00e1\u00bb\u00b1c giao 2018 (kh\u00c3\u00b4ng \u00e1\u00ba\u00a3nh)"
+            },
+            "Gliwice-2020": {
+                "attribution": {
+                    "text": "V\u00c4\u0192n ph\u00c3\u00b2ng Th\u00c3\u00a0nh ph\u00e1\u00bb\u2018 Gliwice"
+                },
+                "name": "Gliwice: b\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c h\u00c3\u00acnh tr\u00e1\u00bb\u00b1c giao 2020 (kh\u00c3\u00b4ng \u00e1\u00ba\u00a3nh)"
+            },
+            "Gliwice-buildings": {
+                "attribution": {
+                    "text": "V\u00c4\u0192n ph\u00c3\u00b2ng Th\u00c3\u00a0nh ph\u00e1\u00bb\u2018 Gliwice"
+                },
+                "name": "Gliwice: T\u00c3\u00b2a nh\u00c3\u00a0"
+            },
+            "LSA-ATKIS_BU": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 GeoBasis-DE/LVermGeo LSA"
+                },
+                "description": "H\u00c3\u00acnh d\u00e1\u00ba\u00a1ng c\u00c3\u00a1c t\u00c3\u00b2a nh\u00c3\u00a0 t\u00e1\u00ba\u00a1i Sachsen-Anhalt",
+                "name": "\u00c2\u00a9 GeoBasis-DE/LVermGeo LSA, ATKIS_BU"
+            },
+            "LSA-DOP20": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 GeoBasis-DE/LVermGeo LSA"
+                },
+                "description": "Kh\u00c3\u00b4ng \u00e1\u00ba\u00a3nh t\u00e1\u00ba\u00a1i bang Sachsen-Anhalt, \u00c4\u2018\u00e1\u00bb\u2122 ph\u00c3\u00a2n gi\u00e1\u00ba\u00a3i 20 cm",
+                "name": "\u00c2\u00a9 GeoBasis-DE/LVermGeo LSA, DOP20"
+            },
+            "LSA-DVG": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 GeoBasis-DE/LVermGeo LSA"
+                },
+                "description": "C\u00c3\u00a1c bi\u00c3\u00aan gi\u00e1\u00bb\u203ai h\u00c3\u00a0nh ch\u00c3\u00adnh li\u00c3\u00aan bang, bang, huy\u00e1\u00bb\u2021n, x\u00c3\u00a3, v\u00c3\u00a0 ph\u00e1\u00ba\u00a7n x\u00c3\u00a3 d\u00c6\u00b0\u00e1\u00bb\u203ai d\u00e1\u00ba\u00a1ng vect\u00c6\u00a1.",
+                "name": "\u00c2\u00a9 GeoBasis-DE/LVermGeo LSA, DVG"
+            },
+            "LocalAuthorities_RightsOfWay": {
+                "attribution": {
+                    "text": "Ch\u00e1\u00bb\u00a9a th\u00c3\u00b4ng tin khu v\u00e1\u00bb\u00b1c c\u00c3\u00b4ng \u00c4\u2018\u00c6\u00b0\u00e1\u00bb\u00a3c ph\u00c3\u00a1t h\u00c3\u00a0nh theo Gi\u00e1\u00ba\u00a5y ph\u00c3\u00a9p Ch\u00c3\u00adnh ph\u00e1\u00bb\u00a7 M\u00e1\u00bb\u0178 v3.0."
+                },
+                "description": "D\u00e1\u00bb\u00af li\u00e1\u00bb\u2021u l\u00e1\u00bb\u2018i ra v\u00c3\u00a0o c\u00c3\u00b4ng c\u00e1\u00bb\u2122ng do ch\u00c3\u00adnh quy\u00e1\u00bb\ufffdn \u00c4\u2018\u00e1\u00bb\u2039a ph\u00c6\u00b0\u00c6\u00a1ng ph\u00c3\u00a1t h\u00c3\u00a0nh v\u00c3\u00a0 rowmaps.com s\u00c6\u00b0u t\u00e1\u00ba\u00adp",
+                "name": "L\u00e1\u00bb\u2018i Ra v\u00c3\u00a0o C\u00c3\u00b4ng c\u00e1\u00bb\u2122ng"
+            },
+            "Lodz-2015": {
+                "attribution": {
+                    "text": "V\u00c4\u0192n ph\u00c3\u00b2ng Th\u00c3\u00a0nh ph\u00e1\u00bb\u2018 \u00c5\ufffd\u00c3\u00b3d\u00c5\u00ba"
+                },
+                "name": "\u00c5\ufffd\u00c3\u00b3d\u00c5\u00ba: b\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c h\u00c3\u00acnh tr\u00e1\u00bb\u00b1c giao 2015 (kh\u00c3\u00b4ng \u00e1\u00ba\u00a3nh)"
+            },
+            "Lodz-2017": {
+                "attribution": {
+                    "text": "V\u00c4\u0192n ph\u00c3\u00b2ng Th\u00c3\u00a0nh ph\u00e1\u00bb\u2018 \u00c5\ufffd\u00c3\u00b3d\u00c5\u00ba"
+                },
+                "name": "\u00c5\ufffd\u00c3\u00b3d\u00c5\u00ba: b\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c h\u00c3\u00acnh tr\u00e1\u00bb\u00b1c giao 2017 (kh\u00c3\u00b4ng \u00e1\u00ba\u00a3nh)"
+            },
+            "Lodz-buildings": {
+                "attribution": {
+                    "text": "V\u00c4\u0192n ph\u00c3\u00b2ng Th\u00c3\u00a0nh ph\u00e1\u00bb\u2018 \u00c5\ufffd\u00c3\u00b3d\u00c5\u00ba"
+                },
+                "name": "\u00c5\ufffd\u00c3\u00b3d\u00c5\u00ba: T\u00c3\u00b2a nh\u00c3\u00a0"
+            },
+            "MAPNIK": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 nh\u00e1\u00bb\u00afng ng\u00c6\u00b0\u00e1\u00bb\ufffdi \u00c4\u2018\u00c3\u00b3ng g\u00c3\u00b3p v\u00c3\u00a0o OpenStreetMap, ODbL 1.0"
+                },
+                "description": "L\u00e1\u00bb\u203ap OpenStreetMap m\u00e1\u00ba\u00b7c \u00c4\u2018\u00e1\u00bb\u2039nh.",
+                "name": "OpenStreetMap (Chu\u00e1\u00ba\u00a9n)"
+            },
+            "Maaamet-Estonia_Cadastre": {
+                "attribution": {
+                    "text": "C\u00c6\u00a1 s\u00e1\u00bb\u0178 H\u00c3\u00acnh tr\u00e1\u00bb\u00b1c giao \u00c4\ufffd\u00e1\u00bb\u2039a ch\u00c3\u00adnh Ban \u00c4\ufffd\u00e1\u00ba\u00a5t \u00c4\u2018ai"
+                },
+                "name": "B\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c \u00c4\ufffd\u00e1\u00bb\u2039a ch\u00c3\u00adnh Ban \u00c4\ufffd\u00e1\u00ba\u00a5t \u00c4\u2018ai"
+            },
+            "Maaamet-Estonia_Ortho": {
+                "attribution": {
+                    "text": "H\u00c3\u00acnh tr\u00e1\u00bb\u00b1c giao Ban \u00c4\ufffd\u00e1\u00ba\u00a5t \u00c4\u2018ai"
+                },
+                "name": "Tr\u00e1\u00bb\u00b1c giao Ban \u00c4\ufffd\u00e1\u00ba\u00a5t \u00c4\u2018ai (WMS)"
+            },
+            "Mapbox": {
+                "attribution": {
+                    "text": "\u00c4\ufffdi\u00e1\u00bb\ufffdu kho\u00e1\u00ba\u00a3n & Ph\u00e1\u00ba\u00a3n h\u00e1\u00bb\u201ci"
+                },
+                "description": "B\u00e1\u00bb\u2122 m\u00e1\u00ba\u00a3nh raster c\u00e1\u00bb\u00a7a Mapbox ch\u00e1\u00bb\u00a9a l\u00e1\u00bb\u203ap h\u00c3\u00acnh \u00e1\u00ba\u00a3nh ch\u00e1\u00bb\u00a5p t\u00e1\u00bb\u00ab v\u00e1\u00bb\u2021 tinh v\u00c3\u00a0 tr\u00c3\u00aan kh\u00c3\u00b4ng trung",
+                "name": "Mapbox V\u00e1\u00bb\u2021 tinh"
+            },
+            "OSIP_1ft": {
+                "attribution": {
+                    "text": "Ch\u00c6\u00b0\u00c6\u00a1ng tr\u00c3\u00acnh H\u00c3\u00acnh \u00e1\u00ba\u00a3nh To\u00c3\u00a0n ti\u00e1\u00bb\u0192u bang Ohio"
+                },
+                "description": "H\u00c3\u00acnh \u00e1\u00ba\u00a3nh tr\u00e1\u00bb\u00b1c giao t\u00e1\u00ba\u00a5t c\u00e1\u00ba\u00a3 88 qu\u00e1\u00ba\u00adn do Ch\u00c6\u00b0\u00c6\u00a1ng tr\u00c3\u00acnh H\u00c3\u00acnh \u00e1\u00ba\u00a3nh To\u00c3\u00a0n ti\u00e1\u00bb\u0192u bang Ohio II (OSIP II) ch\u00e1\u00bb\u00a5p v\u00e1\u00bb\u203ai \u00c4\u2018\u00e1\u00bb\u2122 ph\u00c3\u00a2n gi\u00e1\u00ba\u00a3i 1 b\u00e1\u00bb\u2122 t\u00e1\u00bb\u00ab 2011 \u00c4\u2018\u00e1\u00ba\u00bfn 2014."
+            },
+            "OSIP_6in": {
+                "attribution": {
+                    "text": "Ch\u00c6\u00b0\u00c6\u00a1ng tr\u00c3\u00acnh H\u00c3\u00acnh \u00e1\u00ba\u00a3nh To\u00c3\u00a0n ti\u00e1\u00bb\u0192u bang Ohio"
+                },
+                "description": "H\u00c3\u00acnh \u00e1\u00ba\u00a3nh tr\u00e1\u00bb\u00b1c giao 40 qu\u00e1\u00ba\u00adn do Ch\u00c6\u00b0\u00c6\u00a1ng tr\u00c3\u00acnh H\u00c3\u00acnh \u00e1\u00ba\u00a3nh To\u00c3\u00a0n ti\u00e1\u00bb\u0192u bang Ohio III (OSIP III) ch\u00e1\u00bb\u00a5p v\u00e1\u00bb\u203ai \u00c4\u2018\u00e1\u00bb\u2122 ph\u00c3\u00a2n gi\u00e1\u00ba\u00a3i 6 inch t\u00e1\u00bb\u00ab 2017 \u00c4\u2018\u00e1\u00ba\u00bfn 2018, c\u00e1\u00bb\u2122ng th\u00c3\u00aam h\u00c3\u00acnh \u00e1\u00ba\u00a3nh 16 qu\u00e1\u00ba\u00adn t\u00e1\u00bb\u00ab OSIP I v\u00c3\u00a0 OSIP II t\u00e1\u00bb\u00ab 2010 \u00c4\u2018\u00e1\u00ba\u00bfn 2014.",
+                "name": "Ch\u00c6\u00b0\u00c6\u00a1ng tr\u00c3\u00acnh H\u00c3\u00acnh \u00e1\u00ba\u00a3nh To\u00c3\u00a0n ti\u00e1\u00bb\u0192u bang Ohio 6 Inch"
+            },
+            "OSMUK-Cadastral-Parcels": {
+                "attribution": {
+                    "text": "Ch\u00e1\u00bb\u00a9a th\u00c3\u00b4ng tin khu v\u00e1\u00bb\u00b1c c\u00c3\u00b4ng \u00c4\u2018\u00c6\u00b0\u00e1\u00bb\u00a3c ph\u00c3\u00a1t h\u00c3\u00a0nh theo Gi\u00e1\u00ba\u00a5y ph\u00c3\u00a9p Ch\u00c3\u00adnh ph\u00e1\u00bb\u00a7 M\u00e1\u00bb\u0178 v3.0."
+                },
+                "description": "M\u00e1\u00ba\u00a3nh \u00c4\u2018\u00e1\u00ba\u00a5t \u00c4\u2018\u00e1\u00bb\u2039a ch\u00c3\u00adnh t\u00e1\u00ba\u00a1i \u00c4\u2018\u00e1\u00ba\u00a3o Anh \u00c4\u2018\u00c6\u00b0\u00e1\u00bb\u00a3c ch\u00e1\u00bb\u2030nh l\u00e1\u00ba\u00a1i ho\u00c3\u00a0n h\u00e1\u00ba\u00a3o",
+                "name": "OSM Anh M\u00e1\u00ba\u00a3nh \u00c4\u2018\u00e1\u00ba\u00a5t \u00c4\ufffd\u00e1\u00bb\u2039a ch\u00c3\u00adnh"
+            },
+            "OSM_Inspector-Addresses": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, nh\u00e1\u00bb\u00afng ng\u00c6\u00b0\u00e1\u00bb\ufffdi \u00c4\u2018\u00c3\u00b3ng g\u00c3\u00b3p v\u00c3\u00a0o OpenStreetMap, CC BY-SA"
+                },
+                "name": "Tr\u00c3\u00acnh ki\u00e1\u00bb\u0192m tra OSM: \u00c4\ufffd\u00e1\u00bb\u2039a ch\u00e1\u00bb\u2030"
+            },
+            "OSM_Inspector-Geometry": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, nh\u00e1\u00bb\u00afng ng\u00c6\u00b0\u00e1\u00bb\ufffdi \u00c4\u2018\u00c3\u00b3ng g\u00c3\u00b3p v\u00c3\u00a0o OpenStreetMap, CC BY-SA"
+                },
+                "name": "Tr\u00c3\u00acnh ki\u00e1\u00bb\u0192m tra OSM: H\u00c3\u00acnh d\u00e1\u00ba\u00a1ng"
+            },
+            "OSM_Inspector-Highways": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, nh\u00e1\u00bb\u00afng ng\u00c6\u00b0\u00e1\u00bb\ufffdi \u00c4\u2018\u00c3\u00b3ng g\u00c3\u00b3p v\u00c3\u00a0o OpenStreetMap, CC BY-SA"
+                },
+                "name": "Tr\u00c3\u00acnh ki\u00e1\u00bb\u0192m tra OSM: \u00c4\ufffd\u00c6\u00b0\u00e1\u00bb\ufffdng s\u00c3\u00a1"
+            },
+            "OSM_Inspector-Multipolygon": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, nh\u00e1\u00bb\u00afng ng\u00c6\u00b0\u00e1\u00bb\ufffdi \u00c4\u2018\u00c3\u00b3ng g\u00c3\u00b3p v\u00c3\u00a0o OpenStreetMap, CC BY-SA"
+                },
+                "name": "Tr\u00c3\u00acnh ki\u00e1\u00bb\u0192m tra OSM: V\u00c3\u00b9ng"
+            },
+            "OSM_Inspector-Places": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, nh\u00e1\u00bb\u00afng ng\u00c6\u00b0\u00e1\u00bb\ufffdi \u00c4\u2018\u00c3\u00b3ng g\u00c3\u00b3p v\u00c3\u00a0o OpenStreetMap, CC BY-SA"
+                },
+                "name": "Tr\u00c3\u00acnh ki\u00e1\u00bb\u0192m tra OSM: \u00c4\ufffd\u00e1\u00bb\u2039a \u00c4\u2018i\u00e1\u00bb\u0192m"
+            },
+            "OSM_Inspector-Routing": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, nh\u00e1\u00bb\u00afng ng\u00c6\u00b0\u00e1\u00bb\ufffdi \u00c4\u2018\u00c3\u00b3ng g\u00c3\u00b3p v\u00c3\u00a0o OpenStreetMap, CC BY-SA"
+                },
+                "name": "Tr\u00c3\u00acnh ki\u00e1\u00bb\u0192m tra OSM: Ch\u00e1\u00bb\u2030 \u00c4\u2018\u00c6\u00b0\u00e1\u00bb\ufffdng"
+            },
+            "OSM_Inspector-Tagging": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, nh\u00e1\u00bb\u00afng ng\u00c6\u00b0\u00e1\u00bb\ufffdi \u00c4\u2018\u00c3\u00b3ng g\u00c3\u00b3p v\u00c3\u00a0o OpenStreetMap, CC BY-SA"
+                },
+                "name": "Tr\u00c3\u00acnh ki\u00e1\u00bb\u0192m tra OSM: Th\u00e1\u00ba\u00bb"
+            },
+            "SPW_ORTHO_LAST": {
+                "name": "SPW Wallonie kh\u00c3\u00b4ng \u00e1\u00ba\u00a3nh m\u00e1\u00bb\u203ai nh\u00e1\u00ba\u00a5t"
+            },
+            "SPW_PICC": {
+                "name": "SPW h\u00c3\u00acnh \u00e1\u00ba\u00a3nh s\u00e1\u00bb\u2018 PICC Wallonie"
+            },
+            "Siemianowice_Slaskie-aerial_image": {
+                "attribution": {
+                    "text": "V\u00c4\u0192n ph\u00c3\u00b2ng Th\u00c3\u00a0nh ph\u00e1\u00bb\u2018 Siemianowice \u00c5\u0161l\u00c4\u2026skie"
+                },
+                "name": "Siemianowice \u00c5\u0161l\u00c4\u2026skie: B\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c H\u00c3\u00acnh tr\u00e1\u00bb\u00b1c giao (kh\u00c3\u00b4ng \u00e1\u00ba\u00a3nh)"
+            },
+            "Siemianowice_Slaskie-buildings": {
+                "attribution": {
+                    "text": "V\u00c4\u0192n ph\u00c3\u00b2ng Th\u00c3\u00a0nh ph\u00e1\u00bb\u2018 Siemianowice \u00c5\u0161l\u00c4\u2026skie"
+                },
+                "name": "Siemianowice \u00c5\u0161l\u00c4\u2026skie: T\u00c3\u00b2a nh\u00c3\u00a0"
+            },
+            "US-TIGER-Roads-2017": {
+                "description": "M\u00c3\u00a0u v\u00c3\u00a0ng l\u00c3\u00a0 d\u00e1\u00bb\u00af li\u00e1\u00bb\u2021u b\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c thu\u00e1\u00bb\u2122c ph\u00e1\u00ba\u00a1m vi c\u00c3\u00b4ng c\u00e1\u00bb\u2122ng do C\u00e1\u00bb\u00a5c Th\u00e1\u00bb\u2018ng k\u00c3\u00aa D\u00c3\u00a2n s\u00e1\u00bb\u2018 Hoa K\u00e1\u00bb\u00b3 cung c\u00e1\u00ba\u00a5p. M\u00c3\u00a0u \u00c4\u2018\u00e1\u00bb\ufffd l\u00c3\u00a0 d\u00e1\u00bb\u00af li\u00e1\u00bb\u2021u ch\u00c6\u00b0a xu\u00e1\u00ba\u00a5t hi\u00e1\u00bb\u2021n trong OpenStreetMap.",
+                "name": "TIGER \u00c4\ufffd\u00c6\u00b0\u00e1\u00bb\ufffdng s\u00c3\u00a1 2017"
+            },
+            "US-TIGER-Roads-2018": {
+                "description": "M\u00c3\u00a0u v\u00c3\u00a0ng l\u00c3\u00a0 d\u00e1\u00bb\u00af li\u00e1\u00bb\u2021u b\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c thu\u00e1\u00bb\u2122c ph\u00e1\u00ba\u00a1m vi c\u00c3\u00b4ng c\u00e1\u00bb\u2122ng do C\u00e1\u00bb\u00a5c Th\u00e1\u00bb\u2018ng k\u00c3\u00aa D\u00c3\u00a2n s\u00e1\u00bb\u2018 Hoa K\u00e1\u00bb\u00b3 cung c\u00e1\u00ba\u00a5p. M\u00c3\u00a0u \u00c4\u2018\u00e1\u00bb\ufffd l\u00c3\u00a0 d\u00e1\u00bb\u00af li\u00e1\u00bb\u2021u ch\u00c6\u00b0a xu\u00e1\u00ba\u00a5t hi\u00e1\u00bb\u2021n trong OpenStreetMap.",
+                "name": "TIGER \u00c4\ufffd\u00c6\u00b0\u00e1\u00bb\ufffdng s\u00c3\u00a1 2018"
+            },
+            "US-TIGER-Roads-2019": {
+                "description": "M\u00c3\u00a0u v\u00c3\u00a0ng l\u00c3\u00a0 d\u00e1\u00bb\u00af li\u00e1\u00bb\u2021u b\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c thu\u00e1\u00bb\u2122c ph\u00e1\u00ba\u00a1m vi c\u00c3\u00b4ng c\u00e1\u00bb\u2122ng do C\u00e1\u00bb\u00a5c Th\u00e1\u00bb\u2018ng k\u00c3\u00aa D\u00c3\u00a2n s\u00e1\u00bb\u2018 Hoa K\u00e1\u00bb\u00b3 cung c\u00e1\u00ba\u00a5p. M\u00c3\u00a0u \u00c4\u2018\u00e1\u00bb\ufffd l\u00c3\u00a0 d\u00e1\u00bb\u00af li\u00e1\u00bb\u2021u ch\u00c6\u00b0a xu\u00e1\u00ba\u00a5t hi\u00e1\u00bb\u2021n trong OpenStreetMap.",
+                "name": "TIGER \u00c4\ufffd\u00c6\u00b0\u00e1\u00bb\ufffdng s\u00c3\u00a1 2019"
+            },
+            "US-TIGER-Roads-2020": {
+                "description": "M\u00c3\u00a0u v\u00c3\u00a0ng l\u00c3\u00a0 d\u00e1\u00bb\u00af li\u00e1\u00bb\u2021u b\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c thu\u00e1\u00bb\u2122c ph\u00e1\u00ba\u00a1m vi c\u00c3\u00b4ng c\u00e1\u00bb\u2122ng do C\u00e1\u00bb\u00a5c Th\u00e1\u00bb\u2018ng k\u00c3\u00aa D\u00c3\u00a2n s\u00e1\u00bb\u2018 Hoa K\u00e1\u00bb\u00b3 cung c\u00e1\u00ba\u00a5p. M\u00c3\u00a0u \u00c4\u2018\u00e1\u00bb\ufffd l\u00c3\u00a0 d\u00e1\u00bb\u00af li\u00e1\u00bb\u2021u ch\u00c6\u00b0a xu\u00e1\u00ba\u00a5t hi\u00e1\u00bb\u2021n trong OpenStreetMap.",
+                "name": "TIGER \u00c4\ufffd\u00c6\u00b0\u00e1\u00bb\ufffdng s\u00c3\u00a1 2020"
+            },
+            "US-TIGER-Roads-2021": {
+                "description": "M\u00c3\u00a0u v\u00c3\u00a0ng l\u00c3\u00a0 d\u00e1\u00bb\u00af li\u00e1\u00bb\u2021u b\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c thu\u00e1\u00bb\u2122c ph\u00e1\u00ba\u00a1m vi c\u00c3\u00b4ng c\u00e1\u00bb\u2122ng do C\u00e1\u00bb\u00a5c Th\u00e1\u00bb\u2018ng k\u00c3\u00aa D\u00c3\u00a2n s\u00e1\u00bb\u2018 Hoa K\u00e1\u00bb\u00b3 cung c\u00e1\u00ba\u00a5p. M\u00c3\u00a0u \u00c4\u2018\u00e1\u00bb\ufffd l\u00c3\u00a0 d\u00e1\u00bb\u00af li\u00e1\u00bb\u2021u ch\u00c6\u00b0a xu\u00e1\u00ba\u00a5t hi\u00e1\u00bb\u2021n trong OpenStreetMap.",
+                "name": "TIGER \u00c4\ufffd\u00c6\u00b0\u00e1\u00bb\ufffdng s\u00c3\u00a1 2021"
+            },
+            "USDA-NAIP": {
+                "attribution": {
+                    "text": "B\u00e1\u00bb\u2122 N\u00c3\u00b4ng nghi\u00e1\u00bb\u2021p Hoa K\u00e1\u00bb\u00b3"
+                },
+                "name": "Ch\u00c6\u00b0\u00c6\u00a1ng tr\u00c3\u00acnh H\u00c3\u00acnh \u00e1\u00ba\u00a3nh N\u00c3\u00b4ng nghi\u00e1\u00bb\u2021p Qu\u00e1\u00bb\u2018c gia"
+            },
+            "US_Forest_Service_roads_overlay": {
+                "description": "\u00c4\ufffd\u00c6\u00b0\u00e1\u00bb\ufffdng s\u00c3\u00a1: v\u00e1\u00bb\ufffd xanh l\u00c3\u00a0 ng\u00c3\u00b5; v\u00e1\u00bb\ufffd n\u00c3\u00a2u l\u00c3\u00a0 \u00c4\u2018\u00c6\u00b0\u00e1\u00bb\ufffdng m\u00c3\u00b2n.\nM\u00e1\u00ba\u00b7t \u00c4\u2018\u00c6\u00b0\u00e1\u00bb\ufffdng: s\u00e1\u00bb\ufffdi \u00c4\u2018\u00c3\u00a1 \u00c4\u2018\u00c6\u00b0\u00e1\u00bb\u00a3c t\u00c3\u00b4 m\u00c3\u00a0u n\u00c3\u00a2u nh\u00e1\u00ba\u00a1t; nh\u00e1\u00bb\u00b1a l\u00c3\u00a0 m\u00c3\u00a0u \u00c4\u2018en, m\u00e1\u00ba\u00b7t l\u00c3\u00a1t l\u00c3\u00a0 m\u00c3\u00a0u x\u00c3\u00a1m; \u00c4\u2018\u00e1\u00ba\u00a5t l\u00c3\u00a0 m\u00c3\u00a0u tr\u00e1\u00ba\u00afng; b\u00c3\u00aa t\u00c3\u00b4ng l\u00c3\u00a0 m\u00c3\u00a0u xanh lam; c\u00e1\u00bb\ufffd l\u00c3\u00a0 m\u00c3\u00a0u xanh l\u00c3\u00a1 c\u00c3\u00a2y.\nT\u00c3\u00b9y m\u00c3\u00b9a c\u00c3\u00b3 v\u00e1\u00ba\u00a1ch m\u00c3\u00a0u tr\u00e1\u00ba\u00afng.",
+                "name": "L\u00e1\u00bb\u203ap ph\u00e1\u00bb\u00a7 \u00c4\ufffd\u00c6\u00b0\u00e1\u00bb\ufffdng L\u00c3\u00a2m nghi\u00e1\u00bb\u2021p Hoa K\u00e1\u00bb\u00b3"
+            },
+            "UrbISOrtho": {
+                "attribution": {
+                    "text": "UrbIS\u00c2\u00ae\u00c2\u00a9 Bruxelles th\u00e1\u00bb\u00b1c hi\u00e1\u00bb\u2021n; CIRB ph\u00c3\u00a2n ph\u00c3\u00a1t v\u00c3\u00a0 gi\u00e1\u00bb\u00af b\u00e1\u00ba\u00a3n quy\u00e1\u00bb\ufffdn"
+                },
+                "name": "CIRB/CIBG kh\u00c3\u00b4ng \u00e1\u00ba\u00a3nh m\u00e1\u00bb\u203ai nh\u00e1\u00ba\u00a5t"
+            },
+            "UrbISOrtho2016": {
+                "attribution": {
+                    "text": "UrbIS\u00c2\u00ae\u00c2\u00a9 Bruxelles th\u00e1\u00bb\u00b1c hi\u00e1\u00bb\u2021n; CIRB ph\u00c3\u00a2n ph\u00c3\u00a1t v\u00c3\u00a0 gi\u00e1\u00bb\u00af b\u00e1\u00ba\u00a3n quy\u00e1\u00bb\ufffdn"
+                },
+                "name": "UrbIS tr\u00e1\u00bb\u00b1c giao 2016"
+            },
+            "UrbISOrtho2017": {
+                "attribution": {
+                    "text": "UrbIS\u00c2\u00ae\u00c2\u00a9 Bruxelles th\u00e1\u00bb\u00b1c hi\u00e1\u00bb\u2021n; CIRB ph\u00c3\u00a2n ph\u00c3\u00a1t v\u00c3\u00a0 gi\u00e1\u00bb\u00af b\u00e1\u00ba\u00a3n quy\u00e1\u00bb\ufffdn"
+                },
+                "name": "UrbIS tr\u00e1\u00bb\u00b1c giao 2017"
+            },
+            "UrbISOrtho2018": {
+                "attribution": {
+                    "text": "UrbIS\u00c2\u00ae\u00c2\u00a9 Bruxelles th\u00e1\u00bb\u00b1c hi\u00e1\u00bb\u2021n; CIRB ph\u00c3\u00a2n ph\u00c3\u00a1t v\u00c3\u00a0 gi\u00e1\u00bb\u00af b\u00e1\u00ba\u00a3n quy\u00e1\u00bb\ufffdn"
+                },
+                "name": "UrbIS tr\u00e1\u00bb\u00b1c giao 2018"
+            },
+            "UrbISOrtho2019": {
+                "attribution": {
+                    "text": "UrbIS\u00c2\u00ae\u00c2\u00a9 Bruxelles th\u00e1\u00bb\u00b1c hi\u00e1\u00bb\u2021n; CIRB ph\u00c3\u00a2n ph\u00c3\u00a1t v\u00c3\u00a0 gi\u00e1\u00bb\u00af b\u00e1\u00ba\u00a3n quy\u00e1\u00bb\ufffdn"
+                },
+                "name": "UrbIS tr\u00e1\u00bb\u00b1c giao 2019"
+            },
+            "UrbISOrtho2020": {
+                "attribution": {
+                    "text": "UrbIS\u00c2\u00ae\u00c2\u00a9 Bruxelles th\u00e1\u00bb\u00b1c hi\u00e1\u00bb\u2021n; CIRB ph\u00c3\u00a2n ph\u00c3\u00a1t v\u00c3\u00a0 gi\u00e1\u00bb\u00af b\u00e1\u00ba\u00a3n quy\u00e1\u00bb\ufffdn"
+                },
+                "name": "UrbIS tr\u00e1\u00bb\u00b1c giao 2020"
+            },
+            "UrbisAdmFR": {
+                "attribution": {
+                    "text": "UrbIS\u00c2\u00ae\u00c2\u00a9 Bruxelles th\u00e1\u00bb\u00b1c hi\u00e1\u00bb\u2021n; CIRB ph\u00c3\u00a2n ph\u00c3\u00a1t v\u00c3\u00a0 gi\u00e1\u00bb\u00af b\u00e1\u00ba\u00a3n quy\u00e1\u00bb\ufffdn"
+                },
+                "name": "UrbisAdm Ph\u00c3\u00a1p"
+            },
+            "UrbisAdmFRNL": {
+                "attribution": {
+                    "text": "UrbIS\u00c2\u00ae\u00c2\u00a9 Bruxelles th\u00e1\u00bb\u00b1c hi\u00e1\u00bb\u2021n; CIRB ph\u00c3\u00a2n ph\u00c3\u00a1t v\u00c3\u00a0 gi\u00e1\u00bb\u00af b\u00e1\u00ba\u00a3n quy\u00e1\u00bb\ufffdn"
+                },
+                "name": "UrbisAdm Ph\u00c3\u00a1p/H\u00c3\u00a0 Lan"
+            },
+            "UrbisAdmNL": {
+                "attribution": {
+                    "text": "UrbIS\u00c2\u00ae\u00c2\u00a9 Bruxelles th\u00e1\u00bb\u00b1c hi\u00e1\u00bb\u2021n; CIRB ph\u00c3\u00a2n ph\u00c3\u00a1t v\u00c3\u00a0 gi\u00e1\u00bb\u00af b\u00e1\u00ba\u00a3n quy\u00e1\u00bb\ufffdn"
+                },
+                "name": "UrbisAdm H\u00c3\u00a0 Lan"
+            },
+            "Waymarked_Trails-Cycling": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 waymarkedtrails.org, nh\u00e1\u00bb\u00afng ng\u00c6\u00b0\u00e1\u00bb\ufffdi \u00c4\u2018\u00c3\u00b3ng g\u00c3\u00b3p v\u00c3\u00a0o OpenStreetMap, CC BY-SA 3.0"
+                },
+                "name": "Waymarked Trails: Xe \u00c4\u2018\u00e1\u00ba\u00a1p"
+            },
+            "Waymarked_Trails-Hiking": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 waymarkedtrails.org, nh\u00e1\u00bb\u00afng ng\u00c6\u00b0\u00e1\u00bb\ufffdi \u00c4\u2018\u00c3\u00b3ng g\u00c3\u00b3p v\u00c3\u00a0o OpenStreetMap, CC BY-SA 3.0"
+                },
+                "name": "Waymarked Trails: \u00c4\ufffd\u00c6\u00b0\u00e1\u00bb\ufffdng \u00c4\ufffdi b\u00e1\u00bb\u2122 D\u00c3\u00a0i"
+            },
+            "Waymarked_Trails-MTB": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 waymarkedtrails.org, nh\u00e1\u00bb\u00afng ng\u00c6\u00b0\u00e1\u00bb\ufffdi \u00c4\u2018\u00c3\u00b3ng g\u00c3\u00b3p v\u00c3\u00a0o OpenStreetMap, CC BY-SA 3.0"
+                },
+                "name": "Waymarked Trails: Xe \u00c4\u2018\u00e1\u00ba\u00a1p Leo n\u00c3\u00bai"
+            },
+            "Waymarked_Trails-Skating": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 waymarkedtrails.org, nh\u00e1\u00bb\u00afng ng\u00c6\u00b0\u00e1\u00bb\ufffdi \u00c4\u2018\u00c3\u00b3ng g\u00c3\u00b3p v\u00c3\u00a0o OpenStreetMap, CC BY-SA 3.0"
+                },
+                "name": "Waymarked Trails: Tr\u00c6\u00b0\u00e1\u00bb\u00a3t b\u00c4\u0192ng"
+            },
+            "Waymarked_Trails-Winter_Sports": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 waymarkedtrails.org, nh\u00e1\u00bb\u00afng ng\u00c6\u00b0\u00e1\u00bb\ufffdi \u00c4\u2018\u00c3\u00b3ng g\u00c3\u00b3p v\u00c3\u00a0o OpenStreetMap, CC BY-SA 3.0"
+                },
+                "name": "Waymarked Trails: Th\u00e1\u00bb\u0192 thao M\u00c3\u00b9a \u00c4\u2018\u00c3\u00b4ng"
+            },
+            "Zabrze-2011": {
+                "attribution": {
+                    "text": "V\u00c4\u0192n ph\u00c3\u00b2ng Th\u00c3\u00a0nh ph\u00e1\u00bb\u2018 Zabrze"
+                },
+                "name": "Zabrze: b\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c h\u00c3\u00acnh tr\u00e1\u00bb\u00b1c giao 2011 (kh\u00c3\u00b4ng \u00e1\u00ba\u00a3nh)"
+            },
+            "basemap.at": {
+                "attribution": {
+                    "text": "basemap.at"
+                },
+                "description": "B\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c g\u00e1\u00bb\u2018c c\u00e1\u00bb\u00a7a \u00c3\ufffdo d\u00e1\u00bb\u00b1a tr\u00c3\u00aan d\u00e1\u00bb\u00af li\u00e1\u00bb\u2021u ch\u00c3\u00adnh ph\u00e1\u00bb\u00a7.",
+                "name": "basemap.at"
+            },
+            "basemap.at-orthofoto": {
+                "attribution": {
+                    "text": "basemap.at"
+                },
+                "description": "L\u00e1\u00bb\u203ap h\u00c3\u00acnh \u00e1\u00ba\u00a3nh tr\u00e1\u00bb\u00b1c giao do basemap.at cung c\u00e1\u00ba\u00a5p. \u00e2\u20ac\u0153K\u00e1\u00ba\u00bf ti\u00e1\u00ba\u00bfp\u00e2\u20ac\ufffd h\u00c3\u00acnh \u00e1\u00ba\u00a3nh geoimage.at.",
+                "name": "H\u00c3\u00acnh \u00e1\u00ba\u00a3nh tr\u00e1\u00bb\u00b1c giao basemap.at"
+            },
+            "basemap.at-overlay": {
+                "attribution": {
+                    "text": "basemap.at"
+                },
+                "description": "L\u00e1\u00bb\u203ap ph\u00e1\u00bb\u00a7 ch\u00c3\u00ba th\u00c3\u00adch do basemap.at cung c\u00e1\u00ba\u00a5p.",
+                "name": "basemap.at L\u00e1\u00bb\u203ap ph\u00e1\u00bb\u00a7"
+            },
+            "cyclosm": {
+                "attribution": {
+                    "text": "K\u00e1\u00ba\u00bft xu\u00e1\u00ba\u00a5t: CyclOSM (do OpenStreetMap Ph\u00c3\u00a1p ph\u00e1\u00bb\u00a5c v\u00e1\u00bb\u00a5), d\u00e1\u00bb\u00af li\u00e1\u00bb\u2021u b\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c \u00c2\u00a9 nh\u00e1\u00bb\u00afng ng\u00c6\u00b0\u00e1\u00bb\ufffdi \u00c4\u2018\u00c3\u00b3ng g\u00c3\u00b3p v\u00c3\u00a0o OpenStreetMap"
+                },
+                "description": "CyclOSM l\u00c3\u00a0 ki\u00e1\u00bb\u0192u b\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c \u00c4\u2018\u00c6\u00b0\u00e1\u00bb\u00a3c thi\u00e1\u00ba\u00bft k\u00e1\u00ba\u00bf d\u00c3\u00a0nh cho ng\u00c6\u00b0\u00e1\u00bb\ufffdi \u00c4\u2018i xe \u00c4\u2018\u00e1\u00ba\u00a1p. N\u00c3\u00b3 s\u00e1\u00bb\u00ad d\u00e1\u00bb\u00a5ng d\u00e1\u00bb\u00af li\u00e1\u00bb\u2021u OpenStreetMap \u00c4\u2018\u00e1\u00bb\u0192 k\u00e1\u00ba\u00bft xu\u00e1\u00ba\u00a5t b\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c xe \u00c4\u2018\u00e1\u00ba\u00a1p \u00c4\u2018\u00e1\u00ba\u00b9p \u00c4\u2018\u00e1\u00ba\u00bd ti\u00e1\u00bb\u2021n \u00c3\u00adch!",
+                "name": "CyclOSM"
+            },
+            "debicki-buildings": {
+                "attribution": {
+                    "text": "Huy\u00e1\u00bb\u2021n D\u00c4\u2122bicki"
+                },
+                "name": "Huy\u00e1\u00bb\u2021n D\u00c4\u2122bicki: T\u00c3\u00b2a nh\u00c3\u00a0"
+            },
+            "eufar-balaton": {
+                "attribution": {
+                    "text": "H\u00c3\u00acnh \u00e1\u00ba\u00a3nh tr\u00e1\u00bb\u00b1c giao EUFAR Balaton 2010"
+                },
+                "description": "H\u00c3\u00acnh ch\u00e1\u00bb\u00a5p g\u00e1\u00ba\u00afn th\u00e1\u00ba\u00bb \u00c4\u2018\u00e1\u00bb\u2039a l\u00c3\u00bd n\u00c4\u0192m 1940 do Vi\u00e1\u00bb\u2021n nghi\u00c3\u00aan c\u00e1\u00bb\u00a9u h\u00e1\u00bb\u201c Balaton cung c\u00e1\u00ba\u00a5p.",
+                "name": "EUFAR h\u00c3\u00acnh \u00e1\u00ba\u00a3nh tr\u00e1\u00bb\u00b1c giao Balaton"
+            },
+            "gothenburg-citymap": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 \u00c4\u2018\u00c3\u00b4 th\u00e1\u00bb\u2039 G\u00c3\u00b6teborg, CC0"
+                },
+                "description": "B\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c G\u00c3\u00b6teborg t\u00e1\u00ba\u00a3 th\u00c3\u00a0nh ph\u00e1\u00bb\u2018 nh\u00c3\u00acn chung. N\u00c3\u00b3 bao g\u00e1\u00bb\u201cm th\u00c3\u00b4ng tin t\u00e1\u00bb\u2022ng qu\u00c3\u00a1t v\u00e1\u00bb\ufffd \u00c4\u2018\u00e1\u00ba\u00a5t \u00c4\u2018ai, vi\u00e1\u00bb\u2026n th\u00c3\u00b4ng, th\u00e1\u00bb\u00a7y v\u00c4\u0192n, t\u00c3\u00b2a nh\u00c3\u00a0, s\u00e1\u00bb\u2018 nh\u00c3\u00a0, t\u00c3\u00aan \u00c4\u2018\u00c6\u00b0\u00e1\u00bb\ufffdng, ph\u00c3\u00a2n c\u00e1\u00ba\u00a5p h\u00c3\u00a0nh ch\u00c3\u00adnh, v\u00c3\u00a0 c\u00c3\u00a1c nh\u00c3\u00a3n \u00c4\u2018\u00e1\u00bb\u2039nh h\u00c6\u00b0\u00e1\u00bb\u203ang kh\u00c3\u00a1c.",
+                "name": "B\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c Th\u00c3\u00a0nh ph\u00e1\u00bb\u2018 G\u00c3\u00b6teborg"
+            },
+            "gothenburg-dtm-2017": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 \u00c4\u2018\u00c3\u00b4 th\u00e1\u00bb\u2039 G\u00c3\u00b6teborg, CC0"
+                },
+                "description": "D\u00e1\u00bb\u2039ch v\u00e1\u00bb\u00a5 b\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c Web hi\u00e1\u00bb\u0192n th\u00e1\u00bb\u2039 h\u00c3\u00acnh \u00e1\u00ba\u00a3nh b\u00c3\u00b3ng \u00c4\u2018\u00e1\u00bb\u201ci v\u00c3\u00a0 d\u00e1\u00bb\u2018c theo m\u00c3\u00b4 h\u00c3\u00acnh \u00c4\u2018\u00e1\u00bb\u2122 cao 2017 c\u00e1\u00bb\u00a7a Th\u00c3\u00a0nh ph\u00e1\u00bb\u2018 G\u00c3\u00b6teborg. C\u00c3\u00b3 \u00c4\u2018\u00e1\u00bb\u2122 ph\u00c3\u00a2n gi\u00e1\u00ba\u00a3i 0,5 m\u00c3\u00a9t tr\u00c3\u00aan \u00c4\u2018i\u00e1\u00bb\u0192m \u00e1\u00ba\u00a3nh.",
+                "name": "H\u00c3\u00acnh b\u00c3\u00b3ng \u00c4\u2018\u00e1\u00bb\u201ci G\u00c3\u00b6teborg"
+            },
+            "gothenburg-ortho": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 \u00c4\u2018\u00c3\u00b4 th\u00e1\u00bb\u2039 G\u00c3\u00b6teborg, CC0"
+                },
+                "description": "H\u00c3\u00acnh \u00e1\u00ba\u00a3nh tr\u00e1\u00bb\u00b1c giao \u00c4\u2018\u00c3\u00b4 th\u00e1\u00bb\u2039 Gothenburg",
+                "name": "H\u00c3\u00acnh tr\u00e1\u00bb\u00b1c giao G\u00c3\u00b6teborg 2015"
+            },
+            "gothenburg-ortho_2017": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 \u00c4\u2018\u00c3\u00b4 th\u00e1\u00bb\u2039 G\u00c3\u00b6teborg, CC0"
+                },
+                "description": "H\u00c3\u00acnh \u00e1\u00ba\u00a3nh tr\u00e1\u00bb\u00b1c giao \u00c4\u2018\u00c3\u00b4 th\u00e1\u00bb\u2039 G\u00c3\u00b6teborg",
+                "name": "H\u00c3\u00acnh tr\u00e1\u00bb\u00b1c giao G\u00c3\u00b6teborg 2017"
+            },
+            "gothenburg-ortho_2019": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 \u00c4\u2018\u00c3\u00b4 th\u00e1\u00bb\u2039 G\u00c3\u00b6teborg, CC0"
+                },
+                "description": "H\u00c3\u00acnh \u00e1\u00ba\u00a3nh tr\u00e1\u00bb\u00b1c giao \u00c4\u2018\u00c3\u00b4 th\u00e1\u00bb\u2039 G\u00c3\u00b6teborg",
+                "name": "H\u00c3\u00acnh tr\u00e1\u00bb\u00b1c giao G\u00c3\u00b6teborg 2019"
+            },
+            "gsi.go.jp_airphoto": {
+                "attribution": {
+                    "text": "GSI Nh\u00e1\u00ba\u00adt B\u00e1\u00ba\u00a3n"
+                },
+                "description": "H\u00c3\u00acnh \u00e1\u00ba\u00a3nh tr\u00e1\u00bb\u00b1c giao GSI Nh\u00e1\u00ba\u00adt B\u00e1\u00ba\u00a3n t\u00e1\u00bb\u00ab kh\u00c3\u00b4ng trung. Kh\u00c3\u00b4ng ho\u00c3\u00a0n to\u00c3\u00a0n chi\u00e1\u00ba\u00bfu tr\u00e1\u00bb\u00b1c giao nh\u00c6\u00b0ng \u00c4\u2018\u00c3\u00bang th\u00e1\u00bb\ufffdi h\u00c6\u00a1n m\u00e1\u00bb\u2122t t\u00c3\u00ad ho\u00e1\u00ba\u00b7c c\u00c3\u00b3 m\u00e1\u00bb\u00a9c ph\u00e1\u00bb\u00a7 \u00c4\u2018\u00e1\u00ba\u00a5t kh\u00c3\u00a1c v\u00e1\u00bb\u203ai h\u00c3\u00acnh \u00e1\u00ba\u00a3nh tr\u00e1\u00bb\u00b1c giao GSI.",
+                "name": "GSI Nh\u00e1\u00ba\u00adt B\u00e1\u00ba\u00a3n h\u00c3\u00acnh \u00e1\u00ba\u00a3nh tr\u00c3\u00aan kh\u00c3\u00b4ng"
+            },
+            "gsi.go.jp_seamlessphoto": {
+                "attribution": {
+                    "text": "H\u00c3\u00acnh \u00e1\u00ba\u00a3nh li\u00e1\u00bb\ufffdn m\u00e1\u00ba\u00a1ch Vi\u00e1\u00bb\u2021n \u00c4\ufffd\u00e1\u00bb\u2039a l\u00c3\u00bd Qu\u00e1\u00bb\u2018c gia Nh\u00e1\u00ba\u00adt B\u00e1\u00ba\u00a3n"
+                },
+                "description": "H\u00c3\u00acnh \u00e1\u00ba\u00a3nh li\u00e1\u00bb\ufffdn m\u00e1\u00ba\u00a1ch Vi\u00e1\u00bb\u2021n \u00c4\ufffd\u00e1\u00bb\u2039a l\u00c3\u00bd Qu\u00e1\u00bb\u2018c gia Nh\u00e1\u00ba\u00adt B\u00e1\u00ba\u00a3n (GSI). B\u00e1\u00bb\u2122 s\u00c6\u00b0u t\u00e1\u00ba\u00adp c\u00c3\u00a1c h\u00c3\u00acnh \u00e1\u00ba\u00a3nh m\u00e1\u00bb\u203ai nh\u00e1\u00ba\u00a5t c\u00e1\u00bb\u00a7a GSI trong s\u00e1\u00bb\u2018 ngu\u00e1\u00bb\u201cn h\u00c3\u00acnh \u00e1\u00ba\u00a3nh tr\u00e1\u00bb\u00b1c giao, tr\u00c3\u00aan kh\u00c3\u00b4ng, sau th\u00e1\u00ba\u00a3m h\u00e1\u00bb\ufffda, v\u00c3\u00a0 nh\u00e1\u00bb\u00afng th\u00e1\u00bb\u00a9 kh\u00c3\u00a1c.",
+                "name": "GSI Nh\u00e1\u00ba\u00adt B\u00e1\u00ba\u00a3n h\u00c3\u00acnh \u00e1\u00ba\u00a3nh li\u00e1\u00bb\ufffdn m\u00e1\u00ba\u00a1ch"
+            },
+            "gsi.go.jp_std_map": {
+                "attribution": {
+                    "text": "GIS Nh\u00e1\u00ba\u00adt B\u00e1\u00ba\u00a3n"
+                },
+                "description": "B\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c chu\u00e1\u00ba\u00a9n GIS Nh\u00e1\u00ba\u00adt B\u00e1\u00ba\u00a3n. C\u00c3\u00b3 ph\u00e1\u00ba\u00a1m vi r\u00e1\u00bb\u2122ng r\u00c3\u00a3i.",
+                "name": "GIS Nh\u00e1\u00ba\u00adt B\u00e1\u00ba\u00a3n B\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c Chu\u00e1\u00ba\u00a9n"
+            },
+            "kalmar-orto-2014": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 \u00c4\u2018\u00c3\u00b4 th\u00e1\u00bb\u2039 Kalmar"
+                },
+                "description": "H\u00c3\u00acnh \u00e1\u00ba\u00a3nh tr\u00e1\u00bb\u00b1c giao b\u00e1\u00bb\ufffd bi\u00e1\u00bb\u0192n ph\u00c3\u00ada b\u00e1\u00ba\u00afc \u00c4\u2018\u00c3\u00b4 th\u00e1\u00bb\u2039 Kalmar n\u00c4\u0192m 2014",
+                "name": "H\u00c3\u00acnh tr\u00e1\u00bb\u00b1c giao Kalmar ph\u00c3\u00ada B\u00e1\u00ba\u00afc n\u00c4\u0192m 2014"
+            },
+            "kalmar-orto-2016": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 \u00c4\u2018\u00c3\u00b4 th\u00e1\u00bb\u2039 Kalmar"
+                },
+                "description": "H\u00c3\u00acnh \u00e1\u00ba\u00a3nh tr\u00e1\u00bb\u00b1c giao b\u00e1\u00bb\ufffd bi\u00e1\u00bb\u0192n ph\u00c3\u00ada nam \u00c4\u2018\u00c3\u00b4 th\u00e1\u00bb\u2039 Kalmar n\u00c4\u0192m 2016",
+                "name": "H\u00c3\u00acnh tr\u00e1\u00bb\u00b1c giao Kalmar ph\u00c3\u00ada Nam n\u00c4\u0192m 2016"
+            },
+            "kalmar-orto-2018": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 \u00c4\u2018\u00c3\u00b4 th\u00e1\u00bb\u2039 Kalmar"
+                },
+                "description": "H\u00c3\u00acnh \u00e1\u00ba\u00a3nh tr\u00e1\u00bb\u00b1c giao c\u00c3\u00a1c v\u00c3\u00b9ng \u00c4\u2018\u00c3\u00b4 th\u00e1\u00bb\u2039 c\u00e1\u00bb\u00a7a \u00c4\u2018\u00c3\u00b4 th\u00e1\u00bb\u2039 Kalmar n\u00c4\u0192m 2018",
+                "name": "H\u00c3\u00acnh tr\u00e1\u00bb\u00b1c giao v\u00c3\u00b9ng \u00c4\u2018\u00c3\u00b4 th\u00e1\u00bb\u2039 Kalmar 2018"
+            },
+            "kalmar-orto-2020": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 \u00c4\u2018\u00c3\u00b4 th\u00e1\u00bb\u2039 Kalmar"
+                },
+                "description": "H\u00c3\u00acnh \u00e1\u00ba\u00a3nh tr\u00e1\u00bb\u00b1c giao c\u00c3\u00a1c v\u00c3\u00b9ng \u00c4\u2018\u00c3\u00b4 th\u00e1\u00bb\u2039 c\u00e1\u00bb\u00a7a \u00c4\u2018\u00c3\u00b4 th\u00e1\u00bb\u2039 Kalmar n\u00c4\u0192m 2020",
+                "name": "H\u00c3\u00acnh tr\u00e1\u00bb\u00b1c giao v\u00c3\u00b9ng \u00c4\u2018\u00c3\u00b4 th\u00e1\u00bb\u2039 Kalmar 2020"
+            },
+            "kartverket-bygninger": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Kartverket"
+                },
+                "description": "C\u00c3\u00a1c t\u00c3\u00b2a nh\u00c3\u00a0 Na Uy c\u00e1\u00bb\u00a7a INSPIRE.",
+                "name": "Kartverket L\u00e1\u00bb\u203ap ph\u00e1\u00bb\u00a7 T\u00c3\u00b2a nh\u00c3\u00a0"
+            },
+            "kelkkareitit": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Kelkkareitit.fi"
+                },
+                "description": "\u00c4\ufffd\u00c6\u00b0\u00e1\u00bb\ufffdng xe m\u00c3\u00a1y tr\u00c6\u00b0\u00e1\u00bb\u00a3t tuy\u00e1\u00ba\u00bft Kelkkareitit.fi t\u00e1\u00bb\u00ab OSM (B\u00e1\u00ba\u00afc \u00c3\u201au)",
+                "name": "L\u00e1\u00bb\u203ap ph\u00e1\u00bb\u00a7 xe m\u00c3\u00a1y tr\u00c6\u00b0\u00e1\u00bb\u00a3t tuy\u00e1\u00ba\u00bft B\u00e1\u00ba\u00afc \u00c3\u201au"
+            },
+            "lancucki-buildings": {
+                "attribution": {
+                    "text": "Huy\u00e1\u00bb\u2021n \u00c5\ufffda\u00c5\u201ecucki"
+                },
+                "name": "Huy\u00e1\u00bb\u2021n \u00c5\ufffda\u00c5\u201ecucki: T\u00c3\u00b2a nh\u00c3\u00a0"
+            },
+            "lantmateriet-orto1960": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Lantm\u00c3\u00a4teriet, CC0"
+                },
+                "description": "H\u00e1\u00bb\u2014n h\u00e1\u00bb\u00a3p c\u00c3\u00a1c h\u00c3\u00acnh \u00e1\u00ba\u00a3nh tr\u00e1\u00bb\u00b1c giao Th\u00e1\u00bb\u00a5y \u00c4\ufffdi\u00e1\u00bb\u0192n v\u00c3\u00a0o th\u00e1\u00bb\ufffdi k\u00e1\u00bb\u00b3 1955\u00e2\u20ac\u201c1965, c\u00c3\u00b3 th\u00e1\u00bb\u0192 bao g\u00e1\u00bb\u201cm c\u00c3\u00a1c h\u00c3\u00acnh \u00e1\u00ba\u00a3nh c\u00c5\u00a9 h\u00c6\u00a1n ho\u00e1\u00ba\u00b7c m\u00e1\u00bb\u203ai h\u00c6\u00a1n.",
+                "name": "Lantm\u00c3\u00a4teriet H\u00c3\u00acnh \u00e1\u00ba\u00a3nh Tr\u00e1\u00bb\u00b1c giao L\u00e1\u00bb\u2039ch s\u00e1\u00bb\u00ad 1960"
+            },
+            "lantmateriet-orto1975": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Lantm\u00c3\u00a4teriet, CC0"
+                },
+                "description": "H\u00e1\u00bb\u2014n h\u00e1\u00bb\u00a3p c\u00c3\u00a1c h\u00c3\u00acnh \u00e1\u00ba\u00a3nh tr\u00e1\u00bb\u00b1c giao Th\u00e1\u00bb\u00a5y \u00c4\ufffdi\u00e1\u00bb\u0192n v\u00c3\u00a0o th\u00e1\u00bb\ufffdi k\u00e1\u00bb\u00b3 1970\u00e2\u20ac\u201c1980, s\u00e1\u00ba\u00bd \u00c4\u2018\u00c6\u00b0\u00e1\u00bb\u00a3c m\u00e1\u00bb\u0178 r\u00e1\u00bb\u2122ng.",
+                "name": "Lantm\u00c3\u00a4teriet H\u00c3\u00acnh \u00e1\u00ba\u00a3nh Tr\u00e1\u00bb\u00b1c giao L\u00e1\u00bb\u2039ch s\u00e1\u00bb\u00ad 1975"
+            },
+            "lantmateriet-topowebb": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Lantm\u00c3\u00a4teriet, CC0"
+                },
+                "description": "B\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c \u00c4\u2018\u00e1\u00bb\u2039a h\u00c3\u00acnh Th\u00e1\u00bb\u00a5y \u00c4\ufffdi\u00e1\u00bb\u0192n t\u00e1\u00bb\u00b7 l\u00e1\u00bb\u2021 1:50.000",
+                "name": "Lantm\u00c3\u00a4teriet B\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c \u00c4\ufffd\u00e1\u00bb\u2039a h\u00c3\u00acnh"
+            },
+            "linkoping-orto": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 \u00c4\u2018\u00c3\u00b4 th\u00e1\u00bb\u2039 Link\u00c3\u00b6ping"
+                },
+                "description": "H\u00c3\u00acnh \u00e1\u00ba\u00a3nh tr\u00e1\u00bb\u00b1c giao t\u00e1\u00bb\u00ab \u00c4\u2018\u00c3\u00b4 th\u00e1\u00bb\u2039 Link\u00c3\u00b6ping n\u00c4\u0192m 2010 l\u00c3\u00a0 d\u00e1\u00bb\u00af li\u00e1\u00bb\u2021u m\u00e1\u00bb\u0178",
+                "name": "H\u00c3\u00acnh \u00e1\u00ba\u00a3nh tr\u00e1\u00bb\u00b1c giao Link\u00c3\u00b6ping"
+            },
+            "lubaczowski-buildings": {
+                "attribution": {
+                    "text": "Huy\u00e1\u00bb\u2021n Lubaczowski"
+                },
+                "name": "Huy\u00e1\u00bb\u2021n Lubaczowski: T\u00c3\u00b2a nh\u00c3\u00a0"
+            },
+            "maaamet.ee-cir_ngr": {
+                "attribution": {
+                    "text": "H\u00c3\u00acnh tr\u00e1\u00bb\u00b1c giao L\u00c3\u00a2m nghi\u00e1\u00bb\u2021p Ban \u00c4\ufffd\u00e1\u00ba\u00a5t \u00c4\u2018ai"
+                },
+                "name": "L\u00c3\u00a2m nghi\u00e1\u00bb\u2021p Ban \u00c4\ufffd\u00e1\u00ba\u00a5t \u00c4\u2018ai"
+            },
+            "maaamet.ee-orto": {
+                "attribution": {
+                    "text": "H\u00c3\u00acnh tr\u00e1\u00bb\u00b1c giao Ban \u00c4\ufffd\u00e1\u00ba\u00a5t \u00c4\u2018ai"
+                },
+                "name": "Tr\u00e1\u00bb\u00b1c giao Ban \u00c4\ufffd\u00e1\u00ba\u00a5t \u00c4\u2018ai (TMS)"
+            },
+            "maaamet.ee-pohi_vr2": {
+                "attribution": {
+                    "text": "B\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c g\u00e1\u00bb\u2018c Ban \u00c4\ufffd\u00e1\u00ba\u00a5t \u00c4\u2018ai"
+                },
+                "name": "B\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c g\u00e1\u00bb\u2018c Ban \u00c4\ufffd\u00e1\u00ba\u00a5t \u00c4\u2018ai"
+            },
+            "mapbox_locator_overlay": {
+                "attribution": {
+                    "text": "\u00c4\ufffdi\u00e1\u00bb\ufffdu kho\u00e1\u00ba\u00a3n & Ph\u00e1\u00ba\u00a3n h\u00e1\u00bb\u201ci"
+                },
+                "description": "Hi\u00e1\u00bb\u0192n th\u00e1\u00bb\u2039 c\u00c3\u00a1c m\u00e1\u00bb\u2018c \u00c4\u2018\u00e1\u00bb\u0192 gi\u00c3\u00bap b\u00e1\u00ba\u00a1n \u00c4\u2018\u00e1\u00bb\u2039nh h\u00c6\u00b0\u00e1\u00bb\u203ang.",
+                "name": "L\u00e1\u00bb\u203ap ph\u00e1\u00bb\u00a7 \u00c4\ufffd\u00e1\u00bb\u2039nh h\u00c6\u00b0\u00e1\u00bb\u203ang"
+            },
+            "openpt_map": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 nh\u00e1\u00bb\u00afng ng\u00c6\u00b0\u00e1\u00bb\ufffdi \u00c4\u2018\u00c3\u00b3ng g\u00c3\u00b3p v\u00c3\u00a0o OpenStreetMap, CC BY-SA"
+                },
+                "name": "B\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c OpenPT (l\u00e1\u00bb\u203ap ph\u00e1\u00bb\u00a7)"
+            },
+            "openrailwaymap": {
+                "attribution": {
+                    "text": "K\u00e1\u00ba\u00bft xu\u00e1\u00ba\u00a5t: OpenRailwayMap, d\u00e1\u00bb\u00af li\u00e1\u00bb\u2021u b\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c \u00c2\u00a9 nh\u00e1\u00bb\u00afng ng\u00c6\u00b0\u00e1\u00bb\ufffdi \u00c4\u2018\u00c3\u00b3ng g\u00c3\u00b3p v\u00c3\u00a0o OpenStreetMap"
+                },
+                "description": "L\u00e1\u00bb\u203ap h\u00c3\u00acnh ph\u00e1\u00bb\u00a7 c\u00c6\u00a1 s\u00e1\u00bb\u0178 h\u00e1\u00ba\u00a1 t\u00e1\u00ba\u00a7ng \u00c4\u2018\u00c6\u00b0\u00e1\u00bb\ufffdng s\u00e1\u00ba\u00aft theo d\u00e1\u00bb\u00af li\u00e1\u00bb\u2021u OpenStreetMap",
+                "name": "OpenRailwayMap"
+            },
+            "openrailwaymap-maxspeeds": {
+                "attribution": {
+                    "text": "K\u00e1\u00ba\u00bft xu\u00e1\u00ba\u00a5t: OpenRailwayMap, d\u00e1\u00bb\u00af li\u00e1\u00bb\u2021u b\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c \u00c2\u00a9 nh\u00e1\u00bb\u00afng ng\u00c6\u00b0\u00e1\u00bb\ufffdi \u00c4\u2018\u00c3\u00b3ng g\u00c3\u00b3p v\u00c3\u00a0o OpenStreetMap"
+                },
+                "description": "L\u00e1\u00bb\u203ap h\u00c3\u00acnh ph\u00e1\u00bb\u00a7 c\u00c3\u00a1c t\u00e1\u00bb\u2018c \u00c4\u2018\u00e1\u00bb\u2122 t\u00e1\u00bb\u2018i \u00c4\u2018a tr\u00c3\u00aan \u00c4\u2018\u00c6\u00b0\u00e1\u00bb\ufffdng s\u00e1\u00ba\u00aft theo d\u00e1\u00bb\u00af li\u00e1\u00bb\u2021u OpenStreetMap",
+                "name": "OpenRailwayMap T\u00e1\u00bb\u2018c \u00c4\u2018\u00e1\u00bb\u2122 T\u00e1\u00bb\u2018i \u00c4\u2018a"
+            },
+            "openrailwaymap-signalling": {
+                "attribution": {
+                    "text": "K\u00e1\u00ba\u00bft xu\u00e1\u00ba\u00a5t: OpenRailwayMap, d\u00e1\u00bb\u00af li\u00e1\u00bb\u2021u b\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c \u00c2\u00a9 nh\u00e1\u00bb\u00afng ng\u00c6\u00b0\u00e1\u00bb\ufffdi \u00c4\u2018\u00c3\u00b3ng g\u00c3\u00b3p v\u00c3\u00a0o OpenStreetMap"
+                },
+                "description": "L\u00e1\u00bb\u203ap h\u00c3\u00acnh ph\u00e1\u00bb\u00a7 \u00c4\u2018\u00c3\u00a8n b\u00c3\u00a1o tr\u00c3\u00aan \u00c4\u2018\u00c6\u00b0\u00e1\u00bb\ufffdng s\u00e1\u00ba\u00aft theo d\u00e1\u00bb\u00af li\u00e1\u00bb\u2021u OpenStreetMap",
+                "name": "OpenRailwayMap \u00c4\ufffd\u00c3\u00a8n b\u00c3\u00a1o"
+            },
+            "osm-gps": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 nh\u00e1\u00bb\u00afng ng\u00c6\u00b0\u00e1\u00bb\ufffdi \u00c4\u2018\u00c3\u00b3ng g\u00c3\u00b3p v\u00c3\u00a0o OpenStreetMap"
+                },
+                "description": "Tuy\u00e1\u00ba\u00bfn GPS c\u00c3\u00b4ng khai \u00c4\u2018\u00c6\u00b0\u00e1\u00bb\u00a3c t\u00e1\u00ba\u00a3i l\u00c3\u00aan OpenStreetMap",
+                "name": "Tuy\u00e1\u00ba\u00bfn GPS OpenStreetMap"
+            },
+            "osm-mapnik-german_style": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 nh\u00e1\u00bb\u00afng ng\u00c6\u00b0\u00e1\u00bb\ufffdi \u00c4\u2018\u00c3\u00b3ng g\u00c3\u00b3p v\u00c3\u00a0o OpenStreetMap, CC BY-SA"
+                },
+                "name": "OpenStreetMap (Ki\u00e1\u00bb\u0192u \u00c4\ufffd\u00e1\u00bb\u00a9c)"
+            },
+            "poznan-ortofotomapa2014": {
+                "attribution": {
+                    "text": "Ban Tr\u00e1\u00ba\u00afc \u00c4\u2018\u00e1\u00bb\u2039a v\u00c3\u00a0 \u00c4\ufffd\u00e1\u00bb\u2039a ch\u00c3\u00adnh Th\u00c3\u00a0nh ph\u00e1\u00bb\u2018 GEOPOZ"
+                },
+                "name": "Pozna\u00c5\u201e: b\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c h\u00c3\u00acnh tr\u00e1\u00bb\u00b1c giao 2014 (kh\u00c3\u00b4ng \u00e1\u00ba\u00a3nh)"
+            },
+            "poznan-ortofotomapa2016": {
+                "attribution": {
+                    "text": "Ban Tr\u00e1\u00ba\u00afc \u00c4\u2018\u00e1\u00bb\u2039a v\u00c3\u00a0 \u00c4\ufffd\u00e1\u00bb\u2039a ch\u00c3\u00adnh Th\u00c3\u00a0nh ph\u00e1\u00bb\u2018 GEOPOZ"
+                },
+                "name": "Pozna\u00c5\u201e: b\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c h\u00c3\u00acnh tr\u00e1\u00bb\u00b1c giao 2016 (kh\u00c3\u00b4ng \u00e1\u00ba\u00a3nh)"
+            },
+            "poznan-ortofotomapaBiezaca": {
+                "attribution": {
+                    "text": "Ban Tr\u00e1\u00ba\u00afc \u00c4\u2018\u00e1\u00bb\u2039a v\u00c3\u00a0 \u00c4\ufffd\u00e1\u00bb\u2039a ch\u00c3\u00adnh Th\u00c3\u00a0nh ph\u00e1\u00bb\u2018 GEOPOZ"
+                },
+                "name": "Pozna\u00c5\u201e: b\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c h\u00c3\u00acnh tr\u00e1\u00bb\u00b1c giao hi\u00e1\u00bb\u2021n t\u00e1\u00ba\u00a1i (kh\u00c3\u00b4ng \u00e1\u00ba\u00a3nh)"
+            },
+            "przemysl-aerial": {
+                "attribution": {
+                    "text": "Th\u00e1\u00bb\u2039 tr\u00e1\u00ba\u00a5n Przemy\u00c5\u203al"
+                },
+                "name": "Przemy\u00c5\u203al: B\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c H\u00c3\u00acnh tr\u00e1\u00bb\u00b1c giao (kh\u00c3\u00b4ng \u00e1\u00ba\u00a3nh)"
+            },
+            "przemysl-buildings": {
+                "attribution": {
+                    "text": "Th\u00e1\u00bb\u2039 tr\u00e1\u00ba\u00a5n Przemy\u00c5\u203al"
+                },
+                "name": "Przemy\u00c5\u203al: T\u00c3\u00b2a nh\u00c3\u00a0"
+            },
+            "qa_no_address": {
+                "attribution": {
+                    "text": "Simon Poole, D\u00e1\u00bb\u00af li\u00e1\u00bb\u2021u \u00c2\u00a9 nh\u00e1\u00bb\u00afng ng\u00c6\u00b0\u00e1\u00bb\ufffdi \u00c4\u2018\u00c3\u00b3ng g\u00c3\u00b3p v\u00c3\u00a0o OpenStreetMap"
+                },
+                "name": "B\u00e1\u00ba\u00a3o \u00c4\u2018\u00e1\u00ba\u00a3m Ch\u00e1\u00ba\u00a5t l\u00c6\u00b0\u00e1\u00bb\u00a3ng: Kh\u00c3\u00b4ng \u00c4\ufffd\u00e1\u00bb\u2039a ch\u00e1\u00bb\u2030"
+            },
+            "rzeszowski-aerial": {
+                "attribution": {
+                    "text": "Huy\u00e1\u00bb\u2021n Rzeszowski"
+                },
+                "name": "Huy\u00e1\u00bb\u2021n Rzeszowski: B\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c H\u00c3\u00acnh tr\u00e1\u00bb\u00b1c giao (kh\u00c3\u00b4ng \u00e1\u00ba\u00a3nh)"
+            },
+            "rzeszowski-buildings": {
+                "attribution": {
+                    "text": "Huy\u00e1\u00bb\u2021n Rzeszowski"
+                },
+                "name": "Huy\u00e1\u00bb\u2021n Rzeszowski: T\u00c3\u00b2a nh\u00c3\u00a0"
+            },
+            "skobbler": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 H\u00c3\u00acnh b\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c: skobbler D\u00e1\u00bb\u00af li\u00e1\u00bb\u2021u b\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c: nh\u00e1\u00bb\u00afng ng\u00c6\u00b0\u00e1\u00bb\ufffdi \u00c4\u2018\u00c3\u00b3ng g\u00c3\u00b3p v\u00c3\u00a0o OpenStreetMap"
+                },
+                "name": "skobbler"
+            },
+            "skoterleder": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Skoterleder.org"
+                },
+                "description": "\u00c4\ufffd\u00c6\u00b0\u00e1\u00bb\ufffdng xe m\u00c3\u00a1y tr\u00c6\u00b0\u00e1\u00bb\u00a3t tuy\u00e1\u00ba\u00bft",
+                "name": "B\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c xe m\u00c3\u00a1y tr\u00c6\u00b0\u00e1\u00bb\u00a3t tuy\u00e1\u00ba\u00bft Th\u00e1\u00bb\u00a5y \u00c4\ufffdi\u00e1\u00bb\u0192n"
+            },
+            "sropczyce-buildings": {
+                "attribution": {
+                    "text": "Huy\u00e1\u00bb\u2021n Ropczycko-S\u00c4\u2122dziszowski"
+                },
+                "name": "Huy\u00e1\u00bb\u2021n Ropczycko-S\u00c4\u2122dziszowski: T\u00c3\u00b2a nh\u00c3\u00a0"
+            },
+            "stalowowolski-buildings": {
+                "attribution": {
+                    "text": "Huy\u00e1\u00bb\u2021n Stalowowolski"
+                },
+                "name": "Huy\u00e1\u00bb\u2021n Stalowowolski: T\u00c3\u00b2a nh\u00c3\u00a0"
+            },
+            "stamen-terrain-background": {
+                "attribution": {
+                    "text": "H\u00c3\u00acnh b\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c do Stamen Design cung c\u00e1\u00ba\u00a5p d\u00c6\u00b0\u00e1\u00bb\u203ai CC BY 3.0. D\u00e1\u00bb\u00af li\u00e1\u00bb\u2021u do OpenStreetMap cung c\u00e1\u00ba\u00a5p d\u00c6\u00b0\u00e1\u00bb\u203ai ODbL."
+                },
+                "name": "Stamen \u00c4\ufffd\u00e1\u00bb\u2039a h\u00c3\u00acnh"
+            },
+            "stockholm-orto": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 \u00c4\u2018\u00c3\u00b4 th\u00e1\u00bb\u2039 Stockholm, CC0"
+                },
+                "description": "H\u00c3\u00acnh \u00e1\u00ba\u00a3nh tr\u00e1\u00bb\u00b1c giao t\u00e1\u00bb\u00ab \u00c4\u2018\u00c3\u00b4 th\u00e1\u00bb\u2039 Stockholm n\u00c4\u0192m 2018 \u00c4\u2018\u00c6\u00b0\u00e1\u00bb\u00a3c ph\u00c3\u00a1t h\u00c3\u00a0nh theo CC0",
+                "name": "H\u00c3\u00acnh tr\u00e1\u00bb\u00b1c giao Stockholm"
+            },
+            "susono_shizuoka_jp_orthophoto": {
+                "attribution": {
+                    "text": "H\u00c3\u00acnh tr\u00e1\u00bb\u00b1c giao th\u00c3\u00a0nh ph\u00e1\u00bb\u2018 Susono"
+                },
+                "description": "Kh\u00c3\u00b4ng \u00e1\u00ba\u00a3nh do th\u00c3\u00a0nh ph\u00e1\u00bb\u2018 Susono ph\u00c3\u00a1t h\u00c3\u00a0nh nh\u00c6\u00b0 d\u00e1\u00bb\u00af li\u00e1\u00bb\u2021u m\u00e1\u00bb\u0178.",
+                "name": "H\u00c3\u00acnh tr\u00e1\u00bb\u00b1c giao th\u00c3\u00a0nh ph\u00e1\u00bb\u2018 Susono"
+            },
+            "tf-cycle": {
+                "attribution": {
+                    "text": "B\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c \u00c2\u00a9 Thunderforest, d\u00e1\u00bb\u00af li\u00e1\u00bb\u2021u \u00c2\u00a9 nh\u00e1\u00bb\u00afng ng\u00c6\u00b0\u00e1\u00bb\ufffdi \u00c4\u2018\u00c3\u00b3ng g\u00c3\u00b3p v\u00c3\u00a0o OpenStreetMap"
+                },
+                "name": "Thunderforest OpenCycleMap"
+            },
+            "tf-landscape": {
+                "attribution": {
+                    "text": "B\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c \u00c2\u00a9 Thunderforest, d\u00e1\u00bb\u00af li\u00e1\u00bb\u2021u \u00c2\u00a9 nh\u00e1\u00bb\u00afng ng\u00c6\u00b0\u00e1\u00bb\ufffdi \u00c4\u2018\u00c3\u00b3ng g\u00c3\u00b3p v\u00c3\u00a0o OpenStreetMap"
+                },
+                "name": "Thunderforest Phong c\u00e1\u00ba\u00a3nh"
+            },
+            "tf-outdoors": {
+                "attribution": {
+                    "text": "B\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c \u00c2\u00a9 Thunderforest, d\u00e1\u00bb\u00af li\u00e1\u00bb\u2021u \u00c2\u00a9 nh\u00e1\u00bb\u00afng ng\u00c6\u00b0\u00e1\u00bb\ufffdi \u00c4\u2018\u00c3\u00b3ng g\u00c3\u00b3p v\u00c3\u00a0o OpenStreetMap"
+                },
+                "name": "Thunderforest Ngo\u00c3\u00a0i tr\u00e1\u00bb\ufffdi"
+            },
+            "trafikverket-baninfo": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 B\u00e1\u00bb\u2122 Giao th\u00c3\u00b4ng Th\u00e1\u00bb\u00a5y \u00c4\ufffdi\u00e1\u00bb\u0192n, CC0"
+                },
+                "description": "H\u00e1\u00bb\u2021 th\u00e1\u00bb\u2018ng \u00c4\u2018\u00c6\u00b0\u00e1\u00bb\ufffdng s\u00e1\u00ba\u00aft Th\u00e1\u00bb\u00a5y \u00c4\ufffdi\u00e1\u00bb\u0192n c\u00c3\u00b3 c\u00e1\u00ba\u00a3 \u00c4\u2018\u00c6\u00b0\u00e1\u00bb\ufffdng tr\u00c3\u00a1nh",
+                "name": "H\u00e1\u00bb\u2021 th\u00e1\u00bb\u2018ng \u00c4\ufffd\u00c6\u00b0\u00e1\u00bb\ufffdng s\u00e1\u00ba\u00aft B\u00e1\u00bb\u2122 Giao th\u00c3\u00b4ng Th\u00e1\u00bb\u00a5y \u00c4\ufffdi\u00e1\u00bb\u0192n"
+            },
+            "trafikverket-baninfo-option": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 B\u00e1\u00bb\u2122 Giao th\u00c3\u00b4ng Th\u00e1\u00bb\u00a5y \u00c4\ufffdi\u00e1\u00bb\u0192n, CC0"
+                },
+                "description": "H\u00e1\u00bb\u2021 th\u00e1\u00bb\u2018ng \u00c4\u2018\u00c6\u00b0\u00e1\u00bb\ufffdng s\u00e1\u00ba\u00aft Th\u00e1\u00bb\u00a5y \u00c4\ufffdi\u00e1\u00bb\u0192n c\u00c3\u00b3 v\u00c3\u00a0i l\u00e1\u00bb\u203ap b\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c \u00c4\u2018\u00e1\u00bb\u0192 l\u00e1\u00bb\u00b1a ch\u00e1\u00bb\ufffdn",
+                "name": "H\u00e1\u00bb\u2021 th\u00e1\u00bb\u2018ng \u00c4\ufffd\u00c6\u00b0\u00e1\u00bb\ufffdng s\u00e1\u00ba\u00aft B\u00e1\u00bb\u2122 Giao th\u00c3\u00b4ng Th\u00e1\u00bb\u00a5y \u00c4\ufffdi\u00e1\u00bb\u0192n c\u00c3\u00b3 t\u00c3\u00b9y ch\u00e1\u00bb\ufffdn"
+            },
+            "trafikverket-vagnat": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 B\u00e1\u00bb\u2122 Giao th\u00c3\u00b4ng Th\u00e1\u00bb\u00a5y \u00c4\ufffdi\u00e1\u00bb\u0192n, CC0"
+                },
+                "description": "H\u00e1\u00bb\u2021 th\u00e1\u00bb\u2018ng \u00c4\ufffd\u00c6\u00b0\u00e1\u00bb\ufffdng b\u00e1\u00bb\u2122 NVDB Th\u00e1\u00bb\u00a5y \u00c4\ufffdi\u00e1\u00bb\u0192n",
+                "name": "H\u00e1\u00bb\u2021 th\u00e1\u00bb\u2018ng \u00c4\ufffd\u00c6\u00b0\u00e1\u00bb\ufffdng b\u00e1\u00bb\u2122 B\u00e1\u00bb\u2122 Giao th\u00c3\u00b4ng Th\u00e1\u00bb\u00a5y \u00c4\ufffdi\u00e1\u00bb\u0192n"
+            },
+            "trafikverket-vagnat-extra": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 B\u00e1\u00bb\u2122 Giao th\u00c3\u00b4ng Th\u00e1\u00bb\u00a5y \u00c4\ufffdi\u00e1\u00bb\u0192n, CC0"
+                },
+                "description": "Chi ti\u00e1\u00ba\u00bft b\u00e1\u00bb\u2022 sung t\u00e1\u00bb\u00ab NVDB Th\u00e1\u00bb\u00a5y \u00c4\ufffdi\u00e1\u00bb\u0192n: s\u00e1\u00bb\u2018 \u00c4\u2018\u00c6\u00b0\u00e1\u00bb\ufffdng, thi\u00e1\u00ba\u00bft b\u00e1\u00bb\u2039 \u00c4\u2018i\u00e1\u00bb\ufffdu h\u00c3\u00b2a giao th\u00c3\u00b4ng, tr\u00e1\u00ba\u00a1m d\u00e1\u00bb\u00abng ngh\u00e1\u00bb\u2030, tr\u00e1\u00ba\u00a1m xe bu\u00c3\u00bdt, c\u00e1\u00ba\u00a7u, \u00c4\u2018\u00c6\u00b0\u00e1\u00bb\ufffdng h\u00e1\u00ba\u00a7m, camera gi\u00c3\u00a1m s\u00c3\u00a1t t\u00e1\u00bb\u2018c \u00c4\u2018\u00e1\u00bb\u2122",
+                "name": "H\u00e1\u00bb\u2021 th\u00e1\u00bb\u2018ng \u00c4\ufffd\u00c6\u00b0\u00e1\u00bb\ufffdng b\u00e1\u00bb\u2122 B\u00e1\u00bb\u2122 Giao th\u00c3\u00b4ng Th\u00e1\u00bb\u00a5y \u00c4\ufffdi\u00e1\u00bb\u0192n b\u00e1\u00bb\u2022 sung"
+            },
+            "trafikverket-vagnat-option": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 B\u00e1\u00bb\u2122 Giao th\u00c3\u00b4ng Th\u00e1\u00bb\u00a5y \u00c4\ufffdi\u00e1\u00bb\u0192n, CC0"
+                },
+                "description": "H\u00e1\u00bb\u2021 th\u00e1\u00bb\u2018ng \u00c4\u2018\u00c6\u00b0\u00e1\u00bb\ufffdng b\u00e1\u00bb\u2122 Th\u00e1\u00bb\u00a5y \u00c4\ufffdi\u00e1\u00bb\u0192n c\u00c3\u00b3 v\u00c3\u00a0i l\u00e1\u00bb\u203ap b\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c \u00c4\u2018\u00e1\u00bb\u0192 l\u00e1\u00bb\u00b1a ch\u00e1\u00bb\ufffdn",
+                "name": "H\u00e1\u00bb\u2021 th\u00e1\u00bb\u2018ng \u00c4\ufffd\u00c6\u00b0\u00e1\u00bb\ufffdng b\u00e1\u00bb\u2122 B\u00e1\u00bb\u2122 Giao th\u00c3\u00b4ng Th\u00e1\u00bb\u00a5y \u00c4\ufffdi\u00e1\u00bb\u0192n c\u00c3\u00b3 t\u00c3\u00b9y ch\u00e1\u00bb\ufffdn"
+            },
+            "wroclaw-orto2015": {
+                "attribution": {
+                    "text": "V\u00c4\u0192n ph\u00c3\u00b2ng Th\u00c3\u00a0nh ph\u00e1\u00bb\u2018 Wroc\u00c5\u201aaw"
+                },
+                "name": "Wroc\u00c5\u201aaw: b\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c h\u00c3\u00acnh tr\u00e1\u00bb\u00b1c giao 2015 (kh\u00c3\u00b4ng \u00e1\u00ba\u00a3nh)"
+            },
+            "wroclaw-orto2018": {
+                "attribution": {
+                    "text": "V\u00c4\u0192n ph\u00c3\u00b2ng Th\u00c3\u00a0nh ph\u00e1\u00bb\u2018 Wroc\u00c5\u201aaw"
+                },
+                "name": "Wroc\u00c5\u201aaw: b\u00e1\u00ba\u00a3n \u00c4\u2018\u00e1\u00bb\u201c h\u00c3\u00acnh tr\u00e1\u00bb\u00b1c giao 2018 (kh\u00c3\u00b4ng \u00e1\u00ba\u00a3nh)"
+            }
+        }
+    }
+}

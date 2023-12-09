@@ -1,0 +1,40 @@
+{
+    "yue": {
+        "imagery": {
+            "Bing": {
+                "description": "\u00e8\u00a1\u017e\u00e6\u02dc\u0178\u00e5\ufffd\u0152\u00e8\u02c6\u00ac\u00e7\u00a9\u00ba\u00e7\u203a\u00b8\u00e3\u20ac\u201a"
+            },
+            "EsriWorldImagery": {
+                "attribution": {
+                    "text": "\u00e6\u00a2\ufffd\u00e6\u00ac\u00be\u00e5\ufffd\u0152\u00e5\u203a\u017e\u00e6\u2021\u2030"
+                }
+            },
+            "EsriWorldImageryClarity": {
+                "attribution": {
+                    "text": "\u00e6\u00a2\ufffd\u00e6\u00ac\u00be\u00e5\ufffd\u0152\u00e5\u203a\u017e\u00e6\u2021\u2030"
+                }
+            },
+            "MAPNIK": {
+                "description": "\u00e9\u00a0\ufffd\u00e8\u00a8\u00ad\u00e5\u2026\u00ac\u00e5\u00ae\u00b6\u00e8\u00a1\u2014\u00e5\u0153\u2013\u00e5\u00b1\u00a4",
+                "name": "\u00e5\u2026\u00ac\u00e5\u00ae\u00b6\u00e8\u00a1\u2014\u00e5\u0153\u2013\u00ef\u00bc\u02c6\u00e4\u00b8\u20ac\u00e8\u02c6\u00ac\u00ef\u00bc\u2030"
+            },
+            "Mapbox": {
+                "attribution": {
+                    "text": "\u00e6\u00a2\ufffd\u00e6\u00ac\u00be\u00e5\ufffd\u0152\u00e5\u203a\u017e\u00e6\u2021\u2030"
+                },
+                "name": "\u00e8\u00bc\u00bf\u00e5\u0153\u2013\u00e7\u203a\u2019\u00e8\u00a1\u203a\u00e6\u02dc\u0178"
+            },
+            "mapbox_locator_overlay": {
+                "attribution": {
+                    "text": "\u00e6\u00a2\ufffd\u00e6\u00ac\u00be\u00e5\ufffd\u0152\u00e5\u203a\u017e\u00e6\u2021\u2030"
+                }
+            },
+            "tf-cycle": {
+                "name": "\u00e9\u203a\u00b7\u00e6\u017e\u2014\u00e5\u2026\u00ac\u00e5\u00ae\u00b6\u00e5\u2013\u00ae\u00e8\u00bb\u0160\u00e5\u0153\u00b0\u00e5\u0153\u2013"
+            },
+            "tf-landscape": {
+                "name": "\u00e9\u203a\u00b7\u00e6\u017e\u2014\u00e5\u0153\u00b0\u00e5\u2039\u00a2"
+            }
+        }
+    }
+}

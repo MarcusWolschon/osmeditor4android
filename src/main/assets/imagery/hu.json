@@ -1,0 +1,411 @@
+{
+    "hu": {
+        "imagery": {
+            "Bedzin-PL-buildings": {
+                "name": "B\u00c4\u2122dzin: \u00c3\u00a9p\u00c3\u00bcletek"
+            },
+            "Bing": {
+                "description": "M\u00c5\u00b1holdk\u00c3\u00a9pek \u00c3\u00a9s l\u00c3\u00a9gifelv\u00c3\u00a9telek",
+                "name": "Bing l\u00c3\u00a9git\u00c3\u00a9rk\u00c3\u00a9p"
+            },
+            "Bytom-buildings": {
+                "name": "Bytom: \u00c3\u00a9p\u00c3\u00bcletek"
+            },
+            "Dourados_Ortofotos": {
+                "description": "Dourados (2018) \u00c3\u00a9s n\u00c3\u00a9h\u00c3\u00a1ny ker\u00c3\u00bclet  (2020) nagy felbont\u00c3\u00a1s\u00c3\u00ba l\u00c3\u00a9gi f\u00c3\u00a9nyk\u00c3\u00a9pen."
+            },
+            "EOXAT2018CLOUDLESS": {
+                "attribution": {
+                    "text": "Sentinel-2 felh\u00c5\u2018tlen \u00e2\u20ac\u201c https://s2maps.eu k\u00c3\u00a9sz\u00c3\u00adtette: EOX IT Services GmbH (M\u00c3\u00b3dos\u00c3\u00adtott 2017-es \u00c3\u00a9s 2018-as Copernicus Sentinel adatokat tartalmaz)"
+                },
+                "description": "Ut\u00c3\u00b3feldolgozott Sentinel m\u00c5\u00b1holdas l\u00c3\u00a9gifelv\u00c3\u00a9tel.",
+                "name": "eox.at 2018 felh\u00c5\u2018tlen"
+            },
+            "EsriWorldImagery": {
+                "attribution": {
+                    "text": "Felt\u00c3\u00a9telek \u00c3\u00a9s visszajelz\u00c3\u00a9s"
+                },
+                "name": "Esri World felv\u00c3\u00a9telek"
+            },
+            "EsriWorldImageryClarity": {
+                "attribution": {
+                    "text": "Felt\u00c3\u00a9telek \u00c3\u00a9s visszajelz\u00c3\u00a9s"
+                },
+                "description": "Az Esri arch\u00c3\u00adv felv\u00c3\u00a9telek \u00c3\u00a9lesebbek \u00c3\u00a9s pontosabbak lehetnek, mint az alap\u00c3\u00a9rtelmezett r\u00c3\u00a9teg.",
+                "name": "Esri World felv\u00c3\u00a9telek (Clarity) b\u00c3\u00a9ta"
+            },
+            "Frankfurt-am-Main-2019": {
+                "name": "Frankfurt am Main l\u00c3\u00a9gifot\u00c3\u00b3 2019"
+            },
+            "Geoportal2-PL-HighResolution-aerial_image_WMS": {
+                "description": "Ortofot\u00c3\u00b3t\u00c3\u00a9rk\u00c3\u00a9p legal\u00c3\u00a1bb 10 cm-es felbont\u00c3\u00a1ssal. Az adatok felbont\u00c3\u00a1s, majd aktualit\u00c3\u00a1s szerint vannak rendezve."
+            },
+            "Geoportal2-PL-Streets_WMS": {
+                "description": "WMS megtekint\u00c3\u00a9si szolg\u00c3\u00a1ltat\u00c3\u00a1s lengyel nemzeti c\u00c3\u00admsz\u00c3\u00a1moz\u00c3\u00a1si integr\u00c3\u00a1ci\u00c3\u00b3ban, amely lehet\u00c5\u2018v\u00c3\u00a9 teszi a Nemzeti Hat\u00c3\u00a1rnyilv\u00c3\u00a1ntart\u00c3\u00a1s t\u00c3\u00a9rbeli adataib\u00c3\u00b3l l\u00c3\u00a9trehozott t\u00c3\u00a9rk\u00c3\u00a9pi k\u00c3\u00a9pek let\u00c3\u00b6lt\u00c3\u00a9s\u00c3\u00a9t az utca- \u00c3\u00a9s c\u00c3\u00admnyilv\u00c3\u00a1ntart\u00c3\u00a1sokhoz."
+            },
+            "Geoportal2-PL-addres_points_WMS": {
+                "description": "WMS megtekint\u00c3\u00a9si szolg\u00c3\u00a1ltat\u00c3\u00a1s lengyel nemzeti c\u00c3\u00admsz\u00c3\u00a1moz\u00c3\u00a1si integr\u00c3\u00a1ci\u00c3\u00b3ban, amely lehet\u00c5\u2018v\u00c3\u00a9 teszi a Nemzeti Hat\u00c3\u00a1rnyilv\u00c3\u00a1ntart\u00c3\u00a1s t\u00c3\u00a9rbeli adataib\u00c3\u00b3l l\u00c3\u00a9trehozott t\u00c3\u00a9rk\u00c3\u00a9pi k\u00c3\u00a9pek let\u00c3\u00b6lt\u00c3\u00a9s\u00c3\u00a9t az utca- \u00c3\u00a9s c\u00c3\u00admnyilv\u00c3\u00a1ntart\u00c3\u00a1sokhoz."
+            },
+            "Geoportal2-PL-aerial_image_WMS": {
+                "description": "Lengyelorsz\u00c3\u00a1g ter\u00c3\u00bclet\u00c3\u00a9re vonatkoz\u00c3\u00b3 ortofot\u00c3\u00b3t\u00c3\u00a9rk\u00c3\u00a9pek megtekint\u00c3\u00a9s\u00c3\u00a9t lehet\u00c5\u2018v\u00c3\u00a9 tev\u00c5\u2018 szolg\u00c3\u00a1ltat\u00c3\u00a1s (Web Map Service, WMS). Az e szolg\u00c3\u00a1ltat\u00c3\u00a1s r\u00c3\u00a9v\u00c3\u00a9n rendelkez\u00c3\u00a9sre bocs\u00c3\u00a1tott adatok l\u00c3\u00a9gi felv\u00c3\u00a9telekb\u00c5\u2018l k\u00c3\u00a9sz\u00c3\u00bclt ortofot\u00c3\u00b3t\u00c3\u00a9rk\u00c3\u00a9pek. A szolg\u00c3\u00a1ltat\u00c3\u00a1s t\u00c3\u00a1mogatja a WMS 1.3.0 interf\u00c3\u00a9szt."
+            },
+            "Geoportal2-PL-aerial_image_WMTS": {
+                "description": "Lengyelorsz\u00c3\u00a1g ter\u00c3\u00bclet\u00c3\u00a9re vonatkoz\u00c3\u00b3 ortofot\u00c3\u00b3k megtekint\u00c3\u00a9s\u00c3\u00a9re szolg\u00c3\u00a1l\u00c3\u00b3 szolg\u00c3\u00a1ltat\u00c3\u00a1s (Web Map Tile Service,WMTS). Az e szolg\u00c3\u00a1ltat\u00c3\u00a1s r\u00c3\u00a9v\u00c3\u00a9n rendelkez\u00c3\u00a9sre bocs\u00c3\u00a1tott adatok l\u00c3\u00a9gi felv\u00c3\u00a9telekb\u00c5\u2018l k\u00c3\u00a9sz\u00c3\u00bclt ortofot\u00c3\u00b3t\u00c3\u00a9rk\u00c3\u00a9pek."
+            },
+            "Geoportal2-PL-buildings_WMS": {
+                "description": "A Lengyel Nemzeti F\u00c3\u00b6ldnyilv\u00c3\u00a1ntart\u00c3\u00a1si Integr\u00c3\u00a1ci\u00c3\u00b3s szolg\u00c3\u00a1ltat\u00c3\u00a1s k\u00c3\u00b6zvetlen\u00c3\u00bcl a megyei szint\u00c5\u00b1 egys\u00c3\u00a9gekt\u00c5\u2018l sz\u00c3\u00a1rmaz\u00c3\u00b3 f\u00c3\u00b6ldnyilv\u00c3\u00a1ntart\u00c3\u00a1si adatok bemutat\u00c3\u00a1s\u00c3\u00a1ra szolg\u00c3\u00a1l\u00c3\u00b3 \u00c3\u00b6sszevont szolg\u00c3\u00a1ltat\u00c3\u00a1s. A szolg\u00c3\u00a1ltat\u00c3\u00a1s csak azon egys\u00c3\u00a9gek adatait tartalmazza, amelyeknek l\u00c3\u00a9tezik  megfelel\u00c5\u2018 param\u00c3\u00a9terekkel rendelkez\u00c5\u2018 WMS-szolg\u00c3\u00a1ltat\u00c3\u00a1sa, \u00c3\u00a9s \u00c3\u00bagy d\u00c3\u00b6nt\u00c3\u00b6ttek, hogy WMS-szolg\u00c3\u00a1ltat\u00c3\u00a1sukat bevonj\u00c3\u00a1k a NationalIntegrationGroundEvidence \u00c3\u00b6sszes\u00c3\u00adtett szolg\u00c3\u00a1ltat\u00c3\u00a1sba."
+            },
+            "Geoportal2-PL-plot_boundaries_WMS": {
+                "description": "A Lengyel Nemzeti F\u00c3\u00b6ldnyilv\u00c3\u00a1ntart\u00c3\u00a1si Integr\u00c3\u00a1ci\u00c3\u00b3s szolg\u00c3\u00a1ltat\u00c3\u00a1s k\u00c3\u00b6zvetlen\u00c3\u00bcl a megyei szint\u00c5\u00b1 egys\u00c3\u00a9gekt\u00c5\u2018l sz\u00c3\u00a1rmaz\u00c3\u00b3 f\u00c3\u00b6ldnyilv\u00c3\u00a1ntart\u00c3\u00a1si adatok bemutat\u00c3\u00a1s\u00c3\u00a1ra szolg\u00c3\u00a1l\u00c3\u00b3 \u00c3\u00b6sszevont szolg\u00c3\u00a1ltat\u00c3\u00a1s. A szolg\u00c3\u00a1ltat\u00c3\u00a1s csak azon egys\u00c3\u00a9gek adatait tartalmazza, amelyeknek l\u00c3\u00a9tezik megfelel\u00c5\u2018 param\u00c3\u00a9terekkel rendelkez\u00c5\u2018 WMS-szolg\u00c3\u00a1ltat\u00c3\u00a1sa, \u00c3\u00a9s \u00c3\u00bagy d\u00c3\u00b6nt\u00c3\u00b6ttek, hogy WMS-szolg\u00c3\u00a1ltat\u00c3\u00a1sukat bevonj\u00c3\u00a1k a NationalIntegrationGroundEvidence \u00c3\u00b6sszes\u00c3\u00adtett szolg\u00c3\u00a1ltat\u00c3\u00a1sba."
+            },
+            "LSA-ATKIS_BU": {
+                "description": "Az \u00c3\u00a9p\u00c3\u00bcletek alakja Sz\u00c3\u00a1sz-Anhalt tartom\u00c3\u00a1nyban"
+            },
+            "LSA-DOP20": {
+                "description": "Sz\u00c3\u00a1sz-Anhalt tartom\u00c3\u00a1ny l\u00c3\u00a9gi felv\u00c3\u00a9tele, 20 cm-es felbont\u00c3\u00a1s"
+            },
+            "LSA-DVG": {
+                "description": "A k\u00c3\u00b6zigazgat\u00c3\u00a1si hat\u00c3\u00a1rok vektoros r\u00c3\u00b6gz\u00c3\u00adt\u00c3\u00a9se. A sz\u00c3\u00b6vets\u00c3\u00a9gi \u00c3\u00a1llam, a j\u00c3\u00a1r\u00c3\u00a1s, a telep\u00c3\u00bcl\u00c3\u00a9s \u00c3\u00a9s a telep\u00c3\u00bcl\u00c3\u00a9sr\u00c3\u00a9szek hat\u00c3\u00a1rait adj\u00c3\u00a1k meg. "
+            },
+            "LocalAuthorities_RightsOfWay": {
+                "attribution": {
+                    "text": "Az Open Government Licence v3.0 licenc alatt enged\u00c3\u00a9lyezett k\u00c3\u00b6zszektorbeli inform\u00c3\u00a1ci\u00c3\u00b3kat tartalmaz."
+                },
+                "description": "A rowmaps.com oldalon \u00c3\u00b6ssze\u00c3\u00a1ll\u00c3\u00adtott, a helyi hat\u00c3\u00b3s\u00c3\u00a1gok \u00c3\u00a1ltal kiadott, k\u00c3\u00b6zhaszn\u00c3\u00a1lat\u00c3\u00ba \u00c3\u00bathaszn\u00c3\u00a1lati jogokra vonatkoz\u00c3\u00b3 adatok.",
+                "name": "K\u00c3\u00b6zhaszn\u00c3\u00a1lat\u00c3\u00ba \u00c3\u00batjogok"
+            },
+            "Lodz-buildings": {
+                "name": "\u00c5\ufffd\u00c3\u00b3d\u00c5\u00ba: \u00c3\u00a9p\u00c3\u00bcletek"
+            },
+            "MAPNIK": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 OpenStreetMap k\u00c3\u00b6zrem\u00c5\u00b1k\u00c3\u00b6d\u00c5\u2018k, ODbL 1.0"
+                },
+                "description": "Alap\u00c3\u00a9rtelmezett OpenStreetMap-r\u00c3\u00a9teg:",
+                "name": "OpenStreetMap (standard)"
+            },
+            "Maaamet-Estonia_Cadastre": {
+                "attribution": {
+                    "text": "Kataszteri t\u00c3\u00a9rk\u00c3\u00a9p az \u00c3\u00a9szt f\u00c3\u00b6ldhivatalt\u00c3\u00b3l"
+                },
+                "name": "F\u00c3\u00b6ldkataszteri t\u00c3\u00a9rk\u00c3\u00a9p"
+            },
+            "Maaamet-Estonia_Ortho": {
+                "name": "F\u00c3\u00b6ldhivatali ortogr\u00c3\u00a1fia (WMS)"
+            },
+            "Mapbox": {
+                "attribution": {
+                    "text": "Felt\u00c3\u00a9telek \u00c3\u00a9s visszajelz\u00c3\u00a9s"
+                },
+                "name": "Mapbox m\u00c5\u00b1holdk\u00c3\u00a9pek"
+            },
+            "OSIP_6in": {
+                "description": "Ohio Statewide Imagery Program III ortok\u00c3\u00a9pek 40 megy\u00c3\u00a9r\u00c5\u2018l, amelyeket 2017-ben \u00c3\u00a9s 2018-ban 6 h\u00c3\u00bcvelykes felbont\u00c3\u00a1ssal r\u00c3\u00b6gz\u00c3\u00adtettek, valamint OSIP I \u00c3\u00a9s OSIP II k\u00c3\u00a9pek tov\u00c3\u00a1bbi 16 megy\u00c3\u00a9ben 2010 \u00c3\u00a9s 2014 k\u00c3\u00b6z\u00c3\u00b6tt."
+            },
+            "OSMUK-Cadastral-Parcels": {
+                "attribution": {
+                    "text": "Az Open Government Licence v3.0 licenc alatt enged\u00c3\u00a9lyezett k\u00c3\u00b6zszektorbeli inform\u00c3\u00a1ci\u00c3\u00b3kat tartalmaz."
+                }
+            },
+            "OSM_Inspector-Addresses": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, OpenStreetMap-k\u00c3\u00b6zrem\u00c5\u00b1k\u00c3\u00b6d\u00c5\u2018k, CC-BY-SA"
+                },
+                "name": "OSM Inspector: c\u00c3\u00admek ellen\u00c5\u2018rz\u00c3\u00a9se"
+            },
+            "OSM_Inspector-Geometry": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, OpenStreetMap-k\u00c3\u00b6zrem\u00c5\u00b1k\u00c3\u00b6d\u00c5\u2018k, CC-BY-SA"
+                },
+                "name": "OSM Inspector: geometriai ellen\u00c5\u2018rz\u00c3\u00a9s"
+            },
+            "OSM_Inspector-Highways": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, OpenStreetMap-k\u00c3\u00b6zrem\u00c5\u00b1k\u00c3\u00b6d\u00c5\u2018k, CC-BY-SA"
+                },
+                "name": "OSM Inspector: utak ellen\u00c5\u2018rz\u00c3\u00a9se"
+            },
+            "OSM_Inspector-Multipolygon": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, OpenStreetMap-k\u00c3\u00b6zrem\u00c5\u00b1k\u00c3\u00b6d\u00c5\u2018k, CC-BY-SA"
+                },
+                "name": "OSM Inspector: ter\u00c3\u00bclet ellen\u00c5\u2018rz\u00c3\u00a9se"
+            },
+            "OSM_Inspector-Places": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, OpenStreetMap-k\u00c3\u00b6zrem\u00c5\u00b1k\u00c3\u00b6d\u00c5\u2018k, CC-BY-SA"
+                },
+                "name": "OSM Inspector: helyek ellen\u00c5\u2018rz\u00c3\u00a9se"
+            },
+            "OSM_Inspector-Routing": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, OpenStreetMap-k\u00c3\u00b6zrem\u00c5\u00b1k\u00c3\u00b6d\u00c5\u2018k, CC-BY-SA"
+                },
+                "name": "OSM Inspector: \u00c3\u00batvonalvezet\u00c3\u00a9s ellen\u00c5\u2018rz\u00c3\u00a9se"
+            },
+            "OSM_Inspector-Tagging": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Geofabrik GmbH, OpenStreetMap-k\u00c3\u00b6zrem\u00c5\u00b1k\u00c3\u00b6d\u00c5\u2018k, CC-BY-SA"
+                },
+                "name": "OSM Inspector: c\u00c3\u00admk\u00c3\u00a9z\u00c3\u00a9s ellen\u00c5\u2018rz\u00c3\u00a9se"
+            },
+            "SPW_ORTHO_LAST": {
+                "name": "SPW(allonie) legfrissebb l\u00c3\u00a9gifelv\u00c3\u00a9tel"
+            },
+            "SPW_PICC": {
+                "name": "SPW(allonie) PICC numerikus felv\u00c3\u00a9tel"
+            },
+            "Siemianowice_Slaskie-buildings": {
+                "name": "Siemianowice \u00c5\u0161l\u00c4\u2026skie: \u00c3\u00a9p\u00c3\u00bcletek"
+            },
+            "US-TIGER-Roads-2017": {
+                "description": "S\u00c3\u00a1rga = K\u00c3\u00b6zkincs\u00c5\u00b1 t\u00c3\u00a9rk\u00c3\u00a9padatok az USA n\u00c3\u00a9psz\u00c3\u00a1ml\u00c3\u00a1l\u00c3\u00a1si irod\u00c3\u00a1j\u00c3\u00a1t\u00c3\u00b3l. V\u00c3\u00b6r\u00c3\u00b6s = Az adatok nem tal\u00c3\u00a1lhat\u00c3\u00b3k meg az OpenStreetMapben."
+            },
+            "US-TIGER-Roads-2018": {
+                "description": "S\u00c3\u00a1rga = K\u00c3\u00b6zkincs\u00c5\u00b1 t\u00c3\u00a9rk\u00c3\u00a9padatok az USA n\u00c3\u00a9psz\u00c3\u00a1ml\u00c3\u00a1l\u00c3\u00a1si irod\u00c3\u00a1j\u00c3\u00a1t\u00c3\u00b3l. V\u00c3\u00b6r\u00c3\u00b6s = Az adatok nem tal\u00c3\u00a1lhat\u00c3\u00b3k meg az OpenStreetMapben."
+            },
+            "US-TIGER-Roads-2019": {
+                "description": "S\u00c3\u00a1rga = K\u00c3\u00b6zkincs\u00c5\u00b1 t\u00c3\u00a9rk\u00c3\u00a9padatok az USA n\u00c3\u00a9psz\u00c3\u00a1ml\u00c3\u00a1l\u00c3\u00a1si irod\u00c3\u00a1j\u00c3\u00a1t\u00c3\u00b3l. V\u00c3\u00b6r\u00c3\u00b6s = Az adatok nem tal\u00c3\u00a1lhat\u00c3\u00b3k meg az OpenStreetMapben."
+            },
+            "US-TIGER-Roads-2020": {
+                "description": "S\u00c3\u00a1rga = Az amerikai n\u00c3\u00a9psz\u00c3\u00a1ml\u00c3\u00a1l\u00c3\u00a1si hivatal nyilv\u00c3\u00a1nos t\u00c3\u00a9rk\u00c3\u00a9padatai. Piros = Az OpenStreetMapban nem tal\u00c3\u00a1lhat\u00c3\u00b3 adat."
+            },
+            "US-TIGER-Roads-2021": {
+                "description": "S\u00c3\u00a1rga = Az amerikai n\u00c3\u00a9psz\u00c3\u00a1ml\u00c3\u00a1l\u00c3\u00a1si hivatal nyilv\u00c3\u00a1nos t\u00c3\u00a9rk\u00c3\u00a9padatai. Piros = Az OpenStreetMapban nem tal\u00c3\u00a1lhat\u00c3\u00b3 adat."
+            },
+            "USDA-NAIP": {
+                "name": "National Agriculture Imagery Program"
+            },
+            "US_Forest_Service_roads_overlay": {
+                "description": "Utak: Z\u00c3\u00b6ld keret = besorolatlan. Barna keret = f\u00c3\u00b6ld\u00c3\u00bat. Fel\u00c3\u00bclet: murva = halv\u00c3\u00a1ny barna kit\u00c3\u00b6lt\u00c3\u00a9s, aszfalt = fekete, kik\u00c3\u00b6vezett = sz\u00c3\u00bcrke, f\u00c3\u00b6ld = feh\u00c3\u00a9r, beton = k\u00c3\u00a9k, f\u00c5\u00b1 = z\u00c3\u00b6ld. \u00c3\u2030vszakos = feh\u00c3\u00a9r s\u00c3\u00a1vok",
+                "name": "U.S.A. erdei \u00c3\u00batjainak r\u00c3\u00a9tege"
+            },
+            "UrbISOrtho": {
+                "attribution": {
+                    "text": "Megval\u00c3\u00b3sult a br\u00c3\u00bcsszeli UrbIS\u00c2\u00ae\u00c2\u00a9 seg\u00c3\u00adts\u00c3\u00a9g\u00c3\u00a9vel - Distribution & Copyright CIRB"
+                },
+                "name": "CIRB/CIBG legfrissebb l\u00c3\u00a9gi felv\u00c3\u00a9telek"
+            },
+            "UrbISOrtho2016": {
+                "attribution": {
+                    "text": "K\u00c3\u00a9sz\u00c3\u00adtette a br\u00c3\u00bcsszeli UrbIS\u00c2\u00ae\u00c2\u00a9 - Disztrib\u00c3\u00baci\u00c3\u00b3 \u00c3\u00a9s szerz\u00c5\u2018i jogok: CIRB"
+                }
+            },
+            "UrbISOrtho2017": {
+                "attribution": {
+                    "text": "K\u00c3\u00a9sz\u00c3\u00adtette a br\u00c3\u00bcsszeli UrbIS\u00c2\u00ae\u00c2\u00a9 - Disztrib\u00c3\u00baci\u00c3\u00b3 \u00c3\u00a9s szerz\u00c5\u2018i jogok: CIRB"
+                }
+            },
+            "UrbISOrtho2018": {
+                "attribution": {
+                    "text": "K\u00c3\u00a9sz\u00c3\u00adtette a br\u00c3\u00bcsszeli UrbIS\u00c2\u00ae\u00c2\u00a9 - Disztrib\u00c3\u00baci\u00c3\u00b3 \u00c3\u00a9s szerz\u00c5\u2018i jogok: CIRB"
+                }
+            },
+            "UrbISOrtho2020": {
+                "attribution": {
+                    "text": "Megval\u00c3\u00b3sult a br\u00c3\u00bcsszeli UrbIS\u00c2\u00ae\u00c2\u00a9 seg\u00c3\u00adts\u00c3\u00a9g\u00c3\u00a9vel - Distribution & Copyright CIRB"
+                }
+            },
+            "UrbisAdmFR": {
+                "attribution": {
+                    "text": "K\u00c3\u00a9sz\u00c3\u00adtette a br\u00c3\u00bcsszeli UrbIS\u00c2\u00ae\u00c2\u00a9 - Disztrib\u00c3\u00baci\u00c3\u00b3 \u00c3\u00a9s szerz\u00c5\u2018i jogok: CIRB"
+                }
+            },
+            "UrbisAdmFRNL": {
+                "attribution": {
+                    "text": "Megval\u00c3\u00b3sult a br\u00c3\u00bcsszeli UrbIS\u00c2\u00ae\u00c2\u00a9 seg\u00c3\u00adts\u00c3\u00a9g\u00c3\u00a9vel - Distribution & Copyright CIRB"
+                }
+            },
+            "UrbisAdmNL": {
+                "attribution": {
+                    "text": "K\u00c3\u00a9sz\u00c3\u00adtette a br\u00c3\u00bcsszeli UrbIS\u00c2\u00ae\u00c2\u00a9 - Disztrib\u00c3\u00baci\u00c3\u00b3 \u00c3\u00a9s szerz\u00c5\u2018i jogok: CIRB"
+                }
+            },
+            "Waymarked_Trails-Cycling": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 waymarkedtrails.org, OpenStreetMap-k\u00c3\u00b6zrem\u00c5\u00b1k\u00c3\u00b6d\u00c5\u2018k, CC by-SA 3.0"
+                },
+                "name": "Jelzett turistautak: ker\u00c3\u00a9kp\u00c3\u00a1roz\u00c3\u00a1s"
+            },
+            "Waymarked_Trails-Hiking": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 waymarkedtrails.org, OpenStreetMap-k\u00c3\u00b6zrem\u00c5\u00b1k\u00c3\u00b6d\u00c5\u2018k, CC by-SA 3.0"
+                },
+                "name": "Jelzett turistautak: t\u00c3\u00bar\u00c3\u00a1z\u00c3\u00a1s"
+            },
+            "Waymarked_Trails-MTB": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 waymarkedtrails.org, OpenStreetMap-k\u00c3\u00b6zrem\u00c5\u00b1k\u00c3\u00b6d\u00c5\u2018k, CC by-SA 3.0"
+                },
+                "name": "Jelzett turistautak: mountain bike"
+            },
+            "Waymarked_Trails-Skating": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 waymarkedtrails.org, OpenStreetMap-k\u00c3\u00b6zrem\u00c5\u00b1k\u00c3\u00b6d\u00c5\u2018k, CC by-SA 3.0"
+                },
+                "name": "Jelzett turistautak: korcsolya"
+            },
+            "Waymarked_Trails-Winter_Sports": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 waymarkedtrails.org, OpenStreetMap-k\u00c3\u00b6zrem\u00c5\u00b1k\u00c3\u00b6d\u00c5\u2018k, CC by-SA 3.0"
+                },
+                "name": "Jelzett turistautak: t\u00c3\u00a9li sportok"
+            },
+            "basemap.at": {
+                "description": "Ausztria alapt\u00c3\u00a9rk\u00c3\u00a9pe, korm\u00c3\u00a1nyzati adatok alapj\u00c3\u00a1n."
+            },
+            "basemap.at-orthofoto": {
+                "description": "A basemap.at \u00c3\u00a1ltal biztos\u00c3\u00adtott ortofot\u00c3\u00b3r\u00c3\u00a9teg; a geoimage.at felv\u00c3\u00a9teleinek ut\u00c3\u00b3dja",
+                "name": "basemap.at ortofot\u00c3\u00b3"
+            },
+            "basemap.at-overlay": {
+                "description": "A megnevez\u00c3\u00a9seket a basemap.at biztos\u00c3\u00adtja.",
+                "name": "basemap.at t\u00c3\u00a9rk\u00c3\u00a9pel\u00c5\u2018t\u00c3\u00a9r"
+            },
+            "cyclosm": {
+                "description": "A CyclOSM egy olyan t\u00c3\u00a9rk\u00c3\u00a9pst\u00c3\u00adlus, amelyet a ker\u00c3\u00a9kp\u00c3\u00a1roz\u00c3\u00a1st szem el\u00c5\u2018tt tartva terveztek. Az OpenStreetMap adatait kihaszn\u00c3\u00a1lva gy\u00c3\u00b6ny\u00c3\u00b6r\u00c5\u00b1 \u00c3\u00a9s praktikus ker\u00c3\u00a9kp\u00c3\u00a1ros t\u00c3\u00a9rk\u00c3\u00a9pet hoz l\u00c3\u00a9tre!"
+            },
+            "eufar-balaton": {
+                "attribution": {
+                    "text": "EUFAR Balaton ortofot\u00c3\u00b3 2010"
+                },
+                "description": "1940-es geok\u00c3\u00b3dolt f\u00c3\u00a9nyk\u00c3\u00a9pek a Balatoni Limnol\u00c3\u00b3giai Kutat\u00c3\u00b3int\u00c3\u00a9zett\u00c5\u2018l.",
+                "name": "EUFAR Balaton ortofot\u00c3\u00b3k"
+            },
+            "gothenburg-citymap": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 G\u00c3\u00b6teborg telep\u00c3\u00bcl\u00c3\u00a9s, CC0"
+                },
+                "description": "A v\u00c3\u00a1rost\u00c3\u00a9rk\u00c3\u00a9p egy \u00c3\u00a1ttekint\u00c5\u2018 t\u00c3\u00a9rk\u00c3\u00a9p, amely le\u00c3\u00adrja G\u00c3\u00b6teborgot. \u00c3\ufffdltal\u00c3\u00a1nos inform\u00c3\u00a1ci\u00c3\u00b3kat tartalmaz a ter\u00c3\u00bcletr\u00c5\u2018l, a kommunik\u00c3\u00a1ci\u00c3\u00b3r\u00c3\u00b3l, a v\u00c3\u00adzrajzr\u00c3\u00b3l, az \u00c3\u00a9p\u00c3\u00bcletekr\u00c5\u2018l, a h\u00c3\u00a1zsz\u00c3\u00a1mokr\u00c3\u00b3l \u00c3\u00a9s utcanevekr\u00c5\u2018l, a k\u00c3\u00b6zigazgat\u00c3\u00a1si feloszt\u00c3\u00a1sr\u00c3\u00b3l \u00c3\u00a9s egy\u00c3\u00a9b t\u00c3\u00a1j\u00c3\u00a9koz\u00c3\u00b3d\u00c3\u00a1si sz\u00c3\u00b6vegekr\u00c5\u2018l.",
+                "name": "G\u00c3\u00b6teborg v\u00c3\u00a1rost\u00c3\u00a9rk\u00c3\u00a9p"
+            },
+            "gothenburg-dtm-2017": {
+                "description": "G\u00c3\u00b6teborg v\u00c3\u00a1ros 2017-es magass\u00c3\u00a1gi modellje alapj\u00c3\u00a1n a domborzatot \u00c3\u00a9s lejt\u00c3\u00a9st bemutat\u00c3\u00b3 webes t\u00c3\u00a9rk\u00c3\u00a9pszolg\u00c3\u00a1ltat\u00c3\u00a1s. Felbont\u00c3\u00a1s 0,5 m\u00c3\u00a9ter per pixel."
+            },
+            "gothenburg-ortho": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 G\u00c3\u00b6teborg telep\u00c3\u00bcl\u00c3\u00a9s, CC0"
+                },
+                "description": "G\u00c3\u00b6teborg telep\u00c3\u00bcl\u00c3\u00a9s ortofot\u00c3\u00b3ja"
+            },
+            "gsi.go.jp_airphoto": {
+                "attribution": {
+                    "text": "GSI Jap\u00c3\u00a1n"
+                },
+                "description": "Jap\u00c3\u00a1n GSI l\u00c3\u00a9gi felv\u00c3\u00a9tel. Nem teljesen igaz\u00c3\u00adtott. Valamivel \u00c3\u00bajabb \u00c3\u00a9s m\u00c3\u00a1s lefedetts\u00c3\u00a9get mutat, mint a GSI ortofot\u00c3\u00b3.",
+                "name": "Jap\u00c3\u00a1n GSI l\u00c3\u00a9gifot\u00c3\u00b3"
+            },
+            "gsi.go.jp_std_map": {
+                "attribution": {
+                    "text": "GSI Jap\u00c3\u00a1n"
+                },
+                "description": "Jap\u00c3\u00a1n GSI standard t\u00c3\u00a9rk\u00c3\u00a9p. Nagyr\u00c3\u00a9szt mindent lefed.",
+                "name": "Jap\u00c3\u00a1n GSI standard t\u00c3\u00a9rk\u00c3\u00a9p."
+            },
+            "kartverket-bygninger": {
+                "description": "INSPIRE \u00c3\u00a9p\u00c3\u00bcletek Norv\u00c3\u00a9gi\u00c3\u00a1ban."
+            },
+            "kelkkareitit": {
+                "description": "Kelkkareitit.fi motoros sz\u00c3\u00a1n nyomvonalak az OSM-r\u00c5\u2018l (skandin\u00c3\u00a1v lefedetts\u00c3\u00a9g)",
+                "name": "Skandin\u00c3\u00a1v motorossz\u00c3\u00a1nr\u00c3\u00a9teg"
+            },
+            "lantmateriet-orto1960": {
+                "description": "Sv\u00c3\u00a9d ortofot\u00c3\u00b3k 1955-1965 k\u00c3\u00b6z\u00c3\u00b6tt. Egyes k\u00c3\u00a9pek enn\u00c3\u00a9l r\u00c3\u00a9gebbiek vagy \u00c3\u00bajabbak lehetnek.",
+                "name": "Lantm\u00c3\u00a4teriet t\u00c3\u00b6rt\u00c3\u00a9nelmi ortofot\u00c3\u00b3, 1960"
+            },
+            "lantmateriet-orto1975": {
+                "description": "Sv\u00c3\u00a9d ortofot\u00c3\u00b3k mozaikja 1970-1980 k\u00c3\u00b6z\u00c3\u00b6tt. Felt\u00c3\u00b6lt\u00c3\u00a9s alatt.",
+                "name": "Lantm\u00c3\u00a4teriet t\u00c3\u00b6rt\u00c3\u00a9nelmi ortofot\u00c3\u00b3, 1975"
+            },
+            "lantmateriet-topowebb": {
+                "description": "Sv\u00c3\u00a9dorsz\u00c3\u00a1g 1:50 000-es topogr\u00c3\u00a1fiai t\u00c3\u00a9rk\u00c3\u00a9pe",
+                "name": "Lantm\u00c3\u00a4teriet topogr\u00c3\u00a1fiai t\u00c3\u00a9rk\u00c3\u00a9p"
+            },
+            "linkoping-orto": {
+                "description": "2010-es ortofot\u00c3\u00b3k Link\u00c3\u00b6ping k\u00c3\u00b6zs\u00c3\u00a9gb\u00c5\u2018l, ny\u00c3\u00adlt adat",
+                "name": "Link\u00c3\u00b6ping ortofot\u00c3\u00b3"
+            },
+            "mapbox_locator_overlay": {
+                "attribution": {
+                    "text": "Felt\u00c3\u00a9telek \u00c3\u00a9s visszajelz\u00c3\u00a9s"
+                },
+                "description": "Megmutatja a t\u00c3\u00a1j\u00c3\u00a9koz\u00c3\u00b3d\u00c3\u00a1st seg\u00c3\u00adt\u00c5\u2018 fontosabb elemeket.",
+                "name": "Helymeghat\u00c3\u00a1roz\u00c3\u00b3 r\u00c3\u00a9teg"
+            },
+            "openpt_map": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 OpenStreetMap-k\u00c3\u00b6zrem\u00c5\u00b1k\u00c3\u00b6d\u00c5\u2018k, CC-BY-SA"
+                },
+                "name": "OpenPT Map (r\u00c3\u00a9teg) \u00e2\u20ac\u201c t\u00c3\u00b6megk\u00c3\u00b6zleked\u00c3\u00a9s"
+            },
+            "osm-gps": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 OpenStreetMap-k\u00c3\u00b6zrem\u00c5\u00b1k\u00c3\u00b6d\u00c5\u2018k"
+                },
+                "description": "Az OpenStreetMapre felt\u00c3\u00b6lt\u00c3\u00b6tt nyilv\u00c3\u00a1nos GPS-nyomvonalak",
+                "name": "OpenStreetMap GPS-nyomvonalak"
+            },
+            "osm-mapnik-german_style": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 OpenStreetMap-k\u00c3\u00b6zrem\u00c5\u00b1k\u00c3\u00b6d\u00c5\u2018k, CC-BY-SA"
+                },
+                "name": "OpenStreetMap (n\u00c3\u00a9met st\u00c3\u00adlus\u00c3\u00ba)"
+            },
+            "qa_no_address": {
+                "attribution": {
+                    "text": "Simon Poole, adatok: \u00c2\u00a9OpenStreetMap-k\u00c3\u00b6zrem\u00c5\u00b1k\u00c3\u00b6d\u00c5\u2018k"
+                },
+                "name": "Min\u00c5\u2018s\u00c3\u00a9gbiztos\u00c3\u00adt\u00c3\u00a1s: nincs c\u00c3\u00adm"
+            },
+            "skobbler": {
+                "attribution": {
+                    "text": "\u00c2\u00a9 Csemp\u00c3\u00a9k: skobbler Map, adatok: OpenStreetMap-k\u00c3\u00b6zrem\u00c5\u00b1k\u00c3\u00b6d\u00c5\u2018k"
+                }
+            },
+            "stamen-terrain-background": {
+                "attribution": {
+                    "text": "T\u00c3\u00a9rk\u00c3\u00a9pcsemp\u00c3\u00a9k a Stamen Design \u00c3\u00a1ltal, CC BY 3.0 szerint, adatok OpenStreetMap, ODbL alatt."
+                },
+                "name": "Stamen Terrain (terep)"
+            },
+            "stockholm-orto": {
+                "name": "Stockholm ortofot\u00c3\u00b3"
+            },
+            "susono_shizuoka_jp_orthophoto": {
+                "description": "Susono v\u00c3\u00a1rosa \u00c3\u00a1ltal ny\u00c3\u00adlt adatk\u00c3\u00a9nt k\u00c3\u00b6zz\u00c3\u00a9tett l\u00c3\u00a9gi felv\u00c3\u00a9telek."
+            },
+            "tf-cycle": {
+                "attribution": {
+                    "text": "T\u00c3\u00a9rk\u00c3\u00a9pek: \u00c2\u00a9 Thunderforest, adatok: \u00c2\u00a9 OpenStreetMap-k\u00c3\u00b6zrem\u00c5\u00b1k\u00c3\u00b6d\u00c5\u2018k"
+                },
+                "name": "Thunderforest OpenCycleMap (ker\u00c3\u00a9kp\u00c3\u00a1rost\u00c3\u00a9rk\u00c3\u00a9p)"
+            },
+            "tf-landscape": {
+                "attribution": {
+                    "text": "T\u00c3\u00a9rk\u00c3\u00a9pek: \u00c2\u00a9 Thunderforest, adatok: \u00c2\u00a9 OpenStreetMap contributors"
+                },
+                "name": "Thunderforest Landscape (t\u00c3\u00a1j)"
+            },
+            "trafikverket-baninfo": {
+                "description": "Sv\u00c3\u00a9d vas\u00c3\u00bath\u00c3\u00a1l\u00c3\u00b3zat, mell\u00c3\u00a9kv\u00c3\u00a1g\u00c3\u00a1nyokkal egy\u00c3\u00bctt",
+                "name": "Trafikverket vas\u00c3\u00bath\u00c3\u00a1l\u00c3\u00b3zat"
+            },
+            "trafikverket-baninfo-option": {
+                "description": "Sv\u00c3\u00a9d vas\u00c3\u00bath\u00c3\u00a1l\u00c3\u00b3zat n\u00c3\u00a9h\u00c3\u00a1ny t\u00c3\u00a9rk\u00c3\u00a9p fel\u00c3\u00bclet opci\u00c3\u00b3val.",
+                "name": "Trafikverket vas\u00c3\u00bath\u00c3\u00a1l\u00c3\u00b3zat opci\u00c3\u00b3k"
+            },
+            "trafikverket-vagnat": {
+                "description": "Sv\u00c3\u00a9d NVDB \u00c3\u00bath\u00c3\u00a1l\u00c3\u00b3zat",
+                "name": "Trafikverket \u00c3\u00bath\u00c3\u00a1l\u00c3\u00b3zat"
+            },
+            "trafikverket-vagnat-extra": {
+                "description": "Sv\u00c3\u00a9d NVDB extra r\u00c3\u00a9szletek: k\u00c3\u00b6z\u00c3\u00bat referencia, forgalomcsillap\u00c3\u00adt\u00c3\u00b3, pihen\u00c5\u2018hely, buszmeg\u00c3\u00a1ll\u00c3\u00b3, h\u00c3\u00add, alag\u00c3\u00bat, traffipax",
+                "name": "Trafikverket \u00c3\u00bath\u00c3\u00a1l\u00c3\u00b3zat extra"
+            },
+            "trafikverket-vagnat-option": {
+                "description": "Sv\u00c3\u00a9d NVDB \u00c3\u00bath\u00c3\u00a1l\u00c3\u00b3zat n\u00c3\u00a9h\u00c3\u00a1ny t\u00c3\u00a9rk\u00c3\u00a9p fel\u00c3\u00bclet opci\u00c3\u00b3val.",
+                "name": "Trafikverket \u00c3\u00bath\u00c3\u00a1l\u00c3\u00b3zat opci\u00c3\u00b3k"
+            }
+        }
+    }
+}
