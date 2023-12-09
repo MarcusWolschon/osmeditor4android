@@ -1146,8 +1146,9 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
         LinearLayoutManager layoutManager = new LinearLayoutManager(activity);
         imageryList.setLayoutManager(layoutManager);
 
-        final ImageryListAdapter adapter = new ImageryListAdapter(ids, newLayer ? TileLayerSource.LAYER_NONE : layer.getTileLayerConfiguration().getId(),
-                isOverlay, buttonLayoutParams, new LayerOnCheckedChangeListener(activity, dialog, row, layer, ids));
+        final ImageryListAdapter adapter = new ImageryListAdapter(activity, ids,
+                newLayer ? TileLayerSource.LAYER_NONE : layer.getTileLayerConfiguration().getId(), isOverlay, buttonLayoutParams,
+                new LayerOnCheckedChangeListener(activity, dialog, row, layer, ids));
         adapter.addInfoClickListener((String id) -> {
             TileLayerSource l = TileLayerSource.get(getContext(), id, true);
             if (l != null) {
@@ -1171,7 +1172,7 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
             } else {
                 prefs.setBackgroundCategory(category);
             }
-            adapter.setIds(idsForButtons, isOverlay, true);
+            adapter.setIds(getContext(), idsForButtons, isOverlay, true);
             adapter.setOnCheckedChangeListener(new LayerOnCheckedChangeListener(activity, dialog, row, layer, idsForButtons));
         });
         dialog.show();

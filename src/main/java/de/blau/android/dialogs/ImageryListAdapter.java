@@ -1,5 +1,6 @@
 package de.blau.android.dialogs;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,16 +40,17 @@ public class ImageryListAdapter extends RecyclerView.Adapter<ImageryListAdapter.
 
     /**
      * Create a new adapter
-     *
+     * 
+     * @param ctx an Android Context
      * @param ids an array with imagery ids
      * @param currentId the current imagery id
      * @param isOverlay true if overlay should be displayed
      * @param buttonLayoutParams layout params for the RadioButtons
      * @param groupChangeListener a listener to call when a RadioButton has been selected
      */
-    public ImageryListAdapter(@NonNull String[] ids, String currentId, @Nullable boolean isOverlay, @NonNull LayoutParams buttonLayoutParams,
-            @NonNull android.widget.RadioGroup.OnCheckedChangeListener groupChangeListener) {
-        setIds(ids, isOverlay, false);
+    public ImageryListAdapter(@NonNull Context ctx, @NonNull String[] ids, String currentId, @Nullable boolean isOverlay,
+            @NonNull LayoutParams buttonLayoutParams, @NonNull android.widget.RadioGroup.OnCheckedChangeListener groupChangeListener) {
+        setIds(ctx, ids, isOverlay, false);
         this.currentId = currentId;
         this.buttonLayoutParams = buttonLayoutParams;
         this.groupChangeListener = groupChangeListener;
@@ -111,14 +113,15 @@ public class ImageryListAdapter extends RecyclerView.Adapter<ImageryListAdapter.
 
     /**
      * Set the ids and name arrays that are going to be display
-     *
+     * 
+     * @param ctx an Android context
      * @param ids the array of imagery ids
      * @param isOverlay true if this is for overlay selection
      * @param update if true this is an update of an existing adapter
      */
-    void setIds(@NonNull String[] ids, boolean isOverlay, boolean update) {
+    void setIds(@NonNull Context ctx, @NonNull String[] ids, boolean isOverlay, boolean update) {
         this.ids = ids;
-        names = isOverlay ? TileLayerSource.getOverlayNames(ids) : TileLayerSource.getNames(ids);
+        names = isOverlay ? TileLayerSource.getOverlayNames(ctx, ids) : TileLayerSource.getNames(ctx, ids);
         if (update) {
             notifyDataSetChanged();
         }

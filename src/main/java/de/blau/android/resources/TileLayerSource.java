@@ -51,6 +51,7 @@ import androidx.annotation.Nullable;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
+import de.blau.android.R;
 import de.blau.android.contract.FileExtensions;
 import de.blau.android.contract.Files;
 import de.blau.android.contract.MimeTypes;
@@ -1620,27 +1621,34 @@ public class TileLayerSource implements Serializable {
      * 
      * @param ctx an Android context
      * @param ids array containing the ids
+     * 
      * @return array containing the names
      */
     @NonNull
-    public static String[] getNames(@NonNull String[] ids) {
-        return getNames(backgroundServerList, ids);
+    public static String[] getNames(@NonNull Context ctx, @NonNull String[] ids) {
+        return getNames(ctx, backgroundServerList, ids);
     }
 
     /**
      * Get tile server names from list of ids
      * 
+     * @param ctx an Android context
      * @param map Map containing with id to layer mapping
      * @param ids array containing the ids
+     * 
      * @return array containing the names
      */
     @NonNull
-    public static String[] getNames(@Nullable Map<String, TileLayerSource> map, @NonNull String[] ids) {
+    private static String[] getNames(@NonNull Context ctx, @Nullable Map<String, TileLayerSource> map, @NonNull String[] ids) {
         List<String> names = new ArrayList<>();
         if (map != null) {
             for (String key : ids) {
                 TileLayerSource osmts = map.get(key);
-                names.add(osmts.name + (TYPE_WMS.equals(osmts.type) ? " [wms]" : ""));
+                if (TYPE_WMS.equals(osmts.type)) {
+                    names.add(ctx.getString(R.string.wms_hint, osmts.name));
+                } else {
+                    names.add(osmts.name);
+                }
             }
         }
         return names.toArray(new String[names.size()]);
@@ -1675,12 +1683,14 @@ public class TileLayerSource implements Serializable {
     /**
      * Get tile server names from list of ids
      * 
+     * @param ctx an Android context
      * @param ids id list
+     * 
      * @return list of names
      */
     @NonNull
-    public static String[] getOverlayNames(@NonNull String[] ids) {
-        return getNames(overlayServerList, ids);
+    public static String[] getOverlayNames(Context ctx, @NonNull String[] ids) {
+        return getNames(ctx, overlayServerList, ids);
     }
 
     /**
