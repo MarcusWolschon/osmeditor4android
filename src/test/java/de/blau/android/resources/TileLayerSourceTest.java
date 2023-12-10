@@ -167,7 +167,8 @@ public class TileLayerSourceTest {
                     getClass().getResourceAsStream("/wms.geojson"), true);
             TileLayerSource.getListsLocked(ApplicationProvider.getApplicationContext(), db.getReadableDatabase(), true);
             String[] ids = TileLayerSource.getIds(null, false, null, null);
-            assertEquals(2, ids.length);
+            assertEquals(4, ids.length);
+            // test with EPSG:3857 WMS 1.3
             TileLayerSource swisstopo = TileLayerSource.get(ApplicationProvider.getApplicationContext(), "swisstopo_swissimage", false);
             assertNotNull(swisstopo);
             MapTile tile = new MapTile("", 16, 34387, 22901);
@@ -175,11 +176,26 @@ public class TileLayerSourceTest {
             assertEquals(
                     "https://wms.geo.admin.ch?LAYERS=ch.swisstopo.swissimage&STYLES=default&FORMAT=image/jpeg&CRS=EPSG:3857&WIDTH=512&HEIGHT=512&BBOX=990012.3903496042,6033021.768492393,990623.8865758851,6033633.264718674&VERSION=1.3.0&SERVICE=WMS&REQUEST=GetMap",
                     url);
+            // test with EPSG:4326 WMS 1.3
             TileLayerSource thurgau = TileLayerSource.get(ApplicationProvider.getApplicationContext(), "kt_tg_av", false);
             assertNotNull(thurgau);
             url = thurgau.getTileURLString(tile);
             assertEquals(
                     "https://ows.geo.tg.ch/geofy_access_proxy/basisplanf?LAYERS=Basisplan_farbig&STYLES=&FORMAT=image/png&CRS=EPSG:4326&WIDTH=256&HEIGHT=256&BBOX=47.554286701279565,8.8934326171875,47.55799385903775,8.89892578125&VERSION=1.3.0&SERVICE=WMS&REQUEST=GetMap",
+                    url);
+            // test with CRS:84 WMS 1.3
+            TileLayerSource thurgauCrs84 = TileLayerSource.get(ApplicationProvider.getApplicationContext(), "kt_tg_av_crs_84", false);
+            assertNotNull(thurgauCrs84);
+            url = thurgauCrs84.getTileURLString(tile);
+            assertEquals(
+                    "https://ows.geo.tg.ch/geofy_access_proxy/basisplanf?LAYERS=Basisplan_farbig&STYLES=&FORMAT=image/png&CRS=CRS:84&WIDTH=256&HEIGHT=256&BBOX=8.8934326171875,47.554286701279565,8.89892578125,47.55799385903775&VERSION=1.3.0&SERVICE=WMS&REQUEST=GetMap",
+                    url);
+            // test with EPSG:4326 WMS 1.1.1
+            TileLayerSource eoxAT = TileLayerSource.get(ApplicationProvider.getApplicationContext(), "EOXAT2022CLOUDLESS", false);
+            assertNotNull(eoxAT);
+            url = eoxAT.getTileURLString(tile);
+            assertEquals(
+                    "https://s2maps-tiles.eu/?FORMAT=image/png&TRANSPARENT=TRUE&VERSION=1.1.1&SERVICE=WMS&REQUEST=GetMap&LAYERS=s2cloudless-2022_3857&STYLES=&SRS=EPSG:4326&WIDTH=256&HEIGHT=256&BBOX=8.8934326171875,47.554286701279565,8.89892578125,47.55799385903775",
                     url);
         } catch (IOException e) {
             fail(e.getMessage());

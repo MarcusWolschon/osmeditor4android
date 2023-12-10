@@ -2484,6 +2484,337 @@
                     ]
                 ]
             }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Kanton Thurgau, Basisplan-AV",
+                "i18n": false,
+                "type": "wms",
+                "category": "map",
+                "url": "https://ows.geo.tg.ch/geofy_access_proxy/basisplanf?LAYERS=Basisplan_farbig&STYLES=&FORMAT=image/png&CRS={proj}&WIDTH={width}&HEIGHT={height}&BBOX={bbox}&VERSION=1.3.0&SERVICE=WMS&REQUEST=GetMap",
+                "min_zoom": 4,
+                "license_url": "https://opendata.swiss/dataset/basisplan-av",
+                "privacy_policy_url": "https://geoinformation.tg.ch/thurgis/thurgis-disclaimer.html/7128",
+                "id": "kt_tg_av_crs_84",
+                "description": "Basisplan-AV des Kantons Thurgau farbig & schwarzweiss mit Liegenschaften, Nomenklatur, Landes-, Kantons- und Gemeindegrenzen, Einzelobjekten, Bodenbedeckung, Strassennamen, Höhenkurven und Geländemodell",
+                "country_code": "CH",
+                "default": false,
+                "best": false,
+                "available_projections": [
+                    "CRS:84"
+                ],
+                "attribution": {
+                    "url": "https://opendata.swiss/dataset/basisplan-av",
+                    "text": "Kanton Thurgau, Basisplan-AV",
+                    "required": true
+                },
+                "icon": ""
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            8.63768410076,
+                            47.7004145356
+                        ],
+                        [
+                            8.63673556102,
+                            47.65999795099
+                        ],
+                        [
+                            8.66579841143,
+                            47.65980396746
+                        ],
+                        [
+                            8.66519620823,
+                            47.63272738003
+                        ],
+                        [
+                            8.72337427456,
+                            47.63212747913
+                        ],
+                        [
+                            8.7220913199,
+                            47.57814352175
+                        ],
+                        [
+                            8.78024320348,
+                            47.57750766919
+                        ],
+                        [
+                            8.77985046226,
+                            47.56402931121
+                        ],
+                        [
+                            8.80893949543,
+                            47.56372896753
+                        ],
+                        [
+                            8.80783982,
+                            47.52316676216
+                        ],
+                        [
+                            8.86604406908,
+                            47.52251256102
+                        ],
+                        [
+                            8.86397563198,
+                            47.44148776574
+                        ],
+                        [
+                            8.89285520316,
+                            47.44116901155
+                        ],
+                        [
+                            8.89136278652,
+                            47.38725408141
+                        ],
+                        [
+                            8.92032090594,
+                            47.38697045248
+                        ],
+                        [
+                            8.91940450976,
+                            47.35989459356
+                        ],
+                        [
+                            8.97739929685,
+                            47.3591319418
+                        ],
+                        [
+                            8.97810623105,
+                            47.38615501083
+                        ],
+                        [
+                            9.00714289872,
+                            47.385729558
+                        ],
+                        [
+                            9.00829493964,
+                            47.42620309948
+                        ],
+                        [
+                            9.06642064047,
+                            47.42537055101
+                        ],
+                        [
+                            9.06663010246,
+                            47.43883142176
+                        ],
+                        [
+                            9.09582386661,
+                            47.43853036098
+                        ],
+                        [
+                            9.0960856941,
+                            47.45193475084
+                        ],
+                        [
+                            9.06717994017,
+                            47.45234196418
+                        ],
+                        [
+                            9.0673632194,
+                            47.46583133624
+                        ],
+                        [
+                            9.15465650165,
+                            47.4646277009
+                        ],
+                        [
+                            9.15491832913,
+                            47.47809622481
+                        ],
+                        [
+                            9.18411209329,
+                            47.47768921094
+                        ],
+                        [
+                            9.18361462107,
+                            47.46420288184
+                        ],
+                        [
+                            9.32864086293,
+                            47.46188401733
+                        ],
+                        [
+                            9.32895505591,
+                            47.47533554716
+                        ],
+                        [
+                            9.35817500281,
+                            47.47498160364
+                        ],
+                        [
+                            9.35759898235,
+                            47.4614060707
+                        ],
+                        [
+                            9.41554140395,
+                            47.46045016443
+                        ],
+                        [
+                            9.41596032792,
+                            47.47391975877
+                        ],
+                        [
+                            9.50309651368,
+                            47.47241544181
+                        ],
+                        [
+                            9.5041438236,
+                            47.49934504674
+                        ],
+                        [
+                            9.47518570418,
+                            47.49985802607
+                        ],
+                        [
+                            9.47604973486,
+                            47.52680892203
+                        ],
+                        [
+                            9.44717016368,
+                            47.52730395336
+                        ],
+                        [
+                            9.44753672216,
+                            47.5408447841
+                        ],
+                        [
+                            9.41860478548,
+                            47.54139270755
+                        ],
+                        [
+                            9.42007101938,
+                            47.58176420165
+                        ],
+                        [
+                            9.3911390827,
+                            47.58234701941
+                        ],
+                        [
+                            9.39150564117,
+                            47.59576769355
+                        ],
+                        [
+                            9.33348467133,
+                            47.59673879302
+                        ],
+                        [
+                            9.33416542278,
+                            47.62371049645
+                        ],
+                        [
+                            9.30525966885,
+                            47.62420461255
+                        ],
+                        [
+                            9.30570477557,
+                            47.63764983607
+                        ],
+                        [
+                            9.24747434375,
+                            47.63863780005
+                        ],
+                        [
+                            9.24784090222,
+                            47.65209694793
+                        ],
+                        [
+                            9.21898751379,
+                            47.65255552096
+                        ],
+                        [
+                            9.21922315852,
+                            47.6660287156
+                        ],
+                        [
+                            9.1902650391,
+                            47.66645190099
+                        ],
+                        [
+                            9.19060541482,
+                            47.6799391377
+                        ],
+                        [
+                            8.95773605301,
+                            47.68327074156
+                        ],
+                        [
+                            8.95726476355,
+                            47.66973147144
+                        ],
+                        [
+                            8.92828046137,
+                            47.67015462681
+                        ],
+                        [
+                            8.92770444091,
+                            47.65661195321
+                        ],
+                        [
+                            8.89866777324,
+                            47.65698230742
+                        ],
+                        [
+                            8.89900814897,
+                            47.67047199109
+                        ],
+                        [
+                            8.8699714813,
+                            47.67089514045
+                        ],
+                        [
+                            8.87027412213,
+                            47.68426691888
+                        ],
+                        [
+                            8.78303977274,
+                            47.68533252804
+                        ],
+                        [
+                            8.78327839646,
+                            47.69879895418
+                        ],
+                        [
+                            8.63768410076,
+                            47.7004145356
+                        ]
+                    ]
+                ]
+            }
+        },
+        {
+            "geometry": null,
+            "properties": {
+                "attribution": {
+                    "required": true,
+                    "text": "Sentinel-2 cloudless - https://s2maps.eu by EOX IT Services GmbH (Contains modified Copernicus Sentinel data 2022)",
+                    "url": "https://s2maps.eu/"
+                },
+                "default": false,
+                "permission_osm": "explicit",
+                "description": "Post-processed Sentinel Satellite imagery.",
+                "i18n": true,
+                "icon": "https://osmlab.github.io/editor-layer-index/sources/world/eox.png",
+                "id": "EOXAT2022CLOUDLESS",
+                "license_url": "https://wiki.openstreetmap.org/wiki/Eox.at",
+                "available_projections": [
+                    "EPSG:4326"
+                ],
+                "start_date": "2022",
+                "end_date": "2022",
+                "max_zoom": 18,
+                "name": "eox.at 2022 cloudless",
+                "type": "wms",
+                "category": "photo",
+                "url": "https://s2maps-tiles.eu/?FORMAT=image/png&TRANSPARENT=TRUE&VERSION=1.1.1&SERVICE=WMS&REQUEST=GetMap&LAYERS=s2cloudless-2022_3857&STYLES=&SRS={proj}&WIDTH={width}&HEIGHT={height}&BBOX={bbox}",
+                "privacy_policy_url": "https://eox.at/impressum/"
+            },
+            "type": "Feature"
         }
     ],
     "type": "FeatureCollection"
