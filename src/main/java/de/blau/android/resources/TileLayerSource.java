@@ -114,6 +114,7 @@ public class TileLayerSource implements Serializable {
             EPSG_3785);
     // latlon
     public static final String EPSG_4326 = "EPSG:4326";
+    public static final String CRS_84    = "CRS:84";
     //
     public static final String TYPE_TMS          = "tms";
     public static final String TYPE_WMS          = "wms";
@@ -1858,12 +1859,13 @@ public class TileLayerSource implements Serializable {
                 return buildBox(boxBuilder, GeoMath.tile2lonMerc(tileWidth, aTile.x, zoomLevel), GeoMath.tile2latMerc(tileHeight, y, zoomLevel),
                         GeoMath.tile2lonMerc(tileWidth, aTile.x + 1, zoomLevel), GeoMath.tile2latMerc(tileHeight, y + 1, zoomLevel));
             }
-            if (EPSG_4326.equals(proj)) {
-                // note this is hack that simply squashes the vertical axis to fit to square tiles
+            boolean crs84 = CRS_84.equals(proj);
+            if (EPSG_4326.equals(proj) || crs84) {
+                // note this is a hack that simply squashes the vertical axis to fit to square tiles
                 if (wmsAxisOrder == null) {
                     wmsAxisOrder = getWmsAxisOrder();
                 }
-                if (WMS_AXIS_XY.equals(wmsAxisOrder)) {
+                if (WMS_AXIS_XY.equals(wmsAxisOrder) || crs84) {
                     return buildBox(boxBuilder, GeoMath.tile2lon(aTile.x, zoomLevel), GeoMath.tile2lat(aTile.y + 1, zoomLevel),
                             GeoMath.tile2lon(aTile.x + 1, zoomLevel), GeoMath.tile2lat(aTile.y, zoomLevel));
                 }
@@ -2441,13 +2443,23 @@ public class TileLayerSource implements Serializable {
     }
 
     /**
+     * Check if proj is EPSG_4326 or CRS:84
+     * 
+     * @param proj the projection
+     * @return true if compatible
+     */
+    public static boolean isLatLon(@Nullable String proj) {
+        return EPSG_4326.equals(proj) || CRS_84.equals(proj);
+    }
+
+    /**
      * Check if proj is a supported projection
      * 
      * @param proj the projection
      * @return true if supported
      */
     public static boolean supportedProjection(@Nullable String proj) {
-        return EPSG_3857_COMPATIBLE.contains(proj) || EPSG_4326.equals(proj);
+        return EPSG_3857_COMPATIBLE.contains(proj) || isLatLon(proj);
     }
 
     private static final Pattern APIKEY_PATTERN = Pattern.compile(".*\\{" + APIKEY_PLACEHOLDER + "\\}.*", Pattern.CASE_INSENSITIVE);
@@ -2502,7 +2514,7 @@ public class TileLayerSource implements Serializable {
      * 
      * @param proj the proj to set
      */
-    private void setProj(@Nullable String proj) {
+    void setProj(@Nullable String proj) {
         this.proj = proj;
     }
 
