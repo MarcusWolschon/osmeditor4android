@@ -166,6 +166,15 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     }
 
     /**
+     * Clears a list of OsmElement from the undo storage.
+     */
+    public synchronized void clearUndo(@NonNull List<OsmElement> elements) {
+        for (OsmElement element : elements) {
+            undo.removeFromAll(element);
+        }
+    }
+
+    /**
      * Get the current OsmElementFactory instance used by this delegator. Use only the factory returned by this to
      * create new element IDs for insertion into this delegator! For immediate use only - DO NOT CACHE THIS.
      * 
