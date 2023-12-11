@@ -2985,9 +2985,9 @@ public class Logic {
         } catch (SAXException e) {
             Exception ce = e.getException();
             if ((ce instanceof StorageException) && ((StorageException) ce).getCode() == StorageException.OOM) {
-               result = new AsyncResult(ErrorCodes.OUT_OF_MEMORY, "");
+                result = new AsyncResult(ErrorCodes.OUT_OF_MEMORY, "");
             } else {
-               result =  new AsyncResult(ErrorCodes.INVALID_DATA_RECEIVED, e.getMessage());
+                result = new AsyncResult(ErrorCodes.INVALID_DATA_RECEIVED, e.getMessage());
             }
         } catch (ParserConfigurationException | UnsupportedFormatException e) {
             result = new AsyncResult(ErrorCodes.INVALID_DATA_RECEIVED, e.getMessage());
@@ -4143,38 +4143,47 @@ public class Logic {
             protected void onPostExecute(UploadResult result) {
                 Progress.dismissDialog(activity, Progress.PROGRESS_UPLOADING, PROGRESS_TAG);
                 final int error = result.getError();
-                if (error == 0) {
-                    save(activity); // save now to avoid problems if it doesn't succeed later on, this currently writes
-                                    // sync and potentially cause ANRs
-                    ScreenMessage.barInfo(activity, R.string.toast_upload_success);
-                    getDelegator().clearUndo(); // only clear on successful upload
-                    activity.invalidateOptionsMenu();
-                    if (postUploadHandler != null) {
-                        postUploadHandler.onSuccess();
-                    }
-                }
-                invalidateCurrentFocus(activity);
-                if (!activity.isFinishing()) {
-                    if (error == ErrorCodes.UPLOAD_CONFLICT) {
-                        if (result.getOsmId() > 0) {
-                            UploadConflict.showDialog(activity, result);
+                try {
+                    if (error == ErrorCodes.OK) {
+                        ScreenMessage.barInfo(activity, R.string.toast_upload_success);
+                        if (elements == null) {
+                            getDelegator().clearUndo(); // only clear on successful upload
                         } else {
-                            Log.e(DEBUG_TAG, "No OSM element found for conflict");
-                            ErrorAlert.showDialog(activity, ErrorCodes.UPLOAD_PROBLEM);
+                            getDelegator().clearUndo(elements);
                         }
-                    } else if (error == ErrorCodes.INVALID_LOGIN) {
-                        InvalidLogin.showDialog(activity);
-                    } else if (error == ErrorCodes.FORBIDDEN) {
-                        ForbiddenLogin.showDialog(activity, result.getMessage());
-                    } else if (error == ErrorCodes.BAD_REQUEST || error == ErrorCodes.NOT_FOUND || error == ErrorCodes.UNKNOWN_ERROR
-                            || error == ErrorCodes.UPLOAD_PROBLEM || error == ErrorCodes.UPLOAD_LIMIT_EXCEEDED) {
-                        ErrorAlert.showDialog(activity, error, result.getMessage());
-                    } else if (error != 0) {
-                        ErrorAlert.showDialog(activity, error);
+                        // save now to avoid problems if it doesn't succeed later on, this currently writes
+                        // sync and potentially cause ANRs
+                        save(activity);
+                        activity.invalidateOptionsMenu();
+                        if (postUploadHandler != null) {
+                            postUploadHandler.onSuccess();
+                        }
+                        return;
                     }
-                    if (postUploadHandler != null) {
-                        postUploadHandler.onError(null);
+                    if (!activity.isFinishing()) {
+                        if (error == ErrorCodes.UPLOAD_CONFLICT) {
+                            if (result.getOsmId() > 0) {
+                                UploadConflict.showDialog(activity, result);
+                            } else {
+                                Log.e(DEBUG_TAG, "No OSM element found for conflict");
+                                ErrorAlert.showDialog(activity, ErrorCodes.UPLOAD_PROBLEM);
+                            }
+                        } else if (error == ErrorCodes.INVALID_LOGIN) {
+                            InvalidLogin.showDialog(activity);
+                        } else if (error == ErrorCodes.FORBIDDEN) {
+                            ForbiddenLogin.showDialog(activity, result.getMessage());
+                        } else if (error == ErrorCodes.BAD_REQUEST || error == ErrorCodes.NOT_FOUND || error == ErrorCodes.UNKNOWN_ERROR
+                                || error == ErrorCodes.UPLOAD_PROBLEM || error == ErrorCodes.UPLOAD_LIMIT_EXCEEDED) {
+                            ErrorAlert.showDialog(activity, error, result.getMessage());
+                        } else if (error != 0) {
+                            ErrorAlert.showDialog(activity, error);
+                        }
+                        if (postUploadHandler != null) {
+                            postUploadHandler.onError(null);
+                        }
                     }
+                } finally {
+                    invalidateCurrentFocus(activity);
                 }
             }
         }.execute();

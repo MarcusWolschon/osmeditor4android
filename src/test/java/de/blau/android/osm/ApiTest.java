@@ -1,6 +1,7 @@
 package de.blau.android.osm;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -10,6 +11,7 @@ import static org.robolectric.Shadows.shadowOf;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -332,6 +334,51 @@ public class ApiTest {
         assertEquals(OsmElement.STATE_UNCHANGED, n.getState());
         assertEquals(7L, n.getOsmVersion());
         assertEquals(32, App.getDelegator().getApiElementCount());
+    }
+
+    /**
+     * Upload a subset (just one) of changes (mock-)server, this time using logic so that we can test that the undo
+     * storage is handle properly
+     */
+    @Test
+    public void dataLogicUploadSelective() {
+        final CountDownLatch signal = new CountDownLatch(1);
+        Logic logic = App.getLogic();
+
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        InputStream is = loader.getResourceAsStream(TEST1_OSM_FIXTURE);
+        logic.readOsmFile(ApplicationProvider.getApplicationContext(), is, false, new FailOnErrorHandler(signal));
+        runLooper();
+        SignalUtils.signalAwait(signal, TIMEOUT);
+        assertEquals(33, App.getDelegator().getApiElementCount());
+        Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984);
+        assertNotNull(n);
+        // modify the element so it gets added to the undo storage
+        assertTrue(logic.getUndo().getUndoElements(n).isEmpty());
+        Map<String, String> tags = new HashMap<>(n.getTags());
+        tags.put("test", "test");
+        logic.setTags(main, n, tags);
+        assertFalse(logic.getUndo().getUndoElements(n).isEmpty());
+        assertEquals(OsmElement.STATE_MODIFIED, n.getState());
+
+        mockServer.enqueue(CAPABILITIES1_FIXTURE);
+        mockServer.enqueue(CAPABILITIES1_FIXTURE);
+        mockServer.enqueue(CHANGESET1_FIXTURE);
+        mockServer.enqueue(PARTIALUPLOAD_FIXTURE);
+        mockServer.enqueue(CLOSE_CHANGESET_FIXTURE);
+
+        final CountDownLatch signal2 = new CountDownLatch(1);
+        logic.upload(main, "TEST", "none", false, true, null, Util.wrapInList(n), new FailOnErrorHandler(signal2));
+        runLooper();
+        SignalUtils.signalAwait(signal, TIMEOUT);
+
+        n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984);
+        assertNotNull(n);
+        assertEquals(OsmElement.STATE_UNCHANGED, n.getState());
+        assertEquals(7L, n.getOsmVersion());
+        assertEquals(32, App.getDelegator().getApiElementCount());
+        // post upload the element should no longer be in the undo storage
+        assertTrue(logic.getUndo().getUndoElements(n).isEmpty());
     }
 
     /**

@@ -227,6 +227,30 @@ public class UndoStorage implements Serializable {
     }
 
     /**
+     * Remove the saved state of this element from the all checkpoints
+     * 
+     * @param element element for which the state should be removed
+     */
+    public void removeFromAll(@NonNull OsmElement element) {
+        for (Checkpoint checkpoint : new ArrayList<>(undoCheckpoints)) {
+            if (checkpoint != null) {
+                checkpoint.remove(element);
+                if (checkpoint.isEmpty()) {
+                    undoCheckpoints.remove(checkpoint);
+                }
+            }
+        }
+        for (Checkpoint checkpoint : new ArrayList<>(redoCheckpoints)) {
+            if (checkpoint != null) {
+                checkpoint.remove(element);
+                if (checkpoint.isEmpty()) {
+                    undoCheckpoints.remove(checkpoint);
+                }
+            }
+        }
+    }
+
+    /**
      * Get the current BoundingBox of the elements affected by the last Checkpoint
      * 
      * @return a BoundingBox or null
@@ -970,7 +994,7 @@ public class UndoStorage implements Serializable {
                 ((Relation) restored).members.clear();
                 for (RelationMember rm : members) {
                     OsmElement rmElement = rm.getElement();
-                    if (rmElement instanceof StyleableFeature ) {
+                    if (rmElement instanceof StyleableFeature) {
                         ((StyleableFeature) rmElement).setStyle(null); // style could have been generated from Relation
                     }
                     OsmElement rmStorage = currentStorage.getOsmElement(rm.getType(), rm.getRef());
