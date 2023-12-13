@@ -8,6 +8,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
@@ -1577,13 +1579,24 @@ public final class TestUtils {
     }
 
     /**
-     * Click away a tip dialod
+     * Click away a tip dialog
      * 
      * @param device the current UiDevice
      * @param ctx an Android Context
      */
     public static void clickAwayTip(@NonNull UiDevice device, @NonNull Context ctx) {
-        if (TestUtils.findText(device, false, ctx.getString(R.string.tip_title))) {
+        clickAwayTip(device, ctx, 500);
+    }
+
+    /**
+     * Click away a tip dialog
+     * 
+     * @param device the current UiDevice
+     * @param ctx an Android Context
+     * @param wait time mS to wait for the tip
+     */
+    public static void clickAwayTip(@NonNull UiDevice device, @NonNull Context ctx, long wait) {
+        if (TestUtils.findText(device, false, ctx.getString(R.string.tip_title), wait)) {
             TestUtils.clickText(device, false, ctx.getString(R.string.okay), true, false); // TIP
         }
     }
