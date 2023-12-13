@@ -21,8 +21,15 @@ import android.os.Environment;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentActivity;
+import de.blau.android.App;
+import de.blau.android.Logic;
+import de.blau.android.PostAsyncActionHandler;
+import de.blau.android.R;
 import de.blau.android.contract.Paths;
 import de.blau.android.contract.Schemes;
+import de.blau.android.dialogs.Progress;
+import de.blau.android.dialogs.Tip;
 
 public final class FileUtil {
     private static final String DEBUG_TAG = FileUtil.class.getSimpleName();
@@ -408,5 +415,52 @@ public final class FileUtil {
             }
         }
         return false;
+    }
+
+    /**
+     * Copy a file to an internal location suitable for random access on recent Android versions
+     * 
+     * @param activity the calling Activity
+     * @param contentUri the source Uri
+     * @param destination the destination
+     * @param postImport this is run after successful copying
+     */
+    public static void importFile(@NonNull final FragmentActivity activity, @NonNull final Uri contentUri, @NonNull final File destination,
+            @Nullable PostAsyncActionHandler postImport) {
+        Logic logic = App.getLogic();
+        if (destination.exists()) {
+            ScreenMessage.toastTopWarning(activity, R.string.toast_import_destination_exists);
+        }
+        new ExecutorTask<Void, Void, Boolean>(logic.getExecutorService(), logic.getHandler()) {
+
+            @Override
+            protected void onPreExecute() {
+                Progress.showDialog(activity, Progress.PROGRESS_IMPORTING_FILE);
+                Tip.showDialog(activity, R.string.tip_file_import_key, R.string.tip_file_import);
+            }
+
+            @Override
+            protected Boolean doInBackground(Void param) {
+                try {
+                    FileUtil.copy(activity.getContentResolver().openInputStream(contentUri), destination);
+                    return true;
+                } catch (IOException ioex) {
+                    Log.e(DEBUG_TAG, "Unable to copy file " + contentUri + " " + ioex.getMessage());
+                }
+                return false;
+            }
+
+            @Override
+            protected void onPostExecute(Boolean result) {
+                Progress.dismissDialog(activity, Progress.PROGRESS_IMPORTING_FILE);
+                if (postImport != null && !isCancelled()) {
+                    if (result != null && result) {
+                        postImport.onSuccess();
+                    } else {
+                        postImport.onError(null);
+                    }
+                }
+            }
+        }.execute();
     }
 }

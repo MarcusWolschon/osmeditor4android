@@ -56,9 +56,8 @@ public final class SelectFile {
     private static SaveFile     saveCallback;
     private static final Object saveCallbackLock = new Object();
 
-    private static ReadFile         readCallback;
-    private static final Object     readCallbackLock = new Object();
-    private static FragmentActivity activity         = null;
+    private static ReadFile     readCallback;
+    private static final Object readCallbackLock = new Object();
 
     /**
      * Unused default constructor
@@ -77,7 +76,6 @@ public final class SelectFile {
     public static void save(@NonNull FragmentActivity activity, int directoryPrefKey, @NonNull de.blau.android.util.SaveFile callback) {
         synchronized (saveCallbackLock) {
             saveCallback = callback;
-            SelectFile.activity = activity;
         }
         String path = App.getPreferences(activity).getString(directoryPrefKey);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -107,7 +105,6 @@ public final class SelectFile {
     public static void read(@NonNull FragmentActivity activity, int directoryPrefKey, @NonNull ReadFile readFile, boolean allowMultiple) {
         synchronized (readCallbackLock) {
             readCallback = readFile;
-            SelectFile.activity = activity;
         }
         String path = App.getPreferences(activity).getString(directoryPrefKey);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -240,10 +237,11 @@ public final class SelectFile {
     /**
      * Handle the file selector result
      * 
+     * @param activity the current Activity
      * @param code returned request code
      * @param data the returned intent
      */
-    public static void handleResult(int code, @NonNull Intent data) {
+    public static void handleResult(@NonNull FragmentActivity activity, int code, @NonNull Intent data) {
         Uri uri;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             uri = data.getData();
@@ -253,9 +251,9 @@ public final class SelectFile {
         ContentResolverUtil.persistPermissions(activity, data.getFlags(), uri);
         try {
             if (code == SAVE_FILE) {
-                callSaveCallback(uri);
+                callSaveCallback(activity, uri);
             } else if (code == READ_FILE) {
-                callReadCallback(data, uri);
+                callReadCallback(activity, data, uri);
             }
         } catch (NetworkOnMainThreadException nex) {
             Log.e(DEBUG_TAG, "Got exception for " + " uri " + nex.getMessage());
@@ -266,9 +264,10 @@ public final class SelectFile {
     /**
      * Call the callback for saving to a file
      * 
+     * @param activity the current Activity
      * @param uri the file Uri
      */
-    private static void callSaveCallback(@Nullable Uri uri) {
+    private static void callSaveCallback(@NonNull FragmentActivity activity, @Nullable Uri uri) {
         if (uri == null) {
             Log.e(DEBUG_TAG, "callSaveCallback called with null uri");
             return;
@@ -278,7 +277,7 @@ public final class SelectFile {
             ScreenMessage.barWarning(activity, activity.getResources().getString(R.string.toast_file_exists, file.getName()), R.string.overwrite, v -> {
                 synchronized (saveCallbackLock) {
                     if (saveCallback != null) {
-                        saveCallback.save(uri);
+                        saveCallback.save(activity, uri);
                     }
                 }
             });
@@ -287,7 +286,7 @@ public final class SelectFile {
         synchronized (saveCallbackLock) {
             if (saveCallback != null) {
                 Log.d(DEBUG_TAG, "saving to " + uri);
-                saveCallback.save(uri);
+                saveCallback.save(activity, uri);
             }
         }
     }
@@ -295,10 +294,11 @@ public final class SelectFile {
     /**
      * Call the callback for reading an or multiple files
      * 
+     * @param the current Activity
      * @param data the Intent
      * @param uri the file Uri
      */
-    private static void callReadCallback(@NonNull Intent data, @Nullable Uri uri) {
+    private static void callReadCallback(@NonNull FragmentActivity activity, @NonNull Intent data, @Nullable Uri uri) {
         synchronized (readCallbackLock) {
             if (readCallback != null) {
                 Log.d(DEBUG_TAG, "reading " + uri);
@@ -312,10 +312,10 @@ public final class SelectFile {
                             uris.add(u);
                         }
                     }
-                    readCallback.read(uris);
+                    readCallback.read(activity, uris);
                     return;
                 }
-                readCallback.read(uri);
+                readCallback.read(activity, uri);
             }
         }
     }

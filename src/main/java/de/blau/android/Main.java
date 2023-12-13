@@ -2288,8 +2288,8 @@ public class Main extends FullScreenAppCompatActivity
                 private static final long serialVersionUID = 1L;
 
                 @Override
-                public boolean save(Uri fileUri) {
-                    SavingHelper.asyncExport(Main.this, delegator, fileUri);
+                public boolean save(FragmentActivity currentActivity, Uri fileUri) {
+                    SavingHelper.asyncExport(currentActivity, delegator, fileUri);
                     SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
                     return true;
                 }
@@ -2301,9 +2301,9 @@ public class Main extends FullScreenAppCompatActivity
                 private static final long serialVersionUID = 1L;
 
                 @Override
-                public boolean read(Uri fileUri) {
+                public boolean read(FragmentActivity currentActivity, Uri fileUri) {
                     try {
-                        logic.applyOscFile(Main.this, fileUri, new PostFileReadCallback(Main.this, fileUri.toString()));
+                        logic.applyOscFile(currentActivity, fileUri, new PostFileReadCallback(currentActivity, fileUri.toString()));
                     } catch (FileNotFoundException e) {
                         fileNotFound(fileUri);
                     }
@@ -2320,12 +2320,12 @@ public class Main extends FullScreenAppCompatActivity
                 private static final long serialVersionUID = 1L;
 
                 @Override
-                public boolean read(Uri fileUri) {
+                public boolean read(FragmentActivity currentActivity, Uri fileUri) {
                     try {
                         if (item.getItemId() == R.id.menu_transfer_read_file) {
-                            logic.readOsmFile(Main.this, fileUri, false);
+                            logic.readOsmFile(currentActivity, fileUri, false);
                         } else {
-                            logic.readPbfFile(Main.this, fileUri, false);
+                            logic.readPbfFile(currentActivity, fileUri, false);
                         }
                     } catch (FileNotFoundException e) {
                         fileNotFound(fileUri);
@@ -2347,8 +2347,8 @@ public class Main extends FullScreenAppCompatActivity
                 private static final long serialVersionUID = 1L;
 
                 @Override
-                public boolean save(Uri fileUri) {
-                    App.getLogic().writeOsmFile(Main.this, fileUri, new PostFileWriteCallback(Main.this, fileUri.getPath()));
+                public boolean save(FragmentActivity currentActivity, Uri fileUri) {
+                    App.getLogic().writeOsmFile(currentActivity, fileUri, new PostFileWriteCallback(currentActivity, fileUri.getPath()));
                     SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
                     return true;
                 }
@@ -2392,9 +2392,9 @@ public class Main extends FullScreenAppCompatActivity
                 private static final long serialVersionUID = 1L;
 
                 @Override
-                public boolean save(Uri fileUri) {
-                    TransferTasks.writeOsnFile(Main.this, item.getItemId() == R.id.menu_transfer_save_notes_all, fileUri,
-                            new PostFileWriteCallback(Main.this, fileUri.toString()));
+                public boolean save(FragmentActivity currentActivity, Uri fileUri) {
+                    TransferTasks.writeOsnFile(currentActivity, item.getItemId() == R.id.menu_transfer_save_notes_all, fileUri,
+                            new PostFileWriteCallback(currentActivity, fileUri.toString()));
                     SelectFile.savePref(prefs, R.string.config_notesPreferredDir_key, fileUri);
                     return true;
                 }
@@ -2406,8 +2406,8 @@ public class Main extends FullScreenAppCompatActivity
                 private static final long serialVersionUID = 1L;
 
                 @Override
-                public boolean read(Uri fileUri) {
-                    TransferTasks.readOsnFile(Main.this, fileUri, true, new PostFileReadCallback(Main.this, fileUri.toString()));
+                public boolean read(FragmentActivity currentActivity, Uri fileUri) {
+                    TransferTasks.readOsnFile(currentActivity, fileUri, true, new PostFileReadCallback(currentActivity, fileUri.toString()));
                     SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
                     map.invalidate();
                     return true;
@@ -2420,8 +2420,8 @@ public class Main extends FullScreenAppCompatActivity
                 private static final long serialVersionUID = 1L;
 
                 @Override
-                public boolean read(Uri fileUri) {
-                    TransferTasks.readTodos(Main.this, fileUri, false, new PostFileReadCallback(Main.this, fileUri.toString()));
+                public boolean read(FragmentActivity currentActivity, Uri fileUri) {
+                    TransferTasks.readTodos(currentActivity, fileUri, false, new PostFileReadCallback(currentActivity, fileUri.toString()));
                     SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
                     map.invalidate();
                     return true;
@@ -2488,9 +2488,9 @@ public class Main extends FullScreenAppCompatActivity
                 private static final long serialVersionUID = 1L;
 
                 @Override
-                public boolean read(Uri fileUri) {
-                    try (KeyDatabaseHelper keyDatabase = new KeyDatabaseHelper(Main.this)) {
-                        keyDatabase.keysFromStream(Main.this, Main.this.getContentResolver().openInputStream(fileUri));
+                public boolean read(FragmentActivity currentActivity, Uri fileUri) {
+                    try (KeyDatabaseHelper keyDatabase = new KeyDatabaseHelper(currentActivity)) {
+                        keyDatabase.keysFromStream(currentActivity, currentActivity.getContentResolver().openInputStream(fileUri));
                         SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
                     } catch (FileNotFoundException fex) {
                         fileNotFound(fileUri);
@@ -2505,10 +2505,10 @@ public class Main extends FullScreenAppCompatActivity
                 private static final long serialVersionUID = 1L;
 
                 @Override
-                public boolean read(Uri fileUri) {
-                    try (InputStream in = Main.this.getContentResolver().openInputStream(fileUri)) {
-                        File destDir = FileUtil.getApplicationDirectory(Main.this, Paths.DIRECTORY_PATH_STYLES);
-                        String filename = ContentResolverUtil.getDisplaynameColumn(Main.this, fileUri);
+                public boolean read(FragmentActivity currentActivity, Uri fileUri) {
+                    try (InputStream in = currentActivity.getContentResolver().openInputStream(fileUri)) {
+                        File destDir = FileUtil.getApplicationDirectory(currentActivity, Paths.DIRECTORY_PATH_STYLES);
+                        String filename = ContentResolverUtil.getDisplaynameColumn(currentActivity, fileUri);
                         File dest = new File(destDir, filename);
                         FileUtil.copy(in, dest);
                         if (filename.toLowerCase(Locale.US).endsWith("." + FileExtensions.ZIP)) {
@@ -2516,7 +2516,7 @@ public class Main extends FullScreenAppCompatActivity
                             dest.delete(); // NOSONAR delete the zip file
                         }
                         DataStyle.reset();
-                        DataStyle.getStylesFromFiles(Main.this);
+                        DataStyle.getStylesFromFiles(currentActivity);
                         SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
                     } catch (IOException fex) {
                         fileNotFound(fileUri);
@@ -2666,8 +2666,8 @@ public class Main extends FullScreenAppCompatActivity
             private static final long serialVersionUID = 1L;
 
             @Override
-            public boolean save(Uri fileUri) {
-                TransferTasks.writeTodoFile(Main.this, fileUri, listName, true, null);
+            public boolean save(FragmentActivity currentActivity, Uri fileUri) {
+                TransferTasks.writeTodoFile(currentActivity, fileUri, listName, true, null);
                 SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
                 return true;
             }
@@ -3060,7 +3060,7 @@ public class Main extends FullScreenAppCompatActivity
             if (requestCode == REQUEST_EDIT_TAG && resultCode == RESULT_OK) {
                 handlePropertyEditorResult();
             } else if ((requestCode == SelectFile.READ_FILE || requestCode == SelectFile.SAVE_FILE) && resultCode == RESULT_OK) {
-                SelectFile.handleResult(requestCode, data);
+                SelectFile.handleResult(this, requestCode, data);
             } else {
                 ActivityResultHandler.Listener listener = activityResultListeners.get(requestCode);
                 if (listener != null) {

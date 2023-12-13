@@ -58,6 +58,8 @@ public class ConsoleDialog extends DialogFragment {
     private static final String CHECKBOX1_KEY    = "checkbox1";
     private static final String CHECKBOX2_KEY    = "checkbox2";
 
+    private EditText input;
+
     /**
      * Show an info dialog for the supplied OsmElement
      * 
@@ -136,7 +138,7 @@ public class ConsoleDialog extends DialogFragment {
         final LayoutInflater inflater = ThemeUtils.getLayoutInflater(activity);
 
         View v = inflater.inflate(R.layout.console, null);
-        final EditText input = (EditText) v.findViewById(R.id.input);
+        input = (EditText) v.findViewById(R.id.input);
         final TextView output = (TextView) v.findViewById(R.id.output);
         final CheckBox checkbox1 = (CheckBox) v.findViewById(R.id.checkbox1);
         final CheckBox checkbox2 = (CheckBox) v.findViewById(R.id.checkbox2);
@@ -224,13 +226,19 @@ public class ConsoleDialog extends DialogFragment {
                     private static final long serialVersionUID = 1L;
 
                     @Override
-                    public boolean save(Uri fileUri) {
-                        fileUri = FileUtil.contentUriToFileUri(activity, fileUri);
+                    public boolean save(FragmentActivity currentActivity, Uri fileUri) {
+                        FragmentManager fm = currentActivity.getSupportFragmentManager();
+                        ConsoleDialog fragment = (ConsoleDialog) fm.findFragmentByTag(TAG);
+                        if (fragment == null) {
+                            Log.e(DEBUG_TAG, "Restored fragment is null");
+                            return false;
+                        }
+                        fileUri = FileUtil.contentUriToFileUri(currentActivity, fileUri);
                         if (fileUri == null) {
                             Log.e(DEBUG_TAG, "Couldn't convert " + fileUri);
                             return false;
                         }
-                        writeScriptFile(activity, fileUri, input.getText().toString(), null);
+                        writeScriptFile(currentActivity, fileUri, fragment.input.getText().toString(), null);
                         SelectFile.savePref(prefs, R.string.config_scriptsPreferredDir_key, fileUri);
                         return true;
                     }
@@ -241,8 +249,14 @@ public class ConsoleDialog extends DialogFragment {
                     private static final long serialVersionUID = 1L;
 
                     @Override
-                    public boolean read(Uri fileUri) {
-                        readScriptFile(activity, fileUri, input, null);
+                    public boolean read(FragmentActivity currentActivity, Uri fileUri) {
+                        FragmentManager fm = currentActivity.getSupportFragmentManager();
+                        ConsoleDialog fragment = (ConsoleDialog) fm.findFragmentByTag(TAG);
+                        if (fragment == null) {
+                            Log.e(DEBUG_TAG, "Restored fragment is null");
+                            return false;
+                        }
+                        readScriptFile(currentActivity, fileUri, fragment.input, null);
                         SelectFile.savePref(prefs, R.string.config_scriptsPreferredDir_key, fileUri);
                         return true;
                     }

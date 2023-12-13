@@ -473,7 +473,7 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
         Log.d(DEBUG_TAG, "onActivityResult");
         super.onActivityResult(requestCode, resultCode, data);
         if ((requestCode == SelectFile.READ_FILE || requestCode == SelectFile.SAVE_FILE) && resultCode == Activity.RESULT_OK) {
-            SelectFile.handleResult(requestCode, data);
+            SelectFile.handleResult(getActivity(), requestCode, data);
         } else if (requestCode == PREFERENCES_CODE) {
             // Preferences may have been changed
             prefs = new Preferences(getContext());

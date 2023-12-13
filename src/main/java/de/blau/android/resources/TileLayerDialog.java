@@ -38,7 +38,6 @@ import ch.poole.android.numberpicker.library.NumberPicker;
 import ch.poole.geo.pmtiles.Constants;
 import ch.poole.geo.pmtiles.Reader;
 import de.blau.android.App;
-import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.contract.FileExtensions;
@@ -57,6 +56,7 @@ import de.blau.android.util.ContentResolverUtil;
 import de.blau.android.util.DatabaseUtil;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.FileUtil;
+import de.blau.android.util.FragmentUtil;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.OkHttpFileChannel;
@@ -174,30 +174,32 @@ public class TileLayerDialog extends ImmersiveDialogFragment {
         private static final long serialVersionUID = 1L;
 
         @Override
-        public boolean read(final Uri contentUri) {
+        public boolean read(FragmentActivity currentActivity, final Uri contentUri) {          
+            TileLayerDialog fragment = (TileLayerDialog) FragmentUtil.findFragmentByTag(currentActivity, TAG);
+            if (fragment == null) {
+                Log.e(DEBUG_TAG, "Restored fragment is null");
+                return false;
+            }           
             // on Android API 29 and up we need to copy the file
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 // copy file
-                String fileName = ContentResolverUtil.getDisplaynameColumn(activity, contentUri);
+                String fileName = ContentResolverUtil.getDisplaynameColumn(currentActivity, contentUri);
                 try {
                     final File destination = new File(FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_IMPORTS), fileName);
-                    if (destination.exists()) {
-                        ScreenMessage.toastTopError(activity, R.string.toast_import_destination_exists);
-                        return false;
-                    }
-                    copyFile(contentUri, destination);
+                    FileUtil.importFile(currentActivity, contentUri, destination,
+                            () -> configureFromFile(fragment, Uri.parse(FileUtil.FILE_SCHEME_PREFIX + destination.getAbsolutePath())));
                 } catch (IOException ex) {
                     return false;
                 }
                 return true;
             } else {
                 // rewrite content: Uris
-                final Uri fileUri = FileUtil.contentUriToFileUri(activity, contentUri);
+                final Uri fileUri = FileUtil.contentUriToFileUri(currentActivity, contentUri);
                 if (fileUri == null) {
-                    ScreenMessage.toastTopError(activity, R.string.not_found_title);
+                    ScreenMessage.toastTopError(currentActivity, R.string.not_found_title);
                     return false;
                 }
-                return configureFromFile(fileUri);
+                return configureFromFile(fragment, fileUri);
             }
         }
     });
@@ -205,14 +207,15 @@ public class TileLayerDialog extends ImmersiveDialogFragment {
     /**
      * Configure a pmtiles source from the data in the file
      * 
+     * @param fragment the current, potentially recreated instance of this
      * @param reader a Reader instance
      * @param json the json metadata from the Reader
      */
-    private void configureFromPMTiles(@NonNull Reader reader, @NonNull String json) {
+    private void configureFromPMTiles(TileLayerDialog fragment, @NonNull Reader reader, @NonNull String json) {
         metadataMap.put(SOURCE_TYPE, TileLayerSource.TYPE_PMT_3);
         metadataMap.put(TILE_TYPE, Constants.TYPE_MVT == reader.getTileType() ? TileType.MVT : null);
         double[] box = reader.getBounds();
-        setBoundingBoxFields(formatDouble(box[0]), formatDouble(box[1]), formatDouble(box[2]), formatDouble(box[3]));
+        setBoundingBoxFields(fragment, formatDouble(box[0]), formatDouble(box[1]), formatDouble(box[2]), formatDouble(box[3]));
         minZoomPicker.setValue(reader.getMinZoom());
         maxZoomPicker.setValue(reader.getMaxZoom());
         try {
@@ -240,9 +243,10 @@ public class TileLayerDialog extends ImmersiveDialogFragment {
     /**
      * Configure a MapBoxTiles source from the file metadata
      * 
+     * @param fragment the current, potentially recreated instance of this
      * @param fileUri the uri for the file
      */
-    private void configureFromMBT(Uri fileUri) {
+    private void configureFromMBT(@NonNull TileLayerDialog fragment, @NonNull Uri fileUri) {
         MBTileProviderDataBase db = new MBTileProviderDataBase(getActivity(), fileUri, 1);
         Map<String, String> metadata = db.getMetadata();
         if (metadata == null || metadata.isEmpty()) {
@@ -250,8 +254,8 @@ public class TileLayerDialog extends ImmersiveDialogFragment {
         }
         int[] zooms = db.getMinMaxZoom();
         if (zooms.length == 2) {
-            minZoomPicker.setValue(zooms[0]);
-            maxZoomPicker.setValue(zooms[1]);
+            fragment.minZoomPicker.setValue(zooms[0]);
+            fragment.maxZoomPicker.setValue(zooms[1]);
         }
         db.close();
 
@@ -261,18 +265,18 @@ public class TileLayerDialog extends ImmersiveDialogFragment {
             ScreenMessage.toastTopError(activity, activity.getResources().getString(R.string.toast_unsupported_format, format));
             return;
         }
-        metadataMap.put(TILE_TYPE, isMVT ? TileType.MVT : null);
+        fragment.metadataMap.put(TILE_TYPE, isMVT ? TileType.MVT : null);
 
         String name = metadata.get(MBTileConstants.NAME);
         if (name != null) {
-            nameEdit.setText(name);
+            fragment.nameEdit.setText(name);
         }
-        overlayCheck.setChecked(MBTileConstants.OVERLAY.equals(metadata.get(MBTileConstants.TYPE)));
+        fragment.overlayCheck.setChecked(MBTileConstants.OVERLAY.equals(metadata.get(MBTileConstants.TYPE)));
         String bounds = metadata.get(MBTileConstants.BOUNDS);
         if (bounds != null) {
             String[] corners = bounds.split(",", 4);
             if (corners.length == 4) {
-                setBoundingBoxFields(corners[0], corners[1], corners[2], corners[3]);
+                setBoundingBoxFields(fragment, corners[0], corners[1], corners[2], corners[3]);
             }
         }
     }
@@ -280,22 +284,24 @@ public class TileLayerDialog extends ImmersiveDialogFragment {
     /**
      * Configure the entry from the contents of the file
      * 
+     * @param fragment the current, potentially recreated instance of this
      * @param fileUri the file Uri for the file
+     * 
      * @return true if successful
      */
-    private boolean configureFromFile(@NonNull Uri fileUri) {
+    private boolean configureFromFile(@NonNull TileLayerDialog fragment, @NonNull Uri fileUri) {
         try {
             final String path = fileUri.getPath();
             if (DatabaseUtil.isValidSQLite(path)) {
-                configureFromMBT(fileUri);
+                configureFromMBT(fragment, fileUri);
             } else {
                 try (Reader reader = new Reader(new File(path))) {
-                    configureFromPMTiles(reader, reader.getMetadata());
+                    configureFromPMTiles(fragment, reader, reader.getMetadata());
                 }
             }
             // this should really be in the metadata
-            tileSizePicker.setValue(TileLayerSource.DEFAULT_TILE_SIZE);
-            urlEdit.setText(fileUri.toString());
+            fragment.tileSizePicker.setValue(TileLayerSource.DEFAULT_TILE_SIZE);
+            fragment.urlEdit.setText(fileUri.toString());
             SelectFile.savePref(App.getLogic().getPrefs(), R.string.config_mbtilesPreferredDir_key, fileUri);
             return true;
         } catch (JsonSyntaxException e) {
@@ -305,44 +311,6 @@ public class TileLayerDialog extends ImmersiveDialogFragment {
         }
         ScreenMessage.toastTopError(activity, R.string.toast_not_mbtiles);
         return false;
-    }
-
-    /**
-     * Copy a file to an internal location suitable for random access on recent Android version
-     * 
-     * As a side effect this will read configuration from the file afte rthe copying is finished
-     * 
-     * @param contentUri the source Uri
-     * @param destination the destination
-     */
-    private void copyFile(@NonNull final Uri contentUri, @NonNull final File destination) {
-        Logic logic = App.getLogic();
-        new ExecutorTask<Void, Void, Boolean>(logic.getExecutorService(), logic.getHandler()) {
-
-            @Override
-            protected void onPreExecute() {
-                Progress.showDialog(activity, Progress.PROGRESS_IMPORTING_FILE);
-            }
-
-            @Override
-            protected Boolean doInBackground(Void param) {
-                try {
-                    FileUtil.copy(activity.getContentResolver().openInputStream(contentUri), destination);
-                    return true;
-                } catch (IOException ioex) {
-                    Log.e(DEBUG_TAG, "Unable to copy file " + contentUri + " " + ioex.getMessage());
-                }
-                return false;
-            }
-
-            @Override
-            protected void onPostExecute(Boolean result) {
-                Progress.dismissDialog(activity, Progress.PROGRESS_IMPORTING_FILE);
-                if (result != null && result && !isCancelled()) {
-                    configureFromFile(Uri.parse(FileUtil.FILE_SCHEME_PREFIX + destination.getAbsolutePath()));
-                }
-            }
-        }.execute();
     }
 
     private class SaveListener implements View.OnClickListener {
@@ -487,7 +455,7 @@ public class TileLayerDialog extends ImmersiveDialogFragment {
                 @Override
                 protected void onPostExecute(Void result) {
                     Progress.dismissDialog(activity, Progress.PROGRESS_DOWNLOAD);
-                    configureFromPMTiles(reader, json);
+                    configureFromPMTiles(TileLayerDialog.this, reader, json);
                 }
 
                 @Override
@@ -588,7 +556,7 @@ public class TileLayerDialog extends ImmersiveDialogFragment {
                     BoundingBox box = coverages.get(0).getBoundingBox();
                     Log.d(DEBUG_TAG, "Coverage box " + box);
                     if (box != null) {
-                        setBoundingBoxFields(box);
+                        setBoundingBoxFields(this, box);
                     }
                 }
                 tileSizePicker.setValue(layer.getTileWidth());
@@ -608,7 +576,7 @@ public class TileLayerDialog extends ImmersiveDialogFragment {
                 minZoomPicker.setValue(TileLayerSource.DEFAULT_MIN_ZOOM);
                 int maxZoom = TileLayerSource.DEFAULT_MAX_ZOOM;
                 if (layerEntry.box != null) {
-                    setBoundingBoxFields(layerEntry.box);
+                    setBoundingBoxFields(this, layerEntry.box);
                     try {
                         double centerLat = (layerEntry.box.getBottom() + layerEntry.box.getHeight() / 2D) / 1E7D;
                         maxZoom = GeoMath.resolutionToZoom(layerEntry.gsd, centerLat);
@@ -693,25 +661,28 @@ public class TileLayerDialog extends ImmersiveDialogFragment {
     /**
      * Set the TextViews for a BoundingBox
      * 
+     * @param fragment the current, potentially recreated instance of this
      * @param box the BoundingBox
      */
-    private void setBoundingBoxFields(@NonNull BoundingBox box) {
-        setBoundingBoxFields(formatDouble(box.getLeft() / 1E7D), formatDouble(box.getBottom() / 1E7D), formatDouble(box.getRight() / 1E7D),
+    private void setBoundingBoxFields(@NonNull TileLayerDialog fragment, @NonNull BoundingBox box) {
+        setBoundingBoxFields(fragment, formatDouble(box.getLeft() / 1E7D), formatDouble(box.getBottom() / 1E7D), formatDouble(box.getRight() / 1E7D),
                 formatDouble(box.getTop() / 1E7D));
     }
 
     /**
      * Set the TextViews for a BoundingBox
      * 
+     * @param fragment the current, potentially recreated instance of this
      * @param left coordinate of left side
      * @param bottom coordinate of bottom
      * @param right coordinate of right
      * @param top coordinate of top
      */
-    private void setBoundingBoxFields(@NonNull String left, @NonNull String bottom, @NonNull String right, @NonNull String top) {
-        leftEdit.setText(left);
-        bottomEdit.setText(bottom);
-        rightEdit.setText(right);
-        topEdit.setText(top);
+    private void setBoundingBoxFields(@NonNull TileLayerDialog fragment, @NonNull String left, @NonNull String bottom, @NonNull String right,
+            @NonNull String top) {
+        fragment.leftEdit.setText(left);
+        fragment.bottomEdit.setText(bottom);
+        fragment.rightEdit.setText(right);
+        fragment.topEdit.setText(top);
     }
 }

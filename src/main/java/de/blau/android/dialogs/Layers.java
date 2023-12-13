@@ -119,7 +119,7 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
     private static final int  VERTICAL_OFFSET     = 64;
     private static final long MAX_STYLE_FILE_SIZE = 10000000L;
 
-    private static final String TAG = "fragment_layers";
+    public static final String TAG = "fragment_layers";
 
     private int visibleId;
     private int invisibleId;
@@ -410,13 +410,13 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
             private static final long serialVersionUID = 1L;
 
             @Override
-            public boolean read(Uri fileUri) {
+            public boolean read(FragmentActivity activity, Uri fileUri) {
                 addStyleableLayerFromUri(activity, prefs, map, type, fileUri, true);
                 return true;
             }
 
             @Override
-            public void read(List<Uri> fileUris) {
+            public void read(FragmentActivity activity, List<Uri> fileUris) {
                 for (Uri fileUri : fileUris) {
                     addStyleableLayerFromUri(activity, prefs, map, type, fileUri, false);
                 }
@@ -471,7 +471,7 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
             private static final long serialVersionUID = 1L;
 
             @Override
-            public boolean read(Uri fileUri) {
+            public boolean read(FragmentActivity activity, Uri fileUri) {
                 Style style = new Style();
                 try {
                     if (ContentResolverUtil.getSizeColumn(activity, fileUri) > MAX_STYLE_FILE_SIZE) {
@@ -989,11 +989,12 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
                         private static final long serialVersionUID = 1L;
 
                         @Override
-                        public boolean save(Uri fileUri) {
+                        public boolean save(FragmentActivity currentActivity, Uri fileUri) {
+                            // FIXME layer will likely not be valid if the activity has been recreated
                             if (layer != null) {
                                 final Track track = ((de.blau.android.layer.gpx.MapOverlay) layer).getTrack();
                                 if (track != null) {
-                                    SavingHelper.asyncExport(activity, track, fileUri);
+                                    SavingHelper.asyncExport(currentActivity, track, fileUri);
                                     SelectFile.savePref(App.getLogic().getPrefs(), R.string.config_osmPreferredDir_key, fileUri);
                                 }
                             }
