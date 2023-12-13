@@ -22,6 +22,7 @@ import org.junit.runner.RunWith;
 import com.orhanobut.mockwebserverplus.MockWebServerPlus;
 
 import android.app.Instrumentation;
+import android.os.Build;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.test.core.app.ApplicationProvider;
@@ -64,8 +65,8 @@ import okhttp3.mockwebserver.MockWebServer;
 @LargeTest
 public class LayerDialogCustomImageryTest {
 
-    public static final int  EXTENT_BUTTON  = 1;
-    public static final int  MENU_BUTTON    = 3;
+    public static final int EXTENT_BUTTON = 1;
+    public static final int MENU_BUTTON   = 3;
 
     AdvancedPrefDatabase prefDB          = null;
     Main                 main            = null;
@@ -158,7 +159,9 @@ public class LayerDialogCustomImageryTest {
         assertTrue(TestUtils.findText(device, false, main.getString(R.string.add_layer_title)));
         assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/file_button", true));
         TestUtils.selectFile(device, main, null, fileName, true);
+        TestUtils.clickAwayTip(device, main, 5000); // only used when the file is imported
         assertTrue(TestUtils.findText(device, false, "Vespucci Test"));
+        TestUtils.findText(device, false, main.getString(R.string.save_and_set), 2000);
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.save_and_set), true));
         assertTrue(TestUtils.textGone(device, main.getString(R.string.layer_add_custom_imagery), 2000));
         assertTrue(TestUtils.findText(device, false, "Vespucci Test")); // layer dialog
@@ -188,6 +191,7 @@ public class LayerDialogCustomImageryTest {
         assertTrue(TestUtils.findText(device, false, main.getString(R.string.add_layer_title)));
         assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/file_button", true));
         TestUtils.selectFile(device, main, null, fileName, true);
+        TestUtils.clickAwayTip(device, main, 5000); // only used when the file is imported
         assertTrue(TestUtils.findText(device, false, "protomaps 2023-01"));
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.save_and_set), true));
         assertTrue(TestUtils.textGone(device, main.getString(R.string.layer_add_custom_imagery), 2000));

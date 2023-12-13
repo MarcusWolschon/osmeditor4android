@@ -27,8 +27,7 @@ public final class DatabaseUtil {
         if (!file.exists() || !file.canRead()) {
             return false;
         }
-        try (FileReader fr = new FileReader(file)){
-            
+        try (FileReader fr = new FileReader(file)){           
             char[] buffer = new char[16];
             if (fr.read(buffer, 0, 16) == 16) {
                 String str = String.valueOf(buffer);

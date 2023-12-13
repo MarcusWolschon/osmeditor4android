@@ -272,10 +272,10 @@ public abstract class URLListEditActivity extends ListActivity
      * @param textView the TextView
      * @param colorRes the color resource id
      */
-    void changeBackgroundColor(@Nullable TextView textView, int colorRes) {
+    static void changeBackgroundColor(@Nullable TextView textView, int colorRes) {
         if (textView != null && textView.getBackground() != null) {
             textView.getBackground().mutate().setColorFilter(
-                    BlendModeColorFilterCompat.createBlendModeColorFilterCompat(ContextCompat.getColor(this, colorRes), BlendModeCompat.SRC_ATOP));
+                    BlendModeColorFilterCompat.createBlendModeColorFilterCompat(ContextCompat.getColor(textView.getContext(), colorRes), BlendModeCompat.SRC_ATOP));
         }
     }
 
@@ -556,7 +556,7 @@ public abstract class URLListEditActivity extends ListActivity
         Log.d(DEBUG_TAG, "onActivityResult");
         super.onActivityResult(requestCode, resultCode, data);
         if ((requestCode == SelectFile.READ_FILE || requestCode == SelectFile.SAVE_FILE) && resultCode == RESULT_OK) {
-            SelectFile.handleResult(requestCode, data);
+            SelectFile.handleResult(this, requestCode, data);
         }
     }
 

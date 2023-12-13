@@ -524,10 +524,10 @@ public class MapOverlay extends MapTilesOverlayLayer<java.util.Map<String, List<
             private static final long serialVersionUID = 1L;
 
             @Override
-            public boolean read(Uri fileUri) {
-                try (InputStream is = activity.getContentResolver().openInputStream(fileUri)) {
+            public boolean read(FragmentActivity currentActivity, Uri fileUri) {
+                try (InputStream is = currentActivity.getContentResolver().openInputStream(fileUri)) {
                     Style style = new Style();
-                    style.loadStyle(activity, is);
+                    style.loadStyle(currentActivity, is);
                     setStyle(style);
                     flushTileCache();
                     dirty = true;
@@ -536,12 +536,12 @@ public class MapOverlay extends MapTilesOverlayLayer<java.util.Map<String, List<
                 } catch (SecurityException sex) {
                     Log.e(DEBUG_TAG, sex.getMessage());
                     // note need a context here that is on the ui thread
-                    ScreenMessage.toastTopError(map.getContext(), activity.getString(R.string.toast_permission_denied, fileUri.toString()));
+                    ScreenMessage.toastTopError(currentActivity, currentActivity.getString(R.string.toast_permission_denied, fileUri.toString()));
                     return false;
                 } catch (FileNotFoundException e) {
-                    ScreenMessage.toastTopError(map.getContext(), activity.getString(R.string.toast_file_not_found, fileUri.toString()));
+                    ScreenMessage.toastTopError(currentActivity, currentActivity.getString(R.string.toast_file_not_found, fileUri.toString()));
                 } catch (IOException e) {
-                    ScreenMessage.toastTopError(map.getContext(), activity.getString(R.string.toast_error_reading, fileUri.toString()));
+                    ScreenMessage.toastTopError(currentActivity, currentActivity.getString(R.string.toast_error_reading, fileUri.toString()));
                 }
                 return true;
             }

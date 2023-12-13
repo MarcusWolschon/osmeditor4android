@@ -6,8 +6,8 @@ import java.net.URL;
 import java.util.List;
 import java.util.Map.Entry;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -29,6 +29,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatDialog;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
@@ -40,10 +43,13 @@ import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetIconManager;
 import de.blau.android.presets.PresetParser;
 import de.blau.android.util.ExecutorTask;
+import de.blau.android.util.FragmentUtil;
+import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.ReadFile;
-import de.blau.android.util.SelectFile;
 import de.blau.android.util.ScreenMessage;
+import de.blau.android.util.SelectFile;
 import de.blau.android.util.ThemeUtils;
+import de.blau.android.util.Util;
 
 /** Provides an activity to edit the preset list. Downloads preset data when necessary. */
 public class PresetEditorActivity extends URLListEditActivity {
@@ -348,96 +354,123 @@ public class PresetEditorActivity extends URLListEditActivity {
      * 
      * @param item the selected item
      */
-    @SuppressLint("InflateParams")
     @Override
     protected void itemEditDialog(final ListEditItem item) {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
-        final LayoutInflater inflater = ThemeUtils.getLayoutInflater(ctx);
-        final View mainView = inflater.inflate(R.layout.listedit_presetedit, null);
-        final TextView editName = (TextView) mainView.findViewById(R.id.listedit_editName);
-        final TextView editValue = (TextView) mainView.findViewById(R.id.listedit_editValue);
-        final TextView versionLabel = (TextView) mainView.findViewById(R.id.listedit_labelVersion);
-        final TextView version = (TextView) mainView.findViewById(R.id.listedit_version);
-        final CheckBox useTranslations = (CheckBox) mainView.findViewById(R.id.listedit_translations);
-        final ImageButton fileButton = (ImageButton) mainView.findViewById(R.id.listedit_file_button);
+        Bundle args = new Bundle();
+        args.putSerializable(PresetItemEditDialog.ITEM_KEY, item);
+        FragmentManager fm = getSupportFragmentManager();
+        PresetItemEditDialog f = new PresetItemEditDialog();
+        f.setArguments(args);
+        f.setShowsDialog(true);
+        f.show(fm, PresetItemEditDialog.ITEM_EDIT_DIALOG_TAG);
+    }
 
-        if (item != null) {
-            editName.setText(item.name);
-            editValue.setText(item.value);
-            useTranslations.setChecked(item.boolean0);
+    public static class PresetItemEditDialog extends ImmersiveDialogFragment {
 
-        } else if (isAddingViaIntent()) {
-            String tmpName = getIntent().getExtras().getString(EXTRA_NAME);
-            String tmpValue = getIntent().getExtras().getString(EXTRA_VALUE);
-            editName.setText(tmpName == null ? "" : tmpName);
-            editValue.setText(tmpValue == null ? "" : tmpValue);
-            useTranslations.setChecked(true);
-        }
-        if (item != null && item.value3 != null) {
-            version.setText(item.value3);
-        } else {
-            versionLabel.setVisibility(View.GONE);
-            version.setVisibility(View.GONE);
-        }
-        if (item != null && LISTITEM_ID_DEFAULT.equals(item.id)) {
-            // name and value are not editable
-            editName.setInputType(InputType.TYPE_NULL);
-            editName.setBackground(null);
-            editValue.setEnabled(false);
-            fileButton.setEnabled(false);
-        }
+        private static final String ITEM_EDIT_DIALOG_TAG = "preset_item_edit_dialog";
+        static final String         ITEM_KEY             = "item";
 
-        setViewAndButtons(builder, mainView);
+        @Override
+        public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
+            ListEditItem item = Util.getSerializeable(getArguments(), ITEM_KEY, ListEditItem.class);
+            final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            final LayoutInflater inflater = ThemeUtils.getLayoutInflater(getContext());
+            final View mainView = inflater.inflate(R.layout.listedit_presetedit, null);
+            final TextView editName = (TextView) mainView.findViewById(R.id.listedit_editName);
+            final TextView editValue = (TextView) mainView.findViewById(R.id.listedit_editValue);
+            final TextView versionLabel = (TextView) mainView.findViewById(R.id.listedit_labelVersion);
+            final TextView version = (TextView) mainView.findViewById(R.id.listedit_version);
+            final CheckBox useTranslations = (CheckBox) mainView.findViewById(R.id.listedit_translations);
+            final ImageButton fileButton = (ImageButton) mainView.findViewById(R.id.listedit_file_button);
 
-        final AlertDialog dialog = builder.create();
-        dialog.show();
+            final PresetEditorActivity activity = (PresetEditorActivity) getActivity();
 
-        fileButton.setOnClickListener(v -> SelectFile.read(PresetEditorActivity.this, R.string.config_presetsPreferredDir_key, new ReadFile() {
-            private static final long serialVersionUID = 1L;
+            if (item != null) {
+                editName.setText(item.name);
+                editValue.setText(item.value);
+                useTranslations.setChecked(item.boolean0);
 
-            @Override
-            public boolean read(Uri fileUri) {
-                editValue.setText(fileUri.toString());
-                SelectFile.savePref(new Preferences(PresetEditorActivity.this), R.string.config_presetsPreferredDir_key, fileUri);
-                return true;
+            } else if (activity.isAddingViaIntent()) {
+                String tmpName = activity.getIntent().getExtras().getString(EXTRA_NAME);
+                String tmpValue = activity.getIntent().getExtras().getString(EXTRA_VALUE);
+                editName.setText(tmpName == null ? "" : tmpName);
+                editValue.setText(tmpValue == null ? "" : tmpValue);
+                useTranslations.setChecked(true);
             }
-        }));
-
-        // overriding the handlers
-        dialog.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(v -> {
-            String name = editName.getText().toString().trim();
-            String presetURL = editValue.getText().toString().trim();
-            boolean useTranslationsEnabled = useTranslations.isChecked();
-            changeBackgroundColor(editValue, VALID_COLOR);
-            // validate entries
-            boolean validPresetURL = Patterns.WEB_URL.matcher(presetURL).matches();
-            URL url = null;
-            try {
-                url = new URL(presetURL);
-            } catch (MalformedURLException e) {
-                validPresetURL = false;
-            }
-
-            // save or display toast, exception for localhost is needed for testing
-            if (validPresetURL || presetURL.startsWith(Schemes.FILE) || presetURL.startsWith(Schemes.CONTENT)
-                    || (url != null && "localhost".equals(url.getHost())) || (item != null && item.id.equals(LISTITEM_ID_DEFAULT))) {
-                if (item == null) {
-                    // new item
-                    finishCreateItem(new ListEditItem(name, presetURL, null, null, useTranslationsEnabled));
-                } else {
-                    item.name = name;
-                    item.value = presetURL;
-                    item.boolean0 = useTranslationsEnabled;
-                    finishEditItem(item);
-                }
-                dialog.dismiss();
+            if (item != null && item.value3 != null) {
+                version.setText(item.value3);
             } else {
-                // if garbage value entered show toasts
-                ScreenMessage.barError(PresetEditorActivity.this, R.string.toast_invalid_preseturl);
-                changeBackgroundColor(editValue, ERROR_COLOR);
+                versionLabel.setVisibility(View.GONE);
+                version.setVisibility(View.GONE);
             }
-        });
+            if (item != null && LISTITEM_ID_DEFAULT.equals(item.id)) {
+                // name and value are not editable
+                editName.setInputType(InputType.TYPE_NULL);
+                editName.setBackground(null);
+                editValue.setEnabled(false);
+                fileButton.setEnabled(false);
+            }
 
-        dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setOnClickListener(v -> dialog.dismiss());
+            activity.setViewAndButtons(builder, mainView);
+
+            final AlertDialog dialog = builder.create();
+
+            fileButton.setOnClickListener(v -> SelectFile.read(activity, R.string.config_presetsPreferredDir_key, new ReadFile() {
+                private static final long serialVersionUID = 1L;
+
+                @Override
+                public boolean read(FragmentActivity currentActivity, Uri fileUri) {
+                    final Dialog dialog = FragmentUtil.findDialogByTag(currentActivity, ITEM_EDIT_DIALOG_TAG);
+                    if (dialog == null) {
+                        Log.e(DEBUG_TAG, "Dialog is null");
+                        return false;
+                    }
+                    final TextView editValue = (TextView) dialog.findViewById(R.id.listedit_editValue);
+
+                    editValue.setText(fileUri.toString());
+                    SelectFile.savePref(new Preferences(currentActivity), R.string.config_presetsPreferredDir_key, fileUri);
+                    return true;
+                }
+            }));
+
+            // overriding the handlers
+            dialog.setOnShowListener((DialogInterface d) -> {
+                dialog.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(v -> {
+                    String name = editName.getText().toString().trim();
+                    String presetURL = editValue.getText().toString().trim();
+                    boolean useTranslationsEnabled = useTranslations.isChecked();
+                    changeBackgroundColor(editValue, VALID_COLOR);
+                    // validate entries
+                    boolean validPresetURL = Patterns.WEB_URL.matcher(presetURL).matches();
+                    URL url = null;
+                    try {
+                        url = new URL(presetURL);
+                    } catch (MalformedURLException e) {
+                        validPresetURL = false;
+                    }
+
+                    // save or display toast, exception for localhost is needed for testing
+                    if (validPresetURL || presetURL.startsWith(Schemes.FILE) || presetURL.startsWith(Schemes.CONTENT)
+                            || (url != null && "localhost".equals(url.getHost())) || (item != null && item.id.equals(LISTITEM_ID_DEFAULT))) {
+                        if (item == null) {
+                            // new item
+                            activity.finishCreateItem(new ListEditItem(name, presetURL, null, null, useTranslationsEnabled));
+                        } else {
+                            item.name = name;
+                            item.value = presetURL;
+                            item.boolean0 = useTranslationsEnabled;
+                            activity.finishEditItem(item);
+                        }
+                        dialog.dismiss();
+                    } else {
+                        // if garbage value entered show toasts
+                        ScreenMessage.barError(activity, R.string.toast_invalid_preseturl);
+                        changeBackgroundColor(editValue, ERROR_COLOR);
+                    }
+                });
+                dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setOnClickListener(v -> dialog.dismiss());
+            });
+            return dialog;
+        }
     }
 }

@@ -76,7 +76,7 @@ public abstract class PrefEditorActivity extends ConfigurationChangeAwareActivit
         Log.d(DEBUG_TAG, "onActivityResult");
         super.onActivityResult(requestCode, resultCode, data);
         if ((requestCode == SelectFile.READ_FILE || requestCode == SelectFile.SAVE_FILE) && resultCode == RESULT_OK) {
-            SelectFile.handleResult(requestCode, data);
+            SelectFile.handleResult(this, requestCode, data);
         }
     }
 
