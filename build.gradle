@@ -111,9 +111,9 @@ task generateImageryTranslations () {
     doLast {     
         fileTree(dir: 'build/tmp/imagery/').each { yml ->
             def data = new YamlSlurper().parse(yml)
-            def json = new JsonBuilder(data).toPrettyString()
+            def json = new JsonGenerator.Options().disableUnicodeEscaping().build().toJson(data);
             def output = new File(imagery_assets_dir + yml.getName().replace('.yml','.json'))
-            output.write(json);
+            output.write(json.toString());
         }
     }
 }
