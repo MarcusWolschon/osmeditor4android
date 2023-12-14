@@ -244,6 +244,7 @@
   <string name="total">Total</string>
   <string name="changed">Geändert</string>
   <string name="ways">Wege</string>
+  <string name="bounding_boxes">Begrenzungsrechtecke</string>
   <!--Tile layer info dialog-->
   <string name="attribution">Quellenhinweis</string>
   <!--GPX info dialog-->
@@ -1190,6 +1191,7 @@
   <string name="config_splitActionBarEnabled_summary">Zeige die Menübuttons am unteren Bildschirmrand an. Dies erfordert einen erneuten Start von Vespucci und Android 4.0 oder neuer.</string>
   <string name="config_appLocale_title">App Sprache</string>
   <string name="config_appLocale_summary">Eine andere Sprache als die Systemsprache verwenden.</string>
+  <string name="config_appLocale_device_language">Gerätesprache</string>
   <string name="config_maxInlineValues_title">Max. Anzahl direkt angezeigter Werte</string>
   <string name="config_maxInlineValues_summary">Höchstzahl der Werte, die im Eigenschaftsformular direkt angezeigt werden.</string>
   <string name="config_maxInlineValues_current">%1$d Werte</string>
