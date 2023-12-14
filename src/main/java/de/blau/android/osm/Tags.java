@@ -164,6 +164,7 @@ public final class Tags {
     public static final String KEY_NATURAL        = "natural";
     public static final String VALUE_CLIFF        = "cliff";
     public static final String VALUE_COASTLINE    = "coastline";
+    public static final String VALUE_EARTH_BANK   = "earth_bank";
     public static final String KEY_PLACE          = "place";
 
     public static final String KEY_OPERATOR        = "operator";

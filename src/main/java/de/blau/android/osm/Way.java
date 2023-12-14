@@ -409,7 +409,7 @@ public class Way extends StyledOsmElement implements BoundedObject {
         }
 
         String natural = getTagWithKey(Tags.KEY_NATURAL);
-        if ((natural != null) && (natural.equals(Tags.VALUE_CLIFF) || natural.equals(Tags.VALUE_COASTLINE))) {
+        if ((natural != null) && (natural.equals(Tags.VALUE_CLIFF) || natural.equals(Tags.VALUE_COASTLINE) || natural.equals(Tags.VALUE_EARTH_BANK))) {
             return true;
         }
 
