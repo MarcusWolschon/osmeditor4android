@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.30.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,disused:amenity,disused:leisure,disused:man_made,disused:shop,golf,ford,harbour,hazard,noexit,indoor,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom">
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.31.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,disused:amenity,disused:leisure,disused:man_made,disused:shop,golf,ford,harbour,hazard,noexit,indoor,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom">
 <!--
     Icons have been derived from mainly from
   
@@ -1159,11 +1159,15 @@
             <list_entry value="termination" display_value="Termination"/>
         </combo>
     </chunk>
+    <chunk id="line_arrangement">
+        <combo key="line_arrangement" text="Line arrangement" values="horizontal,semi_horizontal,vertical,semi_vertical,triangular,delta,square,unarranged" display_values="Horizontal,Semi-horizontal,Vertical,Semi-vertical,Triangular,Delta,Square,Unarranged" values_context="power"/>
+    </chunk>
     <chunk id="line_attachment">
         <combo key="line_attachment" text="Line attachment" values="anchor,pin,pulley,suspension" display_values="Anchor,Pin,Pulley,Suspension" values_context="power"/>
     </chunk>
     <chunk id="line_properties">
         <reference ref="line_attachment"/>
+        <reference ref="line_arrangement"/>
         <reference ref="line_management"/>    
     </chunk>
     <chunk id="power_plant">
@@ -1659,9 +1663,9 @@
         </optional>
     </chunk>
     <chunk id="diplomatic">
-        <text key="country" text="Country"/>
         <text key="name" text="Name"/>
-        <text key="target" text="Target"/>
+        <combo key="country" text="Country" values_from="java.util.Locale#getISOCountries" use_last_as_default="force" match="key" values_context="country codes"/>
+        <combo key="target" text="Target country" values_from="java.util.Locale#getISOCountries" use_last_as_default="force" match="key" values_context="country codes"/>
         <checkgroup text="Services">
             <check key="diplomatic:services:non-immigrant_visas" text="Non-immigrant visas"/>
             <check key="diplomatic:services:immigrant_visas" text="Immigrant visas"/>
@@ -1759,7 +1763,7 @@
         </multiselect>
     </chunk>
     <chunk id="resource">
-        <combo key="resource" text="Resource" values="aggregate,bauxite,clay,coal,copper,dimension_stone,gold,ilmenite,iron_ore,lead,limestone,nickel,rutile,salt,silver,tin,zinc,zircon" display_values="Aggregate,Bauxite,Clay,Coal,Copper,Dimension stone,Gold,Ilmenite,Iron ore,Lead,Limestone,Nickel,Rutile,Salt,Silver,Tin,Zinc,Zircon"/>
+        <combo key="resource" text="Resource" values="aggregate,bauxite,basalt,clay,coal,copper,dimension_stone,gold,ilmenite,iron_ore,lead,limestone,nickel,rutile,salt,silver,tin,zinc,zircon" display_values="Aggregate,Bauxite,Basalt,Clay,Coal,Copper,Dimension stone,Gold,Ilmenite,Iron ore,Lead,Limestone,Nickel,Rutile,Salt,Silver,Tin,Zinc,Zircon"/>
     </chunk>
     <chunk id="highway_types">
         <combo key="highway" text="Type" values="motorway,motorway_link,trunk,trunk_link,primary,primary_link,secondary,tertiary,unclassified,residential,living_street,service,bus_guideway,construction" display_values="Motorway,Motorway link,Trunk,Trunk link,Primary,Primary link,Secondary,Tertiary,Unclassified,Residential,Living street,Service,Bus guideway,Construction" values_context="Highway"/>
@@ -1897,6 +1901,12 @@
     </chunk>
     <chunk id="licence_classes">
         <combo key="license_classes" text="License Classes" values="A;A1;B;BE;C,A;A1;B;B1;C;C1;D;D1;BE;CE;C1E;DE;D1E"/>
+    </chunk>
+    <chunk id="school_common">
+        <combo key="school:gender" values="mixed,male,female,separated" display_values="Mixed,Male,Female,Separated" text="Student gender"/>
+    </chunk>
+    <chunk id="trailblazed">
+        <combo key="trailblazed" text="Trail markings" values="yes,poles,cairns,symbols,no" display_values="Yes,Poles,Cairns,Symbols,No" match="key"/>
     </chunk>
     <!-- Groups -->
     <group name="Highways" icon="icons/png/highway_highway_sp.png">
@@ -2214,7 +2224,7 @@
             <space/>
             <key key="highway" value="busway" values_context="Highway"/>
             <optional>
-                <text key="name" text="Name"/>
+                <reference ref="name_operator"/>
                 <reference ref="highway_additional_oneway_lit_width_sidewalk"/>
                 <check key="covered" text="Covered" disable_off="true"/>
                 <reference ref="highway_public_transport"/>
@@ -2252,7 +2262,7 @@
                 <list_entry value="primary" display_value="Primary" icon="icons/png/highway_highway_sp.png"/>
                 <list_entry value="primary_link" display_value="Primary Link" icon="icons/png/highway_highway_sp.png"/>
                 <list_entry value="secondary" display_value="Secondary" icon="icons/png/highway_highway_sp.png"/>
-                <list_entry value="secondary_link" display_value="Secondary" icon="icons/png/highway_highway_sp.png"/>
+                <list_entry value="secondary_link" display_value="Secondary link" icon="icons/png/highway_highway_sp.png"/>
                 <list_entry value="tertiary" display_value="Tertiary" icon="icons/png/highway_highway_sp.png"/>
                 <list_entry value="tertiary_link" display_value="Tertiary Link" icon="icons/png/highway_highway_sp.png"/>
                 <list_entry value="unclassified" display_value="Unclassified" icon="icons/png/highway_highway_sp.png"/>
@@ -2662,6 +2672,7 @@
                 <reference ref="surface_smoothness"/>
                 <reference ref="highway_additional_oneway_lit_width"/>
                 <reference ref="mtb_scale"/>
+                <reference ref="trailblazed"/>
                 <reference ref="road_access_restrictions"/>
             </optional>
         </item> <!-- Track -->
@@ -2677,7 +2688,7 @@
             <optional>
                 <reference ref="name"/>
                 <reference ref="surface_smoothness"/>
-                <check key="informal" text="Informal" disable_off="true"/>
+                <check key="informal" text="Informal"/>
                 <reference ref="highway_additional_oneway_lit_width"/>
                 <combo key="sac_scale" text="SAC Scale" values_searchable="true" values_sort="false">
                     <list_entry value="hiking" display_value="T1 - hiking trail" short_description="Trail well cleared. Area flat or slightly sloped, no fall hazard"/>
@@ -2688,6 +2699,7 @@
                     <list_entry value="difficult_alpine_hiking" display_value="T6 - hazardous alpine trail with climbing" short_description="climbing up to second grade. Often very exposed, precarious jagged rocks, glacier with danger to slip and fall"/>
                 </combo>
                 <reference ref="mtb_scale"/>
+                <reference ref="trailblazed"/>
                 <combo key="trail_visibility" text="Visibility" values="excellent,good,intermediate,bad,horrible,no" display_values="Excellent,Good,Intermediate,Bad,Horrible,Not visible" values_context="trail_visibility" values_sort="false"/>
                 <reference ref="wheelchair"/>
                 <reference ref="handrail"/>
@@ -3289,7 +3301,7 @@
             <reference ref="vehicle_access"/>
             <reference ref="check_access_nomotor"/>
             <reference ref="check_access_motor"/>
-            <preset_link preset_name="Access Restrictions"/>
+            <preset_link preset_name="All vehicles"/>
         </item> <!-- Height resctrictor -->
         <item name="Cattle Grid" icon="icons/png/barrier_cattle_grid.png" type="node" preset_name_label="true">
             <link wiki="Tag:barrier=cattle_grid"/>
@@ -3347,7 +3359,7 @@
             <space/>
             <reference ref="vehicle_access"/>
             <reference ref="check_access_nomotor"/>
-            <preset_link preset_name="Access Restrictions"/>
+            <preset_link preset_name="All vehicles"/>
         </item> <!-- Full-Height Turnstile -->
         <item name="Wicket gate" icon="icons/png/barrier_empty.png" type="node" preset_name_label="true">
             <link wiki="Tag:barrier=wicket_gate"/>
@@ -3496,7 +3508,7 @@
             <reference ref="check_access_nomotor"/>
             <reference ref="check_access_motor"/>
             <reference ref="vehicle_access"/>
-            <preset_link preset_name="Access Restrictions"/>
+            <preset_link preset_name="All vehicles"/>
         </item> <!-- Log -->
         <item name="Ditch" icon="icons/png/barrier_empty.png" name_context="Barrier" type="way,closedway" preset_name_label="true">
             <link wiki="Tag:barrier=ditch"/>
@@ -3921,7 +3933,7 @@
                 <link wiki="Tag:landuse=basin"/>
                 <space/>
                 <key key="landuse" value="basin"/>
-                <combo key="basin" text="Type" values="infiltration,detention,retention" display_values="Infiltration,Detention,Retention" match="key" values_searchable="true"/>
+                <combo key="basin" text="Type" values="evaporation,infiltration,detention,retention,settling" display_values="Evaporation,Infiltration,Detention,Retention,Settling" match="key" values_searchable="true"/>
                 <reference ref="optional_name"/>
             </item> <!-- Basin -->
             <item name="Reservoir" icon="icons/png/water_reservoir_22110.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -3972,9 +3984,15 @@
             </item> <!-- Pond -->
             <item name="Tailings Pond" icon="" type="closedway,multipolygon" preset_name_label="true">
                 <link wiki="Tag:man_made=tailings_pond"/>
+                <space/>
+                <label text="An area in which waterborn tailings are pumped to allow the separation of solids from the water"/>
+                <space/>
                 <key key="man_made" value="tailings_pond"/>
                 <space/>
-                <reference ref="intermittent"/>
+                <optional>
+                    <reference ref="resource"/>
+                    <reference ref="intermittent"/>
+                </optional>
                 <check key="hazard" text="Contaminated" value_on="contamination" disable_off="true"/>
             </item> <!-- Pond -->
             <item name="Other waterbodies" name_context="natural" icon="icons/png/water_waterbody.png" type="closedway,multipolygon" preset_name_label="true">
@@ -5977,9 +5995,16 @@
         </item> <!-- Guidepost -->
         <item name="Trailhead" icon="icons/png/tourist_empty.png" type="node" preset_name_label="true">
             <key key="highway" value="trailhead"/>
-            <text key="name" text="Name" i18n="true"/>
-            <text key="operator" text="Operator"/>
+            <reference ref="name_operator"/>
             <text key="ele" text="Elevation" value_type="integer"/>
+            <optional>
+                <reference ref="fee"/>
+                <text key="website" text="Website" value_type="website"/>
+                <check key="drinking_water" text="Drinking Water"/>
+                <reference ref="toilets"/>
+                <reference ref="bin"/>
+            </optional>
+            <preset_link preset_name="All vehicles"/>            
         </item> <!-- Trailhead -->
         <item name="Information Terminal" icon="icons/png/tourist_information_terminal_20008.png" type="node" preset_name_label="true">
             <link wiki="Tag:information=terminal"/>
@@ -7106,6 +7131,7 @@
             <reference ref="education_operator_type"/>
             <optional>
                 <reference ref="religious"/>
+                <reference ref="school_common"/>
             </optional>
             <reference ref="link_contact_address"/>
         </item> <!-- School -->
@@ -7119,6 +7145,7 @@
             <reference ref="education_operator_type"/>
             <optional>
                 <reference ref="religious"/>
+                <reference ref="school_common"/>
             </optional>
             <reference ref="link_contact_address"/>
         </item> <!-- University -->
@@ -7132,6 +7159,7 @@
             <reference ref="education_operator_type"/>
             <optional>
                 <reference ref="religious"/>
+                <reference ref="school_common"/>
             </optional>
             <reference ref="link_contact_address"/>
         </item> <!-- College -->
@@ -7143,6 +7171,9 @@
             <reference ref="name_operator_wheelchair_level"/>
             <reference ref="optional_oh"/>
             <reference ref="education_operator_type"/>
+            <optional>
+                <reference ref="school_common"/>
+            </optional>
             <reference ref="link_contact_address"/>
         </item> <!-- Language school -->
         <item name="Driving School" icon="icons/png/education_driving_school_12041.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -7152,6 +7183,9 @@
             <reference ref="name_operator_wheelchair_level"/>
             <reference ref="optional_oh"/>
             <reference ref="licence_classes"/>
+            <optional>
+                <reference ref="school_common"/>
+            </optional>
             <reference ref="link_contact_address"/>
         </item> <!-- Driving School -->
         <item name="Driver training" icon="icons/png/education_motorsport_track.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -7919,7 +7953,7 @@
             </optional>
         </item> <!-- Shower -->
         <item name="Dressing room" icon="icons/png/amenity_dressing_room.png" type="node,closedway,multipolygon" preset_name_label="true">
-            <link wiki="Tag:amenity=dressing_rooom"/>
+            <link wiki="Tag:amenity=dressing_room"/>
             <space/>
             <key key="amenity" value="dressing_room"/>
             <reference ref="facility_access"/>
@@ -7958,6 +7992,7 @@
                 <list_entry value="lamp" text="Lamp"/>
                 <list_entry value="wall" text="Wall"/>
             </combo>
+            <preset_link preset_name="Letter box" text="Similar but different tags:" alternative="true"/>
         </item> <!-- Post Box -->
         <item name="Parcel Locker" icon="icons/png/amenity_parcel_locker.png" type="node,closedway" preset_name_label="true">
             <link wiki="Tag:amenity=parcel_locker"/>
@@ -8307,6 +8342,7 @@
                 <text key="post:city" text="City" match="key"/>
                 <text key="post:state" text="State" match="key"/>
             </optional>
+            <preset_link preset_name="Post Box" text="Similar but different tags:" alternative="true"/>
         </item> <!-- Letter box -->
         <item name="Research institute" icon="icons/png/amenity_research.png" type="node,closedway,multipolygon">
             <link wiki="Tag:amenity=research_institute"/>
@@ -9355,6 +9391,9 @@
             <key key="man_made" value="utility_pole"/>
             <reference ref="pole"/>
             <reference ref="utilities"/>
+            <optional>
+                <reference ref="line_properties"/>
+            </optional>
             <preset_link preset_name="Pole" text="Similar preset:" alternative="true"/>
         </item> <!-- Utility pole -->
         <item name="Antenna" icon="icons/png/man_made_antenna_22088.png" type="node" preset_name_label="true">
@@ -10062,7 +10101,7 @@
                 <space/>
                 <reference ref="power_generator"/>
                 <key key="generator:method" value="combustion" match="none"/>
-                <combo key="generator:type" text="Generator Type" values="gas_turbine,reciprocating_engine,steam_generator" display_values="Gas turbine,Reciprocating engine,Steam generator"/>
+                <combo key="generator:type" text="Generator Type" values="boiler,gas_turbine,reciprocating_engine,steam_generator" display_values="Boiler,Gas turbine,Reciprocating engine,Steam generator"/>
                 <reference ref="power_output"/>
             </item> <!-- Biofuel Power Generator -->
             <item name="Biogas Power Generator" icon="icons/png/power_generator_biogas_26007.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -10071,7 +10110,7 @@
                 <space/>
                 <reference ref="power_generator"/>
                 <key key="generator:method" value="combustion" match="none"/>
-                <combo key="generator:type" text="Generator Type" values="reciprocating_engine,steam_generator" display_values="Reciprocating engine,Steam generator"/>
+                <combo key="generator:type" text="Generator Type" values="boiler,reciprocating_engine,steam_generator" display_values="Boiler,Reciprocating engine,Steam generator"/>
                 <reference ref="power_output"/>
             </item> <!-- Biogas Power Generator -->
             <item name="Biomass Power Generator" icon="icons/png/power_generator_biomass_26008.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -10082,6 +10121,7 @@
                 <combo key="generator:method" text="Method" values_context="generator method" values="anaerobic_digestion,combustion,gasification" display_values="Anaerobic digestion,Combustion,Gasification" match="none" text_context="power"/>
                 <combo key="generator:type" text="Generator Type" values_searchable="true">
                     <list_entry value="bioreactor" short_description="Bioreactor"/>
+                    <list_entry value="boiler" short_description="Boiler"/>
                     <list_entry value="pyrolysis" short_description="Pyrolysis"/>
                     <list_entry value="steam_generator" short_description="Steam generator"/>
                     <list_entry value="steam_turbine" short_description="Steam turbine"/>
@@ -10094,7 +10134,7 @@
                 <space/>
                 <reference ref="power_generator"/>
                 <key key="generator:method" value="combustion" match="none"/>
-                <combo key="generator:type" text="Generator Type" values="steam_generator,steam_turbine" display_values="Steam generator,Steam turbine"/>
+                <combo key="generator:type" text="Generator Type" values="boiler,steam_generator,steam_turbine" display_values="Boiler,Steam generator,Steam turbine"/>
                 <reference ref="power_output"/>
             </item> <!-- Coal Power Generator -->
             <item name="Gas Power Generator" icon="icons/png/power_station_gas.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -10103,7 +10143,7 @@
                 <space/>
                 <reference ref="power_generator"/>
                 <key key="generator:method" value="combustion" match="none"/>
-                <combo key="generator:type" text="Generator Type" values="combined_cycle,gas_turbine,reciprocating_engine,steam_generator,steam_turbine" display_values="Combined cycle,Gas turbine,Reciprocating engine,Steam generator,Steam turbine"/>
+                <combo key="generator:type" text="Generator Type" values="boiler,combined_cycle,gas_turbine,reciprocating_engine,steam_generator,steam_turbine" display_values="Boiler,Combined cycle,Gas turbine,Reciprocating engine,Steam generator,Steam turbine"/>
                 <reference ref="power_output"/>
             </item> <!-- Gas Power Generator -->
             <item name="Oil Power Generator" icon="icons/png/power_generator_oil_26025.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -10112,7 +10152,7 @@
                 <space/>
                 <reference ref="power_generator"/>
                 <key key="generator:method" value="combustion" match="none"/>
-                <combo key="generator:type" text="Generator Type" values="steam_generator,steam_turbine" display_values="Steam generator,Steam turbine"/>
+                <combo key="generator:type" text="Generator Type" values="boiler,steam_generator,steam_turbine" display_values="Boiler,Steam generator,Steam turbine"/>
                 <reference ref="power_output"/>
             </item> <!-- Oil Power Generator -->
             <item name="Diesel Power Generator" icon="icons/png/power_generator_diesel_26025.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -10121,7 +10161,7 @@
                 <space/>
                 <reference ref="power_generator"/>
                 <key key="generator:method" value="combustion" match="none"/>
-                <combo key="generator:type" text="Generator Type" values="reciprocating_engine,steam_generator" display_values="Reciprocating engine,Steam generator"/>
+                <combo key="generator:type" text="Generator Type" values="boiler,reciprocating_engine,steam_generator" display_values="Boiler,Reciprocating engine,Steam generator"/>
                 <reference ref="power_output"/>
             </item> <!-- Diesel Power Generator -->
             <item name="Gasoline Power Generator" icon="icons/png/power_generator_gasoline_26022.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -10130,7 +10170,7 @@
                 <space/>
                 <reference ref="power_generator"/>
                 <key key="generator:method" value="combustion" match="none"/>
-                <combo key="generator:type" text="Generator Type" values="reciprocating_engine,steam_generator" display_values="Reciprocating engine,Steam generator"/>
+                <combo key="generator:type" text="Generator Type" values="boiler,reciprocating_engine,steam_generator" display_values="Boiler,Reciprocating engine,Steam generator"/>
                 <reference ref="power_output"/>
             </item> <!-- Gasoline Power Generator -->
             <item name="Nuclear Reactor" icon="icons/png/power_generator_nuclear_26024.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -10173,6 +10213,18 @@
                 </combo>
                 <combo key="location" text="Location" values="roof,surface" display_values="Roof,Surface" values_context="power"/>
                 <reference ref="power_output"/>
+                <combo key="generator:solar:tracking" text="Tracking type" values_context="power">
+                    <list_entry value="no" short_description="Fixed"/>
+                    <list_entry value="yes" short_description="Yes (present)"/>
+                    <list_entry value="single_axis" short_description="Single axis"/>
+                    <list_entry value="horizontal" short_description="Horizontal axis (HSAT)"/>
+                    <list_entry value="horizontal_tilted" short_description="Horizontal axis, tilted modules (HTSAT)"/>
+                    <list_entry value="tilted" short_description="Tilted axis (TSAT)"/>
+                    <list_entry value="vertical" short_description="Vertical (VSAT)"/>
+                    <list_entry value="dual_axis" short_description="Dual axis"/>
+                    <list_entry value="tip-tilt" short_description="Tip-tilt dual axis (TTDAT)"/>
+                    <list_entry value="alt-azimuth" short_description="Azimuth-altitude dual axis (AADAT)"/>
+                </combo>
             </item> <!-- Solar Power Generator -->
             <item name="Waste Power Generator" icon="icons/png/power_generator_waste_26028.png" type="node,closedway,multipolygon" preset_name_label="true">
                 <link wiki="Tag:generator:source=waste"/>
@@ -10182,6 +10234,7 @@
                 <combo key="generator:method" text="Method" values_context="generator method" values="combustion,gasification,pyrolysis" display_values="Combustion,Gasification,Pyrolysis" match="none" text_context="power"/>
                 <combo key="generator:type" text="Generator Type" values_searchable="true">
                     <list_entry value="bioreactor" short_description="Bioreactor"/>
+                    <list_entry value="boiler" short_description="Boiler"/>
                     <list_entry value="pyrolysis" short_description="Pyrolysis"/>
                     <list_entry value="reciprocating_engine" short_description="Reciprocating engine"/>
                     <list_entry value="steam_generator" short_description="Steam generator"/>
@@ -12529,6 +12582,18 @@
             <reference ref="optional_name_wikipedia"/>
             <text key="height" text="Height (meters)" length="7" value_type="dimension_vertical"/>
         </item> <!-- Cliff -->
+        <item name="Earth bank" icon="icons/png/poi_empty.png" type="way" preset_name_label="true">
+            <link wiki="Tag:natural=earth_bank"/>
+            <space/>
+            <label text="A steep earth bank, with a significant vertical, or near vertical (leave the lower face to the right of the way)."/>
+            <space/>
+            <key key="natural" value="earth_bank"/>
+            <text key="depth" text="Depth (meters)"/>
+            <combo key="earth_bank" text="Type" values="gully,scarp,cut_bank,grassy_steep_slope" display_values="Gully,Scarp,Cut bank,Grassy steep slope"/>
+            <preset_link preset_name="Cliff" text="Similar but different tags:" alternative="true"/>
+            <preset_link preset_name="Embankment" text="Similar but different tags:" alternative="true"/>
+            <preset_link preset_name="Valley" text="Similar but different tags:" alternative="true"/>
+        </item> <!-- Earth bank -->
         <item name="Sinkhole" icon="icons/png/poi_empty.png" type="node,closedway" preset_name_label="true">
             <link wiki="Tag:natural=sinkhole"/>
             <space/>
@@ -13113,7 +13178,7 @@
                 <text key="addr:place" text="Place name" use_last_as_default="force" match="key" alternative_autocomplete_keys="name"/>
                 <text key="addr:city" text="City name" use_last_as_default="force" match="key"/>
                 <text key="addr:postcode" text="Post code" use_last_as_default="force" match="key"/>
-                <combo key="addr:country" text="Country code" values_from="java.util.Locale#getISOCountries" use_last_as_default="force" match="key"/>
+                <combo key="addr:country" text="Country code" values_from="java.util.Locale#getISOCountries" use_last_as_default="force" match="key" values_context="country codes"/>
             </optional>
             <optional text="Optional values for specific countries">
                 <text key="addr:unit" text="Unit/Suite" match="key"/>
@@ -14212,6 +14277,14 @@
             <space/>
             <key key="craft" value="electronics_repair"/>
             <reference ref="name_oh_wheelchair"/>
+            <optional>
+                <checkgroup>
+                    <check key="mobile_phone:repair" text="Mobile phone repairs"/>
+                    <check key="computer:repair" text="Computers repairs"/>
+                    <check key="camera:repair" text="Camera repairs"/>
+                    <check key="hifi:repair" text="Hifi equipment repairs"/>
+              </checkgroup>
+              </optional>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Electronics -->
         <item name="Furniture" icon="icons/png/craft_furniture_16104.png" type="node,closedway,multipolygon">
