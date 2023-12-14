@@ -19,7 +19,8 @@
         <EditText
             android:id="@+id/preset_search_edit"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="34dp" 
             android:layout_marginBottom="1dp"
             android:layout_weight="1"
             android:drawableEnd="@drawable/baseline_clear_white_36dp"
@@ -35,13 +36,14 @@
         <androidx.appcompat.widget.ActionMenuView
             android:id="@+id/preset_menu"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:layout_gravity="end"
             android:layout_weight="2"
             android:layout_marginBottom="1dp"         
             android:minHeight="?attr/actionBarSize" 
             android:background="?attr/colorPrimary"
-            android:saveEnabled="false" />
+            android:saveEnabled="false"
+            android:visibility="gone" />
     </LinearLayout>
 
     <LinearLayout
