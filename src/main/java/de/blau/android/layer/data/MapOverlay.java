@@ -1247,7 +1247,8 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
      */
     @Nullable
     public BitmapDrawable retrieveCustomIcon(String iconPath) {
-        BitmapDrawable iconDrawable = customIconCache.get(iconPath); // NOSONAR computeIfAbsent doesn't exist prior to Android 7
+        BitmapDrawable iconDrawable = customIconCache.get(iconPath); // NOSONAR computeIfAbsent doesn't exist prior to
+                                                                     // Android 7
         if (iconDrawable != null || customIconCache.containsKey(iconPath)) {
             return iconDrawable;
         }
@@ -1823,5 +1824,12 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
     @Override
     public void setOnUpdateListener(OnUpdateListener<O> listener) {
         onUpdateListener = listener;
+    }
+
+    /**
+     * @return the downloadedBoxes
+     */
+    public List<BoundingBox> getDownloadedBoxes() {
+        return downloadedBoxes;
     }
 }

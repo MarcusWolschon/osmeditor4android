@@ -89,8 +89,6 @@ public class Map extends View implements IMapView {
     /** half the width/height of a node icon in px */
     private final int iconRadius;
 
-    private final List<BoundingBox> boundingBoxes = new ArrayList<>();
-
     private Preferences prefs;
 
     /** Direction we're pointing. 0-359 is valid, anything else is invalid. */
@@ -120,6 +118,11 @@ public class Map extends View implements IMapView {
      * Always darken non-downloaded areas
      */
     private boolean alwaysDrawBoundingBoxes = false;
+
+    /**
+     * Display drawing stats
+     */
+    private boolean showStats = false;
 
     /**
      * RectFs used for drawing BoundingBoxes
@@ -183,7 +186,6 @@ public class Map extends View implements IMapView {
 
         // Style me
         setBackgroundColor(ContextCompat.getColor(context, R.color.ccc_white));
-        setDrawingCacheEnabled(false);
 
         iconRadius = Density.dpToPx(context, ICON_SIZE_DP / 2);
 
@@ -674,10 +676,10 @@ public class Map extends View implements IMapView {
         final Logic logic = App.getLogic();
         boolean imageryAlignMode = logic.getMode() == Mode.MODE_ALIGN_BACKGROUND;
         if (zoomLevel > STORAGE_BOX_LIMIT && !imageryAlignMode && (!logic.isLocked() || alwaysDrawBoundingBoxes)) {
-            // shallow copy to avoid modification issues
-            boundingBoxes.clear();
-            boundingBoxes.addAll(delegator.getBoundingBoxes());
-            paintStorageBox(canvas, boundingBoxes);
+            de.blau.android.layer.data.MapOverlay<OsmElement> dataLayer = getDataLayer();
+            if (dataLayer != null && dataLayer.isVisible()) {
+                paintStorageBox(canvas, dataLayer.getDownloadedBoxes());
+            }
         }
 
         paintGpsPos(canvas);
@@ -689,7 +691,7 @@ public class Map extends View implements IMapView {
             paintZoomAndOffset(canvas);
         }
 
-        if (prefs != null && prefs.isStatsVisible()) {
+        if (showStats) {
             time = System.currentTimeMillis() - time;
             paintStats(canvas, 1 / (time / 1000f));
         }
@@ -895,6 +897,7 @@ public class Map extends View implements IMapView {
      * @param canvas the canvas we are drawing on
      * @param list list of bounding boxes that we've downloaded
      */
+    @SuppressWarnings("deprecation")
     private void paintStorageBox(@NonNull final Canvas canvas, @NonNull List<BoundingBox> list) {
         canvas.save();
         int screenWidth = getWidth();
@@ -902,17 +905,14 @@ public class Map extends View implements IMapView {
         screen.set(0, 0, screenWidth, screenHeight);
         ViewBox viewBox = getViewBox();
         path.reset();
-
         for (BoundingBox bb : list) {
-            if (bb != null && viewBox.intersects(bb)) { // only need to do this if we are on screen
-                float left = GeoMath.lonE7ToX(screenWidth, viewBox, bb.getLeft());
-                float right = GeoMath.lonE7ToX(screenWidth, viewBox, bb.getRight());
-                float bottom = GeoMath.latE7ToY(screenHeight, screenWidth, viewBox, bb.getBottom());
-                float top = GeoMath.latE7ToY(screenHeight, screenWidth, viewBox, bb.getTop());
-                tempRectF.set(left, top, right, bottom);
-                tempRectF.intersect(screen);
-                path.addRect(tempRectF, Path.Direction.CW);
-            }
+            float left = GeoMath.lonE7ToX(screenWidth, viewBox, bb.getLeft());
+            float right = GeoMath.lonE7ToX(screenWidth, viewBox, bb.getRight());
+            float bottom = GeoMath.latE7ToY(screenHeight, screenWidth, viewBox, bb.getBottom());
+            float top = GeoMath.latE7ToY(screenHeight, screenWidth, viewBox, bb.getTop());
+            tempRectF.set(left, top, right, bottom);
+            tempRectF.intersect(screen);
+            path.addRect(tempRectF, Path.Direction.CW);
         }
         canvas.clipPath(path, Region.Op.DIFFERENCE);
         canvas.drawRect(screen, boxPaint);
@@ -1068,6 +1068,7 @@ public class Map extends View implements IMapView {
         setUpLayers(ctx);
         alwaysDrawBoundingBoxes = prefs.getAlwaysDrawBoundingBoxes();
         timeToStale = prefs.getGnssTimeToStale() * ONE_SECOND_IN_NS;
+        showStats = prefs.isStatsVisible();
         synchronized (mLayers) {
             for (MapViewLayer osmvo : mLayers) {
                 if (osmvo != null) {
