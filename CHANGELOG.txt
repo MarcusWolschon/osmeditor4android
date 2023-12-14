@@ -1,5 +1,21 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+19.3.2:
+
+- Fix switch logic around to display menu in preset fragment in pane mode, avoids visual glitch when swiping
+- Fix assure that UndoStorage is emptied correctly after an upload
+- Fix restore zoom FABs elevation in onConfigurationChange
+- Fix never include untagged nodes in the nearby POI display
+- Fix check for Layer.NONE before retrieving tiles
+- Fix validate tag objects post running JS in preset
+- Fix improve app language switching logic and workaround google locale issue
+- Add bounding box count to data layer info modal
+- Add natural=earth_bank to non-reversible tags
+- Update use "new" url for Bing meta data retrieval
+- Update translations
+- Update imagery from ELI
+- Update preset
+
 19.3.1:
 
 - Fix don't implement ParceableSpan, fixes crash in disambiguation menu
