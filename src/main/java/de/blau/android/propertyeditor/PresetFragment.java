@@ -284,7 +284,6 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
         }
 
         return presetPaneLayout;
-
     }
 
     /**
@@ -486,6 +485,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
         // the library providing the Feedback UI is not supported under SDK 15
         boolean enablePresetFeedback = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && BuildConfig.FLAVOR.equals(Flavors.CURRENT);
         if (paneMode) {
+            menuView.setVisibility(View.VISIBLE);
             getActivity().getMenuInflater().inflate(R.menu.preset_nav_menu, menuView.getMenu());
             menuView.setOnMenuItemClickListener(this::onOptionsItemSelected);
             if (enablePresetFeedback) {
@@ -494,7 +494,6 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
             }
         } else {
             inflater.inflate(R.menu.preset_menu, menu);
-            menuView.setVisibility(View.GONE);
             if (enablePresetFeedback) {
                 menu.findItem(R.id.menu_preset_feedback).setVisible(true).setEnabled(propertyEditorListener.isConnected());
             }
