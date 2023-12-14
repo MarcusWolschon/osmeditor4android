@@ -101,6 +101,8 @@ public class ApiLayerInfo extends LayerInfo {
                     Integer.toString(delegator.getApiWayCount()), tp, -1, -1));
             t2.addView(TableLayoutUtils.createRow(activity, getString(R.string.relations), Integer.toString(currentStorage.getRelations().size()),
                     Integer.toString(delegator.getApiRelationCount()), tp, -1, -1));
+            t2.addView(TableLayoutUtils.createRow(activity, getString(R.string.bounding_boxes), Integer.toString(currentStorage.getBoundingBoxes().size()),
+                    null, tp, -1, -1));
         }
         return sv;
     }

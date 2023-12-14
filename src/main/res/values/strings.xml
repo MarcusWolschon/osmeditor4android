@@ -251,6 +251,7 @@
     <string name="total">Total</string>
     <string name="changed">Changed</string>
     <string name="ways">Ways</string>
+    <string name="bounding_boxes">Bounding boxes</string>
     <!-- Tile layer info dialog -->
     <string name="attribution">Attribution</string>
     <!-- GPX info dialog -->
