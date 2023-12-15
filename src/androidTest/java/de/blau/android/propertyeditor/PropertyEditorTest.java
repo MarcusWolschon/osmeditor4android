@@ -2109,6 +2109,7 @@ public class PropertyEditorTest {
         if (!((PropertyEditorActivity) propertyEditor).usingPaneLayout()) {
             assertTrue(TestUtils.clickText(device, true, main.getString(R.string.tag_menu_preset), false, false));
         }
+        TestUtils.scrollToEnd(false);
         boolean found = TestUtils.clickText(device, true, getTranslatedPresetGroupName(main, "Lifecycle"), true, false);
         assertTrue(found);
         found = TestUtils.clickText(device, true, getTranslatedPresetItemName(main, "Set to disused"), true, false);
