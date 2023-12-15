@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ScrollView;
 import android.widget.TableLayout;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
@@ -59,51 +60,62 @@ public class ApiLayerInfo extends LayerInfo {
 
         MBTileProviderDataBase db = server.getMapSplitSource();
         if (db != null) {
-            tableLayout.addView(TableLayoutUtils.createFullRowTitle(activity, getString(R.string.api_info_mapsplit_source), tp));
-            Map<String, String> meta = db.getMetadata();
-            if (meta != null) {
-                List<String> keys = new ArrayList<>(meta.keySet());
-                Collections.sort(keys);
-                for (String key : keys) {
-                    Integer keyRes = META_FIELDS_TO_RES.get(key);
-                    if (keyRes == null) {
-                        continue;
-                    }
-                    if (MapSplitSource.LATEST_DATE.equals(key)) {
-                        try {
-                            String date = DateFormatter.getUtcFormat(DATE_FORMAT).format(Long.parseLong(meta.get(key)));
-                            tableLayout.addView(TableLayoutUtils.createRow(activity, keyRes, null, date, tp));
-                        } catch (NumberFormatException e) {
-                            // Skip
-                            Log.e(DEBUG_TAG, "Invalid date in MSF file " + e.getMessage());
-                        }
-                    } else if (MBTileConstants.BOUNDS.equals(key)) {
-                        tableLayout.addView(TableLayoutUtils.createRow(activity, keyRes, null, db.getBounds().toPrettyString(), tp));
-                    } else {
-                        tableLayout.addView(TableLayoutUtils.createRow(activity, keyRes, null, meta.get(key), tp));
-                    }
-                }
-            } else {
-                Log.e(DEBUG_TAG, "Meta info from MBT file missing");
-            }
+            addMapsplitInfo(activity, tableLayout, tp, db);
         } else if (server.hasReadOnly()) {
             tableLayout.addView(TableLayoutUtils.createRow(activity, R.string.readonly_url, null, server.getReadOnlyUrl(), tp));
         }
         StorageDelegator delegator = App.getDelegator();
-        if (delegator != null) {
-            TableLayout t2 = (TableLayout) sv.findViewById(R.id.element_info_vertical_layout_2);
-            t2.addView(TableLayoutUtils.createFullRowTitle(activity, getString(R.string.data_in_memory), tp));
-            t2.addView(TableLayoutUtils.createRow(activity, "", getString(R.string.total), getString(R.string.changed), tp));
-            Storage currentStorage = delegator.getCurrentStorage();
-            t2.addView(TableLayoutUtils.createRow(activity, getString(R.string.nodes), Integer.toString(currentStorage.getNodes().size()),
-                    Integer.toString(delegator.getApiNodeCount()), tp, -1, -1));
-            t2.addView(TableLayoutUtils.createRow(activity, getString(R.string.ways), Integer.toString(currentStorage.getWays().size()),
-                    Integer.toString(delegator.getApiWayCount()), tp, -1, -1));
-            t2.addView(TableLayoutUtils.createRow(activity, getString(R.string.relations), Integer.toString(currentStorage.getRelations().size()),
-                    Integer.toString(delegator.getApiRelationCount()), tp, -1, -1));
-            t2.addView(TableLayoutUtils.createRow(activity, getString(R.string.bounding_boxes), Integer.toString(currentStorage.getBoundingBoxes().size()),
-                    null, tp, -1, -1));
-        }
+        TableLayout t2 = (TableLayout) sv.findViewById(R.id.element_info_vertical_layout_2);
+        t2.addView(TableLayoutUtils.createFullRowTitle(activity, getString(R.string.data_in_memory), tp));
+        t2.addView(TableLayoutUtils.createRow(activity, "", getString(R.string.total), getString(R.string.changed), tp));
+        Storage currentStorage = delegator.getCurrentStorage();
+        t2.addView(TableLayoutUtils.createRow(activity, getString(R.string.nodes), Integer.toString(currentStorage.getNodes().size()),
+                Integer.toString(delegator.getApiNodeCount()), tp, -1, -1));
+        t2.addView(TableLayoutUtils.createRow(activity, getString(R.string.ways), Integer.toString(currentStorage.getWays().size()),
+                Integer.toString(delegator.getApiWayCount()), tp, -1, -1));
+        t2.addView(TableLayoutUtils.createRow(activity, getString(R.string.relations), Integer.toString(currentStorage.getRelations().size()),
+                Integer.toString(delegator.getApiRelationCount()), tp, -1, -1));
+        t2.addView(TableLayoutUtils.createRow(activity, getString(R.string.bounding_boxes), Integer.toString(currentStorage.getBoundingBoxes().size()), null,
+                tp, -1, -1));
         return sv;
+    }
+
+    /**
+     * If a Mapsplit RO source is being used, add some info for that
+     * 
+     * @param activity the current Activity
+     * @param tableLayout the table
+     * @param tp table layout params
+     * @param db the mapsplit sqlite file
+     */
+    private void addMapsplitInfo(@NonNull FragmentActivity activity, @NonNull TableLayout tableLayout, @NonNull TableLayout.LayoutParams tp,
+            @NonNull MBTileProviderDataBase db) {
+        tableLayout.addView(TableLayoutUtils.createFullRowTitle(activity, getString(R.string.api_info_mapsplit_source), tp));
+        Map<String, String> meta = db.getMetadata();
+        if (meta == null) {
+            Log.e(DEBUG_TAG, "Meta info from MBT file missing");
+            return;
+        }
+        List<String> keys = new ArrayList<>(meta.keySet());
+        Collections.sort(keys);
+        for (String key : keys) {
+            Integer keyRes = META_FIELDS_TO_RES.get(key);
+            if (keyRes == null) {
+                continue;
+            }
+            if (MapSplitSource.LATEST_DATE.equals(key)) {
+                try {
+                    String date = DateFormatter.getUtcFormat(DATE_FORMAT).format(Long.parseLong(meta.get(key)));
+                    tableLayout.addView(TableLayoutUtils.createRow(activity, keyRes, null, date, tp));
+                } catch (NumberFormatException e) {
+                    // Skip
+                    Log.e(DEBUG_TAG, "Invalid date in MSF file " + e.getMessage());
+                }
+            } else if (MBTileConstants.BOUNDS.equals(key)) {
+                tableLayout.addView(TableLayoutUtils.createRow(activity, keyRes, null, db.getBounds().toPrettyString(), tp));
+            } else {
+                tableLayout.addView(TableLayoutUtils.createRow(activity, keyRes, null, meta.get(key), tp));
+            }
+        }
     }
 }
