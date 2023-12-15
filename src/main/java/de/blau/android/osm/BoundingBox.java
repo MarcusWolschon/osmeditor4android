@@ -694,41 +694,48 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
     public static List<BoundingBox> newBoxes(@NonNull List<BoundingBox> existing, @NonNull BoundingBox newBox) {
         List<BoundingBox> result = new ArrayList<>();
         result.add(newBox);
+        List<BoundingBox> temp = new ArrayList<>();
         for (BoundingBox b : existing) {
-            if (b != null) {
-                List<BoundingBox> temp = new ArrayList<>();
-                for (BoundingBox rb : result) {
-                    if (b.intersects(rb)) {
-                        if (b.contains(rb)) {
-                            // discard
-                            continue;
-                        }
-                        // higher than b
-                        if (rb.top > b.top) {
-                            temp.add(new BoundingBox(rb.left, b.top, rb.right, rb.top));
-                            rb.setTop(b.top);
-                        }
-                        // lower than b
-                        if (rb.bottom < b.bottom) {
-                            temp.add(new BoundingBox(rb.left, rb.bottom, rb.right, b.bottom));
-                            rb.setBottom(b.bottom);
-                        }
-                        // left
-                        if (rb.left < b.left && rb.bottom != rb.top) {
-                            temp.add(new BoundingBox(rb.left, rb.bottom, b.left, rb.top));
-                            rb.setLeft(b.left);
-                        }
-                        // right
-                        if (rb.right > b.right && rb.bottom != rb.top) {
-                            temp.add(new BoundingBox(b.right, rb.bottom, rb.right, rb.top));
-                            rb.setRight(b.right);
-                        }
-                        rb.calcDimensions();
-                    } else {
-                        temp.add(rb);
+            if (b == null) {
+                continue;
+            }
+            temp.clear();
+            boolean changed = false;
+            for (BoundingBox rb : result) {
+                if (b.intersects(rb)) {
+                    changed = true;
+                    if (b.contains(rb)) {
+                        // discard (not added to temp)
+                        continue;
                     }
+                    // higher than b
+                    if (rb.top > b.top) {
+                        temp.add(new BoundingBox(rb.left, b.top, rb.right, rb.top));
+                        rb.setTop(b.top);
+                    }
+                    // lower than b
+                    if (rb.bottom < b.bottom) {
+                        temp.add(new BoundingBox(rb.left, rb.bottom, rb.right, b.bottom));
+                        rb.setBottom(b.bottom);
+                    }
+                    // left
+                    if (rb.left < b.left && rb.bottom != rb.top) {
+                        temp.add(new BoundingBox(rb.left, rb.bottom, b.left, rb.top));
+                        rb.setLeft(b.left);
+                    }
+                    // right
+                    if (rb.right > b.right && rb.bottom != rb.top) {
+                        temp.add(new BoundingBox(b.right, rb.bottom, rb.right, rb.top));
+                        rb.setRight(b.right);
+                    }
+                    rb.calcDimensions();
+                } else {
+                    temp.add(rb);
                 }
-                result = temp;
+            }
+            if (changed) {
+                result.clear();
+                result.addAll(temp);
             }
         }
         return result;
