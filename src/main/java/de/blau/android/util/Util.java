@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import org.xml.sax.XMLReader;
 
@@ -892,5 +894,19 @@ public final class Util {
     public static <T extends Serializable> ArrayList<T> getSerializeableArrayList(@NonNull Bundle bundle, @NonNull String key, @NonNull Class<T> clazz) { // NOSONAR
         return (ArrayList<T>) (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU ? bundle.getSerializable(key, ArrayList.class)
                 : bundle.getSerializable(key));
+    }
+
+    /**
+     * Try to cleanly cancel any queued for execution jobs
+     * 
+     * @param executor the ThreadPoolExecutor
+     */
+    public static void shutDownThreadPool(@NonNull ThreadPoolExecutor executor) {
+        executor.shutdownNow();
+        try {
+            executor.awaitTermination(1, TimeUnit.SECONDS);
+        } catch (InterruptedException e) { // NOSONAR
+            // nothing we can really do here
+        }
     }
 }

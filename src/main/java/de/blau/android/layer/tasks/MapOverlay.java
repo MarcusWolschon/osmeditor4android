@@ -53,6 +53,7 @@ import de.blau.android.tasks.TransferTasks;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.ScreenMessage;
+import de.blau.android.util.Util;
 import de.blau.android.views.IMapView;
 
 public class MapOverlay extends MapViewLayer
@@ -62,12 +63,13 @@ public class MapOverlay extends MapViewLayer
 
     public static final String FILENAME = "selectedtask" + "." + FileExtensions.RES;
 
-    private static final int THREAD_POOL_SIZE = 2;
+    private static final int DOWNLOAD_THREAD_POOL_SIZE = 2;
+    private static final int PRUNE_THREAD_POOL_SIZE    = 1;
 
     private static final int SHOW_TASKS_LIMIT = 13;
 
-    private static final int AUTOPRUNE_MIN_INTERVAL       = 10000;
-    public static final int  DEFAULT_AUTOPRUNE_TASK_LIMIT = 10000;
+    private static final long AUTOPRUNE_MIN_INTERVAL       = 10000L;
+    public static final int   DEFAULT_AUTOPRUNE_TASK_LIMIT = 10000;
 
     /** Map this is an overlay of. */
     private Map map = null;
@@ -90,7 +92,10 @@ public class MapOverlay extends MapViewLayer
 
     private int autoPruneTaskLimit = DEFAULT_AUTOPRUNE_TASK_LIMIT; // task count for autoprune
 
-    private ThreadPoolExecutor mThreadPool;
+    private int autoDownloadBoxLimit = de.blau.android.layer.data.MapOverlay.DEFAULT_DOWNLOADBOX_LIMIT;
+
+    private ThreadPoolExecutor downloadThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(DOWNLOAD_THREAD_POOL_SIZE);
+    private ThreadPoolExecutor pruneThreadPool    = (ThreadPoolExecutor) Executors.newFixedThreadPool(PRUNE_THREAD_POOL_SIZE);
 
     private List<Task>        taskList = new ArrayList<>();
     private List<BoundingBox> boxes    = new ArrayList<>();
@@ -141,9 +146,6 @@ public class MapOverlay extends MapViewLayer
 
         @Override
         protected void download() {
-            if (mThreadPool == null) {
-                mThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(THREAD_POOL_SIZE);
-            }
             ViewBox box = new ViewBox(map.getViewBox());
             box.scale(1.2); // make sides 20% larger
             box.ensureMinumumSize(minDownloadSize); // enforce a minimum size
@@ -155,7 +157,7 @@ public class MapOverlay extends MapViewLayer
                 }
                 tasks.addBoundingBox(b);
                 try {
-                    mThreadPool.execute(() -> {
+                    downloadThreadPool.execute(() -> {
                         TransferTasks.downloadBoxSync(context, server, b, true, App.getTaskStorage(), filter, TransferTasks.MAX_PER_REQUEST);
                         map.postInvalidate();
                     });
@@ -165,9 +167,9 @@ public class MapOverlay extends MapViewLayer
                 }
             }
             // check interval first as tasks.count traverses the whole R-Tree
-            if ((System.currentTimeMillis() - lastAutoPrune) > AUTOPRUNE_MIN_INTERVAL && tasks.count() > autoPruneTaskLimit) {
+            if ((System.currentTimeMillis() - lastAutoPrune) > AUTOPRUNE_MIN_INTERVAL && tasks.reachedPruneLimits(autoPruneTaskLimit, autoDownloadBoxLimit)) {
                 try {
-                    mThreadPool.execute(MapOverlay.this::prune);
+                    pruneThreadPool.execute(MapOverlay.this::prune);
                     lastAutoPrune = System.currentTimeMillis();
                 } catch (RejectedExecutionException rjee) {
                     Log.e(DEBUG_TAG, "Prune execution rejected " + rjee.getMessage());
@@ -178,46 +180,45 @@ public class MapOverlay extends MapViewLayer
 
     @Override
     protected void onDraw(Canvas c, IMapView osmv) {
-
         int zoomLevel = map.getZoomLevel();
 
-        if (isVisible && zoomLevel >= SHOW_TASKS_LIMIT) {
-            bb.set(osmv.getViewBox());
-            Location location = map.getLocation();
+        if (!isVisible || zoomLevel < SHOW_TASKS_LIMIT) {
+            return;
+        }
+        bb.set(osmv.getViewBox());
+        Location location = map.getLocation();
 
-            if (zoomLevel >= panAndZoomLimit && panAndZoomDownLoad && (location == null || location.getSpeed() < maxDownloadSpeed)) {
-                map.getRootView().removeCallbacks(download);
-                download.setBox(bb);
-                map.getRootView().postDelayed(download, 100);
+        if (zoomLevel >= panAndZoomLimit && panAndZoomDownLoad && (location == null || location.getSpeed() < maxDownloadSpeed)) {
+            map.getRootView().removeCallbacks(download);
+            download.setBox(bb);
+            map.getRootView().postDelayed(download, 100);
+        }
+
+        //
+        int w = map.getWidth();
+        int h = map.getHeight();
+        for (Task t : tasks.getTasks(bb, taskList)) {
+            // filter
+            if (!filter.contains(t.bugFilterKey())) {
+                continue;
             }
-
-            //
-            int w = map.getWidth();
-            int h = map.getHeight();
-            for (Task t : tasks.getTasks(bb, taskList)) {
-                // filter
-                if (!filter.contains(t.bugFilterKey())) {
-                    continue;
-                }
-                float x = GeoMath.lonE7ToX(w, bb, t.getLon());
-                float y = GeoMath.latE7ToY(h, w, bb, t.getLat());
-                boolean isSelected = t.equals(selected) && App.getLogic().isInEditZoomRange();
-                if (isSelected && t.isNew() && map.getPrefs().largeDragArea()) {
-                    // if the task can be dragged and large drag area is turned on show the large drag area
-                    c.drawCircle(x, y, DataStyle.getCurrent().getLargDragToleranceRadius(), DataStyle.getInternal(DataStyle.NODE_DRAG_RADIUS).getPaint());
-                }
-                final boolean closed = t.isClosed();
-                if (closed && t.hasBeenChanged()) {
-                    t.drawBitmapChangedClosed(c, x, y, isSelected);
-                } else if (closed) {
-                    t.drawBitmapClosed(c, x, y, isSelected);
-                } else if (t.isNew() || t.hasBeenChanged()) {
-                    t.drawBitmapChanged(c, x, y, isSelected);
-                } else {
-                    t.drawBitmapOpen(c, x, y, isSelected);
-                }
+            float x = GeoMath.lonE7ToX(w, bb, t.getLon());
+            float y = GeoMath.latE7ToY(h, w, bb, t.getLat());
+            boolean isSelected = t.equals(selected) && App.getLogic().isInEditZoomRange();
+            if (isSelected && t.isNew() && map.getPrefs().largeDragArea()) {
+                // if the task can be dragged and large drag area is turned on show the large drag area
+                c.drawCircle(x, y, DataStyle.getCurrent().getLargDragToleranceRadius(), DataStyle.getInternal(DataStyle.NODE_DRAG_RADIUS).getPaint());
             }
-
+            final boolean closed = t.isClosed();
+            if (closed && t.hasBeenChanged()) {
+                t.drawBitmapChangedClosed(c, x, y, isSelected);
+            } else if (closed) {
+                t.drawBitmapClosed(c, x, y, isSelected);
+            } else if (t.isNew() || t.hasBeenChanged()) {
+                t.drawBitmapChanged(c, x, y, isSelected);
+            } else {
+                t.drawBitmapOpen(c, x, y, isSelected);
+            }
         }
     }
 
@@ -405,6 +406,7 @@ public class MapOverlay extends MapViewLayer
         panAndZoomLimit = prefs.getPanAndZoomLimit();
         filter = prefs.taskFilter();
         autoPruneTaskLimit = prefs.getAutoPruneTaskLimit();
+        autoDownloadBoxLimit = prefs.getAutoPruneBoundingBoxLimit();
     }
 
     @Override
@@ -415,5 +417,11 @@ public class MapOverlay extends MapViewLayer
     @Override
     public void discard(Context context) {
         onDestroy();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Util.shutDownThreadPool(downloadThreadPool);
     }
 }

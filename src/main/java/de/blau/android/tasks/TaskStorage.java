@@ -331,12 +331,19 @@ public class TaskStorage implements Serializable, DataStorage {
     }
 
     @Override
+    public boolean reachedPruneLimits(int dataLimit, int boxLimit) {
+        return boxes.count() > boxLimit || count() > dataLimit;
+    }
+
+    @Override
     public synchronized void prune(@NonNull BoundingBox box) {
+        Log.d(DEBUG_TAG, "pruning tasks");
         for (Task b : getTasks()) {
             if (!(b instanceof Todo) && !b.hasBeenChanged() && !box.contains(b.getLon(), b.getLat())) {
                 tasks.remove(b);
             }
         }
+        Log.d(DEBUG_TAG, "pruning boxes");
         BoundingBox.prune(this, box);
         dirty = true;
     }
