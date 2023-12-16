@@ -404,6 +404,18 @@
             app:spt_currentValueText="@string/config_autoPruneNodeLimit_current"
             app:spt_setWrapSelectorWheel="false" />
         <ch.poole.android.numberpickerpreference.NumberPickerPreference
+            android:defaultValue="100"
+            android:dialogTitle="@string/config_autoPruneBoundingBoxLimit_title"
+            android:key="@string/config_autoPruneBoundingBoxLimit_key"
+            android:numeric="integer"
+            android:summary="@string/config_autoPruneBoundingBoxLimit_summary"
+            android:title="@string/config_autoPruneBoundingBoxLimit_title"
+            app:spt_maxValue="500"
+            app:spt_minValue="50"
+            app:spt_increment="50"
+            app:spt_currentValueText="@string/config_autoPruneBoundingBoxLimit_current"
+            app:spt_setWrapSelectorWheel="false" />
+        <ch.poole.android.numberpickerpreference.NumberPickerPreference
             android:defaultValue="17"
             android:dialogTitle="@string/config_panAndZoomLimit_title"
             android:key="@string/config_panAndZoomLimit_key"

@@ -19,7 +19,6 @@ import java.util.WeakHashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -113,6 +112,7 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
     private static final long AUTOPRUNE_MIN_INTERVAL       = 10000; // milli-seconds between
                                                                     // autoprunes
     public static final int   DEFAULT_AUTOPRUNE_NODE_LIMIT = 5000;
+    public static final int   DEFAULT_DOWNLOADBOX_LIMIT    = 100;
     public static final int   PAN_AND_ZOOM_LIMIT           = 17;
     private static final int  MP_SIZE_LIMIT                = 1000;  // max size of MP to render as
                                                                     // MP
@@ -123,8 +123,9 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
     private final int houseNumberRadius;
     private final int verticalNumberOffset;
     private float     maxDownloadSpeed;
-    private int       autoPruneNodeLimit = DEFAULT_AUTOPRUNE_NODE_LIMIT; // node count for autoprune
-    private int       panAndZoomLimit    = PAN_AND_ZOOM_LIMIT;
+    private int       autoPruneNodeLimit   = DEFAULT_AUTOPRUNE_NODE_LIMIT; // node count for autoprune
+    private int       autoDownloadBoxLimit = DEFAULT_DOWNLOADBOX_LIMIT;
+    private int       panAndZoomLimit      = PAN_AND_ZOOM_LIMIT;
 
     private final StorageDelegator delegator;
     private final Context          context;
@@ -346,24 +347,10 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
 
     @Override
     public void onDestroy() {
-        shutDownThreadPool(dataThreadPoolExecutor);
-        shutDownThreadPool(iconThreadPoolExecutor);
+        Util.shutDownThreadPool(dataThreadPoolExecutor);
+        Util.shutDownThreadPool(iconThreadPoolExecutor);
         clearIconCaches();
         tmpPresets = null;
-    }
-
-    /**
-     * Try to cleanly cancel any queued for execution jobs
-     * 
-     * @param executor the ThreadPoolExecutor
-     */
-    void shutDownThreadPool(@NonNull ThreadPoolExecutor executor) {
-        executor.shutdownNow();
-        try {
-            executor.awaitTermination(1, TimeUnit.SECONDS);
-        } catch (InterruptedException e) { // NOSONAR
-            // nothing we can really do here
-        }
     }
 
     @Override
@@ -415,7 +402,8 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
                     logic.removeBoundingBox(b);
                 }
             }
-            if (delegator.getCurrentStorage().getNodeCount() > autoPruneNodeLimit && (System.currentTimeMillis() - lastAutoPrune) > AUTOPRUNE_MIN_INTERVAL) {
+            if ((System.currentTimeMillis() - lastAutoPrune) > AUTOPRUNE_MIN_INTERVAL
+                    && delegator.reachedPruneLimits(autoPruneNodeLimit, autoDownloadBoxLimit)) {
                 try {
                     dataThreadPoolExecutor.execute(MapOverlay.this::prune);
                     lastAutoPrune = System.currentTimeMillis();
@@ -1247,7 +1235,8 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
      */
     @Nullable
     public BitmapDrawable retrieveCustomIcon(String iconPath) {
-        BitmapDrawable iconDrawable = customIconCache.get(iconPath); // NOSONAR computeIfAbsent doesn't exist prior to Android 7
+        BitmapDrawable iconDrawable = customIconCache.get(iconPath); // NOSONAR computeIfAbsent doesn't exist prior to
+                                                                     // Android 7
         if (iconDrawable != null || customIconCache.containsKey(iconPath)) {
             return iconDrawable;
         }
@@ -1690,6 +1679,7 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
         minDownloadSize = prefs.getDownloadRadius() * 2;
         maxDownloadSpeed = prefs.getMaxBugDownloadSpeed() / 3.6f;
         autoPruneNodeLimit = prefs.getAutoPruneNodeLimit();
+        autoDownloadBoxLimit = prefs.getAutoPruneBoundingBoxLimit();
         panAndZoomLimit = prefs.getPanAndZoomLimit();
         iconCache.clear();
         areaIconCache.clear();
@@ -1823,5 +1813,12 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
     @Override
     public void setOnUpdateListener(OnUpdateListener<O> listener) {
         onUpdateListener = listener;
+    }
+
+    /**
+     * @return the downloadedBoxes
+     */
+    public List<BoundingBox> getDownloadedBoxes() {
+        return downloadedBoxes;
     }
 }

@@ -3253,6 +3253,11 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         }
     }
 
+    @Override
+    public boolean reachedPruneLimits(int dataLimit, int boxLimit) {
+        return getCurrentStorage().getNodeCount() > dataLimit || getBoundingBoxes().size() > boxLimit;
+    }
+
     /**
      * Safely remove data that is not in/intersects with the provided BoundingBox
      * 

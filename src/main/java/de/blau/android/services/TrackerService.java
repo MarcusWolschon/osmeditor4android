@@ -49,6 +49,7 @@ import de.blau.android.R;
 import de.blau.android.gpx.Track;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.StorageDelegator;
+import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.services.util.ExtendedLocation;
 import de.blau.android.services.util.Nmea;
@@ -980,6 +981,11 @@ public class TrackerService extends Service {
                     public void download(BoundingBox box) {
                         taskStorage.addBoundingBox(box); // will be filled once download is complete
                         TransferTasks.downloadBox(TrackerService.this, prefs.getServer(), box, true, TransferTasks.MAX_PER_REQUEST, null);
+                        if (taskStorage.reachedPruneLimits(prefs.getAutoPruneNodeLimit(), prefs.getAutoPruneBoundingBoxLimit())) {
+                            ViewBox pruneBox = new ViewBox(App.getLogic().getViewBox());
+                            pruneBox.scale(1.6);
+                            taskStorage.prune(pruneBox);
+                        }
                     }
 
                     @Override
@@ -1058,7 +1064,7 @@ public class TrackerService extends Service {
             return;
         }
         autoLoadDataAndBugs(location);
-        Log.d(DEBUG_TAG,"calling onLocationChanged " + location + " " + externalListener);
+        Log.d(DEBUG_TAG, "calling onLocationChanged " + location + " " + externalListener);
         if (externalListener != null) {
             externalListener.onLocationChanged(location);
         }

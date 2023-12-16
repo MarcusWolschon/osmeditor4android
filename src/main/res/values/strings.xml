@@ -1303,6 +1303,9 @@
     <string name="config_autoPruneNodeLimit_title">Auto-prune limit</string>
     <string name="config_autoPruneNodeLimit_summary">Number of Nodes in memory that when reached will trigger a prune.</string>
     <string name="config_autoPruneNodeLimit_current">%1$d Nodes</string>
+    <string name="config_autoPruneBoundingBoxLimit_title">Auto-prune Bounding Boxes limit</string>
+    <string name="config_autoPruneBoundingBoxLimit_summary">Number of Bounding Boxes in memory that when reached will trigger a prune.</string>
+    <string name="config_autoPruneBoundingBoxLimit_current">%1$d Boxes</string>
     <string name="config_panAndZoomLimit_title">Zoom limit</string>
     <string name="config_panAndZoomLimit_summary">Minimum zoom level for pan and zoom auto-download.</string>
     <string name="config_panAndZoomLimit_current">%1$d</string>

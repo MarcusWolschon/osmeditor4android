@@ -50,6 +50,9 @@ import okhttp3.mockwebserver.RecordedRequest;
 @LargeTest
 public class TransferMenuTest {
 
+    private static final String DOWNLOAD1_FIXTURE     = "download1";
+    private static final String CAPABILITIES1_FIXTURE = "capabilities1";
+
     public static final int TIMEOUT = 90;
 
     MockWebServerPlus       mockServer = null;
@@ -58,6 +61,7 @@ public class TransferMenuTest {
     Main                    main       = null;
     private Instrumentation instrumentation;
     UiDevice                device     = null;
+    private Preferences     prefs      = null;
 
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
@@ -77,7 +81,8 @@ public class TransferMenuTest {
         prefDB.deleteAPI("Test");
         prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, "user", "pass", false);
         prefDB.selectAPI("Test");
-        Preferences prefs = new Preferences(context);
+        prefs = new Preferences(context);
+        prefs.setPanAndZoomAutoDownload(false);
         LayerUtils.removeImageryLayers(context);
         main.getMap().setPrefs(main, prefs);
         System.out.println("mock api url " + mockBaseUrl.toString()); // NOSONAR
@@ -91,6 +96,7 @@ public class TransferMenuTest {
      */
     @After
     public void teardown() {
+        prefs.setPanAndZoomAutoDownload(false);
         try {
             mockServer.server().shutdown();
         } catch (IOException ioex) {
@@ -214,6 +220,27 @@ public class TransferMenuTest {
         TestUtils.clickText(device, false, main.getString(R.string.unsaved_data_proceed), true, false);
         assertTrue(App.getDelegator().getCurrentStorage().isEmpty());
         assertTrue(App.getDelegator().getApiStorage().isEmpty());
+    }
+
+    /**
+     * Turn on pan and zoom download and see if it actually retrieves something
+     */
+    @Test
+    public void panAndZoomDownload() {
+        TestUtils.clickMenuButton(device, main.getString(R.string.menu_transfer), false, true);
+        TestUtils.clickText(device, false, main.getString(R.string.menu_transfer_data_clear), true, false);
+        TestUtils.clickText(device, false, main.getString(R.string.unsaved_data_proceed), true, false);
+        assertTrue(App.getDelegator().getCurrentStorage().isEmpty());
+        assertTrue(App.getDelegator().getApiStorage().isEmpty());
+        mockServer.enqueue(CAPABILITIES1_FIXTURE);
+        mockServer.enqueue(DOWNLOAD1_FIXTURE);
+        
+        TestUtils.clickMenuButton(device, main.getString(R.string.menu_transfer), false, true);
+        TestUtils.clickText(device, false, main.getString(R.string.menu_enable_pan_and_zoom_auto_download), true, false);
+        
+        TestUtils.clickAwayTip(device, context);
+        TestUtils.sleep();
+        assertNotNull(App.getDelegator().getOsmElement(Node.NAME, 101792984));
     }
 
     /**

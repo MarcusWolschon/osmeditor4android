@@ -2882,7 +2882,7 @@ public class Logic {
                 Server server = prefs.getServer();
                 mapBox.makeValidForApi(server.getCachedCapabilities().getMaxArea());
                 AsyncResult result = download(context, server, mapBox, postMerge, handler, true, true);
-                if (getDelegator().getCurrentStorage().getNodeCount() > prefs.getAutoPruneNodeLimit()) {
+                if (getDelegator().reachedPruneLimits(prefs.getAutoPruneNodeLimit(), prefs.getAutoPruneBoundingBoxLimit())) {
                     ViewBox pruneBox = new ViewBox(map.getViewBox());
                     pruneBox.scale(1.6);
                     getDelegator().prune(pruneBox);

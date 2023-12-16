@@ -114,6 +114,7 @@
     <string name="config_maxAlertDistance_key">maxAlertDistanceInt</string>
     <string name="config_extTriggeredDownloadRadius_key">extTriggeredDownloadRadiusInt</string>
     <string name="config_maxDownloadSpeed_key">maxDownloadSpeedInt</string>
+    <string name="config_autoPruneBoundingBoxLimit_key">autoPruneBoundingBoxLimit</string>
     <string name="config_autoPruneNodeLimit_key">autoPruneNodeLimit</string>
     <string name="config_autoPruneTaskLimit_key">autoPruneTaskLimit</string>
     <string name="config_panAndZoomLimit_key">panAndZoomLimit</string>
