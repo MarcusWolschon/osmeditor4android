@@ -341,6 +341,7 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
     private synchronized void handleUndo() {
         if (addedNodes.isEmpty()) {
             Log.e(DEBUG_TAG, "Undo called but nothing to undo");
+            return;
         }
         Node removedNode = addedNodes.remove(addedNodes.size() - 1);
         final boolean deleteNode = !existingNodes.contains(removedNode);
