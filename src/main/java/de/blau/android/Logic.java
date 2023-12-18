@@ -5491,6 +5491,27 @@ public class Logic {
     }
 
     /**
+     * Create a circle from at least three nodes
+     * 
+     * @param activity this method was called from, if null no warnings will be displayed
+     * @param nodes list of at least three nodes
+     * @return the circle
+     */
+    @NonNull
+    public Way createCircle(@Nullable FragmentActivity activity, @NonNull List<Node> nodes) {
+        try {
+            createCheckpoint(activity, R.string.undo_action_add);
+            Way circle = getDelegator().createCircle(map, nodes);
+            invalidateMap();
+            displayAttachedObjectWarning(activity, nodes);
+            return circle;
+        } catch (OsmIllegalOperationException | StorageException ex) {
+            handleDelegatorException(activity, ex);
+            throw ex;
+        }
+    }
+
+    /**
      * Convenience function calls GeoMath.xToLonE7
      * 
      * @param x screen X coordinate

@@ -32,6 +32,10 @@ Merge multiple selected ways resulting in a single way. Ways will be reversed if
 
 If two or more ways are selected and they intersect without a common node, a new node will be added at the first intersection found.
 
+### Create circle
+
+Creates a circle if at least three nodes are selected. If you select the nodes in clockwise/counterclockwise direction the resulting way will turn clockwise/counterclockwise. Nodes are spaced roughly 2 meters apart for larger circles. If additional nodes are too near to the original ones they will not be added. Note that if the selected nodes do not form a valid polygon, the behaviour of the function is undefined.
+
 ### ![Relation](../images/relation.png) Create relation
 
 Create a relation starting with the current selected elements. The relation type can be selected from a list generated from the available presets. Further objects can be added until the check button is clicked, then the tag editor will be started on the new relation. 

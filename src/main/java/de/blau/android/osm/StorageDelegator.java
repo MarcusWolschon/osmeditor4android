@@ -1,5 +1,9 @@
 package de.blau.android.osm;
 
+import static de.blau.android.util.Winding.COLINEAR;
+import static de.blau.android.util.Winding.COUNTERCLOCKWISE;
+import static de.blau.android.util.Winding.winding;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -41,6 +45,7 @@ import de.blau.android.util.Coordinates;
 import de.blau.android.util.DataStorage;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Geometry;
+import de.blau.android.util.Geometry.Circle;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SavingHelper.Exportable;
 import de.blau.android.util.ScreenMessage;
@@ -52,9 +57,12 @@ import de.blau.android.validation.BaseValidator;
 
 public class StorageDelegator implements Serializable, Exportable, DataStorage {
 
-    private static final String DEBUG_TAG = "StorageDelegator";
+    private static final String DEBUG_TAG = StorageDelegator.class.getSimpleName();
 
     private static final long serialVersionUID = 10L;
+
+    private static final int   MIN_NODES_CIRCLE      = 6;
+    private static final float CIRCLE_NODE_TOLERANCE = 10; // pixels
 
     private Storage currentStorage;
 
@@ -732,14 +740,12 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     }
 
     /**
-     * Arrange way nodes in a circle
-     * 
-     * FIXME use w,h,v parameters instead of map for testing
+     * Arrange way nodes in a circle *
      * 
      * @param map current map view
      * @param way way to circulize
      */
-    public void circulizeWay(@NonNull de.blau.android.Map map, @NonNull Way way) {
+    public void circulizeWay(@NonNull final de.blau.android.Map map, @NonNull final Way way) {
         final List<Node> wayNodes = way.getNodes();
         if (wayNodes.size() < 3) {
             Log.d(DEBUG_TAG, "circulize way " + way.getOsmId() + " has no nodes or less than 3!");
@@ -760,16 +766,11 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             undo.save(nd);
         }
 
-        Coordinates center = Geometry.centroidXY(coords, true);
+        Circle c = Geometry.calculateCircle(coords);
+        Coordinates center = c.center;
 
-        // caclulate average radius
-        double r = 0.0f;
         for (Coordinates p : coords) {
-            r = r + Math.sqrt((p.x - center.x) * (p.x - center.x) + (p.y - center.y) * (p.y - center.y));
-        }
-        r = r / coords.length;
-        for (Coordinates p : coords) {
-            double ratio = r / Math.sqrt((p.x - center.x) * (p.x - center.x) + (p.y - center.y) * (p.y - center.y));
+            double ratio = c.radius / Math.sqrt((p.x - center.x) * (p.x - center.x) + (p.y - center.y) * (p.y - center.y));
             p.x = ((p.x - center.x) * ratio) + center.x;
             p.y = ((p.y - center.y) * ratio) + center.y;
         }
@@ -778,6 +779,117 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             updateLatLon(nd, GeoMath.yToLatE7(height, width, box, (float) coords[i].y), GeoMath.xToLonE7(width, box, (float) coords[i].x));
             i++;
         }
+        // Don't call onElementChanged
+    }
+
+    /**
+     * Create a circle from at least 3 nodes
+     * 
+     * @param map current map view
+     * @param nodes list of at least 3 unique nodes
+     */
+    @NonNull
+    public Way createCircle(@NonNull final de.blau.android.Map map, @NonNull final List<Node> nodes) {
+
+        if (nodes.size() < 3) {
+            throw new OsmIllegalOperationException("Create circle called with less than 3 nodes");
+        }
+
+        int w = winding(nodes);
+        if (w == COLINEAR) {
+            throw new OsmIllegalOperationException("Create circle called with colinear nodes");
+        }
+        final boolean counterClockwise = w == COUNTERCLOCKWISE;
+
+        // save nodes for undo
+        for (Node nd : nodes) {
+            undo.save(nd);
+        }
+
+        dirty = true;
+
+        invalidateWayBoundingBox(nodes);
+        int width = map.getWidth();
+        int height = map.getHeight();
+        ViewBox box = map.getViewBox();
+
+        if (counterClockwise) {
+            Collections.reverse(nodes);
+        }
+
+        Coordinates[] coords = Coordinates.nodeListToCoordinateArray(width, height, box, new ArrayList<>(nodes));
+
+        Circle c = Geometry.calculateCircle(coords);
+        Coordinates center = c.center;
+        double radius = c.radius;
+
+        // move existing nodes
+        for (int i = 0; i < coords.length; i++) {
+            Coordinates p = coords[i];
+            // translate so that the center is in 0,0 first
+            p.x = p.x - center.x;
+            p.y = p.y - center.y;
+            double ratio = radius / Math.hypot(p.x, p.y);
+            p.x = p.x * ratio;
+            p.y = p.y * ratio;
+            // undo translation here
+            updateLatLon(nodes.get(i), GeoMath.yToLatE7(height, width, box, (float) (p.y + center.y)), GeoMath.xToLonE7(width, box, (float) (p.x + center.x)));
+        }
+
+        Coordinates t = coords[0];
+
+        double[] existingAngles = new double[coords.length];
+        final double PI_2 = 2 * Math.PI;
+        for (int i = 1; i < coords.length; i++) {
+            existingAngles[i] = Coordinates.angle(t, coords[i]);
+            if (existingAngles[i] < 0) {
+                existingAngles[i] = existingAngles[i] + PI_2;
+            }
+        }
+
+        // add additional nodes
+        // calc radius in m
+        final Node firstNode = nodes.get(0);
+        double radiusLength = GeoMath.haversineDistance(firstNode.getLon() / 1E7D, firstNode.getLat() / 1E7D,
+                GeoMath.xToLonE7(width, box, (float) center.x) / 1E7D, GeoMath.yToLatE7(height, width, box, (float) center.y) / 1E7D);
+        // roughly every 2 meters
+        int newCount = Math.max(MIN_NODES_CIRCLE, (int) (Math.PI * radiusLength));
+        double angleDiff = PI_2 / newCount;
+
+        int existingPos = 1;
+        List<Node> circleNodes = new ArrayList<>();
+        circleNodes.add(firstNode);
+        double angle = 0;
+        for (int i = 1; i < newCount; i++) {
+            angle += angleDiff;
+            final double cosAngle = Math.cos(angle);
+            final double sinAngle = Math.sin(angle);
+            Coordinates n = new Coordinates(t.x * cosAngle - t.y * sinAngle, t.x * sinAngle + t.y * cosAngle);
+            Coordinates existing = coords[existingPos];
+            double distNext = Math.hypot(n.x - existing.x, n.y - existing.y);
+
+            final double existingAngle = existingAngles[existingPos];
+            if (existingAngle < angle && existingAngle != 0) {
+                circleNodes.add(nodes.get(existingPos));
+                existingPos = (existingPos + 1) % coords.length;
+            }
+            if (distNext >= CIRCLE_NODE_TOLERANCE) {
+                Node node = factory.createNodeWithNewId(GeoMath.yToLatE7(height, width, box, (float) (n.y + center.y)),
+                        GeoMath.xToLonE7(width, box, (float) (n.x + center.x)));
+                insertElementSafe(node);
+                circleNodes.add(node);
+            }
+        }
+        // close the circle
+        circleNodes.add(firstNode);
+        // undo the reversing
+        if (counterClockwise) {
+            Collections.reverse(circleNodes);
+        }
+        Way circle = factory.createWayWithNewId();
+        circle.addNodes(circleNodes, false);
+        insertElementSafe(circle);
+        return circle;
         // Don't call onElementChanged
     }
 

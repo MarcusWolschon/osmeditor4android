@@ -38,13 +38,14 @@ import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
 public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallback {
-    private static final String DEBUG_TAG = "ExtendSelectionAct...";
+    private static final String DEBUG_TAG = ExtendSelectionActionModeCallback.class.getSimpleName();
 
     private static final int MENUITEM_MERGE                = ElementSelectionActionModeCallback.LAST_REGULAR_MENUITEM + 1;
     private static final int MENUITEM_RELATION             = ElementSelectionActionModeCallback.LAST_REGULAR_MENUITEM + 2;
     private static final int MENUITEM_ADD_RELATION_MEMBERS = ElementSelectionActionModeCallback.LAST_REGULAR_MENUITEM + 3;
     private static final int MENUITEM_ORTHOGONALIZE        = ElementSelectionActionModeCallback.LAST_REGULAR_MENUITEM + 4;
     private static final int MENUITEM_INTERSECT            = ElementSelectionActionModeCallback.LAST_REGULAR_MENUITEM + 5;
+    private static final int MENUITEM_CREATE_CIRCLE        = ElementSelectionActionModeCallback.LAST_REGULAR_MENUITEM + 6;
     private static final int MENUITEM_UPLOAD               = ElementSelectionActionModeCallback.MENUITEM_UPLOAD;
     private static final int MENUITEM_ZOOM_TO_SELECTION    = ElementSelectionActionModeCallback.MENUITEM_ZOOM_TO_SELECTION;
     private static final int MENUITEM_SEARCH_OBJECTS       = ElementSelectionActionModeCallback.MENUITEM_SEARCH_OBJECTS;
@@ -62,6 +63,7 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
     private MenuItem orthogonalizeItem;
     private MenuItem uploadItem;
     private MenuItem intersectItem;
+    private MenuItem createCircleItem;
 
     /**
      * Construct an Multi-Select actionmode from a List of OsmElements
@@ -203,6 +205,8 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
 
         intersectItem = menu.add(Menu.NONE, MENUITEM_INTERSECT, Menu.NONE, R.string.menu_add_node_at_intersection);
 
+        createCircleItem = menu.add(Menu.NONE, MENUITEM_CREATE_CIRCLE, Menu.NONE, R.string.menu_create_circle);
+
         menu.add(GROUP_BASE, MENUITEM_ZOOM_TO_SELECTION, Menu.CATEGORY_SYSTEM | 10, R.string.menu_zoom_to_selection);
         menu.add(GROUP_BASE, MENUITEM_SEARCH_OBJECTS, Menu.CATEGORY_SYSTEM | 10, R.string.search_objects_title);
         menu.add(GROUP_BASE, MENUITEM_ADD_TO_TODO, Menu.CATEGORY_SYSTEM | 10, R.string.menu_add_to_todo);
@@ -241,6 +245,8 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
 
         updated |= ElementSelectionActionModeCallback.setItemVisibility(intersect(selectedWays), intersectItem, false);
 
+        updated |= ElementSelectionActionModeCallback.setItemVisibility(countType(ElementType.NODE) >= 3, createCircleItem, false);
+
         boolean changedElementsSelected = false;
         for (OsmElement e : selection) {
             if (!e.isUnchanged()) {
@@ -254,6 +260,22 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
             arrangeMenu(menu);
         }
         return updated;
+    }
+
+    /**
+     * Count elements of a certain type
+     * 
+     * @param type the ElementType we are looking for
+     * @return the count
+     */
+    private int countType(@NonNull ElementType type) {
+        int result = 0;
+        for (OsmElement e : selection) {
+            if (e != null && e.getType() == type) {
+                result++;
+            }
+        }
+        return result;
     }
 
     /**
@@ -337,6 +359,9 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
             case MENUITEM_INTERSECT:
                 intersectWays();
                 break;
+            case MENUITEM_CREATE_CIRCLE:
+                createCircle();
+                break;
             case MENUITEM_ZOOM_TO_SELECTION:
                 main.zoomTo(selection);
                 main.invalidateMap();
@@ -402,12 +427,28 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
                         selection.removeAll(waysWithNode);
                         logic.performJoinNodeToWays(main, selection, node);
                         main.zoomTo(node);
-                        main.startSupportActionMode(new NodeSelectionActionModeCallback(manager, node));
+                        manager.editElement(node);
                     });
                 } else {
                     ScreenMessage.toastTopError(main, R.string.toast_no_intersection_found);
                 }
             }
+        }
+    }
+
+    /**
+     * Create a circle from selected nodes
+     */
+    private void createCircle() {
+        try {
+            logic.getHandler().post(() -> {
+                Way circle = logic.createCircle(main, logic.getSelectedNodes());
+                mode.finish();
+                manager.editElement(circle);
+                main.performTagEdit(circle, null, false, true);
+            });
+        } catch (OsmIllegalOperationException | IllegalStateException e) {
+            ScreenMessage.barError(main, e.getLocalizedMessage());
         }
     }
 

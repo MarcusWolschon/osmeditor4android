@@ -974,6 +974,7 @@
     <string name="menu_orthogonalize">Square</string>
     <string name="menu_straighten">Straighten</string>
     <string name="menu_circulize">Arrange in circle</string>
+    <string name="menu_create_circle">Create circle</string>
     <string name="menu_split_polygon">Split in to polygons</string>
     <string name="menu_unjoin_dissimilar">Unjoin dissimilar</string>
     <string name="menu_extract_segment">Extract segment</string>
