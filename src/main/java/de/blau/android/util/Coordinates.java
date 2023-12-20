@@ -193,8 +193,10 @@ public class Coordinates implements IPoint {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Coordinates)) return false;
+        if (this == o)
+            return true;
+        if (!(o instanceof Coordinates))
+            return false;
         Coordinates that = (Coordinates) o;
         return Double.compare(that.x, x) == 0 && Double.compare(that.y, y) == 0;
     }

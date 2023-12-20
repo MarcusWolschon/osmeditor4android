@@ -208,10 +208,11 @@ public abstract class Filter implements Serializable {
      * 
      * The default implementation simply calls {@link #clear()}
      * 
+     * @param <T> OsmElement type
      * @param pre the element(s) before the change or null
      * @param post the element(s) after the change or null
      */
-    public void onElementChanged(@Nullable List<OsmElement> pre, @Nullable List<OsmElement> post) {
+    public <T extends OsmElement> void onElementChanged(@Nullable List<T> pre, @Nullable List<T> post) {
         clear();
     }
 

@@ -23,6 +23,7 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Result;
+import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.util.Geometry;
@@ -177,7 +178,7 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
             }
         }
 
-        updated |= setItemVisibility(size > 3 && closed, circulizeItem, false);
+        updated |= setItemVisibility(size > StorageDelegator.MIN_NODES_CIRCLE && closed, circulizeItem, false);
 
         // 5 nodes is the minimum required to be able to split in to two polygons
         updated |= setItemVisibility(size > 4 && closed, splitPolygonItem, false);

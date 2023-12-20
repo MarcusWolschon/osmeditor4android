@@ -25,6 +25,7 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Result;
+import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.PrefEditor;
@@ -245,7 +246,8 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
 
         updated |= ElementSelectionActionModeCallback.setItemVisibility(intersect(selectedWays), intersectItem, false);
 
-        updated |= ElementSelectionActionModeCallback.setItemVisibility(countType(ElementType.NODE) >= 3, createCircleItem, false);
+        updated |= ElementSelectionActionModeCallback.setItemVisibility(countType(ElementType.NODE) >= StorageDelegator.MIN_NODES_CIRCLE, createCircleItem,
+                false);
 
         boolean changedElementsSelected = false;
         for (OsmElement e : selection) {
