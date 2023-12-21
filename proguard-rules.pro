@@ -1,3 +1,5 @@
+-printusage build/tmp/usage.txt 
+
 -dontwarn okio.**
 -dontwarn javax.annotation.Nullable
 -dontwarn javax.annotation.Nonnull
@@ -47,13 +49,11 @@
 -keep,includedescriptorclasses class com.afollestad.materialdialogs.GravityEnum
 -keep,includedescriptorclasses class ch.poole.android.checkbox.IndeterminateCheckBox$OnStateChangedListener
 -keep,includedescriptorclasses class com.github.aakira.expandablelayout.ExpandableLayoutListener
--keep,includedescriptorclasses class org.acra.config.CoreConfiguration
--keep,includedescriptorclasses class org.acra.builder.ReportBuilder
--keep,includedescriptorclasses class org.acra.data.CrashReportData
--keep,includedescriptorclasses class org.acra.collections.ImmutableSet
--keep,includedescriptorclasses class org.acra.config.CoreConfigurationBuilder
--keep,includedescriptorclasses class org.acra.log.ACRALog
--keep,includedescriptorclasses class org.acra.sender.HttpSender$1
+
+-keep,includedescriptorclasses class org.acra.** { *; }
+-keep class * implements org.acra.plugins.Plugin {*;}
+-keep enum org.acra.** {*;}
+
 -keep,includedescriptorclasses class de.blau.android.BuildConfig
 -keep,includedescriptorclasses class de.blau.android.osm.ViewBox
 -keep,includedescriptorclasses class de.blau.android.presets.Preset$PresetItem
