@@ -136,6 +136,9 @@ public class Preferences {
     private int               geoJsonLabelMinZoom;
     private float             geoJsonStrokeWidth;
     private boolean           zoomWithKeys;
+    private final int         minCircleNodes;
+    private final double      maxCircleSegment;
+    private final double      minCircleSegment;
 
     private static final String DEFAULT_MAP_PROFILE = "Color Round Nodes";
 
@@ -321,6 +324,10 @@ public class Preferences {
         longStringLimit = getIntPref(R.string.config_longStringLimit_key, 80);
 
         zoomWithKeys = prefs.getBoolean(r.getString(R.string.config_zoomWithKeys_key), false);
+
+        minCircleNodes = getIntPref(R.string.config_minCircleNodes_key, 6);
+        maxCircleSegment = getFloatFromStringPref(R.string.config_maxCircleSegment_key, 2.0f);
+        minCircleSegment = getFloatFromStringPref(R.string.config_minCircleSegment_key, 0.5f);
     }
 
     /**
@@ -1875,6 +1882,33 @@ public class Preferences {
     }
 
     /**
+     * Get the minimum number of nodes a circle should have after circulize or create circle operations
+     * 
+     * @return the minimal number of nodes
+     */
+    public int getMinCircleNodes() {
+        return minCircleNodes;
+    }
+
+    /**
+     * Get the max distance two nodes on a circle should have after circulize or create circle operations
+     * 
+     * @return the min. distance between two circle nodes
+     */
+    public double getMaxCircleSegment() {
+        return maxCircleSegment;
+    }
+
+    /**
+     * Get the max distance two nodes on a circle should have after circulize or create circle operations
+     * 
+     * @return the min. distance between two circle nodes
+     */
+    public double getMinCircleSegment() {
+        return minCircleSegment;
+    }
+
+    /**
      * Get an integer valued preference from a string pref
      * 
      * @param keyResId the res id
@@ -1885,6 +1919,22 @@ public class Preferences {
         try {
             String temp = prefs.getString(r.getString(keyResId), Integer.toString(def));
             return Integer.parseInt(temp);
+        } catch (ClassCastException | NumberFormatException e) {
+            return def;
+        }
+    }
+
+    /**
+     * Get an float valued preference from a string pref
+     * 
+     * @param keyResId the res id
+     * @param def default value
+     * @return the stored preference or the default if none found
+     */
+    private float getFloatFromStringPref(int keyResId, float def) {
+        try {
+            String temp = prefs.getString(r.getString(keyResId), Float.toString(def));
+            return Float.parseFloat(temp);
         } catch (ClassCastException | NumberFormatException e) {
             return def;
         }

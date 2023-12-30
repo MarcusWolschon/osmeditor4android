@@ -1291,7 +1291,7 @@ public class StorageDelegatorTest {
         Node n3 = factory.createNodeWithNewId(toE7(48.7778059), toE7(9.1812985));
         d.insertElementSafe(n3);
         nodes.add(n3);
-        Way circle = d.createCircle(logic.getMap(), nodes);
+        Way circle = d.createCircle(logic.getMap(), 6, 2.0, 0.5, nodes);
         assertTrue(circle.isClosed());
         assertEquals(n1, circle.getFirstNode());
         assertEquals(44, circle.nodeCount());
@@ -1319,7 +1319,7 @@ public class StorageDelegatorTest {
         Way circle = factory.createWayWithNewId();
         d.insertElementSafe(circle);
         circle.addNodes(nodes, false);
-        d.circulizeWay(logic.getMap(), circle);
+        d.circulizeWay(logic.getMap(), 6, 2.0, 0.5, circle);
         assertTrue(circle.isClosed());
         assertEquals(n1, circle.getFirstNode());
         assertEquals(44, circle.nodeCount());

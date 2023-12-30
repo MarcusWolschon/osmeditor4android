@@ -61,9 +61,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
 
     private static final long serialVersionUID = 10L;
 
-    public static final int     MIN_NODES_CIRCLE      = 3;
-    private static final int    MIN_NODES_GEN_CIRCLE  = 6;
-    private static final double CIRCLE_NODE_TOLERANCE = GeoMath.convertMetersToGeoDistance(0.5);
+    public static final int MIN_NODES_CIRCLE = 3;
 
     private Storage currentStorage;
 
@@ -746,13 +744,16 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * Arrange way nodes in a circle, adding extra nodes
      * 
      * @param map current map view
+     * @param minNodes minimum number of nodes the circle should have
+     * @param maxSegmentLength max. segment length between two circle nodes
+     * @param minSegmentLength min. segment length between two circle nodes
      * @param way way to circulize
      */
-    public void circulizeWay(@NonNull final de.blau.android.Map map, @NonNull final Way way) {
+    public void circulizeWay(@NonNull final de.blau.android.Map map, int minNodes, double maxSegmentLength, double minSegmentLength, @NonNull final Way way) {
         undo.save(way);
         final List<Node> nodes = way.getNodes();
         // Guarantee uniqueness by creating a set
-        List<Node> circleNodes = addNodesToCircle(new ArrayList<>(new LinkedHashSet<>(nodes)));
+        List<Node> circleNodes = addNodesToCircle(new ArrayList<>(new LinkedHashSet<>(nodes)), minNodes, maxSegmentLength, minSegmentLength);
         nodes.clear();
         nodes.addAll(circleNodes);
         way.updateState(OsmElement.STATE_MODIFIED);
@@ -766,11 +767,15 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * Create a circle from at least 3 nodes
      * 
      * @param map current map view
+     * @param minNodes minimum number of nodes the circle should have
+     * @param maxSegmentLength max. segment length between two circle nodes
+     * @param minSegmentLength min. segment length between two circle nodes
      * @param nodes list of at least 3 unique nodes
      */
     @NonNull
-    public Way createCircle(@NonNull final de.blau.android.Map map, @NonNull final List<Node> nodes) {
-        List<Node> circleNodes = addNodesToCircle(nodes);
+    public Way createCircle(@NonNull final de.blau.android.Map map, int minNodes, double maxSegmentLength, double minSegmentLength,
+            @NonNull final List<Node> nodes) {
+        List<Node> circleNodes = addNodesToCircle(nodes, minNodes, maxSegmentLength, minSegmentLength);
         Way circle = factory.createWayWithNewId();
         circle.addNodes(circleNodes, false);
         insertElementSafe(circle);
@@ -782,10 +787,13 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * Arrange the Nodes in nodes in a circle and add additional ones
      * 
      * @param nodes the initial nodes
-     * @return a List of Nodes suitable for creating a Way
+     * @param minNodes minimum number of nodes the circle should have
+     * @param maxSegmentLength max. segment length between two circle nodes
+     * @param minSegmentLength min. segment length between two circle nodes
+     * @return a List of Nodes suitable for creating a Way with nodes arranged in a circle
      */
     @NonNull
-    private List<Node> addNodesToCircle(@NonNull final List<Node> nodes) {
+    private List<Node> addNodesToCircle(@NonNull final List<Node> nodes, int minNodes, double maxSegmentLength, double minSegmentLength) {
         if (nodes.size() < MIN_NODES_CIRCLE) {
             throw new OsmIllegalOperationException("Create circle called with less than 3 nodes");
         }
@@ -840,23 +848,24 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         // calc radius in m
         final Node firstNode = nodes.get(0);
         double radiusLength = GeoMath.haversineDistance(firstNode.getLon() / 1E7D, firstNode.getLat() / 1E7D, center.x, GeoMath.mercatorToLat(center.y));
-        // roughly every 2 meters
-        int newCount = Math.max(MIN_NODES_GEN_CIRCLE, (int) (Math.PI * radiusLength));
+        // roughly every maxSegmentLength meters
+        int newCount = Math.max(minNodes, (int) ((Geometry.PI_2 * radiusLength) / maxSegmentLength));
         double angleDiff = Geometry.PI_2 / newCount;
 
+        final double minDistance = GeoMath.convertMetersToGeoDistance(minSegmentLength);
         int nextPos = 1;
         List<Node> circleNodes = new ArrayList<>(newCount);
         circleNodes.add(firstNode);
         double angle = 0;
         Coordinates prevExisting = t;
         Coordinates nextExisting = coords[nextPos];
-        for (int i = 1; i < newCount; i++) {
+        for (int i = 1; i <= newCount; i++) {
             angle += angleDiff;
             final double cosAngle = Math.cos(angle);
             final double sinAngle = Math.sin(angle);
             Coordinates n = new Coordinates(t.x * cosAngle + t.y * sinAngle, -t.x * sinAngle + t.y * cosAngle);
             double existingAngle = existingAngles[nextPos];
-            while (existingAngle < angle && existingAngle != 0) {
+            while (existingAngle <= angle && existingAngle != 0) {
                 circleNodes.add(nodes.get(nextPos));
                 nextPos = (nextPos + 1) % existingLength;
                 existingAngle = existingAngles[nextPos];
@@ -865,7 +874,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             }
             // calc distance to prev or next existing node and only add if large enough
             double distNextNew = Math.min(Math.hypot(nextExisting.x - n.x, n.y - nextExisting.y), Math.hypot(prevExisting.x - n.x, prevExisting.y - n.y));
-            if (distNextNew >= CIRCLE_NODE_TOLERANCE) {
+            if (distNextNew >= minDistance) {
                 Node node = factory.createNodeWithNewId(GeoMath.mercatorToLatE7(n.y + center.y), (int) ((n.x + center.x) * 1E7D));
                 insertElementSafe(node);
                 circleNodes.add(node);

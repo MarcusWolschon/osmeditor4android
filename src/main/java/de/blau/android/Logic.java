@@ -5481,7 +5481,7 @@ public class Logic {
         }
         try {
             createCheckpoint(activity, R.string.undo_action_circulize);
-            getDelegator().circulizeWay(map, way);
+            getDelegator().circulizeWay(map, prefs.getMinCircleNodes(), prefs.getMaxCircleSegment(), prefs.getMinCircleSegment(), way);
             invalidateMap();
             displayAttachedObjectWarning(activity, way);
         } catch (OsmIllegalOperationException | StorageException ex) {
@@ -5501,7 +5501,7 @@ public class Logic {
     public Way createCircle(@Nullable FragmentActivity activity, @NonNull List<Node> nodes) {
         try {
             createCheckpoint(activity, R.string.undo_action_add);
-            Way circle = getDelegator().createCircle(map, nodes);
+            Way circle = getDelegator().createCircle(map, prefs.getMinCircleNodes(), prefs.getMaxCircleSegment(), prefs.getMinCircleSegment(), nodes);
             invalidateMap();
             displayAttachedObjectWarning(activity, nodes);
             return circle;
