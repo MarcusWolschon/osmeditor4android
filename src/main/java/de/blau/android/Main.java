@@ -4625,9 +4625,11 @@ public class Main extends FullScreenAppCompatActivity
         final boolean noParents = parentList.length() == 0;
         if (lon < GeoMath.MAX_LON) {
             double[] centroid = Geometry.centroid(e);
-            char direction = Util.getBearingArrow(lon, lat, centroid[0], centroid[1]);
-            return noParents ? getString(R.string.element_for_menu_with_direction, direction, description)
-                    : getString(R.string.element_for_menu_with_parents_with_direction, direction, description, parentList.toString());
+            if (centroid.length == 2) {
+                char direction = Util.getBearingArrow(lon, lat, centroid[0], centroid[1]);
+                return noParents ? getString(R.string.element_for_menu_with_direction, direction, description)
+                        : getString(R.string.element_for_menu_with_parents_with_direction, direction, description, parentList.toString());
+            }
         }
         return noParents ? getString(R.string.element_for_menu_with_parents, description, parentList.toString())
                 : getString(R.string.element_for_menu, description);
