@@ -9,6 +9,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.App;
+import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
@@ -20,6 +21,8 @@ import de.blau.android.resources.DataStyle;
 public final class Geometry {
 
     private static final String DEBUG_TAG = Geometry.class.getSimpleName();
+
+    public static final double PI_2 = 2 * Math.PI;
 
     /**
      * Private constructor
@@ -424,5 +427,70 @@ public final class Geometry {
             prevNx = n2x;
             prevNy = n2y;
         }
+    }
+
+    public static class Circle {
+        public final Coordinates center;
+        public final double      radius;
+
+        public Circle(@NonNull Coordinates c, double r) {
+            center = c;
+            radius = r;
+        }
+    }
+
+    /**
+     * From a list of coordinates calculate the best fitting center and radius of a circle
+     * 
+     * See https://www.scribd.com/document/14819165/Regressions-coniques-quadriques-circulaire-spherique
+     * 
+     * @param coords a list on non-colinear coordinates
+     * @return a Circle object
+     */
+    @NonNull
+    public static Circle calculateCircle(@NonNull Coordinates[] coords) {
+        Coordinates[] translated = new Coordinates[coords.length];
+
+        for (int i = 0; i < coords.length; i++) {
+            translated[i] = new Coordinates(coords[i].x - coords[0].x, coords[i].y - coords[0].y);
+        }
+        double sumX = sum(translated, c -> c.x);
+        double sumX2 = sum(translated, c -> c.x * c.x);
+        double sumY = sum(translated, c -> c.y);
+        double sumY2 = sum(translated, c -> c.y * c.y);
+
+        int n = translated.length;
+        double s11 = n * sum(translated, c -> c.x * c.y) - sumX * sumY;
+        double s20 = n * sumX2 - sumX * sumX;
+        double s02 = n * sumY2 - sumY * sumY;
+        double s30 = n * sum(translated, c -> c.x * c.x * c.x) - sumX2 * sumX;
+        double s03 = n * sum(translated, c -> c.y * c.y * c.y) - sumY2 * sumY;
+        double s21 = n * sum(translated, c -> c.x * c.x * c.y) - sumX2 * sumY;
+        double s12 = n * sum(translated, c -> c.x * c.y * c.y) - sumY2 * sumX;
+
+        double d = 2 * (s20 * s02 - s11 * s11);
+        if (!Util.notZero(d)) {
+            throw new OsmIllegalOperationException("calculateCircle called with colinear nodes");
+        }
+        double x = ((s30 + s12) * s02 - (s03 + s21) * s11) / d; // NOSONAR
+        double y = ((s03 + s21) * s20 - (s30 + s12) * s11) / d; // NOSONAR
+
+        double c = (sumX2 + sumY2 - 2 * x * sumX - 2 * y * sumY) / n;
+
+        double r = Math.sqrt(c + x * x + y * y);
+
+        return new Circle(new Coordinates(x + coords[0].x, y + coords[0].y), r);
+    }
+
+    interface Op {
+        double calc(Coordinates c);
+    }
+
+    private static double sum(Coordinates[] coords, Op op) {
+        double result = 0;
+        for (Coordinates c : coords) {
+            result += op.calc(c);
+        }
+        return result;
     }
 }

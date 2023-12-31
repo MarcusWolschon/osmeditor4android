@@ -1,5 +1,9 @@
 package de.blau.android.osm;
 
+import static de.blau.android.util.Winding.COLINEAR;
+import static de.blau.android.util.Winding.COUNTERCLOCKWISE;
+import static de.blau.android.util.Winding.winding;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -41,6 +45,7 @@ import de.blau.android.util.Coordinates;
 import de.blau.android.util.DataStorage;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Geometry;
+import de.blau.android.util.Geometry.Circle;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SavingHelper.Exportable;
 import de.blau.android.util.ScreenMessage;
@@ -52,9 +57,11 @@ import de.blau.android.validation.BaseValidator;
 
 public class StorageDelegator implements Serializable, Exportable, DataStorage {
 
-    private static final String DEBUG_TAG = "StorageDelegator";
+    private static final String DEBUG_TAG = StorageDelegator.class.getSimpleName();
 
     private static final long serialVersionUID = 10L;
+
+    public static final int MIN_NODES_CIRCLE = 3;
 
     private Storage currentStorage;
 
@@ -267,10 +274,12 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * As it may be fairly expensive to determine all changes pre and/or post may be null Don't call this if just the
      * node positions have changed
      * 
+     * @param <T>
+     * 
      * @param pre list of changed elements before the operation or null
      * @param post list of changed elements after the operation or null
      */
-    void onElementChanged(@Nullable List<OsmElement> pre, @Nullable List<OsmElement> post) {
+    <T extends OsmElement> void onElementChanged(@Nullable List<T> pre, @Nullable List<T> post) {
         if (post != null) {
             boolean nodeChanged = false;
             BoundingBox changed = null;
@@ -732,53 +741,152 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     }
 
     /**
-     * Arrange way nodes in a circle
-     * 
-     * FIXME use w,h,v parameters instead of map for testing
+     * Arrange way nodes in a circle, adding extra nodes
      * 
      * @param map current map view
+     * @param minNodes minimum number of nodes the circle should have
+     * @param maxSegmentLength max. segment length between two circle nodes
+     * @param minSegmentLength min. segment length between two circle nodes
      * @param way way to circulize
      */
-    public void circulizeWay(@NonNull de.blau.android.Map map, @NonNull Way way) {
-        final List<Node> wayNodes = way.getNodes();
-        if (wayNodes.size() < 3) {
-            Log.d(DEBUG_TAG, "circulize way " + way.getOsmId() + " has no nodes or less than 3!");
-            return;
+    public void circulizeWay(@NonNull final de.blau.android.Map map, int minNodes, double maxSegmentLength, double minSegmentLength, @NonNull final Way way) {
+        undo.save(way);
+        final List<Node> nodes = way.getNodes();
+        // Guarantee uniqueness by creating a set
+        List<Node> circleNodes = addNodesToCircle(new ArrayList<>(new LinkedHashSet<>(nodes)), minNodes, maxSegmentLength, minSegmentLength);
+        nodes.clear();
+        nodes.addAll(circleNodes);
+        way.updateState(OsmElement.STATE_MODIFIED);
+        apiStorage.insertElementSafe(way);
+        List<OsmElement> changed = new ArrayList<>(nodes);
+        changed.add(way);
+        onElementChanged(null, changed);
+    }
+
+    /**
+     * Create a circle from at least 3 nodes
+     * 
+     * @param map current map view
+     * @param minNodes minimum number of nodes the circle should have
+     * @param maxSegmentLength max. segment length between two circle nodes
+     * @param minSegmentLength min. segment length between two circle nodes
+     * @param nodes list of at least 3 unique nodes
+     */
+    @NonNull
+    public Way createCircle(@NonNull final de.blau.android.Map map, int minNodes, double maxSegmentLength, double minSegmentLength,
+            @NonNull final List<Node> nodes) {
+        List<Node> circleNodes = addNodesToCircle(nodes, minNodes, maxSegmentLength, minSegmentLength);
+        Way circle = factory.createWayWithNewId();
+        circle.addNodes(circleNodes, false);
+        insertElementSafe(circle);
+        onElementChanged(null, nodes);
+        return circle;
+    }
+
+    /**
+     * Arrange the Nodes in nodes in a circle and add additional ones
+     * 
+     * @param nodes the initial nodes
+     * @param minNodes minimum number of nodes the circle should have
+     * @param maxSegmentLength max. segment length between two circle nodes
+     * @param minSegmentLength min. segment length between two circle nodes
+     * @return a List of Nodes suitable for creating a Way with nodes arranged in a circle
+     */
+    @NonNull
+    private List<Node> addNodesToCircle(@NonNull final List<Node> nodes, int minNodes, double maxSegmentLength, double minSegmentLength) {
+        if (nodes.size() < MIN_NODES_CIRCLE) {
+            throw new OsmIllegalOperationException("Create circle called with less than 3 nodes");
         }
-        dirty = true;
 
-        Set<Node> nodes = new LinkedHashSet<>(wayNodes); // Guarantee uniqueness
-        invalidateWayBoundingBox(nodes);
-        int width = map.getWidth();
-        int height = map.getHeight();
-        ViewBox box = map.getViewBox();
-
-        Coordinates[] coords = Coordinates.nodeListToCoordinateArray(width, height, box, new ArrayList<>(nodes));
+        int w = winding(nodes);
+        if (w == COLINEAR) {
+            throw new OsmIllegalOperationException("Create circle called with colinear nodes");
+        }
+        final boolean counterClockwise = w == COUNTERCLOCKWISE;
 
         // save nodes for undo
         for (Node nd : nodes) {
             undo.save(nd);
         }
 
-        Coordinates center = Geometry.centroidXY(coords, true);
+        dirty = true;
 
-        // caclulate average radius
-        double r = 0.0f;
-        for (Coordinates p : coords) {
-            r = r + Math.sqrt((p.x - center.x) * (p.x - center.x) + (p.y - center.y) * (p.y - center.y));
+        invalidateWayBoundingBox(nodes);
+
+        if (counterClockwise) {
+            Collections.reverse(nodes);
         }
-        r = r / coords.length;
-        for (Coordinates p : coords) {
-            double ratio = r / Math.sqrt((p.x - center.x) * (p.x - center.x) + (p.y - center.y) * (p.y - center.y));
-            p.x = ((p.x - center.x) * ratio) + center.x;
-            p.y = ((p.y - center.y) * ratio) + center.y;
+        Coordinates[] coords = Coordinates.nodeListToMercatorCoordinateArray(new ArrayList<>(nodes));
+
+        Circle c = Geometry.calculateCircle(coords);
+        Coordinates center = c.center;
+        double radius = c.radius;
+        // move existing nodes
+        final int existingLength = coords.length;
+        for (int i = 0; i < existingLength; i++) {
+            Coordinates p = coords[i];
+            // translate so that the center is in 0,0 first
+            p.x = p.x - center.x;
+            p.y = p.y - center.y;
+            double ratio = radius / Math.hypot(p.x, p.y);
+            p.x = p.x * ratio;
+            p.y = p.y * ratio;
+            // undo translation here
+            updateLatLon(nodes.get(i), GeoMath.mercatorToLatE7(p.y + center.y), (int) ((p.x + center.x) * 1E7D));
         }
-        int i = 0;
-        for (Node nd : nodes) {
-            updateLatLon(nd, GeoMath.yToLatE7(height, width, box, (float) coords[i].y), GeoMath.xToLonE7(width, box, (float) coords[i].x));
-            i++;
+        Coordinates t = coords[0];
+
+        double[] existingAngles = new double[existingLength];
+        for (int i = 1; i < existingLength; i++) {
+            existingAngles[i] = -Coordinates.angle(t, coords[i]);
+            if (existingAngles[i] < 0) {
+                existingAngles[i] = existingAngles[i] + Geometry.PI_2;
+            }
         }
-        // Don't call onElementChanged
+
+        // calc additional node positions
+        // calc radius in m
+        final Node firstNode = nodes.get(0);
+        double radiusLength = GeoMath.haversineDistance(firstNode.getLon() / 1E7D, firstNode.getLat() / 1E7D, center.x, GeoMath.mercatorToLat(center.y));
+        // roughly every maxSegmentLength meters
+        int newCount = Math.max(minNodes, (int) ((Geometry.PI_2 * radiusLength) / maxSegmentLength));
+        double angleDiff = Geometry.PI_2 / newCount;
+
+        final double minDistance = GeoMath.convertMetersToGeoDistance(minSegmentLength);
+        int nextPos = 1;
+        List<Node> circleNodes = new ArrayList<>(newCount);
+        circleNodes.add(firstNode);
+        double angle = 0;
+        Coordinates prevExisting = t;
+        Coordinates nextExisting = coords[nextPos];
+        for (int i = 1; i <= newCount; i++) {
+            angle += angleDiff;
+            final double cosAngle = Math.cos(angle);
+            final double sinAngle = Math.sin(angle);
+            Coordinates n = new Coordinates(t.x * cosAngle + t.y * sinAngle, -t.x * sinAngle + t.y * cosAngle);
+            double existingAngle = existingAngles[nextPos];
+            while (existingAngle <= angle && existingAngle != 0) {
+                circleNodes.add(nodes.get(nextPos));
+                nextPos = (nextPos + 1) % existingLength;
+                existingAngle = existingAngles[nextPos];
+                prevExisting = nextExisting;
+                nextExisting = coords[nextPos];
+            }
+            // calc distance to prev or next existing node and only add if large enough
+            double distNextNew = Math.min(Math.hypot(nextExisting.x - n.x, n.y - nextExisting.y), Math.hypot(prevExisting.x - n.x, prevExisting.y - n.y));
+            if (distNextNew >= minDistance) {
+                Node node = factory.createNodeWithNewId(GeoMath.mercatorToLatE7(n.y + center.y), (int) ((n.x + center.x) * 1E7D));
+                insertElementSafe(node);
+                circleNodes.add(node);
+            }
+        }
+        // close the circle
+        circleNodes.add(firstNode);
+        // undo the reversing
+        if (counterClockwise) {
+            Collections.reverse(circleNodes);
+        }
+        return circleNodes;
     }
 
     /**

@@ -974,6 +974,7 @@
     <string name="menu_orthogonalize">Square</string>
     <string name="menu_straighten">Straighten</string>
     <string name="menu_circulize">Arrange in circle</string>
+    <string name="menu_create_circle">Create circle</string>
     <string name="menu_split_polygon">Split in to polygons</string>
     <string name="menu_unjoin_dissimilar">Unjoin dissimilar</string>
     <string name="menu_extract_segment">Extract segment</string>
@@ -1290,7 +1291,16 @@
     <string name="config_maxOffsetDistance_current">%1$d meter(s)</string>
     <string name="config_useImperialUnits_title">Use imperial units for measuring</string>
     <string name="config_useImperialUnits_summary">Use imperial units when measuring in countries that customarily use them.</string>
-            
+    <string name="config_minCircleNodes_title">Minimum number of nodes in circle</string>
+    <string name="config_minCircleNodes_summary">The min. number of nodes that should be aimed for in a circle.</string>
+    <string name="config_minCircleNodes_current">%1$d nodes</string>
+    <string name="config_maxCircleSegment_title">Maximum circle segment length</string>
+    <string name="config_maxCircleSegment_summary">Maximum distance between two circle nodes.</string>
+    <string name="config_maxCircleSegmentcurrent">%1$d meter(s)</string>
+    <string name="config_minCircleSegment_title">Minimum circle segment length</string>
+    <string name="config_minCircleSegment_summary">Minimum distance between two circle nodes.</string>
+    <string name="config_minCircleSegmentcurrent">%1$d meter(s)</string>
+     
     <!-- Auto-download settings -->
     <string name="config_category_auto_download">Auto-download settings</string>
     <string name="config_category_auto_download_summary">Settings for data and task auto downloading</string>

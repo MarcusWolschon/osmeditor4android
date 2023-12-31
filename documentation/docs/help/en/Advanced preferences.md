@@ -202,6 +202,18 @@ The farthest distance a locally stored layer offset will be automatically be app
 
 Use imperial units when measuring in countries that customarily use them. Default: _off_.
 
+### Minimum number of nodes in circle
+
+The target minimum number of nodes that should be aimed for in a circle. Default: _6_.
+
+### Maximum circle segment length
+
+Maximum distance between two circle nodes. Default: _2m_.
+
+### Minimum circle segment length
+   
+Minimum distance between two circle nodes. Default: _0.5m_.
+    
 ## Auto-download Settings
 
 ### Download radius

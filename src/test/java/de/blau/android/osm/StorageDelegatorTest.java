@@ -114,7 +114,7 @@ public class StorageDelegatorTest {
         Way temp = (Way) d.getOsmElement(Way.NAME, w.getOsmId());
         assertNotNull(temp);
         logic.cutToClipboard(null, Util.wrapInList(w));
-        assertNull((Way) d.getOsmElement(Way.NAME, w.getOsmId()));
+        assertNull(d.getOsmElement(Way.NAME, w.getOsmId()));
         assertFalse(d.clipboardIsEmpty());
         assertTrue(d.clipboardContentWasCut());
         // undo should empty clipboard
@@ -1270,5 +1270,58 @@ public class StorageDelegatorTest {
         } finally {
             server.getCachedCapabilities().setMaxRelationMembers(32000);
         }
+    }
+
+    /**
+     * Create a circle
+     */
+    @Test
+    public void createCircle() {
+        Logic logic = App.newLogic();
+        logic.setMap(new de.blau.android.Map(ApplicationProvider.getApplicationContext()), true);
+        StorageDelegator d = new StorageDelegator();
+        OsmElementFactory factory = d.getFactory();
+        Node n1 = factory.createNodeWithNewId(toE7(48.7779677), toE7(9.1812482));
+        d.insertElementSafe(n1);
+        List<Node> nodes = new ArrayList<>();
+        nodes.add(n1);
+        Node n2 = factory.createNodeWithNewId(toE7(48.7779849), toE7(9.1815418));
+        d.insertElementSafe(n2);
+        nodes.add(n2);
+        Node n3 = factory.createNodeWithNewId(toE7(48.7778059), toE7(9.1812985));
+        d.insertElementSafe(n3);
+        nodes.add(n3);
+        Way circle = d.createCircle(logic.getMap(), 6, 2.0, 0.5, nodes);
+        assertTrue(circle.isClosed());
+        assertEquals(n1, circle.getFirstNode());
+        assertEquals(44, circle.nodeCount());
+    }
+
+    /**
+     * Arrange way nodes in a circle
+     */
+    @Test
+    public void arrangeInCircle() {
+        Logic logic = App.newLogic();
+        logic.setMap(new de.blau.android.Map(ApplicationProvider.getApplicationContext()), true);
+        StorageDelegator d = new StorageDelegator();
+        OsmElementFactory factory = d.getFactory();
+        Node n1 = factory.createNodeWithNewId(toE7(48.7779677), toE7(9.1812482));
+        d.insertElementSafe(n1);
+        List<Node> nodes = new ArrayList<>();
+        nodes.add(n1);
+        Node n2 = factory.createNodeWithNewId(toE7(48.7779849), toE7(9.1815418));
+        d.insertElementSafe(n2);
+        nodes.add(n2);
+        Node n3 = factory.createNodeWithNewId(toE7(48.7778059), toE7(9.1812985));
+        d.insertElementSafe(n3);
+        nodes.add(n3);
+        Way circle = factory.createWayWithNewId();
+        d.insertElementSafe(circle);
+        circle.addNodes(nodes, false);
+        d.circulizeWay(logic.getMap(), 6, 2.0, 0.5, circle);
+        assertTrue(circle.isClosed());
+        assertEquals(n1, circle.getFirstNode());
+        assertEquals(44, circle.nodeCount());
     }
 }
