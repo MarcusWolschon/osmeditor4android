@@ -88,7 +88,7 @@ public class GeocoderEditorActivity extends URLListEditActivity {
 
     @Override
     protected void onItemEdited(ListEditItem item) {
-        db.updateGeocoder(item.id, item.name, GeocoderType.valueOf(item.value), 0, item.value2, item.boolean0);
+        db.updateGeocoder(item.id, item.name, GeocoderType.valueOf(item.value), 0, item.value2, item.active);
     }
 
     @Override
