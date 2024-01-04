@@ -7,6 +7,7 @@ import java.util.Map.Entry;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteException;
@@ -21,9 +22,11 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.CheckBox;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -37,21 +40,22 @@ import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.contract.Paths;
 import de.blau.android.dialogs.DataLoss;
+import de.blau.android.prefs.API.Auth;
 import de.blau.android.util.ContentResolverUtil;
 import de.blau.android.util.DatabaseUtil;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.FragmentUtil;
 import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.ReadFile;
-import de.blau.android.util.SelectFile;
 import de.blau.android.util.ScreenMessage;
+import de.blau.android.util.SelectFile;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
 /** Provides an activity for editing the API list */
 public class APIEditorActivity extends URLListEditActivity {
 
-    private static final String DEBUG_TAG = "APIEditorActivity";
+    private static final String DEBUG_TAG = APIEditorActivity.class.getSimpleName();
 
     private static final int MENU_COPY = 1;
 
@@ -116,7 +120,7 @@ public class APIEditorActivity extends URLListEditActivity {
         API[] apis = db.getAPIs();
         API current = db.getCurrentAPI();
         for (API api : apis) {
-            items.add(new ListEditItem(api.id, api.name, api.url, api.readonlyurl, api.notesurl, api.oauth, current.id.equals(api.id)));
+            items.add(new ListEditItem(api.id, api.name, api.url, api.readonlyurl, api.notesurl, api.auth, current.id.equals(api.id)));
         }
     }
 
@@ -137,12 +141,12 @@ public class APIEditorActivity extends URLListEditActivity {
 
     @Override
     protected void onItemCreated(ListEditItem item) {
-        db.addAPI(item.id, item.name, item.value, item.value2, item.value3, "", "", item.boolean0);
+        db.addAPI(item.id, item.name, item.value, item.value2, item.value3, "", "", (Auth) item.object0);
     }
 
     @Override
     protected void onItemEdited(ListEditItem item) {
-        db.setAPIDescriptors(item.id, item.name, item.value, item.value2, item.value3, item.boolean0);
+        db.setAPIDescriptors(item.id, item.name, item.value, item.value2, item.value3, (Auth) item.object0);
     }
 
     @Override
@@ -169,8 +173,8 @@ public class APIEditorActivity extends URLListEditActivity {
     public void onAdditionalMenuItemClick(int menuItemId, ListEditItem clickedItem) {
         if (menuItemId == MENU_COPY) {
             ListEditItem item = new ListEditItem(getString(R.string.copy_of, clickedItem.name), clickedItem.value, clickedItem.value2, clickedItem.value3,
-                    clickedItem.boolean0);
-            db.addAPI(item.id, item.name, item.value, item.value2, item.value3, "", "", item.boolean0);
+                    clickedItem.boolean0, Auth.BASIC);
+            db.addAPI(item.id, item.name, item.value, item.value2, item.value3, "", "", (Auth) item.object0);
             items.clear();
             onLoadList(items);
             updateAdapter();
@@ -211,7 +215,11 @@ public class APIEditorActivity extends URLListEditActivity {
             final TextView editValue = (TextView) mainView.findViewById(R.id.listedit_editValue);
             final TextView editValue2 = (TextView) mainView.findViewById(R.id.listedit_editValue_2);
             final TextView editValue3 = (TextView) mainView.findViewById(R.id.listedit_editValue_3);
-            final CheckBox oauth = (CheckBox) mainView.findViewById(R.id.listedit_oauth);
+            final Spinner auth = (Spinner) mainView.findViewById(R.id.listedit_auth);
+            AuthenticationAdapter adapter = new AuthenticationAdapter(getContext(), android.R.layout.simple_spinner_item, Auth.values(),
+                    getResources().getStringArray(R.array.authentication_entries));
+            auth.setAdapter(adapter);
+
             final ImageButton fileButton = (ImageButton) mainView.findViewById(R.id.listedit_file_button);
 
             final URLListEditActivity activity = (URLListEditActivity) getActivity();
@@ -220,13 +228,13 @@ public class APIEditorActivity extends URLListEditActivity {
                 editValue.setText(item.value);
                 editValue2.setText(item.value2);
                 editValue3.setText(item.value3);
-                oauth.setChecked(item.boolean0);
+                auth.setSelection(((Auth) item.object0).ordinal());
             } else if (activity.isAddingViaIntent()) {
                 String tmpName = activity.getIntent().getExtras().getString(EXTRA_NAME);
                 String tmpValue = activity.getIntent().getExtras().getString(EXTRA_VALUE);
                 editName.setText(tmpName == null ? "" : tmpName);
                 editValue.setText(tmpValue == null ? "" : tmpValue);
-                oauth.setChecked(false);
+                auth.setSelection(Auth.BASIC.ordinal());
             }
             if (item != null && item.id.equals(LISTITEM_ID_DEFAULT)) {
                 // name and value are not editable
@@ -314,7 +322,7 @@ public class APIEditorActivity extends URLListEditActivity {
                     String apiURL = editValue.getText().toString().trim();
                     String readOnlyAPIURL = editValue2.getText().toString().trim();
                     String notesAPIURL = editValue3.getText().toString().trim();
-                    boolean enabled = oauth.isChecked();
+                    Auth authentication = Auth.values()[auth.getSelectedItemPosition()];
 
                     // (re-)set to black
                     changeBackgroundColor(editValue, VALID_COLOR);
@@ -341,13 +349,13 @@ public class APIEditorActivity extends URLListEditActivity {
                         if (!"".equals(apiURL)) {
                             if (item == null) {
                                 // new item
-                                activity.finishCreateItem(new ListEditItem(name, apiURL, readOnlyAPIURL, notesAPIURL, enabled));
+                                activity.finishCreateItem(new ListEditItem(name, apiURL, readOnlyAPIURL, notesAPIURL, false, authentication));
                             } else {
                                 item.name = name;
                                 item.value = apiURL;
                                 item.value2 = readOnlyAPIURL;
                                 item.value3 = notesAPIURL;
-                                item.boolean0 = enabled;
+                                item.object0 = authentication;
                                 activity.finishEditItem(item);
                             }
                         }
@@ -367,6 +375,41 @@ public class APIEditorActivity extends URLListEditActivity {
             });
 
             return dialog;
+        }
+    }
+
+    private static class AuthenticationAdapter extends ArrayAdapter<Auth> {
+
+        private final String[] labels;
+
+        /**
+         * Construct a new adapter
+         * 
+         * @param context The current context.
+         * @param resource The resource ID for a layout file containing a layout to use when instantiating views
+         * @param objects The objects to represent in the ListView.
+         * @param labels The labels to represent in the ListView.
+         */
+        public AuthenticationAdapter(@NonNull Context context, int resource, @NonNull Auth[] objects, @NonNull String[] labels) {
+            super(context, resource, objects);
+            if (objects.length != labels.length) {
+                throw new IllegalArgumentException("Arrays should have same length");
+            }
+            this.labels = labels;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View view = super.getView(position, convertView, parent);
+            ((TextView) view).setText(labels[position]);
+            return view;
+        }
+
+        @Override
+        public View getDropDownView(int position, View convertView, ViewGroup parent) {
+            View view = super.getView(position, convertView, parent);
+            ((TextView) view).setText(labels[position]);
+            return view;
         }
     }
 }

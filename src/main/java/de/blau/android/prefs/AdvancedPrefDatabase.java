@@ -16,7 +16,6 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.preference.PreferenceManager;
-import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.contract.Files;
 import de.blau.android.contract.Paths;
@@ -25,6 +24,7 @@ import de.blau.android.exception.IllegalOperationException;
 import de.blau.android.layer.LayerConfig;
 import de.blau.android.layer.LayerType;
 import de.blau.android.osm.Server;
+import de.blau.android.prefs.API.Auth;
 import de.blau.android.presets.AutoPreset;
 import de.blau.android.presets.Preset;
 import de.blau.android.propertyeditor.CustomPreset;
@@ -73,9 +73,11 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
     private static final String APIS_TABLE            = "apis";
     private static final String ACCESSTOKENSECRET_COL = "accesstokensecret";
     private static final String ACCESSTOKEN_COL       = "accesstoken";
-    private static final String OAUTH_COL             = "oauth";
+    private static final String AUTH_COL              = "oauth";
     private static final String NOTESURL_COL          = "notesurl";
     private static final String READONLYURL_COL       = "readonlyurl";
+    private static final String PASS_COL              = "pass";
+    private static final String USER_COL              = "user";
 
     private static final String LAYERS_TABLE   = "layers";
     private static final String VISIBLE_COL    = "visible";
@@ -166,7 +168,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
             addGeocoder(db, ID_DEFAULT_GEOCODER_PHOTON, ID_DEFAULT_GEOCODER_PHOTON, GeocoderType.PHOTON, 0, Urls.DEFAULT_PHOTON_SERVER, true);
         }
         if (oldVersion <= 8 && newVersion >= 9) {
-            addAPI(db, ID_SANDBOX, Urls.DEFAULT_SANDBOX_API_NAME, Urls.DEFAULT_SANDBOX_API, null, "", "", ID_SANDBOX, true);
+            addAPI(db, ID_SANDBOX, Urls.DEFAULT_SANDBOX_API_NAME, Urls.DEFAULT_SANDBOX_API, null, "", "", ID_SANDBOX, Auth.OAUTH1A);
         }
         if (oldVersion <= 9 && newVersion >= 10) {
             db.execSQL("ALTER TABLE presets ADD COLUMN position INTEGER DEFAULT 0");
@@ -245,9 +247,9 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
         String user = sharedPrefs.getString(r.getString(R.string.config_username_key), "");
         String pass = sharedPrefs.getString(r.getString(R.string.config_password_key), "");
         Log.d(DEBUG_TAG, "Adding default URL with user '" + user + "'");
-        addAPI(db, ID_DEFAULT, Urls.DEFAULT_API_NAME, Urls.DEFAULT_API, null, user, pass, ID_DEFAULT, true);
+        addAPI(db, ID_DEFAULT, Urls.DEFAULT_API_NAME, Urls.DEFAULT_API, null, user, pass, ID_DEFAULT, Auth.OAUTH1A);
         Log.d(DEBUG_TAG, "Adding default dev URL");
-        addAPI(db, ID_SANDBOX, Urls.DEFAULT_SANDBOX_API_NAME, Urls.DEFAULT_SANDBOX_API, null, "", "", ID_SANDBOX, true);
+        addAPI(db, ID_SANDBOX, Urls.DEFAULT_SANDBOX_API_NAME, Urls.DEFAULT_SANDBOX_API, null, "", "", ID_SANDBOX, Auth.OAUTH1A);
         Log.d(DEBUG_TAG, "Selecting default API");
         selectAPI(db, ID_DEFAULT);
         Log.d(DEBUG_TAG, "Deleting old user/pass settings");
@@ -288,7 +290,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
     /**
      * Rest the current Server object, closing any MapSplit source first
      */
-    public void resetCurrentServer() {
+    public static void resetCurrentServer() {
         if (currentServer != null) {
             currentServer.closeMapSplitSource();
         }
@@ -345,19 +347,19 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
      * @param url the read / write url
      * @param readonlyurl a read only url or null
      * @param notesurl a note url or null
-     * @param oauth set to true if OAuth should be used for this API
+     * @param auth Authentication method
      */
     public synchronized void setAPIDescriptors(@NonNull String id, @NonNull String name, @NonNull String url, @Nullable String readonlyurl,
-            @Nullable String notesurl, boolean oauth) {
+            @Nullable String notesurl, Auth auth) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(NAME_COL, name);
         values.put(URL_COL, url);
         values.put(READONLYURL_COL, readonlyurl);
         values.put(NOTESURL_COL, notesurl);
-        values.put(OAUTH_COL, oauth ? 1 : 0);
+        values.put(AUTH_COL, auth.ordinal());
         db.update(APIS_TABLE, values, WHERE_ID, new String[] { id });
-        if (!oauth) { // zap any key and secret
+        if (auth != Auth.OAUTH1A) { // zap any key and secret
             values = new ContentValues();
             values.put(ACCESSTOKEN_COL, (String) null);
             values.put(ACCESSTOKENSECRET_COL, (String) null);
@@ -393,8 +395,8 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
     public synchronized void setCurrentAPILogin(@Nullable String user, @Nullable String pass) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("user", user);
-        values.put("pass", pass);
+        values.put(USER_COL, user);
+        values.put(PASS_COL, pass);
         db.update(APIS_TABLE, values, WHERE_ID, new String[] { currentAPI });
         db.close();
         resetCurrentServer();
@@ -410,12 +412,12 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
      * @param notesurl a note url or null
      * @param user OSM display name
      * @param pass OSM password
-     * @param oauth set to true if OAuth should be used for this API
+     * @param auth authentication method
      */
     public synchronized void addAPI(@NonNull String id, @NonNull String name, @NonNull String url, @Nullable String readonlyurl, @Nullable String notesurl,
-            @Nullable String user, @Nullable String pass, boolean oauth) {
+            @Nullable String user, @Nullable String pass, @NonNull Auth auth) {
         SQLiteDatabase db = getWritableDatabase();
-        addAPI(db, id, name, url, readonlyurl, notesurl, user, pass, oauth);
+        addAPI(db, id, name, url, readonlyurl, notesurl, user, pass, auth);
         db.close();
     }
 
@@ -430,21 +432,19 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
      * @param notesurl a note url or null
      * @param user OSM display name
      * @param pass OSM password
-     * @param oauth set to true if OAuth should be used for this API
+     * @param auth authentication method
      */
     private synchronized void addAPI(@NonNull SQLiteDatabase db, @NonNull String id, @NonNull String name, @NonNull String url, @Nullable String readonlyurl,
-            @Nullable String notesurl, @Nullable String user, @Nullable String pass, boolean oauth) {
+            @Nullable String notesurl, @Nullable String user, @Nullable String pass, @NonNull Auth auth) {
         ContentValues values = new ContentValues();
         values.put(ID_COL, id);
         values.put(NAME_COL, name);
         values.put(URL_COL, url);
         values.put(READONLYURL_COL, readonlyurl);
         values.put(NOTESURL_COL, notesurl);
-        values.put("user", user);
-        values.put("pass", pass);
-        values.put("preset", (String) null); // no longer used
-        values.put("showicon", 0); // no longer used
-        values.put(OAUTH_COL, oauth ? 1 : 0);
+        values.put(USER_COL, user);
+        values.put(PASS_COL, pass);
+        values.put(AUTH_COL, auth.ordinal());
         db.insert(APIS_TABLE, null, values);
     }
 
@@ -489,14 +489,20 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
     @NonNull
     private synchronized API[] getAPIs(@NonNull SQLiteDatabase db, @Nullable String id) {
         Cursor dbresult = db.query(
-                APIS_TABLE, new String[] { ID_COL, NAME_COL, URL_COL, READONLYURL_COL, NOTESURL_COL, "user", "pass", "preset", "showicon", OAUTH_COL,
+                APIS_TABLE, new String[] { ID_COL, NAME_COL, URL_COL, READONLYURL_COL, NOTESURL_COL, USER_COL, PASS_COL, "preset", "showicon", AUTH_COL,
                         ACCESSTOKEN_COL, ACCESSTOKENSECRET_COL },
                 id == null ? null : WHERE_ID, id == null ? null : new String[] { id }, null, null, null, null);
         API[] result = new API[dbresult.getCount()];
         dbresult.moveToFirst();
         for (int i = 0; i < result.length; i++) {
+            Auth auth = Auth.BASIC;
+            try {
+                auth = API.Auth.values()[dbresult.getInt(9)];
+            } catch (IndexOutOfBoundsException ex) {
+                Log.e(DEBUG_TAG, "No auth method for " + dbresult.getInt(9));
+            }
             result[i] = new API(dbresult.getString(0), dbresult.getString(1), dbresult.getString(2), dbresult.getString(3), dbresult.getString(4),
-                    dbresult.getString(5), dbresult.getString(6), dbresult.getInt(9), dbresult.getString(10), dbresult.getString(11));
+                    dbresult.getString(5), dbresult.getString(6), auth, dbresult.getString(10), dbresult.getString(11));
             dbresult.moveToNext();
         }
         dbresult.close();
@@ -775,7 +781,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
      * @param active state to set, active if true
      */
     public synchronized void setPresetState(@NonNull String id, boolean active) {
-        Log.d(DEBUG_TAG, "Setting pref " + id + " active to " + active);
+        Log.d(DEBUG_TAG, "Setting preset " + id + " active state to " + active);
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(ACTIVE_COL, active ? 1 : 0);
@@ -798,9 +804,6 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
         renumberPresets(db);
         db.close();
         removePresetDirectory(id);
-        if (id.equals(getCurrentAPI().preset)) {
-            App.resetPresets();
-        }
     }
 
     /**
@@ -1186,12 +1189,21 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
      * @param type the layer type
      */
     public synchronized void deleteLayer(int position, @NonNull LayerType type) {
-        if (LayerType.OSMDATA.equals(type)) {
-            throw new IllegalOperationException("Cannot delete osm data layer");
-        }
+        checkLayerDeletion(type);
         try (SQLiteDatabase db = getWritableDatabase()) {
             db.delete(LAYERS_TABLE, "position = ? AND type = ?", new String[] { Integer.toString(position), type.name() });
             renumber(db);
+        }
+    }
+
+    /**
+     * Check if we can actually delete this kind of layer
+     * 
+     * @param type the LayerType
+     */
+    private void checkLayerDeletion(@Nullable LayerType type) {
+        if (LayerType.OSMDATA.equals(type)) {
+            throw new IllegalOperationException("Cannot delete osm data layer");
         }
     }
 
@@ -1202,9 +1214,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
      * @param contentId the content id, or null for all of the same type
      */
     public synchronized void deleteLayer(@NonNull LayerType type, @Nullable String contentId) {
-        if (LayerType.OSMDATA.equals(type)) {
-            throw new IllegalOperationException("Cannot delete osm data layer");
-        }
+        checkLayerDeletion(type);
         try (SQLiteDatabase db = getWritableDatabase()) {
             if (contentId != null) {
                 db.delete(LAYERS_TABLE, "content_id = ? AND type = ?", new String[] { contentId, type.name() });
@@ -1221,9 +1231,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
      * @param type the layer type
      */
     public synchronized void deleteLayer(@NonNull LayerType type) {
-        if (LayerType.OSMDATA.equals(type)) {
-            throw new IllegalOperationException("Cannot delete osm data layer");
-        }
+        checkLayerDeletion(type);
         try (SQLiteDatabase db = getWritableDatabase()) {
             db.delete(LAYERS_TABLE, "content_id is NULL AND type = ?", new String[] { type.name() });
             renumber(db);

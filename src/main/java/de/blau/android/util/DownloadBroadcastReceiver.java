@@ -112,7 +112,7 @@ public class DownloadBroadcastReceiver extends BroadcastReceiver {
         try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(ctxt)) {
             if (db.getReadOnlyApiId(filename) == null) {
                 API current = db.getCurrentAPI();
-                db.addAPI(java.util.UUID.randomUUID().toString(), filename, current.url, uri.toString(), current.notesurl, "", "", current.oauth);
+                db.addAPI(java.util.UUID.randomUUID().toString(), filename, current.url, uri.toString(), current.notesurl, "", "", current.auth);
                 ScreenMessage.toastTopInfo(ctxt, ctxt.getString(R.string.toast_added_api_entry_for, filename));
             } else {
                 ScreenMessage.toastTopInfo(ctxt, ctxt.getString(R.string.toast_updated, filename));

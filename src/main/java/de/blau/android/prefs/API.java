@@ -7,20 +7,24 @@ import androidx.annotation.Nullable;
  * Data structure class for API data
  * 
  * @author Jan
+ * @author Simon
  */
 public class API {
-    public final String  id;
-    public final String  name;
-    public final String  url;
-    public final String  readonlyurl;
-    public final String  notesurl;
-    public final String  user;
-    public final String  pass;
-    public final String  preset;           // no longer used
-    public final boolean showicon;         // no longer used
-    public final boolean oauth;
-    public final String  accesstoken;
-    public final String  accesstokensecret;
+
+    public enum Auth {
+        BASIC, OAUTH1A, OAUTH2
+    };
+
+    public final String id;
+    public final String name;
+    public final String url;
+    public final String readonlyurl;
+    public final String notesurl;
+    public final String user;
+    public final String pass;
+    public final Auth   auth;
+    public final String accesstoken;
+    public final String accesstokensecret;
 
     /**
      * Construct an new API instance
@@ -32,12 +36,12 @@ public class API {
      * @param notesurl the URL for notes
      * @param user the user name (deprecated)
      * @param pass the pass word (deprecated)
-     * @param oauth if == 1 use OAuth
+     * @param auth if == 1 use OAuth
      * @param accesstoken the OAuth access token
      * @param accesstokensecret the OAuth access secret
      */
     public API(@NonNull String id, @NonNull String name, @NonNull String url, @Nullable String readonlyurl, @Nullable String notesurl, @Nullable String user,
-            @Nullable String pass, int oauth, @Nullable String accesstoken, @Nullable String accesstokensecret) {
+            @Nullable String pass, @NonNull Auth auth, @Nullable String accesstoken, @Nullable String accesstokensecret) {
         this.id = id;
         this.name = name;
         this.url = url;
@@ -45,9 +49,7 @@ public class API {
         this.notesurl = notesurl;
         this.user = user;
         this.pass = pass;
-        this.preset = null;
-        this.showicon = false;
-        this.oauth = (oauth == 1);
+        this.auth = auth;
         this.accesstoken = accesstoken;
         this.accesstokensecret = accesstokensecret;
     }

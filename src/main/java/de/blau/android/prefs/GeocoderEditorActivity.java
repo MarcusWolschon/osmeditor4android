@@ -157,7 +157,7 @@ public class GeocoderEditorActivity extends URLListEditActivity {
             if (item == null) {
                 // new item
                 if (!"".equals(value)) {
-                    finishCreateItem(new ListEditItem(name, value, !"".equals(value2) ? value2 : null, null, false));
+                    finishCreateItem(new ListEditItem(name, value, !"".equals(value2) ? value2 : null, null, false, null));
                 }
             } else {
                 item.name = name;

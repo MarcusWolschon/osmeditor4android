@@ -71,18 +71,18 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp">
         <TextView
-            android:id="@+id/listedit_labeloauth"
+            android:id="@+id/listedit_label_auth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:text="@string/listedit_enable_oauth" />
-        <CheckBox
-            android:id="@+id/listedit_oauth"
+            android:text="@string/listedit_auth" />
+        <Spinner
+            android:id="@+id/listedit_auth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:layout_alignBaseline="@id/listedit_labeloauth" />
+            android:layout_alignBaseline="@id/listedit_label_auth" />
     </RelativeLayout>
 </LinearLayout>
