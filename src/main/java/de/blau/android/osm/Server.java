@@ -47,7 +47,8 @@ import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIOException;
 import de.blau.android.exception.OsmServerException;
-import de.blau.android.net.OAuthHelper;
+import de.blau.android.net.OAuth2Interceptor;
+import de.blau.android.net.OAuth1aHelper;
 import de.blau.android.prefs.API;
 import de.blau.android.prefs.API.Auth;
 import de.blau.android.services.util.MBTileProviderDataBase;
@@ -132,10 +133,10 @@ public class Server {
     /**
      * use oauth
      */
-    private Auth auth;
+    private Auth authentication;
 
     /**
-     * oauth access token
+     * oauth 1 and 2 access token
      */
     private final String accesstoken;
 
@@ -203,13 +204,13 @@ public class Server {
         this.notesURL = api.notesurl;
         this.password = api.pass;
         this.username = api.user;
-        this.auth = api.auth;
+        this.authentication = api.auth;
         this.generator = generator;
         this.accesstoken = api.accesstoken;
         this.accesstokensecret = api.accesstokensecret;
 
-        if (auth == Auth.OAUTH1A) {
-            oAuthConsumer = new OAuthHelper().getOkHttpConsumer(context, name);
+        if (authentication == Auth.OAUTH1A) {
+            oAuthConsumer = new OAuth1aHelper().getOkHttpConsumer(context, name);
             if (oAuthConsumer != null) {
                 oAuthConsumer.setTokenWithSecret(accesstoken, accesstokensecret);
             }
@@ -671,14 +672,6 @@ public class Server {
             Request request = new Request.Builder().url(url).build();
             OkHttpClient.Builder builder = App.getHttpClient().newBuilder().connectTimeout(connectTimeout, TimeUnit.MILLISECONDS).readTimeout(readTimeout,
                     TimeUnit.MILLISECONDS);
-            // if (oauth) {
-            // OAuthHelper oa = new OAuthHelper();
-            // OkHttpOAuthConsumer consumer = oa.getOkHttpConsumer(getBaseUrl(getReadOnlyUrl()));
-            // if (consumer != null) {
-            // consumer.setTokenWithSecret(accesstoken, accesstokensecret);
-            // builder.addInterceptor(new SigningInterceptor(consumer));
-            // }
-            // }
             OkHttpClient client = builder.build();
             Call readCall = client.newCall(request);
             Response readCallResponse = readCall.execute();
@@ -752,7 +745,7 @@ public class Server {
      * @return true if either oauth is set or we have login information
      */
     public boolean isLoginSet() {
-        return (username != null && (password != null && !"".equals(username) && !"".equals(password))) || auth != Auth.BASIC;
+        return (username != null && (password != null && !"".equals(username) && !"".equals(password))) || authentication != Auth.BASIC;
     }
 
     /**
@@ -789,7 +782,7 @@ public class Server {
     @NonNull
     Response openConnectionForAuthenticatedAccess(@NonNull final URL url, @NonNull final String requestMethod, @Nullable final RequestBody body)
             throws IOException {
-        Log.d(DEBUG_TAG, "openConnectionForWriteAccess url " + url);
+        Log.d(DEBUG_TAG, "openConnectionForWriteAccess url " + url + " authentication " + authentication);
 
         Request.Builder requestBuilder = new Request.Builder().url(url);
         if (body != null) {
@@ -815,20 +808,18 @@ public class Server {
 
         OkHttpClient.Builder builder = App.getHttpClient().newBuilder().connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS).readTimeout(TIMEOUT,
                 TimeUnit.MILLISECONDS);
-        switch (auth) {
+        switch (authentication) {
         case OAUTH1A:
             builder.addInterceptor(new SigningInterceptor(oAuthConsumer));
             break;
         case OAUTH2:
+            builder.addInterceptor(new OAuth2Interceptor(accesstoken));
+            break;
         case BASIC:
             builder.addInterceptor(new BasicAuthInterceptor(username, password));
         }
 
-        OkHttpClient client = builder.build();
-
-        Call call = client.newCall(request);
-
-        return call.execute();
+        return builder.build().newCall(request).execute();
     }
 
     /**
@@ -1844,7 +1835,7 @@ public class Server {
      * @return true if we are using OAuth but have not retrieved the accesstoken yet
      */
     public boolean needOAuthHandshake() {
-        return auth == Auth.OAUTH1A && ((accesstoken == null) || (accesstokensecret == null));
+        return authentication == Auth.OAUTH1A && ((accesstoken == null) || (accesstokensecret == null));
     }
 
     /**
@@ -1853,7 +1844,7 @@ public class Server {
      * @param t the value to set the flag to
      */
     public void setOAuth(boolean t) {
-        auth = t ? Auth.OAUTH1A : Auth.BASIC;
+        authentication = t ? Auth.OAUTH1A : Auth.BASIC;
     }
 
     /**
@@ -1861,7 +1852,7 @@ public class Server {
      * @return true if oauth is enabled
      */
     public boolean getOAuth() {
-        return auth == Auth.OAUTH1A;
+        return authentication == Auth.OAUTH1A || authentication == Auth.OAUTH2;
     }
 
     /**
@@ -1979,5 +1970,12 @@ public class Server {
      */
     public String getApiName() {
         return name;
+    }
+
+    /**
+     * @return the auth
+     */
+    public Auth getAuthentication() {
+        return authentication;
     }
 }

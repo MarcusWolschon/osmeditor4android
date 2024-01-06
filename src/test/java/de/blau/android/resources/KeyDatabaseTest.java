@@ -16,6 +16,7 @@ import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
 import de.blau.android.contract.Files;
 import de.blau.android.net.OAuthHelper.OAuthConfiguration;
+import de.blau.android.prefs.API.Auth;
 import de.blau.android.resources.KeyDatabaseHelper.EntryType;
 
 @RunWith(RobolectricTestRunner.class)
@@ -23,7 +24,7 @@ import de.blau.android.resources.KeyDatabaseHelper.EntryType;
 public class KeyDatabaseTest {
 
     /**
-     * Get OAuth keys
+     * Get OAuth1a keys
      */
     @Test
     public void oAuthKeysTest() {
@@ -31,7 +32,7 @@ public class KeyDatabaseTest {
         try (KeyDatabaseHelper keyDatabase = new KeyDatabaseHelper(ApplicationProvider.getApplicationContext());
                 InputStream is = loader.getResourceAsStream(Files.FILE_NAME_KEYS_V2)) {
             keyDatabase.keysFromStream(null, is);
-            OAuthConfiguration configuration = KeyDatabaseHelper.getOAuthConfiguration(keyDatabase.getReadableDatabase(), "OpenStreetMap");
+            OAuthConfiguration configuration = KeyDatabaseHelper.getOAuthConfiguration(keyDatabase.getReadableDatabase(), "OpenStreetMap", Auth.OAUTH1A);
             assertEquals("1212121212", configuration.getKey());
             assertEquals("2121212121", configuration.getSecret());
             assertEquals("https://www.openstreetmap.org/", configuration.getOauthUrl());
@@ -66,10 +67,10 @@ public class KeyDatabaseTest {
     public void deleteTest() {
         KeyDatabaseHelper.readKeysFromAssets(ApplicationProvider.getApplicationContext());
         try (KeyDatabaseHelper keyDatabase = new KeyDatabaseHelper(ApplicationProvider.getApplicationContext())) {
-            OAuthConfiguration configuration = KeyDatabaseHelper.getOAuthConfiguration(keyDatabase.getReadableDatabase(), "OpenStreetMap");
+            OAuthConfiguration configuration = KeyDatabaseHelper.getOAuthConfiguration(keyDatabase.getReadableDatabase(), "OpenStreetMap", Auth.OAUTH1A);
             assertNotNull(configuration);
             KeyDatabaseHelper.deleteKey(keyDatabase.getWritableDatabase(), "OpenStreetMap", EntryType.API_OAUTH1_KEY);
-            configuration = KeyDatabaseHelper.getOAuthConfiguration(keyDatabase.getReadableDatabase(), "OpenStreetMap");
+            configuration = KeyDatabaseHelper.getOAuthConfiguration(keyDatabase.getReadableDatabase(), "OpenStreetMap", Auth.OAUTH1A);
             assertNull(configuration);
         }
     }

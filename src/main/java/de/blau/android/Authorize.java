@@ -18,8 +18,10 @@ import de.blau.android.contract.MimeTypes;
 import de.blau.android.contract.Schemes;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.exception.OsmException;
-import de.blau.android.net.OAuthHelper;
+import de.blau.android.net.OAuth2Helper;
+import de.blau.android.net.OAuth1aHelper;
 import de.blau.android.osm.Server;
+import de.blau.android.prefs.API.Auth;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.ActivityResultHandler;
 import de.blau.android.util.ScreenMessage;
@@ -28,7 +30,7 @@ import de.blau.android.util.WebViewActivity;
 import oauth.signpost.exception.OAuthException;
 
 /**
- * Perform OAuth authorisation of this app
+ * Perform OAuth 1/2 authorisation of this app
  * 
  * @author simon
  *
@@ -131,31 +133,35 @@ public class Authorize extends WebViewActivity {
         super.onCreate(savedInstanceState);
 
         Server server = prefs.getServer();
-
         String apiName = server.getApiName();
-        OAuthHelper oa;
-        try {
-            oa = new OAuthHelper(this, apiName);
-        } catch (OsmException oe) {
-            server.setOAuth(false); // ups something went wrong turn oauth off
-            ScreenMessage.barError(this, getString(R.string.toast_no_oauth, apiName));
-            return;
-        }
-        Log.d(DEBUG_TAG, "oauth auth for " + apiName);
+        Auth auth = server.getAuthentication();
+        Log.d(DEBUG_TAG, "oauth auth for " + apiName + " " + auth);
 
         String authUrl = null;
         String errorMessage = null;
         try {
-            authUrl = oa.getRequestToken();
+            if (auth == Auth.OAUTH1A) {
+                OAuth1aHelper oa = new OAuth1aHelper(this, apiName);
+                authUrl = oa.getRequestToken();
+            } else if (auth == Auth.OAUTH2) {
+                OAuth2Helper oa = new OAuth2Helper(this, apiName);
+                authUrl = oa.getAuthorisationUrl(this);
+            }
+        } catch (OsmException oe) {
+            server.setOAuth(false); // ups something went wrong turn oauth off
+            errorMessage = getString(R.string.toast_no_oauth, apiName);
         } catch (OAuthException e) {
-            errorMessage = OAuthHelper.getErrorMessage(this, e);
+            errorMessage = OAuth1aHelper.getErrorMessage(this, e);
         } catch (ExecutionException e) {
             errorMessage = getString(R.string.toast_oauth_communication);
         } catch (TimeoutException e) {
             errorMessage = getString(R.string.toast_oauth_timeout);
         }
         if (authUrl == null) {
-            ScreenMessage.barError(this, errorMessage);
+            Log.e(DEBUG_TAG, "onCreate error " + errorMessage);
+            if (errorMessage != null) {
+                ScreenMessage.barError(this, errorMessage);
+            }
             return;
         }
         Log.d(DEBUG_TAG, "authURl " + authUrl);

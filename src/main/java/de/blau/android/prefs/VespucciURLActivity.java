@@ -1,7 +1,6 @@
 package de.blau.android.prefs;
 
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 import android.content.Intent;
@@ -18,23 +17,21 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import de.blau.android.AsyncResult;
 import de.blau.android.Authorize;
+import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
+import de.blau.android.exception.OsmException;
 import de.blau.android.net.OAuthHelper;
+import de.blau.android.net.OAuth2Helper;
+import de.blau.android.net.OAuth1aHelper;
 import de.blau.android.prefs.AdvancedPrefDatabase.PresetInfo;
-import de.blau.android.util.ACRAHelper;
-import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.ScreenMessage;
-import oauth.signpost.exception.OAuthException;
 
 /**
- * Will process vespucci:// URLs. Accepts the following URL parameters:<br>
- * 
- * preseturl - preset URL to add to the preset list<br>
- * presetname - name for the preset (if it gets added)<br>
- * 
- * oauth_token = oauth token, used during retrieving oauth access tokens<br>
- * oauth_verifier - oauth verifier, used during retrieving oauth access tokens<br>
+ * Will process vespucci:// URLs.<br>
+ *
+ * Handles "preset", "oauth" and "oauth2" paths.
  * 
  * @author Jan
  * @author Simon
@@ -43,21 +40,37 @@ import oauth.signpost.exception.OAuthException;
 public class VespucciURLActivity extends AppCompatActivity implements OnClickListener {
     private static final String DEBUG_TAG = VespucciURLActivity.class.getSimpleName();
 
-    private static final int    REQUEST_PRESETEDIT      = 0;
-    private static final String OAUTH_VERIFIER_PARAMTER = "oauth_verifier";
-    private static final String OAUTH_TOKEN_PARAMETER   = "oauth_token";
-    public static final String  PRESET_PATH             = "preset";        // we don't actuall check for this current
-    public static final String  PRESETNAME_PARAMETER    = "presetname";
-    public static final String  PRESETURL_PARAMETER     = "preseturl";
+    private static final int    REQUEST_PRESETEDIT   = 0;
+    private static final String OAUTH1A_PATH         = "oauth";
+    private static final String OAUTH2_PATH          = "oauth2";
+    public static final String  PRESET_PATH          = "preset";
+    public static final String  PRESETNAME_PARAMETER = "presetname";
+    public static final String  PRESETURL_PARAMETER  = "preseturl";
 
-    private String               preseturl;
-    private String               presetname;
-    private String               oauthToken;
-    private String               oauthVerifier;
+    private String preseturl;
+    private String presetname;
+
     private AdvancedPrefDatabase prefdb;
     private boolean              downloadSucessful = false;
 
     private View mainView;
+
+    private PostAsyncActionHandler oauthResultHandler = new PostAsyncActionHandler() {
+
+        @Override
+        public void onSuccess() {
+            Intent intent = new Intent(VespucciURLActivity.this, Authorize.class);
+            intent.setAction(Authorize.ACTION_FINISH_OAUTH);
+            startActivity(intent);
+        }
+
+        @Override
+        public void onError(AsyncResult result) {
+            ScreenMessage.toastTopError(VespucciURLActivity.this, getString(R.string.toast_oauth_handshake_failed, result.getMessage()));
+            onSuccess();
+        }
+
+    };
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,77 +87,94 @@ public class VespucciURLActivity extends AppCompatActivity implements OnClickLis
     }
 
     @Override
-    protected void onStart() {
-        Uri data = getIntent().getData();
-        if (data != null) {
-            try {
-                preseturl = data.getQueryParameter(PRESETURL_PARAMETER);
-                presetname = data.getQueryParameter(PRESETNAME_PARAMETER);
-                oauthToken = data.getQueryParameter(OAUTH_TOKEN_PARAMETER);
-                oauthVerifier = data.getQueryParameter(OAUTH_VERIFIER_PARAMTER);
-            } catch (Exception ex) {
-                Log.e(DEBUG_TAG, "Uri " + data + " caused " + ex);
-                ACRAHelper.nocrashReport(ex, ex.getMessage());
-                finish();
-            }
-        } else {
-            Log.e(DEBUG_TAG, "Received null Uri, ignoring");
-        }
-        super.onStart();
-    }
-
-    @Override
     protected void onResume() {
-        Log.i(DEBUG_TAG, "onResume");
-        // determining what activity to do based purely on the parameters is rather hackish
-        if ((oauthToken != null) && (oauthVerifier != null)) {
+        Uri data = getIntent().getData();
+        if (data == null) {
+            Log.i(DEBUG_TAG, "onResume intent without URI");
+            super.onResume();
+            finish();
+            return;
+        }
+        String path = stripPathSeperators(data.getPath());
+        Log.i(DEBUG_TAG, "onResume " + path);
+        switch (path) {
+        case OAUTH1A_PATH:
+        case OAUTH2_PATH: // NOSONAR
             mainView.setVisibility(View.GONE);
-            Log.i(DEBUG_TAG, "got oauth verifier " + oauthToken + " " + oauthVerifier);
-            String errorMessage = null;
+            final String apiName = data.getQueryParameter(OAuth2Helper.STATE_PARAM);
             try {
-                oAuthHandshake(oauthVerifier);
-            } catch (OAuthException e) {
-                errorMessage = OAuthHelper.getErrorMessage(this, e);
+                OAuthHelper oa = OAUTH1A_PATH.equals(path) ? new OAuth1aHelper() : new OAuth2Helper(getBaseContext(), apiName);
+                oa.getAccessToken(getBaseContext(), data, oauthResultHandler);
             } catch (ExecutionException e) {
-                errorMessage = getString(R.string.toast_oauth_communication);
+                ScreenMessage.toastTopError(this, getString(R.string.toast_oauth_communication));
             } catch (TimeoutException e) {
-                errorMessage = getString(R.string.toast_oauth_timeout);
+                ScreenMessage.toastTopError(this, getString(R.string.toast_oauth_timeout));
+            } catch (OsmException e) {
+                ScreenMessage.toastTopError(this, getString(R.string.toast_no_oauth, apiName));
+            } catch (IllegalArgumentException e) {
+                ScreenMessage.toastTopError(this, getString(R.string.toast_oauth_handshake_failed, e.getMessage()));
             }
-            if (errorMessage != null) {
-                ScreenMessage.toastTopError(this, errorMessage);
-            }
+        default: // NOSONAR fall through is intentional
             setResult(RESULT_OK);
             finish();
-        } else {
-            mainView.findViewById(R.id.urldialog_nodata).setVisibility(preseturl == null ? View.VISIBLE : View.GONE);
-
-            if (preseturl != null) {
-                ActionBar actionbar = getSupportActionBar();
-                if (actionbar != null) {
-                    actionbar.setDisplayShowHomeEnabled(true);
-                    actionbar.setDisplayHomeAsUpEnabled(true);
-                    actionbar.setTitle(R.string.preset_download_title);
-                    actionbar.setDisplayShowTitleEnabled(true);
-                    actionbar.show();
-                }
-                mainView.findViewById(R.id.urldialog_layoutPreset).setVisibility(View.VISIBLE);
-
-                ((TextView) mainView.findViewById(R.id.urldialog_textPresetName)).setText(presetname);
-                ((TextView) mainView.findViewById(R.id.urldialog_textPresetURL)).setText(preseturl);
-                PresetInfo existingPreset = prefdb.getPresetByURL(preseturl);
-                if (downloadSucessful) {
-                    mainView.findViewById(R.id.urldialog_textPresetSuccessful).setVisibility(View.VISIBLE);
-                    mainView.findViewById(R.id.urldialog_textPresetExists).setVisibility(View.GONE);
-                } else {
-                    mainView.findViewById(R.id.urldialog_textPresetExists).setVisibility(existingPreset != null ? View.VISIBLE : View.GONE);
-                    mainView.findViewById(R.id.urldialog_textPresetSuccessful).setVisibility(View.GONE);
-                }
-                mainView.findViewById(R.id.urldialog_checkboxEnable).setVisibility(existingPreset == null ? View.VISIBLE : View.GONE);
-                mainView.findViewById(R.id.urldialog_buttonAddPreset).setVisibility(existingPreset == null ? View.VISIBLE : View.GONE);
-                ((Button) mainView.findViewById(R.id.urldialog_buttonAddPreset)).setOnClickListener(this);
-            }
+            break;
+        case PRESET_PATH:
+            setupPresetUi(data);
+            break;
         }
         super.onResume();
+    }
+
+    /**
+     * Show the preset download UI
+     * 
+     * @param data the Uri to use
+     */
+    private void setupPresetUi(@NonNull Uri data) {
+        mainView.findViewById(R.id.urldialog_nodata).setVisibility(preseturl == null ? View.VISIBLE : View.GONE);
+        preseturl = data.getQueryParameter(PRESETURL_PARAMETER);
+        presetname = data.getQueryParameter(PRESETNAME_PARAMETER);
+        if (preseturl != null) {
+            ActionBar actionbar = getSupportActionBar();
+            if (actionbar != null) {
+                actionbar.setDisplayShowHomeEnabled(true);
+                actionbar.setDisplayHomeAsUpEnabled(true);
+                actionbar.setTitle(R.string.preset_download_title);
+                actionbar.setDisplayShowTitleEnabled(true);
+                actionbar.show();
+            }
+            mainView.findViewById(R.id.urldialog_layoutPreset).setVisibility(View.VISIBLE);
+
+            ((TextView) mainView.findViewById(R.id.urldialog_textPresetName)).setText(presetname);
+            ((TextView) mainView.findViewById(R.id.urldialog_textPresetURL)).setText(preseturl);
+            PresetInfo existingPreset = prefdb.getPresetByURL(preseturl);
+            if (downloadSucessful) {
+                mainView.findViewById(R.id.urldialog_textPresetSuccessful).setVisibility(View.VISIBLE);
+                mainView.findViewById(R.id.urldialog_textPresetExists).setVisibility(View.GONE);
+            } else {
+                mainView.findViewById(R.id.urldialog_textPresetExists).setVisibility(existingPreset != null ? View.VISIBLE : View.GONE);
+                mainView.findViewById(R.id.urldialog_textPresetSuccessful).setVisibility(View.GONE);
+            }
+            mainView.findViewById(R.id.urldialog_checkboxEnable).setVisibility(existingPreset == null ? View.VISIBLE : View.GONE);
+            mainView.findViewById(R.id.urldialog_buttonAddPreset).setVisibility(existingPreset == null ? View.VISIBLE : View.GONE);
+            ((Button) mainView.findViewById(R.id.urldialog_buttonAddPreset)).setOnClickListener(this);
+        }
+    }
+
+    /**
+     * Remove leading and trailing slashes from a String
+     * 
+     * @param path the String to remove the slashes from
+     * @return the String
+     */
+    private String stripPathSeperators(@NonNull String path) {
+        if (path.startsWith("/")) {
+            path = path.substring(1);
+        }
+        if (path.endsWith("/")) {
+            path = path.substring(0, path.length() - 1);
+        }
+        return path;
     }
 
     @Override
@@ -171,73 +201,6 @@ public class VespucciURLActivity extends AppCompatActivity implements OnClickLis
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_PRESETEDIT && resultCode == RESULT_OK) {
             downloadSucessful = true;
-        }
-    }
-
-    /**
-     * Process the OAuth callback
-     * 
-     * @param verifier the verifier
-     * @throws OAuthException
-     * @throws TimeoutException
-     * @throws ExecutionException
-     */
-    private void oAuthHandshake(@NonNull String verifier) throws OAuthException, TimeoutException, ExecutionException {
-
-        class OAuthAccessTokenTask extends ExecutorTask<String, Void, Boolean> {
-            private OAuthException ex = null;
-
-            /**
-             * Create a new instance
-             */
-            OAuthAccessTokenTask() {
-                super();
-            }
-
-            @Override
-            protected Boolean doInBackground(String verifier) {
-                OAuthHelper oa = new OAuthHelper(); // if we got here it has already been initialized once
-                try {
-                    String[] access = oa.getAccessToken(verifier);
-                    prefdb.setAPIAccessToken(access[0], access[1]);
-                } catch (OAuthException e) {
-                    Log.d(DEBUG_TAG, "oAuthHandshake: " + e);
-                    ex = e;
-                    return false;
-                }
-                return true;
-            }
-
-            @Override
-            protected void onPostExecute(Boolean success) {
-                Log.d(DEBUG_TAG, "oAuthHandshake onPostExecute");
-                Intent intent = new Intent(VespucciURLActivity.this, Authorize.class);
-                intent.setAction(Authorize.ACTION_FINISH_OAUTH);
-                startActivity(intent);
-            }
-
-            /**
-             * Get the any OAuthException that was thrown
-             * 
-             * @return the exception
-             */
-            OAuthException getException() {
-                return ex;
-            }
-        }
-
-        OAuthAccessTokenTask requester = new OAuthAccessTokenTask();
-        requester.execute(verifier);
-        try {
-            if (Boolean.FALSE.equals(requester.get(60, TimeUnit.SECONDS))) {
-                OAuthException ex = requester.getException();
-                if (ex != null) {
-                    throw ex;
-                }
-            }
-        } catch (InterruptedException e) { // NOSONAR cancel does interrupt the thread in question
-            requester.cancel();
-            throw new TimeoutException(e.getMessage());
         }
     }
 }

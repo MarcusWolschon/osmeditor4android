@@ -40,7 +40,7 @@ import de.blau.android.util.ScreenMessage;
  * @author Jan
  * @author Simon Poole
  */
-public class AdvancedPrefDatabase extends SQLiteOpenHelper {
+public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoCloseable {
 
     private static final String DEBUG_TAG = "AdvancedPrefDB";
 
@@ -381,7 +381,6 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
         values.put(ACCESSTOKEN_COL, token);
         values.put(ACCESSTOKENSECRET_COL, secret);
         db.update(APIS_TABLE, values, WHERE_ID, new String[] { currentAPI });
-        Log.d(DEBUG_TAG, "setAPIAccessToken " + token + " secret " + secret);
         db.close();
         resetCurrentServer();
     }

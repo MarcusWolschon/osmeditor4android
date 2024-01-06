@@ -5,39 +5,24 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 import android.content.Context;
+import android.net.Uri;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import de.blau.android.App;
+import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
-import de.blau.android.exception.OsmException;
-import de.blau.android.resources.KeyDatabaseHelper;
+import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.util.ExecutorTask;
-import oauth.signpost.OAuthConsumer;
-import oauth.signpost.OAuthProvider;
-import oauth.signpost.exception.OAuthCommunicationException;
 import oauth.signpost.exception.OAuthException;
-import oauth.signpost.exception.OAuthExpectationFailedException;
-import oauth.signpost.exception.OAuthMessageSignerException;
-import oauth.signpost.exception.OAuthNotAuthorizedException;
-import se.akerfeldt.okhttp.signpost.OkHttpOAuthConsumer;
-import se.akerfeldt.okhttp.signpost.OkHttpOAuthProvider;
 
 /**
- * Helper class for signpost oAuth more or less based on text below
+ * Helper class for oAuth implementations
  * 
  */
-public class OAuthHelper {
-    private static final String DEBUG_TAG = "OAuthHelper";
+public abstract class OAuthHelper {
+    private static final String DEBUG_TAG = OAuthHelper.class.getSimpleName();
 
-    private static final String CALLBACK_URL       = "vespucci:/oauth/";
-    private static final String AUTHORIZE_PATH     = "oauth/authorize";
-    private static final String ACCESS_TOKEN_PATH  = "oauth/access_token";
-    private static final String REQUEST_TOKEN_PATH = "oauth/request_token";
-
-    private static OAuthConsumer mConsumer;
-    private static OAuthProvider mProvider;
-    private static String        mCallbackUrl;
+    protected static final int TIMEOUT = 10;
 
     public static class OAuthConfiguration {
         private String key;
@@ -91,154 +76,45 @@ public class OAuthHelper {
     }
 
     /**
-     * Construct a new helper instance
-     * 
-     * @param context an Android Context
-     * @param apiName the base URL for the API instance
-     * 
-     * @throws OsmException if no configuration could be found for the API instance
-     */
-    public OAuthHelper(@NonNull Context context, @NonNull String apiName) throws OsmException {
-        try (KeyDatabaseHelper keyDatabase = new KeyDatabaseHelper(context)) {
-            OAuthConfiguration configuration = KeyDatabaseHelper.getOAuthConfiguration(keyDatabase.getReadableDatabase(), apiName);
-            if (configuration != null) {
-                init(configuration.getKey(), configuration.getSecret(), configuration.getOauthUrl());
-                return;
-            }
-            logMissingApi(apiName);
-            throw new OsmException("No matching OAuth configuration found for API " + apiName);
-        }
-    }
-
-    /**
-     * Initialize the fields
-     * 
-     * @param key OAuth 1a key
-     * @param secret OAuth 1a secret
-     * @param oauthUrl URL to use for authorization
-     */
-    private static void init(String key, String secret, String oauthUrl) {
-        mConsumer = new OkHttpOAuthConsumer(key, secret);
-        mProvider = new OkHttpOAuthProvider(oauthUrl + REQUEST_TOKEN_PATH, oauthUrl + ACCESS_TOKEN_PATH, oauthUrl + AUTHORIZE_PATH, App.getHttpClient());
-        mProvider.setOAuth10a(true);
-        mCallbackUrl = CALLBACK_URL;
-    }
-
-    /**
-     * this constructor is for access to the singletons
-     */
-    public OAuthHelper() {
-    }
-
-    /**
-     * Returns an OAuthConsumer initialized with the consumer keys for the API in question
-     * 
-     * @param context an Android Context
-     * @param apiName the name of the API configuration
-     * 
-     * @return an initialized OAuthConsumer or null if something blows up
-     */
-    @Nullable
-    public OkHttpOAuthConsumer getOkHttpConsumer(Context context, @NonNull String apiName) {
-        try (KeyDatabaseHelper keyDatabase = new KeyDatabaseHelper(context)) {
-            OAuthConfiguration configuration = KeyDatabaseHelper.getOAuthConfiguration(keyDatabase.getReadableDatabase(), apiName);
-            if (configuration != null) {
-                return new OkHttpOAuthConsumer(configuration.getKey(), configuration.getSecret());
-            }
-            logMissingApi(apiName);
-            return null;
-        }
-    }
-
-    /**
      * Create a log message for an unmatched api
      * 
      * @param apiName the api url
      */
-    private void logMissingApi(@Nullable String apiName) {
+    protected void logMissingApi(@Nullable String apiName) {
         Log.d(DEBUG_TAG, "No matching API for " + apiName + "found");
     }
 
+    abstract ExecutorTask<?, ?, ?> getAccessTokenTask(@NonNull Context context, @NonNull Uri data, @NonNull PostAsyncActionHandler handler);
+
     /**
-     * Get the request token
-     * 
-     * @return the token or null
-     * @throws OAuthException if an error happened during the OAuth handshake
-     * @throws TimeoutException if we waited too long for a response
-     * @throws ExecutionException
+     * @param context
+     * @param accessToken
      */
-    public String getRequestToken() throws OAuthException, TimeoutException, ExecutionException {
-        Log.d(DEBUG_TAG, "getRequestToken");
-        class RequestTokenTask extends ExecutorTask<Void, Void, String> {
-            private OAuthException ex = null;
-
-            /**
-             * Create a new RequestTokenTask
-             * 
-             * @param executorService ExecutorService to run this on
-             * @param handler an Handler
-             */
-            RequestTokenTask() {
-                super();
-            }
-
-            @Override
-            protected String doInBackground(Void param) {
-                try {
-                    return mProvider.retrieveRequestToken(mConsumer, mCallbackUrl);
-                } catch (OAuthException e) {
-                    Log.d(DEBUG_TAG, "getRequestToken " + e);
-                    ex = e;
-                }
-                return null;
-            }
-
-            /**
-             * Get the any OAuthException that was thrown
-             * 
-             * @return the exception
-             */
-            OAuthException getException() {
-                return ex;
-            }
+    protected void setAccessToken(final Context context, String accessToken, String secret) {
+        try (AdvancedPrefDatabase prefDb = new AdvancedPrefDatabase(context)) {
+            prefDb.setAPIAccessToken(accessToken, secret);
         }
+    }
 
-        RequestTokenTask requester = new RequestTokenTask();
+    /**
+     * Run a task to retrieve and set in the configuration the access token for the authentication method
+     * 
+     * @param context
+     * @param data
+     * @param handler
+     * @throws TimeoutException if the task timeouts
+     * @throws ExecutionException if the Task couldn't be exceuted
+     */
+    public void getAccessToken(@NonNull final Context context, @NonNull Uri data, @NonNull PostAsyncActionHandler handler)
+            throws TimeoutException, ExecutionException {
+        ExecutorTask<?, ?, ?> requester = getAccessTokenTask(context, data, handler);
         requester.execute();
-        String result = null;
         try {
-            result = requester.get(10, TimeUnit.SECONDS);
+            requester.get(TIMEOUT, TimeUnit.SECONDS);
         } catch (InterruptedException e) { // NOSONAR cancel does interrupt the thread in question
             requester.cancel();
             throw new TimeoutException(e.getMessage());
         }
-        if (result == null) {
-            OAuthException ex = requester.getException();
-            if (ex != null) {
-                throw ex;
-            }
-        }
-        return result;
-    }
-
-    /**
-     * Queries the service provider for an access token.
-     * 
-     * @param verifier OAuth 1.0a verification code
-     * @return the access token
-     * @throws OAuthMessageSignerException
-     * @throws OAuthNotAuthorizedException
-     * @throws OAuthExpectationFailedException
-     * @throws OAuthCommunicationException
-     */
-    public String[] getAccessToken(String verifier)
-            throws OAuthMessageSignerException, OAuthNotAuthorizedException, OAuthExpectationFailedException, OAuthCommunicationException {
-        Log.d(DEBUG_TAG, "verifier: " + verifier);
-        if (mProvider == null || mConsumer == null) {
-            throw new OAuthExpectationFailedException("OAuthHelper not initialized!");
-        }
-        mProvider.retrieveAccessToken(mConsumer, verifier);
-        return new String[] { mConsumer.getToken(), mConsumer.getTokenSecret() };
     }
 
     /**
