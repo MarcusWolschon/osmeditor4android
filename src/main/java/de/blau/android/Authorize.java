@@ -66,7 +66,7 @@ public class Authorize extends WebViewActivity {
     }
 
     private class OAuthWebViewClient extends UpdatedWebViewClient {
-        private static final String PIWIK = "piwik";
+        private static final String MATOMO = "matomo";
 
         Object   progressLock  = new Object();
         boolean  progressShown = false;
@@ -87,7 +87,7 @@ public class Authorize extends WebViewActivity {
         @Override
         public WebResourceResponse handleIntercept(WebView view, Uri uri) {
             final String path = uri.getPath();
-            if (path != null && path.toLowerCase().contains(PIWIK)) {
+            if (path != null && path.toLowerCase().contains(MATOMO)) {
                 return new WebResourceResponse(MimeTypes.TEXTPLAIN, "utf-8", new ByteArrayInputStream("".getBytes()));
             }
             return super.handleIntercept(view, uri);
