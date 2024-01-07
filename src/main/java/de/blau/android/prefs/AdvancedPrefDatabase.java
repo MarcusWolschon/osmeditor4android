@@ -247,9 +247,9 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
         String user = sharedPrefs.getString(r.getString(R.string.config_username_key), "");
         String pass = sharedPrefs.getString(r.getString(R.string.config_password_key), "");
         Log.d(DEBUG_TAG, "Adding default URL with user '" + user + "'");
-        addAPI(db, ID_DEFAULT, Urls.DEFAULT_API_NAME, Urls.DEFAULT_API, null, user, pass, ID_DEFAULT, Auth.OAUTH1A);
+        addAPI(db, ID_DEFAULT, Urls.DEFAULT_API_NAME, Urls.DEFAULT_API, null, user, pass, ID_DEFAULT, Auth.OAUTH2);
         Log.d(DEBUG_TAG, "Adding default dev URL");
-        addAPI(db, ID_SANDBOX, Urls.DEFAULT_SANDBOX_API_NAME, Urls.DEFAULT_SANDBOX_API, null, "", "", ID_SANDBOX, Auth.OAUTH1A);
+        addAPI(db, ID_SANDBOX, Urls.DEFAULT_SANDBOX_API_NAME, Urls.DEFAULT_SANDBOX_API, null, "", "", ID_SANDBOX, Auth.OAUTH2);
         Log.d(DEBUG_TAG, "Selecting default API");
         selectAPI(db, ID_DEFAULT);
         Log.d(DEBUG_TAG, "Deleting old user/pass settings");
