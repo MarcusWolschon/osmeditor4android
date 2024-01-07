@@ -141,7 +141,7 @@ public class ZoomControls extends LinearLayout {
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
-        if (elevationIn < 0f) {
+        if (elevationIn < 0f && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             elevationIn = zoomIn.getElevation();
             elevationOut = zoomOut.getElevation();
         }
@@ -151,7 +151,9 @@ public class ZoomControls extends LinearLayout {
     protected void onConfigurationChanged(Configuration newConfig) {
         // this is a workaround for https://github.com/MarcusWolschon/osmeditor4android/issues/965
         Log.d(DEBUG_TAG, "onConfigurationChanged " + elevationIn + " " + elevationOut);
-        zoomIn.setElevation(elevationIn);
-        zoomOut.setElevation(elevationOut);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            zoomIn.setElevation(elevationIn);
+            zoomOut.setElevation(elevationOut);
+        }
     }
 }
