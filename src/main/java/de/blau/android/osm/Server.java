@@ -47,8 +47,10 @@ import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIOException;
 import de.blau.android.exception.OsmServerException;
-import de.blau.android.net.OAuthHelper;
+import de.blau.android.net.OAuth2Interceptor;
+import de.blau.android.net.OAuth1aHelper;
 import de.blau.android.prefs.API;
+import de.blau.android.prefs.API.Auth;
 import de.blau.android.services.util.MBTileProviderDataBase;
 import de.blau.android.services.util.StreamUtils;
 import de.blau.android.tasks.Note;
@@ -131,10 +133,10 @@ public class Server {
     /**
      * use oauth
      */
-    private boolean oauth;
+    private Auth authentication;
 
     /**
-     * oauth access token
+     * oauth 1 and 2 access token
      */
     private final String accesstoken;
 
@@ -202,13 +204,13 @@ public class Server {
         this.notesURL = api.notesurl;
         this.password = api.pass;
         this.username = api.user;
-        this.oauth = api.oauth;
+        this.authentication = api.auth;
         this.generator = generator;
         this.accesstoken = api.accesstoken;
         this.accesstokensecret = api.accesstokensecret;
 
-        if (oauth) {
-            oAuthConsumer = new OAuthHelper().getOkHttpConsumer(context, name);
+        if (authentication == Auth.OAUTH1A) {
+            oAuthConsumer = new OAuth1aHelper().getOkHttpConsumer(context, name);
             if (oAuthConsumer != null) {
                 oAuthConsumer.setTokenWithSecret(accesstoken, accesstokensecret);
             }
@@ -237,7 +239,8 @@ public class Server {
                 tempDB = new MBTileProviderDataBase(context, readOnlyUri, 1);
             } catch (SQLiteException sqlex) {
                 Log.e(DEBUG_TAG, "Unable to open db " + readOnlyUri);
-                ScreenMessage.toastTopError(context, context.getString(R.string.toast_unable_to_open_offline_data, getReadOnlyUrl(), sqlex.getLocalizedMessage()));
+                ScreenMessage.toastTopError(context,
+                        context.getString(R.string.toast_unable_to_open_offline_data, getReadOnlyUrl(), sqlex.getLocalizedMessage()));
                 // zap readonly api as it is broken
                 this.readonlyURL = null;
             }
@@ -669,14 +672,6 @@ public class Server {
             Request request = new Request.Builder().url(url).build();
             OkHttpClient.Builder builder = App.getHttpClient().newBuilder().connectTimeout(connectTimeout, TimeUnit.MILLISECONDS).readTimeout(readTimeout,
                     TimeUnit.MILLISECONDS);
-            // if (oauth) {
-            // OAuthHelper oa = new OAuthHelper();
-            // OkHttpOAuthConsumer consumer = oa.getOkHttpConsumer(getBaseUrl(getReadOnlyUrl()));
-            // if (consumer != null) {
-            // consumer.setTokenWithSecret(accesstoken, accesstokensecret);
-            // builder.addInterceptor(new SigningInterceptor(consumer));
-            // }
-            // }
             OkHttpClient client = builder.build();
             Call readCall = client.newCall(request);
             Response readCallResponse = readCall.execute();
@@ -688,8 +683,8 @@ public class Server {
                     final int responseCode = readCallResponse.code();
                     final String responseMessage = readCallResponse.message();
                     if (responseCode == HttpURLConnection.HTTP_BAD_REQUEST) {
-                        ((Activity) context).runOnUiThread(
-                                () -> ScreenMessage.barError((Activity) context, context.getString(R.string.toast_download_failed, responseCode, responseMessage)));
+                        ((Activity) context).runOnUiThread(() -> ScreenMessage.barError((Activity) context,
+                                context.getString(R.string.toast_download_failed, responseCode, responseMessage)));
                     } else {
                         ((Activity) context).runOnUiThread(new DownloadErrorToast(context, responseCode, responseMessage));
                     }
@@ -750,7 +745,7 @@ public class Server {
      * @return true if either oauth is set or we have login information
      */
     public boolean isLoginSet() {
-        return (username != null && (password != null && !"".equals(username) && !"".equals(password))) || oauth;
+        return (username != null && (password != null && !"".equals(username) && !"".equals(password))) || authentication != Auth.BASIC;
     }
 
     /**
@@ -784,9 +779,10 @@ public class Server {
      * @return a Response object
      * @throws IOException on an IO issue
      */
+    @NonNull
     Response openConnectionForAuthenticatedAccess(@NonNull final URL url, @NonNull final String requestMethod, @Nullable final RequestBody body)
             throws IOException {
-        Log.d(DEBUG_TAG, "openConnectionForWriteAccess url " + url);
+        Log.d(DEBUG_TAG, "openConnectionForWriteAccess url " + url + " authentication " + authentication);
 
         Request.Builder requestBuilder = new Request.Builder().url(url);
         if (body != null) {
@@ -812,17 +808,18 @@ public class Server {
 
         OkHttpClient.Builder builder = App.getHttpClient().newBuilder().connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS).readTimeout(TIMEOUT,
                 TimeUnit.MILLISECONDS);
-        if (oAuthConsumer != null) {
+        switch (authentication) {
+        case OAUTH1A:
             builder.addInterceptor(new SigningInterceptor(oAuthConsumer));
-        } else {
+            break;
+        case OAUTH2:
+            builder.addInterceptor(new OAuth2Interceptor(accesstoken));
+            break;
+        case BASIC:
             builder.addInterceptor(new BasicAuthInterceptor(username, password));
         }
 
-        OkHttpClient client = builder.build();
-
-        Call call = client.newCall(request);
-
-        return call.execute();
+        return builder.build().newCall(request).execute();
     }
 
     /**
@@ -1838,7 +1835,7 @@ public class Server {
      * @return true if we are using OAuth but have not retrieved the accesstoken yet
      */
     public boolean needOAuthHandshake() {
-        return oauth && ((accesstoken == null) || (accesstokensecret == null));
+        return authentication == Auth.OAUTH1A && ((accesstoken == null) || (accesstokensecret == null));
     }
 
     /**
@@ -1847,7 +1844,7 @@ public class Server {
      * @param t the value to set the flag to
      */
     public void setOAuth(boolean t) {
-        oauth = t;
+        authentication = t ? Auth.OAUTH1A : Auth.BASIC;
     }
 
     /**
@@ -1855,7 +1852,7 @@ public class Server {
      * @return true if oauth is enabled
      */
     public boolean getOAuth() {
-        return oauth;
+        return authentication == Auth.OAUTH1A || authentication == Auth.OAUTH2;
     }
 
     /**
@@ -1973,5 +1970,12 @@ public class Server {
      */
     public String getApiName() {
         return name;
+    }
+
+    /**
+     * @return the auth
+     */
+    public Auth getAuthentication() {
+        return authentication;
     }
 }

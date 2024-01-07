@@ -24,6 +24,7 @@ import de.blau.android.LayerUtils;
 import de.blau.android.Main;
 import de.blau.android.TestUtils;
 import de.blau.android.osm.BoundingBox;
+import de.blau.android.prefs.API;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import okhttp3.HttpUrl;
@@ -59,7 +60,7 @@ public class OAMTest {
         mockServerString = mockBaseUrl.scheme() + "://" + mockBaseUrl.host() + ":" + mockBaseUrl.port() + "/";
         prefDB = new AdvancedPrefDatabase(context);
         prefDB.deleteAPI("Test");
-        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, "user", "pass", false);
+        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, "user", "pass", API.Auth.BASIC);
         prefDB.selectAPI("Test");
         prefDB.resetCurrentServer();
         prefs = new Preferences(context);

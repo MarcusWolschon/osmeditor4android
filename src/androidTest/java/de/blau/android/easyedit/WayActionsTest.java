@@ -43,6 +43,7 @@ import de.blau.android.osm.Relation;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
+import de.blau.android.prefs.API;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.propertyeditor.PropertyEditorActivity;
@@ -484,7 +485,7 @@ public class WayActionsTest {
         AdvancedPrefDatabase prefDB = new AdvancedPrefDatabase(context);
         try {
             prefDB.deleteAPI("Test");
-            prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, "user", "pass", false);
+            prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, "user", "pass", API.Auth.BASIC);
             prefDB.selectAPI("Test");
             Preferences prefs = new Preferences(context);
             LayerUtils.removeImageryLayers(context);

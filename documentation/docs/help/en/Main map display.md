@@ -80,9 +80,9 @@ The layer dialog supports the following actions on the layer entries:
         * __Configure...__ (for the Grid and Task layers)
         * __Disable__ Turn this layer off. For the tasks and photo layers this will free resources if the app is exited and re-started.
     * Data layer:
-        * __Configure...__ Allows selection and configuration of the current OSM data sources. Same contents as the corresponding preference screen.
-        * __Info__ Display some information on the contents.
+        * __Configure...__ Allows selection and configuration of the current OSM data sources.
     * Data and Tasks layers:
+        * __Info__ Display some information on the contents.
         * __Prune__ remove downloaded data from storage that is outside of the current screen and unmodified.
     * All layers:
         * __Discard__ Delete the layer including any saved state.

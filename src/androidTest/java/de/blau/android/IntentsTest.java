@@ -35,6 +35,7 @@ import androidx.test.uiautomator.UiObject2;
 import de.blau.android.contract.MimeTypes;
 import de.blau.android.layer.LayerDialogTest;
 import de.blau.android.osm.Node;
+import de.blau.android.prefs.API;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerSource;
@@ -88,7 +89,7 @@ public class IntentsTest {
         //
         prefDB = new AdvancedPrefDatabase(context);
         prefDB.deleteAPI("Test");
-        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, mockNotesUrl.toString(), "user", "pass", false);
+        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, mockNotesUrl.toString(), "user", "pass", API.Auth.BASIC);
         prefDB.selectAPI("Test");
         mockServerOsmose = new MockWebServerPlus();
         mockBaseUrl = mockServerOsmose.server().url("/en/api/0.2/");

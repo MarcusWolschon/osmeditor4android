@@ -21,6 +21,7 @@ import androidx.test.uiautomator.UiDevice;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
+import de.blau.android.prefs.API;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.propertyeditor.PropertyEditorActivity;
@@ -53,7 +54,7 @@ public class KeyboardTest {
         main = mActivityRule.getActivity();
         prefDB = new AdvancedPrefDatabase(context);
         prefDB.deleteAPI("Test");
-        prefDB.addAPI("Test", "Test", "", null, null, "user", "pass", false);
+        prefDB.addAPI("Test", "Test", "", null, null, "user", "pass", API.Auth.BASIC);
         prefDB.selectAPI("Test");
         prefs = new Preferences(context);
         LayerUtils.removeImageryLayers(context);

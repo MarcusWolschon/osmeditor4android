@@ -44,6 +44,7 @@ import de.blau.android.TestUtils;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.Server;
+import de.blau.android.prefs.API;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.Util;
@@ -91,7 +92,7 @@ public class MapRouletteTest {
         System.out.println("mock api url " + mockBaseUrl.toString());
         prefDB = new AdvancedPrefDatabase(context);
         prefDB.deleteAPI("Test");
-        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, "user", "pass", false);
+        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, "user", "pass", API.Auth.BASIC);
         prefDB.selectAPI("Test");
         prefDB.resetCurrentServer();
         prefs = new Preferences(context);

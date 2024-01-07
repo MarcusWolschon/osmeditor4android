@@ -53,7 +53,7 @@ import de.blau.android.util.ThemeUtils;
  */
 public abstract class URLListEditActivity extends ListActivity
         implements OnMenuItemClickListener, android.view.MenuItem.OnMenuItemClickListener, OnItemClickListener {
-    private static final String DEBUG_TAG = "URLListEditActivity";
+    private static final String DEBUG_TAG = URLListEditActivity.class.getSimpleName();
 
     static final String ACTION_NEW   = "new";
     static final String EXTRA_NAME   = "name";
@@ -274,8 +274,8 @@ public abstract class URLListEditActivity extends ListActivity
      */
     static void changeBackgroundColor(@Nullable TextView textView, int colorRes) {
         if (textView != null && textView.getBackground() != null) {
-            textView.getBackground().mutate().setColorFilter(
-                    BlendModeColorFilterCompat.createBlendModeColorFilterCompat(ContextCompat.getColor(textView.getContext(), colorRes), BlendModeCompat.SRC_ATOP));
+            textView.getBackground().mutate().setColorFilter(BlendModeColorFilterCompat
+                    .createBlendModeColorFilterCompat(ContextCompat.getColor(textView.getContext(), colorRes), BlendModeCompat.SRC_ATOP));
         }
     }
 
@@ -392,7 +392,7 @@ public abstract class URLListEditActivity extends ListActivity
      * @author Jan
      */
     public static class ListEditItem implements Serializable {
-        private static final long serialVersionUID = 7574708515164503467L;
+        private static final long serialVersionUID = 7574708515164503468L;
         final String              id;
         String                    name;
         String                    value;
@@ -400,6 +400,7 @@ public abstract class URLListEditActivity extends ListActivity
         String                    value3;
         boolean                   boolean0;
         boolean                   active;
+        Serializable              object0;
 
         /**
          * Construct a new item with a new, random UUID and the given name and value
@@ -408,7 +409,7 @@ public abstract class URLListEditActivity extends ListActivity
          * @param value the value
          */
         public ListEditItem(@NonNull String name, @NonNull String value) {
-            this(name, value, null, null, false);
+            this(name, value, null, null, false, null);
         }
 
         /**
@@ -419,14 +420,17 @@ public abstract class URLListEditActivity extends ListActivity
          * @param value2 further value 2
          * @param value3 further value 3
          * @param boolean0 a boolean
+         * @param object0 a Serializable object
          */
-        public ListEditItem(@NonNull String name, @NonNull String value, @Nullable String value2, @Nullable String value3, boolean boolean0) {
+        public ListEditItem(@NonNull String name, @NonNull String value, @Nullable String value2, @Nullable String value3, boolean boolean0,
+                Serializable object0) {
             id = java.util.UUID.randomUUID().toString();
             this.value = value;
             this.value2 = value2;
             this.value3 = value3;
             this.name = name;
             this.boolean0 = boolean0;
+            this.object0 = object0;
             this.active = false;
         }
 
@@ -474,6 +478,24 @@ public abstract class URLListEditActivity extends ListActivity
          * @param value the value
          * @param value2 further value 2
          * @param value3 further value 3
+         * @param object0 a Serializable object
+         * @param active true if this entry should be active
+         */
+        public ListEditItem(@NonNull String id, @NonNull String name, @NonNull String value, @Nullable String value2, @Nullable String value3,
+                @NonNull Serializable object0, boolean active) {
+            this(id, name, value, value2, value3, false, active);
+            this.object0 = object0;
+
+        }
+
+        /**
+         * Create an item with the given id. You are responsible for keeping the IDs unique!
+         * 
+         * @param id an unique internal id
+         * @param name the name
+         * @param value the value
+         * @param value2 further value 2
+         * @param value3 further value 3
          * @param boolean0 a boolean
          * @param active true if this entry should be active
          */
@@ -485,6 +507,7 @@ public abstract class URLListEditActivity extends ListActivity
             this.value3 = value3;
             this.name = name;
             this.boolean0 = boolean0;
+            this.object0 = null;
             this.active = active;
         }
 

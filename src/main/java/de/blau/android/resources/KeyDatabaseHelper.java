@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.contract.Files;
 import de.blau.android.net.OAuthHelper.OAuthConfiguration;
+import de.blau.android.prefs.API.Auth;
 import de.blau.android.util.ScreenMessage;
 
 /**
@@ -31,7 +32,7 @@ public class KeyDatabaseHelper extends SQLiteOpenHelper {
     private static final String DEBUG_TAG = "KeyDatabase";
 
     private static final String DATABASE_NAME    = "keys";
-    private static final int    DATABASE_VERSION = 3;
+    private static final int    DATABASE_VERSION = 4;
     private static final int    FIELD_COUNT      = 4;
     private static final String AND              = " AND ";
 
@@ -45,7 +46,7 @@ public class KeyDatabaseHelper extends SQLiteOpenHelper {
     private static final String TRUE         = "true";
 
     public enum EntryType {
-        IMAGERY, API_KEY, API_OAUTH1_KEY
+        IMAGERY, API_KEY, API_OAUTH1_KEY, API_OAUTH2_KEY
     }
 
     /**
@@ -63,7 +64,7 @@ public class KeyDatabaseHelper extends SQLiteOpenHelper {
         try {
             db.execSQL(
                     "CREATE TABLE keys (name TEXT, type TEXT, key TEXT DEFAULT NULL, add1 TEXT DEFAULT NULL, add2 TEXT DEFAULT NULL, custom INTEGER DEFAULT 0)");
-            db.execSQL("CREATE UNIQUE INDEX idx_keys ON keys (name)");
+            db.execSQL("CREATE UNIQUE INDEX idx_keys ON keys (name, type)");
         } catch (SQLException e) {
             Log.w(DEBUG_TAG, "Problem creating database", e);
         }
@@ -75,6 +76,10 @@ public class KeyDatabaseHelper extends SQLiteOpenHelper {
         if (oldVersion <= 2 && newVersion >= 3) {
             db.execSQL("DROP TABLE " + KEYS_TABLE);
             onCreate(db);
+        }
+        if (oldVersion <= 3 && newVersion >= 4) {
+            db.execSQL("DROP INDEX idx_keys");
+            db.execSQL("CREATE UNIQUE INDEX idx_keys ON keys (name, type)");
         }
     }
 
@@ -150,23 +155,28 @@ public class KeyDatabaseHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * Retrieve the OAuth configuration for an API
+     * Retrieve the OAuth2 configuration for an API
      * 
      * @param db readable SQLiteDatabase
      * @param name the API name
+     * @param auth current Authentication type
      * @return a configuration or null if none found
      */
     @Nullable
-    public static OAuthConfiguration getOAuthConfiguration(@NonNull SQLiteDatabase db, @NonNull String name) {
+    public static OAuthConfiguration getOAuthConfiguration(@NonNull SQLiteDatabase db, @NonNull String name, @NonNull Auth auth) {
+        final boolean oAuth1a = auth == Auth.OAUTH1A;
         try (Cursor dbresult = db.query(KEYS_TABLE, new String[] { KEY_FIELD, ADD1_FIELD, ADD2_FIELD },
-                NAME_FIELD + "='" + name + "'" + AND + TYPE_FIELD + "='" + EntryType.API_OAUTH1_KEY + "'", null, null, null, null)) {
+                NAME_FIELD + "='" + name + "'" + AND + TYPE_FIELD + "='" + (oAuth1a ? EntryType.API_OAUTH1_KEY : EntryType.API_OAUTH2_KEY) + "'", null, null,
+                null, null)) {
             if (dbresult.getCount() == 1) {
-                OAuthConfiguration result = new OAuthConfiguration();
                 boolean haveEntry = dbresult.moveToFirst();
                 if (haveEntry) {
                     try {
+                        OAuthConfiguration result = new OAuthConfiguration();
                         result.setKey(dbresult.getString(dbresult.getColumnIndexOrThrow(KEY_FIELD)));
-                        result.setSecret(dbresult.getString(dbresult.getColumnIndexOrThrow(ADD1_FIELD)));
+                        if (oAuth1a) {
+                            result.setSecret(dbresult.getString(dbresult.getColumnIndexOrThrow(ADD1_FIELD)));
+                        }
                         result.setOauthUrl(dbresult.getString(dbresult.getColumnIndexOrThrow(ADD2_FIELD)));
                         return result;
                     } catch (IllegalArgumentException iaex) {

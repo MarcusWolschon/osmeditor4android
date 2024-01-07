@@ -19,6 +19,7 @@ import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
+import de.blau.android.prefs.API;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.KeyDatabaseHelper;
@@ -53,7 +54,7 @@ public class FeedbackTest {
         HttpUrl mockBaseUrl = mockServer.server().url("/api/0.6/");
         prefDB = new AdvancedPrefDatabase(context);
         prefDB.deleteAPI("Test");
-        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, "user", "pass", false);
+        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, "user", "pass", API.Auth.BASIC);
         prefDB.selectAPI("Test");
         prefDB.resetCurrentServer();
         Preferences prefs = new Preferences(context);

@@ -39,6 +39,7 @@ import de.blau.android.R;
 import de.blau.android.SignalHandler;
 import de.blau.android.SignalUtils;
 import de.blau.android.TestUtils;
+import de.blau.android.prefs.API;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import okhttp3.HttpUrl;
@@ -75,7 +76,7 @@ public class UploadConflictTest {
         HttpUrl mockBaseUrl = mockServer.server().url("/api/0.6/");
         prefDB = new AdvancedPrefDatabase(context);
         prefDB.deleteAPI("Test");
-        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, "user", "pass", false);
+        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, "user", "pass", API.Auth.BASIC);
         prefDB.selectAPI("Test");
         Preferences prefs = new Preferences(context);
         LayerUtils.removeImageryLayers(context);

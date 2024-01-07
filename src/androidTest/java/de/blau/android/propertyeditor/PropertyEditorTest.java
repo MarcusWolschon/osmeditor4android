@@ -61,6 +61,7 @@ import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.RelationMemberPosition;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
+import de.blau.android.prefs.API;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.MRUTags;
@@ -107,7 +108,7 @@ public class PropertyEditorTest {
         System.out.println("mock api url " + mockBaseUrl.toString());
         prefDB = new AdvancedPrefDatabase(context);
         prefDB.deleteAPI("Test");
-        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, "user", "pass", false);
+        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, "user", "pass", API.Auth.BASIC);
         prefDB.selectAPI("Test");
         prefDB.resetCurrentServer();
         prefs = new Preferences(context);

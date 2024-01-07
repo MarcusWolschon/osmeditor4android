@@ -454,7 +454,7 @@ public class PresetEditorActivity extends URLListEditActivity {
                             || (url != null && "localhost".equals(url.getHost())) || (item != null && item.id.equals(LISTITEM_ID_DEFAULT))) {
                         if (item == null) {
                             // new item
-                            activity.finishCreateItem(new ListEditItem(name, presetURL, null, null, useTranslationsEnabled));
+                            activity.finishCreateItem(new ListEditItem(name, presetURL, null, null, useTranslationsEnabled, null));
                         } else {
                             item.name = name;
                             item.value = presetURL;

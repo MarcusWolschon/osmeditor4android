@@ -88,7 +88,7 @@ public class GeocoderEditorActivity extends URLListEditActivity {
 
     @Override
     protected void onItemEdited(ListEditItem item) {
-        db.updateGeocoder(item.id, item.name, GeocoderType.valueOf(item.value), 0, item.value2, item.boolean0);
+        db.updateGeocoder(item.id, item.name, GeocoderType.valueOf(item.value), 0, item.value2, item.active);
     }
 
     @Override
@@ -157,7 +157,7 @@ public class GeocoderEditorActivity extends URLListEditActivity {
             if (item == null) {
                 // new item
                 if (!"".equals(value)) {
-                    finishCreateItem(new ListEditItem(name, value, !"".equals(value2) ? value2 : null, null, false));
+                    finishCreateItem(new ListEditItem(name, value, !"".equals(value2) ? value2 : null, null, false, null));
                 }
             } else {
                 item.name = name;

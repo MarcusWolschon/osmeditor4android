@@ -238,4 +238,12 @@
         <item>@string/theme_light</item>
         <item>@string/theme_dark</item>
     </string-array>
+    <string name="authentication_basic_entry">Login - Password</string>
+    <string name="authentication_oauth1a_entry">OAuth 1a</string>
+    <string name="authentication_oauth2_entry">OAuth 2</string>
+    <string-array name="authentication_entries" translatable="false">
+        <item>@string/authentication_basic_entry</item>
+        <item>@string/authentication_oauth1a_entry</item>
+        <item>@string/authentication_oauth2_entry</item>
+    </string-array>
  </resources>
