@@ -59,11 +59,11 @@ public class OAuth2Helper extends OAuthHelper {
     public static final String  STATE_PARAM                 = "state";
     private static final String REDIRECT_URI_PARAM          = "redirect_uri";
     private static final String SCOPE_PARAM                 = "scope";
-    private static final String CLIENT_ID_PARAM             = "client_id";
+    static final String         CLIENT_ID_PARAM             = "client_id";
     private static final String RESPONSE_TYPE_PARAM         = "response_type";
     private static final String GRANT_TYPE_PARAM            = "grant_type";
     private static final String AUTHORIZATION_CODE_VALUE    = "authorization_code";
-    private static final String CODE_PARAM                  = "code";
+    static final String         CODE_PARAM                  = "code";
     private static final String CODE_CHALLENGE_PARAM        = "code_challenge";
     private static final String CODE_CHALLENGE_METHOD_PARAM = "code_challenge_method";
     private static final String METHOD_SHA_256_VALUE        = "S256";
@@ -149,10 +149,10 @@ public class OAuth2Helper extends OAuthHelper {
         setAccessToken(context, null, codeVerifier); // the PKCE challenge requires state, so we store it here
         try {
             URL base = new URL(configuration.getOauthUrl());
-            return new HttpUrl.Builder().scheme(base.getProtocol()).host(base.getHost()).addPathSegments(AUTHORIZE_PATH)
-                    .addQueryParameter(RESPONSE_TYPE_PARAM, CODE_PARAM).addQueryParameter(CLIENT_ID_PARAM, configuration.getKey())
-                    .addQueryParameter(SCOPE_PARAM, TextUtils.join(" ", SCOPES)).addQueryParameter(REDIRECT_URI_PARAM, REDIRECT_URI)
-                    .addQueryParameter(STATE_PARAM, apiName).addQueryParameter(CODE_CHALLENGE_METHOD_PARAM, METHOD_SHA_256_VALUE)
+            return builderFromUrl(base).addPathSegments(AUTHORIZE_PATH).addQueryParameter(RESPONSE_TYPE_PARAM, CODE_PARAM)
+                    .addQueryParameter(CLIENT_ID_PARAM, configuration.getKey()).addQueryParameter(SCOPE_PARAM, TextUtils.join(" ", SCOPES))
+                    .addQueryParameter(REDIRECT_URI_PARAM, REDIRECT_URI).addQueryParameter(STATE_PARAM, apiName)
+                    .addQueryParameter(CODE_CHALLENGE_METHOD_PARAM, METHOD_SHA_256_VALUE)
                     .addQueryParameter(CODE_CHALLENGE_PARAM, hashAndEncodeChallenge(codeVerifier)).build().url().toString();
         } catch (MalformedURLException | NoSuchAlgorithmException e) {
             throw new OsmException("Configuration error " + e.getMessage());
@@ -169,6 +169,7 @@ public class OAuth2Helper extends OAuthHelper {
         return new ExecutorTask<Void, Void, Response>() {
             @Override
             protected Response doInBackground(Void param) throws IOException {
+                Log.d(DEBUG_TAG, "oAuthHandshake doInBackground");
                 try (AdvancedPrefDatabase prefDb = new AdvancedPrefDatabase(context)) {
                     API api = prefDb.getCurrentAPI();
                     String code = data.getQueryParameter(CODE_PARAM);
@@ -176,10 +177,8 @@ public class OAuth2Helper extends OAuthHelper {
                             .add(REDIRECT_URI_PARAM, OAuth2Helper.REDIRECT_URI).add(CLIENT_ID_PARAM, configuration.getKey())
                             .add(CODE_VERIFIER_PARAM, api.accesstokensecret).build();
                     URL base = new URL(configuration.getOauthUrl());
-                    URL accessTokenUrl = new HttpUrl.Builder().scheme(base.getProtocol()).host(base.getHost()).addPathSegments(OAuth2Helper.ACCESS_TOKEN_PATH)
-                            .build().url();
+                    URL accessTokenUrl = builderFromUrl(base).addPathSegments(OAuth2Helper.ACCESS_TOKEN_PATH).build().url();
                     Request request = new Request.Builder().url(accessTokenUrl).post(requestBody).build();
-
                     OkHttpClient.Builder builder = App.getHttpClient().newBuilder().connectTimeout(TIMEOUT, TimeUnit.SECONDS).readTimeout(TIMEOUT,
                             TimeUnit.SECONDS);
                     return builder.build().newCall(request).execute();
@@ -188,6 +187,7 @@ public class OAuth2Helper extends OAuthHelper {
 
             @Override
             protected void onBackgroundError(Exception e) {
+                Log.d(DEBUG_TAG, "oAuthHandshake onBackgroundError " + e.getMessage());
                 handler.onError(new AsyncResult(0, e.getMessage()));
             }
 
@@ -205,7 +205,7 @@ public class OAuth2Helper extends OAuthHelper {
                         }
                         handler.onSuccess();
                     } catch (IOException | JsonSyntaxException e) {
-                        Log.e(DEBUG_TAG, "Opening " + e.getMessage());
+                        Log.e(DEBUG_TAG, "Error reading response " + e.getMessage());
                         handler.onError(new AsyncResult(0, e.getMessage()));
                     }
                     return;
@@ -214,5 +214,19 @@ public class OAuth2Helper extends OAuthHelper {
                 handler.onError(new AsyncResult(result.code(), result.message()));
             }
         };
+    }
+
+    /**
+     * Start a new HttpUrl.Builder from an existing URL
+     * 
+     * @param base the existing URL
+     * @return a HttpUrl.Builder instance
+     */
+    private HttpUrl.Builder builderFromUrl(@NonNull URL base) {
+        HttpUrl.Builder builder = new HttpUrl.Builder().scheme(base.getProtocol()).host(base.getHost());
+        if (base.getPort() != -1) {
+            builder.port(base.getPort());
+        }
+        return builder;
     }
 }

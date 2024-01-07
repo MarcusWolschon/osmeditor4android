@@ -42,7 +42,7 @@ public class VespucciURLActivity extends AppCompatActivity implements OnClickLis
 
     private static final int    REQUEST_PRESETEDIT   = 0;
     private static final String OAUTH1A_PATH         = "oauth";
-    private static final String OAUTH2_PATH          = "oauth2";
+    static final String         OAUTH2_PATH          = "oauth2";
     public static final String  PRESET_PATH          = "preset";
     public static final String  PRESETNAME_PARAMETER = "presetname";
     public static final String  PRESETURL_PARAMETER  = "preseturl";
