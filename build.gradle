@@ -647,7 +647,7 @@ dependencies {
     implementation 'com.caverock:androidsvg-aar:1.4'
     
     implementation "ch.poole:PoParser:0.8.0"
-    implementation "ch.poole:OpeningHoursParser:0.27.1"
+    implementation "ch.poole:OpeningHoursParser:0.28.1"
     implementation "ch.poole:ConditionalRestrictionParser:0.3.3"
     implementation "ch.poole:OpeningHoursFragment:0.13.4"
     implementation 'ch.poole.android:numberpicker:1.0.10'
