@@ -427,7 +427,7 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
 
     @Override
     public boolean processShortcut(Character c) {
-        if (c == Util.getShortCut(main, R.string.shortcut_copy)) {
+        if (c == Util.getShortCut(main, R.string.shortcut_undo)) {
             handleUndo();
         }
         return super.processShortcut(c);
