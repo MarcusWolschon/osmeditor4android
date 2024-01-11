@@ -1081,6 +1081,7 @@
     <string name="actionmode_nodeselect">Node selected</string>
     <string name="actionmode_relationselect">Relation selected</string>
     <string name="actionmode_createpath">Creating path</string>
+    <string name="actionmode_createpath_follow_way">Follow way</string>
     <string name="actionmode_multiselect">Multiselect</string>
     <string name="actionmode_newnoteselect">New Note selected</string>
     <string name="actionmode_add_segment">Add segment</string>
@@ -1104,11 +1105,15 @@
     <string name="actionmode_restriction_split_via">Split \"via\" segment</string>
     <string name="actionmode_extract_segment_select">Select segment</string>
     <string name="actionmode_extract_segment_set_tags">Set tags</string>
+    <string name="actionmode_createpath_follow_way_select_end_node">Select end node</string>
     <plurals name="actionmode_object_count">
         <item quantity="one">1 object</item>
         <item quantity="other">%1$d objects</item>
     </plurals>
     <string name="actionmode_rotateway">Rotate way</string>
+    <string name="menu_snap">Snap</string>
+    <string name="menu_follow_way">Follow way</string>
+    <string name="select_follow_way">Select way to follow</string>
     <!-- Simple Action Mode -->
     <string name="menu_add_node">Add node</string>
     <string name="simple_add_node">Tap the screen position</string>
@@ -1125,7 +1130,6 @@
     <string name="simple_paste">Tap the screen position</string>
     <string name="menu_paste_multiple">Paste multiple times</string>
     <string name="simple_paste_multiple">Tap the screen position</string>
-    <string name="menu_snap">Snap</string>
     <!--  Preferences -->
     <string name="config_backgroundLayer_title">Map background</string>
     <string name="config_backgroundLayer_summary">The tile based map background.</string>
