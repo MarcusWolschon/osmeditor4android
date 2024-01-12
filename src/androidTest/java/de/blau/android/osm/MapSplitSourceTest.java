@@ -74,7 +74,7 @@ public class MapSplitSourceTest {
     @After
     public void teardown() {
         API api = prefDB.getCurrentAPI();
-        prefDB.setAPIDescriptors(api.id, api.name, api.url, null, api.notesurl, api.oauth);
+        prefDB.setAPIDescriptors(api.id, api.name, api.url, null, api.notesurl, api.auth);
         prefDB.close();
         if (msfFile != null) {
             msfFile.delete();
