@@ -41,6 +41,7 @@ import de.blau.android.TestUtils;
 import de.blau.android.dialogs.Tip;
 import de.blau.android.layer.LayerType;
 import de.blau.android.osm.Node;
+import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
@@ -299,6 +300,49 @@ public class SimpleActionsTest {
     }
 
     /**
+     * Create a new way from menu and follow an existing way
+     */
+    // @SdkSuppress(minSdkVersion = 26)
+    @Test
+    public void followWay() {
+        map.getDataLayer().setVisible(true);
+        TestUtils.zoomToLevel(device, main, 21);
+        TestUtils.unlock(device);
+        TestUtils.clickSimpleButton(device);
+        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_add_way), true, false));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.add_way_start_instruction)));
+        StorageDelegator delegator = App.getDelegator();
+        Node n1 = (Node) delegator.getOsmElement(Node.NAME, 2206393022L);
+        assertNotNull(n1);
+        TestUtils.clickAtCoordinates(device, map, n1.getLon() / 1E7D, n1.getLat() / 1E7D, true);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.add_way_node_instruction), 1000));
+        Node n2 = (Node) delegator.getOsmElement(Node.NAME, 2206393031L);
+        assertNotNull(n2);
+        TestUtils.clickAtCoordinates(device, map, n2.getLon() / 1E7D, n2.getLat() / 1E7D, true);
+        assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.menu_follow_way), false, false, 1000));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_createpath_follow_way), 1000));
+
+        // click end node
+        Node nE = (Node) delegator.getOsmElement(Node.NAME, 2206393021L);
+        assertNotNull(nE);
+        TestUtils.clickAtCoordinates(device, map, nE.getLon() / 1E7D, nE.getLat() / 1E7D, true);
+        TestUtils.sleep();
+
+        TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_form_untagged_element)));
+        TestUtils.clickHome(device, true);
+
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
+        Way way = App.getLogic().getSelectedWay();
+        assertNotNull(way);
+        assertEquals(4, way.nodeCount());
+        Node n3 = (Node) delegator.getOsmElement(Node.NAME, 2206393030L);
+        assertNotNull(n3);
+        assertTrue(way.hasNode(n3));
+        TestUtils.clickUp(device);
+    }
+
+    /**
      * Create a new Note
      */
     // @SdkSuppress(minSdkVersion = 26)
@@ -349,7 +393,7 @@ public class SimpleActionsTest {
         assertTrue(TestUtils.findText(device, false, "test"));
         assertTrue(TestUtils.clickText(device, true, context.getString(R.string.cancel), true, false));
     }
-    
+
     /**
      * long press and check that we get the tip
      */
