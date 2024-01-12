@@ -64,6 +64,16 @@ The alphabetic menu shortcuts should be usable with `<Ctrl>` + letter.
   __m__ Merge (if possible)
   
   __s__ Square / straighten (if possible)
+  
+### Path creation
+
+  __u__ Undo
+  
+  __f__ Follow way (if possible)
+  
+  __e__ Finish way and start the property editor
+  
+  __a__ Finish way and if a closed way start the property editor with address prediction, if an open way start the address interpolation modal
 
 ### Property editor
 

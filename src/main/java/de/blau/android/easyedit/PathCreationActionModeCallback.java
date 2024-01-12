@@ -447,23 +447,32 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
             return true;
         case MENUITEM_NEWWAY_PRESET:
         case MENUITEM_ADDRESS:
-            Way lastSelectedWay = logic.getSelectedWay();
-            if (lastSelectedWay != null) {
-                dontTag = true;
-                main.startSupportActionMode(new WaySelectionActionModeCallback(manager, lastSelectedWay));
-                if (itemId == MENUITEM_ADDRESS && !lastSelectedWay.isClosed()) {
-                    AddressInterpolationDialog.showDialog(main, lastSelectedWay);
-                } else {
-                    // show preset screen
-                    main.performTagEdit(lastSelectedWay, null, itemId == MENUITEM_ADDRESS, itemId == MENUITEM_NEWWAY_PRESET);
-                }
-            }
+            handleTagEdit(itemId);
             return true;
         default:
             Log.e(DEBUG_TAG, "Unknown menu item");
             break;
         }
         return false;
+    }
+
+    /**
+     * Finish creating the way and start either the property editor or the address interpolation dialog
+     * 
+     * @param itemId either MENUITEM_ADDRESS or MENUITEM_NEWWAY_PRESET to determine the behaviour
+     */
+    private void handleTagEdit(final int itemId) {
+        Way lastSelectedWay = logic.getSelectedWay();
+        if (lastSelectedWay != null) {
+            dontTag = true;
+            main.startSupportActionMode(new WaySelectionActionModeCallback(manager, lastSelectedWay));
+            if (itemId == MENUITEM_ADDRESS && !lastSelectedWay.isClosed()) {
+                AddressInterpolationDialog.showDialog(main, lastSelectedWay);
+            } else {
+                // show preset screen
+                main.performTagEdit(lastSelectedWay, null, itemId == MENUITEM_ADDRESS, itemId == MENUITEM_NEWWAY_PRESET);
+            }
+        }
     }
 
     /**
@@ -618,6 +627,18 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
         }
         if (c == Util.getShortCut(main, R.string.shortcut_follow)) {
             handleFollow();
+            return true;
+        }
+        if (c == Util.getShortCut(main, R.string.shortcut_tagedit)) {
+            handleTagEdit(MENUITEM_NEWWAY_PRESET);
+            return true;
+        }
+        if (c == Util.getShortCut(main, R.string.shortcut_tagedit)) {
+            handleTagEdit(MENUITEM_NEWWAY_PRESET);
+            return true;
+        }
+        if (c == Util.getShortCut(main, R.string.shortcut_address)) {
+            handleTagEdit(MENUITEM_ADDRESS);
             return true;
         }
         return super.processShortcut(c);
