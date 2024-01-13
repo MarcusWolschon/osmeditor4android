@@ -17,4 +17,6 @@
     <string name="shortcut_merge">m</string>
     <string name="shortcut_square">s</string>
     <string name="shortcut_remove">r</string>
+    <string name="shortcut_follow">f</string>
+    <string name="shortcut_address">a</string>
 </resources>

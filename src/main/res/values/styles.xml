@@ -185,6 +185,7 @@
         <item name="menu_bridge">@drawable/bridge_dark</item>
         <item name="menu_culvert">@drawable/culvert_dark</item>
         <item name="menu_steps">@drawable/steps_dark</item>
+        <item name="menu_follow">@drawable/follow_dark</item>
 		<item name="undolist_undo">@drawable/undolist_undo_dark</item>
 		<item name="undolist_redo">@drawable/undolist_redo_dark</item>
 		<item name="alert_dialog">@drawable/ic_action_warning_holo_dark</item>
@@ -263,6 +264,7 @@
         <item name="menu_bridge">@drawable/bridge_light</item>
         <item name="menu_culvert">@drawable/culvert_light</item>
         <item name="menu_steps">@drawable/steps_light</item>
+        <item name="menu_follow">@drawable/follow_light</item>
 		<item name="undolist_undo">@drawable/undolist_undo_light</item>
 		<item name="undolist_redo">@drawable/undolist_redo_light</item>
 		<item name="alert_dialog">@drawable/ic_action_warning_holo_light</item>

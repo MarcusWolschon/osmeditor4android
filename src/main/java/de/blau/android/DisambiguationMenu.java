@@ -192,6 +192,19 @@ public class DisambiguationMenu {
      * 
      * @param id an id (unused)
      * @param the Type of object
+     * @param text a descriptive text
+     * @param listener callback when the menu item is selected
+     */
+    public void add(int id, @Nullable Type type, @NonNull String text,  @NonNull final OnMenuItemClickListener listener) { // NOSONAR
+        SpannableString s = new SpannableString(text);
+        add(new DisambiguationMenuItem(type, s), listener);
+    }
+    
+    /**
+     * Add a menu item
+     * 
+     * @param id an id (unused)
+     * @param the Type of object
      * @param textRes a resource id for the text
      * @param selected true if the element is selected
      * @param listener callback when the menu item is selected
@@ -212,7 +225,7 @@ public class DisambiguationMenu {
     public void add(int id, @Nullable Type type, @NonNull SpannableString text, boolean selected, @NonNull final OnMenuItemClickListener listener) { // NOSONAR
         add(new DisambiguationMenuItem(type, text), listener);
     }
-
+    
     /**
      * Add a menu item
      * 

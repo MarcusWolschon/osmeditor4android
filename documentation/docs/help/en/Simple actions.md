@@ -29,13 +29,17 @@ nodes will be created without merging with other objects. You can toggle this wh
 
 Note: when the checkbox is not checked you need to manually close closed ways, for example a building outline.
 
-#### ![Address](../images/address.png) Add address tags
-
-Adds address tags with prediction. If the way is closed this will add the predicted address tags and start the [property editor](../en/Property%20editor.md). If the way is not closed an address interpolation is created and a dedicated editor is started.
-
 #### ![Preset](../images/tag_menu_preset.png) Add preset
 
 Create the current new object, launch the [property editor](../en/Property%20editor.md) and immediately display the preset tab. In multi-pane mode this will simply start the property editor.
+
+### ![Follow](../images/follow.png) Follow way
+
+If two consecutive nodes overlap with nodes of an existing way you can follow the existing way to one of its nodes after clicking the button.
+
+#### ![Address](../images/address.png) Add address tags
+
+Adds address tags with prediction. If the way is closed this will add the predicted address tags and start the [property editor](../en/Property%20editor.md). If the way is not closed an address interpolation is created and a dedicated editor is started.
 
 ### Add map note
 

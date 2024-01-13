@@ -1,6 +1,8 @@
 package de.blau.android.easyedit;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
 import android.content.Context;
@@ -17,8 +19,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.view.ActionMode;
 import androidx.appcompat.widget.AppCompatCheckBox;
 import de.blau.android.App;
+import de.blau.android.DisambiguationMenu;
 import de.blau.android.Map;
 import de.blau.android.R;
+import de.blau.android.DisambiguationMenu.Type;
 import de.blau.android.dialogs.AddressInterpolationDialog;
 import de.blau.android.dialogs.Tip;
 import de.blau.android.exception.OsmIllegalOperationException;
@@ -29,8 +33,9 @@ import de.blau.android.osm.UndoStorage;
 import de.blau.android.osm.UndoStorage.UndoElement;
 import de.blau.android.osm.UndoStorage.UndoWay;
 import de.blau.android.osm.Way;
-import de.blau.android.util.SerializableState;
+import de.blau.android.util.MathUtil;
 import de.blau.android.util.ScreenMessage;
+import de.blau.android.util.SerializableState;
 import de.blau.android.util.Sound;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
@@ -44,14 +49,18 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
     protected static final int MENUITEM_UNDO          = 1;
     private static final int   MENUITEM_SNAP          = 2;
     private static final int   MENUITEM_NEWWAY_PRESET = 3;
-    private static final int   MENUITEM_ADDRESS       = 4;
+    private static final int   MENUITEM_FOLLOW_WAY    = 4;
+    private static final int   MENUITEM_ADDRESS       = 5;
 
-    private static final String NODE_IDS_KEY          = "node ids";
-    private static final String EXISTING_NODE_IDS_KEY = "existing node ids";
-    private static final String WAY_ID_KEY            = "way id";
-    private static final String TITLE_KEY             = "title";
-    private static final String SUBTITLE_KEY          = "subtitle";
-    private static final String CHECKPOINT_NAME_KEY   = "checkpoint name";
+    private static final String NODE_IDS_KEY                     = "node ids";
+    private static final String EXISTING_NODE_IDS_KEY            = "existing node ids";
+    private static final String WAY_ID_KEY                       = "way id";
+    private static final String TITLE_KEY                        = "title";
+    private static final String SUBTITLE_KEY                     = "subtitle";
+    private static final String CHECKPOINT_NAME_KEY              = "checkpoint name";
+    private static final String CANDIDATES_FOR_FOLLOWING_IDS_KEY = "candidates for following ids";
+    private static final String INITIAL_FOLLOW_NODE_ID_KEY       = "initial follow node id";
+    private static final String WAY_TO_FOLLOW_ID_KEY             = "way to follow id";
 
     /** x coordinate of first node */
     private float   x;
@@ -67,11 +76,15 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
     private boolean snap    = true;
 
     /** contains a pointer to the created way if one was created. used to fix selection after undo. */
-    private Way          createdWay    = null;
+    private Way          createdWay             = null;
     /** contains a list of added nodes. used to fix selection after undo. */
-    protected List<Node> addedNodes    = new ArrayList<>();
+    protected List<Node> addedNodes             = new ArrayList<>();
     /** nodes we added that already existed */
-    private List<Node>   existingNodes = new ArrayList<>();
+    private List<Node>   existingNodes          = new ArrayList<>();
+    /** ways that we could potentially follow */
+    private List<Way>    candidatesForFollowing = null;
+    private Node         initialFollowNode      = null;
+    private Way          wayToFollow            = null;
 
     private String savedTitle    = null;
     private String savedSubtitle = null;
@@ -87,25 +100,9 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
      */
     public PathCreationActionModeCallback(@NonNull EasyEditManager manager, @NonNull SerializableState state) {
         super(manager);
-        List<Long> ids = state.getList(NODE_IDS_KEY);
         StorageDelegator delegator = App.getDelegator();
-        for (Long id : ids) {
-            Node node = (Node) delegator.getOsmElement(Node.NAME, id);
-            if (node != null) {
-                addedNodes.add(node);
-            } else {
-                throw new IllegalStateException("Failed to find node " + id);
-            }
-        }
-        List<Long> existingIds = state.getList(EXISTING_NODE_IDS_KEY);
-        for (Long id : existingIds) {
-            Node node = (Node) delegator.getOsmElement(Node.NAME, id);
-            if (node != null) {
-                existingNodes.add(node);
-            } else {
-                throw new IllegalStateException("Failed to find node " + id);
-            }
-        }
+        getElementsFromIds(state, delegator, NODE_IDS_KEY, addedNodes, Node.NAME);
+        getElementsFromIds(state, delegator, EXISTING_NODE_IDS_KEY, existingNodes, Node.NAME);
         if (!addedNodes.isEmpty()) {
             appendTargetNode = addedNodes.get(addedNodes.size() - 1);
         }
@@ -117,6 +114,40 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
         savedTitle = state.getString(TITLE_KEY);
         savedSubtitle = state.getString(SUBTITLE_KEY);
         checkpointName = state.getInteger(CHECKPOINT_NAME_KEY);
+        getElementsFromIds(state, delegator, CANDIDATES_FOR_FOLLOWING_IDS_KEY, candidatesForFollowing, Way.NAME);
+        Long initialFollowNodeId = state.getLong(INITIAL_FOLLOW_NODE_ID_KEY);
+        if (initialFollowNodeId != null) {
+            initialFollowNode = (Node) delegator.getOsmElement(Node.NAME, initialFollowNodeId);
+        }
+        Long wayToFollowId = state.getLong(WAY_TO_FOLLOW_ID_KEY);
+        if (wayToFollowId != null) {
+            wayToFollow = (Way) delegator.getOsmElement(Way.NAME, wayToFollowId);
+        }
+    }
+
+    /**
+     * File List list fith OsmElements from ids in state
+     * 
+     * @param <T> the OsmElement type
+     * @param state the saved state
+     * @param delegator the StorageDelegator instance
+     * @param key the key for the list of ids
+     * @param list the target List
+     * @param elementName the element Name
+     */
+    private <T extends OsmElement> void getElementsFromIds(SerializableState state, StorageDelegator delegator, String key, List<T> list, String elementName) {
+        List<Long> ids = state.getList(key);
+        if (ids != null) {
+            for (Long id : ids) {
+                @SuppressWarnings("unchecked")
+                T element = (T) delegator.getOsmElement(elementName, id);
+                if (element != null) {
+                    list.add(element);
+                } else {
+                    throw new IllegalStateException("Failed to find element key " + key + " " + id);
+                }
+            }
+        }
     }
 
     /**
@@ -197,6 +228,9 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
         });
         //
         menu.add(Menu.NONE, MENUITEM_NEWWAY_PRESET, Menu.NONE, R.string.tag_menu_preset).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_preset));
+        if (candidatesForFollowing != null && !candidatesForFollowing.isEmpty()) {
+            menu.add(Menu.NONE, MENUITEM_FOLLOW_WAY, Menu.NONE, R.string.menu_follow_way).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_follow));
+        }
         menu.add(Menu.NONE, MENUITEM_ADDRESS, Menu.NONE, R.string.tag_menu_address).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_address));
         menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM | 10, R.string.menu_help).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_help));
         arrangeMenu(menu);
@@ -244,12 +278,85 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
     @Override
     public boolean handleClick(float x, float y) {
         super.handleClick(x, y);
+        if (logic.getClickableElements() != null) { // way follow
+            return false;
+        }
         try {
             pathCreateNode(x, y);
         } catch (OsmIllegalOperationException e) {
             ScreenMessage.barError(main, e.getLocalizedMessage());
         }
         return true;
+    }
+
+    @Override
+    public boolean handleElementClick(OsmElement element) {
+        // protect against race conditions and other issues
+        if (!(element instanceof Node) || wayToFollow == null || initialFollowNode == null) {
+            Log.e(DEBUG_TAG, "handleElementClick " + element + " " + wayToFollow + " " + initialFollowNode);
+            return false;
+        }
+        List<Node> followNodes = wayToFollow.getNodes();
+        List<Node> nodesToAdd = nodesFromFollow(followNodes, initialFollowNode, addedNodes.get(addedNodes.size() - 1), (Node) element, wayToFollow.isClosed());
+        existingNodes.addAll(nodesToAdd);
+        addedNodes.addAll(nodesToAdd);
+        createdWay.getNodes().addAll(nodesToAdd); // nodes already all exist in storage
+        createdWay.invalidateBoundingBox();
+        logic.setClickableElements(null);
+        if (createdWay.isClosed()) {
+            finishPath(createdWay, null);
+            return true;
+        }
+        logic.setSelectedWay(createdWay);
+        logic.setSelectedNode((Node) element);
+        mode.setTitle(savedTitle);
+        mode.setSubtitle(R.string.add_way_node_instruction);
+        mode.invalidate();
+        main.invalidateMap();
+        return true;
+    }
+
+    /**
+     * Extract the list of Nodes to add to the new way in the correct order
+     * 
+     * @param followNodes full List of nodes from the original way
+     * @param initialNode the first of the two nodes that enable following
+     * @param startNode start Node
+     * @param endNode end Node
+     * @param closed true if this was a closed way
+     * @return a List of Nodes
+     */
+    @NonNull
+    private List<Node> nodesFromFollow(@NonNull List<Node> followNodes, @NonNull Node initialNode, @NonNull Node startNode, @NonNull Node endNode,
+            boolean closed) {
+        int posStart = followNodes.indexOf(startNode); // positions in the way we are copying
+        int posEnd = followNodes.indexOf(endNode);
+        if (!closed) {
+            if (posEnd > posStart) {
+                return followNodes.subList(posStart + 1, posEnd + 1);
+            }
+            List<Node> toReverse = new ArrayList<>(followNodes.subList(posEnd, posStart)); // copy required
+            Collections.reverse(toReverse);
+            return toReverse;
+        }
+        // closed way slightly complicated
+        int posInitial = followNodes.indexOf(initialNode);
+        List<Node> result = new ArrayList<>();
+        int count = followNodes.size();
+
+        final int lastNodePos = count - 2; // -2 to skip the closing node
+        // determine in which direction we are traversing the nodes of the way we are following
+        int inc = (posStart > posInitial && posInitial != 0 && posStart != lastNodePos) || (posInitial == lastNodePos && posStart == 0)
+                || (posInitial == 0 && posStart == 1) ? 1 : -1;
+
+        for (int i = MathUtil.floorMod(posStart + inc, count); i != MathUtil.floorMod(posEnd + inc, count); i = MathUtil.floorMod(i + inc, count)) {
+            final Node next = followNodes.get(i);
+            // skip the closing node if there is one
+            if (!next.equals(startNode) && (result.isEmpty() || !result.get(result.size() - 1).equals(next))) {
+                result.add(next);
+            }
+        }
+        return result;
     }
 
     /**
@@ -278,22 +385,44 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
         if (logic.getSelectedNode() == null) {
             // user clicked last node again -> finish adding
             finishPath(lastSelectedWay, lastSelectedNode);
-        } else { // update cache for undo
-            createdWay = logic.getSelectedWay();
-            if (createdWay == null) {
-                addedNodes = new ArrayList<>();
-            } else {
-                createdWay.dontValidate();
-            }
-            addedNodes.add(logic.getSelectedNode());
-            if (firstNode) {
-                mode.invalidate(); // activate undo
-            }
-            if (clicked != null) {
-                // node already existed
-                existingNodes.add(clicked);
-            }
+            return;
         }
+        // update cache for undo
+        createdWay = logic.getSelectedWay();
+        if (createdWay == null) {
+            addedNodes = new ArrayList<>();
+        } else {
+            createdWay.dontValidate();
+        }
+        addedNodes.add(logic.getSelectedNode());
+        if (firstNode) {
+            mode.invalidate(); // activate undo
+        }
+        // node already existed id clicked != null
+        if (clicked != null) {
+            existingNodes.add(clicked);
+            // check if we are potentially following a way
+            if (lastSelectedNode != null) {
+                boolean alreadyAvailable = candidatesForFollowing != null && !candidatesForFollowing.isEmpty();
+                candidatesForFollowing = logic.getWaysForNode(lastSelectedNode);
+                candidatesForFollowing.retainAll(logic.getWaysForNode(clicked));
+                candidatesForFollowing.remove(createdWay);
+                // remove any ways that we have "used up"
+                for (Way candidate : new ArrayList<>(candidatesForFollowing)) {
+                    if (candidate.isEndNode(clicked) && !candidate.isClosed()) {
+                        candidatesForFollowing.remove(candidate);
+                    }
+                }
+                initialFollowNode = lastSelectedNode;
+                if (!alreadyAvailable || (alreadyAvailable && candidatesForFollowing.isEmpty())) {
+                    mode.invalidate();
+                }
+            }
+        } else {
+            candidatesForFollowing = null;
+            mode.invalidate();
+        }
+
         mode.setSubtitle(R.string.add_way_node_instruction);
         main.invalidateMap();
     }
@@ -312,26 +441,91 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
         switch (itemId) {
         case MENUITEM_UNDO:
             handleUndo();
-            break;
+            return true;
+        case MENUITEM_FOLLOW_WAY:
+            handleFollow();
+            return true;
         case MENUITEM_NEWWAY_PRESET:
         case MENUITEM_ADDRESS:
-            Way lastSelectedWay = logic.getSelectedWay();
-            if (lastSelectedWay != null) {
-                dontTag = true;
-                main.startSupportActionMode(new WaySelectionActionModeCallback(manager, lastSelectedWay));
-                if (itemId == MENUITEM_ADDRESS && !lastSelectedWay.isClosed()) {
-                    AddressInterpolationDialog.showDialog(main, lastSelectedWay);
-                } else {
-                    // show preset screen
-                    main.performTagEdit(lastSelectedWay, null, itemId == MENUITEM_ADDRESS, itemId == MENUITEM_NEWWAY_PRESET);
-                }
-            }
+            handleTagEdit(itemId);
             return true;
         default:
             Log.e(DEBUG_TAG, "Unknown menu item");
             break;
         }
         return false;
+    }
+
+    /**
+     * Finish creating the way and start either the property editor or the address interpolation dialog
+     * 
+     * @param itemId either MENUITEM_ADDRESS or MENUITEM_NEWWAY_PRESET to determine the behaviour
+     */
+    private void handleTagEdit(final int itemId) {
+        Way lastSelectedWay = logic.getSelectedWay();
+        if (lastSelectedWay != null) {
+            dontTag = true;
+            main.startSupportActionMode(new WaySelectionActionModeCallback(manager, lastSelectedWay));
+            if (itemId == MENUITEM_ADDRESS && !lastSelectedWay.isClosed()) {
+                AddressInterpolationDialog.showDialog(main, lastSelectedWay);
+            } else {
+                // show preset screen
+                main.performTagEdit(lastSelectedWay, null, itemId == MENUITEM_ADDRESS, itemId == MENUITEM_NEWWAY_PRESET);
+            }
+        }
+    }
+
+    /**
+     * Setup follow way selection
+     */
+    private void handleFollow() {
+        if (candidatesForFollowing.size() == 1) {
+            followWay(mode, candidatesForFollowing.get(0));
+            return;
+        }
+        DisambiguationMenu menu = new DisambiguationMenu(main.getMap());
+        menu.setHeaderTitle(R.string.select_follow_way);
+        int id = 0;
+        for (Way w : candidatesForFollowing) {
+            menu.add(id, Type.WAY, w.getDescription(main), (int position) -> followWay(mode, w));
+            id++;
+        }
+        menu.show();
+    }
+
+    /**
+     * Follow a way from the last node added to a end node that is selected in the next step
+     * 
+     * @param mode the current ActionMode
+     */
+    private void followWay(@NonNull ActionMode mode, @NonNull Way follow) {
+        wayToFollow = follow;
+        List<Node> endNodesCandidates = new ArrayList<>(follow.getNodes()); // copy required!!
+        // remove nodes that are not "in front of the current node"
+        final Node current = addedNodes.get(addedNodes.size() - 1);
+        int posCurrent = endNodesCandidates.indexOf(current);
+        final Node previous = addedNodes.get(addedNodes.size() - 2);
+        int posPrevious = endNodesCandidates.indexOf(previous);
+        if (follow.isClosed()) {
+            endNodesCandidates.removeAll(addedNodes);
+            final Node firstAdded = addedNodes.get(0);
+            if (follow.hasNode(firstAdded)) {
+                endNodesCandidates.add(firstAdded);
+            }
+        } else {
+            endNodesCandidates = posPrevious < posCurrent ? endNodesCandidates.subList(posCurrent + 1, endNodesCandidates.size())
+                    : endNodesCandidates.subList(0, posCurrent);
+        }
+        logic.setSelectedWay(null);
+        logic.setSelectedNode(null);
+        logic.setClickableElements(new HashSet<>(endNodesCandidates));
+        logic.setReturnRelations(false);
+        if (savedTitle == null) {
+            savedTitle = mode.getTitle().toString();
+        }
+        mode.setTitle(R.string.actionmode_createpath_follow_way);
+        mode.setSubtitle(R.string.actionmode_createpath_follow_way_select_end_node);
+        main.invalidateMap();
     }
 
     /**
@@ -429,6 +623,23 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
     public boolean processShortcut(Character c) {
         if (c == Util.getShortCut(main, R.string.shortcut_undo)) {
             handleUndo();
+            return true;
+        }
+        if (c == Util.getShortCut(main, R.string.shortcut_follow)) {
+            handleFollow();
+            return true;
+        }
+        if (c == Util.getShortCut(main, R.string.shortcut_tagedit)) {
+            handleTagEdit(MENUITEM_NEWWAY_PRESET);
+            return true;
+        }
+        if (c == Util.getShortCut(main, R.string.shortcut_tagedit)) {
+            handleTagEdit(MENUITEM_NEWWAY_PRESET);
+            return true;
+        }
+        if (c == Util.getShortCut(main, R.string.shortcut_address)) {
+            handleTagEdit(MENUITEM_ADDRESS);
+            return true;
         }
         return super.processShortcut(c);
     }
@@ -473,6 +684,19 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
         state.putString(TITLE_KEY, mode.getTitle().toString());
         state.putString(SUBTITLE_KEY, mode.getSubtitle().toString());
         state.putInteger(CHECKPOINT_NAME_KEY, checkpointName);
+        if (candidatesForFollowing != null) {
+            List<Long> candidatesForFollowingIds = new ArrayList<>();
+            for (Way w : candidatesForFollowing) {
+                candidatesForFollowingIds.add(w.getOsmId());
+            }
+            state.putList(CANDIDATES_FOR_FOLLOWING_IDS_KEY, candidatesForFollowingIds);
+        }
+        if (initialFollowNode != null) {
+            state.putLong(INITIAL_FOLLOW_NODE_ID_KEY, initialFollowNode.getOsmId());
+        }
+        if (wayToFollow != null) {
+            state.putLong(WAY_TO_FOLLOW_ID_KEY, wayToFollow.getOsmId());
+        }
     }
 
     @Override
