@@ -52,7 +52,9 @@ public class OAuth2Helper extends OAuthHelper {
 
     private static final String DEBUG_TAG = OAuth2Helper.class.getSimpleName();
 
-    public static final String  REDIRECT_URI      = "vespucci:/oauth2/";
+    public static final String REDIRECT_URI = "vespucci:/oauth2/";
+    // instead of hardwiring these we could extract them from
+    // https://www.openstreetmap.org/.well-known/oauth-authorization-server
     private static final String AUTHORIZE_PATH    = "oauth2/authorize";
     public static final String  ACCESS_TOKEN_PATH = "oauth2/token";
 
@@ -81,7 +83,7 @@ public class OAuth2Helper extends OAuthHelper {
 
     private String apiName;
 
-    private OAuthConfiguration configuration;
+    private final OAuthConfiguration configuration;
 
     /**
      * Construct a new helper instance
