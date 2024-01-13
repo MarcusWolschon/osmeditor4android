@@ -92,7 +92,7 @@ import de.blau.android.osm.RelationMemberDescription;
 import de.blau.android.osm.RelationMemberPosition;
 import de.blau.android.osm.Result;
 import de.blau.android.osm.Server;
-import de.blau.android.osm.Server.UserDetails;
+import de.blau.android.osm.UserDetails;
 import de.blau.android.osm.Storage;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;

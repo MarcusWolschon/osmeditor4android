@@ -59,6 +59,7 @@ import de.blau.android.dialogs.Progress;
 import de.blau.android.easyedit.EasyEditActionModeCallback;
 import de.blau.android.imageryoffset.ImageryOffset.DeprecationNote;
 import de.blau.android.osm.Server;
+import de.blau.android.osm.UserDetails;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.DataStyle;
@@ -723,17 +724,16 @@ public class ImageryAlignmentActionModeCallback implements Callback {
         final Server server = prefs.getServer();
         if (!server.needOAuthHandshake()) {
             Logic logic = App.getLogic();
-            ExecutorTask<Void, Void, Server.UserDetails> loader = new ExecutorTask<Void, Void, Server.UserDetails>(logic.getExecutorService(),
-                    logic.getHandler()) {
+            ExecutorTask<Void, Void, UserDetails> loader = new ExecutorTask<Void, Void, UserDetails>(logic.getExecutorService(), logic.getHandler()) {
 
                 @Override
-                protected Server.UserDetails doInBackground(Void param) {
+                protected UserDetails doInBackground(Void param) {
                     return server.getUserDetails();
                 }
             };
             try {
                 loader.execute();
-                Server.UserDetails user = loader.get(10, TimeUnit.SECONDS);
+                UserDetails user = loader.get(10, TimeUnit.SECONDS);
 
                 if (user != null) {
                     author = user.getDisplayName();

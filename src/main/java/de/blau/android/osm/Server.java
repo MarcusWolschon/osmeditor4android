@@ -73,6 +73,7 @@ import se.akerfeldt.okhttp.signpost.SigningInterceptor;
  * @author Simon
  */
 public class Server {
+
     private static final String DEBUG_TAG = Server.class.getName();
 
     /**
@@ -81,8 +82,12 @@ public class Server {
     private static final String API_VERSION       = "0.6";
     private static final String OSMCHANGE_VERSION = "0.3";
 
-    private static final String VERSION_KEY   = "version";
-    private static final String GENERATOR_KEY = "generator";
+    private static final String VERSION_KEY         = "version";
+    private static final String GENERATOR_KEY       = "generator";
+    private static final String OLD_ID_ATTR         = "old_id";
+    private static final String NEW_VERSION_ATTR    = "new_version";
+    private static final String NEW_ID_ATTR         = "new_id";
+    private static final String DIFF_RESULT_ELEMENT = "diffResult";
 
     private static final String HTTP_PUT    = "PUT";
     static final String         HTTP_POST   = "POST";
@@ -251,75 +256,6 @@ public class Server {
     }
 
     /**
-     * display name and message counts is the only thing that is interesting
-     * 
-     * @author simon
-     *
-     */
-    public class UserDetails {
-        private String displayName = "unknown";
-        private int    received    = 0;
-        private int    unread      = 0;
-        private int    sent        = 0;
-
-        /**
-         * @return the display_name
-         */
-        public String getDisplayName() {
-            return displayName;
-        }
-
-        /**
-         * @param displayName the display name to set
-         */
-        public void setDisplayName(String displayName) {
-            this.displayName = displayName;
-        }
-
-        /**
-         * @return the received
-         */
-        public int getReceivedMessages() {
-            return received;
-        }
-
-        /**
-         * @param received the received to set
-         */
-        public void setReceivedMessages(int received) {
-            this.received = received;
-        }
-
-        /**
-         * @return the unread
-         */
-        public int getUnreadMessages() {
-            return unread;
-        }
-
-        /**
-         * @param unread the unread to set
-         */
-        public void setUnreadMessages(int unread) {
-            this.unread = unread;
-        }
-
-        /**
-         * @return the sent
-         */
-        public int getSentMessages() {
-            return sent;
-        }
-
-        /**
-         * @param sent the sent to set
-         */
-        public void setSentMessages(int sent) {
-            this.sent = sent;
-        }
-    }
-
-    /**
      * Get the cached details for the user.
      * 
      * @return An UserDetails object, or null if we haven't cached it yet.
@@ -342,36 +278,8 @@ public class Server {
             checkResponseCode(response);
             XmlPullParser parser = xmlParserFactory.newPullParser();
             parser.setInput(response.body().byteStream(), null);
-            int eventType;
-            UserDetails result = new UserDetails();
-            boolean messages = false;
-            while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
-                String tagName = parser.getName();
-                if (eventType == XmlPullParser.START_TAG && "user".equals(tagName)) {
-                    result.setDisplayName(parser.getAttributeValue(null, "display_name"));
-                    Log.d(DEBUG_TAG, "getUserDetails display name " + result.getDisplayName());
-                }
-                if (eventType == XmlPullParser.START_TAG && "messages".equals(tagName)) {
-                    messages = true;
-                }
-                if (eventType == XmlPullParser.END_TAG && "messages".equals(tagName)) {
-                    messages = false;
-                }
-                if (messages) {
-                    if (eventType == XmlPullParser.START_TAG && "received".equals(tagName)) {
-                        result.setReceivedMessages(Integer.parseInt(parser.getAttributeValue(null, "count")));
-                        Log.d(DEBUG_TAG, "getUserDetails received " + result.getReceivedMessages());
-                        result.setUnreadMessages(Integer.parseInt(parser.getAttributeValue(null, "unread")));
-                        Log.d(DEBUG_TAG, "getUserDetails unread " + result.getUnreadMessages());
-                    }
-                    if (eventType == XmlPullParser.START_TAG && "sent".equals(tagName)) {
-                        result.setSentMessages(Integer.parseInt(parser.getAttributeValue(null, "count")));
-                        Log.d(DEBUG_TAG, "getUserDetails sent " + result.getSentMessages());
-                    }
-                }
-            }
-            cachedUserDetails = result;
-            return result;
+            cachedUserDetails = UserDetails.fromXml(parser);
+            return cachedUserDetails;
         } catch (XmlPullParserException | IOException | NumberFormatException e) {
             Log.e(DEBUG_TAG, "Problem accessing user details", e);
         }
@@ -722,10 +630,9 @@ public class Server {
                     sendPayload(sink.outputStream(), new XmlSerializable() {
                         @Override
                         public void toXml(XmlSerializer serializer, Long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
-                            final String action = "delete";
-                            startChangeXml(serializer, action);
+                            startChangeXml(serializer, OsmXml.DELETE);
                             elem.toXml(serializer, changeSetId);
-                            endChangeXml(serializer, action);
+                            endChangeXml(serializer, OsmXml.DELETE);
                         }
                     }, changesetId);
                 } catch (IllegalArgumentException | IllegalStateException e) {
@@ -1003,8 +910,7 @@ public class Server {
         }
         if (responsecode != HttpURLConnection.HTTP_OK) {
             if (responsecode == HttpURLConnection.HTTP_GONE && e != null && e.getState() == OsmElement.STATE_DELETED) {
-                // FIXME we tried to delete an already deleted element: log, but ignore, maybe it would be better to ask
-                // user
+                // we tried to delete an already deleted element: log, but ignore
                 Log.d(DEBUG_TAG, e.getOsmId() + " already deleted on server");
                 return;
             }
@@ -1077,8 +983,7 @@ public class Server {
         Storage apiStorage = delegator.getApiStorage();
         int code = response.code();
         if (code == HttpURLConnection.HTTP_OK) {
-            boolean rehash = false; // if ids are changed we need to rehash
-                                    // storage
+            boolean rehash = false; // if ids are changed we need to rehash storage
             try {
                 parser.setInput(new BufferedInputStream(response.body().byteStream(), StreamUtils.IO_BUFFER_SIZE), null);
                 int eventType;
@@ -1087,63 +992,63 @@ public class Server {
                     if (eventType == XmlPullParser.START_TAG) {
                         String tagName = parser.getName();
                         if (inResponse) {
-                            String oldIdStr = parser.getAttributeValue(null, "old_id");
+                            String oldIdStr = parser.getAttributeValue(null, OLD_ID_ATTR);
                             if (oldIdStr == null) { // must always be present
                                 Log.e(DEBUG_TAG, "oldId missing! tag " + tagName);
                                 continue;
                             }
                             long oldId = Long.parseLong(oldIdStr);
-                            String newIdStr = parser.getAttributeValue(null, "new_id");
-                            String newVersionStr = parser.getAttributeValue(null, "new_version");
+                            String newIdStr = parser.getAttributeValue(null, NEW_ID_ATTR);
+                            String newVersionStr = parser.getAttributeValue(null, NEW_VERSION_ATTR);
                             if (Node.NAME.equals(tagName) || Way.NAME.equals(tagName) || Relation.NAME.equals(tagName)) {
                                 OsmElement e = apiStorage.getOsmElement(tagName, oldId);
-                                if (e != null) {
-                                    if (e.getState() == OsmElement.STATE_DELETED && newIdStr == null && newVersionStr == null) {
-                                        if (!apiStorage.removeElement(e)) {
-                                            Log.e(DEBUG_TAG, "Deleted " + e + " was already removed from local storage!");
-                                        }
-                                        Log.w(DEBUG_TAG, e + " deleted in API");
-                                        delegator.dirty();
-                                    } else if (e.getState() == OsmElement.STATE_CREATED && oldId < 0 && newIdStr != null && newVersionStr != null) {
-                                        long newId = Long.parseLong(newIdStr);
-                                        long newVersion = Long.parseLong(newVersionStr);
-                                        if (newId > 0) {
-                                            if (!apiStorage.removeElement(e)) {
-                                                Log.e(DEBUG_TAG, "New " + e + " was already removed from api storage!");
-                                            }
-                                            Log.w(DEBUG_TAG, "New " + e + " added to API");
-                                            e.setOsmId(newId); // id change requires rehash, so that removing works,
-                                                               // remove first then set id
-                                            e.setOsmVersion(newVersion);
-                                            e.setState(OsmElement.STATE_UNCHANGED);
-                                            delegator.dirty();
-                                            rehash = true;
-                                        } else {
-                                            Log.d(DEBUG_TAG, "Didn't get new ID: " + newId + " version " + newVersionStr);
-                                        }
-                                    } else if (e.getState() == OsmElement.STATE_MODIFIED && oldId > 0 && newIdStr != null && newVersionStr != null) {
-                                        long newId = Long.parseLong(newIdStr);
-                                        long newVersion = Long.parseLong(newVersionStr);
-                                        if (newId == oldId && newVersion > e.getOsmVersion()) {
-                                            if (!apiStorage.removeElement(e)) {
-                                                Log.e(DEBUG_TAG, "Updated " + e + " was already removed from api storage!");
-                                            }
-                                            e.setOsmVersion(newVersion);
-                                            Log.w(DEBUG_TAG, e + " updated in API");
-                                            e.setState(OsmElement.STATE_UNCHANGED);
-                                        } else {
-                                            Log.d(DEBUG_TAG, "Didn't get new version: " + newVersion + " for " + newId);
-                                        }
-                                        delegator.dirty();
-                                    } else {
-                                        Log.e(DEBUG_TAG, "Unknown state for " + e.getOsmId() + " " + e.getState());
-                                    }
-                                } else {
+                                if (e == null) {
                                     // log crash or what
                                     Log.e(DEBUG_TAG, "" + oldIdStr + " not found in api storage! New id " + newIdStr + " new version " + newVersionStr);
+                                    continue;
+                                }
+                                if (e.getState() == OsmElement.STATE_DELETED && newIdStr == null && newVersionStr == null) {
+                                    if (!apiStorage.removeElement(e)) {
+                                        Log.e(DEBUG_TAG, "Deleted " + e + " was already removed from local storage!");
+                                    }
+                                    Log.w(DEBUG_TAG, e + " deleted in API");
+                                    delegator.dirty();
+                                } else if (e.getState() == OsmElement.STATE_CREATED && oldId < 0 && newIdStr != null && newVersionStr != null) {
+                                    long newId = Long.parseLong(newIdStr);
+                                    long newVersion = Long.parseLong(newVersionStr);
+                                    if (newId > 0) {
+                                        if (!apiStorage.removeElement(e)) {
+                                            Log.e(DEBUG_TAG, "New " + e + " was already removed from api storage!");
+                                        }
+                                        Log.w(DEBUG_TAG, "New " + e + " added to API");
+                                        e.setOsmId(newId); // id change requires rehash, so that removing works,
+                                                           // remove first then set id
+                                        e.setOsmVersion(newVersion);
+                                        e.setState(OsmElement.STATE_UNCHANGED);
+                                        delegator.dirty();
+                                        rehash = true;
+                                    } else {
+                                        Log.d(DEBUG_TAG, "Didn't get new ID: " + newId + " version " + newVersionStr);
+                                    }
+                                } else if (e.getState() == OsmElement.STATE_MODIFIED && oldId > 0 && newIdStr != null && newVersionStr != null) {
+                                    long newId = Long.parseLong(newIdStr);
+                                    long newVersion = Long.parseLong(newVersionStr);
+                                    if (newId == oldId && newVersion > e.getOsmVersion()) {
+                                        if (!apiStorage.removeElement(e)) {
+                                            Log.e(DEBUG_TAG, "Updated " + e + " was already removed from api storage!");
+                                        }
+                                        e.setOsmVersion(newVersion);
+                                        Log.w(DEBUG_TAG, e + " updated in API");
+                                        e.setState(OsmElement.STATE_UNCHANGED);
+                                    } else {
+                                        Log.d(DEBUG_TAG, "Didn't get new version: " + newVersion + " for " + newId);
+                                    }
+                                    delegator.dirty();
+                                } else {
+                                    Log.e(DEBUG_TAG, "Unknown state for " + e.getOsmId() + " " + e.getState());
                                 }
                             }
-                        } else if (eventType == XmlPullParser.START_TAG && "diffResult".equals(tagName)) {
+                        } else if (eventType == XmlPullParser.START_TAG && DIFF_RESULT_ELEMENT.equals(tagName)) {
                             inResponse = true;
                         } else {
                             Log.e(DEBUG_TAG, "Unknown start tag: " + tagName);
@@ -1176,12 +1081,12 @@ public class Server {
                     if (m.matches()) {
                         // note this should never happen, since we check
                         // if the changeset is still open before upload
-                        throw new OsmServerException(HttpURLConnection.HTTP_BAD_REQUEST, code + "=\"" + responseMessage + "\" ErrorMessage: " + message);
+                        throw new OsmServerException(HttpURLConnection.HTTP_BAD_REQUEST, code + "=\"" + responseMessage + "\" Error Message: " + message);
                     }
                 }
                 Log.e(DEBUG_TAG, "Code: " + code + " unknown error message: " + message);
                 throw new OsmServerException(HttpURLConnection.HTTP_BAD_REQUEST,
-                        "Original error " + code + "=\"" + responseMessage + "\" ErrorMessage: " + message);
+                        "Original error " + code + "=\"" + responseMessage + "\" Error Message: " + message);
             } else if (code == HttpURLConnection.HTTP_GONE) {
                 Matcher m = ERROR_MESSAGE_DELETED.matcher(message);
                 if (m.matches()) {
@@ -1612,7 +1517,11 @@ public class Server {
     }
 
     /**
-     * @return the URL the OSM website, FIXME for now hardwired and a bit broken
+     * Get the base url for the website associated with the API
+     * 
+     * FIXME for now hardwired, this should be part of the API configuration
+     * 
+     * @return the URL for the OSM website
      */
     public String getWebsiteBaseUrl() {
         return getBaseUrl(getReadWriteUrl()).replace("api.", "");
@@ -1640,7 +1549,7 @@ public class Server {
             parser.setInput(new BufferedInputStream(is, StreamUtils.IO_BUFFER_SIZE), null);
             return Note.parseNotes(parser, null);
         } catch (XmlPullParserException | IOException | OutOfMemoryError e) {
-            Log.e(DEBUG_TAG, "Server.getNotesForBox:Exception", e);
+            Log.e(DEBUG_TAG, "getNotesForBox Exception", e);
             return new ArrayList<>(); // empty list
         }
     }
@@ -1661,7 +1570,7 @@ public class Server {
             List<Note> result = Note.parseNotes(parser, null);
             return !result.isEmpty() ? result.get(0) : null;
         } catch (XmlPullParserException | IOException | OutOfMemoryError | NumberFormatException e) {
-            Log.e(DEBUG_TAG, "Server.getNotesForBox", e);
+            Log.e(DEBUG_TAG, "getNote", e);
             return null;
         }
     }
@@ -1686,7 +1595,7 @@ public class Server {
         if (!bug.isNew()) {
             Log.d(DEBUG_TAG, "adding note comment " + bug.getId());
             // http://openstreetbugs.schokokeks.org/api/0.1/editPOIexec?id=<Bug ID>&text=<Comment with author and date>
-
+            //
             // setting text/xml here is a hack to stop signpost (the oAuth library) from trying to sign the body
             // which will fail
             String encodedComment = URLEncoder.encode(comment.getText(), OsmXml.UTF_8);
@@ -1702,7 +1611,7 @@ public class Server {
                         Matcher m = ERROR_MESSAGE_NOTE_ALREADY_CLOSED.matcher(message);
                         if (m.matches()) {
                             String idStr = m.group(1);
-                            Log.d(DEBUG_TAG, "Note " + idStr + " was already closed");
+                            Log.d(DEBUG_TAG, "addComment note " + idStr + " was already closed");
                             reopenNote(bug);
                             addComment(bug, comment);
                             return;
@@ -1744,7 +1653,6 @@ public class Server {
         }
     }
 
-    // TODO rewrite to XML encoding
     /**
      * Perform an HTTP request to close the specified bug.
      * 
@@ -1767,7 +1675,7 @@ public class Server {
                         Matcher m = ERROR_MESSAGE_NOTE_ALREADY_CLOSED.matcher(message);
                         if (m.matches()) {
                             String idStr = m.group(1);
-                            Log.d(DEBUG_TAG, "Note " + idStr + " was already closed");
+                            Log.d(DEBUG_TAG, "closeNode note " + idStr + " was already closed");
                             return;
                         }
                         throwOsmServerException(response);
@@ -1802,7 +1710,7 @@ public class Server {
                         Matcher m = ERROR_MESSAGE_NOTE_ALREADY_OPENED.matcher(message);
                         if (m.matches()) {
                             String idStr = m.group(1);
-                            Log.d(DEBUG_TAG, "Note " + idStr + " was already open");
+                            Log.d(DEBUG_TAG, "reopenNode note " + idStr + " was already open");
                             return;
                         }
                         throwOsmServerException(response);

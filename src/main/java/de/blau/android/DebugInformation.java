@@ -19,7 +19,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import de.blau.android.layer.LayerConfig;
 import de.blau.android.layer.MapViewLayer;
-import de.blau.android.osm.Server.UserDetails;
+import de.blau.android.osm.UserDetails;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;

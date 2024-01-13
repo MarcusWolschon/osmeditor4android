@@ -32,7 +32,7 @@ import de.blau.android.contract.Github;
 import de.blau.android.contract.Urls;
 import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.Server;
-import de.blau.android.osm.Server.UserDetails;
+import de.blau.android.osm.UserDetails;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.KeyDatabaseHelper;
 import de.blau.android.resources.KeyDatabaseHelper.EntryType;
