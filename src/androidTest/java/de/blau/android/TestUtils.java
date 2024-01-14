@@ -38,6 +38,7 @@ import androidx.preference.PreferenceManager;
 import androidx.test.uiautomator.By;
 import androidx.test.uiautomator.BySelector;
 import androidx.test.uiautomator.Configurator;
+import androidx.test.uiautomator.Direction;
 import androidx.test.uiautomator.UiDevice;
 import androidx.test.uiautomator.UiObject;
 import androidx.test.uiautomator.UiObject2;
@@ -1561,7 +1562,13 @@ public final class TestUtils {
             if (clearAll != null) {
                 clearAll.click();
             } else {
-                device.pressBack();
+                UiObject2 notification = device.findObject(By.textContains(app));
+                if (notification != null) { 
+                    Rect rect = notification.getVisibleBounds();
+                    device.swipe(rect.left, rect.centerY(), rect.right+500, rect.centerY(), 5);
+                } else {
+                    device.pressBack();
+                }
             }
             return found;
         }
