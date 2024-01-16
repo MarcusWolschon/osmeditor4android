@@ -552,7 +552,7 @@ public class WayActionsTest {
         AdvancedPrefDatabase prefDB = new AdvancedPrefDatabase(context);
         try {
             prefDB.deleteAPI("Test");
-            prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, "user", "pass", API.Auth.BASIC);
+            prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, "user", "pass", false);
             prefDB.selectAPI("Test");
             Preferences prefs = new Preferences(context);
             LayerUtils.removeImageryLayers(context);
