@@ -304,7 +304,8 @@ public final class RelationUtils {
     /**
      * Check if the neighbour ways in a Relation for way are downloaded
      * 
-     * Only considers routes, MPs and boundaries for now and assumes the relation is sorted
+     * For routes, MPs and boundaries assumes the relation is locally ordered, for restriction-like relations we simply
+     * download all vias.
      * 
      * @param way the Way
      * @return a List of Ways that are not downloaded
@@ -322,8 +323,15 @@ public final class RelationUtils {
                     // as the way can be present multiple times we need to loop here
                     for (RelationMember member : r.getAllMembers(way)) {
                         int pos = wayMembers.indexOf(member);
-                        addIfNotDownloaded(result, r, pos - 1, wayMembers); // previous
-                        addIfNotDownloaded(result, r, pos + 1, wayMembers); // next
+                        addIfNotDownloaded(result, pos - 1, wayMembers); // previous
+                        addIfNotDownloaded(result, pos + 1, wayMembers); // next
+                    }
+                } else if (Tags.VALUE_RESTRICTION.equals(type) || hasFromViaTo(r)) {
+                    // download vias
+                    for (RelationMember member : r.getMembersWithRole(Tags.ROLE_VIA)) {
+                        if (!member.downloaded() && Way.NAME.equals(member.getType())) {
+                            result.add(member.getRef());
+                        }
                     }
                 }
             }
@@ -337,11 +345,10 @@ public final class RelationUtils {
      * If pos is out of range the position will wrap around
      * 
      * @param result the resulting Set of member refs/ids
-     * @param r the Relation
      * @param pos the position
      * @param members a Lost of RelationMember
      */
-    private static void addIfNotDownloaded(@NonNull Set<Long> result, @NonNull Relation r, int pos, @NonNull List<RelationMember> members) {
+    private static void addIfNotDownloaded(@NonNull Set<Long> result, int pos, @NonNull List<RelationMember> members) {
         int last = members.size() - 1;
         if (pos < 0) {
             pos = last;
@@ -512,4 +519,37 @@ public final class RelationUtils {
         return firstWay;
     }
 
+    /**
+     * Check if a relation has from, via and to members, that is, is similar to a restriction relation
+     * 
+     * Does one sequential scan of all members
+     * 
+     * @param r the Relation
+     * @return true if all three roles are present
+     */
+    static boolean hasFromViaTo(@NonNull Relation r) {
+        List<RelationMember> members = r.getMembers();
+        boolean hasFrom = false;
+        boolean hasVia = false;
+        boolean hasTo = false;
+        for (RelationMember rm : members) {
+            String role = rm.getRole();
+            if (role != null) {
+                switch (role) {
+                case Tags.ROLE_FROM:
+                    hasFrom = true;
+                    break;
+                case Tags.ROLE_INTERSECTION:
+                case Tags.ROLE_VIA:
+                    hasVia = true;
+                    break;
+                case Tags.ROLE_TO:
+                    hasTo = true;
+                    break;
+                default: // do nothing
+                }
+            }
+        }
+        return hasFrom && hasVia && hasTo;
+    }
 }
