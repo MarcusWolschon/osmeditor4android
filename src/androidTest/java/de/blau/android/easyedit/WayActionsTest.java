@@ -539,6 +539,70 @@ public class WayActionsTest {
             prefDB.close();
         }
     }
+    
+    /**
+     * Select way, try to split, download missing ways
+     */
+    // @SdkSuppress(minSdkVersion = 26)
+    @Test
+    public void splitRestrictionMember() {
+        TestUtils.loadTestData(main, "incomplete-restriction.osm");
+        MockWebServerPlus mockServer = new MockWebServerPlus();
+        HttpUrl mockBaseUrl = mockServer.server().url("/api/0.6/");
+        AdvancedPrefDatabase prefDB = new AdvancedPrefDatabase(context);
+        try {
+            prefDB.deleteAPI("Test");
+            prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, "user", "pass", API.Auth.BASIC);
+            prefDB.selectAPI("Test");
+            Preferences prefs = new Preferences(context);
+            LayerUtils.removeImageryLayers(context);
+            main.getMap().setPrefs(main, prefs);
+            System.out.println("mock api url " + mockBaseUrl.toString()); // NOSONAR
+            mockServer.enqueue("4306402129-full");
+            mockServer.enqueue("4306402128-full");
+            map.getDataLayer().setVisible(true);
+            TestUtils.unlock(device);
+            TestUtils.zoomToLevel(device, main, 21);
+            TestUtils.clickAtCoordinates(device, map, 8.3999683, 47.4002093, true);
+            TestUtils.clickText(device, true, context.getString(R.string.okay), true, false); // Tip
+            assertTrue(TestUtils.clickText(device, false, "↗ Primary", false, false));
+            Way way = App.getLogic().getSelectedWay();
+            assertNotNull(way);
+            assertEquals(4306402131L, way.getOsmId());
+            List<Relation> parents = way.getParentRelations();
+            assertNotNull(parents);
+            Relation restriction = parents.get(0);
+            assertTrue(restriction.hasTag(Tags.KEY_TYPE, Tags.VALUE_RESTRICTION));
+            //
+            assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
+
+            assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.menu_split), false, true));
+            TestUtils.clickText(device, false, context.getString(R.string.okay), true, false); // TIP
+
+            assertTrue(TestUtils.findText(device, false, context.getString(R.string.menu_split)));
+
+            // split at node 633468409
+            Node via = (Node) App.getDelegator().getOsmElement(Node.NAME, 4345573842L);
+            assertNotNull(via);
+            TestUtils.clickAtCoordinates(device, map, via.getLon(), via.getLat(), true);
+            TestUtils.sleep();
+            assertNull(App.getDelegator().getOsmElement(Way.NAME, 4306402128L));
+            assertNull(App.getDelegator().getOsmElement(Way.NAME, 4306402129L));
+            // download requires mocking
+            assertTrue(TestUtils.clickText(device, false, context.getString(R.string.download), true, false));
+            TestUtils.sleep();
+            assertNotNull(App.getDelegator().getOsmElement(Way.NAME, 4306402128L));
+            assertNotNull(App.getDelegator().getOsmElement(Way.NAME, 4306402129L));
+        } finally {
+            try {
+                mockServer.server().shutdown();
+            } catch (IOException ioex) {
+                System.out.println("Stopping mock webserver exception " + ioex); // NOSONAR
+            }
+            prefDB.selectAPI(AdvancedPrefDatabase.ID_DEFAULT);
+            prefDB.close();
+        }
+    }
 
     /**
      * Rotate a building

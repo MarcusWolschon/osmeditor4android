@@ -1323,7 +1323,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 // avoid calling it if we are sure that it can't be restriction like
                 boolean isRoute = Tags.VALUE_ROUTE.equals(type);
                 boolean isRestrictionLike = Tags.VALUE_RESTRICTION.equals(type)
-                        || (!Tags.VALUE_MULTIPOLYGON.equals(type) && !Tags.VALUE_BOUNDARY.equals(type) && !isRoute && hasFromViaTo(r));
+                        || (!Tags.VALUE_MULTIPOLYGON.equals(type) && !Tags.VALUE_BOUNDARY.equals(type) && !isRoute && RelationUtils.hasFromViaTo(r));
                 for (RelationMember rm : members) {
                     Log.d(DEBUG_TAG, "addSplitWayToRelations member " + rm);
                     int memberPos = r.getPosition(rm);
@@ -1408,40 +1408,6 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      */
     private boolean hasCommonNode(@Nullable RelationMember member, @NonNull Way way) {
         return member != null && member.getElement() instanceof Way && way.hasCommonNode((Way) member.getElement());
-    }
-
-    /**
-     * Check if a relation has from, via and to members, that is, is similar to a restriction relation
-     * 
-     * Does one sequential scan of all members
-     * 
-     * @param r the Relation
-     * @return true if all three roles are present
-     */
-    private boolean hasFromViaTo(@NonNull Relation r) {
-        List<RelationMember> members = r.getMembers();
-        boolean hasFrom = false;
-        boolean hasVia = false;
-        boolean hasTo = false;
-        for (RelationMember rm : members) {
-            String role = rm.getRole();
-            if (role != null) {
-                switch (role) {
-                case Tags.ROLE_FROM:
-                    hasFrom = true;
-                    break;
-                case Tags.ROLE_INTERSECTION:
-                case Tags.ROLE_VIA:
-                    hasVia = true;
-                    break;
-                case Tags.ROLE_TO:
-                    hasTo = true;
-                    break;
-                default: // do nothing
-                }
-            }
-        }
-        return hasFrom && hasVia && hasTo;
     }
 
     /**
