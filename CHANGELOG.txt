@@ -1,5 +1,21 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+19.3.3:
+
+- Fix typo in undo short cut (c instead of u)
+- Fix start Authorize in singleInstance mode fixes webview not being removed
+- Fix elevation doesn't exist before 5.0
+- Fix remove links with "matomo" instead "piwik", fixes regression for people running adblockers
+- Fix update OpeningHoursFragment dependency
+- Fix update OpeningHoursParser dependency, fixes multiple smaller issues
+- Fix check that centroid calculation was successful
+- Fix update ElementHistoryDialog dependency improves connectivity issue handling
+- Fix keep all ACRA related classes re-enables crash dumps
+- Add support restrictions for safe splitting, missing relation member download
+- Update translations
+- Update imagery from ELI
+- Update preset
+
 19.3.2:
 
 - Fix switch logic around to display menu in preset fragment in pane mode, avoids visual glitch when swiping
