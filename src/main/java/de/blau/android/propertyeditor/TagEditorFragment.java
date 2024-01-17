@@ -1265,7 +1265,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 textWatcher.afterTextChanged(s);
                 Log.d(DEBUG_TAG, "afterTextChanged >" + s + "<");
                 row.valueEdit.removeTextChangedListener(this);
-                setMultiselectValue(rowLayout, row, s.toString());
+                setValue(rowLayout, row, s.toString());
                 row.valueEdit.addTextChangedListener(this);
             }
         };
@@ -1310,26 +1310,26 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     }
 
     /**
-     * If the there are multiple values set them all to the same and recreate the autocomplete adapter
+     * Set the valueand recreate the autocomplete adapter
+     * 
+     * If the there are multiple values set them all to the same 
      * 
      * @param rowLayout the layout holding the rows
      * @param row the row
      * @param newValue the new value
      */
-    private void setMultiselectValue(@NonNull final LinearLayout rowLayout, @NonNull final TagEditRow row, @NonNull String newValue) {
+    private void setValue(@NonNull final LinearLayout rowLayout, @NonNull final TagEditRow row, @NonNull String newValue) {
         final int length = osmIds.length;
-        if (length > 1) { // multi-select, all values should be set to the same
-            List<String> newValues = new ArrayList<>(length);
-            for (int i = 0; i < length; i++) {
-                newValues.add(newValue);
-            }
-            final String key = row.getKey();
-            row.setValues(key, newValues, true);
-            row.post(() -> {
-                row.valueEdit.dismissDropDown();
-                row.valueEdit.setAdapter(getValueAutocompleteAdapter(getPreset(key), rowLayout, row));
-            });
+        List<String> newValues = new ArrayList<>(length);
+        for (int i = 0; i < length; i++) {
+            newValues.add(newValue);
         }
+        final String key = row.getKey();
+        row.setValues(key, newValues, true);
+        row.post(() -> {
+            row.valueEdit.dismissDropDown();
+            row.valueEdit.setAdapter(getValueAutocompleteAdapter(getPreset(key), rowLayout, row));
+        });
     }
 
     /**

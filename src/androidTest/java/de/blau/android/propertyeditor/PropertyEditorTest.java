@@ -2196,6 +2196,62 @@ public class PropertyEditorTest {
     }
 
     /**
+     * Clear value in details editor
+     */
+    @Test
+    public void clearValue() {
+        final CountDownLatch signal = new CountDownLatch(1);
+        mockServer.enqueue("capabilities1");
+        mockServer.enqueue("download1");
+        Logic logic = App.getLogic();
+        logic.downloadBox(main, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D), false, new SignalHandler(signal));
+        try {
+            signal.await(30, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            fail(e.getMessage());
+        }
+        main.getMap().getDataLayer().setVisible(true);
+        TestUtils.unlock(device);
+        TestUtils.zoomToLevel(device, main, 21);
+
+        Node n1 = (Node) App.getDelegator().getOsmElement(Node.NAME, 3465444349L);
+        assertNotNull(n1);
+        
+        final CountDownLatch signal2 = new CountDownLatch(1);
+        main.runOnUiThread(() -> {
+            logic.addSelectedNode(n1);
+            main.getEasyEditManager().editElements();
+            (new SignalHandler(signal2)).onSuccess();
+        });
+        try {
+            signal2.await(20, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            fail(e.getMessage());
+        }
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
+
+        assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.menu_tags), false, true));
+        PropertyEditorActivity propertyEditor = waitForPropertyEditor();
+
+        switchToDetailsTab();
+
+        UiObject2 access = null;
+        try {
+            access = getField(device, Tags.KEY_ACCESS, 2);
+        } catch (UiObjectNotFoundException e) {
+            fail();
+        }
+        assertNotNull(access);
+        access.setText("");
+
+        TestUtils.clickHome(device, true);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
+        device.waitForIdle();
+
+        assertFalse(n1.hasTagKey(Tags.KEY_ACCESS));
+    }
+
+    /**
      * Get the value field for a specific key
      * 
      * @param mDevice the current UiDevice
