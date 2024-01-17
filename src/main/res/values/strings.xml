@@ -102,6 +102,7 @@
     <string name="progress_query_oam">Querying OAM…</string>
     <string name="progress_pruning">Pruning…</string>
     <string name="progress_migration">Migrating…</string>
+    <string name="progress_website">Loading website…</string>
     <!-- Confirm upload dialog -->
     <string name="changes_deleted">"%1$s" deleted</string>
     <string name="changes_changed">"%1$s" changed</string>
@@ -1036,9 +1037,10 @@
     <string name="wms_hint">%1$s [wms]</string>
     <!--  -->
     <string name="menu_tools_apply_local_offset">Apply stored offset to imagery</string>
-    <string name="menu_tools_background_contrast">Contrast</string>
-    <string name="menu_tools_oauth_reset">Reset OAuth</string>
-    <string name="menu_tools_oauth_authorisation">Authorise OAuth</string>
+    <string name="menu_tools_background_contrast">Contrast…</string>
+    <string name="menu_tools_oauth_reset">Reset authorisation (OAuth 1/2)</string>
+    <string name="menu_tools_oauth_authorisation">Authorise app (OAuth 1/2)…</string>
+    <string name="menu_tools_signup">Create OSM account…</string>
     <string name="menu_enable_tagfilter">Tag filter</string>
     <string name="menu_enable_presetfilter">Preset filter</string>
     <string name="preset_menu_waynodes">Include way nodes</string>

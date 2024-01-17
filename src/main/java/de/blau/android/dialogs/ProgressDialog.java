@@ -99,6 +99,10 @@ public final class ProgressDialog {
             titleId = R.string.progress_title;
             messageId = R.string.progress_download_tasks_message;
             break;
+        case Progress.PROGRESS_WEBSITE:
+            titleId = R.string.progress_general_title;
+            messageId = R.string.progress_website;
+            break;
         default:
             return null;
         }

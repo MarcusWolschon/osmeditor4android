@@ -1,31 +1,27 @@
 package de.blau.android;
 
-import java.io.ByteArrayInputStream;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
-import de.blau.android.contract.MimeTypes;
 import de.blau.android.contract.Schemes;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.exception.OsmException;
-import de.blau.android.net.OAuth2Helper;
 import de.blau.android.net.OAuth1aHelper;
+import de.blau.android.net.OAuth2Helper;
 import de.blau.android.osm.Server;
 import de.blau.android.prefs.API.Auth;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.ActivityResultHandler;
+import de.blau.android.util.OsmWebViewClient;
 import de.blau.android.util.ScreenMessage;
-import de.blau.android.util.UpdatedWebViewClient;
 import de.blau.android.util.WebViewActivity;
 import oauth.signpost.exception.OAuthException;
 
@@ -67,12 +63,7 @@ public class Authorize extends WebViewActivity {
         activity.startActivityForResult(intent, REQUEST_CODE);
     }
 
-    private class OAuthWebViewClient extends UpdatedWebViewClient {
-        private static final String MATOMO = "matomo";
-
-        Object   progressLock  = new Object();
-        boolean  progressShown = false;
-        Runnable dismiss       = () -> Progress.dismissDialog(Authorize.this, Progress.PROGRESS_OAUTH);
+    private class OAuthWebViewClient extends OsmWebViewClient {
 
         @Override
         public boolean handleLoading(WebView view, Uri uri) {
@@ -87,40 +78,19 @@ public class Authorize extends WebViewActivity {
         }
 
         @Override
-        public WebResourceResponse handleIntercept(WebView view, Uri uri) {
-            final String path = uri.getPath();
-            if (path != null && path.toLowerCase().contains(MATOMO)) {
-                return new WebResourceResponse(MimeTypes.TEXTPLAIN, "utf-8", new ByteArrayInputStream("".getBytes()));
-            }
-            return super.handleIntercept(view, uri);
+        public void exit() {
+            Authorize.this.exit();
         }
 
         @Override
-        public void onPageStarted(WebView view, String url, Bitmap favicon) {
-            synchronized (progressLock) {
-                if (!progressShown) {
-                    progressShown = true;
-                    Progress.showDialog(Authorize.this, Progress.PROGRESS_OAUTH);
-                }
-            }
+        protected void showProgressDialog() {
+            Progress.showDialog(Authorize.this, Progress.PROGRESS_OAUTH);
+
         }
 
         @Override
-        public void onPageFinished(WebView view, String url) {
-            synchronized (progressLock) {
-                synchronized (webViewLock) {
-                    if (progressShown && webView != null) {
-                        webView.removeCallbacks(dismiss);
-                        webView.postDelayed(dismiss, 500);
-                    }
-                }
-            }
-        }
-
-        @Override
-        public void receivedError(WebView view, int errorCode, String description, String failingUrl) {
-            exit();
-            ScreenMessage.toastTopError(view.getContext(), description);
+        protected void dismissProgressDialog() {
+            Progress.dismissDialog(Authorize.this, Progress.PROGRESS_OAUTH);
         }
     }
 

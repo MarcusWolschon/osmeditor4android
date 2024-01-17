@@ -2528,6 +2528,9 @@ public class Main extends FullScreenAppCompatActivity
         case R.id.tag_menu_reset_address_prediction:
             Address.resetLastAddresses(this);
             return true;
+        case R.id.menu_tools_signup:
+            Signup.startForResult(this, null);
+            break;
         case R.id.menu_tools_oauth_reset: // reset the current OAuth tokens
             if (server.getOAuth()) {
                 try (AdvancedPrefDatabase prefdb = new AdvancedPrefDatabase(this)) {

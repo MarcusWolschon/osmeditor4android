@@ -226,6 +226,25 @@
             android:launchMode="singleInstance"
             android:theme="@style/Theme.AppCompat" />
         <activity
+            android:name="Signup"
+            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
+            android:launchMode="singleInstance"
+            android:theme="@style/Theme.AppCompat" 
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="http" /> 
+                <data android:scheme="https" /> 
+                <data android:host="master.apis.dev.openstreetmap.org" />
+                <data android:host="www.openstreetmap.org" />
+                <data android:pathPattern="/user/.*/confirm.*" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name="LicenseViewer"
             android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
             android:theme="@style/Theme.custom" />
