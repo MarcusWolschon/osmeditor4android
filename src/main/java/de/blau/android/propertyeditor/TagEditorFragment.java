@@ -999,7 +999,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 if (isSpeedKey) {
                     addMaxSpeeds(adapter2);
                 }
-                Collection<StringWithDescription> values = preset.getAutocompleteValues(key);
+                Collection<StringWithDescription> values = preset.getAutocompleteValues(key, propertyEditorListener.getCountryIsoCode());
                 Log.d(DEBUG_TAG, "setting autocomplete adapter for values " + values + " based on " + preset.getName());
                 if (values != null && !values.isEmpty()) {
                     List<StringWithDescription> result = new ArrayList<>(values);

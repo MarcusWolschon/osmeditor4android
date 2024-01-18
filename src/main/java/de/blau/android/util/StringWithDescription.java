@@ -7,11 +7,12 @@ import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import de.blau.android.presets.Regionalizable;
 import de.blau.android.presets.ValueWithCount;
 
 @SuppressWarnings("NullableProblems")
-public class StringWithDescription implements Comparable<StringWithDescription>, Serializable, Value {
-    private static final long serialVersionUID = 1L;
+public class StringWithDescription extends Regionalizable implements Comparable<StringWithDescription>, Serializable, Value {
+    private static final long serialVersionUID = 2L;
 
     private final String value;
     private String       description;

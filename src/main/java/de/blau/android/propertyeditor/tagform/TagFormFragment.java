@@ -320,7 +320,9 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             ArrayAdapterWithRuler<StringWithDescription> adapter2 = new ArrayAdapterWithRuler<>(getActivity(), R.layout.autocomplete_row, Ruler.class);
             boolean isSpeedKey = Tags.isSpeedKey(key) && !Tags.isConditional(key);
             if (preset != null) {
-                Collection<StringWithDescription> presetValues = field != null ? preset.getAutocompleteValues(field) : preset.getAutocompleteValues(key);
+                String region = propertyEditorListener.getCountryIsoCode();
+                Collection<StringWithDescription> presetValues = field != null ? preset.getAutocompleteValues(field, region)
+                        : preset.getAutocompleteValues(key, region);
                 int presetValuesCount = presetValues.size();
                 List<String> mruValues = App.getMruTags().getValues(preset, key);
                 if (mruValues != null) {

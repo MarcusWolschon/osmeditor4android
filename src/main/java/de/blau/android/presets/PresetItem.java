@@ -1008,28 +1008,34 @@ public class PresetItem extends PresetElement {
      * Return a list of the values suitable for autocomplete, note values for fixed tags are not returned
      * 
      * @param key key to get values for
+     * @param region applicable region
      * @return Collection of StringWithDescription objects
      */
     @NonNull
-    public Collection<StringWithDescription> getAutocompleteValues(@NonNull String key) {
+    public Collection<StringWithDescription> getAutocompleteValues(@NonNull String key, @Nullable String region) {
         PresetTagField field = getTagField(key);
         if (field == null) {
             field = getCheckFieldFromGroup(key);
         }
-        return getAutocompleteValues(field);
+        return getAutocompleteValues(field, region);
     }
 
     /**
      * Return a ist of the values suitable for autocomplete, note values for fixed tags are not returned
      * 
      * @param field the PresetField to get values for
+     * @param region applicable region
      * @return Collection of StringWithDescription objects
      */
     @NonNull
-    public Collection<StringWithDescription> getAutocompleteValues(@Nullable PresetTagField field) {
+    public Collection<StringWithDescription> getAutocompleteValues(@Nullable PresetTagField field, @Nullable String region) {
         Collection<StringWithDescription> result = new LinkedHashSet<>();
         if (field instanceof PresetComboField) {
-            result.addAll(Arrays.asList(((PresetComboField) field).getValues()));
+            for (StringWithDescription svd : ((PresetComboField) field).getValues()) {
+                if (svd.appliesIn(region)) {
+                    result.add(svd);
+                }
+            }
         } else if (field instanceof PresetCheckField) {
             result.add(((PresetCheckField) field).getOnValue());
             StringWithDescription offValue = ((PresetCheckField) field).getOffValue();
@@ -1065,7 +1071,7 @@ public class PresetItem extends PresetElement {
      */
     @Nullable
     public StringWithDescription getStringWithDescriptionForValue(@NonNull String key, @NonNull String value) {
-        Collection<StringWithDescription> presetValues = getAutocompleteValues(key);
+        Collection<StringWithDescription> presetValues = getAutocompleteValues(key, null);
         for (StringWithDescription swd : presetValues) {
             if (swd.getValue().equals(value)) {
                 return swd;
