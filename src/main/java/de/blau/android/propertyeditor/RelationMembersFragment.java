@@ -1,7 +1,6 @@
 package de.blau.android.propertyeditor;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,10 +46,11 @@ import de.blau.android.osm.Way;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.presets.PresetRole;
+import de.blau.android.propertyeditor.RelationMembershipFragment.RelationMembershipRow;
 import de.blau.android.util.BaseFragment;
 import de.blau.android.util.SavingHelper;
-import de.blau.android.util.ScrollingLinearLayoutManager;
 import de.blau.android.util.ScreenMessage;
+import de.blau.android.util.ScrollingLinearLayoutManager;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 import de.blau.android.util.collections.MultiHashMap;
@@ -799,18 +799,11 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
                             counter.put(role, position++);
                         }
                     }
-                    List<PresetRole> tempPresetRoles = rmd.downloaded() ? relationPreset.getRoles(getContext(), rmd.getElement(), null)
-                            : relationPreset.getRoles(rmd.getType());
+                    String region = owner.propertyEditorListener.getCountryIsoCode();
+                    List<PresetRole> tempPresetRoles = rmd.downloaded() ? relationPreset.getRoles(getContext(), rmd.getElement(), null, region)
+                            : relationPreset.getRoles(rmd.getType(), region);
                     if (tempPresetRoles != null) {
-                        Collections.sort(tempPresetRoles);
-                        for (PresetRole presetRole : tempPresetRoles) {
-                            Integer counterPos = counter.get(presetRole.getRole());
-                            if (counterPos != null) {
-                                roles.get(counterPos).setHint(presetRole.getHint());
-                                continue;
-                            }
-                            roles.add(presetRole);
-                        }
+                        RelationMembershipRow.countAndAddRoles(tempPresetRoles, counter, roles);
                     }
                 }
             }

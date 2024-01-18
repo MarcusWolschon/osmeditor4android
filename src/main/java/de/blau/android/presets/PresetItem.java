@@ -523,15 +523,16 @@ public class PresetItem extends PresetElement {
      * Get any applicable roles for this PresetItem
      * 
      * @param type the OsmElement type as a string (NODE, WAY, RELATION)
+     * @param region the region the object is located in
      * @return a List of PresetRoles or null if none
      */
     @Nullable
-    public List<PresetRole> getRoles(@Nullable String type) {
+    public List<PresetRole> getRoles(@Nullable String type, @Nullable String region) {
         List<PresetRole> result = null;
         if (roles != null) {
             result = new ArrayList<>();
             for (PresetRole role : roles) {
-                if (role.appliesTo(type)) {
+                if (role.appliesTo(type) && role.appliesIn(region)) {
                     result.add(role);
                 }
             }
@@ -545,10 +546,11 @@ public class PresetItem extends PresetElement {
      * @param context an Android Context
      * @param element the OsmElement that is the relation member
      * @param tags alternative Map of tags to use
+     * @param region the region the object is located in
      * @return a List of PresetRoles or null if none
      */
     @Nullable
-    public List<PresetRole> getRoles(@NonNull Context context, @NonNull OsmElement element, @Nullable Map<String, String> tags) {
+    public List<PresetRole> getRoles(@NonNull Context context, @NonNull OsmElement element, @Nullable Map<String, String> tags, @Nullable String region) {
         List<PresetRole> result = null;
         if (roles != null) {
             result = new ArrayList<>();
@@ -557,7 +559,7 @@ public class PresetItem extends PresetElement {
             ElementType type = element.getType();
             Map<String, String> tagsToUse = tags != null ? tags : element.getTags();
             for (PresetRole role : roles) {
-                if (role.appliesTo(type)) {
+                if (role.appliesTo(type) && role.appliesIn(region)) {
                     String memberExpression = role.getMemberExpression();
                     if (memberExpression != null) {
                         JosmFilterParser parser = new JosmFilterParser(new ByteArrayInputStream(memberExpression.getBytes()));
@@ -944,14 +946,14 @@ public class PresetItem extends PresetElement {
      */
     public int getFixedTagCount(@Nullable String region) {
         int count = 0;
-        for (PresetFixedField f:fixedTags.values()) {
+        for (PresetFixedField f : fixedTags.values()) {
             if (f.appliesIn(region)) {
                 count++;
             }
         }
         return count;
     }
-    
+
     /**
      * Check if the tag has a fixed value
      * 
@@ -1003,7 +1005,7 @@ public class PresetItem extends PresetElement {
     }
 
     /**
-     * Return a ist of the values suitable for autocomplete, note values for fixed tags are not returned
+     * Return a list of the values suitable for autocomplete, note values for fixed tags are not returned
      * 
      * @param key key to get values for
      * @return Collection of StringWithDescription objects
@@ -1144,7 +1146,7 @@ public class PresetItem extends PresetElement {
                 continue;
             }
             if (field instanceof PresetCheckGroupField) {
-                for (PresetCheckField check:((PresetCheckGroupField) field).getCheckFields()) {
+                for (PresetCheckField check : ((PresetCheckGroupField) field).getCheckFields()) {
                     if (check.appliesIn(region)) {
                         allFields.add(check);
                     }

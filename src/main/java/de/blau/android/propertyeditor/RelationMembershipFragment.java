@@ -421,18 +421,11 @@ public class RelationMembershipFragment extends BaseFragment implements Property
                     }
                 }
                 PropertyEditorListener listener = (PropertyEditorListener) owner.getParentFragment();
+                String region = listener.getCountryIsoCode();
                 List<PresetRole> tempPresetRoles = presetItem.getRoles(getContext(), listener.getElement(),
-                        ((PropertyEditorFragment) listener).getKeyValueMapSingle(true));
+                        ((PropertyEditorFragment) listener).getKeyValueMapSingle(true), region);
                 if (tempPresetRoles != null) {
-                    Collections.sort(tempPresetRoles);
-                    for (PresetRole presetRole : tempPresetRoles) {
-                        Integer counterPos = counter.get(presetRole.getRole());
-                        if (counterPos != null) {
-                            result.get(counterPos).setHint(presetRole.getHint());
-                            continue;
-                        }
-                        result.add(presetRole);
-                    }
+                    countAndAddRoles(tempPresetRoles, counter, result);
                 }
             } else {
                 List<String> tempRoles = App.getMruTags().getRoles();
@@ -443,6 +436,25 @@ public class RelationMembershipFragment extends BaseFragment implements Property
                 }
             }
             return new ArrayAdapter<>(getContext(), R.layout.autocomplete_row, result);
+        }
+
+        /**
+         * Add the roles in input to result, counting them in the process
+         * 
+         * @param input input list of roles
+         * @param counter map holding role counts
+         * @param result output list of unique roles with counts in the hint
+         */
+        static void countAndAddRoles(@NonNull List<PresetRole> input, @NonNull Map<String, Integer> counter, @NonNull List<PresetRole> result) {
+            Collections.sort(input);
+            for (PresetRole presetRole : input) {
+                Integer counterPos = counter.get(presetRole.getRole());
+                if (counterPos != null) {
+                    result.get(counterPos).setHint(presetRole.getHint());
+                    continue;
+                }
+                result.add(presetRole);
+            }
         }
 
         /**

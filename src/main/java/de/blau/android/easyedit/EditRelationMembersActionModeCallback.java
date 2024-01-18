@@ -180,7 +180,7 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
         }
         RelationMember member = new RelationMember("", element);
         if (relationPreset != null) {
-            List<PresetRole> roles = relationPreset.getRoles(main, element, null);
+            List<PresetRole> roles = relationPreset.getRoles(main, element, null, null); // FIXME role might be region specific
             if (roles != null) {
                 if (roles.size() == 1) {
                     // exactly one match
