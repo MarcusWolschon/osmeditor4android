@@ -255,8 +255,7 @@ public class PresetParser {
                         currentItem.setNameTemplate(nameTemplate);
                     }
                     currentItem.setDeprecated(TRUE.equals(attr.getValue(DEPRECATED)));
-                    currentItem.setRegions(attr.getValue(REGIONS));
-                    currentItem.setExcludeRegions(TRUE.equals(attr.getValue(EXCLUDE_REGIONS)));
+                    setRegion(attr, currentItem);
                     currentItem.setAutoapply(!FALSE.equals(attr.getValue(AUTOAPPLY)));
                     String minMatchStr = attr.getValue(MIN_MATCH);
                     if (minMatchStr != null) {
@@ -333,6 +332,7 @@ public class PresetParser {
                     if (field instanceof PresetFixedField && isObjectString != null) {
                         ((PresetFixedField) field).setIsObject(Boolean.parseBoolean(isObjectString));
                     }
+                    setRegion(attr, field);
                     break;
                 case TEXT_FIELD:
                     key = attr.getValue(KEY_ATTR);
@@ -379,6 +379,7 @@ public class PresetParser {
                         }
                     }
                     field.setDeprecated(TRUE.equals(attr.getValue(DEPRECATED)));
+                    setRegion(attr, field);
                     break;
                 case LINK:
                     String language = Locale.getDefault().getLanguage();
@@ -411,6 +412,7 @@ public class PresetParser {
                     }
                     checkGroup.setOptional(inOptionalSection);
                     checkGroup.setDeprecated(TRUE.equals(attr.getValue(DEPRECATED)));
+                    setRegion(attr, checkGroup);
                     break;
                 case CHECK_FIELD:
                     key = attr.getValue(KEY_ATTR);
@@ -451,6 +453,7 @@ public class PresetParser {
                     } else {
                         currentItem.addField(checkField);
                     }
+                    setRegion(attr, checkField);
                     break;
                 case COMBO_FIELD:
                 case MULTISELECT_FIELD:
@@ -537,6 +540,7 @@ public class PresetParser {
                         ((PresetComboField) field).setValueCountKey(valueCountKey);
                     }
                     field.setDeprecated(TRUE.equals(attr.getValue(DEPRECATED)));
+                    setRegion(attr, field);
                     break;
                 case ROLES:
                     break;
@@ -550,6 +554,7 @@ public class PresetParser {
                     role.setCount(attr.getValue(COUNT));
                     role.setRegexp(attr.getValue(REGEXP));
                     role.setDeprecated(TRUE.equals(attr.getValue(DEPRECATED)));
+                    setRegion(attr, role);
                     currentItem.addRole(role);
                     break;
                 case REFERENCE:
@@ -624,6 +629,17 @@ public class PresetParser {
             }
 
             /**
+             * Set the region values from attributes
+             * 
+             * @param attr the attributes
+             * @param element the Regionalizable element
+             */
+            private void setRegion(Attributes attr, Regionalizable element) {
+                element.setRegions(attr.getValue(REGIONS));
+                element.setExcludeRegions(TRUE.equals(attr.getValue(EXCLUDE_REGIONS)));
+            }
+
+            /**
              * Extract the label text and add a field if supportLabels is true
              * 
              * @param supportLabels flag
@@ -635,6 +651,7 @@ public class PresetParser {
                 String labelText = attr.getValue(TEXT);
                 if (supportLabels && labelText != null) {
                     PresetLabelField labelField = new PresetLabelField(labelText, attr.getValue(TEXT_CONTEXT));
+                    setRegion(attr, labelField);
                     currentItem.addField(labelField);
                     labelField.setOptional(inOptionalSection);
                     addedLabel = true;

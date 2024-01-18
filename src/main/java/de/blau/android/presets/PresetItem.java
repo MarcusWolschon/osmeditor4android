@@ -937,6 +937,22 @@ public class PresetItem extends PresetElement {
     }
 
     /**
+     * Return the number of keys with fixed values for a region
+     * 
+     * @param region the relevant region
+     * @return number of fixed tags
+     */
+    public int getFixedTagCount(@Nullable String region) {
+        int count = 0;
+        for (PresetFixedField f:fixedTags.values()) {
+            if (f.appliesIn(region)) {
+                count++;
+            }
+        }
+        return count;
+    }
+    
+    /**
      * Check if the tag has a fixed value
      * 
      * @param key key to check
@@ -1116,15 +1132,23 @@ public class PresetItem extends PresetElement {
      * Uses the match value to control actual behavior
      * 
      * @param tagMap Map containing the tags
+     * @param region current region we want to determine the match for
      * @return number of matches
      */
-    int matchesRecommended(@NonNull Map<String, String> tagMap) {
+    int matchesRecommended(@NonNull Map<String, String> tagMap, @Nullable String region) {
         int matches = 0;
 
         List<PresetTagField> allFields = new ArrayList<>();
         for (PresetTagField field : getTagFields()) {
+            if (!field.appliesIn(region)) {
+                continue;
+            }
             if (field instanceof PresetCheckGroupField) {
-                allFields.addAll(((PresetCheckGroupField) field).getCheckFields());
+                for (PresetCheckField check:((PresetCheckGroupField) field).getCheckFields()) {
+                    if (check.appliesIn(region)) {
+                        allFields.add(check);
+                    }
+                }
             } else {
                 allFields.add(field);
             }

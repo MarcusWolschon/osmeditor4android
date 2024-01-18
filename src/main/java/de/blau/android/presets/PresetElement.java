@@ -26,7 +26,7 @@ import de.blau.android.osm.OsmElement.ElementType;
 /**
  * Represents an element (group or item) in a preset data structure
  */
-public abstract class PresetElement implements Serializable {
+public abstract class PresetElement extends Regionalizable implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -36,7 +36,7 @@ public abstract class PresetElement implements Serializable {
 
     protected final Preset   preset;
     String                   name;
-    String                   nameContext    = null;
+    String                   nameContext = null;
     private String           iconpath;
     transient Drawable       icon;
     transient BitmapDrawable mapIcon;
@@ -47,9 +47,7 @@ public abstract class PresetElement implements Serializable {
     boolean                  appliesToClosedway;
     boolean                  appliesToRelation;
     boolean                  appliesToArea;
-    private boolean          deprecated     = false;
-    private List<String>     regions        = null;
-    private boolean          excludeRegions = false;
+    private boolean          deprecated  = false;
     private String           mapFeatures;
 
     /**
@@ -80,6 +78,7 @@ public abstract class PresetElement implements Serializable {
      * @param item the PresetElement to copy
      */
     protected PresetElement(@NonNull Preset preset, @Nullable PresetGroup group, @NonNull PresetElement item) {
+        super(item);
         this.preset = preset;
         this.name = item.name;
         if (group != null) {
@@ -104,8 +103,6 @@ public abstract class PresetElement implements Serializable {
             setAppliesToRelation();
         }
         this.deprecated = item.deprecated;
-        this.regions = item.regions;
-        this.excludeRegions = item.excludeRegions;
         this.mapFeatures = item.mapFeatures;
     }
 
@@ -458,50 +455,6 @@ public abstract class PresetElement implements Serializable {
      */
     public void setDeprecated(boolean deprecated) {
         this.deprecated = deprecated;
-    }
-
-    /**
-     * Set the ISO codes for the regions this PresetElement is intended for
-     * 
-     * @param regions the ISO codes separated by commas or null if none should be set
-     */
-    protected void setRegions(@Nullable String regions) {
-        if (regions != null) {
-            String[] temp = regions.split(",");
-            this.regions = new ArrayList<>();
-            for (String r : temp) {
-                this.regions.add(r.trim().toUpperCase());
-            }
-        } else {
-            this.regions = null;
-        }
-    }
-
-    /**
-     * Set if the PresetElement shouldn't be used in the listed regions
-     * 
-     * @param excludeRegions if true the function of the regions list will be inverted
-     */
-    protected void setExcludeRegions(boolean excludeRegions) {
-        this.excludeRegions = excludeRegions;
-    }
-
-    /**
-     * Check if a PresetElement is applicable for a region
-     * 
-     * @param region the region
-     * @return true if the PresetElement is in use
-     */
-    public boolean appliesIn(@Nullable String region) {
-        if (regions != null && !regions.isEmpty() && region != null) {
-            for (String r : regions) {
-                if (region.equals(r)) {
-                    return !excludeRegions;
-                }
-            }
-            return excludeRegions;
-        }
-        return true;
     }
 
     /**

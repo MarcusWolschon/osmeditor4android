@@ -9,9 +9,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import ch.poole.poparser.Po;
 
-public abstract class PresetField implements Serializable {
+public abstract class PresetField extends Regionalizable implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     /**
      * Translation contexts
@@ -29,6 +29,7 @@ public abstract class PresetField implements Serializable {
      * @param key the key
      */
     protected PresetField() {
+        super();
     }
 
     /**
@@ -37,6 +38,7 @@ public abstract class PresetField implements Serializable {
      * @param field PresetField to copy
      */
     protected PresetField(@NonNull PresetField field) {
+        super(field);
         this.textContext = field.textContext;
         this.optional = field.optional;
     }

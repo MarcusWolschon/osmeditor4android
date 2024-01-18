@@ -1134,7 +1134,7 @@ public class Preset implements Serializable {
         // Find best
         final int FIXED_WEIGHT = 1000; // always prioritize presets with fixed keys
         for (PresetItem possibleMatch : possibleMatches) {
-            int fixedTagCount = possibleMatch.getFixedTagCount() * FIXED_WEIGHT;
+            int fixedTagCount = possibleMatch.getFixedTagCount(region) * FIXED_WEIGHT;
             int recommendedTagCount = possibleMatch.getRecommendedKeyCount();
             if (fixedTagCount + recommendedTagCount >= bestMatchStrength) {
                 int matches = 0;
@@ -1158,7 +1158,7 @@ public class Preset implements Serializable {
                     }
                 }
                 if (recommendedTagCount > 0) {
-                    matches = matches + possibleMatch.matchesRecommended(tags);
+                    matches = matches + possibleMatch.matchesRecommended(tags, region);
                 }
                 if (matches > bestMatchStrength) {
                     bestMatch = possibleMatch;
@@ -1187,7 +1187,7 @@ public class Preset implements Serializable {
                 if (possibleMatch.matches(tags)) {
                     return possibleMatch;
                 }
-            } else if (possibleMatch.getRecommendedKeyCount() > 0 && possibleMatch.matchesRecommended(tags) > 0) {
+            } else if (possibleMatch.getRecommendedKeyCount() > 0 && possibleMatch.matchesRecommended(tags, null) > 0) {
                 return possibleMatch;
             }
         }

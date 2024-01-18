@@ -747,44 +747,44 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     @NonNull
     private Map<String, String> addPresetsToTags(@Nullable PresetItem preset, @NonNull Map<String, String> tags) {
         Map<String, String> leftOvers = new LinkedHashMap<>();
-        if (preset != null) {
-            List<PresetItem> linkedPresetList = preset.getLinkedPresets(true, App.getCurrentPresets(getContext()), propertyEditorListener.getCountryIsoCode());
-            for (Entry<String, String> entry : tags.entrySet()) {
-                String key = entry.getKey();
-                String value = entry.getValue();
-                PresetTagField field = preset.getField(key);
-                if (field instanceof PresetCheckGroupField) {
-                    field = ((PresetCheckGroupField) field).getCheckField(key);
-                } else if (field instanceof PresetFixedField && value != null && !value.equals(((PresetFixedField) field).getValue().getValue())) {
-                    field = null; // fixed fields need to match both key and value
-                }
-                if (field != null) {
-                    storePreset(key, preset);
-                } else {
-                    boolean found = false;
-                    if (linkedPresetList != null) {
-                        for (PresetItem linkedPreset : linkedPresetList) {
-                            if (linkedPreset.getFixedTagCount() == 0) {
-                                // fixed key presets should always count as themselves
-                                PresetTagField linkedField = linkedPreset.getField(key);
-                                if (linkedField instanceof PresetCheckGroupField) {
-                                    linkedField = ((PresetCheckGroupField) linkedField).getCheckField(key);
-                                }
-                                if (linkedField != null) {
-                                    storePreset(key, linkedPreset);
-                                    found = true;
-                                    break;
-                                }
-                            }
+        if (preset == null) {
+            Log.e(DEBUG_TAG, "addPresetsToTags called with null preset");
+            return leftOvers;
+        }
+        List<PresetItem> linkedPresetList = preset.getLinkedPresets(true, App.getCurrentPresets(getContext()), propertyEditorListener.getCountryIsoCode());
+        for (Entry<String, String> entry : tags.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            PresetTagField field = preset.getField(key);
+            if (field instanceof PresetCheckGroupField) {
+                field = ((PresetCheckGroupField) field).getCheckField(key);
+            } else if (field instanceof PresetFixedField && value != null && !value.equals(((PresetFixedField) field).getValue().getValue())) {
+                field = null; // fixed fields need to match both key and value
+            }
+            if (field != null) {
+                storePreset(key, preset);
+                continue;
+            }
+            boolean found = false;
+            if (linkedPresetList != null) {
+                for (PresetItem linkedPreset : linkedPresetList) {
+                    if (linkedPreset.getFixedTagCount() == 0) {
+                        // fixed key presets should always count as themselves
+                        PresetTagField linkedField = linkedPreset.getField(key);
+                        if (linkedField instanceof PresetCheckGroupField) {
+                            linkedField = ((PresetCheckGroupField) linkedField).getCheckField(key);
                         }
-                    }
-                    if (!found) {
-                        leftOvers.put(key, value);
+                        if (linkedField != null) {
+                            storePreset(key, linkedPreset);
+                            found = true;
+                            break;
+                        }
                     }
                 }
             }
-        } else {
-            Log.e(DEBUG_TAG, "addPresetsToTags called with null preset");
+            if (!found) {
+                leftOvers.put(key, value);
+            }
         }
         return leftOvers;
     }
@@ -870,9 +870,17 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         if (preset == null) {
             updateAutocompletePresetItem(rowLayout, null, false);
         } else {
+            String region = propertyEditorListener.getCountryIsoCode();
             for (PresetTagField field : preset.getTagFields()) {
+                if (!field.appliesIn(region)) {
+                    continue;
+                }
                 if (field instanceof PresetCheckGroupField) {
-                    keys.addAll(((PresetCheckGroupField) field).getKeys());
+                    for (PresetCheckField check : ((PresetCheckGroupField) field).getCheckFields()) {
+                        if (check.appliesIn(region)) {
+                            keys.add(check.getKey());
+                        }
+                    }
                 } else {
                     keys.add(field.getKey());
                 }
@@ -1312,7 +1320,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     /**
      * Set the valueand recreate the autocomplete adapter
      * 
-     * If the there are multiple values set them all to the same 
+     * If the there are multiple values set them all to the same
      * 
      * @param rowLayout the layout holding the rows
      * @param row the row
@@ -1771,7 +1779,8 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      */
     void applyPreset(@NonNull LinearLayout rowLayout, @NonNull PresetItem item, boolean addOptional, boolean isAlternative, boolean addToMRU,
             boolean useDefaults) {
-        Log.d(DEBUG_TAG, "applying preset " + item.getName());
+        String region = propertyEditorListener.getCountryIsoCode();
+        Log.d(DEBUG_TAG, "applying preset " + item.getName() + " for region " + region);
         final LinkedHashMap<String, List<String>> currentValues = getKeyValueMap(rowLayout, true);
 
         int replacedOrRemoved = 0;
@@ -1807,6 +1816,9 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         // Fixed tags, always have a value. We overwrite mercilessly.
         for (Entry<String, PresetFixedField> tag : item.getFixedTags().entrySet()) {
             PresetFixedField field = tag.getValue();
+            if (!field.appliesIn(region)) {
+                continue;
+            }
             String v = field.getValue().getValue();
             List<String> oldValue = currentValues.put(tag.getKey(), Util.wrapInList(v));
             if (oldValue != null && !oldValue.isEmpty() && !oldValue.contains(v) && !(oldValue.size() == 1 && "".equals(oldValue.get(0)))) {
@@ -1818,12 +1830,18 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         Map<String, String> scripts = new LinkedHashMap<>();
         for (Entry<String, PresetField> entry : item.getFields().entrySet()) {
             PresetField field = entry.getValue();
+            if (!field.appliesIn(region)) {
+                continue;
+            }
             if (field instanceof PresetTagField) {
                 PresetTagField tagField = (PresetTagField) field;
                 boolean isOptional = tagField.isOptional();
                 if (!isOptional || (isOptional && addOptional)) {
                     if (tagField instanceof PresetCheckGroupField) {
                         for (PresetCheckField check : ((PresetCheckGroupField) tagField).getCheckFields()) {
+                            if (!check.appliesIn(region)) {
+                                continue;
+                            }
                             addTagFromPreset(item, check, currentValues, check.getKey(), scripts, useDefaults);
                         }
                     } else if (!(tagField instanceof PresetFixedField)) {
@@ -2123,14 +2141,14 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             if (!bothBlank && (neitherBlank || allowBlanks || (valueBlank && tagValues != null && !tagValues.isEmpty()))) {
                 List<String> existing = tags.get(key);
                 boolean existingIsEmpty = existing == null || (existing.size() == 1 && "".equals(existing.get(0)));
-                if (existingIsEmpty) {
-                    if (valueBlank) {
-                        tags.put(key, areEmpty(tagValues) ? Util.wrapInList("") : tagValues);
-                    } else {
-                        tags.put(key, Util.wrapInList(value));
-                    }
-                } else {
+                if (!existingIsEmpty) {
                     Log.e(DEBUG_TAG, "Attempt to overwrite existing non-empty value");
+                    return;
+                }
+                if (valueBlank) {
+                    tags.put(key, areEmpty(tagValues) ? Util.wrapInList("") : tagValues);
+                } else {
+                    tags.put(key, Util.wrapInList(value));
                 }
             }
         });

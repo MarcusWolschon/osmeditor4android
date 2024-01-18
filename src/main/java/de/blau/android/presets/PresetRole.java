@@ -12,9 +12,9 @@ import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Way;
 
-public class PresetRole implements Comparable<PresetRole>, Serializable {
+public class PresetRole extends Regionalizable implements Comparable<PresetRole>, Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     private static final String DEBUG_TAG = PresetRole.class.getSimpleName();
 
@@ -97,16 +97,17 @@ public class PresetRole implements Comparable<PresetRole>, Serializable {
     /**
      * Copy constructor
      * 
-     * @param field PresetField to copy
+     * @param source PresetField to copy
      */
-    public PresetRole(@NonNull PresetRole field) {
-        this.role = field.role;
-        this.hint = field.hint;
-        this.appliesToWay = field.appliesToWay;
-        this.appliesToNode = field.appliesToNode;
-        this.appliesToRelation = field.appliesToRelation;
-        this.appliesToClosedWay = field.appliesToClosedWay;
-        this.appliesToArea = field.appliesToArea;
+    public PresetRole(@NonNull PresetRole source) {
+        super(source);
+        this.role = source.role;
+        this.hint = source.hint;
+        this.appliesToWay = source.appliesToWay;
+        this.appliesToNode = source.appliesToNode;
+        this.appliesToRelation = source.appliesToRelation;
+        this.appliesToClosedWay = source.appliesToClosedWay;
+        this.appliesToArea = source.appliesToArea;
     }
 
     /**

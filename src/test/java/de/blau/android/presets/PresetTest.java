@@ -111,7 +111,7 @@ public class PresetTest {
         assertNotNull(item);
         Map<String, String> tags = new HashMap<>();
         tags.put("traffic_sign:forward", "something"); // this is a text field
-        assertEquals(1, item.matchesRecommended(tags));
+        assertEquals(1, item.matchesRecommended(tags, null));
         PresetItem sign = Preset.findBestMatch(presets, tags, null, null);
         assertEquals(item, sign);
         assertTrue(item.hasKeyValue("traffic_sign:forward", "anything")); // test field
