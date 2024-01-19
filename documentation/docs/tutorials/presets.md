@@ -1,5 +1,5 @@
 # Vespucci Preset System
-_Documentation for Vespucci 19.2_
+_Documentation for Vespucci 20.0_
 
 As explained in the [help documentation](../help/en/Presets.md) Vespucci uses JOSM compatible presets, currently any preset used in JOSM should simply work with Vespucci, however there can be differences. Particularly with the new preset driven tagging interface presets have become even more important and if you are writing presets yourself and want them to work well in Vespucci please keep on reading.
 
@@ -56,7 +56,9 @@ Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/
 |                   | match_expression              | ignored   |
 |                   | text                          | extension | Something to display
 |                   | values_context                | extension | Translation context
-|                   | object                        | extension | If present and true or false the tag will be considered as defining/not-defining a top level object, overriding the normal rules 
+|                   | object                        | extension | If present and true or false the tag will be considered as defining/not-defining a top level object, overriding the normal rules
+|                   | regions                       | extension | comma separated list of countries this preset group is applicable for
+|                   | exclude_regions               | extension | if true, invert the meaning of regions 
 |__&lt;text&gt;__   |                               | supported |
 |                   | key                           | supported | required
 |                   | text                          | supported |
@@ -71,6 +73,8 @@ Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/
 |                   | javascript                    | extension | if value is not set, execute the JS script
 |                   | i18n                          | extension | if set to true this tag has i18n variants
 |                   | value_type                    | extension | indicate the kind of value this tag should have
+|                   | regions                       | extension | comma separated list of countries this preset group is applicable for
+|                   | exclude_regions               | extension | if true, invert the meaning of regions
 |__&lt;combo&gt;__  |                               | supported | combo elements can contain a sequence of list_entry elements, or references to chunks that contain the same
 |                   | key                           | supported | required
 |                   | text                          | supported |
@@ -90,6 +94,8 @@ Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/
 |                   | length                        | ignored   |
 |                   | values_no_i18n                | ignored   |
 |                   | values_from                   | supported | extension: if the target method supports a String argument the current key will be passed
+|                   | regions                       | extension | comma separated list of countries this preset group is applicable for
+|                   | exclude_regions               | extension | if true, invert the meaning of regions
 |__&lt;multiselect&gt;__ |                          | supported | multiselect elements can contain a sequence of list_entry elements, or references to chunks that contain the same
 |                   | key                           | supported | required
 |                   | text                          | supported |
@@ -111,6 +117,8 @@ Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/
 |                   | values_from                   | supported | extension: if the target method supports a String argument the current key will be passed
 |                   | rows                          | ignored   |
 |                   | value_count_key               | extension | reference to a tag that will hold the number of values this multiselect should contain
+|                   | regions                       | extension | comma separated list of countries this preset group is applicable for
+|                   | exclude_regions               | extension | if true, invert the meaning of regions
 |__&lt;list_entry&gt;__       |                     | supported |
 |                   | value                         | supported | required
 |                   | display_value                 | supported |
@@ -118,10 +126,14 @@ Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/
 |                   | icon                          | supported |
 |                   | icon_size                     | ignored   |
 |                   | image                         | extension |
+|                   | regions                       | extension | comma separated list of countries this preset group is applicable for
+|                   | exclude_regions               | extension | if true, invert the meaning of regions
 |__&lt;checkgroup&gt;__       |                     | supported |
 |                   | columns                       | ignored   |
 |                   | text                          | extension |
 |                   | text_context                  | extension |
+|                   | regions                       | extension | comma separated list of countries this preset group is applicable for
+|                   | exclude_regions               | extension | if true, invert the meaning of regions
 |__&lt;check&gt;__  |                               | supported |
 |                   | key                           | supported | required
 |                   | text                          | supported |
@@ -133,12 +145,20 @@ Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/
 |                   | match                         | supported |
 |                   | match_expression              | ignored   |
 |                   | use_last_as_default           | extension | "force" has the same effect as "true"
+|                   | regions                       | extension | comma separated list of countries this preset group is applicable for
+|                   | exclude_regions               | extension | if true, invert the meaning of regions
 |__&lt;label&gt;__  |                               | supported |
+|                   | regions                       | extension | comma separated list of countries this preset group is applicable for
+|                   | exclude_regions               | extension | if true, invert the meaning of regions
 |__&lt;space/&gt;__ |                               | ignored   |
+|                   | regions                       | extension | comma separated list of countries this preset group is applicable for
+|                   | exclude_regions               | extension | if true, invert the meaning of regions
 |__&lt;optional&gt;__ |                             | supported | contained fields are not displayed the in "Properties" tab when a preset is applied except if applying with optional fields is used, further matching ignores any optional fields
 |                   | text                          | supported |
 |__&lt;separator/&gt;__ |                           | supported | starts a new row in the preset selection display
 |__&lt;item_separator/&gt;__ |                      | ignored   |
+|                   | regions                       | extension | comma separated list of countries this preset group is applicable for
+|                   | exclude_regions               | extension | if true, invert the meaning of regions
 |__&lt;link&gt;__   |                               | supported | not legal inside &lt;chunk&gt; elements
 |                   | href                          | supported | including language specific variants
 |                   | wiki                          | supported | this will be used with lower preference than href entries
@@ -152,6 +172,8 @@ Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/
 |                   | type                          | supported |
 |                   | member_expression             | supported | See [search language documentation](object_search.md)
 |                   | regexp                        | ignored   |
+|                   | regions                       | extension | comma separated list of countries this preset group is applicable for
+|                   | exclude_regions               | extension | if true, invert the meaning of regions
 |__&lt;preset_link&gt;__ |                          | supported | Used for tag matching and added to preset MRU list for easy access
 |                        | text                     | ignored   |
 |                        | text_context             | ignored   |
@@ -188,8 +210,8 @@ For Vespucci I've chosen a different approach based on [GNU gettext](https://www
     * _speed_ a speed value (reserved)
 
 * _items\_sort_ this controls sorting of items in groups, the default is "yes", any other value will disable sorting, the sorting preserves structure. Note: the preset root groups are currently not sortable.
-* _regions_ comma separated list of countries this preset group or item is applicable for.
-* _exclude_regions_ if true, invert the meaning of regions.
+* _regions_ comma separated list of countries this preset group or item is applicable for. Note that from JOSM 18918 on the only difference is that we support the region related tags on combo, multiselect (and not just the values), and the formatting tags.
+* _exclude_regions_ if true, invert the meaning of regions. See above for details.
 * _autoapply_ if true (default), allow auto-applying of the item.
 * _min_match_ modifies Vespuccis matching algorithm to use the specified number of fixed tag matches instead of expecting all to match.
 * _value_count_key_ reference to a tag that will hold the number of values this multiselect should contain. Example for the destination:lanes tag this would be value_count_key="lanes".
