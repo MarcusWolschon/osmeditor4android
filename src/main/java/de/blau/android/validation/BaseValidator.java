@@ -568,14 +568,14 @@ public class BaseValidator implements Validator {
     }
 
     /**
-     * Get the country the element is located in
+     * Get the regions the element is located in
      * 
      * @param e the OsmElement
-     * @return the country the element is located in or null
+     * @return the regions the element is located in or null
      */
     @Nullable
-    String getCountry(@NonNull OsmElement e) {
-        return GeoContext.getCountryIsoCode(geoContext, e);
+    List<String> getIsoCodes(@NonNull OsmElement e) {
+        return geoContext.getIsoCodes(e);
     }
 
     /**
@@ -621,7 +621,7 @@ public class BaseValidator implements Validator {
         SortedMap<String, String> tags = node.getTags();
         if (!tags.isEmpty()) {
             // tag based checks
-            status = validateElement(status, node, tags, Preset.findBestMatch(presets, tags, getCountry(node), null));
+            status = validateElement(status, node, tags, Preset.findBestMatch(presets, tags, getIsoCodes(node), null));
         }
         if (status == Validator.NOT_VALIDATED) {
             status = Validator.OK;
@@ -649,7 +649,7 @@ public class BaseValidator implements Validator {
         }
         if (!noTags) {
             // tag based checks
-            PresetItem pi = Preset.findBestMatch(presets, tags, getCountry(way), null);
+            PresetItem pi = Preset.findBestMatch(presets, tags, getIsoCodes(way), null);
             status = validateElement(status, way, tags, pi);
             String highway = way.getTagWithKey(Tags.KEY_HIGHWAY);
             if (highway != null) {
@@ -681,7 +681,7 @@ public class BaseValidator implements Validator {
                 status |= Validator.UNTAGGED | Validator.NO_TYPE;
             }
         } else {
-            PresetItem pi = Preset.findBestMatch(presets, tags, getCountry(relation), null);
+            PresetItem pi = Preset.findBestMatch(presets, tags, getIsoCodes(relation), null);
             status = validateElement(status, relation, tags, pi);
             if (noTypeValidation && noType(relation)) {
                 status |= Validator.NO_TYPE;
@@ -713,7 +713,7 @@ public class BaseValidator implements Validator {
     public String[] describeProblem(@NonNull Context ctx, @NonNull Node node) {
         SortedMap<String, String> tags = node.getTags();
         List<String> result = new ArrayList<>();
-        result.addAll(describeProblemElement(ctx, node, tags, Preset.findBestMatch(presets, tags, getCountry(node), null)));
+        result.addAll(describeProblemElement(ctx, node, tags, Preset.findBestMatch(presets, tags, getIsoCodes(node), null)));
         if ((node.getCachedProblems() & Validator.UNCONNECTED_END_NODE) != 0) {
             result.add(ctx.getString(R.string.toast_unconnected_end_node));
         }
@@ -725,7 +725,7 @@ public class BaseValidator implements Validator {
     public String[] describeProblem(@NonNull Context ctx, @NonNull Way way) {
         SortedMap<String, String> tags = way.getTags();
         List<String> result = new ArrayList<>();
-        result.addAll(describeProblemElement(ctx, way, tags, Preset.findBestMatch(presets, tags, getCountry(way), null)));
+        result.addAll(describeProblemElement(ctx, way, tags, Preset.findBestMatch(presets, tags, getIsoCodes(way), null)));
         if ((way.getCachedProblems() & Validator.DEGENERATE_WAY) != 0) {
             result.add(ctx.getString(R.string.toast_degenerate_way));
         }
@@ -741,7 +741,7 @@ public class BaseValidator implements Validator {
     public String[] describeProblem(@NonNull Context ctx, @NonNull Relation relation) {
         SortedMap<String, String> tags = relation.getTags();
         List<String> result = new ArrayList<>();
-        PresetItem pi = Preset.findBestMatch(presets, tags, getCountry(relation), null);
+        PresetItem pi = Preset.findBestMatch(presets, tags, getIsoCodes(relation), null);
         result.addAll(describeProblemElement(ctx, relation, tags, pi));
         if (noType(relation)) {
             result.add(ctx.getString(R.string.toast_notype));

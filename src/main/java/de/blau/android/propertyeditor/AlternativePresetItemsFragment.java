@@ -89,7 +89,7 @@ public class AlternativePresetItemsFragment extends ImmersiveDialogFragment {
             return null;
         }
         PresetElement presetItem = Preset.getElementByPath(App.getCurrentRootPreset(getContext()).getRootGroup(), presetElementPath,
-                propertyEditorListener.getCountryIsoCode(), false);
+                propertyEditorListener.getIsoCodes(), false);
         if (!(presetItem instanceof PresetItem)) {
             Log.e(DEBUG_TAG, "no PresetItem found for " + presetElementPath);
             return null;
@@ -121,7 +121,7 @@ public class AlternativePresetItemsFragment extends ImmersiveDialogFragment {
             for (PresetItemLink link : presetItem.getAlternativePresetItems()) {
                 for (Preset preset : App.getCurrentPresets(getContext())) {
                     if (preset != null) {
-                        PresetItem item = preset.getItemByName(link.getPresetName(), propertyEditorListener.getCountryIsoCode());
+                        PresetItem item = preset.getItemByName(link.getPresetName(), propertyEditorListener.getIsoCodes());
                         if (item != null) {
                             alternatives.addElement(item, false);
                             break;

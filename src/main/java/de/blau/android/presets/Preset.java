@@ -789,8 +789,8 @@ public class Preset implements Serializable {
      * @return the preset item or null if not found
      */
     @Nullable
-    public PresetItem getItemByName(@NonNull String name, @Nullable String region) {
-        return getElementByName(rootGroup, name, region, false);
+    public PresetItem getItemByName(@NonNull String name, @Nullable List<String> regions) {
+        return getElementByName(rootGroup, name, regions, false);
     }
 
     /**
@@ -802,8 +802,8 @@ public class Preset implements Serializable {
      * @return the preset item or null if not found
      */
     @Nullable
-    public PresetItem getItemByName(@NonNull String name, @Nullable String region, boolean deprecated) {
-        return getElementByName(rootGroup, name, region, deprecated);
+    public PresetItem getItemByName(@NonNull String name, @Nullable List<String> regions, boolean deprecated) {
+        return getElementByName(rootGroup, name, regions, deprecated);
     }
 
     /**
@@ -811,19 +811,19 @@ public class Preset implements Serializable {
      * 
      * @param group the starting PresetGroup
      * @param name the name
-     * @param region a region (country/state) to filter by
+     * @param regions a list of regions (country/state) to filter by
      * @param deprecated if true only return deprecated items, if false, just non-deprecated ones
      * @return a matching PresetItem or null
      */
     @Nullable
-    private PresetItem getElementByName(@NonNull PresetGroup group, @NonNull String name, @Nullable String region, boolean deprecated) {
-        List<PresetElement> elements = region == null ? group.getElements() : PresetElement.filterElementsByRegion(group.getElements(), region);
+    private PresetItem getElementByName(@NonNull PresetGroup group, @NonNull String name, @Nullable List<String> regions, boolean deprecated) {
+        List<PresetElement> elements = regions == null ? group.getElements() : PresetElement.filterElementsByRegion(group.getElements(), regions);
         for (PresetElement element : elements) {
             final boolean isDeprecated = element.isDeprecated();
             if (element instanceof PresetItem && name.equals(((PresetItem) element).getName()) && !(isDeprecated ^ deprecated)) {
                 return (PresetItem) element;
             } else if (element instanceof PresetGroup) {
-                PresetItem result = getElementByName((PresetGroup) element, name, region, deprecated);
+                PresetItem result = getElementByName((PresetGroup) element, name, regions, deprecated);
                 if (result != null) {
                     return result;
                 }
@@ -925,16 +925,17 @@ public class Preset implements Serializable {
      * 
      * @param group PresetGroup to start the search at
      * @param path the path
-     * @param region a region (country/state) to filter by
+     * @param regions a list of regions (country/state) to filter by
      * @param deprecated if true only return deprecated items, if false, just non-deprecated ones
      * @return the PresetElement or null if not found
      */
     @Nullable
-    public static PresetElement getElementByPath(@NonNull PresetGroup group, @NonNull PresetElementPath path, @Nullable String region, boolean deprecated) {
+    public static PresetElement getElementByPath(@NonNull PresetGroup group, @NonNull PresetElementPath path, @Nullable List<String> regions,
+            boolean deprecated) {
         int size = path.getPath().size();
         if (size > 0) {
             String segment = path.getPath().get(0);
-            List<PresetElement> elements = region == null ? group.getElements() : PresetElement.filterElementsByRegion(group.getElements(), region);
+            List<PresetElement> elements = regions == null ? group.getElements() : PresetElement.filterElementsByRegion(group.getElements(), regions);
             for (PresetElement e : elements) {
                 if (segment.equals(e.getName())) {
                     final boolean isDeprecated = e.isDeprecated();
@@ -943,7 +944,7 @@ public class Preset implements Serializable {
                     } else if (e instanceof PresetGroup) {
                         PresetElementPath newPath = new PresetElementPath(path);
                         newPath.getPath().remove(0);
-                        return getElementByPath((PresetGroup) e, newPath, region, deprecated);
+                        return getElementByPath((PresetGroup) e, newPath, regions, deprecated);
                     }
                 }
             }
@@ -958,16 +959,16 @@ public class Preset implements Serializable {
      * @param presets the array of currently active presets
      * @param handler the handler which will handle clicks on the presets
      * @param type filter to show only presets applying to this type
-     * @param region region to filter on
+     * @param regions list of regions to filter on
      * @return the view
      */
     @NonNull
     public static View getRecentPresetView(@NonNull Context ctx, @NonNull Preset[] presets, @Nullable PresetClickHandler handler, @Nullable ElementType type,
-            @Nullable String region) {
+            @Nullable List<String> regions) {
         Preset dummy = new Preset();
         PresetGroup recent = new PresetGroup(dummy, null, "recent", null);
         recent.setItemSort(false);
-        PresetMRUInfo.addToPresetGroup(recent, presets, region);
+        PresetMRUInfo.addToPresetGroup(recent, presets, regions);
         return recent.getGroupView(ctx, handler, type, null, null); // we've already filtered on region
     }
 
@@ -1023,12 +1024,12 @@ public class Preset implements Serializable {
      * Add a preset to the front of the MRU list (removing old duplicates and limiting the list if needed)
      * 
      * @param item the item to add
-     * @param region region to filter on
+     * @param regions regions to filter on
      * 
      */
-    public void putRecentlyUsed(@NonNull PresetItem item, @Nullable String region) {
+    public void putRecentlyUsed(@NonNull PresetItem item, @Nullable List<String> regions) {
         if (mru != null) {
-            mru.putRecentlyUsed(item, region);
+            mru.putRecentlyUsed(item, regions);
         }
     }
 
@@ -1088,13 +1089,14 @@ public class Preset implements Serializable {
      * 
      * @param presets presets to match against
      * @param tags tags to check against (i.e. tags of a map element)
-     * @param region if not null this will be taken in to account wrt scoring
+     * @param regions if not null this will be taken in to account wrt scoring
      * @param ignoreTags Map of keys to ignore
      * @return null, or the "best" matching item for the given tag set
      */
     @Nullable
-    public static PresetItem findBestMatch(@Nullable Preset[] presets, @Nullable Map<String, String> tags, String region, Map<String, String> ignoreTags) {
-        return findBestMatch(presets, tags, region, null, false, ignoreTags);
+    public static PresetItem findBestMatch(@Nullable Preset[] presets, @Nullable Map<String, String> tags, @Nullable List<String> regions,
+            Map<String, String> ignoreTags) {
+        return findBestMatch(presets, tags, regions, null, false, ignoreTags);
     }
 
     /**
@@ -1107,14 +1109,14 @@ public class Preset implements Serializable {
      * 
      * @param presets presets presets to match against
      * @param tags tags to check against (i.e. tags of a map element)
-     * @param region if not null this will be taken in to account wrt scoring
+     * @param regions if not null this will be taken in to account wrt scoring
      * @param elementType if not null the ElementType will be considered
      * @param useAddressKeys use addr: keys if true
      * @param ignoreTags Map of keys to ignore
      * @return a preset or null if none found
      */
     @Nullable
-    public static PresetItem findBestMatch(@Nullable Preset[] presets, @Nullable Map<String, String> tags, @Nullable String region,
+    public static PresetItem findBestMatch(@Nullable Preset[] presets, @Nullable Map<String, String> tags, @Nullable List<String> regions,
             @Nullable ElementType elementType, boolean useAddressKeys, @Nullable Map<String, String> ignoreTags) {
         int bestMatchStrength = 0;
         PresetItem bestMatch = null;
@@ -1134,7 +1136,7 @@ public class Preset implements Serializable {
         // Find best
         final int FIXED_WEIGHT = 1000; // always prioritize presets with fixed keys
         for (PresetItem possibleMatch : possibleMatches) {
-            int fixedTagCount = possibleMatch.getFixedTagCount(region) * FIXED_WEIGHT;
+            int fixedTagCount = possibleMatch.getFixedTagCount(regions) * FIXED_WEIGHT;
             int recommendedTagCount = possibleMatch.getRecommendedKeyCount();
             if (fixedTagCount + recommendedTagCount >= bestMatchStrength) {
                 int matches = 0;
@@ -1145,7 +1147,7 @@ public class Preset implements Serializable {
                     // has all required tags
                     matches = fixedTagCount;
                 }
-                if (region != null && !possibleMatch.appliesIn(region)) {
+                if (regions != null && !possibleMatch.appliesIn(regions)) {
                     // downgrade so much that recommended tags can't compensate
                     matches -= 200;
                 }
@@ -1158,7 +1160,7 @@ public class Preset implements Serializable {
                     }
                 }
                 if (recommendedTagCount > 0) {
-                    matches = matches + possibleMatch.matchesRecommended(tags, region);
+                    matches = matches + possibleMatch.matchesRecommended(tags, regions);
                 }
                 if (matches > bestMatchStrength) {
                     bestMatch = possibleMatch;

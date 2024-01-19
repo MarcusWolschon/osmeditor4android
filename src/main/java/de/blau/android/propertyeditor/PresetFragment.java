@@ -419,7 +419,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
      * @return a View displaying the elements of the current group
      */
     private View getPresetView() {
-        View view = currentGroup.getGroupView(getActivity(), this, type, null, propertyEditorListener.getCountryIsoCode());
+        View view = currentGroup.getGroupView(getActivity(), this, type, null, propertyEditorListener.getIsoCodes());
         view.setId(R.id.preset_view);
         return view;
     }
@@ -450,7 +450,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
                     propertyEditorListener.updateRecentPresets();
                     ScrollView scrollView = (ScrollView) getOurView();
                     if (scrollView != null) {
-                        currentGroup.getGroupView(getActivity(), scrollView, this, type, null, propertyEditorListener.getCountryIsoCode());
+                        currentGroup.getGroupView(getActivity(), scrollView, this, type, null, propertyEditorListener.getIsoCodes());
                         scrollView.invalidate();
                     }
                 }).setNeutralButton(R.string.cancel, null).show();
@@ -469,7 +469,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
         ScrollView scrollView = (ScrollView) getOurView();
         if (scrollView != null) {
             currentGroup = group;
-            currentGroup.getGroupView(getActivity(), scrollView, this, type, null, propertyEditorListener.getCountryIsoCode());
+            currentGroup.getGroupView(getActivity(), scrollView, this, type, null, propertyEditorListener.getIsoCodes());
             scrollView.invalidate();
             FragmentActivity activity = getActivity();
             if (activity != null) {
@@ -524,7 +524,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
         case R.id.preset_menu_top:
             if (rootGroup != null && scrollView != null) {
                 currentGroup = rootGroup;
-                currentGroup.getGroupView(getActivity(), scrollView, this, type, null, propertyEditorListener.getCountryIsoCode());
+                currentGroup.getGroupView(getActivity(), scrollView, this, type, null, propertyEditorListener.getIsoCodes());
                 scrollView.invalidate();
                 return true;
             }
@@ -534,7 +534,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
                 PresetGroup group = currentGroup.getParent();
                 if (group != null && scrollView != null) {
                     currentGroup = group;
-                    currentGroup.getGroupView(getActivity(), scrollView, this, type, null, propertyEditorListener.getCountryIsoCode());
+                    currentGroup.getGroupView(getActivity(), scrollView, this, type, null, propertyEditorListener.getIsoCodes());
                     scrollView.invalidate();
                     return true;
                 }

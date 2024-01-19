@@ -421,9 +421,8 @@ public class RelationMembershipFragment extends BaseFragment implements Property
                     }
                 }
                 PropertyEditorListener listener = (PropertyEditorListener) owner.getParentFragment();
-                String region = listener.getCountryIsoCode();
                 List<PresetRole> tempPresetRoles = presetItem.getRoles(getContext(), listener.getElement(),
-                        ((PropertyEditorFragment) listener).getKeyValueMapSingle(true), region);
+                        ((PropertyEditorFragment) listener).getKeyValueMapSingle(true), listener.getIsoCodes());
                 if (tempPresetRoles != null) {
                     countAndAddRoles(tempPresetRoles, counter, result);
                 }

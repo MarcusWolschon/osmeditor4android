@@ -13,6 +13,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -325,10 +326,10 @@ public class PresetTest {
             Preset testPreset = new Preset(ApplicationProvider.getApplicationContext(), testPresetFile.getParentFile(), null, false);
             Map<String, String> tags = new HashMap<>();
             tags.put(Tags.KEY_HIGHWAY, Tags.VALUE_MOTORWAY_LINK);
-            PresetItem us = Preset.findBestMatch(new Preset[] { testPreset }, tags, "US", null);
+            PresetItem us = Preset.findBestMatch(new Preset[] { testPreset }, tags, Arrays.asList("US"), null);
             assertNotNull(us);
             assertEquals("Motorway Link (US)", us.getName());
-            PresetItem ch = Preset.findBestMatch(new Preset[] { testPreset }, tags, "CH", null);
+            PresetItem ch = Preset.findBestMatch(new Preset[] { testPreset }, tags, Arrays.asList("CH"), null);
             assertNotNull(ch);
             assertEquals("Motorway Link", ch.getName());
         } catch (IOException | NoSuchAlgorithmException | ParserConfigurationException | SAXException e) {
@@ -350,20 +351,20 @@ public class PresetTest {
             }
         }
         assertNotNull(testPreset);
-        PresetItem testItem = testPreset.getItemByName("Test Same Name", "CH");
+        PresetItem testItem = testPreset.getItemByName("Test Same Name", Arrays.asList("CH"));
         assertNotNull(testItem);
         assertTrue(testItem.hasKeyValue("samething", "is in CH"));
         PresetElementPath testPath = testItem.getPath(testPreset.getRootGroup());
         assertNotNull(testPath);
-        PresetItem testItemByPath = (PresetItem) Preset.getElementByPath(testPreset.getRootGroup(), testPath, "CH", false);
+        PresetItem testItemByPath = (PresetItem) Preset.getElementByPath(testPreset.getRootGroup(), testPath, Arrays.asList("CH"), false);
         assertEquals(testItem, testItemByPath);
 
-        testItem = testPreset.getItemByName("Test Same Name", "DE");
+        testItem = testPreset.getItemByName("Test Same Name", Arrays.asList("DE"));
         assertNotNull(testItem);
         assertTrue(testItem.hasKeyValue("samething", "not in CH"));
         testPath = testItem.getPath(testPreset.getRootGroup());
         assertNotNull(testPath);
-        testItemByPath = (PresetItem) Preset.getElementByPath(testPreset.getRootGroup(), testPath, "DE", false);
+        testItemByPath = (PresetItem) Preset.getElementByPath(testPreset.getRootGroup(), testPath, Arrays.asList("DE"), false);
         assertEquals(testItem, testItemByPath);
     }
 

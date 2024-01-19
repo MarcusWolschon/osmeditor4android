@@ -120,16 +120,16 @@ public class PresetGroup extends PresetElement {
      * @param handler listeners for click events on the View, in null no listeners
      * @param type ElementType the views are applicable for, if null don't filter
      * @param selectedElement highlight the background if true, if null no selection
-     * @param region region in question
+     * @param regions a list of regions in question
      * @return a view showing the content (nodes, subgroups) of this group
      */
     @NonNull
     public View getGroupView(@NonNull Context ctx, @Nullable PresetClickHandler handler, @Nullable ElementType type, @Nullable PresetElement selectedElement,
-            @Nullable String region) {
+            @Nullable List<String> regions) {
         ScrollView scrollView = new ScrollView(ctx);
         scrollView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
         scrollView.setSaveEnabled(false);
-        return getGroupView(ctx, scrollView, handler, type, selectedElement, region);
+        return getGroupView(ctx, scrollView, handler, type, selectedElement, regions);
     }
 
     /**
@@ -140,12 +140,12 @@ public class PresetGroup extends PresetElement {
      * @param handler listeners for click events on the View, in null no listeners
      * @param type ElementType the views are applicable for, if null don't filter
      * @param selectedElement highlight the background if true, if null no selection
-     * @param region region to filter on
+     * @param regions a list of regions to filter on
      * @return the supplied ScrollView
      */
     @NonNull
     public View getGroupView(@NonNull Context ctx, @NonNull ScrollView scrollView, @Nullable PresetClickHandler handler, @Nullable ElementType type,
-            @Nullable PresetElement selectedElement, @Nullable String region) {
+            @Nullable PresetElement selectedElement, @Nullable List<String> regions) {
         scrollView.removeAllViews();
         WrappingLayout wrappingLayout = new WrappingLayout(ctx);
         wrappingLayout.setSaveEnabled(false);
@@ -155,7 +155,7 @@ public class PresetGroup extends PresetElement {
         wrappingLayout.setHorizontalSpacing((int) (Preset.SPACING * density));
         wrappingLayout.setVerticalSpacing((int) (Preset.SPACING * density));
         List<PresetElement> filteredElements = type == null ? elements : Preset.filterElements(elements, type);
-        filteredElements = region == null ? filteredElements : filterElementsByRegion(filteredElements, region);
+        filteredElements = regions == null ? filteredElements : filterElementsByRegion(filteredElements, regions);
         if (itemSort) {
             List<PresetItem> tempItems = new ArrayList<>();
             List<PresetGroup> tempGroups = new ArrayList<>();

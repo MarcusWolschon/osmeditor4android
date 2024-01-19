@@ -320,9 +320,9 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             ArrayAdapterWithRuler<StringWithDescription> adapter2 = new ArrayAdapterWithRuler<>(getActivity(), R.layout.autocomplete_row, Ruler.class);
             boolean isSpeedKey = Tags.isSpeedKey(key) && !Tags.isConditional(key);
             if (preset != null) {
-                String region = propertyEditorListener.getCountryIsoCode();
-                Collection<StringWithDescription> presetValues = field != null ? preset.getAutocompleteValues(field, region)
-                        : preset.getAutocompleteValues(key, region);
+                List<String> regions = propertyEditorListener.getIsoCodes();
+                Collection<StringWithDescription> presetValues = field != null ? preset.getAutocompleteValues(field, regions)
+                        : preset.getAutocompleteValues(key, regions);
                 int presetValuesCount = presetValues.size();
                 List<String> mruValues = App.getMruTags().getValues(preset, key);
                 if (mruValues != null) {
@@ -783,7 +783,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 }
             }
             // process any remaining tags
-            List<PresetItem> linkedPresets = preset.getLinkedPresets(true, App.getCurrentPresets(getContext()), propertyEditorListener.getCountryIsoCode());
+            List<PresetItem> linkedPresets = preset.getLinkedPresets(true, App.getCurrentPresets(getContext()), propertyEditorListener.getIsoCodes());
             // loop over the tags assigning them to the linked presets
             for (Entry<String, String> e : new ArrayList<>(tagList.entrySet())) {
                 String key = e.getKey();

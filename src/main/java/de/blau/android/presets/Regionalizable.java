@@ -17,7 +17,7 @@ public abstract class Regionalizable {
     protected Regionalizable() {
         // nothing
     }
-    
+
     /**
      * Copy constructor
      * 
@@ -53,8 +53,24 @@ public abstract class Regionalizable {
      */
     public boolean appliesIn(@Nullable String region) {
         if (regions != null && !regions.isEmpty() && region != null) {
-            for (String r : regions) {
-                if (region.equals(r)) {
+            if (regions.contains(region)) {
+                return !excludeRegions;
+            }
+            return excludeRegions;
+        }
+        return true;
+    }
+
+    /**
+     * Check if an object is applicable for a region in a list
+     * 
+     * @param regionList list of regions the object is used in
+     * @return true if the object is in use
+     */
+    public boolean appliesIn(@Nullable List<String> regionList) {
+        if (regions != null && !regions.isEmpty() && regionList != null) {
+            for (String r : regionList) {
+                if (regions.contains(r)) {
                     return !excludeRegions;
                 }
             }
@@ -64,39 +80,11 @@ public abstract class Regionalizable {
     }
 
     /**
-     * Get the list of applicable regions
-     * 
-     * @return a list of regions
-     */
-    @Nullable
-    public List<String> getRegions() {
-        return regions;
-    }
-
-    /**
-     * Set the applicable regions
-     * 
-     * @param regions the list of regions to set
-     */
-    public void setRegions(@Nullable List<String> regions) {
-        this.regions = regions;
-    }
-
-    /**
      * Set if the object shouldn't be used in the listed regions
      * 
      * @param excludeRegions if true the function of the regions list will be inverted
      */
     protected void setExcludeRegions(boolean excludeRegions) {
         this.excludeRegions = excludeRegions;
-    }
-
-    /**
-     * Check if the meaning of the region list should be inversed
-     * 
-     * @return the excludeRegions true if we want to make the object not applicable in the regions
-     */
-    public boolean excludeRegions() {
-        return excludeRegions;
     }
 }

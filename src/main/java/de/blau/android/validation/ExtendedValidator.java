@@ -105,7 +105,7 @@ public class ExtendedValidator implements Validator {
         List<RelationMember> members = relation.getMembers();
         if (missingRoleValidation && members != null) {
             // check for missing roles
-            PresetItem pi = Preset.findBestMatch(base.getPresets(), relation.getTags(), base.getCountry(relation), ElementType.RELATION, false, null);
+            PresetItem pi = Preset.findBestMatch(base.getPresets(), relation.getTags(), base.getIsoCodes(relation), ElementType.RELATION, false, null);
             if (pi != null) {
                 List<PresetRole> presetRoles = pi.getRoles();
                 if (presetRoles != null) {

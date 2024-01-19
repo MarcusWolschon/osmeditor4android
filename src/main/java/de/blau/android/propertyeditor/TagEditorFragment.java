@@ -363,7 +363,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 PresetGroup rootGroup = preset.getRootGroup();
                 for (PresetElementPath pp : presetsToApply) {
                     // can't use the listener here as onAttach will not have happened
-                    PresetElement pi = Preset.getElementByPath(rootGroup, pp, propertyEditorListener.getCountryIsoCode(), false);
+                    PresetElement pi = Preset.getElementByPath(rootGroup, pp, propertyEditorListener.getIsoCodes(), false);
                     if (pi instanceof PresetItem) {
                         applyPreset(editRowLayout, (PresetItem) pi, false, false, true, true);
                     }
@@ -678,15 +678,16 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     private void determinePresets(@NonNull Map<String, String> allTags, @Nullable PresetItem presetItem, @NonNull Preset[] presets) {
         clearPresets();
         clearSecondaryPresets();
+        final List<String> regions = propertyEditorListener.getIsoCodes();
         if (presetItem == null) {
-            primaryPresetItem = Preset.findBestMatch(presets, allTags, propertyEditorListener.getCountryIsoCode(), null, true, null);
+            primaryPresetItem = Preset.findBestMatch(presets, allTags, regions, null, true, null);
         } else {
             primaryPresetItem = presetItem;
         }
         Map<String, String> nonAssigned = addPresetsToTags(primaryPresetItem, allTags);
         int nonAssignedCount = nonAssigned.size();
         while (nonAssignedCount > 0) {
-            PresetItem nonAssignedPreset = Preset.findBestMatch(presets, nonAssigned, propertyEditorListener.getCountryIsoCode(), null, true, null);
+            PresetItem nonAssignedPreset = Preset.findBestMatch(presets, nonAssigned, regions, null, true, null);
             if (nonAssignedPreset == null) {
                 // no point in continuing
                 break;
@@ -704,9 +705,10 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      * @param item the PresetItem to add to the MRU
      */
     void addToMru(@NonNull Preset[] presets, @NonNull PresetItem item) {
+        final List<String> regions = propertyEditorListener.getIsoCodes();
         for (Preset p : presets) {
             if (p != null && p.contains(item)) {
-                p.putRecentlyUsed(item, propertyEditorListener.getCountryIsoCode());
+                p.putRecentlyUsed(item, regions);
                 break;
             }
         }
@@ -751,7 +753,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             Log.e(DEBUG_TAG, "addPresetsToTags called with null preset");
             return leftOvers;
         }
-        List<PresetItem> linkedPresetList = preset.getLinkedPresets(true, App.getCurrentPresets(getContext()), propertyEditorListener.getCountryIsoCode());
+        List<PresetItem> linkedPresetList = preset.getLinkedPresets(true, App.getCurrentPresets(getContext()), propertyEditorListener.getIsoCodes());
         for (Entry<String, String> entry : tags.entrySet()) {
             String key = entry.getKey();
             String value = entry.getValue();
@@ -870,14 +872,14 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         if (preset == null) {
             updateAutocompletePresetItem(rowLayout, null, false);
         } else {
-            String region = propertyEditorListener.getCountryIsoCode();
+            List<String> regions = propertyEditorListener.getIsoCodes();
             for (PresetTagField field : preset.getTagFields()) {
-                if (!field.appliesIn(region)) {
+                if (!field.appliesIn(regions)) {
                     continue;
                 }
                 if (field instanceof PresetCheckGroupField) {
                     for (PresetCheckField check : ((PresetCheckGroupField) field).getCheckFields()) {
-                        if (check.appliesIn(region)) {
+                        if (check.appliesIn(regions)) {
                             keys.add(check.getKey());
                         }
                     }
@@ -999,7 +1001,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 if (isSpeedKey) {
                     addMaxSpeeds(adapter2);
                 }
-                Collection<StringWithDescription> values = preset.getAutocompleteValues(key, propertyEditorListener.getCountryIsoCode());
+                Collection<StringWithDescription> values = preset.getAutocompleteValues(key, propertyEditorListener.getIsoCodes());
                 Log.d(DEBUG_TAG, "setting autocomplete adapter for values " + values + " based on " + preset.getName());
                 if (values != null && !values.isEmpty()) {
                     List<StringWithDescription> result = new ArrayList<>(values);
@@ -1779,8 +1781,8 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      */
     void applyPreset(@NonNull LinearLayout rowLayout, @NonNull PresetItem item, boolean addOptional, boolean isAlternative, boolean addToMRU,
             boolean useDefaults) {
-        String region = propertyEditorListener.getCountryIsoCode();
-        Log.d(DEBUG_TAG, "applying preset " + item.getName() + " for region " + region);
+        List<String> regions = propertyEditorListener.getIsoCodes();
+        Log.d(DEBUG_TAG, "applying preset " + item.getName() + " for region " + regions);
         final LinkedHashMap<String, List<String>> currentValues = getKeyValueMap(rowLayout, true);
 
         int replacedOrRemoved = 0;
@@ -1816,7 +1818,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         // Fixed tags, always have a value. We overwrite mercilessly.
         for (Entry<String, PresetFixedField> tag : item.getFixedTags().entrySet()) {
             PresetFixedField field = tag.getValue();
-            if (!field.appliesIn(region)) {
+            if (!field.appliesIn(regions)) {
                 continue;
             }
             String v = field.getValue().getValue();
@@ -1830,7 +1832,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         Map<String, String> scripts = new LinkedHashMap<>();
         for (Entry<String, PresetField> entry : item.getFields().entrySet()) {
             PresetField field = entry.getValue();
-            if (!field.appliesIn(region)) {
+            if (!field.appliesIn(regions)) {
                 continue;
             }
             if (field instanceof PresetTagField) {
@@ -1839,7 +1841,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 if (!isOptional || (isOptional && addOptional)) {
                     if (tagField instanceof PresetCheckGroupField) {
                         for (PresetCheckField check : ((PresetCheckGroupField) tagField).getCheckFields()) {
-                            if (!check.appliesIn(region)) {
+                            if (!check.appliesIn(regions)) {
                                 continue;
                             }
                             addTagFromPreset(item, check, currentValues, check.getKey(), scripts, useDefaults);

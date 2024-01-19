@@ -799,9 +799,9 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
                             counter.put(role, position++);
                         }
                     }
-                    String region = owner.propertyEditorListener.getCountryIsoCode();
-                    List<PresetRole> tempPresetRoles = rmd.downloaded() ? relationPreset.getRoles(getContext(), rmd.getElement(), null, region)
-                            : relationPreset.getRoles(rmd.getType(), region);
+                    List<String> regions = owner.propertyEditorListener.getIsoCodes();
+                    List<PresetRole> tempPresetRoles = rmd.downloaded() ? relationPreset.getRoles(getContext(), rmd.getElement(), null, regions)
+                            : relationPreset.getRoles(rmd.getType(), regions);
                     if (tempPresetRoles != null) {
                         RelationMembershipRow.countAndAddRoles(tempPresetRoles, counter, roles);
                     }

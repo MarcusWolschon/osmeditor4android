@@ -523,16 +523,16 @@ public class PresetItem extends PresetElement {
      * Get any applicable roles for this PresetItem
      * 
      * @param type the OsmElement type as a string (NODE, WAY, RELATION)
-     * @param region the region the object is located in
+     * @param regions regions the object is located in
      * @return a List of PresetRoles or null if none
      */
     @Nullable
-    public List<PresetRole> getRoles(@Nullable String type, @Nullable String region) {
+    public List<PresetRole> getRoles(@Nullable String type, @Nullable List<String> regions) {
         List<PresetRole> result = null;
         if (roles != null) {
             result = new ArrayList<>();
             for (PresetRole role : roles) {
-                if (role.appliesTo(type) && role.appliesIn(region)) {
+                if (role.appliesTo(type) && role.appliesIn(regions)) {
                     result.add(role);
                 }
             }
@@ -546,11 +546,12 @@ public class PresetItem extends PresetElement {
      * @param context an Android Context
      * @param element the OsmElement that is the relation member
      * @param tags alternative Map of tags to use
-     * @param region the region the object is located in
+     * @param regions list of regions the object is located in
      * @return a List of PresetRoles or null if none
      */
     @Nullable
-    public List<PresetRole> getRoles(@NonNull Context context, @NonNull OsmElement element, @Nullable Map<String, String> tags, @Nullable String region) {
+    public List<PresetRole> getRoles(@NonNull Context context, @NonNull OsmElement element, @Nullable Map<String, String> tags,
+            @Nullable List<String> regions) {
         List<PresetRole> result = null;
         if (roles != null) {
             result = new ArrayList<>();
@@ -559,7 +560,7 @@ public class PresetItem extends PresetElement {
             ElementType type = element.getType();
             Map<String, String> tagsToUse = tags != null ? tags : element.getTags();
             for (PresetRole role : roles) {
-                if (role.appliesTo(type) && role.appliesIn(region)) {
+                if (role.appliesTo(type) && role.appliesIn(regions)) {
                     String memberExpression = role.getMemberExpression();
                     if (memberExpression != null) {
                         JosmFilterParser parser = new JosmFilterParser(new ByteArrayInputStream(memberExpression.getBytes()));
@@ -784,11 +785,11 @@ public class PresetItem extends PresetElement {
      * 
      * @param noPrimary if true only items will be returned that doen't correspond to primary OSM objects
      * @param otherPresets other Presets beside this one to search in
-     * @param region a region this applies to or null
+     * @param regions a list of regions this applies to or null
      * @return list of PresetItems
      */
     @NonNull
-    public List<PresetItem> getLinkedPresets(boolean noPrimary, @Nullable Preset[] otherPresets, @Nullable String region) {
+    public List<PresetItem> getLinkedPresets(boolean noPrimary, @Nullable Preset[] otherPresets, @Nullable List<String> regions) {
         List<PresetItem> result = new ArrayList<>();
         List<Preset> presets = new ArrayList<>();
         if (otherPresets != null) {
@@ -800,14 +801,14 @@ public class PresetItem extends PresetElement {
             for (PresetItemLink pl : linkedPresetItems) {
                 for (Preset preset : presets) {
                     if (preset != null) {
-                        PresetItem candidateItem = preset.getItemByName(pl.getPresetName(), region);
+                        PresetItem candidateItem = preset.getItemByName(pl.getPresetName(), regions);
                         if (candidateItem != null) {
                             if (!noPrimary || !candidateItem.isObject(preset)) { // remove primary objects
                                 result.add(candidateItem);
                             }
                             break;
                         } else {
-                            Log.e(DEBUG_TAG, "Couldn't find linked preset " + pl.getPresetName() + " for region " + region);
+                            Log.e(DEBUG_TAG, "Couldn't find linked preset " + pl.getPresetName() + " for regions " + regions);
                         }
                     }
                 }
@@ -941,13 +942,13 @@ public class PresetItem extends PresetElement {
     /**
      * Return the number of keys with fixed values for a region
      * 
-     * @param region the relevant region
+     * @param regions the relevant regions
      * @return number of fixed tags
      */
-    public int getFixedTagCount(@Nullable String region) {
+    public int getFixedTagCount(@Nullable List<String> regions) {
         int count = 0;
         for (PresetFixedField f : fixedTags.values()) {
-            if (f.appliesIn(region)) {
+            if (f.appliesIn(regions)) {
                 count++;
             }
         }
@@ -1008,31 +1009,31 @@ public class PresetItem extends PresetElement {
      * Return a list of the values suitable for autocomplete, note values for fixed tags are not returned
      * 
      * @param key key to get values for
-     * @param region applicable region
+     * @param regions applicable regions
      * @return Collection of StringWithDescription objects
      */
     @NonNull
-    public Collection<StringWithDescription> getAutocompleteValues(@NonNull String key, @Nullable String region) {
+    public Collection<StringWithDescription> getAutocompleteValues(@NonNull String key, @Nullable List<String> regions) {
         PresetTagField field = getTagField(key);
         if (field == null) {
             field = getCheckFieldFromGroup(key);
         }
-        return getAutocompleteValues(field, region);
+        return getAutocompleteValues(field, regions);
     }
 
     /**
      * Return a ist of the values suitable for autocomplete, note values for fixed tags are not returned
      * 
      * @param field the PresetField to get values for
-     * @param region applicable region
+     * @param regions applicable regions
      * @return Collection of StringWithDescription objects
      */
     @NonNull
-    public Collection<StringWithDescription> getAutocompleteValues(@Nullable PresetTagField field, @Nullable String region) {
+    public Collection<StringWithDescription> getAutocompleteValues(@Nullable PresetTagField field, @Nullable List<String> regions) {
         Collection<StringWithDescription> result = new LinkedHashSet<>();
         if (field instanceof PresetComboField) {
             for (StringWithDescription svd : ((PresetComboField) field).getValues()) {
-                if (svd.appliesIn(region)) {
+                if (svd.appliesIn(regions)) {
                     result.add(svd);
                 }
             }
@@ -1140,20 +1141,20 @@ public class PresetItem extends PresetElement {
      * Uses the match value to control actual behavior
      * 
      * @param tagMap Map containing the tags
-     * @param region current region we want to determine the match for
+     * @param regions current regions we want to determine the match for
      * @return number of matches
      */
-    int matchesRecommended(@NonNull Map<String, String> tagMap, @Nullable String region) {
+    int matchesRecommended(@NonNull Map<String, String> tagMap, @Nullable List<String> regions) {
         int matches = 0;
 
         List<PresetTagField> allFields = new ArrayList<>();
         for (PresetTagField field : getTagFields()) {
-            if (!field.appliesIn(region)) {
+            if (!field.appliesIn(regions)) {
                 continue;
             }
             if (field instanceof PresetCheckGroupField) {
                 for (PresetCheckField check : ((PresetCheckGroupField) field).getCheckFields()) {
-                    if (check.appliesIn(region)) {
+                    if (check.appliesIn(regions)) {
                         allFields.add(check);
                     }
                 }

@@ -64,10 +64,10 @@ public class PresetMRUInfo implements Serializable {
      * Add a preset to the front of the MRU list (removing old duplicates and limiting the list if needed)
      * 
      * @param item the item to add
-     * @param region country to filter on
+     * @param regions list of regions to filter on
      * 
      */
-    public void putRecentlyUsed(@NonNull PresetItem item, @Nullable String region) {
+    public void putRecentlyUsed(@NonNull PresetItem item, @Nullable List<String> regions) {
         final PresetGroup rootGroup = item.getPreset().getRootGroup();
         TimestampedPresetElementPath path = new TimestampedPresetElementPath(item.getPath(rootGroup));
         // prevent duplicates and preset is not in the list, add linked presets first
@@ -76,7 +76,7 @@ public class PresetMRUInfo implements Serializable {
             Collections.reverse(linkedPresets);
             Preset preset = item.getPreset();
             for (PresetItemLink pl : linkedPresets) {
-                PresetItem linkedItem = preset.getItemByName(pl.getPresetName(), region);
+                PresetItem linkedItem = preset.getItemByName(pl.getPresetName(), regions);
                 if (linkedItem == null) { // null if the link wasn't found
                     Log.e(DEBUG_TAG, "linked preset not found for " + pl.getPresetName() + " in preset " + item.getName());
                     continue;
@@ -135,9 +135,9 @@ public class PresetMRUInfo implements Serializable {
      * 
      * @param group the PresetGroup
      * @param presets the Presets with the MRUs
-     * @param region the current region if any
+     * @param regions the list of current regions if any
      */
-    public static void addToPresetGroup(@NonNull PresetGroup group, @NonNull Preset[] presets, @Nullable String region) {
+    public static void addToPresetGroup(@NonNull PresetGroup group, @NonNull Preset[] presets, @Nullable List<String> regions) {
         Map<TimestampedPresetElementPath, Preset> parent = new HashMap<>();
         List<TimestampedPresetElementPath> paths = new ArrayList<>();
         for (Preset p : presets) {
@@ -150,7 +150,7 @@ public class PresetMRUInfo implements Serializable {
         }
         Collections.sort(paths, (TimestampedPresetElementPath p1, TimestampedPresetElementPath p2) -> Long.compare(p2.getTimestamp(), p1.getTimestamp()));
         for (PresetElementPath path : paths) {
-            final PresetItem item = (PresetItem) Preset.getElementByPath(parent.get(path).getRootGroup(), path, region, false);
+            final PresetItem item = (PresetItem) Preset.getElementByPath(parent.get(path).getRootGroup(), path, regions, false);
             if (item != null) {
                 group.addElement(item, false);
             }

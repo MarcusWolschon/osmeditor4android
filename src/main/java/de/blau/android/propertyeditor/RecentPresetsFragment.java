@@ -127,7 +127,7 @@ public class RecentPresetsFragment extends BaseFragment {
                 }
             };
             // all MRUs get added to this view
-            v = Preset.getRecentPresetView(getActivity(), presets, presetClickHandler, filterType, propertyEditorListener.getCountryIsoCode());
+            v = Preset.getRecentPresetView(getActivity(), presets, presetClickHandler, filterType, propertyEditorListener.getIsoCodes());
 
             v.setId(R.id.recentPresets);
         } else {

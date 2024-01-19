@@ -506,14 +506,14 @@ public abstract class PresetElement extends Regionalizable implements Serializab
      * Filter a List of PresetElement by region
      * 
      * @param elements the input PresetElements
-     * @param region the region
+     * @param regions a list of regions
      * @return a List of PresetElement, potentially empty
      */
     @NonNull
-    protected static List<PresetElement> filterElementsByRegion(@NonNull List<PresetElement> elements, @Nullable String region) {
+    protected static List<PresetElement> filterElementsByRegion(@NonNull List<PresetElement> elements, @Nullable List<String> regions) {
         List<PresetElement> result = new ArrayList<>();
         for (PresetElement pe : elements) {
-            if (pe.appliesIn(region)) {
+            if (pe.appliesIn(regions)) {
                 result.add(pe);
             }
         }
