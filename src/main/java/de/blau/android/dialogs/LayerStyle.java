@@ -55,7 +55,7 @@ public class LayerStyle extends AbstractConfigurationDialog {
 
     private static final String LAYER_INDEX_KEY = "layer_index";
 
-    private final Map map;
+    private Map map;
 
     private int                layerIndex;
     private StyleableInterface layer;
@@ -93,7 +93,7 @@ public class LayerStyle extends AbstractConfigurationDialog {
      * Default constructor
      */
     public LayerStyle() {
-        map = App.getLogic().getMap();
+        // empty
     }
 
     @NonNull
@@ -105,6 +105,7 @@ public class LayerStyle extends AbstractConfigurationDialog {
         } else {
             layerIndex = getArguments().getInt(LAYER_INDEX_KEY);
         }
+        map = App.getLogic().getMap();
         Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(R.string.layer_style_title);
 
