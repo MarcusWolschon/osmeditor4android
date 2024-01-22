@@ -27,6 +27,7 @@ import de.blau.android.net.OAuth2Helper;
 import de.blau.android.net.OAuth1aHelper;
 import de.blau.android.prefs.AdvancedPrefDatabase.PresetInfo;
 import de.blau.android.util.ScreenMessage;
+import de.blau.android.util.Util;
 
 /**
  * Will process vespucci:// URLs.<br>
@@ -96,6 +97,10 @@ public class VespucciURLActivity extends AppCompatActivity implements OnClickLis
             return;
         }
         String path = stripPathSeperators(data.getPath());
+        if (Util.isEmpty(path) && data.getQueryParameter(PRESETURL_PARAMETER) != null) {
+            // hack as the uri may not be encoded properly
+            path = PRESET_PATH;
+        }
         Log.i(DEBUG_TAG, "onResume " + path);
         switch (path) {
         case OAUTH1A_PATH:
