@@ -429,6 +429,7 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
                         selection.removeAll(waysWithNode);
                         logic.performJoinNodeToWays(main, selection, node);
                         main.zoomTo(node);
+                        manager.finish();
                         manager.editElement(node);
                     });
                 } else {
@@ -445,7 +446,7 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
         try {
             logic.getHandler().post(() -> {
                 Way circle = logic.createCircle(main, logic.getSelectedNodes());
-                mode.finish();
+                manager.finish();
                 manager.editElement(circle);
                 main.performTagEdit(circle, null, false, true);
             });
