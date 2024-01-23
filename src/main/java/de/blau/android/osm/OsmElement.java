@@ -34,7 +34,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
     /**
      * 
      */
-    private static final long serialVersionUID = 7711945069147743674L;
+    private static final long serialVersionUID = 7711945069147743675L;
 
     public static final long NEW_OSM_ID = -1;
 
@@ -59,15 +59,15 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 
     public static final long EPOCH = 1104537600L; // 2005-01-01 00:00:00
 
-    long osmId;
+    protected long osmId;
 
-    long osmVersion;
+    protected long osmVersion;
 
-    TreeMap<String, String> tags;
+    protected TreeMap<String, String> tags;
 
-    byte state;
+    protected byte state;
 
-    private ArrayList<Relation> parentRelations;
+    private List<Relation> parentRelations;
 
     // seconds since EPOCH, negative == not set, using an int here limits dates up to 2073
     private int timestamp = -1;

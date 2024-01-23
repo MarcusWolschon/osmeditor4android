@@ -627,10 +627,10 @@ public class UndoStorage implements Serializable {
 
             element = originalElement;
 
-            osmId = originalElement.osmId;
-            osmVersion = originalElement.osmVersion;
-            state = originalElement.state;
-            tags = originalElement.tags == null ? new TreeMap<>() : new TreeMap<>(originalElement.tags);
+            osmId = originalElement.getOsmId();
+            osmVersion = originalElement.getOsmVersion();
+            state = originalElement.getState();
+            tags = originalElement.getTags().isEmpty() ? new TreeMap<>() : new TreeMap<>(originalElement.getTags());
 
             parentRelations = element.getParentRelations() != null ? new ArrayList<>(element.getParentRelations()) : null;
         }
@@ -664,9 +664,9 @@ public class UndoStorage implements Serializable {
             }
 
             // restore saved values
-            restored.osmId = osmId;
-            restored.osmVersion = osmVersion;
-            restored.state = state;
+            restored.setOsmId(osmId);
+            restored.setOsmVersion(osmVersion);
+            restored.setState(state);
             restored.setTags(tags);
 
             // zap error state
