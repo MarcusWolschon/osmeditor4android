@@ -92,7 +92,7 @@ public final class OsmXml {
         List<Relation> deletedRelations = new ArrayList<>();
 
         for (Node elem : storage.getNodes()) {
-            Log.d(DEBUG_TAG, "node added to list for upload, id " + elem.osmId);
+            Log.d(DEBUG_TAG, "node added to list for upload, id " + elem.getOsmId());
             switch (elem.state) {
             case OsmElement.STATE_CREATED:
                 createdNodes.add(elem);
@@ -232,7 +232,7 @@ public final class OsmXml {
      * @param elem the OsmElement
      */
     private static void logNotModified(@NonNull OsmElement elem) {
-        Log.d(DEBUG_TAG, elem.getName() + " id " + elem.osmId + " not modified");
+        Log.d(DEBUG_TAG, elem.getName() + " id " + elem.getOsmId() + " not modified");
     }
 
     /**

@@ -18,12 +18,12 @@ import de.blau.android.validation.Validator;
 
 public class Way extends StyledOsmElement implements BoundedObject {
 
-    private static final String DEBUG_TAG = "Way";
+    private static final String DEBUG_TAG = Way.class.getSimpleName();
 
     /**
      * 
      */
-    private static final long serialVersionUID = 1104911642016294269L;
+    private static final long serialVersionUID = 1104911642016294270L;
 
     private final List<Node> nodes;
 
@@ -34,6 +34,11 @@ public class Way extends StyledOsmElement implements BoundedObject {
     private int bottom;
     private int right;
     private int top;
+
+    /**
+     * cached element type
+     */
+    private transient ElementType elementType;
 
     public static final String NAME = "way";
     public static final String NODE = "nd";
@@ -444,27 +449,32 @@ public class Way extends StyledOsmElement implements BoundedObject {
 
     @Override
     public ElementType getType() {
-        if (nodes.size() < 2) {
-            return ElementType.WAY; // should not happen
+        if (elementType == null) {
+            elementType = getType(tags);
         }
-        if (isClosed()) {
-            return ElementType.CLOSEDWAY;
-        } else {
-            return ElementType.WAY;
-        }
+        return elementType;
     }
 
     @Override
     public ElementType getType(Map<String, String> tags) {
-        ElementType type = getType();
-        /*
-         * From a systematic pov it would be better to get this from a preset, however the current matching preset isn't
-         * available here and using the style is far cheaper.
-         */
-        if (type == ElementType.CLOSEDWAY && (style != null && style.isArea())) {
-            return ElementType.AREA;
+        if (nodes.size() >= MINIMUM_NODES_IN_WAY && isClosed()) {
+            /*
+             * From a systematic pov it would be better to get this from a preset, however the current matching preset
+             * isn't available here and using the style is far cheaper.
+             */
+            if (tags != null && (Tags.VALUE_YES.equals(tags.get(Tags.KEY_AREA)) || (style != null && style.isArea()))) {
+                return ElementType.AREA;
+            }
+            return ElementType.CLOSEDWAY;
         }
-        return type;
+        return ElementType.WAY;
+    }
+
+    @Override
+    public boolean setTags(Map<String, String> tags) {
+        // changing tags might change type
+        elementType = null;
+        return super.setTags(tags);
     }
 
     /**
@@ -559,6 +569,8 @@ public class Way extends StyledOsmElement implements BoundedObject {
      */
     public void invalidateBoundingBox() {
         left = Integer.MIN_VALUE;
+        // changing geometry might chage the type
+        elementType = null;
     }
 
     /**

@@ -37,7 +37,7 @@ Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/
 |                   | name                          | supported | required
 |                   | name_context                  | supported |
 |                   | icon                          | supported | you really should add one for Vespucci
-|                   | type                          | supported |
+|                   | type                          | supported | extension: "area" is supported as a replacement for "multipolygon" and matches closed ways with an area=yes tag besides multipolygons
 |                   | name_template                 | supported | if set will always be used 
 |                   | name_template_filter          | ignored   |
 |                   | preset_name_label             | ignored   |

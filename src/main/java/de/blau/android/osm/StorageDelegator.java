@@ -59,7 +59,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
 
     private static final String DEBUG_TAG = StorageDelegator.class.getSimpleName();
 
-    private static final long serialVersionUID = 10L;
+    private static final long serialVersionUID = 11L;
 
     public static final int MIN_NODES_CIRCLE = 3;
 
@@ -71,7 +71,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
 
     private ClipboardStorage clipboard;
 
-    private ArrayList<String> imagery;
+    private List<String> imagery;
 
     /**
      * when reading state lockout writing/reading
@@ -380,8 +380,8 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      */
     private void invalidateWay(@NonNull Way w) {
         w.invalidateBoundingBox();
-        if (w.hasTagKey(Tags.KEY_HIGHWAY)) {
-            // we only validate way connections for highways currently
+        if (w.hasTagKey(Tags.KEY_HIGHWAY) || w.hasTagKey(Tags.KEY_WATERWAY)) {
+            // we only validate way connections for highway and waterway elements currently
             w.resetHasProblem();
         }
     }

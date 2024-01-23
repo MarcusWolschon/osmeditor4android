@@ -31,7 +31,7 @@ Node styling is limited to the __labelKey__ and __iconPath__ attributes.
 |                           | type           |         | "way", "node" or "relation" to match the corresponding OSM elements, or a name
 |                           | tags           |         | Tags to use for matching, ignored for named styles, in the format _key_=_value_ or _key_=_*_ for any value. Multiple tags can be added using __&vert;__ as a separator.
 |                           | closed         |         | If not present will match all ways, if present will match closed ways if true, or if false open ways, ignored for relations
-|                           | area           |         | Use area semantics for rendering if true
+|                           | area           |         | Use area semantics for rendering if true, note that this will also effect preset matching
 |                           | dontrender     |         | Don't render the matching element
 |                           | updateWidth    |         | Dynamically update the way width on zoom changes if true
 |                           | widthFactor    |         | Determine a way width relative to the extent of the current map shown, ignored if updateWidth is false

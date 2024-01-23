@@ -270,6 +270,8 @@ public final class Tags {
     public static final char   VALUE_SOUTH   = 'S';
     public static final char   VALUE_NORTH   = 'N';
 
+    public static final String KEY_AREA = "area";
+
     public static final String KEY_CONVEYING = "conveying";
     public static final String KEY_PRIORITY  = "priority";
 
