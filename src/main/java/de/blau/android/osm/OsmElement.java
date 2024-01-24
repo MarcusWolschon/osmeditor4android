@@ -30,7 +30,7 @@ import de.blau.android.util.IssueAlert;
 import de.blau.android.util.Util;
 import de.blau.android.validation.Validator;
 
-public abstract class OsmElement implements Serializable, XmlSerializable, JosmXmlSerializable {
+public abstract class OsmElement implements OsmElementInterface, Serializable, XmlSerializable, JosmXmlSerializable {
     /**
      * 
      */
@@ -95,16 +95,12 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
         this.parentRelations = null;
     }
 
-    /**
-     * @return the if of the object (&lt; 0 are temporary ids)
-     */
+    @Override
     public long getOsmId() {
         return osmId;
     }
 
-    /**
-     * @return the version of the object
-     */
+    @Override
     public long getOsmVersion() {
         return osmVersion;
     }
@@ -134,11 +130,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
         }
     }
 
-    /**
-     * Get the current tags of the element
-     * 
-     * @return an unmodifiable map containing the tags
-     */
+    @Override
     @NonNull
     public SortedMap<String, String> getTags() {
         if (tags == null) {
@@ -188,11 +180,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
         return cache.containsKey(tags);
     }
 
-    /**
-     * Get the state of this element
-     * 
-     * @return the state value
-     */
+    @Override
     public byte getState() {
         return state;
     }
@@ -492,11 +480,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
         }
     }
 
-    /**
-     * Get the relations this element is a member of
-     * 
-     * @return a List of the relations, null if none
-     */
+    @Override
     @Nullable
     public List<Relation> getParentRelations() {
         return parentRelations;
@@ -918,11 +902,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
         setTimestamp(System.currentTimeMillis() / 1000);
     }
 
-    /**
-     * Get the timestamp for this object
-     * 
-     * @return seconds since the Unix Epoch. negative if no value is set
-     */
+    @Override
     public long getTimestamp() {
         if (timestamp >= 0) {
             return EPOCH + timestamp;

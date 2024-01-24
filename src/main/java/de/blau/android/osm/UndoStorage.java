@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.SortedMap;
 import java.util.TreeMap;
 
 import android.content.Context;
@@ -599,7 +600,7 @@ public class UndoStorage implements Serializable {
      * 
      * @author Jan
      */
-    public abstract class UndoElement implements Serializable {
+    public abstract class UndoElement implements OsmElementInterface, Serializable {
         private static final long serialVersionUID = 2L;
 
         final OsmElement element;
@@ -735,42 +736,36 @@ public class UndoStorage implements Serializable {
             return null;
         }
 
-        /**
-         * Get the Map containing the tags
-         * 
-         * @return an unmodifiable Map containing the key-value pairs
-         */
+        @Override
         @NonNull
-        public Map<String, String> getTags() {
-            return Collections.unmodifiableMap(tags);
+        public SortedMap<String, String> getTags() {
+            return Collections.unmodifiableSortedMap(tags);
         }
 
-        /**
-         * Get the list of parent relations
-         * 
-         * @return an unmodifiable List of the relations or null
-         */
+        @Override
         @Nullable
         public List<Relation> getParentRelations() {
             return parentRelations != null ? Collections.unmodifiableList(parentRelations) : null;
         }
 
-        /**
-         * Get the id for the underlying OsmElement
-         * 
-         * @return the id
-         */
+        @Override
         public long getOsmId() {
             return osmId;
         }
 
-        /**
-         * Get the state of the underlying OsmELement
-         * 
-         * @return the state
-         */
+        @Override
+        public long getOsmVersion() {
+            return osmVersion;
+        }
+
+        @Override
         public byte getState() {
             return state;
+        }
+
+        @Override
+        public long getTimestamp() {
+            return -1;
         }
 
         /**
@@ -797,7 +792,7 @@ public class UndoStorage implements Serializable {
      * 
      * @see UndoElement
      */
-    public class UndoNode extends UndoElement implements Serializable {
+    public class UndoNode extends UndoElement implements GeoPoint, Serializable {
         private static final long serialVersionUID = 1L;
         private final int         lat;
         private final int         lon;
@@ -849,7 +844,7 @@ public class UndoStorage implements Serializable {
      * 
      * @see UndoElement
      */
-    public class UndoWay extends UndoElement implements Serializable {
+    public class UndoWay extends UndoElement implements WayInterface, Serializable {
         private static final long serialVersionUID = 3L;
         private final List<Node>  nodes;
 
@@ -911,43 +906,22 @@ public class UndoStorage implements Serializable {
             return restored;
         }
 
-        /*
-         * The following methods provide equivalent of the same ones in Way
-         */
-        /**
-         * return true if first == last node, will not work for broken geometries
-         * 
-         * @return true if closed
-         */
+        @Override
         public boolean isClosed() {
             return !nodes.isEmpty() && nodes.get(0).equals(nodes.get(nodes.size() - 1));
         }
 
-        /**
-         * Return the length in m
-         * 
-         * This uses the Haversine distance between nodes for calculation
-         * 
-         * @return the length in m
-         */
+        @Override
         public double length() {
             return Way.length(nodes);
         }
 
-        /**
-         * Return the number of nodes in this way
-         * 
-         * @return the number of nodes in this Way
-         */
+        @Override
         public int nodeCount() {
             return nodes == null ? 0 : nodes.size();
         }
 
-        /**
-         * Get an unmodifiable list of the node
-         * 
-         * @return a list of the nodes
-         */
+        @Override
         public List<Node> getNodes() {
             return Collections.unmodifiableList(nodes);
         }
@@ -963,7 +937,7 @@ public class UndoStorage implements Serializable {
      * 
      * @see UndoElement
      */
-    public class UndoRelation extends UndoElement implements Serializable {
+    public class UndoRelation extends UndoElement implements RelationInterface, Serializable {
 
         private static final String        DEBUG_TAG        = "UndoRelation";
         private static final long          serialVersionUID = 1L;
@@ -1017,22 +991,13 @@ public class UndoStorage implements Serializable {
             return restored;
         }
 
-        /**
-         * Get the list of RelationMembers for the UndoRelation
-         * 
-         * @return an unmodifiable copy of the List of RelationMembers
-         */
+        @Override
         @NonNull
         public List<RelationMember> getMembers() {
             return Collections.unmodifiableList(members);
         }
 
-        /**
-         * Get the list of all RelationMember objects for the specified OsmElement
-         * 
-         * @param e the OsmElement
-         * @return a List of RelationMembers
-         */
+        @Override
         @NonNull
         public List<RelationMember> getAllMembers(@Nullable OsmElement e) {
             List<RelationMember> result = new ArrayList<>();

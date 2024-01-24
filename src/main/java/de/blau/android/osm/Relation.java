@@ -28,7 +28,7 @@ import de.blau.android.validation.Validator;
  * @author simon
  *
  */
-public class Relation extends StyledOsmElement implements BoundedObject {
+public class Relation extends StyledOsmElement implements RelationInterface, BoundedObject {
     /**
      * 
      */
@@ -67,11 +67,7 @@ public class Relation extends StyledOsmElement implements BoundedObject {
         members.add(member);
     }
 
-    /**
-     * Return complete list of relation members
-     * 
-     * @return list of members, or null if there are none
-     */
+    @Override
     @Nullable
     public List<RelationMember> getMembers() {
         return members;
@@ -122,12 +118,7 @@ public class Relation extends StyledOsmElement implements BoundedObject {
         return null;
     }
 
-    /**
-     * Return all relation member elements for this OSM element
-     * 
-     * @param e OsmElement to search for
-     * @return the list of corresponding RelationMembers, empty if non found
-     */
+    @Override
     @NonNull
     public List<RelationMember> getAllMembers(@NonNull OsmElement e) {
         List<RelationMember> result = new ArrayList<>();

@@ -16,7 +16,7 @@ import de.blau.android.util.GeoMath;
 import de.blau.android.util.rtree.BoundedObject;
 import de.blau.android.validation.Validator;
 
-public class Way extends StyledOsmElement implements BoundedObject {
+public class Way extends StyledOsmElement implements WayInterface, BoundedObject {
 
     private static final String DEBUG_TAG = Way.class.getSimpleName();
 
@@ -76,11 +76,7 @@ public class Way extends StyledOsmElement implements BoundedObject {
         nodes.add(node);
     }
 
-    /**
-     * Return list of all nodes in a way
-     * 
-     * @return a List of Nodes
-     */
+    @Override
     @NonNull
     public List<Node> getNodes() {
         return nodes;
@@ -238,11 +234,7 @@ public class Way extends StyledOsmElement implements BoundedObject {
         nodes.clear();
     }
 
-    /**
-     * return true if first == last node, will not work for broken geometries
-     * 
-     * @return true if closed
-     */
+    @Override
     public boolean isClosed() {
         if (nodes == null || nodes.isEmpty()) {
             Log.e(DEBUG_TAG, "way " + getOsmId() + " has no nodes");
@@ -477,11 +469,7 @@ public class Way extends StyledOsmElement implements BoundedObject {
         return super.setTags(tags);
     }
 
-    /**
-     * Return the number of nodes in the is way
-     * 
-     * @return the number of nodes in this Way
-     */
+    @Override
     public int nodeCount() {
         return nodes == null ? 0 : nodes.size();
     }
@@ -502,13 +490,7 @@ public class Way extends StyledOsmElement implements BoundedObject {
         return result;
     }
 
-    /**
-     * Return the length in m
-     * 
-     * This uses the Haversine distance between nodes for calculation
-     * 
-     * @return the length in m
-     */
+    @Override
     public double length() {
         return length(nodes);
     }

@@ -18,6 +18,7 @@ import java.util.TreeSet;
 import com.google.openlocationcode.OpenLocationCode;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.SpannableString;
@@ -42,19 +43,20 @@ import de.blau.android.R;
 import de.blau.android.contract.Urls;
 import de.blau.android.listener.DoNothingListener;
 import de.blau.android.osm.BoundingBox;
+import de.blau.android.osm.GeoPoint;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.OsmElementInterface;
 import de.blau.android.osm.OsmParser;
 import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.Relation;
+import de.blau.android.osm.RelationInterface;
 import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.UndoStorage.UndoElement;
-import de.blau.android.osm.UndoStorage.UndoNode;
-import de.blau.android.osm.UndoStorage.UndoRelation;
-import de.blau.android.osm.UndoStorage.UndoWay;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
+import de.blau.android.osm.WayInterface;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.InfoDialogFragment;
@@ -84,12 +86,12 @@ public class ElementInfo extends InfoDialogFragment {
     private static final String TEL    = "tel:";
     private static final String MAILTO = "mailto:";
 
-    private SpannableString emptyRole;
+    private static SpannableString emptyRole;
 
-    private OsmElement  element;
-    private UndoElement ue;
-    private int         ueIndex = -1;
-    private String      parentTag;
+    private OsmElement          element;
+    private OsmElementInterface ue;
+    private int                 ueIndex = -1;
+    private String              parentTag;
 
     /**
      * Show an info dialog for the supplied OsmElement
@@ -264,337 +266,350 @@ public class ElementInfo extends InfoDialogFragment {
 
     @Override
     protected View createView(ViewGroup container) {
-        ScrollView sv = createEmptyView(container);
+        Context ctx = getContext();
+        return createComparisionView(ctx, createEmptyView(container), getTableLayoutParams(),
+                ctx.getString(ueIndex == 0 ? R.string.original : R.string.previous), ue, ctx.getString(R.string.current), element);
+    }
+
+    /**
+     * Create the scroll view containing the information
+     * 
+     * @param ctx an Android Context
+     * @param original if not null we compare to this element
+     * @param element current or future element
+     * @param container
+     * 
+     * @return a ScrollView
+     */
+    @NonNull
+    private static ScrollView createComparisionView(Context ctx, @NonNull ScrollView sv, @NonNull TableLayout.LayoutParams tp, String origHeader,
+            @Nullable OsmElementInterface original, String elementHeader, @Nullable OsmElement element) {
+        if (element == null) {
+            return sv;
+        }
+
         TableLayout tl = (TableLayout) sv.findViewById(R.id.element_info_vertical_layout);
-        TableLayout.LayoutParams tp = getTableLayoutParams();
 
-        boolean compare = ue != null;
+        boolean compare = original != null;
+        boolean deleted = element.getState() == OsmElement.STATE_DELETED;
+        tl.setColumnStretchable(1, true);
+        tl.setColumnStretchable(2, true);
 
-        if (element != null) {
-            FragmentActivity activity = getActivity();
-            boolean deleted = element.getState() == OsmElement.STATE_DELETED;
-            tl.setColumnStretchable(1, true);
-            tl.setColumnStretchable(2, true);
+        tl.addView(TableLayoutUtils.createRow(ctx, R.string.type, element.getName(), tp));
+        Spanned id = element.getOsmId() > 0
+                ? Util.fromHtml("<a href=\"" + Urls.OSM + "/" + element.getName() + "/" + element.getOsmId() + "\">#" + element.getOsmId() + "</a>")
+                : Util.fromHtml("#" + element.getOsmId());
+        tl.addView(TableLayoutUtils.createRow(ctx, R.string.id, id, true, tp));
+        tl.addView(TableLayoutUtils.createRow(ctx, R.string.version, Long.toString(element.getOsmVersion()), tp));
+        long timestamp = element.getTimestamp();
+        if (timestamp > 0) {
+            tl.addView(TableLayoutUtils.createRow(ctx, R.string.last_edited, DateFormatter.getUtcFormat(OsmParser.TIMESTAMP_FORMAT).format(timestamp * 1000L),
+                    tp));
+        }
 
-            tl.addView(TableLayoutUtils.createRow(activity, R.string.type, element.getName(), tp));
-            Spanned id = element.getOsmId() > 0
-                    ? Util.fromHtml("<a href=\"" + Urls.OSM + "/" + element.getName() + "/" + element.getOsmId() + "\">#" + element.getOsmId() + "</a>")
-                    : Util.fromHtml("#" + element.getOsmId());
-            tl.addView(TableLayoutUtils.createRow(activity, R.string.id, id, true, tp));
-            tl.addView(TableLayoutUtils.createRow(activity, R.string.version, Long.toString(element.getOsmVersion()), tp));
-            long timestamp = element.getTimestamp();
-            if (timestamp > 0) {
-                tl.addView(TableLayoutUtils.createRow(activity, R.string.last_edited,
-                        DateFormatter.getUtcFormat(OsmParser.TIMESTAMP_FORMAT).format(timestamp * 1000L), tp));
-            }
-
-            tl.addView(TableLayoutUtils.divider(activity));
-            String ueHeader = getString(ueIndex == 0 ? R.string.original : R.string.previous);
+        tl.addView(TableLayoutUtils.divider(ctx));
+        if (compare) {
+            tl.addView(TableLayoutUtils.createRow(ctx, "", origHeader, deleted ? null : elementHeader, tp));
+        }
+        switch (element.getName()) {
+        case Node.NAME:
+            String oldLon = null;
+            String oldLat = null;
+            String oldOlc = null;
             if (compare) {
-                tl.addView(TableLayoutUtils.createRow(activity, "", ueHeader, deleted ? null : getString(R.string.current), tp));
+                oldLon = prettyPrint(((GeoPoint) original).getLon());
+                oldLat = prettyPrint(((GeoPoint) original).getLat());
+                oldOlc = OpenLocationCode.encode(((GeoPoint) original).getLat() / 1E7D, ((GeoPoint) original).getLon() / 1E7D);
             }
-            switch (element.getName()) {
-            case Node.NAME:
-                String oldLon = null;
-                String oldLat = null;
-                String oldOlc = null;
-                if (compare) {
-                    oldLon = prettyPrint(((UndoNode) ue).getLon());
-                    oldLat = prettyPrint(((UndoNode) ue).getLat());
-                    oldOlc = OpenLocationCode.encode(((UndoNode) ue).getLat() / 1E7D, ((UndoNode) ue).getLon() / 1E7D);
+            tl.addView(TableLayoutUtils.createRow(ctx, R.string.location_lon_label, oldLon, deleted ? null : prettyPrint(((GeoPoint) element).getLon()), tp));
+            tl.addView(TableLayoutUtils.createRow(ctx, R.string.location_lat_label, oldLat, deleted ? null : prettyPrint(((GeoPoint) element).getLat()), tp));
+            tl.addView(TableLayoutUtils.createRow(ctx, R.string.location_olc, oldOlc,
+                    deleted ? null : OpenLocationCode.encode(((GeoPoint) element).getLat() / 1E7D, ((GeoPoint) element).getLon() / 1E7D), tp));
+            break;
+        case Way.NAME:
+            boolean isClosed = ((WayInterface) element).isClosed();
+            String nodeCount = nodeCountString(((WayInterface) element).nodeCount(), isClosed);
+            String lengthString = String.format(Locale.US, "%.2f", ((WayInterface) element).length());
+            if (compare) {
+                tl.addView(TableLayoutUtils.createRow(ctx, R.string.length_m, String.format(Locale.US, "%.2f", ((WayInterface) original).length()),
+                        deleted ? null : lengthString, tp));
+                boolean oldIsClosed = ((WayInterface) original).isClosed();
+                tl.addView(TableLayoutUtils.createRow(ctx, R.string.nodes, nodeCountString(((WayInterface) original).nodeCount(), oldIsClosed),
+                        deleted ? null : nodeCount, tp));
+                tl.addView(
+                        TableLayoutUtils.createRow(ctx, R.string.closed, isClosedString(ctx, oldIsClosed), deleted ? null : isClosedString(ctx, isClosed), tp));
+            } else {
+                tl.addView(TableLayoutUtils.createRow(ctx, R.string.length_m, null, lengthString, tp));
+                tl.addView(TableLayoutUtils.createRow(ctx, R.string.nodes, null, nodeCount, tp));
+                tl.addView(TableLayoutUtils.createRow(ctx, R.string.closed, null, isClosedString(ctx, isClosed), tp));
+            }
+            // Make this expandable before enabling
+            // for (Node n:((Way)e).getNodes()) {
+            // tl.addView(createRow("", n.getDescription(),tp));
+            // }
+            break;
+        case Relation.NAME:
+            List<RelationMember> members = ((RelationInterface) element).getMembers();
+            String oldMembersCount = null;
+            List<RelationMember> oldMembers = null;
+            if (compare) {
+                oldMembers = ((RelationInterface) original).getMembers();
+                oldMembersCount = Integer.toString(oldMembers != null ? oldMembers.size() : 0);
+            }
+            tl.addView(TableLayoutUtils.createRow(ctx, R.string.members, oldMembersCount,
+                    !deleted ? Integer.toString(members != null ? members.size() : 0) : null, tp));
+
+            int notDownloaded = countNotDownLoaded(members);
+            int oldNotDownloaded = countNotDownLoaded(oldMembers);
+            if (notDownloaded > 0 || oldNotDownloaded > 0) {
+                tl.addView(TableLayoutUtils.createRow(ctx, R.string.not_downloaded, compare ? Integer.toString(oldNotDownloaded) : null,
+                        !deleted ? Integer.toString(notDownloaded) : null, tp));
+            }
+            break;
+        default:
+            Log.e(DEBUG_TAG, "Unkown element type " + element.getName());
+        }
+        Validator validator = App.getDefaultValidator(ctx);
+        if (!deleted && element.hasProblem(ctx, validator) != Validator.OK) {
+            tl.addView(TableLayoutUtils.divider(ctx));
+            boolean first = true;
+            for (String problem : validator.describeProblem(ctx, element)) {
+                String header = "";
+                if (first) {
+                    header = ctx.getString(R.string.problem);
+                    first = false;
                 }
-                tl.addView(
-                        TableLayoutUtils.createRow(activity, R.string.location_lon_label, oldLon, deleted ? null : prettyPrint(((Node) element).getLon()), tp));
-                tl.addView(
-                        TableLayoutUtils.createRow(activity, R.string.location_lat_label, oldLat, deleted ? null : prettyPrint(((Node) element).getLat()), tp));
-                tl.addView(TableLayoutUtils.createRow(activity, R.string.location_olc, oldOlc,
-                        deleted ? null : OpenLocationCode.encode(((Node) element).getLat() / 1E7D, ((Node) element).getLon() / 1E7D), tp));
-                break;
-            case Way.NAME:
-                boolean isClosed = ((Way) element).isClosed();
-                String nodeCount = nodeCountString(((Way) element).nodeCount(), isClosed);
-                String lengthString = String.format(Locale.US, "%.2f", ((Way) element).length());
                 if (compare) {
-                    tl.addView(TableLayoutUtils.createRow(activity, R.string.length_m, String.format(Locale.US, "%.2f", ((UndoWay) ue).length()),
-                            deleted ? null : lengthString, tp));
-                    boolean oldIsClosed = ((UndoWay) ue).isClosed();
-                    tl.addView(TableLayoutUtils.createRow(activity, R.string.nodes, nodeCountString(((UndoWay) ue).nodeCount(), oldIsClosed),
-                            deleted ? null : nodeCount, tp));
-                    tl.addView(
-                            TableLayoutUtils.createRow(activity, R.string.closed, isClosedString(oldIsClosed), deleted ? null : isClosedString(isClosed), tp));
+                    tl.addView(TableLayoutUtils.createRow(ctx, header, "", problem, tp, R.attr.error, R.color.material_red));
                 } else {
-                    tl.addView(TableLayoutUtils.createRow(activity, R.string.length_m, null, lengthString, tp));
-                    tl.addView(TableLayoutUtils.createRow(activity, R.string.nodes, null, nodeCount, tp));
-                    tl.addView(TableLayoutUtils.createRow(activity, R.string.closed, null, isClosedString(isClosed), tp));
+                    tl.addView(TableLayoutUtils.createRow(ctx, header, problem, null, tp, R.attr.error, R.color.material_red));
                 }
-                // Make this expandable before enabling
-                // for (Node n:((Way)e).getNodes()) {
-                // tl.addView(createRow("", n.getDescription(),tp));
-                // }
-                break;
-            case Relation.NAME:
-                List<RelationMember> members = ((Relation) element).getMembers();
-                String oldMembersCount = null;
-                List<RelationMember> oldMembers = null;
+            }
+        }
+
+        // tag display
+        if (element.getTags() != null && element.getTags().size() > 0) {
+            tl.addView(TableLayoutUtils.divider(ctx));
+            tl.addView(TableLayoutUtils.createRow(ctx, R.string.menu_tags, null, null, tp));
+            Map<String, String> currentTags = element.getTags(); // the result of getTags is unmodifiable
+            Set<String> keys = new TreeSet<>(currentTags.keySet());
+            if (compare) {
+                if (deleted) {
+                    keys = original.getTags().keySet(); // just the original
+                } else {
+                    keys.addAll(original.getTags().keySet());
+                }
+            }
+            final SpannedString compareEmpty = compare ? new SpannedString("") : null;
+            for (String k : keys) {
+                String currentValue = currentTags.get(k);
+                String oldValue = null;
+                boolean oldIsEmpty = true;
+                if (currentValue == null) {
+                    currentValue = "";
+                }
                 if (compare) {
-                    oldMembers = ((UndoRelation) ue).getMembers();
-                    oldMembersCount = Integer.toString(oldMembers != null ? oldMembers.size() : 0);
-                }
-                tl.addView(TableLayoutUtils.createRow(activity, R.string.members, oldMembersCount,
-                        !deleted ? Integer.toString(members != null ? members.size() : 0) : null, tp));
-
-                int notDownloaded = countNotDownLoaded(members);
-                int oldNotDownloaded = countNotDownLoaded(oldMembers);
-                if (notDownloaded > 0 || oldNotDownloaded > 0) {
-                    tl.addView(TableLayoutUtils.createRow(activity, R.string.not_downloaded, compare ? Integer.toString(oldNotDownloaded) : null,
-                            !deleted ? Integer.toString(notDownloaded) : null, tp));
-                }
-                break;
-            default:
-                Log.e(DEBUG_TAG, "Unkown element type " + element.getName());
-            }
-            Validator validator = App.getDefaultValidator(getActivity());
-            if (!deleted && element.hasProblem(getActivity(), validator) != Validator.OK) {
-                tl.addView(TableLayoutUtils.divider(activity));
-                boolean first = true;
-                for (String problem : validator.describeProblem(getActivity(), element)) {
-                    String header = "";
-                    if (first) {
-                        header = getString(R.string.problem);
-                        first = false;
-                    }
-                    if (compare) {
-                        tl.addView(TableLayoutUtils.createRow(activity, header, "", problem, tp, R.attr.error, R.color.material_red));
+                    oldValue = original.getTags().get(k);
+                    if (oldValue == null) {
+                        oldValue = "";
                     } else {
-                        tl.addView(TableLayoutUtils.createRow(activity, header, problem, null, tp, R.attr.error, R.color.material_red));
+                        oldIsEmpty = false;
                     }
                 }
+                // special handling for some stuff
+                if (k.equals(Tags.KEY_WIKIPEDIA)) {
+                    Log.d(DEBUG_TAG, Urls.WIKIPEDIA + encodeHttpPath(currentValue));
+                    addTagRow(ctx, tl, tp, deleted, k, !oldIsEmpty ? encodeUrl(Urls.WIKIPEDIA, oldValue) : compareEmpty,
+                            encodeUrl(Urls.WIKIPEDIA, currentValue));
+                } else if (k.equals(Tags.KEY_WIKIDATA)) {
+                    addTagRow(ctx, tl, tp, deleted, k, !oldIsEmpty ? encodeUrl(Urls.WIKIDATA, oldValue) : compareEmpty, encodeUrl(Urls.WIKIDATA, currentValue));
+                } else if (Tags.isWebsiteKey(k)) {
+                    try {
+                        addTagRow(ctx, tl, tp, deleted, k, !oldIsEmpty ? encodeUrl(oldValue) : compareEmpty, encodeUrl(currentValue));
+                    } catch (MalformedURLException | URISyntaxException e1) {
+                        Log.d(DEBUG_TAG, "Key " + k + " value " + currentValue + " caused " + element + " " + e1.getMessage());
+                        addTagRow(ctx, tl, tp, deleted, k, oldValue, currentValue);
+                    }
+                } else if (Tags.isPhoneKey(k) || Tags.isEmailKey(k)) {
+                    final String url = Tags.isEmailKey(k) ? MAILTO : TEL;
+                    addTagRow(ctx, tl, tp, deleted, k, !oldIsEmpty ? encodeUrl(url, oldValue) : compareEmpty, encodeUrl(url, currentValue));
+                } else {
+                    addTagRow(ctx, tl, tp, deleted, k, oldValue, currentValue);
+                }
             }
+        }
 
-            // tag display
-            if (element.getTags() != null && element.getTags().size() > 0) {
-                tl.addView(TableLayoutUtils.divider(activity));
-                tl.addView(TableLayoutUtils.createRow(activity, R.string.menu_tags, null, null, tp));
-                Map<String, String> currentTags = element.getTags(); // the result of getTags is unmodifiable
-                Set<String> keys = new TreeSet<>(currentTags.keySet());
+        // relation member display
+        if (element.getName().equals(Relation.NAME)) {
+            List<RelationMember> members = ((Relation) element).getMembers();
+            if (members != null) {
+                TableLayout t2 = (TableLayout) sv.findViewById(R.id.element_info_vertical_layout_2);
+                t2.addView(TableLayoutUtils.divider(ctx));
+                t2.addView(TableLayoutUtils.createRow(ctx, R.string.members, null, null, tp));
+                List<RelationMember> origMembers = null;
+                boolean changesPrevious = false;
                 if (compare) {
-                    if (deleted) {
-                        keys = ue.getTags().keySet(); // just the original
-                    } else {
-                        keys.addAll(ue.getTags().keySet());
-                    }
+                    t2.addView(TableLayoutUtils.createRow(ctx, "", origHeader, deleted ? null : elementHeader, tp));
+                    origMembers = new ArrayList<>(((RelationInterface) original).getMembers());
                 }
-                final SpannedString compareEmpty = compare ? new SpannedString("") : null;
-                for (String k : keys) {
-                    String currentValue = currentTags.get(k);
-                    String oldValue = null;
-                    boolean oldIsEmpty = true;
-                    if (currentValue == null) {
-                        currentValue = "";
-                    }
+                int memberCount = members.size();
+                for (int index = 0; index < memberCount; index++) {
+                    RelationMember member = members.get(index);
+                    OsmElement memberElement = member.getElement();
+                    String role = member.getRole();
+                    String memberDescription = memberElement != null ? memberElement.getDescription() : member.getType() + " " + member.getRef();
                     if (compare) {
-                        oldValue = ue.getTags().get(k);
-                        if (oldValue == null) {
-                            oldValue = "";
-                        } else {
-                            oldIsEmpty = false;
-                        }
-                    }
-                    // special handling for some stuff
-                    if (k.equals(Tags.KEY_WIKIPEDIA)) {
-                        Log.d(DEBUG_TAG, Urls.WIKIPEDIA + encodeHttpPath(currentValue));
-                        addTagRow(activity, tl, tp, deleted, k, !oldIsEmpty ? encodeUrl(Urls.WIKIPEDIA, oldValue) : compareEmpty,
-                                encodeUrl(Urls.WIKIPEDIA, currentValue));
-                    } else if (k.equals(Tags.KEY_WIKIDATA)) {
-                        addTagRow(activity, tl, tp, deleted, k, !oldIsEmpty ? encodeUrl(Urls.WIKIDATA, oldValue) : compareEmpty,
-                                encodeUrl(Urls.WIKIDATA, currentValue));
-                    } else if (Tags.isWebsiteKey(k)) {
-                        try {
-                            addTagRow(activity, tl, tp, deleted, k, !oldIsEmpty ? encodeUrl(oldValue) : compareEmpty, encodeUrl(currentValue));
-                        } catch (MalformedURLException | URISyntaxException e1) {
-                            Log.d(DEBUG_TAG, "Key " + k + " value " + currentValue + " caused " + element + " " + e1.getMessage());
-                            addTagRow(activity, tl, tp, deleted, k, oldValue, currentValue);
-                        }
-                    } else if (Tags.isPhoneKey(k) || Tags.isEmailKey(k)) {
-                        final String url = Tags.isEmailKey(k) ? MAILTO : TEL;
-                        addTagRow(activity, tl, tp, deleted, k, !oldIsEmpty ? encodeUrl(url, oldValue) : compareEmpty, encodeUrl(url, currentValue));
-                    } else {
-                        addTagRow(activity, tl, tp, deleted, k, oldValue, currentValue);
-                    }
-                }
-            }
-
-            // relation member display
-            if (element.getName().equals(Relation.NAME)) {
-                List<RelationMember> members = ((Relation) element).getMembers();
-                if (members != null) {
-                    TableLayout t2 = (TableLayout) sv.findViewById(R.id.element_info_vertical_layout_2);
-                    t2.addView(TableLayoutUtils.divider(activity));
-                    t2.addView(TableLayoutUtils.createRow(activity, R.string.members, null, null, tp));
-                    List<RelationMember> origMembers = null;
-                    boolean changesPrevious = false;
-                    if (compare) {
-                        t2.addView(TableLayoutUtils.createRow(activity, "", ueHeader, deleted ? null : getString(R.string.current), tp));
-                        origMembers = new ArrayList<>(((UndoRelation) ue).getMembers());
-                    }
-                    int memberCount = members.size();
-                    for (int index = 0; index < memberCount; index++) {
-                        RelationMember member = members.get(index);
-                        OsmElement memberElement = member.getElement();
-                        String role = member.getRole();
-                        String memberDescription = memberElement != null ? memberElement.getDescription() : member.getType() + " " + member.getRef();
-                        if (compare) {
-                            String origRole = null;
-                            if (origMembers != null) {
-                                RelationMember origMember = null;
-                                int origIndex = 0;
-                                for (; origIndex < origMembers.size(); origIndex++) {
-                                    RelationMember tempMember = origMembers.get(origIndex);
-                                    if (member.getRef() == tempMember.getRef()) {
-                                        origMember = tempMember;
-                                        break;
-                                    }
-                                }
-                                if (origMember != null) {
-                                    origRole = origMember.getRole();
-                                    origMembers.remove(origIndex);
+                        String origRole = null;
+                        if (origMembers != null) {
+                            RelationMember origMember = null;
+                            int origIndex = 0;
+                            for (; origIndex < origMembers.size(); origIndex++) {
+                                RelationMember tempMember = origMembers.get(origIndex);
+                                if (member.getRef() == tempMember.getRef()) {
+                                    origMember = tempMember;
+                                    break;
                                 }
                             }
-                            if (memberCount > DISPLAY_LIMIT) {
-                                if ((role == null && origRole != null) || (role != null && !role.equals(origRole))) {
-                                    if (!changesPrevious) {
-                                        changesPrevious = true;
-                                        t2.addView(skipped(activity, tp));
-                                    }
-                                    t2.addView(TableLayoutUtils.createRow(activity, memberDescription, getPrettyRole(origRole), getPrettyRole(role), tp));
-                                } else {
-                                    changesPrevious = false;
+                            if (origMember != null) {
+                                origRole = origMember.getRole();
+                                origMembers.remove(origIndex);
+                            }
+                        }
+                        if (memberCount > DISPLAY_LIMIT) {
+                            if ((role == null && origRole != null) || (role != null && !role.equals(origRole))) {
+                                if (!changesPrevious) {
+                                    changesPrevious = true;
+                                    t2.addView(skipped(ctx, tp));
                                 }
+                                t2.addView(TableLayoutUtils.createRow(ctx, memberDescription, getPrettyRole(origRole), getPrettyRole(role), tp));
                             } else {
-                                t2.addView(TableLayoutUtils.createRow(activity, memberDescription, getPrettyRole(origRole), getPrettyRole(role), tp));
+                                changesPrevious = false;
                             }
                         } else {
-                            t2.addView(TableLayoutUtils.createRow(activity, memberDescription, getPrettyRole(role), tp));
-                            if (index == (DISPLAY_LIMIT - 1)) {
-                                t2.addView(skipped(activity, tp));
-                                break;
-                            }
+                            t2.addView(TableLayoutUtils.createRow(ctx, memberDescription, getPrettyRole(origRole), getPrettyRole(role), tp));
+                        }
+                    } else {
+                        t2.addView(TableLayoutUtils.createRow(ctx, memberDescription, getPrettyRole(role), tp));
+                        if (index == (DISPLAY_LIMIT - 1)) {
+                            t2.addView(skipped(ctx, tp));
+                            break;
                         }
                     }
-                    // write out any remaining original members
-                    if (origMembers != null) {
-                        for (RelationMember member : origMembers) {
-                            if (!changesPrevious) {
-                                changesPrevious = true;
-                                t2.addView(skipped(activity, tp));
-                            }
-                            String memberDescription = member.getElement() != null ? member.getElement().getDescription()
-                                    : member.getType() + " " + member.getRef();
-                            t2.addView(TableLayoutUtils.createRow(activity, memberDescription, getPrettyRole(member.getRole()), "", tp));
+                }
+                // write out any remaining original members
+                if (origMembers != null) {
+                    for (RelationMember member : origMembers) {
+                        if (!changesPrevious) {
+                            changesPrevious = true;
+                            t2.addView(skipped(ctx, tp));
                         }
-                    } else if (!changesPrevious && compare) {
-                        t2.addView(skipped(activity, tp));
+                        String memberDescription = member.getElement() != null ? member.getElement().getDescription()
+                                : member.getType() + " " + member.getRef();
+                        t2.addView(TableLayoutUtils.createRow(ctx, memberDescription, getPrettyRole(member.getRole()), "", tp));
+                    }
+                } else if (!changesPrevious && compare) {
+                    t2.addView(skipped(ctx, tp));
+                }
+            }
+        }
+
+        // relation membership display
+        List<Relation> parentsList = element.getParentRelations();
+        List<Relation> origParentsList = compare ? original.getParentRelations() : null;
+
+        // complicated stuff to determine if a role changed
+        Map<Long, List<RelationMember>> undoMembersMap = null;
+        boolean hasParents = parentsList != null && !parentsList.isEmpty();
+        // FIXME for non undo comparision
+        if (hasParents && original instanceof UndoElement) {
+            for (Relation parent : parentsList) {
+                OsmElementInterface originalParent = (OsmElementInterface) App.getDelegator().getUndo().getOriginal(parent);
+                if (originalParent != null) {
+                    List<RelationMember> ueMembers = ((RelationInterface) originalParent).getAllMembers(element);
+                    List<RelationMember> members = parent.getAllMembers(element);
+                    for (RelationMember ueMember : ueMembers) {
+                        if (!hasRole(ueMember.getRole(), members)) {
+                            if (undoMembersMap == null) {
+                                undoMembersMap = new HashMap<>();
+                                compare = true;
+                            }
+                            undoMembersMap.put(originalParent.getOsmId(), ueMembers);
+                        }
                     }
                 }
             }
-
-            // relation membership display
-            List<Relation> parentsList = element.getParentRelations();
-            List<Relation> origParentsList = compare ? ue.getParentRelations() : null;
-
-            // complicated stuff to determine if a role changed
-            Map<Long, List<RelationMember>> undoMembersMap = null;
-            boolean hasParents = parentsList != null && !parentsList.isEmpty();
-            if (hasParents) {
-                for (Relation parent : parentsList) {
-                    UndoRelation parentUE = (UndoRelation) App.getDelegator().getUndo().getOriginal(parent);
-                    if (parentUE != null) {
-                        List<RelationMember> ueMembers = parentUE.getAllMembers(element);
-                        List<RelationMember> members = parent.getAllMembers(element);
-                        for (RelationMember ueMember : ueMembers) {
-                            if (!hasRole(ueMember.getRole(), members)) {
-                                if (undoMembersMap == null) {
-                                    undoMembersMap = new HashMap<>();
-                                    compare = true;
-                                }
-                                undoMembersMap.put(parentUE.getOsmId(), ueMembers);
-                            }
-                        }
-                    }
-                }
+        }
+        if (hasParents || (origParentsList != null && !origParentsList.isEmpty())) {
+            TableLayout t3 = (TableLayout) sv.findViewById(R.id.element_info_vertical_layout_3);
+            t3.addView(TableLayoutUtils.divider(ctx));
+            t3.addView(TableLayoutUtils.createRow(ctx, R.string.relation_membership, null, null, tp));
+            if (compare) {
+                t3.addView(TableLayoutUtils.createRow(ctx, "", ctx.getString(R.string.original), deleted ? null : ctx.getString(R.string.current), tp));
             }
-            if (hasParents || (origParentsList != null && !origParentsList.isEmpty())) {
-                TableLayout t3 = (TableLayout) sv.findViewById(R.id.element_info_vertical_layout_3);
-                t3.addView(TableLayoutUtils.divider(activity));
-                t3.addView(TableLayoutUtils.createRow(activity, R.string.relation_membership, null, null, tp));
-                if (compare) {
-                    t3.addView(TableLayoutUtils.createRow(activity, "", getString(R.string.original), deleted ? null : getString(R.string.current), tp));
-                }
-                // get rid of duplicates and get something that we can modify ( but retain order)
-                Set<Relation> parents = parentsList != null ? new LinkedHashSet<>(parentsList) : null;
-                Set<Relation> origParents = origParentsList != null ? new LinkedHashSet<>(origParentsList) : null;
+            // get rid of duplicates and get something that we can modify ( but retain order)
+            Set<Relation> parents = parentsList != null ? new LinkedHashSet<>(parentsList) : null;
+            Set<Relation> origParents = origParentsList != null ? new LinkedHashSet<>(origParentsList) : null;
 
-                if (parents != null) {
-                    for (Relation r : parents) {
-                        List<RelationMember> members = r.getAllMembers(element);
-                        Set<RelationMember> origMembers = null;
-                        UndoElement origRelation = null;
-                        if (compare && origParentsList != null && origParentsList.contains(r)) {
-                            origRelation = App.getDelegator().getUndo().getOriginal(r);
-                            if (origRelation != null) {
-                                origMembers = new LinkedHashSet<>(((UndoRelation) origRelation).getAllMembers(element));
-                                origParents.remove(r);
-                            }
-                        }
-                        if (undoMembersMap != null) {
-                            List<RelationMember> undoMembers = undoMembersMap.get(r.getOsmId());
-                            if (undoMembers != null) {
-                                origMembers = new LinkedHashSet<>(undoMembers); // override
-                            }
-                        }
-                        for (RelationMember rm : members) {
-                            if (rm != null) {
-                                String role = rm.getRole();
-                                if (compare) {
-                                    String origRole = null;
-                                    if (origMembers != null && !origMembers.isEmpty()) {
-                                        for (RelationMember origMember : new ArrayList<>(origMembers)) {
-                                            origRole = origMember.getRole();
-                                            origMembers.remove(origMember);
-                                            break; // NOSONAR there is no elegant way to get the first element
-                                        }
-                                    }
-                                    t3.addView(TableLayoutUtils.createRow(activity, r.getDescription(), getPrettyRole(origRole), getPrettyRole(role), tp));
-                                } else {
-                                    t3.addView(TableLayoutUtils.createRow(activity, r.getDescription(), getPrettyRole(role), tp));
-                                }
-                            } else {
-                                // inconsistent state
-                                String message = "inconsistent state: " + element.getDescription() + " is not a member of " + r;
-                                Log.d(DEBUG_TAG, message);
-                                ACRAHelper.nocrashReport(null, message);
-                            }
-                        }
-                        // write out any relation members left
-                        if (origMembers != null && !origMembers.isEmpty()) {
-                            for (RelationMember origMember : origMembers) {
-                                String role = origMember.getRole();
-                                t3.addView(TableLayoutUtils.createRow(activity, r.getDescription(), "", getPrettyRole(role), tp));
-                            }
-                        }
-                    }
-                }
-
-                if (origParents != null) {
-                    // write out the relations we are no longer a member of
-                    for (Relation r : origParents) {
-                        UndoElement origRelation = App.getDelegator().getUndo().getOriginal(r);
+            if (parents != null) {
+                for (Relation r : parents) {
+                    List<RelationMember> members = r.getAllMembers(element);
+                    Set<RelationMember> origMembers = null;
+                    UndoElement origRelation = null;
+                    if (compare && origParentsList != null && origParentsList.contains(r)) {
+                        origRelation = App.getDelegator().getUndo().getOriginal(r);
                         if (origRelation != null) {
-                            List<RelationMember> members = ((UndoRelation) origRelation).getAllMembers(element);
-                            if (members != null) {
-                                for (RelationMember rm : members) {
-                                    t3.addView(TableLayoutUtils.createRow(activity, r.getDescription(), getPrettyRole(rm.getRole()), "", tp));
+                            origMembers = new LinkedHashSet<>(((RelationInterface) origRelation).getAllMembers(element));
+                            origParents.remove(r);
+                        }
+                    }
+                    if (undoMembersMap != null) {
+                        List<RelationMember> undoMembers = undoMembersMap.get(r.getOsmId());
+                        if (undoMembers != null) {
+                            origMembers = new LinkedHashSet<>(undoMembers); // override
+                        }
+                    }
+                    for (RelationMember rm : members) {
+                        if (rm != null) {
+                            String role = rm.getRole();
+                            if (compare) {
+                                String origRole = null;
+                                if (origMembers != null && !origMembers.isEmpty()) {
+                                    for (RelationMember origMember : new ArrayList<>(origMembers)) {
+                                        origRole = origMember.getRole();
+                                        origMembers.remove(origMember);
+                                        break; // NOSONAR there is no elegant way to get the first element
+                                    }
                                 }
+                                t3.addView(TableLayoutUtils.createRow(ctx, r.getDescription(), getPrettyRole(origRole), getPrettyRole(role), tp));
+                            } else {
+                                t3.addView(TableLayoutUtils.createRow(ctx, r.getDescription(), getPrettyRole(role), tp));
+                            }
+                        } else {
+                            // inconsistent state
+                            String message = "inconsistent state: " + element.getDescription() + " is not a member of " + r;
+                            Log.d(DEBUG_TAG, message);
+                            ACRAHelper.nocrashReport(null, message);
+                        }
+                    }
+                    // write out any relation members left
+                    if (origMembers != null && !origMembers.isEmpty()) {
+                        for (RelationMember origMember : origMembers) {
+                            String role = origMember.getRole();
+                            t3.addView(TableLayoutUtils.createRow(ctx, r.getDescription(), "", getPrettyRole(role), tp));
+                        }
+                    }
+                }
+            }
+
+            if (origParents != null) {
+                // write out the relations we are no longer a member of
+                for (Relation r : origParents) {
+                    UndoElement origRelation = App.getDelegator().getUndo().getOriginal(r);
+                    if (origRelation != null) {
+                        List<RelationMember> members = ((RelationInterface) origRelation).getAllMembers(element);
+                        if (members != null) {
+                            for (RelationMember rm : members) {
+                                t3.addView(TableLayoutUtils.createRow(ctx, r.getDescription(), getPrettyRole(rm.getRole()), "", tp));
                             }
                         }
                     }
@@ -607,7 +622,7 @@ public class ElementInfo extends InfoDialogFragment {
     /**
      * Add a tag row to the table
      * 
-     * @param activity calling Activity
+     * @param ctx calling Activity
      * @param tl the TableLayout
      * @param tp LayoutParams
      * @param deleted true if object was deleted
@@ -615,15 +630,15 @@ public class ElementInfo extends InfoDialogFragment {
      * @param oldValue the tag old value
      * @param currentValue the tag new value
      */
-    private void addTagRow(@NonNull FragmentActivity activity, @NonNull TableLayout tl, @NonNull TableLayout.LayoutParams tp, boolean deleted,
-            @NonNull String key, @NonNull Spanned oldValue, @Nullable Spanned currentValue) {
-        tl.addView(TableLayoutUtils.createRow(activity, key, oldValue, !deleted ? currentValue : null, false, tp, R.attr.colorAccent, R.color.material_teal));
+    private static void addTagRow(@NonNull Context ctx, @NonNull TableLayout tl, @NonNull TableLayout.LayoutParams tp, boolean deleted, @NonNull String key,
+            @NonNull Spanned oldValue, @Nullable Spanned currentValue) {
+        tl.addView(TableLayoutUtils.createRow(ctx, key, oldValue, !deleted ? currentValue : null, false, tp, R.attr.colorAccent, R.color.material_teal));
     }
 
     /**
      * Add a tag row to the table
      * 
-     * @param activity calling Activity
+     * @param ctx calling Activity
      * @param tl the TableLayout
      * @param tp LayoutParams
      * @param deleted true if object was deleted
@@ -631,21 +646,21 @@ public class ElementInfo extends InfoDialogFragment {
      * @param oldValue the tag old value
      * @param currentValue the tag new value
      */
-    private void addTagRow(@NonNull FragmentActivity activity, @NonNull TableLayout tl, @NonNull TableLayout.LayoutParams tp, boolean deleted,
-            @NonNull String key, @NonNull String oldValue, @Nullable String currentValue) {
-        tl.addView(TableLayoutUtils.createRow(activity, key, oldValue, !deleted ? currentValue : null, false, tp, R.attr.colorAccent, R.color.material_teal));
+    private static void addTagRow(@NonNull Context ctx, @NonNull TableLayout tl, @NonNull TableLayout.LayoutParams tp, boolean deleted, @NonNull String key,
+            @NonNull String oldValue, @Nullable String currentValue) {
+        tl.addView(TableLayoutUtils.createRow(ctx, key, oldValue, !deleted ? currentValue : null, false, tp, R.attr.colorAccent, R.color.material_teal));
     }
 
     /**
      * Indicate skipped content
      * 
-     * @param activity the calling FragmentActivity
+     * @param ctx the calling FragmentActivity
      * @param tp layout params
      * @return a TableRow Layout
      */
     @NonNull
-    private TableRow skipped(@NonNull FragmentActivity activity, @NonNull TableLayout.LayoutParams tp) {
-        return TableLayoutUtils.createRow(activity, "...", null, tp);
+    private static TableRow skipped(@NonNull Context ctx, @NonNull TableLayout.LayoutParams tp) {
+        return TableLayoutUtils.createRow(ctx, "...", null, tp);
     }
 
     /**
@@ -657,7 +672,7 @@ public class ElementInfo extends InfoDialogFragment {
      * @param members the list of members
      * @return true if the role was found
      */
-    private boolean hasRole(@Nullable String role, @NonNull List<RelationMember> members) {
+    private static boolean hasRole(@Nullable String role, @NonNull List<RelationMember> members) {
         for (RelationMember rm : members) {
             String role2 = rm.getRole();
             if ((role == null && rm.getRole() == null) || (role != null && role.equals(role2))) {
@@ -685,7 +700,7 @@ public class ElementInfo extends InfoDialogFragment {
      * @return role or a String indicating that it is empty
      */
     @NonNull
-    private SpannableString getPrettyRole(@Nullable String role) {
+    private static SpannableString getPrettyRole(@Nullable String role) {
         if (role != null) {
             return "".equals(role) ? emptyRole : new SpannableString(role);
         }
@@ -698,7 +713,7 @@ public class ElementInfo extends InfoDialogFragment {
      * @param members the List of RelationMembers
      * @return a count of those members that haven't been downloaded yet
      */
-    private int countNotDownLoaded(@Nullable List<RelationMember> members) {
+    private static int countNotDownLoaded(@Nullable List<RelationMember> members) {
         int notDownloaded = 0;
         if (members != null) {
             for (RelationMember rm : members) {
@@ -717,7 +732,7 @@ public class ElementInfo extends InfoDialogFragment {
      * @param value append this to the url
      * @return clickable text
      */
-    private Spanned encodeUrl(@NonNull String url, @NonNull String value) {
+    private static Spanned encodeUrl(@NonNull String url, @NonNull String value) {
         return Util.fromHtml("<a href=\"" + url + encodeHttpPath(value) + "\">" + value + "</a>");
     }
 
@@ -729,7 +744,7 @@ public class ElementInfo extends InfoDialogFragment {
      * @throws MalformedURLException for broken URLs
      * @throws URISyntaxException for broken URLs
      */
-    private Spanned encodeUrl(@NonNull String value) throws MalformedURLException, URISyntaxException {
+    private static Spanned encodeUrl(@NonNull String value) throws MalformedURLException, URISyntaxException {
         if ("".equals(value)) {
             return new SpannedString("");
         }
@@ -744,8 +759,8 @@ public class ElementInfo extends InfoDialogFragment {
      * @param isClosed true if the way is closed
      * @return yes or no
      */
-    private String isClosedString(boolean isClosed) {
-        return getString(isClosed ? R.string.yes : R.string.no);
+    private static String isClosedString(@NonNull Context ctx, boolean isClosed) {
+        return ctx.getString(isClosed ? R.string.yes : R.string.no);
     }
 
     /**
@@ -755,7 +770,7 @@ public class ElementInfo extends InfoDialogFragment {
      * @param isClosed if true subtract one
      * @return the count as a String
      */
-    private String nodeCountString(int count, boolean isClosed) {
+    private static String nodeCountString(int count, boolean isClosed) {
         return Integer.toString(count + (isClosed && count != 1 ? -1 : 0));
     }
 
@@ -787,7 +802,7 @@ public class ElementInfo extends InfoDialogFragment {
      * @param path String to encode
      * @return the encoded String
      */
-    private String encodeHttpPath(String path) {
+    private static String encodeHttpPath(String path) {
         try {
             return URLEncoder.encode(path, OsmXml.UTF_8);
         } catch (UnsupportedEncodingException e) {
