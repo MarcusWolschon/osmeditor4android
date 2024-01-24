@@ -5,9 +5,7 @@ buildscript {
     repositories {
         mavenCentral()
         google()
-        maven {
-            url = uri("https://plugins.gradle.org/m2/")
-        }
+        gradlePluginPortal()
         mavenLocal()
     }
     dependencies {
@@ -50,10 +48,9 @@ apply plugin: 'com.malinskiy.marathon'
 allprojects {
     repositories {
         mavenCentral()
-        maven { url "https://maven.google.com" }
+        google()
         maven { url "https://jitpack.io" }
         mavenLocal()
-        google()
         jcenter()
     }
 }
