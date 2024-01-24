@@ -373,30 +373,54 @@ public class BaseValidator implements Validator {
     private void checkNearbyWays(@NonNull String tagKey, @NonNull Way w, @NonNull Logic logic, int layer, @NonNull Node n) throws OsmException {
         final int lat = n.getLat();
         final int lon = n.getLon();
-        if (App.getDelegator().isInDownload(lon, lat)) { // only check for nodes in download
-            BoundingBox box = GeoMath.createBoundingBoxForCoordinates(lat / 1E7D, lon / 1E7D, tolerance);
-            List<Way> nearbyWays = App.getDelegator().getCurrentStorage().getWays(box);
-            List<Way> connectedWays = new ArrayList<>();
-            BoundingBox bb = w.getBounds();
-            for (Way maybeConnected : new ArrayList<>(nearbyWays)) {
-                if (!maybeConnected.hasTagKey(tagKey) || maybeConnected.equals(w)) {
-                    nearbyWays.remove(maybeConnected);
-                    continue;
-                }
-                if (bb.intersects(maybeConnected.getBounds()) && maybeConnected.hasCommonNode(w)) {
-                    connectedWays.add(maybeConnected);
-                    nearbyWays.remove(maybeConnected);
-                }
+        if (!App.getDelegator().isInDownload(lon, lat)) { // only check for nodes in download
+            return;
+        }
+        BoundingBox box = GeoMath.createBoundingBoxForCoordinates(lat / 1E7D, lon / 1E7D, tolerance);
+        List<Way> nearbyWays = App.getDelegator().getCurrentStorage().getWays(box);
+        List<Way> connectedWays = new ArrayList<>();
+        BoundingBox bb = w.getBounds();
+        for (Way maybeConnected : new ArrayList<>(nearbyWays)) {
+            if (maybeConnected.equals(w) || !hasTagKey(tagKey, maybeConnected)) {
+                nearbyWays.remove(maybeConnected);
+                continue;
             }
-            for (Way nearbyWay : nearbyWays) {
-                if (!hasConnection(nearbyWay, connectedWays) && layer == getLayer(nearbyWay)) {
-                    connectedValidation(logic, tolerance, nearbyWay, n);
-                    if ((n.getCachedProblems() & Validator.UNCONNECTED_END_NODE) != 0) {
-                        break;
-                    }
+            if (bb.intersects(maybeConnected.getBounds()) && maybeConnected.hasCommonNode(w)) {
+                connectedWays.add(maybeConnected);
+                nearbyWays.remove(maybeConnected);
+            }
+        }
+        for (Way nearbyWay : nearbyWays) {
+            if (!hasConnection(nearbyWay, connectedWays) && layer == getLayer(nearbyWay)) {
+                connectedValidation(logic, tolerance, nearbyWay, n);
+                if ((n.getCachedProblems() & Validator.UNCONNECTED_END_NODE) != 0) {
+                    break;
                 }
             }
         }
+    }
+
+    /**
+     * Check if the way has a specific key or has a parent MP with that key
+     * 
+     * @param key the key we are checking for
+     * @param way the way to check
+     * @return true if the way has a specific key or has a parent MP with that key
+     */
+    private boolean hasTagKey(@NonNull String key, @NonNull Way way) {
+        if (way.hasTagKey(key)) {
+            return true;
+        }
+        // check for MPs
+        List<Relation> parents = way.getParentRelations();
+        if (parents != null) {
+            for (Relation parent : parents) {
+                if (parent.hasTag(Tags.KEY_TYPE, Tags.VALUE_MULTIPOLYGON) && parent.hasTagKey(key)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**
@@ -657,7 +681,7 @@ public class BaseValidator implements Validator {
             }
             if (!way.isClosed()) {
                 for (String key : END_NODE_VALIDATION_KEYS) {
-                    if (way.hasTagKey(key)) {
+                    if (hasTagKey(key, way)) {
                         validateEndNodes(way, key);
                         break;
                     }
