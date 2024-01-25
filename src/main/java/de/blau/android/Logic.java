@@ -4161,21 +4161,24 @@ public class Logic {
                         return;
                     }
                     if (!activity.isFinishing()) {
-                        if (error == ErrorCodes.UPLOAD_CONFLICT) {
-                            if (result.getOsmId() > 0) {
-                                UploadConflict.showDialog(activity, result);
-                            } else {
-                                Log.e(DEBUG_TAG, "No OSM element found for conflict");
-                                ErrorAlert.showDialog(activity, ErrorCodes.UPLOAD_PROBLEM);
-                            }
-                        } else if (error == ErrorCodes.INVALID_LOGIN) {
+                        switch (error) {
+                        case ErrorCodes.UPLOAD_CONFLICT:
+                            UploadConflict.showDialog(activity, result);
+                            break;
+                        case ErrorCodes.INVALID_LOGIN:
                             InvalidLogin.showDialog(activity);
-                        } else if (error == ErrorCodes.FORBIDDEN) {
+                            break;
+                        case ErrorCodes.FORBIDDEN:
                             ForbiddenLogin.showDialog(activity, result.getMessage());
-                        } else if (error == ErrorCodes.BAD_REQUEST || error == ErrorCodes.NOT_FOUND || error == ErrorCodes.UNKNOWN_ERROR
-                                || error == ErrorCodes.UPLOAD_PROBLEM || error == ErrorCodes.UPLOAD_LIMIT_EXCEEDED) {
+                            break;
+                        case ErrorCodes.BAD_REQUEST:
+                        case ErrorCodes.NOT_FOUND:
+                        case ErrorCodes.UNKNOWN_ERROR:
+                        case ErrorCodes.UPLOAD_PROBLEM:
+                        case ErrorCodes.UPLOAD_LIMIT_EXCEEDED:
                             ErrorAlert.showDialog(activity, error, result.getMessage());
-                        } else if (error != 0) {
+                            break;
+                        default:
                             ErrorAlert.showDialog(activity, error);
                         }
                         if (postUploadHandler != null) {

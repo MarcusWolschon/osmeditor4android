@@ -955,18 +955,20 @@ public class Server {
      * These patterns are fairly, to very, unforgiving, hopefully API 0.7 will give the error codes back in a more
      * structured way
      */
-    private static final Pattern ERROR_MESSAGE_CLOSED_CHANGESET                = Pattern.compile("(?i)The changeset ([0-9]+) was closed at.*");
-    private static final Pattern ERROR_MESSAGE_VERSION_CONFLICT                = Pattern
+    private static final Pattern ERROR_MESSAGE_CLOSED_CHANGESET                       = Pattern.compile("(?i)The changeset ([0-9]+) was closed at.*");
+    private static final Pattern ERROR_MESSAGE_VERSION_CONFLICT                       = Pattern
             .compile("(?i)Version mismatch: Provided ([0-9]+), server had: ([0-9]+) of (Node|Way|Relation) ([0-9]+)");
-    private static final Pattern ERROR_MESSAGE_DELETED                         = Pattern
+    private static final Pattern ERROR_MESSAGE_DELETED                                = Pattern
             .compile("(?i)The (node|way|relation) with the id ([0-9]+) has already been deleted");
-    private static final Pattern ERROR_MESSAGE_PRECONDITION_STILL_USED         = Pattern
+    private static final Pattern ERROR_MESSAGE_PRECONDITION_STILL_USED                = Pattern
             .compile("(?i)(?:Precondition failed: )?(Node|Way) ([0-9]+) is still used by (way|relation)[s]? ([0-9]+).*");
-    private static final Pattern ERROR_MESSAGE_PRECONDITION_REQUIRED_WAY_NODES = Pattern
-            .compile("(?i)(?:Precondition failed: )?Way ([0-9]+) requires the nodes with id in (([0-9]+,)+) which either do not exist, or are not visible.");
-    private static final Pattern ERROR_MESSAGE_PRECONDITION_RELATION_RELATION  = Pattern
+    private static final Pattern ERROR_MESSAGE_PRECONDITION_REQUIRED_WAY_NODES        = Pattern
+            .compile("(?i)(?:Precondition failed: )?Way (-?[0-9]+) requires the nodes with id in (([0-9]+,)+) which either do not exist, or are not visible.");
+    private static final Pattern ERROR_MESSAGE_PRECONDITION_REQUIRED_RELATION_MEMBERS = Pattern.compile(
+            "(?i)(?:Precondition failed: )?Relation (-?[0-9]+) requires the (nodes|ways|relations) with id in (([0-9]+,)+) which either do not exist, or are not visible.");
+    private static final Pattern ERROR_MESSAGE_PRECONDITION_RELATION_RELATION         = Pattern
             .compile("(?i)(?:Precondition failed: )?The relation ([0-9]+) is used in relation ([0-9]+).");
-    public static final Pattern  ERROR_MESSAGE_BAD_OAUTH_REQUEST               = Pattern.compile("(?i)Bad OAuth request.*");
+    public static final Pattern  ERROR_MESSAGE_BAD_OAUTH_REQUEST                      = Pattern.compile("(?i)Bad OAuth request.*");
 
     /**
      * Process the results of uploading a diff to the API, here because it needs to manipulate the stored data
@@ -1109,12 +1111,18 @@ public class Server {
                         String idStr = m.group(1);
                         generateException(apiStorage, Way.NAME, idStr, code, responseMessage, message);
                     } else {
-                        m = ERROR_MESSAGE_PRECONDITION_RELATION_RELATION.matcher(message);
+                        m = ERROR_MESSAGE_PRECONDITION_REQUIRED_RELATION_MEMBERS.matcher(message);
                         if (m.matches()) {
                             String idStr = m.group(1);
                             generateException(apiStorage, Relation.NAME, idStr, code, responseMessage, message);
                         } else {
-                            Log.e(DEBUG_TAG, "Unknown error message: " + message);
+                            m = ERROR_MESSAGE_PRECONDITION_RELATION_RELATION.matcher(message);
+                            if (m.matches()) {
+                                String idStr = m.group(1);
+                                generateException(apiStorage, Relation.NAME, idStr, code, responseMessage, message);
+                            } else {
+                                Log.e(DEBUG_TAG, "Unknown error message: " + message);
+                            }
                         }
                     }
                 }
