@@ -39,6 +39,7 @@ import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.exception.StorageException;
 import de.blau.android.filter.Filter;
+import de.blau.android.osm.UndoStorage.Checkpoint;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.Coordinates;
@@ -3754,15 +3755,45 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     }
 
     /**
-     * Set an OemElement to new state and remove it from the upload This is only used when trying to fix conflicts
+     * Set an OsmElement to new state and remove it from the upload This is only used when trying to fix conflicts
      * 
      * @param element the OsmElement
      * @param state the new state
      */
     public void removeFromUpload(@NonNull OsmElement element, byte state) {
-        apiStorage.removeElement(element);
         undo.save(element);
+        apiStorage.removeElement(element);
         element.setState(state);
+    }
+
+    /**
+     * Undo the last undo checkpoint the element was used in
+     * 
+     * @param element the element we want to reset to the previous state
+     */
+    public void undoLast(@NonNull OsmElement element) {
+        List<de.blau.android.osm.UndoStorage.Checkpoint> checkpoints = undo.getUndoCheckpoints(element);
+        if (!checkpoints.isEmpty()) {
+            final Checkpoint checkpoint = checkpoints.get(0);
+            for (OsmElement e : checkpoint.getSavedElements()) {
+                OsmElement current = getOsmElement(e.getName(), e.getOsmId());
+                if (current != null) {
+                    undo.save(current);
+                }
+            }
+            undo.undo(checkpoint);
+            return;
+        }
+        Log.e(DEBUG_TAG, "No undo checkpoint found for " + element.getDescription());
+    }
+
+    /**
+     * Add the element to the current undo checkpoint in a fashion that it will be removed if the checkpoint is undone
+     * 
+     * @param element the OsmElement
+     */
+    public void removeOnUndo(@NonNull OsmElement element) {
+        undo.save(element, false, false);
     }
 
     /**

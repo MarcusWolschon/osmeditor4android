@@ -47,7 +47,6 @@ import de.blau.android.osm.GeoPoint;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElementInterface;
-import de.blau.android.osm.OsmParser;
 import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationInterface;
@@ -80,6 +79,8 @@ public class ElementInfo extends InfoDialogFragment {
     private static final String ELEMENT_ID_KEY        = "elementId";
     private static final String ELEMENT_TYPE_KEY      = "elementType";
     private static final String PARENT_TAG_KEY        = "parent_tag";
+
+    private static final String TWO_ROW_DATE_FORMAT = "yyyy-MM-dd'\n'HH:mm:ss zzz";
 
     private static final String TAG = "fragment_element_info";
 
@@ -282,8 +283,8 @@ public class ElementInfo extends InfoDialogFragment {
      * @return a ScrollView
      */
     @NonNull
-    private static ScrollView createComparisionView(Context ctx, @NonNull ScrollView sv, @NonNull TableLayout.LayoutParams tp, String origHeader,
-            @Nullable OsmElementInterface original, String elementHeader, @Nullable OsmElement element) {
+    static ScrollView createComparisionView(@NonNull Context ctx, @NonNull ScrollView sv, @NonNull TableLayout.LayoutParams tp, String origHeader,
+            @Nullable OsmElementInterface original, String elementHeader, @NonNull OsmElement element) {
         if (element == null) {
             return sv;
         }
@@ -300,16 +301,26 @@ public class ElementInfo extends InfoDialogFragment {
                 ? Util.fromHtml("<a href=\"" + Urls.OSM + "/" + element.getName() + "/" + element.getOsmId() + "\">#" + element.getOsmId() + "</a>")
                 : Util.fromHtml("#" + element.getOsmId());
         tl.addView(TableLayoutUtils.createRow(ctx, R.string.id, id, true, tp));
-        tl.addView(TableLayoutUtils.createRow(ctx, R.string.version, Long.toString(element.getOsmVersion()), tp));
-        long timestamp = element.getTimestamp();
-        if (timestamp > 0) {
-            tl.addView(TableLayoutUtils.createRow(ctx, R.string.last_edited, DateFormatter.getUtcFormat(OsmParser.TIMESTAMP_FORMAT).format(timestamp * 1000L),
-                    tp));
+        if (original == null || original.getOsmVersion() == element.getOsmVersion()) {
+            tl.addView(TableLayoutUtils.createRow(ctx, R.string.version, Long.toString(element.getOsmVersion()), tp));
+            long timestamp = element.getTimestamp();
+            if (timestamp > 0) {
+                tl.addView(TableLayoutUtils.createRow(ctx, R.string.last_edited, utcDateString(timestamp), tp));
+            }
         }
 
         tl.addView(TableLayoutUtils.divider(ctx));
         if (compare) {
-            tl.addView(TableLayoutUtils.createRow(ctx, "", origHeader, deleted ? null : elementHeader, tp));
+            tl.addView(TableLayoutUtils.createHeaderRow(ctx, origHeader, deleted ? null : elementHeader, tp));
+            if (original.getOsmVersion() != element.getOsmVersion()) {
+                tl.addView(
+                        TableLayoutUtils.createRow(ctx, R.string.version, Long.toString(original.getOsmVersion()), Long.toString(element.getOsmVersion()), tp));
+                long originalTimestamp = original.getTimestamp();
+                long elementTimestamp = element.getTimestamp();
+                if (originalTimestamp > 0 && elementTimestamp > 0) {
+                    tl.addView(TableLayoutUtils.createRow(ctx, R.string.last_edited, utcDateString(originalTimestamp), utcDateString(elementTimestamp), tp));
+                }
+            }
         }
         switch (element.getName()) {
         case Node.NAME:
@@ -370,20 +381,16 @@ public class ElementInfo extends InfoDialogFragment {
             Log.e(DEBUG_TAG, "Unkown element type " + element.getName());
         }
         Validator validator = App.getDefaultValidator(ctx);
-        if (!deleted && element.hasProblem(ctx, validator) != Validator.OK) {
+        boolean originalHasProblem = compare && (original instanceof OsmElement) && ((OsmElement) original).hasProblem(ctx, validator) != Validator.OK;
+        boolean hasProblem = !deleted && element.hasProblem(ctx, validator) != Validator.OK;
+        if (originalHasProblem || hasProblem) {
             tl.addView(TableLayoutUtils.divider(ctx));
-            boolean first = true;
-            for (String problem : validator.describeProblem(ctx, element)) {
-                String header = "";
-                if (first) {
-                    header = ctx.getString(R.string.problem);
-                    first = false;
-                }
-                if (compare) {
-                    tl.addView(TableLayoutUtils.createRow(ctx, header, "", problem, tp, R.attr.error, R.color.material_red));
-                } else {
-                    tl.addView(TableLayoutUtils.createRow(ctx, header, problem, null, tp, R.attr.error, R.color.material_red));
-                }
+            final boolean addOriginalProblems = compare && originalHasProblem;
+            if (addOriginalProblems) {
+                addErrors(ctx, tl, tp, true, false, validator.describeProblem(ctx, (OsmElement) original));
+            }
+            if (hasProblem) {
+                addErrors(ctx, tl, tp, !addOriginalProblems, compare, validator.describeProblem(ctx, element));
             }
         }
 
@@ -617,6 +624,42 @@ public class ElementInfo extends InfoDialogFragment {
             }
         }
         return sv;
+    }
+
+    /**
+     * Add a list of errors to the display
+     * 
+     * @param ctx an Android Context
+     * @param tl the TableLayout we are adding to
+     * @param tp layout params
+     * @param first if true a header will be added for the first error
+     * @param compare if true the errors will be added to the 2nd column
+     * @param errors the error strings
+     */
+    private static void addErrors(@NonNull Context ctx, @NonNull TableLayout tl, @NonNull TableLayout.LayoutParams tp, boolean first, boolean compare,
+            @NonNull String[] errors) {
+        for (String problem : errors) {
+            String header = "";
+            if (first) {
+                header = ctx.getString(R.string.problem);
+                first = false;
+            }
+            if (compare) {
+                tl.addView(TableLayoutUtils.createRow(ctx, header, "", problem, tp, R.attr.error, R.color.material_red));
+            } else {
+                tl.addView(TableLayoutUtils.createRow(ctx, header, problem, null, tp, R.attr.error, R.color.material_red));
+            }
+        }
+    }
+
+    /**
+     * Output the timestamp in a two row format
+     * 
+     * @param timestamp the timestamp in seconds
+     * @return a two line timestamp string
+     */
+    private static String utcDateString(long timestamp) {
+        return DateFormatter.getUtcFormat(TWO_ROW_DATE_FORMAT).format(timestamp * 1000L);
     }
 
     /**

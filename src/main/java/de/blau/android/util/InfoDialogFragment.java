@@ -61,7 +61,7 @@ public abstract class InfoDialogFragment extends ImmersiveDialogFragment {
      * @return an instance of TableLayout.LayoutParams
      */
     @NonNull
-    protected TableLayout.LayoutParams getTableLayoutParams() {
+    public static TableLayout.LayoutParams getTableLayoutParams() {
         TableLayout.LayoutParams tp = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         tp.setMargins(10, 2, 10, 2);
         return tp;

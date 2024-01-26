@@ -40,4 +40,5 @@ public final class ErrorCodes {
     public static final int APPLYING_OSC_FAILED      = 57;
     public static final int MISSING_API_KEY          = 58;
     public static final int DUPLICATE_TAG_KEY        = 59;
+    public static final int ALREADY_DELETED          = 60;
 }

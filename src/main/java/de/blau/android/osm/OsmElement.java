@@ -31,6 +31,7 @@ import de.blau.android.util.Util;
 import de.blau.android.validation.Validator;
 
 public abstract class OsmElement implements OsmElementInterface, Serializable, XmlSerializable, JosmXmlSerializable {
+
     /**
      * 
      */
@@ -47,7 +48,8 @@ public abstract class OsmElement implements OsmElementInterface, Serializable, X
     static final String VERSION_ATTR   = "version";
     static final String TIMESTAMP_ATTR = "timestamp";
     static final String VISIBLE_ATTR   = "visible";
-    static final String TRUE           = "true";
+    static final String TRUE_VALUE     = "true";
+    static final String FALSE_VALUE    = "false";
 
     static final String TAG            = "tag";
     static final String TAG_KEY_ATTR   = "k";
@@ -58,6 +60,8 @@ public abstract class OsmElement implements OsmElementInterface, Serializable, X
     static final String JOSM_DELETE = "delete";
 
     public static final long EPOCH = 1104537600L; // 2005-01-01 00:00:00
+
+    private static final String ADDRESS_DESC = "address ";
 
     protected long osmId;
 
@@ -411,7 +415,7 @@ public abstract class OsmElement implements OsmElementInterface, Serializable, X
         if (timestamp >= 0) {
             s.attribute("", TIMESTAMP_ATTR, DateFormatter.getUtcFormat(OsmParser.TIMESTAMP_FORMAT).format(getTimestamp() * 1000));
         }
-        s.attribute("", VISIBLE_ATTR, TRUE);
+        s.attribute("", VISIBLE_ATTR, TRUE_VALUE); // it could be argued that this should follow the state too
     }
 
     /**
@@ -652,7 +656,7 @@ public abstract class OsmElement implements OsmElementInterface, Serializable, X
      * @return a String or null
      */
     @Nullable
-    private String getAddressString(@Nullable Context ctx, @Nullable Map<String, String> tags) {
+    static String getAddressString(@Nullable Context ctx, @Nullable Map<String, String> tags) {
         final boolean haveCtx = ctx != null;
         String housenumber = getTagWithKey(tags, Tags.KEY_ADDR_HOUSENUMBER);
         if (Util.notEmpty(housenumber)) {
@@ -662,12 +666,12 @@ public abstract class OsmElement implements OsmElementInterface, Serializable, X
                     if (haveCtx) {
                         return ctx.getResources().getString(R.string.address_housenumber_street, street, housenumber);
                     }
-                    return "address " + housenumber + " " + street;
+                    return ADDRESS_DESC + housenumber + " " + street;
                 }
                 if (haveCtx) {
                     return ctx.getResources().getString(R.string.address_housenumber, housenumber);
                 }
-                return "address " + housenumber;
+                return ADDRESS_DESC + housenumber;
             } catch (Exception ex) {
                 // protect against translation errors
             }

@@ -30,9 +30,8 @@ import de.blau.android.util.ThemeUtils;
  *
  */
 public final class TableLayoutUtils {
-    private static final int FIRST_CELL_WIDTH = 5;
-
-    private static final int MAX_FIRST_CELL_WIDTH = 12;
+    static final int FIRST_CELL_WIDTH     = 5;
+    static final int MAX_FIRST_CELL_WIDTH = 12;
 
     /**
      * Private constructor to stop instantiation
@@ -245,6 +244,68 @@ public final class TableLayoutUtils {
     }
 
     /**
+     * Add headers over the two value columns
+     * 
+     * @param context an Android Context
+     * @param cell2 header 1
+     * @param cell3 header 2
+     * @param tp layout params
+     * @return a TableRow
+     */
+    @NonNull
+    public static TableRow createHeaderRow(@NonNull Context context, @Nullable CharSequence cell2, @Nullable CharSequence cell3,
+            @NonNull TableLayout.LayoutParams tp) {
+        return createHeaderRow(context, cell2, cell3, tp, false);
+    }
+
+    /**
+     * Add headers over the two value columns
+     * 
+     * @param context an Android Context
+     * @param cell2 header 1
+     * @param cell3 header 2
+     * @param tp layout params
+     * @param center if true center the headings
+     * @return a TableRow
+     */
+    @NonNull
+    public static TableRow createHeaderRow(@NonNull Context context, @Nullable CharSequence cell2, @Nullable CharSequence cell3,
+            @NonNull TableLayout.LayoutParams tp, boolean center) {
+        TableRow tr = new TableRow(context);
+        TextView cell = new TextView(context);
+        cell.setSingleLine();
+        cell.setMinEms(FIRST_CELL_WIDTH);
+        cell.setMaxEms(MAX_FIRST_CELL_WIDTH);
+
+        SpannableString span2 = null;
+        if (cell2 != null) {
+            span2 = new SpannableString(cell2);
+        }
+        SpannableString span3 = null;
+        if (cell3 != null) {
+            span3 = new SpannableString(cell3);
+        }
+
+        tr.addView(cell);
+        TableRow.LayoutParams trp = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        if (center) {
+            trp.gravity = Gravity.CENTER_HORIZONTAL;
+        }
+        TextView tv2 = addCell(context, span2, false, tr, trp);
+        tv2.setTypeface(null, Typeface.BOLD);
+        TextView tv3 = addCell(context, span3, false, tr, trp);
+        tv3.setTypeface(null, Typeface.BOLD);
+
+        if (center) {
+            tv2.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            tv3.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        }
+
+        tr.setLayoutParams(tp);
+        return tr;
+    }
+
+    /**
      * Get a new TableRow with the provided contents - two columns
      * 
      * @param context an Android Context
@@ -301,11 +362,11 @@ public final class TableLayoutUtils {
      * @param isUrl if true don't allow C&amp;P on the values so that they can be clicked on
      * @param tr the TableRow to add the cell to
      * @param tp LayoutParams for the row
+     * @return the TextView added
      */
     @NonNull
-    private static void addCell(@NonNull Context context, @Nullable CharSequence cellText, boolean isUrl, TableRow tr, @Nullable TableRow.LayoutParams tp) {
-        TextView cell;
-        cell = new TextView(context);
+    private static TextView addCell(@NonNull Context context, @Nullable CharSequence cellText, boolean isUrl, TableRow tr, @Nullable TableRow.LayoutParams tp) {
+        TextView cell = new TextView(context);
         if (cellText != null) {
             cell.setText(cellText);
             cell.setMinEms(FIRST_CELL_WIDTH);
@@ -321,6 +382,7 @@ public final class TableLayoutUtils {
             }
             tr.addView(cell);
         }
+        return cell;
     }
 
     /**

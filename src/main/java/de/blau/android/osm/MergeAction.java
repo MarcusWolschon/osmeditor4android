@@ -83,7 +83,7 @@ public class MergeAction {
         delegator.dirty();
 
         // merge tags
-        final Map<String, String> mergedTags = mergedTags(mergeInto, mergeFrom);
+        final Map<String, String> mergedTags = mergeTags(mergeInto, mergeFrom);
         checkForMergedTags(mergeInto.getTags(), mergeFrom.getTags(), mergedTags, result);
         delegator.setTags(mergeInto, mergedTags); // this calls onElementChange for the node
 
@@ -110,9 +110,24 @@ public class MergeAction {
      * @param into tags of the 1st element
      * @param from tags of the 2nd element
      * @param merged the merged tags
+     * @return the merge result
+     */
+    @NonNull
+    public static Result checkForMergedTags(@NonNull Map<String, String> into, @NonNull Map<String, String> from, @NonNull Map<String, String> merged) {
+        Result result = new Result();
+        checkForMergedTags(into, from, merged, result);
+        return result;
+    }
+
+    /**
+     * Check the merged tags for a new, that is not present in the original elements, tag value
+     * 
+     * @param into tags of the 1st element
+     * @param from tags of the 2nd element
+     * @param merged the merged tags
      * @param result the merge result
      */
-    private void checkForMergedTags(@NonNull Map<String, String> into, @NonNull Map<String, String> from, @NonNull Map<String, String> merged,
+    private static void checkForMergedTags(@NonNull Map<String, String> into, @NonNull Map<String, String> from, @NonNull Map<String, String> merged,
             @NonNull Result result) {
         // if merging the tags creates a new tag for a key report it
         for (Entry<String, String> m : merged.entrySet()) {
@@ -197,7 +212,7 @@ public class MergeAction {
         }
 
         // merge tags (after any reversal has been done)
-        Map<String, String> mergedTags = mergedTags(w1, w2);
+        Map<String, String> mergedTags = mergeTags(w1, w2);
         // special handling for metric tags
         for (Entry<String, String> entry : mergedTags.entrySet()) {
             String k = entry.getKey();
@@ -469,7 +484,7 @@ public class MergeAction {
             delegator.insertElementSafe(p1);
             if (ringCount == 1) {
                 result = p1;
-                final Map<String, String> mergedTags = mergedTags(p1, p2);
+                final Map<String, String> mergedTags = mergeTags(p1, p2);
                 checkForMergedTags(p1.getTags(), p2.getTags(), mergedTags, mergeResult);
                 delegator.setTags(result, mergedTags);
                 mergeElementsRelations(p1, p2);
@@ -705,7 +720,7 @@ public class MergeAction {
      * @throws OsmIllegalOperationException if the merged tag is too long
      */
     @NonNull
-    private static Map<String, String> mergedTags(@NonNull OsmElement e1, @NonNull OsmElement e2) throws OsmIllegalOperationException {
+    public static Map<String, String> mergeTags(@NonNull OsmElement e1, @NonNull OsmElement e2) throws OsmIllegalOperationException {
         Map<String, String> merged = new TreeMap<>(e1.getTags());
         for (Entry<String, String> entry : e2.getTags().entrySet()) {
             final String key = entry.getKey();

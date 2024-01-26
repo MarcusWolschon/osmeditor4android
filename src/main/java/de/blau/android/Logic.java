@@ -72,6 +72,7 @@ import de.blau.android.filter.Filter;
 import de.blau.android.gpx.Track;
 import de.blau.android.imageryoffset.ImageryAlignmentActionModeCallback;
 import de.blau.android.layer.MapViewLayer;
+import de.blau.android.osm.ApiResponse;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.DiscardedTags;
 import de.blau.android.osm.GeoPoint;
@@ -99,6 +100,7 @@ import de.blau.android.osm.Tags;
 import de.blau.android.osm.UndoStorage;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
+import de.blau.android.osm.ApiResponse.Conflict;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.DataStyle.FeatureStyle;
@@ -627,7 +629,7 @@ public class Logic {
      * @param activity that we were called from for access to the resources, if null we will use the resources from App
      * @param stringId the resource id of the string representing the checkpoint name
      */
-    private void createCheckpoint(@Nullable Activity activity, int stringId) {
+    public void createCheckpoint(@Nullable Activity activity, int stringId) {
         Resources r = activity != null ? activity.getResources() : App.resources();
         boolean firstCheckpoint = !getDelegator().getUndo().canUndo();
         getDelegator().getUndo().createCheckpoint(r.getString(stringId));
@@ -667,9 +669,9 @@ public class Logic {
      * @param tags Tags to be set
      * @throws OsmIllegalOperationException if the e isn't in storage
      */
-    public synchronized void setTags(@Nullable Activity activity, @NonNull final OsmElement e, @Nullable final java.util.Map<String, String> tags)
+    public void setTags(@Nullable Activity activity, @NonNull final OsmElement e, @Nullable final java.util.Map<String, String> tags)
             throws OsmIllegalOperationException {
-        setTags(activity, e.getName(), e.getOsmId(), tags);
+        setTags(activity, e, tags, true);
     }
 
     /**
@@ -681,7 +683,7 @@ public class Logic {
      * @param tags Tags to be set
      * @throws OsmIllegalOperationException if the e isn't in storage
      */
-    public synchronized void setTags(@Nullable Activity activity, final String type, final long osmId, @Nullable final java.util.Map<String, String> tags)
+    public void setTags(@Nullable Activity activity, final String type, final long osmId, @Nullable final java.util.Map<String, String> tags)
             throws OsmIllegalOperationException {
         setTags(activity, type, osmId, tags, true);
     }
@@ -696,12 +698,26 @@ public class Logic {
      * @param createCheckpoint create a checkpoint, except in composite operations this should always be true
      * @throws OsmIllegalOperationException if the e isn't in storage
      */
-    public synchronized void setTags(@Nullable Activity activity, final String type, final long osmId, @Nullable final java.util.Map<String, String> tags,
+    public void setTags(@Nullable Activity activity, final String type, final long osmId, @Nullable final java.util.Map<String, String> tags,
             boolean createCheckpoint) throws OsmIllegalOperationException {
-        OsmElement osmElement = getDelegator().getOsmElement(type, osmId);
+        setTags(activity, getDelegator().getOsmElement(type, osmId), tags, createCheckpoint);
+    }
+
+    /**
+     * Delegates the setting of the Tag-list to {@link StorageDelegator}. All existing tags will be replaced.
+     * 
+     * @param activity activity we were called from
+     * @param type type of the element
+     * @param osmId OSM-ID of the element
+     * @param tags Tags to be set
+     * @param createCheckpoint create a checkpoint, except in composite operations this should always be true
+     * @throws OsmIllegalOperationException if the e isn't in storage
+     */
+    public synchronized void setTags(@Nullable Activity activity, @Nullable OsmElement osmElement, @Nullable final java.util.Map<String, String> tags,
+            boolean createCheckpoint) throws OsmIllegalOperationException {
         if (osmElement == null) {
-            Log.e(DEBUG_TAG, "Attempted to setTags on a non-existing element " + type + " #" + osmId);
-            throw new OsmIllegalOperationException(type + " #" + osmId + " not in storage");
+            Log.e(DEBUG_TAG, "Attempted to setTags on a non-existing element");
+            throw new OsmIllegalOperationException("Element not in storage");
         } else {
             if (createCheckpoint) {
                 createCheckpoint(activity, R.string.undo_action_set_tags);
@@ -711,7 +727,7 @@ public class Logic {
     }
 
     /**
-     * Delegates the setting of the Tag-list to {@link StorageDelegator}. All existing tags will be replaced.
+     * Update parent relations
      * 
      * @param activity activity we were called from
      * @param type type of the element for the Tag-list.
@@ -2992,7 +3008,7 @@ public class Logic {
         } catch (ParserConfigurationException | UnsupportedFormatException e) {
             result = new AsyncResult(ErrorCodes.INVALID_DATA_RECEIVED, e.getMessage());
         } catch (OsmServerException e) {
-            switch (e.getErrorCode()) {
+            switch (e.getHttpErrorCode()) {
             case HttpURLConnection.HTTP_BAD_REQUEST:
                 // check error messages
                 Matcher m = Server.ERROR_MESSAGE_BAD_OAUTH_REQUEST.matcher(e.getMessage());
@@ -3068,32 +3084,32 @@ public class Logic {
             protected void onPostExecute(AsyncResult result) {
                 Progress.dismissDialog(activity, Progress.PROGRESS_DOWNLOAD);
                 int code = result.getCode();
-                if (code != 0) {
-                    try {
-                        if (!activity.isFinishing()) {
-                            ErrorAlert.showDialog(activity, result);
-                        }
-                    } catch (Exception ex) { // now and then this seems to throw a WindowManager.BadTokenException,
-                                             // however report, don't crash
-                        ACRAHelper.nocrashReport(ex, ex.getMessage());
-                    }
-                    for (BoundingBox box : boxes) { // recreate the boundingbox list
-                        getDelegator().addBoundingBox(box);
-                    }
+                if (code == 0) {
                     if (postLoadHandler != null) {
-                        postLoadHandler.onError(null);
+                        postLoadHandler.onSuccess();
                     }
                     return;
                 }
+                try {
+                    if (!activity.isFinishing()) {
+                        ErrorAlert.showDialog(activity, result);
+                    }
+                } catch (Exception ex) { // now and then this seems to throw a WindowManager.BadTokenException,
+                                         // however report, don't crash
+                    ACRAHelper.nocrashReport(ex, ex.getMessage());
+                }
+                for (BoundingBox box : boxes) { // recreate the boundingbox list
+                    getDelegator().addBoundingBox(box);
+                }
                 if (postLoadHandler != null) {
-                    postLoadHandler.onSuccess();
+                    postLoadHandler.onError(null);
                 }
             }
         }.execute();
     }
 
     /**
-     * Return a single element from the API, does not merge into storage, synchronous
+     * Return a single element from the API, does not merge into storage
      * 
      * Note: currently doesn't check if the API is available or not
      * 
@@ -3103,7 +3119,7 @@ public class Logic {
      * @return element if successful, null if not
      */
     @Nullable
-    public synchronized OsmElement getElement(@Nullable final Activity activity, final String type, final long id) {
+    public OsmElement getElement(@Nullable final Activity activity, final String type, final long id) {
 
         class GetElementTask extends ExecutorTask<Void, Void, OsmElement> {
 
@@ -3139,6 +3155,174 @@ public class Logic {
     }
 
     /**
+     * Return a single, possibly deleted, element from the API, does not merge into storage
+     * 
+     * Note: currently doesn't check if the API is available or not
+     * 
+     * @param ctx an Android Context
+     * @param type type of the element
+     * @param id id of the element
+     * @return element if successful, null if not
+     * @throws OsmServerException if something goes wrong
+     */
+    @Nullable
+    public OsmElement getElementWithDeleted(@Nullable final Context ctx, final String type, final long id) throws OsmServerException {
+
+        ExecutorTask<Void, Void, OsmElement> loader = new ExecutorTask<Void, Void, OsmElement>(executorService, uiHandler) {
+            @Override
+            protected OsmElement doInBackground(Void arg) throws SAXException, IOException, ParserConfigurationException {
+                try {
+                    final Server server = getPrefs().getServer();
+                    final OsmParser osmParser = new OsmParser(true);
+                    try (InputStream in = server.getStreamForElements(ctx, type, new long[] { id })) {
+                        osmParser.start(in);
+                    }
+                    final Storage storage = osmParser.getStorage();
+                    OsmElement result = storage.getOsmElement(type, id);
+                    if (!Way.NAME.equals(type)) {
+                        return result;
+                    }
+                    downloadMissingWayNodes(ctx, server, osmParser, result);
+                    return result;
+                } catch (SAXException ex) {
+                    Log.e(DEBUG_TAG, "getElementWithDeleted problem parsing", ex);
+                    throw checkSAXException(ex);
+                } catch (ParserConfigurationException ex) {
+                    Log.e(DEBUG_TAG, "getElementWithDeleted problem with parser", ex);
+                    throw new OsmServerException(ErrorCodes.INVALID_DATA_RECEIVED, ex.getLocalizedMessage());
+                } catch (IOException ex) {
+                    Log.e(DEBUG_TAG, "getElementWithDeleted no connection", ex);
+                    throw new OsmServerException(ErrorCodes.NO_CONNECTION, ex.getLocalizedMessage());
+                }
+            }
+        };
+        loader.execute();
+
+        try {
+            return loader.get(20, TimeUnit.SECONDS);
+        } catch (InterruptedException | ExecutionException | TimeoutException e) { // NOSONAR
+            // cancel does interrupt the thread in question
+            loader.cancel();
+            throw new OsmServerException(ErrorCodes.NO_CONNECTION, e.getLocalizedMessage());
+        }
+    }
+
+    /**
+     * Check what caused the SAXException
+     * 
+     * @param ex the SAXException
+     * @return an appropriate OsmServerException
+     */
+    @NonNull
+    private OsmServerException checkSAXException(@NonNull SAXException ex) {
+        Exception ce = ex.getException();
+        if ((ce instanceof StorageException) && ((StorageException) ce).getCode() == StorageException.OOM) {
+            return new OsmServerException(ErrorCodes.OUT_OF_MEMORY, ce.getLocalizedMessage());
+        }
+        return new OsmServerException(ErrorCodes.INVALID_DATA_RECEIVED, ex.getLocalizedMessage());
+    }
+
+    /**
+     * Return multiple, possibly deleted, elements from the API, does not merge into main storage
+     * 
+     * Note: currently doesn't check if the API is available or not
+     * 
+     * @param ctx an Android Context
+     * @param type type of elements to get
+     * @param ids array elements ids
+     * @return a Storage object holding all the elements
+     * @throws OsmServerException if something goes wrong
+     */
+    @NonNull
+    public Storage getElementsWithDeleted(@Nullable final Context ctx, @NonNull String type, @NonNull long[] ids) throws OsmServerException {
+
+        ExecutorTask<Void, Void, Storage> loader = new ExecutorTask<Void, Void, Storage>(executorService, uiHandler) {
+
+            @Override
+            protected Storage doInBackground(Void arg) throws OsmServerException {
+                final Server server = getPrefs().getServer();
+                final OsmParser osmParser = new OsmParser(true);
+                try {
+                    try (InputStream in = server.getStreamForElements(ctx, type, ids)) {
+                        osmParser.reinit();
+                        osmParser.start(in);
+                    }
+                    Storage storage = osmParser.getStorage();
+                    if (Way.NAME.equals(type)) {
+                        for (long wayId : ids) {
+                            OsmElement way = storage.getOsmElement(Way.NAME, wayId);
+                            downloadMissingWayNodes(ctx, server, osmParser, way);
+                        }
+                    }
+                    return storage;
+                } catch (SAXException ex) {
+                    Log.e(DEBUG_TAG, "getElementsWithDeleted problem parsing", ex);
+                    throw checkSAXException(ex);
+                } catch (ParserConfigurationException ex) {
+                    Log.e(DEBUG_TAG, "getElementsWithDeleted problem with parser", ex);
+                    throw new OsmServerException(ErrorCodes.INVALID_DATA_RECEIVED, ex.getLocalizedMessage());
+                } catch (IOException ex) {
+                    Log.e(DEBUG_TAG, "getElementsWithDeleted no connection", ex);
+                    throw new OsmServerException(ErrorCodes.NO_CONNECTION, ex.getLocalizedMessage());
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    throw ex;
+                }
+            }
+
+        };
+        loader.execute();
+        try {
+            return loader.get(20, TimeUnit.SECONDS);
+        } catch (InterruptedException | ExecutionException | TimeoutException e) { // NOSONAR
+            // cancel does interrupt the thread in question
+            loader.cancel();
+            throw new OsmServerException(ErrorCodes.NO_CONNECTION, e.getLocalizedMessage());
+        }
+    }
+
+    /**
+     * Fixup missing way nodes
+     * 
+     * @param ctx an Android Context
+     * @param server the current server
+     * @param osmParser an OsmParser
+     * @param way the way we ant to get the nodes for
+     * @throws SAXException parsing error
+     * @throws IOException if we can't download the nodes
+     * @throws ParserConfigurationException parsing error
+     */
+    private void downloadMissingWayNodes(@NonNull final Context ctx, @NonNull final Server server, @NonNull final OsmParser osmParser, @Nullable OsmElement way)
+            throws SAXException, IOException, ParserConfigurationException {
+        // as the API doesn't return way nodes for this call we need to patch things up here
+        if (way == null) {
+            throw new OsmServerException(ErrorCodes.NOT_FOUND, "downloadMissingWayNodes null way");
+        }
+        if (way.getState() == OsmElement.STATE_DELETED) {
+            return; // no nodes
+        }
+        final Storage storage = osmParser.getStorage();
+        osmParser.reinit();
+        List<Node> tempNodes = ((Way) way).getNodes();
+        long[] realNodes = new long[tempNodes.size()];
+        for (int i = 0; i < realNodes.length; i++) {
+            realNodes[i] = tempNodes.get(i).getOsmId();
+        }
+        try (InputStream in2 = server.getStreamForElements(ctx, Node.NAME, realNodes)) {
+            osmParser.start(in2);
+        }
+        tempNodes.clear();
+        for (long id : realNodes) {
+            final Node realNode = (Node) storage.getOsmElement(Node.NAME, id);
+            if (realNode != null) {
+                tempNodes.add(realNode);
+            } else {
+                Log.e(DEBUG_TAG, "getElementWithDeleted unable to replace node " + id);
+            }
+        }
+    }
+
+    /**
      * Download a single element from the API and merge
      * 
      * Note: currently doesn't check if the API is available or not
@@ -3147,23 +3331,13 @@ public class Logic {
      * @param type type of the element
      * @param id OSM id of the element
      * @param relationFull if we are downloading a relation download with full option
-     * @param withParents download parent relations
+     * @param withParents download parent relations and ways
      * @param postLoadHandler callback to execute after download completes if null method waits for download to finish
      * @return an error code, 0 for success
      */
     public synchronized int downloadElement(@Nullable final Context ctx, @NonNull final String type, final long id, final boolean relationFull,
             final boolean withParents, @Nullable final PostAsyncActionHandler postLoadHandler) {
-        class DownLoadElementTask extends ExecutorTask<Void, Void, Integer> {
-
-            /**
-             * Create a new DownLoadElementTask
-             * 
-             * @param executorService ExecutorService to run this on
-             * @param handler an Handler
-             */
-            protected DownLoadElementTask(@NonNull ExecutorService executorService, @NonNull Handler handler) {
-                super(executorService, handler);
-            }
+        ExecutorTask<Void, Void, Integer> loader = new ExecutorTask<Void, Void, Integer>() {
 
             @Override
             protected Integer doInBackground(Void arg) {
@@ -3193,8 +3367,8 @@ public class Logic {
                 }
                 postLoadHandler.onError(null);
             }
-        }
-        DownLoadElementTask loader = new DownLoadElementTask(executorService, uiHandler);
+        };
+
         loader.execute();
 
         if (postLoadHandler == null) {
@@ -3216,7 +3390,7 @@ public class Logic {
      * @param type type the element type ("node", "way", "relation")
      * @param id the OSM id
      * @param relationFull if type is "relation" then include member elements
-     * @param withParents include relations the element is a member of
+     * @param withParents include relations the element is a member of and for nodes, parent ways
      * @param osmParser the OsmParser instance that will hold the download result
      * @return an error code or 0 for success
      */
@@ -3226,15 +3400,21 @@ public class Logic {
         try {
             final Server server = getPrefs().getServer();
 
-            // TODO this currently does not retrieve ways the node may be a member of
             // we always retrieve ways with nodes, relations "full" is optional
-            try (InputStream in = server.getStreamForElement(ctx, (Relation.NAME.equals(type) && relationFull) || Way.NAME.equals(type) ? "full" : null, type,
-                    id)) {
+            try (InputStream in = server.getStreamForElement(ctx,
+                    (Relation.NAME.equals(type) && relationFull) || Way.NAME.equals(type) ? Server.MODE_FULL : null, type, id)) {
                 osmParser.start(in);
             }
             if (withParents) {
-                // optional retrieve relations the element is a member of
-                try (InputStream in = server.getStreamForElement(ctx, "relations", type, id)) {
+                if (Node.NAME.equals(type)) {
+                    try (InputStream in = server.getStreamForElement(ctx, Server.MODE_WAYS, type, id)) {
+                        osmParser.reinit();
+                        osmParser.start(in);
+                    }
+                }
+                // optional retrieve relations the element is a member of and for nodes, parent ways
+                try (InputStream in = server.getStreamForElement(ctx, Server.MODE_RELATIONS, type, id)) {
+                    osmParser.reinit();
                     osmParser.start(in);
                 }
             }
@@ -3250,7 +3430,7 @@ public class Logic {
             Log.e(DEBUG_TAG, "downloadElement problem with parser", e);
             result = ErrorCodes.INVALID_DATA_RECEIVED;
         } catch (OsmServerException e) {
-            result = e.getErrorCode();
+            result = e.getHttpErrorCode();
             Log.e(DEBUG_TAG, "downloadElement problem downloading", e);
         } catch (IOException e) {
             result = ErrorCodes.NO_CONNECTION;
@@ -3325,7 +3505,7 @@ public class Logic {
                             // determine which nodes need to be downloaded, however currently the logic in OsmParser
                             // expects way nodes to be available
                             // when ways are parsed.
-                            try (InputStream in = server.getStreamForElement(ctx, "full", Way.NAME, id)) {
+                            try (InputStream in = server.getStreamForElement(ctx, Server.MODE_FULL, Way.NAME, id)) {
                                 osmParser.reinit();
                                 osmParser.start(in);
                             }
@@ -3405,9 +3585,12 @@ public class Logic {
      * 
      * @param activity activity we were called from
      * @param e element to delete
+     * @param createCheckpoint create an undo checkpoint if true
      */
-    public synchronized void updateToDeleted(@Nullable Activity activity, @NonNull OsmElement e) {
-        createCheckpoint(activity, R.string.undo_action_fix_conflict);
+    public synchronized void updateToDeleted(@Nullable Activity activity, @NonNull OsmElement e, boolean createCheckpoint) {
+        if (createCheckpoint) {
+            createCheckpoint(activity, R.string.undo_action_fix_conflict);
+        }
         if (e.getName().equals(Node.NAME)) {
             getDelegator().removeNode((Node) e);
         } else if (e.getName().equals(Way.NAME)) {
@@ -4060,8 +4243,8 @@ public class Logic {
      * @param postUploadHandler code to execute after an upload
      */
     public void upload(@NonNull final FragmentActivity activity, @Nullable final String comment, @Nullable final String source, boolean closeOpenChangeset,
-            final boolean closeChangeset, @Nullable java.util.Map<String, String> extraTags, @Nullable List<OsmElement> elements,
-            @Nullable PostAsyncActionHandler postUploadHandler) {
+            final boolean closeChangeset, @Nullable final java.util.Map<String, String> extraTags, @Nullable final List<OsmElement> elements,
+            @Nullable final PostAsyncActionHandler postUploadHandler) {
         final String PROGRESS_TAG = "data";
         final Server server = prefs.getServer();
         new ExecutorTask<Void, Void, UploadResult>(executorService, uiHandler) {
@@ -4084,9 +4267,9 @@ public class Logic {
                     }
                     getDelegator().uploadToServer(server, comment, source, closeOpenChangeset, closeChangeset, extraTags, elements);
                 } catch (final OsmServerException e) {
-                    result.setHttpError(e.getErrorCode());
+                    result.setHttpError(e.getHttpErrorCode());
                     result.setMessage(e.getMessageWithDescription());
-                    switch (e.getErrorCode()) {
+                    switch (e.getHttpErrorCode()) {
                     case HttpURLConnection.HTTP_FORBIDDEN:
                         result.setError(ErrorCodes.FORBIDDEN);
                         break;
@@ -4094,16 +4277,13 @@ public class Logic {
                         result.setError(ErrorCodes.INVALID_LOGIN);
                         break;
                     case HttpURLConnection.HTTP_GONE:
+                        result.setError(ErrorCodes.ALREADY_DELETED);
+                        result.setMessage(e.getMessage());
+                        break;
                     case HttpURLConnection.HTTP_CONFLICT:
                     case HttpURLConnection.HTTP_PRECON_FAILED:
-                        if (e.hasElement()) {
-                            result.setError(ErrorCodes.UPLOAD_CONFLICT);
-                            result.setElementType(e.getElementType());
-                            result.setOsmId(e.getElementId());
-                        } else {
-                            result.setError(ErrorCodes.UNKNOWN_ERROR);
-                            result.setMessage(e.getMessage());
-                        }
+                        result.setError(ErrorCodes.UPLOAD_CONFLICT);
+                        result.setMessage(e.getMessage());
                         break;
                     case HttpURLConnection.HTTP_BAD_REQUEST:
                         result.setError(ErrorCodes.BAD_REQUEST);
@@ -4128,7 +4308,7 @@ public class Logic {
                         result.setMessage(e.getMessage());
                         break;
                     }
-                } catch (final IOException e) {
+                } catch (final IOException | NumberFormatException e) {
                     Log.e(DEBUG_TAG, METHOD_UPLOAD, e);
                     result.setError(ErrorCodes.UPLOAD_PROBLEM);
                     result.setMessage(e.getLocalizedMessage());
@@ -4144,12 +4324,13 @@ public class Logic {
                 Progress.dismissDialog(activity, Progress.PROGRESS_UPLOADING, PROGRESS_TAG);
                 final int error = result.getError();
                 try {
+                    final StorageDelegator delegator = getDelegator();
                     if (error == ErrorCodes.OK) {
                         ScreenMessage.barInfo(activity, R.string.toast_upload_success);
                         if (elements == null) {
-                            getDelegator().clearUndo(); // only clear on successful upload
+                            delegator.clearUndo(); // only clear on successful upload
                         } else {
-                            getDelegator().clearUndo(elements);
+                            delegator.clearUndo(elements);
                         }
                         // save now to avoid problems if it doesn't succeed later on, this currently writes
                         // sync and potentially cause ANRs
@@ -4158,12 +4339,20 @@ public class Logic {
                         if (postUploadHandler != null) {
                             postUploadHandler.onSuccess();
                         }
-                        return;
                     }
                     if (!activity.isFinishing()) {
                         switch (error) {
                         case ErrorCodes.UPLOAD_CONFLICT:
-                            UploadConflict.showDialog(activity, result);
+                            Conflict conflict = ApiResponse.parseConflictResponse(result.getHttpError(), result.getMessage());
+                            if (conflict instanceof ApiResponse.ClosedChangesetConflict) {
+                                // this can really only happen if the changeset is closed between when we check for an
+                                // open one and we starting the upload
+                                ScreenMessage.toastTopWarning(activity, R.string.upload_conflict_message_changeset_closed);
+                                this.execute(); // restart new changeset will be opened automatically
+                                return;
+                            } else {
+                                UploadConflict.showDialog(activity, conflict);
+                            }
                             break;
                         case ErrorCodes.INVALID_LOGIN:
                             InvalidLogin.showDialog(activity);
@@ -4178,6 +4367,19 @@ public class Logic {
                         case ErrorCodes.UPLOAD_LIMIT_EXCEEDED:
                             ErrorAlert.showDialog(activity, error, result.getMessage());
                             break;
+                        case ErrorCodes.ALREADY_DELETED:
+                            conflict = ApiResponse.parseConflictResponse(result.getHttpError(), result.getMessage());
+                            if (conflict instanceof ApiResponse.AlreadyDeletedConflict) {
+                                final OsmElement deletedElement = delegator.getOsmElement(conflict.getElementType(), conflict.getElementId());
+                                delegator.removeFromUpload(deletedElement, OsmElement.STATE_DELETED);
+                                if (elements != null) {
+                                    elements.remove(deletedElement);
+                                }
+                                ScreenMessage.toastTopWarning(activity,
+                                        activity.getString(R.string.upload_conflict_message_already_deleted, deletedElement.getDescription(true)));
+                                this.execute(); // restart
+                                return;
+                            } // NOSONAR fall through
                         default:
                             ErrorAlert.showDialog(activity, error);
                         }
@@ -4185,6 +4387,9 @@ public class Logic {
                             postUploadHandler.onError(null);
                         }
                     }
+                } catch (Exception ex) {
+                    Log.e(DEBUG_TAG, "Unexpected exception in upload " + ex.getMessage());
+                    ACRAHelper.nocrashReport(ex, ex.getMessage());
                 } finally {
                     invalidateCurrentFocus(activity);
                 }
@@ -4230,7 +4435,7 @@ public class Logic {
                     OsmGpxApi.uploadTrack(server, track, description, tags, visibility);
                 } catch (final OsmServerException e) {
                     Log.e(DEBUG_TAG, e.getMessage());
-                    switch (e.getErrorCode()) {
+                    switch (e.getHttpErrorCode()) {
                     case HttpURLConnection.HTTP_FORBIDDEN:
                     case HttpURLConnection.HTTP_UNAUTHORIZED:
                         result = ErrorCodes.INVALID_LOGIN;
@@ -5300,16 +5505,21 @@ public class Logic {
     /**
      * Fixup an object with a version conflict
      * 
-     * Note: this could do with some more explaining
+     * Note: when we undelete relations this may fail if a newly created relation references one that hasn't been
+     * undeleted yet
      * 
      * @param activity activity we were called from
      * @param newVersion new version to use
      * @param elementLocal the local instance of the element
      * @param elementOnServer the remote instance of the element
+     * @param createCheckpoint create an undo checkpoint if true
      */
-    public void fixElementWithConflict(@Nullable Activity activity, long newVersion, @NonNull OsmElement elementLocal, @Nullable OsmElement elementOnServer) {
-        createCheckpoint(activity, R.string.undo_action_fix_conflict);
-        if (elementOnServer == null) { // deleted on server
+    public void fixElementWithConflict(@Nullable Activity activity, long newVersion, @NonNull OsmElement elementLocal, @NonNull OsmElement elementOnServer,
+            boolean createCheckpoint) {
+        if (createCheckpoint) {
+            createCheckpoint(activity, R.string.undo_action_fix_conflict);
+        }
+        if (elementOnServer.getState() == OsmElement.STATE_DELETED) { // deleted on server
             if (elementLocal.getState() == OsmElement.STATE_DELETED) {
                 // deleted locally too
                 // note this sets the state to unchanged, but the element
@@ -5319,15 +5529,19 @@ public class Logic {
             }
             // not locally deleted
             // given that the element is deleted on the server we likely need to add it back to ways and relations
-            // there too
+            // there too, we force an upload by bumping the version
             if (elementLocal.getName().equals(Node.NAME)) {
                 for (Way w : getWaysForNode((Node) elementLocal)) {
-                    getDelegator().setOsmVersion(w, w.getOsmVersion() + 1);
+                    if (w.getState() != OsmElement.STATE_CREATED) {
+                        getDelegator().setOsmVersion(w, w.getOsmVersion() + 1);
+                    }
                 }
             }
             if (elementLocal.hasParentRelations()) {
                 for (Relation r : elementLocal.getParentRelations()) {
-                    getDelegator().setOsmVersion(r, r.getOsmVersion() + 1);
+                    if (r.getState() != OsmElement.STATE_CREATED) {
+                        getDelegator().setOsmVersion(r, r.getOsmVersion() + 1);
+                    }
                 }
             }
         }
