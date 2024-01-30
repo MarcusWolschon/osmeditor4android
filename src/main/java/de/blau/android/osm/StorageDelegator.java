@@ -3773,7 +3773,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      */
     public void setOsmVersion(@NonNull OsmElement element, long version) {
         element.setOsmVersion(version);
-        element.setState(OsmElement.STATE_MODIFIED);
+        element.updateState(OsmElement.STATE_MODIFIED);
         insertElementSafe(element);
     }
 
