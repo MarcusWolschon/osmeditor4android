@@ -204,7 +204,9 @@ public class UploadConflict extends ImmersiveDialogFragment {
 
                 for (long id : usedByElementIds) {
                     OsmElement e = usedByOnServer.getOsmElement(usedByElementType, id);
-                    tl.addView(TableLayoutUtils.createFullRow(activity, e.getDescription(activity, true), tp));
+                    tl.addView(TableLayoutUtils.createFullRow(activity,
+                            e != null ? e.getDescription(activity, true) : res.getString(R.string.unable_to_download_referring_element, usedByElementType, id),
+                            tp));
                 }
                 LinearLayout infoLayout = sv.findViewById(R.id.element_info_layout);
                 infoLayout.addView(tl);
