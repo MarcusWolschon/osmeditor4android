@@ -140,7 +140,66 @@ public class LayerDialogCustomImageryTest {
             assertNotNull(tls);
         }
     }
+    
+    /**
+     * Test adding custom imagery with an invalid URL
+     */
+    @Test
+    public void customImageryBadUrl() {
+        assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/layers", true));
+        assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/add", true));
+        TestUtils.scrollTo(main.getString(R.string.layer_add_custom_imagery), false);
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.layer_add_custom_imagery), true));
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.add_layer_title)));
+        UiObject name = device.findObject(new UiSelector().resourceId(device.getCurrentPackageName() + ":id/name"));
+        try {
+            name.setText("Custom imagery");
+        } catch (UiObjectNotFoundException e) {
+            fail(e.getMessage());
+        }
+        UiObject url = device.findObject(new UiSelector().resourceId(device.getCurrentPackageName() + ":id/url"));
+        try {
+            url.setText("https://test/wkid={wkid}");
+        } catch (UiObjectNotFoundException e) {
+            fail(e.getMessage());
+        }
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.save), true));
+        assertTrue(TestUtils.findNotification(device, main.getString(R.string.toast_url_config_file_placeholders)));
+    }
 
+    /**
+     * Test adding custom imagery with an invalid bounding box
+     */
+    @Test
+    public void customImageryBadBox() {
+        assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/layers", true));
+        assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/add", true));
+        TestUtils.scrollTo(main.getString(R.string.layer_add_custom_imagery), false);
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.layer_add_custom_imagery), true));
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.add_layer_title)));
+        UiObject name = device.findObject(new UiSelector().resourceId(device.getCurrentPackageName() + ":id/name"));
+        try {
+            name.setText("Custom imagery");
+        } catch (UiObjectNotFoundException e) {
+            fail(e.getMessage());
+        }
+        UiObject url = device.findObject(new UiSelector().resourceId(device.getCurrentPackageName() + ":id/url"));
+        try {
+            url.setText("https://test/");
+        } catch (UiObjectNotFoundException e) {
+            fail(e.getMessage());
+        }
+        
+        UiObject left = device.findObject(new UiSelector().resourceId(device.getCurrentPackageName() + ":id/left"));
+        try {
+            left.setText("1");
+        } catch (UiObjectNotFoundException e) {
+            fail(e.getMessage());
+        }
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.save), true));
+        assertTrue(TestUtils.findNotification(device, main.getString(R.string.toast_invalid_box)));
+    }
+    
     /**
      * Test adding a MBT source
      */
