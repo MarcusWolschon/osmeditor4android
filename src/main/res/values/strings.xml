@@ -536,6 +536,7 @@
     <string name="toast_unable_to_persist_permissions">Unable to persist permissions</string>
     <string name="toast_name_empty">Pick a name</string>
     <string name="toast_url_empty">Enter a URL</string>
+    <string name="toast_url_config_file_placeholders">{proj} and {wkid} placeholders are only supported in configuration files</string>
     <string name="toast_min_zoom">Set minimum zoom lower than maximum</string>
     <string name="toast_tile_layer_exists">Tile source %1$s has the same url</string>
     <string name="toast_styleable_layer_exists">Layer for %1$s exists</string>
