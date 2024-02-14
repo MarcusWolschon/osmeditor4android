@@ -258,7 +258,7 @@ public class TileLayerDialog extends ImmersiveDialogFragment {
         final String format = metadata.get(MBTileConstants.FORMAT);
         final boolean isMVT = MBTileConstants.PBF.equals(format);
         if (!(MBTileConstants.PNG.equals(format) || MBTileConstants.JPG.equals(format) || isMVT)) {
-            ScreenMessage.toastTopError(activity, activity.getResources().getString(R.string.toast_unsupported_format, format));
+            ScreenMessage.toastTopError(activity, getString(R.string.toast_unsupported_format, format));
             return;
         }
         metadataMap.put(TILE_TYPE, isMVT ? TileType.MVT : null);
@@ -379,8 +379,6 @@ public class TileLayerDialog extends ImmersiveDialogFragment {
          * @return true if successful
          */
         boolean save() {
-            boolean moan = false;
-
             String name = nameEdit.getText().toString().trim();
             final boolean emptyName = "".equals(name);
             String tileUrl = urlEdit.getText().toString().trim();
@@ -401,57 +399,90 @@ public class TileLayerDialog extends ImmersiveDialogFragment {
             String bottomText = bottomEdit.getText().toString().trim();
             String rightText = rightEdit.getText().toString().trim();
             String topText = topEdit.getText().toString().trim();
-            if (!("".equals(leftText) && "".equals(bottomText) && "".equals(rightText) && "".equals(topText))) {
-                BoundingBox box = getBoundingBox(leftText, bottomText, rightText, topText);
-                moan = box == null;
-                if (moan) {
-                    ScreenMessage.toastTopError(activity, R.string.toast_invalid_box);
-                } else {
+            try {
+                if (!("".equals(leftText) && "".equals(bottomText) && "".equals(rightText) && "".equals(topText))) {
+                    BoundingBox box = getBoundingBoxFromText(leftText, bottomText, rightText, topText);
                     CoverageArea ca = new CoverageArea(minZoom, maxZoom, box);
                     provider.addCoverageArea(ca);
                 }
-            }
-            String attribution = (String) metadataMap.get(ATTRIBUTION);
-            if (Util.notEmpty(attribution)) {
-                // strip html
-                provider.setAttribution(Util.fromHtml(attribution).toString());
-            }
-            if (emptyName) {
-                ScreenMessage.toastTopError(activity, R.string.toast_name_empty);
-                moan = true;
-            }
-            if ("".equals(tileUrl)) {
-                ScreenMessage.toastTopError(activity, R.string.toast_url_empty);
-                moan = true;
-            }
-            String proj = TileLayerSource.projFromUrl(tileUrl);
-            if (proj != null && !TileLayerSource.supportedProjection(proj)) {
-                ScreenMessage.toastTopError(activity, activity.getString(R.string.toast_unsupported_projection, proj));
-                moan = true;
-            }
-            if (isOverlay && (tileUrl.contains(WmsCapabilities.IMAGE_JPEG) || tileUrl.contains("." + FileExtensions.JPG))) {
-                ScreenMessage.toastTopError(activity, R.string.toast_jpeg_not_transparent);
-                moan = true;
-            }
-            if (minZoom > maxZoom) {
-                ScreenMessage.toastTopError(activity, R.string.toast_min_zoom);
-                moan = true;
-            }
-            int tileSize = tileSizePicker.getValue();
-            if (moan) { // abort and leave the dialog intact
+                String attribution = (String) metadataMap.get(ATTRIBUTION);
+                if (Util.notEmpty(attribution)) {
+                    // strip html
+                    provider.setAttribution(Util.fromHtml(attribution).toString());
+                }
+                if (emptyName) {
+                    throw new IllegalArgumentException(getString(R.string.toast_name_empty));
+                }
+                checkTileServerUrl(tileUrl);
+                String proj = TileLayerSource.projFromUrl(tileUrl);
+                if (proj != null && !TileLayerSource.supportedProjection(proj)) {
+                    throw new IllegalArgumentException(getString(R.string.toast_unsupported_projection, proj));
+                }
+                if (isOverlay && (tileUrl.contains(WmsCapabilities.IMAGE_JPEG) || tileUrl.contains("." + FileExtensions.JPG))) {
+                    throw new IllegalArgumentException(getString(R.string.toast_jpeg_not_transparent));
+                }
+                if (minZoom > maxZoom) {
+                    throw new IllegalArgumentException(getString(R.string.toast_min_zoom));
+                }
+                int tileSize = tileSizePicker.getValue();
+
+                try (TileLayerDatabase tlDb = new TileLayerDatabase(activity); SQLiteDatabase db = tlDb.getWritableDatabase()) {
+                    TileLayerSource existing = TileLayerDatabase.getLayerWithUrl(activity, db, tileUrl);
+                    if (existing != null && !existing.getId().equals(layerId)) {
+                        // we are not editing the same entry
+                        throw new IllegalArgumentException(getString(R.string.toast_tile_layer_exists, existing.getName()));
+                    }
+                    TileLayerSource.addOrUpdateCustomLayer(activity, db, layerId, layer, startDate, endDate, name, provider, category,
+                            (String) metadataMap.get(SOURCE_TYPE), (TileType) metadataMap.get(TILE_TYPE), minZoom, maxZoom, tileSize, isOverlay, tileUrl);
+                }
+            } catch (IllegalArgumentException iaex) { // abort and leave the dialog intact
+                ScreenMessage.toastTopError(activity, iaex.getMessage());
                 return false;
             }
-            try (TileLayerDatabase tlDb = new TileLayerDatabase(activity); SQLiteDatabase db = tlDb.getWritableDatabase()) {
-                TileLayerSource existing = TileLayerDatabase.getLayerWithUrl(activity, db, tileUrl);
-                if (existing != null && !existing.getId().equals(layerId)) {
-                    // we are not editing the same entry
-                    ScreenMessage.toastTopError(activity, activity.getString(R.string.toast_tile_layer_exists, existing.getName()));
-                    return false;
-                }
-                TileLayerSource.addOrUpdateCustomLayer(activity, db, layerId, layer, startDate, endDate, name, provider, category,
-                        (String) metadataMap.get(SOURCE_TYPE), (TileType) metadataMap.get(TILE_TYPE), minZoom, maxZoom, tileSize, isOverlay, tileUrl);
-            }
             return true;
+        }
+
+        /**
+         * Get a BoundingBox from the the left/bottom/right/top text values
+         * 
+         * @param leftText left
+         * @param bottomText bottom
+         * @param rightText tight
+         * @param topText top
+         * @return a BoundingBox
+         */
+        @NonNull
+        private BoundingBox getBoundingBoxFromText(String leftText, String bottomText, String rightText, String topText) {
+            BoundingBox box = getBoundingBox(leftText, bottomText, rightText, topText);
+            if (box == null) {
+                throw new IllegalArgumentException(getString(R.string.toast_invalid_box));
+            }
+            return box;
+        }
+
+        /**
+         * Check that the tile server url is actually valid
+         * 
+         * @param tileUrl the url with placeholders
+         */
+        private void checkTileServerUrl(@NonNull String tileUrl) {
+            if ("".equals(tileUrl)) {
+                throw new IllegalArgumentException(getString(R.string.toast_url_empty));
+            }
+            if (hasPlaceholder(tileUrl, TileLayerSource.PROJ_PLACEHOLDER) || hasPlaceholder(tileUrl, TileLayerSource.WKID_PLACEHOLDER)) {
+                throw new IllegalArgumentException(getString(R.string.toast_url_config_file_placeholders));
+            }
+        }
+
+        /**
+         * Check if the supplied tile url contains the specified placeholder
+         * 
+         * @param tileUrl the url
+         * @param placeholder the placeholder
+         * @return true if tileUrl contains placeholder in curly brackets
+         */
+        private boolean hasPlaceholder(@NonNull String tileUrl, @NonNull String placeholder) {
+            return tileUrl.indexOf(TileLayerSource.PLACEHOLDER_START + placeholder + TileLayerSource.PLACEHOLDER_END) >= 0;
         }
 
         @Override
@@ -493,7 +524,7 @@ public class TileLayerDialog extends ImmersiveDialogFragment {
                 @Override
                 protected void onBackgroundError(Exception e) {
                     Progress.dismissDialog(activity, Progress.PROGRESS_DOWNLOAD);
-                    ScreenMessage.toastTopError(activity, activity.getString(R.string.toast_unable_to_configure_from_source, e.getLocalizedMessage()));
+                    ScreenMessage.toastTopError(activity, getString(R.string.toast_unable_to_configure_from_source, e.getLocalizedMessage()));
                 }
 
             }.execute();

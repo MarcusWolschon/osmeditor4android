@@ -129,8 +129,8 @@ public class TileLayerSource implements Serializable {
     private static final String BBOX_PLACEHOLDER      = "bbox";
     private static final String HEIGHT_PLACEHOLDER    = "height";
     private static final String WIDTH_PLACEHOLDER     = "width";
-    private static final String PROJ_PLACEHOLDER      = "proj";
-    private static final String WKID_PLACEHOLDER      = "wkid";
+    static final String         PROJ_PLACEHOLDER      = "proj";
+    static final String         WKID_PLACEHOLDER      = "wkid";
     private static final String SUBDOMAIN_PLACEHOLDER = "subdomain";
     private static final String QUADKEY_PLACEHOLDER   = "quadkey";
     private static final String MINUS_Y_PLACEHOLDER   = "-y";
@@ -140,8 +140,8 @@ public class TileLayerSource implements Serializable {
     private static final String Y_PLACEHOLDER         = "y";
     private static final String X_PLACEHOLDER         = "x";
 
-    private static final char PLACEHOLDER_END   = '}';
-    private static final char PLACEHOLDER_START = '{';
+    static final char PLACEHOLDER_END   = '}';
+    static final char PLACEHOLDER_START = '{';
 
     private static final String WMS_VERSION_130 = "1.3.0";
 
@@ -1732,7 +1732,7 @@ public class TileLayerSource implements Serializable {
                         }
                         break;
                     case WKID_PLACEHOLDER: // ESRI proprietary
-                        builder.append(proj.startsWith(EPSG_PREFIX) ? proj.substring(EPSG_PREFIX.length()) : proj);
+                        builder.append(proj != null && proj.startsWith(EPSG_PREFIX) ? proj.substring(EPSG_PREFIX.length()) : proj);
                         break;
                     case PROJ_PLACEHOLDER: // WMS support from here on
                         builder.append(proj);
