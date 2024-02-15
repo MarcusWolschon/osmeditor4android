@@ -1,5 +1,15 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+19.3.4:
+
+- Fix outdated marker rendering code for GeoJson layer
+- Fix protect against null proj when adding wkid, validate custom url better
+- Fix set map in onCreate in layer style fragment, not in the constructor
+- Fix manually clearing out a value in the details tab, always set it
+- Update translations
+- Update preset
+- Update imagery from ELI
+
 19.3.3:
 
 - Fix typo in undo short cut (c instead of u)
