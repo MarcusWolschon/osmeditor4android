@@ -83,7 +83,7 @@ import de.blau.android.views.IMapView;
 public class MapOverlay extends StyleableFileLayer
         implements Serializable, ExtentInterface, DiscardInterface, ClickableInterface<Feature>, LayerInfoInterface, LabelMinZoomInterface {
 
-    private static final long serialVersionUID = 4L;
+    private static final long serialVersionUID = 5L;
 
     private static final String DEBUG_TAG = MapOverlay.class.getName();
 
@@ -177,7 +177,6 @@ public class MapOverlay extends StyleableFileLayer
     transient Paint        labelBackground;
     transient float        labelStrokeWidth;
     transient FeatureStyle labelFs;
-    transient Path         marker;
 
     /**
      * The uri for the layer source
@@ -321,7 +320,7 @@ public class MapOverlay extends StyleableFileLayer
             float y = GeoMath.latToY(height, width, bb, p.latitude());
             canvas.save();
             canvas.translate(x, y);
-            canvas.drawPath(marker, paint);
+            canvas.drawPath(symbolPath, paint);
             canvas.restore();
             if (label != null) {
                 float yOffset = 2 * labelStrokeWidth + iconRadius;
@@ -714,7 +713,6 @@ public class MapOverlay extends StyleableFileLayer
     private void initStyling(boolean style, float strokeWidth, @NonNull String labelKey, int labelMinZoom, String symbolName) {
         paint = new SerializableTextPaint(DataStyle.getInternal(DataStyle.GEOJSON_DEFAULT).getPaint());
         iconRadius = map.getIconRadius();
-        marker = DataStyle.getCurrent().getSymbol(TriangleDown.NAME);
         if (style) {
             setStrokeWidth(strokeWidth);
             setLabel(labelKey);
