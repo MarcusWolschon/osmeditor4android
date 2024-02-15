@@ -1,21 +1,23 @@
 # 
 # Translators:
+# zhiq liu, 2024
+# zhiq liu, 2024
 msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2024-02-15 10:26+0100\n"
 "PO-Revision-Date: 2015-06-19 16:53+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: Indonesian (http://app.transifex.com/openstreetmap/presets/language/id/)\n"
+"Last-Translator: zhiq liu, 2024\n"
+"Language-Team: Chinese (http://app.transifex.com/openstreetmap/presets/language/zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: id\n"
+"Language: zh\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12728(text:text|group:Nature|preset:Shrubbery|key:height)
 msgid "(Average) height"
-msgstr ""
+msgstr "(平均) 高度"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:10337(label:text|preset:Power_Switchgear)
 msgid ""
@@ -75,7 +77,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1778(combo:display_values|key:highchair)
 msgid "1"
-msgstr ""
+msgstr "1"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2644(list_entry:display_value|group:Ways|preset:Track|value:grade1)
 msgid "1 - Solid"
@@ -990,7 +992,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:14835(item:name|group:Lifecycle|preset:Abandoned_railway)
 msgid "Abandoned railway"
-msgstr ""
+msgstr "废弃的铁路"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1327(list_entry:display_value|value:abused)
 msgid "Abused"
@@ -1059,7 +1061,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:245(checkgroup:text)
 msgid "Additional attributes"
-msgstr ""
+msgstr "额外属性"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13183(text:text|group:Addresses_and_Contact|preset:Address|key:addr:parentstreet)
 msgid "Additional localisation"
@@ -1208,7 +1210,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:5407(group:name|group:Airport)
 msgid "Airport"
-msgstr "Bandar Udara\nBandara"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:5408(item:name|group:Airport|preset:Airport_Grounds)
 msgid "Airport Grounds"
@@ -1239,7 +1241,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2872(combo:display_values|group:Waypoints|preset:Stop|key:stop)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7390(combo:display_values|group:Emergency|preset:Emergency_ward_entrance|key:emergency_ward_entrance)
 msgid "All"
-msgstr "Semua"
+msgstr "全部"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3607(item:name|group:Access_Restrictions|preset:All_vehicles)
 msgid "All vehicles"
@@ -1281,7 +1283,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13196(combo:display_values|group:Addresses_and_Contact|preset:Address_Interpolation|key:addr:interpolation)
 msgid "Alphabetic"
-msgstr "Berdasar Abjad"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13624(combo:display_values|group:Routes|preset:Ski_Route|key:piste:type)
 msgid "Alpine"
@@ -1321,7 +1323,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:642(list_entry:display_value|value:american)
 msgid "American"
-msgstr "Amerika"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12149(check:text|preset:Payment_Methods|key:payment:american_express)
 msgid "American Express"
@@ -1491,7 +1493,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8057(combo:display_values|group:Facilities|preset:Clock|key:display)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9845(check:text|group:Man_Made|preset:Monitoring_Station|key:display:analog)
 msgid "Analog"
-msgstr "Analog"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4285(list_entry:display_value|group:Shipping|preset:Seamark|value:anchor_berth)
 msgid "Anchor berth"
@@ -1594,7 +1596,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9116(item:name|group:Buildings|preset:Apartments)
 msgid "Apartments"
-msgstr "Apartemen"
+msgstr "酒店公寓"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12183(check:text|preset:Payment_Methods|key:payment:apple_pay)
 msgid "Apple Pay"
@@ -1659,7 +1661,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:14532(item:name|group:Offices|preset:Architect)
 msgid "Architect"
-msgstr "Arsitek"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1557(multiselect:text|key:building:architecture)
 msgid "Architectural style"
@@ -1747,7 +1749,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:645(list_entry:display_value|value:asian)
 msgid "Asian"
-msgstr "Asia"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:105(combo:display_values|key:surface)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9086(combo:display_values|group:Motorsport|preset:Model_Aerodrome|key:surface)
@@ -1963,7 +1965,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4277(combo:display_values|group:Shipping|preset:Waterway_milestone|key:direction)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9346(combo:display_values|group:Indoor_elements|preset:Highway_corridor|key:conveying)
 msgid "Backward"
-msgstr "Mundur"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:11161(item:name|group:Clothes|preset:Bag)
 msgid "Bag"
@@ -2020,7 +2022,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12216(item:name|group:Money|preset:Bank)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9863(combo:display_values|group:Man_Made|preset:Surveillance|key:surveillance:zone)
 msgid "Bank"
-msgstr "Bank\nKoperasi"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12135(check:text|preset:Payment_Methods|key:payment:bankaxept)
 msgid "BankAxept"
@@ -2037,7 +2039,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:5867(item:name|group:Food+Drinks|preset:Bar)
 msgid "Bar"
-msgstr "Bar"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:648(list_entry:display_value|value:barbecue)
 msgid "Barbecue"
@@ -2087,7 +2089,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3147(group:name|group:Barriers)
 msgid "Barriers"
-msgstr ""
+msgstr "障碍物"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1656(combo:display_values|key:climbing:rock)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1767(combo:display_values|key:resource)
@@ -2109,7 +2111,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3925(item:name|group:Water|preset:Basin)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4009(list_entry:display_value|group:Water|preset:Other_waterbodies|value:basin)
 msgid "Basin"
-msgstr ""
+msgstr "水池"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13885(item:name|group:Crafts|preset:Basket_maker)
 msgid "Basket maker"
@@ -2168,7 +2170,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4063(item:name|group:Water|preset:Beach)
 msgid "Beach"
-msgstr ""
+msgstr "海滩"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6276(item:name|group:Leisure|preset:Beach_Resort)
 msgid "Beach Resort"
@@ -2295,7 +2297,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13502(item:name|group:Routes|preset:Bicycle_Route)
 msgid "Bicycle Route"
-msgstr "Rute Pesepeda"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2330(multiselect:text|group:Lane_attributes|preset:Single_direction_roads|key:bicycle:lanes)
 msgid "Bicycle lane access"
@@ -2333,7 +2335,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9826(check:text|group:Man_Made|preset:Monitoring_Station|key:monitoring:bicycle)
 msgid "Bicycles"
-msgstr "Sepeda"
+msgstr "自行车"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:5012(check:text|group:Bicycle|preset:Bike_Dealer|key:service:bicycle:rental)
 msgid "Bicycles are rented"
@@ -2480,7 +2482,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13181(text:text|group:Addresses_and_Contact|preset:Address|key:addr:block)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3148(item:name|group:Barriers|preset:Block)
 msgid "Block"
-msgstr ""
+msgstr "街区"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13182(text:text|group:Addresses_and_Contact|preset:Address|key:addr:block_number)
 msgid "Block number"
@@ -2576,7 +2578,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3159(item:name|group:Barriers|preset:Bollard)
 msgid "Bollard"
-msgstr "palang\ntonggak\npipa\ntongkat\npalang besi\npipa besi"
+msgstr "路桩"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3163(combo:text|group:Barriers|preset:Bollard|key:bollard)
 msgid "Bollard type"
@@ -2628,7 +2630,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3069(combo:display_values|preset:Highway_milestone|key:direction)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4277(combo:display_values|group:Shipping|preset:Waterway_milestone|key:direction)
 msgid "Both"
-msgstr "Keduanya"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8084(item:name|group:Facilities|preset:Bottle_return)
 msgid "Bottle return"
@@ -2722,7 +2724,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3891(item:name|group:Water|preset:Breakwater)
 msgid "Breakwater"
-msgstr ""
+msgstr "防波堤"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13920(item:name|group:Crafts|preset:Brewery)
 msgid "Brewery"
@@ -2862,7 +2864,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9106(group:name|group:Buildings)
 msgid "Buildings"
-msgstr "Bangunan"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1625(multiselect:display_values|key:language)
 msgid "Bulgarian"
@@ -2883,7 +2885,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:10613(list_entry:display_value|group:Historic_Places_&_Objects|preset:Historic_object|value:bunker)
 msgid "Bunker"
-msgstr "Tempat berlindung"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9537(item:name|group:Man_Made|preset:Bunker_Silo)
 msgid "Bunker Silo"
@@ -2895,7 +2897,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:652(list_entry:display_value|value:burger)
 msgid "Burger"
-msgstr "Burger"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1625(multiselect:display_values|key:language)
 msgid "Burmese"
@@ -2930,7 +2932,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:5381(item:name|group:Public_Transport_(Legacy)|preset:Bus_Stop)
 msgid "Bus Stop"
-msgstr "Perhentian Bus"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3307(item:name|group:Barriers|preset:Bus_Trap)
 msgid "Bus Trap"
@@ -3143,7 +3145,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4000(list_entry:display_value|group:Water|preset:Other_waterbodies|value:canal)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7463(list_entry:display_value|group:Emergency|preset:Fire_Hydrant|value:canal)
 msgid "Canal"
-msgstr ""
+msgstr "运河"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12072(list_entry:short_description|preset:Vending_Machine|value:candles)
 msgid "Candle"
@@ -3234,7 +3236,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4830(item:name|group:Car|preset:Car_Wash)
 msgid "Car Wash"
-msgstr "Pencucian Mobil"
+msgstr "洗车"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1347(multiselect:text|key:brand)
 msgid "Car brand"
@@ -3354,7 +3356,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6865(combo:display_values|group:Place_of_Worship|preset:Church|key:building)
 msgid "Cathedral"
-msgstr "Katedral"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1047(combo:display_values|key:denomination)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1051(combo:display_values|key:denomination)
@@ -3404,7 +3406,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3450(item:name|group:Barriers|preset:Chain)
 msgid "Chain"
-msgstr ""
+msgstr "链"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:5055(check:text|group:Bicycle|preset:Public_Bicycle_Repair_Station|key:service:bicycle:chain_tool)
 msgid "Chain tool"
@@ -3437,7 +3439,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6865(combo:display_values|group:Place_of_Worship|preset:Church|key:building)
 msgid "Chapel"
-msgstr "Kapel"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:11798(multiselect:display_values|group:Other|preset:Fuel|key:fuel)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:11802(check:text|group:Other|preset:Fuel|key:fuel:charcoal)
@@ -3467,7 +3469,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13478(list_entry:display_value|preset:Enforcement|value:check)
 msgid "Check"
-msgstr ""
+msgstr "检查"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12205(combo:display_values|preset:Cash_withdrawal|key:cash_withdrawal:type)
 msgid "Checkout"
@@ -3529,7 +3531,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:655(list_entry:display_value|value:chicken)
 msgid "Chicken"
-msgstr "Ayam"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7080(item:name|group:Education|preset:Childcare)
 msgid "Childcare"
@@ -3559,7 +3561,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1625(multiselect:display_values|key:language)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:656(list_entry:display_value|value:chinese)
 msgid "Chinese"
-msgstr "Cina"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7299(list_entry:short_description|group:Health|preset:Physiotherapist|value:chiropractic)
 msgid "Chiropractic"
@@ -3724,7 +3726,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:11782(combo:display_values|group:Other|preset:Wholesale|key:wholesale)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1737(check:text|key:recycling:clothes)
 msgid "Clothes"
-msgstr "Baju"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12184(check:text|preset:Payment_Methods|key:payment:clover)
 msgid "Clover"
@@ -3763,7 +3765,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4018(item:name|group:Water|preset:Coastline)
 msgid "Coastline"
-msgstr ""
+msgstr "海岸线"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:5879(check:text|group:Food+Drinks|preset:Bar|key:cocktails)
 msgid "Cocktails"
@@ -3833,7 +3835,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3573(item:name|group:Passageways|preset:Colonnade)
 msgid "Colonnade"
-msgstr ""
+msgstr "柱廊"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13807(text:text|preset:Destination_Sign|key:colour:back)
 msgid "Colour of background"
@@ -3869,7 +3871,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:800(combo:display_values|key:mooring)
 msgid "Commercial"
-msgstr "Komersil"
+msgstr "商业区"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12990(item:name|group:Land_use|preset:Common)
 msgid "Common"
@@ -4033,7 +4035,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:270(list_entry:display_value|value:construction)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9922(combo:text|group:Man_Made|preset:Telescope|key:telescope:construction)
 msgid "Construction"
-msgstr "Konstruksi"
+msgstr "建筑物"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:14546(item:name|group:Offices|preset:Construction_company)
 msgid "Construction company"
@@ -4167,7 +4169,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12390(item:name|group:Places|preset:County)
 msgid "County"
-msgstr "Negara"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7485(text:text|group:Emergency|preset:Fire_Hydrant|key:couplings:diameters)
 msgid "Coupling diameters (separated by ;)"
@@ -4321,7 +4323,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1263(combo:display_values|key:tunnel)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3900(item:name|group:Water|preset:Culvert)
 msgid "Culvert"
-msgstr ""
+msgstr "涵洞"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8786(item:name|group:Sport|preset:Curling)
 msgid "Curling"
@@ -4379,11 +4381,11 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:174(check:text|key:cutting)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:250(check:text|key:cutting)
 msgid "Cutting"
-msgstr "Memotong"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3176(item:name|group:Barriers|preset:Cycle_Barrier)
 msgid "Cycle Barrier"
-msgstr "Penghalang sepeda\nPalang sepeda\nPagar sepeda"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2414(item:name|preset:Cycle_Lane/Track)
 msgid "Cycle Lane/Track"
@@ -4416,7 +4418,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3872(item:name|group:Water|preset:Dam)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9629(combo:display_values|group:Man_Made|preset:Avalanche_Protection|key:avalanche_protection)
 msgid "Dam"
-msgstr ""
+msgstr "水坝"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6359(item:name|group:Leisure|preset:Dance)
 msgid "Dance"
@@ -4534,7 +4536,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:5820(combo:text|group:Food+Drinks|preset:Ice_cream|key:delivery)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:5838(combo:text|group:Food+Drinks|preset:Pub|key:delivery)
 msgid "Delivery"
-msgstr "Pesan Antar"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1047(combo:text|key:denomination)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1051(combo:text|key:denomination)
@@ -4543,7 +4545,7 @@ msgstr "Pesan Antar"
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1066(combo:text|key:denomination)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1069(combo:text|key:denomination)
 msgid "Denomination"
-msgstr "Golongan"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12726(list_entry:display_value|group:Nature|preset:Shrubbery|value:dense)
 msgid "Dense"
@@ -4607,7 +4609,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8244(text:text|group:Facilities|preset:Drinking_Water|key:description)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8258(text:text|group:Facilities|preset:Water_Point|key:description)
 msgid "Description"
-msgstr "Deskripsi"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1677(combo:display_values|key:nudism)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2325(list_entry:short_description|group:Lane_attributes|preset:Single_direction_roads|value:designated)
@@ -4631,14 +4633,14 @@ msgstr "Deskripsi"
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2762(combo:display_values|group:Ways|preset:Dedicated_Footway|key:bicycle)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3095(combo:display_values|preset:Elevator|key:goods)
 msgid "Designated"
-msgstr "Ditunjuk"
+msgstr "特定的"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13659(text:text|group:Routes|preset:Detour_Route|key:destination)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1997(text:text|group:Streets|preset:Primary_Link|key:destination)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2040(text:text|group:Streets|preset:Secondary_Link|key:destination)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:240(text:text|key:destination)
 msgid "Destination"
-msgstr "Tujuan"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13800(item:name|preset:Destination_Sign)
 msgid "Destination Sign"
@@ -4761,7 +4763,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8057(combo:display_values|group:Facilities|preset:Clock|key:display)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9846(check:text|group:Man_Made|preset:Monitoring_Station|key:display:digital)
 msgid "Digital"
-msgstr "Digital"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12180(checkgroup:text|preset:Payment_Methods)
 msgid "Digital wallets type"
@@ -4788,7 +4790,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:5920(combo:text|group:Tourism|preset:Viewpoint|key:direction)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8233(combo:text|group:Facilities|preset:Binoculars|key:direction)
 msgid "Direction"
-msgstr "Arah"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9874(text:text|group:Man_Made|preset:Surveillance|key:camera:direction)
 msgid "Direction in degrees"
@@ -4842,7 +4844,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9844(checkgroup:text|group:Man_Made|preset:Monitoring_Station)
 msgid "Display"
-msgstr "Tampilan"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9843(label:text|group:Man_Made|preset:Monitoring_Station)
 msgid "Display:"
@@ -4869,7 +4871,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13187(text:text|group:Addresses_and_Contact|preset:Address|key:addr:district)
 msgid "District"
-msgstr "Distrik/Kabupaten"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2340(list_entry:display_value|group:Lane_attributes|preset:Single_direction_roads|value:disused)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2373(list_entry:display_value|group:Lane_attributes|preset:Bi-directional_roads|value:disused)
@@ -4910,7 +4912,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:14794(item:name|group:Lifecycle|preset:Disused_railway)
 msgid "Disused railway"
-msgstr ""
+msgstr "废弃的铁路"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:14799(item:name|group:Lifecycle|preset:Disused_shop)
 msgid "Disused shop"
@@ -4921,7 +4923,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4002(list_entry:display_value|group:Water|preset:Other_waterbodies|value:ditch)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7465(list_entry:display_value|group:Emergency|preset:Fire_Hydrant|value:ditch)
 msgid "Ditch"
-msgstr ""
+msgstr "沟渠"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8418(item:name|group:Sport_Facilities|preset:Dive_centre)
 msgid "Dive centre"
@@ -5000,7 +5002,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9922(combo:display_values|group:Man_Made|preset:Telescope|key:telescope:construction)
 msgid "Dome"
-msgstr "Kubah"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6127(list_entry:display_value|group:Leisure|preset:Animals|value:donkey)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7884(multiselect:display_values|group:Animal|preset:Animal_breeding|key:animal_breeding)
@@ -5048,7 +5050,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4001(list_entry:display_value|group:Water|preset:Other_waterbodies|value:drain)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7464(list_entry:display_value|group:Emergency|preset:Fire_Hydrant|value:drain)
 msgid "Drain"
-msgstr ""
+msgstr "排水沟"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6720(list_entry:display_value|group:Culture|preset:Theatre|value:drama)
 msgid "Drama"
@@ -5085,7 +5087,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12079(list_entry:short_description|preset:Vending_Machine|value:drinks)
 msgid "Drinks"
-msgstr "Minuman"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:5755(check:text|group:Food+Drinks|preset:Fast_Food|key:drive_through)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7982(check:text|group:Facilities|preset:Post_Box|key:drive_through)
@@ -5166,7 +5168,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1654(combo:display_values|key:climbing:orientation)
 msgid "E"
-msgstr "T"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:5032(list_entry:display_value|group:Bicycle|preset:Rental|value:e-bike)
 msgid "E-Bike"
@@ -5200,7 +5202,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:321(combo:display_values|key:direction)
 msgid "East"
-msgstr "Timur"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1577(list_entry:display_value|value:eclectic)
 msgid "Eclecticism in architecture"
@@ -5278,7 +5280,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:5992(text:text|group:Tourism|preset:Trailhead|key:ele)
 msgid "Elevation"
-msgstr "Ketinggian"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12504(text:text|group:Geography|preset:Peak|key:ele)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12513(text:text|group:Geography|preset:Saddle|key:ele)
@@ -5301,7 +5303,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3081(item:name|preset:Elevator)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9329(combo:display_values|group:Indoor_elements|preset:Room|key:room)
 msgid "Elevator"
-msgstr ""
+msgstr "电梯"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6131(list_entry:display_value|group:Leisure|preset:Animals|value:elk)
 msgid "Elk"
@@ -5320,7 +5322,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:251(check:text|key:embankment)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9619(item:name|group:Man_Made|preset:Embankment)
 msgid "Embankment"
-msgstr "Tanggul\nGundukan\nEmbarau"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:14377(item:name|group:Offices|preset:Embassy)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7006(item:name|group:Public_Building|preset:Embassy)
@@ -5339,7 +5341,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7587(item:name|group:Emergency|preset:Emergency_Access_Point)
 msgid "Emergency Access Point"
-msgstr "Titik Akses Darurat"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7577(item:name|group:Emergency|preset:Emergency_Access_Point_(highway_variant))
 msgid "Emergency Access Point (highway variant)"
@@ -5388,7 +5390,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2994(combo:display_values|preset:City_Limit|key:city_limit)
 msgid "End"
-msgstr ""
+msgstr "结束"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7255(list_entry:display_value|group:Health|preset:Dentist|value:endodontics)
 msgid "Endodontics"
@@ -5473,11 +5475,11 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2789(combo:text|group:Ways|preset:Steps|key:conveying)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9329(combo:display_values|group:Indoor_elements|preset:Room|key:room)
 msgid "Escalator"
-msgstr "Eskalator\nLift"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2236(item:name|group:Streets|preset:Escape)
 msgid "Escape"
-msgstr ""
+msgstr "逃生"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6259(item:name|group:Leisure|preset:Escape_game)
 msgid "Escape game"
@@ -5532,11 +5534,11 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13196(combo:display_values|group:Addresses_and_Contact|preset:Address_Interpolation|key:addr:interpolation)
 msgid "Even"
-msgstr "Genap"
+msgstr "偶数"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2646(list_entry:short_description|group:Ways|preset:Track|value:grade3)
 msgid "Even mixture of hard and soft materials"
-msgstr "Campuran imbang antara bahan padat dan lunak"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8032(item:name|group:Facilities|preset:Events_venue)
 msgid "Events venue"
@@ -5599,7 +5601,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4315(list_entry:display_value|group:Shipping|preset:Seamark|value:fairway)
 msgid "Fairway"
-msgstr "Jalur Golf"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6091(combo:display_values|group:Leisure|preset:Zoo|key:zoo)
 msgid "Falconry"
@@ -5686,7 +5688,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6393(combo:display_values|group:Leisure|preset:Dog_Park|key:barrier)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9630(check:text|group:Man_Made|preset:Avalanche_Protection|key:barrier)
 msgid "Fence"
-msgstr ""
+msgstr "栅栏"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1826(check:text|key:ferry)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4690(multiselect:display_values|group:Car|preset:Parking|key:park_ride)
@@ -5715,7 +5717,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4106(item:name|group:Shipping|preset:Ferry_Terminal)
 msgid "Ferry Terminal"
-msgstr "Pelabuhan Feri"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4316(list_entry:display_value|group:Shipping|preset:Seamark|value:ferry_route)
 msgid "Ferry route"
@@ -5803,7 +5805,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6538(check:text|preset:Picnic_Site|key:fireplace)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8205(check:text|group:Facilities|preset:Shelter|key:fireplace)
 msgid "Fireplace"
-msgstr "Perapian"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:11808(check:text|group:Other|preset:Fuel|key:fuel:firewood)
 msgid "Firewood"
@@ -5837,7 +5839,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:11634(item:name|group:Sports_and_hobbies|preset:Fishing)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6566(item:name|preset:Fishing)
 msgid "Fishing"
-msgstr "Pemancingan"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12086(list_entry:short_description|preset:Vending_Machine|value:fishing_bait)
 msgid "Fishing bait"
@@ -5873,7 +5875,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3163(combo:display_values|group:Barriers|preset:Bollard|key:bollard)
 msgid "Fixed"
-msgstr "Tetap"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3201(list_entry:display_value|group:Barriers|preset:Cycle_Barrier|value:fixed)
 msgid "Fixed to the ground"
@@ -5915,7 +5917,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4219(check:text|group:Shipping|preset:Pier|key:floating)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4258(combo:display_values|group:Shipping|preset:Dock|key:dock)
 msgid "Floating"
-msgstr "Mengapung"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3468(list_entry:display_value|group:Barriers|preset:Wall|value:flood_wall)
 msgid "Flood wall"
@@ -6059,7 +6061,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2305(item:name|group:Streets|preset:Ford)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2307(combo:text|group:Streets|preset:Ford|key:ford)
 msgid "Ford"
-msgstr ""
+msgstr "浅滩"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12211(combo:text|preset:Cash_withdrawal|key:cash_withdrawal:foreign_cards)
 msgid "Foreign cards"
@@ -6115,7 +6117,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4277(combo:display_values|group:Shipping|preset:Waterway_milestone|key:direction)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9346(combo:display_values|group:Indoor_elements|preset:Highway_corridor|key:conveying)
 msgid "Forward"
-msgstr "Maju"
+msgstr "向前"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:11672(list_entry:display_value|group:Sports_and_hobbies|preset:Collectable_items|value:fossils)
 msgid "Fossils"
@@ -6166,7 +6168,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1625(multiselect:display_values|key:language)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:667(list_entry:display_value|value:french)
 msgid "French"
-msgstr "Prancis"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8685(combo:text|group:Sport|preset:Climbing_route|key:climbing:grade:french)
 msgid "French grading"
@@ -6353,7 +6355,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9130(item:name|group:Buildings|preset:Garage)
 msgid "Garage"
-msgstr "Garasi tunggal"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12966(item:name|group:Land_use|preset:Garden)
 msgid "Garden"
@@ -6420,7 +6422,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4321(list_entry:display_value|group:Shipping|preset:Seamark|value:gate)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:5270(combo:display_values|group:Public_Transport|preset:Ticket_Validator|key:barrier)
 msgid "Gate"
-msgstr ""
+msgstr "门"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:317(combo:text|key:gauge)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4415(combo:text|group:Railway|preset:Narrow_Gauge_Rail|key:gauge)
@@ -6437,11 +6439,11 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7937(checkgroup:text|group:Facilities|preset:Shower)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7954(checkgroup:text|group:Facilities|preset:Dressing_room)
 msgid "Gender"
-msgstr "Kelamin"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:11782(combo:display_values|group:Other|preset:Wholesale|key:wholesale)
 msgid "General"
-msgstr "Umum"
+msgstr "普通"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3701(item:name|group:Access_Restrictions|preset:General_access)
 msgid "General access"
@@ -6520,7 +6522,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1625(multiselect:display_values|key:language)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:670(list_entry:display_value|value:german)
 msgid "German"
-msgstr "Jerman"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12613(item:name|group:Geography|preset:Geyser)
 msgid "Geyser"
@@ -6690,7 +6692,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1625(multiselect:display_values|key:language)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:672(list_entry:display_value|value:greek)
 msgid "Greek"
-msgstr "Yunani"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1047(combo:display_values|key:denomination)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1051(combo:display_values|key:denomination)
@@ -6758,7 +6760,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3887(item:name|group:Water|preset:Groyne)
 msgid "Groyne"
-msgstr ""
+msgstr "丁坝"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1625(multiselect:display_values|key:language)
 msgid "Guarani"
@@ -6839,7 +6841,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:11506(list_entry:short_description|group:For_the_body|preset:Beauty|value:hair)
 msgid "Hairdresser"
-msgstr "Salon"
+msgstr "理发点"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:11771(item:name|group:Other|preset:Hairdresser_supply)
 msgid "Hairdresser supply"
@@ -6852,7 +6854,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:10920(combo:text|group:Food|preset:Butcher|key:diet:halal)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:5902(combo:text|group:Food+Drinks|preset:Diet|key:diet:halal)
 msgid "Halal"
-msgstr "Halal"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9329(combo:display_values|group:Indoor_elements|preset:Room|key:room)
 msgid "Hall"
@@ -6885,7 +6887,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3091(check:text|preset:Elevator|key:handrail)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3432(item:name|group:Barriers|preset:Handrail)
 msgid "Handrail"
-msgstr "Pegangan tangan"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7927(check:text|group:Facilities|preset:Toilets/Restrooms|key:toilets:handwashing)
 msgid "Handwashing facilities"
@@ -6977,7 +6979,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3410(item:name|group:Barriers|preset:Hedge)
 msgid "Hedge"
-msgstr "Tanaman pagar\nPagar hidup"
+msgstr "绿篱"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1693(text:text|key:height)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9282(text:text|preset:Loading_dock|key:height)
@@ -6986,7 +6988,7 @@ msgstr "Tanaman pagar\nPagar hidup"
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9331(text:text|group:Indoor_elements|preset:Room|key:height)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9339(text:text|group:Indoor_elements|preset:Indoor_wall|key:height)
 msgid "Height (Meters)"
-msgstr "Tinggi (Meter)"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:10443(text:text|preset:Power_Tower|key:height)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12710(text:text|group:Nature|preset:Shrub|key:height)
@@ -7037,7 +7039,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:5454(item:name|group:Airport|preset:Helipad)
 msgid "Helipad"
-msgstr "Landasan Helikopter"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:5442(item:name|group:Airport|preset:Heliport)
 msgid "Heliport"
@@ -7087,7 +7089,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1915(group:name|group:Highways)
 msgid "Highways"
-msgstr ""
+msgstr "公路"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13763(list_entry:display_value|preset:Generic_route|value:hiking)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:5949(check:text|group:Tourism|preset:Map|key:hiking)
@@ -7154,7 +7156,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:5966(combo:display_values|group:Tourism|preset:Information_Board|key:board_type)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6693(multiselect:display_values|group:Culture|preset:Museum|key:museum)
 msgid "History"
-msgstr ""
+msgstr "历史"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:5434(item:name|group:Airport|preset:Holding_Position)
 msgid "Holding Position"
@@ -7225,7 +7227,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:5613(item:name|group:Accommodation|preset:Hostel)
 msgid "Hostel"
-msgstr "Kost\nHostel"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1142(combo:text|key:generator:output:hot_air)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1181(combo:text|key:plant:output:hot_air)
@@ -7253,7 +7255,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:10610(list_entry:display_value|group:Historic_Places_&_Objects|preset:Historic_object|value:house)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9123(item:name|group:Buildings|preset:House)
 msgid "House"
-msgstr "Rumah"
+msgstr "房屋"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13179(text:text|group:Addresses_and_Contact|preset:Address|key:addr:housename)
 msgid "House name"
@@ -7458,7 +7460,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:676(list_entry:display_value|value:indian)
 msgid "Indian"
-msgstr "India"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4352(list_entry:short_description|group:Shipping|preset:Seamark|value:radar_range)
 msgid ""
@@ -7481,7 +7483,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3093(check:text|preset:Elevator|key:indoor)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9770(check:text|group:Man_Made|preset:Water_tap|key:indoor)
 msgid "Indoor"
-msgstr "Dalam ruangan"
+msgstr "Indoor"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9288(item:name|group:Indoor_elements|preset:Indoor_area)
 msgid "Indoor area"
@@ -7505,7 +7507,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:10625(list_entry:display_value|group:Historic_Places_&_Objects|preset:Historic_object|value:industrial)
 msgid "Industrial"
-msgstr "Industri"
+msgstr "工业区"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9144(item:name|group:Buildings|preset:Industrial_building)
 msgid "Industrial building"
@@ -7521,7 +7523,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2671(check:text|group:Ways|preset:Path|key:informal)
 msgid "Informal"
-msgstr "Tidak formal"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:5958(item:name|group:Tourism|preset:Information_Board)
 msgid "Information Board"
@@ -7673,7 +7675,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2918(combo:display_values|group:Traffic_Calming|preset:Traffic_Calming|key:traffic_calming)
 msgid "Island"
-msgstr "Pulau"
+msgstr "岛屿"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12638(item:name|group:Geography|preset:Islet)
 msgid "Islet"
@@ -7698,7 +7700,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1625(multiselect:display_values|key:language)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:679(list_entry:display_value|value:italian)
 msgid "Italian"
-msgstr "Italia"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4623(combo:display_values|group:Aerialway|preset:Drag_Lift|key:aerialway)
 msgid "J-bar"
@@ -7721,7 +7723,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1625(multiselect:display_values|key:language)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:680(list_entry:display_value|value:japanese)
 msgid "Japanese"
-msgstr "Jepang"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1047(combo:display_values|key:denomination)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1057(combo:display_values|key:denomination)
@@ -7833,7 +7835,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:682(list_entry:display_value|value:kebab)
 msgid "Kebab"
-msgstr "Kebab"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8394(list_entry:short_description|group:Sport_Facilities|preset:Dojo|value:kendo)
 msgid "Kendo"
@@ -7842,7 +7844,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1353(combo:text|key:kerb)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3513(item:name|group:Barriers|preset:Kerb)
 msgid "Kerb"
-msgstr ""
+msgstr "路缘石"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1356(combo:text|key:kerb:left)
 msgid "Kerb (left)"
@@ -7891,7 +7893,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:10898(item:name|group:Food|preset:Kiosk)
 msgid "Kiosk"
-msgstr "Warung\nKios"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3279(item:name|group:Barriers|preset:Kissing_Gate)
 msgid "Kissing Gate"
@@ -7921,7 +7923,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:10921(combo:text|group:Food|preset:Butcher|key:diet:kosher)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:5903(combo:text|group:Food+Drinks|preset:Diet|key:diet:kosher)
 msgid "Kosher"
-msgstr "Kosher"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:10638(combo:display_values|group:Historic_Places_&_Objects|preset:Castle|key:castle_type)
 msgid "Kremlin"
@@ -8141,7 +8143,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:237(combo:display_values|key:shoulder)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2378(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:left)
 msgid "Left"
-msgstr "Kiri"
+msgstr "左边"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2318(list_entry:short_description|group:Lane_attributes|preset:Single_direction_roads|value:left;through)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2351(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:left;through)
@@ -8200,7 +8202,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:350(combo:text|key:level)
 msgid "Level"
-msgstr "Tingkatan"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4510(item:name|group:Railway|preset:Level_Crossing)
 msgid "Level Crossing"
@@ -8310,7 +8312,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2784(combo:display_values|group:Ways|preset:Steps|key:ramp:wheelchair)
 msgid "Limited"
-msgstr "Terbatas"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4021(label:text|group:Water|preset:Coastline)
 msgid ""
@@ -8408,7 +8410,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3825(check:text|group:Water|preset:Canal|key:lock)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4008(list_entry:display_value|group:Water|preset:Other_waterbodies|value:lock)
 msgid "Lock"
-msgstr "Kunci"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4228(item:name|group:Shipping|preset:Lock_Gate)
 msgid "Lock Gate"
@@ -8420,7 +8422,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8226(check:text|group:Facilities|preset:Hunting_Stand|key:lockable)
 msgid "Lockable"
-msgstr "Bisa Dikunci"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7959(check:text|group:Facilities|preset:Dressing_room|key:locker)
 msgid "Lockers"
@@ -8629,7 +8631,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9603(text:text|group:Man_Made|preset:Petroleum_well|key:manufacturer)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9811(text:text|group:Man_Made|preset:Street_cabinet|key:manufacturer)
 msgid "Manufacturer"
-msgstr "Manufaktur"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1625(multiselect:display_values|key:language)
 msgid "Maori"
@@ -8637,7 +8639,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:5937(item:name|group:Tourism|preset:Map)
 msgid "Map"
-msgstr ""
+msgstr "地图"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:609(text:text|key:mapillary)
 msgid "Mapillary image"
@@ -9023,7 +9025,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:687(list_entry:display_value|value:mexican)
 msgid "Mexican"
-msgstr "Meksiko"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:5729(check:text|group:Food+Drinks|preset:Restaurant|key:microbrewery)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:5835(check:text|group:Food+Drinks|preset:Pub|key:microbrewery)
@@ -9058,7 +9060,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6693(multiselect:display_values|group:Culture|preset:Museum|key:museum)
 msgid "Military"
-msgstr "Militer"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4335(list_entry:display_value|group:Shipping|preset:Seamark|value:military_area)
 msgid "Military area"
@@ -9111,7 +9113,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2884(item:name|group:Waypoints|preset:Mini-Roundabout)
 msgid "Mini-Roundabout"
-msgstr ""
+msgstr "小型环岛"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2340(list_entry:display_value|group:Lane_attributes|preset:Single_direction_roads|value:miniature)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2373(list_entry:display_value|group:Lane_attributes|preset:Bi-directional_roads|value:miniature)
@@ -9172,7 +9174,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1019(list_entry:display_value|value:mixed)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1909(combo:display_values|key:school:gender)
 msgid "Mixed"
-msgstr "Tercampur"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4610(item:name|group:Aerialway|preset:Mixed_Lift)
 msgid "Mixed Lift"
@@ -9384,7 +9386,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3653(item:name|group:Access_Restrictions|preset:Motorcar)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:792(check:text|key:motorcar)
 msgid "Motorcar"
-msgstr ""
+msgstr "机动车"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3641(combo:text|group:Access_Restrictions|preset:Motorcar_and_-cycle_(CH)|key:motorcar:conditional)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3660(combo:text|group:Access_Restrictions|preset:Motorcar|key:motorcar:conditional)
@@ -9400,7 +9402,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4924(group:name|group:Motorcycle)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:793(check:text|key:motorcycle)
 msgid "Motorcycle"
-msgstr ""
+msgstr "摩托车"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3648(combo:text|group:Access_Restrictions|preset:Motorcar_and_-cycle_(CH)|key:motorcycle:conditional)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3672(combo:text|group:Access_Restrictions|preset:Motorcycle|key:motorcycle:conditional)
@@ -9441,7 +9443,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1917(item:name|group:Streets|preset:Motorway)
 msgid "Motorway"
-msgstr ""
+msgstr "高速公路"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2811(item:name|group:Waypoints|preset:Motorway_Junction)
 msgid "Motorway Junction"
@@ -9497,7 +9499,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12627(list_entry:display_value|group:Geography|preset:Hot_spring|value:mud)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4055(item:name|group:Water|preset:Mud)
 msgid "Mud"
-msgstr ""
+msgstr "泥浆"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8566(item:name|group:Sport|preset:Multi)
 msgid "Multi"
@@ -9569,7 +9571,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1654(combo:display_values|key:climbing:orientation)
 msgid "N"
-msgstr "N"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1654(combo:display_values|key:climbing:orientation)
 msgid "NE"
@@ -9852,7 +9854,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1403(role:text|key:)
 msgid "Natural"
-msgstr "Alami"
+msgstr "自然物件"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12654(group:name|group:Nature)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:5966(combo:display_values|group:Tourism|preset:Information_Board|key:board_type)
@@ -9915,7 +9917,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:5306(text:text|group:Public_Transport_(Legacy)|preset:Public_transport_route_(Legacy)_(Ferry)|key:network)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:5329(text:text|group:Public_Transport_(Legacy)|preset:Public_transport_route_(Legacy)_(Aerialway)|key:network)
 msgid "Network"
-msgstr "Jaringan"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1580(list_entry:display_value|value:new_objectivity)
 msgid "New Objectivity"
@@ -10047,7 +10049,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9750(combo:display_values|group:Man_Made|preset:Water_Well|key:pump)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:977(combo:display_values|key:lit)
 msgid "No"
-msgstr "Tidak"
+msgstr "否"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13409(item:name|group:Turn_Restrictions|preset:No_U_turn)
 msgid "No U turn"
@@ -10169,7 +10171,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2378(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:none)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:963(list_entry:display_value|value:no)
 msgid "None"
-msgstr "Tidak ada"
+msgstr "无"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:689(list_entry:display_value|value:noodle)
 msgid "Noodle"
@@ -10181,7 +10183,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:321(combo:display_values|key:direction)
 msgid "North"
-msgstr "Utara"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1625(multiselect:display_values|key:language)
 msgid "Norwegian - Bokml"
@@ -10208,7 +10210,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8317(text:text|group:Facilities|preset:Excrement_Bags|key:note)
 msgid "Note"
-msgstr "Catatan"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4338(list_entry:display_value|group:Shipping|preset:Seamark|value:notice)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:5966(combo:display_values|group:Tourism|preset:Information_Board|key:board_type)
@@ -10436,7 +10438,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13196(combo:display_values|group:Addresses_and_Contact|preset:Address_Interpolation|key:addr:interpolation)
 msgid "Odd"
-msgstr "Ganjil"
+msgstr "奇数"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2620(list_entry:short_description|preset:Sidewalk_right-hand_side|value:horrible)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2633(list_entry:short_description|preset:Sidewalk_left-hand_side|value:horrible)
@@ -10450,7 +10452,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9329(combo:display_values|group:Indoor_elements|preset:Room|key:room)
 msgid "Office"
-msgstr "Kantor"
+msgstr "办公室"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:14362(group:name|group:Offices)
 msgid "Offices"
@@ -11228,7 +11230,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3533(group:name|group:Passageways)
 msgid "Passageways"
-msgstr ""
+msgstr "通道"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1804(check:text|key:passenger_information_display)
 msgid "Passenger information display"
@@ -11258,7 +11260,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2659(item:name|group:Ways|preset:Path)
 msgid "Path"
-msgstr ""
+msgstr "路径"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8186(combo:display_values|group:Facilities|preset:Outdoor_seating|key:weather_protection)
 msgid "Pavilion"
@@ -11314,7 +11316,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2172(item:name|group:Streets|preset:Pedestrian)
 msgid "Pedestrian"
-msgstr ""
+msgstr "行人"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2892(item:name|group:Waypoints|preset:Pedestrian_Crossing)
 msgid "Pedestrian Crossing"
@@ -11382,7 +11384,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:417(combo:display_values|key:toilets:access)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:916(combo:display_values|key:access)
 msgid "Permissive"
-msgstr "Dibolehkan dengan izin"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:800(combo:display_values|key:mooring)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:916(combo:display_values|key:access)
@@ -11416,7 +11418,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:5894(combo:text|group:Food+Drinks|preset:Diet|key:diet:pescetarian)
 msgid "Pescetarian"
-msgstr "pesketarian"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:11757(multiselect:display_values|group:Other|preset:Agricultural_supplies|key:agricultural_supplies)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:11766(multiselect:display_values|group:Other|preset:Agricultural_supplies|key:agrarian)
@@ -11631,7 +11633,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12101(list_entry:short_description|preset:Vending_Machine|value:pizza)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:694(list_entry:display_value|value:pizza)
 msgid "Pizza"
-msgstr "Pizza"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13172(text:text|group:Addresses_and_Contact|preset:Address|key:addr:place)
 msgid "Place name"
@@ -12117,7 +12119,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9647(text:text|group:Man_Made|preset:Pipeline|key:pressure)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9755(text:text|group:Man_Made|preset:Water_Well|key:pressure)
 msgid "Pressure (bar)"
-msgstr "Tekanan (bar)"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:10188(list_entry:display_value|group:Power_Generator|preset:Nuclear_Reactor|value:PWR)
 msgid "Pressurized water reactor (PWR)"
@@ -12129,7 +12131,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1728(combo:display_values|key:lgbtq:trans)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1969(item:name|group:Streets|preset:Primary)
 msgid "Primary"
-msgstr ""
+msgstr "主要"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1600(list_entry:short_description|value:1)
 msgid "Primary (1)"
@@ -12705,7 +12707,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9303(text:text|group:Indoor_elements|preset:Corridor|key:ref)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9312(text:text|group:Indoor_elements|preset:Indoor_door|key:ref)
 msgid "Reference Code"
-msgstr "Kode referensi"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13828(text:text|preset:Waterway|key:ref:fgkz)
 msgid "Reference FGKZ (DE)"
@@ -12783,7 +12785,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6694(combo:display_values|group:Culture|preset:Museum|key:museum_type)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:698(list_entry:display_value|value:regional)
 msgid "Regional"
-msgstr "Daerah"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13158(text:text|group:Addresses_and_Contact|preset:Name|key:reg_name)
 msgid "Regional name"
@@ -12904,7 +12906,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3940(item:name|group:Water|preset:Reservoir)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4010(list_entry:display_value|group:Water|preset:Other_waterbodies|value:reservoir)
 msgid "Reservoir"
-msgstr ""
+msgstr "水库"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:14381(combo:display_values|group:Offices|preset:Embassy|key:embassy)
 msgid "Residence"
@@ -12938,7 +12940,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3486(item:name|group:Barriers|preset:Retaining_Wall)
 msgid "Retaining Wall"
-msgstr "Dinding Penahan"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3929(combo:display_values|group:Water|preset:Basin|key:basin)
 msgid "Retention"
@@ -12964,12 +12966,12 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2351(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:reverse)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2378(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:reverse)
 msgid "Reverse"
-msgstr ""
+msgstr "反转"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2789(combo:display_values|group:Ways|preset:Steps|key:conveying)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9346(combo:display_values|group:Indoor_elements|preset:Highway_corridor|key:conveying)
 msgid "Reversible"
-msgstr "Bolak-balik"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6173(list_entry:display_value|group:Leisure|preset:Animals|value:rhinoceros)
 msgid "Rhinoceros"
@@ -13017,7 +13019,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:237(combo:display_values|key:shoulder)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2378(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:right)
 msgid "Right"
-msgstr "Kanan"
+msgstr "右边"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:124(check:text|key:handrail:right)
 msgid "Right handrail"
@@ -13048,15 +13050,15 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3999(list_entry:display_value|group:Water|preset:Other_waterbodies|value:river)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7462(list_entry:display_value|group:Emergency|preset:Fire_Hydrant|value:river)
 msgid "River"
-msgstr ""
+msgstr "河"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4026(item:name|group:Water|preset:Riverbank)
 msgid "Riverbank"
-msgstr ""
+msgstr "河岸"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13774(list_entry:display_value|preset:Generic_route|value:road)
 msgid "Road"
-msgstr "Jalan"
+msgstr "道路"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2247(item:name|group:Streets|preset:Road_(Unknown_Type))
 msgid "Road (Unknown Type)"
@@ -13154,7 +13156,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8186(combo:display_values|group:Facilities|preset:Outdoor_seating|key:weather_protection)
 msgid "Roof"
-msgstr "Atap"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13357(role:text|group:Relations|preset:Building|key:edge)
 msgid "Roof edge"
@@ -13183,12 +13185,12 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9321(item:name|group:Indoor_elements|preset:Room)
 msgid "Room"
-msgstr "Ruangan"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9294(text:text|group:Indoor_elements|preset:Indoor_area|key:ref)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9327(text:text|group:Indoor_elements|preset:Room|key:ref)
 msgid "Room Number"
-msgstr "Nomor Ruangan"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:5546(text:text|group:Accommodation|preset:Hotel|key:rooms)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:5561(text:text|group:Accommodation|preset:Motel|key:rooms)
@@ -13210,7 +13212,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2273(item:name|group:Streets|preset:Roundabout)
 msgid "Roundabout"
-msgstr "Bundaran"
+msgstr "环岛"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8904(check:text|group:Sport_(Ball)|preset:Gaelic_Games|key:gaelic_games:rounders)
 msgid "Rounders"
@@ -13223,7 +13225,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13306(list_entry:display_value|group:Relations|preset:Relations|value:route)
 msgid "Route"
-msgstr "Rute"
+msgstr "路线"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:5145(item:name|group:Public_Transport|preset:Route_Master)
 msgid "Route Master"
@@ -13345,7 +13347,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1654(combo:display_values|key:climbing:orientation)
 msgid "S"
-msgstr "S"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2673(combo:text|group:Ways|preset:Path|key:sac_scale)
 msgid "SAC Scale"
@@ -13449,7 +13451,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:700(list_entry:display_value|value:sandwich)
 msgid "Sandwich"
-msgstr "roti lapis"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:11782(combo:display_values|group:Other|preset:Wholesale|key:wholesale)
 msgid "Sanitary"
@@ -13681,7 +13683,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2012(item:name|group:Streets|preset:Secondary)
 msgid "Secondary"
-msgstr ""
+msgstr "次要"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2032(item:name|group:Streets|preset:Secondary_Link)
 msgid "Secondary Link"
@@ -13786,7 +13788,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1670(checkgroup:text)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2820(item:name|group:Waypoints|preset:Services)
 msgid "Services"
-msgstr "Layanan"
+msgstr "服务点"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4945(optional:text|group:Motorcycle|preset:Motorcycle_Dealer)
 msgid "Services:"
@@ -13976,7 +13978,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9329(combo:display_values|group:Indoor_elements|preset:Room|key:room)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9863(combo:display_values|group:Man_Made|preset:Surveillance|key:surveillance:zone)
 msgid "Shop"
-msgstr "Toko"
+msgstr "商店"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:10867(group:name|group:Shops)
 msgid "Shops"
@@ -14205,7 +14207,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4237(item:name|group:Shipping|preset:Slipway)
 msgid "Slipway"
-msgstr "Slipway"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6648(multiselect:display_values|preset:Gambling|key:gambling)
 msgid "Slot machines"
@@ -14337,7 +14339,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:321(combo:display_values|key:direction)
 msgid "South"
-msgstr "Selatan"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:11510(list_entry:short_description|group:For_the_body|preset:Beauty|value:spa)
 msgid "Spa"
@@ -14423,7 +14425,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3319(item:name|group:Barriers|preset:Spikes)
 msgid "Spikes"
-msgstr ""
+msgstr "尖刺"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1047(combo:display_values|key:denomination)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1057(combo:display_values|key:denomination)
@@ -14469,7 +14471,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:11619(item:name|group:Sports_and_hobbies|preset:Sports)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8349(group:name|group:Sports)
 msgid "Sports"
-msgstr "Olahraga"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8359(item:name|group:Sport_Facilities|preset:Sports_Centre)
 msgid "Sports Centre"
@@ -14497,7 +14499,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3849(item:name|group:Water|preset:Spring)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4374(list_entry:display_value|group:Shipping|preset:Seamark|value:spring)
 msgid "Spring"
-msgstr ""
+msgstr "泉"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7924(multiselect:display_values|group:Facilities|preset:Toilets/Restrooms|key:toilets:position)
 msgid "Squat"
@@ -14562,11 +14564,11 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12712(text:text|group:Nature|preset:Shrub|key:start_date)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6846(text:text|group:Culture|preset:Artwork|key:start_date)
 msgid "Start date"
-msgstr ""
+msgstr "开始日期"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8336(text:text|group:Facilities|preset:Letter_box|key:post:state)
 msgid "State"
-msgstr "Negara Bagian"
+msgstr "状态"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:10638(combo:display_values|group:Historic_Places_&_Objects|preset:Castle|key:castle_type)
 msgid "Stately"
@@ -14646,11 +14648,11 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2771(item:name|group:Ways|preset:Steps)
 msgid "Steps"
-msgstr ""
+msgstr "阶梯"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3327(item:name|group:Barriers|preset:Stile)
 msgid "Stile"
-msgstr ""
+msgstr "攀登桩"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7260(list_entry:display_value|group:Health|preset:Dentist|value:stomatology)
 msgid "Stomatology"
@@ -14671,7 +14673,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2869(item:name|group:Waypoints|preset:Stop)
 msgid "Stop"
-msgstr ""
+msgstr "停车站"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:5161(item:name|group:Public_Transport|preset:Stop_Area)
 msgid "Stop Area"
@@ -14734,7 +14736,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3998(list_entry:display_value|group:Water|preset:Other_waterbodies|value:stream)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7461(list_entry:display_value|group:Emergency|preset:Fire_Hydrant|value:stream)
 msgid "Stream"
-msgstr ""
+msgstr "溪流"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4014(list_entry:display_value|group:Water|preset:Other_waterbodies|value:stream_pool)
 msgid "Stream pool"
@@ -14806,7 +14808,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1916(group:name|group:Streets)
 msgid "Streets"
-msgstr ""
+msgstr "街道"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4049(list_entry:short_description|group:Water|preset:Wetland|value:string_bog)
 msgid "String bog"
@@ -14915,7 +14917,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8057(combo:display_values|group:Facilities|preset:Clock|key:display)
 msgid "Sundial"
-msgstr "jam bayangan matahari"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1047(combo:display_values|key:denomination)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1060(combo:display_values|key:denomination)
@@ -14925,7 +14927,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:10869(item:name|group:Food|preset:Supermarket)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:11782(combo:display_values|group:Other|preset:Wholesale|key:wholesale)
 msgid "Supermarket"
-msgstr "Pasar Besar"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13714(item:name|group:Routes|preset:Superroute)
 msgid "Superroute"
@@ -14934,7 +14936,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4514(check:text|group:Railway|preset:Level_Crossing|key:supervised)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:973(combo:text|key:supervised)
 msgid "Supervised"
-msgstr "Diawasi"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1785(check:text|key:kids_area:supervised)
 msgid "Supervision by an adult"
@@ -14971,7 +14973,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:708(list_entry:display_value|value:sushi)
 msgid "Sushi"
-msgstr "Susyi"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1625(multiselect:display_values|key:language)
 msgid "Swahili"
@@ -15229,7 +15231,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8012(item:name|group:Facilities|preset:Telephone)
 msgid "Telephone"
-msgstr "Telepon"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:10555(item:name|group:Telecom|preset:Telephone_Exchange)
 msgid "Telephone Exchange"
@@ -15292,7 +15294,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2052(item:name|group:Streets|preset:Tertiary)
 msgid "Tertiary"
-msgstr ""
+msgstr "三级道路"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2072(item:name|group:Streets|preset:Tertiary_Link)
 msgid "Tertiary Link"
@@ -15315,7 +15317,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1625(multiselect:display_values|key:language)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:712(list_entry:display_value|value:thai)
 msgid "Thai"
-msgstr "Thailand"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4315(list_entry:short_description|group:Shipping|preset:Seamark|value:fairway)
 msgid ""
@@ -15554,7 +15556,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1792(list_entry:display_value|value:timetable)
 msgid "Timetable"
-msgstr "Terjadwal"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1767(combo:display_values|key:resource)
 msgid "Tin"
@@ -15632,7 +15634,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:11757(multiselect:display_values|group:Other|preset:Agricultural_supplies|key:agricultural_supplies)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:11766(multiselect:display_values|group:Other|preset:Agricultural_supplies|key:agrarian)
 msgid "Tools"
-msgstr "Alat"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:5014(check:text|group:Bicycle|preset:Bike_Dealer|key:service:bicycle:diy)
 msgid "Tools for do-it-yourself repair (may be a bike co-operative)"
@@ -15700,7 +15702,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2639(item:name|group:Ways|preset:Track)
 msgid "Track"
-msgstr ""
+msgstr "轨道"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8605(item:name|group:Sport|preset:Track_and_Field_Athletics)
 msgid "Track and Field Athletics"
@@ -15930,7 +15932,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1941(item:name|group:Streets|preset:Trunk)
 msgid "Trunk"
-msgstr ""
+msgstr "干线"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1955(item:name|group:Streets|preset:Trunk_Link)
 msgid "Trunk Link"
@@ -15960,7 +15962,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3883(check:text|group:Water|preset:Fish_pass|key:tunnel)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9564(check:text|group:Man_Made|preset:Goods_conveyor|key:tunnel)
 msgid "Tunnel"
-msgstr ""
+msgstr "隧道"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3539(text:text|group:Passageways|preset:Tunnel|key:tunnel:name)
 msgid "Tunnel name"
@@ -15977,7 +15979,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1625(multiselect:display_values|key:language)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:713(list_entry:display_value|value:turkish)
 msgid "Turkish"
-msgstr "Turki"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1625(multiselect:display_values|key:language)
 msgid "Turkmen"
@@ -15989,7 +15991,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13374(group:name|group:Turn_Restrictions)
 msgid "Turn Restrictions"
-msgstr "Larangan Berbelok"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13308(list_entry:display_value|group:Relations|preset:Relations|value:restriction)
 msgid "Turn restriction"
@@ -16030,7 +16032,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3339(item:name|group:Barriers|preset:Turnstile)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:5270(combo:display_values|group:Public_Transport|preset:Ticket_Validator|key:barrier)
 msgid "Turnstile"
-msgstr ""
+msgstr "旋转门"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4533(item:name|group:Railway|preset:Turntable)
 msgid "Turntable"
@@ -16103,7 +16105,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9809(combo:text|group:Man_Made|preset:Street_cabinet|key:street_cabinet)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9920(combo:text|group:Man_Made|preset:Telescope|key:telescope:type)
 msgid "Type"
-msgstr "Tipe/Jenis"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4820(combo:text|group:Car|preset:Charging_Station|key:socket:type1)
 msgid "Type 1 - SAE J1772 (IEC Type 1)"
@@ -16238,7 +16240,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:11564(check:text|group:For_the_body|preset:Hairdresser/Barber|key:unisex)
 msgid "Unisex"
-msgstr "Unisex"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:399(list_entry:short_description|value:unisex_toilet)
 msgid "Unisex toilet"
@@ -16246,7 +16248,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8332(text:text|group:Facilities|preset:Letter_box|key:post:unit)
 msgid "Unit"
-msgstr "Unit"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:5709(text:text|group:Accommodation|preset:Camp_pitch|key:addr:unit)
 msgid "Unit number"
@@ -16288,7 +16290,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8057(combo:display_values|group:Facilities|preset:Clock|key:display)
 msgid "Unorthodox"
-msgstr "Tidak lazim"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:108(combo:display_values|key:surface)
 msgid "Unpaved"
@@ -16305,7 +16307,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:50(combo:display_values|key:incline)
 msgid "Up"
-msgstr ""
+msgstr "向上"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:14241(item:name|group:Crafts|preset:Upholsterer)
 msgid "Upholsterer"
@@ -16454,11 +16456,11 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:5891(combo:text|group:Food+Drinks|preset:Diet|key:diet:vegan)
 msgid "Vegan"
-msgstr "Vegan"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:5890(combo:text|group:Food+Drinks|preset:Diet|key:diet:vegetarian)
 msgid "Vegetarian"
-msgstr "Vegetarian"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4386(list_entry:display_value|group:Shipping|preset:Seamark|value:vegetation)
 msgid "Vegetation"
@@ -16529,7 +16531,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1625(multiselect:display_values|key:language)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:714(list_entry:display_value|value:vietnamese)
 msgid "Vietnamese"
-msgstr "Vietnam"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:5915(item:name|group:Tourism|preset:Viewpoint)
 msgid "Viewpoint"
@@ -16615,7 +16617,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1654(combo:display_values|key:climbing:orientation)
 msgid "W"
-msgstr "B"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:757(combo:display_values|key:internet_access)
 msgid "WLAN"
@@ -16651,7 +16653,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4317(list_entry:display_value|group:Shipping|preset:Seamark|value:wall)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6393(combo:display_values|group:Leisure|preset:Dog_Park|key:barrier)
 msgid "Wall"
-msgstr ""
+msgstr "墙"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12903(combo:display_values|group:Land_use|preset:Orchard|key:trees)
 msgid "Walnut trees"
@@ -16741,7 +16743,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3778(group:name|group:Water)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9809(combo:display_values|group:Man_Made|preset:Street_cabinet|key:street_cabinet)
 msgid "Water"
-msgstr ""
+msgstr "水"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6212(item:name|group:Leisure|preset:Water_Park)
 msgid "Water Park"
@@ -16826,7 +16828,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3859(item:name|group:Water|preset:Waterfall)
 msgid "Waterfall"
-msgstr "Air terjun"
+msgstr "瀑布"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4037(label:text|group:Water|preset:Wetland)
 msgid "Waterlogged area, either permanently or seasonally with vegetation."
@@ -16839,7 +16841,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13314(list_entry:display_value|group:Relations|preset:Relations|value:waterway)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13818(item:name|preset:Waterway)
 msgid "Waterway"
-msgstr "Jalur Air"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4390(list_entry:display_value|group:Shipping|preset:Seamark|value:waterway_gauge)
 msgid "Waterway guage"
@@ -16868,11 +16870,11 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2810(group:name|group:Waypoints)
 msgid "Waypoints"
-msgstr ""
+msgstr "途经点"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2638(group:name|group:Ways)
 msgid "Ways"
-msgstr ""
+msgstr "途径"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:10802(item:name|group:Historic_Places_&_Objects|preset:Wayside_Cross)
 msgid "Wayside Cross"
@@ -16933,7 +16935,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3866(item:name|group:Water|preset:Weir)
 msgid "Weir"
-msgstr ""
+msgstr "堰"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:5966(combo:display_values|group:Tourism|preset:Information_Board|key:board_type)
 msgid "Welcome sign"
@@ -16945,7 +16947,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:321(combo:display_values|key:direction)
 msgid "West"
-msgstr "Barat"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7480(list_entry:display_value|group:Emergency|preset:Fire_Hydrant|value:wet_barrel)
 msgid "Wet barrel"
@@ -16957,7 +16959,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4034(item:name|group:Water|preset:Wetland)
 msgid "Wetland"
-msgstr ""
+msgstr "湿地"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:430(text:text|key:wheelchair:description)
 msgid "Wheelchair access details"
@@ -17008,7 +17010,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9280(text:text|preset:Loading_dock|key:width)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9317(text:text|group:Indoor_elements|preset:Indoor_door|key:width)
 msgid "Width (Meters)"
-msgstr "Lebar (Meter)"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12711(text:text|group:Nature|preset:Shrub|key:width)
 msgid "Width (m)"
@@ -17199,7 +17201,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4568(item:name|group:Railway|preset:Yard)
 msgid "Yard"
-msgstr "Halaman"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1507(combo:display_values|key:roof:colour)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1533(combo:display_values|key:building:colour)
@@ -17303,7 +17305,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9750(combo:display_values|group:Man_Made|preset:Water_Well|key:pump)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:977(combo:display_values|key:lit)
 msgid "Yes"
-msgstr "Ya"
+msgstr "是"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1625(multiselect:display_values|key:language)
 msgid "Yiddish"
@@ -17893,7 +17895,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3423(combo:text|group:Barriers|preset:Fence|key:fence_type)
 msgctxt "material"
 msgid "Type"
-msgstr "Tipe/Jenis"
+msgstr "类型"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3423(combo:display_values|group:Barriers|preset:Fence|key:fence_type)
 msgctxt "material"
@@ -18050,7 +18052,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:70(list_entry:short_description|value:mud)
 msgctxt "surface"
 msgid "Mud"
-msgstr ""
+msgstr "泥浆"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:197(list_entry:short_description|value:paved)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2616(list_entry:short_description|preset:Sidewalk_right-hand_side|value:paved)
@@ -18205,7 +18207,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:183(combo:display_values|key:overtaking)
 msgctxt "overtaking"
 msgid "No"
-msgstr "Tidak"
+msgstr "否"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:183(combo:display_values|key:overtaking)
 msgctxt "overtaking"
@@ -18220,7 +18222,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:183(combo:display_values|key:overtaking)
 msgctxt "overtaking"
 msgid "Yes"
-msgstr "Ya"
+msgstr "是"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:192(list_entry:short_description|value:both)
 msgctxt "sidewalk"
@@ -18270,7 +18272,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2626(list_entry:short_description|preset:Sidewalk_left-hand_side|value:yes)
 msgctxt "sidewalk"
 msgid "Yes"
-msgstr "Ya"
+msgstr "是"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:204(list_entry:short_description|value:both)
 msgctxt "bus_bay"
@@ -18300,7 +18302,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:279(list_entry:short_description|value:island)
 msgctxt "pedestrian"
 msgid "Island"
-msgstr "Pulau"
+msgstr "岛屿"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:278(list_entry:short_description|value:no)
 msgctxt "pedestrian"
@@ -18350,7 +18352,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:291(list_entry:short_description|value:lines)
 msgctxt "crossing:markings"
 msgid "Lines"
-msgstr "Garis"
+msgstr "直线。"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:289(list_entry:short_description|value:yes)
 msgctxt "crossing:markings"
@@ -18390,7 +18392,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:290(list_entry:short_description|value:surface)
 msgctxt "crossing:markings"
 msgid "Surface"
-msgstr "Permukaan"
+msgstr "表面"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:288(list_entry:short_description|value:no)
 msgctxt "crossing:markings"
@@ -18411,7 +18413,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4529(combo:text|group:Railway|preset:Crossing|key:crossing:barrier)
 msgctxt "railway"
 msgid "Barrier"
-msgstr "Penghalang"
+msgstr "屏障"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4404(combo:display_values|group:Railway|preset:Rail|key:usage)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4413(combo:display_values|group:Railway|preset:Narrow_Gauge_Rail|key:usage)
@@ -18423,12 +18425,12 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:306(combo:display_values|key:service)
 msgctxt "railway"
 msgid "Crossover"
-msgstr "Tumpang tindih"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4544(combo:display_values|group:Railway|preset:Railway_Switch|key:railway:switch)
 msgctxt "railway"
 msgid "Default"
-msgstr "Baku"
+msgstr "默认"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4544(combo:display_values|group:Railway|preset:Railway_Switch|key:railway:switch)
 msgctxt "railway"
@@ -18447,7 +18449,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4490(combo:display_values|group:Railway|preset:Railway_construction|key:usage)
 msgctxt "railway"
 msgid "Industrial"
-msgstr "Industri"
+msgstr "工业区"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4404(combo:display_values|group:Railway|preset:Rail|key:usage)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4413(combo:display_values|group:Railway|preset:Narrow_Gauge_Rail|key:usage)
@@ -18461,7 +18463,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4490(combo:display_values|group:Railway|preset:Railway_construction|key:usage)
 msgctxt "railway"
 msgid "Military"
-msgstr "Militer"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:306(combo:text|key:service)
 msgctxt "railway"
@@ -18499,7 +18501,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4490(combo:display_values|group:Railway|preset:Railway_construction|key:usage)
 msgctxt "railway"
 msgid "Tourism"
-msgstr "Pariwisata"
+msgstr "旅游设施"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:316(combo:text|key:tracks)
 msgctxt "railway"
@@ -18509,7 +18511,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4544(combo:text|group:Railway|preset:Railway_Switch|key:railway:switch)
 msgctxt "railway"
 msgid "Type"
-msgstr "Tipe"
+msgstr "类型"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4404(combo:text|group:Railway|preset:Rail|key:usage)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4413(combo:text|group:Railway|preset:Narrow_Gauge_Rail|key:usage)
@@ -18526,7 +18528,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:306(combo:display_values|key:service)
 msgctxt "railway"
 msgid "Yard"
-msgstr "Halaman"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:309(combo:text|key:electrified)
 msgctxt "electrified"
@@ -18562,7 +18564,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9257(combo:display_values|preset:Entrance|key:entrance)
 msgctxt "entrance"
 msgid "Garage"
-msgstr "Garasi tunggal"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:358(combo:display_values|key:door)
 msgctxt "entrance"
@@ -18588,7 +18590,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:358(combo:display_values|key:door)
 msgctxt "entrance"
 msgid "None"
-msgstr "Tidak ada"
+msgstr "无"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:358(combo:display_values|key:door)
 msgctxt "entrance"
@@ -18603,7 +18605,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9257(combo:display_values|preset:Entrance|key:entrance)
 msgctxt "entrance"
 msgid "Secondary"
-msgstr ""
+msgstr "次要"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9257(combo:display_values|preset:Entrance|key:entrance)
 msgctxt "entrance"
@@ -18613,7 +18615,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9257(combo:display_values|preset:Entrance|key:entrance)
 msgctxt "entrance"
 msgid "Shop"
-msgstr "Toko"
+msgstr "商店"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:358(combo:display_values|key:door)
 msgctxt "entrance"
@@ -18634,7 +18636,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9257(combo:display_values|preset:Entrance|key:entrance)
 msgctxt "entrance"
 msgid "Yes"
-msgstr "Ya"
+msgstr "是"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:720(list_entry:short_description|value:babies)
 msgctxt "clothes"
@@ -18694,7 +18696,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:730(list_entry:short_description|value:motorcycle)
 msgctxt "clothes"
 msgid "Motorcycle"
-msgstr ""
+msgstr "摩托车"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:731(list_entry:short_description|value:oversize)
 msgctxt "clothes"
@@ -18709,7 +18711,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:733(list_entry:short_description|value:sports)
 msgctxt "clothes"
 msgid "Sports"
-msgstr "Olahraga"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:734(list_entry:short_description|value:suits)
 msgctxt "clothes"
@@ -18853,7 +18855,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:983(combo:display_values|key:access)
 msgctxt "access"
 msgid "Delivery"
-msgstr "Pesan Antar"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1273(list_entry:display_value|value:designated)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1276(list_entry:display_value|value:designated)
@@ -18882,7 +18884,7 @@ msgstr "Pesan Antar"
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:783(list_entry:display_value|value:designated)
 msgctxt "access"
 msgid "Designated"
-msgstr "Ditunjuk"
+msgstr "特定的"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1273(list_entry:display_value|value:destination)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1276(list_entry:display_value|value:destination)
@@ -18911,12 +18913,12 @@ msgstr "Ditunjuk"
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:983(combo:display_values|key:access)
 msgctxt "access"
 msgid "Destination"
-msgstr "Tujuan"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3182(list_entry:display_value|group:Barriers|preset:Cycle_Barrier|value:dismount)
 msgctxt "access"
 msgid "Dismount"
-msgstr "turun dari kendaraan"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1448(combo:text|key:dog)
 msgctxt "access"
@@ -18932,7 +18934,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3738(combo:text|group:Access_Restrictions|preset:Other_mode_restrictions|key:foot)
 msgctxt "access"
 msgid "Foot"
-msgstr "Kaki"
+msgstr "步行"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3639(list_entry:display_value|group:Access_Restrictions|preset:Motorcar_and_-cycle_(CH)|value:forestry)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3646(list_entry:display_value|group:Access_Restrictions|preset:Motorcar_and_-cycle_(CH)|value:forestry)
@@ -18992,13 +18994,13 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3656(combo:text|group:Access_Restrictions|preset:Motorcar|key:motorcar)
 msgctxt "access"
 msgid "Motorcar"
-msgstr ""
+msgstr "机动车"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3644(combo:text|group:Access_Restrictions|preset:Motorcar_and_-cycle_(CH)|key:motorcycle)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3668(combo:text|group:Access_Restrictions|preset:Motorcycle|key:motorcycle)
 msgctxt "access"
 msgid "Motorcycle"
-msgstr ""
+msgstr "摩托车"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1448(combo:display_values|key:dog)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3181(list_entry:display_value|group:Barriers|preset:Cycle_Barrier|value:no)
@@ -19008,7 +19010,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9258(combo:display_values|preset:Entrance|key:access)
 msgctxt "access"
 msgid "No"
-msgstr "Tidak"
+msgstr "否"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1273(list_entry:display_value|value:no)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1276(list_entry:display_value|value:no)
@@ -19094,7 +19096,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:983(combo:display_values|key:access)
 msgctxt "access"
 msgid "Permissive"
-msgstr "Dibolehkan dengan izin"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1273(list_entry:display_value|value:permit)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1276(list_entry:display_value|value:permit)
@@ -19236,7 +19238,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9258(combo:display_values|preset:Entrance|key:access)
 msgctxt "access"
 msgid "Yes"
-msgstr "Ya"
+msgstr "是"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:836(list_entry:display_value|value:10pin)
 msgctxt "sport"
@@ -19627,7 +19629,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:828(combo:display_values|key:leisure)
 msgctxt "sport"
 msgid "Stadium"
-msgstr "Stadion"
+msgstr "体育场"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:903(list_entry:display_value|value:swimming)
 msgctxt "sport"
@@ -19657,13 +19659,13 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:828(combo:display_values|key:leisure)
 msgctxt "sport"
 msgid "Track"
-msgstr "Titian"
+msgstr "未铺设路面的车径"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:825(combo:text|key:leisure)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:828(combo:text|key:leisure)
 msgctxt "sport"
 msgid "Type"
-msgstr "Tipe"
+msgstr "类型"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:908(list_entry:display_value|value:volleyball)
 msgctxt "sport"
@@ -19749,7 +19751,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4718(list_entry:display_value|group:Car|preset:Parking_Space|value:delivery)
 msgctxt "parking"
 msgid "Delivery"
-msgstr "Pesan Antar"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2437(list_entry:short_description|preset:Street_parking_both_sides|value:diagonal)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2476(list_entry:short_description|preset:Street_parking_both_sides|value:diagonal)
@@ -19811,7 +19813,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2567(list_entry:short_description|preset:Street_parking_left-hand_side|value:grass)
 msgctxt "parking"
 msgid "Grass"
-msgstr "Rumput"
+msgstr "草地"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2447(list_entry:short_description|preset:Street_parking_both_sides|value:grass_paver)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2507(list_entry:short_description|preset:Street_parking_right-hand_side|value:grass_paver)
@@ -19873,14 +19875,14 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4717(list_entry:display_value|group:Car|preset:Parking_Space|value:motorcycle)
 msgctxt "parking"
 msgid "Motorcycle"
-msgstr ""
+msgstr "摩托车"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2447(list_entry:short_description|preset:Street_parking_both_sides|value:mud)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2507(list_entry:short_description|preset:Street_parking_right-hand_side|value:mud)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2567(list_entry:short_description|preset:Street_parking_left-hand_side|value:mud)
 msgctxt "parking"
 msgid "Mud"
-msgstr ""
+msgstr "泥浆"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4739(list_entry:display_value|group:Car|preset:Parking_Entrance/Exit|value:multi-storey)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:938(list_entry:display_value|value:multi-storey)
@@ -19925,7 +19927,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4709(list_entry:display_value|group:Car|preset:Parking_Space|value:normal)
 msgctxt "parking"
 msgid "Normal"
-msgstr "Normal"
+msgstr "正常"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2437(list_entry:short_description|preset:Street_parking_both_sides|value:parallel)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2497(list_entry:short_description|preset:Street_parking_right-hand_side|value:parallel)
@@ -20118,7 +20120,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4711(list_entry:display_value|group:Car|preset:Parking_Space|value:private)
 msgctxt "parking"
 msgid "Private"
-msgstr "Pribadi"
+msgstr "私人"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2479(list_entry:short_description|preset:Street_parking_both_sides|value:residents)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2539(list_entry:short_description|preset:Street_parking_right-hand_side|value:residents)
@@ -20138,7 +20140,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:939(list_entry:display_value|value:rooftop)
 msgctxt "parking"
 msgid "Rooftop"
-msgstr "Atap"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2447(list_entry:short_description|preset:Street_parking_both_sides|value:rubber)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2507(list_entry:short_description|preset:Street_parking_right-hand_side|value:rubber)
@@ -20194,7 +20196,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:933(combo:text|key:parking)
 msgctxt "parking"
 msgid "Type"
-msgstr "Tipe/Jenis"
+msgstr "类型"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4742(list_entry:display_value|group:Car|preset:Parking_Entrance/Exit|value:underground)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:943(list_entry:display_value|value:underground)
@@ -20221,7 +20223,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2567(list_entry:short_description|preset:Street_parking_left-hand_side|value:wood)
 msgctxt "parking"
 msgid "Wood"
-msgstr "Hutan"
+msgstr "树林"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2447(list_entry:short_description|preset:Street_parking_both_sides|value:woodchips)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2507(list_entry:short_description|preset:Street_parking_right-hand_side|value:woodchips)
@@ -20243,7 +20245,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1023(combo:text|key:denotation)
 msgctxt "tree denotation"
 msgid "Denotation"
-msgstr "Penunjuk"
+msgstr "意思"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1025(list_entry:short_description|value:natural_monument)
 msgctxt "tree denotation"
@@ -20299,7 +20301,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1063(combo:text|key:denomination)
 msgctxt "jewish"
 msgid "Denomination"
-msgstr "Golongan"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1063(combo:display_values|key:denomination)
 msgctxt "jewish"
@@ -20353,7 +20355,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1204(combo:display_values|key:pole:type)
 msgctxt "power"
 msgid "Crossing"
-msgstr "Penyebrangan"
+msgstr "人行横道"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1164(combo:display_values|key:line_arrangement)
 msgctxt "power"
@@ -20368,7 +20370,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:10211(list_entry:short_description|group:Power_Generator|preset:Solar_Power_Generator|value:no)
 msgctxt "power"
 msgid "Fixed"
-msgstr "Tetap"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1164(combo:display_values|key:line_arrangement)
 msgctxt "power"
@@ -20388,7 +20390,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1113(combo:display_values|key:location)
 msgctxt "power"
 msgid "Indoor"
-msgstr "Dalam ruangan"
+msgstr "Indoor"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1164(combo:text|key:line_arrangement)
 msgctxt "power"
@@ -20428,7 +20430,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9978(combo:text|group:Power_Plant|preset:Biomass_Power_Plant|key:plant:method)
 msgctxt "power"
 msgid "Method"
-msgstr "Metode"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:10524(combo:text|preset:Power_Line|key:wires)
 msgctxt "power"
@@ -20438,7 +20440,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1113(combo:display_values|key:location)
 msgctxt "power"
 msgid "Outdoor"
-msgstr "Luar Ruangan"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1167(combo:display_values|key:line_attachment)
 msgctxt "power"
@@ -20469,7 +20471,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1113(combo:display_values|key:location)
 msgctxt "power"
 msgid "Roof"
-msgstr "Atap"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1164(combo:display_values|key:line_arrangement)
 msgctxt "power"
@@ -20490,12 +20492,12 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1156(list_entry:display_value|value:split)
 msgctxt "power"
 msgid "Split"
-msgstr "Pisah"
+msgstr "分开"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1164(combo:display_values|key:line_arrangement)
 msgctxt "power"
 msgid "Square"
-msgstr "Persegi"
+msgstr "直角化"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1154(list_entry:display_value|value:straight)
 msgctxt "power"
@@ -20506,7 +20508,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1113(combo:display_values|key:location)
 msgctxt "power"
 msgid "Surface"
-msgstr "Permukaan"
+msgstr "表面"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1167(combo:display_values|key:line_attachment)
 msgctxt "power"
@@ -20576,7 +20578,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:10474(combo:text|preset:Pole_with_Switch|key:switch)
 msgctxt "power"
 msgid "Type"
-msgstr "Tipe"
+msgstr "类型"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:10389(combo:text|preset:Power_Compensator|key:compensator)
 msgctxt "power"
@@ -20611,7 +20613,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1113(combo:display_values|key:location)
 msgctxt "power"
 msgid "Underground"
-msgstr "Bawah tanah"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1164(combo:display_values|key:line_arrangement)
 msgctxt "power"
@@ -20686,7 +20688,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1229(combo:text|key:bridge)
 msgctxt "bridge"
 msgid "Bridge"
-msgstr "Jembatan"
+msgstr "桥"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1232(combo:text|key:bridge:support)
 msgctxt "bridge"
@@ -20706,7 +20708,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1229(combo:display_values|key:bridge)
 msgctxt "bridge"
 msgid "Covered"
-msgstr "Terlindungi"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1231(combo:display_values|key:bridge:movable)
 msgctxt "bridge"
@@ -20716,7 +20718,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1230(combo:display_values|key:bridge:structure)
 msgctxt "bridge"
 msgid "Floating"
-msgstr "Mengapung"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1230(combo:display_values|key:bridge:structure)
 msgctxt "bridge"
@@ -20746,7 +20748,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1232(combo:display_values|key:bridge:support)
 msgctxt "bridge"
 msgid "Pier"
-msgstr "Dermaga"
+msgstr "码头"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1232(combo:display_values|key:bridge:support)
 msgctxt "bridge"
@@ -20771,7 +20773,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1230(combo:text|key:bridge:structure)
 msgctxt "bridge"
 msgid "Structure"
-msgstr "Struktur"
+msgstr "结构"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1231(combo:display_values|key:bridge:movable)
 msgctxt "bridge"
@@ -20816,7 +20818,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1229(combo:display_values|key:bridge)
 msgctxt "bridge"
 msgid "Yes"
-msgstr "Ya"
+msgstr "是"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1295(combo:display_values|key:handle)
 msgctxt "handle"
@@ -20846,7 +20848,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1295(combo:display_values|key:handle)
 msgctxt "handle"
 msgid "None"
-msgstr "Tidak ada"
+msgstr "无"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1295(combo:display_values|key:handle)
 msgctxt "handle"
@@ -21003,7 +21005,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1391(list_entry:display_value|value:no)
 msgctxt "tactile_paving"
 msgid "None"
-msgstr "Tidak ada"
+msgstr "无"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1390(list_entry:display_value|value:yes)
 msgctxt "tactile_paving"
@@ -21134,7 +21136,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1486(list_entry:short_description|value:internal)
 msgctxt "healthcare"
 msgid "Internal"
-msgstr ""
+msgstr "内部"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7361(list_entry:short_description|group:Health|preset:Alternative_medicine|value:naturopathy)
 msgctxt "healthcare"
@@ -21370,7 +21372,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9166(list_entry:display_value|group:Buildings|preset:Building_construction|value:bunker)
 msgctxt "building"
 msgid "Bunker"
-msgstr "Tempat berlindung"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9111(list_entry:display_value|group:Buildings|preset:Building|value:cabin)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9155(list_entry:display_value|group:Buildings|preset:Building_part|value:cabin)
@@ -21486,7 +21488,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9172(item:name|group:Roof_type|preset:Dome)
 msgctxt "building"
 msgid "Dome"
-msgstr "Kubah"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9111(list_entry:display_value|group:Buildings|preset:Building|value:dormitory)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9155(list_entry:display_value|group:Buildings|preset:Building_part|value:dormitory)
@@ -21706,7 +21708,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9166(list_entry:display_value|group:Buildings|preset:Building_construction|value:kiosk)
 msgctxt "building"
 msgid "Kiosk"
-msgstr "Warung\nKios"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1532(combo:display_values|key:building:use)
 msgctxt "building"
@@ -21812,7 +21814,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1535(list_entry:display_value|value:mud)
 msgctxt "building"
 msgid "Mud"
-msgstr ""
+msgstr "泥浆"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1532(combo:display_values|key:building:use)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9111(list_entry:display_value|group:Buildings|preset:Building|value:office)
@@ -22024,7 +22026,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9166(list_entry:display_value|group:Buildings|preset:Building_construction|value:stadium)
 msgctxt "building"
 msgid "Stadium"
-msgstr "Stadion"
+msgstr "体育场"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9111(list_entry:display_value|group:Buildings|preset:Building|value:static_caravan)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9155(list_entry:display_value|group:Buildings|preset:Building_part|value:static_caravan)
@@ -22083,7 +22085,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9166(list_entry:display_value|group:Buildings|preset:Building_construction|value:supermarket)
 msgctxt "building"
 msgid "Supermarket"
-msgstr "Pasar Besar"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9111(list_entry:display_value|group:Buildings|preset:Building|value:synagogue)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9155(list_entry:display_value|group:Buildings|preset:Building_part|value:synagogue)
@@ -22125,7 +22127,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9166(list_entry:display_value|group:Buildings|preset:Building_construction|value:toilets)
 msgctxt "building"
 msgid "Toilets"
-msgstr "Toilet"
+msgstr "厕所"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1519(list_entry:display_value|value:traditional)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1522(list_entry:display_value|value:traditional)
@@ -22187,14 +22189,14 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1535(list_entry:display_value|value:wood)
 msgctxt "building"
 msgid "Wood"
-msgstr "Hutan"
+msgstr "树林"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9111(list_entry:display_value|group:Buildings|preset:Building|value:yes)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9155(list_entry:display_value|group:Buildings|preset:Building_part|value:yes)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9166(list_entry:display_value|group:Buildings|preset:Building_construction|value:yes)
 msgctxt "building"
 msgid "Yes"
-msgstr "Ya"
+msgstr "是"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1508(combo:text|key:roof:levels)
 msgctxt "roof_levels"
@@ -22209,7 +22211,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1595(combo:display_values|key:operator:type)
 msgctxt "operator"
 msgid "Private"
-msgstr "Pribadi"
+msgstr "私人"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1595(combo:display_values|key:operator:type)
 msgctxt "operator"
@@ -22224,7 +22226,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1668(combo:text|key:country)
 msgctxt "country codes"
 msgid "Country"
-msgstr "Negara"
+msgstr "国家"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13175(combo:text|group:Addresses_and_Contact|preset:Address|key:addr:country)
 msgctxt "country codes"
@@ -22279,7 +22281,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1692(combo:display_values|key:animated)
 msgctxt "advertising"
 msgid "No"
-msgstr "Tidak"
+msgstr "否"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8287(combo:display_values|group:Facilities|preset:Advertising|key:advertising)
 msgctxt "advertising"
@@ -22325,12 +22327,12 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1692(combo:display_values|key:animated)
 msgctxt "advertising"
 msgid "Yes"
-msgstr "Ya"
+msgstr "是"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2195(list_entry:short_description|group:Streets|preset:Service|value:alley)
 msgctxt "Highway"
 msgid "Alley"
-msgstr "Gang"
+msgstr "胡同"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3562(item:name|group:Passageways|preset:Arcade)
 msgctxt "Highway"
@@ -22362,7 +22364,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3772(combo:display_values|preset:Street_area|key:area:highway)
 msgctxt "Highway"
 msgid "Crossing"
-msgstr "Penyebrangan"
+msgstr "人行横道"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2134(combo:display_values|group:Streets|preset:Bicycle_Road|key:highway)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3772(combo:display_values|preset:Street_area|key:area:highway)
@@ -22396,7 +22398,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2196(list_entry:short_description|group:Streets|preset:Service|value:driveway)
 msgctxt "Highway"
 msgid "Driveway"
-msgstr "Jalan Masuk"
+msgstr "车道"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2200(list_entry:short_description|group:Streets|preset:Service|value:emergency_access)
 msgctxt "Highway"
@@ -22407,7 +22409,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2261(list_entry:display_value|group:Streets|preset:Road_construction|value:escape)
 msgctxt "Highway"
 msgid "Escape"
-msgstr ""
+msgstr "逃生"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3772(combo:display_values|preset:Street_area|key:area:highway)
 msgctxt "Highway"
@@ -22433,7 +22435,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3772(combo:display_values|preset:Street_area|key:area:highway)
 msgctxt "Highway"
 msgid "Junction"
-msgstr "Persimpangan"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3772(combo:display_values|preset:Street_area|key:area:highway)
 msgctxt "Highway"
@@ -22445,13 +22447,13 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3772(combo:display_values|preset:Street_area|key:area:highway)
 msgctxt "Highway"
 msgid "Motorway"
-msgstr "Jalan Tol"
+msgstr "高速公路"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1771(list_entry:display_value|value:motorway_link)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2261(list_entry:display_value|group:Streets|preset:Road_construction|value:motorway_link)
 msgctxt "Highway"
 msgid "Motorway Link"
-msgstr "Jalan Tol"
+msgstr "高速公路匝道"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3772(combo:display_values|preset:Street_area|key:area:highway)
 msgctxt "Highway"
@@ -22461,7 +22463,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2197(list_entry:short_description|group:Streets|preset:Service|value:parking)
 msgctxt "Highway"
 msgid "Parking"
-msgstr "Parkir"
+msgstr "停车场"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2198(list_entry:short_description|group:Streets|preset:Service|value:parking_aisle)
 msgctxt "Highway"
@@ -22483,27 +22485,27 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2261(list_entry:display_value|group:Streets|preset:Road_construction|value:path)
 msgctxt "Highway"
 msgid "Path"
-msgstr "Jalur"
+msgstr "路径"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1771(list_entry:display_value|value:pedestrian)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2261(list_entry:display_value|group:Streets|preset:Road_construction|value:pedestrian)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3772(combo:display_values|preset:Street_area|key:area:highway)
 msgctxt "Highway"
 msgid "Pedestrian"
-msgstr "Pejalan kaki"
+msgstr "行人专用路"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1771(list_entry:display_value|value:primary)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2261(list_entry:display_value|group:Streets|preset:Road_construction|value:primary)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3772(combo:display_values|preset:Street_area|key:area:highway)
 msgctxt "Highway"
 msgid "Primary"
-msgstr ""
+msgstr "主要"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1771(list_entry:display_value|value:primary_link)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2261(list_entry:display_value|group:Streets|preset:Road_construction|value:primary_link)
 msgctxt "Highway"
 msgid "Primary Link"
-msgstr "Jalan Penghubung Primer"
+msgstr "主要道路匝道"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3772(combo:display_values|preset:Street_area|key:area:highway)
 msgctxt "Highway"
@@ -22535,7 +22537,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3772(combo:display_values|preset:Street_area|key:area:highway)
 msgctxt "Highway"
 msgid "Secondary"
-msgstr ""
+msgstr "次要"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1771(list_entry:display_value|value:secondary_link)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2261(list_entry:display_value|group:Streets|preset:Road_construction|value:secondary_link)
@@ -22563,7 +22565,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3772(combo:display_values|preset:Street_area|key:area:highway)
 msgctxt "Highway"
 msgid "Steps"
-msgstr "Tangga"
+msgstr "楼梯"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3772(combo:text|preset:Street_area|key:area:highway)
 msgctxt "Highway"
@@ -22575,13 +22577,13 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3772(combo:display_values|preset:Street_area|key:area:highway)
 msgctxt "Highway"
 msgid "Tertiary"
-msgstr ""
+msgstr "三级道路"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1771(list_entry:display_value|value:tertiary_link)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2261(list_entry:display_value|group:Streets|preset:Road_construction|value:tertiary_link)
 msgctxt "Highway"
 msgid "Tertiary Link"
-msgstr "Jalan Penghubung Tersier"
+msgstr "三级道路匝道"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3772(combo:display_values|preset:Street_area|key:area:highway)
 msgctxt "Highway"
@@ -22592,7 +22594,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2261(list_entry:display_value|group:Streets|preset:Road_construction|value:track)
 msgctxt "Highway"
 msgid "Track"
-msgstr "Titian"
+msgstr "未铺设路面的车径"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3772(combo:display_values|preset:Street_area|key:area:highway)
 msgctxt "Highway"
@@ -22604,13 +22606,13 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3772(combo:display_values|preset:Street_area|key:area:highway)
 msgctxt "Highway"
 msgid "Trunk"
-msgstr ""
+msgstr "干道"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1771(list_entry:display_value|value:trunk_link)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2261(list_entry:display_value|group:Streets|preset:Road_construction|value:trunk_link)
 msgctxt "Highway"
 msgid "Trunk Link"
-msgstr "Jalan Raya Penghubung"
+msgstr "干线道路匝道"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3772(combo:display_values|preset:Street_area|key:area:highway)
 msgctxt "Highway"
@@ -22620,7 +22622,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1770(combo:text|key:highway)
 msgctxt "Highway"
 msgid "Type"
-msgstr "Tipe/Jenis"
+msgstr "类型"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1771(list_entry:display_value|value:unclassified)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2134(combo:display_values|group:Streets|preset:Bicycle_Road|key:highway)
@@ -22633,7 +22635,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3772(combo:display_values|preset:Street_area|key:area:highway)
 msgctxt "Highway"
 msgid "Yes"
-msgstr "Ya"
+msgstr "是"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2417(combo:text|preset:Cycle_Lane/Track|key:cycleway)
 msgctxt "cycleway"
@@ -22698,7 +22700,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2426(list_entry:display_value|preset:Cycle_Lane/Track|value:track)
 msgctxt "cycleway"
 msgid "Track"
-msgstr "Titian"
+msgstr "未铺设路面的车径"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2683(combo:display_values|group:Ways|preset:Path|key:trail_visibility)
 msgctxt "trail_visibility"
@@ -22733,7 +22735,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2683(combo:text|group:Ways|preset:Path|key:trail_visibility)
 msgctxt "trail_visibility"
 msgid "Visibility"
-msgstr ""
+msgstr "可见性"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2751(list_entry:short_description|group:Ways|preset:Dedicated_Footway|value:sidewalk)
 msgctxt "footway"
@@ -22758,7 +22760,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2754(list_entry:display_value|group:Ways|preset:Dedicated_Footway|value:alley)
 msgctxt "footway"
 msgid "Alley"
-msgstr "Gang"
+msgstr "胡同"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2753(list_entry:short_description|group:Ways|preset:Dedicated_Footway|value:traffic_island)
 msgctxt "footway"
@@ -22798,7 +22800,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2748(combo:text|group:Ways|preset:Dedicated_Footway|key:footway)
 msgctxt "footway"
 msgid "Type"
-msgstr "Tipe/Jenis"
+msgstr "类型"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2930(item:name|group:Traffic_Calming|preset:Table)
 msgctxt "traffic_calming_table"
@@ -22813,29 +22815,29 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3072(item:name|preset:Junction)
 msgctxt "junction=yes"
 msgid "Junction"
-msgstr "Persimpangan"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3097(combo:display_values|preset:Elevator|key:surveillance)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9862(combo:display_values|group:Man_Made|preset:Surveillance|key:surveillance)
 msgctxt "surveillance"
 msgid "Indoor"
-msgstr "Dalam Ruangan"
+msgstr "室内"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9862(combo:text|group:Man_Made|preset:Surveillance|key:surveillance)
 msgctxt "surveillance"
 msgid "Location"
-msgstr "Letak"
+msgstr "位置"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9861(multiselect:text|group:Man_Made|preset:Surveillance|key:surveillance:type)
 msgctxt "surveillance"
 msgid "Method"
-msgstr "Metode"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3097(combo:display_values|preset:Elevator|key:surveillance)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9862(combo:display_values|group:Man_Made|preset:Surveillance|key:surveillance)
 msgctxt "surveillance"
 msgid "Outdoor"
-msgstr "Luar Ruangan"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9862(combo:display_values|group:Man_Made|preset:Surveillance|key:surveillance)
 msgctxt "surveillance"
@@ -22961,7 +22963,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3136(list_entry:short_description|preset:Traffic_Hazard|value:other)
 msgctxt "hazard"
 msgid "Other"
-msgstr "Lainnya"
+msgstr "其他"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3137(list_entry:short_description|preset:Traffic_Hazard|value:pedestrians)
 msgctxt "hazard"
@@ -23031,7 +23033,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3242(combo:text|group:Barriers|preset:Lift_Gate|key:lift_gate:type)
 msgctxt "lift_gate"
 msgid "Type"
-msgstr "Tipe"
+msgstr "类型"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3252(combo:display_values|group:Barriers|preset:Swing_Gate|key:swing_gate:type)
 msgctxt "swing_gate"
@@ -23046,19 +23048,19 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3252(combo:text|group:Barriers|preset:Swing_Gate|key:swing_gate:type)
 msgctxt "swing_gate"
 msgid "Type"
-msgstr "Tipe/Jenis"
+msgstr "类型"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12129(check:text|preset:Payment_Methods|key:payment:notes)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3383(check:text|group:Barriers|preset:Toll_Booth|key:payment:notes)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8020(check:text|group:Facilities|preset:Telephone|key:payment:notes)
 msgctxt "payment"
 msgid "Notes"
-msgstr ""
+msgstr "注记"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3506(item:name|group:Barriers|preset:Ditch)
 msgctxt "Barrier"
 msgid "Ditch"
-msgstr ""
+msgstr "沟渠"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3823(combo:display_values|group:Water|preset:Canal|key:usage)
 msgctxt "usage"
@@ -23148,7 +23150,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9686(combo:display_values|group:Man_Made|preset:Marker|key:location)
 msgctxt "pipeline"
 msgid "Indoor"
-msgstr "Dalam ruangan"
+msgstr "室内"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9654(combo:display_values|group:Man_Made|preset:Pipeline_Substation|key:substation)
 msgctxt "pipeline"
@@ -23171,7 +23173,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9686(combo:display_values|group:Man_Made|preset:Marker|key:location)
 msgctxt "pipeline"
 msgid "Outdoor"
-msgstr "Luar Ruangan"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3915(combo:display_values|group:Water|preset:Penstock|key:location)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8102(combo:display_values|group:Facilities|preset:Recycling_Container|key:location)
@@ -23216,13 +23218,13 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9686(combo:display_values|group:Man_Made|preset:Marker|key:location)
 msgctxt "pipeline"
 msgid "Surface"
-msgstr "Permukaan"
+msgstr "表面"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7445(combo:text|group:Emergency|preset:Fire_Hydrant|key:fire_hydrant:type)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9654(combo:text|group:Man_Made|preset:Pipeline_Substation|key:substation)
 msgctxt "pipeline"
 msgid "Type"
-msgstr "Tipe/Jenis"
+msgstr "类型"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3915(combo:display_values|group:Water|preset:Penstock|key:location)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7447(list_entry:display_value|group:Emergency|preset:Fire_Hydrant|value:underground)
@@ -23231,7 +23233,7 @@ msgstr "Tipe/Jenis"
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9686(combo:display_values|group:Man_Made|preset:Marker|key:location)
 msgctxt "pipeline"
 msgid "Underground"
-msgstr "Bawah tanah"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3915(combo:display_values|group:Water|preset:Penstock|key:location)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9645(combo:display_values|group:Man_Made|preset:Pipeline|key:location)
@@ -23253,7 +23255,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7448(list_entry:display_value|group:Emergency|preset:Fire_Hydrant|value:wall)
 msgctxt "pipeline"
 msgid "Wall"
-msgstr "Tembok"
+msgstr "墙"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3962(item:name|group:Water|preset:Lagoon)
 msgctxt "natural"
@@ -23263,7 +23265,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3954(item:name|group:Water|preset:Lake)
 msgctxt "natural"
 msgid "Lake"
-msgstr "Danau"
+msgstr "湖泊"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3991(item:name|group:Water|preset:Other_waterbodies)
 msgctxt "natural"
@@ -23273,7 +23275,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:3970(item:name|group:Water|preset:Pond)
 msgctxt "natural"
 msgid "Pond"
-msgstr "Kolam"
+msgstr "池塘"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12738(item:name|group:Nature|preset:Wood)
 msgctxt "natural"
@@ -23283,7 +23285,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4111(multiselect:display_values|group:Shipping|preset:Ferry_Terminal|key:cargo)
 msgctxt "cargo"
 msgid "Bicycles"
-msgstr "Sepeda"
+msgstr "自行车"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4111(multiselect:text|group:Shipping|preset:Ferry_Terminal|key:cargo)
 msgctxt "cargo"
@@ -23349,13 +23351,13 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4529(combo:display_values|group:Railway|preset:Crossing|key:crossing:barrier)
 msgctxt "crossing:barrier"
 msgid "No"
-msgstr "Tidak"
+msgstr "否"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4517(combo:display_values|group:Railway|preset:Level_Crossing|key:crossing:barrier)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4529(combo:display_values|group:Railway|preset:Crossing|key:crossing:barrier)
 msgctxt "crossing:barrier"
 msgid "Yes"
-msgstr "Ya"
+msgstr "是"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4669(item:name|group:Aerialway|preset:Station)
 msgctxt "aerialway"
@@ -23377,7 +23379,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4925(item:name|group:Motorcycle|preset:Parking)
 msgctxt "motorcycle"
 msgid "Parking"
-msgstr "Parkir"
+msgstr "停车场"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4946(combo:display_values|group:Motorcycle|preset:Motorcycle_Dealer|key:sale)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4947(combo:display_values|group:Motorcycle|preset:Motorcycle_Dealer|key:rental)
@@ -23386,12 +23388,12 @@ msgstr "Parkir"
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4951(combo:display_values|group:Motorcycle|preset:Motorcycle_Dealer|key:clothes)
 msgctxt "services"
 msgid "Brand"
-msgstr "Merek"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4951(combo:text|group:Motorcycle|preset:Motorcycle_Dealer|key:clothes)
 msgctxt "services"
 msgid "Clothes"
-msgstr "Baju"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4946(combo:display_values|group:Motorcycle|preset:Motorcycle_Dealer|key:sale)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4947(combo:display_values|group:Motorcycle|preset:Motorcycle_Dealer|key:rental)
@@ -23400,7 +23402,7 @@ msgstr "Baju"
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4951(combo:display_values|group:Motorcycle|preset:Motorcycle_Dealer|key:clothes)
 msgctxt "services"
 msgid "No"
-msgstr "Tidak"
+msgstr "否"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4948(combo:display_values|group:Motorcycle|preset:Motorcycle_Dealer|key:repair)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4950(combo:display_values|group:Motorcycle|preset:Motorcycle_Dealer|key:parts)
@@ -23435,7 +23437,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4951(combo:display_values|group:Motorcycle|preset:Motorcycle_Dealer|key:clothes)
 msgctxt "services"
 msgid "Yes"
-msgstr "Ya"
+msgstr "是"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4980(list_entry:display_value|group:Bicycle|preset:Parking|value:anchors)
 msgctxt "bicycle"
@@ -23450,17 +23452,17 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4981(list_entry:display_value|group:Bicycle|preset:Parking|value:bollard)
 msgctxt "bicycle"
 msgid "Bollard"
-msgstr "palang\ntonggak\npipa\ntongkat\npalang besi\npipa besi"
+msgstr "短柱"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4982(list_entry:display_value|group:Bicycle|preset:Parking|value:building)
 msgctxt "bicycle"
 msgid "Building"
-msgstr "Bangunan"
+msgstr "建筑物"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4983(list_entry:display_value|group:Bicycle|preset:Parking|value:floor)
 msgctxt "bicycle"
 msgid "Floor"
-msgstr "Lantai"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4984(list_entry:display_value|group:Bicycle|preset:Parking|value:ground_slots)
 msgctxt "bicycle"
@@ -23480,7 +23482,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4986(list_entry:display_value|group:Bicycle|preset:Parking|value:informal)
 msgctxt "bicycle"
 msgid "Informal"
-msgstr "Tidak formal"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4987(list_entry:display_value|group:Bicycle|preset:Parking|value:lockers)
 msgctxt "bicycle"
@@ -23490,7 +23492,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4975(item:name|group:Bicycle|preset:Parking)
 msgctxt "bicycle"
 msgid "Parking"
-msgstr "Parkir"
+msgstr "停车场"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4988(list_entry:display_value|group:Bicycle|preset:Parking|value:rack)
 msgctxt "bicycle"
@@ -23515,7 +23517,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4979(combo:text|group:Bicycle|preset:Parking|key:bicycle_parking)
 msgctxt "bicycle"
 msgid "Type"
-msgstr "Tipe"
+msgstr "类型"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4992(list_entry:display_value|group:Bicycle|preset:Parking|value:wall_loops)
 msgctxt "bicycle"
@@ -23530,7 +23532,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:5054(check:text|group:Bicycle|preset:Public_Bicycle_Repair_Station|key:service:bicycle:tools)
 msgctxt "bicycle_repair_station"
 msgid "Tools"
-msgstr "Alat"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:5437(combo:display_values|group:Airport|preset:Holding_Position|key:holding_position:type)
 msgctxt "aeroway holding_position"
@@ -23545,12 +23547,12 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:5437(combo:display_values|group:Airport|preset:Holding_Position|key:holding_position:type)
 msgctxt "aeroway holding_position"
 msgid "Runway"
-msgstr "Landas pacu"
+msgstr "跑道"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:5437(combo:text|group:Airport|preset:Holding_Position|key:holding_position:type)
 msgctxt "aeroway holding_position"
 msgid "Type"
-msgstr "Tipe"
+msgstr "类型"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:5492(item:name|group:Airport|preset:Beacon)
 msgctxt "airmark"
@@ -23560,7 +23562,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:5514(item:name|group:Airport|preset:Gate)
 msgctxt "airport"
 msgid "Gate"
-msgstr ""
+msgstr "门"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:5506(item:name|group:Airport|preset:Terminal)
 msgctxt "airport"
@@ -23645,7 +23647,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6476(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:bridge)
 msgctxt "leisure"
 msgid "Bridge"
-msgstr "Jembatan"
+msgstr "桥"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6233(list_entry:display_value|group:Leisure|preset:Rides|value:bumper_car)
 msgctxt "leisure"
@@ -23687,7 +23689,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7776(list_entry:display_value|group:Clubs|preset:Club|value:cinema)
 msgctxt "leisure"
 msgid "Cinema"
-msgstr "Bioskop"
+msgstr "电影院"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6433(check:text|group:Leisure|preset:Playground|key:playground:climbingframe)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6479(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:climbingframe)
@@ -23781,7 +23783,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7786(list_entry:display_value|group:Clubs|preset:Club|value:fishing)
 msgctxt "leisure"
 msgid "Fishing"
-msgstr "Pemancingan"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7787(list_entry:display_value|group:Clubs|preset:Club|value:freemasonry)
 msgctxt "leisure"
@@ -23803,7 +23805,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8900(checkgroup:text|group:Sport_(Ball)|preset:Gaelic_Games)
 msgctxt "leisure"
 msgid "Games"
-msgstr "Permainan Judi"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7789(list_entry:display_value|group:Clubs|preset:Club|value:gardening)
 msgctxt "leisure"
@@ -23819,7 +23821,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7790(list_entry:display_value|group:Clubs|preset:Club|value:history)
 msgctxt "leisure"
 msgid "History"
-msgstr ""
+msgstr "历史"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6438(check:text|group:Leisure|preset:Playground|key:playground:hopscotch)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6484(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:hopscotch)
@@ -23857,7 +23859,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6486(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:map)
 msgctxt "leisure"
 msgid "Map"
-msgstr ""
+msgstr "地图"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6240(list_entry:display_value|group:Leisure|preset:Rides|value:maze)
 msgctxt "leisure"
@@ -23867,7 +23869,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7793(list_entry:display_value|group:Clubs|preset:Club|value:motorcycle)
 msgctxt "leisure"
 msgid "Motorcycle"
-msgstr ""
+msgstr "摩托车"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6441(check:text|group:Leisure|preset:Playground|key:playground:multi_play)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6487(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:multi_play)
@@ -23925,7 +23927,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6489(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:roundabout)
 msgctxt "leisure"
 msgid "Roundabout"
-msgstr "Bundaran"
+msgstr "环形交叉口"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6444(check:text|group:Leisure|preset:Playground|key:playground:sandpit)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6490(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:sandpit)
@@ -23983,7 +23985,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7802(list_entry:display_value|group:Clubs|preset:Club|value:sport)
 msgctxt "leisure"
 msgid "Sport"
-msgstr "Olahraga"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6451(check:text|group:Leisure|preset:Playground|key:playground:springy)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6497(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:springy)
@@ -24045,7 +24047,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7806(list_entry:display_value|group:Clubs|preset:Club|value:tourism)
 msgctxt "leisure"
 msgid "Tourism"
-msgstr "Pariwisata"
+msgstr "旅游设施"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6248(list_entry:display_value|group:Leisure|preset:Rides|value:train)
 msgctxt "leisure"
@@ -24080,7 +24082,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6505(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:water)
 msgctxt "leisure"
 msgid "Water"
-msgstr "Air"
+msgstr "水"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6250(list_entry:display_value|group:Leisure|preset:Rides|value:water_slide)
 msgctxt "leisure"
@@ -24122,7 +24124,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6332(combo:display_values|group:Leisure|preset:Public_bath|key:bath:type)
 msgctxt "bath:type"
 msgid "Lake"
-msgstr "Danau"
+msgstr "湖泊"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6332(combo:display_values|group:Leisure|preset:Public_bath|key:bath:type)
 msgctxt "bath:type"
@@ -24132,7 +24134,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6332(combo:display_values|group:Leisure|preset:Public_bath|key:bath:type)
 msgctxt "bath:type"
 msgid "River"
-msgstr "Sungai"
+msgstr "河流"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6332(combo:display_values|group:Leisure|preset:Public_bath|key:bath:type)
 msgctxt "bath:type"
@@ -24147,7 +24149,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6332(combo:text|group:Leisure|preset:Public_bath|key:bath:type)
 msgctxt "bath:type"
 msgid "Type"
-msgstr "Tipe"
+msgstr "类型"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6336(check:text|group:Leisure|preset:Public_bath|key:female)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7915(check:text|group:Facilities|preset:Toilets/Restrooms|key:female)
@@ -24171,7 +24173,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7957(check:text|group:Facilities|preset:Dressing_room|key:unisex)
 msgctxt "restroom"
 msgid "Unisex"
-msgstr "Unisex"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6557(multiselect:text|preset:Public_Grill|key:fuel)
 msgctxt "grill"
@@ -24191,7 +24193,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6557(multiselect:display_values|preset:Public_Grill|key:fuel)
 msgctxt "fuel"
 msgid "Wood"
-msgstr "Hutan"
+msgstr "树林"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6579(item:name|preset:Amusement_arcade)
 msgctxt "Leisure"
@@ -24221,27 +24223,27 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6953(combo:text|group:Place_of_Worship|preset:Monastery|key:monastery:type)
 msgctxt "monastery"
 msgid "Type"
-msgstr "Tipe"
+msgstr "类型"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6954(combo:display_values|group:Place_of_Worship|preset:Monastery|key:community:gender)
 msgctxt "gender"
 msgid "Female"
-msgstr "Perempuan"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6954(combo:text|group:Place_of_Worship|preset:Monastery|key:community:gender)
 msgctxt "gender"
 msgid "Gender"
-msgstr "Kelamin"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6954(combo:display_values|group:Place_of_Worship|preset:Monastery|key:community:gender)
 msgctxt "gender"
 msgid "Male"
-msgstr "Laki-laki"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6954(combo:display_values|group:Place_of_Worship|preset:Monastery|key:community:gender)
 msgctxt "gender"
 msgid "Mixed"
-msgstr "Tercampur"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6977(list_entry:display_value|group:Public_Building|preset:Town_Hall|value:barangay)
 msgctxt "townhall"
@@ -24251,7 +24253,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6973(list_entry:display_value|group:Public_Building|preset:Town_Hall|value:city)
 msgctxt "townhall"
 msgid "City"
-msgstr "Kota"
+msgstr "城市"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6975(list_entry:display_value|group:Public_Building|preset:Town_Hall|value:municipality)
 msgctxt "townhall"
@@ -24261,12 +24263,12 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6974(list_entry:display_value|group:Public_Building|preset:Town_Hall|value:town)
 msgctxt "townhall"
 msgid "Town"
-msgstr "Kota"
+msgstr "城镇"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6976(list_entry:display_value|group:Public_Building|preset:Town_Hall|value:village)
 msgctxt "townhall"
 msgid "Village"
-msgstr "Desa"
+msgstr "村庄"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6987(multiselect:display_values|group:Public_Building|preset:Community_Centre|key:community_centre:for)
 msgctxt "community_centre"
@@ -24391,7 +24393,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6986(combo:text|group:Public_Building|preset:Community_Centre|key:community_centre)
 msgctxt "community_centre"
 msgid "Type"
-msgstr "Tipe"
+msgstr "类型"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6986(combo:display_values|group:Public_Building|preset:Community_Centre|key:community_centre)
 msgctxt "community_centre"
@@ -24411,7 +24413,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7037(combo:display_values|group:Public_Building|preset:Police_facility|key:police)
 msgctxt "police"
 msgid "Barracks"
-msgstr "Barak"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7037(combo:display_values|group:Public_Building|preset:Police_facility|key:police)
 msgctxt "police"
@@ -24456,12 +24458,12 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7037(combo:text|group:Public_Building|preset:Police_facility|key:police)
 msgctxt "police"
 msgid "Type"
-msgstr "Tipe"
+msgstr "类型"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7037(combo:display_values|group:Public_Building|preset:Police_facility|key:police)
 msgctxt "police"
 msgid "Yes"
-msgstr "Ya"
+msgstr "是"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7475(list_entry:display_value|group:Emergency|preset:Fire_Hydrant|value:green)
 msgctxt "hydrant_position"
@@ -24486,7 +24488,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7474(list_entry:display_value|group:Emergency|preset:Fire_Hydrant|value:sidewalk)
 msgctxt "hydrant_position"
 msgid "Sidewalk"
-msgstr "Trotoar"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7475(list_entry:short_description|group:Emergency|preset:Fire_Hydrant|value:green)
 msgctxt "hydrant_position"
@@ -24551,7 +24553,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7532(combo:text|group:Emergency|preset:Siren|key:siren:type)
 msgctxt "siren"
 msgid "Type"
-msgstr "Tipe"
+msgstr "类型"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7626(combo:display_values|group:Emergency|preset:Fire_service_inlet|key:fire_mains)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7627(combo:display_values|group:Emergency|preset:Fire_service_inlet|key:fire_sprinkler)
@@ -24567,12 +24569,12 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7626(combo:text|group:Emergency|preset:Fire_service_inlet|key:fire_mains)
 msgctxt "fire_service_inlet"
 msgid "Type"
-msgstr "Tipe"
+msgstr "类型"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7626(combo:display_values|group:Emergency|preset:Fire_service_inlet|key:fire_mains)
 msgctxt "fire_service_inlet"
 msgid "Unknown"
-msgstr "Tidak diketahui"
+msgstr "未知种类"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7626(combo:display_values|group:Emergency|preset:Fire_service_inlet|key:fire_mains)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7627(combo:display_values|group:Emergency|preset:Fire_service_inlet|key:fire_sprinkler)
@@ -24583,7 +24585,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7627(combo:display_values|group:Emergency|preset:Fire_service_inlet|key:fire_sprinkler)
 msgctxt "fire_service_inlet"
 msgid "Yes"
-msgstr "Ya"
+msgstr "是"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7722(item:name|group:Social_Facilities|preset:Shelter)
 msgctxt "social_facility"
@@ -24593,17 +24595,17 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7983(combo:text|group:Facilities|preset:Post_Box|key:post_box:type)
 msgctxt "post box"
 msgid "Type"
-msgstr "Tipe"
+msgstr "类型"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8057(combo:text|group:Facilities|preset:Clock|key:display)
 msgctxt "clock"
 msgid "Display"
-msgstr "Tampilan"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8059(combo:text|group:Facilities|preset:Clock|key:faces)
 msgctxt "clock"
 msgid "Faces"
-msgstr "Menghadap"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8196(multiselect:display_values|group:Facilities|preset:Lounger|key:seasonal)
 msgctxt "seasons"
@@ -24618,17 +24620,17 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8196(multiselect:display_values|group:Facilities|preset:Lounger|key:seasonal)
 msgctxt "seasons"
 msgid "No"
-msgstr "Tidak"
+msgstr "否"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8196(multiselect:text|group:Facilities|preset:Lounger|key:seasonal)
 msgctxt "seasons"
 msgid "Seasonal"
-msgstr "Musiman"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8196(multiselect:display_values|group:Facilities|preset:Lounger|key:seasonal)
 msgctxt "seasons"
 msgid "Spring"
-msgstr "Mata air"
+msgstr "泉水"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8196(multiselect:display_values|group:Facilities|preset:Lounger|key:seasonal)
 msgctxt "seasons"
@@ -24648,7 +24650,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8196(multiselect:display_values|group:Facilities|preset:Lounger|key:seasonal)
 msgctxt "seasons"
 msgid "Yes"
-msgstr "Ya"
+msgstr "是"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8207(list_entry:short_description|group:Facilities|preset:Shelter|value:basic_hut)
 msgctxt "shelter"
@@ -24728,7 +24730,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8502(item:name|group:Golf|preset:Fairway)
 msgctxt "golf"
 msgid "Fairway"
-msgstr "Jalur Golf"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8484(item:name|group:Golf|preset:Frontal_Water_hazard)
 msgctxt "golf"
@@ -24826,13 +24828,13 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8752(list_entry:display_value|group:Sport|preset:Horse_Racing|value:stadium)
 msgctxt "riding"
 msgid "Stadium"
-msgstr "Stadion"
+msgstr "体育场"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8732(combo:text|group:Sport|preset:Equestrian_Sport|key:leisure)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8750(combo:text|group:Sport|preset:Horse_Racing|key:leisure)
 msgctxt "riding"
 msgid "Type"
-msgstr "Tipe/Jenis"
+msgstr "类型"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13606(combo:display_values|group:Routes|preset:Piste_Route|key:piste:type)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8835(combo:display_values|group:Sport|preset:Skiing|key:piste:type)
@@ -24844,7 +24846,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8835(combo:display_values|group:Sport|preset:Skiing|key:piste:type)
 msgctxt "piste"
 msgid "Downhill"
-msgstr "Turun bukit"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13606(combo:display_values|group:Routes|preset:Piste_Route|key:piste:type)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8835(combo:display_values|group:Sport|preset:Skiing|key:piste:type)
@@ -24874,7 +24876,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8835(combo:display_values|group:Sport|preset:Skiing|key:piste:type)
 msgctxt "piste"
 msgid "Playground"
-msgstr "Taman Bermain"
+msgstr "游乐场"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13606(combo:display_values|group:Routes|preset:Piste_Route|key:piste:type)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8835(combo:display_values|group:Sport|preset:Skiing|key:piste:type)
@@ -24943,7 +24945,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8838(combo:display_values|group:Sport|preset:Skiing|key:piste:grooming)
 msgctxt "piste:grooming"
 msgid "Classic"
-msgstr "Klasik"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8838(combo:display_values|group:Sport|preset:Skiing|key:piste:grooming)
 msgctxt "piste:grooming"
@@ -24988,7 +24990,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9370(combo:text|group:Man_Made|preset:Mast|key:tower:type)
 msgctxt "tower"
 msgid "Tower type"
-msgstr "Tipe Tower"
+msgstr "塔型"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9409(combo:display_values|group:Man_Made|preset:Flagpole|key:flag:type)
 msgctxt "flag"
@@ -25008,7 +25010,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9409(combo:display_values|group:Man_Made|preset:Flagpole|key:flag:type)
 msgctxt "flag"
 msgid "Military"
-msgstr "Militer"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9409(combo:display_values|group:Man_Made|preset:Flagpole|key:flag:type)
 msgctxt "flag"
@@ -25028,7 +25030,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9409(combo:display_values|group:Man_Made|preset:Flagpole|key:flag:type)
 msgctxt "flag"
 msgid "Regional"
-msgstr "Daerah\nRegional"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9409(combo:display_values|group:Man_Made|preset:Flagpole|key:flag:type)
 msgctxt "flag"
@@ -25043,32 +25045,32 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9409(combo:text|group:Man_Made|preset:Flagpole|key:flag:type)
 msgctxt "flag"
 msgid "Type"
-msgstr "Tipe"
+msgstr "类型"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9493(combo:display_values|group:Man_Made|preset:Pump|key:location)
 msgctxt "pump"
 msgid "Indoor"
-msgstr "Dalam ruangan"
+msgstr "室内"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9493(combo:text|group:Man_Made|preset:Pump|key:location)
 msgctxt "pump"
 msgid "Location"
-msgstr "Letak"
+msgstr "位置"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9493(combo:display_values|group:Man_Made|preset:Pump|key:location)
 msgctxt "pump"
 msgid "Outdoor"
-msgstr "Luar Ruangan"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9493(combo:display_values|group:Man_Made|preset:Pump|key:location)
 msgctxt "pump"
 msgid "Surface"
-msgstr "Permukaan"
+msgstr "表面"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9493(combo:display_values|group:Man_Made|preset:Pump|key:location)
 msgctxt "pump"
 msgid "Underground"
-msgstr "Bawah tanah"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9493(combo:display_values|group:Man_Made|preset:Pump|key:location)
 msgctxt "pump"
@@ -25078,12 +25080,12 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9526(combo:text|group:Man_Made|preset:Storage_Tank|key:content)
 msgctxt "content"
 msgid "Content"
-msgstr "Konten"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9526(combo:display_values|group:Man_Made|preset:Storage_Tank|key:content)
 msgctxt "content"
 msgid "Fuel"
-msgstr "Bahan bakar"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9526(combo:display_values|group:Man_Made|preset:Storage_Tank|key:content)
 msgctxt "content"
@@ -25113,7 +25115,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9526(combo:display_values|group:Man_Made|preset:Storage_Tank|key:content)
 msgctxt "content"
 msgid "Water"
-msgstr "Air"
+msgstr "水"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9526(combo:display_values|group:Man_Made|preset:Storage_Tank|key:content)
 msgctxt "content"
@@ -25133,7 +25135,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9672(combo:display_values|group:Man_Made|preset:Pipeline_Valve|key:valve)
 msgctxt "valve"
 msgid "Gate"
-msgstr "Gerbang"
+msgstr "门"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9672(combo:display_values|group:Man_Made|preset:Pipeline_Valve|key:valve)
 msgctxt "valve"
@@ -25228,12 +25230,12 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9680(combo:text|group:Man_Made|preset:Marker|key:marker)
 msgctxt "marker"
 msgid "Type"
-msgstr "Tipe"
+msgstr "类型"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9693(combo:display_values|group:Man_Made|preset:Manhole|key:manhole)
 msgctxt "manhole"
 msgid "Drain"
-msgstr "Saluran"
+msgstr "下水道"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9693(combo:display_values|group:Man_Made|preset:Manhole|key:manhole)
 msgctxt "manhole"
@@ -25248,7 +25250,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9693(combo:display_values|group:Man_Made|preset:Manhole|key:manhole)
 msgctxt "manhole"
 msgid "Power"
-msgstr "Listrik"
+msgstr "电力设施"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9693(combo:display_values|group:Man_Made|preset:Manhole|key:manhole)
 msgctxt "manhole"
@@ -25268,12 +25270,12 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9693(combo:text|group:Man_Made|preset:Manhole|key:manhole)
 msgctxt "manhole"
 msgid "Type"
-msgstr "Tipe"
+msgstr "类型"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9693(combo:display_values|group:Man_Made|preset:Manhole|key:manhole)
 msgctxt "manhole"
 msgid "Water"
-msgstr "Air"
+msgstr "水"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9782(item:name|group:Man_Made|preset:Beacon)
 msgctxt "man_made"
@@ -25348,7 +25350,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9798(combo:text|group:Man_Made|preset:Street_Lamp|key:lamp_type)
 msgctxt "lamp_type"
 msgid "Type"
-msgstr "Tipe"
+msgstr "类型"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9799(combo:display_values|group:Man_Made|preset:Street_Lamp|key:lamp_mount)
 msgctxt "lamp_mount"
@@ -25378,7 +25380,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9799(combo:display_values|group:Man_Made|preset:Street_Lamp|key:lamp_mount)
 msgctxt "lamp_mount"
 msgid "Wall"
-msgstr "Tembok"
+msgstr "墙"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9871(combo:text|group:Man_Made|preset:Surveillance|key:camera:type)
 msgctxt "camera:type"
@@ -25388,17 +25390,17 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9871(combo:display_values|group:Man_Made|preset:Surveillance|key:camera:type)
 msgctxt "camera:type"
 msgid "Dome"
-msgstr "Kubah"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9871(combo:display_values|group:Man_Made|preset:Surveillance|key:camera:type)
 msgctxt "camera:type"
 msgid "Fixed"
-msgstr "Tetap"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9871(combo:display_values|group:Man_Made|preset:Surveillance|key:camera:type)
 msgctxt "camera:type"
 msgid "Panning"
-msgstr "Bisa bergerak"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9872(combo:display_values|group:Man_Made|preset:Surveillance|key:camera:mount)
 msgctxt "camera:mount"
@@ -25418,7 +25420,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9872(combo:display_values|group:Man_Made|preset:Surveillance|key:camera:mount)
 msgctxt "camera:mount"
 msgid "Wall"
-msgstr "Tembok"
+msgstr "墙"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:10115(combo:display_values|group:Power_Generator|preset:Biomass_Power_Generator|key:generator:method)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9978(combo:display_values|group:Power_Plant|preset:Biomass_Power_Plant|key:plant:method)
@@ -25461,7 +25463,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:10051(combo:text|group:Power_Plant|preset:Tidal_Power_Plant|key:plant:method)
 msgctxt "generator method"
 msgid "Method"
-msgstr "Metode"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:10071(combo:display_values|group:Power_Plant|preset:Solar_Power_Plant|key:plant:method)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:10202(combo:display_values|group:Power_Generator|preset:Solar_Power_Generator|key:generator:method)
@@ -25483,7 +25485,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:10257(combo:display_values|group:Power_Generator|preset:Tidal_Water_Turbine|key:generator:method)
 msgctxt "generator method"
 msgid "Stream"
-msgstr "Aliran"
+msgstr "溪流"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:10071(combo:display_values|group:Power_Plant|preset:Solar_Power_Plant|key:plant:method)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:10202(combo:display_values|group:Power_Generator|preset:Solar_Power_Generator|key:generator:method)
@@ -25521,12 +25523,12 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:10537(combo:display_values|preset:Power_Cable|key:location)
 msgctxt "power cable"
 msgid "Surface"
-msgstr "Permukaan"
+msgstr "表面"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:10537(combo:display_values|preset:Power_Cable|key:location)
 msgctxt "power cable"
 msgid "Underground"
-msgstr "Bawah tanah"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:10537(combo:display_values|preset:Power_Cable|key:location)
 msgctxt "power cable"
@@ -25604,7 +25606,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:10791(list_entry:display_value|group:Historic_Places_&_Objects|preset:Memorial|value:bench)
 msgctxt "memorial"
 msgid "Bench"
-msgstr "Bangku"
+msgstr "长凳"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:10787(list_entry:display_value|group:Historic_Places_&_Objects|preset:Memorial|value:blue_plaque)
 msgctxt "memorial"
@@ -25669,7 +25671,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:10778(combo:text|group:Historic_Places_&_Objects|preset:Memorial|key:memorial)
 msgctxt "memorial"
 msgid "Type"
-msgstr "Tipe/Jenis"
+msgstr "类型"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:10784(list_entry:display_value|group:Historic_Places_&_Objects|preset:Memorial|value:war_memorial)
 msgctxt "memorial"
@@ -25719,7 +25721,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:11168(item:name|group:Clothes|preset:Outdoor)
 msgctxt "shop"
 msgid "Outdoor"
-msgstr "Luar Ruangan"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:11154(item:name|group:Clothes|preset:Shoe_repair)
 msgctxt "shop"
@@ -25739,22 +25741,22 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12632(item:name|group:Geography|preset:Island)
 msgctxt "place"
 msgid "Island"
-msgstr "Pulau"
+msgstr "岛屿"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12448(item:name|group:Places|preset:Quarter)
 msgctxt "place"
 msgid "Quarter"
-msgstr "Seperempat"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12489(item:name|group:Places|preset:Square)
 msgctxt "place"
 msgid "Square"
-msgstr "Persegi"
+msgstr "直角化"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12378(item:name|group:Places|preset:State)
 msgctxt "place"
 msgid "State"
-msgstr ""
+msgstr "状态"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12758(combo:display_values|group:Nature|preset:Cutline|key:cutline)
 msgctxt "cutline"
@@ -25779,7 +25781,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12758(combo:display_values|group:Nature|preset:Cutline|key:cutline)
 msgctxt "cutline"
 msgid "Pipeline"
-msgstr "Jalur Pipa"
+msgstr "管道"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12758(combo:display_values|group:Nature|preset:Cutline|key:cutline)
 msgctxt "cutline"
@@ -25794,7 +25796,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12758(combo:text|group:Nature|preset:Cutline|key:cutline)
 msgctxt "cutline"
 msgid "Type"
-msgstr "Tipe/Jenis"
+msgstr "类型"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12883(combo:display_values|group:Land_use|preset:Farmland|key:crop)
 msgctxt "crop"
@@ -25869,7 +25871,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12971(combo:display_values|group:Land_use|preset:Garden|key:garden:style)
 msgctxt "garden"
 msgid "Chinese"
-msgstr "Cina"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12970(combo:display_values|group:Land_use|preset:Garden|key:garden:type)
 msgctxt "garden"
@@ -25894,7 +25896,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12971(combo:display_values|group:Land_use|preset:Garden|key:garden:style)
 msgctxt "garden"
 msgid "French"
-msgstr "Prancis"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12971(combo:display_values|group:Land_use|preset:Garden|key:garden:style)
 msgctxt "garden"
@@ -25904,7 +25906,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12971(combo:display_values|group:Land_use|preset:Garden|key:garden:style)
 msgctxt "garden"
 msgid "Japanese"
-msgstr "Jepang"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12971(combo:display_values|group:Land_use|preset:Garden|key:garden:style)
 msgctxt "garden"
@@ -25949,7 +25951,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12970(combo:text|group:Land_use|preset:Garden|key:garden:type)
 msgctxt "garden"
 msgid "Type"
-msgstr "Tipe"
+msgstr "类型"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12971(combo:display_values|group:Land_use|preset:Garden|key:garden:style)
 msgctxt "garden"
@@ -25964,17 +25966,17 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13072(item:name|preset:Commercial)
 msgctxt "Landuse"
 msgid "Commercial"
-msgstr "Komersil"
+msgstr "商业区"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13104(item:name|preset:Construction_Area)
 msgctxt "Landuse"
 msgid "Construction Area"
-msgstr "Area Konstruksi"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13085(item:name|preset:Garages)
 msgctxt "Landuse"
 msgid "Garages"
-msgstr "Garasi"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13078(item:name|preset:Industrial_area)
 msgctxt "Landuse"
@@ -25984,32 +25986,32 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13097(item:name|preset:Military)
 msgctxt "Landuse"
 msgid "Military"
-msgstr "Militer"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13053(item:name|preset:Residential_Area)
 msgctxt "Landuse"
 msgid "Residential Area"
-msgstr "Daerah Permukiman"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13066(item:name|preset:Retail)
 msgctxt "Landuse"
 msgid "Retail"
-msgstr ""
+msgstr "零售"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13057(combo:display_values|preset:Residential_Area|key:residential)
 msgctxt "landuse"
 msgid "Apartments"
-msgstr "Apartemen"
+msgstr "酒店公寓"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13118(list_entry:display_value|preset:Construction_Area|value:cemetery)
 msgctxt "landuse"
 msgid "Cemetery"
-msgstr "Pemakaman"
+msgstr "墓地"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13112(list_entry:display_value|preset:Construction_Area|value:commercial)
 msgctxt "landuse"
 msgid "Commercial"
-msgstr "Komersil"
+msgstr "商业区"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13108(combo:text|preset:Construction_Area|key:construction)
 msgctxt "landuse"
@@ -26024,7 +26026,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13114(list_entry:display_value|preset:Construction_Area|value:garages)
 msgctxt "landuse"
 msgid "Garages"
-msgstr "Garasi"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13057(combo:display_values|preset:Residential_Area|key:residential)
 msgctxt "landuse"
@@ -26034,12 +26036,12 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13113(list_entry:display_value|preset:Construction_Area|value:industrial)
 msgctxt "landuse"
 msgid "Industrial"
-msgstr "Industri"
+msgstr "工业区"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13116(list_entry:display_value|preset:Construction_Area|value:military)
 msgctxt "landuse"
 msgid "Military"
-msgstr "Militer"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13115(list_entry:display_value|preset:Construction_Area|value:railway)
 msgctxt "landuse"
@@ -26054,12 +26056,12 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13109(list_entry:display_value|preset:Construction_Area|value:residential)
 msgctxt "landuse"
 msgid "Residential Area"
-msgstr "Daerah Permukiman"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13111(list_entry:display_value|preset:Construction_Area|value:retail)
 msgctxt "landuse"
 msgid "Retail"
-msgstr ""
+msgstr "零售"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13057(combo:display_values|preset:Residential_Area|key:residential)
 msgctxt "landuse"
@@ -26079,7 +26081,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13057(combo:text|preset:Residential_Area|key:residential)
 msgctxt "landuse"
 msgid "Type"
-msgstr "Tipe"
+msgstr "类型"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13057(combo:display_values|preset:Residential_Area|key:residential)
 msgctxt "landuse"
@@ -26089,12 +26091,12 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13083(combo:display_values|preset:Industrial_area|key:industrial)
 msgctxt "industrial"
 msgid "Bakery"
-msgstr "Toko Roti"
+msgstr "面包店"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13083(combo:display_values|preset:Industrial_area|key:industrial)
 msgctxt "industrial"
 msgid "Brewery"
-msgstr "Perusahaan Bir"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13083(combo:display_values|preset:Industrial_area|key:industrial)
 msgctxt "industrial"
@@ -26169,17 +26171,17 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13083(combo:display_values|preset:Industrial_area|key:industrial)
 msgctxt "industrial"
 msgid "Slaughterhouse"
-msgstr "Rumah Potong Hewan\nJagal\nRPH\n"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13083(combo:text|preset:Industrial_area|key:industrial)
 msgctxt "industrial"
 msgid "Type"
-msgstr "Tipe"
+msgstr "类型"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13083(combo:display_values|preset:Industrial_area|key:industrial)
 msgctxt "industrial"
 msgid "Warehouse"
-msgstr "Gudang"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13083(combo:display_values|preset:Industrial_area|key:industrial)
 msgctxt "industrial"
@@ -26189,7 +26191,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13190(combo:text|group:Addresses_and_Contact|preset:Address|key:addr:state)
 msgctxt "addr:"
 msgid "State"
-msgstr ""
+msgstr "状态"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13234(text:text|group:Addresses_and_Contact|preset:Social_Networks|key:contact:facebook)
 msgctxt "social_network"
@@ -26282,7 +26284,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13270(text:text|group:Annotation|preset:Note|key:note)
 msgctxt "the tag note=*"
 msgid "Note"
-msgstr "Catatan"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13268(label:text|group:Annotation|preset:Note)
 msgctxt "note=*"
@@ -26345,7 +26347,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13379(combo:text|group:Turn_Restrictions|preset:Turn_Restriction|key:restriction)
 msgctxt "restriction"
 msgid "Restriction"
-msgstr "Larangan"
+msgstr "限制"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13508(combo:display_values|group:Routes|preset:Bicycle_Route|key:network)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13535(combo:display_values|group:Routes|preset:Hiking_Route|key:network)
@@ -26421,7 +26423,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13743(combo:text|preset:Node_Network|key:network)
 msgctxt "network"
 msgid "Network"
-msgstr "Jaringan"
+msgstr "网络"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13508(combo:display_values|group:Routes|preset:Bicycle_Route|key:network)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13535(combo:display_values|group:Routes|preset:Hiking_Route|key:network)
@@ -26429,7 +26431,7 @@ msgstr "Jaringan"
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13589(combo:display_values|group:Routes|preset:Riding_Route|key:network)
 msgctxt "network"
 msgid "Regional"
-msgstr "Daerah"
+msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13743(combo:display_values|preset:Node_Network|key:network)
 msgctxt "network"

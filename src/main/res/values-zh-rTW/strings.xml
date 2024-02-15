@@ -66,6 +66,10 @@
   <string name="file_write_failed_message">Vespucci 無法變更或儲存檔案。</string>
   <string name="applying_osc_failed_title">套用 OSC 檔案失敗</string>
   <string name="applying_osc_failed_message">最有可能你還沒有載入所有套用到此次變更的原始資料。</string>
+  <string name="download_limit_title">達到下載限制</string>
+  <string name="download_limit_message">要下載更多資料請稍等</string>
+  <string name="upload_limit_title">達到上傳限制</string>
+  <string name="upload_limit_message">你已經過過目前的上傳量了，請稍等然後再次嘗試。</string>
   <string name="duplicate_tag_key_title">重覆的鍵</string>
   <string name="duplicate_tag_key_message">你新增下列鍵超過一次，請先解決再繼續下去：</string>
   <string name="select_file_picker_title">選取檔案選取器</string>
@@ -186,6 +190,7 @@
   <string name="imagery_offset_date">已建立</string>
   <string name="imagery_offset_zoom">縮放</string>
   <string name="imagery_offset_distance">距離</string>
+  <string name="zoom_and_offsets">縮放 %1$d\n偏差\n%2$s\"/%3$s\"\n%4$sm/%5$sm</string>
   <string name="set_position_datum_label">大地基準點</string>
   <string name="WGS84">WGS84</string>
   <string name="tag_editor_name_suggestion">建議名稱</string>
@@ -241,6 +246,7 @@
   <string name="total">總共</string>
   <string name="changed">已變動</string>
   <string name="ways">路徑</string>
+  <string name="bounding_boxes">邊界框</string>
   <!--Tile layer info dialog-->
   <string name="attribution">署名</string>
   <!--GPX info dialog-->
@@ -327,6 +333,12 @@
   <string name="add_resurvey_entry">新增重新踏察輸入值</string>
   <string name="add_check_entry">新增檢查輸入值</string>
   <!--Safe mode dialog-->
+  <string name="safe_mode_dialog_title">安全模式選項</string>
+  <string name="safe_style_label">設定資料樣式到最低度</string>
+  <string name="safe_layer_label">取消所有圖層</string>
+  <string name="safe_state_label">移除已經儲存的狀態</string>
+  <string name="safe_delete_state_title">要刪除儲存的資料狀態嗎？</string>
+  <string name="safe_delete_state_text">是 (無法復原)</string>
   <!--Empty relation dialog-->
   <string name="empty_relation_title">空白關聯</string>
   <string name="empty_relation_message">%1$s 關聯並沒有成員。\n\n如果繼續的話則無法在 Vespucci 編輯。</string>
@@ -388,6 +400,7 @@
   <string name="layer_change_style">改變樣式…</string>
   <string name="layer_load_style">載入樣式…</string>
   <string name="layer_reset_style">重設樣式</string>
+  <string name="layer_set_date_range">設定日期範圍…</string>
   <string name="layer_select_imagery">選擇影像…</string>
   <string name="layer_test">測試...</string>
   <string name="layer_category_all">所有</string>
@@ -425,6 +438,7 @@
   <!--Mapillary layer-->
   <string name="mapillary_image">%1$s</string>
   <!--Date range dialog-->
+  <string name="date_range_title">設定日期範圍</string>
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">刪除圖片</string>
   <string name="photo_viewer_delete_button">永久刪除</string>
@@ -582,6 +596,9 @@
   <string name="toast_split_to">分離\"到\"路徑</string>
   <string name="toast_tile_database_issue_short">圖磚資料庫問題</string>
   <string name="toast_tile_database_issue">關於地圖磚資料庫 \n\"%1$s\"\n 的嚴重問題，請參閱我們在 http://vespucci.io/ 的 FAQ</string>
+  <string name="toast_tile_source_issue">地圖圖磚來源有重大問題，暫時取消\n\"%1$s\"</string>
+  <string name="toast_tile_container_issue">圖磚容器檔案 \"%1$s\"並不存在或是無法開啟</string>
+  <string name="toast_unable_to_configure_from_source">無法從遠端設定：%1$s</string>
   <string name="toast_invalid_apiurl">無效的 API 網址</string>
   <string name="toast_invalid_readonlyurl">無效的唯讀 API 網址</string>
   <string name="toast_invalid_notesurl">無效的註解 API 網址</string>
@@ -595,6 +612,7 @@
   <string name="toast_no_coverage">%1$s在這裡無覆蓋</string>
   <string name="toast_tile_layer_errors">影像來源\'%1$s\' 有錯誤發生</string>
   <string name="toast_file_exists">%1$s檔案存在。</string>
+  <string name="toast_network_file_not_supported">並不支援在網路上連接這個檔案，請複製到本地的儲存空間。\n%1$s</string>
   <string name="toast_needs_resurvey">物件可能過期了</string>
   <string name="toast_missing_key">%1$s鍵值遺失</string>
   <string name="toast_invalid_object">無效的物件</string>
@@ -613,6 +631,7 @@
   <string name="toast_applied_offset">設定影像偏移。</string>
   <string name="toast_unsupported_format">不支援的格式：%1$s</string>
   <string name="toast_returning_less_than_found">回覆 %2$d 裡 %1$d 找到的結果</string>
+  <string name="toast_not_mbtiles">並非 MBTiles 或是 PMTiles 格式檔案</string>
   <string name="toast_using_network_location">使用網路位置</string>
   <string name="toast_using_gps_location">使用 GPS/GNSS 位置</string>
   <string name="toast_using_gps_disabled_tracking_stopped">關閉 GPS/GNSS 定位，視為停止記錄軌跡。</string>
@@ -687,6 +706,7 @@
   <string name="toast_updating_parents">更新父元素…</string>
   <string name="toast_updating_members">更新成員…</string>
   <string name="toast_error_loading_egm">錯誤載入 EGM %1$s</string>
+  <string name="toast_querying_wms_server_failed">檢索 WMS 伺服器失敗：%1$s</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">MapSplit 資源必須設定最小和最大</string>
   <string name="error_pbf_no_version">PBF 檔案缺少版本資訊</string>
@@ -1011,6 +1031,7 @@
   <string name="element_for_menu">%1$s</string>
   <string name="element_for_menu_with_direction">%1$s%2$s</string>
   <string name="element_for_menu_with_parents">%1$s(%2$s)</string>
+  <string name="element_for_menu_with_parents_with_direction">%1$s %2$s (%3$s)</string>
   <!--Text should be as short as possible-->
   <string name="start_end_way_description">到路徑開始會結束的地方</string>
   <string name="menu_history">歷史</string>
@@ -1168,6 +1189,7 @@
   <string name="config_splitActionBarEnabled_summary">顯示螢幕下面的選單按鈕。需要再次啟動 Vespucci，而且還要 Android 4.0 之後的版本。</string>
   <string name="config_appLocale_title">App 語言</string>
   <string name="config_appLocale_summary">選擇非正規 app 語言</string>
+  <string name="config_appLocale_device_language">裝置語言</string>
   <string name="config_maxInlineValues_title">最大內嵌數值</string>
   <string name="config_maxInlineValues_summary">最大內嵌數值顯示的標籤表格。</string>
   <string name="config_maxInlineValues_current">%1$d數值</string>
@@ -1309,6 +1331,8 @@
   <string name="config_taginfoServer_summary">Taginfo 伺服器會使用預設。</string>
   <string name="config_overpassServer_title">Overpass 伺服器</string>
   <string name="config_overpassServer_summary">檢索時的 Overpass 伺服器</string>
+  <string name="config_oamServer_title">OpenAerialMap 伺服器</string>
+  <string name="config_oamServer_summary">OpenAerialMap 伺服器是用使用影像</string>
   <!--Layer download and storage-->
   <string name="config_category_layers">圖層下載和儲存</string>
   <string name="config_category_layers_summary">圖磚為主的背景影像下載和儲存。</string>

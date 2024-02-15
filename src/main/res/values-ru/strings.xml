@@ -373,6 +373,7 @@
   <string name="layer_category_qa">Ошибки/заметки</string>
   <string name="layer_category_other">Другое</string>
   <string name="layer_add_layer_from_mvt_style">Добавить слой из стиля MVT…</string>
+  <string name="layer_edit_custom_imagery_configuration">Редактировать параметры слоя...</string>
   <string name="layer_add_gpx">Добавить слой из файла GPX...</string>
   <string name="layer_download_track">Загрузка трека GPX...</string>
   <string name="layer_available_tracks">Доступные GPX треки</string>
@@ -797,6 +798,7 @@
   <string name="menu_set_position">Позиция</string>
   <string name="menu_split">Разделить</string>
   <string name="menu_remove_node_from_way">Удалить точку из линии</string>
+  <string name="menu_start_end_way">Начало/Конец линии</string>
   <string name="menu_extract">Извлечь точку</string>
   <string name="menu_append">Добавить</string>
   <string name="menu_create_route">Создать маршрут</string>
@@ -895,6 +897,7 @@
   <string name="menu_preset_feedback">Написать отзыв о заготовке</string>
   <string name="menu_privacy">Конфиденциальность</string>
   <!--Background alignment-->
+  <string name="menu_tools_background_align">Сдвиг слоя</string>
   <string name="menu_tools_background_align_reset">Сбросить</string>
   <string name="menu_tools_background_align_zero">Ноль</string>
   <string name="menu_tools_background_align_retrieve_from_db">Из базы</string>
@@ -914,6 +917,7 @@
   <string name="menu_layers_add_photolayer">Показать фото с устройства</string>
   <string name="menu_layers_enable_mapillary_layer">Показать слой Mapillary</string>
   <string name="menu_layers_configure">Настройка...</string>
+  <string name="menu_layers_background_align">Сдвиг слоя...</string>
   <!---->
   <string name="menu_tools_apply_local_offset">Применить смещение к снимкам</string>
   <string name="menu_tools_background_contrast">Контраст</string>
@@ -988,7 +992,7 @@
   <string name="menu_add_node_address">Добавить точку с тегами адреса</string>
   <string name="menu_add_address_interpolation">Добавить интерполяцию адресов</string>
   <string name="menu_add_way">Добавить линию</string>
-  <string name="add_way_node_instruction">Торкніться наступної позиції точки</string>
+  <string name="add_way_node_instruction">Нажмите для добавления следующей точки</string>
   <string name="menu_add_map_note">Добавить заметку на карту</string>
   <string name="simple_add_note">Нажмите на экран в нужном месте</string>
   <string name="menu_paste_object">Вставить объект</string>
