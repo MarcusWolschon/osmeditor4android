@@ -238,7 +238,7 @@ public class Preferences {
         useInternalPhotoViewer = prefs.getBoolean(r.getString(R.string.config_useInternalPhotoViewer_key), true);
         scanMediaStore = prefs.getBoolean(r.getString(R.string.config_indexMediaStore_key), false);
 
-        generateAlerts = prefs.getBoolean(r.getString(R.string.config_generateAlerts_key), false);
+        generateAlerts = prefs.getBoolean(r.getString(R.string.config_generateAlerts_key), true);
         maxAlertDistance = getIntPref(R.string.config_maxAlertDistance_key, 100);
         groupAlertsOnly = prefs.getBoolean(r.getString(R.string.config_groupAlertsOnly_key), false);
 

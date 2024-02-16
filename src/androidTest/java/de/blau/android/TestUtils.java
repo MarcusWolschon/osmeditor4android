@@ -1563,14 +1563,54 @@ public final class TestUtils {
                 clearAll.click();
             } else {
                 UiObject2 notification = device.findObject(By.textContains(app));
-                if (notification != null) { 
+                if (notification != null) {
                     Rect rect = notification.getVisibleBounds();
-                    device.swipe(rect.left, rect.centerY(), rect.right+500, rect.centerY(), 5);
+                    device.swipe(rect.left, rect.centerY(), rect.right + 500, rect.centerY(), 5);
                 } else {
                     device.pressBack();
                 }
             }
             return found;
+        }
+        return false;
+    }
+
+    /**
+     * Click on a specific notification
+     * 
+     * @param device the current UiDevice
+     * @param message the message to find
+     * @return true if found
+     */
+    public static boolean clickNotification(@NonNull UiDevice device, @NonNull String message) {
+        return clickNotification(device, "Vespucci", message);
+    }
+    
+    /**
+     * Click on a specific notification
+     * 
+     * @param device the current UiDevice
+     * @param app the app that generated the notification
+     * @param message the message to find
+     * @return true if found
+     */
+    public static boolean clickNotification(@NonNull UiDevice device, @NonNull String app, @NonNull String message) {
+        if (device.openNotification()) {
+            boolean found = device.wait(Until.hasObject(By.textContains(message)), 5000);
+            if (!found) {
+                UiObject2 notification = device.findObject(By.textContains(app));
+                if (notification != null) {
+                    notification.click();
+                    found = device.wait(Until.hasObject(By.textContains(message)), 5000);
+                }
+            }
+            if (found) {
+                UiObject2 notification = device.findObject(By.textContains(message));
+                if (notification != null) {
+                    notification.click();
+                    return true;
+                }
+            }
         }
         return false;
     }
