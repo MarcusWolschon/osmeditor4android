@@ -193,7 +193,7 @@ public class UploadConflict extends ImmersiveDialogFragment {
                 final long[] usedByElementIds = ((ApiResponse.StillUsedConflict) conflict).getUsedByElementIds();
                 final Storage usedByOnServer = logic.getElementsWithDeleted(activity, usedByElementType, usedByElementIds);
 
-                builder.setMessage(R.string.upload_conflict_message_referential);
+                builder.setTitle(R.string.upload_conflict_message_referential);
                 TableLayout tl = (TableLayout) inflater.inflate(R.layout.missing_element_view, null);
                 ScrollView sv = (ScrollView) inflater.inflate(R.layout.element_info_view, null, false);
                 sv = ElementInfo.createComparisionView(activity, sv, tp, null, null, res.getString(R.string.server_side_object), elementOnServer);
@@ -295,18 +295,19 @@ public class UploadConflict extends ImmersiveDialogFragment {
                 //
                 // server element could be available
                 //
-                builder.setMessage(R.string.upload_conflict_message_missing_references);
+                builder.setTitle(R.string.upload_conflict_message_missing_references);
                 final String requriedElementType = ((ApiResponse.RequiredElementsConflict) conflict).getRequriedElementType();
                 final long[] requiredElementsIds = ((ApiResponse.RequiredElementsConflict) conflict).getRequiredElementsIds();
                 final Storage requiredElements = logic.getElementsWithDeleted(activity, requriedElementType, requiredElementsIds);
 
-                final TableLayout tl = (TableLayout) inflater.inflate(R.layout.missing_element_view, null);
                 ScrollView sv = (ScrollView) inflater.inflate(R.layout.element_info_view, null, false);
                 sv = elementOnServer != null
                         ? ElementInfo.createComparisionView(activity, sv, tp, res.getString(R.string.local_object), elementLocal,
                                 res.getString(R.string.server_side_object), elementOnServer)
                         : ElementInfo.createComparisionView(activity, sv, tp, null, null, res.getString(R.string.local_object), elementLocal);
 
+                final LinearLayout infoLayout = sv.findViewById(R.id.element_info_layout);
+                final TableLayout tl = (TableLayout) inflater.inflate(R.layout.missing_element_view, null);
                 tl.setColumnStretchable(1, true);
                 tl.addView(TableLayoutUtils.createFullRowTitle(activity, res.getString(R.string.missing_referenced_elements), tp));
                 tl.addView(TableLayoutUtils.createHeaderRow(activity, res.getString(R.string.delete_locally), res.getString(R.string.undelete_on_server), tp,
@@ -315,7 +316,7 @@ public class UploadConflict extends ImmersiveDialogFragment {
                     OsmElement e = requiredElements.getOsmElement(requriedElementType, id);
                     tl.addView(createMissingReferenceRow(activity, e, tp));
                 }
-                final LinearLayout infoLayout = sv.findViewById(R.id.element_info_layout);
+
                 infoLayout.addView(tl);
                 builder.setView(sv);
                 final RestartHandler restartHandler = new RestartHandler(activity, "");

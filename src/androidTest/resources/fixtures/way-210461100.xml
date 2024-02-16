@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="CGImap 0.8.10 (2586830 spike-08.openstreetmap.org)" copyright="OpenStreetMap and contributors" attribution="http://www.openstreetmap.org/copyright" license="http://opendatacommons.org/licenses/odbl/1-0/">
+ <way id="210461100" visible="true" version="3" changeset="18483571" timestamp="2013-10-22T10:14:09Z" user="SimonPoole" uid="92387">
+  <nd ref="2205498713"/>
+  <nd ref="2205498717"/>
+  <nd ref="2205498702"/>
+  <nd ref="2205498701"/>
+  <nd ref="2205498713"/>
+  <tag k="addr:housenumber" v="17"/>
+  <tag k="addr:street" v="Schulstrasse"/>
+  <tag k="building" v="residential"/>
+ </way>
+</osm>
