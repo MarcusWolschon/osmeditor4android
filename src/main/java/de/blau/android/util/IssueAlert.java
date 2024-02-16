@@ -135,8 +135,8 @@ public final class IssueAlert {
             builder.scheme(Schemes.JOSM).appendPath(RemoteControlUrlActivity.LOAD_AND_ZOOM_COMMAND)
                     .appendQueryParameter(RemoteControlUrlActivity.LEFT_PARAMETER, Double.toString(box.getLeft() / 1E7D))
                     .appendQueryParameter(RemoteControlUrlActivity.RIGHT_PARAMETER, Double.toString(box.getRight() / 1E7D))
-                    .appendQueryParameter(RemoteControlUrlActivity.TOP_PARAMETER, Double.toString(box.getLeft() / 1E7D))
-                    .appendQueryParameter(RemoteControlUrlActivity.BOTTOM_PARAMETER, Double.toString(box.getTop() / 1E7D))
+                    .appendQueryParameter(RemoteControlUrlActivity.TOP_PARAMETER, Double.toString(box.getTop() / 1E7D))
+                    .appendQueryParameter(RemoteControlUrlActivity.BOTTOM_PARAMETER, Double.toString(box.getBottom() / 1E7D))
                     .appendQueryParameter(RemoteControlUrlActivity.SELECT_PARAMETER, e.getName() + e.getOsmId());
             Uri rc = builder.build();
             Log.d(DEBUG_TAG, rc.toString());
