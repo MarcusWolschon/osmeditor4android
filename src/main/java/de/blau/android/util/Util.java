@@ -590,7 +590,7 @@ public final class Util {
         activity.runOnUiThread(() -> {
             if (iox instanceof OsmServerException) {
                 ScreenMessage.toastTopWarning(activity,
-                        activity.getString(R.string.toast_download_failed, ((OsmServerException) iox).getErrorCode(), iox.getMessage()));
+                        activity.getString(R.string.toast_download_failed, ((OsmServerException) iox).getHttpErrorCode(), iox.getMessage()));
             } else {
                 ScreenMessage.toastTopWarning(activity, activity.getString(R.string.toast_server_connection_failed, iox.getMessage()));
             }

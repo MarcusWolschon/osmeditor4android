@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.SortedMap;
 import java.util.TreeMap;
 
 import android.content.Context;
@@ -19,6 +21,7 @@ import de.blau.android.Logic;
 import de.blau.android.exception.StorageException;
 import de.blau.android.presets.Preset;
 import de.blau.android.util.ACRAHelper;
+import de.blau.android.util.Util;
 
 /**
  * This class provides undo support. It is absolutely critical that {@link StorageDelegator} calls
@@ -389,6 +392,15 @@ public class UndoStorage implements Serializable {
     }
 
     /**
+     * Performs an undo operation, restoring a specific undo checkpoint. No redo checkpoint is created.
+     * 
+     * @param checkpoint the checkpoint to undo
+     */
+    public void undo(@NonNull Checkpoint checkpoint) {
+        checkpoint.restore(null);
+    }
+
+    /**
      * Performs an redo operation, restoring the state at the next redo checkpoint. A new undo checkpoint is
      * automatically created. If no checkpoint is available, an error is logged and the function does nothing.
      * 
@@ -448,7 +460,7 @@ public class UndoStorage implements Serializable {
      * 
      * The checkpoint can later be restored using {@link #restore(Checkpoint)}.
      */
-    private class Checkpoint implements Serializable {
+    class Checkpoint implements Serializable {
         private static final long serialVersionUID = 2L;
 
         private final Map<OsmElement, UndoElement> elements = new HashMap<>();
@@ -459,7 +471,7 @@ public class UndoStorage implements Serializable {
          * 
          * @param name name of the checkpoint
          */
-        public Checkpoint(@NonNull String name) {
+        private Checkpoint(@NonNull String name) {
             this.name = name;
         }
 
@@ -468,7 +480,7 @@ public class UndoStorage implements Serializable {
          * 
          * @param cp the original Checkpoint
          */
-        public Checkpoint(@NonNull Checkpoint cp) {
+        private Checkpoint(@NonNull Checkpoint cp) {
             name = cp.name;
             elements.putAll(cp.elements);
         }
@@ -479,7 +491,7 @@ public class UndoStorage implements Serializable {
          * 
          * @param element the element to save
          */
-        public void add(@NonNull OsmElement element) {
+        private void add(@NonNull OsmElement element) {
             add(element, currentStorage.contains(element), apiStorage.contains(element));
         }
 
@@ -491,7 +503,7 @@ public class UndoStorage implements Serializable {
          * @param inCurrentStorage if true the elements should be restored to the current storage
          * @param inApiStorage if true the elements should be restored to the api storage
          */
-        public void add(@NonNull OsmElement element, boolean inCurrentStorage, boolean inApiStorage) {
+        private void add(@NonNull OsmElement element, boolean inCurrentStorage, boolean inApiStorage) {
             if (elements.containsKey(element)) {
                 return;
             }
@@ -511,7 +523,7 @@ public class UndoStorage implements Serializable {
          * 
          * @param element the element for which remove the saved state
          */
-        public void remove(@NonNull OsmElement element) {
+        private void remove(@NonNull OsmElement element) {
             if (!elements.containsKey(element)) {
                 return;
             }
@@ -525,7 +537,7 @@ public class UndoStorage implements Serializable {
          *            "redo" feature possible
          * @return true if the restore was successful
          */
-        public boolean restore(@Nullable Checkpoint redoCheckpoint) {
+        private boolean restore(@Nullable Checkpoint redoCheckpoint) {
             boolean ok = true;
             List<UndoElement> list = new ArrayList<>(elements.values());
             final StorageDelegator delegator = App.getDelegator();
@@ -562,7 +574,7 @@ public class UndoStorage implements Serializable {
         /**
          * @return true if no elements have yet been stored in this checkpoint
          */
-        public boolean isEmpty() {
+        private boolean isEmpty() {
             return elements.isEmpty();
         }
 
@@ -571,7 +583,7 @@ public class UndoStorage implements Serializable {
          * 
          * @return the name of the Checkpoint
          */
-        public String getName() {
+        private String getName() {
             return name;
         }
 
@@ -580,8 +592,18 @@ public class UndoStorage implements Serializable {
          * 
          * @param name the name to set
          */
-        public void setName(@NonNull String name) {
+        private void setName(@NonNull String name) {
             this.name = name;
+        }
+
+        /**
+         * Get a Set of all the elements we have undo information for
+         * 
+         * @return a Set of OsmElement
+         */
+        @NonNull
+        public Set<OsmElement> getSavedElements() {
+            return elements.keySet();
         }
 
         /**
@@ -599,7 +621,7 @@ public class UndoStorage implements Serializable {
      * 
      * @author Jan
      */
-    public abstract class UndoElement implements Serializable {
+    public abstract class UndoElement implements OsmElementInterface, Serializable {
         private static final long serialVersionUID = 2L;
 
         final OsmElement element;
@@ -686,13 +708,13 @@ public class UndoStorage implements Serializable {
             // Use the name if it exists
             if (tags != null) {
                 String name = tags.get(Tags.KEY_NAME);
-                if (name != null && name.length() > 0) {
+                if (Util.notEmpty(name)) {
                     return name;
                 }
-                // Then the house number
-                String housenb = tags.get(Tags.KEY_ADDR_HOUSENUMBER);
-                if (housenb != null && housenb.length() > 0) {
-                    return "house " + housenb;
+
+                String address = OsmElement.getAddressString(ctx, tags);
+                if (Util.notEmpty(address)) {
+                    return address;
                 }
                 // Then the value of the most 'important' tag the element has
                 String result = null;
@@ -735,42 +757,36 @@ public class UndoStorage implements Serializable {
             return null;
         }
 
-        /**
-         * Get the Map containing the tags
-         * 
-         * @return an unmodifiable Map containing the key-value pairs
-         */
+        @Override
         @NonNull
-        public Map<String, String> getTags() {
-            return Collections.unmodifiableMap(tags);
+        public SortedMap<String, String> getTags() {
+            return Collections.unmodifiableSortedMap(tags);
         }
 
-        /**
-         * Get the list of parent relations
-         * 
-         * @return an unmodifiable List of the relations or null
-         */
+        @Override
         @Nullable
         public List<Relation> getParentRelations() {
             return parentRelations != null ? Collections.unmodifiableList(parentRelations) : null;
         }
 
-        /**
-         * Get the id for the underlying OsmElement
-         * 
-         * @return the id
-         */
+        @Override
         public long getOsmId() {
             return osmId;
         }
 
-        /**
-         * Get the state of the underlying OsmELement
-         * 
-         * @return the state
-         */
+        @Override
+        public long getOsmVersion() {
+            return osmVersion;
+        }
+
+        @Override
         public byte getState() {
             return state;
+        }
+
+        @Override
+        public long getTimestamp() {
+            return -1;
         }
 
         /**
@@ -797,7 +813,7 @@ public class UndoStorage implements Serializable {
      * 
      * @see UndoElement
      */
-    public class UndoNode extends UndoElement implements Serializable {
+    public class UndoNode extends UndoElement implements GeoPoint, Serializable {
         private static final long serialVersionUID = 1L;
         private final int         lat;
         private final int         lon;
@@ -849,7 +865,7 @@ public class UndoStorage implements Serializable {
      * 
      * @see UndoElement
      */
-    public class UndoWay extends UndoElement implements Serializable {
+    public class UndoWay extends UndoElement implements WayInterface, Serializable {
         private static final long serialVersionUID = 3L;
         private final List<Node>  nodes;
 
@@ -911,43 +927,22 @@ public class UndoStorage implements Serializable {
             return restored;
         }
 
-        /*
-         * The following methods provide equivalent of the same ones in Way
-         */
-        /**
-         * return true if first == last node, will not work for broken geometries
-         * 
-         * @return true if closed
-         */
+        @Override
         public boolean isClosed() {
             return !nodes.isEmpty() && nodes.get(0).equals(nodes.get(nodes.size() - 1));
         }
 
-        /**
-         * Return the length in m
-         * 
-         * This uses the Haversine distance between nodes for calculation
-         * 
-         * @return the length in m
-         */
+        @Override
         public double length() {
             return Way.length(nodes);
         }
 
-        /**
-         * Return the number of nodes in this way
-         * 
-         * @return the number of nodes in this Way
-         */
+        @Override
         public int nodeCount() {
             return nodes == null ? 0 : nodes.size();
         }
 
-        /**
-         * Get an unmodifiable list of the node
-         * 
-         * @return a list of the nodes
-         */
+        @Override
         public List<Node> getNodes() {
             return Collections.unmodifiableList(nodes);
         }
@@ -963,7 +958,7 @@ public class UndoStorage implements Serializable {
      * 
      * @see UndoElement
      */
-    public class UndoRelation extends UndoElement implements Serializable {
+    public class UndoRelation extends UndoElement implements RelationInterface, Serializable {
 
         private static final String        DEBUG_TAG        = "UndoRelation";
         private static final long          serialVersionUID = 1L;
@@ -1017,22 +1012,13 @@ public class UndoStorage implements Serializable {
             return restored;
         }
 
-        /**
-         * Get the list of RelationMembers for the UndoRelation
-         * 
-         * @return an unmodifiable copy of the List of RelationMembers
-         */
+        @Override
         @NonNull
         public List<RelationMember> getMembers() {
             return Collections.unmodifiableList(members);
         }
 
-        /**
-         * Get the list of all RelationMember objects for the specified OsmElement
-         * 
-         * @param e the OsmElement
-         * @return a List of RelationMembers
-         */
+        @Override
         @NonNull
         public List<RelationMember> getAllMembers(@Nullable OsmElement e) {
             List<RelationMember> result = new ArrayList<>();
@@ -1149,6 +1135,51 @@ public class UndoStorage implements Serializable {
             for (UndoElement undoElement : checkpoint.elements.values()) {
                 if (undoElement.element.getName().equals(name) && undoElement.osmId == osmId) {
                     result.add(undoElement);
+                    break;
+                }
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Get a list of all Checkpoint for a specific element
+     * 
+     * @param element the OsmElement
+     * @return a List of UndoElement empty if nothing found
+     */
+    @NonNull
+    public List<Checkpoint> getUndoCheckpoints(@NonNull OsmElement element) {
+        return getCheckpoints(undoCheckpoints, element);
+    }
+
+    /**
+     * Get a list of all Checkpoint for a specific element for Redo
+     * 
+     * @param element the OsmElement
+     * @return a List of Checkpoint empty if nothing found
+     */
+    @NonNull
+    public List<Checkpoint> getRedoCheckpoints(@NonNull OsmElement element) {
+        return getCheckpoints(redoCheckpoints, element);
+    }
+
+    /**
+     * Get a list of all UndoElements for a specific element
+     * 
+     * @param checkpoints list of checkpoints
+     * @param element the element
+     * @return a list of UndoElements empty if nothing found
+     */
+    @NonNull
+    private List<Checkpoint> getCheckpoints(@NonNull LinkedList<Checkpoint> checkpoints, @NonNull OsmElement element) {
+        List<Checkpoint> result = new ArrayList<>();
+        String name = element.getName();
+        long osmId = element.getOsmId();
+        for (Checkpoint checkpoint : checkpoints) {
+            for (UndoElement undoElement : checkpoint.elements.values()) {
+                if (undoElement.element.getName().equals(name) && undoElement.osmId == osmId) {
+                    result.add(checkpoint);
                     break;
                 }
             }

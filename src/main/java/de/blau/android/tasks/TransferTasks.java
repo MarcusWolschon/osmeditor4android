@@ -318,7 +318,7 @@ public final class TransferTasks {
             }
             note.setChanged(false);
         } catch (final OsmServerException e) {
-            int errorCode = e.getErrorCode();
+            int errorCode = e.getHttpErrorCode();
             result.setHttpError(errorCode);
             String message = e.getMessage();
             result.setMessage(message);

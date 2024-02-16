@@ -11,10 +11,8 @@ import java.io.Serializable;
  * @author simon
  */
 public class UploadResult implements Serializable {
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 1L;
+    
+    private static final long serialVersionUID = 2L;
     private int               error            = ErrorCodes.OK;
     private int               httpError        = 0;
     private String            elementType;
@@ -50,7 +48,7 @@ public class UploadResult implements Serializable {
     public void setError(int error) {
         this.error = error;
     }
-
+    
     /**
      * @return the httpError
      */

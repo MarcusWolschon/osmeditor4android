@@ -9,6 +9,7 @@ import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 import org.junit.After;
@@ -43,6 +44,7 @@ import de.blau.android.prefs.API;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import okhttp3.HttpUrl;
+import okhttp3.mockwebserver.MockResponse;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
@@ -106,7 +108,8 @@ public class UploadConflictTest {
      */
     @Test
     public void versionConflictUseLocal() {
-        versionConflict("conflict1", new String[] { "conflictdownload1" }, false);
+        versionConflict("conflict1", new String[] { "conflictdownload1" }, false, R.string.upload_conflict_message_version);
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.resolve), true));
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.use_local_version), true));
         assertTrue(TestUtils.findText(device, false, main.getString(R.string.confirm_upload_title), 5000));
         Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984L);
@@ -118,7 +121,7 @@ public class UploadConflictTest {
      */
     @Test
     public void versionConflictUseServer() {
-        versionConflict("conflict1", new String[] { "conflictdownload1" }, false);
+        versionConflict("conflict1", new String[] { "conflictdownload1" }, false, R.string.upload_conflict_message_version);
         Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984L);
         assertNotNull(n);
         assertEquals(6, n.getOsmVersion()); // version should now be server and not in the API
@@ -127,6 +130,8 @@ public class UploadConflictTest {
         assertNotNull(App.getDelegator().getApiStorage().getNode(101792984L));
         mockServer.enqueue("conflictdownload1");
         mockServer.enqueue("empty");
+        mockServer.enqueue("empty");
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.resolve), true));
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.use_server_version), true));
         assertTrue(TestUtils.findText(device, false, main.getString(R.string.confirm_upload_title), 20000));
         n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984L);
@@ -138,12 +143,15 @@ public class UploadConflictTest {
 
     /**
      * Server side element is already deleted
+     * 
+     * New code retries automatically
      */
     @Test
     public void severElementAlreadyDeleted() {
-        versionConflict("conflict2", new String[] { "410" }, false);
-        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.retry), true));
-        assertTrue(TestUtils.findText(device, false, main.getString(R.string.confirm_upload_title), 20000));
+        versionConflict("conflict2", new String[] { "410" }, false, -1);
+        mockServer.enqueue("200");
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.progress_uploading_message), 10000));
+        TestUtils.sleep(5000);
         assertNull(App.getDelegator().getApiStorage().getWay(210461100L));
         assertNull(App.getDelegator().getOsmElement(Way.NAME, 210461100L));
     }
@@ -153,40 +161,41 @@ public class UploadConflictTest {
      */
     @Test
     public void severElementInUse() {
-        versionConflict("conflict3", new String[] { "conflictdownload2" }, false);
+        versionConflict("conflict3", new String[] { "way-210461100", "way-210461100-nodes", "relation-12345", "relation-12345", "empty" }, false, -1);
         Way w = App.getDelegator().getApiStorage().getWay(210461100L);
         assertNotNull(w);
         assertEquals(OsmElement.STATE_DELETED, w.getState());
-        mockServer.enqueue("conflictdownload2");
-        mockServer.enqueue("empty");
-        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.use_server_version), true));
+
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.resolve), true));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.deleting_references_on_server), true));
         assertTrue(TestUtils.findText(device, false, main.getString(R.string.confirm_upload_title), 20000));
-        assertNull(App.getDelegator().getApiStorage().getWay(210461100L));
-        w = (Way) App.getDelegator().getOsmElement(Way.NAME, 210461100L);
-        assertNotNull(w);
-        assertEquals(OsmElement.STATE_UNCHANGED, w.getState());
+
+        Relation r = (Relation) App.getDelegator().getOsmElement(Relation.NAME, 12345L);
+        assertNotNull(r);
+        assertEquals(OsmElement.STATE_MODIFIED, r.getState());
+        assertNull(r.getMember(Way.NAME, 210461100L));
     }
 
     /**
-     * References to server side elements is that are deleted
+     * References to server side elements that are deleted
      */
     @Test
     public void referencesMissing() {
-        versionConflict("conflict4", new String[] { "conflictdownload3" }, false);
+        versionConflict("conflict4", new String[] { "way-27009604", "way-27009604-nodes", "nodes-deleted" }, false,
+                R.string.upload_conflict_message_missing_references);
         Way w = App.getDelegator().getApiStorage().getWay(27009604L);
-        assertTrue(TestUtils.findText(device, false, main.getString(R.string.upload_conflict_message_missing_references, w.getDescription(true)), 20000));
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.cancel), true));
     }
 
-    
     /**
      * Upload to changes (mock-)server and wait for version conflict dialog
      * 
      * @param conflictReponse the response
      * @param fixtures name of additional fixtures with the response to the upload
      * @param userDetails if true enqueue user details
+     * @param waitForDialog wait for the conflict dialog if true
      */
-    private void versionConflict(@NonNull String conflictReponse, @NonNull String[] fixtures, boolean userDetails) {
+    private void versionConflict(@NonNull String conflictReponse, @NonNull String[] fixtures, boolean userDetails, int titleRes) {
         final CountDownLatch signal = new CountDownLatch(1);
         Logic logic = App.getLogic();
 
@@ -224,7 +233,9 @@ public class UploadConflictTest {
         } catch (UiObjectNotFoundException e1) {
             fail(e1.getMessage());
         }
-        assertTrue(TestUtils.findText(device, false, main.getString(R.string.upload_conflict_title), 10000));
+        if (titleRes > 0) {
+            assertTrue(TestUtils.findText(device, false, main.getString(titleRes), 10000));
+        }
     }
 
     /**

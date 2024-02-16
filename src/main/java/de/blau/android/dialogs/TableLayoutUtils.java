@@ -1,6 +1,7 @@
 package de.blau.android.dialogs;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.text.SpannableString;
@@ -19,7 +20,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
-import androidx.fragment.app.FragmentActivity;
 import de.blau.android.R;
 import de.blau.android.util.ThemeUtils;
 
@@ -30,9 +30,8 @@ import de.blau.android.util.ThemeUtils;
  *
  */
 public final class TableLayoutUtils {
-    private static final int FIRST_CELL_WIDTH = 5;
-
-    private static final int MAX_FIRST_CELL_WIDTH = 12;
+    static final int FIRST_CELL_WIDTH     = 5;
+    static final int MAX_FIRST_CELL_WIDTH = 12;
 
     /**
      * Private constructor to stop instantiation
@@ -47,7 +46,7 @@ public final class TableLayoutUtils {
      * If cell2 and cell3 are null cell1 will be considered a full width heading, if cell2 != cell3 then cell1 will be
      * highlighted
      * 
-     * @param activity the FragmentActivity the TableLayout is being displayed on
+     * @param context an Android Context
      * @param cell1 text for the first cell
      * @param cell2 text for the second cell
      * @param tp LayoutParams for the row
@@ -55,8 +54,8 @@ public final class TableLayoutUtils {
      */
     @SuppressLint("NewApi")
     @NonNull
-    public static TableRow createRow(@NonNull FragmentActivity activity, String cell1, CharSequence cell2, @NonNull TableLayout.LayoutParams tp) {
-        return createRow(activity, cell1, null, cell2, false, tp, R.attr.colorAccent, R.color.material_teal);
+    public static TableRow createRow(@NonNull Context context, String cell1, CharSequence cell2, @NonNull TableLayout.LayoutParams tp) {
+        return createRow(context, cell1, null, cell2, false, tp, R.attr.colorAccent, R.color.material_teal);
     }
 
     /**
@@ -65,7 +64,7 @@ public final class TableLayoutUtils {
      * If cell2 and cell3 are null cell1 will be considered a full width heading, if cell2 != cell3 then cell1 will be
      * highlighted
      * 
-     * @param activity the FragmentActivity the TableLayout is being displayed on
+     * @param context an Android Context
      * @param cell1 text for the first cell
      * @param cell2 text for the second cell
      * @param cell3 text for the third cell
@@ -74,9 +73,9 @@ public final class TableLayoutUtils {
      */
     @SuppressLint("NewApi")
     @NonNull
-    public static TableRow createRow(@NonNull FragmentActivity activity, String cell1, @Nullable CharSequence cell2, @Nullable CharSequence cell3,
+    public static TableRow createRow(@NonNull Context context, String cell1, @Nullable CharSequence cell2, @Nullable CharSequence cell3,
             @NonNull TableLayout.LayoutParams tp) {
-        return createRow(activity, cell1, cell2, cell3, false, tp, R.attr.colorAccent, R.color.material_teal);
+        return createRow(context, cell1, cell2, cell3, false, tp, R.attr.colorAccent, R.color.material_teal);
     }
 
     /**
@@ -85,7 +84,7 @@ public final class TableLayoutUtils {
      * If cell2 and cell3 are null cell1 will be considered a full width heading, if cell2 != cell3 then cell1 will be
      * highlighted
      * 
-     * @param activity the FragmentActivity the TableLayout is being displayed on
+     * @param context an Android Context
      * @param cell1 text for the first cell
      * @param cell2 text for the second cell
      * @param cell3 text for the third cell
@@ -96,9 +95,9 @@ public final class TableLayoutUtils {
      */
     @SuppressLint("NewApi")
     @NonNull
-    public static TableRow createRow(@NonNull FragmentActivity activity, String cell1, @Nullable CharSequence cell2, @Nullable CharSequence cell3,
+    public static TableRow createRow(@NonNull Context context, String cell1, @Nullable CharSequence cell2, @Nullable CharSequence cell3,
             @NonNull TableLayout.LayoutParams tp, int highlightColorAttr, int highlightColorFallback) {
-        return createRow(activity, cell1, cell2, cell3, false, tp, highlightColorAttr, highlightColorFallback);
+        return createRow(context, cell1, cell2, cell3, false, tp, highlightColorAttr, highlightColorFallback);
     }
 
     /**
@@ -107,7 +106,7 @@ public final class TableLayoutUtils {
      * If cell2 and cell3 are null cell1 will be considered a full width heading, if cell2 != cell3 then cell1 will be
      * highlighted
      * 
-     * @param activity the FragmentActivity the TableLayout is being displayed on
+     * @param context an Android Context
      * @param cell1 text for the first cell
      * @param cell2 text for the second cell
      * @param isUrl if true don't allow C&amp;P on the values so that they can be clicked on
@@ -116,9 +115,9 @@ public final class TableLayoutUtils {
      */
     @SuppressLint("NewApi")
     @NonNull
-    public static TableRow createRow(@NonNull FragmentActivity activity, @NonNull String cell1, @Nullable CharSequence cell2, boolean isUrl,
+    public static TableRow createRow(@NonNull Context context, @NonNull String cell1, @Nullable CharSequence cell2, boolean isUrl,
             @NonNull TableLayout.LayoutParams tp) {
-        return createRow(activity, cell1, null, cell2, isUrl, tp, R.attr.colorAccent, R.color.material_teal);
+        return createRow(context, cell1, null, cell2, isUrl, tp, R.attr.colorAccent, R.color.material_teal);
     }
 
     /**
@@ -127,7 +126,7 @@ public final class TableLayoutUtils {
      * If cell2 and cell3 are null cell1 will be considered a full width heading, if cell2 != cell3 then cell1 will be
      * highlighted
      * 
-     * @param activity the FragmentActivity the TableLayout is being displayed on
+     * @param context an Android Context
      * @param cell1 a string resource id for the first cell
      * @param cell2 text for the second cell
      * @param cell3 text for the third cell
@@ -136,9 +135,8 @@ public final class TableLayoutUtils {
      */
     @SuppressLint("NewApi")
     @NonNull
-    public static TableRow createRow(@NonNull FragmentActivity activity, int cell1, CharSequence cell2, CharSequence cell3,
-            @NonNull TableLayout.LayoutParams tp) {
-        return createRow(activity, cell1, cell2, cell3, false, tp);
+    public static TableRow createRow(@NonNull Context context, int cell1, CharSequence cell2, CharSequence cell3, @NonNull TableLayout.LayoutParams tp) {
+        return createRow(context, cell1, cell2, cell3, false, tp);
     }
 
     /**
@@ -147,7 +145,7 @@ public final class TableLayoutUtils {
      * If cell2 and cell3 are null cell1 will be considered a full width heading, if cell2 != cell3 then cell1 will be
      * highlighted
      * 
-     * @param activity the FragmentActivity the TableLayout is being displayed on
+     * @param context an Android Context
      * @param cell1 a string resource id for the first cell
      * @param cell2 text for the second cell
      * @param cell3 text for the third cell
@@ -157,9 +155,9 @@ public final class TableLayoutUtils {
      */
     @SuppressLint("NewApi")
     @NonNull
-    public static TableRow createRow(@NonNull FragmentActivity activity, int cell1, @Nullable CharSequence cell2, @Nullable CharSequence cell3, boolean isUrl,
+    public static TableRow createRow(@NonNull Context context, int cell1, @Nullable CharSequence cell2, @Nullable CharSequence cell3, boolean isUrl,
             @NonNull TableLayout.LayoutParams tp) {
-        return createRow(activity, activity.getString(cell1), cell2, cell3, isUrl, tp);
+        return createRow(context, context.getString(cell1), cell2, cell3, isUrl, tp);
     }
 
     /**
@@ -168,7 +166,7 @@ public final class TableLayoutUtils {
      * If cell2 and cell3 are null cell1 will be considered a full width heading, if cell2 != cell3 then cell1 will be
      * highlighted
      * 
-     * @param activity the FragmentActivity the TableLayout is being displayed on
+     * @param context an Android Context
      * @param cell1 text for the first cell
      * @param cell2 text for the second cell
      * @param cell3 text for the third cell
@@ -178,9 +176,9 @@ public final class TableLayoutUtils {
      */
     @SuppressLint("NewApi")
     @NonNull
-    public static TableRow createRow(@NonNull FragmentActivity activity, @NonNull String cell1, @Nullable CharSequence cell2, @Nullable CharSequence cell3,
-            boolean isUrl, @NonNull TableLayout.LayoutParams tp) {
-        return createRow(activity, cell1, cell2, cell3, isUrl, tp, R.attr.colorAccent, R.color.material_teal);
+    public static TableRow createRow(@NonNull Context context, @NonNull String cell1, @Nullable CharSequence cell2, @Nullable CharSequence cell3, boolean isUrl,
+            @NonNull TableLayout.LayoutParams tp) {
+        return createRow(context, cell1, cell2, cell3, isUrl, tp, R.attr.colorAccent, R.color.material_teal);
     }
 
     /**
@@ -189,7 +187,7 @@ public final class TableLayoutUtils {
      * If cell2 and cell3 are null cell1 will be considered a full width heading, if cell2 != cell3 then cell1 will be
      * highlighted
      * 
-     * @param activity the FragmentActivity the TableLayout is being displayed on
+     * @param context an Android Context
      * @param cell1 text for the first cell
      * @param cell2 text for the second cell
      * @param cell3 text for the third cell
@@ -201,10 +199,10 @@ public final class TableLayoutUtils {
      */
     @SuppressLint("NewApi")
     @NonNull
-    public static TableRow createRow(@NonNull FragmentActivity activity, @NonNull String cell1, @Nullable CharSequence cell2, @Nullable CharSequence cell3,
-            boolean isUrl, @NonNull TableLayout.LayoutParams tp, int highlightColorAttr, int highlightColorFallback) {
-        TableRow tr = new TableRow(activity);
-        TextView cell = new TextView(activity);
+    public static TableRow createRow(@NonNull Context context, @NonNull String cell1, @Nullable CharSequence cell2, @Nullable CharSequence cell3, boolean isUrl,
+            @NonNull TableLayout.LayoutParams tp, int highlightColorAttr, int highlightColorFallback) {
+        TableRow tr = new TableRow(context);
+        TextView cell = new TextView(context);
         cell.setSingleLine();
         cell.setMinEms(FIRST_CELL_WIDTH);
         cell.setMaxEms(MAX_FIRST_CELL_WIDTH);
@@ -224,9 +222,9 @@ public final class TableLayoutUtils {
         } else if (highlightColorAttr != -1 && (cell2 != null && (cell3 == null || !cell2.toString().equals(cell3.toString())))) {
             // note a CharSequence doesn't necessarily have a content aware equals, so we need to convert to String
             // first
-            ThemeUtils.setSpanColor(activity, span, highlightColorAttr, highlightColorFallback);
-            ThemeUtils.setSpanColor(activity, span2, highlightColorAttr, highlightColorFallback);
-            ThemeUtils.setSpanColor(activity, span3, highlightColorAttr, highlightColorFallback);
+            ThemeUtils.setSpanColor(context, span, highlightColorAttr, highlightColorFallback);
+            ThemeUtils.setSpanColor(context, span2, highlightColorAttr, highlightColorFallback);
+            ThemeUtils.setSpanColor(context, span3, highlightColorAttr, highlightColorFallback);
         }
         cell.setText(span);
         cell.setEllipsize(TruncateAt.MARQUEE);
@@ -238,9 +236,71 @@ public final class TableLayoutUtils {
             trlp.weight = 1;
             cell.setLayoutParams(trlp);
         } else {
-            addCell(activity, span2, isUrl, tr, null);
-            addCell(activity, span3, isUrl, tr, null);
+            addCell(context, span2, isUrl, tr, null);
+            addCell(context, span3, isUrl, tr, null);
         }
+        tr.setLayoutParams(tp);
+        return tr;
+    }
+
+    /**
+     * Add headers over the two value columns
+     * 
+     * @param context an Android Context
+     * @param cell2 header 1
+     * @param cell3 header 2
+     * @param tp layout params
+     * @return a TableRow
+     */
+    @NonNull
+    public static TableRow createHeaderRow(@NonNull Context context, @Nullable CharSequence cell2, @Nullable CharSequence cell3,
+            @NonNull TableLayout.LayoutParams tp) {
+        return createHeaderRow(context, cell2, cell3, tp, false);
+    }
+
+    /**
+     * Add headers over the two value columns
+     * 
+     * @param context an Android Context
+     * @param cell2 header 1
+     * @param cell3 header 2
+     * @param tp layout params
+     * @param center if true center the headings
+     * @return a TableRow
+     */
+    @NonNull
+    public static TableRow createHeaderRow(@NonNull Context context, @Nullable CharSequence cell2, @Nullable CharSequence cell3,
+            @NonNull TableLayout.LayoutParams tp, boolean center) {
+        TableRow tr = new TableRow(context);
+        TextView cell = new TextView(context);
+        cell.setSingleLine();
+        cell.setMinEms(FIRST_CELL_WIDTH);
+        cell.setMaxEms(MAX_FIRST_CELL_WIDTH);
+
+        SpannableString span2 = null;
+        if (cell2 != null) {
+            span2 = new SpannableString(cell2);
+        }
+        SpannableString span3 = null;
+        if (cell3 != null) {
+            span3 = new SpannableString(cell3);
+        }
+
+        tr.addView(cell);
+        TableRow.LayoutParams trp = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        if (center) {
+            trp.gravity = Gravity.CENTER_HORIZONTAL;
+        }
+        TextView tv2 = addCell(context, span2, false, tr, trp);
+        tv2.setTypeface(null, Typeface.BOLD);
+        TextView tv3 = addCell(context, span3, false, tr, trp);
+        tv3.setTypeface(null, Typeface.BOLD);
+
+        if (center) {
+            tv2.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            tv3.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        }
+
         tr.setLayoutParams(tp);
         return tr;
     }
@@ -248,7 +308,7 @@ public final class TableLayoutUtils {
     /**
      * Get a new TableRow with the provided contents - two columns
      * 
-     * @param activity the FragmentActivity the TableLayout is being displayed on
+     * @param context an Android Context
      * @param cell1 a string resource id for the first cell
      * @param cell2 text for the second cell
      * @param tp LayoutParams for the row
@@ -256,14 +316,14 @@ public final class TableLayoutUtils {
      */
     @SuppressLint("NewApi")
     @NonNull
-    public static TableRow createRow(@NonNull FragmentActivity activity, int cell1, @Nullable CharSequence cell2, @NonNull TableLayout.LayoutParams tp) {
-        return createRow(activity, cell1, cell2, false, tp);
+    public static TableRow createRow(@NonNull Context context, int cell1, @Nullable CharSequence cell2, @NonNull TableLayout.LayoutParams tp) {
+        return createRow(context, cell1, cell2, false, tp);
     }
 
     /**
      * Get a new TableRow with the provided contents - two columns
      * 
-     * @param activity the FragmentActivity the TableLayout is being displayed on
+     * @param context an Android Context
      * @param cell1 a string resource id for the first cell
      * @param cell2 text for the second cell
      * @param isUrl if true don't allow C&amp;P on the values so that they can be clicked on
@@ -272,10 +332,9 @@ public final class TableLayoutUtils {
      */
     @SuppressLint("NewApi")
     @NonNull
-    public static TableRow createRow(@NonNull FragmentActivity activity, int cell1, @Nullable CharSequence cell2, boolean isUrl,
-            @NonNull TableLayout.LayoutParams tp) {
-        TableRow tr = new TableRow(activity);
-        TextView cell = new TextView(activity);
+    public static TableRow createRow(@NonNull Context context, int cell1, @Nullable CharSequence cell2, boolean isUrl, @NonNull TableLayout.LayoutParams tp) {
+        TableRow tr = new TableRow(context);
+        TextView cell = new TextView(context);
         cell.setMinEms(FIRST_CELL_WIDTH);
         cell.setMaxEms(MAX_FIRST_CELL_WIDTH);
         cell.setMaxLines(2);
@@ -290,7 +349,7 @@ public final class TableLayoutUtils {
         if (cell2 == null) {
             trp.span = 2;
         }
-        addCell(activity, cell2, isUrl, tr, trp);
+        addCell(context, cell2, isUrl, tr, trp);
         tr.setLayoutParams(tp);
         return tr;
     }
@@ -298,17 +357,16 @@ public final class TableLayoutUtils {
     /**
      * Add a new cell to a TableRow
      * 
-     * @param activity the FragmentActivity the TableLayout is being displayed on
+     * @param context an Android Context
      * @param cellText the text to use for the cell
      * @param isUrl if true don't allow C&amp;P on the values so that they can be clicked on
      * @param tr the TableRow to add the cell to
      * @param tp LayoutParams for the row
+     * @return the TextView added
      */
     @NonNull
-    private static void addCell(@NonNull FragmentActivity activity, @Nullable CharSequence cellText, boolean isUrl, TableRow tr,
-            @Nullable TableRow.LayoutParams tp) {
-        TextView cell;
-        cell = new TextView(activity);
+    private static TextView addCell(@NonNull Context context, @Nullable CharSequence cellText, boolean isUrl, TableRow tr, @Nullable TableRow.LayoutParams tp) {
+        TextView cell = new TextView(context);
         if (cellText != null) {
             cell.setText(cellText);
             cell.setMinEms(FIRST_CELL_WIDTH);
@@ -324,18 +382,19 @@ public final class TableLayoutUtils {
             }
             tr.addView(cell);
         }
+        return cell;
     }
 
     /**
      * Get a divider for the TableLayout
      * 
-     * @param activity the FragmentActivity the TableLayout is being displayed on
+     * @param context an Android Context
      * @return a empty View the width of the TableLayout
      */
     @NonNull
-    public static View divider(@NonNull FragmentActivity activity) {
-        TableRow tr = new TableRow(activity);
-        View v = new View(activity);
+    public static View divider(@NonNull Context context) {
+        TableRow tr = new TableRow(context);
+        View v = new View(context);
         TableRow.LayoutParams trp = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 1);
         trp.span = 3;
         v.setLayoutParams(trp);
@@ -347,15 +406,15 @@ public final class TableLayoutUtils {
     /**
      * Display a longer, potential multi-line text over the full width
      * 
-     * @param activity the FragmentActivity the TableLayout is being displayed on
+     * @param context an Android Context
      * @param text the text
      * @param tp LayoutParams for the row
      * @return a TableRow
      */
     @NonNull
-    public static View createFullRowTitle(@NonNull FragmentActivity activity, @NonNull String text, @NonNull android.widget.TableLayout.LayoutParams tp) {
-        TableRow tr = new TableRow(activity);
-        TextView cell = new TextView(activity);
+    public static View createFullRowTitle(@NonNull Context context, @NonNull String text, @NonNull android.widget.TableLayout.LayoutParams tp) {
+        TableRow tr = new TableRow(context);
+        TextView cell = new TextView(context);
         cell.setText(text);
         cell.setSingleLine();
         cell.setTypeface(null, Typeface.BOLD);
@@ -374,15 +433,15 @@ public final class TableLayoutUtils {
     /**
      * Display a longer, potential multi-line text over the full width
      * 
-     * @param activity the FragmentActivity the TableLayout is being displayed on
+     * @param context an Android Context
      * @param text the text
      * @param tp LayoutParams for the row
      * @return a TableRow
      */
     @NonNull
-    public static View createFullRow(@NonNull FragmentActivity activity, @NonNull String text, @NonNull android.widget.TableLayout.LayoutParams tp) {
-        TableRow tr = new TableRow(activity);
-        TextView cell = new TextView(activity);
+    public static View createFullRow(@NonNull Context context, @NonNull String text, @NonNull android.widget.TableLayout.LayoutParams tp) {
+        TableRow tr = new TableRow(context);
+        TextView cell = new TextView(context);
         cell.setText(text);
         cell.setTextIsSelectable(true);
         tr.addView(cell);
@@ -399,7 +458,7 @@ public final class TableLayoutUtils {
     /**
      * Display three cells with a button in the last one
      * 
-     * @param activity the FragmentActivity the TableLayout is being displayed on
+     * @param context an Android Context
      * @param res resource id for the text in the first cell
      * @param text the text
      * @param button the ImageButton
@@ -407,17 +466,17 @@ public final class TableLayoutUtils {
      * @return a TableRow
      */
     @NonNull
-    public static View createRowWithButton(@NonNull FragmentActivity activity, int res, @NonNull String text, @NonNull ImageButton button,
+    public static View createRowWithButton(@NonNull Context context, int res, @NonNull String text, @NonNull ImageButton button,
             @NonNull android.widget.TableLayout.LayoutParams tp) {
-        TableRow tr = new TableRow(activity);
-        TextView cell = new TextView(activity);
+        TableRow tr = new TableRow(context);
+        TextView cell = new TextView(context);
         cell.setMinEms(FIRST_CELL_WIDTH);
         cell.setMaxEms(MAX_FIRST_CELL_WIDTH);
         cell.setText(res);
         tr.addView(cell);
 
         TableRow.LayoutParams trlp = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        addCell(activity, text, false, tr, trlp);
+        addCell(context, text, false, tr, trlp);
 
         TableRow.LayoutParams trlp2 = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         trlp2.gravity = Gravity.TOP | Gravity.END;

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="CGImap 0.8.10 (3350604 spike-08.openstreetmap.org)" copyright="OpenStreetMap and contributors" attribution="http://www.openstreetmap.org/copyright" license="http://opendatacommons.org/licenses/odbl/1-0/">
+ <way id="27009604" visible="true" version="21" changeset="85446223" timestamp="2020-05-19T14:00:01Z" user="SimonPoole" uid="92387">
+  <nd ref="289987511"/>
+  <nd ref="296055258"/>
+  <nd ref="416426257"/>
+  <nd ref="633469171"/>
+  <nd ref="296055259"/>
+  <nd ref="296055260"/>
+  <nd ref="2202925501"/>
+  <nd ref="296055261"/>
+  <nd ref="2202925507"/>
+  <nd ref="416426209"/>
+  <nd ref="296055262"/>
+  <nd ref="416426208"/>
+  <nd ref="296055263"/>
+  <nd ref="416426207"/>
+  <nd ref="296055264"/>
+  <tag k="highway" v="tertiary"/>
+  <tag k="lit" v="yes"/>
+  <tag k="maxspeed" v="50"/>
+  <tag k="name" v="Kindhauserstrasse"/>
+  <tag k="sidewalk" v="left"/>
+ </way>
+</osm>

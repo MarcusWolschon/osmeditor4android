@@ -14,9 +14,10 @@ public class OsmServerException extends OsmException {
     /**
      * 
      */
-    private static final long serialVersionUID = 2767654576083786633L;
+    private static final long serialVersionUID = 1L;
 
-    private final int    errorCode;
+    private final int    httpErrorCode;
+    // private final int    
     private final String type;
     private final long   osmId;
 
@@ -28,7 +29,7 @@ public class OsmServerException extends OsmException {
      */
     public OsmServerException(final int errorCode, final String message) {
         super(message);
-        this.errorCode = errorCode;
+        this.httpErrorCode = errorCode;
         type = ELEMENT_TYPE_NONE;
         osmId = -1;
     }
@@ -43,7 +44,7 @@ public class OsmServerException extends OsmException {
      */
     public OsmServerException(final int errorCode, final String type, final long osmId, final String message) {
         super(message);
-        this.errorCode = errorCode;
+        this.httpErrorCode = errorCode;
         this.type = type;
         this.osmId = osmId;
     }
@@ -54,15 +55,15 @@ public class OsmServerException extends OsmException {
      * @return a string containing error plus description
      */
     public String getMessageWithDescription() {
-        String errorText = errorCodeToMeaning(getErrorCode());
+        String errorText = errorCodeToMeaning(getHttpErrorCode());
         return super.getMessage() + (errorText != null ? "\nError description: " + errorText : "");
     }
 
     /**
      * @return the HTTP response-code
      */
-    public int getErrorCode() {
-        return errorCode;
+    public int getHttpErrorCode() {
+        return httpErrorCode;
     }
 
     /**

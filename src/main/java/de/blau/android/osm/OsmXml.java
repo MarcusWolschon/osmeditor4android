@@ -81,12 +81,12 @@ public final class OsmXml {
         serializer.attribute(null, GENERATOR, generator);
         serializer.attribute(null, VERSION, VERSION_0_6);
 
-        List<OsmElement> createdNodes = new ArrayList<>();
-        List<OsmElement> modifiedNodes = new ArrayList<>();
-        List<OsmElement> deletedNodes = new ArrayList<>();
-        List<OsmElement> createdWays = new ArrayList<>();
-        List<OsmElement> modifiedWays = new ArrayList<>();
-        List<OsmElement> deletedWays = new ArrayList<>();
+        List<Node> createdNodes = new ArrayList<>();
+        List<Node> modifiedNodes = new ArrayList<>();
+        List<Node> deletedNodes = new ArrayList<>();
+        List<Way> createdWays = new ArrayList<>();
+        List<Way> modifiedWays = new ArrayList<>();
+        List<Way> deletedWays = new ArrayList<>();
         List<Relation> createdRelations = new ArrayList<>();
         List<Relation> modifiedRelations = new ArrayList<>();
         List<Relation> deletedRelations = new ArrayList<>();
@@ -159,11 +159,11 @@ public final class OsmXml {
             }
         }
         if (!createdRelations.isEmpty()) {
-            // sort the relations so that childs come first, will not handle loops and similar brokenness
+            // sort the relations so that children come first, will not handle loops and similar brokenness
             Collections.sort(createdRelations, relationOrder);
         }
         if (!modifiedRelations.isEmpty()) {
-            // sort the relations so that childs come first, will not handle loops and similar brokenness
+            // sort the relations so that children come first, will not handle loops and similar brokenness
             Collections.sort(modifiedRelations, relationOrder);
         }
         if (!deletedRelations.isEmpty()) {
@@ -179,33 +179,17 @@ public final class OsmXml {
             });
         }
 
-        if (!createdNodes.isEmpty() || !createdWays.isEmpty() || !createdRelations.isEmpty()) {
-            serializer.startTag(null, CREATE);
-            for (OsmElement elem : createdNodes) {
-                elem.toXml(serializer, changeSetId);
-            }
-            for (OsmElement elem : createdWays) {
-                elem.toXml(serializer, changeSetId);
-            }
-            for (OsmElement elem : createdRelations) {
-                elem.toXml(serializer, changeSetId);
-            }
-            serializer.endTag(null, CREATE);
-        }
+        // NOTE as deleted elements cannot be referenced we need to undelete them in MODIFY elements before we reference
+        // them, this will not always work for relations, see below
+        serializeCreatedElements(serializer, changeSetId, createdNodes);
+        serializeModifiedElements(serializer, changeSetId, modifiedNodes);
 
-        if (!modifiedNodes.isEmpty() || !modifiedWays.isEmpty() || !modifiedRelations.isEmpty()) {
-            serializer.startTag(null, MODIFY);
-            for (OsmElement elem : modifiedNodes) {
-                elem.toXml(serializer, changeSetId);
-            }
-            for (OsmElement elem : modifiedWays) {
-                elem.toXml(serializer, changeSetId);
-            }
-            for (OsmElement elem : modifiedRelations) {
-                elem.toXml(serializer, changeSetId);
-            }
-            serializer.endTag(null, MODIFY);
-        }
+        serializeCreatedElements(serializer, changeSetId, createdWays);
+        serializeModifiedElements(serializer, changeSetId, modifiedWays);
+
+        // if a newly created relation references deleted relations, they would need to be undeleted in a separate pass
+        serializeCreatedElements(serializer, changeSetId, createdRelations);
+        serializeModifiedElements(serializer, changeSetId, modifiedRelations);
 
         // delete in opposite order
         if (!deletedNodes.isEmpty() || !deletedWays.isEmpty() || !deletedRelations.isEmpty()) {
@@ -224,6 +208,46 @@ public final class OsmXml {
 
         serializer.endTag(null, OSM_CHANGE);
         serializer.endDocument();
+    }
+
+    /**
+     * Serialize a MODIFY section
+     * 
+     * @param <T> type of element to serialize
+     * @param serializer the serializer
+     * @param changeSetId the changeset id
+     * @param modifiedElements the list of elements
+     * @throws IOException if serializing fails
+     */
+    private static <T extends OsmElement> void serializeModifiedElements(@NonNull XmlSerializer serializer, @NonNull Long changeSetId,
+            @NonNull List<T> modifiedElements) throws IOException {
+        if (!modifiedElements.isEmpty()) {
+            serializer.startTag(null, MODIFY);
+            for (OsmElement elem : modifiedElements) {
+                elem.toXml(serializer, changeSetId);
+            }
+            serializer.endTag(null, MODIFY);
+        }
+    }
+
+    /**
+     * Serialize a CREATE section
+     * 
+     * @param <T> type of element to serialize
+     * @param serializer the serializer
+     * @param changeSetId the changeset id
+     * @param createdElements the list of elements
+     * @throws IOException if serializing fails
+     */
+    private static <T extends OsmElement> void serializeCreatedElements(@NonNull XmlSerializer serializer, @NonNull Long changeSetId,
+            @NonNull List<T> createdElements) throws IOException {
+        if (!createdElements.isEmpty()) {
+            serializer.startTag(null, CREATE);
+            for (OsmElement elem : createdElements) {
+                elem.toXml(serializer, changeSetId);
+            }
+            serializer.endTag(null, CREATE);
+        }
     }
 
     /**

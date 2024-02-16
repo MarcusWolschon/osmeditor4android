@@ -58,6 +58,8 @@ public class OsmParser extends DefaultHandler {
 
     private final List<Exception> exceptions = new ArrayList<>();
 
+    private final boolean allowEmptyWays;
+
     /**
      * Helper class to store missing relation information for post processing
      */
@@ -88,7 +90,18 @@ public class OsmParser extends DefaultHandler {
      * Construct a new instance of the parser
      */
     public OsmParser() {
+        this(false);
+    }
+
+    /**
+     * Construct a new instance of the parser
+     *
+     * @param relaxWayParsing if true return empty ways and will fill in missing nodes with references to temp elements,
+     *            this is useful for retrieving deleted ways and the like
+     */
+    public OsmParser(boolean relaxWayParsing) {
         super();
+        this.allowEmptyWays = relaxWayParsing;
         storage = new Storage();
     }
 
@@ -207,35 +220,32 @@ public class OsmParser extends DefaultHandler {
         try {
             switch (name) {
             case Node.NAME:
-                if (currentNode != null) {
-                    addTags(currentNode);
-                    storage.insertNodeUnsafe(currentNode);
-                    currentNode = null;
-                } else {
+                if (currentNode == null) {
                     throw new SAXException("State error, null Node");
                 }
+                addTags(currentNode);
+                storage.insertNodeUnsafe(currentNode);
+                currentNode = null;
                 break;
             case Way.NAME:
-                if (currentWay != null) {
-                    addTags(currentWay);
-                    if (!currentWay.getNodes().isEmpty()) {
-                        storage.insertWayUnsafe(currentWay);
-                    } else {
-                        Log.e(DEBUG_TAG, "Way " + currentWay.getOsmId() + " has no nodes! Ignored.");
-                    }
-                    currentWay = null;
-                } else {
+                if (currentWay == null) {
                     throw new SAXException("State error, null Way");
                 }
+                addTags(currentWay);
+                if (!currentWay.getNodes().isEmpty() || allowEmptyWays) {
+                    storage.insertWayUnsafe(currentWay);
+                } else {
+                    Log.e(DEBUG_TAG, "Way " + currentWay.getOsmId() + " has no nodes! Ignored.");
+                }
+                currentWay = null;
                 break;
             case Relation.NAME:
-                if (currentRelation != null) {
-                    addTags(currentRelation);
-                    storage.insertRelationUnsafe(currentRelation);
-                    currentRelation = null;
-                } else {
+                if (currentRelation == null) {
                     throw new SAXException("State error, null Relation");
                 }
+                addTags(currentRelation);
+                storage.insertRelationUnsafe(currentRelation);
+                currentRelation = null;
                 break;
             case API_ERROR:
                 throw new OsmParseException("Internal API error: " + characters);
@@ -279,15 +289,11 @@ public class OsmParser extends DefaultHandler {
             String version = atts.getValue(OsmElement.VERSION_ATTR);
             long osmVersion = version == null ? 0 : Long.parseLong(version); // hack for JOSM file
                                                                              // format support
+            long timestamp = parseTimestamp(atts);
 
-            String timestampStr = atts.getValue(OsmElement.TIMESTAMP_ATTR);
-            long timestamp = -1L;
-            if (timestampStr != null) {
-                try {
-                    timestamp = DateFormatter.getUtcFormat(OsmParser.TIMESTAMP_FORMAT).parse(timestampStr).getTime() / 1000;
-                } catch (ParseException e) {
-                    Log.d(DEBUG_TAG, "Invalid timestamp " + timestampStr);
-                }
+            final boolean deleted = OsmElement.FALSE_VALUE.equals(atts.getValue(OsmElement.VISIBLE_ATTR));
+            if (deleted) {
+                status = OsmElement.STATE_DELETED;
             }
 
             String action = atts.getValue(OsmElement.JOSM_ACTION);
@@ -306,6 +312,10 @@ public class OsmParser extends DefaultHandler {
 
             switch (name) {
             case Node.NAME:
+                if (deleted) {
+                    currentNode = OsmElementFactory.createNode(osmId, osmVersion, timestamp, status, Integer.MAX_VALUE, Integer.MAX_VALUE);
+                    break;
+                }
                 int lat = (new BigDecimal(atts.getValue(Node.LAT_ATTR)).scaleByPowerOfTen(Node.COORDINATE_SCALE)).intValue();
                 int lon = (new BigDecimal(atts.getValue(Node.LON_ATTR)).scaleByPowerOfTen(Node.COORDINATE_SCALE)).intValue();
                 currentNode = OsmElementFactory.createNode(osmId, osmVersion, timestamp, status, lat, lon);
@@ -328,9 +338,29 @@ public class OsmParser extends DefaultHandler {
             default:
                 throw new OsmParseException("Unknown element " + name);
             }
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException | NullPointerException e) {
             throw new OsmParseException("Element unparsable");
         }
+
+    }
+
+    /**
+     * Extract and parse a timestamp
+     * 
+     * @param atts the attributes of the element
+     * @return seconds since the unix epoch or -1
+     */
+    private long parseTimestamp(final Attributes atts) {
+        String timestampStr = atts.getValue(OsmElement.TIMESTAMP_ATTR);
+        long timestamp = -1L;
+        if (timestampStr != null) {
+            try {
+                timestamp = DateFormatter.getUtcFormat(OsmParser.TIMESTAMP_FORMAT).parse(timestampStr).getTime() / 1000;
+            } catch (ParseException e) {
+                Log.d(DEBUG_TAG, "Invalid timestamp " + timestampStr);
+            }
+        }
+        return timestamp;
     }
 
     /**
@@ -381,7 +411,12 @@ public class OsmParser extends DefaultHandler {
                 long nodeOsmId = Long.parseLong(atts.getValue(Way.REF));
                 Node node = nodeIndex.get(nodeOsmId);
                 if (node == null) {
-                    throw new OsmParseException("parseWayNode node " + nodeOsmId + " not in storage");
+                    if (allowEmptyWays) {
+                        Node temp = OsmElementFactory.createNode(nodeOsmId, 0, -1, OsmElement.STATE_DELETED, 0, 0);
+                        currentWay.addNode(temp); // NOTE not added to storage!
+                    } else {
+                        throw new OsmParseException("parseWayNode node " + nodeOsmId + " not in storage");
+                    }
                 } else {
                     currentWay.addNode(node);
                 }

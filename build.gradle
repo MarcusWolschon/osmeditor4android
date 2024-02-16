@@ -768,7 +768,7 @@ task jacocoTestReport(type:JacocoReport, dependsOn: "testCurrentDebugUnitTest") 
 
 // see https://marathonlabs.github.io/marathon/doc/configuration.html
 marathon {
-    uncompletedTestRetryQuota = 3
+    uncompletedTestRetryQuota = 0
     testOutputTimeoutMillis = 720000
     poolingStrategy {
         operatingSystem = true
@@ -782,19 +782,19 @@ marathon {
     debug = true
     retryStrategy {
         fixedQuota {
-            retryPerTestQuota = 3
+            retryPerTestQuota = 0
             totalAllowedRetryQuota = 100
         }
     }
     // uncomment for running specific tests
-//    filteringConfiguration {
-//        allowlist {
-//            fullyQualifiedTestnameFilter =
-//               [
-//                    'de.blau.android.easyedit.RelationTest#createAndAddToMultiPolygon'
-//               ] 
-//        }
-//    }
+    filteringConfiguration {
+        allowlist {
+            fullyQualifiedTestnameFilter =
+               [            
+                    'de.blau.android.osm.UploadConflictTest#referencesMissing'
+               ] 
+        }
+    }
     // analytics and sorting configuration requires a DB to be installed
 //    analytics {
 //       influx {

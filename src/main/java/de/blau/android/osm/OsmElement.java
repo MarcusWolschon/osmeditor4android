@@ -30,7 +30,8 @@ import de.blau.android.util.IssueAlert;
 import de.blau.android.util.Util;
 import de.blau.android.validation.Validator;
 
-public abstract class OsmElement implements Serializable, XmlSerializable, JosmXmlSerializable {
+public abstract class OsmElement implements OsmElementInterface, Serializable, XmlSerializable, JosmXmlSerializable {
+
     /**
      * 
      */
@@ -47,7 +48,8 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
     static final String VERSION_ATTR   = "version";
     static final String TIMESTAMP_ATTR = "timestamp";
     static final String VISIBLE_ATTR   = "visible";
-    static final String TRUE           = "true";
+    static final String TRUE_VALUE     = "true";
+    static final String FALSE_VALUE    = "false";
 
     static final String TAG            = "tag";
     static final String TAG_KEY_ATTR   = "k";
@@ -58,6 +60,8 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
     static final String JOSM_DELETE = "delete";
 
     public static final long EPOCH = 1104537600L; // 2005-01-01 00:00:00
+
+    private static final String ADDRESS_DESC = "address ";
 
     protected long osmId;
 
@@ -95,16 +99,12 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
         this.parentRelations = null;
     }
 
-    /**
-     * @return the if of the object (&lt; 0 are temporary ids)
-     */
+    @Override
     public long getOsmId() {
         return osmId;
     }
 
-    /**
-     * @return the version of the object
-     */
+    @Override
     public long getOsmVersion() {
         return osmVersion;
     }
@@ -134,11 +134,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
         }
     }
 
-    /**
-     * Get the current tags of the element
-     * 
-     * @return an unmodifiable map containing the tags
-     */
+    @Override
     @NonNull
     public SortedMap<String, String> getTags() {
         if (tags == null) {
@@ -188,11 +184,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
         return cache.containsKey(tags);
     }
 
-    /**
-     * Get the state of this element
-     * 
-     * @return the state value
-     */
+    @Override
     public byte getState() {
         return state;
     }
@@ -423,7 +415,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
         if (timestamp >= 0) {
             s.attribute("", TIMESTAMP_ATTR, DateFormatter.getUtcFormat(OsmParser.TIMESTAMP_FORMAT).format(getTimestamp() * 1000));
         }
-        s.attribute("", VISIBLE_ATTR, TRUE);
+        s.attribute("", VISIBLE_ATTR, TRUE_VALUE); // it could be argued that this should follow the state too
     }
 
     /**
@@ -492,11 +484,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
         }
     }
 
-    /**
-     * Get the relations this element is a member of
-     * 
-     * @return a List of the relations, null if none
-     */
+    @Override
     @Nullable
     public List<Relation> getParentRelations() {
         return parentRelations;
@@ -668,7 +656,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
      * @return a String or null
      */
     @Nullable
-    private String getAddressString(@Nullable Context ctx, @Nullable Map<String, String> tags) {
+    static String getAddressString(@Nullable Context ctx, @Nullable Map<String, String> tags) {
         final boolean haveCtx = ctx != null;
         String housenumber = getTagWithKey(tags, Tags.KEY_ADDR_HOUSENUMBER);
         if (Util.notEmpty(housenumber)) {
@@ -678,12 +666,12 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
                     if (haveCtx) {
                         return ctx.getResources().getString(R.string.address_housenumber_street, street, housenumber);
                     }
-                    return "address " + housenumber + " " + street;
+                    return ADDRESS_DESC + housenumber + " " + street;
                 }
                 if (haveCtx) {
                     return ctx.getResources().getString(R.string.address_housenumber, housenumber);
                 }
-                return "address " + housenumber;
+                return ADDRESS_DESC + housenumber;
             } catch (Exception ex) {
                 // protect against translation errors
             }
@@ -918,11 +906,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
         setTimestamp(System.currentTimeMillis() / 1000);
     }
 
-    /**
-     * Get the timestamp for this object
-     * 
-     * @return seconds since the Unix Epoch. negative if no value is set
-     */
+    @Override
     public long getTimestamp() {
         if (timestamp >= 0) {
             return EPOCH + timestamp;

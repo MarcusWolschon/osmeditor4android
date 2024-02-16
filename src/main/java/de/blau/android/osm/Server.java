@@ -94,6 +94,11 @@ public class Server {
     static final String         HTTP_GET    = "GET";
     private static final String HTTP_DELETE = "DELETE";
 
+    // single element get modes
+    public static final String MODE_FULL      = "full";
+    public static final String MODE_RELATIONS = "relations";
+    public static final String MODE_WAYS      = "ways";
+
     private static final MediaType TEXTXML = MediaType.parse(MimeTypes.TEXTXML);
 
     /**
@@ -503,7 +508,7 @@ public class Server {
      * Get a single element from the API
      * 
      * @param context Android context
-     * @param mode "full" or null
+     * @param mode "full", "relations", "ways" or null
      * @param type type (node, way, relation) of the object
      * @param id the OSM id of the object
      * @return the stream
@@ -951,22 +956,7 @@ public class Server {
         }
     }
 
-    /**
-     * These patterns are fairly, to very, unforgiving, hopefully API 0.7 will give the error codes back in a more
-     * structured way
-     */
-    private static final Pattern ERROR_MESSAGE_CLOSED_CHANGESET                = Pattern.compile("(?i)The changeset ([0-9]+) was closed at.*");
-    private static final Pattern ERROR_MESSAGE_VERSION_CONFLICT                = Pattern
-            .compile("(?i)Version mismatch: Provided ([0-9]+), server had: ([0-9]+) of (Node|Way|Relation) ([0-9]+)");
-    private static final Pattern ERROR_MESSAGE_DELETED                         = Pattern
-            .compile("(?i)The (node|way|relation) with the id ([0-9]+) has already been deleted");
-    private static final Pattern ERROR_MESSAGE_PRECONDITION_STILL_USED         = Pattern
-            .compile("(?i)(?:Precondition failed: )?(Node|Way) ([0-9]+) is still used by (way|relation)[s]? ([0-9]+).*");
-    private static final Pattern ERROR_MESSAGE_PRECONDITION_REQUIRED_WAY_NODES = Pattern
-            .compile("(?i)(?:Precondition failed: )?Way ([0-9]+) requires the nodes with id in (([0-9]+,)+) which either do not exist, or are not visible.");
-    private static final Pattern ERROR_MESSAGE_PRECONDITION_RELATION_RELATION  = Pattern
-            .compile("(?i)(?:Precondition failed: )?The relation ([0-9]+) is used in relation ([0-9]+).");
-    public static final Pattern  ERROR_MESSAGE_BAD_OAUTH_REQUEST               = Pattern.compile("(?i)Bad OAuth request.*");
+    public static final Pattern ERROR_MESSAGE_BAD_OAUTH_REQUEST = Pattern.compile("(?i)Bad OAuth request.*");
 
     /**
      * Process the results of uploading a diff to the API, here because it needs to manipulate the stored data
@@ -979,147 +969,97 @@ public class Server {
      * @param parser parser instance
      * @throws IOException on an error processing the data
      */
-    private void processDiffUploadResult(StorageDelegator delegator, Response response, XmlPullParser parser) throws IOException {
-        Storage apiStorage = delegator.getApiStorage();
+    private void processDiffUploadResult(@NonNull StorageDelegator delegator, @NonNull Response response, @NonNull XmlPullParser parser) throws IOException {
         int code = response.code();
-        if (code == HttpURLConnection.HTTP_OK) {
-            boolean rehash = false; // if ids are changed we need to rehash storage
-            try {
-                parser.setInput(new BufferedInputStream(response.body().byteStream(), StreamUtils.IO_BUFFER_SIZE), null);
-                int eventType;
-                boolean inResponse = false;
-                while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
-                    if (eventType == XmlPullParser.START_TAG) {
-                        String tagName = parser.getName();
-                        if (inResponse) {
-                            String oldIdStr = parser.getAttributeValue(null, OLD_ID_ATTR);
-                            if (oldIdStr == null) { // must always be present
-                                Log.e(DEBUG_TAG, "oldId missing! tag " + tagName);
-                                continue;
-                            }
-                            long oldId = Long.parseLong(oldIdStr);
-                            String newIdStr = parser.getAttributeValue(null, NEW_ID_ATTR);
-                            String newVersionStr = parser.getAttributeValue(null, NEW_VERSION_ATTR);
-                            if (Node.NAME.equals(tagName) || Way.NAME.equals(tagName) || Relation.NAME.equals(tagName)) {
-                                OsmElement e = apiStorage.getOsmElement(tagName, oldId);
-                                if (e == null) {
-                                    // log crash or what
-                                    Log.e(DEBUG_TAG, "" + oldIdStr + " not found in api storage! New id " + newIdStr + " new version " + newVersionStr);
-                                    continue;
-                                }
-                                if (e.getState() == OsmElement.STATE_DELETED && newIdStr == null && newVersionStr == null) {
-                                    if (!apiStorage.removeElement(e)) {
-                                        Log.e(DEBUG_TAG, "Deleted " + e + " was already removed from local storage!");
-                                    }
-                                    Log.w(DEBUG_TAG, e + " deleted in API");
-                                    delegator.dirty();
-                                } else if (e.getState() == OsmElement.STATE_CREATED && oldId < 0 && newIdStr != null && newVersionStr != null) {
-                                    long newId = Long.parseLong(newIdStr);
-                                    long newVersion = Long.parseLong(newVersionStr);
-                                    if (newId > 0) {
-                                        if (!apiStorage.removeElement(e)) {
-                                            Log.e(DEBUG_TAG, "New " + e + " was already removed from api storage!");
-                                        }
-                                        Log.w(DEBUG_TAG, "New " + e + " added to API");
-                                        e.setOsmId(newId); // id change requires rehash, so that removing works,
-                                                           // remove first then set id
-                                        e.setOsmVersion(newVersion);
-                                        e.setState(OsmElement.STATE_UNCHANGED);
-                                        delegator.dirty();
-                                        rehash = true;
-                                    } else {
-                                        Log.d(DEBUG_TAG, "Didn't get new ID: " + newId + " version " + newVersionStr);
-                                    }
-                                } else if (e.getState() == OsmElement.STATE_MODIFIED && oldId > 0 && newIdStr != null && newVersionStr != null) {
-                                    long newId = Long.parseLong(newIdStr);
-                                    long newVersion = Long.parseLong(newVersionStr);
-                                    if (newId == oldId && newVersion > e.getOsmVersion()) {
-                                        if (!apiStorage.removeElement(e)) {
-                                            Log.e(DEBUG_TAG, "Updated " + e + " was already removed from api storage!");
-                                        }
-                                        e.setOsmVersion(newVersion);
-                                        Log.w(DEBUG_TAG, e + " updated in API");
-                                        e.setState(OsmElement.STATE_UNCHANGED);
-                                    } else {
-                                        Log.d(DEBUG_TAG, "Didn't get new version: " + newVersion + " for " + newId);
-                                    }
-                                    delegator.dirty();
-                                } else {
-                                    Log.e(DEBUG_TAG, "Unknown state for " + e.getOsmId() + " " + e.getState());
-                                }
-                            }
-                        } else if (eventType == XmlPullParser.START_TAG && DIFF_RESULT_ELEMENT.equals(tagName)) {
-                            inResponse = true;
-                        } else {
-                            Log.e(DEBUG_TAG, "Unknown start tag: " + tagName);
-                        }
-                    }
-                }
-                if (rehash) {
-                    delegator.getCurrentStorage().rehash();
-                    if (!apiStorage.isEmpty()) { // shouldn't happen
-                        apiStorage.rehash();
-                    }
-                }
-            } catch (XmlPullParserException | NumberFormatException | IOException e) {
-                throw new OsmException(e.toString());
-            }
-        } else {
+        if (code != HttpURLConnection.HTTP_OK) {
             String message = Server.readStream(response.body().byteStream());
             String responseMessage = response.message();
             Log.d(DEBUG_TAG, "Error code: " + code + " response: " + responseMessage + " message: " + message);
-            if (code == HttpURLConnection.HTTP_CONFLICT) {
-                // got conflict , possible messages see
-                // http://wiki.openstreetmap.org/wiki/API_v0.6#Diff_upload:_POST_.2Fapi.2F0.6.2Fchangeset.2F.23id.2Fupload
-                Matcher m = ERROR_MESSAGE_VERSION_CONFLICT.matcher(message);
-                if (m.matches()) {
-                    String type = m.group(3);
-                    String idStr = m.group(4);
-                    generateException(apiStorage, type, idStr, code, responseMessage, message);
-                } else {
-                    m = ERROR_MESSAGE_CLOSED_CHANGESET.matcher(message);
-                    if (m.matches()) {
-                        // note this should never happen, since we check
-                        // if the changeset is still open before upload
-                        throw new OsmServerException(HttpURLConnection.HTTP_BAD_REQUEST, code + "=\"" + responseMessage + "\" Error Message: " + message);
-                    }
-                }
-                Log.e(DEBUG_TAG, "Code: " + code + " unknown error message: " + message);
-                throw new OsmServerException(HttpURLConnection.HTTP_BAD_REQUEST,
-                        "Original error " + code + "=\"" + responseMessage + "\" Error Message: " + message);
-            } else if (code == HttpURLConnection.HTTP_GONE) {
-                Matcher m = ERROR_MESSAGE_DELETED.matcher(message);
-                if (m.matches()) {
-                    String type = m.group(1);
-                    String idStr = m.group(2);
-                    generateException(apiStorage, type, idStr, code, responseMessage, message);
-                }
-            } else if (code == HttpURLConnection.HTTP_PRECON_FAILED) {
-                // Besides the messages parsed here, theoretically the following message could be returned:
-                // Relation with id #{id} cannot be saved due to #{element} with id #{element.id} // NOSONAR
-                // however it shouldn't be possible to create such situations with vespucci
-                Matcher m = ERROR_MESSAGE_PRECONDITION_STILL_USED.matcher(message);
-                if (m.matches()) {
-                    String type = m.group(1);
-                    String idStr = m.group(2);
-                    generateException(apiStorage, type, idStr, code, responseMessage, message);
-                } else {
-                    m = ERROR_MESSAGE_PRECONDITION_REQUIRED_WAY_NODES.matcher(message);
-                    if (m.matches()) {
-                        String idStr = m.group(1);
-                        generateException(apiStorage, Way.NAME, idStr, code, responseMessage, message);
-                    } else {
-                        m = ERROR_MESSAGE_PRECONDITION_RELATION_RELATION.matcher(message);
-                        if (m.matches()) {
-                            String idStr = m.group(1);
-                            generateException(apiStorage, Relation.NAME, idStr, code, responseMessage, message);
-                        } else {
-                            Log.e(DEBUG_TAG, "Unknown error message: " + message);
+            throw new OsmServerException(code, message);
+        }
+
+        // success so update ids and versions
+        Storage apiStorage = delegator.getApiStorage();
+        boolean rehash = false; // if ids are changed we need to rehash storage
+        try {
+            parser.setInput(new BufferedInputStream(response.body().byteStream(), StreamUtils.IO_BUFFER_SIZE), null);
+            int eventType;
+            boolean inResponse = false;
+            while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
+                if (eventType == XmlPullParser.START_TAG) {
+                    String tagName = parser.getName();
+                    if (inResponse) {
+                        String oldIdStr = parser.getAttributeValue(null, OLD_ID_ATTR);
+                        if (oldIdStr == null) { // must always be present
+                            Log.e(DEBUG_TAG, "oldId missing! tag " + tagName);
+                            continue;
                         }
+                        long oldId = Long.parseLong(oldIdStr);
+                        String newIdStr = parser.getAttributeValue(null, NEW_ID_ATTR);
+                        String newVersionStr = parser.getAttributeValue(null, NEW_VERSION_ATTR);
+                        if (Node.NAME.equals(tagName) || Way.NAME.equals(tagName) || Relation.NAME.equals(tagName)) {
+                            OsmElement e = apiStorage.getOsmElement(tagName, oldId);
+                            if (e == null) {
+                                // log crash or what
+                                Log.e(DEBUG_TAG, "" + oldIdStr + " not found in api storage! New id " + newIdStr + " new version " + newVersionStr);
+                                continue;
+                            }
+                            if (e.getState() == OsmElement.STATE_DELETED && newIdStr == null && newVersionStr == null) {
+                                if (!apiStorage.removeElement(e)) {
+                                    Log.e(DEBUG_TAG, "Deleted " + e + " was already removed from local storage!");
+                                }
+                                Log.w(DEBUG_TAG, e + " deleted in API");
+                                delegator.dirty();
+                            } else if (e.getState() == OsmElement.STATE_CREATED && oldId < 0 && newIdStr != null && newVersionStr != null) {
+                                long newId = Long.parseLong(newIdStr);
+                                long newVersion = Long.parseLong(newVersionStr);
+                                if (newId > 0) {
+                                    if (!apiStorage.removeElement(e)) {
+                                        Log.e(DEBUG_TAG, "New " + e + " was already removed from api storage!");
+                                    }
+                                    Log.w(DEBUG_TAG, "New " + e + " added to API");
+                                    e.setOsmId(newId); // id change requires rehash, so that removing works,
+                                                       // remove first then set id
+                                    e.setOsmVersion(newVersion);
+                                    e.setState(OsmElement.STATE_UNCHANGED);
+                                    delegator.dirty();
+                                    rehash = true;
+                                } else {
+                                    Log.d(DEBUG_TAG, "Didn't get new ID: " + newId + " version " + newVersionStr);
+                                }
+                            } else if (e.getState() == OsmElement.STATE_MODIFIED && oldId > 0 && newIdStr != null && newVersionStr != null) {
+                                long newId = Long.parseLong(newIdStr);
+                                long newVersion = Long.parseLong(newVersionStr);
+                                if (newId == oldId && newVersion > e.getOsmVersion()) {
+                                    if (!apiStorage.removeElement(e)) {
+                                        Log.e(DEBUG_TAG, "Updated " + e + " was already removed from api storage!");
+                                    }
+                                    e.setOsmVersion(newVersion);
+                                    Log.w(DEBUG_TAG, e + " updated in API");
+                                    e.setState(OsmElement.STATE_UNCHANGED);
+                                } else {
+                                    Log.d(DEBUG_TAG, "Didn't get new version: " + newVersion + " for " + newId);
+                                }
+                                delegator.dirty();
+                            } else {
+                                Log.e(DEBUG_TAG, "Unknown state for " + e.getOsmId() + " " + e.getState());
+                            }
+                        }
+                    } else if (eventType == XmlPullParser.START_TAG && DIFF_RESULT_ELEMENT.equals(tagName)) {
+                        inResponse = true;
+                    } else {
+                        Log.e(DEBUG_TAG, "Unknown start tag: " + tagName);
                     }
                 }
             }
-            throw new OsmServerException(code, message);
+            if (rehash) {
+                delegator.getCurrentStorage().rehash();
+                if (!apiStorage.isEmpty()) { // shouldn't happen
+                    apiStorage.rehash();
+                }
+            }
+        } catch (XmlPullParserException | NumberFormatException | IOException e) {
+            throw new OsmException(e.toString());
         }
     }
 
@@ -1140,7 +1080,7 @@ public class Server {
             long osmId = Long.parseLong(idStr);
             OsmElement e = apiStorage.getOsmElement(type.toLowerCase(Locale.US), osmId);
             if (e != null) {
-                throw new OsmServerException(code, e.getName(), e.getOsmId(), code + "=\"" + responseMessage + "\" ErrorMessage: " + message);
+                throw new OsmServerException(code, e.getName(), e.getOsmId(), message);
             }
         }
         Log.e(DEBUG_TAG, "Error message matched, but parsing failed: " + message);

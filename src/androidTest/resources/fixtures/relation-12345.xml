@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="CGImap 0.8.10 (2880947 spike-08.openstreetmap.org)" copyright="OpenStreetMap and contributors" attribution="http://www.openstreetmap.org/copyright" license="http://opendatacommons.org/licenses/odbl/1-0/">
+ <relation id="12345" visible="true" version="40" changeset="140779547" timestamp="2023-09-03T22:47:36Z" user="la_re" uid="16563993">
+  <member type="way" ref="210461100" role=""/>
+  <member type="way" ref="98659144" role=""/>
+  <tag k="name" v="Radweg Neder-Innsbruck #2"/>
+  <tag k="network" v="lcn"/>
+  <tag k="route" v="mtb"/>
+  <tag k="type" v="route"/>
+ </relation>
+</osm>
