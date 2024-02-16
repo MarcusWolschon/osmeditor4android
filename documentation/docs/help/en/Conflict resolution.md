@@ -2,14 +2,32 @@
 
 Vespucci provides basic facility to resolve version conflicts on upload. In general is it best to avoid them happening, particularly in areas with lots of editing activity by downloading only small areas, refreshing them often and saving changes frequently.
 
-Vespucci uploads modified and deleted elements one by one. Any conflicts detected will be related to the current element and will need to be resolved before the upload can be retried. As a consequence, if you suspect that your edits have caused more than a handful of conflicts you should save the edits either by saving to a JOSM compatible OSM file or by exporting the changes to a OSC file and then try to resolve the conflicts in JOSM.
+The OSM API reports conflicts one by one. The upload will abort at the first error and you will need to resolve that and then re-upload, fix the next issue and so on, exceptions noted below. If you suspect that your edits have caused more than a handful of conflicts you can save the edits either by saving to a JOSM compatible OSM file or by exporting the changes to a OSC file and then try to resolve the conflicts in JOSM, if you prefer using a desktop computer.
 
 ### Version conflicts
 
-The most common conflict is when an object has been modified or deleted while you were editing and the version number of the object that you modified is lower than the current one on the OpenStreetMap servers. In such a case you will be presented with the options to cancel, use your local version or to overwrite your changes with whatever is on the server.
+The most common conflict is when an object has been modified or deleted while you were editing and the version number of the object that you modified is lower than the current one on the OpenStreetMap servers. In such a case you will be presented with the options to cancel, or resolve the issue by 
 
-It is likely better, except if you have really important changes, to use the remote version. If you use the local version you will overwrite whatever changes have been made by other mappers. Note that if the object has been deleted on the server and you choose to use the server version, in other words, delete the object locally, this may cause further conflicts if the object in question was a member of a way or relation.
+* _using the local version_ - this simply increments the version of the local element. This leads to your local version overwriting any changes made on the server to the element.
+* _merging tags in to the server version_ - this retains the server side geometry but merges the local tags in to the server version of the tags, you will be notified if there are conflict between the tags and you can address any tagging issues before re-trying the upload.
+* _merging tags in to the local version_ - the behaviour is as above, but this variant retains the local geometry.
+* _using the server version_ - this replaces the local version of the element with the server version, overwriting any changes you made locally.
+
 
 ### Referential conflicts
 
-While Vespucci in general doesn't allow this to happen, a referential conflict happens when you delete an object locally, the server however still has objects that refer to the deleted one, which haven't been modified accordingly. Deletes happen at the end of the upload process for this reason to allow the server to check. In such a conflict situation you only have the choice to use the server version or cancel.  
+While Vespucci attempty to avoid this happening allow this to happen, a referential conflict happens when you delete an object locally, the server however still has objects that refer to the deleted one, which haven't been modified accordingly or you have local elements that refer to elements that have been deleted on the server.
+
+In the first scenario you can resolve the issue by (for each element)
+
+* _undoing the local deletion_ - this will utilize Vespuccis undo system to locate and undo the undo checkpoint that deleted the element, note that this may result in other elements being changed too.
+* _deleting the references on the server_ this will download the relevant elements and delete them, adding them to the upload for deletion on the server.
+
+In the second scenario, you can, again per element
+
+* _delete the element locally_ - this will delete the element locally.
+* _undelete the element on the server_ - this will upload the local element as a new, no longer deleted, version.
+
+### Deleting an element that has already been deleted
+
+This is the easiest to handle conflict and Vespucci will automatically retry the upload after removing the deleted element from the to be uploaded data.
