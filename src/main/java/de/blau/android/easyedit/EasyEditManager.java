@@ -237,14 +237,15 @@ public class EasyEditManager {
         if (currentActionModeCallback instanceof EditRelationMembersActionModeCallback || currentActionModeCallback instanceof BuilderActionModeCallback
                 || currentActionModeCallback instanceof ViaElementActionModeCallback || currentActionModeCallback instanceof ToElementActionModeCallback
                 || currentActionModeCallback instanceof FromElementActionModeCallback
-                || currentActionModeCallback instanceof RestartFromElementActionModeCallback) {
+                || currentActionModeCallback instanceof RestartFromElementActionModeCallback
+                || currentActionModeCallback instanceof WayRotationActionModeCallback) {
             ScreenMessage.toastTopInfo(getMain(), getMain().getString(R.string.toast_abort_actionmode));
             return;
         }
         synchronized (actionModeCallbackLock) {
             if (currentActionModeCallback instanceof ElementSelectionActionModeCallback
                     || currentActionModeCallback instanceof ExtendSelectionActionModeCallback
-                    || currentActionModeCallback instanceof WayRotationActionModeCallback || currentActionModeCallback instanceof WayAppendingActionModeCallback
+                    || currentActionModeCallback instanceof WayAppendingActionModeCallback
                     || currentActionModeCallback instanceof NewNoteSelectionActionModeCallback) {
                 currentActionMode.finish();
             }

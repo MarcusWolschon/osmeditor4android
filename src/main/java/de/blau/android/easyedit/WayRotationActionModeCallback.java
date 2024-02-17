@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.Menu;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.view.ActionMode;
 import de.blau.android.R;
 import de.blau.android.osm.Way;
@@ -32,18 +33,31 @@ public class WayRotationActionModeCallback extends NonSimpleActionModeCallback {
         helpTopic = R.string.help_wayselection;
         super.onCreateActionMode(mode, menu);
         Log.d(DEBUG_TAG, "onCreateActionMode");
+        logic.createCheckpoint(main, R.string.undo_action_rotateway);
         logic.setRotationMode(true);
         logic.showCrosshairsForCentroid();
+
         FloatingActionButton button = main.getSimpleActionsButton();
-        button.setOnClickListener(v -> onCloseClicked());
+        button.setOnClickListener(v -> {
+            Way way = logic.getSelectedWay();
+            if (way != null) {
+                main.startSupportActionMode(new WaySelectionActionModeCallback(manager, way));
+            }
+        });
         savedButton = button.getDrawable();
         button.setImageResource(R.drawable.ic_done_white_36dp);
+        mode.setTitle(R.string.actionmode_rotateway);
+        mode.setSubtitle(null);
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+        super.onPrepareActionMode(mode, menu);
+        main.enableSimpleActionsButton();
         if (!prefs.areSimpleActionsEnabled()) {
             main.showSimpleActionsButton();
         }
-        main.enableSimpleActionsButton();
-        mode.setTitle(R.string.actionmode_rotateway);
-        mode.setSubtitle(null);
         return true;
     }
 
@@ -63,11 +77,15 @@ public class WayRotationActionModeCallback extends NonSimpleActionModeCallback {
 
     @Override
     protected void onCloseClicked() {
-        Way way = logic.getSelectedWay();
-        if (way != null) {
-            main.startSupportActionMode(new WaySelectionActionModeCallback(manager, way));
-        } else {
-            super.onCloseClicked();
-        }
+        onBackPressed();
+    }
+
+    @Override
+    public boolean onBackPressed() {
+        new AlertDialog.Builder(main).setTitle(R.string.abort_action_title).setPositiveButton(R.string.yes, (dialog, which) -> {
+            logic.rollback();
+            super.onBackPressed();
+        }).setNeutralButton(R.string.cancel, null).show();
+        return false;
     }
 }
