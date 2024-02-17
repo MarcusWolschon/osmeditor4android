@@ -540,7 +540,7 @@ public class WayActionsTest {
             prefDB.close();
         }
     }
-    
+
     /**
      * Select way, try to split, download missing ways
      */
@@ -627,7 +627,7 @@ public class WayActionsTest {
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_rotateway)));
         TestUtils.drag(device, map, 8.386446, 47.38959, 8.386628, 47.38959, false, 30);
 
-        TestUtils.clickUp(device);
+        TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
         assertEquals(n0.getLon(), 83865662, 1000);
         assertEquals(n0.getLat(), 473896285, 1000);
@@ -651,7 +651,8 @@ public class WayActionsTest {
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
         assertTrue(TestUtils.clickOverflowButton(device));
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_start_end_way), true, false));
-        if (TestUtils.clickText(device, false, context.getString(R.string.start), false, false));
+        if (TestUtils.clickText(device, false, context.getString(R.string.start), false, false))
+            ;
         {
             ViewBox vb = ((Main) main).getMap().getViewBox();
             assertEquals(47.3879811D, vb.getCenterLat(), 0.001D);
@@ -659,7 +660,8 @@ public class WayActionsTest {
         }
         assertTrue(TestUtils.clickOverflowButton(device));
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_start_end_way), true, false));
-        if(TestUtils.clickText(device, false, context.getString(R.string.end), false, false));
+        if (TestUtils.clickText(device, false, context.getString(R.string.end), false, false))
+            ;
         {
             ViewBox vb = ((Main) main).getMap().getViewBox();
             assertEquals(47.3910674D, vb.getCenterLat(), 0.001D);

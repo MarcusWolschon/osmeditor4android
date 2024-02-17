@@ -1384,8 +1384,6 @@ public class Logic {
             } else {
                 createCheckpoint(activity, draggingNode ? R.string.undo_action_movenode : R.string.undo_action_moveway);
             }
-        } else if (rotatingWay) {
-            createCheckpoint(activity, R.string.undo_action_rotateway);
         }
     }
 
