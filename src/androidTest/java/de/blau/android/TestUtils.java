@@ -8,8 +8,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +36,6 @@ import androidx.preference.PreferenceManager;
 import androidx.test.uiautomator.By;
 import androidx.test.uiautomator.BySelector;
 import androidx.test.uiautomator.Configurator;
-import androidx.test.uiautomator.Direction;
 import androidx.test.uiautomator.UiDevice;
 import androidx.test.uiautomator.UiObject;
 import androidx.test.uiautomator.UiObject2;
@@ -68,6 +65,8 @@ import okio.Buffer;
 public final class TestUtils {
     private static final String DEBUG_TAG = TestUtils.class.getSimpleName();
 
+    private static final String VESPUCCI = "Vespucci";
+    
     /**
      * Private constructor
      */
@@ -135,16 +134,15 @@ public final class TestUtils {
                 }
             }
         } else {
-            String vespucci = "Vespucci";
             if (findText(device, false, "Open with Vespucci")) {
                 if (findText(device, false, shareWithOSM)) {
                     clickText(device, false, justOnce, false, false);
                 } else {
                     // Open with Vespucci was actually Share on OpenStreetMap
-                    clickText(device, false, vespucci, false, false);
+                    clickText(device, false, VESPUCCI, false, false);
                 }
             } else {
-                clickText(device, false, vespucci, false, false);
+                clickText(device, false, VESPUCCI, false, false);
                 if (!clickText(device, false, justOnce, false, false)) {
                     clickText(device, false, "Nur diesmal", false, false);
                 }
@@ -1537,7 +1535,7 @@ public final class TestUtils {
      * @return true if found
      */
     public static boolean findNotification(@NonNull UiDevice device, @NonNull String message) {
-        return findNotification(device, "Vespucci", message);
+        return findNotification(device, VESPUCCI, message);
     }
 
     /**
@@ -1583,7 +1581,7 @@ public final class TestUtils {
      * @return true if found
      */
     public static boolean clickNotification(@NonNull UiDevice device, @NonNull String message) {
-        return clickNotification(device, "Vespucci", message);
+        return clickNotification(device, VESPUCCI, message);
     }
     
     /**
