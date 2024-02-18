@@ -1026,6 +1026,7 @@
     <string name="menu_tools_import_data_style">Import data style…</string>
     <string name="menu_tools_load_keys">Load keys from file…</string>
     <!--  -->
+    <string name="menu_modes">Modes…</string>
     <string name="menu_simple_actions">Simple mode</string>  
     <string name="menu_feedback">Provide feedback</string> 
     <string name="menu_preset_feedback">Provide preset feedback</string>  

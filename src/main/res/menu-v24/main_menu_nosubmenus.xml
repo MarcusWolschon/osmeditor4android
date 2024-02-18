@@ -246,6 +246,9 @@
         android:id="@+id/menu_share"
         android:title="@string/share_position"
         app:showAsAction="never" />
+    <group android:id="@+id/menu_mode_group" android:checkableBehavior="single">
+        <!-- filled programmatically -->
+    </group>
     <item
         android:id="@+id/menu_simple_actions"
         android:checkable="true"

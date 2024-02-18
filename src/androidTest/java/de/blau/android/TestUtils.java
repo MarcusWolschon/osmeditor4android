@@ -17,6 +17,7 @@ import java.util.regex.Pattern;
 
 import org.junit.Assert;
 
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.graphics.Point;
@@ -66,7 +67,7 @@ public final class TestUtils {
     private static final String DEBUG_TAG = TestUtils.class.getSimpleName();
 
     private static final String VESPUCCI = "Vespucci";
-    
+
     /**
      * Private constructor
      */
@@ -1583,7 +1584,7 @@ public final class TestUtils {
     public static boolean clickNotification(@NonNull UiDevice device, @NonNull String message) {
         return clickNotification(device, VESPUCCI, message);
     }
-    
+
     /**
      * Click on a specific notification
      * 
@@ -1643,6 +1644,33 @@ public final class TestUtils {
     public static void clickAwayTip(@NonNull UiDevice device, @NonNull Context ctx, long wait) {
         if (TestUtils.findText(device, false, ctx.getString(R.string.tip_title), wait)) {
             TestUtils.clickText(device, false, ctx.getString(R.string.okay), true, false); // TIP
+        }
+    }
+
+    /**
+     * Switch the simple mode checkbox/pref
+     * 
+     * @param on if true it should be turned on if it is not on, if false turned off
+     */
+    public static void switchSimpleMode(@NonNull UiDevice device, @NonNull Activity activity, boolean on) {
+        if (TestUtils.clickOverflowButton(device)) {
+            UiObject2 modesMenu = TestUtils.findObjectWithText(device, false, activity.getString(R.string.menu_modes), 5000, false);
+            modesMenu.click();
+            UiObject2 simpleMode = TestUtils.findObjectWithText(device, false, activity.getString(R.string.menu_simple_actions), 5000, false);
+            if (simpleMode != null) {
+                UiObject2 check = simpleMode.getParent().getParent().getChildren().get(1);
+                assertTrue(check.isCheckable());
+                if ((on && !check.isChecked()) || (!on && check.isChecked())) {
+                    check.click();
+                } else {
+                    device.pressBack();
+                }
+            } else {
+                Log.e("toggleSimpleMode", "Simple mode check not found");
+                device.pressBack();
+            }
+        } else {
+            Log.e("toggleSimpleMode", "no overflowbutton");
         }
     }
 }

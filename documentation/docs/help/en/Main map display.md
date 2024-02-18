@@ -206,7 +206,7 @@ Select either the transfer icon ![Transfer](../images/menu_transfer.png) or the 
 
 Show the user preference screens. The settings are split into two sets: the first screen contains the more commonly used preferences, the "Advanced preferences" contains the less used ones. 
 
-### ![Tools](../images/menu_tools.png) Tools
+### ![Tools](../images/menu_tools.png) Tools…
 
  * **Apply stored offset to imagery** - apply stored offset, if it exists, for the current background layer 
  * **More imagery tools**
@@ -233,6 +233,10 @@ Search for a location and pan to it with the OpenStreetMap Nominatim or Photon s
 
 Search for OSM objects in the loaded data using JOSMs search/filter expressions. See [JOSM filter documentation](http://vespucci.io/tutorials/object_search/) for more information. Besides searching in the loaded data alternatively you can create a 
 Overpass API query and use that to download data.
+
+### Modes...
+
+This menu allows mode selection as via the _lock button_ and enabling/disabling of the _simple mode_.
 
 ### Tag-Filter *(checkbox)*
 
