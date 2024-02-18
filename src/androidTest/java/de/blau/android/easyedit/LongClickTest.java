@@ -71,32 +71,7 @@ public class LongClickTest {
         TestUtils.loadTestData(main, "test2.osm");
         App.getTaskStorage().reset();
         TestUtils.stopEasyEdit(main);
-        switchSimpleMode(false);
-    }
-
-    /**
-     * Switch the simple mode checkbox/pref
-     * 
-     * @param on if true it should be turned on if it is not on, if false turned off
-     */
-    private void switchSimpleMode(boolean on) {
-        if (TestUtils.clickOverflowButton(device)) {
-            UiObject2 simpleMode = TestUtils.findObjectWithText(device, false, main.getString(R.string.menu_simple_actions), 5000, false);
-            if (simpleMode != null) {
-                UiObject2 check = simpleMode.getParent().getParent().getChildren().get(1);
-                assertTrue(check.isCheckable());
-                if ((on && !check.isChecked()) || (!on && check.isChecked())) {
-                    check.click();
-                } else {
-                    device.pressBack();
-                }
-            } else {
-                Log.e("toggleSimpleMode", "Simple mode check not found");
-                device.pressBack();
-            }
-        } else {
-            Log.e("toggleSimpleMode", "no overflowbutton");
-        }
+        TestUtils.switchSimpleMode(device, main, false);
     }
 
     /**
@@ -107,7 +82,7 @@ public class LongClickTest {
         TestUtils.stopEasyEdit(main);
         TestUtils.zoomToNullIsland(logic, map);
         TestUtils.clickOverflowButton(device);
-        switchSimpleMode(true);
+        TestUtils.switchSimpleMode(device, main, true);
         App.getTaskStorage().reset();
     }
 

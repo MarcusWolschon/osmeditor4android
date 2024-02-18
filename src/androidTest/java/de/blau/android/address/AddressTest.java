@@ -93,8 +93,7 @@ public class AddressTest {
     @Test
     public void newAddressLongClick() {
         TestUtils.unlock(device);
-        TestUtils.clickOverflowButton(device);
-        TestUtils.clickText(device, false, main.getString(R.string.menu_simple_actions), true);
+        TestUtils.switchSimpleMode(device, main, true);
         map.getDataLayer().setVisible(true);
         TestUtils.zoomToLevel(device, main, 21);
         TestUtils.longClickAtCoordinates(device, map, 8.3893454, 47.3901898, true);

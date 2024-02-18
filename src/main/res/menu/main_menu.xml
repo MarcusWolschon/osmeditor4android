@@ -89,11 +89,11 @@
                 <item
                     android:id="@+id/menu_enable_gps_autodownload"
                     android:checkable="true"
-                    android:title="@string/menu_enable_gps_autodownload" />
+                    android:title="@string/menu_enable_gps_autodownload"/>
                 <item
                     android:id="@+id/menu_enable_pan_and_zoom_auto_download"
                     android:checkable="true"
-                    android:title="@string/menu_enable_pan_and_zoom_auto_download" />
+                    android:title="@string/menu_enable_pan_and_zoom_auto_download"/>
             </group>
             <item
                 android:id="@+id/menu_transfer_update"
@@ -241,7 +241,23 @@
         android:id="@+id/menu_search_objects"
         android:title="@string/search_objects_title"
         app:showAsAction="never" />
-    <group android:checkableBehavior="single">
+    <item
+        android:id="@+id/menu_modes"
+        android:title="@string/menu_modes"
+        app:showAsAction="never">
+        <menu>
+            <group android:id="@+id/menu_mode_group" android:checkableBehavior="single" android:orderInCategory="101">
+                <!-- filled programmatically -->
+            </group>
+            <item
+                android:id="@+id/menu_simple_actions"
+                android:checkable="true"
+                android:title="@string/menu_simple_actions"
+                app:showAsAction="never" 
+                android:orderInCategory="102"/>
+        </menu>
+    </item>
+    <group android:id="@+id/menu_filter_group" android:checkableBehavior="single">
         <item
             android:id="@+id/menu_enable_tagfilter"
             android:checkable="true"
@@ -254,11 +270,6 @@
     <item
         android:id="@+id/menu_share"
         android:title="@string/share_position"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/menu_simple_actions"
-        android:checkable="true"
-        android:title="@string/menu_simple_actions"
         app:showAsAction="never" />
     <item
         android:id="@+id/menu_help"

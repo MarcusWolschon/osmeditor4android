@@ -57,6 +57,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
+import android.view.SubMenu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnGenericMotionListener;
@@ -1697,26 +1698,36 @@ public class Main extends FullScreenAppCompatActivity
                         s.setSpan(new ForegroundColorSpan(ThemeUtils.getStyleAttribColorValue(Main.this, R.attr.colorAccent, 0)), 0, s.length(), 0);
                     }
                     MenuItem item = popup.getMenu().add(s);
-                    item.setOnMenuItemClickListener(menuitem -> {
-                        l.setMode(Main.this, newMode);
-                        b.setTag(newMode.tag());
-                        StateListDrawable mStates = new StateListDrawable();
-                        mStates.addState(new int[] { android.R.attr.state_pressed }, ContextCompat.getDrawable(Main.this, newMode.iconResourceId()));
-                        mStates.addState(new int[] {}, ContextCompat.getDrawable(Main.this, R.drawable.locked_opaque));
-                        lock.setImageDrawable(mStates);
-                        lock.hide(); // workaround https://issuetracker.google.com/issues/117476935
-                        lock.show();
-                        if (l.isLocked()) {
-                            ((FloatingActionButton) b).setImageState(new int[] { 0 }, false);
-                        } else {
-                            ((FloatingActionButton) b).setImageState(new int[] { android.R.attr.state_pressed }, false);
-                        }
-                        updateActionbarEditMode();
-                        return true;
-                    });
+                    setModeMenuListener(l, item, lock, newMode);
                 }
             }
             popup.show();
+            return true;
+        });
+    }
+
+    /**
+     * @param l
+     * @param item
+     * @param lock
+     * @param newMode
+     */
+    private void setModeMenuListener(final Logic l, MenuItem item, final FloatingActionButton lock, final Mode newMode) {
+        item.setOnMenuItemClickListener(menuitem -> {
+            l.setMode(Main.this, newMode);
+            lock.setTag(newMode.tag());
+            StateListDrawable mStates = new StateListDrawable();
+            mStates.addState(new int[] { android.R.attr.state_pressed }, ContextCompat.getDrawable(Main.this, newMode.iconResourceId()));
+            mStates.addState(new int[] {}, ContextCompat.getDrawable(Main.this, R.drawable.locked_opaque));
+            lock.setImageDrawable(mStates);
+            lock.hide(); // workaround https://issuetracker.google.com/issues/117476935
+            lock.show();
+            if (l.isLocked()) {
+                lock.setImageState(new int[] { 0 }, false);
+            } else {
+                lock.setImageState(new int[] { android.R.attr.state_pressed }, false);
+            }
+            updateActionbarEditMode();
             return true;
         });
     }
@@ -1796,25 +1807,26 @@ public class Main extends FullScreenAppCompatActivity
      */
     @SuppressLint("InflateParams")
     @Override
-    public boolean onCreateOptionsMenu(final Menu m) {
+    public boolean onCreateOptionsMenu(Menu menu) {
         Log.d(DEBUG_TAG, "onCreateOptionsMenu");
         // determine how man icons have room
         MenuUtil menuUtil = new MenuUtil(this);
-        Menu menu = m;
-        MenuCompat.setGroupDividerEnabled(menu, true);
         if (getBottomBar() != null) {
             menu = getBottomBar().getMenu();
             Log.d(DEBUG_TAG, "inflated main menu on to bottom toolbar");
         }
+        final boolean noSubMenus = getBottomBar() != null && Screen.isLarge(this) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
+                && Flavors.LEGACY.equals(BuildConfig.FLAVOR);
         if (menu.size() == 0) {
             menu.clear();
             final MenuInflater inflater = getMenuInflater();
-            if (getBottomBar() != null && Screen.isLarge(this) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && Flavors.LEGACY.equals(BuildConfig.FLAVOR)) {
+            if (noSubMenus) {
                 inflater.inflate(R.menu.main_menu_nosubmenus, menu);
             } else {
                 inflater.inflate(R.menu.main_menu, menu);
             }
         }
+        MenuCompat.setGroupDividerEnabled(menu, true);
 
         boolean networkConnected = isConnected();
         boolean locationPermissionGranted = isLocationPermissionGranted();
@@ -1905,7 +1917,8 @@ public class Main extends FullScreenAppCompatActivity
             Log.d(DEBUG_TAG, "had to resync tagfilter pref");
         }
 
-        final boolean supportsFilters = logic.getMode().supportsFilters();
+        final Mode mode = logic.getMode();
+        final boolean supportsFilters = mode.supportsFilters();
         menu.findItem(R.id.menu_enable_tagfilter).setEnabled(supportsFilters).setChecked(prefs.getEnableTagFilter() && logic.getFilter() instanceof TagFilter);
         menu.findItem(R.id.menu_enable_presetfilter).setEnabled(supportsFilters)
                 .setChecked(prefs.getEnablePresetFilter() && logic.getFilter() instanceof PresetFilter);
@@ -1939,10 +1952,21 @@ public class Main extends FullScreenAppCompatActivity
         menu.findItem(R.id.menu_tools_install_egm).setVisible(!egmInstalled);
         menu.findItem(R.id.menu_tools_remove_egm).setVisible(egmInstalled);
 
-        if (getBottomBar() != null) {
-            // menuUtil.evenlyDistributedToolbar(getBottomToolbar());
+        // per mode menu items
+        List<Mode> allModes = new ArrayList<>(Arrays.asList(Mode.values()));
+        final FloatingActionButton lock = getLock();
+        Menu modesMenu = noSubMenus ? menu : menu.findItem(R.id.menu_modes).getSubMenu();
+        modesMenu.removeGroup(R.id.menu_mode_group);
+        for (final Mode newMode : allModes) {
+            if (newMode.isSubModeOf() == null && newMode.isEnabled()) {
+                MenuItem modeItem = modesMenu.add(R.id.menu_mode_group, Menu.NONE, Menu.NONE, newMode.getName(Main.this));
+                modeItem.setCheckable(true);
+                setModeMenuListener(logic, modeItem, lock, newMode);
+                if (mode == newMode) {
+                    modeItem.setChecked(true);
+                }
+            }
         }
-
         return true;
     }
 
