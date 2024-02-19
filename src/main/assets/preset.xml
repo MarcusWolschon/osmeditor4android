@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.32.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,disused:amenity,disused:leisure,disused:man_made,disused:shop,golf,ford,harbour,hazard,noexit,indoor,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom">
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.35.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,disused:amenity,disused:leisure,disused:man_made,disused:shop,golf,ford,harbour,hazard,noexit,indoor,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom">
 <!--
     Icons have been derived from mainly from
   
@@ -9,6 +9,7 @@
     Format description: https://josm.openstreetmap.de/wiki/TaggingPresets and http://vespucci.io/tutorials/presets/
 -->
     <!-- Value chunks for use in combos and multiselects -->
+    
     
     
     
@@ -1766,7 +1767,9 @@
         <combo key="resource" text="Resource" values="aggregate,bauxite,basalt,clay,coal,copper,dimension_stone,gold,ilmenite,iron_ore,lead,limestone,nickel,rutile,salt,silver,tin,zinc,zircon" display_values="Aggregate,Bauxite,Basalt,Clay,Coal,Copper,Dimension stone,Gold,Ilmenite,Iron ore,Lead,Limestone,Nickel,Rutile,Salt,Silver,Tin,Zinc,Zircon"/>
     </chunk>
     <chunk id="highway_types">
-        <combo key="highway" text="Type" values="motorway,motorway_link,trunk,trunk_link,primary,primary_link,secondary,tertiary,unclassified,residential,living_street,service,bus_guideway,construction" display_values="Motorway,Motorway link,Trunk,Trunk link,Primary,Primary link,Secondary,Tertiary,Unclassified,Residential,Living street,Service,Bus guideway,Construction" values_context="Highway"/>
+        <combo key="highway" text="Type" values_sort="false" values_context="Highway">
+            <list_entry value="motorway" display_value="Motorway" icon="icons/png/highway_dual_sp.png"/><list_entry value="motorway_link" display_value="Motorway Link" icon="icons/png/highway_dual_sp.png"/><list_entry value="trunk" display_value="Trunk" icon="icons/png/highway_car_29023.png"/><list_entry value="trunk_link" display_value="Trunk Link" icon="${highway_truck_link}"/><list_entry value="primary" display_value="Primary" icon="icons/png/highway_highway_sp.png"/><list_entry value="primary_link" display_value="Primary Link" icon="icons/png/highway_highway_sp.png"/><list_entry value="secondary" display_value="Secondary" icon="icons/png/highway_highway_sp.png"/><list_entry value="secondary_link" display_value="Secondary link" icon="icons/png/highway_highway_sp.png"/><list_entry value="tertiary" display_value="Tertiary" icon="icons/png/highway_highway_sp.png"/><list_entry value="tertiary_link" display_value="Tertiary Link" icon="icons/png/highway_highway_sp.png"/><list_entry value="unclassified" display_value="Unclassified" icon="icons/png/highway_highway_sp.png"/><list_entry value="residential" display_value="Residential" icon="icons/png/highway_residential_sp.png"/><list_entry value="service" display_value="Service" icon="icons/png/highway_service_sp.png"/><list_entry value="pedestrian" display_value="Pedestrian" icon="icons/png/pedestrian_zone.png"/><list_entry value="bus_guideway" display_value="Bus Guideway" icon="icons/png/transport_bus_stop.png"/><list_entry value="busway" display_value="Bus Rapid Transit" icon="icons/png/highway_busway.png"/><list_entry value="escape" display_value="Escape" icon="icons/png/escape.png"/><list_entry value="raceway" display_value="Raceway" icon="${highway_raceway}"/><list_entry value="track" display_value="Track" icon="icons/png/highway_agricultural_engines_16001.png"/><list_entry value="path" display_value="Path" icon="icons/png/highway_way_thin_sp.png"/><list_entry value="bridleway" display_value="Dedicated Bridleway" icon="icons/png/bridleway.png"/><list_entry value="cycleway" display_value="Dedicated Cycleway" icon="icons/png/cycleway.png"/><list_entry value="footway" display_value="Dedicated Footway" icon="icons/png/footway.png"/><list_entry value="steps" display_value="Steps" icon="icons/png/barrier_steps.png"/>
+        </combo>
     </chunk>
     <chunk id="fountain_type">
         <combo key="fountain" text="Fountain type" values="yes,bubbler,nasone,nozzle,splash_pad" display_values="Yes,Bubbler,Nasone,Nozzle,Splash pad"/>
@@ -2251,34 +2254,11 @@
             </optional>
             <reference ref="road_access_restrictions"/>
         </item> <!-- Road (Unknown Type) -->
-        <item name="Construction" icon="icons/png/construction.png" name_context="Highway" type="way,closedway" preset_name_label="true">
-            <link wiki="Key:construction"/>
+        <item name="Road construction" icon="icons/png/construction.png" name_context="Highway" type="way,closedway" preset_name_label="true">
+            <link wiki="Tag:highway=construction"/>
             <key key="highway" value="construction"/>
             <combo key="construction" text="Highway type" values_sort="false" values_context="Highway">
-                <list_entry value="motorway" display_value="Motorway" icon="icons/png/highway_dual_sp.png"/>
-                <list_entry value="motorway_link" display_value="Motorway Link" icon="icons/png/highway_dual_sp.png"/>
-                <list_entry value="trunk" display_value="Trunk" icon="icons/png/highway_car_29023.png"/>
-                <list_entry value="trunk_link" display_value="Trunk Link" icon="${highway_truck_link}"/>
-                <list_entry value="primary" display_value="Primary" icon="icons/png/highway_highway_sp.png"/>
-                <list_entry value="primary_link" display_value="Primary Link" icon="icons/png/highway_highway_sp.png"/>
-                <list_entry value="secondary" display_value="Secondary" icon="icons/png/highway_highway_sp.png"/>
-                <list_entry value="secondary_link" display_value="Secondary link" icon="icons/png/highway_highway_sp.png"/>
-                <list_entry value="tertiary" display_value="Tertiary" icon="icons/png/highway_highway_sp.png"/>
-                <list_entry value="tertiary_link" display_value="Tertiary Link" icon="icons/png/highway_highway_sp.png"/>
-                <list_entry value="unclassified" display_value="Unclassified" icon="icons/png/highway_highway_sp.png"/>
-                <list_entry value="residential" display_value="Residential" icon="icons/png/highway_residential_sp.png"/>
-                <list_entry value="service" display_value="Service" icon="icons/png/highway_service_sp.png"/>
-                <list_entry value="pedestrian" display_value="Pedestrian" icon="icons/png/pedestrian_zone.png"/>
-                <list_entry value="bus_guideway" display_value="Bus Guideway" icon="icons/png/transport_bus_stop.png"/>
-                <list_entry value="busway" display_value="Bus Rapid Transit" icon="icons/png/highway_busway.png"/>
-                <list_entry value="escape" display_value="Escape" icon="icons/png/escape.png"/>
-                <list_entry value="raceway" display_value="Raceway" icon="${highway_raceway}"/>
-                <list_entry value="track" display_value="Track" icon="icons/png/highway_agricultural_engines_16001.png"/>
-                <list_entry value="path" display_value="Path" icon="icons/png/highway_way_thin_sp.png"/>
-                <list_entry value="bridleway" display_value="Dedicated Bridleway" icon="icons/png/bridleway.png"/>
-                <list_entry value="cycleway" display_value="Dedicated Cycleway" icon="icons/png/cycleway.png"/>
-                <list_entry value="footway" display_value="Dedicated Footway" icon="icons/png/footway.png"/>
-                <list_entry value="steps" display_value="Steps" icon="icons/png/barrier_steps.png"/>
+                <list_entry value="motorway" display_value="Motorway" icon="icons/png/highway_dual_sp.png"/><list_entry value="motorway_link" display_value="Motorway Link" icon="icons/png/highway_dual_sp.png"/><list_entry value="trunk" display_value="Trunk" icon="icons/png/highway_car_29023.png"/><list_entry value="trunk_link" display_value="Trunk Link" icon="${highway_truck_link}"/><list_entry value="primary" display_value="Primary" icon="icons/png/highway_highway_sp.png"/><list_entry value="primary_link" display_value="Primary Link" icon="icons/png/highway_highway_sp.png"/><list_entry value="secondary" display_value="Secondary" icon="icons/png/highway_highway_sp.png"/><list_entry value="secondary_link" display_value="Secondary link" icon="icons/png/highway_highway_sp.png"/><list_entry value="tertiary" display_value="Tertiary" icon="icons/png/highway_highway_sp.png"/><list_entry value="tertiary_link" display_value="Tertiary Link" icon="icons/png/highway_highway_sp.png"/><list_entry value="unclassified" display_value="Unclassified" icon="icons/png/highway_highway_sp.png"/><list_entry value="residential" display_value="Residential" icon="icons/png/highway_residential_sp.png"/><list_entry value="service" display_value="Service" icon="icons/png/highway_service_sp.png"/><list_entry value="pedestrian" display_value="Pedestrian" icon="icons/png/pedestrian_zone.png"/><list_entry value="bus_guideway" display_value="Bus Guideway" icon="icons/png/transport_bus_stop.png"/><list_entry value="busway" display_value="Bus Rapid Transit" icon="icons/png/highway_busway.png"/><list_entry value="escape" display_value="Escape" icon="icons/png/escape.png"/><list_entry value="raceway" display_value="Raceway" icon="${highway_raceway}"/><list_entry value="track" display_value="Track" icon="icons/png/highway_agricultural_engines_16001.png"/><list_entry value="path" display_value="Path" icon="icons/png/highway_way_thin_sp.png"/><list_entry value="bridleway" display_value="Dedicated Bridleway" icon="icons/png/bridleway.png"/><list_entry value="cycleway" display_value="Dedicated Cycleway" icon="icons/png/cycleway.png"/><list_entry value="footway" display_value="Dedicated Footway" icon="icons/png/footway.png"/><list_entry value="steps" display_value="Steps" icon="icons/png/barrier_steps.png"/>
             </combo>
             <optional>
                 <text key="name" text="Name"/>
@@ -2288,7 +2268,7 @@
                 <combo key="junction" text="Junction" values="roundabout,jughandle,yes"/>
             </optional>
             <reference ref="road_access_restrictions"/>
-        </item> <!-- Construction -->
+        </item> <!-- Road construction -->
         <separator/>
         <item name="Roundabout" icon="icons/png/transport_roundabout_anticlockwise.png" type="node,way,closedway" preset_name_label="true">
             <link wiki="Tag:junction=roundabout"/>
@@ -3601,7 +3581,7 @@
                 <text key="width" text="Width (meters)" value_type="dimension_horizontal"/>
             </optional>
         </item> <!-- Colonnade -->
-        <item name="Avalanche Protector" icon="" type="way" preset_name_label="true">
+        <item name="Avalanche Protector" icon="icons/png/highway_avalanche_protector.png" type="way" preset_name_label="true">
             <link wiki="Key:tunnel"/>
             <space/>
             <key key="tunnel" value="avalanche_protector" match="none"/>
@@ -4494,7 +4474,7 @@
             </item> <!-- Bus Guideway -->
             <separator/>
             <item name="Railway construction" icon="icons/png/transport_empty.png" type="way" preset_name_label="true">
-                <link wiki="Key:construction"/>
+                <link wiki="Tag:railway=construction"/>
                 <key key="railway" value="construction"/>
                 <combo key="construction" text="Railway type" values_sort="false">
                     <list_entry value="rail" display_value="Rail" icon="icons/png/transport_train_station.png"/>
@@ -6006,7 +5986,7 @@
                 <label text="... other transportation modes possible"/>
             </optional>
         </item> <!-- Guidepost -->
-        <item name="Trailhead" icon="icons/png/tourist_empty.png" type="node" preset_name_label="true">
+        <item name="Trailhead" icon="icons/png/tourist_trailhead.png" type="node" preset_name_label="true">
             <key key="highway" value="trailhead"/>
             <reference ref="name_operator"/>
             <text key="ele" text="Elevation" value_type="integer"/>
@@ -6540,7 +6520,7 @@
             <reference ref="min_max_age"/>
             <check text="Baby" key="baby"/>
         </item>
-        <item name="Swing" icon="icons/png/amenity_empty.png" type="node,way,closedway,multipolygon" name_context="leisure">
+        <item name="Swing" icon="icons/png/amenity_swing.png" type="node,way,closedway,multipolygon" name_context="leisure">
             <link wiki="Tag:leisure=playground"/>
             <space/>
             <key key="playground" value="swing"/>
@@ -7984,6 +7964,32 @@
                 <reference ref="oh_wheelchair_level"/>
             </optional>
         </item> <!-- Dressing room -->
+       <item name="Luggage locker" icon="icons/png/amenity_luggage_locker.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:amenity=luggage_locker"/>
+            <space/>
+            <key key="amenity" value="luggage_locker"/>
+            <reference ref="facility_access"/>
+            <optional>
+                <text key="description" text="Description" length="255"/>
+                <reference ref="fee"/>
+                <text key="operator" text="Operator"/>
+                <combo key="capacity" text="Capacity" values="1,2,3,4,5,6" value_type="integer" editable="true"/>
+                <reference ref="supervised"/>
+                <check key="indoor" text="Indoor" disable_off="true"/>
+                <check key="covered" text="Covered" disable_off="true"/>
+                <reference ref="oh_wheelchair_level"/>
+            </optional>
+            <preset_link preset_name="Payment Methods"/>
+        </item> <!-- Luggage locker -->
+                <item name="Lost property office" icon="icons/png/amenity_lost_property_office.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:amenity=lost_property_office"/>
+            <space/>
+            <key key="amenity" value="lost_property_office"/>
+            <optional>
+                <text key="operator" text="Operator"/>               
+                <reference ref="oh_wheelchair_level"/>
+            </optional>
+        </item> <!-- Lost property office -->
         <item name="Smoking area" icon="icons/png/amenity_tobacco_29141.png" type="node,closedway" preset_name_label="true">
             <link wiki="Tag:amenity=smoking_area"/>
             <space/>
@@ -8209,8 +8215,8 @@
                 <reference ref="name_operator_oh_wheelchair"/>
             </optional>
         </item> <!-- Outdoor seating -->
-        <item name="Lounger" icon="icons/png/amenity_empty.png" type="node,way" preset_name_label="true">
-            <link wiki="Tag:amenity=launger"/>
+        <item name="Lounger" icon="icons/png/amenity_empty.png" type="node,way,closedway" preset_name_label="true">
+            <link wiki="Tag:amenity=lounger"/>
             <space/>
             <key key="amenity" value="lounger"/>
             <multiselect key="seasonal" text="Seasonal" values="yes;no;spring;summer;autumn;winter;dry_season;wet_season" display_values="Yes;No;Spring;Summer;Autumn;Winter;Dry season;Wet season" values_searchable="true" match="key" values_context="seasons"/>
@@ -9641,7 +9647,7 @@
             <space/>
             <key key="man_made" value="embankment"/>
         </item> <!-- Embankment -->
-        <item name="Avalanche Protection" icon="${man_made_avalanche_protector}" type="node,way,closed_way" preset_name_label="true">
+        <item name="Avalanche Protection" icon="${man_made_avalanche_protector}" type="node,way,closedway" preset_name_label="true">
             <link wiki="Tag:man_made=avalanche_protection"/>
             <space/>
             <key key="man_made" value="avalanche_protection"/>
@@ -11021,7 +11027,7 @@
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Herbalist -->
         <separator/>
-        <item name="Public Market" icon="icons/png/shopping_marketplace.png" type="node,way,closedway" preset_name_label="true">
+        <item name="Public Market" icon="icons/png/shopping_marketplace.png" type="node,way,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:amenity=marketplace"/>
             <space/>
             <key key="amenity" value="marketplace"/>
