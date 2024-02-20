@@ -745,7 +745,7 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
                         if (!TileLayerSource.isFullyPopulated()) {
                             // FIXME this is borderline too slow to run on the main thread, maybe run in a thread while
                             // the dialog is starting up
-                            populateImageryLists(activity);
+                            de.blau.android.layer.Util.populateImageryLists(activity);
                         }
                         showImagerySelectDialog((TableRow) button.getTag(), (MapTilesLayer<?>) layer, layer.getType() == LayerType.OVERLAYIMAGERY);
                         Tip.showDialog(activity, R.string.tip_imagery_privacy_key, R.string.tip_imagery_privacy);
@@ -759,7 +759,7 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
                         try (TileLayerDatabase tlDb = new TileLayerDatabase(activity); SQLiteDatabase db = tlDb.getReadableDatabase()) {
                             long rowid = TileLayerDatabase.getLayerRowId(db, currentServerId);
                             updateListener = () -> {
-                                populateImageryLists(activity);
+                                de.blau.android.layer.Util.populateImageryLists(activity);
                                 map.setUpLayers(activity);
 
                             };
@@ -1066,17 +1066,6 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
             });
             item.setEnabled(layer.getIndex() > 0);
             popup.show();
-        }
-
-        /**
-         * Fill/Re-Fill the in memory imagery lists
-         * 
-         * @param context an Android context
-         */
-        private void populateImageryLists(@NonNull final Context context) {
-            try (TileLayerDatabase tlDb = new TileLayerDatabase(context); SQLiteDatabase db2 = tlDb.getReadableDatabase()) {
-                TileLayerSource.getListsLocked(context, db2, true); // recreate in memory lists
-            }
         }
     }
 
