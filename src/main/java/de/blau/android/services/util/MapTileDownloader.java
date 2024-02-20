@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -238,10 +239,10 @@ public class MapTileDownloader extends MapAsyncTileProvider {
             Request request = builder.addHeader(HTTP_HEADER_ACCEPT_ENCODING, GZIP).build();
             Call tileCall = client.newCall(request);
             try (Response tileCallResponse = tileCall.execute()) {
+                final ResponseBody responseBody = tileCallResponse.body();
+                final MediaType format = responseBody.contentType();
                 if (tileCallResponse.isSuccessful()) {
-                    ResponseBody responseBody = tileCallResponse.body();
                     InputStream inputStream = responseBody.byteStream();
-                    MediaType format = responseBody.contentType();
                     String noTileHeader = source.getNoTileHeader();
                     if (noTileHeader != null) {
                         String headerValue = tileCallResponse.header(noTileHeader);
@@ -305,7 +306,8 @@ public class MapTileDownloader extends MapAsyncTileProvider {
                     }
                 } else {
                     int code = tileCallResponse.code();
-                    String message = mCtx.getString(R.string.tile_error, code, tileCallResponse.body().string());
+                    Charset charset = format != null && format.charset() != null ? format.charset() : Charset.defaultCharset();
+                    String message = mCtx.getString(R.string.tile_error, code, new String(MapTileProvider.unGZip(responseBody.bytes()), charset));
                     if (code == HttpURLConnection.HTTP_NOT_FOUND) {
                         throw new FileNotFoundException(message);
                     } else {
