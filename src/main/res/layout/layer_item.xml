@@ -78,7 +78,8 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/url_legend"
                     android:minHeight="32dp"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                    android:textAppearance="?android:attr/textAppearanceSmall" 
+                    android:inputType="textNoSuggestions" />
             </HorizontalScrollView>
             <TextView
                 android:id="@+id/overlay_legend"
