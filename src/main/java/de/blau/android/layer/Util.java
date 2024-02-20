@@ -1,9 +1,12 @@
 package de.blau.android.layer;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.prefs.AdvancedPrefDatabase;
+import de.blau.android.resources.TileLayerDatabase;
+import de.blau.android.resources.TileLayerSource;
 
 public final class Util {
     /**
@@ -54,5 +57,16 @@ public final class Util {
             }
         }
         db.insertLayer(position, layerType, true, id);
+    }
+    
+    /**
+     * Fill/Re-Fill the in memory imagery lists
+     * 
+     * @param context an Android context
+     */
+    public static void populateImageryLists(@NonNull final Context context) {
+        try (TileLayerDatabase tlDb = new TileLayerDatabase(context); SQLiteDatabase db = tlDb.getReadableDatabase()) {
+            TileLayerSource.getListsLocked(context, db, true); // recreate in memory lists
+        }
     }
 }

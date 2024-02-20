@@ -542,6 +542,14 @@ public class TileLayerDialog extends ImmersiveDialogFragment {
                         de.blau.android.layer.Util.addImageryLayer(db, db.getLayers(), isOverlay, layerId);
                     }
                 }
+                // update the in memory lists async
+                new ExecutorTask<Void, Void, Void>() {
+                    @Override
+                    protected Void doInBackground(Void input) throws Exception {
+                        de.blau.android.layer.Util.populateImageryLists(activity);
+                        return null;
+                    }
+                }.execute();
                 update(TileLayerDialog.this);
                 getDialog().dismiss();
             }
