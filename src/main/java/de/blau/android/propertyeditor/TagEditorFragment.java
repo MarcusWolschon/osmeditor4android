@@ -1217,6 +1217,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                         // potentially we should update tagValues here
                         updateAutocompletePresetItem(rowLayout, null, true);
                     }
+                    row.valueEdit.post(() -> row.valueEdit.dismissDropDown());
                 }
             }
         });
@@ -1258,6 +1259,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             }
         };
         row.keyEdit.addTextChangedListener(textWatcher);
+
         final TextWatcher valueTextWatcher = new TextWatcher() {
 
             @Override
@@ -1320,7 +1322,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     }
 
     /**
-     * Set the valueand recreate the autocomplete adapter
+     * Set the value and recreate the autocomplete adapter
      * 
      * If the there are multiple values set them all to the same
      * 
@@ -1336,10 +1338,6 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         }
         final String key = row.getKey();
         row.setValues(key, newValues, true);
-        row.post(() -> {
-            row.valueEdit.dismissDropDown();
-            row.valueEdit.setAdapter(getValueAutocompleteAdapter(getPreset(key), rowLayout, row));
-        });
     }
 
     /**
