@@ -213,6 +213,7 @@ public class IntentsTest {
         RemoteControlUrlActivity rc = (RemoteControlUrlActivity) instrumentation.waitForMonitorWithTimeout(rcMonitor, 60000);
         assertNotNull(rc);
         takeRequests();
+        TestUtils.clickAwayTip(device, main);
         assertNotNull(App.getDelegator().getOsmElement(Node.NAME, 101792984L));
         assertTrue(18 <= main.getMap().getZoomLevel());
         assertEquals(101792984L, App.getLogic().getSelectedNode().getOsmId());
@@ -229,7 +230,7 @@ public class IntentsTest {
             mockServerNotes.server().takeRequest(10L, TimeUnit.SECONDS);
             mockServerOsmose.server().takeRequest(10L, TimeUnit.SECONDS);
             // processing the downloads takes time
-            TestUtils.sleep(30000);
+            TestUtils.sleep(10000);
         } catch (InterruptedException e) {
             fail(e.getMessage());
         }

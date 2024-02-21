@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.After;
 import org.junit.Before;
@@ -45,6 +46,8 @@ import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import okhttp3.HttpUrl;
 import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.MockWebServer;
+import okhttp3.mockwebserver.RecordedRequest;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
@@ -148,10 +151,17 @@ public class UploadConflictTest {
      */
     @Test
     public void severElementAlreadyDeleted() {
-        versionConflict("conflict2", new String[] { "410" }, false, -1);
-        mockServer.enqueue("200");
-        assertTrue(TestUtils.findText(device, false, main.getString(R.string.progress_uploading_message), 10000));
-        TestUtils.sleep(5000);
+        versionConflict("conflict2", new String[] { "410", "200" }, false, -1);
+        try {
+            final MockWebServer server = mockServer.server();
+            server.takeRequest(10L, TimeUnit.SECONDS);
+            server.takeRequest(10L, TimeUnit.SECONDS);
+            server.takeRequest(10L, TimeUnit.SECONDS);
+            server.takeRequest(10L, TimeUnit.SECONDS);
+            RecordedRequest request = server.takeRequest(10L, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            fail(e.getMessage());
+        }
         assertNull(App.getDelegator().getApiStorage().getWay(210461100L));
         assertNull(App.getDelegator().getOsmElement(Way.NAME, 210461100L));
     }

@@ -1,5 +1,7 @@
 package de.blau.android;
 
+import static org.junit.Assert.assertNotNull;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -58,6 +60,7 @@ public class UndoRedoTest {
         map.getViewBox().fitToBoundingBox(map, map.getDataLayer().getExtent());
         logic.updateStyle();
         map.getDataLayer().setVisible(true);
+        TestUtils.zoomToLevel(device, main, 20);
         map.invalidate();
         TestUtils.unlock(device);
         device.waitForWindowUpdate(null, 2000);
@@ -78,11 +81,13 @@ public class UndoRedoTest {
     // @SdkSuppress(minSdkVersion = 26)
     @Test
     public void dialog() {
-        TestUtils.clickAtCoordinates(device, map, 8.38782, 47.390339, true);
-        TestUtils.clickText(device, true, context.getString(R.string.okay), true, false); // Tip
-        TestUtils.clickText(device, false, "↓ Toilets", false, false);
+        Node node = (Node) App.getDelegator().getOsmElement(Node.NAME, 3465444349L);
+        assertNotNull(node);
+        TestUtils.clickAtCoordinates(device, map, node.getLon(), node.getLat(), true);
+        TestUtils.clickAwayTip(device, context); 
+        TestUtils.clickTextContains(device, "Toilets", false, 5000);
         TestUtils.sleep();
-        Node node = App.getLogic().getSelectedNode();
+        node = App.getLogic().getSelectedNode();
         Assert.assertNotNull(node);
         Assert.assertEquals(3465444349L, node.getOsmId());
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));

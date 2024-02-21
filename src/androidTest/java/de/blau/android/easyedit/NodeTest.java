@@ -25,7 +25,6 @@ import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.TestUtils;
-import de.blau.android.layer.MapViewLayer;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.StorageDelegator;
@@ -65,11 +64,12 @@ public class NodeTest {
         logic.deselectAll();
         TestUtils.loadTestData(main, "test2.osm");
         TestUtils.stopEasyEdit(main);
-        TestUtils.unlock(device);
         map.getViewBox().fitToBoundingBox(map, map.getDataLayer().getExtent());
         logic.updateStyle();
         map.getDataLayer().setVisible(true);
+        TestUtils.zoomToLevel(device, main, 20);
         map.invalidate();
+        TestUtils.unlock(device);
         device.waitForWindowUpdate(null, 2000);
     }
 
@@ -88,10 +88,12 @@ public class NodeTest {
     // @SdkSuppress(minSdkVersion = 26)
     @Test
     public void selectNode() {
-        TestUtils.clickAtCoordinates(device, map, 8.38782, 47.390339, true);
+        Node node = (Node) App.getDelegator().getOsmElement(Node.NAME, 3465444349L);
+        assertNotNull(node);
+        TestUtils.clickAtCoordinates(device, map, node.getLon(), node.getLat(), true);
         TestUtils.clickAwayTip(device, context); 
-        assertTrue(TestUtils.clickText(device, false, "↓ Toilets", true, false, 5000));
-        Node node = App.getLogic().getSelectedNode();
+        assertTrue(TestUtils.clickTextContains(device, "Toilets", true, 5000));
+        node = App.getLogic().getSelectedNode();
         assertNotNull(node);
         assertEquals(3465444349L, node.getOsmId());
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
@@ -120,7 +122,7 @@ public class NodeTest {
     public void dragNode() {
         TestUtils.clickAtCoordinates(device, map, 8.38782, 47.390339, true);
         TestUtils.clickAwayTip(device, context); 
-        assertTrue(TestUtils.clickText(device, false, "↓ Toilets", true, false, 5000));
+        assertTrue(TestUtils.clickTextContains(device, "Toilets", true, 5000));
         Node node = App.getLogic().getSelectedNode();
         assertNotNull(node);
         assertEquals(3465444349L, node.getOsmId());
@@ -163,7 +165,7 @@ public class NodeTest {
 
         TestUtils.clickAtCoordinates(device, map, 8.3874964, 47.3884769, false);
         TestUtils.clickAwayTip(device, context); 
-        assertTrue(TestUtils.clickText(device, false, "↓ #633468419", false, false)); // the first node in the list
+        assertTrue(TestUtils.clickTextContains(device, false, " #633468419", false)); // the first node in the list
         assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.menu_merge), false, true));
 
         List<Way> waysAfter = logic.getWaysForNode(node);
@@ -191,7 +193,7 @@ public class NodeTest {
 
         TestUtils.clickAtCoordinates(device, map, 8.3866386, 47.3904394, false);
         TestUtils.clickAwayTip(device, context); 
-        assertTrue(TestUtils.clickText(device, false, "↓ #-2221", false, false)); // the first node in the list
+        assertTrue(TestUtils.clickTextContains(device, false, " #-2221", false)); // the first node in the list
         assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.menu_merge), false, true));
 
         // merge all

@@ -89,8 +89,8 @@ public class ExtendedSelectionTest {
         TestUtils.sleep(2000);
         TestUtils.clickAtCoordinates(device, map, 8.38782, 47.390339, true);
         TestUtils.clickText(device, true, context.getString(R.string.okay), true, false); // Tip
-        TestUtils.findText(device, false, "↓ Toilets", 10000);
-        assertTrue(TestUtils.clickText(device, false, "↓ Toilets", true, false));
+        TestUtils.findText(device, false, " Toilets", 10000, true);
+        assertTrue(TestUtils.clickTextContains(device, false, " Toilets", true));
         Node node = App.getLogic().getSelectedNode();
         assertNotNull(node);
         assertEquals(3465444349L, node.getOsmId());
@@ -103,7 +103,7 @@ public class ExtendedSelectionTest {
         // double clicking doesn't currently work reliably in tests TestUtils.doubleClickAtCoordinates(device, map,
         // 8.3877977, 47.3897371, true); // NOSONAR
         TestUtils.clickAtCoordinates(device, map, 8.3877977, 47.3897371, true);
-        assertTrue(TestUtils.clickText(device, false, "↓ Excrement", false, false));
+        assertTrue(TestUtils.clickTextContains(device, false, " Excrement", false));
         assertEquals(2, logic.getSelectedNodes().size());
         TestUtils.zoomToLevel(device, main, 22);
         TestUtils.drag(device, map, 8.3877977, 47.3897371, 8.3879, 47.38967, true, 100);
@@ -128,7 +128,7 @@ public class ExtendedSelectionTest {
         TestUtils.zoomToLevel(device, main, 21);
         TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
         TestUtils.clickText(device, true, context.getString(R.string.okay), true, false); // Tip
-        assertTrue(TestUtils.clickText(device, false, "↓ Path", false, false));
+        assertTrue(TestUtils.clickTextContains(device, false, " Path", false));
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
         Way way = App.getLogic().getSelectedWay();
         assertNotNull(way);
@@ -139,7 +139,7 @@ public class ExtendedSelectionTest {
         TestUtils.clickAtCoordinates(device, map, 8.3899934, 47.3898778, true);
         TestUtils.textGone(device, context.getString(R.string.menu_split), 1);
         TestUtils.clickAtCoordinates(device, map, 8.3899204, 47.3898603, true);
-        assertTrue(TestUtils.clickText(device, false, "↙ Path", false, false));
+        assertTrue(TestUtils.clickTextContains(device, false, " Path", false));
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
         assertTrue(TestUtils.clickOverflowButton(device));
         TestUtils.scrollTo(context.getString(R.string.menu_extend_selection), false);

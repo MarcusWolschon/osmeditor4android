@@ -99,7 +99,7 @@ public class RelationTest {
         TestUtils.zoomToLevel(device, main, 21);
         TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
         TestUtils.clickAwayTip(device, context);
-        assertTrue(TestUtils.clickText(device, false, "↓ Hiking", false, false));
+        assertTrue(TestUtils.clickTextContains(device, false, " Hiking", false));
         List<Relation> rels = App.getLogic().getSelectedRelations();
         assertNotNull(rels);
         assertEquals(1, rels.size());
@@ -135,8 +135,8 @@ public class RelationTest {
         TestUtils.zoomToLevel(device, main, 21);
         TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
         TestUtils.clickAwayTip(device, context);
-        assertTrue(TestUtils.findText(device, false, "↓ Path", 2000));
-        assertTrue(TestUtils.clickText(device, false, "↓ Path", false, false));
+        assertTrue(TestUtils.findText(device, false, " Path", 2000, true));
+        assertTrue(TestUtils.clickTextContains(device, false, " Path", false));
         Way way = App.getLogic().getSelectedWay();
         assertNotNull(way);
         assertEquals(104148456L, way.getOsmId());
@@ -252,7 +252,7 @@ public class RelationTest {
         assertTrue(outer.getElement().getTags().isEmpty()); // tags have been moved
         // select another building add add it to the MP
         TestUtils.sleep();
-        TestUtils.clickAtCoordinates(device, map, 8.3884429, 47.3887624, true);
+        TestUtils.clickAtCoordinates(device, map, 8.3883904, 47.3887929, true);
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
         assertTrue(TestUtils.clickOverflowButton(device));
         TestUtils.scrollTo(context.getString(R.string.tag_menu_addtorelation), true);
@@ -260,11 +260,11 @@ public class RelationTest {
         assertTrue(TestUtils.clickText(device, false, "Address Bergstrasse 40", true, false));
         // finish again
         TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
-        // assertTrue(TestUtils.findText(device, false, context.getString(R.string.remove), 5000));
-        // assertTrue(TestUtils.clickText(device, false, context.getString(R.string.remove), true, false));
         TestUtils.sleep(2000);
+        monitor = instrumentation.addMonitor(PropertyEditorActivity.class.getName(), null, false);
         TestUtils.clickButton(device, "android:id/button1", true);
-        TestUtils.sleep(2000);
+        propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
+        TestUtils.findText(device, false, context.getString(R.string.menu_tags), 5000);
         TestUtils.clickHome(device, true); // exit property editor
         outerMembers = relation.getMembersWithRole(Tags.ROLE_OUTER);
         assertEquals(3, outerMembers.size());

@@ -106,7 +106,7 @@ public class ReadSaveDataTest {
                 Assert.fail(e.getMessage());
             }
         } finally {
-            output.delete();
+           // output.delete();
         }
     }
 

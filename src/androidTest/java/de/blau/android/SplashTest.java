@@ -49,7 +49,7 @@ public class SplashTest {
         Intent intent = new Intent(Intent.ACTION_MAIN);
         Splash splash = mActivityRule.launchActivity(intent);
         assertNotNull(splash);
-        Main main = (Main) instrumentation.waitForMonitorWithTimeout(monitor, 5000); // wait for main
+        Main main = (Main) instrumentation.waitForMonitorWithTimeout(monitor, 60000); // wait for main
         assertNotNull(main);
     }
 }

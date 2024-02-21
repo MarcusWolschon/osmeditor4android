@@ -435,7 +435,6 @@
   <node id='1963251749' timestamp='2012-10-13T19:38:02Z' uid='92387' user='SimonPoole' visible='true' version='1' changeset='13483681' lat='47.3885637' lon='8.3875113' />
   <node id='1963251751' timestamp='2012-10-13T19:38:02Z' uid='92387' user='SimonPoole' visible='true' version='1' changeset='13483681' lat='47.3886817' lon='8.387562' />
   <node id='1963251753' timestamp='2012-10-13T19:38:02Z' uid='92387' user='SimonPoole' visible='true' version='1' changeset='13483681' lat='47.3891351' lon='8.3868408' />
-  <node id='1963251756' timestamp='2012-10-13T19:38:02Z' uid='92387' user='SimonPoole' visible='true' version='1' changeset='13483681' lat='47.3892265' lon='8.3869854' />
   <node id='1963251763' timestamp='2012-10-13T19:38:02Z' uid='92387' user='SimonPoole' visible='true' version='1' changeset='13483681' lat='47.3893001' lon='8.3871235' />
   <node id='1963251766' timestamp='2012-10-13T19:38:02Z' uid='92387' user='SimonPoole' visible='true' version='1' changeset='13483681' lat='47.3893453' lon='8.3868553' />
   <node id='1963251768' timestamp='2012-10-13T19:38:02Z' uid='92387' user='SimonPoole' visible='true' version='1' changeset='13483681' lat='47.3893855' lon='8.3872177' />
@@ -1661,7 +1660,6 @@
   </way>
   <way id='185670974' timestamp='2012-10-13T19:38:05Z' uid='92387' user='SimonPoole' visible='true' version='1' changeset='13483681'>
     <nd ref='1963251753' />
-    <nd ref='1963251756' />
     <nd ref='1963251763' />
     <nd ref='1963251768' />
     <tag k='highway' v='service' />

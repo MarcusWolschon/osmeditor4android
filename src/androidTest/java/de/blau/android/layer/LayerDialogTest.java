@@ -172,9 +172,10 @@ public class LayerDialogTest {
         TestUtils.zoomToLevel(device, main, 22);
         String dataLayerName = map.getDataLayer().getName();
         StorageDelegator delegator = App.getDelegator();
-        assertEquals(929, delegator.getCurrentStorage().getNodeCount());
-        assertEquals(99, delegator.getCurrentStorage().getWayCount());
-        assertEquals(5, delegator.getCurrentStorage().getRelationCount());
+        // as view port may vary, do this a fuzzy
+        assertEquals(929, delegator.getCurrentStorage().getNodeCount(), 1);
+        assertEquals(99, delegator.getCurrentStorage().getWayCount(), 1);
+        assertEquals(5, delegator.getCurrentStorage().getRelationCount(), 1);
         TestUtils.unlock(device);
         TestUtils.clickAtCoordinates(device, map, 8.38782, 47.390339, true);
         assertTrue(TestUtils.findText(device, false, main.getString(R.string.actionmode_nodeselect)));

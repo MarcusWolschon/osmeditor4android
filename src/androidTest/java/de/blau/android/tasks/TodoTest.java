@@ -97,7 +97,7 @@ public class TodoTest {
     public void addAndCloseTodo() {
         TestUtils.clickAtCoordinates(device, map, 8.38782, 47.390339, true);
         TestUtils.clickText(device, true, context.getString(R.string.okay), true, false); // Tip
-        assertTrue(TestUtils.clickText(device, false, "↓ Toilets", true, false, 5000));
+        assertTrue(TestUtils.clickTextContains(device, " Toilets", true, 5000));
         Node node = App.getLogic().getSelectedNode();
         assertNotNull(node);
         assertEquals(3465444349L, node.getOsmId());

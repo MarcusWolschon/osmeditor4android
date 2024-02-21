@@ -1,7 +1,11 @@
 package de.blau.android;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -68,6 +72,11 @@ public class KeyboardTest {
         TestUtils.zoomToNullIsland(logic, map);
         TestUtils.loadTestData(main, "test2.osm");
         TestUtils.stopEasyEdit(main);
+        map.getDataLayer().setVisible(true);
+        TestUtils.zoomToLevel(device, main, 20);
+        map.invalidate();
+        TestUtils.unlock(device);
+        device.waitForWindowUpdate(null, 2000);
     }
 
     /**
@@ -97,7 +106,7 @@ public class KeyboardTest {
 
         device.pressKeyCode(KeyEvent.KEYCODE_PLUS);
         TestUtils.sleep();
-        Assert.assertNotEquals(viewBox, App.getLogic().getViewBox());
+        assertNotEquals(viewBox, App.getLogic().getViewBox());
 
         device.pressKeyCode(KeyEvent.KEYCODE_MINUS);
         TestUtils.sleep();
@@ -112,12 +121,12 @@ public class KeyboardTest {
         device.pressKeyCode(KeyEvent.KEYCODE_VOLUME_UP);
         TestUtils.sleep();
         boxIsEqual(viewBox, App.getLogic().getViewBox());
-        
+
         // volume keys should zoom
         prefs.setZoomWithKeys(true);
         device.pressKeyCode(KeyEvent.KEYCODE_VOLUME_DOWN);
         TestUtils.sleep();
-        Assert.assertNotEquals(viewBox, App.getLogic().getViewBox());
+        assertNotEquals(viewBox, App.getLogic().getViewBox());
 
         device.pressKeyCode(KeyEvent.KEYCODE_VOLUME_UP);
         TestUtils.sleep();
@@ -125,28 +134,28 @@ public class KeyboardTest {
 
         device.pressDPadRight();
         TestUtils.sleep();
-        Assert.assertNotEquals(viewBox, App.getLogic().getViewBox());
+        assertNotEquals(viewBox, App.getLogic().getViewBox());
         device.pressDPadLeft();
         TestUtils.sleep();
         boxIsEqual(viewBox, App.getLogic().getViewBox());
 
         device.pressDPadLeft();
         TestUtils.sleep();
-        Assert.assertNotEquals(viewBox, App.getLogic().getViewBox());
+        assertNotEquals(viewBox, App.getLogic().getViewBox());
         device.pressDPadRight();
         TestUtils.sleep();
         boxIsEqual(viewBox, App.getLogic().getViewBox());
 
         device.pressDPadUp();
         TestUtils.sleep();
-        Assert.assertNotEquals(viewBox, App.getLogic().getViewBox());
+        assertNotEquals(viewBox, App.getLogic().getViewBox());
         device.pressDPadDown();
         TestUtils.sleep();
         boxIsEqual(viewBox, App.getLogic().getViewBox());
 
         device.pressDPadDown();
         TestUtils.sleep();
-        Assert.assertNotEquals(viewBox, App.getLogic().getViewBox());
+        assertNotEquals(viewBox, App.getLogic().getViewBox());
         device.pressDPadUp();
         TestUtils.sleep();
         boxIsEqual(viewBox, App.getLogic().getViewBox());
@@ -166,57 +175,57 @@ public class KeyboardTest {
         TestUtils.unlock(device);
 
         TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
-        TestUtils.clickText(device, true, context.getString(R.string.okay), true, false); // Tip
-        Assert.assertTrue(TestUtils.clickText(device, false, "↓ Path", false, false));
+        TestUtils.clickAwayTip(device, context);
+        assertTrue(TestUtils.clickTextContains(device, "Path", true, 5000));
         Way way = App.getLogic().getSelectedWay();
-        Assert.assertNotNull(way);
-        Assert.assertEquals(104148456L, way.getOsmId());
-        Assert.assertTrue(TestUtils.findText(device, false, WAY_SELECTED));
+        assertNotNull(way);
+        assertEquals(104148456L, way.getOsmId());
+        assertTrue(TestUtils.findText(device, false, WAY_SELECTED));
 
         ActivityMonitor monitor = instrumentation.addMonitor(PropertyEditorActivity.class.getName(), null, false);
 
         device.pressKeyCode(KeyEvent.KEYCODE_E, KeyEvent.META_CTRL_ON);
 
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        Assert.assertTrue(propertyEditor instanceof PropertyEditorActivity);
+        assertTrue(propertyEditor instanceof PropertyEditorActivity);
         instrumentation.removeMonitor(monitor);
 
-        Assert.assertTrue(TestUtils.clickHome(device, true));
-        Assert.assertTrue(TestUtils.findText(device, false, WAY_SELECTED));
+        assertTrue(TestUtils.clickHome(device, true));
+        assertTrue(TestUtils.findText(device, false, WAY_SELECTED));
 
         device.pressKeyCode(KeyEvent.KEYCODE_R, KeyEvent.META_CTRL_ON);
-        Assert.assertTrue(TestUtils.textGone(device, WAY_SELECTED, 1000));
+        assertTrue(TestUtils.textGone(device, WAY_SELECTED, 1000));
 
-        Assert.assertTrue(TestUtils.clickText(device, false, "Delete Way", true));
+        assertTrue(TestUtils.clickText(device, false, "Delete Way", true));
 
-        Assert.assertEquals(OsmElement.STATE_DELETED, way.getState());
+        assertEquals(OsmElement.STATE_DELETED, way.getState());
         device.pressKeyCode(KeyEvent.KEYCODE_U, KeyEvent.META_CTRL_ON);
         TestUtils.sleep();
-        Assert.assertEquals(OsmElement.STATE_UNCHANGED, way.getState());
+        assertEquals(OsmElement.STATE_UNCHANGED, way.getState());
         TestUtils.clickText(device, false, "Ok", false); // in case we get a tip
 
         TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
-        Assert.assertTrue(TestUtils.clickText(device, false, "↓ Path", false, false));
+        assertTrue(TestUtils.clickText(device, false, "↓ Path", false, false));
         way = App.getLogic().getSelectedWay();
-        Assert.assertNotNull(way);
-        Assert.assertEquals(104148456L, way.getOsmId());
-        Assert.assertTrue(TestUtils.findText(device, false, WAY_SELECTED));
+        assertNotNull(way);
+        assertEquals(104148456L, way.getOsmId());
+        assertTrue(TestUtils.findText(device, false, WAY_SELECTED));
 
         device.pressKeyCode(KeyEvent.KEYCODE_C, KeyEvent.META_CTRL_ON);
         TestUtils.sleep();
         device.pressKeyCode(KeyEvent.KEYCODE_V, KeyEvent.META_CTRL_ON);
         way = App.getLogic().getSelectedWay();
-        Assert.assertNotNull(way);
-        Assert.assertTrue(way.getOsmId() < 0);
+        assertNotNull(way);
+        assertTrue(way.getOsmId() < 0);
 
         monitor = instrumentation.addMonitor(HelpViewer.class.getName(), null, false);
         device.pressKeyCode(KeyEvent.KEYCODE_H, KeyEvent.META_CTRL_ON);
         Activity helpViewer = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        Assert.assertTrue(helpViewer instanceof HelpViewer);
+        assertTrue(helpViewer instanceof HelpViewer);
         instrumentation.removeMonitor(monitor);
-        Assert.assertTrue(TestUtils.findText(device, false, WAY_SELECTED));
+        assertTrue(TestUtils.findText(device, false, WAY_SELECTED));
         device.pressBack();
-        Assert.assertTrue(TestUtils.findText(device, false, WAY_SELECTED));
+        assertTrue(TestUtils.findText(device, false, WAY_SELECTED));
         TestUtils.clickUp(device);
     }
 
@@ -230,9 +239,9 @@ public class KeyboardTest {
         ActivityMonitor monitor = instrumentation.addMonitor(HelpViewer.class.getName(), null, false);
         device.pressKeyCode(KeyEvent.KEYCODE_H, KeyEvent.META_CTRL_ON);
         Activity helpViewer = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        Assert.assertTrue(helpViewer instanceof HelpViewer);
+        assertTrue(helpViewer instanceof HelpViewer);
         instrumentation.removeMonitor(monitor);
-        Assert.assertTrue(TestUtils.findText(device, false, "Main Vespucci Screen", 2000));
+        assertTrue(TestUtils.findText(device, false, "Main Vespucci Screen", 2000));
         device.pressBack();
         device.pressKeyCode(KeyEvent.KEYCODE_X, KeyEvent.META_CTRL_ON);
     }
@@ -244,9 +253,9 @@ public class KeyboardTest {
      * @param box2 second box
      */
     private void boxIsEqual(@NonNull ViewBox box, @NonNull ViewBox box2) {
-        Assert.assertEquals(box.getLeft(), box2.getLeft(), 10);
-        Assert.assertEquals(box.getRight(), box2.getRight(), 10);
-        Assert.assertEquals(box.getBottom(), box2.getBottom(), 10);
-        Assert.assertEquals(box.getTop(), box2.getTop(), 10);
+        assertEquals(box.getLeft(), box2.getLeft(), 10);
+        assertEquals(box.getRight(), box2.getRight(), 10);
+        assertEquals(box.getBottom(), box2.getBottom(), 10);
+        assertEquals(box.getTop(), box2.getTop(), 10);
     }
 }

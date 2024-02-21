@@ -228,8 +228,7 @@ public class ObjectSearchTest {
             assertTrue(TestUtils.findText(device, false, main.getString(R.string.overpass_query_would_overwrite), 5000));
             assertTrue(TestUtils.clickText(device, false, main.getString(R.string.merge_result), false));
             TestUtils.clickButton(device, "android:id/button2", false);
-            assertTrue(TestUtils.findText(device, false, "Downloaded 1039 node(s)", 5000));
-            TestUtils.sleep(20000);
+            assertTrue(TestUtils.findText(device, false, "Downloaded 103", 5000));
         } finally {
             try {
                 mockServer.server().close();

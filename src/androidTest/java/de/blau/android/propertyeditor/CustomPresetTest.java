@@ -92,11 +92,12 @@ public class CustomPresetTest {
     @Test
     public void driveway() {
         map.getDataLayer().setVisible(true);
-        TestUtils.zoomToLevel(device, main, 23);
+
+        TestUtils.zoomToLevel(device, main, 21);
         TestUtils.unlock(device);
 
         TestUtils.clickAtCoordinates(device, main.getMap(), 8.3869798, 47.3892145, true);
-        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect), 5000));
         Way w = App.getLogic().getSelectedWay();
         assertNotNull(w);
         assertEquals(185670974L, w.getOsmId());
@@ -129,7 +130,7 @@ public class CustomPresetTest {
         }
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.okay), true, false));
         // go to tag form tab
-        assertTrue(TestUtils.clickText(device, true, main.getString( R.string.menu_tags), false, false));
+        assertTrue(TestUtils.clickText(device, true, main.getString(R.string.menu_tags), false, false));
         // go to preset tab
         assertTrue(TestUtils.findText(device, true, main.getString(R.string.tag_menu_preset), 2000));
         if (!((PropertyEditorActivity) propertyEditor).usingPaneLayout()) {

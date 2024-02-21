@@ -10,6 +10,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -235,13 +236,23 @@ public class TransferMenuTest {
         assertTrue(App.getDelegator().getApiStorage().isEmpty());
         mockServer.enqueue(CAPABILITIES1_FIXTURE);
         mockServer.enqueue(DOWNLOAD1_FIXTURE);
-        
+
         TestUtils.clickMenuButton(device, main.getString(R.string.menu_transfer), false, true);
         TestUtils.clickText(device, false, main.getString(R.string.menu_enable_pan_and_zoom_auto_download), true, false);
-        
+
         TestUtils.clickAwayTip(device, context);
-        TestUtils.sleep();
-        assertNotNull(App.getDelegator().getOsmElement(Node.NAME, 101792984));
+        ViewBox viewBox = main.getMap().getViewBox();
+        TestUtils.drag(device, main.getMap(), viewBox.getCenter()[0] / 1E7D, viewBox.getCenter()[1] / 1E7D, viewBox.getCenter()[0] / 1E7D + 0.001,
+                viewBox.getCenter()[1] / 1E7D + 0.0001, false, 10);
+
+        try {
+            mockServer.server().takeRequest(5, TimeUnit.SECONDS);
+            mockServer.server().takeRequest(5, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            fail(e.getMessage());
+        }
+        TestUtils.sleep(2000);
+        assertNotNull(App.getDelegator().getOsmElement(Node.NAME, 101792984L));
     }
 
     /**

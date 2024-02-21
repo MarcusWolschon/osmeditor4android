@@ -733,6 +733,19 @@ public final class TestUtils {
     }
 
     /**
+     * Click a text on screen
+     * 
+     * @param device UiDevice object
+     * @param text text to search (case insensitive, uses textStartsWith)
+     * @param waitForNewWindow set the wait for new window flag if true
+     * @param wait how long to wait for the object to appear in ms
+     * @return true if successful
+     */
+    public static boolean clickTextContains(@NonNull UiDevice device, @NonNull String text, boolean waitForNewWindow, long wait) {
+        return clickTextContains(device, false, text, waitForNewWindow, wait);
+    }
+
+    /**
      * Click a text on screen (case sensitive, any position in a string)
      * 
      * @param device UiDevice object
@@ -742,6 +755,20 @@ public final class TestUtils {
      * @return true if successful
      */
     public static boolean clickTextContains(@NonNull UiDevice device, boolean clickable, @NonNull String text, boolean waitForNewWindow) {
+        return clickTextContains(device, clickable, text, waitForNewWindow, 500);
+    }
+
+    /**
+     * Click a text on screen (case sensitive, any position in a string)
+     * 
+     * @param device UiDevice object
+     * @param clickable clickable if true the search will be restricted to clickable objects
+     * @param text text to search (case sensitive, uses textContains)
+     * @param waitForNewWindow set the wait for new window flag if true
+     * @param wait how long to wait for the object to appear in ms
+     * @return true if successful
+     */
+    public static boolean clickTextContains(@NonNull UiDevice device, boolean clickable, @NonNull String text, boolean waitForNewWindow, long wait) {
         Log.w(DEBUG_TAG, "Searching for object with " + text);
         //
         BySelector bySelector = null;
@@ -754,7 +781,7 @@ public final class TestUtils {
             bySelector = By.textContains(text);
             uiSelector = new UiSelector().textContains(text);
         }
-        device.wait(Until.findObject(bySelector), 500);
+        device.wait(Until.findObject(bySelector), wait);
         UiObject button = device.findObject(uiSelector);
         if (button.exists()) {
             try {
@@ -1557,6 +1584,7 @@ public final class TestUtils {
                     found = device.wait(Until.hasObject(By.textContains(message)), 5000);
                 }
             }
+            scrollToStartsWith("CLEAR ALL", false);
             UiObject2 clearAll = device.findObject(By.text(Pattern.compile("CLEAR ALL", Pattern.CASE_INSENSITIVE)));
             if (clearAll != null) {
                 clearAll.click();

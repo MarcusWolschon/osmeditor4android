@@ -119,7 +119,7 @@ public class DownloadActivityTest {
                 }
             }
             assertTrue(found);
-            TestUtils.clickHome(device, true);
+            TestUtils.clickHome(device, false);
         }
     }
 }
