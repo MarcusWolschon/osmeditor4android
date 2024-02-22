@@ -15,7 +15,6 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -1494,27 +1493,6 @@ public class Server {
         }
     }
 
-    /**
-     * Retrieve a single note
-     * 
-     * @param id the id of the Note to retrieve
-     * @return the Note, null if not found or other error
-     */
-    @Nullable
-    public Note getNote(long id) {
-        // http://openstreetbugs.schokokeks.org/api/0.1/getGPX?b=48&t=49&l=11&r=12&limit=100
-        Log.d(DEBUG_TAG, "getNote");
-        try (InputStream is = openConnection(null, getNoteUrl(Long.toString(id)))) {
-            XmlPullParser parser = xmlParserFactory.newPullParser();
-            parser.setInput(new BufferedInputStream(is, StreamUtils.IO_BUFFER_SIZE), null);
-            List<Note> result = Note.parseNotes(parser, null);
-            return !result.isEmpty() ? result.get(0) : null;
-        } catch (XmlPullParserException | IOException | OutOfMemoryError | NumberFormatException e) {
-            Log.e(DEBUG_TAG, "getNote", e);
-            return null;
-        }
-    }
-
     // The note 10597 was closed at 2017-09-24 17:59:18 UTC
     private static final Pattern ERROR_MESSAGE_NOTE_ALREADY_CLOSED = Pattern.compile("(?i)The note ([0-9]+) was closed at.*");
     //
@@ -1557,13 +1535,26 @@ public class Server {
                             return;
                         }
                         throwOsmServerException(response);
-                    } else {
+                    } else if (responseCode == HttpURLConnection.HTTP_GONE) {
+                        hiddenNote(bug);
+                        return;
+                    }else {
                         throwOsmServerException(response);
                     }
                 }
                 parseBug(bug, response.body().byteStream());
             }
         }
+    }
+
+    /**
+     * If the note was hidden on the server delete it locally
+     * 
+     * @param bug the hidden Node
+     */
+    private void hiddenNote(@NonNull Note bug) {
+        Log.d(DEBUG_TAG, "note was hidden on server");
+        App.getTaskStorage().delete(bug);
     }
 
     // TODO rewrite to XML encoding
@@ -1619,6 +1610,9 @@ public class Server {
                             return;
                         }
                         throwOsmServerException(response);
+                    } else if (responseCode == HttpURLConnection.HTTP_GONE) {
+                        hiddenNote(bug);
+                        return;
                     } else {
                         throwOsmServerException(response);
                     }
@@ -1654,6 +1648,9 @@ public class Server {
                             return;
                         }
                         throwOsmServerException(response);
+                    } else if (responseCode == HttpURLConnection.HTTP_GONE) {
+                        hiddenNote(bug);
+                        return;
                     } else {
                         throwOsmServerException(response);
                     }
