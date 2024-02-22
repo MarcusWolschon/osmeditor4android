@@ -1,5 +1,7 @@
 package de.blau.android.util;
 
+import java.io.ByteArrayInputStream;
+
 import android.annotation.TargetApi;
 import android.net.Uri;
 import android.os.Build;
@@ -10,6 +12,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import de.blau.android.contract.MimeTypes;
 
 /**
  * Class to handle some of the deprecations in Androids WebViewClient
@@ -18,7 +21,7 @@ import androidx.annotation.Nullable;
  *
  */
 public abstract class UpdatedWebViewClient extends WebViewClient {
-
+ 
     @SuppressWarnings("deprecation")
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) { // nOSONAR
@@ -64,6 +67,15 @@ public abstract class UpdatedWebViewClient extends WebViewClient {
     @Nullable
     protected WebResourceResponse handleIntercept(WebView view, Uri uri) { // NOSONAR
         return null;
+    }
+
+    /**
+     * Create and return an empty WebResourceResponse
+     * 
+     * @return an empty response
+     */
+    protected WebResourceResponse emptyResponse() {
+        return new WebResourceResponse(MimeTypes.TEXTPLAIN, "utf-8", new ByteArrayInputStream("".getBytes()));
     }
 
     @SuppressWarnings("deprecation")

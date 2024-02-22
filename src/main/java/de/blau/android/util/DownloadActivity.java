@@ -107,7 +107,7 @@ public class DownloadActivity extends WebViewActivity {
         @Override
         protected WebResourceResponse handleIntercept(WebView view, Uri uri) {
             if (FAVICON.equals(uri.getLastPathSegment())) {
-                return new WebResourceResponse(MimeTypes.PNG, "utf-8", new ByteArrayInputStream("".getBytes()));
+                return emptyResponse();
             }
             return super.handleIntercept(view, uri);
         }
