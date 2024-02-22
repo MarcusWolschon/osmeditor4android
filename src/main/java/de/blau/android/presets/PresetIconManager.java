@@ -112,15 +112,14 @@ public class PresetIconManager implements Serializable {
      */
     @Nullable
     public BitmapDrawable getDrawable(@Nullable String url, int size) {
-        if (url == null) {
-            return null;
+        if (url != null) {
+            try (InputStream stream = openStreamForIcon(url)) {
+                return bitmapDrawableFromStream(context, size, stream, isSvg(url));
+            } catch (Exception e) {
+                Log.e(DEBUG_TAG, "Failed to load preset icon " + url, e);
+            }
         }
-        try (InputStream stream = openStreamForIcon(url)) {
-            return bitmapDrawableFromStream(context, size, stream, isSvg(url));
-        } catch (Exception e) {
-            Log.e(DEBUG_TAG, "Failed to load preset icon " + url, e);
-            return null;
-        }
+        return null;
     }
 
     /**
@@ -172,20 +171,21 @@ public class PresetIconManager implements Serializable {
      * @param stream the InputStream
      * @param isSvg the input stream is from an SVG format icon
      * @return a BitmapDrawable
+     * @throws IOException on IO issues
+     * @throws SVGParseException if SVG parsing failed
      */
-    @Nullable
-    public static BitmapDrawable bitmapDrawableFromStream(@NonNull Context context, int size, @NonNull InputStream stream, boolean isSvg) {
-        try {
-            Bitmap bitmap = isSvg ? bitmapFromSVG(stream) : BitmapFactory.decodeStream(stream);
-            bitmap.setDensity(Bitmap.DENSITY_NONE);
-            BitmapDrawable drawable = new BitmapDrawable(context.getResources(), bitmap);
-            int pxsize = Density.dpToPx(context, size);
-            drawable.setBounds(0, 0, pxsize, pxsize);
-            return drawable;
-        } catch (SVGParseException | IOException e) {
-            Log.e(DEBUG_TAG, "Unable to parse svg icon " + e.getMessage());
-            return null;
+    @NonNull
+    public static BitmapDrawable bitmapDrawableFromStream(@NonNull Context context, int size, @NonNull InputStream stream, boolean isSvg)
+            throws SVGParseException, IOException {
+        Bitmap bitmap = isSvg ? bitmapFromSVG(stream) : BitmapFactory.decodeStream(stream);
+        if (bitmap == null) {
+            throw new IOException("Unable to decode icon");
         }
+        bitmap.setDensity(Bitmap.DENSITY_NONE);
+        BitmapDrawable drawable = new BitmapDrawable(context.getResources(), bitmap);
+        int pxsize = Density.dpToPx(context, size);
+        drawable.setBounds(0, 0, pxsize, pxsize);
+        return drawable;
     }
 
     /**
