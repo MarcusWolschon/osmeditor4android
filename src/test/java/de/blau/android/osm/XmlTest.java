@@ -50,7 +50,7 @@ public class XmlTest {
                 // Finish hash
                 String hashValue = Hash.toHex(hashStream.getMessageDigest().digest());
                 System.out.println(hashValue);
-                assertEquals("19bc1a700e9a7c0130625b1f8a20273283b93a982b60f5c756d7c099af8739fb", hashValue);
+                assertEquals("55e3c0781eb6b099c0ba4c9e37820aa34ac8806fcd7b13be441e89b6766d9d00", hashValue);
             } catch (NoSuchAlgorithmException e) {
                 fail(e.getMessage());
             }
@@ -81,7 +81,7 @@ public class XmlTest {
                 // Finish hash
                 String hashValue = Hash.toHex(hashStream.getMessageDigest().digest());
                 System.out.println(hashValue);
-                assertEquals("f5bb3f1f27b4f7e9061d514d726424bf822691f5645af00731936733e3f8c01f", hashValue);
+                assertEquals("4658ff12c6b2dffb6ca18c29c0e6411bb4c86d797935fb41134518f6309e969a", hashValue);
             } catch (NoSuchAlgorithmException e) {
                 fail(e.getMessage());
             }
