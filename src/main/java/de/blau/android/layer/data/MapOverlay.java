@@ -1246,8 +1246,8 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
                 iconDrawable = PresetIconManager.bitmapDrawableFromStream(context, ICON_SIZE_DP, stream, PresetIconManager.isSvg(iconPath));
                 customIconCache.put(iconPath, iconDrawable);
                 return iconDrawable;
-            } catch (IOException e) {
-                Log.w(DEBUG_TAG, "Icon " + iconPath + " not found");
+            } catch (Exception e) {
+                Log.w(DEBUG_TAG, "Icon " + iconPath + " not found or can't be parsed " + e.getMessage());
             }
         }
         // search in all presets
