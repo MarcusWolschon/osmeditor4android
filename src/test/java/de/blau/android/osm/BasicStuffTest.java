@@ -150,7 +150,7 @@ public class BasicStuffTest {
         //
 
         try {
-            logic.setTags(null, eNotInStorage, tags);
+            logic.setTags(null, eNotInStorage.getName(), eNotInStorage.getOsmId(), tags);
             Assert.fail("Element not in storage should fail");
         } catch (OsmIllegalOperationException e) {
             // carry on

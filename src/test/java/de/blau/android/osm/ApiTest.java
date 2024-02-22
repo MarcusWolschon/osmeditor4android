@@ -98,7 +98,7 @@ public class ApiTest {
 
         @Override
         public void onError(AsyncResult result) {
-            fail("Expected success");
+            fail("Expected success " + result.getCode() + " " + result.getMessage());
         }
     };
 
