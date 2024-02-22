@@ -2300,7 +2300,8 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             } else if (removeElement instanceof Way) {
                 // we replace nodes here since we are iterating over the ways anyway
                 // and we have to collect all replacements first above
-                for (Node nd : ((Way) removeElement).getNodes()) {
+                List<Node> nodes = new ArrayList<>(((Way) removeElement).getNodes());
+                for (Node nd : nodes) {
                     Node replacement = replacedNodes.get(nd.getOsmId());
                     if (replacement != null) {
                         ((Way) removeElement).replaceNode(nd, replacement);
