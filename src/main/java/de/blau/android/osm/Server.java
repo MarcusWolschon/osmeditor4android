@@ -1606,7 +1606,7 @@ public class Server {
                         Matcher m = ERROR_MESSAGE_NOTE_ALREADY_CLOSED.matcher(message);
                         if (m.matches()) {
                             String idStr = m.group(1);
-                            Log.d(DEBUG_TAG, "closeNode note " + idStr + " was already closed");
+                            Log.d(DEBUG_TAG, "closeNote note " + idStr + " was already closed");
                             return;
                         }
                         throwOsmServerException(response);
