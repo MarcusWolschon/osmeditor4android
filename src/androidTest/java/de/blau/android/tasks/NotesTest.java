@@ -3,6 +3,7 @@ package de.blau.android.tasks;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -18,6 +19,8 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import com.orhanobut.mockwebserverplus.MockWebServerPlus;
 
 import android.app.Instrumentation;
 import android.content.Context;
@@ -41,8 +44,10 @@ import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.TestUtils;
 import de.blau.android.layer.LayerType;
+import de.blau.android.prefs.API;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
+import okhttp3.HttpUrl;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
@@ -50,13 +55,14 @@ public class NotesTest {
 
     private static final String TEST_RESULT_OSN = "test-result.osn";
 
-    Context              context = null;
-    AdvancedPrefDatabase prefDB  = null;
-    Main                 main    = null;
-    TaskStorage          ts      = null;
-    UiDevice             device  = null;
-    private Map          map     = null;
-    private Preferences  prefs   = null;
+    Context                   context = null;
+    AdvancedPrefDatabase      prefDB  = null;
+    Main                      main    = null;
+    TaskStorage               ts      = null;
+    UiDevice                  device  = null;
+    private Map               map     = null;
+    private Preferences       prefs   = null;
+    private MockWebServerPlus mockServer;
 
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
@@ -70,6 +76,12 @@ public class NotesTest {
         context = instrumentation.getTargetContext();
         device = UiDevice.getInstance(instrumentation);
         main = mActivityRule.getActivity();
+        mockServer = new MockWebServerPlus();
+        HttpUrl mockBaseUrl = mockServer.server().url("/api/0.6/");
+        prefDB = new AdvancedPrefDatabase(context);
+        prefDB.deleteAPI("Test");
+        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, "user", "pass", API.Auth.BASIC);
+        prefDB.selectAPI("Test");
         prefs = new Preferences(context);
         LayerUtils.removeImageryLayers(context);
         map = main.getMap();
@@ -101,8 +113,15 @@ public class NotesTest {
      */
     @After
     public void teardown() {
+        try {
+            mockServer.server().shutdown();
+        } catch (IOException ioex) {
+            System.out.println("Stopping mock webserver exception " + ioex); // NOSONAR
+        }
         prefDB.selectAPI(AdvancedPrefDatabase.ID_DEFAULT);
         prefDB.close();
+        ts = App.getTaskStorage();
+        ts.reset();
     }
 
     /**
@@ -128,7 +147,7 @@ public class NotesTest {
     }
 
     /**
-     * Add a comment to an existing note and then reove it
+     * Add a comment to an existing note and then remove it
      */
     // @SdkSuppress(minSdkVersion = 26)
     @Test
@@ -137,13 +156,7 @@ public class NotesTest {
         List<Task> tasks = App.getTaskStorage().getTasks();
         // see previous test
         assertEquals(59, tasks.size());
-        Task t = null;
-        for (int i = 0; i < tasks.size(); i++) {
-            t = tasks.get(i);
-            if (t instanceof Note && ((Note) t).getId() == 893035L) {
-                break;
-            }
-        }
+        Task t = findTask(tasks, 893035L);
         if (t == null) { // just to avoid annoying sonar messages
             fail("t is null");
             return;
@@ -167,8 +180,8 @@ public class NotesTest {
         assertTrue(TestUtils.clickText(device, true, context.getString(R.string.Save), true, false));
         TestUtils.sleep();
         assertEquals("test", ((Note) t).getLastComment().getText());
-       assertTrue(((Note) t).hasBeenChanged());
-     
+        assertTrue(((Note) t).hasBeenChanged());
+
         TestUtils.clickAtCoordinates(device, map, t.getLon(), t.getLat(), true); // NOSONAR
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.openstreetbug_edit_title)));
         editText = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/openstreetbug_comment"));
@@ -182,5 +195,60 @@ public class NotesTest {
         TestUtils.sleep();
         assertEquals(lastComment, ((Note) t).getLastComment().getText());
         assertFalse(((Note) t).hasBeenChanged());
+    }
+
+    /**
+     * Close an exiting note and try to upload it, which fails because it is hidden
+     */
+    // @SdkSuppress(minSdkVersion = 26)
+    @Test
+    public void closeAndUploadNote() {
+        readNotes(device, main);
+        List<Task> tasks = App.getTaskStorage().getTasks();
+        // see previous test
+        assertEquals(59, tasks.size());
+        Task t = findTask(tasks, 893035L);
+        if (t == null) { // just to avoid annoying sonar messages
+            fail("t is null");
+            return;
+        }
+        assertTrue(t.isOpen());
+        assertFalse(((Note) t).hasBeenChanged());
+
+        TestUtils.zoomToLevel(device, main, 21);
+        TestUtils.unlock(device);
+        TestUtils.sleep(2000);
+
+        TestUtils.clickAtCoordinates(device, map, t.getLon(), t.getLat(), true);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.openstreetbug_edit_title), 5000));
+
+        assertTrue(TestUtils.clickResource(device, false, device.getCurrentPackageName() + ":id/openstreetbug_state", true));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.closed), true));
+        
+        mockServer.enqueue("410"); // hidden note
+        assertTrue(TestUtils.clickText(device, true, context.getString(R.string.transfer_download_current_upload), true, false));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.openstreetbug_commit_ok), 5000));
+        assertFalse(t.isOpen());
+        assertFalse(((Note) t).hasBeenChanged());
+        TestUtils.sleep(5000);
+        assertFalse(App.getTaskStorage().getTasks().contains(t));
+    }
+
+    /**
+     * Get a specific note from the tasks
+     * 
+     * @param tasks task container
+     * @param id note id
+     * @return the Note or null
+     */
+    private Task findTask(@NonNull List<Task> tasks, long id) {
+        Task t = null;
+        for (int i = 0; i < tasks.size(); i++) {
+            t = tasks.get(i);
+            if (t instanceof Note && ((Note) t).getId() == id) {
+                break;
+            }
+        }
+        return t;
     }
 }
