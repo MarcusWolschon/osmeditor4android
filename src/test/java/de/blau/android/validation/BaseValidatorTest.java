@@ -126,7 +126,7 @@ public class BaseValidatorTest {
         OsmElementFactory factory = d.getFactory();
         Node n = factory.createNodeWithNewId(0, 0);
         Map<String, String> tags = new HashMap<>();
-        tags.put(Tags.KEY_RAILWAY, "platform");
+        tags.put(Tags.KEY_LANDUSE, "greenhouse_horticulture");
         tags.put(Tags.KEY_WHEELCHAIR, Tags.VALUE_NO);
         d.setTags(n, tags);
         int result = v.validate(n);
