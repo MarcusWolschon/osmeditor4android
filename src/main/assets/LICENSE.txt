@@ -25,15 +25,15 @@ Thanks to:
 
 and everybody helping with translation on Transifex and anyone else we forgot!
 
-The Vespucci application, excluding the GPLv3-only preset icons found in the folder assets/images/presets, is licensed under the Apache License, version 2. You can find the full text of the license in the file "LICENSE-Apache.txt". The Apache License version 2 allows to use the covered work in a GPLv3 work.
+The Vespucci application is licensed under the Apache License, version 2. You can find the full text of the license in the file "LICENSE-Apache.txt". The Apache License version 2 allows to use the covered work in a GPLv3 work.
 
-The full project contains a small number of icons taken from the JOSM project under the GPLv3. Therefore, the full package, consisting of Vespucci and the bundled preset icons, is licensed under the GPLv3. You can find the full text of the GPLv3 in the file "LICENSE-GPL3.txt". The list of contributors and sources for the icons can be found in the "josm-contributors.txt" file.
+The default preset configuration file (but not the icons) is derived from the original JOSM source, the licence terms are not completely clear but are either CC BY-SA or GPLv3. You can find the full text of the GPLv3 in the file "LICENSE-GPL3.txt". The list of contributors and sources for the icons can be found in the "josm-contributors.txt" file.
 
 The source code may be obtained from github at https://github.com/MarcusWolschon/osmeditor4android.
 
 If you want to use Vespucci under the Apache License, you need to remove the GPLv3-only content, i.e. delete assets/images/presets, the application will remain functional.
 
-OAuth support for Vespucci is provided by the oauth-signpost library https://github.com/mttkay/signpost licensed under the Apache License, version 2.
+OAuth 1.0a support for Vespucci is provided by the oauth-signpost library https://github.com/mttkay/signpost licensed under the Apache License, version 2.
 
 Credits:
 
