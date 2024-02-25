@@ -47,6 +47,7 @@ import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.Tags;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.PresetEditorActivity;
+import de.blau.android.prefs.PresetLoader;
 import de.blau.android.util.Hash;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SearchIndexUtils;
@@ -1507,12 +1508,11 @@ public class Preset implements Serializable {
      * This is for the taginfo project repo
      * 
      * @param ctx Android Context
+     * @pamam array of presets to dump
      * @param output the File to save to
      * @return true if things worked
      */
-    public static boolean generateTaginfoJson(@NonNull Context ctx, @NonNull File output) {
-        Preset[] presets = App.getCurrentPresets(ctx);
-
+    public static boolean generateTaginfoJson(@NonNull Context ctx, @NonNull Preset[] presets, @NonNull File output) {
         try (FileOutputStream fout = new FileOutputStream(output); PrintStream outputStream = new PrintStream(new BufferedOutputStream(fout))) {
             outputStream.println("{");
             outputStream.println("\"data_format\":1,");
