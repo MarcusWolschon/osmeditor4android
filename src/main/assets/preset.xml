@@ -4047,7 +4047,7 @@
                 </combo>
                 <reference ref="water_body"/>
             </item> <!-- Other water bodies -->
-            <item name="Coastline" icon="presets/coastline.png" type="way,closedway" preset_name_label="true">
+            <item name="Coastline" icon="icons/png/water_coastline.png" type="way,closedway" preset_name_label="true">
                 <link wiki="Tag:natural=coastline"/>
                 <space/>
                 <label text="Line between the sea and land (with the water on the right side of the way)."/>
@@ -4055,7 +4055,7 @@
                 <key key="natural" value="coastline"/>
                 <reference ref="optional_name_wikipedia"/>
             </item> <!-- Coastline -->
-            <item name="Riverbank" icon="presets/waterway.png" type="closedway,multipolygon" preset_name_label="true" deprecated="true">
+            <item name="Riverbank" icon="icons/png/water_riverbank.png" type="closedway,multipolygon" preset_name_label="true" deprecated="true">
                 <link wiki="Tag:waterway=riverbank"/>
                 <space/>
                 <key key="waterway" value="riverbank"/>
@@ -4084,7 +4084,7 @@
                     <list_entry value="wet_meadow" short_description="Wet meadow"/>
                 </combo>
             </item> <!-- Wetland -->
-            <item name="Mud" icon="presets/mud.png" type="closedway,multipolygon" preset_name_label="true">
+            <item name="Mud" icon="icons/png/water_mud.png" type="closedway,multipolygon" preset_name_label="true">
                 <link wiki="Tag:natural=mud"/>
                 <space/>
                 <label text="Large area covered with mud."/>
@@ -4108,7 +4108,7 @@
                     <reference ref="nudism"/>
                 </optional>
             </item> <!-- Beach -->
-            <item name="Bay" icon="presets/bay.png" type="node,way,closedway,multipolygon" preset_name_label="true">
+            <item name="Bay" icon="icons/png/water_bay.png" type="node,way,closedway,multipolygon" preset_name_label="true">
                 <link wiki="Tag:natural=bay"/>
                 <space/>
                 <label text="An area of water mostly surrounded by land but with level connection to the ocean or a lake."/>
@@ -12636,7 +12636,7 @@
             <reference ref="population_postcode_website"/>
         </item> <!-- Farm -->
         <separator/>
-        <item name="Locality" icon="icons/png/poi_empty.png" type="node,closedway,multipolygon,relation" preset_name_label="true">
+        <item name="Locality" icon="icons/png/poi_place_locality.png" type="node,closedway,multipolygon,relation" preset_name_label="true">
             <link wiki="Tag:place=locality"/>
             <space/>
             <key key="place" value="locality"/>
@@ -13065,7 +13065,7 @@
             <key key="crop" value="grape" match="keyvalue"/>
             <reference ref="optional_name"/>
         </item> <!-- Vineyard -->
-        <item name="Greenhouse Horticulture" icon="presets/greenhouse_horticulture.png" type="closedway,multipolygon" preset_name_label="true">
+        <item name="Greenhouse Horticulture" icon="icons/png/landuse_greenhouse.png" type="closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:landuse=greenhouse_horticulture"/>
             <space/>
             <key key="landuse" value="greenhouse_horticulture"/>
@@ -13238,7 +13238,7 @@
             <reference ref="optional_name"/>
             <combo key="industrial" text="Type" values="bakery,brewery,brickyard,depot,distributor,factory,grinding_mill,heating_station,machine_shop,mine,oil,port,salt_pond,sawmill,scrap_yard,shipyard,slaughterhouse,warehouse,wellsite" display_values="Bakery,Brewery,Brickyard,Depot,Distributor,Factory,Grinding mill,Heating station,Machine shop,Mine,Oil,Port,Salt pond,Sawmill,Scrap yard,Shipyard,Slaughterhouse,Warehouse,Well site" editable="true" values_context="industrial" match="key"/>
         </item> <!-- Industrial area -->
-        <item name="Garages" icon="presets/garages.png" type="closedway,multipolygon" name_context="Landuse" preset_name_label="true">
+        <item name="Garages" icon="icons/png/landuse_garages.png" type="closedway,multipolygon" name_context="Landuse" preset_name_label="true">
             <link wiki="Tag:landuse=garages"/>
             <space/>
             <key key="landuse" value="garages"/>
@@ -13267,7 +13267,7 @@
                 <list_entry value="retail" display_value="Retail" icon="icons/png/landuse_supermarket.png" icon_size="16"/>
                 <list_entry value="commercial" display_value="Commercial" icon="icons/png/natural_empty.png" icon_size="16"/>
                 <list_entry value="industrial" display_value="Industrial" icon="icons/png/landuse_works_22087.png"/>
-                <list_entry value="garages" display_value="Garages" icon="presets/garages.png"/>
+                <list_entry value="garages" display_value="Garages" icon="icons/png/landuse_garages.png"/>
                 <list_entry value="railway" display_value="Railway Land" icon="icons/png/landuse_train_station.png" icon_size="16"/>
                 <list_entry value="military" display_value="Military" icon="icons/png/landuse_military.png" icon_size="16"/>
                 <list_entry value="religous" display_value="Religious" icon="icons/png/landuse_religous.png"/>
@@ -13346,7 +13346,7 @@
                 <combo key="addr:state" text="State" text_context="addr:" values="AL,AK,AZ,AR,CA,CO,CT,DE,FL,GA,HI,ID,IL,IN,IA,KS,KY,LA,ME,MD,MA,MI,MN,MS,MO,MT,NE,NV,NH,NJ,NM,NY,NC,ND,OH,OK,OR,PA,RI,SC,SD,TN,TX,UT,VT,VA,WA,WV,WI,DC,AS,GU,MP,PR,UM,VI" use_last_as_default="force" match="key"/>
             </optional>
         </item> <!-- Address -->
-        <item name="Address Interpolation" icon="presets/interpolation.png" type="way" preset_name_label="true">
+        <item name="Address Interpolation" icon="icons/png/osm_interpolation.png" type="way" preset_name_label="true">
             <link wiki="Key:addr"/>
             <space/>
             <combo key="addr:interpolation" text="Numbering scheme" values="odd,even,all,alphabetic" display_values="Odd,Even,All,Alphabetic" sort_values="false" default="odd" match="key"/>
