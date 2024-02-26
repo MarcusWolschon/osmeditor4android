@@ -1,5 +1,6 @@
 package de.blau.android.osm;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 import static de.blau.android.util.Winding.COUNTERCLOCKWISE;
 import static de.blau.android.util.Winding.winding;
 
@@ -31,7 +32,8 @@ import de.blau.android.util.Util;
  */
 public class MergeAction {
 
-    private static final String DEBUG_TAG = MergeAction.class.getSimpleName().substring(0, Math.min(23, MergeAction.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, MergeAction.class.getSimpleName().length());
+    private static final String DEBUG_TAG = MergeAction.class.getSimpleName().substring(0, TAG_LEN);
 
     private final StorageDelegator delegator;
     private final OsmElement       mergeInto;
@@ -177,7 +179,7 @@ public class MergeAction {
             atBeginning = true;
             // check for direction dependent tags
             Map<String, String> dirTags = Reverse.getDirectionDependentTags(w2);
-            if (dirTags != null) {
+            if (!dirTags.isEmpty()) {
                 Reverse.reverseDirectionDependentTags(w2, dirTags, true);
                 mergeResult.addIssue(ReverseIssue.TAGSREVERSED);
             }
@@ -200,7 +202,7 @@ public class MergeAction {
             atBeginning = false;
             // check for direction dependent tags
             Map<String, String> dirTags = Reverse.getDirectionDependentTags(w2);
-            if (dirTags != null) {
+            if (!dirTags.isEmpty()) {
                 Reverse.reverseDirectionDependentTags(w2, dirTags, true);
                 mergeResult.addIssue(ReverseIssue.TAGSREVERSED);
             }
@@ -357,7 +359,7 @@ public class MergeAction {
         if (!otherInputRing.isEmpty() && winding(otherInputRing) == COUNTERCLOCKWISE) {
             // check for direction dependent tags
             Map<String, String> dirTags = Reverse.getDirectionDependentTags(p2);
-            if (dirTags != null) {
+            if (!dirTags.isEmpty()) {
                 Reverse.reverseDirectionDependentTags(p2, dirTags, true);
                 mergeResult.addIssue(ReverseIssue.TAGSREVERSED);
             }
