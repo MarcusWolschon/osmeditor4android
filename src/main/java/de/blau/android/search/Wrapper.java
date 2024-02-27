@@ -9,8 +9,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.SortedMap;
 
-import org.jetbrains.annotations.NotNull;
-
 import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -472,7 +470,7 @@ public class Wrapper implements Meta {
      * @param type element type
      * @param c the Condition that needs to be matched
      */
-    private <T extends OsmElement> void processElements(List<T> result, List<T> current, List<T> api, Type type, Condition c) {
+    private <T extends OsmElement> void processElements(@NonNull List<T> result, @NonNull List<T> current, @NonNull List<T> api, @NonNull Type type, @NonNull Condition c) {
         for (T e : current) {
             element = e;
             if (c.eval(type, this, e.getTags())) {
@@ -488,7 +486,7 @@ public class Wrapper implements Meta {
     }
 
     @Override
-    public @NotNull Meta wrap(Object arg0) {
+    public @NonNull Meta wrap(Object arg0) {
         if (context == null) {
             throw unsupported("unknown");
         }

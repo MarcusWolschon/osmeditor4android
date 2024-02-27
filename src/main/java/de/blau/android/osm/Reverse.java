@@ -1,5 +1,7 @@
 package de.blau.android.osm;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,7 +30,8 @@ import de.blau.android.search.Wrapper;
  *
  */
 final class Reverse {
-    private static final String DEBUG_TAG = Reverse.class.getSimpleName().substring(0, Math.min(23, Reverse.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Reverse.class.getSimpleName().length());
+    private static final String DEBUG_TAG = Reverse.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String LEFT_INFIX       = ":left:";
     private static final String RIGHT_INFIX      = ":right:";
@@ -41,15 +44,16 @@ final class Reverse {
     private static final String PERCENT          = "%";
     private static final String DEGREE           = "°";
 
-    private static Set<String> directionDependentKeys   = Collections
+    private static final Set<String> directionDependentKeys   = Collections
             .unmodifiableSet(new HashSet<>(Arrays.asList(Tags.KEY_ONEWAY, Tags.KEY_INCLINE, Tags.KEY_DIRECTION, Tags.KEY_CONVEYING, Tags.KEY_PRIORITY)));
-    private static Set<String> directionDependentValues = Collections
+    private static final Set<String> directionDependentValues = Collections
             .unmodifiableSet(new HashSet<>(Arrays.asList(Tags.VALUE_RIGHT, Tags.VALUE_LEFT, Tags.VALUE_FORWARD, Tags.VALUE_BACKWARD)));
 
-    private static Map<String, Condition> reverseExceptions = new HashMap<>();
+    private static final Map<String, Condition> reverseExceptions = new HashMap<>();
     static {
         try {
-            reverseExceptions.put(Tags.KEY_SIDE, compilePattern(Tags.KEY_HIGHWAY + "=" + Tags.VALUE_CYCLIST_WAITING_AID));
+            reverseExceptions.put(Tags.KEY_SIDE,
+                    compilePattern(Tags.KEY_HIGHWAY + "=" + Tags.VALUE_CYCLIST_WAITING_AID + " -child (type:way highway: (oneway? OR oneway=\"-1\"))"));
         } catch (JosmFilterParseException e) {
             Log.e(DEBUG_TAG, e.getMessage());
         }
@@ -70,7 +74,7 @@ final class Reverse {
      * @return map containing the tags
      */
     @NonNull
-    public static Map<String, String> getDirectionDependentTags(@NonNull OsmElement e) {
+    public static synchronized Map<String, String> getDirectionDependentTags(@NonNull OsmElement e) {
         Map<String, String> result = new TreeMap<>();
         Map<String, String> tags = e.getTags();
         for (Entry<String, String> entry : tags.entrySet()) {
@@ -96,6 +100,7 @@ final class Reverse {
     private static boolean matchExceptions(@NonNull OsmElement e, @NonNull String key) {
         Condition c = reverseExceptions.get(key);
         if (c != null) {
+            c.reset();
             Wrapper meta = new Wrapper();
             meta.setElement(e);
             return c.eval(Wrapper.toJosmFilterType(e), meta, e.getTags());

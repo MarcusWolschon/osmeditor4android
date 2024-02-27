@@ -303,7 +303,7 @@ android {
             }
             systemProperty 'robolectric.logging', 'stdout'
             maxHeapSize = "6120m"
-            maxParallelForks = 2
+            maxParallelForks = 4
             systemProperty 'test.manual', System.getProperty('test.manual')
         }
         unitTests.includeAndroidResources = true
