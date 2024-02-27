@@ -3,7 +3,6 @@ package de.blau.android.search;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -408,6 +407,7 @@ public class WrapperTest {
         assertNotNull(way);
         wrapper.setElement(way);
         assertTrue(wrapper.isParent(Type.NODE, wrapper, Util.wrapInList(node)));
+
         Way way2 = (Way) delegator.getOsmElement(Way.NAME, 111762730L);
         assertNotNull(way2);
         wrapper.setElement(way2);
@@ -425,8 +425,12 @@ public class WrapperTest {
      */
     @Test
     public void getMatchingElementsTest() {
+        Way way = (Way) delegator.getOsmElement(Way.NAME, 111762730L);
+        assertNotNull(way);
+        wrapper.setElement(way);
         List<Object> objects = wrapper.getMatchingElements(new Version(8));
         assertEquals(441, objects.size());
+        assertEquals(way, wrapper.getElement());
     }
 
     /**

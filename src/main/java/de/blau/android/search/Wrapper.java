@@ -13,6 +13,7 @@ import org.jetbrains.annotations.NotNull;
 
 import android.content.Context;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import ch.poole.osm.josmfilterparser.Condition;
 import ch.poole.osm.josmfilterparser.ElementState.State;
 import ch.poole.osm.josmfilterparser.Meta;
@@ -61,8 +62,18 @@ public class Wrapper implements Meta {
     /**
      * @param element the element to set
      */
-    public void setElement(OsmElement element) {
+    public void setElement(@NonNull OsmElement element) {
         this.element = element;
+    }
+
+    /**
+     * Get the current element
+     * 
+     * @return the current element
+     */
+    @Nullable
+    public OsmElement getElement() {
+        return element;
     }
 
     @Override
@@ -413,27 +424,28 @@ public class Wrapper implements Meta {
      * @return a SearchResult object
      */
     SearchResult getMatchingElementsInternal(@NonNull Condition c) {
+        OsmElement savedElement = element; // save this instead of instantating a new wrapper
         StorageDelegator delegator = App.getDelegator();
         SearchResult result = new SearchResult();
-
         for (Node n : delegator.getCurrentStorage().getNodes()) {
-            setElement(n);
+            element = n;
             if (c.eval(Type.NODE, this, n.getTags())) {
                 result.nodes.add(n);
             }
         }
         for (Way w : delegator.getCurrentStorage().getWays()) {
-            setElement(w);
+            element = w;
             if (c.eval(Type.WAY, this, w.getTags())) {
                 result.ways.add(w);
             }
         }
         for (Relation r : delegator.getCurrentStorage().getRelations()) {
-            setElement(r);
+            element = r;
             if (c.eval(Type.RELATION, this, r.getTags())) {
                 result.relations.add(r);
             }
         }
+        element = savedElement;
         return result;
     }
 
