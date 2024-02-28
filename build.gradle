@@ -670,7 +670,7 @@ dependencies {
     implementation "ch.poole:OpeningHoursFragment:0.13.4"
     implementation 'ch.poole.android:numberpicker:1.0.10'
     implementation 'ch.poole.android:numberpickerpreference:2.0.1'
-    implementation "ch.poole.osm:JosmFilterParser:0.9.1"
+    implementation "ch.poole.osm:JosmFilterParser:0.10.0"
     implementation "ch.poole.osm:JosmTemplateParser:0.2.0"
     implementation 'ch.poole.android:sprites:0.0.4'
     implementation 'ch.poole.android:indeterminate-checkbox:1.1.0@aar'
