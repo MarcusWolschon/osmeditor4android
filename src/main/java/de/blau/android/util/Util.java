@@ -446,7 +446,7 @@ public final class Util {
                 output.append("\n");
             }
             if ("li".equals(tag) && opening) {
-                output.append("\n\t•");
+                output.append("\n\t<b>&bull;</b>");
             }
         }
     }

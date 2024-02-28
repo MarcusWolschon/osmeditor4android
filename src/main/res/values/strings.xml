@@ -96,11 +96,43 @@
     <string name="duplicate_tag_key_title">Duplicate keys</string>
     <string name="duplicate_tag_key_message">You have added the following key more than once, this needs to be resolved before you can proceed:</string>
     <string name="select_file_picker_title">Select file picker</string>
-    <!--  -->
+    <!-- Newbie dialog -->
     <string name="welcome_title">Welcome</string>
-    <string name="welcome_message">Thank you for installing Vespucci.\n&lt;br&gt;&lt;br&gt;To get started you need to know three things:\n&lt;ul&gt;&lt;li&gt;tapping the lock icon in the upper left corner will switch between locked (no editing) and unlocked mode,&lt;/li&gt;&lt;li&gt;to edit OpenStreetMap you need to download the data for the area where you want to change something first (zoom in before attempting that),&lt;/li&gt;&lt;li&gt;to add a new object: tap the large green button and select what you want to add, then tap the position you want to locate it at.&lt;/li&gt;&lt;/ul&gt;\nYou are all set to go now. Start mapping and have fun!</string>
+    <string name="welcome_message">Thank you for installing Vespucci.\n&lt;br&gt;&lt;br&gt;Vespucci is a powerful tool for editing OpenStreetMap.
+        It supports nearly everything on mobile that you can accomplish with a desktop editor, this however comes with a certain level of complexity. 
+        The help pages on the device or online will answer most questions, if you need more support we recommend asking on Openstreetmaps community forum.
+        &lt;br&gt;&lt;br&gt;To get started you need to know three things:
+        &lt;ul&gt;&lt;li&gt;tapping the lock icon in the upper left corner will switch between locked (no editing) and unlocked mode.
+        &lt;/li&gt;&lt;li&gt;to add a new object tap the large green button and select what you want to add from the menu, then tap the position you want to locate it at.
+        &lt;/li&gt;&lt;li&gt;to open the nearby point of interest display drag the handle above the bottom menu bar up.
+        &lt;/li&gt;&lt;/ul&gt;
+        On the next page you can set some initial preferences that will make your journey with Vespucci more pleasant. 
+    </string>
     <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;Your device has \"soft keys\" that are hidden from view. Swipe from the bottom to show them again.</string>
+    <string name="welcome_settings_tab_text">To improve your initial experience we can configure some options right now,
+        you can skip this step and set individual preferences later if you want to.
+    </string>
+    <string name="welcome_use_imagery_text">Display aerial imagery\nfor your current location</string>
+    <string name="welcome_use_imagery_explanation">Aerial imagery sources are provided by third parties and it is unavoidable 
+        that they can access your current network address and the location you are viewing. If you have privacy concerns don\'t 
+        select this and we will display the standard OpenStreetMap map as the background.
+    </string>
+    <string name="welcome_auto_download_text">Automatically download data</string>
+    <string name="welcome_auto_download_explanation">"Automatically downloading OpenStreetMap data can cause significant mobile traffic.
+        If you are using a metered connection you might prefer to not enable this and manually download data for the area you want to work on.
+    </string>
+    <string name="welcome_pen_setup_text">Configure for pen or mouse usage</string>
+    <string name="welcome_pen_setup_explanation">If you are using a pen, a mouse or other pointing device, 
+        selecting this option will make editing more efficient.
+    </string>
+    <string name="welcome_authorize_text">Authorize now</string>
+    <string name="welcome_authorize_explanation">You need to authorize Vespucci to upload to your OpenStreetMap account. 
+        If you have your login and password handy you can start that automatically when you have completed this form, 
+        otherwise the process will start automatically the first time you upload edits.
+    </string>
     <string name="read_introduction">Read the introduction</string>
+    <string name="welcome_start">Start!</string>
+    <!--  -->
     <string name="upgrade_title">This is a new Vespucci version</string>
     <string name="upgrade_message">New features and behaviour are detailed in the release notes.</string>
     <string name="read_upgrade">Read about the new version</string>
