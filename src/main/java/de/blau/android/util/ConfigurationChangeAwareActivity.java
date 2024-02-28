@@ -13,8 +13,8 @@ public abstract class ConfigurationChangeAwareActivity extends AppCompatActivity
     public void onConfigurationChanged(Configuration newConfig) {
         Log.d(DEBUG_TAG, "onConfigurationChanged");
         super.onConfigurationChanged(newConfig);
+        final Configuration oldConfig = App.getConfiguration();
         App.setConfiguration(newConfig);
-        final Configuration oldConfig = getResources().getConfiguration();
         if (Util.themeChanged(App.getPreferences(this), oldConfig, newConfig)) {
             Log.d(DEBUG_TAG, "recreating activity " + this.getClass().getCanonicalName());
             recreate();
