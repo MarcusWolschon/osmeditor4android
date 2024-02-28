@@ -98,7 +98,11 @@ public final class TestUtils {
      * @param ctx Android context
      */
     public static void dismissStartUpDialogs(@NonNull UiDevice device, @NonNull Context ctx) {
-        clickText(device, true, ctx.getResources().getString(R.string.okay), false, false);
+        if (findText(device, false, ctx.getResources().getString(R.string.welcome_title))) {
+            clickText(device, true, ctx.getResources().getString(R.string.next), true, false);
+            clickResource(device, false, device.getCurrentPackageName() + ":id/authorize", false);
+            clickText(device, true, ctx.getResources().getString(R.string.welcome_start), true, false);
+        }
     }
 
     /**

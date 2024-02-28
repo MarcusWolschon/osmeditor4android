@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <de.blau.android.views.ExtendedViewPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:id="@+id/welcome_page"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:paddingLeft="?attr/dialogPreferredPadding"
+            android:paddingRight="?attr/dialogPreferredPadding"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/welcome_message"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" 
+                android:paddingTop="16dp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/settings_page"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="?attr/dialogPreferredPadding"
+            android:paddingRight="?attr/dialogPreferredPadding">
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fillViewport="true">
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="top">
+                    <TextView
+                        android:id="@+id/settings_tab_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="16dp"
+                        android:gravity="center_vertical"
+                        android:text="@string/welcome_settings_tab_text" />
+                    <TextView
+                        android:id="@+id/use_imagery_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/settings_tab_text"
+                        android:paddingTop="16dp"
+                        android:gravity="center_vertical"
+                        android:textStyle="bold"
+                        android:singleLine="false"
+                        android:text="@string/welcome_use_imagery_text" />
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/use_imagery"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:layout_alignBottom="@id/use_imagery_text"
+                        android:layout_alignEnd="@id/settings_tab_text"
+                        android:layout_alignRight="@id/settings_tab_text"
+                        android:layout_alignTop="@id/use_imagery_text"
+                        android:paddingTop="16dp"
+                        android:gravity="center_vertical"
+                        android:text="" />
+                    <TextView
+                        android:id="@+id/use_imagery_explanation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/use_imagery_text"
+                        android:gravity="center_vertical"
+                        android:textSize="12sp"
+                        android:singleLine="false"
+                        android:text="@string/welcome_use_imagery_explanation" />
+                    <TextView
+                        android:id="@+id/auto_download_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/use_imagery_explanation"
+                        android:paddingTop="16dp"
+                        android:gravity="center_vertical"
+                        android:textStyle="bold"
+                        android:singleLine="false"
+                        android:text="@string/welcome_auto_download_text" />
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/auto_download"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:layout_alignBottom="@id/auto_download_text"
+                        android:layout_alignEnd="@id/use_imagery"
+                        android:layout_alignRight="@id/use_imagery"
+                        android:layout_alignTop="@id/auto_download_text"
+                        android:paddingTop="16dp"
+                        android:gravity="center_vertical"
+                        android:text="" />
+                    <TextView
+                        android:id="@+id/auto_download_explanation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/auto_download_text"
+                        android:gravity="center_vertical"
+                        android:paddingTop="8dp"
+                        android:textSize="12sp"
+                        android:singleLine="false"
+                        android:text="@string/welcome_auto_download_explanation" />
+                    <TextView
+                        android:id="@+id/pen_setup_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/auto_download_explanation"
+                        android:paddingTop="16dp"
+                        android:gravity="center_vertical"
+                        android:textStyle="bold"
+                        android:singleLine="false"
+                        android:text="@string/welcome_pen_setup_text" />
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/pen_setup"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:layout_alignBottom="@id/pen_setup_text"
+                        android:layout_alignEnd="@id/auto_download"
+                        android:layout_alignRight="@id/auto_download"
+                        android:layout_alignTop="@id/pen_setup_text"
+                        android:paddingTop="16dp"
+                        android:gravity="center_vertical"
+                        android:text="" />
+                    <TextView
+                        android:id="@+id/pen_setup_explanation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/pen_setup_text"
+                        android:gravity="center_vertical"
+                        android:paddingTop="8dp"
+                        android:textSize="12sp"
+                        android:singleLine="false"
+                        android:text="@string/welcome_pen_setup_explanation" />
+                    <TextView
+                        android:id="@+id/authorize_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/pen_setup_explanation"
+                        android:paddingTop="16dp"
+                        android:gravity="center_vertical"
+                        android:textStyle="bold"
+                        android:singleLine="false"
+                        android:text="@string/welcome_authorize_text" />
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/authorize"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:layout_alignBottom="@id/authorize_text"
+                        android:layout_alignEnd="@id/pen_setup"
+                        android:layout_alignRight="@id/pen_setup"
+                        android:layout_alignTop="@id/authorize_text"
+                        android:paddingTop="16dp"
+                        android:gravity="center_vertical"
+                        android:checked="true"
+                        android:text="" />
+                    <TextView
+                        android:id="@+id/authorize_explanation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/authorize_text"
+                        android:gravity="center_vertical"
+                        android:paddingTop="8dp"
+                        android:textSize="12sp"
+                        android:singleLine="false"
+                        android:text="@string/welcome_authorize_explanation" />
+                </RelativeLayout>
+            </ScrollView>
+        </LinearLayout>
+    </de.blau.android.views.ExtendedViewPager>
+</LinearLayout>

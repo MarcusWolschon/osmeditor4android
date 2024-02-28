@@ -45,7 +45,7 @@ public class Preferences {
     private final boolean     isAntiAliasingEnabled;
     private final boolean     isKeepScreenOnEnabled;
     private final boolean     useBackForUndo;
-    private final boolean     largeDragArea;
+    private boolean           largeDragArea;
     private final boolean     tagFormEnabled;
     private String            scaleLayer;
     private String            mapProfile;
@@ -122,7 +122,7 @@ public class Preferences {
     private final int         maxOffsetDistance;
     private final Set<String> enabledValidations;
     private final int         autoNameCap;
-    private final boolean     wayNodeDragging;
+    private boolean           wayNodeDragging;
     private final boolean     splitWindowForPropertyEditor;
     private final boolean     useImperialUnits;
     private final boolean     supportPresetLabels;
@@ -140,7 +140,8 @@ public class Preferences {
     private final double      maxCircleSegment;
     private final double      minCircleSegment;
 
-    private static final String DEFAULT_MAP_PROFILE = "Color Round Nodes";
+    public static final String DEFAULT_MAP_STYLE     = "Color Round Nodes";
+    public static final String DEFAULT_PEN_MAP_STYLE = "Pen Round Nodes";
 
     private final SharedPreferences prefs;
 
@@ -435,6 +436,16 @@ public class Preferences {
     }
 
     /**
+     * Enable or disable the large drag area
+     * 
+     * @param enabled if true enable the large drag area
+     */
+    public void setLargeDragArea(boolean enabled) {
+        largeDragArea = enabled;
+        prefs.edit().putBoolean(r.getString(R.string.config_largeDragArea_key), enabled).commit();
+    }
+
+    /**
      * Get kind of scale that should be displayed
      * 
      * @return mode value from scale_values
@@ -463,7 +474,7 @@ public class Preferences {
         // check if we actually still have the profile
         if (DataStyle.getStyle(mapProfile) == null) {
             Log.w(DEBUG_TAG, "Style " + mapProfile + " missing, replacing by default");
-            setDataStyle(DataStyle.getStyle(DEFAULT_MAP_PROFILE) == null ? DataStyle.getBuiltinStyleName() : DEFAULT_MAP_PROFILE);
+            setDataStyle(DataStyle.getStyle(DEFAULT_MAP_STYLE) == null ? DataStyle.getBuiltinStyleName() : DEFAULT_MAP_STYLE);
         }
         return mapProfile;
     }
@@ -1672,6 +1683,16 @@ public class Preferences {
      */
     public boolean isWayNodeDraggingEnabled() {
         return wayNodeDragging;
+    }
+
+    /**
+     * Enable or disable the way node dragging
+     * 
+     * @param enabled if true enable way node dragging
+     */
+    public void setWayNodeDragging(boolean enabled) {
+        wayNodeDragging = enabled;
+        prefs.edit().putBoolean(r.getString(R.string.config_wayNodeDragging_key), enabled).commit();
     }
 
     /**
