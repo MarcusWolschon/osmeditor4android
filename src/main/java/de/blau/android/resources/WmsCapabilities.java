@@ -151,8 +151,11 @@ public class WmsCapabilities {
          * 
          * @param queryable set to true if the queryable attribute is 1
          */
-        LayerTemp(boolean queryable) {
+        LayerTemp(boolean queryable, @Nullable LayerTemp parent) {
             this.queryable = queryable;
+            if (parent != null) {
+                crs = parent.crs;
+            }
         }
     }
 
@@ -224,7 +227,7 @@ public class WmsCapabilities {
                     case LAYER:
                         current.group = true;
                         stateStack.push(currentState);
-                        layerStack.push(new LayerTemp(ONE.equals(attr.getValue(QUERYABLE))));
+                        layerStack.push(new LayerTemp(ONE.equals(attr.getValue(QUERYABLE)), current));
                         break;
                     case BOUNDING_BOX:
                         String tempCrs = attr.getValue(is130(wmsVersion) ? CRS : SRS);
@@ -290,7 +293,7 @@ public class WmsCapabilities {
                     case LAYER:
                         stateStack.push(currentState);
                         currentState = State.LAYER;
-                        layerStack.push(new LayerTemp(ONE.equals(attr.getValue(QUERYABLE))));
+                        layerStack.push(new LayerTemp(ONE.equals(attr.getValue(QUERYABLE)), current));
                         break;
                     default:
                         // ignore
@@ -353,8 +356,7 @@ public class WmsCapabilities {
                     case CRS:
                     case SRS:
                         String tempCrs = buffer.toString();
-                        if (TileLayerSource.EPSG_4326.equals(tempCrs)
-                                || (TileLayerSource.is3857compatible(tempCrs) && !TileLayerSource.EPSG_4326.equals(current.crs))) {
+                        if (TileLayerSource.isLatLon(tempCrs) || (TileLayerSource.is3857compatible(tempCrs) && !TileLayerSource.isLatLon(current.crs))) {
                             current.crs = tempCrs;
                         }
                         buffer = null;
@@ -368,7 +370,7 @@ public class WmsCapabilities {
                         }
                         break;
                     case LAYER:
-                        if (!current.group && current.name != null) {
+                        if (!current.group && current.name != null && current.queryable) {
                             try {
                                 Layer layer = constructLayer(layerStack);
                                 layers.add(layer);
@@ -525,8 +527,8 @@ public class WmsCapabilities {
             }
             if (t.boxCrs != null) {
                 try {
-                    if (TileLayerSource.EPSG_4326.equals(t.boxCrs)) {
-                        if (is130(wmsVersion)) {
+                    if (TileLayerSource.isLatLon(t.boxCrs)) {
+                        if (is130(wmsVersion) && TileLayerSource.EPSG_4326.equals(t.boxCrs)) { // flip axis
                             layer.extent = new BoundingBox(scaledDecimal(t.miny), scaledDecimal(t.minx), scaledDecimal(t.maxy), scaledDecimal(t.maxx));
                         } else {
                             layer.extent = new BoundingBox(scaledDecimal(t.minx), scaledDecimal(t.miny), scaledDecimal(t.maxx), scaledDecimal(t.maxy));

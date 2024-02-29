@@ -1164,8 +1164,9 @@
         <Name>50</Name>
         <Title><![CDATA[Aguas Continentales - ACO INTERMITENTE]]></Title>
         <Abstract><![CDATA[]]></Abstract>
-<SRS>EPSG:4326</SRS>
-<SRS>EPSG:3857</SRS>
+<!--  just use inherited values -->
+<!-- <SRS>EPSG:4326</SRS> -->
+<!-- <SRS>EPSG:3857</SRS> -->
  <!-- alias 3857 -->
 <SRS>EPSG:102100</SRS>
 <SRS>EPSG:54043</SRS>
