@@ -1919,7 +1919,7 @@ public class TileLayerSource implements Serializable {
         return builder.append(a).append(',').append(b).append(',').append(c).append(',').append(d).toString();
     }
 
-    private static final Pattern PROJ_IN_URL = Pattern.compile("[\\?\\&][sc]rs=(EPSG:[0-9]+)", Pattern.CASE_INSENSITIVE);
+    private static final Pattern PROJ_IN_URL = Pattern.compile("[\\?\\&][sc]rs=((?:EPSG|CRS):[0-9]+)", Pattern.CASE_INSENSITIVE);
 
     /**
      * Extract the proj parameter from a WMS url
