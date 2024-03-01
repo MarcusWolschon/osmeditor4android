@@ -350,7 +350,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
      * @param auth Authentication method
      */
     public synchronized void setAPIDescriptors(@NonNull String id, @NonNull String name, @NonNull String url, @Nullable String readonlyurl,
-            @Nullable String notesurl, Auth auth) {
+            @Nullable String notesurl, @NonNull Auth auth) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(NAME_COL, name);
@@ -359,7 +359,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
         values.put(NOTESURL_COL, notesurl);
         values.put(AUTH_COL, auth.ordinal());
         db.update(APIS_TABLE, values, WHERE_ID, new String[] { id });
-        if (auth != Auth.OAUTH1A) { // zap any key and secret
+        if (auth == Auth.BASIC) { // zap any key and secret
             values = new ContentValues();
             values.put(ACCESSTOKEN_COL, (String) null);
             values.put(ACCESSTOKENSECRET_COL, (String) null);

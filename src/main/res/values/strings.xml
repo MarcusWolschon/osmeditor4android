@@ -135,6 +135,10 @@
     <!--  -->
     <string name="upgrade_title">This is a new Vespucci version</string>
     <string name="upgrade_message">New features and behaviour are detailed in the release notes.</string>
+    <string name="upgrade_message_oauth2">&lt;br&gt;&lt;br&gt;&lt;b&gt;Important&lt;/b&gt;&lt;br&gt;Starting in June 2024 the OpenStreetMap API will no longer support Basic (login/password) and OAuth 1.0a authorisation. 
+        &lt;br&gt;&lt;br&gt;If you have your login and password available it would be a good idea to migrate your API configuration and re-authorize now, but you can always do it later manually.
+    </string> 
+    <string name="migrate_now">Migrate configuration now</string>
     <string name="read_upgrade">Read about the new version</string>
     <string name="progress_title">Loading</string>
     <string name="progress_message">Loading data into memory…</string>
