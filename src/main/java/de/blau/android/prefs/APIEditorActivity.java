@@ -407,9 +407,7 @@ public class APIEditorActivity extends URLListEditActivity {
 
         @Override
         public View getDropDownView(int position, View convertView, ViewGroup parent) {
-            View view = super.getView(position, convertView, parent);
-            ((TextView) view).setText(labels[position]);
-            return view;
+            return getView(position, convertView, parent);
         }
     }
 }

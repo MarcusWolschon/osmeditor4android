@@ -19,6 +19,7 @@ import de.blau.android.contract.Schemes;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.exception.OsmException;
 import de.blau.android.net.OAuth2Helper;
+import de.blau.android.net.OAuthHelper;
 import de.blau.android.net.OAuth1aHelper;
 import de.blau.android.osm.Server;
 import de.blau.android.prefs.API.Auth;
@@ -151,7 +152,7 @@ public class Authorize extends WebViewActivity {
             server.setOAuth(false); // ups something went wrong turn oauth off
             errorMessage = getString(R.string.toast_no_oauth, apiName);
         } catch (OAuthException e) {
-            errorMessage = OAuth1aHelper.getErrorMessage(this, e);
+            errorMessage = OAuthHelper.getErrorMessage(this, e);
         } catch (ExecutionException e) {
             errorMessage = getString(R.string.toast_oauth_communication);
         } catch (TimeoutException e) {

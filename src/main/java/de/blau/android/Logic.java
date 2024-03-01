@@ -3263,7 +3263,6 @@ public class Logic {
                     Log.e(DEBUG_TAG, "getElementsWithDeleted no connection", ex);
                     throw new OsmServerException(ErrorCodes.NO_CONNECTION, ex.getLocalizedMessage());
                 } catch (Exception ex) {
-                    ex.printStackTrace();
                     throw ex;
                 }
             }

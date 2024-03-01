@@ -1,6 +1,5 @@
 package de.blau.android.dialogs;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,7 +16,6 @@ import de.blau.android.Authorize;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
 import de.blau.android.contract.Urls;
-import de.blau.android.listener.DoNothingListener;
 import de.blau.android.osm.Server;
 import de.blau.android.prefs.API;
 import de.blau.android.prefs.API.Auth;

@@ -196,6 +196,9 @@ public class UploadConflict extends ImmersiveDialogFragment {
                 builder.setTitle(R.string.upload_conflict_message_referential);
                 TableLayout tl = (TableLayout) inflater.inflate(R.layout.missing_element_view, null);
                 ScrollView sv = (ScrollView) inflater.inflate(R.layout.element_info_view, null, false);
+                if (elementOnServer == null) {
+                    throw new IllegalStateException("elementOnSerer should not be null here");
+                }
                 sv = ElementInfo.createComparisionView(activity, sv, tp, null, null, res.getString(R.string.server_side_object), elementOnServer);
 
                 tl.setColumnStretchable(1, true);
@@ -252,6 +255,9 @@ public class UploadConflict extends ImmersiveDialogFragment {
                 // server element should always be available
                 //
                 builder.setTitle(R.string.upload_conflict_message_version);
+                if (elementOnServer == null) {
+                    throw new IllegalStateException("elementOnSerer should not be null here");
+                }
                 final RestartHandler restartHandler = new RestartHandler(activity,
                         activity.getString(R.string.toast_download_server_version_failed, elementLocal.getDescription()));
                 resolveActions.put(res.getString(R.string.use_local_version), () -> {
@@ -285,7 +291,6 @@ public class UploadConflict extends ImmersiveDialogFragment {
                     setMergedTags(activity, logic, elementLocal, elementLocal, elementOnServer, MergeAction.mergeTags(elementLocal, elementOnServer),
                             restartHandler);
                 });
-
                 resolveActions.put(res.getString(R.string.use_server_version), () -> resolveConflict(activity, logic, elementOnServer, elementLocal));
 
                 builder.setView(ElementInfo.createComparisionView(activity, (ScrollView) inflater.inflate(R.layout.element_info_view, null, false), tp,
@@ -378,7 +383,6 @@ public class UploadConflict extends ImmersiveDialogFragment {
             return dialog;
         } catch (Exception e) {
             Log.e(DEBUG_TAG, "Caught exception " + e);
-            e.printStackTrace();
             builder.setMessage(e.getLocalizedMessage());
             ACRAHelper.nocrashReport(e, e.getMessage());
         }
@@ -437,7 +441,7 @@ public class UploadConflict extends ImmersiveDialogFragment {
      * @param elementOnServer remote element
      * @param elementLocal local element
      */
-    private void resolveConflict(@NonNull final FragmentActivity activity, @NonNull final Logic logic, @Nullable final OsmElement elementOnServer,
+    private void resolveConflict(@NonNull final FragmentActivity activity, @NonNull final Logic logic, @NonNull final OsmElement elementOnServer,
             @NonNull final OsmElement elementLocal) {
         RestartHandler restartHandler = new RestartHandler(activity,
                 activity.getString(R.string.toast_download_server_version_failed, elementLocal.getDescription()));

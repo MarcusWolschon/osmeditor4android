@@ -84,7 +84,7 @@ public abstract class OAuthHelper {
         Log.d(DEBUG_TAG, "No matching API for " + apiName + "found");
     }
 
-    abstract ExecutorTask<?, ?, ?> getAccessTokenTask(@NonNull Context context, @NonNull Uri data, @NonNull PostAsyncActionHandler handler);
+    abstract ExecutorTask<Void, Void, ?> getAccessTokenTask(@NonNull Context context, @NonNull Uri data, @NonNull PostAsyncActionHandler handler);
 
     /**
      * @param context
@@ -107,7 +107,7 @@ public abstract class OAuthHelper {
      */
     public void getAccessToken(@NonNull final Context context, @NonNull Uri data, @NonNull PostAsyncActionHandler handler)
             throws TimeoutException, ExecutionException {
-        ExecutorTask<?, ?, ?> requester = getAccessTokenTask(context, data, handler);
+        ExecutorTask<Void, Void, ?> requester = getAccessTokenTask(context, data, handler);
         requester.execute();
         try {
             requester.get(TIMEOUT, TimeUnit.SECONDS);

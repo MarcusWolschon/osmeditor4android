@@ -35,6 +35,7 @@ public class KeyDatabaseHelper extends SQLiteOpenHelper {
     private static final int    DATABASE_VERSION = 4;
     private static final int    FIELD_COUNT      = 4;
     private static final String AND              = " AND ";
+    private static final String NAME_AND         = "=? AND ";
 
     private static final String KEYS_TABLE   = "keys";
     private static final String NAME_FIELD   = "name";
@@ -110,7 +111,7 @@ public class KeyDatabaseHelper extends SQLiteOpenHelper {
             values.put(ADD2_FIELD, add2);
             values.put(CUSTOM_FIELD, custom ? 1 : 0);
             try {
-                int count = db.update(KEYS_TABLE, values, NAME_FIELD + "=? AND " + TYPE_FIELD + "=?" + (!overwrite ? AND + CUSTOM_FIELD + "=0" : ""),
+                int count = db.update(KEYS_TABLE, values, NAME_FIELD + NAME_AND + TYPE_FIELD + "=?" + (!overwrite ? AND + CUSTOM_FIELD + "=0" : ""),
                         new String[] { name, type.toString() });
                 if (count == 0) {
                     db.insert(KEYS_TABLE, null, values);
@@ -129,7 +130,7 @@ public class KeyDatabaseHelper extends SQLiteOpenHelper {
      * @param type type of the entry
      */
     public static void deleteKey(@NonNull final SQLiteDatabase db, @NonNull String name, @NonNull EntryType type) {
-        db.delete(KEYS_TABLE, NAME_FIELD + "=? AND " + TYPE_FIELD + "=?", new String[] { name, type.toString() });
+        db.delete(KEYS_TABLE, NAME_FIELD + NAME_AND + TYPE_FIELD + "=?", new String[] { name, type.toString() });
     }
 
     /**
@@ -166,7 +167,7 @@ public class KeyDatabaseHelper extends SQLiteOpenHelper {
     public static OAuthConfiguration getOAuthConfiguration(@NonNull SQLiteDatabase db, @NonNull String name, @NonNull Auth auth) {
         final boolean oAuth1a = auth == Auth.OAUTH1A;
         try (Cursor dbresult = db.query(KEYS_TABLE, new String[] { KEY_FIELD, ADD1_FIELD, ADD2_FIELD },
-                NAME_FIELD + "='" + name + "'" + AND + TYPE_FIELD + "='" + (oAuth1a ? EntryType.API_OAUTH1_KEY : EntryType.API_OAUTH2_KEY) + "'", null, null,
+                NAME_FIELD + NAME_AND + TYPE_FIELD + "='" + (oAuth1a ? EntryType.API_OAUTH1_KEY : EntryType.API_OAUTH2_KEY) + "'", new String[] { name }, null,
                 null, null)) {
             if (dbresult.getCount() == 1) {
                 boolean haveEntry = dbresult.moveToFirst();

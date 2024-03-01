@@ -13,7 +13,7 @@ public class API {
 
     public enum Auth {
         BASIC, OAUTH1A, OAUTH2
-    };
+    }
 
     public final String id;
     public final String name;

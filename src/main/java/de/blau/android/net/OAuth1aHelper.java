@@ -167,7 +167,7 @@ public class OAuth1aHelper extends OAuthHelper {
     }
 
     @Override
-    protected ExecutorTask<?, ?, ?> getAccessTokenTask(Context context, Uri data, PostAsyncActionHandler handler) {
+    protected ExecutorTask<Void, Void, ?> getAccessTokenTask(Context context, Uri data, PostAsyncActionHandler handler) {
         String oauthToken = data.getQueryParameter(OAUTH_TOKEN_PARAMETER);
         final String oauthVerifier = data.getQueryParameter(OAUTH_VERIFIER_PARAMTER);
 

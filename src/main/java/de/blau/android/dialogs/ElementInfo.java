@@ -530,7 +530,7 @@ public class ElementInfo extends InfoDialogFragment {
         // FIXME for non undo comparision
         if (hasParents && original instanceof UndoElement) {
             for (Relation parent : parentsList) {
-                OsmElementInterface originalParent = (OsmElementInterface) App.getDelegator().getUndo().getOriginal(parent);
+                OsmElementInterface originalParent = App.getDelegator().getUndo().getOriginal(parent);
                 if (originalParent != null) {
                     List<RelationMember> ueMembers = ((RelationInterface) originalParent).getAllMembers(element);
                     List<RelationMember> members = parent.getAllMembers(element);

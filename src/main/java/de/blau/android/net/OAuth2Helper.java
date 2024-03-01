@@ -162,7 +162,7 @@ public class OAuth2Helper extends OAuthHelper {
     }
 
     @Override
-    ExecutorTask<?, ?, ?> getAccessTokenTask(Context context, Uri data, PostAsyncActionHandler handler) {
+    ExecutorTask<Void, Void, ?> getAccessTokenTask(Context context, Uri data, PostAsyncActionHandler handler) {
         String error = data.getQueryParameter(ERROR_PARAM);
         if (error != null) {
             String description = data.getQueryParameter(ERROR_DESCRIPTION_PARAM);
