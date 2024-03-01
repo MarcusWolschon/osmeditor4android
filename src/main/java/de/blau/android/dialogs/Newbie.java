@@ -141,7 +141,7 @@ public class Newbie extends ImmersiveDialogFragment {
                 positive.setText(R.string.next);
                 positive.setOnClickListener((View v) -> pager.setCurrentItem(SETTINGS_PAGE_INDEX));
                 negative.setText(R.string.skip);
-                negative.setOnClickListener((View v) -> getDialog().dismiss());
+                negative.setOnClickListener((View v) -> dismiss());
             }
             if (position == SETTINGS_PAGE_INDEX) {
                 positive.setText(R.string.welcome_start);
@@ -163,7 +163,7 @@ public class Newbie extends ImmersiveDialogFragment {
 
                     ((Main) activity).getMap().setPrefs(activity, prefs);
 
-                    Newbie.dismissDialog(activity);
+                    dismiss();
 
                     if (authorize.isChecked()) {
                         Authorize.startForResult(activity, null);
