@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="CGImap 0.5.8 (5904 thorn-01.openstreetmap.org)" copyright="OpenStreetMap and contributors" attribution="http://www.openstreetmap.org/copyright" license="http://opendatacommons.org/licenses/odbl/1-0/">
+ <bounds minlat="47.3892400" minlon="8.3844600" maxlat="47.3911300" maxlon="8.3879800"/>
+ <nde id="275000527" visible="true" version="5" changeset="7558149" timestamp="2011-03-14T16:34:50Z" user="SimonPoole" uid="92387" lat="47.3890517" lon="8.3888940"/>
+ <node id="275000525" visible="true" version="3" changeset="8547608" timestamp="2011-06-25T23:14:00Z" user="SimonPoole" uid="92387" lat="47.3874269" lon="8.3876797"/>
+ <node id="296055261" visible="true" version="2" changeset="15370342" timestamp="2013-03-15T08:17:01Z" user="SimonPoole" uid="92387" lat="47.3877166" lon="8.3866165"/>
+</osm>

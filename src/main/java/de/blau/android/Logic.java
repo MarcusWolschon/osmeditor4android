@@ -2840,7 +2840,7 @@ public class Logic {
                         ACRAHelper.nocrashReport(ex, ex.getMessage());
                     }
                     if (postLoadHandler != null) {
-                        postLoadHandler.onError(null);
+                        postLoadHandler.onError(result);
                     }
                 } else {
                     if (postLoadHandler != null) {
