@@ -5,7 +5,6 @@ import static de.blau.android.util.Winding.COUNTERCLOCKWISE;
 import static de.blau.android.util.Winding.winding;
 
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;

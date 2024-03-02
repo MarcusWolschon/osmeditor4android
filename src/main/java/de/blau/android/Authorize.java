@@ -149,7 +149,7 @@ public class Authorize extends WebViewActivity {
                 authUrl = oa.getAuthorisationUrl(this);
             }
         } catch (OsmException oe) {
-            server.setOAuth(false); // ups something went wrong turn oauth off
+            server.setOAuth(Auth.BASIC); // ups something went wrong turn oauth off
             errorMessage = getString(R.string.toast_no_oauth, apiName);
         } catch (OAuthException e) {
             errorMessage = OAuthHelper.getErrorMessage(this, e);

@@ -171,4 +171,63 @@ public class NotesApiTest {
             fail(e.getMessage());
         }
     }
+    
+    /**
+     * Add a comment to an existing note
+     * 
+     * https://master.apis.dev.openstreetmap.org/api/0.6/notes/1/comment?text=New+comment 
+     */
+    @Test
+    public void addComment() {
+        noteUpload();
+        List<Task> tasks = App.getTaskStorage().getTasks(new BoundingBox(0.099, 50.99, 0.111, 51.01));
+        Note n = (Note) tasks.get(0);
+        Main main = Robolectric.setupActivity(Main.class);
+        final CountDownLatch signal = new CountDownLatch(1);
+        mockServer.enqueue("noteComment");
+        try {
+            final Server s = new Server(ApplicationProvider.getApplicationContext(), prefDB.getCurrentAPI(), ApiTest.GENERATOR_NAME);
+            assertFalse(n.isNew());
+            assertTrue(TransferTasks.uploadNote(main, s, n, new NoteComment(n, "New comment"), false, new FailOnErrorHandler(signal)));
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+        runLooper();
+        SignalUtils.signalAwait(signal, TIMEOUT);
+        try {
+            assertEquals("<p>New comment</p>", n.getLastComment().getText());
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+    
+    /**
+     * Add a comment to an existing but closed note
+     * 
+     */
+    @Test
+    public void addCommentToClosed() {
+        noteUpload();
+        List<Task> tasks = App.getTaskStorage().getTasks(new BoundingBox(0.099, 50.99, 0.111, 51.01));
+        Note n = (Note) tasks.get(0);
+        Main main = Robolectric.setupActivity(Main.class);
+        final CountDownLatch signal = new CountDownLatch(1);
+        mockServer.enqueue("noteAlreadyClosed");
+        mockServer.enqueue("200");
+        mockServer.enqueue("noteComment");
+        try {
+            final Server s = new Server(ApplicationProvider.getApplicationContext(), prefDB.getCurrentAPI(), ApiTest.GENERATOR_NAME);
+            assertFalse(n.isNew());
+            assertTrue(TransferTasks.uploadNote(main, s, n, new NoteComment(n, "New comment"), false, new FailOnErrorHandler(signal)));
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+        runLooper();
+        SignalUtils.signalAwait(signal, TIMEOUT);
+        try {
+            assertEquals("<p>New comment</p>", n.getLastComment().getText());
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
 }
