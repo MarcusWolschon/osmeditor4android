@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="OpenStreetMap server" copyright="OpenStreetMap and contributors" attribution="http://www.openstreetmap.org/copyright" license="http://opendatacommons.org/licenses/odbl/1-0/">
+<note lon="-122.0839845" lat="37.4219839">
+  <id>1</id>
+  <url>https://master.apis.dev.openstreetmap.org/api/0.6/notes/1</url>
+  <comment_url>https://master.apis.dev.openstreetmap.org/api/0.6/notes/1/comment</comment_url>
+  <close_url>https://master.apis.dev.openstreetmap.org/api/0.6/notes/1/close</close_url>
+  <date_created>2024-03-02 08:11:27 UTC</date_created>
+  <status>open</status>
+  <comments>
+    <comment>
+      <date>2024-03-02 08:11:27 UTC</date>
+      <action>opened</action>
+      <text>Test start</text>
+      <html>&lt;p&gt;Test start&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2024-03-02 08:23:12 UTC</date>
+      <uid>1154</uid>
+      <user>SimonDev</user>
+      <user_url>https://master.apis.dev.openstreetmap.org/user/SimonDev</user_url>
+      <action>commented</action>
+      <text>New comment</text>
+      <html>&lt;p&gt;New comment&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+</osm>

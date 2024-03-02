@@ -15,7 +15,6 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
@@ -1063,29 +1062,6 @@ public class Server {
     }
 
     /**
-     * Build and throw and exception containing some details on the affected OsmElement
-     * 
-     * @param apiStorage the current api storage
-     * @param type the type of the OsmElement
-     * @param idStr a String containing the if of the element
-     * @param code the returned HTTP code
-     * @param responseMessage the HTTP error message
-     * @param message the API error message
-     * @throws OsmServerException nearly always
-     */
-    private void generateException(@NonNull Storage apiStorage, @Nullable String type, @Nullable String idStr, int code, @Nullable String responseMessage,
-            @Nullable String message) throws OsmServerException {
-        if (type != null && idStr != null) {
-            long osmId = Long.parseLong(idStr);
-            OsmElement e = apiStorage.getOsmElement(type.toLowerCase(Locale.US), osmId);
-            if (e != null) {
-                throw new OsmServerException(code, e.getName(), e.getOsmId(), message);
-            }
-        }
-        Log.e(DEBUG_TAG, "Error message matched, but parsing failed: " + message);
-    }
-
-    /**
      * Read a stream to its "end" and return the results as a String
      * 
      * @param in an InputStream to read
@@ -1493,71 +1469,6 @@ public class Server {
         }
     }
 
-    // The note 10597 was closed at 2017-09-24 17:59:18 UTC
-    private static final Pattern ERROR_MESSAGE_NOTE_ALREADY_CLOSED = Pattern.compile("(?i)The note ([0-9]+) was closed at.*");
-    //
-    private static final Pattern ERROR_MESSAGE_NOTE_ALREADY_OPENED = Pattern.compile("(?i)The note ([0-9]+) is already open.*");
-
-    // TODO rewrite to XML encoding (if supported)
-    /**
-     * Perform an HTTP request to add the specified comment to the specified bug.
-     * 
-     * Blocks until the request is complete. Will reopen the Note if it is already closed.
-     * 
-     * @param bug The bug to add the comment to.
-     * @param comment The comment to add to the bug.
-     * @throws IOException on an IO error
-     * @throws XmlPullParserException
-     */
-    public void addComment(@NonNull Note bug, @NonNull NoteComment comment) throws IOException, XmlPullParserException {
-        if (!bug.isNew()) {
-            Log.d(DEBUG_TAG, "adding note comment " + bug.getId());
-            // http://openstreetbugs.schokokeks.org/api/0.1/editPOIexec?id=<Bug ID>&text=<Comment with author and date>
-            //
-            // setting text/xml here is a hack to stop signpost (the oAuth library) from trying to sign the body
-            // which will fail
-            String encodedComment = URLEncoder.encode(comment.getText(), OsmXml.UTF_8);
-            URL addCommentUrl = getAddNoteCommentUrl(Long.toString(bug.getId()), encodedComment);
-
-            try (Response response = openConnectionForAuthenticatedAccess(addCommentUrl, HTTP_POST, RequestBody.create(null, ""))) {
-                int responseCode = response.code();
-                if (responseCode != HttpURLConnection.HTTP_OK) {
-                    if (responseCode == HttpURLConnection.HTTP_CONFLICT) {
-                        InputStream errorStream = response.body().byteStream();
-                        String message = readStream(errorStream);
-                        Log.d(DEBUG_TAG, "409: " + message);
-                        Matcher m = ERROR_MESSAGE_NOTE_ALREADY_CLOSED.matcher(message);
-                        if (m.matches()) {
-                            String idStr = m.group(1);
-                            Log.d(DEBUG_TAG, "addComment note " + idStr + " was already closed");
-                            reopenNote(bug);
-                            addComment(bug, comment);
-                            return;
-                        }
-                        throwOsmServerException(response);
-                    } else if (responseCode == HttpURLConnection.HTTP_GONE) {
-                        hiddenNote(bug);
-                        return;
-                    }else {
-                        throwOsmServerException(response);
-                    }
-                }
-                parseBug(bug, response.body().byteStream());
-            }
-        }
-    }
-
-    /**
-     * If the note was hidden on the server delete it locally
-     * 
-     * @param bug the hidden Node
-     */
-    private void hiddenNote(@NonNull Note bug) {
-        Log.d(DEBUG_TAG, "note was hidden on server");
-        App.getTaskStorage().delete(bug);
-    }
-
-    // TODO rewrite to XML encoding
     /**
      * Perform an HTTP request to add the specified bug to the OpenStreetBugs database.
      * 
@@ -1579,9 +1490,98 @@ public class Server {
                 if (!response.isSuccessful()) {
                     throwOsmServerException(response);
                 }
-                parseBug(bug, response.body().byteStream());
+                updateNote(bug, response.body().byteStream());
             }
         }
+    }
+
+    // The note 10597 was closed at 2017-09-24 17:59:18 UTC
+    private static final Pattern ERROR_MESSAGE_NOTE_ALREADY_CLOSED = Pattern.compile("(?i)The note ([0-9]+) was closed at.*");
+    //
+    private static final Pattern ERROR_MESSAGE_NOTE_ALREADY_OPENED = Pattern.compile("(?i)The note ([0-9]+) is already open.*");
+
+    /**
+     * Perform an HTTP request to add the specified comment to the specified bug.
+     * 
+     * Blocks until the request is complete. Will reopen the Note if it is already closed.
+     * 
+     * @param bug The bug to add the comment to.
+     * @param comment The comment to add to the bug.
+     * @throws IOException on an IO error
+     * @throws XmlPullParserException
+     */
+    public void addComment(@NonNull Note bug, @NonNull NoteComment comment) throws IOException, XmlPullParserException {
+        if (!bug.isNew()) {
+            Log.d(DEBUG_TAG, "adding note comment " + bug.getId());
+            // http://openstreetbugs.schokokeks.org/api/0.1/editPOIexec?id=<Bug ID>&text=<Comment with author and date>
+            //
+            // setting text/xml here is a hack to stop signpost (the oAuth library) from trying to sign the body
+            // which will fail
+            String encodedComment = URLEncoder.encode(comment.getText(), OsmXml.UTF_8);
+            URL addCommentUrl = getAddNoteCommentUrl(Long.toString(bug.getId()), encodedComment);
+
+            try (Response response = openConnectionForAuthenticatedAccess(addCommentUrl, HTTP_POST, RequestBody.create(null, ""))) {
+                if (response.isSuccessful()) {
+                    updateNote(bug, response.body().byteStream());
+                    return;
+                }
+                handleNoteError(bug, response, ERROR_MESSAGE_NOTE_ALREADY_CLOSED, (Matcher m) -> {
+                    String idStr = m.group(1);
+                    Log.d(DEBUG_TAG, "addComment note " + idStr + " was already closed");
+                    reopenNote(bug);
+                    addComment(bug, comment);
+                });
+            }
+        }
+    }
+
+    private interface NoteConflict {
+        /**
+         * Resolve a conflict returned by the Notes API
+         * 
+         * @param m matcher for the error message that matched
+         */
+        void resolve(@NonNull Matcher m) throws IOException, XmlPullParserException;
+    }
+
+    /**
+     * Handles errors returned by the notes API
+     * 
+     * @param bug the Node
+     * @param response Response from the API
+     * @param pattern a Pattern to match in case of a conflict
+     * @param resolver code to resolve the conflict
+     * @throws IOException if IO goes wrong
+     * @throws XmlPullParserException if we can't update the note
+     */
+    private void handleNoteError(@NonNull Note bug, @NonNull Response response, @NonNull Pattern pattern, @NonNull NoteConflict resolver)
+            throws IOException, XmlPullParserException {
+        int responseCode = response.code();
+        if (responseCode == HttpURLConnection.HTTP_CONFLICT) {
+            InputStream errorStream = response.body().byteStream();
+            String message = readStream(errorStream);
+            Log.d(DEBUG_TAG, "409: " + message);
+            Matcher m = pattern.matcher(message);
+            if (m.matches()) {
+                resolver.resolve(m);
+                return;
+            }
+            throwOsmServerException(response);
+        } else if (responseCode == HttpURLConnection.HTTP_GONE) {
+            hiddenNote(bug);
+        } else {
+            throwOsmServerException(response);
+        }
+    }
+
+    /**
+     * If the note was hidden on the server delete it locally
+     * 
+     * @param bug the hidden Node
+     */
+    private void hiddenNote(@NonNull Note bug) {
+        Log.d(DEBUG_TAG, "note was hidden on server");
+        App.getTaskStorage().delete(bug);
     }
 
     /**
@@ -1598,26 +1598,14 @@ public class Server {
             Log.d(DEBUG_TAG, "closing note " + bug.getId());
             URL closeNoteUrl = getCloseNoteUrl(Long.toString(bug.getId()));
             try (Response response = openConnectionForAuthenticatedAccess(closeNoteUrl, HTTP_POST, RequestBody.create(null, ""))) {
-                int responseCode = response.code();
-                if (responseCode != HttpURLConnection.HTTP_OK) {
-                    if (responseCode == HttpURLConnection.HTTP_CONFLICT) {
-                        InputStream errorStream = response.body().byteStream();
-                        String message = readStream(errorStream);
-                        Matcher m = ERROR_MESSAGE_NOTE_ALREADY_CLOSED.matcher(message);
-                        if (m.matches()) {
-                            String idStr = m.group(1);
-                            Log.d(DEBUG_TAG, "closeNote note " + idStr + " was already closed");
-                            return;
-                        }
-                        throwOsmServerException(response);
-                    } else if (responseCode == HttpURLConnection.HTTP_GONE) {
-                        hiddenNote(bug);
-                        return;
-                    } else {
-                        throwOsmServerException(response);
-                    }
+                if (response.isSuccessful()) {
+                    updateNote(bug, response.body().byteStream());
+                    return;
                 }
-                parseBug(bug, response.body().byteStream());
+                handleNoteError(bug, response, ERROR_MESSAGE_NOTE_ALREADY_CLOSED, (Matcher m) -> {
+                    String idStr = m.group(1);
+                    Log.d(DEBUG_TAG, "closeNote note " + idStr + " was already closed");
+                });
             }
         }
     }
@@ -1636,26 +1624,14 @@ public class Server {
             Log.d(DEBUG_TAG, "reopen note " + bug.getId());
             URL reopenNoteUrl = getReopenNoteUrl(Long.toString(bug.getId()));
             try (Response response = openConnectionForAuthenticatedAccess(reopenNoteUrl, HTTP_POST, RequestBody.create(null, ""))) {
-                int responseCode = response.code();
-                if (responseCode != HttpURLConnection.HTTP_OK) {
-                    if (responseCode == HttpURLConnection.HTTP_CONFLICT) {
-                        InputStream errorStream = response.body().byteStream();
-                        String message = readStream(errorStream);
-                        Matcher m = ERROR_MESSAGE_NOTE_ALREADY_OPENED.matcher(message);
-                        if (m.matches()) {
-                            String idStr = m.group(1);
-                            Log.d(DEBUG_TAG, "reopenNode note " + idStr + " was already open");
-                            return;
-                        }
-                        throwOsmServerException(response);
-                    } else if (responseCode == HttpURLConnection.HTTP_GONE) {
-                        hiddenNote(bug);
-                        return;
-                    } else {
-                        throwOsmServerException(response);
-                    }
+                if (response.isSuccessful()) {
+                    updateNote(bug, response.body().byteStream());
+                    return;
                 }
-                parseBug(bug, response.body().byteStream());
+                handleNoteError(bug, response, ERROR_MESSAGE_NOTE_ALREADY_OPENED, (Matcher m) -> {
+                    String idStr = m.group(1);
+                    Log.d(DEBUG_TAG, "reopenNode note " + idStr + " was already open");
+                });
             }
         }
     }
@@ -1668,7 +1644,7 @@ public class Server {
      * @throws IOException on an IO error
      * @throws XmlPullParserException
      */
-    private void parseBug(@NonNull Note bug, @NonNull InputStream inputStream) throws IOException, XmlPullParserException {
+    private void updateNote(@NonNull Note bug, @NonNull InputStream inputStream) throws IOException, XmlPullParserException {
         XmlPullParser parser = xmlParserFactory.newPullParser();
         parser.setInput(new BufferedInputStream(inputStream, StreamUtils.IO_BUFFER_SIZE), null);
         Note.parseNotes(parser, bug); // replace contents with result from server
@@ -1684,12 +1660,12 @@ public class Server {
     }
 
     /**
-     * Override the oauth flag from the API configuration, only needed if inconsistent config
+     * Override the auth value from the API configuration, only needed if inconsistent config
      * 
-     * @param t the value to set the flag to
+     * @param auth the authentication menu to use
      */
-    public void setOAuth(boolean t) {
-        authentication = t ? Auth.OAUTH1A : Auth.BASIC;
+    public void setOAuth(@NonNull Auth auth) {
+        authentication = auth;
     }
 
     /**
