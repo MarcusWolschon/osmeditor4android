@@ -38,6 +38,7 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.RelationMemberPosition;
+import de.blau.android.osm.RelationUtils;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetItem;
@@ -178,13 +179,17 @@ public class RelationMembershipFragment extends BaseFragment implements Property
      * @param relations the List to fill
      * @return the list for convenience
      */
-    private List<RelationHolder> getAllRelations(List<RelationHolder> relations) {
+    @NonNull
+    private List<RelationHolder> getAllRelations(@NonNull List<RelationHolder> relations) {
         final Context context = getContext();
         int limit = propertyEditorListener.getCapabilities().getMaxRelationMembers();
         relations.add(new RelationHolder(context, null, limit)); // empty list entry
-        final long osmId = propertyEditorListener.getElement().getOsmId();
+        final OsmElement element = propertyEditorListener.getElement();
+        final long osmId = element.getOsmId();
         final boolean isRelation = Relation.NAME.equals(elementType);
-        for (Relation r : App.getDelegator().getCurrentStorage().getRelations()) {
+        List<Relation> temp = new ArrayList<>(App.getDelegator().getCurrentStorage().getRelations());
+        RelationUtils.sortRelationListByDistance(Util.wrapInList(element), temp);
+        for (Relation r : temp) {
             // we don't want to make it too easy to create relation loops and
             // filter out the current element out if it is a relation
             if (isRelation && r.getOsmId() == osmId) {
