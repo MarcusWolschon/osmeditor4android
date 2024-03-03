@@ -47,6 +47,7 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
+import de.blau.android.osm.RelationUtils;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.PrefEditor;
@@ -345,7 +346,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
                     if (relation != null) {
                         main.startSupportActionMode(new EditRelationMembersActionModeCallback(manager, relation, element));
                     }
-                }, -1, R.string.select_relation_title, null, null).show();
+                }, -1, R.string.select_relation_title, null, null, Util.wrapInList(element)).show();
             }
             break;
         case MENUITEM_EXTEND_SELECTION:
@@ -680,11 +681,12 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
      * @param titleId string resource id to the title
      * @param filterKey key to use for filtering
      * @param filterValue value to use for filtering (filterKey must not be null)
+     * @param selection List of Elements for sorting by distance to
      * @return a dialog
      */
     @NonNull
     static AlertDialog buildRelationSelectDialog(@NonNull Context context, @NonNull OnRelationSelectedListener onRelationSelectedListener, long currentId,
-            int titleId, @Nullable String filterKey, @Nullable String filterValue) {
+            int titleId, @Nullable String filterKey, @Nullable String filterValue, @NonNull List<OsmElement> selection) {
         Builder builder = new AlertDialog.Builder(context);
 
         final View layout = ThemeUtils.getLayoutInflater(context).inflate(R.layout.relation_selection_dialog, null);
@@ -700,27 +702,33 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         relationList.setLayoutManager(layoutManager);
 
-        List<Relation> allRelations = App.getDelegator().getCurrentStorage().getRelations();
-        List<Long> ids = new ArrayList<>();
+        List<Relation> relations = new ArrayList<>();
         // filter
-        if (filterKey != null) {
-            for (Relation r : allRelations) {
-                String value = r.getTagWithKey(filterKey);
-                if (value != null && (filterValue == null || filterValue.equals(value))) {
-                    ids.add(r.getOsmId());
-                }
+        for (Relation r : App.getDelegator().getCurrentStorage().getRelations()) {
+            if (filterRelations(r, filterKey, filterValue) && !selection.contains(r)) {
+                relations.add(r);
             }
-        } else {
-            for (Relation r : allRelations) {
-                ids.add(r.getOsmId());
-            }
-        }
-
-        if (ids.isEmpty()) {
-            builder.setMessage(R.string.no_suitable_relations_message);
         }
 
         final AlertDialog dialog = builder.create();
+        if (relations.isEmpty()) {
+            builder.setMessage(R.string.no_suitable_relations_message);
+            return dialog;
+        }
+
+        if (selection.size() == 1 && selection.get(0) instanceof Way) {
+            Way w = (Way) selection.get(0);
+            selection.clear();
+            selection.add(w.getFirstNode());
+            selection.add(w.getLastNode());
+        }
+
+        RelationUtils.sortRelationListByDistance(selection, relations);
+
+        List<Long> ids = new ArrayList<>();
+        for (Relation r : relations) {
+            ids.add(r.getOsmId());
+        }
 
         final Handler handler = new Handler(Looper.getMainLooper());
         OnCheckedChangeListener onCheckedChangeListener = (group, position) -> {
@@ -735,6 +743,22 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
         relationList.setAdapter(adapter);
 
         return dialog;
+    }
+
+    /**
+     * If a filterKey isn't null check if a tag exists for it
+     * 
+     * @param r the Relation
+     * @param filterKey optional key to filter on
+     * @param filterValue optional value for key to filter on
+     * @return true if the filter condition is satisfied
+     */
+    private static boolean filterRelations(@NonNull Relation r, @Nullable String filterKey, @Nullable String filterValue) {
+        if (filterKey == null) {
+            return true;
+        }
+        String value = r.getTagWithKey(filterKey);
+        return value != null && (filterValue == null || filterValue.equals(value));
     }
 
     interface OnPresetSelectedListener {

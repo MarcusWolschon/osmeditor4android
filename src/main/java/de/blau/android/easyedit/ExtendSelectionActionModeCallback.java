@@ -346,7 +346,7 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
                     if (relation != null) {
                         main.startSupportActionMode(new EditRelationMembersActionModeCallback(manager, relation, selection));
                     }
-                }, -1, R.string.select_relation_title, null, null).show();
+                }, -1, R.string.select_relation_title, null, null, selection).show();
                 break;
             case MENUITEM_ORTHOGONALIZE:
                 orthogonalizeWays();
