@@ -1767,7 +1767,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         undo.save(way);
         // check for direction dependent tags
         Map<String, String> dirTags = Reverse.getDirectionDependentTags(way);
-        if (dirTags != null) {
+        if (!dirTags.isEmpty()) {
             Result wayResult = new Result();
             wayResult.setElement(way);
             wayResult.addIssue(ReverseIssue.TAGSREVERSED);
@@ -1806,7 +1806,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         List<Result> result = new ArrayList<>();
         for (Node n : nodes) {
             Map<String, String> nodeDirTags = Reverse.getDirectionDependentTags(n);
-            if (nodeDirTags != null) {
+            if (!nodeDirTags.isEmpty()) {
                 undo.save(n);
                 Result nodeResult = new Result();
                 nodeResult.setElement(n);

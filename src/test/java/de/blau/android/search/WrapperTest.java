@@ -287,6 +287,20 @@ public class WrapperTest {
     }
 
     /**
+     * getPreset should fail if no Context is supplied
+     */
+    @Test
+    public void getPresetTes2t() {
+        Wrapper wrapper2 = new Wrapper();
+        try {
+            wrapper2.getPreset("Highways|Streets|Secondary");
+            fail("Should have thrown an IllegalArgumentException");
+        } catch (IllegalArgumentException iaex) {
+            // expected
+        }
+    }
+
+    /**
      * Check matchesPreset
      */
     @Test

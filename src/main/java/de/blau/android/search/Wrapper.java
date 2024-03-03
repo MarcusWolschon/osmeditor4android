@@ -52,9 +52,17 @@ public class Wrapper implements Meta {
     /**
      * Create a new wrapper object
      * 
+     */
+    public Wrapper() {
+        this(null);
+    }
+
+    /**
+     * Create a new wrapper object
+     * 
      * @param context an Android Context
      */
-    public Wrapper(@NonNull Context context) {
+    public Wrapper(@Nullable Context context) {
         this.context = context;
         this.logic = App.getLogic();
     }
@@ -104,7 +112,18 @@ public class Wrapper implements Meta {
 
     @Override
     public String getUser() {
-        throw new IllegalArgumentException(context.getString(R.string.search_objects_unsupported, "user"));
+        throw unsupported("user");
+    }
+
+    /**
+     * Construct an IllegalArgumentException
+     * 
+     * @param expression the unsupported expression
+     * @return an IllegalArgumentException
+     */
+    private IllegalArgumentException unsupported(@NonNull String expression) {
+        return new IllegalArgumentException(
+                context != null ? context.getString(R.string.search_objects_unsupported, expression) : "Unsupported expression \"" + expression + "\"");
     }
 
     @Override
@@ -119,7 +138,7 @@ public class Wrapper implements Meta {
 
     @Override
     public long getChangeset() {
-        throw new IllegalArgumentException(context.getString(R.string.search_objects_unsupported, "changeset"));
+        throw unsupported("changeset");
     }
 
     @Override
@@ -187,7 +206,7 @@ public class Wrapper implements Meta {
 
     @Override
     public int getAreaSize() {
-        throw new IllegalArgumentException(context.getString(R.string.search_objects_unsupported, "areasize"));
+        throw unsupported("areasize");
     }
 
     @Override
@@ -238,6 +257,9 @@ public class Wrapper implements Meta {
 
     @Override
     public Object getPreset(@NonNull String presetPath) {
+        if (context == null) {
+            throw unsupported("preset:");
+        }
         if (presetPath.endsWith("*")) {
             presetPath = presetPath.substring(0, presetPath.length() - 1);
         }
@@ -423,6 +445,7 @@ public class Wrapper implements Meta {
      * @param c the Condition to check
      * @return a SearchResult object
      */
+    @NonNull
     SearchResult getMatchingElementsInternal(@NonNull Condition c) {
         OsmElement savedElement = element; // save this instead of instantating a new wrapper
         StorageDelegator delegator = App.getDelegator();
@@ -451,6 +474,9 @@ public class Wrapper implements Meta {
 
     @Override
     public @NotNull Meta wrap(Object arg0) {
+        if (context == null) {
+            throw unsupported("unknown");
+        }
         Wrapper wrapper = new Wrapper(context);
         wrapper.setElement((OsmElement) arg0);
         return wrapper;

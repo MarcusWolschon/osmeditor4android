@@ -887,7 +887,7 @@ public class GeometryEditsTest {
 
             // reverse "one way" too now
             java.util.Map<String, String> dirTags = Reverse.getDirectionDependentTags(w);
-            if (dirTags != null) {
+            if (!dirTags.isEmpty()) {
                 Reverse.reverseDirectionDependentTags(w, dirTags, true);
             } else {
                 fail("no direction dependent tags found");
@@ -895,7 +895,7 @@ public class GeometryEditsTest {
             assertEquals("-1", w.getTagWithKey(Tags.KEY_ONEWAY));
 
             dirTags = Reverse.getDirectionDependentTags(w);
-            if (dirTags != null) {
+            if (!dirTags.isEmpty()) {
                 Reverse.reverseDirectionDependentTags(w, dirTags, true);
             } else {
                 fail("no direction dependent tags found");

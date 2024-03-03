@@ -174,7 +174,7 @@ public class MergeAction {
             atBeginning = true;
             // check for direction dependent tags
             Map<String, String> dirTags = Reverse.getDirectionDependentTags(w2);
-            if (dirTags != null) {
+            if (!dirTags.isEmpty()) {
                 Reverse.reverseDirectionDependentTags(w2, dirTags, true);
                 mergeResult.addIssue(ReverseIssue.TAGSREVERSED);
             }
@@ -197,7 +197,7 @@ public class MergeAction {
             atBeginning = false;
             // check for direction dependent tags
             Map<String, String> dirTags = Reverse.getDirectionDependentTags(w2);
-            if (dirTags != null) {
+            if (!dirTags.isEmpty()) {
                 Reverse.reverseDirectionDependentTags(w2, dirTags, true);
                 mergeResult.addIssue(ReverseIssue.TAGSREVERSED);
             }
@@ -348,7 +348,7 @@ public class MergeAction {
         if (!otherInputRing.isEmpty() && winding(otherInputRing) == COUNTERCLOCKWISE) {
             // check for direction dependent tags
             Map<String, String> dirTags = Reverse.getDirectionDependentTags(p2);
-            if (dirTags != null) {
+            if (!dirTags.isEmpty()) {
                 Reverse.reverseDirectionDependentTags(p2, dirTags, true);
                 mergeResult.addIssue(ReverseIssue.TAGSREVERSED);
             }
