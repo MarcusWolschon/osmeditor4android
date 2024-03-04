@@ -197,8 +197,10 @@ public class ElementInfo extends InfoDialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        emptyRole = new SpannableString(getString(R.string.empty_role));
-        emptyRole.setSpan(new StyleSpan(Typeface.ITALIC), 0, emptyRole.length(), 0);
+        synchronized (this) {
+            emptyRole = new SpannableString(getString(R.string.empty_role));
+            emptyRole.setSpan(new StyleSpan(Typeface.ITALIC), 0, emptyRole.length(), 0);
+        }
 
         if (savedInstanceState != null) {
             Log.d(DEBUG_TAG, "Restoring from saved state");
@@ -424,11 +426,11 @@ public class ElementInfo extends InfoDialogFragment {
                     }
                 }
                 // special handling for some stuff
-                if (k.equals(Tags.KEY_WIKIPEDIA)) {
+                if (Tags.KEY_WIKIPEDIA.equals(k)) {
                     Log.d(DEBUG_TAG, Urls.WIKIPEDIA + encodeHttpPath(currentValue));
                     addTagRow(ctx, tl, tp, deleted, k, !oldIsEmpty ? encodeUrl(Urls.WIKIPEDIA, oldValue) : compareEmpty,
                             encodeUrl(Urls.WIKIPEDIA, currentValue));
-                } else if (k.equals(Tags.KEY_WIKIDATA)) {
+                } else if (Tags.KEY_WIKIDATA.equals(k)) {
                     addTagRow(ctx, tl, tp, deleted, k, !oldIsEmpty ? encodeUrl(Urls.WIKIDATA, oldValue) : compareEmpty, encodeUrl(Urls.WIKIDATA, currentValue));
                 } else if (Tags.isWebsiteKey(k)) {
                     try {

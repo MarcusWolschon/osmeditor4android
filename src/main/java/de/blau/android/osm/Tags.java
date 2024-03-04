@@ -350,10 +350,15 @@ public final class Tags {
     }
 
     // keys where the values are phone numbers
-    private static final String KEY_PHONE         = "phone";
-    private static final String KEY_CONTACT_PHONE = "contact:phone";
-    private static final String KEY_FAX           = "fax";
-    private static final String KEY_CONTACT_FAX   = "contact:fax";
+    private static final String KEY_PHONE          = "phone";
+    private static final String KEY_CONTACT_PHONE  = "contact:phone";
+    private static final String KEY_MOBILE         = "mobile";
+    private static final String KEY_CONTACT_MOBILE = "contact:mobile";
+    private static final String KEY_FAX            = "fax";
+    private static final String KEY_CONTACT_FAX    = "contact:fax";
+
+    private static final List<String> PHONE_KEYS = Collections
+            .unmodifiableList(Arrays.asList(KEY_PHONE, KEY_CONTACT_PHONE, KEY_MOBILE, KEY_CONTACT_MOBILE, KEY_FAX, KEY_CONTACT_FAX));
 
     /**
      * Check if this is a key that expects a phone number
@@ -362,7 +367,7 @@ public final class Tags {
      * @return true if it expects a phone number
      */
     public static boolean isPhoneKey(@Nullable final String key) {
-        return Tags.KEY_PHONE.equals(key) || Tags.KEY_CONTACT_PHONE.equals(key) || Tags.KEY_FAX.equals(key) || Tags.KEY_CONTACT_FAX.equals(key);
+        return PHONE_KEYS.contains(key);
     }
 
     // keys where the values are e-mail addresses
