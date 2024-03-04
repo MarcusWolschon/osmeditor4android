@@ -314,24 +314,25 @@ public final class RelationUtils {
     public static List<Long> checkForNeighbours(@NonNull Way way) {
         Set<Long> result = new HashSet<>();
         List<Relation> parents = way.getParentRelations();
-        if (parents != null) {
-            for (Relation r : parents) {
-                String type = r.getTagWithKey(Tags.KEY_TYPE);
-                if ((Tags.VALUE_ROUTE.equals(type) || Tags.VALUE_MULTIPOLYGON.equals(type) || Tags.VALUE_BOUNDARY.equals(type)) && !r.allDownloaded()) {
-                    // we need to check if the neighbours of way are present,
-                    List<RelationMember> wayMembers = r.getMembers(Way.NAME);
-                    // as the way can be present multiple times we need to loop here
-                    for (RelationMember member : r.getAllMembers(way)) {
-                        int pos = wayMembers.indexOf(member);
-                        addIfNotDownloaded(result, pos - 1, wayMembers); // previous
-                        addIfNotDownloaded(result, pos + 1, wayMembers); // next
-                    }
-                } else if (Tags.VALUE_RESTRICTION.equals(type) || hasFromViaTo(r)) {
-                    // download vias
-                    for (RelationMember member : r.getMembersWithRole(Tags.ROLE_VIA)) {
-                        if (!member.downloaded() && Way.NAME.equals(member.getType())) {
-                            result.add(member.getRef());
-                        }
+        if (parents == null) {
+            return new ArrayList<>();
+        }
+        for (Relation r : parents) {
+            String type = r.getTagWithKey(Tags.KEY_TYPE);
+            if ((Tags.VALUE_ROUTE.equals(type) || Tags.VALUE_MULTIPOLYGON.equals(type) || Tags.VALUE_BOUNDARY.equals(type)) && !r.allDownloaded()) {
+                // we need to check if the neighbours of way are present,
+                List<RelationMember> wayMembers = r.getMembers(Way.NAME);
+                // as the way can be present multiple times we need to loop here
+                for (RelationMember member : r.getAllMembers(way)) {
+                    int pos = wayMembers.indexOf(member);
+                    addIfNotDownloaded(result, pos - 1, wayMembers); // previous
+                    addIfNotDownloaded(result, pos + 1, wayMembers); // next
+                }
+            } else if (Tags.VALUE_RESTRICTION.equals(type) || hasFromViaTo(r)) {
+                // download vias
+                for (RelationMember member : r.getMembersWithRole(Tags.ROLE_VIA)) {
+                    if (!member.downloaded() && Way.NAME.equals(member.getType())) {
+                        result.add(member.getRef());
                     }
                 }
             }
@@ -551,5 +552,78 @@ public final class RelationUtils {
             }
         }
         return hasFrom && hasVia && hasTo;
+    }
+
+    /**
+     * Sort a List of Relations by their distance to a List of OsmElements
+     * 
+     * @param selection the List of OsmElement
+     * @param relations the List of Relations
+     */
+    public static void sortRelationListByDistance(@NonNull List<OsmElement> selection, @NonNull List<Relation> relations) {
+        final Map<Relation, Double> cache = new HashMap<>();
+        Collections.sort(relations, (Relation r1, Relation r2) -> {
+            Double d1 = cache.get(r1);
+            if (d1 == null) {
+                d1 = minDistanceToRelation(selection, r1);
+                cache.put(r1, d1);
+            }
+            Double d2 = cache.get(r2);
+            if (d2 == null) {
+                d2 = minDistanceToRelation(selection, r2);
+                cache.put(r2, d2);
+            }
+            // nearer is better
+            return Double.compare(d1, d2);
+        });
+    }
+
+    /**
+     * Get the minimum distance between a list of OsmElements and the relation
+     * 
+     * @param selection list of elements
+     * @param r the Relation
+     * @return the "minimum" distance
+     */
+    private static double minDistanceToRelation(@NonNull List<OsmElement> selection, @NonNull Relation r) {
+        double d = Double.MAX_VALUE;
+        boolean allNodes = !r.hasTag(Tags.KEY_TYPE, Tags.VALUE_ROUTE);
+        for (OsmElement e : selection) {
+            int[] location = new int[2];
+            double[] centroid = de.blau.android.util.Geometry.centroid(e);
+            location[0] = (int) (centroid[1] * 1E7);
+            location[1] = (int) (centroid[0] * 1E7);
+            for (OsmElement member : r.getMemberElements()) {
+                double temp = member instanceof Way ? minDistance2WayNodes(location, (Way) member, allNodes) : member.getMinDistance(location);
+                if (temp < d) {
+                    d = temp;
+                }
+            }
+        }
+        return d;
+    }
+
+    /**
+     * Get the minimum distance to a ways nodes
+     * 
+     * @param location the location (lat/lon)
+     * @param w the Way
+     * @param allNodes if true all way nodes will be considered else just the end nodes
+     * @return the "minimum" distance
+     */
+    private static double minDistance2WayNodes(@NonNull int[] location, @NonNull Way w, boolean allNodes) {
+        if (allNodes) {
+            double d = Double.MAX_VALUE;
+            for (Node n : w.getNodes()) {
+                double temp = n.getMinDistance(location);
+                if (temp < d) {
+                    d = temp;
+                }
+            }
+            return d;
+        }
+        double d1 = w.getFirstNode().getMinDistance(location);
+        double d2 = w.getFirstNode().getMinDistance(location);
+        return d1 < d2 ? d1 : d2;
     }
 }

@@ -250,7 +250,7 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
                         if (route != null) {
                             main.startSupportActionMode(new RouteSegmentActionModeCallback(manager, way, route, findViaElements(way, false), null));
                         }
-                    }, -1, R.string.select_route_title, Tags.KEY_TYPE, Tags.VALUE_ROUTE).show();
+                    }, -1, R.string.select_route_title, Tags.KEY_TYPE, Tags.VALUE_ROUTE, Util.wrapInList(element)).show();
                     break;
                 case MENUITEM_ROTATE:
                     deselect = false;
@@ -289,16 +289,13 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
                     main.startSupportActionMode(new ExtendSelectionActionModeCallback(manager, new ArrayList<>(new HashSet<>(way.getNodes()))));
                     break;
                 case MENUITEM_START_END_OF_WAY:
-                    new AlertDialog.Builder(main).setMessage(R.string.start_end_way_description)
-                            .setPositiveButton(R.string.end, (dialog, which) -> {
-                                main.zoomTo(way.getLastNode());
-                                main.invalidateMap();
-                            })
-                            .setNegativeButton(R.string.start, (dialog, which) -> {
-                                main.zoomTo(way.getFirstNode());
-                                main.invalidateMap();
-                            })
-                            .show();
+                    new AlertDialog.Builder(main).setMessage(R.string.start_end_way_description).setPositiveButton(R.string.end, (dialog, which) -> {
+                        main.zoomTo(way.getLastNode());
+                        main.invalidateMap();
+                    }).setNegativeButton(R.string.start, (dialog, which) -> {
+                        main.zoomTo(way.getFirstNode());
+                        main.invalidateMap();
+                    }).show();
                     break;
                 default:
                     return false;

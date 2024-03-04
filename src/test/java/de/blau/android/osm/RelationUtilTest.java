@@ -21,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.test.filters.LargeTest;
 import de.blau.android.App;
 import de.blau.android.UnitTestUtils;
+import de.blau.android.util.Util;
 
 @RunWith(RobolectricTestRunner.class)
 @LargeTest
@@ -61,7 +62,7 @@ public class RelationUtilTest {
      */
     @Test
     public void setMultiPolygonRolesTest2() {
-        StorageDelegator d = UnitTestUtils.loadTestData(getClass(), "rings2.osm");    
+        StorageDelegator d = UnitTestUtils.loadTestData(getClass(), "rings2.osm");
         Way w1 = getWay(d, -1L);
         Way w2 = getWay(d, -2L);
         Way w12 = getWay(d, -12L);
@@ -72,6 +73,7 @@ public class RelationUtilTest {
         assertEquals(Tags.ROLE_OUTER, mp.getMember(w2).getRole());
         assertEquals(Tags.ROLE_OUTER, mp.getMember(w12).getRole());
     }
+
     /**
      * Move tags from outer rings to relation test
      */
@@ -116,6 +118,22 @@ public class RelationUtilTest {
         Log.d("sortTest", "Sorting time " + (System.currentTimeMillis() - start));
         assertEquals(large.getMembers().size(), presorted.size());
         assertEquals(large.getMembers(), presorted);
+    }
+
+    /**
+     * Sort relations by distance from a way
+     */
+    @Test
+    public void sortRelationListByDistance() {
+        StorageDelegator d = UnitTestUtils.loadTestData(getClass(), "test2.osm");
+        Way w = (Way) d.getOsmElement(Way.NAME, 437198585L);
+        assertNotNull(w);
+        List<Relation> relations = new ArrayList<>(d.getCurrentStorage().getRelations());
+        assertNotNull(relations);
+        assertEquals(5, relations.size());
+        RelationUtils.sortRelationListByDistance(Util.wrapInList(w), relations);
+        assertEquals(5, relations.size());
+        assertEquals(6490362L, relations.get(0).getOsmId());
     }
 
     /**
