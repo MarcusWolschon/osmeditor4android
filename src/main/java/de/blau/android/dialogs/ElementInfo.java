@@ -196,8 +196,10 @@ public class ElementInfo extends InfoDialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        emptyRole = new SpannableString(getString(R.string.empty_role));
-        emptyRole.setSpan(new StyleSpan(Typeface.ITALIC), 0, emptyRole.length(), 0);
+        synchronized (this) {
+            emptyRole = new SpannableString(getString(R.string.empty_role));
+            emptyRole.setSpan(new StyleSpan(Typeface.ITALIC), 0, emptyRole.length(), 0);
+        }
 
         if (savedInstanceState != null) {
             Log.d(DEBUG_TAG, "Restoring from saved state");
