@@ -62,6 +62,7 @@ import de.blau.android.dialogs.Progress;
 import de.blau.android.dialogs.ProgressDialog;
 import de.blau.android.dialogs.UploadConflict;
 import de.blau.android.easyedit.ElementSelectionActionModeCallback;
+import de.blau.android.exception.DataConflictException;
 import de.blau.android.exception.IllegalOperationException;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIllegalOperationException;
@@ -2903,14 +2904,6 @@ public class Logic {
                 }
                 return result;
             }
-
-            @Override
-            protected void onPostExecute(AsyncResult result) {
-                if (ErrorCodes.CORRUPTED_DATA == result.getCode()) {
-                    ScreenMessage.toastTopError(context, R.string.corrupted_data_message);
-                }
-            }
-
         }.execute();
     }
 
@@ -2965,16 +2958,9 @@ public class Logic {
             }
 
             if (merge) { // incremental load
-                try {
-                    if (!getDelegator().mergeData(input, postMerge)) {
-                        result = new AsyncResult(ErrorCodes.DATA_CONFLICT);
-                    } else {
-                        if (mapBox != null) {
-                            getDelegator().mergeBoundingBox(mapBox);
-                        }
-                    }
-                } catch (IllegalStateException iex) {
-                    result = new AsyncResult(ErrorCodes.CORRUPTED_DATA);
+                getDelegator().mergeData(input, postMerge);
+                if (mapBox != null) {
+                    getDelegator().mergeBoundingBox(mapBox);
                 }
             } else { // replace data with new download
                 getDelegator().reset(false);
@@ -2984,7 +2970,6 @@ public class Logic {
                     getDelegator().setOriginalBox(mapBox);
                 }
             }
-
             if (!background) {
                 // Main maybe not available and by extension there may be no valid Map object
                 Map currentMap = ctx instanceof Main ? ((Main) ctx).getMap() : null;
@@ -2999,7 +2984,7 @@ public class Logic {
         } catch (SAXException e) {
             Exception ce = e.getException();
             if ((ce instanceof StorageException) && ((StorageException) ce).getCode() == StorageException.OOM) {
-                result = new AsyncResult(ErrorCodes.OUT_OF_MEMORY, "");
+                result = new AsyncResult(ErrorCodes.OUT_OF_MEMORY);
             } else {
                 result = new AsyncResult(ErrorCodes.INVALID_DATA_RECEIVED, e.getMessage());
             }
@@ -3022,17 +3007,23 @@ public class Logic {
             default:
                 result = new AsyncResult(ErrorCodes.UNKNOWN_ERROR, e.getMessage());
             }
+        } catch (StorageException sex) {
+            result = new AsyncResult(ErrorCodes.OUT_OF_MEMORY);
+        } catch (DataConflictException dce) {
+            result = new AsyncResult(ErrorCodes.DATA_CONFLICT);
         } catch (SSLProtocolException e) {
             result = new AsyncResult(ErrorCodes.SSL_HANDSHAKE);
         } catch (IOException e) {
             result = new AsyncResult(ErrorCodes.NO_CONNECTION);
+        } catch (IllegalStateException iex) {
+            result = new AsyncResult(ErrorCodes.CORRUPTED_DATA);
         } catch (Exception e) {
             result = new AsyncResult(ErrorCodes.UNKNOWN_ERROR, e.getMessage());
         }
         if (result.getCode() != ErrorCodes.OK) {
             removeBoundingBox(mapBox);
             if (handler != null) {
-                handler.onError(null);
+                handler.onError(result);
             }
             Log.e(DEBUG_TAG, "downloadBox problem downloading " + result.getClass() + " " + result.getMessage());
         }
@@ -3343,9 +3334,9 @@ public class Logic {
                 if (result == ErrorCodes.OK) {
                     try {
                         // FIXME need to check if providing a handler makes sense here
-                        if (!getDelegator().mergeData(osmParser.getStorage(), null)) {
-                            result = ErrorCodes.DATA_CONFLICT;
-                        }
+                        getDelegator().mergeData(osmParser.getStorage(), null);
+                    } catch (DataConflictException dcex) {
+                        result = ErrorCodes.DATA_CONFLICT;
                     } catch (IllegalStateException iex) {
                         result = ErrorCodes.CORRUPTED_DATA;
                     }
@@ -3519,9 +3510,7 @@ public class Logic {
                         }
                     }
 
-                    if (!getDelegator().mergeData(osmParser.getStorage(), null)) {
-                        result = new AsyncResult(ErrorCodes.DATA_CONFLICT);
-                    }
+                    getDelegator().mergeData(osmParser.getStorage(), null);
                 } catch (IllegalStateException iex) {
                     result = new AsyncResult(ErrorCodes.CORRUPTED_DATA);
                 } catch (SAXException e) {
@@ -3538,6 +3527,8 @@ public class Logic {
                 } catch (OsmServerException e) {
                     result = new AsyncResult(ErrorCodes.UNKNOWN_ERROR, e.getMessageWithDescription());
                     Log.e(DEBUG_TAG, "downloadElements problem downloading", e);
+                } catch (DataConflictException dce) {
+                    result = new AsyncResult(ErrorCodes.DATA_CONFLICT);
                 } catch (IOException e) {
                     result = new AsyncResult(ErrorCodes.NO_CONNECTION);
                     Log.e(DEBUG_TAG, "downloadElements problem downloading", e);

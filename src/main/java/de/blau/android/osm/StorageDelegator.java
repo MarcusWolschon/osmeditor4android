@@ -35,6 +35,7 @@ import de.blau.android.Logic;
 import de.blau.android.R;
 import de.blau.android.Selection;
 import de.blau.android.contract.FileExtensions;
+import de.blau.android.exception.DataConflictException;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.exception.StorageException;
@@ -2965,12 +2966,13 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @param storage storage containing data to merge
      * @param postMerge handler to run after merging
      * @return true if the merge was successful
+     * @throws DataConflictException if merging causes a conflict
      */
-    public boolean mergeData(@NonNull Storage storage, @Nullable PostMergeHandler postMerge) {
+    public void mergeData(@NonNull Storage storage, @Nullable PostMergeHandler postMerge) throws DataConflictException {
         Log.d(DEBUG_TAG, "mergeData called");
 
         if (storage.isEmpty()) { // no point in doing anything
-            return true;
+            return;
         }
 
         List<OsmElement> newElements = new ArrayList<>(); // elements that we need to run postMerg on
@@ -2987,171 +2989,163 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
 
             Log.d(DEBUG_TAG, "mergeData finished init");
 
-            try {
-                // add nodes
-                for (Node n : storage.getNodes()) {
-                    Node apiNode = apiStorage.getNode(n.getOsmId()); // can contain deleted elements
-                    if (!nodeIndex.containsKey(n.getOsmId()) && apiNode == null) { // new node no problem
-                        temp.insertNodeUnsafe(n);
-                        newElements.add(n);
+            // add nodes
+            for (Node n : storage.getNodes()) {
+                Node apiNode = apiStorage.getNode(n.getOsmId()); // can contain deleted elements
+                if (!nodeIndex.containsKey(n.getOsmId()) && apiNode == null) { // new node no problem
+                    temp.insertNodeUnsafe(n);
+                    newElements.add(n);
+                } else {
+                    if (apiNode != null && apiNode.getState() == OsmElement.STATE_DELETED) {
+                        if (apiNode.getOsmVersion() >= n.getOsmVersion()) {
+                            continue; // can use node we already have
+                        } else {
+                            throw new DataConflictException(apiNode, ""); // can't resolve conflicts, upload first
+                        }
+                    }
+                    Node existingNode = nodeIndex.get(n.getOsmId());
+                    if (existingNode != null) {
+                        if (existingNode.getOsmVersion() >= n.getOsmVersion()) { // larger just to be on the safe
+                                                                                 // side
+                            continue; // can use node we already have
+                        } else {
+                            if (existingNode.isUnchanged()) {
+                                temp.insertNodeUnsafe(n);
+                                newElements.add(n);
+                            } else {
+                                throw new DataConflictException(existingNode, ""); // can't resolve conflicts, upload
+                                                                                   // first
+                            }
+                        }
                     } else {
-                        if (apiNode != null && apiNode.getState() == OsmElement.STATE_DELETED) {
-                            if (apiNode.getOsmVersion() >= n.getOsmVersion()) {
-                                continue; // can use node we already have
-                            } else {
-                                return false; // can't resolve conflicts, upload first
-                            }
-                        }
-                        Node existingNode = nodeIndex.get(n.getOsmId());
-                        if (existingNode != null) {
-                            if (existingNode.getOsmVersion() >= n.getOsmVersion()) { // larger just to be on the safe
-                                                                                     // side
-                                continue; // can use node we already have
-                            } else {
-                                if (existingNode.isUnchanged()) {
-                                    temp.insertNodeUnsafe(n);
-                                    newElements.add(n);
-                                } else {
-                                    return false; // can't resolve conflicts, upload first
-                                }
-                            }
-                        } else {
-                            logAndSendReport("mergeData null existing node " + n.getOsmId() + " containsKey is " + nodeIndex.containsKey(n.getOsmId())
-                                    + " apiNode is " + apiNode);
-                            return false;
-                        }
+                        throw logAndGetIllegalStateException("mergeData null existing node " + n.getOsmId() + " containsKey is "
+                                + nodeIndex.containsKey(n.getOsmId()) + " apiNode is " + apiNode);
                     }
                 }
-
-                Log.d(DEBUG_TAG, "mergeData added nodes");
-
-                // add ways
-                for (Way w : storage.getWays()) {
-                    Way apiWay = apiStorage.getWay(w.getOsmId()); // can contain deleted elements
-                    if (!wayIndex.containsKey(w.getOsmId()) && apiWay == null) { // new way no problem
-                        temp.insertWayUnsafe(w);
-                        newElements.add(w);
-                    } else {
-                        if (apiWay != null && apiWay.getState() == OsmElement.STATE_DELETED) {
-                            if (apiWay.getOsmVersion() >= w.getOsmVersion()) {
-                                continue; // can use way we already have
-                            } else {
-                                return false; // can't resolve conflicts, upload first
-                            }
-                        }
-                        Way existingWay = wayIndex.get(w.getOsmId());
-                        if (existingWay != null) {
-                            if (existingWay.getOsmVersion() >= w.getOsmVersion()) {// larger just to be on the safe side
-                                continue; // can use way we already have
-                            } else {
-                                if (existingWay.isUnchanged()) {
-                                    temp.insertWayUnsafe(w);
-                                    newElements.add(w);
-                                } else {
-                                    return false; // can't resolve conflicts, upload first
-                                }
-                            }
-                        } else {
-                            logAndSendReport("mergeData null existing way " + w.getOsmId() + " containsKey is " + wayIndex.containsKey(w.getOsmId())
-                                    + " apiWay is " + apiWay);
-                            return false;
-                        }
-                    }
-                }
-
-                Log.d(DEBUG_TAG, "mergeData added ways");
-
-                // fix up way nodes
-                // all nodes should be in storage now, however new ways will have references to copies not in storage
-                for (Way w : wayIndex) {
-                    List<Node> nodes = w.getNodes();
-                    for (int i = 0; i < nodes.size(); i++) {
-                        Node wayNode = nodes.get(i);
-                        long wayNodeId = wayNode.getOsmId();
-                        Node n = nodeIndex.get(wayNodeId);
-                        if (n != null) {
-                            nodes.set(i, n);
-                        } else {
-                            // node might have been deleted, aka somebody deleted nodes outside of the down loaded data
-                            // bounding box
-                            // that belonged to a not downloaded way
-                            Node apiNode = apiStorage.getNode(wayNodeId);
-                            if (apiNode != null && apiNode.getState() == OsmElement.STATE_DELETED) {
-                                // attempt to fix this up, reinstate the original node so that any existing references
-                                // remain
-                                // FIXME undoing the original delete will likely cause havoc
-                                Log.e(DEBUG_TAG, "mergeData null undeleting node " + wayNodeId);
-                                if (apiNode.getOsmVersion() == wayNode.getOsmVersion() && (apiNode.isTagged() && apiNode.getTags().equals(wayNode.getTags()))
-                                        && apiNode.getLat() == wayNode.getLat() && apiNode.getLon() == wayNode.getLon()) {
-                                    apiNode.setState(OsmElement.STATE_UNCHANGED);
-                                    apiStorage.removeNode(apiNode);
-                                } else {
-                                    apiNode.setState(OsmElement.STATE_MODIFIED);
-                                }
-                                temp.insertNodeUnsafe(apiNode);
-                                nodes.set(i, apiNode);
-                            } else {
-                                logAndSendReport("mergeData null way node for way " + w.getOsmId() + " v" + w.getOsmVersion() + " node " + wayNodeId
-                                        + (apiNode != null ? " state in api " + apiNode.getState() : ""));
-                                return false;
-                            }
-                        }
-                    }
-                }
-
-                Log.d(DEBUG_TAG, "mergeData fixuped way nodes nodes");
-
-                // add relations
-                for (Relation r : storage.getRelations()) {
-                    Relation apiRelation = apiStorage.getRelation(r.getOsmId()); // can contain deleted elements
-                    if (!relationIndex.containsKey(r.getOsmId()) && apiRelation == null) { // new relation no problem
-                        temp.insertRelationUnsafe(r);
-                        newElements.add(r);
-                    } else {
-                        if (apiRelation != null && apiRelation.getState() == OsmElement.STATE_DELETED) {
-                            if (apiRelation.getOsmVersion() >= r.getOsmVersion()) {
-                                continue; // can use relation we already have
-                            } else {
-                                return false; // can't resolve conflicts, upload first
-                            }
-                        }
-                        Relation existingRelation = relationIndex.get(r.getOsmId());
-                        if (existingRelation != null) {
-                            if (existingRelation.getOsmVersion() >= r.getOsmVersion()) { // larger just to be on the
-                                                                                         // safe side
-                                continue; // can use relation we already have
-                            } else {
-                                if (existingRelation.isUnchanged()) {
-                                    temp.insertRelationUnsafe(r);
-                                    newElements.add(r);
-                                } else {
-                                    return false; // can't resolve conflicts, upload first
-                                }
-                            }
-                        } else {
-                            logAndSendReport("mergeData null existing relation " + r.getOsmId() + " containsKey is " + relationIndex.containsKey(r.getOsmId())
-                                    + " apiRelation is " + apiRelation);
-                            return false;
-                        }
-                    }
-                }
-
-                Log.d(DEBUG_TAG, "mergeData added relations");
-
-                // fixup relation back links and memberships
-
-                if (!redoBacklinks(temp, nodeIndex, wayIndex, relationIndex)) {
-                    Log.e(DEBUG_TAG, "mergeData redoBacklinks failed");
-                    return false;
-                }
-
-                Log.d(DEBUG_TAG, "mergeData fixuped relations");
-
-            } catch (StorageException sex) {
-                // ran out of memory
-                Log.e(DEBUG_TAG, "mergeData exception " + sex.getMessage());
-                return false;
             }
+
+            Log.d(DEBUG_TAG, "mergeData added nodes");
+
+            // add ways
+            for (Way w : storage.getWays()) {
+                Way apiWay = apiStorage.getWay(w.getOsmId()); // can contain deleted elements
+                if (!wayIndex.containsKey(w.getOsmId()) && apiWay == null) { // new way no problem
+                    temp.insertWayUnsafe(w);
+                    newElements.add(w);
+                } else {
+                    if (apiWay != null && apiWay.getState() == OsmElement.STATE_DELETED) {
+                        if (apiWay.getOsmVersion() >= w.getOsmVersion()) {
+                            continue; // can use way we already have
+                        } else {
+                            throw new DataConflictException(apiWay, ""); // can't resolve conflicts, upload first
+                        }
+                    }
+                    Way existingWay = wayIndex.get(w.getOsmId());
+                    if (existingWay != null) {
+                        if (existingWay.getOsmVersion() >= w.getOsmVersion()) {// larger just to be on the safe side
+                            continue; // can use way we already have
+                        } else {
+                            if (existingWay.isUnchanged()) {
+                                temp.insertWayUnsafe(w);
+                                newElements.add(w);
+                            } else {
+                                throw new DataConflictException(existingWay, ""); // can't resolve conflicts, upload
+                                                                                  // first
+                            }
+                        }
+                    } else {
+                        throw logAndGetIllegalStateException("mergeData null existing way " + w.getOsmId() + " containsKey is "
+                                + wayIndex.containsKey(w.getOsmId()) + " apiWay is " + apiWay);
+                    }
+                }
+            }
+
+            Log.d(DEBUG_TAG, "mergeData added ways");
+
+            // fix up way nodes
+            // all nodes should be in storage now, however new ways will have references to copies not in storage
+            for (Way w : wayIndex) {
+                List<Node> nodes = w.getNodes();
+                for (int i = 0; i < nodes.size(); i++) {
+                    Node wayNode = nodes.get(i);
+                    long wayNodeId = wayNode.getOsmId();
+                    Node n = nodeIndex.get(wayNodeId);
+                    if (n != null) {
+                        nodes.set(i, n);
+                    } else {
+                        // node might have been deleted, aka somebody deleted nodes outside of the down loaded data
+                        // bounding box
+                        // that belonged to a not downloaded way
+                        Node apiNode = apiStorage.getNode(wayNodeId);
+                        if (apiNode != null && apiNode.getState() == OsmElement.STATE_DELETED) {
+                            // attempt to fix this up, reinstate the original node so that any existing references
+                            // remain
+                            // FIXME undoing the original delete will likely cause havoc
+                            Log.e(DEBUG_TAG, "mergeData null undeleting node " + wayNodeId);
+                            if (apiNode.getOsmVersion() == wayNode.getOsmVersion() && (apiNode.isTagged() && apiNode.getTags().equals(wayNode.getTags()))
+                                    && apiNode.getLat() == wayNode.getLat() && apiNode.getLon() == wayNode.getLon()) {
+                                apiNode.setState(OsmElement.STATE_UNCHANGED);
+                                apiStorage.removeNode(apiNode);
+                            } else {
+                                apiNode.setState(OsmElement.STATE_MODIFIED);
+                            }
+                            temp.insertNodeUnsafe(apiNode);
+                            nodes.set(i, apiNode);
+                        } else {
+                            throw logAndGetIllegalStateException("mergeData null way node for way " + w.getOsmId() + " v" + w.getOsmVersion() + " node "
+                                    + wayNodeId + (apiNode != null ? " state in api " + apiNode.getState() : ""));
+                        }
+                    }
+                }
+            }
+
+            Log.d(DEBUG_TAG, "mergeData fixuped way nodes nodes");
+
+            // add relations
+            for (Relation r : storage.getRelations()) {
+                Relation apiRelation = apiStorage.getRelation(r.getOsmId()); // can contain deleted elements
+                if (!relationIndex.containsKey(r.getOsmId()) && apiRelation == null) { // new relation no problem
+                    temp.insertRelationUnsafe(r);
+                    newElements.add(r);
+                } else {
+                    if (apiRelation != null && apiRelation.getState() == OsmElement.STATE_DELETED) {
+                        if (apiRelation.getOsmVersion() >= r.getOsmVersion()) {
+                            continue; // can use relation we already have
+                        } else {
+                            throw new DataConflictException(r, ""); // can't resolve conflicts, upload first
+                        }
+                    }
+                    Relation existingRelation = relationIndex.get(r.getOsmId());
+                    if (existingRelation != null) {
+                        if (existingRelation.getOsmVersion() >= r.getOsmVersion()) { // larger just to be on the
+                                                                                     // safe side
+                            continue; // can use relation we already have
+                        } else {
+                            if (existingRelation.isUnchanged()) {
+                                temp.insertRelationUnsafe(r);
+                                newElements.add(r);
+                            } else {
+                                throw new DataConflictException(existingRelation, ""); // can't resolve conflicts,
+                                                                                       // upload first
+                            }
+                        }
+                    } else {
+                        throw logAndGetIllegalStateException("mergeData null existing relation " + r.getOsmId() + " containsKey is "
+                                + relationIndex.containsKey(r.getOsmId()) + " apiRelation is " + apiRelation);
+                    }
+                }
+            }
+
+            Log.d(DEBUG_TAG, "mergeData added relations");
+
+            // fixup relation back links and memberships
+
+            if (!redoBacklinks(temp, nodeIndex, wayIndex, relationIndex)) {
+                Log.e(DEBUG_TAG, "mergeData redoBacklinks failed");
+                throw new IllegalStateException("mergeData redoBacklinks failed");
+            }
+
+            Log.d(DEBUG_TAG, "mergeData fixuped relations");
 
             currentStorage = temp;
             undo.setCurrentStorage(temp);
@@ -3162,8 +3156,16 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 postMerge.handler(e);
             }
         }
+    }
 
-        return true; // Success
+    /**
+     * Log an error and return an IllegalStateException
+     * 
+     * @param debugString string to log
+     */
+    private IllegalStateException logAndGetIllegalStateException(@NonNull String debugString) {
+        Log.e(DEBUG_TAG, debugString);
+        return new IllegalStateException(debugString);
     }
 
     /**

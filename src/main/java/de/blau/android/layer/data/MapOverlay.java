@@ -32,6 +32,7 @@ import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
 import android.os.Build;
+import android.os.Handler;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -45,6 +46,7 @@ import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.Mode;
 import de.blau.android.R;
+import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.dialogs.LayerInfo;
 import de.blau.android.filter.Filter;
 import de.blau.android.layer.ConfigureInterface;
@@ -79,7 +81,6 @@ import de.blau.android.util.Coordinates;
 import de.blau.android.util.Density;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Geometry;
-import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.Util;
 import de.blau.android.util.collections.FloatPrimitiveList;
 import de.blau.android.util.collections.LinkedList;
@@ -392,8 +393,14 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
                             logic.reselectRelationMembers();
                             map.postInvalidate();
                         }, true, true);
-                        if (ErrorCodes.CORRUPTED_DATA == result.getCode()) {
-                            ScreenMessage.toastTopError(context, R.string.corrupted_data_message);
+                        final int code = result.getCode();
+                        if (ErrorCodes.CORRUPTED_DATA == code || ErrorCodes.DATA_CONFLICT == code || ErrorCodes.OUT_OF_MEMORY == code) {
+                            prefs.setPanAndZoomAutoDownload(false);
+                            setPrefs(prefs);
+                            if (context instanceof FragmentActivity) {
+                                new Handler(context.getMainLooper()).post(() -> ErrorAlert.showDialog(((FragmentActivity) context), code,
+                                        context.getString(R.string.autodownload_has_been_paused)));
+                            }
                         }
                     });
                 } catch (RejectedExecutionException rjee) {

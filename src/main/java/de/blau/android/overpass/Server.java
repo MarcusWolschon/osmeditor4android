@@ -17,9 +17,10 @@ import androidx.annotation.NonNull;
 import de.blau.android.App;
 import de.blau.android.AsyncResult;
 import de.blau.android.ErrorCodes;
-import de.blau.android.R;
+import de.blau.android.exception.DataConflictException;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmServerException;
+import de.blau.android.exception.StorageException;
 import de.blau.android.geocode.QueryNominatim;
 import de.blau.android.geocode.Search.SearchResult;
 import de.blau.android.osm.BoundingBox;
@@ -206,9 +207,7 @@ public final class Server {
                 final StorageDelegator delegator = App.getDelegator();
                 final BoundingBox box = storage.calcBoundingBoxFromData();
                 if (merge) {
-                    if (!delegator.mergeData(storage, (OsmElement e) -> e.hasProblem(context, App.getDefaultValidator(context)))) {
-                        return new AsyncResult(ErrorCodes.DATA_CONFLICT, context.getString(R.string.data_conflict_message));
-                    }
+                    delegator.mergeData(storage, (OsmElement e) -> e.hasProblem(context, App.getDefaultValidator(context)));
                     delegator.mergeBoundingBox(box);
                 } else {
                     delegator.reset(false);
@@ -217,8 +216,14 @@ public final class Server {
                 }
                 return new AsyncResult(ErrorCodes.OK);
             }
+        } catch (StorageException sex) {
+            return new AsyncResult(ErrorCodes.OUT_OF_MEMORY);
         } catch (OsmServerException e) {
             return new AsyncResult(ErrorCodes.UNKNOWN_ERROR, e.getMessage());
+        } catch (DataConflictException dce) {
+            return new AsyncResult(ErrorCodes.DATA_CONFLICT);
+        } catch (IllegalStateException iex) {
+            return new AsyncResult(ErrorCodes.CORRUPTED_DATA);
         } catch (OsmException e) {
             return new AsyncResult(ErrorCodes.NOT_FOUND, e.getMessage());
         } catch (SAXException e) {

@@ -43,8 +43,11 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceManager;
 import de.blau.android.App;
+import de.blau.android.AsyncResult;
+import de.blau.android.ErrorCodes;
 import de.blau.android.Logic;
 import de.blau.android.Main;
+import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
 import de.blau.android.gpx.Track;
 import de.blau.android.osm.BoundingBox;
@@ -879,7 +882,40 @@ public class TrackerService extends Service {
             public void download(BoundingBox box) {
                 delegator.addBoundingBox(box); // will be filled once download is complete
                 final Logic logic = App.getLogic();
-                logic.autoDownloadBox(TrackerService.this, prefs.getServer(), validator, box, logic::reselectRelationMembers);
+                logic.autoDownloadBox(TrackerService.this, prefs.getServer(), validator, box, new PostAsyncActionHandler() {
+                    @Override
+                    public void onSuccess() {
+                        logic.reselectRelationMembers();
+                    }
+
+                    @Override
+                    public void onError(@Nullable AsyncResult result) {
+                        if (result == null) {
+                            Log.e(DEBUG_TAG, "null AsyncResult");
+                            return;
+                        }
+                        int code = result.getCode();
+                        if (ErrorCodes.CORRUPTED_DATA == code || ErrorCodes.DATA_CONFLICT == code || ErrorCodes.OUT_OF_MEMORY == code) {
+                            prefs.setAutoDownload(false);
+                            int messageRes = R.string.unknown_error_message;
+                            switch (code) {
+                            case ErrorCodes.CORRUPTED_DATA:
+                                messageRes = R.string.corrupted_data_message;
+                                break;
+                            case ErrorCodes.DATA_CONFLICT:
+                                messageRes = R.string.data_conflict_message;
+                                break;
+                            case ErrorCodes.OUT_OF_MEMORY:
+                                messageRes = R.string.out_of_memory_message;
+                                break;
+                            default:
+                                // do nothing
+                            }
+                            ScreenMessage.toastTopError(TrackerService.this, getString(messageRes));
+                            ScreenMessage.toastTopError(TrackerService.this, getString(R.string.autodownload_has_been_paused));
+                        }
+                    }
+                });
             }
 
             @Override
