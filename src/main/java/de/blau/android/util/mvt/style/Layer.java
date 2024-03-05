@@ -44,22 +44,28 @@ public abstract class Layer implements Serializable {
     private static final String INTERPOLATION_TYPE                    = "type";
     private static final String LAYER_KEY_ID                          = "$id";
     private static final String LAYER_KEY_TYPE                        = "$type";
-    private static final String LAYER_FILTER_ANY                      = "any";
-    private static final String LAYER_FILTER_ALL                      = "all";
-    private static final String LAYER_FILTER_NOT_IN                   = "!in";
-    private static final String LAYER_FILTER_IN                       = "in";
-    private static final String LAYER_FILTER_GT_EQ                    = ">=";
-    private static final String LAYER_FILTER_GT                       = ">";
-    private static final String LAYER_FILTER_LT_EQ                    = "<=";
-    private static final String LAYER_FILTER_LT                       = "<";
-    private static final String LAYER_FILTER_NOT_EQ                   = "!=";
-    private static final String LAYER_FILTER_EQ                       = "==";
     private static final String LAYER_JOIN_MITER                      = "miter";
     private static final String LAYER_JOIN_ROUND                      = "round";
     private static final String LAYER_JOIN_BEVEL                      = "bevel";
     private static final String LAYER_CAP_SQUARE                      = "square";
     private static final String LAYER_CAP_ROUND                       = "round";
     private static final String LAYER_CAP_BUTT                        = "butt";
+
+    private static final String LAYER_FILTER_ANY    = "any";
+    private static final String LAYER_FILTER_ALL    = "all";
+    private static final String LAYER_FILTER_NOT_IN = "!in";
+    private static final String LAYER_FILTER_IN     = "in";
+    private static final String LAYER_FILTER_GT_EQ  = ">=";
+    private static final String LAYER_FILTER_GT     = ">";
+    private static final String LAYER_FILTER_LT_EQ  = "<=";
+    private static final String LAYER_FILTER_LT     = "<";
+    private static final String LAYER_FILTER_NOT_EQ = "!=";
+    private static final String LAYER_FILTER_EQ     = "==";
+
+    private static final String LAYER_EXPRESSION_NOT_HAS    = "!has";
+    private static final String LAYER_EXPRESSION_HAS        = "has";
+    private static final String LAYER_EXPRESSION_GET        = "get";
+    private static final String LAYER_EXPRESSION_TO_BOOLEAN = "to-boolean";
 
     private static final long RGB_ONLY   = 0x00FFFFFFL;
     private static final long ALPHA_ONLY = 0xFF000000L;
@@ -333,7 +339,7 @@ public abstract class Layer implements Serializable {
     }
 
     /**
-     * Evaluate the a filter expression
+     * Evaluate a filter expression
      * 
      * @param expression the expression
      * @param feature the feature we need to filter gains
@@ -393,8 +399,8 @@ public abstract class Layer implements Serializable {
             }
             return false;
         default:
-            Log.e(DEBUG_TAG, "Unknown filter type " + expression.get(0).getAsString());
-            return false;
+            Object result = evaluateExpression(expression, feature);
+            return result instanceof Boolean ? (Boolean) result : result != null;
         }
 
     }
@@ -419,6 +425,8 @@ public abstract class Layer implements Serializable {
             result = Float.compare((float) left, jsonElement.getAsFloat());
         } else if (left instanceof Double) {
             result = Double.compare((double) left, jsonElement.getAsDouble());
+        } else if (left instanceof Boolean) {
+            result = Boolean.compare((boolean) left, jsonElement.getAsBoolean());
         } else {
             Log.e(DEBUG_TAG, "compare unsupported object " + (left != null ? left.getClass().getCanonicalName() : "null") + " "
                     + jsonElement.getClass().getSimpleName());
@@ -460,6 +468,78 @@ public abstract class Layer implements Serializable {
         default:
             return feature.getAttributes().get(key);
         }
+    }
+
+    /**
+     * Evaluate a new style expression
+     * 
+     * @param expression the expression
+     * @param feature the feature we need to filter gains
+     * @return true if the filter excepts the feature
+     */
+    @Nullable
+    public Object evaluateExpression(@NonNull JsonArray expression, @NonNull VectorTileDecoder.Feature feature) {
+        String function = expression.get(0).getAsString();
+        switch (function) {
+        case LAYER_EXPRESSION_HAS:
+        case LAYER_EXPRESSION_NOT_HAS:
+            if (expression.size() == 3) {
+                Log.w(DEBUG_TAG, "Two argument versions of has and !has are not implemented");
+                return null;
+            }
+            JsonElement arg1 = expression.get(1);
+            String key = arg1.isJsonArray() ? evaluateExpression((JsonArray) arg1, feature).toString() : arg1.getAsString();
+            Object left = getKeyValue(feature, key);
+            return LAYER_EXPRESSION_HAS.equals(function) ? left != null : left == null;
+        case LAYER_EXPRESSION_GET:
+            if (expression.size() == 3) {
+                Log.w(DEBUG_TAG, "Two argument version of get is not implemented");
+                return null;
+            }
+            arg1 = expression.get(1);
+            key = arg1.isJsonArray() ? evaluateExpression((JsonArray) arg1, feature).toString() : arg1.getAsString();
+            return getKeyValue(feature, key);
+        case LAYER_EXPRESSION_TO_BOOLEAN:
+            arg1 = expression.get(1);
+            Object o = arg1.isJsonArray() ? evaluateExpression((JsonArray) arg1, feature) : arg1;
+            return isTrue(o);
+        default:
+            Log.e(DEBUG_TAG, "Unknown/unsupported expression " + function);
+        }
+        return null;
+    }
+
+    /**
+     * Check if Object o has a "true" value
+     * 
+     * @param o the Object
+     * @return true if it corresponds to a "true" value
+     */
+    private boolean isTrue(@Nullable Object o) {
+        if (o == null) {
+            return false;
+        }
+        if (o instanceof Boolean) {
+            return (Boolean) o;
+        }
+        if (o instanceof Integer) {
+            return ((Integer) o != 0);
+        }
+        if (o instanceof String) {
+            return !("".equals(o) || "false".equals(o));
+        }
+        if (o instanceof JsonPrimitive) {
+            JsonPrimitive p = (JsonPrimitive) o;
+            if (p.isNumber()) {
+                return p.getAsInt() != 0;
+            }
+            if (p.isString()) {
+                String str = p.getAsString();
+                return !("false".equals(str) || "".equals(str));
+            }
+            Log.w(DEBUG_TAG, "isTrue unexpected value " + p.toString());
+        }
+        return true;
     }
 
     /**
