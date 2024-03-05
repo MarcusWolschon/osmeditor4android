@@ -272,6 +272,40 @@ public class StorageDelegatorTest {
         assertEquals(nodeCount + 4L, d.getCurrentStorage().getNodeCount());
         assertEquals(wayCount + 1L, d.getCurrentStorage().getWayCount());
     }
+    
+    /**
+     * Load some data try to merge a way with a higher version
+     */
+    @Test
+    public void mergeDataConflict() {
+        StorageDelegator d = new StorageDelegator();
+        d.setCurrentStorage(PbfTest.read());
+        Way w = (Way) d.getOsmElement(Way.NAME, 571067343L);
+        assertNotNull(w);
+        SortedMap<String, String> tags = new TreeMap<>(w.getTags());
+        tags.put("test", "merge");
+        d.getUndo().createCheckpoint("merge");
+        d.setTags(w, tags);
+        assertEquals(1, d.getApiElementCount());
+        Node n = (Node) d.getOsmElement(Node.NAME, 761534749L);
+        assertNotNull(n);
+        n.setLat(toE7(47.1187142));
+        n.setLon(toE7(9.5430107));
+        d.insertElementSafe(n);
+
+        StorageDelegator d2 = new StorageDelegator();
+        Way w2 = DelegatorUtil.addWayToStorage(d2, true);
+        w2.setOsmId(w.getOsmId());
+        w2.setOsmVersion(w.getOsmVersion()+1);
+        d2.getCurrentStorage().rehash();
+        d2.getApiStorage().rehash();
+        try {
+            d.mergeData(d2.getCurrentStorage(), null);
+            fail("fail expected");
+        } catch (DataConflictException e) {
+            // nothing
+        }
+    }
 
     /**
      * Split way then merge in various ways
