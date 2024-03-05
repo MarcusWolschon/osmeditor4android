@@ -28,7 +28,7 @@ public class FilterTest {
      */
     @Before
     public void setup() {
-        // default values are currently take from the data style
+        // default values are currently taken from the data style
         DataStyle.getStylesFromFiles(ApplicationProvider.getApplicationContext());
     }
 

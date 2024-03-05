@@ -6,7 +6,7 @@ _For the Mapbox documents see [https://docs.mapbox.com/mapbox-gl-js/style-spec/]
 
 While a number of styles and corresponding vector tile schemas have been tested and within the limits described on this page things work, following specific points should be taken in to account:
 
-- the support was mainly intended for relatively light weight QA data overlays, as this is based on Android Canvas rendering and not a purpose specific OpenGL rendering implementation performance will in general be slow. This is further confounded by many sources providing tiles up to a maximum of zoom level 14, these then tend to be very large and often contain far more data than what would be needed for the current view.
+- the support was mainly intended for relatively light weight QA data overlays, as this is based on Android Canvas rendering and not a purpose specific OpenGL rendering implementation, performance will in general be slow. This is further confounded by many sources providing tiles up to a maximum of zoom level 14, these then tend to be very large and often contain far more data than what would be needed for the current view.
 - we've implemented some simple label and icon collision detection, however if a collision is detected, we simply doesn't render one of the colliding objects without attempting to relocate the offending symbol (collision avoidance). Further there is currently a hard wired limit of 200 objects that are handled by this, any further ones are not rendered (the choice of limit is not of any particular significance).
 
 ### Sources
@@ -40,7 +40,7 @@ Unsupported attributes are ignored.
 
 Font selection is not supported, we render with a standard Android system font.
 
-None of the new "expression" functions are currently supported, however "old style" filter expressions are supported and interpolation linear, identity and exponential interpolation for numbers, colors and categories work for lots of the supported attributes.
+Only a very small number of the new "expression" functions are currently supported, however "old style" filter expressions are supported and interpolation linear, identity and exponential interpolation for numbers, colors and categories work for lots of the supported attributes.
 
 #### Style attributes
 
@@ -56,7 +56,7 @@ Value support:
 - __l__ literal
 - __z__ "legacy" zoom based interpolation function
 - __m__ moustache replacement
-- __f__ "legacy" filter expressions
+- __f__ filter expressions
 
 
 |Key                        | Values    | Support   | Notes
@@ -130,7 +130,7 @@ Value support:
 |__icon-text-fit__          |           | no
 |__icon-text-fit-padding__  |           | no
 |__icon-translate__         |           | no
-|__icon-translate-anchor    |           | no
+|__icon-translate-anchor__  |           | no
 |__symbol-avoid-edges__     |           | no
 |__symbol-placement__       | l z       | yes
 |__symbol-sort-key__        |           | no
@@ -178,3 +178,120 @@ Value support:
 |_circle-stroke-width_      | l z       | yes
 |_circle-translate_         | l z       | yes
 |_circle-translate-anchor_  |           | no
+
+|Expressions            | Support    | Notes
+|-----------------------|------------|-----------
+|_any_                  | in filters | legacy
+|_all_                  | in filters | legacy
+|_!in_                  | in filters | legacy
+|_in_                   | in filters | legacy
+|_>=_                   | in filters | legacy
+|_>_                    | in filters | legacy
+|_<=_                   | in filters | legacy
+|_<_                    | in filters | legacy
+|_!=_                   | in filters | legacy
+|_==_                   | in filters | legacy
+|                       |            |
+|_!has_                 | in filters | new, 1 argument version only
+|_has_                  | in filters | new, 1 argument version only
+|_get_                  | in filters | new, 1 argument version only
+|_id_                   | no         | new
+|_geometry-type_        | no         | new
+|_properties_           | no         | new
+|_feature-state_        | no         | new
+|                       |            |
+|_array_                | no         | new
+|_boolean_              | no         | new
+|_collator_             | no         | new
+|_format_               | no         | new
+|_image_                | no         | new
+|_literal_              | no         | new
+|_number_               | no         | new
+|_number-format_        | no         | new
+|_object_               | no         | new
+|_string_               | no         | new
+|_to-boolean_           | in filters | new
+|_to-number_            | no         | new
+|_to-string_            | no         | new
+|_to-color_             | no         | new
+|_typeof_               | no         | new
+|                       |            |
+|_accumulated_          | no         | new
+|_feature-state_        | no         | new
+|_geometry-type_        | no         | new
+|_line-progress_        | no         | new
+|_properties_           | no         | new
+|                       |            |
+|_at_                   | no         | new
+|_config_               | no         | new
+|_in_                   | no         | new
+|_index-of_             | no         | new
+|_length_               | no         | new
+|_measure-light_        | no         | new
+|_slice_                | no         | new
+|                       |            |
+|_!_                    | no         | new
+|_!=_                   | no         | new
+|_<_                    | no         | new
+|_<=_                   | no         | new
+|_==_                   | no         | new
+|_>_                    | no         | new
+|_>=_                   | no         | new
+|_all_                  | no         | new
+|_any_                  | no         | new
+|_case_                 | no         | new
+|_coalesce_             | no         | new
+|_match_                | no         | new
+|_within_               | no         | new
+|                       |            |
+|_interpolate_          | no         | new
+|_interpolate-hci_      | no         | new
+|_interpolate-lab_      | no         | new
+|                       |            |
+|_step_                 | no         | new
+|_let_                  | no         | new
+|_var_                  | no         | new
+|                       |            |
+|_concat_               | no         | new
+|_downcase_             | no         | new
+|_is-supported-script_  | no         | new
+|_resolved-locals_      | no         | new
+|_upcase_               | no         | new
+|                       |            |
+|_hsl_                  | no         | new
+|_hsla_                 | no         | new
+|_rgb_                  | no         | new
+|_rgba_                 | no         | new
+|_to-rgba_              | no         | new
+|                       |            |
+|_-_                    | no         | new
+|_+_                    | no         | new
+|_/_                    | no         | new
+|_%_                    | no         | new
+|_abs_                  | no         | new
+|_acos_                 | no         | new
+|_asin_                 | no         | new
+|_atan_                 | no         | new
+|_ceil_                 | no         | new
+|_cos_                  | no         | new
+|_distance_             | no         | new
+|_e_                    | no         | new
+|_floor_                | no         | new
+|_ln_                   | no         | new
+|_ln2_                  | no         | new
+|_log10_                | no         | new
+|_log2_                 | no         | new
+|_max_                  | no         | new
+|_min_                  | no         | new
+|_pi_                   | no         | new
+|_random_               | no         | new
+|_round_                | no         | new
+|_sin_                  | no         | new
+|_sqrt_                 | no         | new
+|_tan_                  | no         | new
+|                       |            |
+|_distance-from-center_ | no         | new
+|_pitch_                | no         | new
+|_zoom_                 | no         | new
+|
+|_heatmap-density_      | no         | new
