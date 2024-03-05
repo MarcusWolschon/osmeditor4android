@@ -95,6 +95,8 @@
     <string name="upload_limit_message">You have exhausted your current upload allowance, please wait before trying again.</string>
     <string name="duplicate_tag_key_title">Duplicate keys</string>
     <string name="duplicate_tag_key_message">You have added the following key more than once, this needs to be resolved before you can proceed:</string>
+    <string name="autodownload_has_been_paused">Auto download has been paused.</string>
+    <!--  -->
     <string name="select_file_picker_title">Select file picker</string>
     <!-- Newbie dialog -->
     <string name="welcome_title">Welcome</string>

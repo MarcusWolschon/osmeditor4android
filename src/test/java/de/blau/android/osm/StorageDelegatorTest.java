@@ -24,6 +24,7 @@ import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
 import de.blau.android.App;
 import de.blau.android.Logic;
+import de.blau.android.exception.DataConflictException;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.prefs.Preferences;
@@ -259,7 +260,11 @@ public class StorageDelegatorTest {
         StorageDelegator d2 = new StorageDelegator();
         Way w2 = DelegatorUtil.addWayToStorage(d2, true);
 
-        d.mergeData(d2.getCurrentStorage(), null);
+        try {
+            d.mergeData(d2.getCurrentStorage(), null);
+        } catch (DataConflictException e) {
+            fail(e.getMessage());
+        }
 
         assertNotNull(d.getOsmElement(Way.NAME, 571067343L));
         assertNotNull(d.getOsmElement(Way.NAME, w2.getOsmId()));
