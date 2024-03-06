@@ -30,6 +30,8 @@ public final class FileUtil {
     private static final char  PATH_DELIMITER_CHAR = '/';
     public static final String FILE_SCHEME_PREFIX  = Schemes.FILE + ":";
 
+    public static final String TRUNCATE_WRITE_MODE = "rwt"; // see https://issuetracker.google.com/issues/180526528
+
     /**
      * Private constructor to stop instantiation
      */

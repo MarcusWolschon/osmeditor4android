@@ -293,7 +293,7 @@ public class ConsoleDialog extends DialogFragment {
             @Override
             protected Integer doInBackground(Void arg) {
                 int result = 0;
-                try (BufferedOutputStream out = new BufferedOutputStream(activity.getContentResolver().openOutputStream(uri))) {
+                try (BufferedOutputStream out = new BufferedOutputStream(activity.getContentResolver().openOutputStream(uri, FileUtil.TRUNCATE_WRITE_MODE))) {
                     out.write(script.getBytes());
                 } catch (IOException | IllegalArgumentException | IllegalStateException e) {
                     result = ErrorCodes.FILE_WRITE_FAILED;
