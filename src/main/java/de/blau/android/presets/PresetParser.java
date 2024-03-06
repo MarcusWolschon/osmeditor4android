@@ -30,6 +30,7 @@ import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.StringWithDescriptionAndIcon;
 
 public class PresetParser {
+
     private static final String DEBUG_TAG = PresetParser.class.getSimpleName();
 
     private static final String ALTERNATIVE           = "alternative";
@@ -99,7 +100,8 @@ public class PresetParser {
     static final String         CLOSEDWAY             = "closedway";
     static final String         LABEL                 = "label";
     private static final String ITEMS_SORT            = "items_sort";
-    private static final String SPACE                 = "space";
+    static final String         SPACE                 = "space";
+    static final String         HEIGHT_ATTR           = "height";
     private static final String LENGTH                = "length";
     private static final String REGIONS               = "regions";
     private static final String EXCLUDE_REGIONS       = "exclude_regions";
@@ -115,6 +117,7 @@ public class PresetParser {
     private static final String DESCRIPTION_ATTR      = "description";
     private static final String SHORTDESCRIPTION_ATTR = "shortdescription";
     private static final String VERSION_ATTR          = "version";
+    private static final String BACKGROUND            = "background";
 
     private enum PARSE_STATE {
         TOP, ITEM, CHUNK
@@ -379,6 +382,7 @@ public class PresetParser {
                         }
                     }
                     field.setDeprecated(TRUE.equals(attr.getValue(DEPRECATED)));
+                    setBackground(attr, field);
                     setRegions(attr, field);
                     break;
                 case LINK:
@@ -412,6 +416,7 @@ public class PresetParser {
                     }
                     checkGroup.setOptional(inOptionalSection);
                     checkGroup.setDeprecated(TRUE.equals(attr.getValue(DEPRECATED)));
+                    setBackground(attr, checkGroup);
                     setRegions(attr, checkGroup);
                     break;
                 case CHECK_FIELD:
@@ -453,6 +458,7 @@ public class PresetParser {
                     } else {
                         currentItem.addField(checkField);
                     }
+                    setBackground(attr, checkField);
                     setRegions(attr, checkField);
                     break;
                 case COMBO_FIELD:
@@ -540,6 +546,7 @@ public class PresetParser {
                         ((PresetComboField) field).setValueCountKey(valueCountKey);
                     }
                     field.setDeprecated(TRUE.equals(attr.getValue(DEPRECATED)));
+                    setBackground(attr, field);
                     setRegions(attr, field);
                     break;
                 case ROLES:
@@ -616,6 +623,22 @@ public class PresetParser {
                     }
                     break;
                 case SPACE:
+                case ITEM_SEPARATOR:
+                    PresetFormattingField formattingField = SPACE.equals(name) ? new PresetSpaceField(getHeight(attr))
+                            : new PresetItemSeparatorField(getHeight(attr));
+                    currentItem.addField(formattingField);
+                    formattingField.setOptional(inOptionalSection);
+                    setBackground(attr, formattingField);
+                    if (formattingField instanceof FieldHeight) {
+                        String height = attr.getValue(HEIGHT_ATTR);
+                        if (height != null) {
+                            try {
+                                ((FieldHeight) formattingField).setHeight(Integer.parseInt(height));
+                            } catch (NumberFormatException e) {
+                                Log.e(DEBUG_TAG, "Invalid int value " + height);
+                            }
+                        }
+                    }
                     break;
                 default:
                     Log.w(DEBUG_TAG, "Unknown start tag in preset item " + name);
@@ -629,14 +652,48 @@ public class PresetParser {
             }
 
             /**
+             * Set the background colour from attributes
+             * 
+             * @param attr the attributes
+             * @param field the PresetFiels
+             */
+            private void setBackground(@NonNull Attributes attr, @NonNull PresetField field) {
+                String backgroundString = attr.getValue(BACKGROUND);
+                if (backgroundString != null) {
+                    try {
+                        field.setBackgroundColour(Integer.parseInt(backgroundString, 16));
+                    } catch (NumberFormatException nfex) {
+                        Log.e(DEBUG_TAG, "Error parsing colour value " + nfex.getMessage());
+                    }
+                }
+            }
+
+            /**
              * Set the region values from attributes
              * 
              * @param attr the attributes
              * @param element the Regionalizable element
              */
-            private void setRegions(Attributes attr, Regionalizable element) {
+            private void setRegions(@NonNull Attributes attr, @NonNull Regionalizable element) {
                 element.setRegions(attr.getValue(REGIONS));
                 element.setExcludeRegions(TRUE.equals(attr.getValue(EXCLUDE_REGIONS)));
+            }
+
+            /**
+             * Get the value of the height attribute if not present return zero
+             * 
+             * @param attr the current attributes
+             */
+            private int getHeight(@NonNull Attributes attr) {
+                String height = attr.getValue(HEIGHT_ATTR);
+                if (height != null) {
+                    try {
+                        return Integer.parseInt(height);
+                    } catch (NumberFormatException e) {
+                        Log.e(DEBUG_TAG, "Invalid int value " + height);
+                    }
+                }
+                return 0;
             }
 
             /**
@@ -651,6 +708,7 @@ public class PresetParser {
                 String labelText = attr.getValue(TEXT);
                 if (supportLabels && labelText != null) {
                     PresetLabelField labelField = new PresetLabelField(labelText, attr.getValue(TEXT_CONTEXT));
+                    setBackground(attr, labelField);
                     setRegions(attr, labelField);
                     currentItem.addField(labelField);
                     labelField.setOptional(inOptionalSection);

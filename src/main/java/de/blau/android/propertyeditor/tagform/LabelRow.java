@@ -52,7 +52,14 @@ public class LabelRow extends LinearLayout {
      * @param label the label
      */
     public void setLabel(@NonNull String label) {
-        labelView.setText(label);
+        getLabelView().setText(label);
+    }
+
+    /**
+     * @return the labelView
+     */
+    private TextView getLabelView() {
+        return labelView;
     }
 
     /**
@@ -67,6 +74,7 @@ public class LabelRow extends LinearLayout {
         final LabelRow row = (LabelRow) inflater.inflate(R.layout.tag_form_label_row, rowLayout, false);
         final String label = field.getLabel();
         row.setLabel(label);
+        FormattingRow.setBackgroundColor(row.getLabelView(), field);
         return row;
     }
 }

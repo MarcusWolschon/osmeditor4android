@@ -73,8 +73,8 @@ Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/
 |                   | javascript                    | extension | if value is not set, execute the JS script
 |                   | i18n                          | extension | if set to true this tag has i18n variants
 |                   | value_type                    | extension | indicate the kind of value this tag should have
-|                   | regions                       | extension | comma separated list of countries this preset group is applicable for
-|                   | exclude_regions               | extension | if true, invert the meaning of regions
+|                   | regions                       | supported | comma separated list of countries this preset group is applicable for
+|                   | exclude_regions               | supported | if true, invert the meaning of regions
 |__&lt;combo&gt;__  |                               | supported | combo elements can contain a sequence of list_entry elements, or references to chunks that contain the same
 |                   | key                           | supported | required
 |                   | text                          | supported |
@@ -94,8 +94,8 @@ Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/
 |                   | length                        | ignored   |
 |                   | values_no_i18n                | ignored   |
 |                   | values_from                   | supported | extension: if the target method supports a String argument the current key will be passed
-|                   | regions                       | extension | comma separated list of countries this preset group is applicable for
-|                   | exclude_regions               | extension | if true, invert the meaning of regions
+|                   | regions                       | supported | comma separated list of countries this preset group is applicable for
+|                   | exclude_regions               | supported | if true, invert the meaning of regions
 |__&lt;multiselect&gt;__ |                          | supported | multiselect elements can contain a sequence of list_entry elements, or references to chunks that contain the same
 |                   | key                           | supported | required
 |                   | text                          | supported |
@@ -117,8 +117,8 @@ Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/
 |                   | values_from                   | supported | extension: if the target method supports a String argument the current key will be passed
 |                   | rows                          | ignored   |
 |                   | value_count_key               | extension | reference to a tag that will hold the number of values this multiselect should contain
-|                   | regions                       | extension | comma separated list of countries this preset group is applicable for
-|                   | exclude_regions               | extension | if true, invert the meaning of regions
+|                   | regions                       | supported | comma separated list of countries this preset group is applicable for
+|                   | exclude_regions               | supported | if true, invert the meaning of regions
 |__&lt;list_entry&gt;__       |                     | supported |
 |                   | value                         | supported | required
 |                   | display_value                 | supported |
@@ -126,14 +126,14 @@ Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/
 |                   | icon                          | supported |
 |                   | icon_size                     | ignored   |
 |                   | image                         | extension |
-|                   | regions                       | extension | comma separated list of countries this preset group is applicable for
-|                   | exclude_regions               | extension | if true, invert the meaning of regions
+|                   | regions                       | supported | comma separated list of countries this preset group is applicable for
+|                   | exclude_regions               | supported | if true, invert the meaning of regions
 |__&lt;checkgroup&gt;__       |                     | supported |
 |                   | columns                       | ignored   |
 |                   | text                          | extension |
 |                   | text_context                  | extension |
-|                   | regions                       | extension | comma separated list of countries this preset group is applicable for
-|                   | exclude_regions               | extension | if true, invert the meaning of regions
+|                   | regions                       | supported | comma separated list of countries this preset group is applicable for
+|                   | exclude_regions               | supported | if true, invert the meaning of regions
 |__&lt;check&gt;__  |                               | supported |
 |                   | key                           | supported | required
 |                   | text                          | supported |
@@ -145,18 +145,18 @@ Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/
 |                   | match                         | supported |
 |                   | match_expression              | ignored   |
 |                   | use_last_as_default           | extension | "force" has the same effect as "true"
-|                   | regions                       | extension | comma separated list of countries this preset group is applicable for
-|                   | exclude_regions               | extension | if true, invert the meaning of regions
+|                   | regions                       | supported | comma separated list of countries this preset group is applicable for
+|                   | exclude_regions               | supported | if true, invert the meaning of regions
 |__&lt;label&gt;__  |                               | supported |
 |                   | regions                       | extension | comma separated list of countries this preset group is applicable for
 |                   | exclude_regions               | extension | if true, invert the meaning of regions
-|__&lt;space/&gt;__ |                               | ignored   |
+|__&lt;space/&gt;__ |                               | supported |
 |                   | regions                       | extension | comma separated list of countries this preset group is applicable for
 |                   | exclude_regions               | extension | if true, invert the meaning of regions
 |__&lt;optional&gt;__ |                             | supported | contained fields are not displayed the in "Properties" tab when a preset is applied except if applying with optional fields is used, further matching ignores any optional fields
 |                   | text                          | supported |
 |__&lt;separator/&gt;__ |                           | supported | starts a new row in the preset selection display
-|__&lt;item_separator/&gt;__ |                      | ignored   |
+|__&lt;item_separator/&gt;__ |                      | supported |
 |                   | regions                       | extension | comma separated list of countries this preset group is applicable for
 |                   | exclude_regions               | extension | if true, invert the meaning of regions
 |__&lt;link&gt;__   |                               | supported | not legal inside &lt;chunk&gt; elements
