@@ -3708,7 +3708,7 @@ public class Logic {
     }
 
     /**
-     * Write data to an URI in (J)OSM compatible format
+     * Write data to an URI in (J)OSM compatible format¨
      * 
      * @param activity the calling FragmentActivity
      * @param uri URI to save to
@@ -3716,7 +3716,7 @@ public class Logic {
      */
     public void writeOsmFile(@NonNull final FragmentActivity activity, @NonNull final Uri uri, @Nullable final PostAsyncActionHandler postSaveHandler) {
         try {
-            writeOsmFile(activity, activity.getContentResolver().openOutputStream(uri), postSaveHandler);
+            writeOsmFile(activity, activity.getContentResolver().openOutputStream(uri, FileUtil.TRUNCATE_WRITE_MODE), postSaveHandler);
         } catch (IOException e) {
             if (!activity.isFinishing()) {
                 ErrorAlert.showDialog(activity, ErrorCodes.FILE_WRITE_FAILED);
