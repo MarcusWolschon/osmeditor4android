@@ -3505,7 +3505,7 @@ public class Logic {
                         return new AsyncResult(ErrorCodes.INVALID_DATA_READ, e.getMessage());
                     } catch (IOException e) {
                         Log.e(DEBUG_TAG, "Problem reading", e);
-                        return new AsyncResult(ErrorCodes.NO_CONNECTION, e.getMessage());
+                        return new AsyncResult(ErrorCodes.INVALID_DATA_READ, e.getMessage());
                     }
                     return new AsyncResult(ErrorCodes.OK, null);
                 }
