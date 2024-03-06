@@ -62,6 +62,7 @@ import de.blau.android.presets.PresetElement;
 import de.blau.android.presets.PresetElementPath;
 import de.blau.android.presets.PresetField;
 import de.blau.android.presets.PresetFixedField;
+import de.blau.android.presets.PresetFormattingField;
 import de.blau.android.presets.PresetGroup;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.presets.PresetKeyType;
@@ -778,7 +779,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                             checkGroupKeyValues.put(tagField.getKey(), keyValues);
                         }
                     }
-                } else if ((field instanceof PresetLabelField) && (!field.isOptional() || (optional != null && optional))) {
+                } else if ((field instanceof PresetFormattingField) && (!field.isOptional() || (optional != null && optional))) {
                     editable.put(field, "");
                 }
             }
@@ -877,6 +878,8 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             addRow(editableView, (PresetTagField) field, entry.getValue(), preset, tags);
         } else if (field instanceof PresetLabelField) {
             editableView.addView(LabelRow.getRow(inflater, editableView, (PresetLabelField) field));
+        } else if (field instanceof PresetFormattingField) {
+            editableView.addView(FormattingRow.getRow(inflater, editableView, (PresetFormattingField) field));
         }
     }
 

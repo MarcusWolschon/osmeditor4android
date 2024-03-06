@@ -11,7 +11,7 @@ import ch.poole.poparser.Po;
 
 public abstract class PresetField extends Regionalizable implements Serializable {
 
-    private static final long serialVersionUID = 2L;
+    private static final long serialVersionUID = 3L;
 
     /**
      * Translation contexts
@@ -22,6 +22,11 @@ public abstract class PresetField extends Regionalizable implements Serializable
      * Is this field is optional
      */
     protected boolean optional = false;
+
+    /**
+     * Colour value for the background
+     */
+    private int background = 0;
 
     /**
      * Construct a new PresetField
@@ -41,6 +46,7 @@ public abstract class PresetField extends Regionalizable implements Serializable
         super(field);
         this.textContext = field.textContext;
         this.optional = field.optional;
+        this.background = field.background;
     }
 
     /**
@@ -74,6 +80,20 @@ public abstract class PresetField extends Regionalizable implements Serializable
      */
     public void setOptional(boolean optional) {
         this.optional = optional;
+    }
+
+    /**
+     * @return the background colour
+     */
+    public int getBackgroundColour() {
+        return background;
+    }
+
+    /**
+     * @param backgroundColour the colour to set
+     */
+    public void setBackgroundColour(int backgroundColour) {
+        this.background = backgroundColour;
     }
 
     /**

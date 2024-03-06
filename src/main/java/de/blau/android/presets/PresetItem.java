@@ -424,8 +424,8 @@ public class PresetItem extends PresetElement {
             }
             return;
         }
-        if (field instanceof PresetLabelField) {
-            fields.put(name + PresetParser.LABEL + Integer.toString(labelCounter++), field);
+        if (field instanceof PresetFormattingField) {
+            fields.put(name + field.getClass().getSimpleName() + Integer.toString(labelCounter++), field);
         }
     }
 
