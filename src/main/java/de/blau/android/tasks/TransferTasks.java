@@ -51,6 +51,7 @@ import de.blau.android.prefs.Preferences;
 import de.blau.android.tasks.Task.State;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.ExecutorTask;
+import de.blau.android.util.FileUtil;
 import de.blau.android.util.IssueAlert;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.ScreenMessage;
@@ -520,7 +521,7 @@ public final class TransferTasks {
     public static void writeOsnFile(@NonNull final FragmentActivity activity, final boolean all, @NonNull final Uri uri,
             @Nullable final PostAsyncActionHandler postWrite) {
         try {
-            writeOsnFile(activity, all, new BufferedOutputStream(activity.getContentResolver().openOutputStream(uri)), postWrite);
+            writeOsnFile(activity, all, new BufferedOutputStream(activity.getContentResolver().openOutputStream(uri, FileUtil.TRUNCATE_WRITE_MODE)), postWrite);
         } catch (IOException e) {
             handleExceptionOnWrite(activity, postWrite, e);
         }
@@ -770,7 +771,7 @@ public final class TransferTasks {
     public static void writeTodoFile(@NonNull final FragmentActivity activity, @NonNull final Uri uri, @Nullable String list, boolean all,
             @Nullable final PostAsyncActionHandler postWrite) {
         try {
-            writeTodoFile(activity, activity.getContentResolver().openOutputStream(uri), list, all, postWrite);
+            writeTodoFile(activity, activity.getContentResolver().openOutputStream(uri, FileUtil.TRUNCATE_WRITE_MODE), list, all, postWrite);
         } catch (IOException e) {
             handleExceptionOnWrite(activity, postWrite, e);
         }

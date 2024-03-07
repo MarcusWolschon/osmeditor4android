@@ -351,7 +351,7 @@ public class SavingHelper<T extends Serializable> {
         new ExecutorTask<Void, Void, Boolean>() {
             @Override
             protected Boolean doInBackground(Void param) {
-                try (OutputStream outputStream = ctx.getContentResolver().openOutputStream(uri)) {
+                try (OutputStream outputStream = ctx.getContentResolver().openOutputStream(uri, FileUtil.TRUNCATE_WRITE_MODE)) {
                     exportable.export(outputStream);
                 } catch (Exception e) {
                     Log.e(DEBUG_TAG, "Export failed - " + uri.toString());
@@ -392,7 +392,8 @@ public class SavingHelper<T extends Serializable> {
                 exportable.export(outputStream);
                 Log.i(DEBUG_TAG, "Successful export to " + filename);
                 if (ctx != null) {
-                    new Handler(ctx.getMainLooper()).post(() -> ScreenMessage.toastTopInfo(ctx, ctx.getResources().getString(R.string.toast_export_success, filename)));
+                    new Handler(ctx.getMainLooper())
+                            .post(() -> ScreenMessage.toastTopInfo(ctx, ctx.getResources().getString(R.string.toast_export_success, filename)));
                 }
                 return outfile.getAbsolutePath();
             }

@@ -1549,6 +1549,27 @@ public final class TestUtils {
     }
 
     /**
+     * Click the "simple" button
+     * 
+     * @param device the current UiDevice
+     * @param wait time till timeout
+     */
+    public static void clickSimpleButton(@NonNull UiDevice device, long wait) {
+        waitForSimpleButton(device, wait);
+        TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
+    }
+    
+    /**
+     * Wait for the "simple" button
+     * 
+     * @param device the current UiDevice
+     * @param wait time till timeout
+     */
+    public static void waitForSimpleButton(@NonNull UiDevice device, long wait) {
+        device.wait(Until.findObject(By.res(device.getCurrentPackageName() + ":id/simpleButton")), wait);
+    }
+
+    /**
      * Get the lock button
      * 
      * @param device the current UiDevice
