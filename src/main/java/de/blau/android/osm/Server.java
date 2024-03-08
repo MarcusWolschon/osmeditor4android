@@ -15,6 +15,7 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
@@ -1446,6 +1447,27 @@ public class Server {
      * New Notes API code mostly from old OSB implementation the relevant API documentation is still in flux so this
      * implementation may have issues
      */
+
+    /**
+     * Retrieve a single note
+     * 
+     * @param id the id of the Note to retrieve
+     * @return the Note, null if not found or other error
+     * @throws IOException
+     * @throws XmlPullParserException
+     * @throws NumberFormatException
+     */
+    @Nullable
+    public Note getNote(long id) throws NumberFormatException, XmlPullParserException, IOException {
+        // http://openstreetbugs.schokokeks.org/api/0.1/getGPX?b=48&t=49&l=11&r=12&limit=100
+        Log.d(DEBUG_TAG, "getNote");
+        try (InputStream is = openConnection(null, getNoteUrl(Long.toString(id)))) {
+            XmlPullParser parser = xmlParserFactory.newPullParser();
+            parser.setInput(new BufferedInputStream(is, StreamUtils.IO_BUFFER_SIZE), null);
+            List<Note> result = Note.parseNotes(parser, null);
+            return !result.isEmpty() ? result.get(0) : null;
+        }
+    }
 
     /**
      * Perform an HTTP request to download up to limit bugs inside the specified area. Blocks until the request is

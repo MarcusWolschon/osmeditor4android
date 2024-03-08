@@ -42,6 +42,11 @@ public class Node extends OsmElement implements GeoPoint, BoundedObject {
     public static final String NAME = "node";
 
     /**
+     * Abbreviation
+     */
+    public static final String ABBREV = "n";
+
+    /**
      * Scaling between floating point coordinates and internal representation as an int
      */
     public static final int COORDINATE_SCALE = 7;

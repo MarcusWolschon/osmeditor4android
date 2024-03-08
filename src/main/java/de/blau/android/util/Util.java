@@ -909,4 +909,22 @@ public final class Util {
             // nothing we can really do here
         }
     }
+
+    /**
+     * Filter a list of OsmELement ids for download
+     * 
+     * @param delegator the current StorageDelegator instance
+     * @param type the element type
+     * @param elements the list
+     * @return a filtered list that only contains id that are not already loaded
+     */
+    public static List<Long> filterForDownload(@NonNull StorageDelegator delegator, @NonNull String type, @NonNull List<Long> elements) {
+        List<Long> result = new ArrayList<>();
+        for (long id : elements) {
+            if (delegator.getOsmElement(type, id) == null) {
+                result.add(id);
+            }
+        }
+        return result;
+    }
 }

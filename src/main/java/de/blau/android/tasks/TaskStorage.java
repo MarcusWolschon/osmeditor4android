@@ -526,6 +526,23 @@ public class TaskStorage implements Serializable, DataStorage {
         return false;
     }
 
+    
+    /**
+     * Retrieve a Note per id from Storage
+     * 
+     * @param id
+     * @return the Note of null if it can't be found
+     */
+    @Nullable
+    public Note getNote(long id) {
+        for (Task t : getTasks()) {
+            if (t instanceof Note && ((Note)t).getId() == id) {
+                return (Note) t;
+            }
+        }
+        return null;
+    }
+    
     @Override
     public String toString() {
         return "task r-tree: " + tasks.count() + " boxes r-tree " + boxes.count();
