@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="CGImap 0.8.10 (1553672 spike-06.openstreetmap.org)" copyright="OpenStreetMap and contributors" attribution="http://www.openstreetmap.org/copyright" license="http://opendatacommons.org/licenses/odbl/1-0/">
+ <node id="1" visible="true" version="33" changeset="124176968" timestamp="2022-07-28T09:47:39Z" user="owene" uid="29598" lat="42.7957187" lon="13.5690032">
+  <tag k="communication:microwave" v="yes"/>
+  <tag k="communication:radio" v="fm"/>
+  <tag k="description" v="Radio Subasio"/>
+  <tag k="frequency" v="105.5 MHz"/>
+  <tag k="man_made" v="mast"/>
+  <tag k="name" v="Monte Piselli - San Giacomo"/>
+  <tag k="tower:construction" v="lattice"/>
+  <tag k="tower:type" v="communication"/>
+ </node>
+</osm>

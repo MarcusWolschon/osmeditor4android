@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="CGImap 0.8.10 (2854493 spike-06.openstreetmap.org)" copyright="OpenStreetMap and contributors" attribution="http://www.openstreetmap.org/copyright" license="http://opendatacommons.org/licenses/odbl/1-0/">
+ <node id="260897" visible="true" version="8" changeset="130698657" timestamp="2022-12-30T18:36:20Z" user="wermak" uid="11211647" lat="48.1801413" lon="11.3301915"/>
+ <node id="260898" visible="true" version="7" changeset="130698657" timestamp="2022-12-30T18:36:20Z" user="wermak" uid="11211647" lat="48.1800987" lon="11.3300715"/>
+ <node id="260899" visible="true" version="10" changeset="130698657" timestamp="2022-12-30T18:36:20Z" user="wermak" uid="11211647" lat="48.1798965" lon="11.3300841"/>
+ <node id="260900" visible="true" version="7" changeset="130698657" timestamp="2022-12-30T18:36:20Z" user="wermak" uid="11211647" lat="48.1798724" lon="11.3301399"/>
+ <node id="260901" visible="true" version="9" changeset="130698657" timestamp="2022-12-30T18:36:20Z" user="wermak" uid="11211647" lat="48.1798635" lon="11.3302704"/>
+ <node id="260902" visible="true" version="8" changeset="130698657" timestamp="2022-12-30T18:36:20Z" user="wermak" uid="11211647" lat="48.1798970" lon="11.3303683"/>
+ <node id="260903" visible="true" version="11" changeset="130698657" timestamp="2022-12-30T18:36:20Z" user="wermak" uid="11211647" lat="48.1800688" lon="11.3304125"/>
+ <node id="260904" visible="true" version="7" changeset="130698657" timestamp="2022-12-30T18:36:20Z" user="wermak" uid="11211647" lat="48.1801036" lon="11.3303729"/>
+ <node id="185986175" visible="true" version="6" changeset="130698657" timestamp="2022-12-30T18:36:20Z" user="wermak" uid="11211647" lat="48.1800163" lon="11.3300149"/>
+ <node id="456386831" visible="true" version="4" changeset="130698657" timestamp="2022-12-30T18:36:20Z" user="wermak" uid="11211647" lat="48.1801286" lon="11.3303193"/>
+ <node id="456386832" visible="true" version="4" changeset="130698657" timestamp="2022-12-30T18:36:20Z" user="wermak" uid="11211647" lat="48.1801266" lon="11.3301262"/>
+ <node id="456386833" visible="true" version="4" changeset="130698657" timestamp="2022-12-30T18:36:20Z" user="wermak" uid="11211647" lat="48.1800606" lon="11.3300330"/>
+ <node id="456386834" visible="true" version="4" changeset="130698657" timestamp="2022-12-30T18:36:20Z" user="wermak" uid="11211647" lat="48.1799705" lon="11.3300190"/>
+ <node id="456386836" visible="true" version="4" changeset="130698657" timestamp="2022-12-30T18:36:20Z" user="wermak" uid="11211647" lat="48.1798611" lon="11.3302041"/>
+ <node id="456386837" visible="true" version="4" changeset="130698657" timestamp="2022-12-30T18:36:20Z" user="wermak" uid="11211647" lat="48.1798759" lon="11.3303227"/>
+ <node id="1807516891" visible="true" version="5" changeset="130698657" timestamp="2022-12-30T18:36:20Z" user="wermak" uid="11211647" lat="48.1799587" lon="11.3304278"/>
+ <node id="10295526789" visible="true" version="1" changeset="130698657" timestamp="2022-12-30T18:36:20Z" user="wermak" uid="11211647" lat="48.1799959" lon="11.3304377"/>
+ <node id="10295526790" visible="true" version="1" changeset="130698657" timestamp="2022-12-30T18:36:20Z" user="wermak" uid="11211647" lat="48.1799301" lon="11.3300429"/>
+ <node id="10295526791" visible="true" version="1" changeset="130698657" timestamp="2022-12-30T18:36:20Z" user="wermak" uid="11211647" lat="48.1799253" lon="11.3304042"/>
+ <node id="10295526792" visible="true" version="1" changeset="130698657" timestamp="2022-12-30T18:36:20Z" user="wermak" uid="11211647" lat="48.1800335" lon="11.3304324"/>
+ <node id="10295526793" visible="true" version="1" changeset="130698657" timestamp="2022-12-30T18:36:20Z" user="wermak" uid="11211647" lat="48.1801416" lon="11.3302569"/>
+ <way id="100" visible="true" version="18" changeset="130698657" timestamp="2022-12-30T18:36:20Z" user="wermak" uid="11211647">
+  <nd ref="260904"/>
+  <nd ref="456386831"/>
+  <nd ref="10295526793"/>
+  <nd ref="260897"/>
+  <nd ref="456386832"/>
+  <nd ref="260898"/>
+  <nd ref="456386833"/>
+  <nd ref="185986175"/>
+  <nd ref="456386834"/>
+  <nd ref="10295526790"/>
+  <nd ref="260899"/>
+  <nd ref="260900"/>
+  <nd ref="456386836"/>
+  <nd ref="260901"/>
+  <nd ref="456386837"/>
+  <nd ref="260902"/>
+  <nd ref="10295526791"/>
+  <nd ref="1807516891"/>
+  <nd ref="10295526789"/>
+  <nd ref="10295526792"/>
+  <nd ref="260903"/>
+  <nd ref="260904"/>
+  <tag k="bicycle" v="use_sidepath"/>
+  <tag k="foot" v="use_sidepath"/>
+  <tag k="highway" v="secondary"/>
+  <tag k="junction" v="roundabout"/>
+  <tag k="lane_markings" v="no"/>
+  <tag k="maxspeed" v="100"/>
+  <tag k="surface" v="asphalt"/>
+  <tag k="tmc" v="DE:32282/32283"/>
+  <tag k="unsigned_ref" v="St 2069"/>
+  <tag k="zone:traffic" v="DE:rural"/>
+ </way>
+</osm>

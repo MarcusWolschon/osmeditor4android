@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="OpenStreetMap server" copyright="OpenStreetMap and contributors" attribution="http://www.openstreetmap.org/copyright" license="http://opendatacommons.org/licenses/odbl/1-0/">
+<note lon="11.4960015" lat="54.6681169">
+  <id>100</id>
+  <url>https://api.openstreetmap.org/api/0.6/notes/100</url>
+  <reopen_url>https://api.openstreetmap.org/api/0.6/notes/100/reopen</reopen_url>
+  <date_created>2013-04-24 15:17:13 UTC</date_created>
+  <status>closed</status>
+  <date_closed>2013-04-29 14:46:44 UTC</date_closed>
+  <comments>
+    <comment>
+      <date>2013-04-24 15:17:13 UTC</date>
+      <action>opened</action>
+      <text>Har denne her kirke ikke et navn?</text>
+      <html>&lt;p&gt;Har denne her kirke ikke et navn?&lt;/p&gt;</html>
+    </comment>
+    <comment>
+      <date>2013-04-29 14:46:44 UTC</date>
+      <uid>21323</uid>
+      <user>AE35</user>
+      <user_url>https://api.openstreetmap.org/user/AE35</user_url>
+      <action>closed</action>
+      <text>Errindlev Kirke er tilføjet som navn nu.</text>
+      <html>&lt;p&gt;Errindlev Kirke er tilføjet som navn nu.&lt;/p&gt;</html>
+    </comment>
+  </comments>
+</note>
+</osm>
