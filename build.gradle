@@ -654,7 +654,7 @@ dependencies {
     implementation "com.mapbox.mapboxsdk:mapbox-sdk-geojson:$mapboxVersion"
     implementation "com.mapbox.mapboxsdk:mapbox-sdk-turf:$mapboxVersion"
     implementation 'com.github.Kunzisoft:AndroidClearChroma:2.4'
-    implementation 'de.westnordost:countryboundaries:1.5'
+    implementation 'de.westnordost:countryboundaries:2.1'
     implementation 'de.ruedigermoeller:fst:2.57'
     implementation 'org.openstreetmap.osmosis:osmosis-osm-binary:0.48.3'
     implementation 'com.zaxxer:SparseBitSet:1.2'
@@ -665,7 +665,7 @@ dependencies {
     implementation 'com.caverock:androidsvg-aar:1.4'
     
     implementation "ch.poole:PoParser:0.8.0"
-    implementation "ch.poole:OpeningHoursParser:0.28.1"
+    implementation "ch.poole:OpeningHoursParser:0.28.2"
     implementation "ch.poole:ConditionalRestrictionParser:0.3.3"
     implementation "ch.poole:OpeningHoursFragment:0.13.4"
     implementation 'ch.poole.android:numberpicker:1.0.10'
