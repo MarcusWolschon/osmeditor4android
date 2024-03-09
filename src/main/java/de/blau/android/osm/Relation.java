@@ -38,6 +38,11 @@ public class Relation extends StyledOsmElement implements RelationInterface, Bou
 
     public static final String NAME = "relation";
 
+    /**
+     * Abbreviation
+     */
+    public static final String ABBREV = "r";
+
     static final String MEMBER_ATTR      = "member";
     static final String MEMBER_ROLE_ATTR = "role";
     static final String MEMBER_REF_ATTR  = "ref";

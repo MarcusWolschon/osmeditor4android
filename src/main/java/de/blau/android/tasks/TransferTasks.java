@@ -430,6 +430,25 @@ public final class TransferTasks {
     }
 
     /**
+     * Retrieve a single Note from the OSM API
+     * 
+     * @param server the API server instance
+     * @param id the Note id
+     * @return the Note or null
+     * @throws NumberFormatException
+     * @throws XmlPullParserException
+     * @throws IOException
+     */
+    @Nullable
+    public static Note downloadNote(@NonNull Server server, long id) throws NumberFormatException, XmlPullParserException, IOException {
+        Note note = server.getNote(id);
+        if (note != null) {
+            App.getTaskStorage().add(note);
+        }
+        return note;
+    }
+
+    /**
      * Update single bug state
      * 
      * @param activity the calling Activity

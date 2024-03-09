@@ -44,6 +44,14 @@ Further supported attributes:
 *changeset_comment*: a draft changeset comment. (added in version 13.1)
 *changeset_source*: a draft changeset source. (added in version 13.1)
 
+__Load objects__
+
+josm:/load\_and\_object?objects=*osmobjects*
+
+*osmobjects*: optional, comma separated list of OSM objects in the form *abbreviationID*, ie n1111111,w1234456. 
+
+Downloads the objects if they are not already present. (added in version 20.0)
+
 __Configure imagery__ (added in version 13.1)
 
 josm:/imagery?title=*title*&type=*type*&min\_zoom=*min\_zoom*&max\_zoom=*max\_zoom*&url=*url*
@@ -76,3 +84,21 @@ for the __load\_and\_zoom__ command, and
     intent:/imagery?title=osmtest&type=tms&min_zoom=2&max_zoom=19&url=https://a.tile.openstreetmap.org/%7Bzoom%7D/%7Bx%7D/%7By%7D.png#Intent;scheme=josm;end;
     
 for the __imagery__ command.
+
+## Supported links
+
+From version 20 on Vespucci supports opening links to the OpenStreetMap website referring to individual OSM elements (hosts _openstreetmap.org_, _www.openstreetmap.org_, 
+_osm.org_, _www.osm.org_).
+
+Supported paths are _/node/nnn_, _/way/nnn_, /relation/nnn_ and _/note/nnn_ (trailing map hashes will be ignored).
+
+Examples: 
+ 
+    https://www.openstreetmap.org/node/1 
+
+    https://www.openstreetmap.org/note/100
+    
+Notes 
+- This will not work with links on openstreetmap.org itself, but will with other sites.
+- Depending on the browser you are using you may need to explicitly allow opening links in apps.
+- On modern Android versions you may have to explicitly allow this to work in the app configuration.

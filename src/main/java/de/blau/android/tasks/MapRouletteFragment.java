@@ -433,7 +433,7 @@ public class MapRouletteFragment extends TaskFragment {
         case "relation":
             return Relation.NAME;
         default:
-            throw new IllegalArgumentException("Unknoen element type " + type);
+            throw new IllegalArgumentException("Unknown element type " + type);
         }
     }
 }

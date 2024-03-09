@@ -15,6 +15,8 @@ import java.util.Locale;
 import java.util.Queue;
 import java.util.concurrent.TimeUnit;
 
+import org.xmlpull.v1.XmlPullParserException;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import android.Manifest;
@@ -161,7 +163,10 @@ import de.blau.android.services.TrackerService;
 import de.blau.android.services.TrackerService.TrackerBinder;
 import de.blau.android.services.TrackerService.TrackerLocationListener;
 import de.blau.android.tasks.MapRouletteApiKey;
+import de.blau.android.tasks.Note;
+import de.blau.android.tasks.NoteFragment;
 import de.blau.android.tasks.Task;
+import de.blau.android.tasks.TaskStorage;
 import de.blau.android.tasks.Todo;
 import de.blau.android.tasks.TodoFragment;
 import de.blau.android.tasks.TransferTasks;
@@ -1087,10 +1092,12 @@ public class Main extends FullScreenAppCompatActivity
                 }
             }
             if (geoData != null) {
-                processGeoIntent();
+                processGeoIntent(geoData);
+                geoData = null; // zap so that we don't re-download
             }
             if (rcData != null) {
-                processJosmRc();
+                processJosmRc(rcData);
+                rcData = null; // zap to stop repeated downloads
             }
             if (contentUri != null) {
                 String extension = FileUtil.getExtension(contentUri.getLastPathSegment());
@@ -1175,46 +1182,93 @@ public class Main extends FullScreenAppCompatActivity
 
     /**
      * Process JOSM remote control Urls
+     * 
+     * @param data the data from the intent
      */
-    void processJosmRc() {
-        Log.d(DEBUG_TAG, "got data from remote control url " + rcData.getBox() + " load " + rcData.load());
-        Logic logic = App.getLogic();
-        StorageDelegator delegator = App.getDelegator();
+    void processJosmRc(@NonNull final RemoteControlUrlData data) {
+        Log.d(DEBUG_TAG, "got data from remote control url " + data.getBox() + " load " + data.load());
+        final Logic logic = App.getLogic();
+        final StorageDelegator delegator = App.getDelegator();
         List<BoundingBox> bbList = new ArrayList<>(delegator.getBoundingBoxes());
-        BoundingBox loadBox = rcData.getBox();
-        if (loadBox != null) {
-            if (rcData.load()) { // download
+        BoundingBox loadBox = data.getBox();
+        final PostAsyncActionHandler postLoadHandler = () -> {
+            synchronized (newIntentsLock) {
+                rcDataEdit(data);
+            }
+        };
+        if (data.load() || data.select()) { // download
+            if (loadBox != null) {
                 List<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, loadBox);
                 if (!bboxes.isEmpty() || delegator.isEmpty()) {
                     // only download if we haven't yet
-                    logic.downloadBox(this, rcData.getBox(), true, () -> {
-                        synchronized (newIntentsLock) {
-                            if (rcData != null) {
-                                rcDataEdit(rcData);
-                            }
+                    logic.downloadBox(this, data.getBox(), true, postLoadHandler);
+                    return;
+                }
+            }
+            Log.d(DEBUG_TAG, "RC box is null");
+            rcDataEdit(data);
+        } else if (data.hasObjects()) {
+            final List<Long> notes = data.getNotes();
+            if (!notes.isEmpty()) {
+                displayNote(this, logic, notes.get(0));
+                return;
+            }
+            logic.downloadElements(this, Util.filterForDownload(delegator, Node.NAME, data.getNodes()),
+                    Util.filterForDownload(delegator, Way.NAME, data.getWays()), Util.filterForDownload(delegator, Relation.NAME, data.getRelations()), () -> {
+                        if (data != null) {
+                            data.setSelect(true);
+                            postLoadHandler.onSuccess();
+                            zoomTo(logic.getSelectedElements());
+                            invalidateMap();
                         }
                     });
-                } else {
-                    rcDataEdit(rcData);
-                    rcData = null;
-                }
-            } else { // zoom
-                map.getViewBox().fitToBoundingBox(getMap(), rcData.getBox());
-                map.invalidate();
-                rcData = null; // zap to stop repeated/
-                               // downloads
-            }
-        } else {
-            Log.d(DEBUG_TAG, "RC box is null");
-            rcDataEdit(rcData);
-            rcData = null;
+        } else if (loadBox != null) { // zoom only
+            map.getViewBox().fitToBoundingBox(getMap(), loadBox);
+            map.invalidate();
         }
     }
 
     /**
-     * Process Geo Urls
+     * Display a note potentially downloading it and adding it to storage
+     * 
+     * @param logic current
+     * @param id note id
      */
-    void processGeoIntent() {
+    private void displayNote(@NonNull final Context ctx, @NonNull final Logic logic, @NonNull final long id) {
+        new ExecutorTask<Long, Void, Note>(logic.getExecutorService(), logic.getHandler()) {
+            @Override
+            protected Note doInBackground(Long id) throws NumberFormatException, XmlPullParserException, IOException {
+                TaskStorage storage = App.getTaskStorage();
+                Note note = storage.getNote(id);
+                if (note == null) {
+                    note = TransferTasks.downloadNote(prefs.getServer(), id);
+                }
+                return note;
+            }
+
+            @Override
+            protected void onBackgroundError(Exception e) {
+                ScreenMessage.toastTopWarning(ctx, ctx.getString(R.string.toast_note_not_found, id));
+            }
+
+            @Override
+            protected void onPostExecute(Note result) {
+                if (result != null) {
+                    logic.setZoom(map, Ui.ZOOM_FOR_ZOOMTO);
+                    map.getViewBox().moveTo(map, result.getLon(), result.getLat());
+                    map.invalidate();
+                    NoteFragment.showDialog(Main.this, result);
+                }
+            }
+        }.execute(id);
+    }
+
+    /**
+     * Process Geo Urls
+     * 
+     * @param geoData the data from the intent
+     */
+    void processGeoIntent(@NonNull final GeoUrlData geoData) {
         final Logic logic = App.getLogic();
         final ViewBox viewBox = logic.getViewBox();
         final double lon = geoData.getLon();
@@ -1224,7 +1278,6 @@ public class Main extends FullScreenAppCompatActivity
         final boolean hasZoom = geoData.hasZoom();
         final int zoom = geoData.getZoom() + 1; // in practical terms this works better
         Log.d(DEBUG_TAG, "got position from geo: url " + geoData + " storage dirty is " + App.getDelegator().isDirty());
-        geoData = null; // zap so that we don't re-download
 
         final int downloadRadius = prefs.getDownloadRadius();
         if (downloadRadius != 0) { // download
@@ -1335,45 +1388,18 @@ public class Main extends FullScreenAppCompatActivity
             map.getViewBox().fitToBoundingBox(getMap(), box);
         }
         final Logic logic = App.getLogic();
-        if (rcData.getSelect() != null) {
+        if (rcData.select()) {
             // need to actually switch to easyeditmode
             if (!logic.getMode().elementsGeomEditiable()) {
                 // TODO there might be states in which we don't
                 // want to exit which ever mode we are in
                 logic.setMode(this, Mode.MODE_EASYEDIT);
             }
-            logic.setSelectedNode(null);
-            logic.setSelectedWay(null);
-            logic.setSelectedRelation(null);
+            logic.deselectAll();
             StorageDelegator storageDelegator = App.getDelegator();
-            for (String s : rcData.getSelect().split(",")) {
-                // see http://wiki.openstreetmap.org/wiki/JOSM/Plugins/RemoteControl
-                if (s == null) {
-                    continue;
-                }
-                Log.d(DEBUG_TAG, "rc select: " + s);
-                try {
-                    if (s.startsWith(Node.NAME)) {
-                        Node n = (Node) getRcElement(Node.NAME, storageDelegator, s);
-                        if (n != null) {
-                            logic.addSelectedNode(n);
-                        }
-                    } else if (s.startsWith(Way.NAME)) {
-                        Way w = (Way) getRcElement(Way.NAME, storageDelegator, s);
-                        if (w != null) {
-                            logic.addSelectedWay(w);
-                        }
-                    } else if (s.startsWith(Relation.NAME)) {
-                        Relation r = (Relation) getRcElement(Relation.NAME, storageDelegator, s);
-                        if (r != null) {
-                            logic.addSelectedRelation(r);
-                        }
-                    }
-                } catch (NumberFormatException nfe) {
-                    Log.d(DEBUG_TAG, "Parsing " + s + " caused " + nfe);
-                    // not much more we can do here
-                }
-            }
+            selectElements(logic, storageDelegator, Node.NAME, rcData.getNodes());
+            selectElements(logic, storageDelegator, Way.NAME, rcData.getWays());
+            selectElements(logic, storageDelegator, Relation.NAME, rcData.getRelations());
             FloatingActionButton lock = getLock();
             if (logic.isLocked() && lock != null) {
                 lock.performClick();
@@ -1391,17 +1417,30 @@ public class Main extends FullScreenAppCompatActivity
     }
 
     /**
-     * Parse a JOSM RC element spec and return the OsmElement
+     * Select a list of elements by id
      * 
-     * @param elementName textual indication of element type
-     * @param storageDelegator current StorageDelegator
-     * @param s the spec
-     * @return an OsmElement or null if not found
+     * @param logic current Logic instance
+     * @param storageDelegator current delegator instance
+     * @param type element type
+     * @param ids list of ids
      */
-    @Nullable
-    private OsmElement getRcElement(@NonNull String elementName, @NonNull StorageDelegator storageDelegator, @NonNull String s) {
-        long id = Long.parseLong(s.substring(elementName.length()));
-        return storageDelegator.getOsmElement(elementName, id);
+    private void selectElements(final Logic logic, StorageDelegator storageDelegator, String type, List<Long> ids) {
+        for (long id : ids) {
+            OsmElement e = storageDelegator.getOsmElement(type, id);
+            if (e != null) {
+                switch (type) {
+                case Node.NAME:
+                    logic.addSelectedNode((Node) e);
+                    break;
+                case Way.NAME:
+                    logic.addSelectedWay((Way) e);
+                    break;
+                case Relation.NAME:
+                    logic.addSelectedRelation((Relation) e);
+                    break;
+                }
+            }
+        }
     }
 
     @Override

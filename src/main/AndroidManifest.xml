@@ -27,7 +27,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION" />
-    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
@@ -41,8 +41,9 @@
         <intent>
             <action android:name="android.intent.action.CREATE_DOCUMENT" />
         </intent>
-        <package android:name="de.westnordost.streetmeasure"/>
-        <package android:name="com.android.vending"/>
+
+        <package android:name="de.westnordost.streetmeasure" />
+        <package android:name="com.android.vending" />
     </queries>
 
     <application
@@ -132,8 +133,8 @@
         <activity
             android:name=".propertyeditor.PropertyEditorActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
-            android:theme="@style/Theme.customTagEditor"
-               android:launchMode="singleTask" />
+            android:launchMode="singleTask"
+            android:theme="@style/Theme.customTagEditor" />
         <activity
             android:name=".prefs.APIEditorActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
@@ -177,9 +178,9 @@
         </activity>
         <activity
             android:name="de.blau.android.ShareOnOpenStreetMap"
+            android:exported="true"
             android:icon="@drawable/osm_logo"
             android:label="@string/share_on_openstreetmap"
-            android:exported="true"
             tools:ignore="ExportedActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -221,6 +222,28 @@
             </intent-filter>
         </activity>
         <activity
+            android:name="de.blau.android.OsmWebsiteUrlActivity"
+            android:exported="true"
+            tools:ignore="ExportedActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                
+                <data android:host="openstreetmap.org" />
+                <data android:host="osm.org" />
+                <data android:host="www.openstreetmap.org" />
+                <data android:host="www.osm.org" />
+                <data android:pathPattern="/node/.*" />
+                <data android:pathPattern="/way/.*" />
+                <data android:pathPattern="/relation/.*" />
+                <data android:pathPattern="/note/.*" />
+                <data android:scheme="https" />
+                <data android:scheme="http" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name="Authorize"
             android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
             android:launchMode="singleInstance"
@@ -235,35 +258,35 @@
             android:theme="@style/Theme.custom" />
         <activity
             android:name="HelpViewer"
+            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
+            android:exported="true"
             android:launchMode="singleTask"
             android:taskAffinity=".HelpViewer"
-            android:theme="@style/Theme.customHelpViewer" 
-            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
-            android:exported="true" >
+            android:theme="@style/Theme.customHelpViewer" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
         <activity
             android:name=".photos.PhotoViewerActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
+            android:exported="true"
             android:label="@string/photo_viewer_label"
             android:launchMode="singleTask"
             android:taskAffinity=".PhotoViewerActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar" 
-            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
-            android:exported="true" >
+            android:theme="@style/Theme.AppCompat.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
         <activity
             android:name=".photos.MapillaryViewerActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
+            android:exported="true"
             android:label="@string/mapillary_viewer_label"
             android:launchMode="singleTask"
             android:taskAffinity=".MapillaryViewerActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar" 
-            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
-            android:exported="true" >
+            android:theme="@style/Theme.AppCompat.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
@@ -312,17 +335,16 @@
             android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
             android:foregroundServiceType="location"
             android:label="TrackerService" />
-        
+
         <!-- Service for backwards compatible per app locale support -->
         <service
             android:name="androidx.appcompat.app.AppLocalesMetadataHolderService"
             android:enabled="false"
-            android:exported="false">
+            android:exported="false" >
             <meta-data
                 android:name="autoStoreLocales"
                 android:value="true" />
         </service>
-        
 
         <provider
             android:name="androidx.core.content.FileProvider"

@@ -41,6 +41,12 @@ public class Way extends StyledOsmElement implements WayInterface, BoundedObject
     private transient ElementType elementType;
 
     public static final String NAME = "way";
+
+    /**
+     * Abbreviation
+     */
+    public static final String ABBREV = "w";
+
     public static final String NODE = "nd";
     static final String        REF  = "ref";
 
