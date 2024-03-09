@@ -261,14 +261,6 @@ public abstract class PresetTagField extends PresetField {
         this.valueType = type;
     }
 
-    /**
-     * 
-     * Method that creates a copy of the element
-     * 
-     * @return a PresetField instance
-     */
-    public abstract PresetTagField copy();
-
     @Override
     public void translate(@NonNull Po po) {
         hint = translate(hint, po, getTextContext());

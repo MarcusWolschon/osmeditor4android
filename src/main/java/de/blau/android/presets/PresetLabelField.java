@@ -25,6 +25,16 @@ public class PresetLabelField extends PresetFormattingField {
         setTextContext(textContext);
     }
 
+    PresetLabelField(@NonNull PresetLabelField field) {
+        super(field);
+        label = field.label;
+    }
+
+    @Override
+    public PresetField copy() {
+        return new PresetLabelField(this);
+    }
+
     /**
      * Get the label string
      * 

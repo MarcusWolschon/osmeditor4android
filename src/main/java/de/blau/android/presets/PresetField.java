@@ -50,6 +50,14 @@ public abstract class PresetField extends Regionalizable implements Serializable
     }
 
     /**
+     * 
+     * Method that creates a copy of the element
+     * 
+     * @return a PresetField instance
+     */
+    public abstract PresetField copy();
+
+    /**
      * Set the text translation context
      * 
      * @param textContext the translation context

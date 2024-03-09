@@ -1438,6 +1438,8 @@ public class Main extends FullScreenAppCompatActivity
                 case Relation.NAME:
                     logic.addSelectedRelation((Relation) e);
                     break;
+                default:
+                    Log.e(DEBUG_TAG, "Unknown element type " + type);
                 }
             }
         }

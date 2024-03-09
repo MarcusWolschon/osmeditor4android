@@ -587,15 +587,13 @@ public class PresetParser {
                                         key = ((PresetTagField) f).getKey();
                                         // don't overwrite exiting fields
                                         if (!currentItem.hasKey(key)) {
-                                            PresetTagField copy = ((PresetTagField) f).copy();
-                                            copy.setOptional(true);
-                                            currentItem.addField(copy);
+                                            addOptionalCopy(f);
                                         } else {
                                             Log.w(DEBUG_TAG, "PresetItem " + currentItem.getName() + " chunk " + attr.getValue(REF) + " field " + key
                                                     + " overwrites existing field");
                                         }
                                     } else {
-                                        currentItem.addField(f);
+                                        addOptionalCopy(f);
                                     }
                                 }
                             } else {
@@ -649,6 +647,17 @@ public class PresetParser {
                 } else {
                     addedLabel = false;
                 }
+            }
+
+            /**
+             * Add a copy of a PresetFiled to the current item with the optional flag set
+             * 
+             * @param f the PresetField to copy
+             */
+            private void addOptionalCopy(@NonNull PresetField f) {
+                PresetField copy = f.copy();
+                copy.setOptional(true);
+                currentItem.addField(copy);
             }
 
             /**
