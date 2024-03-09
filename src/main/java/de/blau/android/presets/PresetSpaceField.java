@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.xmlpull.v1.XmlSerializer;
 
+import androidx.annotation.NonNull;
 import ch.poole.poparser.Po;
 
 public class PresetSpaceField extends PresetFormattingField implements FieldHeight {
@@ -19,6 +20,16 @@ public class PresetSpaceField extends PresetFormattingField implements FieldHeig
     PresetSpaceField(int height) {
         super();
         this.height = height;
+    }
+
+    PresetSpaceField(@NonNull PresetSpaceField field) {
+        super(field);
+        height = field.height;
+    }
+
+    @Override
+    public PresetField copy() {
+        return new PresetSpaceField(this);
     }
 
     @Override

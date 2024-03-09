@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.xmlpull.v1.XmlSerializer;
 
+import androidx.annotation.NonNull;
 import ch.poole.poparser.Po;
 
 public class PresetItemSeparatorField extends PresetFormattingField implements FieldHeight {
@@ -19,6 +20,16 @@ public class PresetItemSeparatorField extends PresetFormattingField implements F
     PresetItemSeparatorField(int height) {
         super();
         this.height = height;
+    }
+
+    PresetItemSeparatorField(@NonNull PresetItemSeparatorField field) {
+        super(field);
+        height = field.height;
+    }
+
+    @Override
+    public PresetField copy() {
+        return new PresetItemSeparatorField(this);
     }
 
     @Override
