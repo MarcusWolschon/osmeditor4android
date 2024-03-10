@@ -1,5 +1,24 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+19.3.5
+
+- Fix apply workaround for Android "truncate" bug
+- Fix show the correct error modal for data problems reading OSM files
+- Fix get old and new configuration more robustly (fix for following system theme)
+- Fix issue with JOSM filter language child and parent expressions
+- Fix handle hidden notes
+- Fix improve diagnostics for icons that dan't be decoded
+- Fix behaviour regression when editing values in the details tab
+- Fix always re-populate in memory imagery lists after a change
+- Fix use android:inputType="textNoSuggestions" for url fields
+- Fix de-compress tile server error messages if necessary
+- Add mobile and contact:mobile to phone keys
+- Add support CRS projections in URLs
+- Add support CRS:84 for wms endpoints and inherit CRS/SRS values
+- Update translations
+- Update default preset
+- Update imagery from ELI
+
 19.3.4:
 
 - Fix outdated marker rendering code for GeoJson layer
