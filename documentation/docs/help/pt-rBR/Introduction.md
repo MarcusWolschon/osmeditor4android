@@ -207,7 +207,7 @@ The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mo
 
 <a id="c-mode"></a>
 
-## C-Mode
+## Modo-C
 
 In C-Mode only objects are displayed that have a warning flag set, this makes it easy to spot objects that have specific problems or match configurable checks. If an object is selected and the Property Editor started in C-Mode the best matching preset will automatically be applied.
 
@@ -247,7 +247,7 @@ This check works by first determining the matching preset and then checking if *
 
 The filter can be enabled from the main menu, it can then be changed by tapping the filter icon. More documentation can be found here [Tag filter](Tag%20filter.md).
 
-### Preset based filter
+### Filtro baseado em modelos de etiquetas
 
 An alternative to the above, objects are filtered either on individual presets or on preset groups. Tapping on the filter icon will display a preset selection dialog similar to that used elsewhere in Vespucci. Individual presets can be selected by a normal click, preset groups by a long click (normal click enters the group). More documentation can be found here [Preset filter](Preset%20filter.md).
 
@@ -274,7 +274,7 @@ Available layer types:
 
 More information can be found in the section on the [map display](Main%20map%20display.md).
 
-#### Preferences
+#### Preferências
 
 * Keep screen on. Default: off.
 * Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-center dragging (selection and other operations still use the normal touch tolerance area). Default: off.

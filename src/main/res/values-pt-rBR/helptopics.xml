@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="help_app_label">Ajuda</string>
+    <string name="help_title">Ajuda: %1$s</string>
     <string name="help_addrelationmember">Relação selecionada</string>
     <string name="help_multiselect">Multi-Seleção</string>
     <string name="help_nodeselection">Nó selecionado</string>
@@ -10,7 +11,27 @@
     <string name="help_advanced_preferences">Preferências avançadas</string>
     <string name="help_presets">Pré-definições</string>
     <string name="help_conflictresolution">Resolução de conflitos</string>
+    <string name="help_keyboard">Teclado</string>
     <string name="help_opening_hours">Horário de funcionamento</string>
+    <string name="help_upgrade">Notas de lançamento da versão 19.3</string>
+    <string name="help_upgrade_192">Notas de lançamento da versão  19.2</string>
+    <string name="help_upgrade_191">Notas de lançamento da versão 19.1</string>
+    <string name="help_upgrade_190">Notas de lançamento da versão 19.0</string>
+    <string name="help_upgrade_181">Notas de lançamento da versão 18.1</string>
+    <string name="help_upgrade_180">Notas de lançamento da versão 18.0</string>
+    <string name="help_upgrade_171">Notas de lançamento da versão 17.1</string>
+    <string name="help_upgrade_170">Notas de lançamento da versão 17.0</string>
+    <string name="help_upgrade_161">Notas de lançamento da versão 16.1</string>
+    <string name="help_upgrade_160">Notas de lançamento da versão 16.0</string>
+    <string name="help_upgrade_111">Notas de lançamento da versão 11.1</string>
+    <string name="help_upgrade_110">Notas de lançamento da versão 11.0</string>
+    <string name="help_upgrade_102">Notas de lançamento da versão 10.2</string>
+    <string name="help_upgrade_101">Notas de lançamento da versão 10.1</string>
+    <string name="help_upgrade_100">Notas de lançamento da versão 10.0</string>
+    <string name="help_upgrade_099">Notas de lançamento da versão 0.9.9</string>
+    <string name="help_upgrade_098">Notas de lançamento da versão 0.9.8</string>
+    <string name="help_upgrade_097">Notas de lançamento da versão 0.9.7</string>
+    <string name="help_upgrade_096">Notas de lançamento da versão 0.9.6</string>
     <string name="help_privacy">Privacidade </string>
     <array translatable="false" name="help_tableofcontents">
         <item>@string/help_introduction</item>

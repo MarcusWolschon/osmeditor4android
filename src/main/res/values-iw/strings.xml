@@ -64,6 +64,10 @@
   <string name="file_write_failed_message">לווספוצ׳י אין אפשרות לשנות או לשמור את הקובץ.</string>
   <string name="applying_osc_failed_title">החלת קובץ ה־OSC נכשלה</string>
   <string name="applying_osc_failed_message">כנראה שלא טענת את הנתונים המקוריים שנדרשים לטובת החלת השינויים.</string>
+  <string name="download_limit_title">חרגת ממגבלת ההורדה</string>
+  <string name="download_limit_message">נא להמתין בטרם ביצוע ניסיון להוריד עוד נתונים.</string>
+  <string name="upload_limit_title">חרגת ממגבלת ההעלאה</string>
+  <string name="upload_limit_message">ניצלת עד תום את מסגרת ההעלאה שלך, נא להמתין בטרם ביצוע ניסיון חוזר.</string>
   <string name="duplicate_tag_key_title">מפתחות כפולים</string>
   <string name="duplicate_tag_key_message">הוספת את המפתח הבא יותר מפעם אחת, יש לפתור את הסוגיה הזאת לפני שניתן יהיה להמשיך:</string>
   <string name="select_file_picker_title">בחירת בורר קבצים</string>
@@ -101,7 +105,6 @@
   <plurals name="confirm_upload_text">
     <item quantity="one">להעלות את השינוי הזה?</item>
     <item quantity="two">להעלות את %1$d השינויים האלה?</item>
-    <item quantity="many">להעלות את %1$d השינויים האלה?</item>
     <item quantity="other">להעלות את %1$d השינויים האלה?</item>
   </plurals>
   <string name="confirm_upload_edits_page">שינויים</string>
@@ -163,7 +166,6 @@
   <plurals name="add_todo_title">
     <item quantity="one">הוספת רכיב לרשימת המטלות</item>
     <item quantity="two">הוספת רכיבים לרשימת המטלות</item>
-    <item quantity="many">הוספת רכיבים לרשימת המטלות</item>
     <item quantity="other">הוספת רכיבים לרשימת המטלות</item>
   </plurals>
   <string name="all_todos_done_title">כל המטלות ברשימה בוצעו</string>
@@ -206,6 +208,7 @@
   <string name="search_objects_hint">נא למלא ביטוי מסנן/חיפוש של JOSM</string>
   <string name="search_objects_use_regexps">להשתמש בביטויים רגולריים</string>
   <string name="search_objects_unsupported">הביטוי „%1$s” אינו נתמך</string>
+  <string name="search_objects_query_overpass">תשאול overpass</string>
   <!---->
   <string name="preset_search_hint">מחרוזת חיפוש ערכה מוגדרת</string>
   <string name="preset_autopreset">ערכה מוגדרת</string>
@@ -245,6 +248,7 @@
   <string name="total">סך הכול</string>
   <string name="changed">השתנו</string>
   <string name="ways">דרכים</string>
+  <string name="bounding_boxes">תיבות תוחמות</string>
   <!--Tile layer info dialog-->
   <string name="attribution">ייחוס</string>
   <!--GPX info dialog-->
@@ -295,8 +299,10 @@
   <string name="share_code">שיתוף קוד…</string>
   <!--Overpass console-->
   <string name="run">הרצה</string>
+  <string name="overpass_console">מסוף Overpass</string>
   <string name="select_result">בחירת תוצאה</string>
   <string name="merge_result">מיזוג תוצאה</string>
+  <string name="overpass_query_would_overwrite">התוצאה תדרוס את השינויים! השאילתה בוטלה.</string>
   <!---->
   <string name="error">שגיאה</string>
   <string name="warning">אזהרה</string>
@@ -474,6 +480,7 @@
   <!--Clear/Reset GPX Track-->
   <string name="clear_track_description">עצירת המעקב ומחיקת נקודות המסלול שנשמרו. לא ניתן להשתקם מפעולה זו.</string>
   <!--Measurement dialog-->
+  <string name="measure">מדידה</string>
   <!--Tips-->
   <string name="tip_title">הידעת?</string>
   <string name="tip_check_label">להפסיק להציג עצות כרשות</string>
@@ -494,7 +501,6 @@
   <plurals name="upload_checker_message">
     <item quantity="one">יש שינוי שלא נשמר.</item>
     <item quantity="two">%1$d שינויים שלך לא נשמרו.</item>
-    <item quantity="many">%1$d שינויים שלך לא נשמרו.</item>
     <item quantity="other">%1$d שינויים שלך לא נשמרו.</item>
   </plurals>
   <!--Toaster-->
@@ -526,17 +532,18 @@
   <plurals name="toast_unread_mail">
     <item quantity="one">ממתינה לך הודעה שלא נקרא ב־OSM</item>
     <item quantity="two">ממתינות לך %1$d הודעות שלא נקראו ב־OSM</item>
-    <item quantity="many">ממתינות לך %1$d הודעות שלא נקראו ב־OSM</item>
     <item quantity="other">ממתינות לך %1$d הודעות שלא נקראו ב־OSM</item>
   </plurals>
   <string name="read_mail">קריאה</string>
   <string name="toast_photo_indexing_started">התחילה סריקה אחר תמונות עם הפנייה גאוגרפית</string>
   <string name="toast_photo_indexing_finished">הסתיימה סריקה אחר תמונות עם הפנייה גאוגרפית</string>
   <string name="toast_download_failed">ההורדה נכשלה עם קוד השגיאה %1$d, הודעה %2$s</string>
+  <string name="toast_note_reopened">ההערה נפתחה מחדש</string>
   <!--Validation-->
   <string name="toast_unsurveyed_road">דרך ללא תיעוד</string>
   <string name="toast_noname">לדרך אין שם או הפניה</string>
   <string name="toast_notype">לקשר חסר סוג</string>
+  <string name="toast_missing_role">חבר ביחס בלי התפקיד הנחוץ</string>
   <string name="toast_untagged_element">רכיב ללא תיוג</string>
   <string name="toast_unconnected_end_node">המפרק הוא ליד רכיב שאין לו אפשרות להתחבר אליו</string>
   <!---->
@@ -635,7 +642,6 @@
   <plurals name="added_required_elements">
     <item quantity="one">נוסף רכיב נחוץ</item>
     <item quantity="two">נוספו %1$d רכיבים נחוצים</item>
-    <item quantity="many">נוספו %1$d רכיבים נחוצים</item>
     <item quantity="other">נוספו %1$d רכיבים נחוצים</item>
   </plurals>
   <string name="toast_out_of_memory">נגמר הזיכרון!</string>
@@ -1021,7 +1027,6 @@
   <plurals name="actionmode_object_count">
     <item quantity="one">פריט אחד</item>
     <item quantity="two">%1$d פריטים</item>
-    <item quantity="many">%1$d פריטים</item>
     <item quantity="other">%1$d פריטים</item>
   </plurals>
   <string name="actionmode_rotateway">הטיית דרך</string>
@@ -1384,37 +1389,31 @@
   <plurals name="days">
     <item quantity="one">יום</item>
     <item quantity="two">יומיים (%1$d)</item>
-    <item quantity="many">%1$d ימים</item>
     <item quantity="other">%1$d ימים</item>
   </plurals>
   <plurals name="hours">
     <item quantity="one">שעה</item>
     <item quantity="two">שעתיים (%1$d)</item>
-    <item quantity="many">%1$d שעות</item>
     <item quantity="other">%1$d שעות</item>
   </plurals>
   <plurals name="minutes">
     <item quantity="one">דקה אחת</item>
     <item quantity="two">%1$d דקות</item>
-    <item quantity="many">%1$d דקות</item>
     <item quantity="other">%1$d דקות</item>
   </plurals>
   <plurals name="seconds">
     <item quantity="one">שנייה אחת</item>
     <item quantity="two">%1$d שניות</item>
-    <item quantity="many">%1$d שניות</item>
     <item quantity="other">%1$d שניות</item>
   </plurals>
   <plurals name="km">
     <item quantity="one">ק״מ</item>
     <item quantity="two">%1$d ק״מ</item>
-    <item quantity="many">%1$d ק״מ</item>
     <item quantity="other">%1$d ק״מ</item>
   </plurals>
   <plurals name="meters">
     <item quantity="one">מטר</item>
     <item quantity="two">%1$d מטרים</item>
-    <item quantity="many">%1$d מטרים</item>
     <item quantity="other">%1$d מטרים</item>
   </plurals>
   <!--Help system-->

@@ -331,6 +331,7 @@
   <string name="add_resurvey_entry">Ajouter une demande de nouveau relevé de terrain</string>
   <string name="add_check_entry">Ajouter une vérification</string>
   <!--Safe mode dialog-->
+  <string name="safe_layer_label">Désactiver toutes les couches</string>
   <!--Empty relation dialog-->
   <string name="empty_relation_title">Relation vide</string>
   <string name="empty_relation_message">La relation %1$s n\'a aucun membre.\n\nLa laisser telle-quelle la rendra impossible à modifier dans Vespucci.</string>
@@ -656,6 +657,7 @@
   <string name="toast_split_first_and_next_segment">Séparer le premier et le segment suivant</string>
   <string name="toast_split_next_segment">Séparer le segment suivant</string>
   <string name="toast_nothing_changed">Rien n\'a été modifié</string>
+  <string name="toast_error_saving_bookmark">Impossible d\'enregistrer le signet</string>
   <string name="toast_no_intersection_found">Aucune intersection trouvée</string>
   <string name="toast_api_key_missing">Aucun clé d\'API trouvée pour %1$s</string>
   <string name="toast_no_track_points">Aucun point de trace</string>
@@ -729,6 +731,7 @@
   <string name="tag_menu_preset">Modèles d\'attributs</string>
   <string name="tag_menu_apply_preset">Appliquer le modèle</string>
   <string name="tag_menu_apply_preset_with_optional">Appliquer le modèle avec des éléments facultatifs</string>
+  <string name="tag_menu_show_alternatives">Montrer des attributs alternatifs</string>
   <string name="tag_menu_revert">Rétablir</string>
   <string name="tag_menu_mapfeatures">Wiki des éléments de la carte</string>
   <string name="tag_menu_addtorelation">Ajouter à la relation</string>
@@ -1141,6 +1144,7 @@
   <string name="config_theme_title">Thème</string>
   <string name="config_splitActionBarEnabled_title">Afiicher la barre de menu en bas</string>
   <string name="config_appLocale_title">Langue de l\'application</string>
+  <string name="config_appLocale_device_language">Langue de l\'appareil</string>
   <string name="config_maxInlineValues_title">Nombre max. de valeurs suggérées</string>
   <string name="config_maxInlineValues_summary">Nombre maximum de valeurs suggérées affichées dans le formulaire de saisie des attributs.</string>
   <string name="config_autoLockDelay_title">Temps avant le verrouillage automatique</string>
@@ -1179,6 +1183,7 @@
   <string name="config_overrideRegionAddressTags_summary">Utiliser notre configuration des attributs d\'adresse au lieu des valeurs spécifiques régionales</string>
   <string name="config_address_tags">Attributs d\'adresse</string>
   <string name="config_address_tags_summary">Attributs utilisés pour la prédiction d\'adresse.</string>
+  <string name="config_neighbourDistance_title">Distance entre adresses voisines</string>
   <string name="config_neighbourDistance_current">%1$d mètres</string>
   <string name="config_enableNameSuggestions_title">Activer les suggestions de nom</string>
   <string name="config_enableNameSuggestions_summary">Activer les suggestions pour les attributs de nom.</string>
@@ -1284,6 +1289,8 @@
   <string name="config_autosaveSaveChanges_title">Enregistrer les modifications</string>
   <string name="config_autosaveInterval_title">Intervalle minimum</string>
   <string name="config_autosaveInterval_current">%1$d min</string>
+  <string name="config_autosaveChanges_title">Nombre minimum de modifications</string>
+  <string name="config_autosaveChanges_summary">Nombre minimum de modifications requis pour enregistrer.</string>
   <string name="config_autosaveChanges_current">%1$d</string>
   <string name="config_autosaveMaxFiles_current">%1$d</string>
   <!--Miscellaneous-->
