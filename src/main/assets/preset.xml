@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.34.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,disused:amenity,disused:leisure,disused:man_made,disused:shop,golf,ford,harbour,hazard,noexit,indoor,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom">
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.38.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,disused:amenity,disused:leisure,disused:man_made,disused:shop,golf,ford,harbour,hazard,noexit,indoor,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom">
 <!--
     Icons have been derived from mainly from
   
@@ -272,36 +272,42 @@
     </chunk>
     <chunk id="crossing_type">    
         <multiselect key="crossing" text="Crossing type" values_context="pedestrian" text_context="pedestrian">
-            <list_entry value="uncontrolled" short_description="Not controlled" icon="presets/vehicle/crossing.svg"/>
-            <list_entry value="traffic_signals" short_description="Traffic signals" icon="presets/vehicle/crossing_traffic_signals.svg"/>
-            <list_entry value="unmarked" short_description="Unmarked" icon="presets/vehicle/crossing_unmarked.svg" deprecated="true"/>
+            <list_entry value="uncontrolled" short_description="Not controlled" icon=""/>
+            <list_entry value="traffic_signals" short_description="Traffic signals" icon=""/>
+            <list_entry value="unmarked" short_description="Unmarked" icon="" deprecated="true"/>
             <list_entry value="no" short_description="No crossing"/>
-            <list_entry value="island" short_description="Island" icon="presets/vehicle/crossing_island.svg" deprecated="true"/>
+            <list_entry value="island" short_description="Island" icon="" deprecated="true"/>
         </multiselect>
         <check key="crossing:island" text="With island"/>
         <optional>
-            <combo key="crossing_ref" text="Crossing type name (UK)" values="zebra,pelican,toucan,puffin,pegasus,tiger" values_searchable="true"/>
+            <combo key="crossing_ref" text="Crossing type name (UK)" values="zebra,pelican,toucan,puffin,pegasus,tiger" display_values="Zebra,Pelican,Toucan,Puffin,Pegasus,Tiger" values_searchable="true" values_context="crossing:markings" regions="GB"/>
         </optional>
     </chunk>
     <chunk id="crossing_markings">
         <multiselect key="crossing:markings" text="Markings" values_sort="false" values_context="crossing:markings">
-            <list_entry value="no" short_description="Unmarked"/>
-            <list_entry value="yes" short_description="Marked"/>
-            <list_entry value="surface" short_description="Surface"/>
-            <list_entry value="lines" short_description="Lines"/>
-            <list_entry value="lines:paired" short_description="Paired lines"/>
-            <list_entry value="dashes" short_description="Dashes"/>
-            <list_entry value="dots" short_description="Dots"/>
-            <list_entry value="zebra" short_description="Zebra"/>
-            <list_entry value="zebra:double" short_description="Double zebra"/>
-            <list_entry value="zebra:paired" short_description="Paired zebra"/>
-            <list_entry value="zebra:bicolour" short_description="Bicolour zebra"/>
-            <list_entry value="ladder" short_description="Ladder"/>
-            <list_entry value="ladder:skewed" short_description="Skewed ladder"/>
-            <list_entry value="ladder:paired" short_description="Paired ladder"/>
-            <list_entry value="pictograms" short_description="Pictograms"/>
+            <list_entry value="no" short_description="Unmarked" icon=""/>
+            <list_entry value="yes" short_description="Marked" icon=""/>
+            <list_entry value="surface" short_description="Surface" icon=""/>
+            <list_entry value="lines" short_description="Lines" icon=""/>
+            <list_entry value="lines:paired" short_description="Paired lines" icon=""/>
+            <list_entry value="dashes" short_description="Dashes" icon=""/>
+            <list_entry value="dots" short_description="Dots" icon=""/>
+            <list_entry value="zebra" short_description="Zebra" icon=""/>
+            <list_entry value="zebra:double" short_description="Double zebra" icon=""/>
+            <list_entry value="zebra:paired" short_description="Paired zebra" icon=""/>
+            <list_entry value="zebra:bicolour" short_description="Bicolour zebra" icon=""/>
+            <list_entry value="ladder" short_description="Ladder" icon="presets/vehicle/crossing_markings_ladder.svg"/>
+            <list_entry value="ladder:skewed" short_description="Skewed ladder" icon="${crossing_markings_lader_skewed}"/>
+            <list_entry value="ladder:paired" short_description="Paired ladder" icon=""/>
+            <list_entry value="pictograms" short_description="Pictograms" icon=""/>
         </multiselect>
      </chunk>
+     <chunk id="bridge_details">
+        <combo key="bridge" text="Bridge" values="aqueduct,boardwalk,cantilever,covered,low_water_crossing,trestle,viaduct,yes" display_values="Aqueduct,Boardwalk,Cantilever,Covered,Low water crossing,Trestle,Viaduct,Yes" default="yes" match="keyvalue!" values_context="bridge"/>
+        <combo key="bridge:structure" text="Structure" values="arch,beam,truss,floating,suspension,cable-stayed,simple-suspension,humpback" display_values="Arch,Beam,Truss,Floating,Suspension,Cable-stayed,Simple suspension,Humpback" match="key" values_context="bridge"/>
+        <combo key="bridge:movable" text="Moveable bridge type" values="bascule,drawbridge,lift,submersible,swing,transporter,retractable,tilt" display_values="Bascule,Drawbridge,Lift,Submersible,Swing,Transporter,Retractable,Tilt" match="key" values_context="bridge"/>
+        <combo key="bridge:support" text="Bridge support type" values="pier,abutment,lift_pier,pivot_pier,pylon" display_values="Pier,Abutment,Lift pier,Pivot pier,Pylon" match="key" values_context="bridge"/>
+    </chunk>
     <chunk id="railway_service">
         <combo key="service" text="Service type" values="yard,siding,spur,crossover" display_values="Yard,Siding,Spur,Crossover" values_context="railway"/>
     </chunk>
@@ -316,6 +322,19 @@
         <combo key="tracks" text="Tracks" text_context="railway" values="1,2,3,4" length="4"/>
         <combo key="gauge" text="Gauge (mm)" values="1676,1668,1638,1600,1588,1581,1524,1520,1495,1458,1450,1435,1372,1219,1067,1000,914,900,891,762,760,750,610,600" length="4"/>
         <reference ref="railway_electrified"/>
+    </chunk>
+    <chunk id="railway_base">
+        <optional>
+            <space/>
+            <check key="bridge" text="Bridge" disable_off="true"/>
+            <text key="bridge:name" text="Bridge name"/>
+            <reference ref="bridge_details"/>
+            <space/>
+            <reference ref="tunnel"/>
+            <reference ref="layer"/>
+            <check key="cutting" text="Cutting" disable_off="true"/>
+            <check key="embankment" text="Embankment" disable_off="true"/>
+        </optional>
     </chunk>
     <chunk id="traffic_signals_direction">
         <combo key="direction" text="For traffic direction" values="N,E,S,W,0,90,180,270,forward,backward" display_values="North,East,South,West,0&#xB0;,90&#xB0;,180&#xB0;,270&#xB0;,Forward,Backward" values_sort="false"/>
@@ -1225,12 +1244,6 @@
     <chunk id="telecom_medium">
         <combo key="telecom:medium" text="Local loop type" values="copper,fibre,coaxial" display_values="Copper,Fibre,Coaxial" values_context="telecom"/>
     </chunk>
-    <chunk id="bridge_details">
-        <combo key="bridge" text="Bridge" values="aqueduct,boardwalk,cantilever,covered,low_water_crossing,trestle,viaduct,yes" display_values="Aqueduct,Boardwalk,Cantilever,Covered,Low water crossing,Trestle,Viaduct,Yes" default="yes" match="keyvalue!" values_context="bridge"/>
-        <combo key="bridge:structure" text="Structure" values="arch,beam,truss,floating,suspension,cable-stayed,simple-suspension,humpback" display_values="Arch,Beam,Truss,Floating,Suspension,Cable-stayed,Simple suspension,Humpback" match="key" values_context="bridge"/>
-        <combo key="bridge:movable" text="Moveable bridge type" values="bascule,drawbridge,lift,submersible,swing,transporter,retractable,tilt" display_values="Bascule,Drawbridge,Lift,Submersible,Swing,Transporter,Retractable,Tilt" match="key" values_context="bridge"/>
-        <combo key="bridge:support" text="Bridge support type" values="pier,abutment,lift_pier,pivot_pier,pylon" display_values="Pier,Abutment,Lift pier,Pivot pier,Pylon" match="key" values_context="bridge"/>
-    </chunk>
     <chunk id="maxweight">
         <text key="maxweight" text="Max. weight (tonnes)" match="key"/>
     </chunk>
@@ -1795,10 +1808,30 @@
             <list_entry value="no" display_value="None"/>
         </multiselect>
     </chunk>
+    <chunk id="transportation_types">
+        <checkgroup text="Transportation type" columns="3">
+            <check key="bus" text="Bus" disable_off="true"/>
+            <check key="tram" text="Tram" disable_off="true"/>
+            <check key="train" text="Train" disable_off="true"/>
+            <check key="trolleybus" text="Trolleybus" disable_off="true"/>
+            <check key="share_taxi" text="Share taxi" disable_off="true"/>
+            <check key="subway" text="Subway" disable_off="true"/>
+            <check key="monorail" text="Monorail" disable_off="true"/>
+            <check key="funicular" text="Funicular" disable_off="true"/>
+            <check key="aerialway" text="Aerialway" disable_off="true"/>
+            <check key="ferry" text="Ferry" disable_off="true"/>
+        </checkgroup>
+    </chunk>
     <chunk id="platform">
+        <link wiki="Proposed_features/Public_Transport#Platform"/>
+        <space/>
+        <key key="public_transport" value="platform"/>
+        <text key="name" text="Name"/>
+        <reference ref="transportation_types"/>
         <check key="bench" text="Bench"/>
         <check key="shelter" text="Shelter"/>
         <check key="covered" text="Covered"/>
+        <check key="sign" text="Sign"/>
         <reference ref="bin"/>
         <reference ref="departures_board"/>
         <check key="passenger_information_display" text="Passenger information display" deprecated="true"/>
@@ -1806,25 +1839,29 @@
         <reference ref="wheelchair"/>
         <reference ref="tactile_paving"/>
         <optional>
-            <text key="name" text="Name"/>
             <text key="ref" text="Reference"/>
             <text key="uic_ref" text="UIC reference"/>
             <text key="uic_name" text="UIC name"/>
             <text key="operator" text="Operator"/>
             <text key="network" text="Network"/>
             <space/>
-            <checkgroup text="Transportation type" columns="3">
-                <check key="bus" text="Bus" disable_off="true"/>
-                <check key="tram" text="Tram" disable_off="true"/>
-                <check key="train" text="Train" disable_off="true"/>
-                <check key="trolleybus" text="Trolleybus" disable_off="true"/>
-                <check key="share_taxi" text="Share taxi" disable_off="true"/>
-                <check key="subway" text="Subway" disable_off="true"/>
-                <check key="monorail" text="Monorail" disable_off="true"/>
-                <check key="funicular" text="Funicular" disable_off="true"/>
-                <check key="aerialway" text="Aerialway" disable_off="true"/>
-                <check key="ferry" text="Ferry" disable_off="true"/>
+        </optional>
+    </chunk>
+    <chunk id="station">
+        <link wiki="Tag:public_transport=station"/>
+        <space/>
+        <key key="public_transport" value="station"/>
+        <text key="name" text="Name"/>
+        <reference ref="transportation_types"/>
+        <optional>
+            <check key="area" text="Area" disable_off="true"/>
+            <check key="building" text="Building" disable_off="true"/>
+            <checkgroup text="Legacy station types" columns="2">
+                <check key="railway" value_on="station" text="Railway station" disable_off="true"/>
+                <check key="railway" value_on="halt" text="Railway halt" disable_off="true"/>
             </checkgroup>
+            <text key="operator" text="Operator"/>
+            <text key="network" text="Network"/>
         </optional>
     </chunk>
     <chunk id="backrest">
@@ -1849,11 +1886,16 @@
         <optional>
             <text key="name" text="Name"/>
             <text key="ref" text="Reference"/>  
+            <text key="network" text="Charging Network"/>
             <text key="operator" text="Operator"/>
         </optional>
         <reference ref="oh"/>
         <reference ref="fee"/>
-        <check key="indoor" text="Located inside a building?" disable_off="true" match="none"/>
+        <check key="parking:fee" text="Parking fee" disable_off="true" match="none"/>
+        <checkgroup columns="3">
+            <check key="covered" text="Covered" disable_off="true" match="none"/>
+            <check key="indoor" text="Indoor" disable_off="true" match="none"/>
+        </checkgroup>
         <reference ref="level"/>       
         <label text="Types of vehicles which can be charged:"/>
         <checkgroup text="Types of vehicles which can be charged" columns="4">
@@ -2980,6 +3022,14 @@
         <item name="Turning Circle" icon="icons/png/transport_turning_circle.png" type="node" preset_name_label="true">
             <link wiki="Tag:highway=turning_circle"/>
             <key key="highway" value="turning_circle"/>
+            <combo key="turning_circle" text="Shape" values_context="highway" values_sort="false">
+                <list_entry value="circle" short_description="Circle"/>
+                <list_entry value="oval" short_description="Oval"/>
+                <list_entry value="knuckle" short_description="Knuckle"/>
+                <list_entry value="hammer" short_description="Hammer"/>
+                <list_entry value="square" short_description="Square"/>
+            </combo>
+            <text key="diameter" text="Diameter in meters" value_type="dimension_vertical"/>
         </item> <!-- Turning Circle -->
         <item name="Turning Loop" icon="icons/png/highway_turning_loop_18062.png" type="node" preset_name_label="true">
             <link wiki="Tag:highway=turning_loop"/>
@@ -3570,7 +3620,7 @@
                 <text key="width" text="Width (meters)" value_type="dimension_horizontal"/>
             </optional>
         </item> <!-- Arcade -->
-        <item name="Colonnade" icon="${passageways_colonade}" type="way" preset_name_label="true">
+        <item name="Colonnade" icon="" type="way" preset_name_label="true">
             <link wiki="Key:covered"/>
             <space/>
             <key key="covered" value="colonnade" match="none"/>
@@ -3581,7 +3631,7 @@
                 <text key="width" text="Width (meters)" value_type="dimension_horizontal"/>
             </optional>
         </item> <!-- Colonnade -->
-        <item name="Avalanche Protector" icon="" type="way" preset_name_label="true">
+        <item name="Avalanche Protector" icon="icons/png/highway_avalanche_protector.png" type="way" preset_name_label="true">
             <link wiki="Key:tunnel"/>
             <space/>
             <key key="tunnel" value="avalanche_protector" match="none"/>
@@ -4015,7 +4065,7 @@
                 </combo>
                 <reference ref="water_body"/>
             </item> <!-- Other water bodies -->
-            <item name="Coastline" icon="presets/coastline.png" type="way,closedway" preset_name_label="true">
+            <item name="Coastline" icon="icons/png/water_coastline.png" type="way,closedway" preset_name_label="true">
                 <link wiki="Tag:natural=coastline"/>
                 <space/>
                 <label text="Line between the sea and land (with the water on the right side of the way)."/>
@@ -4023,7 +4073,7 @@
                 <key key="natural" value="coastline"/>
                 <reference ref="optional_name_wikipedia"/>
             </item> <!-- Coastline -->
-            <item name="Riverbank" icon="presets/waterway.png" type="closedway,multipolygon" preset_name_label="true" deprecated="true">
+            <item name="Riverbank" icon="icons/png/water_riverbank.png" type="closedway,multipolygon" preset_name_label="true" deprecated="true">
                 <link wiki="Tag:waterway=riverbank"/>
                 <space/>
                 <key key="waterway" value="riverbank"/>
@@ -4052,7 +4102,7 @@
                     <list_entry value="wet_meadow" short_description="Wet meadow"/>
                 </combo>
             </item> <!-- Wetland -->
-            <item name="Mud" icon="presets/mud.png" type="closedway,multipolygon" preset_name_label="true">
+            <item name="Mud" icon="icons/png/water_mud.png" type="closedway,multipolygon" preset_name_label="true">
                 <link wiki="Tag:natural=mud"/>
                 <space/>
                 <label text="Large area covered with mud."/>
@@ -4076,7 +4126,7 @@
                     <reference ref="nudism"/>
                 </optional>
             </item> <!-- Beach -->
-            <item name="Bay" icon="presets/bay.png" type="node,way,closedway,multipolygon" preset_name_label="true">
+            <item name="Bay" icon="icons/png/water_bay.png" type="node,way,closedway,multipolygon" preset_name_label="true">
                 <link wiki="Tag:natural=bay"/>
                 <space/>
                 <label text="An area of water mostly surrounded by land but with level connection to the ocean or a lake."/>
@@ -4405,6 +4455,7 @@
                     <reference ref="railway_service_gauge_electrified"/>
                     <check key="highspeed" text="Highspeed" disable_off="true"/>
                 </optional>
+                <reference ref="railway_base"/>
             </item> <!-- Rail -->
             <item name="Narrow Gauge Rail" icon="icons/png/transport_train_station.png" type="way" preset_name_label="true">
                 <link wiki="Tag:railway=narrow_gauge"/>
@@ -4415,6 +4466,7 @@
                      <combo key="gauge" text="Gauge (mm)" values="1372,1219,1067,1000,914,900,891,762,760,750,610,600" length="4"/>
                      <reference ref="railway_electrified"/>
                 </optional>
+                <reference ref="railway_base"/>
             </item> <!-- Narrow Gauge Rail -->
             <item name="Monorail" icon="icons/png/transport_train_station.png" type="way" preset_name_label="true">
                 <link wiki="Tag:railway=monorail"/>
@@ -4430,6 +4482,7 @@
                 <optional>
                     <reference ref="railway_service_gauge_electrified"/>
                 </optional>
+                <reference ref="railway_base"/>
             </item> <!-- Preserved -->
             <item name="Light Rail" icon="icons/png/transport_tram_stop.png" type="way" preset_name_label="true">
                 <link wiki="Tag:railway=light_rail"/>
@@ -4437,6 +4490,7 @@
                 <optional>
                     <reference ref="railway_service_gauge_electrified"/>
                 </optional>
+                <reference ref="railway_base"/>
             </item> <!-- Light Rail -->
             <item name="Subway" icon="icons/png/transport_subway.png" type="way" preset_name_label="true">
                 <link wiki="Tag:railway=subway"/>
@@ -4451,6 +4505,7 @@
                 <optional>
                     <reference ref="railway_service_gauge_electrified"/>
                 </optional>
+                <reference ref="railway_base"/>
             </item> <!-- Tram -->
             <item name="Funicular" icon="icons/png/transport_empty.png" type="way" preset_name_label="true">
                 <link wiki="Tag:railway=funicular"/>
@@ -4490,6 +4545,7 @@
                     <combo key="usage" text="Usage" values="main,branch,industrial,military,tourism,freight" display_values="Main,Branch,Industrial,Military,Tourism,Freight" values_context="railway"/>
                     <reference ref="railway_service_gauge_electrified"/>
                 </optional>
+                <reference ref="railway_base"/>
             </item> <!-- Railway construction -->
             <item name="Disused Rail" icon="icons/png/transport_disused_railway.png" type="way" preset_name_label="true">
                 <link wiki="Tag:railway=disused"/>
@@ -4498,6 +4554,7 @@
                     <reference ref="railway_service"/>
                     <reference ref="layer"/>
                 </optional>
+                <reference ref="railway_base"/>
             </item> <!-- Disused Rail -->
             <item name="Abandoned Rail" icon="icons/png/transport_disused_railway.png" type="way" preset_name_label="true">
                 <link wiki="Tag:railway=abandoned"/>
@@ -4506,6 +4563,7 @@
                     <reference ref="railway_service"/>
                     <reference ref="layer"/>
                 </optional>
+                <reference ref="railway_base"/>
             </item> <!-- Abandoned Rail -->
             <item name="Level Crossing" icon="icons/png/level_crossing.png" type="node" preset_name_label="true">
                 <link wiki="Tag:railway=level_crossing"/>
@@ -4593,6 +4651,7 @@
                 <key key="aerialway" value="chair_lift"/>
                 <reference ref="name_ref"/>
                 <reference ref="oh"/>
+                <check key="oneway" text="Bidirectional" value_on="no" disable_off="true"/>
                 <optional>
                     <reference ref="additonal_aerialway_tags_with_bubble"/>
                 </optional>
@@ -5214,33 +5273,130 @@
                 </checkgroup>
             </item> <!-- Stop Position -->
             <item name="Platform" type="node,way,closedway,multipolygon" icon="icons/png/transport_platform_32003.png" preset_name_label="true">
-                <link wiki="Proposed_features/Public_Transport#Platform"/>
-                <space/>
-                <key key="public_transport" value="platform"/>
                 <reference ref="platform"/>
-                <checkgroup text="Legacy stop types" columns="2">
+                <optional>
+                  <checkgroup text="Legacy stop types" columns="2">
                     <check key="highway" value_on="bus_stop" text="Bus stop" disable_off="true"/>
                     <check key="railway" value_on="tram_stop" text="Tram stop" disable_off="true"/>
-                </checkgroup>
+                  </checkgroup>
+                </optional>
             </item> <!-- Platform -->
             <item name="Station" name_context="railway" type="node,closedway,multipolygon" icon="icons/png/transport_train_station2.png" preset_name_label="true">
-                <link wiki="Tag:public_transport=station"/>
-                <space/>
-                <key key="public_transport" value="station"/>
-                <text key="name" text="Name"/>
-                <optional>
-                    <check key="area" text="Area" disable_off="true"/>
-                    <check key="building" text="Building" disable_off="true"/>
-                </optional>
-                <text key="operator" text="Operator"/>
-                <text key="network" text="Network"/>
-                <checkgroup text="Legacy station types" columns="2">
-                    <check key="railway" value_on="station" text="Railway station" disable_off="true"/>
-                    <check key="railway" value_on="halt" text="Railway halt" disable_off="true"/>
-                </checkgroup>
+                <reference ref="station"/>
             </item> <!-- Station -->
-            <separator/> <!-- *** Access *** -->
-            <item name="Subway Entrance" icon="icons/png/transport_subway.png" type="node" preset_name_label="true">
+            <separator/> <!-- *** Road-based modes *** -->
+            <item name="Bus station" type="node,closedway,multipolygon" icon="icons/png/transport_bus_station.png" preset_name_label="true">
+                <reference ref="station"/>
+                <checkgroup text="Transportation type" columns="3">
+                  <check key="bus" text="Bus" default="on" match="keyvalue!" disable_off="true"/>
+                  <check key="tram" text="Tram" disable_off="true"/>
+                  <check key="train" text="Train" disable_off="true"/>
+                  <check key="trolleybus" text="Trolleybus" disable_off="true"/>
+                  <check key="share_taxi" text="Share taxi" disable_off="true"/>
+                  <check key="subway" text="Subway" disable_off="true"/>
+                  <check key="monorail" text="Monorail" disable_off="true"/>
+                  <check key="funicular" text="Funicular" disable_off="true"/>
+                  <check key="aerialway" text="Aerialway" disable_off="true"/>
+                  <check key="ferry" text="Ferry" disable_off="true"/>
+                </checkgroup>
+            </item> <!-- Bus station -->
+            <item name="Bus stop" type="node,way,closedway,multipolygon" icon="icons/png/transport_bus_stop.png" preset_name_label="true">
+                <reference ref="platform"/>
+                <checkgroup text="Transportation type" columns="3">
+                  <check key="bus" text="Bus" default="on" match="keyvalue!" disable_off="true"/>
+                  <check key="tram" text="Tram" disable_off="true"/>
+                  <check key="train" text="Train" disable_off="true"/>
+                  <check key="trolleybus" text="Trolleybus" disable_off="true"/>
+                  <check key="share_taxi" text="Share taxi" disable_off="true"/>
+                  <check key="subway" text="Subway" disable_off="true"/>
+                  <check key="monorail" text="Monorail" disable_off="true"/>
+                  <check key="funicular" text="Funicular" disable_off="true"/>
+                  <check key="aerialway" text="Aerialway" disable_off="true"/>
+                  <check key="ferry" text="Ferry" disable_off="true"/>
+                </checkgroup>
+                <text key="name" text="Name"/>
+            </item> <!-- Bus stop -->
+            <item name="Share taxi stop" type="node,way,closedway,multipolygon" icon="icons/png/transport_share_taxi.png" preset_name_label="true">
+                <reference ref="platform"/>
+                <checkgroup text="Transportation type" columns="3">
+                  <check key="bus" text="Bus" disable_off="true"/>
+                  <check key="tram" text="Tram" disable_off="true"/>
+                  <check key="train" text="Train" disable_off="true"/>
+                  <check key="trolleybus" text="Trolleybus" disable_off="true"/>
+                  <check key="share_taxi" text="Share taxi" default="on" match="keyvalue!" disable_off="true"/>
+                  <check key="subway" text="Subway" disable_off="true"/>
+                  <check key="monorail" text="Monorail" disable_off="true"/>
+                  <check key="funicular" text="Funicular" disable_off="true"/>
+                  <check key="aerialway" text="Aerialway" disable_off="true"/>
+                  <check key="ferry" text="Ferry" disable_off="true"/>
+                </checkgroup>
+                <text key="name" text="Name"/>
+            </item> <!-- Share taxi stop -->
+            <separator/> <!-- *** Railway-based modes *** -->
+            <item name="Railway station" name_context="railway" type="node,closedway,multipolygon" icon="icons/png/transport_train_station2.png" preset_name_label="true">
+                <reference ref="station"/>
+                <text key="ref" text="Reference"/>
+                <checkgroup text="Transportation type" columns="3">
+                  <check key="bus" text="Bus" disable_off="true"/>
+                  <check key="tram" text="Tram" disable_off="true"/>
+                  <check key="train" text="Train" default="on" match="keyvalue!" disable_off="true"/>
+                  <check key="trolleybus" text="Trolleybus" disable_off="true"/>
+                  <check key="share_taxi" text="Share taxi" disable_off="true"/>
+                  <check key="subway" text="Subway" disable_off="true"/>
+                  <check key="monorail" text="Monorail" disable_off="true"/>
+                  <check key="funicular" text="Funicular" disable_off="true"/>
+                  <check key="aerialway" text="Aerialway" disable_off="true"/>
+                  <check key="ferry" text="Ferry" disable_off="true"/>
+                </checkgroup>
+            </item> <!-- Railway station -->
+            <item name="Railway platform" type="node,way,closedway,multipolygon" icon="icons/png/transport_platform_train.png" preset_name_label="true">
+                <reference ref="platform"/>
+                <checkgroup text="Transportation type" columns="3">
+                  <check key="bus" text="Bus" disable_off="true"/>
+                  <check key="tram" text="Tram" disable_off="true"/>
+                  <check key="train" text="Train" default="on" match="keyvalue!" disable_off="true"/>
+                  <check key="trolleybus" text="Trolleybus" disable_off="true"/>
+                  <check key="share_taxi" text="Share taxi" disable_off="true"/>
+                  <check key="subway" text="Subway" disable_off="true"/>
+                  <check key="monorail" text="Monorail" disable_off="true"/>
+                  <check key="funicular" text="Funicular" disable_off="true"/>
+                  <check key="aerialway" text="Aerialway" disable_off="true"/>
+                  <check key="ferry" text="Ferry" disable_off="true"/>
+                </checkgroup>
+                <text key="ref" text="Reference"/>
+            </item> <!-- Railway platform -->
+            <item name="Subway station" name_context="railway" type="node,closedway,multipolygon" icon="icons/png/transport_subway.png" preset_name_label="true">
+                <reference ref="station"/>
+                <checkgroup text="Transportation type" columns="3">
+                  <check key="bus" text="Bus" disable_off="true"/>
+                  <check key="tram" text="Tram" disable_off="true"/>
+                  <check key="train" text="Train" disable_off="true"/>
+                  <check key="trolleybus" text="Trolleybus" disable_off="true"/>
+                  <check key="share_taxi" text="Share taxi" disable_off="true"/>
+                  <check key="subway" text="Subway" default="on" match="keyvalue!" disable_off="true"/>
+                  <check key="monorail" text="Monorail" disable_off="true"/>
+                  <check key="funicular" text="Funicular" disable_off="true"/>
+                  <check key="aerialway" text="Aerialway" disable_off="true"/>
+                  <check key="ferry" text="Ferry" disable_off="true"/>
+                </checkgroup>
+            </item> <!-- Subway station -->
+            <item name="Subway platform" type="node,way,closedway,multipolygon" icon="icons/png/transport_platform_subway.png" preset_name_label="true">
+                <reference ref="platform"/>
+                <checkgroup text="Transportation type" columns="3">
+                  <check key="bus" text="Bus" disable_off="true"/>
+                  <check key="tram" text="Tram" disable_off="true"/>
+                  <check key="train" text="Train" disable_off="true"/>
+                  <check key="trolleybus" text="Trolleybus" disable_off="true"/>
+                  <check key="share_taxi" text="Share taxi" disable_off="true"/>
+                  <check key="subway" text="Subway" default="on" match="keyvalue!" disable_off="true"/>
+                  <check key="monorail" text="Monorail" disable_off="true"/>
+                  <check key="funicular" text="Funicular" disable_off="true"/>
+                  <check key="aerialway" text="Aerialway" disable_off="true"/>
+                  <check key="ferry" text="Ferry" disable_off="true"/>
+                </checkgroup>
+                <text key="ref" text="Reference"/>
+            </item> <!-- Subway platform -->                       
+            <item name="Subway Entrance" icon="icons/png/transport_subway_entrance.png" type="node" preset_name_label="true">
                 <link wiki="Tag:railway=subway_entrance"/>
                 <key key="railway" value="subway_entrance"/>
                 <optional>
@@ -5250,6 +5406,7 @@
                     <check key="bicycle" text="Bicycle" disable_off="true"/>
                 </optional>
             </item> <!-- Subway Entrance -->
+            <separator/>
             <item name="Ticket Machine" icon="icons/png/transport_ticket_29200.png" type="node" preset_name_label="true">
                 <link wiki="Tag:amenity=vending_machine"/>
                 <space/>
@@ -5355,13 +5512,6 @@
                     <text key="name" text="Name"/>
                 </optional>
             </item> <!-- Railway Halt -->
-            <item name="Tram Stop" icon="icons/png/transport_tram_stop.png" type="node" preset_name_label="true">
-                <link wiki="Tag:railway=tram_stop"/>
-                <key key="railway" value="tram_stop"/>
-                <optional>
-                    <text key="name" text="Name"/>
-                </optional>
-            </item> <!-- Tram Stop -->
             <item name="Railway Platform" icon="icons/png/transport_platform_train.png" type="way,closedway,multipolygon" preset_name_label="true">
                 <link wiki="Tag:railway=platform"/>
                 <space/>
@@ -5370,6 +5520,13 @@
                 <text key="width" text="Width (meters)" value_type="dimension_horizontal"/>
                 <check key="area" text="Area" disable_off="true"/>    
             </item> <!-- Railway Platform -->
+            <item name="Tram Stop" icon="icons/png/transport_tram_stop.png" type="node" preset_name_label="true">
+                <link wiki="Tag:railway=tram_stop"/>
+                <key key="railway" value="tram_stop"/>
+                <optional>
+                    <text key="name" text="Name"/>
+                </optional>
+            </item> <!-- Tram Stop -->
             <separator/>
             <item name="Bus Station" icon="icons/png/transport_bus_station.png" type="node,closedway,multipolygon" preset_name_label="true">
                 <link wiki="Tag:amenity=bus_station"/>
@@ -5986,7 +6143,7 @@
                 <label text="... other transportation modes possible"/>
             </optional>
         </item> <!-- Guidepost -->
-        <item name="Trailhead" icon="icons/png/tourist_empty.png" type="node" preset_name_label="true">
+        <item name="Trailhead" icon="icons/png/tourist_trailhead.png" type="node" preset_name_label="true">
             <key key="highway" value="trailhead"/>
             <reference ref="name_operator"/>
             <text key="ele" text="Elevation" value_type="integer"/>
@@ -6520,7 +6677,7 @@
             <reference ref="min_max_age"/>
             <check text="Baby" key="baby"/>
         </item>
-        <item name="Swing" icon="icons/png/amenity_empty.png" type="node,way,closedway,multipolygon" name_context="leisure">
+        <item name="Swing" icon="icons/png/amenity_swing.png" type="node,way,closedway,multipolygon" name_context="leisure">
             <link wiki="Tag:leisure=playground"/>
             <space/>
             <key key="playground" value="swing"/>
@@ -7964,6 +8121,32 @@
                 <reference ref="oh_wheelchair_level"/>
             </optional>
         </item> <!-- Dressing room -->
+       <item name="Luggage locker" icon="icons/png/amenity_luggage_locker.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:amenity=luggage_locker"/>
+            <space/>
+            <key key="amenity" value="luggage_locker"/>
+            <reference ref="facility_access"/>
+            <optional>
+                <text key="description" text="Description" length="255"/>
+                <reference ref="fee"/>
+                <text key="operator" text="Operator"/>
+                <combo key="capacity" text="Capacity" values="1,2,3,4,5,6" value_type="integer" editable="true"/>
+                <reference ref="supervised"/>
+                <check key="indoor" text="Indoor" disable_off="true"/>
+                <check key="covered" text="Covered" disable_off="true"/>
+                <reference ref="oh_wheelchair_level"/>
+            </optional>
+            <preset_link preset_name="Payment Methods"/>
+        </item> <!-- Luggage locker -->
+                <item name="Lost property office" icon="icons/png/amenity_lost_property_office.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:amenity=lost_property_office"/>
+            <space/>
+            <key key="amenity" value="lost_property_office"/>
+            <optional>
+                <text key="operator" text="Operator"/>               
+                <reference ref="oh_wheelchair_level"/>
+            </optional>
+        </item> <!-- Lost property office -->
         <item name="Smoking area" icon="icons/png/amenity_tobacco_29141.png" type="node,closedway" preset_name_label="true">
             <link wiki="Tag:amenity=smoking_area"/>
             <space/>
@@ -8189,8 +8372,8 @@
                 <reference ref="name_operator_oh_wheelchair"/>
             </optional>
         </item> <!-- Outdoor seating -->
-        <item name="Lounger" icon="icons/png/amenity_empty.png" type="node,way" preset_name_label="true">
-            <link wiki="Tag:amenity=launger"/>
+        <item name="Lounger" icon="icons/png/amenity_empty.png" type="node,way,closedway" preset_name_label="true">
+            <link wiki="Tag:amenity=lounger"/>
             <space/>
             <key key="amenity" value="lounger"/>
             <multiselect key="seasonal" text="Seasonal" values="yes;no;spring;summer;autumn;winter;dry_season;wet_season" display_values="Yes;No;Spring;Summer;Autumn;Winter;Dry season;Wet season" values_searchable="true" match="key" values_context="seasons"/>
@@ -9621,7 +9804,7 @@
             <space/>
             <key key="man_made" value="embankment"/>
         </item> <!-- Embankment -->
-        <item name="Avalanche Protection" icon="${man_made_avalanche_protector}" type="node,way,closed_way" preset_name_label="true">
+        <item name="Avalanche Protection" icon="${man_made_avalanche_protector}" type="node,way,closedway" preset_name_label="true">
             <link wiki="Tag:man_made=avalanche_protection"/>
             <space/>
             <key key="man_made" value="avalanche_protection"/>
@@ -10784,10 +10967,10 @@
             <list_entry value="war_memorial" display_value="War memorial" short_description="A building, monument, statue or other edifice celebrating a victory or commemorating those who died or were injured in a war."/>
             <list_entry value="sculpture" display_value="Sculpture" short_description="A non figurative sculpture which does not match any of the other categories."/>
             <list_entry value="cross" display_value="Cross" short_description="A cross-shaped memorial."/>
-            <list_entry value="blue_plaque" display_value="Blue plaque (UK)" short_description="A blue plaque commemorating a historical link to that location. (UK)"/>
+            <list_entry value="blue_plaque" display_value="Blue plaque (UK)" short_description="A blue plaque commemorating a historical link to that location. (UK)" regions="GB"/>
             <list_entry value="obelisk" display_value="Obelisk" short_description="An obelisk."/>
             <list_entry value="ghost_bike" display_value="Ghost bike" short_description="A bicycle painted white permanently placed as memorial for a victim of a road accident (usually cyclists)."/>
-            <list_entry value="stolperstein" display_value="Stolperstein" short_description="10cm &#xD7; 10cm brass plaque commemorating victims of Nazi persecution. (EU,RU)"/>
+            <list_entry value="stolperstein" display_value="Stolperstein" short_description="10cm &#xD7; 10cm brass plaque commemorating victims of Nazi persecution. (EU,RU)" regions="EU,RU"/>
             <list_entry value="bench" display_value="Bench" short_description="A bench placed in memory of someone or something; usually has a plaque, and sometimes a statue sitting on (part of) it."/>
         </combo>
         <optional>
@@ -11001,7 +11184,7 @@
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Herbalist -->
         <separator/>
-        <item name="Public Market" icon="icons/png/shopping_marketplace.png" type="node,way,closedway" preset_name_label="true">
+        <item name="Public Market" icon="icons/png/shopping_marketplace.png" type="node,way,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:amenity=marketplace"/>
             <space/>
             <key key="amenity" value="marketplace"/>
@@ -12137,7 +12320,7 @@
             <check key="payment:gpn_debit" text="GPN" match="keyvalue" disable_off="true"/>
             <check key="payment:laser" text="Laser" match="keyvalue" disable_off="true"/>
             <check key="payment:maestro" text="Maestro" match="keyvalue" disable_off="true"/>
-            <check key="payment:postfinance_card" text="PostFinance Card (ch)" match="keyvalue" disable_off="true"/>
+            <check key="payment:postfinance_card" text="PostFinance Card (ch)" match="keyvalue" disable_off="true" regions="CH"/>
             <check key="payment:v_pay" text="V Pay" match="keyvalue" disable_off="true"/>
             <check key="payment:visa_debit" text="Visa Debit" match="keyvalue" disable_off="true"/>
             <check key="payment:visa_electron" text="Visa Electron" match="keyvalue" disable_off="true"/>
@@ -12160,19 +12343,19 @@
         <space/>
         <check key="payment:electronic_purses" text="Electronic purses" match="keyvalue"/>
         <checkgroup text="Electronic purses type" columns="4">
-            <check key="payment:ep_avant" text="Avant (fi)" match="keyvalue" disable_off="true"/>
+            <check key="payment:ep_avant" text="Avant (fi)" match="keyvalue" disable_off="true" regions="FI"/>
             <check key="payment:ep_beep" text="Beep" match="keyvalue" disable_off="true"/>
             <check key="payment:ep_brizzi" text="BRIZZI" match="keyvalue" disable_off="true"/>
             <check key="payment:ep_bsbcash" text="BSB Cash" match="keyvalue" disable_off="true"/>
             <check key="payment:ep_flazz" text="Flazz" match="keyvalue" disable_off="true"/>
-            <check key="payment:ep_geldkarte" text="Geldkarte (de)" match="keyvalue" disable_off="true"/>
+            <check key="payment:ep_geldkarte" text="Geldkarte (de)" match="keyvalue" disable_off="true" regions="DE"/>
             <check key="payment:ep_mandiri_emoney" text="Mandiri e-money" match="keyvalue" disable_off="true"/>
             <check key="payment:ep_megacash" text="MEGACASH" match="keyvalue" disable_off="true"/>
-            <check key="payment:ep_mep" text="Mep (pt)" match="keyvalue" disable_off="true"/>
-            <check key="payment:ep_minicash" text="Minicash (lu)" match="keyvalue" disable_off="true"/>
-            <check key="payment:ep_minipay" text="Minipay (it)" match="keyvalue" disable_off="true"/>
+            <check key="payment:ep_mep" text="Mep (pt)" match="keyvalue" disable_off="true" regions="PT"/>
+            <check key="payment:ep_minicash" text="Minicash (lu)" match="keyvalue" disable_off="true" regions="LU"/>
+            <check key="payment:ep_minipay" text="Minipay (it)" match="keyvalue" disable_off="true" regions="IT"/>
             <check key="payment:ep_monedero" text="Mondero (ar)" match="keyvalue" disable_off="true" deprecated="true"/>
-            <check key="payment:ep_monedero4b" text="Mondero 4b (es)" match="keyvalue" disable_off="true"/>
+            <check key="payment:ep_monedero4b" text="Mondero 4b (es)" match="keyvalue" disable_off="true" regions="ES"/>
             <check key="payment:ep_nobu_emoney" text="NOBU e-money" match="keyvalue" disable_off="true"/>
             <check key="payment:ep_tapcash" text="TapCash" match="keyvalue" disable_off="true"/>
         </checkgroup>
@@ -12480,7 +12663,7 @@
             <reference ref="population_postcode_website"/>
         </item> <!-- Farm -->
         <separator/>
-        <item name="Locality" icon="icons/png/poi_empty.png" type="node,closedway,multipolygon,relation" preset_name_label="true">
+        <item name="Locality" icon="icons/png/poi_place_locality.png" type="node,closedway,multipolygon,relation" preset_name_label="true">
             <link wiki="Tag:place=locality"/>
             <space/>
             <key key="place" value="locality"/>
@@ -12909,7 +13092,7 @@
             <key key="crop" value="grape" match="keyvalue"/>
             <reference ref="optional_name"/>
         </item> <!-- Vineyard -->
-        <item name="Greenhouse Horticulture" icon="presets/greenhouse_horticulture.png" type="closedway,multipolygon" preset_name_label="true">
+        <item name="Greenhouse Horticulture" icon="icons/png/landuse_greenhouse.png" type="closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:landuse=greenhouse_horticulture"/>
             <space/>
             <key key="landuse" value="greenhouse_horticulture"/>
@@ -13082,7 +13265,7 @@
             <reference ref="optional_name"/>
             <combo key="industrial" text="Type" values="bakery,brewery,brickyard,depot,distributor,factory,grinding_mill,heating_station,machine_shop,mine,oil,port,salt_pond,sawmill,scrap_yard,shipyard,slaughterhouse,warehouse,wellsite" display_values="Bakery,Brewery,Brickyard,Depot,Distributor,Factory,Grinding mill,Heating station,Machine shop,Mine,Oil,Port,Salt pond,Sawmill,Scrap yard,Shipyard,Slaughterhouse,Warehouse,Well site" editable="true" values_context="industrial" match="key"/>
         </item> <!-- Industrial area -->
-        <item name="Garages" icon="presets/garages.png" type="closedway,multipolygon" name_context="Landuse" preset_name_label="true">
+        <item name="Garages" icon="icons/png/landuse_garages.png" type="closedway,multipolygon" name_context="Landuse" preset_name_label="true">
             <link wiki="Tag:landuse=garages"/>
             <space/>
             <key key="landuse" value="garages"/>
@@ -13111,7 +13294,7 @@
                 <list_entry value="retail" display_value="Retail" icon="icons/png/landuse_supermarket.png" icon_size="16"/>
                 <list_entry value="commercial" display_value="Commercial" icon="icons/png/natural_empty.png" icon_size="16"/>
                 <list_entry value="industrial" display_value="Industrial" icon="icons/png/landuse_works_22087.png"/>
-                <list_entry value="garages" display_value="Garages" icon="presets/garages.png"/>
+                <list_entry value="garages" display_value="Garages" icon="icons/png/landuse_garages.png"/>
                 <list_entry value="railway" display_value="Railway Land" icon="icons/png/landuse_train_station.png" icon_size="16"/>
                 <list_entry value="military" display_value="Military" icon="icons/png/landuse_military.png" icon_size="16"/>
                 <list_entry value="religous" display_value="Religious" icon="icons/png/landuse_religous.png"/>
@@ -13190,7 +13373,7 @@
                 <combo key="addr:state" text="State" text_context="addr:" values="AL,AK,AZ,AR,CA,CO,CT,DE,FL,GA,HI,ID,IL,IN,IA,KS,KY,LA,ME,MD,MA,MI,MN,MS,MO,MT,NE,NV,NH,NJ,NM,NY,NC,ND,OH,OK,OR,PA,RI,SC,SD,TN,TX,UT,VT,VA,WA,WV,WI,DC,AS,GU,MP,PR,UM,VI" use_last_as_default="force" match="key"/>
             </optional>
         </item> <!-- Address -->
-        <item name="Address Interpolation" icon="presets/interpolation.png" type="way" preset_name_label="true">
+        <item name="Address Interpolation" icon="icons/png/osm_interpolation.png" type="way" preset_name_label="true">
             <link wiki="Key:addr"/>
             <space/>
             <combo key="addr:interpolation" text="Numbering scheme" values="odd,even,all,alphabetic" display_values="Odd,Even,All,Alphabetic" sort_values="false" default="odd" match="key"/>
@@ -13824,11 +14007,11 @@
             <optional>
                 <text key="destination" text="Name of river/lake/sea/ocean it runs into"/>
                 <text key="ref" text="Reference"/>
-                <text key="ref:sandre" text="Reference Sandre (FR)"/>
-                <text key="ref:fgkz" text="Reference FGKZ (DE)"/>
-                <text key="ref:regine" text="Reference REGINE (NO)"/>
-                <text key="ref:gnis" text="Reference GNIS (USA)"/>
-                <text key="ref:gnbc" text="Reference GNBC (CA)"/>
+                <text key="ref:sandre" text="Reference Sandre (FR)" regions="FR"/>
+                <text key="ref:fgkz" text="Reference FGKZ (DE)" regions="DE"/>
+                <text key="ref:regine" text="Reference REGINE (NO)" regions="NO"/>
+                <text key="ref:gnis" text="Reference GNIS (USA)" regions="US"/>
+                <text key="ref:gnbc" text="Reference GNBC (CA)" regions="CA"/>
                 <reference ref="wikipedia_wikidata_images"/>
             </optional>
             <roles>
@@ -13836,6 +14019,7 @@
                 <role key="main_stream" text="waterways (no riverbank)" requisite="optional" type="way" member_expression="waterway -waterway:riverbank"/>
                 <role key="side_stream" text="branch waterways (no riverbank)" requisite="optional" type="way" member_expression="waterway -waterway:riverbank"/>
                 <role key="spring" text="spring of waterway" requisite="optional" type="node"/>
+                <role key="mouth" text="place where waterway ends" requisite="optional" type="node"/>
             </roles>
         </item> <!-- Waterway -->
         <item name="Bridge" icon="icons/png/highway_bridge_sp.png" type="relation" preset_name_label="true">
