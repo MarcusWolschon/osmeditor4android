@@ -17,13 +17,10 @@
   <string name="upload_problem_title">Yüklenemedi</string>
   <string name="upload_problem_message">Verilerin bir kısmı veya tamamı yüklenmedi. Daha sonra tekrar deneyin.</string>
   <string name="bad_request_message">API bir hatayla yanıt verdi, lütfen verilerinizi kaydedin ve sorunu bildirin:\n\n</string>
+  <!--Upload conflict-->
   <string name="upload_conflict_title">Yükleme çakışması</string>
-  <string name="upload_conflict_message_version">%1$s \nyerel sürümü %2$d dir\nsunucudaki  %3$d</string>
   <string name="upload_conflict_message_deleted">%1$s \nyerel sürümü %2$d \nve sunucusunda silindi</string>
-  <string name="upload_conflict_message_referential">%1$s \nyerel silindi \nfakat sunucusunda halen bağlantıları var</string>
-  <string name="upload_conflict_message_already_deleted">%1$s \nönceden sunucusundan silindi</string>
-  <string name="use_local_version">Yerel sürümü kullan</string>
-  <string name="use_server_version">Sunucudaki sürümü kullan</string>
+  <!---->
   <string name="no_login_data_title">Doğrulanamadı</string>
   <string name="no_login_data_message">Eğer OAuth kullanıyorsanız, bu muhtemelen bir hatadır, lütfen bir sorun raporu gönderin, giriş ve şifre kullanıyorsanız (önerilmez), lütfen bunların doğru girilip girilmediğini kontrol edin.</string>
   <string name="no_connection_title">Sunucuyla bağlantı yok</string>
@@ -64,10 +61,11 @@
   <string name="applying_osc_failed_title">Osc dosyası uygulamada başarısız oldu</string>
   <string name="applying_osc_failed_message">Büyük olasılıkla değişiklikleri uygulamak için gereken tüm özgün verileri yüklemediniz.</string>
   <!---->
+  <!--Newbie dialog-->
   <string name="welcome_title">Hoş geldin</string>
-  <string name="welcome_message">Vespucci\'yi yüklediğiniz için teşekkürler.\n&lt;br&gt;&lt;br&gt; Başlamadan bilmeniz gereken üç şey:\n&lt;ul&gt;&lt;li&gt; Sol üst köşedeki kilit simgesine dokunmak kilitli (düzenleme yok) ve kilitsiz modlar arasında geçiş yapar,&lt;/li&gt;&lt;li&gt;OpenStreetMap\'i düzenlemek için, önce değiştirmek istediğiniz alanın verilerini indirmeniz gerekir (bunu denemeden önce yakınlaştırın),&lt;/li&gt;&lt;li&gt;Yeni nesne eklemek için: büyük yeşil düğmeye dokunun ve eklemek istediğinizi seçin, daha sonra istediğiniz pozisyona konumlandırın.&lt;/li&gt;&lt;/ul&gt;\nŞimdi hazırsınız, eğlenmeye ve haritalamaya başlayabilirsiniz!</string>
   <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;Cihazın görüntüden gizlenmiş \'\'yazılım tuşları\'\'na sahip. Aşağıya kaydırarak onları tekrardan görüntüle.</string>
   <string name="read_introduction">Tanıtımı okuyun</string>
+  <!---->
   <string name="upgrade_title">Bu yeni bir Vespucci sürümü</string>
   <string name="upgrade_message">Yeni özellikler ve davranış sürüm notlarında ayrıntılı olarak açıklanmıştır.</string>
   <string name="read_upgrade">Yeni sürüm hakkında bilgi edinin</string>
@@ -203,6 +201,8 @@
   <!--Tile layer info dialog-->
   <string name="attribution">Atfetme</string>
   <!--GPX info dialog-->
+  <!--Image information dialog-->
+  <string name="direction">Direction</string>
   <!--Too much data dialog-->
   <string name="too_much_data_title">Çok fazla veri yüklendi!</string>
   <string name="too_much_data_message">%1$d yüklenmiş ve yapılandırılmış nesne sınırına ulaştınız. Bu, daha fazla veri eklerseniz, potansiyel sorunları kaydetme durumuna yavaşlamaya neden olur.</string>
@@ -997,6 +997,8 @@
   <string name="config_autoformatPhoneNumbers_title">Otomatik biçimlendirilmiş telefon numaraları</string>
   <string name="config_autoformatPhoneNumbers_summary">Telefon numaralarının otomatik biçimlendirilmesini etkinleştirin</string>
   <string name="config_maxOffsetDistance_current">%1$d metre</string>
+  <string name="config_maxCircleSegmentcurrent">%1$d metre</string>
+  <string name="config_minCircleSegmentcurrent">%1$d metre</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Otomatik indirme ayarları</string>
   <string name="config_category_auto_download_summary">Veri ve görevi otomatik indirme ayarları</string>
@@ -1084,7 +1086,6 @@
   <string name="manage_apis">API\'leri yönet</string>
   <string name="config_api_url_title">API URL</string>
   <string name="config_api_oauth_title">OAuth kullan</string>
-  <string name="listedit_enable_oauth">OAuth\'u etkinleştir</string>
   <string name="config_username_title">OSM kullanıcı adı</string>
   <string name="config_password_title">OSM şifresi</string>
   <string name="config_password_summary">Viki parolada hata yapmayın. Hatırla: Şifresiz metin saklanır ve iletilir. </string>

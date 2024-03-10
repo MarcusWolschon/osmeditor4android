@@ -18,15 +18,12 @@
   <string name="upload_problem_title">Nem sikerült feltölteni</string>
   <string name="upload_problem_message">Az adatok egy része vagy egésze nem lett feltöltve. Próbálja meg később.</string>
   <string name="bad_request_message">Az API hibával válaszolt, mentse el az adatait, és jelentse a problémát:\n\n</string>
+  <!--Upload conflict-->
   <string name="upload_conflict_title">Feltöltési ütközés</string>
-  <string name="upload_conflict_message_version">%1$s \nhelyi verziója %2$d\na kiszolgálón pedig %3$d</string>
+  <string name="upload_conflict_message_version">Verzióütközés</string>
   <string name="upload_conflict_message_deleted">%1$s \nhelyi verziója %2$d \na kiszolgálón pedig törölve lett</string>
-  <string name="upload_conflict_message_referential">%1$s \nhelyben törölve lett \nde van rá hivatkozás a kiszolgálón</string>
-  <string name="upload_conflict_message_already_deleted">%1$s \nmár törölve lett a kiszolgálón</string>
-  <string name="upload_conflict_message_missing_references">%1$s \nobjektumok helyi verzióhivatkozásai \namelyek már nem léteznek a kiszolgálón</string>
   <string name="upload_conflict_message_unknown">%1$s \nismeretlen feltöltési ütközést okozott \n%2$s</string>
-  <string name="use_local_version">Helyi verzió használata</string>
-  <string name="use_server_version">Kiszolgálón lévő verzió használata</string>
+  <!---->
   <string name="no_login_data_title">Nem sikerült hitelesíteni</string>
   <string name="no_login_data_message">OAuth használata esetén ez valószínűleg hiba, küldjön hibajelentést. Ha felhasználónevet és jelszót adott meg (nem javasolt), ellenőrizze, hogy helyes-e.</string>
   <string name="no_connection_title">Nincs kapcsolat a kiszolgálóval</string>
@@ -68,12 +65,13 @@
   <string name="applying_osc_failed_message">Valószínűleg nem töltötte be az összes eredeti adatot, amely a módosítások végrehajtásához szükséges.</string>
   <string name="duplicate_tag_key_title">Duplikált kulcsok</string>
   <string name="duplicate_tag_key_message">A következő kulcsot többször adta hozzá, ezt meg kell oldania, mielőtt továbbléphetne:</string>
-  <string name="select_file_picker_title">Fájlkereső kiválasztása</string>
   <!---->
+  <string name="select_file_picker_title">Fájlkereső kiválasztása</string>
+  <!--Newbie dialog-->
   <string name="welcome_title">Üdvözöljük</string>
-  <string name="welcome_message">Köszönjük hogy telepítette a Vespuccit.\n&lt;br&gt;&lt;br&gt;Az elinduláshoz három dolgot kell tudni:\n&lt;ul&gt;&lt;li&gt;a bal felső sarokban lévő zár ikon vált a zárolt (nincs szerkesztés) és feloldott mód között,&lt;/li&gt;&lt;li&gt;az OpenStreetMap szerkesztéséhez először le kell töltenie a terület adatait, ahol változtatni akar (először nagyítson bele),&lt;/li&gt;&lt;li&gt;új objektum hozzáadásához: koppintson a nagy zöld gombra, és válassza ki hogy mit akar hozzáadni, majd koppintson a helyre, ahová tenni szeretné.&lt;/li&gt;&lt;/ul&gt;\nMost már indulásra kész. Kezdjen térképezni, és érezze jól magát!</string>
   <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;Az eszköze rendelkezik „szoftveres gombokkal”, melyek nem láthatóak. Húzza fel őket lentről a megjelenítésükhöz.</string>
   <string name="read_introduction">Olvassa el a bevezetést</string>
+  <!---->
   <string name="upgrade_title">Ez a Vespucci új verziója</string>
   <string name="upgrade_message">Az új funkciók és viselkedések a kiadási megjegyzésekben vannak részletezve.</string>
   <string name="read_upgrade">Olvasson az új verzióról</string>
@@ -249,6 +247,8 @@
   <!--GPX info dialog-->
   <string name="track_points">Nyomvonalpontok</string>
   <string name="way_points">Vonalpontok</string>
+  <!--Image information dialog-->
+  <string name="direction">Irány</string>
   <!--Too much data dialog-->
   <string name="too_much_data_title">Túl sok adat van betöltve!</string>
   <string name="too_much_data_message">%1$d csomópont van betöltve, ami túllépte a beállított korlátot. Ez lassulást okoz, ha pedig még több adatot ad hozzá, az esetleges mentési problémákhoz vezethet.</string>
@@ -1092,6 +1092,7 @@ elemek megkövetelése</string>
     <item quantity="other">%1$d objektum</item>
   </plurals>
   <string name="actionmode_rotateway">Vonal forgatása</string>
+  <string name="menu_snap">Illesztés</string>
   <!--Simple Action Mode-->
   <string name="menu_add_node">Pont hozzáadása</string>
   <string name="simple_add_node">Koppintson a pozíció megadásához</string>
@@ -1108,7 +1109,6 @@ elemek megkövetelése</string>
   <string name="simple_paste">Koppintson a pozíció megadásához</string>
   <string name="menu_paste_multiple">Többszörös beillesztés</string>
   <string name="simple_paste_multiple">Koppintson a pozíció megadásához</string>
-  <string name="menu_snap">Illesztés</string>
   <!--Preferences-->
   <string name="config_backgroundLayer_title">Térképháttér</string>
   <string name="config_backgroundLayer_summary">A csempealapú térképháttér.</string>
@@ -1269,6 +1269,8 @@ elemek megkövetelése</string>
   <string name="config_maxOffsetDistance_current">%1$d méter</string>
   <string name="config_useImperialUnits_title">Angolszász mértékegységes használata a mérésekhez</string>
   <string name="config_useImperialUnits_summary">Angolszász mértékegységek használata, amikor olyan országokban mér, ahol ezeket szokás használni.</string>
+  <string name="config_maxCircleSegmentcurrent">%1$d méter</string>
+  <string name="config_minCircleSegmentcurrent">%1$d méter</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Beállítások automatikus letöltése</string>
   <string name="config_category_auto_download_summary">Adatok és feladatok automatikus letöltésének beállításai</string>
@@ -1383,7 +1385,7 @@ elemek megkövetelése</string>
   <string name="manage_apis">API-k kezelése</string>
   <string name="config_api_url_title">API URL</string>
   <string name="config_api_oauth_title">OAuth használata</string>
-  <string name="listedit_enable_oauth">OAuth engedélyezése</string>
+  <string name="listedit_auth">Azonosítás</string>
   <string name="config_username_title">OSM felhasználónév</string>
   <string name="config_password_title">OSM jelszó</string>
   <string name="config_password_summary">Ne tévessze össze a wiki jelszóval. Ne feledje: nyílt szövegként van tárolva és továbbítva!</string>

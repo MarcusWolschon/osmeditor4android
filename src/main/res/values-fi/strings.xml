@@ -18,15 +18,12 @@
   <string name="upload_problem_title">Lähetys epäonnistui</string>
   <string name="upload_problem_message">Ainakin osaa muutoksista ei ole lähetetty. Yritä myöhemmin uudestaan.</string>
   <string name="bad_request_message">API palautti virheen. Tallenna muokkauksesi ja ilmoita virheestä:\n\n</string>
+  <!--Upload conflict-->
   <string name="upload_conflict_title">Ristiriita lähetyksessä</string>
-  <string name="upload_conflict_message_version">%1$s \npaikallinen versio %2$d \npalvelimen versio %3$d</string>
+  <string name="upload_conflict_message_version">Ristiriita versioissa</string>
   <string name="upload_conflict_message_deleted">%1$s \npaikallinen versio %2$d \npalvelimen versio on poistettu</string>
-  <string name="upload_conflict_message_referential">%1$s \npaikallinen versio on poistettu \nmutta siihen viitataan palvelimella</string>
-  <string name="upload_conflict_message_already_deleted">%1$s \npalvelimen versio oli jo poistettu</string>
-  <string name="upload_conflict_message_missing_references">%1$s \npaikallinen versio viittaa kohteisiin \njoita ei ole palvelimella</string>
   <string name="upload_conflict_message_unknown">%1$s \naiheutti lähetyksessä tuntemattoman ristiriidan \n%2$s</string>
-  <string name="use_local_version">Käytä paikallista versiota</string>
-  <string name="use_server_version">Käytä palvelimen versiota</string>
+  <!---->
   <string name="no_login_data_title">Kirjautuminen epäonnistui</string>
   <string name="no_login_data_message">Jos käytät OAuthia, niin tämä on varmaankin ohjelmointivirhe; lähetä vikailmoitus, kiitos. Jos käytät tunnusta ja salasanaa (ei suositella), niin tarkista että syötit ne oikein.</string>
   <string name="no_connection_title">Ei yhteyttä palvelimeen</string>
@@ -68,12 +65,13 @@
   <string name="applying_osc_failed_message">Todennäköisin syy on, ettet ole ladannut kaikkea sitä alkuperäistä dataa, johon muutoksia olisi tehtävä.</string>
   <string name="duplicate_tag_key_title">Sama avain useamman kerran</string>
   <string name="duplicate_tag_key_message">Olet lisännyt seuraavan avaimen useamman kerran, etkä voi jatkaa ennen kuin ongelma on ratkaistu:</string>
-  <string name="select_file_picker_title">Valitse tiedostoselain</string>
   <!---->
+  <string name="select_file_picker_title">Valitse tiedostoselain</string>
+  <!--Newbie dialog-->
   <string name="welcome_title">Tervetuloa!</string>
-  <string name="welcome_message">Kiitos että asensit Vespuccin.\n&lt;br&gt;&lt;br&gt;Pääset alkuun näiden kolmen neuvon avulla:\n&lt;ul&gt;&lt;li&gt;vasemman yläkulman lukkokuvakkeen koskettaminen vaihtaa lukitun (ei muokkausta) ja avatun tilan välillä,&lt;/li&gt;&lt;li&gt;ennen kuin voit muokata OpenStreetMappia sinun pitää ladata alue, jota haluat muuttaa (zuumaa ensin lähemmäksi),&lt;/li&gt;&lt;li&gt;uuden kohteen lisäys: kosketa isoa vihreää nappia ja valitse mitä haluat lisätä; kosketa sitten paikkaa, johon haluat laittaa sen.&lt;/li&gt;&lt;/ul&gt;\nSiinä kaikki. Ala kartoittaa ja pidä hauskaa!</string>
   <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;Laitteessasi on \"pehmonäppäimiä\", jotka on piilotettu. Pyyhkäise alhaalta, niin saat ne taas näkyviin.</string>
   <string name="read_introduction">Lue esittely</string>
+  <!---->
   <string name="upgrade_title">Tämä on Vespuccin uusi versio</string>
   <string name="upgrade_message">Uudet ominaisuudet ja toiminnot on lueteltu julkaisutiedoissa.</string>
   <string name="read_upgrade">Tietoa uudesta versiosta</string>
@@ -248,6 +246,8 @@
   <!--GPX info dialog-->
   <string name="track_points">Jälkipisteitä</string>
   <string name="way_points">Välietappeja</string>
+  <!--Image information dialog-->
+  <string name="direction">Suunta</string>
   <!--Too much data dialog-->
   <string name="too_much_data_title">Liikaa dataa ladattu!</string>
   <string name="too_much_data_message">Ladattuja pisteitä on %1$d, mikä ylittää asetetun rajan. Tämä johtaa sovelluksen hidastumiseen ja, mikäli dataa vielä lisätään, mahdollisiin ongelmiin muokkaustilaa tallennettaessa.</string>
@@ -1074,6 +1074,7 @@
     <item quantity="other">%1$d kohdetta</item>
   </plurals>
   <string name="actionmode_rotateway">Pyöritä viivaa</string>
+  <string name="menu_snap">Loksauta</string>
   <!--Simple Action Mode-->
   <string name="menu_add_node">Lisää piste</string>
   <string name="simple_add_node">Napauta paikkaa näytöltä</string>
@@ -1090,7 +1091,6 @@
   <string name="simple_paste">Napauta paikkaa näytöltä</string>
   <string name="menu_paste_multiple">Liitä useita kertoja</string>
   <string name="simple_paste_multiple">Napauta paikkaa näytöltä</string>
-  <string name="menu_snap">Loksauta</string>
   <!--Preferences-->
   <string name="config_backgroundLayer_title">Taustan kartta</string>
   <string name="config_backgroundLayer_summary">Laattapohjainen karttatausta.</string>
@@ -1249,6 +1249,8 @@
   <string name="config_maxOffsetDistance_current">%1$d metri(ä)</string>
   <string name="config_useImperialUnits_title">Käytä brittiyksiköitä mittaukseen</string>
   <string name="config_useImperialUnits_summary">Käytä brittiläisen mittajärjestelmän yksiköitä, kun mitataan niitä yleisesti käyttävissä maissa.</string>
+  <string name="config_maxCircleSegmentcurrent">%1$d metri(ä)</string>
+  <string name="config_minCircleSegmentcurrent">%1$d metri(ä)</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Automaattisen latauksen asetukset</string>
   <string name="config_category_auto_download_summary">Automaattisen datan ja tehtävien latauksen asetukset.</string>
@@ -1361,7 +1363,6 @@
   <string name="manage_apis">APIen hallinta</string>
   <string name="config_api_url_title">API:n URL</string>
   <string name="config_api_oauth_title">Käytä OAuthia</string>
-  <string name="listedit_enable_oauth">Käytä OAuthia</string>
   <string name="config_username_title">Käyttäjätunnus OSM:ssä</string>
   <string name="config_password_title">Salasana OSM:ssä</string>
   <string name="config_password_summary">Älä sekoita tätä Wiki-salasanaan. Muista: se tallennetaan ja lähetetään selvänä tekstinä!</string>

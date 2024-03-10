@@ -8,6 +8,7 @@
   <string name="mode_address">Адреса</string>
   <string name="mode_voice">Голосовий ввід</string>
   <!--additional short cuts-->
+  <string name="shortcut_safe">Безпечний режим</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Увага!</string>
   <string name="transfer_download_current_dialog_message">Ви зробили зміни. Надіслати їх замість того, щоб відкинути?</string>
@@ -17,15 +18,12 @@
   <string name="upload_problem_title">Не вдалося надіслати</string>
   <string name="upload_problem_message">Частина або всі дані не були надіслані. Спробуйте ще раз.</string>
   <string name="bad_request_message">API відповів помилкою, будь ласка, збережіть свої дані та повідомте про проблему:\n\n</string>
+  <!--Upload conflict-->
   <string name="upload_conflict_title">Конфлікт надсилання</string>
-  <string name="upload_conflict_message_version">%1$s \nмає локальну версію %2$d \nта версію на сервері %3$d </string>
+  <string name="upload_conflict_message_version">Конфлікт версій</string>
   <string name="upload_conflict_message_deleted">%1$s \nмає локальну версію %2$d \nта вилучено на сервері</string>
-  <string name="upload_conflict_message_referential">%1$s\nбуло вилучено локально\nале має залежності на сервері</string>
-  <string name="upload_conflict_message_already_deleted">%1$s \nвже вилучено на сервері</string>
-  <string name="upload_conflict_message_missing_references">%1$s \nваша версія посилається на обʼєкти,\nякі відсутні на сервері</string>
   <string name="upload_conflict_message_unknown">%1$s \nспричинено невідомою помилкою під час надсилання даних \n%2$s</string>
-  <string name="use_local_version">Використовувати локальну версію</string>
-  <string name="use_server_version">Використовувати версію з сервера</string>
+  <!---->
   <string name="no_login_data_title">Не вдалося перевірити автентичність</string>
   <string name="no_login_data_message">Якщо Ви використовуєте OAuth, то це ймовірно помилка, будь ласка, відправте звіт про помилку.  Якщо Ви використовуєте логін і пароль (не рекомендується), перевірте, що вони введені коректно.</string>
   <string name="no_connection_title">Немає з\'єднання з сервером</string>
@@ -65,13 +63,18 @@
   <string name="file_write_failed_message">Веспуччі не в змозі змінити або зберегти цей файл.</string>
   <string name="applying_osc_failed_title">Не вдалося застосувати файл OSC</string>
   <string name="applying_osc_failed_message">Швидше за все, ви не завантажили всі початкові дані, потрібні для застосування змін.</string>
+  <string name="download_limit_title">Перевищено ліміт завантаження</string>
+  <string name="download_limit_message">Будь ласка, зачекайте, перш ніж намагатися завантажити більше даних.</string>
+  <string name="upload_limit_title">Перевищено ліміт надсилання</string>
+  <string name="upload_limit_message">Ви вичерпали свій поточний ліміт на надсилання, будь ласка, зачекайте, перш ніж спробувати ще раз.</string>
   <string name="duplicate_tag_key_title">Повторення ключів</string>
   <string name="duplicate_tag_key_message">Ви додали це й ключ кілька разів, вам потрібно розвʼязати цю проблему, щоб продовжити:</string>
   <!---->
+  <!--Newbie dialog-->
   <string name="welcome_title">Ласкаво просимо!</string>
-  <string name="welcome_message">Дякуємо вам за вибір Веспуччі.\n&lt;br&gt;&lt;br&gt;Перед тим як розпочати вам потрібно знати три речі:\n&lt;ul&gt;&lt;li&gt;натискання на позначку замка у лівому куті зверху вмикає та вимикає режим редагування,&lt;/li&gt;&lt;li&gt;для внесення змін в  OpenStreetMap вам треба завантажити дані для обраної ділянки (наблизьтесь до неї спершу ніж робити це),&lt;/li&gt;&lt;li&gt;для додавання об\'єктів: натисніть на велику зелену кнопку та оберіть, що ви бажаєте додати, тицьніть у місце куди ви бажаєте додати новий об\'єкт.&lt;/li&gt;&lt;/ul&gt;\nТепер ви готові розпочати. Вперед, отримуйте від цього задоволення!</string>
   <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;Ваш пристрій має віртуальні кнопки, що не показуються зараз на екрані, проведіть пальцем вгору від нижнього краю екрану, щоб побачити їх.</string>
   <string name="read_introduction">Прочитати вступ</string>
+  <!---->
   <string name="upgrade_title">Це нова версія Веспуччі</string>
   <string name="upgrade_message">Нові функції та можливості описані в нотатках до випуску.</string>
   <string name="read_upgrade">Про нову версію.</string>
@@ -219,7 +222,7 @@
   <string name="relation_membership">Належність до зв\'язків</string>
   <string name="problem">Проблема</string>
   <string name="members">Члени</string>
-  <string name="closed">Зачинено</string>
+  <string name="closed">Полігон</string>
   <string name="version">Версія</string>
   <string name="length_m">Довжина (м)</string>
   <string name="not_downloaded">Не завантажено</string>
@@ -242,9 +245,14 @@
   <string name="total">Всього</string>
   <string name="changed">Змніенено</string>
   <string name="ways">Лінії</string>
+  <string name="bounding_boxes">Обмежувальні рамки</string>
   <!--Tile layer info dialog-->
   <string name="attribution">Атрибуція</string>
   <!--GPX info dialog-->
+  <string name="track_points">Точки треку</string>
+  <string name="way_points">Шляхові точки</string>
+  <!--Image information dialog-->
+  <string name="direction">Напрямок</string>
   <!--Too much data dialog-->
   <string name="too_much_data_title">Завантажено забагато даних!</string>
   <string name="too_much_data_message">У вас завантажено %1$d точок, що перевищує встановлені обмеження. Це може спричинити сповільнення в роботі, а також, якщо ви додасте більше даних, до проблем з їх збереженням.</string>
@@ -292,6 +300,8 @@
   <string name="share_code">Поділіться кодом...</string>
   <!--Overpass console-->
   <string name="run">Старт</string>
+  <string name="overpass_result">Завантажено %1$d точок, %2$d ліній та %3$d зв\'язків.</string>
+  <string name="select_result">Виберіть результат</string>
   <string name="merge_result">З\'єднати результат</string>
   <string name="overpass_query_would_overwrite">Результат перезапише зміни! Запит перервано.</string>
   <!---->
@@ -323,6 +333,12 @@
   <string name="add_resurvey_entry">Додати елемент дослідження</string>
   <string name="add_check_entry">Додати елемент перевірки</string>
   <!--Safe mode dialog-->
+  <string name="safe_mode_dialog_title">Параметри безпечного режиму</string>
+  <string name="safe_style_label">Встановити стиль даних на мінімальний</string>
+  <string name="safe_layer_label">Вимкнути всі шари</string>
+  <string name="safe_state_label">Видалити збережений стан</string>
+  <string name="safe_delete_state_title">Видалити збережений стан даних?</string>
+  <string name="safe_delete_state_text">Так (не можна скасувати)</string>
   <!--Empty relation dialog-->
   <string name="empty_relation_title">Порожній зв\'язок</string>
   <string name="empty_relation_message">%1$s зв\'язок не має жодного члена.\n\nЯкщо лишити його так, його подальше редагування у Веспуччі буде неможливе.</string>
@@ -384,6 +400,7 @@
   <string name="layer_change_style">Змінити стиль…</string>
   <string name="layer_load_style">Завантажити стиль…</string>
   <string name="layer_reset_style">Перевстановити стиль</string>
+  <string name="layer_set_date_range">Встановити діапазон дат...</string>
   <string name="layer_select_imagery">Обрати фон...</string>
   <string name="layer_category_all">Всі</string>
   <string name="layer_category_photo">Аерофото</string>
@@ -419,6 +436,7 @@
   <string name="layer_info_no_meta_data">Метадані не завантажено</string>
   <!--Mapillary layer-->
   <!--Date range dialog-->
+  <string name="date_range_title">Встановити діапазон дат</string>
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Вилучити фото</string>
   <string name="photo_viewer_delete_button">Видалити остаточно</string>
@@ -461,6 +479,7 @@
   <!--Clear/Reset GPX Track-->
   <string name="clear_track_description">Зупинити запис та вилучити всі збережені точки GPS, без можливості відновлення даних.</string>
   <!--Measurement dialog-->
+  <string name="measure">Виміряти</string>
   <!--Tips-->
   <string name="tip_title">Чи вам відомо?</string>
   <string name="tip_check_label">Не показувати додаткові підказки</string>
@@ -584,6 +603,7 @@
   <string name="toast_split_to">Розділено лінію \"to\"</string>
   <string name="toast_tile_database_issue_short">Проблема з базою даних тайлів</string>
   <string name="toast_tile_database_issue">Серйозна проблема з базою даних тайлів\n\"%1$s\"\nБудь ласка, зверніться за порадою до  ЧаП\'ів на https://vespucci.io/</string>
+  <string name="toast_unable_to_configure_from_source">Неможливо налаштувати віддалено: %1$s</string>
   <string name="toast_invalid_apiurl">Помилковий API URL</string>
   <string name="toast_invalid_readonlyurl">Помилковий ReadOnly API URL</string>
   <string name="toast_invalid_notesurl">Помилковий API URL нотаток</string>
@@ -602,6 +622,7 @@
   <string name="toast_invalid_object">Недійсний об\'єкт</string>
   <string name="toast_openinghours_invalid">Помилкове значення годин роботи у %1$s</string>
   <string name="toast_openinghours_autocorrected">Значення годин роботи у %1$s було автоматично скореговане</string>
+  <string name="toast_already_in_multiselect">Вже в режимі мультивибору</string>
   <string name="toast_abort_actionmode">Скористайтесь ← стрілкою, щоб перервати</string>
   <string name="toast_null_island">Будь ласка, не додавайте об\'єкти в точці з координатами 0º/0º (Null Island)</string>
   <string name="toast_string_too_long">Рядок задовгий (%1$d симв), обрізано!</string>
@@ -684,6 +705,7 @@
   <string name="toast_unexpected_element">Торкання неочікуваного елементу:\n%1$s</string>
   <string name="toast_import_destination_exists">Місце призначення імпорту вже існує</string>
   <string name="toast_part_selection_not_supported">Вибір частини лінії не підтримується для замкнених ліній</string>
+  <string name="toast_element_has_been_deleted">Елемент видалено</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">Джерела MapSplit повинні мати встановлені мінімальне та максимальне масштабування</string>
   <string name="error_pbf_no_version">У файлі PBF відсутня інформація про версію</string>
@@ -1064,6 +1086,7 @@
     <item quantity="other">%1$d об\'єктів</item>
   </plurals>
   <string name="actionmode_rotateway">Обертати лінію</string>
+  <string name="menu_snap">Прив\'язка</string>
   <!--Simple Action Mode-->
   <string name="menu_add_node">Додати точку</string>
   <string name="simple_add_node">Торкніться екрана</string>
@@ -1077,7 +1100,6 @@
   <string name="simple_paste">Торкніться екрана</string>
   <string name="menu_paste_multiple">Вставити кілька разів</string>
   <string name="simple_paste_multiple">Торкніться екрана</string>
-  <string name="menu_snap">Прив\'язка</string>
   <!--Preferences-->
   <string name="config_backgroundLayer_title">Фон мапи</string>
   <string name="config_backgroundLayer_summary">Растрова фонова мапа.</string>
@@ -1286,7 +1308,6 @@
   <!---->
   <string name="config_api_url_title">URL для API</string>
   <string name="config_api_oauth_title">Використовувати OAuth</string>
-  <string name="listedit_enable_oauth">Застосувати OAuth</string>
   <string name="config_username_title">Ім\'я користувача OSM</string>
   <string name="config_password_title">Пароль OSM</string>
   <string name="config_password_summary">Не плутайте його з паролем вікі.  Пам’ятайте: він зберігається та передається у відкритому тексті!</string>
@@ -1453,6 +1474,7 @@
   <string name="bookmarkstitle">Закладки</string>
   <!--Element types-->
   <string name="element_type_way">лінія</string>
+  <string name="element_type_closedway">замкнена лінія</string>
   <string name="element_type_area">полігон</string>
   <string name="element_type_relation">зв’язок</string>
   <!--Element names with id-->

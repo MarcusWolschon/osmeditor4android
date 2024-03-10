@@ -18,15 +18,27 @@
   <string name="upload_problem_title">Hochladen fehlgeschlagen</string>
   <string name="upload_problem_message">Ein Teil oder alle Daten wurden nicht hochgeladen. Versuchen Sie es später nochmals.</string>
   <string name="bad_request_message">Die API gab einen Fehler zurück, bitte die Daten sichern und den Fehler melden:\n\n</string>
+  <!--Upload conflict-->
   <string name="upload_conflict_title">Konflikt beim Hochladen</string>
-  <string name="upload_conflict_message_version">%1$s \nhat lokale Version %2$d \nund auf dem Server %3$d</string>
+  <string name="upload_conflict_message_version">Versionskonflikt</string>
   <string name="upload_conflict_message_deleted">%1$s \nhat lokale Version %2$d \nund ist auf dem Server gelöscht</string>
-  <string name="upload_conflict_message_referential">%1$s \nwurde lokal gelöscht \naber hat noch aktive Bezüge auf dem Server</string>
-  <string name="upload_conflict_message_already_deleted">%1$s \n ist auf dem Server schon gelöscht</string>
-  <string name="upload_conflict_message_missing_references">%1$s \nlokale Version verweist auf Objekte, \ndie nicht auf Server vorhanden sind</string>
+  <string name="upload_conflict_message_referential">Das Element wurde lokal gelöscht hat aber noch aktive Bezüge auf dem Server</string>
+  <string name="upload_conflict_message_already_deleted">%1$s \n ist auf dem Server schon gelöscht, Upload wird wiederholt</string>
+  <string name="upload_conflict_message_missing_references">Lokales Element verweist auf Objekte, die auf Server gelöscht sind</string>
   <string name="upload_conflict_message_unknown">%1$s \nverursacht unbekannten Konflikt beim Hochladen \n%2$s</string>
-  <string name="use_local_version">Lokale Version verwenden</string>
-  <string name="use_server_version">Version auf dem Server verwenden</string>
+  <string name="upload_conflict_message_changeset_closed">Changeset wurde unerwartet geschlossen, Upload wird wiederholt</string>
+  <string name="server_side_object">Server Version</string>
+  <string name="local_object">Lokale Version</string>
+  <string name="resolve_by">Konflikte lösen durch…</string>
+  <string name="resolve">Auflösen</string>
+  <string name="delete_refering_element">… löschen des verweisenden Elementes</string>
+  <string name="use_local_version">… durch die Verwendung der lokalen Version</string>
+  <string name="merge_tags_in_to_local">… zusammenführen der Tags in der lokalen Version</string>
+  <string name="merge_tags_in_to_server">… zusammenführen der Tags in der Serverversion</string>
+  <string name="use_server_version">… durch die Verwendung der Serverversion</string>
+  <string name="undoing_local_delete">… rückgängigmachens der lokalen Löschung</string>
+  <string name="deleting_references_on_server">… löschen der Verweise auf der Server</string>
+  <!---->
   <string name="no_login_data_title">Authentifizierung fehlgeschlagen</string>
   <string name="no_login_data_message">Falls OAuth verwendet wird, ist dies wahrscheinlich ein Fehler, der gemeldet werden sollte. Falls Login und Passwort verwendet werden (nicht empfohlen), sollte überprüft werden, ob sie korrekt eingegeben wurden.</string>
   <string name="no_connection_title">Keine Verbindung zum Server</string>
@@ -66,14 +78,19 @@
   <string name="file_write_failed_message">Die gewünschte Datei konnte nicht geschrieben werden.</string>
   <string name="applying_osc_failed_title">OSC-Datei konnte nicht verarbeitet werden</string>
   <string name="applying_osc_failed_message">Wahrscheinlich waren die ursprünglichen Daten, die benötigt werden um die Änderungen durchzuführen, nicht geladen.</string>
+  <string name="download_limit_title">Download-Limits überschritten</string>
+  <string name="download_limit_message">Bitte warte, bevor du versuchst, weitere Daten herunterzuladen.</string>
+  <string name="upload_limit_title">Hochlade-Limit überschritten</string>
+  <string name="upload_limit_message">Du hast dein aktuelles Hochlade-Limit erreicht, bitte warte, bevor du es erneut versuchst.</string>
   <string name="duplicate_tag_key_title">Doppelte Schlüssel</string>
   <string name="duplicate_tag_key_message">Der folgende Schlüssel wurde mehrmals verwendet, der Fehler muss behoben werden bevor fortgefahren werden kann:</string>
-  <string name="select_file_picker_title">Dateiauswahl-App auswählen</string>
   <!---->
+  <string name="select_file_picker_title">Dateiauswahl-App auswählen</string>
+  <!--Newbie dialog-->
   <string name="welcome_title">Willkommen</string>
-  <string name="welcome_message">Danke, dass Sie Vespucci installiert haben.\n&lt;br&gt;&lt;br&gt;Um anzufangen, müssen Sie 3 Sachen wissen:\n&lt;ul&gt;&lt;li&gt;durch Antippen des Schlosses in der oberen linken Ecke schalten Sie zwischen dem gesperrten (keine Bearbeitung) und dem entsperrten Status um,&lt;/li&gt;&lt;li&gt;um OpenStreetMap zu editieren, müssen Sie zuerst das Gebiet, das Sie bearbeiten wollen, herunterladen (es empfiehlt sich zuerst hineinzuzoomen),&lt;/li&gt;&lt;li&gt;um ein neues Objekt zu erstellen, müssen Sie den großen grünen Knopf antippen, auswählen, was Sie hinzufügen wollen, und dann die entsprechende Bildschirmposition berühren.&lt;/li&gt;&lt;/ul&gt;\nViel Spaß beim Kartieren!</string>
   <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;Das Gerät besitzt „Bildschirmtasten“, die ausgeblendet sind. Ein Wisch von der unteren Kante blendet sie wieder ein.</string>
   <string name="read_introduction">Die Einführung lesen</string>
+  <!---->
   <string name="upgrade_title">Dies ist eine neue Vespucci-Version</string>
   <string name="upgrade_message">Neue Funktionen und Verhalten sind in den \"release notes\" beschrieben.</string>
   <string name="read_upgrade">Information zur neuen Version</string>
@@ -244,11 +261,14 @@
   <string name="total">Total</string>
   <string name="changed">Geändert</string>
   <string name="ways">Wege</string>
+  <string name="bounding_boxes">Begrenzungsrechtecke</string>
   <!--Tile layer info dialog-->
   <string name="attribution">Quellenhinweis</string>
   <!--GPX info dialog-->
   <string name="track_points">Trackpunkte</string>
   <string name="way_points">Wegpunkte</string>
+  <!--Image information dialog-->
+  <string name="direction">Richtung</string>
   <!--Too much data dialog-->
   <string name="too_much_data_title">Zu viele Daten!</string>
   <string name="too_much_data_message">Es sind %1$d Knoten geladen, was den eingestellten Höchstwert übersteigt. Dies macht die App langsam und führt möglicherweise zu Problemen beim Sichern des aktuellen Zustandes.</string>
@@ -1091,6 +1111,7 @@
     <item quantity="other">%1$d Objekte</item>
   </plurals>
   <string name="actionmode_rotateway">Weg drehen</string>
+  <string name="menu_snap">Einrasten</string>
   <!--Simple Action Mode-->
   <string name="menu_add_node">Knoten hinzufügen</string>
   <string name="simple_add_node">Bildschirmposition antippen</string>
@@ -1107,7 +1128,6 @@
   <string name="simple_paste">Bildschirmposition antippen</string>
   <string name="menu_paste_multiple">Objekt mehrfach einfügen</string>
   <string name="simple_paste_multiple">Bildschirmposition antippen</string>
-  <string name="menu_snap">Einrasten</string>
   <!--Preferences-->
   <string name="config_backgroundLayer_title">Kartenhintergrund</string>
   <string name="config_backgroundLayer_summary">Auswahl des Bildmaterials für den Hintergrund.</string>
@@ -1190,6 +1210,7 @@
   <string name="config_splitActionBarEnabled_summary">Zeige die Menübuttons am unteren Bildschirmrand an. Dies erfordert einen erneuten Start von Vespucci und Android 4.0 oder neuer.</string>
   <string name="config_appLocale_title">App Sprache</string>
   <string name="config_appLocale_summary">Eine andere Sprache als die Systemsprache verwenden.</string>
+  <string name="config_appLocale_device_language">Gerätesprache</string>
   <string name="config_maxInlineValues_title">Max. Anzahl direkt angezeigter Werte</string>
   <string name="config_maxInlineValues_summary">Höchstzahl der Werte, die im Eigenschaftsformular direkt angezeigt werden.</string>
   <string name="config_maxInlineValues_current">%1$d Werte</string>
@@ -1268,6 +1289,8 @@
   <string name="config_maxOffsetDistance_current">%1$d Meter</string>
   <string name="config_useImperialUnits_title">Verwenden imperiale Einheiten zum Messen</string>
   <string name="config_useImperialUnits_summary">Verwende imperiale Einheiten in Ländern, die diese üblicherweise verwenden.</string>
+  <string name="config_maxCircleSegmentcurrent">%1$d Meter</string>
+  <string name="config_minCircleSegmentcurrent">%1$d Meter</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Auto-Download-Einstellungen</string>
   <string name="config_category_auto_download_summary">Einstellungen für das automatische Herunterladen von Daten und Aufgaben</string>
@@ -1382,7 +1405,7 @@
   <string name="manage_apis">APIs verwalten</string>
   <string name="config_api_url_title">API-URL</string>
   <string name="config_api_oauth_title">OAuth verwenden</string>
-  <string name="listedit_enable_oauth">OAuth erlauben</string>
+  <string name="listedit_auth">Authentifizierung</string>
   <string name="config_username_title">OSM-Benutzername</string>
   <string name="config_password_title">OSM-Passwort</string>
   <string name="config_password_summary">Nicht mit dem Wiki-Passwort verwechseln. Beachten Sie: Das Passwort wird unverschlüsselt gespeichert und übertragen!</string>

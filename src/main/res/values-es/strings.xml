@@ -16,13 +16,11 @@
   <string name="upload_problem_title">No se ha podido subir</string>
   <string name="upload_problem_message">No se ha podido subir todos o varios de los cambios. Inténtalo más tarde.</string>
   <string name="bad_request_message">La API respondió con un error, guarde sus datos e informe el problema, por favor:\n\n</string>
+  <!--Upload conflict-->
   <string name="upload_conflict_title">Conflicto en subida</string>
-  <string name="upload_conflict_message_version">%1$s \ntiene versión local %2$d \ny el servidor %3$d</string>
+  <string name="upload_conflict_message_version">Conflicto de versión</string>
   <string name="upload_conflict_message_deleted">%1$s \ntiene una versión en local %2$d \ny fue borrado en el servidor</string>
-  <string name="upload_conflict_message_referential">%1$s\nfue borrado en local,\npero tiene usos en el servidor</string>
-  <string name="upload_conflict_message_already_deleted">%1$s\nya está borrado en el servidor</string>
-  <string name="use_local_version">Usar la versión local</string>
-  <string name="use_server_version">Usar la versión del servidor</string>
+  <!---->
   <string name="no_login_data_title">No se ha podido autenticar</string>
   <string name="no_login_data_message">Si está utilizando OAuth, es probable que se trate de un error, envíe un informe del problema. Si está utilizando nombre de cuenta y contraseña (no recomendado), verifique que se hayan ingresado correctamente.</string>
   <string name="no_connection_title">Sin conexión al servidor</string>
@@ -63,10 +61,11 @@
   <string name="applying_osc_failed_title">La aplicación del archivo OSC falló</string>
   <string name="applying_osc_failed_message">Lo más probable es que no haya cargado todos los datos originales necesarios para aplicar los cambios.</string>
   <!---->
+  <!--Newbie dialog-->
   <string name="welcome_title">Bienvenido</string>
-  <string name="welcome_message">Gracias por instalar Vespucci\n&lt;br&gt;&lt;br&gt; Para comenzar, necesita saber tres cosas:\n&lt;ul&gt;&lt;li&gt; al tocar el ícono de candado en la esquina superior izquierda se cambiará entre el modo bloqueado (sin edición) y desbloqueado,&lt;/li&gt;&lt;li&gt; para editar OpenStreetMap antes que nada necesita descargar los datos para el área donde desea cambiar algo (acerque antes de intentarlo),&lt;/li&gt;&lt;li&gt; para agregar un nuevo objeto: toque el botón verde grande y seleccione lo que desea agregar, luego toque la posición donde desea ubicarlo.&lt;/li&gt;&lt;/ul&gt;\nUsted lo tiene todo listo para empezar ya. Mapee y disfrute!</string>
   <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;Su dispositivo tiene \"teclas programables\" que están ocultas a la vista. Deslice el dedo desde abajo para mostrarlos nuevamente.</string>
   <string name="read_introduction">Lea la introducción</string>
+  <!---->
   <string name="upgrade_title">Esta es una nueva versión de Vespucci</string>
   <string name="upgrade_message">Las nuevas características y comportamiento se detallan en las notas de la versión.</string>
   <string name="read_upgrade">Lea sobre la nueva versión</string>
@@ -202,6 +201,8 @@
   <!--Tile layer info dialog-->
   <string name="attribution">Atribución</string>
   <!--GPX info dialog-->
+  <!--Image information dialog-->
+  <string name="direction">Dirección</string>
   <!--Too much data dialog-->
   <string name="too_much_data_title">¡Demasiados datos cargados!</string>
   <string name="too_much_data_message">Tiene %1$d nodos cargados y han sobrepasado el límite configurado. Esto hará que la aplicación vaya más despacio. Si añade más datos,  pueden aparecer problemas al guardar el estado.</string>
@@ -1012,6 +1013,8 @@
   <string name="config_maxOffsetDistance_title">Distancia máxima para compensaciones de imágenes almacenadas</string>
   <string name="config_maxOffsetDistance_summary">Se aplicará automáticamente a la distancia más lejana un desplazamiento de capa almacenado localmente.</string>
   <string name="config_maxOffsetDistance_current">%1$d metro(s)</string>
+  <string name="config_maxCircleSegmentcurrent">%1$d metro(s)</string>
+  <string name="config_minCircleSegmentcurrent">%1$d metro(s)</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Configuración de descarga automática</string>
   <string name="config_category_auto_download_summary">Configuraciones para descarga automática de datos y tareas</string>
@@ -1101,7 +1104,7 @@
   <string name="manage_apis">Administrar APIs</string>
   <string name="config_api_url_title">URL API</string>
   <string name="config_api_oauth_title">Utilizar OAuth</string>
-  <string name="listedit_enable_oauth">Activar OAuth</string>
+  <string name="listedit_auth">Autenticación</string>
   <string name="config_username_title">Nombre de usuario OSM</string>
   <string name="config_password_title">Contraseña OSM</string>
   <string name="config_password_summary">No lo confunda con la contraseña wiki. Recuerde: ¡Se almacena y transmite en texto sin formato!</string>

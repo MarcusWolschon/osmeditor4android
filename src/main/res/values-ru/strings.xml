@@ -17,15 +17,12 @@
   <string name="upload_problem_title">Не удалось передать</string>
   <string name="upload_problem_message">Некоторые данные не были переданы на сервер. Попробуйте снова через некоторое время.</string>
   <string name="bad_request_message">API ответил ошибкой. Пожалуйста, сохраните данные и сообщите о проблеме:\n\n</string>
+  <!--Upload conflict-->
   <string name="upload_conflict_title">Конфликт передачи</string>
-  <string name="upload_conflict_message_version">%1$s \nимеет локальную версию %2$d \n и версию на сервере %3$d </string>
+  <string name="upload_conflict_message_version">Конфликт версий</string>
   <string name="upload_conflict_message_deleted">%1$s \nимеет локальную версию %2$d \n и удалено на сервере</string>
-  <string name="upload_conflict_message_referential">%1$s \nбыло удалено локально, но имеет ссылки на сервере</string>
-  <string name="upload_conflict_message_already_deleted">%1$s \nуже удалено на сервере</string>
-  <string name="upload_conflict_message_missing_references">%1$s \nлокальная версия ссылается на объекты, \nкоторые не существуют на сервере</string>
   <string name="upload_conflict_message_unknown">%1$s \nвызывает неизвестный конфликт передачи \n%2$s</string>
-  <string name="use_local_version">Использовать локальную версию</string>
-  <string name="use_server_version">Использовать версию от сервера</string>
+  <!---->
   <string name="no_login_data_title">Не удалось войти</string>
   <string name="no_login_data_message">Если вы используете OAuth, то это, вероятно, ошибка, пожалуйста, отправьте отчёт. Если вы используете логин и пароль (не рекомендуется), проверьте, что они введены корректно.</string>
   <string name="no_connection_title">Нет соединения с сервером</string>
@@ -67,12 +64,13 @@
   <string name="applying_osc_failed_message">Скорее всего вы загрузили не все исходные объекты, необходимые для применения изменений</string>
   <string name="duplicate_tag_key_title">Дубликаты тегов</string>
   <string name="duplicate_tag_key_message">Вы добавили следующие теги несколько раз, выберите что-то одно, прежде чем сможете продолжать:</string>
-  <string name="select_file_picker_title">Выберите файл</string>
   <!---->
+  <string name="select_file_picker_title">Выберите файл</string>
+  <!--Newbie dialog-->
   <string name="welcome_title">Добро пожаловать</string>
-  <string name="welcome_message">Спасибо за установку Vespucci.\n&lt;br&gt;&lt;br&gt;Для начала достаточно знать три вещи:\n&lt;ul&gt;&lt;li&gt;Нажатие на значок замка в левом верхнем углу переключает между режимами редактирования (замок открыт) и блокировки правок;&lt;/li&gt;&lt;li&gt;Для редактирования OpenStreetMap  сначала загрузите данные для области, где вы хотите что-либо изменить (выберите нужный масштаб перед этим);&lt;/li&gt;&lt;li&gt;Для добавления объекта нажмите на большую зелёную кнопку и выберите, что вы хотите добавить, а затем нажмите на место, где хотите его установить.&lt;/li&gt;&lt;/ul&gt;\nЭто всё, что вам необходимо знать для начала. Успехов!</string>
   <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;Ваше устройство имеет настраиваемые кнопки (\"soft keys\"), которые пока скрыты. Пролистывание от нижнего края покажет их снова. </string>
   <string name="read_introduction">Прочесть введение</string>
+  <!---->
   <string name="upgrade_title">Это новая версия Vespucci</string>
   <string name="upgrade_message">Новые функции и возможности описаны в примечаниях к версии.</string>
   <string name="read_upgrade">Прочитать о новой версии</string>
@@ -225,6 +223,8 @@
   <!--Tile layer info dialog-->
   <string name="attribution">Атрибуция</string>
   <!--GPX info dialog-->
+  <!--Image information dialog-->
+  <string name="direction">Направление</string>
   <!--Too much data dialog-->
   <string name="too_much_data_title">Загруженно слишком много данных!</string>
   <string name="too_much_data_message">Вы загрузили %1$d точек и превысили лимит, указанный в настройках. Это приведет к замедлению работы и, возможно, к проблемам при сохранениии данных.</string>
@@ -373,6 +373,7 @@
   <string name="layer_category_qa">Ошибки/заметки</string>
   <string name="layer_category_other">Другое</string>
   <string name="layer_add_layer_from_mvt_style">Добавить слой из стиля MVT…</string>
+  <string name="layer_edit_custom_imagery_configuration">Редактировать параметры слоя...</string>
   <string name="layer_add_gpx">Добавить слой из файла GPX...</string>
   <string name="layer_download_track">Загрузка трека GPX...</string>
   <string name="layer_available_tracks">Доступные GPX треки</string>
@@ -797,6 +798,7 @@
   <string name="menu_set_position">Позиция</string>
   <string name="menu_split">Разделить</string>
   <string name="menu_remove_node_from_way">Удалить точку из линии</string>
+  <string name="menu_start_end_way">Начало/Конец линии</string>
   <string name="menu_extract">Извлечь точку</string>
   <string name="menu_append">Добавить</string>
   <string name="menu_create_route">Создать маршрут</string>
@@ -895,6 +897,7 @@
   <string name="menu_preset_feedback">Написать отзыв о заготовке</string>
   <string name="menu_privacy">Конфиденциальность</string>
   <!--Background alignment-->
+  <string name="menu_tools_background_align">Сдвиг слоя</string>
   <string name="menu_tools_background_align_reset">Сбросить</string>
   <string name="menu_tools_background_align_zero">Ноль</string>
   <string name="menu_tools_background_align_retrieve_from_db">Из базы</string>
@@ -914,6 +917,7 @@
   <string name="menu_layers_add_photolayer">Показать фото с устройства</string>
   <string name="menu_layers_enable_mapillary_layer">Показать слой Mapillary</string>
   <string name="menu_layers_configure">Настройка...</string>
+  <string name="menu_layers_background_align">Сдвиг слоя...</string>
   <!---->
   <string name="menu_tools_apply_local_offset">Применить смещение к снимкам</string>
   <string name="menu_tools_background_contrast">Контраст</string>
@@ -981,6 +985,7 @@
     <item quantity="other">%1$d объектов</item>
   </plurals>
   <string name="actionmode_rotateway">Повернуть линию</string>
+  <string name="menu_snap">Привязка</string>
   <!--Simple Action Mode-->
   <string name="menu_add_node">Добавить точку</string>
   <string name="simple_add_node">Нажмите на экран в нужном месте</string>
@@ -988,14 +993,13 @@
   <string name="menu_add_node_address">Добавить точку с тегами адреса</string>
   <string name="menu_add_address_interpolation">Добавить интерполяцию адресов</string>
   <string name="menu_add_way">Добавить линию</string>
-  <string name="add_way_node_instruction">Торкніться наступної позиції точки</string>
+  <string name="add_way_node_instruction">Нажмите для добавления следующей точки</string>
   <string name="menu_add_map_note">Добавить заметку на карту</string>
   <string name="simple_add_note">Нажмите на экран в нужном месте</string>
   <string name="menu_paste_object">Вставить объект</string>
   <string name="simple_paste">Нажмите на экран в нужном месте</string>
   <string name="menu_paste_multiple">Вставить несколько раз</string>
   <string name="simple_paste_multiple">Нажмите на экран в нужном месте</string>
-  <string name="menu_snap">Привязка</string>
   <!--Preferences-->
   <string name="config_backgroundLayer_title">Фоновая карта</string>
   <string name="config_backgroundLayer_summary">Растровая фоновая карта</string>
@@ -1136,6 +1140,8 @@
   <string name="config_maxOffsetDistance_title">Максимальная дистанция для сохраненных смещений изображений</string>
   <string name="config_maxOffsetDistance_summary">Будет автоматически применено самое дальнее расстояние до смещения локально сохранённого слоя.</string>
   <string name="config_maxOffsetDistance_current">%1$d м</string>
+  <string name="config_maxCircleSegmentcurrent">%1$d м</string>
+  <string name="config_minCircleSegmentcurrent">%1$d м</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Автозагрузка</string>
   <string name="config_category_auto_download_summary">Параметры автоматической загрузки данных и задач</string>
@@ -1233,7 +1239,6 @@
   <string name="manage_apis">Управление API</string>
   <string name="config_api_url_title">API URL</string>
   <string name="config_api_oauth_title">Использовать OAuth</string>
-  <string name="listedit_enable_oauth">Включить OAuth</string>
   <string name="config_username_title">Имя пользователя OSM</string>
   <string name="config_password_title">Пароль OSM</string>
   <string name="config_password_summary">Не перепутайте его с паролем для Wiki. Помните, он хранится и передается в незашифрованном виде!</string>

@@ -18,15 +18,12 @@
   <string name="upload_problem_title">Nelze nahrát</string>
   <string name="upload_problem_message">Některé nebo všechny údaje nebyly nahrány. Zkuste to později znovu.</string>
   <string name="bad_request_message">API odpovědělo chybou, uložte prosím vaše data a problém nahlaste.\n\n</string>
+  <!--Upload conflict-->
   <string name="upload_conflict_title">Konflikt nahrávání</string>
-  <string name="upload_conflict_message_version">%1$s \nmá lokální verzi %2$d \na na serveru%3$d</string>
+  <string name="upload_conflict_message_version">Konflikt verzí</string>
   <string name="upload_conflict_message_deleted">%1$s \nmá lokální verzi %2$d \na na serveru je smazán</string>
-  <string name="upload_conflict_message_referential">%1$s \nsmazán lokálně, \nna serveru však existují reference</string>
-  <string name="upload_conflict_message_already_deleted">%1$s \nje již na serveru smazán</string>
-  <string name="upload_conflict_message_missing_references">%1$s\nlokální verze odkazuje na objekty \nkteré na serveru neexistují</string>
   <string name="upload_conflict_message_unknown">%1$s \nzpůsobil neznámý konflikt nahrávání \n%2$s</string>
-  <string name="use_local_version">Použít místní verzi</string>
-  <string name="use_server_version">Použít verzi na serveru</string>
+  <!---->
   <string name="no_login_data_title">Nelze ověřit</string>
   <string name="no_login_data_message">Pokud používáte OAuth, je to pravděpodobně chyba, pošlete prosím zprávu o problému, pokud používáte přihlašovací jméno a heslo (nedoporučujeme), zkontrolujte, zda jsou zadány správně.</string>
   <string name="no_connection_title">Žádné připojení k serveru</string>
@@ -66,14 +63,19 @@
   <string name="file_write_failed_message">Do vybraného souboru nelze zapisovat.</string>
   <string name="applying_osc_failed_title">Použití souboru OSC se nezdařilo</string>
   <string name="applying_osc_failed_message">Pravděpodobně jste nenačetli všechna původní data, která jsou nutná k provedení změn.</string>
+  <string name="download_limit_title">Limity stahování překročeny</string>
+  <string name="download_limit_message">Prosím počkejte, než se pokusíte stáhnout více dat.</string>
+  <string name="upload_limit_title">Limity nahrávání překročeny</string>
+  <string name="upload_limit_message">Vyčerpal jste svůj aktuální povolený limit pro nahrávání, prosím, počkejte před dalším pokusem.</string>
   <string name="duplicate_tag_key_title">Duplicitní klíče</string>
   <string name="duplicate_tag_key_message">Přidali jste následující klíč více než jednou, než budete moci pokračovat, budete muset vyřešit:</string>
-  <string name="select_file_picker_title">Vyberte soubor pro výběr</string>
   <!---->
+  <string name="select_file_picker_title">Vyberte soubor pro výběr</string>
+  <!--Newbie dialog-->
   <string name="welcome_title">Vítejte</string>
-  <string name="welcome_message">Děkujeme, že používáte Vespucci.\n&lt;br&gt;&lt;br&gt;Pro začátek potřebujete znát tři věci:\n&lt;ul&gt;&lt;li&gt;klepnutí na ikonu zámku v levém horním rohu přepnete mezi uzamčeným režimem (bez možnosti úprav) a odemčeným režimem,&lt;/li&gt;&lt;li&gt;pro úpravu OpenStreetMap potřebujete stáhnout oblast, kterou plánujete upravovat (mapu si před tím dostatečně přibližte),&lt;/li&gt;&lt;li&gt;pro přidání nového objektu: klepněte na velké zelené tlačítko a zvolte, co chcete přidat, poté klepnutím určete pozici na mapě.&lt;/li&gt;&lt;/ul&gt;\nNyní jste připraveni začít mapovat. Příjemnou zábavu!</string>
   <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;Používáte zařízení se skrytými softwarovými tlačítky. Zobrazíte je gestem od spodního okraje.</string>
   <string name="read_introduction">Přečíst si úvod</string>
+  <!---->
   <string name="upgrade_title">Toto je nová verze Vespucci</string>
   <string name="upgrade_message">Nové funkce a chování jsou popsány v poznámkách k vydání.</string>
   <string name="read_upgrade">Informace o nové verzi</string>
@@ -192,6 +194,7 @@
   <string name="imagery_offset_date">Vytvořeno</string>
   <string name="imagery_offset_zoom">Přiblížení</string>
   <string name="imagery_offset_distance">Vzdálenost</string>
+  <string name="zoom_and_offsets">Zoom %1$d\nOffset\n%2$s°/%3$s°\n%4$sm/%5$sm</string>
   <string name="set_position_datum_label">Geodetické datum</string>
   <string name="WGS84">WGS84</string>
   <string name="tag_editor_name_suggestion">Navrhování názvu</string>
@@ -247,11 +250,14 @@
   <string name="total">Celkem</string>
   <string name="changed">Změněno</string>
   <string name="ways">Cesty</string>
+  <string name="bounding_boxes">Ohraničující rámečky</string>
   <!--Tile layer info dialog-->
   <string name="attribution">Uvedení autora</string>
   <!--GPX info dialog-->
   <string name="track_points">Body trasy</string>
   <string name="way_points">Body cesty</string>
+  <!--Image information dialog-->
+  <string name="direction">Směr</string>
   <!--Too much data dialog-->
   <string name="too_much_data_title">Načteno příliš mnoho dat!</string>
   <string name="too_much_data_message">Máte načtené %1$d uzly a překročili jste nastavený limit. To povede ke zpomalení, a pokud přidáte další data, k potenciálním problémům s uložením stavu.</string>
@@ -333,6 +339,12 @@
   <string name="add_resurvey_entry">Přidat pravidlo Ověření</string>
   <string name="add_check_entry">Přidat pravidlo Průzkum</string>
   <!--Safe mode dialog-->
+  <string name="safe_mode_dialog_title">Možnosti bezpečného režimu</string>
+  <string name="safe_style_label">Nastavte styl dat na minimální.</string>
+  <string name="safe_layer_label">Vypnout všechny vrstvy</string>
+  <string name="safe_state_label">Odebrat uložený stav</string>
+  <string name="safe_delete_state_title">Smazat stav uložených dat?</string>
+  <string name="safe_delete_state_text">Ano (nelze vrátit zpět)</string>
   <!--Empty relation dialog-->
   <string name="empty_relation_title">Prázdná relace</string>
   <string name="empty_relation_message">Relace %1$s nemá žádné členy.\n\nNecháte-li ji prázdnou, nebude ji možné ve Vespucci upravit.</string>
@@ -394,6 +406,7 @@
   <string name="layer_change_style">Změnit styl…</string>
   <string name="layer_load_style">Načíst styl…</string>
   <string name="layer_reset_style">Obnovit styl</string>
+  <string name="layer_set_date_range">Nastavit rozsah dat...</string>
   <string name="layer_select_imagery">Zvolit snímky…</string>
   <string name="layer_test">Test…</string>
   <string name="layer_category_all">Vše</string>
@@ -431,6 +444,7 @@
   <!--Mapillary layer-->
   <string name="mapillary_image">%1$s</string>
   <!--Date range dialog-->
+  <string name="date_range_title">Nastavení rozsahu dat</string>
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Smazat fotku</string>
   <string name="photo_viewer_delete_button">Trvale smazat</string>
@@ -597,6 +611,9 @@
   <string name="toast_split_to">Rozdělena cesta \"kam\"</string>
   <string name="toast_tile_database_issue_short">Problém databáze dlaždic</string>
   <string name="toast_tile_database_issue">Závažný problém s databází mapových dlaždic\n\"%1$s\"\nPřečtěte si prosím naše FAQ na adrese https://vespucci.io/</string>
+  <string name="toast_tile_source_issue">Vážný problém s mapovým zdrojem dlaždic, dočasně vypnuto\n\"%1$s\"</string>
+  <string name="toast_tile_container_issue">Soubor s kontejnerem dlaždic \"%1$s\" neexistuje nebo nelze otevřít.</string>
+  <string name="toast_unable_to_configure_from_source">Nelze konfigurovat vzdáleně: %1$s</string>
   <string name="toast_invalid_apiurl">Neplatné URL API</string>
   <string name="toast_invalid_readonlyurl">Neplatné URL API Pouze ke čtení</string>
   <string name="toast_invalid_notesurl">Neplatné URL API poznámek</string>
@@ -610,6 +627,7 @@
   <string name="toast_no_coverage">%1$s zde nemá pokrytí</string>
   <string name="toast_tile_layer_errors">Se zdrojem snímků „%1$s“ jsou problémy</string>
   <string name="toast_file_exists">Soubor %1$s existuje.</string>
+  <string name="toast_network_file_not_supported">Přístup k tomuto souboru přes síť není podporován, zkopírujte do lokálního úložiště.\n%1$s</string>
   <string name="toast_needs_resurvey">Objekt může být neaktuální.</string>
   <string name="toast_missing_key">Klíč %1$s chybí</string>
   <string name="toast_invalid_object">Neplatný objekt</string>
@@ -628,6 +646,7 @@
   <string name="toast_applied_offset">Zarovnání snímků použito.</string>
   <string name="toast_unsupported_format">Nepodporovaný formát: %1$s</string>
   <string name="toast_returning_less_than_found">Zobrazuji %1$d z %2$d nalezených záznamů.</string>
+  <string name="toast_not_mbtiles">Nejedná se o soubor ve formátu MBTiles nebo PMTiles</string>
   <string name="toast_using_network_location">Použita poloha ze sítě</string>
   <string name="toast_using_gps_location">Použita GPS/GNSS poloha</string>
   <string name="toast_using_gps_disabled_tracking_stopped">GPS/GNSS polohování vypnuto, zvažte zastavení sledování.</string>
@@ -705,6 +724,7 @@
   <string name="toast_updating_parents">Aktualizace nadřazených…</string>
   <string name="toast_updating_members">Aktualizace členů…</string>
   <string name="toast_error_loading_egm">Chyba při načítání EGM %1$s</string>
+  <string name="toast_querying_wms_server_failed">Dotaz na server WMS se nezdařil: %1$s</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">Zdroje MapSplit musí mít nastaveno minimální a maximální zvětšení</string>
   <string name="error_pbf_no_version">V souboru PBF chybí informace o verzi</string>
@@ -1028,6 +1048,7 @@
   <string name="element_for_menu">%1$s</string>
   <string name="element_for_menu_with_direction">%1$s %2$s</string>
   <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
+  <string name="element_for_menu_with_parents_with_direction">%1$s %2$s (%3$s)</string>
   <!--Text should be as short as possible-->
   <string name="start_end_way_description">Přejít na začátek nebo konec cesty</string>
   <string name="menu_history">Historie</string>
@@ -1089,6 +1110,7 @@
     <item quantity="other">%1$d objektů</item>
   </plurals>
   <string name="actionmode_rotateway">Otočit cestu</string>
+  <string name="menu_snap">Přichytit</string>
   <!--Simple Action Mode-->
   <string name="menu_add_node">Přidat uzel</string>
   <string name="simple_add_node">Zvolte pozici na mapě</string>
@@ -1105,7 +1127,6 @@
   <string name="simple_paste">Zvolte pozici na mapě</string>
   <string name="menu_paste_multiple">Vložit vícekrát</string>
   <string name="simple_paste_multiple">Zvolte pozici na mapě</string>
-  <string name="menu_snap">Přichytit</string>
   <!--Preferences-->
   <string name="config_backgroundLayer_title">Pozadí mapy</string>
   <string name="config_backgroundLayer_summary">Dlaždicové pozadí mapy.</string>
@@ -1188,6 +1209,7 @@
   <string name="config_splitActionBarEnabled_summary">Zobrazit tlačítka nabídky ve spodní části obrazovky. Vyžaduje opětovné spuštění a Android 4.0 či novější.</string>
   <string name="config_appLocale_title">Jazyk aplikace</string>
   <string name="config_appLocale_summary">Výběr nestandardního jazyka aplikace</string>
+  <string name="config_appLocale_device_language">Jazyk zařízení</string>
   <string name="config_maxInlineValues_title">Max. počet vložených hodnot</string>
   <string name="config_maxInlineValues_summary">Maximální počet vložených hodnot zobrazených ve formuláři značky.</string>
   <string name="config_maxInlineValues_current">%1$d hodnoty</string>
@@ -1266,6 +1288,8 @@
   <string name="config_maxOffsetDistance_current">%1$d m</string>
   <string name="config_useImperialUnits_title">Použít k měření imperiální jednotky</string>
   <string name="config_useImperialUnits_summary">Použít imperiální jednotky při měření v zemích, které je běžně používají.</string>
+  <string name="config_maxCircleSegmentcurrent">%1$d m</string>
+  <string name="config_minCircleSegmentcurrent">%1$d m</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Nastavení automatického stahování</string>
   <string name="config_category_auto_download_summary">Nastavení automatického stahování dat a úkolů</string>
@@ -1329,6 +1353,8 @@
   <string name="config_taginfoServer_summary">Server Taginfo, který se má použít pro generování předvoleb</string>
   <string name="config_overpassServer_title">Overpass server</string>
   <string name="config_overpassServer_summary">Overpass server používaný pro dotazy</string>
+  <string name="config_oamServer_title">OpenAerialMap server</string>
+  <string name="config_oamServer_summary">Server OpenAerialMap používaný k poskytování snímků</string>
   <!--Layer download and storage-->
   <string name="config_category_layers">Stahování a ukládání vrstev</string>
   <string name="config_category_layers_summary">Stahování a ukládání pozadí z dlaždic snímků.</string>
@@ -1378,7 +1404,7 @@
   <string name="manage_apis">Spravovat API</string>
   <string name="config_api_url_title">URL API</string>
   <string name="config_api_oauth_title">Použít OAuth</string>
-  <string name="listedit_enable_oauth">Povolit OAuth</string>
+  <string name="listedit_auth">Autentizace</string>
   <string name="config_username_title">OSM uživatelské jméno</string>
   <string name="config_password_title">OSM heslo</string>
   <string name="config_password_summary">Nepleťte si ho s heslem do wiki. Pamatujte: Je uloženo a přenášeno v otevřeném formátu!</string>

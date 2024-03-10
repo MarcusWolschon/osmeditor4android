@@ -18,15 +18,12 @@
   <string name="upload_problem_title">نمی‌توان بارگذاری کرد</string>
   <string name="upload_problem_message">همه یا بخشی از داده بارگذاری نشد. بعداً تلاش کنید.</string>
   <string name="bad_request_message">‏API با خطا پاسخ داد. لطفاً دادهٔ خود را ذخیره کنید و این مسئله را گزارش دهید:\n\n</string>
+  <!--Upload conflict-->
   <string name="upload_conflict_title">تداخل در بارگذاری</string>
-  <string name="upload_conflict_message_version">%1$s \nروی دستگاه شما نسخهٔ %2$d است \nو روی کارساز نسخهٔ %3$d است</string>
+  <string name="upload_conflict_message_version">تداخل نسخه</string>
   <string name="upload_conflict_message_deleted">%1$s \nروی دستگاه شما نسخهٔ %2$d است \nو روی کارساز حذف شده است</string>
-  <string name="upload_conflict_message_referential">%1$s \nروی دستگاه شما حذف شده است \nاما در کارساز به آن ارجاع وجود دارد</string>
-  <string name="upload_conflict_message_already_deleted">%1$s \nقبلاً در سرور حذف شده است</string>
-  <string name="upload_conflict_message_missing_references">%1$s \ نسخه محلی به اشیایی ارجاع می‌دهد که در سرور وجود ندارند</string>
   <string name="upload_conflict_message_unknown">%1$s \nتداخل بارگذاری ناشناخته ایجاد شد \n%2$s</string>
-  <string name="use_local_version">از نسخهٔ محلی استفاده کن</string>
-  <string name="use_server_version">از نسخهٔ روی سرور استفاده کن</string>
+  <!---->
   <string name="no_login_data_title">احراز هویت ناموفق بود</string>
   <string name="no_login_data_message">اگر از OAuth استفاده می‌کنید احتمالاً با یک اشکال در برنامه مواجه شده‌اید؛ لطفاً یک گزارش مشکل ارسال کنید. اگر از نام کاربری و گذرواژه استفاده می‌کنید (توصیه نمی‌شود)، لطفاً بررسی کنید که آنها به درستی وارد شده‌اند.</string>
   <string name="no_connection_title">عدم اتصال به سرور</string>
@@ -66,14 +63,19 @@
   <string name="file_write_failed_message">‏وسپوچی نمی‌تواند پرونده را تغییر دهد یا ذخیره کند.</string>
   <string name="applying_osc_failed_title">به‌کارگیری پروندهٔ OSC ناموفق بود</string>
   <string name="applying_osc_failed_message">به احتمال زیاد شما تمام داده‌های اصلی مورد نیاز برای اعمال تغییرات را بارگذاری نکرده‌اید.</string>
+  <string name="download_limit_title">از محدودیت‌های دانلود فراتر رفت</string>
+  <string name="download_limit_message">لطفا قبل از تلاش برای بارگیری داده‌های بیشتر صبر کنید.</string>
+  <string name="upload_limit_title">از محدودیت‌های آپلود فراتر رفت</string>
+  <string name="upload_limit_message">شما از سقف بارگذاری فعلی خود خارج شده‌اید، لطفاً قبل از تلاش مجدد صبر کنید.</string>
   <string name="duplicate_tag_key_title">کلیدهای تکراری</string>
   <string name="duplicate_tag_key_message">شما کلید زیر را بیش از یک بار اضافه و استفاده کرده‌اید، قبل از اینکه بتوانید ادامه دهید باید حل شود:</string>
-  <string name="select_file_picker_title">انتخابگر فایل را انتخاب کنید</string>
   <!---->
+  <string name="select_file_picker_title">انتخابگر فایل را انتخاب کنید</string>
+  <!--Newbie dialog-->
   <string name="welcome_title">خوش آمدید</string>
-  <string name="welcome_message">از شما برای نصب وسپوچی متشکریم. \n&amp;lt;br&amp;gt;&amp;lt;br&amp;gt; برای شروع باید سه چیز را بدانید:\n&amp;lt;ul&amp;gt;&amp;lt;li&amp;gt; با زدن روی نماد قفل در گوشهٔ بالا چپ بین حالت‌های قفل (ویرایش غیرفعال) و قفل‌نشده جابه‌جا می‌شوید,&amp;lt;/li&amp;gt;&amp;lt;li&amp;gt; برای ویرایش اوپن‌استریت‌مپ لازم است ابتدا دادهٔ محدودهٔ موردنظر خود را بارگیری کنید (قبل از بارگیری زوم کنید),&amp;lt;/li&amp;gt;&amp;lt;li&amp;gtبرای افزودن یک چیز جدید: روی دکمهٔ بزرگ سبزرنگ ضربه بزنید و آنچه را می‌خواهید اضافه کنید انتخاب نمایید، سپس روی موقعیتی که می‌خواهید قرارش دهید ضربه بزنید. نقشه‌کشی را شروع کرده و از آن لذت ببرید!</string>
   <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;دستگاه شما «کلیدهای نرم‌افزاری» دارد که از دید پنهان هستند. برای نمایش دوباره آنها، صفحه را از پایین بکشید.</string>
   <string name="read_introduction">خواندن مقدمه</string>
+  <!---->
   <string name="upgrade_title">این نسخهٔ جدید وسپوچی است</string>
   <string name="upgrade_message">ویژگی‌ها و رفتار جدید در یادداشت‌های انتشار ذکر شده است.</string>
   <string name="read_upgrade">دربارهٔ نسخهٔ تازه بخوانید</string>
@@ -244,11 +246,14 @@
   <string name="total">کل</string>
   <string name="changed">تغییریافته</string>
   <string name="ways">راه‌ها</string>
+  <string name="bounding_boxes">کادرهای محصورکننده</string>
   <!--Tile layer info dialog-->
   <string name="attribution">انتساب</string>
   <!--GPX info dialog-->
   <string name="track_points">ردیابی نقاط</string>
   <string name="way_points">نقاط راه</string>
+  <!--Image information dialog-->
+  <string name="direction">مسیر / جهت</string>
   <!--Too much data dialog-->
   <string name="too_much_data_title">دادهٔ خیلی زیادی بار شده!</string>
   <string name="too_much_data_message">شما %1$d گره را بارگذاری کرده‌اید و از حد پیکربندی شده فراتر رفته‌اید. این منجر به کُند شدن می‌شود و اگر داده‌های بیشتری اضافه کنید، احتمال دارد برای ذخیره‌سازی وضعیت با مشکلاتی مواجه شوید.</string>
@@ -1091,6 +1096,7 @@
     <item quantity="other">%1$d شیء</item>
   </plurals>
   <string name="actionmode_rotateway">چرخش راه</string>
+  <string name="menu_snap">عکس فوری</string>
   <!--Simple Action Mode-->
   <string name="menu_add_node">افزودن گره</string>
   <string name="simple_add_node">موقعیت موردنظر از صفحه را لمس کنید</string>
@@ -1107,7 +1113,6 @@
   <string name="simple_paste">موقعیت موردنظر از صفحه را لمس کنید</string>
   <string name="menu_paste_multiple">درج چندین‌باره</string>
   <string name="simple_paste_multiple">موقعیت موردنظر از صفحه را لمس کنید</string>
-  <string name="menu_snap">عکس فوری</string>
   <!--Preferences-->
   <string name="config_backgroundLayer_title">پس‌زمینهٔ نقشه</string>
   <string name="config_backgroundLayer_summary">پس‌زمینهٔ کاشی-پایهٔ نقشه</string>
@@ -1190,6 +1195,7 @@
   <string name="config_splitActionBarEnabled_summary">دکمه‌های منو را در پایین صفحه نمایش دهید. نیاز به راه‌اندازی مجدد وسپوچی و اندروید 4.0 یا بالاتر دارد.</string>
   <string name="config_appLocale_title">زبان برنامه</string>
   <string name="config_appLocale_summary">زبان غیراستاندارد برنامه را انتخاب کنید</string>
+  <string name="config_appLocale_device_language">زبان دستگاه</string>
   <string name="config_maxInlineValues_title">بیشترین تعداد مقادیر درخط</string>
   <string name="config_maxInlineValues_summary">بیشترین تعداد مقادیر درون‌خط که در فرم برچسب نمایان باشد.</string>
   <string name="config_maxInlineValues_current">%1$d مقدار</string>
@@ -1268,6 +1274,8 @@
   <string name="config_maxOffsetDistance_current">%1$d متر (ها)</string>
   <string name="config_useImperialUnits_title">برای اندازه‌گیری از واحدهای امپریالیستی استفاده کنید</string>
   <string name="config_useImperialUnits_summary">هنگام اندازه‌گیری در کشورهایی که معمولاً از آنها استفاده می‌کنند، از واحدهای امپریالیستی استفاده کنید.</string>
+  <string name="config_maxCircleSegmentcurrent">%1$d متر</string>
+  <string name="config_minCircleSegmentcurrent">%1$d متر</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">تنظیمات بارگیری خودکار</string>
   <string name="config_category_auto_download_summary">تنظیمات بارگیری خودکار داده و وظیفه</string>
@@ -1382,7 +1390,7 @@
   <string name="manage_apis">مدیریت APIها</string>
   <string name="config_api_url_title">API URL</string>
   <string name="config_api_oauth_title">استفاده از OAuth</string>
-  <string name="listedit_enable_oauth">فعال‌سازی OAuth</string>
+  <string name="listedit_auth">احراز هویت</string>
   <string name="config_username_title">نام کاربری OSM</string>
   <string name="config_password_title">گذرواژهٔ OSM</string>
   <string name="config_password_summary">با گذرواژهٔ ویکی اشتباه نگیرید. به یاد بسپارید: گذرواژه در قالب متن ساده ذخیره و منتقل می‌شود!</string>

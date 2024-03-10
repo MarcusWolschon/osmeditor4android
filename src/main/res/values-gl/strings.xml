@@ -16,13 +16,11 @@
   <string name="upload_problem_title">Non se puido subir</string>
   <string name="upload_problem_message">Algúns ou todos os datos non foron subidos. Téntao de novo máis tarde.</string>
   <string name="bad_request_message">A API respostou cun erro, garde os seus datos e informe do problema:\n\n</string>
+  <!--Upload conflict-->
   <string name="upload_conflict_title">Conflito na subida</string>
-  <string name="upload_conflict_message_version">%1$s \nten a versión local %2$d \ne o servidor %3$d</string>
+  <string name="upload_conflict_message_version">Conflito de versión</string>
   <string name="upload_conflict_message_deleted">%1$s \nten unha versión en local %2$d \ne foi eliminado no servidor</string>
-  <string name="upload_conflict_message_referential">%1$s \nfoi eliminado de xeito local \nmais ten referencias no servidor</string>
-  <string name="upload_conflict_message_already_deleted">%1$s \nxa foi eliminado no servidor</string>
-  <string name="use_local_version">Emprega-la versión local</string>
-  <string name="use_server_version">Emprega-la versión do servidor</string>
+  <!---->
   <string name="no_login_data_title">Non se puido autenticar</string>
   <string name="no_login_data_message">Se estás a empregar o OAuth é probábel que sexa un erro, por favor envía un informe do problema. Se estás a empregar un nome de usuario e contrasinal (non recomendado), por favor, comproba que se inseriron de xeito correcto.</string>
   <string name="no_connection_title">Sen conexión ó servidor</string>
@@ -59,10 +57,11 @@
   <string name="file_write_failed_title">Non se puido escribir no ficheiro</string>
   <string name="file_write_failed_message">O Vespucci non puido mudar ou gardar o ficheiro.</string>
   <!---->
+  <!--Newbie dialog-->
   <string name="welcome_title">Benvido</string>
-  <string name="welcome_message">Grazas por instalar o Vespucci.\n&lt;br&gt;&lt;br&gt;Para comezar tes de coñecer tres cousas:\n&lt;ul&gt;&lt;li&gt;premendo na icona do cadeado na esquina superior esquerda trocarás entre o modo bloqueado (non editar) e o modo desbloqueado,&lt;/li&gt;&lt;li&gt;para editar o OpenStreetMap primeiro tes de baixar os datos na área onde queres mudar algo (achega a vista antes de tentar baixar),&lt;/li&gt;&lt;li&gt;para engadir un novo obxecto: preme no botón verde, selecciona o que queres engadir e preme no lugar onde queres engadir.&lt;/li&gt;&lt;/ul&gt;\nXa estás preparado. Comeza a cartografar e divírtete!</string>
   <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;O teu dispositivo ten unha \"barra de navegación\" que está agochada. Desliza dende abaixo para amosala novamente.</string>
   <string name="read_introduction">Ler a introdución</string>
+  <!---->
   <string name="upgrade_title">Isto é unha nova versión do Vespucci</string>
   <string name="upgrade_message">Están descritas en detalle novas funcións e comportamentos nas notas de lanzamento da versión.</string>
   <string name="read_upgrade">Ler sobre a nova versión</string>
@@ -190,6 +189,8 @@
   <!--Tile layer info dialog-->
   <string name="attribution">Atribución</string>
   <!--GPX info dialog-->
+  <!--Image information dialog-->
+  <string name="direction">Dirección</string>
   <!--Too much data dialog-->
   <string name="upload_data_now">Subir modificacións</string>
   <!--Delete custom preset dialog-->
@@ -791,6 +792,8 @@
   <string name="config_closeChangesetOnSave_title">Pechar conxuntos de modificacións</string>
   <string name="config_closeChangesetOnSave_summary">Pechar os conxuntos de modificacións por defecto ó gardar.</string>
   <string name="config_maxOffsetDistance_current">%1$d metro(s)</string>
+  <string name="config_maxCircleSegmentcurrent">%1$d metro(s)</string>
+  <string name="config_minCircleSegmentcurrent">%1$d metro(s)</string>
   <!--Auto-download settings-->
   <string name="config_extTriggeredDownloadRadius_title">Raio da baixada</string>
   <string name="config_downloadRadius_current">%1$d metro(s)</string>
@@ -829,7 +832,6 @@
   <string name="manage_apis">Xestionar APIs</string>
   <string name="config_api_url_title">API URL</string>
   <string name="config_api_oauth_title">Empregar o OAuth</string>
-  <string name="listedit_enable_oauth">Activar o OAuth</string>
   <string name="config_username_title">Nome de usuario do OSM</string>
   <string name="config_password_title">Contrasinal do OSM</string>
   <string name="manage_presets">Xestionar predefinidos</string>

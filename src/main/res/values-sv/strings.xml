@@ -17,13 +17,11 @@
   <string name="upload_problem_title">Kunde inte ladda upp</string>
   <string name="upload_problem_message">Vissa eller alla data överfördes inte. Försök igen senare.</string>
   <string name="bad_request_message">API:n svarade med ett fel, var god spara dina data och rapportera problemet:\n\n</string>
+  <!--Upload conflict-->
   <string name="upload_conflict_title">Uppladdningskonflikt</string>
-  <string name="upload_conflict_message_version">%1$s \nhar lokal version %2$d \noch servern har %3$d</string>
+  <string name="upload_conflict_message_version">Versionskonflikt</string>
   <string name="upload_conflict_message_deleted">%1$s \nhar lokal version %2$d \noch togs bort på servern</string>
-  <string name="upload_conflict_message_referential">%1$s \ntogs bort lokalt \nmen har referenser på servern</string>
-  <string name="upload_conflict_message_already_deleted">%1$s \nvar redan borttagen på servern</string>
-  <string name="use_local_version">Använd lokal version</string>
-  <string name="use_server_version">Använd version på server</string>
+  <!---->
   <string name="no_login_data_title">Kunde inte autentisera</string>
   <string name="no_login_data_message">Om du använder OAuth detta är sannolikt ett fel, skicka en felrapport, om du använder inloggning och lösenord (rekommenderas inte), kontrollera att de är korrekt inmatade.</string>
   <string name="no_connection_title">Ingen anslutning till servern</string>
@@ -52,8 +50,10 @@
   <string name="file_write_failed_title">Kunde inte skriva till fil</string>
   <string name="file_write_failed_message">Vespucci kunde inte ändra eller spara filen.</string>
   <!---->
+  <!--Newbie dialog-->
   <string name="welcome_title">Välkommen</string>
   <string name="read_introduction">Läs introduktionen</string>
+  <!---->
   <string name="upgrade_title">Detta är en ny Vespucci version</string>
   <string name="upgrade_message">Nya funktioner och beteenden är detaljerade i utgåvans noteringar.</string>
   <string name="read_upgrade">Läs om den nya versionen</string>
@@ -187,6 +187,8 @@
   <!--Tile layer info dialog-->
   <string name="attribution">Attribuering</string>
   <!--GPX info dialog-->
+  <!--Image information dialog-->
+  <string name="direction">Riktning</string>
   <!--Too much data dialog-->
   <string name="too_much_data_title">För mycket data laddat!</string>
   <string name="upload_data_now">Ladda upp ändringar</string>
@@ -725,6 +727,8 @@
   <string name="config_maxAlertDistance_current">%1$d meter</string>
   <string name="config_closeChangesetOnSave_title">Stäng ändringsuppsättningar</string>
   <string name="config_maxOffsetDistance_current">%1$d meter</string>
+  <string name="config_maxCircleSegmentcurrent">%1$d meter</string>
+  <string name="config_minCircleSegmentcurrent">%1$d meter</string>
   <!--Auto-download settings-->
   <string name="config_extTriggeredDownloadRadius_title">Nedladdningsradie</string>
   <string name="config_downloadRadius_current">%1$d meter</string>
@@ -776,7 +780,7 @@
   <!---->
   <string name="config_api_url_title">API URL</string>
   <string name="config_api_oauth_title">Använd OAuth</string>
-  <string name="listedit_enable_oauth">Aktivera OAuth</string>
+  <string name="listedit_auth">Autentisering</string>
   <string name="config_username_title">OSM-användarnamn</string>
   <string name="config_password_title">OSM-lösenord</string>
   <string name="config_password_summary">Förväxla inte det för wiki-lösenordet. Kom ihåg: det lagras och överförs i klartext!</string>

@@ -16,13 +16,11 @@
   <string name="upload_problem_title">无法上传</string>
   <string name="upload_problem_message">有一些或全部的数据未被上传，请之后再尝试上传。</string>
   <string name="bad_request_message">API 响应错误，请检查你的数据并上报问题：\n\n</string>
+  <!--Upload conflict-->
   <string name="upload_conflict_title">上传冲突</string>
-  <string name="upload_conflict_message_version">%1$s \n拥有的本地版本 %2$d \n和在服务器上的 %3$d</string>
+  <string name="upload_conflict_message_version">版本冲突</string>
   <string name="upload_conflict_message_deleted">%1$s \n拥有的本地版本 %2$d \n且在服务器上已被删除</string>
-  <string name="upload_conflict_message_referential">%1$s \n本地的已被删除 \n但在服务器上仍能找到</string>
-  <string name="upload_conflict_message_already_deleted">%1$s \n 已经在服务器删除了</string>
-  <string name="use_local_version">使用本地版本</string>
-  <string name="use_server_version">使用服务器上的版本</string>
+  <!---->
   <string name="no_login_data_title">验证失败</string>
   <string name="no_login_data_message">如果您正在使用 OAuth，这可能是一个错误，请发送问题报告，如果您使用密码登录（不推荐），请检查是否输入正确。</string>
   <string name="no_connection_title">未连接到服务器</string>
@@ -63,10 +61,11 @@
   <string name="applying_osc_failed_title">应用 OSC 文件失败</string>
   <string name="applying_osc_failed_message">很有可能您没有加载所有需要应用修改的原始数据。</string>
   <!---->
+  <!--Newbie dialog-->
   <string name="welcome_title">欢迎</string>
-  <string name="welcome_message">感谢您安装 Vespucci。\n&lt;br&gt;&lt;br&gt;在开始使用前，需要知道三件事情：\n&lt;ul&gt;&lt;li&gt;点左上角的锁图标可以在锁定（无法编辑）和解锁模式之间切换，&lt;/li&gt;&lt;li&gt;要编辑 OpenStreetMap，首先需要下载想要编辑的区域的数据（下载前请先放大），&lt;/li&gt;&lt;li&gt;要添加新的对象，请点击绿色的加号按钮并选择想要添加的东西，然后点击需要放置的位置。&lt;/li&gt;&lt;/ul&gt;\n你已经准备好了，开始画地图吧！</string>
   <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;你的设备有\"虚拟键\"并且已经隐藏。从底部滑动会再次显示。</string>
   <string name="read_introduction">阅读介绍</string>
+  <!---->
   <string name="upgrade_title">这是新版本的 Vespucci</string>
   <string name="upgrade_message">发行说明中详细介绍了新功能和行为。</string>
   <string name="read_upgrade">了解新版本</string>
@@ -202,6 +201,8 @@
   <!--Tile layer info dialog-->
   <string name="attribution">属性</string>
   <!--GPX info dialog-->
+  <!--Image information dialog-->
+  <string name="direction">方向</string>
   <!--Too much data dialog-->
   <string name="too_much_data_title">加载了过多数据！</string>
   <string name="too_much_data_message">您加载了 %1$d 个节点并且已经超过了设定的限制。这会导致运行缓慢，如果添加了过多数据，可能导致保存状态出现问题。</string>
@@ -1025,6 +1026,8 @@
   <string name="config_maxOffsetDistance_title">存储影像偏移的最大距离</string>
   <string name="config_maxOffsetDistance_summary">自动应用本地存储的图层偏移的最远距离。</string>
   <string name="config_maxOffsetDistance_current">%1$d 米</string>
+  <string name="config_maxCircleSegmentcurrent">%1$d 米</string>
+  <string name="config_minCircleSegmentcurrent">%1$d 米</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">自动下载设置</string>
   <string name="config_category_auto_download_summary">数据和任务的自动下载设置</string>
@@ -1115,7 +1118,6 @@
   <string name="manage_apis">管理 API</string>
   <string name="config_api_url_title">API网址</string>
   <string name="config_api_oauth_title">使用 OAuth</string>
-  <string name="listedit_enable_oauth">启用 OAuth</string>
   <string name="config_username_title">OSM 用户名</string>
   <string name="config_password_title">OSM 密码</string>
   <string name="config_password_summary">不要和 wiki 密码弄混。请记住：它以明文存储和传输。</string>

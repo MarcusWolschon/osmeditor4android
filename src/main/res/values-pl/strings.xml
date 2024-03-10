@@ -8,6 +8,7 @@
   <string name="mode_address">Adres</string>
   <string name="mode_voice">Głos</string>
   <!--additional short cuts-->
+  <string name="shortcut_safe">Bezpieczny</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Uwaga!</string>
   <string name="transfer_download_current_dialog_message">Wprowadziłeś zmiany. Czy chcesz je wysłać zamiast porzucenia?</string>
@@ -17,13 +18,12 @@
   <string name="upload_problem_title">Nie można przesłać</string>
   <string name="upload_problem_message">Niektóre lub wszystkie dane nie zostały wysłane. Spróbuj wysłać ponownie później.</string>
   <string name="bad_request_message">API OSM wysłało błędną odpowiedź, zapisz dane do pliku i zgłoś błąd: \n \n</string>
+  <!--Upload conflict-->
   <string name="upload_conflict_title">Wystąpił konflikt podczas wysyłania danych</string>
-  <string name="upload_conflict_message_version">%1$s\nma wersję lokalną %2$d\ni na serwerze %3$d</string>
+  <string name="upload_conflict_message_version">Konflikt wersji</string>
   <string name="upload_conflict_message_deleted">%1$s\nma lokalną wersję %2$d \ni zostało skasowane na serwerze</string>
-  <string name="upload_conflict_message_referential">%1$s \nzostał usunięty lokalnie, \nale ma powiązania na serwerze</string>
-  <string name="upload_conflict_message_already_deleted">%1$s \nzostał już usunięty na serwerze</string>
-  <string name="use_local_version">Użyj wersji lokalnej</string>
-  <string name="use_server_version">Użyj wersji z serwera</string>
+  <string name="upload_conflict_message_unknown">%1$s \nspowodował nieznany konflikt przesyłania \n%2$s</string>
+  <!---->
   <string name="no_login_data_title">Nie można uwierzytelnić</string>
   <string name="no_login_data_message">Jeśli używasz OAuth oznacza to, że wystąpił błąd. Prześlij raport o błędach, jednak jeśli używasz loginu i hasła (niepolecane) sprawdź, czy wprowadzono je poprawnie.</string>
   <string name="no_connection_title">Brak połączenia z serwerem</string>
@@ -64,17 +64,21 @@
   <string name="applying_osc_failed_title">Stosowanie zmian z pliku OSC nie powiodło się</string>
   <string name="applying_osc_failed_message">Najprawdopodobniej nie załadowałeś wszystkich oryginalnych danych wymaganych do zastosowania zmian.</string>
   <string name="duplicate_tag_key_title">Powielone klucze</string>
+  <string name="duplicate_tag_key_message">Dodałeś następujące klucze więcej niż raz, musi to być naprawione zanim będziesz mógł kontynuować:</string>
   <!---->
+  <string name="select_file_picker_title">Wyvierz selektor plików</string>
+  <!--Newbie dialog-->
   <string name="welcome_title">Witaj</string>
-  <string name="welcome_message">Dziękujemy za zainstalowanie Vespucci.\n&lt;br&gt;&lt;br&gt;Przed rozpoczęciem powinieneś wiedzieć trzy rzeczy:\n&lt;ul&gt;&lt;li&gt;dotknięcie ikony kłódki w lewym górnym rogu przełącza pomiędzy trybem zablokowanym (brak edycji) a odblokowanym,&lt;/li&gt;&lt;li&gt;aby edytować OpenStreetMap należy najpierw pobrać dane obszaru, na którym chcesz coś zmienić (na początek przybliż mapę),&lt;/li&gt;&lt;li&gt;aby dodać nowy obiekt: przytrzymaj duży zielony przycisk i wybierz, co chcesz dodać, a następnie dotknij pozycję, w której chcesz umieścić ten obiekt.&lt;/li&gt;&lt;/ul&gt;\nTeraz jesteś już gotowy. Zacznij mapować i baw się dobrze!</string>
   <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;Twoje urządzenie ma \"dotykowe przyciski\", które są ukryte. Przesuń od dołu ekranu, aby je pokazać ponownie.</string>
   <string name="read_introduction">Przeczytaj wprowadzenie</string>
+  <!---->
   <string name="upgrade_title">To jest nowa wersja programu Vespucci</string>
   <string name="upgrade_message">Nowe funkcje i działania są wyszczególnione w informacjach o wydaniu.</string>
   <string name="read_upgrade">Wyświetl informacje o nowej wersji</string>
   <string name="progress_title">Wczytywanie</string>
   <string name="progress_message">Wczytywanie danych do pamięci…</string>
   <string name="progress_download_message">Pobieranie danych z serwera…</string>
+  <string name="progress_download_tasks_message">Pobieranie zadań z serwerów...</string>
   <string name="progress_general_title">Proszę czekać</string>
   <string name="progress_deleting_message">Usuwanie…</string>
   <string name="progress_searching_message">Wyszukiwanie…</string>
@@ -130,9 +134,19 @@
   <string name="openstreetbug_commit_fail_with_message">Nie udało się zapisać zmian w zadaniu\n%1$s</string>
   <string name="openstreetbug_unknown_task_type">Nieznany typ zadania</string>
   <string name="openstreetbug_not_supported">%1$s nie jest wspierane.</string>
+  <string name="note_description">%1$s - %2$s</string>
+  <string name="bug_description_191">%1$s - %2$s</string>
+  <string name="bug_description_2_191">%1$s %2$s - %3$s</string>
   <string name="generic_bug">Błąd</string>
   <string name="osmose_bug">Osmose</string>
+  <string name="todo_title">Do zrobienia</string>
+  <string name="todo_description">Do zrobienia %1$s</string>
+  <string name="todo_list">Lista %1$s</string>
+  <string name="todo_list_and_comment">Lista %1$s&lt;br&gt;&lt;br&gt;%2$s</string>
+  <string name="todo">Do zrobienia</string>
+  <string name="select_todo_list">Wybierz listę rzeczy do zrobienia</string>
   <string name="bug_long_description_1">%1$s: %2$s&lt;br&gt;&lt;br&gt;%3$s&lt;br&gt;&lt;br&gt;%4$s&lt;br&gt;</string>
+  <string name="bug_long_description_2">&lt;br&gt;last updated:&lt;br&gt;%1$s&lt;br&gt;id: %2$s</string>
   <string name="bug_element_1">%1$s (niepobrane) #%2$d</string>
   <string name="bug_element_2">%1$s %2$s</string>
   <string name="maproulette_task_title">Zadanie MapRoulette</string>
@@ -146,9 +160,20 @@
   <string name="maproulette_task_no_apikey">Brak klucza API MapRoulette</string>
   <string name="maproulette_description">Maproulette: %1$s</string>
   <!--Todo dialogs-->
+  <plurals name="add_todo_title">
+    <item quantity="one">Dodaj element do listy rzeczy do zrobienia</item>
+    <item quantity="few">Dodaj elementy do listy rzeczy do zrobienia</item>
+    <item quantity="many">Dodaj elementy do listy rzeczy do zrobienia</item>
+    <item quantity="other">Dodaj elementy do listy rzeczy do zrobienia</item>
+  </plurals>
+  <string name="all_todos_done_title">Wszystkie rzeczy do zrobienia z listy są zrobione</string>
+  <string name="all_todos_done_message">Wszystkie rzeczy do zrobienia z listy \"%1$s\" są zrobione</string>
+  <string name="all_todos_in_current_done_message">Wszystkie rzeczy do zrobienia z obecnej listy są zrobione</string>
+  <string name="todo_list_legend">Lista rzeczy do zrobienia</string>
   <string name="todo_list_hint">Kliknij, aby wyświetlić sugestie</string>
   <string name="todo_comment_legend">Komentarz</string>
   <string name="todo_comment_hint">Opcjonalny komentarz</string>
+  <string name="toast_todo_all_closed">Wszystkie zadania dla tego elementu są zamknięte</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Uwaga!</string>
   <string name="unsaved_data_message">Twoje niezapisane zmiany zostaną odrzucone, jeśli będziesz kontynuować.</string>
@@ -217,6 +242,8 @@
   <!--Tile layer info dialog-->
   <string name="attribution">Przypisanie</string>
   <!--GPX info dialog-->
+  <!--Image information dialog-->
+  <string name="direction">Kierunek</string>
   <!--Too much data dialog-->
   <string name="too_much_data_title">Wczytano zbyt wiele danych!</string>
   <string name="too_much_data_message">Wczytałeś %1$d Węzłów i przekroczyłeś ustawiony limit. To spowoduje spowolnienie, a jeśli dodasz więcej danych, być może problemy z zapisem stanu.</string>
@@ -1002,6 +1029,8 @@
   <string name="config_autoformatPhoneNumbers_title">Automatyczny format numerów telefonów</string>
   <string name="config_autoformatPhoneNumbers_summary">Włącz automatyczne formatowanie numerów telefonów</string>
   <string name="config_maxOffsetDistance_current">%1$d metr(ów)</string>
+  <string name="config_maxCircleSegmentcurrent">%1$d metr(ów)</string>
+  <string name="config_minCircleSegmentcurrent">%1$d metr(ów)</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Ustawienia automatycznego pobierania</string>
   <string name="config_category_auto_download_summary">Ustawienia automatycznego pobierania danych i zadań</string>
@@ -1086,7 +1115,7 @@
   <string name="manage_apis">Zarządzaj API</string>
   <string name="config_api_url_title">API URL</string>
   <string name="config_api_oauth_title">Użyj OAuth</string>
-  <string name="listedit_enable_oauth">Włącz OAuth</string>
+  <string name="listedit_auth">Uwierzytelnianie</string>
   <string name="config_username_title">Nazwa użytkownika OSM</string>
   <string name="config_password_title">Hasło OSM</string>
   <string name="config_password_summary">Nie pomyl tego z hasłem do wiki. Pamiętaj: Hasło jest przechowywane i przesyłane jako czysty tekst!</string>

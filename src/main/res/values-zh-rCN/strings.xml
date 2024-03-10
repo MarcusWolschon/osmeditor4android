@@ -18,15 +18,12 @@
   <string name="upload_problem_title">无法上传</string>
   <string name="upload_problem_message">有数据未上传，请重试。</string>
   <string name="bad_request_message">API 响应错误，请检查你的数据并上报问题：\n\n</string>
+  <!--Upload conflict-->
   <string name="upload_conflict_title">上传冲突</string>
-  <string name="upload_conflict_message_version">%1$s \n拥有的本地版本 %2$d \n和在服务器上的 %3$d</string>
+  <string name="upload_conflict_message_version">版本冲突</string>
   <string name="upload_conflict_message_deleted">%1$s \n持有的本机版本 %2$d \n且在服务器上已被删除</string>
-  <string name="upload_conflict_message_referential">%1$s \n本地的已被删除 \n但在服务器上仍能找到</string>
-  <string name="upload_conflict_message_already_deleted">%1$s \n 已经在服务器删除了</string>
-  <string name="upload_conflict_message_missing_references">%1$s \n 个本地版本引用了 \n 个服务器上不存在的对象</string>
   <string name="upload_conflict_message_unknown">%1$s \n 导致了未知的上传冲突 \n%2$s</string>
-  <string name="use_local_version">使用本地版本</string>
-  <string name="use_server_version">使用服务器上的版本</string>
+  <!---->
   <string name="no_login_data_title">验证失败</string>
   <string name="no_login_data_message">如果您正在使用 OAuth，请重新进行身份验证然后重试，如果您使用密码登录（不推荐），请检查是否输入正确。</string>
   <string name="no_connection_title">未连接到服务器</string>
@@ -69,10 +66,11 @@
   <string name="duplicate_tag_key_title">重复的键</string>
   <string name="duplicate_tag_key_message">您添加了下面的相同键，需要解决后才能继续：</string>
   <!---->
+  <!--Newbie dialog-->
   <string name="welcome_title">欢迎</string>
-  <string name="welcome_message">感谢您安装 Vespucci。\n&lt;br&gt;&lt;br&gt;在开始使用前，需要知道三件事情：\n&lt;ul&gt;&lt;li&gt;点左上角的锁图标可以在锁定（无法编辑）和解锁模式之间切换，&lt;/li&gt;&lt;li&gt;要编辑 OpenStreetMap，首先需要下载想要编辑的区域的数据（下载前请先放大），&lt;/li&gt;&lt;li&gt;要添加新的对象，请点击绿色的加号按钮并选择想要添加的东西，然后点击需要放置的位置。&lt;/li&gt;&lt;/ul&gt;\n你已经准备好了，开始画地图吧！</string>
   <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;你的设备有\"虚拟键\"并且已经隐藏。从底部滑动会再次显示。</string>
   <string name="read_introduction">阅读介绍</string>
+  <!---->
   <string name="upgrade_title">这是新版本的 Vespucci</string>
   <string name="upgrade_message">发行说明中详细介绍了新功能和行为。</string>
   <string name="read_upgrade">了解新版本</string>
@@ -240,6 +238,8 @@
   <string name="attribution">属性</string>
   <!--GPX info dialog-->
   <string name="track_points">轨迹点</string>
+  <!--Image information dialog-->
+  <string name="direction">方向</string>
   <!--Too much data dialog-->
   <string name="too_much_data_title">加载了过多数据！</string>
   <string name="too_much_data_message">您加载了 %1$d 个节点并且已经超过了设定的限制。这会导致运行缓慢，如果添加了过多数据，可能导致保存状态出现问题。</string>
@@ -1027,6 +1027,7 @@
     <item quantity="other">%1$d 对象</item>
   </plurals>
   <string name="actionmode_rotateway">旋转路径</string>
+  <string name="menu_snap">断开</string>
   <!--Simple Action Mode-->
   <string name="menu_add_node">添加节点</string>
   <string name="simple_add_node">点击屏幕位置</string>
@@ -1040,7 +1041,6 @@
   <string name="simple_paste">点击屏幕位置</string>
   <string name="menu_paste_multiple">粘贴多次</string>
   <string name="simple_paste_multiple">点击屏幕位置</string>
-  <string name="menu_snap">断开</string>
   <!--Preferences-->
   <string name="config_backgroundLayer_title">地图背景</string>
   <string name="config_backgroundLayer_summary">基于瓦片的地图背景。</string>
@@ -1184,6 +1184,8 @@
   <string name="config_maxOffsetDistance_title">存储影像偏移的最大距离</string>
   <string name="config_maxOffsetDistance_summary">自动应用本地存储的图层偏移的最远距离。</string>
   <string name="config_maxOffsetDistance_current">%1$d 米</string>
+  <string name="config_maxCircleSegmentcurrent">%1$d 米</string>
+  <string name="config_minCircleSegmentcurrent">%1$d 米</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">自动下载设置</string>
   <string name="config_category_auto_download_summary">数据和任务的自动下载设置</string>
@@ -1294,7 +1296,6 @@
   <string name="manage_apis">管理 API</string>
   <string name="config_api_url_title">API URL</string>
   <string name="config_api_oauth_title">使用 OAuth</string>
-  <string name="listedit_enable_oauth">启用 OAuth</string>
   <string name="config_username_title">OSM 用户名</string>
   <string name="config_password_title">OSM 密码</string>
   <string name="config_password_summary">不要和 wiki 密码弄混。请记住：它以明文存储和传输。</string>
