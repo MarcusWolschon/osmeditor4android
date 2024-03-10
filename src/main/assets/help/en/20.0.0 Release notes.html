@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+</head>
+<body>
+<h1>Vespucci 20.0 BETA Highlights</h1>
+<p>2024-03-11</p>
+<h3>OAuth 2 support</h3>
+<p>This version adds support for OAuth 2 authorization, new installs will have this configured as default for the regular openstreetmap.org and developer sandbox API configurations. Existing installations will get a one time indication that they should migrate with a &quot;one click&quot; way to do this on updates, however this can be skipped and the migration can be executed manually.</p>
+<p>For the foreseeable future we will continue to support OAuth 1.0a and login / password authentication.</p>
+<h3>End of support for Android 4.1 to 4.4 postponed</h3>
+<p>Instead of in this version we will be removing the support in version 20.1 which will likely be available in the third quarter of 2024. For further details please see the 19.3 relase notes.</p>
+<h3>Create circle and align nodes in circle improvements</h3>
+<p>We've added a <em>Create circle</em> function that will create a circle from three selected nodes, and have modified the <em>Align in circle</em> method to add nodes. The minimum number of nodes in a circle, the maximum circle segment length, and the minimum circle segment length can be set in the <em>Advanced preferences</em>.</p>
+<h3>Follow way</h3>
+<p>When creating a new way by using nodes of an existing way Vespucci can now follow the existing way to a node on the way. This can be done multiple times during the process of creating the new way.</p>
+<h3>Support regionalized values in presets and improved formatting support</h3>
+<p>Since version 14.0 released in October 2019 we have supported region specific preset items, version 20 takes this further by supporting this at the level of individual preset values level. THis allows, for example, country specific payment options in the payment preset only to be shown for objects in that country without the need to create a full country specific item.</p>
+<p>Additionally we have added support for <em>space</em> and <em>item_separator</em> elements that help to make the tag form visually easier to digest.</p>
+<h3>Improved conflict handling</h3>
+<p>Conflict resolution have been substantially improved making at least simple cases much easier to handle on the road. Please see the dedicated help page on <em>Conflict resolution</em> for more information.</p>
+<h3>Support for opening OpenStreetMap website links</h3>
+<p>Vespucci now supports opening element and note links on openstreetmap.org in the app if these are opened on another website (so not for navigation on openstreetmap.org itself). Depending on the Android version you may have to enable this in the system app configuration.</p>
+<h3>Improved new user on boarding</h3>
+<p>New installs can now configure some important setting in the welcome dialog and directly start the app authorization process.</p>
+<h2>Miscellaneous</h2>
+<ul>
+<li>Better error handling when auto-downloading</li>
+<li>Added some new style &quot;expressions&quot; for use in filters to mapbox-gl support</li>
+<li>Add mobile and contact:mobile to phone keys</li>
+<li>Sort relation lists by distance to an OsmElement or list of them</li>
+<li>Support CRS:84 for wms imagery configuration and endpoints, inherit CRS/SRS values</li>
+<li>Handle hidden notes</li>
+<li>Add mode switching to the main menu and some other minor rearrangement</li>
+<li>Align how the way rotation mode work more with the similar modes</li>
+<li>Validate connections to multi-polygons with appropriate tags</li>
+<li>Improve how we handle closed ways with indication that they are areas</li>
+<li>More keyboard shortcuts and update documentation</li>
+<li>Use number of current download bounding boxes as further prune condition</li>
+<li>Add natural=earth_bank to non-reversible tags</li>
+<li>Add bounding box count display to data and task info modal</li>
+<li>Support translations of tile layer names and descriptions</li>
+<li>Support for multiple file selection for creating layers (GPX and GeoJSON)</li>
+<li>Make using the volume keys for zooming dependent on a preference</li>
+<li>Add image information modal to image viewer</li>
+<li>Add explicit handling for 509 error on download and 429 in upload</li>
+</ul>
+<h1>Upgrading from previous versions</h1>
+<ul>
+<li>As the saved state file has changed you should upload any pending changes before updating.</li>
+</ul>
+<h1>Known problems</h1>
+<ul>
+<li>The documentation is out of date.</li>
+<li>For other known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
+</ul>
+
+</body>
+</html>

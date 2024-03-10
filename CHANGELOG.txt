@@ -1,5 +1,65 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+20.0.0-1:
+
+- Fix apply workaround for Android "truncate" bug
+- Fix show the correct error modal for data problems reading OSM files
+- Fix get old and new configuration more robustly, improves following system theme
+- Fix issue with JOSM filter language child and parent expressions
+- Fix behaviour regression when editing values in the details tab
+- Fix always re-populate in memory imagery lists after a change
+- Fix use android:inputType="textNoSuggestions" for url fields
+- Fix de-compress tile server error messages if necessary
+- Fix notification bounding box regression
+- Fix regexps for precondition failures
+- Fix outdated marker rendering
+- Fix protect against null proj when adding wkid, validate custom url better
+- Fix regression wrt node selection after adding an intersection
+- Fix regression handling preset uris
+- Fix when manually clearing out a value in the details tab, always set it
+- Fix typo in undo short cut (c instead of u)
+- Fix remove links with "matomo" instead "piwik"
+- Fix assure that UndoStorage is emptied correctly after an upload
+- Fix import MSF files on Android 10+ and correctness fixes
+- Fix never include untagged nodes in the nearby POI display
+- Fix Check for Layer.NONE before retrieving tiles
+- Fix validate tag objects post running JS in preset
+- Fix improve app language switching logic and workaround google locale issue
+- Add support for opening some OpenStreetMap website links
+- Add support for space and item_separator elements in presets
+- Add better error handling when auto-downloading
+- Add some new type expressions for use in filters to mapbox-gl support
+- Add mobile and contact:mobile to phone keys
+- Add sort Relation lists by distance to an OsmElement or list of them
+- Add suggest migration to OAuth 2 when a new version is installed
+- Add support CRS projections in URLs and in configuration
+- Add support CRS:84 for wms endpoints, inherit CRS/SRS values
+- Add improve new user onboarding
+- Add handle hidden notes
+- Add mode switching to the main menu and some other minor rearrangement
+- Add align how the way rotation mode work more with the similar modes
+- Add improve conflict handling
+- Add re-factor element info dialog and associated changes
+- Add validate connections to multi-polygons with appropriate tags
+- Add improve how we handle closed ways with indication that they are areas
+- Add more support for regionalized preset values (per value regions)
+- Add support restrictions for safe splitting too
+- Add some more keyboard shortcuts and update documentation
+- Add support following a way in PathCreationActionMode
+- Add support for OAuth 2
+- Add a create circle function and add nodes in align in circle function
+- Add use number of current download bounding boxes as further prune condition
+- Add natural=earth_bank to non-reversible tags
+- Add bounding box count display to task info modal
+- Add bounding box count to data layer info modal
+- Add support translations of tile layer names and descriptions
+- Add support for multiple file selection for creating stylable layers
+- Add make using the volume keys for zooming dependent on a preference
+- Add image information modal to image viewer
+- Add explicit handling for 509 error on download and 429 in upload
+- Update use "new" url for Bing meta data retrieval
+- Update default preset
+
 19.3.1:
 
 - Fix don't implement ParceableSpan, fixes crash in disambiguation menu
