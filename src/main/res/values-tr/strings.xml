@@ -202,7 +202,7 @@
   <string name="attribution">Atfetme</string>
   <!--GPX info dialog-->
   <!--Image information dialog-->
-  <string name="direction">Direction</string>
+  <string name="direction">Yön</string>
   <!--Too much data dialog-->
   <string name="too_much_data_title">Çok fazla veri yüklendi!</string>
   <string name="too_much_data_message">%1$d yüklenmiş ve yapılandırılmış nesne sınırına ulaştınız. Bu, daha fazla veri eklerseniz, potansiyel sorunları kaydetme durumuna yavaşlamaya neden olur.</string>

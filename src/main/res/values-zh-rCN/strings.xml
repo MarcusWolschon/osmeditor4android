@@ -22,7 +22,12 @@
   <string name="upload_conflict_title">上传冲突</string>
   <string name="upload_conflict_message_version">版本冲突</string>
   <string name="upload_conflict_message_deleted">%1$s \n持有的本机版本 %2$d \n且在服务器上已被删除</string>
+  <string name="upload_conflict_message_referential">本地已被删除但在服务器上仍能找到的元素</string>
+  <string name="upload_conflict_message_already_deleted">%1$s \n已经在服务器删除了，正在重试</string>
   <string name="upload_conflict_message_unknown">%1$s \n 导致了未知的上传冲突 \n%2$s</string>
+  <string name="upload_conflict_message_changeset_closed">变更集意外关闭了，正在重试</string>
+  <string name="server_side_object">服务器版本</string>
+  <string name="local_object">本地版本</string>
   <!---->
   <string name="no_login_data_title">验证失败</string>
   <string name="no_login_data_message">如果您正在使用 OAuth，请重新进行身份验证然后重试，如果您使用密码登录（不推荐），请检查是否输入正确。</string>
@@ -63,16 +68,26 @@
   <string name="file_write_failed_message">Vespucci 无法修改或保存文件。</string>
   <string name="applying_osc_failed_title">应用 OSC 文件失败</string>
   <string name="applying_osc_failed_message">很有可能您没有加载所有需要应用修改的原始数据。</string>
+  <string name="download_limit_title">达到下载限制</string>
+  <string name="upload_limit_title">达到上传限制</string>
+  <string name="upload_limit_message">你已经用尽当前上传量，请稍后再试</string>
   <string name="duplicate_tag_key_title">重复的键</string>
   <string name="duplicate_tag_key_message">您添加了下面的相同键，需要解决后才能继续：</string>
+  <string name="autodownload_has_been_paused">自动下载已暂停</string>
   <!---->
+  <string name="select_file_picker_title">选择文件读取器</string>
   <!--Newbie dialog-->
   <string name="welcome_title">欢迎</string>
   <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;你的设备有\"虚拟键\"并且已经隐藏。从底部滑动会再次显示。</string>
+  <string name="welcome_use_imagery_text">显示当前位置的航拍图像</string>
+  <string name="welcome_auto_download_text">自动下载数据</string>
+  <string name="welcome_auto_download_explanation">自动下载OpenStreetMap数据可能会消耗大量的流量
+如果您使用的是计费连接，您可能会选择不启用此功能，并手动下载您想要处理的区域的数据</string>
   <string name="read_introduction">阅读介绍</string>
   <!---->
   <string name="upgrade_title">这是新版本的 Vespucci</string>
   <string name="upgrade_message">发行说明中详细介绍了新功能和行为。</string>
+  <string name="migrate_now">立即迁移配置</string>
   <string name="read_upgrade">了解新版本</string>
   <string name="progress_title">加载</string>
   <string name="progress_message">加载数据到内存中…</string>
@@ -166,6 +181,7 @@
   <string name="toast_todo_all_closed">元素的所有任务已关闭</string>
   <string name="toast_todo_already_in_list">元素已在此待办事项列表</string>
   <string name="toast_no_open_todos">没有开启的待办事项</string>
+  <string name="toast_no_todos_in_list">选择清单中没有待办事项</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">小心！</string>
   <string name="unsaved_data_message">您有未保存的变更，如果继续将被丢弃。</string>
@@ -238,7 +254,10 @@
   <string name="attribution">属性</string>
   <!--GPX info dialog-->
   <string name="track_points">轨迹点</string>
+  <string name="way_points">路径点</string>
   <!--Image information dialog-->
+  <string name="image_information_title">图片信息</string>
+  <string name="created_by">创建者</string>
   <string name="direction">方向</string>
   <!--Too much data dialog-->
   <string name="too_much_data_title">加载了过多数据！</string>
@@ -320,6 +339,7 @@
   <string name="add_resurvey_entry">添加重新调查条目</string>
   <string name="add_check_entry">添加检查条目</string>
   <!--Safe mode dialog-->
+  <string name="safe_layer_label">禁用所有图层</string>
   <!--Empty relation dialog-->
   <string name="empty_relation_title">空关系</string>
   <string name="empty_relation_message">关系 %1$s 没有成员。\n\n保持原样将使其在 Vespucci 中无法编辑。</string>
@@ -381,6 +401,7 @@
   <string name="layer_change_style">更换样式...</string>
   <string name="layer_load_style">加载样式...</string>
   <string name="layer_reset_style">重置样式</string>
+  <string name="layer_set_date_range">设定日期范围…</string>
   <string name="layer_select_imagery">选择影像...</string>
   <string name="layer_test">测试...</string>
   <string name="layer_category_all">全部</string>
@@ -394,6 +415,7 @@
   <string name="layer_category_other">其它</string>
   <string name="layer_add_layer_from_mvt_style">从MVT样式添加图层...</string>
   <string name="layer_add_custom_imagery">添加自定义影像...</string>
+  <string name="layer_edit_custom_imagery_configuration">编辑自定义影像配置…</string>
   <string name="layer_add_gpx">从GPX文件添加图层...</string>
   <string name="layer_download_track">下载GPX轨迹...</string>
   <string name="layer_available_tracks">可用的 GPX 轨迹</string>
@@ -413,8 +435,10 @@
   <string name="projection">投影</string>
   <string name="errors">错误</string>
   <string name="layer_info_layer_not_available">图层信息不可用</string>
+  <string name="layer_info_no_meta_data">没有加载元数据</string>
   <!--Mapillary layer-->
   <!--Date range dialog-->
+  <string name="date_range_title">设定日期范围</string>
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">删除照片</string>
   <string name="photo_viewer_delete_button">永久删除</string>
@@ -585,6 +609,7 @@
   <string name="toast_invalid_object">无效的对象</string>
   <string name="toast_openinghours_invalid">无效的营业时间 %1$s</string>
   <string name="toast_openinghours_autocorrected">自动修正了营业时间 %1$s</string>
+  <string name="toast_already_in_multiselect">已进入多选模式</string>
   <string name="toast_abort_actionmode">使用 ← 键中止</string>
   <string name="toast_null_island">请不要在 0°/0° 添加要素(Null Island)</string>
   <string name="toast_string_too_long">字符串过长（%1$d 字符）被截断了！</string>
@@ -650,6 +675,7 @@
   <string name="toast_error_saving_bookmark">无法保存书签</string>
   <string name="toast_error_loading_style">无法加载样式：%1$s</string>
   <string name="toast_only_one_source_supported">每个样式只支持一个源</string>
+  <string name="toast_style_file_too_large">这个样式文件太大了，而且可能不是 Mapbox-GL 样式</string>
   <string name="toast_imagery_offset_download_failed">偏移下载失败：%1$s</string>
   <string name="toast_download_server_version_failed">因为 %1$s，从服务器下载的版本失败了。</string>
   <string name="toast_error_element_too_large">对属性编辑器，元件太大。</string>
@@ -661,6 +687,8 @@
   <string name="toast_url_check_with_msg">%1$s %2$d %3$s（本行549）</string>
   <string name="toast_unexpected_element">点击了异常的元素：\n%1$s</string>
   <string name="toast_element_has_been_deleted">元素已被删除</string>
+  <string name="toast_updating_members">更新成员…</string>
+  <string name="toast_note_not_found">找不到注释 #%1$d</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">MapSplit 源必须有最小和最大缩放设置</string>
   <string name="error_pbf_no_version">PBF 文件缺少版本信息</string>
@@ -936,6 +964,7 @@
   <string name="menu_tools_import_data_style">导入数据样式...</string>
   <string name="menu_tools_load_keys">从文件载入关键字</string>
   <!---->
+  <string name="menu_modes">模式…</string>
   <string name="menu_simple_actions">简单模式</string>
   <string name="menu_feedback">提供反馈</string>
   <string name="menu_preset_feedback">提供预设反馈</string>
@@ -946,6 +975,7 @@
   <string name="menu_tools_background_align_zero">零</string>
   <string name="menu_tools_background_align_retrieve_from_db">从数据库</string>
   <string name="menu_tools_background_align_retrieve_from_device">从设备</string>
+  <string name="menu_tools_background_align_save_db">保存到数据库…</string>
   <string name="menu_tools_background_align_save_device">保存到设备</string>
   <string name="menu_tools_background_align_apply2all">应用（所有缩放等级）</string>
   <string name="min_max_zoom">%1$d - %2$d</string>
@@ -1011,7 +1041,12 @@
   <string name="actionmode_newnoteselect">选择新的注记</string>
   <string name="actionmode_add_segment">添加片段</string>
   <string name="actionmode_reselect_first_segment">重新选择第一个片段</string>
+  <string name="actionmode_split_way">分割路径</string>
+  <string name="actionmode_split_closed_way">分割封闭路径</string>
   <!--EasyEdit action mode sub-titles-->
+  <string name="actionmode_closed_way_split_1">选择第1个节点</string>
+  <string name="actionmode_closed_way_split_2">选择第2个节点</string>
+  <string name="actionmode_split_way_node_selection">选择节点</string>
   <string name="actionmode_restriction">添加转向限制</string>
   <string name="actionmode_restriction_restart_from">重选“from”片段</string>
   <string name="actionmode_restriction_select_from">选择\"from\"片段</string>
@@ -1117,6 +1152,7 @@
   <string name="config_use_back_for_undo_summary">使用 ← 键在主编辑视图中撤销。</string>
   <string name="config_theme_title">主题</string>
   <string name="config_splitActionBarEnabled_title">启用拆分工具栏</string>
+  <string name="config_appLocale_device_language">设备语言</string>
   <string name="config_maxInlineValues_title">最大行内数值</string>
   <string name="config_maxInlineValues_summary">在标签表单中显示的行内数字最大值。</string>
   <string name="config_autoLockDelay_title">自动锁定前等待的时间</string>
@@ -1146,6 +1182,8 @@
   <string name="config_nameCap_summary">键入时，自动将标签的名称大写</string>
   <string name="config_nameCap_title">名称大写</string>
   <string name="config_longStringLimit_current">%1$d</string>
+  <string name="config_zoomWithKeys_title">使用音量键进行缩放</string>
+  <string name="config_zoomWithKeys_summary">允许使用音量键进行放大和缩小</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">数据和编辑设置</string>
   <string name="config_category_editing_summary">自动下载，保存和通知设置。</string>

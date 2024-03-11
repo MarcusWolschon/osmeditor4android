@@ -22,7 +22,26 @@
   <string name="upload_conflict_title">Feltöltési ütközés</string>
   <string name="upload_conflict_message_version">Verzióütközés</string>
   <string name="upload_conflict_message_deleted">%1$s \nhelyi verziója %2$d \na kiszolgálón pedig törölve lett</string>
+  <string name="upload_conflict_message_referential">Helyileg törölt elem, de vannak rá hivatkozások a kiszolgálón</string>
+  <string name="upload_conflict_message_already_deleted">%1$s \nmár törölve lett a kiszolgálón, újbóli próbálkozás</string>
+  <string name="upload_conflict_message_missing_references">A helyi elem a kiszolgálón törölt objektumokra hivatkozik.</string>
   <string name="upload_conflict_message_unknown">%1$s \nismeretlen feltöltési ütközést okozott \n%2$s</string>
+  <string name="upload_conflict_message_changeset_closed">Váratlanul lezárt módosításkészlet, újbóli próbálkozás</string>
+  <string name="server_side_object">Kiszolgáló verziója</string>
+  <string name="local_object">Helyi verzió</string>
+  <string name="resolve_by">Ütközések feloldása...</string>
+  <string name="resolve">Feloldás</string>
+  <string name="delete_refering_element">... a hivatkozó elem törlésével</string>
+  <string name="use_local_version">... a helyi verzió használatával</string>
+  <string name="merge_tags_in_to_local">... címkék összevonásával a helyi verzióba</string>
+  <string name="merge_tags_in_to_server">... a címkék összevonásával a szerverváltozatba</string>
+  <string name="use_server_version">... a szerverváltozatot használva</string>
+  <string name="undoing_local_delete">... helyi törlés visszavonásával</string>
+  <string name="deleting_references_on_server">... hivatkozások törlésével a szerveren</string>
+  <string name="unexpected_conflict_type">Váratlan konfliktustípus</string>
+  <string name="missing_referenced_elements">Hiányzó hivatkozott elemek</string>
+  <string name="delete_locally">Törlés\nhelyben</string>
+  <string name="undelete_on_server">Törlés visszavonása\na szerveren</string>
   <!---->
   <string name="no_login_data_title">Nem sikerült hitelesíteni</string>
   <string name="no_login_data_message">OAuth használata esetén ez valószínűleg hiba, küldjön hibajelentést. Ha felhasználónevet és jelszót adott meg (nem javasolt), ellenőrizze, hogy helyes-e.</string>
@@ -63,13 +82,24 @@
   <string name="file_write_failed_message">A Vespucci nem tudta módosítani vagy menteni a fájlt.</string>
   <string name="applying_osc_failed_title">Az OSC-fájl alkalmazása sikertelen</string>
   <string name="applying_osc_failed_message">Valószínűleg nem töltötte be az összes eredeti adatot, amely a módosítások végrehajtásához szükséges.</string>
+  <string name="download_limit_title">Letöltési korlátok túllépése</string>
+  <string name="download_limit_message">Kérjük, várjon, mielőtt további adatokat próbálna letölteni.</string>
+  <string name="upload_limit_title">Feltöltési korlátok túllépése</string>
+  <string name="upload_limit_message">Ön kimerítette az aktuális feltöltési keretét, kérjük, várjon, mielőtt újra próbálkozna.</string>
   <string name="duplicate_tag_key_title">Duplikált kulcsok</string>
   <string name="duplicate_tag_key_message">A következő kulcsot többször adta hozzá, ezt meg kell oldania, mielőtt továbbléphetne:</string>
+  <string name="autodownload_has_been_paused">Az automatikus letöltés szünetel.</string>
   <!---->
   <string name="select_file_picker_title">Fájlkereső kiválasztása</string>
   <!--Newbie dialog-->
   <string name="welcome_title">Üdvözöljük</string>
   <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;Az eszköze rendelkezik „szoftveres gombokkal”, melyek nem láthatóak. Húzza fel őket lentről a megjelenítésükhöz.</string>
+  <string name="welcome_use_imagery_text">Légifelvételek megjelenítése\a jelenlegi tartózkodási helyről</string>
+  <string name="welcome_auto_download_text">Automatikusan töltse le az adatokat</string>
+  <string name="welcome_auto_download_explanation">\"Az OpenStreetMap-adatok automatikus letöltése jelentős mobilforgalmat okozhat.
+        Ha díjköteles kapcsolatot használ, akkor inkább ne engedélyezze ezt a funkciót, és kézzel töltse le az adatokat arra a területre, amelyen dolgozni szeretne.
+    </string>
+  <string name="welcome_pen_setup_text">Toll- vagy egérhasználatra való beállítás</string>
   <string name="read_introduction">Olvassa el a bevezetést</string>
   <!---->
   <string name="upgrade_title">Ez a Vespucci új verziója</string>
