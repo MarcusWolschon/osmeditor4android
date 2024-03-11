@@ -55,6 +55,10 @@
 </li>
                                     
 <li>
+    <a href="../20.0.0%20Release%20notes/" class="dropdown-item">20.0.0 Release notes</a>
+</li>
+                                    
+<li>
     <a href="../19.3.0%20Release%20notes/" class="dropdown-item">19.3.0 Release notes</a>
 </li>
                                     
@@ -391,12 +395,29 @@
 
 <h1 id="conflict-resolution">Conflict resolution<a class="headerlink" href="#conflict-resolution" title="Permanent link">#</a></h1>
 <p>Vespucci provides basic facility to resolve version conflicts on upload. In general is it best to avoid them happening, particularly in areas with lots of editing activity by downloading only small areas, refreshing them often and saving changes frequently.</p>
-<p>Vespucci uploads modified and deleted elements one by one. Any conflicts detected will be related to the current element and will need to be resolved before the upload can be retried. As a consequence, if you suspect that your edits have caused more than a handful of conflicts you should save the edits either by saving to a JOSM compatible OSM file or by exporting the changes to a OSC file and then try to resolve the conflicts in JOSM.</p>
+<p>The OSM API reports conflicts one by one. The upload will abort at the first error and you will need to resolve that and then re-upload, fix the next issue and so on, exceptions noted below. If you suspect that your edits have caused more than a handful of conflicts you can save the edits either by saving to a JOSM compatible OSM file or by exporting the changes to a OSC file and then try to resolve the conflicts in JOSM, if you prefer using a desktop computer.</p>
 <h3 id="version-conflicts">Version conflicts<a class="headerlink" href="#version-conflicts" title="Permanent link">#</a></h3>
-<p>The most common conflict is when an object has been modified or deleted while you were editing and the version number of the object that you modified is lower than the current one on the OpenStreetMap servers. In such a case you will be presented with the options to cancel, use your local version or to overwrite your changes with whatever is on the server.</p>
-<p>It is likely better, except if you have really important changes, to use the remote version. If you use the local version you will overwrite whatever changes have been made by other mappers. Note that if the object has been deleted on the server and you choose to use the server version, in other words, delete the object locally, this may cause further conflicts if the object in question was a member of a way or relation.</p>
+<p>The most common conflict is when an object has been modified or deleted while you were editing and the version number of the object that you modified is lower than the current one on the OpenStreetMap servers. In such a case you will be presented with the options to cancel, or resolve the issue by </p>
+<ul>
+<li><em>using the local version</em> - this simply increments the version of the local element. This leads to your local version overwriting any changes made on the server to the element.</li>
+<li><em>merging tags in to the server version</em> - this retains the server side geometry but merges the local tags in to the server version of the tags, you will be notified if there are conflict between the tags and you can address any tagging issues before re-trying the upload.</li>
+<li><em>merging tags in to the local version</em> - the behaviour is as above, but this variant retains the local geometry.</li>
+<li><em>using the server version</em> - this replaces the local version of the element with the server version, overwriting any changes you made locally.</li>
+</ul>
 <h3 id="referential-conflicts">Referential conflicts<a class="headerlink" href="#referential-conflicts" title="Permanent link">#</a></h3>
-<p>While Vespucci in general doesn't allow this to happen, a referential conflict happens when you delete an object locally, the server however still has objects that refer to the deleted one, which haven't been modified accordingly. Deletes happen at the end of the upload process for this reason to allow the server to check. In such a conflict situation you only have the choice to use the server version or cancel.  </p></div> -->
+<p>While Vespucci attempty to avoid this happening allow this to happen, a referential conflict happens when you delete an object locally, the server however still has objects that refer to the deleted one, which haven't been modified accordingly or you have local elements that refer to elements that have been deleted on the server.</p>
+<p>In the first scenario you can resolve the issue by (for each element)</p>
+<ul>
+<li><em>undoing the local deletion</em> - this will utilize Vespuccis undo system to locate and undo the undo checkpoint that deleted the element, note that this may result in other elements being changed too.</li>
+<li><em>deleting the references on the server</em> this will download the relevant elements and delete them, adding them to the upload for deletion on the server.</li>
+</ul>
+<p>In the second scenario, you can, again per element</p>
+<ul>
+<li><em>delete the element locally</em> - this will delete the element locally.</li>
+<li><em>undelete the element on the server</em> - this will upload the local element as a new, no longer deleted, version.</li>
+</ul>
+<h3 id="deleting-an-element-that-has-already-been-deleted">Deleting an element that has already been deleted<a class="headerlink" href="#deleting-an-element-that-has-already-been-deleted" title="Permanent link">#</a></h3>
+<p>This is the easiest to handle conflict and Vespucci will automatically retry the upload after removing the deleted element from the to be uploaded data.</p></div> -->
 		    
                     	<div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
     <div class="navbar-header">
@@ -420,12 +441,29 @@
 
 <h1 id="conflict-resolution">Conflict resolution<a class="headerlink" href="#conflict-resolution" title="Permanent link">#</a></h1>
 <p>Vespucci provides basic facility to resolve version conflicts on upload. In general is it best to avoid them happening, particularly in areas with lots of editing activity by downloading only small areas, refreshing them often and saving changes frequently.</p>
-<p>Vespucci uploads modified and deleted elements one by one. Any conflicts detected will be related to the current element and will need to be resolved before the upload can be retried. As a consequence, if you suspect that your edits have caused more than a handful of conflicts you should save the edits either by saving to a JOSM compatible OSM file or by exporting the changes to a OSC file and then try to resolve the conflicts in JOSM.</p>
+<p>The OSM API reports conflicts one by one. The upload will abort at the first error and you will need to resolve that and then re-upload, fix the next issue and so on, exceptions noted below. If you suspect that your edits have caused more than a handful of conflicts you can save the edits either by saving to a JOSM compatible OSM file or by exporting the changes to a OSC file and then try to resolve the conflicts in JOSM, if you prefer using a desktop computer.</p>
 <h3 id="version-conflicts">Version conflicts<a class="headerlink" href="#version-conflicts" title="Permanent link">#</a></h3>
-<p>The most common conflict is when an object has been modified or deleted while you were editing and the version number of the object that you modified is lower than the current one on the OpenStreetMap servers. In such a case you will be presented with the options to cancel, use your local version or to overwrite your changes with whatever is on the server.</p>
-<p>It is likely better, except if you have really important changes, to use the remote version. If you use the local version you will overwrite whatever changes have been made by other mappers. Note that if the object has been deleted on the server and you choose to use the server version, in other words, delete the object locally, this may cause further conflicts if the object in question was a member of a way or relation.</p>
+<p>The most common conflict is when an object has been modified or deleted while you were editing and the version number of the object that you modified is lower than the current one on the OpenStreetMap servers. In such a case you will be presented with the options to cancel, or resolve the issue by </p>
+<ul>
+<li><em>using the local version</em> - this simply increments the version of the local element. This leads to your local version overwriting any changes made on the server to the element.</li>
+<li><em>merging tags in to the server version</em> - this retains the server side geometry but merges the local tags in to the server version of the tags, you will be notified if there are conflict between the tags and you can address any tagging issues before re-trying the upload.</li>
+<li><em>merging tags in to the local version</em> - the behaviour is as above, but this variant retains the local geometry.</li>
+<li><em>using the server version</em> - this replaces the local version of the element with the server version, overwriting any changes you made locally.</li>
+</ul>
 <h3 id="referential-conflicts">Referential conflicts<a class="headerlink" href="#referential-conflicts" title="Permanent link">#</a></h3>
-<p>While Vespucci in general doesn't allow this to happen, a referential conflict happens when you delete an object locally, the server however still has objects that refer to the deleted one, which haven't been modified accordingly. Deletes happen at the end of the upload process for this reason to allow the server to check. In such a conflict situation you only have the choice to use the server version or cancel.  </p></div>
+<p>While Vespucci attempty to avoid this happening allow this to happen, a referential conflict happens when you delete an object locally, the server however still has objects that refer to the deleted one, which haven't been modified accordingly or you have local elements that refer to elements that have been deleted on the server.</p>
+<p>In the first scenario you can resolve the issue by (for each element)</p>
+<ul>
+<li><em>undoing the local deletion</em> - this will utilize Vespuccis undo system to locate and undo the undo checkpoint that deleted the element, note that this may result in other elements being changed too.</li>
+<li><em>deleting the references on the server</em> this will download the relevant elements and delete them, adding them to the upload for deletion on the server.</li>
+</ul>
+<p>In the second scenario, you can, again per element</p>
+<ul>
+<li><em>delete the element locally</em> - this will delete the element locally.</li>
+<li><em>undelete the element on the server</em> - this will upload the local element as a new, no longer deleted, version.</li>
+</ul>
+<h3 id="deleting-an-element-that-has-already-been-deleted">Deleting an element that has already been deleted<a class="headerlink" href="#deleting-an-element-that-has-already-been-deleted" title="Permanent link">#</a></h3>
+<p>This is the easiest to handle conflict and Vespucci will automatically retry the upload after removing the deleted element from the to be uploaded data.</p></div>
                     
             </div>
         </div>
@@ -433,7 +471,7 @@
         <footer class="col-md-12">
             <hr>
 	    <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 19.3.0 </p>
+	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 20.0.0 </p>
         </footer>
         <script>
             var base_url = "../../..",

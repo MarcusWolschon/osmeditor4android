@@ -55,6 +55,10 @@
 </li>
                                     
 <li>
+    <a href="../../help/en/20.0.0%20Release%20notes/" class="dropdown-item">20.0.0 Release notes</a>
+</li>
+                                    
+<li>
     <a href="../../help/en/19.3.0%20Release%20notes/" class="dropdown-item">19.3.0 Release notes</a>
 </li>
                                     
@@ -390,6 +394,10 @@
               <ul class="nav flex-column">
               </ul>
             </li>
+            <li class="nav-item" data-level="2"><a href="#supported-links" class="nav-link">Supported links</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
         </ul>
@@ -421,6 +429,10 @@
 <p>Further supported attributes:</p>
 <p><em>changeset_comment</em>: a draft changeset comment. (added in version 13.1)
 <em>changeset_source</em>: a draft changeset source. (added in version 13.1)</p>
+<p><strong>Load objects</strong></p>
+<p>josm:/load_and_object?objects=<em>osmobjects</em></p>
+<p><em>osmobjects</em>: optional, comma separated list of OSM objects in the form <em>abbreviationID</em>, ie n1111111,w1234456. </p>
+<p>Downloads the objects if they are not already present. (added in version 20.0)</p>
 <p><strong>Configure imagery</strong> (added in version 13.1)</p>
 <p>josm:/imagery?title=<em>title</em>&amp;type=<em>type</em>&amp;min_zoom=<em>min_zoom</em>&amp;max_zoom=<em>max_zoom</em>&amp;url=<em>url</em></p>
 <p><em>title</em> the title/name of the layer
@@ -441,7 +453,20 @@
 <p>for the <strong>load_and_zoom</strong> command, and        </p>
 <pre><code>intent:/imagery?title=osmtest&amp;type=tms&amp;min_zoom=2&amp;max_zoom=19&amp;url=https://a.tile.openstreetmap.org/%7Bzoom%7D/%7Bx%7D/%7By%7D.png#Intent;scheme=josm;end;
 </code></pre>
-<p>for the <strong>imagery</strong> command.</p></div> -->
+<p>for the <strong>imagery</strong> command.</p>
+<h2 id="supported-links">Supported links<a class="headerlink" href="#supported-links" title="Permanent link">#</a></h2>
+<p>From version 20 on Vespucci supports opening links to the OpenStreetMap website referring to individual OSM elements (hosts <em>openstreetmap.org</em>, <em>www.openstreetmap.org</em>, 
+<em>osm.org</em>, <em>www.osm.org</em>).</p>
+<p>Supported paths are <em>/node/nnn</em>, <em>/way/nnn</em>, /relation/nnn_ and <em>/note/nnn</em> (trailing map hashes will be ignored).</p>
+<p>Examples: </p>
+<pre><code>https://www.openstreetmap.org/node/1
+
+https://www.openstreetmap.org/note/100
+</code></pre>
+<p>Notes 
+- This will not work with links on openstreetmap.org itself, but will with other sites.
+- Depending on the browser you are using you may need to explicitly allow opening links in apps.
+- On modern Android versions you may have to explicitly allow this to work in the app configuration.</p></div> -->
 		    
                     	<div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
     <div class="navbar-header">
@@ -461,6 +486,10 @@
               </ul>
             </li>
             <li class="nav-item" data-level="2"><a href="#notes-on-josm-style-remote-control" class="nav-link">Notes on JOSM style remote control</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#supported-links" class="nav-link">Supported links</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -495,6 +524,10 @@
 <p>Further supported attributes:</p>
 <p><em>changeset_comment</em>: a draft changeset comment. (added in version 13.1)
 <em>changeset_source</em>: a draft changeset source. (added in version 13.1)</p>
+<p><strong>Load objects</strong></p>
+<p>josm:/load_and_object?objects=<em>osmobjects</em></p>
+<p><em>osmobjects</em>: optional, comma separated list of OSM objects in the form <em>abbreviationID</em>, ie n1111111,w1234456. </p>
+<p>Downloads the objects if they are not already present. (added in version 20.0)</p>
 <p><strong>Configure imagery</strong> (added in version 13.1)</p>
 <p>josm:/imagery?title=<em>title</em>&amp;type=<em>type</em>&amp;min_zoom=<em>min_zoom</em>&amp;max_zoom=<em>max_zoom</em>&amp;url=<em>url</em></p>
 <p><em>title</em> the title/name of the layer
@@ -515,7 +548,20 @@
 <p>for the <strong>load_and_zoom</strong> command, and        </p>
 <pre><code>intent:/imagery?title=osmtest&amp;type=tms&amp;min_zoom=2&amp;max_zoom=19&amp;url=https://a.tile.openstreetmap.org/%7Bzoom%7D/%7Bx%7D/%7By%7D.png#Intent;scheme=josm;end;
 </code></pre>
-<p>for the <strong>imagery</strong> command.</p></div>
+<p>for the <strong>imagery</strong> command.</p>
+<h2 id="supported-links">Supported links<a class="headerlink" href="#supported-links" title="Permanent link">#</a></h2>
+<p>From version 20 on Vespucci supports opening links to the OpenStreetMap website referring to individual OSM elements (hosts <em>openstreetmap.org</em>, <em>www.openstreetmap.org</em>, 
+<em>osm.org</em>, <em>www.osm.org</em>).</p>
+<p>Supported paths are <em>/node/nnn</em>, <em>/way/nnn</em>, /relation/nnn_ and <em>/note/nnn</em> (trailing map hashes will be ignored).</p>
+<p>Examples: </p>
+<pre><code>https://www.openstreetmap.org/node/1
+
+https://www.openstreetmap.org/note/100
+</code></pre>
+<p>Notes 
+- This will not work with links on openstreetmap.org itself, but will with other sites.
+- Depending on the browser you are using you may need to explicitly allow opening links in apps.
+- On modern Android versions you may have to explicitly allow this to work in the app configuration.</p></div>
                     
             </div>
         </div>
@@ -523,7 +569,7 @@
         <footer class="col-md-12">
             <hr>
 	    <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 19.3.0 </p>
+	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 20.0.0 </p>
         </footer>
         <script>
             var base_url = "../..",

@@ -55,6 +55,10 @@
 </li>
                                     
 <li>
+    <a href="../../help/en/20.0.0%20Release%20notes/" class="dropdown-item">20.0.0 Release notes</a>
+</li>
+                                    
+<li>
     <a href="../../help/en/19.3.0%20Release%20notes/" class="dropdown-item">19.3.0 Release notes</a>
 </li>
                                     
@@ -410,7 +414,7 @@
 <div class="col-md-9" role="main">
 
 <h1 id="vespucci-preset-system">Vespucci Preset System<a class="headerlink" href="#vespucci-preset-system" title="Permanent link">#</a></h1>
-<p><em>Documentation for Vespucci 19.2</em></p>
+<p><em>Documentation for Vespucci 20.0</em></p>
 <p>As explained in the <a href="../../help/en/Presets/">help documentation</a> Vespucci uses JOSM compatible presets, currently any preset used in JOSM should simply work with Vespucci, however there can be differences. Particularly with the new preset driven tagging interface presets have become even more important and if you are writing presets yourself and want them to work well in Vespucci please keep on reading.</p>
 <h2 id="preset-driven-tag-editing-in-vespucci">Preset-Driven Tag-Editing in Vespucci<a class="headerlink" href="#preset-driven-tag-editing-in-vespucci" title="Permanent link">#</a></h2>
 <p><img alt=" " src="../images/form_editor_small.png" /></p>
@@ -557,7 +561,7 @@
 <td></td>
 <td>type</td>
 <td>supported</td>
-<td></td>
+<td>extension: "area" is supported as a replacement for "multipolygon" and matches closed ways with an area=yes tag besides multipolygons</td>
 </tr>
 <tr>
 <td></td>
@@ -674,6 +678,18 @@
 <td>If present and true or false the tag will be considered as defining/not-defining a top level object, overriding the normal rules</td>
 </tr>
 <tr>
+<td></td>
+<td>regions</td>
+<td>extension</td>
+<td>comma separated list of countries this preset group is applicable for</td>
+</tr>
+<tr>
+<td></td>
+<td>exclude_regions</td>
+<td>extension</td>
+<td>if true, invert the meaning of regions</td>
+</tr>
+<tr>
 <td><strong>&lt;text&gt;</strong></td>
 <td></td>
 <td>supported</td>
@@ -756,6 +772,18 @@
 <td>value_type</td>
 <td>extension</td>
 <td>indicate the kind of value this tag should have</td>
+</tr>
+<tr>
+<td></td>
+<td>regions</td>
+<td>supported</td>
+<td>comma separated list of countries this preset group is applicable for</td>
+</tr>
+<tr>
+<td></td>
+<td>exclude_regions</td>
+<td>supported</td>
+<td>if true, invert the meaning of regions</td>
 </tr>
 <tr>
 <td><strong>&lt;combo&gt;</strong></td>
@@ -870,6 +898,18 @@
 <td>values_from</td>
 <td>supported</td>
 <td>extension: if the target method supports a String argument the current key will be passed</td>
+</tr>
+<tr>
+<td></td>
+<td>regions</td>
+<td>supported</td>
+<td>comma separated list of countries this preset group is applicable for</td>
+</tr>
+<tr>
+<td></td>
+<td>exclude_regions</td>
+<td>supported</td>
+<td>if true, invert the meaning of regions</td>
 </tr>
 <tr>
 <td><strong>&lt;multiselect&gt;</strong></td>
@@ -998,6 +1038,18 @@
 <td>reference to a tag that will hold the number of values this multiselect should contain</td>
 </tr>
 <tr>
+<td></td>
+<td>regions</td>
+<td>supported</td>
+<td>comma separated list of countries this preset group is applicable for</td>
+</tr>
+<tr>
+<td></td>
+<td>exclude_regions</td>
+<td>supported</td>
+<td>if true, invert the meaning of regions</td>
+</tr>
+<tr>
 <td><strong>&lt;list_entry&gt;</strong></td>
 <td></td>
 <td>supported</td>
@@ -1040,6 +1092,18 @@
 <td></td>
 </tr>
 <tr>
+<td></td>
+<td>regions</td>
+<td>supported</td>
+<td>comma separated list of countries this preset group is applicable for</td>
+</tr>
+<tr>
+<td></td>
+<td>exclude_regions</td>
+<td>supported</td>
+<td>if true, invert the meaning of regions</td>
+</tr>
+<tr>
 <td><strong>&lt;checkgroup&gt;</strong></td>
 <td></td>
 <td>supported</td>
@@ -1062,6 +1126,18 @@
 <td>text_context</td>
 <td>extension</td>
 <td></td>
+</tr>
+<tr>
+<td></td>
+<td>regions</td>
+<td>supported</td>
+<td>comma separated list of countries this preset group is applicable for</td>
+</tr>
+<tr>
+<td></td>
+<td>exclude_regions</td>
+<td>supported</td>
+<td>if true, invert the meaning of regions</td>
 </tr>
 <tr>
 <td><strong>&lt;check&gt;</strong></td>
@@ -1130,16 +1206,52 @@
 <td>"force" has the same effect as "true"</td>
 </tr>
 <tr>
+<td></td>
+<td>regions</td>
+<td>supported</td>
+<td>comma separated list of countries this preset group is applicable for</td>
+</tr>
+<tr>
+<td></td>
+<td>exclude_regions</td>
+<td>supported</td>
+<td>if true, invert the meaning of regions</td>
+</tr>
+<tr>
 <td><strong>&lt;label&gt;</strong></td>
 <td></td>
 <td>supported</td>
 <td></td>
 </tr>
 <tr>
+<td></td>
+<td>regions</td>
+<td>extension</td>
+<td>comma separated list of countries this preset group is applicable for</td>
+</tr>
+<tr>
+<td></td>
+<td>exclude_regions</td>
+<td>extension</td>
+<td>if true, invert the meaning of regions</td>
+</tr>
+<tr>
 <td><strong>&lt;space/&gt;</strong></td>
 <td></td>
-<td>ignored</td>
+<td>supported</td>
 <td></td>
+</tr>
+<tr>
+<td></td>
+<td>regions</td>
+<td>extension</td>
+<td>comma separated list of countries this preset group is applicable for</td>
+</tr>
+<tr>
+<td></td>
+<td>exclude_regions</td>
+<td>extension</td>
+<td>if true, invert the meaning of regions</td>
 </tr>
 <tr>
 <td><strong>&lt;optional&gt;</strong></td>
@@ -1162,8 +1274,20 @@
 <tr>
 <td><strong>&lt;item_separator/&gt;</strong></td>
 <td></td>
-<td>ignored</td>
+<td>supported</td>
 <td></td>
+</tr>
+<tr>
+<td></td>
+<td>regions</td>
+<td>extension</td>
+<td>comma separated list of countries this preset group is applicable for</td>
+</tr>
+<tr>
+<td></td>
+<td>exclude_regions</td>
+<td>extension</td>
+<td>if true, invert the meaning of regions</td>
 </tr>
 <tr>
 <td><strong>&lt;link&gt;</strong></td>
@@ -1244,6 +1368,18 @@
 <td></td>
 </tr>
 <tr>
+<td></td>
+<td>regions</td>
+<td>extension</td>
+<td>comma separated list of countries this preset group is applicable for</td>
+</tr>
+<tr>
+<td></td>
+<td>exclude_regions</td>
+<td>extension</td>
+<td>if true, invert the meaning of regions</td>
+</tr>
+<tr>
 <td><strong>&lt;preset_link&gt;</strong></td>
 <td></td>
 <td>supported</td>
@@ -1299,8 +1435,8 @@ work with JOSM.</p>
 <li>
 <p><em>items_sort</em> this controls sorting of items in groups, the default is "yes", any other value will disable sorting, the sorting preserves structure. Note: the preset root groups are currently not sortable.</p>
 </li>
-<li><em>regions</em> comma separated list of countries this preset group or item is applicable for.</li>
-<li><em>exclude_regions</em> if true, invert the meaning of regions.</li>
+<li><em>regions</em> comma separated list of countries this preset group or item is applicable for. Note that from JOSM 18918 on the only difference is that we support the region related tags on combo, multiselect (and not just the values), and the formatting tags.</li>
+<li><em>exclude_regions</em> if true, invert the meaning of regions. See above for details.</li>
 <li><em>autoapply</em> if true (default), allow auto-applying of the item.</li>
 <li><em>min_match</em> modifies Vespuccis matching algorithm to use the specified number of fixed tag matches instead of expecting all to match.</li>
 <li><em>value_count_key</em> reference to a tag that will hold the number of values this multiselect should contain. Example for the destination:lanes tag this would be value_count_key="lanes".</li>
@@ -1349,7 +1485,7 @@ work with JOSM.</p>
                     	<div class="col-md-9" role="main">
 
 <h1 id="vespucci-preset-system">Vespucci Preset System<a class="headerlink" href="#vespucci-preset-system" title="Permanent link">#</a></h1>
-<p><em>Documentation for Vespucci 19.2</em></p>
+<p><em>Documentation for Vespucci 20.0</em></p>
 <p>As explained in the <a href="../../help/en/Presets/">help documentation</a> Vespucci uses JOSM compatible presets, currently any preset used in JOSM should simply work with Vespucci, however there can be differences. Particularly with the new preset driven tagging interface presets have become even more important and if you are writing presets yourself and want them to work well in Vespucci please keep on reading.</p>
 <h2 id="preset-driven-tag-editing-in-vespucci">Preset-Driven Tag-Editing in Vespucci<a class="headerlink" href="#preset-driven-tag-editing-in-vespucci" title="Permanent link">#</a></h2>
 <p><img alt=" " src="../images/form_editor_small.png" /></p>
@@ -1496,7 +1632,7 @@ work with JOSM.</p>
 <td></td>
 <td>type</td>
 <td>supported</td>
-<td></td>
+<td>extension: "area" is supported as a replacement for "multipolygon" and matches closed ways with an area=yes tag besides multipolygons</td>
 </tr>
 <tr>
 <td></td>
@@ -1613,6 +1749,18 @@ work with JOSM.</p>
 <td>If present and true or false the tag will be considered as defining/not-defining a top level object, overriding the normal rules</td>
 </tr>
 <tr>
+<td></td>
+<td>regions</td>
+<td>extension</td>
+<td>comma separated list of countries this preset group is applicable for</td>
+</tr>
+<tr>
+<td></td>
+<td>exclude_regions</td>
+<td>extension</td>
+<td>if true, invert the meaning of regions</td>
+</tr>
+<tr>
 <td><strong>&lt;text&gt;</strong></td>
 <td></td>
 <td>supported</td>
@@ -1695,6 +1843,18 @@ work with JOSM.</p>
 <td>value_type</td>
 <td>extension</td>
 <td>indicate the kind of value this tag should have</td>
+</tr>
+<tr>
+<td></td>
+<td>regions</td>
+<td>supported</td>
+<td>comma separated list of countries this preset group is applicable for</td>
+</tr>
+<tr>
+<td></td>
+<td>exclude_regions</td>
+<td>supported</td>
+<td>if true, invert the meaning of regions</td>
 </tr>
 <tr>
 <td><strong>&lt;combo&gt;</strong></td>
@@ -1809,6 +1969,18 @@ work with JOSM.</p>
 <td>values_from</td>
 <td>supported</td>
 <td>extension: if the target method supports a String argument the current key will be passed</td>
+</tr>
+<tr>
+<td></td>
+<td>regions</td>
+<td>supported</td>
+<td>comma separated list of countries this preset group is applicable for</td>
+</tr>
+<tr>
+<td></td>
+<td>exclude_regions</td>
+<td>supported</td>
+<td>if true, invert the meaning of regions</td>
 </tr>
 <tr>
 <td><strong>&lt;multiselect&gt;</strong></td>
@@ -1937,6 +2109,18 @@ work with JOSM.</p>
 <td>reference to a tag that will hold the number of values this multiselect should contain</td>
 </tr>
 <tr>
+<td></td>
+<td>regions</td>
+<td>supported</td>
+<td>comma separated list of countries this preset group is applicable for</td>
+</tr>
+<tr>
+<td></td>
+<td>exclude_regions</td>
+<td>supported</td>
+<td>if true, invert the meaning of regions</td>
+</tr>
+<tr>
 <td><strong>&lt;list_entry&gt;</strong></td>
 <td></td>
 <td>supported</td>
@@ -1979,6 +2163,18 @@ work with JOSM.</p>
 <td></td>
 </tr>
 <tr>
+<td></td>
+<td>regions</td>
+<td>supported</td>
+<td>comma separated list of countries this preset group is applicable for</td>
+</tr>
+<tr>
+<td></td>
+<td>exclude_regions</td>
+<td>supported</td>
+<td>if true, invert the meaning of regions</td>
+</tr>
+<tr>
 <td><strong>&lt;checkgroup&gt;</strong></td>
 <td></td>
 <td>supported</td>
@@ -2001,6 +2197,18 @@ work with JOSM.</p>
 <td>text_context</td>
 <td>extension</td>
 <td></td>
+</tr>
+<tr>
+<td></td>
+<td>regions</td>
+<td>supported</td>
+<td>comma separated list of countries this preset group is applicable for</td>
+</tr>
+<tr>
+<td></td>
+<td>exclude_regions</td>
+<td>supported</td>
+<td>if true, invert the meaning of regions</td>
 </tr>
 <tr>
 <td><strong>&lt;check&gt;</strong></td>
@@ -2069,16 +2277,52 @@ work with JOSM.</p>
 <td>"force" has the same effect as "true"</td>
 </tr>
 <tr>
+<td></td>
+<td>regions</td>
+<td>supported</td>
+<td>comma separated list of countries this preset group is applicable for</td>
+</tr>
+<tr>
+<td></td>
+<td>exclude_regions</td>
+<td>supported</td>
+<td>if true, invert the meaning of regions</td>
+</tr>
+<tr>
 <td><strong>&lt;label&gt;</strong></td>
 <td></td>
 <td>supported</td>
 <td></td>
 </tr>
 <tr>
+<td></td>
+<td>regions</td>
+<td>extension</td>
+<td>comma separated list of countries this preset group is applicable for</td>
+</tr>
+<tr>
+<td></td>
+<td>exclude_regions</td>
+<td>extension</td>
+<td>if true, invert the meaning of regions</td>
+</tr>
+<tr>
 <td><strong>&lt;space/&gt;</strong></td>
 <td></td>
-<td>ignored</td>
+<td>supported</td>
 <td></td>
+</tr>
+<tr>
+<td></td>
+<td>regions</td>
+<td>extension</td>
+<td>comma separated list of countries this preset group is applicable for</td>
+</tr>
+<tr>
+<td></td>
+<td>exclude_regions</td>
+<td>extension</td>
+<td>if true, invert the meaning of regions</td>
 </tr>
 <tr>
 <td><strong>&lt;optional&gt;</strong></td>
@@ -2101,8 +2345,20 @@ work with JOSM.</p>
 <tr>
 <td><strong>&lt;item_separator/&gt;</strong></td>
 <td></td>
-<td>ignored</td>
+<td>supported</td>
 <td></td>
+</tr>
+<tr>
+<td></td>
+<td>regions</td>
+<td>extension</td>
+<td>comma separated list of countries this preset group is applicable for</td>
+</tr>
+<tr>
+<td></td>
+<td>exclude_regions</td>
+<td>extension</td>
+<td>if true, invert the meaning of regions</td>
 </tr>
 <tr>
 <td><strong>&lt;link&gt;</strong></td>
@@ -2183,6 +2439,18 @@ work with JOSM.</p>
 <td></td>
 </tr>
 <tr>
+<td></td>
+<td>regions</td>
+<td>extension</td>
+<td>comma separated list of countries this preset group is applicable for</td>
+</tr>
+<tr>
+<td></td>
+<td>exclude_regions</td>
+<td>extension</td>
+<td>if true, invert the meaning of regions</td>
+</tr>
+<tr>
 <td><strong>&lt;preset_link&gt;</strong></td>
 <td></td>
 <td>supported</td>
@@ -2238,8 +2506,8 @@ work with JOSM.</p>
 <li>
 <p><em>items_sort</em> this controls sorting of items in groups, the default is "yes", any other value will disable sorting, the sorting preserves structure. Note: the preset root groups are currently not sortable.</p>
 </li>
-<li><em>regions</em> comma separated list of countries this preset group or item is applicable for.</li>
-<li><em>exclude_regions</em> if true, invert the meaning of regions.</li>
+<li><em>regions</em> comma separated list of countries this preset group or item is applicable for. Note that from JOSM 18918 on the only difference is that we support the region related tags on combo, multiselect (and not just the values), and the formatting tags.</li>
+<li><em>exclude_regions</em> if true, invert the meaning of regions. See above for details.</li>
 <li><em>autoapply</em> if true (default), allow auto-applying of the item.</li>
 <li><em>min_match</em> modifies Vespuccis matching algorithm to use the specified number of fixed tag matches instead of expecting all to match.</li>
 <li><em>value_count_key</em> reference to a tag that will hold the number of values this multiselect should contain. Example for the destination:lanes tag this would be value_count_key="lanes".</li>
@@ -2253,7 +2521,7 @@ work with JOSM.</p>
         <footer class="col-md-12">
             <hr>
 	    <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 19.3.0 </p>
+	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 20.0.0 </p>
         </footer>
         <script>
             var base_url = "../..",

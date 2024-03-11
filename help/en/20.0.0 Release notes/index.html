@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../../../img/favicon.ico">
-        <title>12.1.0 Release notes - Vespucci</title>
+        <title>20.0.0 Release notes - Vespucci</title>
         <link href="../../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../../css/base.css" rel="stylesheet">
@@ -55,7 +55,7 @@
 </li>
                                     
 <li>
-    <a href="../20.0.0%20Release%20notes/" class="dropdown-item">20.0.0 Release notes</a>
+    <a href="./" class="dropdown-item active">20.0.0 Release notes</a>
 </li>
                                     
 <li>
@@ -127,7 +127,7 @@
 </li>
                                     
 <li>
-    <a href="./" class="dropdown-item active">12.1.0 Release notes</a>
+    <a href="../12.1.0%20Release%20notes/" class="dropdown-item">12.1.0 Release notes</a>
 </li>
                                     
 <li>
@@ -357,12 +357,12 @@
 
 <!--
                             <li class="nav-item">
-                                <a rel="prev" href="../13.0.0%20Release%20notes/" class="nav-link">
+                                <a rel="prev" href="../../../tutorials/features/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../12.0.0%20Release%20notes/" class="nav-link">
+                                <a rel="next" href="../19.3.0%20Release%20notes/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li> -->
@@ -384,7 +384,7 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#vespucci-121-highlights" class="nav-link">Vespucci 12.1 Highlights</a>
+            <li class="nav-item" data-level="1"><a href="#vespucci-200-beta-highlights" class="nav-link">Vespucci 20.0 BETA Highlights</a>
               <ul class="nav flex-column">
             <li class="nav-item" data-level="2"><a href="#miscellaneous" class="nav-link">Miscellaneous</a>
               <ul class="nav flex-column">
@@ -407,25 +407,59 @@
 </div></div>
 <div class="col-md-9" role="main">
 
-<h1 id="vespucci-121-highlights">Vespucci 12.1 Highlights<a class="headerlink" href="#vespucci-121-highlights" title="Permanent link">#</a></h1>
-<p>2019-01-20</p>
-<p>This is a minor release with little new functionality, however as the preset support changes are not backwards compatible it was not suitable for a patch release.</p>
+<h1 id="vespucci-200-beta-highlights">Vespucci 20.0 BETA Highlights<a class="headerlink" href="#vespucci-200-beta-highlights" title="Permanent link">#</a></h1>
+<p>2024-03-11</p>
+<h3 id="oauth-2-support">OAuth 2 support<a class="headerlink" href="#oauth-2-support" title="Permanent link">#</a></h3>
+<p>This version adds support for OAuth 2 authorization, new installs will have this configured as default for the regular openstreetmap.org and developer sandbox API configurations. Existing
+installations will get a one time indication that they should migrate with a "one click" way to do this on updates, however this can be skipped and the migration can be executed manually.</p>
+<p>For the foreseeable future we will continue to support OAuth 1.0a and login / password authentication.  </p>
+<h3 id="end-of-support-for-android-41-to-44-postponed">End of support for Android 4.1 to 4.4 postponed<a class="headerlink" href="#end-of-support-for-android-41-to-44-postponed" title="Permanent link">#</a></h3>
+<p>Instead of in this version we will be removing the support in version 20.1 which will likely be available in the third quarter of 2024. For further details please see the 19.3 relase notes.</p>
+<h3 id="create-circle-and-align-nodes-in-circle-improvements">Create circle and align nodes in circle improvements<a class="headerlink" href="#create-circle-and-align-nodes-in-circle-improvements" title="Permanent link">#</a></h3>
+<p>We've added a <em>Create circle</em> function that will create a circle from three selected nodes, and have modified the <em>Align in circle</em> method to add nodes. The minimum number of nodes in a circle, the maximum circle segment length, and the minimum circle segment length can be set in the <em>Advanced preferences</em>.</p>
+<h3 id="follow-way">Follow way<a class="headerlink" href="#follow-way" title="Permanent link">#</a></h3>
+<p>When creating a new way by using nodes of an existing way Vespucci can now follow the existing way to a node on the way. This can be done multiple times during the process of creating the new way.</p>
+<h3 id="support-localised-values-in-presets-and-improved-formatting-support">Support localised values in presets and improved formatting support<a class="headerlink" href="#support-localised-values-in-presets-and-improved-formatting-support" title="Permanent link">#</a></h3>
+<p>Since version 14.0 released in October 2019 we have supported region specific preset items, version 20 takes this further by supporting localization at the level of individual preset values level. This allows, for example, country specific payment options in the payment preset only to be shown for objects in that country without the need to create a full country specific item.</p>
+<p>Additionally we have added support for <em>space</em> and <em>item_separator</em> elements that help to make the tag form visually easier to digest. </p>
+<h3 id="improved-conflict-handling">Improved conflict handling<a class="headerlink" href="#improved-conflict-handling" title="Permanent link">#</a></h3>
+<p>Conflict resolution have been substantially improved making at least simple cases much easier to handle on the road. Please see the dedicated help page on <em>Conflict resolution</em> for more information.</p>
+<h3 id="support-for-opening-openstreetmap-website-links">Support for opening OpenStreetMap website links<a class="headerlink" href="#support-for-opening-openstreetmap-website-links" title="Permanent link">#</a></h3>
+<p>Vespucci now supports opening element and note links on openstreetmap.org in the app if these are opened on another website (so not for navigation on openstreetmap.org itself). Depending on the Android version you may have to enable this in the system app configuration.</p>
+<p>Example <a href="https://openstreetmap.org/node/1">https://openstreetmap.org/node/1</a> will download (if it isn't already loaded), zoom to and select node 1.</p>
+<h3 id="improved-new-user-on-boarding">Improved new user on boarding<a class="headerlink" href="#improved-new-user-on-boarding" title="Permanent link">#</a></h3>
+<p>New installs can now configure some important setting in the welcome dialog and directly start the app authorization process.</p>
+<h3 id="mode-switching-available-from-menu">Mode switching available from menu<a class="headerlink" href="#mode-switching-available-from-menu" title="Permanent link">#</a></h3>
+<p>To make the functionality more discoverable, mode switching is now available from the <em>Modes</em> entry in the main overflow menu additionally to from the lock button. Enabling or disabling of <em>Simple mode</em> has moved to the submenu to for consistency reasons. </p>
 <h2 id="miscellaneous">Miscellaneous<a class="headerlink" href="#miscellaneous" title="Permanent link">#</a></h2>
 <ul>
-<li><del>Use most recently used tags when applying preset</del> (Reverted in 12.1.2)</li>
-<li>Support "wiki" attribute in presets</li>
-<li>Support splitting via ways in turn-restrictions</li>
-<li>Add marker to share on OpenStreetMap URL</li>
-<li>multiple small behaviour improvements</li>
+<li>Better error handling when auto-downloading</li>
+<li>Added some new style "expressions" for use in filters to mapbox-gl support</li>
+<li>Add mobile and contact:mobile to phone keys</li>
+<li>Sort relation lists by distance to an OsmElement or list of them</li>
+<li>Support CRS:84 for wms imagery configuration and endpoints, inherit CRS/SRS values</li>
+<li>Handle hidden notes</li>
+<li>Align how the way rotation mode work more with the similar modes</li>
+<li>Validate connections to multi-polygons with appropriate tags</li>
+<li>Improve how we handle closed ways with indication that they are areas</li>
+<li>More keyboard shortcuts and update documentation</li>
+<li>Use number of current download bounding boxes as further prune condition</li>
+<li>Add natural=earth_bank to non-reversible tags</li>
+<li>Add bounding box count display to data and task info modal</li>
+<li>Support translations of tile layer names and descriptions</li>
+<li>Support for multiple file selection for creating layers (GPX and GeoJSON)</li>
+<li>Make using the volume keys for zooming dependent on a preference</li>
+<li>Add image information modal to image viewer</li>
+<li>Add explicit handling for 509 error on download and 429 in upload</li>
 </ul>
 <h1 id="upgrading-from-previous-versions">Upgrading from previous versions<a class="headerlink" href="#upgrading-from-previous-versions" title="Permanent link">#</a></h1>
 <ul>
-<li>As the saved task state file format changed for version 12.0, please complete any edits before upgrading if your current version is older.</li>
+<li>As the saved state file has changed you should upload any pending changes before updating.</li>
 </ul>
 <h1 id="known-problems">Known problems<a class="headerlink" href="#known-problems" title="Permanent link">#</a></h1>
 <ul>
-<li>the documentation is out of date.</li>
-<li>For known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
+<li>The documentation is out of date.</li>
+<li>For other known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
 </ul></div> -->
 		    
                     	<div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
@@ -439,7 +473,7 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#vespucci-121-highlights" class="nav-link">Vespucci 12.1 Highlights</a>
+            <li class="nav-item" data-level="1"><a href="#vespucci-200-beta-highlights" class="nav-link">Vespucci 20.0 BETA Highlights</a>
               <ul class="nav flex-column">
             <li class="nav-item" data-level="2"><a href="#miscellaneous" class="nav-link">Miscellaneous</a>
               <ul class="nav flex-column">
@@ -462,25 +496,59 @@
 </div></div>
                     	<div class="col-md-9" role="main">
 
-<h1 id="vespucci-121-highlights">Vespucci 12.1 Highlights<a class="headerlink" href="#vespucci-121-highlights" title="Permanent link">#</a></h1>
-<p>2019-01-20</p>
-<p>This is a minor release with little new functionality, however as the preset support changes are not backwards compatible it was not suitable for a patch release.</p>
+<h1 id="vespucci-200-beta-highlights">Vespucci 20.0 BETA Highlights<a class="headerlink" href="#vespucci-200-beta-highlights" title="Permanent link">#</a></h1>
+<p>2024-03-11</p>
+<h3 id="oauth-2-support">OAuth 2 support<a class="headerlink" href="#oauth-2-support" title="Permanent link">#</a></h3>
+<p>This version adds support for OAuth 2 authorization, new installs will have this configured as default for the regular openstreetmap.org and developer sandbox API configurations. Existing
+installations will get a one time indication that they should migrate with a "one click" way to do this on updates, however this can be skipped and the migration can be executed manually.</p>
+<p>For the foreseeable future we will continue to support OAuth 1.0a and login / password authentication.  </p>
+<h3 id="end-of-support-for-android-41-to-44-postponed">End of support for Android 4.1 to 4.4 postponed<a class="headerlink" href="#end-of-support-for-android-41-to-44-postponed" title="Permanent link">#</a></h3>
+<p>Instead of in this version we will be removing the support in version 20.1 which will likely be available in the third quarter of 2024. For further details please see the 19.3 relase notes.</p>
+<h3 id="create-circle-and-align-nodes-in-circle-improvements">Create circle and align nodes in circle improvements<a class="headerlink" href="#create-circle-and-align-nodes-in-circle-improvements" title="Permanent link">#</a></h3>
+<p>We've added a <em>Create circle</em> function that will create a circle from three selected nodes, and have modified the <em>Align in circle</em> method to add nodes. The minimum number of nodes in a circle, the maximum circle segment length, and the minimum circle segment length can be set in the <em>Advanced preferences</em>.</p>
+<h3 id="follow-way">Follow way<a class="headerlink" href="#follow-way" title="Permanent link">#</a></h3>
+<p>When creating a new way by using nodes of an existing way Vespucci can now follow the existing way to a node on the way. This can be done multiple times during the process of creating the new way.</p>
+<h3 id="support-localised-values-in-presets-and-improved-formatting-support">Support localised values in presets and improved formatting support<a class="headerlink" href="#support-localised-values-in-presets-and-improved-formatting-support" title="Permanent link">#</a></h3>
+<p>Since version 14.0 released in October 2019 we have supported region specific preset items, version 20 takes this further by supporting localization at the level of individual preset values level. This allows, for example, country specific payment options in the payment preset only to be shown for objects in that country without the need to create a full country specific item.</p>
+<p>Additionally we have added support for <em>space</em> and <em>item_separator</em> elements that help to make the tag form visually easier to digest. </p>
+<h3 id="improved-conflict-handling">Improved conflict handling<a class="headerlink" href="#improved-conflict-handling" title="Permanent link">#</a></h3>
+<p>Conflict resolution have been substantially improved making at least simple cases much easier to handle on the road. Please see the dedicated help page on <em>Conflict resolution</em> for more information.</p>
+<h3 id="support-for-opening-openstreetmap-website-links">Support for opening OpenStreetMap website links<a class="headerlink" href="#support-for-opening-openstreetmap-website-links" title="Permanent link">#</a></h3>
+<p>Vespucci now supports opening element and note links on openstreetmap.org in the app if these are opened on another website (so not for navigation on openstreetmap.org itself). Depending on the Android version you may have to enable this in the system app configuration.</p>
+<p>Example <a href="https://openstreetmap.org/node/1">https://openstreetmap.org/node/1</a> will download (if it isn't already loaded), zoom to and select node 1.</p>
+<h3 id="improved-new-user-on-boarding">Improved new user on boarding<a class="headerlink" href="#improved-new-user-on-boarding" title="Permanent link">#</a></h3>
+<p>New installs can now configure some important setting in the welcome dialog and directly start the app authorization process.</p>
+<h3 id="mode-switching-available-from-menu">Mode switching available from menu<a class="headerlink" href="#mode-switching-available-from-menu" title="Permanent link">#</a></h3>
+<p>To make the functionality more discoverable, mode switching is now available from the <em>Modes</em> entry in the main overflow menu additionally to from the lock button. Enabling or disabling of <em>Simple mode</em> has moved to the submenu to for consistency reasons. </p>
 <h2 id="miscellaneous">Miscellaneous<a class="headerlink" href="#miscellaneous" title="Permanent link">#</a></h2>
 <ul>
-<li><del>Use most recently used tags when applying preset</del> (Reverted in 12.1.2)</li>
-<li>Support "wiki" attribute in presets</li>
-<li>Support splitting via ways in turn-restrictions</li>
-<li>Add marker to share on OpenStreetMap URL</li>
-<li>multiple small behaviour improvements</li>
+<li>Better error handling when auto-downloading</li>
+<li>Added some new style "expressions" for use in filters to mapbox-gl support</li>
+<li>Add mobile and contact:mobile to phone keys</li>
+<li>Sort relation lists by distance to an OsmElement or list of them</li>
+<li>Support CRS:84 for wms imagery configuration and endpoints, inherit CRS/SRS values</li>
+<li>Handle hidden notes</li>
+<li>Align how the way rotation mode work more with the similar modes</li>
+<li>Validate connections to multi-polygons with appropriate tags</li>
+<li>Improve how we handle closed ways with indication that they are areas</li>
+<li>More keyboard shortcuts and update documentation</li>
+<li>Use number of current download bounding boxes as further prune condition</li>
+<li>Add natural=earth_bank to non-reversible tags</li>
+<li>Add bounding box count display to data and task info modal</li>
+<li>Support translations of tile layer names and descriptions</li>
+<li>Support for multiple file selection for creating layers (GPX and GeoJSON)</li>
+<li>Make using the volume keys for zooming dependent on a preference</li>
+<li>Add image information modal to image viewer</li>
+<li>Add explicit handling for 509 error on download and 429 in upload</li>
 </ul>
 <h1 id="upgrading-from-previous-versions">Upgrading from previous versions<a class="headerlink" href="#upgrading-from-previous-versions" title="Permanent link">#</a></h1>
 <ul>
-<li>As the saved task state file format changed for version 12.0, please complete any edits before upgrading if your current version is older.</li>
+<li>As the saved state file has changed you should upload any pending changes before updating.</li>
 </ul>
 <h1 id="known-problems">Known problems<a class="headerlink" href="#known-problems" title="Permanent link">#</a></h1>
 <ul>
-<li>the documentation is out of date.</li>
-<li>For known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
+<li>The documentation is out of date.</li>
+<li>For other known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
 </ul></div>
                     
             </div>

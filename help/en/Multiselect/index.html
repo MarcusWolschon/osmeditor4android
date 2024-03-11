@@ -55,6 +55,10 @@
 </li>
                                     
 <li>
+    <a href="../20.0.0%20Release%20notes/" class="dropdown-item">20.0.0 Release notes</a>
+</li>
+                                    
+<li>
     <a href="../19.3.0%20Release%20notes/" class="dropdown-item">19.3.0 Release notes</a>
 </li>
                                     
@@ -410,6 +414,8 @@
 <p>Merge multiple selected ways resulting in a single way. Ways will be reversed if necessary. This option will only be available if only ways with common start/end nodes are selected, or the selection is two closed ways (polygons), in the later case if the polygons do not have common nodes a multi-polygon relation will be created and the ways added as members. If post-merge tag conflicts are detected you will be alerted. </p>
 <h3 id="add-node-at-intersection">Add node at intersection<a class="headerlink" href="#add-node-at-intersection" title="Permanent link">#</a></h3>
 <p>If two or more ways are selected and they intersect without a common node, a new node will be added at the first intersection found.</p>
+<h3 id="create-circle">Create circle<a class="headerlink" href="#create-circle" title="Permanent link">#</a></h3>
+<p>Creates a circle if at least three nodes are selected. If you select the nodes in clockwise/counterclockwise direction the resulting way will turn clockwise/counterclockwise. Nodes are spaced roughly 2 meters apart for larger circles. If additional nodes are too near to the original ones they will not be added. Note that if the selected nodes do not form a valid polygon, the behaviour of the function is undefined.</p>
 <h3 id="create-relation"><img alt="Relation" src="../../images/relation.png" /> Create relation<a class="headerlink" href="#create-relation" title="Permanent link">#</a></h3>
 <p>Create a relation starting with the current selected elements. The relation type can be selected from a list generated from the available presets. Further objects can be added until the check button is clicked, then the tag editor will be started on the new relation. </p>
 <h3 id="add-to-relation">Add to relation<a class="headerlink" href="#add-to-relation" title="Permanent link">#</a></h3>
@@ -466,6 +472,8 @@
 <p>Merge multiple selected ways resulting in a single way. Ways will be reversed if necessary. This option will only be available if only ways with common start/end nodes are selected, or the selection is two closed ways (polygons), in the later case if the polygons do not have common nodes a multi-polygon relation will be created and the ways added as members. If post-merge tag conflicts are detected you will be alerted. </p>
 <h3 id="add-node-at-intersection">Add node at intersection<a class="headerlink" href="#add-node-at-intersection" title="Permanent link">#</a></h3>
 <p>If two or more ways are selected and they intersect without a common node, a new node will be added at the first intersection found.</p>
+<h3 id="create-circle">Create circle<a class="headerlink" href="#create-circle" title="Permanent link">#</a></h3>
+<p>Creates a circle if at least three nodes are selected. If you select the nodes in clockwise/counterclockwise direction the resulting way will turn clockwise/counterclockwise. Nodes are spaced roughly 2 meters apart for larger circles. If additional nodes are too near to the original ones they will not be added. Note that if the selected nodes do not form a valid polygon, the behaviour of the function is undefined.</p>
 <h3 id="create-relation"><img alt="Relation" src="../../images/relation.png" /> Create relation<a class="headerlink" href="#create-relation" title="Permanent link">#</a></h3>
 <p>Create a relation starting with the current selected elements. The relation type can be selected from a list generated from the available presets. Further objects can be added until the check button is clicked, then the tag editor will be started on the new relation. </p>
 <h3 id="add-to-relation">Add to relation<a class="headerlink" href="#add-to-relation" title="Permanent link">#</a></h3>
@@ -487,7 +495,7 @@
         <footer class="col-md-12">
             <hr>
 	    <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 19.3.0 </p>
+	    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 20.0.0 </p>
         </footer>
         <script>
             var base_url = "../../..",

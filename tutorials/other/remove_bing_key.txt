@@ -1,1 +1,1 @@
-BING	imagery		true
+Bing	imagery		true
