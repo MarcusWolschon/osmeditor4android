@@ -405,7 +405,7 @@
 <li><em>using the server version</em> - this replaces the local version of the element with the server version, overwriting any changes you made locally.</li>
 </ul>
 <h3 id="referential-conflicts">Referential conflicts<a class="headerlink" href="#referential-conflicts" title="Permanent link">#</a></h3>
-<p>While Vespucci attempty to avoid this happening allow this to happen, a referential conflict happens when you delete an object locally, the server however still has objects that refer to the deleted one, which haven't been modified accordingly or you have local elements that refer to elements that have been deleted on the server.</p>
+<p>While Vespucci attempts to avoid this happening, a referential conflict can occur when you delete an object locally, and the server still has objects that refer to the deleted one, which haven't been modified accordingly or you have local elements that refer to elements that have been deleted on the server.</p>
 <p>In the first scenario you can resolve the issue by (for each element)</p>
 <ul>
 <li><em>undoing the local deletion</em> - this will utilize Vespuccis undo system to locate and undo the undo checkpoint that deleted the element, note that this may result in other elements being changed too.</li>
@@ -451,7 +451,7 @@
 <li><em>using the server version</em> - this replaces the local version of the element with the server version, overwriting any changes you made locally.</li>
 </ul>
 <h3 id="referential-conflicts">Referential conflicts<a class="headerlink" href="#referential-conflicts" title="Permanent link">#</a></h3>
-<p>While Vespucci attempty to avoid this happening allow this to happen, a referential conflict happens when you delete an object locally, the server however still has objects that refer to the deleted one, which haven't been modified accordingly or you have local elements that refer to elements that have been deleted on the server.</p>
+<p>While Vespucci attempts to avoid this happening, a referential conflict can occur when you delete an object locally, and the server still has objects that refer to the deleted one, which haven't been modified accordingly or you have local elements that refer to elements that have been deleted on the server.</p>
 <p>In the first scenario you can resolve the issue by (for each element)</p>
 <ul>
 <li><em>undoing the local deletion</em> - this will utilize Vespuccis undo system to locate and undo the undo checkpoint that deleted the element, note that this may result in other elements being changed too.</li>
