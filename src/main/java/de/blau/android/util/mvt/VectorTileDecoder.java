@@ -12,6 +12,8 @@
  ****************************************************************/
 package de.blau.android.util.mvt;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -40,10 +42,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import vector_tile.VectorTile;
 import vector_tile.VectorTile.Tile.GeomType;
+import vector_tile.VectorTile.Tile.Layer;
 
 public class VectorTileDecoder {
 
-    private static final String DEBUG_TAG = VectorTileDecoder.class.getSimpleName().substring(0, Math.min(23, VectorTileDecoder.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, VectorTileDecoder.class.getSimpleName().length());
+    private static final String DEBUG_TAG = VectorTileDecoder.class.getSimpleName().substring(0, TAG_LEN);
 
     private boolean autoScale = true;
 
