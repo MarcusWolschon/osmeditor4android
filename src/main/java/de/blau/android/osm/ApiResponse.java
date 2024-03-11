@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
  * 
  */
 public final class ApiResponse {
-    private static final String DEBUG_TAG = ApiResponse.class.getSimpleName();
+    private static final String DEBUG_TAG = ApiResponse.class.getSimpleName().substring(0, Math.min(23, ApiResponse.class.getSimpleName().length()));
 
     /**
      * These patterns are fairly, to very, unforgiving, hopefully API 0.7 will give the error codes back in a more

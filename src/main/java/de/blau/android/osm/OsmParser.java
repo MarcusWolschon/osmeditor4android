@@ -31,7 +31,7 @@ import de.blau.android.util.collections.LongOsmElementMap;
  * @author simon
  */
 public class OsmParser extends DefaultHandler {
-    private static final String DEBUG_TAG = OsmParser.class.getSimpleName();
+    private static final String DEBUG_TAG = OsmParser.class.getSimpleName().substring(0, Math.min(23, OsmParser.class.getSimpleName().length()));
 
     public static final String TIMESTAMP_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'";
 

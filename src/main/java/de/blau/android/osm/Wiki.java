@@ -25,7 +25,7 @@ import de.blau.android.presets.PresetItem;
 import de.blau.android.util.ExecutorTask;
 
 public final class Wiki {
-    private static final String DEBUG_TAG = Wiki.class.getSimpleName();
+    private static final String DEBUG_TAG = Wiki.class.getSimpleName().substring(0, Math.min(23, Wiki.class.getSimpleName().length()));
 
     private static final String API_ATTR_MISSING = "missing";
     private static final String API_ELEMENT_PAGE = "page";

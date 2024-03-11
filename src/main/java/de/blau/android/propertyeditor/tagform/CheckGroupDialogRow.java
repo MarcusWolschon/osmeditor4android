@@ -37,7 +37,7 @@ import de.blau.android.views.TriStateCheckBox;
  */
 public class CheckGroupDialogRow extends MultiselectDialogRow {
 
-    private static final String DEBUG_TAG = "CheckGroupDialogRow";
+    private static final String DEBUG_TAG = CheckGroupDialogRow.class.getSimpleName().substring(0, Math.min(23, CheckGroupDialogRow.class.getSimpleName().length()));
 
     Map<String, String> keyValues;
 

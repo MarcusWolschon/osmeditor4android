@@ -36,7 +36,7 @@ import de.blau.android.util.Hash;
  */
 public class PresetIconManager implements Serializable {
 
-    private static final String DEBUG_TAG = PresetIconManager.class.getSimpleName();
+    private static final String DEBUG_TAG = PresetIconManager.class.getSimpleName().substring(0, Math.min(23, PresetIconManager.class.getSimpleName().length()));
 
     private static final long serialVersionUID = 1L;
 

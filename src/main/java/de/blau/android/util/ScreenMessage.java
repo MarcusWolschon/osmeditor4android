@@ -28,7 +28,7 @@ import de.blau.android.R;
  */
 public final class ScreenMessage {
 
-    private static final String DEBUG_TAG = ScreenMessage.class.getName();
+    private static final String DEBUG_TAG = ScreenMessage.class.getSimpleName().substring(0, Math.min(23, ScreenMessage.class.getSimpleName().length()));
 
     interface MessageControl {
         /**

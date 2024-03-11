@@ -31,25 +31,26 @@ import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
 public class WaySelectionActionModeCallback extends ElementSelectionActionModeCallback {
-    private static final String DEBUG_TAG                  = "WaySelectionAction...";
-    private static final int    MENUITEM_SPLIT             = LAST_REGULAR_MENUITEM + 1;
-    private static final int    MENUITEM_MERGE             = LAST_REGULAR_MENUITEM + 2;
-    private static final int    MENUITEM_REVERSE           = LAST_REGULAR_MENUITEM + 3;
-    private static final int    MENUITEM_APPEND            = LAST_REGULAR_MENUITEM + 4;
-    private static final int    MENUITEM_RESTRICTION       = LAST_REGULAR_MENUITEM + 5;
-    private static final int    MENUITEM_ROUTE             = LAST_REGULAR_MENUITEM + 6;
-    private static final int    MENUITEM_ADD_TO_ROUTE      = LAST_REGULAR_MENUITEM + 7;
-    private static final int    MENUITEM_ROTATE            = LAST_REGULAR_MENUITEM + 8;
-    private static final int    MENUITEM_ORTHOGONALIZE     = LAST_REGULAR_MENUITEM + 9;
-    private static final int    MENUITEM_CIRCULIZE         = LAST_REGULAR_MENUITEM + 10;
-    private static final int    MENUITEM_SPLIT_POLYGON     = LAST_REGULAR_MENUITEM + 11;
-    private static final int    MENUITEM_ADDRESS           = LAST_REGULAR_MENUITEM + 12;
-    private static final int    MENUITEM_UNJOIN            = LAST_REGULAR_MENUITEM + 13;
-    private static final int    MENUITEM_UNJOIN_DISSIMILAR = LAST_REGULAR_MENUITEM + 14;
-    private static final int    MENUITEM_REMOVE_NODE       = LAST_REGULAR_MENUITEM + 15;
-    private static final int    MENUITEM_EXTRACT_SEGMENT   = LAST_REGULAR_MENUITEM + 16;
-    private static final int    MENUITEM_SELECT_WAY_NODES  = LAST_REGULAR_MENUITEM + 17;
-    private static final int    MENUITEM_START_END_OF_WAY  = LAST_REGULAR_MENUITEM + 18;
+    private static final String DEBUG_TAG = WaySelectionActionModeCallback.class.getSimpleName().substring(0, Math.min(23, WaySelectionActionModeCallback.class.getSimpleName().length()));
+
+    private static final int MENUITEM_SPLIT             = LAST_REGULAR_MENUITEM + 1;
+    private static final int MENUITEM_MERGE             = LAST_REGULAR_MENUITEM + 2;
+    private static final int MENUITEM_REVERSE           = LAST_REGULAR_MENUITEM + 3;
+    private static final int MENUITEM_APPEND            = LAST_REGULAR_MENUITEM + 4;
+    private static final int MENUITEM_RESTRICTION       = LAST_REGULAR_MENUITEM + 5;
+    private static final int MENUITEM_ROUTE             = LAST_REGULAR_MENUITEM + 6;
+    private static final int MENUITEM_ADD_TO_ROUTE      = LAST_REGULAR_MENUITEM + 7;
+    private static final int MENUITEM_ROTATE            = LAST_REGULAR_MENUITEM + 8;
+    private static final int MENUITEM_ORTHOGONALIZE     = LAST_REGULAR_MENUITEM + 9;
+    private static final int MENUITEM_CIRCULIZE         = LAST_REGULAR_MENUITEM + 10;
+    private static final int MENUITEM_SPLIT_POLYGON     = LAST_REGULAR_MENUITEM + 11;
+    private static final int MENUITEM_ADDRESS           = LAST_REGULAR_MENUITEM + 12;
+    private static final int MENUITEM_UNJOIN            = LAST_REGULAR_MENUITEM + 13;
+    private static final int MENUITEM_UNJOIN_DISSIMILAR = LAST_REGULAR_MENUITEM + 14;
+    private static final int MENUITEM_REMOVE_NODE       = LAST_REGULAR_MENUITEM + 15;
+    private static final int MENUITEM_EXTRACT_SEGMENT   = LAST_REGULAR_MENUITEM + 16;
+    private static final int MENUITEM_SELECT_WAY_NODES  = LAST_REGULAR_MENUITEM + 17;
+    private static final int MENUITEM_START_END_OF_WAY  = LAST_REGULAR_MENUITEM + 18;
 
     private Set<OsmElement> cachedMergeableWays;
     private Set<OsmElement> cachedAppendableNodes;

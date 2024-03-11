@@ -16,7 +16,7 @@ public class PresetRole extends Regionalizable implements Comparable<PresetRole>
 
     private static final long serialVersionUID = 2L;
 
-    private static final String DEBUG_TAG = PresetRole.class.getSimpleName();
+    private static final String DEBUG_TAG = PresetRole.class.getSimpleName().substring(0, Math.min(23, PresetRole.class.getSimpleName().length()));
 
     enum Requisite {
         OPTIONAL, REQUIRED

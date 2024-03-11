@@ -12,7 +12,7 @@ import de.blau.android.tasks.OsmoseMeta.OsmoseClass;
 
 public class OsmoseMetaTest {
 
-    private static final String DEBUG_TAG = OsmoseMetaTest.class.getSimpleName();
+    private static final String DEBUG_TAG = OsmoseMetaTest.class.getSimpleName().substring(0, Math.min(23, OsmoseMetaTest.class.getSimpleName().length()));
 
     /**
      * Parse a response with 1 item and class

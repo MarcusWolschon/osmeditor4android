@@ -27,7 +27,7 @@ public class Photo implements BoundedObject, GeoPoint, Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private static final String DEBUG_TAG = Photo.class.getSimpleName();
+    private static final String DEBUG_TAG = Photo.class.getSimpleName().substring(0, Math.min(23, Photo.class.getSimpleName().length()));
 
     /** a name for display purposes NOTE this ignored for equals and hashCode */
     private final String displayName;

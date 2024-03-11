@@ -28,7 +28,7 @@ import de.blau.android.util.Util;
 import de.blau.android.voice.Commands;
 
 public class LongClickActionModeCallback extends EasyEditActionModeCallback implements DisambiguationMenu.OnMenuItemClickListener {
-    private static final String DEBUG_TAG                = "LongClickActionMode...";
+    private static final String DEBUG_TAG                = LongClickActionModeCallback.class.getSimpleName().substring(0, Math.min(23, LongClickActionModeCallback.class.getSimpleName().length()));;
     private static final int    MENUITEM_OSB             = 1;
     private static final int    MENUITEM_NEWNODEWAY      = 2;
     private static final int    MENUITEM_SPLITWAY        = 3;

@@ -35,8 +35,8 @@ import de.blau.android.presets.PresetElementPath;
 import de.blau.android.presets.PresetGroup;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.ImmersiveDialogFragment;
-import de.blau.android.util.SearchIndexUtils;
 import de.blau.android.util.ScreenMessage;
+import de.blau.android.util.SearchIndexUtils;
 import de.blau.android.util.ThemeUtils;
 
 /**
@@ -49,7 +49,7 @@ public class ViewWayPoint extends ImmersiveDialogFragment {
 
     private static final String WAYPOINT = "waypoint";
 
-    private static final String DEBUG_TAG = ViewWayPoint.class.getName();
+    private static final String DEBUG_TAG = ViewWayPoint.class.getSimpleName().substring(0, Math.min(23, ViewWayPoint.class.getSimpleName().length()));
 
     private static final String TAG = "fragment_view_waypoint";
 

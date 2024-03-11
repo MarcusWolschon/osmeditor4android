@@ -34,7 +34,7 @@ import de.blau.android.util.Util;
 import de.blau.android.util.collections.LinkedList;
 
 public class RelationMemberSelectedActionModeCallback implements Callback {
-    private static final String DEBUG_TAG = "RelationM...Callback";
+    private static final String DEBUG_TAG = RelationMemberSelectedActionModeCallback.class.getSimpleName().substring(0, Math.min(23, RelationMemberSelectedActionModeCallback.class.getSimpleName().length()));
 
     // pm: protected static final int MENU_ITEM_DELETE = 1;
     // pm: private static final int MENU_ITEM_COPY = 2;

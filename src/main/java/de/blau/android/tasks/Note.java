@@ -31,7 +31,7 @@ import de.blau.android.util.Util;
  * @author Simon Poole
  */
 public class Note extends LongIdTask implements Serializable, JosmXmlSerializable {
-    private static final String DEBUG_TAG = Note.class.getSimpleName();
+    private static final String DEBUG_TAG = Note.class.getSimpleName().substring(0, Math.min(23, Note.class.getSimpleName().length()));
 
     private static final long serialVersionUID = 8L;
 

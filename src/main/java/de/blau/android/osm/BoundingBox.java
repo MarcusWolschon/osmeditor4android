@@ -30,7 +30,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 
     private static final long serialVersionUID = -2708721312405863618L;
 
-    private static final String DEBUG_TAG = "BoundingBox";
+    private static final String DEBUG_TAG = BoundingBox.class.getSimpleName().substring(0, Math.min(23, BoundingBox.class.getSimpleName().length()));
 
     static final String MINLAT_ATTR = "minlat";
     static final String MINLON_ATTR = "minlon";

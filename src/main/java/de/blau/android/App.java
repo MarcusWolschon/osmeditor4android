@@ -1,5 +1,7 @@
 package de.blau.android;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -73,7 +75,8 @@ import okhttp3.OkHttpClient;
 @AcraDialog(resText = R.string.crash_dialog_text, resCommentPrompt = R.string.crash_dialog_comment_prompt, resTheme = R.style.Theme_AppCompat_Light_Dialog)
 
 public class App extends Application implements android.app.Application.ActivityLifecycleCallbacks {
-    private static final String DEBUG_TAG = App.class.getCanonicalName();
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, App.class.getSimpleName().length());
+    private static final String DEBUG_TAG = App.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String     RHINO_LAZY_LOAD = "lazyLoad";
     private static App              currentInstance;

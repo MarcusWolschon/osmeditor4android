@@ -68,7 +68,7 @@ import de.blau.android.validation.Validator;
 
 public class TrackerService extends Service {
 
-    private static final String DEBUG_TAG = TrackerService.class.getSimpleName();
+    private static final String DEBUG_TAG = TrackerService.class.getSimpleName().substring(0, Math.min(23, TrackerService.class.getSimpleName().length()));
 
     private static final float TRACK_LOCATION_MIN_ACCURACY = 200f;
 

@@ -20,7 +20,7 @@ import de.blau.android.util.InfoDialogFragment;
  */
 public abstract class LayerInfo extends InfoDialogFragment {
 
-    private static final String DEBUG_TAG = LayerInfo.class.getName();
+    private static final String DEBUG_TAG = LayerInfo.class.getSimpleName().substring(0, Math.min(23, LayerInfo.class.getSimpleName().length()));
 
     private static final String TAG = "fragment_layer_info";
 

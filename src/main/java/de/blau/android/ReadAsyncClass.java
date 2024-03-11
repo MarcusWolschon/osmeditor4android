@@ -1,5 +1,7 @@
 package de.blau.android;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.InputStream;
 import java.util.concurrent.ExecutorService;
 
@@ -25,7 +27,9 @@ import de.blau.android.util.ExecutorTask;
  */
 public abstract class ReadAsyncClass extends ExecutorTask<Boolean, Void, AsyncResult> {
 
-    private static final String  DEBUG_TAG = "ReadAsyncClass";
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, ReadAsyncClass.class.getSimpleName().length());
+    private static final String DEBUG_TAG = ReadAsyncClass.class.getSimpleName().substring(0, TAG_LEN);
+    
     final Context                context;
     final Map                    map;
     final InputStream            is;

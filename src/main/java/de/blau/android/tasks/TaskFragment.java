@@ -52,7 +52,7 @@ import de.blau.android.util.Util;
  *
  */
 public abstract class TaskFragment extends ImmersiveDialogFragment {
-    private static final String DEBUG_TAG = TaskFragment.class.getSimpleName();
+    private static final String DEBUG_TAG = TaskFragment.class.getSimpleName().substring(0, Math.min(23, TaskFragment.class.getSimpleName().length()));
 
     protected static final String BUG_KEY = "bug";
 

@@ -24,7 +24,7 @@ import androidx.annotation.NonNull;
  */
 public class DiscardedTags {
 
-    private static final String DEBUG_TAG = "DiscardedTags";
+    private static final String DEBUG_TAG = DiscardedTags.class.getSimpleName().substring(0, Math.min(23, DiscardedTags.class.getSimpleName().length()));
 
     private static final String ASSET_FILE = "discarded.json";
 

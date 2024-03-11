@@ -96,7 +96,7 @@ import okhttp3.ResponseBody;
  */
 public class TileLayerSource implements Serializable {
 
-    private static final String DEBUG_TAG = TileLayerSource.class.getSimpleName();
+    private static final String DEBUG_TAG = TileLayerSource.class.getSimpleName().substring(0, Math.min(23, TileLayerSource.class.getSimpleName().length()));
 
     private static final long serialVersionUID = 5L;
 

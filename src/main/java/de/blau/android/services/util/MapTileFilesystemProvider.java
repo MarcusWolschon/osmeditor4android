@@ -45,7 +45,7 @@ import de.blau.android.views.util.MapTileProviderCallback;
  */
 public class MapTileFilesystemProvider extends MapAsyncTileProvider implements MapTileSaver {
 
-    static final String DEBUG_TAG = MapTileFilesystemProvider.class.getSimpleName();
+    static final String DEBUG_TAG = MapTileFilesystemProvider.class.getSimpleName().substring(0, Math.min(23, MapTileFilesystemProvider.class.getSimpleName().length()));
 
     private final Context                 mCtx;
     private final MapTileProviderDataBase tileCache;

@@ -33,7 +33,7 @@ import de.blau.android.util.InfoDialogFragment;
  */
 public class ImageInfo extends InfoDialogFragment {
 
-    private static final String DEBUG_TAG = ImageInfo.class.getName();
+    private static final String DEBUG_TAG = ImageInfo.class.getSimpleName().substring(0, Math.min(23, ImageInfo.class.getSimpleName().length()));
 
     private static final String URI_KEY = "uri";
 

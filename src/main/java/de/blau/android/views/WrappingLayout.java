@@ -221,7 +221,7 @@ public class WrappingLayout extends LinearLayout {
      */
     public static class LayoutWrapper {
 
-        private static final String DEBUG_TAG = "WrappingLayout";
+        private static final String DEBUG_TAG = LayoutWrapper.class.getSimpleName().substring(0, Math.min(23, LayoutWrapper.class.getSimpleName().length()));
 
         private static final String LOGTAG = LayoutWrapper.class.getSimpleName();
 

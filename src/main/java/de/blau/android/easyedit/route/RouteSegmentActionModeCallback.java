@@ -30,14 +30,14 @@ import de.blau.android.osm.Result;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
-import de.blau.android.util.SerializableState;
 import de.blau.android.util.ScreenMessage;
+import de.blau.android.util.SerializableState;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
 public class RouteSegmentActionModeCallback extends BuilderActionModeCallback {
 
-    private static final String DEBUG_TAG = "RouteSegment...";
+    private static final String DEBUG_TAG = RouteSegmentActionModeCallback.class.getSimpleName().substring(0, Math.min(23, RouteSegmentActionModeCallback.class.getSimpleName().length()));
 
     static final String SEGMENT_IDS_KEY = "segment ids";
     static final String ROUTE_ID_KEY    = "route id";

@@ -35,7 +35,7 @@ import de.blau.android.util.collections.LongPrimitiveList;
 public final class Todo extends Bug implements Serializable {
     private static final long serialVersionUID = 4L;
 
-    private static final String DEBUG_TAG = Todo.class.getSimpleName();
+    private static final String DEBUG_TAG = Todo.class.getSimpleName().substring(0, Math.min(23, Todo.class.getSimpleName().length()));
 
     static final String FILTER_KEY = "TODO";
 

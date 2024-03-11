@@ -12,7 +12,7 @@ public class StringStyleAttribute extends StyleAttribute {
 
     private static final long serialVersionUID = 1L;
 
-    private static final String DEBUG_TAG = StringStyleAttribute.class.getSimpleName();
+    private static final String DEBUG_TAG = StringStyleAttribute.class.getSimpleName().substring(0, Math.min(23, StringStyleAttribute.class.getSimpleName().length()));
 
     String literal;
 

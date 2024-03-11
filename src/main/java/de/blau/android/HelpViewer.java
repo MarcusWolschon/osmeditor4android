@@ -1,5 +1,7 @@
 package de.blau.android;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.IOException;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
@@ -58,7 +60,8 @@ import de.blau.android.util.WebViewActivity;
  *
  */
 public class HelpViewer extends WebViewActivity {
-    private static final String DEBUG_TAG = HelpViewer.class.getName();
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, HelpViewer.class.getSimpleName().length());
+    private static final String DEBUG_TAG = HelpViewer.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String HTML_SUFFIX = "." + FileExtensions.HTML;
     private static final String MD_SUFFIX   = "." + FileExtensions.MD;

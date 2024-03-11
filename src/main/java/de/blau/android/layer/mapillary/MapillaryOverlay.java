@@ -63,7 +63,7 @@ import okhttp3.ResponseBody;
 
 public class MapillaryOverlay extends de.blau.android.layer.mvt.MapOverlay implements DateRangeInterface {
 
-    private static final String DEBUG_TAG = MapillaryOverlay.class.getSimpleName();
+    private static final String DEBUG_TAG = MapillaryOverlay.class.getSimpleName().substring(0, Math.min(23, MapillaryOverlay.class.getSimpleName().length()));
 
     public static final String MAPILLARY_TILES_ID           = "MAPILLARYV4";
     public static final int    MAPILLARY_DEFAULT_MIN_ZOOM   = 16;

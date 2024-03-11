@@ -30,7 +30,7 @@ public class MapRouletteTask extends LongIdTask {
 
     private static final long serialVersionUID = 4L;
 
-    private static final String DEBUG_TAG = "MapRouletteTask";
+    private static final String DEBUG_TAG = MapRouletteTask.class.getSimpleName().substring(0, Math.min(23, MapRouletteTask.class.getSimpleName().length()));
 
     static final String FILTER_KEY = "MAPROULETTE";
 

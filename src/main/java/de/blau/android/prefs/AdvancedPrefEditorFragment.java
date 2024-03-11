@@ -21,7 +21,7 @@ import de.blau.android.util.Util;
 
 public class AdvancedPrefEditorFragment extends ExtendedPreferenceFragment {
 
-    private static final String DEBUG_TAG = "AdvancedPrefEditor";
+    private static final String DEBUG_TAG = AdvancedPrefEditorFragment.class.getSimpleName().substring(0, Math.min(23, AdvancedPrefEditorFragment.class.getSimpleName().length()));
 
     private Resources    r;
     AdvancedPrefDatabase db;

@@ -19,7 +19,7 @@ public class Progress extends ImmersiveDialogFragment {
 
     private static final String TYPE = "type";
 
-    private static final String DEBUG_TAG = Progress.class.getSimpleName();
+    private static final String DEBUG_TAG = Progress.class.getSimpleName().substring(0, Math.min(23, Progress.class.getSimpleName().length()));
 
     public static final int PROGRESS_LOADING                   = 1;
     public static final int PROGRESS_DOWNLOAD                  = 2;

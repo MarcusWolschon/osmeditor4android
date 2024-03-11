@@ -1,5 +1,6 @@
 package de.blau.android.util;
 
+import java.beans.PropertyEditor;
 // other imports
 import java.util.ArrayList;
 import java.util.Collections;
@@ -36,7 +37,7 @@ public class StreetPlaceNamesAdapter extends ArrayAdapter<ValueWithCount> {
      * The tag we use for Android-logging.
      */
     @SuppressWarnings("unused")
-    private static final String DEBUG_TAG = StreetPlaceNamesAdapter.class.getName();
+    private static final String DEBUG_TAG = StreetPlaceNamesAdapter.class.getSimpleName().substring(0, Math.min(23, StreetPlaceNamesAdapter.class.getSimpleName().length()));
 
     private ElementSearch es;
 

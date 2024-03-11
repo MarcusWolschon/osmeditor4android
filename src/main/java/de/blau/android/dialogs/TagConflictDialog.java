@@ -35,7 +35,7 @@ import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
 public class TagConflictDialog extends ImmersiveDialogFragment {
-    private static final String DEBUG_TAG = TagConflictDialog.class.getSimpleName();
+    private static final String DEBUG_TAG = TagConflictDialog.class.getSimpleName().substring(0, Math.min(23, TagConflictDialog.class.getSimpleName().length()));
 
     private static final String TAG = "fragment_tag_conflict";
 

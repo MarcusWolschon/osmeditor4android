@@ -9,7 +9,7 @@ import ch.poole.geo.pmtiles.Reader;
 
 public class PMTilesContainer implements LocalTileContainer {
 
-    private static final String DEBUG_TAG = PMTilesContainer.class.getSimpleName();
+    private static final String DEBUG_TAG = PMTilesContainer.class.getSimpleName().substring(0, Math.min(23, PMTilesContainer.class.getSimpleName().length()));
 
     private final Reader reader;
 

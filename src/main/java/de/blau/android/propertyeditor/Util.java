@@ -11,7 +11,7 @@ import de.blau.android.presets.PresetItem;
 
 public final class Util {
 
-    private static final String DEBUG_TAG = "propertyeditor.Util";
+    private static final String DEBUG_TAG = Util.class.getSimpleName().substring(0, Math.min(23, Util.class.getSimpleName().length()));
 
     /**
      * Disallow instantiation

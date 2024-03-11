@@ -26,7 +26,7 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 public final class PresetLoader {
-    private static final String DEBUG_TAG = PresetLoader.class.getSimpleName();
+    private static final String DEBUG_TAG = PresetLoader.class.getSimpleName().substring(0, Math.min(23, PresetLoader.class.getSimpleName().length()));
 
     private static final String FILE_NAME_TEMPORARY_ARCHIVE = "temp.zip";
 

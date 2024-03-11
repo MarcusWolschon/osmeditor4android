@@ -35,7 +35,7 @@ import de.blau.android.util.Util;
  */
 public class Tip extends ImmersiveDialogFragment {
 
-    private static final String DEBUG_TAG = Tip.class.getSimpleName();
+    private static final String DEBUG_TAG = Tip.class.getSimpleName().substring(0, Math.min(23, Tip.class.getSimpleName().length()));
 
     private static final String TAG = "tip";
 

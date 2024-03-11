@@ -39,8 +39,8 @@ import de.blau.android.osm.Result;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.util.MenuUtil;
-import de.blau.android.util.SerializableState;
 import de.blau.android.util.ScreenMessage;
+import de.blau.android.util.SerializableState;
 import de.blau.android.util.Util;
 
 /**

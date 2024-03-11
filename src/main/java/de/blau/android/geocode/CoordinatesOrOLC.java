@@ -34,7 +34,7 @@ import de.blau.android.util.NetworkStatus;
  */
 public class CoordinatesOrOLC {
 
-    protected static final String DEBUG_TAG = CoordinatesOrOLC.class.getSimpleName();
+    protected static final String DEBUG_TAG = CoordinatesOrOLC.class.getSimpleName().substring(0, Math.min(23, CoordinatesOrOLC.class.getSimpleName().length()));
 
     private static final Pattern OLC_SHORT = Pattern.compile("^([23456789CFGHJMPQRVWX]{4,6}\\+[23456789CFGHJMPQRVWX]{2,3})\\s*(.*)$",
             Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE);

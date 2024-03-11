@@ -46,8 +46,8 @@ import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIOException;
 import de.blau.android.exception.OsmServerException;
-import de.blau.android.net.OAuth2Interceptor;
 import de.blau.android.net.OAuth1aHelper;
+import de.blau.android.net.OAuth2Interceptor;
 import de.blau.android.prefs.API;
 import de.blau.android.prefs.API.Auth;
 import de.blau.android.services.util.MBTileProviderDataBase;
@@ -73,7 +73,7 @@ import se.akerfeldt.okhttp.signpost.SigningInterceptor;
  */
 public class Server {
 
-    private static final String DEBUG_TAG = Server.class.getName();
+    private static final String DEBUG_TAG = Server.class.getSimpleName().substring(0, Math.min(23, Server.class.getSimpleName().length()));
 
     /**
      * <a href="http://wiki.openstreetmap.org/wiki/API">API</a>-Version.

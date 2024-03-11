@@ -18,7 +18,7 @@ import de.blau.android.validation.Validator;
 
 public class Way extends StyledOsmElement implements WayInterface, BoundedObject {
 
-    private static final String DEBUG_TAG = Way.class.getSimpleName();
+    private static final String DEBUG_TAG = Way.class.getSimpleName().substring(0, Math.min(23, Way.class.getSimpleName().length()));
 
     /**
      * 

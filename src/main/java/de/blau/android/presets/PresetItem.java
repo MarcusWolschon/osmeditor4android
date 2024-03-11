@@ -44,7 +44,7 @@ public class PresetItem extends PresetElement {
 
     private static final long serialVersionUID = 1L;
 
-    private static final String DEBUG_TAG = PresetItem.class.getSimpleName();
+    private static final String DEBUG_TAG = PresetItem.class.getSimpleName().substring(0, Math.min(23, PresetItem.class.getSimpleName().length()));
 
     /**
      * All fields in the order they are in the Preset file

@@ -25,7 +25,7 @@ import de.blau.android.util.ThemeUtils;
  */
 public abstract class PrefEditorActivity extends ConfigurationChangeAwareActivity implements PreferenceFragmentCompat.OnPreferenceStartScreenCallback {
 
-    private static final String DEBUG_TAG = "PrefEditorActivity";
+    private static final String DEBUG_TAG = PrefEditorActivity.class.getSimpleName().substring(0, Math.min(23, PrefEditorActivity.class.getSimpleName().length()));
 
     protected static final int MENUITEM_HELP = 1;
 

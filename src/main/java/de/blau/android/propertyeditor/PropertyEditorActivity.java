@@ -46,7 +46,7 @@ import de.blau.android.util.ScreenMessage;
 public class PropertyEditorActivity<M extends Map<String, String> & Serializable, L extends List<PresetElementPath> & Serializable, T extends List<Map<String, String>> & Serializable>
         extends AppCompatActivity implements ControlListener {
 
-    private static final String DEBUG_TAG = PropertyEditorActivity.class.getSimpleName();
+    private static final String DEBUG_TAG = PropertyEditorActivity.class.getSimpleName().substring(0, Math.min(23, PropertyEditorActivity.class.getSimpleName().length()));
 
     /**
      * Start a PropertyEditor activity

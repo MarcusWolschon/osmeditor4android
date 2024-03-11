@@ -18,7 +18,7 @@ import de.blau.android.util.SizedFixedImmersiveDialogFragment;
  */
 public abstract class AbstractConfigurationDialog extends SizedFixedImmersiveDialogFragment {
 
-    private static final String DEBUG_TAG = AbstractConfigurationDialog.class.getSimpleName();
+    private static final String DEBUG_TAG = AbstractConfigurationDialog.class.getSimpleName().substring(0, Math.min(23, AbstractConfigurationDialog.class.getSimpleName().length()));
 
     /**
      * Display a dialog allowing the user to change some properties of the current layer

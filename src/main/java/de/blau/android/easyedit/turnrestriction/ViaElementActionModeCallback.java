@@ -23,7 +23,7 @@ import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.Util;
 
 public class ViaElementActionModeCallback extends NonSimpleActionModeCallback {
-    private static final String DEBUG_TAG  = "ViaElement..";
+    private static final String DEBUG_TAG  = ViaElementActionModeCallback.class.getSimpleName().substring(0, Math.min(23, ViaElementActionModeCallback.class.getSimpleName().length()));
     private final Way           fromWay;
     private OsmElement          viaElement;
     private Set<OsmElement>     cachedToElements;

@@ -21,7 +21,7 @@ import de.blau.android.R;
 
 public final class LocaleUtils {
 
-    private static final String DEBUG_TAG = LocaleUtils.class.getSimpleName();
+    private static final String DEBUG_TAG = LocaleUtils.class.getSimpleName().substring(0, Math.min(23, LocaleUtils.class.getSimpleName().length()));
 
     private static final String ANDROID_LOCALE_SEPARATOR = "_";
 

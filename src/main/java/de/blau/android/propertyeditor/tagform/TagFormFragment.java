@@ -88,7 +88,7 @@ import de.blau.android.util.Util;
 import de.blau.android.views.CustomAutoCompleteTextView;
 
 public class TagFormFragment extends BaseFragment implements FormUpdate {
-    private static final String DEBUG_TAG = TagFormFragment.class.getSimpleName();
+    private static final String DEBUG_TAG = TagFormFragment.class.getSimpleName().substring(0, Math.min(23, TagFormFragment.class.getSimpleName().length()));
 
     private static final String FRAGMENT_CONDITIONAL_RESTRICTION_TAG = "fragment_conditional_restriction";
 

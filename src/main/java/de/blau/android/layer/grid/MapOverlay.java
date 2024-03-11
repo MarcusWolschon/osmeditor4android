@@ -32,7 +32,7 @@ public class MapOverlay extends StyleableLayer implements DiscardInterface, Conf
 
     private static final long serialVersionUID = 4L;
 
-    private static final String DEBUG_TAG = MapOverlay.class.getName();
+    private static final String DEBUG_TAG = MapOverlay.class.getSimpleName().substring(0, Math.min(23, MapOverlay.class.getSimpleName().length()));
 
     private static final int MAX_WIDTH_IN_METERS = 1000000;
 

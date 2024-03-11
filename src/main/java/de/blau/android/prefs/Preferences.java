@@ -33,7 +33,7 @@ import de.blau.android.util.Sound;
  * @author mb
  */
 public class Preferences {
-    private static final String DEBUG_TAG = Preferences.class.getSimpleName();
+    private static final String DEBUG_TAG = Preferences.class.getSimpleName().substring(0, Math.min(23, Preferences.class.getSimpleName().length()));
 
     private static final String ACRA_ENABLE  = "acra.enable";
     private static final String ACRA_DISABLE = "acra.disable";

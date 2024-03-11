@@ -38,7 +38,7 @@ import de.blau.android.validation.Validator;
  */
 public abstract class AbstractReviewDialog extends ImmersiveDialogFragment {
 
-    private static final String DEBUG_TAG = AbstractReviewDialog.class.getSimpleName();
+    private static final String DEBUG_TAG = AbstractReviewDialog.class.getSimpleName().substring(0, Math.min(23, AbstractReviewDialog.class.getSimpleName().length()));
 
     protected static final String TAG_KEY      = "tag";
     protected static final String ELEMENTS_KEY = "elements";

@@ -62,7 +62,7 @@ import de.blau.android.util.collections.MultiHashMap;
  *
  */
 public class RelationMembersFragment extends BaseFragment implements PropertyRows, DataUpdate {
-    private static final String DEBUG_TAG = RelationMembersFragment.class.getSimpleName();
+    private static final String DEBUG_TAG = RelationMembersFragment.class.getSimpleName().substring(0, Math.min(23, RelationMembersFragment.class.getSimpleName().length()));
 
     private static final String MEMBERS_KEY = "members";
     private static final String ID_KEY      = "id";

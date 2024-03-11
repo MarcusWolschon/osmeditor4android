@@ -28,7 +28,7 @@ import de.blau.android.util.DateFormatter;
  *
  */
 public class OsnParser extends DefaultHandler {
-    private static final String DEBUG_TAG = OsnParser.class.getSimpleName();
+    private static final String DEBUG_TAG = OsnParser.class.getSimpleName().substring(0, Math.min(23, OsnParser.class.getSimpleName().length()));
 
     static final String         OSM_NOTES   = "osm-notes";
     private static final String OSMAND_TEXT = "text";

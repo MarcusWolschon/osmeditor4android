@@ -1,5 +1,7 @@
 package de.blau.android;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -49,7 +51,8 @@ import de.blau.android.util.Util;
  */
 public class Splash extends AppCompatActivity {
 
-    private static final String DEBUG_TAG = Splash.class.getSimpleName();
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Splash.class.getSimpleName().length());
+    private static final String DEBUG_TAG = Splash.class.getSimpleName().substring(0, TAG_LEN);
 
     static final String SHORTCUT_EXTRAS_KEY = "shortcut_extras";
     static final String SAFE                = "safe";

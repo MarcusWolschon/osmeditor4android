@@ -25,7 +25,7 @@ import okhttp3.ResponseBody;
 
 public class QueryNominatim extends Query {
 
-    private static final String DEBUG_TAG = QueryNominatim.class.getSimpleName();
+    private static final String DEBUG_TAG = QueryNominatim.class.getSimpleName().substring(0, Math.min(23, QueryNominatim.class.getSimpleName().length()));
 
     private static final String DISPLAY_NAME_FIELD = "display_name";
     private static final String LON_FIELD          = "lon";

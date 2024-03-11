@@ -19,7 +19,7 @@ public class ViewBox extends BoundingBox {
 
     private static final long serialVersionUID = -2708721312405863618L;
 
-    private static final String DEBUG_TAG = ViewBox.class.getSimpleName();
+    private static final String DEBUG_TAG = ViewBox.class.getSimpleName().substring(0, Math.min(23, ViewBox.class.getSimpleName().length()));
 
     /**
      * Mercator value for the bottom of the BBos

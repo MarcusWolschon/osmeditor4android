@@ -27,7 +27,7 @@ public final class OsmoseBug extends Bug implements Serializable {
 
     private static final long serialVersionUID = 5L;
 
-    private static final String DEBUG_TAG = OsmoseBug.class.getSimpleName();
+    private static final String DEBUG_TAG = OsmoseBug.class.getSimpleName().substring(0, Math.min(23, OsmoseBug.class.getSimpleName().length()));
 
     private static final String OSMOSE_ISSUES   = "issues";
     private static final String OSMOSE_LAT      = "lat";

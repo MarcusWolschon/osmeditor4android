@@ -22,7 +22,7 @@ import de.blau.android.views.util.MapTileProviderCallback;
  *
  */
 public abstract class MapAsyncTileProvider {
-    private static final String DEBUG_TAG = MapAsyncTileProvider.class.getSimpleName();
+    private static final String DEBUG_TAG = MapAsyncTileProvider.class.getSimpleName().substring(0, Math.min(23, MapAsyncTileProvider.class.getSimpleName().length()));
 
     public static final int IOERR        = 1;
     public static final int DOESNOTEXIST = 2;

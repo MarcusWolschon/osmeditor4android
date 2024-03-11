@@ -29,7 +29,7 @@ import de.blau.android.prefs.Preferences;
  */
 public final class ThemeUtils {
 
-    private static final String DEBUG_TAG = ThemeUtils.class.getSimpleName();
+    private static final String DEBUG_TAG = ThemeUtils.class.getSimpleName().substring(0, Math.min(23, ThemeUtils.class.getSimpleName().length()));
 
     /**
      * Private constructor

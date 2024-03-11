@@ -14,7 +14,7 @@ public class MapRouletteChallenge implements Serializable {
 
     private static final long serialVersionUID = 2L;
 
-    private static final String DEBUG_TAG = "MapRouletteChallenge";
+    private static final String DEBUG_TAG = MapRouletteChallenge.class.getSimpleName().substring(0, Math.min(23, MapRouletteChallenge.class.getSimpleName().length()));
 
     private static final String CHALLENGE_DESCRIPTION = "description";
     private static final String CHALLENGE_INSTRUCTION = "instruction";

@@ -39,7 +39,7 @@ import de.blau.android.views.ExtendedViewPager;
 
 public class UndoDialog extends ImmersiveDialogFragment {
 
-    private static final String DEBUG_TAG = UndoDialog.class.getSimpleName();
+    private static final String DEBUG_TAG = UndoDialog.class.getSimpleName().substring(0, Math.min(23, UndoDialog.class.getSimpleName().length()));
 
     public static final String TAG = "fragment_undo";
 

@@ -31,7 +31,7 @@ import de.blau.android.util.Util;
  */
 public class DialogRow extends LinearLayout implements KeyValueRow {
 
-    private static final String DEBUG_TAG = "DialogRow";
+    private static final String DEBUG_TAG = DialogRow.class.getSimpleName().substring(0, Math.min(23, DialogRow.class.getSimpleName().length()));
 
     TextView        keyView;
     TextView        valueView;

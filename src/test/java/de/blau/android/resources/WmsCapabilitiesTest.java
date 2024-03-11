@@ -17,7 +17,7 @@ import de.blau.android.resources.WmsCapabilities.Layer;
 
 public class WmsCapabilitiesTest {
 
-    private static final String DEBUG_TAG = WmsCapabilitiesTest.class.getSimpleName();
+    private static final String DEBUG_TAG = WmsCapabilitiesTest.class.getSimpleName().substring(0, Math.min(23, WmsCapabilitiesTest.class.getSimpleName().length()));
 
     /**
      * Parse a sample getcapabilities 1.3.0 response

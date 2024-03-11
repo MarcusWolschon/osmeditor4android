@@ -21,7 +21,7 @@ import de.blau.android.osm.Server;
  */
 public class GpxUploadListener implements OnClickListener {
 
-    private static final String DEBUG_TAG = "GpxUploadListener";
+    private static final String DEBUG_TAG = GpxUploadListener.class.getSimpleName().substring(0, Math.min(23, GpxUploadListener.class.getSimpleName().length()));
 
     private final FragmentActivity caller;
     private final Track            track;

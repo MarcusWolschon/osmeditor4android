@@ -1,14 +1,13 @@
 package de.blau.android.util;
 
+import java.util.Objects;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
-import java.util.Objects;
-
 import de.blau.android.presets.PresetElement;
 import de.blau.android.presets.PresetItem;
 

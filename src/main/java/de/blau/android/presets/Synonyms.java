@@ -33,7 +33,7 @@ import de.blau.android.util.collections.MultiHashMap;
  *
  */
 public class Synonyms {
-    private static final String DEBUG_TAG = Synonyms.class.getSimpleName();
+    private static final String DEBUG_TAG = Synonyms.class.getSimpleName().substring(0, Math.min(23, Synonyms.class.getSimpleName().length()));
 
     private static final String SYNONYMS_DIR = "synonyms/";
 

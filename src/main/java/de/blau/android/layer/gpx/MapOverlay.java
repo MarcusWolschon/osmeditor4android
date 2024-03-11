@@ -61,8 +61,8 @@ import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.PlaybackTask;
 import de.blau.android.util.SavingHelper;
-import de.blau.android.util.SerializableTextPaint;
 import de.blau.android.util.ScreenMessage;
+import de.blau.android.util.SerializableTextPaint;
 import de.blau.android.util.Util;
 import de.blau.android.util.collections.FloatPrimitiveList;
 import de.blau.android.views.IMapView;
@@ -73,7 +73,7 @@ public class MapOverlay extends StyleableFileLayer
     private static final long serialVersionUID = 5L; // note that this can't actually be serialized as the transient
                                                      // wields need to be set in readObject
 
-    private static final String DEBUG_TAG = MapOverlay.class.getName();
+    private static final String DEBUG_TAG = MapOverlay.class.getSimpleName().substring(0, Math.min(23, MapOverlay.class.getSimpleName().length()));
 
     private static final String FILENAME = "gpxlayer" + "." + FileExtensions.RES;
 

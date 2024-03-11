@@ -19,7 +19,7 @@ import de.blau.android.util.GeoMath;
 import de.blau.android.util.ScreenMessage;
 
 public final class ImageryOffsetUtils {
-    private static final String DEBUG_TAG = "OffsetUtils";
+    private static final String DEBUG_TAG = ImageryOffsetUtils.class.getSimpleName().substring(0, Math.min(23, ImageryOffsetUtils.class.getSimpleName().length()));
 
     /**
      * Private default constructor

@@ -49,7 +49,7 @@ import de.blau.android.util.WidestItemArrayAdapter;
  * WMS endpoint management UI
  */
 public class WmsEndpointDatabaseView extends ImmersiveDialogFragment implements OnUpdateListener {
-    private static final String DEBUG_TAG = WmsEndpointDatabaseView.class.getSimpleName();
+    private static final String DEBUG_TAG = WmsEndpointDatabaseView.class.getSimpleName().substring(0, Math.min(23, WmsEndpointDatabaseView.class.getSimpleName().length()));
 
     private EndpointAdapter endpointAdapter;
 

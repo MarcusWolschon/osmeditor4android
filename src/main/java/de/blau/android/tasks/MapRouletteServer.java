@@ -25,7 +25,7 @@ import okhttp3.ResponseBody;
 
 final class MapRouletteServer {
 
-    private static final String DEBUG_TAG = MapRouletteServer.class.getSimpleName();
+    private static final String DEBUG_TAG = MapRouletteServer.class.getSimpleName().substring(0, Math.min(23, MapRouletteServer.class.getSimpleName().length()));
 
     private static final String APIPATH = "api/v2/";
     private static final String API_KEY = "apiKey";

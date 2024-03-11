@@ -32,7 +32,7 @@ import de.blau.android.dialogs.Progress;
 import de.blau.android.dialogs.Tip;
 
 public final class FileUtil {
-    private static final String DEBUG_TAG = FileUtil.class.getSimpleName();
+    private static final String DEBUG_TAG = FileUtil.class.getSimpleName().substring(0, Math.min(23, FileUtil.class.getSimpleName().length()));
 
     private static final char  PATH_DELIMITER_CHAR = '/';
     public static final String FILE_SCHEME_PREFIX  = Schemes.FILE + ":";

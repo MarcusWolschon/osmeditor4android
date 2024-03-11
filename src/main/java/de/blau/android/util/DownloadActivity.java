@@ -40,7 +40,7 @@ import de.blau.android.prefs.Preferences;
  */
 public class DownloadActivity extends WebViewActivity {
 
-    private static final String DEBUG_TAG = DownloadActivity.class.getSimpleName();
+    private static final String DEBUG_TAG = DownloadActivity.class.getSimpleName().substring(0, Math.min(23, DownloadActivity.class.getSimpleName().length()));
 
     static final String DOWNLOAD_SITE_KEY = "downloadSite";
 

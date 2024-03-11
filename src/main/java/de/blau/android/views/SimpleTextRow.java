@@ -12,8 +12,8 @@ import androidx.annotation.Nullable;
 import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.osm.Server;
-import de.blau.android.presets.PresetTagField;
 import de.blau.android.presets.PresetItem;
+import de.blau.android.presets.PresetTagField;
 import de.blau.android.presets.PresetTextField;
 import de.blau.android.propertyeditor.InputTypeUtil;
 import de.blau.android.propertyeditor.SanitizeTextWatcher;
@@ -29,7 +29,7 @@ import de.blau.android.propertyeditor.tagform.TextRow;
  */
 public class SimpleTextRow extends TextRow {
 
-    protected static final String DEBUG_TAG = "SimpleTextRow";
+    protected static final String DEBUG_TAG = SimpleTextRow.class.getSimpleName().substring(0, Math.min(23, SimpleTextRow.class.getSimpleName().length()));
 
     /**
      * Construct a editable text row for a tag

@@ -1,5 +1,7 @@
 package de.blau.android;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.ByteArrayInputStream;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
@@ -18,9 +20,9 @@ import de.blau.android.contract.MimeTypes;
 import de.blau.android.contract.Schemes;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.exception.OsmException;
+import de.blau.android.net.OAuth1aHelper;
 import de.blau.android.net.OAuth2Helper;
 import de.blau.android.net.OAuthHelper;
-import de.blau.android.net.OAuth1aHelper;
 import de.blau.android.osm.Server;
 import de.blau.android.prefs.API.Auth;
 import de.blau.android.prefs.Preferences;
@@ -38,7 +40,8 @@ import oauth.signpost.exception.OAuthException;
  */
 public class Authorize extends WebViewActivity {
 
-    private static final String DEBUG_TAG = Authorize.class.getSimpleName();
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Authorize.class.getSimpleName().length());
+    private static final String DEBUG_TAG = Authorize.class.getSimpleName().substring(0, TAG_LEN);
 
     public static final String ACTION_FINISH_OAUTH = "de.blau.android.FINISH_OAUTH";
 

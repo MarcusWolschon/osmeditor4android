@@ -21,7 +21,7 @@ import de.blau.android.util.ThemeUtils;
  */
 public class DownloadCurrentWithChanges extends ImmersiveDialogFragment {
 
-    private static final String DEBUG_TAG = DownloadCurrentWithChanges.class.getSimpleName();
+    private static final String DEBUG_TAG = DownloadCurrentWithChanges.class.getSimpleName().substring(0, Math.min(23, DownloadCurrentWithChanges.class.getSimpleName().length()));
 
     private static final String TAG = "fragment_newversion";
 

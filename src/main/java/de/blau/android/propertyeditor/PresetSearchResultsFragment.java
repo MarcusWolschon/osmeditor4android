@@ -47,7 +47,7 @@ public class PresetSearchResultsFragment extends DialogFragment implements Updat
     private static final String SEARCH_RESULTS_KEY = "searchResults";
     private static final String SEARCH_TERM_KEY    = "searchTerm";
 
-    private static final String DEBUG_TAG = PresetSearchResultsFragment.class.getSimpleName();
+    private static final String DEBUG_TAG = PresetSearchResultsFragment.class.getSimpleName().substring(0, Math.min(23, PresetSearchResultsFragment.class.getSimpleName().length()));
 
     private OnPresetSelectedListener mOnPresetSelectedListener; // NOSONAR we want to fail in onAttach
     private PresetUpdate             mPresetUpdateListener;     // NOSONAR

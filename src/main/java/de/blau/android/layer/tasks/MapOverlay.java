@@ -59,7 +59,7 @@ import de.blau.android.views.IMapView;
 public class MapOverlay extends MapViewLayer
         implements ExtentInterface, DiscardInterface, ClickableInterface<Task>, LayerInfoInterface, ConfigureInterface, PruneableInterface {
 
-    private static final String DEBUG_TAG = MapOverlay.class.getCanonicalName();
+    private static final String DEBUG_TAG = MapOverlay.class.getSimpleName().substring(0, Math.min(23, MapOverlay.class.getSimpleName().length()));
 
     public static final String FILENAME = "selectedtask" + "." + FileExtensions.RES;
 

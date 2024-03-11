@@ -27,7 +27,7 @@ public class PresetMRUInfo implements Serializable {
 
     private static final int MAX_MRU_SIZE = 50;
 
-    private static final String DEBUG_TAG = null;
+    private static final String DEBUG_TAG = PresetMRUInfo.class.getSimpleName().substring(0, Math.min(23, PresetMRUInfo.class.getSimpleName().length()));
 
     /** hash of current preset (used to check validity of recentPresets indexes) */
     final String presetHash;

@@ -25,7 +25,7 @@ import de.blau.android.util.mvt.VectorTileDecoder;
 abstract class StyleAttribute implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private static final String DEBUG_TAG = StyleAttribute.class.getSimpleName();
+    private static final String DEBUG_TAG = StyleAttribute.class.getSimpleName().substring(0, Math.min(23, StyleAttribute.class.getSimpleName().length()));
 
     transient JsonObject function;
 

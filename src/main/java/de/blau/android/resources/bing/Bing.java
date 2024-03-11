@@ -25,7 +25,7 @@ import de.blau.android.resources.TileLayerSource.Provider.CoverageArea;
  */
 public final class Bing {
 
-    private static final String DEBUG_TAG = Bing.class.getSimpleName();
+    private static final String DEBUG_TAG = Bing.class.getSimpleName().substring(0, Math.min(23, Bing.class.getSimpleName().length()));
 
     /**
      * Private constructor to disable instantiation

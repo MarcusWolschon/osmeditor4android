@@ -22,7 +22,7 @@ import de.blau.android.util.ThemeUtils;
  */
 public class DataLoss extends ImmersiveDialogFragment {
 
-    private static final String DEBUG_TAG = DataLoss.class.getSimpleName();
+    private static final String DEBUG_TAG = DataLoss.class.getSimpleName().substring(0, Math.min(23, DataLoss.class.getSimpleName().length()));
 
     private static final String TAG             = "fragment_dataloss";
     private static final String INTENT_KEY      = "intent";

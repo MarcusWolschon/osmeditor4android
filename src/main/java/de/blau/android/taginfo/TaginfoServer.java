@@ -26,7 +26,7 @@ import de.blau.android.util.StringWithDescription;
  */
 public final class TaginfoServer {
 
-    protected static final String DEBUG_TAG = TaginfoServer.class.getSimpleName();
+    protected static final String DEBUG_TAG = TaginfoServer.class.getSimpleName().substring(0, Math.min(23, TaginfoServer.class.getSimpleName().length()));
 
     private static final String DATA_NAME        = "data";
     private static final String KEY_NAME         = "key";

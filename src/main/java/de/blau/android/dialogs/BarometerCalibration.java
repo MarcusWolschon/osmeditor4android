@@ -29,7 +29,7 @@ import de.blau.android.util.ThemeUtils;
  *
  */
 public class BarometerCalibration extends ImmersiveDialogFragment {
-    private static final String DEBUG_TAG = BarometerCalibration.class.getSimpleName();
+    private static final String DEBUG_TAG = BarometerCalibration.class.getSimpleName().substring(0, Math.min(23, BarometerCalibration.class.getSimpleName().length()));
 
     private static final String TAG = "fragment_calibration_form";
 

@@ -13,7 +13,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
 public final class FragmentUtil {
-    private static final String DEBUG_TAG = FragmentUtil.class.getSimpleName();
+    private static final String DEBUG_TAG = FragmentUtil.class.getSimpleName().substring(0, Math.min(23, FragmentUtil.class.getSimpleName().length()));
 
     /**
      * Private constructor

@@ -22,7 +22,7 @@ import de.blau.android.util.DateFormatter;
 import de.blau.android.util.Util;
 
 public class ImageryLayerInfo extends LayerInfo {
-    private static final String DEBUG_TAG = ImageryLayerInfo.class.getName();
+    private static final String DEBUG_TAG = ImageryLayerInfo.class.getSimpleName().substring(0, Math.min(23, ImageryLayerInfo.class.getSimpleName().length()));
 
     public static final String LAYER_KEY       = "layer";
     public static final String ERROR_COUNT_KEY = "tileErrorCount";

@@ -13,7 +13,7 @@ import androidx.viewpager.widget.ViewPager;
 @ViewPager.DecorView
 public class ExtendedPagerTabStrip extends PagerTabStrip {
 
-    private static final String DEBUG_TAG = ExtendedPagerTabStrip.class.getName();
+    private static final String DEBUG_TAG = ExtendedPagerTabStrip.class.getSimpleName().substring(0, Math.min(23, ExtendedPagerTabStrip.class.getSimpleName().length()));
 
     private boolean enabled;
 

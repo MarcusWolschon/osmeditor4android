@@ -40,11 +40,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import vector_tile.VectorTile;
 import vector_tile.VectorTile.Tile.GeomType;
-import vector_tile.VectorTile.Tile.Layer;
 
 public class VectorTileDecoder {
 
-    private static final String DEBUG_TAG = VectorTileDecoder.class.getSimpleName();
+    private static final String DEBUG_TAG = VectorTileDecoder.class.getSimpleName().substring(0, Math.min(23, VectorTileDecoder.class.getSimpleName().length()));
 
     private boolean autoScale = true;
 

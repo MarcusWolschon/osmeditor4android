@@ -31,7 +31,7 @@ import de.blau.android.util.StringWithDescriptionAndIcon;
 
 public class PresetParser {
 
-    private static final String DEBUG_TAG = PresetParser.class.getSimpleName();
+    private static final String DEBUG_TAG = PresetParser.class.getSimpleName().substring(0, Math.min(23, PresetParser.class.getSimpleName().length()));
 
     private static final String ALTERNATIVE           = "alternative";
     private static final String USE_LAST_AS_DEFAULT   = "use_last_as_default";

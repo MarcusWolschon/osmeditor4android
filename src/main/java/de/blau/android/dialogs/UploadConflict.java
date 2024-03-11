@@ -63,7 +63,7 @@ import de.blau.android.util.ThemeUtils;
  */
 public class UploadConflict extends ImmersiveDialogFragment {
 
-    private static final String DEBUG_TAG = UploadConflict.class.getSimpleName();
+    private static final String DEBUG_TAG = UploadConflict.class.getSimpleName().substring(0, Math.min(23, UploadConflict.class.getSimpleName().length()));
 
     private static final String CONFLICT_KEY = "uploadresult";
 

@@ -52,7 +52,7 @@ import io.noties.markwon.Markwon;
  */
 public class MapRouletteFragment extends TaskFragment {
 
-    private static final String DEBUG_TAG = MapRouletteFragment.class.getSimpleName();
+    private static final String DEBUG_TAG = MapRouletteFragment.class.getSimpleName().substring(0, Math.min(23, MapRouletteFragment.class.getSimpleName().length()));
 
     private static final String TAG = "fragment_maproulette";
 

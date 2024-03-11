@@ -55,7 +55,8 @@ class Meta implements Serializable {
      */
     @Keep
     static final class GsonTypeAdapter extends TypeAdapter<Meta> {
-        private static final String DEBUG_TAG = "MetaTypeAdapter";
+        private static final int TAG_LEN = Math.min(23, GsonTypeAdapter.class.getSimpleName().length());
+        private static final String DEBUG_TAG = GsonTypeAdapter.class.getSimpleName().substring(0, TAG_LEN);
 
         private static final String NAME_FORMAT_VERSION = "format_version";
         private static final String NAME_GENERATED      = "generated";

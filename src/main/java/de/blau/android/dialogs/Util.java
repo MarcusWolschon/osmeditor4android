@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 public final class Util {
-    private static final String DEBUG_TAG = "dialogs.Util";
+    private static final String DEBUG_TAG = Util.class.getSimpleName().substring(0, Math.min(23, Util.class.getSimpleName().length()));
 
     /**
      * Disallow instantiation

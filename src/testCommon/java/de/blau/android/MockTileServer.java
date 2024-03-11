@@ -21,7 +21,7 @@ import okhttp3.mockwebserver.MockWebServer;
 
 public final class MockTileServer {
 
-    private static final String DEBUG_TAG = MockTileServer.class.getName();
+    private static final String DEBUG_TAG = MockTileServer.class.getSimpleName().substring(0, Math.min(23, MockTileServer.class.getSimpleName().length()));
 
     public static final String MOCK_TILE_SOURCE = "VespucciTest";
 

@@ -14,7 +14,7 @@ import de.blau.android.util.ACRAHelper;
 
 public final class Nmea {
 
-    private static final String DEBUG_TAG = Nmea.class.getSimpleName();
+    private static final String DEBUG_TAG = Nmea.class.getSimpleName().substring(0, Math.min(23, Nmea.class.getSimpleName().length()));
 
     private static final String NORTH = "N";
     private static final String EAST  = "E";

@@ -34,7 +34,7 @@ import de.westnordost.countryboundaries.CountryBoundaries;
  *
  */
 public class GeoContext {
-    private static final String DEBUG_TAG = "GeoContext";
+    private static final String DEBUG_TAG = GeoContext.class.getSimpleName().substring(0, Math.min(23, GeoContext.class.getSimpleName().length()));
 
     private static final String SPEED_LIMITS      = "speed-limits";
     private static final String LEFT_HAND_TRAFFIC = "left-hand-traffic";

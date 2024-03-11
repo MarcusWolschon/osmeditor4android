@@ -15,7 +15,7 @@ import de.blau.android.R;
  */
 public class PrefEditor extends PrefEditorActivity {
 
-    private static final String DEBUG_TAG = PrefEditor.class.getSimpleName();
+    private static final String DEBUG_TAG = PrefEditor.class.getSimpleName().substring(0, Math.min(23, PrefEditor.class.getSimpleName().length()));
 
     /**
      * Start the PrefEditor activity

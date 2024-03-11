@@ -19,7 +19,7 @@ import okhttp3.mockwebserver.RecordedRequest;
 import okio.Buffer;
 
 public class PMTilesDispatcher extends Dispatcher {
-    private static final String DEBUG_TAG = PMTilesDispatcher.class.getSimpleName();
+    private static final String DEBUG_TAG = PMTilesDispatcher.class.getSimpleName().substring(0, Math.min(23, PMTilesDispatcher.class.getSimpleName().length()));
 
     private static final String RANGE_HEADER = "Range";
     private static final String ETAG_HEADER  = "ETag";

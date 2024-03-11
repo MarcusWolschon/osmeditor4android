@@ -23,7 +23,7 @@ import de.blau.android.util.ThemeUtils;
  */
 public class AttachedObjectWarning extends DialogFragment {
 
-    private static final String DEBUG_TAG = AttachedObjectWarning.class.getSimpleName();
+    private static final String DEBUG_TAG = AttachedObjectWarning.class.getSimpleName().substring(0, Math.min(23, AttachedObjectWarning.class.getSimpleName().length()));
 
     private static final String TAG = "fragment_attached_object_activity";
 

@@ -24,7 +24,7 @@ public final class WmsEndpointDialog {
         // private
     }
 
-    protected static final String DEBUG_TAG = WmsEndpointDialog.class.getSimpleName();
+    protected static final String DEBUG_TAG = WmsEndpointDialog.class.getSimpleName().substring(0, Math.min(23, WmsEndpointDialog.class.getSimpleName().length()));
 
     /**
      * how a dialog for editing and saving a layer entry

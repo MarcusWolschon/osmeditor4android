@@ -102,7 +102,7 @@ public class Preset implements Serializable {
     public static final int SPACING = 5;
 
     //
-    private static final String DEBUG_TAG = Preset.class.getName();
+    private static final String DEBUG_TAG = Preset.class.getSimpleName().substring(0, Math.min(23, Preset.class.getSimpleName().length()));
 
     /** The directory containing all data (xml, MRU data, images) about this preset */
     private File directory;

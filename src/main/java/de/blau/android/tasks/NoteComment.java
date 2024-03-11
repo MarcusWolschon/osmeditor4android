@@ -20,7 +20,7 @@ import de.blau.android.util.DateFormatter;
  */
 public class NoteComment implements Serializable, JosmXmlSerializable {
 
-    private static final String DEBUG_TAG = NoteComment.class.getName();
+    private static final String DEBUG_TAG = NoteComment.class.getSimpleName().substring(0, Math.min(23, NoteComment.class.getSimpleName().length()));
 
     /**
      * 

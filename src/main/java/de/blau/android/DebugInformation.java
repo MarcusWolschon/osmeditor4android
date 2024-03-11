@@ -1,5 +1,7 @@
 package de.blau.android;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.File;
 import java.util.Date;
 
@@ -19,8 +21,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import de.blau.android.layer.LayerConfig;
 import de.blau.android.layer.MapViewLayer;
-import de.blau.android.osm.UserDetails;
 import de.blau.android.osm.StorageDelegator;
+import de.blau.android.osm.UserDetails;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerSource;
@@ -33,7 +35,8 @@ import de.blau.android.views.layers.MapTilesLayer;
 import de.blau.android.views.layers.MapTilesOverlayLayer;
 
 public class DebugInformation extends ConfigurationChangeAwareActivity {
-    private static final String DEBUG_TAG = "DebugInformation";
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, DebugInformation.class.getSimpleName().length());
+    private static final String DEBUG_TAG = DebugInformation.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
 
@@ -105,8 +108,8 @@ public class DebugInformation extends ConfigurationChangeAwareActivity {
                     if (ov instanceof MapTilesLayer || ov instanceof MapTilesOverlayLayer) {
                         TileLayerSource tileLayerConfiguration = ((MapTilesLayer<?>) ov).getTileLayerConfiguration();
                         if (tileLayerConfiguration != null) {
-                            builder.append("In memory Tile Cache " + tileLayerConfiguration.getId() + " type " + tileLayerConfiguration.getType() + " tiles " + tileLayerConfiguration.getTileType() + " usage "
-                                    + ((MapTilesLayer<?>) ov).getTileProvider().getCacheUsageInfo() + eol);
+                            builder.append("In memory Tile Cache " + tileLayerConfiguration.getId() + " type " + tileLayerConfiguration.getType() + " tiles "
+                                    + tileLayerConfiguration.getTileType() + " usage " + ((MapTilesLayer<?>) ov).getTileProvider().getCacheUsageInfo() + eol);
                         }
                     }
                 }

@@ -20,7 +20,7 @@ import oauth.signpost.exception.OAuthException;
  * 
  */
 public abstract class OAuthHelper {
-    private static final String DEBUG_TAG = OAuthHelper.class.getSimpleName();
+    private static final String DEBUG_TAG = OAuthHelper.class.getSimpleName().substring(0, Math.min(23, OAuthHelper.class.getSimpleName().length()));
 
     protected static final int TIMEOUT = 10;
 

@@ -1,10 +1,9 @@
 package de.blau.android.presets;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
 import java.util.Objects;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import de.blau.android.util.Value;
 
 public class ValueWithCount implements Comparable<ValueWithCount>, Value {

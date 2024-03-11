@@ -16,8 +16,8 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Result;
 import de.blau.android.osm.Way;
-import de.blau.android.util.SerializableState;
 import de.blau.android.util.ScreenMessage;
+import de.blau.android.util.SerializableState;
 import de.blau.android.util.Util;
 
 public class WaySplittingActionModeCallback extends NonSimpleActionModeCallback {

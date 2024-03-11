@@ -24,7 +24,7 @@ import de.blau.android.util.ThemeUtils;
  */
 public class TooMuchData extends ImmersiveDialogFragment {
 
-    private static final String DEBUG_TAG = TooMuchData.class.getSimpleName();
+    private static final String DEBUG_TAG = TooMuchData.class.getSimpleName().substring(0, Math.min(23, TooMuchData.class.getSimpleName().length()));
 
     private static final String TAG           = "fragment_too_much_data";
     private static final String NODECOUNT_KEY = "nodeCount";

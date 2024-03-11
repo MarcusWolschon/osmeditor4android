@@ -49,7 +49,7 @@ import de.blau.android.util.mvt.style.Source.SourceType;
 
 public class Style implements Serializable {
 
-    private static final String DEBUG_TAG = Style.class.getSimpleName();
+    private static final String DEBUG_TAG = Style.class.getSimpleName().substring(0, Math.min(23, Style.class.getSimpleName().length()));
 
     /**
      * 

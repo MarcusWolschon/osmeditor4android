@@ -29,7 +29,7 @@ import de.blau.android.R;
  */
 public class CustomAutoCompleteTextView extends AppCompatAutoCompleteTextView {
 
-    private static final String DEBUG_TAG = CustomAutoCompleteTextView.class.getName();
+    private static final String DEBUG_TAG = CustomAutoCompleteTextView.class.getSimpleName().substring(0, Math.min(23, CustomAutoCompleteTextView.class.getSimpleName().length()));
 
     private Tokenizer mTokenizer = null;
 

@@ -13,7 +13,7 @@ public class FloatArrayStyleAttribute extends StyleAttribute {
 
     private static final long serialVersionUID = 1L;
 
-    private static final String DEBUG_TAG = FloatArrayStyleAttribute.class.getSimpleName();
+    private static final String DEBUG_TAG = FloatArrayStyleAttribute.class.getSimpleName().substring(0, Math.min(23, FloatArrayStyleAttribute.class.getSimpleName().length()));
 
     float[] literal = new float[] { 0f, 0f };
     boolean convert;

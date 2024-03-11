@@ -32,7 +32,7 @@ import de.blau.android.util.ScreenMessage;
  */
 public final class Search {
 
-    protected static final String DEBUG_TAG = "Search";
+    protected static final String DEBUG_TAG = Search.class.getSimpleName().substring(0, Math.min(23, Search.class.getSimpleName().length()));
 
     private static AppCompatDialog dialog;
 

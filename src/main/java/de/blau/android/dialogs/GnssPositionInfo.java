@@ -44,7 +44,7 @@ import de.blau.android.util.Util;
  */
 public class GnssPositionInfo extends InfoDialogFragment {
 
-    private static final String DEBUG_TAG = GnssPositionInfo.class.getName();
+    private static final String DEBUG_TAG = GnssPositionInfo.class.getSimpleName().substring(0, Math.min(23, GnssPositionInfo.class.getSimpleName().length()));
 
     private static final String LOCATION_KEY = "location";
 

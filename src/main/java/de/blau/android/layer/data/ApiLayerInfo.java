@@ -28,7 +28,7 @@ import de.blau.android.services.util.MBTileProviderDataBase;
 import de.blau.android.util.DateFormatter;
 
 public class ApiLayerInfo extends LayerInfo {
-    private static final String DEBUG_TAG = ApiLayerInfo.class.getName();
+    private static final String DEBUG_TAG = ApiLayerInfo.class.getSimpleName().substring(0, Math.min(23, ApiLayerInfo.class.getSimpleName().length()));
 
     private static final String DATE_FORMAT = "yyyy-MM-dd HH:mm Z";
 

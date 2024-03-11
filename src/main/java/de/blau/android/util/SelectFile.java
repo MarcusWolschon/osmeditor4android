@@ -48,7 +48,7 @@ import de.blau.android.presets.PresetElement;
  */
 public final class SelectFile {
 
-    private static final String DEBUG_TAG = SelectFile.class.getName();
+    private static final String DEBUG_TAG = SelectFile.class.getSimpleName().substring(0, Math.min(23, SelectFile.class.getSimpleName().length()));
 
     public static final int SAVE_FILE = 7113;
     public static final int READ_FILE = 9340;

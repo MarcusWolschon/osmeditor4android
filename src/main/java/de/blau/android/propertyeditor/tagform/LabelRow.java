@@ -17,7 +17,7 @@ import de.blau.android.presets.PresetLabelField;
  */
 public class LabelRow extends LinearLayout {
 
-    protected static final String DEBUG_TAG = LabelRow.class.getSimpleName();
+    protected static final String DEBUG_TAG = LabelRow.class.getSimpleName().substring(0, Math.min(23, LabelRow.class.getSimpleName().length()));
 
     private TextView labelView;
 

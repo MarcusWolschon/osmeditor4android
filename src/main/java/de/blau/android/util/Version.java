@@ -13,7 +13,7 @@ public class Version implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private static final String DEBUG_TAG = "Version";
+    private static final String DEBUG_TAG = Version.class.getSimpleName().substring(0, Math.min(23, Version.class.getSimpleName().length()));
 
     private int major = 0;
     private int minor = 0;

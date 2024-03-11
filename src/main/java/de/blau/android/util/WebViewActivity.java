@@ -23,7 +23,7 @@ import de.blau.android.dialogs.ErrorAlert;
  */
 public abstract class WebViewActivity extends FullScreenAppCompatActivity implements OnKeyListener {
 
-    private static final String DEBUG_TAG = WebViewActivity.class.getSimpleName();
+    private static final String DEBUG_TAG = WebViewActivity.class.getSimpleName().substring(0, Math.min(23, WebViewActivity.class.getSimpleName().length()));
 
     protected WebView webView;
     protected Object  webViewLock = new Object();

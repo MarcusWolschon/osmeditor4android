@@ -55,7 +55,7 @@ import de.blau.android.util.Util;
 /** Provides an activity for editing the API list */
 public class APIEditorActivity extends URLListEditActivity {
 
-    private static final String DEBUG_TAG = APIEditorActivity.class.getSimpleName();
+    private static final String DEBUG_TAG = APIEditorActivity.class.getSimpleName().substring(0, Math.min(23, APIEditorActivity.class.getSimpleName().length()));
 
     private static final int MENU_COPY = 1;
 

@@ -30,7 +30,7 @@ import de.blau.android.util.Util;
  */
 public class NewVersion extends ImmersiveDialogFragment {
 
-    private static final String DEBUG_TAG = NewVersion.class.getSimpleName();
+    private static final String DEBUG_TAG = NewVersion.class.getSimpleName().substring(0, Math.min(23, NewVersion.class.getSimpleName().length()));
 
     private static final String TAG = "fragment_newversion";
 

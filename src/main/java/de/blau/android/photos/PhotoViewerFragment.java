@@ -38,8 +38,8 @@ import de.blau.android.listener.DoNothingListener;
 import de.blau.android.util.ImageLoader;
 import de.blau.android.util.ImagePagerAdapter;
 import de.blau.android.util.OnPageSelectedListener;
-import de.blau.android.util.SizedDynamicImmersiveDialogFragment;
 import de.blau.android.util.ScreenMessage;
+import de.blau.android.util.SizedDynamicImmersiveDialogFragment;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
@@ -50,7 +50,7 @@ import de.blau.android.util.Util;
  *
  */
 public class PhotoViewerFragment extends SizedDynamicImmersiveDialogFragment implements OnMenuItemClickListener {
-    private static final String DEBUG_TAG = PhotoViewerFragment.class.getName();
+    private static final String DEBUG_TAG = PhotoViewerFragment.class.getSimpleName().substring(0, Math.min(23, PhotoViewerFragment.class.getSimpleName().length()));
 
     public static final String TAG = "fragment_photo_viewer";
 

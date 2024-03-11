@@ -22,7 +22,7 @@ import de.blau.android.prefs.Preferences;
  */
 public abstract class FullScreenAppCompatActivity extends ConfigurationChangeAwareActivity {
 
-    private static final String DEBUG_TAG = FullScreenAppCompatActivity.class.getSimpleName();
+    private static final String DEBUG_TAG = FullScreenAppCompatActivity.class.getSimpleName().substring(0, Math.min(23, FullScreenAppCompatActivity.class.getSimpleName().length()));
 
     private static final int FULLSCREEN_UI = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_FULLSCREEN;
     private static final int NAV_HIDDEN    = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;

@@ -29,7 +29,8 @@ import de.blau.android.util.ScreenMessage;
  */
 public class KeyDatabaseHelper extends SQLiteOpenHelper {
 
-    private static final String DEBUG_TAG = "KeyDatabase";
+    private static final int TAG_LEN = Math.min(23, KeyDatabaseHelper.class.getSimpleName().length());
+    private static final String DEBUG_TAG = KeyDatabaseHelper.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String DATABASE_NAME    = "keys";
     private static final int    DATABASE_VERSION = 4;

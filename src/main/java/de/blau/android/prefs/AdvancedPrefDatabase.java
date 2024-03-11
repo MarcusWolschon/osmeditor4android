@@ -42,7 +42,7 @@ import de.blau.android.util.ScreenMessage;
  */
 public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoCloseable {
 
-    private static final String DEBUG_TAG = "AdvancedPrefDB";
+    private static final String DEBUG_TAG = AdvancedPrefDatabase.class.getSimpleName().substring(0, Math.min(23, AdvancedPrefDatabase.class.getSimpleName().length()));
 
     private final Resources         r;
     private final SharedPreferences sharedPrefs;

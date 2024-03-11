@@ -29,7 +29,7 @@ import de.blau.android.util.Util;
 
 public class AlternativePresetItemsFragment extends ImmersiveDialogFragment {
 
-    private static final String DEBUG_TAG = AlternativePresetItemsFragment.class.getSimpleName();
+    private static final String DEBUG_TAG = AlternativePresetItemsFragment.class.getSimpleName().substring(0, Math.min(23, AlternativePresetItemsFragment.class.getSimpleName().length()));
 
     private static final String ITEM_PATH_KEY = "itemPath";
     public static final String  TAG           = "alternative_preset_item_fragment";

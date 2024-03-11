@@ -31,7 +31,7 @@ import io.noties.markwon.Markwon;
  *
  */
 public abstract class BugFragment extends TaskFragment {
-    private static final String DEBUG_TAG = BugFragment.class.getSimpleName();
+    private static final String DEBUG_TAG = BugFragment.class.getSimpleName().substring(0, Math.min(23, BugFragment.class.getSimpleName().length()));
 
     /**
      * Add links to elements to the layout

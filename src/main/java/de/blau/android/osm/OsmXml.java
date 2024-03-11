@@ -23,7 +23,7 @@ import de.blau.android.util.Util;
  *
  */
 public final class OsmXml {
-    private static final String DEBUG_TAG = "OsmXml";
+    private static final String DEBUG_TAG = OsmXml.class.getSimpleName().substring(0, Math.min(23, OsmXml.class.getSimpleName().length()));
 
     public static final String UTF_8 = "UTF-8";
 

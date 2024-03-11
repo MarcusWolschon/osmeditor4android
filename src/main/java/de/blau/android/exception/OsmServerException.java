@@ -7,7 +7,7 @@ import de.blau.android.contract.HttpStatusCodes;
 
 public class OsmServerException extends OsmException {
 
-    private static final String DEBUG_TAG = OsmServerException.class.getSimpleName();
+    private static final String DEBUG_TAG = OsmServerException.class.getSimpleName().substring(0, Math.min(23, OsmServerException.class.getSimpleName().length()));
 
     private static final String ELEMENT_TYPE_NONE = "none";
 

@@ -16,7 +16,7 @@ import androidx.annotation.Nullable;
 public class GeoUrlData implements Serializable {
     private static final long serialVersionUID = 3L;
 
-    private static final String DEBUG_TAG = "GeoUrlData";
+    private static final String DEBUG_TAG = GeoUrlData.class.getSimpleName().substring(0, Math.min(23, GeoUrlData.class.getSimpleName().length()));
 
     private double lat  = -Double.MAX_VALUE;
     private double lon  = -Double.MAX_VALUE;

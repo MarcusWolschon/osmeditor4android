@@ -26,7 +26,7 @@ import de.blau.android.util.Util;
  */
 public class ForbiddenLogin extends ImmersiveDialogFragment {
 
-    private static final String DEBUG_TAG = ForbiddenLogin.class.getSimpleName();
+    private static final String DEBUG_TAG = ForbiddenLogin.class.getSimpleName().substring(0, Math.min(23, ForbiddenLogin.class.getSimpleName().length()));
 
     private static final String FRAGMENT_TAG = "forbidden_alert";
 

@@ -16,7 +16,7 @@ import de.blau.android.gpx.Track;
 import de.blau.android.layer.LayerType;
 
 public class GpxLayerInfo extends LayerInfo {
-    private static final String DEBUG_TAG = GpxLayerInfo.class.getName();
+    private static final String DEBUG_TAG = GpxLayerInfo.class.getSimpleName().substring(0, Math.min(23, GpxLayerInfo.class.getSimpleName().length()));
 
     public static final String LAYER_ID_KEY = "layerId";
 

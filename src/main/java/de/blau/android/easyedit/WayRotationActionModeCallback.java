@@ -12,7 +12,7 @@ import de.blau.android.R;
 import de.blau.android.osm.Way;
 
 public class WayRotationActionModeCallback extends NonSimpleActionModeCallback {
-    private static final String DEBUG_TAG = "WayRotationAction...";
+    private static final String DEBUG_TAG = WayRotationActionModeCallback.class.getSimpleName().substring(0, Math.min(23, WayRotationActionModeCallback.class.getSimpleName().length()));
 
     private Drawable savedButton;
 

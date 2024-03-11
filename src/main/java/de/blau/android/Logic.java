@@ -1,5 +1,7 @@
 package de.blau.android;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -74,6 +76,7 @@ import de.blau.android.gpx.Track;
 import de.blau.android.imageryoffset.ImageryAlignmentActionModeCallback;
 import de.blau.android.layer.MapViewLayer;
 import de.blau.android.osm.ApiResponse;
+import de.blau.android.osm.ApiResponse.Conflict;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.DiscardedTags;
 import de.blau.android.osm.GeoPoint;
@@ -94,14 +97,13 @@ import de.blau.android.osm.RelationMemberDescription;
 import de.blau.android.osm.RelationMemberPosition;
 import de.blau.android.osm.Result;
 import de.blau.android.osm.Server;
-import de.blau.android.osm.UserDetails;
 import de.blau.android.osm.Storage;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.UndoStorage;
+import de.blau.android.osm.UserDetails;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
-import de.blau.android.osm.ApiResponse.Conflict;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.DataStyle.FeatureStyle;
@@ -135,7 +137,8 @@ import de.blau.android.validation.Validator;
  * @author Simon Poole
  */
 public class Logic {
-    private static final String DEBUG_TAG = Logic.class.getSimpleName();
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Logic.class.getSimpleName().length());
+    private static final String DEBUG_TAG = Logic.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final int    EXECUTOR_THREADS = 4;
     private static final String METHOD_UPLOAD    = "upload";

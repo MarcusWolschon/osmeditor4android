@@ -32,7 +32,7 @@ public abstract class Bug extends Task implements Serializable {
 
     private static final long serialVersionUID = 3L;
 
-    private static final String DEBUG_TAG = Bug.class.getSimpleName();
+    private static final String DEBUG_TAG = Bug.class.getSimpleName().substring(0, Math.min(23, Bug.class.getSimpleName().length()));
 
     protected static final String OSM_IDS         = "osm_ids";
     protected static final String NODES_ARRAY     = "nodes";

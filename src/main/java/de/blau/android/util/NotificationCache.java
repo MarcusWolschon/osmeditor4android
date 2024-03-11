@@ -17,7 +17,7 @@ import de.blau.android.App;
  *
  */
 public class NotificationCache implements Serializable {
-    private static final String DEBUG_TAG        = "NotificationCache";
+    private static final String DEBUG_TAG        = NotificationCache.class.getSimpleName().substring(0, Math.min(23, NotificationCache.class.getSimpleName().length()));
     private static final long   serialVersionUID = 2L;
     private List<Integer>       cache;
     private int                 size             = 5;

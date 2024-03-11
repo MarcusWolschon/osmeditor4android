@@ -22,9 +22,9 @@ import de.blau.android.Authorize;
 import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
 import de.blau.android.exception.OsmException;
-import de.blau.android.net.OAuthHelper;
-import de.blau.android.net.OAuth2Helper;
 import de.blau.android.net.OAuth1aHelper;
+import de.blau.android.net.OAuth2Helper;
+import de.blau.android.net.OAuthHelper;
 import de.blau.android.prefs.AdvancedPrefDatabase.PresetInfo;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.Util;
@@ -39,7 +39,7 @@ import de.blau.android.util.Util;
  *
  */
 public class VespucciURLActivity extends AppCompatActivity implements OnClickListener {
-    private static final String DEBUG_TAG = VespucciURLActivity.class.getSimpleName();
+    private static final String DEBUG_TAG = VespucciURLActivity.class.getSimpleName().substring(0, Math.min(23, VespucciURLActivity.class.getSimpleName().length()));
 
     private static final int    REQUEST_PRESETEDIT   = 0;
     private static final String OAUTH1A_PATH         = "oauth";

@@ -6,7 +6,7 @@ import de.blau.android.osm.ViewBox;
 
 public abstract class Downloader implements Runnable {
 
-    private static final String DEBUG_TAG = Downloader.class.getSimpleName();
+    private static final String DEBUG_TAG = Downloader.class.getSimpleName().substring(0, Math.min(23, Downloader.class.getSimpleName().length()));
 
     protected long      lastAutoPrune = 0;
     protected ViewBox   box           = null;

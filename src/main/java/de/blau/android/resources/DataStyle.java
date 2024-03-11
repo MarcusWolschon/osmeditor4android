@@ -40,10 +40,10 @@ import android.graphics.Paint.Cap;
 import android.graphics.Paint.FontMetrics;
 import android.graphics.Paint.Join;
 import android.graphics.Paint.Style;
-import android.os.Build;
 import android.graphics.Path;
 import android.graphics.PathDashPathEffect;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -66,7 +66,7 @@ import de.blau.android.util.Version;
 import de.blau.android.util.XmlFileFilter;
 
 public final class DataStyle extends DefaultHandler {
-    private static final String DEBUG_TAG = DataStyle.class.getSimpleName();
+    private static final String DEBUG_TAG = DataStyle.class.getSimpleName().substring(0, Math.min(23, DataStyle.class.getSimpleName().length()));
 
     private static final String I18N_DATASTYLE = "i18n/datastyle_";
 

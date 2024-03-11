@@ -18,7 +18,7 @@ import de.blau.android.prefs.Preferences;
  *
  */
 public class ThemedFilePickerActivity extends FilePickerActivity {
-    private static final String DEBUG_TAG = "ThemedFilePickerAct...";
+    private static final String DEBUG_TAG = ThemedFilePickerActivity.class.getSimpleName().substring(0, Math.min(23, ThemedFilePickerActivity.class.getSimpleName().length()));
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -19,7 +19,7 @@ import de.blau.android.util.SerializableState;
  *
  */
 public class ClosedWaySplittingActionModeCallback extends AbstractClosedWaySplittingActionModeCallback {
-    private static final String DEBUG_TAG = "ClosedWaySplit...";
+    private static final String DEBUG_TAG = ClosedWaySplittingActionModeCallback.class.getSimpleName().substring(0, Math.min(23, ClosedWaySplittingActionModeCallback.class.getSimpleName().length()));
 
     private static final String CREATE_POLYGONS_KEY = "create polygons";
 

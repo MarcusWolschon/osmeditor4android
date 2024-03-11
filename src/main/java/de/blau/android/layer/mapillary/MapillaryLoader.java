@@ -53,7 +53,7 @@ import okhttp3.ResponseBody;
 class MapillaryLoader extends ImageLoader {
     private static final long serialVersionUID = 2L;
 
-    protected static final String DEBUG_TAG = MapillaryLoader.class.getSimpleName();
+    protected static final String DEBUG_TAG = MapillaryLoader.class.getSimpleName().substring(0, Math.min(23, MapillaryLoader.class.getSimpleName().length()));
 
     private static final int IMAGERY_LOAD_THREADS = 3;
 

@@ -2,8 +2,6 @@ package de.blau.android.imageryoffset;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -69,8 +67,8 @@ import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.MenuUtil;
 import de.blau.android.util.SavingHelper;
-import de.blau.android.util.SerializableState;
 import de.blau.android.util.ScreenMessage;
+import de.blau.android.util.SerializableState;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.views.layers.MapTilesLayer;
 import okhttp3.Call;
@@ -88,7 +86,7 @@ import okhttp3.ResponseBody;
  */
 public class ImageryAlignmentActionModeCallback implements Callback {
 
-    private static final String DEBUG_TAG = "ImageryAlign...";
+    private static final String DEBUG_TAG = ImageryAlignmentActionModeCallback.class.getSimpleName().substring(0, Math.min(23, ImageryAlignmentActionModeCallback.class.getSimpleName().length()));
 
     private static final int MENUITEM_QUERYDB   = 1;
     private static final int MENUITEM_APPLY2ALL = 2;

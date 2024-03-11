@@ -44,8 +44,8 @@ import de.blau.android.util.GeoMath;
 import de.blau.android.util.Hash;
 import de.blau.android.util.ReadFile;
 import de.blau.android.util.SavingHelper;
-import de.blau.android.util.SelectFile;
 import de.blau.android.util.ScreenMessage;
+import de.blau.android.util.SelectFile;
 import de.blau.android.util.mvt.VectorTileDecoder;
 import de.blau.android.util.mvt.VectorTileRenderer;
 import de.blau.android.util.mvt.style.Background;
@@ -59,7 +59,7 @@ import de.blau.android.views.util.MapTileProvider;
 public class MapOverlay extends MapTilesOverlayLayer<java.util.Map<String, List<VectorTileDecoder.Feature>>>
         implements ClickableInterface<VectorTileDecoder.Feature>, StyleableInterface {
 
-    private static final String DEBUG_TAG = "mvt";
+    private static final String DEBUG_TAG = MapOverlay.class.getSimpleName().substring(0, Math.min(23, MapOverlay.class.getSimpleName().length()));
 
     private static final Type[] DEFAULT_STYLE_TYPES = new Type[] { Type.LINE, Type.FILL, Type.SYMBOL };
 

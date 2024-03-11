@@ -27,7 +27,7 @@ import okhttp3.ResponseBody;
 
 final class OsmoseServer {
 
-    private static final String DEBUG_TAG = OsmoseServer.class.getSimpleName();
+    private static final String DEBUG_TAG = OsmoseServer.class.getSimpleName().substring(0, Math.min(23, OsmoseServer.class.getSimpleName().length()));
 
     private static final String API03PATH = "/api/0.3/"; // NOSONAR
 

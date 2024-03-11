@@ -1,5 +1,7 @@
 package de.blau.android;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
@@ -27,7 +29,8 @@ import de.blau.android.util.Util;
  * Start vespucci with JOSM style remote control url
  */
 public class RemoteControlUrlActivity extends UrlActivity {
-    private static final String DEBUG_TAG = RemoteControlUrlActivity.class.getSimpleName();
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, RemoteControlUrlActivity.class.getSimpleName().length());
+    private static final String DEBUG_TAG = RemoteControlUrlActivity.class.getSimpleName().substring(0, TAG_LEN);
 
     public static final String RCDATA = "de.blau.android.RemoteControlActivity";
 

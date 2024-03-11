@@ -53,7 +53,7 @@ import de.blau.android.util.ThemeUtils;
  */
 public abstract class URLListEditActivity extends ListActivity
         implements OnMenuItemClickListener, android.view.MenuItem.OnMenuItemClickListener, OnItemClickListener {
-    private static final String DEBUG_TAG = URLListEditActivity.class.getSimpleName();
+    private static final String DEBUG_TAG = URLListEditActivity.class.getSimpleName().substring(0, Math.min(23, URLListEditActivity.class.getSimpleName().length()));
 
     static final String ACTION_NEW   = "new";
     static final String EXTRA_NAME   = "name";

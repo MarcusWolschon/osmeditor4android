@@ -18,7 +18,7 @@ import de.blau.android.util.Value;
 
 public class ComboImageLoader extends ImageLoader {
 
-    private static final String DEBUG_TAG = ComboImageLoader.class.getSimpleName();
+    private static final String DEBUG_TAG = ComboImageLoader.class.getSimpleName().substring(0, Math.min(23, ComboImageLoader.class.getSimpleName().length()));
 
     private static final long serialVersionUID = 1L;
 

@@ -16,7 +16,7 @@ import de.blau.android.util.ExecutorTask;
 import de.blau.android.views.util.MapTileProviderCallback;
 
 public class MapTileTester {
-    private static final String DEBUG_TAG = MapTileTester.class.getSimpleName();
+    private static final String DEBUG_TAG = MapTileTester.class.getSimpleName().substring(0, Math.min(23, MapTileTester.class.getSimpleName().length()));
 
     private final Runnable      testTileLoader;
     private final StringBuilder output    = new StringBuilder();

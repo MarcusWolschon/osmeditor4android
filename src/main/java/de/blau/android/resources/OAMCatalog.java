@@ -38,7 +38,7 @@ import okhttp3.ResponseBody;
  */
 public class OAMCatalog {
 
-    private static final String DEBUG_TAG = "OAMCatalog";
+    private static final String DEBUG_TAG = OAMCatalog.class.getSimpleName().substring(0, Math.min(23, OAMCatalog.class.getSimpleName().length()));
 
     /**
      * Includes milliseconds

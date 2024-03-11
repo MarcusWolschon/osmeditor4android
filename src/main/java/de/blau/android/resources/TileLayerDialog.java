@@ -61,14 +61,14 @@ import de.blau.android.util.GeoMath;
 import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.OkHttpFileChannel;
 import de.blau.android.util.ReadFile;
-import de.blau.android.util.SelectFile;
 import de.blau.android.util.ScreenMessage;
+import de.blau.android.util.SelectFile;
 import de.blau.android.util.Util;
 import okhttp3.OkHttpClient;
 
 public class TileLayerDialog extends ImmersiveDialogFragment {
 
-    protected static final String DEBUG_TAG = TileLayerDialog.class.getSimpleName();
+    protected static final String DEBUG_TAG = TileLayerDialog.class.getSimpleName().substring(0, Math.min(23, TileLayerDialog.class.getSimpleName().length()));
 
     private static final String TAG = "fragment_layer_dialog";
 

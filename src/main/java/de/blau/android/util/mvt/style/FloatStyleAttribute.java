@@ -12,7 +12,7 @@ public class FloatStyleAttribute extends StyleAttribute {
 
     private static final long serialVersionUID = 1L;
 
-    private static final String DEBUG_TAG = FloatStyleAttribute.class.getSimpleName();
+    private static final String DEBUG_TAG = FloatStyleAttribute.class.getSimpleName().substring(0, Math.min(23, FloatStyleAttribute.class.getSimpleName().length()));
 
     float   literal;
     boolean convert;

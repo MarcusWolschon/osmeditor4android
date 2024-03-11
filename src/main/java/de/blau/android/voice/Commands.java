@@ -31,8 +31,8 @@ import de.blau.android.tasks.Note;
 import de.blau.android.util.ActivityResultHandler;
 import de.blau.android.util.ElementSearch;
 import de.blau.android.util.IntCoordinates;
-import de.blau.android.util.SearchIndexUtils;
 import de.blau.android.util.ScreenMessage;
+import de.blau.android.util.SearchIndexUtils;
 import de.blau.android.util.Util;
 
 /**
@@ -42,7 +42,7 @@ import de.blau.android.util.Util;
  *
  */
 public final class Commands {
-    private static final String DEBUG_TAG = Commands.class.getSimpleName();
+    private static final String DEBUG_TAG = Commands.class.getSimpleName().substring(0, Math.min(23, Commands.class.getSimpleName().length()));
 
     public static final String SOURCE_ORIGINAL_TEXT = "source:original_text";
 

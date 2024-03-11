@@ -26,7 +26,7 @@ import de.blau.android.exception.StorageException;
  */
 public class LRUMapTileCache<T> {
 
-    private static final String DEBUG_TAG = "LRUMapTileCache";
+    private static final String DEBUG_TAG = LRUMapTileCache.class.getSimpleName().substring(0, Math.min(23, LRUMapTileCache.class.getSimpleName().length()));
 
     // ===========================================================
     // Constants

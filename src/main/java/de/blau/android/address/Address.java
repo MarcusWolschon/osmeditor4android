@@ -49,7 +49,7 @@ import de.blau.android.util.collections.LongOsmElementMap;
 public final class Address implements Serializable {
     private static final long serialVersionUID = 6L;
 
-    private static final String DEBUG_TAG = Address.class.getSimpleName();
+    private static final String DEBUG_TAG = Address.class.getSimpleName().substring(0, Math.min(23, Address.class.getSimpleName().length()));
 
     public static final int NO_HYSTERESIS      = 0;
     public static final int DEFAULT_HYSTERESIS = 2;

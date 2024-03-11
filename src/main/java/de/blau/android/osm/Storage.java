@@ -22,7 +22,7 @@ import de.blau.android.util.collections.LongOsmElementMap;
  */
 public class Storage implements Serializable {
 
-    private static final String DEBUG_TAG = "Storage";
+    private static final String DEBUG_TAG = Storage.class.getSimpleName().substring(0, Math.min(23, Storage.class.getSimpleName().length()));
 
     private static final long serialVersionUID = 3838107046050083566L;
 

@@ -24,7 +24,7 @@ import de.blau.android.contract.Schemes;
 
 public final class ContentResolverUtil {
 
-    private static final String DEBUG_TAG = ContentResolverUtil.class.getSimpleName();
+    private static final String DEBUG_TAG = ContentResolverUtil.class.getSimpleName().substring(0, Math.min(23, ContentResolverUtil.class.getSimpleName().length()));
 
     private static final String PRIMARY                   = "primary";
     private static final String MY_DOWNLOADS              = "content://downloads/my_downloads";

@@ -73,8 +73,8 @@ import de.blau.android.util.GeoJSONConstants;
 import de.blau.android.util.GeoJson;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
-import de.blau.android.util.SerializableTextPaint;
 import de.blau.android.util.ScreenMessage;
+import de.blau.android.util.SerializableTextPaint;
 import de.blau.android.util.collections.FloatPrimitiveList;
 import de.blau.android.util.rtree.BoundedObject;
 import de.blau.android.util.rtree.RTree;
@@ -85,7 +85,7 @@ public class MapOverlay extends StyleableFileLayer
 
     private static final long serialVersionUID = 5L;
 
-    private static final String DEBUG_TAG = MapOverlay.class.getName();
+    private static final String DEBUG_TAG = MapOverlay.class.getSimpleName().substring(0, Math.min(23, MapOverlay.class.getSimpleName().length()));
 
     public static final String FILENAME = "geojson" + "." + FileExtensions.RES;
 

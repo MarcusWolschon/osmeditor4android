@@ -25,7 +25,7 @@ import de.blau.android.util.Util;
  */
 public class PhotoViewerActivity extends ConfigurationChangeAwareActivity {
 
-    private static final String DEBUG_TAG = PhotoViewerActivity.class.getSimpleName();
+    private static final String DEBUG_TAG = PhotoViewerActivity.class.getSimpleName().substring(0, Math.min(23, PhotoViewerActivity.class.getSimpleName().length()));
 
     ArrayList<String> photoList   = null;
     int               startPos    = 0;

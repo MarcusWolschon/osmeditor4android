@@ -14,7 +14,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 public class ImageryOffsetDatabase extends SQLiteOpenHelper {
-    private static final String DEBUG_TAG        = "OffsetDatabase";
+    private static final String DEBUG_TAG        = ImageryOffsetDatabase.class.getSimpleName().substring(0, Math.min(23, ImageryOffsetDatabase.class.getSimpleName().length()));
     public static final String  DATABASE_NAME    = "offsets";
     private static final int    DATABASE_VERSION = 1;
 

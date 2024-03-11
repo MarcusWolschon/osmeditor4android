@@ -14,7 +14,7 @@ import androidx.annotation.NonNull;
  */
 public class NetworkStatus {
 
-    private static final String DEBUG_TAG = "NetworkStatus";
+    private static final String DEBUG_TAG = NetworkStatus.class.getSimpleName().substring(0, Math.min(23, NetworkStatus.class.getSimpleName().length()));
 
     private final ConnectivityManager connectivityManager;
 

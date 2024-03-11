@@ -30,7 +30,7 @@ import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.Util;
 
 public final class OAMCatalogView extends ImmersiveDialogFragment implements OnUpdateListener {
-    private static final String DEBUG_TAG = OAMCatalogView.class.getSimpleName();
+    private static final String DEBUG_TAG = OAMCatalogView.class.getSimpleName().substring(0, Math.min(23, OAMCatalogView.class.getSimpleName().length()));
 
     private static final String BOUNDING_BOX_KEY = "boundingbox";
 

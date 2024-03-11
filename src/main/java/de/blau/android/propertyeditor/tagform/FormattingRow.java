@@ -23,7 +23,7 @@ import de.blau.android.util.ThemeUtils;
  *
  */
 public class FormattingRow extends LinearLayout {
-    protected static final String DEBUG_TAG = FormattingRow.class.getSimpleName();
+    protected static final String DEBUG_TAG = FormattingRow.class.getSimpleName().substring(0, Math.min(23, FormattingRow.class.getSimpleName().length()));
 
     private static final int DEFAULT_SPACE_HEIGHT     = 34;
     private static final int DEFAULT_SEPARATOR_HEIGHT = 2;

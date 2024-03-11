@@ -26,7 +26,7 @@ import de.blau.android.util.Version;
 @LargeTest
 public class EliTest {
 
-    private static final String DEBUG_TAG = EliTest.class.getSimpleName();
+    private static final String DEBUG_TAG = EliTest.class.getSimpleName().substring(0, Math.min(23, EliTest.class.getSimpleName().length()));
 
     /**
      * Parse a sample ELI geojson config without meta

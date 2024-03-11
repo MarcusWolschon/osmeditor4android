@@ -16,9 +16,9 @@ import de.blau.android.resources.TileLayerSource.Header;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.Request.Builder;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
-import okhttp3.Request.Builder;
 
 /**
  * OkHttp based read-only FileChannel
@@ -28,7 +28,7 @@ import okhttp3.Request.Builder;
  */
 public class OkHttpFileChannel extends UrlFileChannel {
 
-    private static final String DEBUG_TAG = OkHttpFileChannel.class.getSimpleName();
+    private static final String DEBUG_TAG = OkHttpFileChannel.class.getSimpleName().substring(0, Math.min(23, OkHttpFileChannel.class.getSimpleName().length()));
 
     private final URL          url;
     private final OkHttpClient client;

@@ -21,7 +21,7 @@ import de.blau.android.util.StringWithDescription;
 
 public final class Util {
 
-    private static final String DEBUG_TAG = Util.class.getSimpleName();
+    private static final String DEBUG_TAG = Util.class.getSimpleName().substring(0, Math.min(23, Util.class.getSimpleName().length()));
 
     /**
      * Empty private constructor

@@ -12,7 +12,7 @@ public class ColorStyleAttribute extends StyleAttribute {
 
     private static final long serialVersionUID = 1L;
 
-    private static final String DEBUG_TAG = ColorStyleAttribute.class.getSimpleName();
+    private static final String DEBUG_TAG = ColorStyleAttribute.class.getSimpleName().substring(0, Math.min(23, ColorStyleAttribute.class.getSimpleName().length()));
 
     int literal;
 

@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import de.blau.android.exception.StorageException;
 
 public class ClipboardStorage implements Serializable {
-    static final String DEBUG_TAG = "ClipboardStorage";
+    static final String DEBUG_TAG = ClipboardStorage.class.getSimpleName().substring(0, Math.min(23, ClipboardStorage.class.getSimpleName().length()));
 
     /**
      * 

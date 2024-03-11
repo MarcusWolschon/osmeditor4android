@@ -54,7 +54,7 @@ import de.blau.android.views.IMapView;
  */
 public class MapOverlay extends MapViewLayer implements DiscardInterface, ClickableInterface<Photo> {
 
-    private static final String DEBUG_TAG = MapOverlay.class.getSimpleName();
+    private static final String DEBUG_TAG = MapOverlay.class.getSimpleName().substring(0, Math.min(23, MapOverlay.class.getSimpleName().length()));
 
     private static final int VIEWER_MAX = 100;
 

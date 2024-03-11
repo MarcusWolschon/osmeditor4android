@@ -18,7 +18,7 @@ import de.blau.android.R;
  */
 public class ExtendedViewPager extends ViewPager {
 
-    private static final String DEBUG_TAG = ExtendedViewPager.class.getName();
+    private static final String DEBUG_TAG = ExtendedViewPager.class.getSimpleName().substring(0, Math.min(23, ExtendedViewPager.class.getSimpleName().length()));
 
     private boolean enabled;
 

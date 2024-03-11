@@ -51,7 +51,7 @@ import de.blau.android.util.SavingHelper.Exportable;
  */
 public class Track extends DefaultHandler implements GpxTimeFormater, Exportable {
 
-    private static final String DEBUG_TAG = "Track";
+    private static final String DEBUG_TAG = Track.class.getSimpleName().substring(0, Math.min(23, Track.class.getSimpleName().length()));
 
     private static final String TRKSEG_ELEMENT = "trkseg";
     private static final String TRK_ELEMENT    = "trk";

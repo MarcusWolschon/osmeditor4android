@@ -20,7 +20,7 @@ import androidx.annotation.NonNull;
  */
 public class LowAllocArrayList<V> extends ArrayList<V> {
 
-    private static final String DEBUG_TAG = LowAllocArrayList.class.getSimpleName();
+    private static final String DEBUG_TAG = LowAllocArrayList.class.getSimpleName().substring(0, Math.min(23, LowAllocArrayList.class.getSimpleName().length()));
 
     private static final long serialVersionUID = 1L;
 

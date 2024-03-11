@@ -20,7 +20,7 @@ import de.blau.android.util.ThemeUtils;
  */
 public class Review extends AbstractReviewDialog {
 
-    private static final String DEBUG_TAG = Review.class.getSimpleName();
+    private static final String DEBUG_TAG = Review.class.getSimpleName().substring(0, Math.min(23, Review.class.getSimpleName().length()));
 
     public static final String TAG = "fragment_review";
 

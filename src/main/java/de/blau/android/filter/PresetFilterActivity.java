@@ -33,7 +33,7 @@ import de.blau.android.util.ScreenMessage;
  */
 public class PresetFilterActivity extends ConfigurationChangeAwareActivity implements PresetClickHandler {
 
-    private static final String DEBUG_TAG = "PresetFilterActivity";
+    private static final String DEBUG_TAG = PresetFilterActivity.class.getSimpleName().substring(0, Math.min(23, PresetFilterActivity.class.getSimpleName().length()));
 
     private static final String FILTER_NULL_OR_NOT_A_PRESET_FILTER = "filter null or not a PresetFilter";
 

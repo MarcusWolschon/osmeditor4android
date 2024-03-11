@@ -26,7 +26,8 @@ import de.blau.android.util.StringWithDescription;
 
 public final class CustomPreset {
 
-    protected static final String DEBUG_TAG = "CustomPreset";
+    private static final int TAG_LEN = Math.min(23, CustomPreset.class.getSimpleName().length());
+    protected static final String DEBUG_TAG = CustomPreset.class.getSimpleName().substring(0, TAG_LEN);
 
     public static final String ICON = "custom-preset.png";
 

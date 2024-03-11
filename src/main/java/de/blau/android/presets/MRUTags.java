@@ -48,7 +48,7 @@ import de.blau.android.util.collections.MRUList;
  *
  */
 public class MRUTags {
-    private static final String DEBUG_TAG = "MRUTags";
+    private static final String DEBUG_TAG = MRUTags.class.getSimpleName().substring(0, Math.min(23, MRUTags.class.getSimpleName().length()));
 
     private static final String MRUTAGS_TAG      = "mrutags";
     private static final String VALUE_TAG        = "value";

@@ -21,7 +21,7 @@ import okhttp3.Response;
 
 public class UrlCheck {
 
-    private static final String DEBUG_TAG = UrlCheck.class.getName();
+    private static final String DEBUG_TAG = UrlCheck.class.getSimpleName().substring(0, Math.min(23, UrlCheck.class.getSimpleName().length()));
 
     public static final long TIMEOUT = 2000;
 

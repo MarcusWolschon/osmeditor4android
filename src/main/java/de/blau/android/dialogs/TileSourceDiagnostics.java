@@ -39,7 +39,7 @@ import de.blau.android.views.util.MapTileProvider.BitmapDecoder;
  */
 public class TileSourceDiagnostics extends ImmersiveDialogFragment {
 
-    private static final String DEBUG_TAG = TileSourceDiagnostics.class.getName();
+    private static final String DEBUG_TAG = TileSourceDiagnostics.class.getSimpleName().substring(0, Math.min(23, TileSourceDiagnostics.class.getSimpleName().length()));
 
     private static final String TAG = "fragment_tile_source_diag";
 

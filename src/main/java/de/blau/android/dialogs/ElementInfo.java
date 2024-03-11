@@ -70,7 +70,7 @@ import de.blau.android.validation.Validator;
  *
  */
 public class ElementInfo extends InfoDialogFragment {
-    private static final String DEBUG_TAG = ElementInfo.class.getName();
+    private static final String DEBUG_TAG = ElementInfo.class.getSimpleName().substring(0, Math.min(23, ElementInfo.class.getSimpleName().length()));
 
     private static final int    DISPLAY_LIMIT         = 10;
     private static final String ELEMENT_KEY           = "element";

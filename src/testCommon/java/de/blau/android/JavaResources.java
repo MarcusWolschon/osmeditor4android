@@ -15,7 +15,7 @@ import de.blau.android.util.FileUtil;
 
 public final class JavaResources {
 
-    private static final String DEBUG_TAG = JavaResources.class.getSimpleName();
+    private static final String DEBUG_TAG = JavaResources.class.getSimpleName().substring(0, Math.min(23, JavaResources.class.getSimpleName().length()));
 
     /**
      * Private constructor to stop instantiation

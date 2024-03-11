@@ -47,7 +47,7 @@ public class PhotoIndex extends SQLiteOpenHelper {
 
     private static final int    DATA_VERSION = 6;
     public static final String  DB_NAME      = PhotoIndex.class.getSimpleName();
-    private static final String DEBUG_TAG    = DB_NAME;
+    private static final String DEBUG_TAG    = PhotoIndex.class.getSimpleName().substring(0, Math.min(23, PhotoIndex.class.getSimpleName().length()));
 
     private static final String NOVESPUCCI = ".novespucci";
 

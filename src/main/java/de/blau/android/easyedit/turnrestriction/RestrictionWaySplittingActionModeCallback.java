@@ -22,7 +22,7 @@ import de.blau.android.osm.Way;
 import de.blau.android.util.Util;
 
 public class RestrictionWaySplittingActionModeCallback extends NonSimpleActionModeCallback {
-    private static final String DEBUG_TAG = "Restriction...";
+    private static final String DEBUG_TAG = RestrictionWaySplittingActionModeCallback.class.getSimpleName().substring(0, Math.min(23, RestrictionWaySplittingActionModeCallback.class.getSimpleName().length()));
 
     private final Way        way;
     private final Way        fromWay;

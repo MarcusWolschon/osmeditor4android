@@ -10,6 +10,7 @@ import android.graphics.RectF;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import de.blau.android.Map;
+import de.blau.android.R;
 import de.blau.android.bookmarks.Bookmark;
 import de.blau.android.bookmarks.BookmarkStorage;
 import de.blau.android.contract.FileExtensions;
@@ -18,7 +19,6 @@ import de.blau.android.layer.LabelMinZoomInterface;
 import de.blau.android.layer.LayerType;
 import de.blau.android.layer.StyleableLayer;
 import de.blau.android.osm.ViewBox;
-import de.blau.android.R;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.DataStyle.FeatureStyle;
 import de.blau.android.util.GeoMath;
@@ -30,7 +30,7 @@ public class MapOverlay extends StyleableLayer implements DiscardInterface, Labe
 
     private static final long serialVersionUID = 1L;
 
-    private static final String DEBUG_TAG = MapOverlay.class.getName();
+    private static final String DEBUG_TAG = MapOverlay.class.getSimpleName().substring(0, Math.min(23, MapOverlay.class.getSimpleName().length()));
 
     public static final String FILENAME = "bookmarks" + "." + FileExtensions.RES;
 

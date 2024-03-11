@@ -16,7 +16,7 @@ import de.blau.android.util.ScreenMessage;
 
 public abstract class ExtendedPreferenceFragment extends PreferenceFragmentCompat {
 
-    protected static final String DEBUG_TAG = "ExtendedPref...Frag..";
+    protected static final String DEBUG_TAG = ExtendedPreferenceFragment.class.getSimpleName().substring(0, Math.min(23, ExtendedPreferenceFragment.class.getSimpleName().length()));
 
     @Override
     public abstract void onCreatePreferences(Bundle savedInstanceState, String rootKey);

@@ -30,7 +30,7 @@ import de.blau.android.presets.PresetItem;
  *
  */
 public final class Utils {
-    private static final String DEBUG_TAG = "javascript.Utils";
+    private static final String DEBUG_TAG = Utils.class.getSimpleName().substring(0, Math.min(23, Utils.class.getSimpleName().length()));
 
     private static final String LOGIC            = "logic";
     private static final String KEY2_PRESET_ITEM = "key2PresetItem";

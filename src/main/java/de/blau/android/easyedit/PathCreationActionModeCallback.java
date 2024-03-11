@@ -20,9 +20,9 @@ import androidx.appcompat.view.ActionMode;
 import androidx.appcompat.widget.AppCompatCheckBox;
 import de.blau.android.App;
 import de.blau.android.DisambiguationMenu;
+import de.blau.android.DisambiguationMenu.Type;
 import de.blau.android.Map;
 import de.blau.android.R;
-import de.blau.android.DisambiguationMenu.Type;
 import de.blau.android.dialogs.AddressInterpolationDialog;
 import de.blau.android.dialogs.Tip;
 import de.blau.android.exception.OsmIllegalOperationException;
@@ -44,7 +44,7 @@ import de.blau.android.util.Util;
  * This callback handles path creation.
  */
 public class PathCreationActionModeCallback extends BuilderActionModeCallback {
-    private static final String DEBUG_TAG = "PathCreationAction...";
+    private static final String DEBUG_TAG = PathCreationActionModeCallback.class.getSimpleName().substring(0, Math.min(23, PathCreationActionModeCallback.class.getSimpleName().length()));
 
     protected static final int MENUITEM_UNDO          = 1;
     private static final int   MENUITEM_SNAP          = 2;

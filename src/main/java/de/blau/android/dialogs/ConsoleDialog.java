@@ -49,7 +49,7 @@ import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
 public class ConsoleDialog extends DialogFragment {
-    private static final String DEBUG_TAG = ConsoleDialog.class.getSimpleName();
+    private static final String DEBUG_TAG = ConsoleDialog.class.getSimpleName().substring(0, Math.min(23, ConsoleDialog.class.getSimpleName().length()));
 
     private static final String TAG              = "consoledialog";
     private static final String TITLE_KEY        = "title";

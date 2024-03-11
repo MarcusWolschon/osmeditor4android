@@ -43,7 +43,7 @@ import de.blau.android.prefs.ListActivity;
  */
 public class TagFilterActivity extends ListActivity {
 
-    private static final String DEBUG_TAG  = "TagFilterActivity";
+    private static final String DEBUG_TAG  = TagFilterActivity.class.getSimpleName().substring(0, Math.min(23, TagFilterActivity.class.getSimpleName().length()));
     private static final String FILTER_KEY = "FILTER";
 
     static final String FILTERENTRIES_TABLE = "filterentries";

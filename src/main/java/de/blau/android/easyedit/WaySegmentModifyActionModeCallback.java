@@ -14,7 +14,7 @@ import de.blau.android.util.SerializableState;
 import de.blau.android.util.ThemeUtils;
 
 public class WaySegmentModifyActionModeCallback extends NonSimpleActionModeCallback {
-    private static final String DEBUG_TAG = "WaySegmentModify...";
+    private static final String DEBUG_TAG = WaySegmentModifyActionModeCallback.class.getSimpleName().substring(0, Math.min(23, WaySegmentModifyActionModeCallback.class.getSimpleName().length()));
 
     private static final int MENUITEM_BRIDGE  = 24;
     private static final int MENUITEM_TUNNEL  = 25;

@@ -59,7 +59,7 @@ import de.blau.android.views.SimpleTextRow;
  * 
  */
 public class AddressInterpolationDialog extends ImmersiveDialogFragment {
-    private static final String DEBUG_TAG = AddressInterpolationDialog.class.getSimpleName();
+    private static final String DEBUG_TAG = AddressInterpolationDialog.class.getSimpleName().substring(0, Math.min(23, AddressInterpolationDialog.class.getSimpleName().length()));
 
     private static final String TAG = "fragment_address_interpolation";
 

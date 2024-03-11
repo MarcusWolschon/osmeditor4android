@@ -32,7 +32,7 @@ import de.blau.android.util.collections.FloatPrimitiveList;
  */
 public final class GeoJson {
 
-    private static final String DEBUG_TAG = GeoJson.class.getSimpleName();
+    private static final String DEBUG_TAG = GeoJson.class.getSimpleName().substring(0, Math.min(23, GeoJson.class.getSimpleName().length()));
 
     /**
      * Private constructor to stop instantiation

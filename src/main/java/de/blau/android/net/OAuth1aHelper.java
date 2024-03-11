@@ -30,7 +30,7 @@ import se.akerfeldt.okhttp.signpost.OkHttpOAuthProvider;
  * 
  */
 public class OAuth1aHelper extends OAuthHelper {
-    private static final String DEBUG_TAG = OAuth1aHelper.class.getSimpleName();
+    private static final String DEBUG_TAG = OAuth1aHelper.class.getSimpleName().substring(0, Math.min(23, OAuth1aHelper.class.getSimpleName().length()));
 
     private static final String CALLBACK_URL       = "vespucci:/oauth/";
     private static final String AUTHORIZE_PATH     = "oauth/authorize";

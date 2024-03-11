@@ -47,7 +47,7 @@ import de.blau.android.util.Util;
  */
 public class FeatureInfo extends InfoDialogFragment {
 
-    private static final String DEBUG_TAG = FeatureInfo.class.getName();
+    private static final String DEBUG_TAG = FeatureInfo.class.getSimpleName().substring(0, Math.min(23, FeatureInfo.class.getSimpleName().length()));
 
     private static final String FEATURE_KEY = "feature";
     private static final String TITLE_KEY   = "title";

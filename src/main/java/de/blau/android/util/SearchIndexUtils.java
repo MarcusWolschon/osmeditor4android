@@ -25,14 +25,14 @@ import de.blau.android.osm.Tags;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetElement;
 import de.blau.android.presets.PresetField;
-import de.blau.android.presets.PresetTagField;
 import de.blau.android.presets.PresetFixedField;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.presets.PresetKeyType;
+import de.blau.android.presets.PresetTagField;
 import de.blau.android.util.collections.MultiHashMap;
 
 public final class SearchIndexUtils {
-    private static final String DEBUG_TAG = SearchIndexUtils.class.getSimpleName();
+    private static final String DEBUG_TAG = SearchIndexUtils.class.getSimpleName().substring(0, Math.min(23, SearchIndexUtils.class.getSimpleName().length()));
 
     private static final Pattern DEACCENT_PATTERN = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
 

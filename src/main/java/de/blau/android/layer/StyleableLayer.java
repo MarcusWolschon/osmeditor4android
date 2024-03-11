@@ -12,13 +12,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.R;
 import de.blau.android.resources.DataStyle;
-import de.blau.android.util.SerializableTextPaint;
 import de.blau.android.util.ScreenMessage;
+import de.blau.android.util.SerializableTextPaint;
 
 public abstract class StyleableLayer extends MapViewLayer implements StyleableInterface, DiscardInterface, Serializable {
     private static final long serialVersionUID = 4L;
 
-    private static final String DEBUG_TAG = StyleableLayer.class.getSimpleName();
+    private static final String DEBUG_TAG = StyleableLayer.class.getSimpleName().substring(0, Math.min(23, StyleableLayer.class.getSimpleName().length()));
 
     /**
      * when reading state lockout writing/reading

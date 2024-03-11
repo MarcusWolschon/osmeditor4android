@@ -1,5 +1,7 @@
 package de.blau.android;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.IOException;
 import java.util.Collection;
 
@@ -14,7 +16,8 @@ import de.blau.android.util.ScreenMessage;
 
 class PhotoUriHandler implements PostAsyncActionHandler {
 
-    private static final String DEBUG_TAG = PhotoUriHandler.class.getSimpleName();
+    private static final int TAG_LEN = Math.min(LOG_TAG_LEN, PhotoUriHandler.class.getSimpleName().length());
+    private static final String DEBUG_TAG = PhotoUriHandler.class.getSimpleName().substring(0, TAG_LEN);
 
     private final Main main;
     private final Uri  uri;

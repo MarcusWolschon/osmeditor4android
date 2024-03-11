@@ -1,5 +1,7 @@
 package de.blau.android;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -69,7 +71,8 @@ import de.blau.android.views.layers.MapTilesOverlayLayer;
 
 public class Map extends View implements IMapView {
 
-    private static final String DEBUG_TAG = Map.class.getSimpleName();
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Map.class.getSimpleName().length());
+    private static final String DEBUG_TAG = Map.class.getSimpleName().substring(0, TAG_LEN);
 
     public static final int ICON_SIZE_DP = 20;
 

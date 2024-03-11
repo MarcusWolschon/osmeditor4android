@@ -37,7 +37,7 @@ import de.blau.android.views.layers.MapTilesLayer;
  *
  */
 public class Newbie extends ImmersiveDialogFragment {
-    private static final String DEBUG_TAG = Newbie.class.getSimpleName();
+    private static final String DEBUG_TAG = Newbie.class.getSimpleName().substring(0, Math.min(23, Newbie.class.getSimpleName().length()));
 
     private static final String TAG = "fragment_newbie";
 

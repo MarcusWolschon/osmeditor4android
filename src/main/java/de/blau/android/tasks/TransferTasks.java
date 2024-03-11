@@ -58,7 +58,7 @@ import de.blau.android.util.ScreenMessage;
 
 public final class TransferTasks {
 
-    private static final String DEBUG_TAG = TransferTasks.class.getSimpleName();
+    private static final String DEBUG_TAG = TransferTasks.class.getSimpleName().substring(0, Math.min(23, TransferTasks.class.getSimpleName().length()));
 
     public static final String MAPROULETTE_APIKEY_V2 = "maproulette_apikey_v2";
 

@@ -39,7 +39,7 @@ import de.blau.android.listener.DoNothingListener;
  *
  */
 public class SelectByImageFragment extends SizedDynamicImmersiveDialogFragment implements OnMenuItemClickListener {
-    private static final String DEBUG_TAG = SelectByImageFragment.class.getName();
+    private static final String DEBUG_TAG = SelectByImageFragment.class.getSimpleName().substring(0, Math.min(23, SelectByImageFragment.class.getSimpleName().length()));
 
     public static final String TAG = "fragment_combo_image_viewer";
 

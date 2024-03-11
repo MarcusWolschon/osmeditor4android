@@ -81,21 +81,22 @@ import me.zed.elementhistorydialog.ElementHistoryDialog;
  */
 public abstract class ElementSelectionActionModeCallback extends EasyEditActionModeCallback {
 
-    private static final String DEBUG_TAG                     = "ElementSelectionActi...";
-    private static final int    MENUITEM_UNDO                 = 0;
-    static final int            MENUITEM_TAG                  = 1;
-    static final int            MENUITEM_TASK                 = 2;
-    static final int            MENUITEM_DELETE               = 3;
-    private static final int    MENUITEM_HISTORY_WEB          = 4;
-    private static final int    MENUITEM_HISTORY              = 5;
-    static final int            MENUITEM_COPY                 = 6;
-    static final int            MENUITEM_CUT                  = 7;
-    private static final int    MENUITEM_PASTE_TAGS           = 8;
-    private static final int    MENUITEM_CREATE_RELATION      = 9;
-    private static final int    MENUITEM_ADD_RELATION_MEMBERS = 10;
-    private static final int    MENUITEM_EXTEND_SELECTION     = 11;
-    private static final int    MENUITEM_ELEMENT_INFO         = 12;
-    protected static final int  LAST_REGULAR_MENUITEM         = MENUITEM_ELEMENT_INFO;
+    private static final String DEBUG_TAG = ElementSelectionActionModeCallback.class.getSimpleName().substring(0, Math.min(23, ElementSelectionActionModeCallback.class.getSimpleName().length()));
+
+    private static final int   MENUITEM_UNDO                 = 0;
+    static final int           MENUITEM_TAG                  = 1;
+    static final int           MENUITEM_TASK                 = 2;
+    static final int           MENUITEM_DELETE               = 3;
+    private static final int   MENUITEM_HISTORY_WEB          = 4;
+    private static final int   MENUITEM_HISTORY              = 5;
+    static final int           MENUITEM_COPY                 = 6;
+    static final int           MENUITEM_CUT                  = 7;
+    private static final int   MENUITEM_PASTE_TAGS           = 8;
+    private static final int   MENUITEM_CREATE_RELATION      = 9;
+    private static final int   MENUITEM_ADD_RELATION_MEMBERS = 10;
+    private static final int   MENUITEM_EXTEND_SELECTION     = 11;
+    private static final int   MENUITEM_ELEMENT_INFO         = 12;
+    protected static final int LAST_REGULAR_MENUITEM         = MENUITEM_ELEMENT_INFO;
 
     static final int           MENUITEM_UPLOAD              = 31;
     protected static final int MENUITEM_SHARE_POSITION      = 32;

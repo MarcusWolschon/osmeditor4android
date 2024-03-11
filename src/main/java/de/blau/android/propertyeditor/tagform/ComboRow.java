@@ -28,7 +28,7 @@ import de.blau.android.util.Util;
  */
 public class ComboRow extends LinearLayout {
 
-    protected static final String DEBUG_TAG = "ComboRow";
+    protected static final String DEBUG_TAG = ComboRow.class.getSimpleName().substring(0, Math.min(23, ComboRow.class.getSimpleName().length()));
     private TextView              keyView;
     private RadioGroup            valueGroup;
     private String                value;

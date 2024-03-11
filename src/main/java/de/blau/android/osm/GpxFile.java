@@ -21,7 +21,7 @@ import androidx.annotation.NonNull;
 import de.blau.android.gpx.Track;
 
 public class GpxFile {
-    private static final String DEBUG_TAG = GpxFile.class.getSimpleName();
+    private static final String DEBUG_TAG = GpxFile.class.getSimpleName().substring(0, Math.min(23, GpxFile.class.getSimpleName().length()));
 
     private long         id;
     private String       name;

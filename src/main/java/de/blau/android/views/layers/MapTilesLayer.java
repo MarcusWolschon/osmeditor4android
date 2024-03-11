@@ -68,10 +68,11 @@ import de.blau.android.views.util.MapTileProvider.TileDecoder;
  */
 public class MapTilesLayer<T> extends MapViewLayer implements ExtentInterface, LayerInfoInterface, DiscardInterface, AttributionInterface {
 
-    private static final String DEBUG_TAG          = MapTilesLayer.class.getSimpleName();
+    private static final String DEBUG_TAG = MapTilesLayer.class.getSimpleName().substring(0, Math.min(23, MapTilesLayer.class.getSimpleName().length()));
+
     /** Define a minimum active area for taps on the tile attribution data. */
-    private static final int    TAPAREA_MIN_WIDTH  = 40;
-    private static final int    TAPAREA_MIN_HEIGHT = 60;
+    private static final int TAPAREA_MIN_WIDTH  = 40;
+    private static final int TAPAREA_MIN_HEIGHT = 60;
 
     /**
      * 

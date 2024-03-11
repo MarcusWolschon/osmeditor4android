@@ -30,7 +30,7 @@ import de.blau.android.validation.NotEmptyValidator;
  *
  */
 public class GpxUpload extends ImmersiveDialogFragment {
-    private static final String DEBUG_TAG = GpxUpload.class.getSimpleName();
+    private static final String DEBUG_TAG = GpxUpload.class.getSimpleName().substring(0, Math.min(23, GpxUpload.class.getSimpleName().length()));
     private static final String TAG       = "fragment_gpx_upload";
     private static final String TRACK_KEY = "track";
 

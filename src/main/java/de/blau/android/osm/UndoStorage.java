@@ -47,7 +47,7 @@ import de.blau.android.util.Util;
 public class UndoStorage implements Serializable {
     private static final long serialVersionUID = 2L;
 
-    private static final String DEBUG_TAG = "UndoStorage";
+    private static final String DEBUG_TAG = UndoStorage.class.getSimpleName().substring(0, Math.min(23, UndoStorage.class.getSimpleName().length()));
 
     // Original storages for "contains" checks and restoration
     private Storage currentStorage;

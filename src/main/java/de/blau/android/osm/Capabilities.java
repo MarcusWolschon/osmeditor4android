@@ -20,7 +20,7 @@ import androidx.annotation.NonNull;
  */
 public class Capabilities {
 
-    private static final String DEBUG_TAG = Capabilities.class.getSimpleName();
+    private static final String DEBUG_TAG = Capabilities.class.getSimpleName().substring(0, Math.min(23, Capabilities.class.getSimpleName().length()));
 
     public enum Status {
         // TODO add unknown status for when we haven't determined the status yet

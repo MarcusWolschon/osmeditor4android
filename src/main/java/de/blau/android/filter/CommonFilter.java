@@ -24,7 +24,7 @@ public abstract class CommonFilter extends InvertableFilter {
      */
     private static final long serialVersionUID = 2L;
 
-    private static final String DEBUG_TAG = CommonFilter.class.getSimpleName();
+    private static final String DEBUG_TAG = CommonFilter.class.getSimpleName().substring(0, Math.min(23, CommonFilter.class.getSimpleName().length()));
 
     protected boolean enabled = true;
 

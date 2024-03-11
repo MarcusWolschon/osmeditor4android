@@ -22,7 +22,7 @@ import androidx.annotation.Nullable;
  *
  */
 final class Reverse {
-    private static final String DEBUG_TAG = "Reverse";
+    private static final String DEBUG_TAG = Reverse.class.getSimpleName().substring(0, Math.min(23, Reverse.class.getSimpleName().length()));
 
     private static final String LEFT_INFIX       = ":left:";
     private static final String RIGHT_INFIX      = ":right:";

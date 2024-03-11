@@ -26,7 +26,7 @@ import de.blau.android.util.collections.MultiHashMap;
 public class PropertyEditorData implements Serializable {
     private static final long serialVersionUID = 5L;
 
-    private static final String DEBUG_TAG = PropertyEditorData.class.getSimpleName();
+    private static final String DEBUG_TAG = PropertyEditorData.class.getSimpleName().substring(0, Math.min(23, PropertyEditorData.class.getSimpleName().length()));
 
     public final long                                       osmId;
     public final String                                     type;

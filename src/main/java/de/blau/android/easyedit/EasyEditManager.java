@@ -33,8 +33,8 @@ import de.blau.android.osm.Way;
 import de.blau.android.tasks.Note;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.SavingHelper;
-import de.blau.android.util.SerializableState;
 import de.blau.android.util.ScreenMessage;
+import de.blau.android.util.SerializableState;
 import de.blau.android.validation.Validator;
 
 /**
@@ -46,7 +46,7 @@ import de.blau.android.validation.Validator;
  */
 public class EasyEditManager {
 
-    private static final String DEBUG_TAG = EasyEditManager.class.getSimpleName();
+    private static final String DEBUG_TAG = EasyEditManager.class.getSimpleName().substring(0, Math.min(23, EasyEditManager.class.getSimpleName().length()));
 
     private static final int INVALIDATION_DELAY = 100; // minimum delay before action mode will be invalidated
 

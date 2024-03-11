@@ -36,7 +36,7 @@ import de.blau.android.util.collections.LowAllocArrayList;
  */
 public class BookmarkStorage {
 
-    private static final String DEBUG_TAG = BookmarkStorage.class.getSimpleName();
+    private static final String DEBUG_TAG = BookmarkStorage.class.getSimpleName().substring(0, Math.min(23, BookmarkStorage.class.getSimpleName().length()));
 
     private Bookmark            currentBookmark;
     private List<Bookmark>      bookmarks;

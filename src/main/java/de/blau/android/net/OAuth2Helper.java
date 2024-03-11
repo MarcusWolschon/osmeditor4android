@@ -50,7 +50,7 @@ import okhttp3.Response;
  */
 public class OAuth2Helper extends OAuthHelper {
 
-    private static final String DEBUG_TAG = OAuth2Helper.class.getSimpleName();
+    private static final String DEBUG_TAG = OAuth2Helper.class.getSimpleName().substring(0, Math.min(23, OAuth2Helper.class.getSimpleName().length()));
 
     public static final String REDIRECT_URI = "vespucci:/oauth2/";
     // instead of hardwiring these we could extract them from

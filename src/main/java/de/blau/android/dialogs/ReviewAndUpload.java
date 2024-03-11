@@ -56,7 +56,7 @@ import de.blau.android.views.ExtendedViewPager;
  */
 public class ReviewAndUpload extends AbstractReviewDialog {
 
-    private static final String DEBUG_TAG = ReviewAndUpload.class.getSimpleName();
+    private static final String DEBUG_TAG = ReviewAndUpload.class.getSimpleName().substring(0, Math.min(23, ReviewAndUpload.class.getSimpleName().length()));
 
     public static final String TAG = "fragment_confirm_upload";
 

@@ -1,5 +1,7 @@
 package de.blau.android;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.HashMap;
@@ -50,7 +52,8 @@ import de.blau.android.util.Util;
  */
 public class Feedback extends IssueReporterActivity implements ActivityResultHandler {
 
-    private static final String DEBUG_TAG = "Feedback";
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Feedback.class.getSimpleName().length());
+    private static final String DEBUG_TAG = Feedback.class.getSimpleName().substring(0, TAG_LEN);
 
     static final String         VESPUCCI_REPORTER_ENTRY = "VESPUCCI_REPORTER";
     private static final String REPO_USER_KEY           = "repo_user";

@@ -27,7 +27,7 @@ import de.blau.android.util.Util;
  */
 public class EmptyRelation extends ImmersiveDialogFragment {
 
-    private static final String DEBUG_TAG = EmptyRelation.class.getSimpleName();
+    private static final String DEBUG_TAG = EmptyRelation.class.getSimpleName().substring(0, Math.min(23, EmptyRelation.class.getSimpleName().length()));
 
     private static final String TAG               = "fragment_empty_relation";
     private static final String RELATION_IDS_KEY  = "relations";

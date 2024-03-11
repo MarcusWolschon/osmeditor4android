@@ -34,7 +34,7 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 class QueryPhoton extends Query {
-    private static final String DEBUG_TAG = QueryPhoton.class.getSimpleName();
+    private static final String DEBUG_TAG = QueryPhoton.class.getSimpleName().substring(0, Math.min(23, QueryPhoton.class.getSimpleName().length()));
 
     private static final String COUNTRY_FIELD      = "country";
     private static final String STATE_FIELD        = "state";

@@ -22,7 +22,7 @@ import de.blau.android.util.collections.LinkedList;
 import de.blau.android.util.collections.LinkedList.Member;
 
 public final class RelationUtils {
-    private static final String DEBUG_TAG = RelationUtils.class.getSimpleName();
+    private static final String DEBUG_TAG = RelationUtils.class.getSimpleName().substring(0, Math.min(23, RelationUtils.class.getSimpleName().length()));
 
     /**
      * Private constructor to inhibit instantation

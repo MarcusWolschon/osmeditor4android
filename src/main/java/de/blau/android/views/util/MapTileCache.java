@@ -25,7 +25,7 @@ public class MapTileCache<T> {
     // Fields
     // ===========================================================
 
-    private static final String DEBUG_TAG = "MapTileCache";
+    private static final String DEBUG_TAG = MapTileCache.class.getSimpleName().substring(0, Math.min(23, MapTileCache.class.getSimpleName().length()));
     private final LRUMapTileCache<T>  mCachedTiles;
 
     // ===========================================================

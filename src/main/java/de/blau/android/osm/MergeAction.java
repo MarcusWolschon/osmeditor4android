@@ -31,7 +31,7 @@ import de.blau.android.util.Util;
  */
 public class MergeAction {
 
-    private static final String DEBUG_TAG = MergeAction.class.getSimpleName();
+    private static final String DEBUG_TAG = MergeAction.class.getSimpleName().substring(0, Math.min(23, MergeAction.class.getSimpleName().length()));
 
     private final StorageDelegator delegator;
     private final OsmElement       mergeInto;

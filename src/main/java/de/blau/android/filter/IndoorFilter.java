@@ -40,7 +40,7 @@ public class IndoorFilter extends InvertableFilter {
      * 
      */
     private static final long   serialVersionUID = 4L;
-    private static final String DEBUG_TAG        = "IndoorFilter";
+    private static final String DEBUG_TAG        = IndoorFilter.class.getSimpleName().substring(0, Math.min(23, IndoorFilter.class.getSimpleName().length()));
 
     /**
      * Current level

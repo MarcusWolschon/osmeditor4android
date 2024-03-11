@@ -21,7 +21,7 @@ import de.blau.android.tasks.TaskStorage;
 import de.blau.android.tasks.Todo;
 
 public class TaskLayerInfo extends LayerInfo {
-    private static final String DEBUG_TAG = TaskLayerInfo.class.getName();
+    private static final String DEBUG_TAG = TaskLayerInfo.class.getSimpleName().substring(0, Math.min(23, TaskLayerInfo.class.getSimpleName().length()));
 
     @Override
     protected View createView(@Nullable ViewGroup container) {

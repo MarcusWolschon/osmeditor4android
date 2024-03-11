@@ -21,7 +21,7 @@ import de.blau.android.exception.UnsupportedFormatException;
  * Parse OSM data in PBF format
  */
 public class OsmPbfParser extends BinaryParser {
-    private static final String DEBUG_TAG = "OsmPbfParser";
+    private static final String DEBUG_TAG = OsmPbfParser.class.getSimpleName().substring(0, Math.min(23, OsmPbfParser.class.getSimpleName().length()));
 
     final Context     context;
     final Storage     storage;

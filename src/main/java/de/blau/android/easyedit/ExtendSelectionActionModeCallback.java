@@ -39,7 +39,7 @@ import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
 public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallback {
-    private static final String DEBUG_TAG = ExtendSelectionActionModeCallback.class.getSimpleName();
+    private static final String DEBUG_TAG = ExtendSelectionActionModeCallback.class.getSimpleName().substring(0, Math.min(23, ExtendSelectionActionModeCallback.class.getSimpleName().length()));
 
     private static final int MENUITEM_MERGE                = ElementSelectionActionModeCallback.LAST_REGULAR_MENUITEM + 1;
     private static final int MENUITEM_RELATION             = ElementSelectionActionModeCallback.LAST_REGULAR_MENUITEM + 2;

@@ -20,7 +20,7 @@ public class CorrectFilter extends CommonFilter {
      * 
      */
     private static final long   serialVersionUID = 1L;
-    private static final String DEBUG_TAG        = "CompleteFilter";
+    private static final String DEBUG_TAG        = CorrectFilter.class.getSimpleName().substring(0, Math.min(23, CorrectFilter.class.getSimpleName().length()));
 
     private transient Context   context;
     private transient Validator validator;

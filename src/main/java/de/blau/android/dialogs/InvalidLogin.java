@@ -21,7 +21,7 @@ import de.blau.android.util.ThemeUtils;
  */
 public class InvalidLogin extends ImmersiveDialogFragment {
 
-    private static final String DEBUG_TAG = InvalidLogin.class.getSimpleName();
+    private static final String DEBUG_TAG = InvalidLogin.class.getSimpleName().substring(0, Math.min(23, InvalidLogin.class.getSimpleName().length()));
 
     private static final String TAG = "fragment_invalid_login";
 

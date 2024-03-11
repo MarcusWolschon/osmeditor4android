@@ -45,7 +45,7 @@ import de.blau.android.util.collections.MultiHashMap;
 
 public class AutoPreset {
 
-    private static final String DEBUG_TAG = AutoPreset.class.getSimpleName();
+    private static final String DEBUG_TAG = AutoPreset.class.getSimpleName().substring(0, Math.min(23, AutoPreset.class.getSimpleName().length()));
 
     public static final String  ICON         = "auto-preset.png";
     private static final String PNG          = ".png";

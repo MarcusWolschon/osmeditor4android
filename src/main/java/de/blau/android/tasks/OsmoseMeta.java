@@ -27,7 +27,7 @@ public class OsmoseMeta implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private static final String DEBUG_TAG = OsmoseMeta.class.getSimpleName();
+    private static final String DEBUG_TAG = OsmoseMeta.class.getSimpleName().substring(0, Math.min(23, OsmoseMeta.class.getSimpleName().length()));
 
     private static final String ITEM_KEY       = "item";
     private static final String RESOURCE_KEY   = "resource";

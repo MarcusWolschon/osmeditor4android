@@ -129,7 +129,7 @@ public class TagFilter extends CommonFilter {
      * 
      */
     private static final long   serialVersionUID = 1L;
-    private static final String DEBUG_TAG        = "TagFilter";
+    private static final String DEBUG_TAG        = TagFilter.class.getSimpleName().substring(0, Math.min(23, TagFilter.class.getSimpleName().length()));
 
     /**
      * Construct a new TagFilter

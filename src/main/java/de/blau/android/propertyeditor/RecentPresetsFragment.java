@@ -27,7 +27,7 @@ public class RecentPresetsFragment extends BaseFragment {
     private static final String ELEMENT_NAME_KEY = "elementType";
     private static final String ELEMENT_ID_KEY   = "elementId";
 
-    private static final String DEBUG_TAG = RecentPresetsFragment.class.getSimpleName();
+    private static final String DEBUG_TAG = RecentPresetsFragment.class.getSimpleName().substring(0, Math.min(23, RecentPresetsFragment.class.getSimpleName().length()));
 
     private OnPresetSelectedListener presetSelectedListener;
     private OsmElement               element;

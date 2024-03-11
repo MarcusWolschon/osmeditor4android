@@ -19,7 +19,7 @@ import de.blau.android.util.SavingHelper;
 @SuppressWarnings("deprecation")
 public class NmeaTcpClient implements Runnable {
 
-    private static final String DEBUG_TAG = "NmeaTcpClient";
+    private static final String DEBUG_TAG = NmeaTcpClient.class.getSimpleName().substring(0, Math.min(23, NmeaTcpClient.class.getSimpleName().length()));
     String                      host;
     int                         port;
     boolean                     canceled  = false;

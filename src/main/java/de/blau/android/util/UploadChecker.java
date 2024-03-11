@@ -10,7 +10,7 @@ import de.blau.android.R;
 import de.blau.android.osm.StorageDelegator;
 
 public class UploadChecker extends Worker {
-    private static final String DEBUG_TAG = UploadChecker.class.getSimpleName();
+    private static final String DEBUG_TAG = UploadChecker.class.getSimpleName().substring(0, Math.min(23, UploadChecker.class.getSimpleName().length()));
 
     public static final String TAG = "UPLOAD_CHECKER";
 

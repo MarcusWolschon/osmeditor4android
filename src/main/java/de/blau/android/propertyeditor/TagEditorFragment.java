@@ -94,7 +94,7 @@ import de.blau.android.util.Value;
 import de.blau.android.views.CustomAutoCompleteTextView;
 
 public class TagEditorFragment extends BaseFragment implements PropertyRows, EditorUpdate, DataUpdate {
-    private static final String DEBUG_TAG = TagEditorFragment.class.getSimpleName();
+    private static final String DEBUG_TAG = TagEditorFragment.class.getSimpleName().substring(0, Math.min(23, TagEditorFragment.class.getSimpleName().length()));
 
     private static final String SAVEDTAGS_KEY           = "SAVEDTAGS";
     private static final String IDS_KEY                 = "ids";

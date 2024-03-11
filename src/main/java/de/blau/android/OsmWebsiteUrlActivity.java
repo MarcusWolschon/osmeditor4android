@@ -1,5 +1,7 @@
 package de.blau.android;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
@@ -16,7 +18,8 @@ import de.blau.android.util.Util;
  * openstreetmap.org/node/nnn openstreetmap.org/way/nnn openstreetmap.org/relation/nnn openstreetmap.org/note/nnn
  */
 public class OsmWebsiteUrlActivity extends UrlActivity {
-    private static final String DEBUG_TAG = OsmWebsiteUrlActivity.class.getSimpleName();
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, OsmWebsiteUrlActivity.class.getSimpleName().length());
+    private static final String DEBUG_TAG = OsmWebsiteUrlActivity.class.getSimpleName().substring(0, TAG_LEN);
 
     @Override
     boolean setIntentExtras(Intent intent, Uri data) {

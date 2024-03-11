@@ -1,24 +1,22 @@
 package de.blau.android.dialogs;
 
-import android.annotation.SuppressLint;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AlertDialog.Builder;
-import androidx.appcompat.app.AppCompatDialog;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import com.google.android.material.slider.RangeSlider;
 
+import android.annotation.SuppressLint;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog.Builder;
+import androidx.appcompat.app.AppCompatDialog;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.layer.DateRangeInterface;
@@ -34,7 +32,7 @@ import de.blau.android.views.layers.MapTilesLayer;
  */
 public class DateRangeDialog extends ImmersiveDialogFragment {
 
-    private static final String DEBUG_TAG = DateRangeDialog.class.getSimpleName();
+    private static final String DEBUG_TAG = DateRangeDialog.class.getSimpleName().substring(0, Math.min(23, DateRangeDialog.class.getSimpleName().length()));
 
     private static final String TAG = "fragment_daterange";
 

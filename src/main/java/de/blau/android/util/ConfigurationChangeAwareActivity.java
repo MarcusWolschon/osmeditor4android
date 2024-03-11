@@ -7,7 +7,7 @@ import de.blau.android.App;
 
 public abstract class ConfigurationChangeAwareActivity extends AppCompatActivity {
 
-    private static final String DEBUG_TAG = ConfigurationChangeAwareActivity.class.getSimpleName();
+    private static final String DEBUG_TAG = ConfigurationChangeAwareActivity.class.getSimpleName().substring(0, Math.min(23, ConfigurationChangeAwareActivity.class.getSimpleName().length()));
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {

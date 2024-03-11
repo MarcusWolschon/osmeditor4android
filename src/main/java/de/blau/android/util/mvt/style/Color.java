@@ -12,7 +12,7 @@ import de.blau.android.util.ColorUtil;
 
 public final class Color {
 
-    private static final String DEBUG_TAG = Color.class.getCanonicalName();
+    private static final String DEBUG_TAG = Color.class.getSimpleName().substring(0, Math.min(23, Color.class.getSimpleName().length()));
 
     private static final Map<String, Integer> HTML_COLORS = new HashMap<>();
     static {

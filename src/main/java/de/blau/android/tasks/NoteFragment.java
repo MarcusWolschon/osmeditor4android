@@ -27,7 +27,7 @@ import de.blau.android.util.Util;
  *
  */
 public class NoteFragment extends TaskFragment {
-    private static final String DEBUG_TAG = NoteFragment.class.getSimpleName();
+    private static final String DEBUG_TAG = NoteFragment.class.getSimpleName().substring(0, Math.min(23, NoteFragment.class.getSimpleName().length()));
 
     private static final String TAG = "fragment_note";
 

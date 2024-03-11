@@ -25,7 +25,7 @@ import de.blau.android.util.LocaleUtils;
  *
  */
 public class Changeset {
-    private static final String DEBUG_TAG = Changeset.class.getSimpleName();
+    private static final String DEBUG_TAG = Changeset.class.getSimpleName().substring(0, Math.min(23, Changeset.class.getSimpleName().length()));
 
     private static final String TRUE               = "true";
     private static final String ID_ATTR            = "id";

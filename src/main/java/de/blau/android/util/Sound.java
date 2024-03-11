@@ -9,7 +9,7 @@ import de.blau.android.App;
 import de.blau.android.prefs.Preferences;
 
 public final class Sound {
-    private static final String DEBUG_TAG = Sound.class.getSimpleName();
+    private static final String DEBUG_TAG = Sound.class.getSimpleName().substring(0, Math.min(23, Sound.class.getSimpleName().length()));
 
     private static final int BEEP_DURATION       = 200;
     public static final int  BEEP_DEFAULT_VOLUME = 50;

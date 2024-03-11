@@ -27,7 +27,7 @@ import de.blau.android.prefs.Preferences;
  */
 public class DownloadBroadcastReceiver extends BroadcastReceiver {
 
-    private static final String DEBUG_TAG = DownloadBroadcastReceiver.class.getSimpleName();
+    private static final String DEBUG_TAG = DownloadBroadcastReceiver.class.getSimpleName().substring(0, Math.min(23, DownloadBroadcastReceiver.class.getSimpleName().length()));
 
     @Override
     public void onReceive(Context ctxt, Intent intent) {

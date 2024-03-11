@@ -24,7 +24,7 @@ import de.blau.android.util.ScreenMessage;
 
 public final class MapRouletteApiKey {
 
-    private static final String DEBUG_TAG = "MapRouletteApiKey";
+    private static final String DEBUG_TAG = MapRouletteApiKey.class.getSimpleName().substring(0, Math.min(23, MapRouletteApiKey.class.getSimpleName().length()));
 
     /**
      * Private constructor

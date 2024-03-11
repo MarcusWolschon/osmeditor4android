@@ -17,7 +17,7 @@ import de.blau.android.osm.Way;
 import de.blau.android.util.ScreenMessage;
 
 public class RemoveNodeFromWayActionModeCallback extends NonSimpleActionModeCallback {
-    private static final String DEBUG_TAG = "RemoveNode...";
+    private static final String DEBUG_TAG = RemoveNodeFromWayActionModeCallback.class.getSimpleName().substring(0, Math.min(23, RemoveNodeFromWayActionModeCallback.class.getSimpleName().length()));
 
     private final Way        way;
     private List<OsmElement> nodes = new ArrayList<>();

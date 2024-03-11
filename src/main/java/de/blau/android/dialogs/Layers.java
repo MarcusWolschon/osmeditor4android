@@ -99,8 +99,8 @@ import de.blau.android.util.FileUtil;
 import de.blau.android.util.ReadFile;
 import de.blau.android.util.SaveFile;
 import de.blau.android.util.SavingHelper;
-import de.blau.android.util.SelectFile;
 import de.blau.android.util.ScreenMessage;
+import de.blau.android.util.SelectFile;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.mvt.style.Source;
 import de.blau.android.util.mvt.style.Style;
@@ -114,7 +114,7 @@ import de.blau.android.views.layers.MapTilesLayer;
  *
  */
 public class Layers extends AbstractConfigurationDialog implements OnUpdateListener {
-    private static final String DEBUG_TAG = Layers.class.getName();
+    private static final String DEBUG_TAG = Layers.class.getSimpleName().substring(0, Math.min(23, Layers.class.getSimpleName().length()));
 
     private static final int  VERTICAL_OFFSET     = 64;
     private static final long MAX_STYLE_FILE_SIZE = 10000000L;

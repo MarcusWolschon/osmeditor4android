@@ -39,7 +39,7 @@ import de.blau.android.views.util.MapViewConstants;
  * @author Simon Poole
  */
 public class MapTileProviderDataBase {
-    private static final String DEBUG_TAG = "MapTilePro...DataBase";
+    private static final String DEBUG_TAG = MapTileProviderDataBase.class.getSimpleName().substring(0, Math.min(23, MapTileProviderDataBase.class.getSimpleName().length()));
 
     private static final String DATABASE_NAME    = "osmaptilefscache_db";
     private static final int    DATABASE_VERSION = 8;

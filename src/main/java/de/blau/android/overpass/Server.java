@@ -38,7 +38,7 @@ import okhttp3.ResponseBody;
 
 public final class Server {
 
-    private static final String DEBUG_TAG = Server.class.getCanonicalName();
+    private static final String DEBUG_TAG = Server.class.getSimpleName().substring(0, Math.min(23, Server.class.getSimpleName().length()));
 
     private static final long TIMEOUT            = 2000;
     private static final int  BASE_STATE         = 0;

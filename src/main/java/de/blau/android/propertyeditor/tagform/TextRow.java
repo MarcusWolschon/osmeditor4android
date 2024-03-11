@@ -28,8 +28,8 @@ import de.blau.android.nsi.Names;
 import de.blau.android.nsi.Names.NameAndTags;
 import de.blau.android.osm.Tags;
 import de.blau.android.presets.PresetComboField;
-import de.blau.android.presets.PresetTagField;
 import de.blau.android.presets.PresetItem;
+import de.blau.android.presets.PresetTagField;
 import de.blau.android.presets.PresetTextField;
 import de.blau.android.presets.ValueType;
 import de.blau.android.propertyeditor.InputTypeUtil;
@@ -50,7 +50,7 @@ import de.blau.android.views.CustomAutoCompleteTextView;
  */
 public class TextRow extends LinearLayout implements KeyValueRow {
 
-    protected static final String DEBUG_TAG = TextRow.class.getSimpleName();
+    protected static final String DEBUG_TAG = TextRow.class.getSimpleName().substring(0, Math.min(23, TextRow.class.getSimpleName().length()));
 
     public static final int INPUTTYPE_CAPS_MASK = InputType.TYPE_TEXT_FLAG_CAP_SENTENCES | InputType.TYPE_TEXT_FLAG_CAP_WORDS;
 

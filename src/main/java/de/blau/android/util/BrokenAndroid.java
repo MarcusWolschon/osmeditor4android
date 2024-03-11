@@ -23,7 +23,7 @@ import androidx.annotation.Nullable;
  */
 public class BrokenAndroid {
 
-    private static final String DEBUG_TAG = "BrokenAndroid";
+    private static final String DEBUG_TAG = BrokenAndroid.class.getSimpleName().substring(0, Math.min(23, BrokenAndroid.class.getSimpleName().length()));
 
     private static final String FULLSCREEN = "fullscreen";
 

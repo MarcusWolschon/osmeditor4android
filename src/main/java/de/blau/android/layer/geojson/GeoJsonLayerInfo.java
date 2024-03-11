@@ -14,7 +14,8 @@ import de.blau.android.dialogs.TableLayoutUtils;
 import de.blau.android.util.GeoJSONConstants;
 
 public class GeoJsonLayerInfo extends LayerInfo {
-    private static final String DEBUG_TAG = GeoJsonLayerInfo.class.getName();
+    private static final int TAG_LEN = Math.min(23, GeoJsonLayerInfo.class.getSimpleName().length());
+    private static final String DEBUG_TAG = GeoJsonLayerInfo.class.getSimpleName().substring(0, TAG_LEN);
 
     public static final String LAYER_INFO_KEY = "layerInfo";
 

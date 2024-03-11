@@ -38,7 +38,7 @@ import de.blau.android.util.Value;
  */
 public class ComboDialogRow extends DialogRow {
 
-    private static final String DEBUG_TAG = ComboDialogRow.class.getSimpleName();
+    private static final String DEBUG_TAG = ComboDialogRow.class.getSimpleName().substring(0, Math.min(23, ComboDialogRow.class.getSimpleName().length()));
 
     private static final int DEBOUNCE_DELAY = 1000;
 

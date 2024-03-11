@@ -31,7 +31,7 @@ public class ErrorAlert extends ImmersiveDialogFragment {
 
     private static final String ORIGINAL_MESSAGE = "original_message";
 
-    private static final String DEBUG_TAG = ErrorAlert.class.getSimpleName();
+    private static final String DEBUG_TAG = ErrorAlert.class.getSimpleName().substring(0, Math.min(23, ErrorAlert.class.getSimpleName().length()));
 
     private int    titleId;
     private int    messageId;

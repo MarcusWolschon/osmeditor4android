@@ -38,7 +38,7 @@ public class PresetFilter extends CommonFilter {
      * 
      */
     private static final long   serialVersionUID = 7L;
-    private static final String DEBUG_TAG        = "PresetFilter";
+    private static final String DEBUG_TAG        = PresetFilter.class.getSimpleName().substring(0, Math.min(23, PresetFilter.class.getSimpleName().length()));
 
     public static final String                        FILENAME     = "lastpresetfilter" + "." + FileExtensions.RES;
     private transient SavingHelper<PresetElementPath> savingHelper = new SavingHelper<>();

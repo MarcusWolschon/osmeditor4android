@@ -75,7 +75,8 @@ import de.blau.android.resources.TileLayerSource;
 
 public final class Util {
 
-    private static final String DEBUG_TAG = Util.class.getSimpleName();
+    private static final int TAG_LEN = Math.min(23, Util.class.getSimpleName().length());
+    private static final String DEBUG_TAG = Util.class.getSimpleName().substring(0, TAG_LEN);
 
     /**
      * Private constructor

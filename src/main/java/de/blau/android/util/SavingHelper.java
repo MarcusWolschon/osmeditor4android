@@ -33,7 +33,7 @@ import de.blau.android.R;
  */
 public class SavingHelper<T extends Serializable> {
 
-    private static final String DEBUG_TAG = SavingHelper.class.getSimpleName();
+    private static final String DEBUG_TAG = SavingHelper.class.getSimpleName().substring(0, Math.min(23, SavingHelper.class.getSimpleName().length()));
 
     private static final long DEFAULT_STACK_SIZE = 200000L;
     private static final int  ADD_STACK          = 2000000;

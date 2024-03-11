@@ -100,7 +100,8 @@ import de.blau.android.views.IMapView;
 public class MapOverlay<O extends OsmElement> extends MapViewLayer
         implements ExtentInterface, ConfigureInterface, LayerInfoInterface, PruneableInterface, UpdateInterface<O> {
 
-    private static final String DEBUG_TAG = MapOverlay.class.getName();
+    private static final int TAG_LEN = Math.min(23, MapOverlay.class.getSimpleName().length());
+    private static final String DEBUG_TAG = MapOverlay.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final int THREAD_POOL_SIZE = 2;
 

@@ -28,7 +28,8 @@ import de.blau.android.views.layers.MapTilesLayer;
  */
 public class BackgroundProperties extends ImmersiveDialogFragment {
 
-    private static final String DEBUG_TAG = BackgroundProperties.class.getSimpleName();
+    private static final int TAG_LEN = Math.min(23, BackgroundProperties.class.getSimpleName().length());
+    private static final String DEBUG_TAG = BackgroundProperties.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String TAG = "fragment_background_properties";
 

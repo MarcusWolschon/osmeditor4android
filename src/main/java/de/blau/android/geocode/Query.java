@@ -18,7 +18,7 @@ import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.ScreenMessage;
 
 class Query extends ExecutorTask<String, Void, List<SearchResult>> {
-    private static final String DEBUG_TAG = Query.class.getSimpleName();
+    private static final String DEBUG_TAG = Query.class.getSimpleName().substring(0, Math.min(23, Query.class.getSimpleName().length()));
 
     protected AlertDialog progress = null;
 

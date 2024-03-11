@@ -41,7 +41,7 @@ import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
 public class NodeSelectionActionModeCallback extends ElementSelectionActionModeCallback implements DisambiguationMenu.OnMenuItemClickListener {
-    private static final String DEBUG_TAG             = "NodeSelectionAction...";
+    private static final String DEBUG_TAG             = NodeSelectionActionModeCallback.class.getSimpleName().substring(0, Math.min(23, NodeSelectionActionModeCallback.class.getSimpleName().length()));
     private static final int    MENUITEM_APPEND       = LAST_REGULAR_MENUITEM + 1;
     private static final int    MENUITEM_JOIN         = LAST_REGULAR_MENUITEM + 2;
     private static final int    MENUITEM_UNJOIN       = LAST_REGULAR_MENUITEM + 3;

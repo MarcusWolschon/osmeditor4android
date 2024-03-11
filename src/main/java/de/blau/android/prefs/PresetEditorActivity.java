@@ -54,7 +54,7 @@ import de.blau.android.util.Util;
 /** Provides an activity to edit the preset list. Downloads preset data when necessary. */
 public class PresetEditorActivity extends URLListEditActivity {
 
-    private static final String DEBUG_TAG = PresetEditorActivity.class.getSimpleName();
+    private static final String DEBUG_TAG = PresetEditorActivity.class.getSimpleName().substring(0, Math.min(23, PresetEditorActivity.class.getSimpleName().length()));
 
     private AdvancedPrefDatabase db;
 

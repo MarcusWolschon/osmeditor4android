@@ -39,8 +39,8 @@ import de.blau.android.presets.PresetElementPath;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.presets.PresetRole;
 import de.blau.android.search.Wrapper;
-import de.blau.android.util.SerializableState;
 import de.blau.android.util.ScreenMessage;
+import de.blau.android.util.SerializableState;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.collections.MultiHashMap;
 
@@ -51,7 +51,7 @@ import de.blau.android.util.collections.MultiHashMap;
  *
  */
 public class EditRelationMembersActionModeCallback extends BuilderActionModeCallback {
-    private static final String DEBUG_TAG = "EditRelation...";
+    private static final String DEBUG_TAG = EditRelationMembersActionModeCallback.class.getSimpleName().substring(0, Math.min(23, EditRelationMembersActionModeCallback.class.getSimpleName().length()));
 
     private static final int MENUITEM_REVERT = 1;
 

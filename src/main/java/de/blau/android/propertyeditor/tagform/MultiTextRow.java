@@ -30,8 +30,8 @@ import de.blau.android.R;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetComboField;
-import de.blau.android.presets.PresetTagField;
 import de.blau.android.presets.PresetItem;
+import de.blau.android.presets.PresetTagField;
 import de.blau.android.presets.ValueType;
 import de.blau.android.propertyeditor.InputTypeUtil;
 import de.blau.android.propertyeditor.TagChanged;
@@ -57,7 +57,7 @@ import io.michaelrocks.libphonenumber.android.Phonenumber.PhoneNumber;
  */
 public class MultiTextRow extends LinearLayout implements KeyValueRow, TagChanged {
 
-    protected static final String DEBUG_TAG = "MultiTextRow";
+    protected static final String DEBUG_TAG = MultiTextRow.class.getSimpleName().substring(0, Math.min(23, MultiTextRow.class.getSimpleName().length()));
 
     /**
      * Inline value display with multiple editable text fields

@@ -40,7 +40,7 @@ import de.blau.android.validation.Validator;
  *
  */
 public final class IssueAlert {
-    private static final String DEBUG_TAG = "IssueAlert";
+    private static final String DEBUG_TAG = IssueAlert.class.getSimpleName().substring(0, Math.min(23, IssueAlert.class.getSimpleName().length()));
 
     private static final String QA_CHANNEL      = "qa";
     private static final String PAACKGE_NAME    = "de.blau.android";

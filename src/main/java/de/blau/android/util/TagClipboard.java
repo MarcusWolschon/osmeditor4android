@@ -16,7 +16,7 @@ public class TagClipboard implements Serializable {
      */
     private static final long serialVersionUID = 2L;
 
-    private static final String DEBUG_TAG = "TagClipboard";
+    private static final String DEBUG_TAG = TagClipboard.class.getSimpleName().substring(0, Math.min(23, TagClipboard.class.getSimpleName().length()));
 
     private static final String COPIED_TAGS_FILE = "copiedtags.dat";
 

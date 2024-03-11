@@ -20,7 +20,7 @@ import de.blau.android.resources.DataStyle;
 
 public final class Geometry {
 
-    private static final String DEBUG_TAG = Geometry.class.getSimpleName();
+    private static final String DEBUG_TAG = Geometry.class.getSimpleName().substring(0, Math.min(23, Geometry.class.getSimpleName().length()));
 
     public static final double PI_2 = 2 * Math.PI;
 

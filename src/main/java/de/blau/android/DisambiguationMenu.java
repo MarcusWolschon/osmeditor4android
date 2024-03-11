@@ -1,5 +1,7 @@
 package de.blau.android;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,7 +53,8 @@ import de.blau.android.util.Util;
  */
 public class DisambiguationMenu {
 
-    private static final String DEBUG_TAG = DisambiguationMenu.class.getSimpleName();
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, DisambiguationMenu.class.getSimpleName().length());
+    private static final String DEBUG_TAG = DisambiguationMenu.class.getSimpleName().substring(0, TAG_LEN);
 
     public enum Type {
         NODE, WAY, RELATION, NOTE, BUG, MAPROULETTE, TODO, GEOJSON, GPX, MAPILLARY, MVT, IMAGE
@@ -195,11 +198,11 @@ public class DisambiguationMenu {
      * @param text a descriptive text
      * @param listener callback when the menu item is selected
      */
-    public void add(int id, @Nullable Type type, @NonNull String text,  @NonNull final OnMenuItemClickListener listener) { // NOSONAR
+    public void add(int id, @Nullable Type type, @NonNull String text, @NonNull final OnMenuItemClickListener listener) { // NOSONAR
         SpannableString s = new SpannableString(text);
         add(new DisambiguationMenuItem(type, s), listener);
     }
-    
+
     /**
      * Add a menu item
      * 
@@ -225,7 +228,7 @@ public class DisambiguationMenu {
     public void add(int id, @Nullable Type type, @NonNull SpannableString text, boolean selected, @NonNull final OnMenuItemClickListener listener) { // NOSONAR
         add(new DisambiguationMenuItem(type, text), listener);
     }
-    
+
     /**
      * Add a menu item
      * 

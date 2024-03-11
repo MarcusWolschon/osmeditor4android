@@ -39,7 +39,7 @@ import okio.BufferedSink;
  *
  */
 public class OsmGpxApi {
-    private static final String DEBUG_TAG = OsmGpxApi.class.getSimpleName();
+    private static final String DEBUG_TAG = OsmGpxApi.class.getSimpleName().substring(0, Math.min(23, OsmGpxApi.class.getSimpleName().length()));
 
     private static final String CONTENT_DISPOSITION_HEADER = "content-disposition";
 

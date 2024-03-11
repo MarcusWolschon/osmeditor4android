@@ -58,7 +58,7 @@ import de.blau.android.util.collections.MultiHashMap;
  *
  */
 public class RelationMembershipFragment extends BaseFragment implements PropertyRows, OnItemSelectedListener, DataUpdate {
-    private static final String DEBUG_TAG = RelationMembershipFragment.class.getSimpleName();
+    private static final String DEBUG_TAG = RelationMembershipFragment.class.getSimpleName().substring(0, Math.min(23, RelationMembershipFragment.class.getSimpleName().length()));
 
     private static final String PARENTS_KEY      = "parents";
     private static final String ELEMENT_TYPE_KEY = "element_type";

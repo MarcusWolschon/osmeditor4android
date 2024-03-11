@@ -71,8 +71,8 @@ import de.blau.android.util.BaseFragment;
 import de.blau.android.util.GeoContext;
 import de.blau.android.util.NetworkStatus;
 import de.blau.android.util.Screen;
-import de.blau.android.util.SelectFile;
 import de.blau.android.util.ScreenMessage;
+import de.blau.android.util.SelectFile;
 import de.blau.android.util.StreetPlaceNamesAdapter;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
@@ -122,7 +122,7 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
     /**
      * The tag we use for Android-logging.
      */
-    private static final String DEBUG_TAG = PropertyEditorFragment.class.getSimpleName();
+    private static final String DEBUG_TAG = PropertyEditorFragment.class.getSimpleName().substring(0, Math.min(23, PropertyEditorFragment.class.getSimpleName().length()));
 
     private long[] osmIds;
 

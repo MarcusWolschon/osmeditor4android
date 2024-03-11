@@ -85,7 +85,7 @@ public class MapTileDownloader extends MapAsyncTileProvider {
         }
     }
 
-    private static final String DEBUG_TAG = MapTileDownloader.class.getSimpleName();
+    private static final String DEBUG_TAG = MapTileDownloader.class.getSimpleName().substring(0, Math.min(23, MapTileDownloader.class.getSimpleName().length()));
 
     public static final long TIMEOUT = 5000;
 

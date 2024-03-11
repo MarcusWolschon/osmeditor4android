@@ -35,7 +35,7 @@ import de.blau.android.views.layers.MapTilesLayer;
 import de.blau.android.views.layers.MapTilesOverlayLayer;
 
 public class TileLayerDatabaseView extends ImmersiveDialogFragment implements OnUpdateListener {
-    private static final String DEBUG_TAG = TileLayerDatabaseView.class.getSimpleName();
+    private static final String DEBUG_TAG = TileLayerDatabaseView.class.getSimpleName().substring(0, Math.min(23, TileLayerDatabaseView.class.getSimpleName().length()));
 
     private static final String TAG = "fragment_layer_database_view";
 

@@ -1,5 +1,7 @@
 package de.blau.android;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -213,7 +215,8 @@ public class Main extends FullScreenAppCompatActivity
     /**
      * Tag used for Android-logging.
      */
-    private static final String DEBUG_TAG = Main.class.getName();
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Main.class.getSimpleName().length());
+    private static final String DEBUG_TAG = Main.class.getSimpleName().substring(0, TAG_LEN);
 
     /**
      * Requests a list of {@link Tag Tags} as an activity-result.

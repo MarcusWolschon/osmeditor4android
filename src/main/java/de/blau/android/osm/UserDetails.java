@@ -17,7 +17,7 @@ import androidx.annotation.NonNull;
  *
  */
 public class UserDetails {
-    private static final String DEBUG_TAG = UserDetails.class.getSimpleName();
+    private static final String DEBUG_TAG = UserDetails.class.getSimpleName().substring(0, Math.min(23, UserDetails.class.getSimpleName().length()));
 
     private static final String SENT_ELEMENT      = "sent";
     private static final String UNREAD_ATTR       = "unread";

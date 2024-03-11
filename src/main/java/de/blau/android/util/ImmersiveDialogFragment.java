@@ -22,7 +22,7 @@ import androidx.fragment.app.FragmentTransaction;
  */
 public abstract class ImmersiveDialogFragment extends DialogFragment {
     
-    private static final String DEBUG_TAG = ImmersiveDialogFragment.class.getSimpleName();
+    private static final String DEBUG_TAG = ImmersiveDialogFragment.class.getSimpleName().substring(0, Math.min(23, ImmersiveDialogFragment.class.getSimpleName().length()));
 
     @SuppressLint("RestrictedApi")
     @Override

@@ -38,7 +38,7 @@ import de.blau.android.util.Version;
  *
  */
 public class WmsCapabilities {
-    private static final String DEBUG_TAG = WmsCapabilities.class.getSimpleName();
+    private static final String DEBUG_TAG = WmsCapabilities.class.getSimpleName().substring(0, Math.min(23, WmsCapabilities.class.getSimpleName().length()));
 
     private static final String WMS_1_3_0 = "1.3.0";
 

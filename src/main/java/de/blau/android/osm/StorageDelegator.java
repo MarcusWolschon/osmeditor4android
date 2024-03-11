@@ -59,7 +59,7 @@ import de.blau.android.validation.BaseValidator;
 
 public class StorageDelegator implements Serializable, Exportable, DataStorage {
 
-    private static final String DEBUG_TAG = StorageDelegator.class.getSimpleName();
+    private static final String DEBUG_TAG = StorageDelegator.class.getSimpleName().substring(0, Math.min(23, StorageDelegator.class.getSimpleName().length()));
 
     private static final long serialVersionUID = 11L;
 

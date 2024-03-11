@@ -64,7 +64,7 @@ import okio.Buffer;
  *
  */
 public final class TestUtils {
-    private static final String DEBUG_TAG = TestUtils.class.getSimpleName();
+    private static final String DEBUG_TAG = TestUtils.class.getSimpleName().substring(0, Math.min(23, TestUtils.class.getSimpleName().length()));
 
     static final String VESPUCCI = "Vespucci";
 

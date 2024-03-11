@@ -32,7 +32,7 @@ import de.blau.android.util.ThemeUtils;
  */
 public class UrlDialogRow extends DialogRow {
 
-    private static final String DEBUG_TAG = "UrlDialogRow";
+    private static final String DEBUG_TAG = UrlDialogRow.class.getSimpleName().substring(0, Math.min(23, UrlDialogRow.class.getSimpleName().length()));
 
     /**
      * Construct a row that will display a Dialog when clicked

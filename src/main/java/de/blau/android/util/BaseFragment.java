@@ -20,7 +20,7 @@ import androidx.fragment.app.Fragment;
  */
 public abstract class BaseFragment extends Fragment {
 
-    private static final String DEBUG_TAG = "BaseFragment";
+    private static final String DEBUG_TAG = BaseFragment.class.getSimpleName().substring(0, Math.min(23, BaseFragment.class.getSimpleName().length()));
 
     @TargetApi(23)
     @Override

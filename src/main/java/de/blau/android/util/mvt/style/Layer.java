@@ -31,7 +31,7 @@ import de.blau.android.util.mvt.VectorTileDecoder.Feature;
 
 public abstract class Layer implements Serializable {
 
-    private static final String DEBUG_TAG = Layer.class.getSimpleName();
+    private static final String DEBUG_TAG = Layer.class.getSimpleName().substring(0, Math.min(23, Layer.class.getSimpleName().length()));
 
     private static final long serialVersionUID = 13L;
 

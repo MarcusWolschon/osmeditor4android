@@ -29,7 +29,7 @@ public final class Eli {
 
     private static final String HEADER_NAME_KEY = "header-name";
 
-    private static final String DEBUG_TAG = "Eli";
+    private static final String DEBUG_TAG = Eli.class.getSimpleName().substring(0, Math.min(23, Eli.class.getSimpleName().length()));
 
     public static final String VERSION_1_1 = "1.1";
 

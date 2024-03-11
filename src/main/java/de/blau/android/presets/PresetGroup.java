@@ -26,7 +26,7 @@ import de.blau.android.views.WrappingLayout;
  */
 public class PresetGroup extends PresetElement {
 
-    private static final String DEBUG_TAG = PresetGroup.class.getSimpleName();
+    private static final String DEBUG_TAG = PresetGroup.class.getSimpleName().substring(0, Math.min(23, PresetGroup.class.getSimpleName().length()));
 
     private boolean itemSort = true;
 

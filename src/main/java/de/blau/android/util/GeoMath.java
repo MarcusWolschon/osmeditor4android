@@ -19,7 +19,7 @@ import de.blau.android.util.collections.FloatPrimitiveList;
  */
 public final class GeoMath {
 
-    protected static final String DEBUG_TAG = GeoMath.class.getSimpleName();
+    protected static final String DEBUG_TAG = GeoMath.class.getSimpleName().substring(0, Math.min(23, GeoMath.class.getSimpleName().length()));
 
     private static final double _180_PI = 180d / Math.PI;
 

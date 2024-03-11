@@ -36,7 +36,7 @@ import de.blau.android.util.collections.MultiHashMap;
  *
  */
 public class Names {
-    private static final String DEBUG_TAG = Names.class.getSimpleName();
+    private static final String DEBUG_TAG = Names.class.getSimpleName().substring(0, Math.min(23, Names.class.getSimpleName().length()));
 
     private static final String WERID_WHOLE_WORLD_NSI_VALUE = "001";
     

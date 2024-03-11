@@ -40,7 +40,7 @@ import de.blau.android.views.util.MapTileProvider.TileDecoder;
  */
 public class VectorTileRenderer implements MapTilesLayer.TileRenderer<Map<String, List<VectorTileDecoder.Feature>>> {
 
-    private static final String DEBUG_TAG = VectorTileRenderer.class.getSimpleName();
+    private static final String DEBUG_TAG = VectorTileRenderer.class.getSimpleName().substring(0, Math.min(23, VectorTileRenderer.class.getSimpleName().length()));
 
     private VectorTileDecoder decoder = new VectorTileDecoder();
 

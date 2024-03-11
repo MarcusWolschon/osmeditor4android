@@ -32,7 +32,7 @@ import de.blau.android.util.mvt.VectorTileDecoder.Feature;
 
 public class Symbol extends Layer {
 
-    private static final String DEBUG_TAG = Symbol.class.getSimpleName();
+    private static final String DEBUG_TAG = Symbol.class.getSimpleName().substring(0, Math.min(23, Symbol.class.getSimpleName().length()));
 
     private static final long serialVersionUID = 16L;
 

@@ -15,7 +15,7 @@ import de.blau.android.R;
 
 public class MenuUtil {
 
-    private static final String DEBUG_TAG = MenuUtil.class.getName();
+    private static final String DEBUG_TAG = MenuUtil.class.getSimpleName().substring(0, Math.min(23, MenuUtil.class.getSimpleName().length()));
 
     private static final int MIN_WIDTH_DP = 64; // this is hardwired in ActionMenuView!!!
 

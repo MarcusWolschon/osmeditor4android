@@ -40,7 +40,7 @@ import de.blau.android.util.ThemeUtils;
  *
  */
 public class SearchForm extends ImmersiveDialogFragment {
-    private static final String DEBUG_TAG = SearchForm.class.getSimpleName();
+    private static final String DEBUG_TAG = SearchForm.class.getSimpleName().substring(0, Math.min(23, SearchForm.class.getSimpleName().length()));
 
     private static final String BBOX_KEY = "bbox";
 

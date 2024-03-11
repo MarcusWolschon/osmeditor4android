@@ -46,7 +46,7 @@ public class MapTileProvider<T> {
     /**
      * Tag used in debug log-entries.
      */
-    private static final String DEBUG_TAG = MapTileProvider.class.getSimpleName();
+    private static final String DEBUG_TAG = MapTileProvider.class.getSimpleName().substring(0, Math.min(23, MapTileProvider.class.getSimpleName().length()));
 
     private static final int MVT_CACHE_SIZE = 128;
 

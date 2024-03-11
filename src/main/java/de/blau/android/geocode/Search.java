@@ -37,7 +37,7 @@ import de.blau.android.util.WidestItemArrayAdapter;
  *
  */
 public class Search {
-    static final String DEBUG_TAG = "Search";
+    static final String DEBUG_TAG = Search.class.getSimpleName().substring(0, Math.min(23, Search.class.getSimpleName().length()));
 
     private final AppCompatActivity activity;
 

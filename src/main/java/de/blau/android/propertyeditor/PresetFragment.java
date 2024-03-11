@@ -53,14 +53,14 @@ import de.blau.android.presets.PresetGroup;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.util.BaseFragment;
 import de.blau.android.util.ExecutorTask;
-import de.blau.android.util.SearchIndexUtils;
 import de.blau.android.util.ScreenMessage;
+import de.blau.android.util.SearchIndexUtils;
 import de.blau.android.util.Sound;
 import de.blau.android.util.Util;
 
 public class PresetFragment extends BaseFragment implements PresetUpdate, PresetClickHandler {
 
-    private static final String DEBUG_TAG = PresetFragment.class.getSimpleName();
+    private static final String DEBUG_TAG = PresetFragment.class.getSimpleName().substring(0, Math.min(23, PresetFragment.class.getSimpleName().length()));
 
     static final int         MAX_SEARCHRESULTS      = 10;
     private static final int MAX_DISTANCE           = 2;

@@ -72,7 +72,7 @@ import de.blau.android.util.ThemeUtils;
 
 public class ConditionalRestrictionFragment extends DialogFragment implements OnSaveListener {
 
-    private static final String DEBUG_TAG = ConditionalRestrictionFragment.class.getSimpleName();
+    private static final String DEBUG_TAG = ConditionalRestrictionFragment.class.getSimpleName().substring(0, Math.min(23, ConditionalRestrictionFragment.class.getSimpleName().length()));
 
     private static final String FRAGMENT_OPENING_HOURS_TAG = "fragment_opening_hours";
 

@@ -1,5 +1,7 @@
 package de.blau.android;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import android.app.Activity;
 import android.net.Uri;
 import android.util.Log;
@@ -10,7 +12,8 @@ import androidx.annotation.NonNull;
  */
 abstract class IntentDataActivity extends Activity {
 
-    private static final String DEBUG_TAG = IntentDataActivity.class.getSimpleName();
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, IntentDataActivity.class.getSimpleName().length());
+    private static final String DEBUG_TAG = IntentDataActivity.class.getSimpleName().substring(0, TAG_LEN);
 
     @Override
     protected void onStart() {

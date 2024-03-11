@@ -31,7 +31,7 @@ public abstract class MapViewLayer {
     /**
      * Tag used for Android-logging.
      */
-    private static final String DEBUG_TAG = MapViewLayer.class.getName();
+    private static final String DEBUG_TAG = MapViewLayer.class.getSimpleName().substring(0, Math.min(23, MapViewLayer.class.getSimpleName().length()));
 
     private transient int index     = -1;
     protected boolean     isVisible = true;

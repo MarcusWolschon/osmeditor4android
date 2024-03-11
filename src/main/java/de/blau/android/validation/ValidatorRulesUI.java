@@ -29,7 +29,7 @@ import de.blau.android.util.ThemeUtils;
 import de.blau.android.views.ExtendedViewPager;
 
 public class ValidatorRulesUI {
-    private static final String DEBUG_TAG = ValidatorRulesUI.class.getSimpleName();
+    private static final String DEBUG_TAG = ValidatorRulesUI.class.getSimpleName().substring(0, Math.min(23, ValidatorRulesUI.class.getSimpleName().length()));
 
     /**
      * Ruleset database related methods and fields

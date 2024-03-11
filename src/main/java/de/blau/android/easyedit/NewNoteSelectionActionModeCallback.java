@@ -15,7 +15,7 @@ import de.blau.android.tasks.NoteFragment;
 import de.blau.android.util.Util;
 
 public class NewNoteSelectionActionModeCallback extends EasyEditActionModeCallback {
-    private static final String DEBUG_TAG = "NewNoteSel...";
+    private static final String DEBUG_TAG = NewNoteSelectionActionModeCallback.class.getSimpleName().substring(0, Math.min(23, NewNoteSelectionActionModeCallback.class.getSimpleName().length()));
 
     private static final int MENUITEM_VIEW   = 1;
     private static final int MENUITEM_DELETE = 2;

@@ -22,7 +22,7 @@ import de.blau.android.tasks.OsnParser;
  */
 public class OsmChangeParser extends OsmParser {
 
-    private static final String DEBUG_TAG = OsmChangeParser.class.getSimpleName();
+    private static final String DEBUG_TAG = OsmChangeParser.class.getSimpleName().substring(0, Math.min(23, OsmChangeParser.class.getSimpleName().length()));
 
     /**
      * Place holder for a node referenced by a way, but not in the OsmChange file
