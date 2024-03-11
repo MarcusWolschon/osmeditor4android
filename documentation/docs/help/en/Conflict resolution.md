@@ -16,7 +16,7 @@ The most common conflict is when an object has been modified or deleted while yo
 
 ### Referential conflicts
 
-While Vespucci attempty to avoid this happening allow this to happen, a referential conflict happens when you delete an object locally, the server however still has objects that refer to the deleted one, which haven't been modified accordingly or you have local elements that refer to elements that have been deleted on the server.
+While Vespucci attempts to avoid this happening, a referential conflict can occur when you delete an object locally, and the server still has objects that refer to the deleted one, which haven't been modified accordingly or you have local elements that refer to elements that have been deleted on the server.
 
 In the first scenario you can resolve the issue by (for each element)
 
