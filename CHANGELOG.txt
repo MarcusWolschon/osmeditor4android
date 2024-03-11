@@ -59,6 +59,8 @@
 - Add explicit handling for 509 error on download and 429 in upload
 - Update use "new" url for Bing meta data retrieval
 - Update default preset
+- Update imagery from ELI
+- Update translations
 
 19.3.1:
 
