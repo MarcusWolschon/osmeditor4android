@@ -1,5 +1,7 @@
 package de.blau.android.easyedit;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,23 +30,25 @@ import de.blau.android.util.Util;
 import de.blau.android.voice.Commands;
 
 public class LongClickActionModeCallback extends EasyEditActionModeCallback implements DisambiguationMenu.OnMenuItemClickListener {
-    private static final String DEBUG_TAG                = LongClickActionModeCallback.class.getSimpleName().substring(0, Math.min(23, LongClickActionModeCallback.class.getSimpleName().length()));;
-    private static final int    MENUITEM_OSB             = 1;
-    private static final int    MENUITEM_NEWNODEWAY      = 2;
-    private static final int    MENUITEM_SPLITWAY        = 3;
-    private static final int    MENUITEM_PASTE           = 4;
-    private static final int    MENUITEM_NEWNODE_GPS     = 5;
-    private static final int    MENUITEM_NEWNODE_ADDRESS = 6;
-    private static final int    MENUITEM_NEWNODE_PRESET  = 7;
-    private static final int    MENUITEM_NEWNODE_VOICE   = 9;
-    private float               startX;
-    private float               startY;
-    private int                 startLon;
-    private int                 startLat;
-    private float               x;
-    private float               y;
-    private List<OsmElement>    clickedNodes;
-    private List<Way>           clickedNonClosedWays;
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, LongClickActionModeCallback.class.getSimpleName().length());
+    private static final String DEBUG_TAG = LongClickActionModeCallback.class.getSimpleName().substring(0, TAG_LEN);
+
+    private static final int MENUITEM_OSB             = 1;
+    private static final int MENUITEM_NEWNODEWAY      = 2;
+    private static final int MENUITEM_SPLITWAY        = 3;
+    private static final int MENUITEM_PASTE           = 4;
+    private static final int MENUITEM_NEWNODE_GPS     = 5;
+    private static final int MENUITEM_NEWNODE_ADDRESS = 6;
+    private static final int MENUITEM_NEWNODE_PRESET  = 7;
+    private static final int MENUITEM_NEWNODE_VOICE   = 9;
+    private float            startX;
+    private float            startY;
+    private int              startLon;
+    private int              startLat;
+    private float            x;
+    private float            y;
+    private List<OsmElement> clickedNodes;
+    private List<Way>        clickedNonClosedWays;
 
     /**
      * Construct a callback for when a long click has occurred

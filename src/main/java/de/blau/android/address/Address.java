@@ -1,5 +1,7 @@
 package de.blau.android.address;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -47,9 +49,11 @@ import de.blau.android.util.collections.LongOsmElementMap;
  *
  */
 public final class Address implements Serializable {
+
     private static final long serialVersionUID = 6L;
 
-    private static final String DEBUG_TAG = Address.class.getSimpleName().substring(0, Math.min(23, Address.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Address.class.getSimpleName().length());
+    private static final String DEBUG_TAG = Address.class.getSimpleName().substring(0, TAG_LEN);
 
     public static final int NO_HYSTERESIS      = 0;
     public static final int DEFAULT_HYSTERESIS = 2;
