@@ -1,5 +1,7 @@
 package de.blau.android.prefs;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -42,7 +44,8 @@ import de.blau.android.util.ScreenMessage;
  */
 public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoCloseable {
 
-    private static final String DEBUG_TAG = AdvancedPrefDatabase.class.getSimpleName().substring(0, Math.min(23, AdvancedPrefDatabase.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, AdvancedPrefDatabase.class.getSimpleName().length());
+    private static final String DEBUG_TAG = AdvancedPrefDatabase.class.getSimpleName().substring(0, TAG_LEN);
 
     private final Resources         r;
     private final SharedPreferences sharedPrefs;
@@ -370,17 +373,22 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
     }
 
     /**
-     * Sets OAuth access token and secret of the current API entry
+     * Sets OAuth access token and secret of the API entries with the same URL and authentication method as the current
+     * entry
      * 
      * @param token the OAuth token
      * @param secret the OAuth secret
      */
     public synchronized void setAPIAccessToken(@Nullable String token, @Nullable String secret) {
+        API api = getCurrentAPI();
+        if (api == null) {
+            throw new IllegalStateException("Couldn't find current server api, fatal error");
+        }
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(ACCESSTOKEN_COL, token);
         values.put(ACCESSTOKENSECRET_COL, secret);
-        db.update(APIS_TABLE, values, WHERE_ID, new String[] { currentAPI });
+        db.update(APIS_TABLE, values, "url= ? AND oauth= ?", new String[] { api.url, Integer.toString(api.auth.ordinal()) });
         db.close();
         resetCurrentServer();
     }
