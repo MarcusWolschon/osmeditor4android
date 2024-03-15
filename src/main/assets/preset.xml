@@ -3956,7 +3956,7 @@
                     <text key="width" text="Width (meters)" value_type="dimension_horizontal"/>
                 </optional>
             </item> <!-- Culvert -->
-            <item name="Penstock" icon="" type="way" preset_name_label="true">
+            <item name="Penstock" icon="icons/png/water_penstock.png" type="way" preset_name_label="true">
                 <link wiki="Tag:usage=penstock"/>
                 <key key="waterway" value="pressurised"/>
                 <key key="man_made" value="pipeline"/>
@@ -4857,34 +4857,34 @@
                 <reference ref="charging_station_base"/>
                 <space/>
                 <label text="Available Sockets/Cables:"/>
-                <combo key="socket:type2" text="Type 2 socket - (Mennekes)" values="1,2,3,4,5,6"/>
+                <combo key="socket:type2" text="Type 2 socket - (Mennekes)" values="1,2,3,4,5,6" value_type="integer"/>
                 <text key="socket:type2:output" text="Type 2 socket max. output (kW)"/>
-                <combo key="socket:type2_cable" text="Type 2 cable - (Mennekes)" values="1,2,3,4,5,6"/>
+                <combo key="socket:type2_cable" text="Type 2 cable - (Mennekes)" values="1,2,3,4,5,6" value_type="integer"/>
                 <text key="socket:type2_cable:output" text="Type 2 cable output (kW)"/> 
-                <combo key="socket:type2_combo" text="CCS - Type 2 - Combo (DC)" values="1,2,3,4,5,6"/>
+                <combo key="socket:type2_combo" text="CCS - Type 2 - Combo (DC)" values="1,2,3,4,5,6" value_type="integer"/>
                 <text key="socket:type2_combo:output" text="CCS - Type 2 output (kW)"/> 
-                <combo key="socket:type3" text="Type 3 (SCAME)" values="1,2,3,4,5,6"/>
-                <combo key="socket:chademo" text="CHAdeMO" values="1,2,3,4,5,6"/>
+                <combo key="socket:type3" text="Type 3 (SCAME)" values="1,2,3,4,5,6" value_type="integer"/>
+                <combo key="socket:chademo" text="CHAdeMO" values="1,2,3,4,5,6" value_type="integer"/>
                 <text key="socket:chademo:output" text="CHAdeMO output (kW)"/> 
-                <combo key="socket:tesla_supercharger" text="Tesla Supercharger" values="1,2,3,4,5,6"/>
+                <combo key="socket:tesla_supercharger" text="Tesla Supercharger" values="1,2,3,4,5,6" value_type="integer"/>
                 <combo key="socket:schuko" text="Schuko" values="1,2,3,4,5,6"/>
                 <combo key="socket:cee_blue" text="CEE blue" values="1,2,3,4,5,6"/>
-                <combo key="socket:cee_red_16a" text="CEE red 16A" values="1,2,3,4,5,6"/>
-                <combo key="socket:cee_red_32a" text="CEE red 32A" values="1,2,3,4,5,6"/>
+                <combo key="socket:cee_red_16a" text="CEE red 16A" values="1,2,3,4,5,6" value_type="integer"/>
+                <combo key="socket:cee_red_32a" text="CEE red 32A" values="1,2,3,4,5,6" value_type="integer"/>
             </item> <!-- Charging Station -->
             <item name="Charging Station" icon="icons/png/transport_charging_station.png" regions="US,CA" type="node" preset_name_label="true">
                 <reference ref="charging_station_base"/>
                 <space/>
                 <label text="Available Sockets/Cables:"/>
-                <combo key="socket:type1" text="Type 1 - SAE J1772 (IEC Type 1)" values="1,2,3,4,5,6"/>
+                <combo key="socket:type1" text="Type 1 - SAE J1772 (IEC Type 1)" values="1,2,3,4,5,6" value_type="integer"/>
                 <text key="socket:type1:output" text="Type 1 socket output (kW)"/>
-                <combo key="socket:type1_combo" text="CCS - Type 1 - SAE J1772 Combo (DC)" values="1,2,3,4,5,6"/>
+                <combo key="socket:type1_combo" text="CCS - Type 1 - SAE J1772 Combo (DC)" values="1,2,3,4,5,6" value_type="integer"/>
                 <text key="socket:type1_combo:output" text="CCS - Type 1 output (kW)"/>       
-                <combo key="socket:chademo" text="CHAdeMO" values="1,2,3,4,5,6"/>
+                <combo key="socket:chademo" text="CHAdeMO" values="1,2,3,4,5,6" value_type="integer"/>
                 <text key="socket:chademo:output" text="CHAdeMO output (kW)"/> 
-                <combo key="socket:tesla_supercharger" text="Tesla Supercharger" values="1,2,3,4,5,6"/>
-                <combo key="socket:nema_5_15" text="NEMA 5-15" values="1,2,3,4,5,6"/>
-                <combo key="socket:nema_5_20" text="NEMA 5-20" values="1,2,3,4,5,6"/>
+                <combo key="socket:tesla_supercharger" text="Tesla Supercharger" values="1,2,3,4,5,6" value_type="integer"/>
+                <combo key="socket:nema_5_15" text="NEMA 5-15" values="1,2,3,4,5,6" value_type="integer"/>
+                <combo key="socket:nema_5_20" text="NEMA 5-20" values="1,2,3,4,5,6" value_type="integer"/>
             </item> <!-- Charging Station US,CA -->
             <item name="Car Wash" icon="icons/png/amenity_car_wash_12018.png" type="node,closedway,multipolygon" preset_name_label="true">
                 <link wiki="Tag:amenity=car_wash"/>
@@ -9825,6 +9825,15 @@
             <key key="man_made" value="pipeline"/>
             <reference ref="optional_name_ref_operator"/>
             <reference ref="substance"/>
+            <combo key="usage" text="Usage" values_context="pipeline">
+                <list_entry value="transmission" display_value="Transmission" short_description="Features involved in long distance carriage of fluids or goods and connecting to more specific and local usage networks. It excludes vehicle carriage, referring to transportation."/>     
+                <list_entry value="distribution" display_value="Distribution" short_description="Features involved in local carriage of fluids or goods towards final consumers for domestic or specific processing. It excludes vehicle carriage, referring to transportation."/>      
+                <list_entry value="flowline" display_value="Flowline" short_description="Dedicated to pipelines delivering the medium from wells or intake to a substation=gathering substation."/>     
+                <list_entry value="gathering" display_value="Gathering" short_description="Specific pipeline usage dedicated to path leading fluids from tag:substation=field_gathering to tag:substation=central_processing sites"/>     
+                <list_entry value="injection" display_value="Injection" short_description="Dedicated to pipelines delivering the medium from wells or intake to a substation=gathering substation."/>      
+                <list_entry value="flare_header" display_value="Flare header" short_description="Dedicated to pipelines carrying process exceeding gas to flare stack"/>
+                <list_entry value="facility" display_value="Facility" short_description="Specific pipeline usage dedicated to path carrying fluids inside a given facility"/>
+            </combo>
             <combo key="location" text="Location" values="overground,overhead,surface,underground,underwater" display_values="Overground,Overhead,Surface,Underground,Underwater" values_context="pipeline"/>
             <combo key="diameter" text="Diameter (mm)" values="800,1000,1200,1500,1600,1800,2200,2300,2400,2500,2600,2800,3200,3300,3400,3500,4000,4200,4300,4800"/>
             <text key="pressure" text="Pressure (bar)"/>
