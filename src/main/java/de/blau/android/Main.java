@@ -508,7 +508,7 @@ public class Main extends FullScreenAppCompatActivity
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         Log.i(DEBUG_TAG, "onCreate " + (savedInstanceState != null ? " no saved state " : " saved state exists"));
-        WorkManager.getInstance(this).cancelAllWorkByTag(UploadChecker.TAG);
+        UploadChecker.cancel(this);
         getIntentData();
         App.initGeoContext(this);
         updatePrefs(new Preferences(this));

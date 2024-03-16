@@ -1,10 +1,11 @@
 package de.blau.android.util;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.util.ArrayList;
 
 import android.annotation.SuppressLint;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
@@ -16,7 +17,6 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
-import androidx.core.app.TaskStackBuilder;
 import androidx.core.content.ContextCompat;
 import de.blau.android.App;
 import de.blau.android.Main;
@@ -40,15 +40,16 @@ import de.blau.android.validation.Validator;
  *
  */
 public final class IssueAlert {
-    private static final String DEBUG_TAG = IssueAlert.class.getSimpleName().substring(0, Math.min(23, IssueAlert.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, IssueAlert.class.getSimpleName().length());
+    private static final String DEBUG_TAG = IssueAlert.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String QA_CHANNEL      = "qa";
-    private static final String PAACKGE_NAME    = "de.blau.android";
-    private static final String GROUP_DATA      = PAACKGE_NAME + ".Data";
+    private static final String PACKAGE_NAME    = "de.blau.android";
+    private static final String GROUP_DATA      = PACKAGE_NAME + ".Data";
     private static final int    GROUP_DATA_ID   = GROUP_DATA.hashCode();
-    private static final String GROUP_NOTES     = PAACKGE_NAME + ".Notes";
+    private static final String GROUP_NOTES     = PACKAGE_NAME + ".Notes";
     private static final int    GROUP_NOTES_ID  = GROUP_NOTES.hashCode();
-    private static final String GROUP_OSMOSE    = PAACKGE_NAME + ".Osmose";
+    private static final String GROUP_OSMOSE    = PACKAGE_NAME + ".Osmose";
     private static final int    GROUP_OSMOSE_ID = GROUP_OSMOSE.hashCode();
 
     /**
@@ -141,13 +142,7 @@ public final class IssueAlert {
             Uri rc = builder.build();
             Log.d(DEBUG_TAG, rc.toString());
             resultIntent.setData(rc);
-            TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
-            // Adds the back stack for the Intent (but not the Intent itself)
-            stackBuilder.addParentStack(Main.class);
-            // Adds the Intent that starts the Activity to the top of the stack
-            stackBuilder.addNextIntent(resultIntent);
-            PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
-            mBuilder.setContentIntent(resultPendingIntent);
+            mBuilder.setContentIntent(Notifications.createPendingIntent(context, Main.class, resultIntent));
 
             NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
             addGroupNotification(context, QA_CHANNEL, GROUP_DATA, GROUP_DATA_ID, title, mNotificationManager);
@@ -224,15 +219,8 @@ public final class IssueAlert {
             return;
         }
         Intent resultIntent = new Intent(Intent.ACTION_VIEW);
-        Uri geo = Uri.fromParts(Schemes.GEO, eLat + "," + eLon, null);
-        resultIntent.setData(geo);
-        TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
-        // Adds the back stack for the Intent (but not the Intent itself)
-        stackBuilder.addParentStack(Main.class);
-        // Adds the Intent that starts the Activity to the top of the stack
-        stackBuilder.addNextIntent(resultIntent);
-        PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
-        mBuilder.setContentIntent(resultPendingIntent);
+        resultIntent.setData(Uri.fromParts(Schemes.GEO, eLat + "," + eLon, null));
+        mBuilder.setContentIntent(Notifications.createPendingIntent(context, Main.class, resultIntent));
 
         NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         if (b instanceof Note) {
