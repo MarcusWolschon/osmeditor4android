@@ -98,6 +98,9 @@ public final class TestUtils {
      * @param ctx Android context
      */
     public static void dismissStartUpDialogs(@NonNull UiDevice device, @NonNull Context ctx) {
+        if (findText(device, false, "Vespucci crashed")) {
+            clickText(device, true, ctx.getResources().getString(R.string.cancel), true, false);
+        }
         if (findText(device, false, ctx.getResources().getString(R.string.welcome_title))) {
             clickText(device, true, ctx.getResources().getString(R.string.next), true, false);
             clickResource(device, false, device.getCurrentPackageName() + ":id/authorize", false);

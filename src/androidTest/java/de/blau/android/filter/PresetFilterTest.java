@@ -89,7 +89,7 @@ public class PresetFilterTest {
         TestUtils.clickResource(device, false, device.getCurrentPackageName() + ":id/tagFilterButton", true);
         Activity presetFilterActivity = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         assertTrue(presetFilterActivity instanceof PresetFilterActivity);
-        TestUtils.clickResource(device, false, device.getCurrentPackageName() + ":id/tR.id.preset_menu_top", false);
+        TestUtils.clickResource(device, false, device.getCurrentPackageName() + ":id/preset_menu_top", false);
         assertTrue(TestUtils.clickText(device, false, "Facilities", true));
         assertTrue(TestUtils.clickText(device, false, "Place of Worship", true, true));
         assertTrue(TestUtils.clickText(device, false, "Church", true));
@@ -113,7 +113,7 @@ public class PresetFilterTest {
         TestUtils.clickResource(device, false, device.getCurrentPackageName() + ":id/tagFilterButton", true);
         Activity presetFilterActivity = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         assertTrue(presetFilterActivity instanceof PresetFilterActivity);
-        TestUtils.clickResource(device, false, device.getCurrentPackageName() + ":id/tR.id.preset_menu_top", false);
+        TestUtils.clickResource(device, false, device.getCurrentPackageName() + ":id/preset_menu_top", false);
         assertTrue(TestUtils.clickText(device, false, "Highways", true));
         assertTrue(TestUtils.clickText(device, false, "Waypoints", true, true));
         assertTrue(TestUtils.clickText(device, false, "Pedestrian Crossing", true));
@@ -145,7 +145,7 @@ public class PresetFilterTest {
         Activity presetFilterActivity = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         instrumentation.removeMonitor(monitor);
         assertTrue(presetFilterActivity instanceof PresetFilterActivity);
-        TestUtils.clickResource(device, false, device.getCurrentPackageName() + ":id/tR.id.preset_menu_top", false);
+        TestUtils.clickResource(device, false, device.getCurrentPackageName() + ":id/preset_menu_top", false);
         assertTrue(TestUtils.clickText(device, false, "Facilities", true));
         assertTrue(TestUtils.clickText(device, false, "Place of Worship", true, true));
         assertTrue(TestUtils.clickText(device, false, "Church", true));
@@ -187,7 +187,7 @@ public class PresetFilterTest {
         Activity presetFilterActivity = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         instrumentation.removeMonitor(monitor);
         assertTrue(presetFilterActivity instanceof PresetFilterActivity);
-        TestUtils.clickResource(device, false, device.getCurrentPackageName() + ":id/tR.id.preset_menu_top", false);
+        TestUtils.clickResource(device, false, device.getCurrentPackageName() + ":id/preset_menu_top", false);
         assertTrue(TestUtils.clickText(device, false, "Facilities", true));
         assertTrue(TestUtils.longClickText(device, "Place of Worship"));
 
