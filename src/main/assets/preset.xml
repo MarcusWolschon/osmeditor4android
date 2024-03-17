@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.38.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,disused:amenity,disused:leisure,disused:man_made,disused:shop,golf,ford,harbour,hazard,noexit,indoor,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom">
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.41.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,disused:amenity,disused:leisure,disused:man_made,disused:shop,golf,ford,harbour,hazard,noexit,indoor,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom">
 <!--
     Icons have been derived from mainly from
   
@@ -668,6 +668,7 @@
             <list_entry value="bavarian" display_value="Bavarian"/>
             <list_entry value="beef_bowl" display_value="Beef bowl"/>
             <list_entry value="brazilian" display_value="Brazilian"/>
+            <list_entry value="breakfast" display_value="Breakfast"/>
             <list_entry value="burger" display_value="Burger"/>
             <list_entry value="cake" display_value="Cake"/>
             <list_entry value="caribbean" display_value="Caribbean"/>
@@ -678,6 +679,7 @@
             <list_entry value="curry" display_value="Curry"/>
             <list_entry value="danish" display_value="Danish"/>
             <list_entry value="donut" display_value="Donut"/>
+            <list_entry value="dumplings" display_value="Dumplings"/>
             <list_entry value="ethiopian" display_value="Ethiopian"/>
             <list_entry value="filipino" display_value="Filipino"/>
             <list_entry value="fish" display_value="Fish"/>
@@ -716,6 +718,7 @@
             <list_entry value="ramen" display_value="Ramen"/>
             <list_entry value="regional" display_value="Regional"/>
             <list_entry value="russian" display_value="Russian"/>
+            <list_entry value="salad" display_value="Salad"/>
             <list_entry value="sandwich" display_value="Sandwich"/>
             <list_entry value="sausage" display_value="Sausage"/>
             <list_entry value="seafood" display_value="Seafood"/>
@@ -3913,6 +3916,13 @@
                 <reference ref="name_wikipedia"/>
                 <text key="height" text="Height (meters)" length="7" value_type="dimension_vertical"/>
             </item> <!-- Waterfall -->
+            <item name="Rapids" icon="icons/png/water_rapids_34009.png" type="node,way" preset_name_label="true">
+                <link wiki="Tag:waterway=rapids"/>
+                <space/>
+                <key key="waterway" value="rapids"/>
+                <reference ref="name_wikipedia"/>
+                <text key="width" text="Width (meters)" length="7" value_type="dimension_horizontal"/>
+            </item> <!-- Rapids -->
             <item name="Weir" icon="icons/png/water_weir.png" type="node,way" preset_name_label="true">
                 <link wiki="Tag:waterway=weir"/>
                 <space/>
@@ -13221,6 +13231,13 @@
                 <text key="name" text="Name"/>
                 <reference ref="religious"/>
             </item> <!-- Cemetery -->
+             <item name="War cemetery" icon="icons/png/landuse_war_cemetery.png" type="closedway,multipolygon" preset_name_label="true">
+                <link wiki="Tag:landuse=cemetery"/>
+                <space/>
+                <key key="landuse" value="cemetery"/>
+                <key key="cemetry" value="war_cemetery"/>
+                <text key="name" text="Name"/>
+            </item> <!-- War cemetery -->
             <item name="Cemetery sector" icon="icons/png/landuse_empty.png" type="node,closedway,multipolygon" preset_name_label="true">
                 <link wiki="Tag:cemetery=sector"/>
                 <space/>
@@ -14979,6 +14996,11 @@
             <space/>
             <text key="disused:leisure" match="key"/>
         </item> <!-- Disused leisure -->
+        <item name="Disused man_made" icon="icons/png/lifecycle.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Key:disused:"/>
+            <space/>
+            <text key="disused:man_made" match="key"/>
+        </item> <!-- Disused manmade -->
         <item name="Disused military object" icon="icons/png/lifecycle.png" type="node,way,closedway,multipolygon" preset_name_label="true">
             <link wiki="Key:disused:"/>
             <space/>
@@ -15000,7 +15022,7 @@
             <!-- originalTags and tags are java.util.Map<String,ArrayList<String>>, originalTags are the tags
                  before the PropertyEditor was started, tags are the current values, by removing the key at the
                  end of the script it can be re-run without manually reseting the value, &, <, > need to be escaped -->
-            <text key="set_to_abandoned" javascript=" var objects = ['amenity','aeroway','highway','leisure','man_made','military','railway','shop'];  function isObject(key) {   var objectsLength = objects.length;   for (var i = 0; i &lt; objectsLength; i++) {     if (objects[i].equals(key)) {             return true;     }   }   return false; }  for (var key in Iterator(new java.util.HashSet(tags.keySet()))) {   if (isObject(key)) {     tags.put('abandoned:'+key,tags.get(key));     tags.remove(key);   } } tags.remove('set_to_abandoned');"/>
+            <text key="set_to_abandoned" javascript=" var objects = ['amenity','aeroway','highway','leisure','man_made','military','place','railway','shop'];  function isObject(key) {   var objectsLength = objects.length;   for (var i = 0; i &lt; objectsLength; i++) {     if (objects[i].equals(key)) {             return true;     }   }   return false; }  for (var key in Iterator(new java.util.HashSet(tags.keySet()))) {   if (isObject(key)) {     tags.put('abandoned:'+key,tags.get(key));     tags.remove(key);   } } tags.remove('set_to_abandoned');"/>
         </item>
         <item name="Set to abandoned (remove tags)" icon="icons/png/javascript.png" type="node,way,closedway,relation" preset_name_label="true">
             <link wiki="Key:abandoned:"/>
@@ -15008,8 +15030,13 @@
                  originalTags and tags are java.util.Map<String,ArrayList<String>>, originalTags are the tags
                  before the PropertyEditor was started, tags are the current values, by removing the key at the
                  end of the script it can be re-run without manually reseting the value, &, <, > need to be escaped -->
-            <text key="set_to_abandoned_remove_tags" javascript=" var objects = ['amenity','aeroway','highway','leisure','man_made','military','railway','shop'];  function isObject(key) {   var objectsLength = objects.length;   for (var i = 0; i &lt; objectsLength; i++) {     if (objects[i].equals(key)) {             return true;     }   }   return false; }  var presetItem = null; for (var key in Iterator(new java.util.HashSet(tags.keySet()))) {   if (isObject(key)) {     tags.put('abandoned:'+key,tags.get(key));     presetItem = key2PresetItem.get(key);     tags.remove(key);   }   if (typeof versionCode !== 'undefined' &amp;&amp; versionCode &gt; 703) {     if (presetItem !== null &amp;&amp; presetItem.equals(key2PresetItem.get(key))) {       tags.remove(key);     }   } } tags.remove('set_to_abandoned_remove_tags');"/>
+            <text key="set_to_abandoned_remove_tags" javascript=" var objects = ['amenity','aeroway','highway','leisure','man_made','military','place','railway','shop'];  function isObject(key) {   var objectsLength = objects.length;   for (var i = 0; i &lt; objectsLength; i++) {     if (objects[i].equals(key)) {             return true;     }   }   return false; }  var presetItem = null; for (var key in Iterator(new java.util.HashSet(tags.keySet()))) {   if (isObject(key)) {     tags.put('abandoned:'+key,tags.get(key));     presetItem = key2PresetItem.get(key);     tags.remove(key);   }   if (typeof versionCode !== 'undefined' &amp;&amp; versionCode &gt; 703) {     if (presetItem !== null &amp;&amp; presetItem.equals(key2PresetItem.get(key))) {       tags.remove(key);     }   } } tags.remove('set_to_abandoned_remove_tags');"/>
         </item>
+        <item name="Abandoned amenity" icon="icons/png/lifecycle.png" type="node,way,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Key:abandoned:"/>
+            <space/>
+            <text key="abandoned:aeroway" match="key"/>
+        </item> <!-- Abandoned amenity -->
         <item name="Abandoned aeroway" icon="icons/png/lifecycle.png" type="node,way,closedway,multipolygon" preset_name_label="true">
             <link wiki="Key:abandoned:"/>
             <space/>
@@ -15025,10 +15052,35 @@
             <space/>
             <text key="abandoned:highway" match="key"/>
         </item> <!-- Abandoned highway -->
+        <item name="Abandoned leisure" icon="icons/png/lifecycle.png" type="node,way,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Key:abandoned:"/>
+            <space/>
+            <text key="abandoned:leisure" match="key"/>
+        </item> <!-- Abandoned leisure -->
+        <item name="Abandoned man_made" icon="icons/png/lifecycle.png" type="node,way,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Key:abandoned:"/>
+            <space/>
+            <text key="abandoned:man_made" match="key"/>
+        </item> <!-- Abandoned man_made -->
+        <item name="Abandoned military object" icon="icons/png/lifecycle.png" type="node,way,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Key:abandoned:"/>
+            <space/>
+            <text key="abandoned:military" match="key"/>
+        </item> <!-- Abandoned military -->
+        <item name="Abandoned place" icon="icons/png/lifecycle.png" type="node,way,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Key:abandoned:"/>
+            <space/>
+            <text key="abandoned:place" match="key"/>
+        </item> <!-- Abandoned place -->
         <item name="Abandoned railway" icon="icons/png/lifecycle.png" type="node,way,closedway,multipolygon" preset_name_label="true">
             <link wiki="Key:abandoned:"/>
             <space/>
             <text key="abandoned:railway" match="key"/>
         </item> <!-- Abandoned railway -->
+        <item name="Abandoned shop" icon="icons/png/lifecycle.png" type="node,way,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Key:abandoned:"/>
+            <space/>
+            <text key="abandoned:shop" match="key"/>
+        </item> <!-- Abandoned shop -->
     </group>
 </presets>
