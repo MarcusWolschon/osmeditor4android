@@ -2,10 +2,14 @@ package de.blau.android.util;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.TaskStackBuilder;
 import de.blau.android.R;
 import de.blau.android.prefs.Preferences;
 
@@ -127,7 +131,7 @@ public final class Notifications {
      * @param id unique notification id
      */
     public static void error(@NonNull Context ctx, int titleRes, @NonNull final String message, int id) {
-        coloredNotification(ctx, titleRes, message, id, R.attr.snack_error, R.color.material_red);
+        coloredNotification(ctx, titleRes, message, null, id, R.attr.snack_error, R.color.material_red);
     }
 
     /**
@@ -139,7 +143,20 @@ public final class Notifications {
      * @param id unique notification id
      */
     public static void warning(@NonNull Context ctx, int titleRes, @NonNull final String message, int id) {
-        coloredNotification(ctx, titleRes, message, id, R.attr.snack_warning, R.color.material_orange);
+        coloredNotification(ctx, titleRes, message, null, id, R.attr.snack_warning, R.color.material_orange);
+    }
+
+    /**
+     * Display a notification for warnings
+     * 
+     * @param ctx an Android Context
+     * @param titleRes String resource for title
+     * @param message the message
+     * @param id unique notification id
+     * @param pendingIntent PendingIntent to use on click
+     */
+    public static void warning(@NonNull Context ctx, int titleRes, @NonNull final String message, int id, @Nullable PendingIntent pendingIntent) {
+        coloredNotification(ctx, titleRes, message, pendingIntent, id, R.attr.snack_warning, R.color.material_orange);
     }
 
     /**
@@ -148,11 +165,13 @@ public final class Notifications {
      * @param ctx an Android Context
      * @param titleRes String resource for title
      * @param message the message
+     * @param pendingIntent optional PendingIntent to use on click
      * @param id unique notification id
      * @param colorAttr themed color attribute
      * @param fallbackColorRes fallback color resource id
      */
-    private static void coloredNotification(@NonNull Context ctx, int titleRes, @NonNull final String message, int id, int colorAttr, int fallbackColorRes) {
+    private static void coloredNotification(@NonNull Context ctx, int titleRes, @NonNull final String message, @Nullable PendingIntent pendingIntent, int id,
+            int colorAttr, int fallbackColorRes) {
         NotificationCompat.Builder builder = Notifications.builder(ctx).setSmallIcon(R.drawable.logo_simplified).setContentTitle(ctx.getString(titleRes))
                 .setColorized(true).setColor(ThemeUtils.getStyleAttribColorValue(ctx, colorAttr, fallbackColorRes));
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
@@ -160,7 +179,28 @@ public final class Notifications {
         } else {
             builder.setStyle(new NotificationCompat.BigTextStyle().bigText(message)).setPriority(NotificationCompat.PRIORITY_MAX);
         }
+        if (pendingIntent != null) {
+            builder.setContentIntent(pendingIntent);
+        }
         NotificationManager nManager = (NotificationManager) ctx.getSystemService(Context.NOTIFICATION_SERVICE);
         nManager.notify(id, builder.build());
+    }
+
+    /**
+     * Create a pending intent
+     * 
+     * @param context an Android Context
+     * @param sourceActivityClass the source Activity class
+     * @param intent the Intent
+     * @return a PendingIntent
+     */
+    @NonNull
+    public static PendingIntent createPendingIntent(@NonNull Context context, @NonNull Class<?> sourceActivityClass, @NonNull Intent intent) {
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
+        // Adds the back stack for the Intent (but not the Intent itself)
+        stackBuilder.addParentStack(sourceActivityClass);
+        // Adds the Intent that starts the Activity to the top of the stack
+        stackBuilder.addNextIntent(intent);
+        return stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
     }
 }

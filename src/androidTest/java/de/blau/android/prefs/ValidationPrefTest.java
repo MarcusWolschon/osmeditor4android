@@ -75,7 +75,9 @@ public class ValidationPrefTest {
      */
     @After
     public void teardown() {
-        instrumentation.removeMonitor(monitor);
+        if (monitor != null) {
+            instrumentation.removeMonitor(monitor);
+        }
         instrumentation.waitForIdleSync();
     }
 
