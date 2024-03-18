@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.42.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,disused:amenity,disused:leisure,disused:man_made,disused:shop,golf,ford,harbour,hazard,noexit,indoor,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom">
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.43.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,disused:amenity,disused:leisure,disused:man_made,disused:shop,golf,ford,harbour,hazard,noexit,indoor,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom">
 <!--
     Icons have been derived from mainly from
   
@@ -5568,6 +5568,14 @@
             <link wiki="Tag:amenity=taxi"/>
             <space/>
             <key key="amenity" value="taxi"/>
+            <optional>
+                <multiselect key="taxi_vehicle" text="Vehicle tyoe" values_searchable="true">
+                    <list_entry value="auto_rickshaw" display_value="Auto rickshaw"/>
+                    <list_entry value="cycle_rickshaw" display_value="Cycle rickshaw"/>
+                    <list_entry value="motorcar" display_value="Car"/>
+                    <list_entry value="motorcycle" display_value="Motorcycle"/>
+                </multiselect>
+            </optional>
             <reference ref="optional_name"/>
         </item> <!-- Taxi -->
         <separator/>
@@ -5606,7 +5614,7 @@
                     <text key="ref" text="Reference"/>
                 </optional>
             </item> <!-- Holding Position -->
-             <item name="Heliport" icon="icons/png/transport_heliport.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <item name="Heliport" icon="icons/png/transport_heliport.png" type="node,closedway,multipolygon" preset_name_label="true">
                 <link wiki="Tag:aeroway=heliport"/>
                 <key key="aeroway" value="heliport"/>
                 <optional>
@@ -8816,6 +8824,21 @@
             <space/>
             <key key="sport" value="athletics"/>
             <text key="name" text="Name"/>
+            <optional>
+                <multiselect key="athletics" text="Type" values_searchable="true" match="key"> 
+                    <list_entry value="discus_throw" display_value="Discus throw"/>
+                    <list_entry value="hammer_throw" display_value="Hammer throw"/>
+                    <list_entry value="high_jump" display_value="High jump"/>
+                    <list_entry value="javelin_throw" display_value="Javelin throw"/>
+                    <list_entry value="long_jump" display_value="Long jump"/>
+                    <list_entry value="pole_vault" display_value="Pole vault"/>
+                    <list_entry value="running" display_value="Running"/>
+                    <list_entry value="shot_put" display_value="Shot put"/>
+                    <list_entry value="sprint" display_value="Sprint"/>
+                    <list_entry value="steeplechase" display_value="Steeplechase"/>
+                    <list_entry value="triple_jump" display_value="Triple jump"/>
+                </multiselect>
+            </optional>
             <reference ref="sport_facility_track"/>
             <reference ref="sport_surface"/>
             <reference ref="oh"/>
@@ -9561,7 +9584,7 @@
             <link wiki="Tag:man_made=tower"/>
             <space/>
             <key key="man_made" value="tower"/>
-            <combo key="tower:type" text="Tower type" values="bell_tower,communication,cooling,defensive,minaret,observation,pagoda,radar,watchtower" display_values="Bell tower,Communication,Cooling,Defensive,Minaret,Observation,Pagoda,Radar,Watchtower" editable="true" match="key" values_searchable="true"/>
+            <combo key="tower:type" text="Tower type" values="bell_tower,communication,cooling,defensive,diving,minaret,observation,pagoda,radar,watchtower" display_values="Bell tower,Communication,Cooling,Defensive,Diving,Minaret,Observation,Pagoda,Radar,Watchtower" editable="true" match="key" values_searchable="true"/>
             <optional>
                 <text key="name" text="Name"/>
                 <text key="height" text="Height (meters)" length="7" value_type="dimension_vertical"/>
