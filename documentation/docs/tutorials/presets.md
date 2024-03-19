@@ -150,7 +150,7 @@ Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/
 |__&lt;label&gt;__  |                               | supported |
 |                   | regions                       | extension | comma separated list of countries this preset group is applicable for
 |                   | exclude_regions               | extension | if true, invert the meaning of regions
-|__&lt;space/&gt;__ |                               | supported |
+|__&lt;space/&gt;__ |                               | supported | suppressed immediately after a header or after another space element
 |                   | regions                       | extension | comma separated list of countries this preset group is applicable for
 |                   | exclude_regions               | extension | if true, invert the meaning of regions
 |__&lt;optional&gt;__ |                             | supported | contained fields are not displayed the in "Properties" tab when a preset is applied except if applying with optional fields is used, further matching ignores any optional fields
