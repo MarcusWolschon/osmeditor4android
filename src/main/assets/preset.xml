@@ -1881,10 +1881,7 @@
         <reference ref="water_access"/>
         <preset_link preset_name="No name"/>
     </chunk>
-    <chunk id="charging_station_base">
-        <link wiki="Tag:amenity=charging_station"/>
-        <space/>
-        <key key="amenity" value="charging_station"/>
+    <chunk id="charging_base">
         <reference ref="brand"/>
         <optional>
             <text key="name" text="Name"/>
@@ -1892,6 +1889,7 @@
             <text key="network" text="Charging Network"/>
             <text key="operator" text="Operator"/>
         </optional>
+        <combo key="capacity" text="Capacity" values="1,2,3,4,5,6,7,8,9,10" editable="true" value_type="integer"/>
         <reference ref="oh"/>
         <reference ref="fee"/>
         <check key="parking:fee" text="Parking fee" disable_off="true" match="none"/>
@@ -1920,12 +1918,40 @@
         </checkgroup>
         <space/>
         <optional>
-            <combo key="voltage" text="Voltage" values="230,400"/>
-            <combo key="amperage" text="Amperage" values="16,32"/>
-            <combo key="capacity" text="Capacity" values="1,2,3,4,5,6" value_type="integer"/>
+            <combo key="voltage" text="Voltage" values="110,230,240,400"/>
+            <combo key="amperage" text="Amperage" values="10,15,16,20,32"/>           
         </optional>
         <space/>
         <preset_link preset_name="Payment Methods"/>
+    </chunk>
+    <chunk id="charging_sockets_cables">
+        <label text="Available Sockets/Cables:"/>
+        <combo key="socket:type2" text="Type 2 socket - (Mennekes)" values="1,2,3,4,5,6" value_type="integer"/>
+        <text key="socket:type2:output" text="Type 2 socket max. output (kW)"/>
+        <combo key="socket:type2_cable" text="Type 2 cable - (Mennekes)" values="1,2,3,4,5,6" value_type="integer"/>
+        <text key="socket:type2_cable:output" text="Type 2 cable output (kW)"/> 
+        <combo key="socket:type2_combo" text="CCS - Type 2 - Combo (DC)" values="1,2,3,4,5,6" value_type="integer"/>
+        <text key="socket:type2_combo:output" text="CCS - Type 2 output (kW)"/> 
+        <combo key="socket:type3" text="Type 3 (SCAME)" values="1,2,3,4,5,6" value_type="integer"/>
+        <combo key="socket:chademo" text="CHAdeMO" values="1,2,3,4,5,6" value_type="integer"/>
+        <text key="socket:chademo:output" text="CHAdeMO output (kW)"/> 
+        <combo key="socket:tesla_supercharger" text="Tesla Supercharger" values="1,2,3,4,5,6" value_type="integer"/>
+        <combo key="socket:schuko" text="Schuko" values="1,2,3,4,5,6" value_type="integer"/>
+        <combo key="socket:cee_blue" text="CEE blue" values="1,2,3,4,5,6" value_type="integer"/>
+        <combo key="socket:cee_red_16a" text="CEE red 16A" values="1,2,3,4,5,6" value_type="integer"/>
+        <combo key="socket:cee_red_32a" text="CEE red 32A" values="1,2,3,4,5,6" value_type="integer"/>
+    </chunk>
+    <chunk id="charging_sockets_cables_us_ca">
+        <label text="Available Sockets/Cables:"/>
+        <combo key="socket:type1" text="Type 1 - SAE J1772 (IEC Type 1)" values="1,2,3,4,5,6" value_type="integer"/>
+        <text key="socket:type1:output" text="Type 1 socket output (kW)"/>
+        <combo key="socket:type1_combo" text="CCS - Type 1 - SAE J1772 Combo (DC)" values="1,2,3,4,5,6" value_type="integer"/>
+        <text key="socket:type1_combo:output" text="CCS - Type 1 output (kW)"/>       
+        <combo key="socket:chademo" text="CHAdeMO" values="1,2,3,4,5,6" value_type="integer"/>
+        <text key="socket:chademo:output" text="CHAdeMO output (kW)"/> 
+        <combo key="socket:tesla_supercharger" text="Tesla Supercharger" values="1,2,3,4,5,6" value_type="integer"/>
+        <combo key="socket:nema_5_15" text="NEMA 5-15" values="1,2,3,4,5,6" value_type="integer"/>
+        <combo key="socket:nema_5_20" text="NEMA 5-20" values="1,2,3,4,5,6" value_type="integer"/>
     </chunk>
     <chunk id="historic_optional">
         <optional>
@@ -4863,39 +4889,46 @@
                 </optional>
                 <reference ref="link_contact_address_payment"/>
             </item> <!-- Fuel -->
-            <item name="Charging Station" icon="icons/png/transport_charging_station.png" exclude_regions="true" regions="US,CA" type="node" preset_name_label="true">        
-                <reference ref="charging_station_base"/>
+            <item name="Charging Station" icon="icons/png/transport_charging_station.png" exclude_regions="true" regions="US,CA" type="node,closedway,multipolygon" preset_name_label="true">  
+                <link wiki="Tag:amenity=charging_station"/>
                 <space/>
-                <label text="Available Sockets/Cables:"/>
-                <combo key="socket:type2" text="Type 2 socket - (Mennekes)" values="1,2,3,4,5,6" value_type="integer"/>
-                <text key="socket:type2:output" text="Type 2 socket max. output (kW)"/>
-                <combo key="socket:type2_cable" text="Type 2 cable - (Mennekes)" values="1,2,3,4,5,6" value_type="integer"/>
-                <text key="socket:type2_cable:output" text="Type 2 cable output (kW)"/> 
-                <combo key="socket:type2_combo" text="CCS - Type 2 - Combo (DC)" values="1,2,3,4,5,6" value_type="integer"/>
-                <text key="socket:type2_combo:output" text="CCS - Type 2 output (kW)"/> 
-                <combo key="socket:type3" text="Type 3 (SCAME)" values="1,2,3,4,5,6" value_type="integer"/>
-                <combo key="socket:chademo" text="CHAdeMO" values="1,2,3,4,5,6" value_type="integer"/>
-                <text key="socket:chademo:output" text="CHAdeMO output (kW)"/> 
-                <combo key="socket:tesla_supercharger" text="Tesla Supercharger" values="1,2,3,4,5,6" value_type="integer"/>
-                <combo key="socket:schuko" text="Schuko" values="1,2,3,4,5,6"/>
-                <combo key="socket:cee_blue" text="CEE blue" values="1,2,3,4,5,6"/>
-                <combo key="socket:cee_red_16a" text="CEE red 16A" values="1,2,3,4,5,6" value_type="integer"/>
-                <combo key="socket:cee_red_32a" text="CEE red 32A" values="1,2,3,4,5,6" value_type="integer"/>
+                <key key="amenity" value="charging_station"/>      
+                <reference ref="charging_base"/>
+                <space/>
+                <reference ref="charging_sockets_cables"/>
+                <preset_link preset_name="Charge point" text="Similar but different tags:" alternative="true"/>   
             </item> <!-- Charging Station -->
-            <item name="Charging Station" icon="icons/png/transport_charging_station.png" regions="US,CA" type="node" preset_name_label="true">
-                <reference ref="charging_station_base"/>
+            <item name="Charge point" icon="icons/png/transport_charge_point.png" exclude_regions="true" regions="US,CA" type="node" preset_name_label="true">  
+                <link wiki="Tag:man_made=charge_point"/>
                 <space/>
-                <label text="Available Sockets/Cables:"/>
-                <combo key="socket:type1" text="Type 1 - SAE J1772 (IEC Type 1)" values="1,2,3,4,5,6" value_type="integer"/>
-                <text key="socket:type1:output" text="Type 1 socket output (kW)"/>
-                <combo key="socket:type1_combo" text="CCS - Type 1 - SAE J1772 Combo (DC)" values="1,2,3,4,5,6" value_type="integer"/>
-                <text key="socket:type1_combo:output" text="CCS - Type 1 output (kW)"/>       
-                <combo key="socket:chademo" text="CHAdeMO" values="1,2,3,4,5,6" value_type="integer"/>
-                <text key="socket:chademo:output" text="CHAdeMO output (kW)"/> 
-                <combo key="socket:tesla_supercharger" text="Tesla Supercharger" values="1,2,3,4,5,6" value_type="integer"/>
-                <combo key="socket:nema_5_15" text="NEMA 5-15" values="1,2,3,4,5,6" value_type="integer"/>
-                <combo key="socket:nema_5_20" text="NEMA 5-20" values="1,2,3,4,5,6" value_type="integer"/>
+                <label text="Use this for indiviual charging locations in a larger charging station"/>
+                <key key="man_made" value="charge_point"/>      
+                <reference ref="charging_base"/>
+                <multiselect key="ref" text="Reference" match="key" editable="true"/>
+                <space/>
+                <reference ref="charging_sockets_cables"/>   
+                <preset_link preset_name="Charging Station" text="Similar but different tags:" alternative="true"/>
+            </item> <!-- Charge point -->
+            <item name="Charging Station" icon="icons/png/transport_charging_station.png" regions="US,CA" type="node,closedway,multipolygon" preset_name_label="true">
+                <link wiki="Tag:amenity=charging_station"/>
+                <space/>
+                <key key="amenity" value="charging_station"/>
+                <reference ref="charging_base"/>
+                <space/>
+                <reference ref="charging_sockets_cables_us_ca"/>
+                <preset_link preset_name="Charge point" text="Similar but different tags:" alternative="true"/>
             </item> <!-- Charging Station US,CA -->
+            <item name="Charge point" icon="icons/png/transport_charge_point.png" regions="US,CA" type="node" preset_name_label="true">  
+                <link wiki="Tag:man_made=charge_point"/>
+                <space/>
+                <label text="Use this for indiviual charging locations in a larger charging station"/>
+                <key key="man_made" value="charge_point"/>      
+                <reference ref="charging_base"/>
+                <multiselect key="ref" text="Reference" match="key" editable="true"/>
+                <space/>
+                <reference ref="charging_sockets_cables_us_ca"/>   
+                <preset_link preset_name="Charging Station" text="Similar but different tags:" alternative="true"/>
+            </item> <!-- Charge point -->
             <item name="Car Wash" icon="icons/png/amenity_car_wash_12018.png" type="node,closedway,multipolygon" preset_name_label="true">
                 <link wiki="Tag:amenity=car_wash"/>
                 <space/>
