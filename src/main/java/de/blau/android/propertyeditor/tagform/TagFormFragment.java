@@ -67,6 +67,7 @@ import de.blau.android.presets.PresetGroup;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.presets.PresetKeyType;
 import de.blau.android.presets.PresetLabelField;
+import de.blau.android.presets.PresetSpaceField;
 import de.blau.android.presets.PresetTagField;
 import de.blau.android.presets.PresetTextField;
 import de.blau.android.presets.ValueType;
@@ -745,6 +746,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         boolean groupingRequired = false;
         LinkedHashMap<String, String> tagList = new LinkedHashMap<>(tags);
         if (preset != null) {
+            PresetField previous = null;
             // iterate over preset entries so that we maintain ordering
             for (Entry<String, PresetField> entry : preset.getFields().entrySet()) {
                 PresetField field = entry.getValue();
@@ -779,9 +781,11 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                             checkGroupKeyValues.put(tagField.getKey(), keyValues);
                         }
                     }
-                } else if ((field instanceof PresetFormattingField) && (!field.isOptional() || (optional != null && optional))) {
+                } else if ((field instanceof PresetFormattingField) && (!field.isOptional() || (optional != null && optional))
+                        && !(field instanceof PresetSpaceField && (previous == null || previous instanceof PresetSpaceField))) {
                     editable.put(field, "");
                 }
+                previous = field;
             }
             // process any remaining tags
             List<PresetItem> linkedPresets = preset.getLinkedPresets(true, App.getCurrentPresets(getContext()), propertyEditorListener.getIsoCodes());
