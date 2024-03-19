@@ -225,9 +225,6 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             }
         }
 
-        if (getUserVisibleHint()) { // don't request focus if we are not visible
-            Log.d(DEBUG_TAG, "is visible");
-        }
         //
         prefs = App.getPreferences(getActivity());
 
