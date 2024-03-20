@@ -1,5 +1,7 @@
 package de.blau.android.resources;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import android.content.DialogInterface;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
@@ -17,14 +19,15 @@ import de.blau.android.util.ScreenMessage;
 
 public final class WmsEndpointDialog {
 
+    private static final int      TAG_LEN   = Math.min(LOG_TAG_LEN, WmsEndpointDialog.class.getSimpleName().length());
+    protected static final String DEBUG_TAG = WmsEndpointDialog.class.getSimpleName().substring(0, TAG_LEN);
+
     /**
      * Private constructor to prevent instantiation
      */
     private WmsEndpointDialog() {
         // private
     }
-
-    protected static final String DEBUG_TAG = WmsEndpointDialog.class.getSimpleName().substring(0, Math.min(23, WmsEndpointDialog.class.getSimpleName().length()));
 
     /**
      * how a dialog for editing and saving a layer entry
@@ -87,8 +90,7 @@ public final class WmsEndpointDialog {
         final AlertDialog dialog = builder.create();
 
         class SaveListener implements View.OnClickListener {
-            String  endpointId = null;
-            boolean saved      = false;
+            String endpointId = null;
 
             @Override
             public void onClick(View v) {
@@ -108,7 +110,6 @@ public final class WmsEndpointDialog {
                     onUpdate.update();
                 }
                 dialog.dismiss();
-                saved = true;
             }
         }
 

@@ -1,5 +1,7 @@
 package de.blau.android.resources;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,9 +28,11 @@ import de.blau.android.resources.TileLayerSource.TileType;
 import de.blau.android.util.collections.MultiHashMap;
 
 public class TileLayerDatabase extends SQLiteOpenHelper {
-    private static final String DEBUG_TAG        = "TileLayerDatabase";
-    public static final String  DATABASE_NAME    = "tilelayers";
-    private static final int    DATABASE_VERSION = 9;
+    private static final int      TAG_LEN   = Math.min(LOG_TAG_LEN, TileLayerDialog.class.getSimpleName().length());
+    protected static final String DEBUG_TAG = TileLayerDatabase.class.getSimpleName().substring(0, TAG_LEN);
+
+    public static final String DATABASE_NAME    = "tilelayers";
+    private static final int   DATABASE_VERSION = 9;
 
     public static final String SOURCE_ELI          = "eli";    // editor-layer-index
     public static final String SOURCE_JOSM_IMAGERY = "josm";   // josm.openstreetmap.de/wiki/maps
