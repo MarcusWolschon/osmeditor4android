@@ -1,5 +1,7 @@
 package de.blau.android.resources;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -44,6 +46,7 @@ import de.blau.android.contract.FileExtensions;
 import de.blau.android.contract.Paths;
 import de.blau.android.contract.Schemes;
 import de.blau.android.dialogs.Progress;
+import de.blau.android.dialogs.Tip;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Server;
 import de.blau.android.prefs.AdvancedPrefDatabase;
@@ -68,7 +71,8 @@ import okhttp3.OkHttpClient;
 
 public class TileLayerDialog extends ImmersiveDialogFragment {
 
-    protected static final String DEBUG_TAG = TileLayerDialog.class.getSimpleName().substring(0, Math.min(23, TileLayerDialog.class.getSimpleName().length()));
+    private static final int      TAG_LEN   = Math.min(LOG_TAG_LEN, TileLayerDialog.class.getSimpleName().length());
+    protected static final String DEBUG_TAG = TileLayerDialog.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String TAG = "fragment_layer_dialog";
 
@@ -402,6 +406,9 @@ public class TileLayerDialog extends ImmersiveDialogFragment {
                     }
                     TileLayerSource.addOrUpdateCustomLayer(activity, db, layerId, layer, startDate, endDate, name, provider, category,
                             (String) metadataMap.get(SOURCE_TYPE), (TileType) metadataMap.get(TILE_TYPE), minZoom, maxZoom, tileSize, isOverlay, tileUrl);
+                }
+                if (TileLayerSource.is3857compatible(proj) && tileSize == TileLayerSource.DEFAULT_TILE_SIZE) {
+                    Tip.showOptionalDialog(activity, R.string.tip_wms_tile_size_key, R.string.tip_wms_tile_size);
                 }
             } catch (IllegalArgumentException iaex) { // abort and leave the dialog intact
                 ScreenMessage.toastTopError(activity, iaex.getMessage());
