@@ -574,6 +574,7 @@
     <string name="tip_closed_way_splitting">A closed way has to be split in two places. Touch a highlighted node to determine the 1st split position, the next step will ask you to select the 2nd position.</string>
     <string name="tip_disambiguation_menu">When multiple OSM elements or other objects are very close together or elements are members of relations the disambiguation menu will be displayed. You can then select the specific element from the list.&lt;p&gt;If an element is currently already selected it will be highlighted.</string>
     <string name="tip_file_import">On devices running Android 10 or later we need to copy files to ba able to access them fully. The copies are located in &lt;i&gt;Downloads/Vespucci/imports&lt;/i&gt;. If necessary you can delete the originals and just retain the copies.</string>
+    <string name="tip_wms_tile_size">WMS servers can support larger tile sizes than 256x256, consider using 512x512 for a more efficient configuration.</string>
     <!--  NumberPicker -->
     <string name="plus_sign">+</string>
     <string name="minus_sign">-</string>

@@ -1,5 +1,7 @@
 package de.blau.android.resources;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -96,7 +98,8 @@ import okhttp3.ResponseBody;
  */
 public class TileLayerSource implements Serializable {
 
-    private static final String DEBUG_TAG = TileLayerSource.class.getSimpleName().substring(0, Math.min(23, TileLayerSource.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, TileLayerSource.class.getSimpleName().length());
+    private static final String DEBUG_TAG = TileLayerSource.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final long serialVersionUID = 5L;
 
@@ -2400,9 +2403,6 @@ public class TileLayerSource implements Serializable {
             @NonNull String tileUrl) {
         // hack, but saves people extracting and then having to re-select the projection
         String proj = projFromUrl(tileUrl);
-        if (is3857compatible(proj)) {
-            tileSize = WMS_TILE_SIZE;
-        }
         if (type == null) {
             type = proj == null ? TYPE_TMS : TYPE_WMS; // heuristic
         }
