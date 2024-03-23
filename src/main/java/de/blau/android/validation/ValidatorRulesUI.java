@@ -1,7 +1,7 @@
 package de.blau.android.validation;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
+import static de.blau.android.osm.Tags.IMPORTANT_TAGS;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -20,11 +22,21 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.cursoradapter.widget.CursorAdapter;
 import androidx.viewpager.widget.PagerTabStrip;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import ch.poole.android.numberpicker.library.NumberPicker;
 import de.blau.android.App;
+import de.blau.android.AsyncResult;
+import de.blau.android.ErrorCodes;
 import de.blau.android.R;
 import de.blau.android.dialogs.ViewPagerAdapter;
 import de.blau.android.filter.Filter;
+import de.blau.android.presets.Preset;
+import de.blau.android.util.ExecutorTask;
+import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.views.ExtendedViewPager;
 
@@ -36,6 +48,7 @@ public class ValidatorRulesUI {
      */
     private ResurveyAdapter resurveyAdapter;
     private CheckAdapter    checkAdapter;
+    private Map<Integer, Boolean> idIsEnabledMap = new HashMap<>();
 
     /**
      * Show a list of the templates in the database, selection will either load a template or start the edit dialog on
@@ -67,8 +80,30 @@ public class ValidatorRulesUI {
         Cursor checkCursor = ValidatorRulesDatabase.queryCheckByName(writableDb, ValidatorRulesDatabase.DEFAULT_RULESET_NAME);
         checkAdapter = new CheckAdapter(writableDb, context, checkCursor);
         checkList.setAdapter(checkAdapter);
-        alertDialog.setNeutralButton(R.string.done, null);
+
+        CheckBox headerEnabled = (CheckBox) rulesetView.findViewById(R.id.header_enabled);
+        headerEnabled.setOnClickListener(v -> {
+            boolean isChecked = ((CheckBox) v).isChecked();
+            List<Integer> allResurveyIds = ValidatorRulesDatabase.getAllResurveyIds(writableDb);
+            for (Integer id : allResurveyIds) {
+                int index = allResurveyIds.indexOf(id);
+                if (index < resurveyList.getChildCount()) {
+                    View childView = resurveyList.getChildAt(index);
+                    Log.d(DEBUG_TAG, "Header Checkbox triggered change in childView = " + index);
+                    CheckBox checkBox = (CheckBox) childView.findViewById(R.id.resurvey_enabled);
+                    checkBox.setChecked(isChecked);
+                    idIsEnabledMap.put(id, isChecked);
+                }
+            }
+        });
+        alertDialog.setNeutralButton(R.string.done, (dialog, which) -> {
+            if(!idIsEnabledMap.isEmpty()) {
+                ValidatorRulesDatabase.enableResurvey(writableDb, idIsEnabledMap);
+                newResurveyCursor(writableDb);
+            }
+        });
         alertDialog.setOnDismissListener(dialog -> {
+            resetValidator(context);
             resurveyCursor.close();
             writableDb.close();
             vrDb.close();
@@ -123,12 +158,29 @@ public class ValidatorRulesUI {
             String value = cursor.getString(cursor.getColumnIndexOrThrow(ValidatorRulesDatabase.VALUE_FIELD));
             String key = cursor.getString(cursor.getColumnIndexOrThrow(ValidatorRulesDatabase.KEY_FIELD));
             int days = cursor.getInt(cursor.getColumnIndexOrThrow(ValidatorRulesDatabase.DAYS_FIELD));
+            boolean isEnabled;
+            if (idIsEnabledMap.containsKey(id)) {
+                isEnabled = idIsEnabledMap.get(id);
+            } else {
+                isEnabled = cursor.getInt(cursor.getColumnIndexOrThrow(ValidatorRulesDatabase.ENABLED_FIELD)) == 1;
+            }
+
             TextView valueView = (TextView) view.findViewById(R.id.value);
             valueView.setText(value != null ? value : "*");
             TextView keyView = (TextView) view.findViewById(R.id.key);
             keyView.setText(key);
             TextView daysView = (TextView) view.findViewById(R.id.days);
             daysView.setText(Integer.toString(days));
+            CheckBox enabled = (CheckBox) view.findViewById(R.id.resurvey_enabled);
+            enabled.setChecked(isEnabled);
+            enabled.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    boolean isChecked = enabled.isChecked();
+                    idIsEnabledMap.put(id, isChecked); // Update the map instead of the database directly
+                    enabled.setChecked(isChecked);
+                }
+            });
             view.setOnClickListener(v -> {
                 Integer tag = (Integer) view.getTag();
                 showResurveyDialog(context, db, true, tag != null ? tag : -1);
@@ -161,10 +213,12 @@ public class ValidatorRulesUI {
         View templateView = LayoutInflater.from(context).inflate(R.layout.validator_ruleset_resurvey_item, null);
         alertDialog.setView(templateView);
 
-        final EditText keyEdit = (EditText) templateView.findViewById(R.id.resurvey_key);
-        final EditText valueEdit = (EditText) templateView.findViewById(R.id.resurvey_value);
+        final AutoCompleteTextView keyEdit = (AutoCompleteTextView) templateView.findViewById(R.id.resurvey_key);
+        final AutoCompleteTextView  valueEdit = (AutoCompleteTextView) templateView.findViewById(R.id.resurvey_value);
         final CheckBox regexpCheck = (CheckBox) templateView.findViewById(R.id.resurvey_is_regexp);
         final NumberPicker daysPicker = (NumberPicker) templateView.findViewById(R.id.resurvey_days);
+        List<String> matchingKeys = new ArrayList<>();
+        List<String> matchingValues = new ArrayList<>();
         if (existing) {
             Cursor cursor = db.rawQuery(ValidatorRulesDatabase.QUERY_RESURVEY_BY_ROWID, new String[] { Integer.toString(id) });
             if (cursor.moveToFirst()) {
@@ -192,14 +246,59 @@ public class ValidatorRulesUI {
             alertDialog.setTitle(R.string.add_resurvey_title);
             daysPicker.setValue(ValidatorRulesDatabaseHelper.ONE_YEAR);
         }
+        Preset[] presets = App.getCurrentPresets(context);
+        matchingKeys.addAll(IMPORTANT_TAGS); //object-keys
+        if (matchingKeys.contains(keyEdit)) {
+            matchingKeys.remove(keyEdit);
+        }
+        Collections.sort(matchingKeys);
+        ArrayAdapter<String> empty = new ArrayAdapter<>(context, R.layout.autocomplete_row, new String[0]);
+        keyEdit.setAdapter(empty);
+        valueEdit.setAdapter(empty);
+        View.OnClickListener autocompleteOnClick = v -> {
+            if (v.hasFocus()) {
+                ((AutoCompleteTextView) v).showDropDown();
+            }
+        };
+        keyEdit.setOnClickListener(autocompleteOnClick);
+        keyEdit.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                keyEdit.showDropDown();
+                keyEdit.setAdapter(new ArrayAdapter<>(context, R.layout.autocomplete_row, matchingKeys));
+            }
+        });
+        keyEdit.setOnItemClickListener((parent, view, position, id1) -> {
+            String enabledKey = parent.getItemAtPosition(position).toString();
+            keyEdit.setText(enabledKey);
+        });
+        valueEdit.setOnClickListener(autocompleteOnClick);
+        valueEdit.setOnFocusChangeListener((v, hasFocus) -> {
+            Log.d(DEBUG_TAG, "onFocusChange value");
+            if (hasFocus) {
+                valueEdit.showDropDown();
+                matchingValues.clear();
+                for (StringWithDescription s : Preset.getAutocompleteValues(presets, null, keyEdit.getText().toString().trim())) {
+                    String values = s.getValue();
+                    if (!matchingValues.contains(values)) {
+                        matchingValues.add(values);
+                    }
+                }
+                Collections.sort(matchingValues);
+                valueEdit.setAdapter(new ArrayAdapter<>(context, R.layout.autocomplete_row, matchingValues));
+            }
+        });
+        valueEdit.setOnItemClickListener((parent, view, position, id12) -> {
+            String enabledKey = parent.getItemAtPosition(position).toString();
+            valueEdit.setText(enabledKey);
+        });
         alertDialog.setNegativeButton(R.string.cancel, null);
 
         alertDialog.setPositiveButton(R.string.save, (dialog, which) -> {
             if (!existing) {
-                ValidatorRulesDatabase.addResurvey(db, 0, keyEdit.getText().toString(), valueEdit.getText().toString(), regexpCheck.isChecked(),
-                        daysPicker.getValue());
+                ValidatorRulesDatabase.addResurvey(db, 0, keyEdit.getText().toString().trim(), valueEdit.getText().toString().trim(), regexpCheck.isChecked(),
+                        daysPicker.getValue(), true);
             } else {
-                ValidatorRulesDatabase.updateResurvey(db, id, keyEdit.getText().toString(), valueEdit.getText().toString(), regexpCheck.isChecked(),
+                ValidatorRulesDatabase.updateResurvey(db, id, keyEdit.getText().toString().trim(), valueEdit.getText().toString().trim(), regexpCheck.isChecked(),
                         daysPicker.getValue());
             }
             newResurveyCursor(db);

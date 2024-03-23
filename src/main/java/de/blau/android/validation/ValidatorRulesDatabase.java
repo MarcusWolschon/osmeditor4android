@@ -1,13 +1,19 @@
 package de.blau.android.validation;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import de.blau.android.bookmarks.BookmarkStorage;
 import de.blau.android.util.collections.MultiHashMap;
 
 /**
@@ -19,10 +25,10 @@ import de.blau.android.util.collections.MultiHashMap;
 public final class ValidatorRulesDatabase {
     /**
      * Table: rulesets (id INTEGER, name TEXT) Table: resurvey (ruleset INTEGER, key TEXT, value TEXT DEFAULT NULL, days
-     * INTEGER DEFAULT 365, FOREIGN KEY(ruleset) REFERENCES rulesets(id)) Table: check (ruleset INTEGER, key TEXT,
+     * INTEGER DEFAULT 365, enabled INTEGER DEFAULT 1, FOREIGN KEY(ruleset) REFERENCES rulesets(id)) Table: check (ruleset INTEGER, key TEXT,
      * optional INTEGER DEFAULT 0, FOREIGN KEY(ruleset) REFERENCES rulesets(id))
      */
-
+    private static final String DEBUG_TAG = ValidatorRulesDatabase.class.getSimpleName().substring(0, Math.min(23, ValidatorRulesDatabase.class.getSimpleName().length()));
     static final String         DEFAULT_RULESET_NAME = "Default";
     static final int            DEFAULT_RULESET      = 0;
     private static final String RULESET_TABLE        = "rulesets";
@@ -36,11 +42,13 @@ public final class ValidatorRulesDatabase {
     static final String         RULESET_FIELD        = "ruleset";
     private static final String CHECK_TABLE          = "checktags";
     static final String         OPTIONAL_FIELD       = "optional";
+    static final String         ENABLED_FIELD       = "enabled";
 
-    static final String QUERY_RESURVEY_DEFAULT  = "SELECT resurveytags.rowid as _id, key, value, is_regexp, days FROM resurveytags WHERE ruleset = "
+    static final String QUERY_RESURVEY_DEFAULT  = "SELECT resurveytags.rowid as _id, key, value, is_regexp, days, enabled FROM resurveytags WHERE ruleset = "
             + DEFAULT_RULESET + " ORDER BY key, value";
-    static final String QUERY_RESURVEY_BY_ROWID = "SELECT key, value, is_regexp, days FROM resurveytags WHERE rowid=?";
-    static final String QUERY_RESURVEY_BY_NAME  = "SELECT resurveytags.rowid as _id, key, value, is_regexp, days FROM resurveytags, rulesets WHERE ruleset = rulesets.id and rulesets.name = ? ORDER BY key, value";
+    static final String QUERY_RESURVEY_ALL_ID  = "SELECT resurveytags.rowid as _id FROM resurveytags";
+    static final String QUERY_RESURVEY_BY_ROWID = "SELECT key, value, is_regexp, days, enabled FROM resurveytags WHERE rowid=?";
+    static final String QUERY_RESURVEY_BY_NAME  = "SELECT resurveytags.rowid as _id, key, value, is_regexp, days, enabled FROM resurveytags, rulesets WHERE ruleset = rulesets.id and rulesets.name = ? ORDER BY key, value";
 
     static final String QUERY_CHECK_DEFAULT  = "SELECT checktags.rowid as _id, key, optional FROM checktags WHERE ruleset = " + DEFAULT_RULESET
             + " ORDER BY key";
@@ -77,19 +85,21 @@ public final class ValidatorRulesDatabase {
     @Nullable
     public static MultiHashMap<String, PatternAndAge> getDefaultResurvey(@NonNull SQLiteDatabase database) {
         MultiHashMap<String, PatternAndAge> result = null;
-        Cursor dbresult = database.query(RESURVEY_TABLE, new String[] { KEY_FIELD, VALUE_FIELD, ISREGEXP_FIELD, DAYS_FIELD },
+        Cursor dbresult = database.query(RESURVEY_TABLE, new String[] { KEY_FIELD, VALUE_FIELD, ISREGEXP_FIELD, DAYS_FIELD, ENABLED_FIELD },
                 RULESET_FIELD + " = " + DEFAULT_RULESET, null, null, null, KEY_FIELD + "," + VALUE_FIELD);
 
         if (dbresult.getCount() >= 1) {
             result = new MultiHashMap<>();
             boolean haveEntry = dbresult.moveToFirst();
             while (haveEntry) {
-                PatternAndAge v = new PatternAndAge();
-                v.setValue(dbresult.getString(1));
-                v.setIsRegexp(dbresult.getInt(2) == 1);
-                v.setAge(dbresult.getLong(3) * 24 * 3600); // days -> secs
-                result.add(dbresult.getString(0), v);
-                haveEntry = dbresult.moveToNext();
+                if (dbresult.getInt(dbresult.getColumnIndexOrThrow(ValidatorRulesDatabase.ENABLED_FIELD)) == 1) {
+                    PatternAndAge v = new PatternAndAge();
+                    v.setValue(dbresult.getString(1));
+                    v.setIsRegexp(dbresult.getInt(2) == 1);
+                    v.setAge(dbresult.getLong(3) * 24 * 3600); // days -> secs
+                    result.add(dbresult.getString(0), v);
+                    haveEntry = dbresult.moveToNext();
+                }
             }
         }
         dbresult.close();
@@ -110,6 +120,29 @@ public final class ValidatorRulesDatabase {
             return database.rawQuery(ValidatorRulesDatabase.QUERY_RESURVEY_BY_NAME, new String[] { name });
         }
     }
+    /**
+     * Return all the resurvey ids at the time a new instance is created
+     *
+     * @param database readable database
+     * @return a List of resurvey ids
+     */
+    @Nullable
+    public static List<Integer> getAllResurveyIds(@NonNull SQLiteDatabase database) {
+        List<Integer> result = new ArrayList<>();
+        Cursor dbresult = database.rawQuery(ValidatorRulesDatabase.QUERY_RESURVEY_ALL_ID, null);
+        int counter = 0;
+        if (dbresult.getCount() >= 1) {
+            boolean haveEntry = dbresult.moveToFirst();
+            while (haveEntry) {
+                result.add(dbresult.getInt(dbresult.getColumnIndexOrThrow("_id")));
+                haveEntry = dbresult.moveToNext();
+                counter++;
+            }
+        }
+        dbresult.close();
+        Log.d(DEBUG_TAG, "Retrieved" + counter +"ids from validator database");
+        return result;
+    }
 
     /**
      * Add an entry to the resurvey table
@@ -121,13 +154,14 @@ public final class ValidatorRulesDatabase {
      * @param isRegexp if true the value is a regexp
      * @param days how man days old the object should max be
      */
-    public static void addResurvey(@NonNull SQLiteDatabase db, int ruleSetId, @NonNull String key, @Nullable String value, boolean isRegexp, int days) {
+    public static void addResurvey(@NonNull SQLiteDatabase db, int ruleSetId, @NonNull String key, @Nullable String value, boolean isRegexp, int days, boolean enabled) {
         ContentValues values = new ContentValues();
         values.put(RULESET_FIELD, ruleSetId);
         values.put(KEY_FIELD, key);
         values.put(VALUE_FIELD, value);
         values.put(ISREGEXP_FIELD, isRegexp ? 1 : 0);
         values.put(DAYS_FIELD, days);
+        values.put(ENABLED_FIELD, enabled ? 1 : 0);
         db.insert(RESURVEY_TABLE, null, values);
     }
 
@@ -158,6 +192,33 @@ public final class ValidatorRulesDatabase {
      */
     static void deleteResurvey(final SQLiteDatabase db, final int id) {
         db.delete(RESURVEY_TABLE, "rowid=?", new String[] { Integer.toString(id) });
+    }
+
+    /**
+     * Change the enabled row of the resurvey table.
+     *
+     * @param db writable database
+     * @param idIsEnabledMap rowid and their checkbox state
+     */
+    public static void enableResurvey(SQLiteDatabase db, Map<Integer, Boolean> idIsEnabledMap) {
+        List<ContentValues> contentValuesList = new ArrayList<>();
+        for (Map.Entry<Integer, Boolean> entry : idIsEnabledMap.entrySet()) {
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(ENABLED_FIELD, entry.getValue() ? 1 : 0);
+            contentValuesList.add(contentValues);
+        }
+        StringBuilder selectionBuilder = new StringBuilder("rowid IN (");
+        List<String> selectionArgs = new ArrayList<>();
+        for (int key : idIsEnabledMap.keySet()) {
+            selectionBuilder.append("?,");
+            selectionArgs.add(String.valueOf(key));
+        }
+        selectionBuilder.replace(selectionBuilder.length() - 1, selectionBuilder.length(), ")");
+        String selection = selectionBuilder.toString();
+
+        int rowsUpdated = db.update(RESURVEY_TABLE, contentValuesList.get(0), selection, selectionArgs.toArray(new String[0]));
+        Log.d(DEBUG_TAG, "Rulesets updated: " + rowsUpdated);
+
     }
 
     /**
