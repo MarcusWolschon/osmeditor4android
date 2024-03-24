@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.43.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,disused:amenity,disused:leisure,disused:man_made,disused:shop,golf,ford,harbour,hazard,noexit,indoor,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom">
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.45.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,disused:amenity,disused:leisure,disused:man_made,disused:shop,golf,ford,harbour,hazard,noexit,indoor,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom">
 <!--
     Icons have been derived from mainly from
   
@@ -1050,6 +1050,14 @@
             <list_entry value="agricultural" display_value="Agricultural" short_description="Trees in agricultural use."/>
         </combo>
     </chunk>
+    <chunk id="tree_form">
+        <combo key="tree_form" text="Tree form" values_searchable="true" values_context="tree_form">
+            <list_entry value="natural" display_value="Natural" short_description="Uncropped."/>
+            <list_entry value="symmetric" display_value="Symmetric" short_description="Cropped in a symmetric fashion."/>
+            <list_entry value="pollard" display_value="Pollard" short_description="Pollard cropping."/>
+            <list_entry value="unbalanced" display_value="Unbalanced"/>
+        </combo>
+    </chunk>
     <chunk id="tree_base">
         <link wiki="Tag:natural=tree"/>
         <key key="natural" value="tree"/>
@@ -1061,6 +1069,7 @@
         <reference ref="denotation"/>
         <optional>
             <text key="diameter_crown" text="Crown diameter (meters)"/>    
+            <reference ref="tree_form"/>
         </optional>
     </chunk>
     <!-- start of religions and denominations -->
@@ -6675,77 +6684,87 @@
                     <check text="Water" key="playground:water" disable_off="true" text_context="leisure"/>
                     <check text="Zigzag twister" key="playground:zigzagtwister" disable_off="true" text_context="leisure"/>
                     <check text="Zip wire" key="playground:zipwire" disable_off="true" text_context="leisure"/>
-            </checkgroup>
-        </optional>
-    </item> <!-- Playground -->
-    <group name="Playground equipment" icon="icons/png/amenity_slide_30043.png">
-        <item name="Playground equipment" icon="icons/png/amenity_slide_30043.png" type="node,way,closedway,multipolygon">
-            <link wiki="Key:playground"/>
+                </checkgroup>
+            </optional>
+        </item> <!-- Playground -->
+        <group name="Playground equipment" icon="icons/png/amenity_slide_30043.png">
+            <item name="Playground equipment" icon="icons/png/amenity_slide_30043.png" type="node,way,closedway,multipolygon">
+                <link wiki="Key:playground"/>
+                <space/>
+                <combo text="Equipment" key="playground" match="key" values_context="leisure">
+                    <list_entry value="activitypanel" display_value="Activity panel"/>
+                    <list_entry value="aerialrotator" display_value="Aerial rotator"/>
+                    <list_entry value="balancebeam" display_value="Balance beam"/>
+                    <list_entry value="basketball_backboard" display_value="Basketball backboard"/>
+                    <list_entry value="basketrotator" display_value="Basket rotator"/>
+                    <list_entry value="basketswing" display_value="Basket swing"/>
+                    <list_entry value="bridge" display_value="Bridge"/>
+                    <list_entry value="chain_ladder" display_value="Chain ladder"/>
+                    <list_entry value="chess_table" display_value="Chess table"/>
+                    <list_entry value="climbingframe" display_value="Climbing frame"/>
+                    <list_entry value="climbingwall" display_value="Climbing wall"/>
+                    <list_entry value="cushion" display_value="Cushion"/>
+                    <list_entry value="exercise" display_value="Exercise"/>
+                    <list_entry value="funnel_ball" display_value="Funnel ball"/>
+                    <list_entry value="hopscotch" display_value="Hopscotch"/>
+                    <list_entry value="horizontal_bar" display_value="Horizontal bar"/>
+                    <list_entry value="map" display_value="Map"/>
+                    <list_entry value="multi_play" display_value="Multi play"/>
+                    <list_entry value="playhouse" display_value="Playhouse"/>
+                    <list_entry value="roundabout" display_value="Roundabout"/>
+                    <list_entry value="sandpit" display_value="Sandpit"/>
+                    <list_entry value="seesaw" display_value="Seesaw"/>
+                    <list_entry value="skate_equipment" display_value="Skate equipment"/>
+                    <list_entry value="sledding" display_value="Sledding"/>
+                    <list_entry value="slide" display_value="Slide"/>
+                    <list_entry value="spinner" display_value="Gyro twister spinner"/>
+                    <list_entry value="splash_pad" display_value="Splash pad"/>
+                    <list_entry value="springy" display_value="Springy"/>
+                    <list_entry value="stepping_stones" display_value="Stepping stones/pads"/>
+                    <list_entry value="structure" display_value="Structure (playset)"/>
+                    <list_entry value="swing" display_value="Swing"/>
+                    <list_entry value="teenshelter" display_value="Teen shelter"/>
+                    <list_entry value="trampoline" display_value="Trampoline"/>
+                    <list_entry value="tree_house" display_value="Tree house"/>
+                    <list_entry value="tunnel_tube" display_value="Tunnel tube"/>
+                    <list_entry value="water" display_value="Water"/>
+                    <list_entry value="zigzagtwister" display_value="Zigzag twister"/>
+                    <list_entry value="zipwire" display_value="Zip wire"/>
+                </combo>
+                <reference ref="playground_theme"/>
+                <reference ref="material"/>
+                <reference ref="min_max_age"/>
+                <check text="Baby" key="baby"/>
+            </item>
+            <item name="Slide" icon="icons/png/amenity_slide_30043.png" type="node,way,closedway,multipolygon" name_context="leisure">
+                <link wiki="Tag:playground=slide"/>
+                <space/>
+                <key key="playground" value="slide"/>
+                <reference ref="playground_theme"/>
+                <reference ref="material"/>
+                <reference ref="min_max_age"/>
+                <check text="Baby" key="baby"/>
+            </item> <!-- Slide -->
+            <item name="Swing" icon="icons/png/amenity_swing.png" type="node,way,closedway,multipolygon" name_context="leisure">
+                <link wiki="Tag:leisure=playground"/>
+                <space/>
+                <key key="playground" value="swing"/>
+                <reference ref="playground_theme"/>
+                <reference ref="material"/>
+                <reference ref="min_max_age"/>
+                <check text="Baby" key="baby"/>
+            </item> <!-- Swing -->
+        </group>
+        <item name="Indoor playing" icon="icons/png/amenity_indoor_play.png" type="node,closedway,multipolygon" name_context="leisure">
+            <link wiki="Tag:leisure=indoor_play"/>
             <space/>
-            <combo text="Equipment" key="playground" match="key" values_context="leisure">
-                <list_entry value="activitypanel" display_value="Activity panel"/>
-                <list_entry value="aerialrotator" display_value="Aerial rotator"/>
-                <list_entry value="balancebeam" display_value="Balance beam"/>
-                <list_entry value="basketball_backboard" display_value="Basketball backboard"/>
-                <list_entry value="basketrotator" display_value="Basket rotator"/>
-                <list_entry value="basketswing" display_value="Basket swing"/>
-                <list_entry value="bridge" display_value="Bridge"/>
-                <list_entry value="chain_ladder" display_value="Chain ladder"/>
-                <list_entry value="chess_table" display_value="Chess table"/>
-                <list_entry value="climbingframe" display_value="Climbing frame"/>
-                <list_entry value="climbingwall" display_value="Climbing wall"/>
-                <list_entry value="cushion" display_value="Cushion"/>
-                <list_entry value="exercise" display_value="Exercise"/>
-                <list_entry value="funnel_ball" display_value="Funnel ball"/>
-                <list_entry value="hopscotch" display_value="Hopscotch"/>
-                <list_entry value="horizontal_bar" display_value="Horizontal bar"/>
-                <list_entry value="map" display_value="Map"/>
-                <list_entry value="multi_play" display_value="Multi play"/>
-                <list_entry value="playhouse" display_value="Playhouse"/>
-                <list_entry value="roundabout" display_value="Roundabout"/>
-                <list_entry value="sandpit" display_value="Sandpit"/>
-                <list_entry value="seesaw" display_value="Seesaw"/>
-                <list_entry value="skate_equipment" display_value="Skate equipment"/>
-                <list_entry value="sledding" display_value="Sledding"/>
-                <list_entry value="slide" display_value="Slide"/>
-                <list_entry value="spinner" display_value="Gyro twister spinner"/>
-                <list_entry value="splash_pad" display_value="Splash pad"/>
-                <list_entry value="springy" display_value="Springy"/>
-                <list_entry value="stepping_stones" display_value="Stepping stones/pads"/>
-                <list_entry value="structure" display_value="Structure (playset)"/>
-                <list_entry value="swing" display_value="Swing"/>
-                <list_entry value="teenshelter" display_value="Teen shelter"/>
-                <list_entry value="trampoline" display_value="Trampoline"/>
-                <list_entry value="tree_house" display_value="Tree house"/>
-                <list_entry value="tunnel_tube" display_value="Tunnel tube"/>
-                <list_entry value="water" display_value="Water"/>
-                <list_entry value="zigzagtwister" display_value="Zigzag twister"/>
-                <list_entry value="zipwire" display_value="Zip wire"/>
-            </combo>
-            <reference ref="playground_theme"/>
-            <reference ref="material"/>
+            <key key="leisure" value="indoor_play"/>
+            <reference ref="name_operator_oh_wheelchair"/>
+            <combo key="fee" text="Fee" values="yes,no" display_values="Yes,No" match="none"/>
             <reference ref="min_max_age"/>
             <check text="Baby" key="baby"/>
-        </item>
-        <item name="Slide" icon="icons/png/amenity_slide_30043.png" type="node,way,closedway,multipolygon" name_context="leisure">
-            <link wiki="Tag:playground=slide"/>
-            <space/>
-            <key key="playground" value="slide"/>
             <reference ref="playground_theme"/>
-            <reference ref="material"/>
-            <reference ref="min_max_age"/>
-            <check text="Baby" key="baby"/>
-        </item>
-        <item name="Swing" icon="icons/png/amenity_swing.png" type="node,way,closedway,multipolygon" name_context="leisure">
-            <link wiki="Tag:leisure=playground"/>
-            <space/>
-            <key key="playground" value="swing"/>
-            <reference ref="playground_theme"/>
-            <reference ref="material"/>
-            <reference ref="min_max_age"/>
-            <check text="Baby" key="baby"/>
-        </item>
-    </group>
+        </item> <!--  Indoor playing -->
         <item name="Picnic Site" icon="icons/png/tourist_picnic.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:tourism=picnic_site"/>
             <space/>
@@ -6857,7 +6876,7 @@
             <preset_link preset_name="Bookmaker" text="Similar but different tags:" alternative="true"/>
             <preset_link preset_name="Lottery" text="Similar but different tags:" alternative="true"/>
         </item> <!-- Casino -->
-        <item name="Gambling" icon="icons/png/tourist_empty.png" type="node,closedway,multipolygon" preset_name_label="true">
+        <item name="Gambling" icon="icons/png/amenity_gambling.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:amenity=gambling"/>
             <space/>
             <key key="amenity" value="gambling"/>
@@ -9373,7 +9392,7 @@
             <link wiki="Key:building"/>
             <space/>
             <combo key="building" text="Building" values_context="building" default="yes" match="keyvalue!" values_searchable="true">
-                <list_entry value="allotment_house" display_value="Allotment house"/><list_entry value="apartments" display_value="Apartments"/><list_entry value="bakehouse" display_value="Bakehouse"/><list_entry value="barn" display_value="Barn"/><list_entry value="basilica" display_value="Basilica"/><list_entry value="boathouse" display_value="Boathouse"/><list_entry value="bungalow" display_value="Bungalow"/><list_entry value="bunker" display_value="Bunker"/><list_entry value="cabin" display_value="Cabin"/><list_entry value="carport" display_value="Carport"/><list_entry value="cathedral" display_value="Cathedral"/><list_entry value="chapel" display_value="Chapel"/><list_entry value="church" display_value="Church"/><list_entry value="civic" display_value="Civic" deprecated="true"/><list_entry value="college" display_value="College"/><list_entry value="commercial" display_value="Commercial"/><list_entry value="cowshed" display_value="Cowshed"/><list_entry value="detached" display_value="Detached"/><list_entry value="digester" display_value="Digester"/><list_entry value="dormitory" display_value="Dormitory"/><list_entry value="farm" display_value="Farm"/><list_entry value="farm_auxiliary" display_value="Farm auxiliary"/><list_entry value="fire_station" display_value="Fire station"/><list_entry value="garage" display_value="Garage"/><list_entry value="garages" display_value="Garages"/><list_entry value="gasometer" display_value="Gasometer"/><list_entry value="gatehouse" display_value="Gatehouse"/><list_entry value="ger" display_value="Ger"/><list_entry value="grandstand" display_value="Grandstand"/><list_entry value="greenhouse" display_value="Greenhouse"/><list_entry value="hangar" display_value="Hangar"/><list_entry value="hospital" display_value="Hospital"/><list_entry value="hotel" display_value="Hotel"/><list_entry value="house" display_value="House"/><list_entry value="houseboat" display_value="Houseboat"/><list_entry value="hut" display_value="Hut"/><list_entry value="industrial" display_value="Industrial"/><list_entry value="kindergarten" display_value="Kindergarten"/><list_entry value="kiosk" display_value="Kiosk"/><list_entry value="manufacture" display_value="Manufacture"/><list_entry value="monastery" display_value="Monastery"/><list_entry value="mosque" display_value="Mosque"/><list_entry value="office" display_value="Office"/><list_entry value="parking" display_value="Parking"/><list_entry value="pavilion" display_value="Pavilion"/><list_entry value="public" display_value="Public"/><list_entry value="residential" display_value="Residential"/><list_entry value="retail" display_value="Retail"/><list_entry value="roof" display_value="Roof"/><list_entry value="ruins" display_value="Ruins"/><list_entry value="school" display_value="School"/><list_entry value="semidetached_house" display_value="Semidetached house"/><list_entry value="service" display_value="Service"/><list_entry value="shed" display_value="Shed"/><list_entry value="sports_hall" display_value="Sports hall"/><list_entry value="stable" display_value="Stable"/><list_entry value="stadium" display_value="Stadium"/><list_entry value="static_caravan" display_value="Static caravan"/><list_entry value="stilt_house" display_value="Stilt house"/><list_entry value="storage_tank" display_value="Storage tank"/><list_entry value="sty" display_value="Sty"/><list_entry value="supermarket" display_value="Supermarket"/><list_entry value="synagogue" display_value="Synagogue"/><list_entry value="temple" display_value="Temple"/><list_entry value="terrace" display_value="Terrace"/><list_entry value="toilets" display_value="Toilets"/><list_entry value="train_station" display_value="Train station"/><list_entry value="transformer_tower" display_value="Transformer tower"/><list_entry value="transportation" display_value="Transportation"/><list_entry value="university" display_value="University"/><list_entry value="warehouse" display_value="Warehouse"/><list_entry value="yes" display_value="Yes"/>
+                <list_entry value="allotment_house" display_value="Allotment house"/><list_entry value="apartments" display_value="Apartments"/><list_entry value="bakehouse" display_value="Bakehouse"/><list_entry value="barn" display_value="Barn"/><list_entry value="basilica" display_value="Basilica"/><list_entry value="boathouse" display_value="Boathouse"/><list_entry value="bungalow" display_value="Bungalow"/><list_entry value="bunker" display_value="Bunker"/><list_entry value="cabin" display_value="Cabin"/><list_entry value="carport" display_value="Carport"/><list_entry value="cathedral" display_value="Cathedral"/><list_entry value="chapel" display_value="Chapel"/><list_entry value="church" display_value="Church"/><list_entry value="civic" display_value="Civic" deprecated="true"/><list_entry value="college" display_value="College"/><list_entry value="commercial" display_value="Commercial"/><list_entry value="cowshed" display_value="Cowshed"/><list_entry value="detached" display_value="Detached"/><list_entry value="digester" display_value="Digester"/><list_entry value="dormitory" display_value="Dormitory"/><list_entry value="farm" display_value="Farm"/><list_entry value="farm_auxiliary" display_value="Farm auxiliary"/><list_entry value="fire_station" display_value="Fire station"/><list_entry value="garage" display_value="Garage"/><list_entry value="garages" display_value="Garages"/><list_entry value="gasometer" display_value="Gasometer"/><list_entry value="gatehouse" display_value="Gatehouse"/><list_entry value="ger" display_value="Ger"/><list_entry value="grandstand" display_value="Grandstand"/><list_entry value="greenhouse" display_value="Greenhouse"/><list_entry value="hangar" display_value="Hangar"/><list_entry value="hospital" display_value="Hospital"/><list_entry value="hotel" display_value="Hotel"/><list_entry value="house" display_value="House"/><list_entry value="houseboat" display_value="Houseboat"/><list_entry value="hut" display_value="Hut"/><list_entry value="industrial" display_value="Industrial"/><list_entry value="kindergarten" display_value="Kindergarten"/><list_entry value="kiosk" display_value="Kiosk"/><list_entry value="manufacture" display_value="Manufacture"/><list_entry value="monastery" display_value="Monastery"/><list_entry value="mosque" display_value="Mosque"/><list_entry value="office" display_value="Office"/><list_entry value="outbuilding" display_value="Outbuilding" deprecated="true"/><list_entry value="parking" display_value="Parking"/><list_entry value="pavilion" display_value="Pavilion"/><list_entry value="public" display_value="Public"/><list_entry value="residential" display_value="Residential"/><list_entry value="retail" display_value="Retail"/><list_entry value="roof" display_value="Roof"/><list_entry value="ruins" display_value="Ruins"/><list_entry value="school" display_value="School"/><list_entry value="semidetached_house" display_value="Semidetached house"/><list_entry value="service" display_value="Service"/><list_entry value="shed" display_value="Shed"/><list_entry value="sports_hall" display_value="Sports hall"/><list_entry value="stable" display_value="Stable"/><list_entry value="stadium" display_value="Stadium"/><list_entry value="static_caravan" display_value="Static caravan"/><list_entry value="stilt_house" display_value="Stilt house"/><list_entry value="storage_tank" display_value="Storage tank"/><list_entry value="sty" display_value="Sty"/><list_entry value="supermarket" display_value="Supermarket"/><list_entry value="synagogue" display_value="Synagogue"/><list_entry value="temple" display_value="Temple"/><list_entry value="terrace" display_value="Terrace"/><list_entry value="toilets" display_value="Toilets"/><list_entry value="train_station" display_value="Train station"/><list_entry value="transformer_tower" display_value="Transformer tower"/><list_entry value="transportation" display_value="Transportation"/><list_entry value="university" display_value="University"/><list_entry value="warehouse" display_value="Warehouse"/><list_entry value="yes" display_value="Yes"/>
             </combo>
             <reference ref="additional_building_tags"/>
             <preset_link preset_name="Address"/>
@@ -9417,7 +9436,7 @@
             <link wiki="Key:building:part"/>
             <space/>
             <combo key="building:part" text="Building part" values_context="building" default="yes" match="key" values_searchable="true">
-                <list_entry value="allotment_house" display_value="Allotment house"/><list_entry value="apartments" display_value="Apartments"/><list_entry value="bakehouse" display_value="Bakehouse"/><list_entry value="barn" display_value="Barn"/><list_entry value="basilica" display_value="Basilica"/><list_entry value="boathouse" display_value="Boathouse"/><list_entry value="bungalow" display_value="Bungalow"/><list_entry value="bunker" display_value="Bunker"/><list_entry value="cabin" display_value="Cabin"/><list_entry value="carport" display_value="Carport"/><list_entry value="cathedral" display_value="Cathedral"/><list_entry value="chapel" display_value="Chapel"/><list_entry value="church" display_value="Church"/><list_entry value="civic" display_value="Civic" deprecated="true"/><list_entry value="college" display_value="College"/><list_entry value="commercial" display_value="Commercial"/><list_entry value="cowshed" display_value="Cowshed"/><list_entry value="detached" display_value="Detached"/><list_entry value="digester" display_value="Digester"/><list_entry value="dormitory" display_value="Dormitory"/><list_entry value="farm" display_value="Farm"/><list_entry value="farm_auxiliary" display_value="Farm auxiliary"/><list_entry value="fire_station" display_value="Fire station"/><list_entry value="garage" display_value="Garage"/><list_entry value="garages" display_value="Garages"/><list_entry value="gasometer" display_value="Gasometer"/><list_entry value="gatehouse" display_value="Gatehouse"/><list_entry value="ger" display_value="Ger"/><list_entry value="grandstand" display_value="Grandstand"/><list_entry value="greenhouse" display_value="Greenhouse"/><list_entry value="hangar" display_value="Hangar"/><list_entry value="hospital" display_value="Hospital"/><list_entry value="hotel" display_value="Hotel"/><list_entry value="house" display_value="House"/><list_entry value="houseboat" display_value="Houseboat"/><list_entry value="hut" display_value="Hut"/><list_entry value="industrial" display_value="Industrial"/><list_entry value="kindergarten" display_value="Kindergarten"/><list_entry value="kiosk" display_value="Kiosk"/><list_entry value="manufacture" display_value="Manufacture"/><list_entry value="monastery" display_value="Monastery"/><list_entry value="mosque" display_value="Mosque"/><list_entry value="office" display_value="Office"/><list_entry value="parking" display_value="Parking"/><list_entry value="pavilion" display_value="Pavilion"/><list_entry value="public" display_value="Public"/><list_entry value="residential" display_value="Residential"/><list_entry value="retail" display_value="Retail"/><list_entry value="roof" display_value="Roof"/><list_entry value="ruins" display_value="Ruins"/><list_entry value="school" display_value="School"/><list_entry value="semidetached_house" display_value="Semidetached house"/><list_entry value="service" display_value="Service"/><list_entry value="shed" display_value="Shed"/><list_entry value="sports_hall" display_value="Sports hall"/><list_entry value="stable" display_value="Stable"/><list_entry value="stadium" display_value="Stadium"/><list_entry value="static_caravan" display_value="Static caravan"/><list_entry value="stilt_house" display_value="Stilt house"/><list_entry value="storage_tank" display_value="Storage tank"/><list_entry value="sty" display_value="Sty"/><list_entry value="supermarket" display_value="Supermarket"/><list_entry value="synagogue" display_value="Synagogue"/><list_entry value="temple" display_value="Temple"/><list_entry value="terrace" display_value="Terrace"/><list_entry value="toilets" display_value="Toilets"/><list_entry value="train_station" display_value="Train station"/><list_entry value="transformer_tower" display_value="Transformer tower"/><list_entry value="transportation" display_value="Transportation"/><list_entry value="university" display_value="University"/><list_entry value="warehouse" display_value="Warehouse"/><list_entry value="yes" display_value="Yes"/>
+                <list_entry value="allotment_house" display_value="Allotment house"/><list_entry value="apartments" display_value="Apartments"/><list_entry value="bakehouse" display_value="Bakehouse"/><list_entry value="barn" display_value="Barn"/><list_entry value="basilica" display_value="Basilica"/><list_entry value="boathouse" display_value="Boathouse"/><list_entry value="bungalow" display_value="Bungalow"/><list_entry value="bunker" display_value="Bunker"/><list_entry value="cabin" display_value="Cabin"/><list_entry value="carport" display_value="Carport"/><list_entry value="cathedral" display_value="Cathedral"/><list_entry value="chapel" display_value="Chapel"/><list_entry value="church" display_value="Church"/><list_entry value="civic" display_value="Civic" deprecated="true"/><list_entry value="college" display_value="College"/><list_entry value="commercial" display_value="Commercial"/><list_entry value="cowshed" display_value="Cowshed"/><list_entry value="detached" display_value="Detached"/><list_entry value="digester" display_value="Digester"/><list_entry value="dormitory" display_value="Dormitory"/><list_entry value="farm" display_value="Farm"/><list_entry value="farm_auxiliary" display_value="Farm auxiliary"/><list_entry value="fire_station" display_value="Fire station"/><list_entry value="garage" display_value="Garage"/><list_entry value="garages" display_value="Garages"/><list_entry value="gasometer" display_value="Gasometer"/><list_entry value="gatehouse" display_value="Gatehouse"/><list_entry value="ger" display_value="Ger"/><list_entry value="grandstand" display_value="Grandstand"/><list_entry value="greenhouse" display_value="Greenhouse"/><list_entry value="hangar" display_value="Hangar"/><list_entry value="hospital" display_value="Hospital"/><list_entry value="hotel" display_value="Hotel"/><list_entry value="house" display_value="House"/><list_entry value="houseboat" display_value="Houseboat"/><list_entry value="hut" display_value="Hut"/><list_entry value="industrial" display_value="Industrial"/><list_entry value="kindergarten" display_value="Kindergarten"/><list_entry value="kiosk" display_value="Kiosk"/><list_entry value="manufacture" display_value="Manufacture"/><list_entry value="monastery" display_value="Monastery"/><list_entry value="mosque" display_value="Mosque"/><list_entry value="office" display_value="Office"/><list_entry value="outbuilding" display_value="Outbuilding" deprecated="true"/><list_entry value="parking" display_value="Parking"/><list_entry value="pavilion" display_value="Pavilion"/><list_entry value="public" display_value="Public"/><list_entry value="residential" display_value="Residential"/><list_entry value="retail" display_value="Retail"/><list_entry value="roof" display_value="Roof"/><list_entry value="ruins" display_value="Ruins"/><list_entry value="school" display_value="School"/><list_entry value="semidetached_house" display_value="Semidetached house"/><list_entry value="service" display_value="Service"/><list_entry value="shed" display_value="Shed"/><list_entry value="sports_hall" display_value="Sports hall"/><list_entry value="stable" display_value="Stable"/><list_entry value="stadium" display_value="Stadium"/><list_entry value="static_caravan" display_value="Static caravan"/><list_entry value="stilt_house" display_value="Stilt house"/><list_entry value="storage_tank" display_value="Storage tank"/><list_entry value="sty" display_value="Sty"/><list_entry value="supermarket" display_value="Supermarket"/><list_entry value="synagogue" display_value="Synagogue"/><list_entry value="temple" display_value="Temple"/><list_entry value="terrace" display_value="Terrace"/><list_entry value="toilets" display_value="Toilets"/><list_entry value="train_station" display_value="Train station"/><list_entry value="transformer_tower" display_value="Transformer tower"/><list_entry value="transportation" display_value="Transportation"/><list_entry value="university" display_value="University"/><list_entry value="warehouse" display_value="Warehouse"/><list_entry value="yes" display_value="Yes"/>
             </combo>
             <reference ref="additional_building_tags"/>
             <combo key="building:min_level" text="Skipped Levels" values="1,2,3,4,5,6,7,8,9,10" editable="true" text_context="building"/>
@@ -9428,7 +9447,7 @@
             <space/>
             <key key="building" value="construction"/>
             <combo key="construction" text="Construction type" values_context="building" default="yes" match="none" values_searchable="true">
-                <list_entry value="allotment_house" display_value="Allotment house"/><list_entry value="apartments" display_value="Apartments"/><list_entry value="bakehouse" display_value="Bakehouse"/><list_entry value="barn" display_value="Barn"/><list_entry value="basilica" display_value="Basilica"/><list_entry value="boathouse" display_value="Boathouse"/><list_entry value="bungalow" display_value="Bungalow"/><list_entry value="bunker" display_value="Bunker"/><list_entry value="cabin" display_value="Cabin"/><list_entry value="carport" display_value="Carport"/><list_entry value="cathedral" display_value="Cathedral"/><list_entry value="chapel" display_value="Chapel"/><list_entry value="church" display_value="Church"/><list_entry value="civic" display_value="Civic" deprecated="true"/><list_entry value="college" display_value="College"/><list_entry value="commercial" display_value="Commercial"/><list_entry value="cowshed" display_value="Cowshed"/><list_entry value="detached" display_value="Detached"/><list_entry value="digester" display_value="Digester"/><list_entry value="dormitory" display_value="Dormitory"/><list_entry value="farm" display_value="Farm"/><list_entry value="farm_auxiliary" display_value="Farm auxiliary"/><list_entry value="fire_station" display_value="Fire station"/><list_entry value="garage" display_value="Garage"/><list_entry value="garages" display_value="Garages"/><list_entry value="gasometer" display_value="Gasometer"/><list_entry value="gatehouse" display_value="Gatehouse"/><list_entry value="ger" display_value="Ger"/><list_entry value="grandstand" display_value="Grandstand"/><list_entry value="greenhouse" display_value="Greenhouse"/><list_entry value="hangar" display_value="Hangar"/><list_entry value="hospital" display_value="Hospital"/><list_entry value="hotel" display_value="Hotel"/><list_entry value="house" display_value="House"/><list_entry value="houseboat" display_value="Houseboat"/><list_entry value="hut" display_value="Hut"/><list_entry value="industrial" display_value="Industrial"/><list_entry value="kindergarten" display_value="Kindergarten"/><list_entry value="kiosk" display_value="Kiosk"/><list_entry value="manufacture" display_value="Manufacture"/><list_entry value="monastery" display_value="Monastery"/><list_entry value="mosque" display_value="Mosque"/><list_entry value="office" display_value="Office"/><list_entry value="parking" display_value="Parking"/><list_entry value="pavilion" display_value="Pavilion"/><list_entry value="public" display_value="Public"/><list_entry value="residential" display_value="Residential"/><list_entry value="retail" display_value="Retail"/><list_entry value="roof" display_value="Roof"/><list_entry value="ruins" display_value="Ruins"/><list_entry value="school" display_value="School"/><list_entry value="semidetached_house" display_value="Semidetached house"/><list_entry value="service" display_value="Service"/><list_entry value="shed" display_value="Shed"/><list_entry value="sports_hall" display_value="Sports hall"/><list_entry value="stable" display_value="Stable"/><list_entry value="stadium" display_value="Stadium"/><list_entry value="static_caravan" display_value="Static caravan"/><list_entry value="stilt_house" display_value="Stilt house"/><list_entry value="storage_tank" display_value="Storage tank"/><list_entry value="sty" display_value="Sty"/><list_entry value="supermarket" display_value="Supermarket"/><list_entry value="synagogue" display_value="Synagogue"/><list_entry value="temple" display_value="Temple"/><list_entry value="terrace" display_value="Terrace"/><list_entry value="toilets" display_value="Toilets"/><list_entry value="train_station" display_value="Train station"/><list_entry value="transformer_tower" display_value="Transformer tower"/><list_entry value="transportation" display_value="Transportation"/><list_entry value="university" display_value="University"/><list_entry value="warehouse" display_value="Warehouse"/><list_entry value="yes" display_value="Yes"/>
+                <list_entry value="allotment_house" display_value="Allotment house"/><list_entry value="apartments" display_value="Apartments"/><list_entry value="bakehouse" display_value="Bakehouse"/><list_entry value="barn" display_value="Barn"/><list_entry value="basilica" display_value="Basilica"/><list_entry value="boathouse" display_value="Boathouse"/><list_entry value="bungalow" display_value="Bungalow"/><list_entry value="bunker" display_value="Bunker"/><list_entry value="cabin" display_value="Cabin"/><list_entry value="carport" display_value="Carport"/><list_entry value="cathedral" display_value="Cathedral"/><list_entry value="chapel" display_value="Chapel"/><list_entry value="church" display_value="Church"/><list_entry value="civic" display_value="Civic" deprecated="true"/><list_entry value="college" display_value="College"/><list_entry value="commercial" display_value="Commercial"/><list_entry value="cowshed" display_value="Cowshed"/><list_entry value="detached" display_value="Detached"/><list_entry value="digester" display_value="Digester"/><list_entry value="dormitory" display_value="Dormitory"/><list_entry value="farm" display_value="Farm"/><list_entry value="farm_auxiliary" display_value="Farm auxiliary"/><list_entry value="fire_station" display_value="Fire station"/><list_entry value="garage" display_value="Garage"/><list_entry value="garages" display_value="Garages"/><list_entry value="gasometer" display_value="Gasometer"/><list_entry value="gatehouse" display_value="Gatehouse"/><list_entry value="ger" display_value="Ger"/><list_entry value="grandstand" display_value="Grandstand"/><list_entry value="greenhouse" display_value="Greenhouse"/><list_entry value="hangar" display_value="Hangar"/><list_entry value="hospital" display_value="Hospital"/><list_entry value="hotel" display_value="Hotel"/><list_entry value="house" display_value="House"/><list_entry value="houseboat" display_value="Houseboat"/><list_entry value="hut" display_value="Hut"/><list_entry value="industrial" display_value="Industrial"/><list_entry value="kindergarten" display_value="Kindergarten"/><list_entry value="kiosk" display_value="Kiosk"/><list_entry value="manufacture" display_value="Manufacture"/><list_entry value="monastery" display_value="Monastery"/><list_entry value="mosque" display_value="Mosque"/><list_entry value="office" display_value="Office"/><list_entry value="outbuilding" display_value="Outbuilding" deprecated="true"/><list_entry value="parking" display_value="Parking"/><list_entry value="pavilion" display_value="Pavilion"/><list_entry value="public" display_value="Public"/><list_entry value="residential" display_value="Residential"/><list_entry value="retail" display_value="Retail"/><list_entry value="roof" display_value="Roof"/><list_entry value="ruins" display_value="Ruins"/><list_entry value="school" display_value="School"/><list_entry value="semidetached_house" display_value="Semidetached house"/><list_entry value="service" display_value="Service"/><list_entry value="shed" display_value="Shed"/><list_entry value="sports_hall" display_value="Sports hall"/><list_entry value="stable" display_value="Stable"/><list_entry value="stadium" display_value="Stadium"/><list_entry value="static_caravan" display_value="Static caravan"/><list_entry value="stilt_house" display_value="Stilt house"/><list_entry value="storage_tank" display_value="Storage tank"/><list_entry value="sty" display_value="Sty"/><list_entry value="supermarket" display_value="Supermarket"/><list_entry value="synagogue" display_value="Synagogue"/><list_entry value="temple" display_value="Temple"/><list_entry value="terrace" display_value="Terrace"/><list_entry value="toilets" display_value="Toilets"/><list_entry value="train_station" display_value="Train station"/><list_entry value="transformer_tower" display_value="Transformer tower"/><list_entry value="transportation" display_value="Transportation"/><list_entry value="university" display_value="University"/><list_entry value="warehouse" display_value="Warehouse"/><list_entry value="yes" display_value="Yes"/>
             </combo>             
             <reference ref="additional_building_tags"/>
             <preset_link preset_name="Address"/>
@@ -12976,6 +12995,7 @@
                 <reference ref="genus_species_taxon"/>
                 <reference ref="leaf"/>
                 <reference ref="denotation"/>
+                <reference ref="tree_form"/>
             </optional>
         </item> <!-- Tree Row -->
         <item name="Tree Stump" icon="icons/png/natural_tree_stump.png" type="node" preset_name_label="true">
