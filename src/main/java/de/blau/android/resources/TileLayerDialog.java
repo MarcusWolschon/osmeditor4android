@@ -326,10 +326,10 @@ public class TileLayerDialog extends CancelableDialogFragment {
         /**
          * Get the bounding box
          * 
-         * @param topText
-         * @param rightText
-         * @param bottomText
-         * @param leftText
+         * @param topText text for the top boundary
+         * @param rightText text for the right boundary
+         * @param bottomText text for the bottom boundary
+         * @param leftText text for the left boundary
          * 
          * @return the box or null if invalid
          */

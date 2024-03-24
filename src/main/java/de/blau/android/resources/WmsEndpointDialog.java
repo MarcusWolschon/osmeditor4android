@@ -31,23 +31,14 @@ public final class WmsEndpointDialog {
     }
 
     /**
-     * how a dialog for editing and saving a layer entry
-     * 
-     * @param activity Android Context
-     * @param onUpdate call this if the DB has been updated
-     */
-    public static void showDialog(@NonNull FragmentActivity activity, @Nullable final OnUpdateListener onUpdate) {
-        showDialog(activity, -1, onUpdate);
-    }
-
-    /**
      * Show a dialog for editing and saving a layer entry
      * 
      * @param activity Android Context
+     * @param endPointType TODO
      * @param id the rowid of the layer entry in the database or -1 if not saved yet
      * @param onUpdate call this if the DB has been updated
      */
-    static void showDialog(@NonNull final FragmentActivity activity, final int id, @Nullable final OnUpdateListener onUpdate) {
+    static void showDialog(@NonNull final FragmentActivity activity, final String endPointType, final int id, @Nullable final OnUpdateListener onUpdate) {
         final boolean existing = id > 0;
         AlertDialog.Builder builder = ThemeUtils.getAlertDialogBuilder(activity);
         final View templateView = LayoutInflater.from(activity).inflate(R.layout.wms_endpoint_item, null);
@@ -105,7 +96,7 @@ public final class WmsEndpointDialog {
                 }
                 try (TileLayerDatabase tlDb = new TileLayerDatabase(activity); SQLiteDatabase db = tlDb.getWritableDatabase()) {
                     TileLayerSource.addOrUpdateCustomLayer(activity, db, endpointId, existingEndpoint, -1, -1, name, null, null,
-                            TileLayerSource.TYPE_WMS_ENDPOINT, null, -1, -1, TileLayerSource.WMS_TILE_SIZE, false, endpointUrl);
+                            endPointType, null, -1, -1, TileLayerSource.WMS_TILE_SIZE, false, endpointUrl);
                 }
                 if (onUpdate != null) {
                     onUpdate.update();

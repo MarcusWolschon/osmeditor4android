@@ -1,7 +1,5 @@
 package de.blau.android.resources;
 
-import static de.blau.android.contract.Constants.LOG_TAG_LEN;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -23,7 +21,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -37,31 +34,33 @@ import androidx.fragment.app.FragmentManager;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
+import de.blau.android.Map;
 import de.blau.android.R;
+import de.blau.android.dialogs.LayerStyle;
 import de.blau.android.dialogs.Progress;
+import de.blau.android.layer.LayerType;
 import de.blau.android.osm.Server;
 import de.blau.android.resources.TileLayerDialog.OnUpdateListener;
-import de.blau.android.resources.WmsCapabilities.Layer;
+import de.blau.android.resources.TileLayerSource.TileType;
+import de.blau.android.resources.WfsCapabilities.Feature;
 import de.blau.android.util.ExecutorTask;
-import de.blau.android.util.CancelableDialogFragment;
-import de.blau.android.util.OnTextChangedWatcher;
+import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.ScreenMessage;
-import de.blau.android.util.ThemeUtils;
+import de.blau.android.util.SelectFile;
 import de.blau.android.util.Util;
 
 /**
  * WMS endpoint management UI
  */
-public class WmsEndpointDatabaseView extends CancelableDialogFragment implements OnUpdateListener {
-
-    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, WmsEndpointDatabaseView.class.getSimpleName().length());
-    private static final String DEBUG_TAG = WmsEndpointDatabaseView.class.getSimpleName().substring(0, TAG_LEN);
+public class WfsEndpointDatabaseView extends ImmersiveDialogFragment implements OnUpdateListener {
+    private static final String DEBUG_TAG = WfsEndpointDatabaseView.class.getSimpleName().substring(0,
+            Math.min(23, WfsEndpointDatabaseView.class.getSimpleName().length()));
 
     private EndpointAdapter endpointAdapter;
 
     private SQLiteDatabase writableDb;
 
-    private static final String TAG = "fragment_wms_endpoints";
+    private static final String TAG = "fragment_wfs_endpoints";
 
     /**
      * Query the list of WMS endpoints catalog and display the results for selection
@@ -77,7 +76,7 @@ public class WmsEndpointDatabaseView extends CancelableDialogFragment implements
             if (activity instanceof Main) {
                 ((Main) activity).descheduleAutoLock();
             }
-            WmsEndpointDatabaseView fragment = newInstance();
+            WfsEndpointDatabaseView fragment = newInstance();
             fragment.show(fm, TAG);
         } catch (IllegalStateException isex) {
             Log.e(DEBUG_TAG, "showDialog", isex);
@@ -99,8 +98,8 @@ public class WmsEndpointDatabaseView extends CancelableDialogFragment implements
      * @param result the List of Result elements
      * @return a WmsEndpointDatabaseView instance
      */
-    private static WmsEndpointDatabaseView newInstance() {
-        WmsEndpointDatabaseView f = new WmsEndpointDatabaseView();
+    private static WfsEndpointDatabaseView newInstance() {
+        WfsEndpointDatabaseView f = new WfsEndpointDatabaseView();
         Bundle args = new Bundle();
 
         f.setArguments(args);
@@ -113,14 +112,14 @@ public class WmsEndpointDatabaseView extends CancelableDialogFragment implements
     @Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
         FragmentActivity activity = getActivity();
-        AlertDialog.Builder alertDialog = ThemeUtils.getAlertDialogBuilder(activity);
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
         View endpointListView = LayoutInflater.from(activity).inflate(R.layout.layer_list, null);
         alertDialog.setTitle(R.string.wms_endpoints_title);
         alertDialog.setView(endpointListView);
         final TileLayerDatabase tlDb = new TileLayerDatabase(activity); // NOSONAR will be closed when dismissed
         writableDb = tlDb.getWritableDatabase();
         ListView endpointList = (ListView) endpointListView.findViewById(R.id.listViewLayer);
-        Cursor endpointCursor = TileLayerDatabase.getEndPoints(writableDb, TileLayerSource.TYPE_WMS_ENDPOINT);
+        Cursor endpointCursor = TileLayerDatabase.getEndPoints(writableDb, TileLayerSource.TYPE_WFS_ENDPOINT);
         endpointAdapter = new EndpointAdapter(writableDb, activity, endpointCursor);
         endpointList.setAdapter(endpointAdapter);
         alertDialog.setNeutralButton(R.string.done, null);
@@ -132,11 +131,11 @@ public class WmsEndpointDatabaseView extends CancelableDialogFragment implements
 
         endpointList.setOnItemLongClickListener((parent, view, position, id) -> {
             final Integer idTag = (Integer) view.getTag();
-            WmsEndpointDialog.showDialog(activity, TileLayerSource.TYPE_WMS_ENDPOINT, idTag, () -> newLayerCursor(writableDb));
+            WmsEndpointDialog.showDialog(activity, TileLayerSource.TYPE_WFS_ENDPOINT, idTag, () -> newLayerCursor(writableDb));
             return true;
         });
         final FloatingActionButton fab = (FloatingActionButton) endpointListView.findViewById(R.id.add);
-        fab.setOnClickListener(v -> WmsEndpointDialog.showDialog(activity, TileLayerSource.TYPE_WMS_ENDPOINT, -1, () -> newLayerCursor(writableDb)));
+        fab.setOnClickListener(v -> WmsEndpointDialog.showDialog(activity, TileLayerSource.TYPE_WFS_ENDPOINT, -1, () -> newLayerCursor(writableDb)));
         return alertDialog.create();
     }
 
@@ -180,18 +179,18 @@ public class WmsEndpointDatabaseView extends CancelableDialogFragment implements
                 Integer idTag = (Integer) view.getTag();
                 final TileLayerSource endpoint = TileLayerDatabase.getLayerWithRowId(activity, db, idTag);
                 Logic logic = App.getLogic();
-                new ExecutorTask<Void, Integer, WmsCapabilities>(logic.getExecutorService(), logic.getHandler()) {
+                new ExecutorTask<Void, Integer, WfsCapabilities>(logic.getExecutorService(), logic.getHandler()) {
                     @Override
                     protected void onPreExecute() {
                         Progress.showDialog(activity, Progress.PROGRESS_DOWNLOAD);
                     }
 
                     @Override
-                    protected WmsCapabilities doInBackground(Void params) throws IOException, ParserConfigurationException, SAXException {
+                    protected WfsCapabilities doInBackground(Void params) throws IOException, ParserConfigurationException, SAXException {
                         String url = Util.appendQuery(sanitize(endpoint.getTileUrl()),
-                                REQUEST_PARAM + "=" + GET_CAPABILITIES_REQUEST + "&" + SERVICE_PARAM + "=wms");
+                                REQUEST_PARAM + "=" + GET_CAPABILITIES_REQUEST + "&" + SERVICE_PARAM + "=wfs");
                         try (InputStream is = Server.openConnection(activity, new URL(url))) {
-                            return new WmsCapabilities(is);
+                            return new WfsCapabilities(is);
                         }
                     }
 
@@ -200,39 +199,49 @@ public class WmsEndpointDatabaseView extends CancelableDialogFragment implements
                         Progress.dismissDialog(activity, Progress.PROGRESS_DOWNLOAD);
                         Log.e(DEBUG_TAG, e.getMessage());
                         ScreenMessage.toastTopError(context, activity.getString(R.string.toast_querying_wms_server_failed, e.getMessage()));
+                        e.printStackTrace();
                     }
 
                     @Override
-                    protected void onPostExecute(WmsCapabilities result) {
+                    protected void onPostExecute(WfsCapabilities result) {
                         Progress.dismissDialog(activity, Progress.PROGRESS_DOWNLOAD);
-                        if (result.layers.isEmpty()) {
+                        if (result.features.isEmpty()) {
                             ScreenMessage.toastTopError(activity, R.string.toast_nothing_found);
                             return;
                         }
-                        Builder builder = ThemeUtils.getAlertDialogBuilder(activity);
+                        Builder builder = new AlertDialog.Builder(activity);
                         builder.setTitle(R.string.select_layer_title);
                         builder.setNeutralButton(R.string.Done, null);
                         View layerListView = LayoutInflater.from(activity).inflate(R.layout.wms_layer_list, null);
                         ListView layerList = (ListView) layerListView.findViewById(R.id.listViewLayer);
-                        EditText searchField = (EditText) layerListView.findViewById(R.id.searchField);
                         builder.setView(layerListView);
                         List<String> layers = new ArrayList<>();
-                        for (Layer layer : result.layers) {
-                            layers.add(layer.title);
+                        for (Feature feature : result.features) {
+                            layers.add(feature.name);
                         }
                         FilteredAdapter adapter = new FilteredAdapter(activity, R.layout.layer_list_item, R.id.name, layers);
                         layerList.setAdapter(adapter);
                         layerList.setOnItemClickListener((parent, view, position, id) -> {
-                            LayerEntry entry = new LayerEntry();
-                            Layer layer = result.layers.get(position);
-                            entry.title = layer.title;
-                            entry.tileUrl = layer.getTileUrl(result.getGetMapUrl() != null ? result.getGetMapUrl() : sanitize(endpoint.getTileUrl()));
-                            entry.box = layer.extent;
-                            entry.gsd = layer.gsd;
-                            TileLayerDialog.showDialog(WmsEndpointDatabaseView.this, -1, entry);
+                            Feature feature = result.features.get(position);
+                            String uriString = feature.getUrl();
+                            Map map = App.getLogic().getMap();
+                            de.blau.android.layer.StyleableLayer layer = (de.blau.android.layer.StyleableLayer) map.getLayer(LayerType.DATA, uriString);
+                            if (layer == null) {
+
+                                Log.d(DEBUG_TAG, "addStyleableLayerFromUri " + uriString);
+                                de.blau.android.layer.Util.addLayer(activity, LayerType.DATA, uriString);
+
+                                layer = (de.blau.android.layer.StyleableLayer) map.getLayer(LayerType.DATA, uriString);
+                                // layer.entry.box = feature.extent;
+                                // if (layer != null) { // if null setUpLayers will have toasted
+                                // LayerStyle.showDialog(activity, layer.getIndex());
+                                // layer.invalidate();
+                                // }
+
+                            } else {
+                                ScreenMessage.toastTopWarning(activity, activity.getString(R.string.toast_styleable_layer_exists, uriString));
+                            }
                         });
-                        searchField.addTextChangedListener(
-                                (OnTextChangedWatcher) (CharSequence cs, int start, int count, int after) -> adapter.getFilter().filter(cs));
                         builder.create().show();
                     }
                 }.execute();
@@ -265,7 +274,7 @@ public class WmsEndpointDatabaseView extends CancelableDialogFragment implements
      * @param db the database
      */
     private void newLayerCursor(@NonNull final SQLiteDatabase db) {
-        Cursor newCursor = TileLayerDatabase.getEndPoints(db, TileLayerSource.TYPE_WMS_ENDPOINT);
+        Cursor newCursor = TileLayerDatabase.getEndPoints(db, TileLayerSource.TYPE_WFS_ENDPOINT);
         Cursor oldCursor = endpointAdapter.swapCursor(newCursor);
         oldCursor.close();
         endpointAdapter.notifyDataSetChanged();
@@ -276,6 +285,4 @@ public class WmsEndpointDatabaseView extends CancelableDialogFragment implements
         TileLayerDatabaseView.resetLayer(getActivity(), writableDb);
         TileLayerDialog.update(this);
     }
-
- 
 }

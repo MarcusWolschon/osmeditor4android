@@ -50,6 +50,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
@@ -113,6 +114,7 @@ import de.blau.android.resources.TileLayerDialog.OnUpdateListener;
 import de.blau.android.resources.TileLayerSource;
 import de.blau.android.resources.TileLayerSource.Category;
 import de.blau.android.resources.TileLayerSource.TileType;
+import de.blau.android.resources.WfsEndpointDatabaseView;
 import de.blau.android.resources.WmsEndpointDatabaseView;
 import de.blau.android.tasks.TaskStorage;
 import de.blau.android.tasks.Todo;
@@ -122,6 +124,7 @@ import de.blau.android.util.Density;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.GeoJson;
+import de.blau.android.util.Hash;
 import de.blau.android.util.InsetAwarePopupMenu;
 import de.blau.android.util.ReadFile;
 import de.blau.android.util.SaveFile;
@@ -203,6 +206,30 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
             MenuItem item = popup.getMenu().add(R.string.menu_layers_load_geojson);
             item.setOnMenuItemClickListener(unused -> {
                 addStyleableLayerFromFile(activity, prefs, map, LayerType.GEOJSON);
+                return false;
+            });
+
+            item = popup.getMenu().add("Load Geojson from server");
+            item.setOnMenuItemClickListener(unused -> {
+                TextLineDialog.get(activity, R.string.menu_layers_load_geojson, 0, null, (EditText input, boolean check) -> {
+                    
+                    ExecutorTask<String, Void, Uri> downloadTask = new ExecutorTask<String, Void, Uri>() {
+
+                        @Override
+                        protected Uri doInBackground(String url) throws Exception {
+                            final String fileName = Hash.sha256(Uri.parse(url).getEncodedPath());
+                            de.blau.android.net.Util.download(de.blau.android.resources.Util.replaceWfsPlaceholders(url, null, map.getViewBox()), FileUtil.getPublicDirectory(), fileName);
+                            return Uri.fromFile(new File(FileUtil.getPublicDirectory(), fileName));
+                        }
+
+                        @Override
+                        protected void onPostExecute(Uri fileUri) {
+                            addStyleableLayerFromUri(activity, prefs, map, LayerType.GEOJSON, fileUri, true);
+                        }
+                    };
+                    downloadTask.execute(input.getText().toString());
+                }).show();
+
                 return false;
             });
 
@@ -317,6 +344,12 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
             item = popup.getMenu().add(R.string.add_imagery_from_wms_endpoint);
             item.setOnMenuItemClickListener(unused -> {
                 WmsEndpointDatabaseView.showDialog(this);
+                return true;
+            });
+            
+            item = popup.getMenu().add("Add layer from WFS endpoint");
+            item.setOnMenuItemClickListener(unused -> {
+                WfsEndpointDatabaseView.showDialog(this);
                 return true;
             });
 

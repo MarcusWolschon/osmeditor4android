@@ -281,6 +281,9 @@ public class Map extends SurfaceView implements IMapView {
                                 layer = null; // this will delete the layer
                             }
                             break;
+                        case DATA:
+                            layer = new de.blau.android.layer.geojson.MapOverlay(this, contentId);
+                            break;
                         case MAPILLARY:
                             layer = new de.blau.android.layer.streetlevel.mapillary.MapillaryOverlay(this);
                             break;

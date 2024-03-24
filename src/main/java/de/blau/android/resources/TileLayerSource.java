@@ -122,6 +122,8 @@ public class TileLayerSource implements Serializable {
     public static final String TYPE_TMS          = "tms";
     public static final String TYPE_WMS          = "wms";
     public static final String TYPE_WMS_ENDPOINT = "wms_endpoint";
+    public static final String TYPE_WFS          = "wfs";
+    public static final String TYPE_WFS_ENDPOINT = "wfs_endpoint";
     static final String        TYPE_BING         = "bing";
     static final String        TYPE_SCANEX       = "scanex";      // no longer used
     static final String        TYPE_WMTS         = "wmts";
@@ -137,7 +139,7 @@ public class TileLayerSource implements Serializable {
     // supported URL placeholders
     private static final String APIKEY_PLACEHOLDER    = "apikey";
     private static final String CULTURE_PLACEHOLDER   = "culture";
-    private static final String BBOX_PLACEHOLDER      = "bbox";
+    static final String         BBOX_PLACEHOLDER      = "bbox";
     private static final String HEIGHT_PLACEHOLDER    = "height";
     private static final String WIDTH_PLACEHOLDER     = "width";
     static final String         PROJ_PLACEHOLDER      = "proj";
@@ -1757,64 +1759,64 @@ public class TileLayerSource implements Serializable {
                 } else {
                     builder.append(c);
                 }
-            } else {
-                if (c == PLACEHOLDER_END) {
-                    state = BASE_STATE;
-                    String p = param.toString();
-                    switch (p) {
-                    case X_PLACEHOLDER:
-                        builder.append(Integer.toString(aTile.x));
-                        break;
-                    case Y_PLACEHOLDER:
-                        builder.append(Integer.toString(aTile.y));
-                        break;
-                    case Z_PLACEHOLDER:
-                    case ZOOM_PLACEHOLDER:
-                        builder.append(Integer.toString(aTile.zoomLevel));
-                        break;
-                    case TY_PLACEHOLDER:
-                    case MINUS_Y_PLACEHOLDER:
-                        int ymax = 1 << aTile.zoomLevel;
-                        int y = ymax - aTile.y - 1;
-                        builder.append(Integer.toString(y));
-                        break;
-                    case QUADKEY_PLACEHOLDER:
-                        builder.append(quadTree(aTile));
-                        break;
-                    case SUBDOMAIN_PLACEHOLDER:
-                        // Rotate through the list of sub-domains
-                        String subdomain = null;
-                        synchronized (getSubdomains()) {
-                            subdomain = getSubdomains().poll();
-                            if (subdomain != null) {
-                                getSubdomains().add(subdomain);
-                            }
-                        }
+                continue;
+            }
+            if (c == PLACEHOLDER_END) {
+                state = BASE_STATE;
+                String p = param.toString();
+                switch (p) {
+                case X_PLACEHOLDER:
+                    builder.append(Integer.toString(aTile.x));
+                    break;
+                case Y_PLACEHOLDER:
+                    builder.append(Integer.toString(aTile.y));
+                    break;
+                case Z_PLACEHOLDER:
+                case ZOOM_PLACEHOLDER:
+                    builder.append(Integer.toString(aTile.zoomLevel));
+                    break;
+                case TY_PLACEHOLDER:
+                case MINUS_Y_PLACEHOLDER:
+                    int ymax = 1 << aTile.zoomLevel;
+                    int y = ymax - aTile.y - 1;
+                    builder.append(Integer.toString(y));
+                    break;
+                case QUADKEY_PLACEHOLDER:
+                    builder.append(quadTree(aTile));
+                    break;
+                case SUBDOMAIN_PLACEHOLDER:
+                    // Rotate through the list of sub-domains
+                    String subdomain = null;
+                    synchronized (getSubdomains()) {
+                        subdomain = getSubdomains().poll();
                         if (subdomain != null) {
-                            builder.append(subdomain);
+                            getSubdomains().add(subdomain);
                         }
-                        break;
-                    case WKID_PLACEHOLDER: // ESRI proprietary
-                        builder.append(proj != null && proj.startsWith(EPSG_PREFIX) ? proj.substring(EPSG_PREFIX.length()) : proj);
-                        break;
-                    case PROJ_PLACEHOLDER: // WMS support from here on
-                        builder.append(proj);
-                        break;
-                    case WIDTH_PLACEHOLDER:
-                        builder.append(Integer.toString(tileWidth));
-                        break;
-                    case HEIGHT_PLACEHOLDER:
-                        builder.append(Integer.toString(tileHeight));
-                        break;
-                    case BBOX_PLACEHOLDER:
-                        builder.append(wmsBox(aTile));
-                        break;
-                    default:
-                        Log.e(DEBUG_TAG, "Unknown place holder " + p);
                     }
-                } else {
-                    param.append(c);
+                    if (subdomain != null) {
+                        builder.append(subdomain);
+                    }
+                    break;
+                case WKID_PLACEHOLDER: // ESRI proprietary
+                    builder.append(proj != null && proj.startsWith(EPSG_PREFIX) ? proj.substring(EPSG_PREFIX.length()) : proj);
+                    break;
+                case PROJ_PLACEHOLDER: // WMS support from here on
+                    builder.append(proj);
+                    break;
+                case WIDTH_PLACEHOLDER:
+                    builder.append(Integer.toString(tileWidth));
+                    break;
+                case HEIGHT_PLACEHOLDER:
+                    builder.append(Integer.toString(tileHeight));
+                    break;
+                case BBOX_PLACEHOLDER:
+                    builder.append(wmsBox(aTile));
+                    break;
+                default:
+                    Log.e(DEBUG_TAG, "Unknown place holder " + p);
                 }
+            } else {
+                param.append(c);
             }
         }
         return builder.toString();
@@ -1921,7 +1923,7 @@ public class TileLayerSource implements Serializable {
      * @param the String
      */
     @NonNull
-    private String buildBox(@NonNull StringBuilder builder, double a, double b, double c, double d) {
+    static String buildBox(@NonNull StringBuilder builder, double a, double b, double c, double d) {
         return builder.append(a).append(',').append(b).append(',').append(c).append(',').append(d).toString();
     }
 

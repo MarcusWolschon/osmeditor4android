@@ -639,10 +639,11 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
      * Get a Cursor for all WMS end points
      * 
      * @param db a readable SQLiteDatabase
+     * @param endPointType TODO
      * @return a Cursor pointing to all WMS end points
      */
-    static Cursor getAllWmsEndPoints(@NonNull SQLiteDatabase db) {
-        return db.rawQuery("SELECT layers.rowid as _id, name FROM layers WHERE server_type='" + TileLayerSource.TYPE_WMS_ENDPOINT + "' ORDER BY name", null);
+    static Cursor getEndPoints(@NonNull SQLiteDatabase db, @NonNull String endPointType) {
+        return db.rawQuery("SELECT layers.rowid as _id, name FROM layers WHERE server_type='" + endPointType + "' ORDER BY name", null);
     }
 
     /**
