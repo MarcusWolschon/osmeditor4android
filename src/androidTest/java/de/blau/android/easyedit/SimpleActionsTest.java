@@ -27,10 +27,13 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
+import androidx.test.uiautomator.By;
+import androidx.test.uiautomator.BySelector;
 import androidx.test.uiautomator.UiDevice;
 import androidx.test.uiautomator.UiObject;
 import androidx.test.uiautomator.UiObjectNotFoundException;
 import androidx.test.uiautomator.UiSelector;
+import androidx.test.uiautomator.Until;
 import de.blau.android.App;
 import de.blau.android.LayerUtils;
 import de.blau.android.Logic;
@@ -339,6 +342,42 @@ public class SimpleActionsTest {
         Node n3 = (Node) delegator.getOsmElement(Node.NAME, 2206393030L);
         assertNotNull(n3);
         assertTrue(way.hasNode(n3));
+        TestUtils.clickUp(device);
+    }
+
+    /**
+     * Create a new way from menu check that the follow way button goes away when we undo
+     */
+    // @SdkSuppress(minSdkVersion = 26)
+    @Test
+    public void followWayUndo() {
+        map.getDataLayer().setVisible(true);
+        TestUtils.zoomToLevel(device, main, 21);
+        TestUtils.unlock(device);
+        TestUtils.clickSimpleButton(device);
+        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_add_way), true, false));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.add_way_start_instruction)));
+        StorageDelegator delegator = App.getDelegator();
+        Node n1 = (Node) delegator.getOsmElement(Node.NAME, 2206393022L);
+        assertNotNull(n1);
+        TestUtils.clickAtCoordinates(device, map, n1.getLon() / 1E7D, n1.getLat() / 1E7D, true);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.add_way_node_instruction), 1000));
+        Node n2 = (Node) delegator.getOsmElement(Node.NAME, 2206393031L);
+        assertNotNull(n2);
+        BySelector bySelector = By.clickable(true).descStartsWith(context.getString(R.string.menu_follow_way));
+        UiSelector uiSelector = new UiSelector().clickable(true).descriptionStartsWith(context.getString(R.string.menu_follow_way));
+        device.wait(Until.findObject(bySelector), 1000);
+        UiObject button = device.findObject(uiSelector);
+        assertFalse(button.exists());
+        TestUtils.clickAtCoordinates(device, map, n2.getLon() / 1E7D, n2.getLat() / 1E7D, true);
+        device.wait(Until.findObject(bySelector), 1000);
+        button = device.findObject(uiSelector);
+        assertTrue(button.exists());
+        assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.undo), false, false, 1000));
+        device.wait(Until.findObject(bySelector), 1000);
+        button = device.findObject(uiSelector);
+        assertFalse(button.exists());
+
         TestUtils.clickUp(device);
     }
 
