@@ -44,7 +44,8 @@ import de.blau.android.util.Util;
  * This callback handles path creation.
  */
 public class PathCreationActionModeCallback extends BuilderActionModeCallback {
-    private static final String DEBUG_TAG = PathCreationActionModeCallback.class.getSimpleName().substring(0, Math.min(23, PathCreationActionModeCallback.class.getSimpleName().length()));
+    private static final String DEBUG_TAG = PathCreationActionModeCallback.class.getSimpleName().substring(0,
+            Math.min(23, PathCreationActionModeCallback.class.getSimpleName().length()));
 
     protected static final int MENUITEM_UNDO          = 1;
     private static final int   MENUITEM_SNAP          = 2;
@@ -401,22 +402,9 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
         // node already existed id clicked != null
         if (clicked != null) {
             existingNodes.add(clicked);
-            // check if we are potentially following a way
+            // check if we are potentially can follow a way
             if (lastSelectedNode != null) {
-                boolean alreadyAvailable = candidatesForFollowing != null && !candidatesForFollowing.isEmpty();
-                candidatesForFollowing = logic.getWaysForNode(lastSelectedNode);
-                candidatesForFollowing.retainAll(logic.getWaysForNode(clicked));
-                candidatesForFollowing.remove(createdWay);
-                // remove any ways that we have "used up"
-                for (Way candidate : new ArrayList<>(candidatesForFollowing)) {
-                    if (candidate.isEndNode(clicked) && !candidate.isClosed()) {
-                        candidatesForFollowing.remove(candidate);
-                    }
-                }
-                initialFollowNode = lastSelectedNode;
-                if (!alreadyAvailable || (alreadyAvailable && candidatesForFollowing.isEmpty())) {
-                    mode.invalidate();
-                }
+                enableFollowWay(lastSelectedNode, clicked);
             }
         } else {
             candidatesForFollowing = null;
@@ -425,6 +413,29 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
 
         mode.setSubtitle(R.string.add_way_node_instruction);
         main.invalidateMap();
+    }
+
+    /**
+     * Enable following if pre-conditions are met
+     * 
+     * @param current current selected node
+     * @param next next node
+     */
+    private void enableFollowWay(@NonNull Node current, @NonNull Node next) {
+        boolean alreadyAvailable = candidatesForFollowing != null && !candidatesForFollowing.isEmpty();
+        candidatesForFollowing = logic.getWaysForNode(current);
+        candidatesForFollowing.retainAll(logic.getWaysForNode(next));
+        candidatesForFollowing.remove(createdWay);
+        // remove any ways that we have "used up"
+        for (Way candidate : new ArrayList<>(candidatesForFollowing)) {
+            if (candidate.isEndNode(next) && !candidate.isClosed()) {
+                candidatesForFollowing.remove(candidate);
+            }
+        }
+        initialFollowNode = current;
+        if (!alreadyAvailable || (alreadyAvailable && candidatesForFollowing.isEmpty())) {
+            mode.invalidate();
+        }
     }
 
     /**
@@ -499,12 +510,17 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
      * @param mode the current ActionMode
      */
     private void followWay(@NonNull ActionMode mode, @NonNull Way follow) {
+        final int size = addedNodes.size();
+        if (size < 2) {
+            Log.e(DEBUG_TAG, "followWay inconsistent state addedNodes size " + size);
+            return;
+        }
         wayToFollow = follow;
         List<Node> endNodesCandidates = new ArrayList<>(follow.getNodes()); // copy required!!
         // remove nodes that are not "in front of the current node"
-        final Node current = addedNodes.get(addedNodes.size() - 1);
+        final Node current = addedNodes.get(size - 1);
         int posCurrent = endNodesCandidates.indexOf(current);
-        final Node previous = addedNodes.get(addedNodes.size() - 2);
+        final Node previous = addedNodes.get(size - 2);
         int posPrevious = endNodesCandidates.indexOf(previous);
         if (follow.isClosed()) {
             endNodesCandidates.removeAll(addedNodes);
@@ -583,11 +599,18 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
             manager.finish();
         } else {
             // select last node
-            logic.setSelectedNode(addedNodes.get(addedNodes.size() - 1));
+            int size = addedNodes.size();
+            Node lastSelected = addedNodes.get(size - 1);
+            logic.setSelectedNode(lastSelected);
+            candidatesForFollowing = null;
+            if (size > 1) {
+                enableFollowWay(addedNodes.get(size - 2), lastSelected);
+            } else {
+                mode.invalidate();
+            }
         }
 
         createdWay = logic.getSelectedWay(); // will be null if way was deleted by undo
-
         main.invalidateMap();
     }
 

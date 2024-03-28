@@ -395,7 +395,7 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
      * From:
      * https://stackoverflow.com/questions/27438644/how-do-we-show-a-back-button-instead-of-donecheckmark-button-in-the-contextual
      * 
-     * @param mode2
+     * @param mode the current ActionMode
      *
      * @return the View or null if not found
      */
