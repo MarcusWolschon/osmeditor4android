@@ -21,6 +21,17 @@
   <string name="upload_conflict_title">Uppladdningskonflikt</string>
   <string name="upload_conflict_message_version">Versionskonflikt</string>
   <string name="upload_conflict_message_deleted">%1$s \nhar lokal version %2$d \noch togs bort på servern</string>
+  <string name="server_side_object">Serverversion</string>
+  <string name="local_object">Lokal version</string>
+  <string name="resolve_by">Lös konflikt med...</string>
+  <string name="resolve">Lös</string>
+  <string name="delete_refering_element">... genom att radera det refererade elementet</string>
+  <string name="use_local_version">... genom att använda den lokala versionen</string>
+  <string name="merge_tags_in_to_local">... slå ihop taggar på den lokala versionen</string>
+  <string name="merge_tags_in_to_server">... slå ihop tagger på serverversionen</string>
+  <string name="use_server_version">... använda serverversionen</string>
+  <string name="undoing_local_delete">... ångra lokal radering</string>
+  <string name="deleting_references_on_server">... radera referenser på servern</string>
   <!---->
   <string name="no_login_data_title">Kunde inte autentisera</string>
   <string name="no_login_data_message">Om du använder OAuth detta är sannolikt ett fel, skicka en felrapport, om du använder inloggning och lösenord (rekommenderas inte), kontrollera att de är korrekt inmatade.</string>

@@ -892,6 +892,7 @@
   <string name="menu_tools_import_data_style">Импорт стиля данных...</string>
   <string name="menu_tools_load_keys">Загрузить ключи из файла...</string>
   <!---->
+  <string name="menu_modes">Режимы...</string>
   <string name="menu_simple_actions">Простой режим</string>
   <string name="menu_feedback">Написать отзыв</string>
   <string name="menu_preset_feedback">Написать отзыв о заготовке</string>

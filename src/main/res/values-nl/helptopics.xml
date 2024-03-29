@@ -29,6 +29,9 @@
     <string name="help_newnoteselection">Nieuwe notitieselectie</string>
     <string name="help_voice_commands">Spraakcommando\'s</string>
     <string name="help_add_route_segment">Voeg routesegment toe</string>
+    <string name="help_upgrade">20.0 Versieopmerkingen</string>
+    <string name="help_upgrade_193">19.3 Versieopmerkingen</string>
+    <string name="help_upgrade_192">19.2 Versieopmerkingen</string>
     <string name="help_upgrade_191">19.1 Versieopmerkingen</string>
     <string name="help_upgrade_190">19.0 Versieopmerkingen</string>
     <string name="help_upgrade_181">18.1 Versieopmerkingen</string>
@@ -83,6 +86,7 @@
         <item>@string/help_voice_commands</item>
         <item>@string/help_add_route_segment</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_193</item>
         <item>@string/help_upgrade_192</item>
         <item>@string/help_upgrade_191</item>
         <item>@string/help_upgrade_190</item>
@@ -139,6 +143,7 @@
         <item>New Note selected</item>
         <item>Voice commands</item>
         <item>Add route segment</item>
+        <item>20.0.0 Release notes</item>
         <item>19.3.0 Release notes</item>
         <item>19.2.0 Release notes</item>
         <item>19.1.0 Release notes</item>

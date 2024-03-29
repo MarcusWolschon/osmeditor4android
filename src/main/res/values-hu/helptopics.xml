@@ -29,6 +29,7 @@
     <string name="help_newnoteselection">Új jegyzet kijelölése</string>
     <string name="help_voice_commands">Hangutasítások</string>
     <string name="help_add_route_segment">Útvonalszakasz hozzáadása</string>
+    <string name="help_upgrade">20.0 kiadási megjegyzések</string>
     <string name="help_upgrade_193">19.3 kiadási megjegyzések</string>
     <string name="help_upgrade_192">19.2 kiadási megjegyzések</string>
     <string name="help_upgrade_191">19.1 kiadási megjegyzések</string>

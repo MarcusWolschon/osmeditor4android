@@ -22,7 +22,30 @@
   <string name="upload_conflict_title">上傳衝突</string>
   <string name="upload_conflict_message_version">版本衝突</string>
   <string name="upload_conflict_message_deleted">%1$s \n持有的本機版本 %2$d \n且在伺服器上已被刪除</string>
+  <string name="upload_conflict_message_referential">元素已經在本機刪除，但是仍然在伺服器有參照</string>
+  <string name="upload_conflict_message_already_deleted">%1$s\n已經在伺服器刪除，請重試</string>
+  <string name="upload_conflict_message_missing_references">本機元素參照的物件已經在伺服器上刪除了</string>
   <string name="upload_conflict_message_unknown">%1$s \n造成原因不明的上傳衝突 \n%2$s</string>
+  <string name="upload_conflict_message_changeset_closed">編輯變動非預期關閉，再次嘗試</string>
+  <string name="server_side_object">伺服器版本</string>
+  <string name="local_object">本地版本</string>
+  <string name="resolve_by">由解決衝突…</string>
+  <string name="resolve">解決</string>
+  <string name="delete_refering_element">藉由刪除參照元素…</string>
+  <string name="use_local_version">藉由使用本地版本…</string>
+  <string name="merge_tags_in_to_local">藉由整併本地版本的標籤…</string>
+  <string name="merge_tags_in_to_server">藉由整併伺服器版本的標籤…</string>
+  <string name="use_server_version">藉由使用伺服器版本…</string>
+  <string name="undoing_local_delete">恢復本地被刪除物件…</string>
+  <string name="deleting_references_on_server">刪除伺服器上的參照物件…</string>
+  <string name="unable_to_download_referring_element">無法下載參照元素 %1$s%2$d</string>
+  <string name="unable_to_download_referring_element_for_deletion">無法為了刪除而下載參照元素 %1$s%2$d</string>
+  <string name="unable_to_download_server_version">無法下載伺服器版本 %1$s%2$d</string>
+  <string name="unexpected_conflict_type">非預期的衝突類型</string>
+  <string name="missing_referenced_elements">遺失參照元素</string>
+  <string name="still_in_use_by_elements">仍然被元素使用</string>
+  <string name="delete_locally">本地\n刪除</string>
+  <string name="undelete_on_server">非伺服器\n復原已刪除</string>
   <!---->
   <string name="no_login_data_title">驗証失敗</string>
   <string name="no_login_data_message">如果您正在使用 OAuth 這可能是一項錯誤，請發送錯誤問題報告。如果用密碼登入 (不推薦)，請檢查是否輸入正確。</string>
@@ -69,15 +92,49 @@
   <string name="upload_limit_message">你已經過過目前的上傳量了，請稍等然後再次嘗試。</string>
   <string name="duplicate_tag_key_title">重覆的鍵</string>
   <string name="duplicate_tag_key_message">你新增下列鍵超過一次，請先解決再繼續下去：</string>
+  <string name="autodownload_has_been_paused">已經暫停自動下載</string>
   <!---->
   <string name="select_file_picker_title">選取檔案選取器</string>
   <!--Newbie dialog-->
   <string name="welcome_title">歡迎</string>
+  <string name="welcome_message">感謝你安裝 Vespucci。\n&lt;br&gt;&lt;br&gt; Vespucci 是相當強大的編輯開放街圖的工具。
+這工具幾乎能夠如同電腦版工具在手機上完成任何編輯，不過可能有一定程度的複雜度。
+這個裝置上與線上說明頁面會解答大部分問題，如果想尋求更多支援，則建議你在開放街圖社群論壇上發問。
+&lt;br&gt;&lt;br&gt; 要開啟附近的興趣點，你可以拖拉底部選單。
+&lt;/li&gt;&lt;/ul&gt;
+在下一頁你可以設定初始設定來讓你整個 Vespucci 的體驗更為順暢。
+</string>
   <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;你的裝置有\"虛擬鍵\"而且已經隱藏，從底部滑動會再次顯示。</string>
+  <string name="welcome_settings_tab_text">要改進你最初體驗，你可以馬上變動你的設定。
+你之後可以跳過這一步並且設定單獨的偏好設定。
+</string>
+  <string name="welcome_use_imagery_text">顯示目前位置\n的空照影像</string>
+  <string name="welcome_use_imagery_explanation">空照圖來源是由第三方提供，而且無法避免
+他們可以連接你目前的網路位址與連線位置。如果你有隱私考量
+不要選擇這選項，只要顯示標準開放街圖地圖為背景。
+</string>
+  <string name="welcome_auto_download_text">自動下載資料</string>
+  <string name="welcome_auto_download_explanation">自動下載開放街圖資料會有一定手機資料流量。
+    如果你有資料流量限制你可能不想要啟用，而是在走到特定地方再下載該地方的資料。
+</string>
+  <string name="welcome_pen_setup_text">觸控筆與滑鼠使用設定</string>
+  <string name="welcome_pen_setup_explanation">如果你用觸控筆、滑鼠或是其他觸控裝置，
+    請選擇這選項來讓編輯更為有效率。
+</string>
+  <string name="welcome_authorize_text">現在認證</string>
+  <string name="welcome_authorize_explanation">你需要認證 Vespucci 來上傳到你的開放街圖帳號。
+       如果你手邊有帳號與密碼的話，你可以透過這表單來自動進行。
+       如果不行的話則會在你第一次上傳編輯時自動進行。
+</string>
   <string name="read_introduction">閱讀介紹</string>
+  <string name="welcome_start">開始！</string>
   <!---->
   <string name="upgrade_title">歡迎使用 Vespucci 的新版本！</string>
   <string name="upgrade_message">新功能和行為會詳細記錄在發布通知。</string>
+  <string name="upgrade_message_oauth2">&lt;br&gt;&lt;br&gt;&lt;b&gt;重要&lt;/b&gt;&lt;br&gt; 從 2024 年 6 月開始，開放街圖 API 不再支援基本 (登入/密碼) 以及 OAuth 1.0a 認證。
+ &lt;br&gt;&lt;br&gt;If 你如果有帳號與密碼，你可能要調整 API 設定與重新認證，但你仍可以之後採用手動登入。
+</string>
+  <string name="migrate_now">現在遷移設定檔</string>
   <string name="read_upgrade">瞭解有關最新的版本</string>
   <string name="progress_title">載入</string>
   <string name="progress_message">載入資料到記憶體中…</string>
@@ -251,7 +308,12 @@
   <string name="track_points">軌跡節點</string>
   <string name="way_points">路徑節點</string>
   <!--Image information dialog-->
+  <string name="image_information_title">影像資訊</string>
+  <string name="created_by">由創建</string>
+  <string name="capture_date">拍攝日期</string>
   <string name="direction">方向</string>
+  <string name="file_size">大小</string>
+  <string name="file_size_kB">%1$d kB</string>
   <!--Too much data dialog-->
   <string name="too_much_data_title">載入太多資料了！</string>
   <string name="too_much_data_message">你載入 %1$d個節點而且已經超過設定限制，這會導致執行速度變慢，而且如果載入更多資料，有可能造成儲存時的可能問題。</string>
@@ -503,6 +565,7 @@
   <string name="tip_way_splitting">碰觸高亮度呈現的節點來決定分割位置，長按則會允許你選擇那個部分會在接下來的步驟成為新的路徑。</string>
   <string name="tip_closed_way_splitting">封閉路徑必須分割為兩部分，碰觸高度度呈現的節點來決定第一個分割位置，接下來則會詢問第二個位置。</string>
   <string name="tip_disambiguation_menu">當有多個 OSM 元素或其他物件相當靠近彼此，或是元素是關聯的成員，消歧義的選單就會出現。你可以從清單選擇精確的元素。&lt;p&gt; 如果已經有元素被選取則會高亮度顯示。</string>
+  <string name="tip_file_import">在運行 Android 10 或者之後版本的裝置上，你必須複製檔案才會有完整權限。複製的檔案位於  &lt;i&gt;Downloads/Vespucci/imports&lt;/i&gt;.，如果需要你可以刪除原檔只需要保留複製版本。</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -522,6 +585,7 @@
   <string name="toast_unable_to_persist_permissions">無法保留權限</string>
   <string name="toast_name_empty">選擇名稱</string>
   <string name="toast_url_empty">輸入 URL</string>
+  <string name="toast_url_config_file_placeholders">{proj} 與 {wkid} 替換只有在設定檔案有支援</string>
   <string name="toast_min_zoom">設定比最大值小的最小縮放比例</string>
   <string name="toast_tile_layer_exists">圖磚來源 %1$s有相同的網址</string>
   <string name="toast_styleable_layer_exists">%1$s的圖層已經存在</string>
@@ -707,6 +771,7 @@
   <string name="toast_updating_members">更新成員…</string>
   <string name="toast_error_loading_egm">錯誤載入 EGM %1$s</string>
   <string name="toast_querying_wms_server_failed">檢索 WMS 伺服器失敗：%1$s</string>
+  <string name="toast_note_not_found">沒有找到註解 #%1$d</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">MapSplit 資源必須設定最小和最大</string>
   <string name="error_pbf_no_version">PBF 檔案缺少版本資訊</string>
@@ -958,6 +1023,7 @@
   <string name="menu_orthogonalize">方角化</string>
   <string name="menu_straighten">拉直</string>
   <string name="menu_circulize">在圓週排列</string>
+  <string name="menu_create_circle">新建圓圈</string>
   <string name="menu_split_polygon">分割成多邊形</string>
   <string name="menu_unjoin_dissimilar">未連結相異物</string>
   <string name="menu_extract_segment">抽出片段</string>
@@ -988,6 +1054,7 @@
   <string name="menu_tools_import_data_style">匯入資料樣式…</string>
   <string name="menu_tools_load_keys">從檔案載入鍵...</string>
   <!---->
+  <string name="menu_modes">模式…</string>
   <string name="menu_simple_actions">簡易模式</string>
   <string name="menu_feedback">提供反饋</string>
   <string name="menu_preset_feedback">提供預設組合回饋</string>
@@ -1016,6 +1083,7 @@
   <string name="menu_layers_enable_bookmarkslayer">啟用書籤圖層</string>
   <string name="menu_layers_configure">設定...</string>
   <string name="menu_layers_background_align">對齊影像...</string>
+  <string name="wms_hint">%1$s [wms]</string>
   <!---->
   <string name="menu_tools_apply_local_offset">套用儲存的影像偏移值</string>
   <string name="menu_tools_background_contrast">對比</string>
@@ -1063,6 +1131,7 @@
   <string name="actionmode_nodeselect">節點已選取</string>
   <string name="actionmode_relationselect">已選取關係</string>
   <string name="actionmode_createpath">建立路徑</string>
+  <string name="actionmode_createpath_follow_way">跟隨的路線</string>
   <string name="actionmode_multiselect">多重選擇</string>
   <string name="actionmode_newnoteselect">選擇新的備註</string>
   <string name="actionmode_add_segment">加入片段</string>
@@ -1086,11 +1155,14 @@
   <string name="actionmode_restriction_split_via">分割 \"via\" 片段</string>
   <string name="actionmode_extract_segment_select">選擇片段</string>
   <string name="actionmode_extract_segment_set_tags">設定標籤</string>
+  <string name="actionmode_createpath_follow_way_select_end_node">選擇結束節點</string>
   <plurals name="actionmode_object_count">
     <item quantity="other">%1$d 物件</item>
   </plurals>
   <string name="actionmode_rotateway">旋轉路徑</string>
   <string name="menu_snap">拆斷</string>
+  <string name="menu_follow_way">跟隨的路線</string>
+  <string name="select_follow_way">選擇跟隨的路線</string>
   <!--Simple Action Mode-->
   <string name="menu_add_node">增加節點</string>
   <string name="simple_add_node">點螢幕位置</string>
@@ -1226,6 +1298,8 @@
   <string name="config_longStringLimit_title">長字串限制</string>
   <string name="config_longStringLimit_summary">在屬性編輯器中顯示編輯文字模式的限制</string>
   <string name="config_longStringLimit_current">%1$d</string>
+  <string name="config_zoomWithKeys_title">使用音量鍵來縮放</string>
+  <string name="config_zoomWithKeys_summary">允許使用音量鍵來放大與縮小。</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">資料和編輯設定</string>
   <string name="config_category_editing_summary">自動下載，儲存和通知設定</string>
@@ -1268,7 +1342,14 @@
   <string name="config_maxOffsetDistance_current">%1$d公尺</string>
   <string name="config_useImperialUnits_title">測量時顯示英制單位</string>
   <string name="config_useImperialUnits_summary">在慣用英制國家的地方，測量時顯示英制單位。</string>
+  <string name="config_minCircleNodes_title">圓圈的最小節點數字</string>
+  <string name="config_minCircleNodes_summary">畫圓圈所需要的最小節點數字。</string>
+  <string name="config_minCircleNodes_current">%1$d節點</string>
+  <string name="config_maxCircleSegment_title">圓圈片段的最大距離</string>
+  <string name="config_maxCircleSegment_summary">圓圈節點的最大距離。</string>
   <string name="config_maxCircleSegmentcurrent">%1$d公尺</string>
+  <string name="config_minCircleSegment_title">圓圈片段的最小長度</string>
+  <string name="config_minCircleSegment_summary">圓圈節點的最小距離。</string>
   <string name="config_minCircleSegmentcurrent">%1$d公尺</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">自動下載設定</string>
@@ -1282,6 +1363,9 @@
   <string name="config_autoPruneNodeLimit_title">自動修剪限制</string>
   <string name="config_autoPruneNodeLimit_summary">記憶體中的節點到了多少時，則會啟動修剪。</string>
   <string name="config_autoPruneNodeLimit_current">%1$d節點</string>
+  <string name="config_autoPruneBoundingBoxLimit_title">自動清理邊界框上限</string>
+  <string name="config_autoPruneBoundingBoxLimit_summary">當記憶體當中邊界框的數量達到會啟動清理。</string>
+  <string name="config_autoPruneBoundingBoxLimit_current">%1$d框</string>
   <string name="config_panAndZoomLimit_title">縮放限制</string>
   <string name="config_panAndZoomLimit_summary">平移和縮放自動下載的最小縮放程度。</string>
   <string name="config_panAndZoomLimit_current">%1$d</string>

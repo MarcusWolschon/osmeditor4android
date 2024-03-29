@@ -1,4 +1,4 @@
-_Before we start: most screens have links in the menu to the on-device help system giving you direct access to information relevant for the current context, you can easily navigate back to this text too. If you have a larger device, for example a tablet, you can open the help system in a separate split window.  All the help texts and more (FAQs, tutorials) can be found on the [Vespucci documentation site](https://vespucci.io/) too._
+_Başlamadan önce: çoğu ekranın menüsünde, mevcut bağlantılar ilgili bilgilere doğrudan erişmenizi sağlayan cihaz içi yardım sistemine bağlantılar bulunur ve bu metne de kolayca geri dönebilirsiniz. Tablet gibi daha büyük bir cihazınız varsa, yardım sistemini ayrı bir bölünmüş pencerede açabilirsiniz. Ayrıca tüm yardım metinleri ve daha fazlası (SSS'ler, eğitimler) [Vespucci dokümantasyon sitesi](https://vespucci.io/) adresinde bulunabilir._
 
 # Vespucci Giriş
 

@@ -21,7 +21,22 @@
   <string name="upload_conflict_title">Conflitto di caricamento</string>
   <string name="upload_conflict_message_version">Conflitto tra versioni</string>
   <string name="upload_conflict_message_deleted">%1$s \nha la versione locale %2$d \ne sul server è stato eliminato</string>
+  <string name="upload_conflict_message_referential">Elemento eliminato localmente ma ha riferimenti sul server</string>
+  <string name="upload_conflict_message_already_deleted">%1$s \nera già eliminato sul server, nuovo tentativo in corso</string>
+  <string name="upload_conflict_message_missing_references">L’elemento locale fa riferimento a oggetti che sono eliminati sul server</string>
   <string name="upload_conflict_message_unknown">%1$s \nha causato un conflitto di caricamento sconosciuto \n%2$s</string>
+  <string name="upload_conflict_message_changeset_closed">Gruppo di modifica chiuso inaspettatamente, nuovo tentativo in corso</string>
+  <string name="server_side_object">Versione server</string>
+  <string name="local_object">Versione locale</string>
+  <string name="resolve_by">Risolvi conflitto…</string>
+  <string name="resolve">Risolvi</string>
+  <string name="delete_refering_element">…eliminando l\'elemento che fa riferimento</string>
+  <string name="use_local_version">…usando la versione locale</string>
+  <string name="merge_tags_in_to_local">…unendo i tag nella versione locale</string>
+  <string name="merge_tags_in_to_server">…unendo i tag nella versione server</string>
+  <string name="use_server_version">…usando la versione server</string>
+  <string name="undoing_local_delete">..annullando l’eliminazione locale</string>
+  <string name="deleting_references_on_server">…eliminando i riferimenti sul server</string>
   <!---->
   <string name="no_login_data_title">Autenticazione fallita</string>
   <string name="no_login_data_message">Se stai usando OAuth questo è probabilmente un bug; per favore invia un report. Se stai usando nome utente e password (sconsigliato), controlla di averli inseriti correttamente.</string>
@@ -62,8 +77,13 @@
   <string name="file_write_failed_message">Vespucci non è riuscito a salvare il file</string>
   <string name="applying_osc_failed_title">Applicazione del file OSC fallita</string>
   <string name="applying_osc_failed_message">Molto probabilmente non hai caricato tutti i dati originali che sono richiesti per applicare i cambiamenti.</string>
+  <string name="download_limit_title">Superato il limite di scaricamento</string>
+  <string name="download_limit_message">Attendere prima di tentare di scaricare altri dati.</string>
+  <string name="upload_limit_title">Superato il limite di caricamento sul server</string>
+  <string name="upload_limit_message">Hai esaurito il limite attuale di caricamento dati sul server, attendi prima di tentare di nuovo.</string>
   <string name="duplicate_tag_key_title">Chiavi duplicate</string>
   <string name="duplicate_tag_key_message">Hai aggiunto la seguente chiave più di una volta, ciò deve essere risolto prima di procedere:</string>
+  <string name="autodownload_has_been_paused">Il caricamento automatico è stato sospeso.</string>
   <!---->
   <string name="select_file_picker_title">Scegli file</string>
   <!--Newbie dialog-->
@@ -247,7 +267,12 @@
   <!--GPX info dialog-->
   <string name="track_points">Punti della traccia</string>
   <!--Image information dialog-->
+  <string name="image_information_title">Informazioni immagine</string>
+  <string name="created_by">Creata da</string>
+  <string name="capture_date">Data di acquisizione</string>
   <string name="direction">Direzione</string>
+  <string name="file_size">Dimensioni</string>
+  <string name="file_size_kB">%1$d kB</string>
   <!--Too much data dialog-->
   <string name="too_much_data_title">Caricati troppi dati!</string>
   <string name="too_much_data_message">Hai caricato %1$d nodi e sei andato oltre il limite impostato. Questo causerà un rallentamento e, se carichi più dati, un potenziale problema con il salvataggio.</string>

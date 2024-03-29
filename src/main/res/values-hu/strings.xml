@@ -38,8 +38,12 @@
   <string name="use_server_version">... a szerverváltozatot használva</string>
   <string name="undoing_local_delete">... helyi törlés visszavonásával</string>
   <string name="deleting_references_on_server">... hivatkozások törlésével a szerveren</string>
+  <string name="unable_to_download_referring_element">Nem lehet letölteni a hivatkozó elemet: %1$s %2$d</string>
+  <string name="unable_to_download_referring_element_for_deletion">Nem lehet letölteni a hivatkozó elemet törlésre: %1$s %2$d</string>
+  <string name="unable_to_download_server_version">Nem lehet letölteni a szerveren lévő változatot: %1$s %2$d</string>
   <string name="unexpected_conflict_type">Váratlan konfliktustípus</string>
   <string name="missing_referenced_elements">Hiányzó hivatkozott elemek</string>
+  <string name="still_in_use_by_elements">Egyes elemek továbbra is használják</string>
   <string name="delete_locally">Törlés\nhelyben</string>
   <string name="undelete_on_server">Törlés visszavonása\na szerveren</string>
   <!---->
@@ -93,17 +97,37 @@
   <string name="select_file_picker_title">Fájlkereső kiválasztása</string>
   <!--Newbie dialog-->
   <string name="welcome_title">Üdvözöljük</string>
+  <string name="welcome_message">Köszönjük, hogy telepítetted a Vespucci-t.\n&lt;br&gt;&lt;br&gt;A Vespucci hatékony OpenStreetMap szerkesztő.
+Mobilon szinte mindent támogat, amit egy asztali szerkesztővel el lehet végezni, ez azonban bizonyos fokú komplexitással jár. 
+Az eszközön vagy online található súgóoldalak a legtöbb kérdésre választ adnak, ha további támogatásra van szükséged, javasoljuk, hogy kérdezz az Openstreetmaps közösségi fórumán.
+&lt;br&gt;&lt;br&gt;A kezdéshez három dolgot kell tudnod:
+&lt;ul&gt;&lt;li&gt;A bal felső sarokban lévő zár ikon megérintésével válthatsz a zárolt (nem szerkeszthető) és a feloldott mód között.
+&lt;/li&gt;&lt;li&gt;új objektum hozzáadásához (i) koppints a nagy zöld gombra, és (ii) válaszd ki a menüből, hogy mit szeretnél hozzáadni, majd (iii) koppints arra a pozícióra, ahová el szeretnéd helyezni.
+&lt;/li&gt;&lt;li&gt;a közeli érdekes pontok (POI) kijelzőjének megnyitásához húzd felfelé az alsó menüsor feletti fogantyút.
+&lt;/li&gt;&lt;/ul&gt;
+A következő oldalon megadhatsz néhány kezdő beállítást, amelyek kellemesebbé teszik az utazást a Vespuccival.
+</string>
   <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;Az eszköze rendelkezik „szoftveres gombokkal”, melyek nem láthatóak. Húzza fel őket lentről a megjelenítésükhöz.</string>
+  <string name="welcome_settings_tab_text">A kezdeti élmény javítása érdekében néhány opciót már most beállíthatsz, 
+ezt a lépést kihagyhatod, és ha szeretnéd, később is megadhatod az egyéni beállításokat.</string>
   <string name="welcome_use_imagery_text">Légifelvételek megjelenítése\a jelenlegi tartózkodási helyről</string>
+  <string name="welcome_use_imagery_explanation">A légi felvételeket harmadik felek biztosítják, és elkerülhetetlen, hogy hozzáférjenek az aktuális hálózati címedhez és a megtekintett helyhez. Ha adatvédelmi aggályaid vannak, ne válaszd ki ezt a lehetőséget, így háttérként a szabványos OpenStreetMap térképet fogjuk megjeleníteni.</string>
   <string name="welcome_auto_download_text">Automatikusan töltse le az adatokat</string>
   <string name="welcome_auto_download_explanation">\"Az OpenStreetMap-adatok automatikus letöltése jelentős mobilforgalmat okozhat.
         Ha díjköteles kapcsolatot használ, akkor inkább ne engedélyezze ezt a funkciót, és kézzel töltse le az adatokat arra a területre, amelyen dolgozni szeretne.
     </string>
   <string name="welcome_pen_setup_text">Toll- vagy egérhasználatra való beállítás</string>
+  <string name="welcome_pen_setup_explanation">Ha tollat, egeret vagy más mutatóeszközt használsz, ennek a beállításnak a kiválasztása hatékonyabbá teszi a szerkesztést.</string>
+  <string name="welcome_authorize_text">Engedélyezés most</string>
+  <string name="welcome_authorize_explanation">Engedélyezned kell a Vespuccinak, hogy a fiókodba fel tudja tölteni a szerkesztéseidet. Ha rendelkezel bejelentkezési adatokkal és jelszóval, akkor ezt automatikusan elindíthatod, amint kitöltötted ezt az űrlapot, egyébként a folyamat az első szerkesztés feltöltésekor indul el automatikusan.</string>
   <string name="read_introduction">Olvassa el a bevezetést</string>
+  <string name="welcome_start">Start!</string>
   <!---->
   <string name="upgrade_title">Ez a Vespucci új verziója</string>
   <string name="upgrade_message">Az új funkciók és viselkedések a kiadási megjegyzésekben vannak részletezve.</string>
+  <string name="upgrade_message_oauth2">&lt;br&gt;&lt;br&gt;&lt;b&gt;Fontos&lt;/b&gt;&lt;br&gt;2024 júniusától az OpenStreetMap API már nem támogatja a Basic (bejelentkezés/jelszó) és az OAuth 1.0a engedélyezést. 
+&lt;br&gt;&lt;br&gt;Ha rendelkezésedre áll a felhasználóneved és a jelszavad, akkor érdemes lenne most áttelepíteni az API-konfigurációt és újraengedélyezni, de később bármikor megteheti manuálisan is.</string>
+  <string name="migrate_now">Konfiguráció áttelepítése most</string>
   <string name="read_upgrade">Olvasson az új verzióról</string>
   <string name="progress_title">Betöltés</string>
   <string name="progress_message">Adatok betöltése a memóriába…</string>
@@ -272,13 +296,19 @@
   <string name="total">Összesen</string>
   <string name="changed">Módosult</string>
   <string name="ways">Vonalak</string>
+  <string name="bounding_boxes">Határolókeretek</string>
   <!--Tile layer info dialog-->
   <string name="attribution">Attribútum</string>
   <!--GPX info dialog-->
   <string name="track_points">Nyomvonalpontok</string>
   <string name="way_points">Vonalpontok</string>
   <!--Image information dialog-->
+  <string name="image_information_title">Kép adatai</string>
+  <string name="created_by">Létrehozta:</string>
+  <string name="capture_date">Rögzítés dátuma</string>
   <string name="direction">Irány</string>
+  <string name="file_size">Méret</string>
+  <string name="file_size_kB">%1$d kB</string>
   <!--Too much data dialog-->
   <string name="too_much_data_title">Túl sok adat van betöltve!</string>
   <string name="too_much_data_message">%1$d csomópont van betöltve, ami túllépte a beállított korlátot. Ez lassulást okoz, ha pedig még több adatot ad hozzá, az esetleges mentési problémákhoz vezethet.</string>
@@ -531,6 +561,7 @@ elemek megkövetelése</string>
   <string name="tip_way_splitting">Érintsen meg egy kiemelt pontot az elvágás helyének meghatározásához. Hosszú érintéssel kijelölheti, hogy egy következő lépésben melyik részt használja az új vonalhoz.</string>
   <string name="tip_closed_way_splitting">Zárt vonalat két helyen kell elvágni. Érintsen meg egy kiemelt pontot az első elvágási pozíció meghatározásához, a következő lépésben pedig az alkalmazás fel fogja kérni, hogy jelölje ki a második pozíciót.</string>
   <string name="tip_disambiguation_menu">Ha több OSM-elem vagy más objektum nagyon közel van egymáshoz, vagy ha az elemek kapcsolatok tagjai, akkor megjelenik az egyértelműsítő menü. Ezután kiválaszthatja az adott elemet a listából.&lt;p&gt;Ha egy elem már ki van jelölve, akkor az ki lesz emelve.</string>
+  <string name="tip_file_import">Az Android 10 vagy újabb verziót futtató eszközökön szükségünk van a fájlok másolására ahhoz, hogy teljes mértékben hozzájuk férhessünk. A másolatok a <i>Downloads/Vespucci/imports</i> alatt találhatók. Szükség esetén törölheted az eredetit, és megőrizheted a másolatokat.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">–</string>
@@ -551,6 +582,7 @@ elemek megkövetelése</string>
   <string name="toast_unable_to_persist_permissions">Nem lehet fenntartani az engedélyeket</string>
   <string name="toast_name_empty">Válasszon egy nevet</string>
   <string name="toast_url_empty">Adjon meg egy URL-t</string>
+  <string name="toast_url_config_file_placeholders">A {proj} és {wkid} helyőrzőket csak a konfigurációs fájlok támogatják.</string>
   <string name="toast_min_zoom">Alacsonyabbra állítja a legkisebb nagyítási szintet, mint a maximum</string>
   <string name="toast_tile_layer_exists">%1$s csempeforrás URL-je ugyanez</string>
   <string name="toast_styleable_layer_exists">%1$s: a réteg létezik</string>
@@ -739,6 +771,7 @@ elemek megkövetelése</string>
   <string name="toast_updating_members">Tagok frissítése…</string>
   <string name="toast_error_loading_egm">Hiba történt az EGM %1$s betöltésénél</string>
   <string name="toast_querying_wms_server_failed">Nem sikerült a WMS-kiszolgálóról történő lekérdezés: %1$s</string>
+  <string name="toast_note_not_found">Nem sikerült megtalálni a #%1$d jegyzetet</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">A MapSplit forrásoknál meg kell adni a legkisebb és legnagyobb nagyítást</string>
   <string name="error_pbf_no_version">A verzióinformációk hiányoznak a PBF-fájlban</string>
@@ -989,6 +1022,7 @@ elemek megkövetelése</string>
   <string name="menu_orthogonalize">Derékszögesítés</string>
   <string name="menu_straighten">Kiegyenesítés</string>
   <string name="menu_circulize">Elrendezés kör alakban</string>
+  <string name="menu_create_circle">Kör létrehozása</string>
   <string name="menu_split_polygon">Szétvágás sokszögekre</string>
   <string name="menu_unjoin_dissimilar">Nem hasonlók szétválasztása</string>
   <string name="menu_extract_segment">Szakasz kiemelése</string>
@@ -1019,6 +1053,7 @@ elemek megkövetelése</string>
   <string name="menu_tools_import_data_style">Adatstílus importálása…</string>
   <string name="menu_tools_load_keys">Kulcsok betöltése fájlból…</string>
   <!---->
+  <string name="menu_modes">Módok…</string>
   <string name="menu_simple_actions">Egyszerű mód</string>
   <string name="menu_feedback">Visszajelzés küldése</string>
   <string name="menu_preset_feedback">Visszajelzés küldése előbeállításról</string>
@@ -1047,6 +1082,7 @@ elemek megkövetelése</string>
   <string name="menu_layers_enable_bookmarkslayer">Könyvjelző réteg be/ki kapcsolása</string>
   <string name="menu_layers_configure">Beállítás…</string>
   <string name="menu_layers_background_align">Légi felvétel igazítása…</string>
+  <string name="wms_hint">%1$s [wms]</string>
   <!---->
   <string name="menu_tools_apply_local_offset">Tárolt eltolás alkalmazása a légifelvételekre</string>
   <string name="menu_tools_background_contrast">Kontraszt</string>
@@ -1094,6 +1130,7 @@ elemek megkövetelése</string>
   <string name="actionmode_nodeselect">Pont kijelölve</string>
   <string name="actionmode_relationselect">Kapcsolat kijelölve</string>
   <string name="actionmode_createpath">Vonal készítése</string>
+  <string name="actionmode_createpath_follow_way">Vonal követése</string>
   <string name="actionmode_multiselect">Többszörös kijelölés</string>
   <string name="actionmode_newnoteselect">Új jegyzet kijelölve</string>
   <string name="actionmode_add_segment">Szakasz hozzáadása</string>
@@ -1117,12 +1154,15 @@ elemek megkövetelése</string>
   <string name="actionmode_restriction_split_via">„via” szakasz szétvágása</string>
   <string name="actionmode_extract_segment_select">Szakasz kijelölése</string>
   <string name="actionmode_extract_segment_set_tags">Címkék megadása</string>
+  <string name="actionmode_createpath_follow_way_select_end_node">Utolsó pont kijelölése</string>
   <plurals name="actionmode_object_count">
     <item quantity="one">1 objektum</item>
     <item quantity="other">%1$d objektum</item>
   </plurals>
   <string name="actionmode_rotateway">Vonal forgatása</string>
   <string name="menu_snap">Illesztés</string>
+  <string name="menu_follow_way">Vonal követése</string>
+  <string name="select_follow_way">Követendő vonal kijelölése</string>
   <!--Simple Action Mode-->
   <string name="menu_add_node">Pont hozzáadása</string>
   <string name="simple_add_node">Koppintson a pozíció megadásához</string>
@@ -1221,6 +1261,7 @@ elemek megkövetelése</string>
   <string name="config_splitActionBarEnabled_summary">A képernyő alján lévő menügombok megjelenítése. A Vespucci újraindítása és Android 4.0 vagy újabb verziószám szükséges.</string>
   <string name="config_appLocale_title">Alkalmazás nyelve</string>
   <string name="config_appLocale_summary">Nem standard alkalmazásnyelv kiválasztása</string>
+  <string name="config_appLocale_device_language">Eszköz nyelve</string>
   <string name="config_maxInlineValues_title">A soron belüli értékek maximális száma</string>
   <string name="config_maxInlineValues_summary">A soron belül megjelenített értékek maximális száma a címkeűrlapon.</string>
   <string name="config_maxInlineValues_current">%1$d érték</string>
@@ -1257,6 +1298,8 @@ elemek megkövetelése</string>
   <string name="config_longStringLimit_title">Hosszú karakterlánc korlátja</string>
   <string name="config_longStringLimit_summary">Korlátozás, amelytől kezdve megjelenik egy módosító a tulajdonságszerkesztőben</string>
   <string name="config_longStringLimit_current">%1$d</string>
+  <string name="config_zoomWithKeys_title">Hangerőgombok használata nagyításhoz</string>
+  <string name="config_zoomWithKeys_summary">Lehetővé teszi a hangerőgombok használatát a nagyításhoz és kicsinyítéshez.</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Adat- és szerkesztési beállítások</string>
   <string name="config_category_editing_summary">Automatikus letöltési, mentési és értesítési beállítások.</string>
@@ -1299,7 +1342,14 @@ elemek megkövetelése</string>
   <string name="config_maxOffsetDistance_current">%1$d méter</string>
   <string name="config_useImperialUnits_title">Angolszász mértékegységes használata a mérésekhez</string>
   <string name="config_useImperialUnits_summary">Angolszász mértékegységek használata, amikor olyan országokban mér, ahol ezeket szokás használni.</string>
+  <string name="config_minCircleNodes_title">Kört alkotó pontok legkisebb száma</string>
+  <string name="config_minCircleNodes_summary">Azon pontok legkisebb száma, amelyekből egy kör jön létre.</string>
+  <string name="config_minCircleNodes_current">%1$d pont</string>
+  <string name="config_maxCircleSegment_title">Körszakasz legnagyobb hossza</string>
+  <string name="config_maxCircleSegment_summary">A kört alkotó szomszédos pontok közötti legnagyobb távolság.</string>
   <string name="config_maxCircleSegmentcurrent">%1$d méter</string>
+  <string name="config_minCircleSegment_title">Körszakasz legkisebb hossza</string>
+  <string name="config_minCircleSegment_summary">A kört alkotó szomszédos pontok közötti legkisebb távolság.</string>
   <string name="config_minCircleSegmentcurrent">%1$d méter</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Beállítások automatikus letöltése</string>
@@ -1313,6 +1363,9 @@ elemek megkövetelése</string>
   <string name="config_autoPruneNodeLimit_title">Automatikus tisztogatás határa</string>
   <string name="config_autoPruneNodeLimit_summary">A memóriában lévő pontok száma, amelynek az elérése tisztogatást vált ki.</string>
   <string name="config_autoPruneNodeLimit_current">%1$d pont</string>
+  <string name="config_autoPruneBoundingBoxLimit_title">Határolókeretek automatikus tisztítása</string>
+  <string name="config_autoPruneBoundingBoxLimit_summary">A memóriában lévő határolókeretek azon száma, amelynek az elérése tisztítást vált ki.</string>
+  <string name="config_autoPruneBoundingBoxLimit_current">%1$d keret</string>
   <string name="config_panAndZoomLimit_title">Nagyítási határ</string>
   <string name="config_panAndZoomLimit_summary">A pásztázással és nagyítással történő automatikus letöltés legkisebb nagyítási szintje</string>
   <string name="config_panAndZoomLimit_current">%1$d</string>

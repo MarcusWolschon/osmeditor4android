@@ -22,7 +22,30 @@
   <string name="upload_conflict_title">Konflikt nahrávání</string>
   <string name="upload_conflict_message_version">Konflikt verzí</string>
   <string name="upload_conflict_message_deleted">%1$s \nmá lokální verzi %2$d \na na serveru je smazán</string>
+  <string name="upload_conflict_message_referential">Prvek byl smazán lokálně, ale má odkazy na serveru</string>
+  <string name="upload_conflict_message_already_deleted">%1$s \nje již na serveru smazán, opakuji pokus</string>
+  <string name="upload_conflict_message_missing_references">Lokální prvek odkazuje na objekty, které jsou odstraněny na serveru</string>
   <string name="upload_conflict_message_unknown">%1$s \nzpůsobil neznámý konflikt nahrávání \n%2$s</string>
+  <string name="upload_conflict_message_changeset_closed">Sada změn neočekávaně uzavřena, opakuji pokus</string>
+  <string name="server_side_object">Serverová verze</string>
+  <string name="local_object">Lokální verze</string>
+  <string name="resolve_by">Vyřešit konflikt pomocí…</string>
+  <string name="resolve">Vyřešit</string>
+  <string name="delete_refering_element">… odstraněním odkazujícího prvku</string>
+  <string name="use_local_version">… pomocí lokální verze</string>
+  <string name="merge_tags_in_to_local">… sloučením tagů do lokální verze</string>
+  <string name="merge_tags_in_to_server">… sloučením tagů do serverové verze</string>
+  <string name="use_server_version">… pomocí serverové verze</string>
+  <string name="undoing_local_delete">… zrušení lokálního mazání</string>
+  <string name="deleting_references_on_server">… mazání odkazů na server</string>
+  <string name="unable_to_download_referring_element">Nelze stáhnout odkazující prvek %1$s %2$d</string>
+  <string name="unable_to_download_referring_element_for_deletion">Nelze stáhnout odkazující prvek pro smazání %1$s %2$d</string>
+  <string name="unable_to_download_server_version">Nelze stáhnout serverovou verzi %1$s %2$d</string>
+  <string name="unexpected_conflict_type">Neočekávaný typ konfliktu </string>
+  <string name="missing_referenced_elements">Chybějící odkazované prvky</string>
+  <string name="still_in_use_by_elements">Stále používán prvky</string>
+  <string name="delete_locally">Smazat\nlokálně</string>
+  <string name="undelete_on_server">Obnovit\nna serveru</string>
   <!---->
   <string name="no_login_data_title">Nelze ověřit</string>
   <string name="no_login_data_message">Pokud používáte OAuth, je to pravděpodobně chyba, pošlete prosím zprávu o problému, pokud používáte přihlašovací jméno a heslo (nedoporučujeme), zkontrolujte, zda jsou zadány správně.</string>
@@ -69,15 +92,52 @@
   <string name="upload_limit_message">Vyčerpal jste svůj aktuální povolený limit pro nahrávání, prosím, počkejte před dalším pokusem.</string>
   <string name="duplicate_tag_key_title">Duplicitní klíče</string>
   <string name="duplicate_tag_key_message">Přidali jste následující klíč více než jednou, než budete moci pokračovat, budete muset vyřešit:</string>
+  <string name="autodownload_has_been_paused">Automatické stahování bylo pozastaveno.</string>
   <!---->
   <string name="select_file_picker_title">Vyberte soubor pro výběr</string>
   <!--Newbie dialog-->
   <string name="welcome_title">Vítejte</string>
+  <string name="welcome_message">Děkujeme, že používáte Vespucci.\n&lt;br&gt;&lt;br&gt;Vespucci je výkonný nástroj pro úpravy OpenStreetMap.
+        Podporuje téměř vše na mobilu, čeho můžete dosáhnout pomocí editoru pro stolní počítače, což však přichází s určitou úrovní složitosti.
+        Stránky nápovědy na zařízení nebo online odpoví na většinu otázek, pokud potřebujete další podporu, doporučujeme se zeptat na komunitním fóru Openstreetmaps.
+        &lt;br&gt;&lt;br&gt;Abyste mohli začít, musíte vědět tři věci:
+        &lt;ul&gt;&lt;li&gt;klepnutím na ikonu zámku v levém horním rohu přepnete mezi zamčeným (bez úprav) a odemčeným režimem.
+        &lt;/li&gt;&lt;li&gt;pro přidání nového objektu: klepněte na velké zelené tlačítko a zvolte, co chcete přidat z nabídky, poté klepnutím určete pozici na mapě.
+        &lt;/li&gt;&lt;li&gt;Chcete-li otevřít zobrazení blízkého místa zájmu, přetáhněte úchyt nad spodní lištou nabídky nahoru.
+        &lt;/li&gt;&lt;/ul&gt;
+        Na další stránce můžete nastavit některé počáteční preference, které vám cestu s Vespucci zpříjemní.
+    </string>
   <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;Používáte zařízení se skrytými softwarovými tlačítky. Zobrazíte je gestem od spodního okraje.</string>
+  <string name="welcome_settings_tab_text">Abychom zlepšili vaši počáteční zkušenost, můžeme hned teď nakonfigurovat některé možnosti,
+        pokud chcete, můžete tento krok přeskočit a nastavit individuální preference později.
+    </string>
+  <string name="welcome_use_imagery_text">Zobrazit letecké snímky\npro vaši aktuální lokaci</string>
+  <string name="welcome_use_imagery_explanation">Zdroje leteckých snímků poskytují třetí strany a je nevyhnutelné,
+        že mají přístup k vaší aktuální síťové adrese a umístění, které si prohlížíte. Pokud máte obavy o soukromí, nevybírejte
+        toto a jako pozadí zobrazíme standardní mapu OpenStreetMap.
+    </string>
+  <string name="welcome_auto_download_text">Automaticky stahovat data</string>
+  <string name="welcome_auto_download_explanation">\"Automatické stahování dat OpenStreetMap může způsobit značný mobilní provoz.
+        Pokud používáte měřené připojení, možná raději nepovolíte toto a ručně stáhnete data pro oblast, ve které chcete pracovat.
+    </string>
+  <string name="welcome_pen_setup_text">Konfigurace pro použití pera nebo myši</string>
+  <string name="welcome_pen_setup_explanation">Pokud používáte pero, myš nebo jiné polohovací zařízení,
+        výběrem této možnosti budou úpravy efektivnější.
+    </string>
+  <string name="welcome_authorize_text">Autorizovat nyní</string>
+  <string name="welcome_authorize_explanation">Musíte povolit Vespucci k nahrávání na váš účet OpenStreetMap.
+        Pokud máte své přihlašovací jméno a heslo po ruce, můžete to spustit automaticky po vyplnění tohoto formuláře,
+        jinak se proces spustí automaticky při prvním nahrání úprav.
+    </string>
   <string name="read_introduction">Přečíst si úvod</string>
+  <string name="welcome_start">Začít!</string>
   <!---->
   <string name="upgrade_title">Toto je nová verze Vespucci</string>
   <string name="upgrade_message">Nové funkce a chování jsou popsány v poznámkách k vydání.</string>
+  <string name="upgrade_message_oauth2">&lt;br&gt;&lt;br&gt;&lt;b&gt;Důležité&lt;/b&gt;&lt;br&gt;Od června 2024 již rozhraní OpenStreetMap API nebude podporovat Basic (přihlašovací jméno/heslo) a autorizaci OAuth 1.0a.
+        &lt;br&gt;&lt;br&gt;Pokud máte své přihlašovací jméno a heslo k dispozici, bylo by vhodné migrovat konfiguraci rozhraní API a znovu provést autorizaci nyní, ale můžete to kdykoli provést ručně.
+    </string>
+  <string name="migrate_now">Migrovat konfiguraci nyní</string>
   <string name="read_upgrade">Informace o nové verzi</string>
   <string name="progress_title">Načítám</string>
   <string name="progress_message">Načítam data do paměti…</string>
@@ -257,7 +317,12 @@
   <string name="track_points">Body trasy</string>
   <string name="way_points">Body cesty</string>
   <!--Image information dialog-->
+  <string name="image_information_title">Informace o obrázku</string>
+  <string name="created_by">Vytvořil</string>
+  <string name="capture_date">Datum pořízení</string>
   <string name="direction">Směr</string>
+  <string name="file_size">Velikost</string>
+  <string name="file_size_kB">%1$d kB</string>
   <!--Too much data dialog-->
   <string name="too_much_data_title">Načteno příliš mnoho dat!</string>
   <string name="too_much_data_message">Máte načtené %1$d uzly a překročili jste nastavený limit. To povede ke zpomalení, a pokud přidáte další data, k potenciálním problémům s uložením stavu.</string>
@@ -509,6 +574,7 @@
   <string name="tip_way_splitting">Klepnutím na zvýrazněný uzel určete polohu rozdělení. Dlouhý dotyk vám umožní v dalším kroku vybrat, která část se použije pro nový způsob.</string>
   <string name="tip_closed_way_splitting">Uzavřená cesta musí být rozdělena na dvě místa. Dotkněte se zvýrazněného uzlu pro určení 1. pozice rozdělení, v dalším kroku budete požádáni o výběr 2. pozice.</string>
   <string name="tip_disambiguation_menu">Pokud je více prvků OSM nebo jiných objektů velmi blízko u sebe nebo jsou prvky členy relací, zobrazí se nabídka disambiguace. Poté můžete vybrat konkrétní prvek ze seznamu.&lt;p&gt;Pokud je prvek aktuálně vybrán, bude zvýrazněn.</string>
+  <string name="tip_file_import">Na zařízeních se systémem Android 10 nebo novějším musíme zkopírovat soubory, abychom k nim měli úplný přístup. Kopie jsou umístěny v &lt;i&gt;Downloads/Vespucci/imports&lt;/i&gt;. V případě potřeby můžete odstranit originály a ponechat si pouze kopie.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -531,6 +597,7 @@
   <string name="toast_unable_to_persist_permissions">Nelze zachovat oprávnění</string>
   <string name="toast_name_empty">Zvolte název</string>
   <string name="toast_url_empty">Zadejte URL</string>
+  <string name="toast_url_config_file_placeholders">Zástupné symboly {proj} a {wkid} jsou podporovány pouze v konfiguračních souborech</string>
   <string name="toast_min_zoom">Minimální přiblížení nastavte menší než maximální</string>
   <string name="toast_tile_layer_exists">Zdroj dlaždic %1$s má stejnou url</string>
   <string name="toast_styleable_layer_exists">Vrstva pro %1$s existuje</string>
@@ -725,6 +792,7 @@
   <string name="toast_updating_members">Aktualizace členů…</string>
   <string name="toast_error_loading_egm">Chyba při načítání EGM %1$s</string>
   <string name="toast_querying_wms_server_failed">Dotaz na server WMS se nezdařil: %1$s</string>
+  <string name="toast_note_not_found">Poznámka #%1$d nenalezena</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">Zdroje MapSplit musí mít nastaveno minimální a maximální zvětšení</string>
   <string name="error_pbf_no_version">V souboru PBF chybí informace o verzi</string>
@@ -975,6 +1043,7 @@
   <string name="menu_orthogonalize">Zpravoúhlit</string>
   <string name="menu_straighten">Napřímit</string>
   <string name="menu_circulize">Uspořádat do kruhu</string>
+  <string name="menu_create_circle">Vytvořit kruh</string>
   <string name="menu_split_polygon">Rozdělit na dvě plochy</string>
   <string name="menu_unjoin_dissimilar">Rozpojit odlišné</string>
   <string name="menu_extract_segment">Vyjmout segment</string>
@@ -1005,6 +1074,7 @@
   <string name="menu_tools_import_data_style">Nahrát styl dat…</string>
   <string name="menu_tools_load_keys">Načíst klíče ze souboru…</string>
   <!---->
+  <string name="menu_modes">Režimy…</string>
   <string name="menu_simple_actions">Jednoduchý režim</string>
   <string name="menu_feedback">Zpětná vazba</string>
   <string name="menu_preset_feedback">Zpětná vazba k předvolbám</string>
@@ -1033,6 +1103,7 @@
   <string name="menu_layers_enable_bookmarkslayer">Povolit vrstvu záložek</string>
   <string name="menu_layers_configure">Nastavit…</string>
   <string name="menu_layers_background_align">Zarovnat snímky…</string>
+  <string name="wms_hint">%1$s [wms]</string>
   <!---->
   <string name="menu_tools_apply_local_offset">Použít uložený ofset na snímky</string>
   <string name="menu_tools_background_contrast">Kontrast</string>
@@ -1080,6 +1151,7 @@
   <string name="actionmode_nodeselect">Uzel vybrán</string>
   <string name="actionmode_relationselect">Relace vybrána</string>
   <string name="actionmode_createpath">Nová cesta</string>
+  <string name="actionmode_createpath_follow_way">Sledovat cestu</string>
   <string name="actionmode_multiselect">Multiselect</string>
   <string name="actionmode_newnoteselect">Nová poznámka vybrána</string>
   <string name="actionmode_add_segment">Přidat segment</string>
@@ -1103,6 +1175,7 @@
   <string name="actionmode_restriction_split_via">Rozdělit segment „přes“</string>
   <string name="actionmode_extract_segment_select">Vybrat segment</string>
   <string name="actionmode_extract_segment_set_tags">Nastavit tagy</string>
+  <string name="actionmode_createpath_follow_way_select_end_node">Zvolit koncový bod</string>
   <plurals name="actionmode_object_count">
     <item quantity="one">1 objekt</item>
     <item quantity="few">%1$d objekty</item>
@@ -1111,6 +1184,8 @@
   </plurals>
   <string name="actionmode_rotateway">Otočit cestu</string>
   <string name="menu_snap">Přichytit</string>
+  <string name="menu_follow_way">Sledovat cestu</string>
+  <string name="select_follow_way">Zvolit cesty ke sledování</string>
   <!--Simple Action Mode-->
   <string name="menu_add_node">Přidat uzel</string>
   <string name="simple_add_node">Zvolte pozici na mapě</string>
@@ -1246,6 +1321,8 @@
   <string name="config_longStringLimit_title">Limit dlouhého řetězce</string>
   <string name="config_longStringLimit_summary">Limit, ze kterého se má zobrazit modal pro úpravu textu v editoru vlastností</string>
   <string name="config_longStringLimit_current">%1$d</string>
+  <string name="config_zoomWithKeys_title">Používat tlačítka hlasitosti pro přiblížení</string>
+  <string name="config_zoomWithKeys_summary">Povolit použití tlačítek hlasitosti pro přiblížení a oddálení.</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Nastavení dat a úprav</string>
   <string name="config_category_editing_summary">Nastavení automatického stahování, ukládání a notifikací.</string>
@@ -1288,7 +1365,14 @@
   <string name="config_maxOffsetDistance_current">%1$d m</string>
   <string name="config_useImperialUnits_title">Použít k měření imperiální jednotky</string>
   <string name="config_useImperialUnits_summary">Použít imperiální jednotky při měření v zemích, které je běžně používají.</string>
+  <string name="config_minCircleNodes_title">Minimální počet uzlů v kruhu</string>
+  <string name="config_minCircleNodes_summary">Minimální počet uzlů, který má být v kruhu zaměřen.</string>
+  <string name="config_minCircleNodes_current">%1$d uzlů</string>
+  <string name="config_maxCircleSegment_title">Maximální délka segmentu kruhu</string>
+  <string name="config_maxCircleSegment_summary">Maximální vzdálenost mezi dvěma uzly kruhu.</string>
   <string name="config_maxCircleSegmentcurrent">%1$d m</string>
+  <string name="config_minCircleSegment_title">Minimální délka segmentu kruhu</string>
+  <string name="config_minCircleSegment_summary">Minimální vzdálenost mezi dvěma uzly kruhu.</string>
   <string name="config_minCircleSegmentcurrent">%1$d m</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Nastavení automatického stahování</string>
@@ -1302,6 +1386,9 @@
   <string name="config_autoPruneNodeLimit_title">Limit automatického čištění</string>
   <string name="config_autoPruneNodeLimit_summary">Maximální počet uzlů v paměti, při překročení dojde k pročištění.</string>
   <string name="config_autoPruneNodeLimit_current">%1$d Uzlů</string>
+  <string name="config_autoPruneBoundingBoxLimit_title">Limit automatického čištění ohraničujících rámečků</string>
+  <string name="config_autoPruneBoundingBoxLimit_summary">Maximální počet ohraničujících rámečků v paměti, při překročení dojde k pročištění.</string>
+  <string name="config_autoPruneBoundingBoxLimit_current">%1$d rámečků</string>
   <string name="config_panAndZoomLimit_title">Limit přiblížení</string>
   <string name="config_panAndZoomLimit_summary">Minimální úroveň přiblížení pro automatické stahování a přiblížení.</string>
   <string name="config_panAndZoomLimit_current">%1$d</string>

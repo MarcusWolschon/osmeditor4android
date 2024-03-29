@@ -22,7 +22,30 @@
   <string name="upload_conflict_title">Конфлікт надсилання</string>
   <string name="upload_conflict_message_version">Конфлікт версій</string>
   <string name="upload_conflict_message_deleted">%1$s \nмає локальну версію %2$d \nта вилучено на сервері</string>
+  <string name="upload_conflict_message_referential">Елемент вилучено локально але має посилання на сервері</string>
+  <string name="upload_conflict_message_already_deleted">%1$s \nвже видалено на сервері, повторна спроба</string>
+  <string name="upload_conflict_message_missing_references">Локальний елемент посилається на об\'єкти, які видалені на сервері</string>
   <string name="upload_conflict_message_unknown">%1$s \nспричинено невідомою помилкою під час надсилання даних \n%2$s</string>
+  <string name="upload_conflict_message_changeset_closed">Зміни несподівано закриті, повторюється спроба</string>
+  <string name="server_side_object">Версія сервера</string>
+  <string name="local_object">Локальна версія</string>
+  <string name="resolve_by">Вирішити конфлікт шляхом…</string>
+  <string name="resolve">Вирішити</string>
+  <string name="delete_refering_element">... видаливши елемент посилання</string>
+  <string name="use_local_version">… за допомогою локальної версії</string>
+  <string name="merge_tags_in_to_local">… об\'єднання тегів у локальну версію</string>
+  <string name="merge_tags_in_to_server">… об\'єднання тегів у версію сервера</string>
+  <string name="use_server_version">… використовуючи серверну версію</string>
+  <string name="undoing_local_delete">… відміна локального видалення</string>
+  <string name="deleting_references_on_server">… видалення посилань на сервері</string>
+  <string name="unable_to_download_referring_element">Неможливо завантажити посилання на елемент %1$s %2$d</string>
+  <string name="unable_to_download_referring_element_for_deletion">Неможливо завантажити зазначений елемент для видалення %1$s %2$d</string>
+  <string name="unable_to_download_server_version">Не вдалося завантажити версію сервера %1$s %2$d</string>
+  <string name="unexpected_conflict_type">Несподіваний тип конфлікту</string>
+  <string name="missing_referenced_elements">Відсутні елементи посилань</string>
+  <string name="still_in_use_by_elements">Ще використовується елементами</string>
+  <string name="delete_locally">Видалити\nлокально</string>
+  <string name="undelete_on_server">Відновити\nна сервері</string>
   <!---->
   <string name="no_login_data_title">Не вдалося перевірити автентичність</string>
   <string name="no_login_data_message">Якщо Ви використовуєте OAuth, то це ймовірно помилка, будь ласка, відправте звіт про помилку.  Якщо Ви використовуєте логін і пароль (не рекомендується), перевірте, що вони введені коректно.</string>
@@ -69,14 +92,37 @@
   <string name="upload_limit_message">Ви вичерпали свій поточний ліміт на надсилання, будь ласка, зачекайте, перш ніж спробувати ще раз.</string>
   <string name="duplicate_tag_key_title">Повторення ключів</string>
   <string name="duplicate_tag_key_message">Ви додали це й ключ кілька разів, вам потрібно розвʼязати цю проблему, щоб продовжити:</string>
+  <string name="autodownload_has_been_paused">Автоматичне завантаження було призупинено.</string>
   <!---->
+  <string name="select_file_picker_title">Виберіть селектор файлів</string>
   <!--Newbie dialog-->
   <string name="welcome_title">Ласкаво просимо!</string>
+  <string name="welcome_message">Дякуємо за встановлення Vespucci.\n&lt;br&gt;&lt;br&gt;Vespucci - потужний інструмент для редагування OpenStreetMap.
+Він підтримує майже все на мобільних пристроях, що можна зробити з допомогою редактора на комп\'ютері, але це супроводжується певним рівнем складності.
+Сторінки довідки на пристрої або в Інтернеті відповідатимуть на більшість питань, якщо вам потрібна більша підтримка, ми рекомендуємо звернутися до форуму спільноти Openstreetmaps.
+&lt;br&gt;&lt;br&gt;Щоб почати, вам потрібно знати три речі:
+&lt;ul&gt;&lt;li&gt;натискання на іконку замка в верхньому лівому куті перемикає між заблокованим (без редагування) та розблокованим режимом.
+&lt;/li&gt;&lt;li&gt;щоб додати новий об\'єкт, натисніть велику зелену кнопку та виберіть потрібний пункт з меню, потім натисніть на позицію, де ви хочете його розмістити.
+&lt;/li&gt;&lt;li&gt;щоб відкрити відображення найближчих цікавих місць, перетягніть ручку вгору над нижнім рядком меню.
+&lt;/li&gt;&lt;/ul&gt;
+На наступній сторінці ви можете встановити деякі початкові налаштування, які зроблять вашу подорож з Vespucci приємнішою.</string>
   <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;Ваш пристрій має віртуальні кнопки, що не показуються зараз на екрані, проведіть пальцем вгору від нижнього краю екрану, щоб побачити їх.</string>
+  <string name="welcome_settings_tab_text">Щоб покращити ваш початковий досвід, ми можемо налаштувати деякі параметри просто зараз, 
+ви можете пропустити цей крок і встановити індивідуальні налаштування пізніше, якщо захочете.</string>
+  <string name="welcome_use_imagery_text">Показати аерофотознімки\nдля вашого поточного місцезнаходження</string>
+  <string name="welcome_use_imagery_explanation">Джерела аерофотознімків надаються третіми особами, і неминуче, що вони можуть отримати доступ до вашої поточної мережевої адреси та місця, яке ви переглядаєте. Якщо у вас є проблеми з конфіденційністю, не вибирайте це, і ми відобразимо стандартну карту OpenStreetMap як фон.</string>
+  <string name="welcome_auto_download_text">Автоматично завантажувати дані</string>
+  <string name="welcome_auto_download_explanation">\"Автоматичне завантаження даних OpenStreetMap може спричинити значний мобільний трафік. Якщо ви використовуєте обмежене з\'єднання, вам може бути краще не активувати цю функцію та вручну завантажити дані для області, над якою ви хочете працювати.\"</string>
+  <string name="welcome_pen_setup_text">Налаштування для використання пера або миші</string>
+  <string name="welcome_pen_setup_explanation">Якщо ви використовуєте перо, мишу або інший вказівний пристрій, вибір цієї опції зробить редагування ефективнішим.</string>
+  <string name="welcome_authorize_text">Авторизуйтесь зараз</string>
+  <string name="welcome_authorize_explanation">Вам потрібно авторизувати Vespucci для завантаження до вашого облікового запису OpenStreetMap. Якщо ви маєте під рукою логін і пароль, ви можете почати це автоматично, коли заповните цю форму, інакше процес почнеться автоматично при першому завантаженні редагувань.</string>
   <string name="read_introduction">Прочитати вступ</string>
+  <string name="welcome_start">Старт!</string>
   <!---->
   <string name="upgrade_title">Це нова версія Веспуччі</string>
   <string name="upgrade_message">Нові функції та можливості описані в нотатках до випуску.</string>
+  <string name="migrate_now">Перенесіть конфігурацію зараз</string>
   <string name="read_upgrade">Про нову версію.</string>
   <string name="progress_title">Завантаження</string>
   <string name="progress_message">Завантаження даних в пам\'ять…</string>
@@ -252,7 +298,10 @@
   <string name="track_points">Точки треку</string>
   <string name="way_points">Шляхові точки</string>
   <!--Image information dialog-->
+  <string name="image_information_title">Інформація про зображення</string>
+  <string name="capture_date">Дата зйомки</string>
   <string name="direction">Напрямок</string>
+  <string name="file_size">Розмір</string>
   <!--Too much data dialog-->
   <string name="too_much_data_title">Завантажено забагато даних!</string>
   <string name="too_much_data_message">У вас завантажено %1$d точок, що перевищує встановлені обмеження. Це може спричинити сповільнення в роботі, а також, якщо ви додасте більше даних, до проблем з їх збереженням.</string>
@@ -402,6 +451,7 @@
   <string name="layer_reset_style">Перевстановити стиль</string>
   <string name="layer_set_date_range">Встановити діапазон дат...</string>
   <string name="layer_select_imagery">Обрати фон...</string>
+  <string name="layer_test">Перевірка...</string>
   <string name="layer_category_all">Всі</string>
   <string name="layer_category_photo">Аерофото</string>
   <string name="layer_category_elevation">Рельєф</string>
@@ -523,6 +573,7 @@
   <string name="toast_unable_to_persist_permissions">Неможливо зберегти дозволи</string>
   <string name="toast_name_empty">Оберіть назву</string>
   <string name="toast_url_empty">Додайте URL</string>
+  <string name="toast_url_config_file_placeholders">Замінники {proj} та {wkid} підтримуються лише у файлах конфігурації</string>
   <string name="toast_min_zoom">Встановіть мінімальний та максимальний масштаб</string>
   <string name="toast_tile_layer_exists">Джерело тайлів %1$s має такий же url</string>
   <string name="toast_styleable_layer_exists">Шар %1$s вже існує</string>
@@ -603,6 +654,7 @@
   <string name="toast_split_to">Розділено лінію \"to\"</string>
   <string name="toast_tile_database_issue_short">Проблема з базою даних тайлів</string>
   <string name="toast_tile_database_issue">Серйозна проблема з базою даних тайлів\n\"%1$s\"\nБудь ласка, зверніться за порадою до  ЧаП\'ів на https://vespucci.io/</string>
+  <string name="toast_tile_source_issue">Серйозна проблема з джерелом тайлів мапи, тимчасово відключено\n\"%1$s\"</string>
   <string name="toast_unable_to_configure_from_source">Неможливо налаштувати віддалено: %1$s</string>
   <string name="toast_invalid_apiurl">Помилковий API URL</string>
   <string name="toast_invalid_readonlyurl">Помилковий ReadOnly API URL</string>
@@ -706,6 +758,11 @@
   <string name="toast_import_destination_exists">Місце призначення імпорту вже існує</string>
   <string name="toast_part_selection_not_supported">Вибір частини лінії не підтримується для замкнених ліній</string>
   <string name="toast_element_has_been_deleted">Елемент видалено</string>
+  <string name="toast_updating_tags">Оновлення тегів...</string>
+  <string name="toast_updating_members">Оновлення учасників...</string>
+  <string name="toast_error_loading_egm">Помилка завантаження EGM %1$s</string>
+  <string name="toast_querying_wms_server_failed">Не вдалося виконати запит до WMS-сервера: %1$s</string>
+  <string name="toast_note_not_found">Примітка #%1$d не знайдена</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">Джерела MapSplit повинні мати встановлені мінімальне та максимальне масштабування</string>
   <string name="error_pbf_no_version">У файлі PBF відсутня інформація про версію</string>
@@ -769,6 +826,7 @@
   <string name="tag_menu_sourcesurvey">Досліджено</string>
   <string name="tag_menu_preset">Заготовки</string>
   <string name="tag_menu_apply_preset">Застосувати заготовку</string>
+  <string name="tag_menu_apply_preset_with_optional">Застосувати попереднє налаштування з додатковими параметрами</string>
   <string name="tag_menu_show_alternatives">Показати альтернативне теґування</string>
   <string name="tag_menu_revert">Скасувати зміни</string>
   <string name="tag_menu_mapfeatures">Об\'єкти на мапі, документація</string>
@@ -955,6 +1013,7 @@
   <string name="menu_orthogonalize">Випрямити кути</string>
   <string name="menu_straighten">Випрямити</string>
   <string name="menu_circulize">Вирівняти по колу</string>
+  <string name="menu_create_circle">Створити коло</string>
   <string name="menu_split_polygon">Розділити на полігони</string>
   <string name="menu_unjoin_dissimilar">Від’єднати несхожі</string>
   <string name="menu_extract_segment">Витягти сегмент</string>
@@ -985,6 +1044,7 @@
   <string name="menu_tools_import_data_style">Імпорт стилю даних…</string>
   <string name="menu_tools_load_keys">Завантажити ключі з файлу…</string>
   <!---->
+  <string name="menu_modes">Режими...</string>
   <string name="menu_simple_actions">Простий режим</string>
   <string name="menu_feedback">Надати зворотній звʼязок</string>
   <string name="menu_preset_feedback">Надати зворотній звʼязок по шаблону</string>
@@ -1010,6 +1070,7 @@
   <string name="menu_layers_add_grid">Увімкнути сітку</string>
   <string name="menu_layers_add_photolayer">Увімкнути шар з фото</string>
   <string name="menu_layers_enable_mapillary_layer">Увімкнути шар Mapillary</string>
+  <string name="menu_layers_enable_bookmarkslayer">Увімкнути шар закладок</string>
   <string name="menu_layers_configure">Налаштувати…</string>
   <string name="menu_layers_background_align">Вирівняти фон...</string>
   <!---->
@@ -1027,6 +1088,7 @@
   <string name="element_for_menu_with_direction">%1$s %2$s</string>
   <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
   <!--Text should be as short as possible-->
+  <string name="start_end_way_description">Перейти на початок або кінець шляху</string>
   <string name="menu_history">Історія</string>
   <string name="menu_history_web">Історія (сайт)</string>
   <string name="menu_merge">Об\'єднати</string>
@@ -1056,6 +1118,7 @@
   <string name="actionmode_nodeselect">Обрана точка</string>
   <string name="actionmode_relationselect">Зв\'язок обрано</string>
   <string name="actionmode_createpath">Креслення лінії</string>
+  <string name="actionmode_createpath_follow_way">Слідувати за лінією</string>
   <string name="actionmode_multiselect">Мультивиділення</string>
   <string name="actionmode_newnoteselect">Вибрано нову примітку</string>
   <string name="actionmode_add_segment">Додати відрізок</string>
@@ -1079,6 +1142,7 @@
   <string name="actionmode_restriction_split_via">Розділити відрізок \"через\"</string>
   <string name="actionmode_extract_segment_select">Вибрати відрізок</string>
   <string name="actionmode_extract_segment_set_tags">Встановити теги</string>
+  <string name="actionmode_createpath_follow_way_select_end_node">Виберіть кінцеву точку</string>
   <plurals name="actionmode_object_count">
     <item quantity="one">1 об\'єкт</item>
     <item quantity="few">%1$d об\'єкти</item>
@@ -1087,6 +1151,8 @@
   </plurals>
   <string name="actionmode_rotateway">Обертати лінію</string>
   <string name="menu_snap">Прив\'язка</string>
+  <string name="menu_follow_way">Слідувати за лінією</string>
+  <string name="select_follow_way">Виберіть шлях, яким слідувати</string>
   <!--Simple Action Mode-->
   <string name="menu_add_node">Додати точку</string>
   <string name="simple_add_node">Торкніться екрана</string>
@@ -1094,6 +1160,9 @@
   <string name="menu_add_node_address">Додати адресну точку</string>
   <string name="menu_add_address_interpolation">Додати інтерполяцію адрес</string>
   <string name="menu_add_way">Додати лінію</string>
+  <string name="add_node_instruction">Торкніться позиції</string>
+  <string name="add_way_start_instruction">Торкніться першої позиції для початку</string>
+  <string name="add_way_node_instruction">Торкніться наступної позиції точки</string>
   <string name="menu_add_map_note">Додати примітку до карти</string>
   <string name="simple_add_note">Торкніться екрана</string>
   <string name="menu_paste_object">Вставити об’єкт</string>
@@ -1129,7 +1198,10 @@
   <!--Validator preferences-->
   <string name="config_validatorprefs_title">Налаштування валідатора</string>
   <string name="config_validatorprefs_summary">Налаштуйте правила перевірки.</string>
+  <string name="config_connectedNodeTolerance_title">Допуск для з\'єднання точок</string>
   <string name="config_connectedNodeTolerance_summary">Якщо кінцева точка дороги знаходиться на цій відстані (у метрах) від іншої дороги, її слід з’єднати з нею</string>
+  <string name="config_enabledValidations_title">Увімкнені перевірки</string>
+  <string name="config_enabledValidations_summary">Увімкнення/вимкнення окремих перевірок</string>
   <!--opening hours templates-->
   <string name="config_opening_hours_title">Шаблони годин роботи</string>
   <string name="config_opening_hours_summary">Завантажуйте, зберігайте та видаляйте шаблони годин роботи</string>
@@ -1147,8 +1219,13 @@
   <string name="config_showWayIcons_summary">Показувати найбільш відповідні значки на будівлях.</string>
   <string name="config_tagFormEnabled_title">Відобразити шаблон тегу</string>
   <string name="config_tagFormEnabled_summary">Відобразити шаблон тегу для редагування.</string>
+  <string name="config_supportPresetLabels_title">Відображати мітки з пресетів</string>
+  <string name="configsupportPresetLabels_summary">Відображати мітки з пресетів у редакторі тегів.</string>
   <string name="config_showCameraAction_title">Показати камеру</string>
   <string name="config_showCameraAction_summary">Показати камеру на панелі</string>
+  <string name="config_selectCameraApp_title">Додаток для камери</string>
+  <string name="config_selectCameraApp_summary">Виберіть програму для камери.</string>
+  <string name="config_system_camera">За замовчуванням у системі</string>
   <string name="config_useInternalPhotoViewer_title">Використовуйте вбудований переглядач фотографій</string>
   <string name="config_useInternalPhotoViewer_summary">Використовуйте вбудований перегляд фотографій, якщо не позначено, використовуватиметься зовнішній переглядач.</string>
   <string name="config_indexMediaStore_summary">Додатково використовувати MediaStore для доступу до фотографій</string>
@@ -1165,9 +1242,12 @@
   <string name="config_use_back_for_undo_title">Використовуйте клавішу ←, щоб скасувати</string>
   <string name="config_use_back_for_undo_summary">Використовувати кнопку назад для відміни в режимі редагування</string>
   <string name="config_theme_title">Тема</string>
+  <string name="config_theme_summary">Виберіть стиль програми.</string>
   <string name="config_splitActionBarEnabled_title">Включити розділення панелі інструментів</string>
+  <string name="config_splitActionBarEnabled_summary">Показати кнопки меню внизу екрана. Потрібен повторний запуск Vespucci та Android 4.0 або новішої версії.</string>
   <string name="config_appLocale_title">Мова програми</string>
   <string name="config_appLocale_summary">Вибір нестандартної мови програми</string>
+  <string name="config_appLocale_device_language">Мова пристрою</string>
   <string name="config_maxInlineValues_title">Макс.  кількість вбудованих значень</string>
   <string name="config_maxInlineValues_summary">Максимальна кількість вбудованих значень, що відображаються у шаблоні тегу.</string>
   <string name="config_autoLockDelay_title">Час очікування перед автоблокуванням</string>
@@ -1187,8 +1267,18 @@
   <string name="config_uploadChecker_current">%1$d годин</string>
   <string name="config_dataWarn_title">Попередження про забагато даних</string>
   <string name="config_dataWarn_summary">Ліміт (за кількістю точок), при якому ми починаємо попереджати про занадто велике завантаження даних.</string>
+  <string name="config_useUrlForFeedback_title">Вимкнути активність зворотного зв\'язку</string>
+  <string name="config_useUrlForFeedback_summary">Вимкніть активність зворотного зв\'язку і використовуйте замість неї URL-адресу.</string>
+  <string name="config_beepVolume_title">Гучність звукового сигналу</string>
+  <string name="config_beepVolume_summary">Налаштування гучності звукових сигналів.</string>
+  <string name="config_mapillary_min_zoom_title">Мінімальний масштаб для Mapillary</string>
+  <string name="config_mapillary_min_zoom_summary">Мінімальний рівень масштабування, необхідний для відображення даних Mapillary.</string>
   <string name="config_nameCap_summary">Автоматичне введення імен з великої літери при введенні</string>
   <string name="config_nameCap_title">Великі літери в іменах</string>
+  <string name="config_longStringLimit_title">Обмеження довжини рядка</string>
+  <string name="config_longStringLimit_summary">Межа, з якої показуватиметься модальне вікно для редагування тексту в редакторі властивостей</string>
+  <string name="config_zoomWithKeys_title">Використовуйте клавіші гучності для масштабування</string>
+  <string name="config_zoomWithKeys_summary">Дозвольте використовувати клавіші гучності для збільшення та зменшення масштабу.</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Налаштування даних та редагування</string>
   <string name="config_category_editing_summary">Налаштування автозавантаження, збереження та сповіщень.</string>
@@ -1198,6 +1288,8 @@
   <string name="config_overrideRegionAddressTags_summary">Використовуйте нашу конфігурацію адресних тегів для будь-яких значень, специфічних для регіону</string>
   <string name="config_address_tags">Теґи адреси</string>
   <string name="config_address_tags_summary">Теґи, що використовуються для пропонування адрес</string>
+  <string name="config_neighbourDistance_title">Відстань між сусідніми адресами</string>
+  <string name="config_neighbourDistance_summary">Відстань, на якій дві адреси вважаються потенційними сусідами</string>
   <string name="config_enableNameSuggestions_title">Дозволити пропозиції назв</string>
   <string name="config_enableNameSuggestions_summary">Включити пропозицію для теґа назви</string>
   <string name="config_enableNameSuggestionsPresets_title">Увімкнути пресети пропозицій імен</string>
@@ -1221,8 +1313,15 @@
   <string name="config_autoformatPhoneNumbers_title">Автоматичне форматування телефонних номерів</string>
   <string name="config_autoformatPhoneNumbers_summary">Увімкнути автоматичне форматування телефонних номерів</string>
   <string name="config_maxOffsetDistance_title">Максимальна відстань для збережених зсувів зображень</string>
+  <string name="config_maxOffsetDistance_summary">Буде автоматично застосовано найвіддаленішу відстань, на яку буде зміщено шар, що зберігається локально.</string>
   <string name="config_useImperialUnits_title">Використовувати імперські одиниці для вимірювання</string>
   <string name="config_useImperialUnits_summary">Використовувати імперські одиниці для вимірювання в країнах, де вони зазвичай використовуються.</string>
+  <string name="config_minCircleNodes_title">Мінімальна кількість точок у колі</string>
+  <string name="config_minCircleNodes_summary">Мінімальна кількість точок, до яких слід прагнути в колі.</string>
+  <string name="config_maxCircleSegment_title">Максимальна довжина сегмента кола</string>
+  <string name="config_maxCircleSegment_summary">Максимальна відстань між двома точками кола.</string>
+  <string name="config_minCircleSegment_title">Мінімальна довжина сегмента кола</string>
+  <string name="config_minCircleSegment_summary">Мінімальна відстань між двома точками кола.</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Налаштування автозавантаження</string>
   <string name="config_category_auto_download_summary">Налаштування автоматичного завантаження даних і завдань</string>
@@ -1233,6 +1332,7 @@
   <string name="config_autoPruneNodeLimit_title">Ліміт автоматичного скорочення</string>
   <string name="config_autoPruneNodeLimit_summary">Кількість Точок у пам’яті, досягнення якої ініціює видалення.</string>
   <string name="config_autoPruneNodeLimit_current">%1$d Точки</string>
+  <string name="config_autoPruneBoundingBoxLimit_title">Автопідбір ліміту обмежувальних рамок</string>
   <string name="config_panAndZoomLimit_title">Обмеження масштабу</string>
   <string name="config_panAndZoomLimit_summary">Мінімальний рівень масштабування для панорамування та автозавантаження.</string>
   <string name="config_bugFilter_title">Фільтр завдань</string>

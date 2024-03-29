@@ -591,6 +591,8 @@
   <string name="toast_split_to">分离 \"到\" 路径</string>
   <string name="toast_tile_database_issue_short">瓦片数据库问题</string>
   <string name="toast_tile_database_issue">瓦片数据库的严重问题\n\"%1$s\"\n请访问我们在 https://vespucci.io/ 的 FAQ。</string>
+  <string name="toast_tile_source_issue">瓦片来源有重大问题，已暂时禁用\n\"%1$s\"</string>
+  <string name="toast_tile_container_issue">瓦片容器文件%1$s不存在或无法打开</string>
   <string name="toast_invalid_apiurl">无效的 API 链接</string>
   <string name="toast_invalid_readonlyurl">无效的只读 API 链接</string>
   <string name="toast_invalid_notesurl">无效的注解 API 链接</string>
@@ -1334,6 +1336,7 @@
   <string name="manage_apis">管理 API</string>
   <string name="config_api_url_title">API URL</string>
   <string name="config_api_oauth_title">使用 OAuth</string>
+  <string name="listedit_auth">认证</string>
   <string name="config_username_title">OSM 用户名</string>
   <string name="config_password_title">OSM 密码</string>
   <string name="config_password_summary">不要和 wiki 密码弄混。请记住：它以明文存储和传输。</string>
@@ -1512,6 +1515,8 @@
   <string name="relation_id">关系 %1$d</string>
   <!--Tile downloader diagnostics-->
   <string name="empty_tile">空瓦片</string>
+  <string name="tile_mark_invalid">标记瓦片为无效</string>
+  <string name="tile_decoding_failed">瓦片解码失败</string>
   <string name="tile_success">成功</string>
   <string name="tile_fail">失败</string>
 </resources>

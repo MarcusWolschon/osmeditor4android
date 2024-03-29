@@ -38,6 +38,14 @@
   <string name="use_server_version">… durch die Verwendung der Serverversion</string>
   <string name="undoing_local_delete">… rückgängigmachens der lokalen Löschung</string>
   <string name="deleting_references_on_server">… löschen der Verweise auf der Server</string>
+  <string name="unable_to_download_referring_element">Unfähig, das referenzierte Element herunterzuladen %1$s %2$d</string>
+  <string name="unable_to_download_referring_element_for_deletion">Unfähig, das referenzierte Element zum Löschen herunterzuladen %1$s %2$d</string>
+  <string name="unable_to_download_server_version">Unfähig, Serverversion herunterzuladen %1$s %2$d</string>
+  <string name="unexpected_conflict_type">Unerwarteter Konflikttyp</string>
+  <string name="missing_referenced_elements">Fehlende referenzierte Elemente</string>
+  <string name="still_in_use_by_elements">Immer noch in Verwendung von Elementen</string>
+  <string name="delete_locally">Lokales\nlöschen</string>
+  <string name="undelete_on_server">Auf dem Server\nwiederherstellen</string>
   <!---->
   <string name="no_login_data_title">Authentifizierung fehlgeschlagen</string>
   <string name="no_login_data_message">Falls OAuth verwendet wird, ist dies wahrscheinlich ein Fehler, der gemeldet werden sollte. Falls Login und Passwort verwendet werden (nicht empfohlen), sollte überprüft werden, ob sie korrekt eingegeben wurden.</string>
@@ -84,15 +92,43 @@
   <string name="upload_limit_message">Du hast dein aktuelles Hochlade-Limit erreicht, bitte warte, bevor du es erneut versuchst.</string>
   <string name="duplicate_tag_key_title">Doppelte Schlüssel</string>
   <string name="duplicate_tag_key_message">Der folgende Schlüssel wurde mehrmals verwendet, der Fehler muss behoben werden bevor fortgefahren werden kann:</string>
+  <string name="autodownload_has_been_paused">Der automatische Download wurde pausiert.</string>
   <!---->
   <string name="select_file_picker_title">Dateiauswahl-App auswählen</string>
   <!--Newbie dialog-->
   <string name="welcome_title">Willkommen</string>
+  <string name="welcome_message">Danke für die Installation von Vespucci.\n&lt;br&gt;&lt;br&gt;Vespucci ist ein leistungsfähiges Werkzeug zur Bearbeitung von OpenStreetMap.
+        Es unterstützt fast alles auf dem Mobilgerät, was du auch mit einem Desktop-Editor erreichen kannst, dies bringt jedoch ein gewisses Maß an Komplexität mit sich. 
+        Die Hilfeseiten auf dem Gerät oder online werden die meisten Fragen beantworten, wenn du mehr Unterstützung benötigst, empfehlen wir, im Community-Forum von Openstreetmaps zu fragen.
+        &lt;br&gt;&lt;br&gt;Um zu beginnen, musst du drei Dinge wissen:
+        &lt;ul&gt;&lt;li&gt;Ein Tippen auf das Schloss-Symbol in der oberen linken Ecke wechselt zwischen gesperrtem Modus (keine Bearbeitung) und entsperrtem Modus.
+        &lt;/li&gt;&lt;li&gt;Um ein neues Objekt hinzuzufügen, tippe auf den großen grünen Knopf und wähle aus dem Menü aus, was du hinzufügen möchtest, dann tippe auf die Position
+        &lt;/li&gt;&lt;li&gt;Um die Anzeige der in der Nähe befindlichen Points of Interest zu öffnen, ziehe den Griff über der unteren Menüleiste nach oben.
+        &lt;/li&gt;&lt;/ul&gt;
+        Auf der nächsten Seite kannst du einige anfängliche Präferenzen festlegen, die deine Reise mit Vespucci angenehmer machen werden. 
+    </string>
   <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;Das Gerät besitzt „Bildschirmtasten“, die ausgeblendet sind. Ein Wisch von der unteren Kante blendet sie wieder ein.</string>
+  <string name="welcome_settings_tab_text">Um dein anfängliches Erlebnis zu verbessern, können wir jetzt einige Optionen konfigurieren.
+        Du kannst diesen Schritt überspringen und individuelle Präferenzen später festlegen, wenn du möchtest.
+    </string>
+  <string name="welcome_use_imagery_text">Luftbildaufnahmen für deinen\naktuellen Standort anzeigen</string>
+  <string name="welcome_use_imagery_explanation">Luftbildquellen werden von Drittanbietern bereitgestellt, und es ist unvermeidlich, dass sie auf deine aktuelle Netzwerkadresse und den Standort, den du ansiehst, zugreifen können. Wenn du Bedenken bezüglich deiner Privatsphäre hast, wähle dies nicht aus, und wir werden die Standard-OpenStreetMap-Karte als Hintergrund anzeigen.
+ </string>
+  <string name="welcome_auto_download_text">Daten automatisch herunterladen</string>
+  <string name="welcome_auto_download_explanation">\"Das automatische Herunterladen von OpenStreetMap-Daten kann erheblichen mobilen Datenverkehr verursachen. Wenn du eine getaktete Verbindung verwendest, ziehst du es vielleicht vor, dies nicht zu aktivieren und stattdessen manuell Daten für den Bereich herunterzuladen, an dem du arbeiten möchtest.</string>
+  <string name="welcome_pen_setup_text">Für die Nutzung mit Stift oder Maus konfigurieren</string>
+  <string name="welcome_pen_setup_explanation">Wenn du einen Stift, eine Maus oder ein anderes Zeigegerät verwendest, wird die Auswahl dieser Option das Bearbeiten effizienter machen.</string>
+  <string name="welcome_authorize_text">Jetzt autorisieren</string>
+  <string name="welcome_authorize_explanation">Du musst Vespucci autorisieren, um auf dein OpenStreetMap-Konto hochzuladen. Wenn du deine Anmeldedaten und dein Passwort griffbereit hast, kannst du dies automatisch starten, sobald du dieses Formular ausgefüllt hast. Andernfalls wird der Prozess automatisch gestartet, wenn du das erste Mal Bearbeitungen hochlädst.</string>
   <string name="read_introduction">Die Einführung lesen</string>
+  <string name="welcome_start">Beginne!</string>
   <!---->
   <string name="upgrade_title">Dies ist eine neue Vespucci-Version</string>
   <string name="upgrade_message">Neue Funktionen und Verhalten sind in den \"release notes\" beschrieben.</string>
+  <string name="upgrade_message_oauth2">&lt;br&gt;&lt;br&gt;&lt;b&gt;Wichtig&lt;/b&gt;&lt;br&gt;Ab Juni 2024 wird die OpenStreetMap-API die Basic (Anmeldung/Passwort) und OAuth 1.0a Autorisierung nicht mehr unterstützen. 
+        &lt;br&gt;&lt;br&gt;Wenn du deine Anmeldedaten und dein Passwort zur Verfügung hast, wäre es eine gute Idee, deine API-Konfiguration jetzt zu migrieren und neu zu autorisieren, aber du kannst es auch später manuell tun.
+    </string>
+  <string name="migrate_now">Konfiguration jetzt migrieren</string>
   <string name="read_upgrade">Information zur neuen Version</string>
   <string name="progress_title">Laden</string>
   <string name="progress_message">Daten in den Speicher laden…</string>
@@ -268,7 +304,12 @@
   <string name="track_points">Trackpunkte</string>
   <string name="way_points">Wegpunkte</string>
   <!--Image information dialog-->
+  <string name="image_information_title">Bildinformationen</string>
+  <string name="created_by">Erstellt durch</string>
+  <string name="capture_date">Aufnahmedatum</string>
   <string name="direction">Richtung</string>
+  <string name="file_size">Größe</string>
+  <string name="file_size_kB">%1$d kB</string>
   <!--Too much data dialog-->
   <string name="too_much_data_title">Zu viele Daten!</string>
   <string name="too_much_data_message">Es sind %1$d Knoten geladen, was den eingestellten Höchstwert übersteigt. Dies macht die App langsam und führt möglicherweise zu Problemen beim Sichern des aktuellen Zustandes.</string>
@@ -504,7 +545,7 @@
   <string name="tip_check_label">Optionale Tipps nicht mehr anzeigen</string>
   <string name="tip_undo">Ein langer Druck auf den \"Rückgängig\"-Knopf zeigt alle Sicherungspunkte, die rückgängig gemacht und wiederhergestellt werden können.</string>
   <string name="tip_imagery_privacy">Hintergrund- und Überlagerungsebenen werden von Drittanbietern bereitgestellt. Bei der Verwendung eines Layers werden Ihre Netzwerkadresse und eine ungefähre Angabe des Bereichs, den Sie betrachten, an den Anbieter übertragen. Wenn der Anbieter Informationen zum Datenschutz bereitgestellt hat, können Sie diese über den Menüpunkt \"Info\" im Ebenendialog anzeigen.</string>
-  <string name="tip_mapillary_privacy">Mapillary ist eine Dienst der Mapillary AB, Schweden, eine Tochtergesellschaft von Facebook. Die Benutzung des Dienstes übermittelt deine IP Adresse und Information über die Bilder, die du betrachtest hast an die Firma.</string>
+  <string name="tip_mapillary_privacy">Mapillary ist ein Dienst der Mapillary AB, Schweden, einer Tochtergesellschaft von Facebook. Bei Nutzung des Dienstes werden Ihre IP-Adresse und Informationen, welche Bilder betrachtet wurden, an die Firma übermittelt.</string>
   <string name="tip_pan_and_zoom_auto_download">Der automatische Download von Schwenks und Zooms sollte mit Vorsicht verwendet werden, da er sowohl die OpenStreetMap-APIs als auch Ihr Gerät stark belasten kann. Die Belastung der API-Server kann durch die Verwendung einer Offline-Datenquelle vermieden werden.</string>
   <string name="tip_locked_mode">Im gesperrten Zustand kann nicht editiert werden, aber ein langer Klick auf ein Objekt zeigt Detailinformationen an.</string>
   <string name="tip_longpress_simple_mode">Im einfachen Modus hat ein langer Klick keine Funktion. Schalten Sie den einfachen Modus ab, wenn Sie mit langem Klick Objekte erstellen wollen.</string>
@@ -512,7 +553,7 @@
   <string name="tip_tag_conflict">Das Zusammenführen und Umdrehen von OSM-Objekten führt manchmal dazu, dass Eigenschaften der Objekte geändert werden. Falls das zu einem Fehler oder Konflikt führen könnte wird eine Meldung angezeigt, und die Änderungen können geprüft werden.</string>
   <string name="tip_gpx_recording">Beim Aufzeichnen eine GPX-Spur verwendet Vespucci Standortdaten um die Aufzeichnung zu ermöglichen, auch wenn die App nicht sichtbar ist.&lt;p&gt;Wird die App explizit verlassen, oder die GPX-Aufzeichnung beendet, wird der Standort nicht mehr verwendet.</string>
   <string name="tip_auto_download">Beim automatischen Download von Daten oder Aufgaben um den aktuellen Standort verwendet Vespucci Standortdaten um den aktuellen Standort zu bestimmen, auch wenn die App nicht sichtbar ist.&lt;p&gt;Wird die App explizit verlassen, oder der automatischer Download beendet, wird der Standort nicht mehr verwendet.</string>
-  <string name="tip_tristate_checkbox">Du hast soeben ein Kontrollkästchen mit drei Zuständen berührt. Diese funktionieren wie normale Kontrollkästchen, indem sie zwischen zwei Werten hin- und herschalten, zum Beispiel ja/nein oder wahr/falsch. Sie können das Kontrollkästchen durch langes Drücken auf diesen Zustand setzen.</string>
+  <string name="tip_tristate_checkbox">Sie haben gerade ein Kontrollkästchen mit drei Zuständen berührt. Diese funktionieren wie normale Kontrollkästchen, die zwischen zwei Werten, wie ja/nein oder wahr/falsch, hin- und herschalten. &lt;p&gt;Allerdings besitzen sie einen weiteren dritten&lt;b&gt;nicht aktivierten&lt;/b&gt; Zustand, der dazu führt, dass das entsprechende Merkmal nicht mehr hinzugefügt wird. Sie können das Kontrollkästchen durch langes Drücken in diesen Zustand versetzen. Es wird danach ausgegraut sein.</string>
   <string name="tip_alternative_tagging">Alternative Vorgabe mit einem alternativen Tagging ausgewählt. Das heißt, es gibt andere Möglichkeiten, dieses Objekt zu kennzeichnen, die möglicherweise besser geeignet oder einfach verwandt sind. Diese alternativen Voreinstellungen werden oben in der Anzeige der zuletzt verwendeten Voreinstellung angezeigt.</string>
   <string name="tip_mode_switching">Die Schlosstaste dient gleichzeitig als Modusumschalter, ein langer Druck zeigt ein Menü mit den verschiedenen Optionen an. Weitere Informationen zu Vespuccis Modi finden Sie im Hilfesystem, sowohl in der Einführung als auch in der Hilfe zur Hauptkartenanzeige.</string>
   <string name="tip_empty_gpx_download">Aufgrund einer Besonderheit in der OSM-API muss der Startpunkt des GPX-Tracks sichtbar sein, damit er zum Herunterladen gefunden werden kann.</string>
@@ -520,6 +561,7 @@
   <string name="tip_way_splitting">Berühren Sie einen der hervorgehobenen Knoten, um die Position zu bestimmen, an der geteilt wird. Ein langer Druck erlaubt in einem weiteren Schritt auszuwählen, welcher Teil für den neuen Weg verwendet wird.</string>
   <string name="tip_closed_way_splitting">Ein geschlossener Weg muss an zwei Stellen getrennt werden. Berühren Sie einen der hervorgehobenen Knoten, um die 1. Stelle zu bestimmen, im nächsten Schritt wird die 2. Stelle ausgewählt.</string>
   <string name="tip_disambiguation_menu">Wenn mehrere OSM-Elemente oder andere Objekte sehr nahe zusammen oder Elemente Mitglieder von Relationen sind, wird das Auswahlmenu angezeigt.&lt;p&gt;Ist ein Element bereits ausgewählt, so wird es hervorgehoben.</string>
+  <string name="tip_file_import">Auf Geräten, die Android 10 oder neuer ausführen, müssen wir Dateien kopieren, um vollen Zugriff auf sie zu haben. Die Kopien befinden sich in &lt;i&gt;Downloads/Vespucci/imports&lt;/i&gt;. Falls notwendig, kannst du die Originale löschen und nur die Kopien behalten.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -533,13 +575,14 @@
   <string name="upload_checker_title">Daran denken, die Arbeit hochzuladen</string>
   <plurals name="upload_checker_message">
     <item quantity="one">Du hast eine ungesicherte Änderung.</item>
-    <item quantity="other">Du hast %1$d ungesicherte Änderungen.</item>
+    <item quantity="other">Sie haben %1$d ungesicherte Änderungen.</item>
   </plurals>
   <!--Toaster-->
   <string name="toast_permission_denied">Zugriff verweigert %1$s</string>
   <string name="toast_unable_to_persist_permissions">Konnte Dateiberechtigungen nicht auf Dauer bekommen</string>
   <string name="toast_name_empty">Name darf nicht leer sein</string>
   <string name="toast_url_empty">URL darf nicht leer sein</string>
+  <string name="toast_url_config_file_placeholders">{proj} und {wkid} Platzhalter werden nur in Konfigurationsdateien unterstützt</string>
   <string name="toast_min_zoom">Minimaler Zoom muss kleiner sein als der maximale Zoom</string>
   <string name="toast_tile_layer_exists">Quelle %1$s hat die gleich URL</string>
   <string name="toast_styleable_layer_exists">Ebene für %1$s existiert schon</string>
@@ -728,6 +771,7 @@
   <string name="toast_updating_members">Mitglieder aktualisieren...</string>
   <string name="toast_error_loading_egm">Fehler beim Laden von EGM %1$s</string>
   <string name="toast_querying_wms_server_failed">Anfrage an WMS Server fehlgeschlagen: %1$s</string>
+  <string name="toast_note_not_found">Knoten #%1$d nicht gefunden</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">Für MapSplit-Quellen müssen Zoomgrenzen festgelegt sein.</string>
   <string name="error_pbf_no_version">Versionsinformation fehlt in PBF-Datei</string>
@@ -978,6 +1022,7 @@
   <string name="menu_orthogonalize">Rechtwinklig machen</string>
   <string name="menu_straighten">Begradigen</string>
   <string name="menu_circulize">Im Kreis anordnen</string>
+  <string name="menu_create_circle">Kreis erzeugen</string>
   <string name="menu_split_polygon">In 2 Polygone aufteilen</string>
   <string name="menu_unjoin_dissimilar">Von unähnlichen Wegen trennen</string>
   <string name="menu_extract_segment">Segment extrahieren</string>
@@ -1008,6 +1053,7 @@
   <string name="menu_tools_import_data_style">Datenstil importieren…</string>
   <string name="menu_tools_load_keys">Schlüssel aus Datei laden…</string>
   <!---->
+  <string name="menu_modes">Modi…</string>
   <string name="menu_simple_actions">Einfacher Modus</string>
   <string name="menu_feedback">Rückmeldung senden</string>
   <string name="menu_preset_feedback">Rückmeldung zu Vorlage senden</string>
@@ -1036,6 +1082,7 @@
   <string name="menu_layers_enable_bookmarkslayer">Lesezeichenebene aktivieren</string>
   <string name="menu_layers_configure">Konfigurieren…</string>
   <string name="menu_layers_background_align">Bildmaterial justieren…</string>
+  <string name="wms_hint">%1$s [wms]</string>
   <!---->
   <string name="menu_tools_apply_local_offset">Gespeicherten Hintergrundversatz anwenden</string>
   <string name="menu_tools_background_contrast">Kontrast</string>
@@ -1083,6 +1130,7 @@
   <string name="actionmode_nodeselect">Knoten ausgewählt</string>
   <string name="actionmode_relationselect">Relation ausgewählt</string>
   <string name="actionmode_createpath">Pfaderstellung</string>
+  <string name="actionmode_createpath_follow_way">Weg folgen</string>
   <string name="actionmode_multiselect">Mehrfachauswahl</string>
   <string name="actionmode_newnoteselect">Neue Notiz ausgewählt</string>
   <string name="actionmode_add_segment">Routenteil hinzufügen</string>
@@ -1106,12 +1154,15 @@
   <string name="actionmode_restriction_split_via">„via“-Weg trennen</string>
   <string name="actionmode_extract_segment_select">Segment auswählen</string>
   <string name="actionmode_extract_segment_set_tags">Tags setzen</string>
+  <string name="actionmode_createpath_follow_way_select_end_node">Endknoten auswählen</string>
   <plurals name="actionmode_object_count">
     <item quantity="one">1 Objekt</item>
     <item quantity="other">%1$d Objekte</item>
   </plurals>
   <string name="actionmode_rotateway">Weg drehen</string>
   <string name="menu_snap">Einrasten</string>
+  <string name="menu_follow_way">Weg folgen</string>
+  <string name="select_follow_way">Weg zum Folgen auswählen</string>
   <!--Simple Action Mode-->
   <string name="menu_add_node">Knoten hinzufügen</string>
   <string name="simple_add_node">Bildschirmposition antippen</string>
@@ -1247,6 +1298,8 @@
   <string name="config_longStringLimit_title">Grenze für lange Zeichenfolgen</string>
   <string name="config_longStringLimit_summary">Grenze, ab der ein Modal zur Bearbeitung von Text im Eigenschafteneditor angezeigt werden soll.</string>
   <string name="config_longStringLimit_current">%1$d</string>
+  <string name="config_zoomWithKeys_title">Lautstärketasten zum Zoomen verwenden</string>
+  <string name="config_zoomWithKeys_summary">Erlaube die Verwendung der Lautstärketasten zum Vergrößern und Verkleinern.</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Daten- und Bearbeitungseinstellungen</string>
   <string name="config_category_editing_summary">Auto-Download-Einstellungen</string>
@@ -1289,7 +1342,14 @@
   <string name="config_maxOffsetDistance_current">%1$d Meter</string>
   <string name="config_useImperialUnits_title">Verwenden imperiale Einheiten zum Messen</string>
   <string name="config_useImperialUnits_summary">Verwende imperiale Einheiten in Ländern, die diese üblicherweise verwenden.</string>
+  <string name="config_minCircleNodes_title">Mindestanzahl von Knoten im Kreis</string>
+  <string name="config_minCircleNodes_summary">Die Mindestanzahl von Knoten, die in einem Kreis angestrebt werden sollte.</string>
+  <string name="config_minCircleNodes_current">%1$d Knoten</string>
+  <string name="config_maxCircleSegment_title">Maximale Länge eines Kreissegments</string>
+  <string name="config_maxCircleSegment_summary">Maximaler Abstand zwischen zwei Kreisknoten.</string>
   <string name="config_maxCircleSegmentcurrent">%1$d Meter</string>
+  <string name="config_minCircleSegment_title">Minimale Länge eines Kreissegments</string>
+  <string name="config_minCircleSegment_summary">Minimaler Abstand zwischen zwei Kreisknoten.</string>
   <string name="config_minCircleSegmentcurrent">%1$d Meter</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Auto-Download-Einstellungen</string>
@@ -1303,6 +1363,9 @@
   <string name="config_autoPruneNodeLimit_title">Grenzwert automatisches Beschneiden</string>
   <string name="config_autoPruneNodeLimit_summary">Anzahl der Knoten im Speicher, die ein Beschneiden auslöst.</string>
   <string name="config_autoPruneNodeLimit_current">%1$d Knoten</string>
+  <string name="config_autoPruneBoundingBoxLimit_title">Limit für automatisches Beschneiden von Begrenzungsrahmen</string>
+  <string name="config_autoPruneBoundingBoxLimit_summary">Anzahl der Begrenzungsrahmen im Speicher, bei deren Erreichen ein Beschneiden ausgelöst wird.</string>
+  <string name="config_autoPruneBoundingBoxLimit_current">%1$d Boxen</string>
   <string name="config_panAndZoomLimit_title">Zoomgrenze</string>
   <string name="config_panAndZoomLimit_summary">Mindest-Zoomstufe, ab der die aktuelle Ansicht automatisch geladen wird.</string>
   <string name="config_panAndZoomLimit_current">%1$d</string>
