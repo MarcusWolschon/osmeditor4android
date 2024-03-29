@@ -106,6 +106,21 @@
 "amenity/recycling_centre":[
 "Recycling Centre"
 ],
+"amenity/restaurant/barbecue":[
+"lunch",
+"dining",
+"dinner",
+"bbq",
+"bar",
+"dine",
+"Barbeque Restaurant",
+"canteen",
+"eat",
+"barbecue restaurant",
+"drive-in",
+"grill",
+"table"
+],
 "amenity/sanitary_dump_station":[
 "Caravan Toilet Disposal"
 ],
@@ -137,22 +152,6 @@
 "amenity/trolley_bay":[
 "Shopping Trolley Bay"
 ],
-"amenity/vending_machine/fuel":[
-"diesel",
-"petrol",
-"lng",
-"gas pump",
-"fuel",
-"propane",
-"gasoline",
-"Fuel Pump",
-"cng",
-"biodiesel"
-],
-"amenity/waste_basket":[
-"waste basket",
-"Rubbish Bin"
-],
 "amenity/water_point":[
 "water spigot",
 "water source",
@@ -171,25 +170,41 @@
 "weigh station"
 ],
 "barrier/kerb":[
-"Kerb"
+"Kerb",
+"curb"
+],
+"barrier/kerb/flush":[
+"level curb",
+"tactile curb",
+"even kerb",
+"level kerb",
+"tactile kerb",
+"even curb",
+"Flush Kerb",
+"flush curb"
+],
+"barrier/kerb/lowered":[
+"lowered curb",
+"kerb ramp",
+"curb ramp",
+"Lowered Kerb",
+"kerb cut",
+"dropped kerb",
+"curb cut",
+"pram ramp"
+],
+"barrier/kerb/raised":[
+"raised curb",
+"Raised Kerb"
+],
+"barrier/kerb/rolled":[
+"Rolled Kerb",
+"rolled curb"
 ],
 "building/pavilion":[
 "sports",
 "Sports Pavilion",
 "pavilion"
-],
-"building/terrace":[
-"row house",
-"brownstone",
-"townhouses",
-"townhouse",
-"row houses",
-"terraced",
-"dwelling",
-"terrace",
-"residence",
-"Terraced Houses",
-"home"
 ],
 "emergency/fire_hose":[
 "fhr",
@@ -208,8 +223,64 @@
 "healthcare/blood_donation":[
 "Blood Donation Centre"
 ],
+"highway/cycleway/bicycle_foot":[
+"bicycle and foot path",
+"bike and pedestrian path",
+"mixed-use trail",
+"multi-use trail",
+"segregated trail",
+"shared use path",
+"Shared Path",
+"greenway",
+"shared path",
+"green way",
+"rail trail",
+"cycle & foot path"
+],
+"highway/cycleway/crossing/bicycle_foot":[
+"bike and pedestrian crossing",
+"cyclist",
+"Shared Path Crossing",
+"cycle & foot crossing",
+"bicycle and foot crosswalk",
+"cycling",
+"cycleway"
+],
+"highway/footway":[
+"path",
+"trail",
+"foot path",
+"promenade",
+"hiking",
+"hike",
+"track",
+"trackway",
+"walk",
+"Walkway",
+"footpath"
+],
+"highway/footway/access_aisle":[
+"wheelchair aisle",
+"disabled parking access zone",
+"accessible van loading zone",
+"access aisle",
+"parking lot aisle",
+"parking access zone",
+"tow-away zone",
+"striped zone",
+"tow zone",
+"towaway zone",
+"Accessible Carpark Aisle"
+],
 "highway/footway/conveying":[
 "Travelator"
+],
+"highway/footway/sidewalk":[
+"pavement",
+"sidewalk",
+"sidepath",
+"foot path",
+"footpath"
 ],
 "highway/give_way":[
 "Give Way Sign",

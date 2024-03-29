@@ -236,7 +236,16 @@
 "lloguer de cotxes"
 ],
 "amenity/car_sharing":[
-"Estació de cotxes compartits"
+"càrrega",
+"cotxe elèctric",
+"cotxe",
+"estació de càrrega",
+"Estació de cotxes compartits",
+"zero emissions",
+"punt de càrrega",
+"vehicle elèctric",
+"elèctric",
+"vehicle"
 ],
 "amenity/car_wash":[
 "tren de rentat de cotxes",
@@ -329,7 +338,12 @@
 "Espai de coworking"
 ],
 "amenity/crematorium":[
-"Crematori"
+"cementiri",
+"crematori",
+"tanatori",
+"funeraria",
+"Crematori",
+"cementeri"
 ],
 "amenity/dentist":[
 "Dentista",
@@ -668,14 +682,8 @@
 "Parc de bombers"
 ],
 "amenity/fountain":[
-"brollador",
-"broll",
-"deu",
 "fontana",
-"aiguaneix",
-"sortidor.",
-"Font",
-"font"
+"Font ornamental"
 ],
 "amenity/fuel":[
 "betzinera",
@@ -1058,9 +1066,6 @@
 "centre de reciclatge",
 "punt net"
 ],
-"amenity/recycling_container":[
-"Contenidor de reciclatge"
-],
 "amenity/refugee_site":[
 "Camp de refugiats"
 ],
@@ -1251,6 +1256,9 @@
 "amenity/theatre/type/amphi":[
 "Amfiteatre"
 ],
+"amenity/ticket_validator":[
+"Validador de bitllets"
+],
 "amenity/toilets":[
 "lavabo",
 "lavabos",
@@ -1344,9 +1352,6 @@
 "amenity/vending_machine/food":[
 "Màquina expenedora de menjar"
 ],
-"amenity/vending_machine/fuel":[
-"Sortidor de benzina"
-],
 "amenity/vending_machine/ice_cream":[
 "Expenedora de gelats"
 ],
@@ -1378,9 +1383,6 @@
 "segell",
 "correu"
 ],
-"amenity/vending_machine/sweets":[
-"Màquina de vènding de comestibles"
-],
 "amenity/veterinary":[
 "hospital veterinari",
 "cura d'animals",
@@ -1392,13 +1394,7 @@
 "Paperera per a excrements de gos"
 ],
 "amenity/waste_basket":[
-"deixalles",
-"paperera pública",
-"Paperera",
-"contenidor",
-"basura",
-"brossa",
-"paperera"
+"Paperera"
 ],
 "amenity/waste_disposal":[
 "Contenidor d'escombraries"
@@ -1410,7 +1406,8 @@
 "Aigua potable d'autocaravana"
 ],
 "amenity/watering_place":[
-"Font d'aigua per animals"
+"abeurador",
+"Font d'aigua per animals (abeurador)"
 ],
 "area":[
 "Àrea",
@@ -1442,6 +1439,13 @@
 "mico",
 "zoo",
 "lleó"
+],
+"attraction/big_wheel":[
+"parc temàtic",
+"nòria",
+"Roda",
+"sínia",
+"fira"
 ],
 "attraction/bumper_car":[
 "cotxes de xoc",
@@ -1769,7 +1773,8 @@
 "bombers"
 ],
 "building/garage":[
-"garatge"
+"garatge",
+"Garatge"
 ],
 "building/garages":[
 "Garatges"
@@ -1835,6 +1840,9 @@
 ],
 "building/office":[
 "Edifici d'oficines"
+],
+"building/outbuilding":[
+"Construcció annexa"
 ],
 "building/public":[
 "Edifici públic",
@@ -1910,15 +1918,6 @@
 ],
 "building/temple":[
 "Edifici d'un temple"
-],
-"building/terrace":[
-"adossats",
-"llar",
-"en filera",
-"allotjament",
-"familiar",
-"Cases unifamiliars",
-"residència"
 ],
 "building/train_station":[
 "Edifici d'estació de tren"
@@ -2022,7 +2021,25 @@
 "Artesà de llaminadures"
 ],
 "craft/distillery":[
-"Destil·leria"
+"alcohol",
+"espirituoses",
+"whiski",
+"mezcal",
+"bourbon",
+"licor",
+"cassalla",
+"begudes espirituoses",
+"ron",
+"Destil·leria",
+"destileria",
+"tequila",
+"whisky",
+"vodka",
+"vi",
+"beguda",
+"ginebra",
+"ratafia",
+"whiskey"
 ],
 "craft/dressmaker":[
 "Sastreria"
@@ -2250,6 +2267,9 @@
 "emergency/siren":[
 "Sirena"
 ],
+"emergency/water_reservoir_covered":[
+"Dipòsit d'aigua d'emergència (subterrani)"
+],
 "emergency/water_tank":[
 "dipòsit",
 "cisterna",
@@ -2313,6 +2333,9 @@
 "healthcare/alternative/chiropractic":[
 "Quiropràctic"
 ],
+"healthcare/audiologist":[
+"Audiòleg"
+],
 "healthcare/birthing_center":[
 "Centre de parts"
 ],
@@ -2335,6 +2358,15 @@
 ],
 "healthcare/laboratory":[
 "Laboratori mèdic"
+],
+"healthcare/midwife":[
+"llevador",
+"matrona",
+"infermer obstetricoginecològic",
+"Llevador",
+"doula",
+"infermera obstetricoginecològica",
+"llevadora"
 ],
 "healthcare/occupational_therapist":[
 "Terapeuta ocupacional"
@@ -2418,8 +2450,14 @@
 "semàfor",
 "creuament ciclista"
 ],
+"highway/cycleway/crossing/uncontrolled":[
+"Pas de bicicletes amb senyalització horitzontal"
+],
 "highway/cycleway/crossing/unmarked":[
 "Pas de bicicletes sense senyalització horitzontal"
+],
+"highway/elevator":[
+"Ascensor"
 ],
 "highway/emergency_bay":[
 "Lloc d'aturada d'emergència"
@@ -2497,11 +2535,15 @@
 "Enllaç d'autopista"
 ],
 "highway/path":[
-"Camí",
+"camí",
+"Sender",
 "corriol",
-"sender"
+"sender",
+"senda"
 ],
 "highway/path/informal":[
+"senda informal",
+"sender informal",
 "Camí informal"
 ],
 "highway/pedestrian_area":[
@@ -2560,6 +2602,7 @@
 ],
 "highway/service/drive-through":[
 "Via de servei al vehicle",
+"servei d'atenció a través del cotxe",
 "via d'autoservei",
 "pas de vehicles"
 ],
@@ -2591,6 +2634,13 @@
 "àrea de servei",
 "motel",
 "àrea de servici"
+],
+"highway/speed_camera":[
+"radar",
+"Radar de velocitat",
+"multa",
+"velocitat màxima",
+"límit de velocitat"
 ],
 "highway/steps":[
 "Escales",
@@ -2624,6 +2674,7 @@
 "peatge"
 ],
 "highway/track":[
+"camí",
 "Pista forestal / Via d'accés"
 ],
 "highway/traffic_mirror":[
@@ -2723,6 +2774,9 @@
 ],
 "historic/wreck":[
 "Naufragi"
+],
+"indoor":[
+"Element d'interior"
 ],
 "indoor/room":[
 "Habitació"
@@ -2838,7 +2892,15 @@
 "Port"
 ],
 "landuse/industrial":[
-"Zona Industrial"
+"dipòsit",
+"industrial",
+"polígon industrial",
+"polígon",
+"comerç",
+"empresa",
+"Zona Industrial",
+"manufactura",
+"fàbrica"
 ],
 "landuse/industrial/scrap_yard":[
 "Desballestador de vehicles"
@@ -2996,10 +3058,22 @@
 "Punt de pesca"
 ],
 "leisure/fitness_centre":[
-"Gimnàs / Centre de Fitness"
+"saludable",
+"Gimnàs / Centre de Fitness",
+"pilates",
+"peses",
+"estudio",
+"gimnàs",
+"deport",
+"fort",
+"esport",
+"salut"
 ],
 "leisure/fitness_centre/yoga":[
-"Estudi de Yoga"
+"ioga",
+"meditació",
+"Estudi de Yoga",
+"asana"
 ],
 "leisure/fitness_station":[
 "Instal·lació exterior de Fitness"
@@ -3581,7 +3655,7 @@
 "Landa"
 ],
 "natural/hot_spring":[
-"Surgència termal"
+"Surgència termal, Aigües termals"
 ],
 "natural/mud":[
 "Argila"
@@ -3622,7 +3696,10 @@
 "Arbust"
 ],
 "natural/spring":[
-"Font"
+"brollador",
+"deu",
+"Font natural",
+"aiguaneix"
 ],
 "natural/stone":[
 "Pedra solta / Bloc de pedra"
@@ -3685,6 +3762,65 @@
 "natural/wetland":[
 "Aiguamolls"
 ],
+"natural/wetland/fen":[
+"llacuna alcalina",
+"aiguamoll alcalí",
+"zona humida amb aigua estancada",
+"Mollera",
+"pantà d'aigua dolça"
+],
+"natural/wetland/mangrove":[
+"zona de palafolls",
+"Manglar",
+"manglar",
+"zona costanera de mangles",
+"bosc de mangles",
+"palafolls"
+],
+"natural/wetland/marsh":[
+"bassa",
+"aiguamoll",
+"Aiguamoll",
+"marjal",
+"aiguabarreig"
+],
+"natural/wetland/reedbed":[
+"llucertar",
+"Canyissar",
+"llucertaral",
+"llucera"
+],
+"natural/wetland/saltmarsh":[
+"marjal salina costanera",
+"aiguamoll salat costaner",
+"marjal salada costanera"
+],
+"natural/wetland/string_bog":[
+"marjal filiforme",
+"aiguamoll en forma de filaments",
+"Aiguamoll en forma de filaments"
+],
+"natural/wetland/swamp":[
+"bassa",
+"pantà",
+"aiguamoll",
+"llacuna",
+"brolla",
+"marjal",
+"Pantà"
+],
+"natural/wetland/tidalflat":[
+"platja mareal",
+"zona de pleamar",
+"plana de marea",
+"Plana de marea",
+"platja de marea"
+],
+"natural/wetland/wet_meadow":[
+"prat palúdic",
+"prat humit",
+"prada mullada"
+],
 "natural/wood":[
 "forestal",
 "bosc no gestionat",
@@ -3730,6 +3866,13 @@
 "sense ànim de lucre",
 "Oficina d'una organització sense ànim de lucre"
 ],
+"office/charity":[
+"Entitat caritativa",
+"punt de suport caritatiu",
+"seu d'organització benèfica",
+"entitat caritativa",
+"oficina de beneficència"
+],
 "office/company":[
 "Oficina corporativa"
 ],
@@ -3743,13 +3886,42 @@
 "Consolat"
 ],
 "office/diplomatic/embassy":[
+"ambaixada",
+"consolat",
+"missió permanent",
+"missió diplomàtica",
+"alta comissió",
+"missió estrangera",
 "Ambaixada"
 ],
+"office/diplomatic/liaison":[
+"agència de connexió",
+"missió diplomàtica",
+"sucursal",
+"representació",
+"delegació",
+"oficina de lligam"
+],
 "office/educational_institution":[
-"Institució Educativa"
+"institució educativa",
+"centre educatiu",
+"escola",
+"Institució Educativa",
+"col·legi",
+"universitat",
+"institut",
+"acadèmia"
 ],
 "office/employment_agency":[
-"Oficina de treball"
+"feina",
+"ocupació",
+"agència de col·locació",
+"Oficina de treball",
+"faena",
+"agència d'ocupació",
+"servei d'intermediació laboral",
+"treball",
+"empresa de treball temporal"
 ],
 "office/energy_supplier":[
 "distribuïdora elèctrica",
@@ -3906,6 +4078,9 @@
 ],
 "office/yes":[
 "Oficina (Tipus sense especificar)"
+],
+"pipeline":[
+"Element de canalització"
 ],
 "piste/ice_skate":[
 "Camí per patinatge sobre gel"
@@ -4400,6 +4575,9 @@
 "railway/rail":[
 "Via de tren"
 ],
+"railway/rail/highspeed":[
+"Via de tren d'alta velocitat"
+],
 "railway/railway_crossing":[
 "cruïlla ferroviària"
 ],
@@ -4427,6 +4605,9 @@
 "tranvia",
 "Tramvia",
 "tram"
+],
+"railway/tram_stop":[
+"Tram Stopping Position"
 ],
 "relation":[
 "Relació",
@@ -4740,6 +4921,9 @@
 ],
 "shop/dairy":[
 "Botiga de productes làctics"
+],
+"shop/deli":[
+"Delicadeses"
 ],
 "shop/department_store":[
 "Grans magatzems"
@@ -5308,24 +5492,55 @@
 "shop/yes":[
 "Botiga / Tenda (Tipus sense especificar)"
 ],
+"telecom":[
+"Element de telecomunicacions"
+],
 "telecom/data_center":[
 "Centre de dades"
 ],
 "telecom/exchange":[
-"Central telefònica"
+"estació de telecomunicacions",
+"intercanvi telefònic",
+"commutador telefònic",
+"central telefònica",
+"intercanvi de telecomunicacions",
+"telecomunicacions",
+"Central telefònica",
+"centre de telecomunicacions",
+"node de telecomunicacions",
+"punt d'intercanvi de telecomunicacions"
 ],
 "tourism":[
 "Element turístic"
 ],
 "tourism/alpine_hut":[
-"Refugi de muntanya"
+"alberg de muntanya",
+"refugi d'escalada",
+"refugi",
+"cabana",
+"cabana de muntanya",
+"cabana de refugi",
+"casa rural de muntanya",
+"allotjament",
+"allotjament per pernoctar",
+"Refugi de muntanya",
+"hostal de muntanya",
+"refugi de muntanya"
 ],
 "tourism/apartment":[
 "habitatge de convidats",
 "Apartaments vacacionals"
 ],
 "tourism/aquarium":[
-"Aquari"
+"peixera",
+"cistella aquària",
+"aigua",
+"aquari",
+"Aquari",
+"acuari",
+"cistella de peixos",
+"mar",
+"riu"
 ],
 "tourism/artwork":[
 "Obra d'art"
@@ -5488,9 +5703,6 @@
 "Esquena d'ase",
 "ressalt",
 "llom d'ase"
-],
-"traffic_calming/island":[
-"Refugi viari"
 ],
 "traffic_calming/mini_bumps":[
 "Xinxeta reductora de velocitat"
@@ -5836,12 +6048,12 @@
 "reguer",
 "regueró",
 "segla",
-"cavim.",
 "rec",
 "fil d'aigua",
 "séquia",
 "riuet",
 "canal",
+"cavim",
 "ramal",
 "rierol"
 ],

@@ -240,9 +240,6 @@
 "amenity/recycling_centre":[
 "Birziklatze zentrua"
 ],
-"amenity/recycling_container":[
-"Birziklatze ontzi"
-],
 "amenity/restaurant":[
 "Jatetxe"
 ],
@@ -340,9 +337,6 @@
 ],
 "amenity/vending_machine/food":[
 "Janari makina saltzailea"
-],
-"amenity/vending_machine/fuel":[
-"Gas hornigailu"
 ],
 "amenity/vending_machine/ice_cream":[
 "Izozkien makina saltzaile"

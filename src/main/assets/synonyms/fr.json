@@ -342,6 +342,10 @@
 "guichet de retrait",
 "mister cash"
 ],
+"amenity/baking_oven":[
+"Four à bois",
+"four à bois"
+],
 "amenity/bank":[
 "bank",
 "caisse populaire",
@@ -432,6 +436,9 @@
 "atelier de réparation de vélos",
 "bicycle repair station",
 "Stand d'outils de réparation de vélos"
+],
+"amenity/bicycle_wash":[
+"Lavage de vélo"
 ],
 "amenity/biergarten":[
 "brasserie en plein air",
@@ -655,16 +662,13 @@
 ],
 "amenity/community_centre":[
 "salle polyvalente",
-"community centre",
 "salle des associations",
-"salle des fètes",
 "maison des associations",
 "salle festive",
-"salle des fêtes",
 "centre communautaire",
+"salle des fêtes",
 "maison de quartier",
-"Salle polyvalente",
-"salle des fetes",
+"Centre communautaire",
 "centre d'animation"
 ],
 "amenity/community_centre/lgbtq":[
@@ -938,6 +942,10 @@
 "urine",
 "Urologue",
 "urologue"
+],
+"amenity/dog_toilet":[
+"Toilettes pour chien",
+"toilettes pour chien"
 ],
 "amenity/dojo":[
 "bojustu",
@@ -1245,6 +1253,9 @@
 "station à essence",
 "pompe à carburant"
 ],
+"amenity/funeral_hall":[
+"Salle de service funéraire"
+],
 "amenity/gambling":[
 "black jack",
 "paris",
@@ -1285,6 +1296,10 @@
 "amenity/grit_bin":[
 "Bac à sel",
 "bacs à sel de déneigement"
+],
+"amenity/hookah_lounge":[
+"bar à chicha",
+"Bar à chicha"
 ],
 "amenity/hospital":[
 "hôpital",
@@ -1362,6 +1377,9 @@
 "Bibliothèque",
 "médiathèque"
 ],
+"amenity/library_dropoff":[
+"Boîte de retour de livres"
+],
 "amenity/loading_dock":[
 "embarcadère",
 "chargement",
@@ -1380,6 +1398,9 @@
 "amenity/love_hotel":[
 "love hôtel",
 "Love hôtel"
+],
+"amenity/luggage_locker":[
+"Consigne à bagages"
 ],
 "amenity/marketplace":[
 "Marché",
@@ -1509,7 +1530,6 @@
 ],
 "amenity/payment_centre":[
 "paiement",
-"payement",
 "facture",
 "Centre de paiement",
 "argent",
@@ -1755,16 +1775,8 @@
 "parc à conteneurs"
 ],
 "amenity/recycling_container":[
-"carton",
-"recyclage",
-"recyclable",
-"bouteille",
-"verre",
-"bulle à verre",
-"canette",
-"Conteneur de recyclage",
-"poubelle",
-"déchet"
+"conteneur de recyclage",
+"Conteneur de recyclage"
 ],
 "amenity/refugee_site":[
 "réfugiés",
@@ -1804,13 +1816,9 @@
 "nems",
 "bo bun"
 ],
-"amenity/restaurant/barbeque":[
-"bbq",
-"manger",
+"amenity/restaurant/barbecue":[
 "Restaurant de grillades",
-"barbecue",
-"restaurant",
-"grill"
+"restaurant de grillades"
 ],
 "amenity/restaurant/chinese":[
 "restaurant chinois",
@@ -2055,17 +2063,14 @@
 "soins ambulatoires"
 ],
 "amenity/social_facility/assisted_living":[
-"ehpad",
-"EPHAD",
-"maison de repos",
-"maison de retraite"
+"résidence autonomie pour personnes âgées",
+"Résidence autonomie pour personnes âgées"
 ],
 "amenity/social_facility/food_bank":[
 "banque alimentaire",
 "Banque alimentaire"
 ],
 "amenity/social_facility/group_home":[
-"ehpad",
 "Maison de retraite",
 "maison de retraite"
 ],
@@ -2074,9 +2079,10 @@
 "Foyer pour sans-abri"
 ],
 "amenity/social_facility/nursing_home":[
+"ehpad",
 "Maison de repos",
+"maison de repos",
 "maison de convalescence",
-"maison de repis",
 "maison de retraite médicalisée"
 ],
 "amenity/stripclub":[
@@ -2132,6 +2138,12 @@
 "amenity/taxi":[
 "station de taxi",
 "Station de taxi"
+],
+"amenity/taxi/motorcycle_taxi":[
+"station de moto-taxi",
+"taxi-moto",
+"Station de moto-taxi",
+"taxi à deux roues"
 ],
 "amenity/telephone":[
 "téléphone",
@@ -2194,6 +2206,10 @@
 "hôtel de ville",
 "maison commune",
 "Mairie, hôtel de ville"
+],
+"amenity/townhall/barangay-PH":[
+"siège de barangay",
+"Siège de barangay"
 ],
 "amenity/townhall/city":[
 "mairie",
@@ -2379,8 +2395,14 @@
 "distributeur d'aliments",
 "Distributeur d'aliments"
 ],
+"amenity/vending_machine/food/snacks":[
+"distributeur de friandises",
+"Distributeur de friandises",
+"distributeur de snacks"
+],
 "amenity/vending_machine/fuel":[
-"Pompe à essence",
+"distributeur d'essence",
+"Distributeur de carburant",
 "distributeur de carburant"
 ],
 "amenity/vending_machine/ice_cream":[
@@ -2485,24 +2507,8 @@
 "lettre"
 ],
 "amenity/vending_machine/sweets":[
-"vente automatique de snacks",
-"sucreries",
-"chips",
-"cookie",
-"chocolat",
-"Distributeur de snacks",
-"chewing-gum",
-"vending machine sweets",
-"machine à snacks",
-"vente snacks",
-"cracker",
-"distributeur à snacks",
-"distributeur automatique de snacks",
-"sweets",
-"bonbons",
-"snacks",
-"distributeur de snacks",
-"vente de snacks"
+"Distributeur de bonbons",
+"distributeur de bonbons"
 ],
 "amenity/veterinary":[
 "Vétérinaire",
@@ -2518,6 +2524,7 @@
 ],
 "amenity/waste_basket":[
 "rubbish bin",
+"Poubelle",
 "bac à ordures",
 "trash can",
 "wastebasket",
@@ -2529,7 +2536,6 @@
 "poubelle urbaine",
 "conteneur à déchets",
 "tri sélectif",
-"Poubelle pour piétons",
 "amenity waste basket",
 "poubelle de rue",
 "bac à déchets",
@@ -2648,9 +2654,9 @@
 "area/footway":[
 "piéton",
 "rue",
-"Surface d'une rue piétonne",
 "surface",
-"aire"
+"aire",
+"Chemin piétonnier surfacique"
 ],
 "area/highway":[
 "route",
@@ -3005,6 +3011,7 @@
 ],
 "barrier/fence/railing":[
 "garde-fou",
+"Garde-fou",
 "rampe",
 "garde-corps"
 ],
@@ -3312,6 +3319,10 @@
 "frontière administrative",
 "pays"
 ],
+"boundary/hazard":[
+"Zone dangereuse",
+"zone dangereuse"
+],
 "bridge/support":[
 "Support du pont",
 "support du pont"
@@ -3344,6 +3355,10 @@
 "Immeuble",
 "immeuble",
 "appartements"
+],
+"building/bakehouse":[
+"four à pain",
+"Four à pain"
 ],
 "building/barn":[
 "hangar agricole",
@@ -3650,6 +3665,12 @@
 "maison mitoyenne",
 "maison en rangée"
 ],
+"building/house/terraced":[
+"petit hôtel",
+"Maison de ville",
+"maison de ville",
+"maison en rangée"
+],
 "building/houseboat":[
 "maison flottante",
 "Bateau habitable",
@@ -3708,6 +3729,12 @@
 "building/retail":[
 "bâtiment commercial",
 "Bâtiment commercial"
+],
+"building/riding_hall":[
+"terrain d'équitation",
+"Terrain d'équitation en intérieur",
+"intérieur",
+"terrain d'équitation en intérieur"
 ],
 "building/roof":[
 "marché couvert",
@@ -3803,15 +3830,10 @@
 "religion"
 ],
 "building/terrace":[
-"maisons mitoyennes",
-"maisons en bandes",
-"building terrace",
-"terraced houses",
-"rangée d'habitations",
-"logements en bandes",
-"terrace",
-"rangée de bâtiments",
-"Rangée de maisons"
+"maisons en rangée",
+"rangée de maisons de ville",
+"petits hôtels",
+"Rangée de maisons de ville"
 ],
 "building/train_station":[
 "Gare ferroviaire"
@@ -4892,8 +4914,8 @@
 "aire de croisement"
 ],
 "highway/path":[
-"Chemin non carrossable",
-"chemin"
+"chemin",
+"Chemin"
 ],
 "highway/path/boardwalk":[
 "pont",
@@ -4907,6 +4929,7 @@
 "Chemin informel",
 "raccourci",
 "chemin informel",
+"ligne de désire",
 "chemin officieux"
 ],
 "highway/pedestrian_area":[
@@ -5229,6 +5252,11 @@
 "marque historique",
 "souvenir"
 ],
+"historic/memorial/stolperstein-EU":[
+"Plaque mémorielle Stolpersteine",
+"stolpersteine",
+"plaque mémorielle stolpersteine"
+],
 "historic/monument":[
 "grand mémorial",
 "Grand monument commémoratif"
@@ -5426,8 +5454,10 @@
 "Terrain pour garages"
 ],
 "landuse/grass":[
+"herbe entretenue",
 "herbe",
-"Herbe"
+"pelouse entretenue",
+"Pelouse"
 ],
 "landuse/greenfield":[
 "Terrain vierge",
@@ -5744,6 +5774,9 @@
 "associatif",
 "partagé"
 ],
+"leisure/garden/kitchen":[
+"Jardin potager"
+],
 "leisure/garden/residential":[
 "cour avant",
 "jardin domestique",
@@ -5774,6 +5807,14 @@
 "poney-club",
 "Centre équestre",
 "centre d'équitation"
+],
+"leisure/hot_tub":[
+"bain tourbillon",
+"jacuzzi",
+"bain à remous",
+"bain chaud",
+"cuve thermale",
+"Jacuzzi"
 ],
 "leisure/ice_rink":[
 "patinoire",
@@ -6150,6 +6191,10 @@
 "bloque",
 "escalade"
 ],
+"leisure/sports_centre/climbing_adventure":[
+"parc d'aventures",
+"Parc d'aventures"
+],
 "leisure/sports_centre/horse_racing":[
 "pari sportif",
 "course de cheval",
@@ -6323,6 +6368,10 @@
 "support de tapis",
 "cintre à tapis"
 ],
+"man_made/charge_point":[
+"borne de recharge pour véhicules électriques",
+"Borne de recharge pour véhicules électriques"
+],
 "man_made/chimney":[
 "cheminée",
 "Cheminée"
@@ -6396,6 +6445,11 @@
 "hampe",
 "drapeau"
 ],
+"man_made/fuel_pump":[
+"Pompe à essence",
+"pompe à essence",
+"distributeur de carburant"
+],
 "man_made/gantry":[
 "signalisation",
 "autoroute",
@@ -6419,6 +6473,10 @@
 "man_made/groyne":[
 "épi maritime",
 "Épi maritime"
+],
+"man_made/insect_hotel":[
+"Hôtel à insectes",
+"hôtel à insectes"
 ],
 "man_made/lighthouse":[
 "Phare",
@@ -6543,6 +6601,10 @@
 "mât d'éclairage",
 "Mât d'éclairage"
 ],
+"man_made/milk_churn_stand":[
+"Plate-forme à lait",
+"plate-forme à lait"
+],
 "man_made/mineshaft":[
 "mine",
 "sous-terrain",
@@ -6630,6 +6692,10 @@
 "réservoir",
 "souterrain",
 "Réservoir couvert"
+],
+"man_made/satellite_dish":[
+"antenne satellite",
+"Antenne satellite"
 ],
 "man_made/silo":[
 "emplacement de stockage",
@@ -6728,6 +6794,18 @@
 "sédimentation",
 "Bassin de résidus miniers",
 "minier"
+],
+"man_made/telescope":[
+"Télescope",
+"télescope"
+],
+"man_made/telescope/optical":[
+"télescope optique",
+"Télescope optique"
+],
+"man_made/telescope/radio":[
+"Radiotélescope",
+"radiotélescope"
 ],
 "man_made/torii":[
 "torii",
@@ -6888,11 +6966,10 @@
 "balise",
 "rondelle",
 "potelet",
-"Marqueur"
+"Balise de repérage"
 ],
 "marker/utility":[
 "pipeline",
-"Balise de repérage de réseau souterrain",
 "enterré",
 "conduite de gaz",
 "souterrain",
@@ -6901,7 +6978,8 @@
 "borne de repérage",
 "canalisation de gaz",
 "câble électrique",
-"balise de repérage de réseau souterrain"
+"balise de repérage de réseau souterrain",
+"Balise de repérage"
 ],
 "marker/utility/power":[
 "enterré",
@@ -7017,8 +7095,11 @@
 "corail"
 ],
 "natural/ridge":[
+"arête",
 "crête",
-"Ligne de crête"
+"Ligne de crête",
+"arete",
+"crete"
 ],
 "natural/rock":[
 "Rocher (rattaché au sol)",
@@ -7081,6 +7162,26 @@
 "natural/tree":[
 "arbre",
 "Arbre"
+],
+"natural/tree/broadleaved":[
+"Arbres feuillus"
+],
+"natural/tree/broadleaved/deciduous":[
+"arbres feuillus (décidus)",
+"Arbres feuillus (décidus)"
+],
+"natural/tree/broadleaved/evergreen":[
+"Arbres feuillus (à l'année)"
+],
+"natural/tree/needleleaved":[
+"Arbres à aiguilles"
+],
+"natural/tree/needleleaved/deciduous":[
+"Arbres à aiguilles (décidus)"
+],
+"natural/tree/needleleaved/evergreen":[
+"arbres à aiguilles (à l'année)",
+"Arbres à aiguilles (à l'année)"
 ],
 "natural/tree_row":[
 "arbres alignés",
@@ -7435,7 +7536,8 @@
 "bureau des guides"
 ],
 "office/insurance":[
-"agence d'assurance",
+"assurance",
+"mutuelle",
 "Agence d'assurance"
 ],
 "office/it":[
@@ -8081,6 +8183,16 @@
 "appareil de connexion électrique",
 "Appareil de connexion électrique"
 ],
+"power/switchgear":[
+"appareils de commutation électrique",
+"appareillage électrique",
+"équipements",
+"appareillage",
+"équipements électriques",
+"électrique",
+"Appareillage électrique",
+"appareils"
+],
 "power/tower":[
 "pylône haute-tension",
 "Pylône électrique"
@@ -8664,6 +8776,10 @@
 "relation":[
 "Relation",
 "relation"
+],
+"roller_coaster/track":[
+"Voie de montagnes russes",
+"voie de montagnes russes"
 ],
 "route/ferry":[
 "Trajet de ferry",
@@ -9509,6 +9625,10 @@
 "décorations",
 "costumes"
 ],
+"shop/pasta":[
+"Magasin de pâtes",
+"magasin de pâtes"
+],
 "shop/pastry":[
 "Pâtisserie",
 "gaufre"
@@ -9602,6 +9722,10 @@
 "réparation",
 "retouche"
 ],
+"shop/rice":[
+"Magasin de riz",
+"magasin de riz"
+],
 "shop/scuba_diving":[
 "Magasin de matériel de plongée sous-marine",
 "magasin d'équipement et d'articles de plongée sous-marine"
@@ -9624,8 +9748,8 @@
 ],
 "shop/sewing":[
 "magasin de matériel de couture",
-"magasin de couture",
-"Magasin de couture"
+"Mercerie",
+"magasin de couture"
 ],
 "shop/shoe_repair":[
 "Cordonnier",
@@ -9649,7 +9773,7 @@
 "cannelle"
 ],
 "shop/sports":[
-"magasin d'équipement sportif",
+"magasin de sport",
 "Magasin d'équipement sportif"
 ],
 "shop/stationery":[
@@ -9816,7 +9940,7 @@
 "Magasin (non précisé)"
 ],
 "telecom":[
-"Equipement télécom"
+"Équipement télécom"
 ],
 "telecom/data_center":[
 "technologie",
@@ -10048,8 +10172,8 @@
 "Point de vue"
 ],
 "tourism/wilderness_hut":[
+"cabane",
 "Refuge de bivouac",
-"cabane.",
 "refuge non gardé",
 "refuge de bivouac"
 ],
@@ -10112,8 +10236,7 @@
 "gendarme couché"
 ],
 "traffic_calming/island":[
-"îlot central",
-"Îlot central"
+"Îlot d'apaisement du trafic"
 ],
 "traffic_calming/mini_bumps":[
 "ralentisseurs",

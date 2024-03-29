@@ -46,8 +46,8 @@
 "plakatbox"
 ],
 "advertising/totem":[
-"werbemasten",
-"Werbemasten"
+"Werbemast",
+"werbemasten"
 ],
 "aerialway":[
 "Seilbahnen ..."
@@ -266,6 +266,13 @@
 "bancomat",
 "Geldautomat"
 ],
+"amenity/baking_oven":[
+"holzofen",
+"steinofen",
+"ofen",
+"pizzaofen",
+"Backofen"
+],
 "amenity/bank":[
 "bank",
 "kreditinstitut",
@@ -287,9 +294,11 @@
 "amenity/bbq":[
 "bbq",
 "barbecue",
-"Grillplatz",
+"grillrost",
 "grillen",
-"grillplatz"
+"Grill",
+"grillstelle",
+"grill"
 ],
 "amenity/bench":[
 "bank",
@@ -327,6 +336,13 @@
 "fahrradreparatur-werkzeug-standplatz",
 "fahrradreparatur-werkzeugkasten",
 "Fahrradreparatur-Werkzeugkasten"
+],
+"amenity/bicycle_wash":[
+"fahrradwaschstation",
+"fahrradwaschplatz",
+"fahrradreinigungsstation",
+"Fahrradwaschanlage",
+"fahrradwaschanlage"
 ],
 "amenity/biergarten":[
 "biergarten",
@@ -555,7 +571,7 @@
 "einäscherungshalle"
 ],
 "amenity/dentist":[
-"Zahnarzt, Zahnärztin",
+"Zahnarzt",
 "stomatologe",
 "zahnarzt",
 "dentist"
@@ -568,9 +584,9 @@
 "amenity/doctors":[
 "mediziner",
 "doktor",
+"Arzt",
 "arzt",
 "medizinerin",
-"Arzt, Ärztin",
 "doktorin",
 "ärztin"
 ],
@@ -734,7 +750,8 @@
 ],
 "amenity/doctors/podiatry":[
 "fußchirurg",
-"Podiater"
+"Podiater (Fußchirurgie)",
+"fußchirurgie"
 ],
 "amenity/doctors/proctology":[
 "Proktologe",
@@ -815,6 +832,9 @@
 "fortpflanzung",
 "blase",
 "prostata"
+],
+"amenity/dog_toilet":[
+"Hundetoilette"
 ],
 "amenity/dojo":[
 "kampfsportstudio",
@@ -1005,6 +1025,16 @@
 "tankstelle",
 "tanke"
 ],
+"amenity/funeral_hall":[
+"abdankungshalle",
+"feierhalle",
+"Trauerhalle",
+"bestattung",
+"beerdigung",
+"aussegnungshalle",
+"einsegnungshalle",
+"trauerfeier"
+],
 "amenity/gambling":[
 "pachinko",
 "würfelspiel",
@@ -1040,6 +1070,14 @@
 "Streugutkiste",
 "streugutkiste",
 "splittkiste"
+],
+"amenity/hookah_lounge":[
+"wasserpfeife",
+"nargile",
+"sheesha",
+"Shisha Bar",
+"schischa",
+"tabak"
 ],
 "amenity/hospital":[
 "Krankenhaus",
@@ -1139,6 +1177,13 @@
 "Bibliothek",
 "bücherei"
 ],
+"amenity/library_dropoff":[
+"rückgabe",
+"bibliothek",
+"Buchrückgabe",
+"bücherrückgabe",
+"bücherei"
+],
 "amenity/loading_dock":[
 "verschiffen",
 "ladenbucht",
@@ -1159,6 +1204,20 @@
 "stundenhotel",
 "love hotel",
 "Stundenhotel"
+],
+"amenity/luggage_locker":[
+"gepäck",
+"schließfach",
+"Gepäckschließfach",
+"koffer",
+"taschen",
+"aufbewahrung",
+"reisegepäck",
+"lagerung",
+"schließfächer",
+"tour",
+"reisen",
+"gepäckstück"
 ],
 "amenity/marketplace":[
 "marktverkauf",
@@ -1540,17 +1599,11 @@
 "abfallwirtschaftshof"
 ],
 "amenity/recycling_container":[
-"altkleidercontainer",
-"altpapiercontainer",
-"müllcontainer",
-"abfallcontainer",
-"altglascontainer",
-"recyclingcontainer",
-"wertstoffhof",
-"Recyclingcontainer",
-"glascontainer",
-"altkleidersammlung",
-"altmetallcontainer"
+"gelber sack",
+"Recycling Container",
+"wertstoff",
+"recycling",
+"gelbe tonne"
 ],
 "amenity/refugee_site":[
 "Flüchtlingslager",
@@ -1602,18 +1655,11 @@
 "asiatisches restaurant",
 "Asiatisches Restaurant"
 ],
-"amenity/restaurant/barbeque":[
+"amenity/restaurant/barbecue":[
 "bbq",
-"smoker",
-"vom grill",
-"grillerei",
-"barbeque",
-"brisket",
 "Grillrestaurant",
-"fleisch",
-"grill",
-"rippchen",
-"rips"
+"barbecue restaurant",
+"holzkohlegrill"
 ],
 "amenity/restaurant/chinese":[
 "Chinesisches Restaurant",
@@ -1779,9 +1825,12 @@
 "Sozialeinrichtung"
 ],
 "amenity/social_facility/ambulatory_care":[
+"pflegeambulanz",
+"pflege",
 "ambulanter pflegedienst",
-"Ambulante Unterstützung",
-"streetwork"
+"pflegeservice",
+"streetwork",
+"Ambulanter Pflegedienst"
 ],
 "amenity/social_facility/assisted_living":[
 "pflege",
@@ -1800,7 +1849,7 @@
 "sozialmarkt",
 "suppenküche",
 "essensausgabe",
-"Essensausgabe"
+"Lebensmittelausgabe"
 ],
 "amenity/social_facility/group_home":[
 "Seniorenresidenz",
@@ -1867,6 +1916,18 @@
 "Taxistand",
 "taxi"
 ],
+"amenity/taxi/auto_rickshaw":[
+"auto-rikscha-stand",
+"Autorikscha-Stand"
+],
+"amenity/taxi/cycle_rickshaw":[
+"fahrrad-rikscha-stand",
+"Fahrradrikscha-Stand"
+],
+"amenity/taxi/motorcycle_taxi":[
+"motorrad-taxi-stand",
+"Motorradtaxi-Stand"
+],
 "amenity/telephone":[
 "telefonzelle",
 "telefon",
@@ -1920,18 +1981,23 @@
 "verwaltungszentrum",
 "gemeindezentrum",
 "rathaus",
-"Rathaus",
-"stadtverwaltung",
+"Rathaus, Gemeindeamt",
 "verwaltung",
 "gemeindeverwaltung"
 ],
+"amenity/townhall/barangay-PH":[
+"barrio",
+"baranggay",
+"Barangay Halle"
+],
 "amenity/townhall/city":[
+"Städtisches Rathaus",
 "gemeinderat",
-"gemeinde",
-"Rathaus",
-"gerichtsgebäude",
+"stadtrat",
+"rathaus",
 "bürgermeister",
-"regierung"
+"stadtregierung",
+"stadtamt"
 ],
 "amenity/toy_library":[
 "spielzeugbibliothek",
@@ -2046,9 +2112,21 @@
 "Lebensmittel-Verkaufsautomat",
 "lebensmittel-verkaufs-automat"
 ],
+"amenity/vending_machine/food/snacks":[
+"Snackautomat",
+"häppchen",
+"snack",
+"snacks",
+"salziges"
+],
 "amenity/vending_machine/fuel":[
+"kraftstoff",
+"diesel",
 "tankautomat",
-"Tankautomat"
+"Tankautomat",
+"benzin",
+"tanken",
+"biodiesel"
 ],
 "amenity/vending_machine/ice_cream":[
 "speiseeis-automat",
@@ -2083,8 +2161,12 @@
 "briefmarkenautomat"
 ],
 "amenity/vending_machine/sweets":[
+"gummibärchen",
 "Süßigkeitenautomat",
-"süßigkeitenautomat"
+"süßigkeiten",
+"bonbons",
+"süßes",
+"kaugummi"
 ],
 "amenity/veterinary":[
 "veterinär",
@@ -2100,11 +2182,12 @@
 ],
 "amenity/waste_basket":[
 "abfalleimer",
+"restmüll",
 "abfallkübel",
-"abfallbehälter",
+"abfallkorb",
+"kehrichteimer",
 "Mülleimer",
-"mistkübel",
-"mülleimer"
+"mistkübel"
 ],
 "amenity/waste_disposal":[
 "müllcontainer",
@@ -2530,6 +2613,15 @@
 "Administrative Grenze",
 "verwaltungsgrenze"
 ],
+"boundary/hazard":[
+"gefahrenbereich",
+"gefahr",
+"Gefahrenbereich",
+"achtung",
+"verboten",
+"warnung",
+"gefahrenstelle"
+],
 "bridge/support":[
 "Brückenaufhängung/-unterstützung",
 "brückenaufhängung/-unterstützung"
@@ -2564,6 +2656,12 @@
 "wohnungen",
 "großes wohnhaus",
 "mehrfamilienhaus"
+],
+"building/bakehouse":[
+"Backhaus",
+"ofenhaus",
+"backes",
+"gemeindebackhaus"
 ],
 "building/barn":[
 "Scheune",
@@ -2716,6 +2814,15 @@
 "haus",
 "Einfamilienhaus"
 ],
+"building/house/terraced":[
+"reiheneinfamilienhaus",
+"Reihenhaus",
+"eckreihenhaus",
+"reiheneckhaus",
+"reihenmittelhaus",
+"reihenendhaus",
+"zeilenhaus"
+],
 "building/houseboat":[
 "familie",
 "Hausboot",
@@ -2773,6 +2880,13 @@
 "gebäude mit läden",
 "geschäftsgebäude",
 "Geschäftsgebäude"
+],
+"building/riding_hall":[
+"longierhalle",
+"Reithalle",
+"longieren",
+"reitbahn",
+"reiten"
 ],
 "building/roof":[
 "Dach",
@@ -2840,8 +2954,12 @@
 "Tempelgebäude"
 ],
 "building/terrace":[
-"reihenhäuser",
-"Reihenhäuser"
+"Häuserreihe",
+"häuserzeile",
+"häusergruppe",
+"hausreihe",
+"hausgruppe",
+"hauszeile"
 ],
 "building/train_station":[
 "Bahnhofsgebäude"
@@ -3361,6 +3479,7 @@
 "versammlungspunkt"
 ],
 "emergency/defibrillator":[
+"aed",
 "defi",
 "defibrillator",
 "schockgeber",
@@ -3371,6 +3490,14 @@
 ],
 "emergency/destination":[
 "Notzufahrt ohne Notdurchfahrt"
+],
+"emergency/disaster_response":[
+"thw",
+"technisches hilfswerk",
+"bevölkerungsschutz",
+"zivilschutz",
+"katastrophenschutz",
+"Technisches Hilfswerk"
 ],
 "emergency/fire_alarm":[
 "feueralarmierungskasten",
@@ -3687,8 +3814,8 @@
 "tcm"
 ],
 "healthcare/audiologist":[
-"Hörakustiker/in",
-"hörakustiker/in"
+"Audiologe",
+"hörakustiker"
 ],
 "healthcare/birthing_center":[
 "geburtshaus",
@@ -3704,7 +3831,10 @@
 ],
 "healthcare/counselling":[
 "gesundheitsberatung",
-"Gesundheitsberatung"
+"beratung",
+"gesundheitsberater",
+"Gesundheitsberatung",
+"gesundheitsberaterin"
 ],
 "healthcare/dentist/orthodontics":[
 "kieferausrichtung",
@@ -3734,30 +3864,33 @@
 ],
 "healthcare/occupational_therapist":[
 "ergotherapeut",
-"Beschäftigungstherapeut/in",
-"beschäftigungstherapeut"
+"beschäftigungstherapeut",
+"Beschäftigungstherapeut"
 ],
 "healthcare/optometrist":[
-"Augenoptiker/in",
+"Augenoptiker",
 "optiker",
 "augenoptiker"
 ],
 "healthcare/physiotherapist":[
-"Physiotherapeut/in",
 "physiotherapeut",
 "krankengymnastin",
 "krankengymnast",
-"physiotherapeutin"
+"physiotherapeutin",
+"Physiotherapeut"
 ],
 "healthcare/podiatrist":[
 "podologe",
-"Fußpflege",
+"podologie",
+"zehnagel",
 "fußpflege",
-"fußheilerin"
+"fußheiler",
+"fußnagel",
+"Podologe"
 ],
 "healthcare/psychotherapist":[
-"Psychotherapeut/in",
-"psychotherapeut"
+"Psychotherapeut",
+"psychotherapie"
 ],
 "healthcare/rehabilitation":[
 "rehabilitationsklinik",
@@ -3897,6 +4030,17 @@
 "highway/cycleway/moped_link-NL":[
 "mopedstraße",
 "Mopedstraße"
+],
+"highway/cyclist_waiting_aid":[
+"Wartehilfe für Radfahrer",
+"fußbrett",
+"wartebrett",
+"haltebügel",
+"haltegriff",
+"ampelbügel",
+"wartehilfe",
+"ampelgriff",
+"ampelbrett"
 ],
 "highway/elevator":[
 "aufzugsanlage",
@@ -4411,6 +4555,12 @@
 "geschichtlich",
 "mittelalterlich"
 ],
+"historic/cannon":[
+"haubitze",
+"Kanone",
+"geschütz",
+"kanone"
+],
 "historic/castle":[
 "schloss",
 "kastell",
@@ -4466,6 +4616,10 @@
 "historic/memorial/plaque":[
 "gedenktafel",
 "Gedenktafel"
+],
+"historic/memorial/stolperstein-EU":[
+"Stolperstein",
+"stolperstein"
 ],
 "historic/monument":[
 "Monument",
@@ -5096,6 +5250,12 @@
 "kooperativer garten",
 "gemeinschaftsgarten"
 ],
+"leisure/garden/kitchen":[
+"nutzgarten",
+"Küchengarten",
+"potager",
+"selbstversorger"
+],
 "leisure/garden/residential":[
 "Hausgarten",
 "privatgarten"
@@ -5120,16 +5280,17 @@
 "pferdehof",
 "reitsportanlage",
 "reiten",
-"reitsport",
-"reitanlage",
 "reitpark",
-"pferdesport",
 "reitbetrieb",
 "reitstall",
-"reitzentrum",
-"pferdereiteinrichtung",
 "reithof",
 "ponyhof"
+],
+"leisure/hot_tub":[
+"jacuzzi",
+"sprudelbecken",
+"Whirlpool",
+"warmwasserbecken"
 ],
 "leisure/ice_rink":[
 "eisbahn",
@@ -5518,6 +5679,14 @@
 "Kletterhalle",
 "kletterhalle"
 ],
+"leisure/sports_centre/climbing_adventure":[
+"seilgarten",
+"waldseilgarten",
+"Hochseilgarten",
+"kletterwald",
+"niedrigseilgarten",
+"kletterpark"
+],
 "leisure/sports_centre/horse_racing":[
 "pferderennen",
 "galopp",
@@ -5720,10 +5889,27 @@
 "teppichklopfer",
 "teppichreinigung"
 ],
+"man_made/charge_point":[
+"ladesäule",
+"Ladepunkt",
+"schnellladepunkt",
+"ladestelle",
+"normalladestelle",
+"schnellladesäule",
+"normalladepunkt",
+"normalladesäule",
+"schnellladestelle"
+],
 "man_made/chimney":[
 "Schornstein",
 "kamin",
 "schornstein"
+],
+"man_made/clarifier":[
+"nachklärbecken",
+"vorklärbecken",
+"Absetzbecken",
+"absetzanlage"
 ],
 "man_made/clearcut":[
 "waldkahlfläcke",
@@ -5790,6 +5976,11 @@
 "Fahnenmast",
 "fahne"
 ],
+"man_made/fuel_pump":[
+"tankstellensäule",
+"tanksäule",
+"Tanksäule"
+],
 "man_made/gantry":[
 "Schilderbrücke",
 "wechselverkehrszeichen",
@@ -5817,6 +6008,22 @@
 "buhne",
 "kribbe",
 "höft"
+],
+"man_made/insect_hotel":[
+"insektenkasten",
+"überwinterungshilfe",
+"nisthilfe",
+"insektenwand",
+"insektenhotel",
+"insektenhaus",
+"Insektenhotel",
+"bienen",
+"insekten",
+"insektenasyle",
+"nützlingshotel",
+"wildbienen",
+"käfer",
+"bienenhotel"
 ],
 "man_made/lighthouse":[
 "leuchtturm",
@@ -5918,6 +6125,7 @@
 "fernsehfunkturm"
 ],
 "man_made/mast/lighting":[
+"scheinwerfermast",
 "lichtmast",
 "stadionbeleuchtung",
 "sportplatzbeleuchtung",
@@ -5925,6 +6133,14 @@
 "flutlicht",
 "beleuchtung",
 "flutlichtanlage"
+],
+"man_made/milk_churn_stand":[
+"melkbank",
+"milchkanne",
+"Milchrampe",
+"milchtisch",
+"milchbank",
+"milchbock"
 ],
 "man_made/mineshaft":[
 "vertikaler mineneintritt",
@@ -6007,6 +6223,10 @@
 "reservoir",
 "Wasserhochbehälter"
 ],
+"man_made/satellite_dish":[
+"Satellitenschüssel",
+"satellitenschüssel"
+],
 "man_made/silo":[
 "speicher",
 "silo",
@@ -6026,9 +6246,13 @@
 "Wassertank"
 ],
 "man_made/street_cabinet":[
-"kabel-tv-schrank überwachungsbox",
+"überwachungsbox",
+"verteilerkasten",
+"verteilerschrank",
 "Schaltschrank im Freien",
+"kabel-tv-schrank",
 "ampelsteuerungsschrank",
+"elektroverteiler",
 "telekomunikationsschrank"
 ],
 "man_made/street_cabinet/postal_service":[
@@ -6121,6 +6345,18 @@
 "absetzteich",
 "staubecken",
 "deponie"
+],
+"man_made/telescope":[
+"Teleskop",
+"teleskop"
+],
+"man_made/telescope/optical":[
+"Optisches Teleskop",
+"optikteleskop"
+],
+"man_made/telescope/radio":[
+"radioteleskop",
+"Radioteleskop"
 ],
 "man_made/torii":[
 "Torii",
@@ -6458,10 +6694,10 @@
 ],
 "natural/shingle":[
 "sand",
-"Schotter",
 "strand",
 "grobsand",
 "gerundetes geröll",
+"Geröll",
 "schotter",
 "kies"
 ],
@@ -6495,6 +6731,35 @@
 "natural/tree":[
 "Baum",
 "baum"
+],
+"natural/tree/broadleaved":[
+"Laubbaum"
+],
+"natural/tree/broadleaved/deciduous":[
+"hartholz",
+"laubabwerfend",
+"sommergrün",
+"breitblättrig",
+"Laubbaum (blattabwerfend)",
+"blattabwerfend",
+"laubholz"
+],
+"natural/tree/broadleaved/evergreen":[
+"Laubbaum (immergrün)"
+],
+"natural/tree/needleleaved":[
+"Nadelbaum"
+],
+"natural/tree/needleleaved/deciduous":[
+"Nadelbaum (blattabwerfend)"
+],
+"natural/tree/needleleaved/evergreen":[
+"Nadelbaum (immergrün)",
+"nadelblättrig",
+"nadelholz",
+"immergrün",
+"weichholz",
+"nadelbaum"
 ],
 "natural/tree_row":[
 "Baumreihe",
@@ -7246,7 +7511,7 @@
 "Dorf"
 ],
 "playground":[
-"Spielgeräte des Spielplatz"
+"Spielplatzgerät"
 ],
 "playground/activitypanel":[
 "spielewand",
@@ -7686,6 +7951,10 @@
 "netzschalter",
 "hochspannungsschalter"
 ],
+"power/switchgear":[
+"Schaltanlage",
+"stromschaltanlage"
+],
 "power/tower":[
 "hauptstrommast",
 "freileitungsmast",
@@ -8089,6 +8358,27 @@
 "Relation",
 "beziehung",
 "relation"
+],
+"roller_coaster/station":[
+"einstieg",
+"ausstieg",
+"station",
+"haltestelle",
+"Ein- und Ausstieg"
+],
+"roller_coaster/support":[
+"stahltragwerk",
+"holztragwerk",
+"auflager",
+"tragstruktur",
+"tragwerk",
+"Achterbahn-Tragwerk",
+"achterbahn-tragwerk",
+"träger"
+],
+"roller_coaster/track":[
+"Achterbahngleis",
+"achterbahngleis"
 ],
 "route/ferry":[
 "schiff",
@@ -8977,6 +9267,14 @@
 "Partyzubehör",
 "partyzubehör"
 ],
+"shop/pasta":[
+"nudel",
+"Nudelgeschäft",
+"spaghetti",
+"ravioli",
+"pasta",
+"nudeln"
+],
 "shop/pastry":[
 "konfiserie",
 "bäckerei",
@@ -9078,6 +9376,12 @@
 "rehabilitieren",
 "kaputt",
 "flicken"
+],
+"shop/rice":[
+"reisladen",
+"Reisgeschäft",
+"reishändler",
+"reishandel"
 ],
 "shop/scuba_diving":[
 "tauchladen",
@@ -9345,8 +9649,8 @@
 ],
 "telecom/data_center":[
 "datenzentrum",
-"datencenter",
-"Datencenter"
+"Rechenzentrum",
+"datencenter"
 ],
 "telecom/exchange":[
 "telefon",
@@ -9540,7 +9844,8 @@
 ],
 "tourism/picnic_site":[
 "picknickplatz",
-"Picknickplatz"
+"Picknickplatz",
+"grillplatz"
 ],
 "tourism/theme_park":[
 "themenpark",
@@ -9558,6 +9863,7 @@
 ],
 "tourism/wilderness_hut":[
 "unbewirtschaftete Schutzhütte",
+"selbstversorgerhütte",
 "biwakschachtel",
 "unbewirtschaftete schutzhütte"
 ],
@@ -9632,9 +9938,10 @@
 "Bremsschwelle (breit)"
 ],
 "traffic_calming/island":[
-"Verkehrsinsel",
+"Verkehrsberuhigungsinsel",
+"fahrbahninsel",
 "verkehrsinsel",
-"fahrbahnteiler"
+"verkehrsberuhigungsinsel"
 ],
 "traffic_calming/mini_bumps":[
 "kreisförmige unebenheiten",

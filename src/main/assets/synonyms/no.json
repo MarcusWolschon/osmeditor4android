@@ -224,6 +224,15 @@
 "amenity/doctors":[
 "Lege"
 ],
+"amenity/doctors/dermatology":[
+"Hudlege"
+],
+"amenity/doctors/gynaecology":[
+"Fødselslege/Gynekolog"
+],
+"amenity/doctors/plastic_surgery":[
+"Plastisk kirurg"
+],
 "amenity/dressing_room":[
 "Garderobe"
 ],
@@ -241,6 +250,9 @@
 ],
 "amenity/fast_food":[
 "Hurtigmat"
+],
+"amenity/fast_food/cafeteria":[
+"Kafeteria"
 ],
 "amenity/fast_food/chicken":[
 "Hurtigmat for kylling"
@@ -470,9 +482,6 @@
 "amenity/recycling_centre":[
 "Gjenvinningssenter"
 ],
-"amenity/recycling_container":[
-"Resirkuleringskonteiner"
-],
 "amenity/refugee_site":[
 "Flyktningeleir"
 ],
@@ -533,6 +542,9 @@
 "amenity/restaurant/turkish":[
 "Tyrkisk restaurant"
 ],
+"amenity/restaurant/ukrainian":[
+"Ukrainsk restaurant"
+],
 "amenity/restaurant/vietnamese":[
 "Vietnamesisk restaurant"
 ],
@@ -572,6 +584,9 @@
 "amenity/social_facility/nursing_home":[
 "Gamlehjem"
 ],
+"amenity/stripclub":[
+"Strippeklubb"
+],
 "amenity/studio":[
 "Studio"
 ],
@@ -599,10 +614,16 @@
 "amenity/theatre/type/amphi":[
 "Amfiteater"
 ],
+"amenity/toilets":[
+"Toalett"
+],
 "amenity/toilets/disposal/flush":[
 "Spyletoaletter"
 ],
 "amenity/townhall":[
+"Rådhus"
+],
+"amenity/townhall/city":[
 "Rådhus"
 ],
 "amenity/toy_library":[
@@ -638,9 +659,6 @@
 "amenity/vending_machine/food":[
 "Matautomat"
 ],
-"amenity/vending_machine/fuel":[
-"Drivstoffpumpe"
-],
 "amenity/vending_machine/ice_cream":[
 "Iskremautomat"
 ],
@@ -659,14 +677,11 @@
 "amenity/vending_machine/public_transport_tickets":[
 "Billettautomat"
 ],
-"amenity/vending_machine/sweets":[
-"Godteriautomat"
-],
 "amenity/veterinary":[
 "Veterinær"
 ],
 "amenity/waste_basket":[
-"Søppel"
+"Søppelbøtte"
 ],
 "amenity/waste_disposal":[
 "Søppelkonteiner"
@@ -695,6 +710,9 @@
 ],
 "attraction/animal":[
 "Dyreinnhegning"
+],
+"attraction/big_wheel":[
+"Pariserhjul"
 ],
 "attraction/bumper_car":[
 "Radiobil"
@@ -769,7 +787,7 @@
 "Gjerde"
 ],
 "barrier/fence/railing":[
-"Gjerde"
+"Rekkverk"
 ],
 "barrier/gate":[
 "Port"
@@ -974,9 +992,6 @@
 ],
 "building/temple":[
 "Tempelbygning"
-],
-"building/terrace":[
-"Rekkehus"
 ],
 "building/train_station":[
 "Togstasjonsbygning"
@@ -1224,6 +1239,9 @@
 "entrance/main":[
 "Hovedinngang"
 ],
+"entrance/staircase":[
+"Inngang til trappeoppgang"
+],
 "ford":[
 "Vadested"
 ],
@@ -1356,6 +1374,9 @@
 "highway/footway/crossing/unmarked":[
 "Tilrettelagt kryssing"
 ],
+"highway/footway/informal":[
+"Uformell gangvei"
+],
 "highway/footway/sidewalk":[
 "Fortau"
 ],
@@ -1478,6 +1499,9 @@
 "highway/toll_gantry":[
 "Automastisk bomstasjon"
 ],
+"highway/track":[
+"Traktorvei"
+],
 "highway/traffic_mirror":[
 "Trafikkspeil"
 ],
@@ -1552,6 +1576,15 @@
 "indoor":[
 "Innendørsegenskap"
 ],
+"indoor/area":[
+"Innendørs område"
+],
+"indoor/corridor":[
+"Innendørs korridor"
+],
+"indoor/corridor_line":[
+"Innendørs korridor"
+],
 "indoor/door":[
 "Innendørs dør"
 ],
@@ -1566,6 +1599,9 @@
 ],
 "indoor/wall":[
 "Innendørs vegg"
+],
+"internet_access/wlan":[
+"Wi-Fi Hotspot"
 ],
 "junction":[
 "Kryss"
@@ -1642,6 +1678,9 @@
 "landuse/railway":[
 "Jernbanekorridor"
 ],
+"landuse/recreation_ground":[
+"Rekreasjonsområde"
+],
 "landuse/religious":[
 "Religiøst område"
 ],
@@ -1708,6 +1747,12 @@
 "leisure/garden":[
 "Hage"
 ],
+"leisure/garden/botanical":[
+"Botanisk hage"
+],
+"leisure/garden/community":[
+"Felles kjøkkenhage"
+],
 "leisure/golf_course":[
 "Golfbane"
 ],
@@ -1761,6 +1806,9 @@
 ],
 "leisure/pitch/boules":[
 "Boule-/bocciabane"
+],
+"leisure/pitch/chess":[
+"Stort sjakkbrett"
 ],
 "leisure/pitch/cricket":[
 "Cricketbane"
@@ -1867,6 +1915,9 @@
 "man_made/clearcut":[
 "Nedhugget skog"
 ],
+"man_made/compass_rose":[
+"Kompassrose"
+],
 "man_made/courtyard":[
 "Gårdsplass"
 ],
@@ -1884,6 +1935,9 @@
 ],
 "man_made/gasometer":[
 "Gasometer"
+],
+"man_made/insect_hotel":[
+"Insekthotell"
 ],
 "man_made/lighthouse":[
 "Fyrtårn"
@@ -1951,6 +2005,12 @@
 "man_made/survey_point":[
 "Oppmålingspunkt"
 ],
+"man_made/telescope":[
+"Teleskop"
+],
+"man_made/telescope/radio":[
+"Radioteleskop"
+],
 "man_made/tower":[
 "Tårn"
 ],
@@ -1998,6 +2058,9 @@
 ],
 "man_made/works":[
 "Fabrikk"
+],
+"man_made/yes":[
+"Menneskeskapt ting (uspesifisert type)"
 ],
 "natural":[
 "Naturrelatert egenskap"
@@ -2098,6 +2161,9 @@
 "natural/wetland":[
 "Myr"
 ],
+"natural/wetland/mangrove":[
+"Mangrove"
+],
 "natural/wetland/tidalflat":[
 "Flatt tidevann"
 ],
@@ -2150,7 +2216,9 @@
 "Skogbrukskontoret"
 ],
 "office/government":[
-"Regjeringskontor"
+"myndighetskontor",
+"offentlig kontor",
+"Myndighetskontor"
 ],
 "office/government/tax":[
 "Skattekontor"
@@ -2261,7 +2329,7 @@
 "Tettsted"
 ],
 "place/village":[
-"Tettsted"
+"Landsby"
 ],
 "playground/basketswing":[
 "Kurvhuske"
@@ -2403,6 +2471,9 @@
 "public_transport/platform/bus_tram_point":[
 "holdeplass for sporvogn og buss",
 "Holdeplass for trikk og buss"
+],
+"public_transport/platform/ferry":[
+"Fergeperrong"
 ],
 "public_transport/platform/light_rail":[
 "Bybaneperrong"
@@ -2626,6 +2697,9 @@
 "shop/anime":[
 "Anime- / mangabutikk"
 ],
+"shop/antiques":[
+"Antikviteter"
+],
 "shop/appliance":[
 "Hvitevarebutikk"
 ],
@@ -2665,11 +2739,17 @@
 "shop/bookmaker":[
 "Bookmaker"
 ],
+"shop/books":[
+"Bokhandel"
+],
 "shop/boutique":[
 "Klesbutikk"
 ],
 "shop/butcher":[
 "Slakter"
+],
+"shop/camera":[
+"Kamerautstyr"
 ],
 "shop/candles":[
 "Lysstøperi"
@@ -2679,6 +2759,9 @@
 ],
 "shop/car":[
 "Bilforhandler"
+],
+"shop/car/second_hand":[
+"Bruktbiler"
 ],
 "shop/car_parts":[
 "Bildelforhandler"
@@ -2822,6 +2905,9 @@
 "shop/hardware":[
 "Jernvarehandel"
 ],
+"shop/health_food":[
+"Helsekost"
+],
 "shop/hearing_aids":[
 "Høreapparatutsalg"
 ],
@@ -2857,6 +2943,9 @@
 ],
 "shop/leather":[
 "Skinnbutikk"
+],
+"shop/lighting":[
+"Lampebutikk"
 ],
 "shop/locksmith":[
 "Låsesmed"
@@ -2924,14 +3013,26 @@
 "shop/religion":[
 "Religiøs butikk"
 ],
+"shop/rental":[
+"Utleie"
+],
+"shop/repair":[
+"Verksted / Reperatør"
+],
 "shop/scuba_diving":[
 "Dykkerutstyrsbutikk"
 ],
 "shop/seafood":[
 "Sjømatbutikk"
 ],
+"shop/second_hand":[
+"Bruktbutikk"
+],
 "shop/sewing":[
 "Sybutikk"
+],
+"shop/shoe_repair":[
+"Skomaker"
 ],
 "shop/shoes":[
 "Skobutikk"
@@ -3008,6 +3109,9 @@
 "shop/wine":[
 "Vinbutikk"
 ],
+"shop/yes":[
+"Butikk (uspesifisert type)"
+],
 "telecom/data_center":[
 "Datasenter"
 ],
@@ -3016,6 +3120,9 @@
 ],
 "tourism/artwork":[
 "Kunstverk"
+],
+"tourism/artwork/bust":[
+"Byste"
 ],
 "tourism/artwork/graffiti":[
 "Graffiti"
@@ -3122,14 +3229,14 @@
 "traffic_calming/hump":[
 "Fartshump"
 ],
-"traffic_calming/island":[
-"Trafikkøy"
-],
 "traffic_calming/mini_bumps":[
 "Mini-fartshump"
 ],
 "traffic_calming/rumble_strip":[
 "Rumlestripe"
+],
+"traffic_calming/yes":[
+"Trafikkdempende tiltak (uspesifisert)"
 ],
 "traffic_sign":[
 "Trafikkskilt"
@@ -3227,8 +3334,14 @@
 "Turrute",
 "turløype"
 ],
+"type/route/horse":[
+"Rute for hesteridning"
+],
 "type/route/light_rail":[
 "Bybanelinje"
+],
+"type/route/mtb":[
+"Rute for stisykling"
 ],
 "type/route/pipeline":[
 "Rørledningsrute"
@@ -3280,7 +3393,7 @@
 "Grøft"
 ],
 "waterway/drain":[
-"Sluk"
+"Avløp/drenering"
 ],
 "waterway/fish_pass":[
 "Fiskekort"

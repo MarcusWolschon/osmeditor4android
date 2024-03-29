@@ -554,8 +554,8 @@
 "traffic_calming/island":[
 "slow",
 "circle",
-"roundabout",
-"Traffic Island"
+"Traffic Calming Island",
+"roundabout"
 ],
 "traffic_calming/hump":[
 "slow",
@@ -1097,6 +1097,9 @@
 "snorkel",
 "Scuba Diving Shop"
 ],
+"shop/rice":[
+"Rice Store"
+],
 "shop/repair":[
 "broken",
 "patch",
@@ -1182,6 +1185,12 @@
 "cakery",
 "patisserie",
 "cake shop"
+],
+"shop/pasta":[
+"Pasta Store",
+"spaghetti",
+"ravioli",
+"fresh pasta"
 ],
 "shop/party":[
 "Party Supply Store",
@@ -2120,6 +2129,19 @@
 "water shuttle",
 "boat"
 ],
+"roller_coaster/track":[
+"theme park",
+"amusement ride",
+"Roller Coaster Track"
+],
+"roller_coaster/support":[
+"Roller Coaster Support"
+],
+"roller_coaster/station":[
+"theme park",
+"amusement ride",
+"Roller Coaster Station"
+],
 "railway/yard":[
 "freight car stop",
 "railroad yard",
@@ -2761,6 +2783,9 @@
 "power tower",
 "power"
 ],
+"power/switchgear":[
+"Switchgear"
+],
 "power/switch":[
 "Power Switch"
 ],
@@ -3347,6 +3372,7 @@
 "computer",
 "software",
 "Information Technology Office",
+"it office",
 "information",
 "technology"
 ],
@@ -3946,6 +3972,44 @@
 "drain",
 "retention"
 ],
+"natural/tree/needleleaved":[
+"Needleleaved Tree"
+],
+"natural/tree/broadleaved":[
+"Broadleaved Tree"
+],
+"natural/tree/needleleaved/evergreen":[
+"softwood",
+"Needleleaved Tree (evergreen)",
+"tree",
+"evergreen",
+"needleleaved",
+"conifer"
+],
+"natural/tree/needleleaved/deciduous":[
+"Needleleaved Tree (deciduous)",
+"softwood",
+"tree",
+"deciduous",
+"needleleaved",
+"conifer"
+],
+"natural/tree/broadleaved/evergreen":[
+"hardwood",
+"Broadleaved Tree (evergreen)",
+"broadleaf",
+"tree",
+"broadleaved",
+"evergreen"
+],
+"natural/tree/broadleaved/deciduous":[
+"hardwood",
+"broadleaf",
+"tree",
+"broadleaved",
+"deciduous",
+"Broadleaved Tree (deciduous)"
+],
 "marker/utility":[
 "gas line marker",
 "identifier",
@@ -4060,6 +4124,9 @@
 "Torii",
 "shinto shrine"
 ],
+"man_made/telescope":[
+"Telescope"
+],
 "man_made/tailings_pond":[
 "separation",
 "Tailings Pond",
@@ -4111,6 +4178,14 @@
 "wheat",
 "grain",
 "Silo"
+],
+"man_made/satellite_dish":[
+"Satellite Dish",
+"satellite communication",
+"tracking satellite dish",
+"parabolic dish",
+"motorized satellite dish",
+"fixed satellite dish"
 ],
 "man_made/reservoir_covered":[
 "water tank",
@@ -4180,6 +4255,12 @@
 "vertical mine entrance",
 "tunnel"
 ],
+"man_made/milk_churn_stand":[
+"milk stand",
+"Milk Churn Stand",
+"creamery stand",
+"milk can stand"
+],
 "man_made/mast":[
 "antenna",
 "radio tower",
@@ -4208,6 +4289,12 @@
 "man_made/lighthouse":[
 "Lighthouse"
 ],
+"man_made/insect_hotel":[
+"bee hotel",
+"insect house",
+"Insect Hotel",
+"bug hotel"
+],
 "man_made/groyne":[
 "Groin"
 ],
@@ -4231,6 +4318,17 @@
 "mast arm",
 "road sign structure",
 "sign assembly"
+],
+"man_made/fuel_pump":[
+"diesel",
+"petrol",
+"lng",
+"fuel",
+"propane",
+"Gas Pump",
+"gasoline",
+"cng",
+"biodiesel"
 ],
 "man_made/flagpole":[
 "Flagpole"
@@ -4281,8 +4379,19 @@
 "tree",
 "wood"
 ],
+"man_made/clarifier":[
+"Wastewater Clarifier"
+],
 "man_made/chimney":[
 "Chimney"
+],
+"man_made/charge_point":[
+"ev",
+"charge point",
+"electric vehicle",
+"charging station",
+"EV Charging Point",
+"charging stall"
 ],
 "man_made/carpet_hanger":[
 "rack",
@@ -4408,6 +4517,17 @@
 "klockstapel",
 "belfry",
 "campanile"
+],
+"man_made/telescope/radio":[
+"ground station",
+"Radio Telescope",
+"radio dish",
+"radio antenna"
+],
+"man_made/telescope/optical":[
+"refracting telescope",
+"reflecting telescope",
+"Optical Telescope"
 ],
 "man_made/surveillance/camera":[
 "alpr",
@@ -4759,8 +4879,12 @@
 "Ice Rink",
 "curling"
 ],
+"leisure/hot_tub":[
+"Hot Tub",
+"jacuzzi",
+"spa"
+],
 "leisure/horse_riding":[
-"equestrian",
 "horse ranch",
 "horse riding facility",
 "equestrian facility",
@@ -4771,7 +4895,8 @@
 "riding stables",
 "stables",
 "Horseback Riding Center",
-"horse riding"
+"horse riding",
+"equestrian center"
 ],
 "leisure/hackerspace":[
 "hackspace",
@@ -4994,6 +5119,13 @@
 "race course",
 "horseracing"
 ],
+"leisure/sports_centre/climbing_adventure":[
+"zip line",
+"Adventure Park",
+"ropes course",
+"rope climbing",
+"obstacle course"
+],
 "leisure/sports_centre/climbing":[
 "belaying",
 "Climbing Gym",
@@ -5124,7 +5256,6 @@
 ],
 "leisure/pitch/equestrian":[
 "dressage arena",
-"equestrian",
 "ring",
 "horseback riding arena",
 "horseback riding",
@@ -5141,6 +5272,7 @@
 "polo",
 "Horseback Riding / Rodeo Arena",
 "dressage",
+"equestrian arena",
 "pen",
 "longeing",
 "horse riding",
@@ -5250,6 +5382,14 @@
 "Residential Garden",
 "front yard",
 "backyard"
+],
+"leisure/garden/kitchen":[
+"edible garden",
+"cook's garden",
+"potager garden",
+"Kitchen Garden",
+"culinary garden",
+"vegetable garden"
 ],
 "leisure/garden/community":[
 "Community Garden",
@@ -5775,6 +5915,9 @@
 "historic/castle":[
 "Castle"
 ],
+"historic/cannon":[
+"Cannon"
+],
 "historic/building":[
 "Historic Building"
 ],
@@ -5783,6 +5926,9 @@
 ],
 "historic/archaeological_site":[
 "Archaeological Site"
+],
+"historic/memorial/stolperstein-EU":[
+"Memorial Plaque Stolperstein"
 ],
 "historic/memorial/plaque":[
 "remember",
@@ -6141,6 +6287,18 @@
 "highway/elevator":[
 "Elevator",
 "lift"
+],
+"highway/cyclist_waiting_aid":[
+"foot rail",
+"handrest",
+"grip",
+"handrail",
+"hand rail",
+"handle",
+"Cyclist Waiting Aid",
+"footrail",
+"footrest",
+"holding rail"
 ],
 "highway/cycleway":[
 "bicycle path",
@@ -6723,6 +6881,14 @@
 "emergency/fire_alarm":[
 "Fire Alarm Call Box"
 ],
+"emergency/disaster_response":[
+"ses",
+"disaster management",
+"emergency management",
+"Disaster Response Station",
+"civil protection",
+"civil defense"
+],
 "emergency/defibrillator":[
 "aed",
 "Defibrillator"
@@ -7046,13 +7212,16 @@
 "Transportation Building"
 ],
 "building/terrace":[
+"row house",
 "brownstone",
 "dwelling",
 "terrace",
+"townhome",
+"row home",
 "family",
 "residence",
-"Row Houses",
-"home"
+"home",
+"Row of Townhouses"
 ],
 "building/temple":[
 "Temple Building"
@@ -7127,6 +7296,16 @@
 ],
 "building/roof":[
 "Roof"
+],
+"building/riding_hall":[
+"Indoor Horseback Riding Arena",
+"indoor ring",
+"indoor arena",
+"equestrian arena",
+"indoor riding",
+"horse riding",
+"longeing hall",
+"equestrian indoor arena"
 ],
 "building/retail":[
 "store building",
@@ -7290,6 +7469,9 @@
 "building/barn":[
 "Barn"
 ],
+"building/bakehouse":[
+"Bakehouse"
+],
 "building/apartments":[
 "Apartment Building"
 ],
@@ -7311,11 +7493,27 @@
 "building/bunker":[
 "Bunker"
 ],
+"building/house/terraced":[
+"brownstone",
+"Townhouse",
+"dwelling",
+"terrace",
+"townhome",
+"row home",
+"family",
+"residence",
+"home"
+],
 "bridge/support":[
 "Bridge Support"
 ],
 "bridge/support/pier":[
 "Bridge Pier"
+],
+"boundary/hazard":[
+"Hazardous Area",
+"prohibited",
+"danger"
 ],
 "boundary/administrative":[
 "Administrative Boundary"
@@ -7720,10 +7918,10 @@
 ],
 "amenity/waste_basket":[
 "litter",
+"Trash Can",
 "bin",
 "garbage",
 "rubbish",
-"Waste Basket",
 "trash"
 ],
 "amenity/veterinary":[
@@ -7911,10 +8109,10 @@
 "glass",
 "scrap",
 "bin",
-"Recycling Container",
 "garbage",
 "bottle",
 "rubbish",
+"Recycling Bin",
 "trash"
 ],
 "amenity/recycling_centre":[
@@ -7939,9 +8137,12 @@
 "Ranger Station"
 ],
 "amenity/public_bookcase":[
+"share a book",
 "library",
+"book sharing",
 "bookcrossing",
-"Public Bookcase"
+"Public Bookcase",
+"sharing books"
 ],
 "amenity/public_bath":[
 "Public Bath",
@@ -8209,6 +8410,16 @@
 "amenity/marketplace":[
 "Marketplace"
 ],
+"amenity/luggage_locker":[
+"baggage",
+"bags",
+"luggage",
+"lockers",
+"storage",
+"travel",
+"locker",
+"Luggage Locker"
+],
 "amenity/love_hotel":[
 "Love Hotel"
 ],
@@ -8225,6 +8436,14 @@
 "shipping",
 "unloading",
 "warehouse"
+],
+"amenity/library_dropoff":[
+"library book return",
+"book return",
+"book drop-off",
+"library drop-off",
+"library return",
+"Book Return Drop Box"
 ],
 "amenity/library":[
 "book",
@@ -8328,6 +8547,13 @@
 "surgery",
 "Hospital Grounds"
 ],
+"amenity/hookah_lounge":[
+"nargile",
+"shisha",
+"flavored tobacco",
+"waterpipe",
+"Hookah Lounge"
+],
 "amenity/grit_bin":[
 "sand",
 "salt",
@@ -8370,6 +8596,11 @@
 "roulette",
 "bingo",
 "craps"
+],
+"amenity/funeral_hall":[
+"funeral ceremony",
+"funeral hall",
+"Funeral Service Hall"
 ],
 "amenity/fuel":[
 "diesel",
@@ -8456,6 +8687,15 @@
 "martial arts",
 "dojang"
 ],
+"amenity/dog_toilet":[
+"Dog Toilet",
+"dog urinate",
+"dog relief area",
+"dog excrement",
+"dog poo area",
+"dog excrete",
+"dog urine"
+],
 "amenity/doctors":[
 "medical doctor",
 "medic",
@@ -8488,7 +8728,8 @@
 "Convention Center"
 ],
 "amenity/compressed_air":[
-"Compressed Air"
+"Compressed Air",
+"air compressor"
 ],
 "amenity/community_centre":[
 "Community Center",
@@ -8593,6 +8834,16 @@
 "bier",
 "beer"
 ],
+"amenity/bicycle_wash":[
+"cycle wash",
+"bike wash",
+"Bicycle Wash",
+"bicycle",
+"cycle rinse station",
+"cycling",
+"bicycle cleaning",
+"bike"
+],
 "amenity/bicycle_repair_station":[
 "bike chain",
 "Bicycle Repair Tool Stand",
@@ -8653,6 +8904,17 @@
 "savings",
 "stock",
 "vault"
+],
+"amenity/baking_oven":[
+"bakehouse",
+"horno",
+"bread",
+"Baking Oven",
+"beehive oven",
+"masonry oven",
+"clay oven",
+"tabun oven",
+"pizza oven"
 ],
 "amenity/atm":[
 "money",
@@ -8744,13 +9006,8 @@
 "trash"
 ],
 "amenity/vending_machine/sweets":[
-"Snack Vending Machine",
-"cracker",
-"chip",
-"cookie",
-"candy",
-"pretzel",
-"gum"
+"Candy Vending Machine",
+"gumball"
 ],
 "amenity/vending_machine/stamps":[
 "postage",
@@ -8759,13 +9016,9 @@
 "stamp"
 ],
 "amenity/vending_machine/public_transport_tickets":[
-"bus",
-"ticket",
-"ferry",
-"rail",
-"Transit Ticket Vending Machine",
-"train",
-"transportation"
+"public transport ticket vending machine",
+"public transport tickets",
+"Transit Ticket Vending Machine"
 ],
 "amenity/vending_machine/pizza":[
 "pizza",
@@ -8794,12 +9047,12 @@
 "vanilla"
 ],
 "amenity/vending_machine/fuel":[
+"Gas Vending Machine",
 "diesel",
 "petrol",
 "lng",
 "fuel",
 "propane",
-"Gas Pump",
 "gasoline",
 "cng",
 "biodiesel"
@@ -8884,6 +9137,15 @@
 "Bicycle Inner Tube Vending Machine",
 "bike tube"
 ],
+"amenity/vending_machine/food/snacks":[
+"Snack Vending Machine",
+"cracker",
+"chip",
+"cookie",
+"candy",
+"pretzel",
+"gum"
+],
 "amenity/townhall/city":[
 "government",
 "mayor",
@@ -8891,6 +9153,10 @@
 "courthouse",
 "municipality",
 "City Hall"
+],
+"amenity/townhall/barangay-PH":[
+"Barangay Hall",
+"barrio hall"
 ],
 "amenity/toilets/portable":[
 "porta potty",
@@ -8927,6 +9193,31 @@
 "open air",
 "ampi",
 "Amphitheatre"
+],
+"amenity/taxi/motorcycle_taxi":[
+"Motorcycle Taxi Stand",
+"pillion",
+"habal-habal",
+"moto taxi"
+],
+"amenity/taxi/cycle_rickshaw":[
+"bikecab",
+"Cycle Rickshaw Stand",
+"padyak",
+"trisikad",
+"sikad",
+"velotaxi",
+"becak",
+"trishaw",
+"pedicab"
+],
+"amenity/taxi/auto_rickshaw":[
+"tuk-tuk",
+"bajaj",
+"tricycle station",
+"tuksi",
+"Auto Rickshaw Stand",
+"toda"
 ],
 "amenity/studio/video":[
 "video recording",
@@ -9369,12 +9660,12 @@
 "grill",
 "table"
 ],
-"amenity/restaurant/barbeque":[
+"amenity/restaurant/barbecue":[
 "bbq",
+"Barbecue Restaurant",
 "bar",
 "lunch",
 "dine",
-"Barbeque Restaurant",
 "dining",
 "canteen",
 "eat",

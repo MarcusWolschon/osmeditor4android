@@ -5,8 +5,17 @@
 "amenity/dentist":[
 "Tannlege"
 ],
+"amenity/driving_school":[
+"Køyreskule"
+],
+"amenity/language_school":[
+"Språkskule"
+],
 "attraction/carousel":[
 "Karusell"
+],
+"leisure/dancing_school":[
+"Danseskule"
 ],
 "waterway/river":[
 "Elv"

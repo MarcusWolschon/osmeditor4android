@@ -409,15 +409,6 @@
 "Ēdiena Tirdzniecības automāts",
 "pārtika"
 ],
-"amenity/vending_machine/fuel":[
-"gāze",
-"Degvielas sūknis",
-"dīzelis",
-"95",
-"uzpilde",
-"degviela",
-"98"
-],
 "amenity/vending_machine/ice_cream":[
 "auksts",
 "šokolādes",
@@ -455,14 +446,6 @@
 "Pastmarku Tirdzniecības automāts",
 "vēstule"
 ],
-"amenity/vending_machine/sweets":[
-"saldumu",
-"konfekšu",
-"batoniņu",
-"šokolādes",
-"Saldumu Tirdzniecības automāts",
-"cepumu"
-],
 "amenity/veterinary":[
 "Veternārārsts",
 "veterniārā",
@@ -478,13 +461,6 @@
 "tvertne",
 "kaste",
 "atkritumu"
-],
-"amenity/waste_basket":[
-"Atkritumu grozs",
-"papīrgrozs",
-"izmestuve",
-"miskaste",
-"atkritumi"
 ],
 "amenity/waste_disposal":[
 "Atkritumu konteiners",
@@ -699,11 +675,6 @@
 "Tempļa Ēka",
 "reliģija",
 "piemiņa"
-],
-"building/terrace":[
-"Rindumājas",
-"rindu mājas",
-"mājas"
 ],
 "building/university":[
 "Universitātes Ēka"
@@ -1093,6 +1064,9 @@
 ],
 "man_made/mast":[
 "Masts"
+],
+"man_made/milk_churn_stand":[
+"piena galds"
 ],
 "man_made/observatory":[
 "Observatorija"
@@ -1665,9 +1639,6 @@
 ],
 "traffic_calming/hump":[
 "Guļošais Policists"
-],
-"traffic_calming/island":[
-"Ceļa saliņa"
 ],
 "type/boundary":[
 "Robeža"

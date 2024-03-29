@@ -1,0 +1,164 @@
+{
+"amenity/atm":[
+"Pūrere Pūtea"
+],
+"amenity/bicycle_parking":[
+"Tūnga pahikara"
+],
+"amenity/bus_station":[
+"Teihana Pahi"
+],
+"amenity/car_rental":[
+"Ngā Tūnga Waka Rēti"
+],
+"amenity/cinema":[
+"Whare Pikitia"
+],
+"amenity/ferry_terminal":[
+"Taunga Waka Kōpiko"
+],
+"amenity/grave_yard":[
+"Urupā"
+],
+"amenity/ice_cream":[
+"Aihikirīmi toa"
+],
+"amenity/kindergarten":[
+"Kura Pūhou"
+],
+"amenity/library":[
+"Whare pukapuka"
+],
+"amenity/mortuary":[
+"Whare tūpāpaku"
+],
+"amenity/parking":[
+"Ngā Tūnga Waka"
+],
+"amenity/recycling":[
+"Hangarua"
+],
+"amenity/school":[
+"Kura"
+],
+"amenity/theatre":[
+"Whare Tapere"
+],
+"amenity/townhall":[
+"Hōro ā-Tāone"
+],
+"amenity/university":[
+"Whare Wānanga"
+],
+"amenity/waste_basket":[
+"Rapihi"
+],
+"building":[
+"Whare"
+],
+"building/church":[
+"Whare hāhi"
+],
+"building/entrance":[
+"Putanga"
+],
+"entrance":[
+"Putanga"
+],
+"entrance/emergency":[
+"Putanga Ohotata Anake"
+],
+"highway/bus_stop":[
+"Tūnga Pahi"
+],
+"highway/busway":[
+"Arapahi"
+],
+"highway/construction":[
+"Mahinga Rori"
+],
+"highway/living_street":[
+"Ara Wātea"
+],
+"highway/motorway":[
+"Te Ara Whānui"
+],
+"highway/motorway_junction":[
+"Putanga ki Te Ara Whānui"
+],
+"landuse/cemetery":[
+"Urupā"
+],
+"landuse/harbour":[
+"Te Taunga"
+],
+"landuse/retail":[
+"Ngā Toa"
+],
+"leisure/park":[
+"Papa Rēhia"
+],
+"leisure/swimming_pool":[
+"Hōpua"
+],
+"natural/beach":[
+"Tātahi"
+],
+"natural/water/river":[
+"Papa wai awa"
+],
+"office":[
+"Tari"
+],
+"place/town":[
+"Tāone"
+],
+"public_transport/platform/bus_point":[
+"Tūnga Pahi"
+],
+"public_transport/station_bus":[
+"Teihana Pahi"
+],
+"public_transport/station_ferry":[
+"Taunga Waka Kōpiko"
+],
+"public_transport/station_train":[
+"Teihana Rerewē"
+],
+"public_transport/stop_position_ferry":[
+"Wāpu Waka Kōpiko"
+],
+"railway/station":[
+"Teihana Rerewē"
+],
+"shop":[
+"Toa"
+],
+"shop/bicycle":[
+"Pahikara toa"
+],
+"shop/candles":[
+"Kānara toa"
+],
+"tourism/camp_site":[
+"Puninga"
+],
+"tourism/museum":[
+"Whare tongarewa"
+],
+"type/restriction/no_left_turn":[
+"Kāore huri mauī"
+],
+"type/restriction/no_right_turn":[
+"Kāore huri matau"
+],
+"type/restriction/only_left_turn":[
+"Huri mauī anake"
+],
+"type/restriction/only_right_turn":[
+"Huri matau anake"
+],
+"type/route/detour":[
+"Otinga"
+]
+}

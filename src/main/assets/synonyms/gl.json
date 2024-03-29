@@ -1377,18 +1377,6 @@
 "centro de reciclaxe",
 "Centro de reciclaxe"
 ],
-"amenity/recycling_container":[
-"contenedor",
-"carton",
-"lixo",
-"reciclaxe",
-"basura",
-"colector",
-"contedor",
-"Contedor de reciclaxe",
-"vidro",
-"papel"
-],
 "amenity/refugee_site":[
 "Campo de refuxiados"
 ],
@@ -1840,9 +1828,6 @@
 "amenity/vending_machine/food":[
 "Expendedora de comida"
 ],
-"amenity/vending_machine/fuel":[
-"Surtidor de combustíbel"
-],
 "amenity/vending_machine/ice_cream":[
 "Expendedora de xeados"
 ],
@@ -1865,20 +1850,11 @@
 "amenity/vending_machine/public_transport_tickets":[
 "Expendedora de billetes de transporte público"
 ],
-"amenity/vending_machine/sweets":[
-"Expendedora de Snacks"
-],
 "amenity/veterinary":[
 "Veterinario"
 ],
 "amenity/waste/dog_excrement":[
 "Papeleira para excrementos de cans"
-],
-"amenity/waste_basket":[
-"Papeleira",
-"lixo",
-"basura",
-"papeleira"
 ],
 "amenity/waste_disposal":[
 "Contedor de lixo"
@@ -2567,14 +2543,6 @@
 ],
 "building/temple":[
 "Edificio do templo"
-],
-"building/terrace":[
-"Ringleira de casas",
-"fila de casas",
-"vivendas adosadas",
-"casas en fila",
-"casas adosadas",
-"ringleira de casas"
 ],
 "building/train_station":[
 "Edificio da estación de trens"
@@ -6743,6 +6711,9 @@
 "Corredor de apostas",
 "apostas"
 ],
+"shop/books":[
+"Libraría"
+],
 "shop/boutique":[
 "Boutique"
 ],
@@ -7699,9 +7670,6 @@
 "Badén",
 "badén",
 "reductora de velocidade"
-],
-"traffic_calming/island":[
-"Illa de Tráfico"
 ],
 "traffic_calming/rumble_strip":[
 "Bandas sonoras",

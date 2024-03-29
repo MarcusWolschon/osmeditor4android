@@ -1,0 +1,539 @@
+{
+"address":[
+"Seoladh"
+],
+"aeroway/aerodrome":[
+"Aerfort"
+],
+"aeroway/hangar":[
+"Haingear"
+],
+"aeroway/helipad":[
+"Héileapad"
+],
+"aeroway/runway":[
+"Rúidbhealach"
+],
+"aeroway/taxiway":[
+"Bealach Innealta"
+],
+"amenity":[
+"Áis"
+],
+"amenity/atm":[
+"Meaisín Bainc"
+],
+"amenity/bank":[
+"Banc"
+],
+"amenity/bar":[
+"Teach Tábhairne"
+],
+"amenity/bench":[
+"Binse"
+],
+"amenity/bus_station":[
+"Stáisiún / Críochfort Bus"
+],
+"amenity/cafe":[
+"Caifé"
+],
+"amenity/childcare":[
+"Naíonra"
+],
+"amenity/cinema":[
+"Pictiúrlann"
+],
+"amenity/community_centre":[
+"Ionad Pobail"
+],
+"amenity/courthouse":[
+"Teach Cúirte"
+],
+"amenity/embassy":[
+"Ambasáid"
+],
+"amenity/fountain":[
+"Scairdeán"
+],
+"amenity/grave_yard":[
+"Reilig"
+],
+"amenity/library":[
+"Leabharlann"
+],
+"amenity/marketplace":[
+"Margadh"
+],
+"amenity/parking_entrance":[
+"Slí Isteach/Amach Garáiste Páirceála"
+],
+"amenity/police":[
+"Póilíní"
+],
+"amenity/pub":[
+"Teach Tábhairne"
+],
+"amenity/restaurant":[
+"Bialann"
+],
+"amenity/school":[
+"Fearann Scoile"
+],
+"amenity/shelter":[
+"Scáthlán"
+],
+"amenity/telephone":[
+"Teileafón"
+],
+"amenity/theatre":[
+"Amharclann"
+],
+"amenity/toilets":[
+"Leithris"
+],
+"amenity/university":[
+"Fearann Ollscoile"
+],
+"area":[
+"Limistéar"
+],
+"attraction/train":[
+"Traein Turasóireachta"
+],
+"barrier":[
+"Bacainn"
+],
+"barrier/bollard":[
+"Mullard"
+],
+"barrier/ditch":[
+"Díog"
+],
+"barrier/entrance":[
+"Slí Isteach"
+],
+"barrier/fence":[
+"Claí"
+],
+"barrier/gate":[
+"Geata"
+],
+"barrier/hedge":[
+"Fál"
+],
+"barrier/stile":[
+"Dreapa"
+],
+"barrier/toll_booth":[
+"Both Dola"
+],
+"barrier/wall":[
+"Balla"
+],
+"building":[
+"Foirgneamh"
+],
+"building/entrance":[
+"Slí Isteach/Amach"
+],
+"building/garage":[
+"Garáiste"
+],
+"building/school":[
+"Foirgneamh Scoile"
+],
+"building/train_station":[
+"Foirgneamh Stáisiún Traenach"
+],
+"building/university":[
+"Foirgneamh Ollscoile"
+],
+"highway/bus_stop":[
+"Stad bus"
+],
+"highway/crossing/traffic_signals":[
+"Crosaire le soilse coisithe"
+],
+"highway/cycleway/crossing/traffic_signals":[
+"Crosaire rothair le soilse tráchta"
+],
+"highway/footway/crossing/traffic_signals":[
+"Crosaire le soilse coisithe"
+],
+"highway/give_way":[
+"Comhartha Géill Slí"
+],
+"highway/mini_roundabout":[
+"Miontimpeallán"
+],
+"highway/motorway":[
+"Mótarbhealach"
+],
+"highway/motorway_junction":[
+"Slí Amach / Acomhal Mótarbhealaigh"
+],
+"highway/path":[
+"Cosán"
+],
+"highway/pedestrian_line":[
+"Sráid Choisithe"
+],
+"highway/service/alley":[
+"Lána"
+],
+"highway/service/drive-through":[
+"Carrsheirbhíse"
+],
+"highway/service/driveway":[
+"Cabhsa"
+],
+"highway/steps":[
+"Céimeanna"
+],
+"highway/stop":[
+"Comhartha Stop"
+],
+"highway/street_lamp":[
+"Solas sráide"
+],
+"historic/castle":[
+"Caisleán"
+],
+"historic/memorial":[
+"Leacht Cuimhneacháin"
+],
+"historic/monument":[
+"Leacht"
+],
+"historic/ruins":[
+"Fothrach"
+],
+"landuse/cemetery":[
+"Reilig"
+],
+"landuse/farm":[
+"Talamh Feirme"
+],
+"landuse/farmyard":[
+"Clós Feirme"
+],
+"landuse/grass":[
+"Féar"
+],
+"landuse/meadow":[
+"Cluain"
+],
+"landuse/orchard":[
+"Úllord"
+],
+"landuse/quarry":[
+"Cairéal"
+],
+"landuse/vineyard":[
+"Fíonghort"
+],
+"leisure/garden":[
+"Gairdín"
+],
+"leisure/marina":[
+"Mairíne"
+],
+"leisure/park":[
+"Páirc"
+],
+"leisure/playground":[
+"Áit Súgartha"
+],
+"leisure/slipway":[
+"Fánán"
+],
+"leisure/stadium":[
+"Staid"
+],
+"line":[
+"Líne"
+],
+"man_made/lighthouse":[
+"Teach Solais"
+],
+"man_made/pier":[
+"Cé"
+],
+"man_made/pipeline":[
+"Píblíne"
+],
+"man_made/tower":[
+"Túr"
+],
+"natural/bay":[
+"Bá"
+],
+"natural/beach":[
+"Trá"
+],
+"natural/cliff":[
+"Aill"
+],
+"natural/coastline":[
+"Imeallbhord"
+],
+"natural/glacier":[
+"Oighearshruth"
+],
+"natural/grassland":[
+"Talamh Féaraigh"
+],
+"natural/heath":[
+"Móinteach"
+],
+"natural/peak":[
+"Binn"
+],
+"natural/spring":[
+"Tobar"
+],
+"natural/tree":[
+"Crann"
+],
+"natural/water":[
+"Uisce"
+],
+"natural/water/lake":[
+"Loch"
+],
+"natural/water/pond":[
+"Lochán"
+],
+"natural/water/reservoir":[
+"Taiscumar"
+],
+"natural/wetland":[
+"Bogach"
+],
+"office":[
+"Oifig"
+],
+"place":[
+"Áit"
+],
+"place/city":[
+"Cathair"
+],
+"place/hamlet":[
+"Gráig"
+],
+"place/island":[
+"Oileán"
+],
+"place/town":[
+"Baile"
+],
+"place/village":[
+"Sráidbhaile"
+],
+"point":[
+"Pointe"
+],
+"public_transport/platform/bus_point":[
+"Stad bus"
+],
+"public_transport/platform/bus_tram_point":[
+"Stad Tram & Bus"
+],
+"public_transport/platform/subway":[
+"Ardán Meitreo"
+],
+"public_transport/platform/subway_point":[
+"Stad / Ardán Meitreo"
+],
+"public_transport/platform/train":[
+"Ardán Traenach"
+],
+"public_transport/platform/tram":[
+"Ardán Tram"
+],
+"public_transport/platform/tram_point":[
+"Stad / Ardán Tram"
+],
+"public_transport/platform/trolleybus_point":[
+"Stad bus tralaí"
+],
+"public_transport/station_subway":[
+"Stáisiún Meitreo"
+],
+"public_transport/station_train":[
+"Stáisiún Traenach"
+],
+"public_transport/station_train_halt":[
+"Stáisiún Traenach (Stad ar iarratas)"
+],
+"public_transport/station_tram":[
+"Stáisiún Tram"
+],
+"public_transport/stop_position_subway":[
+"Áit Stoptha Meitreo"
+],
+"public_transport/stop_position_tram":[
+"Áit Stoptha Tram"
+],
+"railway/funicular":[
+"Ráille Iarnróid Cáblach"
+],
+"railway/halt":[
+"Stáisiún Traenach (Stad ar iarratas)"
+],
+"railway/narrow_gauge":[
+"Iarnród Caol"
+],
+"railway/platform":[
+"Ardán Traenach"
+],
+"railway/rail":[
+"Ráille Traenach"
+],
+"railway/rail/highspeed":[
+"Ráille Thraein Ardluais"
+],
+"railway/signal":[
+"Comhartha Iarnróid"
+],
+"railway/station":[
+"Stáisiún Traenach"
+],
+"railway/subway":[
+"Ráille Meitreo"
+],
+"railway/subway_entrance":[
+"Bealach Isteach Meitreo"
+],
+"railway/tram":[
+"Tramrian"
+],
+"railway/tram_crossing":[
+"Crosaire Tram-Cosán"
+],
+"railway/tram_level_crossing":[
+"Crosaire Tram-Bóthar"
+],
+"relation":[
+"Nasc"
+],
+"shop":[
+"Siopa"
+],
+"shop/books":[
+"Siopa Leabhair"
+],
+"shop/boutique":[
+"Búitíc"
+],
+"shop/butcher":[
+"Búistéir"
+],
+"shop/chemist":[
+"Cógaslann"
+],
+"shop/deli":[
+"Deilí"
+],
+"shop/florist":[
+"Siopa Bláthanna"
+],
+"shop/greengrocer":[
+"Siopa Glasraí"
+],
+"shop/hairdresser":[
+"Gruagaire"
+],
+"shop/kiosk":[
+"Both"
+],
+"shop/mall":[
+"Ionad Siopadóireachta"
+],
+"shop/newsagent":[
+"Seastán Nuachtán"
+],
+"shop/optician":[
+"Radharceolaí"
+],
+"shop/supermarket":[
+"Ollmhargadh"
+],
+"tourism/artwork":[
+"Obair Ealaíne"
+],
+"tourism/hostel":[
+"Brú"
+],
+"tourism/hotel":[
+"Óstán"
+],
+"tourism/information":[
+"Eolas"
+],
+"tourism/information/board/welcome_sign":[
+"Comhartha Fáilte"
+],
+"tourism/motel":[
+"Óstán Cois Bóthair"
+],
+"tourism/museum":[
+"Músaem"
+],
+"tourism/viewpoint":[
+"Pointe Radhairc"
+],
+"tourism/zoo":[
+"Zú"
+],
+"traffic_sign":[
+"Comhartha Bóthair"
+],
+"traffic_sign/maxspeed":[
+"Comhartha Teorainn Luais"
+],
+"type/boundary":[
+"Teorainn"
+],
+"type/destination_sign":[
+"Comhartha Ceann Scríbe"
+],
+"type/multipolygon":[
+"Ilpholagán"
+],
+"type/restriction":[
+"Srian"
+],
+"type/route":[
+"Bealach"
+],
+"type/route/subway":[
+"Líne Meitreo"
+],
+"type/route/train":[
+"Líne Traenach"
+],
+"type/route/tram":[
+"Bealach Tram"
+],
+"waterway/canal":[
+"Canáil"
+],
+"waterway/dam":[
+"Damba"
+],
+"waterway/drain":[
+"Draein"
+],
+"waterway/river":[
+"Abhainn"
+],
+"waterway/stream":[
+"Sruth"
+],
+"waterway/weir":[
+"Cora"
+]
+}

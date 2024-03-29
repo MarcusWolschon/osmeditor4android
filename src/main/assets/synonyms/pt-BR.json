@@ -6,6 +6,9 @@
 "Endereço",
 "endereço"
 ],
+"advertising":[
+"Dispositivo de publicidade"
+],
 "advertising/billboard":[
 "letreiro",
 "Outdoor",
@@ -363,10 +366,10 @@
 "lava rápido",
 "limpeza de carros",
 "lava jato",
-"Lava a jato",
 "lavagem de veículos",
 "lava-a-jato",
-"lava-jato"
+"lava-jato",
+"Lava-rápido"
 ],
 "amenity/casino":[
 "aposta",
@@ -413,6 +416,9 @@
 "aborto",
 "Clínica de aborto",
 "interrupção da gravidez"
+],
+"amenity/clinic/dialysis":[
+"Centro de diálise"
 ],
 "amenity/clinic/fertility":[
 "congelamento de esperma",
@@ -1206,15 +1212,21 @@
 "vidro"
 ],
 "amenity/recycling_container":[
-"resíduos",
-"dejetos",
-"material reciclável",
-"reciclagem",
+"embalagens",
+"garrafas",
 "lixo",
-"lixeira",
-"Contêiner para reciclagem",
-"lata de lixo",
-"lata de reciclagem"
+"metal",
+"Contêiner de reciclagem",
+"plástico",
+"latas",
+"resíduos",
+"reciclar",
+"óleo",
+"roupa",
+"reciclagem",
+"ecoponto",
+"vidro",
+"papel"
 ],
 "amenity/refugee_site":[
 "campo de refugiados",
@@ -1241,8 +1253,15 @@
 "asiático",
 "comida asiática"
 ],
-"amenity/restaurant/barbeque":[
-"Churrascaria"
+"amenity/restaurant/barbecue":[
+"bbq",
+"barbeque",
+"churrasco",
+"refeições",
+"grelhados",
+"Churrascaria",
+"churrascaria",
+"grill"
 ],
 "amenity/restaurant/chinese":[
 "Restaurante chinês",
@@ -1257,6 +1276,21 @@
 "restaurante francês",
 "comida francesa",
 "Restaurante francês"
+],
+"amenity/restaurant/georgian":[
+"jantar",
+"Restaurante georgiano",
+"comer",
+"lanchar",
+"geórgia",
+"georgia",
+"lanche",
+"alimentar",
+"comida",
+"repasto",
+"almoço",
+"georgian",
+"alimentação"
 ],
 "amenity/restaurant/german":[
 "Restaurante alemão",
@@ -1295,7 +1329,10 @@
 "comida japonesa"
 ],
 "amenity/restaurant/korean":[
-"Restaurante coreano"
+"Restaurante coreano",
+"korea",
+"coreia",
+"korean"
 ],
 "amenity/restaurant/mexican":[
 "guacamole",
@@ -1318,6 +1355,19 @@
 "restaurante",
 "alimentação"
 ],
+"amenity/restaurant/ramen":[
+"ramen",
+"japão",
+"cozinha",
+"ramen-ten",
+"japonês",
+"sopa",
+"miojo",
+"ramen-ya",
+"japonesa",
+"lamen",
+"Restaurante de ramen"
+],
 "amenity/restaurant/seafood":[
 "frutos do mar",
 "pescados",
@@ -1325,9 +1375,21 @@
 "Restaurante de frutos do mar",
 "alimentação"
 ],
+"amenity/restaurant/spanish":[
+"espanha",
+"tapa",
+"comer",
+"comida",
+"espanhol",
+"pintxo",
+"espanhola",
+"Restaurante espanhol"
+],
 "amenity/restaurant/steakhouse":[
-"Churrascaria",
-"churrascaria"
+"gado",
+"churrasco",
+"carne",
+"Steak house"
 ],
 "amenity/restaurant/sushi":[
 "restaurante asiático",
@@ -1357,6 +1419,20 @@
 "falafel",
 "tahine",
 "comida turca"
+],
+"amenity/restaurant/ukrainian":[
+"jantar",
+"lanche",
+"alimentar",
+"ukraine",
+"comer",
+"comida",
+"lanchar",
+"Restaurante ucraniano",
+"repasto",
+"almoço",
+"ucrânia",
+"alimentação"
 ],
 "amenity/restaurant/vietnamese":[
 "restaurante asiático",
@@ -1654,17 +1730,6 @@
 "Máquina de venda de comida",
 "máquina de venda automática de alimentos"
 ],
-"amenity/vending_machine/fuel":[
-"diesel",
-"combustível",
-"bomba de gasolina",
-"bomba de diesel",
-"gasolina",
-"Bomba de combustível",
-"bomba de etanol",
-"propano",
-"biodiesel"
-],
 "amenity/vending_machine/ice_cream":[
 "Máquina de venda de sorvete",
 "máquina de venda automática de sorvetes"
@@ -1705,17 +1770,6 @@
 "Máquina de venda de selos",
 "máquina de venda automática de postagem"
 ],
-"amenity/vending_machine/sweets":[
-"biscoitos",
-"doces",
-"petiscos",
-"salgados",
-"chicletes",
-"snacks",
-"balas",
-"Máquina de venda de lanches",
-"salgadinhos"
-],
 "amenity/veterinary":[
 "hospital de animais",
 "animais",
@@ -1737,13 +1791,6 @@
 "cachorro",
 "cão",
 "pet"
-],
-"amenity/waste_basket":[
-"lixo",
-"lixeira",
-"balde de lixo",
-"cesto de lixo",
-"Lixeira"
 ],
 "amenity/waste_disposal":[
 "Contêiner de lixo não reciclável",
@@ -2418,14 +2465,6 @@
 "igreja",
 "lugar de adoração"
 ],
-"building/terrace":[
-"fileira de casas",
-"Renque de casas",
-"renque de casas",
-"casas de funcionários",
-"casas",
-"casas em renque"
-],
 "building/train_station":[
 "Edifício de estação de trem"
 ],
@@ -2715,8 +2754,12 @@
 "Criador de sinais"
 ],
 "craft/stonemason":[
-"pedreiro",
-"Pedreiro"
+"marmoreiro",
+"pedras",
+"cantaria",
+"Marmoraria",
+"canteiro",
+"mármores e granitos"
 ],
 "craft/tailor":[
 "Alfaiate"
@@ -3052,9 +3095,9 @@
 ],
 "healthcare/blood_donation":[
 "sangue",
+"Centro de doação de sangue",
 "banco de sangue",
 "doação de sangue",
-"Centro de Doação de Sangue",
 "hemocentro",
 "transfusão de sangue"
 ],
@@ -5485,10 +5528,10 @@
 ],
 "office/accountant":[
 "escritório contábil",
-"Escritório de contabilidade"
+"Contabilidade"
 ],
 "office/administrative":[
-"Escritório administrativo"
+"Administrativo"
 ],
 "office/adoption_agency":[
 "Agência de Adoção",
@@ -5502,10 +5545,10 @@
 "Agência de Publicidade"
 ],
 "office/architect":[
-"Escritório de arquitetura",
 "arquiteto",
 "arquiteta",
-"urbanismo"
+"urbanismo",
+"Arquitetura"
 ],
 "office/association":[
 "associação de profissionais",
@@ -5514,23 +5557,23 @@
 "associação de moradores",
 "sem lucro",
 "escritório de associação",
-"Escritório de organização sem fins lucrativos"
+"Organização sem fins lucrativos"
 ],
 "office/bail_bond_agent-US-PH":[
 "Agente de fiança"
 ],
 "office/charity":[
 "beneficência",
-"Escritório de caridade",
-"instituição beneficente"
+"instituição beneficente",
+"Caridade"
 ],
 "office/company":[
 "escritório empresarial",
-"Escritório de empresa",
+"Empresa (não especificada)",
 "escritório corporativo"
 ],
 "office/consulting":[
-"Gabinete de consultoria",
+"Consultoria",
 "gabinete de consultoria"
 ],
 "office/coworking":[
@@ -5541,7 +5584,7 @@
 ],
 "office/diplomatic":[
 "escritório diplomático",
-"Escritório diplomático"
+"Diplomático"
 ],
 "office/diplomatic/consulate":[
 "consulado",
@@ -5580,13 +5623,21 @@
 "Agência de Empregos"
 ],
 "office/energy_supplier":[
-"Escritório de fornecedor de energia",
+"Fornecedor de energia",
 "gás",
 "eletricidade",
 "empresa de energia"
 ],
 "office/engineer":[
-"Escritório de engenharia"
+"Engenharia",
+"técnico",
+"engenheria",
+"engenheira",
+"obras",
+"estruturas",
+"engineer",
+"firma",
+"engenheiro"
 ],
 "office/estate_agent":[
 "venda de imóveis",
@@ -5598,8 +5649,8 @@
 "imóveis"
 ],
 "office/financial":[
+"Instituição financeira",
 "financeira",
-"Escritório financeiro",
 "escritório financeiro"
 ],
 "office/financial_advisor":[
@@ -5607,14 +5658,14 @@
 "conselheiro financeiro"
 ],
 "office/forestry":[
-"Escritório de gestão florestal",
+"Gestão florestal",
 "floresta",
 "reserva",
 "guarda florestal"
 ],
 "office/foundation":[
-"Escritório de fundação",
-"escritório de fundação"
+"escritório de fundação",
+"Fundação"
 ],
 "office/government":[
 "gabinete",
@@ -5640,20 +5691,25 @@
 "registro de imóveis"
 ],
 "office/government/tax":[
-"Escritório tributário",
 "receita",
 "autoridade fiscal",
 "impostos",
 "fazenda",
-"taxas"
+"taxas",
+"Tributário"
 ],
 "office/graphic_design":[
-"Escritório de design gráfico"
+"visual",
+"gabinete de design gráfico",
+"designer",
+"ilustração",
+"designer gráfico",
+"Design gráfico"
 ],
 "office/guide":[
 "turismo",
 "tour",
-"Escritório de guia turístico"
+"Guia turístico"
 ],
 "office/insurance":[
 "seguro",
@@ -5666,29 +5722,29 @@
 "tecnologia",
 "software",
 "informática",
-"Escritório de empresa de tecnologia da informação",
+"Empresa de TI",
 "computadores"
 ],
 "office/lawyer":[
 "justiça",
 "lei",
 "advogado",
-"Escritório de advocacia",
 "advogada",
 "advocacia",
-"direito"
+"direito",
+"Advocacia"
 ],
 "office/lawyer/notary":[
 "Tabelião"
 ],
 "office/moving_company":[
 "relocação",
-"empresa de mudanças",
-"Escritório de companhia de mudanças",
+"companhia de mudanças",
+"Empresa de mudanças",
 "mudança"
 ],
 "office/newspaper":[
-"Escritório de jornal",
+"Jornal",
 "escritório de jornal"
 ],
 "office/ngo":[
@@ -5709,53 +5765,69 @@
 ],
 "office/political_party":[
 "escritório de partido político",
-"Escritório de partido político"
+"Partido político"
 ],
 "office/private_investigator":[
+"Detetive particular",
 "detetive particular",
-"Escritório de detetive particular",
 "investigador privado"
 ],
 "office/property_management":[
-"Administradora imobiliária ou escritório de locação"
+"inquilinos",
+"habitação",
+"casas",
+"administração",
+"arrendar",
+"senhorio",
+"arrendamento",
+"aluguer",
+"rendas",
+"administrar",
+"property",
+"senhoria",
+"residencial",
+"Gestão de condomínios",
+"condomínio",
+"propriedades",
+"residência"
 ],
 "office/quango":[
 "quase-autônoma",
-"Escritório de autarquia autônoma",
 "ong",
 "organização",
+"Autarquia autônoma",
 "não governamental"
 ],
 "office/religion":[
-"Escritório religioso",
+"Religioso",
 "escritório religioso"
 ],
 "office/research":[
 "pesquisa",
 "pesquisador",
 "pesquisas",
-"escritório",
-"Escritório de pesquisa"
+"Pesquisa",
+"escritório"
 ],
 "office/security":[
-"escritório de segurança",
-"Escritório de segurança"
+"Segurança privada",
+"escritório de segurança"
 ],
 "office/surveyor":[
 "opinião",
 "estatística",
 "ibge",
 "agrimensura",
-"Escritório de pesquisas ou inspeções",
+"Peritagem",
 "análise de riscos"
 ],
 "office/tax_advisor":[
-"Escritório de assessoria fiscal",
+"Assessoria fiscal",
 "assessoria fiscal"
 ],
 "office/telecommunication":[
 "escritório de telecomunicações",
-"Escritório de telecomunicações",
+"Telecomunicações",
 "departamento de telecomunicações"
 ],
 "office/therapist":[
@@ -5763,16 +5835,19 @@
 "terapia",
 "saúde",
 "holístico",
-"Escritório de terapeuta"
+"Terapeuta"
 ],
 "office/travel_agent":[
 "Agência de Viagens"
 ],
 "office/union":[
-"Escritório de sindicato"
+"Sindicato",
+"union",
+"labor",
+"sindicalismo"
 ],
 "office/water_utility":[
-"Escritório de companhia de água",
+"Fornecedor de água",
 "águas e esgoto"
 ],
 "office/yes":[
@@ -6178,6 +6253,11 @@
 "Interruptor de energia",
 "eletricidade",
 "disjuntor"
+],
+"power/switchgear":[
+"Dispositivo de manobra",
+"equipamento de manobra",
+"conjunto de manobra"
 ],
 "power/tower":[
 "Torre de Alta Tensão",
@@ -6635,7 +6715,7 @@
 ],
 "shop/art":[
 "produtos artísticos",
-"Loja de Arte",
+"Loja de arte",
 "artesanato",
 "decoração",
 "produtos de arte",
@@ -6765,7 +6845,7 @@
 "shop/car_parts":[
 "automóveis",
 "oficina",
-"Loja de Peças Automotivas",
+"Autopeças",
 "loja de peças automotivas",
 "autopeças",
 "carros",
@@ -6921,7 +7001,7 @@
 ],
 "shop/department_store":[
 "loja de departamento",
-"Loja de Departamentos"
+"Loja de departamentos"
 ],
 "shop/doityourself":[
 "faça você mesmo",
@@ -7021,7 +7101,7 @@
 ],
 "shop/fuel":[
 "loja de combustível",
-"Loja de Combustível"
+"Loja de combustíveis"
 ],
 "shop/funeral_directors":[
 "Funerária",
@@ -7636,7 +7716,7 @@
 "apartamento de férias",
 "aluguel de temporada",
 "condomínio",
-"Apartamento de Temporada"
+"Apartamento de temporada"
 ],
 "tourism/aquarium":[
 "zoológico",
@@ -7719,9 +7799,9 @@
 "artes plásticas",
 "cultura",
 "exposição",
+"Galeria de arte",
 "museu",
 "galeria",
-"Galeria de Arte",
 "arte"
 ],
 "tourism/guest_house":[
@@ -7819,10 +7899,10 @@
 "parque de vida selvagem"
 ],
 "traffic_calming":[
-"Redutor de Velocidade",
 "sinalizador",
 "quebra-molas",
 "lombada tipo 1",
+"Moderador de tráfego",
 "redutor de velocidade",
 "lombada",
 "quebra mola"
@@ -7866,9 +7946,19 @@
 "lomba"
 ],
 "traffic_calming/island":[
+"trânsito",
+"rodovia",
 "Ilha divisória",
-"canteiro",
-"ilha separadora de tráfego"
+"island",
+"ilha",
+"redutor de velocidade",
+"acalmia",
+"speed",
+"canteiro central",
+"calming",
+"estrada",
+"ilha central",
+"redução de velocidade"
 ],
 "traffic_calming/mini_bumps":[
 "tartarugas",

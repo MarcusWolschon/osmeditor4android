@@ -2188,13 +2188,6 @@
 "trung tâm tái chế",
 "Nhà máy Tái chế"
 ],
-"amenity/recycling_container":[
-"thùng tái chế",
-"thùng thu hồi",
-"thung thu hoi",
-"Thùng Tái chế",
-"thung tai che"
-],
 "amenity/refugee_site":[
 "trại tỵ nạn",
 "trai ti nan",
@@ -2401,21 +2394,6 @@
 "quan an do a chau",
 "quan an do chau a",
 "nhà hàng á châu"
-],
-"amenity/restaurant/barbeque":[
-"nha hang barbecue",
-"Nhà hàng Thịt nướng",
-"quan an thit nuong",
-"nhà hàng thịt nướng",
-"quán ăn thịt nướng",
-"quán ăn barbecue",
-"quan an barbecue",
-"nha hang thit nuong",
-"quán ăn bbq",
-"nhà hàng bbq",
-"quan an bbq",
-"nha hang bbq",
-"nhà hàng barbecue"
 ],
 "amenity/restaurant/chinese":[
 "phong an tau",
@@ -3754,34 +3732,6 @@
 "gum",
 "máy bán đồ ăn tự động"
 ],
-"amenity/vending_machine/fuel":[
-"tru bom xang dau",
-"diesel",
-"cay xang",
-"nhien lieu",
-"khi hoa long",
-"khi gas long",
-"khí ga lỏng",
-"nhiên liệu",
-"khi thien nhien long",
-"khi ga long",
-"khí hóa lỏng",
-"ét-xăng",
-"xang et xang",
-"cột xăng",
-"gazole",
-"khí gas lỏng",
-"trụ bơm xăng dầu",
-"trụ bơm xăng",
-"xăng ét xăng",
-"cây xăng",
-"Trụ Bơm Xăng",
-"khí hoá lỏng",
-"khí thiên nhiên lỏng",
-"cot xang",
-"et-xang",
-"tru bom xang"
-],
 "amenity/vending_machine/ice_cream":[
 "kem que",
 "máy bán kem tự động",
@@ -3846,11 +3796,6 @@
 "tem bưu chính",
 "Máy Bán Tem"
 ],
-"amenity/vending_machine/sweets":[
-"may ban keo",
-"máy bán kẹo",
-"Máy Bán Kẹo"
-],
 "amenity/veterinary":[
 "bac si cho",
 "bác sĩ mèo",
@@ -3880,13 +3825,6 @@
 "hộp đựng cứt chó",
 "Thùng Đựng Cứt Chó",
 "thung dung cut cho"
-],
-"amenity/waste_basket":[
-"sot rac",
-"thung rac",
-"sọt rác",
-"Thùng rác",
-"thùng rác"
 ],
 "amenity/waste_disposal":[
 "thung rac lon",
@@ -4732,14 +4670,20 @@
 "Tòa nhà Công nghiệp"
 ],
 "building/kindergarten":[
-"truong mau giao",
-"Nhà trẻ",
 "nha tre",
-"trường mầm non",
 "nhà trẻ",
-"nhà giữ trẻ",
 "trường mẫu giáo",
+"Tòa nhà Trường mầm non / Nhà trẻ",
+"toa nha nha tre",
+"truong mau giao",
+"toà nhà nhà trẻ",
+"toa nha truong mam non",
+"trường mầm non",
+"tòa nhà nhà trẻ",
+"nhà giữ trẻ",
+"tòa nhà trường mầm non",
 "truong mam non",
+"toà nhà trường mầm non",
 "nha giu tre"
 ],
 "building/manufacture":[
@@ -4816,14 +4760,17 @@
 ],
 "building/school":[
 "trường học",
+"Tòa nhà Trường học",
 "trường sở",
 "truong so",
+"toà nhà trường học",
 "nhà trường",
 "hoc vien",
 "học viện",
-"Nhà Trường",
+"tòa nhà trường học",
 "truong học",
-"nha truong"
+"nha truong",
+"toa nha truong hoc"
 ],
 "building/semidetached_house":[
 "Nhà Bán tách biệt",
@@ -4902,11 +4849,6 @@
 "kiến trúc chùa chiền",
 "kien truc chua chien",
 "kiến trúc chùa"
-],
-"building/terrace":[
-"dãy nhà",
-"Dãy Nhà",
-"day nha"
 ],
 "building/train_station":[
 "Nhà ga"
@@ -14438,11 +14380,6 @@
 "bướu tốc độ",
 "buou giam toc do",
 "buou toc do"
-],
-"traffic_calming/island":[
-"Đảo Giao thông",
-"dao giao thong",
-"đảo giao thông"
 ],
 "traffic_calming/mini_bumps":[
 "gờ nhỏ giảm tốc độ",

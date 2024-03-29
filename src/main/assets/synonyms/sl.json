@@ -506,9 +506,6 @@
 "amenity/recycling_centre":[
 "Center za recikliranje"
 ],
-"amenity/recycling_container":[
-"Ekološki otok"
-],
 "amenity/restaurant":[
 "gostilna",
 "Restavracija",
@@ -654,9 +651,6 @@
 "avtobus",
 "avtomat"
 ],
-"amenity/vending_machine/sweets":[
-"Avtomat za prigrizke"
-],
 "amenity/veterinary":[
 "Veterinar",
 "klinika za pse",
@@ -665,11 +659,6 @@
 ],
 "amenity/waste/dog_excrement":[
 "Koš za pasje iztrebke"
-],
-"amenity/waste_basket":[
-"koš za smeti",
-"smetnjak",
-"Koš za odpadke"
 ],
 "amenity/waste_disposal":[
 "Zabojnik za odpadke"
@@ -905,10 +894,6 @@
 "building/stable":[
 "štala",
 "Hlev"
-],
-"building/terrace":[
-"Vrstne hiše",
-"vrstna hiša"
 ],
 "building/university":[
 "višja šola",
@@ -2754,9 +2739,6 @@
 ],
 "traffic_calming/hump":[
 "Hitrostna grbina"
-],
-"traffic_calming/island":[
-"Prometni otok"
 ],
 "traffic_calming/rumble_strip":[
 "tresavke",

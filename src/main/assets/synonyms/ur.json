@@ -17,11 +17,22 @@
 "amenity/bus_station":[
 "بس اسٹیشن"
 ],
+"amenity/casino":[
+"قمار خانہ"
+],
 "amenity/cinema":[
 "سنیمہ"
 ],
+"amenity/clock":[
+"گھڑی"
+],
 "amenity/doctors":[
 "ڈاکٹر"
+],
+"amenity/drinking_water":[
+"پینا",
+"پانی",
+"پینے والا پانی"
 ],
 "amenity/embassy":[
 "صفارت خانہ"
@@ -61,6 +72,9 @@
 "سکھ عبادت گاہ",
 "گرودوارہ"
 ],
+"amenity/place_of_worship/taoist":[
+"تاؤ مندر"
+],
 "amenity/police":[
 "پلیس"
 ],
@@ -74,7 +88,8 @@
 "حدود"
 ],
 "boundary/administrative":[
-"انتظامی سرحد"
+"انتظامی سرحد",
+"انتظامی حدود"
 ],
 "building":[
 "عمارت"
@@ -88,12 +103,26 @@
 "building/house":[
 "گھر"
 ],
+"building/hut":[
+"جھونپڑی",
+"تھگلی",
+"جھگی"
+],
 "building/roof":[
 "چھت"
 ],
 "building/stable":[
 "استبل",
 "اسطبل"
+],
+"building_point":[
+"عمارت"
+],
+"craft/carpenter":[
+"بڑھئی"
+],
+"highway/speed_camera":[
+"کیمرہ برائے رفتار"
 ],
 "highway/traffic_signals":[
 "ٹریفک اشارے"
@@ -104,11 +133,18 @@
 "historic/castle":[
 "قلعہ"
 ],
+"historic/castle/stately":[
+"شاتو"
+],
 "landuse/cemetery":[
 "قبرستان"
 ],
 "landuse/grass":[
 "گھاس"
+],
+"landuse/railway":[
+"ریلوے راہداری",
+"ریل راہداری"
 ],
 "leisure/garden":[
 "باغ"
@@ -116,11 +152,25 @@
 "leisure/park":[
 "پارک"
 ],
+"leisure/pitch/cricket":[
+"کریکٹ میدان",
+"کرکٹ میدان"
+],
 "leisure/stadium":[
 "اسٹیڈیم"
 ],
+"line":[
+"لکیر"
+],
+"man_made/chimney":[
+"چمنی"
+],
 "man_made/tower":[
 "برج"
+],
+"man_made/tower/minaret":[
+"مینار",
+"مینارت"
 ],
 "man_made/water_well":[
 "پانی کا کنوا"
@@ -128,8 +178,14 @@
 "natural/beach":[
 "ساحل"
 ],
+"natural/mud":[
+"کیچڑ"
+],
 "natural/tree":[
 "درخت"
+],
+"natural/valley":[
+"وادی"
 ],
 "natural/water":[
 "پانی"
@@ -146,14 +202,42 @@
 "place/city":[
 "شہر"
 ],
+"place/farm":[
+"کھیت"
+],
 "place/island":[
 "جزیرہ"
+],
+"place/neighbourhood":[
+"پڑوس",
+"محلہ"
+],
+"place/plot":[
+"زمین"
+],
+"place/suburb":[
+"مضافت"
 ],
 "place/town":[
 "قصبہ"
 ],
 "place/village":[
 "گاؤں"
+],
+"playground/swing":[
+"جھولا"
+],
+"public_transport/station_bus":[
+"بس اڈہ"
+],
+"public_transport/station_train":[
+"ٹرین اسٹیشن"
+],
+"public_transport/station_tram":[
+"ٹرام اسٹیشن"
+],
+"relation":[
+"تعلق"
 ],
 "shop":[
 "دکان"
@@ -164,11 +248,29 @@
 "shop/tailor":[
 "درزی"
 ],
+"shop/weapons":[
+"بندوق کی دکان",
+"بندوق کی دوکان",
+"بندوقوں کی دکان"
+],
+"tourism/artwork/statue":[
+"مجسمہ"
+],
 "tourism/hotel":[
 "ہوٹل"
 ],
 "tourism/museum":[
 "عجائب گھر"
+],
+"type/boundary":[
+"حدود"
+],
+"type/boundary/administrative":[
+"انتظامی سرحد",
+"انتظامی حدود"
+],
+"type/route":[
+"راہ"
 ],
 "waterway/dam":[
 "ڈیم"

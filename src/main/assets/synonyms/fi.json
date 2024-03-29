@@ -681,7 +681,7 @@
 "Kerrosvoileipäpikaruokaravintola"
 ],
 "amenity/ferry_terminal":[
-"Laivaterminaali"
+"Lauttaterminaali"
 ],
 "amenity/fire_station":[
 "vpk",
@@ -1120,9 +1120,6 @@
 "amenity/recycling_centre":[
 "Kierrätyskeskus"
 ],
-"amenity/recycling_container":[
-"Kierrätyspiste"
-],
 "amenity/refugee_site":[
 "Pakolaisleiri"
 ],
@@ -1471,9 +1468,6 @@
 "amenity/vending_machine/food":[
 "Ruoka-automaatti"
 ],
-"amenity/vending_machine/fuel":[
-"Polttoainepumppu"
-],
 "amenity/vending_machine/ice_cream":[
 "Jäätelöautomaatti"
 ],
@@ -1514,16 +1508,6 @@
 "amenity/vending_machine/stamps":[
 "Postimerkkiautomaatti"
 ],
-"amenity/vending_machine/sweets":[
-"automaatti",
-"Välipala-automaatti",
-"syömistä",
-"snack",
-"patukka",
-"syötävää",
-"välipala",
-"karkki"
-],
 "amenity/veterinary":[
 "Eläinlääkäri"
 ],
@@ -1534,19 +1518,6 @@
 "roskis",
 "koirankakka",
 "kakka"
-],
-"amenity/waste_basket":[
-"kierrätys",
-"kierrätyspiste",
-"jätteet",
-"roskis",
-"roska",
-"roska-astia",
-"jäte-astia",
-"jäte",
-"kierrätyslaatikko",
-"Roskakori",
-"roskapönttö"
 ],
 "amenity/waste_disposal":[
 "Jäteastia"
@@ -2042,9 +2013,6 @@
 ],
 "building/temple":[
 "Temppelirakennus"
-],
-"building/terrace":[
-"Rivitalo"
 ],
 "building/train_station":[
 "Asemarakennus"
@@ -3750,6 +3718,9 @@
 "man_made/mast/communication/television":[
 "Televisiomasto"
 ],
+"man_made/milk_churn_stand":[
+"Maitolaituri"
+],
 "man_made/mineshaft":[
 "Kaivoskuilu"
 ],
@@ -3948,6 +3919,9 @@
 "vuorenhuippu",
 "Vuorenhuippu",
 "vuoren huippu"
+],
+"natural/peninsula":[
+"Niemimaa"
 ],
 "natural/reef":[
 "Riutta"
@@ -4663,10 +4637,12 @@
 "Raitiotie- ja linja-autopysäkki"
 ],
 "public_transport/platform/ferry":[
-"Laivalaituri"
+"laiva",
+"Lauttalaituri",
+"laituri"
 ],
 "public_transport/platform/ferry_point":[
-"Laivapaikka/-matkustajalaituri"
+"Lautan pysähtymispaikka/matkustajalaituri"
 ],
 "public_transport/platform/light_rail":[
 "Pikaraitiotielaituri"
@@ -4729,8 +4705,8 @@
 "bussi"
 ],
 "public_transport/station_ferry":[
-"lautta",
-"Laivaterminaali"
+"laiva",
+"Lauttaterminaali"
 ],
 "public_transport/station_light_rail":[
 "pikaratikka",
@@ -4789,7 +4765,8 @@
 "Linja-auton pysähtymiskohta"
 ],
 "public_transport/stop_position_ferry":[
-"Laivan pysähtymiskohta"
+"laiva",
+"Lautan pysähtymiskohta"
 ],
 "public_transport/stop_position_light_rail":[
 "Pikaraitiovaunun pysähtymiskohta"
@@ -4951,9 +4928,10 @@
 "relaatio"
 ],
 "route/ferry":[
+"laiva",
+"vene",
 "Lauttareitti",
-"lauttalinja",
-"lauttareitti"
+"reitti"
 ],
 "seamark":[
 "Merimerkintä"
@@ -6132,11 +6110,6 @@
 ],
 "traffic_calming/hump":[
 "Lievä hidastustöyssy"
-],
-"traffic_calming/island":[
-"keskisaareke",
-"saareke",
-"Liikenteenjakaja"
 ],
 "traffic_calming/rumble_strip":[
 "Heräteraidat"

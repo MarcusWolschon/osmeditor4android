@@ -353,6 +353,9 @@
 "amenity/doctors/general":[
 "Primary Care Physician"
 ],
+"amenity/doctors/gynaecology":[
+"Obstetrician/Gynecologist"
+],
 "amenity/doctors/haematology":[
 "Hematologist"
 ],
@@ -449,6 +452,9 @@
 "fast food",
 "Fast Food"
 ],
+"amenity/fast_food/bagel":[
+"Bagel Fast Food"
+],
 "amenity/fast_food/burger":[
 "Hamburger Fast Food"
 ],
@@ -484,6 +490,9 @@
 ],
 "amenity/fast_food/sandwich":[
 "Sandviç Fast Food"
+],
+"amenity/fast_food/wings":[
+"Chicken Wings Fast Food"
 ],
 "amenity/ferry_terminal":[
 "Feribot Terminali"
@@ -537,6 +546,9 @@
 "dondurmacı",
 "Dondurmacı"
 ],
+"amenity/ice_cream/frozen_yogurt":[
+"Frozen Yogurt Shop"
+],
 "amenity/internet_cafe":[
 "İnternet Kafe",
 "i̇nternet kafe"
@@ -546,6 +558,9 @@
 ],
 "amenity/kindergarten":[
 "Anaokulu Sahası"
+],
+"amenity/kneipp_water_cure":[
+"Kneipp Facility"
 ],
 "amenity/language_school":[
 "Dil Okulu"
@@ -764,9 +779,6 @@
 "yeri",
 "Geri Dönüşüm Merkezi"
 ],
-"amenity/recycling_container":[
-"Geridönüşüm Konteynerı"
-],
 "amenity/refugee_site":[
 "Mülteci Kampı"
 ],
@@ -784,14 +796,14 @@
 "amenity/restaurant/asian":[
 "Asya Restoranı"
 ],
-"amenity/restaurant/barbeque":[
-"Barbeque Restaurant"
-],
 "amenity/restaurant/chinese":[
 "Çin Restoranı"
 ],
 "amenity/restaurant/french":[
 "Fransız Restoranı"
+],
+"amenity/restaurant/georgian":[
+"Georgian Restaurant"
 ],
 "amenity/restaurant/german":[
 "Alman Restoranı"
@@ -820,6 +832,9 @@
 "amenity/restaurant/pizza":[
 "Pizza Restoranı"
 ],
+"amenity/restaurant/ramen":[
+"Ramen Restaurant"
+],
 "amenity/restaurant/seafood":[
 "Deniz Yiyecekleri Restoranı"
 ],
@@ -837,6 +852,9 @@
 ],
 "amenity/restaurant/turkish":[
 "Türk Restoranı"
+],
+"amenity/restaurant/ukrainian":[
+"Ukrainian Restaurant"
 ],
 "amenity/restaurant/vietnamese":[
 "Vietnam Restoranı"
@@ -1028,9 +1046,6 @@
 "amenity/vending_machine/food":[
 "Yemek Otomatı"
 ],
-"amenity/vending_machine/fuel":[
-"Gaz Pompası"
-],
 "amenity/vending_machine/ice_cream":[
 "Dondurma Otomatı"
 ],
@@ -1056,10 +1071,6 @@
 "amenity/vending_machine/stamps":[
 "Posta Otomatı"
 ],
-"amenity/vending_machine/sweets":[
-"Yiyecek Otomatı",
-"yiyecek otomatı"
-],
 "amenity/veterinary":[
 "veteriner",
 "Veteriner"
@@ -1067,10 +1078,6 @@
 "amenity/waste/dog_excrement":[
 "Köpek Dışkı Çöpü",
 "köpek dışkı kutusu"
-],
-"amenity/waste_basket":[
-"Çöp Kutusu",
-"çöp kutusu"
 ],
 "amenity/waste_disposal":[
 "çöp tenekesi",
@@ -1547,8 +1554,15 @@
 "tapınak"
 ],
 "building/terrace":[
+"ardı ardına",
+"ev",
+"çizgi",
+"bitişik",
+"düz",
+"birleşik",
+"bina",
 "Sıra Evler",
-"sıra evler"
+"sıralı"
 ],
 "building/train_station":[
 "Tren İstasyonu Binası"
@@ -2803,6 +2817,9 @@
 "marina",
 "Yat Limanı"
 ],
+"leisure/marina_no_facilities":[
+"Yacht Berths"
+],
 "leisure/miniature_golf":[
 "Mini Golf",
 "mini golf"
@@ -3113,6 +3130,17 @@ beşe beş futbol"
 ],
 "man_made/carpet_hanger":[
 "Carpet Hanger"
+],
+"man_made/charge_point":[
+"taşıt",
+"pil",
+"araba",
+"bisiklet",
+"elektrik",
+"i̇stasyonu",
+"skooter",
+"i̇stasyon",
+"Elektrikli Araç Şarj Noktası"
 ],
 "man_made/chimney":[
 "Baca",
@@ -4740,6 +4768,9 @@ beşe beş futbol"
 "shop/hobby":[
 "Hobi Mağazası"
 ],
+"shop/honey":[
+"Honey Store"
+],
 "shop/household_linen":[
 "Ev Tekstili Mağazası"
 ],
@@ -5245,10 +5276,6 @@ beşe beş futbol"
 "traffic_calming/hump":[
 "Hız Tümseği",
 "hız tümseği"
-],
-"traffic_calming/island":[
-"Refüj",
-"refüj"
 ],
 "traffic_calming/mini_bumps":[
 "Mini Speed Bumps"

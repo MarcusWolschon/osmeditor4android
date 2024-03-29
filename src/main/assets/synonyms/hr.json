@@ -391,9 +391,6 @@
 "amenity/recycling_centre":[
 "Centar za reciklažu"
 ],
-"amenity/recycling_container":[
-"Kontejner za reciklažu"
-],
 "amenity/restaurant":[
 "zdravljak",
 "buffet",
@@ -521,9 +518,6 @@
 "amenity/vending_machine/food":[
 "Automat za prodaju hrane"
 ],
-"amenity/vending_machine/fuel":[
-"Pumpni automat za gorivo"
-],
 "amenity/vending_machine/ice_cream":[
 "Automat za prodaju sladoleda"
 ],
@@ -536,20 +530,11 @@
 "amenity/vending_machine/public_transport_tickets":[
 "Automat za karte za javni prijevoz"
 ],
-"amenity/vending_machine/sweets":[
-"Automat za grickalice"
-],
 "amenity/veterinary":[
 "Veterinar"
 ],
 "amenity/waste/dog_excrement":[
 "Košara za pseći izmet"
-],
-"amenity/waste_basket":[
-"kanta za smeće",
-"Koš za smeće",
-"koš za smeće",
-"smeće"
 ],
 "amenity/waste_disposal":[
 "Kontejner za smeće"
@@ -766,9 +751,6 @@
 ],
 "building/stadium":[
 "Zgrada stadiona"
-],
-"building/terrace":[
-"Kuće u nizu"
 ],
 "building/train_station":[
 "Zgrada željezničkog kolodvora"
@@ -2840,9 +2822,6 @@
 "traffic_calming/hump":[
 "ležeći policajac",
 "Duži uspornik u širini ceste"
-],
-"traffic_calming/island":[
-"Prometni otok"
 ],
 "type/boundary":[
 "Granica",

@@ -361,14 +361,8 @@
 "amenity/vending_machine":[
 "Verkoopmasjien"
 ],
-"amenity/vending_machine/fuel":[
-"Gaspomp"
-],
 "amenity/veterinary":[
 "Veearts"
-],
-"amenity/waste_basket":[
-"Snippermandjie"
 ],
 "amenity/watering_place":[
 "Drinkplek"
@@ -1969,9 +1963,6 @@
 ],
 "tourism/zoo":[
 "Dieretuin"
-],
-"traffic_calming/island":[
-"Verkeerseiland"
 ],
 "type/boundary":[
 "Grens"

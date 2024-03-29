@@ -334,9 +334,6 @@
 "amenity/recycling_centre":[
 "Endurvinnslumiðstöð"
 ],
-"amenity/recycling_container":[
-"Endurvinnslugámur"
-],
 "amenity/restaurant":[
 "Veitingahús"
 ],
@@ -475,9 +472,6 @@
 "amenity/vending_machine/food":[
 "Matarsjálfsali"
 ],
-"amenity/vending_machine/fuel":[
-"Eldsneytisdæla"
-],
 "amenity/vending_machine/ice_cream":[
 "Íssjálfsali"
 ],
@@ -493,17 +487,11 @@
 "amenity/vending_machine/stamps":[
 "Póstsjálfsali"
 ],
-"amenity/vending_machine/sweets":[
-"Snakksjálfsali"
-],
 "amenity/veterinary":[
 "Dýralæknir"
 ],
 "amenity/waste/dog_excrement":[
 "Fata undir hundaskít"
-],
-"amenity/waste_basket":[
-"Ruslafata"
 ],
 "amenity/waste_disposal":[
 "Ruslagámur"
@@ -732,9 +720,6 @@
 ],
 "building/temple":[
 "Musterisbygging"
-],
-"building/terrace":[
-"Raðhús"
 ],
 "building/transportation":[
 "Samgöngubygging"
@@ -2483,9 +2468,6 @@
 ],
 "traffic_calming/hump":[
 "Hraðahindrunaralda"
-],
-"traffic_calming/island":[
-"Umferðareyja"
 ],
 "traffic_calming/rumble_strip":[
 "Hvinrendur"

@@ -457,9 +457,6 @@
 "recarga",
 "máquina"
 ],
-"amenity/vending_machine/sweets":[
-"Máquina de venta de llambionaes"
-],
 "amenity/veterinary":[
 "Veterinariu",
 "clínica veterinaria"
@@ -470,11 +467,6 @@
 "escrementos",
 "perros",
 "bolses"
-],
-"amenity/waste_basket":[
-"Papelera",
-"papelera",
-"basoria"
 ],
 "amenity/waste_disposal":[
 "Contenedor de basoria"
@@ -666,9 +658,6 @@
 "corte",
 "cuadra",
 "Establu"
-],
-"building/terrace":[
-"Filera de cases"
 ],
 "building/university":[
 "Edificiu universitariu"
@@ -2075,10 +2064,6 @@
 ],
 "traffic_calming/hump":[
 "Llombu anchu pa reducir velocidá"
-],
-"traffic_calming/island":[
-"islla de tráficu",
-"Refuxu de tráficu"
 ],
 "traffic_calming/rumble_strip":[
 "Bandes sonores"

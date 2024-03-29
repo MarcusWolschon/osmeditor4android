@@ -1288,13 +1288,6 @@
 "Ricikliga centro",
 "recikligo"
 ],
-"amenity/recycling_container":[
-"balaaĵujo",
-"recikligujo",
-"rubujego",
-"Rubujego (recikligo)",
-"rubujo"
-],
 "amenity/refugee_site":[
 "rifughantoj",
 "Kampadejo por rifuĝantoj",
@@ -1709,15 +1702,6 @@
 "manghajho",
 "Vendilo de manĝaĵo"
 ],
-"amenity/vending_machine/fuel":[
-"benzinstacio",
-"lpg",
-"biodisel",
-"benzino",
-"Vendilo de benzino",
-"brulaĵo",
-"diseloleo"
-],
 "amenity/vending_machine/ice_cream":[
 "Vendilo de glaciaĵoj",
 "glaciaĵo"
@@ -1753,15 +1737,6 @@
 "Vendilo de poŝtmarkoj",
 "poŝtmarkoj"
 ],
-"amenity/vending_machine/sweets":[
-"dolchajhoj",
-"dolcxajxoj",
-"sukeraĵoj",
-"dolĉaĵoj",
-"sukerajhoj",
-"sukerajxoj",
-"Vendilo de dolĉaĵoj"
-],
 "amenity/veterinary":[
 "bestokuracisto",
 "Bestokuracistejo",
@@ -1774,13 +1749,6 @@
 "Rubujo por hund-fekaĵoj",
 "hundaj fekoj",
 "rubujo"
-],
-"amenity/waste_basket":[
-"balaaĵujo",
-"forĵetaĵujo",
-"balaaĵkesto",
-"Rubujo",
-"rubkesto"
 ],
 "amenity/waste_disposal":[
 "balaaĵujo",
@@ -2515,15 +2483,6 @@
 "templo",
 "sanktejo",
 "Konstruaĵo de templo"
-],
-"building/terrace":[
-"Envicaj domoj",
-"envica domo",
-"brikdomo",
-"ŝtondomo",
-"envicdomo",
-"vica domo",
-"sekvenca domo"
 ],
 "building/train_station":[
 "Fervoj-stacia konstruaĵo"
@@ -8244,11 +8203,6 @@
 "stratghibo",
 "Stratĝibo longa (2-4m)",
 "stratgxibo"
-],
-"traffic_calming/island":[
-"Trafik-insuleto",
-"trafikinsuleto",
-"trafikinsulo"
 ],
 "traffic_calming/rumble_strip":[
 "aŭdeblaj linioj",

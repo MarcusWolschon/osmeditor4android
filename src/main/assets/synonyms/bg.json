@@ -104,7 +104,7 @@
 "Бензиностанция"
 ],
 "amenity/grave_yard":[
-"Гробище"
+"Църковно гробище"
 ],
 "amenity/hospital":[
 "Болница"
@@ -296,9 +296,6 @@
 "amenity/vending_machine/parking_tickets":[
 "Автомат за талони за паркиране"
 ],
-"amenity/waste_basket":[
-"Кошче за боклук"
-],
 "amenity/waste_disposal":[
 "Контейнер за боклук"
 ],
@@ -455,6 +452,9 @@
 ],
 "building_point":[
 "Сграда"
+],
+"cemetery/sector":[
+"Гробищен сектор"
 ],
 "craft/agricultural_engines":[
 "Механик на селскостопански двигатели"
@@ -633,6 +633,9 @@
 "highway/footway/sidewalk":[
 "Тротоар"
 ],
+"highway/footway/traffic_island":[
+"Пешеходен остров"
+],
 "highway/living_street":[
 "Улица в жилищна зона"
 ],
@@ -678,16 +681,16 @@
 "Тясна уличка между имоти"
 ],
 "highway/service/drive-through":[
-"Обслужване без напускане на автомобила"
+"Обслужване, без да напускате автомобила"
 ],
 "highway/service/driveway":[
-"Алея за коли към жилище"
+"Алея за коли към жилище/бизнес"
 ],
 "highway/service/emergency_access":[
 "За достъп при спешни случаи"
 ],
 "highway/service/parking_aisle":[
-"Път в паркинг"
+"Паркинг алея"
 ],
 "highway/speed_camera":[
 "Камера за скорост"
@@ -790,18 +793,20 @@
 "строителна зона",
 "булдозер",
 "инфраструктура",
+"строеж",
 "кран",
 "развитие"
 ],
 "landuse/farm":[
-"Земеделска земя"
+"Ферма"
 ],
 "landuse/farmland":[
 "поле",
 "Земеделска земя"
 ],
 "landuse/farmyard":[
-"Селскостопански двор"
+"Селскостопански двор",
+"ткзс"
 ],
 "landuse/grass":[
 "Трева"
@@ -811,6 +816,13 @@
 ],
 "landuse/industrial":[
 "Индустриална зона"
+],
+"landuse/industrial/depot":[
+"паркинг",
+"камион",
+"Депо",
+"автобус",
+"гараж"
 ],
 "landuse/industrial/scrap_yard":[
 "автоморга",
@@ -828,6 +840,9 @@
 ],
 "landuse/orchard":[
 "Овощна градина"
+],
+"landuse/plant_nursery":[
+"Разсадник"
 ],
 "landuse/quarry":[
 "Кариера"
@@ -1040,6 +1055,11 @@
 "natural/tree":[
 "Дърво"
 ],
+"natural/tree_stump":[
+"премахнато дърво",
+"Пън на дърво",
+"отсечено дърво"
+],
 "natural/volcano":[
 "Вулкан"
 ],
@@ -1153,6 +1173,9 @@
 "Соларен панел",
 "слънчев панел"
 ],
+"power/generator/method/photovoltaic/building/roof":[
+"Навес със слънчеви панели"
+],
 "power/generator/method/photovoltaic/location/roof":[
 "Слънчеви панели на покрив"
 ],
@@ -1182,13 +1205,18 @@
 "ВЕЦ",
 "водно електрическа централа"
 ],
+"power/plant/source/method/photovoltaic":[
+"фотоволтаична централа",
+"Фотоволтаична ферма",
+"фотоволтаици"
+],
 "power/plant/source/nuclear":[
 "АЕЦ"
 ],
 "power/plant/source/solar":[
 "Соларна електроцентрала",
 "слънчева",
-"фотоволтаична"
+"слънчева електроцентрала"
 ],
 "power/plant/source/waste":[
 "изгаряне на отпадъци",
@@ -1279,7 +1307,7 @@
 "железопътен сигнал"
 ],
 "railway/station":[
-"ЖП гара"
+"Гара"
 ],
 "railway/subway_entrance":[
 "Вход на метростанция"
@@ -1635,13 +1663,25 @@
 "tourism/zoo":[
 "Зоологическа градина"
 ],
+"traffic_calming/bump":[
+"изкуствена неравост",
+"Гърбица (остра)"
+],
 "traffic_calming/chicane":[
 "изкуствени кривини на пътя",
 "Шикан"
 ],
+"traffic_calming/cushion":[
+"Пътна възглавница",
+"изкуствена неравост"
+],
+"traffic_calming/hump":[
+"Гърбица (полегата)",
+"изкуствена неравост"
+],
 "traffic_calming/mini_bumps":[
+"Малки пътни неравности (кабъри)",
 "мини топчета",
-"Мини неравности за скорост",
 "малки бабуни",
 "мини бабуни",
 "малки неравности за скорост"
@@ -1649,6 +1689,9 @@
 "traffic_calming/rumble_strip":[
 "Шумяща напречна маркировка",
 "шумяща маркировка"
+],
+"traffic_calming/table":[
+"Пътна табла"
 ],
 "traffic_sign":[
 "Пътен знак"
@@ -1693,6 +1736,9 @@
 "type/route":[
 "Маршрут"
 ],
+"type/route/bicycle":[
+"Велосипеден маршрут"
+],
 "type/route/bus":[
 "Автобусен маршрут"
 ],
@@ -1706,20 +1752,29 @@
 "type/route/foot":[
 "Пешеходен маршрут"
 ],
+"type/route/light_rail":[
+"Маршрут на леко метро"
+],
 "type/route/pipeline":[
 "Трасе на тръбопровод"
 ],
 "type/route/power":[
 "Трасе на електропровод"
 ],
+"type/route/railway":[
+"Маршрут на железопътна линия"
+],
 "type/route/road":[
 "Път"
 ],
 "type/route/train":[
-"Железопътен маршрут"
+"Маршрут на влак"
 ],
 "type/route/tram":[
 "Трамваен маршрут"
+],
+"type/route/trolleybus":[
+"Тролейбусен маршрут"
 ],
 "type/route_master":[
 "Маршрутна схема"

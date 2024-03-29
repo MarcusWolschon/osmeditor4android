@@ -62,6 +62,9 @@
 "amenity/recycling_centre":[
 "Recycling Centre"
 ],
+"amenity/shelter/public_transport":[
+"Public Transport Shelter"
+],
 "amenity/social_centre":[
 "Social Centre"
 ],
@@ -80,17 +83,14 @@
 "amenity/trolley_bay":[
 "Trolley Bay"
 ],
-"amenity/vending_machine/fuel":[
-"Fuel Pump"
+"amenity/vending_machine/public_transport_tickets":[
+"Public Transport Ticket Vending Machine"
 ],
 "amenity/waste_basket":[
-"waste",
-"litter",
-"bin",
-"garbage",
-"rubbish",
-"Rubbish Bin",
-"trash"
+"Rubbish Bin"
+],
+"amenity/waste_disposal":[
+"Skip Bin"
 ],
 "amenity/weighbridge":[
 "Weighbridge"
@@ -111,17 +111,7 @@
 "Rolled Kerb"
 ],
 "building/terrace":[
-"row house",
-"brownstone",
-"townhouses",
-"townhouse",
-"row houses",
-"terraced",
-"dwelling",
-"terrace",
-"residence",
-"Terraced Houses",
-"home"
+"Terraced Houses"
 ],
 "healthcare/birthing_center":[
 "Birthing Centre"
@@ -154,7 +144,7 @@
 "Informal Walkway"
 ],
 "highway/footway/sidewalk":[
-"Footpath (sidewalk)"
+"Footpath (alongside a road)"
 ],
 "highway/give_way":[
 "Give Way Sign"
@@ -213,6 +203,39 @@
 "playground/zipwire":[
 "Playground Flying Fox"
 ],
+"public_transport/platform":[
+"Public Transport Platform"
+],
+"public_transport/platform/subway":[
+"Metro Train Platform"
+],
+"public_transport/platform/subway_point":[
+"Metro Train Stop / Platform"
+],
+"public_transport/platform_point":[
+"Public Transport Stop / Platform"
+],
+"public_transport/station":[
+"Public Transport Station"
+],
+"public_transport/station_subway":[
+"Metro Train Station"
+],
+"public_transport/stop_area":[
+"Public Transport Stop Area"
+],
+"public_transport/stop_position":[
+"Public Transport Stopping Location"
+],
+"public_transport/stop_position_subway":[
+"Metro Train Stopping Location"
+],
+"railway/subway":[
+"Metro Train Track"
+],
+"railway/subway_entrance":[
+"Metro Train Entrance"
+],
 "shop/caravan":[
 "Caravan Dealership"
 ],
@@ -246,10 +269,19 @@
 "telecom/data_center":[
 "Data Centre"
 ],
+"tourism/apartment":[
+"Holiday Apartment"
+],
 "tourism/caravan_site":[
 "Caravan Site"
 ],
 "tourism/viewpoint":[
 "Lookout"
+],
+"type/public_transport/stop_area_group":[
+"Public Transport Stop Area Group"
+],
+"type/route/subway":[
+"Metro Train Route"
 ]
 }

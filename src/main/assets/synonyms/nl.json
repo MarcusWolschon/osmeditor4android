@@ -11,7 +11,12 @@
 "Adres"
 ],
 "advertising":[
-"Advertentie-object"
+"toestel",
+"Advertentie-object",
+"middel",
+"advertentie",
+"communicatie",
+"drager"
 ],
 "advertising/billboard":[
 "Reclamebord",
@@ -142,11 +147,11 @@
 "landingsbaan"
 ],
 "aeroway/spaceport":[
-"rakketinstallatie",
 "lanceerbasis",
 "ruimtevaart",
 "lanceerinstallatie",
 "Ruimtehaven",
+"raketinstallatie",
 "ruimteschip"
 ],
 "aeroway/taxiway":[
@@ -214,6 +219,11 @@
 "Bankautomaat",
 "geld afhalen"
 ],
+"amenity/baking_oven":[
+"oven",
+"Bakoven",
+"bak"
+],
 "amenity/bank":[
 "rekening",
 "geld",
@@ -246,7 +256,7 @@
 "amenity/bench":[
 "bank",
 "bankje",
-"picnictafel",
+"picnicktafel",
 "Zitbank"
 ],
 "amenity/bicycle_parking":[
@@ -337,7 +347,10 @@
 "Café"
 ],
 "amenity/cafe/bubble_tea":[
-"Bubbelthee café"
+"tea",
+"bubble",
+"Bubbelthee café",
+"café"
 ],
 "amenity/cafe/coffee_shop":[
 "koffie",
@@ -394,15 +407,23 @@
 "film"
 ],
 "amenity/clinic":[
-"Dagkliniek",
-"dagkliniek"
+"dagbehandelcentrum",
+"dagziekenhuis",
+"dagbehandeling",
+"dagkliniek",
+"Dagbehandelingscentrum",
+"dagverpleging",
+"daghospitalisatie"
 ],
 "amenity/clinic/abortion":[
 "abortus",
 "Abortiecentrum"
 ],
 "amenity/clinic/dialysis":[
-"Dialysecentrum"
+"Dialysecentrum",
+"centrum",
+"dyalise",
+"nier"
 ],
 "amenity/clinic/fertility":[
 "Vruchtbaarheidskliniek",
@@ -501,14 +522,164 @@
 "geneesheer",
 "arts"
 ],
+"amenity/doctors/allergology":[
+"allergie",
+"Allergoloog"
+],
+"amenity/doctors/cardiology":[
+"cardioloog",
+"specialist",
+"Cardioloog",
+"hart"
+],
 "amenity/doctors/child_psychiatry":[
+"jongvolwassene",
+"kind",
+"psychiater",
 "Kinder- en jeugdpsychiater"
 ],
+"amenity/doctors/dermatology":[
+"specialist",
+"huid",
+"Dermatoloog",
+"dermatoloog"
+],
+"amenity/doctors/gastroenterology":[
+"specialist",
+"darm",
+"maag",
+"Gastro-enteroloog"
+],
+"amenity/doctors/general":[
+"dokter",
+"huisarts",
+"Huisarts",
+"huisdokter"
+],
 "amenity/doctors/gynaecology":[
-"Verloskundige/Gynaecoloog"
+"vrouw",
+"vrouwenarts",
+"Verloskundige/Gynaecoloog",
+"bevalling",
+"gynaecoloog"
+],
+"amenity/doctors/haematology":[
+"anemie",
+"Hematoloog",
+"bloed",
+"hematoloog"
+],
+"amenity/doctors/internal":[
+"internist",
+"Internist",
+"inwendige geneeskunde"
+],
+"amenity/doctors/nephrology":[
+"Nefroloog",
+"nierarts",
+"nephroloog",
+"nierdokter"
+],
+"amenity/doctors/neurology":[
+"Neuroloog",
+"neuroloog",
+"zenuwen",
+"hersenen"
+],
+"amenity/doctors/neurosurgery":[
+"Neurochirurg",
+"operatie",
+"hersenen"
+],
+"amenity/doctors/oncology":[
+"kanker",
+"tumor",
+"Oncoloog"
+],
+"amenity/doctors/ophthalmology":[
+"oog",
+"Oogarts",
+"arts"
+],
+"amenity/doctors/orthopaedics":[
+"orthopedisch chirurg",
+"Orthopedisch chirurg",
+"beenderen",
+"botten"
+],
+"amenity/doctors/otolaryngology":[
+"keel",
+"oor",
+"otorinolaryngologie",
+"neus",
+"Neus-keel-oorarts"
+],
+"amenity/doctors/paediatrics":[
+"kinderarts",
+"Pediater"
+],
+"amenity/doctors/pathology":[
+"ziekteonderzoeker",
+"patholoog",
+"Patholoog",
+"anatoom-patholoog"
+],
+"amenity/doctors/plastic_surgery":[
+"plastische chirurgie",
+"Plastisch chirurg",
+"plastisch chirurg"
+],
+"amenity/doctors/podiatry":[
+"podiatrist",
+"Podoloog",
+"nagels",
+"podologie",
+"voetheelkunde",
+"voeten",
+"podiatrie"
+],
+"amenity/doctors/proctology":[
+"colorectale chirurg",
+"endeldarmchirurg",
+"Darmchirurg"
 ],
 "amenity/doctors/psychiatrist":[
-"Psychiater"
+"Psychiater",
+"psychiater"
+],
+"amenity/doctors/pulmonology":[
+"Longarts",
+"longarts",
+"pneumologie",
+"longen"
+],
+"amenity/doctors/radiology":[
+"radioloog",
+"radiologie",
+"medische beeldvorming",
+"Radioloog"
+],
+"amenity/doctors/rheumatology":[
+"reuma",
+"Reumatoloog"
+],
+"amenity/doctors/surgery":[
+"chirurg",
+"algemene chirurg",
+"Chirurg"
+],
+"amenity/doctors/trauma":[
+"traumachirurg",
+"Traumachirurg",
+"traumachirurgie"
+],
+"amenity/doctors/urology":[
+"Uroloog",
+"uroloog",
+"blaas"
+],
+"amenity/dog_toilet":[
+"Hondentoilet"
 ],
 "amenity/dojo":[
 "vechtkunsten",
@@ -677,7 +848,7 @@
 "auto",
 "Tankstation",
 "benzinestation",
-"nafte",
+"nafta",
 "biodiesel",
 "tanken"
 ],
@@ -773,7 +944,7 @@
 "Bibliotheek",
 "boeken",
 "lezen",
-"literatuuur",
+"literatuur",
 "lenen"
 ],
 "amenity/loading_dock":[
@@ -1095,11 +1266,59 @@
 "badhuis"
 ],
 "amenity/public_bookcase":[
-"publieke boekenkast",
-"bibliotheek",
-"boeken",
+"boeknruilhuisje",
+"minibieb",
+"buurtbieb",
+"bieb",
+"tweedehands",
+"ruilboekenkast",
+"straatbibliotheek",
+"ruilbibliotheek",
+"boekenhuisje",
+"wisselen",
+"mini-bieb",
+"hergebruiken",
+"boek",
+"buurtbibliotheek",
+"boekwissel",
+"deel een boek",
+"boekenkast",
+"boekenbank",
+"leeskast",
+"lezen",
+"mini-bibliotheek",
+"bieb bieb",
+"wijkbibliotheek",
+"ruilbib",
+"lfl",
+"kabinet",
+"minibib",
+"wijkbieb",
 "literatuur",
-"Openbare boekenkast"
+"boekenruilboom",
+"straatbieb",
+"biebbieb",
+"mini bieb",
+"bibliotheek",
+"Openbare boekenkast",
+"boekenruilbox",
+"geef",
+"boekspot",
+"leen",
+"lees",
+"wijkboekenkast",
+"straatboekenkast",
+"geven",
+"zwerfbib",
+"zwerfboek",
+"lenen",
+"publieke boekenkast",
+"ruilen",
+"boekenruilkast",
+"buurtboekenkast",
+"boekentil",
+"bib",
+"boekenuitleenkast"
 ],
 "amenity/ranger_station":[
 "Boswachtershut",
@@ -1142,16 +1361,6 @@
 "Milieupark/Containerpark",
 "milieustraat"
 ],
-"amenity/recycling_container":[
-"container",
-"afvalcontainer",
-"recyclage",
-"glas",
-"Recyclingcontainer",
-"glascontainer",
-"afval",
-"glasbak"
-],
 "amenity/refugee_site":[
 "vluchtelingen",
 "opvangcentrum",
@@ -1186,8 +1395,8 @@
 "koreaans",
 "filipijns"
 ],
-"amenity/restaurant/barbeque":[
-"Barbequerestaurant"
+"amenity/restaurant/barbecue":[
+"Barbecuerestaurant"
 ],
 "amenity/restaurant/chinese":[
 "rijst",
@@ -1611,15 +1820,6 @@
 "etenautomaat",
 "Voedselautomaat"
 ],
-"amenity/vending_machine/fuel":[
-"cng-pomp",
-"lng-pomp",
-"benzinepomp",
-"biodieselpomp",
-"dieselpomp",
-"gaspomp",
-"Brandstofpomp"
-],
 "amenity/vending_machine/ice_cream":[
 "IJs-automaat",
 "friscoautomaat",
@@ -1662,11 +1862,6 @@
 "zegelautomaat",
 "Postzegelautomaat"
 ],
-"amenity/vending_machine/sweets":[
-"Snackautomaat",
-"automaat",
-"etenautomaat"
-],
 "amenity/veterinary":[
 "dierendokter",
 "veearts",
@@ -1679,10 +1874,7 @@
 "hondenstrontbuis"
 ],
 "amenity/waste_basket":[
-"afvalbak",
-"prullenbak",
-"Vuilnisbak",
-"vuilnisbak"
+"Afvalbak"
 ],
 "amenity/waste_disposal":[
 "Kleine afvalcontainer",
@@ -2020,8 +2212,36 @@
 "spijkermat"
 ],
 "barrier/stile":[
+"draad",
+"schrikdraad",
+"omheining",
+"heg",
+"hek",
+"electrisch hek",
 "Overstaphek",
-"paal"
+"afrastering",
+"hekkens",
+"trap",
+"heining",
+"schrikkeldraad",
+"traptrede",
+"afscheiding",
+"touwdraadhek",
+"tree",
+"doorgang",
+"paal",
+"raster",
+"hekwerk",
+"touw",
+"afstap",
+"haag",
+"trede",
+"elektrisch draad",
+"muur",
+"omrastering",
+"opstap",
+"traptree",
+"plank"
 ],
 "barrier/swing_gate":[
 "Draaipoort",
@@ -2038,7 +2258,7 @@
 "heffing"
 ],
 "barrier/turnstile":[
-"Draaipoort",
+"Tourniquet",
 "ingang",
 "draaipoort",
 "toegangspoort",
@@ -2273,6 +2493,9 @@
 "gebouw",
 "wonen"
 ],
+"building/house/terraced":[
+"Rijtjeshuis"
+],
 "building/houseboat":[
 "rivier",
 "Woonboot",
@@ -2349,10 +2572,10 @@
 "Schoolgebouw"
 ],
 "building/semidetached_house":[
-"Niet gebruiken – niet-gestandardiseerde tag",
 "koppelwoning",
 "halfopen bebouwing",
 "koppelwoonst",
+"Koppelwoning",
 "koppelhuis"
 ],
 "building/service":[
@@ -2394,13 +2617,7 @@
 "Tempelgebouw"
 ],
 "building/terrace":[
-"huis",
-"woningen",
-"woongebied",
-"rijtjeshuizen",
-"woonsten",
-"gebouw",
-"Rijhuizen"
+"Blok van rijtjeshuizen"
 ],
 "building/train_station":[
 "Treinstationgebouw"
@@ -2745,7 +2962,8 @@
 "craft/upholsterer":[
 "bekleder",
 "meubelstoffeerder",
-"Stoffeerder"
+"Stoffeerder",
+"textiel;stof"
 ],
 "craft/watchmaker":[
 "uurwerkmaker",
@@ -3190,13 +3408,20 @@
 "binnenshuis"
 ],
 "highway/crossing":[
-"Oversteekplaats"
+"Oversteekplaats",
+"oversteken",
+"kruispunt"
 ],
 "highway/crossing/traffic_signals":[
-"Kruispunt met voetgangersverkeerslichten"
+"Oversteekplaats met voetgangersverkeerslichten"
+],
+"highway/crossing/uncontrolled":[
+"zebra",
+"Gemarkeerde oversteekplaats",
+"voetganger",
+"zebrapad"
 ],
 "highway/crossing/unmarked":[
-"ongemarkeerde oversteekplaats",
 "Ongemarkeerde oversteekplaats"
 ],
 "highway/cycleway":[
@@ -3222,6 +3447,14 @@
 "zebrapad",
 "oversteekplaats",
 "Fiets- en voetgangersoversteekplaats"
+],
+"highway/cycleway/crossing/traffic_signals":[
+"Fietsoversteekplaats met verkeerslichten",
+"kruispunt",
+"fiets"
+],
+"highway/cycleway/crossing/uncontrolled":[
+"Gemarkeerde fietsoversteekplaats"
 ],
 "highway/cycleway/crossing/unmarked":[
 "fietsoversteek",
@@ -3271,6 +3504,15 @@
 ],
 "highway/footway/crossing":[
 "Voetgangersoversteekplaats"
+],
+"highway/footway/crossing/traffic_signals":[
+"Oversteekplaats met verkeerslichten voor voetgangers"
+],
+"highway/footway/crossing/uncontrolled":[
+"Gemarkeerde oversteekplaats"
+],
+"highway/footway/crossing/unmarked":[
+"Ongemarkeerde oversteekplaats"
 ],
 "highway/footway/informal":[
 "Informeel voetpad"
@@ -6273,7 +6515,7 @@
 ],
 "railway/railway_crossing":[
 "spoorkruising",
-"Spoorwegovergang tussen meerdere sporen"
+"Kruispunt van meerdere sporen"
 ],
 "railway/signal":[
 "sein",
@@ -6739,7 +6981,8 @@
 "shop/fabric":[
 "Stofwinkel",
 "kledij",
-"naaien"
+"naaien",
+"textiel"
 ],
 "shop/farm":[
 "groente- en fruitkraam",
@@ -7092,6 +7335,11 @@
 "eiwitten",
 "supplementen"
 ],
+"shop/nuts":[
+"Notenwinkel",
+"winkel",
+"noten"
+],
 "shop/optician":[
 "lenzen",
 "oogarts",
@@ -7125,6 +7373,11 @@
 "ballonnen",
 "feestartikelen"
 ],
+"shop/pasta":[
+"pasta",
+"winkel",
+"Pastawinkel"
+],
 "shop/pastry":[
 "cake",
 "Patisserie",
@@ -7132,7 +7385,9 @@
 "patissier"
 ],
 "shop/pawnbroker":[
-"Pandjeshuis"
+"Pandjeshuis",
+"pandhuis",
+"lommerd"
 ],
 "shop/perfumery":[
 "parfumerie",
@@ -7146,6 +7401,12 @@
 "huisdieren",
 "dierenzaak",
 "dierenwinkel"
+],
+"shop/pet_grooming":[
+"Huisdiertrimmer",
+"trimmen",
+"knippen",
+"huisider"
 ],
 "shop/photo":[
 "Fotowinkel",
@@ -7194,6 +7455,11 @@
 "reparatiewinkel",
 "Reparatiewinkel"
 ],
+"shop/rice":[
+"rijst",
+"Rijstwinkel",
+"winkel"
+],
 "shop/scuba_diving":[
 "diepzeeduiken",
 "duiksport",
@@ -7206,6 +7472,8 @@
 "visverkoper"
 ],
 "shop/second_hand":[
+"tweedehand",
+"kringloopwinkel",
 "Tweedehandswinkel"
 ],
 "shop/sewing":[
@@ -7333,7 +7601,10 @@
 "Bandenwinkel"
 ],
 "shop/vacant":[
-"Leegstaande winkel"
+"Leegstaande winkel",
+"leegstand",
+"leeg",
+"winkel"
 ],
 "shop/vacuum_cleaner":[
 "Stofzuigerwinkel",
@@ -7562,12 +7833,12 @@
 ],
 "tourism/information/guidepost":[
 "wandelwegwijzer",
-"Wandel-, fiets-, e.d. -wegwijzer",
 "route",
 "wandelroutewegwijzer",
 "fietswegwijzer",
 "fietsroutewegwijzer",
 "wegwijzer",
+"Wegwijzer",
 "routewegwijzer"
 ],
 "tourism/information/map":[
@@ -7686,13 +7957,17 @@
 "snelheidsdrempel"
 ],
 "traffic_calming/island":[
-"rotonde",
-"langzaam",
-"cirkel",
-"Verkeerseiland"
+"vluchtheuvel",
+"verkeerseiland",
+"vertragend",
+"Verkeersremmend verkeerseiland",
+"remmend"
 ],
 "traffic_calming/mini_bumps":[
-"Kleine verkeersdrempels"
+"Kleine verkeersdrempels",
+"zwart-geel",
+"drempel",
+"klein"
 ],
 "traffic_calming/rumble_strip":[
 "verkeerswasbord",
@@ -7734,6 +8009,13 @@
 "maximale snelheid",
 "snelheidslimietbord"
 ],
+"traffic_sign/variable_message":[
+"gynamisch route informatiepaneel",
+"dynamisch",
+"drip",
+"Dynamisch tekstbord",
+"variabel"
+],
 "type/boundary":[
 "Grens",
 "grens"
@@ -7764,6 +8046,7 @@
 "snelheidscontrole"
 ],
 "type/multipolygon":[
+"multipoligoon",
 "Multipolygoon"
 ],
 "type/public_transport/stop_area_group":[

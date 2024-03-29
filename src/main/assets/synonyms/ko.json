@@ -236,6 +236,9 @@
 "미숙아 클리닉",
 "낙태 클리닉"
 ],
+"amenity/clinic/dialysis":[
+"투석 센터"
+],
 "amenity/clinic/fertility":[
 "불임 클리닉"
 ],
@@ -289,6 +292,87 @@
 "내과",
 "소아청소년과",
 "정신건강의학과"
+],
+"amenity/doctors/allergology":[
+"알레르기의학과"
+],
+"amenity/doctors/cardiology":[
+"순환기내과 의사"
+],
+"amenity/doctors/child_psychiatry":[
+"아동청소년 정신의학과 의사"
+],
+"amenity/doctors/dermatology":[
+"피부과 의사"
+],
+"amenity/doctors/gastroenterology":[
+"소화기내과 의사"
+],
+"amenity/doctors/general":[
+"주치의"
+],
+"amenity/doctors/gynaecology":[
+"산부인과 의사"
+],
+"amenity/doctors/haematology":[
+"혈액종양내과 의사"
+],
+"amenity/doctors/internal":[
+"내과의사"
+],
+"amenity/doctors/nephrology":[
+"신장내과 의사"
+],
+"amenity/doctors/neurology":[
+"신경과 의사"
+],
+"amenity/doctors/neurosurgery":[
+"신경외과 의사"
+],
+"amenity/doctors/ophthalmology":[
+"안과의사"
+],
+"amenity/doctors/orthopaedics":[
+"정형외과 의사"
+],
+"amenity/doctors/otolaryngology":[
+"이비인후과 의사"
+],
+"amenity/doctors/paediatrics":[
+"소아청소년과 의사"
+],
+"amenity/doctors/pathology":[
+"병리과 의사"
+],
+"amenity/doctors/plastic_surgery":[
+"성형외과 의사"
+],
+"amenity/doctors/podiatry":[
+"족부의학과 의사"
+],
+"amenity/doctors/proctology":[
+"대장항문외과 의사"
+],
+"amenity/doctors/psychiatrist":[
+"정신건강의학과 의사"
+],
+"amenity/doctors/pulmonology":[
+"호흡기내과 의사"
+],
+"amenity/doctors/radiology":[
+"영상의학과 의사"
+],
+"amenity/doctors/rheumatology":[
+"류마티스내과 의사"
+],
+"amenity/doctors/surgery":[
+"외과의사"
+],
+"amenity/doctors/trauma":[
+"외상외과 의사"
+],
+"amenity/doctors/urology":[
+"비뇨의학과 의사"
 ],
 "amenity/dojo":[
 "도장 / 무술 학원"
@@ -384,6 +468,9 @@
 "도박장"
 ],
 "amenity/grave_yard":[
+"묘역",
+"산소",
+"묘역 (종교시설 내부)",
 "묘지"
 ],
 "amenity/grit_bin":[
@@ -415,6 +502,9 @@
 "영어 학원",
 "언어 학원",
 "국어 학원"
+],
+"amenity/lavoir":[
+"빨래터"
 ],
 "amenity/letter_box":[
 "우편함"
@@ -604,9 +694,6 @@
 "amenity/recycling_centre":[
 "재활용 센터"
 ],
-"amenity/recycling_container":[
-"재활용 용기"
-],
 "amenity/refugee_site":[
 "난민촌",
 "난민 캠프"
@@ -626,10 +713,6 @@
 "amenity/restaurant/asian":[
 "아시아 음식점",
 "아시아 식당"
-],
-"amenity/restaurant/barbeque":[
-"바베큐 식당",
-"바베큐"
 ],
 "amenity/restaurant/chinese":[
 "중식당",
@@ -674,6 +757,9 @@
 "피자 식당",
 "피자 음식점"
 ],
+"amenity/restaurant/ramen":[
+"라멘 가게"
+],
 "amenity/restaurant/seafood":[
 "해산물 식당",
 "해산물 음식점"
@@ -715,6 +801,11 @@
 ],
 "amenity/shelter/lean_to":[
 "달개"
+],
+"amenity/shelter/public_transport":[
+"정류소 쉼터",
+"대중교통 쉼터",
+"환승 쉼터"
 ],
 "amenity/shower":[
 "샤워실",
@@ -852,9 +943,6 @@
 "amenity/vending_machine/food":[
 "식품 자판기"
 ],
-"amenity/vending_machine/fuel":[
-"가스 펌프"
-],
 "amenity/vending_machine/ice_cream":[
 "아이스크림 자판기"
 ],
@@ -868,16 +956,15 @@
 "주차발권기",
 "주차권 발권기"
 ],
+"amenity/vending_machine/pizza":[
+"피자 자판기"
+],
 "amenity/vending_machine/public_transport_tickets":[
 "대중교통 승차권 발매기",
 "1회용 승차권 발매기"
 ],
 "amenity/vending_machine/stamps":[
 "우표 자판기"
-],
-"amenity/vending_machine/sweets":[
-"간식 자판기",
-"과자 자판기"
 ],
 "amenity/veterinary":[
 "동물병원",
@@ -887,8 +974,7 @@
 "개 배설물 쓰레기통"
 ],
 "amenity/waste_basket":[
-"쓰레기통",
-"휴지통"
+"쓰레기통"
 ],
 "amenity/waste_disposal":[
 "쓰레기 수거함",
@@ -920,11 +1006,17 @@
 "area/highway":[
 "도로 구역"
 ],
+"attraction":[
+"어트랙션"
+],
 "attraction/amusement_ride":[
 "놀이기구"
 ],
 "attraction/animal":[
 "동물 우리"
+],
+"attraction/big_wheel":[
+"회전관람차"
 ],
 "attraction/bumper_car":[
 "범퍼카"
@@ -1237,10 +1329,6 @@
 "building/temple":[
 "사원 건물"
 ],
-"building/terrace":[
-"연립주택",
-"테라스 하우스"
-],
 "building/train_station":[
 "기차역 건물"
 ],
@@ -1265,6 +1353,11 @@
 "무덤",
 "묘",
 "묘지"
+],
+"cemetery/sector":[
+"묘역",
+"묘소",
+"묘역 (묘지 내부)"
 ],
 "club":[
 "클럽"
@@ -1396,7 +1489,7 @@
 "지붕 시공자"
 ],
 "craft/saddler":[
-"안부"
+"고개"
 ],
 "craft/sailmaker":[
 "돛 제작자"
@@ -1496,6 +1589,10 @@
 "emergency/fire_hydrant":[
 "소화전"
 ],
+"emergency/fire_service_inlet":[
+"송수구",
+"소방 송수구"
+],
 "emergency/first_aid_kit":[
 "구급상자"
 ],
@@ -1516,14 +1613,14 @@
 "비상시 접근 금지"
 ],
 "emergency/official":[
-"공식 비상시 접근지"
+"공공 비상시설"
 ],
 "emergency/phone":[
 "긴급 전화",
 "비상 전화"
 ],
 "emergency/private":[
-"민간 비상시 접근지"
+"사유 비상시설"
 ],
 "emergency/siren":[
 "경고",
@@ -1609,11 +1706,29 @@
 "healthcare/alternative":[
 "대체의학"
 ],
+"healthcare/alternative/acupuncture":[
+"침사"
+],
+"healthcare/alternative/ayurveda":[
+"아유르베다"
+],
 "healthcare/alternative/chiropractic":[
+"카이로프랙터",
 "척추",
 "요통",
-"허리",
-"카이로프랙틱"
+"허리"
+],
+"healthcare/alternative/homeopathy":[
+"동종요법사"
+],
+"healthcare/alternative/naturopathy":[
+"자연요법사"
+],
+"healthcare/alternative/osteopathy":[
+"정골의학 의사"
+],
+"healthcare/alternative/traditional_chinese_medicine":[
+"한의사"
 ],
 "healthcare/audiologist":[
 "귀",
@@ -1688,6 +1803,9 @@
 "healthcare/speech_therapist":[
 "언어치료사"
 ],
+"healthcare/yes":[
+"의료 시설(기타)"
+],
 "highway":[
 "도로 지물"
 ],
@@ -1695,11 +1813,16 @@
 "승마 도로"
 ],
 "highway/bus_guideway":[
-"brt",
-"독립된 버스전용차로"
+"버스 가이드웨이"
 ],
 "highway/bus_stop":[
 "버스 정류소"
+],
+"highway/busway":[
+"brt",
+"간선급행버스체계",
+"분리된 버스 전용로",
+"버스전용도로"
 ],
 "highway/construction":[
 "공사 중인 도로"
@@ -1714,14 +1837,32 @@
 "highway/crossing/traffic_signals":[
 "보행자 신호등이 있는 횡단보도"
 ],
+"highway/crossing/uncontrolled":[
+"표시가 있는 횡단보도"
+],
 "highway/crossing/unmarked":[
-"표시되지 않은 횡단보도"
+"표시가 없는 횡단보도"
 ],
 "highway/cycleway":[
 "자전거 도로"
 ],
+"highway/cycleway/bicycle_foot":[
+"자전거 사람 겸용 길"
+],
+"highway/cycleway/crossing":[
+"자전거 횡단도"
+],
+"highway/cycleway/crossing/bicycle_foot":[
+"자전거, 사람 횡단보도"
+],
+"highway/cycleway/crossing/traffic_signals":[
+"신호등이 있는 자전거 횡단도"
+],
+"highway/cycleway/crossing/uncontrolled":[
+"표시가 있는 자전거 횡단도"
+],
 "highway/cycleway/crossing/unmarked":[
-"표시되지 않은 자전거 횡단로"
+"표시가 없는 자전거 횡단도"
 ],
 "highway/elevator":[
 "승강기",
@@ -1738,13 +1879,16 @@
 "무빙워크"
 ],
 "highway/footway/crossing":[
-"횡단보도"
+"보행자 횡단보도"
 ],
 "highway/footway/crossing/traffic_signals":[
 "보행자 신호등이 있는 횡단보도"
 ],
 "highway/footway/crossing/uncontrolled":[
-"표시된 횡단보도"
+"표시가 있는 횡단보도"
+],
+"highway/footway/crossing/unmarked":[
+"표시가 없는 횡단보도"
 ],
 "highway/footway/sidewalk":[
 "인도",
@@ -1756,6 +1900,8 @@
 "양보 표지판"
 ],
 "highway/living_street":[
+"생활도로",
+"이면도로",
 "주택가 거리"
 ],
 "highway/milestone":[
@@ -1794,7 +1940,7 @@
 "보행로"
 ],
 "highway/primary":[
-"1차 도로"
+"국도(1차 도로)"
 ],
 "highway/primary_link":[
 "1차 도로 연결로"
@@ -1816,15 +1962,18 @@
 "골목길"
 ],
 "highway/rest_area":[
-"휴게소",
+"임시 휴게소",
+"소풍 휴게소",
 "졸음쉼터"
 ],
 "highway/road":[
-"알 수 없는 도로",
 "미확인 도로"
 ],
+"highway/road/bridge":[
+"미확인 도로의 다리"
+],
 "highway/secondary":[
-"2차 도로"
+"지방도(2차 도로)"
 ],
 "highway/secondary_link":[
 "2차 도로 연결로"
@@ -1839,8 +1988,7 @@
 "드라이브 스루"
 ],
 "highway/service/driveway":[
-"진입로",
-"차도"
+"진입로"
 ],
 "highway/service/emergency_access":[
 "비상 액세스",
@@ -1849,14 +1997,20 @@
 "highway/service/parking_aisle":[
 "주차장 통로"
 ],
+"highway/service_area":[
+"서비스 도로"
+],
 "highway/services":[
-"휴게소",
-"서비스 지역"
+"간이 휴게소",
+"휴게소"
 ],
 "highway/speed_camera":[
 "과속단속 카메라",
 "속도 카메라",
 "과속 카메라"
+],
+"highway/speed_display":[
+"가변속도표출기"
 ],
 "highway/steps":[
 "계단"
@@ -1873,20 +2027,31 @@
 "가로등"
 ],
 "highway/tertiary":[
-"3차 도로"
+"시·군·구도(3차 도로)"
 ],
 "highway/tertiary_link":[
 "3차 도로 연결로"
 ],
+"highway/toll_gantry":[
+"스마트톨링",
+"원톨링",
+"통행료 무인수납장치"
+],
 "highway/track":[
-"트랙 / 육로 접근 도로"
+"농도",
+"트랙 / 토지 접근 도로",
+"임도"
 ],
 "highway/traffic_mirror":[
-"차량 거울"
+"도로 반사경",
+"도로 거울"
 ],
 "highway/traffic_signals":[
 "교통신호",
 "신호등"
+],
+"highway/trailhead":[
+"코스 시작/끝"
 ],
 "highway/trunk":[
 "고속화도로"
@@ -1901,7 +2066,10 @@
 "루프선 (교통섬)"
 ],
 "highway/unclassified":[
-"비주요/마을 내 도로"
+"미분류 도로(4차 도로)",
+"미등급 도로",
+"4차 도로",
+"미분류 도로"
 ],
 "historic":[
 "사적지"
@@ -1948,7 +2116,8 @@
 "폐허"
 ],
 "historic/tomb":[
-"무덤"
+"무덤",
+"무덤 (역사적 지물)"
 ],
 "historic/wayside_cross":[
 "도로변의 십자가"
@@ -2013,10 +2182,12 @@
 "재개발 부지"
 ],
 "landuse/cemetery":[
+"묘역",
+"산소",
 "묘지"
 ],
 "landuse/churchyard":[
-"묘지"
+"교회 부지"
 ],
 "landuse/commercial":[
 "상업 지역"
@@ -2069,6 +2240,9 @@
 ],
 "landuse/industrial":[
 "산업 지역"
+],
+"landuse/industrial/depot":[
+"차고지"
 ],
 "landuse/industrial/scrap_yard":[
 "금속",
@@ -2681,6 +2855,9 @@
 "man_made/yes":[
 "인공물(특정한 유형이 아님)"
 ],
+"marker":[
+"고속도로 지점 마커"
+],
 "natural":[
 "자연 지물"
 ],
@@ -2700,7 +2877,6 @@
 "해안"
 ],
 "natural/cape":[
-"갑",
 "곶"
 ],
 "natural/cave_entrance":[
@@ -2758,11 +2934,7 @@
 "부착된 돌/바위"
 ],
 "natural/saddle":[
-"안부",
-"영",
-"고개",
-"콜",
-"재"
+"고개"
 ],
 "natural/sand":[
 "사막",
@@ -2778,6 +2950,9 @@
 "natural/shingle":[
 "조약돌",
 "자갈밭"
+],
+"natural/shrub":[
+"관목"
 ],
 "natural/spring":[
 "샘"
@@ -2795,7 +2970,6 @@
 "나무 열"
 ],
 "natural/valley":[
-"협곡",
 "골짜기"
 ],
 "natural/volcano":[
@@ -2955,7 +3129,7 @@
 "검찰청"
 ],
 "office/government/register_office":[
-"등기소"
+"호적 등기소"
 ],
 "office/government/tax":[
 "세무서"
@@ -3260,7 +3434,7 @@
 "정거장"
 ],
 "public_transport/platform/bus_tram_point":[
-"노면전차, 버스 정류장"
+"노면전차 및 버스 정류소"
 ],
 "public_transport/platform/ferry":[
 "페리 승강장"
@@ -3490,7 +3664,7 @@
 "공사 중인 철도"
 ],
 "railway/crossing":[
-"철도 건널목"
+"철도-보도 건널목"
 ],
 "railway/derail":[
 "탈선기"
@@ -3564,7 +3738,7 @@
 "트램 길"
 ],
 "railway/tram_crossing":[
-"전차 건널목"
+"전차-보도 건널목"
 ],
 "railway/tram_level_crossing":[
 "전차-도로 건널목"
@@ -3835,6 +4009,9 @@
 "계란",
 "치즈"
 ],
+"shop/deli":[
+"조제 식품 판매점"
+],
 "shop/department_store":[
 "백화점"
 ],
@@ -3946,6 +4123,9 @@
 "shop/gas":[
 "가스통 상점",
 "가스통 가게"
+],
+"shop/general":[
+"일반 상점"
 ],
 "shop/gift":[
 "기프트샵",
@@ -4079,6 +4259,9 @@
 "악기 가게",
 "악기 상점"
 ],
+"shop/newsagent":[
+"뉴스 가게"
+],
 "shop/nutrition_supplements":[
 "영양 보조 식품 가게",
 "영양 보조 식품 상점"
@@ -4110,6 +4293,9 @@
 "shop/pastry":[
 "과자 상점",
 "과자 가게"
+],
+"shop/pawnbroker":[
+"전당포"
 ],
 "shop/perfumery":[
 "향수 상점",
@@ -4445,6 +4631,7 @@
 "교통정온화"
 ],
 "traffic_calming/bump":[
+"조립식 과속방지턱",
 "과속방지턱"
 ],
 "traffic_calming/chicane":[
@@ -4460,11 +4647,8 @@
 "딥"
 ],
 "traffic_calming/hump":[
-"과속방지턱",
+"설치식 과속방지턱",
 "스피드 험프"
-],
-"traffic_calming/island":[
-"교통섬"
 ],
 "traffic_calming/rumble_strip":[
 "럼블스트립",

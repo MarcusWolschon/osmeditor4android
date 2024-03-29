@@ -17,6 +17,12 @@
 "amenity/bureau_de_change":[
 "گۆڕینەوەی دراو"
 ],
+"amenity/cafe":[
+"قاوەخانە"
+],
+"amenity/car_rental":[
+"بەکرێدانی ئۆتۆمبێل"
+],
 "amenity/car_wash":[
 "شووشتنگەی ئۆتۆمبێل"
 ],
@@ -32,6 +38,15 @@
 "amenity/clock":[
 "کاتژمێر"
 ],
+"amenity/college":[
+"کۆلێژ"
+],
+"amenity/community_centre/youth_centre":[
+"ناوەندی گەنجان"
+],
+"amenity/courthouse":[
+"دادگا"
+],
 "amenity/dentist":[
 "ددانساز"
 ],
@@ -41,11 +56,11 @@
 "amenity/drinking_water":[
 "ئاوی خواردنەوە"
 ],
+"amenity/driver_training":[
+"گۆڕەپانی فێرکردنی شوفێری"
+],
 "amenity/fast_food":[
 "خواردنی خێرا"
-],
-"amenity/fountain":[
-"نافورە"
 ],
 "amenity/grave_yard":[
 "گۆڕستان"
@@ -65,6 +80,9 @@
 "amenity/nightclub":[
 "یانەی شەوانە"
 ],
+"amenity/parking/street-side":[
+"گەراجی ڕۆخی شەقام"
+],
 "amenity/place_of_worship":[
 "پەرستگا"
 ],
@@ -83,8 +101,11 @@
 "amenity/restaurant":[
 "خواردنگە"
 ],
+"amenity/restaurant/vietnamese":[
+"خواردنگەی ڤێتنامی"
+],
 "amenity/smoking_area":[
-"ناوچەی جگەرەکێشان"
+"ناوەی جگەرەکێشان"
 ],
 "amenity/social_facility/food_bank":[
 "بانکی خواردن"
@@ -102,7 +123,13 @@
 "ڤێتێرنەری"
 ],
 "area":[
-"ناوچە"
+"ناوە"
+],
+"area/footway":[
+"ناوەی پیادەڕێ"
+],
+"area/highway":[
+"ناوەی شەقام"
 ],
 "attraction/train":[
 "شەمەندەفەری گەشتیاریی"
@@ -122,11 +149,20 @@
 "barrier/wall":[
 "دیوار"
 ],
+"boundary/hazard":[
+"ناوچەی مەترسیدار"
+],
+"bridge/support":[
+"ڕاگری پرد"
+],
 "building":[
 "باڵەخانە"
 ],
 "building/church":[
 "باڵەخانەی کڵێسا"
+],
+"building/college":[
+"باڵەخانەی کۆلێژ"
 ],
 "building/commercial":[
 "باڵەخانەی بازرگانی"
@@ -134,8 +170,23 @@
 "building/construction":[
 "باڵەخانەکە لەژێر بونیاتناندایە"
 ],
+"building/cowshed":[
+"تەویلە"
+],
 "building/garage":[
 "گەراج"
+],
+"building/ger":[
+"ڕەشماڵ (یورت)"
+],
+"building/grandstand":[
+"جێگای تەماشاوانان"
+],
+"building/greenhouse":[
+"سەوزخانە"
+],
+"building/hangar":[
+"پەنافڕۆکە"
 ],
 "building/hospital":[
 "باڵەخانەی نەخۆشخانە"
@@ -146,11 +197,17 @@
 "building/house":[
 "خانوو"
 ],
+"building/hut":[
+"کوخ"
+],
 "building/industrial":[
 "باڵەخانەی پیشەسازی"
 ],
 "building/mosque":[
 "باڵەخانەی مزگەوت"
+],
+"building/office":[
+"باڵەخانەی نووسینگە"
 ],
 "building/public":[
 "باڵەخانەی گشتیی"
@@ -158,17 +215,80 @@
 "building/residential":[
 "باڵەخانەی نیشتەجێبوون"
 ],
+"building/roof":[
+"بنمیچ"
+],
+"building/school":[
+"باڵەخانەی قوتابخانە"
+],
+"building/service":[
+"باڵەخانەی ڕاژەگوزاری"
+],
+"building/shed":[
+"حەسار"
+],
+"building/stadium":[
+"باڵەخانەی یاریگا"
+],
+"building/static_caravan":[
+"ماڵی گوازراوە"
+],
+"building/sty":[
+"بەرازخان"
+],
+"building/temple":[
+"باڵەخانەی پەرستگە"
+],
+"building/train_station":[
+"باڵەخانەی وێستگەی شەمەندەفەر"
+],
+"building/university":[
+"باڵەخانەی زانکۆ"
+],
+"building/warehouse":[
+"باڵەخانەی کۆگا"
+],
+"building_point":[
+"باڵەخانە"
+],
+"cemetery/grave":[
+"گۆڕ"
+],
 "club":[
 "یانە"
+],
+"club/sport":[
+"یانەی وەرزشی"
 ],
 "craft/beekeeper":[
 "هەنگەوان"
 ],
+"craft/blacksmith":[
+"ئاسنگەر"
+],
+"craft/bookbinder":[
+"چزوبەندکەر"
+],
+"craft/carpenter":[
+"دارتاش"
+],
+"craft/caterer":[
+"سوروساتچی"
+],
 "craft/clockmaker":[
 "کاتژمێرچی"
 ],
+"craft/electrician":[
+"کارەباچی"
+],
 "craft/gardener":[
 "باخەوان"
+],
+"craft/glaziery":[
+"جامبڕی"
+],
+"craft/locksmith":[
+"کلیلساز"
 ],
 "craft/painter":[
 "نیگارکێش"
@@ -176,14 +296,44 @@
 "craft/photographer":[
 "وێنەگر"
 ],
+"craft/photographic_laboratory":[
+"تاقیگەی وێنەگری"
+],
+"craft/plasterer":[
+"سواخدەر"
+],
 "craft/plumber":[
 "بۆڕیچی"
+],
+"craft/roofer":[
+"میچساز"
+],
+"craft/saddler":[
+"زیندروو"
+],
+"craft/sawmill":[
+"داربڕی"
+],
+"craft/sculptor":[
+"بەردتاش"
 ],
 "craft/shoemaker":[
 "پینەدۆز"
 ],
+"craft/stonemason":[
+"بەردکار"
+],
+"craft/tailor":[
+"بەرگدوور"
+],
 "craft/tiler":[
 "کاشیچی"
+],
+"craft/tinsmith":[
+"تەنەکەچی"
+],
+"craft/upholsterer":[
+"بەرگتێگر"
 ],
 "craft/watchmaker":[
 "کاتژمێرساز"
@@ -191,14 +341,44 @@
 "craft/winery":[
 "کارگەی مەی"
 ],
+"embankment":[
+"لاگیرە"
+],
+"emergency/first_aid_kit":[
+"ساکی فریاگوزاری سەرەتایی"
+],
+"emergency/lifeguard":[
+"مەلەوانی ڕزگارکەر (ژینپارێز)"
+],
+"emergency/phone":[
+"تەلەفۆنی تەنگەتاوی"
+],
+"highway/construction":[
+"ڕێگە لە چاککردندایە"
+],
 "highway/elevator":[
 "ئاسانسەر"
 ],
 "highway/footway":[
 "پیادەڕۆ"
 ],
+"highway/living_street":[
+"کۆڵانی تەنگەبەر"
+],
+"highway/motorway":[
+"شاڕێ"
+],
+"highway/motorway_link":[
+"بەستەگی شاڕێ"
+],
+"highway/path":[
+"پیادەڕێ"
+],
 "highway/pedestrian_area":[
-"ناوچەی نیشتەجێبوون"
+"گۆڕەپانی پیادە"
+],
+"highway/pedestrian_line":[
+"ڕێی پیادە"
 ],
 "highway/primary":[
 "شەقامی سەرەکی"
@@ -224,6 +404,9 @@
 "highway/service/alley":[
 "کۆڵانۆچکە"
 ],
+"highway/services":[
+"ناوەی ڕاژەگوزاری"
+],
 "highway/speed_camera":[
 "کامێرای خێرایی"
 ],
@@ -239,8 +422,11 @@
 "highway/traffic_signals":[
 "نیشانەکانی هاتوچۆ"
 ],
+"highway/trunk":[
+"سەرەڕێ"
+],
 "highway/unclassified":[
-"ڕێگای پۆلێننەکراو"
+"شەقامی پۆلێننەکراو"
 ],
 "historic":[
 "جێگەی مێژوویی"
@@ -254,6 +440,9 @@
 "landuse/commercial":[
 "ناوچەی بارزگانی"
 ],
+"landuse/construction":[
+"ڕووبەری بنیاتنان"
+],
 "landuse/grass":[
 "گژوگیا"
 ],
@@ -266,8 +455,17 @@
 "landuse/meadow":[
 "Meadow"
 ],
+"landuse/religious":[
+"مەڵبەندی ئایینی"
+],
 "landuse/residential":[
 "ناوچەی نیشتەجێبوون"
+],
+"landuse/retail":[
+"گۆڕەپانی تاکفرۆشی"
+],
+"landuse/winter_sports":[
+"گۆڕەپانی وەرزشی زستانە"
 ],
 "leisure/dance":[
 "هۆڵی سەماکردن"
@@ -277,6 +475,36 @@
 ],
 "leisure/garden":[
 "باخچە"
+],
+"leisure/swimming_area":[
+"پانتایی مەلەی سروشتی"
+],
+"man_made/bridge":[
+"پانتایی پرد"
+],
+"man_made/tunnel":[
+"پانتایی تونێل"
+],
+"natural/water/canal":[
+"پانتایی کارێز"
+],
+"natural/water/river":[
+"پانتایی ڕووبار"
+],
+"natural/water/stream":[
+"پانتایی چەم"
+],
+"natural/wood":[
+"دارستان"
+],
+"railway/level_crossing":[
+"یەکتربڕی هێڵی ئاسنی"
+],
+"shop/hairdresser":[
+"سەرتاشخانە"
+],
+"shop/hairdresser_supply":[
+"فرۆشگای کەلوپەلی تراشین"
 ],
 "waterway/dam":[
 "بەنداو"

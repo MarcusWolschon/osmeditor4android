@@ -740,11 +740,6 @@
 "廢物回收中心",
 "回收中心"
 ],
-"amenity/recycling_container":[
-"三色桶",
-"回收箱",
-"回收桶"
-],
 "amenity/restaurant":[
 "餐廳",
 "酒樓",
@@ -1052,10 +1047,6 @@
 "郵票售賣機",
 "郵票販賣機"
 ],
-"amenity/vending_machine/sweets":[
-"零食販賣機",
-"零食售賣機"
-],
 "amenity/veterinary":[
 "獸醫",
 "動物醫生"
@@ -1064,12 +1055,6 @@
 "dog excrement bin",
 "狗糞收集箱",
 "狗屎收集箱"
-],
-"amenity/waste_basket":[
-"垃圾箱",
-"垃圾桶",
-"廢物箱",
-"waste basket"
 ],
 "amenity/waste_disposal":[
 "大型垃圾箱",
@@ -1439,11 +1424,6 @@
 ],
 "building/temple":[
 "寺廟建築物"
-],
-"building/terrace":[
-"排屋",
-"連棟式住宅",
-"行列式房屋"
 ],
 "building/train_station":[
 "鐵路車站建築物"
@@ -4022,12 +4002,6 @@
 "traffic_calming/hump":[
 "緩衝路拱",
 "減速壆"
-],
-"traffic_calming/island":[
-"traffic island",
-"安全島",
-"交通島",
-"分隔島"
 ],
 "traffic_calming/rumble_strip":[
 "隆起標誌帶",

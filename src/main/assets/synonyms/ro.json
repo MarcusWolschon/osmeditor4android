@@ -335,9 +335,6 @@
 "building/semidetached_house":[
 "Casă Semi-detașată"
 ],
-"building/terrace":[
-"Case în Rând"
-],
 "building/university":[
 "Universitate"
 ],
@@ -937,7 +934,8 @@
 "Magazin de Biciclete"
 ],
 "shop/bookmaker":[
-"Atelier de Cărți"
+"pariuri",
+"Casă de pariuri"
 ],
 "shop/boutique":[
 "Boutique"
@@ -1217,9 +1215,6 @@
 ],
 "traffic_calming/hump":[
 "Cucui de Viteză"
-],
-"traffic_calming/island":[
-"Insulă de Trafic"
 ],
 "type/boundary":[
 "Graniță"

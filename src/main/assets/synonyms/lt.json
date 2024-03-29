@@ -335,10 +335,6 @@
 "veterinaras",
 "Veterinarija"
 ],
-"amenity/waste_basket":[
-"šiukšliadėžė",
-"Šiukšliadėžė"
-],
 "amenity/waste_disposal":[
 "Šiukšlių konteineris"
 ],
@@ -420,6 +416,9 @@
 "barrier/wall":[
 "Siena",
 "siena"
+],
+"boundary":[
+"Riba"
 ],
 "boundary/administrative":[
 "Administracinė riba",
@@ -1142,6 +1141,19 @@
 "man_made/pipeline":[
 "Vamzdynas"
 ],
+"man_made/storage_tank":[
+"rezervuaras",
+"cisterna",
+"saugykla",
+"Rezervuaras"
+],
+"man_made/storage_tank/water":[
+"Vandens rezervuaras",
+"rezervuaras",
+"vandens rezervuaras",
+"cisterna",
+"saugykla"
+],
 "man_made/survey_point":[
 "Tyrimų vieta",
 "stebėjimo taškas"
@@ -1803,17 +1815,16 @@
 "traffic_calming/hump":[
 "Dideli greičio slopinimo kalneliai"
 ],
-"traffic_calming/island":[
-"Eismo salelė"
-],
 "type/boundary":[
-"Siena",
+"Riba",
 "riba",
 "siena"
 ],
 "type/boundary/administrative":[
+"Administracinė riba",
+"riba",
 "administracinė riba",
-"Administracinė siena"
+"siena"
 ],
 "type/multipolygon":[
 "Multipoligonas"
