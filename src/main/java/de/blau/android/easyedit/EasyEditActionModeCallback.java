@@ -1,5 +1,7 @@
 package de.blau.android.easyedit;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -57,7 +59,9 @@ import de.blau.android.util.Util;
  */
 public abstract class EasyEditActionModeCallback implements ActionMode.Callback {
 
-    private static final String       DEBUG_TAG    = "EasyEditActionModeCa...";
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, EasyEditActionModeCallback.class.getSimpleName().length());
+    private static final String DEBUG_TAG = EasyEditActionModeCallback.class.getSimpleName().substring(0, TAG_LEN);
+
     protected int                     helpTopic    = 0;
     MenuUtil                          menuUtil;
     private ActionMenuView            cabBottomBar;
@@ -67,6 +71,7 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
     protected ActionMode              mode;
     private boolean                   created      = true;
     protected Map<OsmElement, Result> savedResults = new HashMap<>();
+    private View                      close;
 
     public static final int GROUP_MODE = 0;
     public static final int GROUP_BASE = 1;
@@ -195,12 +200,14 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
         }
         /*
          * This is a hack around google not providing a way to handle clicking on the "done"/"close" button as it uses
-         * reflection it is dependent on the code in the androidx libs. THis further cannot be called in
+         * reflection it is dependent on the code in the androidx libs. This further cannot be called in
          * onCreateActionMode as the Views don't seem to have been inflated yet.
          */
-        View close = getActionCloseView(mode);
-        if (close != null) {
-            close.setOnClickListener(v -> onCloseClicked());
+        if (close == null) {
+            close = getActionCloseView(mode);
+            if (close != null) {
+                close.setOnClickListener(v -> onCloseClicked());
+            }
         }
         return false;
     }
@@ -403,11 +410,13 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
     public static View getActionCloseView(@NonNull ActionMode mode) {
         Object modeObject = mode;
         try {
-            final Field wrappedObjectField = modeObject.getClass().getDeclaredField("mWrappedObject");
-            wrappedObjectField.setAccessible(true); // NOSONAR
-            modeObject = wrappedObjectField.get(mode);
+            modeObject = findWrappedActionMode(mode, "mWrappedObject");
         } catch (Exception ex) {
-            // ignore
+            try {
+                modeObject = findWrappedActionMode(mode, "mActionMode");
+            } catch (Exception ex2) {
+                // ignore
+            }
         }
         try {
             final Field contextViewField = modeObject.getClass().getDeclaredField("mContextView");
@@ -429,6 +438,22 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
             Log.e(DEBUG_TAG, ex.getClass().getSimpleName() + " in #getActionCloseView: " + ex.getLocalizedMessage());
         }
         return null;
+    }
+
+    /**
+     * Try to unwrap the ActionMode
+     * 
+     * @param mode the original ActionMode
+     * @param fieldName the name of the field holding the actual ActionMode object
+     * @return the real ActionMode
+     * @throws NoSuchFieldException if the field doesn't exist
+     * @throws IllegalAccessException if we are not allowed to access it
+     */
+    @NonNull
+    private static Object findWrappedActionMode(@NonNull ActionMode mode, @NonNull String fieldName) throws NoSuchFieldException, IllegalAccessException {
+        final Field wrappedObjectField = mode.getClass().getDeclaredField(fieldName);
+        wrappedObjectField.setAccessible(true); // NOSONAR
+        return wrappedObjectField.get(mode);
     }
 
     /**
