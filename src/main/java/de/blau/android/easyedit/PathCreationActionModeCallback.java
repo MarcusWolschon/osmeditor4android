@@ -433,7 +433,7 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
             }
         }
         initialFollowNode = current;
-        if (!alreadyAvailable || (alreadyAvailable && candidatesForFollowing.isEmpty())) {
+        if (!alreadyAvailable || candidatesForFollowing.isEmpty()) {
             mode.invalidate();
         }
     }
