@@ -317,7 +317,7 @@ public class TrackerService extends Service {
                 } else if (lastLocation != null) { // calibrate from GPS
                     if (lastLocation instanceof ExtendedLocation && ((ExtendedLocation) lastLocation).hasGeoidHeight()) {
                         pressureListener.calibrate((float) ((ExtendedLocation) lastLocation).getGeoidHeight());
-                    } else if (lastLocation.hasAltitude()) {
+                    } else if (lastLocation.hasAltitude() && egmLoaded) {
                         double offset = getGeoidOffset(lastLocation.getLongitude(), lastLocation.getLatitude());
                         Log.d(DEBUG_TAG, "Geoid offset " + offset);
                         pressureListener.calibrate((float) (lastLocation.getAltitude() - offset));
