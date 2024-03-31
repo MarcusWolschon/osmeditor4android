@@ -1,5 +1,21 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+20.0.0:
+
+- Fix only use EGM for calibration if it has been loaded
+- Fix support a further way an ActionMode might be wrapped
+- Fix disable follow way mode if undo invalidates the prerequisites
+- Fix don't overwrite WMS tile size from modal, just show a tip
+- Fix suppress duplicate and after header space fields
+- Fix preset filter tests
+- Fix set tokens for all entries with the same url and authorization method
+- Add support starting the app via the upload reminder notification
+- Update imagery configuration from ELI
+- Update translations
+- Update default preset and taginfo project file
+- Update synonyms
+- Update NSI
+
 20.0.0-1:
 
 - Fix apply workaround for Android "truncate" bug
