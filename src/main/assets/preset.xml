@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.47.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,disused:amenity,disused:leisure,disused:man_made,disused:shop,golf,ford,harbour,hazard,noexit,indoor,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom">
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.48.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,disused:amenity,disused:leisure,disused:man_made,disused:shop,golf,ford,harbour,hazard,noexit,indoor,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom">
 <!--
     Icons have been derived from mainly from
   
@@ -9,6 +9,7 @@
     Format description: https://josm.openstreetmap.de/wiki/TaggingPresets and http://vespucci.io/tutorials/presets/
 -->
     <!-- Value chunks for use in combos and multiselects -->
+    
     
     
     
@@ -1581,6 +1582,8 @@
         </combo>
         <reference ref="roof_main"/>
         <optional>
+            <reference ref="wikipedia_wikidata_images"/>
+            <text key="architect" text="Architect"/>
             <multiselect key="building:architecture" text="Architectural style">
                 <list_entry value="romanesque" display_value="Romanesque architecture"/>
                 <list_entry value="gothic" display_value="Gothic architecture"/>
@@ -1821,6 +1824,11 @@
             <list_entry value="delay" display_value="Delay display"/>
             <list_entry value="no" display_value="None"/>
         </multiselect>
+        <optional>
+            <combo key="departures_board:speech_output" text="Speech (departures board)" match="key">
+                <list_entry value="yes" display_value="Avalilable"/><list_entry value="on_button_press" display_value="On button press"/><list_entry value="no" display_value="None"/>
+            </combo>
+        </optional>
     </chunk>
     <chunk id="transportation_types">
         <checkgroup text="Transportation type" columns="3">
@@ -1849,6 +1857,11 @@
         <reference ref="bin"/>
         <reference ref="departures_board"/>
         <check key="passenger_information_display" text="Passenger information display" deprecated="true"/>
+        <optional>
+            <combo key="passenger_information_display:speech_output" text="Speech (information display)" match="key" deprecated="true">
+                <list_entry value="yes" display_value="Avalilable"/><list_entry value="on_button_press" display_value="On button press"/><list_entry value="no" display_value="None"/>
+            </combo>
+        </optional>
         <text key="route_ref" text="Route references"/>            
         <reference ref="wheelchair"/>
         <reference ref="tactile_paving"/>
@@ -5472,6 +5485,11 @@
                 <text key="operator" text="Operator"/>
                 <reference ref="level"/>
                 <text key="ref" text="Reference number"/>
+                <optional>
+                    <combo key="speech_output" text="Speech output" match="key">
+                        <list_entry value="yes" display_value="Avalilable"/><list_entry value="on_button_press" display_value="On button press"/><list_entry value="no" display_value="None"/>
+                    </combo>
+                </optional>
                 <preset_link preset_name="Payment Methods"/>
             </item> <!-- Ticket Machine -->
             <item name="Ticket Validator" icon="icons/png/transport_ticket_validator.png" type="node,way" preset_name_label="true">
@@ -12449,6 +12467,11 @@
         </multiselect>
         <text key="operator" text="Operator"/>
         <text key="ref" text="Reference number"/>
+        <optional>
+            <combo key="speech_output" text="Speech output" match="key">
+                <list_entry value="yes" display_value="Avalilable"/><list_entry value="on_button_press" display_value="On button press"/><list_entry value="no" display_value="None"/>
+            </combo>
+        </optional>
         <preset_link preset_name="Payment Methods"/>
         <reference ref="optional_level"/>
     </item> <!-- Vending Machine -->
@@ -12582,6 +12605,11 @@
         <optional text="Deposits:">
             <combo key="cash_in" text="Cash deposits" values="yes,no,customers" display_values="Yes,No,Customers"/>
             <check key="cash_in:coins" text="Coin deposits"/>
+        </optional>
+        <optional>
+            <combo key="speech_output" text="Speech output" match="key">
+                <list_entry value="yes" display_value="Avalilable"/><list_entry value="on_button_press" display_value="On button press"/><list_entry value="no" display_value="None"/>
+            </combo>
         </optional>
     </item> <!-- Automated Teller Machine -->
     <item name="Payment centre" icon="icons/png/money_empty.png" type="node,closedway,multipolygon" preset_name_label="true">
