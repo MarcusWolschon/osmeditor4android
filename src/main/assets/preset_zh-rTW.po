@@ -2162,7 +2162,7 @@ msgstr "玄武岩"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:7790(list_entry:display_value|group:Emergency|preset:Lifeguard|value:base)
 msgid "Base"
-msgstr ""
+msgstr "基地"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9228(item:name|group:Sport_(Ball)|preset:Baseball)
 msgid "Baseball"
@@ -3288,7 +3288,7 @@ msgstr "金屬容器"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12631(combo:display_values|group:Boundaries|preset:Political|key:political_division)
 msgid "Canton"
-msgstr ""
+msgstr "行政區劃"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1079(combo:display_values|key:religion)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1083(combo:display_values|key:religion)
@@ -3510,7 +3510,7 @@ msgstr "中心樞紐灌溉 "
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1328(combo:display_values|key:pump_mechanism)
 msgid "Centrifugal"
-msgstr ""
+msgstr "離心式"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6943(multiselect:display_values|group:Culture|preset:Museum|key:museum)
 msgid "Ceramics"
@@ -3566,7 +3566,7 @@ msgstr ""
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4914(item:name|group:Car|preset:Charge_point)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4934(item:name|group:Car|preset:Charge_point)
 msgid "Charge point"
-msgstr ""
+msgstr "充電點"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1900(text:text|key:network)
 msgid "Charging Network"
@@ -3724,7 +3724,7 @@ msgstr "香菸"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:2350(combo:display_values|group:Streets|preset:Road_construction|key:junction)
 msgid "Circular"
-msgstr ""
+msgstr "圓形"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:11055(list_entry:short_description|group:Historic_Places_&_Objects|preset:Fortification_Site|value:ring_ditch)
 msgid "Circular ditched enclosures"
@@ -3993,7 +3993,7 @@ msgstr "聚合循環"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1335(combo:display_values|key:mechanical_driver)
 msgid "Combustion engine"
-msgstr ""
+msgstr "內燃機"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6969(list_entry:display_value|group:Culture|preset:Theatre|value:comedy)
 msgid "Comedy"
@@ -8603,7 +8603,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12631(combo:display_values|group:Boundaries|preset:Political|key:political_division)
 msgid "Linguistic community"
-msgstr ""
+msgstr "語言社群"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:6378(list_entry:display_value|group:Leisure|preset:Animals|value:lion)
 msgid "Lion"
@@ -8729,7 +8729,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8906(list_entry:display_value|group:Sport|preset:Track_and_Field_Athletics|value:long_jump)
 msgid "Long jump"
-msgstr ""
+msgstr "跳遠"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8240(item:name|group:Facilities|preset:Lost_property_office)
 msgid "Lost property office"
@@ -8789,7 +8789,7 @@ msgstr "MEGACASH"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:5064(combo:display_values|group:Motorcycle|preset:Motorcycle_Dealer|key:safety_inspection)
 msgid "MOT"
-msgstr ""
+msgstr "MOT"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:14106(list_entry:display_value|preset:Generic_route|value:mtb)
 msgid "MTB"
@@ -9587,7 +9587,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:10701(combo:display_values|preset:Power_Converter|key:poles)
 msgid "Monopole"
-msgstr ""
+msgstr "點孔"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1833(check:text|key:monorail)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4520(item:name|group:Railway|preset:Monorail)
@@ -16679,7 +16679,7 @@ msgstr ""
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:5064(combo:display_values|group:Motorcycle|preset:Motorcycle_Dealer|key:safety_inspection)
 msgid "TÜV"
-msgstr ""
+msgstr "TÜV"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8987(combo:text|group:Sport|preset:Climbing_route|key:climbing:grade:UIAA)
 msgid "UIAA grading"

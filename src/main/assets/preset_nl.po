@@ -6587,7 +6587,7 @@ msgstr "Gamma-straal"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9874(item:name|group:Man_Made|preset:Gantry)
 msgid "Gantry"
-msgstr ""
+msgstr "Wegportaal"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:9855(combo:display_values|group:Man_Made|preset:Crane|key:crane:type)
 msgid "Gantry crane"
@@ -15554,7 +15554,7 @@ msgstr "Tailings"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:4075(item:name|group:Water|preset:Tailings_Pond)
 msgid "Tailings Pond"
-msgstr ""
+msgstr "Dumpplaats voor industrieel afval"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:11516(item:name|group:Clothes|preset:Tailor)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:14554(item:name|group:Crafts|preset:Tailor)
@@ -16382,7 +16382,7 @@ msgstr "Bomenrij"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13028(item:name|group:Nature|preset:Tree_Stump)
 msgid "Tree Stump"
-msgstr ""
+msgstr "Boomstronk"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:13236(combo:text|group:Land_use|preset:Orchard|key:trees)
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:8476(combo:display_values|group:Facilities|preset:Outdoor_seating|key:weather_protection)
@@ -17121,7 +17121,7 @@ msgstr "Volume (liter)"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:1079(combo:display_values|key:religion)
 msgid "Voodoo"
-msgstr ""
+msgstr "Voodoo"
 
 #: C:\Users\simon\git\beautified-JOSM-preset\build\temp/v4.xml:12447(list_entry:short_description|preset:Vending_Machine|value:vouchers)
 msgid "Vouchers"
