@@ -59,12 +59,17 @@
 -keep,includedescriptorclasses class de.blau.android.presets.Preset$PresetItem
 -keep,includedescriptorclasses class de.blau.android.util.StringWithDescription
 -keep,includedescriptorclasses class de.blau.android.views.CustomAutoCompleteTextView$Tokenizer
+
 -keep class de.blau.android.services.*
 
 -keep class org.mozilla.javascript.** { *; }
 -keep class de.blau.android.util.GeoMath
 -keep class de.blau.android.osm.BoundingBox
 -keep class de.blau.android.osm.Logic
+-keep class de.blau.android.contract.Constants.LOG_TAG_LEN
+-keep class de.blau.android.** {
+    private static int TAG_LEN; 
+}
 
 -keep,includedescriptorclasses class com.mapbox.geojson.** {
   public protected private *;
