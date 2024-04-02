@@ -5,7 +5,6 @@ import java.util.List;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import android.content.Context;
-import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,7 +44,7 @@ public class IndoorFilter extends InvertableFilter {
     /**
      * Current level
      */
-    private int                 level            = 0;
+    private int level = 0;
 
     /**
      * Construct a new instance of IndoorFilter
@@ -86,10 +85,8 @@ public class IndoorFilter extends InvertableFilter {
     /**
      * Check if an OsmElement is on a specific level
      * 
-     * @param e
-     *            the OsmElement
-     * @param level
-     *            the level
+     * @param e the OsmElement
+     * @param level the level
      * @return true if the object is on the level
      */
     private boolean onLevel(@NonNull OsmElement e, int level) {
@@ -99,8 +96,7 @@ public class IndoorFilter extends InvertableFilter {
     /**
      * Check if OsmElement has any of the conventional indoor level tags
      * 
-     * @param e
-     *            the OsmElement
+     * @param e the OsmElement
      * @return true if no level tags
      */
     private boolean notIndoor(@NonNull OsmElement e) {
@@ -114,13 +110,11 @@ public class IndoorFilter extends InvertableFilter {
             return include != Include.DONT;
         }
         if (!inverted) {
-            include = (selected || (way.hasTags() && (onLevel(way, level) || buildingHasLevel(way, level))))
+            include = (selected || (way.hasTags() && (onLevel(way, level) || buildingHasLevel(way, level)))) ? Include.INCLUDE : Include.DONT;
+        } else {
+            include = (selected || (way.hasTags() && notIndoor(way) && !(way.hasTagKey(Tags.KEY_MIN_LEVEL) || way.hasTagKey(Tags.KEY_MAX_LEVEL))))
                     ? Include.INCLUDE
                     : Include.DONT;
-        } else {
-            include = (selected || (way.hasTags() && notIndoor(way)
-                    && !(way.hasTagKey(Tags.KEY_MIN_LEVEL) || way.hasTagKey(Tags.KEY_MAX_LEVEL)))) ? Include.INCLUDE
-                            : Include.DONT;
         }
 
         if (include == Include.DONT) {
@@ -160,8 +154,7 @@ public class IndoorFilter extends InvertableFilter {
             return include != Include.DONT;
         }
         if (!inverted) {
-            include = (selected || onLevel(relation, level) || buildingHasLevel(relation, level)) ? Include.INCLUDE
-                    : Include.DONT;
+            include = (selected || onLevel(relation, level) || buildingHasLevel(relation, level)) ? Include.INCLUDE : Include.DONT;
         } else {
             include = (selected || (relation.hasTags() && notIndoor(relation))) ? Include.INCLUDE : Include.DONT;
         }
@@ -210,10 +203,8 @@ public class IndoorFilter extends InvertableFilter {
     /**
      * Check if a specific level is included in a level spec
      * 
-     * @param levelSpec
-     *            either a single integer, a semi-colon separated list, or a range
-     * @param level
-     *            level we are interested in
+     * @param levelSpec either a single integer, a semi-colon separated list, or a range
+     * @param level level we are interested in
      * @return true if the level is contained in levelSpec
      */
     private boolean contains(String levelSpec, int level) {
@@ -260,12 +251,11 @@ public class IndoorFilter extends InvertableFilter {
     }
 
     /**
-     * Check if a object is a building or building:part, has min_level and max_level keys and level is between the min and max
+     * Check if a object is a building or building:part, has min_level and max_level keys and level is between the min
+     * and max
      * 
-     * @param b
-     *            the OsmElement
-     * @param level
-     *            our current level
+     * @param b the OsmElement
+     * @param level our current level
      * @return true if the building/building:part has a level between (inclusive) min/max
      */
     private static boolean buildingHasLevel(OsmElement b, int level) {
@@ -293,8 +283,7 @@ public class IndoorFilter extends InvertableFilter {
     /**
      * Set level used in indoor mode
      * 
-     * @param level
-     *            the level to set
+     * @param level the level to set
      */
     public void setLevel(int level) {
         if (level != this.level) {
@@ -334,25 +323,20 @@ public class IndoorFilter extends InvertableFilter {
             Preferences prefs = App.getPreferences(context);
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             controls = (RelativeLayout) inflater
-                    .inflate("LEFT".equals(prefs.followGPSbuttonPosition()) ? R.layout.indoor_controls_right
-                            : R.layout.indoor_controls_left, layout);
+                    .inflate("LEFT".equals(prefs.followGPSbuttonPosition()) ? R.layout.indoor_controls_right : R.layout.indoor_controls_left, layout);
             levelUp = (FloatingActionButton) controls.findViewById(R.id.levelUp);
             levelDisplay = (FrameLayout) controls.findViewById(R.id.level);
             levelText = (TextView) controls.findViewById(R.id.levelText);
             levelTextButton = (FloatingActionButton) controls.findViewById(R.id.levelTextButton);
             levelDown = (FloatingActionButton) controls.findViewById(R.id.levelDown);
-            //
-            // the following is a hack around https://github.com/MarcusWolschon/osmeditor4android/issues/771
-            //
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                originalLayoutParamsUp = (LayoutParams) levelUp.getLayoutParams();
-                disabledLayoutParamsUp = new RelativeLayout.LayoutParams(originalLayoutParamsUp);
-                originalLayoutParamsDown = (LayoutParams) levelDown.getLayoutParams();
-                disabledLayoutParamsDown = new RelativeLayout.LayoutParams(originalLayoutParamsDown);
-                int margin = Density.dpToPx(context, 8);
-                disabledLayoutParamsUp.setMargins(margin, margin, margin, margin);
-                disabledLayoutParamsDown.setMargins(margin, margin, margin, margin);
-            }
+
+            originalLayoutParamsUp = (LayoutParams) levelUp.getLayoutParams();
+            disabledLayoutParamsUp = new RelativeLayout.LayoutParams(originalLayoutParamsUp);
+            originalLayoutParamsDown = (LayoutParams) levelDown.getLayoutParams();
+            disabledLayoutParamsDown = new RelativeLayout.LayoutParams(originalLayoutParamsDown);
+            int margin = Density.dpToPx(context, 8);
+            disabledLayoutParamsUp.setMargins(margin, margin, margin, margin);
+            disabledLayoutParamsDown.setMargins(margin, margin, margin, margin);
         }
 
         // indoor controls
@@ -383,8 +367,7 @@ public class IndoorFilter extends InvertableFilter {
     /**
      * Setup the up and down buttons and the level display
      * 
-     * @param toggle
-     *            if true toggle between inverted and normal filter mode
+     * @param toggle if true toggle between inverted and normal filter mode
      */
     private void setupControls(boolean toggle) {
         if (toggle) {
@@ -395,8 +378,7 @@ public class IndoorFilter extends InvertableFilter {
             levelText.setText("--");
             levelUp.setEnabled(false);
             levelDown.setEnabled(false);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && disabledLayoutParamsUp != null
-                    && disabledLayoutParamsDown != null) {
+            if (disabledLayoutParamsUp != null && disabledLayoutParamsDown != null) {
                 levelUp.setLayoutParams(disabledLayoutParamsUp);
                 levelDown.setLayoutParams(disabledLayoutParamsDown);
             }
@@ -404,8 +386,7 @@ public class IndoorFilter extends InvertableFilter {
             updateLevel(level);
             levelUp.setEnabled(true);
             levelDown.setEnabled(true);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && originalLayoutParamsUp != null
-                    && originalLayoutParamsDown != null) {
+            if (originalLayoutParamsUp != null && originalLayoutParamsDown != null) {
                 levelUp.setLayoutParams(originalLayoutParamsUp);
                 levelDown.setLayoutParams(originalLayoutParamsDown);
             }
@@ -451,8 +432,7 @@ public class IndoorFilter extends InvertableFilter {
     /**
      * Update the displayed level
      * 
-     * @param level
-     *            the level to show on the button
+     * @param level the level to show on the button
      */
     private void updateLevel(int level) {
         Log.d(DEBUG_TAG, "setting level to " + level);

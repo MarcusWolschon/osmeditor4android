@@ -10,7 +10,6 @@ import android.content.Context;
 import android.database.DataSetObserver;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
@@ -353,9 +352,7 @@ public class DisambiguationMenu {
             final TextView title = view.findViewById(R.id.item_title);
             Drawable drawable = getDrawable(item);
             if (drawable != null) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                    title.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
-                }
+                title.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
                 Util.setCompoundDrawableWithIntrinsicBounds(rtl, title, drawable);
                 title.setCompoundDrawablePadding(DRAWABLE_PADDING);
             }

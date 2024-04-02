@@ -12,7 +12,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.database.sqlite.SQLiteException;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -66,12 +65,8 @@ public class Splash extends AppCompatActivity {
         // don't use Preferences here as this will create the Vespucci directory which is bad for migration
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         final boolean lightTheme = prefs.getBoolean(getString(R.string.config_enableLightTheme_key), true);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            setTheme(lightTheme ? R.style.SplashThemeLight : R.style.SplashTheme);
-            SplashScreen.Companion.installSplashScreen(this);
-        } else {
-            setTheme(lightTheme ? R.style.SplashThemeLightPre21 : R.style.SplashThemePre21);
-        }
+        setTheme(lightTheme ? R.style.SplashThemeLight : R.style.SplashTheme);
+        SplashScreen.Companion.installSplashScreen(this);
         super.onCreate(savedInstanceState);
     }
 
@@ -242,20 +237,18 @@ public class Splash extends AppCompatActivity {
         } catch (IOException e) {
             Log.e(DEBUG_TAG, "Error migrating public directory " + e.getMessage());
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            try {
-                Log.w(DEBUG_TAG, "Migrating style directory ...");
-                File destStyleDir = new File(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_STYLES);
-                for (File fileDir : ctx.getExternalFilesDirs(null)) {
-                    File inStyleDir = new File(fileDir, Paths.DIRECTORY_PATH_STYLES);
-                    if (inStyleDir.exists()) {
-                        FileUtil.copyDirectory(inStyleDir, destStyleDir);
-                    }
+        try {
+            Log.w(DEBUG_TAG, "Migrating style directory ...");
+            File destStyleDir = new File(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_STYLES);
+            for (File fileDir : ctx.getExternalFilesDirs(null)) {
+                File inStyleDir = new File(fileDir, Paths.DIRECTORY_PATH_STYLES);
+                if (inStyleDir.exists()) {
+                    FileUtil.copyDirectory(inStyleDir, destStyleDir);
                 }
-                Log.w(DEBUG_TAG, "... done.");
-            } catch (Exception ex) {
-                Log.e(DEBUG_TAG, "Unable to to migrate style directory " + ex.getMessage());
             }
+            Log.w(DEBUG_TAG, "... done.");
+        } catch (Exception ex) {
+            Log.e(DEBUG_TAG, "Unable to to migrate style directory " + ex.getMessage());
         }
     }
 }

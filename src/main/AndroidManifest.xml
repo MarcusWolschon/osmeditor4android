@@ -292,11 +292,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".util.ThemedFilePickerActivity"
-            android:label="@string/app_name"
-            android:theme="@style/FilePickerTheme" >
-        </activity>
-        <activity
             android:name=".filter.TagFilterActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
             android:theme="@style/Theme.customActionBar" />

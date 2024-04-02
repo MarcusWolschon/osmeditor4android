@@ -239,8 +239,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
                 final int DRAWABLE_RIGHT = 2;
 
                 if (event.getAction() == MotionEvent.ACTION_UP) {
-                    boolean rtlLayout = Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1
-                            && presetSearch.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
+                    boolean rtlLayout = presetSearch.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
                     Drawable icon = presetSearch.getCompoundDrawables()[rtlLayout ? DRAWABLE_LEFT : DRAWABLE_RIGHT];
                     if (icon != null) {
                         int[] outLocation = new int[2];

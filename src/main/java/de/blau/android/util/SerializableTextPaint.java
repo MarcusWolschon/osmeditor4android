@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.Serializable;
 
 import android.graphics.Paint;
-import android.os.Build;
 import android.text.TextPaint;
 import androidx.annotation.NonNull;
 
@@ -157,27 +156,6 @@ public class SerializableTextPaint extends TextPaint implements Serializable {
      */
     public int getShadowLayerColor() { // NOSONAR
         return shadowColor;
-    }
-
-    /**
-     * Get the current letter spacing
-     * 
-     * @return the letter spacing
-     */
-    public float getLetterSpacing() { // NOSONAR
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ? super.getLetterSpacing() : 0f;
-    }
-
-    /**
-     * Set the letter spacing
-     * 
-     * @param letterSpacing the value to use
-     */
-    public void setLetterSpacing(float letterSpacing) { // NOSONAR
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            super.setLetterSpacing(letterSpacing);
-        }
-        // noop otherwise
     }
 
     /**

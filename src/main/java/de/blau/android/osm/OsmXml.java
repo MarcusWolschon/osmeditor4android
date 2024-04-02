@@ -14,7 +14,6 @@ import org.xmlpull.v1.XmlSerializer;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import de.blau.android.util.Util;
 
 /**
  * Provide reading and writing data files in OSM and JOSM format
@@ -290,9 +289,9 @@ public final class OsmXml {
             long id1 = e1.getOsmId();
             long id2 = e2.getOsmId();
             if ((id1 < 0 && id2 > 0) || (id1 > 0 && id2 < 0)) { // signs different
-                return Util.longCompare(id1, id2);
+                return Long.compare(id1, id2);
             }
-            return Util.longCompare(Math.abs(id1), Math.abs(id2));
+            return Long.compare(Math.abs(id1), Math.abs(id2));
         };
 
         List<Node> saveNodes = new ArrayList<>(current.getNodes());

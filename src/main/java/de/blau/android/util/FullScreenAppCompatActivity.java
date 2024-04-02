@@ -22,7 +22,8 @@ import de.blau.android.prefs.Preferences;
  */
 public abstract class FullScreenAppCompatActivity extends ConfigurationChangeAwareActivity {
 
-    private static final String DEBUG_TAG = FullScreenAppCompatActivity.class.getSimpleName().substring(0, Math.min(23, FullScreenAppCompatActivity.class.getSimpleName().length()));
+    private static final String DEBUG_TAG = FullScreenAppCompatActivity.class.getSimpleName().substring(0,
+            Math.min(23, FullScreenAppCompatActivity.class.getSimpleName().length()));
 
     private static final int FULLSCREEN_UI = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_FULLSCREEN;
     private static final int NAV_HIDDEN    = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
@@ -47,16 +48,8 @@ public abstract class FullScreenAppCompatActivity extends ConfigurationChangeAwa
             Log.d(DEBUG_TAG, "onSystemUiVisibilityChange " + Integer.toHexString(visibility));
             if ((visibility & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0) {
                 if (fullScreen) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                        // in immersive mode directly hiding seems to work
-                        hideSystemUI();
-                    } else {
-                        // this likely, if a all, only works if you use the top bar
-                        synchronized (handler) {
-                            handler.removeCallbacks(navHider);
-                            handler.postDelayed(navHider, 1500);
-                        }
-                    }
+                    // in immersive mode directly hiding seems to work
+                    hideSystemUI();
                 }
             } else {
                 // no UI changes for now
@@ -112,8 +105,7 @@ public abstract class FullScreenAppCompatActivity extends ConfigurationChangeAwa
             Log.d(DEBUG_TAG, "hiding nav bar");
             View view = getWindow().getDecorView();
             int fullScreenMode = (statusBarHidden() ? FULLSCREEN_UI : 0) | NAV_HIDDEN;
-            view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | fullScreenMode
-                    | (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT ? View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY : 0));
+            view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | fullScreenMode | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
         }
     }
 

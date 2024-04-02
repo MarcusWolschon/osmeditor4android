@@ -806,9 +806,7 @@ public class Map extends View implements IMapView {
             o = orientation;
         }
         Paint paint = gpsPosFollowPaint;
-        boolean stale = (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1
-                ? SystemClock.elapsedRealtimeNanos() - displayLocation.getElapsedRealtimeNanos()
-                : 0) > timeToStale;
+        boolean stale = SystemClock.elapsedRealtimeNanos() - displayLocation.getElapsedRealtimeNanos() > timeToStale;
         if (isFollowingGPS) {
             if (stale) {
                 paint = gpsPosFollowPaintStale;
@@ -1302,6 +1300,6 @@ public class Map extends View implements IMapView {
      * @return true if RTL
      */
     public boolean rtlLayout() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1 && getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
+        return getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
     }
 }

@@ -268,8 +268,7 @@ public class Preferences {
         fullscreenMode = prefs.getString(fullscreenModeKey, null);
         if (fullscreenMode == null) { // was never set, determine value
             BrokenAndroid brokenAndroid = new BrokenAndroid(ctx);
-            fullscreenMode = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && !brokenAndroid.isFullScreenBroken() ? r.getString(R.string.full_screen_auto)
-                    : r.getString(R.string.full_screen_never);
+            fullscreenMode = !brokenAndroid.isFullScreenBroken() ? r.getString(R.string.full_screen_auto) : r.getString(R.string.full_screen_never);
             prefs.edit().putString(fullscreenModeKey, fullscreenMode).commit();
         }
 
