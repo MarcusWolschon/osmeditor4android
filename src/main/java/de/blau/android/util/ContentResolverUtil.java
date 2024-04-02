@@ -11,7 +11,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
@@ -60,7 +59,7 @@ public final class ContentResolverUtil {
     public static String getPath(@NonNull Context context, @NonNull Uri uri) {
         Log.d(DEBUG_TAG, "getPath uri: " + uri.toString());
         final String scheme = uri.getScheme().toLowerCase(Locale.US);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && DocumentsContract.isDocumentUri(context, uri)) {
+        if (DocumentsContract.isDocumentUri(context, uri)) {
             return getPathFromDocumentUri(context, scheme, uri);
         } else if (Schemes.CONTENT.equals(scheme) && context.getString(R.string.content_provider).equals(uri.getAuthority())) {
             Log.i(DEBUG_TAG, "Vespucci file provider");

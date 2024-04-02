@@ -11,7 +11,6 @@ import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
-import android.os.Build;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import de.blau.android.R;
@@ -101,15 +100,10 @@ public class BadgeDrawable extends Drawable {
         } else {
             mBadgePaint.setColor(errorColor);
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            canvas.drawRoundRect(centerX - halfWidth - 7.5f, centerY - radius - 7.5f, centerX + halfWidth + 7.5f, centerY + radius + 7.5f, radius, radius,
-                    mBadgePaint1);
-            canvas.drawRoundRect(centerX - halfWidth - 5.5f, centerY - radius - 5.5f, centerX + halfWidth + 5.5f, centerY + radius + 5.5f, radius, radius,
-                    mBadgePaint);
-        } else {
-            canvas.drawRect(centerX - halfWidth - 7.5f, centerY - radius - 7.5f, centerX + halfWidth + 7.5f, centerY + radius + 7.5f, mBadgePaint1);
-            canvas.drawRect(centerX - halfWidth - 5.5f, centerY - radius - 5.5f, centerX + halfWidth + 5.5f, centerY + radius + 5.5f, mBadgePaint);
-        }
+        canvas.drawRoundRect(centerX - halfWidth - 7.5f, centerY - radius - 7.5f, centerX + halfWidth + 7.5f, centerY + radius + 7.5f, radius, radius,
+                mBadgePaint1);
+        canvas.drawRoundRect(centerX - halfWidth - 5.5f, centerY - radius - 5.5f, centerX + halfWidth + 5.5f, centerY + radius + 5.5f, radius, radius,
+                mBadgePaint);
         float textHeight = (float) mTxtRect.bottom - mTxtRect.top;
         float textY = centerY + (textHeight / 2f);
         canvas.drawText(countString, centerX, textY, mTextPaint);

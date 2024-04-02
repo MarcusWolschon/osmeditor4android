@@ -174,11 +174,7 @@ public final class Notifications {
             int colorAttr, int fallbackColorRes) {
         NotificationCompat.Builder builder = Notifications.builder(ctx).setSmallIcon(R.drawable.logo_simplified).setContentTitle(ctx.getString(titleRes))
                 .setColorized(true).setColor(ThemeUtils.getStyleAttribColorValue(ctx, colorAttr, fallbackColorRes));
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            builder.setContentText(message);
-        } else {
-            builder.setStyle(new NotificationCompat.BigTextStyle().bigText(message)).setPriority(NotificationCompat.PRIORITY_MAX);
-        }
+        builder.setStyle(new NotificationCompat.BigTextStyle().bigText(message)).setPriority(NotificationCompat.PRIORITY_MAX);
         if (pendingIntent != null) {
             builder.setContentIntent(pendingIntent);
         }

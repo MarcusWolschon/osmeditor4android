@@ -13,7 +13,6 @@ import java.util.concurrent.ThreadPoolExecutor;
 import android.content.Context;
 import android.database.sqlite.SQLiteException;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
@@ -45,7 +44,8 @@ import de.blau.android.views.util.MapTileProviderCallback;
  */
 public class MapTileFilesystemProvider extends MapAsyncTileProvider implements MapTileSaver {
 
-    static final String DEBUG_TAG = MapTileFilesystemProvider.class.getSimpleName().substring(0, Math.min(23, MapTileFilesystemProvider.class.getSimpleName().length()));
+    static final String DEBUG_TAG = MapTileFilesystemProvider.class.getSimpleName().substring(0,
+            Math.min(23, MapTileFilesystemProvider.class.getSimpleName().length()));
 
     private final Context                 mCtx;
     private final MapTileProviderDataBase tileCache;
@@ -320,8 +320,7 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider implements M
             final String message = ctx.getString(msg, localizedMessage);
             Handler handler = new Handler(Looper.getMainLooper());
             handler.post(() -> ScreenMessage.toastTopError(ctx, message, false));
-            Notifications.error(ctx, R.string.toast_tile_database_issue_short,
-                    Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP ? localizedMessage : message, random.nextInt());
+            Notifications.error(ctx, R.string.toast_tile_database_issue_short, message, random.nextInt());
             displayed.add(sourceId);
         }
     }
@@ -375,7 +374,7 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider implements M
             if (MapTileProviderDataBase.exists(dir)) {
                 break;
             }
-            if (!preferRemovableStorage || Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            if (!preferRemovableStorage) {
                 break; // we are done
             }
             try {

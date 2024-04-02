@@ -31,7 +31,6 @@ import android.graphics.PathMeasure;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
-import android.os.Build;
 import android.os.Handler;
 import android.util.Log;
 import androidx.annotation.NonNull;
@@ -100,7 +99,7 @@ import de.blau.android.views.IMapView;
 public class MapOverlay<O extends OsmElement> extends MapViewLayer
         implements ExtentInterface, ConfigureInterface, LayerInfoInterface, PruneableInterface, UpdateInterface<O> {
 
-    private static final int TAG_LEN = Math.min(23, MapOverlay.class.getSimpleName().length());
+    private static final int    TAG_LEN   = Math.min(23, MapOverlay.class.getSimpleName().length());
     private static final String DEBUG_TAG = MapOverlay.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final int THREAD_POOL_SIZE = 2;
@@ -469,7 +468,7 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
     @SuppressWarnings("unchecked")
     private void paintOsmData(@NonNull final Canvas canvas) {
 
-        boolean hwAccelarationWorkaround = Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT && canvas.isHardwareAccelerated();
+        boolean hwAccelarationWorkaround = canvas.isHardwareAccelerated();
 
         int screenWidth = map.getWidth();
         int screenHeight = map.getHeight();

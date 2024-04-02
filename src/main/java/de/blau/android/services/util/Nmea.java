@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import android.os.Build;
 import android.os.SystemClock;
 import android.util.Log;
 import androidx.annotation.NonNull;
@@ -248,9 +247,7 @@ public final class Nmea {
                             }
                             nmeaLocation.setGeoidCorrection(geoidCorrection);
                             // we only really need to know this for determining how old the fix is
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                                nmeaLocation.setElapsedRealtimeNanos(SystemClock.elapsedRealtimeNanos());
-                            }
+                            nmeaLocation.setElapsedRealtimeNanos(SystemClock.elapsedRealtimeNanos());
                             nmeaLocation.setTime(System.currentTimeMillis());
                             return nmeaLocation;
                         }

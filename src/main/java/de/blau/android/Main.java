@@ -561,11 +561,6 @@ public class Main extends FullScreenAppCompatActivity
         follow = (FloatingActionButton) mapLayout.findViewById(R.id.follow);
 
         follow.setOnClickListener(v -> setFollowGPS(true));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            // currently can't be set in layout
-            ColorStateList followTint = ContextCompat.getColorStateList(this, R.color.follow);
-            Util.setBackgroundTintList(follow, followTint);
-        }
         follow.setAlpha(Main.FABALPHA);
 
         // Set up the zoom in/out controls
@@ -664,22 +659,20 @@ public class Main extends FullScreenAppCompatActivity
      * Set how we should handle screen orientation changes based of our preferences
      */
     private void setScreenOrientation() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-            switch (prefs.getMapOrientation()) {
-            case "CURRENT":
-                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
-                break;
-            case "PORTRAIT":
-                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-                break;
-            case "LANDSCAPE":
-                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-                break;
-            case "AUTO":
-            default:
-                // do nothing
-                break;
-            }
+        switch (prefs.getMapOrientation()) {
+        case "CURRENT":
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
+            break;
+        case "PORTRAIT":
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            break;
+        case "LANDSCAPE":
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+            break;
+        case "AUTO":
+        default:
+            // do nothing
+            break;
         }
     }
 
@@ -986,8 +979,7 @@ public class Main extends FullScreenAppCompatActivity
             shortcutExtras = getIntent().getBundleExtra(Splash.SHORTCUT_EXTRAS_KEY);
             Uri uri = getIntent().getData();
             contentUriType = getIntent().getType();
-            if (uri != null && (Schemes.CONTENT.equals(uri.getScheme())
-                    || (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT && Schemes.FILE.equals(uri.getScheme())))) {
+            if (uri != null && Schemes.CONTENT.equals(uri.getScheme())) {
                 contentUri = uri;
             } else {
                 Bundle extras = getIntent().getExtras();
@@ -1968,12 +1960,8 @@ public class Main extends FullScreenAppCompatActivity
 
         menu.findItem(R.id.menu_simple_actions).setChecked(prefs.areSimpleActionsEnabled());
 
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT || !BuildConfig.FLAVOR.equals(Flavors.CURRENT)) {
-            // the library providing the UI is not supported under SDK 15, in reality 15 doesn't work
-            menu.findItem(R.id.menu_feedback).setVisible(false);
-        } else { // only works with network
-            menu.findItem(R.id.menu_feedback).setEnabled(networkConnected);
-        }
+        // only works with network
+        menu.findItem(R.id.menu_feedback).setEnabled(networkConnected);
 
         // enable the JS console menu entry
         menu.findItem(R.id.tag_menu_js_console).setEnabled(prefs.isJsConsoleEnabled());
@@ -3339,17 +3327,13 @@ public class Main extends FullScreenAppCompatActivity
      */
     private void changeSimpleActionsButtonState(boolean enabled, @NonNull ColorStateList stateList) {
         simpleActionsButton.setEnabled(enabled);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            simpleActionsButton.setBackgroundTintList(stateList);
-            simpleActionsButton.setCompatElevation(LARGE_FAB_ELEVATION);
-            ViewGroup.LayoutParams lp = simpleActionsButton.getLayoutParams();
-            if (enabled) {
-                ((RelativeLayout.LayoutParams) lp).setMargins(0, 0, 0, 0);
-            } else {
-                ((RelativeLayout.LayoutParams) lp).setMargins((int) LARGE_FAB_ELEVATION, 0, (int) LARGE_FAB_ELEVATION, (int) LARGE_FAB_ELEVATION);
-            }
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            Util.setBackgroundTintList(simpleActionsButton, stateList);
+        simpleActionsButton.setBackgroundTintList(stateList);
+        simpleActionsButton.setCompatElevation(LARGE_FAB_ELEVATION);
+        ViewGroup.LayoutParams lp = simpleActionsButton.getLayoutParams();
+        if (enabled) {
+            ((RelativeLayout.LayoutParams) lp).setMargins(0, 0, 0, 0);
+        } else {
+            ((RelativeLayout.LayoutParams) lp).setMargins((int) LARGE_FAB_ELEVATION, 0, (int) LARGE_FAB_ELEVATION, (int) LARGE_FAB_ELEVATION);
         }
     }
 

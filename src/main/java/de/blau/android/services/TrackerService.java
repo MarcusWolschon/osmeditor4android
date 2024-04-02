@@ -433,12 +433,8 @@ public class TrackerService extends Service {
         appStartIntent.setAction(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LAUNCHER)
                 .setComponent(new ComponentName(Main.class.getPackage().getName(), Main.class.getName())).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pendingAppIntent = PendingIntent.getActivity(this, 0, appStartIntent, PendingIntent.FLAG_IMMUTABLE);
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            notificationBuilder.setContentTitle(getString(R.string.tracking_active_title)).setContentText(getString(R.string.tracking_active_text));
-        } else {
-            notificationBuilder.setContentTitle(getString(R.string.tracking_active_title_short))
-                    .setStyle(new NotificationCompat.BigTextStyle().bigText(getString(R.string.tracking_long_text)));
-        }
+        notificationBuilder.setContentTitle(getString(R.string.tracking_active_title_short))
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(getString(R.string.tracking_long_text)));
         Intent exitIntent = new Intent(this, Main.class);
         exitIntent.setAction(Main.ACTION_EXIT);
         PendingIntent pendingExitIntent = PendingIntent.getActivity(this, 0, exitIntent, PendingIntent.FLAG_IMMUTABLE);
@@ -639,16 +635,9 @@ public class TrackerService extends Service {
             if (lastLocation != null) {
                 boolean lastIsGpsLocation = LocationManager.GPS_PROVIDER.equals(lastLocation.getProvider());
                 if (lastIsGpsLocation) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                        if (location.getElapsedRealtimeNanos() - lastLocation.getElapsedRealtimeNanos() < staleGPSNano) {
-                            // ignore - last GPS time is still reasonably current
-                            return;
-                        }
-                    } else {
-                        if (location.getTime() - lastLocation.getTime() < staleGPSMilli) {
-                            return; // this is not as reliable as the above
-                                    // but likely still OK
-                        }
+                    if (location.getElapsedRealtimeNanos() - lastLocation.getElapsedRealtimeNanos() < staleGPSNano) {
+                        // ignore - last GPS time is still reasonably current
+                        return;
                     }
                     ScreenMessage.toastTopInfo(TrackerService.this, R.string.toast_using_network_location);
                 }

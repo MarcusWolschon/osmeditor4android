@@ -2,11 +2,8 @@
 package de.blau.android.util;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.nononsenseapps.filepicker.AbstractFilePickerActivity;
 
 import android.app.Activity;
 import android.content.ClipData;
@@ -18,7 +15,6 @@ import android.content.pm.ResolveInfo;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Environment;
 import android.os.NetworkOnMainThreadException;
 import android.provider.DocumentsContract;
 import android.util.Log;
@@ -35,7 +31,6 @@ import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
 import de.blau.android.ErrorCodes;
 import de.blau.android.R;
-import de.blau.android.contract.Schemes;
 import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.PresetElement;
@@ -78,11 +73,7 @@ public final class SelectFile {
             saveCallback = callback;
         }
         String path = App.getPreferences(activity).getString(directoryPrefKey);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            startFileSelector(activity, Intent.ACTION_CREATE_DOCUMENT, SAVE_FILE, path, false);
-        } else {
-            startFilePickerActivity(activity, SAVE_FILE, path);
-        }
+        startFileSelector(activity, Intent.ACTION_CREATE_DOCUMENT, SAVE_FILE, path, false);
     }
 
     /**
@@ -107,43 +98,7 @@ public final class SelectFile {
             readCallback = readFile;
         }
         String path = App.getPreferences(activity).getString(directoryPrefKey);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            startFileSelector(activity, Intent.ACTION_OPEN_DOCUMENT, READ_FILE, path, allowMultiple);
-        } else {
-            startFilePickerActivity(activity, READ_FILE, path);
-        }
-    }
-
-    /**
-     * Start a file picker for pre-KITKAT Androids
-     * 
-     * @param activity the calling Activity
-     * @param requestCode the request code
-     * @param path a directory path to try to start with
-     */
-    private static void startFilePickerActivity(@NonNull Activity activity, int requestCode, @Nullable String path) {
-        Intent i = new Intent(activity, ThemedFilePickerActivity.class);
-        i.putExtra(AbstractFilePickerActivity.EXTRA_ALLOW_MULTIPLE, false);
-        if (requestCode == READ_FILE) {
-            i.putExtra(AbstractFilePickerActivity.EXTRA_SINGLE_CLICK, true);
-        }
-        if (requestCode == SAVE_FILE) {
-            i.putExtra(AbstractFilePickerActivity.EXTRA_ALLOW_CREATE_DIR, true);
-            i.putExtra(AbstractFilePickerActivity.EXTRA_ALLOW_EXISTING_FILE, true);
-        }
-        i.putExtra(AbstractFilePickerActivity.EXTRA_MODE, AbstractFilePickerActivity.MODE_FILE);
-        if (path != null) {
-            i.putExtra(AbstractFilePickerActivity.EXTRA_START_PATH, path);
-        } else {
-            try {
-                i.putExtra(AbstractFilePickerActivity.EXTRA_START_PATH, FileUtil.getPublicDirectory().getPath());
-            } catch (IOException e) {
-                // if for whatever reason the above doesn't work we use the standard directory
-                Log.d(DEBUG_TAG, "falling back to standard dir instead");
-                i.putExtra(AbstractFilePickerActivity.EXTRA_START_PATH, Environment.getExternalStorageDirectory().getPath());
-            }
-        }
-        activity.startActivityForResult(i, requestCode);
+        startFileSelector(activity, Intent.ACTION_OPEN_DOCUMENT, READ_FILE, path, allowMultiple);
     }
 
     /**
@@ -242,12 +197,7 @@ public final class SelectFile {
      * @param data the returned intent
      */
     public static void handleResult(@NonNull FragmentActivity activity, int code, @NonNull Intent data) {
-        Uri uri;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            uri = data.getData();
-        } else {
-            uri = Uri.fromFile(com.nononsenseapps.filepicker.Utils.getFileForUri(data.getData()));
-        }
+        Uri uri = data.getData();
         ContentResolverUtil.persistPermissions(activity, data.getFlags(), uri);
         try {
             if (code == SAVE_FILE) {
@@ -328,14 +278,6 @@ public final class SelectFile {
      * @param fileUri the file uri
      */
     public static void savePref(Preferences prefs, int directoryPrefKey, Uri fileUri) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT && Schemes.FILE.equals(fileUri.getScheme())) {
-            int slash = fileUri.getPath().lastIndexOf('/');
-            if (slash >= 0) {
-                String path = fileUri.getPath().substring(0, slash + 1);
-                prefs.putString(directoryPrefKey, path);
-            }
-        } else {
-            prefs.putString(directoryPrefKey, fileUri.toString());
-        }
+        prefs.putString(directoryPrefKey, fileUri.toString());
     }
 }

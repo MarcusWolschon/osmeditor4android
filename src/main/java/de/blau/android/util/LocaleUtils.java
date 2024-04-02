@@ -77,54 +77,7 @@ public final class LocaleUtils {
      * @return String: The BCP 47 language tag for the current locale
      */
     public static String toBcp47Language(@NonNull Locale loc) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            return loc.toLanguageTag();
-        }
-
-        // we will use a dash as per BCP 47
-        final char SEP = '-';
-        String language = loc.getLanguage();
-        String region = loc.getCountry();
-        String variant = loc.getVariant();
-
-        // special case for Norwegian Nynorsk since "NY" cannot be a variant as per BCP 47
-        // this goes before the string matching since "NY" wont pass the variant checks
-        if ("no".equals(language) && "NO".equals(region) && "NY".equals(variant)) {
-            language = "nn";
-            region = "NO";
-            variant = "";
-        }
-
-        if (language.isEmpty() || !language.matches("\\p{Alpha}{2,8}")) {
-            language = "und"; // Follow the Locale#toLanguageTag() implementation
-            // which says to return "und" for Undetermined
-        } else if ("iw".equals(language)) {
-            language = "he"; // correct deprecated "Hebrew"
-        } else if ("in".equals(language)) {
-            language = "id"; // correct deprecated "Indonesian"
-        } else if ("ji".equals(language)) {
-            language = "yi"; // correct deprecated "Yiddish"
-        }
-
-        // ensure valid country code, if not well formed, it's omitted
-        if (!region.matches("\\p{Alpha}{2}|\\p{Digit}{3}")) {
-            region = "";
-        }
-
-        // variant subtags that begin with a letter must be at least 5 characters long
-        if (!variant.matches("\\p{Alnum}{5,8}|\\p{Digit}\\p{Alnum}{3}")) {
-            variant = "";
-        }
-
-        StringBuilder bcp47Tag = new StringBuilder(language);
-        if (!region.isEmpty()) {
-            bcp47Tag.append(SEP).append(region);
-        }
-        if (!variant.isEmpty()) {
-            bcp47Tag.append(SEP).append(variant);
-        }
-
-        return bcp47Tag.toString();
+        return loc.toLanguageTag();
     }
 
     // The following code is
@@ -171,10 +124,7 @@ public final class LocaleUtils {
      * @return the locale that best represents the language tag.
      */
     public static Locale forLanguageTag(@NonNull String languageTag) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            return Locale.forLanguageTag(languageTag);
-        }
-        return forLanguageTagCompat(languageTag);
+        return Locale.forLanguageTag(languageTag);
     }
 
     /**

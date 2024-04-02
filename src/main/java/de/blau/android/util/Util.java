@@ -17,7 +17,6 @@ import org.xml.sax.XMLReader;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -50,7 +49,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.core.text.HtmlCompat;
-import androidx.core.view.ViewCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -75,7 +73,7 @@ import de.blau.android.resources.TileLayerSource;
 
 public final class Util {
 
-    private static final int TAG_LEN = Math.min(23, Util.class.getSimpleName().length());
+    private static final int    TAG_LEN   = Math.min(23, Util.class.getSimpleName().length());
     private static final String DEBUG_TAG = Util.class.getSimpleName().substring(0, TAG_LEN);
 
     /**
@@ -335,11 +333,7 @@ public final class Util {
      * @param tint a ColorStateList
      */
     public static void setBackgroundTintList(@NonNull FloatingActionButton fab, @NonNull ColorStateList tint) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            fab.setBackgroundTintList(tint);
-        } else {
-            ViewCompat.setBackgroundTintList(fab, tint);
-        }
+        fab.setBackgroundTintList(tint);
     }
 
     /**
@@ -423,21 +417,6 @@ public final class Util {
                 ScreenMessage.toastTopWarning(context, context.getString(R.string.toast_string_too_long, len));
             }
         }
-    }
-
-    /**
-     * Replacement for Long.compare prior to Android 19
-     * 
-     * @param x first value to compare
-     * @param y second value to compare
-     * @return -1 if x is numerically smaller than y, 0 if equal and +1 if x is numerically larger than y
-     */
-    @SuppressLint("NewApi")
-    public static int longCompare(long x, long y) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            return Long.compare(x, y);
-        }
-        return Long.valueOf(x).compareTo(y); // NOSONAR
     }
 
     private static class UlTagHandler implements Html.TagHandler {
@@ -553,8 +532,7 @@ public final class Util {
      * @param newConfig new Configuration
      */
     public static void clearCaches(@NonNull Context context, Configuration oldConfig, @NonNull Configuration newConfig) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1
-                && (oldConfig == null || oldConfig.densityDpi != newConfig.densityDpi || oldConfig.fontScale != newConfig.fontScale)) {
+        if (oldConfig == null || oldConfig.densityDpi != newConfig.densityDpi || oldConfig.fontScale != newConfig.fontScale) {
             // if the density has changed the icons will have wrong dimension remove them
             clearIconCaches(context);
         }
@@ -607,7 +585,7 @@ public final class Util {
      * @return true if the system has a WebView implementation
      */
     public static boolean supportsWebView(@NonNull Context ctx) {
-        return Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT_WATCH || ctx.getPackageManager().hasSystemFeature(PackageManager.FEATURE_WEBVIEW);
+        return ctx.getPackageManager().hasSystemFeature(PackageManager.FEATURE_WEBVIEW);
     }
 
     /**
@@ -818,11 +796,8 @@ public final class Util {
      * @return true if RTL
      */
     public static boolean isRtlScript(@NonNull Context context) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            Configuration config = context.getResources().getConfiguration();
-            return config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
-        }
-        return false;
+        Configuration config = context.getResources().getConfiguration();
+        return config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
     }
 
     /**

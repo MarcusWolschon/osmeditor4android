@@ -272,15 +272,6 @@ android {
     // Specifies one flavor dimension.
     flavorDimensions "api"
     productFlavors {
-        legacy {
-            dimension "api"
-            multiDexEnabled true
-            minSdkVersion 16
-            targetSdkVersion 33
-            applicationIdSuffix ".legacy"
-            versionNameSuffix "-legacy"
-            resValue "string", "content_provider", "de.blau.android.legacy.provider"
-        }
         current {
             dimension "api"
             multiDexEnabled true
@@ -647,7 +638,6 @@ dependencies {
     
     // other 3rd party dependencies
     implementation 'com.heinrichreimersoftware:android-issue-reporter:1.4'
-    implementation "com.nononsenseapps:filepicker:4.2.1"
     implementation "oauth.signpost:signpost-core:$signpostVersion"
     implementation ('com.faendir.rhino:rhino-android:1.6.0') { exclude group: 'org.mozilla' }
     implementation "org.mozilla:rhino:1.7.13"

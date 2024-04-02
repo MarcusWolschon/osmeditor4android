@@ -22,7 +22,7 @@ Additionally, obscure OSM data can be verified easily and quickly "on site", dat
 
 You need:
 
-  * An Android device (or the emulator), note that Release 0.9.x has only been tested on Android 2.3 and later
+  * An Android device (or the emulator), Vespucci version 20 supports Android starting with 4.1, version 20.1 starting with Android 5.
   * The Vespucci APK file (available from Google Play and GitHub)
   * Some familiarity with [OSM Map features](http://wiki.openstreetmap.org/wiki/Map_Features)
   * An [OSM account](http://www.openstreetmap.org/user/new)
@@ -72,7 +72,7 @@ No, with the exception of those that provide an Android compatible environment.
 
 ### Supported devices
 
-Current Vespucci builds support Android 4.1 and later. Pre-release testing has been done on a limited number of physical devices, but with the exception of manufacturer specific quirks there is no reason to believe that it isn't compatible with all devices with a current Android version. Note that pre-Android 5 devices are not recommended due both to the limited resources they typically have and the age of the operating system.
+Current Vespucci builds support Android 5.0 and later. Pre-release testing has been done on a limited number of physical devices, but with the exception of manufacturer specific quirks there is no reason to believe that it isn't compatible with all devices with a current Android version. 
 
 Physical devices:
 
@@ -83,7 +83,7 @@ Physical devices:
     9.0 Samsung Note 8 
     11.0 Samsung A40
     11.0 Samsung S5e tablet
-    13.0 Samsung S23 Ultra
+    14.0 Samsung S23 Ultra
     
 Emulators:
     

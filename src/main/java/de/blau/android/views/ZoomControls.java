@@ -4,9 +4,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.content.res.Configuration;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
@@ -16,11 +14,9 @@ import android.view.View;
 import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.util.ThemeUtils;
-import de.blau.android.util.Util;
 
 public class ZoomControls extends LinearLayout {
 
@@ -58,12 +54,6 @@ public class ZoomControls extends LinearLayout {
         inflater.inflate(R.layout.zoom_controls, this, true);
         zoomIn = (FloatingActionButton) findViewById(R.id.zoom_in);
         zoomOut = (FloatingActionButton) findViewById(R.id.zoom_out);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            // currently can't be set in layout, ColorStateList not supported in Lollipop and higher
-            ColorStateList zoomTint = ContextCompat.getColorStateList(context, R.color.zoom);
-            Util.setBackgroundTintList(zoomIn, zoomTint);
-            Util.setBackgroundTintList(zoomOut, zoomTint);
-        }
         zoomIn.setAlpha(Main.FABALPHA);
         zoomOut.setAlpha(Main.FABALPHA);
     }
@@ -132,16 +122,13 @@ public class ZoomControls extends LinearLayout {
      */
     private void setEnabled(@NonNull FloatingActionButton fab, boolean isEnabled) {
         fab.setEnabled(isEnabled);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            fab.setBackgroundColor(
-                    ThemeUtils.getStyleAttribColorValue(context, isEnabled ? R.attr.colorControlNormal : R.attr.colorPrimary, R.color.dark_grey));
-        }
+        fab.setBackgroundColor(ThemeUtils.getStyleAttribColorValue(context, isEnabled ? R.attr.colorControlNormal : R.attr.colorPrimary, R.color.dark_grey));
     }
 
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
-        if (elevationIn < 0f && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (elevationIn < 0f) {
             elevationIn = zoomIn.getElevation();
             elevationOut = zoomOut.getElevation();
         }
@@ -151,9 +138,7 @@ public class ZoomControls extends LinearLayout {
     protected void onConfigurationChanged(Configuration newConfig) {
         // this is a workaround for https://github.com/MarcusWolschon/osmeditor4android/issues/965
         Log.d(DEBUG_TAG, "onConfigurationChanged " + elevationIn + " " + elevationOut);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            zoomIn.setElevation(elevationIn);
-            zoomOut.setElevation(elevationOut);
-        }
+        zoomIn.setElevation(elevationIn);
+        zoomOut.setElevation(elevationOut);
     }
 }
