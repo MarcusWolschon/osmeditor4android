@@ -1288,14 +1288,11 @@ public class PresetItem extends PresetElement {
                 appendTag(presetName, jsonString, key, ((PresetFixedField) field).getValue());
                 continue;
             }
-            // check match attribute
-            MatchType match = getMatchType(key);
-            final boolean canMatch = match == null || match == MatchType.KEY_VALUE || match == MatchType.KEY;
             boolean editable = field instanceof PresetComboField && ((PresetComboField) field).isEditable();
-            if (editable || textField || field instanceof PresetCheckField || !canMatch) {
+            if (editable || textField || field instanceof PresetCheckField) {
                 appendTag(presetName, jsonString, key, null);
             }
-            if (field instanceof PresetComboField && !editable && (canMatch || match == MatchType.KEY_VALUE_NEG)) {
+            if (field instanceof PresetComboField) {
                 for (StringWithDescription v : ((PresetComboField) field).getValues()) {
                     appendTag(presetName, jsonString, key, v);
                 }
