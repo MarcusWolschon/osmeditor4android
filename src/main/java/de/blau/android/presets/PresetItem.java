@@ -37,6 +37,7 @@ import de.blau.android.osm.Relation;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.search.Wrapper;
+import de.blau.android.util.ExtendedStringWithDescription;
 import de.blau.android.util.StringWithDescription;
 
 /** Represents a preset item (e.g. "footpath", "grocery store") */
@@ -1276,7 +1277,7 @@ public class PresetItem extends PresetElement {
     @NonNull
     public String toJSON() {
         String presetName = getPath(preset.getRootGroup()).toString().replace('|', '/');
-        presetName = presetName.substring(0, Math.max(0, presetName.length() - 1));
+        presetName = presetName.substring(0, Math.max(0, presetName.length() - 1)) + (isDeprecated() ? " (item not recommended)" : "");
         StringBuilder jsonString = new StringBuilder();
         for (PresetTagField field : getTagFields()) {
             final boolean textField = field instanceof PresetTextField;
@@ -1284,22 +1285,25 @@ public class PresetItem extends PresetElement {
                 throw new UnsupportedOperationException();
             }
             String key = field.getKey();
+            String fieldName = presetName + (field.isDeprecated() && !isDeprecated() ? " (key not recommended)" : "");
             if (field instanceof PresetFixedField) {
-                appendTag(presetName, jsonString, key, ((PresetFixedField) field).getValue());
+                appendTag(fieldName, jsonString, key, ((PresetFixedField) field).getValue());
                 continue;
             }
             boolean editable = field instanceof PresetComboField && ((PresetComboField) field).isEditable();
             if (editable || textField || field instanceof PresetCheckField) {
-                appendTag(presetName, jsonString, key, null);
+                appendTag(fieldName, jsonString, key, null);
             }
             if (field instanceof PresetComboField) {
                 for (StringWithDescription v : ((PresetComboField) field).getValues()) {
-                    appendTag(presetName, jsonString, key, v);
+                    String valueName = fieldName + (v instanceof ExtendedStringWithDescription && ((ExtendedStringWithDescription) v).isDeprecated()
+                            && !field.isDeprecated() && !isDeprecated() ? " (value not recommended)" : "");
+                    appendTag(valueName, jsonString, key, v);
                 }
             }
             if (field instanceof PresetCheckGroupField) {
                 for (PresetCheckField check : ((PresetCheckGroupField) field).getCheckFields()) {
-                    appendTag(presetName, jsonString, check.getKey(), null);
+                    appendTag(fieldName, jsonString, check.getKey(), null);
                 }
             }
         }
