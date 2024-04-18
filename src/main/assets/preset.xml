@@ -47,6 +47,8 @@
     
     
     
+    
+    
     <!-- Item chunks -->
     <chunk id="optional_speech_output">
         <optional>
@@ -203,6 +205,10 @@
             <list_entry value="separate" short_description="Mapped separately"/>
         </combo>
         <combo key="sidewalk:surface" text="Sidewalk surface" values_sort="false" values_context="surface" match="none">
+            <list_entry value="paved" short_description="Paved"/><list_entry value="unpaved" short_description="Unpaved"/><list_entry value="compacted" short_description="Compacted"/><list_entry value="asphalt" short_description="Asphalt"/><list_entry value="concrete" short_description="Concrete"/><list_entry value="concrete:plates" short_description="Concrete plates"/><list_entry value="concrete:lanes" short_description="Concrete lanes"/><list_entry value="metal" short_description="Metal"/><list_entry value="wood" short_description="Wood"/><list_entry value="woodchips" short_description="Wood chips"/><list_entry value="paving_stones" short_description="Paving stones"/><list_entry value="sett" short_description="Sett"/><list_entry value="cobblestone" short_description="Cobblestone"/><list_entry value="unhewn_cobblestone" short_description="Unhewn cobblestone"/><list_entry value="gravel" short_description="Gravel"/><list_entry value="fine_gravel" short_description="Fine gravel"/><list_entry value="pebblestone" short_description="Pebblestone"/><list_entry value="grass_paver" short_description="Grass paver"/><list_entry value="grass" short_description="Grass"/><list_entry value="rock" short_description="Rock"/><list_entry value="rubber" short_description="Rubber"/><list_entry value="sand" short_description="Sand"/><list_entry value="ground" short_description="Ground"/><list_entry value="dirt" short_description="Dirt"/><list_entry value="mud" short_description="Mud"/>
+        </combo>
+        <!-- SChism -->
+        <combo key="sidewalk:both:surface" text="Sidewalk surface" values_sort="false" values_context="surface" match="none" deprecated="true">
             <list_entry value="paved" short_description="Paved"/><list_entry value="unpaved" short_description="Unpaved"/><list_entry value="compacted" short_description="Compacted"/><list_entry value="asphalt" short_description="Asphalt"/><list_entry value="concrete" short_description="Concrete"/><list_entry value="concrete:plates" short_description="Concrete plates"/><list_entry value="concrete:lanes" short_description="Concrete lanes"/><list_entry value="metal" short_description="Metal"/><list_entry value="wood" short_description="Wood"/><list_entry value="woodchips" short_description="Wood chips"/><list_entry value="paving_stones" short_description="Paving stones"/><list_entry value="sett" short_description="Sett"/><list_entry value="cobblestone" short_description="Cobblestone"/><list_entry value="unhewn_cobblestone" short_description="Unhewn cobblestone"/><list_entry value="gravel" short_description="Gravel"/><list_entry value="fine_gravel" short_description="Fine gravel"/><list_entry value="pebblestone" short_description="Pebblestone"/><list_entry value="grass_paver" short_description="Grass paver"/><list_entry value="grass" short_description="Grass"/><list_entry value="rock" short_description="Rock"/><list_entry value="rubber" short_description="Rubber"/><list_entry value="sand" short_description="Sand"/><list_entry value="ground" short_description="Ground"/><list_entry value="dirt" short_description="Dirt"/><list_entry value="mud" short_description="Mud"/>
         </combo>
         <preset_link preset_name="Sidewalk right-hand side"/>
@@ -1265,7 +1271,7 @@
     </chunk>
     <chunk id="rating_phases">
         <combo key="rating" text="Power rating (kVA/MVA)" values="2700 kVA,12500 kVA,15 MVA,50 MVA,100 MVA"/>
-        <combo key="phases" text="Phases" values="1,3" length="1" value_type="integer"/>
+        <combo key="phases" text="Phases" values="1,3" length="1"/>
     </chunk>
     <chunk id="optional_rating_phases">
         <optional>
@@ -2545,7 +2551,7 @@
             <combo key="cycleway:lane" text="Bicycle lane type" values_context="cycleway" match="none">
                 <list_entry value="exclusive" display_value="Exclusive"/><list_entry value="advisory" display_value="Advisory"/><list_entry value="pictogram" display_value="Pictogram"/>
             </combo>
-            <!-- the following two items are SCisms that are forced on everybody -->
+            <!-- the following two items are SChisms that are forced on everybody -->
             <combo key="cycleway:both" text="Cycleway" values_context="cycleway" match="none" deprecated="true">
                 <list_entry value="lane" display_value="Lane"/><list_entry value="track" display_value="Track"/><list_entry value="share_busway" display_value="Share busway"/><list_entry value="shared_lane" display_value="Shared lane"/><list_entry value="separate" display_value="Separate"/>
             </combo>
@@ -10218,8 +10224,19 @@
             <link wiki="Tag:highway=street_lamp"/>
             <space/>
             <key key="highway" value="street_lamp"/>
-            <combo key="lamp_type" text="Type" values="electric,floodlight,gaslight,led,sodium,solar_lamp" display_values="Electric,Floodlight,Gaslight,LED,Sodium,Solar lamp" values_context="lamp_type" match="key"/>
-            <combo key="lamp_mount" text="Mounted on" values="bent_mast,high_mast,straight_mast,suspended,wall" display_values="Bent mast,High mast,Straight mast,Suspended,Wall" values_context="lamp_mount" match="key"/>
+            <combo key="lamp_type" text="Type" values_context="lamp_type" match="key">
+                <list_entry value="electric" display_value="Electric (generic)"/>
+                <list_entry value="floodlight" display_value="Floodlight (generic)"/>
+                <list_entry value="fluorescent" display_value="Fluorescent"/>
+                <list_entry value="gaslight" display_value="Gaslight"/>
+                <list_entry value="high_pressue_sodium" display_value="High pressue sodium"/>
+                <list_entry value="led" display_value="LED"/>
+                <list_entry value="low_pressue_sodium" display_value="Low pressue sodium"/>
+                <list_entry value="mercury" display_value="Mercury"/>
+                <list_entry value="sodium" display_value="Sodium (generic)"/>
+                <list_entry value="solar_lamp" display_value="Solar lamp (generic)"/>
+            </combo>
+            <combo key="lamp_mount" text="Mounted on" values="bent_mast,high_mast,pole,straight_mast,suspended,wall" display_values="Bent mast,High mast,Pole,Straight mast,Suspended,Wall" values_context="lamp_mount" match="key"/>
             <optional>
                 <text key="ref" text="Ref"/>
                 <combo key="opening_hours" value_type="opening_hours" text="Operation times" values="Mo-Fr 22:00-05:00" match="none" editable="true" values_no_i18n="true"/>
@@ -11444,6 +11461,10 @@
             <link wiki="Tag:shop=farm"/>
             <space/>
             <key key="shop" value="farm"/>
+            <multiselect key="produce" text="Produce">
+                <list_entry value="apple" display_value="Apples"/><list_entry value="asparagus" display_value="Asparagus"/><list_entry value="banana" display_value="Bananas"/><list_entry value="cherry" display_value="Cherries"/><list_entry value="grape" display_value="Grapes"/><list_entry value="olive" display_value="Olives"/><list_entry value="orange" display_value="Oranges"/><list_entry value="nut" display_value="Nuts"/><list_entry value="onion" display_value="Onions"/><list_entry value="peach" display_value="Peaches"/><list_entry value="pear" display_value="Pears"/><list_entry value="plum" display_value="Plums"/><list_entry value="potatoes" display_value="Potatoes"/>
+                <list_entry value="eggs" display_value="Eggs"/><list_entry value="milk" display_value="Milk"/>
+            </multiselect>
             <reference ref="name_oh_wheelchair"/>
             <text key="description" text="Description" length="255"/>
             <reference ref="organic"/>
@@ -13319,7 +13340,7 @@
             <space/>
             <key key="landuse" value="farmland"/>
             <reference ref="optional_name"/>
-            <combo key="crop" text="Crop" values="barley,cereal,corn,grass,hop,rapeseed,rice,soy,sugarcane,tea,wheat" display_values="Barley,Cereal,Corn,Grass,Hop,Rapeseed,Rice,Soy,Sugarcane,Tea,Wheat" editable="true" values_context="crop"/>
+            <combo key="crop" text="Crop" values="asparagus,barley,cereal,corn,grass,hop,potatoes,rapeseed,rice,soy,sugarcane,tea,wheat" display_values="Asparagus,Barley,Cereal,Corn,Grass,Hop,Potatoes,Rapeseed,Rice,Soy,Sugarcane,Tea,Wheat" editable="true" values_context="crop"/>
             <check key="irrigation" text="Center pivot irrigation" value_on="pivot" disable_off="true"/>
         </item> <!-- Farmland -->
         <item name="Farm" icon="icons/png/landuse_farm_22120.png" type="closedway,multipolygon" preset_name_label="true" deprecated="true">
@@ -15198,7 +15219,7 @@
             <!-- originalTags and tags are java.util.Map<String,ArrayList<String>>, originalTags are the tags
                  before the PropertyEditor was started, tags are the current values, by removing the key at the
                  end of the script it can be re-run without manually reseting the value, &, <, > need to be escaped -->
-            <text key="set_to_disused" javascript=" var objects = ['amenity','aeroway','highway','leisure','man_made','military','railway','shop'];  function isObject(key) {   var objectsLength = objects.length;   for (var i = 0; i &lt; objectsLength; i++) {     if (objects[i].equals(key)) {             return true;     }   }   return false; }  for (var key in Iterator(new java.util.HashSet(tags.keySet()))) {   if (isObject(key)) {     tags.put('disused:'+key,tags.get(key));     tags.remove(key);   } } tags.remove('set_to_disused');"/>
+            <text key="set_to_disused" javascript=" var objects = ['amenity','aeroway','highway','leisure','man_made','military','railway','shop'];  function isObject(key) {   var objectsLength = objects.length;   for (var i = 0; i &lt; objectsLength; i++) {     if (objects[i].equalckey)) {             return true;     }   }   return false; }  for (var key in Iterator(new java.util.HashSet(tags.keySet()))) {   if (isObject(key)) {     tags.put('disused:'+key,tags.get(key));     tags.remove(key);   } } tags.remove('set_to_disused');"/>
         </item>
         <item name="Set to disused (remove tags)" icon="icons/png/javascript.png" type="node,way,closedway,relation" preset_name_label="true">
             <link wiki="Key:disused:"/>
