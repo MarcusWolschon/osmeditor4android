@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.49.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,disused:amenity,disused:leisure,disused:man_made,disused:shop,golf,ford,harbour,hazard,noexit,indoor,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom">
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.51.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,disused:amenity,disused:leisure,disused:man_made,disused:shop,golf,ford,harbour,hazard,noexit,indoor,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom">
 <!--
     Icons have been derived from mainly from
   
@@ -9,6 +9,7 @@
     Format description: https://josm.openstreetmap.de/wiki/TaggingPresets and http://vespucci.io/tutorials/presets/
 -->
     <!-- Value chunks for use in combos and multiselects -->
+    
     
     
     
@@ -188,8 +189,13 @@
         <check key="noexit" text="No exit (cul-de-sac)" disable_off="true"/>
         <check key="narrow" text="Narrow" disable_off="true"/>
     </chunk>
-    <chunk id="highway_additional_oneway">
-        <check key="oneway" text="Oneway" disable_off="true"/>
+    <chunk id="oneway">
+        <combo key="oneway" text="Oneway" values_sort="false">
+            <list_entry value="yes" display_value="In way direction"/><list_entry value="-1" display_value="Against way direction"/><list_entry value="no" display_value="Not oneway"/>
+        </combo>
+    </chunk>
+    <chunk id="highway_additional_oneway">  
+        <reference ref="oneway"/> 
         <reference ref="highway_additional"/>
         <combo key="overtaking" text="Overtaking" values="yes,both,forward,backward,no" display_values="Yes,Both directions,In way direction,Opposite to way direction,No" values_sort="false" values_context="overtaking" match="key"/>
     </chunk>
@@ -259,8 +265,10 @@
         <text key="junction:ref" text="Junction reference"/>
         <text key="width" text="Width (meters)" value_type="dimension_horizontal"/>
         <reference ref="shoulder"/>
+        <combo key="oneway" text="Oneway" default="yes" values_sort="false">
+            <list_entry value="yes" display_value="In way direction"/><list_entry value="-1" display_value="Against way direction"/><list_entry value="no" display_value="Not oneway"/>
+        </combo>
         <checkgroup text="Additional attributes" columns="5">
-            <check key="oneway" text="Oneway" default="on"/>
             <check key="motorroad" text="Motorroad" disable_off="true"/>
             <check key="bridge" text="Bridge" disable_off="true"/>
             <check key="tunnel" text="Tunnel" disable_off="true"/>
@@ -409,6 +417,13 @@
     </chunk>
     <chunk id="collection_times">
         <combo key="collection_times" text="Collection times" value_type="opening_hours" delimiter="|" values="Mo-Sa 09:00|Mo-Fr 17:30; Sa 12:00|Mo-Fr 15:00,19:00; Sa 15:10; Su 10:30" values_no_i18n="true" match="none" editable="true"/>
+    </chunk>
+    <chunk id="baby_feeding">
+        <combo key="baby_feeding" text="Baby feeding space" values_sort="false" values_context="baby_feeding">
+            <list_entry value="yes" short_description="Available"/>
+            <list_entry value="room" short_description="Room"/>
+            <list_entry value="no" short_description="None"/>
+        </combo>
     </chunk>
     <chunk id="changing_table">
         <combo key="diaper" text="Diaper changing" values_sort="false" deprecated="true">
@@ -689,6 +704,9 @@
         <reference ref="indoor_seating"/>
         <reference ref="outdoor_seating"/>
     </chunk>
+    <chunk id="bar">
+        <check key="bar" text="Has a bar"/> 
+    </chunk>
     <chunk id="cuisine">
         <multiselect key="cuisine" text="Cuisine" values_searchable="true" match="key">
             <list_entry value="african" display_value="African"/>
@@ -964,6 +982,15 @@
             <list_entry value="volleyball" display_value="Volleyball"/>
             <list_entry value="yoga" display_value="Yoga"/>
         </multiselect>
+    </chunk>
+    <chunk id="swimming_pool_facility">
+        <combo key="swimming_pool" text="Swimming pool" values_context="sport">
+            <list_entry value="yes" display_value="Available"/>
+            <list_entry value="indoor" display_value="Indoor"/>
+            <list_entry value="inground" display_value="In-ground"/>
+            <list_entry value="outdoor" display_value="Outdoor"/>
+            <list_entry value="no" display_value="None"/>
+        </combo>
     </chunk>
     <chunk id="bin">
         <combo key="bin" text="Bin" values="yes,no" display_values="Yes,No" default=""/>
@@ -2269,8 +2296,10 @@
                 <reference ref="lanes"/>
                 <reference ref="layer"/>
                 <reference ref="surface_smoothness"/>
-                <check key="oneway" text="Oneway" disable_off="true"/>
-                <check key="oneway:bicycle" text="Oneway for bicycle" disable_off="true"/>
+                <reference ref="oneway"/>
+                <combo key="oneway:bicycle" text="Oneway for bicycles" values_sort="false">
+                    <list_entry value="yes" display_value="In way direction"/><list_entry value="-1" display_value="Against way direction"/><list_entry value="no" display_value="Not oneway"/>
+                </combo>
                 <reference ref="highway_additional"/>
                 <check key="lit" text="Lit" disable_off="true"/>
                 <text key="width" text="Width (meters)" value_type="dimension_horizontal"/>
@@ -2346,7 +2375,7 @@
             <key key="service" value="parking_aisle"/>
             <optional>
                 <reference ref="surface_smoothness"/>
-                <check key="oneway" text="Oneway" disable_off="true"/>
+                <reference ref="oneway"/>
                 <check key="lit" text="Lit" disable_off="true"/>
             </optional>
             <reference ref="road_access_restrictions"/>
@@ -2570,8 +2599,9 @@
             <combo key="cycleway:right:lane" text="Bicycle lane type right" values_context="cycleway" match="none">
                 <list_entry value="exclusive" display_value="Exclusive"/><list_entry value="advisory" display_value="Advisory"/><list_entry value="pictogram" display_value="Pictogram"/>
             </combo>
-            <combo key="oneway:bicycle" text="Oneway (bicycle)" values="yes,no" display_values="Yes,No"/>
-            <space/>
+            <combo key="oneway:bicycle" text="Oneway (bicycle)" values_sort="false">
+                <list_entry value="yes" display_value="In way direction"/><list_entry value="-1" display_value="Against way direction"/><list_entry value="no" display_value="Not oneway"/>
+            </combo>
         </item> <!-- Cycle Lane/Track -->
         <item name="Street parking both sides" icon="icons/png/lane_parking_both.png" type="way,closedway" preset_name_label="true">
             <label text="Street parking both sides:"/>
@@ -2968,6 +2998,7 @@
             <optional>
                 <reference ref="name_operator"/>
                 <reference ref="toilets"/>
+                <reference ref="baby_feeding"/>
             </optional>
             <reference ref="kids_area"/>
         </item> <!-- Services -->
@@ -4632,7 +4663,7 @@
                 <optional>
                     <text key="name" text="Name"/>
                     <reference ref="highway_additional_oneway"/>
-                    <check key="oneway" text="Oneway"/>
+                    <reference ref="oneway"/>
                     <reference ref="layer"/>
                     <reference ref="surface_smoothness"/>
                     <reference ref="maxspeed"/>
@@ -5844,8 +5875,10 @@
             <reference ref="wheelchair"/>
             <reference ref="wheelchair_rooms"/>
             <space/>
+            <reference ref="bar"/>
             <reference ref="internet_smoking"/>
             <reference ref="air_conditioning"/>
+            <reference ref="swimming_pool_facility"/>
             <reference ref="link_contact_address_payment"/>
             <preset_link preset_name="Building"/>
         </item> <!-- Hotel -->
@@ -5860,8 +5893,10 @@
             <reference ref="wheelchair"/>
             <reference ref="wheelchair_rooms"/>
             <space/>
+            <reference ref="bar"/>
             <reference ref="internet_smoking"/>
             <reference ref="air_conditioning"/>
+            <reference ref="swimming_pool_facility"/>
             <reference ref="link_contact_address_payment"/>
             <preset_link preset_name="Building"/>
         </item> <!-- Motel -->
@@ -5877,8 +5912,10 @@
             <reference ref="wheelchair"/>
             <reference ref="wheelchair_rooms"/>
             <space/>
+            <reference ref="bar"/>
             <reference ref="internet_smoking"/>
             <reference ref="air_conditioning"/>
+            <reference ref="swimming_pool_facility"/>
             <reference ref="link_contact_address_payment"/>
             <preset_link preset_name="Building"/>
         </item> <!-- Guest House/Bed & Breakfast -->
@@ -5894,6 +5931,7 @@
             <space/>
             <reference ref="internet_smoking"/>
             <reference ref="air_conditioning"/>
+            <reference ref="swimming_pool_facility"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Apartment -->
         <item name="Chalet" icon="icons/png/accommodation_chalet2.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -5907,8 +5945,10 @@
             <reference ref="wheelchair"/>
             <reference ref="wheelchair_rooms"/>
             <space/>
+            <reference ref="bar"/>
             <reference ref="internet_smoking"/>
             <reference ref="air_conditioning"/>
+            <reference ref="swimming_pool_facility"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Chalet -->
         <item name="Hostel" icon="icons/png/accommodation_hostel.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -5922,8 +5962,10 @@
             <reference ref="wheelchair"/>
             <reference ref="wheelchair_rooms"/>
             <space/>
+            <reference ref="bar"/>
             <reference ref="internet_smoking"/>
             <reference ref="air_conditioning"/>
+            <reference ref="swimming_pool_facility"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Hostel -->
         <item name="Alpine Hut" icon="icons/png/accommodation_alpinehut.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -5976,6 +6018,7 @@
             <check key="tents" text="Tents allowed" disable_off="true"/>
             <space/>
             <reference ref="internet_smoking"/>
+            <reference ref="swimming_pool_facility"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Caravan Site/RV Park -->
         <item name="Campsite" icon="icons/png/accommodation_camping.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -6000,7 +6043,9 @@
             <space/>
             <reference ref="internet"/>
             <space/>
+            <reference ref="bar"/>
             <reference ref="nudism"/>
+            <reference ref="swimming_pool_facility"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Campsite -->
         <item name="Camp pitch" icon="icons/png/accommodation_camp_pitch.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -6029,6 +6074,7 @@
             <reference ref="cuisine"/>
             <check key="self_service" text="Self-service" disable_off="true"/>
             <check key="microbrewery" text="Microbrewery" disable_off="true"/>
+            <reference ref="bar"/>
             <reference ref="outdoor_seating"/>
             <reference ref="takeaway_with_reusable_packaging"/>
             <combo key="delivery" text="Delivery" values="yes,no,only,Mo-Su 12:00-22:00" value_type="opening_hours_mixed" values_sort="false" display_values="Yes,No,Only,Mo-Su 12:00-22:00"/>
@@ -6042,6 +6088,7 @@
             <reference ref="internet_smoking"/>
             <reference ref="air_conditioning"/>
             <reference ref="link_contact_address_payment"/>
+            <reference ref="baby_feeding"/>
             <reference ref="highchair"/>
             <reference ref="kids_area"/>
             <preset_link preset_name="Diet"/>
@@ -6065,6 +6112,7 @@
             <reference ref="internet_smoking"/>
             <reference ref="air_conditioning"/>
             <reference ref="link_contact_address_payment"/>
+            <reference ref="baby_feeding"/>
             <reference ref="highchair"/>
             <reference ref="kids_area"/>
         </item> <!-- Fast Food -->
@@ -6080,6 +6128,7 @@
             <reference ref="internet_smoking"/>
             <reference ref="air_conditioning"/>
             <reference ref="link_contact_address_payment"/>
+            <reference ref="baby_feeding"/>
             <reference ref="highchair"/>
             <reference ref="kids_area"/>
             <preset_link preset_name="Diet"/>
@@ -6090,6 +6139,7 @@
             <key key="amenity" value="cafe"/>
             <reference ref="name_operator"/>
             <combo key="cuisine" text="Cuisine" values="ice_cream" display_values="Ice cream"/>
+            <reference ref="bar"/>
             <reference ref="seating"/>
             <reference ref="takeaway_with_reusable_packaging"/>
             <combo key="delivery" text="Delivery" values="yes,no,only,Mo-Su 12:00-22:00" value_type="opening_hours_mixed" values_sort="false" display_values="Yes,No,Only,Mo-Su 12:00-22:00"/>
@@ -6099,6 +6149,7 @@
             <reference ref="internet_smoking"/>
             <reference ref="air_conditioning"/>
             <reference ref="link_contact_address_payment"/>
+            <reference ref="baby_feeding"/>
             <reference ref="highchair"/>
             <reference ref="kids_area"/>
             <preset_link preset_name="Diet"/>
@@ -6115,6 +6166,7 @@
             <reference ref="internet_smoking"/>
             <reference ref="air_conditioning"/>
             <reference ref="link_contact_address_payment"/>
+            <reference ref="baby_feeding"/>
             <reference ref="highchair"/>
             <reference ref="kids_area"/>
         </item> <!-- Bubble Tea Cafe -->
@@ -6132,6 +6184,7 @@
             <reference ref="internet_smoking"/>
             <reference ref="air_conditioning"/>
             <reference ref="link_contact_address_payment"/>
+            <reference ref="baby_feeding"/>
             <reference ref="highchair"/>
             <reference ref="kids_area"/>
             <preset_link preset_name="Diet"/>
@@ -6155,6 +6208,7 @@
             </optional>
             <reference ref="air_conditioning"/>
             <reference ref="link_contact_address_payment"/>
+            <reference ref="baby_feeding"/>
             <reference ref="highchair"/>
             <reference ref="kids_area"/>
             <preset_link preset_name="Diet"/>
@@ -6165,12 +6219,14 @@
             <key key="amenity" value="biergarten"/>
             <reference ref="name_operator"/>
             <check key="microbrewery" text="Microbrewery" disable_off="true"/>
+            <reference ref="bar"/>
             <reference ref="indoor_seating"/>
             <reference ref="oh_wheelchair"/>
             <reference ref="toilets_with_access"/>
             <space/>
             <reference ref="internet_smoking"/>
             <reference ref="link_contact_address_payment"/>
+            <reference ref="baby_feeding"/>
             <reference ref="highchair"/>
             <reference ref="kids_area"/>
             <preset_link preset_name="Diet"/>
@@ -6191,6 +6247,7 @@
             </optional>
             <reference ref="air_conditioning"/>
             <reference ref="link_contact_address_payment"/>
+            <reference ref="baby_feeding"/>
             <reference ref="highchair"/>
             <reference ref="kids_area"/>
             <preset_link preset_name="Diet"/>
@@ -6373,6 +6430,48 @@
                 </checkgroup>
             </optional>
         </item> <!-- Route marker -->
+        <group name="Node network junctions"> 
+            <item name="Regional cycle network junction" icon="icons/png/tourist_cycle_network_junction.png" type="node" preset_name_label="true">
+                <link wiki="Tag:network:type=node_network"/>
+                <key key="network:type" value="node_network" object="true"/>
+                <text key="rcn_ref" match="key"/>
+                <optional>
+                    <text key="expected_rcn_route_relations" match="none" value_type="integer"/>
+                </optional>
+            </item>
+            <item name="Local cycle network junction" icon="icons/png/tourist_cycle_network_junction.png" type="node" preset_name_label="true">
+                <link wiki="Tag:network:type=node_network"/>
+                <key key="network:type" value="node_network" object="true"/>
+                <text key="lcn_ref" match="key"/>
+                <optional>
+                    <text key="expected_lcn_route_relations" match="none" value_type="integer"/>
+                </optional>
+            </item>
+            <item name="Regional walking network junction" icon="icons/png/tourist_walking_network_junction.png" type="node" preset_name_label="true">
+                <link wiki="Tag:network:type=node_network"/>
+                <key key="network:type" value="node_network" object="true"/>
+                <text key="rwn_ref" match="key"/>
+                <optional>
+                    <text key="expected_rwn_route_relations" match="none" value_type="integer"/>
+                </optional>
+            </item>
+            <item name="Local walking network junction" icon="icons/png/tourist_walking_network_junction.png" type="node" preset_name_label="true">
+                <link wiki="Tag:network:type=node_network"/>
+                <key key="network:type" value="node_network" object="true"/>
+                <text key="lwn_ref" match="key"/>
+                <optional>
+                    <text key="expected_lwn_route_relations" match="none" value_type="integer"/>
+                </optional>
+            </item>
+            <item name="Regional hiking network junction" icon="icons/png/tourist_hiking_network_junction.png" type="node" preset_name_label="true">
+                <link wiki="Tag:network:type=node_network"/>
+                <key key="network:type" value="node_network" object="true"/>
+                <text key="rhn_ref" match="key"/>
+                <optional>
+                    <text key="expected_rhn_route_relations" match="none" value_type="integer"/>
+                </optional>
+            </item>
+        </group> <!-- Node network junctions -->
     </group> <!-- Tourism -->
     <group name="Leisure" icon="icons/png/tourist_theme_park.png">
         <item name="Movie Theater/Cinema" icon="icons/png/tourist_cinema2.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -6520,6 +6619,7 @@
             <key key="tourism" value="theme_park"/>
             <reference ref="name_operator_oh_wheelchair"/>
             <reference ref="link_contact_address_payment"/>
+            <reference ref="baby_feeding"/>
             <reference ref="kids_area"/>
         </item> <!-- Amusement/Theme Park -->
         <item name="Water Park" icon="icons/png/sport_swimming_indoor.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -6601,6 +6701,15 @@
             <space/>
             <label text="Used for the water area only."/>
             <space/>
+            <combo key="swimming_pool" text="Pool type" values_context="sport">
+                <list_entry value="kids" display_value="Childrens pool"/>
+                <list_entry value="lazy_river" display_value="Lazy river"/>
+                <list_entry value="plunge" display_value="Plunge"/>
+                <list_entry value="spa" display_value="Spa"/>
+                <list_entry value="swimming" display_value="Swimming"/>
+                <list_entry value="wading" display_value="Wading"/>
+                <list_entry value="wave_pool" display_value="Wave pool"/>
+            </combo>
             <reference ref="facility_access"/>
         </item> <!-- Swimming Pool -->
         <item name="Swimming Area" icon="icons/png/sport_swimming_outdoor.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -6731,6 +6840,7 @@
             <key key="amenity" value="toy_library"/>
             <reference ref="name_operator_oh_wheelchair_level_toilets"/>
             <reference ref="link_contact_address_payment"/>
+            <reference ref="baby_feeding"/>
             <reference ref="kids_area"/>
         </item> <!-- Toy library -->
         <separator/>
@@ -7036,6 +7146,7 @@
             <reference ref="wikipedia_wikidata_images"/>
             <reference ref="air_conditioning"/>
             <reference ref="link_contact_address_payment"/>
+            <reference ref="baby_feeding"/>
             <reference ref="kids_area"/>
         </item> <!-- Museum -->
         <item name="Art gallery" icon="icons/png/tourist_gallery_30041.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -7140,6 +7251,7 @@
             <reference ref="name_operator_oh_wheelchair_level_toilets"/>
             <reference ref="air_conditioning"/>
             <reference ref="link_contact_address_payment"/>
+            <reference ref="baby_feeding"/>
             <reference ref="kids_area"/>
         </item> <!-- Library -->
         <item name="Public bookcase" icon="icons/png/amenity_empty.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -7334,6 +7446,7 @@
             <multiselect key="community_centre:for" text="For" values="child;juvenile;student;girl;boy;man;woman;senior;family;homosexual;multigeneration;disabled;athlete;immigrant;lgbtq" display_values="Child;Juvenile;Student;Girl;Boy;Man;Woman;Senior;Family;Homosexual;Multigeneration;Disabled;Athlete;Immigrant;LGBTQ" values_context="community_centre"/>
             <reference ref="name_operator_oh_wheelchair_toilets"/>
             <reference ref="link_contact_address"/>
+            <reference ref="baby_feeding"/>
             <reference ref="kids_area"/>
         </item> <!-- Community Centre -->
         <item name="Conference Centre" icon="icons/png/amenity_amphitheatre_19035.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -7570,6 +7683,7 @@
             <key key="healthcare" value="hospital" match="keyvalue"/>
             <reference ref="name_operator"/>
             <reference ref="link_contact_address_payment"/>
+            <reference ref="baby_feeding"/>
             <reference ref="kids_area"/>
         </item> <!-- Hospital -->
         <item name="Clinic" icon="icons/png/health_hospital.png" type="node,closedway,multipolygon" autoapply="false" min_match="1" preset_name_label="true">
@@ -7580,6 +7694,7 @@
             <reference ref="healthcare_speciality"/>
             <reference ref="name_operator_level"/>
             <reference ref="link_contact_address_payment"/>
+            <reference ref="baby_feeding"/>
             <reference ref="kids_area"/>
         </item> <!-- Clinic -->
         <item name="Doctor's Office" icon="icons/png/health_doctors.png" type="node,closedway,multipolygon" autoapply="false" min_match="1" preset_name_label="true">
@@ -7590,6 +7705,7 @@
             <reference ref="healthcare_speciality"/>
             <reference ref="name_oh_wheelchair_level"/>
             <reference ref="link_contact_address_payment"/>
+            <reference ref="baby_feeding"/>
             <reference ref="kids_area"/>
         </item> <!-- Doctor's Office -->
         <item name="Dentist" icon="icons/png/health_dentist.png" type="node,closedway,multipolygon" autoapply="false" min_match="1" preset_name_label="true">
@@ -7608,6 +7724,7 @@
             </combo>
             <reference ref="name_oh_wheelchair_level"/>
             <reference ref="link_contact_address_payment"/>
+            <reference ref="baby_feeding"/>
             <reference ref="kids_area"/>
         </item> <!-- Dentist -->
         <item name="Orthodontist" icon="icons/png/health_dentist.png" type="node,closedway,multipolygon" autoapply="false" preset_name_label="true">
@@ -7627,6 +7744,7 @@
             <reference ref="name_operator_oh_wheelchair_level"/>
             <check key="dispensing" text="Dispensing" disable_off="true"/>
             <reference ref="link_contact_address_payment"/>
+            <reference ref="baby_feeding"/>
             <reference ref="kids_area"/>
         </item> <!-- Pharmacy -->
         <separator/>
@@ -8370,10 +8488,22 @@
             <reference ref="collection_times"/>
             <check key="drive_through" text="Drive through" disable_off="true"/>
             <combo key="post_box:type" text="Type" values_context="post box">
-                <list_entry value="pillar" text="Pillar"/>
-                <list_entry value="lamp" text="Lamp"/>
-                <list_entry value="wall" text="Wall"/>
+                <list_entry value="pillar" display_value="Pillar"/>
+                <list_entry value="lamp" display_value="Lamp"/>
+                <list_entry value="wall" display_value="Wall"/>
             </combo>
+            <combo key="royal_cypher" text="Royal cypher" regions="GB" values_context="post box">
+                <list_entry value="VR" display_value="VR - Victoria"/>
+                <list_entry value="EVIIR" display_value="EVIIR - Edward VII"/>
+                <list_entry value="GR" display_value="GR - George V"/>
+                <list_entry value="EVIIIR" display_value="EVIIIR - Edward VIII"/>
+                <list_entry value="GVIR" display_value="GVIR - George VI"/>
+                <list_entry value="EIIR" display_value="EIIR - Elizabeth II"/>
+                <list_entry value="CIIIR" display_value="CIIIR - Charles III"/>
+                <list_entry value="scottish_crown" display_value="Crown of Scotland"/>
+                <list_entry value="no" display_value="None"/>
+            </combo>
+            <text key="royal_cypher:wikidata" text="Royal cypher wikidata" regions="GB"/>
             <preset_link preset_name="Letter box" text="Similar but different tags:" alternative="true"/>
         </item> <!-- Post Box -->
         <item name="Parcel Locker" icon="icons/png/amenity_parcel_locker.png" type="node,closedway" preset_name_label="true">
@@ -8424,6 +8554,7 @@
             <key key="amenity" value="events_venue"/>
             <reference ref="name_operator_oh_wheelchair_level"/>
             <reference ref="link_contact_address"/>
+            <reference ref="baby_feeding"/>
             <reference ref="kids_area"/>
             <preset_link preset_name="Building"/>
         </item> <!-- Events venue -->
@@ -8751,6 +8882,7 @@
             <key key="leisure" value="sports_centre"/>
             <text key="name" text="Name"/>
             <reference ref="sport"/>
+            <reference ref="swimming_pool_facility"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Sports Centre -->
         <item name="Sports Hall" icon="icons/png/sport_hall.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -8769,6 +8901,7 @@
             <text key="name" text="Name"/>
             <reference ref="sport"/>
             <reference ref="optional_level"/>
+            <reference ref="swimming_pool_facility"/>
             <reference ref="link_contact_address_payment"/>
             <preset_link preset_name="Building"/>
         </item> <!-- Fitness Centre -->
@@ -9767,6 +9900,7 @@
             <space/>
             <key key="man_made" value="tower"/>
             <combo key="tower:type" text="Tower type" values="bell_tower,communication,cooling,defensive,diving,minaret,observation,pagoda,radar,watchtower" display_values="Bell tower,Communication,Cooling,Defensive,Diving,Minaret,Observation,Pagoda,Radar,Watchtower" editable="true" match="key" values_searchable="true"/>
+            <combo key="tower:construction" text="Tower construction" values="freestanding,guyed_lattice,guyed_tube,lattice" display_values="Freestanding,Guyed lattice,Guyed tube,Lattice" editable="true" match="key" values_searchable="true"/>
             <optional>
                 <text key="name" text="Name"/>
                 <text key="height" text="Height (meters)" length="7" value_type="dimension_vertical"/>
@@ -9782,6 +9916,7 @@
             <space/>
             <key key="man_made" value="mast"/>
             <combo key="tower:type" text="Tower type" values="communication,observation,lighting" display_values="Communication,Observation,Lighting" editable="true" match="key" values_context="tower"/>
+            <combo key="tower:construction" text="Tower construction" values="dish,dome,freestanding,lattice" display_values="Dish,Dome,Freestanding,Lattice" editable="true" match="key" values_searchable="true"/> 
             <optional>
                 <text key="name" text="Name"/>
                 <text key="height" text="Height (meters)" length="7" value_type="dimension_vertical"/>
@@ -10731,6 +10866,8 @@
                 <reference ref="power_generator"/>
                 <key key="generator:method" value="wind_turbine" match="none"/>
                 <combo key="generator:type" text="Generator Type" values="horizontal_axis,vertical_axis" display_values="Horizontal axis,Vertical axis"/>
+                <text key="height:hub" text="Hub height (meters)" length="7" value_type="dimension_vertical"/>
+                <text key="rotor:diameter" text="Rotor diameter (meters)" value_type="dimension_horizontal"/>
                 <reference ref="power_output"/>
             </item> <!-- Wind Turbine -->
             <item name="Heliostat" icon="" type="node" preset_name_label="true">
@@ -11315,6 +11452,7 @@
             <reference ref="bulk_purchase"/>
             <reference ref="post_office_optional"/>
             <reference ref="link_contact_address_payment"/>
+            <reference ref="baby_feeding"/>
             <reference ref="kids_area"/>
         </item> <!-- Supermarket -->
         <item name="Convenience Store" icon="icons/png/shopping_convenience.png" gtype="node,closedway,multipolygon" preset_name_label="true">
@@ -11350,6 +11488,7 @@
             <key key="shop" value="bakery"/>
             <reference ref="name_oh_wheelchair_level"/>
             <reference ref="link_contact_address_payment"/>
+            <reference ref="baby_feeding"/>
             <reference ref="kids_area"/>
         </item> <!-- Bakery -->
         <item name="Butcher" icon="icons/png/shopping_butcher.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -11557,6 +11696,7 @@
             <combo key="second_hand" text="Second hand" values="only,yes,no" display_values="Only,Yes,No"/>
             <reference ref="organic"/>
             <reference ref="link_contact_address_payment"/>
+            <reference ref="baby_feeding"/>
             <reference ref="kids_area"/>
         </item> <!-- Clothes -->
         <item name="Boutique" icon="icons/png/shopping_boutique.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -11566,6 +11706,7 @@
             <reference ref="name_operator_oh_wheelchair_level_toilets"/>
             <reference ref="clothes"/>
             <reference ref="link_contact_address_payment"/>
+            <reference ref="baby_feeding"/>
             <reference ref="kids_area"/>
         </item> <!-- Boutique -->
         <item name="Fashion accessories" icon="icons/png/shopping_fashion_accessories.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -11593,6 +11734,7 @@
             <reference ref="organic"/>
             <check key="shoes:repair" text="Repairs" text_context="shoes"/>
             <reference ref="link_contact_address_payment"/>
+            <reference ref="baby_feeding"/>
             <reference ref="kids_area"/>
         </item> <!-- Shoes -->
         <item name="Shoe repair" icon="icons/png/shopping_shoemaker_16108.png" type="node,closedway,multipolygon" name_context="shop" preset_name_label="true">
@@ -11615,6 +11757,7 @@
             <key key="shop" value="outdoor"/>
             <reference ref="name_oh_wheelchair_level"/>
             <reference ref="link_contact_address_payment"/>
+            <reference ref="baby_feeding"/>
             <reference ref="kids_area"/>
         </item> <!-- Outdoor -->
         <separator/>
@@ -11636,6 +11779,7 @@
             <check key="laundry_service" text="Laundry Service"/>
             <reference ref="post_office_optional"/>
             <reference ref="link_contact_address_payment"/>
+            <reference ref="baby_feeding"/>
             <reference ref="kids_area"/>
         </item> <!-- Laundry -->
         <item name="Tailor" icon="icons/png/shopping_tailor_16085.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -11727,6 +11871,7 @@
             <key key="shop" value="furniture"/>
             <reference ref="name_brand_operator_oh_wheelchair_level"/>
             <reference ref="link_contact_address_payment"/>
+            <reference ref="baby_feeding"/>
             <reference ref="kids_area"/>
         </item> <!-- Furniture -->
         <item name="Electrical appliances" icon="icons/png/shopping_electrical.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -11892,6 +12037,7 @@
             <reference ref="name_operator_oh_wheelchair_level"/>
             <reference ref="post_office_optional"/>
             <reference ref="link_contact_address_payment"/>
+            <reference ref="baby_feeding"/>
             <reference ref="kids_area"/>
         </item> <!-- Copy Shop -->
         <item name="Book Store" icon="icons/png/shopping_book.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -11901,6 +12047,7 @@
             <reference ref="name_brand_oh_wheelchair_level"/>
             <combo key="second_hand" text="Second hand" values="only,yes,no" display_values="Only,Yes,No"/>
             <reference ref="link_contact_address_payment"/>
+            <reference ref="baby_feeding"/>
             <reference ref="kids_area"/>
         </item> <!-- Book Store -->
         <item name="Newspaper Stand" icon="icons/png/shopping_kiosk.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -11926,6 +12073,7 @@
             <key key="shop" value="chemist"/>
             <reference ref="name_oh_wheelchair_level"/>
             <reference ref="link_contact_address_payment"/>
+            <reference ref="baby_feeding"/>
             <reference ref="kids_area"/>
         </item> <!-- Chemist -->
         <item name="Cosmetics" icon="icons/png/shopping_cosmetics_29040.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -11959,6 +12107,7 @@
             </multiselect>
             <reference ref="name_oh_wheelchair_level"/>
             <reference ref="link_contact_address_payment"/>
+            <reference ref="baby_feeding"/>
             <reference ref="kids_area"/>
             <preset_link preset_name="Hairdresser/Barber" text="Similar but different tags:" alternative="true"/>
         </item> <!-- Beauty -->
@@ -12024,6 +12173,7 @@
             <key key="shop" value="optician"/>
             <reference ref="name_oh_wheelchair_level"/>
             <reference ref="link_contact_address_payment"/>
+            <reference ref="baby_feeding"/>
             <reference ref="kids_area"/>
         </item> <!-- Optician -->
         <item name="Hearing Aids" icon="icons/png/shopping_hearing_aids.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -12104,6 +12254,7 @@
             <key key="shop" value="sewing"/>
             <reference ref="name_oh_wheelchair_level"/>
             <reference ref="link_contact_address_payment"/>
+            <reference ref="baby_feeding"/>
             <reference ref="kids_area"/>
         </item> <!-- Sewing -->
         <item name="Collectable items" icon="icons/png/shopping_collector.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -12131,6 +12282,7 @@
             <reference ref="name_operator_oh_wheelchair_toilets"/>
             <reference ref="post_office_optional"/>
             <reference ref="link_contact_address_payment"/>
+            <reference ref="baby_feeding"/>
             <reference ref="kids_area"/>
         </item> <!-- Department Store -->
         <item name="Mall" icon="icons/png/shopping_department_store.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -12139,6 +12291,7 @@
             <key key="shop" value="mall"/>
             <reference ref="name_operator_oh_wheelchair_toilets"/>
             <reference ref="link_contact_address_payment"/>
+            <reference ref="baby_feeding"/>
             <reference ref="kids_area"/>
         </item> <!-- Mall -->
         <separator/>
@@ -12151,6 +12304,7 @@
                 <reference ref="brand"/>
             </optional>
             <reference ref="link_contact_address_payment"/>
+            <reference ref="baby_feeding"/>
             <reference ref="kids_area"/>
         </item> <!-- Baby goods -->
         <item name="Florist" icon="icons/png/shopping_florist.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -12334,6 +12488,7 @@
             <key key="shop" value="toys"/>
             <reference ref="name_oh_wheelchair_level"/>
             <reference ref="link_contact_address_payment"/>
+            <reference ref="baby_feeding"/>
             <reference ref="kids_area"/>
         </item> <!-- Toys -->
         <item name="Games" icon="icons/png/shopping_games.png" type="node,closedway,multipolygon" preset_name_label="true" name_context="leisure">
@@ -12367,6 +12522,7 @@
                 <reference ref="religious"/>
             </optional>
             <reference ref="link_contact_address_payment"/>
+            <reference ref="baby_feeding"/>
             <reference ref="kids_area"/>
         </item> <!-- Gift/Souvenir -->
         <item name="Variety Store" icon="icons/png/shopping_variety_store_29148.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -13975,6 +14131,7 @@
                 <combo key="network" text="Network" values="icn,ncn,rcn,lcn" match="keyvalue!" display_values="International,National,Regional,Local" values_context="network" values_sort="false"/>
                 <optional>
                     <reference ref="route_hikebike_optionals"/>
+                    <text key="cycle_network" text="Cycle network"/>
                 </optional>
                 <roles>
                     <reference ref="route_segment_roles"/>
@@ -14202,15 +14359,16 @@
                 <role key="" text="member" requisite="required" type="relation"/>
             </roles>
         </item> <!-- Route Network -->
-         <item name="Node Network" icon="icons/png/osm_route_sp.png" type="relation" preset_name_label="true">
+        <item name="Node Network" icon="icons/png/osm_route_sp.png" type="relation" preset_name_label="true">
             <link wiki="Cycle_Node_Network_Tagging#(C)_Network_tagging"/>
             <space/>
             <key key="type" value="network"/>
             <key key="network:type" value="node_network"/>
-            <combo key="network" text="Network" values="icn,ncn,rcn,lcn,ihn,nhn,rhn,lhn,iwn,nwn,rwn,lwn" display_values="International cycling,National cycling,Regional cycling,Local cycling,International riding,National riding,Regional riding,Local riding,International walking,National walking,Regional walking,Local walking" values_context="network" values_sort="false"/>
+            <combo key="network" text="Network" values="icn,ncn,rcn,lcn,ihn,nhn,rhn,lhn,iwn,nwn,rwn,lwn,rpn,lpn" display_values="International cycling,National cycling,Regional cycling,Local cycling,International riding,National riding,Regional riding,Local riding,International walking,National walking,Regional walking,Local walking,Regional canoe,Local canoe" values_context="network" values_sort="false"/>
             <optional>
                 <text key="name" text="Name"/>
                 <text key="operator" text="Operator"/>
+                <text key="cycle_network" text="Cycle network"/>
             </optional>
             <roles>
                 <role key="" text="route" requisite="required" type="relation" member_expression="&quot;network:type&quot;=node_network (type=route|type=network)"/>
@@ -15219,7 +15377,7 @@
             <!-- originalTags and tags are java.util.Map<String,ArrayList<String>>, originalTags are the tags
                  before the PropertyEditor was started, tags are the current values, by removing the key at the
                  end of the script it can be re-run without manually reseting the value, &, <, > need to be escaped -->
-            <text key="set_to_disused" javascript=" var objects = ['amenity','aeroway','highway','leisure','man_made','military','railway','shop'];  function isObject(key) {   var objectsLength = objects.length;   for (var i = 0; i &lt; objectsLength; i++) {     if (objects[i].equalckey)) {             return true;     }   }   return false; }  for (var key in Iterator(new java.util.HashSet(tags.keySet()))) {   if (isObject(key)) {     tags.put('disused:'+key,tags.get(key));     tags.remove(key);   } } tags.remove('set_to_disused');"/>
+            <text key="set_to_disused" javascript=" var objects = ['amenity','aeroway','highway','leisure','man_made','military','railway','shop'];  function isObject(key) {   var objectsLength = objects.length;   for (var i = 0; i &lt; objectsLength; i++) {     if (objects[i].equals(key)) {             return true;     }   }   return false; }  for (var key in Iterator(new java.util.HashSet(tags.keySet()))) {   if (isObject(key)) {     tags.put('disused:'+key,tags.get(key));     tags.remove(key);   } } tags.remove('set_to_disused');"/>
         </item>
         <item name="Set to disused (remove tags)" icon="icons/png/javascript.png" type="node,way,closedway,relation" preset_name_label="true">
             <link wiki="Key:disused:"/>
