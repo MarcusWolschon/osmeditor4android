@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.51.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,disused:amenity,disused:leisure,disused:man_made,disused:shop,golf,ford,harbour,hazard,noexit,indoor,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom">
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.51.1" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,disused:amenity,disused:leisure,disused:man_made,disused:shop,golf,ford,harbour,hazard,noexit,indoor,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom">
 <!--
     Icons have been derived from mainly from
   
@@ -6434,41 +6434,41 @@
             <item name="Regional cycle network junction" icon="icons/png/tourist_cycle_network_junction.png" type="node" preset_name_label="true">
                 <link wiki="Tag:network:type=node_network"/>
                 <key key="network:type" value="node_network" object="true"/>
-                <text key="rcn_ref" match="key"/>
+                <text key="rcn_ref" text="Reference" match="key"/>
                 <optional>
-                    <text key="expected_rcn_route_relations" match="none" value_type="integer"/>
+                    <text key="expected_rcn_route_relations" text="Expected route count" match="none" value_type="integer"/>
                 </optional>
             </item>
             <item name="Local cycle network junction" icon="icons/png/tourist_cycle_network_junction.png" type="node" preset_name_label="true">
                 <link wiki="Tag:network:type=node_network"/>
                 <key key="network:type" value="node_network" object="true"/>
-                <text key="lcn_ref" match="key"/>
+                <text key="lcn_ref" text="Reference" match="key"/>
                 <optional>
-                    <text key="expected_lcn_route_relations" match="none" value_type="integer"/>
+                    <text key="expected_lcn_route_relations" text="Expected route count" match="none" value_type="integer"/>
                 </optional>
             </item>
             <item name="Regional walking network junction" icon="icons/png/tourist_walking_network_junction.png" type="node" preset_name_label="true">
                 <link wiki="Tag:network:type=node_network"/>
                 <key key="network:type" value="node_network" object="true"/>
-                <text key="rwn_ref" match="key"/>
+                <text key="rwn_ref" text="Reference" match="key"/>
                 <optional>
-                    <text key="expected_rwn_route_relations" match="none" value_type="integer"/>
+                    <text key="expected_rwn_route_relations" text="Expected route count" match="none" value_type="integer"/>
                 </optional>
             </item>
             <item name="Local walking network junction" icon="icons/png/tourist_walking_network_junction.png" type="node" preset_name_label="true">
                 <link wiki="Tag:network:type=node_network"/>
                 <key key="network:type" value="node_network" object="true"/>
-                <text key="lwn_ref" match="key"/>
+                <text key="lwn_ref" text="Reference" match="key"/>
                 <optional>
-                    <text key="expected_lwn_route_relations" match="none" value_type="integer"/>
+                    <text key="expected_lwn_route_relations" text="Expected route count" match="none" value_type="integer"/>
                 </optional>
             </item>
             <item name="Regional hiking network junction" icon="icons/png/tourist_hiking_network_junction.png" type="node" preset_name_label="true">
                 <link wiki="Tag:network:type=node_network"/>
                 <key key="network:type" value="node_network" object="true"/>
-                <text key="rhn_ref" match="key"/>
+                <text key="rhn_ref" text="Reference" match="key"/>
                 <optional>
-                    <text key="expected_rhn_route_relations" match="none" value_type="integer"/>
+                    <text key="expected_rhn_route_relations" text="Expected route count" match="none" value_type="integer"/>
                 </optional>
             </item>
         </group> <!-- Node network junctions -->
