@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.51.1" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,disused:amenity,disused:leisure,disused:man_made,disused:shop,golf,ford,harbour,hazard,noexit,indoor,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom">
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.52.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,disused:amenity,disused:leisure,disused:man_made,disused:shop,golf,ford,harbour,hazard,noexit,indoor,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster">
 <!--
     Icons have been derived from mainly from
   
@@ -418,6 +418,22 @@
     <chunk id="collection_times">
         <combo key="collection_times" text="Collection times" value_type="opening_hours" delimiter="|" values="Mo-Sa 09:00|Mo-Fr 17:30; Sa 12:00|Mo-Fr 15:00,19:00; Sa 15:10; Su 10:30" values_no_i18n="true" match="none" editable="true"/>
     </chunk>
+    <chunk id="books">
+        <multiselect key="books" text="Kind of books">
+            <list_entry value="academic" short_description="Academic"/>
+            <list_entry value="anarchism" short_description="Anarchism"/>
+            <list_entry value="antiquarian" short_description="Antiquarian"/>
+            <list_entry value="children" short_description="Children"/>
+            <list_entry value="comic" short_description="Comic"/>
+            <list_entry value="discount" short_description="Discount"/>
+            <list_entry value="erotic" short_description="Erotic"/>
+            <list_entry value="law" short_description="Law"/>
+            <list_entry value="music" short_description="Music"/>
+            <list_entry value="religion" short_description="Religion"/>
+            <list_entry value="textbook" short_description="Textbook"/>
+            <list_entry value="travel" short_description="Travel"/>
+        </multiselect>   
+    </chunk>
     <chunk id="baby_feeding">
         <combo key="baby_feeding" text="Baby feeding space" values_sort="false" values_context="baby_feeding">
             <list_entry value="yes" short_description="Available"/>
@@ -492,6 +508,14 @@
         <optional>
             <text key="wheelchair:places" text="Number of wheelchair seating places" alue_type="integer"/>
         </optional>
+    </chunk>
+    <chunk id="footway_accessibility">
+        <reference ref="essential_wheelchair"/>
+        <combo key="stroller" text="Stroller access" match="none" values_searchable="true" values_sort="false">
+            <list_entry value="yes" short_description="Unrestricted access"/>
+            <list_entry value="limited" short_description="Partial access"/>
+            <list_entry value="no" short_description="No access"/>
+        </combo>
     </chunk>
     <chunk id="oh_wheelchair">
         <reference ref="oh"/>
@@ -1368,6 +1392,15 @@
                 <list_entry value="yes" display_value="Public access"/><list_entry value="official" display_value="Official" deprecated="true"/><list_entry value="designated" display_value="Designated"/><list_entry value="destination" display_value="Destination"/><list_entry value="delivery" display_value="Delivery"/><list_entry value="customers" display_value="Customers"/><list_entry value="permissive" display_value="Permissive"/><list_entry value="private" display_value="Private"/><list_entry value="permit" display_value="Permit required"/><list_entry value="no" display_value="No access"/>
             </combo>
         </optional>
+    </chunk>
+    <chunk id="fishing_access">
+        <combo key="fishing" text="Fishing access" values_sort="false" values_searchable="true">
+            <list_entry value="yes" display_value="Allowed"/>
+            <list_entry value="catch_and_release" display_value="Catch and release"/>
+            <list_entry value="permit" display_value="Permit required"/>
+            <list_entry value="private" display_value="Private"/>
+            <list_entry value="no" display_value="Not allowed"/>          
+        </combo>
     </chunk> 
     <chunk id="substance">
         <combo key="substance" text="Substance" values="water,hot_water,steam,sewage,gas,oil" display_values="Water,Hot water,Steam,Sewage,Gas,Oil" values_sort="false" values_searchable="true"/>
@@ -1964,6 +1997,7 @@
         <check key="tidal" text="In the tidal range" disable_off="true"/>
         <reference ref="wikipedia_wikidata_images"/>
         <reference ref="water_access"/>
+        <reference ref="fishing_access"/>
         <preset_link preset_name="No name"/>
     </chunk>
     <chunk id="charging_base">
@@ -2856,7 +2890,7 @@
                 <reference ref="mtb_scale"/>
                 <reference ref="trailblazed"/>
                 <combo key="trail_visibility" text="Visibility" values="excellent,good,intermediate,bad,horrible,no" display_values="Excellent,Good,Intermediate,Bad,Horrible,Not visible" values_context="trail_visibility" values_sort="false"/>
-                <reference ref="wheelchair"/>
+                <reference ref="footway_accessibility"/>
                 <reference ref="handrail"/>
             </optional>
             <reference ref="path_access_restrictions"/>
@@ -2884,6 +2918,7 @@
                 <reference ref="highway_additional_oneway_lit_width"/>
                 <combo key="foot" text="Pedestrians" values="designated,yes,no" display_values="Designated,Yes,No"/>
                 <check key="segregated" text="Segregated" disable_off="true"/>
+                <reference ref="footway_accessibility"/>
             </optional>
             <reference ref="path_access_restrictions"/>
         </item> <!-- Dedicated Cycleway -->
@@ -2899,6 +2934,7 @@
                 <reference ref="cycleway_surface"/>
                 <reference ref="footway_surface"/>
                 <reference ref="highway_additional_oneway_lit_width"/>
+                <reference ref="footway_accessibility"/>
             </optional>
             <reference ref="path_access_restrictions"/>
         </item> <!-- Segregated Foot- and Cycleway -->
@@ -2913,6 +2949,7 @@
                 <reference ref="surface_smoothness"/>
                 <reference ref="highway_additional_oneway_lit_width"/>
                 <check key="passing_places" text="Passing Places" disable_off="true"/>
+                <reference ref="footway_accessibility"/>
             </optional>
             <reference ref="path_access_restrictions"/>
         </item> <!-- Combined Foot- and Cycleway -->
@@ -2937,6 +2974,7 @@
                 <combo key="bicycle" text="Bicycle" values="designated,yes,no" display_values="Designated,Yes,No"/>
                 <combo key="segregated" text="Segregated" values="yes,no" display_values="Yes,No" default=""/>
                 <text key="width" text="Width (meters)" value_type="dimension_horizontal"/>
+                <reference ref="footway_accessibility"/>
                 <reference ref="handrail"/>
             </optional>
             <preset_link preset_name="Arcade"/>
@@ -2963,6 +3001,7 @@
                 <space/>
                 <combo key="conveying" text="Escalator" values="yes,forward,backward,reversible" display_values="Yes,Forward,Backward,Reversible"/>
                 <space/>
+                <reference ref="footway_accessibility"/>
                 <reference ref="highway_additional_oneway_lit_width"/>
             </optional>
             <preset_link preset_name="Arcade"/>
@@ -3079,6 +3118,13 @@
                 <text key="kerb:height" text="Kerb height (both sides)" value_type="dimension_vertical"/>
                 <text key="kerb:right:height" text="Kerb height (right)" value_type="dimension_vertical"/>
                 <text key="kerb:left:height" text="Kerb height (left)" value_type="dimension_vertical"/>
+                <combo key="flashing_lights" text="Flashing lights" values_context="crossing" values_searchable="true">
+                    <list_entry value="always" display_value="Always on"/>
+                    <list_entry value="button" display_value="Button operated"/>
+                    <list_entry value="sensor" display_value="Sensor activated"/>
+                    <list_entry value="yes" display_value="Present"/>
+                    <list_entry value="no" display_value="None"/>
+                </combo>
             </optional>
             <label text="In case of traffic signals:"/>
             <checkgroup text="In case of traffic signals:" columns="2">  
@@ -3968,6 +4014,7 @@
                 <optional>
                     <reference ref="waterway_wikipedia"/>
                     <check key="lock" text="Lock" disable_off="true"/>
+                    <reference ref="fishing_access"/>
                 </optional>
                 <reference ref="water_access"/>
                 <preset_link preset_name="No name"/>
@@ -3981,6 +4028,7 @@
                     <check key="intermittent" text="Intermittent" disable_off="true"/>
                     <check key="seasonal" text="Seasonal" disable_off="true"/>
                     <reference ref="waterway_wikipedia"/>
+                    <reference ref="fishing_access"/>
                 </optional>
                 <reference ref="water_access"/>
                 <preset_link preset_name="No name"/>
@@ -3996,6 +4044,7 @@
                     <check key="seasonal" text="Seasonal" disable_off="true"/>
                     <text key="width" text="Width (meters)" value_type="dimension_horizontal"/>
                     <reference ref="waterway_wikipedia"/>
+                    <reference ref="fishing_access"/>
                 </optional>
             </item> <!-- Tidal channel -->
             <item name="Canal" icon="icons/png/water_canal_34001.png" type="way" preset_name_label="true">
@@ -4009,6 +4058,7 @@
                     <check key="lock" text="Lock" disable_off="true"/>
                 </optional>
                 <reference ref="water_access"/>
+                <reference ref="fishing_access"/>
                 <preset_link preset_name="No name"/>
             </item> <!-- Canal -->
             <item name="Drain" icon="icons/png/water_waterway_thin_sp.png" type="way" preset_name_label="true">
@@ -6669,6 +6719,19 @@
                 <reference ref="wikipedia_wikidata_images"/>
             </optional>
         </item> <!-- Rides -->
+        <item name="Roller coaster components" icon="icons/png/tourist_theme_park.png" type="node,way,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Key:roller_coaster"/>
+            <space/>
+            <combo key="roller_coaster" text="Component" values_searchable="true" values_context="leisure" match="keyvalue">
+                <list_entry value="track" display_value="Track"/>
+                <list_entry value="station" display_value="Station"/>
+                <list_entry value="support" display_value="Support"/>
+            </combo>
+            <optional>
+                <text key="name" text="Name"/>
+                <reference ref="layer"/>
+            </optional>
+        </item>
         <item name="Escape game" icon="icons/png/tourist_empty.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:leisure=escape_game"/>
             <space/>
@@ -7011,6 +7074,7 @@
             <space/>
             <key key="leisure" value="fishing"/>
             <reference ref="optional_name"/>
+            <reference ref="fishing_access"/>
         </item> <!-- Fishing -->
         <item name="Bird Hide" icon="icons/png/tourist_bird_hide_21004.png" type="node,closedway" preset_name_label="true">
             <link wiki="Tag:leisure=bird_hide"/>
@@ -7248,6 +7312,9 @@
             <link wiki="Tag:amenity=library"/>
             <space/>
             <key key="amenity" value="library"/>
+            <optional>
+                <reference ref="books"/>
+            </optional>
             <reference ref="name_operator_oh_wheelchair_level_toilets"/>
             <reference ref="air_conditioning"/>
             <reference ref="link_contact_address_payment"/>
@@ -7259,6 +7326,7 @@
             <space/>
             <key key="amenity" value="public_bookcase"/>
             <optional>
+                <reference ref="books"/>
                 <text key="name" text="Name"/>
                 <text key="operator" text="Operator"/>
                 <text key="capacity" text="Capacity" value_type="integer"/>
@@ -10427,6 +10495,30 @@
             <key key="man_made" value="survey_point"/>
             <reference ref="name_ref"/>
             <text key="ele" text="Elevation (meters)" length="10"/>
+            <combo key="survey_point:structure" text="Physical structure" values_context="survey_point" match="key">
+                <list_entry value="beacon" short_description="Beacon"/>
+                <list_entry value="block" short_description="Block"/>
+                <list_entry value="bracket" short_description="Bracket"/>
+                <list_entry value="cut" short_description="Cut"/>
+                <list_entry value="fustrum" short_description="Fustrum"/>
+                <list_entry value="indented_pin" short_description="Indented pin"/>
+                <list_entry value="landmark" short_description="Landmark"/>
+                <list_entry value="pillar" short_description="Pillar"/>
+                <list_entry value="pin" short_description="Pin"/>
+                <list_entry value="plaque" short_description="Plaque"/>
+                <list_entry value="pole" short_description="Pole"/>
+                <list_entry value="magnet" short_description="Magnet"/>
+                <list_entry value="medallion" short_description="Medallion"/>
+            </combo>
+            <optional>
+                <check key="location" text="Underground" value_on="underground" disable_off="true"/>
+            </optional>
+            <check key="survey_point:datum_aligned" text="Datum aligned"/>
+            <combo key="survey_point:purpose" text="Purpose" values_context="survey_point" values_searchable="true" match="key">
+                <list_entry value="both" display_value="Horizontal and vertical"/>
+                <list_entry value="horizontal" display_value="Horizontal"/>
+                <list_entry value="vertical" display_value="Vertical"/>
+            </combo>
             <combo key="material" text="Material" values="andesite,brass,bronze,concrete,granite,metal,plastic,steel,stone" display_values="Andesite,Brass,Bronze,Concrete,Granite,Metal,Plastic,Steel,Stone" values_context="material"/>
         </item> <!-- Survey Point -->
         <item name="Surveillance" icon="icons/png/man_made_surveillance_22063.png" type="node" preset_name_label="true">
@@ -12045,6 +12137,9 @@
             <space/>
             <key key="shop" value="books"/>
             <reference ref="name_brand_oh_wheelchair_level"/>
+            <optional>
+                <reference ref="books"/>
+            </optional>
             <combo key="second_hand" text="Second hand" values="only,yes,no" display_values="Only,Yes,No"/>
             <reference ref="link_contact_address_payment"/>
             <reference ref="baby_feeding"/>
