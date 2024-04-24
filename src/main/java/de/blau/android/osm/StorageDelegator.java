@@ -602,16 +602,11 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     public void addNodeToWayAfter(final int nodeBeforeIndex, final Node newNode, final Way way) throws OsmIllegalOperationException {
         dirty = true;
         undo.save(way);
-        try {
-            validateWayNodeCount(way.nodeCount() + 1);
-            apiStorage.insertElementSafe(way);
-            way.addNodeAfter(nodeBeforeIndex, newNode);
-            way.updateState(OsmElement.STATE_MODIFIED);
-            onElementChanged(null, way);
-        } catch (StorageException e) {
-            // TODO handle OOM
-            Log.e(DEBUG_TAG, "addNodeToWayAfter got " + e.getMessage());
-        }
+        validateWayNodeCount(way.nodeCount() + 1);
+        apiStorage.insertElementSafe(way);
+        way.addNodeAfter(nodeBeforeIndex, newNode);
+        way.updateState(OsmElement.STATE_MODIFIED);
+        onElementChanged(null, way);
     }
 
     /**

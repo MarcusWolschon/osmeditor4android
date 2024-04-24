@@ -16,6 +16,8 @@ import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
+import de.blau.android.exception.OsmIllegalOperationException;
+import de.blau.android.exception.StorageException;
 import de.blau.android.layer.LayerType;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
@@ -120,8 +122,12 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
          * Add a node, merging with nearby elements
          */
         NODE(R.string.menu_add_node, R.string.menu_add_node, R.string.simple_add_node, (main, manager, x, y) -> {
-            App.getLogic().performAdd(main, x, y);
-            main.startSupportActionMode(new NodeSelectionActionModeCallback(manager, App.getLogic().getSelectedNode()));
+            try {
+                App.getLogic().performAdd(main, x, y);
+                main.startSupportActionMode(new NodeSelectionActionModeCallback(manager, App.getLogic().getSelectedNode()));
+            } catch (OsmIllegalOperationException | StorageException e) {
+                // this will have already been messaged
+            }
         }) {
             @Override
             public boolean isEnabled() {
