@@ -1,5 +1,15 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+20.0.1:
+
+- Fix don't rely on singleton for SharedPreferences
+- Fix protect against missing local element
+- Fix catch exceptions from Logic.performAdd
+- Fix protect against empty way
+- Update imagery configuration from ELI
+- Update default preset
+- Update translations
+
 20.0.0:
 
 - Fix only use EGM for calibration if it has been loaded
