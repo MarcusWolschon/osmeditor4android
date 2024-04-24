@@ -26,6 +26,7 @@ import de.blau.android.R;
 import de.blau.android.dialogs.AddressInterpolationDialog;
 import de.blau.android.dialogs.Tip;
 import de.blau.android.exception.OsmIllegalOperationException;
+import de.blau.android.exception.StorageException;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.StorageDelegator;
@@ -200,7 +201,7 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
         } else {
             try {
                 pathCreateNode(x, y);
-            } catch (OsmIllegalOperationException e) {
+            } catch (OsmIllegalOperationException | StorageException e) {
                 ScreenMessage.barError(main, e.getLocalizedMessage());
             }
         }
@@ -284,7 +285,7 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
         }
         try {
             pathCreateNode(x, y);
-        } catch (OsmIllegalOperationException e) {
+        } catch (OsmIllegalOperationException | StorageException e) {
             ScreenMessage.barError(main, e.getLocalizedMessage());
         }
         return true;

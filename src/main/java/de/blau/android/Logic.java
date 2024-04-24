@@ -2587,21 +2587,6 @@ public class Logic {
      * @param y screen y coordinate
      * @param createCheckpoint normally true, only set to false in a multi-step operation, for which the checkpoint has
      *            already been created
-     * @throws OsmIllegalOperationException if the operation couldn't be performed
-     */
-    public void performAppendAppend(@Nullable final Activity activity, final float x, final float y, boolean createCheckpoint) {
-        performAppendAppend(activity, x, y, createCheckpoint, true);
-    }
-
-    /**
-     * Append a Node to the selected Way, if the selected Node is clicked finish, otherwise create a new Node at the
-     * location
-     * 
-     * @param activity activity this method was called from, if null no warnings will be displayed
-     * @param x screen x coordinate
-     * @param y screen y coordinate
-     * @param createCheckpoint normally true, only set to false in a multi-step operation, for which the checkpoint has
-     *            already been created
      * @param snap if true existing nodes will be reused and new nodes created on nearby ways
      * @throws OsmIllegalOperationException if the operation couldn't be performed
      */
@@ -2625,9 +2610,9 @@ public class Logic {
                 getDelegator().appendNodeToWay(lSelectedNode, node, lSelectedWay);
                 lSelectedNode = node;
             }
-        } catch (OsmIllegalOperationException e) {
+        } catch (OsmIllegalOperationException | StorageException e) {
             rollback();
-            throw new OsmIllegalOperationException(e);
+            throw e;
         }
         setSelectedNode(lSelectedNode);
         setSelectedWay(lSelectedWay);
