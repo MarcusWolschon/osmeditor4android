@@ -556,7 +556,7 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
         Node removedNode = addedNodes.remove(addedNodes.size() - 1);
         final boolean deleteNode = !existingNodes.contains(removedNode);
         final List<Way> modifiedWays = logic.getWaysForNode(removedNode);
-        if (createdWay != null) {
+        if (createdWay != null && createdWay.nodeCount() > 0) {
             logic.performRemoveEndNodeFromWay(main, createdWay.getLastNode().equals(logic.getSelectedNode()), createdWay, deleteNode, false);
             createdWay.dontValidate();
             if (OsmElement.STATE_DELETED == createdWay.getState()) {
