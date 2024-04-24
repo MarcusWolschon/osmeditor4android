@@ -43,8 +43,6 @@ public class Tip extends ImmersiveDialogFragment {
     private static final String OPTIONALS_KEY   = "optionals";
     private static final String PREF_IDS_KEY    = "prefs";
 
-    private static SharedPreferences prefs;
-
     private List<Integer> messageIds;
     private List<Integer> prefIds;
     private boolean[]     optionals;
@@ -61,7 +59,7 @@ public class Tip extends ImmersiveDialogFragment {
      * @param messageId res id for the message text
      */
     public static void showOptionalDialog(@NonNull FragmentActivity activity, int prefId, int messageId) {
-        prefs = PreferenceManager.getDefaultSharedPreferences(activity);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(activity);
         if (prefs.getBoolean(activity.getString(prefId), true) && prefs.getBoolean(activity.getString(R.string.tip_show_key), true)) {
             de.blau.android.dialogs.Util.dismissDialog(activity, TAG);
 
@@ -83,7 +81,7 @@ public class Tip extends ImmersiveDialogFragment {
      * @param messageId res id for the message text
      */
     public static void showDialog(@NonNull FragmentActivity activity, int prefId, int messageId) {
-        prefs = PreferenceManager.getDefaultSharedPreferences(activity);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(activity);
         if (prefs.getBoolean(activity.getString(prefId), true)) {
             de.blau.android.dialogs.Util.dismissDialog(activity, TAG);
 
@@ -105,7 +103,7 @@ public class Tip extends ImmersiveDialogFragment {
      * @param messageIds res ids for the message texts
      */
     public static void showDialog(@NonNull FragmentActivity activity, List<Integer> prefIds, List<Integer> messageIds) {
-        prefs = PreferenceManager.getDefaultSharedPreferences(activity);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(activity);
         for (Integer prefId : new ArrayList<>(prefIds)) {
             if (!prefs.getBoolean(activity.getString(prefId), true)) {
                 int index = prefIds.indexOf(prefId);
@@ -204,6 +202,7 @@ public class Tip extends ImmersiveDialogFragment {
      * @param layout the Layout for the dialog
      */
     private void display(@NonNull final LinearLayout layout) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
         prefs.edit().putBoolean(getActivity().getString(prefIds.get(currentTip)), false).commit();
         TextView message = (TextView) layout.findViewById(R.id.tip_message);
         message.setText((Util.fromHtml(getString(messageIds.get(currentTip)))));
