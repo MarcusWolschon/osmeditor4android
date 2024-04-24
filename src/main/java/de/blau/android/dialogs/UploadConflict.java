@@ -256,7 +256,7 @@ public class UploadConflict extends ImmersiveDialogFragment {
                 //
                 builder.setTitle(R.string.upload_conflict_message_version);
                 if (elementOnServer == null) {
-                    throw new IllegalStateException("elementOnSerer should not be null here");
+                    throw new IllegalStateException("elementOnServer should not be null here");
                 }
                 final RestartHandler restartHandler = new RestartHandler(activity,
                         activity.getString(R.string.toast_download_server_version_failed, elementLocal.getDescription()));
@@ -301,9 +301,9 @@ public class UploadConflict extends ImmersiveDialogFragment {
                 // server element could be available
                 //
                 builder.setTitle(R.string.upload_conflict_message_missing_references);
-                final String requriedElementType = ((ApiResponse.RequiredElementsConflict) conflict).getRequriedElementType();
+                final String requiredElementType = ((ApiResponse.RequiredElementsConflict) conflict).getRequriedElementType();
                 final long[] requiredElementsIds = ((ApiResponse.RequiredElementsConflict) conflict).getRequiredElementsIds();
-                final Storage requiredElements = logic.getElementsWithDeleted(activity, requriedElementType, requiredElementsIds);
+                final Storage requiredElements = logic.getElementsWithDeleted(activity, requiredElementType, requiredElementsIds);
 
                 ScrollView sv = (ScrollView) inflater.inflate(R.layout.element_info_view, null, false);
                 sv = elementOnServer != null
@@ -318,7 +318,7 @@ public class UploadConflict extends ImmersiveDialogFragment {
                 tl.addView(TableLayoutUtils.createHeaderRow(activity, res.getString(R.string.delete_locally), res.getString(R.string.undelete_on_server), tp,
                         true));
                 for (long id : requiredElementsIds) {
-                    OsmElement e = requiredElements.getOsmElement(requriedElementType, id);
+                    OsmElement e = requiredElements.getOsmElement(requiredElementType, id);
                     tl.addView(createMissingReferenceRow(activity, e, tp));
                 }
 
@@ -333,12 +333,15 @@ public class UploadConflict extends ImmersiveDialogFragment {
                             Object rowTag = tr.getTag();
                             if (rowTag instanceof MissingReferenceAction) {
                                 long id = ((MissingReferenceAction) rowTag).id;
-                                OsmElement local = delegator.getOsmElement(requriedElementType, id);
+                                OsmElement local = delegator.getOsmElement(requiredElementType, id);
+                                if (local == null) {
+                                    throw new IllegalArgumentException("Local element " + requiredElementType + " #" + id + " should not be null");
+                                }
                                 if (((MissingReferenceAction) rowTag).deleteLocally) {
                                     // NOTE edge case if all way nodes of a way are deleted here the way will vanish
                                     logic.updateToDeleted(activity, local, false);
                                 } else {
-                                    OsmElement remote = requiredElements.getOsmElement(requriedElementType, id);
+                                    OsmElement remote = requiredElements.getOsmElement(requiredElementType, id);
                                     logic.fixElementWithConflict(activity, remote.getOsmVersion(), local, remote, false);
                                 }
                             }
