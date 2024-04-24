@@ -4,5 +4,5 @@
   <string name="bugfilter_osmose_error_entry">Erro OSMOSE</string>
   <string name="bugfilter_osmose_warning_entry">Aviso OSMOSE</string>
   <string name="bugfilter_osmose_minor_issue_entry">Pequeno erro OSMOSE</string>
-  <string name="bugfilter_custom_entry">Customizar</string>
+  <string name="bugfilter_custom_entry">Personalizado</string>
 </resources>

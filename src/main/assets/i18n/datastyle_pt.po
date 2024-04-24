@@ -1,0 +1,28 @@
+# 
+# Translators:
+# lecalam, 2024
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2020-04-25 11:28+0200\n"
+"PO-Revision-Date: 2020-05-21 07:54+0000\n"
+"Last-Translator: lecalam, 2024\n"
+"Language-Team: Portuguese (https://app.transifex.com/openstreetmap/teams/26285/pt/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pt\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+
+msgid "Built-in (minimal)"
+msgstr "Incorporado (mínimo)"
+
+msgid "Color Round Nodes"
+msgstr "Nós redondos coloridos"
+
+msgid "Color Round Nodes No Multipolygons"
+msgstr "Nós redondos coloridos sem multipolígonos"
+
+msgid "Pen Round Nodes"
+msgstr "Nós redondos de caneta"

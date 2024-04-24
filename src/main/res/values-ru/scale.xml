@@ -4,7 +4,7 @@
     <item>Нет</item>
     <item>Шкала (метрическая)</item>
     <item>Сетка (метрическая)</item>
-    <item>Шкала (английская)</item>
-    <item>Сетка (английская)</item>
+    <item>Шкала (дюймовая)</item>
+    <item>Сетка (дюймовая)</item>
   </string-array>
 </resources>

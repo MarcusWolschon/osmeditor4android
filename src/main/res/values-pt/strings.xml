@@ -17,12 +17,35 @@
   <string name="transfer_download_current_back">Voltar (não fazer nada)</string>
   <string name="upload_problem_title">Não foi possível enviar</string>
   <string name="upload_problem_message">Não foi possível enviar alguns ou todos os dados. Tente novamente mais tarde.</string>
-  <string name="bad_request_message">A API respondeu com um erro, por favor grave os seus dados e reporte o problema:\n\n</string>
+  <string name="bad_request_message">A API respondeu com um erro, por favor guarde os seus dados e reporte o problema:\n\n</string>
   <!--Upload conflict-->
   <string name="upload_conflict_title">Conflito no envio</string>
   <string name="upload_conflict_message_version">Conflito de versões</string>
   <string name="upload_conflict_message_deleted">%1$s \ntem a versão local %2$d \ne foi eliminado no servidor</string>
+  <string name="upload_conflict_message_referential">Elemento eliminado localmente mas com referências no servidor</string>
+  <string name="upload_conflict_message_already_deleted">%1$s \njá foi eliminado no servidor, a tentar novamente</string>
+  <string name="upload_conflict_message_missing_references">O elemento local faz referência a objetos que foram eliminados no servidor</string>
   <string name="upload_conflict_message_unknown">%1$s \ncausou um conflito desconhecido ao enviar\n%2$s</string>
+  <string name="upload_conflict_message_changeset_closed">Conjunto de alterações fechado inesperadamente, a tentar novamente</string>
+  <string name="server_side_object">Versão no servidor</string>
+  <string name="local_object">Versão local</string>
+  <string name="resolve_by">Resolver conflito…</string>
+  <string name="resolve">Resolver</string>
+  <string name="delete_refering_element">…eliminando o elemento referente</string>
+  <string name="use_local_version">…utilizando a versão local</string>
+  <string name="merge_tags_in_to_local">…juntando as etiquetas na versão local</string>
+  <string name="merge_tags_in_to_server">…juntando as etiquetas na versão do servidor</string>
+  <string name="use_server_version">…utilizando a versão do servidor</string>
+  <string name="undoing_local_delete">…anulando a eliminação local</string>
+  <string name="deleting_references_on_server">…eliminando as referências no servidor</string>
+  <string name="unable_to_download_referring_element">Não foi possível descarregar o elemento de referência %1$s %2$d</string>
+  <string name="unable_to_download_referring_element_for_deletion">Não foi possível descarregar o elemento de referência para eliminação %1$s %2$d</string>
+  <string name="unable_to_download_server_version">Não foi possível descarregar a versão no servidor %1$s %2$d</string>
+  <string name="unexpected_conflict_type">Tipo de conflito inesperado</string>
+  <string name="missing_referenced_elements">Elementos referenciados em falta</string>
+  <string name="still_in_use_by_elements">Ainda a ser utilizado por elementos</string>
+  <string name="delete_locally">Eliminar\nlocalmente</string>
+  <string name="undelete_on_server">Anular eliminação\nno servidor</string>
   <!---->
   <string name="no_login_data_title">Não foi possível autenticar</string>
   <string name="no_login_data_message">Se estiver a utilizar o OAuth isto é provavelmente um erro do programa. Nesse caso envie um relatório de erro. Se estiver a usar o nome de utilizador e palavra-chave (não recomendado), verifique se estes estão corretos.</string>
@@ -54,27 +77,71 @@
   <string name="api_offline_message">A API não está disponível neste momento e não permite obter nem enviar dados.</string>
   <string name="out_of_memory_title">Memória esgotada</string>
   <string name="out_of_memory_message">O Vespucci não conseguiu carregar os dados pedidos. Tente novamente e carregue uma área mais pequena.</string>
-  <string name="out_of_memory_dirty_message">O Vespucci não conseguiu carregar os dados pedidos. Grave as suas edições, comece outra vez e carregue uma área menor.</string>
+  <string name="out_of_memory_dirty_message">O Vespucci não conseguiu carregar os dados pedidos. Guarde as suas edições, comece outra vez e carregue uma área menor.</string>
   <string name="invalid_data_received_title">Recebidos dados inválidos</string>
   <string name="invalid_data_received_message">Se não causou o erro, por favor preencha um relatório de erros.</string>
   <string name="invalid_data_read_title">Leitura de dados inválida</string>
   <string name="invalid_data_read_message">Por favor consulte a documentação sobre os formatos de ficheiros suportados e sobre os campos necessários.</string>
   <string name="file_write_failed_title">Não foi possível gravar no ficheiro</string>
-  <string name="file_write_failed_message">O Vespucci não conseguiu alterar ou gravar o ficheiro.</string>
+  <string name="file_write_failed_message">O Vespucci não conseguiu alterar ou guardar o ficheiro.</string>
+  <string name="applying_osc_failed_title">A aplicação do ficheiro OSC falhou</string>
+  <string name="applying_osc_failed_message">O mais provável é que não tenha carregado todos os dados originais necessários para aplicar as alterações.</string>
+  <string name="download_limit_title">Limites de descarregamento excedidos</string>
+  <string name="download_limit_message">Aguarde antes de tentar descarregar mais dados.</string>
+  <string name="upload_limit_title">Limites de envio excedidos</string>
+  <string name="upload_limit_message">Esgotou o seu limite de envio atual, aguarde antes de tentar novamente.</string>
   <string name="duplicate_tag_key_title">Chaves duplicadas</string>
+  <string name="duplicate_tag_key_message">Adicionou a seguinte chave mais do que uma vez. Isto tem de ser resolvido antes de poder continuar:</string>
+  <string name="autodownload_has_been_paused">O descarregamento automático foi colocado em pausa.</string>
   <!---->
+  <string name="select_file_picker_title">Selecione o seletor de ficheiros</string>
   <!--Newbie dialog-->
   <string name="welcome_title">Bem-vindo</string>
+  <string name="welcome_message">Obrigado por instalar o Vespucci.\n&lt;br&gt;&lt;br&gt;O Vespucci é uma ferramenta poderosa para editar o OpenStreetMap.
+Permite quase tudo o que se pode fazer com um editor de computador no telemóvel, mas com um certo nível de complexidade. 
+As páginas de ajuda no dispositivo ou online responderão à maioria das questões, se precisar de mais apoio recomendamos que pergunte no fórum da comunidade OpenStreetMap.
+&lt;br&gt;&lt;br&gt;Para começar, precisa de saber três coisas:
+&lt;ul&gt;&lt;li&gt;Se tocar no ícone do cadeado no canto superior esquerdo, alterna entre o modo bloqueado (sem edição) e o modo desbloqueado.
+&lt;/li&gt;&lt;li&gt;para adicionar um novo objeto, toque no botão verde grande e selecione o que pretende adicionar a partir do menu e, em seguida, toque na posição em que pretende colocá-lo.
+&lt;/li&gt;&lt;li&gt;para abrir o ecrã de pontos de interesse próximos arraste a pega acima da barra de menu inferior para cima.
+&lt;/li&gt;&lt;/ul&gt;
+Na página seguinte, pode definir algumas preferências iniciais que tornarão a utilização do Vespucci mais agradável. </string>
   <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;O seu dispositivo tem uma \"barra de navegação\" que está oculta. Deslize a partir do fundo para a mostrar novamente.</string>
+  <string name="welcome_settings_tab_text">Para melhorar a sua experiência inicial, podemos configurar algumas opções agora mesmo,
+        pode saltar este passo e definir as preferências individuais mais tarde, se assim o desejar.
+    </string>
+  <string name="welcome_use_imagery_text">Visualizar imagens aéreas da sua localização atual</string>
+  <string name="welcome_use_imagery_explanation">As fontes de imagens aéreas são fornecidas por terceiros e é inevitável 
+        que possam aceder ao seu endereço de rede atual e ao local que está a visualizar. Se tiver preocupações com a privacidade, não 
+        selecione esta opção e será apresentado o mapa padrão do OpenStreetMap como fundo.
+    </string>
+  <string name="welcome_auto_download_text">Descarregar dados automaticamente</string>
+  <string name="welcome_auto_download_explanation">\"O descarregamento automático de dados do OpenStreetMap pode causar um tráfego de dados móveis significativo.
+        Se estiver a utilizar uma conexão com limite de dados, pode preferir não ativar esta opção e descarregar manualmente os dados para a área em que pretende trabalhar.
+    </string>
+  <string name="welcome_pen_setup_text">Configurar para utilização de caneta digital ou rato</string>
+  <string name="welcome_pen_setup_explanation">Se estiver a utilizar uma caneta digital, um rato ou outro dispositivo apontador, 
+        selecionar esta opção tornará a edição mais eficiente.
+    </string>
+  <string name="welcome_authorize_text">Autorizar agora</string>
+  <string name="welcome_authorize_explanation">Tem de autorizar o Vespucci a enviar dados com a sua conta do OpenStreetMap. 
+        Se tiver o seu nome de utilizador e palavra-passe à mão, pode começar a fazê-lo automaticamente quando tiver preenchido este formulário, 
+        caso contrário, o processo iniciar-se-á automaticamente na primeira vez que enviar edições.
+    </string>
   <string name="read_introduction">Ler a introdução</string>
+  <string name="welcome_start">Começar!</string>
   <!---->
   <string name="upgrade_title">Isto é uma nova versão do Vespucci</string>
   <string name="upgrade_message">Estão descritas em detalhe novas funcionalidades e comportamentos nas notas de lançamento da versão.</string>
+  <string name="upgrade_message_oauth2">&lt;br&gt;&lt;br&gt;&lt;b&gt;Importante&lt;/b&gt;&lt;br&gt;A partir de junho de 2024, a API do OpenStreetMap deixará de suportar a autorização básica (nome de utilizador/palavra-passe) e a OAuth 1.0a. 
+        &lt;br&gt;&lt;br&gt;Se tiver o seu nome de utilizador e a palavra-passe disponíveis, seria uma boa ideia migrar a sua configuração da API e voltar a autorizar agora, mas pode sempre fazê-lo mais tarde manualmente.
+    </string>
+  <string name="migrate_now">Migrar a configuração agora</string>
   <string name="read_upgrade">Ver informações sobre a nova versão</string>
   <string name="progress_title">A carregar</string>
   <string name="progress_message">A carregar dados na memória…</string>
   <string name="progress_download_message">A descarregar dados do servidor…</string>
-  <string name="progress_download_tasks_message">Baixando tarefas do servidor…</string>
+  <string name="progress_download_tasks_message">A descarregar tarefas do servidor…</string>
   <string name="progress_general_title">Por favor aguarde</string>
   <string name="progress_deleting_message">A eliminar...</string>
   <string name="progress_searching_message">A procurar...</string>
@@ -124,7 +191,7 @@
   <string name="openstreetbug_new_nodeway">Criar nó/linha</string>
   <string name="openstreetbug_edit_title">Editar nota</string>
   <string name="openstreetbug_comment_label">Comentário:</string>
-  <string name="openstreetbug_commit_ok">Alterações de tarefas gravadas</string>
+  <string name="openstreetbug_commit_ok">Alterações de tarefas guardadas</string>
   <string name="openstreetbug_commit_fail">Não foi possível guardar as alterações da tarefa</string>
   <string name="openstreetbug_commit_fail_with_message">Não foi possível guardar as alterações da tarefa\n%1$s</string>
   <string name="openstreetbug_unknown_task_type">Modo tarefas não designadas</string>
@@ -149,9 +216,9 @@
   <string name="maproulette_task_explanations">Explicações</string>
   <string name="maproulette_task_instructions">Instruções</string>
   <string name="maproulette_task_set_apikey">Definir chave da API do MapRoulette</string>
-  <string name="maproulette_task_apikey_not_set">Não foi possível gravar a chave da API do MapRoulette</string>
+  <string name="maproulette_task_apikey_not_set">Não foi possível guardar a chave da API do MapRoulette</string>
   <string name="maproulette_task_disable">Desativar</string>
-  <string name="maproulette_task_apikey_set">Chave da API do MapRoulette gravada</string>
+  <string name="maproulette_task_apikey_set">Chave da API do MapRoulette guardada</string>
   <string name="maproulette_task_no_apikey">Nenhuma chave da API do MapRoulette</string>
   <string name="maproulette_description">Maproulette: %1$s</string>
   <!--Todo dialogs-->
@@ -160,11 +227,20 @@
     <item quantity="many">Adicionar elementos à lista de a fazer</item>
     <item quantity="other">Adicionar elementos à lista de a fazer</item>
   </plurals>
+  <string name="all_todos_done_title">Todas as tarefas da lista concluídas</string>
+  <string name="all_todos_done_message">Todas as tarefas da lista \"%1$s\" concluídas.</string>
+  <string name="all_todos_in_current_done_message">Todas as tarefas da lista atual concluídas</string>
+  <string name="todo_list_legend">Lista de tarefas</string>
+  <string name="todo_list_hint">Clique para sugestões</string>
   <string name="todo_comment_legend">Comentar</string>
   <string name="todo_comment_hint">Comentário opcional</string>
+  <string name="toast_todo_all_closed">Todas as tarefas encerradas para o elemento</string>
+  <string name="toast_todo_already_in_list">O elemento já se encontra nesta lista de tarefas</string>
+  <string name="toast_no_open_todos">Sem tarefas abertas</string>
+  <string name="toast_no_todos_in_list">Sem tarefas abertas na lista selecionada</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Atenção!</string>
-  <string name="unsaved_data_message">Se continuar perderá as suas alterações por gravar.</string>
+  <string name="unsaved_data_message">Se continuar perderá as suas alterações por guardar.</string>
   <string name="unsaved_data_proceed">Não gravar alterações e prosseguir</string>
   <!--Imagery offset dialog-->
   <string name="imagery_offset_title">Alinhamento de imagens aéreas</string>
@@ -175,6 +251,7 @@
   <string name="imagery_offset_date">Criado</string>
   <string name="imagery_offset_zoom">Zoom</string>
   <string name="imagery_offset_distance">Distância</string>
+  <string name="zoom_and_offsets">Zoom %1$d\nAlinhamento\n%2$s°/%3$s°\n%4$sm/%5$sm</string>
   <string name="set_position_datum_label">Datum geodésico</string>
   <string name="WGS84">WGS84</string>
   <string name="tag_editor_name_suggestion">Sugestão de nome</string>
@@ -186,14 +263,19 @@
   <string name="geocoder_prompt">com</string>
   <string name="geocoder_limit_label">na vista</string>
   <!--Search objects dialog-->
+  <string name="search_objects_title">Procurar objetos</string>
+  <string name="search_objects_hint">Introduzir um filtro JOSM/expressão de pesquisa</string>
+  <string name="search_objects_use_regexps">Utilizar expressões regulares</string>
+  <string name="search_objects_unsupported">Expressão não suportada: \"%1$s\"</string>
+  <string name="search_objects_query_overpass">Consulta Overpass</string>
   <!---->
   <string name="preset_search_hint">Etiquetas a pesquisar</string>
   <string name="preset_autopreset">Etiqueta automática</string>
   <string name="search">Pesquisar</string>
   <string name="no_valid_preset">Sem modelo etiq. válido!</string>
-  <string name="save_file">Gravar em</string>
+  <string name="save_file">Guardar em</string>
   <string name="existing_track_title">Dados de trilhos GPX existentes</string>
-  <string name="existing_track_message">Já tem dados de trilhos GPX. Pode querer cancelar e gravar primeiro.</string>
+  <string name="existing_track_message">Já tem dados de trilhos GPX. Pode querer cancelar e guardar primeiro.</string>
   <string name="delete_tags">Eliminar todas as etiquetas do objeto \"%1$s\"?</string>
   <!--element information dialog-->
   <string name="element_information">Informações do elemento</string>
@@ -213,8 +295,11 @@
   <string name="current">Atual</string>
   <string name="goto_element">Ir para o elemento</string>
   <string name="edit_properties">Editar etiquetas</string>
+  <string name="toast_element_not_found_on_restore">Não foi possível encontrar o elemento no restauro</string>
   <!--GeoJSON feature display dialog-->
   <string name="feature_information">Informação de elementos GeoJSON</string>
+  <string name="vt_feature_information">Informação da caraterística do mosaico vetorial</string>
+  <string name="vt_layer">Camada de mosaico vetorial</string>
   <string name="copy_properties">Copiar propriedades</string>
   <string name="create_osm_element">Criar elemento OSM</string>
   <!--API/Data layer info dialog-->
@@ -222,36 +307,71 @@
   <string name="total">Total</string>
   <string name="changed">Alterado</string>
   <string name="ways">Vias</string>
+  <string name="bounding_boxes">Caixas de limites</string>
   <!--Tile layer info dialog-->
   <string name="attribution">Atribuição</string>
   <!--GPX info dialog-->
+  <string name="track_points">Pontos do trilho</string>
+  <string name="way_points">Pontos da linha</string>
   <!--Image information dialog-->
+  <string name="image_information_title">Informações da imagem</string>
+  <string name="created_by">Criado por</string>
+  <string name="capture_date">Data de captura</string>
   <string name="direction">Direção</string>
+  <string name="file_size">Tamanho</string>
+  <string name="file_size_kB">%1$d kB</string>
   <!--Too much data dialog-->
   <string name="too_much_data_title">Demasiados dados carregados!</string>
+  <string name="too_much_data_message">Tem %1$d nós carregados e excederam o limite configurado. Isto tornará o funcionamento mais lento do seu dispositivo, e caso adicione mais dados, pode ter problemas ao guardar.</string>
   <string name="upload_data_now">Enviar alterações</string>
   <string name="prune_data_now">Podando dados</string>
   <!--Delete custom preset dialog-->
+  <string name="delete_custom_preset_title">Eliminar modelo de etiquetas personalizado?</string>
   <!--Duplicate route segment dialog-->
+  <string name="duplicate_route_segment_title">Adicionar segmento de rota</string>
+  <string name="duplicate_route_segment_message">Esta via já é membro da rota.</string>
+  <string name="duplicate_route_segment_button">Adicionar na mesma</string>
   <!--Duplicate relation element dialog-->
+  <string name="duplicate_relation_member_title">Adicionar membro da relação</string>
+  <string name="duplicate_relation_member_message">Este elemento já é um membro da relação.</string>
+  <string name="duplicate_relation_member_remove_button">Remover membro</string>
   <!--Move multi-polygon outer element tags to relation-->
+  <string name="move_outer_tags_title">Mover etiquetas dos anéis exteriores para o multipolígono</string>
+  <string name="move_outer_tags_message">As etiquetas que definem o objeto só devem estar presentes no multipolígono. Esta ação irá mover as etiquetas comuns dos anéis exteriores para o multipolígono.</string>
   <string name="move">Mover</string>
+  <string name="leave_as_is">Deixar como está</string>
   <!--Remove duplicate tags from multi-polygon outer element-->
+  <string name="remove_duplicate_outer_tags_title">Remover etiquetas duplicadas nos anéis exteriores</string>
+  <string name="remove_duplicate_outer_tags_message">Remover etiquetas dos anéis exteriores que estão aplicadas no multipolígono</string>
   <string name="remove">Remover</string>
   <!--Abort action mode dialog-->
+  <string name="abort_action_title">Abortar ação</string>
   <!--Address interpoation dialog-->
+  <string name="address_interpolation_title">Criar interpolação de endereços</string>
   <string name="start">Inicia</string>
   <string name="end">Termina</string>
   <string name="even">Par</string>
   <string name="odd">Ímpar</string>
   <string name="other">Outro</string>
   <!--Safe split dialog-->
+  <string name="split_safe_title">Membros em falta na relação</string>
+  <string name="split_safe_message">As vias membros da relação vizinha não foram descarregadas. A atualização da ordenação dos membros da relação pode depender destes.</string>
   <!--JS console dialog-->
   <string name="evaluate">Avaliar</string>
   <string name="js_console_msg_live">Modo ao vivo!</string>
   <string name="js_console_msg_debug">Modo depuração de erros!</string>
+  <string name="console_input_hint">Introduzir código aqui</string>
   <string name="console_output_hint">A saída aparecerá aqui</string>
+  <string name="save_code">Guardar código…</string>
+  <string name="load_code">Carregar código…</string>
+  <string name="share_code">Partilhar código…</string>
   <!--Overpass console-->
+  <string name="run">Executar</string>
+  <string name="overpass_result">Foram descarregados %1$d nó(s), %2$d linha(s) e %3$d relações(s).</string>
+  <string name="overpass_console">Consola Overpass</string>
+  <string name="select_result">Selecionar resultado</string>
+  <string name="merge_result">Unir resultado</string>
+  <string name="overpass_query_would_overwrite">O resultado sobrepor-se-ia às alterações! A consulta foi abortada.</string>
   <!---->
   <string name="error">Erro</string>
   <string name="warning">Aviso</string>
@@ -268,6 +388,7 @@
   <string name="send_debug_information">Enviar informações de depuração</string>
   <!--Validator dialogs-->
   <string name="validator_title">Regras de verificação %1$s</string>
+  <string name="resurvey_entries">Levantamento</string>
   <string name="edit_resurvey_title">Editar o levantamento submetido</string>
   <string name="add_resurvey_title">Adicionar o levantamento submetido</string>
   <string name="check_entries">Verificado</string>
@@ -280,6 +401,12 @@
   <string name="add_resurvey_entry">Adicionar o levantamento submetido</string>
   <string name="add_check_entry">Adicionar a verificação submetida</string>
   <!--Safe mode dialog-->
+  <string name="safe_mode_dialog_title">Opções do modo de segurança</string>
+  <string name="safe_style_label">Aplicar o estilo dos dados mínimo</string>
+  <string name="safe_layer_label">Desativar todas as camadas</string>
+  <string name="safe_state_label">Remover o estado guardado</string>
+  <string name="safe_delete_state_title">Eliminar o estado dos dados guardados?</string>
+  <string name="safe_delete_state_text">Sim (não pode ser anulado)</string>
   <!--Empty relation dialog-->
   <string name="empty_relation_title">Relação vazia</string>
   <string name="empty_relation_message">A relação %1$s não tem membros.\n\nSe a deixar assim não poderá editá-la no Vespucci.</string>
@@ -296,6 +423,7 @@
   <!--Custom imagery dialogs-->
   <string name="custom_layer_title">Imagem personalizada</string>
   <string name="oam_layer_title">Imagem OAM</string>
+  <string name="wms_endpoints_title">Pontos de extremidades WMS</string>
   <string name="edit_layer_title">Editar camada</string>
   <string name="add_layer_title">Adicionar camada</string>
   <string name="select_layer_title">Selecionar camada</string>
@@ -305,33 +433,65 @@
   <string name="coverage_left">Esquerda</string>
   <string name="coverage_right">Direita</string>
   <string name="coverage_bottom">Fundo</string>
+  <string name="tile_size">Tamanho do mosaico</string>
   <string name="toast_invalid_box">Caixa de limites inválida ou incompleta</string>
   <string name="delete_layer">Eliminar camada?</string>
+  <string name="delete_endpoint">Eliminar ponto de extremidade?</string>
+  <string name="add_wms_endpoint_title">Adicionar ponto de extremidade WMS</string>
+  <string name="edit_wms_endpoint_title">Editar ponto de extremidade WMS</string>
+  <string name="add_imagery_from_wms_endpoint">Adicionar imagens aéreas do WMS</string>
   <!--Layer style dialog-->
   <string name="layer_style_title">Estilo de camada</string>
   <string name="layer_style_stroke_width">Espessura da linha</string>
   <string name="layer_style_color">Cor</string>
+  <string name="layer_style_layer">Subcamada</string>
   <string name="layer_style_label">Etiqueta</string>
   <string name="layer_style_symbol">Símbolo</string>
   <string name="json_object_not_displayed">Objeto JSON (não mostrado)</string>
   <string name="json_array_not_displayed">Tabela JSON (não mostrado)</string>
   <string name="gpx_automatic">Automático</string>
+  <string name="gpx_name">Nome GPX</string>
+  <string name="gpx_description">Descrição GPX</string>
+  <string name="gpx_type">Tipo GPX</string>
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
   <string name="layer_mapillary">Mapillary</string>
   <string name="layer_grid">Escala / grelha</string>
   <string name="layer_bookmarks">Favoritos</string>
   <string name="layer_gpx">GPX</string>
+  <string name="layer_gpx_recording">Gravação GPX</string>
   <string name="layer_photos">Fotos</string>
   <string name="layer_tasks">Tarefas e erros reportados</string>
   <string name="layer_data">Dados OSM</string>
   <string name="layer_data_name">%1$s dados</string>
   <string name="layer_flush_tile_cache">Limpar cache de mosaicos</string>
+  <string name="layer_change_style">Alterar estilo…</string>
+  <string name="layer_load_style">Carregar estado…</string>
+  <string name="layer_reset_style">Repor estilo</string>
+  <string name="layer_set_date_range">Definir intervalo de datas…</string>
+  <string name="layer_select_imagery">Selecionar imagens aéreas…</string>
   <string name="layer_test">Teste…</string>
   <string name="layer_category_all">Tudo</string>
+  <string name="layer_category_photo">Imagens aéreas</string>
+  <string name="layer_category_elevation">Terreno</string>
+  <string name="layer_category_historicphoto">Imagens aéreas desatualizadas</string>
   <string name="layer_category_map">Mapa</string>
+  <string name="layer_category_historicmap">Mapa desatualizado</string>
+  <string name="layer_category_osmbasedmap">Mapa base OSM</string>
   <string name="layer_category_qa">QA</string>
   <string name="layer_category_other">Outro</string>
+  <string name="layer_add_layer_from_mvt_style">Adicionar camada do estilo MVT…</string>
+  <string name="layer_add_custom_imagery">Adicionar imagem aérea personalizada…</string>
+  <string name="layer_edit_custom_imagery_configuration">Editar imagem aérea personalizada…</string>
+  <string name="layer_add_gpx">Adicionar camada de um ficheiro GPX…</string>
+  <string name="layer_download_track">Descarregar trilho GPX…</string>
+  <string name="layer_available_tracks">Trilhos GPX disponíveis</string>
+  <string name="layer_start_playback">Iniciar reprodução</string>
+  <string name="layer_pause_playback">Pausar reprodução</string>
+  <string name="layer_stop_playback">Parar reprodução</string>
+  <string name="layer_toast_playback_finished">Reprodução terminada</string>
+  <string name="layer_toast_playback_paused">Reprodução pausada</string>
+  <string name="layer_toast_playback_resumed">Reprodução retomada</string>
   <!--Layer info dialog-->
   <string name="layer_info_min_zoom">Afastamento máximo</string>
   <string name="layer_info_max_zoom">Aproximação máxima</string>
@@ -339,19 +499,34 @@
   <string name="layer_info_end_date">Data de fim</string>
   <string name="layer_info_terms">Termos</string>
   <string name="layer_info_privacy_policy">Política de privacidade</string>
+  <string name="projection">Projeção</string>
   <string name="errors">Erros</string>
+  <string name="layer_info_layer_not_available">Informações sobre a camada não disponíveis</string>
+  <string name="layer_info_no_meta_data">Meta dados não carregados</string>
   <!--Mapillary layer-->
   <string name="mapillary_image">%1$s</string>
   <!--Date range dialog-->
+  <string name="date_range_title">Definir intervalo de datas</string>
   <!--Photo viewer-->
+  <string name="photo_viewer_delete_title">Eliminar foto</string>
+  <string name="photo_viewer_delete_button">Eliminar permanentemente</string>
+  <string name="photo_viewer_goto">Ir para a foto</string>
+  <string name="photo_viewer_label">Visualizador de fotos</string>
+  <string name="mapillary_viewer_label">Visualizador Mapillary</string>
   <!--API info dialog-->
   <string name="api_info_bounds">Caixa de limites</string>
   <string name="api_info_latest_date">Última data de inclusão</string>
   <string name="api_info_attribution">Atribuição</string>
   <string name="api_info_mapsplit_source">Fonte MapSplit  de apenas leitura</string>
   <!--Tag conflict dialog-->
+  <string name="tag_conflict_title">Propriedades alteradas</string>
+  <string name="tag_conflict_message">A operação exigiu a alteração das propriedades dos elementos envolvidos.</string>
   <!--Relation selection dialog-->
+  <string name="no_suitable_relations_message">Não existem relações adequadas nos dados descarregados</string>
+  <string name="select_route_title">Selecionar rota</string>
+  <string name="select_relation_title">Selecionar relação</string>
   <!--Preset selection dialog-->
+  <string name="select_relation_type_title">Selecionar o tipo de relação</string>
   <string name="select_relation_type_other">Outro</string>
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Histórico de alterações</string>
@@ -359,7 +534,12 @@
   <string name="undo_redo_one">Apenas a alteração selecionada (inseguro)</string>
   <string name="undo_all">Desfazer todas as alterações posteriores (seguro)</string>
   <string name="redo_all">Refazer todas as alterações anteriores (seguro)</string>
+  <string name="undo_latest">Última</string>
   <!--Undo location not in view dialog-->
+  <string name="undo_location_title">A localização de desfazer não está à vista</string>
+  <string name="undo_location_text">A localização que será afetada pelo desfazer não está à vista.</string>
+  <string name="undo_location_undo_anyway">Desfazer mesmo assim</string>
+  <string name="undo_location_zoom">Enquadre a localização e, em seguida, desfaça</string>
   <!--Feedback activity-->
   <string name="feedback_with_displayname">Enviar com o seu nome visível do OpenStreetMap</string>
   <string name="feedback_displayname_hint">O seu nome visível do OpenStreetMap ainda não foi obtido</string>
@@ -369,29 +549,73 @@
   <!--Clear/Reset GPX Track-->
   <string name="clear_track_description">Parar de gravar o percurso e e eliminar pontos do trilho. Isto não pode ser desfeito.</string>
   <!--Measurement dialog-->
+  <string name="measure">Medir</string>
   <!--Tips-->
+  <string name="tip_title">Sabia que?</string>
+  <string name="tip_check_label">Deixar de mostrar dicas opcionais</string>
+  <string name="tip_undo">Premir longamente o botão de desfazer mostrará todos os pontos de controlo de desfazer e refazer.</string>
+  <string name="tip_imagery_privacy">As camadas de fundo e de sobreposição são fornecidas por terceiros. A utilização de uma camada transmite ao fornecedor o seu endereço de rede e uma indicação aproximada da área que está a observar.&lt;p&gt;Se o fornecedor tiver fornecido informações sobre a política de privacidade, pode visualizá-las com o item de menu \"Info\" na caixa de diálogo da camada.</string>
+  <string name="tip_mapillary_privacy">Mapillary é um serviço fornecido pela Mapillary AB, Suécia, uma subsidiária do Facebook. A utilização do serviço transmite à empresa o seu endereço de rede e informações sobre as imagens que visualizou.</string>
+  <string name="tip_pan_and_zoom_auto_download">O descarregamento automático de deslocar a vista e o zoom deve ser utilizada com precaução, uma vez que pode sobrecarregar severamente as APIs do OpenStreetMap e do seu dispositivo.&lt;p&gt;A sobrecarga nos servidores API pode ser evitada através da utilização de uma fonte de dados offline.</string>
+  <string name="tip_locked_mode">No modo bloqueado não é possível editar, mas um toque longo num objeto abre um ecrã com informações detalhadas.</string>
+  <string name="tip_longpress_simple_mode">No modo simples, um clique longo não faz nada. Desative o modo simples no menu principal se quiser utilizar os cliques longos para criar objetos.</string>
+  <string name="tip_gpx_no_elevation">A partir da versão 15, os trilhos GPX já não contêm informações de elevação por predefinição. Para ativar o registo de elevação, instale um modelo Geoid com &lt;i&gt;Instale EGM&lt;/i&gt; no menu Ferramentas ou mude para a entrada NMEA.</string>
+  <string name="tip_tag_conflict">A união e a reversão de elementos OSM requerem, por vezes, a alteração de atributos nos elementos. Se houver um potencial erro ou conflito, será alertado para esse facto e ser-lhe-á dada a oportunidade de rever os objetos em questão.</string>
+  <string name="tip_gpx_recording">Quando se inicia a gravação GPX, o Vespucci recolhe dados de localização para permitir a gravação GPX, mesmo quando a aplicação não está visível.&lt;p&gt;O encerramento explícito da aplicação ou a desativação da gravação GPX impedirá a utilização de dados de localização nessas situações.</string>
+  <string name="tip_auto_download">Quando se inicia o descarregamento automático de dados ou tarefas OSM, o Vespucci utiliza dados de localização para determinar a posição atual, mesmo quando a aplicação não está visível.&lt;p&gt;Fechar explicitamente a aplicação ou desativar o descarregamento automático interrompe a utilização dos dados de localização nestas situações.</string>
+  <string name="tip_tristate_checkbox">Acabou de tocar numa caixa de verificação de 3 estados. Estas funcionam como as caixas de verificação normais, alternando entre 2 valores, por exemplo sim/não ou verdadeiro/falso.&lt;p&gt;No entanto, têm um terceiro estado adicional &lt;b&gt;not set&lt;/b&gt; indicado por uma caixa de verificação a cinzento que impedirá a adição da etiqueta correspondente. Pode definir a caixa de verificação para este estado premindo longamente.</string>
+  <string name="tip_alternative_tagging">Acabou de aplicar um modelo de etiquetas que tem ligações para etiquetas alternativas. Ou seja, outras formas de marcar este objeto que podem ser mais apropriadas ou podem simplesmente estar relacionadas. Estes modelo de etiquetas alternativas serão apresentadas na parte superior do ecrã do modelo de etiquetas utilizado mais recentemente.</string>
+  <string name="tip_mode_switching">O botão de bloqueio funciona também como comutador de modo, uma pressão prolongada mostra um menu com as diferentes opções.&lt;p&gt;Pode encontrar mais informações sobre os modos do Vespucci no sistema de ajuda, tanto na introdução como na ajuda para o ecrã principal do mapa.</string>
+  <string name="tip_empty_gpx_download">Devido a uma peculiaridade na API do OSM, o ponto de partida do trilho GPX tem de estar à vista para que possa ser encontrado para descarregar.</string>
+  <string name="tip_no_redo">Atualmente, este modo não suporta refazer adições de nós.</string>
+  <string name="tip_way_splitting">Toque num nó realçado para determinar a posição onde dividir. Um toque longo permite-lhe selecionar a parte que será utilizada para a nova linha numa etapa posterior.</string>
+  <string name="tip_closed_way_splitting">Uma linha fechada tem de ser dividida em dois sítios. Toque num nó realçado para determinar a 1ª posição de divisão, o passo seguinte pedir-lhe-á para selecionar a 2ª posição.</string>
+  <string name="tip_disambiguation_menu">Quando vários elementos OSM ou outros objetos estão muito próximos uns dos outros ou os elementos são membros de relações, será apresentado o menu de desambiguação. Pode então selecionar o elemento específico da lista.&lt;p&gt;Se um elemento já estiver selecionado, será destacado.</string>
+  <string name="tip_file_import">Nos dispositivos com Android 10 ou posterior, é necessário copiar os ficheiros para podermos aceder-lhes plenamente. As cópias estão localizadas em &lt;i&gt;Downloads/Vespucci/imports&lt;/i&gt;. Se necessário, pode eliminar os originais e manter apenas as cópias.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
   <string name="digit_one">1</string>
   <!--NotificationChannels-->
-  <string name="qa_channel_name">Perguntas Frequentes do Vespucci</string>
+  <string name="default_channel_name">Predefinido do Vespucci</string>
+  <string name="default_channel_description">Canal de notificação predefinido</string>
+  <string name="qa_channel_name">Perguntas frequentes do Vespucci</string>
+  <string name="qa_channel_description">Canal de alerta QA para problemas e tarefas de dados</string>
   <!--Notifications-->
+  <string name="upload_checker_title">Não se esqueça de enviar as suas alterações</string>
+  <plurals name="upload_checker_message">
+    <item quantity="one">Tem uma alteração não enviada.</item>
+    <item quantity="many">Tem %1$d alterações não enviadas.</item>
+    <item quantity="other">Tem %1$d alterações não enviadas.</item>
+  </plurals>
   <!--Toaster-->
+  <string name="toast_permission_denied">Permissão negada %1$s</string>
+  <string name="toast_unable_to_persist_permissions">Não é possível manter as permissões</string>
   <string name="toast_name_empty">Escolha um nome</string>
   <string name="toast_url_empty">Introduza um URL</string>
+  <string name="toast_url_config_file_placeholders">Os marcadores de posição {proj} e {wkid} só são suportados em ficheiros de configuração</string>
   <string name="toast_min_zoom">Definir o aumento mínimo mais baixo que o máximo</string>
+  <string name="toast_tile_layer_exists">A fonte dos mosaicos %1$s tem o mesmo URL</string>
+  <string name="toast_styleable_layer_exists">Existe uma camada para %1$s</string>
   <string name="toast_no_changes">Ainda não alterou nada…</string>
-  <string name="toast_unsaved_changes">Envie primeiro as suas alterações por gravar.</string>
+  <string name="toast_jpeg_not_transparent">Os ficheiros JPEG não são transparentes e não podem ser utilizados como sobreposição</string>
+  <string name="toast_unsupported_projection">Projeção %1$s não suportada.\n\nApenas são suportadas EPSG:3857, EPSG:4326 e sinónimos.</string>
+  <string name="toast_unsaved_changes">Envie primeiro as suas alterações por guardar.</string>
   <string name="clear_anyway">Eliminar de qualquer maneira?</string>
   <string name="toast_upload_success">Enviado para o servidor do OSM.</string>
   <string name="toast_not_in_edit_range">Aumente o mapa para editar (volume ↑/↓ ou lens/shift)</string>
   <string name="toast_unlock_to_edit">Tocar no cadeado para editar</string>
-  <string name="toast_save_done">Gravado</string>
-  <string name="toast_save_failed">Não foi possível gravar</string>
+  <string name="toast_save_done">Guardado</string>
+  <string name="toast_save_failed">Não foi possível guardar</string>
   <string name="toast_export_failed">Não foi possível exportar</string>
   <string name="toast_export_success">Exportado para %1$s</string>
+  <plurals name="toast_preset_removed_or_replaced_tags">
+    <item quantity="one">Substituiu ou removeu 1 etiqueta</item>
+    <item quantity="many">Substituiu ou removeu %1$d etiquetas</item>
+    <item quantity="other">Substituiu ou removeu %1$d etiquetas</item>
+  </plurals>
   <string name="toast_merge_overwrote_tags">Nota: operação substituiu algumas etiquetas</string>
+  <string name="toast_cant_autoapply_preset">Este modelo de etiquetas não pode ser aplicado automaticamente</string>
   <string name="toast_oneway_reversed">Inverteu uma linha de sentido único ou uma linha com etiquetas que dependem da direção da linha. Por favor verifique as etiquetas e corrija-as se for necessário.</string>
   <string name="toast_potential_merge_tag_conflict">Está a tentar unir elementos que têm valores de etiquetas em conflito.\n\nPor favor verifique as etiquetas e corrija-as antes de tentar de novo.</string>
   <string name="toast_state_file_failed">Ficheiro ilegível ou corrompido</string>
@@ -404,16 +628,23 @@
   <string name="read_mail">Ler</string>
   <string name="toast_photo_indexing_started">Iniciada a procura por fotos geo-referenciadas</string>
   <string name="toast_photo_indexing_finished">Terminada a procura por fotos geo-referenciadas</string>
+  <string name="toast_photo_failed">Falha ao tirar uma fotografia. Tem a geolocalização ativada na aplicação da câmara?</string>
   <string name="toast_download_failed">O descarregamento falhou com código de erro %1$d, mensagem %2$s</string>
+  <string name="toast_note_reopened">Nota reaberta</string>
   <!--Validation-->
   <string name="toast_unsurveyed_road">Estrada por verificar no terreno</string>
   <string name="toast_noname">Falta o nome ou a ref na estrada</string>
   <string name="toast_notype">Falta o tipo na relação</string>
+  <string name="toast_missing_role">Membro da relação sem função necessária</string>
+  <string name="toast_relation_loop">As referências do membro da relação criam um ciclo (loop)</string>
+  <string name="toast_untagged_element">Elemento sem etiquetas</string>
   <string name="toast_unconnected_end_node">O nó está perto de um elemento ao qual poderia estar ligado.</string>
   <string name="toast_degenerate_way">Degenerar via</string>
+  <string name="toast_wrong_element_type">Tipo de elemento não-padrão: %1$s</string>
   <!---->
   <string name="toast_oauth_retry">Tente enviar novamente após autorizar o acesso OAuth à sua conta no OpenStreetMap.</string>
   <string name="toast_oauth">Por favor autorize o Vespucci no OAuth para poder aceder à sua conta no OpenStreetMap.</string>
+  <string name="toast_no_oauth">Nenhuma configuração OAuth disponível para a API \"%1$s\", defina o nome de utilizador e a palavra-passe.</string>
   <string name="toast_oauth_not_enabled">O OAuth não está ativado para a API atual.</string>
   <string name="toast_oauth_timeout">Tempo esgotado do handshake da autenticação, por favor tente de novo.</string>
   <string name="toast_oauth_communication">Erro de comunicação durante o handshake da autenticação, por favor tente de novo.</string>
@@ -421,8 +652,7 @@
   <string name="toast_timeout">O servidor excedeu o tempo limite</string>
   <string name="coordinates_out_of_range">A longitude deve estar entre -180º e +180º, a latitude entre -85º e +85º</string>
   <string name="toast_nothing_found">Não foi encontrado nada</string>
-  <string name="toast_statesave_failed">Não foi possível gravar o estado atual!\nsto é um erro fatal. A tentar gravar um ficheiro para recuperar posteriormente no JOSM.
-</string>
+  <string name="toast_statesave_failed">Não foi possível guardar o estado atual!\nIsto é um erro fatal. A tentar guardar um ficheiro para recuperar posteriormente no JOSM.</string>
   <string name="toast_missing_filemanager">Por favor instale um gestor de ficheiros.</string>
   <string name="toast_outside_of_download">Descarregar mais dados para editar esta área.</string>
   <string name="toast_file_not_found">%1$s não encontrado.</string>
@@ -442,22 +672,31 @@
   <string name="toast_split_to">Linha \"to\" (para) dividida</string>
   <string name="toast_tile_database_issue_short">Problema na base de dados dos mosaicos</string>
   <string name="toast_tile_database_issue">Ocorreu um erro grave na base de dados dos mosaicos do mapa\n\"%1$s\"\nPor favor consulte as perguntas frequentes em https://vespucci.io/</string>
+  <string name="toast_tile_source_issue">Problema grave com a fonte de mosaicos de mapas, temporariamente desativada\n\"%1$s\"</string>
+  <string name="toast_tile_container_issue">Ficheiro do contentor de mosaicos \"%1$s\" não existe ou não pode ser aberto</string>
+  <string name="toast_unable_to_configure_from_source">Não foi possível configurar a partir do modo remoto: %1$s</string>
   <string name="toast_invalid_apiurl">URL da API inválido</string>
   <string name="toast_invalid_readonlyurl">URL de leitura da API inválido</string>
   <string name="toast_invalid_notesurl">URL da API das notas inválido</string>
   <string name="toast_invalid_preseturl">URL dos modelos de etiquetas inválido</string>
+  <string name="toast_missing_preset_file">Falta um ficheiro de modelo de etiquetas para \"%1$s\"</string>
   <string name="toast_invalid_filter_regexp">Expressão inválida no filtro com a chave=%1$s e valor=%2$s</string>
   <string name="toast_error_accessing_photo">Não foi possível aceder à foto %1$s</string>
   <string name="toast_no_photo_found">Foto não encontrada</string>
+  <string name="toast_security_error_accessing_photo">Não tem permissão para aceder à foto %1$s</string>
   <string name="toast_no_voice_recognition">Falta o recurso de reconhecimento de voz</string>
   <string name="toast_no_coverage">%1$s não tem cobertura aqui</string>
+  <string name="toast_tile_layer_errors">A fonte de imagens aéreas \'%1$s\' está a apresentar erros</string>
   <string name="toast_file_exists">O ficheiro %1$s já existe.</string>
+  <string name="toast_network_file_not_supported">O acesso a este ficheiro através da rede não é suportado, copie-o para a memória local.\n%1$s</string>
   <string name="toast_needs_resurvey">O objeto pode estar desatualizado</string>
   <string name="toast_missing_key">Falta a chave %1$s</string>
   <string name="toast_invalid_object">Objeto inválido</string>
   <string name="toast_openinghours_invalid">Horário de abertura inválido para %1$s</string>
   <string name="toast_openinghours_autocorrected">O horário de abertura para %1$s foi automaticamente corrigido
 </string>
+  <string name="toast_exit_multiselect">Toque 2 vezes num espaço vazio ou utilize a seta ← para sair da seleção múltipla</string>
+  <string name="toast_already_in_multiselect">Já no modo de seleção múltipla</string>
   <string name="toast_abort_actionmode">Use a seta ← para abortar</string>
   <string name="toast_null_island">Por favor não adicione elementos em 0°/0° (Ilha nula)</string>
   <string name="toast_string_too_long">A expressão é demasiado longa (%1$d caracteres), truncado!</string>
@@ -469,8 +708,12 @@
   <string name="toast_applied_offset">Aplicado o alinhamento da imagem.</string>
   <string name="toast_unsupported_format">Formato não suportado: %1$s</string>
   <string name="toast_returning_less_than_found">Resultado %1$d de %2$d encontrados</string>
+  <string name="toast_not_mbtiles">Não é um ficheiro de formato MBTiles ou PMTiles</string>
   <string name="toast_using_network_location">A usar a localização da rede de telemóveis</string>
   <string name="toast_using_gps_location">A usar a localização GPS/GNSS</string>
+  <string name="toast_using_gps_disabled_tracking_stopped">Posicionamento GPS/GNSS desativado, considerar a possibilidade de parar o rastreamento.</string>
+  <string name="toast_remote_nmea_connection">Conexão NMEA remota de/para %1$s</string>
+  <string name="toast_remote_nmea_connection_closed">Conexão remota NMEA fechada</string>
   <string name="toast_tags_copied">Etiquetas copiadas</string>
   <string name="toast_tags_cut">Etiquetas recortadas</string>
   <string name="toast_properties_copied">Propriedades copiadas</string>
@@ -480,6 +723,7 @@
   <string name="toast_task_layer_disabled">Camada de tarefas desativada</string>
   <string name="toast_unable_to_create_task_layer">Não foi possível criar a camada de tarefas</string>
   <string name="toast_merged">Unido</string>
+  <string name="toast_invalid_style_file">Ficheiro de estilo inválido %1$s\n%2$s</string>
   <string name="toast_no_geometry">Sem geometria para o elemento encontrado</string>
   <string name="toast_added_api_entry_for">Entrada de API adicionada de %1$s</string>
   <string name="toast_updated">%1$s atualizado</string>
@@ -487,12 +731,63 @@
   <string name="toast_device_not_found_for">Dispositivo não encontrado para %1$s</string>
   <string name="toast_file_already_exists">O ficheiro %1$s já existe</string>
   <string name="toast_file_error_for">Erro no ficheiro de %1$s</string>
+  <string name="toast_error_reading">Erro ao ler %1$s</string>
+  <string name="toast_read_successfully">Ficheiro lido com sucesso</string>
+  <string name="toast_error_writing">Erro ao gravar %1$s</string>
+  <string name="toast_successfully_written">%1$s gravado com sucesso</string>
   <string name="toast_http_data_error_for">Erro de dados HTTP de %1$s</string>
   <string name="toast_error_insufficient_space_for">Sem espaço de armazenamento suficiente para %1$s</string>
   <string name="toast_error_too_many_redirects_for">Demasiados redirecionamentos para %1$s</string>
   <string name="toast_error_too_unhandled_http_code_for">Código HTTP não tratado de %1$s</string>
   <string name="toast_unknown_error_for">Erro desconhecido de %1$s</string>
   <string name="toast_download_started">Descarregamento de %1$s iniciado</string>
+  <string name="toast_phone_number_reformatted">Número de telefone reformatado</string>
+  <string name="toast_members_not_downloaded">Alguns membros da relação não foram descarregados</string>
+  <string name="toast_restart_required">É necessário reiniciar o Vespucci para que a alteração tenha efeito</string>
+  <string name="toast_unable_to_open_offline_data">Não é possível abrir os dados offline %1$s %2$s</string>
+  <string name="toast_no_usable_location">Nenhuma localização utilizável</string>
+  <string name="toast_default_channel_needs_to_be_enabled">O canal de notificação predefinido tem de ser ativado para iniciar a gravação</string>
+  <plurals name="added_required_elements">
+    <item quantity="one">Adicionado elemento necessário</item>
+    <item quantity="many">Adicionados %1$d elementos necessários</item>
+    <item quantity="other">Adicionados %1$d elementos necessários</item>
+  </plurals>
+  <string name="toast_out_of_memory">MEMÓRIA ESGOTADA!</string>
+  <string name="toast_egm_installed">EGM descarregado e instalado</string>
+  <string name="toast_invalid_number_format">Formato de número inválido: %1$s</string>
+  <string name="toast_error_downloading_mapillary_image">Erro ao descarregar a imagem Mapillary %1$s</string>
+  <string name="toast_error_downloading_mapillary_sequences">Erro ao descarregar sequências Mapillary %1$s</string>
+  <string name="toast_split_first_segment">Dividir o primeiro segmento</string>
+  <string name="toast_split_first_and_next_segment">Dividir o primeiro e o segmento seguinte</string>
+  <string name="toast_split_next_segment">Dividir o segmento seguinte</string>
+  <string name="toast_nothing_changed">Nada alterado</string>
+  <string name="toast_preset_failed">Falha ao criar o modelo de etiquetas %1$s\nErro %2$s</string>
+  <string name="toast_outer_rings_differing_tags">Os anéis exteriores têm etiquetas diferentes</string>
+  <string name="toast_multipolygon_has_incomplete_rings">O multipolígono tem anéis incompletos</string>
+  <string name="toast_multipolygon_inconsistent_roles">O multipolígono tem valores de função inconsistentes para um anel</string>
+  <string name="toast_error_saving_bookmark">Não é possível guardar o favorito</string>
+  <string name="toast_error_loading_style">Não é possível carregar o estilo: %1$s</string>
+  <string name="toast_only_one_source_supported">Só é suportada uma fonte por estilo</string>
+  <string name="toast_style_file_too_large">O ficheiro de estilo fornecido é demasiado grande e provavelmente não é um estilo Mapbox-GL.</string>
+  <string name="toast_imagery_offset_download_failed">Falha no descarregamento do alinhamento: %1$s</string>
+  <string name="toast_download_server_version_failed">Falha no descarregamento da versão do servidor para %1$s</string>
+  <string name="toast_error_element_too_large">O elemento é demasiado grande para o editor de propriedades</string>
+  <string name="toast_no_intersection_found">Não foi encontrada nenhuma interseção</string>
+  <string name="toast_api_key_missing">Não foi encontrada nenhuma chave API para %1$s</string>
+  <string name="toast_no_track_points">Sem pontos do trilho</string>
+  <string name="toast_no_way_points">Sem pontos da linha</string>
+  <string name="toast_url_check">%1$s %2$d</string>
+  <string name="toast_url_check_with_msg">%1$s %2$d %3$s</string>
+  <string name="toast_unexpected_element">Elemento inesperado clicado:\n%1$s</string>
+  <string name="toast_import_destination_exists">O destino de importação já existe</string>
+  <string name="toast_part_selection_not_supported">Seleção de parte da linha não suportada para linhas fechadas</string>
+  <string name="toast_element_has_been_deleted">O elemento foi eliminado</string>
+  <string name="toast_updating_tags">A atualizar etiquetas…</string>
+  <string name="toast_updating_parents">A atualizar os pais…</string>
+  <string name="toast_updating_members">A atualizar os membros…</string>
+  <string name="toast_error_loading_egm">Erro ao carregar o EGM %1$s</string>
+  <string name="toast_querying_wms_server_failed">Falha na consulta do servidor WMS: %1$s</string>
+  <string name="toast_note_not_found">Nota #%1$d não encontrada</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">As fontes MapSplit tem de ter a aproximação máxima e afastamento máximo definidos</string>
   <string name="error_pbf_no_version">Falta a informação sobre a versão no ficheiro PBF</string>
@@ -509,7 +804,7 @@
   <string name="apply">Aplicar</string>
   <string name="set">Definir</string>
   <string name="replace">Substituir</string>
-  <string name="save">Gravar</string>
+  <string name="save">Guardar</string>
   <string name="save_and_set">Guardar e definir</string>
   <string name="back">Regressar</string>
   <string name="forward">Em frente</string>
@@ -519,9 +814,16 @@
   <string name="clear">Limpar</string>
   <string name="discard">Descartar</string>
   <string name="retry">Tentar novamente</string>
+  <string name="prune">Aparar</string>
   <string name="check">Verificado</string>
   <string name="download">Descarregar</string>
+  <string name="abort">Abortar</string>
+  <string name="ignore">Ignorar</string>
   <string name="select">Selecionar</string>
+  <string name="skip">Saltar</string>
+  <string name="deprecated">%1$s (obsoleto)</string>
+  <string name="more_information">Mais informações</string>
+  <string name="osm_tags">Etiquetas OSM</string>
   <!--Read a file-->
   <string name="read">Ler</string>
   <string name="load">Carregar</string>
@@ -548,6 +850,9 @@
   <string name="tag_menu_address">Adicionar etiquetas de endereço</string>
   <string name="tag_menu_sourcesurvey">Verificado no terreno</string>
   <string name="tag_menu_preset">Modelos de etiquetas</string>
+  <string name="tag_menu_apply_preset">Aplicar modelo de etiquetas</string>
+  <string name="tag_menu_apply_preset_with_optional">Aplicar modelo de etiquetas com opcional</string>
+  <string name="tag_menu_show_alternatives">Mostrar etiquetas alternativas</string>
   <string name="tag_menu_revert">Reverter</string>
   <string name="tag_menu_mapfeatures">Wiki das elementos do mapa</string>
   <string name="tag_menu_addtorelation">Adicionar à relação</string>
@@ -584,6 +889,7 @@ sem gravar</string>
   <string name="menu_deselect_all">Desselecionar tudo</string>
   <string name="menu_preset_help">Ajuda do modelo de etiquetas</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
+  <string name="tag_menu_i18n">Adicionar etiquetas de idioma</string>
   <string name="tag_restriction_header">Valor</string>
   <string name="tag_restriction_when">quando</string>
   <string name="tag_restriction_and">e</string>
@@ -594,7 +900,11 @@ sem gravar</string>
   <string name="tag_restriction_value_hint">Restrição condicional</string>
   <string name="default_checkgroup_hint">Atributos adicionais</string>
   <string name="tag_form_unknown_element">Elemento desconhecido (sem modelo de etiquetas)</string>
+  <string name="tag_form_untagged_element">Elemento sem etiquetas</string>
   <!--Custom preset creation-->
+  <string name="tag_menu_create_preset">Criar modelo de etiquetas personalizado</string>
+  <string name="create_preset_title">Nome do modelo de etiquetas personalizado</string>
+  <string name="create_preset_default_name">%1$s personalizado</string>
   <!--Strings in Box/LocationPicker-->
   <string name="location_choose_radius">Escolha o raio:</string>
   <string name="location_default_radius">300m</string>
@@ -619,13 +929,25 @@ há %3$s %4$s</string>
   <string name="location_nan_message">Por favor insira as coordenadas no formato decimal (por exemplo \"52.333572\",\"8.741185\"). A Lat deve estar entre -85.0 e +85.0 e a Lon deve estar entre -175.0 e +175.0.</string>
   <string name="location_olc">OLC</string>
   <!--Strings in barometer calibration-->
+  <string name="barometer_calibration_label">Usar</string>
+  <string name="barometer_calibration_current_height">altura atual (metros)</string>
+  <string name="barometer_calibration_current_reference_pressure">pressão de referência atual (hPa)</string>
+  <string name="barometer_calibration_gps">GNSS</string>
+  <string name="barometer_calibration_calibrate">Calibrar</string>
   <!--Strings in postition info-->
+  <string name="position_info_title">Informações sobre a posição atual</string>
+  <string name="position_info_hdop">HDOP</string>
   <string name="position_info_altitude">Altitude</string>
+  <string name="position_info_geoid_height">Altura sobre\no geoide</string>
+  <string name="position_info_barometric_height">Altura barométrica</string>
+  <string name="position_info_geoid_correction">Correção do geoide</string>
+  <string name="position_info_ellipsoid_height">Altura sobre\no elipsoide</string>
   <!--Strings in DownloadActivity-->
   <string name="download_files_title">Descarregar ficheiros</string>
   <string name="allow_all_networks">Permitir todas as redes</string>
   <!--Strings in Go to coordinates-->
   <string name="go_to_coordinates_title">Ir para as coordenadas</string>
+  <string name="go_to_coordinates_hint">Introduzir coordenadas (lat lon) ou um OLC</string>
   <string name="unparseable_coordinates">Coordenadas não processáveis</string>
   <string name="network_required">É necessária a rede para a procura de um local</string>
   <string name="no_nominatim_server">Não foi encontrado um servidor Nominatim configurado</string>
@@ -641,10 +963,15 @@ há %3$s %4$s</string>
   <string name="menu_erase">Eliminar nó</string>
   <string name="menu_set_position">Posição</string>
   <string name="menu_split">Dividir</string>
+  <string name="menu_remove_node_from_way">Remover nó da linha</string>
+  <string name="menu_start_end_way">Início / fim da linha</string>
   <string name="menu_extract">Extrair nó</string>
   <string name="menu_append">Acrescentar</string>
+  <string name="menu_create_route">Criar rota</string>
+  <string name="menu_add_to_route">Adicionar à rota</string>
   <string name="menu_relation">Criar relação</string>
   <string name="menu_edit_relation">Editar relação</string>
+  <string name="menu_add_relation_member">Adicionar / remover membro</string>
   <string name="menu_select_relation_members">Selecionar membros</string>
   <string name="menu_tag">Editar tags</string>
   <string name="menu_openstreetbug">Adicionar nota</string>
@@ -655,15 +982,31 @@ há %3$s %4$s</string>
   <string name="menu_gps_follow">Seguir localização</string>
   <string name="menu_gps_goto">Ir para a localização atual</string>
   <string name="menu_gps_goto_coordinates">Ir para as coordenadas…</string>
+  <string name="menu_gps_goto_nearest_todo">Ir para a lista de tarefas mais próxima…</string>
+  <string name="menu_gps_goto_last_edit">Ir para a última edição</string>
+  <string name="menu_gps_position_info">Informações sobre a posição atual</string>
   <string name="menu_gps_start">Iniciar trilho GPX</string>
+  <string name="menu_gps_resume">Retomar trilho GPX</string>
   <string name="menu_gps_pause">Pausar localização GPX</string>
   <string name="menu_gps_clear">Limpar trilhos GPX e os seus marcadores</string>
   <string name="menu_gps_track_managment">Gestão do trilho GPX…</string>
+  <string name="menu_gps_upload">Enviar trilho GPX…</string>
+  <string name="menu_gps_export">Exportar trilho GPX…</string>
+  <string name="menu_gps_import">Importar trilho GPX…</string>
   <string name="menu_gps_goto_start">Ir para o início do trilho GPX</string>
   <string name="menu_gps_goto_first_waypoint">Ir para o primeiro marcador</string>
+  <string name="menu_gps_add_bookmark">Adicionar favorito…</string>
+  <string name="menu_enable_gps_autodownload">Descarregamento automático com base na localização</string>
+  <string name="menu_enable_pan_and_zoom_auto_download">Descarregamento automático de deslocar a vista e o zoom</string>
   <string name="menu_transfer">Transferir…</string>
   <string name="menu_transfer_download_current">Descarregar a vista atual</string>
+  <string name="menu_transfer_download_replace">Limpar e descarregar a vista atual</string>
   <string name="menu_transfer_load_current">Carregar vista atual</string>
+  <string name="menu_transfer_load_replace">Limpar e carregar a vista atual</string>
+  <string name="menu_transfer_query_overpass">Consulta Overpass…</string>
+  <string name="menu_transfer_upload">Enviar dados para o servidor OSM…</string>
+  <string name="menu_transfer_review">Rever alterações…</string>
+  <string name="menu_transfer_update">Atualizar dados</string>
   <string name="menu_transfer_data_clear">Limpar dados</string>
   <string name="menu_transfer_close_changeset">Fechar o conjunto de alterações atual</string>
   <string name="menu_transfer_file">Ficheiro…</string>
@@ -671,7 +1014,7 @@ há %3$s %4$s</string>
   <string name="menu_transfer_apply_osc_file">Aplicar alterações ao ficheiro OSC</string>
   <string name="menu_transfer_read_file">Ler de um ficheiro JOSM…</string>
   <string name="menu_transfer_read_pbf_file">Ler do ficheiro PBF</string>
-  <string name="menu_transfer_save_file">Gravar para um ficheiro JOSM…</string>
+  <string name="menu_transfer_save_file">Guardar para ficheiro JOSM…</string>
   <string name="menu_transfer_download_msf">Descarregar dados para utilização sem Internet…</string>
   <string name="menu_transfer_bugs">Tarefas…</string>
   <string name="menu_transfer_bugs_download_current">Descarregar tarefas para a vista atual</string>
@@ -679,10 +1022,13 @@ há %3$s %4$s</string>
   <string name="menu_transfer_bugs_upload_long">Enviar todas as tarefas</string>
   <string name="menu_transfer_bugs_clear">Limpar</string>
   <string name="menu_transfer_bugs_clear_long">Limpar tarefas</string>
-  <string name="menu_transfer_autodownload_long">Descarregar automaticamente tarefas</string>
-  <string name="menu_transfer_save_notes_all">Gravar todas a notas…</string>
-  <string name="menu_transfer_save_notes_new_and_changed">Gravar notas novas e alteradas…</string>
-  <string name="menu_save">Gravar como ficheiro</string>
+  <string name="menu_transfer_autodownload_long">Descarregar automaticamente as tarefas</string>
+  <string name="menu_transfer_save_notes_all">Guardar todas a notas…</string>
+  <string name="menu_transfer_save_notes_new_and_changed">Guardar notas novas e alteradas…</string>
+  <string name="menu_transfer_read_notes">Carregar notas…</string>
+  <string name="menu_transfer_read_todos">Carregar tarefas…</string>
+  <string name="menu_transfer_write_todos">Guardar tarefas…</string>
+  <string name="menu_save">Guardar como ficheiro</string>
   <string name="menu_join">Unir</string>
   <string name="menu_unjoin">Dividir</string>
   <string name="menu_copy">Copiar</string>
@@ -695,35 +1041,67 @@ há %3$s %4$s</string>
   <string name="menu_orthogonalize">Praça ou largo</string>
   <string name="menu_straighten">Endireitar</string>
   <string name="menu_circulize">Organizar em círculo</string>
+  <string name="menu_create_circle">Criar círculo</string>
   <string name="menu_split_polygon">Dividir em 2 polígonos</string>
+  <string name="menu_unjoin_dissimilar">Desunir diferenças</string>
+  <string name="menu_extract_segment">Extrair segmento</string>
+  <string name="menu_select_way_nodes">Selecionar nós da linha</string>
   <string name="menu_newnode_gps">Novo nó na posição GPS</string>
   <string name="menu_extend_selection">Selecionar mais</string>
+  <string name="menu_information">Info…</string>
   <string name="menu_voice_commands">Comandos de voz</string>
+  <string name="menu_upload_element">Enviar elemento</string>
+  <string name="menu_upload_elements">Enviar elementos</string>
+  <string name="menu_todo">Tarefas a fazer…</string>
+  <string name="menu_todo_close_and_next">Fechar e ir para o próximo</string>
+  <string name="menu_todo_close_all_tasks">Fechar todas as tarefas</string>
+  <string name="menu_add_to_todo">Adicionar à lista de tarefas…</string>
   <string name="menu_set_name">Definir nome</string>
   <string name="menu_tools">Ferramentas…</string>
-  <string name="menu_tools_add_imagery_from_oam">Adicionar imagem de OAM</string>
+  <string name="menu_tools_imagery">Mais ferramentas de imagens aéreas…</string>
+  <string name="menu_tools_add_imagery_from_oam">Adicionar imagens aéreas de OAM</string>
   <string name="menu_tools_flush_all_tile_caches">Limpar toda a cache de mosaicos</string>
+  <string name="menu_tools_background_properties">Propriedades do fundo…</string>
+  <string name="menu_tools_update_imagery_configuration">Atualizar a configuração a partir do JOSM</string>
+  <string name="menu_tools_update_imagery_configuration_eli">Atualizar a configuração a partir do ELI</string>
   <string name="menu_tools_zoom_to_layer_extent">Enquadrar camada de fundo</string>
   <string name="menu_tools_clear_clipboard">Limpar área de transferência</string>
+  <string name="menu_tools_calibrate_height">Calibrar o sensor de pressão…</string>
+  <string name="menu_tools_install_egm">Instalar EGM</string>
+  <string name="menu_tools_remove_egm">Remover EGM</string>
+  <string name="menu_tools_import_data_style">Importar estilo de dados…</string>
+  <string name="menu_tools_load_keys">Carregar chaves do ficheiro…</string>
   <!---->
+  <string name="menu_modes">Modos…</string>
   <string name="menu_simple_actions">Modo simples</string>
   <string name="menu_feedback">Fornecer opinião</string>
   <string name="menu_preset_feedback">Fornecer opinião de modelo de etiquetas</string>
   <string name="menu_privacy">Privacidade</string>
   <!--Background alignment-->
+  <string name="menu_tools_background_align">Alinhar imagens aéreas</string>
   <string name="menu_tools_background_align_reset">Repôr</string>
   <string name="menu_tools_background_align_zero">Zero</string>
   <string name="menu_tools_background_align_retrieve_from_db">Da base de dados</string>
   <string name="menu_tools_background_align_retrieve_from_device">Do dispositivo</string>
-  <string name="menu_tools_background_align_save_device">Gravar para o dispositivo</string>
+  <string name="menu_tools_background_align_save_db">Guardar para base de dados…</string>
+  <string name="menu_tools_background_align_save_device">Guardar no dispositivo</string>
   <string name="menu_tools_background_align_apply2all">Aplicar (todos os níveis de zoom)</string>
   <string name="min_max_zoom">%1$d - %2$d</string>
   <string name="distance_meter">%1$.2f metros</string>
   <string name="distance_km">%1$.3f km</string>
   <!--Menus in layers dialog-->
   <string name="menu_layers">Camadas…</string>
+  <string name="menu_layers_load_geojson">Adicionar camada GeoJSON…</string>
+  <string name="menu_layers_add_backgroundlayer">Adicionar camada de imagens de fundo…</string>
+  <string name="menu_layers_add_overlaylayer">Adicionar camada de imagens sobrepostas…</string>
+  <string name="menu_layers_add_tasklayer">Ativar a camada de tarefas</string>
+  <string name="menu_layers_add_grid">Ativar grelha</string>
   <string name="menu_layers_add_photolayer">Ativar camada de fotos</string>
+  <string name="menu_layers_enable_mapillary_layer">Ativar camada Mapillary</string>
+  <string name="menu_layers_enable_bookmarkslayer">Ativar camada de favoritos</string>
   <string name="menu_layers_configure">Configurar…</string>
+  <string name="menu_layers_background_align">Alinhar imagens aéreas…</string>
+  <string name="wms_hint">%1$s [wms]</string>
   <!---->
   <string name="menu_tools_apply_local_offset">Aplicar na camada o alinhamento guardado</string>
   <string name="menu_tools_background_contrast">Contraste</string>
@@ -739,17 +1117,31 @@ há %3$s %4$s</string>
   <string name="element_for_menu">%1$s</string>
   <string name="element_for_menu_with_direction">%1$s %2$s</string>
   <string name="element_for_menu_with_parents">%1$s (%2$s)</string>
+  <string name="element_for_menu_with_parents_with_direction">%1$s %2$s (%3$s)</string>
   <!--Text should be as short as possible-->
+  <string name="start_end_way_description">Ir para o início ou para o fim da linha</string>
   <string name="menu_history">Histórico</string>
+  <string name="menu_history_web">Histórico (web)</string>
   <string name="menu_merge">Unir</string>
+  <string name="menu_add_node_at_intersection">Adicionar nó na interseção</string>
   <string name="menu_reverse">Inverter</string>
   <string name="notreversable_description">Esta linha não pode ser invertida porque tem etiquetas com atributos que dependem da direção. Invertê-la iria tornar as etiquetas inválidas.</string>
   <string name="reverse_anyway">Inverter mesmo assim</string>
-  <string name="deleteway_description">Está prestes a eliminar uma linha.\n\node optar por manter todos os nós, ou eliminar os nós que pertencem apenas a esta linha e que não têm etiquetas.</string>
+  <string name="deleteway_description">Está prestes a eliminar uma linha.\n\nPode optar por manter todos os nós, ou eliminar os nós que pertencem apenas a esta linha e que não têm etiquetas.</string>
+  <string name="deleteway_relation_description">Está prestes a eliminar uma linha que é membro de uma ou mais relações. A eliminação da linha pode tornar as relações inválidas.</string>
+  <string name="deleteway_nodesnotdownloaded_description">A linha contém nós fora da área descarregada e não pode ser eliminada sem criar potencialmente um estado inconsistente.\n\nDescarregue a área em redor da linha antes de tentar novamente.</string>
+  <string name="deleteways_nodesnotdownloaded_description">A seleção contém linhas com nós fora da área descarregada, que não podem ser eliminadas sem criar potencialmente um estado inconsistente.\n\nDescarregue toda a área em redor das linhas antes de tentar novamente.</string>
   <string name="deleteway_wayonly">Apenas eliminar linha</string>
   <string name="deleteway_wayandnodes">Eliminar linha</string>
+  <string name="deletenode_relation_description">Está prestes a eliminar um nó que é membro de uma ou mais relações. A eliminação do nó pode tornar as relações inválidas.</string>
   <string name="deletenode">Eliminar nó</string>
   <!--EasyEdit context menus-->
+  <string name="split_context_title">Dividir…</string>
+  <string name="split_all_ways">…todas as linhas</string>
+  <string name="merge_context_title">Unir a…</string>
+  <string name="merge_with_all_ways">…todas as linhas próximas</string>
+  <string name="merge_with_all_nodes">…todos os nós próximos</string>
+  <string name="append_context_title">Acrescentar a…</string>
   <string name="delete_note_description">A eliminação do nó não pode ser desfeita!</string>
   <string name="delete_note">Eliminar nota</string>
   <!--EasyEdit action mode titles-->
@@ -757,12 +1149,19 @@ há %3$s %4$s</string>
   <string name="actionmode_nodeselect">Nó selecionado</string>
   <string name="actionmode_relationselect">Relação selecionada</string>
   <string name="actionmode_createpath">A criar caminho</string>
+  <string name="actionmode_createpath_follow_way">Seguir linha</string>
   <string name="actionmode_multiselect">Seleção múltipla</string>
   <string name="actionmode_newnoteselect">Nova Nota selecionada</string>
+  <string name="actionmode_add_segment">Adicionar segmento</string>
+  <string name="actionmode_reselect_first_segment">Re-selecionar o primeiro segmento</string>
+  <string name="actionmode_split_way">Dividir linha</string>
+  <string name="actionmode_split_closed_way">Dividir linha fechada</string>
   <!--EasyEdit action mode sub-titles-->
   <string name="actionmode_closed_way_split_1">Selecionar o 1º nó</string>
   <string name="actionmode_closed_way_split_2">Selecionar o 2º nó</string>
   <string name="actionmode_split_way_node_selection">Selecionar nó</string>
+  <string name="actionmode_split_way_select_part">Selecionar a parte da nova linha</string>
+  <string name="actionmode_select_node_to_append_to">Selecionar o nó a acrescentar</string>
   <string name="actionmode_restriction">Adicionar restrição de viragem</string>
   <string name="actionmode_restriction_restart_from">Selecionar novamente o segmento \"from\" (de)</string>
   <string name="actionmode_restriction_select_from">Selecionar segmento \"from\" (de)</string>
@@ -772,17 +1171,28 @@ há %3$s %4$s</string>
   <string name="actionmode_restriction_restart_to">Selecionar novamente o segmento \"to\" (para)</string>
   <string name="actionmode_restriction_split_from">Segmento \"from\" (de) dividido</string>
   <string name="actionmode_restriction_split_via">Segmento \"via\" (através de) dividido</string>
+  <string name="actionmode_extract_segment_select">Selecionar segmento</string>
+  <string name="actionmode_extract_segment_set_tags">Definir etiquetas</string>
+  <string name="actionmode_createpath_follow_way_select_end_node">Selecionar o nó final</string>
   <plurals name="actionmode_object_count">
     <item quantity="one">1 objeto</item>
     <item quantity="many">%1$d objetos</item>
     <item quantity="other">%1$d objetos</item>
   </plurals>
   <string name="actionmode_rotateway">Rodar linha</string>
+  <string name="menu_snap">Atrair</string>
+  <string name="menu_follow_way">Seguir linha</string>
+  <string name="select_follow_way">Selecionar a linha a seguir</string>
   <!--Simple Action Mode-->
   <string name="menu_add_node">Adicionar nota</string>
   <string name="simple_add_node">Toque na posição do ecrã</string>
   <string name="menu_add_node_tags">Adicionar nó com etiquetas</string>
+  <string name="menu_add_node_address">Adicionar nó de endereço</string>
+  <string name="menu_add_address_interpolation">Adicionar interpolação de endereço</string>
   <string name="menu_add_way">Adicionar linha</string>
+  <string name="add_node_instruction">Tocar na posição</string>
+  <string name="add_way_start_instruction">Toque na primeira posição para iniciar</string>
+  <string name="add_way_node_instruction">Tocar na posição do nó seguinte</string>
   <string name="menu_add_map_note">Adicionar nota do mapa</string>
   <string name="simple_add_note">Toque na posição do ecrã</string>
   <string name="menu_paste_object">Colar objeto</string>
@@ -795,6 +1205,7 @@ há %3$s %4$s</string>
   <string name="config_overlayLayer_title">Camada de cima</string>
   <string name="config_overlayLayer_summary">O mapa de cima baseado em mosaicos.</string>
   <string name="config_customlayers_title">Camadas personalizadas</string>
+  <string name="config_customlayers_summary">Gerir camadas que não estão na configuração predefinida.</string>
   <string name="config_scale_title">Escala mostrada</string>
   <string name="config_scale_summary">Tipo de escala mostrada no mapa
 .</string>
@@ -808,16 +1219,20 @@ há %3$s %4$s</string>
   <string name="config_enableKeepScreenOn_summary">Impedir que o ecrã se desligue para poupar bateria.</string>
   <string name="config_largeDragArea_title">Área grande de arrasto</string>
   <string name="config_largeDragArea_summary">Usar uma área grande para poder arrastar os nós.</string>
+  <string name="config_wayNodeDragging_title">Ativar arrastamento do nó da linha</string>
+  <string name="config_wayNodeDragging_summary">Permite arrastar nós de linha individuais de uma linha selecionada.</string>
   <string name="config_advancedprefs">Configurações avançadas</string>
   <string name="config_moreprefs">Mais configurações…</string>
   <string name="config_presetbutton_title">Modelos de etiquetas</string>
   <string name="config_presetbutton_summary">Adicionar e ativar modelos de etiquetas compatíveis com o JOSM</string>
   <string name="config_built_in_preset">Modelo de etiquetas original</string>
   <!--Validator preferences-->
-  <string name="config_validatorprefs_title">Configurações de verificador</string>
+  <string name="config_validatorprefs_title">Configurações do verificador</string>
   <string name="config_validatorprefs_summary">Configurar regras de validação.</string>
   <string name="config_connectedNodeTolerance_title">Tolerância de nó ligado</string>
   <string name="config_connectedNodeTolerance_summary">Se um nó pertencente a uma estrada estiver dentro desta distância (em metros) a outra estrada à qual devia estar ligada</string>
+  <string name="config_enabledValidations_title">Validações ativadas</string>
+  <string name="config_enabledValidations_summary">Ativar/desativar validações individuais</string>
   <!--opening hours templates-->
   <string name="config_opening_hours_title">Modelos de horários de abertura</string>
   <string name="config_opening_hours_summary">Carregar, guardar e eliminar modelos de horários de abertura</string>
@@ -835,10 +1250,22 @@ há %3$s %4$s</string>
   <string name="config_showWayIcons_summary">Mostra o ícone dos modelos de etiquetas mais adequados por cima de edifícios.</string>
   <string name="config_tagFormEnabled_title">Formulário de etiquetas</string>
   <string name="config_tagFormEnabled_summary">Mostrar formulário de etiquetas tipo tabela para editar.</string>
+  <string name="config_supportPresetLabels_title">Mostrar etiquetas a partir dos modelos de etiquetas</string>
+  <string name="configsupportPresetLabels_summary">Mostrar etiquetas de modelos de etiquetas no editor de formulários de etiquetas.</string>
   <string name="config_showCameraAction_title">Mostrar ação da câmara</string>
   <string name="config_showCameraAction_summary">Mostrar ícone da câmara na barra de ações.</string>
+  <string name="config_selectCameraApp_title">Aplicação da câmara</string>
+  <string name="config_selectCameraApp_summary">Selecionar a aplicação da câmara a utilizar.</string>
+  <string name="config_system_camera">Predefinição do sistema</string>
+  <string name="config_open_camera">Open Camera</string>
   <string name="config_fv5_lite">FV5 lite</string>
   <string name="config_fv5_pro">FV5 pro</string>
+  <string name="config_useInternalPhotoViewer_title">Usar o visualizador de fotografias incorporado</string>
+  <string name="config_useInternalPhotoViewer_summary">Utiliza o visualizador de fotografias incorporado; caso contrário, será utilizado um visualizador externo.</string>
+  <string name="config_indexMediaStore_summary">Adicionalmente, utilizar o MediaStore para aceder a fotografias</string>
+  <string name="config_indexMediaStore_title">Usar o MediaStore</string>
+  <string name="config_followGPSbutton_title">Disposição do botão de seguir localização</string>
+  <string name="config_followGPSbutton_summary">Onde será posicionado o botão \"Seguir localização\".</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Escurecer p/descarregar</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">Escurece áreas não descarregadas no modo bloqueado.</string>
   <string name="config_fullscreenMode_title">Modo ecrã total</string>
@@ -850,8 +1277,12 @@ há %3$s %4$s</string>
   <string name="config_use_back_for_undo_title">Usar tecla ← para desfazer</string>
   <string name="config_use_back_for_undo_summary">Usar a tecla ← para desfazer na vista de edição principal.</string>
   <string name="config_theme_title">Tema</string>
+  <string name="config_theme_summary">Selecionar o estilo da aplicação.</string>
   <string name="config_splitActionBarEnabled_title">Dividir barra de ações</string>
+  <string name="config_splitActionBarEnabled_summary">Mostrar os botões de menu na parte inferior do ecrã. É necessário iniciar o Vespucci novamente e ter o Android 4.0 ou posterior.</string>
   <string name="config_appLocale_title">Adicionar idioma</string>
+  <string name="config_appLocale_summary">Selecionar o idioma não padrão da aplicação</string>
+  <string name="config_appLocale_device_language">Idioma do dispositivo</string>
   <string name="config_maxInlineValues_title">Nº máx. de valores na linha</string>
   <string name="config_maxInlineValues_summary">Número máximo de valores na linha mostrados no formulário de etiquetas.</string>
   <string name="config_maxInlineValues_current">%1$d valores</string>
@@ -865,23 +1296,49 @@ há %3$s %4$s</string>
   <string name="config_maxStrokeWidth_title">Espessura máxima da linha</string>
   <string name="config_maxStrokeWidth_summary">Não desenhar uma linha mais larga que isto.</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>
+  <string name="config_uploadOk_title">Limite de envio pendente</string>
+  <string name="config_uploadOk_summary">Se o número de envios de objetos pendentes for inferior a este limite, a situação é considerada não problemática.</string>
   <string name="config_upload_current">%1$d objetos</string>
+  <string name="config_uploadWarn_title">Limite de aviso de envio pendente</string>
+  <string name="config_uploadWarn_summary">Se o número de envios de objetos pendentes for inferior a este limite, terá o estado de \"aviso\". Um número de envios pendentes superior a este limite terá o estado de \"perigo\".</string>
+  <string name="config_uploadChecker_title">Intervalo do lembrete de envio</string>
+  <string name="config_uploadChecker_summary">Intervalo para lembretes se tiver alterações não enviadas.</string>
   <string name="config_uploadChecker_current">%1$d horas</string>
+  <string name="config_dataWarn_title">Aviso de demasiados dados</string>
+  <string name="config_dataWarn_summary">Limite (em número de nós) a partir do qual começa a alertar para o facto de estarem a ser carregados demasiados dados.</string>
+  <string name="config_useUrlForFeedback_title">Desativar a atividade de feedback</string>
+  <string name="config_useUrlForFeedback_summary">Desativar a atividade de feedback e utilizar um URL.</string>
+  <string name="config_beepVolume_title">Volume do sinal sonoro</string>
+  <string name="config_beepVolume_summary">Definição do volume dos sinais sonoros.</string>
   <string name="config_beepVolume_current">%1$d</string>
+  <string name="config_mapillary_min_zoom_title">Zoom mínimo para o Mapillary</string>
+  <string name="config_mapillary_min_zoom_summary">Nível mínimo de zoom necessário para que os dados do Mapillary sejam apresentados.</string>
   <string name="config_mapillary_min_zoom_current">%1$d</string>
+  <string name="config_nameCap_summary">Capitalização automática de etiquetas de nomes ao introduzir dados</string>
+  <string name="config_nameCap_title">Capitalização de nomes</string>
+  <string name="config_longStringLimit_title">Limite de cadeias longas</string>
+  <string name="config_longStringLimit_summary">Limite a partir do qual se mostra um modal para editar texto no editor de propriedades</string>
   <string name="config_longStringLimit_current">%1$d</string>
+  <string name="config_zoomWithKeys_title">Utilizar as teclas de volume para fazer zoom</string>
+  <string name="config_zoomWithKeys_summary">Permitir a utilização das teclas de volume para aumentar e diminuir o zoom.</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Configurações de dados e edição</string>
   <string name="config_category_editing_summary">Configurações de descarregamento automático, gravar e notificações.</string>
   <string name="config_forceContextMenu_title">Usar sempre o menu contextual</string>
   <string name="config_forceContextMenu_summary">Mostrar sempre o menu contextual se uma seleção for ambígua.</string>
+  <string name="config_overrideRegionAddressTags_title">Substituir a etiqueta de endereço predefinida</string>
+  <string name="config_overrideRegionAddressTags_summary">Utilizar a configuração de etiqueta de endereço em vez de quaisquer valores específicos da região</string>
   <string name="config_address_tags">Etiquetas de endereço</string>
   <string name="config_address_tags_summary">Etiquetas para previsão de endereço.</string>
+  <string name="config_neighbourDistance_title">Distância entre endereços vizinhos</string>
+  <string name="config_neighbourDistance_summary">A distância até à qual dois endereços são considerados potenciais vizinhos</string>
   <string name="config_neighbourDistance_current">%1$d metro(s)</string>
   <string name="config_enableNameSuggestions_title">Sugerir nomes</string>
   <string name="config_enableNameSuggestions_summary">Ativa a apresentação de sugestões para a etiqueta de nome.</string>
   <string name="config_enableNameSuggestionsPresets_title">Sugerir etiquetas</string>
   <string name="config_enableNameSuggestionsPresets_summary">Adicionar automaticamente etiqueta quando for selecionado o nome da etiqueta.</string>
+  <string name="config_autoApplyPreset_title">Ativar a aplicação automática de modelos de etiquetas</string>
+  <string name="config_autoApplyPreset_summary">Aplicar automaticamente o modelo de etiquetas ao iniciar o editor de propriedades.</string>
   <string name="config_generateAlerts_title">Gerar notificações</string>
   <string name="config_generateAlerts_summary">Gerar notificações para dados com problemas ou erros</string>
   <string name="config_groupAlertsOnly_title">Apenas alertas de grupos</string>
@@ -896,18 +1353,42 @@ há %3$s %4$s</string>
   <string name="config_closeChangesetOnSave_summary">Fechar os conjuntos de alterações ao gravar.</string>
   <string name="config_enableAutoPresets_title">Ativar criação automática de etiquetas</string>
   <string name="config_enableAutoPresets_summary">Permitir criação de etiquetas de Taginfo.</string>
+  <string name="config_orthogonalizeThreshold_title">Limiar de quadratura</string>
+  <string name="config_orthogonalizeThreshold_summary">O limiar em ° acima do qual os ângulos são ignorados</string>
   <string name="config_orthogonalizeThreshold_current">%1$d°</string>
+  <string name="config_autoformatPhoneNumbers_title">Formatar automaticamente números de telefone</string>
+  <string name="config_autoformatPhoneNumbers_summary">Ativar a formatação automática dos números de telefone</string>
+  <string name="config_maxOffsetDistance_title">Distância máxima para alinhamentos de imagens aéreas armazenadas</string>
+  <string name="config_maxOffsetDistance_summary">A distância mais distante a que um alinhamento de camada armazenado localmente será automaticamente aplicado.</string>
   <string name="config_maxOffsetDistance_current">%1$d metro(s)</string>
+  <string name="config_useImperialUnits_title">Utilizar unidades imperiais para medir</string>
+  <string name="config_useImperialUnits_summary">Utilizar unidades imperiais para efetuar medições em países que as utilizam habitualmente.</string>
+  <string name="config_minCircleNodes_title">Número mínimo de nós no círculo</string>
+  <string name="config_minCircleNodes_summary">O número mínimo de nós que devem ser visados num círculo.</string>
+  <string name="config_minCircleNodes_current">%1$d nós</string>
+  <string name="config_maxCircleSegment_title">Comprimento máximo do segmento do círculo</string>
+  <string name="config_maxCircleSegment_summary">Distância máxima entre 2 nós de círculo.</string>
   <string name="config_maxCircleSegmentcurrent">%1$d metro(s)</string>
+  <string name="config_minCircleSegment_title">Comprimento mínimo do segmento de círculo</string>
+  <string name="config_minCircleSegment_summary">Distância mínima entre 2 nós de círculo.</string>
   <string name="config_minCircleSegmentcurrent">%1$d metro(s)</string>
   <!--Auto-download settings-->
+  <string name="config_category_auto_download">Definições de descarregamento automático</string>
+  <string name="config_category_auto_download_summary">Definições para o descarregamento automático de dados e tarefas</string>
   <string name="config_extTriggeredDownloadRadius_title">Raio para descarregar</string>
   <string name="config_extTriggeredDownloadRadius_summary">Raio (m) dos descarregamentos desencadeados externamente, 0 = centrar apenas no mapa.</string>
   <string name="config_downloadRadius_current">%1$d metro(s)</string>
   <string name="config_maxDownloadSpeed_title">Vel. máx. descarreg. automático</string>
   <string name="config_maxDownloadSpeed_summary">Limite (em Km/h) sobre o qual o descarregamento automático é interrompido.</string>
   <string name="config_downloadSpeed_current">%1$d km/h</string>
-  <string name="config_autoPruneNodeLimit_current">%1$d Nós</string>
+  <string name="config_autoPruneNodeLimit_title">Limite de auto-limpeza</string>
+  <string name="config_autoPruneNodeLimit_summary">Número de nós na memória que, quando atingido, acionará uma limpeza.</string>
+  <string name="config_autoPruneNodeLimit_current">%1$d nós</string>
+  <string name="config_autoPruneBoundingBoxLimit_title">Limite de limpeza automática de caixas delimitadoras</string>
+  <string name="config_autoPruneBoundingBoxLimit_summary">Número de caixas delimitadoras na memória que, quando atingidas, acionam uma limpeza.</string>
+  <string name="config_autoPruneBoundingBoxLimit_current">%1$d caixas</string>
+  <string name="config_panAndZoomLimit_title">Limite de zoom</string>
+  <string name="config_panAndZoomLimit_summary">Nível mínimo de zoom para o descarregamento automático de deslocar a vista e o zoom.</string>
   <string name="config_panAndZoomLimit_current">%1$d</string>
   <string name="config_bugFilter_title">Filtro de tarefas</string>
   <string name="config_bugFilter_summary">Selecione que elementos são mostrados na camada de notas, erros e tarefas.</string>
@@ -915,8 +1396,11 @@ há %3$s %4$s</string>
   <string name="config_bugDownloadRadius_summary">Raio (m) de descarregamento de tarefas</string>
   <string name="config_maxBugDownloadSpeed_title">Vel. máx. descarreg. tarefas automático</string>
   <string name="config_maxBugDownloadSpeed_summary">Limite (em Km/h) sobre o qual o descarregamento automático de notas, erros e tarefas é interrompido</string>
-  <string name="config_autoPruneTaskLimit_current">%1$d Tarefas</string>
+  <string name="config_autoPruneTaskLimit_title">Limite de auto-limpeza de tarefas</string>
+  <string name="config_autoPruneTaskLimit_summary">Número de tarefas na memória que, quando atingido, acionará uma limpeza.</string>
+  <string name="config_autoPruneTaskLimit_current">%1$d tarefas</string>
   <!--Location Settings-->
+  <string name="config_category_gps">Definições de localização</string>
   <string name="config_category_gps_summary">Parâmetros GPS/GNSS e outros fornecedores de localização.</string>
   <string name="config_gps_source_title">Fonte GPS/GNSS</string>
   <string name="config_gps_source_summary">Fonte das atualizações da localização GPS/GNSS.</string>
@@ -932,7 +1416,11 @@ há %3$s %4$s</string>
   <string name="config_leaveGpsDisabled_summary">Não perguntar para ligar o GPS/GNSS se estiver desligado.</string>
   <string name="config_gps_network_title">Usar rede de telemóveis</string>
   <string name="config_gps_network_summary">Se o GPS/GNSS não existir ou estiver desativado, usar a rede de telemóveis.</string>
+  <string name="config_gnssTimeToStale_title">Localização obsoleta após</string>
+  <string name="config_gnssTimeToStale_summary">A idade (em segundos) que uma localização precisa de ter para ser considerada obsoleta.</string>
   <string name="config_gnssTimeToStale_current">%1$d segundos</string>
+  <string name="config_useBarometricHeight_title">Utilizar a altura barométrica</string>
+  <string name="config_useBarometricHeight_summary">Utilizar valores de altura em trilhos do sensor de pressão de ar, se disponíveis</string>
   <!--Server Settings-->
   <string name="config_category_server">Configurações do servidor</string>
   <string name="config_category_server_summary">API do OpenStreetMap e configuração de outros servidores.</string>
@@ -946,6 +1434,12 @@ há %3$s %4$s</string>
   <string name="config_osmoseServer_summary">URL para o servidor OSMOSE.</string>
   <string name="config_geocoderbutton_title">Configurar geo-codificadores</string>
   <string name="config_geocoderbutton_summary">Adicionar, editar, eliminar geo-codificador para a funcionalidade de procura.</string>
+  <string name="config_taginfoServer_title">Servidor Taginfo</string>
+  <string name="config_taginfoServer_summary">Servidor Taginfo a utilizar para a geração de modelos de etiquetas</string>
+  <string name="config_overpassServer_title">Servidor Overpass</string>
+  <string name="config_overpassServer_summary">Servidor Overpass utilizado para consultas</string>
+  <string name="config_oamServer_title">Servidor OpenAerialMap</string>
+  <string name="config_oamServer_summary">Servidor OpenAerialMap utilizado para fornecer imagens aéreas</string>
   <!--Layer download and storage-->
   <string name="config_category_layers">Descarregar/armaz.camada</string>
   <string name="config_category_layers_summary">Descarregamento e armazenamento de imagens de fundo baseadas em mosaicos.</string>
@@ -954,12 +1448,28 @@ há %3$s %4$s</string>
   <string name="config_downLoadThreads_current">%1$d linhas de execução</string>
   <string name="config_tileCacheSize_title">Tamanho da cache mosaicos</string>
   <string name="config_tileCacheSize_summary">Armazenamento total utilizado para os mosaicos, em MB.</string>
+  <string name="config_preferRemovableStorage_title">Preferir armazenamento amovível</string>
+  <string name="config_preferRemovableStorage_summary">Preferir armazenamento amovível para a cache dos mosaicos.</string>
   <string name="config_tileCache_current">%1$d MB</string>
+  <string name="config_mapillaryCacheSize_title">Tamanho da cache Mapillary</string>
+  <string name="config_mapillaryCacheSize_summary">Armazenamento total utilizado para guardar em cache as imagens Mapillary, em MB</string>
   <!--Auto-save-->
+  <string name="config_category_autosave">Guardar automaticamente a configuração</string>
+  <string name="config_category_autosave_summary">Definições para a gravação automática de edições.</string>
+  <string name="config_autosaveSaveState_title">Guardar estado</string>
+  <string name="config_autosaveSaveState_summary">Guardar o estado completo, incluindo os dados inalterados.</string>
   <string name="config_autosaveSaveChanges_title">Guardar alterações</string>
+  <string name="config_autosaveSaveChanges_summary">Guardar as alterações num ficheiro OSC.</string>
+  <string name="config_autosaveInterval_title">Intervalo mínimo</string>
+  <string name="config_autosaveInterval_summary">Intervalo mínimo em minutos entre os guardados.</string>
   <string name="config_autosaveInterval_current">%1$d min</string>
+  <string name="config_autosaveChanges_title">Número mínimo de alterações</string>
+  <string name="config_autosaveChanges_summary">Número mínimo de alterações necessárias para guardar.</string>
   <string name="config_autosaveChanges_current">%1$d</string>
+  <string name="config_autosaveMaxFiles_title">Número máximo de ficheiros OSC a reter</string>
   <string name="config_autosaveMaxFiles_current">%1$d</string>
+  <string name="config_gpxAutosaveInterval_title">Intervalo mínimo em minutos de gravar GPX</string>
+  <string name="config_gpxAutosaveInterval_summary">Intervalo mínimo em minutos entre gravações GPX.</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">Outras configurações</string>
   <string name="pref_enable_acra">Reportar bloqueios da app</string>
@@ -973,6 +1483,8 @@ há %3$s %4$s</string>
   <string name="config_js_console_summary">Disponibilizar a consola JavaScript no modo \"ao vivo\".</string>
   <string name="config_voiceCommandsEnabled_title">Ativar comandos de voz</string>
   <string name="config_voiceCommandsEnabled_summary">Ativar suporte de comandos de voz.</string>
+  <string name="config_splitWindowForPropertyEditor_summary">Ativar a apresentação do editor de propriedades numa janela separada, se disponível.</string>
+  <string name="config_splitWindowForPropertyEditor_title">Ativar o editor de propriedades de janela dividida</string>
   <!---->
   <string name="manage_apis">Gerir APIs</string>
   <string name="config_api_url_title">URL da API</string>
@@ -1027,10 +1539,15 @@ há %3$s %4$s</string>
   <string name="tracking_active_title">Serviço em segundo plano Vespucci</string>
   <string name="tracking_active_title_short">Serviço em segundo planto ativo</string>
   <string name="tracking_active_text">A gravar um trilho GPS ou a auto-descarregar</string>
+  <string name="tracking_long_text">O Vespucci está a gravar um trilho GPX ou a descarregar automaticamente. Para sair completamente, prima o botão abaixo ou o botão de retroceder na aplicação.</string>
   <string name="gps_failure">Não foi possível ativar o GPS</string>
   <!--element description-->
   <string name="address_housenumber">Endereço %1$s</string>
   <string name="address_housenumber_street">Endereço %1$s %2$s</string>
+  <string name="description_id">%1$s #%2$s</string>
+  <string name="description_type_id">%1$s %2$s #%3$s</string>
+  <string name="only_id">#%1$s</string>
+  <string name="type_id">%1$s #%2$s</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">Nó movido</string>
   <string name="undo_action_moveway">Linha movida</string>
@@ -1047,9 +1564,11 @@ há %3$s %4$s</string>
   <string name="undo_action_set_tags">Etiquetando</string>
   <string name="undo_action_join">Unindo</string>
   <string name="undo_action_unjoin_ways">Separação de linha</string>
+  <string name="undo_action_merge_polygons">Polígonos unidos</string>
   <string name="undo_action_create_relation">Criação de relação</string>
   <string name="undo_action_delete_relation">Eliminação de relação</string>
   <string name="undo_action_update_relations">Atualização de relação</string>
+  <string name="undo_action_move_tags">Mover etiquetas para a relação</string>
   <string name="undo_action_cut">Cortar</string>
   <string name="undo_action_paste">Colar</string>
   <string name="undo_action_rotateway">Rodar linha</string>
@@ -1058,6 +1577,8 @@ há %3$s %4$s</string>
   <string name="undo_action_fix_conflict">Resolução de conflito</string>
   <string name="undo_action_extract_node">Extração de nó</string>
   <string name="undo_action_apply_osc">Aplicar ao ficheiro OSC</string>
+  <string name="undo_action_remove_node_from_way">Remover nó da linha</string>
+  <string name="undo_action_extract_segment">Extrair segmento</string>
   <!--ACRA-->
   <string name="crash_dialog_text">O Vespucci bloqueou ou encontrou um erro grave da última vez que foi executado.\n\nPor favor ajude clicando em \'OK\' para enviar um relatório de erro aos programadores.\n</string>
   <string name="crash_dialog_comment_prompt">Adicione qualquer informação adicional que possa ajudar e opcionalmente, o seu nome de utilizador no OpenStreetMap se quiser obter uma resposta.\n\nObrigado.</string>
@@ -1065,6 +1586,7 @@ há %3$s %4$s</string>
   <string name="report_failure">Não foi possível enviar o reporte.</string>
   <!--Exceptions messages-->
   <string name="exception_too_many_nodes">Esta operação iria criar uma linha com muitos nós.</string>
+  <string name="exception_too_many_members">Esta operação acrescentaria demasiados membros à relação %1$s.</string>
   <!--Notifications-->
   <string name="alert_data_issue">Foi detetado um problema com os dados do OpenStreetMap</string>
   <string name="alert_note">Foi detetado um erro reportado no OSM nas redondezas</string>
@@ -1090,6 +1612,7 @@ há %3$s %4$s</string>
   <string name="deleterelation_relation_description">Está prestes a eliminar uma relação que é membro de 1 ou mais relações. Se remover esta relação, pode tornar as outras inválidas.</string>
   <string name="deleterelation">Eliminar relação</string>
   <string name="delete_from_relation_description">Está prestes a eliminar este elemento de uma relação.</string>
+  <string name="delete_elements_from_relation_description">Está prestes a eliminar elementos de uma ou mais relações.</string>
   <string name="unset_relation_type">Relação indefinida</string>
   <!--Things-->
   <string name="bridge">Ponte</string>
@@ -1097,6 +1620,17 @@ há %3$s %4$s</string>
   <string name="culvert">Tubo de drenagem</string>
   <string name="steps">Escadas</string>
   <!--Issues-->
+  <string name="issue_not_reversable">Etiquetas não reversíveis</string>
+  <string name="issue_shared_node">Partilhado com outra linha</string>
+  <string name="issue_tags_reversed">Etiquetas invertidas</string>
+  <string name="issue_role_reversed">Função invertida</string>
+  <string name="issue_role_conflict">Conflito de função</string>
+  <string name="issue_merged_tags">Etiquetas fundidas</string>
+  <string name="issue_same_object">O mesmo objeto</string>
+  <string name="issue_merged_metric">O valor dependente do comprimento foi fundido</string>
+  <string name="issue_split_metric">O valor dependente do comprimento foi dividido</string>
+  <string name="issue_split_route_ordering">A rota pode necessitar de reordenação manual</string>
+  <string name="issue_precondition_relation_member_count">Número de membros da relação excedido</string>
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">1 dia</item>
@@ -1131,14 +1665,38 @@ há %3$s %4$s</string>
   <!--Help system-->
   <string name="toast_nohelp">Sem ajuda aqui.</string>
   <!--Bookmarks-->
+  <string name="add_bookmark_title">Adicionar favorito</string>
+  <string name="edit_bookmark_title">Editar favorito</string>
   <string name="bookmarks_desc">Nome</string>
   <string name="show_bookmarks">Favoritos…</string>
   <string name="_dots">⋮</string>
+  <string name="gotobookmark">Ir</string>
   <string name="bookmarkstitle">Favoritos</string>
   <!--Element types-->
-  <string name="element_type_way">caminho</string>
+  <string name="element_type_node">nó</string>
+  <string name="element_type_way">linha</string>
+  <string name="element_type_closedway">linha fechada</string>
   <string name="element_type_area">área</string>
   <string name="element_type_relation">relação</string>
   <!--Element names with id-->
+  <string name="node_id">nó %1$d</string>
+  <string name="way_id">linha %1$d</string>
+  <string name="relation_id">relação %1$d</string>
   <!--Tile downloader diagnostics-->
+  <string name="layer_diag_title">Diagnóstico de camadas</string>
+  <string name="no_tile_header">Cabeçalho \"No tile\" %1$s</string>
+  <string name="no_tile_mvt_tile">Mosaico MVT \"no tile\" %1$s</string>
+  <string name="empty_tile">Mosaico vazio</string>
+  <string name="tile_error">Código de erro do mosaico: %1$d\n\n%2$s</string>
+  <string name="tile_error_message">Mensagem de erro do mosaico:\n\n%1$s\n\n%2$s</string>
+  <string name="unexpected_tile_format">Formato inesperado\nURL:%1$s %2$s</string>
+  <string name="unexpected_tile_format_subtype">Subtipo de formato inesperado %1$s\nURL: %2$s</string>
+  <string name="diagnostics_for_tile">Diagnóstico para %1$s</string>
+  <string name="tile_spec">zoom %1$d x %2$d y %3$d</string>
+  <string name="tile_input_error">Erro de entrada de mosaico: %1$s\nURL: %2$s</string>
+  <string name="tile_data_received">%1$d bytes recebidos com sucesso</string>
+  <string name="tile_mark_invalid">Marcar o mosaico como inválido</string>
+  <string name="tile_decoding_failed">Falha na descodificação do mosaico</string>
+  <string name="tile_success">Sucesso</string>
+  <string name="tile_fail">Falha</string>
 </resources>

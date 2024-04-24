@@ -302,7 +302,7 @@
   <!--Overpass console-->
   <string name="run">اجرا</string>
   <string name="overpass_result">دانلود شد%1$d گره(ها), %2$d راه (ها) و %3$d رابطه(ها).</string>
-  <string name="overpass_console">کنسول روگذر</string>
+  <string name="overpass_console">کنسول Overpass</string>
   <string name="select_result">نتیجه را انتخاب کنید</string>
   <string name="merge_result">ادغام نتیجه</string>
   <string name="overpass_query_would_overwrite">نتیجه تغییرات را بازنویسی خواهد کرد! درخواست لغو شد.</string>
@@ -925,7 +925,7 @@
   <string name="menu_transfer_download_replace">پاک‌سازی و بارگیری نمای کنونی</string>
   <string name="menu_transfer_load_current">بارکردن نمای کنونی</string>
   <string name="menu_transfer_load_replace">پاک‌سازی و بارکردن نمای کنونی</string>
-  <string name="menu_transfer_query_overpass">درخواست روگذر...</string>
+  <string name="menu_transfer_query_overpass">پرس‌وجو از Overpass…</string>
   <string name="menu_transfer_upload">بارگذاری داده‌ها در سرور OSM...</string>
   <string name="menu_transfer_review">بررسی تغییرات...</string>
   <string name="menu_transfer_update">به‌روزرسانی داده</string>

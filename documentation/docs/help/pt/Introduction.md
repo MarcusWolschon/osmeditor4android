@@ -1,8 +1,8 @@
-_Before we start: most screens have links in the menu to the on-device help system giving you direct access to information relevant for the current context, you can easily navigate back to this text too. If you have a larger device, for example a tablet, you can open the help system in a separate split window.  All the help texts and more (FAQs, tutorials) can be found on the [Vespucci documentation site](https://vespucci.io/) too._
+_Antes de começar: a maioria dos ecrãs tem hiperligações no menu para o sistema de ajuda do dispositivo que lhe dá acesso direto a informações relevantes para o contexto atual, podendo também navegar facilmente para este texto. Se tiver um dispositivo maior, por exemplo um tablet, pode abrir o sistema de ajuda numa janela separada. Todos os textos de ajuda e outros (FAQs, tutoriais) também podem ser encontrados no [site de documentação Vespucci](https://vespucci.io/) too._
 
 # Introdução ao Vespucci
 
-Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 10.0 and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size.
+O Vespucci é um editor OpenStreetMap completo que suporta a maioria das operações que os editores de secretária fornecem. Foi testado com sucesso no Android 2.3 a 10.0 da Google e em várias variantes baseadas em AOSP. Uma palavra de cautela: embora as capacidades dos dispositivos móveis se tenham aproximado dos seus rivais de secretária, os dispositivos mais antigos têm uma memória disponível muito limitada e tendem a ser bastante lentos. Deve ter isto em conta quando utilizar o Vespucci e manter, por exemplo, as áreas que está a editar com um tamanho razoável.
 
 ## Editar no Vespucci
 
@@ -10,22 +10,22 @@ Dependendo do tamanho do ecrã e da antiguidade do dispositivo que estiver a usa
 
 <a id="download"></a>
 
-### Descarregar Dados do OpenStreetMap
+### Descarregar dados do OpenStreetMap
 
 Selecione o ícone de transferir  ![Transferir](../images/menu_transfer.png) ou o menu "Transferir". Isto irá mostrar 7 opções:
 
-* **Download current view** - download the area visible on the screen and merge it with existing data *(requires network connectivity or offline data source)*
-* **Clear and download current view** - clear any data in memory and then download the area visible on the screen *(requires network connectivity)*
-* **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
-* **Update data** - re-download data for all areas and update what is in memory *(requires network connectivity)*
-* **Location based auto download** - download an area around the current geographic location automatically *(requires network connectivity or offline data)* *(requires GPS)*
-* **Pan and zoom auto download** - download data for the currently displayed map area automatically *(requires network connectivity or offline data)* *(requires GPS)*
-* **File...** - saving and loading OSM data to/from on device files.
-* **Note/Bugs...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
+* **Descarregar a vista atual** - descarrega a área visível no ecrã e funde-a com os dados existentes *(requer conetividade de rede ou fonte de dados offline)*
+* **Limpar e descarregar a vista atual** - limpar quaisquer dados na memória e depois descarregar a área visível no ecrã *(requer ligação à rede)*
+* **Enviar dados para o servidor OSM…** - carregar edições para o OpenStreetMap *(requer autenticação)* *(requer ligação à rede)*
+* **Atualizar dados** - voltar a descarregar dados para todas as áreas e atualizar o que está na memória *(requer ligação à rede)*
+* **Descarregamento automático com base na localização** - descarrega automaticamente uma área em torno da localização geográfica atual *(requer conetividade de rede ou dados offline)* *(requer GPS)*
+* **Descarregamento automático de deslocar a vista e o zoom** - descarrega automaticamente os dados da área do mapa atualmente apresentada *(requer conetividade de rede ou dados offline)* *(requer GPS)*
+* **Ficheiro…** - guardar e carregar dados OSM de/para ficheiros no dispositivo.
+* **Notas/erros…** - descarrega (automática e manualmente) notas e "Bugs" do OSM a partir de ferramentas QA (atualmente OSMOSE) *(requer ligação à rede)*
 
 A forma mais fácil de descarregar dados para o dispositivo é aproximar/afastar e deslocar para a localização que quer editar e então selecionar "Descarregar a vista atual". Pode aproximar/afastar utilizando gestos dos dedos, os botões de aproximar/afastar ou os botões de volume no dispositivo. O Vespucci irá então descarregar os dados para a vista atual. Não é necessário autenticar-se para descarregar dados.
 
-With the default settings any non-downloaded areas will be dimmed relative to the downloaded ones, this is to avoid inadvertently adding duplicate objects in areas that are not being displayed. The behaviour can be changed in the [Advanced preferences](Advanced%20preferences.md).
+Com as configurações predefinidas, as áreas não descarregadas serão escurecidas em relação às descarregadas, para evitar a adição inadvertida de objetos duplicados em áreas que não estão a ser apresentadas. O comportamento pode ser alterado em [Preferências avançadas](Advanced%20preferences.md).
 
 ### Editar
 
@@ -37,11 +37,11 @@ Para evitar edições acidentais, o Vespucci inicia no modo  "bloqueado". Toque 
 
 Se pressionar de forma longa o botão do cadeado, surgirá um menu com 4 opções:
 
-* **Normal** - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.
-* **Tag only** - selecting an existing object will start the Property Editor, a long press on the main screen will add objects, but no other geometry operations will work. White lock icon with a "T" is displayed.
-* **Address** - enables Address mode, a slightly simplified mode with specific actions available from the [Simple mode](../en/Simple%20actions.md) "+" button. White lock icon with an "A" is displayed.
-* **Indoor** - enables Indoor mode, see [Indoor mode](#indoor). White lock icon with an "I" is displayed.
-* **C-Mode** - enables C-Mode, only objects that have a warning flag set will be displayed, see [C-Mode](#c-mode). White lock icon with a "C" is displayed.
+* **Normal** - o modo de edição predefinido, podem ser adicionados novos objetos, editados os existentes, movidos e removidos. É apresentado um ícone de cadeado branco simples.
+* **Apenas etiquetas** - a seleção de um objeto existente inicia o editor de propriedades, uma pressão prolongada no ecrã principal adiciona objetos, mas nenhuma outra operação de geometria funciona. Aparece o ícone de cadeado branco com um "T".
+* **Endereço** - ativa o modo endereço, um modo ligeiramente simplificado com ações específicas disponíveis no botão "+" do [Modo simples](../en/Simple%20actions.md). Aparece o ícone de cadeado branco com um "A".
+* **Interior** - ativa o modo Interior, ver [Modo interior](#indoor). Aparece o ícone de cadeado branco com um "I".
+* **Modo C** - ativa o modo C, apenas serão apresentados os objetos que tenham um sinal de aviso definido, ver [Modo C](#c-mode). Aparece o ícone de cadeado branco com um "C".
 
 #### Toque simples, toque duplo e toque longo
 
@@ -79,7 +79,7 @@ Note que nos objetos que se sobrepõem (como um nó numa linha) irá aparecer de
 
 #### Objetos selecionados: Mover um Nó ou Linha
 
-Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the [preferences](Preferences.md), you get a large area around the selected node that makes it easier to position the object. 
+Depois de selecionar um objeto, este pode ser movido. Note que os objetos só podem ser arrastados/movidos quando estão selecionados. Basta arrastar perto (ou seja, dentro da zona de tolerância) do objeto selecionado para movê-lo. Se selecionar a área de arrastamento grande nas [preferências] (Preferences.md), obtém uma área grande à volta do nó selecionado que facilita o posicionamento do objeto. 
 
 #### Adicionar um novo Nó ou Linha 
 
@@ -91,20 +91,20 @@ Ao tocar no botão verde grande redondo no ecrã do mapa irá mostrar um menu. A
 
 Para mais informações ver [Criar novos objetos no modo de ações simples (Creating%20new%20objects%20in%20simple%20actions%20mode.md).
 
-##### Advanced (long press) mode
+##### Modo avançado (pressão longa)
  
-Long press where you want the node to be or the way to start. You will see a black "crosshair" symbol. 
-* If you want to create a new node (not connected to an object), touch away from existing objects.
-* If you want to extend a way, touch within the "tolerance zone" of the way (or a node on the way). The tolerance zone is indicated by the areas around a node or way.
+Prima longamente o local onde pretende que o nó fique ou a linha para começar. Aparecerá um símbolo de "mira" preta. 
+* Se pretender criar um novo nó (não ligado a um objeto), toque num local longe dos objetos existentes.
+* Se quiser continuar uma linha, toque dentro da "zona de tolerância" da linha (ou de um nó da linha). A zona de tolerância é indicada pelas áreas à volta de um nó ou linha.
 
 Assim que veja um sinal mais, tem as seguintes opções:
 
-* _Normal press in the same place._
-    * If the crosshair is not near a node, touching the same location again creates a new node. If you are near a way (but not near a node), the new node will be on the way (and connected to the way).
-    * If the crosshair is near a node (i.e. within the tolerance zone of the node), touching the same location just selects the node (and the tag editor opens. No new node is created. The action is the same as the selection above.
-* _Normal touch in another place._ Touching another location (outside of the tolerance zone of the crosshair) adds a way segment from the original position to the current position. If the crosshair was near a way or node, the new segment will be connected to that node or way.
+* _Toque normal no mesmo local._
+    * Se a mira não estiver perto de um nó, tocar novamente no mesmo local cria um novo nó. Se estiver perto de uma linha (mas não perto de um nó), o novo nó ficará na linha (e ligado à linha).
+    * Se a mira estiver perto de um nó (ou seja, dentro da zona de tolerância do nó), tocar na mesma localização apenas seleciona o nó (e o editor de etiquetas abre-se). Não é criado um novo nó. A ação é a mesma que a da seleção acima.
+* _Toque normal noutro local._ Tocar noutro local (fora da zona de tolerância da mira) adiciona um segmento de linha desde a posição original até à posição atual. Se a mira estava perto de uma linha ou nó, o novo segmento será ligado a esse nó ou linha.
 
-Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the final node is located on a way or node, the segment will be connected to the way or node automatically. 
+Basta tocar no ecrã onde pretende adicionar mais nós da linha. Para terminar, toque duas vezes no nó final. Se o nó final estiver localizado numa linha ou num nó, o segmento será ligado automaticamente à linha ou ao nó. 
 
 Também pode usar o item do menu: para mais informações veja [Criar novos objetos](Creating%20new%20objects.md).
 
@@ -112,35 +112,35 @@ Também pode usar o item do menu: para mais informações veja [Criar novos obje
 
 O OpenStreetMap neste momento não tem um tipo de objeto definido como "área" ao contrário de outros sistemas de geo-dados. O editor "iD" tenta criar uma abstração de área a partir dos elementos OpenStreetMap subjacentes, o que funciona bem em algumas circunstâncias, mas não noutras. O Vespucci neste momento não faz isso, por isso necessita de saber um pouco como é que as áreas são representadas:
 
-* _closed ways (*polygons")_: the simplest and most common area variant, are ways that have a shared first and last node forming a closed "ring" (for example most buildings are of this type). These are very easy to create in Vespucci, simply connect back to the first node when you are finished with drawing the area. Note: the interpretation of the closed way depends on its tagging: for example if a closed way is tagged as a building it will be considered an area, if it is tagged as a roundabout it wont. In some situations in which both interpretations may be valid, an "area" tag can clarify the intended use.
-* _multi-polygons_: some areas have multiple parts, holes and rings that can't be represented with just one way. OSM uses a specific type of relation (our general purpose object that can model relations between elements) to get around this, a multi-polygon. A multi-polygon can have multiple "outer" rings, and multiple "inner" rings. Each ring can either be a closed way as described above, or multiple individual ways that have common end nodes. While large multi-polygons are difficult to handle with any tool, small ones are not difficult to create in Vespucci. 
-* _coastlines_: for very large objects, continents and islands, even the multi-polygon model doesn't work in a satisfactory way. For natural=coastline ways we assume direction dependent semantics: the land is on the left side of the way, the water on the right side. A side effect of this is that, in general, you shouldn't reverse the direction of a way with coastline tagging. More information can be found on the [OSM wiki](http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline).
+* _linhas fechadas (*polígonos")_: a variante de área mais simples e mais comum são as linhas que têm um primeiro e um último nó partilhados formando um "anel" fechado (por exemplo, a maioria dos edifícios são deste tipo). Estas são muito fáceis de criar no Vespucci, basta ligar ao primeiro nó quando terminar de desenhar a área. Nota: a interpretação da linha fechada depende das suas etiquetas: por exemplo, se uma linha fechada for etiquetada como um edifício, será considerada uma área, se for etiquetada como uma rotunda, não. Em algumas situações em que ambas as interpretações podem ser válidas, uma etiqueta de "área" pode clarificar a utilização pretendida.
+* _multi-polígono_: algumas áreas têm várias partes, buracos e anéis que não podem ser representados numa só linha. O OSM utiliza um tipo específico de relação (o nosso objeto de uso geral que pode modelar relações entre elementos) para contornar esta situação, um multi-polígono. Um multi-polígono pode ter vários anéis "exteriores" e vários anéis "interiores". Cada anel pode ser uma linha fechada, como descrito acima, ou várias linhas individuais que têm nós finais comuns. Embora os multi-polígonos de grandes dimensões sejam difíceis de manusear com qualquer ferramenta, os pequenos não são difíceis de criar no Vespucci. 
+* _linhas costeiras_: para objetos muito grandes, continentes e ilhas, mesmo o modelo multi-polígono não funciona de forma satisfatória. Para linhas natural=coastline assumimos uma semântica dependente da direção: a terra está do lado esquerdo da linha, a água do lado direito. Um efeito secundário disto é que, em geral, não se deve inverter a direção de uma linha com marcação de costa. Pode encontrar mais informações na [wiki do OSM](http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline).
 
-#### Melhorar Geometria das Linhas
+#### Melhorar geometria das linhas
 
 Se aproximar a vista suficientemente numa linha selecionada, irá ver um pequeno "x" no meio dos segmentos da linha que sejam suficientemente compridos. Se arrastar esse "x" irá criar um nó nessa localização. Nota: para evitar que crie nós por acidente, a zona de tolerância de toque desta operação é pequena.
 
-#### Cortar, Copiar e Colar
+#### Cortar, copiar e colar
 
 Pode copiar ou cortar os nós ou linhas selecionados, e então colar uma ou várias vezes numa nova localização. Cortar irá preservar o identificador (ID), versão e histórico do objeto. Para colar basta um toque longo no local desejado (verá um x marcando o lugar). E então selecione "Colar" no menu.
 
-#### Adicionar Endereços Eficientemente
+#### Adicionar endereços eficientemente
 
-Vespucci supports functionality that makes surveying addresses more efficient by predicting house numbers (left and right sides of streets separately) and automatically adding _addr:street_ or _addr:place_ tags based on the last used value and proximity. In the best case this allows adding an address without any typing at all.   
+O Vespucci suporta uma funcionalidade que torna o levantamento de endereços mais eficiente, prevendo números de casas (lados esquerdo e direito das ruas separadamente) e adicionando automaticamente etiquetas _addr:street_ ou _addr:place_ com base no último valor utilizado e nas proximidades. Na melhor das hipóteses, isto permite adicionar um endereço sem qualquer digitação.   
 
-Adding the tags can be triggered by pressing ![Address](../images/address.png): 
+A adição das etiquetas pode ser ativada premindo ![Endereço](../images/address.png): 
 
-* after a long press (in non-simple mode only): Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add an "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.
-* in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.
-* in the property editor.
+* após uma pressão longa (apenas no modo não simples): o Vespucci adiciona um nó no local e faz uma estimativa do número da casa e adiciona etiquetas de endereço que utilizou recentemente. Se o nó estiver num contorno de um edifício, adicionará automaticamente uma etiqueta "entrance=yes" ao nó. O editor de etiquetas abre-se para o objeto em questão e permite-lhe fazer quaisquer outras alterações necessárias.
+* nos modos selecionados de nó/via: o Vespucci adicionará etiquetas de endereço como acima e iniciará o editor de etiquetas.
+* no editor de propriedades.
 
-To add individual address nodes directly while in the default "Simple mode" switch to "Address" editing mode (long press on the lock button), "Add address node" will then add an address node at the location and if it is on a building outline add a entrance tag to it as described above.
+Para adicionar nós de endereço individuais diretamente no "Modo simples" por defeito, mude para o modo de edição "Endereço" (prima longamente o botão de bloqueio), "Adicionar nó de endereço" adicionará então um nó de endereço no local e, se estiver numa linha fechada de edifício, adicionará uma etiqueta de entrada como descrito acima.
 
 A previsão do número de porta normalmente necessita de 2 números de porta em cada lado da estrada para funcionar. Quantos mais números de porta presentes, melhor funciona.
 
-Consider using this with one of the [Auto-download](#download) modes.  
+Considere a possibilidade de o utilizar com um dos modos de [descarregamento automático](#download).  
 
-#### Adicionar Restrições de Viragem
+#### Adicionar restrições de viragem
 
 O Vespucci tem uma forma rápida de introduzir restrições de viragem. Se for necessário irá dividir automaticamente e perguntar-lhe para tornar a selecionar os elementos. 
 
@@ -154,7 +154,7 @@ O Vespucci tem uma forma rápida de introduzir restrições de viragem. Se for n
 
 Quando é mostrado o cadeado vermelho, estão disponíveis todas as ações de não edição. Um toque longo num objeto mostra a informação sobre o objeto, se este for um elemento do mapa.
 
-### Gravar as Alterações
+### Guardar as alterações
 
 *(requer ligação à Internet)*
 
@@ -166,21 +166,21 @@ As instalações novas do Vespucci têm o OAuth ativado por defeito. Ao tentar e
 
 Se quiser gravar as edições e não tiver acesso à Internet, pode gravar os dados num ficheiro .osm compatível com o JOSM e posteriormente abrir e enviar esse ficheiro através do Vespucci ou do JOSM. 
 
-#### Resolver Conflitos ao Enviar
+#### Resolver conflitos ao enviar
 
 O Vespucci tem um solucionador de conflitos simples. No entanto se suspeita que existem grandes problemas com as suas edições, faça uma exportação das alterações que fez para um ficheiro .osc (o item "Exportar" no menu "Transferir") e corrija e envie as alterações para o OSM no JOSM. Veja a ajuda detalhada em [Resolução de conflitos](Conflict%20resolution.md).  
 
-## Using GPS and GPX tracks
+## Utilizar trilhos GPS e GPX
 
-With standard settings Vespucci will try to enable GPS (and other satellite based navigation systems) and will fallback to determining the position via so called "network location" if this is not possible. This behaviour assumes that you in normal use have your Android device itself configured to only use GPX generated locations (to avoid tracking), that is you have the euphemistically named "Improve Location Accuracy" option turned off. If you want to enable the option but want to avoid Vespucci falling back to "network location", you should turn the corresponding option in the [Advanced preferences](Advanced%20preferences.md) off. 
+Com as definições padrão, o Vespucci tentará ativar o GPS (e outros sistemas de navegação por satélite) e, se tal não for possível, passará a determinar a posição através da chamada "localização de rede". Este comportamento pressupõe que, numa utilização normal, o seu dispositivo Android esteja configurado para utilizar apenas localizações geradas por GPX (para evitar o rastreamento), ou seja, que a opção eufemisticamente designada por "Melhorar a precisão da localização" esteja desativada. Se pretender ativar a opção, mas quiser evitar que o Vespucci volte a utilizar a "localização de rede", deve desativar a opção correspondente em [Preferências avançadas](Advanced%20preferences.md). 
 
-Touching the ![GPS](../images/menu_gps.png) button (on the left hand side of the map display) will center the screen on the current position and as you move the map display will be padded to maintain this.  Moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch GPS button or re-check the equivalent menu option. If the device doesn't have a current location the location marker/arrow will be displayed in black, if a current location is available the marker will be blue.
+Tocar no botão ![GPS](../images/menu_gps.png) (no lado esquerdo do ecrã do mapa) centrará o ecrã na posição atual e, à medida que se desloca, o ecrã do mapa será preenchido para manter esta posição. Mover o ecrã manualmente ou editar fará com que o modo "seguir GPS" seja desativado e a seta azul do GPS mudará de um contorno para uma seta preenchida. Para voltar rapidamente ao modo "seguir", basta tocar no botão GPS ou voltar a selecionar a opção de menu equivalente. Se o dispositivo não tiver uma localização atual, o marcador/seta de localização será apresentado a preto; se estiver disponível uma localização atual, o marcador será azul.
 
-To record a GPX track and display it on your device select "Start GPX track" item in the ![GPS](../images/menu_gps.png) menu. This will add layer to the display with the current recorded track, you can upload and export the track from the entry in the [layer control](Main%20map%20display.md). Further layers can be added from local GPX files and tracks downloaded from the OSM API.
+Para gravar um trajeto GPX e visualizá-lo no seu dispositivo, selecione o item "Iniciar trilho GPX" no menu ![GPS](../images/menu_gps.png). Pode carregar e exportar o percurso a partir da entrada no [controlo de camadas] (Main%20map%20display.md). Outras camadas podem ser adicionadas a partir de ficheiros GPX locais e de trilhos descarregados a partir da API OSM.
 
-Note: by default Vespucci will not record elevation data with your GPX track, this is due to some Android specific issues. To enable elevation recording, either install a gravitational model, or, simpler, go to the [Advanced preferences](Advanced%20preferences.md) and configure NMEA input.
+Nota: por predefinição, o Vespucci não regista dados de elevação com o seu trilho GPX, devido a alguns problemas específicos do Android. Para ativar o registo da elevação, instale um modelo gravitacional ou, mais simplesmente, vá às [Preferências avançadas] (Advanced%20preferences.md) e configure a entrada NMEA.
 
-## Notas e Erros Reportados
+## Notas e erros reportados
 
 O Vespucci permite descarregar, comentar e fechar erros reportados no OpenStreetMap assim como os erros da [ferramenta gestão da de qualidade OSMOSE](http://osmose.openstreetmap.fr/en/map/). Ambos têm de ser descarregados à parte ou utilizando a funcionalidade de descarregar automaticamente, para que sejam mostrados os erros na área que se está a editar. Após editar ou fechar esses erros, pode-se enviar as alterações imediatamente ou todos eles.
 
@@ -190,14 +190,14 @@ Os erros OSMOSE fornecem um link para o objeto em questão a azul, tocando no li
 
 ### Filtros
 
-Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. The filter configuration can be accessed from the task layer entry in the [layer control](#layers):
+Para além de ativar globalmente a visualização de notas e erros, pode definir um filtro de visualização de grão grosso para reduzir a desordem. A configuração do filtro pode ser acedida a partir da entrada da camada de tarefas no [controlo de camadas] (#layers):
 
-* Notes
-* Osmose error
-* Osmose warning
-* Osmose minor issue
+* Notas
+* Erro Osmose
+* Aviso Osmose
+* Problema menor Osmose
 * Maproulette
-* Custom
+* Personalizado
 
 <a id="indoor"></a>
 
@@ -217,7 +217,7 @@ O modo pode ser ativado ao pressionar de forma longa o botão do cadeado, ver [B
 
 ### Configurar verificações
 
-Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the [preferences](Preferences.md). 
+Atualmente, existem duas verificações configuráveis (existe uma verificação para etiquetas FIXME e um teste para etiquetas de tipo em falta nas relações que não são atualmente configuráveis), ambas podem ser configuradas selecionando "Configurações do verificador" nas [preferências](Preferences.md). 
 
 A lista de entradas está dividida em duas, a primeira metade mostra entradas de "novos levantamentos" e a segunda metade "entradas" de verificação. As entradas podem ser editadas clicando nelas. O botão do menu verde permite adicionar entradas.
 
@@ -225,21 +225,21 @@ A lista de entradas está dividida em duas, a primeira metade mostra entradas de
 
 O levantamento possui as seguintes propriedades:
 
-* **Key** - Key of the tag of interest.
-* **Value** - Value the tag of interest should have, if empty the tag value will be ignored.
-* **Age** - how many days after the element was last changed the element should be re-surveyed, if a _check_date_ tag is present that will be the used, otherwise the date the current version was create. Setting the value to zero will lead to the check simply matching against key and value.
-* **Regular expression** - if checked **Value** is assumed to be a JAVA regular expression.
+* **Chave** - Chave da etiqueta de interesse.
+* **Valor** - Valor que a etiqueta de interesse deve ter; se estiver vazia, o valor da etiqueta será ignorado.
+* **Idade** - o número de dias após a última alteração do elemento que este deve voltar a ser controlado; se estiver presente uma etiqueta _check_date_, será essa a utilizada; caso contrário, será a data em que a versão atual foi criada. Se o valor for definido como zero, a verificação será efetuada simplesmente em função da chave e do valor.
+* **Expressão regular** - se ativado, presume-se que **valor** é uma expressão regular JAVA.
 
 **Chave** e **Valor** são verificados de acordo com as etiquetas _existentes_ do objeto em questão.
 
-The _Annotations_ group in the standard presets contain an item that will automatically add a _check_date_ tag with the current date.
+O grupo _Anotações_ nos modelos de etiquetas padrão contém um item que adiciona automaticamente uma etiqueta _check_date_ com a data atual.
 
 #### Verificar entradas
 
 A verificação de entradas tem as seguintes duas propriedades:
 
-* **Key** - Key that should be present on the object according to the matching preset.
-* **Require optional** - Require the key even if the key is in the optional tags of the matching preset.
+* **Chave** - Chave que deve estar presente no objeto de acordo com o modelo de etiquetas correspondente.
+* **Exigir opcional** - Exigir a chave mesmo que a chave esteja nas etiquetas opcionais do modelo de etiquetas correspondente.
 
 Esta verificação funciona determinando primeiro o modelo correspondente e então verifica se a **Chave** é uma chave "recomendada" para esse objeto de acordo com o modelo, **Exigir opcional** irá alargar a verificação a etiquetas que sejam "opcionais * no objeto. Nota: neste momento os modelos ligados não são verificados.
 
@@ -255,43 +255,43 @@ Uma alternativa ao descrito anteriormente, os objetos podem ser filtrados com ba
 
 ## Personalizar o Vespucci
 
-Many aspects of the app can be customized, if you are looking for something specific and can't find it, [the Vespucci website](https://vespucci.io/) is searchable and contains additional information over what is available on device.
+Muitos aspetos da aplicação podem ser personalizados. Se estiver à procura de algo específico e não o conseguir encontrar, [o site do Vespucci] (https://vespucci.io/) pode ser pesquisado e contém informações adicionais sobre o que está disponível no dispositivo.
 
 <a id="layers"></a>
 
-### Layer settings
+### Definições de camadas
 
-Layer settings can be changed via the layer control ("hamburger" menu in the upper right corner), all other setting are reachable via the main menu preferences button. Layers can be enabled, disabled and temporarily hidden.
+As definições das camadas podem ser alteradas através do controlo de camadas (menu "hambúrguer" no canto superior direito), todas as outras definições são acessíveis através do botão de preferências do menu principal. As camadas podem ser ativadas, desativadas e temporariamente ocultas.
 
-Available layer types:
+Tipos de camadas disponíveis:
 
-* Data layer - this is the layer OpenStreetMap data is loaded in to. In normal use you do not need to change anything here. Default: on.
-* Background layer - there is a wide range of aerial and satellite background imagery available. The default value for this is the "standard style" map from openstreetmap.org.
-* Overlay layer - these are semi-transparent layers with additional information, for example GPX tracks. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
-* Notes/Bugs display - Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.
-* Photo layer - Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
-* Mapillary layer - Displays Mapillary segments with markers where images exist, clicking on a marker will display the image. Default: off.
-* GeoJSON layer - Displays the contents of a GeoJSON file. Default: off.
-* Grid - Displays a scale along the sides of the map or a grid. Default: on. 
+* Camada de dados - esta é a camada em que os dados do OpenStreetMap são carregados. Numa utilização normal, não é necessário alterar nada aqui. Predefinição: ativado.
+* Camada de fundo - existe uma grande variedade de imagens de fundo aéreas e de satélite disponíveis. O valor predefinido para esta camada é o mapa de "estilo padrão" do openstreetmap.org.
+* Camada de sobreposição - são camadas semi-transparentes com informações adicionais, por exemplo, trilhos GPX. A adição de uma sobreposição pode causar problemas em dispositivos mais antigos e com memória limitada. Predefinição: nenhuma.
+* Notas/erros - As notas e os erros abertos serão apresentados como um ícone de inseto amarelo, os fechados a verde. Predefinição: ativado.
+* Camada de fotografias - Apresenta fotografias georreferenciadas como ícones de câmaras vermelhas; se estiver disponível informação sobre a direção, o ícone será rodado. Predefinição: desativado.
+* Camada Mapillary - Apresenta segmentos cartográficos com marcadores onde existem imagens; ao ativar um marcador, a imagem é apresentada. Predefinição: desativado.
+* Camada GeoJSON - Apresenta o conteúdo de um ficheiro GeoJSON. Predefinição: desativado.
+* Grelha - Apresenta uma escala ao longo dos lados do mapa ou uma grelha. Predefinição: ativado. 
 
-More information can be found in the section on the [map display](Main%20map%20display.md).
+Para mais informações, consultar a secção [visualização do mapa](Main%20map%20display.md).
 
-#### Preferences
+#### Preferências
 
-* Keep screen on. Default: off.
-* Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-center dragging (selection and other operations still use the normal touch tolerance area). Default: off.
+* Manter ecrã ligado. Predefinição: desativado.
+* Área grande de arrasto. Mover nós num dispositivo com entrada tátil é problemático, uma vez que os seus dedos irão obscurecer a posição atual no ecrã. Se ativar esta opção, terá uma grande área que pode ser utilizada para arrastar nós desativados (a seleção e outras operações continuam a utilizar a área normal de tolerância ao toque). Predefinição: desativado.
 
-The full description can be found here [Preferences](Preferences.md)
+A descrição completa pode ser encontrada em [Preferências].(Preferences.md)
 
 #### Preferências avançadas
 
-* Node icons. Default: on.
-* Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).
-* Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent. 
+* Ícones de nós. Predefinição: ativado.
+* Mostrar sempre o menu de contexto. Quando ativado, cada processo de seleção mostrará o menu de contexto; desativado, o menu é mostrado apenas quando não é possível determinar uma seleção inequívoca. Predefinição: desativado (costumava ser ativado).
+* Ativar o tema claro. Nos dispositivos modernos, este tema está ativado por predefinição. Embora seja possível ativá-lo em versões mais antigas do Android, é provável que o estilo seja inconsistente. 
 
-The full description can be found here [Advanced preferences](Advanced%20preferences.md)
+A descrição completa pode ser encontrada em [Preferências avançadas](Advanced%20preferences.md)
 
-## Reportar Problemas
+## Reportar problemas
 
 Se o Vespucci bloquear ou for abaixo. Ser-lhe-á perguntado se pretende enviar o relatório de erro com informações sobre este aos programadores do Vespucci. Os programadores agradecem que enviem esta informação, mas por favor envie um relatório de erro apenas para um mesmo erro/situação. Se quiser adicionar outras informações que possam ser úteis aos programadores ou requisitar outras funcionalidades novas no Vespucci use o [Repositório de erros do Vespucci](https://github.com/MarcusWolschon/osmeditor4android/issues). A função "Fornecer opinião" no menu principal irá abrir um novo relatório e incluir a informação relevante da app e do dispositivo sem ser necessário escrever essa informação.
 
