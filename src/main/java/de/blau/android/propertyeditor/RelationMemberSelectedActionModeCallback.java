@@ -1,19 +1,19 @@
 package de.blau.android.propertyeditor;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ActionMode;
-import androidx.appcompat.view.ActionMode.Callback;
 import androidx.fragment.app.Fragment;
 import de.blau.android.App;
 import de.blau.android.HelpViewer;
@@ -33,8 +33,10 @@ import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 import de.blau.android.util.collections.LinkedList;
 
-public class RelationMemberSelectedActionModeCallback implements Callback {
-    private static final String DEBUG_TAG = RelationMemberSelectedActionModeCallback.class.getSimpleName().substring(0, Math.min(23, RelationMemberSelectedActionModeCallback.class.getSimpleName().length()));
+public class RelationMemberSelectedActionModeCallback extends SelectedRowsActionModeCallback {
+
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, RelationMemberSelectedActionModeCallback.class.getSimpleName().length());
+    private static final String DEBUG_TAG = RelationMemberSelectedActionModeCallback.class.getSimpleName().substring(0, TAG_LEN);
 
     // pm: protected static final int MENU_ITEM_DELETE = 1;
     // pm: private static final int MENU_ITEM_COPY = 2;
@@ -52,9 +54,6 @@ public class RelationMemberSelectedActionModeCallback implements Callback {
 
     private final RelationMemberAdapter adapter;
     private final List<MemberEntry>     members;
-    private final Fragment              caller;
-
-    ActionMode currentAction;
 
     /**
      * Construct a new callback for selected RelationMembers
@@ -62,20 +61,16 @@ public class RelationMemberSelectedActionModeCallback implements Callback {
      * @param caller the calling Fragment
      * @param adapter a RelationMemberAdapter
      * @param members a List of MemberEntry
-     * @param rows the Layout holding the selectable rows
      */
-    public RelationMemberSelectedActionModeCallback(@NonNull Fragment caller, @NonNull RelationMemberAdapter adapter, @NonNull List<MemberEntry> members,
-            @NonNull LinearLayout rows) {
-        this.caller = caller;
+    public RelationMemberSelectedActionModeCallback(@NonNull Fragment caller, @NonNull RelationMemberAdapter adapter, @NonNull List<MemberEntry> members) {
+        super(caller);
         this.adapter = adapter;
         this.members = members;
     }
 
     @Override
     public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-        currentAction = mode;
-        ((RelationMembersFragment) caller).propertyEditorListener.disablePaging();
-        ((RelationMembersFragment) caller).propertyEditorListener.disablePresets();
+        super.onCreateActionMode(mode, menu);
         mode.setTitle(R.string.tag_action_members_title);
         return true;
     }
@@ -307,17 +302,12 @@ public class RelationMemberSelectedActionModeCallback implements Callback {
 
     @Override
     public void onDestroyActionMode(ActionMode mode) {
+        // don't try to call super here
         for (MemberEntry member : members) {
             member.selected = false;
         }
         adapter.notifyDataSetChanged();
-        ((RelationMembersFragment) caller).propertyEditorListener.enablePaging();
-        ((RelationMembersFragment) caller).propertyEditorListener.enablePresets();
-        PropertyRows rowContainer = (PropertyRows) caller;
-        rowContainer.deselectHeaderCheckBox();
-        rowContainer.deselectRow();
-        currentAction = null;
-        ((AppCompatActivity) caller.getActivity()).invalidateOptionsMenu();
+        onDestroyActionModeCommon();
     }
 
     /**
@@ -326,7 +316,7 @@ public class RelationMemberSelectedActionModeCallback implements Callback {
      * @param skipHeaderRow if true skip the header row
      * @return true if no rows are selected
      */
-
+    @Override
     public boolean rowsDeselected(boolean skipHeaderRow) {
         for (MemberEntry entry : members) {
             if (entry.selected) {
@@ -352,11 +342,39 @@ public class RelationMemberSelectedActionModeCallback implements Callback {
     }
 
     /**
-     * Invalidate the current ActionMode aka redisplay the menus
+     * Save the currently selected members
+     * 
+     * @param outState the Bundle to save the member numbers in to
      */
-    public void invalidate() {
-        if (currentAction != null) {
-            currentAction.invalidate();
+    @Override
+    public void saveState(@NonNull Bundle outState) {
+        final int size = members.size();
+        ArrayList<Integer> selectedMembers = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            if (members.get(i).selected) {
+                selectedMembers.add(i);
+            }
+        }
+        outState.putIntegerArrayList(SelectedRowsActionModeCallback.SELECTED_ROWS_KEY, selectedMembers);
+    }
+
+    /**
+     * Restore the selected members
+     * 
+     * @param inState the Bundle to restore the row members from
+     */
+    @Override
+    public void restoreState(@NonNull Bundle inState) {
+        List<Integer> selectedMembers = inState.getIntegerArrayList(SelectedRowsActionModeCallback.SELECTED_ROWS_KEY);
+        if (selectedMembers == null) {
+            Log.e(DEBUG_TAG, "restoreState selectedMembers null");
+            return;
+        }
+        final int size = members.size();
+        for (int i : selectedMembers) {
+            if (i <= size - 1) {
+                members.get(i).selected = true;
+            }
         }
     }
 }

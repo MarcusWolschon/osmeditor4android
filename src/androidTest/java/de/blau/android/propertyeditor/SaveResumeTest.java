@@ -168,4 +168,49 @@ public class SaveResumeTest {
             assertNotNull(o);
         }
     }
+
+    /**
+     * Select a tag and check that it is still selected after resume
+     */
+    @Test
+    public void selectTag() {
+        ActivityMonitor monitor = instrumentation.addMonitor(PropertyEditorActivity.class.getName(), null, false);
+        Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984);
+        assertNotNull(n);
+
+        PropertyEditorData[] single = new PropertyEditorData[1];
+        single[0] = new PropertyEditorData(n, null);
+
+        try (ActivityScenario<PropertyEditorActivity> scenario = ActivityScenario
+                .launch(PropertyEditorActivity.buildIntent(main, single, false, false, null, null))) {
+            Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
+            assertTrue(propertyEditor instanceof PropertyEditorActivity);
+            TestUtils.clickText(device, true, main.getString(R.string.tag_details), false, false);
+            final String original = "Bergdietikon";
+            UiObject2 o = device.wait(Until.findObject(By.textStartsWith(original)), 500);
+            assertNotNull(o);
+
+            try {
+                UiObject editText = device.findObject(new UiSelector().clickable(true).textStartsWith(original));
+                assertTrue(editText.exists());
+                UiObject checkbox = editText.getFromParent(new UiSelector().resourceId(device.getCurrentPackageName() + ":id/tagSelected"));
+                assertTrue(checkbox.click());
+            } catch (UiObjectNotFoundException e) {
+                fail(e.getMessage());
+            }
+
+            scenario.recreate();
+
+            try {
+                o = device.wait(Until.findObject(By.textStartsWith(original)), 5000);
+                assertNotNull(o);
+                UiObject editText = device.findObject(new UiSelector().clickable(true).textStartsWith(original));
+                assertTrue(editText.exists());
+                UiObject checkbox = editText.getFromParent(new UiSelector().resourceId(device.getCurrentPackageName() + ":id/tagSelected"));
+                assertTrue(checkbox.isChecked());
+            } catch (UiObjectNotFoundException e) {
+                fail(e.getMessage());
+            }
+        }
+    }
 }

@@ -94,7 +94,7 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
 
     private static final String CURRENTITEM            = "current_item";
     static final String         PANELAYOUT             = "pane_layout";
-    private static final String PRESET_FRAGMENT        = "preset_fragment";
+    static final String         PRESET_FRAGMENT        = "preset_fragment";
     public static final String  RECENTPRESETS_FRAGMENT = "recentpresets_fragment";
 
     public static final String TAGEDIT_DATA              = "dataClass";
@@ -122,7 +122,8 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
     /**
      * The tag we use for Android-logging.
      */
-    private static final String DEBUG_TAG = PropertyEditorFragment.class.getSimpleName().substring(0, Math.min(23, PropertyEditorFragment.class.getSimpleName().length()));
+    private static final String DEBUG_TAG = PropertyEditorFragment.class.getSimpleName().substring(0,
+            Math.min(23, PropertyEditorFragment.class.getSimpleName().length()));
 
     private long[] osmIds;
 

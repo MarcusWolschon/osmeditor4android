@@ -867,7 +867,7 @@
     <string name="tag_dialog_value_hint">Tap for values</string>
     <string name="tag_action_tag_title">Tag(s) selected</string>
     <string name="tag_action_members_title">Member(s) selected</string>
-    <string name="tag_action_parents_title">Relation(s) selected</string>
+    <string name="tag_action_parents_title">Parent(s) selected</string>
     <string name="tag_additional_properties">Additional properties</string>
     <string name="tag_details">Details</string>
     <string name="tag_not_set">Not set</string>

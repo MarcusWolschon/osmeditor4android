@@ -1,5 +1,7 @@
 package de.blau.android.propertyeditor;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -16,7 +18,6 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 import android.content.Context;
-import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.Editable;
@@ -33,6 +34,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
@@ -81,7 +83,6 @@ import de.blau.android.presets.ValueType;
 import de.blau.android.presets.ValueWithCount;
 import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
 import de.blau.android.util.ArrayAdapterWithRuler;
-import de.blau.android.util.BaseFragment;
 import de.blau.android.util.ClipboardUtils;
 import de.blau.android.util.GeoContext.Properties;
 import de.blau.android.util.KeyValue;
@@ -93,8 +94,10 @@ import de.blau.android.util.Util;
 import de.blau.android.util.Value;
 import de.blau.android.views.CustomAutoCompleteTextView;
 
-public class TagEditorFragment extends BaseFragment implements PropertyRows, EditorUpdate, DataUpdate {
-    private static final String DEBUG_TAG = TagEditorFragment.class.getSimpleName().substring(0, Math.min(23, TagEditorFragment.class.getSimpleName().length()));
+public class TagEditorFragment extends SelectableRowsFragment implements PropertyRows, EditorUpdate, DataUpdate {
+
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, TagEditorFragment.class.getSimpleName().length());
+    private static final String DEBUG_TAG = TagEditorFragment.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String SAVEDTAGS_KEY           = "SAVEDTAGS";
     private static final String IDS_KEY                 = "ids";
@@ -105,9 +108,6 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     private static final String EXTRA_TAGS_KEY          = "extraTags";
     private static final String PRESETSTOAPPLY_KEY      = "presetsToApply";
     private static final String TAGS_KEY                = "tags";
-
-    private static SelectedRowsActionModeCallback tagSelectedActionModeCallback = null;
-    private static final Object                   actionModeCallbackLock        = new Object();
 
     private Names names = null;
 
@@ -490,6 +490,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         super.onStart();
         Log.d(DEBUG_TAG, "onStart");
         prefs = App.getLogic().getPrefs(); // may have changed
+
     }
 
     @Override
@@ -514,18 +515,6 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         super.onPause();
         Log.d(DEBUG_TAG, "onPause");
         savedTags = getKeyValueMap(true);
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        Log.d(DEBUG_TAG, "onConfigurationChanged");
-        synchronized (actionModeCallbackLock) {
-            if (tagSelectedActionModeCallback != null) {
-                tagSelectedActionModeCallback.currentAction.finish();
-                tagSelectedActionModeCallback = null;
-            }
-        }
     }
 
     /**
@@ -1277,7 +1266,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 textWatcher.afterTextChanged(s);
                 Log.d(DEBUG_TAG, "afterTextChanged >" + s + "<");
                 row.valueEdit.removeTextChangedListener(this);
-                setValue(rowLayout, row, s.toString());
+                setValue(row, s.toString());
                 row.valueEdit.addTextChangedListener(this);
             }
         };
@@ -1300,18 +1289,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             }
         });
 
-        row.selected.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (!row.isEmpty()) {
-                if (isChecked) {
-                    tagSelected();
-                } else {
-                    deselectRow();
-                }
-            }
-            if (row.isEmpty()) {
-                row.deselect();
-            }
-        });
+        row.selected.setOnCheckedChangeListener(getOnCheckedChangeListener(row));
 
         if (row.isEmpty()) {
             row.disableCheckBox();
@@ -1322,15 +1300,37 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     }
 
     /**
+     * Construct the OnCheckedChangeListener for a row
+     * 
+     * @param row the row
+     * @return an OnCheckedChangeListener
+     */
+    @NonNull
+    private OnCheckedChangeListener getOnCheckedChangeListener(@NonNull TagEditRow row) {
+        return (buttonView, isChecked) -> {
+            Log.d(DEBUG_TAG, "onCheckedChangedListener value " + isChecked);
+            if (!row.isEmpty()) {
+                if (isChecked) {
+                    tagSelected();
+                } else {
+                    deselectRow();
+                }
+            }
+            if (row.isEmpty()) {
+                row.deselect();
+            }
+        };
+    }
+
+    /**
      * Set the value and recreate the autocomplete adapter
      * 
      * If the there are multiple values set them all to the same
      * 
-     * @param rowLayout the layout holding the rows
      * @param row the row
      * @param newValue the new value
      */
-    private void setValue(@NonNull final LinearLayout rowLayout, @NonNull final TagEditRow row, @NonNull String newValue) {
+    private void setValue(@NonNull final TagEditRow row, @NonNull String newValue) {
         final int length = osmIds.length;
         List<String> newValues = new ArrayList<>(length);
         for (int i = 0; i < length; i++) {
@@ -1527,6 +1527,13 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         }
 
         @Override
+        public void select() {
+            selected.setOnCheckedChangeListener(null);
+            selected.setChecked(true);
+            selected.setOnCheckedChangeListener(owner.getOnCheckedChangeListener(this));
+        }
+
+        @Override
         public boolean isSelected() {
             return selected.isChecked();
         }
@@ -1588,24 +1595,19 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         }
     }
 
+    @Override
+    protected SelectedRowsActionModeCallback getActionModeCallback() {
+        return new TagSelectedActionModeCallback(this, (LinearLayout) getOurView());
+    }
+
     /**
      * Start the TagSelectedActionModeCallback
      */
     private void tagSelected() {
-        LinearLayout rowLayout = (LinearLayout) getOurView();
         synchronized (actionModeCallbackLock) {
-            if (tagSelectedActionModeCallback == null) {
-                tagSelectedActionModeCallback = new TagSelectedActionModeCallback(this, rowLayout);
-                ((AppCompatActivity) getActivity()).startSupportActionMode(tagSelectedActionModeCallback);
-            }
-        }
-    }
-
-    @Override
-    public void deselectRow() {
-        synchronized (actionModeCallbackLock) {
-            if (tagSelectedActionModeCallback != null && tagSelectedActionModeCallback.rowsDeselected(false)) {
-                tagSelectedActionModeCallback = null;
+            if (actionModeCallback == null) {
+                actionModeCallback = getActionModeCallback();
+                ((AppCompatActivity) getActivity()).startSupportActionMode(actionModeCallback);
             }
         }
     }

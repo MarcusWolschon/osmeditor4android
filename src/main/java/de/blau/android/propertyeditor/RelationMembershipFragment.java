@@ -1,5 +1,7 @@
 package de.blau.android.propertyeditor;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -8,7 +10,6 @@ import java.util.Map;
 import java.util.Set;
 
 import android.content.Context;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -44,7 +45,6 @@ import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.presets.PresetRole;
 import de.blau.android.util.ArrayAdapterWithState;
-import de.blau.android.util.BaseFragment;
 import de.blau.android.util.Enabled;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.StringWithDescription;
@@ -57,8 +57,10 @@ import de.blau.android.util.collections.MultiHashMap;
  * @author Simon Poole
  *
  */
-public class RelationMembershipFragment extends BaseFragment implements PropertyRows, OnItemSelectedListener, DataUpdate {
-    private static final String DEBUG_TAG = RelationMembershipFragment.class.getSimpleName().substring(0, Math.min(23, RelationMembershipFragment.class.getSimpleName().length()));
+public class RelationMembershipFragment extends SelectableRowsFragment implements PropertyRows, OnItemSelectedListener, DataUpdate {
+
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, RelationMembershipFragment.class.getSimpleName().length());
+    private static final String DEBUG_TAG = RelationMembershipFragment.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String PARENTS_KEY      = "parents";
     private static final String ELEMENT_TYPE_KEY = "element_type";
@@ -71,9 +73,6 @@ public class RelationMembershipFragment extends BaseFragment implements Property
     private int maxStringLength; // maximum key, value and role length
 
     private PropertyEditorListener propertyEditorListener;
-
-    private static SelectedRowsActionModeCallback parentSelectedActionModeCallback = null;
-    private static final Object                   actionModeCallbackLock           = new Object();
 
     private ArrayAdapter<RelationHolder> relationAdapter;
     private List<RelationHolder>         relationHolderList;
@@ -240,18 +239,6 @@ public class RelationMembershipFragment extends BaseFragment implements Property
         outState.putSerializable(PARENTS_KEY, savedParents);
         outState.putString(ELEMENT_TYPE_KEY, elementType);
         Log.w(DEBUG_TAG, "onSaveInstanceState bundle size " + Util.getBundleSize(outState));
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        Log.d(DEBUG_TAG, "onConfigurationChanged");
-        synchronized (actionModeCallbackLock) {
-            if (parentSelectedActionModeCallback != null) {
-                parentSelectedActionModeCallback.currentAction.finish();
-                parentSelectedActionModeCallback = null;
-            }
-        }
     }
 
     /**
@@ -582,6 +569,11 @@ public class RelationMembershipFragment extends BaseFragment implements Property
             }
         }
 
+        @Override
+        public void select() {
+            selected.setChecked(true);
+        }
+
         // return the status of the checkbox
         @Override
         public boolean isSelected() {
@@ -637,24 +629,19 @@ public class RelationMembershipFragment extends BaseFragment implements Property
         });
     }
 
+    @Override
+    protected SelectedRowsActionModeCallback getActionModeCallback() {
+        return new ParentSelectedActionModeCallback(this, (LinearLayout) getOurView());
+    }
+
     /**
      * Start the action mode when a row is selected
      */
     private void parentSelected() {
         synchronized (actionModeCallbackLock) {
-            LinearLayout rowLayout = (LinearLayout) getOurView();
-            if (parentSelectedActionModeCallback == null) {
-                parentSelectedActionModeCallback = new SelectedRowsActionModeCallback(this, rowLayout);
-                ((AppCompatActivity) getActivity()).startSupportActionMode(parentSelectedActionModeCallback);
-            }
-        }
-    }
-
-    @Override
-    public void deselectRow() {
-        synchronized (actionModeCallbackLock) {
-            if (parentSelectedActionModeCallback != null && parentSelectedActionModeCallback.rowsDeselected(true)) {
-                parentSelectedActionModeCallback = null;
+            if (actionModeCallback == null) {
+                actionModeCallback = getActionModeCallback();
+                ((AppCompatActivity) getActivity()).startSupportActionMode(actionModeCallback);
             }
         }
     }
