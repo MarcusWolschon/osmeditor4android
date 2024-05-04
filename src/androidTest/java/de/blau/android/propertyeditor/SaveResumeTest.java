@@ -1,6 +1,5 @@
 package de.blau.android.propertyeditor;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -38,6 +37,7 @@ import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.TestUtils;
 import de.blau.android.osm.Node;
+import de.blau.android.osm.Relation;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 
@@ -198,15 +198,59 @@ public class SaveResumeTest {
             } catch (UiObjectNotFoundException e) {
                 fail(e.getMessage());
             }
-
             scenario.recreate();
-
             try {
                 o = device.wait(Until.findObject(By.textStartsWith(original)), 5000);
                 assertNotNull(o);
                 UiObject editText = device.findObject(new UiSelector().clickable(true).textStartsWith(original));
                 assertTrue(editText.exists());
                 UiObject checkbox = editText.getFromParent(new UiSelector().resourceId(device.getCurrentPackageName() + ":id/tagSelected"));
+                assertTrue(checkbox.isChecked());
+            } catch (UiObjectNotFoundException e) {
+                fail(e.getMessage());
+            }
+        }
+    }
+    
+    /**
+     * Select a member and check that it is still selected after resume
+     */
+    @Test
+    public void selectMember() {
+        ActivityMonitor monitor = instrumentation.addMonitor(PropertyEditorActivity.class.getName(), null, false);
+        Relation r = (Relation) App.getDelegator().getOsmElement(Relation.NAME, 1638705L);
+        assertNotNull(r);
+
+        PropertyEditorData[] single = new PropertyEditorData[1];
+        single[0] = new PropertyEditorData(r, null);
+
+        try (ActivityScenario<PropertyEditorActivity> scenario = ActivityScenario
+                .launch(PropertyEditorActivity.buildIntent(main, single, false, false, null, null))) {
+            Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
+            assertTrue(propertyEditor instanceof PropertyEditorActivity);
+
+            TestUtils.clickText(device, true, main.getString(R.string.tag_details), false, false);
+            TestUtils.clickText(device, true, main.getString(R.string.members), false, false);
+            
+            final String original = "#577098574";
+            UiObject2 o = device.wait(Until.findObject(By.textStartsWith(original)), 500);
+            assertNotNull(o);
+
+            try {
+                UiObject editText = device.findObject(new UiSelector().clickable(true).textStartsWith(original));
+                assertTrue(editText.exists());
+                UiObject checkbox = editText.getFromParent(new UiSelector().resourceId(device.getCurrentPackageName() + ":id/member_selected"));
+                assertTrue(checkbox.click());
+            } catch (UiObjectNotFoundException e) {
+                fail(e.getMessage());
+            }
+            scenario.recreate();
+            try {
+                o = device.wait(Until.findObject(By.textStartsWith(original)), 5000);
+                assertNotNull(o);
+                UiObject editText = device.findObject(new UiSelector().clickable(true).textStartsWith(original));
+                assertTrue(editText.exists());
+                UiObject checkbox = editText.getFromParent(new UiSelector().resourceId(device.getCurrentPackageName() + ":id/member_selected"));
                 assertTrue(checkbox.isChecked());
             } catch (UiObjectNotFoundException e) {
                 fail(e.getMessage());

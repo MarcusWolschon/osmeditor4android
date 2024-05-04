@@ -348,6 +348,7 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
      */
     @Override
     public void saveState(@NonNull Bundle outState) {
+        Log.d(DEBUG_TAG, "saveState");
         final int size = members.size();
         ArrayList<Integer> selectedMembers = new ArrayList<>();
         for (int i = 0; i < size; i++) {
@@ -365,6 +366,7 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
      */
     @Override
     public void restoreState(@NonNull Bundle inState) {
+        Log.d(DEBUG_TAG, "restoreState");
         List<Integer> selectedMembers = inState.getIntegerArrayList(SelectedRowsActionModeCallback.SELECTED_ROWS_KEY);
         if (selectedMembers == null) {
             Log.e(DEBUG_TAG, "restoreState selectedMembers null");
