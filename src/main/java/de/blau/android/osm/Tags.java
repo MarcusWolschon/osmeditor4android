@@ -22,11 +22,13 @@ import androidx.annotation.Nullable;
  *
  */
 public final class Tags {
+
     public static final String OSM_VALUE_SEPARATOR = ";";
+    public static final String NS_SEP              = ":"; // namespace separarator
 
     // Karlsruher schema
     private static final String KEY_ADDR             = "addr";
-    public static final String  KEY_ADDR_BASE        = KEY_ADDR + ":";
+    public static final String  KEY_ADDR_BASE        = KEY_ADDR + NS_SEP;
     public static final String  KEY_ADDR_HOUSENUMBER = "addr:housenumber";
     public static final String  KEY_ADDR_STREET      = "addr:street";
     public static final String  KEY_ADDR_POSTCODE    = "addr:postcode";
@@ -119,7 +121,7 @@ public final class Tags {
         nameLikeKeys.add(Tags.KEY_ADDR_UNIT);
         nameLikeKeys.add(Tags.KEY_REF);
         for (String k : nameLikeKeys) {
-            if (k.equals(key) || key.startsWith(k + ":")) {
+            if (k.equals(key) || key.startsWith(k + NS_SEP)) {
                 return true;
             }
         }
