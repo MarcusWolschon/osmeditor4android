@@ -1,5 +1,7 @@
 package de.blau.android.propertyeditor;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,7 +10,6 @@ import java.util.Set;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
@@ -47,7 +48,6 @@ import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.presets.PresetRole;
 import de.blau.android.propertyeditor.RelationMembershipFragment.RelationMembershipRow;
-import de.blau.android.util.BaseFragment;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ScrollingLinearLayoutManager;
@@ -61,8 +61,10 @@ import de.blau.android.util.collections.MultiHashMap;
  * @author Simon Poole
  *
  */
-public class RelationMembersFragment extends BaseFragment implements PropertyRows, DataUpdate {
-    private static final String DEBUG_TAG = RelationMembersFragment.class.getSimpleName().substring(0, Math.min(23, RelationMembersFragment.class.getSimpleName().length()));
+public class RelationMembersFragment extends SelectableRowsFragment implements PropertyRows, DataUpdate {
+
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, RelationMembersFragment.class.getSimpleName().length());
+    private static final String DEBUG_TAG = RelationMembersFragment.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String MEMBERS_KEY = "members";
     private static final String ID_KEY      = "id";
@@ -75,9 +77,6 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
     private SavingHelper<ArrayList<RelationMemberDescription>> savingHelper = new SavingHelper<>();
 
     PropertyEditorListener propertyEditorListener;
-
-    private static RelationMemberSelectedActionModeCallback memberSelectedActionModeCallback = null;
-    private static final Object                             actionModeCallbackLock           = new Object();
 
     private LinearLayoutManager layoutManager;
 
@@ -218,7 +217,7 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
 
         adapter = new RelationMemberAdapter(getContext(), this, inflater, membersInternal, (buttonView, isChecked) -> {
             if (isChecked) {
-                memberSelected(null);
+                memberSelected();
             } else {
                 deselectRow();
             }
@@ -509,19 +508,7 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
         savedMembers = getMembersList();
         outState.putLong(ID_KEY, id);
         savingHelper.save(getContext(), Long.toString(id) + FILENAME_MEMBERS, savedMembers, true);
-        Log.w(DEBUG_TAG, "onSaveInstanceState bundle size " + Util.getBundleSize(outState));
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        Log.d(DEBUG_TAG, "onConfigurationChanged");
-        synchronized (actionModeCallbackLock) {
-            if (memberSelectedActionModeCallback != null) {
-                memberSelectedActionModeCallback.currentAction.finish();
-                memberSelectedActionModeCallback = null;
-            }
-        }
+        Log.d(DEBUG_TAG, "onSaveInstanceState bundle size " + Util.getBundleSize(outState));
     }
 
     /**
@@ -811,29 +798,32 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
         }
     }
 
+    @Override
+    protected SelectedRowsActionModeCallback getActionModeCallback() {
+        return new RelationMemberSelectedActionModeCallback(this, adapter, membersInternal);
+    }
+
     /**
      * Start the ActionMode for when an element is selected
-     * 
-     * @param rowLayout the Layout holding the element rows
      */
-    private void memberSelected(@NonNull LinearLayout rowLayout) {
+    private void memberSelected() {
         synchronized (actionModeCallbackLock) {
-            if (memberSelectedActionModeCallback == null) {
-                memberSelectedActionModeCallback = new RelationMemberSelectedActionModeCallback(this, adapter, membersInternal, rowLayout);
-                ((AppCompatActivity) getActivity()).startSupportActionMode(memberSelectedActionModeCallback);
+            if (actionModeCallback == null) {
+                actionModeCallback = getActionModeCallback();
+                ((AppCompatActivity) getActivity()).startSupportActionMode(actionModeCallback);
             }
-            memberSelectedActionModeCallback.invalidate();
+            actionModeCallback.invalidate();
         }
     }
 
     @Override
     public void deselectRow() {
         synchronized (actionModeCallbackLock) {
-            if (memberSelectedActionModeCallback != null) {
-                if (memberSelectedActionModeCallback.rowsDeselected(true)) {
-                    memberSelectedActionModeCallback = null;
+            if (actionModeCallback != null) {
+                if (actionModeCallback.rowsDeselected(true)) {
+                    actionModeCallback = null;
                 } else {
-                    memberSelectedActionModeCallback.invalidate();
+                    actionModeCallback.invalidate();
                 }
             }
         }
@@ -850,7 +840,7 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
                         }
                     }
                     adapter.notifyDataSetChanged();
-                    memberSelected(null);
+                    memberSelected();
                 });
     }
 

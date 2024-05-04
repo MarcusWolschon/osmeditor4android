@@ -1,8 +1,13 @@
 package de.blau.android.propertyeditor;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.util.ArrayList;
+import java.util.List;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ActionMode;
 import androidx.appcompat.view.ActionMode.Callback;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
 import de.blau.android.easyedit.EasyEditActionModeCallback;
@@ -20,7 +26,14 @@ import de.blau.android.util.Util;
 
 class SelectedRowsActionModeCallback implements Callback {
 
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, RelationMemberSelectedActionModeCallback.class.getSimpleName().length());
+    private static final String DEBUG_TAG = SelectedRowsActionModeCallback.class.getSimpleName().substring(0, TAG_LEN);
+
     public interface Row {
+        /**
+         * Select the row
+         */
+        void select();
 
         /**
          * Delete the row
@@ -40,6 +53,8 @@ class SelectedRowsActionModeCallback implements Callback {
         boolean isSelected();
     }
 
+    static final String SELECTED_ROWS_KEY = "selectedRows";
+
     static final int MENU_ITEM_DELETE = 1;
 
     static final int MENU_ITEM_SELECT_ALL   = 13;
@@ -52,7 +67,17 @@ class SelectedRowsActionModeCallback implements Callback {
     final Fragment     caller;
 
     /**
-     * Careate a new callback for selected rows
+     * Create a new callback for selected rows
+     * 
+     * @param caller the calling Fragment
+     */
+    public SelectedRowsActionModeCallback(@NonNull Fragment caller) {
+        this.rows = null;
+        this.caller = caller;
+    }
+
+    /**
+     * Create a new callback for selected rows
      * 
      * @param caller the calling Fragment
      * @param rows the Layout holding the selectable rows
@@ -65,9 +90,9 @@ class SelectedRowsActionModeCallback implements Callback {
     @Override
     public boolean onCreateActionMode(ActionMode mode, Menu menu) {
         currentAction = mode;
-        final PropertyEditorListener propertyEditorListener = (PropertyEditorListener) caller.getParentFragment();
-        propertyEditorListener.disablePaging();
-        propertyEditorListener.disablePresets();
+        final Fragment parentFragment = caller.getParentFragment();
+        ((PropertyEditorListener) parentFragment).disablePaging();
+        disablePresetFragments(parentFragment);
         return true;
     }
 
@@ -131,6 +156,13 @@ class SelectedRowsActionModeCallback implements Callback {
             Row row = (Row) view;
             row.deselect();
         }
+        onDestroyActionModeCommon();
+    }
+
+    /**
+     * Common bits that can be executed by all sub classes
+     */
+    protected void onDestroyActionModeCommon() {
         final PropertyEditorListener propertyEditorListener = (PropertyEditorListener) caller.getParentFragment();
         propertyEditorListener.enablePaging();
         propertyEditorListener.enablePresets();
@@ -150,9 +182,8 @@ class SelectedRowsActionModeCallback implements Callback {
     public boolean rowsDeselected(boolean skipHeaderRow) {
         final int size = rows.getChildCount();
         int initialRowIndex = skipHeaderRow ? 1 : 0;
-        for (int i = initialRowIndex; i < size; ++i) {
-            View view = rows.getChildAt(i);
-            Row row = (Row) view;
+        for (int i = initialRowIndex; i < size; i++) {
+            Row row = (Row) rows.getChildAt(i);
             if (row.isSelected()) {
                 // something is still selected
                 return false;
@@ -171,6 +202,67 @@ class SelectedRowsActionModeCallback implements Callback {
     public void invalidate() {
         if (currentAction != null) {
             currentAction.invalidate();
+        }
+    }
+
+    /**
+     * Save the currently selected rows
+     * 
+     * @param outState the Bundle to save the row numbers in to
+     */
+    public void saveState(@NonNull Bundle outState) {
+        Log.d(DEBUG_TAG, "saveState");
+        final int size = rows.getChildCount();
+        ArrayList<Integer> selectedRows = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            if (((Row) rows.getChildAt(i)).isSelected()) {
+                selectedRows.add(i);
+            }
+        }
+        outState.putIntegerArrayList(SELECTED_ROWS_KEY, selectedRows);
+    }
+
+    /**
+     * Restore the selected rows
+     * 
+     * @param inState the Bundle to restore the row numbers from
+     */
+    public void restoreState(@NonNull Bundle inState) {
+        Log.d(DEBUG_TAG, "restoreState");
+        List<Integer> selectedRows = inState.getIntegerArrayList(SELECTED_ROWS_KEY);
+        if (selectedRows == null) {
+            Log.e(DEBUG_TAG, "restoreState selectedRows null");
+            return;
+        }
+        final int size = rows.getChildCount();
+        for (int i : selectedRows) {
+            if (i <= size - 1) {
+                Row row = ((Row) rows.getChildAt(i));
+                row.select();
+            }
+        }
+    }
+
+    /**
+     * Disable the presets and recent preset fragments
+     * 
+     * @param parentFragmentthe parent Fragment
+     */
+    private void disablePresetFragments(@NonNull Fragment parentFragment) {
+        RecentPresetsFragment recentPresetsFragment = (RecentPresetsFragment) caller.getChildFragmentManager()
+                .findFragmentByTag(PropertyEditorFragment.RECENTPRESETS_FRAGMENT);
+        if (recentPresetsFragment != null) {
+            recentPresetsFragment.disable();
+        } else {
+            final FragmentManager childFragmentManager = parentFragment.getChildFragmentManager();
+            recentPresetsFragment = (RecentPresetsFragment) childFragmentManager.findFragmentByTag(PropertyEditorFragment.RECENTPRESETS_FRAGMENT);
+            if (recentPresetsFragment != null) {
+                recentPresetsFragment.disable();
+            }
+            PresetFragment presetFragment = (PresetFragment) childFragmentManager.findFragmentByTag(PropertyEditorFragment.PRESET_FRAGMENT);
+            if (presetFragment != null) {
+                presetFragment.disable();
+            }
         }
     }
 }
