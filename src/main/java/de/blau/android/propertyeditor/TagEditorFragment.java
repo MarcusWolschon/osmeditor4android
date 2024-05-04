@@ -1186,7 +1186,6 @@ public class TagEditorFragment extends SelectableRowsFragment implements Propert
                     final PresetKeyType keyType = preset != null ? preset.getKeyType(key) : null;
                     row.valueEdit.setAdapter(getValueAutocompleteAdapter(preset, rowLayout, row));
                     if (preset != null && keyType == PresetKeyType.MULTISELECT) {
-                        // FIXME this should be somewhere more obvious since it creates a non obvious side effect
                         row.valueEdit.setTokenizer(new CustomAutoCompleteTextView.SingleCharTokenizer(preset.getDelimiter(key)));
                     }
                     if (Tags.isSpeedKey(key)) {
