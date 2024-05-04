@@ -2248,17 +2248,17 @@ public class TagEditorFragment extends SelectableRowsFragment implements Propert
      * @return The source key for the given key.
      */
     private static String sourceForKey(final String key) {
-        String result = "source";
-        if (key != null && !"".equals(key) && !"source".equals(key)) {
+        String result = Tags.KEY_SOURCE;
+        if (Util.notEmpty(key) && !Tags.KEY_SOURCE.equals(key)) {
             // key is neither blank nor "source"
             // check if it's namespaced
-            int i = key.indexOf(':');
+            int i = key.indexOf(Tags.NS_SEP);
             if (i == -1) {
-                result = "source:" + key;
+                result = Tags.KEY_SOURCE + Tags.NS_SEP + key;
             } else {
                 // handle already namespaced keys as per
                 // http://wiki.openstreetmap.org/wiki/Key:source
-                result = key.substring(0, i) + ".source" + key.substring(i);
+                result = key.substring(0, i) + "." + Tags.KEY_SOURCE + key.substring(i);
             }
         }
         return result;
@@ -2266,8 +2266,10 @@ public class TagEditorFragment extends SelectableRowsFragment implements Propert
 
     /**
      * Add a source:key field and pre-fill it with "survey"
+     * 
+     * Note that it isn't clear if this is still a reasonable thing to support
      */
-    private void doSourceSurvey() { // FIXME
+    private void doSourceSurvey() {
         // determine the key (if any) that has the current focus in the key or its value
         final String[] focusedKey = new String[] { null }; // array to work around unsettable final
         processKeyValues((keyEdit, valueEdit, tagValues) -> {

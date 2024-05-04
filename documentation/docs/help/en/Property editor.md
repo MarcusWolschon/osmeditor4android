@@ -71,7 +71,7 @@ Paste and merge multi-line text from the system clipboard. If the lines have the
 
 ### ![Surveyed](../images/tag_menu_sourcesurvey.png) Surveyed
 
-Short cut for adding source=survey to the object. This is deprecated, the normal place to add source tags is in the corresponding field on the upload form. The action is only available on the _Details_ tab.
+Short cut for adding a source key, if a key is present in the current row source:_key_=survey will be added, otherwise source=survey to the object. Such tags are in general deprecated the normal place to add source tags is in the corresponding field on the upload form. The action is only available on the _Details_ tab.
 
 ### ![Wiki](../images/tag_menu_mapfeatures.png) Map Features Wiki
 
