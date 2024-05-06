@@ -39,6 +39,7 @@ import de.blau.android.presets.PresetElementPath;
 import de.blau.android.presets.PresetItem;
 import de.blau.android.presets.PresetRole;
 import de.blau.android.search.Wrapper;
+import de.blau.android.util.GeoContext;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.SerializableState;
 import de.blau.android.util.ThemeUtils;
@@ -51,7 +52,8 @@ import de.blau.android.util.collections.MultiHashMap;
  *
  */
 public class EditRelationMembersActionModeCallback extends BuilderActionModeCallback {
-    private static final String DEBUG_TAG = EditRelationMembersActionModeCallback.class.getSimpleName().substring(0, Math.min(23, EditRelationMembersActionModeCallback.class.getSimpleName().length()));
+    private static final String DEBUG_TAG = EditRelationMembersActionModeCallback.class.getSimpleName().substring(0,
+            Math.min(23, EditRelationMembersActionModeCallback.class.getSimpleName().length()));
 
     private static final int MENUITEM_REVERT = 1;
 
@@ -180,7 +182,8 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
         }
         RelationMember member = new RelationMember("", element);
         if (relationPreset != null) {
-            List<PresetRole> roles = relationPreset.getRoles(main, element, null, null); // FIXME role might be region specific
+            GeoContext geoContext = App.getGeoContext(main);
+            List<PresetRole> roles = relationPreset.getRoles(main, element, null, geoContext != null ? geoContext.getIsoCodes(element) : null);
             if (roles != null) {
                 if (roles.size() == 1) {
                     // exactly one match
