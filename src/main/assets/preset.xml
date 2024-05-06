@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.52.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,disused:amenity,disused:leisure,disused:man_made,disused:shop,golf,ford,harbour,hazard,noexit,indoor,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster">
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.53.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,disused:amenity,disused:leisure,disused:man_made,disused:shop,golf,ford,harbour,hazard,noexit,indoor,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster">
 <!--
     Icons have been derived from mainly from
   
@@ -1428,7 +1428,15 @@
         <reference ref="mechCoupling"/>
      </chunk>
     <chunk id="support">
-        <combo key="support" text="Support" values="pole,wall_mounted,billboard,ground" display_values="Pole,Wall mounted,Billboard,Ground" values_context="mounting/support"/>
+        <combo key="support" text="Support" values_context="mounting/support">
+            <list_entry value="billboard" display_value="Billboard"/>
+            <list_entry value="ceiling" display_value="Ceiling"/>         
+            <list_entry value="ground" display_values="Ground"/>
+            <list_entry value="pedestal" display_value="Pedestal"/>
+            <list_entry value="pole" display_value="Pole"/>
+            <list_entry value="wall" display_value="Wall"/>
+            <list_entry value="wall_mounted" display_value="Wall mounted"/>
+        </combo>
     </chunk>
     <chunk id="aerodrome">
         <key key="aeroway" value="aerodrome" match="keyvalue"/>
@@ -4952,6 +4960,7 @@
                 <reference ref="maxstay"/>
                 <reference ref="supervised_lit_oh"/>
                 <reference ref="parking_orientation"/>
+                <preset_link preset_name="Payment Methods"/>
             </item> <!-- Parking -->
             <item name="Parking Space" icon="icons/png/transport_parking_space_12099.png" type="node,closedway" preset_name_label="true">
                 <link wiki="Tag:amenity=parking_space"/>
@@ -4998,6 +5007,7 @@
                 <reference ref="supervised_lit_oh"/>
                 <check key="covered" text="Covered (with roof)"/>
                 <preset_link preset_name="No name"/>
+                <preset_link preset_name="Payment Methods"/>
             </item> <!-- Parking Entrance/Exit -->
             <separator/>
             <item name="Fuel" icon="icons/png/transport_fuel.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -5191,6 +5201,7 @@
                 <reference ref="supervised_lit_oh"/>
                 <reference ref="maxstay"/>
                 <check key="covered" text="Covered (with roof)"/>
+                <preset_link preset_name="Payment Methods"/>
             </item> <!-- Parking -->
             <item name="Motorcycle Dealer" icon="icons/png/shopping_motorcycle.png" type="node,closedway,multipolygon" preset_name_label="true">
                 <link wiki="Tag:shop=motorcycle"/>
@@ -5256,6 +5267,7 @@
                 <reference ref="parking_access_fee_operator_surface_smoothness"/>
                 <check key="covered" text="Covered"/>
                 <reference ref="supervised_lit_oh"/>
+                <preset_link preset_name="Payment Methods"/>
             </item> <!-- Parking -->
             <item name="Bike Dealer" icon="icons/png/shopping_bicycle.png" type="node,closedway,multipolygon" preset_name_label="true">
                 <link wiki="Tag:shop=bicycle"/>
@@ -5314,6 +5326,19 @@
                 <check key="service:bicycle:chain_tool" text="Chain tool" disable_off="true"/>
                 </optional>
             </item> <!-- Public Bicycle Repair Station -->
+            <item name="Bicycle Wash" icon="icons/png/amenity_bicycle_wash.png" type="node,closedway,multipolygon" preset_name_label="true">
+                <link wiki="Tag:amenity=bicycle_wash"/>
+                <space/>
+                <key key="amenity" value="bicycle_wash"/>
+                <optional>
+                    <reference ref="name_operator"/>
+                    <text key="manufacturer" text="Manufacturer"/>
+                    <reference ref="oh"/>
+                    <check key="self_service" text="Self Service"/>
+                    <check key="automated" text="Automated"/>
+                    <check key="fee" text="Fee"/>
+                </optional>
+            </item> <!-- Bicycle Wash -->
         </group> <!-- Bicycle -->
         <group name="Public Transport" icon="icons/png/transport_bus_stop.png">
             <item name="Public Transport Route (Rail)" icon="icons/png/transport_route_sp.png" type="relation" preset_name_label="true">
@@ -9968,7 +9993,7 @@
             <space/>
             <key key="man_made" value="tower"/>
             <combo key="tower:type" text="Tower type" values="bell_tower,communication,cooling,defensive,diving,minaret,observation,pagoda,radar,watchtower" display_values="Bell tower,Communication,Cooling,Defensive,Diving,Minaret,Observation,Pagoda,Radar,Watchtower" editable="true" match="key" values_searchable="true"/>
-            <combo key="tower:construction" text="Tower construction" values="freestanding,guyed_lattice,guyed_tube,lattice" display_values="Freestanding,Guyed lattice,Guyed tube,Lattice" editable="true" match="key" values_searchable="true"/>
+            <combo key="tower:construction" text="Tower construction" values="dish,dome,freestanding,lattice" display_values="Dish,Dome,Freestanding,Lattice" editable="true" match="key" values_searchable="true"/> 
             <optional>
                 <text key="name" text="Name"/>
                 <text key="height" text="Height (meters)" length="7" value_type="dimension_vertical"/>
@@ -9984,7 +10009,7 @@
             <space/>
             <key key="man_made" value="mast"/>
             <combo key="tower:type" text="Tower type" values="communication,observation,lighting" display_values="Communication,Observation,Lighting" editable="true" match="key" values_context="tower"/>
-            <combo key="tower:construction" text="Tower construction" values="dish,dome,freestanding,lattice" display_values="Dish,Dome,Freestanding,Lattice" editable="true" match="key" values_searchable="true"/> 
+            <combo key="tower:construction" text="Tower construction" values="freestanding,guyed_lattice,guyed_tube,lattice" display_values="Freestanding,Guyed lattice,Guyed tube,Lattice" editable="true" match="key" values_searchable="true"/>
             <optional>
                 <text key="name" text="Name"/>
                 <text key="height" text="Height (meters)" length="7" value_type="dimension_vertical"/>
@@ -9994,7 +10019,7 @@
             <preset_link preset_name="Antenna" text="Similar but different tags:" alternative="true"/>
             <preset_link preset_name="Telescope" text="Similar but different tags:" alternative="true"/>
             <preset_link preset_name="Tower" text="Similar but different tags:" alternative="true"/>
-        </item> <!-- Tower -->
+        </item> <!-- Mast -->
         <item name="Utility pole" icon="icons/png/man_made_pole.png" type="node" preset_name_label="true">
             <link wiki="Tag:man_made=utility_pole"/>
             <space/>
@@ -10439,8 +10464,22 @@
                 <list_entry value="sodium" display_value="Sodium (generic)"/>
                 <list_entry value="solar_lamp" display_value="Solar lamp (generic)"/>
             </combo>
+            <combo key="light:method" text="Method" values_context="lamp_type" match="key" deprecated="true">
+                <list_entry value="electric" display_value="Electric (generic)"/>
+                <list_entry value="floodlight" display_value="Floodlight (generic)"/>
+                <list_entry value="fluorescent" display_value="Fluorescent"/>
+                <list_entry value="gaslight" display_value="Gaslight"/>
+                <list_entry value="high_pressue_sodium" display_value="High pressue sodium"/>
+                <list_entry value="LED" display_value="LED"/>
+                <list_entry value="low_pressue_sodium" display_value="Low pressue sodium"/>
+                <list_entry value="mercury" display_value="Mercury"/>
+                <list_entry value="sodium" display_value="Sodium (generic)"/>
+            </combo>
             <combo key="lamp_mount" text="Mounted on" values="bent_mast,high_mast,pole,straight_mast,suspended,wall" display_values="Bent mast,High mast,Pole,Straight mast,Suspended,Wall" values_context="lamp_mount" match="key"/>
             <optional>
+                <reference ref="support"/>
+                <text key="light:direction" text="Direction in degrees" match="key"/>
+                <text key="light:count" text="Number of lamps" match="key" value_type="integer"/>
                 <text key="ref" text="Ref"/>
                 <combo key="opening_hours" value_type="opening_hours" text="Operation times" values="Mo-Fr 22:00-05:00" match="none" editable="true" values_no_i18n="true"/>
             </optional>
@@ -14547,7 +14586,7 @@
                 <text key="ref:sandre" text="Reference Sandre (FR)" regions="FR"/>
                 <text key="ref:fgkz" text="Reference FGKZ (DE)" regions="DE"/>
                 <text key="ref:regine" text="Reference REGINE (NO)" regions="NO"/>
-                <text key="ref:gnis" text="Reference GNIS (USA)" regions="US"/>
+                <text key="gnis:feature_id" text="Reference GNIS (USA)" regions="US"/>
                 <text key="ref:gnbc" text="Reference GNBC (CA)" regions="CA"/>
                 <reference ref="wikipedia_wikidata_images"/>
             </optional>
