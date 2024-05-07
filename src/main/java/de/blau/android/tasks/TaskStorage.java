@@ -234,14 +234,12 @@ public class TaskStorage implements Serializable, DataStorage {
         }
         if (readingLock.tryLock()) {
             try {
-                // TODO this doesn't really help with error conditions need to throw exception
                 if (savingHelper.save(ctx, FILENAME, this, true)) {
                     dirty = false;
                 } else {
-                    // this is essentially catastrophic and can only happen if something went really wrong
-                    // running out of memory or disk, or HW failure
+                    Log.e(DEBUG_TAG, "writeToFile unable to save");
                     if (ctx instanceof Activity) {
-                        ScreenMessage.barError((Activity) ctx, R.string.toast_statesave_failed);
+                        ScreenMessage.barError((Activity) ctx, R.string.toast_task_storage_statesave_failed);
                     }
                 }
             } finally {
@@ -526,7 +524,6 @@ public class TaskStorage implements Serializable, DataStorage {
         return false;
     }
 
-    
     /**
      * Retrieve a Note per id from Storage
      * 
@@ -536,13 +533,13 @@ public class TaskStorage implements Serializable, DataStorage {
     @Nullable
     public Note getNote(long id) {
         for (Task t : getTasks()) {
-            if (t instanceof Note && ((Note)t).getId() == id) {
+            if (t instanceof Note && ((Note) t).getId() == id) {
                 return (Note) t;
             }
         }
         return null;
     }
-    
+
     @Override
     public String toString() {
         return "task r-tree: " + tasks.count() + " boxes r-tree " + boxes.count();

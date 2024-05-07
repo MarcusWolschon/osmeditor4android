@@ -4011,7 +4011,7 @@ public class Logic {
                 }
                 if (result == READ_FAILED) {
                     Log.d(DEBUG_TAG, "loadfromFile: File read failed");
-                    ScreenMessage.barError(activity, R.string.toast_state_file_failed);
+                    ScreenMessage.barError(activity, R.string.toast_data_stateload_failed);
                     if (postLoad != null) {
                         postLoad.onError(null);
                     }
@@ -4198,7 +4198,7 @@ public class Logic {
             activity.invalidateOptionsMenu();
         } else {
             Log.d(DEBUG_TAG, "syncLoadfromFile: File read failed");
-            ScreenMessage.barError(activity, R.string.toast_state_file_failed);
+            ScreenMessage.barError(activity, R.string.toast_data_stateload_failed);
         }
     }
 
