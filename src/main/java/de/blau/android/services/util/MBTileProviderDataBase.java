@@ -147,22 +147,18 @@ public class MBTileProviderDataBase implements LocalTileContainer {
         if (DEBUGMODE) {
             Log.d(MapTileFilesystemProvider.DEBUG_TAG, "Trying to retrieve " + aTile + " from db");
         }
-        try {
+        SQLiteStatement get = getStatements.acquire();
+        if (get == null) {
+            throw new IOException("Used all statements");
+        }
+        try { // NOSONAR
             if (mDatabase.isOpen()) {
-                SQLiteStatement get = getStatements.acquire();
-                if (get == null) {
-                    throw new IOException("Used all statements");
+                bindTile(aTile, get);
+                final ParcelFileDescriptor pfd = get.simpleQueryForBlobFileDescriptor();
+                if (pfd != null) {
+                    return new ParcelFileDescriptor.AutoCloseInputStream(pfd);
                 }
-                try {
-                    bindTile(aTile, get);
-                    final ParcelFileDescriptor pfd = get.simpleQueryForBlobFileDescriptor();
-                    if (pfd != null) {
-                        return new ParcelFileDescriptor.AutoCloseInputStream(pfd);
-                    }
-                    return null;
-                } finally {
-                    getStatements.release(get);
-                }
+                return null;
             }
         } catch (SQLiteDoneException sde) {
             // nothing found
@@ -171,9 +167,8 @@ public class MBTileProviderDataBase implements LocalTileContainer {
             }
         } catch (SQLiteException sex) { // handle these exceptions the same
             throw new IOException(sex.getMessage());
-        }
-        if (DEBUGMODE) {
-            Log.d(MapTileFilesystemProvider.DEBUG_TAG, "Tile not found in DB");
+        } finally {
+            getStatements.release(get);
         }
         return null;
     }
