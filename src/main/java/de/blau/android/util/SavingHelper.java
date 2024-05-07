@@ -8,13 +8,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InvalidClassException;
+import java.io.ObjectInput;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
-
-import org.nustaq.serialization.FSTObjectInput;
-import org.nustaq.serialization.FSTObjectOutput;
 
 import android.content.Context;
 import android.net.Uri;
@@ -35,9 +34,13 @@ public class SavingHelper<T extends Serializable> {
 
     private static final String DEBUG_TAG = SavingHelper.class.getSimpleName().substring(0, Math.min(23, SavingHelper.class.getSimpleName().length()));
 
+    private static final String BACKUP_EXTENSION = ".backup";
+
     private static final long DEFAULT_STACK_SIZE = 200000L;
     private static final int  ADD_STACK          = 2000000;
     private static final int  LOTS_OF_MEMORY     = 10000000;
+    private static final int  TIMEOUT            = 60000;   // wait max 60 s for thread to finish, NOTE this limits the
+                                                            // size of the file that can be saved
 
     /**
      * Date pattern used for the export file name.
@@ -62,7 +65,8 @@ public class SavingHelper<T extends Serializable> {
      * @param context Android Context
      * @param filename filename of the save file
      * @param object object to save
-     * @param compress true if the output should be gzip-compressed, false if it should be written without compression
+     * @param compress true if the output should be gzip-compressed, false if it should be written without compression,
+     *            ignored
      * @return true if successful, false if saving failed for some reason
      */
     public synchronized boolean save(@NonNull Context context, @NonNull String filename, @NonNull T object, boolean compress) {
@@ -77,7 +81,8 @@ public class SavingHelper<T extends Serializable> {
      * @param context Android Context
      * @param filename filename of the save file
      * @param object object to save
-     * @param compress true if the output should be gzip-compressed, false if it should be written without compression
+     * @param compress true if the output should be gzip-compressed, false if it should be written without compression,
+     *            ignored
      * @return true if successful, false if saving failed for some reason
      * @param jdk use the built-in serialisation if true
      */
@@ -85,11 +90,9 @@ public class SavingHelper<T extends Serializable> {
         try {
             Log.d(DEBUG_TAG, "preparing to save " + filename);
             SaveThread r = new SaveThread(context, filename, object, compress, jdk);
-
             Thread t = new Thread(null, r, SaveThread.DEBUG_TAG, stackSize);
             t.start();
-            t.join(60000); // wait max 60 s for thread to finish TODO this needs to be done differently given this
-                           // limits the size of the file that can be saved
+            t.join(TIMEOUT);
             Log.d(DEBUG_TAG, "save thread finished");
             return r.getResult();
         } catch (Exception e) { // NOSONAR
@@ -137,57 +140,49 @@ public class SavingHelper<T extends Serializable> {
 
         @Override
         public void run() {
-
-            OutputStream out = null;
-            ObjectOutputStream objectOut = null;
+            Log.i(DEBUG_TAG, "saving  " + filename);
+            String tempFilename = filename + "." + System.currentTimeMillis();
+            try (OutputStream out = context.openFileOutput(tempFilename, Context.MODE_PRIVATE);
+                    ObjectOutput objectOut = jdkSerialisation ? new ObjectOutputStream(out) : App.getFSTInstance().getObjectOutput(out)) {
+                objectOut.writeObject(object);
+                objectOut.flush();
+            } catch (Exception e) {
+                Log.e(DEBUG_TAG, "Exception, failed to save " + filename, e);
+                ACRAHelper.nocrashReport(e, e.getMessage());
+                return;
+            } catch (Error e) { // NOSONAR crashing is not an option
+                final String message = "Error, failed to save " + filename + " " + e.getMessage() + " with stack size " + stackSize;
+                Log.e(DEBUG_TAG, message, e);
+                ACRAHelper.nocrashReport(e, message);
+                return;
+            }
             try {
-                Log.i(DEBUG_TAG, "saving  " + filename);
-                String tempFilename = filename + "." + System.currentTimeMillis();
-                out = context.openFileOutput(tempFilename, Context.MODE_PRIVATE);
-                if (jdkSerialisation) {
-                    objectOut = new ObjectOutputStream(out);
-                    objectOut.writeObject(object);
-                    objectOut.flush();
-                } else {
-                    FSTObjectOutput outFST = App.getFSTInstance().getObjectOutput(out);
-                    outFST.writeObject(object);
-                    outFST.flush();
-                }
-                out.close();
-                rename(context, filename, filename + ".backup"); // don't overwrite last saved state
+                rename(context, filename, filename + BACKUP_EXTENSION); // don't overwrite last saved state
                 rename(context, tempFilename, filename); // rename to expected name
                 Log.i(DEBUG_TAG, "saved " + filename + " successfully");
                 result = true;
-            } catch (Exception e) {
-                Log.e(DEBUG_TAG, "failed to save " + filename, e);
-                ACRAHelper.nocrashReport(e, e.getMessage());
-                result = false;
-            } catch (Error e) { // NOSONAR crashing is not an option
-                Log.e(DEBUG_TAG, "failed to save " + filename, e);
-                ACRAHelper.nocrashReport(e, "failed to save " + filename + " " + e.getMessage() + " withh stack size " + stackSize);
-                result = false;
-            } finally {
-                SavingHelper.close(objectOut);
-                SavingHelper.close(out);
+            } catch (Exception ex) {
+                Log.e(DEBUG_TAG, "Exception, renaming " + filename, ex);
+                ACRAHelper.nocrashReport(ex, ex.getMessage());
             }
         }
     }
 
     /**
-     * Loads and deserializes a single object from the given file Original version was running out of stack, fixed by
+     * Loads and de-serializes a single object from the given file Original version was running out of stack, fixed by
      * moving to a thread
      * 
      * @param context Android Context
      * @param filename filename of the save file
      * @param compressed true if the output is gzip-compressed, false if it is uncompressed
-     * @return the deserialized object if successful, null if loading/deserialization/casting failed
+     * @return the de-serialized object if successful, null if loading/deserialization/casting failed
      */
     public synchronized T load(@NonNull Context context, @NonNull String filename, boolean compressed) {
         return load(context, filename, compressed, false, false);
     }
 
     /**
-     * Loads and deserializes a single object from the given file Original version was running out of stack, fixed by
+     * Loads and de-serializes a single object from the given file Original version was running out of stack, fixed by
      * moving to a thread
      * 
      * @param context Android Context
@@ -195,7 +190,7 @@ public class SavingHelper<T extends Serializable> {
      * @param compressed true if the output is gzip-compressed, false if it is uncompressed
      * @param deleteOnFail if true delete the file we tried to load (because it is likely corrupted)
      * @param jdk use the built-in serialisation if true
-     * @return the deserialized object if successful, null if loading/deserialization/casting failed
+     * @return the de-serialized object if successful, null if loading/deserialization/casting failed
      */
     public synchronized T load(@NonNull Context context, @NonNull String filename, boolean compressed, boolean deleteOnFail, boolean jdk) {
         try {
@@ -203,8 +198,7 @@ public class SavingHelper<T extends Serializable> {
             LoadThread r = new LoadThread(context, filename, compressed, deleteOnFail, jdk);
             Thread t = new Thread(null, r, LoadThread.DEBUG_TAG, stackSize);
             t.start();
-            t.join(60000); // wait max 60 s for thread to finish TODO this needs to be done differently given this
-                           // limits the size of the file that can be loaded
+            t.join(TIMEOUT);
             Log.d(DEBUG_TAG, "load thread finished");
             return r.getResult();
         } catch (Exception e) { // NOSONAR
@@ -221,7 +215,7 @@ public class SavingHelper<T extends Serializable> {
         final boolean compressed;
         final boolean deleteOnFail;
         final Context context;
-        T             result;
+        T             result = null;
         final boolean jdkSerialisation;
 
         /**
@@ -253,29 +247,16 @@ public class SavingHelper<T extends Serializable> {
         @SuppressWarnings("unchecked")
         @Override
         public void run() {
-
-            InputStream in = null;
-            ObjectInputStream objectIn = null;
-            try {
+            try (InputStream in = context.openFileInput(filename);
+                    ObjectInput objectIn = jdkSerialisation ? new ObjectInputStream(in) : App.getFSTInstance().getObjectInput(in)) {
                 Log.d(DEBUG_TAG, "loading  " + filename);
-                try {
-                    in = context.openFileInput(filename);
-                } catch (FileNotFoundException fnfe) {
-                    // this happens a lot and shouldn't generate an error report
-                    Log.e(DEBUG_TAG, "file not found " + filename);
-                    result = null;
-                    return;
-                }
-                if (jdkSerialisation) {
-                    objectIn = new ObjectInputStream(in);
-                    result = (T) objectIn.readObject();
-                } else {
-                    FSTObjectInput inFST = App.getFSTInstance().getObjectInput(in);
-                    result = (T) inFST.readObject();
-                }
+                result = (T) objectIn.readObject();
                 Log.d(DEBUG_TAG, "loaded " + filename + " successfully");
+            } catch (FileNotFoundException fnfe) {
+                // this happens a lot and shouldn't generate an error report
+                Log.e(DEBUG_TAG, "file not found " + filename);
             } catch (IOException ioex) {
-                Log.e(DEBUG_TAG, "failed to load " + filename, ioex);
+                logFailedToLoad(ioex);
                 try {
                     if (deleteOnFail) {
                         context.deleteFile(filename);
@@ -283,23 +264,26 @@ public class SavingHelper<T extends Serializable> {
                 } catch (Exception ex) {
                     // ignore
                 }
-                result = null;
             } catch (Exception e) {
-                Log.e(DEBUG_TAG, "failed to load " + filename, e);
-                result = null;
+                logFailedToLoad(e);
                 if (e instanceof InvalidClassException) { // serial id mismatch, will typically happen on upgrades
                     // do nothing
                 } else {
                     ACRAHelper.nocrashReport(e, "failed to load " + filename + " " + e.getMessage() + " withh stack size " + stackSize);
                 }
             } catch (Error e) { // NOSONAR crashing is not an option
-                Log.e(DEBUG_TAG, "failed to load " + filename, e);
-                result = null;
+                logFailedToLoad(e);
                 ACRAHelper.nocrashReport(e, e.getMessage());
-            } finally {
-                SavingHelper.close(objectIn);
-                SavingHelper.close(in);
             }
+        }
+
+        /**
+         * Log that we got an exception or error
+         * 
+         * @param e the Throwable we received
+         */
+        private void logFailedToLoad(Throwable e) {
+            Log.e(DEBUG_TAG, "failed to load " + filename, e);
         }
     }
 
@@ -429,5 +413,4 @@ public class SavingHelper<T extends Serializable> {
         /** @return the extension to be used for exports */
         String exportExtension();
     }
-
 }
