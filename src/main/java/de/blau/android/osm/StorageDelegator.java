@@ -621,16 +621,11 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     public void appendNodeToWay(final Node refNode, final Node nextNode, final Way way) throws OsmIllegalOperationException {
         dirty = true;
         undo.save(way);
-        try {
-            validateWayNodeCount(way.nodeCount() + 1);
-            apiStorage.insertElementSafe(way);
-            way.appendNode(refNode, nextNode);
-            way.updateState(OsmElement.STATE_MODIFIED);
-            onElementChanged(null, way);
-        } catch (StorageException e) {
-            // TODO handle OOM
-            Log.e(DEBUG_TAG, "appendNodeToWay got " + e.getMessage());
-        }
+        validateWayNodeCount(way.nodeCount() + 1);
+        apiStorage.insertElementSafe(way);
+        way.appendNode(refNode, nextNode);
+        way.updateState(OsmElement.STATE_MODIFIED);
+        onElementChanged(null, way);
     }
 
     /**
@@ -719,22 +714,18 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             return;
         }
         dirty = true;
-        try {
-            Set<Node> nodes = new HashSet<>(allNodes); // Guarantee uniqueness
-            // check that all coordinates are valid before moving
-            for (Node nd : nodes) {
-                validateCoordinates(nd.getLat() + deltaLatE7, nd.getLon() + deltaLonE7);
-            }
-            invalidateWayBoundingBox(nodes);
-            for (Node nd : nodes) {
-                undo.save(nd);
-                updateLatLon(nd, nd.getLat() + deltaLatE7, nd.getLon() + deltaLonE7);
-            }
-            // Don't call onElementChanged
-        } catch (StorageException e) {
-            // TODO handle OOM
-            Log.e(DEBUG_TAG, "moveNodes got " + e.getMessage());
+
+        Set<Node> nodes = new HashSet<>(allNodes); // Guarantee uniqueness
+        // check that all coordinates are valid before moving
+        for (Node nd : nodes) {
+            validateCoordinates(nd.getLat() + deltaLatE7, nd.getLon() + deltaLonE7);
         }
+        invalidateWayBoundingBox(nodes);
+        for (Node nd : nodes) {
+            undo.save(nd);
+            updateLatLon(nd, nd.getLat() + deltaLatE7, nd.getLon() + deltaLonE7);
+        }
+        // Don't call onElementChanged
     }
 
     /**
@@ -1095,22 +1086,17 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         dirty = true;
         double cos = Math.cos(angle);
         double sin = Math.sin(angle);
-        try {
-            Set<Node> nodes = new HashSet<>(way.getNodes()); // Guarantee uniqueness
-            invalidateWayBoundingBox(nodes);
-            for (Node nd : nodes) {
-                undo.save(nd);
-                double nodeX = GeoMath.lonE7ToX(w, v, nd.getLon());
-                double nodeY = GeoMath.latE7ToY(h, w, v, nd.getLat());
-                double newX = pivotX + (nodeX - pivotX) * cos - direction * (nodeY - pivotY) * sin;
-                double newY = pivotY + direction * (nodeX - pivotX) * sin + (nodeY - pivotY) * cos;
-                updateLatLon(nd, GeoMath.yToLatE7(h, w, v, (float) newY), GeoMath.xToLonE7(w, v, (float) newX));
-            }
-            // Don't call onElementChanged(null, new ArrayList<>(nodes));
-        } catch (StorageException e) {
-            // TODO handle OOM
-            Log.e(DEBUG_TAG, "rotateWay got " + e.getMessage());
+        Set<Node> nodes = new HashSet<>(way.getNodes()); // Guarantee uniqueness
+        invalidateWayBoundingBox(nodes);
+        for (Node nd : nodes) {
+            undo.save(nd);
+            double nodeX = GeoMath.lonE7ToX(w, v, nd.getLon());
+            double nodeY = GeoMath.latE7ToY(h, w, v, nd.getLat());
+            double newX = pivotX + (nodeX - pivotX) * cos - direction * (nodeY - pivotY) * sin;
+            double newY = pivotY + direction * (nodeX - pivotX) * sin + (nodeY - pivotY) * cos;
+            updateLatLon(nd, GeoMath.yToLatE7(h, w, v, (float) newY), GeoMath.xToLonE7(w, v, (float) newX));
         }
+        // Don't call onElementChanged(null, new ArrayList<>(nodes));
     }
 
     /**
@@ -1311,36 +1297,31 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             logAndThrow("splitAtNode can't split, new way would have " + nodesForNewWay.size() + " node(s)");
         }
         List<OsmElement> changedElements = new ArrayList<>();
-        try {
-            // update original way
-            way.updateState(OsmElement.STATE_MODIFIED);
-            apiStorage.insertElementSafe(way);
-            changedElements.add(way);
+        // update original way
+        way.updateState(OsmElement.STATE_MODIFIED);
+        apiStorage.insertElementSafe(way);
+        changedElements.add(way);
 
-            // create the new way
-            Way newWay = factory.createWayWithNewId();
-            newWay.addNodes(nodesForNewWay, false);
-            newWay.addTags(way.getTags());
-            insertElementUnsafe(newWay);
+        // create the new way
+        Way newWay = factory.createWayWithNewId();
+        newWay.addNodes(nodesForNewWay, false);
+        newWay.addTags(way.getTags());
+        insertElementUnsafe(newWay);
 
-            if (!metricKeys.isEmpty() && originalLength != 0) {
-                result.addIssue(SplitIssue.SPLIT_METRIC);
-                for (String key : metricKeys) {
-                    distributeMetric(key, originalLength, way);
-                    distributeMetric(key, originalLength, newWay);
-                }
+        if (!metricKeys.isEmpty() && originalLength != 0) {
+            result.addIssue(SplitIssue.SPLIT_METRIC);
+            for (String key : metricKeys) {
+                distributeMetric(key, originalLength, way);
+                distributeMetric(key, originalLength, newWay);
             }
-
-            List<Result> relationResults = addSplitWayToRelations(way, false, newWay, changedElements);
-            onElementChanged(null, changedElements);
-            result.setElement(newWay);
-            List<Result> resultList = Util.wrapInList(result);
-            resultList.addAll(relationResults);
-            return resultList;
-        } catch (StorageException e) {
-            Log.e(DEBUG_TAG, "splitAtNode got " + e.getMessage());
-            throw e;
         }
+
+        List<Result> relationResults = addSplitWayToRelations(way, false, newWay, changedElements);
+        onElementChanged(null, changedElements);
+        result.setElement(newWay);
+        List<Result> resultList = Util.wrapInList(result);
+        resultList.addAll(relationResults);
+        return resultList;
     }
 
     /**
@@ -1970,10 +1951,11 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      */
     private void removeElementFromRelations(@NonNull final OsmElement element) {
         if (element.hasParentRelations()) {
+            Log.i(DEBUG_TAG, "removing " + element.getDescription(true) + " from parent relations");
             List<Relation> relations = new ArrayList<>(element.getParentRelations()); // need copy!
             List<OsmElement> changedElements = new ArrayList<>();
             for (Relation r : relations) {
-                Log.i(DEBUG_TAG, "removing " + element.getName() + " #" + element.getOsmId() + " from relation #" + r.getOsmId());
+
                 dirty = true;
                 undo.save(r);
                 r.removeMember(r.getMember(element));
@@ -1982,7 +1964,6 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 changedElements.add(r);
                 undo.save(element);
                 element.removeParentRelation(r);
-                Log.i(DEBUG_TAG, "... done");
             }
             onElementChanged(null, changedElements);
             onParentRelationChanged(element);
@@ -1999,27 +1980,22 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @param r relation to remove the element from
      */
     public void removeRelationMembersFromRelation(@NonNull Relation r, @NonNull List<RelationMember> members) {
+        Log.i(DEBUG_TAG, "removing members from relation " + r.getDescription(true));
         dirty = true;
         undo.save(r);
-        try {
-            for (RelationMember member : members) {
-                Log.i(DEBUG_TAG, "removing " + member.getType() + " #" + member.getRef() + " from relation #" + r.getOsmId());
-                r.removeMember(member);
-                if (member.downloaded()) {
-                    OsmElement element = member.getElement();
-                    undo.save(element);
-                    element.removeParentRelation(r);
-                    onParentRelationChanged(element);
-                }
+        for (RelationMember member : members) {
+            Log.i(DEBUG_TAG, "removing " + member.getType() + " #" + member.getRef() + " from relation #" + r.getOsmId());
+            r.removeMember(member);
+            if (member.downloaded()) {
+                OsmElement element = member.getElement();
+                undo.save(element);
+                element.removeParentRelation(r);
+                onParentRelationChanged(element);
             }
-            r.updateState(OsmElement.STATE_MODIFIED);
-            apiStorage.insertElementSafe(r);
-            onElementChanged(null, r);
-            Log.i(DEBUG_TAG, "... done");
-        } catch (StorageException e) {
-            // TODO handle OOM
-            Log.e(DEBUG_TAG, "removeMemberFromRelation got " + e.getMessage());
         }
+        r.updateState(OsmElement.STATE_MODIFIED);
+        apiStorage.insertElementSafe(r);
+        onElementChanged(null, r);
     }
 
     /**
@@ -2032,7 +2008,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @param r relation to remove the element from
      */
     private void removeElementFromRelation(@NonNull final OsmElement element, @NonNull final Relation r) {
-        Log.i(DEBUG_TAG, "removing " + element.getName() + " #" + element.getOsmId() + " from relation #" + r.getOsmId());
+        Log.i(DEBUG_TAG, "remove " + element.getName() + " #" + element.getOsmId() + " from relation #" + r.getOsmId());
         dirty = true;
         undo.save(r);
         r.removeMember(r.getMember(element));
@@ -2042,7 +2018,6 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         element.removeParentRelation(r);
         onElementChanged(null, r);
         onParentRelationChanged(element);
-        Log.i(DEBUG_TAG, "... done");
     }
 
     /**
@@ -3547,186 +3522,180 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
 
         Log.d(DEBUG_TAG, "applyOsc finished init");
 
-        try {
-            // add nodes
-            for (Node n : osc.getNodes()) {
-                byte state = n.getState();
-                if (n.getOsmId() < 0) {
-                    // place holder, need to get a valid placeholder and renumber
-                    Node tempNode = getFactory().createNodeWithNewId(-1, -1);
-                    n.setOsmId(tempNode.getOsmId());
-                }
-                Node apiNode = tempApi.getNode(n.getOsmId()); // can contain deleted elements
-                if (!nodeIndex.containsKey(n.getOsmId()) && apiNode == null) { // new node no problem
-                    tempCurrent.insertNodeUnsafe(n);
-                    tempApi.insertNodeUnsafe(n);
-                    tempUndo.save(n, false, false);
-                    if (postMerge != null) {
-                        postMerge.handler(n);
-                    }
-                } else {
-                    if (apiNode != null && apiNode.getState() == OsmElement.STATE_DELETED) {
-                        if (apiNode.getOsmVersion() > n.getOsmVersion()) {
-                            continue; // can use node we already have
-                        } else if (state == OsmElement.STATE_DELETED || state == OsmElement.STATE_MODIFIED) {
-                            tempUndo.save(apiNode);
-                            tempApi.insertElementUnsafe(n);
-                            if (state == OsmElement.STATE_MODIFIED) {
-                                tempCurrent.insertElementUnsafe(n);
-                            }
-                            continue;
-                        } else {
-                            Log.d(DEBUG_TAG, String.format(ABORTMESSAGE, n.getDescription()));
-                            return false;
-                        }
-                    }
-                    Node existingNode = nodeIndex.get(n.getOsmId());
-                    if (existingNode != null) {
-                        if (existingNode.getOsmVersion() <= n.getOsmVersion()) {
-                            // so that we can abort cleanly, we actually need to replace the current element
-                            tempUndo.save(existingNode, true, false);
-                            tempApi.insertNodeUnsafe(n);
-                            tempCurrent.insertElementUnsafe(n);
-                            if (postMerge != null) {
-                                postMerge.handler(n);
-                            }
-                        }
-                    }
-                }
+        // add nodes
+        for (Node n : osc.getNodes()) {
+            byte state = n.getState();
+            if (n.getOsmId() < 0) {
+                // place holder, need to get a valid placeholder and renumber
+                Node tempNode = getFactory().createNodeWithNewId(-1, -1);
+                n.setOsmId(tempNode.getOsmId());
             }
-
-            Log.d(DEBUG_TAG, "applyOsc done nodes");
-
-            // add ways
-            for (Way w : osc.getWays()) {
-                byte state = w.getState();
-                if (w.getOsmId() < 0) {
-                    // place holder, need to get a valid placeholder and renumber
-                    Way tempWay = getFactory().createWayWithNewId();
-                    w.setOsmId(tempWay.getOsmId());
+            Node apiNode = tempApi.getNode(n.getOsmId()); // can contain deleted elements
+            if (!nodeIndex.containsKey(n.getOsmId()) && apiNode == null) { // new node no problem
+                tempCurrent.insertNodeUnsafe(n);
+                tempApi.insertNodeUnsafe(n);
+                tempUndo.save(n, false, false);
+                if (postMerge != null) {
+                    postMerge.handler(n);
                 }
-                Way apiWay = tempApi.getWay(w.getOsmId()); // can contain deleted elements
-                if (!wayIndex.containsKey(w.getOsmId()) && apiWay == null) { // new way no problem
-                    tempCurrent.insertWayUnsafe(w);
-                    tempApi.insertWayUnsafe(w);
-                    tempUndo.save(w, false, false);
-                    if (postMerge != null) {
-                        postMerge.handler(w);
-                    }
-                } else {
-                    if (apiWay != null && apiWay.getState() == OsmElement.STATE_DELETED) {
-                        if (apiWay.getOsmVersion() > w.getOsmVersion()) {
-                            continue; // can use node we already have
-                        } else if (state == OsmElement.STATE_DELETED || state == OsmElement.STATE_MODIFIED) {
-                            tempUndo.save(apiWay);
-                            tempApi.insertElementUnsafe(w);
-                            if (state == OsmElement.STATE_MODIFIED) {
-                                tempCurrent.insertElementSafe(w);
-                            }
-                            continue;
-                        } else {
-                            Log.d(DEBUG_TAG, String.format(ABORTMESSAGE, w.getDescription()));
-                            return false;
+            } else {
+                if (apiNode != null && apiNode.getState() == OsmElement.STATE_DELETED) {
+                    if (apiNode.getOsmVersion() > n.getOsmVersion()) {
+                        continue; // can use node we already have
+                    } else if (state == OsmElement.STATE_DELETED || state == OsmElement.STATE_MODIFIED) {
+                        tempUndo.save(apiNode);
+                        tempApi.insertElementUnsafe(n);
+                        if (state == OsmElement.STATE_MODIFIED) {
+                            tempCurrent.insertElementUnsafe(n);
                         }
-                    }
-                    Way existingWay = wayIndex.get(w.getOsmId());
-                    if (existingWay != null) {
-                        if (existingWay.getOsmVersion() <= w.getOsmVersion()) {
-                            tempUndo.save(existingWay, true, false);
-                            tempApi.insertWayUnsafe(w);
-                            tempCurrent.insertElementUnsafe(w);
-                            if (postMerge != null) {
-                                postMerge.handler(w);
-                            }
-                        }
+                        continue;
                     } else {
-                        // this shouldn't be able to happen
-                        logAndSendReport("applyOsc null existing way " + w.getOsmId() + " containsKey is " + wayIndex.containsKey(w.getOsmId()) + " apiWay is "
-                                + apiWay);
+                        Log.d(DEBUG_TAG, String.format(ABORTMESSAGE, n.getDescription()));
                         return false;
                     }
                 }
-            }
-
-            Log.d(DEBUG_TAG, "applyOsc done ways");
-
-            // fix up way nodes
-            // all nodes should be in storage now, however new ways will have references to copies not in storage
-            // this conveniently deals with references that are not in the osmChange file but should be in storage
-            for (Way w : wayIndex) {
-                List<Node> nodes = w.getNodes();
-                for (int i = 0; i < nodes.size(); i++) {
-                    Node wayNode = nodes.get(i);
-                    Node n = nodeIndex.get(wayNode.getOsmId());
-                    if (n != null) {
-                        nodes.set(i, n);
-                    } else {
-                        Log.d(DEBUG_TAG, "applyOsc aborting missing node " + wayNode.getOsmId());
-                        return false; // way nodes have to exist, potentially download them here
+                Node existingNode = nodeIndex.get(n.getOsmId());
+                if (existingNode != null) {
+                    if (existingNode.getOsmVersion() <= n.getOsmVersion()) {
+                        // so that we can abort cleanly, we actually need to replace the current element
+                        tempUndo.save(existingNode, true, false);
+                        tempApi.insertNodeUnsafe(n);
+                        tempCurrent.insertElementUnsafe(n);
+                        if (postMerge != null) {
+                            postMerge.handler(n);
+                        }
                     }
                 }
             }
+        }
 
-            Log.d(DEBUG_TAG, "applyOsc done fixup way nodes nodes");
+        Log.d(DEBUG_TAG, "applyOsc done nodes");
 
-            // add relations
-            for (Relation r : osc.getRelations()) {
-                byte state = r.getState();
-                if (r.getOsmId() < 0) {
-                    // place holder, need to get a valid placeholder and renumber
-                    Relation tempRelation = getFactory().createRelationWithNewId();
-                    r.setOsmId(tempRelation.getOsmId());
+        // add ways
+        for (Way w : osc.getWays()) {
+            byte state = w.getState();
+            if (w.getOsmId() < 0) {
+                // place holder, need to get a valid placeholder and renumber
+                Way tempWay = getFactory().createWayWithNewId();
+                w.setOsmId(tempWay.getOsmId());
+            }
+            Way apiWay = tempApi.getWay(w.getOsmId()); // can contain deleted elements
+            if (!wayIndex.containsKey(w.getOsmId()) && apiWay == null) { // new way no problem
+                tempCurrent.insertWayUnsafe(w);
+                tempApi.insertWayUnsafe(w);
+                tempUndo.save(w, false, false);
+                if (postMerge != null) {
+                    postMerge.handler(w);
                 }
-                Relation apiRelation = tempApi.getRelation(r.getOsmId()); // can contain deleted elements
-                if (!relationIndex.containsKey(r.getOsmId()) && apiRelation == null) { // new relation no problem
-                    tempCurrent.insertRelationUnsafe(r);
+            } else {
+                if (apiWay != null && apiWay.getState() == OsmElement.STATE_DELETED) {
+                    if (apiWay.getOsmVersion() > w.getOsmVersion()) {
+                        continue; // can use node we already have
+                    } else if (state == OsmElement.STATE_DELETED || state == OsmElement.STATE_MODIFIED) {
+                        tempUndo.save(apiWay);
+                        tempApi.insertElementUnsafe(w);
+                        if (state == OsmElement.STATE_MODIFIED) {
+                            tempCurrent.insertElementSafe(w);
+                        }
+                        continue;
+                    } else {
+                        Log.d(DEBUG_TAG, String.format(ABORTMESSAGE, w.getDescription()));
+                        return false;
+                    }
+                }
+                Way existingWay = wayIndex.get(w.getOsmId());
+                if (existingWay != null) {
+                    if (existingWay.getOsmVersion() <= w.getOsmVersion()) {
+                        tempUndo.save(existingWay, true, false);
+                        tempApi.insertWayUnsafe(w);
+                        tempCurrent.insertElementUnsafe(w);
+                        if (postMerge != null) {
+                            postMerge.handler(w);
+                        }
+                    }
+                } else {
+                    // this shouldn't be able to happen
+                    logAndSendReport(
+                            "applyOsc null existing way " + w.getOsmId() + " containsKey is " + wayIndex.containsKey(w.getOsmId()) + " apiWay is " + apiWay);
+                    return false;
+                }
+            }
+        }
+
+        Log.d(DEBUG_TAG, "applyOsc done ways");
+
+        // fix up way nodes
+        // all nodes should be in storage now, however new ways will have references to copies not in storage
+        // this conveniently deals with references that are not in the osmChange file but should be in storage
+        for (Way w : wayIndex) {
+            List<Node> nodes = w.getNodes();
+            for (int i = 0; i < nodes.size(); i++) {
+                Node wayNode = nodes.get(i);
+                Node n = nodeIndex.get(wayNode.getOsmId());
+                if (n != null) {
+                    nodes.set(i, n);
+                } else {
+                    Log.d(DEBUG_TAG, "applyOsc aborting missing node " + wayNode.getOsmId());
+                    return false; // way nodes have to exist, potentially download them here
+                }
+            }
+        }
+
+        Log.d(DEBUG_TAG, "applyOsc done fixup way nodes nodes");
+
+        // add relations
+        for (Relation r : osc.getRelations()) {
+            byte state = r.getState();
+            if (r.getOsmId() < 0) {
+                // place holder, need to get a valid placeholder and renumber
+                Relation tempRelation = getFactory().createRelationWithNewId();
+                r.setOsmId(tempRelation.getOsmId());
+            }
+            Relation apiRelation = tempApi.getRelation(r.getOsmId()); // can contain deleted elements
+            if (!relationIndex.containsKey(r.getOsmId()) && apiRelation == null) { // new relation no problem
+                tempCurrent.insertRelationUnsafe(r);
+                tempApi.insertRelationUnsafe(r);
+                tempUndo.save(r, false, false);
+                if (postMerge != null) {
+                    postMerge.handler(r);
+                }
+            } else {
+                if (apiRelation != null && apiRelation.getState() == OsmElement.STATE_DELETED) {
+                    if (apiRelation.getOsmVersion() > r.getOsmVersion()) {
+                        continue; // can use relation we already have
+                    } else if (state == OsmElement.STATE_DELETED || state == OsmElement.STATE_MODIFIED) {
+                        tempUndo.save(apiRelation);
+                        tempApi.insertElementUnsafe(r);
+                        if (state == OsmElement.STATE_MODIFIED) {
+                            tempCurrent.insertElementUnsafe(r);
+                        }
+                        continue;
+                    } else {
+                        Log.d(DEBUG_TAG, String.format(ABORTMESSAGE, r.getDescription()));
+                        return false;
+                    }
+                }
+                Relation existingRelation = relationIndex.get(r.getOsmId());
+                if (existingRelation != null && existingRelation.getOsmVersion() <= r.getOsmVersion()) {
+                    tempUndo.save(existingRelation, true, false);
                     tempApi.insertRelationUnsafe(r);
-                    tempUndo.save(r, false, false);
+                    tempCurrent.insertElementUnsafe(r);
                     if (postMerge != null) {
                         postMerge.handler(r);
                     }
-                } else {
-                    if (apiRelation != null && apiRelation.getState() == OsmElement.STATE_DELETED) {
-                        if (apiRelation.getOsmVersion() > r.getOsmVersion()) {
-                            continue; // can use relation we already have
-                        } else if (state == OsmElement.STATE_DELETED || state == OsmElement.STATE_MODIFIED) {
-                            tempUndo.save(apiRelation);
-                            tempApi.insertElementUnsafe(r);
-                            if (state == OsmElement.STATE_MODIFIED) {
-                                tempCurrent.insertElementUnsafe(r);
-                            }
-                            continue;
-                        } else {
-                            Log.d(DEBUG_TAG, String.format(ABORTMESSAGE, r.getDescription()));
-                            return false;
-                        }
-                    }
-                    Relation existingRelation = relationIndex.get(r.getOsmId());
-                    if (existingRelation != null && existingRelation.getOsmVersion() <= r.getOsmVersion()) {
-                        tempUndo.save(existingRelation, true, false);
-                        tempApi.insertRelationUnsafe(r);
-                        tempCurrent.insertElementUnsafe(r);
-                        if (postMerge != null) {
-                            postMerge.handler(r);
-                        }
-                    }
                 }
             }
+        }
 
-            Log.d(DEBUG_TAG, "applyOsc done relations");
+        Log.d(DEBUG_TAG, "applyOsc done relations");
 
-            // fixup relation back links and memberships
-            if (!redoBacklinks(tempCurrent, nodeIndex, wayIndex, relationIndex)) {
-                Log.e(DEBUG_TAG, "applyOsc redoBacklinks failed");
-                return false;
-            }
-
-            Log.d(DEBUG_TAG, "applyOsc fixuped relations");
-
-        } catch (StorageException sex) {
-            Log.d(DEBUG_TAG, "applyOsc aborting " + sex.getMessage());
+        // fixup relation back links and memberships
+        if (!redoBacklinks(tempCurrent, nodeIndex, wayIndex, relationIndex)) {
+            Log.e(DEBUG_TAG, "applyOsc redoBacklinks failed");
             return false;
         }
+
+        Log.d(DEBUG_TAG, "applyOsc fixuped relations");
 
         Log.d(DEBUG_TAG, "applyOsc finshed");
         undo = tempUndo;

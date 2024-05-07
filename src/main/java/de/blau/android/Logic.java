@@ -1450,15 +1450,15 @@ public class Logic {
      */
     synchronized void handleTouchEventMove(@NonNull Main main, final float absoluteX, final float absoluteY, final float relativeX, final float relativeY) {
         final Selection currentSelection = selectionStack.getFirst();
-        if (draggingNode || draggingWay || draggingHandle || draggingNote) {
-            int lat = yToLatE7(absoluteY);
-            int lon = xToLonE7(absoluteX);
-            final int selectedWayCount = currentSelection.wayCount();
-            final int selectedNodeCount = currentSelection.nodeCount();
-            // checkpoint created where draggingNode is set
-            if ((draggingNode && ((selectedNodeCount == 1 && selectedWayCount == 0) || selectedWayCount == 1)) || draggingHandle || draggingNote) {
-                if (draggingHandle) { // create node only if we are really dragging
-                    try {
+        try {
+            if (draggingNode || draggingWay || draggingHandle || draggingNote) {
+                int lat = yToLatE7(absoluteY);
+                int lon = xToLonE7(absoluteX);
+                final int selectedWayCount = currentSelection.wayCount();
+                final int selectedNodeCount = currentSelection.nodeCount();
+                // checkpoint created where draggingNode is set
+                if ((draggingNode && ((selectedNodeCount == 1 && selectedWayCount == 0) || selectedWayCount == 1)) || draggingHandle || draggingNote) {
+                    if (draggingHandle) { // create node only if we are really dragging
                         if (handleNode == null && selectedHandle != null && selectedWayCount > 0) {
                             Log.d(DEBUG_TAG, "creating node at handle position");
                             handleNode = addOnWay(main, currentSelection.getWays(), selectedHandle.x, selectedHandle.y, true);
@@ -1467,89 +1467,83 @@ public class Logic {
                         if (handleNode != null) {
                             getDelegator().moveNode(handleNode, lat, lon);
                         }
-                    } catch (OsmIllegalOperationException e) {
-                        ScreenMessage.barError(main, e.getMessage());
-                        return;
-                    }
-                } else {
-                    if (prefs.largeDragArea()) {
-                        startY = startY + relativeY;
-                        startX = startX - relativeX;
-                        lat = yToLatE7(startY);
-                        lon = xToLonE7(startX);
-                    }
-                    if (draggingNode) {
-                        if (selectedNodeCount == 1) {
-                            draggedNode = currentSelection.getNode();
-                        }
-                        displayAttachedObjectWarning(main, draggedNode);
-                        getDelegator().moveNode(draggedNode, lat, lon);
+
                     } else {
-                        de.blau.android.layer.tasks.MapOverlay taskLayer = map.getTaskLayer();
-                        if (taskLayer != null) {
-                            Task selectedTask = taskLayer.getSelected();
-                            if (selectedTask.isNew()) {
-                                try {
+                        if (prefs.largeDragArea()) {
+                            startY = startY + relativeY;
+                            startX = startX - relativeX;
+                            lat = yToLatE7(startY);
+                            lon = xToLonE7(startX);
+                        }
+                        if (draggingNode) {
+                            if (selectedNodeCount == 1) {
+                                draggedNode = currentSelection.getNode();
+                            }
+                            displayAttachedObjectWarning(main, draggedNode);
+                            getDelegator().moveNode(draggedNode, lat, lon);
+                        } else {
+                            de.blau.android.layer.tasks.MapOverlay taskLayer = map.getTaskLayer();
+                            if (taskLayer != null) {
+                                Task selectedTask = taskLayer.getSelected();
+                                if (selectedTask.isNew()) {
                                     App.getTaskStorage().move(selectedTask, lat, lon);
-                                } catch (IllegalOperationException e) {
-                                    ScreenMessage.barError(main, e.getMessage());
-                                    return;
+                                } else {
+                                    ScreenMessage.barWarning(main, R.string.toast_move_note_warning);
                                 }
-                            } else {
-                                ScreenMessage.barWarning(main, R.string.toast_move_note_warning);
                             }
                         }
                     }
-                }
-            } else { // way dragging and multi-select
-                List<Node> nodes = new ArrayList<>();
-                if (selectedWayCount > 0) { // shouldn't happen but might be a race condition
-                    for (Way w : currentSelection.getWays()) {
-                        nodes.addAll(w.getNodes());
+                } else { // way dragging and multi-select
+                    List<Node> nodes = new ArrayList<>();
+                    if (selectedWayCount > 0) { // shouldn't happen but might be a race condition
+                        for (Way w : currentSelection.getWays()) {
+                            nodes.addAll(w.getNodes());
+                        }
                     }
+                    if (selectedNodeCount > 0) {
+                        nodes.addAll(currentSelection.getNodes());
+                    }
+                    displayAttachedObjectWarning(main, nodes);
+                    getDelegator().moveNodes(nodes, lat - startLat, lon - startLon);
+                    if (nodes.size() > MAX_NODES_FOR_MOVE && selectedWayCount == 1 && selectedNodeCount == 0) {
+                        ScreenMessage.toastTopWarning(main, main.getString(R.string.toast_way_nodes_moved, nodes.size()));
+                    }
+                    // update
+                    startLat = lat;
+                    startLon = lon;
                 }
-                if (selectedNodeCount > 0) {
-                    nodes.addAll(currentSelection.getNodes());
-                }
+                translateOnBorderTouch(absoluteX, absoluteY);
+                main.getEasyEditManager().invalidate(); // if we are in an action mode update menubar
+            } else if (rotatingWay) {
+                double aY = startY - centroidY;
+                double aX = startX - centroidX;
+                double bY = absoluteY - centroidY;
+                double bX = absoluteX - centroidX;
 
-                displayAttachedObjectWarning(main, nodes);
+                double aSq = (startY - absoluteY) * (startY - absoluteY) + (startX - absoluteX) * (startX - absoluteX);
+                double bSq = bX * bX + bY * bY;
+                double cSq = aX * aX + aY * aY;
+                double cosAngle = Math.max(-1.0D, Math.min(1.0D, (bSq + cSq - aSq) / (2 * Math.sqrt(bSq) * Math.sqrt(cSq))));
 
-                getDelegator().moveNodes(nodes, lat - startLat, lon - startLon);
+                double det = aX * bY - aY * bX;
+                int direction = det < 0 ? -1 : 1;
 
-                if (nodes.size() > MAX_NODES_FOR_MOVE && selectedWayCount == 1 && selectedNodeCount == 0) {
-                    ScreenMessage.toastTopWarning(main, main.getString(R.string.toast_way_nodes_moved, nodes.size()));
-                }
-                // update
-                startLat = lat;
-                startLon = lon;
+                Way w = currentSelection.getWay();
+                displayAttachedObjectWarning(main, w);
+                getDelegator().rotateWay(w, (float) Math.acos(cosAngle), direction, centroidX, centroidY, map.getWidth(), map.getHeight(), viewBox);
+                startY = absoluteY;
+                startX = absoluteX;
+                main.getEasyEditManager().invalidate(); // if we are in an action mode update menubar
+            } else if (mode == Mode.MODE_ALIGN_BACKGROUND) {
+                performBackgroundOffset(main, map.getZoomLevel(), relativeX, relativeY);
+            } else {
+                performTranslation(map, relativeX, relativeY);
+                main.getEasyEditManager().invalidateOnDownload();
             }
-            translateOnBorderTouch(absoluteX, absoluteY);
-            main.getEasyEditManager().invalidate(); // if we are in an action mode update menubar
-        } else if (rotatingWay) {
-            double aY = startY - centroidY;
-            double aX = startX - centroidX;
-            double bY = absoluteY - centroidY;
-            double bX = absoluteX - centroidX;
-
-            double aSq = (startY - absoluteY) * (startY - absoluteY) + (startX - absoluteX) * (startX - absoluteX);
-            double bSq = bX * bX + bY * bY;
-            double cSq = aX * aX + aY * aY;
-            double cosAngle = Math.max(-1.0D, Math.min(1.0D, (bSq + cSq - aSq) / (2 * Math.sqrt(bSq) * Math.sqrt(cSq))));
-
-            double det = aX * bY - aY * bX;
-            int direction = det < 0 ? -1 : 1;
-
-            Way w = currentSelection.getWay();
-            displayAttachedObjectWarning(main, w);
-            getDelegator().rotateWay(w, (float) Math.acos(cosAngle), direction, centroidX, centroidY, map.getWidth(), map.getHeight(), viewBox);
-            startY = absoluteY;
-            startX = absoluteX;
-            main.getEasyEditManager().invalidate(); // if we are in an action mode update menubar
-        } else if (mode == Mode.MODE_ALIGN_BACKGROUND) {
-            performBackgroundOffset(main, map.getZoomLevel(), relativeX, relativeY);
-        } else {
-            performTranslation(map, relativeX, relativeY);
-            main.getEasyEditManager().invalidateOnDownload();
+        } catch (OsmIllegalOperationException | StorageException e) {
+            handleDelegatorException(main, e);
+        } catch (IllegalOperationException e) { // generated by moving a note
+            ScreenMessage.barError(main, e.getMessage());
         }
         invalidateMap();
     }
@@ -3853,11 +3847,11 @@ public class Logic {
             @Override
             protected AsyncResult doInBackground(Boolean arg) {
                 synchronized (Logic.this) {
+                    StorageDelegator sd = getDelegator();
                     try (final InputStream in = new BufferedInputStream(is)) {
                         OsmChangeParser oscParser = new OsmChangeParser();
                         oscParser.clearBoundingBoxes(); // this removes the default bounding box
                         oscParser.start(in);
-                        StorageDelegator sd = getDelegator();
                         createCheckpoint((FragmentActivity) context, R.string.undo_action_apply_osc);
                         if (!sd.applyOsc(oscParser.getStorage(), null)) {
                             removeCheckpoint((FragmentActivity) context, R.string.undo_action_apply_osc, true);
@@ -3877,6 +3871,8 @@ public class Logic {
                         return new AsyncResult(ErrorCodes.INVALID_DATA_READ, e.getMessage());
                     } catch (IllegalStateException iex) {
                         return new AsyncResult(ErrorCodes.CORRUPTED_DATA);
+                    } catch (StorageException sex) {
+                        return new AsyncResult(sd.isDirty() ? ErrorCodes.OUT_OF_MEMORY_DIRTY : ErrorCodes.OUT_OF_MEMORY);
                     } finally {
                         SavingHelper.close(is);
                     }
@@ -5046,11 +5042,11 @@ public class Logic {
     public Relation createRestriction(@Nullable FragmentActivity activity, @NonNull Way fromWay, @NonNull OsmElement viaElement, @NonNull Way toWay,
             @Nullable String restrictionType) {
         createCheckpoint(activity, R.string.undo_action_create_relation);
-        Relation restriction = getDelegator().createAndInsertRelation(null);
-        SortedMap<String, String> tags = new TreeMap<>();
-        tags.put(Tags.VALUE_RESTRICTION, restrictionType == null ? "" : restrictionType);
-        tags.put(Tags.KEY_TYPE, Tags.VALUE_RESTRICTION);
         try {
+            Relation restriction = getDelegator().createAndInsertRelation(null);
+            SortedMap<String, String> tags = new TreeMap<>();
+            tags.put(Tags.VALUE_RESTRICTION, restrictionType == null ? "" : restrictionType);
+            tags.put(Tags.KEY_TYPE, Tags.VALUE_RESTRICTION);
             getDelegator().setTags(restriction, tags);
             RelationMember from = new RelationMember(Tags.ROLE_FROM, fromWay);
             getDelegator().addMemberToRelation(from, restriction);
