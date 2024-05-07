@@ -39,7 +39,8 @@ import de.blau.android.views.util.MapViewConstants;
  * @author Simon Poole
  */
 public class MapTileProviderDataBase {
-    private static final String DEBUG_TAG = MapTileProviderDataBase.class.getSimpleName().substring(0, Math.min(23, MapTileProviderDataBase.class.getSimpleName().length()));
+    private static final String DEBUG_TAG = MapTileProviderDataBase.class.getSimpleName().substring(0,
+            Math.min(23, MapTileProviderDataBase.class.getSimpleName().length()));
 
     private static final String DATABASE_NAME    = "osmaptilefscache_db";
     private static final int    DATABASE_VERSION = 8;
@@ -49,11 +50,10 @@ public class MapTileProviderDataBase {
     private static final String T_FSCACHE_ZOOM_LEVEL  = "zoom_level";
     private static final String T_FSCACHE_TILE_X      = "tile_column";
     private static final String T_FSCACHE_TILE_Y      = "tile_row";
-    // private static final String T_FSCACHE_LINK = "link"; // TODO store link (multiple use for similar tiles)
-    private static final String T_FSCACHE_TIMESTAMP  = "timestamp";
-    private static final String T_FSCACHE_USAGECOUNT = "countused";
-    private static final String T_FSCACHE_FILESIZE   = "filesize";
-    static final String         T_FSCACHE_DATA       = "tile_data";
+    private static final String T_FSCACHE_TIMESTAMP   = "timestamp";
+    private static final String T_FSCACHE_USAGECOUNT  = "countused";
+    private static final String T_FSCACHE_FILESIZE    = "filesize";
+    static final String         T_FSCACHE_DATA        = "tile_data";
 
     private static final String T_RENDERER               = "t_renderer";
     private static final String T_RENDERER_ID            = "id";
@@ -176,13 +176,14 @@ public class MapTileProviderDataBase {
                 cv.put(T_FSCACHE_TILE_X, aTile.x);
                 cv.put(T_FSCACHE_TILE_Y, aTile.y);
                 cv.put(T_FSCACHE_TIMESTAMP, System.currentTimeMillis());
-                cv.put(T_FSCACHE_FILESIZE, tileData != null ? tileData.length : 0); // 0 == invalid
+                final int dataSize = tileData != null ? tileData.length : 0;
+                cv.put(T_FSCACHE_FILESIZE, dataSize); // 0 == invalid
                 cv.put(T_FSCACHE_DATA, tileData);
                 long result = mDatabase.insertOrThrow(T_FSCACHE, null, cv);
                 if (MapViewConstants.DEBUGMODE) {
                     Log.d(MapTileFilesystemProvider.DEBUG_TAG, "Inserting new tile result " + result);
                 }
-                return tileData != null ? tileData.length : 0;
+                return dataSize;
             }
         } catch (SQLiteConstraintException scex) {
             if (tileData != null && isInvalid(aTile)) {
@@ -226,48 +227,38 @@ public class MapTileProviderDataBase {
     @Nullable
     public byte[] getTile(@NonNull final MapTile aTile) throws IOException {
         if (MapViewConstants.DEBUGMODE) {
-            Log.d(MapTileFilesystemProvider.DEBUG_TAG, "Trying to retrieve " + aTile + " from file");
+            Log.d(MapTileFilesystemProvider.DEBUG_TAG, "Trying to retrieve " + aTile + " from DB");
+        }
+        SQLiteStatement get = getStatements.acquire();
+        if (get == null) {
+            throw new IOException("Used all statements");
         }
         try {
             if (mDatabase.isOpen()) {
-                SQLiteStatement get = null;
-                ParcelFileDescriptor pfd = null;
-                try {
-                    get = getStatements.acquire();
-                    if (get == null) {
-                        Log.e(DEBUG_TAG, "statement null");
-                        return null;
-                    }
-                    get.bindString(1, aTile.rendererID);
-                    get.bindLong(2, aTile.zoomLevel);
-                    get.bindLong(3, aTile.x);
-                    get.bindLong(4, aTile.y);
-                    pfd = get.simpleQueryForBlobFileDescriptor();
-                    if (pfd == null) {
-                        throw new InvalidTileException(TILE_MARKED_INVALID_IN_DATABASE);
-                    }
-
-                    ParcelFileDescriptor.AutoCloseInputStream acis = new ParcelFileDescriptor.AutoCloseInputStream(pfd);
-                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
-
+                get.bindString(1, aTile.rendererID);
+                get.bindLong(2, aTile.zoomLevel);
+                get.bindLong(3, aTile.x);
+                get.bindLong(4, aTile.y);
+                ParcelFileDescriptor pfd = get.simpleQueryForBlobFileDescriptor();
+                if (pfd == null) {
+                    throw new InvalidTileException(TILE_MARKED_INVALID_IN_DATABASE);
+                }
+                try (ParcelFileDescriptor.AutoCloseInputStream acis = new ParcelFileDescriptor.AutoCloseInputStream(pfd);
+                        ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
                     byte[] buffer = new byte[4096];
                     int bytesRead;
                     while ((bytesRead = acis.read(buffer)) != -1) {
                         bos.write(buffer, 0, bytesRead);
                     }
-                    acis.close();
                     return bos.toByteArray();
-                } catch (SQLiteDoneException sde) {
-                    // nothing found
-                    return null;
-                } finally {
-                    if (get != null) {
-                        getStatements.release(get);
-                    }
                 }
             }
+        } catch (SQLiteDoneException sde) {
+            // nothing found
         } catch (SQLiteException sex) { // handle these exceptions the same
             throw new IOException(sex.getMessage());
+        } finally {
+            getStatements.release(get);
         }
         if (MapViewConstants.DEBUGMODE) {
             Log.d(MapTileFilesystemProvider.DEBUG_TAG, "Tile not found in DB");
@@ -291,50 +282,48 @@ public class MapTileProviderDataBase {
 
         final List<MapTile> deleteFromDB = new ArrayList<>();
         long sizeGained = 0;
-        if (c != null) {
+        try {
+            MapTile tileToBeDeleted;
             try {
-                MapTile tileToBeDeleted;
-                try {
-                    if (c.moveToFirst()) {
-                        do {
-                            final int sizeItem = c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_FILESIZE));
-                            sizeGained += sizeItem;
-                            tileToBeDeleted = new MapTile(c.getString(c.getColumnIndexOrThrow(T_FSCACHE_RENDERER_ID)),
-                                    c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_ZOOM_LEVEL)), c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_TILE_X)),
-                                    c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_TILE_Y)));
+                if (c.moveToFirst()) {
+                    do {
+                        final int sizeItem = c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_FILESIZE));
+                        sizeGained += sizeItem;
+                        tileToBeDeleted = new MapTile(c.getString(c.getColumnIndexOrThrow(T_FSCACHE_RENDERER_ID)),
+                                c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_ZOOM_LEVEL)), c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_TILE_X)),
+                                c.getInt(c.getColumnIndexOrThrow(T_FSCACHE_TILE_Y)));
 
-                            deleteFromDB.add(tileToBeDeleted);
-                        } while (c.moveToNext() && sizeGained < pSizeNeeded);
-                    } else {
-                        throw new EmptyCacheException("Cache seems to be empty.");
-                    }
+                        deleteFromDB.add(tileToBeDeleted);
+                    } while (c.moveToNext() && sizeGained < pSizeNeeded);
+                } else {
+                    throw new EmptyCacheException("Cache seems to be empty.");
+                }
 
-                    if (mDatabase.isOpen()) {
-                        try {
-                            mDatabase.beginTransaction();
-                            for (MapTile t : deleteFromDB) {
-                                mDatabase.delete(T_FSCACHE, T_FSCACHE_WHERE, tileToWhereArgs(t));
-                            }
-                            mDatabase.setTransactionSuccessful();
-                        } finally {
-                            if (mDatabase.inTransaction()) {
-                                mDatabase.endTransaction();
-                            }
+                if (mDatabase.isOpen()) { // this might take a significant amount of time so re-check
+                    try {
+                        mDatabase.beginTransaction();
+                        for (MapTile t : deleteFromDB) {
+                            mDatabase.delete(T_FSCACHE, T_FSCACHE_WHERE, tileToWhereArgs(t));
+                        }
+                        mDatabase.setTransactionSuccessful();
+                    } finally {
+                        if (mDatabase.inTransaction()) {
+                            mDatabase.endTransaction();
                         }
                     }
-                } catch (SQLiteException | java.lang.IllegalStateException e) {
-                    Log.e(MapTileFilesystemProvider.DEBUG_TAG, "Exception in deleteOldest " + e);
-                } catch (NullPointerException e) {
-                    // just log ... likely these are really spurious
-                    Log.e(MapTileFilesystemProvider.DEBUG_TAG, "NPE in deleteOldest " + e);
-                } catch (EmptyCacheException e) {
-                    Log.e(MapTileFilesystemProvider.DEBUG_TAG, "Exception in deleteOldest cache empty " + e);
-                } catch (Exception e) {
-                    ACRAHelper.nocrashReport(e, e.getMessage());
                 }
-            } finally {
-                c.close();
+            } catch (SQLiteException | java.lang.IllegalStateException e) {
+                Log.e(MapTileFilesystemProvider.DEBUG_TAG, "Exception in deleteOldest " + e);
+            } catch (NullPointerException e) {
+                // just log ... likely these are really spurious
+                Log.e(MapTileFilesystemProvider.DEBUG_TAG, "NPE in deleteOldest " + e);
+            } catch (EmptyCacheException e) {
+                Log.e(MapTileFilesystemProvider.DEBUG_TAG, "Exception in deleteOldest cache empty " + e);
+            } catch (Exception e) {
+                ACRAHelper.nocrashReport(e, e.getMessage());
             }
+        } finally {
+            c.close();
         }
         Log.d(DEBUG_TAG, "deleteOldest size gained " + sizeGained);
         return sizeGained;
