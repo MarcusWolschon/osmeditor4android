@@ -619,7 +619,6 @@
     <string name="toast_cant_autoapply_preset">This preset can\'t be auto-applied</string>
     <string name="toast_oneway_reversed">You reversed a oneway street or a way with directionally dependent tags. Please check the tags and correct them if needed.</string>
     <string name="toast_potential_merge_tag_conflict">You are trying to merge elements with conflicting tag values.\n\nPlease check the tags and correct them before trying again.</string>
-    <string name="toast_state_file_failed">Unreadable or corrupt state file</string>
     <string name="toast_way_nodes_moved">%1$d nodes in moved way</string>
     <plurals name="toast_unread_mail">
         <item quantity="one">You have an unread OSM message</item>
@@ -652,7 +651,11 @@
     <string name="toast_timeout">Timeout from server</string>
     <string name="coordinates_out_of_range">Longitude must be within -180°/+180°, latitude within -85°/85°</string>
     <string name="toast_nothing_found">Nothing found</string>
-    <string name="toast_statesave_failed">Could not save current state!\nThis a fatal error, trying to write an export file for later recovery with JOSM.</string>
+    <string name="toast_layer_statesave_failed">Could not save current state for layer %1$s!</string>
+    <string name="toast_task_layer_statesave_failed">Could not save current task layer state!</string>
+    <string name="toast_task_storage_statesave_failed">Could not save current task storage state!</string>
+    <string name="toast_data_statesave_failed">Could not save current state data!\nThis a fatal error: exit and use an autosaved file for recovery if you had unsaved changes.</string>
+    <string name="toast_data_stateload_failed">Could not load state data!\nThe file was corrupt or was from a different version.\nIf you had unsaved changes you can attempt to recover by using an autosaved .ocs file.</string>
     <string name="toast_missing_filemanager">Please install a file manager.</string>
     <string name="toast_outside_of_download">Download more data to edit this area.</string>
     <string name="toast_file_not_found">%1$s not found.</string>

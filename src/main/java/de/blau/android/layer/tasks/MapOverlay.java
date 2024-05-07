@@ -338,12 +338,10 @@ public class MapOverlay extends MapViewLayer
         super.onSaveState(context);
         if (readingLock.tryLock()) {
             try {
-                // TODO this doesn't really help with error conditions need to throw exception
                 if (!savingHelper.save(context, FILENAME, selected, true)) {
-                    // this is essentially catastrophic and can only happen if something went really wrong
-                    // running out of memory or disk, or HW failure
+                    Log.e(DEBUG_TAG, "onSaveState unable to save");
                     if (context instanceof Activity) {
-                        ScreenMessage.barError((Activity) context, R.string.toast_statesave_failed);
+                        ScreenMessage.barError((Activity) context, R.string.toast_task_layer_statesave_failed);
                     }
                 }
             } finally {

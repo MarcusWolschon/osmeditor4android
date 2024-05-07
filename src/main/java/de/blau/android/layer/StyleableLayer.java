@@ -85,15 +85,12 @@ public abstract class StyleableLayer extends MapViewLayer implements StyleableIn
         }
         if (readingLock.tryLock()) {
             try {
-                Log.i(DEBUG_TAG, "saving state");
-                // TODO this doesn't really help with error conditions need to throw exception
                 if (save(context)) {
                     saved = true;
                 } else {
-                    // this is essentially catastrophic and can only happen if something went really wrong
-                    // running out of memory or disk, or HW failure
+                    Log.e(DEBUG_TAG, "onSaveState unable to save");
                     if (context instanceof Activity) {
-                        ScreenMessage.barError((Activity) context, R.string.toast_statesave_failed);
+                        ScreenMessage.barError((Activity) context, context.getString(R.string.toast_layer_statesave_failed, name));
                     }
                 }
             } finally {

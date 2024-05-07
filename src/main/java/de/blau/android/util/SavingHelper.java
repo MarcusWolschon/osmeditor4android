@@ -7,7 +7,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InvalidClassException;
 import java.io.ObjectInput;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
@@ -254,8 +253,8 @@ public class SavingHelper<T extends Serializable> {
                 Log.d(DEBUG_TAG, "loaded " + filename + " successfully");
             } catch (FileNotFoundException fnfe) {
                 // this happens a lot and shouldn't generate an error report
-                Log.e(DEBUG_TAG, "file not found " + filename);
-            } catch (IOException ioex) {
+                Log.d(DEBUG_TAG, "file not found " + filename);
+            } catch (IOException ioex) { // io error or serial id mismatch, will typically happen on upgrades
                 logFailedToLoad(ioex);
                 try {
                     if (deleteOnFail) {
@@ -266,11 +265,7 @@ public class SavingHelper<T extends Serializable> {
                 }
             } catch (Exception e) {
                 logFailedToLoad(e);
-                if (e instanceof InvalidClassException) { // serial id mismatch, will typically happen on upgrades
-                    // do nothing
-                } else {
-                    ACRAHelper.nocrashReport(e, "failed to load " + filename + " " + e.getMessage() + " withh stack size " + stackSize);
-                }
+                ACRAHelper.nocrashReport(e, "failed to load " + filename + " " + e.getMessage() + " withh stack size " + stackSize);
             } catch (Error e) { // NOSONAR crashing is not an option
                 logFailedToLoad(e);
                 ACRAHelper.nocrashReport(e, e.getMessage());

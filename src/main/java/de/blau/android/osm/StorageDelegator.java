@@ -2697,17 +2697,16 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             Log.i(DEBUG_TAG, "storage delegator not dirty, skipping save");
             return;
         }
-
         if (readingLock.tryLock()) {
-            // TODO this doesn't really help with error conditions need to throw exception
             if (savingHelper.save(ctx, FILENAME, this, true)) {
                 dirty = false;
             } else {
                 // this is essentially catastrophic and can only happen if something went really wrong
                 // running out of memory or disk, or HW failure
+                Log.e(DEBUG_TAG, "writeToFile unable to save");
                 if (ctx instanceof Activity) {
                     try {
-                        ScreenMessage.barError((Activity) ctx, R.string.toast_statesave_failed);
+                        ScreenMessage.barError((Activity) ctx, R.string.toast_data_statesave_failed);
                     } catch (Exception ignored) {
                         Log.e(DEBUG_TAG, "Emergency toast failed with " + ignored.getMessage());
                     } catch (Error ignored) { // NOSONAR crashing is not an option
@@ -2731,7 +2730,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @param context Android context
      * @return true if the state was read successfully
      */
-    public boolean readFromFile(Context context) {
+    public boolean readFromFile(@NonNull Context context) {
         return readFromFile(context, FILENAME);
     }
 
@@ -2742,11 +2741,10 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @param filename the file to read
      * @return true if the state was read successfully
      */
-    public boolean readFromFile(Context context, String filename) {
+    public boolean readFromFile(@NonNull Context context, @NonNull String filename) {
         try {
             lock();
             StorageDelegator newDelegator = savingHelper.load(context, filename, true);
-
             if (newDelegator != null) {
                 Log.d(DEBUG_TAG, "read saved state");
                 currentStorage = newDelegator.currentStorage;
