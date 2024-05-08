@@ -552,12 +552,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper implements AutoClosea
             PresetInfo pi = presetInfos[i];
             try {
                 Log.d(DEBUG_TAG, "Adding preset " + pi.name);
-                if (pi.url.startsWith(Preset.APKPRESET_URLPREFIX)) {
-                    activePresets[i] = new Preset(context, getPresetDirectory(pi.id), pi.url.substring(Preset.APKPRESET_URLPREFIX.length()),
-                            pi.useTranslations);
-                } else {
-                    activePresets[i] = new Preset(context, getPresetDirectory(pi.id), null, pi.useTranslations);
-                }
+                activePresets[i] = new Preset(context, getPresetDirectory(pi.id), pi.useTranslations);
                 Preset preset = activePresets[i];
                 if (preset != null) {
                     setAdditionalFieldsFromPreset(pi, preset);
