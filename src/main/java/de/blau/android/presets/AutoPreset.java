@@ -376,7 +376,7 @@ public class AutoPreset {
             Log.e(DEBUG_TAG, "Icon/file not found ", e);
         }
         activePresets[autopresetPosition] = new Preset(context, FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_AUTOPRESET),
-                null, true);
+                true);
         Preset autopreset = activePresets[autopresetPosition];
         PresetGroup group = autopreset.getGroupByName(autopresetGroupName);
         if (group == null) {

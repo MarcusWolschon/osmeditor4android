@@ -222,7 +222,7 @@ public class ValidatorTest {
     private void setupTestPreset() {
         try {
             File testPresetFile = JavaResources.copyFileFromResources(ApplicationProvider.getApplicationContext(), "test_preset1.xml", null, "test_preset");
-            Preset testPreset = new Preset(ApplicationProvider.getApplicationContext(), testPresetFile.getParentFile(), null, false);
+            Preset testPreset = new Preset(ApplicationProvider.getApplicationContext(), testPresetFile.getParentFile(), false);
             App.resetPresets();
             Field field = App.class.getDeclaredField("currentPresets");
             field.setAccessible(true); // NOSONAR
