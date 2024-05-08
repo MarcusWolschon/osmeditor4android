@@ -61,11 +61,6 @@ import de.blau.android.util.collections.MultiHashMap;
  * (see below) b) an APK-based preset, which is loaded from an APK c) a downloaded preset, which is downloaded to local
  * storage by {@link PresetEditorActivity}
  * 
- * For APK-based presets, the APK must have a "preset.xml" file in the asset directory, and may have images in the
- * "images" subdirectory in the asset directory. A preset is considered APK-based if the constructor receives a package
- * name. In the preset editor, use the package name prefixed by the {@link APKPRESET_URLPREFIX} to specify an APK
- * preset.
- * 
  * The preset.xml is loaded from the following sources: a) for the default preset, "preset.xml" in the default asset
  * locations b) for APK-based presets, "preset.xml" in the APK asset directory c) for downloaded presets, "preset.xml"
  * in the preset data directory
@@ -95,8 +90,7 @@ public class Preset implements Serializable {
     private static final String DEFAULT_PRESET_TRANSLATION = "preset_";
 
     /** name of the preset XML file in a preset directory */
-    public static final String PRESETXML           = "preset.xml";
-    public static final String APKPRESET_URLPREFIX = "apk:";
+    public static final String PRESETXML = "preset.xml";
 
     // hardwired layout stuff
     public static final int SPACING = 5;
@@ -131,7 +125,7 @@ public class Preset implements Serializable {
     private PresetGroup rootGroup;
 
     /** {@link PresetIconManager} used for icon loading */
-    private PresetIconManager iconManager;
+    private transient PresetIconManager iconManager;
 
     /** List of all top level object tags used by this preset */
     private List<String> objectKeys = new ArrayList<>();
@@ -187,17 +181,15 @@ public class Preset implements Serializable {
      * 
      * @param ctx context (used for preset loading)
      * @param directory directory to load/store preset data (XML, icons, MRUs)
-     * @param externalPackage name of external package containing preset assets for APK presets, null for other presets
      * @param useTranslations if true use included translations
      * @throws IOException
      * @throws SAXException
      * @throws ParserConfigurationException
      * @throws NoSuchAlgorithmException
      */
-    public Preset(@NonNull Context ctx, @NonNull File directory, @Nullable String externalPackage, boolean useTranslations)
+    public Preset(@NonNull Context ctx, @NonNull File directory, boolean useTranslations)
             throws ParserConfigurationException, SAXException, IOException, NoSuchAlgorithmException {
         this.directory = directory;
-        this.externalPackage = externalPackage;
         rootGroup = new PresetGroup(this, null, "", null);
         rootGroup.setItemSort(false);
 
@@ -205,7 +197,8 @@ public class Preset implements Serializable {
         directory.mkdir();
 
         InputStream fileStream = null;
-        try {
+        InputStream poFileStream = null;
+        try { // NOSONAR
             isDefault = AdvancedPrefDatabase.ID_DEFAULT.equals(directory.getName());
             if (isDefault) {
                 Log.i(DEBUG_TAG, "Loading default preset");
@@ -213,73 +206,50 @@ public class Preset implements Serializable {
                 fileStream = iconManager.openAsset(PRESETXML, true);
                 if (useTranslations) {
                     // get translations
-                    InputStream poFileStream = null;
-                    try {
-                        Locale locale = Locale.getDefault();
-                        String language = locale.getLanguage();
-                        poFileStream = iconManager.openAsset(DEFAULT_PRESET_TRANSLATION + locale + "." + FileExtensions.PO, true);
-                        if (poFileStream == null) {
-                            poFileStream = iconManager.openAsset(DEFAULT_PRESET_TRANSLATION + language + "." + FileExtensions.PO, true);
-                        }
-                        po = de.blau.android.util.Util.parsePoFile(poFileStream);
-                    } finally {
-                        SavingHelper.close(poFileStream);
+                    Locale locale = Locale.getDefault();
+                    String language = locale.getLanguage();
+                    poFileStream = iconManager.openAsset(DEFAULT_PRESET_TRANSLATION + locale + "." + FileExtensions.PO, true);
+                    if (poFileStream == null) {
+                        poFileStream = iconManager.openAsset(DEFAULT_PRESET_TRANSLATION + language + "." + FileExtensions.PO, true);
                     }
                 }
             } else {
-                final String dir = directory.toString();
-                if (externalPackage != null) {
-                    Log.i(DEBUG_TAG, "Loading APK preset, package=" + externalPackage + ", directory=" + dir);
-                    iconManager = new PresetIconManager(ctx, dir, externalPackage);
-                    fileStream = iconManager.openAsset(PRESETXML, false);
-                } else {
-                    Log.i(DEBUG_TAG, "Loading downloaded preset, directory=" + dir);
-                    iconManager = new PresetIconManager(ctx, dir, null);
-                    String presetFilename = getPresetFileName(new File(dir));
-                    if (presetFilename != null) {
-                        Log.i(DEBUG_TAG, "Preset file name " + presetFilename);
-                        fileStream = new FileInputStream(new File(directory, presetFilename));
-                        if (useTranslations) {
-                            // get translations
-                            presetFilename = presetFilename.substring(0, presetFilename.length() - 4);
-                            InputStream poFileStream = null;
-                            try {
-                                // try to open .po files either with the same name as the preset file or the standard
-                                // name
-                                try {
-                                    poFileStream = getPoInputStream(directory, presetFilename + "_", Locale.getDefault());
-                                } catch (FileNotFoundException fnfe) {
-                                    try {
-                                        poFileStream = getPoInputStream(directory, DEFAULT_PRESET_TRANSLATION, Locale.getDefault());
-                                    } catch (FileNotFoundException fnfe3) {
-                                        // no translations
-                                    }
-                                }
-                                po = de.blau.android.util.Util.parsePoFile(poFileStream);
-                            } finally {
-                                SavingHelper.close(poFileStream);
-                            }
-                        }
-                    } else {
-                        throw new IOException(ctx.getString(R.string.toast_missing_preset_file, dir));
+                Log.i(DEBUG_TAG, "Loading downloaded preset, directory=" + directory);
+                iconManager = new PresetIconManager(ctx, directory.getAbsolutePath(), null);
+                String presetFilename = getPresetFileName(directory);
+                if (presetFilename == null) {
+                    throw new IOException(ctx.getString(R.string.toast_missing_preset_file, directory));
+                }
+
+                Log.i(DEBUG_TAG, "Preset file name " + presetFilename);
+                fileStream = new FileInputStream(new File(directory, presetFilename));
+                if (useTranslations) {
+                    // get translations
+                    presetFilename = presetFilename.substring(0, presetFilename.length() - 4);
+                    // try to open .po files either with the same name as the preset file or the standard
+                    // name
+                    poFileStream = getPoInputStream(directory, presetFilename + "_", Locale.getDefault());
+                    if (poFileStream == null) {
+                        poFileStream = getPoInputStream(directory, DEFAULT_PRESET_TRANSLATION, Locale.getDefault());
                     }
                 }
             }
 
-            DigestInputStream hashStream = new DigestInputStream(fileStream, MessageDigest.getInstance("SHA-256"));
+            po = de.blau.android.util.Util.parsePoFile(poFileStream);
 
-            PresetParser.parseXML(this, hashStream, App.getPreferences(ctx).supportPresetLabels());
-
-            // Finish hash
-            String hashValue = Hash.toHex(hashStream.getMessageDigest().digest());
-            // in theory, it could be possible that the stream parser does not read the entire file
-            // and maybe even randomly stops at a different place each time.
-            // in practice, it does read the full file, which means this gives the actual sha256 of the file,
-            // - even if you add a 1 MB comment after the document-closing tag.
-
-            mru = PresetMRUInfo.getMRU(directory, hashValue);
+            try (DigestInputStream hashStream = new DigestInputStream(fileStream, MessageDigest.getInstance("SHA-256"))) {
+                PresetParser.parseXML(this, hashStream, App.getPreferences(ctx).supportPresetLabels());
+                // Finish hash
+                String hashValue = Hash.toHex(hashStream.getMessageDigest().digest());
+                // in theory, it could be possible that the stream parser does not read the entire file
+                // and maybe even randomly stops at a different place each time.
+                // in practice, it does read the full file, which means this gives the actual sha256 of the file,
+                // - even if you add a 1 MB comment after the document-closing tag.
+                mru = PresetMRUInfo.getMRU(directory, hashValue);
+            }
             Log.d(DEBUG_TAG, "search index length: " + searchIndex.getKeys().size());
         } finally {
+            SavingHelper.close(poFileStream);
             SavingHelper.close(fileStream);
         }
     }
@@ -290,15 +260,18 @@ public class Preset implements Serializable {
      * @param directory the directory where the file is located
      * @param presetFilename the filename
      * @param locale the Locale
-     * @return the InputStream
-     * @throws FileNotFoundException if the file does not exist
+     * @return the InputStream or null if it doesn't exist
      */
-    @NonNull
+    @Nullable
     private FileInputStream getPoInputStream(@NonNull File directory, @NonNull String presetFilename, @NonNull Locale locale) throws FileNotFoundException {
         try {
             return new FileInputStream(new File(directory, presetFilename + locale.toString() + "." + FileExtensions.PO));
         } catch (FileNotFoundException fnfe) {
-            return new FileInputStream(new File(directory, presetFilename + locale.getLanguage() + "." + FileExtensions.PO));
+            try {
+                return new FileInputStream(new File(directory, presetFilename + locale.getLanguage() + "." + FileExtensions.PO));
+            } catch (FileNotFoundException fnfe2) {
+                return null;
+            }
         }
     }
 

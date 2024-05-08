@@ -323,7 +323,7 @@ public class PresetTest {
     public void includeExcludeCountryMatching() {
         try {
             File testPresetFile = JavaResources.copyFileFromResources(ApplicationProvider.getApplicationContext(), "test_preset1.xml", null, "test_preset");
-            Preset testPreset = new Preset(ApplicationProvider.getApplicationContext(), testPresetFile.getParentFile(), null, false);
+            Preset testPreset = new Preset(ApplicationProvider.getApplicationContext(), testPresetFile.getParentFile(), false);
             Map<String, String> tags = new HashMap<>();
             tags.put(Tags.KEY_HIGHWAY, Tags.VALUE_MOTORWAY_LINK);
             PresetItem us = Preset.findBestMatch(new Preset[] { testPreset }, tags, Arrays.asList("US"), null);

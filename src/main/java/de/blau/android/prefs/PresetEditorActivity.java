@@ -54,7 +54,8 @@ import de.blau.android.util.Util;
 /** Provides an activity to edit the preset list. Downloads preset data when necessary. */
 public class PresetEditorActivity extends URLListEditActivity {
 
-    private static final String DEBUG_TAG = PresetEditorActivity.class.getSimpleName().substring(0, Math.min(23, PresetEditorActivity.class.getSimpleName().length()));
+    private static final String DEBUG_TAG = PresetEditorActivity.class.getSimpleName().substring(0,
+            Math.min(23, PresetEditorActivity.class.getSimpleName().length()));
 
     private AdvancedPrefDatabase db;
 
@@ -264,12 +265,7 @@ public class PresetEditorActivity extends URLListEditActivity {
         if (!presetDir.isDirectory()) {
             throw new OperationFailedException("Could not create preset directory " + presetDir.getAbsolutePath());
         }
-        if (item.value.startsWith(Preset.APKPRESET_URLPREFIX)) {
-            activity.sendResultIfApplicable(item);
-            return;
-        }
         new ExecutorTask<Void, Integer, Integer>() {
-            private boolean canceled = false;
 
             @Override
             protected void onPreExecute() {
@@ -295,7 +291,7 @@ public class PresetEditorActivity extends URLListEditActivity {
 
                 boolean allImagesSuccessful = true;
                 for (String url : urls) {
-                    if (canceled) {
+                    if (isCancelled()) {
                         return RESULT_DOWNLOAD_CANCELED;
                     }
                     allImagesSuccessful &= (PresetLoader.download(url, presetDir, PresetIconManager.hashPath(url)) == PresetLoader.DOWNLOADED_PRESET_XML);
