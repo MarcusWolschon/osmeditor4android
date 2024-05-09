@@ -139,6 +139,7 @@ public class Preferences {
     private final int         minCircleNodes;
     private final double      maxCircleSegment;
     private final double      minCircleSegment;
+    private final Set<String> poiKeys;
 
     public static final String DEFAULT_MAP_STYLE     = "Color Round Nodes";
     public static final String DEFAULT_PEN_MAP_STYLE = "Pen Round Nodes";
@@ -328,6 +329,9 @@ public class Preferences {
         minCircleNodes = getIntPref(R.string.config_minCircleNodes_key, 6);
         maxCircleSegment = getFloatFromStringPref(R.string.config_maxCircleSegment_key, 2.0f);
         minCircleSegment = getFloatFromStringPref(R.string.config_minCircleSegment_key, 0.5f);
+        
+        poiKeys = prefs.getStringSet(r.getString(R.string.config_poi_keys_key),
+                new HashSet<>(Arrays.asList(r.getStringArray(R.array.poi_keys_defaults))));
     }
 
     /**
@@ -1050,6 +1054,7 @@ public class Preferences {
      * 
      * @return a Set containing the tags
      */
+    @NonNull
     public Set<String> addressTags() {
         return addressTags;
     }
@@ -1928,6 +1933,16 @@ public class Preferences {
         return minCircleSegment;
     }
 
+    /**
+     * Get the keys we currently want to use for the nearby poi display
+     * 
+     * @return a Set containing the tags
+     */
+    @NonNull
+    public Set<String> poiKeys() {
+        return poiKeys;
+    }
+    
     /**
      * Get an integer valued preference from a string pref
      * 

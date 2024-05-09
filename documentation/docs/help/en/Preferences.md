@@ -77,6 +77,10 @@ Configure how far away from a highway a highway end node must be to not be highl
 
 The dialog displayed allows to edit the meta-data for individual templates or delete them, save the current templates and load templates from files.
 
+## Nearby POI display
+
+Configure the keys used for the nearby POI display.
+
 ## Advanced preferences
 
 Starts the advanced preferences editor.

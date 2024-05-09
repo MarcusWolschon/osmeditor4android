@@ -15,7 +15,6 @@ import de.blau.android.layer.UpdateInterface;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
-import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.util.Screen;
 import de.blau.android.util.collections.LowAllocArrayList;
@@ -28,8 +27,9 @@ public class NearbyPoiUpdateListener<E> implements UpdateInterface.OnUpdateListe
     private static final int LANDSCAPE_COLS        = 4;
     private static final int PORTRAIT_COLS         = 2;
 
-    private static final String[] DEFAULT_POI_KEYS = new String[] { Tags.KEY_SHOP, Tags.KEY_AMENITY, Tags.KEY_LEISURE, Tags.KEY_TOURISM, Tags.KEY_CRAFT,
-            Tags.KEY_OFFICE, Tags.KEY_EMERGENCY };
+    private final String[]  defaultKeys;
+    private final PoiFilter withoutFilter;
+    private final PoiFilter withFilter = (OsmElement e, Filter filter) -> filter.include(e, false);
 
     List<Node>       nodes     = new LowAllocArrayList<>();
     List<Way>        ways      = new LowAllocArrayList<>();
@@ -60,6 +60,9 @@ public class NearbyPoiUpdateListener<E> implements UpdateInterface.OnUpdateListe
         if (layout.getItemDecorationCount() == 0) {
             layout.addItemDecoration(new EqualSpacingDecoration(PoiListAdapter.ROW_MARGIN));
         }
+        defaultKeys = App.getPreferences(ctx).poiKeys().toArray(new String[0]);
+        withoutFilter = (OsmElement e, Filter filter) -> e.hasTagKey(defaultKeys);
+
         display = () -> {
             all.clear();
             final Filter filter = App.getLogic().getFilter();
@@ -87,9 +90,6 @@ public class NearbyPoiUpdateListener<E> implements UpdateInterface.OnUpdateListe
         boolean accept(@NonNull OsmElement e, @Nullable Filter filter);
     }
 
-    private static final PoiFilter WITHOUT_FILTER = (OsmElement e, Filter filter) -> e.hasTagKey(DEFAULT_POI_KEYS);
-    private static final PoiFilter WITH_FILTER    = (OsmElement e, Filter filter) -> filter.include(e, false);
-
     /**
      * Add Nodes that we want to display
      * 
@@ -97,8 +97,8 @@ public class NearbyPoiUpdateListener<E> implements UpdateInterface.OnUpdateListe
      * @param elements the input Nodes
      * @param filter a Filter to apply
      */
-    private static void filterElements(@NonNull List<OsmElement> result, @NonNull List<Node> elements, @Nullable Filter filter) {
-        PoiFilter poiFilter = filter == null ? WITHOUT_FILTER : WITH_FILTER;
+    private void filterElements(@NonNull List<OsmElement> result, @NonNull List<Node> elements, @Nullable Filter filter) {
+        PoiFilter poiFilter = filter == null ? withoutFilter : withFilter;
         for (OsmElement e : elements) {
             if (poiFilter.accept(e, filter) && e.hasTags()) {
                 result.add(e);
@@ -113,9 +113,9 @@ public class NearbyPoiUpdateListener<E> implements UpdateInterface.OnUpdateListe
      * @param elements the input OsmElements
      * @param preFiltered true if the input was already filtered
      */
-    private static <O extends OsmElement> void filterElements(@NonNull List<OsmElement> result, @NonNull List<O> elements, boolean preFiltered) {
+    private <O extends OsmElement> void filterElements(@NonNull List<OsmElement> result, @NonNull List<O> elements, boolean preFiltered) {
         for (OsmElement e : elements) {
-            if (preFiltered || WITHOUT_FILTER.accept(e, null)) {
+            if (preFiltered || withoutFilter.accept(e, null)) {
                 result.add(e);
             }
         }

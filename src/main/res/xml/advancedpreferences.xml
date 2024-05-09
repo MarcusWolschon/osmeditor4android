@@ -62,9 +62,9 @@
             android:summary="@string/config_alwaysDrawBoundingBoxes_summary"
             android:title="@string/config_alwaysDrawBoundingBoxes_title" />
         <androidx.preference.ListPreference
-            android:defaultValue="@string/full_screen_never"
-            android:entries="@array/full_screen_preference_no_auto_entries"
-            android:entryValues="@array/full_screen_preference_no_auto_values"
+            android:defaultValue="@string/full_screen_auto"
+            android:entries="@array/full_screen_preference_entries"
+            android:entryValues="@array/full_screen_preference_values"
             android:key="@string/config_fullscreenMode_key"
             android:summary="@string/config_fullscreenMode_summary"
             android:title="@string/config_fullscreenMode_title" />
@@ -165,18 +165,6 @@
             app:spt_currentValueText="@string/config_upload_current"
             app:spt_setWrapSelectorWheel="false" />
         <ch.poole.android.numberpickerpreference.NumberPickerPreference
-            android:defaultValue="200"
-            android:dialogTitle="@string/config_uploadWarn_title"
-            android:key="@string/config_uploadWarn_key"
-            android:numeric="integer"
-            android:summary="@string/config_uploadWarn_summary"
-            android:title="@string/config_uploadWarn_title"
-            app:spt_maxValue="1000"
-            app:spt_minValue="0"
-            app:spt_increment="20"
-            app:spt_currentValueText="@string/config_upload_current"
-            app:spt_setWrapSelectorWheel="false" />
-        <ch.poole.android.numberpickerpreference.NumberPickerPreference
             android:defaultValue="6"
             android:dialogTitle="@string/config_uploadChecker_title"
             android:key="@string/config_uploadChecker_key"
@@ -187,6 +175,18 @@
             app:spt_minValue="1"
             app:spt_increment="1"
             app:spt_currentValueText="@string/config_uploadChecker_current"
+            app:spt_setWrapSelectorWheel="false" />
+        <ch.poole.android.numberpickerpreference.NumberPickerPreference
+            android:defaultValue="200"
+            android:dialogTitle="@string/config_uploadWarn_title"
+            android:key="@string/config_uploadWarn_key"
+            android:numeric="integer"
+            android:summary="@string/config_uploadWarn_summary"
+            android:title="@string/config_uploadWarn_title"
+            app:spt_maxValue="1000"
+            app:spt_minValue="0"
+            app:spt_increment="20"
+            app:spt_currentValueText="@string/config_upload_current"
             app:spt_setWrapSelectorWheel="false" />
         <ch.poole.android.numberpickerpreference.NumberPickerPreference
             android:defaultValue="50000"
@@ -263,6 +263,11 @@
             android:entries="@array/address_tags_entries"
             android:entryValues="@array/address_tags_values"
             android:defaultValue="@array/address_tags_defaults" />
+        <androidx.preference.CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/config_autoApplyPreset_key"
+            android:summary="@string/config_autoApplyPreset_summary"
+            android:title="@string/config_autoApplyPreset_title" />
         <ch.poole.android.numberpickerpreference.NumberPickerPreference
             android:defaultValue="50"
             android:dialogTitle="@string/config_neighbourDistance_title"
@@ -275,11 +280,6 @@
             app:spt_increment="5"
             app:spt_currentValueText="@string/config_neighbourDistance_current"
             app:spt_setWrapSelectorWheel="false" />
-        <androidx.preference.CheckBoxPreference
-            android:defaultValue="true"
-            android:key="@string/config_autoApplyPreset_key"
-            android:summary="@string/config_autoApplyPreset_summary"
-            android:title="@string/config_autoApplyPreset_title" />
         <androidx.preference.CheckBoxPreference
             android:defaultValue="true"
             android:key="@string/config_enableNameSuggestions_key"
@@ -380,7 +380,7 @@
             android:dialogTitle="@string/config_minCircleSegment_title"
             android:key="@string/config_minCircleSegment_key"
             android:summary="@string/config_minCircleSegment_summary"
-            android:title="@string/config_minCircleSegment_title"/>
+            android:title="@string/config_minCircleSegment_title" />
     </androidx.preference.PreferenceScreen>
     <androidx.preference.PreferenceScreen
         android:key="config_category_auto_download"
@@ -734,6 +734,11 @@
             android:key="@string/config_voiceCommandsEnabled_key"
             android:summary="@string/config_voiceCommandsEnabled_summary"
             android:title="@string/config_voiceCommandsEnabled_title" />
+        <androidx.preference.CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/config_enableHwAcceleration_key"
+            android:summary="@string/config_enableHwAcceleration_summary"
+            android:title="@string/config_enableHwAcceleration_title" />
         <androidx.preference.CheckBoxPreference
             android:defaultValue="false"
             android:key="@string/config_splitWindowForPropertyEditor_key"
