@@ -107,6 +107,7 @@
     <string name="config_useImperialUnits_key">useImperialUnits</string>
     <string name="config_supportPresetLabels_key">supportPresetLabels</string>
     <string name="config_zoomWithKeys_key">zoomWithKeys</string>
+    <string name="config_poi_keys_key">poiKeys</string>
     <!-- Preference keys used in the pref editor(s) int prefs -->
     <string name="config_maxInlineValues_key">maxInlineValuesInt</string>
     <string name="config_autoLockDelay_key">autoLockDelayInt</string>

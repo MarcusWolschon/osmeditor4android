@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="advertising">Advertising (advertising)</string>
+    <string name="aerialway">Cable cars and similar (aerialway)</string>
+    <string name="aeroway">Airports (aeroway)</string>
+    <string name="amenity">Amenities (amenity)</string>
+    <string name="attraction">Tourist attractions (attraction)</string>
+    <string name="barrier">Barriers (barrier)</string>
+    <string name="building">Buildings (building)</string>
+    <string name="club">Clubs (club)</string>
+    <string name="craft">Crafts (craft)</string>
+    <string name="emergency">Emergency facilities (emergency)</string>
+    <string name="geological">Geological objects</string>
+    <string name="golf">Golf facilities (golf)</string>
+    <string name="healthcare">Healthcare facilities (healthcare)</string>
+    <string name="highway">Road infrastructure (highway)</string>
+    <string name="landuse">Land use (landuse)</string>
+    <string name="leisure">Leisure facilities (leisure)</string>
+    <string name="indoor">Indoor elements (indoor)</string>
+    <string name="man_made">Miscellaneous elements (man_made)</string>
+    <string name="military">Military (military)</string>
+    <string name="natural">Natural objects (natural)</string>
+    <string name="office">Offices (office)</string>
+    <string name="place">Places (place)</string>
+    <string name="playground">Playground equipment (playground)</string>
+    <string name="police">Police facilities (police)</string>
+    <string name="power">Power infrastructure (power)</string>
+    <string name="public_transport">Public transport infrastructure
+        (public_transport)</string>
+    <string name="railway">Railway infrastructure (railway)</string>
+    <string name="shop">Shops (shop)</string>
+    <string name="telecom">Telecom infrastructure (telecom)</string>
+    <string name="tourism">Tourism facilities (tourism)</string>
+    <string name="traffic_calming">Traffic calming objects (traffic_calming)
+    </string>
+    <string name="traffic_sign">Traffic signs (traffic_sign)</string>
+    <string name="waterway">Water objects and infrastructure (waterway)
+    </string>
+    <string-array
+        translatable="false"
+        name="poi_keys_entries">
+        <item>@string/advertising</item>
+        <item>@string/aerialway</item>
+        <item>@string/aeroway</item>
+        <item>@string/amenity</item>
+        <item>@string/attraction</item>
+        <item>@string/barrier</item>
+        <item>@string/building</item>
+        <item>@string/club</item>
+        <item>@string/craft</item>
+        <item>@string/emergency</item>
+        <item>@string/geological</item>
+        <item>@string/golf</item>
+        <item>@string/healthcare</item>
+        <item>@string/highway</item>
+        <item>@string/landuse</item>
+        <item>@string/leisure</item>
+        <item>@string/indoor</item>
+        <item>@string/man_made</item>
+        <item>@string/military</item>
+        <item>@string/natural</item>
+        <item>@string/office</item>
+        <item>@string/place</item>
+        <item>@string/playground</item>
+        <item>@string/police</item>
+        <item>@string/power</item>
+        <item>@string/public_transport</item>
+        <item>@string/railway</item>
+        <item>@string/shop</item>
+        <item>@string/telecom</item>
+        <item>@string/tourism</item>
+        <item>@string/traffic_calming</item>
+        <item>@string/traffic_sign</item>
+        <item>@string/waterway</item>
+    </string-array>
+    <string-array
+        translatable="false"
+        name="poi_keys_values">
+        <item>advertising</item>
+        <item>aerialway</item>
+        <item>aeroway</item>
+        <item>amenity</item>
+        <item>attraction</item>
+        <item>barrier</item>
+        <item>building</item>
+        <item>club</item>
+        <item>craft</item>
+        <item>emergency</item>
+        <item>geological</item>
+        <item>golf</item>
+        <item>healthcare</item>
+        <item>highway</item>
+        <item>landuse</item>
+        <item>leisure</item>
+        <item>indoor</item>
+        <item>man_made</item>
+        <item>military</item>
+        <item>natural</item>
+        <item>office</item>
+        <item>place</item>
+        <item>playground</item>
+        <item>police</item>
+        <item>power</item>
+        <item>public_transport</item>
+        <item>railway</item>
+        <item>shop</item>
+        <item>telecom</item>
+        <item>tourism</item>
+        <item>traffic_calming</item>
+        <item>traffic_sign</item>
+        <item>waterway</item>
+    </string-array>
+    <string-array
+        translatable="false"
+        name="poi_keys_defaults">
+        <item>amenity</item>
+        <item>club</item>
+        <item>craft</item>
+        <item>emergency</item>
+        <item>healthcare</item>
+        <item>leisure</item>
+        <item>office</item>
+        <item>place</item>
+        <item>shop</item>
+        <item>tourism</item>
+    </string-array>
+</resources>

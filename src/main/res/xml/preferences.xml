@@ -66,6 +66,13 @@
             android:title="@string/config_opening_hours_title"
             android:key="@string/config_opening_hours_key"
             android:summary="@string/config_opening_hours_summary" />
+        <androidx.preference.MultiSelectListPreference
+            android:key="@string/config_poi_keys_key"
+            android:title="@string/config_poi_keys_title"
+            android:summary="@string/config_poi_keys_summary"
+            android:entries="@array/poi_keys_entries"
+            android:entryValues="@array/poi_keys_values"
+            android:defaultValue="@array/poi_keys_defaults" />
         <androidx.preference.Preference
             android:icon="?attr/menu_config"
             android:title="@string/config_advancedprefs"

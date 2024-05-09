@@ -1317,7 +1317,8 @@
     <string name="config_longStringLimit_current">%1$d</string>
     <string name="config_zoomWithKeys_title">Use volume keys for zooming</string>
     <string name="config_zoomWithKeys_summary">Allow use of the volume keys for zooming in and out.</string>
-            
+    <string name="config_poi_keys_title">Nearby POI display</string>
+    <string name="config_poi_keys_summary">Set the keys used for the nearby POI display.</string>
     <!-- Data and Editing Settings -->
     <string name="config_category_editing">Data and edit settings</string>
     <string name="config_category_editing_summary">Auto-download, saving and notification settings.</string>
