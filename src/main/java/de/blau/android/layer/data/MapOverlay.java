@@ -1341,12 +1341,7 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
      */
     private void paintWay(@NonNull final Canvas canvas, @NonNull final Way way, final boolean displayHandles, boolean drawTolerance) {
 
-        FeatureStyle style;
-        if (way.hasProblem(context, validator) != Validator.OK) {
-            style = DataStyle.getValidationStyle(way.getCachedProblems());
-        } else {
-            style = DataStyle.matchStyle(way);
-        }
+        FeatureStyle style = DataStyle.matchStyle(way);
 
         boolean isSelected = tmpDrawingInEditRange // if we are not in editing range don't show selected way ... may be
                                                    // a better idea to do so
@@ -1411,6 +1406,13 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
             paint = wayFeatureStyleRelation.getPaint();
             paint.setStrokeWidth(style.getPaint().getStrokeWidth() * wayFeatureStyleRelation.getWidthFactor());
             canvas.drawLines(linePoints, 0, pointsSize, paint);
+        } else if (way.hasProblem(context, validator) != Validator.OK) {
+            FeatureStyle problemStyle = DataStyle.getValidationStyle(way.getCachedProblems());
+            FeatureStyle casingStyle = style.getCasingStyle();
+            float strokeWidth = (casingStyle != null && casingStyle.getOffset() == 0 ? casingStyle.getPaint().getStrokeWidth()
+                    : style.getPaint().getStrokeWidth()) * problemStyle.getWidthFactor();
+            problemStyle.setStrokeWidth(strokeWidth);
+            canvas.drawLines(linePoints, 0, pointsSize, problemStyle.getPaint());
         }
 
         FeatureStyle arrowStyle = style.getArrowStyle();
