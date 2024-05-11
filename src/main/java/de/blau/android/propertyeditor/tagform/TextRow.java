@@ -45,6 +45,7 @@ import de.blau.android.propertyeditor.TagEditorFragment;
 import de.blau.android.propertyeditor.tagform.TagFormFragment.EditableLayout;
 import de.blau.android.sensors.CompassEventListener;
 import de.blau.android.util.LocaleUtils;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 import de.blau.android.util.Value;
@@ -445,6 +446,8 @@ public class TextRow extends LinearLayout implements KeyValueRow {
         final Sensor rotation = sensorManager != null ? sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR) : null;
         if (rotation != null) {
             sensorManager.registerListener(compassListener, rotation, SensorManager.SENSOR_DELAY_UI);
+        } else {
+            ScreenMessage.toastTopInfo(activity, R.string.toast_no_compass);
         }
 
         compass.setOnCompassDragListener((float azimut) -> {
