@@ -1,5 +1,7 @@
 package de.blau.android.services;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -54,6 +56,7 @@ import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.sensors.PressureEventListener;
 import de.blau.android.services.util.ExtendedLocation;
 import de.blau.android.services.util.Nmea;
 import de.blau.android.services.util.NmeaTcpClient;
@@ -68,7 +71,8 @@ import de.blau.android.validation.Validator;
 
 public class TrackerService extends Service {
 
-    private static final String DEBUG_TAG = TrackerService.class.getSimpleName().substring(0, Math.min(23, TrackerService.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, TrackerService.class.getSimpleName().length());
+    private static final String DEBUG_TAG = TrackerService.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final float TRACK_LOCATION_MIN_ACCURACY = 200f;
 
@@ -144,12 +148,15 @@ public class TrackerService extends Service {
     private Method addNmeaListener    = null;
     private Method removeNmeaListener = null;
 
-    private SensorManager       sensorManager;
-    private PressureListener    pressureListener;
-    private boolean             useBarometricHeight = false;
-    private EGM96               egm;
-    private TemperatureListener temperatureListener;
-    private boolean             egmLoaded           = false;
+    private SensorManager            sensorManager;
+    private PressureEventListener    pressureListener;
+    private boolean                  useBarometricHeight = false;
+    private EGM96                    egm;
+    private TemperatureEventListener temperatureListener;
+    private boolean                  egmLoaded           = false;
+
+    private Sensor pressure    = null;
+    private Sensor temperature = null;
 
     @Override
     public void onCreate() {
@@ -203,14 +210,14 @@ public class TrackerService extends Service {
      * @param sensorManager a SensorManager instance
      */
     private void setupPressureSensor(@NonNull SensorManager sensorManager) {
-        Sensor pressure = sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE);
+        pressure = sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE);
         if (prefs.useBarometricHeight() && pressure != null && pressureListener == null) {
             Log.d(DEBUG_TAG, "Installing pressure listener");
-            pressureListener = new PressureListener();
+            pressureListener = new PressureEventListener(lastLocation);
             sensorManager.registerListener(pressureListener, pressure, 1000);
-            Sensor temperature = sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
+            temperature = sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
             if (temperature != null) {
-                temperatureListener = new TemperatureListener();
+                temperatureListener = new TemperatureEventListener();
                 sensorManager.registerListener(temperatureListener, temperature, 1000);
             }
         }
@@ -223,10 +230,10 @@ public class TrackerService extends Service {
         track.close();
         cancelNmeaClients();
         if (pressureListener != null) {
-            sensorManager.unregisterListener(pressureListener);
+            sensorManager.unregisterListener(pressureListener, pressure);
         }
         if (temperatureListener != null) {
-            sensorManager.unregisterListener(temperatureListener);
+            sensorManager.unregisterListener(temperatureListener, temperature);
         }
         super.onDestroy();
     }
@@ -304,31 +311,31 @@ public class TrackerService extends Service {
      * 
      * @param intent the Intent
      */
-    private void calibratePressureListener(Intent intent) {
+    private void calibratePressureListener(@NonNull Intent intent) {
         Log.d(DEBUG_TAG, "Calibrate height");
-        if (pressureListener != null) {
-            int height = intent.getIntExtra(CALIBRATE_HEIGHT_KEY, Integer.MIN_VALUE);
-            if (height != Integer.MIN_VALUE) {
-                pressureListener.calibrate(height);
-            } else {
-                float p0 = intent.getFloatExtra(CALIBRATE_P0_KEY, 0);
-                if (p0 != 0) {
-                    pressureListener.setP0(p0);
-                } else if (lastLocation != null) { // calibrate from GPS
-                    if (lastLocation instanceof ExtendedLocation && ((ExtendedLocation) lastLocation).hasGeoidHeight()) {
-                        pressureListener.calibrate((float) ((ExtendedLocation) lastLocation).getGeoidHeight());
-                    } else if (lastLocation.hasAltitude() && egmLoaded) {
-                        double offset = getGeoidOffset(lastLocation.getLongitude(), lastLocation.getLatitude());
-                        Log.d(DEBUG_TAG, "Geoid offset " + offset);
-                        pressureListener.calibrate((float) (lastLocation.getAltitude() - offset));
-                    }
+        if (pressureListener == null) {
+            Log.e(DEBUG_TAG, "Calibration attempted but no pressure listener");
+            return;
+        }
+        int height = intent.getIntExtra(CALIBRATE_HEIGHT_KEY, Integer.MIN_VALUE);
+        if (height != Integer.MIN_VALUE) {
+            pressureListener.calibrate(height);
+        } else {
+            float p0 = intent.getFloatExtra(CALIBRATE_P0_KEY, 0);
+            if (p0 != 0) {
+                pressureListener.setP0(p0);
+            } else if (lastLocation != null) { // calibrate from GPS
+                if (lastLocation instanceof ExtendedLocation && ((ExtendedLocation) lastLocation).hasGeoidHeight()) {
+                    pressureListener.calibrate((float) ((ExtendedLocation) lastLocation).getGeoidHeight());
+                } else if (lastLocation.hasAltitude() && egmLoaded) {
+                    double offset = getGeoidOffset(lastLocation.getLongitude(), lastLocation.getLatitude());
+                    Log.d(DEBUG_TAG, "Geoid offset " + offset);
+                    pressureListener.calibrate((float) (lastLocation.getAltitude() - offset));
                 }
             }
-            ScreenMessage.toastTopInfo(this, "New height " + pressureListener.barometricHeight + "m\nCurrent pressure " + pressureListener.millibarsOfPressure
-                    + " hPa\nReference pressure " + pressureListener.pressureAtSeaLevel + " hPa");
-        } else {
-            Log.e(DEBUG_TAG, "Calibration attemped but no pressure listener");
         }
+        ScreenMessage.toastTopInfo(this, getString(R.string.toast_pressure_calibration, pressureListener.getBarometricHeight(),
+                pressureListener.getMillibarsOfPressure(), pressureListener.getPressureAtSeaLevel()));
     }
 
     /**
@@ -592,7 +599,7 @@ public class TrackerService extends Service {
                     if (useBarometricHeight) {
                         loc.setUseBarometricHeight();
                     }
-                    loc.setBarometricHeight(pressureListener.barometricHeight);
+                    loc.setBarometricHeight(pressureListener.getBarometricHeight());
                 }
 
                 // Only use GPS provided locations for generating tracks
@@ -1130,7 +1137,7 @@ public class TrackerService extends Service {
                     if (useBarometricHeight) {
                         loc.setUseBarometricHeight();
                     }
-                    loc.setBarometricHeight(pressureListener.barometricHeight);
+                    loc.setBarometricHeight(pressureListener.getBarometricHeight());
                 }
                 track.addTrackPoint(loc);
             }
@@ -1155,82 +1162,7 @@ public class TrackerService extends Service {
         }
     }
 
-    class PressureListener implements SensorEventListener {
-        static final double ZERO_CELSIUS = 273.15;
-
-        float millibarsOfPressure = 0;
-        float barometricHeight    = 0;
-        float pressureAtSeaLevel  = SensorManager.PRESSURE_STANDARD_ATMOSPHERE;
-        float temperature         = 15;
-
-        float tempP  = 0;
-        float mCount = 0;
-
-        /**
-         * Calibrate barometric height from current height
-         * 
-         * @param calibrationHeight current height from external source or GPS
-         * 
-         * @see <a href="https://en.wikipedia.org/wiki/Barometric_formula">Barometric formula</A>
-         */
-        private void calibrate(float calibrationHeight) {
-            // p0 = ph * (Th / (Th + 0.0065 * h))^-5.255
-            double temp = ZERO_CELSIUS + temperature;
-            pressureAtSeaLevel = (float) (millibarsOfPressure * Math.pow(temp / (temp + 0.0065 * calibrationHeight), -5.255));
-            recalc();
-            Log.d(DEBUG_TAG, "Calibration new p0 " + pressureAtSeaLevel + " current h " + calibrationHeight + " ambient temperature " + temp
-                    + " current pressure " + millibarsOfPressure);
-        }
-
-        /**
-         * Recalculate the current height after calibration
-         */
-        private void recalc() {
-            barometricHeight = SensorManager.getAltitude(pressureAtSeaLevel, millibarsOfPressure);
-            if (lastLocation instanceof ExtendedLocation) {
-                ((ExtendedLocation) lastLocation).setBarometricHeight(barometricHeight);
-            }
-        }
-
-        /**
-         * Set the reference sea level pressure
-         * 
-         * @param p0 the pressure in hPa
-         */
-        private void setP0(float p0) {
-            pressureAtSeaLevel = p0;
-            recalc();
-        }
-
-        /**
-         * Set the ambient temperature
-         * 
-         * @param temp the temperature in ° celsius
-         */
-        public void setTemperature(float temp) {
-            temperature = temp;
-        }
-
-        @Override
-        public void onAccuracyChanged(Sensor arg0, int arg1) {
-            // Ignore
-        }
-
-        @Override
-        public void onSensorChanged(SensorEvent event) {
-            if (mCount == 10) {
-                millibarsOfPressure = tempP / 10;
-                recalc();
-                tempP = event.values[0];
-                mCount = 1;
-            } else {
-                tempP = tempP + event.values[0];
-                mCount++;
-            }
-        }
-    }
-
-    class TemperatureListener implements SensorEventListener {
+    class TemperatureEventListener implements SensorEventListener {
 
         @Override
         public void onAccuracyChanged(Sensor arg0, int arg1) {
