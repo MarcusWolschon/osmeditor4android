@@ -3,13 +3,19 @@ package de.blau.android.propertyeditor.tagform;
 import java.util.List;
 import java.util.Map;
 
+import com.redinput.compassview.CompassView;
+
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.text.InputType;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -19,6 +25,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
+import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.measure.Measure;
@@ -36,6 +43,7 @@ import de.blau.android.propertyeditor.InputTypeUtil;
 import de.blau.android.propertyeditor.SanitizeTextWatcher;
 import de.blau.android.propertyeditor.TagEditorFragment;
 import de.blau.android.propertyeditor.tagform.TagFormFragment.EditableLayout;
+import de.blau.android.sensors.CompassEventListener;
 import de.blau.android.util.LocaleUtils;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
@@ -198,7 +206,6 @@ public class TextRow extends LinearLayout implements KeyValueRow {
         ourValueView.setAdapter(new ArrayAdapter<>(caller.getActivity(), R.layout.autocomplete_row, new String[0]));
 
         if (field instanceof PresetComboField && ((PresetComboField) field).isMultiSelect() && preset != null) {
-            // FIXME this should be somewhere better since it creates a non obvious side effect
             ourValueView.setTokenizer(new CustomAutoCompleteTextView.SingleCharTokenizer(preset.getDelimiter(key)));
         }
         setHint(field, ourValueView);
@@ -211,6 +218,18 @@ public class TextRow extends LinearLayout implements KeyValueRow {
                 finalView.setEnabled(false); // debounce
                 final AlertDialog dialog = buildMeasureDialog(caller, hint != null ? hint : key, key,
                         caller.getValueAutocompleteAdapter(key, values, preset, null, allTags, true, false, -1), row, valueType, imperial);
+                dialog.setOnDismissListener(d -> finalView.setEnabled(true));
+                dialog.show();
+                return;
+            });
+        }
+        if (Tags.DIRECTION_KEYS.contains(key)) {
+            ourValueView.setFocusable(false);
+            ourValueView.setFocusableInTouchMode(false);
+            ourValueView.setOnClickListener(v -> {
+                final View finalView = v;
+                finalView.setEnabled(false); // debounce
+                final AlertDialog dialog = buildDirectionDialog(caller, hint != null ? hint : key, key, row, valueType);
                 dialog.setOnDismissListener(d -> finalView.setEnabled(true));
                 dialog.show();
                 return;
@@ -369,6 +388,88 @@ public class TextRow extends LinearLayout implements KeyValueRow {
                                 valueType == ValueType.DIMENSION_VERTICAL, null));
                 dialog.dismiss();
             });
+        });
+        return dialog;
+    }
+
+    /**
+     * Build a dialog for adding/editing a direction value
+     * 
+     * @param caller the calling TagFormFragment instance
+     * @param hint a description to display
+     * @param key the key
+     * @param row the row we are started from
+     * @param valueType the field ValueType
+     * @return an AlertDialog
+     */
+    private static AlertDialog buildDirectionDialog(@NonNull final TagFormFragment caller, @NonNull String hint, @NonNull String key,
+            @NonNull final TextRow row, @NonNull final ValueType valueType) {
+        String value = row.getValue();
+
+        final FragmentActivity activity = caller.getActivity();
+        Builder builder = new AlertDialog.Builder(activity);
+        builder.setTitle(hint);
+        final LayoutInflater themedInflater = ThemeUtils.getLayoutInflater(activity);
+
+        final View layout = themedInflater.inflate(R.layout.compass_direction, null);
+        CompassView compass = new CompassView(activity, null);
+
+        Float direction = 0f;
+        try {
+            direction = Float.parseFloat(value);
+        } catch (NumberFormatException nfex) {
+            direction = Tags.cardinalToDegrees(value);
+            if (direction == null) {
+                direction = 0f;
+            }
+        }
+        if (direction < 0) {
+            direction = direction + 360f;
+        }
+
+        compass.setDegrees(direction, true); // with animation
+        compass.setBackgroundColor(ThemeUtils.getStyleAttribColorValue(activity, R.attr.highlight_background, R.color.black));
+        compass.setLineColor(Color.RED);
+        compass.setMarkerColor(Color.RED);
+        compass.setTextColor(ThemeUtils.getStyleAttribColorValue(activity, R.attr.text_normal, R.color.ccc_white));
+        compass.setShowMarker(true);
+        compass.setTextSize(37);
+        compass.setRangeDegrees(50);
+        ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        compass.setLayoutParams(lp);
+
+        SensorManager sensorManager = (SensorManager) activity.getSystemService(Context.SENSOR_SERVICE);
+
+        CompassEventListener compassListener = new CompassEventListener((float azimut) -> compass.setDegrees(azimut, true));
+
+        final Sensor rotation = sensorManager != null ? sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR) : null;
+        if (rotation != null) {
+            sensorManager.registerListener(compassListener, rotation, SensorManager.SENSOR_DELAY_UI);
+        }
+
+        compass.setOnCompassDragListener((float azimut) -> {
+            if (rotation != null) {
+                sensorManager.unregisterListener(compassListener, rotation);
+            }
+            compass.setDegrees(azimut);
+        });
+
+        ((LinearLayout) layout).addView(compass);
+        builder.setView(layout);
+
+        builder.setNegativeButton(R.string.save, (dialog, which) -> {
+            String ourValue = Integer.toString((int) compass.getDegrees());
+            caller.updateSingleValue((String) layout.getTag(), ourValue);
+            setOrReplaceText(row.getValueView(), ourValue);
+        });
+        builder.setNeutralButton(R.string.cancel, null);
+
+        final AlertDialog dialog = builder.create();
+        layout.setTag(key);
+        dialog.setOnDismissListener((DialogInterface d) -> {
+            if (rotation != null) {
+                sensorManager.unregisterListener(compassListener, rotation);
+            }
         });
         return dialog;
     }
