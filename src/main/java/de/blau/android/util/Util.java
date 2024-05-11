@@ -514,7 +514,7 @@ public final class Util {
             if (map != null) {
                 de.blau.android.layer.data.MapOverlay<OsmElement> dataLayer = map.getDataLayer();
                 if (dataLayer != null) {
-                    dataLayer.clearIconCaches();
+                    dataLayer.clearCaches();
                     dataLayer.invalidate();
                 }
             }

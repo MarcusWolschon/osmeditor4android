@@ -777,6 +777,11 @@ public final class DataStyle extends DefaultHandler {
     private Path xPath = new Path();
 
     /**
+     * Direction arrow
+     */
+    private Path directionArrowPath = new Path();
+
+    /**
      * Arrow indicating the direction of one-way streets. Set/updated in updateStrokes
      */
     public static final Path WAY_DIRECTION_PATH = new Path();
@@ -836,6 +841,7 @@ public final class DataStyle extends DefaultHandler {
         createOrientationPath(1.0f);
         createCrosshairsPath(1.0f);
         createXPath(1.0f);
+        createDirectionArrowPath(1.0f);
         Symbols.draw(ctx, 1.0f);
 
         Log.i(DEBUG_TAG, "setting up default profile elements");
@@ -1545,6 +1551,7 @@ public final class DataStyle extends DefaultHandler {
                         createOrientationPath(scale);
                         createCrosshairsPath(scale);
                         createXPath(scale);
+                        createDirectionArrowPath(scale);
                         Symbols.draw(ctx, scale);
                         return;
                     case MIN_HANDLE_LEN:
@@ -1756,6 +1763,19 @@ public final class DataStyle extends DefaultHandler {
         orientationPath.lineTo(0, Density.dpToPx(ctx, 10) * scale);
         orientationPath.lineTo(Density.dpToPx(ctx, -15) * scale, Density.dpToPx(ctx, 20) * scale);
         orientationPath.lineTo(0, Density.dpToPx(ctx, -20) * scale);
+    }
+
+    /**
+     * Create a path for the direction arrow
+     * 
+     * @param scale scaling factor
+     */
+    private void createDirectionArrowPath(float scale) {
+        directionArrowPath = new Path();
+        directionArrowPath.moveTo(Density.dpToPx(ctx, -20) * scale, 0);
+        directionArrowPath.lineTo(-10, Density.dpToPx(ctx, +5) * scale);
+        directionArrowPath.lineTo(-10, Density.dpToPx(ctx, -5) * scale);
+        directionArrowPath.lineTo(Density.dpToPx(ctx, -20) * scale, 0);
     }
 
     @Override
@@ -1971,6 +1991,14 @@ public final class DataStyle extends DefaultHandler {
     @NonNull
     public Path getOrientationPath() {
         return orientationPath;
+    }
+
+    /**
+     * @return the orientation_path
+     */
+    @NonNull
+    public Path getDirectionArrowPath() {
+        return directionArrowPath;
     }
 
     /**
