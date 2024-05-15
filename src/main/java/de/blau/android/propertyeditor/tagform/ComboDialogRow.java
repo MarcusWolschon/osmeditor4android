@@ -274,7 +274,7 @@ public class ComboDialogRow extends DialogRow {
      * @param listener the Listener to call if the button is clicked
      * @param layoutParams LayoutParams for the button
      */
-    private static void addButton(@NonNull Context context, @NonNull ViewGroup group, int id, @NonNull StringWithDescription swd, boolean selected,
+    static void addButton(@NonNull Context context, @NonNull ViewGroup group, int id, @NonNull StringWithDescription swd, boolean selected,
             @Nullable Drawable icon, @NonNull View.OnClickListener listener, @NonNull ViewGroup.LayoutParams layoutParams) {
         final AppCompatRadioButton button = new AppCompatRadioButton(context);
         String description = swd.getDescription();

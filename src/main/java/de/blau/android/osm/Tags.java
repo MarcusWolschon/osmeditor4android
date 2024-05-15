@@ -277,10 +277,26 @@ public final class Tags {
     public static final List<String> DIRECTION_KEYS = Collections.unmodifiableList(Arrays.asList(KEY_DIRECTION, KEY_CAMERA_DIRECTION, KEY_LIGHT_DIRECTION));
 
     /**
+     * Get a direction key if any are present from the OSM element
+     * 
+     * @param e the OSM element
+     * @return the key or null
+     */
+    @Nullable
+    public static String getDirectionKey(@NonNull OsmElement e) {
+        for (String key : Tags.DIRECTION_KEYS) {
+            if (e.hasTagKey(key)) {
+                return key;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Convert a cardinal value to degrees
      * 
      * @param cardinalValue
-     * @return a value in degrees or null
+     * @return a value in degrees or Float.NaN
      */
     public static Float cardinalToDegrees(String cardinalValue) {
         switch (cardinalValue) {
@@ -317,10 +333,25 @@ public final class Tags {
         case "NNW":
             return 337f;
         default:
-            return null;
+            return Float.NaN;
         }
     }
-    
+
+    /**
+     * Parse a direction string
+     * 
+     * @param directionString the input string
+     * @return a FLoat or Float.NaN
+     */
+    @NonNull
+    public static Float parseDirection(@NonNull String directionString) {
+        try {
+            return Float.parseFloat(directionString);
+        } catch (NumberFormatException nfex) {
+            return Tags.cardinalToDegrees(directionString);
+        }
+    }
+
     public static final String KEY_AREA = "area";
 
     public static final String KEY_CONVEYING = "conveying";
