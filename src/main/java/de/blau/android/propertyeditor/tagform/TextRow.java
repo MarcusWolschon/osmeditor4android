@@ -1,21 +1,17 @@
 package de.blau.android.propertyeditor.tagform;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.util.List;
 import java.util.Map;
 
-import com.redinput.compassview.CompassView;
-
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Color;
-import android.hardware.Sensor;
-import android.hardware.SensorManager;
 import android.text.InputType;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -25,7 +21,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
-import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.measure.Measure;
@@ -41,11 +36,10 @@ import de.blau.android.presets.PresetTextField;
 import de.blau.android.presets.ValueType;
 import de.blau.android.propertyeditor.InputTypeUtil;
 import de.blau.android.propertyeditor.SanitizeTextWatcher;
+import de.blau.android.propertyeditor.TagChanged;
 import de.blau.android.propertyeditor.TagEditorFragment;
 import de.blau.android.propertyeditor.tagform.TagFormFragment.EditableLayout;
-import de.blau.android.sensors.CompassEventListener;
 import de.blau.android.util.LocaleUtils;
-import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 import de.blau.android.util.Value;
@@ -57,9 +51,10 @@ import de.blau.android.views.CustomAutoCompleteTextView;
  * @author simon
  *
  */
-public class TextRow extends LinearLayout implements KeyValueRow {
+public class TextRow extends LinearLayout implements KeyValueRow, TagChanged {
 
-    protected static final String DEBUG_TAG = TextRow.class.getSimpleName().substring(0, Math.min(23, TextRow.class.getSimpleName().length()));
+    private static final int      TAG_LEN   = Math.min(LOG_TAG_LEN, TextRow.class.getSimpleName().length());
+    protected static final String DEBUG_TAG = TextRow.class.getSimpleName().substring(0, TAG_LEN);
 
     public static final int INPUTTYPE_CAPS_MASK = InputType.TYPE_TEXT_FLAG_CAP_SENTENCES | InputType.TYPE_TEXT_FLAG_CAP_WORDS;
 
@@ -230,9 +225,7 @@ public class TextRow extends LinearLayout implements KeyValueRow {
             ourValueView.setOnClickListener(v -> {
                 final View finalView = v;
                 finalView.setEnabled(false); // debounce
-                final AlertDialog dialog = buildDirectionDialog(caller, hint != null ? hint : key, key, row, valueType);
-                dialog.setOnDismissListener(d -> finalView.setEnabled(true));
-                dialog.show();
+                DirectionFragment.show(caller, hint != null ? hint : key, key, ((TextView) v).getText().toString(), values, preset, allTags);
                 return;
             });
         }
@@ -345,6 +338,7 @@ public class TextRow extends LinearLayout implements KeyValueRow {
      * 
      * @return an AlertDialog
      */
+    @NonNull
     private static AlertDialog buildMeasureDialog(@NonNull final TagFormFragment caller, @NonNull String hint, @NonNull String key,
             @Nullable ArrayAdapter<?> adapter, @NonNull final TextRow row, @NonNull final ValueType valueType, boolean imperial) {
         String value = row.getValue();
@@ -394,90 +388,6 @@ public class TextRow extends LinearLayout implements KeyValueRow {
     }
 
     /**
-     * Build a dialog for adding/editing a direction value
-     * 
-     * @param caller the calling TagFormFragment instance
-     * @param hint a description to display
-     * @param key the key
-     * @param row the row we are started from
-     * @param valueType the field ValueType
-     * @return an AlertDialog
-     */
-    private static AlertDialog buildDirectionDialog(@NonNull final TagFormFragment caller, @NonNull String hint, @NonNull String key,
-            @NonNull final TextRow row, @NonNull final ValueType valueType) {
-        String value = row.getValue();
-
-        final FragmentActivity activity = caller.getActivity();
-        Builder builder = new AlertDialog.Builder(activity);
-        builder.setTitle(hint);
-        final LayoutInflater themedInflater = ThemeUtils.getLayoutInflater(activity);
-
-        final View layout = themedInflater.inflate(R.layout.compass_direction, null);
-        CompassView compass = new CompassView(activity, null);
-
-        Float direction = 0f;
-        try {
-            direction = Float.parseFloat(value);
-        } catch (NumberFormatException nfex) {
-            direction = Tags.cardinalToDegrees(value);
-            if (direction == null) {
-                direction = 0f;
-            }
-        }
-        if (direction < 0) {
-            direction = direction + 360f;
-        }
-
-        compass.setDegrees(direction, true); // with animation
-        compass.setBackgroundColor(ThemeUtils.getStyleAttribColorValue(activity, R.attr.highlight_background, R.color.black));
-        compass.setLineColor(Color.RED);
-        compass.setMarkerColor(Color.RED);
-        compass.setTextColor(ThemeUtils.getStyleAttribColorValue(activity, R.attr.text_normal, R.color.ccc_white));
-        compass.setShowMarker(true);
-        compass.setTextSize(37);
-        compass.setRangeDegrees(50);
-        ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        compass.setLayoutParams(lp);
-
-        SensorManager sensorManager = (SensorManager) activity.getSystemService(Context.SENSOR_SERVICE);
-
-        CompassEventListener compassListener = new CompassEventListener((float azimut) -> compass.setDegrees(azimut, true));
-
-        final Sensor rotation = sensorManager != null ? sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR) : null;
-        if (rotation != null) {
-            sensorManager.registerListener(compassListener, rotation, SensorManager.SENSOR_DELAY_UI);
-        } else {
-            ScreenMessage.toastTopInfo(activity, R.string.toast_no_compass);
-        }
-
-        compass.setOnCompassDragListener((float azimut) -> {
-            if (rotation != null) {
-                sensorManager.unregisterListener(compassListener, rotation);
-            }
-            compass.setDegrees(azimut);
-        });
-
-        ((LinearLayout) layout).addView(compass);
-        builder.setView(layout);
-
-        builder.setNegativeButton(R.string.save, (dialog, which) -> {
-            String ourValue = Integer.toString((int) compass.getDegrees());
-            caller.updateSingleValue((String) layout.getTag(), ourValue);
-            setOrReplaceText(row.getValueView(), ourValue);
-        });
-        builder.setNeutralButton(R.string.cancel, null);
-
-        final AlertDialog dialog = builder.create();
-        layout.setTag(key);
-        dialog.setOnDismissListener((DialogInterface d) -> {
-            if (rotation != null) {
-                sensorManager.unregisterListener(compassListener, rotation);
-            }
-        });
-        return dialog;
-    }
-
-    /**
      * Set an ArrayAdapter on an AutoCompleteTextView, checking that it isn't empty
      * 
      * @param textView the AutoCompleteTextView
@@ -486,6 +396,14 @@ public class TextRow extends LinearLayout implements KeyValueRow {
     protected static void setAdapter(@NonNull final AutoCompleteTextView textView, @Nullable ArrayAdapter<?> adapter) {
         if (adapter != null && !adapter.isEmpty()) {
             textView.setAdapter(adapter);
+        }
+    }
+
+    @Override
+    public void changed(String key, String value) {
+        if (key.equals(this.getKey())) {
+            setOrReplaceText(valueView, value);
+            valueView.setEnabled(true);
         }
     }
 }
