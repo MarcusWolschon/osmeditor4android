@@ -36,6 +36,10 @@ Add further objects to the relation until "Done" is selected, then the tag edito
 
 Start Multi-Select mode with all members of the current relation selected. The relation itself will be deselected. 
 
+### ![Rotate](../images/ic_menu_rotate.png) Rotate
+
+If the relation is a multi-polygon, rotate it around its centroid by dragging the display roughly in a circle. The centroid position is marked with a cross.
+
 ### ![Delete](../images/tag_menu_delete.png) Delete
 
 Remove the object from the data.
