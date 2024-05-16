@@ -1,6 +1,7 @@
 package de.blau.android;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -250,6 +251,35 @@ public class Selection {
             return ways.contains((Way) element);
         }
         return relations.contains((Relation) element);
+    }
+
+    /**
+     * Get all elements
+     * 
+     * @return a List of OsmElement
+     */
+    @NonNull
+    public List<OsmElement> getAll() {
+        List<OsmElement> result = new ArrayList<>();
+        if (nodes.count() > 0) {
+            result.addAll(nodes.getElements());
+        }
+        if (ways.count() > 0) {
+            result.addAll(ways.getElements());
+        }
+        if (relations.count() > 0) {
+            result.addAll(relations.getElements());
+        }
+        return result;
+    }
+    
+    /**
+     * Get a count of all selected elements
+     * 
+     * @return the number of selected elements
+     */
+    public int count() {
+        return nodes.count() + ways.count() + relations.count();
     }
 
     /**

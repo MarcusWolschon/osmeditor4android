@@ -17,6 +17,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.R;
+import de.blau.android.util.Geometry;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.collections.LinkedList;
 import de.blau.android.util.collections.LinkedList.Member;
@@ -44,63 +45,10 @@ public final class RelationUtils {
      * @return a List of RelationMembers with inner / outer role set as far as could be determined
      */
     public static List<RelationMember> setMultipolygonRoles(@Nullable Context context, @NonNull List<RelationMember> origMembers, boolean force) {
-        List<RelationMember> sortedMembers = sortRelationMembers(new ArrayList<>(origMembers));
         List<RelationMember> other = new ArrayList<>();
         List<List<RelationMember>> rings = new ArrayList<>();
         List<List<RelationMember>> partialRings = new ArrayList<>();
-        List<RelationMember> currentRing = null;
-        Way previousRingSegment = null;
-        for (RelationMember rm : sortedMembers) {
-            if (rm.downloaded() && Way.NAME.equals(rm.getType())) {
-                Way currentRingSegment = ((Way) rm.getElement());
-                boolean closed = currentRingSegment.isClosed();
-                if (currentRing == null) { // start ring
-                    currentRing = new ArrayList<>();
-                    currentRing.add(rm);
-                    if (closed) {
-                        rings.add(currentRing);
-                        currentRing = null;
-                    }
-                } else if (closed) {
-                    // incomplete ring
-                    partialRings.add(currentRing);
-                    currentRing = new ArrayList<>();
-                    currentRing.add(rm);
-                    rings.add(currentRing);
-                    currentRing = null;
-                } else {
-
-                    final Node currentFirstNode = currentRingSegment.getFirstNode();
-                    final Node currentLastNode = currentRingSegment.getLastNode();
-                    final Node previousFirstNode = previousRingSegment.getFirstNode();
-                    final Node previousLastNode = previousRingSegment.getLastNode();
-                    boolean firstConnected = currentFirstNode.equals(previousFirstNode) || currentFirstNode.equals(previousLastNode);
-                    boolean lastConnected = currentLastNode.equals(previousFirstNode) || currentLastNode.equals(previousLastNode);
-                    if (firstConnected || lastConnected) {
-                        currentRing.add(rm);
-                        final Way firstSegment = (Way) currentRing.get(0).getElement();
-                        final Node firstFirstNode = firstSegment.getFirstNode();
-                        final Node firstLastNode = firstSegment.getLastNode();
-                        // check if ring is complete
-                        if ((lastConnected && (firstFirstNode.equals(currentFirstNode) || firstLastNode.equals(currentFirstNode)))
-                                || (firstConnected && (firstFirstNode.equals(currentLastNode) || firstLastNode.equals(currentLastNode)))) {
-                            rings.add(currentRing);
-                            currentRing = null;
-                        }
-                    } else { // incomplete ring, restart
-                        partialRings.add(currentRing);
-                        currentRing = new ArrayList<>();
-                        currentRing.add(rm);
-                    }
-                }
-                previousRingSegment = currentRingSegment;
-            } else {
-                other.add(rm);
-            }
-        }
-        if (currentRing != null) {
-            partialRings.add(currentRing);
-        }
+        buildRings(origMembers, rings, partialRings, other);
         final int ringCount = rings.size();
         List<List<RelationMember>> rings2 = new ArrayList<>(rings);
         for (int i = 0; i < ringCount; i++) {
@@ -152,6 +100,123 @@ public final class RelationUtils {
         }
         result.addAll(other);
         return result;
+    }
+
+    /**
+     * Build rings from a list of RelationMembers
+     * 
+     * rings, partialRings and other are filled by the method and should be empty to start with
+     * 
+     * @param members the input list
+     * @param rings list holding completed rings, note that these may not have consistent role values at this point
+     * @param partialRings list holding incomplete rings
+     * @param other other members
+     */
+    public static void buildRings(@NonNull final List<RelationMember> members, @NonNull final List<List<RelationMember>> rings,
+            @NonNull final List<List<RelationMember>> partialRings, final @NonNull List<RelationMember> other) {
+        final List<RelationMember> sortedMembers = sortRelationMembers(new ArrayList<>(members));
+        List<RelationMember> currentRing = null;
+        Way previousRingSegment = null;
+        for (RelationMember rm : sortedMembers) {
+            if (!rm.downloaded() || !Way.NAME.equals(rm.getType())) {
+                other.add(rm);
+                continue;
+            }
+            Way currentRingSegment = ((Way) rm.getElement());
+            boolean closed = currentRingSegment.isClosed();
+            if (currentRing == null) { // start ring
+                currentRing = new ArrayList<>();
+                currentRing.add(rm);
+                if (closed) {
+                    rings.add(currentRing);
+                    currentRing = null;
+                }
+            } else if (closed) {
+                // incomplete ring
+                partialRings.add(currentRing);
+                currentRing = new ArrayList<>();
+                currentRing.add(rm);
+                rings.add(currentRing);
+                currentRing = null;
+            } else {
+                final Node currentFirstNode = currentRingSegment.getFirstNode();
+                final Node currentLastNode = currentRingSegment.getLastNode();
+                final Node previousFirstNode = previousRingSegment.getFirstNode();
+                final Node previousLastNode = previousRingSegment.getLastNode();
+                boolean firstConnected = currentFirstNode.equals(previousFirstNode) || currentFirstNode.equals(previousLastNode);
+                boolean lastConnected = currentLastNode.equals(previousFirstNode) || currentLastNode.equals(previousLastNode);
+                if (firstConnected || lastConnected) {
+                    currentRing.add(rm);
+                    final Way firstSegment = (Way) currentRing.get(0).getElement();
+                    final Node firstFirstNode = firstSegment.getFirstNode();
+                    final Node firstLastNode = firstSegment.getLastNode();
+                    // check if ring is complete
+                    if ((lastConnected && (firstFirstNode.equals(currentFirstNode) || firstLastNode.equals(currentFirstNode)))
+                            || (firstConnected && (firstFirstNode.equals(currentLastNode) || firstLastNode.equals(currentLastNode)))) {
+                        rings.add(currentRing);
+                        currentRing = null;
+                    }
+                } else { // incomplete ring, restart
+                    partialRings.add(currentRing);
+                    currentRing = new ArrayList<>();
+                    currentRing.add(rm);
+                }
+            }
+            previousRingSegment = currentRingSegment;
+        }
+        if (currentRing != null) {
+            partialRings.add(currentRing);
+        }
+    }
+
+    /**
+     * Calculate the centroid of a multi-polygon
+     * 
+     * This not a center of mass equivalent and only takes outer rings in to account
+     * 
+     * @param r the MP Relation
+     * @param map the current Map instance
+     * @param viewBox the current ViewBox
+     * @return lat, lon in WGS84*1E7°
+     */
+    @NonNull
+    public static int[] calcCentroid(@NonNull Relation r, @NonNull de.blau.android.Map map, @NonNull ViewBox viewBox) {
+        long latE7 = 0;
+        long lonE7 = 0;
+        List<List<RelationMember>> rings = new ArrayList<>();
+        RelationUtils.buildRings(r.getMembers(), rings, new ArrayList<>(), new ArrayList<>());
+        int count = 0;
+        for (List<RelationMember> ring : rings) {
+            if (!ring.isEmpty() && hasOuter(ring)) {
+                int[] centroid = Geometry.centroid(map.getWidth(), map.getHeight(), viewBox, ring);
+                if (centroid.length != 2) {
+                    Log.e(DEBUG_TAG, "centroid of ring in " + r.getDescription() + " not available");
+                    continue;
+                }
+                count++;
+                latE7 += centroid[0];
+                lonE7 += centroid[1];
+            }
+        }
+        if (count == 0) {
+            throw new IllegalArgumentException("no valid ring members");
+        }
+        return new int[] { (int) (latE7 / count), (int) (lonE7 / count) };
+    }
+
+    /**
+     * Check if at least one RelationMember in ring has the "outer" role
+     * 
+     * @param ring the list of RelationMember
+     * @return true if there is at least one "outer" member
+     */
+    private static boolean hasOuter(List<RelationMember> ring) {
+        for (RelationMember rm : ring) {
+            if (Tags.ROLE_OUTER.equals(rm.getRole())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -214,7 +279,7 @@ public final class RelationUtils {
      * 
      * This moves all tags common to the outers (untagged outers are not considered) to the Relation
      * 
-     * Shoule be wrapped in an undo checkpoint
+     * Should be wrapped in an undo checkpoint
      * 
      * @param delegator the relevant StorageDelegator instance
      * @param relation the MP Relation

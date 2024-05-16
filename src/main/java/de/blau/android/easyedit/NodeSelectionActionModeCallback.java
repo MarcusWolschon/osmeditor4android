@@ -1,5 +1,7 @@
 package de.blau.android.easyedit;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -41,15 +43,19 @@ import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
 public class NodeSelectionActionModeCallback extends ElementSelectionActionModeCallback implements DisambiguationMenu.OnMenuItemClickListener {
-    private static final String DEBUG_TAG             = NodeSelectionActionModeCallback.class.getSimpleName().substring(0, Math.min(23, NodeSelectionActionModeCallback.class.getSimpleName().length()));
-    private static final int    MENUITEM_APPEND       = LAST_REGULAR_MENUITEM + 1;
-    private static final int    MENUITEM_JOIN         = LAST_REGULAR_MENUITEM + 2;
-    private static final int    MENUITEM_UNJOIN       = LAST_REGULAR_MENUITEM + 3;
-    private static final int    MENUITEM_EXTRACT      = LAST_REGULAR_MENUITEM + 4;
-    private static final int    MENUITEM_RESTRICTION  = LAST_REGULAR_MENUITEM + 5;
+
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, NodeSelectionActionModeCallback.class.getSimpleName().length());
+    private static final String DEBUG_TAG = NodeSelectionActionModeCallback.class.getSimpleName().substring(0, TAG_LEN);
+
+    private static final int MENUITEM_APPEND       = LAST_REGULAR_MENUITEM + 1;
+    private static final int MENUITEM_JOIN         = LAST_REGULAR_MENUITEM + 2;
+    private static final int MENUITEM_UNJOIN       = LAST_REGULAR_MENUITEM + 3;
+    private static final int MENUITEM_EXTRACT      = LAST_REGULAR_MENUITEM + 4;
+    private static final int MENUITEM_RESTRICTION  = LAST_REGULAR_MENUITEM + 5;
     /** */
-    private static final int    MENUITEM_SET_POSITION = LAST_REGULAR_MENUITEM + 6;
-    private static final int    MENUITEM_ADDRESS      = LAST_REGULAR_MENUITEM + 7;
+    private static final int MENUITEM_SET_POSITION = LAST_REGULAR_MENUITEM + 6;
+    private static final int MENUITEM_ADDRESS      = LAST_REGULAR_MENUITEM + 7;
+    private static final int MENUITEM_ROTATE       = LAST_REGULAR_MENUITEM + 8;
 
     private List<OsmElement> joinableElements = null;
     private List<Way>        appendableWays   = null;
@@ -59,6 +65,7 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
     private MenuItem         unjoinItem;
     private MenuItem         extractItem;
     private MenuItem         restrictionItem;
+    private MenuItem         rotateItem;
     private int              action;
 
     /**
@@ -101,6 +108,8 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
 
         menu.add(Menu.NONE, MENUITEM_SET_POSITION, Menu.CATEGORY_SYSTEM, R.string.menu_set_position)
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_gps));
+
+        rotateItem = menu.add(Menu.NONE, MENUITEM_ROTATE, Menu.NONE, R.string.menu_rotate).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_rotate));
         return true;
     }
 
@@ -127,6 +136,8 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
             }
         }
         updated |= setItemVisibility(highways.size() >= 2, restrictionItem, false);
+
+        updated |= setItemVisibility(Tags.getDirectionKey(element) != null, rotateItem, false);
 
         if (updated) {
             arrangeMenu(menu);
@@ -187,6 +198,10 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
                     break;
                 case MENUITEM_ADDRESS:
                     main.performTagEdit(element, null, true, false);
+                    break;
+                case MENUITEM_ROTATE:
+                    deselect = false;
+                    main.startSupportActionMode(new RotationActionModeCallback(manager));
                     break;
                 case MENUITEM_SHARE_POSITION:
                     double[] lonLat = new double[2];

@@ -39,7 +39,8 @@ import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
 public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallback {
-    private static final String DEBUG_TAG = ExtendSelectionActionModeCallback.class.getSimpleName().substring(0, Math.min(23, ExtendSelectionActionModeCallback.class.getSimpleName().length()));
+    private static final String DEBUG_TAG = ExtendSelectionActionModeCallback.class.getSimpleName().substring(0,
+            Math.min(23, ExtendSelectionActionModeCallback.class.getSimpleName().length()));
 
     private static final int MENUITEM_MERGE                = ElementSelectionActionModeCallback.LAST_REGULAR_MENUITEM + 1;
     private static final int MENUITEM_RELATION             = ElementSelectionActionModeCallback.LAST_REGULAR_MENUITEM + 2;
@@ -47,6 +48,7 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
     private static final int MENUITEM_ORTHOGONALIZE        = ElementSelectionActionModeCallback.LAST_REGULAR_MENUITEM + 4;
     private static final int MENUITEM_INTERSECT            = ElementSelectionActionModeCallback.LAST_REGULAR_MENUITEM + 5;
     private static final int MENUITEM_CREATE_CIRCLE        = ElementSelectionActionModeCallback.LAST_REGULAR_MENUITEM + 6;
+    private static final int MENUITEM_ROTATE               = ElementSelectionActionModeCallback.LAST_REGULAR_MENUITEM + 7;
     private static final int MENUITEM_UPLOAD               = ElementSelectionActionModeCallback.MENUITEM_UPLOAD;
     private static final int MENUITEM_ZOOM_TO_SELECTION    = ElementSelectionActionModeCallback.MENUITEM_ZOOM_TO_SELECTION;
     private static final int MENUITEM_SEARCH_OBJECTS       = ElementSelectionActionModeCallback.MENUITEM_SEARCH_OBJECTS;
@@ -208,6 +210,8 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
 
         createCircleItem = menu.add(Menu.NONE, MENUITEM_CREATE_CIRCLE, Menu.NONE, R.string.menu_create_circle);
 
+        menu.add(Menu.NONE, MENUITEM_ROTATE, Menu.NONE, R.string.menu_rotate).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_rotate));
+
         menu.add(GROUP_BASE, MENUITEM_ZOOM_TO_SELECTION, Menu.CATEGORY_SYSTEM | 10, R.string.menu_zoom_to_selection);
         menu.add(GROUP_BASE, MENUITEM_SEARCH_OBJECTS, Menu.CATEGORY_SYSTEM | 10, R.string.search_objects_title);
         menu.add(GROUP_BASE, MENUITEM_ADD_TO_TODO, Menu.CATEGORY_SYSTEM | 10, R.string.menu_add_to_todo);
@@ -363,6 +367,10 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
                 break;
             case MENUITEM_CREATE_CIRCLE:
                 createCircle();
+                break;
+            case MENUITEM_ROTATE:
+                deselect = false;
+                main.startSupportActionMode(new RotationActionModeCallback(manager));
                 break;
             case MENUITEM_ZOOM_TO_SELECTION:
                 main.zoomTo(selection);

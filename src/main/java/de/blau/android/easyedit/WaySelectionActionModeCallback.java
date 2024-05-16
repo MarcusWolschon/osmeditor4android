@@ -1,5 +1,7 @@
 package de.blau.android.easyedit;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -31,7 +33,9 @@ import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
 public class WaySelectionActionModeCallback extends ElementSelectionActionModeCallback {
-    private static final String DEBUG_TAG = WaySelectionActionModeCallback.class.getSimpleName().substring(0, Math.min(23, WaySelectionActionModeCallback.class.getSimpleName().length()));
+
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, WaySelectionActionModeCallback.class.getSimpleName().length());
+    private static final String DEBUG_TAG = WaySelectionActionModeCallback.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final int MENUITEM_SPLIT             = LAST_REGULAR_MENUITEM + 1;
     private static final int MENUITEM_MERGE             = LAST_REGULAR_MENUITEM + 2;
@@ -255,7 +259,7 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
                     break;
                 case MENUITEM_ROTATE:
                     deselect = false;
-                    main.startSupportActionMode(new WayRotationActionModeCallback(manager, way));
+                    main.startSupportActionMode(new RotationActionModeCallback(manager));
                     break;
                 case MENUITEM_ORTHOGONALIZE:
                     logic.performOrthogonalize(main, way);

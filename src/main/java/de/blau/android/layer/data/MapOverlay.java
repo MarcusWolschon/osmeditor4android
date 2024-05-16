@@ -549,7 +549,7 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
         for (Relation rel : paintRelations) {
             String relType = rel.getTagWithKey(Tags.KEY_TYPE);
             if (Tags.VALUE_MULTIPOLYGON.equals(relType) || Tags.VALUE_BOUNDARY.equals(relType)) {
-                paintMultiPolygon(canvas, viewBox, rel);
+                paintMultiPolygon(canvas, rel);
             }
         }
 
@@ -700,10 +700,9 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
      * Draw a multipolygon
      * 
      * @param canvas the Canvas to draw on
-     * @param viewBox the current ViewBox
      * @param rel the Relation for the multipolygon
      */
-    private void paintMultiPolygon(@NonNull Canvas canvas, @NonNull ViewBox viewBox, @NonNull Relation rel) {
+    private void paintMultiPolygon(@NonNull Canvas canvas, @NonNull Relation rel) {
         FeatureStyle style;
         if (rel.hasProblem(context, validator) != Validator.OK) {
             style = DataStyle.getInternal(DataStyle.PROBLEM_WAY);

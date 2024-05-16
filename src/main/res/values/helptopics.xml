@@ -20,6 +20,7 @@
     <string name="help_wayselection">Way selected</string>
     <string name="help_waysplitting" translatable="false">@string/help_wayselection</string>
     <string name="help_closedwaysplitting" translatable="false">@string/help_wayselection</string>
+    <string name="help_rotate" translatable="false">Rotating elements</string>
     <string name="help_aligningbackgroundiamgery">Aligning background imagery</string>
     <string name="help_propertyeditor">Property editor</string>
     <string name="help_preferences">Preferences</string>
@@ -81,6 +82,7 @@
         <item>@string/help_advanced_preferences</item>
         <item>@string/help_custom_imagery</item>
     	<item>@string/help_presets</item>	
+        <item>@string/help_rotate</item>
     	<item>@string/help_aligningbackgroundiamgery</item>
     	<item>@string/help_conflictresolution</item>
     	<item>@string/help_gpssources</item>
@@ -139,6 +141,7 @@
         <item>Advanced preferences</item>
         <item>Custom imagery</item>
     	<item>Presets</item>	
+        <item>Rotating elements</item>
     	<item>Aligning background imagery</item>
     	<item>Conflict resolution</item>
     	<item>GPS sources</item>
