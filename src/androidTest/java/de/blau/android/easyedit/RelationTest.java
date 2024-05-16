@@ -31,6 +31,7 @@ import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.TestUtils;
+import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
@@ -38,6 +39,7 @@ import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.presets.Preset;
 import de.blau.android.propertyeditor.PropertyEditorActivity;
 import de.blau.android.propertyeditor.PropertyEditorTest;
 
@@ -172,6 +174,73 @@ public class RelationTest {
         assertTrue(relation.getOsmId() < 0);
         assertTrue(relation.hasTag(Tags.KEY_TYPE, Tags.VALUE_MULTIPOLYGON));
         assertTrue(TestUtils.clickMenuButton(device, "Delete", false, true));
+    }
+
+    /**
+     * Create a multipolygon, rotate it
+     */
+    // @SdkSuppress(minSdkVersion = 26)
+    @Test
+    public void rotateMultipolygon() {
+        map.getDataLayer().setVisible(true);
+        TestUtils.unlock(device);
+        TestUtils.clickAwayTip(device, main);
+        TestUtils.zoomToLevel(device, main, 22);
+        // split building first
+        TestUtils.clickAtCoordinates(device, map, 8.3882060, 47.3885768, true);
+        TestUtils.clickAwayTip(device, main);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
+        assertTrue(TestUtils.clickMenuButton(device, "Split", false, true));
+        TestUtils.clickAwayTip(device, context);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_closed_way_split_1)));
+        TestUtils.clickAtCoordinates(device, map, 8.3881251, 47.3885077, true);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_closed_way_split_2)));
+        TestUtils.clickAtCoordinates(device, map, 8.3881577, 47.3886924, true);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_multiselect)));
+
+        assertTrue(TestUtils.clickOverflowButton(device));
+        TestUtils.scrollTo(context.getString(R.string.menu_relation), false);
+        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_relation), true, false));
+
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.select_relation_type_title), 2000));
+        TestUtils.scrollTo("Multipolygon", false);
+        assertTrue(TestUtils.clickText(device, false, "Multipolygon", true, false));
+
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.menu_relation), 2000));
+
+        TestUtils.sleep(3000);
+
+        TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
+
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.move_outer_tags_title), 2000));
+        TestUtils.clickButton(device, "android:id/button1", true);
+
+        assertTrue(TestUtils.findText(device, false, "Multipolygon", 2000));
+        TestUtils.clickHome(device, true);
+
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_relationselect), 2000));
+        TestUtils.sleep();
+        List<Relation> relations = App.getLogic().getSelectedRelations();
+        assertNotNull(relations);
+        assertEquals(1, relations.size());
+        Relation relation = relations.get(0);
+        Way way = (Way) relation.getMembers().get(0).getElement();
+        Node n0 = way.getFirstNode();
+
+        assertEquals(83881251, n0.getLon());
+        assertEquals(473885077, n0.getLat());
+        if (!TestUtils.clickMenuButton(device, context.getString(R.string.menu_rotate), false, false)) {
+            TestUtils.clickOverflowButton(device);
+            TestUtils.clickText(device, false, context.getString(R.string.menu_rotate), false, false);
+        }
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_rotate)));
+        TestUtils.drag(device, map, 8.3882867, 47.38887072, 8.3882853, 47.3886022, true, 100);
+
+        TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_relationselect)));
+
+        assertEquals(83882342, n0.getLon(), 1000);
+        assertEquals(473890641, n0.getLat(), 1000);
     }
 
     /**
