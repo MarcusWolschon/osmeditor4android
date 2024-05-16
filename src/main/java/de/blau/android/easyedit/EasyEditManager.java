@@ -157,7 +157,7 @@ public class EasyEditManager {
             return currentActionModeCallback instanceof ElementSelectionActionModeCallback
                     || currentActionModeCallback instanceof ExtendSelectionActionModeCallback
                     || currentActionModeCallback instanceof NewNoteSelectionActionModeCallback
-                    || currentActionModeCallback instanceof WayRotationActionModeCallback;
+                    || currentActionModeCallback instanceof RotationActionModeCallback;
         }
     }
 
@@ -238,7 +238,7 @@ public class EasyEditManager {
                 || currentActionModeCallback instanceof ViaElementActionModeCallback || currentActionModeCallback instanceof ToElementActionModeCallback
                 || currentActionModeCallback instanceof FromElementActionModeCallback
                 || currentActionModeCallback instanceof RestartFromElementActionModeCallback
-                || currentActionModeCallback instanceof WayRotationActionModeCallback) {
+                || currentActionModeCallback instanceof RotationActionModeCallback) {
             ScreenMessage.toastTopInfo(getMain(), getMain().getString(R.string.toast_abort_actionmode));
             return;
         }

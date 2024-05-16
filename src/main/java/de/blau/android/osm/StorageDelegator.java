@@ -1065,11 +1065,10 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     }
 
     /**
-     * Rotate all nodes in a way, since the nodes keep their ids, the way itself doesn't change and doesn't need to be
-     * saved apply translation only once to each node. Rotation is done in screen coords
+     * Rotate all nodes in a list around a pivot. Rotation is done in screen coords
      * 
-     * @param way way to rotate
-     * @param angle angle to rotate the way by
+     * @param nodes Nodes to rotate
+     * @param angle angle to rotate
      * @param direction rotation direction
      * @param pivotX screen X coordinate of the pivot point
      * @param pivotY screen Y coordinate of the pivot point
@@ -1077,7 +1076,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @param h screen height
      * @param v screen viewbox
      */
-    public void rotateWay(@NonNull final Way way, final float angle, final int direction, final float pivotX, final float pivotY, int w, int h,
+    public void rotateNodes(@NonNull final List<Node> nodes, final float angle, final int direction, final float pivotX, final float pivotY, int w, int h,
             @NonNull ViewBox v) {
         if (Float.isNaN(angle)) {
             Log.e(DEBUG_TAG, "rotateWay angle is NaN");
@@ -1086,9 +1085,9 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         dirty = true;
         double cos = Math.cos(angle);
         double sin = Math.sin(angle);
-        Set<Node> nodes = new HashSet<>(way.getNodes()); // Guarantee uniqueness
-        invalidateWayBoundingBox(nodes);
-        for (Node nd : nodes) {
+        Set<Node> uniqueNodes = new HashSet<>(nodes); // Guarantee uniqueness
+        invalidateWayBoundingBox(uniqueNodes);
+        for (Node nd : uniqueNodes) {
             undo.save(nd);
             double nodeX = GeoMath.lonE7ToX(w, v, nd.getLon());
             double nodeY = GeoMath.latE7ToY(h, w, v, nd.getLat());

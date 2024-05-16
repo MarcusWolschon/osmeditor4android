@@ -1179,7 +1179,7 @@
         <item quantity="one">1 object</item>
         <item quantity="other">%1$d objects</item>
     </plurals>
-    <string name="actionmode_rotateway">Rotate way</string>
+    <string name="actionmode_rotate">Rotate</string>
     <string name="menu_snap">Snap</string>
     <string name="menu_follow_way">Follow way</string>
     <string name="select_follow_way">Select way to follow</string>
@@ -1575,7 +1575,7 @@
     <string name="undo_action_move_tags">Move tags to Relation</string>
     <string name="undo_action_cut">Cut</string>
     <string name="undo_action_paste">Paste</string>
-    <string name="undo_action_rotateway">Way rotation</string>
+    <string name="undo_action_rotate">Rotation</string>
     <string name="undo_action_orthogonalize">Way squaring</string>
     <string name="undo_action_circulize">Arrange in circle</string>
     <string name="undo_action_fix_conflict">Conflict resolution</string>

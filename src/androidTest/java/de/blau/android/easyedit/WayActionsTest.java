@@ -624,7 +624,7 @@ public class WayActionsTest {
             TestUtils.clickOverflowButton(device);
             TestUtils.clickText(device, false, context.getString(R.string.menu_rotate), false, false);
         }
-        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_rotateway)));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_rotate)));
         TestUtils.drag(device, map, 8.386446, 47.38959, 8.386628, 47.38959, false, 30);
 
         TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
