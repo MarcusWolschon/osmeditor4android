@@ -263,14 +263,94 @@ public final class Tags {
     public static final String KEY_MOTOR_VEHICLE = "motor_vehicle";
 
     //
-    public static final String KEY_DIRECTION = "direction";
-    public static final String KEY_INCLINE   = "incline";
-    public static final String VALUE_UP      = "up";
-    public static final String VALUE_DOWN    = "down";
-    public static final char   VALUE_EAST    = 'E';
-    public static final char   VALUE_WEST    = 'W';
-    public static final char   VALUE_SOUTH   = 'S';
-    public static final char   VALUE_NORTH   = 'N';
+    public static final String KEY_DIRECTION        = "direction";
+    public static final String KEY_INCLINE          = "incline";
+    public static final String VALUE_UP             = "up";
+    public static final String VALUE_DOWN           = "down";
+    public static final char   VALUE_EAST           = 'E';
+    public static final char   VALUE_WEST           = 'W';
+    public static final char   VALUE_SOUTH          = 'S';
+    public static final char   VALUE_NORTH          = 'N';
+    public static final String KEY_CAMERA_DIRECTION = "camera:direction";
+    public static final String KEY_LIGHT_DIRECTION  = "light:direction";
+
+    public static final List<String> DIRECTION_KEYS = Collections.unmodifiableList(Arrays.asList(KEY_DIRECTION, KEY_CAMERA_DIRECTION, KEY_LIGHT_DIRECTION));
+
+    /**
+     * Get a direction key if any are present from the OSM element
+     * 
+     * @param e the OSM element
+     * @return the key or null
+     */
+    @Nullable
+    public static String getDirectionKey(@NonNull OsmElement e) {
+        for (String key : Tags.DIRECTION_KEYS) {
+            if (e.hasTagKey(key)) {
+                return key;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Convert a cardinal value to degrees
+     * 
+     * @param cardinalValue
+     * @return a value in degrees or Float.NaN
+     */
+    public static Float cardinalToDegrees(String cardinalValue) {
+        switch (cardinalValue) {
+        case "N":
+            return 0f;
+        case "NNE":
+            return 22f;
+        case "NE":
+            return 25f;
+        case "ENE":
+            return 67f;
+        case "E":
+            return 90f;
+        case "ESE":
+            return 112f;
+        case "SE":
+            return 135f;
+        case "SSE":
+            return 157f;
+        case "S":
+            return 180f;
+        case "SSW":
+            return 202f;
+        case "SW":
+            return 225f;
+        case "WSW":
+            return 247f;
+        case "W":
+            return 270f;
+        case "WNW":
+            return 292f;
+        case "NW":
+            return 315f;
+        case "NNW":
+            return 337f;
+        default:
+            return Float.NaN;
+        }
+    }
+
+    /**
+     * Parse a direction string
+     * 
+     * @param directionString the input string
+     * @return a FLoat or Float.NaN
+     */
+    @NonNull
+    public static Float parseDirection(@NonNull String directionString) {
+        try {
+            return Float.parseFloat(directionString);
+        } catch (NumberFormatException nfex) {
+            return Tags.cardinalToDegrees(directionString);
+        }
+    }
 
     public static final String KEY_AREA = "area";
 

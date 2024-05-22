@@ -95,6 +95,7 @@ import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.RelationMemberDescription;
 import de.blau.android.osm.RelationMemberPosition;
+import de.blau.android.osm.RelationUtils;
 import de.blau.android.osm.Result;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.Storage;
@@ -111,7 +112,6 @@ import de.blau.android.tasks.Note;
 import de.blau.android.tasks.Task;
 import de.blau.android.tasks.TransferTasks;
 import de.blau.android.util.ACRAHelper;
-import de.blau.android.util.Coordinates;
 import de.blau.android.util.EditState;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.FileUtil;
@@ -290,7 +290,7 @@ public class Logic {
     /**
      * 
      */
-    private boolean rotatingWay = false;
+    private boolean rotating = false;
 
     /**
      * Current mode.
@@ -606,7 +606,7 @@ public class Logic {
      */
     private void onZoomChanged(@NonNull Map map) {
         DataStyle.updateStrokes(strokeWidth(viewBox.getWidth()));
-        if (rotatingWay) {
+        if (rotating) {
             showCrosshairsForCentroid();
         } else if (mode == Mode.MODE_ALIGN_BACKGROUND) {
             performBackgroundOffset((Main) map.getContext(), map.getZoomLevel(), 0, 0);
@@ -1305,8 +1305,11 @@ public class Logic {
             final Selection currentSelection = selectionStack.getFirst();
             final int selectedWayCount = currentSelection.wayCount();
             final int selectedNodeCount = currentSelection.nodeCount();
-            // single node or task dragging
-            if ((selectedNodeCount == 1 || selectedTask != null) && selectedWayCount == 0) {
+            if (rotating) {
+                startX = x;
+                startY = y;
+            } else if ((selectedNodeCount == 1 || selectedTask != null) && selectedWayCount == 0) { // single node or
+                                                                                                    // task dragging
                 DataStyle currentStyle = DataStyle.getCurrent();
                 float tolerance = largeDragArea ? currentStyle.getLargDragToleranceRadius() : currentStyle.getNodeToleranceValue();
                 GeoPoint point = selectedTask != null ? selectedTask : currentSelection.getNode();
@@ -1318,9 +1321,6 @@ public class Logic {
                         startY = latE7ToY(point.getLat());
                     }
                 }
-            } else if (rotatingWay) {
-                startX = x;
-                startY = y;
             } else {
                 Handle handle = getClickedWayHandleWithDistances(x, y);
                 if (handle != null) {
@@ -1420,20 +1420,17 @@ public class Logic {
     }
 
     /**
-     * Calculates the coordinates for the center of the screen and displays a crosshair there.
+     * Calculates the coordinates for the center of the selected objects and displays a crosshair there.
      */
     public synchronized void showCrosshairsForCentroid() {
-        Way selectedWay = getSelectedWay();
-        if (selectedWay == null) {
-            return;
+        int[] coords = calcCentroid(selectionStack.getFirst().getAll());
+        if (coords.length == 2) {
+            centroidX = lonE7ToX(coords[1]);
+            centroidY = latE7ToY(coords[0]);
+            showCrosshairs(centroidX, centroidY);
+        } else {
+            Log.e(DEBUG_TAG, "Unable to calcualte centroid for selection");
         }
-        Coordinates centroid = Geometry.centroidXY(map.getWidth(), map.getHeight(), map.getViewBox(), selectedWay);
-        if (centroid == null) {
-            return;
-        }
-        centroidX = (float) centroid.x;
-        centroidY = (float) centroid.y;
-        showCrosshairs(centroidX, centroidY);
     }
 
     /**
@@ -1514,7 +1511,7 @@ public class Logic {
                 }
                 translateOnBorderTouch(absoluteX, absoluteY);
                 main.getEasyEditManager().invalidate(); // if we are in an action mode update menubar
-            } else if (rotatingWay) {
+            } else if (rotating) {
                 double aY = startY - centroidY;
                 double aX = startX - centroidX;
                 double bY = absoluteY - centroidY;
@@ -1528,9 +1525,7 @@ public class Logic {
                 double det = aX * bY - aY * bX;
                 int direction = det < 0 ? -1 : 1;
 
-                Way w = currentSelection.getWay();
-                displayAttachedObjectWarning(main, w);
-                getDelegator().rotateWay(w, (float) Math.acos(cosAngle), direction, centroidX, centroidY, map.getWidth(), map.getHeight(), viewBox);
+                rotateSelection(main, currentSelection, (float) Math.acos(cosAngle), direction);
                 startY = absoluteY;
                 startX = absoluteX;
                 main.getEasyEditManager().invalidate(); // if we are in an action mode update menubar
@@ -1546,6 +1541,75 @@ public class Logic {
             ScreenMessage.barError(main, e.getMessage());
         }
         invalidateMap();
+    }
+
+    /**
+     * Rotate selected objects
+     * 
+     * Note that this needs to rotate all the nodes of all objects at once to avoid rotating the same ome multiple
+     * times, special cases exactly one node selected.
+     * 
+     * @param activity the current Activity
+     * @param selection the Selection
+     * @param angle angle in radians that we rotated
+     * @param direction rotation direction (+ == clockwise)
+     */
+    private void rotateSelection(@NonNull FragmentActivity activity, @NonNull final Selection selection, float angle, int direction) {
+        displayAttachedObjectWarning(activity, selection.getAll());
+        List<Node> nodes = new ArrayList<>();
+        List<Way> selectedWays = selection.getWays();
+        if (selectedWays != null) {
+            for (Way w : selectedWays) {
+                nodes.addAll(w.getNodes());
+            }
+        }
+        List<Node> selectedNodes = selection.getNodes();
+        if (selectedNodes != null) {
+            if (selection.count() == 1) {
+                updateDirection((float) Math.toDegrees(angle), direction, selectedNodes.get(0));
+                return;
+            }
+            nodes.addAll(selectedNodes);
+        }
+        List<Relation> relations = selection.getRelations();
+        if (relations != null) {
+            for (Relation r : relations) {
+                if (r.hasTag(Tags.KEY_TYPE, Tags.VALUE_MULTIPOLYGON) && r.allDownloaded()) {
+                    for (RelationMember m : r.getMembers(Way.NAME)) {
+                        OsmElement e = m.getElement();
+                        if (e instanceof Way) {
+                            nodes.addAll(((Way) e).getNodes());
+                        }
+                    }
+                }
+            }
+        }
+        getDelegator().rotateNodes(nodes, angle, direction, centroidX, centroidY, map.getWidth(), map.getHeight(), viewBox);
+    }
+
+    /**
+     * Update the direction tag of a node
+     * 
+     * @param angle the angle to turn in degrees
+     * @param direction rotation direction (+ == clockwise)
+     * @param node the Node
+     */
+    private void updateDirection(float angle, int direction, @NonNull final Node node) {
+        String directionKey = Tags.getDirectionKey(node);
+        if (directionKey != null) {
+            java.util.Map<String, String> tags = new HashMap<>(node.getTags());
+            Float currentAngle = Tags.parseDirection(tags.get(directionKey));
+            if (currentAngle == Float.NaN) {
+                currentAngle = 0f;
+            }
+            angle = (currentAngle + angle * direction) % 360f;
+            if (angle < 0) {
+                angle = angle + 360f;
+            }
+            tags.put(directionKey, Integer.toString((int) angle));
+            getDelegator().setTags(node, tags);
+            map.invalidate();
+        }
     }
 
     /**
@@ -1571,7 +1635,7 @@ public class Logic {
      * @param on new state
      */
     public void setRotationMode(boolean on) {
-        rotatingWay = on;
+        rotating = on;
     }
 
     /**
@@ -1580,7 +1644,7 @@ public class Logic {
      * @return true if we are in rotation mode
      */
     public boolean isRotationMode() {
-        return rotatingWay;
+        return rotating;
     }
 
     /**
@@ -5603,32 +5667,42 @@ public class Logic {
      */
     @NonNull
     private int[] calcCentroid(@NonNull List<OsmElement> elements) {
-        if (elements.isEmpty()) {
-            Log.e(DEBUG_TAG, "empty element list for for centroid");
+        try {
+            if (elements.isEmpty()) {
+                throw new IllegalArgumentException("empty element list for for centroid");
+            }
+            long latE7 = 0;
+            long lonE7 = 0;
+            int count = 0;
+            for (OsmElement e : elements) {
+                if (e instanceof Node) {
+                    latE7 += ((Node) e).getLat();
+                    lonE7 += ((Node) e).getLon();
+                } else if (e instanceof Way) {
+                    // use current centroid of way
+                    int[] centroid = Geometry.centroid(map.getWidth(), map.getHeight(), viewBox, (Way) e);
+                    if (centroid.length != 2) {
+                        throw new IllegalArgumentException("centroid of way " + e.getDescription() + " is null");
+                    }
+                    latE7 += centroid[0];
+                    lonE7 += centroid[1];
+                } else if (e instanceof Relation && e.hasTag(Tags.KEY_TYPE, Tags.VALUE_MULTIPOLYGON)) {
+                    int[] centroid = RelationUtils.calcCentroid((Relation) e, map, viewBox);
+                    latE7 += centroid[0];
+                    lonE7 += centroid[1];
+                } else {
+                    throw new IllegalArgumentException("unknown object type for centroid " + e);
+                }
+                count++;
+            }
+            if (count == 0) {
+                throw new IllegalArgumentException("no valid centroids");
+            }
+            return new int[] { (int) (latE7 / count), (int) (lonE7 / count) };
+        } catch (IllegalArgumentException iaex) {
+            Log.e(DEBUG_TAG, iaex.getMessage());
             return new int[0];
         }
-        long latE7 = 0;
-        long lonE7 = 0;
-        for (OsmElement e : elements) {
-            if (e instanceof Node) {
-                latE7 += ((Node) e).getLat();
-                lonE7 += ((Node) e).getLon();
-            } else if (e instanceof Way) {
-                // use current centroid of way
-                int[] centroid = Geometry.centroid(map.getWidth(), map.getHeight(), viewBox, (Way) e);
-                if (centroid.length != 2) {
-                    Log.e(DEBUG_TAG, "centroid of way " + e.getDescription() + " is null");
-                    return new int[0];
-                }
-                latE7 += centroid[0];
-                lonE7 += centroid[1];
-            } else {
-                Log.e(DEBUG_TAG, "unknown object type for centroid");
-                return new int[0];
-            }
-        }
-        final int size = elements.size();
-        return new int[] { (int) (latE7 / size), (int) (lonE7 / size) };
     }
 
     /**

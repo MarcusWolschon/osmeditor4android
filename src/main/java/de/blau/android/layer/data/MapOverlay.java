@@ -1,5 +1,6 @@
 package de.blau.android.layer.data;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 import static de.blau.android.util.Winding.CLOCKWISE;
 import static de.blau.android.util.Winding.COUNTERCLOCKWISE;
 import static de.blau.android.util.Winding.winding;
@@ -99,7 +100,7 @@ import de.blau.android.views.IMapView;
 public class MapOverlay<O extends OsmElement> extends MapViewLayer
         implements ExtentInterface, ConfigureInterface, LayerInfoInterface, PruneableInterface, UpdateInterface<O> {
 
-    private static final int    TAG_LEN   = Math.min(23, MapOverlay.class.getSimpleName().length());
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, MapOverlay.class.getSimpleName().length());
     private static final String DEBUG_TAG = MapOverlay.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final int THREAD_POOL_SIZE = 2;
@@ -115,7 +116,6 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
     public static final int   DEFAULT_DOWNLOADBOX_LIMIT    = 100;
     public static final int   PAN_AND_ZOOM_LIMIT           = 17;
     private static final int  MP_SIZE_LIMIT                = 1000;  // max size of MP to render as
-                                                                    // MP
 
     /** half the width/height of a node icon in px */
     private final int iconRadius;
@@ -177,6 +177,11 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
      * Stores strings that apply to a certain "thing". This can be e.g. a node or a SortedMap of tags.
      */
     private final WeakHashMap<java.util.Map<String, String>, String> labelCache = new WeakHashMap<>();
+
+    /**
+     * Store direction values in degrees
+     */
+    private final WeakHashMap<java.util.Map<String, String>, Float> directionCache = new WeakHashMap<>();
 
     /**
      * Stores custom icons
@@ -349,7 +354,7 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
     public void onDestroy() {
         Util.shutDownThreadPool(dataThreadPoolExecutor);
         Util.shutDownThreadPool(iconThreadPoolExecutor);
-        clearIconCaches();
+        clearCaches();
         tmpPresets = null;
     }
 
@@ -544,7 +549,7 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
         for (Relation rel : paintRelations) {
             String relType = rel.getTagWithKey(Tags.KEY_TYPE);
             if (Tags.VALUE_MULTIPOLYGON.equals(relType) || Tags.VALUE_BOUNDARY.equals(relType)) {
-                paintMultiPolygon(canvas, viewBox, rel);
+                paintMultiPolygon(canvas, rel);
             }
         }
 
@@ -695,10 +700,9 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
      * Draw a multipolygon
      * 
      * @param canvas the Canvas to draw on
-     * @param viewBox the current ViewBox
      * @param rel the Relation for the multipolygon
      */
-    private void paintMultiPolygon(@NonNull Canvas canvas, @NonNull ViewBox viewBox, @NonNull Relation rel) {
+    private void paintMultiPolygon(@NonNull Canvas canvas, @NonNull Relation rel) {
         FeatureStyle style;
         if (rel.hasProblem(context, validator) != Validator.OK) {
             style = DataStyle.getInternal(DataStyle.PROBLEM_WAY);
@@ -998,6 +1002,7 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
         // style for small label text
         FeatureStyle featureStyleFontSmall = labelTextStyleSmall;
 
+        DataStyle currentStyle = DataStyle.getCurrent();
         // node is selected
         if (tmpDrawingInEditRange && isSelected) {
             featureStyle = nodeFeatureStyleSelected;
@@ -1005,7 +1010,7 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
             featureStyleTagged = nodeFeatureStyleTaggedSelected;
             featureStyleFont = labelTextStyleNormalSelected;
             featureStyleFontSmall = labelTextStyleSmallSelected;
-            DataStyle currentStyle = DataStyle.getCurrent();
+
             if (tmpDrawingSelectedNodes.size() == 1 && tmpDrawingSelectedWays == null && prefs.largeDragArea() && tmpDrawingEditMode.elementsGeomEditiable()) {
                 // don't draw large areas in multi-select mode
                 canvas.drawCircle(x, y, currentStyle.getLargDragToleranceRadius(), nodeDragRadiusPaint);
@@ -1054,6 +1059,15 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
         if (isTagged) {
             boolean noIcon = true;
             if (inNodeIconZoomRange && showIcons) {
+                Float direction = getDirection(node);
+                if (direction != null && !direction.equals(Float.NaN)) {
+                    canvas.save();
+                    canvas.rotate(direction + 90, x, y);
+                    canvas.translate(x - iconRadius, y);
+                    canvas.drawPath(currentStyle.getDirectionArrowPath(), nodeFeatureStyle.getPaint());
+                    canvas.restore();
+                }
+
                 noIcon = tmpPresets == null || !paintNodeIcon(node, canvas, x, y, isSelected || hasProblem ? featureStyleTagged : null);
                 if (noIcon) {
                     String houseNumber = node.getTagWithKey(Tags.KEY_ADDR_HOUSENUMBER);
@@ -1094,6 +1108,28 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
                 canvas.drawPoint(x, y, paint);
             }
         }
+    }
+
+    /**
+     * Get the value of any direction (like) tag
+     * 
+     * @param node the Node
+     * @return the direction as a float if found, otherwise Float.NaN
+     */
+    @NonNull
+    private Float getDirection(@NonNull final Node node) {
+        Float direction = node.getFromCache(directionCache);
+        if (direction == null) {
+            direction = Float.NaN;
+            String key = Tags.getDirectionKey(node);
+            if (key != null) {
+                direction = Tags.parseDirection(node.getTagWithKey(key));
+            }
+            synchronized (directionCache) {
+                node.addToCache(directionCache, direction);
+            }
+        }
+        return direction;
     }
 
     /**
@@ -1275,9 +1311,9 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
     }
 
     /**
-     * Remove everything from the iconCache
+     * Remove everything from all caches
      */
-    public void clearIconCaches() {
+    public void clearCaches() {
         synchronized (iconCache) {
             iconCache.clear();
         }
@@ -1289,6 +1325,9 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
         }
         synchronized (customIconCache) {
             customIconCache.clear();
+        }
+        synchronized (directionCache) {
+            directionCache.clear();
         }
     }
 

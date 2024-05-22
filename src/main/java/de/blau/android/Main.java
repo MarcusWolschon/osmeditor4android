@@ -38,8 +38,6 @@ import android.content.res.Configuration;
 import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.location.Location;
 import android.location.LocationManager;
@@ -161,6 +159,7 @@ import de.blau.android.resources.TileLayerDatabase;
 import de.blau.android.resources.TileLayerDatabaseView;
 import de.blau.android.resources.TileLayerSource;
 import de.blau.android.search.Search;
+import de.blau.android.sensors.CompassEventListener;
 import de.blau.android.services.TrackerService;
 import de.blau.android.services.TrackerService.TrackerBinder;
 import de.blau.android.services.TrackerService.TrackerLocationListener;
@@ -290,77 +289,6 @@ public class Main extends FullScreenAppCompatActivity
 
     private ConnectivityChangedReceiver connectivityChangedReceiver;
 
-    /** Objects to handle showing device orientation. */
-    private SensorManager sensorManager;
-    @SuppressWarnings("unused")
-    private Sensor        magnetometer;
-    @SuppressWarnings("unused")
-    private Sensor        accelerometer;
-    private Sensor        rotation;
-
-    /**
-     * @see <a href=
-     *      "https://web.archive.org/web/20110415003722/http://www.codingforandroid.com/2011/01/using-orientation-sensors-simple.html">Using
-     *      orientation sensors: Simple Compass sample</a>
-     * @see <a href="https://www.deviantdev.com/journal/android-compass-azimuth-calculating">Android: Compass
-     *      Implementation - Calculating the Azimuth</a>
-     */
-    private final SensorEventListener sensorListener = new SensorEventListener() {
-        float   lastAzimut = -9999;
-        @SuppressWarnings("unused")
-        float[] acceleration;
-        @SuppressWarnings("unused")
-        float[] geomagnetic;
-        float[] truncatedRotationVector;
-
-        @Override
-        public void onAccuracyChanged(Sensor sensor, int accuracy) {
-            // unused
-        }
-
-        @Override
-        public void onSensorChanged(SensorEvent event) {
-            float[] orientation = new float[3];
-            float[] rotationMatrix = new float[9];
-            if (event.sensor.getType() == Sensor.TYPE_ROTATION_VECTOR) {
-                if (event.values.length > 4) {
-                    // See
-                    // https://groups.google.com/forum/#!topic/android-developers/U3N9eL5BcJk
-                    // for more information on this
-                    //
-                    // On some Samsung devices
-                    // SensorManager.getRotationMatrixFromVector
-                    // appears to throw an exception if rotation vector has length > 4.
-                    // For the purposes of this class the first 4 values of the
-                    // rotation vector are sufficient (see crbug.com/335298 for details).
-                    if (truncatedRotationVector == null) {
-                        truncatedRotationVector = new float[4];
-                    }
-                    System.arraycopy(event.values, 0, truncatedRotationVector, 0, 4);
-                    SensorManager.getRotationMatrixFromVector(rotationMatrix, truncatedRotationVector);
-                } else {
-                    // calculate the rotation matrix
-                    SensorManager.getRotationMatrixFromVector(rotationMatrix, event.values);
-                }
-            }
-            SensorManager.getOrientation(rotationMatrix, orientation);
-            float azimut = (int) (Math.toDegrees(SensorManager.getOrientation(rotationMatrix, orientation)[0]) + 360) % 360;
-            map.setOrientation(azimut);
-            // Repaint map only if orientation changed by at least MIN_AZIMUT_CHANGE
-            // degrees since last repaint
-            if (Math.abs(azimut - lastAzimut) > MIN_AZIMUT_CHANGE) {
-                ViewBox viewBox = map.getViewBox();
-                Location current = map.getLocation();
-                // only invalidate if GPS position is or was in the ViewBox
-                if (current == null || lastLocation == null || viewBox.contains(current.getLongitude(), current.getLatitude())
-                        || viewBox.contains(lastLocation.getLongitude(), lastLocation.getLatitude())) {
-                    lastAzimut = azimut;
-                    map.invalidate();
-                }
-            }
-        }
-    };
-
     /**
      * our map layout
      */
@@ -372,10 +300,11 @@ public class Main extends FullScreenAppCompatActivity
     private VersionedGestureDetector           mDetector;
     /** Onscreen map zoom controls. */
     private de.blau.android.views.ZoomControls zoomControls;
+
     /**
      * Our user-preferences.
      */
-    private Preferences                        prefs;
+    private Preferences prefs;
 
     /**
      * The manager for the EasyEdit mode
@@ -451,6 +380,27 @@ public class Main extends FullScreenAppCompatActivity
     private ImageryAlignmentActionModeCallback imageryAlignmentActionModeCallback = null;
 
     private Location lastLocation = null;
+
+    /** Objects to handle showing device orientation. */
+    private SensorManager sensorManager;
+    private Sensor        rotation;
+    private float         lastAzimut = -9999;
+
+    private final CompassEventListener compassEventListener = new CompassEventListener((float azimut) -> {
+        map.setOrientation(azimut);
+        // Repaint map only if orientation changed by at least MIN_AZIMUT_CHANGE
+        // degrees since last repaint
+        if (Math.abs(azimut - lastAzimut) > MIN_AZIMUT_CHANGE) {
+            ViewBox viewBox = map.getViewBox();
+            Location current = map.getLocation();
+            // only invalidate if GPS position is or was in the ViewBox
+            if (current == null || lastLocation == null || viewBox.contains(current.getLongitude(), current.getLatitude())
+                    || viewBox.contains(lastLocation.getLongitude(), lastLocation.getLatitude())) {
+                lastAzimut = azimut;
+                map.invalidate();
+            }
+        }
+    });
 
     /**
      * Status of permissions
@@ -3056,7 +3006,7 @@ public class Main extends FullScreenAppCompatActivity
             return;
         }
         if (sensorManager != null) {
-            sensorManager.registerListener(sensorListener, rotation, SensorManager.SENSOR_DELAY_UI);
+            sensorManager.registerListener(compassEventListener, rotation, SensorManager.SENSOR_DELAY_UI);
         }
         wantLocationUpdates = true;
         if (getTracker() != null) {
@@ -3072,7 +3022,7 @@ public class Main extends FullScreenAppCompatActivity
             return;
         }
         if (sensorManager != null) {
-            sensorManager.unregisterListener(sensorListener);
+            sensorManager.unregisterListener(compassEventListener);
         }
         wantLocationUpdates = false;
         if (getTracker() != null) {

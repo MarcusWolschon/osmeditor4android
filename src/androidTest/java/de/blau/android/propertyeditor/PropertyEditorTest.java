@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.TreeMap;
 import java.util.concurrent.CountDownLatch;
@@ -180,8 +181,6 @@ public class PropertyEditorTest {
         Logic logic = App.getLogic();
         Map map = main.getMap();
         logic.setZoom(map, 20);
-        float tolerance = DataStyle.getCurrent().getWayToleranceValue();
-        System.out.println("Tolerance " + tolerance);
 
         // create a relation for testing
         Relation r = logic.createRelation(main, Tags.VALUE_ROUTE, new ArrayList<>());
@@ -229,6 +228,142 @@ public class PropertyEditorTest {
         assertNotNull(parents);
         assertEquals(1, parents.size());
         assertEquals(r, parents.get(0));
+    }
+    
+    /**
+     * Add set a direction value on a new node
+     */
+    @Test
+    public void nodeWithDirection1() {
+        Logic logic = App.getLogic();
+        Map map = main.getMap();
+        logic.setZoom(map, 20);
+
+        logic.setSelectedWay(null);
+        logic.setSelectedNode(null);
+        logic.setSelectedRelation(null);
+        try {
+            logic.performAdd(main, 1000.0f, 0.0f);
+        } catch (OsmIllegalOperationException e1) {
+            fail(e1.getMessage());
+        }
+
+        Node n = logic.getSelectedNode();
+        assertNotNull(n);
+
+        main.performTagEdit(n, null, false, false);
+        waitForPropertyEditor();
+        assertTrue(TestUtils.clickText(device, true, main.getString(R.string.tag_menu_preset), false, false));
+        boolean found = TestUtils.clickText(device, true, getTranslatedPresetGroupName(main, "Highways"), true, false);
+        assertTrue(found);
+        found = TestUtils.clickText(device, true, getTranslatedPresetGroupName(main, "Waypoints"), true, false);
+        assertTrue(found);
+        found = TestUtils.clickText(device, true, getTranslatedPresetItemName(main, "Traffic sign"), true, true);
+        assertTrue(found);
+        UiObject2 direction = null;
+        try {
+            direction = getField(device, "For traffic direction", 1);
+        } catch (UiObjectNotFoundException e) {
+            fail();
+        }
+        assertNotNull(direction);
+        assertEquals("Type or tap for values", direction.getText());     
+        direction.clickAndWait(Until.newWindow(), 2000);
+        TestUtils.clickText(device, true, main.getString(R.string.save), true, false);
+        TestUtils.clickHome(device, true);
+        try {
+            assertTrue(Integer.parseInt(direction.getText()) >= 0);
+        } catch (NumberFormatException nfex) {
+            fail(nfex.getMessage());
+        }
+    }
+    
+    /**
+     * Add set a direction value on a new node
+     */
+    @Test
+    public void nodeWithDirection2() {
+        Logic logic = App.getLogic();
+        Map map = main.getMap();
+        logic.setZoom(map, 20);
+
+        logic.setSelectedWay(null);
+        logic.setSelectedNode(null);
+        logic.setSelectedRelation(null);
+        try {
+            logic.performAdd(main, 1000.0f, 0.0f);
+        } catch (OsmIllegalOperationException e1) {
+            fail(e1.getMessage());
+        }
+
+        Node n = logic.getSelectedNode();
+        assertNotNull(n);
+
+        main.performTagEdit(n, null, false, false);
+        waitForPropertyEditor();
+        assertTrue(TestUtils.clickText(device, true, main.getString(R.string.tag_menu_preset), false, false));
+        boolean found = TestUtils.clickText(device, true, getTranslatedPresetGroupName(main, "Highways"), true, false);
+        assertTrue(found);
+        found = TestUtils.clickText(device, true, getTranslatedPresetGroupName(main, "Waypoints"), true, false);
+        assertTrue(found);
+        found = TestUtils.clickText(device, true, getTranslatedPresetItemName(main, "Traffic sign"), true, true);
+        assertTrue(found);
+        UiObject2 direction = null;
+        try {
+            direction = getField(device, "For traffic direction", 1);
+        } catch (UiObjectNotFoundException e) {
+            fail();
+        }
+        assertNotNull(direction);
+        assertEquals("Type or tap for values", direction.getText());     
+        direction.clickAndWait(Until.newWindow(), 2000);
+        TestUtils.clickText(device, true, "Forward", false, false);
+        TestUtils.clickText(device, true, main.getString(R.string.save), true, false);
+        TestUtils.clickHome(device, true);
+        assertEquals("forward", direction.getText());
+    }
+
+    @Test
+    public void nodeWithDirection3() {
+        Logic logic = App.getLogic();
+        Map map = main.getMap();
+        logic.setZoom(map, 20);
+
+        logic.setSelectedWay(null);
+        logic.setSelectedNode(null);
+        logic.setSelectedRelation(null);
+        try {
+            logic.performAdd(main, 1000.0f, 0.0f);
+        } catch (OsmIllegalOperationException e1) {
+            fail(e1.getMessage());
+        }
+
+        Node n = logic.getSelectedNode();
+        assertNotNull(n);
+        java.util.Map<String,String> tags = new HashMap<>();
+        tags.put("traffic_sign", "stop");
+        tags.put("direction", "forward");
+        logic.setTags(main, n, tags);
+        
+        main.performTagEdit(n, null, false, false);
+        waitForPropertyEditor();
+        UiObject2 direction = null;
+        try {
+            direction = getField(device, "For traffic direction", 1);
+        } catch (UiObjectNotFoundException e) {
+            fail();
+        }
+        assertNotNull(direction);
+        assertEquals("forward", direction.getText());     
+        direction.clickAndWait(Until.newWindow(), 2000);
+        TestUtils.clickText(device, true, "Forward", false, false);
+        TestUtils.clickText(device, true, main.getString(R.string.save), true, false);
+        TestUtils.clickHome(device, true);
+        try {
+            assertTrue(Integer.parseInt(direction.getText()) >= 0);
+        } catch (NumberFormatException nfex) {
+            fail(nfex.getMessage());
+        }
     }
 
     /**
@@ -292,7 +427,6 @@ public class PropertyEditorTest {
         }
         TestUtils.clickHome(device, true);
         assertTrue(n.hasTag("key", "value"));
-
     }
 
     /**

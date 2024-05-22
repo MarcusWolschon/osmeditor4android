@@ -542,6 +542,8 @@
     <string name="undo_location_text">The location that will be affected by the undo is not in view.</string>
     <string name="undo_location_undo_anyway">Undo anyway</string>
     <string name="undo_location_zoom">Zoom to location, then undo</string>
+    <!--  Value widget dialogs  -->
+    <string name="compass_widget_usage">Deselect any value above and then point your device in the direction you want to record, or drag the display to the value you want</string>
     <!--  Feedback activity  -->
     <string name="feedback_with_displayname">Send with your OpenStreetMap display name</string>
     <string name="feedback_displayname_hint">OpenStreetMap display name not retrieved yet</string>
@@ -788,6 +790,8 @@
     <string name="toast_error_loading_egm">Error loading EGM %1$s</string>
     <string name="toast_querying_wms_server_failed">Querying WMS server failed: %1$s</string>
     <string name="toast_note_not_found">Note #%1$d not found</string>
+    <string name="toast_pressure_calibration">New height %1$fm\nCurrent pressure  %2$fhPa\nReference pressure %3$fhPa"</string>
+    <string name="toast_no_compass">Device has no compass!</string>
     <!-- Error messages -->
     <string name="error_mapsplit_missing_zoom">MapSplit sources must have min and max zoom set</string>
     <string name="error_pbf_no_version">Version information missing in PBF file</string>
@@ -1175,7 +1179,7 @@
         <item quantity="one">1 object</item>
         <item quantity="other">%1$d objects</item>
     </plurals>
-    <string name="actionmode_rotateway">Rotate way</string>
+    <string name="actionmode_rotate">Rotate</string>
     <string name="menu_snap">Snap</string>
     <string name="menu_follow_way">Follow way</string>
     <string name="select_follow_way">Select way to follow</string>
@@ -1571,7 +1575,7 @@
     <string name="undo_action_move_tags">Move tags to Relation</string>
     <string name="undo_action_cut">Cut</string>
     <string name="undo_action_paste">Paste</string>
-    <string name="undo_action_rotateway">Way rotation</string>
+    <string name="undo_action_rotate">Rotation</string>
     <string name="undo_action_orthogonalize">Way squaring</string>
     <string name="undo_action_circulize">Arrange in circle</string>
     <string name="undo_action_fix_conflict">Conflict resolution</string>

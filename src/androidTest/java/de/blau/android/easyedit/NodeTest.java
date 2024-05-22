@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.junit.After;
@@ -28,6 +29,7 @@ import de.blau.android.TestUtils;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.StorageDelegator;
+import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
@@ -91,7 +93,7 @@ public class NodeTest {
         Node node = (Node) App.getDelegator().getOsmElement(Node.NAME, 3465444349L);
         assertNotNull(node);
         TestUtils.clickAtCoordinates(device, map, node.getLon(), node.getLat(), true);
-        TestUtils.clickAwayTip(device, context); 
+        TestUtils.clickAwayTip(device, context);
         assertTrue(TestUtils.clickTextContains(device, "Toilets", true, 5000));
         node = App.getLogic().getSelectedNode();
         assertNotNull(node);
@@ -121,7 +123,7 @@ public class NodeTest {
     @Test
     public void dragNode() {
         TestUtils.clickAtCoordinates(device, map, 8.38782, 47.390339, true);
-        TestUtils.clickAwayTip(device, context); 
+        TestUtils.clickAwayTip(device, context);
         assertTrue(TestUtils.clickTextContains(device, "Toilets", true, 5000));
         Node node = App.getLogic().getSelectedNode();
         assertNotNull(node);
@@ -164,7 +166,7 @@ public class NodeTest {
         assertEquals(OsmElement.STATE_UNCHANGED, unjoinedWay.getState());
 
         TestUtils.clickAtCoordinates(device, map, 8.3874964, 47.3884769, false);
-        TestUtils.clickAwayTip(device, context); 
+        TestUtils.clickAwayTip(device, context);
         assertTrue(TestUtils.clickTextContains(device, false, " #633468419", false)); // the first node in the list
         assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.menu_merge), false, true));
 
@@ -192,7 +194,7 @@ public class NodeTest {
         assertEquals(apiNodeCount + 3, delegator.getApiNodeCount());
 
         TestUtils.clickAtCoordinates(device, map, 8.3866386, 47.3904394, false);
-        TestUtils.clickAwayTip(device, context); 
+        TestUtils.clickAwayTip(device, context);
         assertTrue(TestUtils.clickTextContains(device, false, " #-2221", false)); // the first node in the list
         assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.menu_merge), false, true));
 
@@ -240,5 +242,34 @@ public class NodeTest {
         assertTrue(TestUtils.clickText(device, false, "Kirchstrasse", true, false));
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_createpath)));
         TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
+    }
+
+    /**
+     * Select node, set direction tag, rotate
+     */
+    // @SdkSuppress(minSdkVersion = 26)
+    @Test
+    public void rotate() {
+        TestUtils.zoomToLevel(device, main, 21);
+        TestUtils.clickAtCoordinates(device, map, 8.3881577, 47.3886924, true);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
+        Node node = App.getLogic().getSelectedNode();
+        assertNotNull(node);
+        java.util.Map<String, String> tags = new HashMap<>();
+        tags.put("traffic_sign", "stop");
+        tags.put(Tags.KEY_DIRECTION, "90");
+        App.getLogic().setTags(main, node, tags);
+        main.getEasyEditManager().invalidate();
+        if (!TestUtils.clickMenuButton(device, context.getString(R.string.menu_rotate), false, false)) {
+            TestUtils.clickOverflowButton(device);
+            TestUtils.clickText(device, false, context.getString(R.string.menu_rotate), false, false);
+        }
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_rotate)));
+        TestUtils.drag(device, map, 8.3882867, 47.38887072, 8.3882853, 47.3886022, true, 100);
+
+        TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
+
+        assertEquals(205, Integer.parseInt(node.getTagWithKey(Tags.KEY_DIRECTION)), 5);
     }
 }

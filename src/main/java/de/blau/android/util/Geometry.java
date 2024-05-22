@@ -3,6 +3,7 @@ package de.blau.android.util;
 import static de.blau.android.util.Winding.COLINEAR;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 import android.util.Log;
@@ -14,6 +15,7 @@ import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
+import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
 import de.blau.android.resources.DataStyle;
@@ -68,6 +70,48 @@ public final class Geometry {
         }
         Coordinates[] coords = Coordinates.nodeListToCoordinateArray(w, h, v, way.getNodes());
         return centroidXY(coords, false);
+    }
+
+    /**
+     * Calculate the centroid of a list of RelationMembers arranged in a ring
+     * 
+     * @param v current display bounding box
+     * @param w screen width
+     * @param h screen height
+     * @param ring list of RelationMembers
+     * @return WS84*17E coordinates [lat/lon] of the centroid or an empty array if they could not be determined
+     */
+    @NonNull
+    public static int[] centroid(int w, int h, @NonNull ViewBox v, @NonNull final List<RelationMember> ring) {
+        Coordinates c = centroidXY(w, h, v, ring);
+        if (c == null) {
+            return new int[0];
+        }
+        int lat = GeoMath.yToLatE7(h, w, v, (float) c.y);
+        int lon = GeoMath.xToLonE7(w, v, (float) c.x);
+        return new int[] { lat, lon };
+    }
+
+    /**
+     * Calculate the centroid of a list of RelationMembers arranged in a ring
+     * 
+     * @param w screen width
+     * @param h screen height
+     * @param v current display bounding box
+     * @param ring list of RelationMembers
+     * @return screen coordinates of centroid, null if the ring has problems return the coordinates of the first node
+     */
+    @Nullable
+    public static Coordinates centroidXY(int w, int h, @NonNull ViewBox v, @NonNull final List<RelationMember> ring) {
+        LinkedHashSet<Node> nodes = new LinkedHashSet<>();
+        for (RelationMember rm : ring) {
+            OsmElement e = rm.getElement();
+            if (e instanceof Way) {
+                nodes.addAll(((Way) e).getNodes());
+            }
+        }
+        Coordinates[] coords = Coordinates.nodeListToCoordinateArray(w, h, v, new ArrayList<>(nodes));
+        return centroidXY(coords, true);
     }
 
     /**

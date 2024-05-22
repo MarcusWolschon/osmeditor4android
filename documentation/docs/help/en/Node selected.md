@@ -53,6 +53,10 @@ The above might seem very confusing but in the end the new mode is in the origin
 
 Start creating a turn restriction with this node as "via" member. This action is only available if the node in question is a potential via member, that is it is a member of at least two ways that have a "highway" tag. Ways will be split automatically during the process.
 
+### ![Rotate](../images/ic_menu_rotate.png) Rotate
+
+If the node has a direction tag with a degree value, rotate the node by dragging the display roughly in a circle.
+
 ### ![Copy](../images/ic_menu_copy_holo_light.png) Copy
 
 Copy the node to the internal copy and paste buffer.

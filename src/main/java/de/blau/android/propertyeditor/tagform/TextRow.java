@@ -1,5 +1,7 @@
 package de.blau.android.propertyeditor.tagform;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.util.List;
 import java.util.Map;
 
@@ -34,6 +36,7 @@ import de.blau.android.presets.PresetTextField;
 import de.blau.android.presets.ValueType;
 import de.blau.android.propertyeditor.InputTypeUtil;
 import de.blau.android.propertyeditor.SanitizeTextWatcher;
+import de.blau.android.propertyeditor.TagChanged;
 import de.blau.android.propertyeditor.TagEditorFragment;
 import de.blau.android.propertyeditor.tagform.TagFormFragment.EditableLayout;
 import de.blau.android.util.LocaleUtils;
@@ -48,9 +51,10 @@ import de.blau.android.views.CustomAutoCompleteTextView;
  * @author simon
  *
  */
-public class TextRow extends LinearLayout implements KeyValueRow {
+public class TextRow extends LinearLayout implements KeyValueRow, TagChanged {
 
-    protected static final String DEBUG_TAG = TextRow.class.getSimpleName().substring(0, Math.min(23, TextRow.class.getSimpleName().length()));
+    private static final int      TAG_LEN   = Math.min(LOG_TAG_LEN, TextRow.class.getSimpleName().length());
+    protected static final String DEBUG_TAG = TextRow.class.getSimpleName().substring(0, TAG_LEN);
 
     public static final int INPUTTYPE_CAPS_MASK = InputType.TYPE_TEXT_FLAG_CAP_SENTENCES | InputType.TYPE_TEXT_FLAG_CAP_WORDS;
 
@@ -198,7 +202,6 @@ public class TextRow extends LinearLayout implements KeyValueRow {
         ourValueView.setAdapter(new ArrayAdapter<>(caller.getActivity(), R.layout.autocomplete_row, new String[0]));
 
         if (field instanceof PresetComboField && ((PresetComboField) field).isMultiSelect() && preset != null) {
-            // FIXME this should be somewhere better since it creates a non obvious side effect
             ourValueView.setTokenizer(new CustomAutoCompleteTextView.SingleCharTokenizer(preset.getDelimiter(key)));
         }
         setHint(field, ourValueView);
@@ -213,6 +216,16 @@ public class TextRow extends LinearLayout implements KeyValueRow {
                         caller.getValueAutocompleteAdapter(key, values, preset, null, allTags, true, false, -1), row, valueType, imperial);
                 dialog.setOnDismissListener(d -> finalView.setEnabled(true));
                 dialog.show();
+                return;
+            });
+        }
+        if (Tags.DIRECTION_KEYS.contains(key)) {
+            ourValueView.setFocusable(false);
+            ourValueView.setFocusableInTouchMode(false);
+            ourValueView.setOnClickListener(v -> {
+                final View finalView = v;
+                finalView.setEnabled(false); // debounce
+                DirectionFragment.show(caller, hint != null ? hint : key, key, ((TextView) v).getText().toString(), values, preset, allTags);
                 return;
             });
         }
@@ -325,6 +338,7 @@ public class TextRow extends LinearLayout implements KeyValueRow {
      * 
      * @return an AlertDialog
      */
+    @NonNull
     private static AlertDialog buildMeasureDialog(@NonNull final TagFormFragment caller, @NonNull String hint, @NonNull String key,
             @Nullable ArrayAdapter<?> adapter, @NonNull final TextRow row, @NonNull final ValueType valueType, boolean imperial) {
         String value = row.getValue();
@@ -382,6 +396,14 @@ public class TextRow extends LinearLayout implements KeyValueRow {
     protected static void setAdapter(@NonNull final AutoCompleteTextView textView, @Nullable ArrayAdapter<?> adapter) {
         if (adapter != null && !adapter.isEmpty()) {
             textView.setAdapter(adapter);
+        }
+    }
+
+    @Override
+    public void changed(String key, String value) {
+        if (key.equals(this.getKey())) {
+            setOrReplaceText(valueView, value);
+            valueView.setEnabled(true);
         }
     }
 }

@@ -1,5 +1,7 @@
 package de.blau.android.easyedit;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,17 +17,22 @@ import de.blau.android.dialogs.EmptyRelation;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
+import de.blau.android.osm.Tags;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
 public class RelationSelectionActionModeCallback extends ElementSelectionActionModeCallback {
-    private static final String DEBUG_TAG = RelationSelectionActionModeCallback.class.getSimpleName().substring(0, Math.min(23, RelationSelectionActionModeCallback.class.getSimpleName().length()));
+
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, RelationSelectionActionModeCallback.class.getSimpleName().length());
+    private static final String DEBUG_TAG = RelationSelectionActionModeCallback.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final int MENUITEM_SELECT_RELATION_MEMBERS = LAST_REGULAR_MENUITEM + 1;
+    private static final int MENUITEM_ROTATE                  = LAST_REGULAR_MENUITEM + 2;
 
     private MenuItem selectMembersItem;
+    private MenuItem rotateItem;
 
     /**
      * Construct a new ActionModeCallback
@@ -55,6 +62,8 @@ public class RelationSelectionActionModeCallback extends ElementSelectionActionM
         selectMembersItem = menu.add(Menu.NONE, MENUITEM_SELECT_RELATION_MEMBERS, Menu.NONE, R.string.menu_select_relation_members)
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_relation_members));
 
+        rotateItem = menu.add(Menu.NONE, MENUITEM_ROTATE, Menu.NONE, R.string.menu_rotate).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_rotate));
+
         return true;
     }
 
@@ -83,6 +92,9 @@ public class RelationSelectionActionModeCallback extends ElementSelectionActionM
 
         updated |= setItemVisibility(((Relation) element).getMembers() != null, selectMembersItem, false);
 
+        updated |= setItemVisibility(((Relation) element).hasTag(Tags.KEY_TYPE, Tags.VALUE_MULTIPOLYGON) && ((Relation) element).allDownloaded(), rotateItem,
+                false);
+
         if (updated) {
             arrangeMenu(menu);
         }
@@ -94,23 +106,11 @@ public class RelationSelectionActionModeCallback extends ElementSelectionActionM
         if (!super.onActionItemClicked(mode, item)) {
             switch (item.getItemId()) {
             case MENUITEM_SELECT_RELATION_MEMBERS:
-                List<OsmElement> selection = new ArrayList<>();
-                List<RelationMember> members = ((Relation) element).getMembers();
-                if (members != null) {
-                    for (RelationMember rm : members) {
-                        OsmElement e = rm.getElement();
-                        if (e != null) {
-                            selection.add(e);
-                        }
-                    }
-                }
-                if (!selection.isEmpty()) {
-                    deselect = false;
-                    main.startSupportActionMode(new ExtendSelectionActionModeCallback(manager, selection));
-                    if (members != null && members.size() != selection.size()) {
-                        ScreenMessage.toastTopWarning(main, R.string.toast_members_not_downloaded);
-                    }
-                }
+                selectMembers();
+                break;
+            case MENUITEM_ROTATE:
+                deselect = false;
+                main.startSupportActionMode(new RotationActionModeCallback(manager));
                 break;
             case MENUITEM_SHARE_POSITION:
                 ViewBox box = new ViewBox(element.getBounds());
@@ -122,6 +122,29 @@ public class RelationSelectionActionModeCallback extends ElementSelectionActionM
             }
         }
         return true;
+    }
+
+    /**
+     * Select the relation members and start the multi-select action mode
+     */
+    private void selectMembers() {
+        List<OsmElement> selection = new ArrayList<>();
+        List<RelationMember> members = ((Relation) element).getMembers();
+        if (members != null) {
+            for (RelationMember rm : members) {
+                OsmElement e = rm.getElement();
+                if (e != null) {
+                    selection.add(e);
+                }
+            }
+        }
+        if (!selection.isEmpty()) {
+            deselect = false;
+            main.startSupportActionMode(new ExtendSelectionActionModeCallback(manager, selection));
+            if (members != null && members.size() != selection.size()) {
+                ScreenMessage.toastTopWarning(main, R.string.toast_members_not_downloaded);
+            }
+        }
     }
 
     @Override

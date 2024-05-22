@@ -653,6 +653,7 @@ dependencies {
     implementation 'io.noties.markwon:core:4.6.2'
     implementation 'com.github.zedlabs:ElementHistoryDialog:1.0.8'
     implementation 'com.caverock:androidsvg-aar:1.4'
+    implementation 'com.github.kix2902:CompassView:master-SNAPSHOT'
     
     implementation "ch.poole:PoParser:0.8.0"
     implementation "ch.poole:OpeningHoursParser:0.28.2"

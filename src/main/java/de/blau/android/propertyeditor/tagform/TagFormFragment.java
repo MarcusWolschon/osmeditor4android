@@ -987,7 +987,8 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         //
         ValueType valueType = field.getValueType();
         if (field instanceof PresetTextField || key.startsWith(Tags.KEY_ADDR_BASE)
-                || (isComboField && ((PresetComboField) field).isEditable() && ValueType.OPENING_HOURS_MIXED != valueType) || Tags.isConditional(key)) {
+                || (isComboField && ((PresetComboField) field).isEditable() && ValueType.OPENING_HOURS_MIXED != valueType) || Tags.isConditional(key)
+                || Tags.DIRECTION_KEYS.contains(key)) {
             if (Tags.isConditional(key)) {
                 rowLayout.addView(getConditionalRestrictionDialogRow(rowLayout, preset, hint, key, value, values, allTags));
                 return;
@@ -1452,6 +1453,41 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
      */
     void updateSingleValue(@NonNull final String key, @NonNull final String value) {
         tagListener.updateSingleValue(key, value);
+        iterateOverRows((View row) -> {
+            if (row instanceof TagChanged) {
+                ((TagChanged) row).changed(key, value);
+            }
+        });
+    }
+
+    /**
+     * Enable a specific text row
+     * 
+     * @param key the key of the row
+     */
+    void enableTextRow(@NonNull final String key) {
+        iterateOverRows((View row) -> {
+            if (row instanceof TextRow && key.equals(((TextRow) row).getKey())) {
+                ((TextRow) row).getValueView().setEnabled(true);
+            }
+        });
+    }
+
+    private interface ProcessRow {
+        /**
+         * Perform an action on a row
+         * 
+         * @param row the row view
+         */
+        void process(@NonNull View row);
+    }
+
+    /**
+     * Iterate over all the rows and perform an action on them
+     * 
+     * @param processRow the callback to use
+     */
+    private void iterateOverRows(@NonNull ProcessRow processRow) {
         LinearLayout ll = (LinearLayout) getView().findViewById(R.id.form_container_layout);
         if (ll != null) {
             int childCount = ll.getChildCount();
@@ -1460,10 +1496,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 if (v instanceof EditableLayout) {
                     int editableChildCount = ((LinearLayout) v).getChildCount();
                     for (int j = 0; j < editableChildCount; j++) {
-                        View w = ((LinearLayout) v).getChildAt(j);
-                        if (w instanceof TagChanged) {
-                            ((TagChanged) w).changed(key, value);
-                        }
+                        processRow.process(((LinearLayout) v).getChildAt(j));
                     }
                 }
             }

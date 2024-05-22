@@ -12,6 +12,10 @@ Tapping the icon once will undo the last operation. A long press will display a 
 
 Starts the property editor on the current selection.
 
+### ![Rotate](../images/ic_menu_rotate.png) Rotate
+
+Rotate the selection around its centroid by dragging the display roughly in a circle. The centroid position is marked with a cross.
+
 ### ![Copy](../images/ic_menu_copy_holo_light.png) Copy
 
 Copy the selected objects  to the internal copy and paste buffer.
