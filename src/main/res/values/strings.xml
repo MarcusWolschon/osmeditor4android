@@ -543,7 +543,9 @@
     <string name="undo_location_undo_anyway">Undo anyway</string>
     <string name="undo_location_zoom">Zoom to location, then undo</string>
     <!--  Value widget dialogs  -->
-    <string name="compass_widget_usage">Deselect any value above and then point your device in the direction you want to record, or drag the display to the value you want</string>
+    <string name="compass_widget_usage_with_additional">Deselect any value above and then point your device in the direction you want to record, or drag the display to the value you want</string>
+    <string name="compass_widget_usage">Point your device in the direction you want to record, or drag the display to the value you want</string>
+    <string name="integer_widget_usage_with_additional">Deselect any value above to use the number picker</string>
     <!--  Feedback activity  -->
     <string name="feedback_with_displayname">Send with your OpenStreetMap display name</string>
     <string name="feedback_displayname_hint">OpenStreetMap display name not retrieved yet</string>
