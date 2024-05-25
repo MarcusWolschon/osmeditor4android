@@ -229,7 +229,7 @@ public class PropertyEditorTest {
         assertEquals(1, parents.size());
         assertEquals(r, parents.get(0));
     }
-    
+
     /**
      * Add set a direction value on a new node
      */
@@ -267,7 +267,7 @@ public class PropertyEditorTest {
             fail();
         }
         assertNotNull(direction);
-        assertEquals("Type or tap for values", direction.getText());     
+        assertEquals("Type or tap for values", direction.getText());
         direction.clickAndWait(Until.newWindow(), 2000);
         TestUtils.clickText(device, true, main.getString(R.string.save), true, false);
         TestUtils.clickHome(device, true);
@@ -277,7 +277,7 @@ public class PropertyEditorTest {
             fail(nfex.getMessage());
         }
     }
-    
+
     /**
      * Add set a direction value on a new node
      */
@@ -315,7 +315,7 @@ public class PropertyEditorTest {
             fail();
         }
         assertNotNull(direction);
-        assertEquals("Type or tap for values", direction.getText());     
+        assertEquals("Type or tap for values", direction.getText());
         direction.clickAndWait(Until.newWindow(), 2000);
         TestUtils.clickText(device, true, "Forward", false, false);
         TestUtils.clickText(device, true, main.getString(R.string.save), true, false);
@@ -340,11 +340,11 @@ public class PropertyEditorTest {
 
         Node n = logic.getSelectedNode();
         assertNotNull(n);
-        java.util.Map<String,String> tags = new HashMap<>();
+        java.util.Map<String, String> tags = new HashMap<>();
         tags.put("traffic_sign", "stop");
         tags.put("direction", "forward");
         logic.setTags(main, n, tags);
-        
+
         main.performTagEdit(n, null, false, false);
         waitForPropertyEditor();
         UiObject2 direction = null;
@@ -354,7 +354,7 @@ public class PropertyEditorTest {
             fail();
         }
         assertNotNull(direction);
-        assertEquals("forward", direction.getText());     
+        assertEquals("forward", direction.getText());
         direction.clickAndWait(Until.newWindow(), 2000);
         TestUtils.clickText(device, true, "Forward", false, false);
         TestUtils.clickText(device, true, main.getString(R.string.save), true, false);
@@ -591,7 +591,7 @@ public class PropertyEditorTest {
         main.getMap().getDataLayer().setVisible(true);
         TestUtils.unlock(device);
         TestUtils.zoomToLevel(device, main, 21);
-     
+
         Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 599672192L);
         assertNotNull(n);
         final CountDownLatch signal2 = new CountDownLatch(1);
@@ -619,11 +619,11 @@ public class PropertyEditorTest {
         assertTrue(found);
         found = TestUtils.clickText(device, true, getTranslatedPresetItemName(main, "Restaurant"), true, false);
         assertTrue(found);
-        
-        // apply optional tags 
+
+        // apply optional tags
         assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.tag_menu_apply_preset_with_optional), false, false));
         TestUtils.scrollTo("Wheelchair access details", false);
-        
+
         try {
             UiObject2 details = getField(device, "Wheelchair access details", 1);
             assertNotNull(details);
@@ -633,14 +633,14 @@ public class PropertyEditorTest {
             assertTrue(TestUtils.clickText(device, false, main.getString(R.string.save), true));
         } catch (UiObjectNotFoundException e) {
             fail();
-        }  
+        }
         assertTrue(TestUtils.findText(device, false, "1234567890"));
         TestUtils.clickHome(device, true);
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
         device.waitForIdle();
         assertTrue(n.hasTag("wheelchair:description", "1234567890"));
     }
-    
+
     /**
      * Select an untagged node, then - apply charging station preset- set vehicle type
      */
@@ -880,6 +880,51 @@ public class PropertyEditorTest {
         }
         assertTrue(pos != -1);
         return pos;
+    }
+
+    /**
+     * Select a way, apply optional, set lane count
+     */
+    // @SdkSuppress(minSdkVersion = 26)
+    @Test
+    public void way2() {
+        final CountDownLatch signal = new CountDownLatch(1);
+        mockServer.enqueue("capabilities1");
+        mockServer.enqueue("download1");
+        Logic logic = App.getLogic();
+        logic.downloadBox(main, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D), false, new SignalHandler(signal));
+        try {
+            signal.await(30, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            fail(e.getMessage());
+        }
+        main.getMap().getDataLayer().setVisible(true);
+        TestUtils.unlock(device);
+        TestUtils.zoomToLevel(device, main, 23);
+        TestUtils.clickAtCoordinates(device, main.getMap(), 8.3848461, 47.3899166, true);
+        TestUtils.clickText(device, true, context.getString(R.string.okay), true, false); // Tip
+        assertTrue(TestUtils.clickText(device, false, "↖ Kindhauserstrasse", false, false));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
+        Way w = App.getLogic().getSelectedWay();
+        assertNotNull(w);
+        assertTrue(TestUtils.clickMenuButton(device, "Properties", false, true));
+        waitForPropertyEditor();
+        assertTrue(TestUtils.findText(device, false, "Kindhauserstrasse"));
+        //
+        // Apply best preset
+        assertTrue(TestUtils.clickMenuButton(device, "Apply preset with optional", false, false));
+        UiObject2 lanes = null;
+        try {
+            lanes = getField(device, "Lanes", 1);
+        } catch (UiObjectNotFoundException e) {
+            fail();
+        }
+        lanes.click();
+        // currently there doesn't seem to be a reliable way to scroll to a specific value
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.save), true, false));
+        TestUtils.clickHome(device, true);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
+        assertTrue(w.hasTag("lanes", "0"));
     }
 
     /**
@@ -1196,7 +1241,7 @@ public class PropertyEditorTest {
         assertEquals(oldPos1, members.indexOf(m2));
         assertEquals(oldPos2, members.indexOf(m1));
     }
-    
+
     /**
      * Select a relation "unsort", then sort again
      */
@@ -1218,7 +1263,7 @@ public class PropertyEditorTest {
         assertTrue(m1.downloaded());
         RelationMember m2 = r.getMember(Way.NAME, 27009604L);
         assertTrue(m2.downloaded());
-        java.util.Map<String,String> tags2 = new TreeMap<>(m2.getElement().getTags());
+        java.util.Map<String, String> tags2 = new TreeMap<>(m2.getElement().getTags());
         tags2.put(Tags.KEY_NAME, tags2.get(Tags.KEY_NAME) + "2");
         logic.setTags(main, m2.getElement(), tags2);
 
@@ -1237,12 +1282,12 @@ public class PropertyEditorTest {
         TestUtils.clickHome(device, false);
         assertTrue(TestUtils.findText(device, false, main.getString(R.string.actionmode_relationselect), 5000));
         assertEquals(OsmElement.STATE_MODIFIED, r.getState());
-        
+
         List<RelationMember> members = r.getMembers();
         int oldPos1 = members.indexOf(m1);
         int oldPos2 = members.indexOf(m2);
-        assertEquals(2, oldPos2-oldPos1);
-        
+        assertEquals(2, oldPos2 - oldPos1);
+
         // now sort
         monitor = instrumentation.addMonitor(PropertyEditorActivity.class.getName(), null, false);
         main.performTagEdit(r, null, false, false);
@@ -1250,13 +1295,13 @@ public class PropertyEditorTest {
 
         TestUtils.clickText(device, true, main.getString(R.string.tag_details), false, false);
         TestUtils.clickText(device, true, main.getString(R.string.members), false, false);
- 
+
         String name2 = m2.getElement().getTagWithKey(Tags.KEY_NAME);
         TestUtils.scrollToStartsWith(name2, true);
         selectMember(name1);
         selectMember("#119104097");
         selectMember(name2);
-        
+
         clickButtonOrOverflowMenu(main.getString(R.string.tag_menu_sort));
 
         // exit property editor
@@ -1264,10 +1309,10 @@ public class PropertyEditorTest {
         TestUtils.clickHome(device, false);
 
         assertTrue(TestUtils.findText(device, false, main.getString(R.string.actionmode_relationselect), 5000));
-        
+
         oldPos1 = members.indexOf(m1);
         oldPos2 = members.indexOf(m2);
-        assertEquals(1, oldPos2-oldPos1);
+        assertEquals(1, oldPos2 - oldPos1);
     }
 
     /**
@@ -2350,7 +2395,7 @@ public class PropertyEditorTest {
 
         Node n1 = (Node) App.getDelegator().getOsmElement(Node.NAME, 3465444349L);
         assertNotNull(n1);
-        
+
         final CountDownLatch signal2 = new CountDownLatch(1);
         main.runOnUiThread(() -> {
             logic.addSelectedNode(n1);
