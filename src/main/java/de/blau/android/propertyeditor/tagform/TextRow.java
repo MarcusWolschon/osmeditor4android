@@ -219,13 +219,23 @@ public class TextRow extends LinearLayout implements KeyValueRow, TagChanged {
                 return;
             });
         }
+        if (ValueType.INTEGER == valueType) {
+            ourValueView.setFocusable(false);
+            ourValueView.setFocusableInTouchMode(false);
+            ourValueView.setOnClickListener(v -> {
+                final View finalView = v;
+                finalView.setEnabled(false); // debounce
+                IntegerValueFragment.show(caller, hint != null ? hint : key, key, ((TextView) v).getText().toString(), values, preset, allTags);
+                return;
+            });
+        }
         if (Tags.DIRECTION_KEYS.contains(key)) {
             ourValueView.setFocusable(false);
             ourValueView.setFocusableInTouchMode(false);
             ourValueView.setOnClickListener(v -> {
                 final View finalView = v;
                 finalView.setEnabled(false); // debounce
-                DirectionFragment.show(caller, hint != null ? hint : key, key, ((TextView) v).getText().toString(), values, preset, allTags);
+                DirectionValueFragment.show(caller, hint != null ? hint : key, key, ((TextView) v).getText().toString(), values, preset, allTags);
                 return;
             });
         }
