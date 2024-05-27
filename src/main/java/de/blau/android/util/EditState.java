@@ -115,7 +115,7 @@ public class EditState implements Serializable {
             final StorageDelegator delegator = App.getDelegator();
             for (Selection.Ids ids : savedSelection) {
                 Selection s = new Selection();
-                s.fromIds(delegator, ids);
+                s.fromIds(main, delegator, ids);
                 selectionStack.add(s);
             }
             logic.setSelectionStack(selectionStack);

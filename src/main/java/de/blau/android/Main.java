@@ -1013,7 +1013,7 @@ public class Main extends FullScreenAppCompatActivity
                     if (ACTION_PUSH_SELECTION.equals(action)) {
                         Selection.Ids ids = Util.getSerializableExtra(intent, Selection.SELECTION_KEY, Ids.class);
                         Selection selection = new Selection();
-                        selection.fromIds(App.getDelegator(), ids);
+                        selection.fromIds(this, App.getDelegator(), ids);
                         logic.pushSelection(selection);
                     } else {
                         logic.popSelection();

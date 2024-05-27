@@ -112,6 +112,11 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
                 selection.add(element);
                 switch (element.getName()) {
                 case Way.NAME:
+                    if (((Way) element).nodeCount() == 0) {
+                        ScreenMessage.toastTopError(main, main.getString(R.string.toast_degenerate_way_with_info, element.getDescription(main)), true);
+                        selection.remove(element);
+                        break;
+                    }
                     logic.addSelectedWay((Way) element);
                     break;
                 case Node.NAME:
