@@ -29,6 +29,7 @@ import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.util.Geometry;
+import de.blau.android.util.ScreenMessage;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
@@ -91,6 +92,11 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
      * @param way the selected Way
      */
     private void findConnectedWays(@NonNull Way way) {
+        if (way.nodeCount() == 0) {
+            ScreenMessage.toastTopError(main, main.getString(R.string.toast_degenerate_way_with_info, way.getDescription(main)), true);
+            manager.finish();
+            return;
+        }
         cachedMergeableWays = findMergeableWays(way);
         cachedAppendableNodes = findAppendableNodes(way);
         cachedViaElements = findViaElements(way, true);
