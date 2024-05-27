@@ -1,8 +1,10 @@
 package de.blau.android;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.osm.Node;
@@ -11,6 +13,7 @@ import de.blau.android.osm.OsmElementList;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Way;
+import de.blau.android.util.ScreenMessage;
 
 public class Selection {
 
@@ -265,12 +268,24 @@ public class Selection {
     /**
      * Set the contents from the ids
      * 
+     * Checks for empty ways as these will cause crashes if selected
+     * 
+     * @param ctx optional Context for error messages
      * @param delegator a StorageDelegator object containing the OsmElements
      * @param ids the ids
      */
-    public void fromIds(@NonNull StorageDelegator delegator, @NonNull Ids ids) {
+    public void fromIds(@Nullable Context ctx, @NonNull StorageDelegator delegator, @NonNull Ids ids) {
         nodes.fromIds(delegator, Node.NAME, ids.getNodes());
         ways.fromIds(delegator, Way.NAME, ids.getWays());
+        // remove any degenerate ways and display a toast
+        for (Way w : new ArrayList<>(ways.getElements())) {
+            if (w.nodeCount() == 0) {
+                if (ctx != null) {
+                    ScreenMessage.toastTopError(ctx, ctx.getString(R.string.toast_degenerate_way_with_info, w.getDescription(ctx)), true);
+                }
+                ways.remove(w);
+            }
+        }
         relations.fromIds(delegator, Relation.NAME, ids.getRelations());
     }
 }
