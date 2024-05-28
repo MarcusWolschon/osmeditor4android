@@ -81,6 +81,13 @@ public class Server {
     private static final String API_VERSION       = "0.6";
     private static final String OSMCHANGE_VERSION = "0.3";
 
+    // maximum number of elements retrievable in one multifetch call, essentially nothing is guaranteed, making this
+    // very very iffy, JOSM uses 200 which is likely derived from the maximum length supported in MS IE/Edge, if the
+    // powers that be decide to lower this, at least it won't be just us complaining
+    //
+    // see https://wiki.openstreetmap.org/wiki/API_v0.6#Multi_fetch:_GET_/api/0.6/[nodes|ways|relations]?#parameters
+    public static final int MULTI_FETCH_MAX_ELEMENTS = 200;
+
     private static final String VERSION_KEY         = "version";
     private static final String GENERATOR_KEY       = "generator";
     private static final String OLD_ID_ATTR         = "old_id";
