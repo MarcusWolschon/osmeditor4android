@@ -307,12 +307,14 @@ public class Selection {
         nodes.fromIds(delegator, Node.NAME, ids.getNodes());
         ways.fromIds(delegator, Way.NAME, ids.getWays());
         // remove any degenerate ways and display a toast
-        for (Way w : new ArrayList<>(ways.getElements())) {
-            if (w.nodeCount() == 0) {
-                if (ctx != null) {
-                    ScreenMessage.toastTopError(ctx, ctx.getString(R.string.toast_degenerate_way_with_info, w.getDescription(ctx)), true);
+        if (ways.count() > 0) {
+            for (Way w : new ArrayList<>(ways.getElements())) {
+                if (w.nodeCount() == 0) {
+                    if (ctx != null) {
+                        ScreenMessage.toastTopError(ctx, ctx.getString(R.string.toast_degenerate_way_with_info, w.getDescription(ctx)), true);
+                    }
+                    ways.remove(w);
                 }
-                ways.remove(w);
             }
         }
         relations.fromIds(delegator, Relation.NAME, ids.getRelations());
