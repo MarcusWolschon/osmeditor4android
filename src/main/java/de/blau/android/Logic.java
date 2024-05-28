@@ -13,6 +13,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -198,11 +199,6 @@ public class Logic {
      * maximum number of nodes in a way for it still to be moveable, arbitrary number for now
      */
     private static final int MAX_NODES_FOR_MOVE = 100;
-
-    /**
-     * Maximum number of objects for multi fetch requests
-     */
-    private static final int MAX_ELEMENTS_PER_REQUEST = 200; // same value as JOSM
 
     /**
      * maximum depth that we recursively select relations
@@ -3151,10 +3147,7 @@ public class Logic {
                 try {
                     final Server server = getPrefs().getServer();
                     final OsmParser osmParser = new OsmParser(true);
-                    try (InputStream in = server.getStreamForElements(ctx, type, new long[] { id })) {
-                        osmParser.start(in);
-                    }
-                    final Storage storage = osmParser.getStorage();
+                    final Storage storage = multiFetch(ctx, server, osmParser, type, new long[] { id });
                     OsmElement result = storage.getOsmElement(type, id);
                     if (!Way.NAME.equals(type)) {
                         return result;
@@ -3220,11 +3213,7 @@ public class Logic {
                 final Server server = getPrefs().getServer();
                 final OsmParser osmParser = new OsmParser(true);
                 try {
-                    try (InputStream in = server.getStreamForElements(ctx, type, ids)) {
-                        osmParser.reinit();
-                        osmParser.start(in);
-                    }
-                    Storage storage = osmParser.getStorage();
+                    Storage storage = multiFetch(ctx, server, osmParser, type, ids);
                     if (Way.NAME.equals(type)) {
                         for (long wayId : ids) {
                             OsmElement way = storage.getOsmElement(Way.NAME, wayId);
@@ -3245,7 +3234,6 @@ public class Logic {
                     throw ex;
                 }
             }
-
         };
         loader.execute();
         try {
@@ -3255,6 +3243,33 @@ public class Logic {
             loader.cancel();
             throw new OsmServerException(ErrorCodes.NO_CONNECTION, e.getLocalizedMessage());
         }
+    }
+
+    /**
+     * Use the multi-fetch API to retrieve multiple elements taking URL length in to account
+     * 
+     * @param ctx an Android COntext
+     * @param server the current Server instance
+     * @param osmParser an OsmParser instance
+     * @param type the type of element to retrieve
+     * @param ids an array holding the element ids
+     * @return a Storage instance holding the elements
+     * @throws SAXException parsing error
+     * @throws IOException if we can't download the nodes
+     * @throws ParserConfigurationException parsing error
+     */
+    @NonNull
+    private Storage multiFetch(@NonNull final Context ctx, @NonNull final Server server, @NonNull OsmParser osmParser, @NonNull String type,
+            @NonNull long[] ids) throws SAXException, IOException, ParserConfigurationException {
+        int end = 0;
+        for (int start = 0; start < Math.min(start + Server.MULTI_FETCH_MAX_ELEMENTS, ids.length); start = end) {
+            end = start + Math.min(Server.MULTI_FETCH_MAX_ELEMENTS, ids.length - start);
+            try (InputStream in = server.getStreamForElements(ctx, type, Arrays.copyOfRange(ids, start, end))) {
+                osmParser.reinit();
+                osmParser.start(in);
+            }
+        }
+        return osmParser.getStorage();
     }
 
     /**
@@ -3277,16 +3292,14 @@ public class Logic {
         if (way.getState() == OsmElement.STATE_DELETED) {
             return; // no nodes
         }
-        final Storage storage = osmParser.getStorage();
-        osmParser.reinit();
+
         List<Node> tempNodes = ((Way) way).getNodes();
         long[] realNodes = new long[tempNodes.size()];
         for (int i = 0; i < realNodes.length; i++) {
             realNodes[i] = tempNodes.get(i).getOsmId();
         }
-        try (InputStream in2 = server.getStreamForElements(ctx, Node.NAME, realNodes)) {
-            osmParser.start(in2);
-        }
+        Storage storage = multiFetch(ctx, server, osmParser, Node.NAME, realNodes);
+
         tempNodes.clear();
         for (long id : realNodes) {
             final Node realNode = (Node) storage.getOsmElement(Node.NAME, id);
@@ -3416,6 +3429,21 @@ public class Logic {
     }
 
     /**
+     * Convert a List&lt;Long&gt; to an array of long
+     * 
+     * @param list the List of Long
+     * @return an array holding the corresponding long values
+     */
+    @NonNull
+    private long[] toLongArray(@NonNull List<Long> list) {
+        long[] array = new long[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            array[i] = list.get(i);
+        }
+        return array;
+    }
+
+    /**
      * Return multiple elements from the API and merge them in to our data
      * 
      * Note: currently doesn't check if the API is available or not
@@ -3442,86 +3470,48 @@ public class Logic {
                 super(executorService, handler);
             }
 
-            AsyncResult result;
-
-            /**
-             * Convert a List&lt;Long&gt; to an array of long
-             * 
-             * @param list the List of Long
-             * @return an array holding the corresponding long values
-             */
-            @NonNull
-            long[] toLongArray(@NonNull List<Long> list) {
-                long[] array = new long[list.size()];
-                for (int i = 0; i < list.size(); i++) {
-                    array[i] = list.get(i);
-                }
-                return array;
-            }
-
             @Override
             protected AsyncResult doInBackground(Void arg) {
                 try {
-                    final OsmParser osmParser = new OsmParser();
+                    final OsmParser osmParser = new OsmParser(true);
                     Server server = getPrefs().getServer();
                     if (nodes != null && !nodes.isEmpty()) {
-                        int len = nodes.size();
-                        for (int i = 0; i < len; i = i + MAX_ELEMENTS_PER_REQUEST) {
-                            try (InputStream in = server.getStreamForElements(ctx, Node.NAME,
-                                    toLongArray(nodes.subList(i, Math.min(len, i + MAX_ELEMENTS_PER_REQUEST))))) {
-                                osmParser.reinit();
-                                osmParser.start(in);
-                            }
-                        }
+                        multiFetch(ctx, server, osmParser, Node.NAME, toLongArray(nodes));
                     }
                     if (ways != null && !ways.isEmpty()) {
-                        for (Long id : ways) {
-                            // FIXME it would be more efficient to use the same strategy that JOSM does and use
-                            // multi fetch to download the ways, then
-                            // determine which nodes need to be downloaded, however currently the logic in OsmParser
-                            // expects way nodes to be available
-                            // when ways are parsed.
-                            try (InputStream in = server.getStreamForElement(ctx, Server.MODE_FULL, Way.NAME, id)) {
-                                osmParser.reinit();
-                                osmParser.start(in);
-                            }
+                        final long[] wayIds = toLongArray(ways);
+                        Storage storage = multiFetch(ctx, server, osmParser, Way.NAME, wayIds);
+                        for (long wayId : wayIds) {
+                            OsmElement way = storage.getOsmElement(Way.NAME, wayId);
+                            downloadMissingWayNodes(ctx, server, osmParser, way);
                         }
                     }
                     if (relations != null && !relations.isEmpty()) {
-                        int len = relations.size();
-                        for (int i = 0; i < len; i = i + MAX_ELEMENTS_PER_REQUEST) {
-                            try (InputStream in = server.getStreamForElements(ctx, Relation.NAME,
-                                    toLongArray(relations.subList(i, Math.min(len, i + MAX_ELEMENTS_PER_REQUEST))))) {
-                                osmParser.reinit();
-                                osmParser.start(in);
-                            }
-                        }
+                        multiFetch(ctx, server, osmParser, Relation.NAME, toLongArray(relations));
                     }
-
                     getDelegator().mergeData(osmParser.getStorage(), null);
                 } catch (IllegalStateException iex) {
-                    result = new AsyncResult(ErrorCodes.CORRUPTED_DATA);
+                    return new AsyncResult(ErrorCodes.CORRUPTED_DATA);
                 } catch (SAXException e) {
                     Log.e(DEBUG_TAG, "downloadElement problem parsing", e);
                     Exception ce = e.getException();
                     if ((ce instanceof StorageException) && ((StorageException) ce).getCode() == StorageException.OOM) {
-                        result = new AsyncResult(ErrorCodes.OUT_OF_MEMORY);
-                    } else {
-                        result = new AsyncResult(ErrorCodes.INVALID_DATA_RECEIVED);
+                        return new AsyncResult(ErrorCodes.OUT_OF_MEMORY);
                     }
+                    return new AsyncResult(ErrorCodes.INVALID_DATA_RECEIVED);
                 } catch (ParserConfigurationException e) {
                     Log.e(DEBUG_TAG, "downloadElements problem parsing", e);
-                    result = new AsyncResult(ErrorCodes.INVALID_DATA_RECEIVED);
+                    return new AsyncResult(ErrorCodes.INVALID_DATA_RECEIVED);
                 } catch (OsmServerException e) {
-                    result = new AsyncResult(ErrorCodes.UNKNOWN_ERROR, e.getMessageWithDescription());
                     Log.e(DEBUG_TAG, "downloadElements problem downloading", e);
+                    return new AsyncResult(ErrorCodes.UNKNOWN_ERROR, e.getMessageWithDescription());
                 } catch (DataConflictException dce) {
-                    result = new AsyncResult(ErrorCodes.DATA_CONFLICT);
+                    return new AsyncResult(ErrorCodes.DATA_CONFLICT);
                 } catch (IOException e) {
-                    result = new AsyncResult(ErrorCodes.NO_CONNECTION);
                     Log.e(DEBUG_TAG, "downloadElements problem downloading", e);
+                    return new AsyncResult(ErrorCodes.NO_CONNECTION);
                 }
-                return result;
+                return null;
             }
 
             @Override
