@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="CGImap 0.8.10.2401101819 (644530 faffy.openstreetmap.org)" copyright="OpenStreetMap and contributors" attribution="http://www.openstreetmap.org/copyright" license="http://opendatacommons.org/licenses/odbl/1-0/">
+ <way id="4306402128" visible="true" version="1" changeset="304485" timestamp="2024-01-16T11:30:08Z" user="SimonDev" uid="1154">
+  <nd ref="4345573836"/>
+  <nd ref="4345573840"/>
+  <tag k="highway" v="primary"/>
+ </way>
+ <way id="4306402129" visible="true" version="1" changeset="304485" timestamp="2024-01-16T11:30:08Z" user="SimonDev" uid="1154">
+  <nd ref="4345573840"/>
+  <nd ref="4345573839"/>
+  <tag k="highway" v="primary"/>
+ </way>
+</osm>

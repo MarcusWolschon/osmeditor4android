@@ -1358,7 +1358,8 @@ public class PropertyEditorTest {
         TestUtils.clickText(device, true, main.getString(R.string.tag_details), false, false);
         TestUtils.clickText(device, true, main.getString(R.string.members), false, false);
 
-        mockServer.enqueue("download3");
+        mockServer.enqueue("way-35479120");
+        mockServer.enqueue("way-35479120-nodes");
 
         selectMember("#35479120");
         clickButtonOrOverflowMenu(main.getString(R.string.download));

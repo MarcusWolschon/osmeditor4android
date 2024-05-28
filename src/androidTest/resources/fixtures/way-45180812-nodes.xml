@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="CGImap 0.9.2 (3208657 spike-06.openstreetmap.org)" copyright="OpenStreetMap and contributors" attribution="http://www.openstreetmap.org/copyright" license="http://opendatacommons.org/licenses/odbl/1-0/">
+ <node id="275000525" visible="true" version="4" changeset="84524304" timestamp="2020-05-02T14:43:27Z" user="SimonPoole" uid="92387" lat="47.3874255" lon="8.3876942"/>
+ <node id="289987511" visible="true" version="3" changeset="13483681" timestamp="2012-10-13T19:38:21Z" user="SimonPoole" uid="92387" lat="47.3871991" lon="8.3868561"/>
+ <node id="289987512" visible="true" version="2" changeset="1437482" timestamp="2009-06-06T13:08:40Z" user="marcschneider" uid="55777" lat="47.3872656" lon="8.3873386"/>
+ <node id="289987513" visible="true" version="3" changeset="8547608" timestamp="2011-06-25T23:14:00Z" user="SimonPoole" uid="92387" lat="47.3875450" lon="8.3878042"/>
+ <node id="416426210" visible="true" version="2" changeset="8547608" timestamp="2011-06-25T23:14:05Z" user="SimonPoole" uid="92387" lat="47.3872181" lon="8.3870530"/>
+ <node id="416426211" visible="true" version="3" changeset="78594191" timestamp="2019-12-18T17:35:34Z" user="sovereign_ch" uid="5755216" lat="47.3879811" lon="8.3881322"/>
+ <node id="416426212" visible="true" version="3" changeset="78594191" timestamp="2019-12-18T17:35:34Z" user="sovereign_ch" uid="5755216" lat="47.3877595" lon="8.3880015"/>
+ <node id="416426254" visible="true" version="2" changeset="8547608" timestamp="2011-06-25T23:14:06Z" user="SimonPoole" uid="92387" lat="47.3871996" lon="8.3869599"/>
+ <node id="416426260" visible="true" version="1" changeset="1437482" timestamp="2009-06-06T13:08:35Z" user="marcschneider" uid="55777" lat="47.3873100" lon="8.3875059"/>
+ <node id="416426261" visible="true" version="2" changeset="8547608" timestamp="2011-06-25T23:14:06Z" user="SimonPoole" uid="92387" lat="47.3876577" lon="8.3879088"/>
+ <node id="577098574" visible="true" version="9" changeset="78594191" timestamp="2019-12-18T17:35:34Z" user="sovereign_ch" uid="5755216" lat="47.3879345" lon="8.3881090">
+  <tag k="bus" v="yes"/>
+  <tag k="ele" v="489"/>
+  <tag k="name" v="Bernold"/>
+  <tag k="network" v="ZVV"/>
+  <tag k="operator" v="VBZ"/>
+  <tag k="public_transport" v="stop_position"/>
+  <tag k="ref" v="466"/>
+  <tag k="towards" v="Kindhausen AG"/>
+  <tag k="uic_name" v="Bergdietikon, Bernold"/>
+  <tag k="uic_ref" v="8590202"/>
+ </node>
+ <node id="1963251747" visible="true" version="2" changeset="78594191" timestamp="2019-12-18T17:35:35Z" user="sovereign_ch" uid="5755216" lat="47.3878508" lon="8.3880645"/>
+ <node id="7473749286" visible="true" version="1" changeset="84524304" timestamp="2020-05-02T14:43:27Z" user="SimonPoole" uid="92387" lat="47.3873619" lon="8.3876131"/>
+</osm>

@@ -22,7 +22,6 @@ import android.app.Activity;
 import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
 import android.content.Context;
-import androidx.annotation.NonNull;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -491,8 +490,9 @@ public class WayActionsTest {
             LayerUtils.removeImageryLayers(context);
             main.getMap().setPrefs(main, prefs);
             System.out.println("mock api url " + mockBaseUrl.toString()); // NOSONAR
-            mockServer.enqueue("119104093-full");
-            mockServer.enqueue("45180812-full");
+            mockServer.enqueue("ways-119104093-45180812");
+            mockServer.enqueue("way-45180812-nodes");
+            mockServer.enqueue("way-119104093-nodes");
             map.getDataLayer().setVisible(true);
             TestUtils.unlock(device);
             TestUtils.zoomToLevel(device, main, 21);
@@ -559,8 +559,9 @@ public class WayActionsTest {
             LayerUtils.removeImageryLayers(context);
             main.getMap().setPrefs(main, prefs);
             System.out.println("mock api url " + mockBaseUrl.toString()); // NOSONAR
-            mockServer.enqueue("4306402129-full");
-            mockServer.enqueue("4306402128-full");
+            mockServer.enqueue("ways-4306402129-4306402128");
+            mockServer.enqueue("way-4306402128-nodes");
+            mockServer.enqueue("way-4306402129-nodes");
             map.getDataLayer().setVisible(true);
             TestUtils.unlock(device);
             TestUtils.zoomToLevel(device, main, 21);
