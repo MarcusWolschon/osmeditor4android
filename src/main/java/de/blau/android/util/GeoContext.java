@@ -313,7 +313,7 @@ public class GeoContext {
     public List<String> getIsoCodes(@NonNull OsmElement e) {
         try {
             if (countryBoundaries == null) {
-                throw new IllegalStateException("countryBoundaries null");
+                throw new IllegalArgumentException("countryBoundaries null");
             }
             double lon;
             double lat;
@@ -323,7 +323,7 @@ public class GeoContext {
             } else if (e instanceof Way) {
                 double[] coords = Geometry.centroidLonLat((Way) e);
                 if (coords.length != 2) {
-                    throw new IllegalStateException("way " + e.getOsmId() + " no coords");
+                    throw new IllegalArgumentException("way " + e.getOsmId() + " no coords");
                 }
                 lon = coords[0];
                 lat = coords[1];
@@ -334,12 +334,12 @@ public class GeoContext {
                     lon = (vbox.getLeft() + (vbox.getRight() - vbox.getLeft()) / 2D) / 1E7D;
                     lat = vbox.getCenterLat();
                 } else {
-                    throw new IllegalStateException("way " + e.getOsmId() + " no coords");
+                    throw new IllegalArgumentException("way " + e.getOsmId() + " no coords");
                 }
             }
             return countryBoundaries.getIds(lon, lat);
-        } catch (IllegalStateException ex) {
-            Log.e(DEBUG_TAG, ex.getMessage());
+        } catch (IllegalStateException | IllegalArgumentException ex) {
+            Log.e(DEBUG_TAG, ex.getMessage() + " " + e);
             return null;
         }
     }
