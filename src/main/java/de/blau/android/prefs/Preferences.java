@@ -1,5 +1,7 @@
 package de.blau.android.prefs;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -16,11 +18,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.preference.PreferenceManager;
 import de.blau.android.App;
+import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.contract.Urls;
 import de.blau.android.osm.Server;
 import de.blau.android.presets.Preset;
+import de.blau.android.presets.PresetElementPath;
+import de.blau.android.presets.PresetItem;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.TileLayerSource.Category;
 import de.blau.android.resources.symbols.TriangleDown;
@@ -31,12 +36,18 @@ import de.blau.android.util.Sound;
  * Convenience class for parsing and holding the application's SharedPreferences.
  * 
  * @author mb
+ * @author simon
  */
 public class Preferences {
-    private static final String DEBUG_TAG = Preferences.class.getSimpleName().substring(0, Math.min(23, Preferences.class.getSimpleName().length()));
+
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Main.class.getSimpleName().length());
+    private static final String DEBUG_TAG = Preferences.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String ACRA_ENABLE  = "acra.enable";
     private static final String ACRA_DISABLE = "acra.disable";
+
+    private static final String USE_LAST_PREF     = "use_last_";
+    private static final String USE_OPTIONAL_PREF = "use_optional_";
 
     private final AdvancedPrefDatabase advancedPrefs;
 
@@ -329,9 +340,8 @@ public class Preferences {
         minCircleNodes = getIntPref(R.string.config_minCircleNodes_key, 6);
         maxCircleSegment = getFloatFromStringPref(R.string.config_maxCircleSegment_key, 2.0f);
         minCircleSegment = getFloatFromStringPref(R.string.config_minCircleSegment_key, 0.5f);
-        
-        poiKeys = prefs.getStringSet(r.getString(R.string.config_poi_keys_key),
-                new HashSet<>(Arrays.asList(r.getStringArray(R.array.poi_keys_defaults))));
+
+        poiKeys = prefs.getStringSet(r.getString(R.string.config_poi_keys_key), new HashSet<>(Arrays.asList(r.getStringArray(R.array.poi_keys_defaults))));
     }
 
     /**
@@ -1942,7 +1952,37 @@ public class Preferences {
     public Set<String> poiKeys() {
         return poiKeys;
     }
-    
+
+    /**
+     * Get the preset path for item
+     * 
+     * @param context an Android context
+     * @param item the PrestItem
+     * 
+     * @return a String with the path or null
+     */
+    @Nullable
+    private static String getPresetElementPath(@NonNull Context context, @NonNull PresetItem item) {
+        PresetElementPath path = item.getPath(App.getCurrentRootPreset(context).getRootGroup());
+        return path != null ? path.toString() : null;
+    }
+
+    public boolean applyWithLastValues(@NonNull Context ctx, @NonNull PresetItem item) {
+        return getBoolean(USE_LAST_PREF + getPresetElementPath(ctx, item));
+    }
+
+    public void setApplyWithLastValues(@NonNull Context ctx, @NonNull PresetItem item, boolean enable) {
+        putBoolean(USE_LAST_PREF + getPresetElementPath(ctx, item), enable);
+    }
+
+    public boolean applyWithOptionalTags(@NonNull Context ctx, @NonNull PresetItem item) {
+        return getBoolean(USE_OPTIONAL_PREF + getPresetElementPath(ctx, item));
+    }
+
+    public void setApplyWithOptionalTags(@NonNull Context ctx, @NonNull PresetItem item, boolean enable) {
+        putBoolean(USE_OPTIONAL_PREF + getPresetElementPath(ctx, item), enable);
+    }
+
     /**
      * Get an integer valued preference from a string pref
      * 
@@ -2022,6 +2062,26 @@ public class Preferences {
         } catch (Exception ex) {
             Log.e(DEBUG_TAG, "putString " + ex.getMessage());
         }
+    }
+
+    /**
+     * Get a boolean value from shared preferences
+     * 
+     * @param key the preference key
+     * @return the value or false if nothing was found
+     */
+    private boolean getBoolean(@NonNull String key) {
+        return prefs.getBoolean(key, false);
+    }
+
+    /**
+     * Save a boolean to shared preferences
+     * 
+     * @param key preference key
+     * @param b boolean value to save
+     */
+    private void putBoolean(@NonNull String key, boolean b) {
+        prefs.edit().putBoolean(key, b).commit();
     }
 
     /**

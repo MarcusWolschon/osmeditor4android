@@ -1,5 +1,7 @@
 package de.blau.android.propertyeditor;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -92,6 +94,9 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
         extends BaseFragment implements PropertyEditorListener, OnPresetSelectedListener, EditorUpdate, FormUpdate, PresetUpdate, NameAdapters, OnSaveListener,
         ch.poole.openinghoursfragment.OnSaveListener {
 
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Main.class.getSimpleName().length());
+    private static final String DEBUG_TAG = PropertyEditorFragment.class.getSimpleName().substring(0, TAG_LEN);
+
     private static final String CURRENTITEM            = "current_item";
     static final String         PANELAYOUT             = "pane_layout";
     static final String         PRESET_FRAGMENT        = "preset_fragment";
@@ -118,12 +123,6 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
 
     RelationMembershipFragment relationMembershipFragment;
     RelationMembersFragment    relationMembersFragment;
-
-    /**
-     * The tag we use for Android-logging.
-     */
-    private static final String DEBUG_TAG = PropertyEditorFragment.class.getSimpleName().substring(0,
-            Math.min(23, PropertyEditorFragment.class.getSimpleName().length()));
 
     private long[] osmIds;
 
@@ -1152,13 +1151,13 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
 
     @Override
     public void onPresetSelected(PresetItem item) {
-        onPresetSelected(item, false, false);
+        onPresetSelected(item, false, false, Prefill.PRESET);
     }
 
     @Override
-    public void onPresetSelected(PresetItem item, boolean applyOptional, boolean isAlternative) {
+    public void onPresetSelected(PresetItem item, boolean applyOptional, boolean isAlternative, Prefill prefill) {
         if (item != null && tagEditorFragment != null) {
-            tagEditorFragment.applyPreset(item, applyOptional, isAlternative, true);
+            tagEditorFragment.applyPreset(item, applyOptional, isAlternative, true, prefill);
             if (mViewPager.getCurrentItem() != tagEditorFragmentPosition) {
                 if (tagFormFragment != null) {
                     tagFormFragment.update();
@@ -1167,8 +1166,8 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
                     mViewPager.setCurrentItem(tagEditorFragmentPosition);
                 }
             }
-            // utility presets need to be explicitly added, while this duplicates adding item in other cases
-            // it has the nice side effect of moving item to the top
+            // utility presets need to be explicitly added, while this duplicates adding the item in other cases
+            // it has the nice side effect of moving the item to the top
             tagEditorFragment.addToMru(presets, item);
             updateRecentPresets();
         }

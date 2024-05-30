@@ -1,5 +1,7 @@
 package de.blau.android.propertyeditor;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.util.List;
 
 import android.content.Context;
@@ -13,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import de.blau.android.App;
+import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.dialogs.Tip;
 import de.blau.android.presets.Preset;
@@ -29,7 +32,8 @@ import de.blau.android.util.Util;
 
 public class AlternativePresetItemsFragment extends ImmersiveDialogFragment {
 
-    private static final String DEBUG_TAG = AlternativePresetItemsFragment.class.getSimpleName().substring(0, Math.min(23, AlternativePresetItemsFragment.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Main.class.getSimpleName().length());
+    private static final String DEBUG_TAG = AlternativePresetItemsFragment.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String ITEM_PATH_KEY = "itemPath";
     public static final String  TAG           = "alternative_preset_item_fragment";
@@ -111,9 +115,9 @@ public class AlternativePresetItemsFragment extends ImmersiveDialogFragment {
     @NonNull
     private View getAlternativesView(@NonNull final LinearLayout presetLayout, @NonNull PresetItem presetItem) {
 
-        final PresetClickHandler presetClickHandler = (PresetItem item) -> {
+        final PresetClickHandler presetClickHandler = (View view, PresetItem item) -> {
             Log.d(DEBUG_TAG, "normal click");
-            presetSelectedListener.onPresetSelected(item, false, true);
+            presetSelectedListener.onPresetSelected(item, false, true, Prefill.PRESET);
         };
         PresetGroup alternatives = Preset.dummyInstance().getRootGroup();
         List<PresetItemLink> links = presetItem.getAlternativePresetItems();

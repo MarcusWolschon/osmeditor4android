@@ -1,5 +1,7 @@
 package de.blau.android.propertyeditor.tagform;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.ByteArrayInputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -42,6 +44,7 @@ import ch.poole.android.checkbox.IndeterminateCheckBox;
 import ch.poole.conditionalrestrictionparser.ConditionalRestrictionParser;
 import de.blau.android.App;
 import de.blau.android.HelpViewer;
+import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.address.Address;
 import de.blau.android.measure.Length;
@@ -74,6 +77,7 @@ import de.blau.android.presets.ValueType;
 import de.blau.android.propertyeditor.EditorUpdate;
 import de.blau.android.propertyeditor.FormUpdate;
 import de.blau.android.propertyeditor.NameAdapters;
+import de.blau.android.propertyeditor.Prefill;
 import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
 import de.blau.android.propertyeditor.PropertyEditorListener;
 import de.blau.android.propertyeditor.TagChanged;
@@ -89,7 +93,9 @@ import de.blau.android.util.Util;
 import de.blau.android.views.CustomAutoCompleteTextView;
 
 public class TagFormFragment extends BaseFragment implements FormUpdate {
-    private static final String DEBUG_TAG = TagFormFragment.class.getSimpleName().substring(0, Math.min(23, TagFormFragment.class.getSimpleName().length()));
+
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Main.class.getSimpleName().length());
+    private static final String DEBUG_TAG = TagFormFragment.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String FRAGMENT_CONDITIONAL_RESTRICTION_TAG = "fragment_conditional_restriction";
 
@@ -491,7 +497,8 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             if (pi != null) {
                 boolean withOptional = item.getItemId() == R.id.tag_menu_apply_preset_with_optional;
                 displayOptional.put(pi, withOptional);
-                presetSelectedListener.onPresetSelected(pi, withOptional, false);
+                presetSelectedListener.onPresetSelected(pi, withOptional, false,
+                        prefs.applyWithLastValues(getContext(), pi) ? Prefill.FORCE_LAST : Prefill.PRESET);
             }
             return true;
         case R.id.tag_menu_revert:
@@ -539,7 +546,6 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                             if (!allTags.containsKey(languageKey)) {
                                 result.put(languageKey, "");
                             }
-
                         }
                     }
                 }

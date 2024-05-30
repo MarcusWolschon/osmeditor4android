@@ -1,20 +1,27 @@
 package de.blau.android.propertyeditor;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
 import de.blau.android.App;
+import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.exception.UiStateException;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;
+import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetClickHandler;
 import de.blau.android.presets.PresetItem;
@@ -24,10 +31,11 @@ import de.blau.android.util.Util;
 
 public class RecentPresetsFragment extends BaseFragment {
 
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Main.class.getSimpleName().length());
+    private static final String DEBUG_TAG = RecentPresetsFragment.class.getSimpleName().substring(0, TAG_LEN);
+
     private static final String ELEMENT_NAME_KEY = "elementType";
     private static final String ELEMENT_ID_KEY   = "elementId";
-
-    private static final String DEBUG_TAG = RecentPresetsFragment.class.getSimpleName().substring(0, Math.min(23, RecentPresetsFragment.class.getSimpleName().length()));
 
     private OnPresetSelectedListener presetSelectedListener;
     private OsmElement               element;
@@ -92,10 +100,9 @@ public class RecentPresetsFragment extends BaseFragment {
      */
     @Nullable
     private View getRecentPresetsView(@NonNull final LinearLayout presetLayout, @Nullable final OsmElement element, @Nullable final Preset[] presets) {
-        View v = null;
         if (presets == null || presets.length == 0 || element == null) {
             Log.d(DEBUG_TAG, "getRecentPresetsView problem with presets or element " + element);
-            return v;
+            return null;
         }
         // check if any of the presets has a MRU
         boolean mruFound = false;
@@ -105,35 +112,66 @@ public class RecentPresetsFragment extends BaseFragment {
                 break;
             }
         }
-        if (mruFound) {
-            final ElementType filterType = element.getType();
-            final PresetClickHandler presetClickHandler = new PresetClickHandler() {
-                @Override
-                public void onItemClick(PresetItem item) {
-                    Log.d(DEBUG_TAG, "normal click");
-                    if (enabled) {
-                        presetSelectedListener.onPresetSelected(item);
-                        recreateRecentPresetView(presetLayout);
-                    }
-                }
-
-                @Override
-                public boolean onItemLongClick(PresetItem item) {
-                    Log.d(DEBUG_TAG, "long click");
-                    if (enabled) {
-                        removePresetFromMRU(presetLayout, item);
-                    }
-                    return true;
-                }
-            };
-            // all MRUs get added to this view
-            v = Preset.getRecentPresetView(getActivity(), presets, presetClickHandler, filterType, propertyEditorListener.getIsoCodes());
-
-            v.setId(R.id.recentPresets);
-        } else {
+        if (!mruFound) {
             Log.d(DEBUG_TAG, "getRecentPresetsView no MRU found!");
+            return null;
         }
+        final ElementType filterType = element.getType();
+        final PresetClickHandler presetClickHandler = new PresetClickHandler() {
+            @Override
+            public void onItemClick(View view, PresetItem item) {
+                Log.d(DEBUG_TAG, "normal click");
+                if (enabled) {
+                    presetSelectedListener.onPresetSelected(item);
+                    final Preferences preferences = App.getPreferences(getContext());
+                    presetSelectedListener.onPresetSelected(item, preferences.applyWithOptionalTags(getContext(), item), false,
+                            preferences.applyWithLastValues(getContext(), item) ? Prefill.FORCE_LAST : Prefill.PRESET);
+                    recreateRecentPresetView(presetLayout);
+                }
+            }
+
+            @Override
+            public boolean onItemLongClick(View view, PresetItem item) {
+                Log.d(DEBUG_TAG, "long click");
+                if (enabled) {
+                    showPopupMenu(presetLayout, view, item);
+                }
+                return true;
+            }
+
+        };
+        // all MRUs get added to this view
+        View v = Preset.getRecentPresetView(getActivity(), presets, presetClickHandler, filterType, propertyEditorListener.getIsoCodes());
+        v.setId(R.id.recentPresets);
         return v;
+    }
+
+    /**
+     * Show a small popup menu for setting some preferences for specific presets
+     * 
+     * @param presetLayout the layout holding the preset buttons
+     * @param view the button that was clicked on
+     * @param item the associated PresetItem
+     */
+    private void showPopupMenu(@NonNull final LinearLayout presetLayout, @NonNull View view, @NonNull PresetItem item) {
+        final PopupMenu popup = new PopupMenu(getActivity(), view);
+        final Menu menu = popup.getMenu();
+        final Preferences prefs = App.getPreferences(getContext());
+        menu.add(R.string.apply_with_last_values).setCheckable(true).setChecked(prefs.applyWithLastValues(getContext(), item))
+                .setOnMenuItemClickListener((MenuItem menuItem) -> {
+                    prefs.setApplyWithLastValues(getContext(), item, !menuItem.isChecked());
+                    return true;
+                });
+        menu.add(R.string.apply_with_optional_tags).setCheckable(true).setChecked(prefs.applyWithOptionalTags(getContext(), item))
+                .setOnMenuItemClickListener((MenuItem menuItem) -> {
+                    prefs.setApplyWithOptionalTags(getContext(), item, !menuItem.isChecked());
+                    return true;
+                });
+        menu.add(R.string.remove).setOnMenuItemClickListener(unused -> {
+            removePresetFromMRU(presetLayout, item);
+            return true;
+        });
+        popup.show();
     }
 
     /**

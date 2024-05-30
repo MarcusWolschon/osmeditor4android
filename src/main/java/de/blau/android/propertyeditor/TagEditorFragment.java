@@ -365,7 +365,7 @@ public class TagEditorFragment extends SelectableRowsFragment implements Propert
                     // can't use the listener here as onAttach will not have happened
                     PresetElement pi = Preset.getElementByPath(rootGroup, pp, propertyEditorListener.getIsoCodes(), false);
                     if (pi instanceof PresetItem) {
-                        applyPreset(editRowLayout, (PresetItem) pi, false, false, true, true);
+                        applyPreset(editRowLayout, (PresetItem) pi, false, false, true, Prefill.PRESET);
                     }
                 }
                 updateAutocompletePresetItem(editRowLayout, null, false); // here after preset has been applied
@@ -374,7 +374,7 @@ public class TagEditorFragment extends SelectableRowsFragment implements Propert
                 PresetItem pi = getBestPreset();
                 if (elements.length == 1 && prefs.autoApplyPreset() && pi != null) {
                     if (pi.autoapply()) {
-                        applyPreset(editRowLayout, pi, false, false, true, false);
+                        applyPreset(editRowLayout, pi, prefs.applyWithOptionalTags(getContext(), pi), false, true, Prefill.NEVER);
                     } else {
                         ScreenMessage.toastTopWarning(getActivity(), R.string.toast_cant_autoapply_preset);
                     }
@@ -1589,7 +1589,7 @@ public class TagEditorFragment extends SelectableRowsFragment implements Propert
             PresetItem p = Preset.findBestMatch(propertyEditorListener.getPresets(), getKeyValueMapSingle(false), null, null); // FIXME
                                                                                                                                // multiselect
             if (p != null) {
-                applyPreset((LinearLayout) getOurView(), p, false, false, false, true);
+                applyPreset((LinearLayout) getOurView(), p, false, false, false, Prefill.PRESET);
             }
         }
     }
@@ -1751,7 +1751,7 @@ public class TagEditorFragment extends SelectableRowsFragment implements Propert
 
     @Override
     public void applyPreset(PresetItem preset, boolean addOptional) {
-        applyPreset((LinearLayout) getOurView(), preset, addOptional, false, true, true);
+        applyPreset((LinearLayout) getOurView(), preset, addOptional, false, true, Prefill.PRESET);
     }
 
     /**
@@ -1762,9 +1762,10 @@ public class TagEditorFragment extends SelectableRowsFragment implements Propert
      * @param addOptional add optional tags if true
      * @param isAlternative is a alternative to the existing tagging
      * @param addToMRU add to preset MRU list if true
+     * @param prefill etermine how to prefill empty values
      */
-    void applyPreset(@NonNull PresetItem item, boolean addOptional, boolean isAlternative, boolean addToMRU) {
-        applyPreset((LinearLayout) getOurView(), item, addOptional, isAlternative, addToMRU, true);
+    void applyPreset(@NonNull PresetItem item, boolean addOptional, boolean isAlternative, boolean addToMRU, @NonNull Prefill prefill) {
+        applyPreset((LinearLayout) getOurView(), item, addOptional, isAlternative, addToMRU, prefill);
     }
 
     /**
@@ -1776,10 +1777,10 @@ public class TagEditorFragment extends SelectableRowsFragment implements Propert
      * @param addOptional add optional tags if true
      * @param isAlternative is a alternative to the existing tagging
      * @param addToMRU add to preset MRU list if true
-     * @param useDefaults use any default values specified in the preset
+     * @param prefill determine how to prefill empty values
      */
     void applyPreset(@NonNull LinearLayout rowLayout, @NonNull PresetItem item, boolean addOptional, boolean isAlternative, boolean addToMRU,
-            boolean useDefaults) {
+            @NonNull Prefill prefill) {
         List<String> regions = propertyEditorListener.getIsoCodes();
         Log.d(DEBUG_TAG, "applying preset " + item.getName() + " for region " + regions);
         final LinkedHashMap<String, List<String>> currentValues = getKeyValueMap(rowLayout, true);
@@ -1843,10 +1844,10 @@ public class TagEditorFragment extends SelectableRowsFragment implements Propert
                             if (!check.appliesIn(regions)) {
                                 continue;
                             }
-                            addTagFromPreset(item, check, currentValues, check.getKey(), scripts, useDefaults);
+                            addTagFromPreset(item, check, currentValues, check.getKey(), scripts, prefill);
                         }
                     } else if (!(tagField instanceof PresetFixedField)) {
-                        addTagFromPreset(item, tagField, currentValues, entry.getKey(), scripts, useDefaults);
+                        addTagFromPreset(item, tagField, currentValues, entry.getKey(), scripts, prefill);
                     }
                 }
             }
@@ -1915,39 +1916,39 @@ public class TagEditorFragment extends SelectableRowsFragment implements Propert
      * @param tags map of current tags
      * @param key the key we are processing
      * @param scripts map containing any JS we find
-     * @param useDefault use any default value if true
+     * @param prefill determine how to prefill empty values
      * @return true if a value was set
      */
     private boolean addTagFromPreset(@NonNull PresetItem item, @Nullable PresetTagField field, @NonNull Map<String, List<String>> tags, @NonNull String key,
-            Map<String, String> scripts, boolean useDefault) {
+            @Nullable Map<String, String> scripts, @NonNull Prefill prefill) {
         List<String> values = tags.get(key);
         boolean isDeprecated = field != null && field.isDeprecated();
-        if ((values == null || (values.size() == 1 && "".equals(values.get(0)))) && !isDeprecated) {
-            String value = "";
-            if (field != null && useDefault) {
-                String defaultValue = field.getDefaultValue();
-                if (defaultValue != null) {
-                    value = defaultValue;
-                }
-                UseLastAsDefaultType useLastAsDefault = field.getUseLastAsDefault();
-                if (useLastAsDefault == UseLastAsDefaultType.TRUE || useLastAsDefault == UseLastAsDefaultType.FORCE) {
-                    MRUTags mruTags = App.getMruTags();
-                    String topValue = mruTags.getTopValue(item, key);
-                    if (topValue != null) {
-                        value = topValue;
-                    }
-                }
-            }
-            if (field instanceof PresetFieldJavaScript && scripts != null) {
-                String script = ((PresetFieldJavaScript) field).getScript();
-                if (script != null) {
-                    scripts.put(key, script);
-                }
-            }
-            tags.put(key, Util.wrapInList(value));
-            return !"".equals(value);
+        if ((values != null && ((values.size() == 1 && !"".equals(values.get(0))) || values.size() > 1)) || isDeprecated) {
+            return false;
         }
-        return false;
+        String value = "";
+        if (field != null && prefill != Prefill.NEVER) {
+            String defaultValue = field.getDefaultValue();
+            if (defaultValue != null) {
+                value = defaultValue;
+            }
+            UseLastAsDefaultType useLastAsDefault = field.getUseLastAsDefault();
+            if (useLastAsDefault == UseLastAsDefaultType.TRUE || useLastAsDefault == UseLastAsDefaultType.FORCE || prefill == Prefill.FORCE_LAST) {
+                MRUTags mruTags = App.getMruTags();
+                String topValue = mruTags.getTopValue(item, key);
+                if (topValue != null) {
+                    value = topValue;
+                }
+            }
+        }
+        if (field instanceof PresetFieldJavaScript && scripts != null) {
+            String script = ((PresetFieldJavaScript) field).getScript();
+            if (script != null) {
+                scripts.put(key, script);
+            }
+        }
+        tags.put(key, Util.wrapInList(value));
+        return !"".equals(value);
     }
 
     /**
@@ -2032,6 +2033,9 @@ public class TagEditorFragment extends SelectableRowsFragment implements Propert
         super.onPrepareOptionsMenu(menu);
         // disable address prediction for stuff that won't have an address
         menu.findItem(R.id.tag_menu_address).setVisible(elements.length == 1 && (!(elements[0] instanceof Way) || ((Way) elements[0]).isClosed()));
+        boolean multiSelect = elements.length > 1;
+        menu.findItem(R.id.tag_menu_apply_preset).setEnabled(!multiSelect);
+        menu.findItem(R.id.tag_menu_apply_preset_with_optional).setEnabled(!multiSelect);
         menu.findItem(R.id.tag_menu_mapfeatures).setEnabled(propertyEditorListener.isConnectedOrConnecting());
         menu.findItem(R.id.tag_menu_paste).setEnabled(!App.getTagClipboard(getContext()).isEmpty());
         menu.findItem(R.id.tag_menu_paste_from_clipboard).setEnabled(pasteFromClipboardIsPossible());
@@ -2052,11 +2056,11 @@ public class TagEditorFragment extends SelectableRowsFragment implements Propert
             return true;
         case R.id.tag_menu_apply_preset:
         case R.id.tag_menu_apply_preset_with_optional:
-            PresetItem pi = Preset.findBestMatch(propertyEditorListener.getPresets(), getKeyValueMapSingle(false), null, null); // FIXME
-                                                                                                                                // multiselect
+            PresetItem pi = Preset.findBestMatch(propertyEditorListener.getPresets(), getKeyValueMapSingle(false), null, null);
             if (pi != null) {
                 boolean displayOptional = itemId == R.id.tag_menu_apply_preset_with_optional;
-                presetSelectedListener.onPresetSelected(pi, displayOptional, false);
+                presetSelectedListener.onPresetSelected(pi, displayOptional, false,
+                        prefs.applyWithLastValues(getContext(), pi) ? Prefill.FORCE_LAST : Prefill.PRESET);
                 if (displayOptional) {
                     formUpdate.displayOptional(pi, true);
                 }
