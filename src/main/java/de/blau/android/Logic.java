@@ -1943,10 +1943,15 @@ public class Logic {
         createCheckpoint(activity, R.string.undo_action_movenode);
         int lonE7 = (int) (lon * 1E7d);
         int latE7 = (int) (lat * 1E7d);
-        getDelegator().moveNode(node, latE7, lonE7);
-        viewBox.moveTo(map, lonE7, latE7);
-        invalidateMap();
-        displayAttachedObjectWarning(activity, node);
+        try {
+            displayAttachedObjectWarning(activity, node);
+            getDelegator().moveNode(node, latE7, lonE7);
+            viewBox.moveTo(map, lonE7, latE7);
+            invalidateMap();
+        } catch (OsmIllegalOperationException | StorageException ex) {
+            handleDelegatorException(activity, ex);
+            throw ex; // rethrow
+        }
     }
 
     /**
@@ -2515,28 +2520,22 @@ public class Logic {
                     if (node == null && lat == node2.getLat() && lon == node2.getLon()) {
                         node = node2;
                     }
-                    if (node == null) {
-                        displayAttachedObjectWarning(activity, way, nodeToJoin); // needs to be done before join
-                        // move the existing node onto the way and insert it into the way
-                        try {
+                    try {
+                        if (node == null) {
+                            displayAttachedObjectWarning(activity, way, nodeToJoin); // needs to be done before join
+                            // move the existing node onto the way and insert it into the way
                             getDelegator().moveNode(nodeToJoin, lat, lon);
                             getDelegator().addNodeToWayAfter(i - 1, nodeToJoin, way);
                             tempResult = Util.wrapInList(new Result(nodeToJoin));
-                        } catch (OsmIllegalOperationException e) {
-                            dismissAttachedObjectWarning(activity); // doesn't make sense to show
-                            rollback();
-                            throw new OsmIllegalOperationException(e);
-                        }
-                    } else {
-                        displayAttachedObjectWarning(activity, node, nodeToJoin); // needs to be done before join
-                        // merge node into target Node
-                        MergeAction action = new MergeAction(getDelegator(), node, nodeToJoin);
-                        try {
+                        } else {
+                            displayAttachedObjectWarning(activity, node, nodeToJoin); // needs to be done before join
+                            // merge node into target Node
+                            MergeAction action = new MergeAction(getDelegator(), node, nodeToJoin);
                             tempResult = action.mergeNodes();
-                        } catch (OsmIllegalOperationException | StorageException ex) {
-                            handleDelegatorException(activity, ex);
-                            throw ex; // rethrow
                         }
+                    } catch (OsmIllegalOperationException | StorageException ex) {
+                        handleDelegatorException(activity, ex);
+                        throw ex; // rethrow
                     }
                     break; // need to leave loop !!!
                 }

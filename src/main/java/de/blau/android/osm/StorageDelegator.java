@@ -273,8 +273,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     /**
      * Called after an element has been changed
      * 
-     * As it may be fairly expensive to determine all changes pre and/or post may be null Don't call this if just the
-     * node positions have changed
+     * As it may be fairly expensive to determine all changes pre and/or post may be null
      * 
      * @param <T>
      * 
@@ -283,15 +282,13 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      */
     <T extends OsmElement> void onElementChanged(@Nullable List<T> pre, @Nullable List<T> post) {
         if (post != null) {
-            boolean nodeChanged = false;
             BoundingBox changed = null;
             for (OsmElement e : post) {
                 e.stamp();
                 e.resetHasProblem();
-                if (Way.NAME.equals(e.getName())) {
+                if (e instanceof Way) {
                     ((Way) e).invalidateBoundingBox();
-                } else if (Node.NAME.equals(e.getName())) {
-                    nodeChanged = true;
+                } else if (e instanceof Node) {
                     if (changed == null) {
                         changed = e.getBounds();
                     } else {
@@ -299,7 +296,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                     }
                 }
             }
-            if (nodeChanged) {
+            if (changed != null) {
                 for (Way w : currentStorage.getWays(changed)) {
                     w.invalidateBoundingBox();
                     w.resetHasProblem();
@@ -639,14 +636,9 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         validateCoordinates(latE7, lonE7);
         dirty = true;
         undo.save(node);
-        try {
-            invalidateWayBoundingBox(node);
-            updateLatLon(node, latE7, lonE7);
-            onElementChanged(null, node);
-        } catch (StorageException e) {
-            // TODO handle OOM
-            Log.e(DEBUG_TAG, "updateLatLon got " + e.getMessage());
-        }
+        invalidateWayBoundingBox(node);
+        updateLatLon(node, latE7, lonE7);
+        onElementChanged(null, node);
     }
 
     /**
