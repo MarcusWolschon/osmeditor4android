@@ -1,5 +1,7 @@
 package de.blau.android.propertyeditor;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +41,7 @@ import de.blau.android.BuildConfig;
 import de.blau.android.Feedback;
 import de.blau.android.HelpViewer;
 import de.blau.android.Logic;
+import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.contract.Flavors;
 import de.blau.android.contract.Github;
@@ -60,7 +63,8 @@ import de.blau.android.util.Util;
 
 public class PresetFragment extends BaseFragment implements PresetUpdate, PresetClickHandler {
 
-    private static final String DEBUG_TAG = PresetFragment.class.getSimpleName().substring(0, Math.min(23, PresetFragment.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Main.class.getSimpleName().length());
+    private static final String DEBUG_TAG = PresetFragment.class.getSimpleName().substring(0, TAG_LEN);
 
     static final int         MAX_SEARCHRESULTS      = 10;
     private static final int MAX_DISTANCE           = 2;
@@ -90,8 +94,9 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
          * @param item the PresetItem
          * @param applyOptional if true apply optional fields
          * @param isAlternative if true if the item is an alternative to the existing tagging
+         * @param prefill how to prefill empty values
          */
-        void onPresetSelected(@NonNull PresetItem item, boolean applyOptional, boolean isAlternative);
+        void onPresetSelected(@NonNull PresetItem item, boolean applyOptional, boolean isAlternative, @NonNull Prefill prefill);
     }
 
     private OnPresetSelectedListener mListener;
@@ -427,7 +432,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
      * Handle clicks on icons representing an item
      */
     @Override
-    public void onItemClick(PresetItem item) {
+    public void onItemClick(View view, PresetItem item) {
         if (enabled) {
             mListener.onPresetSelected(item);
         }
@@ -437,7 +442,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
      * Handle long clicks on icons representing an item
      */
     @Override
-    public boolean onItemLongClick(PresetItem item) {
+    public boolean onItemLongClick(View view, PresetItem item) {
         if (enabled) {
             Preset preset = item.getPreset();
             Preset[] presets = propertyEditorListener.getPresets();
@@ -464,7 +469,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
      * Handle clicks on icons representing a group (changing to that group)
      */
     @Override
-    public void onGroupClick(PresetGroup group) {
+    public void onGroupClick(View view, PresetGroup group) {
         ScrollView scrollView = (ScrollView) getOurView();
         if (scrollView != null) {
             currentGroup = group;

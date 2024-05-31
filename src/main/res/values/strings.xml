@@ -907,6 +907,9 @@
     <string name="default_checkgroup_hint">Additional attributes</string>
     <string name="tag_form_unknown_element">Unknown element (no preset found)</string>
     <string name="tag_form_untagged_element">Untagged element</string>
+    <!--  preset item menu in preset MRU -->
+    <string name="apply_with_last_values">Apply with last values</string>
+    <string name="apply_with_optional_tags">Apply with optional tags</string>
     <!-- Custom preset creation -->
     <string name="tag_menu_create_preset">Create custom preset</string>
     <string name="create_preset_title">Custom preset name</string>

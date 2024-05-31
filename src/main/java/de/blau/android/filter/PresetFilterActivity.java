@@ -1,5 +1,7 @@
 package de.blau.android.filter;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import de.blau.android.App;
 import de.blau.android.HelpViewer;
+import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetClickHandler;
@@ -33,7 +36,8 @@ import de.blau.android.util.ScreenMessage;
  */
 public class PresetFilterActivity extends ConfigurationChangeAwareActivity implements PresetClickHandler {
 
-    private static final String DEBUG_TAG = PresetFilterActivity.class.getSimpleName().substring(0, Math.min(23, PresetFilterActivity.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Main.class.getSimpleName().length());
+    private static final String DEBUG_TAG = PresetFilterActivity.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String FILTER_NULL_OR_NOT_A_PRESET_FILTER = "filter null or not a PresetFilter";
 
@@ -184,7 +188,7 @@ public class PresetFilterActivity extends ConfigurationChangeAwareActivity imple
      * Handle clicks on icons representing an item (closing the dialog with the item as a result)
      */
     @Override
-    public void onItemClick(PresetItem item) {
+    public void onItemClick(View view, PresetItem item) {
         onPresetElementSelected(item);
     }
 
@@ -192,7 +196,7 @@ public class PresetFilterActivity extends ConfigurationChangeAwareActivity imple
      * for now do the same
      */
     @Override
-    public boolean onItemLongClick(PresetItem item) {
+    public boolean onItemLongClick(View view, PresetItem item) {
         onPresetElementSelected(item);
         return true;
     }
@@ -201,7 +205,7 @@ public class PresetFilterActivity extends ConfigurationChangeAwareActivity imple
      * Handle clicks on icons representing a group (changing to that group)
      */
     @Override
-    public void onGroupClick(PresetGroup group) {
+    public void onGroupClick(View view, PresetGroup group) {
         if (!(App.getLogic().getFilter() instanceof PresetFilter)) {
             Log.e(DEBUG_TAG, FILTER_NULL_OR_NOT_A_PRESET_FILTER);
             return;
@@ -214,7 +218,7 @@ public class PresetFilterActivity extends ConfigurationChangeAwareActivity imple
     }
 
     @Override
-    public boolean onGroupLongClick(PresetGroup group) {
+    public boolean onGroupLongClick(View view, PresetGroup group) {
         onPresetElementSelected(group);
         return true;
     }

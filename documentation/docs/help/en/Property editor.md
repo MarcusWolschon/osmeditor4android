@@ -2,8 +2,8 @@
 
 The property editor screen is the central place for changing object attributes and relation memberships. To exit and save your changes tap the check mark icon in the upper left hand corner, pressing the device back button will give you the option of exiting without saving. Tags with empty value fields will not be saved.
 
-Most of the fields use context sensitive auto complete provided by the active presets. Clicking twice (with a short pause) will re-display the auto complete menu. 
-
+Many of the fields use context sensitive auto complete provided by the active presets and previously used tags. Clicking twice (with a short pause) will re-display the auto complete menu. 
+ 
 Depending on size and orientation of your device the layout will change to make maximum use of the space available.
  
  * small devices: tab layout with _Presets_, _Properties_ (including the recently used presets), _Details_ and _Relations_ tabs. If the selected object is a relation a further _Members_ tab will be available. 
@@ -17,11 +17,15 @@ In the tabs tapping the checkbox in the header row will select/de-select all ele
 
 ## Properties Tab
 
-This tab gives a simplified, preset-driven, editing screen for the tags on the selected object on which the keys are represented by their description. To remove individual attributes you can simply remove or reset the value (or delete them in the _Details_ tab).
+This tab gives a simplified, preset-driven, editing screen for the tags for the selected object. Instead of displaying the raw keys, they are represented by their description, which, if available will be translated. To remove individual attributes you can simply remove or reset the value (or delete them in the _Details_ tab).
 
 Fields are added by applying presets, either via the _Preset_ tab or via the ![Apply preset](../images/preset.png) _Apply best preset_ or ![Apply preset with optional tags](../images/tag_menu_apply_preset.png) _Apply best preset with optional tags_ buttons. The later will add fields for any optional tags that are present in the preset.
 
-If alternative tagging is available for the main object, the alternative presets will be displayed before those in the most recently used list.
+If alternative tagging is available for the main object, the alternative presets will be displayed before those in the most recently used list. Long pressing on an item in the MRU preset view will display a menu allowing to
+
+* Set _Apply with last values_, after setting this, further use of the preset will use the most recently used tag values as defaults. If this is not set (_default_) the use of the last value is determined by the *use_last_as_default* attribute in the preset.
+* Set _Apply with optional tags_, after setting this, optional tags will be added when you apply the preset to an object, the same behaviour as pressing the ![Apply preset with optional tags](../images/tag_menu_apply_preset.png), but this will work when auto-applying the best matching preset on startup of the property editor too.
+* _Remove_ remove the item from the MRU preset view. Note that the above settings are persistent and will remain in force even if the preset item is removed.  
 
 Further behaviour and menu items are similar or the same as for the _Details_ tab, the _Add language tags_ menu item will add local language variants of the name and similar keys to the preset if configured for the region (see [the GeoContext repository](https://github.com/simonpoole/geocontext)).
 
@@ -142,7 +146,7 @@ Scroll the screen to the bottom.
 
 Start the on device help browser.
 
-## Preset display
+## Preset tab
 
 Find, select and apply a [preset](Presets.md). Groups of presets have a light background, presets a dark one. The on device presets can be searched for terms, if enabled and network connectivity is available you can try and construct additional presets by querying the Taginfo service, when the results from the internal search are displayed.
 

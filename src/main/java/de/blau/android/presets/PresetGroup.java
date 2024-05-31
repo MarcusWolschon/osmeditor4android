@@ -1,5 +1,7 @@
 package de.blau.android.presets;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,6 +19,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
+import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.views.WrappingLayout;
@@ -26,7 +29,10 @@ import de.blau.android.views.WrappingLayout;
  */
 public class PresetGroup extends PresetElement {
 
-    private static final String DEBUG_TAG = PresetGroup.class.getSimpleName().substring(0, Math.min(23, PresetGroup.class.getSimpleName().length()));
+    private static final long serialVersionUID = 1L;
+
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Main.class.getSimpleName().length());
+    private static final String DEBUG_TAG = PresetGroup.class.getSimpleName().substring(0, TAG_LEN);
 
     private boolean itemSort = true;
 
@@ -106,8 +112,8 @@ public class PresetGroup extends PresetElement {
         TextView v = super.getBaseView(ctx, selected);
         v.setTypeface(null, Typeface.BOLD);
         if (handler != null) {
-            v.setOnClickListener(view -> handler.onGroupClick(PresetGroup.this));
-            v.setOnLongClickListener(view -> handler.onGroupLongClick(PresetGroup.this));
+            v.setOnClickListener(view -> handler.onGroupClick(v, PresetGroup.this));
+            v.setOnLongClickListener(view -> handler.onGroupLongClick(v, PresetGroup.this));
         }
         v.setBackgroundColor(ContextCompat.getColor(ctx, selected ? R.color.material_deep_teal_200 : R.color.dark_grey));
         return v;

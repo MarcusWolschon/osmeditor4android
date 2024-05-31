@@ -7,7 +7,7 @@
 <body>
 <h1>Vespucci Property Editor</h1>
 <p>The property editor screen is the central place for changing object attributes and relation memberships. To exit and save your changes tap the check mark icon in the upper left hand corner, pressing the device back button will give you the option of exiting without saving. Tags with empty value fields will not be saved.</p>
-<p>Most of the fields use context sensitive auto complete provided by the active presets. Clicking twice (with a short pause) will re-display the auto complete menu.</p>
+<p>Many of the fields use context sensitive auto complete provided by the active presets and previously used tags. Clicking twice (with a short pause) will re-display the auto complete menu.</p>
 <p>Depending on size and orientation of your device the layout will change to make maximum use of the space available.</p>
 <ul>
 <li>small devices: tab layout with <em>Presets</em>, <em>Properties</em> (including the recently used presets), <em>Details</em> and <em>Relations</em> tabs. If the selected object is a relation a further <em>Members</em> tab will be available.</li>
@@ -17,9 +17,14 @@
 <p>If the <em>Display tag form</em> preference in the <em><a href="Advanced%20preferences.md">Advanced preferences</a></em> has been disabled pre-0.9.8 behaviour is enabled and the <em>Details</em> tab will have the heading <em>Properties</em>.</p>
 <p>In the tabs tapping the checkbox in the header row will select/de-select all elements.</p>
 <h2>Properties Tab</h2>
-<p>This tab gives a simplified, preset-driven, editing screen for the tags on the selected object on which the keys are represented by their description. To remove individual attributes you can simply remove or reset the value (or delete them in the <em>Details</em> tab).</p>
+<p>This tab gives a simplified, preset-driven, editing screen for the tags for the selected object. Instead of displaying the raw keys, they are represented by their description, which, if available will be translated. To remove individual attributes you can simply remove or reset the value (or delete them in the <em>Details</em> tab).</p>
 <p>Fields are added by applying presets, either via the <em>Preset</em> tab or via the <img src="../images/preset.png" alt="Apply preset" /> <em>Apply best preset</em> or <img src="../images/tag_menu_apply_preset.png" alt="Apply preset with optional tags" /> <em>Apply best preset with optional tags</em> buttons. The later will add fields for any optional tags that are present in the preset.</p>
-<p>If alternative tagging is available for the main object, the alternative presets will be displayed before those in the most recently used list.</p>
+<p>If alternative tagging is available for the main object, the alternative presets will be displayed before those in the most recently used list. Long pressing on an item in the MRU preset view will display a menu allowing to</p>
+<ul>
+<li>Set <em>Apply with last values</em>, after setting this, further use of the preset will use the most recently used tag values as defaults. If this is not set (<em>default</em>) the use of the last value is determined by the <em>use_last_as_default</em> attribute in the preset.</li>
+<li>Set <em>Apply with optional tags</em>, after setting this, optional tags will be added when you apply the preset to an object, the same behaviour as pressing the <img src="../images/tag_menu_apply_preset.png" alt="Apply preset with optional tags" />, but this will work when auto-applying the best matching preset on startup of the property editor too.</li>
+<li><em>Remove</em> remove the item from the MRU preset view. Note that the above settings are persistent and will remain in force even if the preset item is removed.</li>
+</ul>
 <p>Further behaviour and menu items are similar or the same as for the <em>Details</em> tab, the <em>Add language tags</em> menu item will add local language variants of the name and similar keys to the preset if configured for the region (see <a href="https://github.com/simonpoole/geocontext">the GeoContext repository</a>).</p>
 <h2>Details Tab</h2>
 <p>Display of the key - value attributes of the edited object.</p>
@@ -90,7 +95,7 @@
 <p>Scroll the screen to the bottom.</p>
 <h3><img src="../images/menu_help.png" alt="Help" /> Help</h3>
 <p>Start the on device help browser.</p>
-<h2>Preset display</h2>
+<h2>Preset tab</h2>
 <p>Find, select and apply a <a href="Presets.md">preset</a>. Groups of presets have a light background, presets a dark one. The on device presets can be searched for terms, if enabled and network connectivity is available you can try and construct additional presets by querying the Taginfo service, when the results from the internal search are displayed.</p>
 <p>Presets in the &quot;Auto-presets&quot; group, that is such generated from taginfo or custom presets, can be removed from the configuration by long-pressing the respective icon.</p>
 <h3>Top</h3>

@@ -2432,6 +2432,83 @@ public class PropertyEditorTest {
     }
 
     /**
+     * Select an untagged node, then - apply restaurant preset
+     */
+    @Test
+    public void mruPreset() {
+        PresetItem restaurant = App.getCurrentPresets(main)[0].getItemByName("Restaurant", null);
+        MRUTags mruTags = App.getMruTags();
+        mruTags.put(restaurant, "cuisine", "greek");
+        final CountDownLatch signal = new CountDownLatch(1);
+        mockServer.enqueue("capabilities1");
+        mockServer.enqueue("download1");
+        Logic logic = App.getLogic();
+        logic.downloadBox(main, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D), false, new SignalHandler(signal));
+        try {
+            signal.await(30, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            fail(e.getMessage());
+        }
+        main.getMap().getDataLayer().setVisible(true);
+        TestUtils.unlock(device);
+        TestUtils.zoomToLevel(device, main, 21);
+        // trying to get node click work properly is frustrating
+        // TestUtils.clickAtCoordinates(main.getMap(), 8.3856255, 47.3894333, true);
+        Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 599672192L);
+        assertNotNull(n);
+        final CountDownLatch signal2 = new CountDownLatch(1);
+        main.runOnUiThread(() -> {
+            main.getEasyEditManager().editElement(n);
+            (new SignalHandler(signal2)).onSuccess();
+        });
+        try {
+            signal2.await(20, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            fail(e.getMessage());
+        }
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
+        // Node n = App.getLogic().getSelectedNode();
+        // assertNotNull(n);
+
+        assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.menu_tags), false, true));
+        PropertyEditorActivity propertyEditor = waitForPropertyEditor();
+
+        if (!((PropertyEditorActivity) propertyEditor).usingPaneLayout()) {
+            assertTrue(TestUtils.clickText(device, true, main.getString(R.string.tag_menu_preset), false, false));
+        }
+
+        boolean found = TestUtils.clickText(device, true, getTranslatedPresetGroupName(main, "Facilities"), true, false);
+        assertTrue(found);
+        found = TestUtils.clickText(device, true, getTranslatedPresetGroupName(main, "Food+Drinks"), true, false);
+        assertTrue(found);
+        found = TestUtils.clickText(device, true, getTranslatedPresetItemName(main, "Restaurant"), true, false);
+        assertTrue(found);
+
+        TestUtils.scrollToEnd(false);
+
+        assertTrue(TestUtils.findText(device, false, "Restaurant"));
+        assertTrue(TestUtils.longClickText(device, "Restaurant"));
+
+        assertTrue(TestUtils.findText(device, false, main.getString(R.string.apply_with_last_values)));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.apply_with_last_values), true));
+        assertTrue(TestUtils.clickText(device, false, "Restaurant", false)); // this applies the preset which should set
+                                                                             // cuisine to greek
+
+        UiObject2 cusine = null;
+        try {
+            cusine = getField(device, "Cuisine", 1);
+        } catch (UiObjectNotFoundException e) {
+            fail();
+        }
+        assertNotNull(cusine);
+
+        TestUtils.clickHome(device, true);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
+        device.waitForIdle();
+        assertTrue(n.hasTag("cuisine", "greek"));
+    }
+
+    /**
      * Get the value field for a specific key
      * 
      * @param mDevice the current UiDevice

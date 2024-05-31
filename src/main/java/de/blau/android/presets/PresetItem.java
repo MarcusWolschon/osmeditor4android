@@ -1,5 +1,7 @@
 package de.blau.android.presets;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,6 +29,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import ch.poole.osm.josmfilterparser.JosmFilterParser;
+import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.contract.Schemes;
 import de.blau.android.contract.Urls;
@@ -45,7 +48,8 @@ public class PresetItem extends PresetElement {
 
     private static final long serialVersionUID = 1L;
 
-    private static final String DEBUG_TAG = PresetItem.class.getSimpleName().substring(0, Math.min(23, PresetItem.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Main.class.getSimpleName().length());
+    private static final String DEBUG_TAG = PresetItem.class.getSimpleName().substring(0, TAG_LEN);
 
     /**
      * All fields in the order they are in the Preset file
@@ -1216,8 +1220,8 @@ public class PresetItem extends PresetElement {
     public View getView(Context ctx, final PresetClickHandler handler, boolean selected) {
         View v = super.getBaseView(ctx, selected);
         if (handler != null) {
-            v.setOnClickListener(view -> handler.onItemClick(PresetItem.this));
-            v.setOnLongClickListener(view -> handler.onItemLongClick(PresetItem.this));
+            v.setOnClickListener(view -> handler.onItemClick(v, PresetItem.this));
+            v.setOnLongClickListener(view -> handler.onItemLongClick(v, PresetItem.this));
         }
         v.setBackgroundColor(ContextCompat.getColor(ctx, selected ? R.color.material_deep_teal_500 : R.color.preset_bg));
         return v;

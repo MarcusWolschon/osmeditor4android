@@ -1,5 +1,7 @@
 package de.blau.android.propertyeditor;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +26,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
+import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.dialogs.ProgressDialog;
@@ -44,10 +47,11 @@ import de.blau.android.util.Util;
 
 public class PresetSearchResultsFragment extends DialogFragment implements UpdatePresetSearchResult {
 
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Main.class.getSimpleName().length());
+    private static final String DEBUG_TAG = PresetSearchResultsFragment.class.getSimpleName().substring(0, TAG_LEN);
+    
     private static final String SEARCH_RESULTS_KEY = "searchResults";
     private static final String SEARCH_TERM_KEY    = "searchTerm";
-
-    private static final String DEBUG_TAG = PresetSearchResultsFragment.class.getSimpleName().substring(0, Math.min(23, PresetSearchResultsFragment.class.getSimpleName().length()));
 
     private OnPresetSelectedListener mOnPresetSelectedListener; // NOSONAR we want to fail in onAttach
     private PresetUpdate             mPresetUpdateListener;     // NOSONAR
@@ -147,7 +151,7 @@ public class PresetSearchResultsFragment extends DialogFragment implements Updat
         return dialog;
     }
 
-    final PresetClickHandler presetClickHandler = (PresetItem item) -> {
+    final PresetClickHandler presetClickHandler = (View view, PresetItem item) -> {
         if (!enabled) {
             return;
         }
