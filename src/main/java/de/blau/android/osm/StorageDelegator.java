@@ -639,14 +639,9 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         validateCoordinates(latE7, lonE7);
         dirty = true;
         undo.save(node);
-        try {
-            invalidateWayBoundingBox(node);
-            updateLatLon(node, latE7, lonE7);
-            onElementChanged(null, node);
-        } catch (StorageException e) {
-            // TODO handle OOM
-            Log.e(DEBUG_TAG, "updateLatLon got " + e.getMessage());
-        }
+        invalidateWayBoundingBox(node);
+        updateLatLon(node, latE7, lonE7);
+        onElementChanged(null, node);
     }
 
     /**

@@ -374,7 +374,6 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
         lon.setText(String.format(Locale.US, "%.7f", lonE7 / 1E7d));
         final EditText lat = (EditText) layout.findViewById(R.id.set_position_lat);
         lat.setText(String.format(Locale.US, "%.7f", latE7 / 1E7d));
-
         builder.setPositiveButton(R.string.set, null);
         builder.setNegativeButton(R.string.cancel, null);
         final AlertDialog dialog = builder.create();
@@ -388,12 +387,12 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
                         logic.performSetPosition(main, (Node) element, longitude, latitude);
                         dialog.dismiss();
                         manager.invalidate();
-                        return;
+                    } else {
+                        ScreenMessage.toastTopWarning(main, R.string.coordinates_out_of_range);
                     }
-                } catch (OsmIllegalOperationException | NumberFormatException nfex) {
-                    Log.w(DEBUG_TAG, nfex.getMessage());
+                } catch (OsmIllegalOperationException | NumberFormatException | StorageException ex) {
+                    Log.w(DEBUG_TAG, ex.getMessage());
                 }
-                ScreenMessage.toastTopWarning(main, R.string.coordinates_out_of_range);
             });
         });
         return dialog;
