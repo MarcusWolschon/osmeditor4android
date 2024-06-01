@@ -9,6 +9,7 @@ import android.os.Build;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.app.TaskStackBuilder;
 import de.blau.android.R;
 import de.blau.android.prefs.Preferences;
@@ -51,11 +52,7 @@ public final class Notifications {
     @SuppressWarnings("deprecation")
     public static NotificationCompat.Builder builder(@NonNull Context context, @NonNull String channelId) {
         if (Build.VERSION.SDK_INT >= 26) {
-            if (DEFAULT_CHANNEL.equals(channelId)) {
-                return new NotificationCompat.Builder(context, DEFAULT_CHANNEL);
-            } else {
-                return new NotificationCompat.Builder(context, channelId); // NOSONAR
-            }
+            return new NotificationCompat.Builder(context, channelId);
         } else {
             return new NotificationCompat.Builder(context); // NOSONAR
         }
@@ -80,7 +77,7 @@ public final class Notifications {
      */
     public static void initChannel(@NonNull Context context, @NonNull String channelId, int nameRes, int descriptionRes) {
         if (Build.VERSION.SDK_INT >= 26) {
-            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
             if (notificationManager.getNotificationChannel(channelId) == null) {
                 NotificationChannel channel = new NotificationChannel(channelId, context.getString(nameRes), NotificationManager.IMPORTANCE_DEFAULT);
                 channel.setDescription(context.getString(descriptionRes));
@@ -100,14 +97,14 @@ public final class Notifications {
      */
     public static boolean channelEnabled(@NonNull Context context, @NonNull String channelId) {
         if (Build.VERSION.SDK_INT >= 26) {
-            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
             NotificationChannel channel = notificationManager.getNotificationChannel(channelId);
             if (channel != null) {
                 return channel.getImportance() != NotificationManager.IMPORTANCE_NONE;
             }
             return true; // channel doesn't exist yet
         }
-        return true;
+        return true; // channel doesn't exist yet
     }
 
     /**
@@ -117,7 +114,7 @@ public final class Notifications {
      * @param mBuilder the NotificationCompat.Builder we want to change
      */
     public static void setGroupAlertBehavior(Preferences prefs, NotificationCompat.Builder mBuilder) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && prefs.groupAlertOnly()) {
+        if (prefs.groupAlertOnly()) {
             mBuilder.setGroupAlertBehavior(NotificationCompat.GROUP_ALERT_SUMMARY);
         }
     }
@@ -178,7 +175,7 @@ public final class Notifications {
         if (pendingIntent != null) {
             builder.setContentIntent(pendingIntent);
         }
-        NotificationManager nManager = (NotificationManager) ctx.getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManagerCompat nManager = NotificationManagerCompat.from(ctx);
         nManager.notify(id, builder.build());
     }
 
