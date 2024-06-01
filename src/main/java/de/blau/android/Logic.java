@@ -5159,11 +5159,7 @@ public class Logic {
      */
     private void setRelationType(@Nullable String type, @NonNull Relation relation) {
         SortedMap<String, String> tags = new TreeMap<>(relation.getTags());
-        if (type != null) {
-            tags.put(Tags.KEY_TYPE, type);
-        } else {
-            tags.put(Tags.KEY_TYPE, "");
-        }
+        tags.put(Tags.KEY_TYPE, type != null ? type : "");
         getDelegator().setTags(relation, tags);
     }
 
