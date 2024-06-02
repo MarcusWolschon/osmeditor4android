@@ -31,6 +31,17 @@ public class Coordinates implements IPoint {
     }
 
     /**
+     * Set new coordinates
+     * 
+     * @param x screen x coordinate
+     * @param y screen y coordinate
+     */
+    public void set(double x, double y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    /**
      * Subtract Coordinates from this object
      * 
      * @param s the Coordinates to subtract
