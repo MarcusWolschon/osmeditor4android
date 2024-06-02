@@ -67,6 +67,7 @@ import de.blau.android.resources.DataStyle.FeatureStyle;
 import de.blau.android.resources.symbols.TriangleDown;
 import de.blau.android.util.ColorUtil;
 import de.blau.android.util.ContentResolverUtil;
+import de.blau.android.util.Coordinates;
 import de.blau.android.util.ExecutorTask;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.GeoJSONConstants;
@@ -164,6 +165,7 @@ public class MapOverlay extends StyleableFileLayer
     private final transient Path                 path                  = new Path();
     private transient FloatPrimitiveList         points                = new FloatPrimitiveList();
     private transient Collection<BoundedFeature> queryForDisplayResult = new ArrayList<>();
+    private final transient Coordinates          centroid              = new Coordinates(0, 0);
     /** Map this is an overlay of. */
     private final transient Map                  map;
 
@@ -263,7 +265,7 @@ public class MapOverlay extends StyleableFileLayer
             List<Point> line = ((CoordinateContainer<List<Point>>) g).coordinates();
             paint.setAntiAlias(true);
             paint.setStyle(Paint.Style.STROKE);
-            drawLine(canvas, bb, width, height, line, paint);
+            drawLine(canvas, bb, width, height, line, paint, label);
             break;
         case GeoJSONConstants.MULTILINESTRING:
             @SuppressWarnings("unchecked")
@@ -271,7 +273,7 @@ public class MapOverlay extends StyleableFileLayer
             paint.setAntiAlias(true);
             paint.setStyle(Paint.Style.STROKE);
             for (List<Point> l : lines) {
-                drawLine(canvas, bb, width, height, l, paint);
+                drawLine(canvas, bb, width, height, l, paint, label);
             }
             break;
         case GeoJSONConstants.POLYGON:
@@ -279,7 +281,7 @@ public class MapOverlay extends StyleableFileLayer
             List<List<Point>> rings = ((CoordinateContainer<List<List<Point>>>) g).coordinates();
             paint.setAntiAlias(true);
             paint.setStyle(Paint.Style.FILL_AND_STROKE);
-            drawPolygon(canvas, bb, width, height, rings, paint);
+            drawPolygon(canvas, bb, width, height, rings, paint, label);
             break;
         case GeoJSONConstants.MULTIPOLYGON:
             @SuppressWarnings("unchecked")
@@ -287,7 +289,7 @@ public class MapOverlay extends StyleableFileLayer
             paint.setAntiAlias(true);
             paint.setStyle(Paint.Style.FILL_AND_STROKE);
             for (List<List<Point>> polygon : polygons) {
-                drawPolygon(canvas, bb, width, height, polygon, paint);
+                drawPolygon(canvas, bb, width, height, polygon, paint, label);
             }
             break;
         case GeoJSONConstants.GEOMETRYCOLLECTION:
@@ -342,8 +344,10 @@ public class MapOverlay extends StyleableFileLayer
      * @param height screen height in screen coordinates
      * @param line List of Position objects defining the line to draw
      * @param paint Paint object for drawing
+     * @param label a label for the line or null
      */
-    public void drawLine(@NonNull Canvas canvas, @NonNull ViewBox bb, int width, int height, @NonNull List<Point> line, @NonNull Paint paint) {
+    public void drawLine(@NonNull Canvas canvas, @NonNull ViewBox bb, int width, int height, @NonNull List<Point> line, @NonNull Paint paint,
+            @Nullable String label) {
         GeoJson.pointListToLinePointsArray(bb, width, height, points, line);
         float[] linePoints = points.getArray();
         int pointsSize = points.size();
@@ -354,6 +358,12 @@ public class MapOverlay extends StyleableFileLayer
                 path.lineTo(linePoints[i + 2], linePoints[i + 3]);
             }
             canvas.drawPath(path, paint);
+            if (label != null) {
+                Coordinates m = de.blau.android.util.Geometry.midpointFromPointlist(linePoints, pointsSize, centroid);
+                if (m != null) {
+                    paintLabel(canvas, label, m);
+                }
+            }
         }
     }
 
@@ -366,14 +376,20 @@ public class MapOverlay extends StyleableFileLayer
      * @param height screen height in screen coordinates
      * @param polygon List of List of Position objects defining the polygon rings
      * @param paint Paint object for drawing
+     * @param label a label for the polygon or null
      */
-    public void drawPolygon(@NonNull Canvas canvas, @NonNull ViewBox bb, int width, int height, @NonNull List<List<Point>> polygon, @NonNull Paint paint) {
+    public void drawPolygon(@NonNull Canvas canvas, @NonNull ViewBox bb, int width, int height, @NonNull List<List<Point>> polygon, @NonNull Paint paint,
+            @Nullable String label) {
+        Coordinates c = null;
         path.reset();
         for (List<Point> ring : polygon) {
             GeoJson.pointListToLinePointsArray(bb, width, height, points, ring);
             float[] linePoints = points.getArray();
             int pointsSize = points.size();
             if (pointsSize > 2) {
+                if (c == null && label != null) {
+                    c = de.blau.android.util.Geometry.centroidFromPointlist(linePoints, pointsSize, centroid);
+                }
                 path.moveTo(linePoints[0], linePoints[1]);
                 for (int i = 0; i < pointsSize; i = i + 4) {
                     path.lineTo(linePoints[i + 2], linePoints[i + 3]);
@@ -383,6 +399,25 @@ public class MapOverlay extends StyleableFileLayer
         }
         path.setFillType(Path.FillType.EVEN_ODD);
         canvas.drawPath(path, paint);
+        if (c != null) {
+            paintLabel(canvas, label, c);
+        }
+    }
+
+    /**
+     * Draw a label at the screen coordinates in c
+     * 
+     * @param canvas the Canvas
+     * @param label the label
+     * @param c the Coordinates
+     */
+    private void paintLabel(@NonNull Canvas canvas, @NonNull String label, @NonNull Coordinates c) {
+        float halfTextWidth = labelPaint.measureText(label) / 2;
+        FontMetrics fm = labelFs.getFontMetrics();
+        final float x = (float) c.x;
+        final float y = (float) c.y;
+        canvas.drawRect(x - halfTextWidth, y, x + halfTextWidth, y - labelPaint.getTextSize() + fm.bottom, labelBackground);
+        canvas.drawText(label, x - halfTextWidth, y, labelPaint);
     }
 
     @Override
@@ -505,7 +540,7 @@ public class MapOverlay extends StyleableFileLayer
     /**
      * @param features a List of Feature
      */
-    private void loadFeatures(List<Feature> features) {
+    private void loadFeatures(@NonNull List<Feature> features) {
         for (Feature f : features) {
             if (GeoJSONConstants.FEATURE.equals(f.type()) && f.geometry() != null) {
                 data.insert(new BoundedFeature(f));
@@ -788,6 +823,7 @@ public class MapOverlay extends StyleableFileLayer
      * @param f the Feature we want the label for
      * @return the label or null if not found
      */
+    @Nullable
     public String getLabel(Feature f) {
         if (labelKey != null) {
             JsonObject properties = f.properties();

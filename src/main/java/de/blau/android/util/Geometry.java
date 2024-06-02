@@ -488,7 +488,7 @@ public final class Geometry {
      * 
      * See https://www.scribd.com/document/14819165/Regressions-coniques-quadriques-circulaire-spherique
      * 
-     * @param coords a list on non-colinear coordinates
+     * @param coords a list of non-colinear coordinates
      * @return a Circle object
      */
     @NonNull
@@ -524,6 +524,76 @@ public final class Geometry {
         double r = Math.sqrt(c + x * x + y * y);
 
         return new Circle(new Coordinates(x + coords[0].x, y + coords[0].y), r);
+    }
+
+    /**
+     * Calculate on screen centroid from a list of coordinates of a polygon
+     * 
+     * While this duplicates code from above, this makes sense in situations in which the coordinates are in the float
+     * array format.
+     * 
+     * @param linePoints an array holding the coordinates
+     * @param length the length of the usable data in the array
+     * @param centroid a preallocated Coordinates object
+     * @return the provided Coordinates object or null
+     */
+    @Nullable
+    public static Coordinates centroidFromPointlist(@NonNull float[] linePoints, int length, @NonNull Coordinates centroid) {
+        double area = 0;
+        double y = 0;
+        double x = 0;
+        double x1 = linePoints[0];
+        double y1 = linePoints[1];
+        for (int i = 0; i < length; i = i + 2) {
+            double x2 = linePoints[(i + 2) % length];
+            double y2 = linePoints[(i + 3) % length];
+            double d = x1 * y2 - x2 * y1;
+            area = area + d;
+            x = x + (x1 + x2) * d;
+            y = y + (y1 + y2) * d;
+            x1 = x2;
+            y1 = y2;
+        }
+        if (Util.notZero(area)) {
+            centroid.set(x / (3 * area), y / (3 * area)); // NOSONAR nonZero tests for zero
+            return centroid;
+        }
+        return null;
+    }
+
+    /**
+     * Calculate on screen midpoint from a list of coordinates of a line
+     * 
+     * While this duplicates code from above, this makes sense in situations in which the coordinates are in the float
+     * array format.
+     * 
+     * @param linePoints an array holding the coordinates
+     * @param length the length of the usable data in the array
+     * @param midpoint a preallocated Coordinates object
+     * @return the provided Coordinates object or null
+     */
+    @Nullable
+    public static Coordinates midpointFromPointlist(@NonNull float[] linePoints, int length, @NonNull Coordinates midpoint) {
+        double y = 0;
+        double x = 0;
+        double x1 = linePoints[0];
+        double y1 = linePoints[1];
+        double l = 0;
+        for (int i = 0; i < length - 2; i = i + 2) {
+            double x2 = linePoints[i + 2];
+            double y2 = linePoints[i + 3];
+            double len = Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
+            l += len;
+            x += len * (x1 + x2) / 2;
+            y += len * (y1 + y2) / 2;
+            x1 = x2;
+            y1 = y2;
+        }
+        if (Util.notZero(l)) {
+            midpoint.set(x / l, y / l); // NOSONAR nonZero tests for zero
+            return midpoint;
+        }
+        return null;
     }
 
     interface Op {

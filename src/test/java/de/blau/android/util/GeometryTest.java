@@ -4,8 +4,6 @@ import static de.blau.android.osm.DelegatorUtil.toE7;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -87,5 +85,27 @@ public class GeometryTest {
         assertEquals(2, centroid.length);
         assertEquals(centroid[0], -0.1417412D, 0.0000001);
         assertEquals(centroid[1], 51.5019094D, 0.0000001);
+    }
+    
+    /**
+     * Calculate the centroid of a list of screen coordinates of a polygon
+     */
+    @Test
+    public void centroidFromPointlist() {
+        float[] pointlist = new float[] {2,2,2,0,0,0,0,2};
+        Coordinates c = Geometry.centroidFromPointlist(pointlist, pointlist.length, new Coordinates(0,0));
+        assertEquals(1D, c.x, 0.000001);
+        assertEquals(1D, c.y, 0.000001);     
+    }
+    
+    /**
+     * Calculate the midpoint of a list of screen coordinates of a linestring
+     */
+    @Test
+    public void midpointFromPointlist() {
+        float[] pointlist = new float[] {-1,0,0,1,2,-1,3,0};
+        Coordinates c = Geometry.midpointFromPointlist(pointlist, pointlist.length, new Coordinates(0,0));
+        assertEquals(1D, c.x, 0.000001);
+        assertEquals(0D, c.y, 0.000001);     
     }
 }

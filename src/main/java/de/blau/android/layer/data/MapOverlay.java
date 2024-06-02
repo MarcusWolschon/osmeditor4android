@@ -301,6 +301,7 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
     private final List<Way>          waysResult      = new LowAllocArrayList<>(1000);
     private final List<BoundingBox>  downloadedBoxes = new LowAllocArrayList<>();
     private final ViewBox            viewBox         = new ViewBox();
+    private final Coordinates        centroid        = new Coordinates(0, 0);
 
     /**
      * Stuff for multipolygon support Instantiate these objects just once
@@ -927,12 +928,13 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
                 }
             } else if (v instanceof Way) {
                 Way viaWay = (Way) v;
-                Coordinates centroid = Geometry.centroidXY(screenWidth, screenHeight, viewBox, viaWay);
+                map.pointListToLinePointsArray(points, viaWay.getNodes());
+                Coordinates m = Geometry.midpointFromPointlist(points.getArray(), points.size(), centroid);
                 List<RelationMember> tos = restriction.getMembersWithRole(Tags.ROLE_TO);
                 RelationMember to = tos.isEmpty() ? null : tos.get(0);
                 if (to != null) {
                     Way toWay = (Way) to.getElement();
-                    if (toWay != null && to.getType().equals(Way.NAME)) {
+                    if (toWay != null && Way.NAME.equals(to.getType())) {
                         int size = viaWay.getNodes().size();
                         if (size > 1) {
                             int offset = 0;
@@ -942,7 +944,7 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
                             long bearing = (GeoMath.bearing(viaWay.getFirstNode().getLon() / 1E7D, viaWay.getFirstNode().getLat() / 1E7D,
                                     viaWay.getLastNode().getLon() / 1E7D, viaWay.getLastNode().getLat() / 1E7D) + offset) % 360;
                             canvas.save();
-                            canvas.rotate(bearing, (float) centroid.x, (float) centroid.y);
+                            canvas.rotate(bearing, (float) m.x, (float) m.y);
                         } else {
                             to = null;
                         }
@@ -950,7 +952,7 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
                         to = null;
                     }
                 }
-                paintNodeIcon(restriction, canvas, (float) centroid.x, (float) centroid.y, null);
+                paintNodeIcon(restriction, canvas, (float) m.x, (float) m.y, null);
                 if (to != null) {
                     canvas.restore();
                 }
@@ -1488,44 +1490,28 @@ public class MapOverlay<O extends OsmElement> extends MapViewLayer
         if (closed) {
             // display icons on closed ways
             if (showIcons && showWayIcons && zoomLevel > showIconsLimit) {
-                int vs = pointsSize;
-                if (vs < nodes.size() * 2) {
+                if (pointsSize < nodes.size() * 2) {
                     return;
                 }
-                // calc centroid
-                double area = 0;
-                double y = 0;
-                double x = 0;
-                double x1 = linePoints[0];
-                double y1 = linePoints[1];
-                for (int i = 0; i < vs; i = i + 2) {
-                    double x2 = linePoints[(i + 2) % vs];
-                    double y2 = linePoints[(i + 3) % vs];
-                    double d = x1 * y2 - x2 * y1;
-                    area = area + d;
-                    x = x + (x1 + x2) * d;
-                    y = y + (y1 + y2) * d;
-                    x1 = x2;
-                    y1 = y2;
-                }
-                if (Util.notZero(area)) {
-                    y = y / (3 * area); // NOSONAR nonZero tests for zero
-                    x = x / (3 * area); // NOSONAR nonZero tests for zero
+                Coordinates c = Geometry.centroidFromPointlist(linePoints, pointsSize, centroid);
+                if (c != null) {
                     boolean iconDrawn = false;
+                    final float x = (float) c.x;
+                    final float y = (float) c.y;
                     if (tmpPresets != null) {
-                        iconDrawn = paintNodeIcon(way, canvas, (float) x, (float) y, isSelected ? nodeFeatureStyleTaggedSelected : null);
+                        iconDrawn = paintNodeIcon(way, canvas, x, y, isSelected ? nodeFeatureStyleTaggedSelected : null);
                         if (!iconDrawn) {
                             String houseNumber = way.getTagWithKey(Tags.KEY_ADDR_HOUSENUMBER);
                             if (houseNumber != null && !"".equals(houseNumber)) { // draw house-numbers
-                                paintHouseNumber((float) x, (float) y, canvas, isSelected ? nodeFeatureStyleThinSelected : nodeFeatureStyleThin,
-                                        labelFontStyleSmall, houseNumber);
+                                paintHouseNumber(x, y, canvas, isSelected ? nodeFeatureStyleThinSelected : nodeFeatureStyleThin, labelFontStyleSmall,
+                                        houseNumber);
                                 return;
                             }
                         }
                     }
                     if (zoomLevel >= showIconLabelZoomLimit && style.getLabelKey() != null) {
                         Paint p = nodeFeatureStyleTaggedSelected.getPaint();
-                        paintLabel((float) x, (float) y, canvas, labelFontStyle, way, iconDrawn ? p.getStrokeWidth() : 0, iconDrawn);
+                        paintLabel(x, y, canvas, labelFontStyle, way, iconDrawn ? p.getStrokeWidth() : 0, iconDrawn);
                     }
                 }
             }
