@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.52.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,disused:amenity,disused:leisure,disused:man_made,disused:shop,golf,ford,harbour,hazard,noexit,indoor,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster">
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.53.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" object_keys="advertising,attraction,area:highway,building:part,cemetery,club,departures_board,disc_golf,disused:amenity,disused:leisure,disused:man_made,disused:shop,golf,ford,harbour,hazard,noexit,indoor,playground,pipeline,piste:type,police,public_transport,seamark:type,traffic_calming,traffic_sign,traffic_sign:backward,traffic_sign:forward,marker,mountain_pass,telecom,roller_coaster,climbing">
 <!--
     Icons have been derived from mainly from
   
@@ -362,7 +362,7 @@
         </optional>
     </chunk>
     <chunk id="traffic_signals_direction">
-        <combo key="direction" text="For traffic direction" values="N,E,S,W,0,90,180,270,forward,backward" display_values="North,East,South,West,0&#xB0;,90&#xB0;,180&#xB0;,270&#xB0;,Forward,Backward" values_sort="false"/>
+        <combo key="direction" text="For traffic direction" values="forward,backward,N,E,S,W,0,90,180,270" display_values="Forward,Backward,North,East,South,West,0&#xB0;,90&#xB0;,180&#xB0;,270&#xB0;" values_sort="false"/>
     </chunk>
     <chunk id="min_age">
         <text key="min_age" text="Minimum age"/>
@@ -501,12 +501,12 @@
     </chunk>
     <chunk id="wheelchair_rooms">
         <optional>
-            <text key="wheelchair:rooms" text="Number of rooms suitable for wheelchairs" alue_type="integer"/>
+            <text key="wheelchair:rooms" text="Number of rooms suitable for wheelchairs" value_type="integer"/>
         </optional>
     </chunk>
     <chunk id="wheelchair_seating">
         <optional>
-            <text key="wheelchair:places" text="Number of wheelchair seating places" alue_type="integer"/>
+            <text key="wheelchair:places" text="Number of wheelchair seating places" value_type="integer"/>
         </optional>
     </chunk>
     <chunk id="footway_accessibility">
@@ -1428,7 +1428,15 @@
         <reference ref="mechCoupling"/>
      </chunk>
     <chunk id="support">
-        <combo key="support" text="Support" values="pole,wall_mounted,billboard,ground" display_values="Pole,Wall mounted,Billboard,Ground" values_context="mounting/support"/>
+        <combo key="support" text="Support" values_context="mounting/support">
+            <list_entry value="billboard" display_value="Billboard"/>
+            <list_entry value="ceiling" display_value="Ceiling"/>         
+            <list_entry value="ground" display_values="Ground"/>
+            <list_entry value="pedestal" display_value="Pedestal"/>
+            <list_entry value="pole" display_value="Pole"/>
+            <list_entry value="wall" display_value="Wall"/>
+            <list_entry value="wall_mounted" display_value="Wall mounted"/>
+        </combo>
     </chunk>
     <chunk id="aerodrome">
         <key key="aeroway" value="aerodrome" match="keyvalue"/>
@@ -2096,7 +2104,7 @@
         <combo key="license_classes" text="License Classes" values="A;A1;B;BE;C,A;A1;B;B1;C;C1;D;D1;BE;CE;C1E;DE;D1E"/>
     </chunk>
     <chunk id="school_common">
-        <combo key="school:gender" values="mixed,male,female,separated" display_values="Mixed,Male,Female,Separated" text="Student gender"/>
+        <combo key="school:gender" values="mixed,male,female,separated" display_values="Mixed,Male,Female,Separated" values_context="gender" text="Student gender"/>
     </chunk>
     <chunk id="trailblazed">
         <combo key="trailblazed" text="Trail markings" values="yes,poles,cairns,symbols,no" display_values="Yes,Poles,Cairns,Symbols,No" match="key"/>
@@ -3244,12 +3252,12 @@
         <item name="Traffic sign" icon="icons/png/traffic_signs.png" type="node" preset_name_label="true">
             <link wiki="Key:traffic_sign"/>
             <space/>
-            <combo key="traffic_sign" match="key" editable="true">
+            <combo key="traffic_sign" text="Traffic sign" match="key" editable="true">
                 <list_entry value="give_way" display_value="Give way" icon="icons/png/give_way.png"/><list_entry value="hazard" display_value="Hazard" icon="icons/png/danger.png"/><list_entry value="maxheight" display_value="Max. height" icon="${traffic_max_width}"/><list_entry value="maxweight" display_value="Max. weight" icon="${traffic_max_weight}"/><list_entry value="maxwidth" display_value="Max. width" icon="${traffic_max_width}"/><list_entry value="signals_ahead" display_value="Signals ahead"/><list_entry value="stop_ahead" display_value="Stop ahead"/><list_entry value="variable_message" display_value="Variable message"/><list_entry value="yield_ahead" display_value="Yield ahead"/>
             </combo>
             <reference ref="traffic_signals_direction"/>
         </item> <!-- Traffic sign -->
-        <item name="Traffic Sign Forward" icon="icons/png/traffic_signs.png" type="node" preset_name_label="true">
+        <item name="Traffic Sign Forward" text="Traffic sign forward" icon="icons/png/traffic_signs.png" type="node" preset_name_label="true">
             <link wiki="Key:traffic_sign"/>
             <space/>
             <combo key="traffic_sign:forward" match="key" editable="true">
@@ -3257,7 +3265,7 @@
                 <list_entry value="give_way" display_value="Give way" icon="icons/png/give_way.png"/><list_entry value="hazard" display_value="Hazard" icon="icons/png/danger.png"/><list_entry value="maxheight" display_value="Max. height" icon="${traffic_max_width}"/><list_entry value="maxweight" display_value="Max. weight" icon="${traffic_max_weight}"/><list_entry value="maxwidth" display_value="Max. width" icon="${traffic_max_width}"/><list_entry value="signals_ahead" display_value="Signals ahead"/><list_entry value="stop_ahead" display_value="Stop ahead"/><list_entry value="variable_message" display_value="Variable message"/><list_entry value="yield_ahead" display_value="Yield ahead"/>
             </combo>
         </item> <!-- Traffic Sign Forward -->
-        <item name="Traffic Sign Backward" icon="icons/png/traffic_signs.png" type="node" preset_name_label="true">
+        <item name="Traffic Sign Backward" text="Traffic sign backward" icon="icons/png/traffic_signs.png" type="node" preset_name_label="true">
             <link wiki="Key:traffic_sign"/>
             <space/>
             <combo key="traffic_sign:backward" match="key" editable="true">
@@ -4952,6 +4960,7 @@
                 <reference ref="maxstay"/>
                 <reference ref="supervised_lit_oh"/>
                 <reference ref="parking_orientation"/>
+                <preset_link preset_name="Payment Methods"/>
             </item> <!-- Parking -->
             <item name="Parking Space" icon="icons/png/transport_parking_space_12099.png" type="node,closedway" preset_name_label="true">
                 <link wiki="Tag:amenity=parking_space"/>
@@ -4998,6 +5007,7 @@
                 <reference ref="supervised_lit_oh"/>
                 <check key="covered" text="Covered (with roof)"/>
                 <preset_link preset_name="No name"/>
+                <preset_link preset_name="Payment Methods"/>
             </item> <!-- Parking Entrance/Exit -->
             <separator/>
             <item name="Fuel" icon="icons/png/transport_fuel.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -5191,6 +5201,7 @@
                 <reference ref="supervised_lit_oh"/>
                 <reference ref="maxstay"/>
                 <check key="covered" text="Covered (with roof)"/>
+                <preset_link preset_name="Payment Methods"/>
             </item> <!-- Parking -->
             <item name="Motorcycle Dealer" icon="icons/png/shopping_motorcycle.png" type="node,closedway,multipolygon" preset_name_label="true">
                 <link wiki="Tag:shop=motorcycle"/>
@@ -5256,6 +5267,7 @@
                 <reference ref="parking_access_fee_operator_surface_smoothness"/>
                 <check key="covered" text="Covered"/>
                 <reference ref="supervised_lit_oh"/>
+                <preset_link preset_name="Payment Methods"/>
             </item> <!-- Parking -->
             <item name="Bike Dealer" icon="icons/png/shopping_bicycle.png" type="node,closedway,multipolygon" preset_name_label="true">
                 <link wiki="Tag:shop=bicycle"/>
@@ -5314,6 +5326,19 @@
                 <check key="service:bicycle:chain_tool" text="Chain tool" disable_off="true"/>
                 </optional>
             </item> <!-- Public Bicycle Repair Station -->
+            <item name="Bicycle Wash" icon="icons/png/amenity_bicycle_wash.png" type="node,closedway,multipolygon" preset_name_label="true">
+                <link wiki="Tag:amenity=bicycle_wash"/>
+                <space/>
+                <key key="amenity" value="bicycle_wash"/>
+                <optional>
+                    <reference ref="name_operator"/>
+                    <text key="manufacturer" text="Manufacturer"/>
+                    <reference ref="oh"/>
+                    <check key="self_service" text="Self Service"/>
+                    <check key="automated" text="Automated"/>
+                    <check key="fee" text="Fee"/>
+                </optional>
+            </item> <!-- Bicycle Wash -->
         </group> <!-- Bicycle -->
         <group name="Public Transport" icon="icons/png/transport_bus_stop.png">
             <item name="Public Transport Route (Rail)" icon="icons/png/transport_route_sp.png" type="relation" preset_name_label="true">
@@ -9227,74 +9252,88 @@
             <reference ref="oh"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Running -->
-        <item name="Climbing site" icon="icons/png/sport_climbing_21005.png" type="node,way,closedway,multipolygon" preset_name_label="true">
-            <link wiki="Tag:sport=climbing"/>
-            <space/>
-            <key key="sport" value="climbing"/>
-            <text key="name" text="Name"/>
-            <check key="leisure" text="Sports centre" disable_off="true" value_on="sports_centre"/>
-            <reference ref="climbing_styles"/>
-            <text key="climbing:routes" text="Number of routes"/>
-            <text key="ele" text="Usual elevation at the bottom of the routes" length="10"/>
-            <space/>
-            <combo key="climbing:length" text="Usual route length (m)" values="8,10,12,15,20,25,30,35,40" values_no_i18n="true" values_sort="false"/>
-            <combo key="climbing:length:min" text="Minimal climbing length (m)" values="8,10,12,15,20,25,30,35,40" values_no_i18n="true" values_sort="false"/>
-            <combo key="climbing:length:max" text="Maximum climbing length (m)" values="8,10,12,15,20,25,30,35,40" values_no_i18n="true" values_sort="false"/>
-            <space/>
-            <combo key="climbing:grade:uiaa:min" text="UIAA: Simplest route" values_no_i18n="true" values_sort="false">
-                <list_entry value="3"/><list_entry value="4"/><list_entry value="4+"/><list_entry value="5-"/><list_entry value="5"/><list_entry value="5+"/><list_entry value="6-"/><list_entry value="6"/><list_entry value="6+"/><list_entry value="7-"/><list_entry value="7"/><list_entry value="7+"/><list_entry value="8-"/><list_entry value="8"/><list_entry value="8+"/><list_entry value="9-"/><list_entry value="9"/><list_entry value="9+"/><list_entry value="10-"/><list_entry value="10"/><list_entry value="10+"/><list_entry value="11-"/><list_entry value="11"/><list_entry value="11+"/><list_entry value="12-"/>
-            </combo>
-            <combo key="climbing:grade:uiaa:max" text="UIAA: Most difficult route" values_no_i18n="true" values_sort="false">
-                <list_entry value="3"/><list_entry value="4"/><list_entry value="4+"/><list_entry value="5-"/><list_entry value="5"/><list_entry value="5+"/><list_entry value="6-"/><list_entry value="6"/><list_entry value="6+"/><list_entry value="7-"/><list_entry value="7"/><list_entry value="7+"/><list_entry value="8-"/><list_entry value="8"/><list_entry value="8+"/><list_entry value="9-"/><list_entry value="9"/><list_entry value="9+"/><list_entry value="10-"/><list_entry value="10"/><list_entry value="10+"/><list_entry value="11-"/><list_entry value="11"/><list_entry value="11+"/><list_entry value="12-"/>
-            </combo>
-            <combo key="climbing:grade:uiaa:mean" text="UIAA: Main difficulty" values_no_i18n="true" values_sort="false">
-                <list_entry value="3"/><list_entry value="4"/><list_entry value="4+"/><list_entry value="5-"/><list_entry value="5"/><list_entry value="5+"/><list_entry value="6-"/><list_entry value="6"/><list_entry value="6+"/><list_entry value="7-"/><list_entry value="7"/><list_entry value="7+"/><list_entry value="8-"/><list_entry value="8"/><list_entry value="8+"/><list_entry value="9-"/><list_entry value="9"/><list_entry value="9+"/><list_entry value="10-"/><list_entry value="10"/><list_entry value="10+"/><list_entry value="11-"/><list_entry value="11"/><list_entry value="11+"/><list_entry value="12-"/>
-            </combo>
-            <space/>
-            <combo key="climbing:grade:french:min" text="French: Simplest route" values_no_i18n="true" values_sort="false">
-                <list_entry value="3"/><list_entry value="3a"/><list_entry value="3b"/><list_entry value="3c"/><list_entry value="4"/><list_entry value="5a"/><list_entry value="5b"/><list_entry value="5c"/><list_entry value="6a"/><list_entry value="6a+"/><list_entry value="6b"/><list_entry value="6b+"/><list_entry value="6c"/><list_entry value="6c+"/><list_entry value="7a"/><list_entry value="7a+"/><list_entry value="7b"/><list_entry value="7b+"/><list_entry value="7c"/><list_entry value="7c+"/><list_entry value="8a"/><list_entry value="8a+"/><list_entry value="8b"/><list_entry value="8b+"/><list_entry value="8c"/><list_entry value="8c+"/><list_entry value="9a"/><list_entry value="9a+"/><list_entry value="9b"/><list_entry value="9b+"/>
-            </combo>
-            <combo key="climbing:grade:french:max" text="French: Most difficult route" values_no_i18n="true" values_sort="false">
-                <list_entry value="3"/><list_entry value="3a"/><list_entry value="3b"/><list_entry value="3c"/><list_entry value="4"/><list_entry value="5a"/><list_entry value="5b"/><list_entry value="5c"/><list_entry value="6a"/><list_entry value="6a+"/><list_entry value="6b"/><list_entry value="6b+"/><list_entry value="6c"/><list_entry value="6c+"/><list_entry value="7a"/><list_entry value="7a+"/><list_entry value="7b"/><list_entry value="7b+"/><list_entry value="7c"/><list_entry value="7c+"/><list_entry value="8a"/><list_entry value="8a+"/><list_entry value="8b"/><list_entry value="8b+"/><list_entry value="8c"/><list_entry value="8c+"/><list_entry value="9a"/><list_entry value="9a+"/><list_entry value="9b"/><list_entry value="9b+"/>
-            </combo>
-            <combo key="climbing:grade:french:mean" text="French: Main difficulty" values_no_i18n="true" values_sort="false">
-                <list_entry value="3"/><list_entry value="3a"/><list_entry value="3b"/><list_entry value="3c"/><list_entry value="4"/><list_entry value="5a"/><list_entry value="5b"/><list_entry value="5c"/><list_entry value="6a"/><list_entry value="6a+"/><list_entry value="6b"/><list_entry value="6b+"/><list_entry value="6c"/><list_entry value="6c+"/><list_entry value="7a"/><list_entry value="7a+"/><list_entry value="7b"/><list_entry value="7b+"/><list_entry value="7c"/><list_entry value="7c+"/><list_entry value="8a"/><list_entry value="8a+"/><list_entry value="8b"/><list_entry value="8b+"/><list_entry value="8c"/><list_entry value="8c+"/><list_entry value="9a"/><list_entry value="9a+"/><list_entry value="9b"/><list_entry value="9b+"/>
-            </combo>
-            <space/>
-            <combo key="climbing:grade:saxon:min" text="Saxon: Simplest route" values_no_i18n="true" values_sort="false">
-                <list_entry value="III"/><list_entry value="IV"/><list_entry value="V"/><list_entry value="VI"/><list_entry value="VIIa"/><list_entry value="VIIb"/><list_entry value="VIIc"/><list_entry value="VIIIa"/><list_entry value="VIIIb"/><list_entry value="VIIIc"/><list_entry value="IXa"/><list_entry value="IXb"/><list_entry value="IXc"/><list_entry value="Xa"/><list_entry value="Xb"/><list_entry value="Xc"/><list_entry value="XIa"/><list_entry value="XIb"/><list_entry value="XIc"/>
-            </combo>
-            <combo key="climbing:grade:saxon:max" text="Saxon: Most difficult route" values_no_i18n="true" values_sort="false">
-                <list_entry value="III"/><list_entry value="IV"/><list_entry value="V"/><list_entry value="VI"/><list_entry value="VIIa"/><list_entry value="VIIb"/><list_entry value="VIIc"/><list_entry value="VIIIa"/><list_entry value="VIIIb"/><list_entry value="VIIIc"/><list_entry value="IXa"/><list_entry value="IXb"/><list_entry value="IXc"/><list_entry value="Xa"/><list_entry value="Xb"/><list_entry value="Xc"/><list_entry value="XIa"/><list_entry value="XIb"/><list_entry value="XIc"/>
-            </combo>
-            <combo key="climbing:grade:saxon:mean" text="Saxon: Main difficulty" values_no_i18n="true" values_sort="false">
-                <list_entry value="III"/><list_entry value="IV"/><list_entry value="V"/><list_entry value="VI"/><list_entry value="VIIa"/><list_entry value="VIIb"/><list_entry value="VIIc"/><list_entry value="VIIIa"/><list_entry value="VIIIb"/><list_entry value="VIIIc"/><list_entry value="IXa"/><list_entry value="IXb"/><list_entry value="IXc"/><list_entry value="Xa"/><list_entry value="Xb"/><list_entry value="Xc"/><list_entry value="XIa"/><list_entry value="XIb"/><list_entry value="XIc"/>
-            </combo>
-            <reference ref="climbing_optional_attributes"/>
-            <reference ref="link_contact_address_payment"/>
-        </item> <!-- Climbing site -->
-        <item name="Climbing route" icon="icons/png/sport_climbing_21005.png" type="node,way" preset_name_label="true">
-            <link wiki="Tag:sport=climbing"/>
-            <space/>
-            <key key="sport" value="climbing"/>
-            <key key="climbing" value="route"/>
-            <text key="name" text="Name"/>
-            <reference ref="climbing_styles"/>
-            <combo key="climbing:bolted" text="Bolts" values="yes,no,1,2,3,4,5,6" values_sort="false" values_no_i18n="true" value_type="integer"/>
-            <combo key="climbing:pitches" text="Pitches" values="1,2,3,4,5,6,7,8" default="1" values_no_i18n="true" values_sort="false" value_type="integer"/>
-            <combo key="climbing:length" text="Route length (m)" values="8,10,12,15,20,25,30,35,40" values_no_i18n="true" values_sort="false"/>
-            <space/>
-            <combo key="climbing:grade:UIAA" text="UIAA grading" values_no_i18n="true" values_sort="false">
-                <list_entry value="3"/><list_entry value="4"/><list_entry value="4+"/><list_entry value="5-"/><list_entry value="5"/><list_entry value="5+"/><list_entry value="6-"/><list_entry value="6"/><list_entry value="6+"/><list_entry value="7-"/><list_entry value="7"/><list_entry value="7+"/><list_entry value="8-"/><list_entry value="8"/><list_entry value="8+"/><list_entry value="9-"/><list_entry value="9"/><list_entry value="9+"/><list_entry value="10-"/><list_entry value="10"/><list_entry value="10+"/><list_entry value="11-"/><list_entry value="11"/><list_entry value="11+"/><list_entry value="12-"/>
-            </combo>
-            <combo key="climbing:grade:french" text="French grading" values_no_i18n="true" values_sort="false">
-                <list_entry value="3"/><list_entry value="3a"/><list_entry value="3b"/><list_entry value="3c"/><list_entry value="4"/><list_entry value="5a"/><list_entry value="5b"/><list_entry value="5c"/><list_entry value="6a"/><list_entry value="6a+"/><list_entry value="6b"/><list_entry value="6b+"/><list_entry value="6c"/><list_entry value="6c+"/><list_entry value="7a"/><list_entry value="7a+"/><list_entry value="7b"/><list_entry value="7b+"/><list_entry value="7c"/><list_entry value="7c+"/><list_entry value="8a"/><list_entry value="8a+"/><list_entry value="8b"/><list_entry value="8b+"/><list_entry value="8c"/><list_entry value="8c+"/><list_entry value="9a"/><list_entry value="9a+"/><list_entry value="9b"/><list_entry value="9b+"/>
-            </combo>
-            <combo key="climbing:grade:saxon" text="Saxon grading" values_no_i18n="true" values_sort="false">
-                <list_entry value="III"/><list_entry value="IV"/><list_entry value="V"/><list_entry value="VI"/><list_entry value="VIIa"/><list_entry value="VIIb"/><list_entry value="VIIc"/><list_entry value="VIIIa"/><list_entry value="VIIIb"/><list_entry value="VIIIc"/><list_entry value="IXa"/><list_entry value="IXb"/><list_entry value="IXc"/><list_entry value="Xa"/><list_entry value="Xb"/><list_entry value="Xc"/><list_entry value="XIa"/><list_entry value="XIb"/><list_entry value="XIc"/>
-            </combo>
-            <reference ref="climbing_optional_attributes"/>
-        </item> <!-- Climbing route -->
+        <group name="Climbing site" icon="icons/png/sport_climbing_21005.png">
+            <item name="Climbing site" icon="icons/png/sport_climbing_21005.png" type="node,way,closedway,multipolygon" preset_name_label="true">
+                <link wiki="Key:climbing"/>
+                <space/>
+                <key key="sport" value="climbing"/>
+                <text key="name" text="Name"/>
+                <check key="leisure" text="Sports centre" disable_off="true" value_on="sports_centre"/>
+                <reference ref="climbing_styles"/>
+                <text key="climbing:routes" text="Number of routes"/>
+                <text key="ele" text="Usual elevation at the bottom of the routes" length="10"/>
+                <space/>
+                <combo key="climbing:length" text="Usual route length (m)" values="8,10,12,15,20,25,30,35,40" values_no_i18n="true" values_sort="false"/>
+                <combo key="climbing:length:min" text="Minimal climbing length (m)" values="8,10,12,15,20,25,30,35,40" values_no_i18n="true" values_sort="false"/>
+                <combo key="climbing:length:max" text="Maximum climbing length (m)" values="8,10,12,15,20,25,30,35,40" values_no_i18n="true" values_sort="false"/>
+                <space/>
+                <combo key="climbing:grade:uiaa:min" text="UIAA: Simplest route" values_no_i18n="true" values_sort="false">
+                    <list_entry value="3"/><list_entry value="4"/><list_entry value="4+"/><list_entry value="5-"/><list_entry value="5"/><list_entry value="5+"/><list_entry value="6-"/><list_entry value="6"/><list_entry value="6+"/><list_entry value="7-"/><list_entry value="7"/><list_entry value="7+"/><list_entry value="8-"/><list_entry value="8"/><list_entry value="8+"/><list_entry value="9-"/><list_entry value="9"/><list_entry value="9+"/><list_entry value="10-"/><list_entry value="10"/><list_entry value="10+"/><list_entry value="11-"/><list_entry value="11"/><list_entry value="11+"/><list_entry value="12-"/>
+                </combo>
+                <combo key="climbing:grade:uiaa:max" text="UIAA: Most difficult route" values_no_i18n="true" values_sort="false">
+                    <list_entry value="3"/><list_entry value="4"/><list_entry value="4+"/><list_entry value="5-"/><list_entry value="5"/><list_entry value="5+"/><list_entry value="6-"/><list_entry value="6"/><list_entry value="6+"/><list_entry value="7-"/><list_entry value="7"/><list_entry value="7+"/><list_entry value="8-"/><list_entry value="8"/><list_entry value="8+"/><list_entry value="9-"/><list_entry value="9"/><list_entry value="9+"/><list_entry value="10-"/><list_entry value="10"/><list_entry value="10+"/><list_entry value="11-"/><list_entry value="11"/><list_entry value="11+"/><list_entry value="12-"/>
+                </combo>
+                <combo key="climbing:grade:uiaa:mean" text="UIAA: Main difficulty" values_no_i18n="true" values_sort="false">
+                    <list_entry value="3"/><list_entry value="4"/><list_entry value="4+"/><list_entry value="5-"/><list_entry value="5"/><list_entry value="5+"/><list_entry value="6-"/><list_entry value="6"/><list_entry value="6+"/><list_entry value="7-"/><list_entry value="7"/><list_entry value="7+"/><list_entry value="8-"/><list_entry value="8"/><list_entry value="8+"/><list_entry value="9-"/><list_entry value="9"/><list_entry value="9+"/><list_entry value="10-"/><list_entry value="10"/><list_entry value="10+"/><list_entry value="11-"/><list_entry value="11"/><list_entry value="11+"/><list_entry value="12-"/>
+                </combo>
+                <space/>
+                <combo key="climbing:grade:french:min" text="French: Simplest route" values_no_i18n="true" values_sort="false">
+                    <list_entry value="3"/><list_entry value="3a"/><list_entry value="3b"/><list_entry value="3c"/><list_entry value="4"/><list_entry value="5a"/><list_entry value="5b"/><list_entry value="5c"/><list_entry value="6a"/><list_entry value="6a+"/><list_entry value="6b"/><list_entry value="6b+"/><list_entry value="6c"/><list_entry value="6c+"/><list_entry value="7a"/><list_entry value="7a+"/><list_entry value="7b"/><list_entry value="7b+"/><list_entry value="7c"/><list_entry value="7c+"/><list_entry value="8a"/><list_entry value="8a+"/><list_entry value="8b"/><list_entry value="8b+"/><list_entry value="8c"/><list_entry value="8c+"/><list_entry value="9a"/><list_entry value="9a+"/><list_entry value="9b"/><list_entry value="9b+"/>
+                </combo>
+                <combo key="climbing:grade:french:max" text="French: Most difficult route" values_no_i18n="true" values_sort="false">
+                    <list_entry value="3"/><list_entry value="3a"/><list_entry value="3b"/><list_entry value="3c"/><list_entry value="4"/><list_entry value="5a"/><list_entry value="5b"/><list_entry value="5c"/><list_entry value="6a"/><list_entry value="6a+"/><list_entry value="6b"/><list_entry value="6b+"/><list_entry value="6c"/><list_entry value="6c+"/><list_entry value="7a"/><list_entry value="7a+"/><list_entry value="7b"/><list_entry value="7b+"/><list_entry value="7c"/><list_entry value="7c+"/><list_entry value="8a"/><list_entry value="8a+"/><list_entry value="8b"/><list_entry value="8b+"/><list_entry value="8c"/><list_entry value="8c+"/><list_entry value="9a"/><list_entry value="9a+"/><list_entry value="9b"/><list_entry value="9b+"/>
+                </combo>
+                <combo key="climbing:grade:french:mean" text="French: Main difficulty" values_no_i18n="true" values_sort="false">
+                    <list_entry value="3"/><list_entry value="3a"/><list_entry value="3b"/><list_entry value="3c"/><list_entry value="4"/><list_entry value="5a"/><list_entry value="5b"/><list_entry value="5c"/><list_entry value="6a"/><list_entry value="6a+"/><list_entry value="6b"/><list_entry value="6b+"/><list_entry value="6c"/><list_entry value="6c+"/><list_entry value="7a"/><list_entry value="7a+"/><list_entry value="7b"/><list_entry value="7b+"/><list_entry value="7c"/><list_entry value="7c+"/><list_entry value="8a"/><list_entry value="8a+"/><list_entry value="8b"/><list_entry value="8b+"/><list_entry value="8c"/><list_entry value="8c+"/><list_entry value="9a"/><list_entry value="9a+"/><list_entry value="9b"/><list_entry value="9b+"/>
+                </combo>
+                <space/>
+                <combo key="climbing:grade:saxon:min" text="Saxon: Simplest route" values_no_i18n="true" values_sort="false">
+                    <list_entry value="III"/><list_entry value="IV"/><list_entry value="V"/><list_entry value="VI"/><list_entry value="VIIa"/><list_entry value="VIIb"/><list_entry value="VIIc"/><list_entry value="VIIIa"/><list_entry value="VIIIb"/><list_entry value="VIIIc"/><list_entry value="IXa"/><list_entry value="IXb"/><list_entry value="IXc"/><list_entry value="Xa"/><list_entry value="Xb"/><list_entry value="Xc"/><list_entry value="XIa"/><list_entry value="XIb"/><list_entry value="XIc"/>
+                </combo>
+                <combo key="climbing:grade:saxon:max" text="Saxon: Most difficult route" values_no_i18n="true" values_sort="false">
+                    <list_entry value="III"/><list_entry value="IV"/><list_entry value="V"/><list_entry value="VI"/><list_entry value="VIIa"/><list_entry value="VIIb"/><list_entry value="VIIc"/><list_entry value="VIIIa"/><list_entry value="VIIIb"/><list_entry value="VIIIc"/><list_entry value="IXa"/><list_entry value="IXb"/><list_entry value="IXc"/><list_entry value="Xa"/><list_entry value="Xb"/><list_entry value="Xc"/><list_entry value="XIa"/><list_entry value="XIb"/><list_entry value="XIc"/>
+                </combo>
+                <combo key="climbing:grade:saxon:mean" text="Saxon: Main difficulty" values_no_i18n="true" values_sort="false">
+                    <list_entry value="III"/><list_entry value="IV"/><list_entry value="V"/><list_entry value="VI"/><list_entry value="VIIa"/><list_entry value="VIIb"/><list_entry value="VIIc"/><list_entry value="VIIIa"/><list_entry value="VIIIb"/><list_entry value="VIIIc"/><list_entry value="IXa"/><list_entry value="IXb"/><list_entry value="IXc"/><list_entry value="Xa"/><list_entry value="Xb"/><list_entry value="Xc"/><list_entry value="XIa"/><list_entry value="XIb"/><list_entry value="XIc"/>
+                </combo>
+                <reference ref="climbing_optional_attributes"/>
+                <reference ref="link_contact_address_payment"/>
+            </item> <!-- Climbing site -->
+            <item name="Climbing route" icon="icons/png/sport_climbing_route.png" type="node,way" preset_name_label="true">
+                <link wiki="Key:climbing"/>
+                <space/>
+                <key key="sport" value="climbing"/>
+                <key key="climbing" value="route"/>
+                <text key="name" text="Name"/>
+                <reference ref="climbing_styles"/>
+                <combo key="climbing:bolted" text="Bolts" values="yes,no,1,2,3,4,5,6" values_sort="false" values_no_i18n="true" value_type="integer"/>
+                <combo key="climbing:pitches" text="Pitches" values="1,2,3,4,5,6,7,8" default="1" values_no_i18n="true" values_sort="false" value_type="integer"/>
+                <combo key="climbing:length" text="Route length (m)" values="8,10,12,15,20,25,30,35,40" values_no_i18n="true" values_sort="false"/>
+                <space/>
+                <combo key="climbing:grade:UIAA" text="UIAA grading" values_no_i18n="true" values_sort="false">
+                    <list_entry value="3"/><list_entry value="4"/><list_entry value="4+"/><list_entry value="5-"/><list_entry value="5"/><list_entry value="5+"/><list_entry value="6-"/><list_entry value="6"/><list_entry value="6+"/><list_entry value="7-"/><list_entry value="7"/><list_entry value="7+"/><list_entry value="8-"/><list_entry value="8"/><list_entry value="8+"/><list_entry value="9-"/><list_entry value="9"/><list_entry value="9+"/><list_entry value="10-"/><list_entry value="10"/><list_entry value="10+"/><list_entry value="11-"/><list_entry value="11"/><list_entry value="11+"/><list_entry value="12-"/>
+                </combo>
+                <combo key="climbing:grade:french" text="French grading" values_no_i18n="true" values_sort="false">
+                    <list_entry value="3"/><list_entry value="3a"/><list_entry value="3b"/><list_entry value="3c"/><list_entry value="4"/><list_entry value="5a"/><list_entry value="5b"/><list_entry value="5c"/><list_entry value="6a"/><list_entry value="6a+"/><list_entry value="6b"/><list_entry value="6b+"/><list_entry value="6c"/><list_entry value="6c+"/><list_entry value="7a"/><list_entry value="7a+"/><list_entry value="7b"/><list_entry value="7b+"/><list_entry value="7c"/><list_entry value="7c+"/><list_entry value="8a"/><list_entry value="8a+"/><list_entry value="8b"/><list_entry value="8b+"/><list_entry value="8c"/><list_entry value="8c+"/><list_entry value="9a"/><list_entry value="9a+"/><list_entry value="9b"/><list_entry value="9b+"/>
+                </combo>
+                <combo key="climbing:grade:saxon" text="Saxon grading" values_no_i18n="true" values_sort="false">
+                    <list_entry value="III"/><list_entry value="IV"/><list_entry value="V"/><list_entry value="VI"/><list_entry value="VIIa"/><list_entry value="VIIb"/><list_entry value="VIIc"/><list_entry value="VIIIa"/><list_entry value="VIIIb"/><list_entry value="VIIIc"/><list_entry value="IXa"/><list_entry value="IXb"/><list_entry value="IXc"/><list_entry value="Xa"/><list_entry value="Xb"/><list_entry value="Xc"/><list_entry value="XIa"/><list_entry value="XIb"/><list_entry value="XIc"/>
+                </combo>
+                <reference ref="climbing_optional_attributes"/>
+            </item> <!-- Climbing route -->
+            <item name="Climbing route bottom" icon="icons/png/sport_climbing_route_bottom.png" type="node" preset_name_label="true">
+                <link wiki="Key:climbing"/>
+                <space/>
+                <key key="sport" value="climbing"/>
+                <key key="climbing" value="route_bottom"/> 
+            </item> <!-- Climbing route bottom -->
+            <item name="Climbing route top" icon="icons/png/sport_climbing_route_top.png" type="node" preset_name_label="true">
+                <link wiki="Key:climbing"/>
+                <space/>
+                <key key="sport" value="climbing"/>
+                <key key="climbing" value="route_top"/>
+            </item> <!-- Climbing route top -->
+        </group> <!-- Climbing -->
         <item name="Canoeing/Kayaking" icon="icons/png/sport_canoe.png" type="node,way,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:sport=canoe"/>
             <space/>
@@ -9968,7 +10007,7 @@
             <space/>
             <key key="man_made" value="tower"/>
             <combo key="tower:type" text="Tower type" values="bell_tower,communication,cooling,defensive,diving,minaret,observation,pagoda,radar,watchtower" display_values="Bell tower,Communication,Cooling,Defensive,Diving,Minaret,Observation,Pagoda,Radar,Watchtower" editable="true" match="key" values_searchable="true"/>
-            <combo key="tower:construction" text="Tower construction" values="freestanding,guyed_lattice,guyed_tube,lattice" display_values="Freestanding,Guyed lattice,Guyed tube,Lattice" editable="true" match="key" values_searchable="true"/>
+            <combo key="tower:construction" text="Tower construction" values="dish,dome,freestanding,lattice" display_values="Dish,Dome,Freestanding,Lattice" editable="true" match="key" values_searchable="true"/> 
             <optional>
                 <text key="name" text="Name"/>
                 <text key="height" text="Height (meters)" length="7" value_type="dimension_vertical"/>
@@ -9984,7 +10023,7 @@
             <space/>
             <key key="man_made" value="mast"/>
             <combo key="tower:type" text="Tower type" values="communication,observation,lighting" display_values="Communication,Observation,Lighting" editable="true" match="key" values_context="tower"/>
-            <combo key="tower:construction" text="Tower construction" values="dish,dome,freestanding,lattice" display_values="Dish,Dome,Freestanding,Lattice" editable="true" match="key" values_searchable="true"/> 
+            <combo key="tower:construction" text="Tower construction" values="freestanding,guyed_lattice,guyed_tube,lattice" display_values="Freestanding,Guyed lattice,Guyed tube,Lattice" editable="true" match="key" values_searchable="true"/>
             <optional>
                 <text key="name" text="Name"/>
                 <text key="height" text="Height (meters)" length="7" value_type="dimension_vertical"/>
@@ -9994,7 +10033,7 @@
             <preset_link preset_name="Antenna" text="Similar but different tags:" alternative="true"/>
             <preset_link preset_name="Telescope" text="Similar but different tags:" alternative="true"/>
             <preset_link preset_name="Tower" text="Similar but different tags:" alternative="true"/>
-        </item> <!-- Tower -->
+        </item> <!-- Mast -->
         <item name="Utility pole" icon="icons/png/man_made_pole.png" type="node" preset_name_label="true">
             <link wiki="Tag:man_made=utility_pole"/>
             <space/>
@@ -10439,8 +10478,22 @@
                 <list_entry value="sodium" display_value="Sodium (generic)"/>
                 <list_entry value="solar_lamp" display_value="Solar lamp (generic)"/>
             </combo>
+            <combo key="light:method" text="Method" values_context="lamp_type" match="key" deprecated="true">
+                <list_entry value="electric" display_value="Electric (generic)"/>
+                <list_entry value="floodlight" display_value="Floodlight (generic)"/>
+                <list_entry value="fluorescent" display_value="Fluorescent"/>
+                <list_entry value="gaslight" display_value="Gaslight"/>
+                <list_entry value="high_pressue_sodium" display_value="High pressue sodium"/>
+                <list_entry value="LED" display_value="LED"/>
+                <list_entry value="low_pressue_sodium" display_value="Low pressue sodium"/>
+                <list_entry value="mercury" display_value="Mercury"/>
+                <list_entry value="sodium" display_value="Sodium (generic)"/>
+            </combo>
             <combo key="lamp_mount" text="Mounted on" values="bent_mast,high_mast,pole,straight_mast,suspended,wall" display_values="Bent mast,High mast,Pole,Straight mast,Suspended,Wall" values_context="lamp_mount" match="key"/>
             <optional>
+                <reference ref="support"/>
+                <text key="light:direction" text="Direction in degrees" match="key"/>
+                <text key="light:count" text="Number of lamps" match="key" value_type="integer"/>
                 <text key="ref" text="Ref"/>
                 <combo key="opening_hours" value_type="opening_hours" text="Operation times" values="Mo-Fr 22:00-05:00" match="none" editable="true" values_no_i18n="true"/>
             </optional>
@@ -14547,7 +14600,7 @@
                 <text key="ref:sandre" text="Reference Sandre (FR)" regions="FR"/>
                 <text key="ref:fgkz" text="Reference FGKZ (DE)" regions="DE"/>
                 <text key="ref:regine" text="Reference REGINE (NO)" regions="NO"/>
-                <text key="ref:gnis" text="Reference GNIS (USA)" regions="US"/>
+                <text key="gnis:feature_id" text="Reference GNIS (USA)" regions="US"/>
                 <text key="ref:gnbc" text="Reference GNBC (CA)" regions="CA"/>
                 <reference ref="wikipedia_wikidata_images"/>
             </optional>
