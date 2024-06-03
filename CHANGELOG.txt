@@ -1,5 +1,17 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+20.0.2:
+
+- Fix protect against relation members for which no centroid can be determined
+- Fix make error text in tile source diag modal selectable
+- Fix don't setup layers twice (fixes layer config confusion when discarding a layer)
+- Fix protect against IllegalArgumentException from CountryBoundaries lib
+- Fix respect multi-fetch limit when fetching elements for conflict resolution
+- Fix protect against selecting degenerate ways after restart
+- Update imagery configuration from ELI
+- Update default preset
+- Update translations
+
 20.0.1:
 
 - Fix don't rely on singleton for SharedPreferences
