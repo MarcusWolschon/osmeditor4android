@@ -648,7 +648,7 @@ public final class RelationUtils {
      * 
      * @param selection list of elements
      * @param r the Relation
-     * @return the "minimum" distance
+     * @return the "minimum" distance, or Double.MAX_VALUE if it can't be determined
      */
     private static double minDistanceToRelation(@NonNull List<OsmElement> selection, @NonNull Relation r) {
         double d = Double.MAX_VALUE;
@@ -656,12 +656,14 @@ public final class RelationUtils {
         for (OsmElement e : selection) {
             int[] location = new int[2];
             double[] centroid = de.blau.android.util.Geometry.centroid(e);
-            location[0] = (int) (centroid[1] * 1E7);
-            location[1] = (int) (centroid[0] * 1E7);
-            for (OsmElement member : r.getMemberElements()) {
-                double temp = member instanceof Way ? minDistance2WayNodes(location, (Way) member, allNodes) : member.getMinDistance(location);
-                if (temp < d) {
-                    d = temp;
+            if (centroid.length == 2) {
+                location[0] = (int) (centroid[1] * 1E7);
+                location[1] = (int) (centroid[0] * 1E7);
+                for (OsmElement member : r.getMemberElements()) {
+                    double temp = member instanceof Way ? minDistance2WayNodes(location, (Way) member, allNodes) : member.getMinDistance(location);
+                    if (temp < d) {
+                        d = temp;
+                    }
                 }
             }
         }
