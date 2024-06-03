@@ -39,7 +39,8 @@ import de.blau.android.views.util.MapTileProvider.BitmapDecoder;
  */
 public class TileSourceDiagnostics extends ImmersiveDialogFragment {
 
-    private static final String DEBUG_TAG = TileSourceDiagnostics.class.getSimpleName().substring(0, Math.min(23, TileSourceDiagnostics.class.getSimpleName().length()));
+    private static final String DEBUG_TAG = TileSourceDiagnostics.class.getSimpleName().substring(0,
+            Math.min(23, TileSourceDiagnostics.class.getSimpleName().length()));
 
     private static final String TAG = "fragment_tile_source_diag";
 
@@ -139,6 +140,7 @@ public class TileSourceDiagnostics extends ImmersiveDialogFragment {
         final ScrollView sv = (ScrollView) inflater.inflate(R.layout.tile_diag_view, null, false);
         final TextView status = (TextView) sv.findViewById(R.id.diag_status_text);
         final TextView text = (TextView) sv.findViewById(R.id.diag_text);
+        text.setTextIsSelectable(true);
         final ImageView tileView = (ImageView) sv.findViewById(R.id.diag_image);
         final TextView tileText = (TextView) sv.findViewById(R.id.diag_tile_text);
         final MapTileTester tester = new MapTileTester(getContext(), tile);
