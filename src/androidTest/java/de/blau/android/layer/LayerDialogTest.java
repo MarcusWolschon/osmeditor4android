@@ -317,6 +317,46 @@ public class LayerDialogTest {
         assertTrue(TestUtils.clickText(device, false, main.getString(R.string.discard), true, false));
         assertNull(map.getGeojsonLayer());
     }
+    
+    /**
+     * Add two geojson layers, hide the 1st one then discard it
+     */
+    @Test
+    public void addAndDiscardLayer() {
+        final String geoJsonFile1 = "featureCollection.geojson";
+        final String geoJsonFile2 = "holeyPolygon.geojson";
+        try {
+            JavaResources.copyFileFromResources(main, geoJsonFile1, "geojson/", "/");
+            JavaResources.copyFileFromResources(main, geoJsonFile2, "geojson/", "/");
+        } catch (IOException e) {
+            fail(e.getMessage());
+        }
+        assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/layers", true));
+        assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/add", true));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_layers_load_geojson), true, false));
+        TestUtils.selectFile(device, main, null, geoJsonFile1, true);
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.okay), true, false));
+        
+        assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/add", true));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.menu_layers_load_geojson), true, false));
+        TestUtils.selectFile(device, main, null, geoJsonFile2, true);
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.okay), true, false));
+        
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.Done), true, false));
+              
+        UiObject2 visibleButton = TestUtils.getLayerButton(device, geoJsonFile1, VISIBLE_BUTTON);
+        visibleButton.click();
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.Done), true, false));
+        
+        UiObject2 menuButton = TestUtils.getLayerButton(device, geoJsonFile1, MENU_BUTTON);
+        menuButton.clickAndWait(Until.newWindow(), 1000);
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.discard), true, false));
+        assertTrue(TestUtils.clickText(device, false, main.getString(R.string.Done), true, false));
+        
+        de.blau.android.layer.geojson.MapOverlay layer = map.getGeojsonLayer();
+        assertNotNull(layer);
+        assertTrue(layer.isVisible());
+    }
 
     /**
      * Set to "mapnik"

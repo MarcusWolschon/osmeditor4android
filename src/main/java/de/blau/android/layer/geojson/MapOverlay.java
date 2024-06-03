@@ -1,5 +1,7 @@
 package de.blau.android.layer.geojson;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -50,7 +52,6 @@ import de.blau.android.contract.FileExtensions;
 import de.blau.android.dialogs.FeatureInfo;
 import de.blau.android.dialogs.LayerInfo;
 import de.blau.android.layer.ClickableInterface;
-import de.blau.android.layer.DiscardInterface;
 import de.blau.android.layer.ExtentInterface;
 import de.blau.android.layer.LabelMinZoomInterface;
 import de.blau.android.layer.LayerInfoInterface;
@@ -82,11 +83,12 @@ import de.blau.android.util.rtree.RTree;
 import de.blau.android.views.IMapView;
 
 public class MapOverlay extends StyleableFileLayer
-        implements Serializable, ExtentInterface, DiscardInterface, ClickableInterface<Feature>, LayerInfoInterface, LabelMinZoomInterface {
+        implements Serializable, ExtentInterface, ClickableInterface<Feature>, LayerInfoInterface, LabelMinZoomInterface {
 
     private static final long serialVersionUID = 5L;
 
-    private static final String DEBUG_TAG = MapOverlay.class.getSimpleName().substring(0, Math.min(23, MapOverlay.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Map.class.getSimpleName().length());
+    private static final String DEBUG_TAG = MapOverlay.class.getSimpleName().substring(0, TAG_LEN);
 
     public static final String FILENAME = "geojson" + "." + FileExtensions.RES;
 
@@ -871,6 +873,7 @@ public class MapOverlay extends StyleableFileLayer
     @Override
     public void discardLayer(Context context) {
         data = null;
+        name = null;
         File originalFile = context.getFileStreamPath(stateFileName);
         if (!originalFile.delete()) { // NOSONAR requires API 26
             Log.e(DEBUG_TAG, "Failed to delete state file " + stateFileName);
