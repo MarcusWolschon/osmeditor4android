@@ -850,8 +850,6 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
                     if (layer != null) {
                         try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(activity)) {
                             db.deleteLayer(layer.getIndex(), layer.getType());
-                            map.setUpLayers(activity);
-                            map.invalidate();
                             ((DiscardInterface) layer).discard(getContext());
                             updateDialogAndPrefs(activity, App.getLogic().getPrefs(), map);
                         }
