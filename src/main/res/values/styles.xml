@@ -209,6 +209,7 @@
 		<item name="snack_warning">@color/material_orange</item>
 		<item name="snack_error">@color/material_red</item>
         <item name="error">@color/material_red</item>
+        <item name="drag_target">@color/material_red</item>
         <!--  splitter -->
         <item name="SplitterBGV">@drawable/splitter_bg_v_dark</item>
         <item name="SplitterBGH">@drawable/splitter_bg_h_dark</item>
@@ -288,6 +289,7 @@
 		<item name="snack_warning">@color/material_orange</item>
 		<item name="snack_error">@color/material_red</item>
         <item name="error">@color/material_red</item>
+        <item name="drag_target">@color/material_red</item>
         <!--  splitter -->
         <item name="SplitterBGV">@drawable/splitter_bg_v_light</item>
         <item name="SplitterBGH">@drawable/splitter_bg_h_light</item>
@@ -316,6 +318,7 @@
         <item name="snack_warning">@color/material_orange</item>
         <item name="snack_error">@color/material_red</item>
         <item name="error">@color/material_red</item>
+        <item name="drag_target">@color/material_red</item>
 	</style>
 	
     <style name="DialogStaticText" parent="android:Widget.TextView">
@@ -336,6 +339,7 @@
         <item name="snack_warning">@color/material_orange</item>
         <item name="snack_error">@color/material_red</item>
         <item name="error">@color/material_red</item>
+        <item name="drag_target">@color/material_red</item>
 	</style>
 
 	<style name="DialogEditTextLight" parent="android:Widget.EditText">
