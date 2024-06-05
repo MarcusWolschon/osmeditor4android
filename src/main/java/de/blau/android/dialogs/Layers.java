@@ -11,6 +11,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.ClipData;
+import android.content.ClipDescription;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.database.sqlite.SQLiteDatabase;
@@ -21,6 +23,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.DragEvent;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -578,17 +581,19 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
      */
     private void addRows(@NonNull Context context) {
         TableLayout.LayoutParams tp = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        tp.setMargins(2, 0, 2, 0);
-
+        tp.setMargins(Density.dpToPx(context, 2), 0, Density.dpToPx(context, 2), 0);
+        TableRow.LayoutParams tpDivider = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, Density.dpToPx(context, 1));
+        tpDivider.span = 4;
         visibleId = ThemeUtils.getResIdFromAttribute(context, R.attr.layer_visible);
         invisibleId = ThemeUtils.getResIdFromAttribute(context, R.attr.layer_not_visible);
         zoomToExtentId = ThemeUtils.getResIdFromAttribute(context, R.attr.zoom_to_layer_extent);
         menuId = ThemeUtils.getResIdFromAttribute(context, R.attr.more_small);
         List<MapViewLayer> layers = App.getLogic().getMap().getLayers();
         Collections.reverse(layers);
+        tl.addView(divider(context, tpDivider));
         for (MapViewLayer layer : layers) {
             tl.addView(createRow(context, layer, tp));
-            tl.addView(divider(context));
+            tl.addView(divider(context, tpDivider));
         }
     }
 
@@ -664,23 +669,154 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
         menu.setTag(tr);
         tr.setGravity(Gravity.CENTER_VERTICAL);
         tr.setLayoutParams(tp);
+        cell.setLongClickable(true);
+        cell.setOnLongClickListener(v -> {
+            ClipData.Item item = new ClipData.Item(Integer.toString(layer.getIndex()));
+            ClipData dragData = new ClipData(Integer.toString(layer.getIndex()), new String[] { ClipDescription.MIMETYPE_TEXT_PLAIN }, item);
+            View.DragShadowBuilder myShadow = new View.DragShadowBuilder(tr);
+            v.startDragAndDrop(dragData, myShadow, null, 0);
+            return true;
+        });
+        cell.setHapticFeedbackEnabled(true);
+        tr.setOnDragListener((View v, DragEvent event) -> {
+            int action = event.getAction();
+            // Start the drag handle this separately or else things could go wrong
+            if (action == DragEvent.ACTION_DRAG_STARTED) {
+                return true;
+            }
+            final TableLayout tableLayout = (TableLayout) v.getParent();
+            int position = tableLayout.indexOfChild(v);
+            if (position < 0) {
+                Log.e(DEBUG_TAG, "OnDragListener row not found in layout");
+                return false;
+            }
+            View top = ((TableRow) tableLayout.getChildAt(position - 1)).getChildAt(0);
+            View bottom = ((TableRow) tableLayout.getChildAt(position + 1)).getChildAt(0);
+            switch (action) {
+            case DragEvent.ACTION_DRAG_EXITED:
+                highlightDivder(top, false);
+                highlightDivder(bottom, false);
+                return true;
+            case DragEvent.ACTION_DRAG_ENTERED:
+            case DragEvent.ACTION_DRAG_LOCATION:
+                if (inTop(v, event)) {
+                    highlightDivder(top, true);
+                    highlightDivder(bottom, false);
+                } else {
+                    highlightDivder(top, false);
+                    highlightDivder(bottom, true);
+                }
+                return true;
+            case DragEvent.ACTION_DROP:
+                highlightDivder(top, false);
+                highlightDivder(bottom, false);
+                int ourIndex = layer.getIndex();
+                return moveEntryByDrag(event, inTop(v, event) ? ourIndex : ourIndex - 1);
+            default:
+                return false;
+            }
+        });
         return tr;
     }
 
     /**
-     * Create a divider View to be added to a TableLAyout
+     * Check if the event is in the top half of the view
+     * 
+     * @param v the View
+     * @param event the event
+     * @return true if the event is in the top half of the view
+     */
+    private boolean inTop(@NonNull View v, @NonNull DragEvent event) {
+        return v.getHeight() - event.getY() > v.getHeight() / 2;
+    }
+
+    /**
+     * Move the layer entry to a new position
+     * 
+     * @param event the DragEvent with the information on the layer to move
+     * @param newIndex the new index in the DB of the layer
+     */
+    private boolean moveEntryByDrag(@NonNull DragEvent event, int newIndex) {
+        try {
+            int draggedIndex = Integer.parseInt((String) event.getClipData().getItemAt(0).getText());
+            final FragmentActivity activity = getActivity();
+            Map map = ((Main) activity).getMap();
+            moveEntry(activity, map, draggedIndex, newIndex);
+            return true;
+        } catch (NumberFormatException | NullPointerException ex) {
+            Log.e(DEBUG_TAG, "moveEntry unable to move view " + ex.getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Move a layer in the DB
+     * 
+     * @param activity the current Activity
+     * @param map the current Map instance
+     * @param oldIndex the old index in the DB
+     * @param newIndex the new index in the DB
+     */
+    private void moveEntry(@NonNull final FragmentActivity activity, Map map, int oldIndex, int newIndex) {
+        try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(activity)) {
+            db.moveLayer(oldIndex, Math.min(newIndex, db.layerCount() - 1));
+            updateDialogAndPrefs(activity, App.getLogic().getPrefs(), map);
+            map.invalidate();
+        }
+    }
+
+    /**
+     * Highlight (or not) the layer divider
+     * 
+     * @param divider the divider between layer entries
+     * @param highlight if true highlight
+     */
+    private static void highlightDivder(@NonNull View divider, boolean highlight) {
+        divider.setBackgroundColor(
+                highlight ? ThemeUtils.getStyleAttribColorValue(divider.getContext(), R.attr.drag_target, Color.rgb(204, 0, 0)) : Color.rgb(204, 204, 204));
+    }
+
+    /**
+     * Create a divider View to be added to a TableLayout
      * 
      * @param context Android context
+     * @param tpDivider
      * @return a thin TableRow
      */
-    public static TableRow divider(@NonNull Context context) {
+    @NonNull
+    public TableRow divider(@NonNull Context context, @NonNull android.widget.TableRow.LayoutParams trlp) {
         TableRow tr = new TableRow(context);
         View v = new View(context);
-        TableRow.LayoutParams trp = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 1);
-        trp.span = 4;
-        v.setLayoutParams(trp);
-        v.setBackgroundColor(Color.rgb(204, 204, 204));
+        v.setLayoutParams(trlp);
+        highlightDivder(v, false);
         tr.addView(v);
+        tr.setOnDragListener((View d, DragEvent event) -> {
+            int action = event.getAction();
+            // Start the drag handle this separately or else things could go wrong
+            if (action == DragEvent.ACTION_DRAG_STARTED) {
+                return true;
+            }
+            final TableLayout tableLayout = (TableLayout) d.getParent();
+            int position = tableLayout.indexOfChild(d);
+            if (position < 0) {
+                Log.e(DEBUG_TAG, "divider OnDragListener row not found in layout");
+                return false;
+            }
+            switch (action) {
+            case DragEvent.ACTION_DRAG_EXITED:
+                highlightDivder(v, false);
+                return true;
+            case DragEvent.ACTION_DRAG_ENTERED:
+            case DragEvent.ACTION_DRAG_LOCATION:
+                highlightDivder(v, true);
+                return true;
+            case DragEvent.ACTION_DROP:
+                highlightDivder(v, false);
+                return moveEntryByDrag(event, Math.round((tableLayout.getChildCount() - position - 1) / 2F));
+            default:
+                return false;
+            }
+        });
         return tr;
     }
 
@@ -1040,11 +1176,7 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
             MenuItem item = menu.add(R.string.move_up);
             item.setOnMenuItemClickListener(unused -> {
                 if (layer != null) {
-                    try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(activity)) {
-                        db.moveLayer(layer.getIndex(), Math.min(layer.getIndex() + 1, db.layerCount() - 1));
-                        updateDialogAndPrefs(activity, App.getLogic().getPrefs(), map);
-                        map.invalidate();
-                    }
+                    moveEntry(activity, map, layer.getIndex(), layer.getIndex() + 1);
                 }
                 return true;
             });
@@ -1054,11 +1186,7 @@ public class Layers extends AbstractConfigurationDialog implements OnUpdateListe
             item = menu.add(R.string.move_down);
             item.setOnMenuItemClickListener(unused -> {
                 if (layer != null) {
-                    try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(activity)) {
-                        db.moveLayer(layer.getIndex(), Math.max(layer.getIndex() - 1, 0));
-                        updateDialogAndPrefs(activity, App.getLogic().getPrefs(), map);
-                        map.invalidate();
-                    }
+                    moveEntry(activity, map, layer.getIndex(), layer.getIndex() - 1);
                 }
                 return true;
             });
