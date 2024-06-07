@@ -1173,30 +1173,27 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
         }
     }
 
-    /**
-     * Allow ViewPager to work
-     */
+    @Override
     public void enablePaging() {
         mViewPager.setPagingEnabled(true);
     }
 
-    /**
-     * Disallow ViewPAger to work
-     */
+    @Override
     public void disablePaging() {
         mViewPager.setPagingEnabled(false);
     }
 
-    /**
-     * Allow presets to be applied
-     */
+    @Override
+    public boolean isPagingEnabled() {
+        return mViewPager.isPagingEnabled();
+    }
+
+    @Override
     public void enablePresets() {
         enablePresets(true);
     }
 
-    /**
-     * Disallow presets to be applied
-     */
+    @Override
     public void disablePresets() {
         enablePresets(false);
     }

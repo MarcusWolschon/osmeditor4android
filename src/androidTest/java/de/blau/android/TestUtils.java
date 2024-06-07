@@ -1439,6 +1439,31 @@ public final class TestUtils {
     }
 
     /**
+     * Scroll to a specific text
+     * 
+     * @param text the text
+     * @param fail fail if scrollable not found
+     */
+    public static void scrollToStartsWith(@NonNull UiDevice device, @NonNull String text, int maxSwipes, boolean fail) {
+        BySelector bySelector = By.textStartsWith(text);
+        UiScrollable appView = new UiScrollable(new UiSelector().scrollable(true));
+        appView.setSwipeDeadZonePercentage(0.4);
+        try {
+            for (int swipes = 0; swipes < maxSwipes; maxSwipes++) {
+                appView.scrollForward(10);
+                if (device.wait(Until.findObject(bySelector), 500) != null) {
+                    return;
+                }
+            }
+        } catch (UiObjectNotFoundException e) {
+            Assert.fail("UiScrollable not found");
+        }
+        if (fail) {
+            Assert.fail(text + " not found");
+        }
+    }
+
+    /**
      * Scroll to end
      * 
      * @param fail fail if scrollable not found
@@ -1561,7 +1586,7 @@ public final class TestUtils {
         waitForSimpleButton(device, wait);
         TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
     }
-    
+
     /**
      * Wait for the "simple" button
      * 

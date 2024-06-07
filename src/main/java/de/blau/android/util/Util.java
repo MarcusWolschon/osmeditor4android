@@ -729,6 +729,16 @@ public final class Util {
     }
 
     /**
+     * Check if a Collection is neither null nor empty
+     * 
+     * @param collection the input Collection
+     * @return true if text is neither null nor empty
+     */
+    public static boolean notEmpty(@Nullable final Collection collection) {
+        return collection != null && !collection.isEmpty();
+    }
+
+    /**
      * Backwards compatible way of getting current Locale
      * 
      * @param r the Resources
