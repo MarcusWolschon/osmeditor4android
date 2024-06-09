@@ -138,6 +138,8 @@ public class WrapperTest {
         tags.put("something", "new");
         delegator.setTags(way, tags);
         assertEquals(ElementState.State.MODIFIED, wrapper.getState());
+        delegator.removeWay(way);
+        assertEquals(ElementState.State.DELETED, wrapper.getState());
     }
 
     /**
