@@ -28,7 +28,7 @@ import de.blau.android.resources.TileLayerSource.TileType;
 import de.blau.android.util.collections.MultiHashMap;
 
 public class TileLayerDatabase extends SQLiteOpenHelper {
-    private static final int      TAG_LEN   = Math.min(LOG_TAG_LEN, TileLayerDialog.class.getSimpleName().length());
+    private static final int      TAG_LEN   = Math.min(LOG_TAG_LEN, TileLayerDatabase.class.getSimpleName().length());
     protected static final String DEBUG_TAG = TileLayerDatabase.class.getSimpleName().substring(0, TAG_LEN);
 
     public static final String DATABASE_NAME    = "tilelayers";
