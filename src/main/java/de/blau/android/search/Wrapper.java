@@ -27,6 +27,7 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
+import de.blau.android.osm.Storage;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
@@ -424,29 +425,43 @@ public class Wrapper implements Meta {
      * @return a SearchResult object
      */
     SearchResult getMatchingElementsInternal(@NonNull Condition c) {
-        OsmElement savedElement = element; // save this instead of instantating a new wrapper
+        OsmElement savedElement = element; // save this instead of instantiating a new wrapper
         StorageDelegator delegator = App.getDelegator();
         SearchResult result = new SearchResult();
-        for (Node n : delegator.getCurrentStorage().getNodes()) {
-            element = n;
-            if (c.eval(Type.NODE, this, n.getTags())) {
-                result.nodes.add(n);
-            }
-        }
-        for (Way w : delegator.getCurrentStorage().getWays()) {
-            element = w;
-            if (c.eval(Type.WAY, this, w.getTags())) {
-                result.ways.add(w);
-            }
-        }
-        for (Relation r : delegator.getCurrentStorage().getRelations()) {
-            element = r;
-            if (c.eval(Type.RELATION, this, r.getTags())) {
-                result.relations.add(r);
-            }
-        }
+
+        final Storage currentStorage = delegator.getCurrentStorage();
+        final Storage apiStorage = delegator.getApiStorage();
+        processElements(result.nodes, currentStorage.getNodes(), apiStorage.getNodes(), Type.NODE, c);
+        processElements(result.ways, currentStorage.getWays(), apiStorage.getWays(), Type.WAY, c);
+        processElements(result.relations, currentStorage.getRelations(), apiStorage.getRelations(), Type.RELATION, c);
+
         element = savedElement;
         return result;
+    }
+
+    /**
+     * Loop over current and api storage and process all elements
+     * 
+     * @param <T> the type of OsmElement
+     * @param result container for matching results
+     * @param current current storage
+     * @param api storage
+     * @param type element type
+     * @param c the Condition that needs to be matched
+     */
+    private <T extends OsmElement> void processElements(List<T> result, List<T> current, List<T> api, Type type, Condition c) {
+        for (T e : current) {
+            element = e;
+            if (c.eval(type, this, e.getTags())) {
+                result.add(e);
+            }
+        }
+        for (T e : api) {
+            element = e;
+            if (e.getState() == OsmElement.STATE_DELETED && c.eval(type, this, e.getTags())) {
+                result.add(e);
+            }
+        }
     }
 
     @Override
