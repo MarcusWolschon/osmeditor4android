@@ -19,7 +19,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
-import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.views.WrappingLayout;
@@ -31,7 +30,7 @@ public class PresetGroup extends PresetElement {
 
     private static final long serialVersionUID = 1L;
 
-    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Main.class.getSimpleName().length());
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, PresetGroup.class.getSimpleName().length());
     private static final String DEBUG_TAG = PresetGroup.class.getSimpleName().substring(0, TAG_LEN);
 
     private boolean itemSort = true;

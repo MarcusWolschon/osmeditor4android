@@ -44,7 +44,6 @@ import ch.poole.android.checkbox.IndeterminateCheckBox;
 import ch.poole.conditionalrestrictionparser.ConditionalRestrictionParser;
 import de.blau.android.App;
 import de.blau.android.HelpViewer;
-import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.address.Address;
 import de.blau.android.measure.Length;
@@ -94,7 +93,7 @@ import de.blau.android.views.CustomAutoCompleteTextView;
 
 public class TagFormFragment extends BaseFragment implements FormUpdate {
 
-    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Main.class.getSimpleName().length());
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, TagFormFragment.class.getSimpleName().length());
     private static final String DEBUG_TAG = TagFormFragment.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String FRAGMENT_CONDITIONAL_RESTRICTION_TAG = "fragment_conditional_restriction";

@@ -87,7 +87,7 @@ public class MapOverlay extends StyleableFileLayer
 
     private static final long serialVersionUID = 5L;
 
-    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Map.class.getSimpleName().length());
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, MapOverlay.class.getSimpleName().length());
     private static final String DEBUG_TAG = MapOverlay.class.getSimpleName().substring(0, TAG_LEN);
 
     public static final String FILENAME = "geojson" + "." + FileExtensions.RES;

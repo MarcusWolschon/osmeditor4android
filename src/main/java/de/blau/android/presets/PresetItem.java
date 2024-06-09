@@ -29,7 +29,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import ch.poole.osm.josmfilterparser.JosmFilterParser;
-import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.contract.Schemes;
 import de.blau.android.contract.Urls;
@@ -48,7 +47,7 @@ public class PresetItem extends PresetElement {
 
     private static final long serialVersionUID = 1L;
 
-    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Main.class.getSimpleName().length());
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, PresetItem.class.getSimpleName().length());
     private static final String DEBUG_TAG = PresetItem.class.getSimpleName().substring(0, TAG_LEN);
 
     /**

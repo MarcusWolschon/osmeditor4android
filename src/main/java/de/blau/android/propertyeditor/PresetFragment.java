@@ -41,7 +41,6 @@ import de.blau.android.BuildConfig;
 import de.blau.android.Feedback;
 import de.blau.android.HelpViewer;
 import de.blau.android.Logic;
-import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.contract.Flavors;
 import de.blau.android.contract.Github;
@@ -63,7 +62,7 @@ import de.blau.android.util.Util;
 
 public class PresetFragment extends BaseFragment implements PresetUpdate, PresetClickHandler {
 
-    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Main.class.getSimpleName().length());
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, PresetFragment.class.getSimpleName().length());
     private static final String DEBUG_TAG = PresetFragment.class.getSimpleName().substring(0, TAG_LEN);
 
     static final int         MAX_SEARCHRESULTS      = 10;

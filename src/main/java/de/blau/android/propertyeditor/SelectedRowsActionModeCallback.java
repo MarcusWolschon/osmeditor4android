@@ -26,7 +26,7 @@ import de.blau.android.util.Util;
 
 class SelectedRowsActionModeCallback implements Callback {
 
-    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, RelationMemberSelectedActionModeCallback.class.getSimpleName().length());
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, SelectedRowsActionModeCallback.class.getSimpleName().length());
     private static final String DEBUG_TAG = SelectedRowsActionModeCallback.class.getSimpleName().substring(0, TAG_LEN);
 
     public interface Row {

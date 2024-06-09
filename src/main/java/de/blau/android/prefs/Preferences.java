@@ -18,7 +18,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.preference.PreferenceManager;
 import de.blau.android.App;
-import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.contract.Urls;
@@ -40,7 +39,7 @@ import de.blau.android.util.Sound;
  */
 public class Preferences {
 
-    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Main.class.getSimpleName().length());
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Preferences.class.getSimpleName().length());
     private static final String DEBUG_TAG = Preferences.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String ACRA_ENABLE  = "acra.enable";

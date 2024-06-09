@@ -94,7 +94,7 @@ public class PropertyEditorFragment<M extends Map<String, String> & Serializable
         extends BaseFragment implements PropertyEditorListener, OnPresetSelectedListener, EditorUpdate, FormUpdate, PresetUpdate, NameAdapters, OnSaveListener,
         ch.poole.openinghoursfragment.OnSaveListener {
 
-    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Main.class.getSimpleName().length());
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, PropertyEditorFragment.class.getSimpleName().length());
     private static final String DEBUG_TAG = PropertyEditorFragment.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String CURRENTITEM            = "current_item";

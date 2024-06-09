@@ -26,7 +26,6 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
-import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.dialogs.ProgressDialog;
@@ -47,7 +46,7 @@ import de.blau.android.util.Util;
 
 public class PresetSearchResultsFragment extends DialogFragment implements UpdatePresetSearchResult {
 
-    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Main.class.getSimpleName().length());
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, PresetSearchResultsFragment.class.getSimpleName().length());
     private static final String DEBUG_TAG = PresetSearchResultsFragment.class.getSimpleName().substring(0, TAG_LEN);
     
     private static final String SEARCH_RESULTS_KEY = "searchResults";

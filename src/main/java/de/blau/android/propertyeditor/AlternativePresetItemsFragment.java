@@ -15,7 +15,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import de.blau.android.App;
-import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.dialogs.Tip;
 import de.blau.android.presets.Preset;
@@ -32,7 +31,7 @@ import de.blau.android.util.Util;
 
 public class AlternativePresetItemsFragment extends ImmersiveDialogFragment {
 
-    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Main.class.getSimpleName().length());
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, AlternativePresetItemsFragment.class.getSimpleName().length());
     private static final String DEBUG_TAG = AlternativePresetItemsFragment.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String ITEM_PATH_KEY = "itemPath";

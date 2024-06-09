@@ -16,7 +16,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
 import de.blau.android.App;
-import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.exception.UiStateException;
 import de.blau.android.osm.OsmElement;
@@ -31,7 +30,7 @@ import de.blau.android.util.Util;
 
 public class RecentPresetsFragment extends BaseFragment {
 
-    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, Main.class.getSimpleName().length());
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, RecentPresetsFragment.class.getSimpleName().length());
     private static final String DEBUG_TAG = RecentPresetsFragment.class.getSimpleName().substring(0, TAG_LEN);
 
     private static final String ELEMENT_NAME_KEY = "elementType";
