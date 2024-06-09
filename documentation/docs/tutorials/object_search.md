@@ -76,7 +76,7 @@ will restrict the query to the current map view.
 |✅|__new__                              | | | 
 ✅|__selected__                         | | |
 ✅|__incomplete__                       | | Only used for relations  |
-|✅|__deleted__                          | | | 
+|✅|__deleted__                          | | Selecting degenerate (empty) ways may lead to unexpected and undefined behaviour | 
 |✅|__child__ _expr_                     | | | 
 |✅|__parent__ _expr_                    | | | 
 |✅|__hasRole:__*role*                   | | | 

@@ -1,5 +1,7 @@
 package de.blau.android.search;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.io.ByteArrayInputStream;
 import java.util.List;
 
@@ -32,7 +34,11 @@ import de.blau.android.util.ScreenMessage;
  */
 public final class Search {
 
-    protected static final String DEBUG_TAG = Search.class.getSimpleName().substring(0, Math.min(23, Search.class.getSimpleName().length()));
+    private static final int      TAG_LEN   = Math.min(LOG_TAG_LEN, Search.class.getSimpleName().length());
+    protected static final String DEBUG_TAG = Search.class.getSimpleName().substring(0, TAG_LEN);
+
+    private static final String OVERPASS_FOOTER = "\n(._;>;);\nout meta;";
+    private static final String OVERPASS_HEADER = "[out:xml][timeout:90];\n";
 
     private static AppCompatDialog dialog;
 
@@ -103,9 +109,9 @@ public final class Search {
                         final String text = input.getText().toString();
                         JosmFilterParser parser = new JosmFilterParser(new ByteArrayInputStream(text.getBytes()));
                         StringBuilder result = new StringBuilder();
-                        result.append("[out:xml][timeout:90];\n");
+                        result.append(OVERPASS_HEADER);
                         result.append(Overpass.transform(parser.condition(useRegexp)));
-                        result.append("\n(._;>;);\nout meta;");
+                        result.append(OVERPASS_FOOTER);
                         Main.showOverpassConsole(activity, result.toString());
                         logic.pushObjectSearch(text);
                         dismiss();
