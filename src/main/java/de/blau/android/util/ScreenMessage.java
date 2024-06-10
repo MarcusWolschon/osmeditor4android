@@ -1,5 +1,7 @@
 package de.blau.android.util;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
 import java.util.LinkedList;
 
 import com.google.android.material.snackbar.BaseTransientBottomBar;
@@ -28,7 +30,8 @@ import de.blau.android.R;
  */
 public final class ScreenMessage {
 
-    private static final String DEBUG_TAG = ScreenMessage.class.getSimpleName().substring(0, Math.min(23, ScreenMessage.class.getSimpleName().length()));
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, ScreenMessage.class.getSimpleName().length());
+    private static final String DEBUG_TAG = ScreenMessage.class.getSimpleName().substring(0, TAG_LEN);
 
     interface MessageControl {
         /**
@@ -267,7 +270,7 @@ public final class ScreenMessage {
             if (isShowing(errorQueue)) {
                 return;
             }
-            dismiss(warningQueue);
+            dismiss(infoQueue);
             showFirst(warningQueue);
         }
     }
