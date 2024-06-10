@@ -5,6 +5,7 @@ import static de.blau.android.contract.Constants.LOG_TAG_LEN;
 import java.io.ByteArrayInputStream;
 import java.util.List;
 
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.FragmentActivity;
@@ -116,8 +117,10 @@ public final class Search {
                         logic.pushObjectSearch(text);
                         dismiss();
                     } catch (UnsupportedOperationException | ParseException pex) {
+                        Log.w(DEBUG_TAG, "Exception " + pex.getMessage());
                         ScreenMessage.toastTopWarning(activity, pex.getMessage());
                     } catch (Error err) { // NOSONAR
+                        Log.w(DEBUG_TAG, "Error " + err.getMessage());
                         ScreenMessage.toastTopWarning(activity, err.getMessage());
                     }
                 }, false);
