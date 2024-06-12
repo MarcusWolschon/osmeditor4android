@@ -644,6 +644,7 @@ dependencies {
     implementation 'se.akerfeldt:okhttp-signpost:1.1.0'
     implementation "com.squareup.okhttp3:okhttp:$okHttpVersion"
     implementation "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
+    implementation "com.squareup.okhttp3:okhttp-tls:$okHttpVersion"
     
     // other 3rd party dependencies
     implementation 'com.heinrichreimersoftware:android-issue-reporter:1.4'
