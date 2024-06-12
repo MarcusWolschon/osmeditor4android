@@ -1,5 +1,11 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+20.0.3:
+
+- Fix add ISRG X1 certificate manually, fixes issue with letsencrypt on pre 7.1 devices
+- Fix warning toasts not being displayed
+- Update imagery configuration from ELI
+
 20.0.2:
 
 - Fix protect against relation members for which no centroid can be determined
