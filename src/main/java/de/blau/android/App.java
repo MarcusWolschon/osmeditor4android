@@ -292,7 +292,7 @@ public class App extends Application implements android.app.Application.Activity
     public static OkHttpClient getHttpClient() {
         synchronized (httpClientLock) {
             if (httpClient == null) {
-                OkHttpClient.Builder builder = OkHttpTlsCompat.enableTls12IfNeeded(new OkHttpClient.Builder());
+                OkHttpClient.Builder builder = OkHttpTlsCompat.getBuilder(new OkHttpClient.Builder());
                 builder.addNetworkInterceptor(new UserAgentInterceptor(userAgent));
                 httpClient = builder.build();
             }
