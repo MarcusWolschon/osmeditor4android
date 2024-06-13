@@ -1,8 +1,18 @@
 package de.blau.android.util;
 
+import static de.blau.android.contract.Constants.LOG_TAG_LEN;
+
+import java.util.Arrays;
+import java.util.List;
+
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.net.Uri;
+import android.net.http.SslCertificate;
+import android.net.http.SslError;
 import android.os.Build;
+import android.util.Log;
+import android.webkit.SslErrorHandler;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
@@ -10,6 +20,8 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import de.blau.android.R;
+import de.blau.android.contract.Urls;
 
 /**
  * Class to handle some of the deprecations in Androids WebViewClient
@@ -18,6 +30,9 @@ import androidx.annotation.Nullable;
  *
  */
 public abstract class UpdatedWebViewClient extends WebViewClient {
+
+    private static final int    TAG_LEN   = Math.min(LOG_TAG_LEN, UpdatedWebViewClient.class.getSimpleName().length());
+    private static final String DEBUG_TAG = UpdatedWebViewClient.class.getSimpleName().substring(0, TAG_LEN);
 
     @SuppressWarnings("deprecation")
     @Override
@@ -90,5 +105,26 @@ public abstract class UpdatedWebViewClient extends WebViewClient {
      */
     protected void receivedError(WebView view, int errorCode, String description, String failingUrl) {
         // do nothing
+    }
+
+    /**
+     * List of domains for which we expect an untrusted error for on Android pre 7
+     */
+    private static final List<String> ALLOW_UNTRUSTED = Arrays.asList(Uri.parse(Urls.OSM_LOGIN).getHost(), Uri.parse(Urls.MSF_SERVER).getHost());
+
+    @Override
+    public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+        if (error.getPrimaryError() == SslError.SSL_UNTRUSTED) {
+            SslCertificate cert = error.getCertificate();
+            Log.w(DEBUG_TAG, "Untrusted certificate " + cert.toString());
+            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.M && ALLOW_UNTRUSTED.contains(cert.getIssuedTo().getCName())) {
+                // doing a full verification of the cert chain is far too much work for an edge case
+                handler.proceed();
+                return;
+            }
+            final Context context = view.getContext();
+            ScreenMessage.toastTopError(context, context.getString(R.string.toast_untrusted_certificate, cert.toString()), true);
+        }
+        super.onReceivedSslError(view, handler, error);
     }
 }
