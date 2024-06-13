@@ -634,6 +634,7 @@
     <string name="toast_photo_failed">Taking a photograph failed. Do you have geolocation enabled in the camera app?</string>
     <string name="toast_download_failed">Download failed with error code %1$d, message %2$s</string>
     <string name="toast_note_reopened">Note reopened</string>
+    <string name="toast_untrusted_certificate">Untrusted certificate\n%1$s</string>
     <!-- Validation -->
     <string name="toast_unsurveyed_road">Unsurveyed road</string>
     <string name="toast_noname">Road lacks name or ref</string>
